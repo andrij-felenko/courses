@@ -319,86 +319,8 @@ Cost(Greedy) ≥ ( 1 - 1/e ) · Cost(OPT) ≈ 0.6321 · Cost(OPT)
 Нижче наведено порівняння високопродуктивних реалізацій жадібного ядра мовами C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-#define MAX_SETS 64
-
-typedef struct {
-    uint64_t mask;
-    double cost;
-    int id;
-} BitSubset;
-
-/* Швидкий жадібний вибір на 64-бітному універсумі */
-int run_greedy_step(const BitSubset* subsets, int m, uint64_t covered, int* out_best_idx) {
-    int best_idx = -1;
-    double best_ratio = 1e18;
-
-    for (int i = 0; i < m; ++i) {
-        uint64_t newly_covered = subsets[i].mask & (~covered);
-        /* Апаратний підрахунок кількості одиничних бітів */
-        int count = __builtin_popcountll(newly_covered);
-
-        if (count > 0) {
-            double ratio = subsets[i].cost / (double)count;
-            if (ratio < best_ratio) {
-                best_ratio = ratio;
-                best_idx = i;
-            }
-        }
-    }
-
-    *out_best_idx = best_idx;
-    return (best_idx != -1) ? 0 : -1;
-}
-```
-```cpp
-#include <vector>
-#include <bitset>
-#include <optional>
-#include <span>
-#include <limits>
-
-constexpr size_t UNIVERSE_CAPACITY = 64;
-using BitMask = std::bitset<UNIVERSE_CAPACITY>;
-
-struct FastSubset {
-    int id;
-    double cost;
-    BitMask mask;
-};
-
-class GreedySetCoverEngine {
-public:
-    static std::optional<size_t> findBestCandidate(
-        std::span<const FastSubset> subsets,
-        const BitMask& covered
-    ) noexcept {
-        size_t best_idx = 0;
-        bool found = false;
-        double best_ratio = std::numeric_limits<double>::infinity();
-
-        for (size_t i = 0; i < subsets.size(); ++i) {
-            BitMask newly = subsets[i].mask & (~covered);
-            size_t count = newly.count();
-
-            if (count > 0) {
-                double ratio = subsets[i].cost / static_cast<double>(count);
-                if (ratio < best_ratio) {
-                    best_ratio = ratio;
-                    best_idx = i;
-                    found = true;
-                }
-            }
-        }
-
-        return found ? std::make_optional(best_idx) : std::nullopt;
-    }
-};
-```
+:::code set-cover-d/c/main.c
+:::code set-cover-d/cpp/main.cpp
 :::
 
 Повні приклади працюючих систем, точний пошук методом гілок і меж (*Branch-and-Bound*) та бенчмарки навантаження наведено у вставці [⚙️ Реалізація розв'язувачів Set Cover: бітові оптимізації, евристики та точний пошук](root:sf-algorithms/set-cover/proj-set-cover-solvers.md).

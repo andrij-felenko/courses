@@ -57,19 +57,7 @@ typedef struct Node {
     struct Node* right;
 } Node;
 ```
-```cpp
-// Ідіоматичний вузол двійкового дерева мовою C++ (RAII)
-#include <memory>
-
-struct TreeNode {
-    int data;
-    std::unique_ptr<TreeNode> left;
-    std::unique_ptr<TreeNode> right;
-
-    explicit TreeNode(int val) 
-        : data(val), left(nullptr), right(nullptr) {}
-};
-```
+:::code binary-tree-d/cpp/main.cpp
 :::
 
 Перевага вказівникового подання полягає у **динамічності**: дерево може довільно рости та змінювати форму без перевиділення пам'яті чи зсуву сусідніх елементів. Вставка чи відсікання піддерева зводиться до перезапису кількох вказівників за `O(1)`.

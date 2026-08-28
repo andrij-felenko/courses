@@ -36,86 +36,8 @@ wc = w + c
 Коли вхід скінчився — видай код того `w`, що лишився, і службовий код кінця. От повний кодувальник; словник тут — проста хеш-таблиця «рядок → номер», а самі рядки представлені не явними байтовими послідовностями, а **парою (попередній номер, байт)** — це класичний трюк, що уникає зберігання довгих рядків:
 
 :::tabs
-```c
-// LZW-кодування. Словник: запис = (батьківський код, байт). Рядок ніколи не
-// зберігаємо цілком — лише його останній байт і номер «хвоста без останнього».
-// dict[code] = {prefix, byte}; пошук "w+c" — за хешем (prefix=code(w), byte=c).
-#define CLEAR 256
-#define END   257
-#define FIRST 258
-#define MAXBITS 12
-#define MAXCODE ((1 << MAXBITS) - 1)   // 4095
-
-typedef struct { int prefix; uint8_t byte; } Entry;
-
-// Хеш-таблиця (code(w), c) -> номер. Повертає номер або -1, якщо нема.
-static int dict_lookup(int prefix, uint8_t c);          // деталі хешу опускаємо
-static void dict_insert(int prefix, uint8_t c, int code);
-static void dict_reset(void);                            // лишити тільки 0..255
-
-void lzw_encode(const uint8_t *src, size_t n, BitWriter *bw) {
-    dict_reset();
-    int next = FIRST, width = 9;
-    bits_put(bw, CLEAR, width);          // почати зі скидання — поширена угода
-
-    int w = -1;                          // -1 = «порожній рядок»
-    for (size_t i = 0; i < n; i++) {
-        uint8_t c = src[i];
-        if (w == -1) { w = c; continue; }    // перший байт — просто стає w
-        int found = dict_lookup(w, c);
-        if (found >= 0) {
-            w = found;                       // wc у словнику — нарощуємо
-        } else {
-            bits_put(bw, w, width);          // видати код(w)
-            dict_insert(w, c, next++);       // додати wc
-            if (next > (1 << width) && width < MAXBITS)
-                width++;                      // номер переріс ширину — +1 біт
-            if (next > MAXCODE) {             // словник повний
-                bits_put(bw, CLEAR, width);   // сигнал скидання
-                dict_reset(); next = FIRST; width = 9;
-            }
-            w = c;                            // новий збіг
-        }
-    }
-    if (w != -1) bits_put(bw, w, width);     // хвіст
-    bits_put(bw, END, width);
-}
-```
-```python
-# LZW-кодування. Словник: ключ (prefix, byte) -> номер. Рядок ніколи не
-# зберігаємо цілком — лише його останній байт і номер «хвоста без останнього».
-CLEAR, END, FIRST = 256, 257, 258
-MAXBITS = 12
-MAXCODE = (1 << MAXBITS) - 1   # 4095
-
-def lzw_encode(src, bw):
-    dict_ = {}                          # (prefix, byte) -> номер
-    next_, width = FIRST, 9
-    bw.put(CLEAR, width)                # почати зі скидання — поширена угода
-
-    w = -1                              # -1 = «порожній рядок»
-    for c in src:
-        if w == -1:                     # перший байт — просто стає w
-            w = c
-            continue
-        found = dict_.get((w, c))
-        if found is not None:
-            w = found                   # wc у словнику — нарощуємо
-        else:
-            bw.put(w, width)            # видати код(w)
-            dict_[(w, c)] = next_       # додати wc
-            next_ += 1
-            if next_ > (1 << width) and width < MAXBITS:
-                width += 1              # номер переріс ширину — +1 біт
-            if next_ > MAXCODE:         # словник повний
-                bw.put(CLEAR, width)    # сигнал скидання
-                dict_.clear()
-                next_, width = FIRST, 9
-            w = c                       # новий збіг
-    if w != -1:
-        bw.put(w, width)               # хвіст
-    bw.put(END, width)
-```
+:::code lzw-d/c/koduvannia-bait-za-baitom.c
+:::code lzw-d/py/koduvannia-bait-za-baitom.py
 :::
 
 Зверни увагу на дві тонкощі, видні з коду. По-перше, **рядок не зберігається цілком** — запис словника це лише `(prefix, byte)`, тобто «номер рядка без останнього байта» плюс цей останній байт. Так навіть запис, що відповідає рядку в сотню байтів, займає кілька байтів пам'яті, а сам рядок при потребі відновлюється проходом по ланцюжку `prefix`. По-друге, **порядок двох останніх дій критичний**: спершу видати код `w`, тоді додати `wc`. Якби додавали перед тим, як видати, номери поїхали б, і — головне — зник би той самий «крок позаду», на якому тримається синхронність із декодером.
@@ -160,82 +82,8 @@ prev = рядок
 А раз так, бракливий рядок завжди однозначний. Кодувальник видав номер для рядка `cSc` (тобто `prev` + перший символ `prev`), а декодер його ще не має. Та декодер **знає `prev`** і знає, що перший символ нового рядка дорівнює першому символу `prev` (бо рядок іде сам за собою) — отже може скласти бракливий рядок сам: **`prev` + перший_байт(`prev`)**. Це не евристика, а строгий висновок: у єдиному можливому випадку відсутній рядок має рівно цей вигляд. Ось декодер, що враховує це одним `if`:
 
 :::tabs
-```c
-// LZW-декодування. Єдина тонкість — гілка code == next (випадок cScSc).
-void lzw_decode(BitReader *br, uint8_t *dst, size_t cap) {
-    dict_reset();
-    int next = FIRST, width = 9;
-    size_t o = 0;
-
-    int prev = -1;
-    uint8_t first_of_prev = 0;
-    for (;;) {
-        int code = bits_get(br, width);
-        if (code == END) break;
-        if (code == CLEAR) {                 // скидання — почати наново
-            dict_reset(); next = FIRST; width = 9; prev = -1;
-            continue;
-        }
-
-        uint8_t buf[MAXCODE + 1];            // рядок збираємо з ХВОСТА
-        int len;
-        if (code < next) {                   // код є — звичайний випадок
-            len = dict_emit(code, buf);      // розкласти запис у байти
-        } else if (code == next && prev != -1) {  // cScSc: код = наступний-вільний
-            len = dict_emit(prev, buf);      // це prev + перший байт prev
-            buf[len++] = first_of_prev;
-        } else {
-            return;                          // зіпсований потік
-        }
-
-        for (int k = 0; k < len; k++) dst[o++] = buf[k];   // вивести рядок
-        uint8_t first_of_cur = buf[0];
-
-        if (prev != -1) {                    // додати prev + перший байт поточного
-            dict_insert(prev, first_of_cur, next++);
-            if (next > (1 << width) && width < MAXBITS) width++;
-        }
-        prev = (code < next - 1) ? code : next - 1;   // новий prev (його номер)
-        first_of_prev = first_of_cur;
-    }
-}
-```
-```python
-# LZW-декодування. Єдина тонкість — гілка code == next (випадок cScSc).
-def lzw_decode(br, dst):
-    dict_ = {i: bytes([i]) for i in range(256)}   # номер -> байти рядка
-    next_, width = FIRST, 9
-
-    prev = None
-    first_of_prev = 0
-    while True:
-        code = br.get(width)
-        if code == END:
-            break
-        if code == CLEAR:                    # скидання — почати наново
-            dict_ = {i: bytes([i]) for i in range(256)}
-            next_, width = FIRST, 9
-            prev = None
-            continue
-
-        if code in dict_:                    # код є — звичайний випадок
-            s = dict_[code]                  # розкласти запис у байти
-        elif code == next_ and prev is not None:  # cScSc: код = наступний-вільний
-            s = dict_[prev] + bytes([first_of_prev])  # це prev + перший байт prev
-        else:
-            return                           # зіпсований потік
-
-        dst.extend(s)                        # вивести рядок
-        first_of_cur = s[0]
-
-        if prev is not None:                 # додати prev + перший байт поточного
-            dict_[next_] = dict_[prev] + bytes([first_of_cur])
-            next_ += 1
-            if next_ > (1 << width) and width < MAXBITS:
-                width += 1
-        prev = code if code < next_ - 1 else next_ - 1   # новий prev (його номер)
-        first_of_prev = first_of_cur
-```
+:::code lzw-d/c/pastka-cscsc-povnyi-rozbir.c
+:::code lzw-d/py/pastka-cscsc-povnyi-rozbir.py
 :::
 
 Найтонше місце — гілка `code == next`: без неї декодер на рядку з повтором підряд або впаде (звернення до неіснуючого запису), або видасть сміття. Це найчастіший баг саморобного LZW: усе працює, аж поки на вхід не трапиться щось на кшталт `TOBEORTOBEORTOBEOR…` — і саме там декодер перечіпляється об щойно народжений код. Ще одна дрібниця в коді: розрядність декодер мусить нарощувати **на той самий крок раніше**, ніж кодувальник, бо він читає номер, перш ніж завести запис, — класичне джерело розсинхрону «на один біт», коли декодер переходить на ширшу ширину то на крок пізніше, то на крок раніше за кодувальника.
@@ -251,44 +99,8 @@ def lzw_decode(br, dst):
 Сам біт-пакувальник простий — складаємо коди в бітовий буфер молодшими бітами вперед (так робить GIF):
 
 :::tabs
-```c
-// Бітовий запис LSB-first (як у GIF): код width бітів дописуємо до акумулятора.
-typedef struct { uint8_t *out; size_t o; uint32_t acc; int nbits; } BitWriter;
-
-void bits_put(BitWriter *bw, int code, int width) {
-    bw->acc |= (uint32_t)code << bw->nbits;   // молодші біти коду — першими
-    bw->nbits += width;
-    while (bw->nbits >= 8) {                   // вивантажуємо повні байти
-        bw->out[bw->o++] = (uint8_t)(bw->acc & 0xFF);
-        bw->acc >>= 8;
-        bw->nbits -= 8;
-    }
-}
-// наприкінці: якщо лишилися біти (nbits>0) — дописати останній неповний байт.
-```
-```python
-# Бітовий запис LSB-first (як у GIF): код width бітів дописуємо до акумулятора.
-class BitWriter:
-    def __init__(self):
-        self.out = bytearray()
-        self.acc = 0
-        self.nbits = 0
-
-    def put(self, code, width):
-        self.acc |= code << self.nbits         # молодші біти коду — першими
-        self.nbits += width
-        while self.nbits >= 8:                  # вивантажуємо повні байти
-            self.out.append(self.acc & 0xFF)
-            self.acc >>= 8
-            self.nbits -= 8
-
-    def flush(self):
-        # наприкінці: якщо лишилися біти (nbits>0) — дописати останній неповний байт.
-        if self.nbits > 0:
-            self.out.append(self.acc & 0xFF)
-            self.acc = 0
-            self.nbits = 0
-```
+:::code lzw-d/c/pakuvannia-kodiv-zminnoi.c
+:::code lzw-d/py/pakuvannia-kodiv-zminnoi.py
 :::
 
 Порядок бітів — теж предмет угоди формату: GIF пакує **молодшими бітами вперед** (LSB-first), а, скажімо, TIFF — старшими (MSB-first). Переплутав порядок — і той самий потік номерів дасть зовсім інші байти, нечитані чужим декодером.

@@ -19,25 +19,7 @@
 
 Запис у черзі — пара «ключ + дескриптор». Ключ (`key`) упорядковує; дескриптор (`id`) — стабільний цілий *номер* елемента, за яким його впізнають ззовні: вершина графа, номер задачі. Домовмось, що дескриптори щільні, `0 … cap−1` — саме так буває в Дейкстрі (вершини занумеровані) чи в планувальнику з пулом задач. Тоді карту «id → місце в купі» можна тримати простим масивом, без жодного хешування.
 
-```cpp
-class MinHeap {
-public:
-    struct Node { long long key; int id; };
-
-    explicit MinHeap(int cap) : pos(cap, NONE) {}
-
-    bool empty() const { return h.empty(); }
-    int  size()  const { return (int)h.size(); }
-    bool contains(int id) const { return pos[id] != NONE; }
-
-    const Node& peek() const { return h[0]; }   // мінімум — у корені: O(1)
-
-private:
-    static constexpr int NONE = -1;
-    std::vector<Node> h;     // сама купа: щільний масив записів
-    std::vector<int>  pos;   // id -> індекс у h (де саме лежить елемент)
-};
-```
+:::code proj-binary-heap/cpp/karkas-shchilnyi-masyv.cpp
 
 Тут працюють **три інваріанти** водночас, і код нижче існує лише для того, щоб їх утримати:
 
@@ -68,47 +50,11 @@ private:
 
 `push` кладе новачка в кінець (єдине місце, де дерево лишиться повним), реєструє його в карті й дає спливти вгору, поки він менший за батька:
 
-```cpp
-    void push(long long key, int id) {          // O(log n)
-        h.push_back({key, id});
-        pos[id] = (int)h.size() - 1;            // новачок — у кінці
-        sift_up((int)h.size() - 1);
-    }
-
-    void sift_up(int i) {
-        while (i > 0) {
-            int parent = (i - 1) / 2;
-            if (h[parent].key <= h[i].key) break;   // батько вже менший — стоп
-            swap_nodes(i, parent);
-            i = parent;
-        }
-    }
-```
+:::code proj-binary-heap/cpp/push-i-pop-min.cpp
 
 `pop_min` віддає корінь. Щоб не лишити дірку в корені, туди їде **останній** елемент масиву (він із дозволеного місця), масив коротшає, а великий прибулець тоне вниз. Хитрий момент — той самий, що й у навчальній купі: спускаючись, міняємось саме з **меншою** з двох дітей, інакше зламаємо порядок на рівень нижче.
 
-```cpp
-    Node pop_min() {                             // O(log n)
-        swap_nodes(0, (int)h.size() - 1);       // корінь -> у хвіст
-        Node top = h.back();
-        h.pop_back();                           // і геть із масиву
-        pos[top.id] = NONE;                     // елемент вийшов із черги
-        if (!h.empty()) sift_down(0);
-        return top;
-    }
-
-    void sift_down(int i) {
-        int n = (int)h.size();
-        for (;;) {
-            int smallest = i, l = 2*i + 1, r = 2*i + 2;
-            if (l < n && h[l].key < h[smallest].key) smallest = l;   // менша дитина
-            if (r < n && h[r].key < h[smallest].key) smallest = r;
-            if (smallest == i) break;           // обидві діти більші — на місці
-            swap_nodes(i, smallest);
-            i = smallest;
-        }
-    }
-```
+:::code proj-binary-heap/cpp/push-i-pop-min-2.cpp
 
 Вартість обох — довжина шляху від кореня до листа, тобто висота повного дерева з n вузлів, ⌊log₂ n⌋ обмінів щонайбільше. Отже, `push` і `pop_min` — **O(log n)**, а `peek` читає `h[0]` за **O(1)**. Карту вони тримають правдивою даром: усе рухалося крізь `swap_nodes`.
 
@@ -156,150 +102,8 @@ private:
 Ось уся черга, зібрана докупи: щільний масив, карта позицій, чотири операції та Флойдова побудова. C++ — як у бойовому планувальнику; Python — те саме дзеркалом, де замість ручної пам'яті працює список пар, а карту зручно тримати або списком (щільні id), або словником (будь-які).
 
 :::tabs
-```cpp
-#include <vector>
-#include <utility>   // std::swap
-
-// Черга з пріоритетом: min-купа над щільним масивом записів (key, id).
-// id — стабільний цілий дескриптор 0..cap-1 (вершина графа, номер задачі).
-class MinHeap {
-public:
-    struct Node { long long key; int id; };
-
-    explicit MinHeap(int cap) : pos(cap, NONE) {}
-
-    // Побудова з готового набору за O(n) — Флойдове heapify.
-    MinHeap(const std::vector<Node>& items, int cap) : h(items), pos(cap, NONE) {
-        for (int i = 0; i < (int)h.size(); ++i) pos[h[i].id] = i;
-        for (int i = (int)h.size() / 2 - 1; i >= 0; --i) sift_down(i);
-    }
-
-    bool empty() const { return h.empty(); }
-    int  size()  const { return (int)h.size(); }
-    bool contains(int id) const { return pos[id] != NONE; }
-    const Node& peek() const { return h[0]; }            // O(1)
-
-    void push(long long key, int id) {                   // O(log n)
-        h.push_back({key, id});
-        pos[id] = (int)h.size() - 1;
-        sift_up((int)h.size() - 1);
-    }
-
-    Node pop_min() {                                     // O(log n)
-        swap_nodes(0, (int)h.size() - 1);
-        Node top = h.back();
-        h.pop_back();
-        pos[top.id] = NONE;
-        if (!h.empty()) sift_down(0);
-        return top;
-    }
-
-    void decrease_key(int id, long long new_key) {       // O(log n)
-        int i = pos[id];
-        h[i].key = new_key;
-        sift_up(i);
-    }
-
-private:
-    static constexpr int NONE = -1;
-    std::vector<Node> h;      // купа
-    std::vector<int>  pos;    // id -> індекс (єдине джерело правди про місце)
-
-    void swap_nodes(int i, int j) {          // єдиний рух записів
-        std::swap(h[i], h[j]);
-        pos[h[i].id] = i;
-        pos[h[j].id] = j;
-    }
-    void sift_up(int i) {
-        while (i > 0) {
-            int parent = (i - 1) / 2;
-            if (h[parent].key <= h[i].key) break;
-            swap_nodes(i, parent);
-            i = parent;
-        }
-    }
-    void sift_down(int i) {
-        int n = (int)h.size();
-        for (;;) {
-            int smallest = i, l = 2*i + 1, r = 2*i + 2;
-            if (l < n && h[l].key < h[smallest].key) smallest = l;
-            if (r < n && h[r].key < h[smallest].key) smallest = r;
-            if (smallest == i) break;
-            swap_nodes(i, smallest);
-            i = smallest;
-        }
-    }
-};
-```
-```py
-class MinHeap:
-    """min-купа над щільним списком записів (key, ref); pos: ref -> індекс."""
-    # ref — стабільний цілий дескриптор елемента (вершина, номер задачі).
-
-    def __init__(self, cap):
-        self.h = []                 # список пар (key, ref)
-        self.pos = [-1] * cap       # ref -> індекс у h (-1 = не в черзі)
-
-    def __len__(self):
-        return len(self.h)
-
-    def peek(self):                 # O(1)
-        return self.h[0]
-
-    def push(self, key, ref):       # O(log n)
-        self.h.append((key, ref))
-        self.pos[ref] = len(self.h) - 1
-        self._sift_up(len(self.h) - 1)
-
-    def pop_min(self):              # O(log n)
-        self._swap(0, len(self.h) - 1)
-        key, ref = self.h.pop()
-        self.pos[ref] = -1
-        if self.h:
-            self._sift_down(0)
-        return key, ref
-
-    def decrease_key(self, ref, new_key):   # O(log n)
-        i = self.pos[ref]
-        self.h[i] = (new_key, ref)
-        self._sift_up(i)
-
-    @classmethod
-    def build(cls, items, cap):     # O(n) — Флойдове heapify
-        heap = cls(cap)
-        heap.h = list(items)
-        for i, (_key, ref) in enumerate(heap.h):
-            heap.pos[ref] = i
-        for i in range(len(heap.h) // 2 - 1, -1, -1):
-            heap._sift_down(i)
-        return heap
-
-    def _swap(self, i, j):          # єдиний рух записів
-        self.h[i], self.h[j] = self.h[j], self.h[i]
-        self.pos[self.h[i][1]] = i
-        self.pos[self.h[j][1]] = j
-
-    def _sift_up(self, i):
-        while i > 0:
-            parent = (i - 1) // 2
-            if self.h[parent][0] <= self.h[i][0]:
-                break
-            self._swap(i, parent)
-            i = parent
-
-    def _sift_down(self, i):
-        n = len(self.h)
-        while True:
-            smallest, l, r = i, 2*i + 1, 2*i + 2
-            if l < n and self.h[l][0] < self.h[smallest][0]:
-                smallest = l
-            if r < n and self.h[r][0] < self.h[smallest][0]:
-                smallest = r
-            if smallest == i:
-                break
-            self._swap(i, smallest)
-            i = smallest
-```
+:::code proj-binary-heap/cpp/povnyi-kod-razom.cpp
+:::code proj-binary-heap/py/main.py
 :::
 
 У бойовому коді таку купу рідко пишуть руками: у C++ є `std::priority_queue` (щоправда, max-купа й **без** decrease-key), у Python — модуль `heapq`. Але щойно потрібен decrease-key — а він потрібен усюди, де живе Дейкстра, — стандартних не вистачає, і купу з картою позицій доводиться писати саме так.

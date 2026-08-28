@@ -36,126 +36,8 @@
 | `KRUSKAL_ERR_NO_MEMORY` | `ErrorCode::AllocationFailure` | Не вдалося виділити пам'ять під внутрішні масиви `parent` та `rank` системи DSU. |
 
 :::tabs
-```c
-#ifndef KRUSKAL_API_H
-#define KRUSKAL_API_H
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-// Статуси виконання алгоритму
-typedef enum {
-    KRUSKAL_OK = 0,
-    KRUSKAL_DISCONNECTED_FOREST = 1,
-    KRUSKAL_ERR_INVALID_VERTEX = -1,
-    KRUSKAL_ERR_NULL_POINTER = -2,
-    KRUSKAL_ERR_NO_MEMORY = -3
-} KruskalStatus;
-
-// Компактна структура представлення ребра
-typedef struct {
-    uint32_t u;
-    uint32_t v;
-    int64_t weight;
-} KruskalEdge;
-
-// Опис графа для передачі в модуль
-typedef struct {
-    uint32_t num_vertices;
-    size_t num_edges;
-    KruskalEdge *edges;
-} KruskalGraph;
-
-// Результат побудови мінімального кістяка
-typedef struct {
-    KruskalEdge *mst_edges;      // Динамічно виділений масив відібраних ребер
-    size_t edge_count;           // Кількість ребер у дереві або лісі
-    int64_t total_weight;        // Сумарна вага кістяка
-    uint32_t num_components;     // Кількість отриманих компонент зв'язності
-} KruskalResult;
-
-/**
- * @brief Обчислює мінімальне кістякове дерево або ліс графа методом Краскала.
- * 
- * @param[in]  graph   Вказівник на ініціалізовану структуру графа. Масив edges буде відсортовано.
- * @param[out] result  Вказівник на структуру, куди записуються результати обчислення.
- * 
- * @return KruskalStatus Код результату операції.
- */
-KruskalStatus kruskal_compute_mst(KruskalGraph *graph, KruskalResult *result);
-
-/**
- * @brief Звільняє динамічні ресурси, виділені під час обчислення результату.
- * 
- * @param[in,out] result Вказівник на структуру результату для очищення.
- */
-void kruskal_free_result(KruskalResult *result);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif // KRUSKAL_API_H
-```
-```cpp
-#ifndef KRUSKAL_API_HPP
-#define KRUSKAL_API_HPP
-
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <vector>
-#include <expected>
-
-namespace algorithms::graphs {
-
-// Компактне представлення ребра з підтримкою операцій порівняння
-struct Edge {
-    uint32_t u{0};
-    uint32_t v{0};
-    int64_t weight{0};
-
-    [[nodiscard]] constexpr bool operator==(const Edge&) const noexcept = default;
-    [[nodiscard]] constexpr bool operator<(const Edge& other) const noexcept {
-        return weight < other.weight;
-    }
-};
-
-// Типізовані коди помилок
-enum class ErrorCode {
-    InvalidVertexIndex,
-    EmptyGraph,
-    AllocationFailure
-};
-
-// Результат побудови кістяка з автоматичним керуванням пам'яттю
-struct MstResult {
-    std::vector<Edge> edges;
-    int64_t total_weight{0};
-    uint32_t num_components{1};
-    bool is_fully_connected{true};
-};
-
-/**
- * @brief Знаходить мінімальне кістякове дерево на множині ребер.
- * 
- * @param num_vertices Загальна кількість вершин графа (індекси від 0 до num_vertices - 1).
- * @param edges        Вхідний зріз ребер. Сортується безпосередньо за місцем (in-place).
- * 
- * @return std::expected<MstResult, ErrorCode> Результат або код помилки.
- */
-[[nodiscard]] std::expected<MstResult, ErrorCode>
-compute_mst(uint32_t num_vertices, std::span<Edge> edges);
-
-} // namespace algorithms::graphs
-
-#endif // KRUSKAL_API_HPP
-```
+:::code api-kruskal/c/kody-povernennia-ta.h
+:::code api-kruskal/cpp/kody-povernennia-ta.hpp
 :::
 
 ## 3. Детальний контракт поведінки та інваріанти
@@ -193,41 +75,8 @@ compute_mst(uint32_t num_vertices, std::span<Edge> edges);
 Приклад виклику в клієнтському коді мовами C та C++:
 
 :::tabs
-```c
-#include "kruskal_api.h"
-#include <stdio.h>
-
-void run_example(void) {
-    KruskalEdge edges[] = {
-        {0, 1, 10}, {0, 2, 6}, {0, 3, 5},
-        {1, 3, 15}, {2, 3, 4}
-    };
-    KruskalGraph graph = { 4, 5, edges };
-    KruskalResult result;
-
-    if (kruskal_compute_mst(&graph, &result) == KRUSKAL_OK) {
-        printf("Кістяк знайдено, вага: %lld\n", (long long)result.total_weight);
-        kruskal_free_result(&result);
-    }
-}
-```
-```cpp
-#include "kruskal_api.hpp"
-#include <iostream>
-#include <vector>
-
-void run_example() {
-    std::vector<algorithms::graphs::Edge> edges = {
-        {0, 1, 10}, {0, 2, 6}, {0, 3, 5},
-        {1, 3, 15}, {2, 3, 4}
-    };
-
-    auto result = algorithms::graphs::compute_mst(4, edges);
-    if (result.has_value()) {
-        std::cout << "Кістяк знайдено, вага: " << result->total_weight << '\n';
-    }
-}
-```
+:::code api-kruskal/c/4-intehratsiia-z-inshymy.c
+:::code api-kruskal/cpp/4-intehratsiia-z-inshymy.cpp
 :::
 
 Такий інтерфейс забезпечує повну сумісність із високонавантаженими серверами та вбудованими мікроконтролерними системами з жорсткими обмеженнями пам'яті.

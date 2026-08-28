@@ -68,49 +68,7 @@ C₂₁ = A₂₁·B₁₁ + A₂₂·B₂₁       C₂₂ = A₂₁·B₁₂ +
 
 Тепер найважливіша деталь реалізації, без якої вся ідея розсипається: підматриці **не копіюють**. Квадрант — це не новий масив, а просто вказівник на його лівий верхній кут плюс знання про те, через скільки елементів починається наступний рядок. Це число називають кроком рядка (англ. *leading dimension*), і воно лишається кроком **матриці-власниці**, а не блока. Копіювали б — платили б за копію більше, ніж заощадили на промахах.
 
-```c
-// comul.c — кеш-незалежне множення матриць: C += A·B
-// Збірка:  cc -O2 -c comul.c
-#include <stddef.h>
-
-#define BASE 8      // нижче цього розміру рекурсія вже нічого не дає (див. нижче)
-
-// C += A·B для квадратних блоків n×n.
-// lda/ldb/ldc — крок рядка в матриці-власниці: підблок НЕ копіюємо,
-// передаємо лише вказівник на його лівий верхній кут.
-// ВИМОГА: n — степінь двійки (про це — у пастках).
-void comul(const double *A, const double *B, double *C, size_t n,
-           size_t lda, size_t ldb, size_t ldc)
-{
-    if (n <= BASE) {                       // база: звичайний потрійний цикл
-        for (size_t i = 0; i < n; i++)
-            for (size_t j = 0; j < n; j++) {
-                double s = C[i*ldc + j];
-                for (size_t k = 0; k < n; k++)
-                    s += A[i*lda + k] * B[k*ldb + j];
-                C[i*ldc + j] = s;
-            }
-        return;
-    }
-
-    size_t h = n / 2;
-    const double *A11 = A,          *A12 = A + h;
-    const double *A21 = A + h*lda,  *A22 = A + h*lda + h;
-    const double *B11 = B,          *B12 = B + h;
-    const double *B21 = B + h*ldb,  *B22 = B + h*ldb + h;
-    double       *C11 = C,          *C12 = C + h;
-    double       *C21 = C + h*ldc,  *C22 = C + h*ldc + h;
-
-    comul(A11, B11, C11, h, lda, ldb, ldc);   // C11 += A11·B11
-    comul(A12, B21, C11, h, lda, ldb, ldc);   // C11 += A12·B21
-    comul(A11, B12, C12, h, lda, ldb, ldc);   // C12 += A11·B12
-    comul(A12, B22, C12, h, lda, ldb, ldc);   // C12 += A12·B22
-    comul(A21, B11, C21, h, lda, ldb, ldc);   // C21 += A21·B11
-    comul(A22, B21, C21, h, lda, ldb, ldc);   // C21 += A22·B21
-    comul(A21, B12, C22, h, lda, ldb, ldc);   // C22 += A21·B12
-    comul(A22, B22, C22, h, lda, ldb, ldc);   // C22 += A22·B22
-}
-```
+:::code proj-matmul/c/comul.c
 
 Кличуть її з нульової матриці C: `memset(C, 0, N*N*sizeof(double)); comul(A, B, C, N, N, N, N);` — усі три кроки рядка дорівнюють N, бо матриці цілі, а не чиїсь підблоки.
 
@@ -122,130 +80,21 @@ void comul(const double *A, const double *B, double *C, size_t n,
 
 Тепер найцікавіше. Твердження «рекурсія влучає в кеш» перевіряється лише лічильником, тож зробимо його чесно: покладімо всі три матриці в один суцільний масив (тоді адреса — це просто індекс, а номер блока — індекс, поділений на вісім) і проженімо кожне звертання крізь модель кеша.
 
-```c
-// comeasure.c — той самий алгоритм, але кожен доступ проходить крізь модель
-// кеша, яка рахує промахи.  Збірка:  cc -O2 -o comeasure comeasure.c
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-
-#define N     128                  // матриці N×N
-#define DPL   8                    // double на лінію: 64 Б / 8 Б = 8
-#define NBLK  (3*N*N/DPL)          // усього блоків у спільному масиві
-#define NL    64                   // ліній у кеші: 64 × 64 Б = 4 КБ
-
-static double arena[3*N*N];        // A, B, C підряд — щоб адреса = індекс
-#define A_OFF 0
-#define B_OFF (N*N)
-#define C_OFF (2*N*N)
-
-static int32_t  where_[NBLK];      // блок → лінія, або -1
-static int32_t  tagof[NL];         // лінія → блок, або -1
-static uint64_t used[NL], clk, misses;
-
-static void cache_reset(void)
-{
-    memset(where_, -1, sizeof where_);     // 0xFF у кожен байт = -1 у int32
-    memset(tagof,  -1, sizeof tagof);
-    memset(used,    0, sizeof used);
-    clk = 0; misses = 0;
-}
-
-// єдина точка, крізь яку проходить УСЕ читання й писання
-static void touch(size_t idx)
-{
-    int32_t blk = (int32_t)(idx / DPL);
-    int32_t ln  = where_[blk];
-    if (ln >= 0) { used[ln] = ++clk; return; }      // влучання
-    misses++;
-    int32_t v = 0;                                  // жертва — найдавніше вживана
-    for (int32_t i = 1; i < NL; i++)                // (скан лише на промаху)
-        if (used[i] < used[v]) v = i;
-    if (tagof[v] >= 0) where_[tagof[v]] = -1;       // виселяємо стару
-    tagof[v] = blk; where_[blk] = v; used[v] = ++clk;
-}
-
-static double rd(size_t i) { touch(i); return arena[i]; }
-static void   wr(size_t i, double v) { touch(i); arena[i] = v; }
-```
+:::code proj-matmul/c/comeasure.c
 
 Порожні лінії мають `used = 0`, тож скан заповнює кеш до дна, перш ніж когось виселяти, — усе як у справжньому холодному кеші. Модель ідеального кеша, узагалі кажучи, припускає **оптимальну** заміну, тобто ясновидця, який виселяє те, що знадобиться найпізніше; онлайн так не вміє ніхто. Тому беремо найдавніше вживану (LRU) — і це не халтура: у тій самій праці доведено (спираючись на результат Деніела Слітора й Роберта Тар'яна про конкурентність LRU), що алгоритм, який робить Q промахів на ідеальному кеші місткості Z/2, зробить щонайбільше 2Q на LRU-кеші місткості Z. Для «регулярних» оцінок — а наша саме така — асимптотика від стратегії заміни не залежить.
 
 Далі — обидва алгоритми в тих самих обгортках. Наївний:
 
-```c
-static void naive_mult(void)
-{
-    for (int i = 0; i < N; i++)
-        for (int j = 0; j < N; j++) {
-            double s = rd(C_OFF + (size_t)i*N + j);
-            for (int k = 0; k < N; k++)
-                s += rd(A_OFF + (size_t)i*N + k) * rd(B_OFF + (size_t)k*N + j);
-            wr(C_OFF + (size_t)i*N + j, s);
-        }
-}
-```
+:::code proj-matmul/c/porakhuvaty-promakhy-a-ne.c
 
 І рекурсивний — той самий `comul`, тільки звертання йдуть крізь `rd`/`wr`, а замість вказівників — індекси в спільному масиві (крок рядка в усіх трьох однаковий і дорівнює N):
 
-```c
-#define BASE 8
-
-static void rec_mult(int n, size_t a, size_t b, size_t c)
-{
-    if (n <= BASE) {
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++) {
-                double s = rd(c + (size_t)i*N + j);
-                for (int k = 0; k < n; k++)
-                    s += rd(a + (size_t)i*N + k) * rd(b + (size_t)k*N + j);
-                wr(c + (size_t)i*N + j, s);
-            }
-        return;
-    }
-    int h = n / 2;
-    size_t A11 = a, A12 = a + h, A21 = a + (size_t)h*N, A22 = a + (size_t)h*N + h;
-    size_t B11 = b, B12 = b + h, B21 = b + (size_t)h*N, B22 = b + (size_t)h*N + h;
-    size_t C11 = c, C12 = c + h, C21 = c + (size_t)h*N, C22 = c + (size_t)h*N + h;
-
-    rec_mult(h, A11, B11, C11);   rec_mult(h, A12, B21, C11);
-    rec_mult(h, A11, B12, C12);   rec_mult(h, A12, B22, C12);
-    rec_mult(h, A21, B11, C21);   rec_mult(h, A22, B21, C21);
-    rec_mult(h, A21, B12, C22);   rec_mult(h, A22, B22, C22);
-}
-```
+:::code proj-matmul/c/porakhuvaty-promakhy-a-ne-2.c
 
 Заповнювати матриці варто цілими числами — і не для краси. Рекурсія додає доданки в **іншому порядку**, ніж наївний цикл, а додавання дійсних чисел із рухомою комою неасоціативне: (a+b)+c ≠ a+(b+c) в останніх бітах. На цілих, поки суми не переростають 2⁵³, кожен проміжний результат подається точно — і два алгоритми зобов'язані збігтися **біт у біт**, тож розбіжність означатиме справжню помилку, а не шум округлення:
 
-```c
-static void fill(void)
-{
-    for (size_t i = 0; i < (size_t)N*N; i++) {
-        arena[A_OFF + i] = (double)(i % 7) - 3.0;    // цілі −3…3
-        arena[B_OFF + i] = (double)(i % 5) - 2.0;    // цілі −2…2
-        arena[C_OFF + i] = 0.0;
-    }
-}
-
-int main(void)
-{
-    fill(); cache_reset(); naive_mult();
-    uint64_t m1 = misses;
-    double *C = arena + C_OFF;
-    static double ref[N*N];
-    memcpy(ref, C, sizeof ref);
-
-    fill(); cache_reset(); rec_mult(N, A_OFF, B_OFF, C_OFF);
-    uint64_t m2 = misses;
-
-    printf("результати збігаються: %s\n",
-           memcmp(ref, C, sizeof ref) == 0 ? "так" : "НІ");
-    printf("наївний:     %10llu промахів\n", (unsigned long long)m1);
-    printf("рекурсивний: %10llu промахів\n", (unsigned long long)m2);
-    printf("виграш: %.1f×\n", (double)m1 / (double)m2);
-    return 0;
-}
-```
+:::code proj-matmul/c/porakhuvaty-promakhy-a-ne-3.c
 
 ## Що показав лічильник
 
@@ -311,38 +160,7 @@ int main(void)
 
 **n мусить бути степенем двійки — інакше тихо неправильна відповідь.** `h = n / 2` на непарному n відрізає рівно один рядок і один стовпець: вісім квадрантів розміру h покривають (n−1)×(n−1), а останні рядок і стовпець не рахує ніхто. Помилки не буде, попередження теж — буде хибний добуток. Перевірено на порті цього самого коду: при N = 25 хибними виявляються 490 елементів із 625, при N = 100 — 9489 із 10 000. Причому N = 48 працює правильно (48 → 24 → 12 → 6, а шістка вже менша за базу й потрапляє в чесний цикл), тож пастка ще й підступно вибірково мовчить. Або став `assert((n & (n - 1)) == 0)`, або доповнюй нулями до степеня двійки (до 4× зайвої роботи), або бери загальний варіант — той, що ділить **найбільший із трьох вимірів** і тому не губить нічого:
 
-```c
-// C += A·B для довільних m×n на n×p: ділимо найбільший вимір навпіл.
-// Залишок (m - h) забирає непарність на себе — жоден рядок не губиться.
-void comul_rect(const double *A, const double *B, double *C,
-                size_t m, size_t n, size_t p,
-                size_t lda, size_t ldb, size_t ldc)
-{
-    if (m <= BASE && n <= BASE && p <= BASE) {
-        for (size_t i = 0; i < m; i++)
-            for (size_t j = 0; j < p; j++) {
-                double s = C[i*ldc + j];
-                for (size_t k = 0; k < n; k++)
-                    s += A[i*lda + k] * B[k*ldb + j];
-                C[i*ldc + j] = s;
-            }
-        return;
-    }
-    if (m >= n && m >= p) {                 // A ріжемо горизонтально
-        size_t h = m / 2;
-        comul_rect(A,         B, C,         h,     n, p, lda, ldb, ldc);
-        comul_rect(A + h*lda, B, C + h*ldc, m - h, n, p, lda, ldb, ldc);
-    } else if (n >= m && n >= p) {          // ріжемо спільний вимір
-        size_t h = n / 2;
-        comul_rect(A,     B,         C, m, h,     p, lda, ldb, ldc);
-        comul_rect(A + h, B + h*ldb, C, m, n - h, p, lda, ldb, ldc);
-    } else {                                // B ріжемо вертикально
-        size_t h = p / 2;
-        comul_rect(A, B,     C,     m, n, h,     lda, ldb, ldc);
-        comul_rect(A, B + h, C + h, m, n, p - h, lda, ldb, ldc);
-    }
-}
-```
+:::code proj-matmul/c/pastky.c
 
 Це і є оригінальний алгоритм у тому вигляді, у якому його аналізують: на квадратних матрицях три випадки поділу зводяться рівно до восьми квадрантів, а на довільних — працюють без жодного доповнення. Перевірено на дванадцяти випадкових трійках (m, n, p) до 40 — усі збіглися з еталоном.
 

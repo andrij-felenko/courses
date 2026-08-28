@@ -7,78 +7,8 @@
 Квошієнтний фільтр спирається на фіксовану розрядність бітових полів слота. Метадані кожного слота містять три однобітні прапорці стану (`is_occupied`, `is_continuation`, `is_shifted`) та числовий залишок `remainder` розрядністю `r` бітів.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint8_t is_occupied : 1;      /* 1, якщо слот є канонічним для хоча б одного елемента */
-    uint8_t is_continuation : 1;  /* 1, якщо елемент продовжує набіг попереднього слота */
-    uint8_t is_shifted : 1;       /* 1, якщо елемент зміщено вправо від канонічного слота */
-    uint8_t remainder : 5;        /* Залишок хеш-коду (розмір r бітів) */
-} QFSlot;
-
-typedef struct {
-    QFSlot *table;                /* Масив слотів розміром num_slots */
-    size_t q_bits;                /* Кількість бітів частки (q) */
-    size_t r_bits;                /* Кількість бітів залишку (r) */
-    size_t num_slots;             /* Загальна кількість слотів m = 2^q */
-    size_t slot_mask;             /* Бітова маска індексації (num_slots - 1) */
-    size_t count;                 /* Поточна кількість збережених елементів (n) */
-} QuotientFilter;
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <vector>
-#include <string_view>
-#include <optional>
-#include <span>
-#include <memory>
-
-namespace filters {
-
-class QuotientFilter {
-public:
-    struct Slot {
-        uint8_t is_occupied : 1 = 0;
-        uint8_t is_continuation : 1 = 0;
-        uint8_t is_shifted : 1 = 0;
-        uint8_t remainder : 5 = 0;
-    };
-
-    static constexpr double kDefaultMaxLoadFactor = 0.85;
-
-    explicit QuotientFilter(size_t q_bits, size_t r_bits);
-    ~QuotientFilter() = default;
-
-    QuotientFilter(const QuotientFilter&) = delete;
-    QuotientFilter& operator=(const QuotientFilter&) = delete;
-    QuotientFilter(QuotientFilter&&) noexcept = default;
-    QuotientFilter& operator=(QuotientFilter&&) noexcept = default;
-
-    [[nodiscard]] bool contains(std::string_view key) const noexcept;
-    bool insert(std::string_view key);
-    bool remove(std::string_view key) noexcept;
-
-    [[nodiscard]] size_t size() const noexcept;
-    [[nodiscard]] size_t capacity() const noexcept;
-    [[nodiscard]] double load_factor() const noexcept;
-    [[nodiscard]] bool empty() const noexcept;
-    void clear() noexcept;
-
-private:
-    size_t q_bits_;
-    size_t r_bits_;
-    size_t num_slots_;
-    size_t slot_mask_;
-    size_t count_ = 0;
-    std::vector<Slot> table_;
-};
-
-} // namespace filters
-```
+:::code api-quotient-filter/c/1-typy-danykh-ta-struktury.c
+:::code api-quotient-filter/cpp/1-typy-danykh-ta-struktury.hpp
 :::
 
 ## 2. Специфікація керування життєвим циклом
@@ -209,39 +139,8 @@ QuotientFilter *qf_merge(const QuotientFilter *qf1, const QuotientFilter *qf2);
 На відміну від фільтрів Блума, де збережені елементи неможливо витягти назад навіть у вигляді хеш-відбитків, квошієнтний фільтр підтримує повне відновлення всіх `p`-бітних хеш-значень `h(x) = (f_q << r) | f_r` у строго монотонно зростаючому порядку.
 
 :::tabs
-```c
-typedef struct {
-    const QuotientFilter *qf;
-    size_t curr_slot;
-    size_t curr_fq;
-} QFIterator;
-
-/* Ініціалізація ітератора на початку таблиці */
-void qf_iter_init(QFIterator *iter, const QuotientFilter *qf);
-
-/* Отримання наступного відбитка (повертає false після вичерпання таблиці) */
-bool qf_iter_next(QFIterator *iter, uint64_t *out_hash);
-```
-```cpp
-struct ReconstructedHash {
-    size_t quotient;
-    uint8_t remainder;
-    [[nodiscard]] uint64_t full_hash(size_t r_bits) const noexcept {
-        return (static_cast<uint64_t>(quotient) << r_bits) | remainder;
-    }
-};
-
-class QuotientFilterIterator {
-public:
-    explicit QuotientFilterIterator(const QuotientFilter& qf);
-    [[nodiscard]] bool has_next() const noexcept;
-    ReconstructedHash next();
-private:
-    const QuotientFilter& qf_;
-    size_t curr_slot_ = 0;
-    size_t curr_fq_ = 0;
-};
-```
+:::code api-quotient-filter/c/5-protokol-potokovoi.h
+:::code api-quotient-filter/cpp/5-protokol-potokovoi.hpp
 :::
 
 Протокол ітерації декодує послідовність набігів за один лінійний скан таблиці:

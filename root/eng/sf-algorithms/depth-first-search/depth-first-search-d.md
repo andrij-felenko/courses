@@ -74,69 +74,8 @@ DFS працює принципово інакше. Оскільки він до
 Розглянемо покрокову реалізацію базового алгоритму обходу DFS:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-typedef enum { WHITE = 0, GRAY = 1, BLACK = 2 } Color;
-
-typedef struct Node {
-    int target;
-    struct Node* next;
-} Node;
-
-typedef struct {
-    int num_vertices;
-    Node** adj;
-} Graph;
-
-void dfs_visit(const Graph* g, int u, Color* color, int* d, int* f, int* timer) {
-    color[u] = GRAY;           // 1. Вхід у вершину: позначаємо активною
-    d[u] = ++(*timer);         // 2. Фіксуємо час відкриття
-
-    for (Node* edge = g->adj[u]; edge != NULL; edge = edge->next) {
-        int v = edge->target;
-        if (color[v] == WHITE) { // Якщо сусід білий — занурюємося вглиб
-            dfs_visit(g, v, color, d, f, timer);
-        }
-    }
-
-    color[u] = BLACK;          // 3. Завершення вершини: усі нащадки оброблені
-    f[u] = ++(*timer);         // 4. Фіксуємо час завершення
-}
-```
-```cpp
-#include <vector>
-#include <cstdint>
-
-enum class Color : std::uint8_t { White, Gray, Black };
-
-class Graph {
-public:
-    explicit Graph(std::size_t n) : adj_(n) {}
-    void add_edge(int u, int v) { adj_[u].push_back(v); }
-    [[nodiscard]] std::size_t num_vertices() const noexcept { return adj_.size(); }
-    [[nodiscard]] const std::vector<int>& neighbors(int u) const { return adj_[u]; }
-private:
-    std::vector<std::vector<int>> adj_;
-};
-
-void dfs_visit(const Graph& g, int u, std::vector<Color>& color,
-               std::vector<int>& d, std::vector<int>& f, int& timer) {
-    color[u] = Color::Gray;     // 1. Вхід у вершину: позначаємо активною
-    d[u] = ++timer;             // 2. Фіксуємо час відкриття
-
-    for (int v : g.neighbors(u)) {
-        if (color[v] == Color::White) { // Якщо сусід білий — занурюємося вглиб
-            dfs_visit(g, v, color, d, f, timer);
-        }
-    }
-
-    color[u] = Color::Black;    // 3. Завершення вершини
-    f[u] = ++timer;             // 4. Фіксуємо час завершення
-}
-```
+:::code depth-first-search-d/c/mekhanizm-obkhodu-ta.c
+:::code depth-first-search-d/cpp/mekhanizm-obkhodu-ta.cpp
 :::
 
 > 🔧 **Навіщо це.** Часові мітки `d[u]` та `f[u]` — це не просто лічильники для логування, а суворий математичний каркас. Співвідношення часових інтервалів `[d[u], f[u]]` дає миттєву відповідь на питання, чи є одна вершина предком або нащадком іншої. Математичну теорію цих інтервалів викладено у [математичних основах DFS](root:sf-algorithms/depth-first-search/math-dfs.md).
@@ -225,103 +164,8 @@ void dfs_visit(const Graph& g, int u, std::vector<Color>& color,
 Для безпечної обробки графів довільної глибини застосовують **ітеративний DFS** із власним виділеним стеком у купі (Heap Memory).
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-typedef struct {
-    int u;
-    int neighbor_idx;
-} StackFrame;
-
-void dfs_iterative(const Graph* g, int start_node) {
-    int n = g->num_vertices;
-    Color* color = (Color*)calloc(n, sizeof(Color));
-    int* d = (int*)malloc(n * sizeof(int));
-    int* f = (int*)malloc(n * sizeof(int));
-    int timer = 0;
-
-    StackFrame* stack = (StackFrame*)malloc(n * sizeof(StackFrame));
-    int top = -1;
-
-    color[start_node] = GRAY;
-    d[start_node] = ++timer;
-    stack[++top] = (StackFrame){start_node, 0};
-
-    while (top >= 0) {
-        int u = stack[top].u;
-        Node* curr = g->adj[u];
-        int idx = 0;
-
-        while (curr && idx < stack[top].neighbor_idx) {
-            curr = curr->next;
-            idx++;
-        }
-
-        if (curr != NULL) {
-            stack[top].neighbor_idx++;
-            int v = curr->target;
-
-            if (color[v] == WHITE) {
-                color[v] = GRAY;
-                d[v] = ++timer;
-                stack[++top] = (StackFrame){v, 0}; // Занурення
-            }
-        } else {
-            color[u] = BLACK;
-            f[u] = ++timer;
-            top--; // Зняття зі стеку після повного завершення нащадків
-        }
-    }
-
-    free(color);
-    free(d);
-    free(f);
-    free(stack);
-}
-```
-```cpp
-#include <vector>
-#include <stack>
-#include <cstddef>
-
-void dfs_iterative(const Graph& g, int start_node) {
-    const std::size_t n = g.num_vertices();
-    std::vector<Color> color(n, Color::White);
-    std::vector<int> d(n, 0);
-    std::vector<int> f(n, 0);
-    int timer = 0;
-
-    struct Frame {
-        int u;
-        std::size_t neighbor_idx;
-    };
-
-    std::stack<Frame> st;
-    color[start_node] = Color::Gray;
-    d[start_node] = ++timer;
-    st.push({start_node, 0});
-
-    while (!st.empty()) {
-        auto& [u, idx] = st.top();
-        const auto& nbrs = g.neighbors(u);
-
-        if (idx < nbrs.size()) {
-            int v = nbrs[idx++];
-            if (color[v] == Color::White) {
-                color[v] = Color::Gray;
-                d[v] = ++timer;
-                st.push({v, 0}); // Занурення вглиб
-            }
-        } else {
-            color[u] = Color::Black;
-            f[u] = ++timer;
-            st.pop(); // Завершення вершини u (Post-Order)
-        }
-    }
-}
-```
+:::code depth-first-search-d/c/rekursyvnyi-ta-iteratyvnyi.c
+:::code depth-first-search-d/cpp/rekursyvnyi-ta-iteratyvnyi.cpp
 :::
 
 Повні працездатні програми із тестовими даними та оптимізаціями пам'яті наведено у [практичній реалізації DFS](root:sf-algorithms/depth-first-search/proj-dfs.md).

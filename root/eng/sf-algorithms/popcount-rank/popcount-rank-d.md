@@ -96,18 +96,7 @@ int popcount_wegner(uint64_t x) {
     return count;
 }
 ```
-```cpp
-#include <cstdint>
-
-[[nodiscard]] constexpr int popcount_wegner(uint64_t x) noexcept {
-    int count = 0;
-    while (x != 0) {
-        x &= (x - 1);
-        ++count;
-    }
-    return count;
-}
-```
+:::code popcount-rank-d/cpp/alhorytm-vehnera-kernihana.cpp
 :::
 
 Кількість кроків дорівнює `k = popcount(x)`. Для розріджених даних (наприклад, 2–3 одиниці на слово) метод працює швидко. Проте на випадкових даних із рівномірним розподілом бітів середня кількість ітерацій дорівнює 32. Головна проблема полягає в тому, що умова виходу з циклу залежить від даних: кожне хибне передбачення переходу на сучасному процесорі скидає конвеєр інструкцій із штрафом у 15–20 тактів. Крім того, змінний час виконання неприпустимий у криптографічних алгоритмах через ризик витоку інформації каналом вимірювання часу.
@@ -119,53 +108,8 @@ int popcount_wegner(uint64_t x) {
 Класичним інженерним компромісом є попередня підготовка таблиці пошуку (LUT — *Lookup Table*) для всіх 256 можливих значень байта:
 
 :::tabs
-```c
-static const uint8_t POPCOUNT_TABLE_256[256] = {
-    0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4,
-    /* ... 256 попередньо обчислених значень ... */
-};
-
-int popcount_lut(uint64_t x) {
-    return POPCOUNT_TABLE_256[x & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 8) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 16) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 24) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 32) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 40) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 48) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 56) & 0xFF];
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-namespace {
-constexpr auto make_popcount_lut() {
-    std::array<uint8_t, 256> lut{};
-    for (size_t i = 0; i < 256; ++i) {
-        uint8_t c = 0;
-        for (size_t b = 0; b < 8; ++b) {
-            c += static_cast<uint8_t>((i >> b) & 1U);
-        }
-        lut[i] = c;
-    }
-    return lut;
-}
-constexpr auto POPCOUNT_TABLE_256 = make_popcount_lut();
-}
-
-[[nodiscard]] constexpr int popcount_lut(uint64_t x) noexcept {
-    return POPCOUNT_TABLE_256[x & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 8) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 16) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 24) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 32) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 40) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 48) & 0xFF] +
-           POPCOUNT_TABLE_256[(x >> 56) & 0xFF];
-}
-```
+:::code popcount-rank-d/c/main.c
+:::code popcount-rank-d/cpp/tablychnyi-metod-lut-ta.cpp
 :::
 
 Табличний метод скорочує операцію до 8 звернень до масиву та 7 додавань. На мікроконтролерах без апаратного множника цей підхід лишається актуальним. Проте на сучасних високоефективних процесорах звернення до пам'яті коштує дорожче за арифметику. Якщо таблиця не знаходиться в найшвидшому кеші L1d, промах кеша коштує від десятків до сотень тактів. Крім того, доступ до таблиці витісняє інші дані з кеша процесора.

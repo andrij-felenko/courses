@@ -19,51 +19,8 @@
 Усі коди результатів, режими оптимізації та структури даних строго типізовані відповідно до стандартів кожної мови.
 
 :::tabs
-```c
-/* Константи кодів завершення */
-#define HUNGARIAN_OK                 0
-#define HUNGARIAN_ERR_NULL_PTR      -1
-#define HUNGARIAN_ERR_INVALID_DIM   -2
-#define HUNGARIAN_ERR_NO_MEMORY     -3
-#define HUNGARIAN_INF (INT64_MAX / 4)
-
-/* Режим оптимізації */
-typedef enum {
-    HUNGARIAN_OPT_MINIMIZE = 0,
-    HUNGARIAN_OPT_MAXIMIZE = 1
-} HungarianOptMode;
-
-/* Структура результату призначення */
-typedef struct {
-    int64_t total_cost;      /* Сумарна вартість знайденого оптимального розподілу */
-    int32_t* assignment;     /* Масив розміром rows: assignment[i] містить індекс стовпця (0..cols-1) */
-    int32_t rows;            /* Кількість рядків (виконавців) */
-    int32_t cols;            /* Кількість стовпців (завдань) */
-    int32_t status;          /* Код завершення (HUNGARIAN_OK або код помилки) */
-} HungarianResultC;
-```
-```cpp
-#include <vector>
-#include <cstdint>
-#include <span>
-#include <limits>
-#include <string_view>
-
-enum class OptimizationTarget {
-    Minimize = 0,
-    Maximize = 1
-};
-
-template <typename CostType = int64_t>
-struct AssignmentSolution {
-    static constexpr CostType INF = std::numeric_limits<CostType>::max() / 4;
-
-    CostType total_cost{0};
-    std::vector<int32_t> assignments; // assignments[row] = col
-    int32_t rows{0};
-    int32_t cols{0};
-};
-```
+:::code api-hungarian-solver/c/konstanty-typy-ta.c
+:::code api-hungarian-solver/cpp/konstanty-typy-ta.cpp
 :::
 
 ---
@@ -73,34 +30,8 @@ struct AssignmentSolution {
 Основним обчислювальним методом є функція розв'язання, яка приймає плоску матрицю у форматі row-major та повертає оптимальний вектор індексів призначень.
 
 :::tabs
-```c
-/* Ініціалізація структури результату */
-HungarianResultC hungarian_result_init(int32_t rows, int32_t cols);
-
-/* Звільнення динамічної пам'яті результату */
-void hungarian_result_free(HungarianResultC* res);
-
-/* Основна функція розв'язання задачі */
-int32_t hungarian_solve_c(
-    const int64_t* matrix,
-    int32_t rows,
-    int32_t cols,
-    HungarianOptMode mode,
-    HungarianResultC* out_result
-);
-```
-```cpp
-template <typename CostType = int64_t>
-class HungarianSolver {
-public:
-    static AssignmentSolution<CostType> compute(
-        std::span<const CostType> flat_matrix,
-        int32_t rows,
-        int32_t cols,
-        OptimizationTarget target = OptimizationTarget::Minimize
-    );
-};
-```
+:::code api-hungarian-solver/c/syhnatury-funktsii-ta.h
+:::code api-hungarian-solver/cpp/syhnatury-funktsii-ta.cpp
 :::
 
 ---

@@ -147,65 +147,8 @@ g_i(x) = (h_1(x) + i · h_2(x)) mod m,  де i = 0, 1, ..., k-1
 Погляньмо, як це реалізується у коді:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <size_t.h>
-
-/* Вставка ключа з оптимізацією Кірша-Мітценмахера */
-void bloom_add_fast(uint8_t *bit_array, size_t num_bits, size_t k, uint64_t h1, uint64_t h2) {
-    for (size_t i = 0; i < k; i++) {
-        uint64_t bit_index = (h1 + i * h2) % num_bits;
-        bit_array[bit_index >> 3] |= (uint8_t)(1u << (bit_index & 7));
-    }
-}
-
-/* Перевірка наявності ключа */
-bool bloom_check_fast(const uint8_t *bit_array, size_t num_bits, size_t k, uint64_t h1, uint64_t h2) {
-    for (size_t i = 0; i < k; i++) {
-        uint64_t bit_index = (h1 + i * h2) % num_bits;
-        uint8_t byte = bit_array[bit_index >> 3];
-        if ((byte & (1u << (bit_index & 7))) == 0) {
-            return false; /* Гарантовано відсутній */
-        }
-    }
-    return true; /* Імовірно присутній */
-}
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <cstddef>
-
-class fast_bloom_filter {
-public:
-    fast_bloom_filter(std::size_t num_bits, std::size_t num_hashes)
-        : num_bits_(num_bits), k_(num_hashes), bits_((num_bits + 7) / 8, 0) {}
-
-    void add_hashes(std::uint64_t h1, std::uint64_t h2) noexcept {
-        for (std::size_t i = 0; i < k_; ++i) {
-            std::size_t bit_index = (h1 + i * h2) % num_bits_;
-            bits_[bit_index >> 3] |= static_cast<std::uint8_t>(1u << (bit_index & 7));
-        }
-    }
-
-    [[nodiscard]] bool check_hashes(std::uint64_t h1, std::uint64_t h2) const noexcept {
-        for (std::size_t i = 0; i < k_; ++i) {
-            std::size_t bit_index = (h1 + i * h2) % num_bits_;
-            std::uint8_t byte = bits_[bit_index >> 3];
-            if ((byte & (1u << (bit_index & 7))) == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-private:
-    std::size_t num_bits_;
-    std::size_t k_;
-    std::vector<std::uint8_t> bits_;
-};
-```
+:::code bloom-filter-d/c/optymizatsiia-kheshuvannia.c
+:::code bloom-filter-d/cpp/optymizatsiia-kheshuvannia.cpp
 :::
 
 Зверніть увагу на побітову індексацію: замість виділення окремого `bool` на кожен біт (що витрачало б 8 бітів на прапорець у C++ через розмір `sizeof(bool) == 1`), ми пакуємо 8 бітів у один `uint8_t`. Операція `bit_index >> 3` вираховує індекс байта у масиві (аналог ділення на 8), а `bit_index & 7` вираховує номер біта всередині байта (аналог залишки від ділення на 8).
@@ -317,21 +260,7 @@ uint8_t *bloom_alloc_aligned(size_t bytes) {
     return (uint8_t *)aligned_alloc(64, aligned_size);
 }
 ```
-```cpp
-#include <cstdint>
-#include <new>
-#include <cstddef>
-
-namespace sys {
-
-// Вирівняний виділювач пам'яті C++17
-uint8_t* allocate_aligned_bitset(std::size_t bytes) {
-    std::size_t aligned_bytes = (bytes + 63) & ~static_cast<std::size_t>(63);
-    return static_cast<uint8_t*>(::operator new[](aligned_bytes, std::align_val_t{64}));
-}
-
-} // namespace sys
-```
+:::code bloom-filter-d/cpp/vyrivniuvannia-pamiati-za.cpp
 :::
 
 ### Кеш-локальний блочний фільтр (Blocked Bloom Filter)
@@ -351,64 +280,8 @@ block_idx = h_1(x) mod num_blocks
 3. Решта k бітових індексів обчислюються за допомогою другої хеш-функції h_2(x) **всередині вибраного 64-байтового блоку** (в діапазоні [0, 511] бітів).
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint32_t buckets[16]; /* 16 * 32 біти = 512 бітів = 64 байти */
-} __attribute__((aligned(64))) cache_block_t;
-
-/* Перевірка елемента у блочному фільтрі Блума */
-bool blocked_bloom_check(const cache_block_t *blocks, size_t num_blocks, uint64_t h1, uint64_t h2) {
-    size_t block_idx = h1 % num_blocks;
-    const cache_block_t *block = &blocks[block_idx];
-
-    /* Всі k бітів перевіряються всередині знайденого 64-байтового блоку */
-    for (size_t i = 0; i < 8; i++) {
-        uint32_t bit_idx = (uint32_t)((h2 + i * 0x9e3779b9u) & 511);
-        uint32_t bucket = block->buckets[bit_idx >> 5];
-        if ((bucket & (1u << (bit_idx & 31))) == 0) {
-            return false; /* 0 промахів кешу після завантаження блоку */
-        }
-    }
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <cstddef>
-#include <new>
-
-class blocked_bloom_filter {
-public:
-    struct alignas(64) cache_block {
-        std::uint32_t buckets[16]{0}; // 64 байти
-    };
-
-    explicit blocked_bloom_filter(std::size_t num_blocks)
-        : num_blocks_(num_blocks), blocks_(num_blocks) {}
-
-    [[nodiscard]] bool check(std::uint64_t h1, std::uint64_t h2) const noexcept {
-        std::size_t block_idx = h1 % num_blocks_;
-        const auto& block = blocks_[block_idx];
-
-        for (std::size_t i = 0; i < 8; ++i) {
-            std::uint32_t bit_idx = static_cast<std::uint32_t>((h2 + i * 0x9e3779b9u) & 511);
-            std::uint32_t bucket = block.buckets[bit_idx >> 5];
-            if ((bucket & (1u << (bit_idx & 31))) == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-private:
-    std::size_t num_blocks_;
-    std::vector<cache_block> blocks_;
-};
-```
+:::code bloom-filter-d/c/kesh-lokalnyi-blochnyi.c
+:::code bloom-filter-d/cpp/kesh-lokalnyi-blochnyi.cpp
 :::
 
 **Результат оптимізації**: Кількість промахів L3-кешу зменшується з k (тобто 7–10 промахів) до **строго 1 промаху** на один запит. Це підвищує швидкість перевірки у 3–5 разів на реальному апаратному забезпеченні. Повна практична реалізація з SIMD-векторизацією AVX2 представлена у вставці [⚙️ Реалізація фільтра Блума](root:sf-algorithms/bloom-filter/proj-bloom-filter.md).
@@ -418,76 +291,8 @@ private:
 У системному програмуванні великі фільтри Блума (розміром у сотні мегабайтів або гігабайти) часто зберігаються безпосередньо у бінарних файлах на SSD. Замість виділення оперативної пам'яті у гіпі через `malloc` та послідовного зчитування через `read()`, використовується системний виклик POSIX `mmap()`:
 
 :::tabs
-```c
-#include <sys/mman.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    int fd;
-    uint8_t *mapped_bits;
-    size_t file_size;
-} bloom_mmap_t;
-
-bloom_mmap_t *bloom_mmap_init(const char *filepath, size_t expected_size) {
-    int fd = open(filepath, O_RDWR | O_CREAT, 0644);
-    if (fd < 0) return NULL;
-    
-    /* Встановлення розміру файлу */
-    ftruncate(fd, expected_size);
-    
-    uint8_t *bits = (uint8_t *)mmap(NULL, expected_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    if (bits == MAP_FAILED) {
-        close(fd);
-        return NULL;
-    }
-
-    bloom_mmap_t *res = (bloom_mmap_t *)malloc(sizeof(bloom_mmap_t));
-    res->fd = fd;
-    res->mapped_bits = bits;
-    res->file_size = expected_size;
-    return res;
-}
-```
-```cpp
-#include <sys/mman.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <cstdint>
-#include <string_view>
-#include <stdexcept>
-
-class mmap_bloom_file {
-public:
-    explicit mmap_bloom_file(std::string_view filepath, std::size_t expected_size)
-        : file_size_(expected_size) {
-        fd_ = open(filepath.data(), O_RDWR | O_CREAT, 0644);
-        if (fd_ < 0) throw std::runtime_error("Cannot open file");
-        
-        ftruncate(fd_, expected_size);
-        void* ptr = mmap(nullptr, expected_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd_, 0);
-        if (ptr == MAP_FAILED) {
-            close(fd_);
-            throw std::runtime_error("mmap failed");
-        }
-        mapped_bits_ = static_cast<std::uint8_t*>(ptr);
-    }
-
-    ~mmap_bloom_file() noexcept {
-        if (mapped_bits_ && mapped_bits_ != MAP_FAILED) {
-            munmap(mapped_bits_, file_size_);
-        }
-        if (fd_ >= 0) close(fd_);
-    }
-
-private:
-    int fd_{-1};
-    std::size_t file_size_{0};
-    std::uint8_t* mapped_bits_{nullptr};
-};
-```
+:::code bloom-filter-d/c/zero-copy-memory-mapped.c
+:::code bloom-filter-d/cpp/zero-copy-memory-mapped.cpp
 :::
 
 **Переваги Zero-Copy**: Ядро операційної системи автоматично підвантажує сторінки файлу (Page Faults) у DRAM за необхідністю та підтримує Dirty Page Flush на диск у фоновому режимі через потік `kswapd`.
@@ -501,39 +306,8 @@ private:
 2. При виконанні сканування діапазону СУБД спершу опитує префіксний фільтр. Якщо префікса немає у SSTable-файлі, весь файл пропускається без зчитування блоків даних.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-/* Вставка префіксного ключа у фільтр */
-void bloom_add_prefix(uint8_t *bit_array, size_t m, size_t k, const char *key, size_t prefix_len) {
-    uint64_t h1 = murmurhash3_x64_64(key, prefix_len, 0x9773b15d);
-    uint64_t h2 = murmurhash3_x64_64(key, prefix_len, 0x1cbd4317);
-    for (size_t i = 0; i < k; i++) {
-        size_t idx = (h1 + i * h2) % m;
-        bit_array[idx >> 3] |= (uint8_t)(1u << (idx & 7));
-    }
-}
-```
-```cpp
-#include <string_view>
-#include <cstdint>
-
-namespace sys {
-
-// Метод C++ для вставки префікса складеного ключа
-void insert_prefix_key(std::span<std::uint8_t> bit_array, std::size_t m, std::size_t k,
-                       std::string_view full_key, std::size_t prefix_len) noexcept {
-    std::string_view prefix = full_key.substr(0, std::min(prefix_len, full_key.size()));
-    auto [h1, h2] = hash_128(prefix.data(), prefix.size());
-    for (std::size_t i = 0; i < k; ++i) {
-        std::size_t idx = (h1 + i * h2) % m;
-        bit_array[idx >> 3] |= static_cast<std::uint8_t>(1u << (idx & 7));
-    }
-}
-
-} // namespace sys
-```
+:::code bloom-filter-d/c/prefiksni-filtry-bluma.c
+:::code bloom-filter-d/cpp/prefiksni-filtry-bluma.cpp
 :::
 
 ## Стиснення та серіалізація бітових векторів (RLE & ZSTD)
@@ -543,56 +317,8 @@ void insert_prefix_key(std::span<std::uint8_t> bit_array, std::size_t m, std::si
 Для мінімізації накладних витрат мережевого трафіку застосовується стиснення Run-Length Encoding (RLE) або алгоритми швидкої декомпресії ZSTD:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <size_t.h>
-
-/* Просте RLE-стиснення послідовностей нульових байтів у C */
-size_t bloom_compress_rle(const uint8_t *in, size_t in_bytes, uint8_t *out) {
-    size_t out_idx = 0;
-    for (size_t i = 0; i < in_bytes; ) {
-        if (in[i] == 0x00) {
-            size_t zeros = 0;
-            while (i < in_bytes && in[i] == 0x00 && zeros < 255) { zeros++; i++; }
-            out[out_idx++] = 0x00;
-            out[out_idx++] = (uint8_t)zeros;
-        } else {
-            out[out_idx++] = in[i++];
-        }
-    }
-    return out_idx;
-}
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <cstddef>
-
-namespace sys {
-
-// RLE-стиснення для ущільнення бітового масиву у C++
-std::vector<std::uint8_t> compress_rle_bitset(std::span<const std::uint8_t> input) {
-    std::vector<std::uint8_t> compressed;
-    compressed.reserve(input.size());
-
-    for (std::size_t i = 0; i < input.size(); ) {
-        if (input[i] == 0x00) {
-            std::size_t zero_count = 0;
-            while (i < input.size() && input[i] == 0x00 && zero_count < 255) {
-                ++zero_count;
-                ++i;
-            }
-            compressed.push_back(0x00);
-            compressed.push_back(static_cast<std::uint8_t>(zero_count));
-        } else {
-            compressed.push_back(input[i++]);
-        }
-    }
-    return compressed;
-}
-
-} // namespace sys
-```
+:::code bloom-filter-d/c/stysnennia-ta.c
+:::code bloom-filter-d/cpp/stysnennia-ta.cpp
 :::
 
 При низькому коефіцієнті заповнення fill_ratio < 0.2 таке стиснення зменшує розмір передаваного кадру у 3–4 рази, заощаджуючи пропускну здатність мережевих інтерфейсів 40GbE/100GbE.
@@ -602,50 +328,8 @@ std::vector<std::uint8_t> compress_rle_bitset(std::span<const std::uint8_t> inpu
 Для динамічного моніторингу емпіричного стану фільтра системи обчислюють кількість встановлених одиничних бітів у масиві. На процесорах x86_64 та ARM64 ця операція прискорюється апаратною інструкцією `POPCNT` (`__builtin_popcountll` у GCC / Clang):
 
 :::tabs
-```c
-#include <stdint.h>
-#include <size_t.h>
-
-/* Високопродуктивний підрахунок одиничних бітів через POPCNT */
-size_t bloom_count_set_bits(const uint8_t *bit_array, size_t bytes) {
-    size_t total_set = 0;
-    size_t i = 0;
-    const uint64_t *ptr64 = (const uint64_t *)bit_array;
-    size_t words64 = bytes / 8;
-    for (; i < words64; i++) {
-        total_set += (size_t)__builtin_popcountll(ptr64[i]);
-    }
-    for (size_t j = words64 * 8; j < bytes; j++) {
-        total_set += (size_t)__builtin_popcount(bit_array[j]);
-    }
-    return total_set;
-}
-```
-```cpp
-#include <cstdint>
-#include <numeric>
-#include <span>
-#include <bit>
-
-namespace sys {
-
-// Швидкий підрахунок одиничних бітів у C++20
-std::size_t count_set_bits(std::span<const std::uint8_t> bits) noexcept {
-    std::size_t total = 0;
-    std::size_t i = 0;
-    const auto* ptr64 = reinterpret_cast<const std::uint64_t*>(bits.data());
-    std::size_t words64 = bits.size() / 8;
-    for (; i < words64; ++i) {
-        total += static_cast<std::size_t>(std::popcount(ptr64[i]));
-    }
-    for (std::size_t j = words64 * 8; j < bits.size(); ++j) {
-        total += static_cast<std::size_t>(std::popcount(bits[j]));
-    }
-    return total;
-}
-
-} // namespace sys
-```
+:::code bloom-filter-d/c/pidrakhunok-zapovnennia.c
+:::code bloom-filter-d/cpp/pidrakhunok-zapovnennia.cpp
 :::
 
 ## Побітова серіалізація та мережевий порядок байтів
@@ -655,51 +339,8 @@ std::size_t count_set_bits(std::span<const std::uint8_t> bits) noexcept {
 Серіалізований бінарний кадр специфікується наступною структурою заголовка:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <arpa/inet.h>
-
-typedef struct __attribute__((packed)) {
-    uint32_t magic;      /* 0x424C4F4F ("BLOO") */
-    uint32_t version;    /* Версія 1 */
-    uint64_t num_bits;   /* Кількість бітів m у Big-Endian */
-    uint32_t num_hashes; /* Кількість хеш-функцій k у Big-Endian */
-} bloom_net_header_t;
-
-void serialize_header(bloom_net_header_t *hdr, uint64_t m, uint32_t k) {
-    hdr->magic = htonl(0x424C4F4F);
-    hdr->version = htonl(1);
-    /* Перетворення у мережевий порядок байтів (Big-Endian) */
-    hdr->num_bits = __builtin_bswap64(m);
-    hdr->num_hashes = htonl(k);
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-#include <array>
-
-struct alignas(4) bloom_net_header {
-    std::uint32_t magic{0x424C4F4F};
-    std::uint32_t version{1};
-    std::uint64_t num_bits{0};
-    std::uint32_t num_hashes{0};
-};
-
-[[nodiscard]] bloom_net_header make_network_header(std::uint64_t m, std::uint32_t k) noexcept {
-    bloom_net_header hdr;
-    if constexpr (std::endian::native == std::endian::little) {
-        hdr.magic = std::byteswap(hdr.magic);
-        hdr.version = std::byteswap(hdr.version);
-        hdr.num_bits = std::byteswap(m);
-        hdr.num_hashes = std::byteswap(k);
-    } else {
-        hdr.num_bits = m;
-        hdr.num_hashes = k;
-    }
-    return hdr;
-}
-```
+:::code bloom-filter-d/c/pobitova-serializatsiia-ta.c
+:::code bloom-filter-d/cpp/pobitova-serializatsiia-ta.cpp
 :::
 
 ## SIMD-векторизація AVX2 та пакетне опитування
@@ -707,42 +348,8 @@ struct alignas(4) bloom_net_header {
 Для підвищення пропускної здатності на серверах з процесорами Intel Xeon або AMD EPYC використовується векторизоване опитування масивів ключів за допомогою SIMD-інструкцій (Single Instruction, Multiple Data). Замість перевірки ключів по одному, система обробляє пакет з 8 ключів паралельно у 256-бітних векторних регістрах `__m256i`:
 
 :::tabs
-```c
-#include <immintrin.h>
-#include <stdint.h>
-
-/* SIMD-векторизоване обчислення індексів у C */
-void bloom_check_simd_avx2(const uint8_t *bit_array, const uint64_t *h1_vec, const uint64_t *h2_vec, uint32_t *results) {
-    __m256i v_h1 = _mm256_loadu_si256((const __m256i*)h1_vec);
-    __m256i v_h2 = _mm256_loadu_si256((const __m256i*)h2_vec);
-    __m256i v_idx = _mm256_add_epi64(v_h1, v_h2);
-    /* Пакетизоване зчитування 4х64-бітних індексів за один такт */
-    _mm256_storeu_si256((__m256i*)results, v_idx);
-}
-```
-```cpp
-#include <immintrin.h>
-#include <cstdint>
-#include <array>
-
-namespace sys {
-
-// SIMD-векторизоване опитування пакету у C++
-void check_batch_avx2(const uint8_t* bits, std::span<const uint64_t, 4> h1,
-                      std::span<const uint64_t, 4> h2, std::array<bool, 4>& results) noexcept {
-    __m256i v1 = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(h1.data()));
-    __m256i v2 = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(h2.data()));
-    __m256i v_sum = _mm256_add_epi64(v1, v2);
-    alignas(32) std::uint64_t indices[4];
-    _mm256_store_si256(reinterpret_cast<__m256i*>(indices), v_sum);
-
-    for (std::size_t i = 0; i < 4; ++i) {
-        results[i] = ((bits[indices[i] >> 3] & (1u << (indices[i] & 7))) != 0);
-    }
-}
-
-} // namespace sys
-```
+:::code bloom-filter-d/c/simd-vektoryzatsiia-avx2.c
+:::code bloom-filter-d/cpp/simd-vektoryzatsiia-avx2.cpp
 :::
 
 ## Багатопотокова синхронізація та алокація у NUMA-вузлах
@@ -750,46 +357,8 @@ void check_batch_avx2(const uint8_t* bits, std::span<const uint64_t, 4> h1,
 У сучасних багатопроцесорних серверах із NUMA-архітектурою (Non-Uniform Memory Access) довільний розподіл бітового вектору між NUMA-вузлами призводить до суттєвих затримок міжпроцесорної шини UPI / QPI. Для максимальної пропускної здатності вставка та перевірка виконуються з прив'язкою пам'яті до локального NUMA-вузла:
 
 :::tabs
-```c
-#include <numa.h>
-#include <stdatomic.h>
-
-/* Алокація бітового вектору на локальному NUMA-вузлі */
-uint8_t *allocate_numa_bloom_bits(size_t bytes, int numa_node) {
-    return (uint8_t *)numa_alloc_onnode(bytes, numa_node);
-}
-
-/* Безблокувальна атомарна вставка біта */
-void bloom_set_bit_atomic(_Atomic uint8_t *bit_array, size_t bit_index) {
-    _Atomic uint8_t *byte_ptr = &bit_array[bit_index >> 3];
-    uint8_t mask = (uint8_t)(1u << (bit_index & 7));
-    atomic_fetch_or_explicit(byte_ptr, mask, memory_order_relaxed);
-}
-```
-```cpp
-#include <atomic>
-#include <vector>
-#include <cstddef>
-#include <memory_resource>
-
-class concurrent_bloom_filter {
-public:
-    explicit concurrent_bloom_filter(std::size_t num_bits)
-        : num_bits_(num_bits), bits_((num_bits + 7) / 8) {
-        for (auto& b : bits_) b.store(0, std::memory_order_relaxed);
-    }
-
-    void set_bit_atomic(std::size_t bit_index) noexcept {
-        std::size_t byte_idx = bit_index >> 3;
-        std::uint8_t mask = static_cast<std::uint8_t>(1u << (bit_index & 7));
-        bits_[byte_idx].fetch_or(mask, std::memory_order_relaxed);
-    }
-
-private:
-    std::size_t num_bits_;
-    std::vector<std::atomic<std::uint8_t>> bits_;
-};
-```
+:::code bloom-filter-d/c/bahatopotokova.c
+:::code bloom-filter-d/cpp/bahatopotokova.cpp
 :::
 
 Зверніть увагу: оскільки вставка біта є асоціативною та комутативною операцією (`A OR B == B OR A`), використання порядкового модифікатора `std::memory_order_relaxed` при атомарних викликах `fetch_or` забезпечує відсутність накладних витрат бар'єрів пам'яті (Memory Barriers).
@@ -808,48 +377,8 @@ C[i] = A[i] | B[i],  для всіх i від 0 до m-1
 еквівалентне створенню єдиного фільтра C, до якого вставили всі елементи з об'єднання множин S_A та S_B.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <size_t.h>
-
-/* Векторизоване побітове об'єднання двох фільтрів Блума у C */
-void bloom_union_fast(uint8_t *dst, const uint8_t *src, size_t bytes) {
-    size_t i = 0;
-    /* Ущільнена обробка по 64 біти (8 байтів) за такт */
-    for (; i + 7 < bytes; i += 8) {
-        uint64_t *d64 = (uint64_t *)&dst[i];
-        const uint64_t *s64 = (const uint64_t *)&src[i];
-        *d64 |= *s64;
-    }
-    for (; i < bytes; i++) {
-        dst[i] |= src[i];
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <cstddef>
-#include <algorithm>
-
-namespace sys {
-
-// Метод об'єднання бітових векторів двох фільтрів у C++
-void merge_bloom_filters(std::vector<std::uint8_t>& dst, const std::vector<std::uint8_t>& src) noexcept {
-    std::size_t min_bytes = std::min(dst.size(), src.size());
-    std::size_t i = 0;
-    for (; i + 7 < min_bytes; i += 8) {
-        auto* d64 = reinterpret_cast<std::uint64_t*>(&dst[i]);
-        const auto* s64 = reinterpret_cast<const std::uint64_t*>(&src[i]);
-        *d64 |= *s64;
-    }
-    for (; i < min_bytes; ++i) {
-        dst[i] |= src[i];
-    }
-}
-
-} // namespace sys
-```
+:::code bloom-filter-d/c/mnozhynni-pobitovi.c
+:::code bloom-filter-d/cpp/mnozhynni-pobitovi.cpp
 :::
 
 ## Обробка помилок та крайні випадки
@@ -904,43 +433,8 @@ void merge_bloom_filters(std::vector<std::uint8_t>& dst, const std::vector<std::
 У сучасних версіях ядра Linux (починаючи з 5.16) eBPF надає вбудовану тип-карту Блума:
 
 :::tabs
-```c
-#include <linux/bpf.h>
-#include <bpf/bpf_helpers.h>
-
-struct {
-    __uint(type, BPF_MAP_TYPE_BLOOM_FILTER);
-    __uint(key_size, 0);
-    __uint(value_size, sizeof(uint32_t));
-    __uint(max_entries, 1000000);
-    __uint(map_extra, 5); /* k = 5 хеш-функцій */
-} bloom_map SEC(".maps");
-
-SEC("xdp")
-int filter_packets(struct xdp_md *ctx) {
-    uint32_t src_ip = 0x01020304;
-    /* Перевірка IP у фільтрі Блума eBPF */
-    long err = bpf_map_peek_elem(&bloom_map, &src_ip);
-    if (err == -ENOENT) {
-        /* Елемента немає в базі - пропускаємо пакет */
-        return XDP_PASS;
-    }
-    return XDP_DROP;
-}
-```
-```cpp
-// Приклад отримання статистики через RocksDB C++ API
-#include <rocksdb/db.h>
-#include <rocksdb/filter_policy.h>
-#include <iostream>
-
-void print_bloom_stats(rocksdb::DB* db) {
-    std::string stats_str;
-    if (db->GetProperty("rocksdb.sstables", &stats_str)) {
-        std::cout << "RocksDB SSTable & Bloom Filter Stats:\n" << stats_str << '\n';
-    }
-}
-```
+:::code bloom-filter-d/c/prostezhennia-ta.c
+:::code bloom-filter-d/cpp/prostezhennia-ta.cpp
 :::
 
 Простеження заповнення фільтра у реальному часі через `tracepoints` виконується за допомогою `bpftrace`:

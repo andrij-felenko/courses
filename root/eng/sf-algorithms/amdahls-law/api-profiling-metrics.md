@@ -53,44 +53,8 @@
 Фіксація потоку гарантує, що його стек, локальні змінні та кешовані структури залишаються в L1/L2 кеші того самого фізичного ядра. Це знижує латентність звернень до пам'яті й стабілізує результати бенчмаркінгу.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <pthread.h>
-#include <sched.h>
-#include <stdio.h>
-
-/* Прив'язка потоку thread до логічного ядра core_id через POSIX API */
-int pin_thread_to_core(pthread_t thread, int core_id) {
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(core_id, &cpuset);
-    int res = pthread_setaffinity_np(thread, sizeof(cpu_set_t), &cpuset);
-    if (res != 0) {
-        perror("Помилка встановлення афінності потоку");
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <thread>
-#include <pthread.h>
-#include <sched.h>
-#include <system_error>
-#include <iostream>
-
-// Прив'язка потоку std::thread до конкретного логічного ядра core_id
-void pin_thread_to_core(std::thread& th, int core_id) {
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(core_id, &cpuset);
-    
-    int rc = pthread_setaffinity_np(th.native_handle(), sizeof(cpu_set_t), &cpuset);
-    if (rc != 0) {
-        throw std::system_error(rc, std::generic_category(), "Не вдалося прив'язати потік до ядра");
-    }
-}
-```
+:::code api-profiling-metrics/c/main.c
+:::code api-profiling-metrics/cpp/main.cpp
 :::
 
 ### Конфігураційні змінні середовища OpenMP

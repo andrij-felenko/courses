@@ -21,38 +21,8 @@ G₁ ≅ G₂  ⇔  C(G₁) = C(G₂)
 Структура `optionblk` керує всіма аспектами поведінки алгоритму Nauty: від вибору генераторів груп автоморфізмів до підключення користувальницьких функцій розщеплення та ущільнення осередків.
 
 :::tabs
-```c
-typedef struct optionblk {
-    boolean getcanon;      /* TRUE: обчислити канонічний граф canon */
-    boolean digraph;       /* TRUE: орієнтований граф; FALSE: неорієнтований */
-    boolean writeautoms;   /* TRUE: друкувати генератори Aut(G) у stdout */
-    boolean writemarkers;  /* TRUE: друкувати маркери дерева пошуку */
-    int defaultptn;        /* TRUE: початкове розбиття є тотожно дискретним */
-    int cartesian;         /* Налаштування обчислення векторних продуктів */
-    int linelength;        /* Довжина рядка при виводі */
-    FILE *outfile;         /* Потік для текстового виводу результатів */
-    void (*userrefproc)(void*, int*, int*, int, int*, int*, set*, int*, int, int);
-    void (*userautomproc)(int, int*, int*, int, int, int);
-    void (*userlevelproc)(int*, int*, int, int*, int*, int, int, int);
-    void (*nodeaction)(graph*, int*, int*, int, int, int, int);
-    boolean tc_degree;     /* Пріоритет вибору цільового осередку за степенями */
-    boolean minvarbyfreq;  /* Варіація інваріанта за частотою кольорів */
-    int maxinvarlevel;     /* Максимальний рівень використання важких інваріантів */
-    int invararg;          /* Додатковий параметр інваріанта */
-} optionblk;
-```
-```cpp
-// У C++ структура використовується через extern "C" або виклик з заголовків nauty.h:
-extern "C" {
-#include "nauty.h"
-}
-
-// У C++ об'єкт налаштувань ініціалізується макросом:
-optionblk options;
-DEFAULTOPTIONS_GRAPH(&options);
-options.getcanon = TRUE;
-options.writeautoms = FALSE;
-```
+:::code api-nauty-tracer/c/dokladnyi-opys.h
+:::code api-nauty-tracer/cpp/dokladnyi-opys.cpp
 :::
 
 ### Опис ключових полів `optionblk`
@@ -70,38 +40,8 @@ options.writeautoms = FALSE;
 Після виконання функції `nauty()` структура `statsblk` містить повні метрики обчислювального процесу:
 
 :::tabs
-```c
-typedef struct statsblk {
-    double grpsize1;       /* Порядок групи Aut(G) = grpsize1 * 10^(grpsize2) */
-    int grpsize2;          /* Порядок степеня 10 для великих груп */
-    int numorbits;         /* Кількість орбіт вершин під дією Aut(G) */
-    int numgenerators;     /* Кількість знайдених генераторів Aut(G) */
-    unsigned long numnodes;/* Кількість відвіданих вузлів у дереві пошуку */
-    unsigned long numbadleaves; /* Кількість некорисних листків */
-    int maxlevel;          /* Максимальна глибина рекурсивного дерева */
-    unsigned long canupdates;   /* Кількість оновлень канонічного підпису */
-    int invarcounts;       /* Кількість викликів важкого інваріанта */
-    int invarlevel;        /* Рівень, на якому інваріант був ефективним */
-} statsblk;
-```
-```cpp
-// Обгортка статистики в C++ для безпечного читання метрик:
-struct NautyStats {
-    double aut_group_size;
-    int num_orbits;
-    unsigned long nodes_visited;
-    unsigned long canonical_updates;
-
-    static NautyStats from_c_stats(const statsblk& stats) {
-        return NautyStats{
-            stats.grpsize1 * std::pow(10.0, stats.grpsize2),
-            stats.numorbits,
-            stats.numnodes,
-            stats.canupdates
-        };
-    }
-};
-```
+:::code api-nauty-tracer/c/dokladnyi-opys-struktury.c
+:::code api-nauty-tracer/cpp/dokladnyi-opys-struktury.cpp
 :::
 
 ### Опис метрик статистики
@@ -117,47 +57,8 @@ struct NautyStats {
 Значення `WORDSIZE` зазвичай становить 64 (на 64-бітних архітектурах).
 
 :::tabs
-```c
-// Спеціальні макроси Nauty для ефективного маніпулювання бітовими векторами:
-#define SETWORDSNEEDED(n) (((n) + WORDSIZE - 1) / WORDSIZE)
-#define GRAPHROW(g, v, m) ((g) + (size_t)(v) * (m))
-#define ADDONEEDGE(g, u, v, m) \
-    do { \
-        GRAPHROW(g, u, m)[SETWORDINDEX(v)] |= SETBIT(SETBITINDEX(v)); \
-        GRAPHROW(g, v, m)[SETWORDINDEX(u)] |= SETBIT(SETBITINDEX(u)); \
-    } while(0)
-#define DELONEEDGE(g, u, v, m) \
-    do { \
-        GRAPHROW(g, u, m)[SETWORDINDEX(v)] &= ~SETBIT(SETBITINDEX(v)); \
-        GRAPHROW(g, v, m)[SETWORDINDEX(u)] &= ~SETBIT(SETBITINDEX(u)); \
-    } while(0)
-#define ISELEMENT(setptr, pos) \
-    ((*(setptr + SETWORDINDEX(pos)) & SETBIT(SETBITINDEX(pos))) != 0)
-```
-```cpp
-// У C++ бітові макроси мапуються на виклики std::vector або std::span:
-class DenseGraphBuffer {
-public:
-    DenseGraphBuffer(size_t n) : n_(n), m_(SETWORDSNEEDED(n)), data_(n * m_, 0) {}
-
-    void add_edge(size_t u, size_t v) {
-        ADDONEEDGE(data_.data(), u, v, m_);
-    }
-
-    bool has_edge(size_t u, size_t v) const {
-        return ISELEMENT(GRAPHROW(data_.data(), u, m_), v);
-    }
-
-    graph* data() { return data_.data(); }
-    int m() const { return m_; }
-    int n() const { return static_cast<int>(n_); }
-
-private:
-    size_t n_;
-    int m_;
-    std::vector<graph> data_;
-};
-```
+:::code api-nauty-tracer/c/pamiat-ta-predstavlennia.c
+:::code api-nauty-tracer/cpp/pamiat-ta-predstavlennia.cpp
 :::
 
 ## Представлення розбиття: Масиви `lab` та `ptn`
@@ -178,22 +79,7 @@ private:
 Головна функція `nauty()` виконує побудову дерева індивідуалізації:
 
 :::tabs
-```c
-void nauty(
-    graph *g,           /* Вхідна матриця суміжності графа */
-    int *lab,           /* Вхідне/вихідне розбиття (порядок вершин) */
-    int *ptn,           /* Прапорці меж осередків розбиття */
-    int *active,        /* Масив активних осередків для 1-WL */
-    int *orbits,        /* Вихідний масив орбіт вершин */
-    optionblk *options, /* Параметри алгоритму */
-    statsblk *stats,    /* Вихідна статистика обчислень */
-    set *workspace,     /* Робочий масив пам'яті */
-    int worksize,       /* Розмір робочого масиву пам'яті */
-    int m,              /* Кількість setword на рядок графа */
-    int n,              /* Кількість вершин у графі */
-    graph *canon        /* Вихідний канонічний граф (якщо options->getcanon == TRUE) */
-);
-```
+:::code api-nauty-tracer/c/syhnatura-ta-robochyi.c
 ```cpp
 // У C++ виклик сигнатури nauty() обгортається у типбезпечний метод:
 namespace nauty_cpp {
@@ -209,134 +95,8 @@ namespace nauty_cpp {
 ## Повний робочий приклад обчислення канонічної форми
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include "nauty.h"
-
-int main(void) {
-    int n = 5;
-    int m = SETWORDSNEEDED(n);
-
-    nauty_check(WORDSIZE, m, n, NAUTYVERSION);
-
-    graph *g = (graph*)malloc(m * n * sizeof(graph));
-    graph *cg = (graph*)malloc(m * n * sizeof(graph));
-    int *lab = (int*)malloc(n * sizeof(int));
-    int *ptn = (int*)malloc(n * sizeof(int));
-    int *orbits = (int*)malloc(n * sizeof(int));
-
-    optionblk options;
-    statsblk stats;
-    DEFAULTOPTIONS_GRAPH(&options);
-    options.getcanon = TRUE;
-
-    EMPTYGRAPH(g, m, n);
-    ADDONEEDGE(g, 0, 1, m);
-    ADDONEEDGE(g, 1, 2, m);
-    ADDONEEDGE(g, 2, 3, m);
-    ADDONEEDGE(g, 3, 4, m);
-    ADDONEEDGE(g, 4, 0, m);
-
-    #define WORKSIZE (16 * SETWORDSNEEDED(5))
-    set workspace[WORKSIZE];
-
-    nauty(g, lab, ptn, NULL, orbits, &options, &stats, workspace, WORKSIZE, m, n, cg);
-
-    printf("Порядок групи автоморфізмів Aut(G): %.0f\n", stats.grpsize1);
-    printf("Кількість орбіт вершин: %d\n", stats.numorbits);
-    printf("Канонічне маркування вершин (lab):\n");
-    for (int i = 0; i < n; i++) {
-        printf("  v[%d] -> canonical[%d]\n", i, lab[i]);
-    }
-
-    free(g);
-    free(cg);
-    free(lab);
-    free(ptn);
-    free(orbits);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <memory>
-#include <cmath>
-
-extern "C" {
-#include "nauty.h"
-}
-
-class NautyWrapper {
-public:
-    explicit NautyWrapper(int n)
-        : n_(n), m_(SETWORDSNEEDED(n)),
-          g_(m_ * n_), cg_(m_ * n_),
-          lab_(n_), ptn_(n_), orbits_(n_) {
-        nauty_check(WORDSIZE, m_, n_, NAUTYVERSION);
-        EMPTYGRAPH(g_.data(), m_, n_);
-    }
-
-    void add_edge(int u, int v) {
-        ADDONEEDGE(g_.data(), u, v, m_);
-    }
-
-    struct Result {
-        double aut_group_size;
-        int num_orbits;
-        std::vector<int> canonical_labeling;
-    };
-
-    Result compute_canonical_form() {
-        optionblk options;
-        statsblk stats;
-        DEFAULTOPTIONS_GRAPH(&options);
-        options.getcanon = TRUE;
-
-        std::vector<set> workspace(16 * m_);
-
-        nauty(g_.data(), lab_.data(), ptn_.data(), nullptr,
-              orbits_.data(), &options, &stats,
-              workspace.data(), static_cast<int>(workspace.size()),
-              m_, n_, cg_.data());
-
-        return Result{
-            stats.grpsize1 * std::pow(10.0, stats.grpsize2),
-            stats.numorbits,
-            lab_
-        };
-    }
-
-private:
-    int n_;
-    int m_;
-    std::vector<graph> g_;
-    std::vector<graph> cg_;
-    std::vector<int> lab_;
-    std::vector<int> ptn_;
-    std::vector<int> orbits_;
-};
-
-int main() {
-    NautyWrapper g(5);
-    g.add_edge(0, 1);
-    g.add_edge(1, 2);
-    g.add_edge(2, 3);
-    g.add_edge(3, 4);
-    g.add_edge(4, 0);
-
-    auto res = g.compute_canonical_form();
-    std::cout << "Розмір Aut(G): " << res.aut_group_size << "\n";
-    std::cout << "Орбіти: " << res.num_orbits << "\n";
-    std::cout << "Канонічний порядок: ";
-    for (int v : res.canonical_labeling) {
-        std::cout << v << " ";
-    }
-    std::cout << "\n";
-    return 0;
-}
-```
+:::code api-nauty-tracer/c/povnyi-robochyi-pryklad.c
+:::code api-nauty-tracer/cpp/povnyi-robochyi-pryklad.cpp
 :::
 
 ## Розріджений формат (`sparsegraph`) та модуль Traces
@@ -346,36 +106,8 @@ int main() {
 ### Опис структури `sparsegraph`
 
 :::tabs
-```c
-typedef struct {
-    int nv;         /* Кількість вершин */
-    int nde;        /* Кількість спрямованих ребер */
-    int *v;         /* Масив індексів початку списку ребер для кожної вершини */
-    int *d;         /* Масив степенів вершин */
-    int *e;         /* Масив суміжних вершин */
-    size_t vlen;    /* Виділена довжина масиву v */
-    size_t dlen;    /* Виділена довжина масиву d */
-    size_t elen;    /* Виділена довжина масиву e */
-} sparsegraph;
-```
-```cpp
-// C++ RAII обгортка для структури sparsegraph:
-class SparseGraphWrapper {
-public:
-    sparsegraph sg;
-
-    SparseGraphWrapper() {
-        SG_INIT(sg);
-    }
-
-    ~SparseGraphWrapper() {
-        SG_FREE(sg);
-    }
-
-    SparseGraphWrapper(const SparseGraphWrapper&) = delete;
-    SparseGraphWrapper& operator=(const SparseGraphWrapper&) = delete;
-};
-```
+:::code api-nauty-tracer/c/opys-struktury-sparsegraph.c
+:::code api-nauty-tracer/cpp/opys-struktury-sparsegraph.cpp
 :::
 
 ### Порівняння Nauty та Traces

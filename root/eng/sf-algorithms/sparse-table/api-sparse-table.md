@@ -24,24 +24,7 @@ typedef struct {
     int32_t *data;       /* Неперервний буфер розміру (levels * n) елементів */
 } sparse_table_t;
 ```
-```cpp
-/* Шаблонний клас розрідженої таблиці мовою C++20 */
-template <typename T, typename BinaryOp = std::ranges::min>
-requires std::invocable<BinaryOp, T, T> && 
-         std::copy_constructible<T>
-class SparseTable {
-public:
-    using value_type = T;
-    using size_type = std::size_t;
-    using binary_op_type = BinaryOp;
-
-private:
-    BinaryOp op_;
-    size_type n_{0};
-    size_type levels_{0};
-    std::vector<T> table_;
-};
-```
+:::code api-sparse-table/cpp/oholoshennia-osnovnykh.cpp
 :::
 
 ### Детальний опис полів структури та типів-членів
@@ -196,18 +179,7 @@ public:
 Для використання в критично важливих промислових системах C-інтерфейс визначає стандартизовані статусні коди, а C++ підтримує безпечний тип `std::expected`.
 
 :::tabs
-```c
-/* Перелік статусних кодів операцій мовою C */
-typedef enum {
-    ST_SUCCESS                 =  0, /* Операцію виконано успішно */
-    ST_ERROR_NULL_POINTER      = -1, /* Передано нульовий вказівник */
-    ST_ERROR_EMPTY_ARRAY       = -2, /* Розмір масиву n дорівнює нулю */
-    ST_ERROR_ALLOCATION_FAILED = -3, /* Не вдалося виділити пам'ять */
-    ST_ERROR_INVALID_RANGE     = -4, /* Ліва межа більша за праву (L > R) */
-    ST_ERROR_OUT_OF_BOUNDS     = -5, /* Межі виходять за розмір масиву */
-    ST_ERROR_INTEGER_OVERFLOW  = -6  /* Переповнення розміру буфера */
-} st_status_t;
-```
+:::code api-sparse-table/c/diahnostyka-ta-rozshyreni.c
 ```cpp
 /* Перелік помилок для сучасного C++23 std::expected */
 enum class SparseTableError : std::uint8_t {
@@ -236,44 +208,8 @@ enum class SparseTableError : std::uint8_t {
 Розріджена таблиця неперетинних блоків забезпечує час виконання запиту `O(1)` для будь-яких напівгруп без вимоги ідемпотентності.
 
 :::tabs
-```c
-/* Інтерфейс Disjoint Sparse Table мовою C */
-typedef int32_t (*st_semigroup_op_t)(int32_t a, int32_t b);
-
-typedef struct {
-    size_t n;
-    size_t padded_n;
-    size_t levels;
-    st_semigroup_op_t op;
-    int32_t *table;
-} disjoint_sparse_table_t;
-
-disjoint_sparse_table_t *dst_create(const int32_t *arr, size_t n, st_semigroup_op_t op);
-bool dst_query(const disjoint_sparse_table_t *dst, size_t l, size_t r, int32_t *result);
-void dst_destroy(disjoint_sparse_table_t *dst);
-```
-```cpp
-/* Інтерфейс Disjoint Sparse Table мовою C++ */
-template <typename T, typename BinaryOp = std::plus<T>>
-requires std::invocable<BinaryOp, T, T> && std::copy_constructible<T>
-class DisjointSparseTable {
-public:
-    using value_type = T;
-    using size_type = std::size_t;
-
-    explicit DisjointSparseTable(std::span<const T> values, BinaryOp op = BinaryOp{});
-    [[nodiscard]] std::optional<T> query(size_type l, size_type r) const noexcept;
-    [[nodiscard]] size_type size() const noexcept;
-    [[nodiscard]] bool empty() const noexcept;
-
-private:
-    BinaryOp op_;
-    size_type n_{0};
-    size_type padded_n_{0};
-    size_type levels_{0};
-    std::vector<T> table_;
-};
-```
+:::code api-sparse-table/c/spetsyfikatsiia-interfeisu.h
+:::code api-sparse-table/cpp/spetsyfikatsiia-interfeisu.cpp
 :::
 
 ### Механізм константного запиту
@@ -314,41 +250,8 @@ public:
 Для миттєвого завантаження великих статичних таблиць без затримок ініціалізації використовується бінарний формат заголовка.
 
 :::tabs
-```c
-/* Заголовок та функції серіалізації мовою C */
-#pragma pack(push, 1)
-typedef struct {
-    char magic[4];        /* 'S', 'P', 'T', 'B' */
-    uint32_t version;     /* Версія формату: 1 */
-    uint32_t element_size;/* Розмір типу T у байтах */
-    uint64_t n;           /* Кількість елементів */
-    uint32_t levels;      /* Кількість рівнів */
-    uint32_t flags;       /* Бітові прапорці */
-    uint64_t checksum;    /* CRC64 / xxHash64 */
-} st_file_header_t;
-#pragma pack(pop)
-
-bool st_save_to_file(const sparse_table_t *st, const char *filepath);
-sparse_table_t *st_load_from_mmap(const char *filepath);
-```
-```cpp
-/* Інтерфейс серіалізації та mmap-відображення мовою C++ */
-struct alignas(8) FileHeader {
-    std::array<char, 4> magic{'S', 'P', 'T', 'B'};
-    std::uint32_t version{1};
-    std::uint32_t element_size{sizeof(std::int32_t)};
-    std::uint64_t n{0};
-    std::uint32_t levels{0};
-    std::uint32_t flags{0};
-    std::uint64_t checksum{0};
-};
-
-template <typename T>
-bool save_to_file(const SparseTable<T>& st, std::string_view path);
-
-template <typename T>
-std::optional<SparseTable<T>> load_from_mmap(std::string_view path);
-```
+:::code api-sparse-table/c/serializatsiia-ta.h
+:::code api-sparse-table/cpp/serializatsiia-ta.hpp
 :::
 
 ---
@@ -358,18 +261,7 @@ std::optional<SparseTable<T>> load_from_mmap(std::string_view path);
 Якщо бінарна операція вимагає збереження стану (наприклад, посилання на зовнішню матрицю ваг або географічні коефіцієнти), бібліотека підтримує користувацькі контексти.
 
 :::tabs
-```c
-/* Функтор зі станом через контекстний покажчик у C */
-typedef struct {
-    const double *weights;
-    size_t count;
-} weight_context_t;
-
-static inline size_t weight_min_op(size_t a, size_t b, const void *ctx) {
-    const weight_context_t *w = (const weight_context_t *)ctx;
-    return (w->weights[a] < w->weights[b]) ? a : b;
-}
-```
+:::code api-sparse-table/c/pidtrymka-korystuvatskykh.c
 ```cpp
 /* Функтор зі станом мовою C++ */
 struct CustomWeightMin {
@@ -414,27 +306,7 @@ typedef struct {
 
 sparse_table_t *st_create_in_arena(arena_t *arena, const int32_t *array, size_t n);
 ```
-```cpp
-/* Шаблонний клас із підтримкою поліморфного алокатора std::pmr */
-template <typename T, typename BinaryOp = std::ranges::min>
-class PmrSparseTable {
-public:
-    using allocator_type = std::pmr::polymorphic_allocator<T>;
-
-    explicit PmrSparseTable(std::span<const T> values, 
-                            BinaryOp op = BinaryOp{}, 
-                            allocator_type alloc = {});
-
-    [[nodiscard]] std::optional<T> query(std::size_t l, std::size_t r) const noexcept;
-    [[nodiscard]] allocator_type get_allocator() const noexcept;
-
-private:
-    BinaryOp op_;
-    std::size_t n_{0};
-    std::size_t levels_{0};
-    std::pmr::vector<T> table_;
-};
-```
+:::code api-sparse-table/cpp/intehratsiia-z.cpp
 :::
 
 ### Контракт поліморфного виділення
@@ -448,22 +320,7 @@ private:
 При збиранні бібліотеки у вигляді спільного динамічного модуля (`.so` на Linux / macOS або `.dll` на Windows) застосовуються такі правила експорту двійкового інтерфейсу:
 
 :::tabs
-```c
-/* Макроси експорту двійкових символів для мови C */
-#if defined(_WIN32) || defined(__CYGWIN__)
-    #if defined(SPARSE_TABLE_BUILD_DLL)
-        #define SPARSE_TABLE_API __declspec(dllexport)
-    #else
-        #define SPARSE_TABLE_API __declspec(dllimport)
-    #endif
-#elif defined(__GNUC__) && __GNUC__ >= 4
-    #define SPARSE_TABLE_API __attribute__((visibility("default")))
-#else
-    #define SPARSE_TABLE_API
-#endif
-
-SPARSE_TABLE_API sparse_table_t *st_create_api(const int32_t *arr, size_t n);
-```
+:::code api-sparse-table/c/dviikovyi-abi-ta-pravyla.c
 ```cpp
 /* Експорт двійкового C++ інтерфейсу через extern "C" для сумісності */
 extern "C" {

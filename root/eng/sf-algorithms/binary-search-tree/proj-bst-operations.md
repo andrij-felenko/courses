@@ -14,89 +14,7 @@
 
 Ось повний файл. Пошук тут — цикл (рекурсія в ньому нічого не додає, лише кадри стека), решта рекурсивна за формою піддерева. Нове проти начерків — три останні функції (`inorder`, `height`, `destroy`) і `main`, що все це проганяє:
 
-```cpp
-#include <cstdio>
-
-struct Node {
-    int   key;
-    Node* left  = nullptr;
-    Node* right = nullptr;
-    explicit Node(int k) : key(k) {}
-};
-
-// Пошук: цикл до збігу або до пустки. O(h).
-Node* find(Node* t, int key) {
-    while (t && t->key != key)
-        t = (key < t->key) ? t->left : t->right;
-    return t;                       // вузол або nullptr
-}
-
-// Вставка: спуск + новий листок; повертає корінь піддерева. O(h).
-Node* insert(Node* t, int key) {
-    if (!t) return new Node(key);              // місце знайдено
-    if      (key < t->key) t->left  = insert(t->left,  key);
-    else if (key > t->key) t->right = insert(t->right, key);
-    return t;                                  // key == t->key: дублікат ігноруємо
-}
-
-// Найлівіший вузол піддерева — in-order-наступник. O(h).
-Node* min_node(Node* t) { while (t->left) t = t->left; return t; }
-
-// Видалення: три випадки, двоє дітей — через наступника. O(h).
-Node* erase(Node* t, int key) {
-    if (!t) return nullptr;
-    if      (key < t->key) t->left  = erase(t->left,  key);
-    else if (key > t->key) t->right = erase(t->right, key);
-    else {                                     // знайшли вузол
-        if (!t->left)  { Node* r = t->right; delete t; return r; }   // 0/1 дитина
-        if (!t->right) { Node* l = t->left;  delete t; return l; }
-        Node* s = min_node(t->right);          // наступник
-        t->key   = s->key;                     // копіюємо його ключ у нашу діру
-        t->right = erase(t->right, s->key);    // і зносимо наступника (легкий випадок)
-    }
-    return t;
-}
-
-// Симетричний обхід: ліве, вузол, праве → ключі за зростанням. O(n).
-void inorder(Node* t) {
-    if (!t) return;
-    inorder(t->left);
-    printf("%d ", t->key);
-    inorder(t->right);
-}
-
-// Висота: найдовший шлях у РЕБРАХ; порожнє дерево = -1, лист = 0. O(n).
-int height(Node* t) {
-    if (!t) return -1;
-    int l = height(t->left);
-    int r = height(t->right);
-    return 1 + (l > r ? l : r);
-}
-
-// Знесення: спершу обидві дитини, потім сам вузол (post-order). O(n).
-void destroy(Node* t) {
-    if (!t) return;
-    destroy(t->left);
-    destroy(t->right);
-    delete t;
-}
-
-int main() {
-    Node* root = nullptr;
-    int keys[] = {50, 30, 70, 20, 40, 60, 80, 35, 45};
-    for (int k : keys) root = insert(root, k);
-
-    printf("in-order: ");    inorder(root); printf("\n");
-    printf("height  : %d\n", height(root));
-    printf("find 45 : %s\n", find(root, 45) ? "є" : "нема");
-
-    root = erase(root, 30);          // вузол із двома дітьми
-    printf("after 30: ");    inorder(root); printf("\n");
-
-    destroy(root);                   // повернути всю пам'ять
-    return 0;
-}
-```
+:::code proj-bst-operations/cpp/usia-prohrama.cpp
 
 Запуск друкує:
 
@@ -125,18 +43,7 @@ after 30: 20 35 40 45 50 60 70 80
 
 Рекурсивний `insert` елегантний, але носить приховану ціну — кадр стека на кожен рівень. Ітеративний спуск її прибирає, і тут є гарний трюк. Наївний цикл мусив би тягти вказівник на батька, щоб було до чого причепити новий листок. Але можна інакше — вести **вказівник на вказівник**:
 
-```cpp
-Node* insert_iter(Node*& root, int key) {
-    Node** p = &root;                 // p дивиться на той вказівник, який, можливо, зміниться
-    while (*p) {
-        Node* t = *p;
-        if      (key < t->key) p = &t->left;
-        else if (key > t->key) p = &t->right;
-        else return t;                // ключ уже є
-    }
-    return *p = new Node(key);         // *p — саме та порожня комірка; сюди й садимо
-}
-```
+:::code proj-bst-operations/cpp/spusk-bez-rekursii-node.cpp
 
 `p` тримає адресу **комірки-вказівника**, у яку ми, можливо, покладемо нового листка: спершу це сам `root`, далі — поле `left` чи `right` вузла, крізь який проходимо. Коли `*p` виявляється `nullptr`, ми стоїмо рівно над «дірою», про яку каже теорія вставки, — і `*p = new Node(key)` заповнює її, автоматично оновивши потрібне поле батька (або `root`, якщо дерево було порожнє). Жодного окремого випадку для кореня, жодного вказівника на батька: та сама комірка, крізь яку ми дивилися, і є місце під листок.
 
@@ -144,25 +51,7 @@ Node* insert_iter(Node*& root, int key) {
 
 Наш `erase` для двох дітей **копіює ключ** наступника в діру, а тоді зносить наступника. Просто — і для чисел цілком добре. Але придивись: ключ 35 «переїхав» з одного вузла в інший. Якщо десь зовні хтось тримав вказівник саме на **вузол** зі значенням, а не на ключ, — після нашої операції той вказівник раптом дивиться на інше значення. Тому стандартні впорядковані контейнери (`std::map`, `std::set`) роблять інакше: вони **фізично зчеплюють** вузол наступника на місце видаленого, не чіпаючи чужих значень. Стандарт вимагає, щоб видалення псувало посилання лише на **сам** видалений елемент, а не на випадкового сусіда, — а це можливо тільки перечіпленням вузлів, не копіюванням ключів.
 
-```cpp
-Node* erase_splice(Node* t, int key) {
-    if (!t) return nullptr;
-    if      (key < t->key) t->left  = erase_splice(t->left,  key);
-    else if (key > t->key) t->right = erase_splice(t->right, key);
-    else {
-        if (!t->left)  { Node* r = t->right; delete t; return r; }
-        if (!t->right) { Node* l = t->left;  delete t; return l; }
-        Node* par = t, *s = t->right;          // шукаємо наступника й ЙОГО батька
-        while (s->left) { par = s; s = s->left; }
-        if (par != t) { par->left = s->right;  s->right = t->right; }
-        // (якщо par == t, наступник — прямий правий син: його right уже на місці)
-        s->left = t->left;                     // наступник переймає піддерева жертви
-        delete t;
-        return s;                              // і стає новим коренем піддерева
-    }
-    return t;
-}
-```
+:::code proj-bst-operations/cpp/vydaliaty-chesnishe.cpp
 
 Наступник не має лівої дитини (він найлівіший), тому від'єднати його легко: на його місце підіймається його ж праве піддерево. Далі він переймає обидва піддерева видаленого вузла й повертається нагору новим коренем. Значення жодного вузла не зсунулося — переставили самі вузли.
 
@@ -172,20 +61,7 @@ Node* erase_splice(Node* t, int key) {
 
 Ручний `delete` легко забути, тож у справжньому коді власність часто віддають **розумним вказівникам**. Заміни сирі поля на `std::unique_ptr<Node>` — і вони стануть **власниками**: коли гине вузол, його деструктор сам знищить дітей, знову post-order, без жодного `destroy`:
 
-```cpp
-struct Node {
-    int key;
-    std::unique_ptr<Node> left, right;
-    explicit Node(int k) : key(k) {}
-};
-
-void insert(std::unique_ptr<Node>& t, int key) {
-    if (!t) { t = std::make_unique<Node>(key); return; }
-    if      (key < t->key) insert(t->left,  key);
-    else if (key > t->key) insert(t->right, key);
-}
-// коли root вийде з області видимості — усе дерево звільниться саме́.
-```
+:::code proj-bst-operations/cpp/prybraty-za-soboiu-delete.cpp
 
 Це принцип RAII: час життя вузла прив'язаний до власника, а не до того, чи згадав програміст про `delete`. Витік стає структурно неможливим. Ціну, щоправда, платить не пам'ять, а стек: і рекурсивний `destroy`, і ланцюг деструкторів `unique_ptr` занурюються на всю **висоту** дерева. На гарному дереві висота близько log₂ n — дрібниця. Але на виродженому ланцюгу заввишки n цей спуск має n вкладених кадрів — і на великому відсортованому вході рекурсія [переповнить системний стек](root:sf-lang/stack-overflow) та обвалить програму жорстким аварійним завершенням. Тому ітеративні спуски (як `insert_iter`) — не лише про швидкість: вони не бояться глибини.
 

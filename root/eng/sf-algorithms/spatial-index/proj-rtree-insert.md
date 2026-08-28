@@ -6,52 +6,11 @@
 
 Єдина величина, якою R-дерево міряє свої рішення, — площа. Треба вміти чотири речі: порахувати площу коробки, скласти дві коробки в найменшу спільну, дізнатися, у скільки площі обійдеться впустити в коробку ще один запис, і перевірити, чи дві коробки взагалі перетинаються.
 
-```cpp
-#include <algorithm>
-#include <cmath>
-#include <limits>
-#include <vector>
-
-struct Rect { double x1, y1, x2, y2; };        // x1 ≤ x2, y1 ≤ y2
-
-static double area(const Rect& r) { return (r.x2 - r.x1) * (r.y2 - r.y1); }
-
-static Rect unite(const Rect& a, const Rect& b) {           // спільний MBR
-    return Rect{ std::min(a.x1, b.x1), std::min(a.y1, b.y1),
-                 std::max(a.x2, b.x2), std::max(a.y2, b.y2) };
-}
-
-static double enlargement(const Rect& box, const Rect& add) {
-    return area(unite(box, add)) - area(box);               // ціна впустити add
-}
-
-static bool intersects(const Rect& a, const Rect& b) {
-    return !(a.x2 < b.x1 || b.x2 < a.x1 || a.y2 < b.y1 || b.y2 < a.y1);
-}
-```
+:::code proj-rtree-insert/cpp/mirka.cpp
 
 Вузол — це масив записів і прапорець, листок він чи внутрішній. Запис у листку тримає коробку об'єкта і його номер; запис усередині — коробку піддерева і вказівник на нього. Заповнення тримають між m і M, як у [B-дереві](root:sf-data/b-tree), тому масив зарезервовано на M+1: рівно на одну мить після вставки вузол буває переповнений, і саме тоді його ділять.
 
-```cpp
-static const int M = 4;      // максимум записів у вузлі (у житті — скільки влазить у сторінку)
-static const int m = 2;      // мінімум; Гуттман радить 30–40 % від M
-
-struct Node;
-struct Entry { Rect box; Node* child; int id; };   // child або id — залежно від рівня
-
-struct Node {
-    bool leaf;
-    Node* parent;
-    std::vector<Entry> e;
-    explicit Node(bool lf) : leaf(lf), parent(nullptr) { e.reserve(M + 1); }
-};
-
-static Rect cover(const Node* n) {                 // MBR усього вузла
-    Rect r = n->e[0].box;
-    for (size_t i = 1; i < n->e.size(); ++i) r = unite(r, n->e[i].box);
-    return r;
-}
-```
+:::code proj-rtree-insert/cpp/mirka-2.cpp
 
 ### Куди спускатися
 
@@ -59,21 +18,7 @@ static Rect cover(const Node* n) {                 // MBR усього вузл�
 
 При рівному прирості беруть меншу коробку. Найчастіше рівність — це два нулі: запис уже лежить усередині обох. Тоді дешевше довантажити тісний вузол, ніж і без того великий, — великому ще стане куди рости, а малий бажано лишити малим.
 
-```cpp
-static int chooseSubtree(const Node* n, const Rect& add) {
-    int best = 0;
-    double bestEnl = std::numeric_limits<double>::infinity();
-    double bestArea = std::numeric_limits<double>::infinity();
-    for (size_t i = 0; i < n->e.size(); ++i) {
-        double enl = enlargement(n->e[i].box, add);
-        double ar  = area(n->e[i].box);
-        if (enl < bestEnl || (enl == bestEnl && ar < bestArea)) {
-            best = (int)i; bestEnl = enl; bestArea = ar;
-        }
-    }
-    return best;
-}
-```
+:::code proj-rtree-insert/cpp/kudy-spuskatysia.cpp
 
 ### Розщеплення: квадратичний алгоритм Гуттмана
 
@@ -81,122 +26,19 @@ static int chooseSubtree(const Node* n, const Rect& add) {
 
 Хід її думки такий. Спершу знайти двох, кому найгірше разом: для кожної пари порахувати, скільки **порожнечі** з'явиться, якщо їх накрити спільною коробкою, — площа об'єднання мінус площі обох. Пара з найбільшим d — це та, що ніколи не повинна опинитися в одному вузлі, тож вона й стає зернами двох груп.
 
-```cpp
-static void pickSeeds(const std::vector<Entry>& all, int& s1, int& s2) {
-    double worst = -std::numeric_limits<double>::infinity();
-    s1 = 0; s2 = 1;
-    for (size_t i = 0; i < all.size(); ++i)
-        for (size_t j = i + 1; j < all.size(); ++j) {
-            double d = area(unite(all[i].box, all[j].box))
-                     - area(all[i].box) - area(all[j].box);
-            if (d > worst) { worst = d; s1 = (int)i; s2 = (int)j; }
-        }
-}
-```
+:::code proj-rtree-insert/cpp/rozshcheplennia.cpp
 
 Далі решту записів роздають по одному. Черговість тут важить не менше за самий вибір групи: коробки груп ростуть із кожним прийнятим записом, і що більшими вони стануть, то менше різниці, куди класти наступного — усі різниці розмиються. Тому першими розбирають тих, у кого перевага **найвиразніша**: рахують приріст в обидві групи й беруть запис із найбільшим |d₁ − d₂|. Байдужі почекають — їм і пізніше буде байдуже.
 
 Останнє в цьому коді — рядок про m. Якщо одній групі лишилося рівно стільки нерозібраних записів, скільки їй бракує до мінімуму, усі вони йдуть туди без розмов: вузол, заповнений менше ніж на m, зруйнував би гарантію висоти, заради якої дерево й балансують.
 
-```cpp
-static Node* quadraticSplit(Node* n) {
-    std::vector<Entry> all;
-    all.swap(n->e);                        // забираємо всі M+1 записів
-
-    int s1, s2;
-    pickSeeds(all, s1, s2);
-
-    Node* nn = new Node(n->leaf);
-    n->e.push_back(all[s1]);   Rect b1 = all[s1].box;
-    nn->e.push_back(all[s2]);  Rect b2 = all[s2].box;
-
-    std::vector<char> used(all.size(), 0);
-    used[s1] = used[s2] = 1;
-    size_t left = all.size() - 2;
-
-    while (left > 0) {
-        // групі бракує записів до m — віддаємо їй усе, що лишилось
-        if (n->e.size() + left == (size_t)m || nn->e.size() + left == (size_t)m) {
-            bool toFirst = (n->e.size() + left == (size_t)m);
-            for (size_t i = 0; i < all.size(); ++i) if (!used[i]) {
-                if (toFirst) { n->e.push_back(all[i]);  b1 = unite(b1, all[i].box); }
-                else         { nn->e.push_back(all[i]); b2 = unite(b2, all[i].box); }
-            }
-            break;
-        }
-        // pickNext: запис із найвиразнішою перевагою
-        int pick = -1; double bestDiff = -1.0;
-        for (size_t i = 0; i < all.size(); ++i) {
-            if (used[i]) continue;
-            double diff = std::fabs(enlargement(b1, all[i].box)
-                                  - enlargement(b2, all[i].box));
-            if (diff > bestDiff) { bestDiff = diff; pick = (int)i; }
-        }
-        double d1 = enlargement(b1, all[pick].box);
-        double d2 = enlargement(b2, all[pick].box);
-        bool toFirst = (d1 != d2)                 ? (d1 < d2)
-                     : (area(b1) != area(b2))     ? (area(b1) < area(b2))
-                                                  : (n->e.size() <= nn->e.size());
-        if (toFirst) { n->e.push_back(all[pick]);  b1 = unite(b1, all[pick].box); }
-        else         { nn->e.push_back(all[pick]); b2 = unite(b2, all[pick].box); }
-        used[pick] = 1;
-        --left;
-    }
-    if (!n->leaf)                              // дітям, що переїхали, — новий батько
-        for (Entry& en : nn->e) en.child->parent = nn;
-    return nn;
-}
-```
+:::code proj-rtree-insert/cpp/rozshcheplennia-2.cpp
 
 ### Вставка, підгін коробок і ріст угору
 
 Тепер усе збирається. Спуск до листка йде за `chooseSubtree`, дорогою нічого не чіпаючи. Запис лягає в листок; якщо той переповнився — ділиться. Далі йдемо знизу вгору: у кожного батька перераховуємо коробку під наш вузол, і, якщо внизу народився новий вузол, додаємо про нього запис — від чого батько й сам може переповнитися. Коли ділиться корінь, дерево росте вгору: над двома половинами ставлять новий корінь. Це єдиний спосіб, яким R-дерево додає рівень, — і саме тому всі листки лишаються на одній глибині.
 
-```cpp
-struct Tree {
-    Node* root;
-    Tree() : root(new Node(true)) {}
-
-    void insert(const Rect& box, int id) {
-        Node* n = root;
-        while (!n->leaf) n = n->e[chooseSubtree(n, box)].child;
-        n->e.push_back(Entry{ box, nullptr, id });
-        Node* split = (n->e.size() > (size_t)M) ? quadraticSplit(n) : nullptr;
-        adjustTree(n, split);
-    }
-
-    void adjustTree(Node* n, Node* nn) {
-        while (n != root) {
-            Node* p = n->parent;
-            for (Entry& en : p->e)
-                if (en.child == n) { en.box = cover(n); break; }
-            if (nn) {
-                nn->parent = p;
-                p->e.push_back(Entry{ cover(nn), nn, -1 });
-                nn = (p->e.size() > (size_t)M) ? quadraticSplit(p) : nullptr;
-            }
-            n = p;
-        }
-        if (nn) {                                  // розщепився корінь
-            Node* r = new Node(false);
-            root->parent = r; nn->parent = r;
-            r->e.push_back(Entry{ cover(root), root, -1 });
-            r->e.push_back(Entry{ cover(nn),   nn,   -1 });
-            root = r;
-        }
-    }
-
-    void query(const Rect& w, std::vector<int>& out) const { search(root, w, out); }
-
-    static void search(const Node* n, const Rect& w, std::vector<int>& out) {
-        for (const Entry& en : n->e) {
-            if (!intersects(en.box, w)) continue;  // ← усе відсікання дерева тут
-            if (n->leaf) out.push_back(en.id);
-            else search(en.child, w, out);
-        }
-    }
-};
-```
+:::code proj-rtree-insert/cpp/vstavka-pidhin-korobok-i.cpp
 
 Запит вікном — сім рядків, і в них немає ані слова про те, як дерево будувалося. Уся його швидкість схована в одному `continue`: скільки разів він спрацює, стільки роботи вдалося не робити.
 

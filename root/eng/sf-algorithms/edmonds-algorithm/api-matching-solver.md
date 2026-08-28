@@ -21,56 +21,8 @@ C-інтерфейс розроблений за класичним шаблон
 Переліки встановлюють можливі режими обчислень, коди помилок та інтерфейси користувацьких алокаторів пам'яті. Код `MATCHING_SUCCESS` гарантує успішне завершення операції. Коди від'ємних значень сигналізують про помилки виділення пам'яті або вихід за межі масиву.
 
 :::tabs
-```c
-typedef enum {
-    MATCHING_SUCCESS = 0,
-    MATCHING_ERROR_INVALID_PARAM = -1,
-    MATCHING_ERROR_OUT_OF_MEMORY = -2,
-    MATCHING_ERROR_INDEX_OUT_OF_BOUNDS = -3,
-    MATCHING_ERROR_GRAPH_TOO_LARGE = -4,
-    MATCHING_ERROR_STATE_CORRUPTED = -5,
-    MATCHING_ERROR_NULL_POINTER = -6
-} matching_error_t;
-
-typedef enum {
-    MATCHING_MODE_CARDINALITY = 0,
-    MATCHING_MODE_WEIGHTED_EXACT = 1,
-    MATCHING_MODE_WEIGHTED_APPROX = 2
-} matching_mode_t;
-
-typedef struct {
-    void* (*custom_malloc)(size_t size);
-    void (*custom_free)(void* ptr);
-    void* (*custom_realloc)(void* ptr, size_t new_size);
-} matching_allocator_t;
-```
-```cpp
-namespace graph::matching {
-
-enum class ErrorCode {
-    Success = 0,
-    InvalidParam = -1,
-    OutOfMemory = -2,
-    IndexOutOfBounds = -3,
-    GraphTooLarge = -4,
-    StateCorrupted = -5,
-    NullPointer = -6
-};
-
-enum class Mode {
-    Cardinality = 0,
-    WeightedExact = 1,
-    WeightedApprox = 2
-};
-
-struct Allocator {
-    std::function<void*(size_t)> custom_malloc;
-    std::function<void(void*)> custom_free;
-    std::function<void*(void*, size_t)> custom_realloc;
-};
-
-} // namespace graph::matching
-```
+:::code api-matching-solver/c/1-pereliky-typy-danykh-ta.h
+:::code api-matching-solver/cpp/1-pereliky-typy-danykh-ta.cpp
 :::
 
 ### 2. Структури результатів та статистики
@@ -78,57 +30,8 @@ struct Allocator {
 Структури результатів зберігають масиви обраних ребер, сумарну вагу, вектор парності вершин (вільні вершини позначаються як `-1`), а також обчислювальні метрики, такі як кількість згорнутих квіток та кількість виконаних розширених ітерацій BFS.
 
 :::tabs
-```c
-typedef struct {
-    int u;
-    int v;
-    double weight;
-} matching_edge_t;
-
-typedef struct {
-    size_t num_edges;
-    double total_weight;
-    matching_edge_t* edges;
-    int* mate_array;
-} matching_result_t;
-
-typedef struct {
-    uint64_t num_augmentations;
-    uint64_t num_blossoms_contracted;
-    uint64_t num_lca_searches;
-    double elapsed_milliseconds;
-} matching_stats_t;
-```
-```cpp
-namespace graph::matching {
-
-struct Edge {
-    int u;
-    int v;
-    double weight{1.0};
-
-    constexpr bool operator==(const Edge& other) const noexcept {
-        return (u == other.u && v == other.v) || (u == other.v && v == other.u);
-    }
-};
-
-struct Statistics {
-    uint64_t num_augmentations{0};
-    uint64_t num_blossoms_contracted{0};
-    uint64_t num_lca_searches{0};
-    double elapsed_milliseconds{0.0};
-};
-
-struct Result {
-    size_t num_edges{0};
-    double total_weight{0.0};
-    std::vector<Edge> edges;
-    std::vector<int> mate; // mate[u] містить індекс суміжної вершини або -1
-    Statistics stats;
-};
-
-} // namespace graph::matching
-```
+:::code api-matching-solver/c/2-struktury-rezultativ-ta.c
+:::code api-matching-solver/cpp/2-struktury-rezultativ-ta.cpp
 :::
 
 ### 3. Основні функції та методи управління графом
@@ -136,48 +39,8 @@ struct Result {
 Основні процедури забезпечують створення екземпляра розв'язувача, послідовне додавання ребер графа, виконання алгоритму Едмондса та коректне звільнення виділених ресурсів. Метод `reserve_edges` в C++ API дозволяє попередньо зарезервувати буфери пам'яті для уникнення повторних алокацій при додаванні багатьох ребер.
 
 :::tabs
-```c
-/* Створення та знищення графа */
-matching_graph_t* matching_graph_create(size_t num_vertices, matching_mode_t mode, const matching_allocator_t* alloc);
-void matching_graph_destroy(matching_graph_t* graph);
-
-/* Додавання ребра та аналіз складності */
-matching_error_t matching_graph_add_edge(matching_graph_t* graph, int u, int v, double weight);
-
-/* Обчислення паросполучення та звільнення пам'яті результату */
-matching_error_t matching_solve(matching_graph_t* graph, matching_result_t* out_result, matching_stats_t* out_stats);
-void matching_result_free(matching_result_t* result);
-```
-```cpp
-namespace graph::matching {
-
-class MatchingSolver {
-public:
-    explicit MatchingSolver(size_t num_vertices, Mode mode = Mode::Cardinality, const std::optional<Allocator>& alloc = std::nullopt);
-    ~MatchingSolver() noexcept;
-
-    MatchingSolver(const MatchingSolver&) = delete;
-    MatchingSolver& operator=(const MatchingSolver&) = delete;
-
-    MatchingSolver(MatchingSolver&&) noexcept;
-    MatchingSolver& operator=(MatchingSolver&&) noexcept;
-
-    void add_edge(int u, int v, double weight = 1.0);
-    void reserve_edges(size_t num_edges);
-
-    [[nodiscard]] Result solve();
-    [[nodiscard]] size_t num_vertices() const noexcept;
-    [[nodiscard]] size_t num_edges() const noexcept;
-
-    void clear() noexcept;
-
-private:
-    class Impl;
-    std::unique_ptr<Impl> impl_;
-};
-
-} // namespace graph::matching
-```
+:::code api-matching-solver/c/3-osnovni-funktsii-ta.h
+:::code api-matching-solver/cpp/3-osnovni-funktsii-ta.hpp
 :::
 
 ## Переходи станів та автоматно-структурний інваріант

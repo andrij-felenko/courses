@@ -10,24 +10,7 @@
 
 Тому все дерево живе у трьох масивах: `pts_` — точки, як прийшли (побудова їх не рухає), `idx_` — їхні номери, які побудова переставляє, і `nodes_` — вузли. Ключова властивість, з якої випливає решта: після побудови кожне піддерево володіє **суцільним відрізком** `idx_`. Тому вузлові досить пари чисел `[begin, end)`, а листок перебирається звичайним циклом по масиву.
 
-```cpp
-#include <algorithm>
-#include <cmath>
-#include <numeric>
-#include <queue>
-#include <vector>
-
-constexpr int D = 3;                 // вимірність відома під час компіляції
-
-struct Point { float c[D]; };
-
-struct Node {
-    float split;       // значення розрізу
-    int   axis;        // вісь розрізу; −1 → листок
-    int   right;       // правий нащадок; лівий — завжди наступний вузол
-    int   begin, end;  // відрізок idx_, яким володіє це піддерево
-};
-```
+:::code proj-kd-nearest/cpp/try-masyvy-i-zhodnoi.cpp
 
 Номера лівого нащадка тут немає навмисно. Побудова кладе вузол у масив і аж потім рекурсивно будує ліве піддерево — тож лівий нащадок завжди осідає безпосередньо за батьком, і його номер дорівнює `n + 1`. Це не лише чотири зекономлені байти: спуск у ближчу половину — а туди йдуть завжди — читає сусідню комірку пам'яті, найчастіше вже підтягнуту в кеш разом із батьком. За стрибок платить лише дальня половина, тобто та, яку ми здебільшого відсікаємо.
 
@@ -38,52 +21,7 @@ struct Node {
 
 ## Побудова: nth_element замість сортування
 
-```cpp
-class KdTree {
-public:
-    explicit KdTree(std::vector<Point> pts, int leaf = 16)
-        : pts_(std::move(pts)), idx_(pts_.size()), leaf_(leaf) {
-        std::iota(idx_.begin(), idx_.end(), 0);
-        nodes_.reserve(4 * idx_.size() / leaf_ + 8);      // стеля кількості вузлів
-        if (!idx_.empty()) build(0, static_cast<int>(idx_.size()));
-    }
-
-private:
-    std::vector<Point> pts_;
-    std::vector<int>   idx_;
-    std::vector<Node>  nodes_;
-    int                leaf_;
-
-    int build(int b, int e) {
-        const int me = static_cast<int>(nodes_.size());
-        nodes_.push_back(Node{0.0f, -1, -1, b, e});       // поки що листок
-        if (e - b <= leaf_) return me;
-
-        float lo[D], hi[D];
-        for (int a = 0; a < D; ++a) { lo[a] = +INFINITY; hi[a] = -INFINITY; }
-        for (int i = b; i < e; ++i)
-            for (int a = 0; a < D; ++a) {
-                const float v = pts_[idx_[i]].c[a];
-                lo[a] = std::min(lo[a], v);
-                hi[a] = std::max(hi[a], v);
-            }
-        int axis = 0;
-        for (int a = 1; a < D; ++a)
-            if (hi[a] - lo[a] > hi[axis] - lo[axis]) axis = a;
-        if (hi[axis] <= lo[axis]) return me;   // вся комірка — одна точка, ділити нічим
-
-        const int mid = b + (e - b) / 2;
-        std::nth_element(idx_.begin() + b, idx_.begin() + mid, idx_.begin() + e,
-                         [&](int i, int j) { return pts_[i].c[axis] < pts_[j].c[axis]; });
-
-        nodes_[me].axis  = axis;
-        nodes_[me].split = pts_[idx_[mid]].c[axis];
-        build(b, mid);                       // лівий нащадок = me + 1
-        const int r = build(mid, e);         // ⚠ не писати одразу в nodes_[me].right
-        nodes_[me].right = r;
-        return me;
-    }
-```
+:::code proj-kd-nearest/cpp/pobudova-nth-element.cpp
 
 **Чому не сортування.** Медіана потрібна лише як межа; повний порядок усередині половин нікому не здався. `std::nth_element` ставить на позицію `mid` рівно той елемент, що стояв би там після сортування, а решту тільки розкидає: ліворуч усе, що не більше, праворуч усе, що не менше. Стандарт обіцяє за це **лінійний час у середньому** — саме «в середньому», гарантії на найгірший випадок у стандарті немає. У libstdc++ це introselect: [швидкий вибір](root:sf-algorithms/quickselect) з лічильником глибини, а коли глибина вичерпалася, керування переходить до `__heap_select`, і найгірший випадок виходить O(N·log N) замість квадрата. У libc++ такої страховки довго не було й найгірший випадок був квадратичним — тож на чужу реалізацію в цьому місці краще не покладатися сліпо.
 
@@ -93,37 +31,7 @@ private:
 
 ## Найближчий: одне множення відкидає піддерево
 
-```cpp
-    static float dist2(const Point& a, const Point& b) {
-        float s = 0.0f;
-        for (int i = 0; i < D; ++i) { const float t = a.c[i] - b.c[i]; s += t * t; }
-        return s;
-    }
-
-    void nn(int n, const Point& q, int& best, float& bestD2) const {
-        const Node& nd = nodes_[n];
-        if (nd.axis < 0) {                                // листок — перебір підряд
-            for (int i = nd.begin; i < nd.end; ++i) {
-                const float d2 = dist2(pts_[idx_[i]], q);
-                if (d2 < bestD2) { bestD2 = d2; best = idx_[i]; }
-            }
-            return;
-        }
-        const float diff = q.c[nd.axis] - nd.split;
-        const int near = (diff < 0.0f) ? n + 1 : nd.right;
-        const int far  = (diff < 0.0f) ? nd.right : n + 1;
-        nn(near, q, best, bestD2);                        // спершу СВОЯ половина
-        if (diff * diff < bestD2) nn(far, q, best, bestD2);
-    }
-
-public:
-    int nearest(const Point& q) const {
-        int best = -1;
-        float bestD2 = INFINITY;
-        if (!nodes_.empty()) nn(0, q, best, bestD2);
-        return best;
-    }
-```
+:::code proj-kd-nearest/cpp/naiblyzhchyi-odne.cpp
 
 Умова «не спускатися, якщо |q_a − s| ≥ r» записана як `diff * diff < bestD2`: обидві частини піднесено до квадрата, тому корінь не потрібен ніде — ані тут, ані в `dist2`. Порядок множників при цьому не змінюється: квадрат зростає монотонно на невід'ємних числах, тож найближча точка за квадратом відстані — та сама, що й за відстанню.
 
@@ -131,27 +39,7 @@ public:
 
 ## k найближчих: максикупа рівно на k елементів
 
-```cpp
-    using Cand = std::pair<float, int>;      // (квадрат відстані, номер точки)
-
-    void knn(int n, const Point& q, int k, std::priority_queue<Cand>& heap) const {
-        const Node& nd = nodes_[n];
-        if (nd.axis < 0) {
-            for (int i = nd.begin; i < nd.end; ++i) {
-                const float d2 = dist2(pts_[idx_[i]], q);
-                if (static_cast<int>(heap.size()) < k) heap.emplace(d2, idx_[i]);
-                else if (d2 < heap.top().first) { heap.pop(); heap.emplace(d2, idx_[i]); }
-            }
-            return;
-        }
-        const float diff = q.c[nd.axis] - nd.split;
-        const int near = (diff < 0.0f) ? n + 1 : nd.right;
-        const int far  = (diff < 0.0f) ? nd.right : n + 1;
-        knn(near, q, k, heap);
-        const float r2 = (static_cast<int>(heap.size()) < k) ? INFINITY : heap.top().first;
-        if (diff * diff < r2) knn(far, q, k, heap);
-    }
-```
+:::code proj-kd-nearest/cpp/k-naiblyzhchykh-maksykupa.cpp
 
 `std::priority_queue` упорядковує через `std::less`, тобто згори лежить **найбільший** елемент — для нашої пари це найгірший зі збережених кандидатів. Він і є радіусом: доки купа не набрала k елементів, відсікати нема від чого й r² = ∞; щойно набрала — r² дорівнює `heap.top().first` і далі тільки спадає. Уся [черга з пріоритетом](root:sf-algorithms/priority-queue-adt) має розмір k, а не N, тож `push` і `pop` коштують log k, і жодного перерозподілу пам'яті після перших k вставок не буде.
 
@@ -161,44 +49,7 @@ public:
 
 Комірку вузла зберігати не треба й тут — вона обчислюється дорогою вниз: у нащадка комірка та сама, у якої одну межу пересунуто на `split`.
 
-```cpp
-    struct Box { float lo[D], hi[D]; };
-
-    static bool covers(const Box& w, const Box& c) {      // вікно накриває комірку цілком
-        for (int a = 0; a < D; ++a)
-            if (c.lo[a] < w.lo[a] || c.hi[a] > w.hi[a]) return false;
-        return true;
-    }
-    static bool disjoint(const Box& w, const Box& c) {
-        for (int a = 0; a < D; ++a)
-            if (c.hi[a] < w.lo[a] || c.lo[a] > w.hi[a]) return true;
-        return false;
-    }
-    static bool inside(const Box& w, const Point& p) {
-        for (int a = 0; a < D; ++a)
-            if (p.c[a] < w.lo[a] || p.c[a] > w.hi[a]) return false;
-        return true;
-    }
-
-    void range(int n, const Box& w, const Box& cell, std::vector<int>& out) const {
-        if (disjoint(w, cell)) return;                    // геть разом з усім піддеревом
-        const Node& nd = nodes_[n];
-        if (covers(w, cell)) {                            // ГУРТОМ, без перевірки точок
-            out.insert(out.end(), idx_.begin() + nd.begin, idx_.begin() + nd.end);
-            return;
-        }
-        if (nd.axis < 0) {
-            for (int i = nd.begin; i < nd.end; ++i)
-                if (inside(w, pts_[idx_[i]])) out.push_back(idx_[i]);
-            return;
-        }
-        Box l = cell, r = cell;
-        l.hi[nd.axis] = nd.split;
-        r.lo[nd.axis] = nd.split;
-        range(n + 1, w, l, out);
-        range(nd.right, w, r, out);
-    }
-```
+:::code proj-kd-nearest/cpp/vikno-hurtova-viddacha.cpp
 
 Гілка `covers` — це те, заради чого `begin` і `end` лежать у кожному вузлі: піддерево з мільйоном точок відповідає одним `insert` по суцільному діапазону, і жодну точку не перевірено окремо. Кореневу комірку беруть як габаритну коробку всієї хмари, а не як нескінченність: інакше найперша й найдешевша нагода віддати все гуртом пропаде.
 

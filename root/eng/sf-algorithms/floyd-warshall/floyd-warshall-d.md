@@ -206,69 +206,8 @@ next[i][j] = next[i][k]
 3. Поки поточна вершина `cur ≠ v`, переходимо: `cur = next[cur][v]` і записуємо `cur`. Для захисту від зависання у випадку нерозпізнаних нульових циклів лічильник кроків обмежується значенням `V`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-#define INF (1LL << 60)
-#define NIL (-1)
-
-void reconstruct_path(int u, int v, int n, int *next_matrix, int64_t *dist_matrix) {
-    if (dist_matrix[u * n + v] >= INF || next_matrix[u * n + v] == NIL) {
-        printf("Шлях між %d та %d не існує\n", u, v);
-        return;
-    }
-    
-    printf("Маршрут: %d", u);
-    int cur = u;
-    int steps = 0;
-    while (cur != v && steps < n) {
-        cur = next_matrix[cur * n + v];
-        if (cur == NIL) {
-            printf(" -> [Помилка розриву]");
-            break;
-        }
-        printf(" -> %d", cur);
-        steps++;
-    }
-    printf("\n");
-}
-```
-```cpp
-#include <vector>
-#include <optional>
-#include <iostream>
-#include <cstdint>
-
-constexpr int64_t INF = (1LL << 60);
-constexpr int NIL = -1;
-
-std::optional<std::vector<int>> reconstruct_path(int u, int v, int n, 
-                                                 const std::vector<int>& next_matrix,
-                                                 const std::vector<int64_t>& dist_matrix) {
-    if (dist_matrix[static_cast<size_t>(u) * n + v] >= INF || 
-        next_matrix[static_cast<size_t>(u) * n + v] == NIL) {
-        return std::nullopt;
-    }
-
-    std::vector<int> path;
-    path.push_back(u);
-    int cur = u;
-    int steps = 0;
-    
-    while (cur != v && steps < n) {
-        cur = next_matrix[static_cast<size_t>(cur) * n + v];
-        if (cur == NIL) return std::nullopt;
-        path.push_back(cur);
-        steps++;
-    }
-    
-    if (cur != v) return std::nullopt; // виявлено зациклення
-    return path;
-}
-```
+:::code floyd-warshall-d/c/main.c
+:::code floyd-warshall-d/cpp/main.cpp
 :::
 
 ---

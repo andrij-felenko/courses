@@ -141,79 +141,8 @@ Index = j · R + i
 Наведений нижче приклад демонструє роботу зі статичними та динамічними масивами у мовах C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void) {
-    // 1. Статичний масив на стеку
-    int static_arr[5] = {10, 20, 30, 40, 50};
-    printf("Статичний масив A[2] = %d\n", static_arr[2]);
-
-    // 2. Динамічний масив у купі (Heap)
-    size_t capacity = 4;
-    size_t size = 0;
-    int *dyn_arr = (int *)malloc(capacity * sizeof(int));
-    if (!dyn_arr) return 1;
-
-    // Додавання елементів з динамічним розширенням x2
-    for (int i = 0; i < 10; ++i) {
-        if (size == capacity) {
-            capacity *= 2;
-            int *temp = (int *)realloc(dyn_arr, capacity * sizeof(int));
-            if (!temp) {
-                free(dyn_arr);
-                return 1;
-            }
-            dyn_arr = temp;
-        }
-        dyn_arr[size++] = (i + 1) * 100;
-    }
-
-    printf("Динамічний масив: розмір = %zu, місткість = %zu\n", size, capacity);
-    printf("Елемент [5] = %d\n", dyn_arr[5]);
-
-    free(dyn_arr);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <array>
-#include <span>
-
-void print_span(std::span<const int> view) {
-    std::cout << "Елементи через span: ";
-    for (int val : view) {
-        std::cout << val << " ";
-    }
-    std::cout << "\n";
-}
-
-int main() {
-    // 1. Статичний безпечний масив (на стеку)
-    std::array<int, 5> static_arr = {10, 20, 30, 40, 50};
-    std::cout << "std::array A[2] = " << static_arr.at(2) << "\n";
-
-    // 2. Динамічний вектор (у купі)
-    std::vector<int> dyn_vec;
-    dyn_vec.reserve(4); // Заздалегідь резервуємо пам'ять
-
-    for (int i = 0; i < 10; ++i) {
-        dyn_vec.push_back((i + 1) * 100);
-    }
-
-    std::cout << "std::vector: розмір = " << dyn_vec.size() 
-              << ", місткість = " << dyn_vec.capacity() << "\n";
-
-    // 3. Неволодіючий зріз (C++20 span)
-    print_span(static_arr);
-    print_span(dyn_vec);
-
-    return 0;
-}
-```
+:::code array-d/c/main.c
+:::code array-d/cpp/main.cpp
 :::
 
 Ви побачите [повну реалізацію динамічного масиву із кеш-вирівнюванням](root:sf-algorithms/array/proj-array-operations.md) та підтримкою SIMD у відповідній практичній вставці.

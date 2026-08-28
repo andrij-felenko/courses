@@ -81,147 +81,8 @@
 У мові C++20 паттерн Visitor досягає своєї ідеальної форми завдяки статичному поліморфізму та концептам. Замість віртуальних функцій або вказівників на функції використовується метапрограмування на шаблонах. Компілятор під час генерації коду повністю інлайнить (вбудовує) тіла методів відвідувача у сам цикл обходу, забезпечуючи **нульову ціну абстракції (Zero-Cost Abstraction)**.
 
 :::tabs
-```c
-// C API (dfs_api.h) — реалізація на вказівниках на функції
-#ifndef DFS_API_H
-#define DFS_API_H
-
-#include <stddef.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct {
-    int num_vertices;
-    int** adj_matrix;
-} dfs_graph_t;
-
-typedef struct {
-    void (*initialize_vertex)(int u, void* user_data);
-    void (*start_vertex)(int u, void* user_data);
-    void (*discover_vertex)(int u, int discovery_time, void* user_data);
-    void (*examine_edge)(int u, int v, void* user_data);
-    void (*tree_edge)(int u, int v, void* user_data);
-    void (*back_edge)(int u, int v, void* user_data);
-    void (*forward_or_cross_edge)(int u, int v, void* user_data);
-    void (*finish_edge)(int u, int v, void* user_data);
-    void (*finish_vertex)(int u, int finish_time, void* user_data);
-} dfs_visitor_t;
-
-typedef struct {
-    bool stop_on_cycle;
-    bool process_all_components;
-} dfs_config_t;
-
-bool dfs_traverse(const dfs_graph_t* graph, 
-                  const dfs_visitor_t* visitor, 
-                  void* user_data, 
-                  const dfs_config_t* config);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif // DFS_API_H
-```
-```cpp
-// C++ API (dfs_visitor.hpp) — шаблон з C++20 концептами
-#ifndef DFS_VISITOR_HPP
-#define DFS_VISITOR_HPP
-
-#include <vector>
-#include <concepts>
-#include <cstddef>
-#include <cstdint>
-#include <utility>
-
-namespace algo {
-
-struct default_dfs_visitor {
-    void initialize_vertex(int /*u*/) noexcept {}
-    void start_vertex(int /*u*/) noexcept {}
-    void discover_vertex(int /*u*/, int /*d_time*/) noexcept {}
-    void examine_edge(int /*u*/, int /*v*/) noexcept {}
-    void tree_edge(int /*u*/, int /*v*/) noexcept {}
-    void back_edge(int /*u*/, int /*v*/) noexcept {}
-    void forward_or_cross_edge(int /*u*/, int /*v*/) noexcept {}
-    void finish_edge(int /*u*/, int /*v*/) noexcept {}
-    void finish_vertex(int /*u*/, int /*f_time*/) noexcept {}
-};
-
-template <typename V>
-concept DFSVisitor = requires(V v, int u, int target, int time) {
-    { v.initialize_vertex(u) };
-    { v.start_vertex(u) };
-    { v.discover_vertex(u, time) };
-    { v.examine_edge(u, target) };
-    { v.tree_edge(u, target) };
-    { v.back_edge(u, target) };
-    { v.forward_or_cross_edge(u, target) };
-    { v.finish_edge(u, target) };
-    { v.finish_vertex(u, time) };
-};
-
-enum class Color : std::uint8_t { White, Gray, Black };
-
-template <typename Graph, DFSVisitor Visitor>
-class DFSEngine {
-public:
-    static void run(const Graph& g, Visitor visitor) {
-        const std::size_t n = g.num_vertices();
-        std::vector<Color> color(n, Color::White);
-        std::vector<int> discovery_time(n, 0);
-        std::vector<int> finish_time(n, 0);
-        int timer = 0;
-
-        for (std::size_t u = 0; u < n; ++u) {
-            visitor.initialize_vertex(static_cast<int>(u));
-        }
-
-        auto visit = [&](auto& self, int u) -> void {
-            color[u] = Color::Gray;
-            discovery_time[u] = ++timer;
-            visitor.discover_vertex(u, discovery_time[u]);
-
-            for (int v : g.neighbors(u)) {
-                visitor.examine_edge(u, v);
-
-                if (color[v] == Color::White) {
-                    visitor.tree_edge(u, v);
-                    self(self, v);
-                    visitor.finish_edge(u, v);
-                } else if (color[v] == Color::Gray) {
-                    visitor.back_edge(u, v);
-                } else {
-                    visitor.forward_or_cross_edge(u, v);
-                }
-            }
-
-            color[u] = Color::Black;
-            finish_time[u] = ++timer;
-            visitor.finish_vertex(u, finish_time[u]);
-        };
-
-        for (std::size_t u = 0; u < n; ++u) {
-            if (color[u] == Color::White) {
-                visitor.start_vertex(static_cast<int>(u));
-                visit(visit, static_cast<int>(u));
-            }
-        }
-    }
-};
-
-template <typename Graph, typename Visitor>
-void depth_first_search(const Graph& g, Visitor&& visitor) {
-    DFSEngine<Graph, std::decay_t<Visitor>>::run(g, std::forward<Visitor>(visitor));
-}
-
-} // namespace algo
-
-#endif // DFS_VISITOR_HPP
-```
+:::code api-dfs/c/dfs_api.h
+:::code api-dfs/cpp/dfs_visitor.hpp
 :::
 
 ---
@@ -229,67 +90,8 @@ void depth_first_search(const Graph& g, Visitor&& visitor) {
 ### 5. Внутрішня реалізація виклику подій відвідувача
 
 :::tabs
-```c
-// Виклик події в мові C за допомогою безпечного макросу
-#define DFS_NOTIFY(event, ...) \
-    do { \
-        if (visitor && visitor->event) { \
-            visitor->event(__VA_ARGS__, user_data); \
-        } \
-    } while(0)
-
-static void dfs_internal_visit_c(const dfs_graph_t* g, int u, int* color, 
-                                int* d, int* f, int* timer, 
-                                const dfs_visitor_t* visitor, void* user_data) {
-    color[u] = 1; // GRAY
-    d[u] = ++(*timer);
-    DFS_NOTIFY(discover_vertex, u, d[u]);
-
-    for (int v = 0; v < g->num_vertices; v++) {
-        if (g->adj_matrix[u][v]) {
-            DFS_NOTIFY(examine_edge, u, v);
-            if (color[v] == 0) { // WHITE
-                DFS_NOTIFY(tree_edge, u, v);
-                dfs_internal_visit_c(g, v, color, d, f, timer, visitor, user_data);
-                DFS_NOTIFY(finish_edge, u, v);
-            } else if (color[v] == 1) { // GRAY
-                DFS_NOTIFY(back_edge, u, v);
-            } else { // BLACK
-                DFS_NOTIFY(forward_or_cross_edge, u, v);
-            }
-        }
-    }
-
-    color[u] = 2; // BLACK
-    f[u] = ++(*timer);
-    DFS_NOTIFY(finish_vertex, u, f[u]);
-}
-```
-```cpp
-// Прямий інлайнінг методів у C++20 (без виклику функцій через макроси або вказівники)
-template <typename Graph, DFSVisitor Visitor>
-void run_dfs_cpp_inlined(const Graph& g, Visitor& visitor, int u, 
-                         std::vector<Color>& color, int& timer) {
-    color[u] = Color::Gray;
-    visitor.discover_vertex(u, ++timer);
-
-    for (int v : g.neighbors(u)) {
-        visitor.examine_edge(u, v);
-        if (color[v] == Color::White) {
-            visitor.tree_edge(u, v);
-            run_dfs_cpp_inlined(g, visitor, v, color, timer);
-            visitor.finish_edge(u, v);
-        } else if (color[v] == Color::Gray) {
-            visitor.back_edge(u, v);
-        } else {
-            visitor.forward_or_cross_edge(u, v);
-        }
-    }
-
-    color[u] = Color::Black;
-    visitor.finish_vertex(u, ++timer);
-}
-```
+:::code api-dfs/c/5-vnutrishnia-realizatsiia.c
+:::code api-dfs/cpp/5-vnutrishnia-realizatsiia.cpp
 :::
 
 ---
@@ -301,192 +103,29 @@ void run_dfs_cpp_inlined(const Graph& g, Visitor& visitor, int u,
 #### 1. Детектор циклів (Cycle Detector Visitor)
 
 :::tabs
-```c
-// C-реалізація детектора циклів через контекст
-typedef struct {
-    bool has_cycle;
-    int cycle_u;
-    int cycle_v;
-} cycle_detector_context_t;
-
-void on_back_edge_c(int u, int v, void* user_data) {
-    cycle_detector_context_t* ctx = (cycle_detector_context_t*)user_data;
-    ctx->has_cycle = true;
-    ctx->cycle_u = u;
-    ctx->cycle_v = v;
-}
-```
-```cpp
-// C++20 реалізація детектора циклів
-#include <iostream>
-
-struct CycleDetectorVisitor : public algo::default_dfs_visitor {
-    bool has_cycle{false};
-    int cycle_src{-1};
-    int cycle_dst{-1};
-
-    void back_edge(int u, int v) noexcept {
-        has_cycle = true;
-        cycle_src = u;
-        cycle_dst = v;
-    }
-};
-```
+:::code api-dfs/c/1-detektor-tsykliv-cycle.c
+:::code api-dfs/cpp/1-detektor-tsykliv-cycle.cpp
 :::
 
 #### 2. Побудова топологічного сортування (Topological Sorter Visitor)
 
 :::tabs
-```c
-// C-реалізація топологічного сортування
-typedef struct {
-    int* order;
-    int index;
-} topo_sort_context_t;
-
-void on_finish_vertex_topo_c(int u, int finish_time, void* user_data) {
-    topo_sort_context_t* ctx = (topo_sort_context_t*)user_data;
-    ctx->order[ctx->index--] = u; // Заповнюємо масив з кінця
-}
-```
-```cpp
-// C++20 реалізація топологічного сортування
-#include <vector>
-#include <algorithm>
-
-class TopologicalSortVisitor : public algo::default_dfs_visitor {
-private:
-    std::vector<int> post_order_;
-
-public:
-    void finish_vertex(int u, int /*f_time*/) {
-        post_order_.push_back(u);
-    }
-
-    [[nodiscard]] std::vector<int> get_topological_order() const {
-        std::vector<int> result = post_order_;
-        std::reverse(result.begin(), result.end());
-        return result;
-    }
-};
-```
+:::code api-dfs/c/2-pobudova-topolohichnoho.c
+:::code api-dfs/cpp/2-pobudova-topolohichnoho.cpp
 :::
 
 #### 3. Підрахунок компонент зв'язності (Component Counter Visitor)
 
 :::tabs
-```c
-// C-реалізація розмітки компонент
-typedef struct {
-    int current_component;
-    int* component_map;
-} component_context_t;
-
-void on_start_vertex_c(int u, void* user_data) {
-    component_context_t* ctx = (component_context_t*)user_data;
-    ctx->current_component++;
-}
-
-void on_discover_vertex_comp_c(int u, int d_time, void* user_data) {
-    component_context_t* ctx = (component_context_t*)user_data;
-    ctx->component_map[u] = ctx->current_component;
-}
-```
-```cpp
-// C++20 реалізація розмітки компонент
-#include <vector>
-
-class ComponentLabelerVisitor : public algo::default_dfs_visitor {
-private:
-    int current_component_{-1};
-    std::vector<int> component_ids_;
-
-public:
-    explicit ComponentLabelerVisitor(std::size_t num_vertices)
-        : component_ids_(num_vertices, -1) {}
-
-    void start_vertex(int u) noexcept {
-        ++current_component_;
-    }
-
-    void discover_vertex(int u, int /*d_time*/) noexcept {
-        component_ids_[u] = current_component_;
-    }
-
-    [[nodiscard]] int num_components() const noexcept {
-        return current_component_ + 1;
-    }
-
-    [[nodiscard]] const std::vector<int>& component_ids() const noexcept {
-        return component_ids_;
-    }
-};
-```
+:::code api-dfs/c/3-pidrakhunok-komponent.c
+:::code api-dfs/cpp/3-pidrakhunok-komponent.cpp
 :::
 
 #### 4. Знаходження мостів та точок розчленування (Bridges & Articulation Points Visitor)
 
 :::tabs
-```c
-// C-реалізація обчислення мостів та lowlink
-typedef struct {
-    int* d;
-    int* low;
-    int timer;
-    bool* is_bridge_edge;
-} bridge_context_t;
-
-void on_discover_bridge_c(int u, int discovery_time, void* user_data) {
-    bridge_context_t* ctx = (bridge_context_t*)user_data;
-    ctx->d[u] = discovery_time;
-    ctx->low[u] = discovery_time;
-}
-
-void on_finish_edge_bridge_c(int u, int v, void* user_data) {
-    bridge_context_t* ctx = (bridge_context_t*)user_data;
-    if (ctx->low[v] < ctx->low[u]) {
-        ctx->low[u] = ctx->low[v];
-    }
-    if (ctx->low[v] > ctx->d[u]) {
-        // Ребро (u, v) є мостом!
-    }
-}
-```
-```cpp
-// C++20 реалізація знаходження мостів
-#include <vector>
-#include <algorithm>
-
-class BridgeFinderVisitor : public algo::default_dfs_visitor {
-private:
-    std::vector<int> d_;
-    std::vector<int> low_;
-    std::vector<std::pair<int, int>> bridges_;
-
-public:
-    explicit BridgeFinderVisitor(std::size_t n) : d_(n, 0), low_(n, 0) {}
-
-    void discover_vertex(int u, int time) noexcept {
-        d_[u] = time;
-        low_[u] = time;
-    }
-
-    void back_edge(int u, int v) noexcept {
-        low_[u] = std::min(low_[u], d_[v]);
-    }
-
-    void finish_edge(int u, int v) noexcept {
-        low_[u] = std::min(low_[u], low_[v]);
-        if (low_[v] > d_[u]) {
-            bridges_.push_back({u, v});
-        }
-    }
-
-    [[nodiscard]] const std::vector<std::pair<int, int>>& bridges() const noexcept {
-        return bridges_;
-    }
-};
-```
+:::code api-dfs/c/4-znakhodzhennia-mostiv-ta.c
+:::code api-dfs/cpp/4-znakhodzhennia-mostiv-ta.cpp
 :::
 
 ---

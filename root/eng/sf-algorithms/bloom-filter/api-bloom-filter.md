@@ -19,34 +19,8 @@
 У мові C11 класична реалізація фільтра Блума описується структурою `bloom_filter_t`. Динамічний масив `bits` виділяється у системному гіпі за допомогою викликів `aligned_alloc` або `posix_memalign` з обов'язковим вирівнюванням за межею 64 байтів. Це гарантує збіг меж масиву з фізичними кеш-лініями процесора та запобігає виникненню міжсторінкових розривам (Cache Line Split Access).
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-typedef struct {
-    uint8_t *bits;       /* Динамічний бітовий масив з 64-байтовим вирівнюванням */
-    size_t num_bits;     /* Загальна кількість бітів у векторі (m) */
-    size_t num_hashes;   /* Кількість хеш-функцій (k) */
-    size_t count;        /* Кількість успішно вставлених у фільтр елементів (n) */
-} bloom_filter_t;
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <cstddef>
-
-namespace sys {
-
-struct bloom_filter_data {
-    std::vector<std::uint8_t> bits; // Динамічний бітовий масив C++
-    std::size_t num_bits{0};        // Кількість бітів m
-    std::size_t num_hashes{0};      // Кількість хеш-функцій k
-    std::size_t count{0};           // Кількість елементів n
-};
-
-} // namespace sys
-```
+:::code api-bloom-filter/c/1-1-c-api-struktura-bloom.c
+:::code api-bloom-filter/cpp/1-1-c-api-struktura-bloom.cpp
 :::
 
 Кожне поле структури виконує строго визначену функцію в системній пам'яті:
@@ -68,52 +42,7 @@ struct bloom_filter_data {
 void bloom_filter_init_raii(void **bits, size_t size);
 void bloom_filter_free_raii(void *bits);
 ```
-```cpp
-#include <cstdint>
-#include <span>
-#include <vector>
-#include <string_view>
-#include <memory>
-
-namespace sys {
-
-class bloom_filter {
-public:
-    // Конструктор створює фільтр на основі очікуваної ємності n та бажаної помилки p
-    explicit bloom_filter(std::size_t expected_elements, double false_positive_rate);
-    
-    // Заборона копіювання задля уникнення важких алокацій
-    bloom_filter(const bloom_filter&) = delete;
-    bloom_filter& operator=(const bloom_filter&) = delete;
-
-    // Підтримка семантики переміщення
-    bloom_filter(bloom_filter&&) noexcept = default;
-    bloom_filter& operator=(bloom_filter&&) noexcept = default;
-    ~bloom_filter() noexcept = default;
-
-    // Вставка байтових ключів та рядкових представлень
-    void add(std::span<const std::uint8_t> key) noexcept;
-    void add(std::string_view key) noexcept;
-    
-    // Перевірка наявності ключів у фільтрі
-    [[nodiscard]] bool contains(std::span<const std::uint8_t> key) const noexcept;
-    [[nodiscard]] bool contains(std::string_view key) const noexcept;
-
-    // Очищення структури та отримання метрик
-    void clear() noexcept;
-    [[nodiscard]] std::size_t size_in_bytes() const noexcept;
-    [[nodiscard]] std::size_t element_count() const noexcept;
-    [[nodiscard]] double current_false_positive_rate() const noexcept;
-
-private:
-    std::size_t num_bits_;
-    std::size_t k_;
-    std::size_t count_{0};
-    std::vector<std::uint8_t> bits_;
-};
-
-} // namespace sys
-```
+:::code api-bloom-filter/cpp/1-2-c-api-raii-klas-sys.cpp
 :::
 
 ---
@@ -133,65 +62,8 @@ private:
 #### C та C++ API Ініціалізації
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-/**
- * Автоматично обчислює m і k та ініціалізує фільтр Блума.
- * 
- * Контракт виконання:
- * - expected_elements мусить бути більшим за 0.
- * - fp_rate мусить перебувати у відкритому інтервалі (0.0, 1.0).
- * 
- * @param filter Вказівник на виділену користувачем структуру bloom_filter_t.
- * @param expected_elements Очікувана кількість ключів (n).
- * @param fp_rate Допустима ймовірність хибнопозитивного спрацьовування (p).
- * @return true при успішному виділенні пам'яті, false у разі помилки malloc/aligned_alloc.
- */
-bool bloom_init(bloom_filter_t *filter, size_t expected_elements, double fp_rate);
-
-/**
- * Створює фільтр Блума з ручним специфікуванням точних параметрів m та k.
- * 
- * @param filter Вказівник на структуру фільтра.
- * @param num_bits Загальний розмір масиву в бітах (m).
- * @param num_hashes Кількість хеш-функцій (k).
- * @return true у разі успішної виділеної пам'яті, false при помилці.
- */
-bool bloom_init_explicit(bloom_filter_t *filter, size_t num_bits, size_t num_hashes);
-
-/**
- * Звільняє динамічний бітовий масив та скидає лічильники.
- * 
- * @param filter Вказівник на структуру фільтра Блума.
- */
-void bloom_free(bloom_filter_t *filter);
-```
-```cpp
-#include <memory>
-#include <cstddef>
-
-namespace sys {
-
-class bloom_filter_factory {
-public:
-    // Фабричний метод створення фільтра з логуванням та обробкою винятків
-    [[nodiscard]] static std::unique_ptr<bloom_filter> create(
-        std::size_t capacity, 
-        double target_fp_rate
-    );
-
-    // Створення фільтра з явним вказуванням розмірів вектору m і k
-    [[nodiscard]] static std::unique_ptr<bloom_filter> create_explicit(
-        std::size_t num_bits, 
-        std::size_t num_hashes
-    );
-};
-
-} // namespace sys
-```
+:::code api-bloom-filter/c/stdint.h
+:::code api-bloom-filter/cpp/c-ta-c-api-initsializatsii.hpp
 :::
 
 ---
@@ -207,56 +79,8 @@ public:
 #### C та C++ API Вставки та Перевірки
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-/**
- * Додає ключ до фільтра Блума.
- * 
- * Часова складність: O(k).
- * Потокобезпека: Потрібне зовнішнє блокування запису (Write Lock).
- * 
- * @param filter Вказівник на ініціалізований фільтр Блума.
- * @param data Вказівник на буфер ключа.
- * @param len Довжина буфера в байтах.
- */
-void bloom_add(bloom_filter_t *filter, const void *data, size_t len);
-
-/**
- * Перевіряє наявність ключа у фільтрі.
- * 
- * Часова складність: O(k) в найгіршому випадку, O(1) пересічно завдяки раній зупинці.
- * Потокобезпека: Дозволяється паралельне зчитання декількома потоками без блокувань.
- * 
- * @param filter Вказівник на фільтр Блума.
- * @param data Вказівник на буфер ключа.
- * @param len Довжина ключа у байтах.
- * @return false якщо ключ ГАРАНТОВАНО відсутній; true якщо ключ ІМОВІРНО є.
- */
-bool bloom_contains(const bloom_filter_t *filter, const void *data, size_t len);
-```
-```cpp
-#include <string_view>
-#include <span>
-#include <cstdint>
-
-namespace sys {
-
-class bloom_filter_ops {
-public:
-    static void add(bloom_filter& bf, std::string_view key) noexcept {
-        bf.add(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(key.data()), key.size()));
-    }
-
-    [[nodiscard]] static bool contains(const bloom_filter& bf, std::string_view key) noexcept {
-        return bf.contains(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(key.data()), key.size()));
-    }
-};
-
-} // namespace sys
-```
+:::code api-bloom-filter/c/stdint-2.h
+:::code api-bloom-filter/cpp/c-ta-c-api-vstavky-ta.hpp
 :::
 
 ---
@@ -274,73 +98,8 @@ public:
 ### C та C++ API Блочного фільтра
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-typedef struct __attribute__((aligned(64))) {
-    uint32_t buckets[16]; /* 16 слів * 32 біти = 512 бітів = 64 байти */
-} bloom_block_t;
-
-typedef struct {
-    bloom_block_t *blocks; /* Вирівняний масив 64-байтових кеш-блоків */
-    size_t num_blocks;     /* Загальна кількість блоків */
-    size_t k;              /* Кількість бітів у блоці (зазвичай k = 8) */
-} blocked_bloom_filter_t;
-
-/**
- * Ініціалізує блочний фільтр Блума з вирівнюванням пам'яті aligned_alloc.
- */
-bool blocked_bloom_init(blocked_bloom_filter_t *bf, size_t num_blocks, size_t k);
-
-/**
- * Додає елемент у блочний фільтр за двома 64-бітними хешами.
- */
-void blocked_bloom_add(blocked_bloom_filter_t *bf, uint64_t h1, uint64_t h2);
-
-/**
- * Здійснює перевірку ключа з гарантією строго 1 промаху кешу L3.
- */
-bool blocked_bloom_contains(const blocked_bloom_filter_t *bf, uint64_t h1, uint64_t h2);
-
-/**
- * Звільняє пам'ять вирівняного вектору блоків.
- */
-void blocked_bloom_free(blocked_bloom_filter_t *bf);
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <cstddef>
-
-namespace sys {
-
-class alignas(64) blocked_bloom_filter {
-public:
-    explicit blocked_bloom_filter(std::size_t num_blocks, std::size_t k_hashes);
-    ~blocked_bloom_filter() noexcept;
-
-    blocked_bloom_filter(const blocked_bloom_filter&) = delete;
-    blocked_bloom_filter& operator=(const blocked_bloom_filter&) = delete;
-    blocked_bloom_filter(blocked_bloom_filter&&) noexcept = default;
-    blocked_bloom_filter& operator=(blocked_bloom_filter&&) noexcept = default;
-
-    void add_with_hashes(std::uint64_t h1, std::uint64_t h2) noexcept;
-    [[nodiscard]] bool contains_with_hashes(std::uint64_t h1, std::uint64_t h2) const noexcept;
-
-private:
-    struct alignas(64) block {
-        std::uint32_t words[16]{0};
-    };
-    
-    std::size_t num_blocks_;
-    std::size_t k_;
-    block* blocks_{nullptr};
-};
-
-} // namespace sys
-```
+:::code api-bloom-filter/c/c-ta-c-api-blochnoho.c
+:::code api-bloom-filter/cpp/c-ta-c-api-blochnoho.cpp
 :::
 
 ---
@@ -354,36 +113,8 @@ private:
 Секціонування усуває диспропорцію заповнення окремих ділянок вектору, яка виникає при звичайному випадковому хешуванні. Крім того, кожна з `k` секцій може оброблятися окремим векторним стрижнем у регістрах AVX-512 або ARM Neon.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-void partitioned_bloom_add(uint8_t *bits, size_t section_size_bits, size_t k, uint64_t h1, uint64_t h2) {
-    for (size_t i = 0; i < k; i++) {
-        size_t bit_in_section = (h1 + i * h2) % section_size_bits;
-        size_t global_bit = i * section_size_bits + bit_in_section;
-        bits[global_bit >> 3] |= (uint8_t)(1u << (global_bit & 7));
-    }
-}
-```
-```cpp
-#include <span>
-#include <cstdint>
-#include <cstddef>
-
-namespace sys {
-
-void add_partitioned(std::span<std::uint8_t> bits, std::size_t section_bits,
-                     std::size_t k, std::uint64_t h1, std::uint64_t h2) noexcept {
-    for (std::size_t i = 0; i < k; ++i) {
-        std::size_t bit_in_section = (h1 + i * h2) % section_bits;
-        std::size_t global_bit = i * section_bits + bit_in_section;
-        bits[global_bit >> 3] |= static_cast<std::uint8_t>(1u << (global_bit & 7));
-    }
-}
-
-} // namespace sys
-```
+:::code api-bloom-filter/c/4-1-partitioned-bloom.c
+:::code api-bloom-filter/cpp/4-1-partitioned-bloom.cpp
 :::
 
 ---
@@ -395,39 +126,8 @@ void add_partitioned(std::span<std::uint8_t> bits, std::size_t section_bits,
 Додавання елемента у масштабований фільтр завжди виконується у найновіший активний шар F_current. Перевірка наявності ключа опитує всі шари послідовно від F_0 до F_current і повертає `true`, якщо ключ знайдено хоча б в одному шарі.
 
 :::tabs
-```c
-#include <stdbool.h>
-#include <stddef.h>
-
-typedef struct {
-    bloom_filter_t *layers;
-    size_t num_layers;
-    double target_fp_rate;
-} scalable_bloom_filter_t;
-
-void scalable_bloom_add(scalable_bloom_filter_t *sbf, const void *key, size_t len);
-bool scalable_bloom_contains(const scalable_bloom_filter_t *sbf, const void *key, size_t len);
-```
-```cpp
-#include <vector>
-#include <cstddef>
-#include <string_view>
-
-namespace sys {
-
-class scalable_bloom_filter {
-public:
-    explicit scalable_bloom_filter(double target_fp_rate);
-    void add(std::string_view key);
-    [[nodiscard]] bool contains(std::string_view key) const noexcept;
-
-private:
-    std::vector<bloom_filter> layers_;
-    double target_fp_;
-};
-
-} // namespace sys
-```
+:::code api-bloom-filter/c/stdbool.h
+:::code api-bloom-filter/cpp/4-2-scalable-bloom-filter.hpp
 :::
 
 ---
@@ -454,33 +154,7 @@ void bloom_set_bit_atomic(_Atomic uint8_t *bit_array, size_t bit_index) {
     atomic_fetch_or_explicit(byte_ptr, mask, memory_order_relaxed);
 }
 ```
-```cpp
-#include <atomic>
-#include <vector>
-#include <cstddef>
-
-namespace sys {
-
-// Безблокувальний атомарний фільтр у C++
-class atomic_bloom_filter {
-public:
-    explicit atomic_bloom_filter(std::size_t num_bits)
-        : bits_((num_bits + 7) / 8) {
-        for (auto& b : bits_) b.store(0, std::memory_order_relaxed);
-    }
-
-    void set_bit_atomic(std::size_t bit_index) noexcept {
-        std::size_t byte_idx = bit_index >> 3;
-        std::uint8_t mask = static_cast<std::uint8_t>(1u << (bit_index & 7));
-        bits_[byte_idx].fetch_or(mask, std::memory_order_relaxed);
-    }
-
-private:
-    std::vector<std::atomic<std::uint8_t>> bits_;
-};
-
-} // namespace sys
-```
+:::code api-bloom-filter/cpp/5-bezblokuvalna.cpp
 :::
 
 ---
@@ -519,49 +193,8 @@ private:
 ```
 
 :::tabs
-```c
-#include <stdint.h>
-#include <arpa/inet.h>
-
-typedef struct __attribute__((packed)) {
-    uint32_t magic;      /* 0x424C4F4F ("BLOO") */
-    uint32_t version;    /* Версія 1 */
-    uint64_t num_bits;   /* Кількість бітів m у Big-Endian */
-    uint32_t num_hashes; /* Кількість хеш-функцій k у Big-Endian */
-} bloom_header_t;
-
-void pack_bloom_header(bloom_header_t *hdr, uint64_t m, uint32_t k) {
-    hdr->magic = htonl(0x424C4F4F);
-    hdr->version = htonl(1);
-    hdr->num_bits = __builtin_bswap64(m);
-    hdr->num_hashes = htonl(k);
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-
-struct alignas(4) bloom_header {
-    std::uint32_t magic{0x424C4F4F};
-    std::uint32_t version{1};
-    std::uint64_t num_bits{0};
-    std::uint32_t num_hashes{0};
-};
-
-[[nodiscard]] inline bloom_header serialize_header(std::uint64_t m, std::uint32_t k) noexcept {
-    bloom_header hdr;
-    if constexpr (std::endian::native == std::endian::little) {
-        hdr.magic = std::byteswap(hdr.magic);
-        hdr.version = std::byteswap(hdr.version);
-        hdr.num_bits = std::byteswap(m);
-        hdr.num_hashes = std::byteswap(k);
-    } else {
-        hdr.num_bits = m;
-        hdr.num_hashes = k;
-    }
-    return hdr;
-}
-```
+:::code api-bloom-filter/c/6-merezhevyi-binarnyi.c
+:::code api-bloom-filter/cpp/6-merezhevyi-binarnyi.cpp
 :::
 
 ---

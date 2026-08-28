@@ -144,45 +144,8 @@
 Маска довжиною `L` бітів формується як `(1U << L) - 1`. Наприклад, для 4-бітного поля: `(1U << 4) - 1 = 16 - 1 = 15 = 0b1111`.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define FIELD_OFFSET 4
-#define FIELD_WIDTH  4
-#define FIELD_MASK   (((1U << FIELD_WIDTH) - 1) << FIELD_OFFSET)
-
-// Витягти значення поля (0..15) з регістра
-uint32_t get_field(uint32_t reg) {
-    return (reg & FIELD_MASK) >> FIELD_OFFSET;
-}
-
-// Записати нове значення в поле регістра
-uint32_t set_field(uint32_t reg, uint32_t value) {
-    // 1. Очистити біти поля в регістрі
-    // 2. Вставити нове значення, зсунуте на позицію поля
-    return (reg & ~FIELD_MASK) | ((value << FIELD_OFFSET) & FIELD_MASK);
-}
-```
-```cpp
-#include <cstdint>
-#include <concepts>
-
-template <std::size_t Offset, std::size_t Width>
-struct BitField {
-    static constexpr std::uint32_t Mask = ((1U << Width) - 1U) << Offset;
-
-    [[nodiscard]] static constexpr std::uint32_t extract(std::uint32_t reg) noexcept {
-        return (reg & Mask) >> Offset;
-    }
-
-    [[nodiscard]] static constexpr std::uint32_t insert(std::uint32_t reg, std::uint32_t val) noexcept {
-        return (reg & ~Mask) | ((val << Offset) & Mask);
-    }
-};
-
-// Використання: BitField<4, 4>::extract(reg);
-```
+:::code bitwise-operations-d/c/robota-z-bahatorozriadnymy.c
+:::code bitwise-operations-d/cpp/robota-z-bahatorozriadnymy.hpp
 :::
 
 #### Апаратні регістри: атомарний запис через BSRR проти читання-модифікації-запису
@@ -235,37 +198,8 @@ x & -x = ([старші_біти] & [~старші_біти]) (1 & 1) (000 & 000
 Цей прийом лежить в основі класичного **алгоритму Браяна Кернігана** для підрахунку кількості одиничних бітів ([popcount](root:sf-algorithms/popcount)). Замість того, щоб у циклі перевіряти всі 64 біти, цикл Кернігана виконує рівно стільки ітерацій, скільки одиниць є в числі:
 
 :::tabs
-```c
-#include <stdint.h>
-
-int count_set_bits(uint64_t x) {
-    int count = 0;
-    while (x != 0) {
-        x &= (x - 1); // скидаємо чергову молодшу одиницю
-        count++;
-    }
-    return count;
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-
-// Алгоритм Кернігана (якщо немає апаратної інструкції)
-[[nodiscard]] constexpr int count_set_bits_fallback(std::uint64_t x) noexcept {
-    int count = 0;
-    while (x != 0) {
-        x &= (x - 1U);
-        ++count;
-    }
-    return count;
-}
-
-// Сучасний C++20 використовує апаратну інструкцію процесора (POPCNT)
-[[nodiscard]] constexpr int count_set_bits_fast(std::uint64_t x) noexcept {
-    return std::popcount(x);
-}
-```
+:::code bitwise-operations-d/c/2-skydannia-molodshoho.c
+:::code bitwise-operations-d/cpp/2-skydannia-molodshoho.cpp
 :::
 
 #### 3. Перевірка, чи є число степенем двійки
@@ -278,20 +212,7 @@ int count_set_bits(uint64_t x) {
 bool is_power_of_two = (x > 0) && ((x & (x - 1)) == 0);
 ```
 @tab C++
-```cpp
-#include <bit>
-#include <concepts>
-
-// C++20 стандартна функція перевірки (або прямий побітовий вираз)
-template <std::integral T>
-[[nodiscard]] constexpr bool is_power_of_two(T x) noexcept {
-    if constexpr (std::unsigned_integral<T>) {
-        return std::has_single_bit(x);
-    } else {
-        return (x > 0) && ((x & (x - 1)) == 0);
-    }
-}
-```
+:::code bitwise-operations-d/cpp/3-perevirka-chy-ie-chyslo.cpp
 :::
 
 Умова `x > 0` є критично важливою, оскільки для `x = 0` вираз `0 & -1` дасть `0`, хоча нуль не є степенем двійки.
@@ -346,23 +267,7 @@ y ^= x;
 x ^= y;
 ```
 @tab C++
-```cpp
-#include <utility>
-#include <concepts>
-
-// В ідіоматичному C++ використовується std::swap
-// std::swap(x, y);
-
-// Безпечна реалізація через XOR (з перевіркою аліасингу):
-template <std::integral T>
-constexpr void xor_swap(T& a, T& b) noexcept {
-    if (&a != &b) {
-        a ^= b;
-        b ^= a;
-        a ^= b;
-    }
-}
-```
+:::code bitwise-operations-d/cpp/6-obmin-znachen-cherez-xor.cpp
 :::
 
 **Математичне простеження:**
@@ -391,43 +296,8 @@ constexpr void xor_swap(T& a, T& b) noexcept {
 Усі 9 бітів упаковуються в єдине ціле число. Оскільки кожна трійка бітів ідеально лягає в одну цифру [вісімкової системи числення](root:math-number-theory/positional-systems) (від 0 до 7), права традиційно записують у вісімковій формі: `0755` означає `rwxr-xr-x` (`7` = `rwx`, `5` = `r-x`, `5` = `r-x`).
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdbool.h>
-
-#define PERM_READ    (1U << 2) // 0b100 = 4
-#define PERM_WRITE   (1U << 1) // 0b010 = 2
-#define PERM_EXEC    (1U << 0) // 0b001 = 1
-
-bool check_access(uint8_t user_perms, uint8_t required_mask) {
-    // Користувач повинен мати ВСІ біти, вказані в required_mask
-    return (user_perms & required_mask) == required_mask;
-}
-```
-```cpp
-#include <cstdint>
-
-enum class Perm : std::uint8_t {
-    None    = 0,
-    Exec    = 1U << 0,
-    Write   = 1U << 1,
-    Read    = 1U << 2,
-    ReadWrite = Read | Write,
-    All     = Read | Write | Exec
-};
-
-[[nodiscard]] constexpr Perm operator|(Perm a, Perm b) noexcept {
-    return static_cast<Perm>(static_cast<std::uint8_t>(a) | static_cast<std::uint8_t>(b));
-}
-
-[[nodiscard]] constexpr Perm operator&(Perm a, Perm b) noexcept {
-    return static_cast<Perm>(static_cast<std::uint8_t>(a) & static_cast<std::uint8_t>(b));
-}
-
-[[nodiscard]] constexpr bool has_all_permissions(Perm user, Perm required) noexcept {
-    return (user & required) == required;
-}
-```
+:::code bitwise-operations-d/c/praportsi-ta-masky-dostupu.c
+:::code bitwise-operations-d/cpp/praportsi-ta-masky-dostupu.hpp
 :::
 
 #### Бітовий масив (Bitset / Bitmap)
@@ -444,73 +314,8 @@ enum class Perm : std::uint8_t {
 - Номер біта всередині знайденого слова: `bit_offset = i % 64` (або `i & 63`).
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    uint64_t *words;
-    size_t size;
-} BitSet;
-
-BitSet* bitset_create(size_t num_bits) {
-    BitSet *bs = (BitSet*)malloc(sizeof(BitSet));
-    size_t num_words = (num_bits + 63) / 64;
-    bs->words = (uint64_t*)calloc(num_words, sizeof(uint64_t));
-    bs->size = num_bits;
-    return bs;
-}
-
-void bitset_set(BitSet *bs, size_t i) {
-    bs->words[i >> 6] |= (1ULL << (i & 63));
-}
-
-void bitset_clear(BitSet *bs, size_t i) {
-    bs->words[i >> 6] &= ~(1ULL << (i & 63));
-}
-
-bool bitset_test(const BitSet *bs, size_t i) {
-    return (bs->words[i >> 6] & (1ULL << (i & 63))) != 0;
-}
-
-void bitset_free(BitSet *bs) {
-    free(bs->words);
-    free(bs);
-}
-```
-```cpp
-#include <vector>
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-class DynamicBitset {
-public:
-    explicit DynamicBitset(std::size_t num_bits)
-        : size_(num_bits), words_((num_bits + 63) / 64, 0ULL) {}
-
-    void set(std::size_t i) noexcept {
-        words_[i >> 6] |= (1ULL << (i & 63));
-    }
-
-    void clear(std::size_t i) noexcept {
-        words_[i >> 6] &= ~(1ULL << (i & 63));
-    }
-
-    [[nodiscard]] bool test(std::size_t i) const noexcept {
-        return (words_[i >> 6] & (1ULL << (i & 63))) != 0;
-    }
-
-    [[nodiscard]] std::size_t size() const noexcept { return size_; }
-    [[nodiscard]] std::span<const std::uint64_t> raw_words() const noexcept { return words_; }
-
-private:
-    std::size_t size_;
-    std::vector<std::uint64_t> words_;
-};
-```
+:::code bitwise-operations-d/c/bitovyi-masyv-bitset.c
+:::code bitwise-operations-d/cpp/bitovyi-masyv-bitset.cpp
 :::
 
 #### Фільтр Блума (Bloom Filter)

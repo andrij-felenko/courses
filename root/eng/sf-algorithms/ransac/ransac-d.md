@@ -66,63 +66,8 @@ RANSAC (англ. *RANdom SAmple Consensus* — «згода на випадко
 Чесна точка сидить за десяту частку від прямої — у смузі допуску, зараховано. Викид відстоїть на дві одиниці — учетверо далі за поріг, відкинуто. Пройдіть так усі точки, полічіть «за» — і матимете згоду цієї моделі. Весь RANSAC — це той самий підрахунок, обгорнутий у цикл випадкових вибірок:
 
 :::tabs
-```python
-import random
-
-def line_through(p, q):
-    # пряма ax + by + c = 0 через дві точки, нормована (a² + b² = 1)
-    a, b = q[1] - p[1], p[0] - q[0]
-    c = -(a * p[0] + b * p[1])
-    n = (a * a + b * b) ** 0.5
-    return a / n, b / n, c / n
-
-def ransac_line(pts, t, k):
-    best_model, best_inliers = None, []
-    for _ in range(k):
-        p, q = random.sample(pts, 2)               # 1. мінімальна вибірка — 2 точки
-        if p == q:
-            continue
-        a, b, c = line_through(p, q)               # 2. модель рівно по вибірці
-        inliers = [pt for pt in pts                # 3. згода: хто ближче за t
-                   if abs(a * pt[0] + b * pt[1] + c) <= t]
-        if len(inliers) > len(best_inliers):       # 4. новий рекорд згоди
-            best_model, best_inliers = (a, b, c), inliers
-    return best_model, best_inliers                # уточнити по best_inliers — окремо
-```
-```cpp
-#include <vector>
-#include <array>
-#include <cmath>
-#include <cstdlib>
-
-struct Pt { double x, y; };
-
-// пряма ax + by + c = 0 через дві точки, нормована (a² + b² = 1)
-std::array<double, 3> line_through(Pt p, Pt q) {
-    double a = q.y - p.y, b = p.x - q.x, c = -(a * p.x + b * p.y);
-    double n = std::hypot(a, b);
-    return {a / n, b / n, c / n};
-}
-
-// найкращу модель кладе у best; повертає індекси згодних точок
-std::vector<int> ransac_line(const std::vector<Pt>& pts, double t, int k,
-                             std::array<double, 3>& best) {
-    std::vector<int> best_in;
-    int m = pts.size();
-    for (int it = 0; it < k; ++it) {
-        int i = rand() % m, j = rand() % m;        // 1. мінімальна вибірка — 2 точки
-        if (i == j) continue;
-        auto [a, b, c] = line_through(pts[i], pts[j]);   // 2. модель по вибірці
-        std::vector<int> in;
-        for (int r = 0; r < m; ++r)                // 3. згода: хто ближче за t
-            if (std::fabs(a * pts[r].x + b * pts[r].y + c) <= t) in.push_back(r);
-        if (in.size() > best_in.size()) {          // 4. новий рекорд згоди
-            best = {a, b, c}; best_in = in;
-        }
-    }
-    return best_in;                                // уточнити по best_in — окремо
-}
-```
+:::code ransac-d/py/main.py
+:::code ransac-d/cpp/main.cpp
 :::
 
 Повний робочий приклад із фінальним уточненням по згодних точках, розбором складності й типовими пастками (виродна вибірка, вибір порога) — у [проєкті підгонки прямої з RANSAC](root:sf-algorithms/ransac/proj-ransac-linefit.md).

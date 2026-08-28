@@ -59,34 +59,8 @@ enum class ErrorCode {
 ### Режими граничних умов та зв'язності
 
 :::tabs
-```c
-/* Режими просторових границь */
-typedef enum {
-    HK_BOUNDARY_OPEN     = 0,  /* Відкриті границі: вузли за межами сітки вважаються порожніми */
-    HK_BOUNDARY_PERIODIC = 1   /* Періодичні тороїдальні границі: протилежні краї замкнені */
-} hk_boundary_t;
-
-/* Топологічна зв'язність сусідів */
-typedef enum {
-    HK_CONNECTIVITY_4  = 4,    /* 2D: 4-зв'язність (спільні ребра: Top, Bottom, Left, Right) */
-    HK_CONNECTIVITY_8  = 8,    /* 2D: 8-зв'язність (ребра та діагоналі) */
-    HK_CONNECTIVITY_6  = 6,    /* 3D: 6-зв'язність (спільні грані кубічних комірок) */
-    HK_CONNECTIVITY_26 = 26    /* 3D: 26-зв'язність (грані, ребра та кутові вершини) */
-} hk_connectivity_t;
-```
-```cpp
-enum class BoundaryCondition {
-    Open = 0,       // Відкриті (фіксовані) границі
-    Periodic = 1    // Періодичні (тороїдальні) границі
-};
-
-enum class Connectivity {
-    Four = 4,       // 2D 4-зв'язність
-    Eight = 8,      // 2D 8-зв'язність
-    Six = 6,        // 3D 6-зв'язність
-    TwentySix = 26  // 3D 26-зв'язність
-};
-```
+:::code api-hoshen-kopelman/c/rezhymy-hranychnykh-umov.c
+:::code api-hoshen-kopelman/cpp/rezhymy-hranychnykh-umov.cpp
 :::
 
 ## 3. Структури статистичних даних та дескрипторів
@@ -96,30 +70,8 @@ enum class Connectivity {
 Структура `hk_stats_t` містить повний набір фізичних спостережуваних величин, обчислених за результатами сканування ґратки.
 
 :::tabs
-```c
-typedef struct {
-    int total_clusters;            /* Загальна кількість незалежних зв'язаних кластерів */
-    int total_occupied_sites;      /* Загальна кількість зайнятих вузлів на ґратці */
-    int max_cluster_size;          /* Розмір (кількість вузлів) найбільшого знайденого кластера */
-    double mean_cluster_size;      /* Зважений середній розмір скінченних кластерів S(p) = M_2 / M_1 */
-    double cluster_density;        /* Питома кількість кластерів на один вузол ґратки M_0 = K / N */
-    bool has_spanning_cluster_x;   /* Наявність протікання вздовж осі X (зліва направо) */
-    bool has_spanning_cluster_y;   /* Наявність протікання вздовж осі Y (згори вниз) */
-    bool has_spanning_cluster_z;   /* Наявність протікання вздовж осі Z (вглиб, для 3D) */
-} hk_stats_t;
-```
-```cpp
-struct PercolationStats {
-    int total_clusters{0};
-    int total_occupied_sites{0};
-    int max_cluster_size{0};
-    double mean_cluster_size{0.0};
-    double cluster_density{0.0};
-    bool has_spanning_cluster_x{false};
-    bool has_spanning_cluster_y{false};
-    bool has_spanning_cluster_z{false};
-};
-```
+:::code api-hoshen-kopelman/c/fizychna-statystyka.c
+:::code api-hoshen-kopelman/cpp/fizychna-statystyka.cpp
 :::
 
 #### Опис полів структури статистики:
@@ -164,38 +116,8 @@ struct ClusterInfo {
 Управління ресурсами в C API базується на непрозорому дескрипторі `hk_context_t`, тоді як у C++ використовується парадигма RAII (Resource Acquisition Is Initialization).
 
 :::tabs
-```c
-/* Створення контексту для обробки 2D ґратки */
-hk_error_t hk_context_create_2d(
-    hk_context_t** ctx_out,
-    int width,
-    int height,
-    hk_connectivity_t connectivity,
-    hk_boundary_t boundary
-);
-
-/* Звільнення всіх ресурсів контексту */
-void hk_context_destroy(hk_context_t* ctx);
-
-/* Очищення стану контексту для обробки нової ґратки тих самих розмірів */
-hk_error_t hk_context_reset(hk_context_t* ctx);
-```
-```cpp
-// Конструктор класу ініціалізує всі необхідні буфери
-// Деструктор автоматично звільняє виділені ресурси
-class GridLabeler2D {
-public:
-    explicit GridLabeler2D(
-        int width,
-        int height,
-        Connectivity connectivity = Connectivity::Four,
-        BoundaryCondition boundary = BoundaryCondition::Open
-    );
-    ~GridLabeler2D();
-
-    void reset();
-};
-```
+:::code api-hoshen-kopelman/c/stvorennia-ta-znyshchennia.h
+:::code api-hoshen-kopelman/cpp/stvorennia-ta-znyshchennia.hpp
 :::
 
 #### Контракт виконання:
@@ -210,34 +132,8 @@ public:
 Функція `hk_process_row` виконує перший прохід растрового сканування. Вона зчитує вхідні бінарні байти поточного рядка, порівнює їх із попереднім буфером і призначає тимчасові мітки.
 
 :::tabs
-```c
-/* Обробка одного рядка 2D ґратки */
-hk_error_t hk_process_row(
-    hk_context_t* ctx,
-    const uint8_t* row_input,
-    int* row_output_labels
-);
-
-/* Обробка одного 2D зрізу 3D ґратки */
-hk_error_t hk_process_slice_3d(
-    hk_context_t* ctx,
-    const uint8_t* slice_input,
-    int* slice_output_labels
-);
-```
-```cpp
-// Потокова обробка рядка у C++
-void process_row(
-    std::span<const uint8_t> binary_row,
-    std::optional<std::span<int>> output_labels = std::nullopt
-);
-
-// Потокова обробка 3D зрізу у C++
-void process_slice_3d(
-    std::span<const uint8_t> binary_slice,
-    std::optional<std::span<int>> output_labels = std::nullopt
-);
-```
+:::code api-hoshen-kopelman/c/obrobka-riadkiv-ta-zriziv.h
+:::code api-hoshen-kopelman/cpp/obrobka-riadkiv-ta-zriziv.hpp
 :::
 
 #### Контракт виконання:
@@ -251,28 +147,7 @@ void process_slice_3d(
 Після передачі всіх рядків ґратки викликається функція `hk_finalize`, яка переводить контекст у стан `FINALIZED`, розв'язує тороїдальні зв'язки та будує масив канонічної ренумерації.
 
 :::tabs
-```c
-/* Завершення першого проходу та формування канонічних кластерів */
-hk_error_t hk_finalize(hk_context_t* ctx);
-
-/* Отримання зведеної статистики перколації */
-hk_error_t hk_get_stats(const hk_context_t* ctx, hk_stats_t* stats_out);
-
-/* Отримання масиву розмірів кластерів за канонічними індексами 1..total_clusters */
-hk_error_t hk_get_cluster_sizes(
-    const hk_context_t* ctx,
-    int* sizes_out,
-    int max_count,
-    int* actual_count_out
-);
-
-/* Заміна тимчасових міток на канонічні номери 1..K у вихідному масиві */
-hk_error_t hk_relabel_grid(
-    const hk_context_t* ctx,
-    int* grid_inout,
-    size_t total_elements
-);
-```
+:::code api-hoshen-kopelman/c/6-finalizatsiia-ta.h
 ```cpp
 // Завершення обробки та методи доступу у C++
 void finalize();
@@ -325,113 +200,8 @@ void merge_subdomains_2d(
 Нижче наведено робочий приклад обробки бінарного масиву з виведенням статистики та перевіркою протікання.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdint.h>
-
-/* Демонстраційний приклад використання C API */
-int run_c_api_demo(void) {
-    const int W = 6, H = 6;
-    const uint8_t lattice[36] = {
-        1, 1, 0, 1, 1, 0,
-        1, 0, 0, 0, 1, 0,
-        1, 1, 1, 1, 1, 0,
-        0, 0, 0, 0, 0, 1,
-        0, 1, 1, 0, 0, 1,
-        0, 1, 1, 0, 0, 0
-    };
-
-    hk_context_t* ctx = NULL;
-    hk_error_t err = hk_context_create_2d(&ctx, W, H, HK_CONNECTIVITY_4, HK_BOUNDARY_OPEN);
-    if (err != HK_SUCCESS) {
-        fprintf(stderr, "Помилка створення контексту: %d\n", err);
-        return 1;
-    }
-
-    int* labeled_matrix = (int*)malloc((size_t)(W * H) * sizeof(int));
-    if (!labeled_matrix) {
-        hk_context_destroy(ctx);
-        return 1;
-    }
-
-    /* Потокове сканування по рядках */
-    for (int r = 0; r < H; ++r) {
-        hk_process_row(ctx, &lattice[r * W], &labeled_matrix[r * W]);
-    }
-
-    /* Фіналізація та ренумерація */
-    hk_finalize(ctx);
-    hk_relabel_grid(ctx, labeled_matrix, (size_t)(W * H));
-
-    hk_stats_t stats;
-    hk_get_stats(ctx, &stats);
-
-    printf("=== Результати аналізу перколації ===\n");
-    printf("Кількість кластерів: %d\n", stats.total_clusters);
-    printf("Найбільший кластер:   %d вузлів\n", stats.max_cluster_size);
-    printf("Середній розмір S(p): %.3f\n", stats.mean_cluster_size);
-    printf("Протікання (Y):       %s\n", stats.has_spanning_cluster_y ? "ТАК" : "НІ");
-
-    free(labeled_matrix);
-    hk_context_destroy(ctx);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <span>
-
-/* Демонстраційний приклад використання C++20 API */
-int run_cpp_api_demo() {
-    constexpr int W = 6, H = 6;
-    const std::vector<uint8_t> lattice = {
-        1, 1, 0, 1, 1, 0,
-        1, 0, 0, 0, 1, 0,
-        1, 1, 1, 1, 1, 0,
-        0, 0, 0, 0, 0, 1,
-        0, 1, 1, 0, 0, 1,
-        0, 1, 1, 0, 0, 0
-    };
-
-    try {
-        hoshen_kopelman::GridLabeler2D labeler(W, H,
-            hoshen_kopelman::Connectivity::Four,
-            hoshen_kopelman::BoundaryCondition::Open);
-
-        std::vector<int> labeled_grid(W * H, 0);
-
-        for (int r = 0; r < H; ++r) {
-            std::span<const uint8_t> row_in(&lattice[r * W], W);
-            std::span<int> row_out(&labeled_grid[r * W], W);
-            labeler.process_row(row_in, row_out);
-        }
-
-        labeler.finalize();
-        labeler.relabel_grid(labeled_grid);
-
-        auto stats = labeler.get_stats();
-        auto sizes = labeler.get_cluster_sizes();
-
-        std::cout << "=== Результати аналізу перколації (C++20) ===\n";
-        std::cout << "Кількість кластерів: " << stats.total_clusters << "\n";
-        std::cout << "Найбільший кластер:   " << stats.max_cluster_size << "\n";
-        std::cout << "Середній розмір S(p): " << stats.mean_cluster_size << "\n";
-        std::cout << "Протікання по Y:      " << (stats.has_spanning_cluster_y ? "ТАК" : "НІ") << "\n";
-
-        for (size_t i = 1; i < sizes.size(); ++i) {
-            std::cout << "  Кластер #" << i << ": розмір = " << sizes[i] << "\n";
-        }
-    } catch (const std::exception& ex) {
-        std::cerr << "Виник виняток: " << ex.what() << "\n";
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code api-hoshen-kopelman/c/8-povnyi-pryklad.c
+:::code api-hoshen-kopelman/cpp/8-povnyi-pryklad.cpp
 :::
 
 ## 9. Гарантії бінарної сумісності та FFI-інтеграція (ABI Stability)
@@ -446,42 +216,8 @@ int run_cpp_api_demo() {
    Вхідний бінарний масив інтерпретується як послідовний одновимірний буфер у форматі row-major (`C-contiguous`). Це дозволяє передавати дані безпосередньо з `numpy.ndarray.ctypes.data` без створення проміжних копій у пам'яті.
 
 :::tabs
-```c
-/* Експортний C-заголовок для FFI прив'язок */
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct {
-    int32_t total_clusters;
-    int32_t total_occupied_sites;
-    int32_t max_cluster_size;
-    double  mean_cluster_size;
-    double  cluster_density;
-    bool    has_spanning_cluster_x;
-    bool    has_spanning_cluster_y;
-    bool    has_spanning_cluster_z;
-} hk_stats_ffi_t;
-
-#ifdef __cplusplus
-}
-#endif
-```
-```cpp
-// Приклад інтеграції через C++ FFI заголовок
-extern "C" {
-    struct HKStatsFFI {
-        int32_t total_clusters;
-        int32_t total_occupied_sites;
-        int32_t max_cluster_size;
-        double mean_cluster_size;
-        double cluster_density;
-        bool has_spanning_cluster_x;
-        bool has_spanning_cluster_y;
-        bool has_spanning_cluster_z;
-    };
-}
-```
+:::code api-hoshen-kopelman/c/9-harantii-binarnoi.c
+:::code api-hoshen-kopelman/cpp/9-harantii-binarnoi.cpp
 :::
 
 ## 10. Протокол обробки виняткових ситуацій та відновлення після помилок
@@ -511,18 +247,7 @@ extern "C" {
 Для тонкого налаштування продуктивності в різних сценаріях застосування бібліотека надає структуру конфігурації `hk_config_t`:
 
 :::tabs
-```c
-typedef struct {
-    size_t initial_label_capacity; /* Початкова місткість масиву міток DSU (за замовчуванням 2048) */
-    double growth_factor;          /* Коефіцієнт геометричного розширення місткості (1.5 - 2.0) */
-    bool enable_simd;              /* Дозвіл використання векторних інструкцій AVX2 / NEON */
-    bool compute_moments_on_fly;   /* Обчислення моментів другого порядку M_2 безпосередньо у першому проході */
-    bool track_bounding_boxes;     /* Відстеження прямокутників обмеження (Bounding Box) для кожного кластера */
-} hk_config_t;
-
-/* Отримання конфігурації за замовчуванням */
-void hk_config_init_default(hk_config_t* config);
-```
+:::code api-hoshen-kopelman/c/12-rozshyrena.c
 ```cpp
 struct LabelerConfig {
     size_t initial_label_capacity{2048};
@@ -544,23 +269,7 @@ struct LabelerConfig {
 Для інтеграції в асинхронні мережеві пайплайни або обробку відеопотоків із камер промислового зору бібліотека підтримує механізм callback-функцій:
 
 :::tabs
-```c
-/* Тип функції зворотного виклику при виявленні злиття кластерів */
-typedef void (*hk_cluster_event_cb)(
-    int event_type,        /* 1 - створення нового кластера, 2 - злиття кластерів */
-    int primary_root,
-    int merged_root,
-    int new_total_size,
-    void* user_data
-);
-
-/* Реєстрація функції зворотного виклику в контексті */
-hk_error_t hk_set_cluster_event_callback(
-    hk_context_t* ctx,
-    hk_cluster_event_cb callback,
-    void* user_data
-);
-```
+:::code api-hoshen-kopelman/c/13-podiino-oriientovanyi.h
 ```cpp
 using ClusterEventCallback = std::function<void(
     int event_type,

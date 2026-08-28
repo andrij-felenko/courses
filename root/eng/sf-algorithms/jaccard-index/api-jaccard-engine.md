@@ -33,36 +33,8 @@
 - `JACCARD_MODE_MINHASH`: вмикає імовірнісну оцінку коефіцієнта Жаккара на основі генерації та порівняння компактних сигнатур MinHash фіксованого розміру `K`.
 
 :::tabs
-```c
-typedef enum {
-    JACCARD_MODE_EXACT_SORTED = 0,
-    JACCARD_MODE_EXACT_HASH   = 1,
-    JACCARD_MODE_MINHASH      = 2
-} jaccard_calc_mode_t;
-
-typedef struct {
-    jaccard_calc_mode_t mode; // Режим розрахунку схожості
-    size_t shingle_size;      // Довжина k-грами у символах (за замовчуванням: 4)
-    size_t minhash_k;         // Кількість хеш-функцій MinHash (за замовчуванням: 128)
-    double sim_threshold;     // Порогове значення схожості τ ∈ (0, 1]
-    uint64_t random_seed;     // Початкове зерно генератора випадкових чисел
-} jaccard_config_t;
-```
-```cpp
-enum class Mode : uint32_t {
-    ExactSorted = 0,
-    ExactHash   = 1,
-    MinHash     = 2
-};
-
-struct Config {
-    Mode mode = Mode::ExactSorted;
-    size_t shingle_size = 4;
-    size_t minhash_k = 128;
-    double sim_threshold = 0.5;
-    uint64_t random_seed = 42;
-};
-```
+:::code api-jaccard-engine/c/rezhymy-rozrakhunku-ta.c
+:::code api-jaccard-engine/cpp/rezhymy-rozrakhunku-ta.cpp
 :::
 
 Параметр `shingle_size` контролює довжину ковзного вікна при розбитті тексту на підрядки `k`-грам. Параметр `minhash_k` задає кількість універсальних хеш-функцій для формування сигнатур MinHash. Вищий поріг `sim_threshold` відсіює більше кандидатів на етапі розмірного та префіксного фільтрів. Початкове зерно `random_seed` забезпечує детерміновану відтворюваність перестановок MinHash між повторними запусками програми.
@@ -72,42 +44,8 @@ struct Config {
 Для зберігання дискретних даних та компактних профілів застосовують такі структури:
 
 :::tabs
-```c
-typedef struct {
-    uint32_t id;         // Унікальний ідентифікатор об'єкта/документа
-    size_t count;        // Кількість унікальних елементів у множині
-    uint64_t *elements;  // Відсортований масив 64-бітних хешів елементів
-} jaccard_set_t;
-
-typedef struct {
-    uint32_t id;         // Ідентифікатор об'єкта
-    size_t k_len;        // Кількість хеш-значень (розмір масиву sig)
-    uint64_t *sig;       // Динамічний масив мінімальних хешів (розміру k_len)
-} jaccard_signature_t;
-
-typedef struct {
-    uint32_t id_a;       // Ідентифікатор першого об'єкта
-    uint32_t id_b;       // Ідентифікатор другого об'єкта
-    double similarity;   // Обчислений коефіцієнт схожості Жаккара J ∈ [0, 1]
-} jaccard_match_t;
-```
-```cpp
-struct Set {
-    uint32_t id = 0;
-    std::vector<uint64_t> elements;
-};
-
-struct Signature {
-    uint32_t id = 0;
-    std::vector<uint64_t> sig;
-};
-
-struct Match {
-    uint32_t id_a = 0;
-    uint32_t id_b = 0;
-    double similarity = 0.0;
-};
-```
+:::code api-jaccard-engine/c/struktury-zberihannia.c
+:::code api-jaccard-engine/cpp/struktury-zberihannia.cpp
 :::
 
 Масив `elements` у структурі `jaccard_set_t` повинен бути суворо відсортованим за зростанням і не містити дублікатів. Власником пам'яті під масиви `elements` та `sig` є викликач, якщо функція явно не документує передачу володіння.
@@ -138,31 +76,8 @@ bool is_valid_config(const Config& cfg) noexcept;
 Для прямого порівняння двох підготовлених множин використовують точний модуль обчислення:
 
 :::tabs
-```c
-jaccard_status_t jaccard_compute_exact_sorted(
-    const jaccard_set_t *set_a,
-    const jaccard_set_t *set_b,
-    double *out_similarity
-);
-
-bool jaccard_pass_size_filter(
-    size_t len_a,
-    size_t len_b,
-    double threshold
-);
-```
-```cpp
-double compute_exact_sorted(
-    std::span<const uint64_t> set_a,
-    std::span<const uint64_t> set_b
-);
-
-bool pass_size_filter(
-    size_t len_a,
-    size_t len_b,
-    double threshold
-) noexcept;
-```
+:::code api-jaccard-engine/c/tochni-operatsii.h
+:::code api-jaccard-engine/cpp/tochni-operatsii.cpp
 :::
 
 Функція `jaccard_compute_exact_sorted` виконує порівняння двох відсортованих масивів елементів за `O(|A| + |B|)` операцій. Вона записує обчислений коефіцієнт схожості у змінну за вказівником `out_similarity`. Якщо обидві множини порожні, повертається значення `1.0`. 
@@ -174,28 +89,7 @@ bool pass_size_filter(
 Для імовірнісного стиснення та порівняння великих масивів документів призначено модуль MinHash Engine:
 
 :::tabs
-```c
-typedef struct jaccard_minhash_engine jaccard_minhash_engine_t;
-
-jaccard_status_t jaccard_minhash_engine_create(
-    const jaccard_config_t *cfg,
-    jaccard_minhash_engine_t **out_engine
-);
-
-jaccard_status_t jaccard_minhash_compute_sig(
-    const jaccard_minhash_engine_t *engine,
-    const jaccard_set_t *set_in,
-    jaccard_signature_t *out_sig
-);
-
-jaccard_status_t jaccard_minhash_compare_sigs(
-    const jaccard_signature_t *sig_a,
-    const jaccard_signature_t *sig_b,
-    double *out_similarity
-);
-
-void jaccard_minhash_engine_destroy(jaccard_minhash_engine_t *engine);
-```
+:::code api-jaccard-engine/c/modul-minhash-ta.h
 ```cpp
 class MinHashEngine {
 public:
@@ -214,47 +108,7 @@ public:
 
 Для використання бібліотеки в сучасних C++20 проєктах надається клас-обгортка `jaccard::JaccardEngine`, який реалізує концепцію RAII (Resource Acquisition Is Initialization) і повністю усуває загрозу витоків пам'яті.
 
-```cpp
-namespace jaccard {
-
-class JaccardEngine {
-public:
-    explicit JaccardEngine(Config config);
-    ~JaccardEngine();
-
-    JaccardEngine(const JaccardEngine&) = delete;
-    JaccardEngine& operator=(const JaccardEngine&) = delete;
-
-    JaccardEngine(JaccardEngine&&) noexcept;
-    JaccardEngine& operator=(JaccardEngine&&) noexcept;
-
-    [[nodiscard]] static double compute_exact(
-        std::span<const uint64_t> a,
-        std::span<const uint64_t> b
-    );
-
-    [[nodiscard]] static bool check_size_filter(
-        size_t len_a,
-        size_t len_b,
-        double threshold
-    ) noexcept;
-
-    [[nodiscard]] std::vector<uint64_t> compute_signature(
-        std::span<const uint64_t> shingles
-    ) const;
-
-    [[nodiscard]] static double compare_signatures(
-        std::span<const uint64_t> sig_a,
-        std::span<const uint64_t> sig_b
-    );
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> impl_;
-};
-
-} // namespace jaccard
-```
+:::code api-jaccard-engine/cpp/4-spetsyfikatsiia-obhortky.hpp
 
 Клас підтримує семантику переміщення (*Move Semantics*), забороняє потенційно небезпечне неявне копіювання важких внутрішніх ресурсів та використовує C++20 `std::span` для безаварійного доступу до неперервних масивів пам'яті без залучення сирих вказівників.
 

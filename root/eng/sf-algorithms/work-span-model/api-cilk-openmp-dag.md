@@ -11,61 +11,8 @@
 ### Базове породження та очікування задач
 
 :::tabs
-```c
-#include <stdio.h>
-#include <omp.h>
-
-void process_subtask(int id);
-
-void parallel_tree_execution(void) {
-    #pragma omp parallel
-    {
-        #pragma omp single
-        {
-            // Створення лівої вершини DAG
-            #pragma omp task
-            {
-                process_subtask(1);
-            }
-
-            // Створення правої вершини DAG
-            #pragma omp task
-            {
-                process_subtask(2);
-            }
-
-            // Точка синхронізації (join-ребро) для прямих дочірніх задач
-            #pragma omp taskwait
-        }
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <omp.h>
-
-void process_subtask(int id);
-
-void parallel_tree_execution() {
-    #pragma omp parallel
-    {
-        #pragma omp single
-        {
-            #pragma omp task
-            {
-                process_subtask(1);
-            }
-
-            #pragma omp task
-            {
-                process_subtask(2);
-            }
-
-            #pragma omp taskwait
-        }
-    }
-}
-```
+:::code api-cilk-openmp-dag/c/bazove-porodzhennia-ta.c
+:::code api-cilk-openmp-dag/cpp/bazove-porodzhennia-ta.cpp
 :::
 
 ### Таблиця директив OpenMP Tasking
@@ -98,83 +45,8 @@ void parallel_tree_execution() {
 Клауза `depend` реалізує концепцію задач за потоком даних (англ. *dataflow tasks*), де ребра залежності формуються не через явні бар'єри синхронізації, а автоматично на основі адрес змінних:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <omp.h>
-
-int compute_step_a(void);
-int compute_step_b(void);
-int combine_results(int a, int b);
-
-int execute_dag_pipeline(void) {
-    int res_a = 0, res_b = 0, res_c = 0;
-
-    #pragma omp parallel
-    {
-        #pragma omp single
-        {
-            // Вершина 1: генерує значення res_a
-            #pragma omp task depend(out: res_a)
-            {
-                res_a = compute_step_a();
-            }
-
-            // Вершина 2: генерує значення res_b (виконується паралельно з вершиною 1)
-            #pragma omp task depend(out: res_b)
-            {
-                res_b = compute_step_b();
-            }
-
-            // Вершина 3: залежить від завершення задач 1 і 2
-            #pragma omp task depend(in: res_a, res_b) depend(out: res_c)
-            {
-                res_c = combine_results(res_a, res_b);
-            }
-
-            #pragma omp taskwait
-        }
-    }
-    return res_c;
-}
-```
-```cpp
-#include <iostream>
-#include <omp.h>
-
-int compute_step_a();
-int compute_step_b();
-int combine_results(int a, int b);
-
-int execute_dag_pipeline() {
-    int res_a = 0;
-    int res_b = 0;
-    int res_c = 0;
-
-    #pragma omp parallel
-    {
-        #pragma omp single
-        {
-            #pragma omp task depend(out: res_a)
-            {
-                res_a = compute_step_a();
-            }
-
-            #pragma omp task depend(out: res_b)
-            {
-                res_b = compute_step_b();
-            }
-
-            #pragma omp task depend(in: res_a, res_b) depend(out: res_c)
-            {
-                res_c = combine_results(res_a, res_b);
-            }
-
-            #pragma omp taskwait
-        }
-    }
-    return res_c;
-}
-```
+:::code api-cilk-openmp-dag/c/pobudova-dovilnykh-dag-za.c
+:::code api-cilk-openmp-dag/cpp/pobudova-dovilnykh-dag-za.cpp
 :::
 
 ---
@@ -210,78 +82,13 @@ Cilk інтегрує паралелізм безпосередньо в син�
 
 ### Клас `tbb::task_group`
 
-```cpp
-#include <iostream>
-#include <tbb/task_group.h>
-
-void parallel_recursive_fibonacci(int n, int &result) {
-    if (n < 2) {
-        result = n;
-        return;
-    }
-
-    int left_res = 0;
-    int right_res = 0;
-    tbb::task_group tg;
-
-    // Створення лівої підзадачі (spawn)
-    tg.run([n, &left_res] {
-        parallel_recursive_fibonacci(n - 1, left_res);
-    });
-
-    // Створення правої підзадачі (spawn)
-    tg.run([n, &right_res] {
-        parallel_recursive_fibonacci(n - 2, right_res);
-    });
-
-    // Синхронізація обох підзадач (sync)
-    tg.wait();
-
-    result = left_res + right_res;
-}
-```
+:::code api-cilk-openmp-dag/cpp/klas-tbb-task-group.cpp
 
 ### Модуль `tbb::flow::graph` для потокових DAG
 
 Для задач із довільною топологією та конвеєрною обробкою даних oneTBB надає спеціалізований модуль потокових графів:
 
-```cpp
-#include <tbb/flow_graph.h>
-#include <iostream>
-
-void build_dataflow_dag() {
-    tbb::flow::graph g;
-
-    // Вузол джерела даних
-    tbb::flow::broadcast_node<int> start_node(g);
-
-    // Паралельні вузли обробки
-    tbb::flow::function_node<int, int> node_a(g, tbb::flow::unlimited, [](int v) {
-        return v * 2;
-    });
-
-    tbb::flow::function_node<int, int> node_b(g, tbb::flow::unlimited, [](int v) {
-        return v + 10;
-    });
-
-    // Вузол об'єднання результатів
-    tbb::flow::join_node<std::tuple<int, int>, tbb::flow::queueing> join(g);
-
-    tbb::flow::function_node<std::tuple<int, int>, int> final_node(g, tbb::flow::serial, [](const std::tuple<int, int> &t) {
-        return std::get<0>(t) + std::get<1>(t);
-    });
-
-    // Побудова ребер графа
-    tbb::flow::make_edge(start_node, node_a);
-    tbb::flow::make_edge(start_node, node_b);
-    tbb::flow::make_edge(node_a, tbb::flow::input_port<0>(join));
-    tbb::flow::make_edge(node_b, tbb::flow::input_port<1>(join));
-    tbb::flow::make_edge(join, final_node);
-
-    start_node.try_put(5);
-    g.wait_for_all();
-}
-```
+:::code api-cilk-openmp-dag/cpp/modul-tbb-flow-graph-dlia.cpp
 
 ---
 

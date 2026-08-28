@@ -225,18 +225,7 @@ Sum2D = Pref2D(r2, c2) − Pref2D(r1-1, c2) − Pref2D(r2, c1-1) + Pref2D(r1-1, 
 Проте, використовуючи двійкову структуру самого дерева Фенвіка, цю задачу можна розв'язати за один прохід за **`O(log N)`** за допомогою алгоритму **двійкового підйому (Binary Lifting)**.
 
 Алгоритм випробовує кроки степенями двійки `len = max_pow, ..., 1`:
-```cpp
-std::size_t idx = 0;
-T current_sum = 0;
-
-for (std::size_t len = max_pow; len > 0; len >>= 1) {
-    if (idx + len <= N && current_sum + T[idx + len] < target_sum) {
-        idx += len;
-        current_sum += T[idx];
-    }
-}
-return idx + 1; // 1-based індекс шуканого елемента
-```
+:::code fenwick-tree-d/cpp/main.cpp
 
 Оскільки кожна комірка `T[idx + len]` вже містить суму блоку довжиною `len`, ми перевіряємо можливість стрибка за один такт без додаткових префіксних запитів.
 

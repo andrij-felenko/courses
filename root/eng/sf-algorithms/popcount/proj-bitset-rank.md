@@ -21,37 +21,7 @@
 
 Усе спирається на одну примітивну операцію, і перше, що треба зробити, — заховати її переносність в одному місці:
 
-```c
-/* pc64.h — скільки одиниць у 64-бітному слові */
-#ifndef PC64_H
-#define PC64_H
-#include <stdint.h>
-
-static inline int pc64_swar(uint64_t x) {
-    x = x - ((x >> 1) & 0x5555555555555555ULL);
-    x = (x & 0x3333333333333333ULL) + ((x >> 2) & 0x3333333333333333ULL);
-    x = (x + (x >> 4)) & 0x0F0F0F0F0F0F0F0FULL;
-    return (int)((x * 0x0101010101010101ULL) >> 56);
-}
-
-#if defined(__cplusplus) && __cplusplus >= 202002L
-#  include <version>          /* саме тут оголошено __cpp_lib_bitops */
-#endif
-
-#if defined(__cpp_lib_bitops)
-#  include <bit>
-   static inline int pc64(uint64_t x) { return std::popcount(x); }
-#elif defined(__GNUC__)                       /* GCC і Clang */
-   static inline int pc64(uint64_t x) { return __builtin_popcountll(x); }
-#elif defined(_MSC_VER) && defined(_M_X64)
-#  include <intrin.h>
-   static inline int pc64(uint64_t x) { return (int)__popcnt64(x); }
-#else
-   static inline int pc64(uint64_t x) { return pc64_swar(x); }
-#endif
-
-#endif
-```
+:::code proj-bitset-rank/c/pc64.h
 
 У кожних із цих дверей своя підступність, і всі чотири варто знати наперед.
 
@@ -67,21 +37,7 @@ static inline int pc64_swar(uint64_t x) {
 
 ## Каркас: слово, розряд і хвіст
 
-```c
-/* bitset64.h — множина сталого розміру поверх масиву слів */
-#ifndef BITSET64_H
-#define BITSET64_H
-#include <stddef.h>
-#include "pc64.h"
-
-#define BS_WORDS(n)  (((n) + 63u) / 64u)
-
-static inline void bs_add(uint64_t *w, size_t i) { w[i >> 6] |=  (uint64_t)1 << (i & 63); }
-static inline void bs_del(uint64_t *w, size_t i) { w[i >> 6] &= ~((uint64_t)1 << (i & 63)); }
-static inline int  bs_has(const uint64_t *w, size_t i) {
-    return (int)((w[i >> 6] >> (i & 63)) & 1u);
-}
-```
+:::code proj-bitset-rank/c/bitset64.h
 
 `i >> 6` — номер слова, `i & 63` — номер розряду в ньому. Ділення й остача написалися б так само зрозуміло, і для беззнакового `i` компілятор згенерував би той самий зсув — але тільки для беззнакового. Варто `i` стати `int`, і компілятор мусить урахувати від'ємні значення (де `/` і `%` округлюють до нуля), а це вже дві-три зайві команди на кожен доступ. Тому індекс тут `size_t`, і не з педантизму.
 
@@ -94,18 +50,7 @@ static inline int  bs_has(const uint64_t *w, size_t i) {
 
 Звідси правило: **кожна дія, що чіпає слово цілком і може запалити розряд, гасить хвіст одразу після себе**.
 
-```c
-static inline uint64_t bs_tail_mask(size_t n) {
-    unsigned r = (unsigned)(n & 63);
-    return r ? (((uint64_t)1 << r) - 1) : ~(uint64_t)0;
-}
-
-static inline void bs_flip(uint64_t *w, size_t n) {
-    size_t nw = BS_WORDS(n), j;
-    for (j = 0; j < nw; ++j) w[j] = ~w[j];
-    if (nw) w[nw - 1] &= bs_tail_mask(n);
-}
-```
+:::code proj-bitset-rank/c/karkas-slovo-rozriad-i.c
 
 Тернарний оператор у `bs_tail_mask` — не перестраховка. Коли `n` кратне 64, хвоста немає, `r` дорівнює нулю, і «природний» запис `(1ULL << (n & 63)) - 1` дав би маску **0** замість повної: останнє слово було б стерте цілком. А в записаному вище вигляді значення для сталого `n` компілятор обчислить ще під час компіляції, тож жодної гілки в машинному коді не лишиться.
 
@@ -123,19 +68,7 @@ for (size_t j = 0; j < nw; ++j) n += pc64(w[j]);   /* так робити не �
 ![Один ланцюг залежностей проти чотирьох незалежних](img/accumulators.svg)
 *Один акумулятор зшиває незалежні за суттю підрахунки в один ланцюг. Чотири акумулятори розривають його на чотири незалежні нитки, які [позачергове ядро](root:hw-arch/out-of-order-execution) веде одночасно; фінальне додавання коштує один такт на весь масив.*
 
-```c
-static inline size_t bs_count(const uint64_t *w, size_t nw) {
-    size_t n0 = 0, n1 = 0, n2 = 0, n3 = 0, i = 0;
-    for (; i + 4 <= nw; i += 4) {
-        n0 += (size_t)pc64(w[i]);
-        n1 += (size_t)pc64(w[i + 1]);
-        n2 += (size_t)pc64(w[i + 2]);
-        n3 += (size_t)pc64(w[i + 3]);
-    }
-    for (; i < nw; ++i) n0 += (size_t)pc64(w[i]);
-    return n0 + n1 + n2 + n3;
-}
-```
+:::code proj-bitset-rank/c/potuzhnist-chotyry.c
 
 Чотири акумулятори тут працюють і другим боком. На ядрах Intel від Sandy Bridge і аж до сімейства Skylake включно команда `POPCNT` має **хибну залежність від регістра-приймача**: вона чекає на завершення попереднього запису в той регістр, хоча її результат від нього не залежить. Розкладення підсумку по чотирьох регістрах розводить і цю залежність теж. Виправили її для 32- та 64-бітних форм команди в поколіннях Cannon Lake та Ice Lake — але код, зібраний сьогодні, ще довго працюватиме на машинах, де вона є.
 
@@ -148,19 +81,7 @@ static inline size_t bs_count(const uint64_t *w, size_t nw) {
 ![Перетин у пам'яті проти перетину в регістрі](img/intersect-stream.svg)
 *Наївно й потоково. У другому варіанті перетин існує рівно одну мить — у регістрі, між AND і підрахунком, — і одразу згортається в число.*
 
-```c
-static inline size_t bs_and_count(const uint64_t *a, const uint64_t *b, size_t nw) {
-    size_t n0 = 0, n1 = 0, n2 = 0, n3 = 0, i = 0;
-    for (; i + 4 <= nw; i += 4) {
-        n0 += (size_t)pc64(a[i]     & b[i]);
-        n1 += (size_t)pc64(a[i + 1] & b[i + 1]);
-        n2 += (size_t)pc64(a[i + 2] & b[i + 2]);
-        n3 += (size_t)pc64(a[i + 3] & b[i + 3]);
-    }
-    for (; i < nw; ++i) n0 += (size_t)pc64(a[i] & b[i]);
-    return n0 + n1 + n2 + n3;
-}
-```
+:::code proj-bitset-rank/c/peretyn-iakoho-ne-isnuie.c
 
 Замініть `&` на `|` — дістанете потужність об'єднання, на `^` — [відстань Гемінга](root:math-information/hamming-bounds) між множинами, тобто розмір їхньої симетричної різниці. Форма циклу та сама, бо суть та сама: **предикат над парою слів згортається в число, не лишаючи по собі об'єкта**.
 
@@ -188,37 +109,7 @@ static inline size_t bs_rank(const uint64_t *w, size_t i) {
 
 Найцікавіше застосування рангу — не запит до множини, а **адресація**. Вузол, у якому можливих позицій 64, а зайнято п'ять, тримають як бітову мапу плюс щільний масив рівно з п'яти значень; ранг перекладає номер позиції в номер комірки. Так влаштований вузол [геш-дерева з бітовими мапами](root:sf-algorithms/hash-array-mapped-trie) і побудовані на ньому незмінні колекції багатьох мов:
 
-```cpp
-#include <cassert>
-#include <cstdint>
-#include <utility>
-#include <vector>
-#include "pc64.h"
-
-template <class T>
-class SparseNode {                     // до 64 логічних позицій
-    std::uint64_t map_ = 0;
-    std::vector<T> dense_;
-public:
-    bool has(unsigned i) const {
-        assert(i < 64);
-        return ((map_ >> i) & 1u) != 0;
-    }
-    unsigned slot(unsigned i) const {  // скільки зайнятих позицій перед i-ю
-        assert(i < 64);
-        return (unsigned)pc64(map_ & (((std::uint64_t)1 << i) - 1));
-    }
-    T *find(unsigned i) { return has(i) ? &dense_[slot(i)] : nullptr; }
-
-    void set(unsigned i, T v) {
-        unsigned s = slot(i);
-        if (has(i)) { dense_[s] = std::move(v); return; }
-        dense_.insert(dense_.begin() + s, std::move(v));
-        map_ |= (std::uint64_t)1 << i;
-    }
-    std::size_t size() const { return dense_.size(); }
-};
-```
+:::code proj-bitset-rank/cpp/ranh-vid-rozriadu-do-slota.cpp
 
 Щільний масив тут — `std::vector` заради стислості запису. У справжньому вузлі його кладуть у той самий блок пам'яті одразу за мапою: три вказівники самого вектора й окреме виділення купи з'їли б помітну частину виграшу, а виграш саме такий:
 
@@ -236,29 +127,7 @@ k = 64  →  520 байтів  (на 8 байтів більше)
 
 Ядро навмисно лишилося масивом слів і функціями над ним — таке ядро включається і в прошивку, і в драйвер, де C++ немає. Але в програмі на C++ передавати парою «вказівник плюс кількість слів» незручно й небезпечно, тож зверху лягає обгортка, яка не додає жодної машинної команди:
 
-```cpp
-#include <cstddef>
-#include <cstdint>
-#include "bitset64.h"
-
-template <std::size_t N>
-class BitSet {
-    static_assert(N > 0, "множина без жодного можливого елемента не має слів");
-    static constexpr std::size_t W = BS_WORDS(N);
-    std::uint64_t w_[W] = {};
-public:
-    void add(std::size_t i)               { bs_add(w_, i); }
-    void del(std::size_t i)               { bs_del(w_, i); }
-    bool has(std::size_t i) const         { return bs_has(w_, i) != 0; }
-    void flip()                           { bs_flip(w_, N); }
-    std::size_t count() const             { return bs_count(w_, W); }
-    std::size_t rank(std::size_t i) const { return bs_rank(w_, i); }
-
-    friend std::size_t intersection_count(const BitSet &a, const BitSet &b) {
-        return bs_and_count(a.w_, b.w_, W);
-    }
-};
-```
+:::code proj-bitset-rank/cpp/tonkyi-shar-typiv.cpp
 
 Кількість слів рахується під час компіляції, масив лежить прямо в об'єкті, тож виділень пам'яті немає взагалі: `BitSet<200>` — це 32 байти на стеку. `intersection_count` оголошено дружньою функцією не з примхи, а тому, що операція **симетрична**: у методі один із двох аргументів був би привілейованим без жодної на те причини. Перевірки меж тут теж немає — індекс за межами `N` зіпсує пам'ять поруч; `assert(i < N)` живе лише в налагоджувальному збиранні, у випущеному зникає безслідно й ловить рівно ті помилки, які інакше виявляться далеко від місця злочину.
 
@@ -289,42 +158,7 @@ size_t bs_count_dispatch(const uint64_t *w, size_t nw) { return bs_count(w, nw);
 
 Тепер найцікавіше: наскільки апаратна команда справді швидша за SWAR. Питання має сенс лише разом із розміром масиву, і вимірювання це показує краще за будь-які міркування.
 
-```cpp
-#include <chrono>
-#include <cstdint>
-#include <cstdio>
-#include <random>
-#include <vector>
-
-std::size_t count_hw(const std::uint64_t *w, std::size_t nw);    // окрема одиниця трансляції
-std::size_t count_swar(const std::uint64_t *w, std::size_t nw);  // окрема одиниця трансляції
-
-template <class F>
-double ns_per_word(F f, const std::uint64_t *w, std::size_t nw, std::size_t &sink) {
-    sink += f(w, nw);                                 // прогрів: сторінки й кеш
-    std::size_t reps = (std::size_t{1} << 26) / nw;   // однаковий обсяг роботи на всіх розмірах
-    if (reps == 0) reps = 1;
-    auto t0 = std::chrono::steady_clock::now();
-    for (std::size_t r = 0; r < reps; ++r) sink += f(w, nw);
-    auto t1 = std::chrono::steady_clock::now();
-    double sec = std::chrono::duration<double>(t1 - t0).count();
-    return sec * 1e9 / (double)reps / (double)nw;
-}
-
-int main() {
-    std::mt19937_64 rng(1);
-    std::size_t sink = 0;
-    std::printf("%8s %12s %12s %10s\n", "КіБ", "апарат", "SWAR", "ГБ/с");
-    for (std::size_t kib = 4; kib <= (1u << 18); kib *= 4) {   // 4 КіБ … 256 МіБ
-        std::vector<std::uint64_t> v(kib * 1024 / 8);
-        for (auto &x : v) x = rng();
-        double a = ns_per_word(count_hw,   v.data(), v.size(), sink);
-        double b = ns_per_word(count_swar, v.data(), v.size(), sink);
-        std::printf("%8zu %12.3f %12.3f %10.1f\n", kib, a, b, 8.0 / a);
-    }
-    std::printf("контрольна сума: %zu\n", sink);   // без цього рядка цикли зникнуть
-}
-```
+:::code proj-bitset-rank/cpp/vymiriuvannia.cpp
 
 Збирають це з **окремим** прапорцем для кожної одиниці трансляції, і другий рядок тут — найважливіший у всьому вимірюванні:
 

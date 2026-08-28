@@ -23,55 +23,8 @@
 ### Переліки алгоритмів та операцій
 
 :::tabs
-```c
-/* Доступні алгоритми порівняння */
-typedef enum {
-    DIFF_ALGO_MYERS     = 0, /* Класичний O(ND) алгоритм Маєрса (мінімальний розмір diff) */
-    DIFF_ALGO_PATIENCE  = 1, /* Patience diff (семантично чисті межі функцій та блоків) */
-    DIFF_ALGO_HISTOGRAM = 2, /* Histogram diff (швидка оптимізована версія Patience) */
-    DIFF_ALGO_HECKEL    = 3  /* Лінійний алгоритм Гекеля з виявленням переміщень блоків */
-} diff_algo_t;
-
-/* Тип операції над елементом послідовності */
-typedef enum {
-    DIFF_OP_KEEP   = 0, /* Рядок збережено без змін (контекстний рядок) */
-    DIFF_OP_INSERT = 1, /* Новий рядок додано до ревізії B */
-    DIFF_OP_DELETE = 2  /* Старий рядок вилучено з ревізії A */
-} diff_op_t;
-
-/* Коди помилок бібліотеки */
-typedef enum {
-    DIFF_OK               =  0, /* Успішне виконання */
-    DIFF_ERR_INVALID_ARG  = -1, /* Некоректні вхідні аргументи (NULL вказівник або некоректні прапорці) */
-    DIFF_ERR_NO_MEMORY    = -2, /* Помилка виділення динамічної пам'яті */
-    DIFF_ERR_LIMIT_EXCEED = -3  /* Перевищено ліміт правок D_max або розмір послідовності */
-} diff_error_t;
-```
-```cpp
-namespace diff {
-
-enum class Algorithm : uint8_t {
-    Myers,      // Класичний O(ND) алгоритм Маєрса
-    Patience,   // Patience diff (LIS унікальних рядків)
-    Histogram,  // Histogram diff (низькочастотні опорні точки)
-    Heckel      // Алгоритм Гекеля з підтримкою переміщень блоків
-};
-
-enum class Operation : uint8_t {
-    Keep,   // Рядок без змін
-    Insert, // Додавання
-    Delete  // Видалення
-};
-
-enum class ErrorCode : int32_t {
-    Ok = 0,
-    InvalidArgument = -1,
-    OutOfMemory = -2,
-    LimitExceeded = -3
-};
-
-} // namespace diff
-```
+:::code api-diff-engine/c/pereliky-alhorytmiv-ta.c
+:::code api-diff-engine/cpp/pereliky-alhorytmiv-ta.cpp
 :::
 
 ### Структури конфігурації та дескриптори фрагментів
@@ -79,79 +32,8 @@ enum class ErrorCode : int32_t {
 Конфігурація задає правила нормалізації тексту, кількість рядків контексту довкола змін та обмеження ресурсомісткості. Фрагмент (`diff_hunk_t` / `diff::Hunk`) описує неперервну групу змінених рядків, обрамлену рядками контексту.
 
 :::tabs
-```c
-/* Налаштування процесу порівняння */
-typedef struct {
-    diff_algo_t algorithm;      /* Обраний алгоритм порівняння */
-    size_t context_lines;       /* Кількість рядків контексту довкола змін (типово 3) */
-    bool ignore_whitespace_eol; /* Ігнорувати пробільні символи в кінці рядка */
-    bool ignore_all_whitespace; /* Ігнорувати всі пробільні символи */
-    size_t max_edit_distance;   /* Граничне значення D (0 — без обмежень) */
-} diff_config_t;
-
-/* Окремий рядок у структурованому фрагменті diff */
-typedef struct {
-    diff_op_t op;
-    size_t old_line_num; /* 1-індексований номер рядка у файлі A (0 для вставки) */
-    size_t new_line_num; /* 1-індексований номер рядка у файлі B (0 для видалення) */
-    const char* text;    /* Вказівник на початок тексту рядка */
-    size_t length;       /* Довжина рядка в байтах */
-} diff_line_entry_t;
-
-/* Структурований фрагмент різниць (Hunk) */
-typedef struct {
-    size_t old_start;           /* Початковий рядок у файлі A */
-    size_t old_count;           /* Кількість рядків з файлу A у фрагменті */
-    size_t new_start;           /* Початковий рядок у файлі B */
-    size_t new_count;           /* Кількість рядків з файлу B у фрагменті */
-    diff_line_entry_t* entries; /* Масив рядків фрагмента */
-    size_t entry_count;         /* Кількість елементів у масиві entries */
-} diff_hunk_t;
-
-/* Повний результат порівняння */
-typedef struct {
-    diff_hunk_t* hunks;         /* Масив фрагментів */
-    size_t hunk_count;          /* Кількість фрагментів */
-    size_t total_deletions;     /* Загальна кількість видалених рядків */
-    size_t total_insertions;    /* Загальна кількість доданих рядків */
-    size_t edit_distance;       /* Обчислена редакторська відстань D */
-} diff_result_t;
-```
-```cpp
-namespace diff {
-
-struct Config {
-    Algorithm algorithm{Algorithm::Myers};
-    size_t context_lines{3};
-    bool ignore_whitespace_eol{false};
-    bool ignore_all_whitespace{false};
-    size_t max_edit_distance{0}; // 0 = без обмежень
-};
-
-struct LineEntry {
-    Operation op{Operation::Keep};
-    size_t old_line_num{0};
-    size_t new_line_num{0};
-    std::string_view text;
-};
-
-struct Hunk {
-    size_t old_start{0};
-    size_t old_count{0};
-    size_t new_start{0};
-    size_t new_count{0};
-    std::vector<LineEntry> entries;
-};
-
-struct Result {
-    std::vector<Hunk> hunks;
-    size_t total_deletions{0};
-    size_t total_insertions{0};
-    size_t edit_distance{0};
-};
-
-} // namespace diff
-```
+:::code api-diff-engine/c/struktury-konfihuratsii-ta.c
+:::code api-diff-engine/cpp/struktury-konfihuratsii-ta.cpp
 :::
 
 ## Опис функцій публічного інтерфейсу
@@ -184,65 +66,8 @@ struct Result {
 Нижче наведено робочий приклад виклику бібліотечного API для порівняння двох рядків та обробки результатів.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-
-void run_diff_example(void) {
-    const char* text_old = "int main() {\n    printf(\"Hello\\n\");\n    return 0;\n}\n";
-    const char* text_new = "int main() {\n    puts(\"Hello, World!\");\n    return 0;\n}\n";
-
-    diff_config_t cfg;
-    diff_config_init_default(&cfg);
-    cfg.algorithm = DIFF_ALGO_MYERS;
-    cfg.context_lines = 2;
-
-    diff_result_t* res = NULL;
-    diff_error_t err = diff_compare_buffers(
-        text_old, strlen(text_old),
-        text_new, strlen(text_new),
-        &cfg, &res
-    );
-
-    if (err != DIFF_OK) {
-        fprintf(stderr, "Помилка порівняння: код %d\n", err);
-        return;
-    }
-
-    char* formatted = NULL;
-    size_t fmt_len = 0;
-    if (diff_format_unified(res, "a/main.c", "b/main.c", &formatted, &fmt_len) == DIFF_OK) {
-        printf("%s\n", formatted);
-        diff_free_string(formatted);
-    }
-
-    diff_free_result(res);
-}
-```
-```cpp
-#include <iostream>
-
-void run_diff_example_cpp() {
-    constexpr std::string_view text_old = "int main() {\n    printf(\"Hello\\n\");\n    return 0;\n}\n";
-    constexpr std::string_view text_new = "int main() {\n    puts(\"Hello, World!\");\n    return 0;\n}\n";
-
-    diff::Config cfg{
-        .algorithm = diff::Algorithm::Myers,
-        .context_lines = 2
-    };
-
-    diff::Engine engine(cfg);
-    auto res = engine.compare(text_old, text_new);
-
-    if (!res) {
-        std::cerr << "Помилка порівняння: код " << static_cast<int>(res.error()) << '\n';
-        return;
-    }
-
-    std::string patch = diff::Engine::format_unified(*res, "a/main.c", "b/main.c");
-    std::cout << patch << '\n';
-}
-```
+:::code api-diff-engine/c/povnyi-pryklad-intehratsii.c
+:::code api-diff-engine/cpp/povnyi-pryklad-intehratsii.cpp
 :::
 
 ## Інваріанти та гарантії викликів

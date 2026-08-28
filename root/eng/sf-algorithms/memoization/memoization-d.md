@@ -33,18 +33,7 @@ def fib(n):
 У коді потрібен лише кеш — таблиця «аргумент → результат», у ролі якої природно виступає [хеш-таблиця](root:sf-algorithms/hash-table) (словник, `Map`) — і три рядки навколо обчислення: перевірити, порахувати за потреби, зберегти.
 
 :::tabs
-```py
-cache = {}
-
-def fib(n):
-    if n < 2:
-        return n
-    if n in cache:            # уже рахували? — бери готове
-        return cache[n]
-    result = fib(n - 1) + fib(n - 2)
-    cache[n] = result         # запам'ятай, щоб не рахувати вдруге
-    return result
-```
+:::code memoization-d/py/main.py
 ```js
 const cache = new Map();
 

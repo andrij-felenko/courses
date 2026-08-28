@@ -23,40 +23,7 @@
 
 Виграш від цієї домовленості величезний: **дві** примітиви покривають усі зчеплення в усій купі, і жодна не потребує окремого випадку на список з одного вузла.
 
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <limits.h>
-#include <math.h>
-
-typedef struct Node {
-    int  key;                  // ключ (за ним упорядкування)
-    int  degree;               // кількість безпосередніх дітей
-    bool mark;                 // чи втратив дитину, відколи став не-коренем
-    struct Node *parent;       // батько (NULL у кореня)
-    struct Node *child;        // одна з дітей (решта — через її кільце)
-    struct Node *left, *right; // сусіди в кільці (кореневому чи дитячому)
-} Node;
-
-// Вкинути кільце вузла b одразу після a (обидва — у якихось кільцях).
-// Коли b самотній, це просто вставляє b між a та a->right.
-static void list_union(Node *a, Node *b) {
-    Node *a_next = a->right;
-    Node *b_prev = b->left;
-    a->right = b;
-    b->left  = a;
-    b_prev->right = a_next;
-    a_next->left  = b_prev;
-}
-
-// Вирвати x із його кільця; x лишається замкненим сам на себе.
-static void list_remove(Node *x) {
-    x->left->right = x->right;
-    x->right->left = x->left;
-    x->left = x->right = x;    // тепер x — самотнє кільце
-}
-```
+:::code proj-fib-heap/c/odna-prymityva-na-iakii.c
 
 Придивімося, чому цих двох досить. `list_union(a, b)` зшиває два кільця в одне: розриває зв'язок `a → a_next`, розриває `b_prev → b`, і перехрещує кінці так, що виходить один суцільний цикл. Якщо `b` самотній (`b->left == b`), то `b_prev == b`, і те саме присвоєння просто вставляє `b` між `a` та його правим сусідом — той самий код, ніякого `if`. Тому «вкинути новий вузол у кореневий список» і «злити два кореневі списки» — це **один** виклик.
 
@@ -94,34 +61,7 @@ static FibHeap *fib_make(void) {
 
 Три операції — сталого часу, бо кожна лише зчіплює кільця й, можливо, пересуває `min`. Ніякого впорядкування.
 
-```c
-// Вставити ключ. Повертає вузол — щоб потім можна було decrease/delete.
-static Node *fib_insert(FibHeap *h, int key) {
-    Node *x = make_node(key);
-    if (h->min == NULL) {
-        h->min = x;                 // x уже сам собі кореневий список
-    } else {
-        list_union(h->min, x);      // вкинути в кореневий список
-        if (x->key < h->min->key) h->min = x;
-    }
-    h->n++;
-    return x;
-}
-
-// Підглянути мінімум — вказівник уже націлено.
-static Node *fib_minimum(FibHeap *h) { return h->min; }
-
-// Злити дві купи: зшити кореневі списки, лишити менший min. Поглинає b.
-static FibHeap *fib_union(FibHeap *a, FibHeap *b) {
-    if (a->min == NULL) { free(a); return b; }
-    if (b->min == NULL) { free(b); return a; }
-    list_union(a->min, b->min);     // два ліси зростаються в один
-    if (b->min->key < a->min->key) a->min = b->min;
-    a->n += b->n;
-    free(b);
-    return a;
-}
-```
+:::code proj-fib-heap/c/desheva-triitsia-insert.c
 
 Весь тягар зсунуто в одну-єдину операцію — вилучення мінімуму. Саме там борг за всі ці дешеві вкидання й повертають.
 
@@ -155,74 +95,13 @@ static void fib_link(Node *y, Node *x) {
 
 Тепер саме ущільнення. Тонкість, на якій легко впасти: **linking переплітає кореневий список під час обходу** — щойно ми зчепимо два дерева, кільце вже не те, і йти «наживо» по `right`-вказівниках не можна. Тому спершу знімаємо **знімок** кореневого списку в масив, а вже тоді обробляємо його, не боячись, що земля попливе під ногами.
 
-```c
-static void fib_consolidate(FibHeap *h) {
-    int Dn = max_degree(h->n);
-    Node **A = calloc(Dn + 1, sizeof(Node *));   // A[d] — корінь степеня d або NULL
-
-    // Знімок кореневого списку (linking переплете кільце на ходу).
-    int nroots = 0;
-    Node *w = h->min;
-    do { nroots++; w = w->right; } while (w != h->min);
-    Node **roots = malloc(nroots * sizeof(Node *));
-    w = h->min;
-    for (int i = 0; i < nroots; i++) { roots[i] = w; w = w->right; }
-
-    // Розкладаємо дерева за степенем; двоє одного степеня — зчіплюємо.
-    for (int i = 0; i < nroots; i++) {
-        Node *x = roots[i];
-        int d = x->degree;
-        while (A[d] != NULL) {
-            Node *y = A[d];                       // уже є дерево степеня d
-            if (y->key < x->key) { Node *t = x; x = y; y = t; }  // x — менший ключ
-            fib_link(y, x);                       // y під x; степінь x виріс
-            A[d] = NULL;
-            d++;                                  // переїхали в наступну комірку
-        }
-        A[d] = x;
-    }
-
-    // Зібрати кореневий список наново з масиву й заново знайти min.
-    h->min = NULL;
-    for (int i = 0; i <= Dn; i++) {
-        if (A[i] == NULL) continue;
-        A[i]->left = A[i]->right = A[i];          // від'єднати від старих сусідів
-        if (h->min == NULL) h->min = A[i];
-        else {
-            list_union(h->min, A[i]);
-            if (A[i]->key < h->min->key) h->min = A[i];
-        }
-    }
-    free(A);  free(roots);
-}
-```
+:::code proj-fib-heap/c/vyluchennia-minimumu-i.c
 
 Чому наприкінці кореневий список **збирають наново**, а не лишають як є? Бо вцілілі в `A[]` корені досі носять `left`/`right`, що вказують у розтерзане linking'ом старе кільце. Найпростіше й найнадійніше — від'єднати кожного (`left = right = self`) і зшити чистий новий цикл. Заразом і `min` знаходиться дорогою.
 
 Маючи ці дві дії, саме вилучення мінімуму коротке:
 
-```c
-static Node *fib_extract_min(FibHeap *h) {
-    Node *z = h->min;
-    if (z == NULL) return NULL;
-
-    if (z->child != NULL) {              // піднімаємо дітей z у кореневий список
-        Node *c = z->child;
-        do { c->parent = NULL; c = c->right; } while (c != z->child);
-        list_union(z, z->child);         // ціле дитяче кільце — в кореневе
-    }
-
-    if (z->right == z) {                 // z був єдиним коренем (уже без дітей)
-        h->min = NULL;
-    } else {
-        h->min = z->right;               // тимчасово; consolidate виправить
-        list_remove(z);
-        fib_consolidate(h);
-    }
-    h->n--;
-    return z;
-}
-```
+:::code proj-fib-heap/c/vyluchennia-minimumu-i-2.c
 
 Зверни увагу на порядок: перевірку «z був єдиний» роблять **після** підняття дітей. Якщо в z були діти, після `list_union(z, z->child)` вузол `z->right` — це вже перша дитина, тож ми правильно йдемо в гілку `else`, вирываємо `z` і ущільнюємо ліс, у якому тепер сидять колишні діти.
 
@@ -232,50 +111,15 @@ static Node *fib_extract_min(FibHeap *h) {
 
 Розріз — та сама хірургія кілець, тільки з двома додатковими дрібницями, на яких спотикаються найчастіше: правильно зняти батьків вказівник `child`, якщо він указував саме на цей вузол, і зробити це **до** `list_remove`, поки `x->right` іще веде до сусіда.
 
-```c
-static void fib_cut(FibHeap *h, Node *x, Node *y) {
-    // 1. Від'єднати x від дитячого кільця y.
-    if (y->child == x)                          // саме x був «тим самим» вказівником?
-        y->child = (x->right == x) ? NULL : x->right;   // перевести на сусіда або обнулити
-    list_remove(x);
-    y->degree--;
-    // 2. x стає окремим деревом у кореневому списку.
-    list_union(h->min, x);
-    x->parent = NULL;
-    x->mark = false;                            // корені не позначають
-}
-```
+:::code proj-fib-heap/c/zmenshennia-kliucha-rozriz.c
 
 Розрізи обкрадають батьків, і якщо дозволити це безкарно, дерева виродяться в ниточки. Тримає їх бушистими правило **позначки**: перша втрата дитини — просто позначка; друга — виліт самого вузла в корінь, а розріз **котиться вгору** тим самим правилом. Це й є каскадний розріз, і в коді він природно рекурсивний:
 
-```c
-static void fib_cascading_cut(FibHeap *h, Node *y) {
-    Node *z = y->parent;
-    if (z != NULL) {
-        if (!y->mark) {
-            y->mark = true;             // перша втрата — лише позначка
-        } else {
-            fib_cut(h, y, z);           // друга втрата — ріжемо y теж
-            fib_cascading_cut(h, z);    // і котимося до батька
-        }
-    }
-}
-```
+:::code proj-fib-heap/c/zmenshennia-kliucha-rozriz-2.c
 
 Саме зменшення ключа зшиває це докупи. Після можливого розрізу лишається оновити `min`, якщо новий корінь виявився найменшим, — а от корені, що прилетіли каскадом, перевіряти на мінімум не треба: за властивістю купи вони не менші за той корінь, під яким сиділи, отже, не менші за поточний `min`.
 
-```c
-static void fib_decrease_key(FibHeap *h, Node *x, int newkey) {
-    if (newkey > x->key) return;        // тільки зменшення
-    x->key = newkey;
-    Node *y = x->parent;
-    if (y != NULL && x->key < y->key) { // порядок порушено — ріжемо
-        fib_cut(h, x, y);
-        fib_cascading_cut(h, y);
-    }
-    if (x->key < h->min->key) h->min = x;
-}
-```
+:::code proj-fib-heap/c/zmenshennia-kliucha-rozriz-3.c
 
 ## Вилучення будь-якого вузла через −∞
 
@@ -295,36 +139,7 @@ static void fib_delete(FibHeap *h, Node *x) {
 
 Зберемо все й проженемо просту послідовність. Викликач тримає вказівники на ті вузли, які збирається пізніше зменшити чи вилучити.
 
-```c
-int main(void) {
-    FibHeap *h = fib_make();
-    int keys[] = {7,3,17,24,23,26,46,30,18,52,41,44,21,39,45};
-    Node *n46 = NULL, *n30 = NULL;
-    for (int i = 0; i < 15; i++) {
-        Node *nd = fib_insert(h, keys[i]);
-        if (keys[i] == 46) n46 = nd;
-        if (keys[i] == 30) n30 = nd;
-    }
-
-    printf("min = %d\n", fib_minimum(h)->key);                 // 3
-
-    Node *a = fib_extract_min(h); printf("вилучено %d\n", a->key); free(a);  // 3
-    Node *b = fib_extract_min(h); printf("вилучено %d\n", b->key); free(b);  // 7
-
-    fib_decrease_key(h, n46, 5);                               // 46 → 5
-    Node *c = fib_extract_min(h); printf("вилучено %d\n", c->key); free(c);  // 5
-
-    fib_delete(h, n30);                                        // прибрати вузол 30
-    Node *d = fib_extract_min(h); printf("вилучено %d\n", d->key); free(d);  // 17
-
-    printf("решта:");
-    Node *m;
-    while ((m = fib_extract_min(h)) != NULL) { printf(" %d", m->key); free(m); }
-    printf("\n");
-    free(h);
-    return 0;
-}
-```
+:::code proj-fib-heap/c/demonstratsiia.c
 
 Компілюємо (потрібен `-lm` через `sqrt`/`log`) — `gcc fib.c -lm` — і дістаємо:
 

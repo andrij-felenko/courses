@@ -25,56 +25,8 @@
 Складемо обидва пакувальники в мережевий порядок. `buf` — масив байтів, `off` — поточне зміщення в ньому; усе ціле, жодного дотику до ендіанності машини:
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <string.h>
-
-void put_u32_be(uint8_t *buf, size_t off, uint32_t v) {   // ціле — зсувами
-    buf[off + 0] = (v >> 24) & 0xFF;       // старший байт — першим (big-endian)
-    buf[off + 1] = (v >> 16) & 0xFF;
-    buf[off + 2] = (v >>  8) & 0xFF;
-    buf[off + 3] = (v >>  0) & 0xFF;
-}
-
-uint32_t get_u32_be(const uint8_t *buf, size_t off) {     // дзеркально: збираємо назад
-    return ((uint32_t)buf[off + 0] << 24) | ((uint32_t)buf[off + 1] << 16)
-         | ((uint32_t)buf[off + 2] <<  8) |  (uint32_t)buf[off + 3];
-}
-
-void put_f32_be(uint8_t *buf, size_t off, float f) {      // float — через байти, не зсувом
-    uint8_t tmp[4];
-    memcpy(tmp, &f, 4);                     // дістали байти IEEE-754, не чіпаючи бітів
-    // tmp лежить у ПОРЯДКУ ПАМ'ЯТІ машини → вирівнюємо до мережевого:
-    const uint16_t probe = 1;
-    if (*(const uint8_t *)&probe) {         // молодший байт першим → little-endian
-        for (int i = 0; i < 2; i++) {       // 4 байти задом наперед
-            uint8_t t = tmp[i]; tmp[i] = tmp[3 - i]; tmp[3 - i] = t;
-        }
-    }
-    memcpy(buf + off, tmp, 4);
-}
-```
-```python
-import struct
-
-
-def put_u32_be(buf: bytearray, off: int, v: int) -> None:   # ціле — зсувами
-    buf[off + 0] = (v >> 24) & 0xFF        # старший байт — першим (big-endian)
-    buf[off + 1] = (v >> 16) & 0xFF
-    buf[off + 2] = (v >>  8) & 0xFF
-    buf[off + 3] = (v >>  0) & 0xFF
-
-
-def get_u32_be(buf: bytes, off: int) -> int:                # дзеркально: збираємо назад
-    return (buf[off + 0] << 24) | (buf[off + 1] << 16) \
-         | (buf[off + 2] <<  8) |  buf[off + 3]
-
-
-def put_f32_be(buf: bytearray, off: int, f: float) -> None:  # float — через байти, не зсувом
-    # ">f" одразу пакує IEEE-754 у мережевому (big-endian) порядку —
-    # struct сам вирівнює до дроту, розвертати вручну не треба:
-    buf[off:off + 4] = struct.pack(">f", f)
-```
+:::code proj-serialization/cpp/main.cpp
+:::code proj-serialization/py/main.py
 :::
 
 Зверніть увагу на головний нюанс `float`: `memcpy` віддає байти **в порядку пам'яті машини**, тож на little-endian їх ще треба **розвернути**, щоб на дроті був мережевий порядок. Для цілого розвороту не потрібно — там байти диктують **зсуви**, які не залежать від машини. Це та сама ідея, що в `htons`/`htonl`: на big-endian машині розворот — порожня операція, на little-endian — переставляння байтів; обидва шляхи дають однаковий буфер.

@@ -20,18 +20,7 @@
 - **Пункт 173 (Gosper's Hack):** знаменитий алгоритм Вільяма Госпера для генерації наступного за величиною числа з тією самою кількістю одиничних бітів. Алгоритм розв'язував задачу перебору комбінацій без рекурсії за допомогою виразів `x & -x` та зсувів:
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Генерація наступного числа з тією самою кількістю одиничних бітів (Gosper's Hack)
-uint64_t next_combination(uint64_t x) {
-    uint64_t smallest = x & -x;             // виділити молодший встановлений біт
-    uint64_t ripple = x + smallest;         // викликати перенос через групу одиниць
-    uint64_t ones = x ^ ripple;             // знайти змінені біти
-    ones = (ones >> 2) / smallest;          // вирівняти молодші одиниці праворуч
-    return ripple | ones;
-}
-```
+:::code hist-bit-hacks/c/1972-lehendarnyi-zvit.c
 ```cpp
 #include <cstdint>
 
@@ -84,35 +73,8 @@ signum(x):
 Для розрахунку освітлення та нормалей 3D-моделей потрібна нормалізація векторів, яка впиралася у надзвичайно повільну команду апаратного ділення на корінь `FDIV / FSQRT`. Алгоритм Кармака трактував біти 32-бітного `float` як ціле число `int32_t`, віднімав його від «магічної константи» `0x5f3759df` та робив один зсув вправо:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-float fast_inv_sqrt(float number) {
-    int32_t i;
-    float x2, y;
-    x2 = number * 0.5f;
-    y  = number;
-    memcpy(&i, &y, sizeof(i));                  // безпечне копіювання бітів без strict aliasing
-    i  = 0x5f3759df - (i >> 1);                 // магічний бітовий зсув
-    memcpy(&y, &i, sizeof(y));
-    y  = y * (1.5f - (x2 * y * y));             // 1 ітерація методу Ньютона-Рафсона
-    return y;
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-
-[[nodiscard]] constexpr float fast_inv_sqrt(float number) noexcept {
-    const float x2 = number * 0.5F;
-    std::int32_t i = std::bit_cast<std::int32_t>(number);
-    i = 0x5f3759df - (i >> 1U);
-    float y = std::bit_cast<float>(i);
-    y = y * (1.5F - (x2 * y * y));              // уточнення методом Ньютона
-    return y;
-}
-```
+:::code hist-bit-hacks/c/lehenda-tryvymirnoi.c
+:::code hist-bit-hacks/cpp/main.hpp
 :::
 
 Цей алгоритм спирався на те, що бітова розкладка стандарту IEEE-754 (де порядок логарифмічно кодує степінь двійки) перетворює цілочисловий зсув вправо `i >> 1` на ділення логарифма числа навпіл, тобто на видобування квадратного кореня у логарифмічному просторі.

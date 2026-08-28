@@ -53,18 +53,7 @@ typedef struct ImpNode {
     struct ImpNode *right;
 } ImpNode;
 ```
-```cpp
-template <typename ValueType>
-struct ImpNode {
-    ValueType val;
-    ValueType sum;
-    int sz{1};
-    bool rev{false};
-    uint32_t priority;
-    std::unique_ptr<ImpNode> left{nullptr};
-    std::unique_ptr<ImpNode> right{nullptr};
-};
-```
+:::code api-treap/cpp/main.cpp
 :::
 
 - `val`: 64-бітне цілочисельне значення елемента, що зберігається в даному вузлі.

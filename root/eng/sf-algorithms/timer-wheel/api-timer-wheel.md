@@ -78,19 +78,7 @@ typedef void (*timer_callback_t)(timer_id_t id, void *user_data);
 
 Вузол таймера є елементом подвійно зв'язаного списку. Для запобігання фальшивому спільному використанню кешу (False Sharing) структура може бути вирівняна по межі кеш-лінії процесора (64 байти).
 
-```cpp
-struct timer_node {
-    timer_id_t       id;          /* Унікальний ідентифікатор таймера */
-    timer_tick_t     expires;     /* Абсолютний час спрацьовування у тіках */
-    timer_tick_t     interval;    /* Інтервал повтору для періодичних таймерів */
-    uint32_t         flags;       /* Бітові прапорці конфігурації TW_FLAG_* */
-    timer_callback_t callback;    /* Вказівник на функцію зворотного виклику */
-    void            *user_data;   /* Контекстний вказівник даних користувача */
-    struct timer_node *prev;      /* Вказівник на попередній вузол списку слота */
-    struct timer_node *next;      /* Вказівник на наступний вузол списку слота */
-};
-typedef struct timer_node timer_node_t;
-```
+:::code api-timer-wheel/cpp/3-3-struktura-vuzla.cpp
 
 Детальний прозовий аналіз полів вузла:
 * **Поле `expires`:** зберігає абсолютний дискретний час `T_expire = T_current + delay`. Використовується при каскадуванні для точного визначення нового слота у нижчому колесі.
@@ -99,21 +87,7 @@ typedef struct timer_node timer_node_t;
 
 ### 3.4 Структура таймерного колеса (`timer_wheel_t`)
 
-```cpp
-struct timer_wheel_s {
-    timer_tick_t     current_tick; /* Поточний системний час у тіках */
-    uint32_t         timer_count;  /* Активна кількість таймерів у системі */
-    
-    /* Слоти ієрархічних коліс */
-    timer_node_t    *tv1[256];     /* Колесо 1: 256 слотів (8 бітів) */
-    timer_node_t    *tv2[64];      /* Колесо 2: 64 слоти (6 бітів) */
-    timer_node_t    *tv3[64];      /* Колесо 3: 64 слоти (6 бітів) */
-    timer_node_t    *tv4[64];      /* Колесо 4: 64 слоти (6 бітів) */
-    
-    void            *lock_mutex;   /* Вказівник на м'ютекс або спінлок */
-};
-typedef struct timer_wheel_s timer_wheel_t;
-```
+:::code api-timer-wheel/cpp/3-4-struktura-taimernoho.cpp
 
 ---
 
@@ -255,20 +229,7 @@ tw_status_t timer_wheel_tick(
 
 Повертає поточну телеметрію та статистику роботи колеса таймерів для моніторингу продуктивності.
 
-```cpp
-typedef struct {
-    uint64_t total_added;     /* Загальна кількість запланованих таймерів */
-    uint64_t total_cancelled; /* Кількість скасованих таймерів */
-    uint64_t total_expired;   /* Кількість виконаних таймерів */
-    uint64_t total_cascaded;  /* Кількість елементів, що пройшли каскадування */
-    uint32_t active_count;    /* Кількість активних таймерів у системі */
-} timer_wheel_stats_t;
-
-tw_status_t timer_wheel_get_stats(
-    const timer_wheel_t *wheel,
-    timer_wheel_stats_t *out_stats
-);
-```
+:::code api-timer-wheel/cpp/4-6-timer-wheel-get-stats.cpp
 
 * **Детальний опис параметрів:**
   * `wheel` `[in]`: екземпляр колеса таймерів.
@@ -300,88 +261,10 @@ tw_status_t timer_wheel_dump(
 
 :::tabs
 @tab C
-```c
-#include <sys/timerfd.h>
-#include <sys/epoll.h>
-#include <unistd.h>
-#include <stdio.h>
-
-void setup_timer_event_loop(timer_wheel_t *tw, int epoll_fd) {
-    int tfd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
-    
-    struct itimerspec newValue;
-    newValue.it_interval.tv_sec = 0;
-    newValue.it_interval.tv_nsec = 1000000; /* 1 мілісекунда (1000 Hz) */
-    newValue.it_value.tv_sec = 0;
-    newValue.it_value.tv_nsec = 1000000;
-    
-    timerfd_settime(tfd, 0, &newValue, NULL);
-    
-    struct epoll_event ev;
-    ev.events = EPOLLIN | EPOLLET;
-    ev.data.fd = tfd;
-    epoll_ctl(epoll_fd, EPOLL_CTL_ADD, tfd, &ev);
-    
-    struct epoll_event events[16];
-    while (1) {
-        int nfds = epoll_wait(epoll_fd, events, 16, -1);
-        for (int i = 0; i < nfds; i++) {
-            if (events[i].data.fd == tfd) {
-                uint64_t expirations = 0;
-                ssize_t s = read(tfd, &expirations, sizeof(expirations));
-                if (s > 0) {
-                    for (uint64_t e = 0; e < expirations; e++) {
-                        uint32_t executed = 0;
-                        timer_wheel_tick(tw, &executed);
-                    }
-                }
-            }
-        }
-    }
-}
-```
+:::code api-timer-wheel/c/main.c
 
 @tab C++
-```cpp
-#include <sys/timerfd.h>
-#include <sys/epoll.h>
-#include <unistd.h>
-#include <iostream>
-#include <memory>
-#include <array>
-
-void setup_timer_event_loop_cpp(timer_wheel_t *tw, int epoll_fd) {
-    int tfd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
-    
-    struct itimerspec newValue{};
-    newValue.it_interval.tv_nsec = 1000000; // 1 ms
-    newValue.it_value.tv_nsec = 1000000;
-    
-    timerfd_settime(tfd, 0, &newValue, nullptr);
-    
-    struct epoll_event ev{};
-    ev.events = EPOLLIN | EPOLLET;
-    ev.data.fd = tfd;
-    epoll_ctl(epoll_fd, EPOLL_CTL_ADD, tfd, &ev);
-    
-    std::array<struct epoll_event, 16> events{};
-    while (true) {
-        int nfds = epoll_wait(epoll_fd, events.data(), static_cast<int>(events.size()), -1);
-        for (int i = 0; i < nfds; ++i) {
-            if (events[i].data.fd == tfd) {
-                uint64_t expirations = 0;
-                ssize_t s = read(tfd, &expirations, sizeof(expirations));
-                if (s > 0) {
-                    for (uint64_t e = 0; e < expirations; ++e) {
-                        uint32_t executed = 0;
-                        timer_wheel_tick(tw, &executed);
-                    }
-                }
-            }
-        }
-    }
-}
-```
+:::code api-timer-wheel/cpp/5-1-intehratsiinyi-pryklad.cpp
 :::
 
 ---

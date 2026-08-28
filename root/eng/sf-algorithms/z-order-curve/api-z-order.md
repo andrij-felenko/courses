@@ -44,32 +44,8 @@
   Розгортає 64-бітний 3D Morton-код на три окремі 21-бітні координати. Використовує апаратну інструкцію `PEXT` або 6-крокову маску SWAR.
 
 :::tabs
-```c
-// 2D кодування (x: 32 біти, y: 32 біти -> z: 64 біти)
-uint64_t morton_encode2d(uint32_t x, uint32_t y);
-
-// 2D декодування (z: 64 біти -> x: 32 біти, y: 32 біти)
-void morton_decode2d(uint64_t z, uint32_t *out_x, uint32_t *out_y);
-
-// 3D кодування (x: 21 біт, y: 21 біт, z: 21 біт -> key: 64 біти)
-uint64_t morton_encode3d(uint32_t x, uint32_t y, uint32_t z);
-
-// 3D декодування
-void morton_decode3d(uint64_t key, uint32_t *out_x, uint32_t *out_y, uint32_t *out_z);
-```
-```cpp
-// 2D кодування у C++ (constexpr, noexcept)
-std::uint64_t morton_encode2d(std::uint32_t x, std::uint32_t y) noexcept;
-
-// 2D декодування у C++ (std::pair)
-std::pair<std::uint32_t, std::uint32_t> morton_decode2d(std::uint64_t z) noexcept;
-
-// 3D кодування у C++
-std::uint64_t morton_encode3d(std::uint32_t x, std::uint32_t y, std::uint32_t z) noexcept;
-
-// 3D декодування у C++ (std::tuple)
-std::tuple<std::uint32_t, std::uint32_t, std::uint32_t> morton_decode3d(std::uint64_t key) noexcept;
-```
+:::code api-z-order/c/2-1-detalnyi-opys-funktsii.h
+:::code api-z-order/cpp/2-1-detalnyi-opys-funktsii.cpp
 :::
 
 ### 2.2. Віконні просторові запити (Range Query)
@@ -83,35 +59,8 @@ std::tuple<std::uint32_t, std::uint32_t, std::uint32_t> morton_decode3d(std::uin
   Обчислює межі двійкового стрибка для перетину розривів Z-кривої. Якщо ключ `curr_z` випав поза межі вікна `box`, функція повертає в `out_bigmin` найменший можливий Morton-код усередині вікна, який більший за `curr_z`. Це дозволяє викликаючому коду зробити `lower_bound` і пропустити чужий інтервал.
 
 :::tabs
-```c
-size_t morton_range_query2d(
-    const Point2D *points,
-    size_t count,
-    const morton_box2d_t *box,
-    Point2D *out_results,
-    size_t max_results
-);
-
-void morton_bigmin_litmax2d(
-    uint64_t curr_z,
-    const morton_box2d_t *box,
-    uint64_t *out_bigmin,
-    uint64_t *out_litmax
-);
-```
-```cpp
-// Пошук у відсортованому векторі Morton-точок у C++ (std::span)
-std::vector<Point2D> morton_range_query2d(
-    std::span<const Point2D> points,
-    const BoundingBox2D& box
-);
-
-// Обчислення BIGMIN та LITMAX у C++ (std::pair)
-std::pair<std::uint64_t, std::uint64_t> morton_bigmin_litmax2d(
-    std::uint64_t curr_z,
-    const BoundingBox2D& box
-) noexcept;
-```
+:::code api-z-order/c/2-2-vikonni-prostorovi.h
+:::code api-z-order/cpp/2-2-vikonni-prostorovi.cpp
 :::
 
 ---
@@ -126,31 +75,7 @@ std::pair<std::uint64_t, std::uint64_t> morton_bigmin_litmax2d(
 - `spatial::Morton3D` — статичний клас для 3D кодування. Приймає координати у формі `uint32_t` і повертає `std::tuple<uint32_t, uint32_t, uint32_t>` при декодуванні.
 - `spatial::MortonIndex2D` — клас індексу просторових точок. Конструктор приймає `std::vector<Point2D>`, автоматично сортує точки за Morton-кодом за допомогою `std::sort` та будує лінійне квадродерево. Метод `query_range` виконує двійковий пошук першого можливого елемента за допомогою `std::lower_bound` і повертає вектор точок у вікні.
 
-```cpp
-namespace spatial {
-
-class Morton2D {
-public:
-    static constexpr uint64_t encode(uint32_t x, uint32_t y) noexcept;
-    static std::pair<uint32_t, uint32_t> decode(uint64_t z) noexcept;
-};
-
-class Morton3D {
-public:
-    static constexpr uint64_t encode(uint32_t x, uint32_t y, uint32_t z) noexcept;
-    static std::tuple<uint32_t, uint32_t, uint32_t> decode(uint64_t key) noexcept;
-};
-
-class MortonIndex2D {
-public:
-    explicit MortonIndex2D(std::vector<Point2D> points);
-
-    [[nodiscard]] std::vector<Point2D> query_range(const BoundingBox2D& box) const;
-    [[nodiscard]] size_t size() const noexcept;
-};
-
-} // namespace spatial
-```
+:::code api-z-order/cpp/3-1-opys-klasiv-ta-metodiv.cpp
 
 ---
 

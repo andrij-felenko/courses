@@ -161,42 +161,8 @@ bool is_hex_branching(char c) {
 Табличний підхід повністю позбавлений розгалужень:
 
 :::tabs
-```c
-#include <stdbool.h>
-#include <stdint.h>
-
-static const uint8_t HEX_LOOKUP[256] = {
-    ['0'] = 1, ['1'] = 1, ['2'] = 1, ['3'] = 1, ['4'] = 1,
-    ['5'] = 1, ['6'] = 1, ['7'] = 1, ['8'] = 1, ['9'] = 1,
-    ['a'] = 1, ['b'] = 1, ['c'] = 1, ['d'] = 1, ['e'] = 1, ['f'] = 1,
-    ['A'] = 1, ['B'] = 1, ['C'] = 1, ['D'] = 1, ['E'] = 1, ['F'] = 1
-};
-
-bool is_hex_lookup(uint8_t c) {
-    return (bool)HEX_LOOKUP[c];
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-class HexValidator {
-public:
-    static consteval auto generate_table() {
-        std::array<bool, 256> table{};
-        for (char c = '0'; c <= '9'; ++c) table[static_cast<uint8_t>(c)] = true;
-        for (char c = 'a'; c <= 'f'; ++c) table[static_cast<uint8_t>(c)] = true;
-        for (char c = 'A'; c <= 'F'; ++c) table[static_cast<uint8_t>(c)] = true;
-        return table;
-    }
-
-    static inline constexpr auto Table = generate_table();
-
-    [[nodiscard]] static constexpr bool is_hex(uint8_t c) noexcept {
-        return Table[c];
-    }
-};
-```
+:::code lookup-table-d/c/main.c
+:::code lookup-table-d/cpp/main.cpp
 :::
 
 Таблиця на 256 байтів гарантовано розміщується в кеші L1. Код транслюється в одну безумовну інструкцію читання без жодної команди умовного переходу (`jcc`), забезпечуючи абсолютно стабільний і передбачуваний час виконання незалежно від вхідних даних.

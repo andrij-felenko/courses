@@ -25,39 +25,8 @@
 Основна структура накопичувача містить внутрішній стан розрахунку перших чотирьох моментів та допоміжних екстремумів:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint64_t count;      /* Загальна кількість врахованих спостережень (n) */
-    double mean;         /* Поточне вибіркове середнє (перший сирий момент M1) */
-    double M2;           /* Сума квадратів відхилень: ∑(x - μ)² */
-    double M3;           /* Сума кубів відхилень: ∑(x - μ)³ */
-    double M4;           /* Сума четвертих степенів відхилень: ∑(x - μ)⁴ */
-    double min_val;      /* Найменше зафіксоване значення у вибірці */
-    double max_val;      /* Найбільше зафіксоване значення у вибірці */
-} welford_acc_t;
-```
-```cpp
-#include <cstdint>
-#include <limits>
-
-namespace stats {
-
-template <typename FloatType = double>
-struct AccumulatorState {
-    std::uint64_t count{0};
-    FloatType mean{0.0};
-    FloatType M2{0.0};
-    FloatType M3{0.0};
-    FloatType M4{0.0};
-    FloatType min_val{std::numeric_limits<FloatType>::infinity()};
-    FloatType max_val{-std::numeric_limits<FloatType>::infinity()};
-};
-
-} // namespace stats
-```
+:::code api-welford-accumulator/c/2-typy-danykh-ta-struktury.c
+:::code api-welford-accumulator/cpp/2-typy-danykh-ta-struktury.cpp
 :::
 
 #### Інваріанти стану та просторове розміщення
@@ -85,21 +54,7 @@ typedef enum {
     WELFORD_ERR_NAN_INPUT     = 4   /* Відкинуто нечислове вхідне значення NaN */
 } welford_status_t;
 ```
-```cpp
-#include <cstdint>
-
-namespace stats {
-
-enum class Status : std::uint8_t {
-    Ok = 0,
-    NullPointer = 1,
-    InsufficientData = 2,
-    DegenerateSample = 3,
-    NanInput = 4
-};
-
-} // namespace stats
-```
+:::code api-welford-accumulator/cpp/3-kody-statusiv-ta-obrobka.cpp
 :::
 
 Код `WELFORD_ERR_INSUFFICIENT` повертається функціями розрахунку вибіркової дисперсії або коваріації, якщо розмір вибірки `count < 2`. У такому стані число ступенів свободи `n - 1` дорівнює нулю, і математична оцінка не визначена. 
@@ -115,18 +70,7 @@ enum class Status : std::uint8_t {
 /* Ініціалізує новий акумулятор або скидає наявний стан */
 void welford_init(welford_acc_t *acc);
 ```
-```cpp
-namespace stats {
-
-template <typename FloatType = double>
-class StreamingAccumulator {
-public:
-    constexpr StreamingAccumulator() noexcept = default;
-    void reset() noexcept;
-};
-
-} // namespace stats
-```
+:::code api-welford-accumulator/cpp/initsializatsiia.cpp
 :::
 
 - **Призначення:** ініціалізує новий акумулятор або скидає наявний стан до початкових нульових значень.
@@ -208,47 +152,8 @@ StreamingAccumulator<FloatType>& StreamingAccumulator<FloatType>::operator+=(
 Для аналізу взаємозв'язку між двома потоковими змінними `X` та `Y` інтерфейс надає спеціалізовану структуру `welford_cov_acc_t`:
 
 :::tabs
-```c
-typedef struct {
-    uint64_t count;      /* Кількість пар спостережень (n) */
-    double mean_x;       /* Поточне середнє змінної X */
-    double mean_y;       /* Поточне середнє змінної Y */
-    double M2_x;         /* Сума квадратів відхилень X: ∑(x - μ_x)² */
-    double M2_y;         /* Сума квадратів відхилень Y: ∑(y - μ_y)² */
-    double C_xy;         /* Сума добутків відхилень: ∑(x - μ_x)(y - μ_y) */
-} welford_cov_acc_t;
-
-void welford_cov_init(welford_cov_acc_t *acc);
-void welford_cov_push(welford_cov_acc_t *acc, double x, double y);
-double welford_covariance(const welford_cov_acc_t *acc);
-double welford_correlation(const welford_cov_acc_t *acc);
-```
-```cpp
-#include <cstdint>
-#include <cmath>
-
-namespace stats {
-
-template <typename FloatType = double>
-class CovarianceAccumulator {
-public:
-    constexpr CovarianceAccumulator() noexcept = default;
-    void push(FloatType x, FloatType y) noexcept;
-    [[nodiscard]] FloatType covariance() const noexcept;
-    [[nodiscard]] FloatType correlation() const noexcept;
-    [[nodiscard]] std::uint64_t count() const noexcept;
-
-private:
-    std::uint64_t count_{0};
-    FloatType mean_x_{0.0};
-    FloatType mean_y_{0.0};
-    FloatType M2_x_{0.0};
-    FloatType M2_y_{0.0};
-    FloatType C_xy_{0.0};
-};
-
-} // namespace stats
-```
+:::code api-welford-accumulator/c/5-dvovymirnyi-akumuliator.h
+:::code api-welford-accumulator/cpp/5-dvovymirnyi-akumuliator.cpp
 :::
 
 - `welford_covariance` повертає вибіркову незміщену коваріацію `Cov(X, Y) = C_xy / (n - 1)`. При `n < 2` повертає `0.0`.
@@ -259,42 +164,8 @@ private:
 Усі функції цієї групи є чистими (лише для читання) і не змінюють внутрішнього стану акумулятора.
 
 :::tabs
-```c
-/* Отримання незміщеної вибіркової дисперсії (s²) */
-double welford_sample_variance(const welford_acc_t *acc);
-
-/* Отримання генеральної дисперсії (σ²) */
-double welford_population_variance(const welford_acc_t *acc);
-
-/* Отримання вибіркового середньоквадратичного відхилення (s) */
-double welford_stddev(const welford_acc_t *acc);
-
-/* Отримання коефіцієнта асиметрії вибірки (g1) */
-double welford_skewness(const welford_acc_t *acc);
-
-/* Отримання коефіцієнта ексцесу (g2, excess kurtosis) */
-double welford_kurtosis(const welford_acc_t *acc);
-```
-```cpp
-namespace stats {
-
-template <typename FloatType>
-[[nodiscard]] FloatType StreamingAccumulator<FloatType>::sample_variance() const noexcept;
-
-template <typename FloatType>
-[[nodiscard]] FloatType StreamingAccumulator<FloatType>::population_variance() const noexcept;
-
-template <typename FloatType>
-[[nodiscard]] FloatType StreamingAccumulator<FloatType>::stddev() const noexcept;
-
-template <typename FloatType>
-[[nodiscard]] FloatType StreamingAccumulator<FloatType>::skewness() const noexcept;
-
-template <typename FloatType>
-[[nodiscard]] FloatType StreamingAccumulator<FloatType>::kurtosis() const noexcept;
-
-} // namespace stats
-```
+:::code api-welford-accumulator/c/6-funktsii-otrymannia.h
+:::code api-welford-accumulator/cpp/6-funktsii-otrymannia.cpp
 :::
 
 - `sample_variance`: повертає незміщену вибіркову дисперсію `s² = M2 / (n - 1)`. При `count < 2` повертає `0.0`.
@@ -308,48 +179,8 @@ template <typename FloatType>
 Для забезпечення найвищої продуктивності у багатопотокових обчисленнях рекомендується розміщувати екземпляри акумулятора за межами кеш-ліній із вирівнюванням на 64 байти:
 
 :::tabs
-```c
-#if defined(__GNUC__) || defined(__clang__)
-typedef struct __attribute__((aligned(64))) {
-    uint64_t count;
-    double mean;
-    double M2;
-    double M3;
-    double M4;
-    double min_val;
-    double max_val;
-} welford_aligned_acc_t;
-#elif defined(_MSC_VER)
-typedef __declspec(align(64)) struct {
-    uint64_t count;
-    double mean;
-    double M2;
-    double M3;
-    double M4;
-    double min_val;
-    double max_val;
-} welford_aligned_acc_t;
-#endif
-```
-```cpp
-#include <cstdint>
-#include <new>
-
-namespace stats {
-
-template <typename FloatType = double>
-struct alignas(64) AlignedAccumulatorState {
-    std::uint64_t count{0};
-    FloatType mean{0.0};
-    FloatType M2{0.0};
-    FloatType M3{0.0};
-    FloatType M4{0.0};
-    FloatType min_val{0.0};
-    FloatType max_val{0.0};
-};
-
-} // namespace stats
-```
+:::code api-welford-accumulator/c/7-vymohy-do-aparatnoi.c
+:::code api-welford-accumulator/cpp/7-vymohy-do-aparatnoi.cpp
 :::
 
 Це запобігає ефекту хибного спільного використання пам'яті (false sharing), коли два процесорні ядра одночасно інвалідують кеш-лінії одне одного під час оновлення сусідніх у пам'яті статистичних структур.

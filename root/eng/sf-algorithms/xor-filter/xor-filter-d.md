@@ -213,18 +213,7 @@ const auto h2 = 2 * block_len + reduce(static_cast<uint32_t>(hash ^ (hash >> 16)
 Операція перевірки належності ключа `x` у Xor-фільтрі вражає своєю лаконічністю:
 
 :::tabs
-```c
-bool xor_contains(const xor_filter_t *filter, uint64_t key) {
-    uint32_t h0 = reduce(hash_a(key, filter->seed), filter->block_len);
-    uint32_t h1 = filter->block_len + reduce(hash_b(key, filter->seed), filter->block_len);
-    uint32_t h2 = 2 * filter->block_len + reduce(hash_c(key, filter->seed), filter->block_len);
-
-    uint8_t fp = compute_fingerprint(key, filter->seed);
-    uint8_t combined = filter->B[h0] ^ filter->B[h1] ^ filter->B[h2];
-
-    return (combined == fp);
-}
-```
+:::code xor-filter-d/c/operatsiia-perevirky.c
 ```cpp
 bool contains(uint64_t key) const noexcept {
     const auto [h0, h1, h2] = get_positions(key, seed_, block_length_);
@@ -294,80 +283,8 @@ P(Хибне спрацьовування)
 Наступний приклад демонструє лаконічне використання 8-бітного Xor-фільтра у користувацькому коді на мовах C та C++.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdlib.h>
-
-/* Використання бібліотечного Xor-фільтра */
-#include "xor_filter.h"
-
-int main(void) {
-    const size_t num_keys = 5;
-    uint64_t dataset[5] = {
-        0x1000ULL, 0x2000ULL, 0x3000ULL, 0x4000ULL, 0x5000ULL
-    };
-
-    xor_filter_8_t filter;
-    if (!xor_filter_8_build(&filter, dataset, num_keys)) {
-        fprintf(stderr, "Помилка конструювання Xor-фільтра\n");
-        return 1;
-    }
-
-    /* Перевірка наявних ключів */
-    for (size_t i = 0; i < num_keys; ++i) {
-        bool exists = xor_filter_8_contains(&filter, dataset[i]);
-        printf("Ключ 0x%llX: %s (очікується ТАК)\n",
-               (unsigned long long)dataset[i], exists ? "ТАК" : "НІ");
-    }
-
-    /* Перевірка відсутнього ключа */
-    uint64_t missing_key = 0x9999ULL;
-    bool false_positive = xor_filter_8_contains(&filter, missing_key);
-    printf("Відсутній ключ 0x%llX: %s\n",
-           (unsigned long long)missing_key, false_positive ? "ХИБНИЙ СПАЛАХ" : "НІ (відсутній)");
-
-    xor_filter_8_destroy(&filter);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <cstdint>
-#include <span>
-
-#include "xor_filter.hpp"
-
-int main() {
-    const std::vector<uint64_t> dataset = {
-        0x1000ULL, 0x2000ULL, 0x3000ULL, 0x4000ULL, 0x5000ULL
-    };
-
-    auto filter_result = algorithms::XorFilter<uint8_t>::build(dataset);
-    if (!filter_result.has_value()) {
-        std::cerr << "Помилка конструювання Xor-фільтра\n";
-        return 1;
-    }
-
-    const auto& filter = *filter_result;
-
-    /* Перевірка збережених ключів */
-    for (uint64_t key : dataset) {
-        std::cout << "Ключ 0x" << std::hex << key << ": "
-                  << (filter.contains(key) ? "ТАК" : "НІ") << " (очікується ТАК)\n";
-    }
-
-    /* Перевірка стороннього ключа */
-    const uint64_t missing_key = 0x9999ULL;
-    std::cout << "Відсутній ключ 0x" << std::hex << missing_key << ": "
-              << (filter.contains(missing_key) ? "ХИБНИЙ СПАЛАХ" : "НІ (відсутній)\n");
-
-    std::cout << std::dec << "Розмір структури в RAM: " << filter.size_in_bytes() << " байтів\n";
-    return 0;
-}
-```
+:::code xor-filter-d/c/praktychna-realizatsiia-c.c
+:::code xor-filter-d/cpp/main.cpp
 :::
 
 Повний промисловий вихідний код із детальною оптимізацією лущення та SIMD-обробкою наведено у вставці [⚙️ Практична реалізація Xor-фільтра на C та C++](root:sf-algorithms/xor-filter/proj-xor-filter.md). Специфікацію бінарного формату файлів, функції серіалізації та контракти методів описано в довіднику [📋 Специфікація API та інтерфейс Xor-фільтра](root:sf-algorithms/xor-filter/api-xor-filter.md).

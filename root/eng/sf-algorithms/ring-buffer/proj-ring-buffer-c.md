@@ -28,42 +28,7 @@
 
 Найпростіший вихід із неоднозначності «повний чи порожній» — заборонити буферу заповнюватися вщерть. Домовляємося: буфер повний тоді, коли **наступний** крок `head` уперся б у `tail`. Тоді `head == tail` не може означати нічого, крім «порожньо», бо в повний стан ми просто не даємо йому зайти.
 
-```c
-#define RB1_CAP 256u                /* розмір масиву; корисна місткість — 255! */
-
-typedef struct {
-    uint8_t data[RB1_CAP];
-    size_t  head;                   /* куди писати; завжди 0…RB1_CAP−1 */
-    size_t  tail;                   /* звідки читати; завжди 0…RB1_CAP−1 */
-} rb1_t;
-
-static inline void rb1_init(rb1_t *r) { r->head = 0; r->tail = 0; }
-
-static inline bool rb1_empty(const rb1_t *r) { return r->head == r->tail; }
-
-static inline bool rb1_full(const rb1_t *r) {
-    return ((r->head + 1u) % RB1_CAP) == r->tail;
-}
-
-static inline size_t rb1_count(const rb1_t *r) {
-    return (r->head - r->tail + RB1_CAP) % RB1_CAP;
-}
-
-bool rb1_push(rb1_t *r, uint8_t x) {
-    size_t next = (r->head + 1u) % RB1_CAP;
-    if (next == r->tail) return false;      /* повно — одна комірка лишається вільною */
-    r->data[r->head] = x;
-    r->head = next;
-    return true;
-}
-
-bool rb1_pop(rb1_t *r, uint8_t *out) {
-    if (r->head == r->tail) return false;   /* порожньо */
-    *out = r->data[r->tail];
-    r->tail = (r->tail + 1u) % RB1_CAP;
-    return true;
-}
-```
+:::code proj-ring-buffer-c/c/sposib-pershyi.c
 
 У `rb1_count` варто затриматися, бо вираз виглядає підозріло. Коли `head < tail`, різниця `r->head - r->tail` у беззнаковому `size_t` дає величезне число — здавалося б, катастрофа. Але беззнакова арифметика в C **точна за модулем 2⁶⁴**, а справжнє математичне значення `head − tail + RB1_CAP` завжди лежить у проміжку від 1 до 2·RB1_CAP, тобто додатне й мале. Отже, обчислене значення дорівнює справжньому, і остача дає правильну відповідь:
 
@@ -84,34 +49,7 @@ head − tail        → 2 − 5 = −3, а в size_t це 2⁶⁴ − 3
 
 Якщо шкода комірки, зайнятість можна просто **зберігати**. Тоді обидва стани розрізняються прямо й однозначно, а місткість — повна.
 
-```c
-#define RB2_CAP 256u
-
-typedef struct {
-    uint8_t data[RB2_CAP];
-    size_t  head;
-    size_t  tail;
-    size_t  size;                   /* скільки елементів усередині просто зараз */
-} rb2_t;
-
-static inline void rb2_init(rb2_t *r) { r->head = 0; r->tail = 0; r->size = 0; }
-
-bool rb2_push(rb2_t *r, uint8_t x) {
-    if (r->size == RB2_CAP) return false;   /* повно */
-    r->data[r->head] = x;
-    r->head = (r->head + 1u) % RB2_CAP;
-    r->size++;
-    return true;
-}
-
-bool rb2_pop(rb2_t *r, uint8_t *out) {
-    if (r->size == 0) return false;         /* порожньо */
-    *out = r->data[r->tail];
-    r->tail = (r->tail + 1u) % RB2_CAP;
-    r->size--;
-    return true;
-}
-```
+:::code proj-ring-buffer-c/c/sposib-druhyi-okremyi.c
 
 Код читається легше за всі інші — і саме тому цей варіант найчастіше опиняється там, де йому не місце. Придивімося, хто пише `r->size`: **обидві сторони**. `size++` і `size--` — це не одна дія, а три (прочитати, змінити, записати), і щойно виробник зі споживачем розійдуться по потоках чи один із них стане обробником переривання, ці трійки накладуться, одне оновлення загубиться, і лічильник тихо розійдеться з дійсністю. Полагодити можна — замком або атомарним лічильником, — але саме заради цього кільце й брали: щоб замка не було. Спільний `size` руйнує головну властивість структури, лишаючи натомість лише зручність читання.
 
@@ -119,38 +57,7 @@ bool rb2_pop(rb2_t *r, uint8_t *out) {
 
 Найцікавіший різновид ламає звичне припущення: індекси **не загортаються взагалі**. `head` рахує, скільки байтів усього колись покладено, `tail` — скільки всього забрано; обидва тільки зростають. Зайнятість — просто їхня різниця, а реальна адреса в масиві береться маскою в мить звертання.
 
-```c
-#define RB3_CAP  256u                       /* СТЕПІНЬ ДВІЙКИ — не побажання, а умова */
-#define RB3_MASK (RB3_CAP - 1u)
-
-_Static_assert(RB3_CAP != 0u && (RB3_CAP & RB3_MASK) == 0u,
-               "місткість мусить бути степенем двійки");
-
-typedef struct {
-    uint8_t  data[RB3_CAP];
-    uint32_t head;                          /* СКІЛЬКИ ВСЬОГО покладено; не скидається */
-    uint32_t tail;                          /* СКІЛЬКИ ВСЬОГО забрано */
-} rb3_t;
-
-static inline void     rb3_init(rb3_t *r)        { r->head = 0; r->tail = 0; }
-static inline uint32_t rb3_count(const rb3_t *r) { return r->head - r->tail; }
-static inline bool     rb3_empty(const rb3_t *r) { return r->head == r->tail; }
-static inline bool     rb3_full(const rb3_t *r)  { return rb3_count(r) == RB3_CAP; }
-
-bool rb3_push(rb3_t *r, uint8_t x) {
-    if (rb3_count(r) == RB3_CAP) return false;
-    r->data[r->head & RB3_MASK] = x;
-    r->head++;
-    return true;
-}
-
-bool rb3_pop(rb3_t *r, uint8_t *out) {
-    if (r->head == r->tail) return false;
-    *out = r->data[r->tail & RB3_MASK];
-    r->tail++;
-    return true;
-}
-```
+:::code proj-ring-buffer-c/c/sposib-tretii-monotonni.c
 
 Порівняймо три різновиди чесно — не за красою коду, а за тим, що вони коштують.
 
@@ -225,40 +132,7 @@ bool rb3_push_overwrite(rb3_t *r, uint8_t x) {
 
 Лишається єдине питання, і воно не про структуру даних, а про **порядок**: виробник спершу пише байт у комірку, тоді збільшує `head`; чи побачить споживач ці дві дії в тому самому порядку? Ні, якщо не сказати про це явно, — і компілятор має право переставити незалежні записи, і саме ядро виконує їх позачергово. Пара `release`/`acquire` на лічильниках і є цим «сказати явно»:
 
-```c
-#include <stdatomic.h>
-#include <stdalign.h>
-
-#define SPSC_CAP  1024u
-#define SPSC_MASK (SPSC_CAP - 1u)
-#define CACHELINE 64
-
-typedef struct {
-    alignas(CACHELINE) _Atomic uint32_t head;   /* пише ЛИШЕ виробник */
-    alignas(CACHELINE) _Atomic uint32_t tail;   /* пише ЛИШЕ споживач */
-    alignas(CACHELINE) uint8_t data[SPSC_CAP];
-} spsc_t;
-
-/* Викликати ЛИШЕ з потоку-виробника. */
-bool spsc_push(spsc_t *q, uint8_t x) {
-    uint32_t h = atomic_load_explicit(&q->head, memory_order_relaxed);  /* свій — relaxed */
-    uint32_t t = atomic_load_explicit(&q->tail, memory_order_acquire);  /* чужий — acquire */
-    if ((uint32_t)(h - t) == SPSC_CAP) return false;                    /* повно */
-    q->data[h & SPSC_MASK] = x;                                         /* 1. дані */
-    atomic_store_explicit(&q->head, h + 1u, memory_order_release);      /* 2. публікація */
-    return true;
-}
-
-/* Викликати ЛИШЕ з потоку-споживача. */
-bool spsc_pop(spsc_t *q, uint8_t *out) {
-    uint32_t t = atomic_load_explicit(&q->tail, memory_order_relaxed);  /* свій — relaxed */
-    uint32_t h = atomic_load_explicit(&q->head, memory_order_acquire);  /* чужий — acquire */
-    if (h == t) return false;                                           /* порожньо */
-    *out = q->data[t & SPSC_MASK];                                      /* 1. дані */
-    atomic_store_explicit(&q->tail, t + 1u, memory_order_release);      /* 2. звільнення */
-    return true;
-}
-```
+:::code proj-ring-buffer-c/c/nacherk-lock-free-spsc.c
 
 Логіка лишилася тією самою — маска, різниця лічильників, перевірка на `CAP`. Додалися рівно дві речі. Свій лічильник читається `relaxed`, бо ніхто інший його не пише і впорядковувати нема з чим. Чужий читається `acquire`, а свій публікується `release`, і ці двоє працюють у парі: якщо `acquire`-читання побачило значення, покладене `release`-записом, то читач бачить і все, що писач зробив **до** свого `release`. Байт у комірці, отже, ніколи не проступить пізніше за `head`, що на нього вказує. Симетрично `release` на `tail` у споживача не дає виробникові затерти комірку, з якої ще не дочитали.
 

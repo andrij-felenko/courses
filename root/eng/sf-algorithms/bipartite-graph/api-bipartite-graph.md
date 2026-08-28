@@ -32,99 +32,8 @@
 Роздільне зберігання масивів `adj_left` та `adj_right` дозволяє здійснювати як прямий обхід від `U` до `V`, так і зворотний обхід від `V` до `U` без додаткового транспонування графа.
 
 :::tabs
-```c
-/* C API: Повний заголовочний файл бібліотеки libbipartite */
-#ifndef BIPARTITE_GRAPH_H
-#define BIPARTITE_GRAPH_H
-
-#include <stddef.h>
-#include <stdbool.h>
-#include <stdint.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    BIPARTITE_OK                         =  0,
-    BIPARTITE_ERR_NOT_BIPARTITE          = -1,
-    BIPARTITE_ERR_INVALID_PARTITION      = -2,
-    BIPARTITE_ERR_INDEX_OUT_OF_BOUNDS    = -3,
-    BIPARTITE_ERR_NULL_POINTER           = -4,
-    BIPARTITE_ERR_NO_MEMORY              = -5
-} bipartite_status_t;
-
-typedef struct {
-    size_t num_left;        /* Кількість вершин у лівій частці U (|U| = n₁) */
-    size_t num_right;       /* Кількість вершин у правій частці V (|V| = n₂) */
-    size_t num_edges;       /* Загальна кількість ребер |E| */
-    size_t **adj_left;      /* Динамічний масив списків суміжності для U */
-    size_t *deg_left;       /* Поточний ступінь кожної вершини U */
-    size_t *cap_left;       /* Виділена ємність списків суміжності для U */
-    size_t **adj_right;     /* Динамічний масив списків суміжності для V */
-    size_t *deg_right;      /* Поточний ступінь кожної вершини V */
-    size_t *cap_right;      /* Виділена ємність списків суміжності для V */
-} bipartite_graph_t;
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* BIPARTITE_GRAPH_H */
-```
-```cpp
-// C++ API: Інкапсульований клас двочасткового графа
-#ifndef BIPARTITE_GRAPH_HPP
-#define BIPARTITE_GRAPH_HPP
-
-#include <vector>
-#include <cstddef>
-#include <stdexcept>
-#include <optional>
-#include <span>
-
-namespace net {
-
-enum class Status {
-    Ok = 0,
-    NotBipartite = -1,
-    InvalidPartition = -2,
-    IndexOutOfBounds = -3,
-    NullPointer = -4,
-    NoMemory = -5
-};
-
-class BipartiteGraph {
-public:
-    BipartiteGraph(std::size_t num_left, std::size_t num_right);
-    ~BipartiteGraph() = default;
-
-    BipartiteGraph(const BipartiteGraph&) = default;
-    BipartiteGraph& operator=(const BipartiteGraph&) = default;
-    BipartiteGraph(BipartiteGraph&&) noexcept = default;
-    BipartiteGraph& operator=(BipartiteGraph&&) noexcept = default;
-
-    void add_edge(std::size_t u_left, std::size_t v_right);
-
-    [[nodiscard]] std::size_t num_left() const noexcept { return num_left_; }
-    [[nodiscard]] std::size_t num_right() const noexcept { return num_right_; }
-    [[nodiscard]] std::size_t num_edges() const noexcept { return num_edges_; }
-
-    [[nodiscard]] std::span<const std::size_t> neighbors_left(std::size_t u) const;
-    [[nodiscard]] std::span<const std::size_t> neighbors_right(std::size_t v) const;
-
-private:
-    std::size_t num_left_;
-    std::size_t num_right_;
-    std::size_t num_edges_{0};
-    std::vector<std::vector<std::size_t>> adj_left_;
-    std::vector<std::vector<std::size_t>> adj_right_;
-};
-
-} // namespace net
-
-#endif // BIPARTITE_GRAPH_HPP
-```
+:::code api-bipartite-graph/c/1-2-spetsyfikatsiia.h
+:::code api-bipartite-graph/cpp/1-2-spetsyfikatsiia.hpp
 :::
 
 ---
@@ -147,19 +56,7 @@ typedef struct {
     size_t cycle_length;    /* Довжина непарного циклу (0 якщо двочастковий) */
 } bipartite_partition_t;
 ```
-```cpp
-// C++ API: Результат 2-розфарбовування
-namespace net {
-
-struct PartitionResult {
-    bool is_bipartite{true};
-    std::vector<int> colors; // Колір 0 (частка U), 1 (частка V)
-    std::optional<std::pair<std::size_t, std::size_t>> conflict_edge;
-    std::vector<std::size_t> odd_cycle;
-};
-
-} // namespace net
-```
+:::code api-bipartite-graph/cpp/1-3-spetsyfikatsiia.cpp
 :::
 
 ---
@@ -181,20 +78,7 @@ typedef struct {
     size_t cover_size;      /* Розмір покриття τ(G) (гарантовано дорівнює matching_size) */
 } bipartite_matching_t;
 ```
-```cpp
-// C++ API: Результат паросполучення
-namespace net {
-
-struct MatchingResult {
-    std::size_t matching_size{0};
-    std::vector<int> match_left;  // Індекси вершин V (-1 якщо вільна)
-    std::vector<int> match_right; // Індекси вершин U (-1 якщо вільна)
-    std::vector<std::size_t> vertex_cover; // Вершини покриття C
-    std::size_t cover_size{0};
-};
-
-} // namespace net
-```
+:::code api-bipartite-graph/cpp/1-4-spetsyfikatsiia.cpp
 :::
 
 ---
@@ -294,31 +178,8 @@ bipartite_status_t bipartite_graph_verify(
 #### `bipartite_matching_compute` / `compute_max_matching`
 
 :::tabs
-```c
-/* C API: Обчислення паросполучення обраним алгоритмом */
-typedef enum {
-    MATCHING_ALG_KUHN          = 0,  /* Алгоритм Куна DFS (O(|V|·|E|)) */
-    MATCHING_ALG_HOPCROFT_KARP = 1   /* Алгоритм Гопкрофта-Карпа (O(|E|·√|V|)) */
-} matching_algorithm_t;
-
-bipartite_status_t bipartite_matching_compute(
-    const bipartite_graph_t *graph,
-    matching_algorithm_t algorithm,
-    bipartite_matching_t *out_matching
-);
-```
-```cpp
-// C++ API: Обчислення паросполучення
-enum class MatchingAlgorithm {
-    Kuhn = 0,
-    HopcroftKarp = 1
-};
-
-[[nodiscard]] MatchingResult compute_max_matching(
-    const BipartiteGraph& graph,
-    MatchingAlgorithm algorithm = MatchingAlgorithm::HopcroftKarp
-);
-```
+:::code api-bipartite-graph/c/bipartite-matching-compute.c
+:::code api-bipartite-graph/cpp/bipartite-matching-compute.cpp
 :::
 
 - **Опис процедури:** Знаходить максимальне паросполучення та двоїсте мінімальне вершинне покриття. Для алгоритму Гопкрофта-Карпа використовується комбінований обхід BFS/DFS для пошуку найкоротших збільшуючих шляхів за фази.

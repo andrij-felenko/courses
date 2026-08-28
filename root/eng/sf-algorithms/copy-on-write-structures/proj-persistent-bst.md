@@ -25,73 +25,8 @@
 Вузол тримає ключ, значення й двох дітей — і після народження вже ніколи не міняється. Вставка приймає старий корінь і повертає новий; старий лишається на місці неторканий.
 
 :::tabs
-```python
-from dataclasses import dataclass
-from typing import Optional, Any
-
-@dataclass(frozen=True)            # frozen — поля вузла вже не переприсвоїш: він незмінний
-class Node:
-    key:   Any
-    val:   Any
-    left:  Optional["Node"]
-    right: Optional["Node"]
-
-def insert(node: Optional[Node], key, val) -> Node:
-    if node is None:                                       # дійшли до порожнього місця —
-        return Node(key, val, None, None)                 #   новий листок
-
-    if key < node.key:                                    # ліворуч: новий вузол,
-        return Node(node.key, node.val,                   #   той самий ключ і значення,
-                    insert(node.left, key, val),          #   НОВЕ ліве (рекурсія),
-                    node.right)                           #   СПІЛЬНЕ праве (той самий об'єкт)
-
-    if key > node.key:                                    # праворуч: дзеркально
-        return Node(node.key, node.val,
-                    node.left,                            #   СПІЛЬНЕ ліве
-                    insert(node.right, key, val))         #   НОВЕ праве
-
-    return Node(key, val, node.left, node.right)          # ключ уже є — нове значення,
-                                                          #   обидві дитини спільні (оновлення)
-```
-```cpp
-#include <memory>
-
-// Дерево — це або порожньо (nullptr), або спільний незмінний вузол
-// під підрахунком посилань. `const` усередині shared_ptr робить вузол
-// недоторканним: у поділений вузол не можна записати.
-template <class K, class V>
-struct Node {
-    K key;
-    V val;
-    std::shared_ptr<const Node> left;
-    std::shared_ptr<const Node> right;
-};
-
-template <class K, class V>
-using Tree = std::shared_ptr<const Node<K, V>>;
-
-template <class K, class V>
-Tree<K, V> insert(const Tree<K, V>& node, K key, V val) {
-    if (!node)                                             // дійшли до порожнього місця —
-        return std::make_shared<const Node<K, V>>(         //   новий листок
-            Node<K, V>{key, val, nullptr, nullptr});
-
-    if (key < node->key)                                   // ліворуч: новий вузол,
-        return std::make_shared<const Node<K, V>>(Node<K, V>{
-            node->key, node->val,                          //   той самий ключ і значення,
-            insert(node->left, key, val),                  //   НОВЕ ліве (рекурсія),
-            node->right});                                 //   СПІЛЬНЕ праве: копія shared_ptr = +1 до лічильника
-
-    if (key > node->key)                                   // праворуч: дзеркально
-        return std::make_shared<const Node<K, V>>(Node<K, V>{
-            node->key, node->val,
-            node->left,                                    //   СПІЛЬНЕ ліве
-            insert(node->right, key, val)});               //   НОВЕ праве
-
-    return std::make_shared<const Node<K, V>>(Node<K, V>{  // ключ уже є — нове значення,
-        key, val, node->left, node->right});               //   обидві дитини спільні (оновлення)
-}
-```
+:::code proj-persistent-bst/py/oserdia-vstavka-shcho.py
+:::code proj-persistent-bst/cpp/main.cpp
 :::
 
 Серце — це три однотипні гілки. Пішли ліворуч — повертаємо новий вузол, у якого ліва дитина взялася з рекурсії (там сталася зміна), а права **лишилась старою**: у Python ми просто передали `node.right`, у C++ — скопіювали `node->right`. Пішли праворуч — усе дзеркально. Натрапили на порожнє місце — народили листок. Ключова дисципліна: у жодній гілці ми **не чіпаємо** старий вузол `node`; ми тільки читаємо його поля й будуємо з них новий. Тому старе дерево лишається точно таким, яким було.
@@ -115,21 +50,7 @@ def lookup(node, key):
 
 Тепер видно, як версії співіснують. Тримаємо їхні корені у звичайному списку й питаємо будь-яку:
 
-```python
-v0 = None
-for k in [8, 4, 12, 2, 6, 10, 14]:          # база: збалансоване дерево на 7 вузлів
-    v0 = insert(v0, k, str(k))
-
-versions = [v0]
-versions.append(insert(versions[-1], 15, "15"))   # v1 = v0 + ключ 15
-versions.append(insert(versions[-1],  5,  "5"))   # v2 = v1 + ключ 5
-
-print(lookup(versions[0], 15))   # None  — у нульовій версії п'ятнадцяти ще немає
-print(lookup(versions[1], 15))   # '15'  — у першій уже є
-print(lookup(versions[0],  6))   # '6'   — спільний вузол, читається з обох версій
-print(lookup(versions[2],  5))   # '5'
-print(lookup(versions[1],  5))   # None  — а у v1 п'ятірки ще не було
-```
+:::code proj-persistent-bst/py/stara-versiia-zhyva.py
 
 Вивід (реальний):
 ```

@@ -25,46 +25,11 @@
 
 Стан комірки — звичайний `enum`, причому `EMPTY` навмисно дорівнює нулю: тоді `calloc`, що обнуляє пам'ять, віддає масив, у якому **всі комірки вже порожні**, а покажчики ключів — нульові. Жодної окремої ініціалізації комірок не треба.
 
-```c
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-typedef enum { EMPTY = 0, OCCUPIED, DELETED } State;   // EMPTY=0 → calloc дає порожні
-
-typedef struct {
-    char  *key;      // копія тексту ключа в купі; NULL, коли комірка не зайнята
-    long   value;    // навантаження; тут — ціле, для прикладу
-    State  state;    // EMPTY / OCCUPIED / DELETED (надгробок)
-} Slot;
-
-typedef struct {
-    Slot  *slots;    // суцільний масив комірок
-    size_t cap;      // місткість — ЗАВЖДИ степінь двійки
-    size_t len;      // живих записів (OCCUPIED)
-    size_t used;     // OCCUPIED + DELETED — скільки комірок «не порожні»
-} HashTable;
-```
+:::code proj-open-addressing/c/krok-1-dani.c
 
 Два лічильники, `len` і `used`, — не надмір. `len` каже, скільки в таблиці справжніх пар (це відповідь на «а скільки в мене елементів?»). А от рішення про розширення ухвалюють за `used`, і чому — стане ясно на кроці видалення; поки досить запам'ятати, що надгробок «займає» пробу так само, як зайнята комірка, тож для навантаження на таблицю рахується саме він.
 
-```c
-static void ht_init(HashTable *t, size_t cap) {
-    t->cap  = cap;                          // степінь двійки, напр. 8
-    t->len  = t->used = 0;
-    t->slots = calloc(cap, sizeof(Slot));   // усі комірки → EMPTY(0), key=NULL
-}
-
-static void ht_free(HashTable *t) {
-    for (size_t i = 0; i < t->cap; ++i)
-        if (t->slots[i].state == OCCUPIED)
-            free(t->slots[i].key);          // звільняємо лише живі ключі
-    free(t->slots);
-    t->slots = NULL; t->cap = t->len = t->used = 0;
-}
-```
+:::code proj-open-addressing/c/krok-1-dani-2.c
 
 Оскільки таблиця **володіє** копією кожного ключа, потрібна дрібна допоміжна функція, що робить цю копію. Використати можна й `strdup`, але власний рядок робить володіння очевидним і не залежить від POSIX:
 
@@ -102,23 +67,7 @@ static uint64_t fnv1a(const char *key) {
 - **надгробок** або **зайнята чужим ключем** — переступаємо, пробуємо далі;
 - **порожня** — тут прохід уривається: якби ключ був у таблиці, він осів би не пізніше цієї комірки, отже, його немає.
 
-```c
-static bool ht_get(const HashTable *t, const char *key, long *out) {
-    size_t mask = t->cap - 1;                 // cap — степінь двійки
-    size_t idx  = fnv1a(key) & mask;          // згортання = маскування
-    for (size_t i = 0; i < t->cap; ++i) {
-        Slot *s = &t->slots[(idx + i) & mask];// лінійна проба по колу
-        if (s->state == EMPTY)                // порожньо → ключа немає
-            return false;
-        if (s->state == OCCUPIED && strcmp(s->key, key) == 0) {
-            if (out) *out = s->value;
-            return true;
-        }
-        // DELETED або чужий OCCUPIED → переступаємо, проба далі
-    }
-    return false;                             // оминули всю таблицю — не знайшли
-}
-```
+:::code proj-open-addressing/c/krok-3-poshuk.c
 
 Тут уже видно, чому надгробок мусить відрізнятися від порожньої комірки: рядок `if (s->state == EMPTY) return false;` — це і є те місце, де порожнеча уриває пошук. Надгробок навмисно **не** уриває його, а пропускає далі. Плутати ці два стани — зробити частину записів невидимими.
 
@@ -128,44 +77,7 @@ static bool ht_get(const HashTable *t, const char *key, long *out) {
 
 Йдучи пробами, ми можемо натрапити на надгробок. Спокуса — одразу сісти в нього: місце ж вільне. Але це помилка. Той самий ключ може лежати **далі** за пробами, за цим надгробком; якщо сісти в надгробок і зупинитися, у таблиці з'явиться **дублікат** — дві комірки з тим самим ключем, і `get` знаходитиме то одну, то іншу. Тому правило таке: **запам'ятати перший надгробок, але прохід не уривати** — дійти або до свого ключа (тоді оновити його на місці), або до порожньої комірки (тоді ключа в таблиці точно немає, і аж тепер можна осісти в запам'ятаний надгробок, а як його не було — у цю порожню).
 
-```c
-static void resize(HashTable *t, size_t new_cap);   // прототип; тіло — на кроці 6
-
-static void put(HashTable *t, const char *key, long value) {
-    // поріг: α = used/cap ≥ 0.7 ?  (used лічить і надгробки — вони теж займають пробу)
-    if ((t->used + 1) * 10 >= t->cap * 7)
-        resize(t, t->cap * 2);
-
-    size_t mask       = t->cap - 1;
-    size_t idx        = fnv1a(key) & mask;
-    size_t first_tomb = 0;
-    bool   have_tomb  = false;                // ще не бачили надгробка
-
-    for (size_t i = 0; i < t->cap; ++i) {
-        size_t j = (idx + i) & mask;
-        Slot  *s = &t->slots[j];
-
-        if (s->state == EMPTY) {              // дійшли до порожньої → ключа немає
-            Slot *dst = have_tomb ? &t->slots[first_tomb] : s;
-            if (!have_tomb) t->used++;        // зайняли РАНІШЕ порожню комірку
-            dst->key   = dup_key(key);        // …а надгробок вже рахувався в used
-            dst->value = value;
-            dst->state = OCCUPIED;
-            t->len++;
-            return;
-        }
-        if (s->state == DELETED) {
-            if (!have_tomb) { have_tomb = true; first_tomb = j; }  // лише ПЕРШИЙ
-            continue;                         // але йдемо далі — ключ може бути попереду!
-        }
-        if (strcmp(s->key, key) == 0) {       // OCCUPIED і той самий ключ → оновлюємо
-            s->value = value;
-            return;
-        }
-        // чужий ключ — колізія, наступна проба
-    }
-}
-```
+:::code proj-open-addressing/c/krok-4-vstavka.c
 
 Придивіться до обліку `used`. Коли сідаємо в **порожню** комірку — вона раніше не рахувалася, тож `used++`. Коли сідаємо в **надгробок** — він уже входив у `used` (його поставили при видаленні й не знімали), тож `used` не міняється: один надгробок перетворився на один живий запис. `len` росте завжди. Ця бухгалтерія — не педантизм: від неї залежить, коли спрацює розширення.
 
@@ -175,26 +87,7 @@ static void put(HashTable *t, const char *key, long value) {
 
 Вихід — не спорожняти комірку, а ставити в неї **надгробок**: стан `DELETED`. Для пошуку він прозорий (переступаємо й ідемо далі), для вставки — вільне місце. Так шлях проб лишається цілим.
 
-```c
-static bool ht_delete(HashTable *t, const char *key) {
-    size_t mask = t->cap - 1;
-    size_t idx  = fnv1a(key) & mask;
-    for (size_t i = 0; i < t->cap; ++i) {
-        Slot *s = &t->slots[(idx + i) & mask];
-        if (s->state == EMPTY)                // впёрлись у порожню → ключа немає
-            return false;
-        if (s->state == OCCUPIED && strcmp(s->key, key) == 0) {
-            free(s->key);
-            s->key   = NULL;
-            s->state = DELETED;               // НАДГРОБОК, а не EMPTY!
-            t->len--;                         // живих записів менше…
-            // …але used НЕ чіпаємо: надгробок і далі подовжує проби
-            return true;
-        }
-    }
-    return false;
-}
-```
+:::code proj-open-addressing/c/krok-5-vydalennia-i-pastka.c
 
 Рядок `s->state = DELETED;` замість `s->state = EMPTY;` — це вся різниця між робочою таблицею й такою, що губить ключі. І `t->len--` без `t->used--` — теж навмисне: жива пара зникла, але комірка, з погляду проб, і далі «зайнята», тож на навантаження вона досі впливає.
 
@@ -204,35 +97,7 @@ static bool ht_delete(HashTable *t, const char *key) {
 
 У свіжий масив вставляти простіше, ніж загальним `put`: там гарантовано немає ні надгробків, ні дублікатів, тож досить знайти першу порожню комірку. І ключі можна **перенести вказівником**, не копіюючи текст удруге:
 
-```c
-// вставка у СВІЖУ таблицю: без надгробків, без дублікатів; ключ уже наш
-static void insert_raw(HashTable *t, char *key, long value) {
-    size_t mask = t->cap - 1;
-    size_t idx  = fnv1a(key) & mask;
-    for (size_t i = 0; ; ++i) {               // порожня комірка тут ГАРАНТОВАНО є
-        Slot *s = &t->slots[(idx + i) & mask];
-        if (s->state == EMPTY) {
-            s->key = key; s->value = value; s->state = OCCUPIED;
-            t->len++; t->used++;
-            return;
-        }
-    }
-}
-
-static void resize(HashTable *t, size_t new_cap) {
-    Slot  *old     = t->slots;
-    size_t old_cap = t->cap;
-
-    t->slots = calloc(new_cap, sizeof(Slot)); // нові комірки — усі EMPTY
-    t->cap   = new_cap;
-    t->len   = t->used = 0;                    // порахуємо заново під час переносу
-
-    for (size_t i = 0; i < old_cap; ++i)
-        if (old[i].state == OCCUPIED)          // ЛИШЕ живі — надгробки зникають
-            insert_raw(t, old[i].key, old[i].value);  // переносимо вказівник ключа
-    free(old);                                 // ключі перенесено; звільняємо тільки масив
-}
-```
+:::code proj-open-addressing/c/krok-6-rozshyrennia-i.c
 
 Зверніть увагу: `resize` не робить `dup_key` — він **забирає** наявні покажчики ключів зі старого масиву в новий, а тоді звільняє лише сам масив (`free(old)`), не чіпаючи текстів ключів. Жодного зайвого копіювання, жодного витоку.
 
@@ -240,35 +105,7 @@ static void resize(HashTable *t, size_t new_cap) {
 
 Маленька програма, що ганяє всі три операції, оновлення наявного ключа й навантаження, що вимусить розширення:
 
-```c
-int main(void) {
-    HashTable t;
-    ht_init(&t, 8);
-
-    put(&t, "cat", 1);
-    put(&t, "act", 2);
-    put(&t, "dog", 3);
-    put(&t, "cat", 42);                        // оновлення наявного ключа
-
-    long v;
-    printf("cat = %ld\n", ht_get(&t, "cat", &v) ? v : -1);   // 42
-    printf("act = %ld\n", ht_get(&t, "act", &v) ? v : -1);   // 2
-
-    ht_delete(&t, "act");                      // ставить надгробок
-    printf("act? %d\n", ht_get(&t, "act", &v));               // 0 — немає
-    printf("dog = %ld\n", ht_get(&t, "dog", &v) ? v : -1);   // 3 — досі знаходиться
-
-    char k[16];
-    for (int i = 0; i < 100; ++i) {            // 100 вставок → кілька розширень
-        sprintf(k, "n%d", i);
-        put(&t, k, i);
-    }
-    printf("len=%zu used=%zu cap=%zu\n", t.len, t.used, t.cap);
-
-    ht_free(&t);
-    return 0;
-}
-```
+:::code proj-open-addressing/c/demonstratsiia.c
 
 ## Пастки
 

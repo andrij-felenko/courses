@@ -49,32 +49,8 @@ mask        = 1ULL << bit_offset     [одиничний біт, зсунути�
 Чотири базові операції над множиною реалізуються елементарними діями процесора:
 
 :::tabs
-```c
-/* 1. Додавання елемента (S = S ∪ {i}) */
-words[i >> 6] |= (1ULL << (i & 63));
-
-/* 2. Видалення елемента (S = S \ {i}) */
-words[i >> 6] &= ~(1ULL << (i & 63));
-
-/* 3. Перевірка належності (i ∈ S) */
-bool exists = (words[i >> 6] & (1ULL << (i & 63))) != 0;
-
-/* 4. Симетричне перемикання */
-words[i >> 6] ^= (1ULL << (i & 63));
-```
-```cpp
-/* 1. Додавання елемента (S = S ∪ {i}) */
-words[i >> 6] |= (1ULL << (i & 63));
-
-/* 2. Видалення елемента (S = S \ {i}) */
-words[i >> 6] &= ~(1ULL << (i & 63));
-
-/* 3. Перевірка належності (i ∈ S) */
-bool exists = (words[i >> 6] & (1ULL << (i & 63))) != 0;
-
-/* 4. Симетричне перемикання */
-words[i >> 6] ^= (1ULL << (i & 63));
-```
+:::code bitset-d/c/masyv-mashynnykh-sliv-ta.h
+:::code bitset-d/cpp/masyv-mashynnykh-sliv-ta.hpp
 :::
 
 Кожна з цих дій не містить розгалужень (є *branchless*) і виконується за 1–2 машинні такти, зводячись до одного читання, бітової маски та одного запису в пам'ять.
@@ -136,20 +112,7 @@ words[i >> 6] ^= (1ULL << (i & 63));
 Якщо цільовий процесор не має апаратної команди `POPCNT` (наприклад, прості мікроконтролери), підрахунок одиниць виконується за логарифмічний час `O(log W)` за методом «розділяй і володарюй» через бітові маски:
 
 :::tabs
-```c
-#include <stdint.h>
-
-uint32_t popcount64_swar(uint64_t x) {
-    /* Додаємо пари сусідніх бітів (маска 0x5555... = 0101 0101...) */
-    x = x - ((x >> 1) & 0x5555555555555555ULL);
-    /* Додаємо групи по 4 біти (маска 0x3333... = 0011 0011...) */
-    x = (x & 0x3333333333333333ULL) + ((x >> 2) & 0x3333333333333333ULL);
-    /* Додаємо групи по 8 бітів (маска 0x0F0F... = 0000 1111...) */
-    x = (x + (x >> 4)) & 0x0F0F0F0F0F0F0F0FULL;
-    /* Множенням збираємо суми байтів у найстаршому байті та зсуваємо на 56 */
-    return (uint32_t)((x * 0x0101010101010101ULL) >> 56);
-}
-```
+:::code bitset-d/c/prohramnyi-paralelnyi.c
 ```cpp
 #include <cstdint>
 
@@ -215,36 +178,8 @@ x & (x - 1) = 0010 0000₂   (молодший біт 3 успішно скин�
 Поєднуючи `CTZ` та скидання біта, ми отримуємо цикл ітерації, який виконує рівно стільки кроків, скільки елементів присутньо в множині:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-void iterate_bitset_word(uint64_t word, size_t word_base_index) {
-    while (word != 0) {
-        int bit_offset = __builtin_ctzll(word);
-        size_t element = word_base_index + (size_t)bit_offset;
-        printf("Знайдено елемент: %zu\n", element);
-        
-        /* Скидаємо оброблений молодший біт */
-        word &= (word - 1);
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-#include <iostream>
-
-void iterate_bitset_word(std::uint64_t word, std::size_t word_base_index) {
-    while (word != 0) {
-        int bit_offset = std::countr_zero(word);
-        std::size_t element = word_base_index + static_cast<std::size_t>(bit_offset);
-        std::cout << "Знайдено елемент: " << element << "\n";
-        
-        word &= (word - 1);
-    }
-}
-```
+:::code bitset-d/c/shvydka-iteratsiia-cherez.c
+:::code bitset-d/cpp/shvydka-iteratsiia-cherez.cpp
 :::
 
 Якщо слово дорівнює нулю (не містить жодного елемента), перевірка `if (word != 0)` пропускає відразу всі 64 числа за одну операцію перевірки регістра.

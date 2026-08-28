@@ -7,84 +7,8 @@
 Нижче подано декларації системних функцій та шаблонів для програмної інтеграції сортування вибором у C та C++ проєкти.
 
 :::tabs
-```c
-#include <stddef.h>
-
-/*
- * Сортування масиву цілих чисел типу int.
- *
- * @param arr Покажчик на перший елемент масиву. Повинен бути не-NULL.
- * @param n   Кількість елементів у масиві.
- */
-void selection_sort_int(int *arr, size_t n);
-
-/*
- * Універсальне сортування буфера довільного типу за аналогією з qsort().
- *
- * @param base Покажчик на початок буфера пам'яті.
- * @param num  Кількість елементів у буфері.
- * @param size Розмір одного елемента в байтах (sizeof(T)).
- * @param cmp  Функція-компаратор: повертає <0 якщо (a < b), 0 якщо (a == b), >0 якщо (a > b).
- */
-void selection_sort_generic(void *base, size_t num, size_t size,
-                            int (*cmp)(const void *a, const void *b));
-
-/*
- * Двостороннє сортування вибором (Min-Max Selection Sort).
- * Зменшує кількість ітерацій зовнішнього циклу у 2 рази.
- */
-void double_selection_sort(int *arr, size_t n);
-
-/*
- * Стійке сортування вибором (Stable Selection Sort).
- * Застосовує зсув елементів замість прямого swap, зберігаючи відносний порядок.
- */
-void stable_selection_sort(int *arr, size_t n);
-```
-```cpp
-#include <span>
-#include <functional>
-#include <concepts>
-#include <iterator>
-
-namespace algo {
-
-/*
- * Основний шаблон сортування вибором для безперервного послідовного контейнера (std::span).
- *
- * @tparam T      Тип елементів. Мусить підтримувати переміщення або копіювання.
- * @tparam Compare Тип предикату порівняння. За замовчуванням std::less<T>.
- *
- * @param data    Перегляд масиву через std::span<T>.
- * @param comp    Об'єкт порівняння.
- */
-template <typename T, typename Compare = std::less<T>>
-void selection_sort(std::span<T> data, Compare comp = Compare{}) noexcept(
-    noexcept(comp(data[0], data[0])) && std::is_nothrow_move_assignable_v<T>);
-
-/*
- * Перевантаження для довільних ітераторів прямого доступу.
- *
- * @tparam RandomIt Тип ітератора (вимагає RandomAccessIterator).
- * @tparam Compare  Тип предикату порівняння.
- */
-template <typename RandomIt, typename Compare = std::less<>>
-void selection_sort(RandomIt first, RandomIt last, Compare comp = Compare{});
-
-/*
- * Двостороннє сортування вибором (Min-Max Selection Sort).
- */
-template <typename T, typename Compare = std::less<T>>
-void double_selection_sort(std::span<T> data, Compare comp = Compare{});
-
-/*
- * Стійке сортування вибором (Stable Selection Sort).
- */
-template <typename T, typename Compare = std::less<T>>
-void stable_selection_sort(std::span<T> data, Compare comp = Compare{});
-
-} // namespace algo
-```
+:::code api-selection-sort/c/stddef.h
+:::code api-selection-sort/cpp/main.hpp
 :::
 
 Детальний текстовий розбір контрактів C API:

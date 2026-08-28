@@ -52,41 +52,8 @@ enum class PropStatus : int8_t {
 - `sign`: Біт полярності (займає 0-й біт): `0` для позитивного літерала `x`, `1` для заперечення `¬x`.
 
 :::tabs
-```c
-/* c */
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef uint32_t Literal;
-typedef uint32_t Var;
-
-#define LIT_VAR(lit)      ((lit) >> 1)
-#define LIT_SIGN(lit)     ((lit) & 1)
-#define LIT_MAKE(v, s)    (((uint32_t)(v) << 1) | ((s) ? 1 : 0))
-#define LIT_NEG(lit)      ((lit) ^ 1)
-```
-```cpp
-// cpp
-#include <cstdint>
-
-class Literal {
-    uint32_t code_{0};
-public:
-    constexpr Literal() noexcept = default;
-    constexpr Literal(uint32_t var, bool is_neg) noexcept 
-        : code_((var << 1) | (is_neg ? 1u : 0u)) {}
-    
-    [[nodiscard]] constexpr uint32_t var() const noexcept { return code_ >> 1; }
-    [[nodiscard]] constexpr bool is_neg() const noexcept { return (code_ & 1u) != 0; }
-    [[nodiscard]] constexpr Literal neg() const noexcept { return Literal(code_ ^ 1u); }
-    [[nodiscard]] constexpr uint32_t code() const noexcept { return code_; }
-    
-    constexpr bool operator==(const Literal& o) const noexcept { return code_ == o.code_; }
-    constexpr bool operator!=(const Literal& o) const noexcept { return code_ != o.code_; }
-private:
-    constexpr explicit Literal(uint32_t raw_code) noexcept : code_(raw_code) {}
-};
-```
+:::code api-watched-literals-interface/c/main.c
+:::code api-watched-literals-interface/cpp/2-upakovane-predstavlennia.cpp
 :::
 
 - **Математичний інваріант:** Для будь-якого літерала `l` виконується `neg(neg(l)) == l`.
@@ -129,24 +96,7 @@ typedef struct {
     Literal  lits[];     // Гнучкий масив літералів [w1, w2, l3, ..., lk]
 } ClauseHeader;
 ```
-```cpp
-// cpp
-#include <vector>
-#include <span>
-
-class Clause {
-    uint32_t flags_{0};
-    std::vector<Literal> lits_;
-public:
-    explicit Clause(std::span<const Literal> lits, bool is_learned = false)
-        : flags_(is_learned ? 1u : 0u), lits_(lits.begin(), lits.end()) {}
-    
-    [[nodiscard]] size_t size() const noexcept { return lits_.size(); }
-    [[nodiscard]] bool is_learned() const noexcept { return (flags_ & 1u) != 0; }
-    [[nodiscard]] Literal& operator[](size_t idx) noexcept { return lits_[idx]; }
-    [[nodiscard]] const Literal& operator[](size_t idx) const noexcept { return lits_[idx]; }
-};
-```
+:::code api-watched-literals-interface/cpp/4-vnutrishnia-struktura.cpp
 :::
 
 - **Фізичний інваріант покажчиків:** Перші два елементи масиву `lits[0]` та `lits[1]` завжди є спостережуваними літералами `w[1]` та `w[2]`.

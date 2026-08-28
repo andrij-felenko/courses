@@ -66,45 +66,8 @@ enum class MerkleStatus : int32_t {
 ## 3. Опис структур даних
 
 :::tabs
-```c
-typedef struct {
-    uint8_t bytes[MERKLE_HASH_SIZE];
-} merkle_hash_t;
-
-typedef enum {
-    MERKLE_DIR_LEFT  = 0,  /* Сестра розташована ліворуч від поточного вузла */
-    MERKLE_DIR_RIGHT = 1   /* Сестра розташована праворуч від поточного вузла */
-} merkle_direction_t;
-
-typedef struct {
-    merkle_hash_t sibling_hash;
-    merkle_direction_t direction;
-} merkle_proof_node_t;
-
-typedef struct {
-    merkle_proof_node_t* nodes;
-    size_t node_count;
-} merkle_proof_t;
-
-typedef struct merkle_tree_s merkle_tree_t;
-```
-```cpp
-using MerkleHash = std::array<uint8_t, MERKLE_HASH_SIZE>;
-
-enum class MerkleDirection {
-    Left  = 0,  // Сестра розташована ліворуч від поточного вузла
-    Right = 1   // Сестра розташована праворуч від поточного вузла
-};
-
-struct MerkleProofNode {
-    MerkleHash sibling_hash;
-    MerkleDirection direction;
-};
-
-using MerkleProof = std::vector<MerkleProofNode>;
-
-class MerkleTree; // Непрозорий клас-контейнер Дерева Меркла (RAII)
-```
+:::code api-merkle-tree/c/3-opys-struktur-danykh.c
+:::code api-merkle-tree/cpp/main.cpp
 :::
 
 ### Деталізація полів структур:
@@ -293,20 +256,7 @@ void merkle_tree_destroy(merkle_tree_t* tree);
 ## 6. Серіалізаційні функції C API
 
 :::tabs
-```c
-merkle_status_t merkle_proof_serialize(
-    const merkle_proof_t* proof,
-    uint8_t* out_buffer,
-    size_t buffer_capacity,
-    size_t* out_written_bytes
-);
-
-merkle_status_t merkle_proof_deserialize(
-    const uint8_t* in_buffer,
-    size_t buffer_size,
-    merkle_proof_t* out_proof
-);
-```
+:::code api-merkle-tree/c/6-serializatsiini-funktsii.h
 ```cpp
 MerkleStatus serialize_proof(
     const MerkleProof& proof,

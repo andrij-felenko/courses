@@ -72,18 +72,7 @@ template <std::unsigned_integral T>
 int __builtin_ffs(int x);          /* Find First Set: індекс 1..32 першого встановленого біта (0, якщо x == 0) */
 int __builtin_parity(unsigned int x); /* Біт парності: 1, якщо кількість одиниць непарна, інакше 0 */
 ```
-```cpp
-// В C++20 еквіваленти виражаються через стандартні шаблони
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr int find_first_set(T x) noexcept {
-    return x == 0 ? 0 : std::countr_zero(x) + 1;
-}
-
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr bool parity(T x) noexcept {
-    return (std::popcount(x) % 2) != 0;
-}
-```
+:::code api-bit-intrinsics/cpp/dopomizhni-bitovi.cpp
 :::
 
 #### Механізм і пастка оптимізації невизначеної поведінки на нулі
@@ -205,70 +194,8 @@ template <std::unsigned_integral T>
 Нижче наведено практичний приклад реалізації поширених системних операцій (визначення кількості бітів для представлення числа та округлення розміру буфера пам'яті до степеня двійки) з ручною перевіркою граничних умов мовою C та за допомогою стандартного заголовка C++20:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Безпечне обчислення кількості провідних нулів у C з захистом від UB на нулі */
-static inline uint32_t safe_countl_zero64(uint64_t x) {
-    if (x == 0) {
-        return 64;
-    }
-    return (uint32_t)__builtin_clzll(x);
-}
-
-/* Безпечне обчислення бітової ширини числа в C (аналог bit_width) */
-static inline uint32_t safe_bit_width64(uint64_t x) {
-    if (x == 0) {
-        return 0;
-    }
-    return 64 - (uint32_t)__builtin_clzll(x);
-}
-
-/* Перевірка, чи є число степенем двійки в C (аналог has_single_bit) */
-static inline bool safe_has_single_bit64(uint64_t x) {
-    return x != 0 && (x & (x - 1)) == 0;
-}
-
-/* Округлення розміру буфера пам'яті вгору до найближчого степеня двійки */
-static inline uint64_t safe_bit_ceil64(uint64_t x) {
-    if (x <= 1) {
-        return 1;
-    }
-    /* Захист від переповнення: якщо старший біт встановлений, округлити неможливо */
-    if (x > (1ULL << 63)) {
-        return 0;
-    }
-    int lz = __builtin_clzll(x - 1);
-    return 1ULL << (64 - lz);
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-#include <concepts>
-
-// В C++20 всі операції доступні з коробки без необхідності ручних перевірок
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr int get_leading_zeros(T val) noexcept {
-    return std::countl_zero(val); // Повністю безпечно для 0: повертає розрядність типу
-}
-
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr int calculate_bit_width(T val) noexcept {
-    return std::bit_width(val); // Повертає 0 для 0, інакше 1 + floor(log2(val))
-}
-
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr bool is_power_of_two(T val) noexcept {
-    return std::has_single_bit(val); // Безпечно для 0: повертає false
-}
-
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr T round_up_allocation_size(T bytes) noexcept {
-    return std::bit_ceil(bytes); // Обчислюється під час компіляції (constexpr)
-}
-```
+:::code api-bit-intrinsics/c/main.c
+:::code api-bit-intrinsics/cpp/5-praktychnyi-pryklad.cpp
 :::
 
 Використання заголовка C++20 `<bit>` усуває необхідність створення громіздких платформно-залежних макросів, гарантує повну безпеку від дефектів оптимізації компілятора та забезпечує максимальну апаратну швидкодію на будь-якому цільовому процесорі.

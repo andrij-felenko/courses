@@ -19,18 +19,7 @@ typedef struct Interval {
     double high;  /* Права (верхня) межа інтервалу */
 } Interval;
 ```
-```cpp
-namespace geo {
-    struct Interval {
-        double low;
-        double high;
-
-        [[nodiscard]] constexpr bool overlaps(const Interval& other) const noexcept;
-        [[nodiscard]] constexpr bool contains(double point) const noexcept;
-        [[nodiscard]] constexpr bool encloses(const Interval& other) const noexcept;
-    };
-}
-```
+:::code api-interval-tree/cpp/1-1-typ-danykh-interval-c.cpp
 :::
 
 ### 1.2. Детальна специфікація полів структури `Interval`
@@ -53,20 +42,7 @@ typedef struct IntervalNode {
     struct IntervalNode* right;  /* Праве піддерево (low >= node.low) */
 } IntervalNode;
 ```
-```cpp
-namespace geo {
-    class IntervalNode {
-    public:
-        Interval interval;
-        double max_high;
-        std::unique_ptr<IntervalNode> left;
-        std::unique_ptr<IntervalNode> right;
-
-        explicit IntervalNode(Interval it) noexcept;
-        void update_max() noexcept;
-    };
-}
-```
+:::code api-interval-tree/cpp/1-3-vuzol-dereva.cpp
 :::
 
 ---
@@ -263,26 +239,7 @@ IntervalTreeIterator iterator_begin(IntervalNode* root);
 bool iterator_has_next(const IntervalTreeIterator* it);
 IntervalNode* iterator_next(IntervalTreeIterator* it);
 ```
-```cpp
-namespace geo {
-    class IntervalTreeIterator {
-    public:
-        using iterator_category = std::forward_iterator_tag;
-        using value_type        = Interval;
-        using difference_type   = std::ptrdiff_t;
-        using pointer           = const Interval*;
-        using reference         = const Interval&;
-
-        IntervalTreeIterator() noexcept = default;
-        explicit IntervalTreeIterator(const IntervalNode* root) noexcept;
-
-        reference operator*() const noexcept;
-        pointer operator->() const noexcept;
-        IntervalTreeIterator& operator++() noexcept;
-        bool operator==(const IntervalTreeIterator& other) const noexcept;
-    };
-}
-```
+:::code api-interval-tree/cpp/6-spetsyfikatsiia.cpp
 :::
 
 ### Детальні гарантії ітераторів
@@ -412,20 +369,7 @@ typedef struct CenteredIntervalNode {
     struct CenteredIntervalNode* right; /* Інтервали строго праворуч (low > x_mid) */
 } CenteredIntervalNode;
 ```
-```cpp
-namespace geo {
-    class CenteredIntervalTree {
-        double x_mid_;
-        std::vector<Interval> intervals_by_low_;
-        std::vector<Interval> intervals_by_high_;
-        std::unique_ptr<CenteredIntervalTree> left_;
-        std::unique_ptr<CenteredIntervalTree> right_;
-    public:
-        explicit CenteredIntervalTree(std::span<const Interval> intervals);
-        [[nodiscard]] std::vector<Interval> query_point(double p) const;
-    };
-}
-```
+:::code api-interval-tree/cpp/12-spetsyfikatsiia-api.cpp
 :::
 
 - **Особливості використання:** Центроване дерево конструюється статично для множини з `n` інтервалів і забезпечує пошук точкових перетинів за оптимальний час `O(k + log n)`.
@@ -435,40 +379,8 @@ namespace geo {
 ## 13. Приклад використання API (C та C++ tabs)
 
 :::tabs
-```c
-#include <stdio.h>
-#include "interval_tree.h"
-
-int main(void) {
-    IntervalNode* tree = NULL;
-    tree = interval_insert(tree, create_interval(15.0, 20.0));
-    tree = interval_insert(tree, create_interval(10.0, 30.0));
-    
-    Interval query = {21.0, 25.0};
-    IntervalNode* result = interval_search(tree, query);
-    if (result != NULL) {
-        printf("Знайдено перетин: [%g, %g]\n", result->interval.low, result->interval.high);
-    }
-    
-    free_interval_tree(tree);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include "IntervalTree.hpp"
-
-int main() {
-    geo::IntervalTree tree;
-    tree.insert({15.0, 20.0});
-    tree.insert({10.0, 30.0});
-
-    if (auto match = tree.find_any_overlap({21.0, 25.0}); match) {
-        std::cout << "Знайдено перетин: [" << match->low << ", " << match->high << "]\n";
-    }
-    return 0;
-}
-```
+:::code api-interval-tree/c/main.c
+:::code api-interval-tree/cpp/13-pryklad-vykorystannia.cpp
 :::
 
 ---

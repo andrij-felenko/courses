@@ -202,32 +202,8 @@ Attacks  = AttackTable[BaseOffset[square] + Index]
 2. **`bb &= (bb - 1)` (Reset Lowest Set Bit, BLSR):** Витирання молодшого встановленого біта за 1 такт.
 
 :::tabs
-```c
-#include <stdint.h>
-
-void handle_element(int sq);
-
-void process_bitboard(uint64_t bb) {
-    while (bb != 0) {
-        int sq = __builtin_ctzll(bb); /* 1. Отримуємо індекс чергового елемента */
-        handle_element(sq);           /* 2. Обробляємо елемент */
-        bb &= (bb - 1);               /* 3. Скидаємо молодший біт за 1 такт */
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-
-template <typename Callback>
-void process_bitboard(uint64_t bb, Callback&& handle_element) {
-    while (bb != 0) {
-        const int sq = std::countr_zero(bb); /* 1. Отримуємо індекс елемента */
-        handle_element(sq);                  /* 2. Обробляємо елемент */
-        bb &= (bb - 1);                      /* 3. Скидаємо молодший біт за 1 такт */
-    }
-}
-```
+:::code chess-bitboard-d/c/main.c
+:::code chess-bitboard-d/cpp/main.cpp
 :::
 
 Кількість ітерацій цього циклу дорівнює точній кількості встановлених бітів (зазвичай 1–4 ітерації), тоді як обхід класичного масиву завжди вимагав би 64 ітерацій.

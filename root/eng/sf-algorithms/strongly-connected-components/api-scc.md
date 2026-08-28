@@ -11,75 +11,8 @@
 Результати обчислень повертаються у вигляді агрегованих структур, які надають прямий доступ до ID компонент, списків вершин кожної SCC та ациклічного графа конденсації.
 
 :::tabs
-```c
-#include <stddef.h>
-#include <stdbool.h>
-
-/* Повертаний результат обчислення компонент сильної зв'язаності */
-typedef struct {
-    int num_vertices;       /* Загальна кількість вершин у вихідному графі */
-    int num_scc;            /* Кількість виявлених компонент сильної зв'язаності */
-    int* comp_id;           /* Масив розміру num_vertices: comp_id[u] — ID компоненти u (0..num_scc-1) */
-    int* scc_sizes;         /* Масив розміру num_scc: кількість вершин у кожній компоненті */
-    int** scc_members;      /* Двовимірний масив: scc_members[i][j] — j-та вершина i-тої SCC */
-} SCCResult;
-
-/* Структура графа конденсації (DAG) */
-typedef struct {
-    int num_scc;            /* Кількість мета-вершин (дорівнює SCCResult.num_scc) */
-    int num_dag_edges;      /* Загальна кількість унікальних мета-ребер у DAG */
-    int** dag_adj;          /* Список суміжності DAG: dag_adj[i] містить сусіди компоненти i */
-    int* dag_degrees;       /* Вихідні ступені мета-вершин у DAG */
-    int* in_degrees;        /* Вхідні ступені мета-вершин у DAG */
-} CondensationGraph;
-
-/* Конфігураційні параметри обчислювального модуля */
-typedef struct {
-    bool enable_condensation; /* Автоматично будувати граф конденсації */
-    bool check_invariants;   /* Виконувати перевірку діапазону індексів вершин */
-    size_t stack_capacity;   /* Початковий розмір внутрішнього стека */
-} SCCConfig;
-```
-```cpp
-#include <vector>
-#include <memory>
-#include <span >
-#include <string_view>
-#include <expected>
-#include <system_error>
-
-namespace scc {
-
-/* Інформація про одну компоненту сильної зв'язаності */
-struct ComponentInfo {
-    int id{0};
-    std::vector<int> members;
-};
-
-/* Результат обчислення та аналізу графа у C++20 */
-struct AnalysisResult {
-    int vertex_count{0};
-    int component_count{0};
-    std::vector<int> component_map;                 // comp_map[u] -> scc_id
-    std::vector<ComponentInfo> components;          // scc_id -> ComponentInfo
-    std::vector<std::vector<int>> condensation_dag; // scc_id -> list of adjacent scc_ids
-
-    /* Перевірка взаємної досяжності двох вершин за O(1) */
-    [[nodiscard]] bool are_mutually_reachable(int u, int v) const noexcept {
-        if (u < 0 || u >= vertex_count || v < 0 || v >= vertex_count) return false;
-        return component_map[u] == component_map[v];
-    }
-};
-
-/* Конфігураційні налаштування аналізатора C++ */
-struct AnalyzerConfig {
-    bool build_condensation{true};
-    bool validate_inputs{true};
-    size_t initial_buffer_size{1024};
-};
-
-} // namespace scc
-```
+:::code api-scc/c/1-arkhitekturni-pryntsypy.c
+:::code api-scc/cpp/1-arkhitekturni-pryntsypy.cpp
 :::
 
 Масив `comp_id` (або `component_map` у C++) дозволяє за час `O(1)` визначити, до якої саме компоненти належить будь-яка вершина графа. Це є вирішальною інженерною перевагою при швидкій перевірці еквівалентності досяжності у прикладних задачах, таких як виявлення тупикових блокувань (deadlocks) або перевірка логічних імплікацій 2-SAT.
@@ -91,94 +24,8 @@ struct AnalyzerConfig {
 C-інтерфейс розроблено з урахуванням сумісності з стандартом C99 та можливості легкого виклику з інших мов програмування через FFI (Foreign Function Interface), зокрема Python, Rust чи Go. C++20 обгортка надає безпечну об'єктно-орієнтовану поверхню з керуванням ресурсами за принципом RAII.
 
 :::tabs
-```c
-/**
- * Обчислює компоненти сильної зв'язаності орієнтованого графа за алгоритмом Таржана.
- *
- * @param num_vertices Загальна кількість вершин (пронумеровані 0..num_vertices-1).
- * @param adj_list Масив списків суміжності (adj_list[u] є масивом сусідів вершини u).
- * @param adj_sizes Масив вихідних ступенів вершин (adj_sizes[u] — довжина adj_list[u]).
- * @param config Показчик на структуру конфігурації (або NULL для замовчуваних значень).
- * @return Вказівник на виділену структуру SCCResult. Пам'ять звільняється через scc_free_result().
- */
-SCCResult* scc_compute(
-    int num_vertices,
-    const int** adj_list,
-    const int* adj_sizes,
-    const SCCConfig* config
-);
-
-/**
- * Будує орієнтований ациклічний граф конденсації G^SCC.
- * Автоматично усуває дубльовані мета-ребра між однаковими компонентами.
- *
- * @param original_num_vertices Кількість вершин вихідного графа.
- * @param adj_list Список суміжності вихідного графа.
- * @param adj_sizes Вихідні ступені вершин вихідного графа.
- * @param result Результат виконання scc_compute().
- * @return Вказівник на структуру CondensationGraph. Пам'ять звільняється через scc_free_condensation().
- */
-CondensationGraph* scc_build_condensation(
-    int original_num_vertices,
-    const int** adj_list,
-    const int* adj_sizes,
-    const SCCResult* result
-);
-
-/**
- * Експортує граф конденсації в текстовий формат Graphviz DOT для візуалізації.
- *
- * @param dag Вказівник на граф конденсації.
- * @param filename Шлях до вихідного DOT-файлу.
- * @return 0 при успіху, від'ємний код помилки при збої запису.
- */
-int scc_export_dot(const CondensationGraph* dag, const char* filename);
-
-/**
- * Безпечно звільняє пам'ять, виділену під структуру SCCResult.
- */
-void scc_free_result(SCCResult* result);
-
-/**
- * Безпечно звільняє пам'ять, виділену під структуру CondensationGraph.
- */
-void scc_free_condensation(CondensationGraph* dag);
-```
-```cpp
-namespace scc {
-
-enum class ErrorCode {
-    InvalidVertexIndex = 1,
-    NullPointerArgument,
-    CyclicDependencyInDAG,
-    AllocationFailure
-};
-
-class SCCAnalyzer {
-public:
-    explicit SCCAnalyzer(int num_vertices, AnalyzerConfig config = {});
-
-    /* Додавання орієнтованого ребра u -> v */
-    void add_edge(int from, int to);
-
-    /* Масове встановлення сусідів для вершини u */
-    void set_neighbors(int u, std::span<const int> neighbors);
-
-    /* Перевірка валідності індексу вершини */
-    [[nodiscard]] bool is_valid_vertex(int v) const noexcept;
-
-    /* Обчислення компонент та побудова DAG конденсації */
-    [[nodiscard]] std::expected<AnalysisResult, ErrorCode> analyze() const;
-
-    /* Серіалізація результатів у формат Graphviz DOT */
-    [[nodiscard]] std::string to_dot(const AnalysisResult& result) const;
-
-    /* Серіалізація результатів у формат JSON */
-    [[nodiscard]] std::string to_json(const AnalysisResult& result) const;
-};
-
-} // namespace scc
-```
+:::code api-scc/c/2-povnyi-funktsionalnyi.h
+:::code api-scc/cpp/2-povnyi-funktsionalnyi.hpp
 :::
 
 ## 3. Детальний опис функцій та семантика викликів

@@ -15,40 +15,8 @@
 Для запобігання хибному розділенню кеш-ліній (*false sharing*) у багатоядерних системах структури бітової черги вирівнюються по межі 64 байтів (розмір стандартної кеш-лінії L1D).
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-/* 64-бітна пріоритетна бітова черга */
-typedef struct {
-    uint64_t mask;           /* Бітова маска активних рівнів (розряди 0..63) */
-    size_t   count;          /* Загальна кількість елементів у всіх чергах */
-} BitQueue64;
-
-/* 128-бітна розширена пріоритетна бітова черга */
-typedef struct {
-    uint64_t words[2];       /* words[0] — рівні 0..63, words[1] — рівні 64..127 */
-    size_t   count;          /* Сумарна кількість елементів у системі */
-} BitQueue128;
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <bit>
-#include <optional>
-
-struct alignas(64) BitQueue64 {
-    uint64_t mask{0};
-    size_t   count{0};
-};
-
-struct alignas(64) BitQueue128 {
-    std::array<uint64_t, 2> words{0, 0};
-    size_t                  count{0};
-};
-```
+:::code api-bit-queue/c/struktury-danykh-ta.c
+:::code api-bit-queue/cpp/main.cpp
 :::
 
 ---
@@ -147,20 +115,7 @@ void bitq64_clear(BitQueue64& q, uint8_t level) noexcept {
 #### 4. Пошук найвищого пріоритету (`bitq64_find_highest`)
 
 :::tabs
-```c
-int bitq64_find_highest(const BitQueue64 *q) {
-    if (q->mask == 0) {
-        return -1;
-    }
-    #if defined(_MSC_VER)
-    unsigned long idx;
-    _BitScanForward64(&idx, q->mask);
-    return (int)idx;
-    #else
-    return __builtin_ctzll(q->mask);
-    #endif
-}
-```
+:::code api-bit-queue/c/4-poshuk-naivyshchoho.c
 ```cpp
 [[nodiscard]] std::optional<uint8_t> bitq64_find_highest(const BitQueue64& q) noexcept {
     if (q.mask == 0) {

@@ -198,18 +198,7 @@ Range_Subtree(v) = [pos[v], pos[v] + sz[v] - 1]    [суцільний інте�
 ### 2. Обчислення LCA (Lowest Common Ancestor)
 HLD надає вкрай швидкий алгоритм знаходження найменшого спільного предка без необхідності збереження таблиць двійкових підйомів (Binary Lifting розміром `N log N`):
 :::tabs
-```c
-int find_lca(const hld_tree_t *tree, int u, int v) {
-    while (tree->head[u] != tree->head[v]) {
-        if (tree->depth[tree->head[u]] > tree->depth[tree->head[v]]) {
-            u = tree->parent[tree->head[u]];
-        } else {
-            v = tree->parent[tree->head[v]];
-        }
-    }
-    return tree->depth[u] < tree->depth[v] ? u : v;
-}
-```
+:::code heavy-light-decomposition-d/c/main.c
 ```cpp
 template <typename ValueType>
 [[nodiscard]] int find_lca(const HeavyLightDecomposition<ValueType>& hld, int u, int v) noexcept {

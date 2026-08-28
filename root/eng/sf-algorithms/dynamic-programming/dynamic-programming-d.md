@@ -68,45 +68,8 @@ dp[0] = 0                       порожню суму набирають ну�
 Ось розмін монет знизу вгору, разом із відновленням самих монет через масив вказівників `from`:
 
 :::tabs
-```py
-def min_coins(coins, amount):
-    INF = amount + 1
-    dp   = [0] + [INF] * amount        # dp[0] = 0, решта — «поки недосяжно»
-    frm  = [-1] * (amount + 1)         # яка монета дала мінімум для суми a
-    for a in range(1, amount + 1):
-        for c in coins:
-            if c <= a and dp[a - c] + 1 < dp[a]:
-                dp[a]  = dp[a - c] + 1
-                frm[a] = c
-    if dp[amount] >= INF:
-        return None                    # такими монетами суму не набрати
-    coins_used, a = [], amount         # відновлюємо розв'язок, ідучи назад
-    while a > 0:
-        coins_used.append(frm[a])
-        a -= frm[a]
-    return coins_used
-```
-```cpp
-#include <vector>
-#include <optional>
-
-std::optional<std::vector<int>> min_coins(const std::vector<int>& coins, int amount) {
-    const int INF = amount + 1;
-    std::vector<int> dp(amount + 1, INF), from(amount + 1, -1);
-    dp[0] = 0;                                   // база
-    for (int a = 1; a <= amount; ++a)
-        for (int c : coins)
-            if (c <= a && dp[a - c] + 1 < dp[a]) {
-                dp[a]   = dp[a - c] + 1;         // кращий перехід
-                from[a] = c;                     // запам'ятати вибір для відновлення
-            }
-    if (dp[amount] >= INF) return std::nullopt;  // недосяжно
-    std::vector<int> used;
-    for (int a = amount; a > 0; a -= from[a])    // йдемо від цілі назад
-        used.push_back(from[a]);
-    return used;
-}
-```
+:::code dynamic-programming-d/py/main.py
+:::code dynamic-programming-d/cpp/main.cpp
 :::
 
 Простежмо роботу руками — саме так найясніше видно, що жоден стан не рахується двічі.

@@ -16,56 +16,8 @@
 | `stash_capacity` | `size_t` | `4` | Кількість слотів у резервному буфері схованки |
 
 :::tabs
-```c
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
-
-/* Коди результатів виконання операцій */
-typedef enum {
-    CUCKOO_OK               =  0,  /* Операція завершилася успішно */
-    CUCKOO_ERR_NOT_FOUND    = -1,  /* Ключ не знайдено в жодній таблиці чи схованці */
-    CUCKOO_ERR_KEY_EXISTS   = -2,  /* Ключ уже присутній у таблиці */
-    CUCKOO_ERR_NO_MEMORY    = -3,  /* Збій виділення динамічної пам'яті */
-    CUCKOO_ERR_REHASH_FAIL  = -4,  /* Не вдалося перехешувати таблицю після вичерпання спроб */
-    CUCKOO_WARN_STASH_USED  =  1   /* Елемент збережено в аварійній схованці */
-} CuckooStatus;
-
-/* Статистика внутрішнього стану таблиці */
-typedef struct {
-    size_t total_elements;        /* Загальна кількість збережених пар */
-    size_t table_capacity;         /* Сумарна місткість основних таблиць T1 + T2 */
-    size_t stash_count;            /* Поточна кількість елементів у схованці */
-    size_t rehash_count;           /* Кількість виконаних перехешувань за час життя */
-    double load_factor;            /* Поточний коефіцієнт заповнення (elements / capacity) */
-} CuckooStats;
-
-/* Непрозора структура хеш-таблиці */
-typedef struct CuckooMap CuckooMap;
-```
-```cpp
-#include <cstddef>
-#include <cstdint>
-#include <optional>
-#include <string_view>
-
-enum class CuckooStatus : int32_t {
-    Ok             =  0,  // Операція успішна
-    NotFound       = -1,  // Ключ не знайдено
-    KeyExists      = -2,  // Ключ уже присутній
-    NoMemory       = -3,  // Недостатньо пам'яті
-    RehashFailed   = -4,  // Помилка перехешування
-    StashUsed      =  1   // Використано схованку
-};
-
-struct CuckooStats {
-    std::size_t total_elements{0};
-    std::size_t table_capacity{0};
-    std::size_t stash_count{0};
-    std::size_t rehash_count{0};
-    double load_factor{0.0};
-};
-```
+:::code api-cuckoo-map/c/main.c
+:::code api-cuckoo-map/cpp/typy-danykh-ta.cpp
 :::
 
 ## Специфікація функцій (C та C++ API)
@@ -193,43 +145,7 @@ void cuckoo_map_get_stats(const CuckooMap *map, CuckooStats *out_stats);
 
 Клас-шаблон `CuckooMap<Key, Value, Hash1, Hash2>` інкапсулює поведінку таблиці з безпечною системою типів:
 
-```cpp
-template <
-    typename Key,
-    typename Value,
-    typename Hash1 = DefaultHash1<Key>,
-    typename Hash2 = DefaultHash2<Key>
->
-class CuckooMap {
-public:
-    using key_type = Key;
-    using mapped_type = Value;
-    using value_type = std::pair<const Key, Value>;
-    using size_type = std::size_t;
-
-    explicit CuckooMap(size_type initial_capacity = 16);
-    ~CuckooMap() = default;
-
-    CuckooMap(const CuckooMap &other);
-    CuckooMap(CuckooMap &&other) noexcept;
-    CuckooMap &operator=(const CuckooMap &other);
-    CuckooMap &operator=(CuckooMap &&other) noexcept;
-
-    [[nodiscard]] std::optional<Value> find(const Key &key) const;
-    [[nodiscard]] bool contains(const Key &key) const noexcept;
-
-    CuckooStatus insert(const Key &key, const Value &value);
-    CuckooStatus insert_or_assign(const Key &key, const Value &value);
-
-    bool erase(const Key &key);
-    void clear() noexcept;
-
-    [[nodiscard]] size_type size() const noexcept;
-    [[nodiscard]] size_type capacity() const noexcept;
-    [[nodiscard]] bool empty() const noexcept;
-    [[nodiscard]] CuckooStats stats() const noexcept;
-};
-```
+:::code api-cuckoo-map/cpp/spetsyfikatsiia-obiektno.hpp
 
 ## Інваріанти структури даних
 

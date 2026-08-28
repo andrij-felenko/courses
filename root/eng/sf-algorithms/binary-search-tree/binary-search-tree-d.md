@@ -67,35 +67,8 @@
 Ось код пошуку. Дерево — це вузли з ключем і двома вказівниками; спуск — простий цикл, що на кожному кроці обирає сина.
 
 :::tabs
-```cpp
-struct Node {
-    int   key;
-    Node* left  = nullptr;
-    Node* right = nullptr;
-};
-
-Node* find(Node* t, int key) {
-    while (t) {
-        if (key == t->key) return t;          // збіг
-        t = (key < t->key) ? t->left : t->right;   // менший — ліворуч, більший — праворуч
-    }
-    return nullptr;                            // впали з дерева — ключа немає
-}
-```
-```py
-class Node:
-    def __init__(self, key):
-        self.key = key
-        self.left = None
-        self.right = None
-
-def find(t, key):
-    while t:
-        if key == t.key:
-            return t                       # збіг
-        t = t.left if key < t.key else t.right   # менший — ліворуч, більший — праворуч
-    return None                            # впали з дерева — ключа немає
-```
+:::code binary-search-tree-d/cpp/poshuk-spusk-odnym.cpp
+:::code binary-search-tree-d/py/poshuk-spusk-odnym.py
 :::
 
 ## Вставка: пошук, що доходить до кінця
@@ -186,46 +159,8 @@ in-order обходу дерева з коренем 50:
 Симетрично можна брати **попередника** (найбільший ключ у лівому піддереві) — обидва варіанти правильні. Ось код, що охоплює всі три випадки:
 
 :::tabs
-```cpp
-Node* min_node(Node* t) { while (t->left) t = t->left; return t; }  // найлівіший
-
-Node* erase(Node* t, int key) {
-    if (!t) return nullptr;
-    if      (key < t->key) t->left  = erase(t->left,  key);
-    else if (key > t->key) t->right = erase(t->right, key);
-    else {                                        // знайшли вузол
-        if (!t->left)  { Node* r = t->right; delete t; return r; }  // 0 або 1 дитина
-        if (!t->right) { Node* l = t->left;  delete t; return l; }
-        Node* s = min_node(t->right);             // наступник — найлівіший справа
-        t->key = s->key;                          // переносимо його ключ
-        t->right = erase(t->right, s->key);       // і видаляємо наступника (легкий випадок)
-    }
-    return t;
-}
-```
-```py
-def min_node(t):
-    while t.left:
-        t = t.left
-    return t
-
-def erase(t, key):
-    if t is None:
-        return None
-    if key < t.key:
-        t.left = erase(t.left, key)
-    elif key > t.key:
-        t.right = erase(t.right, key)
-    else:                                  # знайшли вузол
-        if t.left is None:
-            return t.right                 # 0 або 1 дитина
-        if t.right is None:
-            return t.left
-        s = min_node(t.right)              # наступник
-        t.key = s.key                      # переносимо ключ
-        t.right = erase(t.right, s.key)    # видаляємо наступника
-    return t
-```
+:::code binary-search-tree-d/cpp/vydalennia-iedyna-po.cpp
+:::code binary-search-tree-d/py/vydalennia-iedyna-po.py
 :::
 
 Ця схема видалення — з двох дітей через наступника — уперше з'явилася в роботі Томаса Гіббарда 1962 року й досі зветься його ім'ям; повну реалізацію з обходом і виміром висоти зібрано в [окремому проєкті-дереві](root:sf-algorithms/binary-search-tree/proj-bst-operations.md), а те, як народилося саме двійкове дерево пошуку і яку несподівану ваду має повторюване гіббардове видалення, — у [нарисі про його історію](root:sf-algorithms/binary-search-tree/hist-bst-birth.md).

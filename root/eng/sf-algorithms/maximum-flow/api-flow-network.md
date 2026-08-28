@@ -9,45 +9,8 @@
 2. **Структура C `FlowNetworkC`:** реалізує компактне представлення графа у форматі Forward Star зі статичним виділенням пам'яті та бітовою адресацією зворотних ребер `e ^ 1`, що забезпечує нульовий оверхед динамічної алокації та максимальну локальність даних у процесорному кеші.
 
 :::tabs
-```cpp
-#include <vector>
-#include <cstdint>
-
-template <typename FlowType = int64_t>
-class EdmondsKarp {
-public:
-    struct Edge {
-        int to;         // Індекс цільової вершини дуги (0 <= to < n)
-        int rev;        // Позиція парного ребра у списку adj[to]
-        FlowType cap;   // Початкова пропускна спроможність (cap >= 0)
-        FlowType flow;  // Поточний потік через ребро (0 <= flow <= cap)
-    };
-
-    explicit EdmondsKarp(int vertices);
-    // ... методи інтерфейсу
-};
-```
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define MAX_NODES 5000
-#define MAX_ARCS  60000
-
-typedef struct {
-    int to;         // Цільова вершина дуги
-    int next;       // Індекс наступного ребра у списку суміжності (-1 = кінець)
-    int64_t cap;    // Пропускна спроможність
-    int64_t flow;   // Поточний потік через ребро
-} FlowArcC;
-
-typedef struct {
-    int n;                      // Кількість вершин у мережі
-    int arc_count;              // Загальна кількість дуг у масиві
-    int head[MAX_NODES];        // Голова списку суміжності для кожної вершини
-    FlowArcC arcs[MAX_ARCS];    // Статичний масив усіх спрямованих дуг
-} FlowNetworkC;
-```
+:::code api-flow-network/cpp/main.cpp
+:::code api-flow-network/c/main.c
 :::
 
 ## Специфікація методів та функцій API

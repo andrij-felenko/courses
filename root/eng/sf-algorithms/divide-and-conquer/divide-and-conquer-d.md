@@ -106,47 +106,8 @@ T(n) = a · T(n/b) + f(n)
 Порівнянь тут рівно стільки, скільки елементів, — злиття лінійне. А оскільки на кожному рівні дерева зливається в сумі `n` елементів, і рівнів `log₂n`, увесь сорт коштує `n·log n`. Ось той самий поділ у коді:
 
 :::tabs
-```python
-def merge_sort(a):
-    if len(a) <= 1:                     # базовий випадок: 0 або 1 елемент
-        return a
-    mid   = len(a) // 2
-    left  = merge_sort(a[:mid])         # підкорити ліву половину
-    right = merge_sort(a[mid:])         # підкорити праву половину
-    return merge(left, right)           # поєднати
-
-def merge(x, y):
-    out, i, j = [], 0, 0
-    while i < len(x) and j < len(y):
-        if x[i] <= y[j]:                # менша з двох верхівок
-            out.append(x[i]); i += 1
-        else:
-            out.append(y[j]); j += 1
-    out.extend(x[i:]); out.extend(y[j:])   # долити рештку тієї купки, що лишилась
-    return out
-```
-```cpp
-#include <vector>
-
-std::vector<int> merge(const std::vector<int>& x, const std::vector<int>& y) {
-    std::vector<int> out;
-    out.reserve(x.size() + y.size());
-    size_t i = 0, j = 0;
-    while (i < x.size() && j < y.size())          // менша з двох верхівок
-        out.push_back(x[i] <= y[j] ? x[i++] : y[j++]);
-    while (i < x.size()) out.push_back(x[i++]);   // долити рештку
-    while (j < y.size()) out.push_back(y[j++]);
-    return out;
-}
-
-std::vector<int> merge_sort(const std::vector<int>& a) {
-    if (a.size() <= 1) return a;                  // базовий випадок
-    size_t mid = a.size() / 2;
-    std::vector<int> left (a.begin(), a.begin() + mid);
-    std::vector<int> right(a.begin() + mid, a.end());
-    return merge(merge_sort(left), merge_sort(right));   // підкорити + поєднати
-}
-```
+:::code divide-and-conquer-d/py/main.py
+:::code divide-and-conquer-d/cpp/main.cpp
 :::
 
 Три рухи видно просто в тілі функції: `mid` — розділити, два рекурсивні виклики — підкорити, `merge` — поєднати. Повний робочий приклад із заміром часу, аналізом складності й пам'яті та типовими пастками (зсув на одиницю у злитті, стійкість сортування, поріг переходу на просте сортування для дрібних шматків) — у [проєкті сортування злиттям](root:sf-algorithms/divide-and-conquer/proj-mergesort.md).

@@ -466,44 +466,14 @@ R*-дерево додає дві потужні оптимізації:
 ### 1. PostgreSQL / PostGIS (Узагальнені дерева пошуку GiST)
 
 У PostgreSQL просторовий індекс створюється поверх інтерфейсу GiST:
-```sql
--- Створення таблиці просторових полігонів
-CREATE TABLE municipal_parcels (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
-    geom GEOMETRY(Polygon, 4326)
-);
-
--- Побудова R-дерево індексу GiST
-CREATE INDEX idx_parcels_spatial ON municipal_parcels USING GIST (geom);
-
--- Віконний запит із використанням індексу (оператор && перевіряє перетин MBR)
-SELECT id, name 
-FROM municipal_parcels 
-WHERE geom && ST_MakeEnvelope(30.45, 50.40, 30.55, 50.50, 4326);
-```
+:::code r-tree-d/sql/1-postgresql-postgis.sql
 
 Оператор `&&` виконує швидку первинну фільтрацію за R-деревом (Bounding Box Filter), після чого точний алгоритм перевіряє реальний перетин полігонів.
 
 ### 2. Модуль SQLite R*Tree
 
 У бібліотеку SQLite вбудовано розширення `rtree`, що реалізує віртуальні таблиці на базі R*-дерева:
-```sql
--- Створення віртуальної просторової таблиці для 2D-рамок
-CREATE VIRTUAL TABLE spatial_index USING rtree(
-   id,              -- Унікальний числовий ідентифікатор
-   minX, maxX,      -- Межі за віссю X
-   minY, maxY       -- Межі за віссю Y
-);
-
--- Вставка MBR
-INSERT INTO spatial_index VALUES (1, 10.0, 20.0, 15.0, 25.0);
-
--- Віконний пошук
-SELECT id FROM spatial_index 
-WHERE minX <= 30.0 AND maxX >= 5.0 
-  AND minY <= 30.0 AND maxY >= 5.0;
-```
+:::code r-tree-d/sql/2-modul-sqlite-r-tree.sql
 
 ### 3. Гральні та фізичні рушії (Dynamic AABB Trees)
 

@@ -27,60 +27,8 @@
 ## Загальні типи даних та коди повернення
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-typedef enum {
-    CBF_SUCCESS              =  0, /* Операція виконана успішно */
-    CBF_ERR_INVALID_PARAM    = -1, /* Некоректні вхідні параметри (NULL-вказівник, нульова ємність) */
-    CBF_ERR_NO_MEMORY        = -2, /* Помилка виділення динамічної пам'яті алокатором */
-    CBF_ERR_NOT_FOUND        = -3, /* Елемент гарантовано відсутній при спробі видалення */
-    CBF_ERR_BUFFER_TOO_SMALL = -4, /* Наданий користувачем буфер замалий для серіалізації/експорту */
-    CBF_ERR_CORRUPT_DATA     = -5, /* Пошкоджені бінарні дані або невідповідність контрольної суми */
-    CBF_ERR_INCOMPATIBLE     = -6, /* Невідповідність розмірів або параметрів хешування при злитті */
-    CBF_ERR_IO               = -7, /* Помилка дискового введення-виведення або mmap */
-    CBF_WARN_SATURATED       =  1  /* Операція успішна, але лічильник досяг максимуму 15 */
-} CbfStatus;
-
-typedef struct CountingBloomFilter CountingBloomFilter;
-
-/* Тип функції зворотного виклику для користувацького хешування */
-typedef void (*CbfCustomHashFn)(const void *key, size_t len, uint32_t seed, uint32_t *h1, uint32_t *h2);
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <string_view>
-#include <vector>
-#include <expected>
-#include <array>
-#include <functional>
-#include <filesystem>
-
-namespace algorithms::data_structures {
-
-enum class CbfError {
-    InvalidParameter,
-    OutOfMemory,
-    ElementNotFound,
-    BufferTooSmall,
-    CorruptedData,
-    IncompatibleParameters,
-    IoError
-};
-
-enum class InsertResult {
-    Inserted,
-    InsertedWithSaturation
-};
-
-using CustomHashFn = std::function<std::pair<uint32_t, uint32_t>(std::string_view, uint32_t)>;
-
-} // namespace algorithms::data_structures
-```
+:::code api-counting-bloom-filter/c/zahalni-typy-danykh-ta.c
+:::code api-counting-bloom-filter/cpp/zahalni-typy-danykh-ta.cpp
 :::
 
 ---
@@ -445,60 +393,8 @@ FPR = ( 1 - e^(-k · n / m) )^k
 Нижче продемонстровано повний цикл роботи з фільтром: ініціалізація, додавання ключів, перевірка, видалення та серіалізація:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-
-void demo_cbf_lifecycle(void) {
-    /* 1. Розрахунок параметрів для 100 000 ключів із похибкою 1% */
-    size_t cap = cbf_optimal_capacity(100000, 0.01);
-    uint32_t k = cbf_optimal_hashes(cap, 100000);
-
-    /* 2. Створення фільтра */
-    CountingBloomFilter *filter = cbf_create(cap, k);
-    if (!filter) return;
-
-    /* 3. Додавання ключів */
-    const char *key1 = "session_token_xyz_998";
-    cbf_insert(filter, key1, strlen(key1));
-
-    /* 4. Перевірка наявності */
-    if (cbf_contains(filter, key1, strlen(key1))) {
-        printf("Ключ знайдено!\n");
-    }
-
-    /* 5. Видалення ключа */
-    cbf_remove(filter, key1, strlen(key1));
-
-    /* 6. Звільнення пам'яті */
-    cbf_destroy(filter);
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-
-void demoCbfLifecycle() {
-    // 1. Розрахунок параметрів для 100 000 ключів із похибкою 1%
-    size_t cap = CountingBloomFilter::optimalCapacity(100'000, 0.01);
-    uint32_t k = CountingBloomFilter::optimalHashes(cap, 100'000);
-
-    // 2. Створення фільтра (RAII)
-    CountingBloomFilter filter(cap, k);
-
-    // 3. Додавання ключів
-    std::string_view key1 = "session_token_xyz_998";
-    filter.insert(key1);
-
-    // 4. Перевірка наявності
-    if (filter.contains(key1)) {
-        std::cout << "Ключ знайдено!\n";
-    }
-
-    // 5. Видалення ключа
-    filter.remove(key1);
-}
-```
+:::code api-counting-bloom-filter/c/11-naskriznyi-pryklad.c
+:::code api-counting-bloom-filter/cpp/11-naskriznyi-pryklad.cpp
 :::
 
 ---
@@ -510,18 +406,7 @@ void demoCbfLifecycle() {
 Підрахунковий фільтр Блума ефективно захищає дорогий SSD/NVMe-кеш від запису одноразових об'єктів (One-Hit Wonders):
 
 :::tabs
-```c
-/* Приклад логіки допуску на C */
-bool should_admit_to_cache(CountingBloomFilter *filter, const char *url, size_t len) {
-    if (cbf_contains(filter, url, len)) {
-        /* Об'єкт запитується повторно -> допускаємо у постійний кеш */
-        return true;
-    }
-    /* Перший запит -> реєструємо у фільтрі, але у кеш не записуємо */
-    cbf_insert(filter, url, len);
-    return false;
-}
-```
+:::code api-counting-bloom-filter/c/retsept-1-filtr-dopusku-v.c
 ```cpp
 // Приклад логіки допуску на C++
 bool shouldAdmitToCache(CountingBloomFilter& filter, std::string_view url) {

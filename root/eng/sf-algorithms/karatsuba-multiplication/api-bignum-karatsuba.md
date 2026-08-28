@@ -11,76 +11,8 @@
 Окрему увагу приділено сумісності з бінарними інтерфейсами прикладного рівня (C ABI): структури мовою C є простими пасивними контейнерами даних (*Plain Old Data*), що дозволяє використовувати їх у взаємодії з мовами високого рівня (Python через модуль `ctypes` або `cffi`, Rust через `extern "C"`, Go через `cgo`). Для коду на C++ надається безпечна обгортка з контролем меж діапазонів через концепцію `std::span` та обробкою виняткових ситуацій без накладних витрат на генерацію винятків за допомогою типу `std::expected`.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-/* Машинне слово довгої арифметики (лімб) */
-typedef uint32_t bignum_limb_t;
-typedef uint64_t bignum_dbl_limb_t;
-
-/* Структура представлення беззнакового великого числа */
-typedef struct {
-    bignum_limb_t *limbs;  /* Масив лімбів у форматі little-endian */
-    size_t length;         /* Кількість значущих лімбів */
-    size_t capacity;       /* Загальна ємність виділеного буфера */
-} bignum_t;
-
-/* Коди повернення та помилок модуля */
-typedef enum {
-    BIGNUM_OK                  =  0,
-    BIGNUM_ERR_NULL_POINTER    = -1,
-    BIGNUM_ERR_BUFFER_OVERFLOW = -2,
-    BIGNUM_ERR_INVALID_LENGTH  = -3,
-    BIGNUM_ERR_OUT_OF_MEMORY   = -4
-} bignum_status_t;
-
-/* Параметри конфігурації алгоритму */
-typedef struct {
-    size_t karatsuba_threshold;  /* Поріг переходу на шкільний алгоритм (за замовчуванням 32) */
-    size_t toom3_threshold;      /* Поріг переходу на Toom-3 (за замовчуванням 192) */
-} bignum_config_t;
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <vector>
-#include <expected>
-#include <string_view>
-
-namespace Bignum {
-
-using Limb = uint32_t;
-using DoubleLimb = uint64_t;
-
-enum class Status : int32_t {
-    Ok                 =  0,
-    NullPointer        = -1,
-    BufferOverflow     = -2,
-    InvalidLength      = -3,
-    OutOfMemory        = -4
-};
-
-struct Config {
-    size_t karatsubaThreshold = 32;
-    size_t toom3Threshold     = 192;
-};
-
-/* Клас неволодіючого зрізу пам'яті для великого числа */
-class BigIntSpan {
-public:
-    std::span<const Limb> data;
-
-    constexpr explicit BigIntSpan(std::span<const Limb> view) noexcept : data(view) {}
-    [[nodiscard]] size_t size() const noexcept { return data.size(); }
-    [[nodiscard]] bool empty() const noexcept { return data.empty(); }
-    [[nodiscard]] Limb operator[](size_t idx) const noexcept { return data[idx]; }
-};
-
-} // namespace Bignum
-```
+:::code api-bignum-karatsuba/c/main.c
+:::code api-bignum-karatsuba/cpp/struktury-danykh-ta.cpp
 :::
 
 ---
@@ -130,18 +62,7 @@ bignum_status_t bignum_mul_karatsuba(
     size_t scratch_size
 );
 ```
-```cpp
-namespace Bignum {
-
-[[nodiscard]] std::expected<void, Status> multiplyKaratsuba(
-    std::span<const Limb> a,
-    std::span<const Limb> b,
-    std::span<Limb> out,
-    std::span<Limb> scratch
-) noexcept;
-
-} // namespace Bignum
-```
+:::code api-bignum-karatsuba/cpp/2-holovna-funktsiia.cpp
 :::
 
 - **Контракт передумов (Preconditions):**

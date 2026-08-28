@@ -277,42 +277,8 @@ Row_i = Row_i OR Row_k [побітова векторизація рядка з�
 Отже, для оновлення матриці достатньо виконати подвійний цикл:
 
 :::tabs
-```c
-void tc_incremental_add_edge(bool *T, size_t V, size_t u, size_t v) {
-    if (T[u * V + v]) return;
-
-    T[u * V + v] = true;
-
-    for (size_t i = 0; i < V; ++i) {
-        if (i == u || T[i * V + u]) {
-            for (size_t j = 0; j < V; ++j) {
-                if (j == v || T[v * V + j]) {
-                    T[i * V + j] = true;
-                }
-            }
-        }
-    }
-}
-```
-```cpp
-void tcIncrementalAddEdge(std::vector<uint8_t>& T, size_t V, size_t u, size_t v) {
-    if (T[u * V + v]) return;
-
-    T[u * V + v] = 1;
-
-    for (size_t i = 0; i < V; ++i) {
-        if (i == u || T[i * V + u]) {
-            const size_t i_off = i * V;
-            const size_t v_off = v * V;
-            for (size_t j = 0; j < V; ++j) {
-                if (j == v || T[v_off + j]) {
-                    T[i_off + j] = 1;
-                }
-            }
-        }
-    }
-}
-```
+:::code transitive-closure-d/c/inkrementne-dodavannia.c
+:::code transitive-closure-d/cpp/inkrementne-dodavannia.cpp
 :::
 
 Використання побітової векторизації зменшує час інкрементного додавання ребра до `O(V² / 64)`.
@@ -454,87 +420,8 @@ u →* v  iff  L_out(u) ∩ L_in(v) ≠ ∅ [умова досяжності ч�
 Нижче наведено базовий приклад векторизованого алгоритму Уоршелла на C та C++:
 
 :::tabs
-```cpp
-#include <vector>
-#include <bitset>
-#include <cstddef>
-#include <iostream>
-
-template <size_t N>
-class TransitiveClosureBitset {
-private:
-    std::vector<std::bitset<N>> T_;
-
-public:
-    explicit TransitiveClosureBitset(size_t vertices) : T_(vertices) {}
-
-    void addEdge(size_t u, size_t v) {
-        T_[u].set(v);
-    }
-
-    void compute() {
-        const size_t n = T_.size();
-        for (size_t k = 0; k < n; ++k) {
-            for (size_t i = 0; i < n; ++i) {
-                if (T_[i].test(k)) {
-                    T_[i] |= T_[k]; // Побітова OR-векторизація всього рядка
-                }
-            }
-        }
-    }
-
-    [[nodiscard]] bool isReachable(size_t u, size_t v) const {
-        return T_[u].test(v);
-    }
-};
-```
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    size_t vertices;
-    size_t words_per_row;
-    uint64_t *matrix;
-} bitset_tc_t;
-
-bitset_tc_t* bitset_tc_create(size_t v) {
-    bitset_tc_t *g = (bitset_tc_t*)malloc(sizeof(bitset_tc_t));
-    if (!g) return NULL;
-    g->vertices = v;
-    g->words_per_row = (v + 63) / 64;
-    g->matrix = (uint64_t*)calloc(v * g->words_per_row, sizeof(uint64_t));
-    if (!g->matrix) {
-        free(g);
-        return NULL;
-    }
-    return g;
-}
-
-void bitset_tc_compute(bitset_tc_t *g) {
-    if (!g || !g->matrix) return;
-    const size_t v = g->vertices;
-    const size_t wpr = g->words_per_row;
-    uint64_t *m = g->matrix;
-
-    for (size_t k = 0; k < v; ++k) {
-        size_t k_word = k / 64;
-        uint64_t k_mask = (1ULL << (k % 64));
-
-        for (size_t i = 0; i < v; ++i) {
-            if ((m[i * wpr + k_word] & k_mask) != 0) {
-                uint64_t *row_i = &m[i * wpr];
-                const uint64_t *row_k = &m[k * wpr];
-                for (size_t w = 0; w < wpr; ++w) {
-                    row_i[w] |= row_k[w];
-                }
-            }
-        }
-    }
-}
-```
+:::code transitive-closure-d/cpp/praktychna-realizatsiia-ta.cpp
+:::code transitive-closure-d/c/praktychna-realizatsiia-ta.c
 :::
 
 ---

@@ -123,57 +123,8 @@ if (!swapped) break;
 Якщо внутрішній цикл пройшов усю невідсортовану зону і прапорець залишився `false`, це математично доводить, що для кожної суміжної пари виконувалася умова `A[j] ≤ A[j + 1]`. За транзитивністю весь масив уже є відсортованим, тому всі наступні проходи скасовуються.
 
 :::tabs
-```c
-#include <stddef.h>
-#include <stdbool.h>
-
-void bubble_sort_flag(int *arr, size_t n) {
-    if (n < 2) return;
-
-    for (size_t i = 0; i < n - 1; ++i) {
-        bool swapped = false;
-        for (size_t j = 0; j < n - 1 - i; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                int tmp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = tmp;
-                swapped = true;
-            }
-        }
-        if (!swapped) {
-            break;
-        }
-    }
-}
-```
-```cpp
-#include <span>
-#include <utility>
-#include <functional>
-
-namespace algo {
-
-template <typename T, typename Compare = std::less<T>>
-void bubble_sort_flag(std::span<T> data, Compare comp = Compare{}) {
-    const std::size_t n = data.size();
-    if (n < 2) return;
-
-    for (std::size_t i = 0; i < n - 1; ++i) {
-        bool swapped = false;
-        for (std::size_t j = 0; j < n - 1 - i; ++j) {
-            if (comp(data[j + 1], data[j])) {
-                std::swap(data[j], data[j + 1]);
-                swapped = true;
-            }
-        }
-        if (!swapped) {
-            break;
-        }
-    }
-}
-
-} // namespace algo
-```
+:::code bubble-sort-d/c/5-optymizatsiia-1.c
+:::code bubble-sort-d/cpp/5-optymizatsiia-1.cpp
 :::
 
 Завдяки перевірці прапорця найкраща часова складність сортування бульбашкою на вже впорядкованому масиві падає з квадратичної `O(N²)` до лінійної `O(N)`: алгоритм здійснює рівно `N - 1` порівнянь, 0 обмінів і негайно завершує роботу після першого проходу.
@@ -190,47 +141,8 @@ void bubble_sort_flag(std::span<T> data, Compare comp = Compare{}) {
 *Оптимізації сортування бульбашкою: ранній вихід за прапорцем swapped та стрибок межі через індекс останнього обміну.*
 
 :::tabs
-```c
-void bubble_sort_last_swap(int *arr, size_t n) {
-    if (n < 2) return;
-    size_t limit = n - 1;
-
-    while (limit > 0) {
-        size_t new_limit = 0;
-        for (size_t j = 0; j < limit; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                int tmp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = tmp;
-                new_limit = j;
-            }
-        }
-        limit = new_limit;
-    }
-}
-```
-```cpp
-namespace algo {
-
-template <typename T, typename Compare = std::less<T>>
-void bubble_sort_last_swap(std::span<T> data, Compare comp = Compare{}) {
-    if (data.size() < 2) return;
-    std::size_t limit = data.size() - 1;
-
-    while (limit > 0) {
-        std::size_t new_limit = 0;
-        for (std::size_t j = 0; j < limit; ++j) {
-            if (comp(data[j + 1], data[j])) {
-                std::swap(data[j], data[j + 1]);
-                new_limit = j;
-            }
-        }
-        limit = new_limit;
-    }
-}
-
-} // namespace algo
-```
+:::code bubble-sort-d/c/6-optymizatsiia-2.c
+:::code bubble-sort-d/cpp/6-optymizatsiia-2.cpp
 :::
 
 Ця оптимізація дозволяє алгоритму робити стрибки через впорядковані кінцеві кластери, що суттєво прискорює обробку масивів із частково відсортованими суфіксами.
@@ -289,77 +201,8 @@ v_left = 1  позиція за один прохід
 - Оскільки `left >= right`, сортування повністю завершується всього за **2 проходи** замість 4.
 
 :::tabs
-```c
-void cocktail_shaker_sort(int *arr, size_t n) {
-    if (n < 2) return;
-    size_t left = 0;
-    size_t right = n - 1;
-
-    while (left < right) {
-        size_t last_swap = left;
-
-        // Прямий прохід: спливання максимуму праворуч
-        for (size_t i = left; i < right; ++i) {
-            if (arr[i] > arr[i + 1]) {
-                int tmp = arr[i];
-                arr[i] = arr[i + 1];
-                arr[i + 1] = tmp;
-                last_swap = i;
-            }
-        }
-        right = last_swap;
-        if (left >= right) break;
-
-        last_swap = right;
-
-        // Зворотний прохід: занурення мінімуму ліворуч
-        for (size_t i = right; i > left; --i) {
-            if (arr[i - 1] > arr[i]) {
-                int tmp = arr[i - 1];
-                arr[i - 1] = arr[i];
-                arr[i] = tmp;
-                last_swap = i;
-            }
-        }
-        left = last_swap;
-    }
-}
-```
-```cpp
-namespace algo {
-
-template <typename T, typename Compare = std::less<T>>
-void cocktail_shaker_sort(std::span<T> data, Compare comp = Compare{}) {
-    if (data.size() < 2) return;
-    std::size_t left = 0;
-    std::size_t right = data.size() - 1;
-
-    while (left < right) {
-        std::size_t last_swap = left;
-
-        for (std::size_t i = left; i < right; ++i) {
-            if (comp(data[i + 1], data[i])) {
-                std::swap(data[i], data[i + 1]);
-                last_swap = i;
-            }
-        }
-        right = last_swap;
-        if (left >= right) break;
-
-        last_swap = right;
-
-        for (std::size_t i = right; i > left; --i) {
-            if (comp(data[i], data[i - 1])) {
-                std::swap(data[i - 1], data[i]);
-                last_swap = i;
-            }
-        }
-        left = last_swap;
-    }
-}
-
-} // namespace algo
-```
+:::code bubble-sort-d/c/8-podolannia-asymetrii.c
+:::code bubble-sort-d/cpp/8-podolannia-asymetrii.cpp
 :::
 
 Детальний аналіз інженерної реалізації, заміри процесорних тактів та порівняльні бенчмарки на різних класах даних наведено у вставці [Практична реалізація та варіації сортування бульбашкою](root:sf-algorithms/bubble-sort/proj-bubble-variants.md).

@@ -56,31 +56,8 @@
 Нижче наведено повний контракт функцій низькорівневого C API з описом вхідних умов, вихідних інваріантів та поведінки у крайових випадках.
 
 :::tabs
-```c
-// Створення та звільнення пам'яті
-BinomialNode* binomial_heap_create(void);
-void binomial_heap_free(BinomialNode* heap);
-
-// Основні операції над купою
-BinomialNode* binomial_heap_insert(BinomialNode* heap, int key);
-BinomialNode* binomial_heap_union(BinomialNode* h1, BinomialNode* h2);
-BinomialNode* binomial_heap_find_min(BinomialNode* heap);
-BinomialNode* binomial_heap_extract_min(BinomialNode* heap, int* out_min_key);
-void binomial_heap_decrease_key(BinomialNode* node, int new_key);
-BinomialNode* binomial_heap_delete(BinomialNode* heap, BinomialNode* node);
-```
-```cpp
-// Еквівалентний C++ клас ds::BinomialHeap<T>
-BinomialHeap();
-~BinomialHeap();
-
-NodeHandle insert(T key);
-void merge(BinomialHeap& other);
-std::optional<T> find_min() const;
-T extract_min();
-void decrease_key(NodeHandle handle, T new_key);
-void delete_node(NodeHandle handle);
-```
+:::code api-binomial-heap/c/main.h
+:::code api-binomial-heap/cpp/3-detalna-spetsyfikatsiia.hpp
 :::
 
 ---
@@ -89,49 +66,7 @@ void delete_node(NodeHandle handle);
 
 У мові C++ біноміальна купа оформлюється у вигляді шаблонного класу `ds::BinomialHeap<T>`, який забезпечує суворі гарантії безпеки винятків (Exception Safety) та керування ресурсами за принципом RAII (Resource Acquisition Is Initialization).
 
-```cpp
-namespace ds {
-
-template <typename T>
-class BinomialHeap {
-public:
-    using NodeHandle = Node*;
-
-    // Конструктор за замовчуванням: створює порожню купу за O(1)
-    BinomialHeap() noexcept;
-
-    // Деструктор: автоматично звільняє уся дерева за O(n)
-    ~BinomialHeap();
-
-    // Заборона копіювання: купа є унікальним володарем вузлів
-    BinomialHeap(const BinomialHeap&) = delete;
-    BinomialHeap& operator=(const BinomialHeap&) = delete;
-
-    // Переміщення: передає володіння деревами за O(1)
-    BinomialHeap(BinomialHeap&& other) noexcept;
-    BinomialHeap& operator=(BinomialHeap&& other) noexcept;
-
-    // Перевірка на порожнечу
-    [[nodiscard]] bool empty() const noexcept;
-
-    // Вставка: повертає NodeHandle для подальшого використання у decrease_key
-    NodeHandle insert(T key);
-
-    // Злиття з іншою купою: other стає порожньою
-    void merge(BinomialHeap& other);
-
-    // Пошук мінімуму: повертає std::nullopt для порожньої купи
-    [[nodiscard]] std::optional<T> find_min() const;
-
-    // Вилучення мінімуму: кидає std::underflow_error для порожньої купи
-    T extract_min();
-
-    // Зменшення ключа: кидає std::invalid_argument при new_key > current
-    void decrease_key(NodeHandle handle, T new_key);
-};
-
-} // namespace ds
-```
+:::code api-binomial-heap/cpp/4-kontrakt-oop-ta.hpp
 
 ### 4.1. Гарантії безпеки винятків (Exception Safety Guarantees)
 

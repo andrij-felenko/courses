@@ -28,19 +28,24 @@
           "math": [
             {
               "file": "math-cosine-properties.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-simd-cosine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-cosine-metrics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -62,19 +67,24 @@
           "math": [
             {
               "file": "math-jaccard-properties.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-jaccard-search.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-jaccard-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -102,13 +112,16 @@
           "proj": [
             {
               "file": "proj-levenshtein-dp.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-fuzzy-search.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -147,7 +160,8 @@
           "proj": [
             {
               "file": "proj-regex-engine.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -164,7 +178,9 @@
           "api": [
             {
               "file": "api-diff-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "hist": [
@@ -176,13 +192,16 @@
           "math": [
             {
               "file": "math-lcs-myers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-myers-diff.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -210,7 +229,8 @@
           "proj": [
             {
               "file": "proj-search-engine.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -222,7 +242,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -233,13 +254,16 @@
           "math": [
             {
               "file": "math-lcp-kasai.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-sais-construction.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -257,30 +281,37 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-nn-index.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "hist": [
             {
               "file": "hist-post-office.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-triangle-bounds.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-exact-vs-ann.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -302,7 +333,8 @@
           "proj": [
             {
               "file": "proj-ball-tree-knn.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -331,7 +363,8 @@
           "proj": [
             {
               "file": "proj-contrast-measure.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -347,7 +380,9 @@
           "api": [
             {
               "file": "api-projection-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "hist": [
@@ -359,13 +394,16 @@
           "math": [
             {
               "file": "math-jl-proof.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-random-projection.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -400,7 +438,8 @@
           "api": [
             {
               "file": "api-lsh.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

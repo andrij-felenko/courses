@@ -21,92 +21,8 @@
 Перелік статусів виконання `BipartiteStatus` визначає правила обробки виняткових ситуацій. Якщо функція отримує від'ємний індекс вершини або індекс, що перевищує задекларований розмір частки, повертається `BIPARTITE_ERR_INVALID_INDEX`. Передача нульових вказівників повертає `BIPARTITE_ERR_NULL_POINTER`.
 
 :::tabs
-```c
-/* C API: Повертані коди помилок та статусів виконання */
-typedef enum {
-    BIPARTITE_SUCCESS          =  0,  /* Успішне обчислення */
-    BIPARTITE_ERR_NULL_POINTER = -1,  /* Передано нульовий вказівник */
-    BIPARTITE_ERR_INVALID_INDEX= -2,  /* Індекс вершини вийшов за межі [0, N-1] або [0, M-1] */
-    BIPARTITE_ERR_OUT_OF_MEMORY= -3,  /* Не вдалося виділити пам'ять */
-    BIPARTITE_ERR_INVALID_GRAPH= -4   /* Граф містить некоректні ребра або порушено дводольність */
-} BipartiteStatus;
-
-/* Конфігурація розв'язувача */
-typedef enum {
-    ALGORITHM_KUHN          = 0,  /* Простий DFS, O(V * E), оптимальний для малих і розріджених графів */
-    ALGORITHM_HOPCROFT_KARP = 1,  /* Фазовий BFS+DFS, O(E * sqrt(V)), для великих графів */
-    ALGORITHM_DINIC_FLOW    = 2   /* Зведення до потоку через алгоритм Дініца, O(E * sqrt(V)) */
-} BipartiteAlgorithm;
-
-/* Структура результату обчислення у C */
-typedef struct {
-    int matching_size;        /* Кількість ребер у максимальному паросполученні */
-    int* match_u;             /* Масив розміром u_size: match_u[u] = v або -1 */
-    int* match_v;             /* Масив розміром v_size: match_v[v] = u або -1 */
-    int* vertex_cover_u;      /* Прапорець 0/1: чи належить u_i до мінімального покриття */
-    int* vertex_cover_v;      /* Прапорець 0/1: чи належить v_j до мінімального покриття */
-    double execution_time_ms; /* Час виконання у мілісекундах */
-} MatchingResult;
-
-/* Сигнатури функцій C API */
-BipartiteStatus bipartite_graph_create(int u_size, int v_size, int initial_capacity, void** graph_handle);
-void bipartite_graph_destroy(void* graph_handle);
-BipartiteStatus bipartite_graph_add_edge(void* graph_handle, int u, int v);
-BipartiteStatus bipartite_solve_matching(void* graph_handle, BipartiteAlgorithm algo, MatchingResult* result);
-void bipartite_result_free(MatchingResult* result);
-```
-```cpp
-// C++20 API: Переліки та структури результату
-namespace graph::matching {
-
-enum class Status {
-    Success = 0,
-    NullPointer = -1,
-    InvalidIndex = -2,
-    OutOfMemory = -3,
-    InvalidGraph = -4
-};
-
-enum class Algorithm {
-    Kuhn = 0,
-    HopcroftKarp = 1,
-    Dinic = 2
-};
-
-struct MatchingSolution {
-    std::size_t matching_size{0};
-    std::vector<int> match_u; // match_u[u] = v або -1
-    std::vector<int> match_v; // match_v[v] = u або -1
-    std::vector<bool> min_vertex_cover_u;
-    std::vector<bool> min_vertex_cover_v;
-    double execution_time_ms{0.0};
-};
-
-class BipartiteMatchingSolver {
-public:
-    explicit BipartiteMatchingSolver(std::size_t u_size, std::size_t v_size);
-    ~BipartiteMatchingSolver() noexcept = default;
-
-    BipartiteMatchingSolver(const BipartiteMatchingSolver&) = delete;
-    BipartiteMatchingSolver& operator=(const BipartiteMatchingSolver&) = delete;
-    BipartiteMatchingSolver(BipartiteMatchingSolver&&) noexcept = default;
-    BipartiteMatchingSolver& operator=(BipartiteMatchingSolver&&) noexcept = default;
-
-    void add_edge(std::size_t u, std::size_t v);
-    void clear_edges() noexcept;
-    [[nodiscard]] MatchingSolution solve(Algorithm algo = Algorithm::HopcroftKarp) const;
-
-    [[nodiscard]] std::size_t u_size() const noexcept;
-    [[nodiscard]] std::size_t v_size() const noexcept;
-    [[nodiscard]] std::size_t edge_count() const noexcept;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> impl_;
-};
-
-} // namespace graph::matching
-```
+:::code api-bipartite-matching/c/spetsyfikatsiia-typiv.h
+:::code api-bipartite-matching/cpp/spetsyfikatsiia-typiv.hpp
 :::
 
 #### Управління ресурсами та володіння пам'яттю
@@ -231,48 +147,8 @@ e 4 3
 Динамічний API дозволяє оновлювати паросполучення інкрементно. При додаванні нового ребра розв'язувач виконує один прохід пошуку доповнюючого шляху від нової реберної пари за `O(V + E)`. При видаленні ребра, яке входило до поточного паросполучення, алгоритм шукає локальний заміщаючий шлях лише для вивільненої вершини, не чіпаючи решту графа.
 
 :::tabs
-```c
-/* C API: Динамічне оновлення графа */
-typedef struct DynamicMatchingState DynamicMatchingState;
-
-DynamicMatchingState* dynamic_matching_create(int u_size, int v_size);
-void dynamic_matching_destroy(DynamicMatchingState* state);
-
-/* Додавання ребра з підтриманням поточного паросполучення за O(V + E) */
-bool dynamic_matching_insert_edge(DynamicMatchingState* state, int u, int v);
-
-/* Видалення ребра */
-bool dynamic_matching_remove_edge(DynamicMatchingState* state, int u, int v);
-
-int dynamic_matching_get_size(const DynamicMatchingState* state);
-```
-```cpp
-// C++20 API: Динамічне оновлення графа
-namespace graph::matching {
-
-class DynamicBipartiteMatching {
-public:
-    DynamicBipartiteMatching(std::size_t u_size, std::size_t v_size);
-    ~DynamicBipartiteMatching() noexcept = default;
-
-    // Інкрементне додавання ребра (u, v)
-    // Якщо паросполучення можна збільшити за 1 прохід DFS, воно збільшується за O(V + E)
-    bool insert_edge(std::size_t u, std::size_t v);
-
-    // Видалення ребра (u, v)
-    // Якщо ребро належало паросполученню, шукається локальний заміщаючий шлях
-    bool remove_edge(std::size_t u, std::size_t v);
-
-    // Отримання поточного розміру паросполучення за O(1)
-    [[nodiscard]] std::size_t matching_size() const noexcept;
-
-    // Перевірка: чи покрита вершина u у поточній конфігурації
-    [[nodiscard]] bool is_u_matched(std::size_t u) const;
-    [[nodiscard]] bool is_v_matched(std::size_t v) const;
-};
-
-} // namespace graph::matching
-```
+:::code api-bipartite-matching/c/4-dynamichnyi-api-dlia.h
+:::code api-bipartite-matching/cpp/4-dynamichnyi-api-dlia.hpp
 :::
 
 ---
@@ -284,51 +160,8 @@ public:
 Метод Угорського алгоритму працює над повними матрицями ваг `N x M`. Якщо між вершинами `u` та `v` ребро відсутнє, у матриці ваг задається нескінченно мале або нескінченно велике значення ( залежно від того, шукається максимум чи мінімум).
 
 :::tabs
-```c
-/* C API для Угорського алгоритму зваженого паросполучення */
-typedef struct {
-    int u;
-    int v;
-    double weight;
-} CWeightedEdge;
-
-typedef struct {
-    double total_weight;
-    int count;
-    CWeightedEdge* edges;
-} CWeightedMatchingSolution;
-
-CWeightedMatchingSolution* hungarian_solve_max(const double* weight_matrix, int n, int m);
-void hungarian_solution_free(CWeightedMatchingSolution* sol);
-```
-```cpp
-// C++20 API для Угорського алгоритму
-namespace graph::matching {
-
-template <typename WeightType = double>
-struct WeightedEdge {
-    std::size_t u;
-    std::size_t v;
-    WeightType weight;
-};
-
-template <typename WeightType = double>
-struct WeightedMatchingSolution {
-    WeightType total_weight{0};
-    std::vector<WeightedEdge<WeightType>> matched_edges;
-};
-
-template <typename WeightType = double>
-class HungarianSolver {
-public:
-    explicit HungarianSolver(const std::vector<std::vector<WeightType>>& weight_matrix);
-
-    [[nodiscard]] WeightedMatchingSolution<WeightType> solve_max_weight();
-    [[nodiscard]] WeightedMatchingSolution<WeightType> solve_min_weight();
-};
-
-} // namespace graph::matching
-```
+:::code api-bipartite-matching/c/5-interfeis-rozshyrennia.h
+:::code api-bipartite-matching/cpp/5-interfeis-rozshyrennia.hpp
 :::
 
 ---

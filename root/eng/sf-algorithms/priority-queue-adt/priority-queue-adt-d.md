@@ -127,79 +127,8 @@ pop-min         O(n)                O(1)
 Обидві операції — це короткі цикли навколо масиву. Ось min-купа з нуля; ідея всюди та сама, показана мовою з ручним контролем пам'яті (C++, як у справжніх планувальниках) і читкою мовою для наочності (Python).
 
 :::tabs
-```py
-def _sift_up(h, i):
-    while i > 0:
-        parent = (i - 1) // 2
-        if h[i] >= h[parent]:
-            break
-        h[i], h[parent] = h[parent], h[i]
-        i = parent
-
-def _sift_down(h, i):
-    n = len(h)
-    while True:
-        smallest = i
-        l, r = 2 * i + 1, 2 * i + 2
-        if l < n and h[l] < h[smallest]:
-            smallest = l
-        if r < n and h[r] < h[smallest]:
-            smallest = r
-        if smallest == i:
-            break
-        h[i], h[smallest] = h[smallest], h[i]
-        i = smallest
-
-def push(h, x):
-    h.append(x)
-    _sift_up(h, len(h) - 1)
-
-def pop_min(h):
-    top = h[0]
-    last = h.pop()
-    if h:                 # якщо ще лишилися елементи
-        h[0] = last
-        _sift_down(h, 0)
-    return top
-```
-```cpp
-#include <vector>
-#include <utility>   // std::swap
-
-void sift_up(std::vector<int>& h, int i) {
-    while (i > 0) {
-        int parent = (i - 1) / 2;
-        if (h[i] >= h[parent]) break;
-        std::swap(h[i], h[parent]);
-        i = parent;
-    }
-}
-
-void sift_down(std::vector<int>& h, int i) {
-    int n = (int)h.size();
-    for (;;) {
-        int smallest = i, l = 2 * i + 1, r = 2 * i + 2;
-        if (l < n && h[l] < h[smallest]) smallest = l;
-        if (r < n && h[r] < h[smallest]) smallest = r;
-        if (smallest == i) break;
-        std::swap(h[i], h[smallest]);
-        i = smallest;
-    }
-}
-
-void push(std::vector<int>& h, int x) {
-    h.push_back(x);
-    sift_up(h, (int)h.size() - 1);
-}
-
-int pop_min(std::vector<int>& h) {
-    int top = h[0];
-    h[0] = h.back();
-    h.pop_back();
-    if (!h.empty()) sift_down(h, 0);
-    return top;
-}
-```
+:::code priority-queue-adt-d/py/main.py
+:::code priority-queue-adt-d/cpp/main.cpp
 :::
 
 У бойовому коді цю купу зазвичай не пишуть руками: у C++ є `std::priority_queue` (за замовчуванням max-купа), у Python — модуль `heapq` (min-купа над звичайним списком). Але всередині в них — рівно ці два цикли. Повнішу реалізацію з побудовою за один раз, зменшенням ключа й типовими граблями розібрано в [окремому проєкті-купі](root:sf-algorithms/priority-queue-adt/proj-binary-heap.md).

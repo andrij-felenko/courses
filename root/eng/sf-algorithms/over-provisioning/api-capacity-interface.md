@@ -19,18 +19,7 @@ void *calloc(size_t num, size_t size);
 void *realloc(void *ptr, size_t new_size);
 void free(void *ptr);
 ```
-```cpp
-#include <memory>
-#include <new>
-
-// У C++ виділення та керування пам'яттю здійснюється через оператори new/delete
-T* ptr = new T[count];
-delete[] ptr;
-
-// Для динамічних буферів використовується reserve() у контейнерах
-std::vector<T> vec;
-vec.reserve(new_cap);
-```
+:::code api-capacity-interface/cpp/bazovi-syhnatury-funktsii.cpp
 :::
 
 ### Докладний аналіз поведінки та специфікація `realloc`
@@ -55,31 +44,8 @@ vec.reserve(new_cap);
 Пряме присвоєння результату `realloc` у початкову змінну є поширеною небезпечною помилкою (витоком пам'яті):
 
 :::tabs
-```c
-// КОРЕКТНИЙ ІДІОМАТИЧНИЙ ПАТТЕРН У C:
-size_t new_cap = buf->capacity + (buf->capacity >> 1); // Геометричний ріст x1.5
-int *tmp = (int*)realloc(buf->data, new_cap * sizeof(int));
-if (!tmp) {
-    // Обробка критичної ситуації: buf->data все ще доступний і містить коректні дані
-    fprintf(stderr, "Помилка: не вдалося розширити надлишковий буфер\n");
-    return false;
-}
-buf->data = tmp;
-buf->capacity = new_cap;
-```
-```cpp
-// ІДІОМАТИЧНЕ БЕЗПЕЧНЕ РОЗШИРЕННЯ У C++ (RAII):
-try {
-    std::size_t new_cap = capacity + (capacity >> 1); // Геометричний ріст x1.5
-    auto new_data = std::make_unique<int[]>(new_cap);
-    std::copy(data.get(), data.get() + size, new_data.get());
-    data = std::move(new_data);
-    capacity = new_cap;
-} catch (const std::bad_alloc&) {
-    std::cerr << "Помилка: не вдалося виділити пам'ять у C++\n";
-    return false;
-}
-```
+:::code api-capacity-interface/c/main.c
+:::code api-capacity-interface/cpp/bezpechnyi-pattern-vyklyku.cpp
 :::
 
 ### Інтроспекція фактичної місткості алокатора
@@ -118,30 +84,7 @@ std::pmr::vector<int> vec{&pool};
 
 ### Контракт методів `std::vector`
 
-```cpp
-namespace std {
-    template <typename T, typename Allocator = std::allocator<T>>
-    class vector {
-    public:
-        using size_type       = std::size_t;
-        using reference       = T&;
-        using const_reference = const T&;
-
-        // Поточні показники заповненості
-        size_type size() const noexcept;
-        size_type capacity() const noexcept;
-        size_type max_size() const noexcept;
-        bool empty() const noexcept;
-
-        // Зміна місткості та виділення надлишку
-        void reserve(size_type new_cap);
-        void shrink_to_fit();
-        void resize(size_type count);
-        void resize(size_type count, const value_type& value);
-        void clear() noexcept;
-    };
-}
-```
+:::code api-capacity-interface/cpp/kontrakt-metodiv-std.hpp
 
 ### Деталізація методів керування місткістю у C++
 
@@ -176,32 +119,7 @@ namespace std {
 
 ### Контракт методів `std::unordered_map`
 
-```cpp
-namespace std {
-    template <
-        typename Key,
-        typename T,
-        typename Hash = std::hash<Key>,
-        typename KeyEqual = std::equal_to<Key>,
-        typename Allocator = std::allocator<std::pair<const Key, T>>
-    >
-    class unordered_map {
-    public:
-        using size_type = std::size_t;
-
-        // Робота з бакетами та заповненістю
-        size_type bucket_count() const noexcept;
-        size_type max_bucket_count() const noexcept;
-        float load_factor() const noexcept;
-        float max_load_factor() const noexcept;
-        void max_load_factor(float ml);
-
-        // Явне розширення надлишкових бакетів
-        void rehash(size_type count);
-        void reserve(size_type count);
-    };
-}
-```
+:::code api-capacity-interface/cpp/kontrakt-metodiv-std-2.hpp
 
 ### Опис та специфікація методів хеш-таблиці
 

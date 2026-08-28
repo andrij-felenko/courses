@@ -14,40 +14,8 @@
 ### Поліморфний інтерфейс для довільних типів даних
 
 :::tabs
-```c
-#include <stddef.h>
-
-/**
- * @brief Сортує масив довільних об'єктів методом прямих вставок.
- * 
- * @param base   Вказівник на перший елемент масиву.
- * @param nel    Кількість елементів у масиві.
- * @param width  Розмір одного елемента в байтах (sizeof(T)).
- * @param compar Вказівник на функцію порівняння двох елементів.
- * 
- * @return void
- */
-void insertion_sort_generic(
-    void *base,
-    size_t nel,
-    size_t width,
-    int (*compar)(const void *, const void *)
-);
-```
-```cpp
-#include <cstddef>
-#include <concepts>
-
-// C++ сумісне оголошення функції з C-лінкуванням
-extern "C" {
-    void insertion_sort_generic(
-        void *base,
-        std::size_t nel,
-        std::size_t width,
-        int (*compar)(const void *, const void *)
-    );
-}
-```
+:::code api-insertion-sort/c/polimorfnyi-interfeis-dlia.c
+:::code api-insertion-sort/cpp/polimorfnyi-interfeis-dlia.cpp
 :::
 
 #### Контракт виконання функції `insertion_sort_generic`
@@ -68,42 +36,8 @@ extern "C" {
 Для усунення накладних витрат на виклик функції через вказівник у гарячому циклі в мові C використовується генерація спеціалізованих інлайн-функцій:
 
 :::tabs
-```c
-#include <stddef.h>
-
-#define DEFINE_INSERTION_SORT(NAME, TYPE, LESS_THAN)                         \
-static inline void insertion_sort_##NAME(TYPE *arr, size_t n) {              \
-    if (arr == NULL || n <= 1) return;                                       \
-    for (size_t i = 1; i < n; ++i) {                                          \
-        TYPE key = arr[i];                                                    \
-        size_t j = i;                                                         \
-        while (j > 0 && LESS_THAN(key, arr[j - 1])) {                         \
-            arr[j] = arr[j - 1];                                              \
-            --j;                                                              \
-        }                                                                     \
-        arr[j] = key;                                                         \
-    }                                                                         \
-}
-```
-```cpp
-#include <span>
-#include <functional>
-
-// Еквівалентний шаблон C++ без використання макросів препроцесора
-template <typename T, auto LessThan = std::less<T>{}>
-void static_insertion_sort(std::span<T> data) {
-    if (data.size() <= 1) return;
-    for (std::size_t i = 1; i < data.size(); ++i) {
-        T key = std::move(data[i]);
-        std::size_t j = i;
-        while (j > 0 && LessThan(key, data[j - 1])) {
-            data[j] = std::move(data[j - 1]);
-            --j;
-        }
-        data[j] = std::move(key);
-    }
-}
-```
+:::code api-insertion-sort/c/typobezpechnyi-monomorfnyi.c
+:::code api-insertion-sort/cpp/typobezpechnyi-monomorfnyi.cpp
 :::
 
 ## 3. Специфікація API для мови C++ (C++20 Ranges & Concepts)
@@ -113,66 +47,7 @@ void static_insertion_sort(std::span<T> data) {
 ### Сигнатури концептуальних інтерфейсів
 
 :::tabs
-```cpp
-#include <iterator>
-#include <ranges>
-#include <functional>
-
-namespace algo {
-
-    /**
-     * @brief Класичне сортування вставками для діапазону ітераторів.
-     * Вимагає щонайменше двонаправлених ітераторів (bidirectional_iterator).
-     */
-    template <
-        std::bidirectional_iterator I,
-        std::sentinel_for<I> S,
-        typename Comp = std::ranges::less,
-        typename Proj = std::identity
-    >
-    requires std::sortable<I, Comp, Proj>
-    constexpr I insertion_sort(
-        I first,
-        S last,
-        Comp comp = {},
-        Proj proj = {}
-    );
-
-    /**
-     * @brief Двійкове сортування вставками.
-     * Вимагає ітераторів довільного доступу (random_access_iterator) для бінарного пошуку.
-     */
-    template <
-        std::random_access_iterator I,
-        std::sentinel_for<I> S,
-        typename Comp = std::ranges::less,
-        typename Proj = std::identity
-    >
-    requires std::sortable<I, Comp, Proj>
-    constexpr I binary_insertion_sort(
-        I first,
-        S last,
-        Comp comp = {},
-        Proj proj = {}
-    );
-
-    /**
-     * @brief Перевантаження для безпосередньої роботи з об'єктами Range (вектори, масиви, span).
-     */
-    template <
-        std::ranges::bidirectional_range R,
-        typename Comp = std::ranges::less,
-        typename Proj = std::identity
-    >
-    requires std::sortable<std::ranges::iterator_t<R>, Comp, Proj>
-    constexpr std::ranges::borrowed_iterator_t<R> insertion_sort(
-        R&& r,
-        Comp comp = {},
-        Proj proj = {}
-    );
-
-} // namespace algo
-```
+:::code api-insertion-sort/cpp/syhnatury-kontseptualnykh.hpp
 ```c
 /* У чистому C концептуальні перевантаження не підтримуються.
    Натомість використовуються чіткі роздільні імена функцій. */
@@ -196,46 +71,8 @@ void binary_insertion_sort_random_access(int *arr, size_t n);
 Для вирішення цієї проблеми специфікація сортування вставками визначає два стандартизовані реентрабельні інтерфейси:
 
 :::tabs
-```c
-#include <stddef.h>
-
-/* Реентрабельне сортування у стилі GNU (context першим аргументом компаратора) */
-void insertion_sort_r(
-    void *base,
-    size_t nel,
-    size_t width,
-    int (*compar)(const void *, const void *, void *),
-    void *arg
-);
-
-/* Безпечний інтерфейс за стандартом C11 Annex K (context останнім аргументом) */
-int insertion_sort_s(
-    void *base,
-    size_t nel,
-    size_t width,
-    int (*compar)(const void *, const void *, void *),
-    void *context
-);
-```
-```cpp
-#include <cstddef>
-#include <functional>
-
-// У C++ контекст природно інкапсулюється через лямбда-захоплення (Closures)
-template <typename T, typename Context, typename CompareWithContext>
-void insertion_sort_context(std::span<T> data, Context& ctx, CompareWithContext comp) {
-    if (data.size() <= 1) return;
-    for (std::size_t i = 1; i < data.size(); ++i) {
-        T key = std::move(data[i]);
-        std::size_t j = i;
-        while (j > 0 && comp(key, data[j - 1], ctx)) {
-            data[j] = std::move(data[j - 1]);
-            --j;
-        }
-        data[j] = std::move(key);
-    }
-}
-```
+:::code api-insertion-sort/c/stddef.h
+:::code api-insertion-sort/cpp/4-reentrabelnyi-interfeis.cpp
 :::
 
 #### Семантика та повертані значення `insertion_sort_s`
@@ -345,30 +182,8 @@ Stack_Size = sizeof(T) + 3 · sizeof(size_t) + C_alignment
 Для використання сортування вставками як базового будівельного блоку у складних структурах даних (наприклад, сортування окремих бакетів у Hash Table, листя в B-деревах або підмасивів у Quicksort) визначено спеціалізований інтерфейс роботи з піддіапазонами:
 
 :::tabs
-```c
-#include <stddef.h>
-
-/**
- * @brief Сортує підмасив у межах більшого масиву [left, right] включно.
- * 
- * @param arr   Вказівник на початок базового масиву.
- * @param left  Індекс першого елемента підмасиву.
- * @param right Індекс останнього елемента підмасиву (включно).
- */
-void insertion_sort_subrange(int *arr, size_t left, size_t right);
-```
-```cpp
-#include <span>
-#include <functional>
-
-template <typename T, typename Compare = std::less<T>>
-void insertion_sort_subrange(std::span<T> data, std::size_t left, std::size_t right, Compare comp = Compare{}) {
-    if (left >= right || right >= data.size()) {
-        return;
-    }
-    insertion_sort(data.subspan(left, right - left + 1), comp);
-}
-```
+:::code api-insertion-sort/c/11-spetsyfikatsiia.c
+:::code api-insertion-sort/cpp/11-spetsyfikatsiia.cpp
 :::
 
 #### Контракт виконання `insertion_sort_subrange`
@@ -394,73 +209,8 @@ void insertion_sort_subrange(std::span<T> data, std::size_t left, std::size_t ri
 Для систем обробки потокових подій (ринкові котирування, телеметрія сенсорів, планувальники пакетів) визначається інтерфейс інкрементальної вставки:
 
 :::tabs
-```c
-#include <stddef.h>
-#include <stdbool.h>
-
-typedef struct {
-    int *data;
-    size_t size;
-    size_t capacity;
-} SortedStreamBuffer;
-
-/**
- * @brief Вставляє новий елемент у вже відсортований буфер зі збереженням порядку.
- * 
- * @param buf Вказівник на дескриптор буфера.
- * @param val Значення, що додається.
- * @return true при успішній вставці, false якщо буфер заповнений.
- */
-bool stream_buffer_insert(SortedStreamBuffer *buf, int val) {
-    if (buf == NULL || buf->data == NULL || buf->size >= buf->capacity) {
-        return false;
-    }
-
-    size_t j = buf->size;
-    while (j > 0 && buf->data[j - 1] > val) {
-        buf->data[j] = buf->data[j - 1];
-        --j;
-    }
-
-    buf->data[j] = val;
-    buf->size++;
-    return true;
-}
-```
-```cpp
-#include <vector>
-#include <algorithm>
-#include <concepts>
-
-template <typename T, typename Compare = std::less<T>>
-class SortedStreamBufferCpp {
-public:
-    explicit SortedStreamBufferCpp(std::size_t max_capacity, Compare comp = Compare{})
-        : capacity_(max_capacity), comp_(comp) {
-        data_.reserve(max_capacity);
-    }
-
-    bool insert(T val) {
-        if (data_.size() >= capacity_) {
-            return false;
-        }
-
-        // Бінарний пошук точки вставки у відсортованому векторі
-        auto pos = std::upper_bound(data_.begin(), data_.end(), val, comp_);
-        data_.insert(pos, std::move(val));
-        return true;
-    }
-
-    [[nodiscard]] std::span<const T> view() const noexcept {
-        return data_;
-    }
-
-private:
-    std::vector<T> data_;
-    std::size_t capacity_;
-    Compare comp_;
-};
-```
+:::code api-insertion-sort/c/13-spetsyfikatsiia.c
+:::code api-insertion-sort/cpp/13-spetsyfikatsiia.cpp
 :::
 
 #### Контракт потокового інтерфейсу

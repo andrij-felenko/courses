@@ -207,56 +207,8 @@ NULL <- 1 <- 2 <- 3 (head)
 #### Покрокове виведення та код мовами C та C++
 
 :::tabs
-```c
-/* reverse_list.c — Алгоритм перевертання однозв'язаного списка мовою C */
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct Node {
-    int data;
-    struct Node* next;
-} Node;
-
-Node* reverse_list(Node* head) {
-    Node* prev = NULL;
-    Node* curr = head;
-    Node* next_node = NULL;
-
-    while (curr != NULL) {
-        next_node = curr->next; /* 1. Зберігаємо наступний вузол */
-        curr->next = prev;      /* 2. Розвертаємо покажчик назад */
-        prev = curr;            /* 3. Зсуваємо prev на поточний */
-        curr = next_node;       /* 4. Переходимо до наступного */
-    }
-
-    return prev; /* Новий head розвернутого списка */
-}
-```
-```cpp
-// reverse_list.cpp — Перевертання однозв'язаного списка C++
-#include <iostream>
-#include <memory>
-
-struct Node {
-    int data;
-    Node* next{nullptr};
-    explicit Node(int val) : data(val) {}
-};
-
-Node* reverse_list(Node* head) noexcept {
-    Node* prev = nullptr;
-    Node* curr = head;
-
-    while (curr != nullptr) {
-        Node* next_node = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = next_node;
-    }
-
-    return prev;
-}
-```
+:::code linked-list-d/c/reverse_list.c
+:::code linked-list-d/cpp/reverse_list.cpp
 :::
 
 Математичне доведення коректності розвороту базується на інваріанті циклу: на кожній ітерації підсписок від `head` до `prev` є повністю розвернутим і правильним, а підсписок від `curr` до кінця залишається незмінним.

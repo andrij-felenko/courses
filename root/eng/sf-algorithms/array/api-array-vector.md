@@ -60,25 +60,7 @@ int val = arr[2]; // Еквівалентно: *(arr + 2)
 
 ### Публічний API та методи класу
 
-```cpp
-#include <array>
-
-std::array<int, 5> arr = {10, 20, 30, 40, 50};
-
-// Операції доступу до елементів
-int& v1 = arr[0];       // O(1), без перевірки меж (швидкий доступ)
-int& v2 = arr.at(0);    // O(1), перевіряє межі й кидає std::out_of_range
-int& v3 = arr.front();  // Доступ до першого елемента (еквівалент arr[0])
-int& v4 = arr.back();   // Доступ до останнього елемента (еквівалент arr[N-1])
-int* p  = arr.data();   // Прямий сирий вказівник для сумісності з C-API
-
-// Метадані та розмірність
-constexpr std::size_t s = arr.size();     // Повертає N як константу компіляції
-constexpr bool e        = arr.empty();    // Повертає true, якщо N == 0
-
-// Методи модифікації
-arr.fill(0);            // Заповнює всі елементи значенням 0
-```
+:::code api-array-vector/cpp/publichnyi-api-ta-metody.cpp
 
 ### Ключові переваги порівняно зі статичним C-масивом
 1. **Захист від Array Decay:** Об'єкт `std::array` не розпадається у покажчик при передачі у функції. Він зберігає інформацію про тип і розмір `N`.
@@ -93,46 +75,8 @@ arr.fill(0);            // Заповнює всі елементи значен
 ### Публічний C API та управління пам'яттю
 
 :::tabs
-```c
-#include <stdlib.h>
-
-// 1. Виділення пам'яті
-size_t n = 100;
-int *arr = (int *)malloc(n * sizeof(int));
-if (!arr) {
-    // Обробка помилки браку пам'яті
-}
-
-// 2. Ініціалізація нулями (альтернатива через calloc)
-int *zero_arr = (int *)calloc(n, sizeof(int));
-
-// 3. Динамічна зміна розміру
-size_t new_n = 200;
-int *temp = (int *)realloc(arr, new_n * sizeof(int));
-if (temp) {
-    arr = temp;
-} else {
-    // У разі помилки старий блок arr залишається дійсним!
-}
-
-// 4. Обов'язкове звільнення пам'яті
-free(arr);
-arr = NULL;
-```
-```cpp
-#include <memory>
-#include <vector>
-
-// 1. У C++ замість сирого malloc/free для динамічного масиву використовують std::unique_ptr<int[]>
-std::size_t n = 100;
-auto arr = std::make_unique<int[]>(n);
-
-// 2. Або контейнер std::vector для динамічного розміру
-std::vector<int> vec(n, 0); // Ініціалізація нулями
-
-// 3. Зміна розміру у C++ (RAII автоматично звільняє пам'ять)
-vec.resize(200);
-```
+:::code api-array-vector/c/main.c
+:::code api-array-vector/cpp/publichnyi-c-api-ta.hpp
 :::
 
 ### Системні ризики та типові помилки розробки
@@ -178,35 +122,7 @@ vec.resize(200);
 
 ### Публічний API та синтаксис використання
 
-```cpp
-#include <span>
-#include <vector>
-#include <array>
-#include <iostream>
-
-// Функція приймає зріз будь-якого неперервного масиву
-void process_elements(std::span<const int> s) {
-    std::cout << "Розмір зрізу: " << s.size() << " елементів\n";
-    for (int val : s) {
-        std::cout << val << " ";
-    }
-    std::cout << "\n";
-}
-
-int main() {
-    int raw_arr[4] = {1, 2, 3, 4};
-    std::array<int, 4> std_arr = {10, 20, 30, 40};
-    std::vector<int> vec = {100, 200, 300, 400};
-
-    // span уніфікує виклики без копіювання даних та без виділення пам'яті
-    process_elements(raw_arr);
-    process_elements(std_arr);
-    process_elements(vec);
-
-    // Створення підзрізу (subspan)
-    process_elements(vec.size() > 2 ? std::span<const int>(vec).subspan(1, 2) : std::span<const int>());
-}
-```
+:::code api-array-vector/cpp/publichnyi-api-ta.cpp
 
 ### Головні переваги `std::span`
 1. **Поліморфізм без накладних витрат:** `std::span` дозволяє писати універсальні функції, що приймають будь-які масиви, без віртуальних функцій і без генерації багатьох шаблонів.

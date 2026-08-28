@@ -18,41 +18,7 @@
 
 Беремо splitmix64: стан — одне 64-бітове слово, дев'ять операцій на число, жодних масивів і прогрівання. Алгоритм SplitMix описали Ґай Стіл, Даґ Лі та Крістін Флад на OOPSLA 2014 («Fast Splittable Pseudorandom Number Generators»); реалізація на C, яку відтоді переписують усі, — Себастьяно Віньї, 2015 рік, це варіант java-8-івського `SplittableRandom` зі сталим кроком.
 
-```cpp
-#include <cstdint>
-#include <cstdio>
-#include <cmath>
-#include <vector>
-#include <algorithm>
-
-struct Rng {
-    uint64_t s;
-    uint64_t next() {
-        uint64_t z = (s += 0x9E3779B97F4A7C15ULL);
-        z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9ULL;
-        z = (z ^ (z >> 27)) * 0x94D049BB133111EBULL;
-        return z ^ (z >> 31);
-    }
-    // 53 старші біти → double у [0,1). Зібрано руками навмисно: стандарт фіксує
-    // рушії точно, а розподіли — ні, тож std::uniform_real_distribution дає
-    // з того самого зерна різні числа під libstdc++ і під libc++.
-    double u01() { return (next() >> 11) * (1.0 / 9007199254740992.0); }   // 2⁵³
-};
-
-// n точок по d координат в ОДНОМУ суцільному масиві: точка i — це [i·d, i·d + d)
-std::vector<double> gen(int n, int d, uint64_t seed) {
-    Rng g{seed};
-    std::vector<double> p(static_cast<size_t>(n) * d);
-    for (double& v : p) v = g.u01();
-    return p;
-}
-
-static double dist2(const double* a, const double* b, int d) {
-    double s = 0.0;
-    for (int i = 0; i < d; ++i) { const double t = a[i] - b[i]; s += t * t; }
-    return s;
-}
-```
+:::code proj-contrast-measure/cpp/dani-iaki-povtoriuiutsia.cpp
 
 Суцільний масив замість `vector<vector<double>>` — не педантизм. За d = 1000 і n = 10⁵ вкладені вектори означають сто тисяч окремих виділень пам'яті, розкиданих купою як прийдеться, і внутрішній цикл, який на кожну точку спершу читає вказівник і чекає на нього. Саме обчислення відстаней — те місце, де це видно найкраще: тут пам'ять або йде суцільним рядком, або не йде.
 
@@ -60,59 +26,7 @@ static double dist2(const double* a, const double* b, int d) {
 
 Ідея двоходова. Розкид рахуємо по вибірці пар — тисячі пар вистачає з головою. Контраст рахуємо для кожного запиту окремо й беремо **медіану** по запитах, а не середнє.
 
-```cpp
-struct Stat { double spread, contrast, dmin, dmax; };
-
-Stat measure(int n, int d, int queries, uint64_t seed) {
-    const std::vector<double> base = gen(n, d, seed);
-    const std::vector<double> qs   = gen(queries, d, seed + 0x51ED);
-    const double* B = base.data();
-
-    // 1) відносний розкид — по вибірці пар, за Велфордом
-    Rng pick{seed + 0x9A17};
-    const int m = 4000;
-    double mean = 0.0, m2 = 0.0;
-    for (int k = 1; k <= m; ++k) {
-        const int i = static_cast<int>(pick.next() % static_cast<uint64_t>(n));
-        int       j = static_cast<int>(pick.next() % static_cast<uint64_t>(n));
-        if (j == i) j = (j + 1) % n;
-        const double D = std::sqrt(dist2(B + static_cast<size_t>(i) * d,
-                                         B + static_cast<size_t>(j) * d, d));
-        const double delta = D - mean;
-        mean += delta / k;
-        m2   += delta * (D - mean);
-    }
-    const double spread = std::sqrt(m2 / m) / mean;
-
-    // 2) контраст кожного запиту
-    std::vector<double> cs(queries);
-    double sdmin = 0.0, sdmax = 0.0;
-    for (int q = 0; q < queries; ++q) {
-        const double* Q = qs.data() + static_cast<size_t>(q) * d;
-        double lo = HUGE_VAL, hi = 0.0;
-        for (int i = 0; i < n; ++i) {
-            const double D2 = dist2(Q, B + static_cast<size_t>(i) * d, d);
-            if (D2 < lo) lo = D2;
-            if (D2 > hi) hi = D2;
-        }
-        lo = std::sqrt(lo);  hi = std::sqrt(hi);   // корінь двічі на запит, а не n разів
-        cs[q] = (hi - lo) / lo;
-        sdmin += lo;  sdmax += hi;
-    }
-    std::nth_element(cs.begin(), cs.begin() + queries / 2, cs.end());
-    return Stat{spread, cs[queries / 2], sdmin / queries, sdmax / queries};
-}
-
-int main() {
-    std::printf("   d      s/m   contrast    D_min    D_max   0.59/sqrt(d)\n");
-    for (int d : {2, 3, 10, 100, 1000}) {
-        const Stat s = measure(1000, d, 101, 20260808ULL + d);
-        std::printf("%4d   %6.3f   %8.2f  %7.3f  %7.3f   %8.3f\n",
-                    d, s.spread, s.contrast, s.dmin, s.dmax,
-                    0.59 / std::sqrt(static_cast<double>(d)));
-    }
-}
-```
+:::code proj-contrast-measure/cpp/prohrama-persha-kontrast.cpp
 
 Два рішення в цьому коді варті окремого слова.
 
@@ -141,120 +55,7 @@ n = 1000 точок, 101 запит, координати рівномірні �
 
 Дерево беремо найпростіше й чесне: розріз по найширшій осі комірки, позиційно по медіані, кошик на 16 точок, точний пошук із відсіканням. Це не швидка реалізація — [повне kd-дерево з розкладкою пам'яті, віконними запитами й k найближчих описане окремо](root:sf-algorithms/kd-tree). Тут потрібне не швидке, а зчисленне: два лічильники в полях і жодного трюку, який зіпсував би вимір.
 
-```cpp
-struct KdCounted {
-    KdCounted(const double* pts, int n, int d, int leaf)
-        : p_(pts), n_(n), d_(d), leaf_(leaf), idx_(n), lo_(d), hi_(d) {
-        for (int i = 0; i < n; ++i) idx_[i] = i;
-        nodes_.reserve(4 * (n / leaf + 1));
-        build(0, n);
-    }
-
-    int leaves() const {
-        int k = 0;
-        for (const Node& nd : nodes_) if (nd.axis < 0) ++k;
-        return k;
-    }
-
-    int nearest(const double* q) {          // номер найближчої точки
-        visitedLeaves = distCalls = 0;
-        best_ = -1;  bestD2_ = HUGE_VAL;
-        nn(0, q);
-        return best_;
-    }
-
-    long visitedLeaves = 0, distCalls = 0;  // ← весь вимір живе тут
-
-private:
-    struct Node { double split; int axis, right, begin, end; };
-
-    const double* p_;
-    int n_, d_, leaf_;
-    std::vector<int>    idx_;
-    std::vector<double> lo_, hi_;           // буфери меж комірки, по одному на дерево
-    std::vector<Node>   nodes_;
-    int    best_   = -1;
-    double bestD2_ = HUGE_VAL;
-
-    const double* pt(int i) const { return p_ + static_cast<size_t>(i) * d_; }
-
-    int build(int b, int e) {
-        const int me = static_cast<int>(nodes_.size());
-        nodes_.push_back(Node{0.0, -1, -1, b, e});          // поки що листок
-        if (e - b <= leaf_) return me;
-
-        for (int a = 0; a < d_; ++a) { lo_[a] = HUGE_VAL; hi_[a] = -HUGE_VAL; }
-        for (int i = b; i < e; ++i) {
-            const double* v = pt(idx_[i]);
-            for (int a = 0; a < d_; ++a) {
-                if (v[a] < lo_[a]) lo_[a] = v[a];
-                if (v[a] > hi_[a]) hi_[a] = v[a];
-            }
-        }
-        int axis = 0;
-        for (int a = 1; a < d_; ++a)
-            if (hi_[a] - lo_[a] > hi_[axis] - lo_[axis]) axis = a;
-        if (hi_[axis] <= lo_[axis]) return me;              // ділити нічим
-
-        const int mid = b + (e - b) / 2;
-        std::nth_element(idx_.begin() + b, idx_.begin() + mid, idx_.begin() + e,
-                         [&](int i, int j) { return pt(i)[axis] < pt(j)[axis]; });
-        nodes_[me].axis  = axis;
-        nodes_[me].split = pt(idx_[mid])[axis];
-        build(b, mid);                                      // лівий нащадок = me + 1
-        const int r = build(mid, e);
-        nodes_[me].right = r;
-        return me;
-    }
-
-    void nn(int node, const double* q) {
-        const Node nd = nodes_[node];
-        if (nd.axis < 0) {
-            ++visitedLeaves;
-            for (int i = nd.begin; i < nd.end; ++i) {
-                ++distCalls;
-                const double D2 = dist2(q, pt(idx_[i]), d_);
-                if (D2 < bestD2_) { bestD2_ = D2; best_ = idx_[i]; }
-            }
-            return;
-        }
-        const double diff = q[nd.axis] - nd.split;
-        const int near = (diff < 0.0) ? node + 1 : nd.right;
-        const int far  = (diff < 0.0) ? nd.right : node + 1;
-        nn(near, q);
-        if (diff * diff < bestD2_) nn(far, q);              // єдине правило відсікання
-    }
-};
-
-int main() {
-    const int n = 20000, leaf = 16, queries = 20;
-    std::printf("   d   leaves   visited    frac      dists\n");
-    for (int d : {2, 3, 5, 8, 10, 12, 15, 20, 100}) {
-        const std::vector<double> pts = gen(n, d, 20260808ULL + d);
-        const std::vector<double> qs  = gen(queries, d, 20260808ULL + d + 0x51ED);
-        KdCounted t(pts.data(), n, d, leaf);
-
-        long vl = 0, dc = 0;
-        for (int q = 0; q < queries; ++q) {
-            const double* Q = qs.data() + static_cast<size_t>(q) * d;
-            const int got = t.nearest(Q);
-            vl += t.visitedLeaves;  dc += t.distCalls;
-
-            int ref = 0;                                    // звіряння з перебором
-            double bd = HUGE_VAL;
-            for (int i = 0; i < n; ++i) {
-                const double D2 = dist2(Q, pts.data() + static_cast<size_t>(i) * d, d);
-                if (D2 < bd) { bd = D2; ref = i; }
-            }
-            if (got != ref) std::printf("  !!! d=%d q=%d: дерево збрехало\n", d, q);
-        }
-        const double avg = static_cast<double>(vl) / queries;
-        std::printf("%4d   %6d   %7.1f   %5.1f%%   %8.0f\n",
-                    d, t.leaves(), avg, 100.0 * avg / t.leaves(),
-                    static_cast<double>(dc) / queries);
-    }
-}
-```
+:::code proj-contrast-measure/cpp/prohrama-druha-lichylnyk.cpp
 
 Звіряння з перебором стоїть у циклі не для краси: «мало відвіданих листків» однаково добре пояснюється вдалим відсіканням і зіпсованим правилом відсікання, а розрізняє їх лише відповідь. У прогоні нижче дерево не збрехало жодного разу — 20 запитів із 20 на кожній розмірності.
 

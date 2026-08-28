@@ -13,36 +13,8 @@
 У мові C відрізкове дерево подається у вигляді екземпляра структури `segment_tree_t` або `lazy_seg_tree_t`, де ресурси пам'яті виділяються динамічно в кучі. У C++ застосовується шаблонний клас `SegmentTree<T, CombineOp>`.
 
 :::tabs
-```c
-typedef struct {
-    long long* tree;    /* Динамічний масив вузлів дерева розмірності 4N */
-    size_t n;           /* Кількість елементів у вичатковому масиві */
-} segment_tree_t;
-
-typedef struct {
-    long long* tree;    /* Динамічний масив агрегованих значень (4N) */
-    long long* lazy;    /* Динамічний масив відкладених поміток (4N) */
-    size_t n;           /* Кількість елементів у вичатковому масиві */
-} lazy_seg_tree_t;
-```
-```cpp
-template <typename T, typename CombineOp = std::plus<T>>
-class SegmentTree {
-private:
-    std::size_t n_;
-    T identity_;
-    CombineOp op_;
-    std::vector<T> tree_;
-};
-
-template <typename T, typename CombineOp = std::plus<T>, typename LazyOp = std::plus<T>>
-class LazySegmentTree {
-private:
-    std::size_t n_;
-    std::vector<T> tree_;
-    std::vector<T> lazy_;
-};
-```
+:::code api-segment-tree/c/1-1-struktury-danykh-u.c
+:::code api-segment-tree/cpp/1-1-struktury-danykh-u.cpp
 :::
 
 **Вимоги до пам'яті та вирівнювання:**
@@ -191,45 +163,8 @@ void push_down(std::size_t v, std::size_t tl, std::size_t tr);
 Для задач знаходження максимальної суми на підвідрізку (Maximum Subarray Sum) вузол містить структуру з 4 полів:
 
 :::tabs
-```c
-typedef struct {
-    long long sum;   /* Загальна сума елементів */
-    long long pref;  /* Максимальна сума на префіксі */
-    long long suff;  /* Максимальна сума на суфіксі */
-    long long ans;   /* Максимальна сума на підвідрізку */
-} kadane_node_t;
-
-kadane_node_t combine_kadane(kadane_node_t left, kadane_node_t right) {
-    kadane_node_t res;
-    res.sum = left.sum + right.sum;
-    res.pref = (left.pref > left.sum + right.pref) ? left.pref : left.sum + right.pref;
-    res.suff = (right.suff > right.sum + left.suff) ? right.suff : right.sum + left.suff;
-    
-    long long m1 = (left.ans > right.ans) ? left.ans : right.ans;
-    long long m2 = left.suff + right.pref;
-    res.ans = (m1 > m2) ? m1 : m2;
-    return res;
-}
-```
-```cpp
-struct KadaneNode {
-    long long sum{0};
-    long long pref{0};
-    long long suff{0};
-    long long ans{0};
-};
-
-struct KadaneCombine {
-    KadaneNode operator()(const KadaneNode& left, const KadaneNode& right) const noexcept {
-        KadaneNode res;
-        res.sum = left.sum + right.sum;
-        res.pref = std::max(left.pref, left.sum + right.pref);
-        res.suff = std::max(right.suff, right.sum + left.suff);
-        res.ans = std::max({left.ans, right.ans, left.suff + right.pref});
-        return res;
-    }
-};
-```
+:::code api-segment-tree/c/4-kontrakt-typiv-dlia.c
+:::code api-segment-tree/cpp/4-kontrakt-typiv-dlia.hpp
 :::
 
 - **Нейтральний елемент:** `sum = 0, pref = -INF, suff = -INF, ans = -INF`.

@@ -7,52 +7,8 @@
 Наївний варіант алгоритму реалізує канонічний подвійний цикл без будь-яких умовних перевірок стану масиву між ітераціями. Зовнішній цикл зменшує розмір робочого вікна на 1 після кожного проходу, а внутрішній цикл послідовно обробляє суміжні комірки.
 
 :::tabs
-```c
-#include <stddef.h>
-
-static inline void swap_int(int *a, int *b) {
-    int tmp = *a;
-    *a = *b;
-    *b = tmp;
-}
-
-void bubble_sort_naive(int *arr, size_t n) {
-    if (n < 2) return;
-
-    for (size_t i = 0; i < n - 1; ++i) {
-        for (size_t j = 0; j < n - 1 - i; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                swap_int(&arr[j], &arr[j + 1]);
-            }
-        }
-    }
-}
-```
-```cpp
-#include <span>
-#include <utility>
-#include <functional>
-#include <concepts>
-
-namespace algo {
-
-template <typename T, typename Compare = std::less<T>>
-    requires std::strict_weak_order<Compare, T, T>
-void bubble_sort_naive(std::span<T> data, Compare comp = Compare{}) {
-    const std::size_t n = data.size();
-    if (n < 2) return;
-
-    for (std::size_t i = 0; i < n - 1; ++i) {
-        for (std::size_t j = 0; j < n - 1 - i; ++j) {
-            if (comp(data[j + 1], data[j])) {
-                std::swap(data[j], data[j + 1]);
-            }
-        }
-    }
-}
-
-} // namespace algo
-```
+:::code proj-bubble-variants/c/1-bazova-naivna.c
+:::code proj-bubble-variants/cpp/1-bazova-naivna.cpp
 :::
 
 У цій реалізації кількість порівнянь є строго детермінованою і завжди становить `N(N - 1) / 2`. Якщо на вхід подано вже відсортований масив із 10 000 елементів, алгоритм усе одно виконає майже 50 мільйонів порівнянь і витратить значний час на холості ітерації.
@@ -62,51 +18,8 @@ void bubble_sort_naive(std::span<T> data, Compare comp = Compare{}) {
 Для усунення холостого перегляду впорядкованих послідовностей вводиться локальний прапорець `swapped`. Перед кожним проходом він скидається в `false`. Якщо під час сканування масиву не відбулося жодного обміну, це свідчить про повну відсутність інверсій у масиві, що дозволяє негайно перервати зовнішній цикл.
 
 :::tabs
-```c
-#include <stdbool.h>
-
-void bubble_sort_flag(int *arr, size_t n) {
-    if (n < 2) return;
-
-    for (size_t i = 0; i < n - 1; ++i) {
-        bool swapped = false;
-        for (size_t j = 0; j < n - 1 - i; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                swap_int(&arr[j], &arr[j + 1]);
-                swapped = true;
-            }
-        }
-        if (!swapped) {
-            break;
-        }
-    }
-}
-```
-```cpp
-namespace algo {
-
-template <typename T, typename Compare = std::less<T>>
-    requires std::strict_weak_order<Compare, T, T>
-void bubble_sort_flag(std::span<T> data, Compare comp = Compare{}) {
-    const std::size_t n = data.size();
-    if (n < 2) return;
-
-    for (std::size_t i = 0; i < n - 1; ++i) {
-        bool swapped = false;
-        for (std::size_t j = 0; j < n - 1 - i; ++j) {
-            if (comp(data[j + 1], data[j])) {
-                std::swap(data[j], data[j + 1]);
-                swapped = true;
-            }
-        }
-        if (!swapped) {
-            break;
-        }
-    }
-}
-
-} // namespace algo
-```
+:::code proj-bubble-variants/c/2-optymizatsiia-1.c
+:::code proj-bubble-variants/cpp/2-optymizatsiia-1.cpp
 :::
 
 Прапорець `swapped` трансформує алгоритм з абсолютно пасивного в адаптивний. На повністю або майже відсортованих вхідних потоках даних час виконання падає з квадратичного до лінійного `O(N)`.
@@ -116,46 +29,8 @@ void bubble_sort_flag(std::span<T> data, Compare comp = Compare{}) {
 Стандартний декремент межі зменшує невідсортовану зону лише на один елемент за ітерацію. Проте в багатьох масивах після чергового проходу наприкінці формується цілий відсортований блок із кількох чисел. Збереження індексу `last_swap`, де сталася остання фактична перестановка, дозволяє безпечно перенести праву межу наступного проходу безпосередньо на цей індекс.
 
 :::tabs
-```c
-void bubble_sort_last_swap(int *arr, size_t n) {
-    if (n < 2) return;
-    size_t limit = n - 1;
-
-    while (limit > 0) {
-        size_t new_limit = 0;
-        for (size_t j = 0; j < limit; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                swap_int(&arr[j], &arr[j + 1]);
-                new_limit = j;
-            }
-        }
-        limit = new_limit;
-    }
-}
-```
-```cpp
-namespace algo {
-
-template <typename T, typename Compare = std::less<T>>
-    requires std::strict_weak_order<Compare, T, T>
-void bubble_sort_last_swap(std::span<T> data, Compare comp = Compare{}) {
-    if (data.size() < 2) return;
-    std::size_t limit = data.size() - 1;
-
-    while (limit > 0) {
-        std::size_t new_limit = 0;
-        for (std::size_t j = 0; j < limit; ++j) {
-            if (comp(data[j + 1], data[j])) {
-                std::swap(data[j], data[j + 1]);
-                new_limit = j;
-            }
-        }
-        limit = new_limit;
-    }
-}
-
-} // namespace algo
-```
+:::code proj-bubble-variants/c/3-optymizatsiia-2.c
+:::code proj-bubble-variants/cpp/3-optymizatsiia-2.cpp
 :::
 
 Якщо на поточному проході жодного обміну не відбулося, змінна `new_limit` залишається рівною `0`, і цикл `while (limit > 0)` негайно завершується. Таким чином, ця оптимізація одночасно забезпечує і ранній вихід за відсутності обмінів, і стрибкоподібне скорочення межі.
@@ -165,74 +40,8 @@ void bubble_sort_last_swap(std::span<T> data, Compare comp = Compare{}) {
 Сортування перемішуванням (Cocktail Shaker Sort) усуває головну вразливість сортування бульбашкою — повільне переміщення малих значень з кінця масиву в початок («черепах»). Алгоритм чергує напрямки проходів: зліва направо (спливання максимуму) та справа наліво (занурення мінімуму), звужуючи обидві межі `left` і `right`.
 
 :::tabs
-```c
-void cocktail_shaker_sort(int *arr, size_t n) {
-    if (n < 2) return;
-    size_t left = 0;
-    size_t right = n - 1;
-
-    while (left < right) {
-        size_t last_swap = left;
-
-        // Прямий прохід: спливання максимуму праворуч
-        for (size_t i = left; i < right; ++i) {
-            if (arr[i] > arr[i + 1]) {
-                swap_int(&arr[i], &arr[i + 1]);
-                last_swap = i;
-            }
-        }
-        right = last_swap;
-        if (left >= right) break;
-
-        last_swap = right;
-
-        // Зворотний прохід: занурення мінімуму ліворуч
-        for (size_t i = right; i > left; --i) {
-            if (arr[i - 1] > arr[i]) {
-                swap_int(&arr[i - 1], &arr[i]);
-                last_swap = i;
-            }
-        }
-        left = last_swap;
-    }
-}
-```
-```cpp
-namespace algo {
-
-template <typename T, typename Compare = std::less<T>>
-    requires std::strict_weak_order<Compare, T, T>
-void cocktail_shaker_sort(std::span<T> data, Compare comp = Compare{}) {
-    if (data.size() < 2) return;
-    std::size_t left = 0;
-    std::size_t right = data.size() - 1;
-
-    while (left < right) {
-        std::size_t last_swap = left;
-
-        for (std::size_t i = left; i < right; ++i) {
-            if (comp(data[i + 1], data[i])) {
-                std::swap(data[i], data[i + 1]);
-                last_swap = i;
-            }
-        }
-        right = last_swap;
-        if (left >= right) break;
-
-        last_swap = right;
-
-        for (std::size_t i = right; i > left; --i) {
-            if (comp(data[i], data[i - 1])) {
-                std::swap(data[i - 1], data[i]);
-                last_swap = i;
-            }
-        }
-        left = last_swap;
-    }
-}
-
-} // namespace algo
-```
+:::code proj-bubble-variants/c/4-dvonapravlene.c
+:::code proj-bubble-variants/cpp/4-dvonapravlene.cpp
 :::
 
 ## 5. Універсальне сортування неструктурованих буферів
@@ -240,69 +49,8 @@ void cocktail_shaker_sort(std::span<T> data, Compare comp = Compare{}) {
 Для використання в низькорівневих C-бібліотеках та драйверах, де типи даних невідомі на етапі компіляції, сортування бульбашкою реалізується через покажчики `void*` та функцію побайтового копіювання `memcpy`. У C++ еквівалентний функціонал реалізується через узагальнені шаблони діапазонів, що повністю усуває накладні витрати на виклики через покажчики на функції.
 
 :::tabs
-```c
-#include <string.h>
-#include <stdlib.h>
-
-static void generic_swap(char *a, char *b, size_t size) {
-    char buffer[256];
-    if (size <= sizeof(buffer)) {
-        memcpy(buffer, a, size);
-        memcpy(a, b, size);
-        memcpy(b, buffer, size);
-    } else {
-        char *heap_buf = (char *)malloc(size);
-        if (heap_buf) {
-            memcpy(heap_buf, a, size);
-            memcpy(a, b, size);
-            memcpy(b, heap_buf, size);
-            free(heap_buf);
-        }
-    }
-}
-
-void bubble_sort_generic(void *base, size_t num, size_t size,
-                         int (*cmp)(const void *, const void *)) {
-    if (num < 2 || size == 0) return;
-    char *bytes = (char *)base;
-    size_t limit = num - 1;
-
-    while (limit > 0) {
-        size_t new_limit = 0;
-        for (size_t j = 0; j < limit; ++j) {
-            char *elem_a = bytes + j * size;
-            char *elem_b = bytes + (j + 1) * size;
-            if (cmp(elem_a, elem_b) > 0) {
-                generic_swap(elem_a, elem_b, size);
-                new_limit = j;
-            }
-        }
-        limit = new_limit;
-    }
-}
-```
-```cpp
-namespace algo {
-
-template <typename T, typename Compare>
-void bubble_sort_generic_cpp(std::span<T> data, Compare comp) {
-    if (data.size() < 2) return;
-    std::size_t limit = data.size() - 1;
-
-    while (limit > 0) {
-        std::size_t new_limit = 0;
-        for (std::size_t j = 0; j < limit; ++j) {
-            if (comp(data[j + 1], data[j])) {
-                std::swap(data[j], data[j + 1]);
-                new_limit = j;
-            }
-        }
-        limit = new_limit;
-    }
-}
-
-} // namespace algo
-```
+:::code proj-bubble-variants/c/5-universalne-sortuvannia.c
+:::code proj-bubble-variants/cpp/5-universalne-sortuvannia.cpp
 :::
 
 ## 6. Практична телеметрія та експериментальні результати
@@ -382,38 +130,8 @@ if (comp(data[j + 1], data[j])) {
 У мові C за замовчуванням компілятор припускає, що вказівник на масив може вказувати на ту саму пам'ять, що й інші змінні. Використання ключового слова `restrict` (або `__restrict__`) у сигнатурі функції повідомляє компілятору, що вказівник `arr` є єдиним каналом доступу до виділеного буфера:
 
 :::tabs
-```c
-void bubble_sort_restricted(int * restrict arr, size_t n) {
-    if (n < 2) return;
-    for (size_t i = 0; i < n - 1; ++i) {
-        for (size_t j = 0; j < n - 1 - i; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                int tmp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = tmp;
-            }
-        }
-    }
-}
-```
-```cpp
-namespace algo {
-
-void bubble_sort_restricted_cpp(int * __restrict arr, std::size_t n) {
-    if (n < 2) return;
-    for (std::size_t i = 0; i < n - 1; ++i) {
-        for (std::size_t j = 0; j < n - 1 - i; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                int tmp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = tmp;
-            }
-        }
-    }
-}
-
-} // namespace algo
-```
+:::code proj-bubble-variants/c/7-4-vplyv-aliasynhu.c
+:::code proj-bubble-variants/cpp/7-4-vplyv-aliasynhu.cpp
 :::
 
 Завдяки відсутності аліасингу компілятор може довше утримувати значення комірок у регістрах загального призначення, зменшуючи кількість повторних інструкцій `mov` із пам'яті.

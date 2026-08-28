@@ -47,40 +47,8 @@ dp[0][w] = 0        нуль речей — нуль цінності, хоч я
 Каркас прямо перекладається у два вкладені цикли — по речах і по місткості. Річ `i` (від 1) має вагу `wt[i−1]` і цінність `val[i−1]`, бо масиви нумеруються з нуля:
 
 :::tabs
-```cpp
-#include <vector>
-#include <algorithm>
-using std::vector;
-
-// Будує таблицю dp[i][w] і повертає її цілком.
-// wt[k], val[k] — вага й цінність k-ї речі (k від 0); cap — місткість W.
-vector<vector<int>> knap_table(const vector<int>& wt,
-                               const vector<int>& val, int cap) {
-    int n = (int)wt.size();
-    vector<vector<int>> dp(n + 1, vector<int>(cap + 1, 0));   // рядок 0 — самі нулі
-    for (int i = 1; i <= n; ++i)
-        for (int w = 0; w <= cap; ++w) {
-            dp[i][w] = dp[i - 1][w];                          // не брати i-ту річ
-            if (wt[i - 1] <= w) {                             // якщо влазить —
-                int take = dp[i - 1][w - wt[i - 1]] + val[i - 1];
-                if (take > dp[i][w]) dp[i][w] = take;         // …спробувати взяти
-            }
-        }
-    return dp;                                                // відповідь — dp[n][cap]
-}
-```
-```py
-def knap_table(wt, val, cap):
-    n = len(wt)
-    dp = [[0] * (cap + 1) for _ in range(n + 1)]      # рядок 0 — самі нулі
-    for i in range(1, n + 1):
-        for w in range(cap + 1):
-            dp[i][w] = dp[i - 1][w]                    # не брати i-ту річ
-            if wt[i - 1] <= w:                         # якщо влазить —
-                take = dp[i - 1][w - wt[i - 1]] + val[i - 1]
-                dp[i][w] = max(dp[i][w], take)         # …спробувати взяти
-    return dp                                          # відповідь — dp[n][cap]
-```
+:::code proj-knapsack/cpp/robochyi-kod-zapovniuiemo.cpp
+:::code proj-knapsack/py/main.py
 :::
 
 Простежмо роботу руками.
@@ -106,19 +74,7 @@ def knap_table(wt, val, cap):
 - якщо `dp[i][w] ≠ dp[i−1][w]` — річ `i` **узяли**; записуємо її, зменшуємо місткість на `wᵢ` і йдемо вище.
 
 :::tabs
-```cpp
-vector<int> knap_items(const vector<vector<int>>& dp,
-                       const vector<int>& wt, int cap) {
-    int n = (int)wt.size(), w = cap;
-    vector<int> taken;
-    for (int i = n; i >= 1; --i)
-        if (dp[i][w] != dp[i - 1][w]) {   // значення змінилося → річ i узято
-            taken.push_back(i - 1);       // її індекс (від 0)
-            w -= wt[i - 1];               // звільняємо зайняте нею місце
-        }
-    return taken;
-}
-```
+:::code proj-knapsack/cpp/vidnovlennia-samoho-naboru.cpp
 ```py
 def knap_items(dp, wt, cap):
     n, w = len(wt), cap

@@ -219,56 +219,8 @@ Y₀ = D₃ ∨ (¬D₂ ∧ D₁)           [молодший біт позиц�
 Нижче наведено порівняння захисного коду на мові C та чистого, оптимізованого коду на C++20:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Безпечний підрахунок провідних нулів у C з ручною обробкою нуля */
-static inline uint32_t safe_clz64(uint64_t x) {
-    if (x == 0) {
-        return 64;
-    }
-    return (uint32_t)__builtin_clzll(x);
-}
-
-/* Безпечне обчислення цілої частини логарифма log2 */
-static inline int32_t safe_ilog2_64(uint64_t x) {
-    if (x == 0) {
-        return -1; /* Логарифм нуля невизначений */
-    }
-    return 63 - __builtin_clzll(x);
-}
-
-/* Перевірка степеня двійки */
-static inline bool is_power_of_two(uint64_t x) {
-    return x != 0 && (x & (x - 1)) == 0;
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-#include <optional>
-#include <concepts>
-
-// В C++20 усі операції безпечні, стандартизовані та підтримують constexpr
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr int safe_clz(T val) noexcept {
-    return std::countl_zero(val); // Для нуля повертає std::numeric_limits<T>::digits
-}
-
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr std::optional<int> safe_ilog2(T val) noexcept {
-    if (val == 0) {
-        return std::nullopt;
-    }
-    return std::bit_width(val) - 1; // bit_width обчислює 1 + floor(log2(val))
-}
-
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr bool is_power_of_two(T val) noexcept {
-    return std::has_single_bit(val); // Безпечна перевірка 2ⁿ без розгалужень
-}
-```
+:::code bit-scan-clz-ctz-d/c/main.c
+:::code bit-scan-clz-ctz-d/cpp/main.cpp
 :::
 
 Повний довідник функцій заголовка C++20 `<bit>`, інтринсиків MSVC та таблиці генерації асемблерного коду наведено у вставці [порівняльний довідник компіляторних інтринсиків та інтерфейсу C++20](root:sf-algorithms/bit-scan-clz-ctz/api-bit-intrinsics.md).

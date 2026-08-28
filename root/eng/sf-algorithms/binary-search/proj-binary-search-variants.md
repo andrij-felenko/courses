@@ -21,97 +21,8 @@
 Кількість елементів, що дорівнюють `target`, обчислюється як різниця: `upper_bound(target) - lower_bound(target)`.
 
 :::tabs
-```cpp
-#include <iostream>
-#include <vector>
-
-// lower_bound: повертає найменший індекс i такий, що arr[i] >= target
-int lower_bound(const std::vector<int>& arr, int target) {
-    int low = 0;
-    int high = arr.size(); // Напіввідкритий інтервал [low, high)
-
-    while (low < high) {
-        int mid = low + (high - low) / 2;
-        if (arr[mid] >= target) {
-            high = mid; // Звужуємо праворуч, зберігаючи потенційний кандидат mid
-        } else {
-            low = mid + 1; // arr[mid] < target, тому шукаємо строго праворуч
-        }
-    }
-    return low; // low вказує на перший елемент >= target
-}
-
-// upper_bound: повертає найменший індекс i такий, що arr[i] > target
-int upper_bound(const std::vector<int>& arr, int target) {
-    int low = 0;
-    int high = arr.size(); // Напіввідкритий інтервал [low, high)
-
-    while (low < high) {
-        int mid = low + (high - low) / 2;
-        if (arr[mid] > target) {
-            high = mid; // Звужуємо праворуч
-        } else {
-            low = mid + 1; // arr[mid] <= target, продовжуємо пошук праворуч
-        }
-    }
-    return low; // low вказує на перший елемент > target
-}
-
-int main() {
-    std::vector<int> data = {1, 2, 2, 2, 3, 5, 8};
-    int target = 2;
-
-    int lb = lower_bound(data, target);
-    int ub = upper_bound(data, target);
-
-    std::cout << "lower_bound (>= 2): index " << lb << " (значення " << data[lb] << ")\n";
-    std::cout << "upper_bound (> 2):  index " << ub << " (значення " << data[ub] << ")\n";
-    std::cout << "Кількість елементів = " << (ub - lb) << "\n";
-
-    return 0;
-}
-```
-```python
-def lower_bound(arr: list[int], target: int) -> int:
-    """Повертає найменший індекс i такий, що arr[i] >= target."""
-    low = 0
-    high = len(arr)  # Напіввідкритий інтервал [low, high)
-    
-    while low < high:
-        mid = low + (high - low) // 2
-        if arr[mid] >= target:
-            high = mid  # Кандидат знайдено, перевіряємо лівішу частину
-        else:
-            low = mid + 1
-            
-    return low
-
-def upper_bound(arr: list[int], target: int) -> int:
-    """Повертає найменший індекс i такий, що arr[i] > target."""
-    low = 0
-    high = len(arr)  # Напіввідкритий інтервал [low, high)
-    
-    while low < high:
-        mid = low + (high - low) // 2
-        if arr[mid] > target:
-            high = mid
-        else:
-            low = mid + 1
-            
-    return low
-
-# Демонстрація використання
-if __name__ == "__main__":
-    data = [1, 2, 2, 2, 3, 5, 8]
-    target = 2
-    
-    lb = lower_bound(data, target)
-    ub = upper_bound(data, target)
-    
-    print(f"lower_bound (>= 2): index {lb} (значення {data[lb]})")
-    print(f"upper_bound (> 2):  index {ub} (значення {data[ub]})")
-    print(f"Кількість елементів: {ub - lb}")
-```
+:::code proj-binary-search-variants/cpp/1-poshuk-mezh-lower-bound.cpp
+:::code proj-binary-search-variants/py/1-poshuk-mezh-lower-bound.py
 :::
 
 Зверніть увагу: у реалізації `lower_bound` та `upper_bound` використовується **напіввідкритий інтервал** `[low, high)`, де `high = N`. Завдяки цьому, якщо елемент відсутній і більший за всі значення в масиві, алгоритм безпомилково повертає `N` без виходу за межі пам'яті.
@@ -131,85 +42,8 @@ if __name__ == "__main__":
      - Перевіряємо, чи належить `target` діапазону `(A[mid], A[high]]`. Якщо так — шукаємо в правій половині (`low = mid + 1`), інакше — у лівій (`high = mid - 1`).
 
 :::tabs
-```cpp
-#include <iostream>
-#include <vector>
-
-int search_rotated(const std::vector<int>& arr, int target) {
-    int low = 0;
-    int high = arr.size() - 1;
-
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-
-        if (arr[mid] == target) {
-            return mid;
-        }
-
-        // Перевіряємо, чи впорядкована ліва частина
-        if (arr[low] <= arr[mid]) {
-            // target лежить у відсортованому лівому сегменті
-            if (arr[low] <= target && target < arr[mid]) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
-            }
-        } 
-        // Інакше впорядкована права частина
-        else {
-            // target лежить у відсортованому правому сегменті
-            if (arr[mid] < target && target <= arr[high]) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-    }
-    return -1; // Не знайдено
-}
-
-int main() {
-    std::vector<int> rotated = {4, 5, 6, 7, 0, 1, 2};
-    int target = 0;
-    int idx = search_rotated(rotated, target);
-
-    std::cout << "Елемент " << target << " знайдено на індексі: " << idx << "\n";
-    return 0;
-}
-```
-```python
-def search_rotated(arr: list[int], target: int) -> int:
-    """Пошук елемента в циклічно зсунутому впорядкованому масиві за O(log N)."""
-    low = 0
-    high = len(arr) - 1
-
-    while low <= high:
-        mid = low + (high - low) // 2
-
-        if arr[mid] == target:
-            return mid
-
-        # Перевіряємо, чи ліва половина є монотонно зростаючою
-        if arr[low] <= arr[mid]:
-            if arr[low] <= target < arr[mid]:
-                high = mid - 1  # Шукаємо у монотонній лівій частині
-            else:
-                low = mid + 1   # Переходимо в праву частину
-        # Інакше монотонною є права половина
-        else:
-            if arr[mid] < target <= arr[high]:
-                low = mid + 1   # Шукаємо у монотонній правій частині
-            else:
-                high = mid - 1  # Переходимо в ліву частину
-
-    return -1
-
-if __name__ == "__main__":
-    rotated = [4, 5, 6, 7, 0, 1, 2]
-    target = 0
-    idx = search_rotated(rotated, target)
-    print(f"Елемент {target} знайдено на індексі: {idx}")
-```
+:::code proj-binary-search-variants/cpp/2-poshuk-u-tsyklichno.cpp
+:::code proj-binary-search-variants/py/2-poshuk-u-tsyklichno.py
 :::
 
 Складність цього алгоритму становить строго **O(log N)** за часом і **O(1)** за додатковою пам'яттю, оскільки на кожному кроці ми гарантовано відкидаємо половину пошукового простору.
@@ -224,65 +58,8 @@ if __name__ == "__main__":
 **Приклад: Обчислення цілочисельного квадратного кореня `⌊√n⌋` без використання плаваючої коми.**
 
 :::tabs
-```cpp
-#include <iostream>
-
-long long integer_sqrt(long long n) {
-    if (n < 0) return -1;
-    if (n == 0) return 0;
-
-    long long low = 1;
-    long long high = n;
-    long long ans = 1;
-
-    while (low <= high) {
-        long long mid = low + (high - low) / 2;
-
-        // Щоб уникнути переповнення mid * mid, порівнюємо mid з n / mid
-        if (mid <= n / mid) {
-            ans = mid;     // mid є можливим кандидатів, шукаємо більше значення
-            low = mid + 1;
-        } else {
-            high = mid - 1; // mid * mid > n, звужуємо зверху
-        }
-    }
-    return ans;
-}
-
-int main() {
-    long long number = 50;
-    std::cout << "integer_sqrt(" << number << ") = " << integer_sqrt(number) << "\n"; // Поверне 7
-    return 0;
-}
-```
-```python
-def integer_sqrt(n: int) -> int:
-    """Обчислює floor(sqrt(n)) через двійковий пошук за відповіддю."""
-    if n < 0:
-        return -1
-    if n == 0:
-        return 0
-
-    low = 1
-    high = n
-    ans = 1
-
-    while low <= high:
-        mid = low + (high - low) // 2
-        
-        # Перевірка монотонної умови mid^2 <= n
-        if mid <= n // mid:
-            ans = mid     # Фіксуємо поточну найкращу відповідь
-            low = mid + 1 # Пробуємо знайти більше значення
-        else:
-            high = mid - 1
-
-    return ans
-
-if __name__ == "__main__":
-    number = 50
-    print(f"integer_sqrt({number}) = {integer_sqrt(number)}") # Поверне 7
-```
+:::code proj-binary-search-variants/cpp/3-dviikovyi-poshuk-za.cpp
+:::code proj-binary-search-variants/py/3-dviikovyi-poshuk-za.py
 :::
 
 У даному прикладі двійковий пошук за відповіддю обчислює квадратний корінь з числа 50 за 6 порівнянь, не використовуючи жодної операції з числами з рухомою комою (float/double), що робить його ідеальним для мікроконтролерів та ядер операційних систем.

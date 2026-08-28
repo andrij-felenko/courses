@@ -196,41 +196,8 @@
 Для цього використовують техніку **усунення хвостової рекурсії** (tail recursion elimination). Алгоритм порівнює розміри двох отриманих після розбиття підмасивів і робить рекурсивний виклик **лише для меншого підмасиву**, а більший підмасив обробляє ітеративно у циклі `while`.
 
 :::tabs
-```c
-void quicksort_bounded_stack(int *arr, size_t lo, size_t hi) {
-    while (lo < hi) {
-        size_t p = partition_hoare(arr, lo, hi);
-        
-        /* Спочатку рекурсивно сортуємо МЕНШУ частину */
-        if (p - lo < hi - p) {
-            quicksort_bounded_stack(arr, lo, p);
-            lo = p + 1; /* більшу частину сортуємо в циклі */
-        } else {
-            quicksort_bounded_stack(arr, p + 1, hi);
-            hi = p; /* більшу частину сортуємо в циклі */
-        }
-    }
-}
-```
-```cpp
-template <typename T, typename Compare = std::less<T>>
-void quicksort_bounded_stack(std::span<T> data, Compare comp = Compare{}) {
-    while (data.size() > 1) {
-        size_t p = partition_hoare(data, comp);
-        
-        std::span<T> left = data.subspan(0, p + 1);
-        std::span<T> right = data.subspan(p + 1);
-        
-        if (left.size() < right.size()) {
-            quicksort_bounded_stack(left, comp);
-            data = right;
-        } else {
-            quicksort_bounded_stack(right, comp);
-            data = left;
-        }
-    }
-}
-```
+:::code quicksort-d/c/harantiia-hlybyny-steku-o.c
+:::code quicksort-d/cpp/harantiia-hlybyny-steku-o.cpp
 :::
 
 Доведемо строгість цієї гарантії: оскільки рекурсивна функція завжди викликається лише для підмасиву, розмір якого не перевищує `n / 2`, кожен рекурсивний крок зменшує обсяг задачі щонайменше вдвічі. Отже, максимальна глибина каскаду викликів в принципі не може перевищити `⌊log₂ n⌋`. Більша частина масиву продовжує оброблятися у тому самому стековому кадрі через оновлення змінної `lo` або `hi`.
@@ -311,93 +278,8 @@ Introsort гібридизує три алгоритми для досягнен
 Наведемо ідіоматичні реалізації Quicksort за схемою Гоара з медіаною трьох та усуненням хвостової рекурсії.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stddef.h>
-
-static void swap(int *a, int *b) {
-    int tmp = *a;
-    *a = *b;
-    *b = tmp;
-}
-
-static size_t median_of_three(int *arr, size_t lo, size_t hi) {
-    size_t mid = lo + (hi - lo) / 2;
-    if (arr[mid] < arr[lo])  swap(&arr[lo], &arr[mid]);
-    if (arr[hi] < arr[lo])   swap(&arr[lo], &arr[hi]);
-    if (arr[hi] < arr[mid])  swap(&arr[mid], &arr[hi]);
-    return mid;
-}
-
-void quicksort(int *arr, size_t lo, size_t hi) {
-    while (lo < hi) {
-        size_t pivot_idx = median_of_three(arr, lo, hi);
-        int pivot = arr[pivot_idx];
-        
-        size_t i = lo - 1;
-        size_t j = hi + 1;
-        
-        while (1) {
-            do { i++; } while (arr[i] < pivot);
-            do { j--; } while (arr[j] > pivot);
-            if (i >= j) break;
-            swap(&arr[i], &arr[j]);
-        }
-        
-        /* Хвостова рекурсія для меншої частини — гарантія O(log n) стеку */
-        if (j - lo < hi - j) {
-            quicksort(arr, lo, j);
-            lo = j + 1;
-        } else {
-            quicksort(arr, j + 1, hi);
-            hi = j;
-        }
-    }
-}
-```
-```cpp
-#include <span>
-#include <utility>
-#include <functional>
-
-template <typename T, typename Compare = std::less<T>>
-void quicksort(std::span<T> data, Compare comp = Compare{}) {
-    while (data.size() > 1) {
-        size_t lo = 0;
-        size_t hi = data.size() - 1;
-        size_t mid = lo + (hi - lo) / 2;
-        
-        if (comp(data[mid], data[lo]))  std::swap(data[lo], data[mid]);
-        if (comp(data[hi], data[lo]))   std::swap(data[lo], data[mid]);
-        if (comp(data[hi], data[mid]))  std::swap(data[mid], data[hi]);
-        
-        T pivot = data[mid];
-        size_t i = 0;
-        size_t j = data.size() - 1;
-        
-        while (true) {
-            while (comp(data[i], pivot)) { i++; }
-            while (comp(pivot, data[j])) { j--; }
-            if (i >= j) break;
-            std::swap(data[i], data[j]);
-            i++;
-            if (j > 0) j--;
-        }
-        
-        std::span<T> left = data.subspan(0, j + 1);
-        std::span<T> right = data.subspan(j + 1);
-        
-        /* Захист стеку: рекурсивний виклик лише для меншого відрізка */
-        if (left.size() < right.size()) {
-            quicksort(left, comp);
-            data = right;
-        } else {
-            quicksort(right, comp);
-            data = left;
-        }
-    }
-}
-```
+:::code quicksort-d/c/pryklad-realizatsii-movamy.c
+:::code quicksort-d/cpp/pryklad-realizatsii-movamy.cpp
 :::
 
 ## Зведена порівняльна характеристика

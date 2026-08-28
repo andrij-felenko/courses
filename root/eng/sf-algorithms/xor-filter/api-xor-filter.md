@@ -10,43 +10,8 @@
 ## Базові типи даних та коди повернення
 
 :::tabs
-```c
-/* Коди результатів операцій C API */
-typedef enum {
-    XOR_OK = 0,
-    XOR_ERR_NULL_POINTER = 1,
-    XOR_ERR_EMPTY_INPUT = 2,
-    XOR_ERR_ALLOCATION_FAILED = 3,
-    XOR_ERR_MAX_ATTEMPTS_EXCEEDED = 4,
-    XOR_ERR_INVALID_MAGIC = 5,
-    XOR_ERR_UNSUPPORTED_VERSION = 6,
-    XOR_ERR_BUFFER_TOO_SMALL = 7
-} xor_error_t;
-
-/* Структура 8-бітного фільтра */
-typedef struct {
-    uint64_t seed;          /* 64-бітний псевдовипадковий засів */
-    uint32_t block_length;  /* Довжина сегмента L */
-    uint8_t *fingerprints;  /* Масив слотів (3 * L) */
-} xor_filter_8_t;
-```
-```cpp
-namespace algorithms {
-
-enum class FilterError {
-    EmptyInput,
-    NullPointer,
-    AllocationFailure,
-    PeelingFailedExceededAttempts,
-    CorruptedBuffer,
-    UnsupportedVersion
-};
-
-template <typename FingerprintType = uint8_t>
-class XorFilter;
-
-} // namespace algorithms
-```
+:::code api-xor-filter/c/main.c
+:::code api-xor-filter/cpp/bazovi-typy-danykh-ta-kody.cpp
 :::
 
 ## Побудова фільтра (Construction API)
@@ -56,19 +21,7 @@ class XorFilter;
 /* Конструювання 8-бітного Xor-фільтра з масиву унікальних ключів */
 xor_error_t xor_filter_8_build(xor_filter_8_t *filter, const uint64_t *keys, size_t count);
 ```
-```cpp
-namespace algorithms {
-
-template <typename FingerprintType>
-class XorFilter {
-public:
-    /* Фабричний метод побудови з неперервного діапазону ключів */
-    [[nodiscard]] static std::expected<XorFilter, FilterError>
-    build(std::span<const uint64_t> keys);
-};
-
-} // namespace algorithms
-```
+:::code api-xor-filter/cpp/pobudova-filtra.cpp
 :::
 
 * **Призначення**: Виділяє пам'ять та конструює Xor-фільтр із переданого масиву унікальних ключів за середній час `O(N)`.
@@ -91,18 +44,7 @@ public:
 /* Константна перевірка наявності ключа O(1) */
 bool xor_filter_8_contains(const xor_filter_8_t *filter, uint64_t key);
 ```
-```cpp
-namespace algorithms {
-
-template <typename FingerprintType>
-class XorFilter {
-public:
-    /* Швидка перевірка належності ключа O(1) */
-    [[nodiscard]] bool contains(uint64_t key) const noexcept;
-};
-
-} // namespace algorithms
-```
+:::code api-xor-filter/cpp/perevirka-nalezhnosti.cpp
 :::
 
 * **Призначення**: Виконує константну перевірку ймовірної належності ключа множині.
@@ -120,22 +62,7 @@ size_t xor_filter_8_serialized_size(const xor_filter_8_t *filter);
 xor_error_t xor_filter_8_serialize(const xor_filter_8_t *filter, uint8_t *buffer, size_t buffer_size);
 xor_error_t xor_filter_8_deserialize(xor_filter_8_t *filter, const uint8_t *buffer, size_t buffer_size);
 ```
-```cpp
-namespace algorithms {
-
-template <typename FingerprintType>
-class XorFilter {
-public:
-    /* Серіалізація у вектор байтів */
-    [[nodiscard]] std::vector<uint8_t> serialize() const;
-
-    /* Десеріалізація з довільного бінарного зрізу */
-    [[nodiscard]] static std::expected<XorFilter, FilterError>
-    deserialize(std::span<const uint8_t> buffer);
-};
-
-} // namespace algorithms
-```
+:::code api-xor-filter/cpp/serializatsiia-ta.cpp
 :::
 
 ## Звільнення ресурсів та RAII
@@ -145,18 +72,7 @@ public:
 /* Звільнення пам'яті C-структури */
 void xor_filter_8_destroy(xor_filter_8_t *filter);
 ```
-```cpp
-namespace algorithms {
-
-template <typename FingerprintType>
-class XorFilter {
-public:
-    /* Автоматичне звільнення пам'яті деструктором RAII */
-    ~XorFilter() = default;
-};
-
-} // namespace algorithms
-```
+:::code api-xor-filter/cpp/zvilnennia-resursiv-ta.cpp
 :::
 
 ## Бінарний формат серіалізації (On-Disk / Wire Layout)

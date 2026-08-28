@@ -140,55 +140,8 @@ M[end] = Prefix[end + 1] - min_{0 ≤ start ≤ end} Prefix[start]
 - `max_sum`: максимальне значення серед усіх перевірених `M[k]` для `k ≤ i`.
 
 :::tabs
-```c
-#include <stdio.h>
-
-long long kadane_basic(const int* arr, int n) {
-    if (arr == NULL || n <= 0) {
-        return 0;
-    }
-
-    long long current_sum = arr[0];
-    long long max_sum = arr[0];
-
-    for (int i = 1; i < n; ++i) {
-        /* Якщо попередня сума від'ємна, скидаємо до arr[i] */
-        if (current_sum < 0) {
-            current_sum = arr[i];
-        } else {
-            current_sum += arr[i];
-        }
-
-        /* Оновлюємо глобальний оптимум */
-        if (current_sum > max_sum) {
-            max_sum = current_sum;
-        }
-    }
-
-    return max_sum;
-}
-```
-```cpp
-#include <vector>
-#include <span>
-#include <algorithm>
-
-[[nodiscard]] long long kadane_basic(std::span<const int> arr) noexcept {
-    if (arr.empty()) {
-        return 0;
-    }
-
-    long long current_sum = arr[0];
-    long long max_sum = arr[0];
-
-    for (std::size_t i = 1; i < arr.size(); ++i) {
-        current_sum = std::max<long long>(arr[i], current_sum + arr[i]);
-        max_sum = std::max(max_sum, current_sum);
-    }
-
-    return max_sum;
-}
-```
+:::code kadane-algorithm-d/c/3-bazova-realizatsiia-ta.c
+:::code kadane-algorithm-d/cpp/3-bazova-realizatsiia-ta.cpp
 :::
 
 ### Покрокове трасування класичного прикладу
@@ -225,87 +178,8 @@ long long kadane_basic(const int* arr, int n) {
 Якщо в масиві існує кілька неперетинних підмасивів з однаковою максимальною сумою (наприклад, `[3, -10, 3]`), умова строгого оновлення `current_sum > max_sum` завжди фіксує найперший знайдений відрізок `[0 .. 0]`. Якщо замінити її на нестрогу нерівність `current_sum ≥ max_sum`, алгоритм поверне останній за порядком підмасив `[2 .. 2]`.
 
 :::tabs
-```c
-#include <stdio.h>
-
-typedef struct {
-    long long max_sum;
-    int start;
-    int end;
-} SubarrayIndices;
-
-SubarrayIndices kadane_track_bounds(const int* arr, int n) {
-    SubarrayIndices res = {0, -1, -1};
-    if (arr == NULL || n <= 0) return res;
-
-    long long current_sum = arr[0];
-    long long max_sum = arr[0];
-    int current_start = 0;
-    int best_start = 0;
-    int best_end = 0;
-
-    for (int i = 1; i < n; ++i) {
-        if (current_sum < 0) {
-            current_sum = arr[i];
-            current_start = i;
-        } else {
-            current_sum += arr[i];
-        }
-
-        if (current_sum > max_sum) {
-            max_sum = current_sum;
-            best_start = current_start;
-            best_end = i;
-        }
-    }
-
-    res.max_sum = max_sum;
-    res.start = best_start;
-    res.end = best_end;
-    return res;
-}
-```
-```cpp
-#include <vector>
-#include <optional>
-#include <span>
-#include <cstddef>
-
-struct SubarrayIndices {
-    long long max_sum{0};
-    std::size_t start{0};
-    std::size_t end{0};
-};
-
-[[nodiscard]] std::optional<SubarrayIndices> kadane_track_bounds(std::span<const int> arr) noexcept {
-    if (arr.empty()) {
-        return std::nullopt;
-    }
-
-    long long current_sum = arr[0];
-    long long max_sum = arr[0];
-    std::size_t current_start = 0;
-    std::size_t best_start = 0;
-    std::size_t best_end = 0;
-
-    for (std::size_t i = 1; i < arr.size(); ++i) {
-        if (current_sum < 0) {
-            current_sum = arr[i];
-            current_start = i;
-        } else {
-            current_sum += arr[i];
-        }
-
-        if (current_sum > max_sum) {
-            max_sum = current_sum;
-            best_start = current_start;
-            best_end = i;
-        }
-    }
-
-    return SubarrayIndices{max_sum, best_start, best_end};
-}
-```
+:::code kadane-algorithm-d/c/4-vidstezhennia-koordynat.c
+:::code kadane-algorithm-d/cpp/4-vidstezhennia-koordynat.cpp
 :::
 
 ---
@@ -379,90 +253,8 @@ ColumnSum[c] = ∑_{r=r1}^{r2} Matrix[r][c]
 Порівняння всіх можливих смуг показує, що глобальний максимум матриці дорівнює `21` і досягається на прямокутнику `[2 .. 2] × [0 .. 2]`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-long long kadane_2d(const int* matrix, int rows, int cols) {
-    if (matrix == NULL || rows <= 0 || cols <= 0) return 0;
-
-    int* col_sum = (int*)malloc(sizeof(int) * cols);
-    if (col_sum == NULL) return 0;
-
-    long long global_max = matrix[0];
-
-    for (int r1 = 0; r1 < rows; ++r1) {
-        memset(col_sum, 0, sizeof(int) * cols);
-
-        for (int r2 = r1; r2 < rows; ++r2) {
-            for (int c = 0; c < cols; ++c) {
-                col_sum[c] += matrix[r2 * cols + c];
-            }
-
-            /* 1D Кадане над зрізом стовпців */
-            long long current_sum = col_sum[0];
-            long long local_max = col_sum[0];
-
-            for (int c = 1; c < cols; ++c) {
-                current_sum = (current_sum < 0) ? col_sum[c] : current_sum + col_sum[c];
-                if (current_sum > local_max) local_max = current_sum;
-            }
-
-            if (r1 == 0 && r2 == 0) {
-                global_max = local_max;
-            } else if (local_max > global_max) {
-                global_max = local_max;
-            }
-        }
-    }
-
-    free(col_sum);
-    return global_max;
-}
-```
-```cpp
-#include <vector>
-#include <algorithm>
-#include <cstddef>
-
-[[nodiscard]] long long kadane_2d(const std::vector<std::vector<int>>& matrix) {
-    if (matrix.empty() || matrix[0].empty()) {
-        return 0;
-    }
-
-    const std::size_t rows = matrix.size();
-    const std::size_t cols = matrix[0].size();
-    std::vector<int> col_sum(cols, 0);
-    long long global_max = matrix[0][0];
-
-    for (std::size_t r1 = 0; r1 < rows; ++r1) {
-        std::fill(col_sum.begin(), col_sum.end(), 0);
-
-        for (std::size_t r2 = r1; r2 < rows; ++r2) {
-            for (std::size_t c = 0; c < cols; ++c) {
-                col_sum[c] += matrix[r2][c];
-            }
-
-            long long current_sum = col_sum[0];
-            long long local_max = col_sum[0];
-
-            for (std::size_t c = 1; c < cols; ++c) {
-                current_sum = std::max<long long>(col_sum[c], current_sum + col_sum[c]);
-                local_max = std::max(local_max, current_sum);
-            }
-
-            if (r1 == 0 && r2 == 0) {
-                global_max = local_max;
-            } else {
-                global_max = std::max(global_max, local_max);
-            }
-        }
-    }
-
-    return global_max;
-}
-```
+:::code kadane-algorithm-d/c/metod-stysnennia-stovptsiv.c
+:::code kadane-algorithm-d/cpp/metod-stysnennia-stovptsiv.cpp
 :::
 
 ### Оптимізація орієнтації матриці

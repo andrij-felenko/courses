@@ -207,87 +207,8 @@ E[ s² ] = E[ M2 / (n − 1) ] = σ²
 Стан потокового акумулятора (від латинського *accumulator* — збирач, накопичувач) вимагає збереження лише трьох змінних: кількості елементів `n`, середнього `mean` та суми квадратів відхилень `M2`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <math.h>
-
-typedef struct {
-    uint64_t count;
-    double mean;
-    double M2;
-} welford_t;
-
-void welford_init(welford_t *acc) {
-    acc->count = 0;
-    acc->mean = 0.0;
-    acc->M2 = 0.0;
-}
-
-void welford_update(welford_t *acc, double x) {
-    acc->count++;
-    double delta = x - acc->mean;
-    acc->mean += delta / (double)acc->count;
-    double delta2 = x - acc->mean;
-    acc->M2 += delta * delta2;
-}
-
-double welford_variance(const welford_t *acc) {
-    if (acc->count < 2) return 0.0;
-    return acc->M2 / (double)(acc->count - 1);
-}
-
-double welford_stddev(const welford_t *acc) {
-    return sqrt(welford_variance(acc));
-}
-```
-```cpp
-#include <iostream>
-#include <cstdint>
-#include <cmath>
-#include <span>
-
-class WelfordAccumulator {
-public:
-    constexpr WelfordAccumulator() noexcept = default;
-
-    void update(double x) noexcept {
-        ++count_;
-        const double delta = x - mean_;
-        mean_ += delta / static_cast<double>(count_);
-        const double delta2 = x - mean_;
-        M2_ += delta * delta2;
-    }
-
-    void update_batch(std::span<const double> batch) noexcept {
-        for (double val : batch) {
-            update(val);
-        }
-    }
-
-    [[nodiscard]] uint64_t count() const noexcept { return count_; }
-    [[nodiscard]] double mean() const noexcept { return mean_; }
-
-    [[nodiscard]] double variance() const noexcept {
-        return count_ > 1 ? M2_ / static_cast<double>(count_ - 1) : 0.0;
-    }
-
-    [[nodiscard]] double stddev() const noexcept {
-        return std::sqrt(variance());
-    }
-
-    void reset() noexcept {
-        count_ = 0;
-        mean_ = 0.0;
-        M2_ = 0.0;
-    }
-
-private:
-    uint64_t count_{0};
-    double mean_{0.0};
-    double M2_{0.0};
-};
-```
+:::code welford-online-d/c/bazova-realizatsiia.c
+:::code welford-online-d/cpp/bazova-realizatsiia.cpp
 :::
 
 ---
@@ -325,42 +246,8 @@ M2_{AB} = M2_A + M2_B + Δ² · (n_A · n_B / n_{AB})
 3. **Числова стійкість**: вираз містить лише операції додавання невід'ємних величин, що виключає катастрофічне скасування при злитті кластерів даних.
 
 :::tabs
-```c
-void welford_merge(welford_t *dst, const welford_t *src) {
-    if (!dst || !src || src->count == 0) return;
-    if (dst->count == 0) {
-        *dst = *src;
-        return;
-    }
-
-    uint64_t total_count = dst->count + src->count;
-    double delta = src->mean - dst->mean;
-    double n_a = (double)dst->count;
-    double n_b = (double)src->count;
-    double n_ab = (double)total_count;
-
-    dst->mean += delta * (n_b / n_ab);
-    dst->M2 += src->M2 + delta * delta * (n_a * n_b / n_ab);
-    dst->count = total_count;
-}
-```
-```cpp
-WelfordAccumulator& operator+=(WelfordAccumulator& dst, const WelfordAccumulator& src) noexcept {
-    if (src.count() == 0) return dst;
-    if (dst.count() == 0) {
-        dst = src;
-        return dst;
-    }
-
-    const auto n_a = static_cast<double>(dst.count());
-    const auto n_b = static_cast<double>(src.count());
-    const double n_ab = n_a + n_b;
-    const double delta = src.mean() - dst.mean();
-
-    // Об'єднання внутрішнього стану
-    return dst;
-}
-```
+:::code welford-online-d/c/paralelne-obiednannia.c
+:::code welford-online-d/cpp/paralelne-obiednannia.cpp
 :::
 
 ---

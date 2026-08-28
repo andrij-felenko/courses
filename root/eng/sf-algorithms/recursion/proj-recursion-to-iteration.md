@@ -73,45 +73,8 @@ function listSum(node) {
 Ось рекурсивний обхід — і його переклад на цикл із власним стеком, поряд:
 
 :::tabs
-```python
-# рекурсивно: системний стек веде облік за нас
-def tree_sum(node):
-    total = node.value
-    for child in node.children:
-        total += tree_sum(child)
-    return total
-
-# ітеративно: стек ведемо ми — звичайним масивом
-def tree_sum_iter(root):
-    total = 0
-    stack = [root]                   # ще-не-оброблені вузли
-    while stack:                     # поки є що обробляти
-        node = stack.pop()           # знімаємо один
-        total += node.value
-        for child in node.children:
-            stack.append(child)      # дітей — у стек, на потім
-    return total
-```
-```js
-// рекурсивно: системний стек веде облік за нас
-function treeSum(node) {
-  let total = node.value;
-  for (const child of node.children) total += treeSum(child);
-  return total;
-}
-
-// ітеративно: стек ведемо ми — звичайним масивом
-function treeSumIter(root) {
-  let total = 0;
-  const stack = [root];              // ще-не-оброблені вузли
-  while (stack.length) {             // поки є що обробляти
-    const node = stack.pop();        // знімаємо один
-    total += node.value;
-    for (const child of node.children) stack.push(child); // на потім
-  }
-  return total;
-}
-```
+:::code proj-recursion-to-iteration/py/rozhaluzhena-rekursiia.py
+:::code proj-recursion-to-iteration/js/index.js
 :::
 
 Другий варіант довший і не такий прозорий, зате в ньому нема жодного самовиклику — а отже, і жодного системного кадру на кожен рівень. Уся глибина дерева тепер живе в масиві `stack`, а масив ми ростимо, скільки треба.
@@ -119,29 +82,7 @@ function treeSumIter(root) {
 Найчіткіше «власний стек» видно на системній мові, де його доводиться заводити руками. У C стек — це шматок пам'яті з купи, який ми самі подвоюємо, коли він виповнюється (той самий прийом, яким growable-стеки горутин у Go ростуть через `copystack`). У Rust ту саму роль грає `Vec`, що розширюється сам:
 
 :::tabs
-```c
-long tree_sum(Node *root) {
-    // власний стек: масив вказівників у КУПІ, а не системний стек викликів
-    size_t cap = 64, top = 0;
-    Node **stack = malloc(cap * sizeof(Node *));
-    stack[top++] = root;
-
-    long total = 0;
-    while (top > 0) {                       // поки стек не порожній
-        Node *node = stack[--top];          // pop
-        total += node->value;
-        for (size_t i = 0; i < node->n_children; i++) {
-            if (top == cap) {               // стек доріс — подвоюємо, як у Go
-                cap *= 2;
-                stack = realloc(stack, cap * sizeof(Node *));
-            }
-            stack[top++] = node->children[i];   // push
-        }
-    }
-    free(stack);
-    return total;
-}
-```
+:::code proj-recursion-to-iteration/c/main.c
 ```rust
 fn tree_sum(root: &Node) -> i64 {
     let mut total = 0;
@@ -200,23 +141,7 @@ C-версія оголює механізм до кістки: `stack` — це
 
 **Дія «після дітей» простим стеком не робиться.** Найглибша пастка. Наш цикл обробляє вузол **перед** тим, як спуститися до дітей (це обхід у прямому порядку, pre-order). Але купа задач вимагає обробити вузол **після** дітей (зворотний порядок, post-order): порахувати значення [синтаксичного дерева](root:sf-lang/abstract-syntax-tree), де операція чекає на обидва операнди; звільнити дерево, де батька можна прибрати лише після піддерев. Одного `push` тут замало — на момент, коли ми знімаємо вузол, результатів його дітей ще нема. Класичний прийом — покласти вузол зі **прапорцем «діти вже розкриті»** і повернутися до нього вдруге, коли їхні значення вже готові:
 
-```python
-def eval_tree(root):
-    stack = [(root, False)]              # False = діти ще не розкриті
-    ready = []                           # готові значення піддерев
-    while stack:
-        node, expanded = stack.pop()
-        if node.is_leaf():
-            ready.append(node.value)
-        elif not expanded:
-            stack.append((node, True))   # повернемось ПІСЛЯ дітей
-            stack.append((node.right, False))
-            stack.append((node.left, False))   # лівий згори — вийметься першим
-        else:                            # діти вже пораховані — беремо їхні значення
-            b = ready.pop(); a = ready.pop()
-            ready.append(apply(node.op, a, b))
-    return ready.pop()
-```
+:::code proj-recursion-to-iteration/py/pastky-i-skladnist.py
 
 Друге зняття того самого вузла (`expanded == True`) настає вже після того, як обидві його дитини пройшли повний цикл і лишили значення в `ready`, — і аж тоді виконується операція. Це і є ручна імітація виринання, яке в рекурсії давалося задарма. Якщо помітили, що переклад на цикл раптом став плутаним, — майже напевно ви маєте справу з post-order і намагаєтесь обійтися без прапорця.
 

@@ -21,100 +21,8 @@
 Усі типи визначено з явною розрядністю (`int32_t`, `int64_t`), що гарантує двійкову сумісність між різними платформами та архітектурами.
 
 :::tabs
-```c
-#ifndef MST_TYPES_H
-#define MST_TYPES_H
-
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Коди помилок та статусів виконання операцій */
-typedef enum {
-    MST_STATUS_SUCCESS            = 0,  /* Успішний розрахунок повного кістякового дерева */
-    MST_STATUS_DISCONNECTED_GRAPH = 1,  /* Граф незв'язний: побудовано мінімальний кістяковий ліс */
-    MST_STATUS_INVALID_ARGUMENT   = 2,  /* Передано нульовий покажчик або некоректні розміри */
-    MST_STATUS_VERTEX_OUT_OF_BOUNDS = 3,/* Індекс вершини виходить за межі діапазону [0, V-1] */
-    MST_STATUS_OUT_OF_MEMORY      = 4   /* Помилка виділення динамічної пам'яті */
-} MstStatusCode;
-
-/* Алгоритмічний бекенд для виконання розрахунку */
-typedef enum {
-    MST_ALGO_AUTO    = 0, /* Автоматичний вибір стратегії за щільністю графа */
-    MST_ALGO_PRIM    = 1, /* Алгоритм Прима–Ярніка на базі індексованої двійкової купи */
-    MST_ALGO_BORUVKA = 2  /* Алгоритм Борувки на базі лісу неперетинних множин */
-} MstAlgorithmType;
-
-/* Дескриптор зваженого ребра */
-typedef struct {
-    int32_t u;        /* Перша вершина ребра */
-    int32_t v;        /* Друга вершина ребра */
-    int64_t weight;   /* Вага ребра (допустимі будь-які дійсні цілі значення) */
-} MstEdgeDesc;
-
-/* Структура збереження результатів розрахунку */
-typedef struct {
-    MstEdgeDesc *edges;       /* Суцільний масив ребер, що увійшли до кістяка */
-    size_t edge_count;        /* Загальна кількість ребер у знайденому розв'язку */
-    int64_t total_weight;     /* Точна сумарна вага кістякового дерева або лісу */
-    size_t num_components;    /* Кількість компонент зв'язності (1 для дерева, >1 для лісу) */
-    MstStatusCode status;     /* Фінальний статус виконання розрахунку */
-} MstSolution;
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* MST_TYPES_H */
-```
-```cpp
-#pragma once
-
-#include <cstdint>
-#include <cstddef>
-#include <vector>
-#include <span>
-#include <expected>
-
-namespace mst {
-
-enum class StatusCode : int32_t {
-    Success = 0,
-    DisconnectedGraph = 1,
-    InvalidArgument = 2,
-    VertexOutOfBounds = 3,
-    OutOfMemory = 4
-};
-
-enum class AlgorithmType : int32_t {
-    Auto = 0,
-    Prim = 1,
-    Boruvka = 2
-};
-
-struct EdgeDesc {
-    int32_t u{0};
-    int32_t v{0};
-    int64_t weight{0};
-};
-
-struct Solution {
-    std::vector<EdgeDesc> edges;
-    int64_t total_weight{0};
-    size_t num_components{0};
-    StatusCode status{StatusCode::Success};
-
-    [[nodiscard]] bool is_connected_tree() const noexcept {
-        return num_components <= 1 && status == StatusCode::Success;
-    }
-};
-
-} // namespace mst
-```
+:::code api-mst-interface/c/2-typy-danykh-ta-kody.h
+:::code api-mst-interface/cpp/2-typy-danykh-ta-kody.hpp
 :::
 
 ---
@@ -126,52 +34,8 @@ struct Solution {
 При виклику `mst_graph_add_edge()` бібліотека автоматично перевіряє межі переданих індексів `u` та `v`. Якщо будь-який із них є від'ємним або перевищує `num_vertices - 1`, операція негайно припиняється без пошкодження внутрішніх структур графа і повертає код помилки `MST_STATUS_VERTEX_OUT_OF_BOUNDS`. Для оптимізації масового наповнення графа надається функція `mst_graph_add_edges_batch()`, яка виділяє пам'ять єдиним блоком, мінімізуючи фрагментацію купи та скорочуючи час ініціалізації на великих наборах даних.
 
 :::tabs
-```c
-/* Непрозорий дескриптор графа */
-typedef struct MstGraph MstGraph;
-
-/* Створення графа з фіксованою кількістю вершин */
-MstGraph* mst_graph_create(size_t num_vertices);
-
-/* Додавання неорієнтованого ребра до графа */
-MstStatusCode mst_graph_add_edge(MstGraph *graph, int32_t u, int32_t v, int64_t weight);
-
-/* Пакетне додавання масиву ребер */
-MstStatusCode mst_graph_add_edges_batch(MstGraph *graph, const MstEdgeDesc *edges, size_t count);
-
-/* Отримання кількості вершин */
-size_t mst_graph_get_vertex_count(const MstGraph *graph);
-
-/* Звільнення всієї виділеної пам'яті графа */
-void mst_graph_destroy(MstGraph *graph);
-```
-```cpp
-namespace mst {
-
-class Graph {
-public:
-    explicit Graph(size_t num_vertices);
-    ~Graph();
-
-    Graph(const Graph&) = delete;
-    Graph& operator=(const Graph&) = delete;
-
-    Graph(Graph&&) noexcept;
-    Graph& operator=(Graph&&) noexcept;
-
-    [[nodiscard]] StatusCode add_edge(int32_t u, int32_t v, int64_t weight) noexcept;
-    [[nodiscard]] StatusCode add_edges(std::span<const EdgeDesc> edges) noexcept;
-
-    [[nodiscard]] size_t vertex_count() const noexcept;
-    [[nodiscard]] size_t edge_count() const noexcept;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> impl_;
-};
-
-} // namespace mst
-```
+:::code api-mst-interface/c/3-funktsii-pobudovy-hrafa.h
+:::code api-mst-interface/cpp/3-funktsii-pobudovy-hrafa.hpp
 :::
 
 ---
@@ -188,38 +52,8 @@ private:
 Для верифікації правильності розрахунку надається функція `mst_verify_solution()`, яка незалежно перевіряє ациклічність, зв'язність та відповідність кількості ребер за допомогою алгоритму пошуку в глибину (DFS).
 
 :::tabs
-```c
-/* Головна функція розрахунку МКД */
-MstStatusCode mst_solve(
-    const MstGraph *graph,
-    MstAlgorithmType algo,
-    MstSolution *out_solution
-);
-
-/* Звільнення динамічного буфера ребер у структурі розв'язку */
-void mst_solution_free(MstSolution *solution);
-
-/* Незалежна верифікація ациклічності та зв'язності результату */
-bool mst_verify_solution(size_t num_vertices, const MstSolution *solution);
-```
-```cpp
-namespace mst {
-
-class Solver {
-public:
-    [[nodiscard]] static std::expected<Solution, StatusCode> solve(
-        const Graph& graph,
-        AlgorithmType algo = AlgorithmType::Auto
-    );
-
-    [[nodiscard]] static bool verify_solution(
-        size_t num_vertices,
-        const Solution& solution
-    ) noexcept;
-};
-
-} // namespace mst
-```
+:::code api-mst-interface/c/4-funktsii-rozrakhunku-ta.h
+:::code api-mst-interface/cpp/4-funktsii-rozrakhunku-ta.cpp
 :::
 
 ---

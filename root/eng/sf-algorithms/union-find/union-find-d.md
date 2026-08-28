@@ -83,78 +83,8 @@
 Наведені нижче приклади коду мовами C та C++ демонструють базові класичні схеми `Quick-Find` та `Quick-Union`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-// Реалізація Quick-Union без оптимізацій
-typedef struct {
-    int *parent;
-    size_t size;
-} QuickUnionDSU;
-
-QuickUnionDSU *qu_create(size_t n) {
-    QuickUnionDSU *dsu = (QuickUnionDSU *)malloc(sizeof(QuickUnionDSU));
-    dsu->parent = (int *)malloc(n * sizeof(int));
-    dsu->size = n;
-    for (size_t i = 0; i < n; i++) {
-        dsu->parent[i] = (int)i;
-    }
-    return dsu;
-}
-
-int qu_find(QuickUnionDSU *dsu, int x) {
-    while (x != dsu->parent[x]) {
-        x = dsu->parent[x];
-    }
-    return x;
-}
-
-void qu_union(QuickUnionDSU *dsu, int x, int y) {
-    int root_x = qu_find(dsu, x);
-    int root_y = qu_find(dsu, y);
-    if (root_x != root_y) {
-        dsu->parent[root_x] = root_y;
-    }
-}
-
-void qu_destroy(QuickUnionDSU *dsu) {
-    free(dsu->parent);
-    free(dsu);
-}
-```
-```cpp
-#include <vector>
-#include <cstddef>
-#include <numeric>
-
-// Реалізація Quick-Union мовою C++
-class QuickUnionDSU {
-public:
-    explicit QuickUnionDSU(std::size_t n) : parent_(n) {
-        std::iota(parent_.begin(), parent_.end(), 0);
-    }
-
-    [[nodiscard]] std::size_t find(std::size_t x) const noexcept {
-        while (x != parent_[x]) {
-            x = parent_[x];
-        }
-        return x;
-    }
-
-    void unite(std::size_t x, std::size_t y) noexcept {
-        std::size_t root_x = find(x);
-        std::size_t root_y = find(y);
-        if (root_x != root_y) {
-            parent_[root_x] = root_y;
-        }
-    }
-
-private:
-    std::vector<std::size_t> parent_;
-};
-```
+:::code union-find-d/c/naivnyi-pidkhid-2-shvydke.c
+:::code union-find-d/cpp/naivnyi-pidkhid-2-shvydke.cpp
 :::
 
 ## 2. Евристики балансування дерев: Union by Rank та Union by Size
@@ -236,52 +166,8 @@ private:
 Наведені нижче приклади коду мовами C та C++ демонструють ітеративні однопрохідні евристики сплющування шляху.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-// Пошук з ітеративним уполовиненням шляху (Path Halving) на C
-int find_path_halving(int *parent, int x) {
-    while (parent[x] != x) {
-        parent[x] = parent[parent[x]];
-        x = parent[x];
-    }
-    return x;
-}
-
-// Пошук з розщепленням шляху (Path Splitting) на C
-int find_path_splitting(int *parent, int x) {
-    while (parent[x] != x) {
-        int next = parent[x];
-        parent[x] = parent[next];
-        x = next;
-    }
-    return x;
-}
-```
-```cpp
-#include <vector>
-#include <cstddef>
-
-// Пошук з ітеративним уполовиненням шляху (Path Halving) на C++
-std::size_t find_path_halving(std::vector<std::size_t>& parent, std::size_t x) noexcept {
-    while (parent[x] != x) {
-        parent[x] = parent[parent[x]];
-        x = parent[x];
-    }
-    return x;
-}
-
-// Пошук з розщепленням шляху (Path Splitting) на C++
-std::size_t find_path_splitting(std::vector<std::size_t>& parent, std::size_t x) noexcept {
-    while (parent[x] != x) {
-        const std::size_t next = parent[x];
-        parent[x] = parent[next];
-        x = next;
-    }
-    return x;
-}
-```
+:::code union-find-d/c/alternatyvni-odnoprokhidni.c
+:::code union-find-d/cpp/alternatyvni-odnoprokhidni.cpp
 :::
 
 Обидва однопрохідні варіанти зберігають асимптотичну складність рекурсивного стиснення, але усувають витрати на рекурсивний стек та покращують локальність процесорного кешу.

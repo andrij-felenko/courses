@@ -20,81 +20,8 @@
 Розглянемо повний контракт операцій для маніпуляції топологією та доступу до суміжних елементів.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-/* Непрозорий тип графа */
-typedef struct Graph Graph;
-
-/* Створення графа з фіксованою або початковою кількістю вершин */
-Graph* graph_create(uint32_t num_vertices, bool is_directed);
-void   graph_destroy(Graph *g);
-
-/* Топологічні запити розміру */
-uint32_t graph_vertex_count(const Graph *g);
-size_t   graph_edge_count(const Graph *g);
-bool     graph_is_directed(const Graph *g);
-
-/* Модифікація зв'язків */
-bool graph_add_edge(Graph *g, uint32_t u, uint32_t v, double weight);
-bool graph_remove_edge(Graph *g, uint32_t u, uint32_t v);
-bool graph_add_vertex(Graph *g, uint32_t *out_vertex_id);
-bool graph_remove_vertex(Graph *g, uint32_t u);
-
-/* Запити суміжності */
-bool   graph_has_edge(const Graph *g, uint32_t u, uint32_t v);
-double graph_get_edge_weight(const Graph *g, uint32_t u, uint32_t v);
-bool   graph_set_edge_weight(Graph *g, uint32_t u, uint32_t v, double weight);
-
-/* Ступені вершин */
-uint32_t graph_out_degree(const Graph *g, uint32_t u);
-uint32_t graph_in_degree(const Graph *g, uint32_t u);
-
-/* Ітератор по вихідних сусідах */
-typedef struct {
-    const Graph *graph;
-    uint32_t vertex;
-    size_t state_cursor;
-} GraphNeighborIter;
-
-GraphNeighborIter graph_neighbors_begin(const Graph *g, uint32_t u);
-bool graph_neighbors_next(GraphNeighborIter *it, uint32_t *out_target, double *out_weight);
-```
-```cpp
-#include <concepts>
-#include <ranges>
-#include <span>
-#include <cstdint>
-#include <optional>
-
-/* C++20 Concept: вимоги до базового графа */
-template <typename G>
-concept GraphConcept = requires(const G& g, G& mut_g, uint32_t u, uint32_t v, double w) {
-    // Топологічні розміри
-    { g.vertex_count() } -> std::same_as<uint32_t>;
-    { g.edge_count() }   -> std::same_as<std::size_t>;
-    { g.is_directed() }  -> std::same_as<bool>;
-
-    // Запити суміжності
-    { g.has_edge(u, v) } -> std::same_as<bool>;
-    { g.out_degree(u) }  -> std::same_as<uint32_t>;
-
-    // Діапазон сусідів (forward range або span)
-    { g.neighbors(u) }   -> std::ranges::forward_range;
-
-    // Модифікація топології
-    { mut_g.add_edge(u, v) } -> std::same_as<bool>;
-    { mut_g.remove_edge(u, v) } -> std::same_as<bool>;
-};
-
-/* C++20 Concept: розширення для зваженого графа */
-template <typename G>
-concept WeightedGraphConcept = GraphConcept<G> && requires(const G& g, uint32_t u, uint32_t v) {
-    { g.edge_weight(u, v) } -> std::same_as<std::optional<double>>;
-};
-```
+:::code api-graph-traits/c/stdint.h
+:::code api-graph-traits/cpp/main.cpp
 :::
 
 ## 3. Таблиця асимптотичних гарантій операцій

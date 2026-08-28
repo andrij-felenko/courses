@@ -78,21 +78,7 @@
 
 Компілятори сімейства GCC і Clang надають вбудовані функції з префіксом `__builtin_`. За наявності відповідних цільових прапорців оптимізації компілятор транслює виклик безпосередньо в машинну інструкцію; у разі компіляції під застарілу архітектуру підставляється вбудований безрозгалужений SWAR-алгоритм.
 
-```c
-/* Сигнатури вбудованих функцій GCC та Clang */
-int __builtin_popcount(unsigned int x);
-int __builtin_popcountl(unsigned long x);
-int __builtin_popcountll(unsigned long long x);
-
-/* Пов'язані бітові операції */
-int __builtin_parity(unsigned int x);
-int __builtin_parityl(unsigned long x);
-int __builtin_parityll(unsigned long long x);
-
-int __builtin_clz(unsigned int x);      /* Count leading zeros: невизначена поведінка для x = 0 */
-int __builtin_ctz(unsigned int x);      /* Count trailing zeros: невизначена поведінка для x = 0 */
-int __builtin_ffs(int x);               /* Find first set: повертає індекс 1..32, або 0 для нуля */
-```
+:::code api-popcount/c/kompiliatory-gcc-ta-clang.h
 
 #### Контракт та інваріанти GCC / Clang
 - **Область визначення:** аргумент повинен бути беззнаковим цілим числом відповідного типу. Передача знакового від'ємного числа призводить до його неявного приведення до беззнакового типу відповідно до правил перетворення мови C (залишок за модулем `2ⁿ`).
@@ -117,18 +103,7 @@ while (x != 0) {
 
 У компіляторі MSVC бітові інтринсики доступні через заголовок `<intrin.h>`.
 
-```c
-#include <intrin.h>
-
-/* Скалярні інтринсики MSVC для архітектур x86 / x64 / ARM / ARM64 */
-unsigned int __popcnt(unsigned int value);
-unsigned short __popcnt16(unsigned short value);
-unsigned __int64 __popcnt64(unsigned __int64 value);
-
-/* Векторні інтринсики SSE4.2 */
-unsigned int _mm_popcnt_u32(unsigned int a);
-unsigned __int64 _mm_popcnt_u64(unsigned __int64 a);
-```
+:::code api-popcount/c/intrin.h
 
 #### Особливості розрядності MSVC на платформі Windows
 В операційній системі Windows використовується модель даних LLP64, де тип `unsigned long` завжди має розмір 32 біти (на відміну від моделі LP64 в Unix/Linux, де `unsigned long` є 64-бітним). Тому для 64-бітних обчислень у MSVC необхідно обов'язково використовувати `__popcnt64` або `_mm_popcnt_u64` з типами `uint64_t` або `unsigned __int64`. Для активації інструкцій потрібен прапорець компіляції `/O2` та `/arch:AVX2` або `/arch:AVX512`.
@@ -139,38 +114,7 @@ unsigned __int64 _mm_popcnt_u64(unsigned __int64 a);
 
 Починаючи зі стандарту C++20, операції побітового аналізу отримали уніфіковану платформонезалежну специфікацію в заголовку `<bit>`.
 
-```cpp
-#include <bit>
-
-namespace std {
-    template <typename T>
-    [[nodiscard]] constexpr int popcount(T x) noexcept;
-
-    template <typename T>
-    [[nodiscard]] constexpr bool has_single_bit(T x) noexcept;
-
-    template <typename T>
-    [[nodiscard]] constexpr T bit_ceil(T x);
-
-    template <typename T>
-    [[nodiscard]] constexpr T bit_floor(T x) noexcept;
-
-    template <typename T>
-    [[nodiscard]] constexpr int bit_width(T x) noexcept;
-
-    template <typename T>
-    [[nodiscard]] constexpr int countl_zero(T x) noexcept;
-
-    template <typename T>
-    [[nodiscard]] constexpr int countr_zero(T x) noexcept;
-
-    template <typename T>
-    [[nodiscard]] constexpr int countl_one(T x) noexcept;
-
-    template <typename T>
-    [[nodiscard]] constexpr int countr_one(T x) noexcept;
-}
-```
+:::code api-popcount/cpp/3-standartna-biblioteka-c.cpp
 
 ### Специфікація контракту `std::popcount`
 
@@ -237,18 +181,7 @@ namespace std {
 
 У мові Rust операції побітового аналізу є методами примітивних цілочисельних типів `u8`, `u16`, `u32`, `u64`, `u128`, `usize`:
 
-```rust
-// Сигнатури базових методів
-pub const fn count_ones(self) -> u32;
-pub const fn count_zeros(self) -> u32;
-pub const fn leading_zeros(self) -> u32;
-pub const fn trailing_zeros(self) -> u32;
-
-// Приклад використання в середовищі no_std
-let mask: u64 = 0b1011_0000_1111;
-let weight: u32 = mask.count_ones(); // Повертає 8
-let parity: bool = (weight % 2) != 0;
-```
+:::code api-popcount/rust/main.rs
 - **Особливості:** методи доступні у режимі `#![no_std]` і є повноцінними константними функціями (`const fn`). За наявності прапорця `-C target-cpu=native` компілятор `rustc` (на базі LLVM) генерує безпосередню інструкцію `POPCNT` або `CNT`.
 
 ### Мова Go (`math/bits`)
@@ -299,213 +232,8 @@ public static bool IsPow2(ulong value);
 Нижче наведено промислову переносиму реалізацію модулів бітових операцій мовами C та C++20, що включає інваріанти, виявлення можливостей архітектури та перевірку кодів помилок.
 
 :::tabs
-```c
-/* bit_ops.h — Переносима бібліотека бітових операцій мовою C */
-#ifndef BIT_OPS_H
-#define BIT_OPS_H
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#if defined(_MSC_VER)
-#  include <intrin.h>
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Статусні коди операцій вибірки та пошуку */
-typedef enum {
-    BIT_SUCCESS = 0,
-    BIT_ERR_OUT_OF_RANGE = 1,
-    BIT_ERR_NOT_FOUND = 2,
-    BIT_ERR_INVALID_ARGUMENT = 3
-} bit_status_t;
-
-/* Обчислення ваги Гемінга (popcount) для 32-бітного слова */
-static inline uint32_t bit_popcount32(uint32_t x) {
-#if defined(__GNUC__) || defined(__clang__)
-    return (uint32_t)__builtin_popcount(x);
-#elif defined(_MSC_VER)
-    return __popcnt(x);
-#else
-    /* Портативний безрозгалужений SWAR-алгоритм */
-    x = x - ((x >> 1) & 0x55555555U);
-    x = (x & 0x33333333U) + ((x >> 2) & 0x33333333U);
-    x = (x + (x >> 4)) & 0x0F0F0F0FU;
-    return (x * 0x01010101U) >> 24;
-#endif
-}
-
-/* Обчислення ваги Гемінга (popcount) для 64-бітного слова */
-static inline uint32_t bit_popcount64(uint64_t x) {
-#if defined(__GNUC__) || defined(__clang__)
-    return (uint32_t)__builtin_popcountll(x);
-#elif defined(_MSC_VER) && defined(_M_X64)
-    return (uint32_t)__popcnt64(x);
-#elif defined(_MSC_VER)
-    return __popcnt((uint32_t)x) + __popcnt((uint32_t)(x >> 32));
-#else
-    /* Портативний SWAR для 64-бітних слів */
-    x = x - ((x >> 1) & 0x5555555555555555ULL);
-    x = (x & 0x3333333333333333ULL) + ((x >> 2) & 0x3333333333333333ULL);
-    x = (x + (x >> 4)) & 0x0F0F0F0F0F0F0F0FULL;
-    return (uint32_t)((x * 0x0101010101010101ULL) >> 56);
-#endif
-}
-
-/* Обчислення парності (1, якщо кількість одиниць непарна, 0 — якщо парна) */
-static inline uint32_t bit_parity64(uint64_t x) {
-#if defined(__GNUC__) || defined(__clang__)
-    return (uint32_t)__builtin_parityll(x);
-#else
-    x ^= x >> 32;
-    x ^= x >> 16;
-    x ^= x >> 8;
-    x ^= x >> 4;
-    x ^= x >> 2;
-    x ^= x >> 1;
-    return (uint32_t)(x & 1ULL);
-#endif
-}
-
-/* Обчислення рангу одиниць у 64-бітному слові на префіксі [0..bit_idx] */
-static inline bit_status_t bit_rank64(uint64_t word, uint32_t bit_idx, uint32_t* out_rank) {
-    if (!out_rank) return BIT_ERR_INVALID_ARGUMENT;
-    if (bit_idx >= 64) {
-        *out_rank = 0;
-        return BIT_ERR_OUT_OF_RANGE;
-    }
-    uint64_t mask = (bit_idx == 63) ? ~0ULL : ((1ULL << (bit_idx + 1)) - 1ULL);
-    *out_rank = bit_popcount64(word & mask);
-    return BIT_SUCCESS;
-}
-
-/* Пошук позиції k-ї одиниці (1 <= k <= 64) у 64-бітному слові */
-static inline bit_status_t bit_select64(uint64_t word, uint32_t k, uint32_t* out_pos) {
-    if (!out_pos || k == 0 || k > 64) return BIT_ERR_INVALID_ARGUMENT;
-    uint32_t total = bit_popcount64(word);
-    if (k > total) {
-        *out_pos = 0xFFFFFFFFU;
-        return BIT_ERR_NOT_FOUND;
-    }
-
-    /* Двійковий пошук позиції k-ї одиниці за допомогою popcount */
-    uint32_t low = 0, high = 63, result = 63;
-    while (low <= high) {
-        uint32_t mid = low + (high - low) / 2;
-        uint64_t mask = (mid == 63) ? ~0ULL : ((1ULL << (mid + 1)) - 1ULL);
-        if (bit_popcount64(word & mask) >= k) {
-            result = mid;
-            if (mid == 0) break;
-            high = mid - 1;
-        } else {
-            low = mid + 1;
-        }
-    }
-    *out_pos = result;
-    return BIT_SUCCESS;
-}
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* BIT_OPS_H */
-```
-```cpp
-/* bit_ops.hpp — Ідіоматична бібліотека бітових операцій мовою C++20 */
-#pragma once
-
-#include <bit>
-#include <concepts>
-#include <cstdint>
-#include <cstddef>
-#include <optional>
-#include <expected>
-#include <string_view>
-
-namespace bitops {
-
-enum class BitError {
-    OutOfRange,
-    NotFound,
-    InvalidArgument
-};
-
-/* Концепт для суворо беззнакових цілих типів */
-template <typename T>
-concept UnsignedWord = std::unsigned_integral<T>;
-
-/* Обчислення ваги Гемінга (кількості одиниць) для довільного беззнакового типу */
-template <UnsignedWord T>
-[[nodiscard]] constexpr int popcount(T value) noexcept {
-    return std::popcount(value);
-}
-
-/* Обчислення парності (true — непарна кількість одиниць, false — парна) */
-template <UnsignedWord T>
-[[nodiscard]] constexpr bool parity(T value) noexcept {
-    return (std::popcount(value) & 1) != 0;
-}
-
-/* Обчислення рангу одиниць у слові на діапазоні розрядів [0..bit_idx] */
-template <UnsignedWord T>
-[[nodiscard]] constexpr std::expected<size_t, BitError> rank1(T word, size_t bit_idx) noexcept {
-    constexpr size_t total_bits = sizeof(T) * 8;
-    if (bit_idx >= total_bits) {
-        return std::unexpected(BitError::OutOfRange);
-    }
-    const T mask = (bit_idx == total_bits - 1) 
-        ? static_cast<T>(~static_cast<T>(0)) 
-        : static_cast<T>((static_cast<T>(1) << (bit_idx + 1)) - static_cast<T>(1));
-    return static_cast<size_t>(std::popcount(static_cast<T>(word & mask)));
-}
-
-/* Дуальний ранг нулів */
-template <UnsignedWord T>
-[[nodiscard]] constexpr std::expected<size_t, BitError> rank0(T word, size_t bit_idx) noexcept {
-    auto r1 = rank1(word, bit_idx);
-    if (!r1) return std::unexpected(r1.error());
-    return (bit_idx + 1) - *r1;
-}
-
-/* Пошук позиції k-ї одиниці (1-індексація для k) */
-template <UnsignedWord T>
-[[nodiscard]] constexpr std::expected<size_t, BitError> select1(T word, size_t k) noexcept {
-    constexpr size_t total_bits = sizeof(T) * 8;
-    if (k == 0 || k > total_bits) {
-        return std::unexpected(BitError::InvalidArgument);
-    }
-    if (static_cast<size_t>(std::popcount(word)) < k) {
-        return std::unexpected(BitError::NotFound);
-    }
-
-    size_t low = 0;
-    size_t high = total_bits - 1;
-    size_t result = total_bits - 1;
-
-    while (low <= high) {
-        size_t mid = low + (high - low) / 2;
-        const T mask = (mid == total_bits - 1)
-            ? static_cast<T>(~static_cast<T>(0))
-            : static_cast<T>((static_cast<T>(1) << (mid + 1)) - static_cast<T>(1));
-
-        if (static_cast<size_t>(std::popcount(static_cast<T>(word & mask))) >= k) {
-            result = mid;
-            if (mid == 0) break;
-            high = mid - 1;
-        } else {
-            low = mid + 1;
-        }
-    }
-    return result;
-}
-
-} // namespace bitops
-```
+:::code api-popcount/c/bit_ops.h
+:::code api-popcount/cpp/bit_ops.hpp
 :::
 
 ---

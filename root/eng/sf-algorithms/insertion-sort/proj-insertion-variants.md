@@ -7,56 +7,8 @@
 Класична реалізація підтримує відсортований префікс масиву `[0...i-1]` і послідовно інтегрує в нього черговий елемент `key = array[i]`. Внутрішній цикл сканує префікс справа наліво, зсуваючи всі елементи, що строго більші за `key`, на одну позицію вправо.
 
 :::tabs
-```c
-#include <stddef.h>
-#include <stdbool.h>
-
-/* Класичне сортування вставками для масиву цілих чисел */
-void insertion_sort_int(int *arr, size_t n) {
-    if (arr == NULL || n <= 1) {
-        return;
-    }
-
-    for (size_t i = 1; i < n; ++i) {
-        int key = arr[i];
-        size_t j = i;
-
-        /* Зсуваємо елементи, що більші за key, праворуч.
-           Уникаємо знакового переповнення індексу: перевіряємо j > 0 перед arr[j - 1] */
-        while (j > 0 && arr[j - 1] > key) {
-            arr[j] = arr[j - 1];
-            --j;
-        }
-        arr[j] = key;
-    }
-}
-```
-```cpp
-#include <span>
-#include <concepts>
-#include <functional>
-#include <utility>
-
-/* Ідіоматичне узагальнене сортування вставками для довільних типів та компараторів */
-template <typename T, typename Compare = std::less<T>>
-void insertion_sort(std::span<T> data, Compare comp = Compare{}) {
-    if (data.size() <= 1) {
-        return;
-    }
-
-    for (std::size_t i = 1; i < data.size(); ++i) {
-        T key = std::move(data[i]);
-        std::size_t j = i;
-
-        /* Підтримуємо стійкість сортування: зсуваємо лише коли comp(key, data[j-1]) == true */
-        while (j > 0 && comp(key, data[j - 1])) {
-            data[j] = std::move(data[j - 1]);
-            --j;
-        }
-        data[j] = std::move(key);
-    }
-}
-```
+:::code proj-insertion-variants/c/1-klasychne-sortuvannia.c
+:::code proj-insertion-variants/cpp/1-klasychne-sortuvannia.cpp
 :::
 
 ### Інженерний розбір пастки беззнакових індексів
@@ -85,76 +37,8 @@ void insertion_sort(std::span<T> data, Compare comp = Compare{}) {
 **Ідея вартового (Sentinel):** Якщо перед початком сортування знайти глобальний мінімальний елемент усього масиву та обміняти його з першим елементом `arr[0]`, то комірка `arr[0]` гарантовано міститиме значення, не більше за будь-який можливий `key`. У результаті внутрішній цикл гарантовано зупиниться при `j = 1` без виходу за межі масиву, і перевірку `j > 0` можна повністю видалити!
 
 :::tabs
-```c
-#include <stddef.h>
-
-/* Сортування вставками з вартовим елементом (Sentinel Insertion Sort) */
-void sentinel_insertion_sort(int *arr, size_t n) {
-    if (arr == NULL || n <= 1) {
-        return;
-    }
-
-    /* Фаза 1: Знаходимо мінімальний елемент і ставимо його на початок (вартовий) */
-    size_t min_idx = 0;
-    for (size_t i = 1; i < n; ++i) {
-        if (arr[i] < arr[min_idx]) {
-            min_idx = i;
-        }
-    }
-
-    if (min_idx != 0) {
-        int tmp = arr[0];
-        arr[0] = arr[min_idx];
-        arr[min_idx] = tmp;
-    }
-
-    /* Фаза 2: Сортуємо залишок без перевірки лівої межі масиву */
-    for (size_t i = 2; i < n; ++i) {
-        int key = arr[i];
-        size_t j = i;
-
-        /* Умова j > 0 більше не потрібна: arr[0] <= key завжди! */
-        while (arr[j - 1] > key) {
-            arr[j] = arr[j - 1];
-            --j;
-        }
-        arr[j] = key;
-    }
-}
-```
-```cpp
-#include <span>
-#include <concepts>
-#include <functional>
-#include <algorithm>
-#include <utility>
-
-/* Сортування з вартовим для довільних типів та ітераторів */
-template <typename T, typename Compare = std::less<T>>
-void sentinel_insertion_sort(std::span<T> data, Compare comp = Compare{}) {
-    if (data.size() <= 1) {
-        return;
-    }
-
-    /* Знаходимо мінімум та переміщуємо його на позицію data[0] */
-    auto min_it = std::min_element(data.begin(), data.end(), comp);
-    if (min_it != data.begin()) {
-        std::iter_swap(data.begin(), min_it);
-    }
-
-    /* Основний цикл без перевірки виходу за ліву межу */
-    for (std::size_t i = 2; i < data.size(); ++i) {
-        T key = std::move(data[i]);
-        std::size_t j = i;
-
-        while (comp(key, data[j - 1])) {
-            data[j] = std::move(data[j - 1]);
-            --j;
-        }
-        data[j] = std::move(key);
-    }
-}
-```
+:::code proj-insertion-variants/c/2-optymizatsiia-z-vartovym.c
+:::code proj-insertion-variants/cpp/2-optymizatsiia-z-vartovym.cpp
 :::
 
 ### Аналіз асемблерного коду та апаратної ефективності
@@ -175,71 +59,8 @@ void sentinel_insertion_sort(std::span<T> data, Compare comp = Compare{}) {
 2. Блоковий зсув відрізка масиву праворуч за допомогою апаратно-оптимізованої функції копіювання пам'яті (`memmove` у C або `std::rotate` / `std::move_backward` у C++).
 
 :::tabs
-```c
-#include <stddef.h>
-#include <string.h>
-
-/* Бінарний пошук верхньої межі (upper bound) для збереження стійкості */
-static size_t binary_search_insertion_point(const int *arr, size_t len, int key) {
-    size_t low = 0;
-    size_t high = len;
-
-    while (low < high) {
-        size_t mid = low + (high - low) / 2;
-        if (key < arr[mid]) {
-            high = mid;
-        } else {
-            /* Якщо елементи рівні, зміщуємося праворуч (гарантія стабільності) */
-            low = mid + 1;
-        }
-    }
-    return low;
-}
-
-/* Двійкове сортування вставками з блоковим зсувом через memmove */
-void binary_insertion_sort(int *arr, size_t n) {
-    if (arr == NULL || n <= 1) {
-        return;
-    }
-
-    for (size_t i = 1; i < n; ++i) {
-        int key = arr[i];
-        
-        /* Знаходимо позицію за O(log i) порівнянь */
-        size_t pos = binary_search_insertion_point(arr, i, key);
-
-        /* Якщо ключ не на своєму місці, зсуваємо весь блок за одну операцію */
-        if (pos < i) {
-            memmove(&arr[pos + 1], &arr[pos], (i - pos) * sizeof(int));
-            arr[pos] = key;
-        }
-    }
-}
-```
-```cpp
-#include <span>
-#include <algorithm>
-#include <functional>
-#include <utility>
-
-/* Двійкове сортування вставками з використанням стандартних алгоритмів C++ */
-template <typename T, typename Compare = std::less<T>>
-void binary_insertion_sort(std::span<T> data, Compare comp = Compare{}) {
-    if (data.size() <= 1) {
-        return;
-    }
-
-    for (auto it = data.begin() + 1; it != data.end(); ++it) {
-        /* std::upper_bound гарантує вставку після дублікатів (стійкість) */
-        auto insert_pos = std::upper_bound(data.begin(), it, *it, comp);
-
-        if (insert_pos != it) {
-            /* Обертання діапазону виконує зсув елементів за допомогою move-семантики */
-            std::rotate(insert_pos, it, it + 1);
-        }
-    }
-}
-```
+:::code proj-insertion-variants/c/3-dviikove-sortuvannia.c
+:::code proj-insertion-variants/cpp/3-dviikove-sortuvannia.cpp
 :::
 
 ### Чому memmove та std::rotate забезпечують стрибок швидкості
@@ -257,89 +78,8 @@ void binary_insertion_sort(std::span<T> data, Compare comp = Compare{}) {
 Сортування зв'язного списку вставками виконується шляхом поступового вилучення вузлів із вихідного списку та їх послідовного інтегрування в новий зростаючий впорядкований список.
 
 :::tabs
-```c
-#include <stdlib.h>
-
-struct ListNode {
-    int val;
-    struct ListNode *next;
-};
-
-/* Сортування однозв'язного списку вставками на C */
-struct ListNode* sort_linked_list(struct ListNode *head) {
-    if (head == NULL || head->next == NULL) {
-        return head;
-    }
-
-    /* Фіктивний головний вузол для спрощення вставки на початок списку */
-    struct ListNode dummy;
-    dummy.val = 0;
-    dummy.next = NULL;
-
-    struct ListNode *curr = head;
-    while (curr != NULL) {
-        struct ListNode *next_node = curr->next;
-        
-        /* Шукаємо позицію вставки у відсортованому результуючому списку */
-        struct ListNode *prev = &dummy;
-        while (prev->next != NULL && prev->next->val <= curr->val) {
-            prev = prev->next;
-        }
-
-        /* Вставляємо поточний вузол між prev та prev->next */
-        curr->next = prev->next;
-        prev->next = curr;
-
-        curr = next_node;
-    }
-
-    return dummy.next;
-}
-```
-```cpp
-#include <memory>
-#include <utility>
-
-template <typename T>
-struct Node {
-    T value;
-    std::unique_ptr<Node<T>> next;
-
-    explicit Node(T val) : value(std::move(val)), next(nullptr) {}
-};
-
-/* Ідіоматичне безпечне сортування зв'язного списку з керуванням пам'яттю через RAII */
-template <typename T>
-std::unique_ptr<Node<T>> sort_linked_list(std::unique_ptr<Node<T>> head) {
-    if (!head || !head->next) {
-        return head;
-    }
-
-    std::unique_ptr<Node<T>> sorted_head = nullptr;
-
-    while (head) {
-        /* Відокремлюємо поточний вузол від несортованого списку */
-        std::unique_ptr<Node<T>> current = std::move(head);
-        head = std::move(current->next);
-
-        /* Вставка на початок відсортованого списку */
-        if (!sorted_head || current->value < sorted_head->value) {
-            current->next = std::move(sorted_head);
-            sorted_head = std::move(current);
-        } else {
-            /* Пошук точки вставки всередині списку */
-            Node<T>* prev = sorted_head.get();
-            while (prev->next && !(current->value < prev->next->value)) {
-                prev = prev->next.get();
-            }
-            current->next = std::move(prev->next);
-            prev->next = std::move(current);
-        }
-    }
-
-    return sorted_head;
-}
-```
+:::code proj-insertion-variants/c/4-sortuvannia-zviaznoho.c
+:::code proj-insertion-variants/cpp/4-sortuvannia-zviaznoho.cpp
 :::
 
 ### Особливості роботи зі списками
@@ -355,67 +95,8 @@ std::unique_ptr<Node<T>> sort_linked_list(std::unique_ptr<Node<T>> head) {
 У таких сценаріях застосовується непряме сортування: створюється масив покажчиків або числових індексів на вихідні структури, сортується сам масив покажчиків за допомогою сортування вставками, після чого вихідні дані залишаються на своїх місцях або перевпорядковуються за один лінійний прохід.
 
 :::tabs
-```c
-#include <stddef.h>
-
-/* Структура з великим навантаженням даних */
-typedef struct {
-    int id;
-    double score;
-    char payload[1024]; /* 1 КБ корисного навантаження */
-} HeavyRecord;
-
-/* Непряме сортування масиву покажчиків на важкі структури */
-void indirect_insertion_sort(HeavyRecord **ptrs, size_t n) {
-    if (ptrs == NULL || n <= 1) {
-        return;
-    }
-
-    for (size_t i = 1; i < n; ++i) {
-        HeavyRecord *key = ptrs[i];
-        size_t j = i;
-
-        /* Порівнюємо значення через покажчики, але переставляємо лише самі адреси */
-        while (j > 0 && ptrs[j - 1]->score > key->score) {
-            ptrs[j] = ptrs[j - 1];
-            --j;
-        }
-        ptrs[j] = key;
-    }
-}
-```
-```cpp
-#include <span>
-#include <vector>
-#include <numeric>
-#include <algorithm>
-
-struct HeavyRecordCpp {
-    int id;
-    double score;
-    std::vector<char> payload;
-};
-
-/* Створення відсортованого індексного масиву без модифікації вихідних даних */
-template <typename T, typename Compare>
-std::vector<std::size_t> indirect_sort_indices(const std::vector<T>& items, Compare comp) {
-    std::vector<std::size_t> indices(items.size());
-    std::iota(indices.begin(), indices.end(), 0);
-
-    for (std::size_t i = 1; i < indices.size(); ++i) {
-        std::size_t key_idx = indices[i];
-        std::size_t j = i;
-
-        while (j > 0 && comp(items[key_idx], items[indices[j - 1]])) {
-            indices[j] = indices[j - 1];
-            --j;
-        }
-        indices[j] = key_idx;
-    }
-
-    return indices;
-}
-```
+:::code proj-insertion-variants/c/5-nepriame-sortuvannia.c
+:::code proj-insertion-variants/cpp/5-nepriame-sortuvannia.cpp
 :::
 
 Непряме сортування дозволяє повністю усунути накладні витрати на переміщення великих блоків пам'яті: сортуються лише 64-бітні адреси покажчиків, які ідеально лягають у процесорні регістри та кеш-пам'ять першого рівня.
@@ -425,107 +106,8 @@ std::vector<std::size_t> indirect_sort_indices(const std::vector<T>& items, Comp
 Для перевірки коректності, продуктивності та стабільності сортування вставками наведемо повноцінний тестовий каркас із верифікацією інваріантів порядку та стійкості дублікатів.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <assert.h>
-
-typedef struct {
-    int key;
-    int original_index;
-} StableItem;
-
-/* Сортування масиву структур для тестування стабільності */
-void insertion_sort_stable(StableItem *arr, size_t n) {
-    for (size_t i = 1; i < n; ++i) {
-        StableItem item = arr[i];
-        size_t j = i;
-        /* Строга умова arr[j-1].key > item.key гарантує стійкість */
-        while (j > 0 && arr[j - 1].key > item.key) {
-            arr[j] = arr[j - 1];
-            --j;
-        }
-        arr[j] = item;
-    }
-}
-
-/* Перевірка відсортованості та стійкості порядку однакових ключів */
-bool verify_sorted_and_stable(const StableItem *arr, size_t n) {
-    for (size_t i = 1; i < n; ++i) {
-        if (arr[i].key < arr[i - 1].key) {
-            return false; /* Порушено порядок ключів */
-        }
-        if (arr[i].key == arr[i - 1].key && arr[i].original_index < arr[i - 1].original_index) {
-            return false; /* Порушено взаємний порядок однакових елементів */
-        }
-    }
-    return true;
-}
-
-void run_test_suite(void) {
-    const size_t test_size = 100;
-    StableItem *items = (StableItem*)malloc(test_size * sizeof(StableItem));
-    assert(items != NULL);
-
-    /* Заповнюємо масив з багатьма дублікатами ключів */
-    for (size_t i = 0; i < test_size; ++i) {
-        items[i].key = (int)(i % 7); /* Ключі від 0 до 6 */
-        items[i].original_index = (int)i;
-    }
-
-    insertion_sort_stable(items, test_size);
-    assert(verify_sorted_and_stable(items, test_size));
-
-    free(items);
-}
-```
-```cpp
-#include <vector>
-#include <random>
-#include <algorithm>
-#include <cassert>
-
-struct ItemCpp {
-    int key;
-    int original_order;
-
-    auto operator<=>(const ItemCpp& other) const {
-        return key <=> other.key;
-    }
-};
-
-/* Верифікація стійкості сортування */
-bool verify_stability(const std::vector<ItemCpp>& data) {
-    for (std::size_t i = 1; i < data.size(); ++i) {
-        if (data[i].key < data[i - 1].key) {
-            return false;
-        }
-        if (data[i].key == data[i - 1].key && data[i].original_order < data[i - 1].original_order) {
-            return false;
-        }
-    }
-    return true;
-}
-
-void run_cpp_tests() {
-    std::vector<ItemCpp> items;
-    items.reserve(1000);
-
-    std::mt19937 rng(42);
-    std::uniform_int_distribution<int> dist(0, 15);
-
-    for (int i = 0; i < 1000; ++i) {
-        items.push_back({dist(rng), i});
-    }
-
-    insertion_sort(std::span<ItemCpp>(items), [](const ItemCpp& a, const ItemCpp& b) {
-        return a.key < b.key;
-    });
-
-    assert(verify_stability(items));
-}
-```
+:::code proj-insertion-variants/c/6-testovyi-karkas.c
+:::code proj-insertion-variants/cpp/6-testovyi-karkas.cpp
 :::
 
 ## 7. Інтеграція в гібридні алгоритми: стратегія відкладеного сортування Седжвіка
@@ -542,45 +124,8 @@ if (right - left + 1 <= 16) {
 2. **Відкладене глобальне сортування (стратегія Седжвіка):** У цій оптимізації рекурсивний Quicksort просто ігнорує підмасиви розміром `≤ 16`, не виконуючи жодних дій і завершуючи рекурсивну гілку. Після повного завершення роботи Quicksort весь масив виявляється майже відсортованим: кожен елемент віддалений від своєї фінальної позиції не більше ніж на `16` комірок (масив є `16`-майже відсортованим). Після цього виконується один-єдиний фінальний прохід `insertion_sort` над усім масивом від початку до кінця.
 
 :::tabs
-```c
-#include <stddef.h>
-
-/* Допоміжне розбиття Ломуто/Гоара для Quicksort */
-static size_t partition_step(int *arr, size_t lo, size_t hi);
-
-/* Швидке сортування з відкладеним фінальним сортуванням вставками (стратегія Седжвіка) */
-void hybrid_quicksort_sedgewick(int *arr, size_t n) {
-    const size_t threshold = 16;
-    if (arr == NULL || n <= 1) {
-        return;
-    }
-
-    /* Фаза 1: Quicksort грубо впорядковує масив, ігноруючи блоки розміром <= 16 */
-    /* (У реалізації використовується стек або обмежена рекурсія) */
-    
-    /* Фаза 2: Один глобальний прохід сортування вставками з вартовим */
-    sentinel_insertion_sort(arr, n);
-}
-```
-```cpp
-#include <span>
-#include <algorithm>
-
-/* Гібридне сортування з глобальним фінальним проходом Insertion Sort */
-template <typename T, typename Compare = std::less<T>>
-void hybrid_quicksort_sedgewick(std::span<T> data, Compare comp = Compare{}) {
-    constexpr std::size_t threshold = 16;
-    if (data.size() <= 1) {
-        return;
-    }
-
-    /* Фаза 1: Рекурсивне грубе розбиття до розміру підмасивів <= threshold */
-    // ... рекурсивні кроки Quicksort ...
-
-    /* Фаза 2: Глобальний прохід сортування вставками */
-    sentinel_insertion_sort(data, comp);
-}
-```
+:::code proj-insertion-variants/c/7-intehratsiia-v-hibrydni.c
+:::code proj-insertion-variants/cpp/7-intehratsiia-v-hibrydni.cpp
 :::
 
 Чому стратегія Седжвіка швидша? Вона усуває сотні дрібних викликів функцій `insertion_sort` на кінцях рекурсивного дерева і виконує один лінійний прохід по пам'яті. Завдяки високій локальності кешу L1 процесор читає масив послідовними кеш-лініями (hardware prefetching), зсуваючи елементи на мікродистанції (не більше 16 позицій) без промахів кешу DRAM.
