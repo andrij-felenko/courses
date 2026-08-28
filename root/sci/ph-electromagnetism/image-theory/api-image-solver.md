@@ -85,21 +85,7 @@ typedef struct {
     double singularity_cutoff;        // Поріг захисту від ділення на нуль [м] (default: 1e-12)
 } es_solver_config_t;
 ```
-```cpp
-namespace libesimage {
-enum class BoundaryType { Plane, Sphere, CornerReflector90, DielectricInterface };
-
-struct SolverConfig {
-    BoundaryType boundary_type{BoundaryType::Plane};
-    double plane_z_coord{0.0};
-    Vector3D sphere_center{0.0, 0.0, 0.0};
-    double sphere_radius{1.0};
-    double eps1{1.0};
-    double eps2{1.0};
-    double singularity_cutoff{1e-12};
-};
-}
-```
+:::code api-image-solver/cpp/1-4-es-solver-config-t.cpp
 :::
 
 ---
@@ -128,20 +114,7 @@ struct SolverConfig {
 Функції даної групи відповідають за ініціалізацію об'єкта розв'язувача полів у динамічній пам'яті, первинну конфігурацію геометрії та коректне звільнення виділених ресурсів після завершення обчислень.
 
 :::tabs
-```c
-/**
- * Створює новий екземпляр розв'язувача полів.
- * @param config Початкова конфігурація геометрії.
- * @return Вказівник на створений об'єкт es_solver_t.
- */
-es_solver_t* es_solver_create(const es_solver_config_t* config);
-
-/**
- * Звільняє всі ресурси, виділені під розв'язувач полів.
- * @param solver Вказівник на екземпляр розв'язувача.
- */
-void es_solver_destroy(es_solver_t* solver);
-```
+:::code api-image-solver/c/3-1-upravlinnia-zhyttievym.h
 ```cpp
 namespace libesimage {
 // Створення та знищення управляється конструктором та деструктором класу RAII:
@@ -156,20 +129,7 @@ ElectrostaticSolver::~ElectrostaticSolver();
 Функції цієї групи дозволяють динамічно додавати реальні точкові заряди, змінювати їхні позиції, оновлювати тип провідної межі та ініціювати перебудову списку фіктивних дзеркальних зображень.
 
 :::tabs
-```c
-/**
- * Додає реальний точковий заряд до розв'язувача.
- */
-es_status_t es_solver_add_charge(es_solver_t* solver, 
-                                es_vec3_t position, 
-                                double charge, 
-                                uint32_t* out_id);
-
-/**
- * Оновлює параметри геометрії граничних умов.
- */
-es_status_t es_solver_update_config(es_solver_t* solver, const es_solver_config_t* config);
-```
+:::code api-image-solver/c/3-2-dodavannia-dzherel.h
 ```cpp
 namespace libesimage {
 // Методи додавання зарядів та оновлення конфігурації у C++:
@@ -184,35 +144,7 @@ void ElectrostaticSolver::set_geometry(const SolverConfig& config);
 Ця група містить обчислювальне ядро бібліотеки. Функції дозволяють обчислити скалярний потенціал `V`, вектор напруженості `E⃗`, густину поверхневого індукованого заряду `σ` та підсумкову кулонівську силу взаємодії `F⃗`.
 
 :::tabs
-```c
-/**
- * Обчислює електричний потенціал V у заданій точці простору.
- */
-es_status_t es_solver_eval_potential(const es_solver_t* solver, 
-                                     es_vec3_t point, 
-                                     double* out_potential);
-
-/**
- * Обчислює вектор напруженості електричного поля E у заданій точці.
- */
-es_status_t es_solver_eval_field(const es_solver_t* solver, 
-                                es_vec3_t point, 
-                                es_vec3_t* out_field_vector);
-
-/**
- * Обчислює кулонівську силу, що діє на реальний заряд.
- */
-es_status_t es_solver_eval_force(const es_solver_t* solver, 
-                                uint32_t charge_id, 
-                                es_vec3_t* out_force_vector);
-
-/**
- * Обчислює густину індукованого поверхневого заряду sigma.
- */
-es_status_t es_solver_eval_surface_density(const es_solver_t* solver,
-                                            es_vec3_t boundary_point,
-                                            double* out_sigma);
-```
+:::code api-image-solver/c/3-3-obchyslennia.h
 ```cpp
 namespace libesimage {
 // Константні методи C++ класу для обчислення характеристик полів:
@@ -232,38 +164,7 @@ namespace libesimage {
 
 Клас підтримує виключний контроль володіння ресурсами: конструктори та оператори копіювання заблоковані (`= delete`), тоді як семантика переміщення (`std::move`) повністю підтримується для збереження максимальної ефективності при роботі зі стандартними контейнерами `std::vector`.
 
-```cpp
-namespace libesimage {
-
-class ElectrostaticSolver {
-public:
-    explicit ElectrostaticSolver(const SolverConfig& config = {});
-    ~ElectrostaticSolver();
-
-    // Заборона копіювання (RAII)
-    ElectrostaticSolver(const ElectrostaticSolver&) = delete;
-    ElectrostaticSolver& operator=(const ElectrostaticSolver&) = delete;
-
-    // Дозвіл переміщення
-    ElectrostaticSolver(ElectrostaticSolver&&) noexcept;
-    ElectrostaticSolver& operator=(ElectrostaticSolver&&) noexcept;
-
-    uint32_t add_charge(const Vector3D& position, double charge_val);
-    void set_geometry(const SolverConfig& config);
-
-    [[nodiscard]] double get_potential(const Vector3D& point) const;
-    [[nodiscard]] Vector3D get_field(const Vector3D& point) const;
-    [[nodiscard]] Vector3D get_force(uint32_t charge_id) const;
-    [[nodiscard]] double get_surface_charge_density(const Vector3D& point) const;
-
-    [[nodiscard]] std::span<const PointCharge> get_image_charges() const noexcept;
-
-private:
-    es_solver_t* m_handle{nullptr};
-};
-
-} // namespace libesimage
-```
+:::code api-image-solver/cpp/4-interfeis-c-obhortka.hpp
 
 ---
 

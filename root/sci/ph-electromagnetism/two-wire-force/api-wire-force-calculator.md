@@ -58,19 +58,7 @@
 
 Кожна функція C API повертає цілочисельний код статусу `wf_status_t`. Від'ємні значення відповідають помилкам валідації або порушенням умов міцності, тоді як значення `0` (`WF_SUCCESS`) свідчить про успішне виконання обчислень.
 
-```c
-typedef enum wf_status {
-    WF_SUCCESS                  =  0,  /* Операція виконана успішно */
-    WF_ERR_NULL_POINTER         = -1,  /* Передано вказівник NULL */
-    WF_ERR_INVALID_CURRENT      = -2,  /* Некоректне значення струму (<= 0) */
-    WF_ERR_INVALID_DISTANCE     = -3,  /* Некоректна відстань між осями (<= 0) */
-    WF_ERR_INVALID_SPAN         = -4,  /* Довжина прольоту <= 0 */
-    WF_ERR_INVALID_GEOMETRY     = -5,  /* Від'ємні або нульові розміри шини */
-    WF_ERR_INVALID_SHOCK_FACTOR = -6,  /* Ударний коефіцієнт k_th поза межами [1.0, 2.0] */
-    WF_ERR_STRESS_EXCEEDED      = -10, /* Механічне напруження перевищує межу плинності */
-    WF_ERR_INSULATOR_OVERLOAD   = -11  /* Навантаження на ізолятор перевищує допустиме */
-} wf_status_t;
-```
+:::code api-wire-force-calculator/c/2-1-kody-statusiv-ta.c
 
 #### Докладний опис кожного коду помилки
 
@@ -152,20 +140,7 @@ typedef struct wf_material_limits {
 
 У цю структуру записаються всі проміжні та кінцеві розрахункові величини.
 
-```c
-typedef struct wf_calc_result {
-    double peak_current_ka;      /* Амплітуда ударного струму i_th, кА */
-    double force_per_meter_kn_m; /* Максимальна динамічна сила на метр F_din, кН/м */
-    double total_span_force_kn;  /* Сумарна динамічна сила на весь проліт, кН */
-    double bending_moment_nm;    /* Максимальний розрахунковий згинний момент, Н·м */
-    double bending_stress_mpa;   /* Виникаюче механічне напруження вигину σ, МПа */
-    double insulator_load_kn;    /* Реактивне навантаження на опорний ізолятор, кН */
-    double actual_safety_factor; /* Фактичний обрахований коефіцієнт запасу */
-    bool is_stress_ok;           /* true = напруження шини не перевищує допустимого */
-    bool is_insulator_ok;        /* true = ізолятор витримує механічне навантаження */
-    bool is_overall_safe;        /* true = конструкція повністю відповідає нормативам */
-} wf_calc_result_t;
-```
+:::code api-wire-force-calculator/c/2-6-struktura-povnykh.c
 
 ---
 
@@ -277,66 +252,7 @@ const char* wf_status_to_string(wf_status_t status);
 
 Для розробників мовою C++ бібліотека надає заголовочний файл `wireforce.hpp`, який повертає об'єкти `std::expected<T, Error>` замість сирих кодів помилок C. Це дозволяє писати виразний та безпечний код у сучасному стилі.
 
-```cpp
-#ifndef WIREFORCE_HPP
-#define WIREFORCE_HPP
-
-#include <expected>
-#include <string_view>
-#include <span>
-#include "wireforce.h"
-
-namespace wireforce {
-
-enum class Error : int32_t {
-    NullPointer         = WF_ERR_NULL_POINTER,
-    InvalidCurrent      = WF_ERR_INVALID_CURRENT,
-    InvalidDistance     = WF_ERR_INVALID_DISTANCE,
-    InvalidSpan         = WF_ERR_INVALID_SPAN,
-    InvalidGeometry     = WF_ERR_INVALID_GEOMETRY,
-    InvalidShockFactor  = WF_ERR_INVALID_SHOCK_FACTOR,
-    StressExceeded      = WF_ERR_STRESS_EXCEEDED,
-    InsulatorOverload   = WF_ERR_INSULATOR_OVERLOAD
-};
-
-[[nodiscard]] constexpr std::string_view format_error(Error err) noexcept {
-    return wf_status_to_string(static_cast<wf_status_t>(err));
-}
-
-class ForceCalculator {
-public:
-    [[nodiscard]] static std::expected<double, Error>
-    parallel_wire_force(double i1_amp, double i2_amp, 
-                        double distance_m, double length_m) noexcept 
-    {
-        double force = 0.0;
-        const auto status = wf_calculate_parallel_force(
-            i1_amp, i2_amp, distance_m, length_m, &force
-        );
-        if (status == WF_SUCCESS) {
-            return force;
-        }
-        return std::unexpected(static_cast<Error>(status));
-    }
-
-    [[nodiscard]] static std::expected<wf_calc_result_t, Error>
-    analyze_busbar(const wf_wire_geometry_t& geo,
-                   const wf_sc_params_t& sc,
-                   const wf_material_limits_t& mat) noexcept 
-    {
-        wf_calc_result_t result{};
-        const auto status = wf_calculate_busbar_system(&geo, &sc, &mat, &result);
-        if (status == WF_SUCCESS) {
-            return result;
-        }
-        return std::unexpected(static_cast<Error>(status));
-    }
-};
-
-} // namespace wireforce
-
-#endif // WIREFORCE_HPP
-```
+:::code api-wire-force-calculator/cpp/main.hpp
 
 ---
 
@@ -400,51 +316,4 @@ std::transform(std::execution::par, geometries.begin(), geometries.end(), result
 
 Нижче наведено приклад реальної інженерної програми мовою C, що розраховує трифазний шинопровід розподільчого щита 0.4 кВ та обробляє можливі відхилення:
 
-```c
-#include <stdio.h>
-#include "wireforce.h"
-
-int main(void) {
-    /* 1. Задання геометрії шинопроводу 0.4 кВ */
-    wf_wire_geometry_t geo = {
-        .distance_m = 0.20,       /* 200 мм між фазами */
-        .length_m = 1.00,         /* 1.0 м проліт між ізоляторами */
-        .bus_width_m = 0.010,     /* 10 мм товщина */
-        .bus_height_m = 0.100,    /* 100 мм висота */
-        .inclination_rad = 0.0    /* Паралельне розташування */
-    };
-
-    /* 2. Параметри короткого замикання (I''k = 50 кА) */
-    wf_sc_params_t sc = {
-        .initial_ik_ka = 50.0,
-        .shock_factor = 1.85,
-        .frequency_hz = 50.0,
-        .is_three_phase = true
-    };
-
-    /* 3. Характеристики матеріалу (Мідь M1t та ізолятор ІОР-10-7.5) */
-    wf_material_limits_t mat = {
-        .type = WF_MAT_COPPER_HARD,
-        .yield_stress_mpa = 200.0,
-        .max_insulator_kn = 7.5,
-        .safety_factor_req = 1.25
-    };
-
-    wf_calc_result_t res;
-    wf_status_t status = wf_calculate_busbar_system(&geo, &sc, &mat, &res);
-
-    if (status == WF_SUCCESS) {
-        printf("--- АНАЛІЗ УСПІШНИЙ ---\n");
-        printf("Ударний струм КЗ: %.2f кА\n", res.peak_current_ka);
-        printf("Сила на метр: %.2f кН/м\n", res.force_per_meter_kn_m);
-        printf("Напруження в шині: %.2f МПа\n", res.bending_stress_mpa);
-        printf("Навантаження на ізолятор: %.2f кН\n", res.insulator_load_kn);
-        printf("Запас міцності: %.2f\n", res.actual_safety_factor);
-    } else {
-        printf("ПОМИЛКА РОЗРАХУНКУ: %s (код %d)\n", 
-               wf_status_to_string(status), status);
-    }
-
-    return 0;
-}
-```
+:::code api-wire-force-calculator/c/11-pryklad-povnoho-tsyklu.c

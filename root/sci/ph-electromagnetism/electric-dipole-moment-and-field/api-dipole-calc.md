@@ -22,24 +22,7 @@ typedef struct {
     double z; /* Компонента по осі Z */
 } dipole_vec3_t;
 ```
-```cpp
-// Тривимірний вектор із константними операторами у C++20
-struct DipoleVec3 {
-    double x{0.0};
-    double y{0.0};
-    double z{0.0};
-
-    constexpr DipoleVec3 operator+(const DipoleVec3& rhs) const noexcept {
-        return {x + rhs.x, y + rhs.y, z + rhs.z};
-    }
-    constexpr DipoleVec3 operator-(const DipoleVec3& rhs) const noexcept {
-        return {x - rhs.x, y - rhs.y, z - rhs.z};
-    }
-    constexpr DipoleVec3 operator*(double scalar) const noexcept {
-        return {x * scalar, y * scalar, z * scalar};
-    }
-};
-```
+:::code api-dipole-calc/cpp/1-1-tryvymirnyi-vektor.cpp
 :::
 
 ### 1.2. Об'єкт точкового диполя (`electric_dipole_t` / `ElectricDipoleData`)
@@ -156,20 +139,7 @@ constexpr double debye_to_si(double debye) noexcept {
 Обчислює вектор напруженості `E` та потенціал `Φ`, створені точковим диполем у довільній точці простору.
 
 :::tabs
-```c
-/**
- * @brief Обчислює потенціал та поле точкового диполя.
- * @param dipole Вказівник на структуру точкового диполя.
- * @param obs_point Координати точки спостереження [м].
- * @param min_r_cutoff Мінімальний радіус зрізу для запобігання сингулярності [м].
- * @param result Вказівник на структуру для запису результату.
- * @return Код помилки (0 — успіх, -1 — null pointer, 1 — точка в зоні сингулярності).
- */
-int dipole_calc_field(const electric_dipole_t* dipole,
-                      const dipole_vec3_t* obs_point,
-                      double min_r_cutoff,
-                      dipole_field_result_t* result);
-```
+:::code api-dipole-calc/c/3-2-rozrakhunok.c
 ```cpp
 // Опис функції поля диполя у C++20 через std::expected або статус
 [[nodiscard]] DipoleFieldResult calculate_dipole_field(const ElectricDipoleData& dipole,
@@ -206,24 +176,7 @@ return 0
 Обчислює обертальний момент `τ = p × E`, потенціальну енергію `U = −p · E` та поступальну силу діелектрофорезу `F = (p · ∇)E`.
 
 :::tabs
-```c
-/**
- * @brief Обчислює енергію, момент і силу, що діють на диполь.
- * @param dipole Вказівник на структуру диполя.
- * @param E_ext Вектор напруженості зовнішнього поля E у точці диполя [В/м].
- * @param grad_E_x Градієнт dE/dx (вектор трьох похідних dEx/dx, dEy/dx, dEz/dx).
- * @param grad_E_y Градієнт dE/dy.
- * @param grad_E_z Градієнт dE/dz.
- * @param result Вказівник на структуру результату динаміки.
- * @return Код помилки (0 — успіх, -1 — null pointer).
- */
-int dipole_calc_dynamics(const electric_dipole_t* dipole,
-                         const dipole_vec3_t* E_ext,
-                         const dipole_vec3_t* grad_E_x,
-                         const dipole_vec3_t* grad_E_y,
-                         const dipole_vec3_t* grad_E_z,
-                         dipole_dynamics_t* result);
-```
+:::code api-dipole-calc/c/3-3-rozrakhunok-syly-ta.c
 ```cpp
 // Розрахунок динаміки диполя у C++20
 [[nodiscard]] DipoleDynamicsResult calculate_dipole_dynamics(const ElectricDipoleData& dipole,
@@ -257,20 +210,7 @@ result->force.z = dipole->moment.x * grad_E_x->z + dipole->moment.y * grad_E_y->
 Обчислює потенціальну енергію парної взаємодії двох диполів у вакуумі чи діелектричному середовищі.
 
 :::tabs
-```c
-/**
- * @brief Обчислює енергію взаємодії двох диполів U_12.
- * @param d1 Вказівник на перший диполь.
- * @param d2 Вказівник на другий диполь.
- * @param relative_permittivity Відносна діелектрична проникність середовища eps_r.
- * @param energy Вказівник на змінну для запису енергії [Дж].
- * @return Код помилки (0 — успіх, -1 — null pointer, 1 — збіг координат диполів).
- */
-int dipole_calc_interaction_energy(const electric_dipole_t* d1,
-                                    const electric_dipole_t* d2,
-                                    double relative_permittivity,
-                                    double* energy);
-```
+:::code api-dipole-calc/c/3-4-parna-vzaiemodiia.c
 ```cpp
 // Енергія парної взаємодії двох диполів у C++20
 [[nodiscard]] double calculate_interaction_energy(const ElectricDipoleData& d1,
@@ -301,40 +241,7 @@ return 0
 
 Для сучасних C++ додатків надається header-only обгортка у просторі назв `physics::electromagnetism`. Клас `ElectricDipole` реалізує семантику переміщення, RAII та об'єктно-орієнтовані методи обчислення полів без прямої маніпуляції C-вказівниками.
 
-```cpp
-namespace physics::electromagnetism {
-
-class ElectricDipole {
-public:
-    constexpr ElectricDipole() noexcept = default;
-    constexpr ElectricDipole(const dipole_vec3_t& pos, const dipole_vec3_t& mom) noexcept
-        : position_(pos), moment_(mom) {}
-
-    [[nodiscard]] static ElectricDipole from_debye(const dipole_vec3_t& pos, 
-                                                   const dipole_vec3_t& mom_dir, 
-                                                   double debye_val) noexcept {
-        const double factor = debye_val * 3.33564e-30;
-        return ElectricDipole{pos, {mom_dir.x * factor, mom_dir.y * factor, mom_dir.z * factor}};
-    }
-
-    [[nodiscard]] const dipole_vec3_t& position() const noexcept { return position_; }
-    [[nodiscard]] const dipole_vec3_t& moment() const noexcept { return moment_; }
-
-    [[nodiscard]] dipole_field_result_t calculate_field(const dipole_vec3_t& obs_point, 
-                                                         double cutoff = 1e-12) const noexcept {
-        dipole_field_result_t res{};
-        electric_dipole_t raw{position_, moment_, 0.0};
-        dipole_calc_field(&raw, &obs_point, cutoff, &res);
-        return res;
-    }
-
-private:
-    dipole_vec3_t position_{0.0, 0.0, 0.0};
-    dipole_vec3_t moment_{0.0, 0.0, 0.0};
-};
-
-} // namespace physics::electromagnetism
-```
+:::code api-dipole-calc/cpp/4-klasy-c-obiektno.cpp
 
 ## 5. Типові пастки та крайові випадки при розрахунках
 

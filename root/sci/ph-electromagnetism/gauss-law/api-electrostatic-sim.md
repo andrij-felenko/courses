@@ -44,20 +44,7 @@ typedef enum {
     SIM_ERROR_BOUNDARY_INVALID = -5    // Некоректна конфігурація граничних умов
 } sim_status_t;
 ```
-```cpp
-// C++20 Strongly Typed Errors
-namespace physics::electrodynamics {
-
-enum class SimError {
-    InvalidArgument,
-    OutOfMemory,
-    Divergence,
-    MaxIterationsReached,
-    InvalidBoundary
-};
-
-} // namespace physics::electrodynamics
-```
+:::code api-electrostatic-sim/cpp/3-kody-pomylok-ta-statusiv.cpp
 :::
 
 ## 4. Основні структури даних (C та C++)
@@ -70,68 +57,8 @@ enum class SimError {
 - **Робіна (Robin / Mixed)**: Задається лінійна комбінація потенціалу та його нормальної похідної `α·V + β·(∂V/∂n) = u_0` (застосовується для наближення нескінченно віддалених границь).
 
 :::tabs
-```c
-// C API Grid Configuration & Boundary Conditions
-typedef enum {
-    BOUNDARY_DIRICHLET = 0, // Фіксований потенціал V = V_bound
-    BOUNDARY_NEUMANN = 1,   // Фіксована нормальна похідна dV/dn = 0 (ізольована грань)
-    BOUNDARY_ROBIN = 2      // Змішана гранична умова Robin
-} boundary_type_t;
-
-typedef struct {
-    boundary_type_t type;
-    double potential_volts; // Значення потенціалу для умов Діріхле
-    double normal_derivative; // Значення нормальної похідної dV/dn
-} boundary_condition_t;
-
-typedef struct {
-    size_t nx;              // Кількість вузлів по осі X
-    size_t ny;              // Кількість вузлів по осі Y
-    size_t nz;              // Кількість вузлів по осі Z
-    double dx;              // Крок сітки по осі X (м)
-    double dy;              // Крок сітки по осі Y (м)
-    double dz;              // Крок сітки по осі Z (м)
-    boundary_condition_t boundary_x_min;
-    boundary_condition_t boundary_x_max;
-    boundary_condition_t boundary_y_min;
-    boundary_condition_t boundary_y_max;
-    boundary_condition_t boundary_z_min;
-    boundary_condition_t boundary_z_max;
-} grid_config_t;
-```
-```cpp
-// C++20 Grid Specifications
-namespace physics::electrodynamics {
-
-enum class BoundaryType {
-    Dirichlet,
-    Neumann,
-    Robin
-};
-
-struct BoundaryCondition {
-    BoundaryType type{BoundaryType::Dirichlet};
-    double potential_volts{0.0};
-    double normal_derivative{0.0};
-};
-
-struct GridConfig {
-    size_t nx{32};
-    size_t ny{32};
-    size_t nz{32};
-    double dx{0.01};
-    double dy{0.01};
-    double dz{0.01};
-    BoundaryCondition boundary_x_min{};
-    BoundaryCondition boundary_x_max{};
-    BoundaryCondition boundary_y_min{};
-    BoundaryCondition boundary_y_max{};
-    BoundaryCondition boundary_z_min{};
-    BoundaryCondition boundary_z_max{};
-};
-
-} // namespace physics::electrodynamics
-```
+:::code api-electrostatic-sim/c/a-struktury-konfihuratsii.c
+:::code api-electrostatic-sim/cpp/a-struktury-konfihuratsii.cpp
 :::
 
 ### Б. Результати верифікації закону Гаусса
@@ -150,21 +77,7 @@ typedef struct {
     size_t surface_cell_count;    // Кількість граней сітки, що утворюють гауссову поверхню
 } gauss_verification_result_t;
 ```
-```cpp
-// C++20 Gauss Verification Result Struct
-namespace physics::electrodynamics {
-
-struct GaussVerificationResult {
-    double integrated_flux{0.0};
-    double enclosed_charge{0.0};
-    double theoretical_flux{0.0};
-    double absolute_error{0.0};
-    double relative_error_percent{0.0};
-    size_t surface_cell_count{0};
-};
-
-} // namespace physics::electrodynamics
-```
+:::code api-electrostatic-sim/cpp/b-rezultaty-veryfikatsii.cpp
 :::
 
 ## 5. Детальна специфікація функцій C API (`libelectrostatics.h`)
@@ -264,87 +177,8 @@ struct GaussVerificationResult {
 C++20 версія пропонує об'єктно-орієнтований клас `ElectrostaticEngine` з безпечною обробкою ресурсів через RAII та підтримкою семантики переміщення.
 
 :::tabs
-```c
-// Приклад використання C API
-#include <stdio.h>
-#include "libelectrostatics.h"
-
-int run_c_simulation(void) {
-    grid_config_t cfg = {
-        .nx = 50, .ny = 50, .nz = 50,
-        .dx = 0.02, .dy = 0.02, .dz = 0.02,
-        .boundary_x_min = {BOUNDARY_DIRICHLET, 0.0, 0.0},
-        .boundary_x_max = {BOUNDARY_DIRICHLET, 0.0, 0.0},
-        .boundary_y_min = {BOUNDARY_DIRICHLET, 0.0, 0.0},
-        .boundary_y_max = {BOUNDARY_DIRICHLET, 0.0, 0.0},
-        .boundary_z_min = {BOUNDARY_DIRICHLET, 0.0, 0.0},
-        .boundary_z_max = {BOUNDARY_DIRICHLET, 0.0, 0.0}
-    };
-
-    void *grid = NULL;
-    if (sim_create_grid(&cfg, &grid) != SIM_SUCCESS) {
-        printf("Failed to allocate grid!\n");
-        return -1;
-    }
-
-    // Задаємо заряд у центрі
-    sim_set_charge_density(grid, 25, 25, 25, 1.0e-6);
-
-    size_t iters = 0;
-    sim_status_t status = sim_solve_poisson_sor(grid, 1e-5, 1000, 1.6, &iters);
-    if (status == SIM_SUCCESS) {
-        printf("Poisson solved in %zu iterations.\n", iters);
-
-        gauss_verification_result_t gres;
-        sim_verify_gauss_law(grid, 15, 35, 15, 35, 15, 35, &gres);
-        printf("Gauss Relative Error: %.2f%%\n", gres.relative_error_percent);
-    }
-
-    sim_destroy_grid(grid);
-    return 0;
-}
-```
-```cpp
-// Приклад використання C++20 API
-#include <iostream>
-#include <expected>
-#include <span>
-#include <vector>
-
-namespace physics::electrodynamics {
-
-class ElectrostaticEngine {
-public:
-    explicit ElectrostaticEngine(const GridConfig& config);
-    ~ElectrostaticEngine() = default;
-
-    ElectrostaticEngine(const ElectrostaticEngine&) = delete;
-    ElectrostaticEngine& operator=(const ElectrostaticEngine&) = delete;
-    ElectrostaticEngine(ElectrostaticEngine&&) noexcept = default;
-    ElectrostaticEngine& operator=(ElectrostaticEngine&&) noexcept = default;
-
-    [[nodiscard]] SimError setChargeDensity(size_t i, size_t j, size_t k, double rho);
-    [[nodiscard]] SimError setRelativePermittivity(size_t i, size_t j, size_t k, double eps_r);
-    [[nodiscard]] std::expected<size_t, SimError> solvePoisson(double tol = 1e-5, size_t max_iter = 1000, double omega = 1.6);
-    [[nodiscard]] std::expected<GaussVerificationResult, SimError> verifyGaussLaw(size_t i1, size_t i2, size_t j1, size_t j2, size_t k1, size_t k2) const;
-
-    [[nodiscard]] std::span<const double> getPotentialBuffer() const noexcept;
-    [[nodiscard]] std::span<const double> getElectricFieldX() const noexcept;
-    [[nodiscard]] std::span<const double> getElectricFieldY() const noexcept;
-    [[nodiscard]] std::span<const double> getElectricFieldZ() const noexcept;
-
-private:
-    GridConfig config_;
-    std::vector<double> potential_;
-    std::vector<double> charge_density_;
-    std::vector<double> permittivity_;
-    std::vector<double> ex_;
-    std::vector<double> ey_;
-    std::vector<double> ez_;
-};
-
-} // namespace physics::electrodynamics
-```
+:::code api-electrostatic-sim/c/7-spetsyfikatsiia-klasu-c.c
+:::code api-electrostatic-sim/cpp/7-spetsyfikatsiia-klasu-c.hpp
 :::
 
 ## 8. Модель багатопотоковості та паралельних обчислень

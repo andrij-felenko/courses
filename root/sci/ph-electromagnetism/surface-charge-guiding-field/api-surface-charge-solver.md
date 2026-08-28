@@ -10,58 +10,7 @@
 
 Типи крайових умов описують роль кожного дискретного вузла обчислювальної сітки у розрахунковій схемі. Вузол вільної зони (`FreeSpace`) відповідає діелектрику (повітря, субстрат FR-4), де розв'язується рівняння Лапласа `ΔV = 0`. Вузол об'єму провідника (`ConductorBulk`) відповідає електронейтральній товщі металу з фіксованою провідністю `σ`. Вузол фіксованого потенціалу (`DirichletFix`) описує контактні майданчики клем джерела живлення, де потенціал утримується жорстко. Вузол міжфазної межі (`InterfaceBoundary`) визначає стик двох матеріалів із різними провідностями, де відбувається стрибок поля.
 
-```cpp
-namespace ElectroDynamics {
-
-// Типи крайових умов у вузлах обчислювальної сітки
-enum class BoundaryType : uint8_t {
-    FreeSpace = 0,        // Вільний діелектрик (повітря, субстрат)
-    ConductorBulk = 1,    // Внутрішній об'єм провідника (ρ = 0)
-    DirichletFix = 2,    // Фіксований потенціал (електрод джерела V = const)
-    NeumannFix = 3,      // Фіксований потік поля (∂V/∂n = const)
-    InterfaceBoundary = 4 // Межа двох матеріалів із різною провідністю σ1 / σ2
-};
-
-// Метод чисельного інтегрування та розв'язання лінійних систем
-enum class SolverEngine : uint8_t {
-    SOR_Relaxation = 0,   // Послідовна верхня релаксація (Successive Over-Relaxation)
-    ConjugateGradient = 1, // Метод спряжених градієнтів (Conjugate Gradient, CG)
-    MultigridFDM = 2      // Багатосітковий метод (Multigrid FDM)
-};
-
-// Геометричні та фізичні параметри дискретного вузла сітки
-struct alignas(16) GridNode {
-    double x;              // Фізична координата X у метрах
-    double y;              // Фізична координата Y у метрах
-    double potential;      // Скалярний електричний потенціал V (Вольти)
-    double conductivity;   // Питома електрична провідність σ (Сім/м)
-    double charge_density; // Поверхнева густина заряду σ_surf (Кулон/м²)
-    BoundaryType boundary; // Тип граничної умови у даному вузлі
-};
-
-// Повний набір налаштувань математичного ядра солівера
-struct SolverConfig {
-    std::size_t grid_nx{256};         // Кількість вузлів по осі X
-    std::size_t grid_ny{256};         // Кількість вузлів по осі Y
-    double mesh_step_m{1e-4};          // Крок сітки дискретизації h у метрах (0.1 мм)
-    double relaxation_omega{1.85};     // Параметр релаксації ω (1.0 < ω < 2.0)
-    double tolerance_volts{1e-7};      // Поріг збіжності за напругою (Вольти)
-    std::size_t max_iters{10000};      // Максимально припустима кількість ітерацій
-    SolverEngine engine{SolverEngine::SOR_Relaxation}; // Тип чисельного двигуна
-    bool enable_poynting_calc{true};   // Розраховувати вектори B та Пойнтінга S
-};
-
-// Коди помилок та статуси виконання операцій
-enum class SolverStatus : int32_t {
-    Success = 0,            // Успішне виконання розрахунку
-    InvalidGeometry = -1,   // Некоректна геометрія або незв'язана сітка
-    DivergentSystem = -2,   // Чисельна розбіжність ітерацій (ω занадто велике)
-    OutOfMemory = -3,       // Нестача оперативної пам'яті для масивів сітки
-    Unconverged = -4        // Перевищено ліміт ітерацій max_iters без збіжності
-};
-
-} // namespace ElectroDynamics
-```
+:::code api-surface-charge-solver/cpp/pereliky-ta-struktury.cpp
 
 ### Фізичний зміст та регулювання параметрів `SolverConfig`
 
@@ -84,59 +33,7 @@ enum class SolverStatus : int32_t {
 
 Класовий інтерфейс керує життєвим циклом обчислень, забезпечує RAII-гарантії для ресурсів пам'яті та надає безпечний доступ до результатів розрахунку.
 
-```cpp
-namespace ElectroDynamics {
-
-class SurfaceChargeSolver {
-public:
-    // Конструктор ініціалізує сітку заданого розміру та виділяє пам'ять
-    explicit SurfaceChargeSolver(const SolverConfig& config);
-
-    // Деструктор автоматично звільняє внутрішні масиви сітки
-    ~SurfaceChargeSolver() noexcept;
-
-    // Заборона копіювання для запобігання важкому дублюванню масивів у пам'яті
-    SurfaceChargeSolver(const SurfaceChargeSolver&) = delete;
-    SurfaceChargeSolver& operator=(const SurfaceChargeSolver&) = delete;
-
-    // Конструктор та оператор переміщення для передачі володіння об'єктом
-    SurfaceChargeSolver(SurfaceChargeSolver&&) noexcept;
-    SurfaceChargeSolver& operator=(SurfaceChargeSolver&&) noexcept;
-
-    // Задання фізичних властивостей поодинокого вузла сітки
-    [[nodiscard]] SolverStatus set_node(std::size_t ix, std::size_t iy, 
-                                       BoundaryType type, double potential_v, 
-                                       double conductivity_sm);
-
-    // Заповнення прямокутної області провідним матеріалом з питомою провідністю σ
-    [[nodiscard]] SolverStatus set_rectangular_conductor(std::size_t x0, std::size_t y0, 
-                                                        std::size_t width, std::size_t height, 
-                                                        double conductivity_sm);
-
-    // Основний метод запуску чисельного розрахунку полів та поверхневих зарядів
-    [[nodiscard]] SolverStatus compute();
-
-    // Повернення неволодіючого зрізу std::span для безпечного читання всього масиву вузлів
-    [[nodiscard]] std::span<const GridNode> get_mesh_data() const noexcept;
-
-    // Отримання густини поверневого заряду σ_surf (Кл/м²) у конкретному граничному вузлі (ix, iy)
-    [[nodiscard]] double get_surface_charge(std::size_t ix, std::size_t iy) const;
-
-    // Розрахунок інтегрального потоку вектора Пойнтінга (Вт) крізь контрольний замкнений контур
-    [[nodiscard]] double get_poynting_flux_watts(std::size_t start_x, std::size_t start_y, 
-                                                std::size_t end_x, std::size_t end_y) const;
-
-    // Експорт результатів розрахунку у файли CSV та VTK для візуалізації в ParaView
-    [[nodiscard]] bool export_to_csv(const char* filepath) const noexcept;
-    [[nodiscard]] bool export_to_vtk(const char* filepath) const noexcept;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> pimpl_;
-};
-
-} // namespace ElectroDynamics
-```
+:::code api-surface-charge-solver/cpp/klas-surfacechargesolver.hpp
 
 ### Детальні гарантії безпеки та інваріанти виконання
 
@@ -161,83 +58,7 @@ Memory_Bytes = NX × NY × sizeof(GridNode) [формула обсягу пам'
 
 Нижче наведено повну робочу програму, яка створює солівер, конфігурує геометрію зігнутого мідного провідника з вуглецевим резистором, розраховує стаціонарне поле й виводить значення поверхневого заряду на екран.
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <iomanip>
-#include "surface_charge_solver.hpp"
-
-int main() {
-    using namespace ElectroDynamics;
-
-    // 1. Створення конфігурації обчислювальної сітки 128x128 з кроком 0.5 мм
-    SolverConfig config;
-    config.grid_nx = 128;
-    config.grid_ny = 128;
-    config.mesh_step_m = 0.0005; // Крок 0.5 мм
-    config.relaxation_omega = 1.88;
-    config.tolerance_volts = 1e-7;
-    config.max_iters = 8000;
-    config.engine = SolverEngine::SOR_Relaxation;
-    config.enable_poynting_calc = true;
-
-    // 2. Ініціалізація солівера
-    SurfaceChargeSolver solver(config);
-
-    // 3. Задання мідної підвідної жилу (σ = 5.8e7 См/м)
-    solver.set_rectangular_conductor(10, 50, 40, 20, 5.8e7);
-
-    // 4. Задання вуглецевого резистора (σ = 1e3 См/м) після мідного дроту
-    solver.set_rectangular_conductor(50, 50, 30, 20, 1.0e3);
-
-    // 5. Задання вихідного мідного дроту до заземлення
-    solver.set_rectangular_conductor(80, 50, 40, 20, 5.8e7);
-
-    // 6. Фіксація потенціалу джерела V_in = 12.0 В на вхідному електроді (x=10)
-    for (std::size_t y = 50; y <= 70; ++y) {
-        solver.set_node(10, y, BoundaryType::DirichletFix, 12.0, 5.8e7);
-    }
-
-    // 7. Фіксація потенціалу заземлення V_out = 0.0 В на вихідному електроді (x=120)
-    for (std::size_t y = 50; y <= 70; ++y) {
-        solver.set_node(120, y, BoundaryType::DirichletFix, 0.0, 5.8e7);
-    }
-
-    // 8. Запуск чисельного обчислення
-    std::cout << "Запуск чисельного розрахунку полів та поверневих зарядів...\n";
-    SolverStatus status = solver.compute();
-
-    if (status != SolverStatus::Success) {
-        std::cerr << "Розрахунок завершився з помилкою! Код статусу: " 
-                  << static_cast<int>(status) << '\n';
-        return 1;
-    }
-
-    // 9. Вилучення обчислених фізичних величин
-    const double sigma_entry = solver.get_surface_charge(50, 60); // Стик мідь -> резистор
-    const double sigma_exit  = solver.get_surface_charge(80, 60); // Стик резистор -> мідь
-
-    std::cout << std::scientific << std::setprecision(4);
-    std::cout << "Успішно обчислено!\n";
-    std::cout << "Позитивний міжфазний заряд на вхідній межі резистора: " 
-              << sigma_entry << " Кулон/м²\n";
-    std::cout << "Негативний міжфазний заряд на вихідній межі резистора: " 
-              << sigma_exit << " Кулон/м²\n";
-
-    // 10. Розрахунок потоку вектора Пойнтінга крізь бічну поверхню резистора
-    const double poynting_power = solver.get_poynting_flux_watts(50, 50, 80, 70);
-    std::cout << std::fixed << std::setprecision(3);
-    std::cout << "Потік електромагнітної енергії Пойнтінга, що входить у резистор: " 
-              << poynting_power << " Ватт\n";
-
-    // 11. Експорт сітки у файл CSV для подальшого аналізу
-    if (solver.export_to_csv("resistor_field_results.csv")) {
-        std::cout << "Результати успішно збережено у файл resistor_field_results.csv\n";
-    }
-
-    return 0;
-}
-```
+:::code api-surface-charge-solver/cpp/detalnyi-pryklad.cpp
 
 ### Формат вихідних файлів експорту CSV та VTK
 

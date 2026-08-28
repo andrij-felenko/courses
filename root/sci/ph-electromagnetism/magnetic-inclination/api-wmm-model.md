@@ -47,19 +47,7 @@ typedef struct {
     double decimal_year;   /* Час у десяткових роках (наприклад, 2026.25) */
 } wmm_input_t;
 ```
-```cpp
-/* cpp */
-namespace navigation::wmm {
-
-struct WmmInput {
-    double latitude_deg{0.0};   // Географічна широта [-90.0 .. +90.0°] (WGS-84)
-    double longitude_deg{0.0};  // Географічна довгота [-180.0 .. +180.0°] (WGS-84)
-    double altitude_km{0.0};    // Висота над еліпсоїдом WGS-84 у км
-    double decimal_year{2026.0};// Час у десяткових роках
-};
-
-} // namespace navigation::wmm
-```
+:::code api-wmm-model/cpp/vkhidni-parametry-modeli.cpp
 :::
 
 Параметр `decimal_year` передається як дробове число (наприклад, 15 квітня 2026 року відповідає `2026.287`). Модель WMM гарантує заявлену точність у межах 5-річного терміну дії епохи (від 2025.0 до 2030.0).
@@ -71,36 +59,8 @@ struct WmmInput {
 Вихідні дані розрахунку містять 7 основних геомагнітних елементів та додатковий полярний азимут:
 
 :::tabs
-```c
-/* c */
-typedef struct {
-    double X;     /* Північна складова [нТл] (North component) */
-    double Y;     /* Східна складова [нТл] (East component) */
-    double Z;     /* Вертикальна складова [нТл] (Down component, > 0 вниз) */
-    double H;     /* Горизонтальна складова [нТл] H = √(X² + Y²) */
-    double F;     /* Повний модуль індукції [нТл] F = √(H² + Z²) */
-    double I;     /* Кут магнітного нахилу [градуси] Inclination (-90..+90°) */
-    double D;     /* Кут магнітного схилення [градуси] Declination (-180..+180°) */
-    double GV;    /* Грідовий азимут [градуси] (Grid Variation для полярних карт) */
-} wmm_elements_t;
-```
-```cpp
-/* cpp */
-namespace navigation::wmm {
-
-struct WmmElements {
-    double north_component_nT{0.0};  // X: Північна складова [нТл]
-    double east_component_nT{0.0};   // Y: Східна складова [нТл]
-    double down_component_nT{0.0};   // Z: Вертикальна складова [нТл]
-    double horizontal_nT{0.0};       // H: Горизонтальна складова [нТл]
-    double total_intensity_nT{0.0};  // F: Повний модуль індукції [нТл]
-    double inclination_deg{0.0};     // I: Кут магнітного нахилу [градуси]
-    double declination_deg{0.0};     // D: Кут магнітного схилення [градуси]
-    double grid_variation_deg{0.0};  // GV: Грідовий азимут [градуси]
-};
-
-} // namespace navigation::wmm
-```
+:::code api-wmm-model/c/vykhidna-struktura.c
+:::code api-wmm-model/cpp/vykhidna-struktura.cpp
 :::
 
 Усі прямокутні компоненти `X`, `Y`, `Z` та модуль `H` виражаються в нанотеслах (нТл). Одному мікротесла (мкТл) відповідає 1000 нТл.
@@ -112,34 +72,8 @@ struct WmmElements {
 Усі елементи WMM мають річні похідні секулярного дрейфу (*Secular Variation*), які показують очікувану зміну компонент поля за один календарний рік через дрейф рідкого залізного ядра Землі:
 
 :::tabs
-```c
-/* c */
-typedef struct {
-    double dX;    /* Зміна X [нТл/рік] */
-    double dY;    /* Зміна Y [нТл/рік] */
-    double dZ;    /* Зміна Z [нТл/рік] */
-    double dH;    /* Зміна H [нТл/рік] */
-    double dF;    /* Зміна F [нТл/рік] */
-    double dI;    /* Зміна кута нахилу [мінути/рік] */
-    double dD;    /* Зміна кута схилення [мінути/рік] */
-} wmm_secular_variation_t;
-```
-```cpp
-/* cpp */
-namespace navigation::wmm {
-
-struct WmmSecularVariation {
-    double dX_nT_per_year{0.0};
-    double dY_nT_per_year{0.0};
-    double dZ_nT_per_year{0.0};
-    double dH_nT_per_year{0.0};
-    double dF_nT_per_year{0.0};
-    double dI_arcmin_per_year{0.0};
-    double dD_arcmin_per_year{0.0};
-};
-
-} // namespace navigation::wmm
-```
+:::code api-wmm-model/c/struktura-shchorichnoi.c
+:::code api-wmm-model/cpp/struktura-shchorichnoi.cpp
 :::
 
 ---
@@ -149,59 +83,8 @@ struct WmmSecularVariation {
 Нижче наведено публічні оголошення викликів моделі для мов C та C++:
 
 :::tabs
-```c
-/* c */
-#include <stdbool.h>
-
-/**
- * @brief Ініціалізація коефіцієнтів WMM із текстового файлу моделі (WMM.COF)
- * @param model_file_path Шлях до файлу коефіцієнтів
- * @return true у разі успішного завантаження
- */
-bool wmm_init(const char* model_file_path);
-
-/**
- * @brief Обчислення векторних елементів поля для заданих координат
- * @param in Вхідні географічні координати й час
- * @param out Вихідні компоненти поля та кути I/D
- * @param sv Вихідна секулярна варіація (може бути NULL)
- * @return 0 при успіху, від'ємний код помилки при збої
- */
-int wmm_calculate(
-    const wmm_input_t* in,
-    wmm_elements_t* out,
-    wmm_secular_variation_t* sv
-);
-```
-```cpp
-/* cpp */
-#include <expected>
-#include <filesystem>
-#include <span>
-#include <string_view>
-
-namespace navigation::wmm {
-
-enum class WmmApiError {
-    FileNotFound,
-    CorruptedData,
-    InvalidCoordinates,
-    YearOutOfBands
-};
-
-class WorldMagneticModel {
-public:
-    [[nodiscard]] static std::expected<WorldMagneticModel, WmmApiError> load_from_file(
-        const std::filesystem::path& model_path
-    ) noexcept;
-
-    [[nodiscard]] std::expected<WmmElements, WmmApiError> calculate(
-        const WmmInput& input
-    ) const noexcept;
-};
-
-} // namespace navigation::wmm
-```
+:::code api-wmm-model/c/stdbool.h
+:::code api-wmm-model/cpp/publichni-funktsii-api-wmm.cpp
 :::
 
 ---
@@ -225,43 +108,8 @@ B_calibrated = S_soft_iron · (B_raw - V_hard_iron)
 #### Структура коефіцієнтів калібрування (`mag_calibration_t` / `MagnetometerCalibration`)
 
 :::tabs
-```c
-/* c */
-typedef struct {
-    /* Вектор зсуву твердого заліза (Hard-Iron Bias, [мкТл]) */
-    float hard_iron_bias[3];
-    
-    /* 3x3 симетрична матриця масштабу й повороту м'якого заліза (Soft-Iron Matrix) */
-    float soft_iron_matrix[3][3];
-    
-    /* Очікуваний повний модуль поля Землі у цій локації [мкТл] */
-    float expected_total_field_uT;
-    
-    /* Нормалізований кут магнітного нахилу цієї локації [градуси] */
-    float expected_inclination_deg;
-} mag_calibration_t;
-```
-```cpp
-/* cpp */
-#include <array>
-
-namespace navigation {
-
-struct MagnetometerCalibration {
-    // Вектор зсуву твердого заліза (Hard-Iron Bias, [мкТл])
-    std::array<float, 3> hard_iron_bias{0.0f, 0.0f, 0.0f};
-    
-    // 3x3 симетрична матриця масштабу й повороту м'якого заліза (Soft-Iron Matrix)
-    std::array<std::array<float, 3>, 3> soft_iron_matrix{{{1.0f, 0.0f, 0.0f},
-                                                         {0.0f, 1.0f, 0.0f},
-                                                         {0.0f, 0.0f, 1.0f}}};
-    
-    float expected_total_field_uT{50.0f};
-    float expected_inclination_deg{67.0f};
-};
-
-} // namespace navigation
-```
+:::code api-wmm-model/c/struktura-koefitsiientiv.c
+:::code api-wmm-model/cpp/struktura-koefitsiientiv.cpp
 :::
 
 ---

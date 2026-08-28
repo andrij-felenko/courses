@@ -69,13 +69,15 @@
           "proj": [
             {
               "file": "proj-eddy-current-sim.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-induction-braking.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -91,7 +93,8 @@
           "hist": [
             {
               "file": "hist-maxwell-heaviside.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -103,7 +106,9 @@
           "proj": [
             {
               "file": "proj-faraday-solver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
@@ -206,25 +211,30 @@
           "comp": [
             {
               "file": "comp-laminated-cores-ferrites.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-skin-effect-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-eddy-current-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-eddy-current-params.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -246,19 +256,23 @@
           "math": [
             {
               "file": "math-skin-depth.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-induction-heater.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-induction-inverter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -280,19 +294,23 @@
           "math": [
             {
               "file": "math-steinmetz-loss.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-steinmetz-calculator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-steinmetz-coefficients.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -314,7 +332,8 @@
           "comp": [
             {
               "file": "comp-shielding-materials.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -326,7 +345,8 @@
           "proj": [
             {
               "file": "proj-shielding-simulation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
