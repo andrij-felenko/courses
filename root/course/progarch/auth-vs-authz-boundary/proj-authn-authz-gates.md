@@ -38,70 +38,8 @@ H-marta   власник: Марта
 Ось як маршрут народжується, коли про друге питання ще ніхто не думає. Автентифікацію ставлять на краю — раз, мідлваром чи залежністю, — вона перетворює токен на суб'єкта. А далі обробник бере `id` з адреси, піднімає дім і віддає. Виглядає завершено. Насправді — ні.
 
 :::tabs
-```ts
-// ── Домен ────────────────────────────────────────────────
-type Subject = { id: string };
-type Role    = "guest" | "family" | "founder";
-type Action  = "read"  | "write"  | "manage";
-type Home    = { id: string; ownerId: string };
-
-// Express.Request доповнюємо полем subject (його ставить автентифікація)
-declare global {
-  namespace Express { interface Request { subject?: Subject } }
-}
-
-// Автентифікація — на краю, раз на запит: токен → суб'єкт
-function authenticate(req: Request, res: Response, next: NextFunction) {
-  const subject = verifyToken(req.header("authorization"));
-  if (!subject) {                                    // немає / хибний / протух
-    res.set("WWW-Authenticate", "Bearer").status(401).end();
-    return;
-  }
-  req.subject = subject;
-  next();
-}
-
-// ⛔ БАГ: перевірено лише «хто», не «що саме йому можна»
-app.get("/homes/:id/thermostat", authenticate, (req, res) => {
-  const home = homes.get(req.params.id);             // :id — рядок від клієнта
-  if (!home) return res.status(404).end();
-  res.json(readThermostat(home));                    // ← другої брами немає
-});
-```
-```py
-from dataclasses import dataclass
-from fastapi import FastAPI, Depends, HTTPException, Request
-
-app = FastAPI()
-
-# ── Домен ────────────────────────────────────────────────
-@dataclass(frozen=True)
-class Subject:
-    id: str
-
-@dataclass(frozen=True)
-class Home:
-    id: str
-    owner_id: str
-
-Role   = str   # "guest" | "family" | "founder"
-Action = str   # "read"  | "write"  | "manage"
-
-# Автентифікація — на краю, залежністю: токен → суб'єкт
-def current_subject(request: Request) -> Subject:
-    subject = verify_token(request.headers.get("authorization"))
-    if subject is None:                              # немає / хибний / протух
-        raise HTTPException(401, headers={"WWW-Authenticate": "Bearer"})
-    return subject
-
-# ⛔ БАГ: спитано лише «хто», не «що саме йому можна»
-@app.get("/homes/{home_id}/thermostat")
-def get_thermostat(home_id: str, subject: Subject = Depends(current_subject)):
-    home = homes.get(home_id)                        # home_id — рядок від клієнта
-    if home is None:
-        raise HTTPException(404)
-    return read_thermostat(home)                     # ← другої брами немає
-```
+:::code proj-authn-authz-gates/ts/bahovyi-obrobnyk-sama.ts
+:::code proj-authn-authz-gates/py/bahovyi-obrobnyk-sama.py
 :::
 
 Пройдімо цим кодом Олю, що просить `GET /homes/H-marta/thermostat`. `authenticate` перевіряє токен — суб'єкт Оля, справжня, `next()`. Обробник бере `req.params.id` — рядок `"H-marta"` — і піднімає за ним дім. Дім є, `404` не спрацював. `readThermostat` віддає показ. Двісті. Оля щойно прочитала термостат Марти, і жоден рядок не збрехав: токен дійсний, `id` правильно сформований, сервер зробив рівно те, що написано.
@@ -119,32 +57,8 @@ def get_thermostat(home_id: str, subject: Subject = Depends(current_subject)):
 Ось той самий обробник із дописаною другою брамою. `canRead` починаємо якнайпростіше — грубим порівнянням власника; воно ще неправильне для дому з кількома мешканцями, зате гранично ясно показує **місце** брами:
 
 :::tabs
-```ts
-function canRead(subject: Subject, home: Home): boolean {
-  return home.ownerId === subject.id;                // поки що — тільки власник
-}
-
-app.get("/homes/:id/thermostat", authenticate, (req, res) => {
-  const home = homes.get(req.params.id);
-  if (!home) return res.status(404).end();
-  if (!canRead(req.subject!, home))                  // ← друга брама, ПІСЛЯ завантаження
-    return res.status(403).end();
-  res.json(readThermostat(home));
-});
-```
-```py
-def can_read(subject: Subject, home: Home) -> bool:
-    return home.owner_id == subject.id               # поки що — тільки власник
-
-@app.get("/homes/{home_id}/thermostat")
-def get_thermostat(home_id: str, subject: Subject = Depends(current_subject)):
-    home = homes.get(home_id)
-    if home is None:
-        raise HTTPException(404)
-    if not can_read(subject, home):                  # ← друга брама, ПІСЛЯ завантаження
-        raise HTTPException(403)
-    return read_thermostat(home)
-```
+:::code proj-authn-authz-gates/ts/druha-brama-okremo-poob.ts
+:::code proj-authn-authz-gates/py/druha-brama-okremo-poob.py
 :::
 
 Тепер Оля з `H-marta` натикається на `canRead`: `home.ownerId` — це `"Марта"`, `subject.id` — `"Оля"`, не рівні, `403`. Дім Марти в безпеці, і полагодив його рівно один рядок. Помітне й головне: цій брамі потрібне те, чого автентифікації не треба, — **об'єкт**. Автентифікації досить самого доказу; авторизації потрібна трійця «суб'єкт, дія, обʼєкт», а обʼєкт з'являється тільки після завантаження. Тому вона й не може жити при дверях — двері ще не знають, який дім ти зараз попросиш.
@@ -160,34 +74,8 @@ def get_thermostat(home_id: str, subject: Subject = Depends(current_subject)):
 У коді ця таблиця — маленьке відображення «роль → множина дозволених дій», а `can` стає трьома рядками: дістати роль суб'єкта в цьому домі, а тоді спитати, чи є задана дія в наборі цієї ролі. Немає ролі — немає й членства — відмова:
 
 :::tabs
-```ts
-// роль → дозволені дії (гість лише читає, сім'я керує, засновник — усе)
-const GRANTS: Record<Role, ReadonlySet<Action>> = {
-  guest:   new Set(["read"]),
-  family:  new Set(["read", "write"]),
-  founder: new Set(["read", "write", "manage"]),
-};
-
-function can(subject: Subject, action: Action, home: Home): boolean {
-  const role = memberships.roleOf(subject.id, home.id);   // Role | undefined
-  if (!role) return false;                                // не член → відмова
-  return GRANTS[role].has(action);
-}
-```
-```py
-# роль → дозволені дії (гість лише читає, сім'я керує, засновник — усе)
-GRANTS: dict[Role, set[Action]] = {
-    "guest":   {"read"},
-    "family":  {"read", "write"},
-    "founder": {"read", "write", "manage"},
-}
-
-def can(subject: Subject, action: Action, home: Home) -> bool:
-    role = memberships.role_of(subject.id, home.id)   # Role | None
-    if role is None:
-        return False                                  # не член → відмова
-    return action in GRANTS[role]
-```
+:::code proj-authn-authz-gates/ts/iak-roste-can-vid-vlasnyka.ts
+:::code proj-authn-authz-gates/py/iak-roste-can-vid-vlasnyka.py
 :::
 
 Тепер той самий `can` відповідає по-різному на всі рядки нашої таблиці задачі. Гриць у `H-olya` має роль `guest`; `can(Гриць, "read", H-olya)` — `read` є в наборі гостя, `true`; `can(Гриць, "write", H-olya)` — `write` у наборі гостя немає, `false`, а обробник обертає це на `403`. Оля в `H-olya` — `founder`, їй усі три дії дозволені. Оля в `H-marta` — `roleOf` не знаходить членства, повертає нічого, `can` одразу `false`. Одна функція, дом'єнна таблиця з трьох рядків — і всі п'ять очікуваних відповідей сходяться. Що важливо: коли завтра з'явиться роль `tenant` (орендар) з якимось своїм набором, змінюється **один рядок** таблиці `GRANTS`, а не десяток розкиданих `if`. Саме заради цього рішення тримають в одній функції — це вже поріг [моделей авторизації](root:sf-security/authorization-models), куди веде наступний крок; тут нам досить бачити, що `can` — одне ясне місце, а не звичка копіювати перевірку.
@@ -199,49 +87,8 @@ def can(subject: Subject, action: Action, home: Home) -> bool:
 Ліки — зробити виклик брами **структурним**, а не доброю волею того, хто писав маршрут. В Express це фабрика мідлвару: вона вантажить дім, перевіряє право на задану дію й кладе вже авторизований дім далі за потоком — у `res.locals`. У FastAPI ще чистіше: [залежність](root:sf-apps/dependency-injection), що вантажить і авторизує, **повертає сам обʼєкт** — і обробник дістає його параметром. А отже, без проходу крізь браму об'єкта в обробнику просто **немає** з чого почати:
 
 :::tabs
-```ts
-// Фабрика брами: мідлвар, що вантажить дім і пускає лише з правом на дію.
-// Обробник дістає вже авторизований дім у res.locals — забути перевірку ніде.
-function requireHome(action: Action): RequestHandler {
-  return (req, res, next) => {
-    const home = homes.get(req.params.id);
-    if (!home) return res.status(404).end();
-    if (!can(req.subject!, action, home)) return res.status(403).end();
-    res.locals.home = home;                          // далі — вже авторизований обʼєкт
-    next();
-  };
-}
-
-app.get("/homes/:id/thermostat", authenticate, requireHome("read"), (req, res) => {
-  res.json(readThermostat(res.locals.home));         // право вже перевірено вище
-});
-app.put("/homes/:id/thermostat", authenticate, requireHome("write"), (req, res) => {
-  setThermostat(res.locals.home, req.body.target);
-  res.status(204).end();                             // сюди Гриць-гість не дійде
-});
-```
-```py
-# Фабрика брами: залежність, що вантажить дім і пускає лише з правом.
-# Обробник ОДЕРЖУЄ вже авторизований дім параметром — інакше його просто нема.
-def authorized_home(action: Action):
-    def dep(home_id: str, subject: Subject = Depends(current_subject)) -> Home:
-        home = homes.get(home_id)
-        if home is None:
-            raise HTTPException(404)
-        if not can(subject, action, home):
-            raise HTTPException(403)
-        return home
-    return dep
-
-@app.get("/homes/{home_id}/thermostat")
-def get_thermostat(home: Home = Depends(authorized_home("read"))):
-    return read_thermostat(home)                     # дім тут ⇒ право вже перевірено
-
-@app.put("/homes/{home_id}/thermostat")
-def put_thermostat(target: float, home: Home = Depends(authorized_home("write"))):
-    set_thermostat(home, target)
-    return {"ok": True}                              # сюди Гриць-гість не дійде
-```
+:::code proj-authn-authz-gates/ts/brama-iaku-ne-mozhna.ts
+:::code proj-authn-authz-gates/py/brama-iaku-ne-mozhna.py
 :::
 
 Зверни увагу на зсув, який тут стався. У першій версії безпека трималася на **пам'яті** програміста: не забудь дописати `if (!can(...))`. У цій — на **типі й потоці**: обробник `put_thermostat` фізично не може виконатися, поки залежність `authorized_home("write")` не поверне дім, а вона не поверне його без успішного `can`. Забути перевірку стало **важче, ніж її зробити**, — і це головна різниця між кодом, що «зазвичай безпечний», і кодом, безпечним за побудовою. Політику ми лишили в одному місці (`can` і таблиця `GRANTS`), а от її **застосування** притягли до кожного маршрута так, що обійти його треба свідомо.
@@ -287,18 +134,7 @@ WHERE home_id = :home
 Останнє місце, де брама зраджує, — це список. `GET /homes` має віддати доми, до яких у суб'єкта є доступ. Наївний хід — підняти **всі** доми й відсіяти зайві в пам'яті тим самим `can`:
 
 :::tabs
-```ts
-// ✗ підняти все, відсіяти в памʼяті — повільно й крихко
-app.get("/homes", authenticate, (req, res) => {
-  const mine = homes.all().filter(h => can(req.subject!, "read", h));
-  res.json(mine);
-});
-
-// ✓ авторизація як умова запиту — чужі рядки не залишають БД
-app.get("/homes", authenticate, (req, res) => {
-  res.json(homes.listForMember(req.subject!.id));    // JOIN membership …
-});
-```
+:::code proj-authn-authz-gates/ts/masovyi-endpoint-filtr-u.ts
 ```py
 # ✗ підняти все, відсіяти в памʼяті — повільно й крихко
 @app.get("/homes")

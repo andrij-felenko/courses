@@ -58,52 +58,8 @@
 *Ліворуч борг розмазано: наївна логіка живе копією в кожному виклику, відсоток капає скрізь, показати ні на що. Праворуч той самий борг зібрано за шов: усі виклики залежать від інтерфейсу, а наївна реалізація — один клас під ним. Погасити перший борг — переписати пів бази; погасити другий — підмінити одну реалізацію.*
 
 :::tabs
-```ts
-// Шов: усе, що знає решта коду, — цей контракт.
-interface EnergyRollup {
-  kwhForDay(home: string, day: string): Promise<number>;
-}
-
-// Свідомий борг: наївно скануємо й підсумовуємо сирі рядки на кожен запит.
-// Розплата за масштабом реальна — але ОБМЕЖЕНА цим одним класом.
-class NaiveRollup implements EnergyRollup {
-  constructor(private db: Db) {}
-  async kwhForDay(home: string, day: string): Promise<number> {
-    const rows = await this.db.query(
-      "SELECT power_w FROM telemetry WHERE home=$1 AND day=$2", [home, day]);
-    return rows.reduce((kwh, r) => kwh + r.power_w / 1000 / 3600, 0); // груба інтеграція
-  }
-}
-
-// Панель бачить лише шов — не знає й не хоче знати про наївність під ним.
-async function renderPanel(rollup: EnergyRollup, home: string) {
-  const today = await rollup.kwhForDay(home, "2026-07-11");
-  // ...малюємо число
-}
-```
-```py
-from typing import Protocol
-
-# Шов: контракт, який бачить решта коду.
-class EnergyRollup(Protocol):
-    def kwh_for_day(self, home: str, day: str) -> float: ...
-
-# Свідомий борг: наївний підсумок сирих рядків на кожен запит.
-# Розплата за масштабом реальна — але ОБМЕЖЕНА цим одним класом.
-class NaiveRollup:
-    def __init__(self, db):
-        self.db = db
-
-    def kwh_for_day(self, home: str, day: str) -> float:
-        rows = self.db.query(
-            "SELECT power_w FROM telemetry WHERE home=%s AND day=%s", (home, day))
-        return sum(r.power_w / 1000 / 3600 for r in rows)  # груба інтеграція
-
-# Панель бачить лише шов — не знає про наївність під ним.
-def render_panel(rollup: EnergyRollup, home: str) -> None:
-    today = rollup.kwh_for_day(home, "2026-07-11")
-    # ...малюємо число
-```
+:::code debt-as-decision-d/ts/index.ts
+:::code debt-as-decision-d/py/main.py
 :::
 
 Тут ховається пастка на пастці. «Обмежити борг» не означає **завчасно натягти абстракцію на все, що рухається** — це вже інший борг, борг [передчасного узагальнення](root:sf-apps/dry-kiss-yagni): фальшивий шов там, де завтра доведеться його боляче розчіпляти. Свідомий борг обмежують **одним чесним швом навколо саме тієї частини, що тимчасова**, — не менше (бо тоді відсоток розтече) і не більше (бо тоді сама «межа» стане новим боргом).

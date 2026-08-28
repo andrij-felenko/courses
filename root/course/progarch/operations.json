@@ -17,8 +17,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-instrument-dh-endpoint.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-release/structured-logging",
@@ -66,8 +74,16 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
-          }
+            "level": 3,
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-telemetry-correlation.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -92,7 +108,14 @@
           "detailed": {
             "status": "deeper",
             "level": 4
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-slo-alerting-rules.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-release/alerting",
@@ -208,8 +231,16 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
-          }
+            "level": 4,
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-cicd.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -278,7 +309,8 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -289,13 +321,16 @@
           "proj": [
             {
               "file": "proj-cascade-rotation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-incident-playbook.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         }
@@ -326,7 +361,21 @@
           "detailed": {
             "status": "deeper",
             "level": 4
-          }
+          },
+          "api": [
+            {
+              "file": "api-feature-flag-service.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-canary-flag-engine.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-release/dark-launch",
@@ -344,7 +393,14 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-decoupled-migration.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-release/zero-downtime-migration",
@@ -454,7 +510,14 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-metastable-recovery-gate.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-game-day",
@@ -464,7 +527,14 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-chaos-injection.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "untested-recovery",

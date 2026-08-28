@@ -67,45 +67,8 @@
 Ось як ці три ліки лягають у код планувальника й задачі. Уся вага — в тому, що момент і вікно **обчислюються проти зони**, а не беруться готовою міткою:
 
 :::tabs
-```ts
-// Намір розкладу — правило+зона, а не застиглий момент.
-type Schedule = { atLocal: string; zone: string };   // { "02:00", "Europe/Kyiv" }
-
-// Вікно «вчора» = від локальної півночі до локальної півночі, у UTC-інстантах.
-// Дві сусідні локальні півночі самі дають 23/24/25 год — DST враховано за побудовою.
-function yesterdayWindow(zone: string, now: Temporal.ZonedDateTime) {
-  const startLocal = now.withTimeZone(zone).startOfDay().subtract({ days: 1 });
-  const endLocal   = startLocal.add({ days: 1 });      // наступна локальна північ
-  return { fromUtc: startLocal.toInstant(), toUtc: endLocal.toInstant() };
-}
-
-// Задача ідемпотентна за (дім, доба): другий запуск ПЕРЕПИШЕ, а не додасть.
-async function aggregateDay(homeId: string, day: string, w: Window) {
-  const rows = await telemetry.readBetween(homeId, w.fromUtc, w.toUtc);   // виміри-інстанти
-  const summary = rollUp(rows);                        // сума, макс, мінімум за добу
-  await dailySummary.upsert({ homeId, day }, summary); // ключ (дім, доба) — не append
-}
-```
-```py
-# Намір розкладу — правило+зона, а не застиглий момент.
-from zoneinfo import ZoneInfo          # база переведень IANA у stdlib
-from datetime import datetime, timedelta, time, timezone
-
-def yesterday_window(zone: str, now: datetime) -> tuple[datetime, datetime]:
-    """Вікно «вчора» = від локальної півночі до локальної півночі, у UTC-інстантах.
-    Дві сусідні локальні півночі самі дають 23/24/25 год — DST враховано за побудовою."""
-    local = now.astimezone(ZoneInfo(zone))
-    start_local = datetime.combine(local.date() - timedelta(days=1),
-                                   time(0, 0), ZoneInfo(zone))
-    end_local = datetime.combine(local.date(), time(0, 0), ZoneInfo(zone))
-    return start_local.astimezone(timezone.utc), end_local.astimezone(timezone.utc)
-
-async def aggregate_day(home_id: str, day: str, w: tuple) -> None:
-    # Задача ідемпотентна за (дім, доба): другий запуск ПЕРЕПИШЕ, а не додасть.
-    rows = await telemetry.read_between(home_id, w[0], w[1])   # виміри-інстанти
-    summary = roll_up(rows)                                    # сума/макс/мін за добу
-    await daily_summary.upsert({"home": home_id, "day": day}, summary)  # не append
-```
+:::code dh-jobs-time-final-d/ts/index.ts
+:::code dh-jobs-time-final-d/py/main.py
 :::
 
 Повний планувальник — із лізою й фенсинг-токеном, політикою пропущених запусків (пропустити, наздогнати чи злити), наздоганянням після простою кластера й обробкою тих самих весняної дірки та осінньої складки — зібрано робочим кодом окремо: [нічна агрегація DH як DST-коректний розподілений cron](root:progarch/dh-jobs-time-final/proj-dh-nightly-rollup.md). Історія показує, що на цих граблях спіткнулися майже всі — від будильників у телефонах до біржових систем; [чому час ловить кожного](root:progarch/dh-jobs-time-final/hist-dst-scheduling-bugs.md) винесено в окрему замітку.

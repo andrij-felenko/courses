@@ -55,61 +55,8 @@ def notify_offline(ev: OfflineEvent) -> None:
 Розходиться воно з першою реальною вимогою. Служба безпеки хоче, щоб тривога руху **ескалувалася**: не тихий пуш, а SMS *і* пуш, повторювати, доки власник не підтвердить, і дописати рівень небезпеки зони. Офлайн, навпаки, лишається тихим одноразовим пушем, зате з рядком «останній зв'язок N хвилин тому». Дві вимоги до двох різних гілок лягають у **спільний** метод. А трохи згодом приходить третій випадок — «батарея сідає», — і кожна розвилка обростає ще одним рукавом. Ось до чого доходить `notify` кілька вимог по тому:
 
 :::tabs
-```ts
-type Kind = "motion" | "offline" | "lowbat";
-
-// метод відростив ще й параметр zone і третій kind
-function notify(kind: Kind, subject: string, zone: string, at: number): void {
-  // 1) тіло тексту — розвилка на kind
-  let text: string;
-  if (kind === "motion")        text = `Рух у зоні «${zone}» о ${time(at)}`;
-  else if (kind === "offline")  text = `Пристрій «${subject}» офлайн о ${time(at)}`;
-  else                          text = `Батарея «${subject}» сідає`;
-
-  // 2) хвіст тексту — знову розвилка на kind
-  if (kind === "motion")   text += ` — небезпека ${ZONE_RISK[zone] ?? 0}`;
-  if (kind === "offline")  text += ` — останній зв'язок ${sinceMin(at)} хв тому`;
-
-  // 3) канали — розвилка
-  const channels = kind === "motion" ? ["sms", "push"] : ["push"];
-
-  // 4) повтор — розвилка
-  const repeat = kind === "motion";
-
-  for (const ch of channels) sendVia(ch, text);
-  if (repeat) scheduleRepeat(text, channels);
-}
-```
-```py
-Kind = Literal["motion", "offline", "lowbat"]
-
-# метод відростив ще й параметр zone і третій kind
-def notify(kind: Kind, subject: str, zone: str, at: float) -> None:
-    # 1) тіло тексту — розвилка на kind
-    if kind == "motion":
-        text = f"Рух у зоні «{zone}» о {time(at)}"
-    elif kind == "offline":
-        text = f"Пристрій «{subject}» офлайн о {time(at)}"
-    else:
-        text = f"Батарея «{subject}» сідає"
-
-    # 2) хвіст тексту — знову розвилка на kind
-    if kind == "motion":
-        text += f" — небезпека {ZONE_RISK.get(zone, 0)}"
-    if kind == "offline":
-        text += f" — останній зв'язок {since_min(at)} хв тому"
-
-    # 3) канали — розвилка
-    channels = ["sms", "push"] if kind == "motion" else ["push"]
-
-    # 4) повтор — розвилка
-    repeat = kind == "motion"
-
-    for ch in channels:
-        send_via(ch, text)
-    if repeat:
-        schedule_repeat(text, channels)
-```
+:::code proj-dry-wrong-abstraction/ts/iak-zdorove-dry-staie.ts
+:::code proj-dry-wrong-abstraction/py/iak-zdorove-dry-staie.py
 :::
 
 Придивись до сигнатури — вона вже зраджує біду. Виклики змушені передавати заглушки в параметри, яких їхня гілка не торкається:
@@ -156,32 +103,8 @@ def test_offline_one_silent_push():
 **Крок 3 — викинути.** Мертві гілки видаляємо. Лишається три прямі функції, кожна без жодного `if (kind)`:
 
 :::tabs
-```ts
-function notifyMotion(ev: MotionEvent): void {
-  const text = `Рух у зоні «${ev.zone}» о ${time(ev.at)} — небезпека ${ZONE_RISK[ev.zone] ?? 0}`;
-  sendVia("sms", text);
-  sendVia("push", text);
-  scheduleRepeat(text, ["sms", "push"]);       // доки власник не підтвердить
-}
-
-function notifyOffline(ev: OfflineEvent): void {
-  const text =
-    `Пристрій «${ev.device}» офлайн о ${time(ev.at)} — останній зв'язок ${sinceMin(ev.at)} хв тому`;
-  sendVia("push", text);                        // тихий одноразовий
-}
-```
-```py
-def notify_motion(ev: MotionEvent) -> None:
-    text = f"Рух у зоні «{ev.zone}» о {time(ev.at)} — небезпека {ZONE_RISK.get(ev.zone, 0)}"
-    send_via("sms", text)
-    send_via("push", text)
-    schedule_repeat(text, ["sms", "push"])       # доки власник не підтвердить
-
-def notify_offline(ev: OfflineEvent) -> None:
-    text = (f"Пристрій «{ev.device}» офлайн о {time(ev.at)} "
-            f"— останній зв'язок {since_min(ev.at)} хв тому")
-    send_via("push", text)                        # тихий одноразовий
-```
+:::code proj-dry-wrong-abstraction/ts/krok-nazad-inline-vykynuty.ts
+:::code proj-dry-wrong-abstraction/py/krok-nazad-inline-vykynuty.py
 :::
 
 Подивись, що сталося. Кожна функція тепер читається згори вниз без жодної розвилки; тривогу можна правити, навіть не знаючи, що офлайн існує; сигнатури беруть рівно свій тип події — жодних заглушок. Ми не «втратили» абстракцію — ми викинули *неправильну*. Зчеплення між двома сповіщеннями впало до нуля: у них більше немає спільного тіла, яке можна ненароком зламати.
@@ -224,36 +147,8 @@ if (["спальня", "сейф-кімната"].includes(zone)) requireSecondC
 Тепер виносимо — уже по правильній осі. Одна функція, єдине джерело правди про небезпеку зони (та сама, що в чорновику мигцем звалася `riskOf`):
 
 :::tabs
-```ts
-// одна формула небезпеки — єдине місце, де живе це знання
-export function dangerLevel(zone: string, now = Date.now()): number {
-  const base = ZONE_RISK[zone] ?? 0;
-  return isNight(now) ? base + 1 : base;         // ← правило ночі тепер в ОДНОМУ місці
-}
-
-// три користувачі кличуть ту саму формулу:
-// notifyMotion:
-text += ` — небезпека ${dangerLevel(ev.zone)}`;
-// notifyOffline:
-const channels = dangerLevel(ev.zone) >= 2 ? ["sms", "push"] : ["push"];
-// armZone:
-if (dangerLevel(zone) >= 2) requireSecondConfirm(zone);
-```
-```py
-# одна формула небезпеки — єдине місце, де живе це знання
-def danger_level(zone: str, now: float | None = None) -> int:
-    base = ZONE_RISK.get(zone, 0)
-    return base + 1 if is_night(now) else base    # ← правило ночі тепер в ОДНОМУ місці
-
-# три користувачі кличуть ту саму формулу:
-# notify_motion:
-text += f" — небезпека {danger_level(ev.zone)}"
-# notify_offline:
-channels = ["sms", "push"] if danger_level(ev.zone) >= 2 else ["push"]
-# arm_zone:
-if danger_level(zone) >= 2:
-    require_second_confirm(zone)
-```
+:::code proj-dry-wrong-abstraction/ts/spravzhnia-vis-formula.ts
+:::code proj-dry-wrong-abstraction/py/spravzhnia-vis-formula.py
 :::
 
 Тепер правило ночі — а завтра свята, а післязавтра «зона на ремонті» — лягає в **одне** місце, і всі троє бачать його разом. Знання перестало розходитися, бо перестало бути продубльованим. Це та сама операція «винести спільне», що на початку дала хибний `notify`, — але цього разу спільне *справжнє*: не збіг форми, а одна сила, яку три різні дії чесно поділяють.
@@ -261,37 +156,8 @@ if danger_level(zone) >= 2:
 Порахуймо перевагу тестами. Раніше офлайн доводилося перевіряти крізь `kind`-тунель, а спільна поведінка сиділа в розвилках. Тепер кожна функція тестується прямо, а вся спільна логіка небезпеки закривається **одним** чистим тестом формули — на всіх трьох користувачів одразу:
 
 :::tabs
-```ts
-test("офлайн у безпечній зоні — один тихий пуш", () => {
-  const bus = spyBus();
-  notifyOffline({ device: "Камера-1", zone: "двір", at: T });
-  expect(bus.push).toHaveBeenCalledTimes(1);
-  expect(bus.sms).not.toHaveBeenCalled();
-});
-
-// уся спільна логіка — в одному чистому тесті формули, без каналів і подій:
-test.each([["двір", 0], ["спальня", 2], ["сейф-кімната", 3]])(
-  "dangerLevel(%s) удень = %i", (zone, lvl) =>
-    expect(dangerLevel(zone as string, NOON)).toBe(lvl),
-);
-test("вночі формула піднімає на щабель", () =>
-  expect(dangerLevel("спальня", MIDNIGHT)).toBe(3));
-```
-```py
-def test_offline_safe_zone_one_push():
-    bus = spy_bus()
-    notify_offline(OfflineEvent(device="Камера-1", zone="двір", at=T))
-    assert bus.push == 1
-    assert bus.sms == 0
-
-# уся спільна логіка — в одному чистому тесті формули, без каналів і подій:
-@pytest.mark.parametrize("zone, lvl", [("двір", 0), ("спальня", 2), ("сейф-кімната", 3)])
-def test_danger_level_day(zone, lvl):
-    assert danger_level(zone, NOON) == lvl
-
-def test_danger_level_night_bumps():
-    assert danger_level("спальня", MIDNIGHT) == 3
-```
+:::code proj-dry-wrong-abstraction/ts/spravzhnia-vis-formula-2.ts
+:::code proj-dry-wrong-abstraction/py/spravzhnia-vis-formula-2.py
 :::
 
 Різниця не косметична. Тест офлайну більше не знає про тривогу й не залежить від неї; тест формули — чиста функція без каналів, подій і моків, і саме він тепер стереже правило ночі за всіх трьох. Зміниш формулу — впаде **один** тест, і ти точно знаєш, що це та зміна. Ось як виглядає абстракція, винесена по силі: вона *звужує* поверхню зламу, а не розширює її, як хибна.

@@ -43,7 +43,14 @@
           "detailed": {
             "status": "deeper",
             "level": 4
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-cognitive-load-audit.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "org-as-architecture",
@@ -54,7 +61,14 @@
           "detailed": {
             "status": "deeper",
             "level": 5
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-sociotechnical-audit.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-conway-map",
@@ -65,7 +79,14 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-conway-governance.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-team-topology-choice",
@@ -76,7 +97,21 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "api": [
+            {
+              "file": "api-internal-platform-contract.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-org-adr.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -92,8 +127,16 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
-          }
+            "level": 3,
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-ownership-automation.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-release/code-ownership-models",
@@ -148,7 +191,14 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-platform-roi-calculator.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-apps/developer-experience",
@@ -223,7 +273,14 @@
           "detailed": {
             "status": "deeper",
             "level": 4
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-dh-simplification.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-apps/second-system-effect",
@@ -237,7 +294,14 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-cost-guardrail-pipeline.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "economics-decision-recap",
@@ -247,8 +311,16 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
-          }
+            "level": 3,
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-cost-fitness-gate.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-cost-decisions",
@@ -258,8 +330,16 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
-          }
+            "level": 3,
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-cost-fitness-function.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -292,7 +372,8 @@
           "proj": [
             {
               "file": "proj-tenant-rls-routing.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -317,19 +398,23 @@
           "hist": [
             {
               "file": "hist-double-entry-lineage.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-ledger-hash-chain.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-double-entry-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -391,7 +476,14 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-cloud-vs-metal-tco.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -411,8 +503,16 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
-          }
+            "level": 3,
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-tco-decision-matrix.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sys-notary/open-source-licenses",
@@ -473,8 +573,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
-          }
+            "status": "recheck",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-evacuation-pipeline.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sys-notary/data-gravity",
@@ -611,8 +719,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-debt-register.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "debt-register",

@@ -65,65 +65,8 @@
 Ось маршрутизатор читань у цьому вигляді:
 
 :::tabs
-```py
-import time
-
-LAG_WINDOW = 3.0   # с: консервативна стеля очікуваного лагу реплік
-
-class ReadRouter:
-    def __init__(self, leader, followers):
-        self.leader = leader
-        self.followers = followers
-        self.last_write = {}                 # home_id → монотонний час останнього запису сесії
-
-    def note_write(self, home_id: str) -> None:
-        # застосунок щойно записав у твін цього дому на лідері
-        self.last_write[home_id] = time.monotonic()
-
-    def route(self, home_id: str, kind: str):
-        # kind: "lock" | "device_state" | "registry" | "telemetry"
-        if kind == "lock":
-            return self.leader               # безпека: стан замка завжди з лідера
-        if kind == "device_state":
-            wrote = self.last_write.get(home_id, -1e9)
-            if time.monotonic() - wrote < LAG_WINDOW:
-                return self.leader           # read-your-writes: свій свіжий запис — з лідера
-            return self._follower(home_id)   # давній/чужий стан — лаг стерпний
-        return self._follower(home_id)       # реєстр, телеметрія, історія — лаг нікого не ранить
-
-    def _follower(self, home_id: str):
-        # монотонні читання: та сама сесія завжди на ТУ САМУ репліку, щоб час не йшов назад
-        return self.followers[hash(home_id) % len(self.followers)]
-```
-```ts
-const LAG_WINDOW_MS = 3000;   // консервативна стеля очікуваного лагу реплік
-
-type ReadKind = "lock" | "device_state" | "registry" | "telemetry";
-
-class ReadRouter {
-  private lastWrite = new Map<string, number>();      // home_id → час останнього запису сесії
-  constructor(private leader: Node, private followers: Node[]) {}
-
-  noteWrite(homeId: string): void {                   // застосунок щойно записав у твін на лідері
-    this.lastWrite.set(homeId, performance.now());
-  }
-
-  route(homeId: string, kind: ReadKind): Node {
-    if (kind === "lock") return this.leader;          // безпека: стан замка завжди з лідера
-    if (kind === "device_state") {
-      const wrote = this.lastWrite.get(homeId) ?? -Infinity;
-      if (performance.now() - wrote < LAG_WINDOW_MS)
-        return this.leader;                            // read-your-writes: свій свіжий запис
-      return this.pickFollower(homeId);                // давній/чужий стан — лаг стерпний
-    }
-    return this.pickFollower(homeId);                  // реєстр, телеметрія — лаг ок
-  }
-
-  private pickFollower(homeId: string): Node {         // монотонні читання: сесія → та сама репліка
-    return this.followers[hashString(homeId) % this.followers.length];
-  }
-}
-```
+:::code dh-replicas-d/py/main.py
+:::code dh-replicas-d/ts/index.ts
 :::
 
 Тут працюють два тонкі рішення, і обидва варто назвати. Перше — `note_write` разом із вікном: read-your-writes ми тримаємо адресно, лише для дому, у який щойно писали, і лише на секунди, а не жертвуємо всім потоком читань. Друге ховається в `_follower`: одну й ту саму сесію ми щоразу садимо на **ту саму** репліку (тому й `hash(home_id)`, а не «будь-який вільний фоловер»). Це друга сесійна гарантія — **монотонні читання**: без неї два послідовні читання могли б скакнути з догнанішого фоловера на відсталіший, і користувач побачив би, як стан **іде назад у часі** — щойно `off`, а тепер знову `on`. Прив'язавши сесію до однієї копії, ми забороняємо читанню задкувати. [Повний робочий маршрутизатор — з лідером і фоловерами, штучним лагом, відтвореним багом читання застарілої копії й виміром, скільки read-your-writes порушується без маршрутизації та як фоловери знімають навантаження з лідера](root:progarch/dh-replicas/proj-dh-replica-reads.md) — винесено в окремий розбір; тут досить кістяка, на якому видно все рішення.

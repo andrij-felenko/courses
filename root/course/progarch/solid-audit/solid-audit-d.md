@@ -37,45 +37,8 @@
 Візьмімо живий вузол із хаба Digital Homes. Дім озброєно; коли давач руху спрацьовує в охоронюваній зоні, власника треба сповістити. За півроку клас, що це робить, набув такого вигляду:
 
 :::tabs
-```ts
-class AlarmDispatcher {
-  handle(ev: SensorEvent) {
-    // 1) політика: чи це взагалі тривога?
-    if (ev.type !== "motion" || !this.armed) return;
-    if (ev.zone === "pet-safe") return;                 // зона, де бігає кіт
-
-    // 2) як це звучить для людини
-    const text = `Рух у зоні «${ev.zone}» о ${new Date().toLocaleTimeString()}`;
-
-    // 3) чим шлемо — Twilio SMS, прибитий цвяхом
-    const twilio = new TwilioClient(TWILIO_SID, TWILIO_TOKEN);
-    twilio.messages.create({ to: this.ownerPhone, body: text });
-
-    // 4) слід — теж прибитий цвяхом, прямо у файл
-    fs.appendFileSync("/var/log/alarms.log", text + "\n");
-  }
-}
-```
-```py
-class AlarmDispatcher:
-    def handle(self, ev: SensorEvent) -> None:
-        # 1) політика: чи це взагалі тривога?
-        if ev.type != "motion" or not self.armed:
-            return
-        if ev.zone == "pet-safe":                        # зона, де бігає кіт
-            return
-
-        # 2) як це звучить для людини
-        text = f"Рух у зоні «{ev.zone}» о {datetime.now():%H:%M:%S}"
-
-        # 3) чим шлемо — Twilio SMS, прибитий цвяхом
-        twilio = TwilioClient(TWILIO_SID, TWILIO_TOKEN)
-        twilio.messages.create(to=self.owner_phone, body=text)
-
-        # 4) слід — теж прибитий цвяхом, прямо у файл
-        with open("/var/log/alarms.log", "a") as f:
-            f.write(text + "\n")
-```
+:::code solid-audit-d/ts/audyt-navodymo-vsi-piat-na.ts
+:::code solid-audit-d/py/audyt-navodymo-vsi-piat-na.py
 :::
 
 Працює. І саме тому варте серйозного суду. Наведімо п'ять лінз — і дивімось, чи не показують вони пальцем в одне місце.
@@ -97,48 +60,8 @@ class AlarmDispatcher:
 А тепер найкраще. Оскільки злам один, **розв'язати його теж можна одним ходом** — тим самим, який ти щойно взяв: композицією. Витягни стабільне ядро (політику) окремо, а волатильні деталі **вкорени** через вузькі абстракції й **подавай ззовні** (те, що звуть впорскуванням залежності — залежність не створюють усередині, а вручають ззовні готовою):
 
 :::tabs
-```ts
-interface Notifier { send(msg: Message): Promise<void>; }   // вузька абстракція: рівно одна дія
-interface Clock    { now(): Date; }
-
-// Стабільне ядро — чиста політика, і нічого крім неї
-class AlarmPolicy {
-  constructor(private notify: Notifier, private clock: Clock) {}   // деталі подано ЗЗОВНІ
-  handle(ev: SensorEvent): void {
-    if (ev.type !== "motion" || !this.armed) return;
-    if (ev.zone === "pet-safe") return;
-    const t = this.clock.now().toLocaleTimeString();
-    this.notify.send({ to: "owner", body: `Рух у зоні «${ev.zone}» о ${t}` });
-  }
-}
-
-// Волатильні деталі — окремі адаптери. Twilio живе ТУТ, і лише тут.
-class SmsNotifier  implements Notifier { /* Twilio всередині */ async send(m){ /*…*/ } }
-class PushNotifier implements Notifier { /* канал застосунку */ async send(m){ /*…*/ } }
-```
-```py
-class Notifier(Protocol):
-    async def send(self, msg: Message) -> None: ...     # вузька абстракція: рівно одна дія
-
-class Clock(Protocol):
-    def now(self) -> datetime: ...
-
-# Стабільне ядро — чиста політика, і нічого крім неї
-class AlarmPolicy:
-    def __init__(self, notify: Notifier, clock: Clock):  # деталі подано ЗЗОВНІ
-        self.notify, self.clock = notify, clock
-    async def handle(self, ev: SensorEvent) -> None:
-        if ev.type != "motion" or not self.armed: return
-        if ev.zone == "pet-safe": return
-        t = self.clock.now().strftime("%H:%M:%S")
-        await self.notify.send(Message(to="owner", body=f"Рух у зоні «{ev.zone}» о {t}"))
-
-# Волатильні деталі — окремі адаптери. Twilio живе ТУТ, і лише тут.
-class SmsNotifier:   # implements Notifier — Twilio всередині
-    async def send(self, m): ...
-class PushNotifier:  # implements Notifier — канал застосунку
-    async def send(self, m): ...
-```
+:::code solid-audit-d/ts/odyn-khid-piat-zelenykh.ts
+:::code solid-audit-d/py/odyn-khid-piat-zelenykh.py
 :::
 
 Конкретні адаптери зшивають воєдино в одному місці — там, де застосунок збирають докупи (композиційний корінь). А тепер прогони ті самі п'ять лінз по новій структурі:

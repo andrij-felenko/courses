@@ -41,69 +41,8 @@ p  = частка сусідніх записів, що лягли на РІЗН
 Зберімо аркуш. Кожен набір даних — це три булеві факти; `decide` проганяє їх крізь ворота в тому самому порядку й повертає модель із ціною. Коду рівно стільки, щоб він був чесний:
 
 :::tabs
-```py
-from dataclasses import dataclass
-
-@dataclass
-class DataSet:
-    name: str
-    born_many_places: bool          # G1: той самий ключ народжується в кількох місцях одразу?
-    avail_partition_nonneg: bool    # G2: доступність запису під розривом — незаперечна?
-    natural_home: bool              # G3: чи є природний «дім» на запис?
-
-def decide(ds: DataSet) -> tuple[str, str]:
-    pressures = []
-    if ds.born_many_places:        pressures.append("гео/офлайн")
-    if ds.avail_partition_nonneg:  pressures.append("доступність-під-розривом")
-    if not pressures:                                  # жоден тиск не назвався
-        return "один лідер + читальні репліки", "пауза на failover"
-    if not ds.natural_home:                            # тиск є, природного дому нема
-        return "безлідерна (кворум W+R>N)", "конфлікти + тюнинг кворуму"
-    return "мультилідер (лідер на дім/регіон)", "конфлікти на спільних ключах"
-
-DH = [
-    #          назва               G1     G2     G3
-    DataSet("Твін дому",           False, False, True),
-    DataSet("Реєстр",              False, False, True),
-    DataSet("Телеметрія",          False, False, True),
-    DataSet("Крос-регіон (гіп.)",  False, False, True),
-]
-
-for ds in DH:
-    model, price = decide(ds)
-    print(f"{ds.name:<18} → {model}  ·  ціна: {price}")
-```
-```ts
-type DataSet = {
-  name: string;
-  bornManyPlaces: boolean;         // G1: той самий ключ народжується в кількох місцях одразу?
-  availPartitionNonneg: boolean;   // G2: доступність запису під розривом — незаперечна?
-  naturalHome: boolean;            // G3: чи є природний «дім» на запис?
-};
-
-function decide(ds: DataSet): { model: string; price: string } {
-  const pressures: string[] = [];
-  if (ds.bornManyPlaces)       pressures.push("гео/офлайн");
-  if (ds.availPartitionNonneg) pressures.push("доступність-під-розривом");
-  if (pressures.length === 0)                          // жоден тиск не назвався
-    return { model: "один лідер + читальні репліки", price: "пауза на failover" };
-  if (!ds.naturalHome)                                 // тиск є, природного дому нема
-    return { model: "безлідерна (кворум W+R>N)", price: "конфлікти + тюнинг кворуму" };
-  return { model: "мультилідер (лідер на дім/регіон)", price: "конфлікти на спільних ключах" };
-}
-
-const DH: DataSet[] = [
-  { name: "Твін дому",          bornManyPlaces: false, availPartitionNonneg: false, naturalHome: true },
-  { name: "Реєстр",             bornManyPlaces: false, availPartitionNonneg: false, naturalHome: true },
-  { name: "Телеметрія",         bornManyPlaces: false, availPartitionNonneg: false, naturalHome: true },
-  { name: "Крос-регіон (гіп.)", bornManyPlaces: false, availPartitionNonneg: false, naturalHome: true },
-];
-
-for (const ds of DH) {
-  const { model, price } = decide(ds);
-  console.log(`${ds.name.padEnd(18)} → ${model}  ·  ціна: ${price}`);
-}
-```
+:::code proj-replication-fit/py/arkush-chotyry-nabory.py
+:::code proj-replication-fit/ts/arkush-chotyry-nabory.ts
 :::
 
 Запускаємо — і аркуш друкує однакову відповідь на всі чотири рядки:
@@ -127,90 +66,8 @@ for (const ds of DH) {
 Аркуш сказав «один лідер». Тепер поставмо ціну на непослух — на те, щоб усе-таки впустити другого писаря в твін «заради доступності». Симулятор рахує двома шляхами: аналітичною формулою, яку ми вивели, і чесним Монте-Карло на одному домі, щоб формулі можна було вірити.
 
 :::tabs
-```py
-import math, random
-
-def expected_conflicts_per_hour(homes, w_per_home_hr, one_way_ms, p_cross):
-    lam   = w_per_home_hr / 3600.0        # записів/с в ОДИН ключ
-    delta = one_way_ms / 1000.0           # с — одностороння затримка реплікації
-    p_gap = 1.0 - math.exp(-lam * delta)  # P(сусідні записи ближче за Δ)
-    return homes * w_per_home_hr * p_cross * p_gap
-
-def simulate_one_home(w_per_hr, one_way_ms, p_cross, hours, seed=1):
-    """Чесне Монте-Карло: пуассонів потік записів, писар обирається так,
-    щоб сусідні відрізнялися з імовірністю p_cross; рахуємо близнюків."""
-    rng = random.Random(seed)
-    lam, delta, end = w_per_hr / 3600.0, one_way_ms / 1000.0, hours * 3600.0
-    t, prev_t, prev_ldr, conflicts = 0.0, None, None, 0
-    while True:
-        t += rng.expovariate(lam)                       # експоненційний проміжок
-        if t > end:
-            break
-        if prev_ldr is None:
-            ldr = rng.randint(0, 1)
-        else:
-            ldr = (1 - prev_ldr) if rng.random() < p_cross else prev_ldr
-        if prev_t is not None and ldr != prev_ldr and (t - prev_t) < delta:
-            conflicts += 1                              # різні писарі + в межах Δ → близнюк
-        prev_t, prev_ldr = t, ldr
-    return conflicts
-
-HOMES, W = 500_000, 120     # пів мільйона домів; активний дім пише у твін раз на 30 с
-
-print("один лідер (серіалізує):     ", 0)
-print("мультилідер, дім-пін (p=0):  ", round(expected_conflicts_per_hour(HOMES, W, 80, 0.0)))
-for dms in (20, 80, 150):
-    print(f"наївний active-active Δ={dms:>3}мс:", round(expected_conflicts_per_hour(HOMES, W, dms, 0.5)))
-
-# звірка формули з Монте-Карло на одному домі
-mc = simulate_one_home(W, 80, 0.5, 200_000) / 200_000
-an = expected_conflicts_per_hour(1, W, 80, 0.5)
-print(f"звірка  MC={mc:.5f}  аналітика={an:.5f}  конфл/дім·год")
-```
-```ts
-function expectedConflictsPerHour(homes: number, wPerHomeHr: number, oneWayMs: number, pCross: number): number {
-  const lam   = wPerHomeHr / 3600;          // записів/с в ОДИН ключ
-  const delta = oneWayMs / 1000;            // с — одностороння затримка реплікації
-  const pGap  = 1 - Math.exp(-lam * delta); // P(сусідні записи ближче за Δ)
-  return homes * wPerHomeHr * pCross * pGap;
-}
-
-// Детермінований ГПВЧ, щоб Монте-Карло відтворювалося (Math.random не сідиться).
-function mulberry32(seed: number): () => number {
-  return () => {
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function simulateOneHome(wPerHr: number, oneWayMs: number, pCross: number, hours: number, seed = 1): number {
-  const rng = mulberry32(seed);
-  const lam = wPerHr / 3600, delta = oneWayMs / 1000, end = hours * 3600;
-  let t = 0, prevT: number | null = null, prevLdr: number | null = null, conflicts = 0;
-  for (;;) {
-    t += -Math.log(rng()) / lam;                        // експоненційний проміжок
-    if (t > end) break;
-    const ldr = prevLdr === null
-      ? (rng() < 0.5 ? 0 : 1)
-      : (rng() < pCross ? 1 - prevLdr : prevLdr);
-    if (prevT !== null && ldr !== prevLdr && t - prevT < delta) conflicts++;
-    prevT = t; prevLdr = ldr;                            // різні писарі + в межах Δ → близнюк
-  }
-  return conflicts;
-}
-
-const HOMES = 500_000, W = 120;               // пів мільйона домів; активний дім — запис раз на 30 с
-console.log("один лідер (серіалізує):     ", 0);
-console.log("мультилідер, дім-пін (p=0):  ", Math.round(expectedConflictsPerHour(HOMES, W, 80, 0)));
-for (const dms of [20, 80, 150])
-  console.log(`наївний active-active Δ=${dms}мс:`, Math.round(expectedConflictsPerHour(HOMES, W, dms, 0.5)));
-
-const mc = simulateOneHome(W, 80, 0.5, 200_000) / 200_000;
-const an = expectedConflictsPerHour(1, W, 80, 0.5);
-console.log(`звірка  MC=${mc.toFixed(5)}  аналітика=${an.toFixed(5)}  конфл/дім·год`);
-```
+:::code proj-replication-fit/py/skilky-koshtuie-druhyi.py
+:::code proj-replication-fit/ts/skilky-koshtuie-druhyi.ts
 :::
 
 Ось що друкують числа:

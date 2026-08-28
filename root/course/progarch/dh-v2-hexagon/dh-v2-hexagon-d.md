@@ -39,65 +39,8 @@ v2 приносить рівно це. З'являється жива вимог
 Це видно одразу по тому, на що спирається `HubService`. Він приймає порти, а не конкретні класи — у конструкторі стоять інтерфейси, а не `RealDevice` чи `SQLite`:
 
 :::tabs
-```py
-from dataclasses import dataclass, replace
-
-@dataclass(frozen=True)
-class HomeSnapshot:                # DTO: плаский знімок для відповіді назовні
-    heating: bool
-    devices: list[Device]
-
-class HubService:
-    def __init__(self, sensor: Sensor, heater: Heater,
-                 devices: DeviceRepository, cfg: Config):
-        self._sensor, self._heater = sensor, heater      # драйвовані порти — інтерфейси
-        self._devices, self._cfg = devices, cfg
-        self._heating = False                            # стан живе тут, на краю ядра
-
-    # ── сценарій, який смикає автономний цикл ──
-    def tick(self) -> None:
-        reading = self._sensor.read()                    # Sensor: read
-        self._heating = decide(reading, self._cfg, self._heating)   # те саме чисте ядро
-        self._heater.on() if self._heating else self._heater.off()  # Heater: act
-
-    # ── сценарії, які смикає зовнішній запит (CLI, згодом HTTP) ──
-    def add_device(self, d: Device) -> None:
-        self._devices.save(d)                            # DeviceRepository
-
-    def state(self) -> HomeSnapshot:
-        return HomeSnapshot(self._heating, self._devices.all())
-
-    def set_threshold(self, celsius: float) -> None:
-        self._cfg = replace(self._cfg, threshold=celsius)
-```
-```ts
-interface HomeSnapshot {           // DTO: плаский знімок для відповіді назовні
-  heating: boolean;
-  devices: Device[];
-}
-
-class HubService {
-  private heating = false;         // стан живе тут, на краю ядра
-  constructor(
-    private sensor: Sensor,        // драйвовані порти — інтерфейси, не класи
-    private heater: Heater,
-    private devices: DeviceRepository,
-    private cfg: Config,
-  ) {}
-
-  // ── сценарій, який смикає автономний цикл ──
-  tick(): void {
-    const reading = this.sensor.read();                     // Sensor: read
-    this.heating = decide(reading, this.cfg, this.heating); // те саме чисте ядро
-    this.heating ? this.heater.on() : this.heater.off();    // Heater: act
-  }
-
-  // ── сценарії, які смикає зовнішній запит (CLI, згодом HTTP) ──
-  addDevice(d: Device): void { this.devices.save(d); }                    // DeviceRepository
-  state(): HomeSnapshot { return { heating: this.heating, devices: this.devices.all() }; }
-  setThreshold(celsius: number): void { this.cfg = { ...this.cfg, threshold: celsius }; }
-}
-```
+:::code dh-v2-hexagon-d/py/pravylo-zalezhnostei.py
+:::code dh-v2-hexagon-d/ts/pravylo-zalezhnostei.ts
 :::
 
 Гляньте, чого тут **немає**. Немає `import`-у драйвера, немає рядка SQL, немає слова «HTTP». `tick` смикає порт `Sensor`, віддає число чистому `decide` й натискає порт `Heater`; `state` збирає знімок із `DeviceRepository`; `add_device` кладе туди пристрій. Усе, що сервіс тримає в руках, — це **обіцянки портів**, а хто їх сповнить, він не знає й знати не хоче. Це [інверсія залежностей](root:sf-apps/dependency-inversion), піднята з рівня одного шва до правила всього застосунку: не логіка тягнеться до заліза, а залізо підганяється під контракт логіки.
@@ -111,34 +54,8 @@ class HubService {
 І тепер видно, чому другі двері обійшлися дешево. Обидва входи — тонкі адаптери, що **гукають той самий сервіс**, а логіки не тримають зовсім:
 
 :::tabs
-```py
-# Двоє дверей — двоє тонких адаптерів на ОДИН сервіс. Логіки в них нема.
-
-def run_loop(hub: HubService) -> None:          # двері 1: автономний цикл
-    while True:
-        hub.tick()                              # єдиний виклик — сценарій tick
-        sleep(30)
-
-def run_cli(hub: HubService, argv: list[str]) -> None:   # двері 2: команда в терміналі
-    match argv:
-        case ["state"]:            print(hub.state())
-        case ["set-threshold", c]: hub.set_threshold(float(c))
-        case ["add", kind, room]:  hub.add_device(Device(kind, room))
-```
-```ts
-// Двоє дверей — двоє тонких адаптерів на ОДИН сервіс. Логіки в них нема.
-
-function runLoop(hub: HubService): void {           // двері 1: автономний цикл
-  setInterval(() => hub.tick(), 30_000);            // єдиний виклик — сценарій tick
-}
-
-function runCli(hub: HubService, argv: string[]): void {   // двері 2: команда в терміналі
-  const [cmd, ...rest] = argv;
-  if (cmd === "state")              console.log(hub.state());
-  else if (cmd === "set-threshold") hub.setThreshold(Number(rest[0]));
-  else if (cmd === "add")           hub.addDevice({ kind: rest[0], room: rest[1] });
-}
-```
+:::code dh-v2-hexagon-d/py/pravylo-zalezhnostei-2.py
+:::code dh-v2-hexagon-d/ts/pravylo-zalezhnostei-2.ts
 :::
 
 Автономний цикл у вічному `while` кличе `hub.tick()`; CLI-обробник на команду `state` кличе `hub.state()`, на `set-threshold 22` — `hub.set_threshold(22)`. Жоден із них **не тримає логіки** — обидва лише перекладають свій вхід (тік таймера, рядок команди) на виклик сценарію. Тому додати завтра HTTP — це дописати **третій** такий самий тонкий адаптер, що на `GET /state` кличе те саме `hub.state()`; ядро й застосунок при цьому не зміняться ні на літеру.
@@ -148,34 +65,8 @@ function runCli(hub: HubService, argv: string[]): void {   // двері 2: ко
 Кільця розчеплені — але хтось же мусить звести абстрактні порти з конкретними адаптерами й запустити двері. Це робить **точка збірки** ([composition root](root:sf-apps/di-container)) — єдине місце на весь застосунок, що знає всі конкретні імена:
 
 :::tabs
-```py
-def build(env: str) -> HubService:          # ТОЧКА ЗБІРКИ — єдине місце з конкретними іменами
-    if env == "prod":
-        sensor, heater = OneWireThermometer(), SmartPlug()   # справжнє залізо
-        devices = InMemoryDeviceRepository()                 # SQLite стане сюди в модулі про сховище
-    else:
-        sensor, heater = FakeSensor(), FakeHeater()          # підробки для тесту
-        devices = InMemoryDeviceRepository()
-    return HubService(sensor, heater, devices, Config(threshold=20.0))
-
-if __name__ == "__main__":
-    hub = build(os.getenv("DH_ENV", "dev"))
-    Thread(target=run_loop, args=(hub,), daemon=True).start()  # двері 1 крутяться самі
-    run_cli(hub, sys.argv[1:])                                 # двері 2 — на команду
-```
-```ts
-function build(env: string): HubService {   // ТОЧКА ЗБІРКИ — єдине місце з конкретними іменами
-  const [sensor, heater] = env === "prod"
-    ? [new OneWireThermometer(), new SmartPlug()]   // справжнє залізо
-    : [new FakeSensor(), new FakeHeater()];         // підробки для тесту
-  const devices = new InMemoryDeviceRepository();   // SQLite стане сюди в модулі про сховище
-  return new HubService(sensor, heater, devices, { threshold: 20.0 });
-}
-
-const hub = build(process.env.DH_ENV ?? "dev");
-setInterval(() => hub.tick(), 30_000);       // двері 1 крутяться самі
-runCli(hub, process.argv.slice(2));          // двері 2 — на команду
-```
+:::code dh-v2-hexagon-d/py/tochka-zbirky-de-vse.py
+:::code dh-v2-hexagon-d/ts/tochka-zbirky-de-vse.ts
 :::
 
 Це той самий `build`, що [ми зібрали для порту пристрою](root:progarch/hexagon-when-overkill/proj-dh-device-port.md), тільки підрослий: тепер він додає ще й репозиторій і запускає **двоє** дверей замість одного циклу. У проді змінна оточення підставляє справжнє залізо, у тесті — підробки; решта коду різниці не бачить.

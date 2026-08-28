@@ -62,33 +62,8 @@ alert: command_errors > 1%
 **[Структурований лог](root:sf-release/structured-logging)** — подія з полями, а не рядок для людини. Питання: що саме сталося в оцьому конкретному запиті? Дрібнозернисто, з повним контекстом. Уся різниця між `log("команду надіслано")` і подією з полями `{device, tenant, outcome, latency_ms}` — у тому, що подію можна *питати* постфактум: «покажи всі невдалі команди орендаря X за останню годину». Це тест, який ти пишеш уже після інциденту — по даних, що система встигла лишити наперед.
 
 :::tabs
-```go
-// Погано: рядок, з якого в проді нічого не спитаєш.
-log.Printf("команду надіслано")
-
-// Добре: подія з полями — її можна фільтрувати й агрегувати постфактум.
-slog.Info("device.command",
-    "tenant",     tenantID,
-    "device",     deviceID,
-    "command",    cmd.Name,
-    "outcome",    outcome,               // "ok" | "timeout" | "rejected"
-    "latency_ms", elapsed.Milliseconds(),
-)
-```
-```ts
-// Погано: рядок, з якого в проді нічого не спитаєш.
-logger.info("команду надіслано");
-
-// Добре: подія з полями — її можна фільтрувати й агрегувати постфактум.
-logger.info({
-  event: "device.command",
-  tenant: tenantId,
-  device: deviceId,
-  command: cmd.name,
-  outcome,                              // "ok" | "timeout" | "rejected"
-  latencyMs: elapsed,
-});
-```
+:::code observability-as-testability-d/go/shcho-same-systema.go
+:::code observability-as-testability-d/ts/index.ts
 :::
 
 **[Метрика](root:sf-release/metrics-monitoring)** — число, згорнуте по всій популяції запитів у часі. Питання: як поводиться система в цілому? Дешево, але контекст окремого запиту метрика викидає. Практики стисло: чотири золоті сигнали Google SRE — затримка, трафік, помилки, насиченість; для сервісу зручна абетка RED (Тома Вілкі, 2015) — Rate (частота), Errors (помилки), Duration (тривалість); для ресурсу USE (Брендана Ґреґґа) — Utilization, Saturation, Errors. Одне тут варте наголосу: тривалість дивись не як середнє, а як [розподіл](root:math-probability/percentiles-quantiles), по p99. Середнє бреше — воно розмиває той рідкісний, але болючий повільний хвіст, який користувач якраз і відчуває.
@@ -101,28 +76,7 @@ logger.info({
 
 Візьмімо конкретний інваріант із розмови про контракти: рівень заряду пристрою DH — завжди 0..100. У юніт-тесті ти б написав `assert 0 <= level <= 100`. У проді світ не спиниш — але той самий інваріант можна перевірити й, якщо його порушено, проголосити сигналом, а не впасти на очах у користувача.
 
-```go
-// Той самий інваріант, що в юніт-тесті: рівень заряду завжди 0..100.
-// У тесті — assert. У проді світ не спиниш: перевіряємо й ПОДАЄМО СИГНАЛ, а не падаємо.
-var invariantBroken = prometheus.NewCounterVec(
-    prometheus.CounterOpts{Name: "invariant_violation_total"},
-    []string{"name"},
-)
-
-func clampBattery(level int, deviceID string) int {
-    if level < 0 || level > 100 {
-        // «Такого не буває» — а сталося. Порахуй і розкажи, не мовчи.
-        invariantBroken.WithLabelValues("battery_range").Inc()
-        slog.Error("invariant.broken",
-            "name", "battery_range", "device", deviceID, "got", level)
-        if level < 0 {
-            return 0
-        }
-        return 100
-    }
-    return level
-}
-```
+:::code observability-as-testability-d/go/invariant-shcho-pratsiuie.go
 
 Цей лічильник — assertion, що виконується на *кожному* справжньому запиті. Коли він клацає, ти впіймав ваду, якої не уявив жоден тест, — бо вона трапляється лише на живих даних. Форма тут показана мовою Go з клієнтом Prometheus, але суть однакова в будь-якому стеку: перевір інваріант на гарячому шляху й перетвори порушення на видиме число.
 

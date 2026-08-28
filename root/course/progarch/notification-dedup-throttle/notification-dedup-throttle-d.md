@@ -74,48 +74,8 @@
 *Відро жетонів: повне відро дозволяє короткий сплеск, а стала швидкість доливання тримає усталений темп. Порожнє відро — не привід відкинути, а привід притримати чи злити.*
 
 :::tabs
-```ts
-class TokenBucket {
-  private tokens: number;
-  private last: number;                        // мітка МОНОТОННОГО годинника, мс
-  constructor(private capacity: number,        // b — скільки можна поспіль
-              private refillPerSec: number,     // r — усталений темп
-              now: number) {
-    this.tokens = capacity;
-    this.last = now;
-  }
-  // true й списує жетон, якщо він є; false — відро порожнє.
-  allow(now: number): boolean {
-    const gained = ((now - this.last) / 1000) * this.refillPerSec;
-    this.tokens = Math.min(this.capacity, this.tokens + gained);
-    this.last = now;
-    if (this.tokens >= 1) { this.tokens -= 1; return true; }
-    return false;                              // порожньо → притримати / злити / відкинути
-  }
-}
-```
-```go
-type TokenBucket struct {
-	tokens   float64
-	capacity float64 // b — скільки можна поспіль
-	refill   float64 // r — жетонів на секунду
-	last     time.Time
-}
-
-// Allow списує жетон і повертає true, якщо він є.
-func (b *TokenBucket) Allow(now time.Time) bool {
-	b.tokens += now.Sub(b.last).Seconds() * b.refill
-	if b.tokens > b.capacity {
-		b.tokens = b.capacity
-	}
-	b.last = now
-	if b.tokens >= 1 {
-		b.tokens--
-		return true
-	}
-	return false // порожньо → притримати / злити / відкинути
-}
-```
+:::code notification-dedup-throttle-d/ts/index.ts
+:::code notification-dedup-throttle-d/go/main.go
 :::
 
 Зверни увагу: годинник передаємо ззовні, і це має бути **монотонний** годинник, не настінний. Стеля темпу міряє *тривалість* між подіями; якщо взяти wall-clock, стрибок NTP чи перехід на літній час зробить відро то нескінченно щедрим, то замкненим — та сама пастка, [що й скрізь із часом і тривалостями](root:sf-apps/monotonic-vs-wall-time). Це відро — двоюрідний брат [загального обмеження швидкості](root:sf-security/rate-limiting), тільки націлений на терпимість людини, а не на захист API; його рідший родич, **leaky bucket**, випускає рівно по краплі з постійним темпом, згладжуючи навіть сплеск, — коли важливий не пік, а рівний потік.

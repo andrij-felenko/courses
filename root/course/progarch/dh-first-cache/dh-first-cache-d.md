@@ -57,73 +57,8 @@ EXPLAIN: індекс використано, план чистий
 Патерн — [cache-aside](root:sf-data/caching-strategies), той самий дефолт, що й у рамці: застосунок сам питає кеш, на промаху йде до джерела й кладе копію назад; на запису — скидає її. Ось перший кеш DH цілком:
 
 :::tabs
-```ts
-// In-process TTL-кеш — найпростіше, що працює для ОДНОГО процесу
-class TtlCache<V> {
-  private store = new Map<string, { value: V; expires: number }>();
-  constructor(private ttlMs: number) {}
-  get(key: string): V | undefined {
-    const e = this.store.get(key);
-    if (!e || Date.now() > e.expires) { this.store.delete(key); return undefined; }
-    return e.value;
-  }
-  set(key: string, value: V) { this.store.set(key, { value, expires: Date.now() + this.ttlMs }); }
-  invalidate(key: string) { this.store.delete(key); }
-}
-
-const registry = new TtlCache<HomeRegistry>(5 * 60_000);  // TTL 5 хв — бюджет несвіжості реєстру
-
-// ЧИТАННЯ реєстру — cache-aside
-async function getRegistry(homeId: string): Promise<HomeRegistry> {
-  const hit = registry.get(homeId);
-  if (hit) return hit;                              // влучили — жодного дотику до бази
-  const fresh = await repo.loadRegistry(homeId);   // промах → джерело (переживаємо порожній кеш)
-  registry.set(homeId, fresh);
-  return fresh;
-}
-
-// ЗАПИС — скид копії, щоб зміна проступила негайно, а не за TTL
-async function renameDevice(homeId: string, deviceId: string, name: string): Promise<void> {
-  await repo.renameDevice(homeId, deviceId, name);  // джерело правди — база
-  registry.invalidate(homeId);                       // наступне читання перечитає свіже
-}
-
-// ЖИВИЙ СТАН — повз кеш: on/off мусить бути свіжим (ворота 3)
-const getLiveState = (deviceId: string) => repo.loadState(deviceId);
-```
-```py
-import time
-
-class TtlCache:
-    def __init__(self, ttl_s: float):
-        self._ttl, self._store = ttl_s, {}
-    def get(self, key: str):
-        e = self._store.get(key)
-        if not e or time.monotonic() > e[1]:        # монотонний час: TTL не зіб'є стрибок годинника
-            self._store.pop(key, None); return None
-        return e[0]
-    def set(self, key: str, value) -> None:
-        self._store[key] = (value, time.monotonic() + self._ttl)
-    def invalidate(self, key: str) -> None:
-        self._store.pop(key, None)
-
-registry = TtlCache(ttl_s=5 * 60)                   # TTL 5 хв — бюджет несвіжості реєстру
-
-async def get_registry(home_id: str) -> HomeRegistry:
-    hit = registry.get(home_id)
-    if hit is not None:
-        return hit                                   # влучили — жодного дотику до бази
-    fresh = await repo.load_registry(home_id)        # промах → джерело (переживаємо порожній кеш)
-    registry.set(home_id, fresh)
-    return fresh
-
-async def rename_device(home_id: str, device_id: str, name: str) -> None:
-    await repo.rename_device(home_id, device_id, name)  # джерело правди — база
-    registry.invalidate(home_id)                        # наступне читання перечитає свіже
-
-async def get_live_state(device_id: str):               # повз кеш: on/off мусить бути свіжим
-    return await repo.load_state(device_id)
-```
+:::code dh-first-cache-d/ts/index.ts
+:::code dh-first-cache-d/py/main.py
 :::
 
 Два регулятори тут видно наочно. `set` зі строком задає **бекап-строк** несвіжості: навіть якщо про зміну ми не дізналися інакше, копія сама протухне за п'ять хвилин. А `invalidate` на запису — **точний** скид: коли власник перейменував пристрій **через DH**, наступне читання побачить свіже негайно, не чекаючи TTL. TTL і скид-на-запис працюють у парі: скид ловить зміни, що йдуть нашим шляхом запису, а TTL страхує від решти.

@@ -40,57 +40,8 @@
 Спершу — сам запис як тип. Полів десять, але вся сила запису в двох, що роблять борг **керованим машиною**: `id`, яким запис зчеплено з маркером у коді, і `trigger`, яким строк стає обчислюваним. Ще два гейт теж читає — `state` (борг відкритий чи вже погашений) і `owner` (чи є кого підняти); а решта шість описують борг для людини на рев'ю та для того, хто його колись гаситиме.
 
 :::tabs
-```ts
-// debt-gate.ts — журнал боргу як дані, що звіряються з кодом і метриками.
-// Запуск у CI:  npx tsx debt-gate.ts   (ненульовий код виходу = білд червоний)
-
-type State = "open" | "closed";
-type Op = ">" | ">=" | "<" | "<=";
-
-interface Clause { metric: string; op: Op; threshold: number; }  // машинний строк
-
-interface Debt {
-  id: string;          // ← ЗШИВАЧ: та сама мітка в коді (// DEBT(id)) і тут
-  body: string;        // тіло боргу — що саме тимчасове
-  why: string;         // чому взяли (дедлайн проти чесного рішення)
-  seam: string;        // за яким швом замкнено (де його весь видно)
-  interest: string;    // сигнал відсотка — куди дивитись, щоб побачити, як капає
-  trigger: Clause[];   // ← СТРОК: будь-яка клауза істинна → час гасити
-  repay: string;       // план погашення — чим заміняємо
-  test: string;        // страховка — тест, що робить заміну безпечною
-  owner: string;       // жива людина/команда; "" = діра
-  state: State;
-}
-```
-```py
-# debt_gate.py — журнал боргу як дані, що звіряються з кодом і метриками.
-# Запуск у CI:  python debt_gate.py   (ненульовий код виходу = білд червоний)
-
-from dataclasses import dataclass
-import re, sys
-from pathlib import Path
-
-
-@dataclass(frozen=True)
-class Clause:            # машинний строк
-    metric: str
-    op: str             # ">" | ">=" | "<" | "<="
-    threshold: float
-
-
-@dataclass
-class Debt:
-    id: str             # ← ЗШИВАЧ: та сама мітка в коді (# DEBT(id)) і тут
-    body: str           # тіло боргу — що саме тимчасове
-    why: str            # чому взяли (дедлайн проти чесного рішення)
-    seam: str           # за яким швом замкнено (де його весь видно)
-    interest: str       # сигнал відсотка — куди дивитись, щоб побачити, як капає
-    trigger: list       # ← СТРОК: list[Clause]; будь-яка істинна → час гасити
-    repay: str          # план погашення — чим заміняємо
-    test: str           # страховка — тест, що робить заміну безпечною
-    owner: str          # жива людина/команда; "" = діра
-    state: str          # "open" | "closed"
-```
+:::code proj-debt-register/ts/debt-gate.ts
+:::code proj-debt-register/py/debt_gate.py
 :::
 
 Поле `id` — це той самий шов, тільки перенесений у дані: воно й тільки воно зв'язує коментар у коді з рядком у журналі. Поле `trigger` — машинний строк: не «коли стане повільно», а `panel_p95_ms > 800`, умова, яку можна **обчислити**. Поле `seam` називає [шов](root:progarch/seams-and-boundaries) — вузьке місце, за яким реалізацію підміняють, не чіпаючи тих, хто нею користується; воно каже рев'ю, де борг увесь видно. Поле `test` — [характеризаційний тест](root:progarch/characterization-tests), що пришпилює поведінку класу «як є», щоб заміну потім звірити число-в-число. Ці два останні гейт не читає — вони для людини, — але без них «обмежено» й «погашуваний» лишаються словами, тож у записі вони обов'язкові.
@@ -100,73 +51,8 @@ class Debt:
 Тепер дані. Це запис DH-014 із журналу плюс три інші — і всі три навмисне «підпсуто», щоб побачити, як гейт кусає. Живе це поряд із кодом, там само, де [журнал архітектурних рішень](root:sf-apps/architecture-decision-records): коротка нотатка «що вирішили й чому», яку читає той, хто прийде після.
 
 :::tabs
-```ts
-const JOURNAL: Debt[] = [
-  { id: "DH-014",
-    body: "kwhForDay сканує всю сиру телеметрію оселі на кожен запит",
-    why: "панель — платна фіча з дедлайном; rollup — 2 тижні, наївно — 2 дні",
-    seam: "EnergyRollup", interest: "час відповіді росте лінійно з пристроями оселі",
-    trigger: [{ metric: "panel_p95_ms", op: ">", threshold: 800 },
-              { metric: "max_devices_per_home", op: ">", threshold: 5000 }],
-    repay: "BucketedRollup на композиційному корені",
-    test: "характеризаційний тест пінить числа NaiveRollup",
-    owner: "команда Telemetry", state: "open" },
-
-  { id: "DH-031",
-    body: "нічний експорт CSV збирає весь місяць у пам'ять",
-    why: "перший корпоративний клієнт просив «вже»; стрімінг — потім",
-    seam: "MonthlyExport", interest: "пік пам'яті росте з розміром оселі",
-    trigger: [{ metric: "export_lag_s", op: ">", threshold: 120 }],  // ← метрики ще нема у знімку
-    repay: "потоковий експорт партіями", test: "золотий CSV на еталонній оселі",
-    owner: "команда Data", state: "open" },
-
-  { id: "DH-019",
-    body: "правила автоматизації тримаються в одному JSON-полі",
-    why: "форму правил ще шукали — не хотіли фіксувати схему рано",
-    seam: "RuleStore", interest: "кожен новий тип правила чіпає парсинг усього поля",
-    trigger: [{ metric: "rule_types", op: ">", threshold: 6 }],
-    repay: "нормалізована таблиця правил", test: "снапшот чинних правил",
-    owner: "", state: "open" },   // ← власника не призначили, і маркера в коді вже нема
-
-  { id: "DH-007",
-    body: "перша версія парсера телеметрії на регулярках",
-    why: "треба було завести хоч якісь дані з першого хабу",
-    seam: "TelemetryParser", interest: "—",
-    trigger: [], repay: "бінарний декодер за схемою (зроблено)",
-    test: "корпус реальних кадрів", owner: "Данило", state: "closed" }, // ← погашено, та маркер завис
-];
-```
-```py
-JOURNAL = [
-    Debt("DH-014", "kwhForDay сканує всю сиру телеметрію оселі на кожен запит",
-         "панель — платна фіча з дедлайном; rollup — 2 тижні, наївно — 2 дні",
-         "EnergyRollup", "час відповіді росте лінійно з пристроями оселі",
-         [Clause("panel_p95_ms", ">", 800), Clause("max_devices_per_home", ">", 5000)],
-         "BucketedRollup на композиційному корені",
-         "характеризаційний тест пінить числа NaiveRollup",
-         "команда Telemetry", "open"),
-
-    Debt("DH-031", "нічний експорт CSV збирає весь місяць у пам'ять",
-         "перший корпоративний клієнт просив «вже»; стрімінг — потім",
-         "MonthlyExport", "пік пам'яті росте з розміром оселі",
-         [Clause("export_lag_s", ">", 120)],          # ← метрики ще нема у знімку
-         "потоковий експорт партіями", "золотий CSV на еталонній оселі",
-         "команда Data", "open"),
-
-    Debt("DH-019", "правила автоматизації тримаються в одному JSON-полі",
-         "форму правил ще шукали — не хотіли фіксувати схему рано",
-         "RuleStore", "кожен новий тип правила чіпає парсинг усього поля",
-         [Clause("rule_types", ">", 6)],
-         "нормалізована таблиця правил", "снапшот чинних правил",
-         "", "open"),                                  # ← без власника, і маркера в коді вже нема
-
-    Debt("DH-007", "перша версія парсера телеметрії на регулярках",
-         "треба було завести хоч якісь дані з першого хабу",
-         "TelemetryParser", "—", [],
-         "бінарний декодер за схемою (зроблено)", "корпус реальних кадрів",
-         "Данило", "closed"),                          # ← погашено, та маркер завис
-]
-```
+:::code proj-debt-register/ts/zhurnal.ts
+:::code proj-debt-register/py/zhurnal.py
 :::
 
 DH-031 несе тригер на метрику `export_lag_s`, якої в моніторингу ще нема; DH-019 — відкритий, але без власника й без маркера в коді; DH-007 погашено (`closed`), проте маркер у коді хтось забув прибрати. Це три пастки, розкладені по кутах, — зараз гейт кожну підсвітить.
@@ -176,46 +62,8 @@ DH-031 несе тригер на метрику `export_lag_s`, якої в м�
 Другий бік шва — самі маркери. `scanMarkers` обходить дерево вихідників і збирає кожен `DEBT(id)` з файлом і рядком. Регулярка чіпляється **саме за синтаксис мітки** `DEBT(DH-\d+)`, а не за слово «борг» у прозі коментаря, — інакше перевірка спотикалася б об кожну згадку й скоро втратила б довіру.
 
 :::tabs
-```ts
-import { readdirSync, readFileSync } from "node:fs";
-import { join, relative } from "node:path";
-
-const MARKER = /DEBT\((DH-\d+)\)/g;             // // DEBT(DH-014) — саме мітка, не слово
-interface Marker { id: string; at: string; }
-
-function walk(dir: string): string[] {
-  return readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
-    const p = join(dir, e.name);
-    return e.isDirectory() ? walk(p) : [p];
-  });
-}
-
-function scanMarkers(root: string): Marker[] {
-  const out: Marker[] = [];
-  for (const file of walk(root)) {
-    if (!/\.(ts|js|sql)$/.test(file)) continue;
-    readFileSync(file, "utf8").split("\n").forEach((ln, i) => {
-      for (const m of ln.matchAll(MARKER))
-        out.push({ id: m[1], at: `${relative(root, file).replaceAll("\\", "/")}:${i + 1}` });
-    });
-  }
-  return out;
-}
-```
-```py
-MARKER = re.compile(r"DEBT\((DH-\d+)\)")          # # DEBT(DH-014) — саме мітка, не слово
-
-
-def scan_markers(root: Path):
-    out = []
-    for f in root.rglob("*"):
-        if f.suffix not in (".py", ".sql"):
-            continue
-        for i, ln in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
-            for m in MARKER.finditer(ln):
-                out.append((m.group(1), f"{f.relative_to(root).as_posix()}:{i}"))
-    return out
-```
+:::code proj-debt-register/ts/skan-kodu-na-markery.ts
+:::code proj-debt-register/py/skan-kodu-na-markery.py
 :::
 
 ### Дві перевірки
@@ -223,85 +71,8 @@ def scan_markers(root: Path):
 І серце інструмента — дві функції над даними. `checkSync` звіряє маркери з журналом у обидва боки; `checkOverdue` обчислює тригери проти знімка метрик. Обидві **чисті**: беруть дані, повертають список порушень — тому їх легко тестувати й легко читати.
 
 :::tabs
-```ts
-interface Violation { id: string; detail: string; }
-
-function checkSync(markers: Marker[], journal: Debt[]): Violation[] {
-  const out: Violation[] = [];
-  const byId = new Map(journal.map((d) => [d.id, d]));
-  const marked = new Set(markers.map((m) => m.id));
-
-  for (const m of markers) {                         // напрям 1: маркер → запис
-    const d = byId.get(m.id);
-    if (!d) out.push({ id: m.id, detail: `маркер у ${m.at} без запису в журналі` });
-    else if (d.state === "closed")
-      out.push({ id: m.id, detail: `маркер у ${m.at} на ЗАКРИТОМУ записі — прибрати з коду` });
-  }
-  for (const d of journal) {                         // напрям 2: відкритий запис → маркер
-    if (d.state !== "open") continue;
-    if (!marked.has(d.id)) out.push({ id: d.id, detail: "відкритий запис без жодного маркера в коді" });
-    if (!d.owner.trim())   out.push({ id: d.id, detail: "відкритий борг без власника" });
-  }
-  return out;
-}
-
-const CMP: Record<Op, (a: number, b: number) => boolean> = {
-  ">": (a, b) => a > b, ">=": (a, b) => a >= b, "<": (a, b) => a < b, "<=": (a, b) => a <= b,
-};
-
-function checkOverdue(journal: Debt[], metrics: Record<string, number>): Violation[] {
-  const out: Violation[] = [];
-  for (const d of journal) {
-    if (d.state !== "open") continue;
-    for (const c of d.trigger) {
-      const v = metrics[c.metric];
-      if (v === undefined)                            // метрики нема у знімку → перевірити НЕ можемо
-        out.push({ id: d.id, detail: `тригер зважає на метрику "${c.metric}", якої нема у знімку — перевірити нема як` });
-      else if (CMP[c.op](v, c.threshold))             // тригер став правдою, а борг відкритий → прострочено
-        out.push({ id: d.id, detail: `ПРОСТРОЧЕНО: ${c.metric}=${v} ${c.op} ${c.threshold} — гасити (власник: ${d.owner || "—"})` });
-    }
-  }
-  return out;
-}
-```
-```py
-CMP = {">": lambda a, b: a > b, ">=": lambda a, b: a >= b,
-       "<": lambda a, b: a < b, "<=": lambda a, b: a <= b}
-
-
-def check_sync(markers, journal):
-    out = []
-    by_id = {d.id: d for d in journal}
-    marked = {mid for mid, _ in markers}
-
-    for mid, at in markers:                          # напрям 1: маркер → запис
-        d = by_id.get(mid)
-        if d is None:
-            out.append((mid, f"маркер у {at} без запису в журналі"))
-        elif d.state == "closed":
-            out.append((mid, f"маркер у {at} на ЗАКРИТОМУ записі — прибрати з коду"))
-    for d in journal:                                # напрям 2: відкритий запис → маркер
-        if d.state != "open":
-            continue
-        if d.id not in marked:
-            out.append((d.id, "відкритий запис без жодного маркера в коді"))
-        if not d.owner.strip():
-            out.append((d.id, "відкритий борг без власника"))
-    return out
-
-
-def check_overdue(journal, metrics):
-    out = []
-    for d in journal:
-        if d.state != "open":
-            continue
-        for c in d.trigger:
-            if c.metric not in metrics:              # метрики нема у знімку → перевірити НЕ можемо
-                out.append((d.id, f'тригер зважає на метрику "{c.metric}", якої нема у знімку — перевірити нема як'))
-            elif CMP[c.op](metrics[c.metric], c.threshold):  # тригер став правдою, борг відкритий → прострочено
-                out.append((d.id, f"ПРОСТРОЧЕНО: {c.metric}={metrics[c.metric]} {c.op} {c.threshold} — гасити (власник: {d.owner or '—'})"))
-    return out
-```
+:::code proj-debt-register/ts/dvi-perevirky.ts
+:::code proj-debt-register/py/dvi-perevirky.py
 :::
 
 Три деталі варті окремого слова. Перша — `if (d.state !== "open") continue`: прострочення й вимогу власника застосовуємо лише до **відкритого** боргу, бо закритий за визначенням уже погашено, і чіпати його безглуздо. Друга — гілка `v === undefined` у `checkOverdue`: якщо тригер посилається на метрику, якої в знімку немає, ми **не** мовчки пропускаємо рядок, а видаємо порушення. «Не можу перевірити» — це не «все гаразд»: строк, який нема чим зміряти, гейт мусить оголосити зламаним уголос. Третя — власне гейт: обидві функції повертають списки, а `report` нижче складе їхню довжину в код виходу.
@@ -311,56 +82,8 @@ def check_overdue(journal, metrics):
 Лишилось зібрати докупи: обчислити обидві перевірки й вийти з кодом, який читає CI.
 
 :::tabs
-```ts
-function report(sync: Violation[], overdue: Violation[]): number {
-  const show = (title: string, vs: Violation[]) => {
-    console.log(`\n${title}`);
-    if (!vs.length) { console.log("  чисто"); return; }
-    for (const v of vs) console.log(`  ✗ ${v.id.padEnd(7)} ${v.detail}`);
-  };
-  show("СИНХРОНІЗАЦІЯ КОД ↔ ЖУРНАЛ", sync);
-  show("СТРОКИ (тригер проти знімка метрик)", overdue);
-  const n = sync.length + overdue.length;
-  console.log(n ? `\n${n} порушень → борг вийшов з-під контролю, CI падає`
-                : "\nборг під контролем — CI зелений");
-  return n ? 1 : 0;
-}
-
-// У CI:  const markers = scanMarkers("src");  const metrics = readSnapshot();
-// Тут — відтворюваний знімок того, що вони повернули б.
-const MARKERS: Marker[] = [
-  { id: "DH-014", at: "panel/energy.ts:42" }, { id: "DH-031", at: "export/report.ts:17" },
-  { id: "DH-022", at: "panel/energy.ts:31" }, { id: "DH-007", at: "panel/legacy.ts:88" },
-];
-const METRICS = { panel_p95_ms: 930, max_devices_per_home: 4200, rule_types: 4 };
-
-process.exit(report(checkSync(MARKERS, JOURNAL), checkOverdue(JOURNAL, METRICS)));
-```
-```py
-def report(sync, overdue) -> int:
-    def show(title, vs):
-        print(f"\n{title}")
-        if not vs:
-            print("  чисто"); return
-        for vid, detail in vs:
-            print(f"  ✗ {vid:<7} {detail}")
-    show("СИНХРОНІЗАЦІЯ КОД ↔ ЖУРНАЛ", sync)
-    show("СТРОКИ (тригер проти знімка метрик)", overdue)
-    n = len(sync) + len(overdue)
-    print(f"\n{n} порушень → борг вийшов з-під контролю, CI падає" if n
-          else "\nборг під контролем — CI зелений")
-    return 1 if n else 0
-
-
-# У CI:  markers = scan_markers(Path("src"));  metrics = read_snapshot()
-# Тут — відтворюваний знімок того, що вони повернули б.
-MARKERS = [("DH-014", "panel/energy.py:42"), ("DH-031", "export/report.py:17"),
-           ("DH-022", "panel/energy.py:31"), ("DH-007", "panel/legacy.py:88")]
-METRICS = {"panel_p95_ms": 930, "max_devices_per_home": 4200, "rule_types": 4}
-
-if __name__ == "__main__":
-    sys.exit(report(check_sync(MARKERS, JOURNAL), check_overdue(JOURNAL, METRICS)))
-```
+:::code proj-debt-register/ts/zvit-heit-i-shcho-drukuie.ts
+:::code proj-debt-register/py/zvit-heit-i-shcho-drukuie.py
 :::
 
 **Запуск на журналі й знімку вище.** Обидві версії дають той самий звіт — різняться лише розширення у шляхах (`.ts` проти `.py`), бо це знімок сканування коду відповідною мовою:

@@ -88,67 +88,8 @@ A = 0.999⁵ ≈ 0.9950               → 99.50 %
 А коли межа вже чиста, сам виніс майже механічний, бо межа — це **інтерфейс**, і розріз означає просто підмінити реалізацію за тим самим інтерфейсом: замість виклику сусіднього модуля в пам'яті — виклик сервіса мережею. Ось той самий шов «автоматизації читають стан у твіна» до і після розрізу:
 
 :::tabs
-```ts
-// Контракт шва — незмінний по обидва боки розрізу.
-interface DeviceStateReader {
-  read(deviceId: string): Promise<DeviceState>;
-}
-
-// ДО: твін — сусідній модуль в одному процесі. Виклик у пам'яті.
-class InProcessTwin implements DeviceStateReader {
-  constructor(private twin: TwinModule) {}
-  async read(id: string) {
-    return this.twin.snapshot(id);               // наносекунди, без мережі
-  }
-}
-
-// ПІСЛЯ: твін — окремий сервіс. Той самий контракт, інший транспорт.
-class RemoteTwin implements DeviceStateReader {
-  constructor(private http: HttpClient, private base: string) {}
-  async read(id: string) {
-    const res = await this.http.get(
-      `${this.base}/devices/${id}/state`,
-      { timeoutMs: 200 },                         // мережа зависає — потрібен дедлайн
-    );
-    return DeviceState.parse(res.body);           // чужі дані — валідуємо на межі
-  }
-}
-
-// Автоматизаціям видали інтерфейс — вони не знають, який бік шва живий.
-const engine = new AutomationEngine(reader);      // reader: DeviceStateReader
-```
-```go
-// Контракт шва — незмінний по обидва боки розрізу.
-type DeviceStateReader interface {
-    Read(ctx context.Context, deviceID string) (DeviceState, error)
-}
-
-// ДО: твін — сусідній пакет в одному процесі. Виклик у пам'яті.
-type InProcessTwin struct{ twin *TwinModule }
-
-func (t InProcessTwin) Read(ctx context.Context, id string) (DeviceState, error) {
-    return t.twin.Snapshot(id), nil               // наносекунди, без мережі
-}
-
-// ПІСЛЯ: твін — окремий сервіс. Той самий контракт, інший транспорт.
-type RemoteTwin struct {
-    http *http.Client
-    base string
-}
-
-func (t RemoteTwin) Read(ctx context.Context, id string) (DeviceState, error) {
-    ctx, cancel := context.WithTimeout(ctx, 200*time.Millisecond) // дедлайн на мережу
-    defer cancel()
-    body, err := t.get(ctx, t.base+"/devices/"+id+"/state")
-    if err != nil {
-        return DeviceState{}, err
-    }
-    return parseState(body)                        // чужі дані — валідуємо на межі
-}
-
-// Автоматизації беруть інтерфейс — і не знають, який бік шва живий.
-engine := NewAutomationEngine(reader)             // reader DeviceStateReader
-```
+:::code when-to-split-d/ts/index.ts
+:::code when-to-split-d/go/main.go
 :::
 
 Зверни увагу: код автоматизацій не змінився ні на рядок — їм видали `DeviceStateReader`, а котра реалізація за ним, у пам'яті чи за мережею, їх не обходить. Це той самий [шов](root:progarch/seams-and-boundaries), який курс учив ставити заздалегідь; сьогодні він окупається. Але новий, мережевий бік приніс дві речі, яких у пам'яті не було й на які довелося написати код: **таймаут** (мережа вміє зависати, тож без дедлайну виклик застрягне назавжди) і **валідацію чужих даних на межі** (те, що прийшло по HTTP, — це вже не твій типобезпечний об'єкт, а байти, яким не можна довіряти). Оце і є податок на розподіленість у мініатюрі — рівно два рядки, яких раніше не існувало.

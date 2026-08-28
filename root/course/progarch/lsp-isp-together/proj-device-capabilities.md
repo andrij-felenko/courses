@@ -38,31 +38,7 @@ interface Switchable { turnOn(): void; turnOff(): void; isOn(): boolean; }
 interface Lockable   { lock(): void; unlock(): void; isLocked(): boolean; }
 interface Streamable { startStream(): string; stopStream(): void; }
 ```
-```py
-from typing import Protocol, runtime_checkable
-
-# @runtime_checkable дозволяє питати isinstance(d, Switchable) під час роботи.
-@runtime_checkable
-class Readable(Protocol):
-    def read(self) -> float: ...
-
-@runtime_checkable
-class Switchable(Protocol):
-    def turn_on(self) -> None: ...
-    def turn_off(self) -> None: ...
-    def is_on(self) -> bool: ...
-
-@runtime_checkable
-class Lockable(Protocol):
-    def lock(self) -> None: ...
-    def unlock(self) -> None: ...
-    def is_locked(self) -> bool: ...
-
-@runtime_checkable
-class Streamable(Protocol):
-    def start_stream(self) -> str: ...
-    def stop_stream(self) -> None: ...
-```
+:::code proj-device-capabilities/py/vuzki-zdatnosti.py
 :::
 
 Зверни увагу, що `turnOn`, `turnOff` і `isOn` лежать **разом** в одному `Switchable`, а не розсипані на три інтерфейси. Це не випадковість, а свідома межа: хто керує розеткою, тому потрібні всі три вкупі — увімкнути, вимкнути й спитати стан — це одна зв'язна робота. Ми ще повернемось до цього, коли розбиратимемо, як легко тут перестаратися.
@@ -72,65 +48,8 @@ class Streamable(Protocol):
 Тепер самі пристрої. Кожен набирає рівно ті здатності, що справді має, — і в його тілі немає жодного зайвого методу:
 
 :::tabs
-```ts
-class TempSensor implements Readable {
-  constructor(private celsius: number) {}
-  read(): number { return this.celsius; }          // це все, що він уміє
-}
-
-class SmartSocket implements Readable, Switchable {
-  private on = false;
-  constructor(private watts = 60) {}
-  read(): number  { return this.on ? this.watts : 0; }  // спожита потужність, Вт
-  turnOn(): void  { this.on = true; }
-  turnOff(): void { this.on = false; }
-  isOn(): boolean { return this.on; }
-}
-
-class DoorLock implements Lockable {
-  private locked = false;
-  lock(): void        { this.locked = true; }
-  unlock(): void      { this.locked = false; }
-  isLocked(): boolean { return this.locked; }
-}
-
-class Camera implements Streamable {
-  private streaming = false;
-  startStream(): string { this.streaming = true; return "rtsp://dh/cam/live"; }
-  stopStream(): void    { this.streaming = false; }
-}
-```
-```py
-class TempSensor:                       # лише Readable — і жодного зайвого методу
-    def __init__(self, celsius: float):
-        self.celsius = celsius
-    def read(self) -> float:
-        return self.celsius
-
-class SmartSocket:                      # Readable + Switchable, без спадкування
-    def __init__(self, watts: float = 60.0):
-        self._on, self._watts = False, watts
-    def read(self) -> float:  return self._watts if self._on else 0.0
-    def turn_on(self)  -> None: self._on = True
-    def turn_off(self) -> None: self._on = False
-    def is_on(self) -> bool:  return self._on
-
-class DoorLock:                         # лише Lockable
-    def __init__(self):
-        self._locked = False
-    def lock(self)   -> None: self._locked = True
-    def unlock(self) -> None: self._locked = False
-    def is_locked(self) -> bool: return self._locked
-
-class Camera:                           # лише Streamable
-    def __init__(self):
-        self._streaming = False
-    def start_stream(self) -> str:
-        self._streaming = True
-        return "rtsp://dh/cam/live"
-    def stop_stream(self) -> None:
-        self._streaming = False
-```
+:::code proj-device-capabilities/ts/prystroi-shcho-realizuiut.ts
+:::code proj-device-capabilities/py/prystroi-shcho-realizuiut.py
 :::
 
 Придивись до Python-версії окремо: жоден клас **не успадковує** свій `Protocol`. `SmartSocket` ніде не пише «я `Switchable`» — він просто має `turn_on`/`turn_off`/`is_on`, і цього досить, щоб `isinstance(socket, Switchable)` дало `true`. Ось качкова типізація в чистому вигляді: приналежність до здатності випливає з того, що клас **уміє**, а не з того, що він **оголосив**. Порожні тіла зникли не тому, що ми їх акуратно поприбирали, — їх нема звідки взятися: тип більше не вимагає нічого зайвого.
@@ -140,22 +59,7 @@ class Camera:                           # лише Streamable
 Щоб хаб міг спитати пристрій «чи вмієш?», заводимо по одному сторожу на здатність:
 
 :::tabs
-```ts
-function isReadable(d: unknown): d is Readable {
-  return typeof (d as Readable)?.read === "function";
-}
-function isSwitchable(d: unknown): d is Switchable {
-  const s = d as Switchable;
-  return typeof s?.turnOn === "function" && typeof s?.turnOff === "function";
-}
-function isLockable(d: unknown): d is Lockable {
-  const l = d as Lockable;
-  return typeof l?.lock === "function" && typeof l?.unlock === "function";
-}
-function isStreamable(d: unknown): d is Streamable {
-  return typeof (d as Streamable)?.startStream === "function";
-}
-```
+:::code proj-device-capabilities/ts/proba-zdatnosti-na-mezhi.ts
 ```py
 # У Python окремі функції не потрібні: isinstance по runtime_checkable-Protocol
 # і Є пробою здатності. isinstance(d, Switchable) перевіряє наявність методів.
@@ -171,24 +75,7 @@ function isStreamable(d: unknown): d is Streamable {
 Тепер серце системи. Нічний режим більше не сліпо кличе `turnOff` на будь-чому — він на межі питає кожен пристрій, що той уміє, і звертається лише крізь наявну здатність:
 
 :::tabs
-```ts
-function nightMode(devices: unknown[]): void {
-  for (const d of devices) {
-    if (isSwitchable(d)) d.turnOff();      // світло й розетки — вимкнути
-    if (isLockable(d))   d.lock();         // двері — замкнути
-    if (isStreamable(d)) d.startStream();  // камери — на нічне чування
-  }
-}
-
-// Запускається як є: змішаний парк проходить без жодного винятку.
-const fleet: unknown[] = [
-  new TempSensor(21.5),
-  new SmartSocket(),
-  new DoorLock(),
-  new Camera(),
-];
-nightMode(fleet);   // давач мовчки пропущено — кинути виняток нема звідки
-```
+:::code proj-device-capabilities/ts/chesnyi-khab-pytaty.ts
 ```py
 def night_mode(devices: list[object]) -> None:
     for d in devices:
@@ -214,72 +101,8 @@ night_mode(fleet)   # давач мовчки пропущено — кинут�
 Хаб більше не падає — але звідки нам знати, що не впаде й завтра, коли хтось допише новий пристрій? Потрібен тест, який перевіряє не «чи є метод», а «чи метод чесний». Іншими словами — виконуваний [контракт](root:sf-release/design-by-contract): передумови й постумови, які будь-яка реалізація здатності мусить витримати. Для `Switchable` він короткий: після `turnOn` пристрій увімкнений, після `turnOff` — вимкнений, і жодна з дій не кидає.
 
 :::tabs
-```ts
-// Крихітний раннер без залежностей — запускається як є.
-let failures = 0;
-function check(name: string, fn: () => void): void {
-  try { fn(); console.log(`ok    ${name}`); }
-  catch (e) { failures++; console.log(`FAIL  ${name}: ${(e as Error).message}`); }
-}
-function assert(cond: boolean, msg: string): void {
-  if (!cond) throw new Error(msg);
-}
-
-// Контракт Switchable — придатний для БУДЬ-ЯКОЇ реалізації.
-function switchableContract(make: () => Switchable): void {
-  const d = make();
-  d.turnOn();  assert(d.isOn() === true,  "після turnOn має бути ввімкнено");
-  d.turnOff(); assert(d.isOn() === false, "після turnOff має бути вимкнено");
-}
-
-// Об'єкт, що ВДАЄ Switchable: форма збігається, а поведінка бреше —
-// точно та пастка, яку товстий IDevice робив неминучою.
-class LyingSwitch implements Switchable {
-  turnOn():  void    { throw new Error("не вмикається"); }
-  turnOff(): void    { throw new Error("не вимикається"); }
-  isOn():    boolean { return false; }
-}
-
-check("nightMode не падає на змішаному парку", () =>
-  nightMode([new TempSensor(19), new SmartSocket(), new DoorLock(), new Camera()]));
-
-check("SmartSocket чесно виконує контракт Switchable", () =>
-  switchableContract(() => new SmartSocket()));
-
-check("сторож ПРОПУСКАЄ брехуна за формою", () =>
-  assert(isSwitchable(new LyingSwitch()) === true, "форма Switchable у нього є"));
-
-check("а контракт брехуна ЛОВИТЬ", () => {
-  let caught = false;
-  try { switchableContract(() => new LyingSwitch()); } catch { caught = true; }
-  assert(caught, "контракт мусив упіймати брехню, але пропустив");
-});
-
-console.log(failures ? `\n${failures} впало` : "\nусе зелене");
-```
-```py
-def switchable_contract(make) -> None:
-    d = make()
-    d.turn_on();  assert d.is_on() is True,  "після turn_on має бути ввімкнено"
-    d.turn_off(); assert d.is_on() is False, "після turn_off має бути вимкнено"
-
-class LyingSwitch:                        # форма Switchable є, поведінка бреше
-    def turn_on(self):  raise RuntimeError("не вмикається")
-    def turn_off(self): raise RuntimeError("не вимикається")
-    def is_on(self) -> bool: return False
-
-# 1) сторож (isinstance) ПРОПУСКАЄ брехуна — форма ж збігається:
-assert isinstance(LyingSwitch(), Switchable)
-# 2) чесна реалізація проходить контракт:
-switchable_contract(lambda: SmartSocket())
-# 3) а контракт брехуна ЛОВИТЬ:
-try:
-    switchable_contract(lambda: LyingSwitch())
-    raise AssertionError("контракт мусив упіймати брехню")
-except RuntimeError:
-    pass                                  # саме цього й чекали
-print("усе зелене")
-```
+:::code proj-device-capabilities/ts/test-na-pidstanovku-shcho.ts
+:::code proj-device-capabilities/py/test-na-pidstanovku-shcho.py
 :::
 
 Ось де сходяться дві половини задуму, і це найтонше місце всього кроку. Сторож `isSwitchable` **пропускає** брехуна — повертає `true`, бо метод `turnOff` у нього формально є. Сторож перевіряє форму, а форма в брехуна бездоганна. Але контракт-тест брехуна **валить**: він не дивиться на форму, він кличе `turnOff` і питає `isOn()` — а там виняток. Тобто розкрій по здатностях **прибрав тиск** брехати (давач просто не `Switchable`, тож у нічну петлю не потрапляє й упасти не може), а контракт-тест — це **храповик**, що не дає нікому колись потім протягнути назад об'єкт, який знову вдає вміння, якого не має.
@@ -294,43 +117,11 @@ print("усе зелене")
 
 Найпоширеніша. Сторожі розповзаються по всьому коду: кожна функція, що торкається пристроїв, знову й знову перепитує `isSwitchable`, а `unknown` тече крізь усю систему аж до найглибших закутків.
 
-```ts
-// ❌ здатність перевіряють ГЛИБОКО в логіці, знову й знову
-function runSchedule(devices: unknown[], plan: Step[]): void {
-  for (const step of plan) {
-    for (const d of devices) {
-      if (step.kind === "off"  && isSwitchable(d)) d.turnOff();
-      if (step.kind === "lock" && isLockable(d))   d.lock();
-    }
-  }
-  // …і той самий частокіл if-isXxx у кожній наступній функції
-}
-```
+:::code proj-device-capabilities/ts/perevirka-zdatnosti.ts
 
 Це той-таки товстий тип, тільки перевдягнений в `unknown`: замість чесних вузьких типів усередині бігає «щось», і кожен, хто хоче з ним працювати, мусить спершу вгадати, що воно вміє. Лікують це так: пробуємо здатність **один раз**, на межі, де пристрої входять у підсистему, і розкладаємо їх по кошиках уже вузьких типів. Далі логіка не бачить жодного `unknown`:
 
-```ts
-// ✓ перевірили ОДИН раз на межі — далі течуть уже вузькі типи
-interface Fleet {
-  switchable: Switchable[];
-  lockable:   Lockable[];
-  streamable: Streamable[];
-}
-function classify(devices: unknown[]): Fleet {
-  const f: Fleet = { switchable: [], lockable: [], streamable: [] };
-  for (const d of devices) {
-    if (isSwitchable(d)) f.switchable.push(d);   // тут d звужено до Switchable
-    if (isLockable(d))   f.lockable.push(d);
-    if (isStreamable(d)) f.streamable.push(d);
-  }
-  return f;
-}
-function nightMode(f: Fleet): void {
-  f.switchable.forEach((s) => s.turnOff());       // жодного isXxx — тип уже вузький
-  f.lockable.forEach((l) => l.lock());
-  f.streamable.forEach((c) => c.startStream());
-}
-```
+:::code proj-device-capabilities/ts/perevirka-zdatnosti-2.ts
 
 > 🔧 **Навіщо це.** Межа — це те місце, де недовірене «щось» уперше зустрічається з типізованим світом. Проба здатності мусить жити **там** і лише там: раз перевірив — далі код говорить вузькими типами й ніколи не перепитує. Коли бачиш `isSwitchable` глибоко в бізнес-логіці — це запах, що межу поставлено не там і товстий тип протік усередину як `unknown`. Заганяй перевірку на край; ядро хай не знає слова «unknown».
 

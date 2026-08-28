@@ -56,55 +56,8 @@
 Ось як ця дисципліна виглядає в коді поверхні — тонкому шарі, що перекладає домен у DTO та в конверт помилки. Уся вага — в тому, чого тут **не роблять**:
 
 :::tabs
-```ts
-// Публічна поверхня v1: тільки ДОДАЄМО, ніколи не переінакшуємо.
-// Одне джерело правди — доменний Device; старе виводимо з нового.
-type DeviceDTO = {
-  id: string;                                        // формат опублікований — заморожений
-  temperature: { value: number; unit: "C" | "F" };  // канон
-  tempC: number;                                     // legacy: ПОХІДНЕ, живе поки читають
-  power?: { watts: number; at: number };             // НОВЕ поле — суто адитивно
-  at: number;
-};
-
-function toDTO(d: Device): DeviceDTO {
-  return {
-    id: d.id,
-    temperature: d.temperature,                      // канон — єдина правда
-    tempC: toCelsius(d.temperature),                 // старе виводимо з канону, щоб не розійшлись
-    power: d.power && { watts: d.power.watts, at: d.power.at },
-    at: d.lastReadingAt,
-  };
-}
-
-// Стабільний конверт помилки: машинний код + людський текст, і НІЧОГО зсередини.
-type ApiError = { error: { code: string; message: string } };
-
-function toApiError(e: DomainError): ApiError {
-  return { error: { code: e.code, message: e.publicMessage } };
-  // ані stack, ані SQL, ані шляху файлу — нутрощі лишаються неопублікованими
-}
-```
-```py
-# Публічна поверхня v1: тільки ДОДАЄМО, ніколи не переінакшуємо.
-# Одне джерело правди — доменний Device; старе виводимо з нового.
-def to_dto(d: Device) -> dict:
-    dto = {
-        "id": d.id,                                       # формат опублікований — заморожений
-        "temperature": {"value": d.temperature.value,
-                        "unit": d.temperature.unit},      # канон — єдина правда
-        "tempC": to_celsius(d.temperature),               # legacy: ПОХІДНЕ від канону
-        "at": d.last_reading_at,
-    }
-    if d.power is not None:                               # НОВЕ поле — суто адитивно
-        dto["power"] = {"watts": d.power.watts, "at": d.power.at}
-    return dto
-
-# Стабільний конверт помилки: машинний код + людський текст, і НІЧОГО зсередини.
-def to_api_error(e: DomainError) -> dict:
-    return {"error": {"code": e.code, "message": e.public_message}}
-    # ані stack, ані SQL, ані шляху файлу — нутрощі лишаються неопублікованими
-```
+:::code dh-api-config-final-d/ts/index.ts
+:::code dh-api-config-final-d/py/main.py
 :::
 
 `power` **додається**, а не заступає щось; `tempC` **виводиться** з канонічної `temperature`, тому дві версії поля фізично не можуть розійтися; конверт помилки віддає код і людський текст — і мовчить про все, що ліворуч від межі. Той самий код — це буквально межа публікації, записана рукою.

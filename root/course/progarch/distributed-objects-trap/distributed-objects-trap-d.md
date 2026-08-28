@@ -35,35 +35,8 @@
 **Дрібнозернистий** (англ. *fine-grained* — дрібнозернистий) інтерфейс — це багато маленьких методів: окремо `type()`, окремо `room()`, окремо `state()`, `brightness()`, `lastSeen()`. Локально це правильно й гарно: кожен геттер дешевий, код читається як мова. Візьмімо конкретну річ — **дашборд Digital Homes**. Він показує 30 пристроїв у домі, для кожного п'ять полів. Локально ти пишеш прямо, і сумління чисте:
 
 :::tabs
-```ts
-// Дрібнозернистий інтерфейс: багато маленьких методів.
-// Локально — ідеально. По мережі кожен рядок — окремий перехід через межу.
-interface Device {
-  type(): string;
-  room(): string;
-  state(): string;
-  brightness(): number;
-  lastSeen(): number;
-}
-
-for (const d of devices)            // 30 пристроїв
-  render(d.type(), d.room(), d.state(), d.brightness(), d.lastSeen());
-  //     └─ 5 викликів на пристрій × 30 = 150 звернень
-```
-```py
-# Дрібнозернистий інтерфейс: багато маленьких методів.
-# Локально — ідеально. По мережі кожен рядок — окремий перехід через межу.
-class Device(Protocol):
-    def type(self) -> str: ...
-    def room(self) -> str: ...
-    def state(self) -> str: ...
-    def brightness(self) -> int: ...
-    def last_seen(self) -> float: ...
-
-for d in devices:                   # 30 пристроїв
-    render(d.type(), d.room(), d.state(), d.brightness(), d.last_seen())
-    #      └─ 5 викликів на пристрій × 30 = 150 звернень
-```
+:::code distributed-objects-trap-d/ts/de-lamaietsia-balakuchyi.ts
+:::code distributed-objects-trap-d/py/de-lamaietsia-balakuchyi.py
 :::
 
 У пам'яті ці 150 звернень — ніщо, тисячна частка мілісекунди на весь дашборд. А тепер зроби `Device` розподіленим об'єктом: самі пристрої живуть на хабі в домі, а дашборд крутиться в хмарі. Код не змінився **ні на літеру** — а кожен із тих 150 геттерів став переходом через межу:
@@ -90,35 +63,8 @@ for d in devices:                   # 30 пристроїв
 Лік очевидний, щойно названо хворобу. Замість 150 балакучих геттерів — **один** виклик, що забирає все одразу:
 
 :::tabs
-```ts
-// Грубозернистий інтерфейс: один виклик — один перехід через межу.
-// Повертає не об'єкти з поведінкою, а пласкі пакунки даних.
-interface DeviceDTO {                // самі поля, жодного методу
-  type: string; room: string; state: string;
-  brightness: number; lastSeen: number;
-}
-interface Dashboard {
-  snapshot(): Promise<DeviceDTO[]>;   // усі 30 пристроїв за один похід
-}
-
-const all = await dashboard.snapshot();     // 1 перехід через межу
-for (const d of all) render(d.type, d.room, d.state, d.brightness, d.lastSeen);
-```
-```py
-# Грубозернистий інтерфейс: один виклик — один перехід через межу.
-# Повертає не об'єкти з поведінкою, а пласкі пакунки даних.
-@dataclass
-class DeviceDTO:                     # самі поля, жодного методу
-    type: str; room: str; state: str
-    brightness: int; last_seen: float
-
-class Dashboard(Protocol):
-    async def snapshot(self) -> list[DeviceDTO]: ...   # усі 30 за один похід
-
-all_devices = await dashboard.snapshot()    # 1 перехід через межу
-for d in all_devices:
-    render(d.type, d.room, d.state, d.brightness, d.last_seen)
-```
+:::code distributed-objects-trap-d/ts/liky-hruba-mezha-i-pakunok.ts
+:::code distributed-objects-trap-d/py/liky-hruba-mezha-i-pakunok.py
 :::
 
 Той пакунок — `DeviceDTO` — це і є [DTO](root:sf-apps/dto): структура, що несе самі дані, без жодної поведінки, скроєна саме на те, щоб їхати по мережі одним шматком. Замість «спитати об'єкт п'ять разів» — «забрати знімок один раз». Сто п'ятдесят переходів стиснулись в один; двадцять секунд перетворились на чверть секунди.

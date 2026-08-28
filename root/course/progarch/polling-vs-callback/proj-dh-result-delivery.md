@@ -16,41 +16,8 @@
 Друга тонкість — кешування. Проміжний стан (`running`) кешувати **не можна**: він ще зміниться, а закешована відповідь примусить телефон опитувати застарілу «правду». А от **термінальний** стан (`done`/`failed`) незмінний назавжди — його кешувати не лише можна, а й варто, щоб зняти зайві звертання.
 
 :::tabs
-```ts
-// СЕРВЕР DH — статус для тих, хто ОПИТУЄ. Має бути ДЕШЕВОЮ: її б'ють N/T разів на секунду.
-app.get("/jobs/:id", async (req, res) => {
-  const job = await jobs.get(req.params.id);        // одне читання за ключем — і по всьому
-  if (!job) return res.status(404).json({ error: "unknown job" });
-
-  const terminal = job.status === "done" || job.status === "failed";
-  res.set("Cache-Control", terminal ? "public, max-age=3600" : "no-store"); // done — можна; running — ні
-
-  res.json({
-    jobId: job.id,
-    status: job.status,                             // queued | running | done | failed
-    result: terminal ? job.result : null,           // {version, ok} на done; {code, message} на failed
-    updatedAt: job.updatedAt,                       // точка відліку для клієнта Й для звірки
-  });
-});
-```
-```py
-# СЕРВЕР DH — статус для тих, хто ОПИТУЄ. Дешева: тільки читання стану.
-@app.get("/jobs/{job_id}")
-async def job_status(job_id: str, response: Response):
-    job = await jobs.get(job_id)                     # одне читання за ключем
-    if job is None:
-        raise HTTPException(404, "unknown job")
-
-    terminal = job.status in ("done", "failed")
-    # термінальний стан кешувати можна; проміжний — ні, він ще зміниться
-    response.headers["Cache-Control"] = "public, max-age=3600" if terminal else "no-store"
-    return {
-        "jobId": job.id,
-        "status": job.status,                        # queued | running | done | failed
-        "result": job.result if terminal else None,  # {version, ok} на done; {code, message} на failed
-        "updatedAt": job.updatedAt,                  # точка відліку для клієнта й для звірки
-    }
-```
+:::code proj-dh-result-delivery/ts/1-status-tochka-get-jobs.ts
+:::code proj-dh-result-delivery/py/1-status-tochka-get-jobs.py
 :::
 
 Зверни увагу на `updatedAt` у відповіді — це не косметика. Він дає і телефону, і майбутній звірці **точку відліку**: «покажи все, що змінилося після цієї миті». Без нього звірка мусила б щоразу перечитувати всі задачі поспіль.
@@ -68,39 +35,8 @@ async def job_status(job_id: str, response: Response):
 Третє — **термінальна невдача теж вихід**. Наївний цикл чекав лише на `done`. Але `failed` — теж кінець: оновлення могло не вдатися, і телефон мусить це показати, а не опитувати далі в надії, що «раптом полагодиться».
 
 :::tabs
-```ts
-// ТЕЛЕФОН — поллінг ОБМЕЖЕНИЙ: бюджет часу + експоненційний відступ + ПОВНИЙ джитер.
-// Виходимо, коли: термінальний стан АБО вичерпано бюджет АБО згорнули екран (abort).
-async function pollJob(id: string, budgetMs: number, signal: AbortSignal): Promise<Job> {
-  const deadline = Date.now() + budgetMs;           // напр. 5 хв — далі спінер не має сенсу
-  const base = 1000, cap = 15_000;                  // 1 → 2 → 4 → 8 → стеля 15 с
-  for (let attempt = 0; ; attempt++) {
-    const job = await (await fetch(`/jobs/${id}`, { signal })).json();
-    if (job.status === "done" || job.status === "failed") return job; // ← єдиний нормальний вихід
-
-    const window = Math.min(cap, base * 2 ** attempt);
-    const wait = Math.random() * window;            // повний джитер: рівномірно в [0, вікно]
-    if (Date.now() + wait > deadline) throw new Error("poll budget exhausted"); // не спати за бюджет
-    await sleep(wait, signal);                      // прокидається на abort → екран згорнули
-  }
-}
-```
-```py
-# ТЕЛЕФОН — поллінг ОБМЕЖЕНИЙ бюджетом часу + експоненційний відступ + ПОВНИЙ джитер.
-async def poll_job(job_id: str, budget_s: float = 300.0) -> dict:
-    deadline = time.monotonic() + budget_s           # 5 хв — далі спінер не має сенсу
-    base, cap, attempt = 1.0, 15.0, 0
-    while True:
-        job = await http_get_json(f"/jobs/{job_id}")
-        if job["status"] in ("done", "failed"):
-            return job                               # ← єдиний нормальний вихід
-
-        wait = random.uniform(0, min(cap, base * 2 ** attempt))  # повний джитер
-        if time.monotonic() + wait > deadline:       # не спати за бюджет — здаємось
-            raise TimeoutError("poll budget exhausted")
-        await asyncio.sleep(wait)
-        attempt += 1
-```
+:::code proj-dh-result-delivery/ts/2-mobilnyi-pollinh.ts
+:::code proj-dh-result-delivery/py/2-mobilnyi-pollinh.py
 :::
 
 > 🔧 **Навіщо це.** Необмежений поллінг — не «трохи неощадливо», а відкритий кран на батарею користувача й на твій сервер. Три запобіжники роблять його свійським: **бюджет** обриває безнадійне очікування, **повний джитер** розганяє синхронне стадо, а вихід на **обох** термінальних станах (`done` і `failed`) не дає циклу крутитися після того, як усе вже вирішилось. Забереш джитер — дістанеш пульсуючу стіну; забереш бюджет — дістанеш телефони, що опитують мертві задачі годинами.
@@ -121,88 +57,8 @@ async def poll_job(job_id: str, budget_s: float = 300.0) -> dict:
 І тут уперше проступає той самий `event-id`. Подію будують **раз**, з ідентифікатором, стабільним **на всі повтори**: згенеруєш новий id на кожен POST — і приймач не впізнає дубль, застосує подію двічі. Один результат — один id, скільки б разів його не повторювали.
 
 :::tabs
-```ts
-import { createHmac } from "node:crypto";
-
-// Подія будується РАЗ, з id, стабільним на ВСІ повтори (id — ключ дедупу в приймача).
-async function onFirmwareDone(job: Job) {
-  const event = {
-    id: `evt_${job.id}`,               // детермінований з задачі → той самий на кожен повтор і на звірку
-    type: "firmware.updated",
-    home: job.home, version: job.version, ok: job.ok,
-    occurredAt: job.finishedAt,
-  };
-  for (const url of await hooks.for(job.home)) await deliver(url, event);
-}
-
-// Підпис Stripe-стилю: HMAC-SHA256 над `t.body` — підпис прикриває й тіло, й час.
-function sign(body: string, secret: string, ts: number): string {
-  const mac = createHmac("sha256", secret).update(`${ts}.${body}`).digest("hex");
-  return `t=${ts},v1=${mac}`;
-}
-
-async function deliver(url: string, event: object) {
-  const body = JSON.stringify(event);              // рівно ці байти й підписуємо, й шлемо
-  const ts = Math.floor(Date.now() / 1000);
-  const sig = sign(body, HOOK_SECRET, ts);
-  const base = 1000, cap = 60_000, maxAttempts = 8;
-
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    try {
-      const r = await fetch(url, {
-        method: "POST",
-        headers: { "content-type": "application/json", "dh-signature": sig },
-        body,                                      // тіло НЕ перебудовуємо — байти мусять збігтися з підписом
-        signal: AbortSignal.timeout(5000),
-      });
-      if (r.status >= 200 && r.status < 300) return;                  // прийнято — по завершенню
-      if (r.status >= 400 && r.status < 500 && r.status !== 429) break; // 4xx (крім 429) — не полагодиться повтором
-    } catch { /* таймаут/обрив — падаємо у відступ нижче */ }
-
-    const window = Math.min(cap, base * 2 ** attempt);
-    await sleep(Math.random() * window);           // експонента + повний джитер
-  }
-  await deadLetters.put({ url, body, sig, failedAt: Date.now() });    // на розбір, не в нікуди
-}
-```
-```py
-import hmac, hashlib, json, time, random, asyncio
-
-async def on_firmware_done(job):
-    event = {                                       # будуємо РАЗ; id детермінований з задачі
-        "id": f"evt_{job['id']}",                   # той самий на кожен повтор і на звірку
-        "type": "firmware.updated",
-        "home": job["home"], "version": job["version"], "ok": job["ok"],
-        "occurred_at": job["finished_at"],
-    }
-    for url in await hooks.for_home(job["home"]):
-        await deliver(url, event)
-
-def sign(body: str, secret: str, ts: int) -> str:
-    mac = hmac.new(secret.encode(), f"{ts}.{body}".encode(), hashlib.sha256).hexdigest()
-    return f"t={ts},v1={mac}"                        # Stripe-стиль: підпис прикриває й тіло, й час
-
-async def deliver(url: str, event: dict):
-    body = json.dumps(event, separators=(",", ":"))  # канонічні байти: й підписуємо, й шлемо саме їх
-    ts = int(time.time())
-    sig = sign(body, HOOK_SECRET, ts)
-    base, cap, max_attempts = 1.0, 60.0, 8
-
-    for attempt in range(max_attempts):
-        try:
-            r = await http_post(url, data=body, timeout=5.0,
-                                headers={"content-type": "application/json", "dh-signature": sig})
-            if 200 <= r.status < 300:
-                return                               # прийнято
-            if 400 <= r.status < 500 and r.status != 429:
-                break                                # 4xx (крім 429) — не полагодиться повтором
-        except (TimeoutError, ConnectionError):
-            pass                                     # мережа — у відступ
-
-        window = min(cap, base * 2 ** attempt)
-        await asyncio.sleep(random.uniform(0, window))  # експонента + повний джитер
-    await dead_letters.put({"url": url, "body": body, "sig": sig, "failed_at": time.time()})
-```
+:::code proj-dh-result-delivery/ts/3-vidpravnyk-vebkhuka.ts
+:::code proj-dh-result-delivery/py/3-vidpravnyk-vebkhuka.py
 :::
 
 > 🔧 **Навіщо це.** Відправник — не `fetch` у циклі, а маленький протокол надійності. **Підпис** дає приймачеві право вірити; **мітка часу під підписом** закриває переграння; **відступ із джитером** лікує, а не добиває того, хто впав; **розрізнення 4xx/5xx** не марнує спроби на невиправне; **мертва черга** перетворює «не доставили» на «відклали на розбір», а не на «втратили тихо». Прибери будь-що одне — і знайдеться ніч, коли саме воно тебе розбудить.
@@ -221,71 +77,8 @@ async def deliver(url: str, event: dict):
 **Крок дедупу й застосування — і це серце частини.** Мережа доставляє [щонайменше раз (at-least-once)](root:sf-distributed/delivery-guarantees) — гарантія «дійде, можливо, не раз», через що повтори неминучі: той самий підписаний, свіжий POST цілком законно прилетить двічі, бо DH повторив, коли перша `2xx` загубилась по дорозі. Тому приймач **зобов'язаний** бути [ідемпотентним](root:sf-distributed/idempotency): застосувати подію рівно раз, хоч скільки разів вона прийшла. Механізм — [вхідна скринька (inbox)](root:sf-distributed/inbox-pattern): таблиця, де `event_id` — первинний ключ; приймач **в одній транзакції** вставляє `event_id` і застосовує ефект. Прийшов дубль — `INSERT … ON CONFLICT DO NOTHING` нічого не вставить, ми побачимо нуль торкнутих рядків і **тихо проковтнемо** повтор, не застосувавши його вдруге.
 
 :::tabs
-```ts
-import { createHmac, timingSafeEqual } from "node:crypto";
-
-const parseSig = (h: string): Record<string, string> =>
-  Object.fromEntries(h.split(",").map((kv) => kv.split("=", 2)));  // "t=..,v1=.." → {t, v1}
-
-// Сирі байти на ЦЬОМУ маршруті — express.raw, не express.json: парсинг зсунув би байти й зламав підпис.
-app.post("/dh/webhook", express.raw({ type: "application/json" }), async (req, res) => {
-  const raw = req.body as Buffer;
-  const { t, v1 } = parseSig(req.get("dh-signature") ?? "");
-
-  // 1 · ДОВІРА: HMAC над тими самими `t.body`, звірка у СТАЛИЙ час.
-  const expected = createHmac("sha256", HOOK_SECRET).update(`${t}.`).update(raw).digest();
-  const got = Buffer.from(v1 ?? "", "hex");
-  if (got.length !== expected.length || !timingSafeEqual(got, expected))
-    return res.status(401).end();                  // підпис не зійшовся — це не від DH
-
-  // 2 · СВІЖІСТЬ: старий підпис міг би переграти зловмисник. Вікно 5 хв, як у Stripe.
-  if (Math.abs(Date.now() / 1000 - Number(t)) > 300) return res.status(400).end();
-
-  const event = JSON.parse(raw.toString());        // тепер тілу можна вірити
-
-  // 3 · ДЕДУП + ЗАСТОСУВАННЯ РАЗ — в ОДНІЙ транзакції: ключ і ефект або разом, або ніяк.
-  await db.tx(async (tx) => {
-    const ins = await tx.query(
-      "INSERT INTO inbox(event_id) VALUES ($1) ON CONFLICT DO NOTHING", [event.id]);
-    if (ins.rowCount === 0) return;                // подію вже застосовували — тихо проковтнули повтор
-    await applyFirmwareResult(tx, event);          // ефект застосовано РІВНО раз
-  });
-
-  res.status(200).end();                           // ACK після коміту — DH може забути про доставку
-});
-```
-```py
-import hmac, hashlib, time, json
-
-def parse_sig(h: str) -> dict:
-    return dict(p.split("=", 1) for p in h.split(",") if "=" in p)  # "t=..,v1=.." → {t, v1}
-
-@app.post("/dh/webhook")
-async def receive(request: Request):
-    raw = await request.body()                      # сирі байти ДО .json() — інакше підпис не зійдеться
-    sig = parse_sig(request.headers.get("dh-signature", ""))
-    t, v1 = sig.get("t", "0"), sig.get("v1", "")
-
-    # 1 · ДОВІРА: HMAC над тими самими `t.body`, звірка у СТАЛИЙ час.
-    expected = hmac.new(HOOK_SECRET.encode(), f"{t}.".encode() + raw, hashlib.sha256).hexdigest()
-    if not hmac.compare_digest(v1, expected):
-        raise HTTPException(401, "bad signature")   # не від DH
-
-    # 2 · СВІЖІСТЬ: вікно 5 хв проти переграння, як у Stripe.
-    if abs(time.time() - int(t)) > 300:
-        raise HTTPException(400, "stale timestamp")
-
-    event = json.loads(raw)                         # тепер тілу можна вірити
-
-    # 3 · ДЕДУП + ЗАСТОСУВАННЯ РАЗ — в ОДНІЙ транзакції.
-    async with db.transaction() as tx:
-        ins = await tx.execute(
-            "INSERT INTO inbox(event_id) VALUES ($1) ON CONFLICT DO NOTHING", event["id"])
-        if ins.rowcount == 0:
-            return {"ok": True}                     # вже застосовано — проковтнули повтор
-        await apply_firmware_result(tx, event)      # ефект застосовано рівно раз
-    return {"ok": True}                             # ACK після коміту
-```
+:::code proj-dh-result-delivery/ts/4-pryimach-partnera-dovira.ts
+:::code proj-dh-result-delivery/py/4-pryimach-partnera-dovira.py
 :::
 
 Найтонше тут — **одна транзакція** на дедуп-ключ і ефект. Якби ми спершу застосували ефект, а окремо потім записали `event_id`, то збій між цими двома кроками або застосував би подію без сліду (і наступний повтор застосував би її знову), або записав би ключ без ефекту (і подію б утратили). Разом — або обидва, або жоден — робить застосування атомарно-однократним. І `ACK 200` **після** коміту: доки ми не записали результат, DH не має вважати доставку успішною.
@@ -299,48 +92,8 @@ async def receive(request: Request):
 Тому партнер періодично — рідко, це ж страхувальна сітка, а не гарячий шлях — **сам тягне** з DH те, що міг проґавити: `GET /jobs?status=done&updatedSince=<чекпойнт>`. І — ось краса задуму — женемо здобуте крізь **той самий** ідемпотентний шлях, що й вебхуки. Звірка будує подію з **тим самим** `evt_<jobId>`, вставляє в **той самий** inbox. Що вебхук уже приніс — дедупиться геть; що проґавив — застосується тут. Подвійне застосування **неможливе за побудовою**, бо ключ спільний.
 
 :::tabs
-```ts
-// ЗВІРКА (partner). Рідко — це страхувальна сітка. Женемо здобуте крізь ТОЙ САМИЙ inbox.
-async function reconcile() {
-  const since = await checkpoint.get("firmware");        // де спинились минулого разу
-  const done = await dhApi.listJobs({ status: "done", updatedSince: since });
-
-  for (const job of done) {
-    const event = {
-      id: `evt_${job.id}`,                 // ТОЙ САМИЙ ключ, що й у вебхука → inbox дедупне
-      type: "firmware.updated",
-      home: job.home, version: job.version, ok: job.ok,
-    };
-    await db.tx(async (tx) => {
-      const ins = await tx.query(
-        "INSERT INTO inbox(event_id) VALUES ($1) ON CONFLICT DO NOTHING", [event.id]);
-      if (ins.rowCount === 0) return;      // вебхук уже приніс — нічого не робимо
-      await applyFirmwareResult(tx, event); // вебхук проґавив — застосовуємо тут
-    });
-  }
-  await checkpoint.set("firmware", nowIso()); // чекпойнт — лише після успішного проходу
-}
-setInterval(reconcile, 5 * 60_000);          // раз на кілька хвилин
-```
-```py
-async def reconcile():
-    since = await checkpoint.get("firmware")            # де спинились минулого разу
-    done = await dh_api.list_jobs(status="done", updated_since=since)
-    for job in done:
-        event = {
-            "id": f"evt_{job['id']}",       # ТОЙ САМИЙ ключ, що й у вебхука → inbox дедупне
-            "type": "firmware.updated",
-            "home": job["home"], "version": job["version"], "ok": job["ok"],
-        }
-        async with db.transaction() as tx:
-            ins = await tx.execute(
-                "INSERT INTO inbox(event_id) VALUES ($1) ON CONFLICT DO NOTHING", event["id"])
-            if ins.rowcount == 0:
-                continue                    # вебхук уже приніс
-            await apply_firmware_result(tx, event)  # вебхук проґавив — застосовуємо тут
-    await checkpoint.set("firmware", now_iso())     # чекпойнт — лише після успішного проходу
-# планувальник викликає reconcile() раз на кілька хвилин
-```
+:::code proj-dh-result-delivery/ts/5-zvirka-sitka-dobraty-te.ts
+:::code proj-dh-result-delivery/py/5-zvirka-sitka-dobraty-te.py
 :::
 
 > 🔧 **Навіщо це.** Reconciliation — це визнання, що штовхати ненадійно, і pull-страхувальник під push-швидкістю. Ключ до того, щоб сітка не наробила шкоди, — **спільний event-id**: звірка не має власного способу застосувати результат, вона користується тим самим inbox, тож у найгіршому разі просто нічого не робить (усе вже застосовано). Прибери звірку — і кожен проґавлений вебхук стає **тихою вічною втратою**; лишиш її без спільного ключа — і вона задублить усе, що вебхук уже доставив.

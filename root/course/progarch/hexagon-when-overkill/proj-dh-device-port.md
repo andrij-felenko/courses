@@ -48,91 +48,8 @@ function shouldHeat(t: number, heating: boolean,
 Тепер сама межа й обидві її сторони. Порт оголошує, що ядро вміє питати в пристрою, а два класи цю обіцянку тримають — один справжнім залізом, другий пам'яттю:
 
 :::tabs
-```py
-from typing import Protocol
-
-class Device(Protocol):              # ПОРТ — давач і розетка одним отвором, мовою ядра
-    def temperature(self) -> float: ...   # °C, не мілі-градуси й не вольти
-    def heat(self, on: bool) -> None: ...
-
-# ── Адаптер 1: СПРАВЖНІЙ. Єдиний в усьому хабі, хто говорить мовою заліза. ──
-import urllib.request
-
-class RealDevice:                    # 1-Wire давач + Wi-Fi розетка (напр. Shelly)
-    def __init__(self, w1_id: str, plug_url: str):
-        self._w1 = f"/sys/bus/w1/devices/{w1_id}/w1_slave"
-        self._plug = plug_url
-
-    def temperature(self) -> float:
-        text = open(self._w1).read()          # "...crc=.. YES\n.. t=20125"
-        milli = int(text.split("t=")[-1])     # DS18B20 віддає мілі-градуси
-        return milli / 1000.0                 # → °C ТУТ, на межі; далі ядро °C і не бачить іншого
-
-    def heat(self, on: bool) -> None:
-        turn = "on" if on else "off"
-        urllib.request.urlopen(f"{self._plug}/relay/0?turn={turn}", timeout=3)
-
-# ── Адаптер 2: ПІДРОБКА. Кімната живе в пам'яті + пише журнал команд. ──
-import random
-
-class FakeDevice:
-    def __init__(self, start: float = 18.0):
-        self._room = start           # прихований «фізичний» стан, як у моку v0
-        self._on = False
-        self.log: list[bool] = []    # журнал переходів — щоб тест мав що перевірити
-
-    def temperature(self) -> float:
-        self._room += (0.4 if self._on else -0.2) + random.uniform(-0.05, 0.05)
-        return round(self._room, 1)
-
-    def heat(self, on: bool) -> None:
-        if on != self._on:           # записуємо лише реальні перемикання
-            self.log.append(on)
-        self._on = on
-```
-```ts
-// ПОРТ — давач і розетка одним отвором, мовою ядра
-interface Device {
-  temperature(): Promise<number>;   // °C, не мілі-градуси й не вольти
-  heat(on: boolean): Promise<void>;
-}
-
-// ── Адаптер 1: СПРАВЖНІЙ. Єдиний в усьому хабі, хто говорить мовою заліза. ──
-import { readFile } from "node:fs/promises";
-
-class RealDevice implements Device {                 // 1-Wire давач + Wi-Fi розетка
-  constructor(private w1: string, private plugUrl: string) {}
-
-  async temperature(): Promise<number> {
-    const text = await readFile(`/sys/bus/w1/devices/${this.w1}/w1_slave`, "utf8");
-    const milli = parseInt(text.split("t=").pop()!, 10);  // DS18B20 → мілі-градуси
-    return milli / 1000;                                  // → °C ТУТ, на межі
-  }
-
-  async heat(on: boolean): Promise<void> {
-    await fetch(`${this.plugUrl}/relay/0?turn=${on ? "on" : "off"}`);
-  }
-}
-
-// ── Адаптер 2: ПІДРОБКА. Кімната живе в пам'яті + пише журнал. ──
-class FakeDevice implements Device {
-  private room: number;
-  private on = false;
-  readonly log: boolean[] = [];       // журнал переходів для тесту
-
-  constructor(start = 18.0) { this.room = start; }
-
-  async temperature(): Promise<number> {
-    this.room += (this.on ? 0.4 : -0.2) + (Math.random() - 0.5) * 0.1;
-    return Math.round(this.room * 10) / 10;
-  }
-
-  async heat(on: boolean): Promise<void> {
-    if (on !== this.on) this.log.push(on);   // лише реальні перемикання
-    this.on = on;
-  }
-}
-```
+:::code proj-dh-device-port/py/port-i-dva-adaptery.py
+:::code proj-dh-device-port/ts/port-i-dva-adaptery.ts
 :::
 
 Затримаймося на одному рядку `RealDevice`, бо в ньому — увесь сенс порту. Давач DS18B20 віддає температуру не градусами, а **цілим числом мілі-градусів**: `t=20125` означає 20.125 °C (так його показує ядро Linux у файлі `w1_slave`). Це той самий давач, чия «інша мова» тихо зламала v0, коли ми міняли вендора: там `18000` порівнювалося з `20.0`, завжди виходило «не холодно», і вітальня мовчки вистигала. Тепер ділення на 1000 живе **в адаптері, на самій межі** — і жоден мілі-градус за поріг не просочується. Ядро отримує чисті °C і не підозрює, що по той бік хтось рахує тисячними. Підробка ж бере фізику кімнати просто з [моку робочого v0](root:progarch/dh-v0-one-sensor/proj-dh-v0.md) — кімната холоне сама, гріється під струмом, — і додає одне: **журнал** переданих команд, щоб тестові було на що глянути. Обидва класи чесно тримають форму `Device`, і ядро їх не розрізняє — а це і є перевірка на справжній порт, яку ми обговорювали: під нього стає і залізо, і пам'ять.
@@ -142,56 +59,8 @@ class FakeDevice implements Device {
 Лишилося зшити це в хаб — і показати місце, де в проді на слот підробки стає реальний давач:
 
 :::tabs
-```py
-from time import sleep
-import os
-
-def tick(device: Device, heating: bool) -> bool:
-    t = device.temperature()          # read
-    heating = should_heat(t, heating) # decide — чисте правило, байдуже до заліза
-    device.heat(heating)              # act
-    return heating
-
-def run(device: Device) -> None:      # прод: вічний цикл, точнісінько як серце v0
-    heating = False
-    while True:
-        heating = tick(device, heating)
-        sleep(30)
-
-def build_device() -> Device:         # ТОЧКА ЗБІРКИ — єдине місце, що знає, хто за портом
-    if os.getenv("DH_ENV") == "prod":
-        return RealDevice("28-0119a1b2c3d4", "http://192.168.1.50")
-    return FakeDevice()               # усюди, крім проду, — дім у пам'яті
-
-if __name__ == "__main__":
-    run(build_device())               # у проді сюди стане RealDevice — і код вище не здригнеться
-```
-```ts
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-async function tick(device: Device, heating: boolean): Promise<boolean> {
-  const t = await device.temperature();   // read
-  heating = shouldHeat(t, heating);        // decide — чисте правило
-  await device.heat(heating);              // act
-  return heating;
-}
-
-async function run(device: Device): Promise<void> {  // прод: вічний цикл, як серце v0
-  let heating = false;
-  while (true) {
-    heating = await tick(device, heating);
-    await sleep(30_000);
-  }
-}
-
-function buildDevice(): Device {          // ТОЧКА ЗБІРКИ — одне місце, що знає, хто за портом
-  if (process.env.DH_ENV === "prod")
-    return new RealDevice("28-0119a1b2c3d4", "http://192.168.1.50");
-  return new FakeDevice();                // усюди, крім проду, — дім у пам'яті
-}
-
-run(buildDevice());                       // у проді сюди стане RealDevice — і код вище не здригнеться
-```
+:::code proj-dh-device-port/py/tochka-zbirky.py
+:::code proj-dh-device-port/ts/tochka-zbirky.ts
 :::
 
 Серце циклу — ті самі три слова, що й у v0: **прочитати → вирішити → зробити**. Але тепер «вирішити» — це виклик названого правила `should_heat`, а «прочитати» й «зробити» ходять через порт `device`, а не в конкретне залізо. І вся інформація про те, **хто** саме той `device`, стиснута в один-єдиний вузол — `build_device`. Це [точка збірки (composition root)](root:sf-apps/di-container): місце, де абстрактні порти зустрічають конкретні реалізації, і воно навмисне одне на весь застосунок. У проді змінна оточення каже «prod» — і в слот стає `RealDevice` зі справжнім давачем і справжньою розеткою. Скрізь інде — `FakeDevice`. Рядок `run(build_device())` не міняється ані на символ: хаб дістає щось, що вміє `temperature` і `heat`, а звідки воно взялося — не його клопіт.
@@ -201,55 +70,8 @@ run(buildDevice());                       // у проді сюди стане R
 Тепер — те, заради чого все й робилося. Два тести, і жодному не потрібні ані давач, ані розетка, ані нагріта кімната:
 
 :::tabs
-```py
-# test_hub.py — ті самі should_heat і FakeDevice з hub.py; біжить будь-де
-
-def test_rule_holds_the_band():          # ТЕСТ 1: чисте правило, взагалі без пристрою
-    assert should_heat(19.9, heating=False)       # холодно — вмикаємо
-    assert should_heat(20.3, heating=True)        # у смузі й гріли — тримаємо
-    assert not should_heat(20.6, heating=True)    # перескочили верх — гасимо
-    assert not should_heat(20.3, heating=False)   # та сама 20.3, та вже вимкнено — НЕ вмикаємо
-    # два останні рядки — одна температура, різні відповіді: оце й є пам'ять, що глушить клацання
-
-def test_rule_against_the_fake():        # ТЕСТ 2: правило проти ПІДРОБКИ, без грама заліза
-    home = FakeDevice(start=17.0)        # старт нижче за поріг — дім холодний
-    heating = False
-    for _ in range(80):                  # ~40 хв життя «дому» за частку секунди
-        t = home.temperature()           # read  — з пам'яті, не з давача
-        heating = should_heat(t, heating) # decide
-        home.heat(heating)               # act   — у журнал, не в реле
-        # інваріант гістерезису мусить триматися НА КОЖНОМУ такті:
-        if t < THRESHOLD:                assert heating       # під порогом — тільки гріти
-        if t > THRESHOLD + HYSTERESIS:   assert not heating   # над смугою — тільки гасити
-    assert home.log[0] is True           # холодний старт → перша ж дія «ввімкнути»
-    assert False in home.log             # кімната прогрілась і таки вимкнулась
-```
-```ts
-// test_hub.ts — ті самі shouldHeat і FakeDevice з hub.ts; біжить будь-де
-import assert from "node:assert";
-
-// ТЕСТ 1: чисте правило, взагалі без пристрою
-assert(shouldHeat(19.9, false));        // холодно — вмикаємо
-assert(shouldHeat(20.3, true));         // у смузі й гріли — тримаємо
-assert(!shouldHeat(20.6, true));        // перескочили верх — гасимо
-assert(!shouldHeat(20.3, false));       // та сама 20.3, та вже вимкнено — НЕ вмикаємо
-
-// ТЕСТ 2: правило проти ПІДРОБКИ, без грама заліза
-async function testAgainstFake() {
-  const home = new FakeDevice(17.0);     // старт нижче за поріг — дім холодний
-  let heating = false;
-  for (let i = 0; i < 80; i++) {         // ~40 хв «дому» за частку секунди
-    const t = await home.temperature();  // read  — з пам'яті
-    heating = shouldHeat(t, heating);    // decide
-    await home.heat(heating);            // act   — у журнал, не в реле
-    if (t < THRESHOLD)               assert(heating);   // під порогом — тільки гріти
-    if (t > THRESHOLD + HYSTERESIS)  assert(!heating);  // над смугою — тільки гасити
-  }
-  assert.strictEqual(home.log[0], true); // холодний старт → перша дія «ввімкнути»
-  assert(home.log.includes(false));      // кімната прогрілась і таки вимкнулась
-}
-testAgainstFake();
-```
+:::code proj-dh-device-port/py/test_hub.py
+:::code proj-dh-device-port/ts/test_hub.ts
 :::
 
 Перший тест бере саме правило й тицяє в його межі — під поріг, у смугу, над смугою — і все це за мілісекунду, без нічого, крім чотирьох чисел. Він сам-один відповідає на друге з трьох питань: «чи є що тестувати в ядрі без інфраструктури?» Ось воно, зелене, у тебе перед очима.

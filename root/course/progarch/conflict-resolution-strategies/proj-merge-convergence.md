@@ -49,99 +49,15 @@ def lww_merge(a, b):
 > 🔧 **Навіщо це.** Версійний вектор тут — не прикраса, а єдиний спосіб чесно сказати «ці дві версії одночасні». Механіку [векторних годинників](root:sf-distributed/vector-clocks) курс формалізує окремо; тут досить, що `dominates(x, y)` відповідає «x бачив усе, що y, і ще щось».
 
 :::tabs
-```ts
-// ── 2. Двійники: набір версій, кожна з версійним вектором ──
-type VV = Record<string, number>;
-type Version = { list: string[]; vv: VV };
-
-const at = (v: VV, n: string) => v[n] ?? 0;
-
-function dominates(x: VV, y: VV): boolean {       // x строго новіший за y?
-  const keys = new Set([...Object.keys(x), ...Object.keys(y)]);
-  let ge = true, gt = false;
-  for (const k of keys) {
-    if (at(x, k) < at(y, k)) ge = false;
-    if (at(x, k) > at(y, k)) gt = true;
-  }
-  return ge && gt;
-}
-
-function sibMerge(a: Version[], b: Version[]): Version[] {
-  const both = [...a, ...b], live: Version[] = [], seen = new Set<string>();
-  for (const v of both) {
-    const k = JSON.stringify(Object.entries(v.vv).sort());
-    if (seen.has(k)) continue;                          // дубль тієї самої версії
-    if (both.some((w) => dominates(w.vv, v.vv))) continue;  // хтось новіший — відкинути
-    seen.add(k); live.push(v);
-  }
-  return live;
-}
-```
-```py
-# ── 2. Двійники: набір версій, кожна з версійним вектором ──
-def dominates(x, y):                 # x строго новіший за y?
-    keys = set(x) | set(y)
-    ge = all(x.get(k, 0) >= y.get(k, 0) for k in keys)
-    gt = any(x.get(k, 0) >  y.get(k, 0) for k in keys)
-    return ge and gt
-
-def sib_merge(a, b):
-    both = a + b
-    live, seen = [], set()
-    for v in both:
-        k = tuple(sorted(v["vv"].items()))
-        if k in seen:                                     # дубль тієї самої версії
-            continue
-        if any(dominates(w["vv"], v["vv"]) for w in both):  # хтось новіший — відкинути
-            continue
-        seen.add(k); live.append(v)
-    return live
-```
+:::code proj-merge-convergence/ts/try-reiestry-try-zlyttia.ts
+:::code proj-merge-convergence/py/try-reiestry-try-zlyttia.py
 :::
 
 **OR-Set** (англ. *observed-remove set*) — найтонший із трьох, бо ховає всю розумність у теги. Кожне додавання елемента дістає **унікальний тег**; видалення знімає лише **ті теги, які репліка справді бачила**. Елемент живий, поки має бодай один доданий і ще не знятий тег. Злиття — поелементне об'єднання доданих тегів і об'єднання знятих. Ось чому паралельне додавання переживає видалення: воно кладе **новий** тег, якого видалення не бачило й зняти не могло, — і це не воскресіння, а чесно новий запис.
 
 :::tabs
-```ts
-// ── 3. OR-Set: на елемент — теги додавань і теги знятих (тумбстоуни) ──
-type ORSet = { add: Record<string, Set<string>>; rem: Record<string, Set<string>> };
-
-function orMerge(a: ORSet, b: ORSet): ORSet {
-  const out: ORSet = { add: {}, rem: {} };
-  for (const s of [a, b])
-    for (const kind of ["add", "rem"] as const)
-      for (const [e, tags] of Object.entries(s[kind])) {
-        out[kind][e] ??= new Set();
-        for (const t of tags) out[kind][e].add(t);
-      }
-  return out;
-}
-
-// елемент живий, поки має бодай один доданий, але не знятий тег
-function orValue(s: ORSet): Set<string> {
-  const live = new Set<string>();
-  for (const [e, tags] of Object.entries(s.add)) {
-    const rem = s.rem[e] ?? new Set<string>();
-    if ([...tags].some((t) => !rem.has(t))) live.add(e);
-  }
-  return live;
-}
-```
-```py
-# ── 3. OR-Set: на елемент — теги додавань і теги знятих (тумбстоуни) ──
-def or_merge(a, b):
-    out = {"add": {}, "rem": {}}
-    for s in (a, b):
-        for kind in ("add", "rem"):
-            for e, tags in s[kind].items():
-                out[kind].setdefault(e, set()).update(tags)
-    return out
-
-# елемент живий, поки має бодай один доданий, але не знятий тег
-def or_value(s):
-    return {e for e, tags in s["add"].items()
-            if tags - s["rem"].get(e, set())}
-```
+:::code proj-merge-convergence/ts/try-reiestry-try-zlyttia-2.ts
+:::code proj-merge-convergence/py/try-reiestry-try-zlyttia-2.py
 :::
 
 ## Ті самі оновлення — трьома мовами реєстрів
@@ -149,38 +65,8 @@ def or_value(s):
 Тепер запишемо сценарій «Вечір кіно» **як стани-дельти** для кожного реєстру. Кожне оновлення — це маленький стан, який репліка вливає в себе злиттям; тег `a1`/`b1`/`c1` — унікальний ідентифікатор конкретного запису.
 
 :::tabs
-```ts
-const lwwFrags: LWW[] = [
-  { val: new Set(["торшер"]),   ts: 1, node: "A" },   // A: увесь список = {торшер}
-  { val: new Set(["гірлянда"]), ts: 1, node: "B" },   // B одночасно: увесь список = {гірлянда}
-];
-const sibFrags: Version[][] = [
-  [{ list: ["торшер"],   vv: { A: 1 } }],
-  [{ list: ["гірлянда"], vv: { B: 1 } }],
-];
-const orFrags: ORSet[] = [
-  { add: { торшер:   new Set(["a1"]) }, rem: {} },      // A: +торшер (тег a1)
-  { add: { гірлянда: new Set(["b1"]) }, rem: {} },      // B: +гірлянда (тег b1)
-  { add: {}, rem: { торшер: new Set(["a1"]) } },        // −торшер, бачив лише тег a1
-  { add: { торшер:   new Set(["c1"]) }, rem: {} },      // C: +торшер знову (новий тег c1)
-];
-```
-```py
-lww_frags = [
-    {"val": {"торшер"},   "ts": 1, "node": "A"},   # A: увесь список = {торшер}
-    {"val": {"гірлянда"}, "ts": 1, "node": "B"},   # B одночасно: увесь список = {гірлянда}
-]
-sib_frags = [
-    [{"list": ["торшер"],   "vv": {"A": 1}}],
-    [{"list": ["гірлянда"], "vv": {"B": 1}}],
-]
-or_frags = [
-    {"add": {"торшер":   {"a1"}}, "rem": {}},                  # A: +торшер (тег a1)
-    {"add": {"гірлянда": {"b1"}}, "rem": {}},                  # B: +гірлянда (тег b1)
-    {"add": {},                   "rem": {"торшер": {"a1"}}},  # −торшер, бачив лише тег a1
-    {"add": {"торшер":   {"c1"}}, "rem": {}},                  # C: +торшер знову (новий тег c1)
-]
-```
+:::code proj-merge-convergence/ts/ti-sami-onovlennia-troma.ts
+:::code proj-merge-convergence/py/ti-sami-onovlennia-troma.py
 :::
 
 Зверни увагу на асиметрію вже тут. LWW змушений кодувати «додавання» як **знімок усього списку** — бо іншого місця, крім цілого значення, у нього немає; тож знімок A несе лише те, що A бачив. OR-Set натомість кодує кожну дію окремо, за її власним тегом. Ця різниця в записі й вирішить фінал ще до того, як спрацює хоч одне злиття.
@@ -190,65 +76,8 @@ or_frags = [
 Харнес доставляє одні й ті самі фрагменти багатьом «репліках», щоразу в новому випадковому порядку й із випадковими повторами, і рахує, **скільки різних фінальних станів** вийшло. Один стан на всі репліки — сходження тримається; більше одного — десь злиття не є справжнім join.
 
 :::tabs
-```ts
-const shuffle = <T,>(xs: T[]) =>
-  xs.map((x) => [Math.random(), x] as const).sort((p, q) => p[0] - q[0]).map((p) => p[1]);
-
-// канонічний «відбиток» стану — щоб порівнювати репліки попри порядок усередині структур
-const lwwKey = (s: LWW | null) => s ? JSON.stringify([[...s.val].sort(), s.ts, s.node]) : "∅";
-const sibKey = (s: Version[]) =>
-  JSON.stringify(s.map((v) => [[...v.list].sort(), Object.entries(v.vv).sort()]).sort());
-const dump = (m: Record<string, Set<string>>) =>
-  Object.entries(m).map(([e, t]) => [e, [...t].sort()]).sort();
-const orKey = (s: ORSet) => JSON.stringify([dump(s.add), dump(s.rem)]);
-
-function converge<S, F>(
-  merge: (s: S, f: F) => S, empty: S, frags: F[],
-  key: (s: S) => string, replicas = 1000,
-): number {
-  const seen = new Set<string>();
-  for (let r = 0; r < replicas; r++) {
-    const repeats = shuffle(frags).slice(0, Math.floor(Math.random() * (frags.length + 1)));
-    const order = shuffle([...frags, ...repeats]);   // випадковий порядок + повтори
-    let st = empty;
-    for (const f of order) st = merge(st, f);
-    seen.add(key(st));
-  }
-  return seen.size;                                   // 1 ⟺ усі репліки зійшлися
-}
-
-console.assert(converge(lwwMerge, null, lwwFrags, lwwKey) === 1, "LWW не зійшовся");
-console.assert(converge(sibMerge, [],   sibFrags, sibKey) === 1, "двійники не зійшлися");
-console.assert(converge(orMerge, { add: {}, rem: {} }, orFrags, orKey) === 1, "OR-Set не зійшовся");
-```
-```py
-import random
-
-def lww_key(s):
-    return "∅" if s is None else (tuple(sorted(s["val"])), s["ts"], s["node"])
-def sib_key(s):
-    return tuple(sorted((tuple(sorted(v["list"])), tuple(sorted(v["vv"].items()))) for v in s))
-def _dump(m):
-    return tuple(sorted((e, tuple(sorted(t))) for e, t in m.items()))
-def or_key(s):
-    return (_dump(s["add"]), _dump(s["rem"]))
-
-def converge(merge, empty, frags, key, replicas=1000):
-    seen = set()
-    for _ in range(replicas):
-        repeats = random.sample(frags, k=random.randint(0, len(frags)))
-        order = frags + repeats
-        random.shuffle(order)                     # випадковий порядок + повтори
-        st = empty
-        for f in order:
-            st = merge(st, f)
-        seen.add(key(st))
-    return len(seen)                              # 1 ⟺ усі репліки зійшлися
-
-assert converge(lww_merge, None, lww_frags, lww_key) == 1, "LWW не зійшовся"
-assert converge(sib_merge, [],   sib_frags, sib_key) == 1, "двійники не зійшлися"
-assert converge(or_merge, {"add": {}, "rem": {}}, or_frags, or_key) == 1, "OR-Set не зійшовся"
-```
+:::code proj-merge-convergence/ts/ispyt-na-skhodzhennia.ts
+:::code proj-merge-convergence/py/ispyt-na-skhodzhennia.py
 :::
 
 Усі три `assert` проходять. І це перший, оманливо-заспокійливий результат: **кожен** з трьох реєстрів сходиться. Хоч як тасуй і дублюй — LWW щоразу дає той самий стан, двійники той самий, OR-Set той самий. Якби ми зупинилися тут і повісили зелену галочку «репліки узгоджені», ми б проґавили головне.

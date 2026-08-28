@@ -12,121 +12,20 @@
 
 Спокуса номер один — зробити цей бюджет як «момент у майбутньому» на настінному годиннику й на кожному кроці питати «скільки лишилось» відніманням. Ось як це виглядає — і чому це бомба з годинниковим механізмом:
 
-```go
-// ❌ БАГ: бюджет на настінному часі
-type WallBudget struct {
-	now      func() time.Time // настінний годинник; впорскуємо, щоб відтворити стрибок
-	deadline time.Time
-}
-
-func NewWallBudget(now func() time.Time, total time.Duration) WallBudget {
-	return WallBudget{now: now, deadline: now().Add(total)} // дедлайн = настінне «тепер» + 30с
-}
-
-func (b WallBudget) Remaining() time.Duration {
-	return b.deadline.Sub(b.now()) // настінне − настінне: беззахисне перед стрибком
-}
-```
+:::code proj-monotonic-deadline/go/dystsyplina-1-odyn.go
 
 Годинник тут — залежність, яку ми впорскуємо, і не заради краси: саме так можна **детерміновано відтворити** стрибок NTP у звичайному запуску, без адмінських прав і машини часу. Проженімо:
 
 **Умова: бюджет 30 с; на 3-й секунді NTP смикає настінний годинник на добу вперед.**
-```go
-func main() {
-	fake := time.Date(2026, 1, 1, 15, 0, 0, 0, time.UTC)
-	wall := func() time.Time { return fake }
-
-	b := NewWallBudget(wall, 30*time.Second) // дедлайн = 15:00:30
-	fake = fake.Add(3 * time.Second)          // минуло 3 с реального часу
-	fmt.Println("залишок:", b.Remaining())    // 27s — поки все чесно
-
-	fake = fake.Add(24 * time.Hour)           // ← NTP/адмін смикнув годинник на добу вперед
-	fmt.Println("залишок:", b.Remaining())    // -23h59m33s ← ВІД'ЄМНИЙ бюджет!
-}
-```
+:::code proj-monotonic-deadline/go/dystsyplina-1-odyn-2.go
 
 Від'ємний залишок. Не «мало часу» — **менше нуля**. Далі цей залишок піде в таймаут сокета, і той або спрацює миттєво (запит помре, не почавшись), або, якщо стрибок був назад, роздметься на години й повисне. Це рівно той клас багів, з якого починалася тема: різниця двох настінних читань не має права бути від'ємною — а вона є.
 
 Ліки прості до образливого: **не будуй бюджет на настінному годиннику.** Заміряй старт монотонним лічильником, питай у нього, скільки збігло, — і проведи цей бюджет крізь увесь ланцюг одним спільним дедлайном, з якого кожен крок дістає свій залишок. Ось виправлений бюджет разом із ланцюгом під ним — двома мовами стеку:
 
 :::tabs
-```go
-// ✅ Бюджет на монотонному годиннику
-type Budget struct {
-	start time.Time     // time.Now() несе В СОБІ монотонне читання
-	total time.Duration
-}
-
-func NewBudget(total time.Duration) Budget {
-	return Budget{start: time.Now(), total: total}
-}
-
-// time.Since = time.Now().Sub(start) → віднімання бере МОНОТОННУ складову.
-// Стрибок настінного годинника не чіпає цього числа взагалі.
-func (b Budget) Remaining() time.Duration { return b.total - time.Since(b.start) }
-func (b Budget) Expired() bool            { return b.Remaining() <= 0 }
-
-// Ланцюг під ОДНИМ дедлайном: context несе його крізь усі кроки, а кожен
-// крок дістає з ctx рівно свій залишок від 30 секунд.
-func FetchReading(ctx context.Context, addr string) (Reading, error) {
-	// WithTimeout будує дедлайн від time.Now() (з монотонним читанням)
-	// і ставить таймер рантайму — стрибок настінного часу його не зрушить.
-	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
-	defer cancel()
-
-	conn, err := connect(ctx, addr) // крок 1 з'їдає частину бюджету — наступним лишиться менше
-	if err != nil {
-		return Reading{}, err
-	}
-	defer conn.Close()
-
-	raw, err := readFrame(ctx, conn) // крок 2 бачить залишок ПІСЛЯ connect
-	if err != nil {
-		return Reading{}, err
-	}
-	return parse(ctx, raw) // крок 3 — те, що лишилось від 30 с
-}
-
-func connect(ctx context.Context, addr string) (net.Conn, error) {
-	var d net.Dialer
-	return d.DialContext(ctx, "tcp", addr) // dialer сам поважає дедлайн з ctx
-}
-
-func readFrame(ctx context.Context, conn net.Conn) ([]byte, error) {
-	if dl, ok := ctx.Deadline(); ok {
-		conn.SetReadDeadline(dl) // перекладаємо СПІЛЬНИЙ дедлайн на сокет
-	}
-	buf := make([]byte, 4096)
-	n, err := conn.Read(buf)
-	return buf[:n], err
-}
-```
-```py
-import asyncio, time
-
-# ✅ Бюджет на монотонному годиннику — time.monotonic() тільки вгору
-# (той самий баг, що в Go, тут дало б time.time() замість time.monotonic()).
-class Budget:
-    def __init__(self, total):
-        self.start, self.total = time.monotonic(), total
-
-    def remaining(self):
-        return self.total - (time.monotonic() - self.start)
-
-    def expired(self):
-        return self.remaining() <= 0
-
-# Ланцюг під ОДНИМ бюджетом: asyncio.timeout несе дедлайн крізь усі await,
-# а міряє його loop.time() — теж монотонний годинник.
-async def fetch_reading(addr):
-    async with asyncio.timeout(30):        # Python 3.11+; один дедлайн на весь блок
-        conn = await connect(addr)         # кожен await бачить свій залишок бюджету
-        try:
-            raw = await read_frame(conn)   # залишок після connect
-            return await parse(raw)        # те, що лишилось
-        finally:
-            conn.close()
-```
+:::code proj-monotonic-deadline/go/dystsyplina-1-odyn-3.go
+:::code proj-monotonic-deadline/py/dystsyplina-1-odyn.py
 :::
 
 Секрет Go — `time.Now()` з версії 1.9 несе **обидва** читання, а `Sub`/`Since` мовчки беруть монотонне; секрет Python — це дві різні функції, `time.monotonic()` проти `time.time()`, і взяти правильну треба свідомо. Далі дивись, як тече спільний бюджет крізь ланцюг. У Go `context.WithTimeout` будує дедлайн від `time.Now()` (з монотонним читанням) і збуджує таймер **рантайму**: `DialContext` сам рахує залишок до `ctx`-дедлайну, а `SetReadDeadline` зводить його до `time.Until(dl)` — знову монотонне віднімання. У Python `asyncio.timeout` кладе дедлайн на `loop.time()` (монотонний), і кожен `await` усередині бачить **той самий** залишок, уже менший після `connect`. Жоден крок не знає про 30 секунд — кожен знає лише спільний дедлайн, який монотонний наскрізь; настінному годиннику нема куди втрутитися.
@@ -153,55 +52,8 @@ async def fetch_reading(addr):
 Проста експонента без джитера, показав Брукер, — «явний програш»; повний джитер дає і найменше навантаження на сервер, і найменше зайвої роботи в клієнта. Ось він у коді — і, головне, **вкладений у бюджет** з попередньої дисципліни, бо повторювати теж можна лише поки є час:
 
 :::tabs
-```go
-// Повний джитер (AWS, Marc Brooker): пауза = random(0, min(cap, base·2^attempt)).
-func backoff(attempt int, base, cap time.Duration) time.Duration {
-	window := base << attempt        // base·2^attempt
-	if window <= 0 || window > cap { // <=0 ловить переповнення зсуву на великому attempt
-		window = cap
-	}
-	return time.Duration(rand.Int63n(int64(window))) // рівномірно [0, window)
-}
-
-func WithRetry(ctx context.Context, op func(context.Context) error) error {
-	const base, cap = 100 * time.Millisecond, 10 * time.Second
-	for attempt := 0; ; attempt++ {
-		err := op(ctx)
-		if err == nil || !retryable(err) {
-			return err // успіх або невиправна помилка — не повторюємо
-		}
-		wait := backoff(attempt, base, cap)
-
-		// КЛЮЧОВЕ: не спати за дедлайн. Якщо пауза довша за залишок бюджету —
-		// немає сенсу навіть починати чекати; здаємось зараз.
-		if dl, ok := ctx.Deadline(); ok && time.Until(dl) < wait {
-			return fmt.Errorf("бюджет вичерпано (лишилось %v < backoff %v): %w",
-				time.Until(dl).Round(time.Millisecond), wait, err)
-		}
-		select {
-		case <-time.After(wait): // таймер рантайму — монотонний
-		case <-ctx.Done():       // дедлайн або скасування рве паузу негайно
-			return ctx.Err()
-		}
-	}
-}
-```
-```py
-import asyncio, random
-
-async def with_retry(op, deadline):        # deadline — момент loop.time() (МОНОТОННИЙ)
-    base, cap = 0.1, 10.0
-    loop, attempt = asyncio.get_running_loop(), 0
-    while True:
-        try:
-            return await op()
-        except Retryable as e:
-            wait = random.uniform(0, min(cap, base * 2 ** attempt))  # повний джитер
-            if loop.time() + wait > deadline:   # не спати за дедлайн
-                raise TimeoutError("бюджет вичерпано") from e
-            await asyncio.sleep(wait)           # asyncio.sleep — монотонний
-            attempt += 1
-```
+:::code proj-monotonic-deadline/go/dystsyplina-2-backoff-iz.go
+:::code proj-monotonic-deadline/py/dystsyplina-2-backoff-iz.py
 :::
 
 Три речі працюють разом, і кожна міряє час монотонно. `backoff`/`random.uniform` кидають кубик у вікно — пауза не вгадувана, синхронне стадо розповзається. Перевірка залишку бюджету (`time.Until(dl) < wait` у Go, `loop.time() + wait > deadline` у Python) не дає повтору вилізти **за** спільний дедлайн: якщо до нього лишилось 300 мс, а backoff нарахував секунду — чекати означало б свідомо його проґавити, тож здаємось одразу. А `select` між `time.After` і `ctx.Done()` (у Python цю ж роль грає `asyncio.sleep`, що прокидається на скасуванні) дає паузі спати на монотонному таймері й вмить рватися, коли контекст скасовано. І `time.Until`, і `time.After`, і `loop.time()` живуть на монотонному годиннику рантайму — настінному тут нема куди встромитися.
@@ -222,51 +74,11 @@ async def with_retry(op, deadline):        # deadline — момент loop.time
 
 Уся суть — у крихітному монотонному лічильнику, яким **керуєш ти**, а не фізичний час. Ось він робочим кодом:
 
-```go
-// Замок видає СТРОГО зростаючі жетони. Це і є вся монотонність — маленький
-// лічильник, яким керуємо МИ, а не годинник.
-type LockService struct{ token uint64 }
-
-func (l *LockService) Acquire() uint64 {
-	return atomic.AddUint64(&l.token, 1) // 1, 2, 3, … — атомарно, ніколи не назад
-}
-
-// Сховище приймає запис, ЛИШЕ якщо жетон новіший за все бачене.
-type Storage struct {
-	mu      sync.Mutex
-	highest uint64 // найбільший жетон, який уже приймали
-	value   string
-}
-
-func (s *Storage) Write(token uint64, val string) error {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-	if token < s.highest { // строго старіший за бачене → застряглий власник
-		return fmt.Errorf("застарілий жетон %d < вже бачений %d: запис відкинуто",
-			token, s.highest)
-	}
-	s.highest = token // рухаємо загорожу вгору
-	s.value = val
-	return nil
-}
-```
+:::code proj-monotonic-deadline/go/dystsyplina-3-fensynh.go
 
 І сам сценарій Клеппманна, який тепер завершується правильно:
 
-```go
-func main() {
-	lock, store := &LockService{}, &Storage{}
-
-	t1 := lock.Acquire()               // робітник А бере лізу → жетон 1
-	// …і тут А спиняє пауза GC (stop-the-world): ліза встигає збігти, А цього не знає.
-
-	t2 := lock.Acquire()               // робітник Б бере лізу → жетон 2
-	must(store.Write(t2, "від Б"))     // приймається: 2 ≥ 0, загорожа тепер 2
-
-	err := store.Write(t1, "від А (спізнівся)") // А прокинувся й пише зі СВОЇМ, застарілим
-	fmt.Println(err) // «застарілий жетон 1 < вже бачений 2: запис відкинуто»
-}
-```
+:::code proj-monotonic-deadline/go/dystsyplina-3-fensynh-2.go
 
 Придивися, де тут монотонність. У `Acquire` — `atomic.AddUint64`: жетони йдуть `1, 2, 3, …` строго вгору, без гонки; проста `l.token++` тут зламалася б, бо два одночасні виклики могли б видати одне число ([чому неатомарний інкремент — це вже гонка](root:sf-tasks/data-races-locks)). У `Write` — порівняння `token < highest` під замком: перевірка «новіший за бачене» і сам запис відбуваються **неподільно**, інакше два записи проскочили б перевірку разом. Загорожа рухається лише вгору — ще один монотонний лічильник, близнюк монотонного годинника з першої дисципліни, тільки цим ти керуєш сам.
 

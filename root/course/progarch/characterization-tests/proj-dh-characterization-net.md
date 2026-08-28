@@ -6,43 +6,7 @@
 
 Ось він, `plan`, — такий, як його знайшли в проді. Дивитися боляче, і це нормально: страшний код і є ціль вправи. Одна функція вирішує все — нічний поріг, відпустку, ранкове прогрівання, збій давача, охолодження, світло за рухом — і робить це впереміш, гілка на гілці.
 
-```py
-# scheduler.py — успадкований планувальник Digital Homes.
-# Розрісся накопиченням «ще одного if». Тестів нема, автори пішли.
-import random
-from datetime import datetime
-
-
-def plan(sensors, rules):
-    out = []
-    h = datetime.now().hour                       # ← дикий вхід: стінний годинник
-    base = rules.get("threshold", 20.0)
-    for room in sensors:
-        s = sensors[room]
-        t = s.get("temp")
-        thr = base
-        if rules.get("night") and (h >= 23 or h < 6):
-            thr = base - 2.0
-        if rules.get("vacation"):
-            thr = 12.0                            # відпустка: лише антизамерзання труб
-        if 6 <= h < 9:
-            thr = rules.get("morning", 21.0)      # ранкове прогрівання (дописане згодом)
-        if t is None or t != t:                   # None або NaN — давач мовчить
-            out.append(room + ":IDLE")
-            continue
-        if t < thr:
-            if random.random() < 0.25:            # ← дикий вхід: «комфортний» буст
-                out.append(room + ":HEAT+")
-            else:
-                out.append(room + ":HEAT")
-        elif t > thr + 3.0:
-            out.append(room + ":COOL")
-        else:
-            out.append(room + ":IDLE")
-        if s.get("motion") and s.get("lux", 999) < 20:
-            out.append(room + ":LIGHT")
-    return out
-```
+:::code proj-dh-characterization-net/py/scheduler.py
 
 Перш ніж чіпати, познач очима два **диких входи**, підкреслені в коментарях. `datetime.now()` тягне поточну годину прямо з системного годинника, а `random.random()` смикає глобальний генератор — і обидва вплетені в саме тіло рішення, без жодного шва. Через них та сама функція на тих самих аргументах видасть **різне** о сьомій ранку й о другій дня, і різне двічі поспіль тієї самої секунди. Запам'ятай ці два місця: вони — головна перешкода на всьому шляху, і саме навколо них крутитиметься другий хід. Читати чужий клубок треба [не ламаючи його наосліп](root:sf-apps/legacy-archaeology) — спершу відбиток, потім скальпель.
 
@@ -128,92 +92,13 @@ def test_edge_room_pinned():
 ![Дві смуги: plan() тягнеться по datetime.now() і random.random(); на кожному шві monkeypatch підмінює дикий вхід дублером — FrozenClock на 07:00 і Random(0) зі сталою послідовністю](img/doubles.svg)
 *Годинник і генератор — два дикі входи, крізь які в функцію тече недетермінізм. Тест підмінює обидва дублером у шві-атрибуті модуля; лише тоді вихід стає відтворним.*
 
-```py
-# conftest.py — дублери для ВСІХ характеризаційних тестів планувальника
-import random
-from datetime import datetime
-import scheduler
-
-
-class FrozenClock:
-    """Дублер годинника: .now() завжди віддає ту саму мить."""
-    def __init__(self, moment):
-        self._moment = moment
-    def now(self):
-        return self._moment
-
-
-def freeze(monkeypatch, hour, seed=0):
-    # ВАЖЛИВО: FrozenClock будуємо зі СПРАВЖНЬОГО datetime, а не з уже підміненого —
-    # інакше на другому виклику підсунемо самі собі зіпсоване ім'я (див. пастки).
-    monkeypatch.setattr(scheduler, "datetime", FrozenClock(datetime(2026, 1, 15, hour, 0)))
-    monkeypatch.setattr(scheduler, "random", random.Random(seed))   # зерно 0 → відтворно
-```
+:::code proj-dh-characterization-net/py/conftest.py
 
 Тепер «доба правил» — це таблиця сценаріїв, кожен зі своєю годиною й своїм зерном; рендеримо всі підряд в один текст і звіряємо з одним затвердженим файлом. Ось характеризаційний тест золотим еталоном — ліворуч ручний Python (щоб видно було механіку до останнього байта), праворуч той самий задум знімком Jest, де інструмент уже вбудував «захопи раз, порівнюй далі»:
 
 :::tabs
-```py
-# test_golden.py
-from pathlib import Path
-import random
-from datetime import datetime
-import pytest
-import scheduler
-from conftest import FrozenClock
-
-DAY = [
-    ("холодний ранок, дім прокидається", 7,
-     {"hall": {"temp": 15.2, "motion": True, "lux": 8}, "bed": {"temp": 16.0}},
-     {"threshold": 20.0, "night": True, "morning": 21.0}),
-    ("робочий день, нікого вдома", 14,
-     {"hall": {"temp": 20.5}, "bed": {"temp": 23.0}}, {"threshold": 20.0}),
-    ("спекотний полудень", 13,
-     {"hall": {"temp": 26.0, "motion": True, "lux": 300}}, {"threshold": 20.0}),
-    ("відпустка, прохолодний ранок", 7,
-     {"hall": {"temp": 15.0}, "bed": {"temp": 14.0}},
-     {"threshold": 20.0, "vacation": True, "morning": 21.0}),
-    ("ніч, давач вітальні мовчить", 2,
-     {"hall": {"temp": float("nan")}, "bed": {"temp": 17.0}},
-     {"threshold": 20.0, "night": True}),
-    ("відпустка, мороз", 3,
-     {"hall": {"temp": 8.0}}, {"threshold": 20.0, "vacation": True}),
-]
-
-
-def render_day(monkeypatch):
-    lines = []
-    for label, hour, sensors, rules in DAY:
-        monkeypatch.setattr(scheduler, "datetime", FrozenClock(datetime(2026, 1, 15, hour, 0)))
-        monkeypatch.setattr(scheduler, "random", random.Random(0))   # зерно на кожен сценарій
-        lines.append(f"=== {label} ({hour:02d}:00) ===")
-        lines += scheduler.plan(sensors, rules)
-    return "\n".join(lines)
-
-
-def test_day_matches_golden(monkeypatch):
-    got = render_day(monkeypatch)
-    approved = Path(__file__).parent / "golden" / "day.approved.txt"
-    if not approved.exists():                       # перший прогін — нема з чим звіряти
-        approved.with_suffix(".received.txt").write_text(got, encoding="utf-8")
-        pytest.fail("нема еталона: переглянь day.received.txt і, якщо ок, перейменуй у .approved")
-    assert got == approved.read_text(encoding="utf-8")
-```
-```ts
-// scheduler.golden.test.ts — той самий задум знімком Jest
-import { renderDay, DAY } from "./scheduler_day";
-
-test("день правил DH — золотий еталон", () => {
-  // Jest дає обидва дублери з коробки: фейковий годинник і кероване зерно
-  const out = renderDay(DAY, {
-    clockAt: new Date("2026-01-15T00:00:00"),   // застиглий час (jest.setSystemTime)
-    seed: 0,                                     // сталий генератор
-  });
-  // перший прогін ЗАПИСУЄ .snap поруч; наступні — звіряють байт у байт
-  expect(out).toMatchSnapshot();
-  // свідома зміна поведінки згодом → jest -u перезатверджує знімок
-});
-```
+:::code proj-dh-characterization-net/py/test_golden.py
+:::code proj-dh-characterization-net/ts/scheduler.golden.test.ts
 :::
 
 Перший прогін падає з наміром: еталона ще нема, тест лишає `day.received.txt`, людина його **один раз** проглядає очима й, якщо схоже на правду, перейменовує в `day.approved.txt`. Ось що там застигло:
@@ -268,47 +153,7 @@ def test_boost_branch_pinned(monkeypatch):
 
 Аж тепер, коли ділянка вся під сіткою, беремося за ніж — [дрібними оборотними ходами](root:progarch/refactoring-safe). Клубок розчіплюємо на дві чесні функції: `_threshold` рахує поріг з правил і години, `_climate` перекладає температуру й поріг у команду. Головна дисципліна ходу — **нічого не міняти по суті**: баг відпустки переїжджає в `_threshold` таким, як був, дикі входи так само лишаються іменами модуля (щоб той самий `monkeypatch` і далі кусав), а `HEAT+`, `LIGHT` та `continue` на німому давачі відтворюються один-в-один.
 
-```py
-# scheduler.py — після рефакторингу. ПОВЕДІНКА та сама (баг теж на місці).
-import random
-from datetime import datetime
-
-
-def _threshold(rules, h):
-    thr = rules.get("threshold", 20.0)
-    if rules.get("night") and (h >= 23 or h < 6):
-        thr -= 2.0
-    if rules.get("vacation"):
-        thr = 12.0                                # антизамерзання
-    if 6 <= h < 9:
-        thr = rules.get("morning", 21.0)          # ← той самий баг переїхав сюди БЕЗ змін
-    return thr
-
-
-def _climate(t, thr):
-    if t is None or t != t:
-        return "IDLE"
-    if t < thr:
-        return "HEAT+" if random.random() < 0.25 else "HEAT"
-    if t > thr + 3.0:
-        return "COOL"
-    return "IDLE"
-
-
-def plan(sensors, rules):
-    out = []
-    h = datetime.now().hour                        # ім'я модуля лишилось — шов цілий
-    for room, s in sensors.items():
-        thr = _threshold(rules, h)
-        t = s.get("temp")
-        if t is None or t != t:                    # німий давач — і світло не чіпаємо
-            out.append(room + ":IDLE")
-            continue
-        out.append(room + ":" + _climate(t, thr))
-        if s.get("motion") and s.get("lux", 999) < 20:
-            out.append(room + ":LIGHT")
-    return out
-```
+:::code proj-dh-characterization-net/py/scheduler-2.py
 
 Проганяємо весь набір — три пришпилені входи, буст-гілку й золотий еталон. **Усе зелене, еталон збігається байт у байт.** Ось заради чого городили город: ми переклали кишки функції, а сітка мовчить, і це мовчання — не удача, а доказ, що жодне спостережне рішення не зрушило. Форма інша, поведінка ціла. Той самий баг відпустки, який ми помітили, спокійно тримається зеленим — і тепер, коли код нарешті читабельний, ми **бачимо** його механізм: рядок `if 6 <= h < 9:` затирає щойно виставлений відпусткою поріг `12.0` на комфортні `21.0`, зовсім не питаючи, чи дім у відпустці. Розуміння, якого не було на початку, прийшло само — під сіткою, поки ми рефакторили. Клубок, який ми не наважувалися чіпати, тепер розчеплений на дві функції, що [цілять у ту саму форму, до якої курс вів чистий планувальник](root:progarch/dh-v1-modules), — поріг окремо, клімат окремо, збірка окремо.
 

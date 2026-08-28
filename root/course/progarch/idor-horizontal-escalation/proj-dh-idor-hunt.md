@@ -13,47 +13,8 @@
 Ідея харнеса гранично проста, і в цій простоті вся суть. Ми беремо **свою власну** сесію — акаунт мешканця #4021, залогінений чесно, без жодного злому автентифікації, — і посилаємо той самий запит `GET /api/homes/{id}/devices` по черзі для `id = 4022, 4023, 4024, …`, тобто для домів, яких ми ніколи не бачили в інтерфейсі. Сесія на кожному запиті **та сама, наша**. Змінюється лише число в адресі. І дивимося, що відповість сервер.
 
 :::tabs
-```ts
-// idor-sweep.ts — перебір чужих домів під ВЛАСНОЮ сесією мешканця #4021
-const BASE = "https://api.dh.example";
-const cookie = process.env.DH_SESSION!;      // сесія залогіненого #4021 — його ЧЕСНИЙ вхід
-
-async function probe(homeId: number) {
-  const res = await fetch(`${BASE}/api/homes/${homeId}/devices`, {
-    headers: { cookie },                      // та сама сесія на КОЖЕН id
-  });
-  if (res.status !== 200) return { homeId, status: res.status, count: 0 };
-  const devices = (await res.json()) as unknown[];
-  return { homeId, status: 200, count: devices.length };
-}
-
-const mine = 4021;
-for (let id = mine + 1; id <= mine + 8; id++) {   // сусіди, яких ми не маємо бачити
-  const r = await probe(id);
-  const leak = r.status === 200 ? "  ← ВИТІК" : "";
-  console.log(`home ${id}: ${r.status}  devices=${r.count}${leak}`);
-}
-```
-```py
-# idor_sweep.py — перебір чужих домів під ВЛАСНОЮ сесією мешканця #4021
-import os, httpx
-
-BASE = "https://api.dh.example"
-cookies = {"session": os.environ["DH_SESSION"]}   # чесний вхід #4021
-
-def probe(client, home_id):
-    r = client.get(f"{BASE}/api/homes/{home_id}/devices", cookies=cookies)
-    if r.status_code != 200:
-        return home_id, r.status_code, 0
-    return home_id, 200, len(r.json())            # та сама сесія на КОЖЕН id
-
-with httpx.Client() as client:
-    mine = 4021
-    for home_id in range(mine + 1, mine + 9):     # сусіди, яких ми не маємо бачити
-        hid, status, n = probe(client, home_id)
-        leak = "  ← ВИТІК" if status == 200 else ""
-        print(f"home {hid}: {status}  devices={n}{leak}")
-```
+:::code proj-dh-idor-hunt/ts/idor-sweep.ts
+:::code proj-dh-idor-hunt/py/idor_sweep.py
 :::
 
 Проти вразливого сервера вивід нещадний:
@@ -90,18 +51,7 @@ N        = розмір діапазону homeId       (напр. 10 000 сус
 Тепер закриваємо. Латка вже відома — запитати модель дому, чи належить він тому, хто прийшов, — але цінність цього кроку не в тому, **що** дописати, а в тому, щоб побачити, з **чого саме** складається правильний чек. Бо він виглядає як один рядок, а насправді тримається на трьох властивостях, і варто впустити будь-яку — діра лишається відчиненою, хоч рядок начебто на місці.
 
 :::tabs
-```ts
-app.get("/api/homes/:homeId/devices", requireSession, async (req, res) => {
-  const home = await homes.byId(req.params.homeId);   // id — з запиту, тобто від КЛІЄНТА
-  // Три несучі властивості чека:
-  //  1) НА СЕРВЕРІ  — тут, а не в застосунку (саме клієнт і підставляє чужий id);
-  //  2) НА КОЖНОМУ доступі — у цьому обробнику, не «десь раніше по дорозі»;
-  //  3) ЗА ОСОБОЮ запитувача — ключ = req.session.userId, НЕ id, надісланий клієнтом.
-  if (!home || !home.belongsTo(req.session.userId))
-    return res.status(404).end();                      // 404, не 403 — про це нижче
-  res.json(await devices.ofHome(home.id));
-});
-```
+:::code proj-dh-idor-hunt/ts/krok-2-chek-try.ts
 ```py
 @app.get("/api/homes/{home_id}/devices")
 def list_devices(home_id: str, user: User = Depends(current_user)):
@@ -144,84 +94,8 @@ def list_devices(home_id: str, user: User = Depends(current_user)):
 Лишився третій артефакт, і він найважливіший, бо перетворює разову перемогу на тривалу. Латка, яку ніхто не стереже, живе рівно до наступного рефакторингу: хтось перепише обробник, згорне `belongsTo` у ширший метод, «спростить» — і діра тихо відкриється знову, а щасливий шлях лишиться зеленим, бо його ніхто й не думав ламати. Тому останній крок — обернути наш харнес на **автоматичний тест**, який щоразу перепитує сервер те саме, що перебирач питав зі зла: «а сусід досі закритий?».
 
 :::tabs
-```ts
-// idor.access.test.ts — той самий перебір, тепер як регресійний вартовий
-import { describe, it, expect, beforeAll } from "vitest";
-import request from "supertest";
-import { app } from "../app";
-
-let cookie4021: string;      // сесія мешканця #4021
-const OWN      = 4021;       // дім, що НАЛЕЖИТЬ #4021
-const NEIGHBOR = 4022;       // дім сусіда — ІСНУЄ, але чужий
-const ABSENT   = 999999;     // дому не існує зовсім
-const SHARED   = 4055;       // дім, куди #4021 УПУЩЕНИЙ як член родини
-
-beforeAll(async () => { cookie4021 = await loginAs(4021); });
-
-describe("device-API не пускає горизонтально", () => {
-  it("власний дім — 200", async () => {
-    const res = await request(app).get(`/api/homes/${OWN}/devices`).set("Cookie", cookie4021);
-    expect(res.status).toBe(200);
-  });
-
-  it("дім, куди впущений членом родини — 200", async () => {
-    const res = await request(app).get(`/api/homes/${SHARED}/devices`).set("Cookie", cookie4021);
-    expect(res.status).toBe(200);            // гілку «упущений» не можна зламати латкою
-  });
-
-  // НЕСУЧИЙ негатив: сусідський дім ІСНУЄ, та не наш → мусить бути 404, не 200 і не 403
-  it("чужий ІСНУЮЧИЙ дім — 404 (не 200 і не 403)", async () => {
-    const res = await request(app).get(`/api/homes/${NEIGHBOR}/devices`).set("Cookie", cookie4021);
-    expect(res.status).toBe(404);
-  });
-
-  it("неіснуючий дім — теж 404 (не відрізнити від чужого)", async () => {
-    const res = await request(app).get(`/api/homes/${ABSENT}/devices`).set("Cookie", cookie4021);
-    expect(res.status).toBe(404);
-  });
-
-  // цілий перебір, як у нападника: жоден чужий id не сміє тектити
-  it("перебір сусідів не тече: кожен чужий id → 404", async () => {
-    for (let id = OWN + 1; id <= OWN + 30; id++) {
-      if (id === SHARED) continue;           // цей нам свідомо відкрито
-      const res = await request(app).get(`/api/homes/${id}/devices`).set("Cookie", cookie4021);
-      expect(res.status, `home ${id} має бути закритий`).toBe(404);
-    }
-  });
-});
-```
-```py
-# test_idor_access.py — перебір як вартовий регресії (pytest + FastAPI TestClient)
-import pytest
-from starlette.testclient import TestClient
-from app import app
-
-OWN, NEIGHBOR, ABSENT, SHARED = 4021, 4022, 999999, 4055
-
-@pytest.fixture
-def c4021():
-    client = TestClient(app)
-    client.cookies.set("session", login_as(4021))     # сесія мешканця #4021
-    return client
-
-def test_own_home_200(c4021):
-    assert c4021.get(f"/api/homes/{OWN}/devices").status_code == 200
-
-def test_shared_home_200(c4021):                       # упущений членом родини
-    assert c4021.get(f"/api/homes/{SHARED}/devices").status_code == 200
-
-def test_neighbor_existing_404(c4021):                 # чужий ІСНУЄ → 404, не 200, не 403
-    assert c4021.get(f"/api/homes/{NEIGHBOR}/devices").status_code == 404
-
-def test_absent_404(c4021):                            # нема зовсім → теж 404
-    assert c4021.get(f"/api/homes/{ABSENT}/devices").status_code == 404
-
-def test_sweep_leaks_nothing(c4021):                   # цілий перебір сусідів
-    for home_id in range(OWN + 1, OWN + 31):
-        if home_id == SHARED:
-            continue
-        assert c4021.get(f"/api/homes/{home_id}/devices").status_code == 404, f"home {home_id} тече"
-```
+:::code proj-dh-idor-hunt/ts/idor.access.test.ts
+:::code proj-dh-idor-hunt/py/test_idor_access.py
 :::
 
 Проти полагодженого сервера все зелене; поверни стару латку — і три негативні перевірки спалахнуть червоним, назвавши поіменно кожен id, що знову потік.
@@ -240,31 +114,8 @@ def test_sweep_leaks_nothing(c4021):                   # цілий перебі
 **Вкладеність об'єктів — авторизуй лист, а не предка.** Візьмімо ендпоінт на один рівень глибше: `GET /api/homes/:homeId/devices/:deviceId`. Природно перевірити, що `homeId` наш, і на цьому заспокоїтися. Пастка в тому, що `deviceId` теж прийшов від клієнта — і ніщо не заважає попросити `/homes/<мій>/devices/<чужий>`. Якщо чек звіряє лише дім, зловмисник підставляє свій дім у шлях і чужий пристрій у хвіст — і читає його:
 
 :::tabs
-```ts
-app.get("/api/homes/:homeId/devices/:deviceId", requireSession, async (req, res) => {
-  const home = await homes.byId(req.params.homeId);
-  if (!home || !home.belongsTo(req.session.userId))
-    return res.status(404).end();
-  const device = await devices.byId(req.params.deviceId);
-  // Мало, що дім наш: пристрій має належати САМЕ цьому дому. Інакше
-  // /homes/<мій>/devices/<чужий> пройде — власність перевірено не на тому об'єкті.
-  if (!device || device.homeId !== home.id)
-    return res.status(404).end();
-  res.json(device);
-});
-```
-```py
-@app.get("/api/homes/{home_id}/devices/{device_id}")
-def get_device(home_id: str, device_id: str, user: User = Depends(current_user)):
-    home = homes.by_id(home_id)
-    if home is None or not home.belongs_to(user.id):
-        raise HTTPException(404)
-    device = devices.by_id(device_id)
-    # пристрій мусить належати саме цьому дому, а не будь-якому нашому
-    if device is None or device.home_id != home.id:
-        raise HTTPException(404)
-    return device
-```
+:::code proj-dh-idor-hunt/ts/skladnist-i-pastky-odna.ts
+:::code proj-dh-idor-hunt/py/skladnist-i-pastky-odna.py
 :::
 
 Правило під цією пасткою: перевіряй право на **той самий об'єкт**, який зрештою віддаєш, — на лист дерева, а не на його зручного предка. Кожен клієнтський id у шляху — окремий вхід, який хтось спробує підставити.

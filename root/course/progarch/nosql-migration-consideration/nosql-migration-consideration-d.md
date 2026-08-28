@@ -77,35 +77,13 @@ NoSQL-сховище виграє свою вузьку перемогу сам�
 
 Придивімося, **як** DH користується телеметрією. Форм рівно дві, і обидві прості до непристойності:
 
-```sql
--- 1. показання одного давача за вікно часу
-SELECT ts, value FROM telemetry
- WHERE device_id = $1 AND ts >= $2 AND ts < $3
- ORDER BY ts;
-
--- 2. звести дім за місяць — перемолоти й викинути
-SELECT date_trunc('hour', ts) AS h, avg(value)
-  FROM telemetry
- WHERE home_id = $1 AND ts >= now() - interval '30 days'
- GROUP BY h;
-```
+:::code nosql-migration-consideration-d/sql/dh-odna-zadacha-shcho.sql
 
 Жодного з'єднання. Жодного `UPDATE` — показання вставили раз і не чіпають. Жодної транзакції, що зачепила б іншу таблицю. Тільки дописування, читання за діапазоном, агрегація й видалення за строком. Ця таблиця **не потребує нічого** з того, за що реляційна база бере плату, — а плату бере повну.
 
 Тепер порівняймо з ядром — ось як виглядає виставлення рахунку:
 
-```sql
-BEGIN;
-  SELECT h.id, p.tier, count(d.id)
-    FROM homes h
-    JOIN plans   p ON p.id = h.plan_id
-    JOIN devices d ON d.home_id = h.id
-   WHERE h.id = $1
-   GROUP BY h.id, p.tier;
-  INSERT INTO invoices(home_id, amount, period) VALUES (...);
-  UPDATE homes SET billed_through = $2 WHERE id = $1;
-COMMIT;
-```
+:::code nosql-migration-consideration-d/sql/dh-odna-zadacha-shcho-2.sql
 
 Три з'єднання й атомарна транзакція з кількох дій. Тут загубити з'єднання чи ACID — катастрофа: подвійний рахунок, розсинхрон тарифу й пристроїв. Ядро **живе** з того, за що реляційна база бере плату, — і платить її недарма.
 

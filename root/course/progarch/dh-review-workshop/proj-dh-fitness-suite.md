@@ -43,61 +43,8 @@ DH v2 інший. Це чотири запускні частини на трь�
 Реалізація мала: хаб пам'ятає застосовані `command-id` і мовчки відкидає повтор.
 
 :::tabs
-```py
-# hub.py — обробіток команд ідемпотентний за command-id
-from dataclasses import dataclass
-
-@dataclass(frozen=True)
-class Command:
-    id: str
-    target: str
-    action: str
-
-class Lock:
-    def __init__(self, target):
-        self.target = target
-        self.actuations = 0            # скільки разів фізично смикнули замок
-    def actuate(self):
-        self.actuations += 1
-
-class Hub:
-    def __init__(self):
-        self._locks = {}
-        self._seen = set()             # command-id, уже застосовані
-    def lock(self, target):
-        return self._locks.setdefault(target, Lock(target))
-    def handle(self, cmd):
-        if cmd.id in self._seen:       # дубль: той самий id — стан не рухаємо
-            return
-        self._seen.add(cmd.id)
-        if cmd.action == "open":
-            self.lock(cmd.target).actuate()
-```
-```ts
-// hub.ts — обробіток команд ідемпотентний за command-id
-type Command = { id: string; target: string; action: "open" | "close" };
-
-class Lock {
-  actuations = 0;                       // скільки разів фізично смикнули замок
-  constructor(readonly target: string) {}
-  actuate() { this.actuations++; }
-}
-
-export class Hub {
-  private locks = new Map<string, Lock>();
-  private seen = new Set<string>();     // command-id, уже застосовані
-  lock(target: string): Lock {
-    let l = this.locks.get(target);
-    if (!l) this.locks.set(target, (l = new Lock(target)));
-    return l;
-  }
-  handle(cmd: Command): void {
-    if (this.seen.has(cmd.id)) return;  // дубль: той самий id — стан не рухаємо
-    this.seen.add(cmd.id);
-    if (cmd.action === "open") this.lock(cmd.target).actuate();
-  }
-}
-```
+:::code proj-dh-fitness-suite/py/hub.py
+:::code proj-dh-fitness-suite/ts/hub.ts
 :::
 
 І тепер той самий сценарій, що завалив ствердження в кімнаті, — вартовим. Він доставляє команду двічі й вимагає **одного** спрацювання.
@@ -114,18 +61,7 @@ def test_lock_actuates_once_on_duplicate():
     hub.handle(cmd)                    # той самий id: повтор після втраченого ack
     assert hub.lock("front-door").actuations == 1
 ```
-```ts
-// tests/fitness/exactly-once.test.ts
-import { Hub } from "../../hub";
-
-test("замок актуйовано рівно раз при повторі", () => {
-  const hub = new Hub();
-  const cmd = { id: "c-42", target: "front-door", action: "open" } as const;
-  hub.handle(cmd);                      // доставка №1
-  hub.handle(cmd);                      // той самий id: повтор після втраченого ack
-  expect(hub.lock("front-door").actuations).toBe(1);
-});
-```
+:::code proj-dh-fitness-suite/ts/exactly-once.test.ts
 :::
 
 Зверни увагу на дрібницю, що вже тут тягне за собою наступного вартового: множина `_seen` росте без краю. У бойовому хабі її обмежують вікном — тримають `command-id` не вічно, а якийсь час (TTL), бо повтор приходить у межах секунд, а не місяців. Але щойно з'явилося слово «якийсь час», з'явилася й **міра** — скільки саме, — а міра просить свого вартового. Утримання даних у хабі й у твіні — та сама тема з двох боків, і третій вартовий буде рівно про неї.
@@ -136,37 +72,9 @@ test("замок актуйовано рівно раз при повторі", 
 
 Вартовий тут глушить лінк до хмари намертво — робить будь-яку спробу заговорити з нею вибухом — і вимагає, щоб локальне правило все одно спрацювало. Хаб пише один код, який слухає локальний давач; хмара тут ні до чого — і саме це вартовий доводить.
 
-```py
-# hub.py — локальне правило НЕ ходить у хмару
-THRESHOLD = 20.0
+:::code proj-dh-fitness-suite/py/hub-2.py
 
-class DeadLink:
-    """Обірваний лінк до хмари: будь-яка спроба заговорити — вибух."""
-    def publish(self, *a, **k): raise OSError("хмара недосяжна")
-    def connect(self, *a, **k): raise OSError("хмара недосяжна")
-
-class Hub:
-    def __init__(self):
-        self.cloud = DeadLink()          # у тесті — мертвий; у бою — MQTT-клієнт
-        self.local_sensor = lambda: 21.0 # давач біля хаба, без мережі
-        self.on_actuate = lambda ev: None
-    def tick(self):
-        t = self.local_sensor()
-        self.on_actuate(("heater", "on" if t < THRESHOLD else "off"))
-```
-
-```py
-# tests/fitness/test_offline.py
-from hub import Hub
-
-def test_local_rules_run_without_cloud():
-    hub = Hub()                          # cloud уже мертвий (DeadLink)
-    hub.local_sensor = lambda: 18.0      # холодно
-    fired = []
-    hub.on_actuate = fired.append
-    hub.tick()                           # один локальний цикл правил
-    assert fired == [("heater", "on")]   # рішення сталося — і ЖОДНОГО дотику до хмари
-```
+:::code proj-dh-fitness-suite/py/test_offline.py
 
 Уся сила — у двох рішеннях, які легко зробити навпаки й тим зіпсувати вартового. Перше: лінк не «вимкнено» ввічливо, а зроблено **отруйним** — він кидає на будь-який дотик. Якби ми просто не викликали хмару в тесті, перевірка нічого б не стерегла: завтра хтось додасть виклик, і тест його не помітить. Отруйний лінк перетворює будь-який майбутній дотик до хмари на негайний червоний. Друге: ми стверджуємо не «не було винятку», а **конкретну локальну дію** — грілка отримала `on`. «Не впало» — слабка обіцянка; «спрацювало без мережі» — сильна. Мовою C код цього вартового писати не варто (тут нема ні регістрів, ні гарячого шляху — сама лише логіка правил і підміна залежності), тож лишаємо його однією прикладною мовою, якою живе хаб.
 
@@ -177,75 +85,13 @@ def test_local_rules_run_without_cloud():
 Це обіцянка не про поведінку в мить, а про **дані в часі**, тож і вартовий інший: він кладе події старші за вікно й молодші, чистить — і вимагає, щоб по чистці **нічого старшого за вікно не лишилось**, питаючи через той самий публічний шлях читання, яким користується решта системи.
 
 :::tabs
-```py
-# twin.py — присутність не переживає домовленого вікна
-from datetime import datetime, timedelta, timezone
-
-RETENTION = timedelta(hours=24)          # міра з ADR: скільки тримаємо присутність
-
-class Twin:
-    def __init__(self):
-        self._events = []                # (ts, present)
-    def record(self, ts, present):
-        self._events.append((ts, present))
-    def prune(self, now):
-        cutoff = now - RETENTION
-        self._events = [e for e in self._events if e[0] >= cutoff]
-    def presence_since(self, cutoff):    # публічний шлях читання
-        return [e for e in self._events if e[0] >= cutoff]
-```
-```ts
-// twin.ts — присутність не переживає домовленого вікна
-export const RETENTION_MS = 24 * 60 * 60 * 1000;   // міра з ADR: 24 год
-
-type Event = { ts: number; present: boolean };
-
-export class Twin {
-  private events: Event[] = [];
-  record(ts: number, present: boolean) { this.events.push({ ts, present }); }
-  prune(now: number) {
-    const cutoff = now - RETENTION_MS;
-    this.events = this.events.filter(e => e.ts >= cutoff);
-  }
-  presenceSince(cutoff: number): Event[] {          // публічний шлях читання
-    return this.events.filter(e => e.ts >= cutoff);
-  }
-}
-```
+:::code proj-dh-fitness-suite/py/twin.py
+:::code proj-dh-fitness-suite/ts/twin.ts
 :::
 
 :::tabs
-```py
-# tests/fitness/test_presence_retention.py
-from datetime import datetime, timedelta, timezone
-from twin import Twin, RETENTION
-
-def test_presence_not_kept_beyond_window():
-    twin = Twin()
-    now = datetime(2026, 7, 11, 12, tzinfo=timezone.utc)
-    twin.record(now - timedelta(hours=48), True)    # два дні тому
-    twin.record(now - timedelta(hours=1),  False)   # година тому
-    twin.prune(now)
-    # питаємо ЗА ДЕСЯТИЛІТТЯ — і все одно нічого старшого за вікно
-    kept = twin.presence_since(now - timedelta(days=3650))
-    assert all(ts >= now - RETENTION for ts, _ in kept)
-    assert len(kept) == 1
-```
-```ts
-// tests/fitness/presence-retention.test.ts
-import { Twin, RETENTION_MS } from "../../twin";
-
-test("присутність не зберігається довше вікна", () => {
-  const twin = new Twin();
-  const now = Date.UTC(2026, 6, 11, 12);              // місяць 0-базований: 6 = липень
-  twin.record(now - 48 * 3_600_000, true);           // два дні тому
-  twin.record(now - 1  * 3_600_000, false);          // година тому
-  twin.prune(now);
-  const kept = twin.presenceSince(now - 3650 * 86_400_000);   // за десятиліття
-  expect(kept.every(e => e.ts >= now - RETENTION_MS)).toBe(true);
-  expect(kept.length).toBe(1);
-});
-```
+:::code proj-dh-fitness-suite/py/test_presence_retention.py
+:::code proj-dh-fitness-suite/ts/presence-retention.test.ts
 :::
 
 Ключове рішення тут — **питати через `presence_since`, а не заглядати в `_events`**. Це не косметика: завтра твін переїде зі списку в пам'яті в базу даних, і перевірка, що зазирала в приватне поле, почервоніє на здоровій міграції. Вартовий, що питає публічний шлях читання, переживе будь-яку зміну сховища й почервоніє лише тоді, коли крізь той шлях справді просочиться щось старше за вікно, — тобто коли зламається сама обіцянка, а не її реалізація. І `RETENTION` не константа зі стелі: це записана міра, і розширити вікно з 24 годин до місяця можна лише через зміну рішення, не тихою правкою рядка.
@@ -264,73 +110,7 @@ p95: відсортуй n вимірів за зростанням, візьми
 p95 = lat[⌊0.95 · n⌋]
 ```
 
-```cpp
-// fitness/latency_bench.cpp — бюджет ЛОКАЛЬНОГО обробітку на хабі
-#include <algorithm>
-#include <chrono>
-#include <cstdio>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-
-using Clock = std::chrono::steady_clock;   // монотонний годинник для інтервалів
-
-struct Command {
-    std::string id;
-    std::string target;
-    std::string action;
-};
-
-// Двійник хаба: той самий обробіток, що й у першого вартового, — дедуп за command-id.
-class Hub {
-    std::unordered_map<std::string, int> actuations_;   // ціль → скільки разів смикнули
-    std::unordered_set<std::string> seen_;              // застосовані command-id
-public:
-    void handle(const Command& cmd) {
-        if (seen_.count(cmd.id)) return;                // дубль: стан не рухаємо
-        seen_.insert(cmd.id);
-        if (cmd.action == "open") actuations_[cmd.target] += 1;
-    }
-    int actuations(const std::string& target) const {
-        auto it = actuations_.find(target);
-        return it == actuations_.end() ? 0 : it->second;
-    }
-};
-
-int main() {
-    Hub h;
-
-    for (int i = 0; i < 200; ++i)          // прогрів: кеші, гілки, алокатор
-        h.handle({"w-" + std::to_string(i), "front-door", "open"});
-
-    constexpr int n = 5000;
-    std::vector<long long> lat(n);          // наносекунди на один обробіток
-    for (int i = 0; i < n; ++i) {
-        Command cmd{"c-" + std::to_string(i), "front-door", "open"};
-        auto start = Clock::now();
-        h.handle(cmd);                      // свіжий id щоразу: міряємо РОБОТУ, не дедуп
-        lat[i] = std::chrono::duration_cast<std::chrono::nanoseconds>(
-                     Clock::now() - start).count();
-    }
-
-    // хаб мусив відпрацювати всі 5200 команд — інакше вимір недійсний
-    if (h.actuations("front-door") != 200 + n) {
-        std::fprintf(stderr, "обробіток не відбувся — вимір порожній\n");
-        return 2;
-    }
-
-    std::sort(lat.begin(), lat.end());
-    long long p95 = lat[static_cast<int>(0.95 * n)];    // ⌊0.95·n⌋ = lat[4750]
-
-    constexpr long long budget_ns = 2 * 1000 * 1000;    // стеля 2 мс на сам обробіток
-    if (p95 > budget_ns) {                              // ненульовий вихід → червоне складання
-        std::fprintf(stderr, "p95 обробітку %lld нс перевищив бюджет %lld нс\n", p95, budget_ns);
-        return 1;
-    }
-    return 0;
-}
-```
+:::code proj-dh-fitness-suite/cpp/latency_bench.cpp
 
 Три рішення роблять цей вартовий не крихким. **Прогрів** відкидає перші виміри, поки кеші холодні, — інакше стеля ловила б не код, а перший дотик до нього. **Процентиль, а не середнє чи максимум**: середнє сховає рідкісний, але злий сплеск, а максимум упіймає єдину випадкову паузу планувальника й почервоніє дарма; p95 каже «дев'ятнадцять із двадцяти натисків укладаються», і це чесна межа для інтерактивного шляху. І **свіжий `id` щоразу** — щоб міряти справжню роботу обробітку, а не швидкий вихід через дедуп із першого вартового, який на повторі не робить нічого й дав би оманливо блискучий час.
 

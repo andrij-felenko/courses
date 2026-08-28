@@ -45,76 +45,11 @@
 
 Інтерфейс надає синхронні методи читання та маніпуляції станом пристроїв для суміжних модулів (`AutomationEngine`, `UserIdentity`, `Notifications`).
 
-```py
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from typing import Any
-from datetime import datetime
-
-class IDeviceRegistryModule(ABC):
-    @abstractmethod
-    def get_device(self, device_id: str) -> DeviceDTO | None:
-        """Повертає знімок стану пристрою за його унікальним ідентифікатором.
-        
-        Параметри:
-          - device_id: Унікальний GUID пристрою у форматі рядка (36 символів).
-        Повертає:
-          - DeviceDTO: Заморожений знімок стану пристрою.
-          - None: Якщо пристрій з таким ідентифікатором відсутній у реєстрі.
-        Винятки:
-          - DeviceRegistryError: При виникненні внутрішньої помилки доступу до даних.
-        """
-        pass
-
-    @abstractmethod
-    def list_home_devices(self, home_id: str, device_type: str | None = None) -> list[DeviceDTO]:
-        """Повертає перелік усіх пристроїв, прикріплених до конкретного дому.
-        
-        Параметри:
-          - home_id: Унікальний GUID дому.
-          - device_type: (Опціонально) Рядковий фільтр за типом пристрою 
-                         ('sensor', 'actuator', 'hub', 'camera').
-        Повертає:
-          - Список об'єктів DeviceDTO. Якщо пристроїв немає — повертає порожній список [].
-        """
-        pass
-
-    @abstractmethod
-    def update_desired_state(self, device_id: str, desired_payload: dict[str, Any], updated_by_user_id: str) -> bool:
-        """Оновлює бажаний стан пристрою (Desired State) у Device Shadow.
-        
-        Цей метод використовується модулем автоматизації або API-контролерами для відправки 
-        команд пристрою (наприклад, увімкнути реле, змінити цільову температуру).
-        
-        Параметри:
-          - device_id: GUID пристрою.
-          - desired_payload: Словник ключ-значення з новими цільовими параметрами.
-          - updated_by_user_id: GUID користувача або ідентифікатор 'system_automation'.
-        Повертає:
-          - True, якщо бажаний стан успішно оновлено та згенеровано дельта-подію.
-        Винятки:
-          - DeviceNotFoundError: Якщо пристрій відсутній у базі.
-          - InvalidStatePayloadError: Якщо параметри payload не відповідають схемі пристрою.
-        """
-        pass
-```
+:::code api-dh-module-contracts/py/2-1-publichnyi-interfeis.py
 
 ### 2.2. Об'єкт передачі даних `DeviceDTO`
 
-```py
-@dataclass(frozen=True)
-class DeviceDTO:
-    id: str
-    home_id: str
-    serial_number: str
-    model_name: str
-    device_type: str            # 'sensor' | 'actuator' | 'hub' | 'camera'
-    is_online: bool
-    firmware_version: str
-    reported_state: dict[str, Any]  # Фактичний стан, отриманий від фізичного пристрою
-    desired_state: dict[str, Any]   # Бажаний стан, встановлений користувачем або правилом
-    last_seen_at: datetime
-```
+:::code api-dh-module-contracts/py/2-2-obiekt-peredachi.py
 
 Поля `reported_state` та `desired_state` містять ключ-значення параметрів. Наприклад, для розумного термостата: `reported_state = {"current_temp": 21.5, "target_temp": 22.0, "relay_on": True}`.
 
@@ -126,51 +61,11 @@ class DeviceDTO:
 
 ### 3.1. Публічний інтерфейс `IAutomationModule`
 
-```py
-class IAutomationModule(ABC):
-    @abstractmethod
-    def create_rule(self, home_id: str, rule_name: str, trigger_conditions: list[dict[str, Any]], actions: list[dict[str, Any]]) -> RuleDTO:
-        """Створює нове правило автоматизації для дому.
-        
-        Параметри:
-          - home_id: GUID дому, якому належить правило.
-          - rule_name: Описова назва правила (наприклад, 'Нічне опалення вітальні').
-          - trigger_conditions: Список тригерів (наприклад, [{'device_id': 'sensor_1', 'property': 'temp', 'op': '<', 'val': 18}]).
-          - actions: Список дій (наприклад, [{'device_id': 'heater_1', 'property': 'power', 'val': 'ON'}]).
-        Повертає:
-          - Створений об'єкт RuleDTO з присвоєним rule_id.
-        """
-        pass
-
-    @abstractmethod
-    def evaluate_triggers_for_device(self, device_id: str, property_name: str, new_value: Any) -> list[str]:
-        """Синхронно оцінює всі правила, прив'язані до зміни властивості пристрою,
-        та повертає список ідентифікаторів виконаних правил.
-        
-        Параметри:
-          - device_id: GUID пристрою, стан якого змінився.
-          - property_name: Назва властивості, що зазнала змін.
-          - new_value: Нове фактичне значення властивості.
-        Повертає:
-          - Список rule_id рядків, які спрацювали у результаті оцінки.
-        """
-        pass
-```
+:::code api-dh-module-contracts/py/3-1-publichnyi-interfeis.py
 
 ### 3.2. Об'єкт передачі даних `RuleDTO`
 
-```py
-@dataclass(frozen=True)
-class RuleDTO:
-    rule_id: str
-    home_id: str
-    name: str
-    is_enabled: bool
-    trigger_conditions: list[dict[str, Any]]
-    actions: list[dict[str, Any]]
-    created_at: datetime
-    last_triggered_at: datetime | None
-```
+:::code api-dh-module-contracts/py/3-2-obiekt-peredachi.py
 
 ---
 
@@ -182,26 +77,7 @@ class RuleDTO:
 
 Взаємодія із суміжними модулями вимагає швидкої перевірки авторизаційних прав перед виконанням дій над пристроями чи конфігурацією автоматизацій.
 
-```py
-class IUserIdentityModule(ABC):
-    @abstractmethod
-    def check_user_permission(self, user_id: str, home_id: str, required_permission: str) -> bool:
-        """Перевіряє наявність права користувача на виконання дії у конкретному домі.
-        
-        Параметри:
-          - user_id: GUID користувача.
-          - home_id: GUID дому.
-          - required_permission: Рядковий код права ('control_devices', 'manage_rules', 'view_telemetry').
-        Повертає:
-          - True, якщо користувач має активне право доступу.
-        """
-        pass
-
-    @abstractmethod
-    def get_user_profile(self, user_id: str) -> UserProfileDTO | None:
-        """Отримує профіль користувача з його налаштуваннями сповіщень та мовою."""
-        pass
-```
+:::code api-dh-module-contracts/py/4-1-publichnyi-interfeis.py
 
 ---
 
@@ -211,22 +87,7 @@ class IUserIdentityModule(ABC):
 
 ### 5.1. Публічний інтерфейс `INotificationsModule`
 
-```py
-class INotificationsModule(ABC):
-    @abstractmethod
-    def send_critical_alert(self, home_id: str, title: str, message: str, payload: dict[str, Any]) -> str:
-        """Надсилає термінове сповіщення високого пріоритету всім мешканцям дому.
-        
-        Параметри:
-          - home_id: GUID дому.
-          - title: Короткий заголовок сповіщення (наприклад, 'УВАГА: Виявлено протікання води!').
-          - message: Текст сповіщення.
-          - payload: Додаткові дані для відкриття конкретного екрана у мобільному застосунку.
-        Повертає:
-          - notification_id відправленого сповіщення.
-        """
-        pass
-```
+:::code api-dh-module-contracts/py/5-1-publichnyi-interfeis.py
 
 ---
 

@@ -16,43 +16,8 @@
 Тепер кожен сервіс тримає в себе лише гейт: зупинити запит і спитати центр — «чи можна цьому суб'єктові цю дію над цим об'єктом?». Сам вердикт обчислює окремий **сервіс авторизації**, де й живе правило — одне, для всіх. Виклик `can(...)`, що у Варіанті А був локальною функцією, тут стає походом до сусідньої коробки:
 
 :::tabs
-```ts
-// Сервіс пристроїв: обробник «відчинити замок». Гейт (PEP) лишився тут,
-// але рішення (PDP) — уже не тут: його питають у центрального сервіса.
-async function unlockDoor(req: Request, res: Response) {
-  const door = await devices.load(req.params.id);   // об'єкт іще під рукою
-
-  const verdict = await authz.check({               // ← стрибок у центр
-    subject: req.user.id,                            // хто: Богдан
-    action: "unlock",                                // що: відчинити
-    resource: `door:${door.id}`,                     // над чим: замок #42
-    context: { homeId: door.homeId },                // факти для рішення — з собою
-  });
-
-  if (!verdict.allow) return res.status(403).json({ error: "forbidden" });
-  await door.unlock();
-  res.json({ ok: true });
-}
-```
-```go
-// Сервіс пристроїв: гейт (PEP) лишився локальним, а рішення (PDP) — за мережею.
-func UnlockDoor(w http.ResponseWriter, r *http.Request) {
-    door, _ := devices.Load(r.PathValue("id")) // об'єкт іще під рукою
-
-    verdict, err := authz.Check(r.Context(), Decision{ // ← стрибок у центр
-        Subject:  user(r).ID,                          // хто: Богдан
-        Action:   "unlock",                            // що: відчинити
-        Resource: "door:" + door.ID,                   // над чим: замок #42
-        Context:  map[string]any{"homeId": door.HomeID}, // факти — з собою
-    })
-    if err != nil || !verdict.Allow { // помилка теж означає «ні» (про це нижче)
-        http.Error(w, "forbidden", http.StatusForbidden)
-        return
-    }
-    door.Unlock()
-    writeJSON(w, ok{true})
-}
-```
+:::code authz-central-variant-d/ts/index.ts
+:::code authz-central-variant-d/go/main.go
 :::
 
 Придивись, що поїхало в центр і що лишилося. Лишилося **застосування**: 403 або відчинити. Поїхало **рішення** — і разом із ним правило. А сам запит до PDP — це маленький, майже беззмістовний на вигляд документ:

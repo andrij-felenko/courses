@@ -15,49 +15,8 @@
 Сітку дає [характеризаційний тест](root:progarch/characterization-tests). Його хитрість — він фіксує не бажане, а **нинішнє**: те, як код поводиться прямо зараз, навіть якщо це вада. Ми беремо застиглий давач — фейк, що п'ять разів поспіль віддає ті самі 19.9 °C, — і пришпилюємо цвяхом те, що дім із ним робить сьогодні.
 
 :::tabs
-```py
-# test_freshness.py — характеризація: пришпилюємо ВАДУ, зелену вже сьогодні
-from hub import Reading, Config, tick          # той самий дім за швами
-
-class FakeSensor:                               # фейк: віддає задані виміри, один за одним
-    def __init__(self, *readings): self._q = list(readings)
-    def read(self) -> Reading: return self._q.pop(0)
-
-class SpyHeater:                                # шпигун: нічого не гріє, лише пам'ятає виклики
-    def __init__(self): self.calls = []
-    def on(self):  self.calls.append("on")
-    def off(self): self.calls.append("off")
-
-def test_stuck_sensor_heats_forever_TODAY():    # що Є, не що має бути
-    heater = SpyHeater()
-    stuck = FakeSensor(*[Reading(19.9)] * 5)    # давач завис на 19.9 °C — під порогом
-    for _ in range(5):
-        tick(stuck, heater, Config(threshold=20.0))
-    assert heater.calls == ["on"] * 5           # v1 гріє безкінечно — задокументовано
-```
-```ts
-// freshness.test.ts — характеризація: пришпилюємо ВАДУ, зелену вже сьогодні
-import { test, expect } from "vitest";
-import { Reading, Config, tick } from "./hub";
-
-class FakeSensor {                              // фейк: віддає задані виміри, один за одним
-  private q: Reading[];
-  constructor(...readings: Reading[]) { this.q = readings; }
-  read(): Reading { return this.q.shift()!; }
-}
-class SpyHeater {                               // шпигун: нічого не гріє, лише пам'ятає виклики
-  calls: string[] = [];
-  on()  { this.calls.push("on"); }
-  off() { this.calls.push("off"); }
-}
-
-test("застиглий давач гріє вічно — TODAY", () => {
-  const heater = new SpyHeater();
-  const stuck = new FakeSensor(...Array(5).fill({ celsius: 19.9, ok: true }));
-  for (let i = 0; i < 5; i++) tick(stuck, heater, { threshold: 20.0 });
-  expect(heater.calls).toEqual(["on", "on", "on", "on", "on"]);  // v1 гріє вічно
-});
-```
+:::code proj-dh-safe-refactor/py/test_freshness.py
+:::code proj-dh-safe-refactor/ts/freshness.test.ts
 :::
 
 Порахуймо руками, чому цей тест **зелений** уже сьогодні. На кожному з п'яти тактів фейк віддає `Reading(19.9, ok=true)`. `decide` читає `ok` — правда; порівнює `19.9 < 20.0` — правда; повертає `HEAT`. `tick` виконує `heater.on()`. Шпигун (він, на відміну від справжньої розетки, **не** ідемпотентний — записує кожен виклик) додає `"on"` до списку. П'ять тактів — п'ять `"on"`. Список збігається з очікуваним — зелено.
@@ -69,42 +28,8 @@ test("застиглий давач гріє вічно — TODAY", () => {
 Тепер — і тільки тепер, коли сітка натягнута, — додаємо вартового. `FreshnessGuard` — обгортка над портом `Sensor`, що тримає **той самий інтерфейс** (`read() -> Reading`), а всередині рахує, чи не застигло число. Вставляється вона в `hub.py`, поряд із портами, і нічого в `decide` чи `tick` не чіпає:
 
 :::tabs
-```py
-class FreshnessGuard:                    # обгортка над портом Sensor — той самий інтерфейс
-    def __init__(self, inner: Sensor, stale_after: int = 3):
-        self._inner = inner
-        self._stale_after = stale_after
-        self._last: float | None = None  # останнє число, якому повірили
-        self._same = 0                   # скільки разів ПОСПІЛЬ воно повторилось
-
-    def read(self) -> Reading:
-        r = self._inner.read()
-        if not r.ok:                     # уже чесний збій — не наша турбота, лічильник з нуля
-            self._same = 0
-            return r
-        self._same = self._same + 1 if r.celsius == self._last else 0
-        self._last = r.celsius
-        if self._same >= self._stale_after:          # застій переріс дозволене → «не вірю»
-            return Reading(celsius=r.celsius, ok=False)
-        return r
-```
-```ts
-class FreshnessGuard implements Sensor {   // обгортка над портом Sensor — той самий інтерфейс
-  private last: number | null = null;      // останнє число, якому повірили
-  private same = 0;                        // скільки разів ПОСПІЛЬ воно повторилось
-  constructor(private inner: Sensor, private staleAfter = 3) {}
-
-  read(): Reading {
-    const r = this.inner.read();
-    if (!r.ok) { this.same = 0; return r; }   // уже чесний збій — лічильник з нуля
-    this.same = r.celsius === this.last ? this.same + 1 : 0;
-    this.last = r.celsius;
-    if (this.same >= this.staleAfter)         // застій переріс дозволене → «не вірю»
-      return { celsius: r.celsius, ok: false };
-    return r;
-  }
-}
-```
+:::code proj-dh-safe-refactor/py/krok-1-vartovyi-shcho-ne.py
+:::code proj-dh-safe-refactor/ts/krok-1-vartovyi-shcho-ne.ts
 :::
 
 Уся логіка — в одному лічильнику `_same`. Він рахує, **скільки разів поспіль** число повторило попереднє. Перша поява числа — це нуль повторів (`_same = 0`). Кожен наступний однаковий вимір додає один. Щойно повторів набирається `stale_after`, вартовий перестає вірити й повертає той самий градус, але з `ok=false` — доводить застиглість до чесного «не вірю», яке `decide` уже вміє читати.
@@ -157,34 +82,8 @@ FAILED test_freshness.py::test_stuck_sensor_heats_forever_TODAY
 Пришпилений тест зробив свою роботу — засвідчив, що зміна влучила в ціль. Тепер, і аж тепер, ми свідомо переписуємо його очікування з **вади** на **бажане**. Дім тепер має гріти, поки може розумно вірити давачеві, а тоді — переставати:
 
 :::tabs
-```py
-def test_stuck_sensor_stops_heating_blind():    # тепер БАЖАНЕ, не пришпилена вада
-    heater = SpyHeater()
-    stuck = FreshnessGuard(FakeSensor(*[Reading(19.9)] * 5), stale_after=3)
-    for _ in range(5):
-        tick(stuck, heater, Config(threshold=20.0))
-    assert heater.calls == ["on", "on", "on", "off", "off"]   # гріє, поки вірить; тоді спокій
-
-def test_guard_flips_on_fourth_identical():     # регресія: вартовий пильнує саме 4-й вимір
-    guard = FreshnessGuard(FakeSensor(*[Reading(19.9)] * 4), stale_after=3)
-    assert [guard.read().ok for _ in range(4)] == [True, True, True, False]
-```
-```ts
-test("вартовий гасить сліпе гріння після 3 застиглих", () => {   // БАЖАНЕ, не вада
-  const heater = new SpyHeater();
-  const stuck = new FreshnessGuard(
-    new FakeSensor(...Array(5).fill({ celsius: 19.9, ok: true })), 3);
-  for (let i = 0; i < 5; i++) tick(stuck, heater, { threshold: 20.0 });
-  expect(heater.calls).toEqual(["on", "on", "on", "off", "off"]);   // гріє, поки вірить
-});
-
-test("вартовий перемикається саме на 4-му однаковому вимірі", () => {   // регресія
-  const guard = new FreshnessGuard(
-    new FakeSensor(...Array(4).fill({ celsius: 19.9, ok: true })), 3);
-  const oks = [0, 1, 2, 3].map(() => guard.read().ok);
-  expect(oks).toEqual([true, true, true, false]);
-});
-```
+:::code proj-dh-safe-refactor/py/krok-3-perepysaty-pin-na.py
+:::code proj-dh-safe-refactor/ts/krok-3-perepysaty-pin-na.ts
 :::
 
 Перший тест переставлено із задокументованої вади на бажану поведінку — і він зелений, бо код уже такий. Другий — **регресійний**, і він вартий окремої уваги: він шпигує за вартовим **впритул**, поза `tick` і `decide`, і пришпилює найтоншу деталь — що перемикання падає рівно на четвертий однаковий вимір (`[True, True, True, False]`). Саме цю цифру найлегше зсунути ненароком, поправивши `>=` на `>` чи скинувши лічильник не там; регресійний тест стереже її окремим цвяхом, щоб майбутнє «дрібне прибирання» не посунуло 4 на 3 чи 5 тихцем.

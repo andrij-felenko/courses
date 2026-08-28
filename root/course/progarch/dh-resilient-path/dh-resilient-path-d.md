@@ -126,19 +126,7 @@ async function lastReadings(ids: DeviceId[]): Promise<Map<DeviceId, Reading>> {
     .catch(() => new Map());                       // 5. будь-яка відмова → чесний фолбек: без виміру
 }
 ```
-```py
-# Читання телеметрії з BFF — уся політика стійкості в одному стосі.
-async def last_readings(ids: list[DeviceId]) -> dict[DeviceId, Reading]:
-    async def attempt():
-        return await with_timeout(3.0,                    # 3. стеля на цю спробу
-            lambda: telemetry.last_readings(ids))
-    try:
-        async with telemetry_bulkhead.slot():             # 1. слот із пулу телеметрії (≤10) або відмова
-            return await telemetry_breaker.call(          # 2. відкритий? → виняток → фолбек
-                lambda: with_retry(attempt, tries=2, budget=3.0))  # 4. повтор усередині
-    except ResilienceError:
-        return {}                                         # 5. будь-яка відмова → фолбек: без виміру
-```
+:::code dh-resilient-path-d/py/main.py
 :::
 
 Небезпека, звісно, не в тому, щоб написати ці п'ять рядків один раз, а в тому, щоб **не забути** їх на шостому шві. Тому в DH ця політика живе не в кожному BFF окремо, а **у спільному клієнті міжсервісних викликів** — тому самому, що вже [резолвить адресу через реєстр](root:progarch/dh-service-boundaries-final): будь-який виклик у сусідній сервіс дістає перебірку, запобіжник і таймаут **за побудовою**, а не тому, що автор про них згадав. А щоб хтось під дедлайн не сходив до сусіда «сирим» HTTP повз клієнт, [фітнес-тест валить збірку](root:progarch/dh-service-boundaries-final/proj-dh-final-topology.md) на прямий міжсервісний виклик в обхід політики. Повний робочий клієнт — перебірка на семафорі, запобіжник із трьома станами, таймаут і тест, що душить телеметрію й доводить, що екран деградує, а команди течуть, — зібрано у [стійкому клієнті DH](root:progarch/dh-resilient-path/proj-dh-resilient-client.md).

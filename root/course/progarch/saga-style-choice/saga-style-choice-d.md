@@ -45,76 +45,15 @@
 У **хореографії** ніде не написано слова «сага» — є лише ланцюг «на подію X зроби Y і емітни Z»:
 
 :::tabs
-```ts
-// ХОРЕОГРАФІЯ: процесу як цілого нема ніде — він розсіяний по обробниках.
-on("DeviceReserveRequested", async e => {
-  await registry.reserve(e.deviceId, e.homeId);
-  emit("DeviceReserved", e);              // хто підхопить — реєстр не знає й знати не хоче
-});
-on("DeviceReserved", async e => {
-  try { await hub.pushConfig(e.homeId, e.deviceId); emit("DeviceConfigured", e); }
-  catch { emit("DeviceConfigFailed", e); }  // запускаємо ланцюг компенсацій назад
-});
-on("DeviceConfigured", async e => {
-  await billing.startMeter(e.homeId, e.deviceId);   // останній крок — тиша означає «готово»
-});
-on("DeviceConfigFailed", async e => {
-  await registry.unreserve(e.deviceId);   // компенсація теж їде окремою подією
-});
-```
-```py
-# ХОРЕОГРАФІЯ: процесу як цілого нема ніде — він розсіяний по обробниках.
-@on("DeviceReserveRequested")
-async def _(e):
-    await registry.reserve(e.device_id, e.home_id)
-    emit("DeviceReserved", e)             # хто підхопить — реєстр не знає й знати не хоче
-
-@on("DeviceReserved")
-async def _(e):
-    try:
-        await hub.push_config(e.home_id, e.device_id); emit("DeviceConfigured", e)
-    except Exception:
-        emit("DeviceConfigFailed", e)     # запускаємо ланцюг компенсацій назад
-
-@on("DeviceConfigured")
-async def _(e):
-    await billing.start_meter(e.home_id, e.device_id)   # останній крок — тиша означає «готово»
-
-@on("DeviceConfigFailed")
-async def _(e):
-    await registry.unreserve(e.device_id)  # компенсація теж їде окремою подією
-```
+:::code saga-style-choice-d/ts/toi-samyi-protses-dvoma.ts
+:::code saga-style-choice-d/py/toi-samyi-protses-dvoma.py
 :::
 
 Щоб дізнатися, що ж це за процес і в якому він порядку, доводиться прочитати всі чотири обробники й **скласти їх у голові**. А в **оркестрації** увесь процес — одна функція, що читається згори вниз, разом із порядком компенсацій:
 
 :::tabs
-```ts
-// ОРКЕСТРАЦІЯ: увесь процес — в одному місці, читається як розповідь.
-async function enrollDevice(homeId: string, deviceId: string) {
-  const undo: Array<() => Promise<void>> = [];
-  try {
-    await registry.reserve(deviceId, homeId);   undo.push(() => registry.unreserve(deviceId));
-    await hub.pushConfig(homeId, deviceId);      undo.push(() => hub.wipeConfig(homeId, deviceId));
-    await billing.startMeter(homeId, deviceId);  undo.push(() => billing.stopMeter(homeId, deviceId));
-  } catch (err) {
-    for (const step of undo.reverse()) await step();   // компенсації — точно у зворотному порядку
-    throw err;
-  }
-}
-```
-```py
-# ОРКЕСТРАЦІЯ: увесь процес — в одному місці, читається як розповідь.
-async def enroll_device(home_id, device_id):
-    undo = []
-    try:
-        await registry.reserve(device_id, home_id);   undo.append(lambda: registry.unreserve(device_id))
-        await hub.push_config(home_id, device_id);    undo.append(lambda: hub.wipe_config(home_id, device_id))
-        await billing.start_meter(home_id, device_id); undo.append(lambda: billing.stop_meter(home_id, device_id))
-    except Exception:
-        for step in reversed(undo):  await step()      # компенсації — точно у зворотному порядку
-        raise
-```
+:::code saga-style-choice-d/ts/toi-samyi-protses-dvoma-2.ts
+:::code saga-style-choice-d/py/toi-samyi-protses-dvoma-2.py
 :::
 
 Різниця не в кількості коду — вона в тому, **де живе знання про процес**. В оркестрації воно зібране й видиме; у хореографії — розчинене. Зверни лишень увагу на пастку цього наївного оркестратора: список `undo` живе в пам'яті, і якщо процес упаде **між** кроками, ми забудемо, що вже треба відкотити. Оце і є та діра, яку затуляє довговічний рушій — він зберігає кожен крок на диск і відновлює процес рівно з того місця. [Повний робочий код обох стилів — з компенсаціями, зімітованою відмовою й тестом, що ловить розповзання хореографії](root:progarch/saga-style-choice/proj-saga-two-ways.md) — винесено в окремий проєкт; тут — зерна, бо на них уже видно головне.

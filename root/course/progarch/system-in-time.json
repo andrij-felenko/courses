@@ -147,7 +147,14 @@
           "detailed": {
             "status": "deeper",
             "level": 4
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-shadow-router-engine.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -275,7 +282,14 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-shadow-and-abstraction.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-cloud-v2",
@@ -285,8 +299,16 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
-          }
+            "level": 3,
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-fitness-guard.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -410,8 +432,23 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
-          }
+            "level": 4,
+            "recode": true
+          },
+          "api": [
+            {
+              "file": "api-request-pipeline-spec.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-request-journey-tracer.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "capstone-setup",
@@ -438,7 +475,9 @@
           "proj": [
             {
               "file": "proj-capstone-skeleton-harness.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -461,13 +500,15 @@
           "proj": [
             {
               "file": "proj-ledger-outbox.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-adr-capstone-data-shape.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -484,13 +525,16 @@
           "proj": [
             {
               "file": "proj-saga-orchestrator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-service-contracts.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -507,19 +551,23 @@
           "hist": [
             {
               "file": "hist-knight-capital-ops.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-error-budget-burn.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-capstone-canary-controller.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -541,7 +589,8 @@
           "proj": [
             {
               "file": "proj-team-topologies-sim.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -559,7 +608,14 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-dh-adr-log.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "capstone-peer-review",
@@ -586,7 +642,14 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-complexity-budget.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "architect-checklist",
@@ -597,7 +660,14 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-fitness-functions-harness.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "decision-heuristics",
@@ -608,7 +678,14 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-heuristics-engine.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "where-next",
@@ -618,7 +695,14 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-cost-aware-arch-harness.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "course-farewell",
@@ -628,7 +712,14 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-arch-fitness-evaluator.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     }

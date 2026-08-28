@@ -52,32 +52,8 @@
 **Одна монотонна послідовність (sequence)** — виробник займає наступну комірку, зсунувши один спільний лічильник, пише в неї, а тоді *публікує*, зсунувши курсор. Кожен споживач тримає власний номер і читає до опублікованого курсора. Уся координація — це один лічильник плюс [бар'єр пам'яті](root:sf-tasks/lock-free-basics), а не замок: потік ніколи не засинає в очікуванні, він лише бачить, доки безпечно читати.
 
 :::tabs
-```cpp
-// виробник: зайняти → записати → опублікувати
-int64_t seq = cursor.fetch_add(1, std::memory_order_relaxed) + 1;
-slots[seq & mask] = event;                          // маска замість ділення
-published.store(seq, std::memory_order_release);    // бар'єр: запис у комірку видно ДО публікації
-
-// споживач: прочитати все опубліковане — одним пакетом
-int64_t avail = published.load(std::memory_order_acquire);
-while (next <= avail) {
-    handle(slots[next & mask]);
-    ++next;
-}
-```
-```rust
-// виробник: зайняти → записати → опублікувати
-let seq = cursor.fetch_add(1, Ordering::Relaxed) + 1;
-slots[(seq & mask) as usize] = event;        // маска замість ділення
-published.store(seq, Ordering::Release);     // бар'єр: запис у комірку видно ДО публікації
-
-// споживач: прочитати все опубліковане — одним пакетом
-let avail = published.load(Ordering::Acquire);
-while next <= avail {
-    handle(&slots[(next & mask) as usize]);
-    next += 1;
-}
-```
+:::code rozbir-lmax-d/cpp/main.cpp
+:::code rozbir-lmax-d/rust/main.rs
 :::
 
 Це серцевина; [повний робочий буфер-кільце з набивкою проти хибного сусідства](root:progarch/rozbir-lmax/proj-ring-buffer.md) — окремо, щоб не роздувати розбір кодом.

@@ -40,200 +40,18 @@
 
 Спершу край: одне ядро на циклі подій приймає кадри від сотень з'єднань і **розгалужує** кожен кадр на два шви — у скриньку його актора й у чергу аналітики.
 
-```ts
-// core.ts — ядро на циклі подій: приймає кадри, розгалужує на два шви (рідний дім TS)
-import { createServer, Socket } from "node:net";
-
-export type Frame = { deviceId: string; ts: number; value: number };
-
-const actors = new Map<string, DeviceActor>();
-function actorFor(id: string): DeviceActor {
-  let a = actors.get(id);
-  if (!a) actors.set(id, (a = new DeviceActor(id, raiseAlert)));
-  return a;
-}
-
-createServer((sock: Socket) => {
-  sock.setEncoding("utf8");
-  let buf = "";
-  sock.on("data", (chunk: string) => {
-    buf += chunk;
-    for (let nl = buf.indexOf("\n"); nl >= 0; nl = buf.indexOf("\n")) {
-      const line = buf.slice(0, nl); buf = buf.slice(nl + 1);
-      let f: Frame;
-      try { f = JSON.parse(line); } catch { continue; }  // биту телеметрію мовчки кидаємо
-      actorFor(f.deviceId).post(f);   // ШОВ А: скринька актора — ізольований стан пристрою
-      analytics.submit(f);            // ШОВ Б: обмежена черга → пул воркерів (важкий CPU)
-    }
-  });
-  sock.on("error", () => sock.destroy());
-}).listen(9099);
-```
+:::code proj-dh-boundary-composition/ts/core.ts
 
 Актор — це поштова скринька плюс серійна обробка плюс стан, якого ніхто ззовні не торкається. Ядро лиш **кладе** кадр у скриньку й одразу йде далі; актор сам, у свій час, вибере кадр і оновить стан. Оце й є [модель акторів](root:sf-tasks/actor-model) у мініатюрі — і шов А тут буквально одне поле `mailbox`.
 
-```ts
-// device-actor.ts — один актор на пристрій: скринька + серійна обробка + ізольований стан
-import { Frame } from "./core";
-
-class DeviceActor {
-  private mailbox: Frame[] = [];       // ШОВ А: єдина щілина в актора
-  private draining = false;
-  private state = { ewma: 0 };         // стан-автомат; назовні невидимий
-
-  constructor(readonly id: string, private readonly onAnomaly: (f: Frame) => void) {}
-
-  post(f: Frame): void {               // ядро кладе кадр — і вертається на смугу
-    this.mailbox.push(f);
-    if (!this.draining) { this.draining = true; setImmediate(() => this.drain()); }
-  }
-
-  private drain(): void {              // один споживач: по кадру за такт циклу
-    const f = this.mailbox.shift();
-    if (f === undefined) { this.draining = false; return; }
-    this.step(f);
-    setImmediate(() => this.drain()); // поступаємось смузі між кадрами — не тримаємо її
-  }
-
-  private step(f: Frame): void {       // дешевий крок: ковзне середнє + позначка стрибка
-    this.state.ewma = this.state.ewma === 0 ? f.value : 0.9 * this.state.ewma + 0.1 * f.value;
-    if (Math.abs(f.value - this.state.ewma) > 0.5 * this.state.ewma) this.onAnomaly(f);
-  }
-}
-```
+:::code proj-dh-boundary-composition/ts/device-actor.ts
 
 Тепер важкий бік — шов Б (черга → пул) і шов В (канал → правила). Обмежений канал у Go — найпрозоріша на світі ілюстрація «шов = місткість + політика»: `make(chan Frame, 256)` **і передає, і тисне назад** одним рядком. У C++ каналу немає — і саме тому шов стає ще наочнішим: обмежена блокувальна черга, у якій обидві ручки лежать перед очима — перевірка `size < cap` і очікування на `condition_variable`, коли повно, — а пул воркерів це `std::thread` на кожне ядро. Той самий шов у Node-варіанті (для крамниці без Go) — обмежена черга перед пулом `worker_threads`. Три мови, три вкладки — перемкни й побач, що ручки в усіх ті самі:
 
 :::tabs
-```go
-// analytics.go — важкий бік: обмежена черга → пул → канал → правила (рідний дім каналів)
-package main
-
-import "runtime"
-
-type Frame   struct{ DeviceID string; Value float64 }
-type Verdict struct{ DeviceID string; Risk  float64 }
-
-// ШОВ Б: обмежена черга між ядром (продюсер) і пулом (споживачі). 256 — це і є шов.
-var work = make(chan Frame, 256)
-// ШОВ В: канал від пулу до стадії правил.
-var verdicts = make(chan Verdict, 64)
-
-func scoreAnomaly(f Frame) float64 { /* ~40 мс чистого CPU: вікно, кореляції, поріг */ return 0 }
-
-func startPool() {
-    for i := 0; i < runtime.NumCPU(); i++ {
-        go func() {
-            for f := range work {                              // N воркерів — з однієї черги
-                verdicts <- Verdict{f.DeviceID, scoreAnomaly(f)} // ШОВ В: вирок у правила
-            }
-        }()
-    }
-}
-
-func startRules() {
-    go func() {
-        for v := range verdicts {                              // стадія правил споживає вироки
-            if v.Risk > 0.9 { /* дія: сповістити, вимкнути розетку */ }
-        }
-    }()
-}
-
-// міст від ядра: кладе кадр у чергу. Повно → блокується (зворотний тиск угору, до джерела).
-func submit(f Frame) { work <- f }
-```
-```cpp
-// analytics.cpp — той самий шов у C++: обмежена черга + пул std::thread → черга вироків
-#include <condition_variable>
-#include <cstddef>
-#include <deque>
-#include <mutex>
-#include <string>
-#include <thread>
-
-struct Frame   { std::string deviceId; double value; };
-struct Verdict { std::string deviceId; double risk;  };
-
-// Шов = ⟨місткість, політика⟩ окремим типом. Політика «блокувати» — це очікування на
-// condition_variable: коли повно, продюсер жде місця (зворотний тиск угору, до джерела).
-template <typename T>
-class BoundedQueue {
-    std::deque<T>           buf_;
-    std::size_t             cap_;
-    std::mutex              m_;
-    std::condition_variable notFull_, notEmpty_;
-public:
-    explicit BoundedQueue(std::size_t cap) : cap_(cap) {}
-
-    void push(T v) {                                   // повно → блокуємось саме тут
-        std::unique_lock lk(m_);
-        notFull_.wait(lk, [&]{ return buf_.size() < cap_; });
-        buf_.push_back(std::move(v));
-        notEmpty_.notify_one();
-    }
-    T pop() {
-        std::unique_lock lk(m_);
-        notEmpty_.wait(lk, [&]{ return !buf_.empty(); });
-        T v = std::move(buf_.front()); buf_.pop_front();
-        notFull_.notify_one();                         // звільнили місце — будимо продюсера
-        return v;
-    }
-};
-
-BoundedQueue<Frame>   work{256};       // ШОВ Б: 256 — це і є шов
-BoundedQueue<Verdict> verdicts{64};    // ШОВ В: канал до стадії правил
-
-double scoreAnomaly(const Frame& f) { /* ~40 мс чистого CPU: вікно, кореляції, поріг */ return 0; }
-
-void startPool() {
-    unsigned n = std::thread::hardware_concurrency();
-    for (unsigned i = 0; i < n; ++i)
-        std::thread([]{
-            for (;;) {                                 // N воркерів — з однієї черги
-                Frame f = work.pop();
-                verdicts.push({f.deviceId, scoreAnomaly(f)});  // ШОВ В: вирок у правила
-            }
-        }).detach();
-}
-
-void startRules() {
-    std::thread([]{
-        for (;;) {                                     // стадія правил споживає вироки
-            Verdict v = verdicts.pop();
-            if (v.risk > 0.9) { /* дія: сповістити, вимкнути розетку */ }
-        }
-    }).detach();
-}
-
-// міст від ядра: кладе кадр у чергу. Повно → push блокується (зворотний тиск до джерела).
-void submit(const Frame& f) { work.push(f); }
-```
-```ts
-// analytics.ts — той самий шов у Node: обмежена черга перед пулом worker_threads
-import { Worker } from "node:worker_threads";
-import os from "node:os";
-import { Frame } from "./core";
-
-const CAP = 256;                                    // ШОВ Б: місткість черги
-const queue: Frame[] = [];
-const pool = Array.from({ length: os.cpus().length }, () => new Worker("./score.js"));
-const idle = [...pool];
-
-export const analytics = {
-  submit(f: Frame): boolean {
-    if (queue.length >= CAP) return false;          // повно → політика вирішує тут
-    queue.push(f); pump(); return true;
-  },
-};
-
-function pump(): void {
-  while (idle.length && queue.length) {
-    const w = idle.pop()!, f = queue.shift()!;
-    w.once("message", (v) => { rules.post(v); idle.push(w); pump(); }); // ШОВ В → правила
-    w.postMessage(f);                               // важкий CPU — на окремому потоці V8
-  }
-}
-```
+:::code proj-dh-boundary-composition/go/analytics.go
+:::code proj-dh-boundary-composition/cpp/analytics.cpp
+:::code proj-dh-boundary-composition/ts/analytics.ts
 :::
 
 Проженімо крізь це щасливий кадр. Прийшов рядок → цикл розібрав його, майже не торкнувшись смуги → **шов А**: кадр ліг у скриньку свого актора, актор оновив ковзне середнє на своєму такті → **шов Б**: копія кадру стала в чергу, вільний воркер узяв її, за 40 мс на своєму ядрі порахував ризик → **шов В**: вирок пішов каналом у правила, і при ризику понад 0.9 спрацювала дія. Чотири парадигми, і жодна не заважає іншій: цикл не рахує, актор не блокує сусідів, пул не морозить край. Поки навантаження в межах — усе тече.
@@ -297,19 +115,7 @@ var work = make(chan Frame)   // ПАСТКА: місткість 0 — ранд
 
 Ліки знову ті самі дві ручки — але політика тут **інша, ніж на шві Б**, і ось де вся сіль. Обмежимо скриньку й доберемо політику під **сенс даних**:
 
-```ts
-private static readonly CAP = 64;
-private dropped = 0;
-
-post(f: Frame): void {
-  if (this.mailbox.length >= DeviceActor.CAP) {
-    this.mailbox.shift();     // політика для СТАНУ: викинь найстаріший (dropHead) = конфляція
-    this.dropped++;           // але порахуй викинуте — німа втрата гірша за гучну
-  }
-  this.mailbox.push(f);
-  if (!this.draining) { this.draining = true; setImmediate(() => this.drain()); }
-}
-```
+:::code proj-dh-boundary-composition/ts/shov-4-perepovnennia.ts
 
 Чому саме «викинути найстаріший», а не «блокувати», як на шві Б? Бо на шві Б **кожен кадр треба порахувати** — його не можна губити, тож єдина чесна відповідь на перевантаження — пригальмувати джерело. А на шві А зберігається **стан**: ковзне середнє й останнє показання. Для стану старе показання, що застрягло в черзі за трьома свіжішими, — не борг, а **сміття**: коли актор нарешті до нього дійде, воно вже неправда. Отже правильно не гальмувати джерело й не губити найновіше, а **стискати чергу до найсвіжішого** — викидати з голови старі, лишати молоді. У крайності місткість 1 дає чисту **конфляцію** (англ. *conflation* — стиснення потоку оновлень в одне, останнє): актор завжди бачить лише свіжий кадр.
 

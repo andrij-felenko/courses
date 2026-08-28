@@ -42,77 +42,8 @@
 Спершу — сама правда та сама історія. Шард тримає рядок на `home_id` і пускає запис лише через [порівняй-і-заміни](root:sf-data/optimistic-locking) по версії; журнал уміє рівно дописати й прочитати вікно.
 
 :::tabs
-```ts
-type Twin = { homeId: string; version: number; bolt: "locked" | "unlocked"; lastCmd: string };
-type Cmd = { kind: "lock" | "unlock"; seq: number; by: string };
-type LockEvent = { homeId: string; action: string; by: string; at: number };
-
-const emptyTwin = (homeId: string): Twin => ({ homeId, version: 0, bolt: "unlocked", lastCmd: "" });
-
-// ── 1. ШАРД-СХОВИЩЕ: джерело правди, рядок на home_id, CAS по version ──
-class ShardStore {
-  private rows = new Map<string, Twin>();
-  seed(t: Twin): void { this.rows.set(t.homeId, t); }          // початкове завантаження/міграція
-  get(homeId: string): Twin { return this.rows.get(homeId) ?? emptyTwin(homeId); }
-  // запис проходить, ЛИШЕ якщо version та сама, що ми читали (інакше хтось випередив)
-  putCas(next: Twin, expectedVersion: number): boolean {
-    if (this.get(next.homeId).version !== expectedVersion) return false;
-    this.rows.set(next.homeId, next);         // у реалі — транзакція + fsync (журнал попереднього запису)
-    return true;
-  }
-}
-
-// ── 3. ЖУРНАЛ АУДИТУ: append-only, лише замки й доступ ──
-class AuditLog {
-  private events: LockEvent[] = [];
-  append(e: LockEvent): void { this.events.push(e); }          // append-only: ніколи не UPDATE/DELETE
-  read(homeId: string, since: number, until: number): LockEvent[] {
-    return this.events.filter(e => e.homeId === homeId && e.at >= since && e.at < until);
-  }
-}
-```
-```py
-import time
-from dataclasses import dataclass, replace
-
-@dataclass(frozen=True)
-class Twin:
-    home_id: str
-    version: int = 0
-    bolt: str = "unlocked"
-    last_cmd: str = ""
-
-@dataclass(frozen=True)
-class LockEvent:
-    home_id: str
-    action: str            # "locked" | "unlocked"
-    by: str
-    at: float
-
-# ── 1. ШАРД-СХОВИЩЕ: джерело правди, рядок на home_id, CAS по version ──
-class ShardStore:
-    def __init__(self):
-        self._rows: dict[str, Twin] = {}
-    def seed(self, t: Twin) -> None:                 # початкове завантаження/міграція
-        self._rows[t.home_id] = t
-    def get(self, home_id: str) -> Twin:
-        return self._rows.get(home_id) or Twin(home_id)
-    # запис проходить, ЛИШЕ якщо version та сама, що ми читали (інакше хтось випередив)
-    def put_cas(self, nxt: Twin, expected_version: int) -> bool:
-        if self.get(nxt.home_id).version != expected_version:
-            return False
-        self._rows[nxt.home_id] = nxt                # у реалі — транзакція + fsync
-        return True
-
-# ── 3. ЖУРНАЛ АУДИТУ: append-only, лише замки й доступ ──
-class AuditLog:
-    def __init__(self):
-        self._events: list[LockEvent] = []
-    def append(self, e: LockEvent) -> None:          # append-only: ніколи не UPDATE/DELETE
-        self._events.append(e)
-    def read(self, home_id: str, since: float, until: float) -> list[LockEvent]:
-        return [e for e in self._events if e.home_id == home_id and since <= e.at < until]
-```
+:::code proj-twin-composition/ts/dva-dovhovichni-spivavtory.ts
+:::code proj-twin-composition/py/dva-dovhovichni-spivavtory.py
 :::
 
 Зверни увагу на дві дрібниці, що вже несуть половину задуму. Шард пускає запис не абияк, а лише через `put_cas` — [версію рядка](root:sf-data/optimistic-locking): це знадобиться нам не проти двох сесій одного дому (пошта актора й так пустить їх по одній), а проти рідкісного, але вбивчого випадку, коли під час пересадки дому між вузлами дві сесії на мить існують водночас. Журнал же має **лише** `append` — жодного `update`. Це не лінь, а [однобічні двері](root:progarch/what-makes-irreversible) за задумом: історія, яку можна переписати заднім числом, — не історія, а чернетка.
@@ -122,97 +53,8 @@ class AuditLog:
 Тепер серце кістяка — сесія, яка зшиває всіх трьох. Придивись до `apply`: це і є той самий командний шлях зі слайда, тільки розписаний по кроках. Мутуємо кеш, пишемо наскрізь у шард, дописуємо в аудит — і аж **тоді** фіксуємо кеш і вертаємо керування. Порядок тут не косметичний, він і є контракт read-your-writes.
 
 :::tabs
-```ts
-// ── 2. ЖИВА СЕСІЯ ДОМУ (актор): кеш-координатор над рядком, НЕ джерело правди ──
-class HomeSession {
-  private twin: Twin | null = null;      // порожньо, доки не гідратуємось
-  private box: Cmd[] = [];               // пошта: серіалізує команди дому
-  private busy = false;
-  constructor(readonly homeId: string, private store: ShardStore, private audit: AuditLog) {}
-
-  // ГІДРАТАЦІЯ: наповнити сесію станом із ДЖЕРЕЛА ПРАВДИ при виході на зв'язок
-  hydrate(): void { this.twin = this.store.get(this.homeId); }   // ← увесь «відновлення стану»
-
-  // ЄДИНИЙ вхід для команд: покласти в пошту й розбудити цикл
-  tell(cmd: Cmd): void { this.box.push(cmd); this.pump(); }
-
-  private pump(): void {
-    if (this.busy) return;               // вже крутиться — новий tell лише долив у чергу
-    this.busy = true;
-    while (this.box.length) this.apply(this.box.shift()!);   // одне за раз, до кінця
-    this.busy = false;
-  }
-
-  private apply(cmd: Cmd): void {
-    if (!this.twin) throw new Error("сесію не гідратовано");
-    // (a) новий стан у кеші — версія росте
-    const next: Twin = {
-      homeId: this.homeId,
-      version: this.twin.version + 1,
-      bolt: cmd.kind === "lock" ? "locked" : "unlocked",
-      lastCmd: `${cmd.by}#${cmd.seq}`,
-    };
-    // (b) НАСКРІЗНИЙ запис у ДЖЕРЕЛО ПРАВДИ (CAS по version)
-    if (!this.store.putCas(next, this.twin.version)) {
-      this.hydrate();                    // хтось випередив → перечитати правду…
-      return this.apply(cmd);            // …і повторити команду на свіжому стані
-    }
-    // (c) дописати ФАКТ у журнал аудиту (лише замки)
-    this.audit.append({ homeId: this.homeId, action: next.bolt, by: cmd.by, at: Date.now() });
-    // (d) аж ТЕПЕР зафіксувати кеш → read-your-writes: кеш == довговічний рядок
-    this.twin = next;
-  }
-
-  snapshot(): Twin { return this.twin!; }              // тепле читання: з живого актора
-}
-```
-```py
-# ── 2. ЖИВА СЕСІЯ ДОМУ (актор): кеш-координатор над рядком, НЕ джерело правди ──
-from collections import deque
-
-class HomeSession:
-    def __init__(self, home_id: str, store: ShardStore, audit: AuditLog):
-        self.home_id = home_id
-        self._store, self._audit = store, audit
-        self._twin: Twin | None = None    # порожньо, доки не гідратуємось
-        self._box = deque()               # пошта: серіалізує команди дому
-        self._busy = False
-
-    # ГІДРАТАЦІЯ: наповнити сесію станом із ДЖЕРЕЛА ПРАВДИ при виході на зв'язок
-    def hydrate(self) -> None:
-        self._twin = self._store.get(self.home_id)     # ← увесь «відновлення стану»
-
-    # ЄДИНИЙ вхід для команд: покласти в пошту й розбудити цикл
-    def tell(self, cmd: dict) -> None:
-        self._box.append(cmd); self._pump()
-
-    def _pump(self) -> None:
-        if self._busy:                    # вже крутиться — новий tell лише долив у чергу
-            return
-        self._busy = True
-        while self._box:                  # одне за раз, до кінця
-            self._apply(self._box.popleft())
-        self._busy = False
-
-    def _apply(self, cmd: dict) -> None:
-        assert self._twin is not None, "сесію не гідратовано"
-        # (a) новий стан у кеші — версія росте
-        nxt = replace(self._twin,
-                      version=self._twin.version + 1,
-                      bolt="locked" if cmd["kind"] == "lock" else "unlocked",
-                      last_cmd=f'{cmd["by"]}#{cmd["seq"]}')
-        # (b) НАСКРІЗНИЙ запис у ДЖЕРЕЛО ПРАВДИ (CAS по version)
-        if not self._store.put_cas(nxt, self._twin.version):
-            self.hydrate()               # хтось випередив → перечитати правду…
-            return self._apply(cmd)      # …і повторити команду на свіжому стані
-        # (c) дописати ФАКТ у журнал аудиту (лише замки)
-        self._audit.append(LockEvent(self.home_id, nxt.bolt, cmd["by"], time.time()))
-        # (d) аж ТЕПЕР зафіксувати кеш → read-your-writes: кеш == довговічний рядок
-        self._twin = nxt
-
-    def snapshot(self) -> Twin:          # тепле читання: з живого актора
-        return self._twin
-```
+:::code proj-twin-composition/ts/koordynator-zhyva-sesiia.ts
+:::code proj-twin-composition/py/koordynator-zhyva-sesiia.py
 :::
 
 Ось той самий шлях у рухах, і головне в ньому — де стоїть підтвердження:
@@ -229,68 +71,8 @@ class HomeSession:
 Лишилось звести трьох під один вхід — і тут фасад робить те, задля чого композиція взагалі має сенс: **одне слово «читання» розгалужує на три різні шляхи** залежно від того, гарячий дім чи ні й про що питають.
 
 :::tabs
-```ts
-// ── ФАСАД: маршрутизує команду й ТРИ різні читання ──
-class TwinService {
-  private live = new Map<string, HomeSession>();   // реєстр гарячих сесій (хто на зв'язку)
-  constructor(private store: ShardStore, private audit: AuditLog) {}
-
-  // активувати (чи знайти) живу сесію — саме ТУТ відбувається гідратація
-  private activate(homeId: string): HomeSession {
-    let s = this.live.get(homeId);
-    if (!s) { s = new HomeSession(homeId, this.store, this.audit); s.hydrate(); this.live.set(homeId, s); }
-    return s;
-  }
-
-  // КОМАНДА: завжди крізь живу сесію (серіалізація + наскрізний запис)
-  command(homeId: string, cmd: Cmd): void { this.activate(homeId).tell(cmd); }
-
-  // ЧИТАННЯ: тепле → з актора (read-your-writes); холодне → прямо зі шарда по ключу
-  show(homeId: string): Twin {
-    const s = this.live.get(homeId);
-    return s ? s.snapshot() : this.store.get(homeId);      // дім спить → повз актор
-  }
-
-  // ІСТОРІЯ: завжди з журналу — не чіпає ні актор, ні поточний стан
-  history(homeId: string, since: number, until: number): LockEvent[] {
-    return this.audit.read(homeId, since, until);
-  }
-
-  release(homeId: string): void { this.live.delete(homeId); }   // засинання: відпустити сесію
-}
-```
-```py
-# ── ФАСАД: маршрутизує команду й ТРИ різні читання ──
-class TwinService:
-    def __init__(self, store: ShardStore, audit: AuditLog):
-        self._store, self._audit = store, audit
-        self._live: dict[str, HomeSession] = {}    # реєстр гарячих сесій (хто на зв'язку)
-
-    # активувати (чи знайти) живу сесію — саме ТУТ відбувається гідратація
-    def _activate(self, home_id: str) -> HomeSession:
-        s = self._live.get(home_id)
-        if s is None:
-            s = HomeSession(home_id, self._store, self._audit)
-            s.hydrate()
-            self._live[home_id] = s
-        return s
-
-    # КОМАНДА: завжди крізь живу сесію (серіалізація + наскрізний запис)
-    def command(self, home_id: str, cmd: dict) -> None:
-        self._activate(home_id).tell(cmd)
-
-    # ЧИТАННЯ: тепле → з актора (read-your-writes); холодне → прямо зі шарда по ключу
-    def show(self, home_id: str) -> Twin:
-        s = self._live.get(home_id)
-        return s.snapshot() if s else self._store.get(home_id)    # дім спить → повз актор
-
-    # ІСТОРІЯ: завжди з журналу — не чіпає ні актор, ні поточний стан
-    def history(self, home_id: str, since: float, until: float) -> list[LockEvent]:
-        return self._audit.read(home_id, since, until)
-
-    def release(self, home_id: str) -> None:       # засинання: відпустити сесію
-        self._live.pop(home_id, None)
-```
+:::code proj-twin-composition/ts/fasad-marshrut-dlia.ts
+:::code proj-twin-composition/py/fasad-marshrut-dlia.py
 :::
 
 Три методи читання-й-запису — і кожен іде **своїм** сховищем, бо профіль у кожного свій:
@@ -305,49 +87,8 @@ class TwinService:
 Тепер проженімо крізь кістяк живий сценарій — і навмисно вб'ємо вузол посередині, щоб побачити, у що перетворилося «відновлення стану».
 
 :::tabs
-```ts
-const store = new ShardStore();
-const audit = new AuditLog();
-store.seed({ homeId: "home42", version: 5, bolt: "unlocked", lastCmd: "" });   // дім уже жив
-const svc = new TwinService(store, audit);
-
-// (1) КОМАНДА «замкни двері» — крізь живу сесію (гідратація + наскрізний запис)
-svc.command("home42", { kind: "lock", seq: 6, by: "owner" });
-console.log(svc.show("home42"));   // ТЕПЛЕ: {version:6, bolt:"locked", lastCmd:"owner#6"} — з актора
-
-// (2) вузол із домом home42 ГИНЕ — жива сесія зникає разом із пам'яттю вузла
-svc.release("home42");             // (аварія === сесії більше нема)
-console.log(svc.show("home42"));   // ХОЛОДНЕ: {version:6, bolt:"locked"} — прямо зі шарда, повз актор
-
-// (3) наступна команда просто РЕГІДРАТУЄ на іншому вузлі — «відновлення» = store.get
-svc.command("home42", { kind: "unlock", seq: 7, by: "owner" });
-console.log(svc.show("home42"));   // {version:7, bolt:"unlocked"} — стан піднято з рядка, не з нуля
-
-// (4) ІСТОРІЯ «хто відмикав уночі» — прямо з журналу, повз актор і поточний стан
-for (const e of svc.history("home42", 0, Date.now() + 1))
-  console.log(e.action, "by", e.by);   // locked by owner ; unlocked by owner
-```
-```py
-store, audit = ShardStore(), AuditLog()
-store.seed(Twin("home42", version=5))         # дім уже жив
-svc = TwinService(store, audit)
-
-# (1) КОМАНДА «замкни двері» — крізь живу сесію (гідратація + наскрізний запис)
-svc.command("home42", {"kind": "lock", "seq": 6, "by": "owner"})
-print(svc.show("home42"))    # ТЕПЛЕ: Twin(home42, version=6, bolt='locked', last_cmd='owner#6') — з актора
-
-# (2) вузол із домом home42 ГИНЕ — жива сесія зникає разом із пам'яттю вузла
-svc.release("home42")        # (аварія === сесії більше нема)
-print(svc.show("home42"))    # ХОЛОДНЕ: version=6, bolt='locked' — прямо зі шарда, повз актор
-
-# (3) наступна команда просто РЕГІДРАТУЄ на іншому вузлі — «відновлення» = store.get
-svc.command("home42", {"kind": "unlock", "seq": 7, "by": "owner"})
-print(svc.show("home42"))    # version=7, bolt='unlocked' — стан піднято з рядка, не з нуля
-
-# (4) ІСТОРІЯ «хто відмикав уночі» — прямо з журналу, повз актор і поточний стан
-for e in svc.history("home42", 0, time.time() + 1):
-    print(e.action, "by", e.by)   # locked by owner ; unlocked by owner
-```
+:::code proj-twin-composition/ts/stsenarii-komanda-dva.ts
+:::code proj-twin-composition/py/stsenarii-komanda-dva.py
 :::
 
 Уся мораль — у кроці (3). Між командою `lock#6` і командою `unlock#7` вузол помер, і в чистому акторі це була б драма: підняти сесію, знайти знімок, дограти хвіст подій, пережити вікно можливої втрати. Тут — жодної драми. Наступна команда прилетіла на інший вузол, фасад не знайшов живої сесії, створив нову й **гідратував її одним `store.get`**. Стан `version 6, locked` піднявся з рядка, як стояв, і `unlock` спокійно зробив із нього `version 7`. «Відновлення стану» тут не механізм, а відсутність механізму: нема чого відновлювати, бо актор нічого й не губив — правда весь час лежала в шарді.

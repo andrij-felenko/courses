@@ -8,30 +8,7 @@
 
 Ми оминемо всю цю халепу одним ходом: **той самий рядок операції і є задачею в черзі.** Створити операцію — це вставити рядок зі станом `queued`; забрати задачу — це знайти найстаріший рядок у стані `queued` й перевести його в `running`. Одна вставка робить обидві справи, атомарність — задарма. Ось таблиця, у якій операція-ресурс і задача-черги — та сама сутність:
 
-```sql
-CREATE TABLE operations (
-  id               text PRIMARY KEY,            -- op-42 у /operations/{id}
-  idempotency_key  text UNIQUE NOT NULL,        -- ← один намір = один рядок (гонку розсудить індекс)
-  status           text NOT NULL DEFAULT 'queued'
-                   CHECK (status IN ('queued','running','succeeded','failed','canceled')),
-  request          jsonb NOT NULL,              -- {cameraId, from, to} — що саме просили
-  progress         int  NOT NULL DEFAULT 0,     -- 0..100, поки running
-  result           jsonb,                       -- {url, expiresAt} — коли succeeded
-  error            jsonb,                       -- {code, message} — коли failed
-  cancel_requested boolean NOT NULL DEFAULT false,
-  -- поля черги (той самий рядок працює й задачею):
-  lease_id         text,                        -- жетон поточної оренди — НОВИЙ на кожен забір
-  lease_expires_at timestamptz,                 -- доки триває оренда цього робітника
-  attempt          int  NOT NULL DEFAULT 0,     -- скільки разів задачу забирали
-  user_id          text NOT NULL,               -- кому слати пуш наприкінці
-  created_at       timestamptz NOT NULL DEFAULT now(),
-  expires_at       timestamptz NOT NULL         -- коли прибрати сам запис операції
-);
-
--- індекс для забору: цікаві лише ті, що чекають або чия оренда згасла
-CREATE INDEX ops_claimable ON operations (created_at)
-  WHERE status IN ('queued','running');
-```
+:::code proj-dh-clip-export/sql/odyn-riadok-i-operatsiia-i.sql
 
 Дві колонки тут несуть усю вагу решти вставки. `idempotency_key UNIQUE` — це те, що не дасть завести дві операції на один намір: індекс — арбітр гонки, і за мить ми побачимо, як саме. А `lease_id` разом із `lease_expires_at` — це те, що не дасть операції збрехати про мертвого робітника: жетон оренди, який робітник носить у кожному записі, і строк, по якому оренда згасає, якщо серце перестало битися.
 
@@ -42,72 +19,8 @@ CREATE INDEX ops_claimable ON operations (created_at)
 Розв'язок — не перевіряти в коді взагалі, а **дати арбітром базу**. `UNIQUE(idempotency_key)` фізично не дозволить двом рядкам мати той самий ключ; лишається одним запитом спробувати вставити й чемно прийняти відмову, якщо хтось випередив. У Postgres це `INSERT … ON CONFLICT DO NOTHING RETURNING`: вставка або кладе рядок і повертає його, або, наткнувшись на зайнятий ключ, тихо повертає нуль рядків:
 
 :::tabs
-```ts
-// POST /cameras/:id/clips — прийняти, дедуплікувати за ключем, віддати 202 + Location.
-app.post("/cameras/:id/clips", async (req, res) => {
-  const key = req.header("Idempotency-Key");
-  if (!key) return res.status(400).json({ code: "missing_idempotency_key" });
-
-  const request = { cameraId: req.params.id, from: req.body.from, to: req.body.to };
-  const id = "op-" + newId();
-
-  // ОДНА вставка = і операція, і задача в черзі. UNIQUE(idempotency_key) розсудить гонку.
-  const rows = await db.query(
-    `INSERT INTO operations (id, idempotency_key, status, request, user_id, expires_at)
-     VALUES ($1, $2, 'queued', $3, $4, now() + interval '30 days')
-     ON CONFLICT (idempotency_key) DO NOTHING
-     RETURNING id`,
-    [id, key, request, req.userId]);
-
-  if (rows.length === 1) {                       // ми ВИГРАЛИ гонку: рядок наш, рендер у черзі
-    res.setHeader("Location", `/operations/${id}`);
-    return res.status(202).json({ id, status: "queued" });
-  }
-
-  // 0 рядків → хтось із тим самим ключем нас випередив. Читаємо ЙОГО операцію.
-  const { rows: [op] } = await db.query(
-    `SELECT id, request FROM operations WHERE idempotency_key = $1`, [key]);
-
-  // той самий ключ, але інші параметри — це помилка клієнта, а не мовчазний підмін наміру
-  if (!sameRequest(op.request, request))
-    return res.status(422).json({ code: "idempotency_key_reused" });
-
-  res.setHeader("Location", `/operations/${op.id}`);
-  return res.status(202).json({ id: op.id, status: "queued" });   // ТА САМА операція
-});
-```
-```py
-# POST /cameras/{camera_id}/clips — прийняти, дедуплікувати за ключем, віддати 202 + Location.
-@app.post("/cameras/{camera_id}/clips", status_code=202)
-async def create_clip(camera_id: str, body: ClipRequest, req: Request, resp: Response):
-    key = req.headers.get("Idempotency-Key")
-    if not key:
-        raise HTTPException(400, "missing_idempotency_key")
-
-    request = {"cameraId": camera_id, "from": body.from_, "to": body.to}
-    op_id = "op-" + new_id()
-
-    # ОДНА вставка = і операція, і задача в черзі. UNIQUE(idempotency_key) розсудить гонку.
-    row = await db.fetchrow(
-        """INSERT INTO operations (id, idempotency_key, status, request, user_id, expires_at)
-           VALUES ($1, $2, 'queued', $3, $4, now() + interval '30 days')
-           ON CONFLICT (idempotency_key) DO NOTHING
-           RETURNING id""",
-        op_id, key, request, req.state.user_id)
-
-    if row is not None:                          # ми ВИГРАЛИ гонку: рядок наш, рендер у черзі
-        resp.headers["Location"] = f"/operations/{op_id}"
-        return {"id": op_id, "status": "queued"}
-
-    # 0 рядків → нас випередили тим самим ключем. Читаємо ЇХНЮ операцію.
-    op = await db.fetchrow(
-        "SELECT id, request FROM operations WHERE idempotency_key = $1", key)
-    if not same_request(op["request"], request):  # той самий ключ, інші параметри — помилка клієнта
-        raise HTTPException(422, "idempotency_key_reused")
-
-    resp.headers["Location"] = f"/operations/{op['id']}"
-    return {"id": op["id"], "status": "queued"}    # ТА САМА операція
-```
+:::code proj-dh-clip-export/ts/202-za-dvadtsiat.ts
+:::code proj-dh-clip-export/py/202-za-dvadtsiat.py
 :::
 
 Придивімося, що робить база, коли обидва запити натрапляють на індекс тієї самої миті. Один — назвімо його A — вставляє першим, індекс приймає його ключ. Другий, B, зі своїм `INSERT` **упирається в той самий ключ і зупиняється** просто на рівні індексу: у режимі `READ COMMITTED` його вставка чекає, поки транзакція A закомітиться або відкотиться. Закомітилась — `DO NOTHING` бачить конфлікт, повертає B нуль рядків, і наступним запитом B **читає** вже видимий рядок A. Відкотилась (A упав) — вставка B проходить, і власником стає він. У кожному разі народжується **рівно одна** операція, а другий обробник віддає адресу тієї самої. Ніякого коду-перевірки — арбітраж зробив унікальний індекс.
@@ -125,47 +38,8 @@ async def create_clip(camera_id: str, body: ClipRequest, req: Request, resp: Res
 `GET` для поллінгу — чисте читання, і саме тому воно безпечне: клієнт [полить із відступом — 2, 4, 8 секунд](root:progarch/polling-vs-callback), і жоден повтор нічого не псує. Єдине, про що не можна забути, — заборонити кеш: проксі, що закешує проміжний `progress: 45`, показуватиме сорок п'ять відсотків і по завершенні. Скасування ж — не читання, а натяк: воно **не вбиває** роботу, лише лишає прапорець, який робітник помітить між шматками. Якщо операція ще в черзі — гасимо її одразу; якщо вже біжить — ставимо `cancel_requested`, і хай робітник спиниться сам на межі наступного шматка:
 
 :::tabs
-```ts
-// GET /operations/:id — чисте читання; клієнт полить із відступом. Кеш заборонено.
-app.get("/operations/:id", async (req, res) => {
-  const op = await repo.find(req.params.id);
-  if (!op) return res.status(404).end();
-  res.setHeader("Cache-Control", "no-store");
-  res.json({ id: op.id, status: op.status, progress: op.progress,
-             result: op.result, error: op.error });
-});
-
-// POST /operations/:id:cancel — кооперативно: queued гасне одразу, running лишає прапорець.
-app.post("/operations/:id\\:cancel", async (req, res) => {
-  await db.query(
-    `UPDATE operations
-        SET status = CASE WHEN status = 'queued' THEN 'canceled' ELSE status END,
-            cancel_requested = true
-      WHERE id = $1 AND status IN ('queued','running')`, [req.params.id]);
-  res.status(202).end();                          // «прийнято до скасування», не «скасовано»
-});
-```
-```py
-# GET /operations/{op_id} — чисте читання; клієнт полить із відступом. Кеш заборонено.
-@app.get("/operations/{op_id}")
-async def get_operation(op_id: str, resp: Response):
-    op = await repo.find(op_id)
-    if op is None:
-        raise HTTPException(404)
-    resp.headers["Cache-Control"] = "no-store"
-    return {"id": op.id, "status": op.status, "progress": op.progress,
-            "result": op.result, "error": op.error}
-
-# POST /operations/{op_id}:cancel — кооперативно: queued гасне одразу, running лишає прапорець.
-@app.post("/operations/{op_id}:cancel", status_code=202)
-async def cancel_operation(op_id: str):
-    await db.execute(
-        """UPDATE operations
-              SET status = CASE WHEN status = 'queued' THEN 'canceled' ELSE status END,
-                  cancel_requested = true
-            WHERE id = $1 AND status IN ('queued','running')""", op_id)
-    return {"status": "canceling"}                 # «прийнято до скасування», не «скасовано»
-```
+:::code proj-dh-clip-export/ts/podyvytysia-i-peredumaty.ts
+:::code proj-dh-clip-export/py/podyvytysia-i-peredumaty.py
 :::
 
 Зверни увагу на `202` у відповіді на скасування — не `200`. Скасувати довгу операцію теж **не миттєво**: ми пообіцяли передати намір, а не виконати його тут-таки. Ця чесність коду — «прийнято до скасування» — уся в різниці двох станів: `canceling` (прапорець стоїть, робота ще доходить до межі шматка) і `canceled` (робітник справді спинився). Клієнт, який хоче побачити кінець, і далі полить `GET`.
@@ -176,22 +50,7 @@ async def cancel_operation(op_id: str):
 
 **Перша: забір задачі — атомарний.** Знайти найстарішу `queued` (або `running`, чия оренда згасла, — це мертвий робітник, якого перехоплюємо) і тим самим запитом перевести її в `running`, поставивши свіжий жетон оренди. Ключ — `FOR UPDATE SKIP LOCKED`: він блокує рядок для нас і **перестрибує** рядки, уже взяті іншими робітниками, тож десяток робітників розбирає чергу без штовханини й без того, щоб двоє схопили одну задачу. (Postgres дав `SKIP LOCKED` у версії 9.5, випущеній 2016 року, MySQL — у 8.0 — саме під такі черги-в-таблиці.)
 
-```sql
--- Claim: атомарно забрати задачу й поставити СВІЖИЙ жетон оренди $2.
-UPDATE operations SET
-  status           = 'running',
-  lease_id         = $2,                          -- новий жетон на кожен забір (фенс на майбутнє)
-  lease_expires_at = now() + ($3 || ' seconds')::interval,
-  attempt          = attempt + 1
-WHERE id = (
-  SELECT id FROM operations
-   WHERE status = 'queued'
-      OR (status = 'running' AND lease_expires_at < now())   -- перехопити мертвого робітника
-   ORDER BY created_at
-   FOR UPDATE SKIP LOCKED                          -- перестрибнути вже взяті іншими
-   LIMIT 1)
-RETURNING id, request, attempt, lease_id, user_id;
-```
+:::code proj-dh-clip-export/sql/robitnyk-shcho-ne-maie.sql
 
 **Друга: серцебиття — на таймері, а не між шматками.** У скелеті серцебиття стояло після кожного шматка. Але один шматок може виявитися довшим за всю оренду — і тоді, поки триває перекодування одного важкого відрізка, оренда згасне, і жива робота дістане удар у спину: її перехопить другий робітник. Тому серцебиття мусить жити **окремо, за годинником**, незалежно від того, скільки триває шматок. А кооперативні перевірки — скасування й дедлайн — навпаки, доречні саме між шматками, бо це точки, де роботу безпечно урвати. Розділення чітке: **живучість — за часом, зупинка — за згодою.**
 
@@ -200,172 +59,9 @@ RETURNING id, request, attempt, lease_id, user_id;
 Ось цикл цілком. Go веде — таймер, `select` і `context`-дедлайн тут ідіоматичні; TypeScript і Python дзеркалять його стеком застосунку:
 
 :::tabs
-```go
-// Робітник у контексті Відео: забрати, тримати оренду, урвати за згодою, закрити чесно.
-const (
-	leaseTTL  = 30 * time.Second
-	beatEvery = 10 * time.Second // втричі частіше за оренду → переживе один пропуск серцебиття
-	hardCap   = 5 * time.Minute
-	maxTries  = 3
-)
-
-func (w *Worker) runOne(parent context.Context) (bool, error) {
-	op, ok, err := w.store.Claim(parent, w.id, leaseTTL) // атомарний SELECT…SKIP LOCKED + UPDATE
-	if err != nil || !ok {
-		return false, err // черга порожня — піти поспати
-	}
-	if op.Attempt > maxTries { // падало забагато разів — закриваємо чесною помилкою
-		w.store.Finish(parent, op.ID, op.LeaseID, "failed", nil, &OpError{Code: "too_many_attempts"})
-		return true, nil
-	}
-
-	// Тверда стеля тривалості на МОНОТОННОМУ годиннику: WithTimeout рахує від time.Now(),
-	// таймер рантайму глухий до стрибків настінного часу й корекцій NTP.
-	ctx, cancel := context.WithTimeout(parent, hardCap)
-	defer cancel()
-
-	// Серцебиття у власній горутині — ЗА ГОДИННИКОМ, не між шматками: подовжує оренду,
-	// несе поступ і саме воно ловить фенс.
-	var progress atomic.Int64
-	beat := time.NewTicker(beatEvery)
-	defer beat.Stop()
-	go func() {
-		for {
-			select {
-			case <-ctx.Done():
-				return
-			case <-beat.C:
-				mine, _ := w.store.Heartbeat(ctx, op.ID, op.LeaseID, int(progress.Load()), leaseTTL)
-				if !mine { // 0 рядків → нас перехопили (у рядку інший lease_id) → фенс
-					cancel() // рвемо ctx — головний цикл побачить це на межі шматка
-					return
-				}
-			}
-		}
-	}()
-
-	for _, chunk := range planChunks(op.Request) {
-		select {
-		case <-ctx.Done(): // стеля часу, фенс або зупинка процесу — НЕ пишемо succeeded
-			return true, nil
-		default:
-		}
-		if canceled, _ := w.store.CancelRequested(ctx, op.ID); canceled {
-			w.store.Finish(ctx, op.ID, op.LeaseID, "canceled", nil, nil)
-			return true, nil
-		}
-		if err := transcode(ctx, chunk); err != nil {
-			return true, err // не пишемо failed самі: відпускаємо — оренда згасне, задачу заберуть знову
-		}
-		progress.Store(int64(chunk.Percent)) // атомарно — серцебиття прочитає свіже число
-	}
-
-	// Результат — у об'єктне сховище; у рядок — лише підписане тимчасове посилання.
-	key := "clips/" + op.ID + ".mp4" // ДЕТЕРМІНОВАНИЙ ключ → повторний рендер перезапише той самий об'єкт
-	if err := w.objects.Put(ctx, key, renderedBytes(op.ID)); err != nil {
-		return true, err
-	}
-	url := w.objects.SignedURL(key, 15*time.Minute) // підпис діє 15 хв
-	result := &OpResult{URL: url, ExpiresAt: time.Now().Add(15 * time.Minute)}
-
-	// Finish із ФЕНСОМ (WHERE lease_id = наш): якщо нас перехопили — запис відкинуть, пуш не піде.
-	if done, _ := w.store.Finish(ctx, op.ID, op.LeaseID, "succeeded", result, nil); done {
-		w.notify.ClipReady(op.UserID, op.ID) // штовх пушу ЛИШЕ якщо ми справді закрили операцію
-	}
-	return true, nil
-}
-```
-```ts
-const LEASE_MS = 30_000, BEAT_MS = 10_000, HARD_CAP_MS = 5 * 60_000, MAX_TRIES = 3;
-
-async function runOne(w: Deps, workerId: string): Promise<boolean> {
-  const op = await w.store.claim(workerId, LEASE_MS);   // SELECT…SKIP LOCKED + UPDATE
-  if (!op) return false;                                 // черга порожня
-  if (op.attempt > MAX_TRIES) {                          // падало забагато разів
-    await w.store.finish(op.id, op.leaseId, "failed", null, { code: "too_many_attempts" });
-    return true;
-  }
-
-  // Стеля часу через AbortController; монотонний годинник — performance.now(), НЕ Date.now().
-  const ctrl = new AbortController();
-  const capAt = performance.now() + HARD_CAP_MS;
-  let progress = 0;
-
-  // Серцебиття ЗА ГОДИННИКОМ, не між шматками: подовжує оренду, несе поступ, ловить фенс.
-  const beat = setInterval(async () => {
-    const mine = await w.store.heartbeat(op.id, op.leaseId, progress, LEASE_MS);
-    if (!mine) ctrl.abort();                              // 0 рядків → перехопили → рвемо роботу
-  }, BEAT_MS);
-
-  try {
-    for (const chunk of planChunks(op.request)) {
-      if (ctrl.signal.aborted || performance.now() > capAt) return true; // фенс/стеля — нічого не пишемо
-      if (await w.store.cancelRequested(op.id)) {
-        await w.store.finish(op.id, op.leaseId, "canceled", null, null);
-        return true;
-      }
-      await transcode(chunk, ctrl.signal);
-      progress = chunk.percent;                          // серцебиття прочитає при наступному тіку
-    }
-
-    const key = `clips/${op.id}.mp4`;                    // детермінований ключ → повтор перезапише той самий об'єкт
-    await w.objects.put(key, renderedBytes(op.id));
-    const url = w.objects.signedUrl(key, 15 * 60);       // підпис діє 15 хв
-    const result = { url, expiresAt: new Date(Date.now() + 15 * 60_000).toISOString() };
-
-    if (await w.store.finish(op.id, op.leaseId, "succeeded", result, null)) // фенс у WHERE lease_id
-      await w.notify.clipReady(op.userId, op.id);        // пуш лише якщо ми справді закрили
-    return true;
-  } finally {
-    clearInterval(beat);
-  }
-}
-```
-```py
-LEASE, BEAT, HARD_CAP, MAX_TRIES = 30, 10, 5 * 60, 3
-
-async def run_one(w: Deps, worker_id: str) -> bool:
-    op = await w.store.claim(worker_id, LEASE)            # SELECT…SKIP LOCKED + UPDATE
-    if op is None:
-        return False                                     # черга порожня
-    if op.attempt > MAX_TRIES:                            # падало забагато разів
-        await w.store.finish(op.id, op.lease_id, "failed", None, {"code": "too_many_attempts"})
-        return True
-
-    deadline = time.monotonic() + HARD_CAP               # стеля на МОНОТОННОМУ годиннику
-    fenced = asyncio.Event()
-    progress = 0
-
-    async def heartbeat():                               # ЗА ГОДИННИКОМ, не між шматками
-        while not fenced.is_set():
-            await asyncio.sleep(BEAT)
-            mine = await w.store.heartbeat(op.id, op.lease_id, progress, LEASE)
-            if not mine:                                 # 0 рядків → перехопили → фенс
-                fenced.set()
-                return
-    beat = asyncio.create_task(heartbeat())
-
-    try:
-        for chunk in plan_chunks(op.request):
-            if fenced.is_set() or time.monotonic() > deadline:
-                return True                              # фенс/стеля — нічого не пишемо
-            if await w.store.cancel_requested(op.id):
-                await w.store.finish(op.id, op.lease_id, "canceled", None, None)
-                return True
-            await transcode(chunk)
-            progress = chunk.percent                     # серцебиття прочитає при наступному тіку
-
-        key = f"clips/{op.id}.mp4"                        # детермінований ключ → повтор перезапише об'єкт
-        await w.objects.put(key, rendered_bytes(op.id))
-        url = w.objects.signed_url(key, 15 * 60)         # підпис діє 15 хв
-        result = {"url": url, "expiresAt": iso(time.time() + 15 * 60)}
-        if await w.store.finish(op.id, op.lease_id, "succeeded", result, None):  # фенс у WHERE lease_id
-            await w.notify.clip_ready(op.user_id, op.id) # пуш лише якщо ми справді закрили
-        return True
-    finally:
-        fenced.set()
-        await beat
-```
+:::code proj-dh-clip-export/go/main.go
+:::code proj-dh-clip-export/ts/robitnyk-shcho-ne-maie.ts
+:::code proj-dh-clip-export/py/robitnyk-shcho-ne-maie.py
 :::
 
 Простеж живучість очима цього коду. Серцебиття б'ється кожні десять секунд і щоразу відсуває оренду на тридцять уперед — тож здоровий робітник тримає її з потрійним запасом, і випадкова затримка (пауза складання сміття, повільний запит) з'їдає щонайбільше один удар, не роняючи оренди. Але коли робітник **замерзає** по-справжньому — довга пауза GC, зависла машина, — серцебиття стихає, оренда більше не оновлюється й гасне за тридцять секунд від останнього удару. Тоді наступний `Claim` побачить `running` із простроченою орендою, перехопить операцію й **поставить новий жетон**. А коли перший робітник прокинеться (він же не знав, що спав), його серцебиття чи завершення зі **старим** жетоном торкнеться нуля рядків — і він чесно спиниться. Настінний час тут безсилий: заморожений робітник не знає, що минув час; рятує лише те, що ресурс сам відсіює старий жетон.

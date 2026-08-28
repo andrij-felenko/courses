@@ -22,68 +22,8 @@
 Ось дескриптор зміни й типи, якими класифікатор говорить. Зверни увагу на `kind`: `reshape` (нова форма поруч зі старою) і `redefine` (той **самий** ключ, новий сенс) — розведені навмисне, бо саме на їхній різниці стоїть уся безпека. Мова тут — виразна логіка над записом, тож TypeScript і Python поруч:
 
 :::tabs
-```ts
-type ChangeKind =
-  | "add"       // нове поле/значення; старі дані лишаються валідні
-  | "reshape"   // існуюче поле переливають у НОВУ форму (новий ключ/стовпець)
-  | "remove"    // прибирають стару форму, якою вже не пишуть
-  | "redefine"; // тому САМОМУ ключу дають НОВИЙ сенс ← отрута
-
-interface DataChange {
-  what: string;               // людський опис
-  derived: boolean;           // дані — чиста функція джерела правди?
-  rewritable: boolean;        // збережене можна переписати на місці? (false = незмінна історія)
-  controlsBothSides: boolean; // читача й писаря деплоїш РАЗОМ?
-  kind: ChangeKind;
-}
-
-type Strategy =
-  | "REBUILD"           // похідне: перерахуй із джерела, без вікна
-  | "ADD"               // адитивне: додай поруч, backfill сенсу нема
-  | "MIGRATE_IN_PLACE"  // переписуване джерело: expand → backfill → contract
-  | "SCHEMA_ON_READ"    // незмінна історія: версіонуй записи, рости декодер
-  | "RETIRE"            // прибрати стару форму, коли читачів уже нема
-  | "FORBIDDEN";        // перепризначення сенсу живого ключа — не роби
-
-type Window = "none" | "short" | "long" | "grows-with-decoder" | "may-never-close";
-type Compat = "n/a" | "backward" | "forward" | "backward+forward";
-
-interface Decision {
-  strategy: Strategy;
-  window: Window;
-  backfill: boolean;   // чи треба чіпати старі рядки
-  compat: Compat;
-  note: string;
-}
-```
-```py
-from dataclasses import dataclass
-from typing import Literal
-
-ChangeKind = Literal["add", "reshape", "remove", "redefine"]
-Strategy = Literal[
-    "REBUILD", "ADD", "MIGRATE_IN_PLACE", "SCHEMA_ON_READ", "RETIRE", "FORBIDDEN"]
-Window = Literal["none", "short", "long", "grows-with-decoder", "may-never-close"]
-Compat = Literal["n/a", "backward", "forward", "backward+forward"]
-
-
-@dataclass(frozen=True)
-class DataChange:
-    what: str
-    derived: bool                # дані — чиста функція джерела правди?
-    rewritable: bool             # збережене можна переписати на місці?
-    controls_both_sides: bool    # читача й писаря деплоїш РАЗОМ?
-    kind: ChangeKind
-
-
-@dataclass(frozen=True)
-class Decision:
-    strategy: Strategy
-    window: Window
-    backfill: bool               # чи треба чіпати старі рядки
-    compat: Compat
-    note: str
-```
+:::code proj-dh-change-triage/ts/opysaty-zminu-chotyry.ts
+:::code proj-dh-change-triage/py/opysaty-zminu-chotyry.py
 :::
 
 ## Класифікатор
@@ -91,83 +31,8 @@ class Decision:
 Тепер сама машина. Кожна гілка — це рядок таблиці, який крок уже вивів словами; тут він стає предикатом, який не можна «відчути інакше»:
 
 :::tabs
-```ts
-function chooseEvolutionStrategy(c: DataChange): Decision {
-  // 0. ҐВАРДІЯ — перш ніж думати про стратегію. Сенс живого ключа не перепризначають.
-  if (c.kind === "redefine")
-    return { strategy: "FORBIDDEN", window: "none", backfill: false, compat: "n/a",
-      note: "новий сенс = новий ключ/версія; старий ключ лишається старим сенсом" };
-
-  // 1. Похідні дані обходять усю матрицю: не мігруй — перерахуй.
-  if (c.derived)
-    return { strategy: "REBUILD", window: "none", backfill: false, compat: "n/a",
-      note: "зміни функцію зведення, перебудуй вікно із сирого" };
-
-  // 2. Адитивне: старі дані лишаються валідні, backfill сенсу нема.
-  if (c.kind === "add")
-    return { strategy: "ADD",
-      window: c.controlsBothSides ? "short" : "long", backfill: false,
-      compat: c.controlsBothSides ? "n/a" : "forward",
-      note: "старий читач мусить ІГНОРУВАТИ незнайоме, а не падати на ньому" };
-
-  // 3. Прибирання — це фаза contract чиєїсь давнішої expand.
-  if (c.kind === "remove")
-    return { strategy: "RETIRE",
-      window: c.rewritable ? "short" : "may-never-close", backfill: false,
-      compat: "backward",
-      note: "гейт: ні писаря, ні ДОСЯЖНОГО збереженого запису на старій формі" };
-
-  // 4. reshape справжнього джерела правди — вирішує вісь переписуваності.
-  if (!c.rewritable)
-    return { strategy: "SCHEMA_ON_READ",
-      window: c.controlsBothSides ? "grows-with-decoder" : "may-never-close",
-      backfill: false,
-      compat: c.controlsBothSides ? "backward" : "backward+forward",
-      note: "тегай кожен запис версією, зводь на читанні; історію не переписуй" };
-
-  return { strategy: "MIGRATE_IN_PLACE",
-    window: c.controlsBothSides ? "short" : "long", backfill: true,
-    compat: c.controlsBothSides ? "backward" : "backward+forward",
-    note: "expand → backfill пакетами → contract" };
-}
-```
-```py
-def choose_evolution_strategy(c: DataChange) -> Decision:
-    # 0. ҐВАРДІЯ: сенс живого ключа не перепризначають — перш за все.
-    if c.kind == "redefine":
-        return Decision("FORBIDDEN", "none", False, "n/a",
-            "новий сенс = новий ключ/версія; старий ключ лишається старим сенсом")
-
-    # 1. Похідні обходять матрицю: не мігруй — перерахуй.
-    if c.derived:
-        return Decision("REBUILD", "none", False, "n/a",
-            "зміни функцію зведення, перебудуй вікно із сирого")
-
-    # 2. Адитивне: старі дані лишаються валідні.
-    if c.kind == "add":
-        return Decision("ADD",
-            "short" if c.controls_both_sides else "long", False,
-            "n/a" if c.controls_both_sides else "forward",
-            "старий читач мусить ІГНОРУВАТИ незнайоме, а не падати на ньому")
-
-    # 3. Прибирання — фаза contract давнішої expand.
-    if c.kind == "remove":
-        return Decision("RETIRE",
-            "short" if c.rewritable else "may-never-close", False, "backward",
-            "гейт: ні писаря, ні ДОСЯЖНОГО збереженого запису на старій формі")
-
-    # 4. reshape джерела правди — вирішує переписуваність.
-    if not c.rewritable:
-        return Decision("SCHEMA_ON_READ",
-            "grows-with-decoder" if c.controls_both_sides else "may-never-close",
-            False, "backward" if c.controls_both_sides else "backward+forward",
-            "тегай запис версією, зводь на читанні; історію не переписуй")
-
-    return Decision("MIGRATE_IN_PLACE",
-        "short" if c.controls_both_sides else "long", True,
-        "backward" if c.controls_both_sides else "backward+forward",
-        "expand → backfill пакетами → contract")
-```
+:::code proj-dh-change-triage/ts/klasyfikator.ts
+:::code proj-dh-change-triage/py/klasyfikator.py
 :::
 
 Дві осі кроку сховані у двох останніх поверненнях: `rewritable` розводить `MIGRATE_IN_PLACE` і `SCHEMA_ON_READ`, а `controlsBothSides` **не змінює стратегію**, лише ширину вікна — `short` проти `long`, `backward` проти `backward+forward`. Це і є пуант кроку в коді: контроль над боками диктує не *що* робити, а *як довго* тримати вікно відкритим.
@@ -202,27 +67,7 @@ chooseEvolutionStrategy({
 
 Backfill нема: жоден старий рядок не міняється, у довіднику просто з'являється нове дозволене значення `type`. Уся вага — в одному слові вердикту: `compat: "forward"`. Старий читач — мобільний застосунок, [прошивка панелі, яку ти не оновиш дистанційно](root:progarch/what-makes-irreversible), — зустріне тип, про який його ніхто не питав. І тут вирішує, як він написаний:
 
-```ts
-// ❌ читач, що вибухне на новому значенні:
-function render(d: Device) {
-  switch (d.type) {
-    case "lamp":   return renderLamp(d);
-    case "lock":   return renderLock(d);
-    case "sensor": return renderSensor(d);
-    default: throw new Error(`невідомий тип ${d.type}`);   // ← ev_charger = виняток
-  }
-}
-
-// ✓ forward-сумісний: незнайоме ДЕГРАДУЄ, а не падає
-function render(d: Device) {
-  switch (d.type) {
-    case "lamp":   return renderLamp(d);
-    case "lock":   return renderLock(d);
-    case "sensor": return renderSensor(d);
-    default: return renderGeneric(d);   // показуємо як загальний пристрій
-  }
-}
-```
+:::code proj-dh-change-triage/ts/dodaty-typ-prystroiu-add-i.ts
 
 Ось прикра асиметрія цієї «найлегшої» зміни: полагодити треба **читача, якого ти вже не контролюєш**. Панель зі `switch`, що кидає на `default`, зламається на `ev_charger` — а виправити її ретроактивно нема як, бо вона в полі на старій прошивці. Тобто forward-сумісність — це не міграція, яку запускаєш; це властивість, яку **купуєш наперед**, ще коли пишеш першу версію читача. Правило «ігноруй незнайоме» — те саме, що [зрілі формати вшивають у резолюцію](root:com-protocol/schema-registry): в Avro поле, якого нема в схемі читача, писар віддає, а читач мовчки відкидає; тут — на рівні значення enum. Додавання дешеве рівно тоді, коли всі читачі вже вміють знизати плечима на невідоме.
 
@@ -238,32 +83,7 @@ chooseEvolutionStrategy({
 
 Три фази цієї міграції — `ALTER ADD`, backfill, `DROP` — крок уже показав у SQL. Не переказуватиму; візьму те, що там сховалось за одним рядком «`UPDATE ... WHERE id BETWEEN :lo AND :hi` — ганяємо по діапазонах ключа». Саме в цьому рядку живе різниця між тихою міграцією і нічним інцидентом, тож розкриймо його в робочий backfill:
 
-```py
-BATCH = 5_000
-
-def backfill_tariff_zone(conn) -> None:
-    last_id = 0
-    while True:
-        cur = conn.execute("""
-            WITH batch AS (
-                SELECT id FROM home
-                WHERE id > %s AND tariff_zone IS NULL
-                ORDER BY id
-                LIMIT %s
-            )
-            UPDATE home h
-            SET tariff_zone = zone_to_code(h.zone)
-            FROM batch
-            WHERE h.id = batch.id
-            RETURNING h.id
-        """, (last_id, BATCH))
-        ids = [r[0] for r in cur.fetchall()]
-        conn.commit()             # ← лок відпускається ЩОБАТЧУ, не в кінці всього
-        if not ids:               # NULL-рядків більше нема — усе
-            break
-        last_id = max(ids)        # keyset-курсор: наступний батч продовжує з місця
-        time.sleep(0.05)          # крапля між батчами: вакуум і реплікація дихають
-```
+:::code proj-dh-change-triage/py/rozklasty-zone-tariff-zone.py
 
 Чому не один `UPDATE home SET tariff_zone = zone_to_code(zone)` на всю таблицю? Порахуймо на реальному масштабі:
 
@@ -303,32 +123,8 @@ chooseEvolutionStrategy({
 Правильний хід — не «стратегія», а переформулювання зміни: новий сенс дістає **новий ключ або нову версію**, а старий лишається собою назавжди. І тоді, вже як `redefine`, переписаний на нову версію, він падає в `SCHEMA_ON_READ` — версійний декодер, у якому кожна форма істинна для своїх рядків:
 
 :::tabs
-```ts
-// Кожен запис несе СВОЮ версію форми; сенс wh читається ЗА ВЕРСІЄЮ, не вгадується.
-interface RawRecord { schema: number; [k: string]: unknown; }
-interface Reading { wattHours: number; }   // канонічна форма читача
-
-function decode(r: RawRecord): Reading {
-  switch (r.schema) {
-    case 1: return decodeV1(r);   // wh відсутнє: лише миттєве w — інтегруємо самі
-    case 2: return decodeV2(r);   // wh = НАКОПИЧУВАЛЬНИЙ лічильник (Вт·год від старту)
-    case 3: return decodeV3(r);   // wh = ДЕЛЬТА за інтервал ← НОВИЙ сенс, НОВА версія
-    default: throw new Error(`нема декодера для schema:${r.schema}`);
-  }
-}
-```
-```py
-_DECODERS = {1: decode_v1, 2: decode_v2, 3: decode_v3}
-#   schema:1 — лише миттєве w, інтегруємо самі
-#   schema:2 — wh накопичувальний лічильник
-#   schema:3 — wh дельта за інтервал ← новий сенс, нова версія
-
-def decode(r: dict) -> Reading:
-    try:
-        return _DECODERS[r["schema"]](r)     # сенс wh — за версією запису
-    except KeyError:
-        raise ValueError(f'нема декодера для schema:{r["schema"]}')
-```
+:::code proj-dh-change-triage/ts/zminyty-sens-wh-forbidden.ts
+:::code proj-dh-change-triage/py/zminyty-sens-wh-forbidden.py
 :::
 
 `decodeV2` і `decodeV3` живуть у коді **одночасно й вічно**, кожен правильний для своїх рядків; жоден рядок не переписано. Саме так чинять зрілі формати, і не випадково: [Protocol Buffers розрізняють поля за номером](root:com-protocol/schema-registry) — тому перейменувати поле безпечно, а повторно вжити вивільнений номер заборонено, бо тоді wire-формат не відрізнить, яким визначенням запис кодували. Ключ (тег, версія) — стабільний, сенс до нього прибитий намертво. Ґвардія в класифікаторі — це те саме правило, піднесене на рівень квитка: перш ніж питати «як провести цю зміну», спитай «а це часом не тихе перепризначення ключа» — і якщо так, зміни не проводь, а переформулюй.
@@ -347,23 +143,7 @@ chooseEvolutionStrategy({
 
 Тому гейт мусить слухати **інший годинник** — не «останній живий запис», а «найстаріший **збережений** досяжний рядок»:
 
-```ts
-interface RetireGate {
-  version: number;
-  liveWrites: number;                  // писарі, що ще шлють цю версію (за вікно)
-  oldestStoredAgeDays: number | null;  // вік найстарішого збереженого рядка; null = жодного
-  retentionDays: number;               // доки взагалі можемо перечитувати історію
-}
-
-function canRetireDecoder(g: RetireGate): { green: boolean; why: string } {
-  if (g.liveWrites > 0)
-    return { green: false, why: `${g.liveWrites} писарів ще шлють schema:${g.version}` };
-  if (g.oldestStoredAgeDays !== null && g.oldestStoredAgeDays <= g.retentionDays)
-    return { green: false,
-      why: `найстаріший schema:${g.version}-рядок ще в retention — перерахунок його прочитає` };
-  return { green: true, why: `ні писаря, ні досяжного рядка на schema:${g.version}` };
-}
-```
+:::code proj-dh-change-triage/ts/prybraty-lehasi-schema-1.ts
 
 Це рідня [харнесу воріт для поля API](root:progarch/api-evolution-dh/proj-dh-field-migration.md), де кнопку `contract` теж чіпляли на метрику, а не на календар, — але з різницею, що й робить незмінну історію окремим звіром. Там ворота слухали живі читання й одного дня чесно зеленіли. Тут другий годинник — вік найстарішого рядка — може лишатися червоним **роками**, доки retention тримає давню історію, і це не поломка гейта, а правда про дані: фаза contract для незмінного журналу настає пізно, а за нескінченного retention — не настає взагалі.
 
@@ -382,20 +162,7 @@ chooseEvolutionStrategy({
 
 Найдешевша зміна з усіх — і рівно тому найпідступніша, бо спокушає зробити «трохи більше» й непомітно перетворити безкоштовне на дороге. Безкоштовний варіант — nullable без дефолта:
 
-```sql
--- ✓ безкоштовно: nullable, без дефолта → лише метадані, жодного рерайту рядків
-ALTER TABLE home ADD COLUMN firmware_channel text;   -- старі рядки = NULL = «невідомо»
-
--- ❌ тиха брехня: NOT NULL з дефолтом насаджує старим рядкам сенс, якого вони не мали
-ALTER TABLE home ADD COLUMN firmware_channel text NOT NULL DEFAULT 'stable';
---   PostgreSQL 11+ зробить це теж швидко (сталий дефолт — лише метадані),
---   АЛЕ кожен старий рядок відтепер СТВЕРДЖУЄ, що він 'stable' — хоч канал невідомий;
---   NULL «ми не знали» тихо став 'stable' — і ти вже не відрізниш знаних від незнаних.
-
--- ❌❌ і зовсім дорого — зробити поле обов'язковим ПІЗНІШЕ:
-ALTER TABLE home ALTER COLUMN firmware_channel SET NOT NULL;
---   повний скан таблиці під ACCESS EXCLUSIVE, щоб довести, що NULL-ів нема → лок на весь скан
-```
+:::code proj-dh-change-triage/sql/main.sql
 
 Дві пастки в одному невинному полі. Перша — **семантична**: `NOT NULL DEFAULT 'stable'` не просто заповнює порожнечу, він **переписує сенс** старих рядків, стверджуючи про них те, чого ти не знаєш. `NULL` чесно казав «невідомо»; дефолт замінив його правдоподібною брехнею, і тепер «канал невідомий» не відрізнити від «канал справді stable». Це та сама хвороба, що й перепризначення `wh`, тільки м'якша: ти ретроактивно приписав минулому значення, якого в ньому не було. Друга — **механічна**: зробити поле обов'язковим згодом коштує повного скану під найважчим локом (а нестала за замовчуванням, як-от `now()`, перепише всю таблицю ще на `ADD`). Тому дисципліна проста: нові поля — nullable і без дефолта; «невідомо» лишай як `NULL`, а дефолт [обирай на читанні](root:sf-data/schema-on-read-write), не запікай у сховище. Не клади в старі рядки припущення, якого потім не забереш.
 

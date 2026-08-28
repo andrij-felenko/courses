@@ -55,75 +55,8 @@
 Край робить три речі поспіль: перевіряє підпис клієнтського токена (локально, без походу в сховище), ставить грубе об'єкто-**незалежне** питання про скоуп — і, якщо все зійшлося, карбує внутрішнє засвідчення для сервісу.
 
 :::tabs
-```ts
-// Спільний словник хмари DH
-type Subject = { id: string; scopes: string[] };   // доведена особа + грубі скоупи з токена
-
-// ── Брама 1: шлюз на краю хмари ─────────────────────────────────────────────
-function edgeGate(req: Request): string {
-  const subject = verifyAccessToken(req.header("authorization"));  // підпис ключем ЕМІТЕНТА, локально
-  if (!subject) throw new Http(401);                               // печатка/термін не зійшлись → «не знаю тебе»
-
-  if (!subject.scopes.includes("device:command"))                 // об'єкто-НЕЗАЛЕЖне: роль узагалі командує?
-    throw new Http(403);                                          // гість (лише device:view) — стоп ТУТ, сервіс не потурбовано
-
-  return mintAttestation(subject);   // суб'єкт доведено → карбуємо СВІЖЕ засвідчення саме для сервісу пристроїв
-}
-
-// Внутрішнє засвідчення: короткий токен «це справді Богдан», підписаний ключем ШЛЮЗУ.
-function mintAttestation(subject: Subject): string {
-  const now = Math.floor(Date.now() / 1000);
-  return jwt.sign(
-    { sub: subject.id, scopes: subject.scopes,
-      iss: "edge-gateway", aud: "devices",      // від кого й КОМУ — інший сервіс його не прийме
-      iat: now, exp: now + 10 },                // живе 10 с — рівно на один стрибок углиб
-    GATEWAY_INTERNAL_PRIVATE_KEY,               // НЕ той ключ, що перевіряє клієнтські токени!
-    { algorithm: "RS256" },
-  );
-}
-
-// Переслати в сервіс: кладемо ЗАСВІДЧЕННЯ, прибираємо клієнтський токен.
-async function forwardToDevices(req: Request, attestation: string): Promise<Response> {
-  const headers = new Headers({ "x-dh-attestation": attestation }); // свіже, підписане шлюзом
-  // Authorization (клієнтський токен) НЕ переслали — у сервісі він і не потрібен, і не бажаний.
-  return fetch(`http://devices.internal${req.path}`, { method: req.method, headers, body: req.rawBody });
-}
-```
-```py
-from dataclasses import dataclass
-
-@dataclass
-class Subject:                       # доведена особа + грубі скоупи з токена
-    id: str
-    scopes: list[str]
-
-# ── Брама 1: шлюз на краю хмари ─────────────────────────────────────────────
-def edge_gate(req) -> str:
-    subject = verify_access_token(req.headers.get("authorization"))  # підпис ключем ЕМІТЕНТА, локально
-    if subject is None:
-        raise Http(401)                                              # печатка/термін не зійшлись
-
-    if "device:command" not in subject.scopes:                      # об'єкто-НЕЗАЛЕЖне: роль узагалі командує?
-        raise Http(403)                                             # гість (лише device:view) — стоп ТУТ
-
-    return mint_attestation(subject)   # суб'єкт доведено → свіже засвідчення саме для сервісу пристроїв
-
-def mint_attestation(subject: Subject) -> str:
-    now = int(time.time())
-    return jwt.encode(
-        {"sub": subject.id, "scopes": subject.scopes,
-         "iss": "edge-gateway", "aud": "devices",   # від кого й КОМУ
-         "iat": now, "exp": now + 10},              # живе 10 с — на один стрибок
-        GATEWAY_INTERNAL_PRIVATE_KEY,               # НЕ ключ клієнтських токенів!
-        algorithm="RS256",
-    )
-
-async def forward_to_devices(req, attestation: str):
-    headers = {"x-dh-attestation": attestation}     # свіже, підписане шлюзом
-    # Authorization (клієнтський токен) НЕ переслали.
-    return await http.request(req.method, f"http://devices.internal{req.path}",
-                              headers=headers, content=req.raw_body)
-```
+:::code proj-dh-auth-path/ts/brama-1-shliuz-pidpys.ts
+:::code proj-dh-auth-path/py/brama-1-shliuz-pidpys.py
 :::
 
 Один рядок тут вартий погляду: ключ у `mintAttestation` — **не** той, яким перевіряли клієнтський токен. Це навмисне: клієнт, навіть маючи бездоганний власний токен, не володіє внутрішнім ключем шлюзу, тож **сфабрикувати засвідчення не може**. Карбувати його вміє лише той, хто пройшов Браму 1, — сам шлюз. Довіра всередині хмари стоїть на окремому, недосяжному клієнтові підписі.
@@ -133,32 +66,8 @@ async def forward_to_devices(req, attestation: str):
 Перевірка підпису на краю — суто локальна, без сховища. Може здатися, що тут немає де сказати «ні» виключеному членові: підпис же цілий. Але гачок є, і він на **рефреші**. Короткий access живе хвилини; коли він протухає, клієнт іде на шлюз по свіжий, пред'явивши довгий непрозорий refresh, — і **ось тут** орган відкликання дотягується до сесії. Це та сама механіка [короткого access і наглянутого refresh, чиє вікно відкликання ми вимірювали](root:progarch/session-storage-choice); тепер вона стоїть на краю живим шматком коду.
 
 :::tabs
-```ts
-// ── Шлях рефреша на шлюзі: ТУТ виключеному членові кажуть «ні» ──
-async function refresh(req: Request): Promise<{ access: string }> {
-  const refreshId = readRefreshCookie(req);
-  const record = await refreshStore.get(refreshId);   // непрозорий id → правда в сторі
-  if (!record) throw new Http(401);                    // refresh відкликано/протух → нового access не дамо
-
-  if (await revocations.isRevoked(record.subjectId, record.homeId))  // виключений із дому?
-    throw new Http(403);                               // орган відкликання каже «ні» — за секунди, не за добу
-
-  return { access: issueAccess(record) };              // інакше — свіжий короткий access, ще на кілька хвилин
-}
-```
-```py
-# ── Шлях рефреша на шлюзі: ТУТ виключеному членові кажуть «ні» ──
-async def refresh(req) -> dict:
-    refresh_id = read_refresh_cookie(req)
-    record = await refresh_store.get(refresh_id)       # непрозорий id → правда в сторі
-    if record is None:
-        raise Http(401)                                # refresh відкликано/протух → нового access не дамо
-
-    if await revocations.is_revoked(record.subject_id, record.home_id):  # виключений із дому?
-        raise Http(403)                                # орган відкликання каже «ні»
-
-    return {"access": issue_access(record)}            # інакше — свіжий короткий access
-```
+:::code proj-dh-auth-path/ts/shliakh-refresha-de.ts
+:::code proj-dh-auth-path/py/shliakh-refresha-de.py
 :::
 
 Отже, «локальна перевірка підпису» й «сервер може миттєво відкликати» не суперечать одне одному, бо працюють на **різних токенах**. Гарячий шлях вірить короткому access локально й швидко. А право сказати «геть» живе на холодному шляху рефреша: викинутий із дому член ще похвилину відчинятиме замок протухлим access, але свіжого вже не дістане — і доступ обірветься на першому ж рефреші. Довжину цього вікна ти задаєш терміном життя access; для дверей його роблять короткою.
@@ -168,38 +77,8 @@ async def refresh(req) -> dict:
 Тепер бік сервісу. Перше, що він робить, отримавши запит, — перевіряє **засвідчення**, а не клієнтський токен (якого й немає). Перевіряє **відкритим ключем шлюзу** й звіряє, що засвідчення адресоване саме йому.
 
 :::tabs
-```ts
-// ── Межа хмари, бік сервісу: приймаємо ЗАСВІДЧЕННЯ, не клієнтський токен ──
-function attestedSubject(req: Request): Subject {
-  const token = req.header("x-dh-attestation");
-  if (!token) throw new Http(401);                       // напряму, без шлюзу, без засвідчення → стоп (fail-closed)
-  try {
-    const c = jwt.verify(token, GATEWAY_INTERNAL_PUBLIC_KEY, {
-      algorithms: ["RS256"],
-      issuer: "edge-gateway",     // підписав саме шлюз
-      audience: "devices",        // і саме НАМ, а не іншому сервісу
-    }) as jwt.JwtPayload;
-    return { id: c.sub as string, scopes: (c.scopes as string[]) ?? [] };
-  } catch {
-    throw new Http(401);          // підроблене / протухле / чуже aud → «не знаю тебе»
-  }
-}
-```
-```py
-# ── Межа хмари, бік сервісу: приймаємо ЗАСВІДЧЕННЯ, не клієнтський токен ──
-def attested_subject(req) -> Subject:
-    token = req.headers.get("x-dh-attestation")
-    if not token:
-        raise Http(401)                                  # напряму, без шлюзу → стоп (fail-closed)
-    try:
-        c = jwt.decode(token, GATEWAY_INTERNAL_PUBLIC_KEY,
-                       algorithms=["RS256"],
-                       issuer="edge-gateway",            # підписав саме шлюз
-                       audience="devices")               # і саме НАМ
-        return Subject(id=c["sub"], scopes=c.get("scopes", []))
-    except Exception:
-        raise Http(401)                                  # підроблене / протухле / чуже aud → ні
-```
+:::code proj-dh-auth-path/ts/mezha-khmary-servis.ts
+:::code proj-dh-auth-path/py/mezha-khmary-servis.py
 :::
 
 Зверни увагу, чого тут **немає**. Немає читання `X-User-Id`, немає погляду на IP джерела, немає рядка «якщо запит із внутрішньої мережі — вір». Особа береться **лише** з підпису, який міг поставити тільки шлюз. Це і є [zero-trust](root:sf-security/zero-trust) у дії: не довіряй за розташуванням у мережі — перевіряй доказ на кожному переході. `aud: "devices"` — не формальність: якщо засвідчення випишуть для сервісу телеметрії, наш сервіс пристроїв його **не** прийме, і навпаки; кожне засвідчення годиться рівно для того яруса, кому адресоване.
@@ -209,30 +88,8 @@ def attested_subject(req) -> Subject:
 Аж тепер, знаючи суб'єкта, сервіс завантажує **об'єкт** і ставить питання, задля якого й існує друга брама. Правило — за тим самим [швом `Authorizer` з єдиним `can(суб'єкт, дія, об'єкт)`, який ми зібрали у Варіанті А](root:progarch/authz-inservice-variant), із ключем пошуку членства за домом **самого замка** й відмовою за замовчуванням.
 
 :::tabs
-```ts
-// ── Брама 2: тонка ОБ'ЄКТНА авторизація ──
-async function unlockDoor(req: Request, res: Response) {
-  const subject = attestedSubject(req);                 // хто — із ЗАСВІДЧЕННЯ, не з токена
-  const door = await devices.load(req.params.id);       // об'єкт У РУКАХ: у ньому homeId
-  if (!door) return res.status(404).end();
-  if (!(await authz.can(subject, "unlock", door)))      // «цей замок — у ТВОЄМУ домі?» ключ = door.homeId
-    return res.status(403).end();                       // чужий дім → 403, IDOR закрито
-  await door.unlock();                                  // обидві брами пройдено → сигнал на хаб
-  res.json({ ok: true });
-}
-```
-```py
-# ── Брама 2: тонка ОБ'ЄКТНА авторизація ──
-async def unlock_door(req, door_id: str):
-    subject = attested_subject(req)                      # хто — із ЗАСВІДЧЕННЯ, не з токена
-    door = await devices.load(door_id)                   # об'єкт У РУКАХ: у ньому home_id
-    if door is None:
-        raise Http(404)
-    if not await authz.can(subject, "unlock", door):     # «цей замок — у ТВОЄМУ домі?» ключ = door.home_id
-        raise Http(403)                                  # чужий дім → 403, IDOR закрито
-    await door.unlock()                                  # обидві брами пройдено → сигнал на хаб
-    return {"ok": True}
-```
+:::code proj-dh-auth-path/ts/brama-2-tonka-obiektna.ts
+:::code proj-dh-auth-path/py/brama-2-tonka-obiektna.py
 :::
 
 Хендлер тонкий — і це ознака здоров'я. Уся автентифікація лишилась на краю, усе правило доступу — за швом `can`; тут ідуть три кроки: дістати засвідченого суб'єкта, підняти об'єкт, спитати шов. Ані `verifyToken`, ані `if scope`, ані ролі в обробнику — тільки збірка суб'єкта й об'єкта в одну руку й одне питання.
@@ -242,122 +99,8 @@ async def unlock_door(req, door_id: str):
 Тепер зберімо обидва яруси в один прогін і пустимо крізь них три наші запити. Щоб слід було видно, а не сховано за HTTP-каркасом, змоделюймо яруси функціями: `gateway(...)` робить Браму 1 і кличе `devicesService(...)`, передавши засвідчення. Логіка — та сама, що вище.
 
 :::tabs
-```ts
-// Членство й ролі (те, що всередині сервісу знає про доми)
-const ACTIONS_BY_ROLE = {
-  owner:    new Set(["unlock", "lock", "view", "configure"]),
-  resident: new Set(["unlock", "lock", "view"]),
-  guest:    new Set(["view"]),
-} as const;
-const membership: Record<string, Record<string, keyof typeof ACTIONS_BY_ROLE>> = {
-  bohdan: { "home-7": "resident" },     // Богдан — мешканець дому 7
-  guest7: { "home-7": "guest" },        // Гість — лише глядач у домі 7
-};
-const locks: Record<string, { homeId: string }> = {
-  "42": { homeId: "home-7" },           // Богданів замок
-  "99": { homeId: "home-3" },           // Мартин замок
-};
-
-// «Підпис» клієнтського токена = чи є він у таблиці виданих
-const TOKENS: Record<string, Subject> = {
-  "tok-bohdan": { id: "bohdan", scopes: ["device:command", "device:view"] },
-  "tok-guest":  { id: "guest7", scopes: ["device:view"] },
-};
-const verifyAccessToken = (auth?: string): Subject | null =>
-  (auth && TOKENS[auth.replace(/^Bearer /, "")]) || null;
-
-function can(sub: Subject, action: string, lock: { homeId: string }): boolean {
-  const role = membership[sub.id]?.[lock.homeId];   // ключ пошуку — дім САМОГО замка
-  if (!role) return false;                          // не член цього дому → ні (IDOR закрито)
-  return ACTIONS_BY_ROLE[role].has(action);         // відмова за замовчуванням
-}
-
-// ── Ярус 2: сервіс пристроїв (Брама 2) ──
-function devicesService(path: string, att: { sub: string; aud: string }): string {
-  if (att.aud !== "devices") return "Брама2 ✗ 401 (чуже засвідчення)";
-  const subject: Subject = { id: att.sub, scopes: [] };   // хто — із ЗАСВІДЧЕННЯ
-  const id = path.split("/")[2];                          // /devices/42/unlock → "42"
-  const lock = locks[id];
-  if (!lock) return "Брама2 · 404 (нема замка)";
-  if (!can(subject, "unlock", lock))
-    return `Брама1 ✓ (скоуп є) → засвідчення → Брама2 ✗ 403 (замок #${id} у ${lock.homeId}, не твоєму) — IDOR спіймано`;
-  return `Брама1 ✓ → засвідчення → Брама2 ✓ (замок #${id} у домі 7) → 200, замок відчинено`;
-}
-
-// ── Ярус 1: шлюз (Брама 1) → карбує засвідчення → кличе сервіс ──
-function gateway(path: string, auth: string): string {
-  const subject = verifyAccessToken(auth);
-  if (!subject) return "Брама1 ✗ 401 (токен не впізнано)";
-  if (!subject.scopes.includes("device:command"))
-    return "Брама1 ✗ 403 (нема скоупу device:command) — сервіс не потурбовано";
-  const attestation = { sub: subject.id, aud: "devices" };   // «підписане» шлюзом
-  return devicesService(path, attestation);                  // переслали ЗАСВІДЧЕННЯ, не токен
-}
-
-for (const [who, path, auth] of [
-  ["Богдан", "/devices/42/unlock", "Bearer tok-bohdan"],
-  ["Гість ", "/devices/42/unlock", "Bearer tok-guest"],
-  ["Богдан", "/devices/99/unlock", "Bearer tok-bohdan"],
-] as const) {
-  console.log(`${who} ${path.padEnd(20)} → ${gateway(path, auth)}`);
-}
-```
-```py
-ACTIONS_BY_ROLE = {
-    "owner":    {"unlock", "lock", "view", "configure"},
-    "resident": {"unlock", "lock", "view"},
-    "guest":    {"view"},
-}
-membership = {
-    "bohdan": {"home-7": "resident"},     # Богдан — мешканець дому 7
-    "guest7": {"home-7": "guest"},        # Гість — лише глядач у домі 7
-}
-locks = {"42": {"home_id": "home-7"},     # Богданів замок
-         "99": {"home_id": "home-3"}}     # Мартин замок
-
-TOKENS = {  # «підпис» = чи є токен у таблиці виданих
-    "tok-bohdan": Subject("bohdan", ["device:command", "device:view"]),
-    "tok-guest":  Subject("guest7", ["device:view"]),
-}
-def verify_access_token(auth):
-    return TOKENS.get((auth or "").removeprefix("Bearer ")) if auth else None
-
-def can(sub: Subject, action: str, lock: dict) -> bool:
-    role = membership.get(sub.id, {}).get(lock["home_id"])   # ключ — дім САМОГО замка
-    if role is None:
-        return False                                         # не член цього дому → ні (IDOR)
-    return action in ACTIONS_BY_ROLE[role]                   # відмова за замовчуванням
-
-# ── Ярус 2: сервіс пристроїв (Брама 2) ──
-def devices_service(path: str, att: dict) -> str:
-    if att["aud"] != "devices":
-        return "Брама2 ✗ 401 (чуже засвідчення)"
-    subject = Subject(att["sub"], [])                        # хто — із ЗАСВІДЧЕННЯ
-    lock_id = path.split("/")[2]                             # /devices/42/unlock → "42"
-    lock = locks.get(lock_id)
-    if lock is None:
-        return "Брама2 · 404 (нема замка)"
-    if not can(subject, "unlock", lock):
-        return f"Брама1 ✓ (скоуп є) → засвідчення → Брама2 ✗ 403 (замок #{lock_id} у {lock['home_id']}, не твоєму) — IDOR спіймано"
-    return f"Брама1 ✓ → засвідчення → Брама2 ✓ (замок #{lock_id} у домі 7) → 200, замок відчинено"
-
-# ── Ярус 1: шлюз (Брама 1) → засвідчення → сервіс ──
-def gateway(path: str, auth: str) -> str:
-    subject = verify_access_token(auth)
-    if subject is None:
-        return "Брама1 ✗ 401 (токен не впізнано)"
-    if "device:command" not in subject.scopes:
-        return "Брама1 ✗ 403 (нема скоупу device:command) — сервіс не потурбовано"
-    attestation = {"sub": subject.id, "aud": "devices"}      # «підписане» шлюзом
-    return devices_service(path, attestation)                # переслали ЗАСВІДЧЕННЯ, не токен
-
-for who, path, auth in [
-    ("Богдан", "/devices/42/unlock", "Bearer tok-bohdan"),
-    ("Гість ", "/devices/42/unlock", "Bearer tok-guest"),
-    ("Богдан", "/devices/99/unlock", "Bearer tok-bohdan"),
-]:
-    print(f"{who} {path:<20} → {gateway(path, auth)}")
-```
+:::code proj-dh-auth-path/ts/prohin-nazhyvo-try-zapyty.ts
+:::code proj-dh-auth-path/py/prohin-nazhyvo-try-zapyty.py
 :::
 
 Вивід — увесь модуль, стиснутий у три рядки:

@@ -33,28 +33,7 @@
 
 **Пастка перша: унікальний ID — «очевидно» щабель 2.** Здається, що кожен глобально унікальний номер вимагає консенсусу: два вузли, вирішивши незалежно, видадуть однакове число — колізія, яку ми бачили в основному кроці. Звідси рефлекс — ганяти **кожен** `next_id` через ядро. Але це найдорожчий спосіб зробити просту річ. Придивімося, що саме потребує згоди: не окремий номер, а лише **право на діапазон**. Тож попроси в ядра один раз блок — скажімо, `[8000, 9000)` — і видавай усю тисячу номерів **локально**, без жодного дотику до ядра. Ядро торкаєш раз на тисячу видач, а не на кожну:
 
-```py
-class IdAllocator:
-    """Один CAS у ядро на цілий блок; далі — локальна лічба без раундів."""
-    def __init__(self, core, key="/dh/id-block", block=1000):
-        self.core, self.key, self.block = core, key, block
-        self.next = self.end = 0                 # порожньо → перший mint візьме блок
-
-    async def mint(self) -> int:
-        if self.next >= self.end:                # блок вичерпано (раз на 1000 разів)
-            await self._lease_block()            # ← єдиний дотик до щабля 2
-        v, self.next = self.next, self.next + 1  # ← 999 разів із 1000: чиста локальна лічба
-        return v
-
-    async def _lease_block(self):
-        while True:                              # CAS-цикл: атомарно посунути «водомір»
-            hi, rev = await self.core.get(self.key)
-            hi = int(hi or 0)
-            new_rev, ok = await self.core.cas(self.key, str(hi + self.block), expect_rev=rev)
-            if ok:
-                self.next, self.end = hi, hi + self.block
-                return
-```
+:::code proj-coordination-audit/py/try-pastky-de-chuika.py
 
 Результат — операція, що зовні виглядала як «щабель 2 на кожен клац», насправді живе на щаблі 0 на 99.9% викликів і зачіпає консенсус лише зрідка. Ось звідки клітинка **0/2** у таблиці: правильний щабель — не «де операція здається», а «де насправді потрібна згода», а згода тут потрібна не про номер, а про **межу блока**.
 
@@ -76,136 +55,8 @@ class IdAllocator:
 Домовмося про мінімальний інтерфейс ядра й напишімо два шматки: **гарячий шлях даних**, що маршрутизує запит із локального кешу без жодного раунду, і **лідера нічних джоб**, що тримає лізу через CAS. Перемикай вкладки — та сама логіка мовою систем (Go) і мовою ясності (Python):
 
 :::tabs
-```go
-package dh
-
-import (
-	"context"
-	"sort"
-	"sync"
-	"time"
-)
-
-// Core — крихітне сильно-узгоджене KV (etcd / ZooKeeper / Chubby усередині).
-// КОЖЕН його виклик коштує раунд до живої більшості — тож у гарячий шлях воно НЕ лізе.
-type Core interface {
-	Get(ctx context.Context, key string) (val string, rev int64, err error)
-	// CAS: записати val, лише якщо поточна ревізія ключа == expect (0 = «ключа ще нема»).
-	CAS(ctx context.Context, key, val string, expect int64, ttl time.Duration) (rev int64, ok bool, err error)
-	Watch(ctx context.Context, key string) <-chan Event // потік змін ключа
-}
-type Event struct{ Val string; Rev int64 }
-
-// ── DATA PLANE — гарячий шлях. Маршрут читаємо з ЛОКАЛЬНОГО кешу: 0 раундів у ядро. ──
-type ShardMap struct {
-	mu    sync.RWMutex
-	epoch int64    // ревізія ядра, з якої знято мапу — fencing проти застарілого кешу
-	hi    []uint64 // верхні межі діапазонів home_id, відсортовані
-	shard []string // shard[i] обслуговує діапазон, що кінчається на hi[i]
-}
-
-// Route — чистий локальний пошук: жодної мережі, жодного консенсусу. Наносекунди.
-func (m *ShardMap) Route(homeID uint64) (shard string, epoch int64) {
-	m.mu.RLock()
-	defer m.mu.RUnlock()
-	i := sort.Search(len(m.hi), func(i int) bool { return m.hi[i] >= homeID })
-	return m.shard[i], m.epoch
-}
-
-// Refresh — рідкісний фон: оновлюємо кеш, ЛИШЕ коли ядро повідомить про зміну мапи.
-func (m *ShardMap) Refresh(ctx context.Context, core Core) {
-	for ev := range core.Watch(ctx, "/dh/shard-map") { // трапляється при ребалансі, не на запит
-		hi, shard := parseMap(ev.Val) // парсер мапи — тривіальний, тіло опущено
-		m.mu.Lock()
-		m.hi, m.shard, m.epoch = hi, shard, ev.Rev
-		m.mu.Unlock()
-	}
-}
-
-// ── CONTROL PLANE — лідер нічних джоб. Раунд на здобуття лізи + рідкі поновлення. ──
-func RunAsLeader(ctx context.Context, core Core, me string, job func(context.Context)) {
-	const ttl = 10 * time.Second
-	const key = "/dh/leader/night-jobs"
-	for ctx.Err() == nil {
-		if _, rev, _ := core.Get(ctx, key); rev == 0 { // вакансія — пробуємо зайняти
-			if newRev, ok, _ := core.CAS(ctx, key, me, 0, ttl); ok {
-				lead(ctx, core, key, me, newRev, ttl, job) // ми лідер
-			}
-		}
-		time.Sleep(ttl / 3) // не лідер — зазираємо зрідка, не жаримо ядро
-	}
-}
-
-// lead поновлює лізу CAS-ом «я → я» і крутить job, поки тримаємо ключ.
-func lead(ctx context.Context, core Core, key, me string, rev int64, ttl time.Duration, job func(context.Context)) {
-	jobCtx, stop := context.WithCancel(ctx)
-	defer stop()
-	go job(jobCtx) // РОБОТА лідера (ребаланс шардів) — локальна, ядро її не бачить
-	tick := time.NewTicker(ttl / 3) // поновлюємо втричі частіше за строк
-	defer tick.Stop()
-	for {
-		select {
-		case <-ctx.Done():
-			return
-		case <-tick.C:
-			newRev, ok, err := core.CAS(ctx, key, me, rev, ttl) // «я досі я»
-			if err != nil || !ok {
-				return // втратили лізу (пауза/мережа) — job спиниться разом зі stop()
-			}
-			rev = newRev
-		}
-	}
-}
-```
-```py
-import asyncio, bisect
-from dataclasses import dataclass, field
-
-# Core — крихітне сильно-узгоджене KV (etcd / ZooKeeper / Chubby усередині).
-# КОЖЕН його виклик = раунд до живої більшості, тож у гарячий шлях воно НЕ лізе.
-class Core:                                        # інтерфейс: get / cas / watch
-    async def get(self, key: str) -> tuple[str | None, int]: ...
-    async def cas(self, key: str, val: str, expect_rev: int, ttl: float = 0) -> tuple[int, bool]: ...
-    async def watch(self, key: str): ...           # async-генератор подій (val, rev)
-
-# ── DATA PLANE — гарячий шлях. Локальний кеш shard-map → 0 раундів у ядро. ──
-@dataclass
-class ShardMap:
-    hi: list[int] = field(default_factory=list)    # верхні межі діапазонів home_id
-    shard: list[str] = field(default_factory=list) # shard[i] тримає діапазон, що кінчається на hi[i]
-    epoch: int = 0                                  # ревізія ядра — fencing проти застарілого кешу
-
-    def route(self, home_id: int) -> tuple[str, int]:
-        i = bisect.bisect_left(self.hi, home_id)   # двійковий пошук у пам'яті: наносекунди
-        return self.shard[i], self.epoch           # жодної мережі, жодного консенсусу
-
-    async def refresh(self, core: Core):
-        async for ev in core.watch("/dh/shard-map"):   # рідко: лише при ребалансі, не на запит
-            self.hi, self.shard = parse_map(ev.val)    # парсер мапи опущено: тривіальний
-            self.epoch = ev.rev
-
-# ── CONTROL PLANE — ліза лідера нічних джоб. Раунд на здобуття + рідкі поновлення. ──
-async def run_as_leader(core: Core, me: str, job, ttl: float = 10.0):
-    key = "/dh/leader/night-jobs"
-    while True:
-        _, rev = await core.get(key)
-        if rev == 0:                               # вакансія — пробуємо зайняти CAS-ом
-            new_rev, ok = await core.cas(key, me, expect_rev=0, ttl=ttl)
-            if ok:
-                await _lead(core, key, me, new_rev, ttl, job)  # ми лідер
-        await asyncio.sleep(ttl / 3)               # не лідер — зазираємо зрідка, не жаримо ядро
-
-async def _lead(core, key, me, rev, ttl, job):
-    task = asyncio.create_task(job())              # РОБОТА лідера (ребаланс) — локальна
-    try:
-        while True:
-            await asyncio.sleep(ttl / 3)           # поновлюємо втричі частіше за строк
-            rev, ok = await core.cas(key, me, expect_rev=rev, ttl=ttl)  # «я досі я»
-            if not ok:
-                return                             # втратили лізу — job спиниться у finally
-    finally:
-        task.cancel()
-```
+:::code proj-coordination-audit/go/main.go
+:::code proj-coordination-audit/py/2-eskiz-iadra-control.py
 :::
 
 Тепер найважливіше — **перелічити, коли код узагалі торкається ядра**, бо саме тут ховається вся економія. Гарячий шлях запиту DH — «прийшло показання від дому `H`» — робить рівно два кроки: `Route(H)` бере адресу шарда **з локального кешу** (двійковий пошук у пам'яті, нуль раундів) і, якщо це наш дім, застосовує операцію локально на шарді. Ядро в цьому шляху **не з'являється жодного разу**. А коли ж воно з'являється?

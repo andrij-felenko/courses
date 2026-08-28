@@ -5,98 +5,8 @@
 Ось функція, гірша за ту, зі статті, — така, яку реально знаходиш у чужому сервісі рахунків. Місячний рахунок за спожиту енергію: кілька лічильників, тарифи, надлишкова ставка понад ліміт, бонусні кіловати активним побутовим клієнтам, друк. Усе — в одній петлі, з іменами, що бурмочуть:
 
 :::tabs
-```ts
-type Tariff = "day" | "night" | "business";
-interface Line { meter: string; tariff: Tariff; kWh: number; }
-interface Account { customer: string; active: boolean; lines: Line[]; }
-
-function statement(acc: Account): string {
-  let ta = 0;                    // total amount, у копійках
-  let vc = 0;                    // volume credits — бонусні кВт·год
-  let out = `Рахунок — ${acc.customer}\n`;
-
-  for (const l of acc.lines) {
-    // ціна рядка за тарифом
-    let a = 0;
-    if (l.tariff === "day") {
-      a = l.kWh * 250;
-      if (l.kWh > 100) a += (l.kWh - 100) * 30;
-    } else if (l.tariff === "night") {
-      a = l.kWh * 120;
-    } else if (l.tariff === "business") {
-      a = l.kWh * 300;
-      if (l.kWh > 500) a += (l.kWh - 500) * 40;
-    } else {
-      throw new Error(`невідомий тариф: ${l.tariff}`);
-    }
-
-    // бонусні кВт·год — лише активним і не бізнесу
-    if (acc.active) {
-      if (l.tariff !== "business") {
-        vc += Math.max(l.kWh - 200, 0);
-        if (l.tariff === "night") vc += Math.floor(l.kWh / 500);
-      }
-    }
-
-    out += `  ${l.meter}: ${l.kWh} кВт·год — ${(a / 100).toFixed(2)} грн\n`;
-    ta += a;
-  }
-
-  out += `Разом: ${(ta / 100).toFixed(2)} грн\n`;
-  out += `Бонусні кіловати: ${vc}\n`;
-  return out;
-}
-```
-```py
-from dataclasses import dataclass
-
-@dataclass
-class Line:
-    meter: str
-    tariff: str          # "day" | "night" | "business"
-    kwh: int
-
-@dataclass
-class Account:
-    customer: str
-    active: bool
-    lines: list[Line]
-
-def statement(acc: Account) -> str:
-    ta = 0                         # total amount, у копійках
-    vc = 0                         # volume credits — бонусні кВт·год
-    out = f"Рахунок — {acc.customer}\n"
-
-    for l in acc.lines:
-        # ціна рядка за тарифом
-        a = 0
-        if l.tariff == "day":
-            a = l.kwh * 250
-            if l.kwh > 100:
-                a += (l.kwh - 100) * 30
-        elif l.tariff == "night":
-            a = l.kwh * 120
-        elif l.tariff == "business":
-            a = l.kwh * 300
-            if l.kwh > 500:
-                a += (l.kwh - 500) * 40
-        else:
-            raise ValueError(f"невідомий тариф: {l.tariff}")
-
-        # бонусні кВт·год — лише активним і не бізнесу
-        if acc.active:
-            if l.tariff != "business":
-                vc += max(l.kwh - 200, 0)
-                if l.tariff == "night":
-                    vc += l.kwh // 500
-
-        out += f"  {l.meter}: {l.kwh} кВт·год — {a / 100:.2f} грн\n"
-        ta += a
-
-    out += f"Разом: {ta / 100:.2f} грн\n"
-    out += f"Бонусні кіловати: {vc}\n"
-    return out
-```
+:::code proj-refactor-walkthrough/ts/part.ts
+:::code proj-refactor-walkthrough/py/part.py
 :::
 
 Понад два десятки рядків, і в них злиплося все: тариф рахується поряд із бонусами, які рахуються поряд із друком; імена `ta`, `vc`, `a`, `l` мовчать про суть; вкладений `if` усередині `if` для бонусів; одна петля тягне **дві** різні суми водночас. Кожна з цих дрібниць — окремий запах, і кожна лікується окремим названим ходом каталогу. Ми пройдемо ланцюг: винести функцію, перейменувати, винести змінну, знову винести функцію, замінити вкладений if охоронними реченнями, розділити цикл, замінити temp запитом. Сім ходів — і жоден сам собою не страшний.
@@ -108,55 +18,8 @@ def statement(acc: Account) -> str:
 Тому першим ділом — сітка. Функція повертає рядок; найпростіший, найчесніший тест над таким кодом — **золотий зразок** (golden master): зафіксувати цілий вихід на певному вході й після кожного ходу звіряти байт у байт. Це різновид [характеризаційного тесту](root:progarch/characterization-tests) — коли над ділянкою тестів нема, спершу накидаєш сітку поверх наявної поведінки, ще не знаючи, «правильна» вона чи ні; важливо лише, що після ходу вона **та сама**.
 
 :::tabs
-```ts
-const koval: Account = {
-  customer: "Родина Коваль",
-  active: true,
-  lines: [
-    { meter: "Кухня",  tariff: "day",   kWh: 150 },
-    { meter: "Бойлер", tariff: "night", kWh: 320 },
-    { meter: "Гараж",  tariff: "day",   kWh: 80  },
-  ],
-};
-
-const EXPECTED = [
-  "Рахунок — Родина Коваль",
-  "  Кухня: 150 кВт·год — 390.00 грн",
-  "  Бойлер: 320 кВт·год — 384.00 грн",
-  "  Гараж: 80 кВт·год — 200.00 грн",
-  "Разом: 974.00 грн",
-  "Бонусні кіловати: 120",
-  "",
-].join("\n");
-
-test("statement — золотий зразок", () => {
-  expect(statement(koval)).toBe(EXPECTED);
-});
-```
-```py
-koval = Account(
-    customer="Родина Коваль",
-    active=True,
-    lines=[
-        Line("Кухня",  "day",   150),
-        Line("Бойлер", "night", 320),
-        Line("Гараж",  "day",   80),
-    ],
-)
-
-EXPECTED = "\n".join([
-    "Рахунок — Родина Коваль",
-    "  Кухня: 150 кВт·год — 390.00 грн",
-    "  Бойлер: 320 кВт·год — 384.00 грн",
-    "  Гараж: 80 кВт·год — 200.00 грн",
-    "Разом: 974.00 грн",
-    "Бонусні кіловати: 120",
-    "",
-])
-
-def test_statement_golden_master():
-    assert statement(koval) == EXPECTED
-```
+:::code proj-refactor-walkthrough/ts/ideia-kozhen-khid-tse.ts
+:::code proj-refactor-walkthrough/py/ideia-kozhen-khid-tse.py
 :::
 
 Числа тут справжні, звірмо руками, щоб далі довіряти зеленому:
@@ -178,27 +41,7 @@ def test_statement_golden_master():
 
 Найгустіший вузол — обчислення ціни рядка за тарифом. Витягуємо його (Extract Function): дивимось, що фрагмент **читає** (`l`) — це стане параметром; що він **лишає по собі** (`a`) — це стане поверненням. Копіюємо тіло під новим ім'ям, компілюємо, і аж тоді замінюємо оригінал викликом.
 
-```ts
-function amountFor(l: Line): number {
-  let a = 0;
-  if (l.tariff === "day") {
-    a = l.kWh * 250;
-    if (l.kWh > 100) a += (l.kWh - 100) * 30;
-  } else if (l.tariff === "night") {
-    a = l.kWh * 120;
-  } else if (l.tariff === "business") {
-    a = l.kWh * 300;
-    if (l.kWh > 500) a += (l.kWh - 500) * 40;
-  } else {
-    throw new Error(`невідомий тариф: ${l.tariff}`);
-  }
-  return a;
-}
-
-// у statement блок тарифу зник, лишився виклик:
-    const a = amountFor(l);
-// тести: зелено
-```
+:::code proj-refactor-walkthrough/ts/khid-1-vynesty-funktsiiu.ts
 
 Це рівно той хід, який сучасне середовище виконує **автоматично** — виділив блок, «Extract Function», дав ім'я. І тут варто довіритися інструменту, а не пальцям: автоматичне винесення само розбереться з параметрами й поверненням і не проґавить жодного посилання. Ми показуємо тіло руками лише щоб було видно, що саме відбувається.
 
@@ -206,25 +49,7 @@ function amountFor(l: Line): number {
 
 Функція вийшла, але всередині досі `a` і `l`. Ім'я, яке бреше чи мовчить, — окремий запах, і лікує його окремий хід: перейменувати (Rename). Через інструмент — щоб усі згадки оновилися разом. `l` → `line`, `a` → `result` (усталена назва для змінної-накопичувача, яку функція зрештою поверне):
 
-```ts
-function amountFor(line: Line): number {
-  let result = 0;
-  if (line.tariff === "day") {
-    result = line.kWh * 250;
-    if (line.kWh > 100) result += (line.kWh - 100) * 30;
-  } else if (line.tariff === "night") {
-    result = line.kWh * 120;
-  } else if (line.tariff === "business") {
-    result = line.kWh * 300;
-    if (line.kWh > 500) result += (line.kWh - 500) * 40;
-  } else {
-    throw new Error(`невідомий тариф: ${line.tariff}`);
-  }
-  return result;
-}
-// у statement: for (const line of acc.lines) { … amountFor(line) … }
-// тести: зелено
-```
+:::code proj-refactor-walkthrough/ts/khid-2-pereimenuvaty-te.ts
 
 Перейменування здається косметикою, та це найдешевший і найцінніший хід каталогу: нуль ризику (інструмент гарантує), а код починає казати правду. Кожне наступне читання цієї функції тепер коротше на здогад «а що таке `a`?».
 
@@ -248,21 +73,7 @@ function amountFor(line: Line): number {
 
 Бонусні кіловати — окрема справа, що причепилася до петлі рахунку. Витягуємо її так само, як `amountFor`, але вона читає і рядок, і рахунок (чи активний, чи не бізнес), тож параметрів два:
 
-```ts
-function creditsFor(account: Account, line: Line): number {
-  let credits = 0;
-  if (account.active) {
-    if (line.tariff !== "business") {
-      credits += Math.max(line.kWh - 200, 0);
-      if (line.tariff === "night") credits += Math.floor(line.kWh / 500);
-    }
-  }
-  return credits;
-}
-
-// у statement:  vc += creditsFor(acc, line);
-// тести: зелено
-```
+:::code proj-refactor-walkthrough/ts/khid-4-vynesty-funktsiiu.ts
 
 Функція вийшла, але всередині лишився той вкладений `if` усередині `if` — сходинка вправо, що ховає справжню роботу в найглибшому відступі. Це готує наступний хід.
 
@@ -270,19 +81,7 @@ function creditsFor(account: Account, line: Line): number {
 
 Перед тим як чіпати умову — переконайся, що обидві її **хибні** гілки під тестами. Золотий зразок ловить лише активного побутового клієнта (бонуси нараховуються); неактивний і бізнес — поза ним. Тож перед перебудовою докидаємо два дрібні тести, щоб сітка ловила саме те, що ми зараз рухаємо:
 
-```ts
-test("бонусів нема неактивному", () => {
-  const off: Account = { customer: "X", active: false,
-    lines: [{ meter: "M", tariff: "night", kWh: 900 }] };
-  expect(statement(off)).toContain("Бонусні кіловати: 0");
-});
-test("бонусів нема бізнесу", () => {
-  const biz: Account = { customer: "ТОВ", active: true,
-    lines: [{ meter: "Піч", tariff: "business", kWh: 900 }] };
-  expect(statement(biz)).toContain("Бонусні кіловати: 0");
-});
-// обидва — зелено (закріпили поведінку ДО перебудови умови)
-```
+:::code proj-refactor-walkthrough/ts/khid-5-okhoronni-rechennia.ts
 
 Тепер перебудова. Вкладені `if` тут — ланцюг воріт: «активний І не бізнес — тоді рахуй». Кожні ворота обертаємо на **охоронне речення** (guard clause) — ранній вихід на хибі, — і глибокий відступ розпростується, а справжня робота лягає останньою, без відступу:
 
@@ -316,20 +115,7 @@ def credits_for(account: Account, line: Line) -> int:
 
 Головна петля досі тягне **дві** незалежні суми: рахунок (`ta` + друк) і бонуси (`vc`). Одна петля — дві справи, і саме через це ні з рахунком, ні з бонусами не можна повестися окремо. Розділяємо цикл (Split Loop) — та сама послідовність рядків, але кожна петля робить **одне**:
 
-```ts
-  let ta = 0;
-  let vc = 0;
-
-  for (const line of acc.lines) {                 // петля 1: рахунок і друк
-    const a = amountFor(line);
-    out += `  ${line.meter}: ${line.kWh} кВт·год — ${(a / 100).toFixed(2)} грн\n`;
-    ta += a;
-  }
-  for (const line of acc.lines) {                 // петля 2: лише бонуси
-    vc += creditsFor(acc, line);
-  }
-// тести: зелено
-```
+:::code proj-refactor-walkthrough/ts/khid-6-rozdilyty-tsykl.ts
 
 Око одразу спотикається: «ми ж тепер ходимо списком двічі!» — і рука тягнеться відкотити. Стримайся. По-перше, на будь-якому реальному рахунку ця «зайва» петля непомітна, а передчасна оптимізація тут — золочення без потреби. По-друге, і головне: розділення — не самоціль, а **під'їзд**. Поки обидві суми росли в одній петлі, жодну не витягнеш окремо; тепер, коли кожна має власну петлю, кожна за один крок стає власним запитом. Якщо колись ці два проходи справді муляли б швидкодією, їх завжди можна злити назад — теж ходом, що зберігає поведінку. Форма слухняна в обидва боки.
 
@@ -337,37 +123,14 @@ def credits_for(account: Account, line: Line) -> int:
 
 `ta` і `vc` — тимчасові (temp): значення, заморожене в одній точці й доступне лише тут. Кожне тепер обчислює власна петля, тож кожне перетворюємо на **запит** (Replace Temp with Query) — функцію, що рахує це на вимогу й кличеться звідусіль:
 
-```ts
-function totalAmount(account: Account): number {
-  let total = 0;
-  for (const line of account.lines) total += amountFor(line);
-  return total;
-}
-function totalCredits(account: Account): number {
-  let credits = 0;
-  for (const line of account.lines) credits += creditsFor(account, line);
-  return credits;
-}
-// тести: зелено
-```
+:::code proj-refactor-walkthrough/ts/khid-7-zaminyty-temp.ts
 
 Чому це безпечно й чому взагалі варте ходу — в одному слові: запит **чистий**. Він читає стан і нічого не міняє, тож звати його можна будь-коли й скільки завгодно разів, і відповідь та сама — рівно та [властивість чистої функції](root:sf-apps/pure-functions-side-effects), на якій тримається довіра до нього. Якби `totalCredits` попутно щось записував, замінити ним temp було б не можна: два виклики дали б різне. Саме тому хід п'ятий (охоронні речення) і четвертий (винесення) готували ґрунт — вони лишили `creditsFor` чистим.
 
 Тепер `statement` скидає обидва temp і осідає до самого свого призначення — форматування:
 
 :::tabs
-```ts
-function statement(acc: Account): string {
-  let out = `Рахунок — ${acc.customer}\n`;
-  for (const line of acc.lines) {
-    out += `  ${line.meter}: ${line.kWh} кВт·год — ${(amountFor(line) / 100).toFixed(2)} грн\n`;
-  }
-  out += `Разом: ${(totalAmount(acc) / 100).toFixed(2)} грн\n`;
-  out += `Бонусні кіловати: ${totalCredits(acc)}\n`;
-  return out;
-}
-// тести: зелено
-```
+:::code proj-refactor-walkthrough/ts/khid-7-zaminyty-temp-2.ts
 ```py
 def statement(acc: Account) -> str:
     out = f"Рахунок — {acc.customer}\n"

@@ -45,50 +45,8 @@ Digital Homes виросла так, що ти вже не єдиний, хто 
 Ось як виглядає та перевірка — коротко й насправді. Задача проста: у теці застосунку жоден файл, крім адаптера `storage/`, не сміє імпортувати драйвер Postgres.
 
 :::tabs
-```ts
-import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
-
-const ADAPTER = join("src", "storage");     // єдине легальне місце для драйвера БД
-const DRIVER = /\bfrom\s+["']pg["']/;       // import ... from "pg"
-
-function walk(dir: string): string[] {
-  return readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
-    const p = join(dir, e.name);
-    return e.isDirectory() ? walk(p) : [p];
-  });
-}
-
-const offenders = walk("src")
-  .filter((p) => p.endsWith(".ts") && !p.startsWith(ADAPTER))
-  .filter((p) => DRIVER.test(readFileSync(p, "utf8")));
-
-if (offenders.length) {
-  console.error("Драйвер БД імпортовано поза storage/:\n  " + offenders.join("\n  "));
-  console.error("Ходи через TelemetryStore.energyByPeriod() — інтерфейс тримає базу замінною.");
-  process.exit(1);            // білд червоний: правило тримає перевірка, не людина
-}
-```
-```py
-import re, sys
-from pathlib import Path
-
-ADAPTER = Path("src") / "storage"           # єдине легальне місце для драйвера БД
-DRIVER = re.compile(r"^\s*(import\s+psycopg|from\s+psycopg\b)", re.M)
-
-offenders = [
-    p for p in Path("src").rglob("*.py")
-    if ADAPTER not in p.parents
-    and DRIVER.search(p.read_text(encoding="utf-8"))
-]
-
-if offenders:
-    print("Драйвер БД імпортовано поза storage/:")
-    for p in offenders:
-        print(f"  {p}")
-    print("Ходи через TelemetryStore.energy_by_period() — інтерфейс тримає базу замінною.")
-    sys.exit(1)               # білд червоний: правило тримає перевірка, не людина
-```
+:::code influence-without-authority-d/ts/index.ts
+:::code influence-without-authority-d/py/main.py
 :::
 
 Двадцять рядків прибрали всю політику з розмови. Тепер сквад «сперечається» не з тобою, а з перевіркою, і повідомлення про помилку саме йому показує мощену дорогу. Одна засторога: **не кидай цю стіну червоною першого ж дня** — інакше ти відтвориш ту саму образу від наказу, тільки машиною. Спершу попередження, потім ворота; наявні порушення заморозити, а лічильник хай лише спадає. Як це розгорнути так, щоб перевірка не стала ненависним наглядачем, [винесено в окремий код-розбір](root:progarch/influence-without-authority/proj-arch-fitness-gate.md).

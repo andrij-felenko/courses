@@ -13,76 +13,8 @@
 Змоделюймо обидві величини. Код тут — звичайний застосунковий, не системний гарячий шлях, тож беремо мови стеку; той самий розрахунок двома:
 
 :::tabs
-```ts
-type Layer = { name: string; tries: number }; // tries: скільки спроб робить шар (1 = без повтору)
-
-// СТЕЛЯ: кожен шар множить на свою кількість спроб. Найгірший випадок —
-// кожна спроба провалюється, кожен шар вичерпує всі повтори.
-const worstCase = (layers: Layer[]): number =>
-  layers.reduce((acc, l) => acc * l.tries, 1);
-
-// ОЧІКУВАНИЙ фан-аут за ймовірності збою p на спробу: шар, що робить t спроб,
-// шле в середньому 1 + p + p² + … + p^(t−1) запитів (повторює лише ПІСЛЯ збою).
-const expectedPerLayer = (tries: number, p: number): number => {
-  let sum = 0, term = 1;
-  for (let i = 0; i < tries; i++) { sum += term; term *= p; }
-  return sum; // = (1 − p^tries) / (1 − p) при p < 1
-};
-const expectedFanout = (layers: Layer[], p: number): number =>
-  layers.reduce((acc, l) => acc * expectedPerLayer(l.tries, p), 1);
-
-// Шлях команди DH: три шари повторюють по 3 спроби, далі — залежність.
-const path: Layer[] = [
-  { name: "застосунок", tries: 3 },
-  { name: "шлюз",       tries: 3 },
-  { name: "сайдкар",    tries: 3 },
-];
-const RPS = 500; // клік/с на ранковому піку
-
-for (const p of [0.0, 0.3, 0.7, 1.0]) {
-  const f = expectedFanout(path, p);
-  console.log(`p=${p}: фан-аут ${f.toFixed(2)}× → ${Math.round(f * RPS)} req/s`);
-}
-console.log(`стеля: ${worstCase(path)}× → ${worstCase(path) * RPS} req/s`);
-```
-```py
-from dataclasses import dataclass
-
-@dataclass
-class Layer:
-    name: str
-    tries: int                     # скільки спроб робить шар (1 = без повтору)
-
-# СТЕЛЯ: добуток спроб усіх шарів — кожна спроба провалюється, кожен шар вичерпує повтори.
-def worst_case(layers):
-    acc = 1
-    for l in layers:
-        acc *= l.tries
-    return acc
-
-# ОЧІКУВАНИЙ фан-аут за ймовірності збою p: шар на t спроб шле в середньому
-# 1 + p + p² + … + p^(t−1) запитів (повторює лише ПІСЛЯ збою).
-def expected_per_layer(tries, p):
-    s, term = 0.0, 1.0
-    for _ in range(tries):
-        s += term
-        term *= p
-    return s                       # = (1 − p**tries) / (1 − p) при p < 1
-
-def expected_fanout(layers, p):
-    acc = 1.0
-    for l in layers:
-        acc *= expected_per_layer(l.tries, p)
-    return acc
-
-path = [Layer("застосунок", 3), Layer("шлюз", 3), Layer("сайдкар", 3)]
-RPS = 500                          # клік/с на ранковому піку
-
-for p in (0.0, 0.3, 0.7, 1.0):
-    f = expected_fanout(path, p)
-    print(f"p={p}: фан-аут {f:.2f}× → {round(f * RPS)} req/s")
-print(f"стеля: {worst_case(path)}× → {worst_case(path) * RPS} req/s")
-```
+:::code proj-retry-amplification/ts/zadacha-polichyty-shtorm-a.ts
+:::code proj-retry-amplification/py/zadacha-polichyty-shtorm-a.py
 :::
 
 Прогін друкує рівно те, що робить шторм таким підступним:
@@ -170,63 +102,8 @@ routes:
 Тепер єдиний дозволений ×k — у коді застосунку. Дисципліна тут проста, але легко зламати одним недбалим рядком: **ключ ідемпотентності генерується один раз на логічну команду й носиться незмінним крізь усі повтори.** Якщо на кожну спробу згенерувати новий ключ, сервіс команд побачить три різні команди й чесно виконає `toggle()` тричі — той самий подвійний вимикач, лише вже з нашої вини. Паузу між спробами нарощуємо [повним джитером](root:sf-distributed/retries-backoff), щоб не бити синхронно; це саме той рукописний повтор, який ми вперше склали [на поганому Wi-Fi хаба](root:progarch/dh-bad-network), тільки тепер він тут — **єдиний** на шляху.
 
 :::tabs
-```ts
-import { randomUUID } from "node:crypto";
-
-// Повний джитер: пауза рівномірно у вікні [0, min(cap, base·2^спроба)) мс.
-const fullJitter = (attempt: number, base = 100, cap = 2000): number =>
-  Math.random() * Math.min(cap, base * 2 ** attempt);
-const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
-
-async function sendCommand(deviceId: string, action: string): Promise<boolean> {
-  // КЛЮЧ ГЕНЕРУЄМО ОДИН РАЗ на логічну команду — і носимо крізь УСІ повтори.
-  // Той самий ключ → сервіс команд упізнає дубль і виконає дію рівно раз.
-  const idempotencyKey = randomUUID();
-  const maxTries = 3;                       // єдиний ×k на всьому шляху — тут і лише тут
-
-  for (let attempt = 0; attempt < maxTries; attempt++) {
-    if (attempt > 0) await sleep(fullJitter(attempt - 1));
-    const res = await fetch(`/v1/devices/${deviceId}/commands`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Idempotency-Key": idempotencyKey,  // ← той самий рядок на кожній спробі
-      },
-      body: JSON.stringify({ action }),
-    });
-    if (res.ok) return true;
-    // 5xx / мережа — минуще, варте повтору; 4xx (крім 429) — назавжди, не повторюємо.
-    if (res.status < 500 && res.status !== 429) return false;
-  }
-  return false;                             // бюджет спроб вичерпано
-}
-```
-```py
-import asyncio, random, uuid
-import httpx
-
-def full_jitter(attempt, base=0.1, cap=2.0):            # секунди
-    return random.uniform(0, min(cap, base * 2 ** attempt))
-
-async def send_command(client: httpx.AsyncClient, device_id: str, action: str) -> bool:
-    # Ключ — ОДИН на логічну команду, незмінний крізь усі повтори.
-    idempotency_key = str(uuid.uuid4())
-    max_tries = 3                                       # єдиний ×k на шляху
-
-    for attempt in range(max_tries):
-        if attempt > 0:
-            await asyncio.sleep(full_jitter(attempt - 1))
-        r = await client.post(
-            f"/v1/devices/{device_id}/commands",
-            headers={"Idempotency-Key": idempotency_key},   # той самий рядок щоразу
-            json={"action": action},
-        )
-        if r.is_success:
-            return True
-        if r.status_code < 500 and r.status_code != 429:    # 4xx (крім 429) — не повторюємо
-            return False
-    return False                                        # спроби вичерпано
-```
+:::code proj-retry-amplification/ts/krok-2-zastosunok.ts
+:::code proj-retry-amplification/py/krok-2-zastosunok.py
 :::
 
 Ключове тут — не цикл і не джитер (їх ми вже вміємо), а один незмінний `idempotencyKey` на всі спроби. Він і є те знання, якого сітці бракує: застосунок каже сервісу команд «це та сама команда, що й мить тому», і той згортає три спроби в одну дію. Три запити по мережі — але **один** `toggle()` на пристрої. Ось чому цей ×3 безпечний, а ×3 сітки — ні: різниця не в числі, а в тому, хто несе ключ.

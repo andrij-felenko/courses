@@ -21,97 +21,8 @@
 Ключ народжується `crypto.randomUUID()` (у Python — `uuid4`) **над** циклом спроб, тож усі спроби несуть один. Бюджет міряємо монотонним годинником — тим, що [тільки зростає й не стрибне від синхронізації часу](root:progarch/concurrency-and-clocks) посеред чекання. Кожна спроба дістає **свою** стелю, але не більшу за залишок [спільного бюджету часу](root:sf-distributed/timeouts-deadlines). А головне нове — класифікація помилки: мережа, таймаут і `5xx` варті [повтору з відступом і розкидом](root:sf-distributed/retries-backoff), а `4xx` — ні, бо то не мережа збоїть, а сама команда негодяща, і повторювати дурницю — марно гріти канал.
 
 :::tabs
-```ts
-type Command = { type: string; [k: string]: unknown };
-type Result  = { ok: boolean; [k: string]: unknown };
-
-class RetryableError extends Error {}   // мережа, таймаут, 5xx, 429 — «не знаю», варте повтору
-class TerminalError  extends Error {}   // 4xx — команда негодяща, повтор не врятує
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-// Одна спроба зі СВОЄЮ стелею. Ключ їде заголовком Idempotency-Key.
-async function post(url: string, cmd: Command, key: string, timeoutMs: number): Promise<Result> {
-  const ctl = new AbortController();
-  const timer = setTimeout(() => ctl.abort(), timeoutMs);   // стеля саме цієї спроби
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "content-type": "application/json", "Idempotency-Key": key },
-      body: JSON.stringify(cmd),
-      signal: ctl.signal,
-    });
-    if (res.status >= 500 || res.status === 429) throw new RetryableError(`${res.status}`); // мине
-    if (res.status >= 400) throw new TerminalError(`${res.status}`);                          // вирок
-    return (await res.json()) as Result;
-  } catch (e) {
-    if (e instanceof TerminalError) throw e;
-    throw new RetryableError(String(e)); // AbortError (таймаут) і падіння fetch — усе це «не знаю»
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-async function sendCommand(url: string, cmd: Command): Promise<Result> {
-  const key = crypto.randomUUID();               // ОДИН ключ на команду — крізь усі спроби
-  const deadline = performance.now() + 10_000;   // весь бюджет 10 с, МОНОТОННИЙ годинник
-  let backoff = 500;
-  for (;;) {
-    const left = deadline - performance.now();
-    if (left <= 0) throw new RetryableError("бюджет вичерпано — чесне «не знаю»");
-    try {
-      return await post(url, cmd, key, Math.min(left, 3_000)); // стеля спроби ≤ залишку бюджету
-    } catch (e) {
-      if (e instanceof TerminalError) throw e;   // 4xx — повторювати нема сенсу
-      const pause = Math.min(backoff + Math.random() * backoff, deadline - performance.now());
-      if (pause <= 0) throw new RetryableError("бюджет вичерпано перед повтором");
-      await sleep(pause);                        // відступ + розкид
-      backoff *= 2;                              // 0.5 → 1 → 2 → 4 с
-    }
-  }
-}
-```
-```py
-import asyncio, time, uuid, random
-import httpx  # ідіоматичний асинхронний HTTP-клієнт
-
-class RetryableError(Exception): ...   # мережа, таймаут, 5xx, 429 — «не знаю», варте повтору
-class TerminalError(Exception): ...    # 4xx — команда негодяща, повтор не врятує
-
-# Одна спроба зі СВОЄЮ стелею. Ключ їде заголовком Idempotency-Key.
-async def post(client: httpx.AsyncClient, url: str, cmd: dict, key: str, timeout: float) -> dict:
-    try:
-        r = await client.post(url, json=cmd,
-                              headers={"Idempotency-Key": key},  # ключ у заголовку
-                              timeout=timeout)                    # стеля саме цієї спроби
-    except httpx.TransportError as e:              # обрив / таймаут / DNS — «не знаю»
-        raise RetryableError(str(e)) from e
-    if r.status_code >= 500 or r.status_code == 429:
-        raise RetryableError(str(r.status_code))   # мине
-    if r.status_code >= 400:
-        raise TerminalError(str(r.status_code))    # вирок команді
-    return r.json()
-
-async def send_command(client: httpx.AsyncClient, url: str, cmd: dict) -> dict:
-    key = uuid.uuid4().hex                 # ОДИН ключ на команду — крізь усі спроби
-    deadline = time.monotonic() + 10.0     # весь бюджет 10 с, МОНОТОННИЙ годинник
-    backoff = 0.5
-    while True:
-        left = deadline - time.monotonic()
-        if left <= 0:
-            raise RetryableError("бюджет вичерпано — чесне «не знаю»")
-        try:
-            return await post(client, url, cmd, key, timeout=min(left, 3.0))
-        except TerminalError:
-            raise                          # 4xx — повторювати нема сенсу
-        except RetryableError:
-            pause = min(backoff + random.random() * backoff,
-                        deadline - time.monotonic())
-            if pause <= 0:
-                raise RetryableError("бюджет вичерпано перед повтором")
-            await asyncio.sleep(pause)     # відступ + розкид
-            backoff *= 2                    # 0.5 → 1 → 2 → 4 с
-```
+:::code proj-resilient-command/ts/bik-vidpravnyka-kliuch.ts
+:::code proj-resilient-command/py/bik-vidpravnyka-kliuch.py
 :::
 
 > 🔧 **Навіщо це.** Відправник тут робить рівно одне зобов'язання: **кожна передача цієї команди несе той самий ключ**. Усе інше — бюджет, стеля, відступ — це ввічливість до мережі й до людини перед спінером, але ключ — це обіцянка хабові. Якщо десь у рефакторингу ключ переїде **всередину** циклу й народжуватиметься на кожній спробі, весь захист унизу тихо вимкнеться: хаб бачитиме щоразу новий ключ і чесно виконуватиме кожен повтор. Тому ключ на боці відправника — не деталь реалізації, а контракт.
@@ -120,21 +31,7 @@ async def send_command(client: httpx.AsyncClient, url: str, cmd: dict) -> dict:
 
 Тепер хаб. У кроці його впізнавач виглядав так — і на перший погляд він бездоганний:
 
-```ts
-// НАЇВНО: get, тоді put. Виглядає правильно. Не є.
-class NaiveStore {
-  private done = new Map<string, Result>();
-  constructor(private execute: (c: Command) => Promise<Result>) {}
-
-  async handle(key: string, cmd: Command): Promise<Result> {
-    const seen = this.done.get(key);
-    if (seen) return seen;                   // ← читаємо: ключ знайомий?
-    const result = await this.execute(cmd);  // ← ...а тут AWAIT — керування йде до конкурента
-    this.done.set(key, result);              // ← пишемо, але вже надто пізно
-    return result;
-  }
-}
-```
+:::code proj-resilient-command/ts/bik-khaba-naivne.ts
 
 Проженімо його не по одному повтору, а по двох, що прилетіли **майже разом** — саме так буває, коли хмара, не дочекавшись `ack`, шле другу спробу, поки хаб іще виконує першу. R1 заходить у `handle`, читає — порожньо, викликає `execute` і **завмирає на `await`**. Поки він завмер, керування переходить до R2 (однопотоковий рушій робить це на кожному `await`). R2 читає **той самий** `Map` — і теж бачить порожньо, бо R1 ще не дійшов до `set`. R2 теж викликає `execute`. Двері відчиняються двічі.
 
@@ -150,81 +47,8 @@ class NaiveStore {
 Ось виконавець, який закриває діру. Ключова зміна — не в тому, що ми додали `Map`, а в тому, **де** стоїть перший `await`. Ми реєструємо роботу над ключем **синхронно**, до першого `await`, — і поки ми це робимо, ніхто не вклинюється, бо між перевіркою й реєстрацією немає жодної точки поступки.
 
 :::tabs
-```ts
-type Entry = { result: Result; storedAt: number };
-
-class IdempotentExecutor {
-  private done     = new Map<string, Entry>();          // завершені: ключ → результат + час
-  private inflight = new Map<string, Promise<Result>>(); // саме в роботі: ключ → її проміс
-
-  constructor(
-    private execute: (c: Command) => Promise<Result>,
-    private ttlMs = 24 * 3_600_000,                     // Stripe теж радить ~24 год (нижче — чому)
-    private now: () => number = () => Date.now(),
-  ) {}
-
-  async handle(key: string, cmd: Command): Promise<Result> {
-    // 1. Уже завершене й ще свіже → віддати збережене, НЕ виконувати.
-    const seen = this.done.get(key);
-    if (seen && this.now() - seen.storedAt < this.ttlMs) return seen.result;
-
-    // 2. Той самий ключ уже в роботі → приєднатися до ЙОГО промісу, не запускати другий execute.
-    const running = this.inflight.get(key);
-    if (running) return running;
-
-    // 3. Ми перші. Критична секція БЕЗ await: створюємо проміс і реєструємо його
-    //    синхронно — конкурент із кроку 2 неодмінно застане його на місці.
-    const p = (async () => {
-      try {
-        const result = await this.execute(cmd);            // ЄДИНЕ справжнє виконання
-        this.done.set(key, { result, storedAt: this.now() });
-        return result;
-      } finally {
-        this.inflight.delete(key);                         // прибрати з «у роботі» будь-як
-      }
-    })();
-    this.inflight.set(key, p);                             // ← ДО будь-якого await у handle
-    return p;
-  }
-}
-```
-```py
-import asyncio, time
-
-class IdempotentExecutor:
-    def __init__(self, execute, ttl=24 * 3600, now=time.monotonic):
-        self._execute = execute
-        self._ttl = ttl
-        self._now = now
-        self._done: dict[str, tuple[dict, float]] = {}      # завершені: ключ → (результат, час)
-        self._inflight: dict[str, asyncio.Task] = {}        # саме в роботі: ключ → її задача
-
-    async def handle(self, key: str, cmd: dict) -> dict:
-        # 1. Уже завершене й ще свіже → віддати збережене, НЕ виконувати.
-        hit = self._done.get(key)
-        if hit is not None and self._now() - hit[1] < self._ttl:
-            return hit[0]
-
-        # 2. Той самий ключ уже в роботі → чекати ЙОГО задачу, не запускати другий execute.
-        running = self._inflight.get(key)
-        if running is not None:
-            return await running
-
-        # 3. Ми перші. Критична секція БЕЗ await: створюємо задачу й реєструємо синхронно.
-        #    ensure_future ставить корутину в чергу, але НЕ запускає до найближчого await —
-        #    тож між перевіркою й реєстрацією конкурент не прослизне.
-        task = asyncio.ensure_future(self._run(key, cmd))
-        self._inflight[key] = task
-        return await task
-
-    async def _run(self, key: str, cmd: dict) -> dict:
-        try:
-            result = await self._execute(cmd)               # ЄДИНЕ справжнє виконання
-            self._done[key] = (result, self._now())
-            return result
-        finally:
-            self._inflight.pop(key, None)
-```
+:::code proj-resilient-command/ts/zamok-na-kliuch-reserve.ts
+:::code proj-resilient-command/py/zamok-na-kliuch-reserve.py
 :::
 
 Придивімось, чому це працює, бо тут одна тонка ідея, і вона того варта. У кроці 3 ми не пишемо `const result = await this.execute(...)` прямо в тілі `handle` — саме це вбивало наївну версію. Замість того ми **загортаємо** виконання в окремий проміс `p` (у Python — задачу) і кладемо його в `inflight` **синхронно**, тим самим ходом, ще до того, як `handle` сам десь поступиться керуванням. Тепер картинка інша: R1 проходить кроки 1–2 (порожньо, порожньо), створює `p`, реєструє його й повертає. Коли черга доходить до R2, той на кроці 2 **застає `p` на місці** й просто приєднується до нього через `return running`. Один `execute`, два (і скільки завгодно) щасливих читачів того самого промісу.
@@ -238,65 +62,8 @@ class IdempotentExecutor:
 Тепер найважливіше — тест, який відрізняє робочу дедуплікацію від тієї, що «наче має працювати». Ми навмисно зробимо `execute` **повільним**, щоб повтори точно наклалися на час виконання, і будемо **рахувати кожен справжній виклик**. Далі — дві хвилі одним ключем: перша, десять повторів **одночасно** (це перевіряє замок на in-flight, ту саму гонку), і друга, п'ять повторів **після** того, як перша завершилась (це перевіряє пам'ять про завершене). Наприкінці лічильник має показати **одиницю** на всі п'ятнадцять.
 
 :::tabs
-```ts
-import assert from "node:assert/strict";
-
-async function proveExactlyOnce() {
-  let executions = 0;
-  const execute = async (_cmd: Command): Promise<Result> => {
-    executions += 1;              // рахуємо КОЖНЕ справжнє виконання
-    await sleep(50);              // «робота» триває — саме поки летять повтори
-    return { ok: true, ranAt: executions };
-  };
-
-  const hub = new IdempotentExecutor(execute);
-  const key = "unlock-front-7f3"; // ОДИН ключ на всі повтори однієї команди
-  const cmd: Command = { type: "unlock", door: "front" };
-
-  // Хвиля 1: 10 ОДНОЧАСНИХ повторів — гонка на in-flight.
-  const wave1 = await Promise.all(
-    Array.from({ length: 10 }, () => hub.handle(key, cmd)),
-  );
-  // Хвиля 2: ще 5 повторів ПІСЛЯ завершення — влучають у пам'ять про завершене.
-  const wave2 = await Promise.all(
-    Array.from({ length: 5 }, () => hub.handle(key, cmd)),
-  );
-
-  const all = [...wave1, ...wave2];
-  assert.equal(executions, 1, `мало бути рівно одне виконання, а було ${executions}`);
-  assert.ok(all.every((r) => r === all[0]), "усі 15 повторів — той самий результат");
-  console.log(`✓ 15 повторів (10 одночасних + 5 пізніх) → виконань: ${executions}`);
-}
-
-proveExactlyOnce();
-```
-```py
-import asyncio
-
-async def prove_exactly_once():
-    executions = 0
-    async def execute(_cmd):
-        nonlocal executions
-        executions += 1               # рахуємо КОЖНЕ справжнє виконання
-        await asyncio.sleep(0.05)     # «робота» триває — саме поки летять повтори
-        return {"ok": True, "ran_at": executions}
-
-    hub = IdempotentExecutor(execute)
-    key = "unlock-front-7f3"          # ОДИН ключ на всі повтори однієї команди
-    cmd = {"type": "unlock", "door": "front"}
-
-    # Хвиля 1: 10 ОДНОЧАСНИХ повторів — гонка на in-flight.
-    wave1 = await asyncio.gather(*(hub.handle(key, cmd) for _ in range(10)))
-    # Хвиля 2: ще 5 повторів ПІСЛЯ завершення — влучають у пам'ять про завершене.
-    wave2 = await asyncio.gather(*(hub.handle(key, cmd) for _ in range(5)))
-
-    allr = wave1 + wave2
-    assert executions == 1, f"мало бути рівно одне виконання, а було {executions}"
-    assert all(r is allr[0] for r in allr), "усі 15 повторів — той самий об'єкт-результат"
-    print(f"✓ 15 повторів (10 одночасних + 5 пізніх) → виконань: {executions}")
-
-asyncio.run(prove_exactly_once())
-```
+:::code proj-resilient-command/ts/dokaz-odna-komanda.ts
+:::code proj-resilient-command/py/dokaz-odna-komanda.py
 :::
 
 Два `assert` тут перевіряють дві різні речі, і обидва важливі. Перший — `executions == 1` — це власне «фактично раз»: скільки б повторів не прилетіло, замок повернувся один раз. Другий — що всі п'ятнадцять відповідей **тотожні** (`r === all[0]`, `r is allr[0]`) — це не косметика: він доводить, що пізні повтори не отримали якусь свою, іншу правду, а **ту саму**, що й перший. Якщо колись хтось поверне наївне сховище, впаде перший assert; якщо хтось зламає віддачу збереженого — впаде другий. Тест не описує намір — він **стереже** його.

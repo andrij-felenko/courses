@@ -13,28 +13,7 @@
 Ось політика, витягнута в окремий модуль. Дивитися тут особливо нема на що — і це найкраща новина. Уся хитрість у тому, чого код **не** робить: не створює давача, не знає його марки, не здогадується, справжній він чи підроблений.
 
 :::tabs
-```py
-# thermostat.py — політика керування теплом із відкритим об'єктним швом.
-# Тіло decide НЕ знає, звідки береться число й куди йде команда.
-from typing import Protocol
-
-
-class Sensor(Protocol):
-    def read(self) -> float: ...      # контракт: віддати °C; не кидати виняток крізь межу
-
-
-class Heater(Protocol):
-    def on(self) -> None: ...
-    def off(self) -> None: ...
-
-
-def decide(sensor: Sensor, heater: Heater, threshold: float) -> None:
-    t = sensor.read()                 # ← шов: чим є sensor, вирішують ЗЗОВНІ
-    if t < threshold:
-        heater.on()
-    else:
-        heater.off()
-```
+:::code proj-dh-sensor-seam/py/thermostat.py
 ```ts
 // thermostat.ts — політика з відкритим об'єктним швом.
 export interface Sensor { read(): number; }              // контракт: °C, без винятку крізь межу
@@ -57,97 +36,8 @@ export function decide(sensor: Sensor, heater: Heater, threshold: number): void 
 І найважливіший файл усієї історії — `main.py`. Це **точка ввімкнення**: єдине місце, де вимовлено вголос, *що саме* під'єднано до шва цього разу. Вимикач стоїть тут, зовні політики, — і саме тому політику можна лишити недоторканою.
 
 :::tabs
-```py
-# drivers.py — справжні драйвери. Тіла мокують фізику; у продакшені — залізо.
-import random
-
-
-class Room:                            # прихована «фізика»: у реальності це саме повітря кімнати
-    def __init__(self, temp: float = 18.0) -> None:
-        self.temp = temp
-        self.heating = False
-
-
-class RealSensor:                      # дотримує контракт Sensor структурно
-    def __init__(self, room: Room) -> None:
-        self._room = room
-    def read(self) -> float:
-        self._room.temp += (0.4 if self._room.heating else -0.2) + random.uniform(-0.05, 0.05)
-        return round(self._room.temp, 1)          # °C дробом — таким є контракт
-
-
-class RealHeater:
-    def __init__(self, room: Room) -> None:
-        self._room = room
-    def on(self) -> None:
-        if not self._room.heating:                # ідемпотентно: не смикати реле дарма
-            self._room.heating = True
-            print("[розетка] обігрівач УВІМКНЕНО")
-    def off(self) -> None:
-        if self._room.heating:
-            self._room.heating = False
-            print("[розетка] обігрівач вимкнено")
-
-
-# main.py — точка ввімкнення. САМЕ ТУТ вирішено, що під'єднати до шва.
-from time import sleep
-
-def run() -> None:
-    room = Room(temp=18.0)
-    sensor, heater = RealSensor(room), RealHeater(room)   # ← вимикач стоїть ТУТ
-    while True:
-        decide(sensor, heater, threshold=20.0)            # політику не чіпаємо
-        sleep(30)
-
-if __name__ == "__main__":
-    run()
-```
-```ts
-// drivers.ts — справжні драйвери. Тіла мокують фізику; у продакшені — залізо.
-import type { Sensor, Heater } from "./thermostat.ts";
-
-export class Room {
-  constructor(public temp = 18.0, public heating = false) {}
-}
-
-export class RealSensor implements Sensor {
-  constructor(private readonly room: Room) {}
-  read(): number {
-    this.room.temp += (this.room.heating ? 0.4 : -0.2) + (Math.random() - 0.5) * 0.1;
-    return Math.round(this.room.temp * 10) / 10;          // °C дробом — контракт
-  }
-}
-
-export class RealHeater implements Heater {
-  constructor(private readonly room: Room) {}
-  on(): void {
-    if (!this.room.heating) {                             // ідемпотентно
-      this.room.heating = true;
-      console.log("[розетка] обігрівач УВІМКНЕНО");
-    }
-  }
-  off(): void {
-    if (this.room.heating) {
-      this.room.heating = false;
-      console.log("[розетка] обігрівач вимкнено");
-    }
-  }
-}
-
-// main.ts — точка ввімкнення: тут вирішено, що під'єднати до шва.
-import { decide } from "./thermostat.ts";
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-async function run(): Promise<void> {
-  const room = new Room(18.0);
-  const sensor = new RealSensor(room), heater = new RealHeater(room);   // ← вимикач ТУТ
-  while (true) {
-    decide(sensor, heater, 20.0);                                        // політику не чіпаємо
-    await sleep(30_000);
-  }
-}
-run();
-```
+:::code proj-dh-sensor-seam/py/drivers.py
+:::code proj-dh-sensor-seam/ts/drivers.ts
 :::
 
 Запусти `python main.py` — і кімната задихає, як у v0: холоне до порога, гріється, вимикається. Ззовні поведінка та сама. Але всередині сталося головне: рядок `decide(sensor, heater, ...)` — це шов з увімкненим у нього справжнім залізом, і вимикач цей стоїть **у `run()`, а не в `decide`**. Запам'ятай це розташування — у пастках побачимо, як його підступно тягне назад усередину.
@@ -159,81 +49,8 @@ run();
 Перша — **давач-підробка (fake)**: замість фізики він просто віддає заготовлене число, яке ми йому наказали. Друга — **розетка-шпигун (spy)**: вона нічого не гріє, лише записує в список, що їй наказували. Обидві — [дублери в тестах](root:progarch/test-doubles-when); зараз досить знати, що дублер — це те, що вставляють у шов замість справжнього, а їхню механіку й точні імена (stub, fake, spy, mock) курс розкладе по поличках згодом. Головне вже видно тут: підробка стає можливою **тільки тому, що шов є**.
 
 :::tabs
-```py
-# test_thermostat.py — женемо крізь шов підробки. decide НЕ редагуємо.
-from thermostat import decide
-
-
-class FakeSensor:
-    """Давач-підробка: завжди віддає заготовлений показник."""
-    def __init__(self, reads: float) -> None:
-        self._reads = reads
-    def read(self) -> float:
-        return self._reads
-
-
-class SpyHeater:
-    """Розетка-шпигун: нічого не гріє, лише записує, що їй наказали."""
-    def __init__(self) -> None:
-        self.calls: list[str] = []
-    def on(self) -> None:
-        self.calls.append("on")
-    def off(self) -> None:
-        self.calls.append("off")
-
-
-def test_cold_turns_on():
-    spy = SpyHeater()
-    decide(FakeSensor(reads=19.0), spy, threshold=20.0)   # 19.0 < 20.0 → холодно
-    assert spy.calls == ["on"]
-
-
-def test_warm_turns_off():
-    spy = SpyHeater()
-    decide(FakeSensor(reads=21.0), spy, threshold=20.0)   # 21.0 ≥ 20.0 → тепло
-    assert spy.calls == ["off"]
-
-
-def test_boundary_is_off():
-    spy = SpyHeater()
-    decide(FakeSensor(reads=20.0), spy, threshold=20.0)   # рівно поріг: 20.0 < 20.0 хибно
-    assert spy.calls == ["off"]                            # «<» строгий — на порозі НЕ гріємо
-```
-```ts
-// thermostat.test.ts — женемо крізь шов підробки. decide НЕ редагуємо.
-import { test } from "node:test";
-import assert from "node:assert/strict";
-import { decide, type Sensor, type Heater } from "./thermostat.ts";
-
-class FakeSensor implements Sensor {
-  constructor(private readonly reads: number) {}
-  read(): number { return this.reads; }                  // завжди заготовлене
-}
-
-class SpyHeater implements Heater {
-  readonly calls: string[] = [];
-  on(): void { this.calls.push("on"); }
-  off(): void { this.calls.push("off"); }
-}
-
-test("холодно → вмикаємо", () => {
-  const spy = new SpyHeater();
-  decide(new FakeSensor(19.0), spy, 20.0);               // 19.0 < 20.0
-  assert.deepEqual(spy.calls, ["on"]);
-});
-
-test("тепло → вимикаємо", () => {
-  const spy = new SpyHeater();
-  decide(new FakeSensor(21.0), spy, 20.0);               // 21.0 ≥ 20.0
-  assert.deepEqual(spy.calls, ["off"]);
-});
-
-test("рівно поріг → НЕ гріємо", () => {
-  const spy = new SpyHeater();
-  decide(new FakeSensor(20.0), spy, 20.0);               // 20.0 < 20.0 хибно
-  assert.deepEqual(spy.calls, ["off"]);                  // «<» строгий
-});
-```
+:::code proj-dh-sensor-seam/py/test_thermostat.py
+:::code proj-dh-sensor-seam/ts/thermostat.test.ts
 :::
 
 Запусти — `pytest -q` або `node --test` — і побачиш три зелені галочки. Спинися й придивися, що саме вони доводять. У `test_cold_turns_on` ми згодували політиці 19.0 — і шпигун засвідчив: політика наказала `on`. У `test_warm_turns_off` згодували 21.0 — шпигун засвідчив `off`. **Та сама функція `decide`, не змінена ні на символ, повелася по-різному — бо ми підмінили те, що проходить крізь шов.** Ось воно, означення на дотик: змінити поведінку вдалося, не редагуючи там, де вона живе.
@@ -248,20 +65,7 @@ test("рівно поріг → НЕ гріємо", () => {
 
 Тут доречна саме C: `LD_PRELOAD` і підміна об'єктного файла — це механізми системного компонувальника, а не мовна абстракція, тож показувати їх якоюсь «зручнішою» мовою було б брехнею про те, як воно працює насправді. Ось твій бік — його ми не редагуємо:
 
-```c
-/* sensor.h — заголовок чужої бібліотеки (єдине, що ти маєш) */
-double sensor_read(void);        /* повертає °C; тіло — у закритій libsensor.so */
-
-/* hub.c — твій код. Давач кличеться НАПРЯМУ, без параметра-інтерфейса. */
-#include <stdio.h>
-#include "sensor.h"
-
-int main(void) {
-    double t = sensor_read();                    /* ← прямий виклик у чужу бібліотеку */
-    printf("%.1f°C → %s\n", t, t < 20.0 ? "гріти" : "не гріти");
-    return 0;
-}
-```
+:::code proj-dh-sensor-seam/c/main.c
 
 Збираєш і запускаєш із справжньою бібліотекою вендора — воно читає реальний давач:
 

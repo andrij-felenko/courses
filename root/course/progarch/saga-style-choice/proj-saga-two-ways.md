@@ -7,60 +7,8 @@
 Щоб приклад був чесний і запускався як є, змоделюймо три сервіси в пам'яті. Кожен має свою дію та її компенсацію, і в кожного — прапорець `down`, яким ми вмикаємо збій там, де захочемо. У бою за цими методами ховаються мережеві виклики; тут вони — прості множини, бо нас цікавить **координація**, а не нутрощі сервісів.
 
 :::tabs
-```ts
-// Три сервіси DH. Кожна дія має компенсацію; прапорець down імітує відмову.
-class Registry {
-  reserved = new Set<string>();
-  async reserve(deviceId: string, homeId: string) { this.reserved.add(deviceId); }
-  async unreserve(deviceId: string)               { this.reserved.delete(deviceId); }
-}
-class Hub {
-  configured = new Set<string>(); down = false;
-  async pushConfig(homeId: string, deviceId: string) {
-    if (this.down) throw new Error("хаб недоступний");
-    this.configured.add(deviceId);
-  }
-  async wipeConfig(homeId: string, deviceId: string) { this.configured.delete(deviceId); }
-}
-class Billing {
-  metered = new Set<string>(); down = false;
-  async startMeter(homeId: string, deviceId: string) {
-    if (this.down) throw new Error("білінг недоступний");
-    this.metered.add(deviceId);
-  }
-  async stopMeter(homeId: string, deviceId: string) { this.metered.delete(deviceId); }
-}
-
-type Enroll = { homeId: string; deviceId: string };
-```
-```py
-# Три сервіси DH. Кожна дія має компенсацію; прапорець down імітує відмову.
-from dataclasses import dataclass
-
-class Registry:
-    def __init__(self): self.reserved = set()
-    async def reserve(self, device_id, home_id): self.reserved.add(device_id)
-    async def unreserve(self, device_id):        self.reserved.discard(device_id)
-
-class Hub:
-    def __init__(self): self.configured = set(); self.down = False
-    async def push_config(self, home_id, device_id):
-        if self.down: raise RuntimeError("хаб недоступний")
-        self.configured.add(device_id)
-    async def wipe_config(self, home_id, device_id): self.configured.discard(device_id)
-
-class Billing:
-    def __init__(self): self.metered = set(); self.down = False
-    async def start_meter(self, home_id, device_id):
-        if self.down: raise RuntimeError("білінг недоступний")
-        self.metered.add(device_id)
-    async def stop_meter(self, home_id, device_id): self.metered.discard(device_id)
-
-@dataclass
-class Enroll:
-    home_id: str
-    device_id: str
-```
+:::code proj-saga-two-ways/ts/svit-sahy-try-servisy-iaki.ts
+:::code proj-saga-two-ways/py/svit-sahy-try-servisy-iaki.py
 :::
 
 Три сервіси, шість методів — три дії й три компенсації, дзеркальні до них. Це весь наш світ. Тепер двічі проведемо крізь нього одну сагу, змінивши **тільки координацію**.
@@ -70,82 +18,8 @@ class Enroll:
 У зерні хореографія обірвалася на компенсації першого кроку. Але сага має три кроки, і компенсувати доводиться з **будь-якої** висоти падіння. Ось де відкривається те, про що зерно змовчало: компенсації в хореографії — це **друга мережа підписок**, яка їде **у зворотний бік**, і вона так само ніде не зібрана. Хореографія стоїть на [публікації-підписці — продюсер кидає подію, не знаючи, хто зреагує](root:sf-distributed/publish-subscribe); зберімо на ній обидві мережі — пряму й компенсаційну.
 
 :::tabs
-```ts
-type Handler = (e: Enroll) => Promise<void>;
-
-class Bus {                                  // проста шина подій
-  private subs = new Map<string, Handler[]>();
-  on(ev: string, fn: Handler) { const a = this.subs.get(ev) ?? []; a.push(fn); this.subs.set(ev, a); }
-  async emit(ev: string, e: Enroll) { for (const fn of this.subs.get(ev) ?? []) await fn(e); }
-}
-
-function wireChoreography(bus: Bus, registry: Registry, hub: Hub, billing: Billing) {
-  // ── ПРЯМА мережа: крок завершив — кинув подію, наступний підхопив ──
-  bus.on("DeviceReserveRequested", async e => {
-    await registry.reserve(e.deviceId, e.homeId);
-    await bus.emit("DeviceReserved", e);                 // хто підхопить — реєстр не знає
-  });
-  bus.on("DeviceReserved", async e => {
-    try { await hub.pushConfig(e.homeId, e.deviceId); await bus.emit("DeviceConfigured", e); }
-    catch { await bus.emit("DeviceConfigFailed", e); }   // впав — запускаємо відкіт
-  });
-  bus.on("DeviceConfigured", async e => {
-    try { await billing.startMeter(e.homeId, e.deviceId); }   // останній крок: тиша = «готово»
-    catch { await bus.emit("DeviceMeterFailed", e); }
-  });
-
-  // ── КОМПЕНСАЦІЙНА мережа: окремі підписки, що їдуть НАЗАД ──
-  bus.on("DeviceConfigFailed", async e => {              // упав крок 2 → відкотити крок 1
-    await registry.unreserve(e.deviceId);
-  });
-  bus.on("DeviceMeterFailed", async e => {               // упав крок 3 → відкотити крок 2…
-    await hub.wipeConfig(e.homeId, e.deviceId);
-    await bus.emit("DeviceConfigCompensated", e);        // …і лише тоді ланцюг іде далі назад
-  });
-  bus.on("DeviceConfigCompensated", async e => {         // …→ відкотити крок 1
-    await registry.unreserve(e.deviceId);
-  });
-}
-```
-```py
-class Bus:                                   # проста шина подій
-    def __init__(self): self.subs = {}
-    def on(self, ev, fn): self.subs.setdefault(ev, []).append(fn)
-    async def emit(self, ev, e):
-        for fn in list(self.subs.get(ev, [])): await fn(e)
-
-def wire_choreography(bus, registry, hub, billing):
-    # ── ПРЯМА мережа: крок завершив — кинув подію, наступний підхопив ──
-    async def on_requested(e):
-        await registry.reserve(e.device_id, e.home_id)
-        await bus.emit("DeviceReserved", e)                 # хто підхопить — реєстр не знає
-    async def on_reserved(e):
-        try:
-            await hub.push_config(e.home_id, e.device_id); await bus.emit("DeviceConfigured", e)
-        except Exception:
-            await bus.emit("DeviceConfigFailed", e)          # впав — запускаємо відкіт
-    async def on_configured(e):
-        try:
-            await billing.start_meter(e.home_id, e.device_id)   # останній крок: тиша = «готово»
-        except Exception:
-            await bus.emit("DeviceMeterFailed", e)
-
-    # ── КОМПЕНСАЦІЙНА мережа: окремі підписки, що їдуть НАЗАД ──
-    async def on_config_failed(e):                          # упав крок 2 → відкотити крок 1
-        await registry.unreserve(e.device_id)
-    async def on_meter_failed(e):                           # упав крок 3 → відкотити крок 2…
-        await hub.wipe_config(e.home_id, e.device_id)
-        await bus.emit("DeviceConfigCompensated", e)        # …і лише тоді ланцюг іде далі назад
-    async def on_config_compensated(e):                     # …→ відкотити крок 1
-        await registry.unreserve(e.device_id)
-
-    bus.on("DeviceReserveRequested", on_requested)
-    bus.on("DeviceReserved", on_reserved)
-    bus.on("DeviceConfigured", on_configured)
-    bus.on("DeviceConfigFailed", on_config_failed)
-    bus.on("DeviceMeterFailed", on_meter_failed)
-    bus.on("DeviceConfigCompensated", on_config_compensated)
-```
+:::code proj-saga-two-ways/ts/khoreohrafiia-povnistiu-i.ts
+:::code proj-saga-two-ways/py/khoreohrafiia-povnistiu-i.py
 :::
 
 Придивися, що тут насправді відбулося. Прямих обробників три, а компенсаційних — теж окрема жменя, і вони **не суміжні** з прямими: щоб відкотити крок 2 після падіння кроку 3, я емітю `DeviceMeterFailed`, той обробник робить `wipeConfig` і **кидає ще одну подію** `DeviceConfigCompensated`, і аж вона відкочує крок 1. Тобто компенсації самі вишикувані в **ланцюг подій**, що повзе назад, — і що глибше впала сага, то довший цей задній хвіст. Ніде в цьому файлі не написано слова «сага». Процес як ціле не зібраний **ніде** — ні пряма нитка, ні зворотна; обидві лише **проступають** із того, хто на що підписаний.
@@ -169,20 +43,7 @@ emit DeviceReserveRequested { dev-42 }
 Тепер той самий процес, зібраний в одну функцію. Це той оркестратор, що ми бачили в зерні, лиш випишемо його повністю. Уся сага читається згори вниз, а компенсації складаються в список `undo` й спрацьовують точно у зворотному порядку — останнє зроблене відкочується першим.
 
 :::tabs
-```ts
-async function enrollDevice(registry: Registry, hub: Hub, billing: Billing,
-                            homeId: string, deviceId: string) {
-  const undo: Array<() => Promise<void>> = [];
-  try {
-    await registry.reserve(deviceId, homeId);   undo.push(() => registry.unreserve(deviceId));
-    await hub.pushConfig(homeId, deviceId);      undo.push(() => hub.wipeConfig(homeId, deviceId));
-    await billing.startMeter(homeId, deviceId);  undo.push(() => billing.stopMeter(homeId, deviceId));
-  } catch (err) {
-    for (const step of undo.reverse()) await step();   // компенсації — точно у зворотному порядку
-    throw err;
-  }
-}
-```
+:::code proj-saga-two-ways/ts/orkestratsiia-naivna-ves.ts
 ```py
 async def enroll_device(registry, hub, billing, home_id, device_id):
     undo = []
@@ -228,98 +89,8 @@ enrollDevice(home-7, dev-42)
 Діру видно, і видно ліки: стан саги мусить жити **поза** процесом — на диску, — щоб його пережити. Саме це й роблять [довговічні робочі процеси](root:sf-distributed/durable-workflows): кожен завершений крок фіксується в стійкому журналі, і якщо процес гине, новий читає журнал і продовжує рівно з того місця. Зберімо мінімальний такий рушій — саме стільки, щоб побачити механізм у дії. Опишемо сагу як список кроків, у кожного своя дія й компенсація, а «диск» — це сховище `Store`, що живе окремо від процесу саги.
 
 :::tabs
-```ts
-type Step = { name: string; run: () => Promise<void>; comp: () => Promise<void> };
-type SagaState = { cursor: number; status: "running" | "compensating" | "committed" | "compensated" };
-
-class Store {                                 // «диск» — переживає смерть процесу саги
-  private db = new Map<string, SagaState>();
-  load(id: string) { return this.db.get(id); }
-  save(id: string, st: SagaState) { this.db.set(id, { ...st }); }   // копія = «лягло на диск»
-}
-
-class ProcessKilled extends Error {}          // імітація жорсткої смерті процесу
-
-async function runSaga(id: string, steps: Step[], store: Store) {
-  const st = store.load(id) ?? { cursor: 0, status: "running" as const };
-
-  // ── ВІДРОДЖЕННЯ: диск каже не лише «доки дійшло» (cursor), а й «куди йшло» (status) ──
-  if (st.status === "committed" || st.status === "compensated") return;   // уже завершено
-  if (st.status === "compensating") { await rollBack(id, steps, store, st); return; }  // помер ПОСЕРЕД відкоту → дороби відкіт, не прямий хід
-
-  try {
-    while (st.cursor < steps.length) {
-      await steps[st.cursor].run();
-      st.cursor += 1;
-      store.save(id, st);                     // ← крок зафіксовано на диску ПЕРЕД наступним
-    }
-    st.status = "committed"; store.save(id, st);
-  } catch (err) {
-    if (err instanceof ProcessKilled) { store.save(id, st); throw err; }  // не відкіт — процес помер, диск лишився
-    st.status = "compensating"; store.save(id, st);   // ← спершу зафіксуй НАПРЯМОК на диску, тоді відкочуй
-    await rollBack(id, steps, store, st);
-    throw err;
-  }
-}
-
-// Відкіт зворотним порядком. Сюди веде ДВА шляхи: свіжий бізнес-збій (щойно вгорі)
-// і відродження процесу, що помер посеред цього самого відкоту.
-async function rollBack(id: string, steps: Step[], store: Store, st: SagaState) {
-  while (st.cursor > 0) {
-    st.cursor -= 1;
-    await steps[st.cursor].comp();
-    store.save(id, st);                       // прогрес відкоту теж лягає на диск
-  }
-  st.status = "compensated"; store.save(id, st);
-}
-
-const step = (name: string, run: () => Promise<void>, comp: () => Promise<void>): Step =>
-  ({ name, run, comp });
-```
-```py
-class Step:
-    def __init__(self, name, run, comp): self.name, self.run, self.comp = name, run, comp
-
-class Store:                                  # «диск» — переживає смерть процесу саги
-    def __init__(self): self.db = {}
-    def load(self, sid):        return self.db.get(sid)
-    def save(self, sid, state): self.db[sid] = dict(state)   # копія = «лягло на диск»
-
-class ProcessKilled(Exception):               # імітація жорсткої смерті процесу
-    pass
-
-async def run_saga(sid, steps, store):
-    st = store.load(sid) or {"cursor": 0, "status": "running"}
-
-    # ── ВІДРОДЖЕННЯ: диск каже не лише «доки дійшло» (cursor), а й «куди йшло» (status) ──
-    if st["status"] in ("committed", "compensated"):
-        return                                          # уже завершено
-    if st["status"] == "compensating":
-        await _roll_back(sid, steps, store, st); return # помер ПОСЕРЕД відкоту → дороби відкіт, не прямий хід
-
-    try:
-        while st["cursor"] < len(steps):
-            await steps[st["cursor"]].run()
-            st["cursor"] += 1
-            store.save(sid, st)               # ← крок зафіксовано на диску ПЕРЕД наступним
-        st["status"] = "committed"; store.save(sid, st)
-    except ProcessKilled:                     # не відкіт — процес помер, диск лишився
-        store.save(sid, st); raise
-    except Exception:                         # бізнес-збій → компенсуємо зворотним порядком
-        st["status"] = "compensating"; store.save(sid, st)   # ← спершу зафіксуй НАПРЯМОК на диску, тоді відкочуй
-        await _roll_back(sid, steps, store, st)
-        raise
-
-
-# Відкіт зворотним порядком. Сюди веде ДВА шляхи: свіжий бізнес-збій (щойно вгорі)
-# і відродження процесу, що помер посеред цього самого відкоту.
-async def _roll_back(sid, steps, store, st):
-    while st["cursor"] > 0:
-        st["cursor"] -= 1
-        await steps[st["cursor"]].comp()
-        store.save(sid, st)                   # прогрес відкоту теж лягає на диск
-    st["status"] = "compensated"; store.save(sid, st)
-```
+:::code proj-saga-two-ways/ts/dovhovichnyi-rushii-krok.ts
+:::code proj-saga-two-ways/py/dovhovichnyi-rushii-krok.py
 :::
 
 Одна річ тут потребує чесного застереження. Гілка `ProcessKilled` — це **симуляція** жорсткої смерті, щоб демо запускалося в одному процесі; справжній рушій такої гілки не має, бо процес просто зникає — операційна система його вбиває, ніякого винятку не летить. Натомість зовнішній координатор (сервер рушія) помічає, що виконавець перестав звітувати, і **відтворює журнал** на новому виконавці. Наш `cursor` на диску — це мінімальна версія тієї самої ідеї: справжні рушії, як-от Temporal, тримають повну **історію подій** саги й, відтворюючи її, пропускають уже зроблені кроки; хмарні служби на кшталт AWS Step Functions роблять те саме як керований сервіс. Механізм один: **завершений крок — на стійкому носії, процес — відроджуваний із нього.**
@@ -390,125 +161,15 @@ class Tax:
 В **оркестрації** це буквально один рядок — вставити `Step` у список. Компенсація зворотного порядку підхопить його **даром**: тест повного відкоту, який був зелений до змін, лишається зеленим, бо новий крок автоматично опинився в тому самому циклі `undo`.
 
 :::tabs
-```ts
-import { test, expect } from "vitest";
-
-// той самий рушій runSaga; додаємо КРОК tax між config і meter
-function enrollSteps(reg: Registry, hub: Hub, bil: Billing, tax: Tax, home: string, dev: string): Step[] {
-  return [
-    step("reserve", () => reg.reserve(dev, home),       () => reg.unreserve(dev)),
-    step("config",  () => hub.pushConfig(home, dev),     () => hub.wipeConfig(home, dev)),
-    step("tax",     () => tax.register(home, dev),       () => tax.unregister(dev)),   // ← ОДИН новий рядок
-    step("meter",   () => bil.startMeter(home, dev),     () => bil.stopMeter(home, dev)),
-  ];
-}
-
-test("оркестрація: новий крок tax відкочується зворотним порядком — ДАРМА", async () => {
-  const reg = new Registry(), hub = new Hub(), bil = new Billing(), tax = new Tax();
-  bil.down = true;                                    // збій на останньому кроці
-  const store = new Store();
-  await expect(runSaga("s1", enrollSteps(reg, hub, bil, tax, "home-7", "dev-42"), store))
-    .rejects.toThrow();
-  expect(reg.reserved.size).toBe(0);                 // reserve відкотився
-  expect(hub.configured.size).toBe(0);               // config відкотився
-  expect(tax.registered.size).toBe(0);               // ← tax теж — хоч ми компенсацій НЕ дописували
-  expect(store.load("s1")!.status).toBe("compensated");   // а статус саги — ось він, однією викличкою
-});
-```
-```py
-import pytest
-
-# той самий рушій run_saga; додаємо КРОК tax між config і meter
-def enroll_steps(reg, hub, bil, tax, home, dev):
-    return [
-        Step("reserve", lambda: reg.reserve(dev, home),        lambda: reg.unreserve(dev)),
-        Step("config",  lambda: hub.push_config(home, dev),    lambda: hub.wipe_config(home, dev)),
-        Step("tax",     lambda: tax.register(home, dev),       lambda: tax.unregister(dev)),   # ← ОДИН новий рядок
-        Step("meter",   lambda: bil.start_meter(home, dev),    lambda: bil.stop_meter(home, dev)),
-    ]
-
-@pytest.mark.asyncio
-async def test_orchestration_rolls_back_new_step_for_free():
-    reg, hub, bil, tax = Registry(), Hub(), Billing(), Tax()
-    bil.down = True                                    # збій на останньому кроці
-    store = Store()
-    with pytest.raises(RuntimeError):
-        await run_saga("s1", enroll_steps(reg, hub, bil, tax, "home-7", "dev-42"), store)
-    assert reg.reserved == set()                       # reserve відкотився
-    assert hub.configured == set()                     # config відкотився
-    assert tax.registered == set()                     # ← tax теж — хоч ми компенсацій НЕ дописували
-    assert store.load("s1")["status"] == "compensated" # а статус саги — ось він, однією викличкою
-```
+:::code proj-saga-two-ways/ts/test-shcho-lovyt.ts
+:::code proj-saga-two-ways/py/test-shcho-lovyt.py
 :::
 
 Тепер той самий крок у **хореографії**. Тут одним рядком не обійтися. Прямий шлях треба переплести: новий обробник `on DeviceConfigured → tax.register → emit DeviceTaxed`, а білінг **перевести** слухати вже `DeviceTaxed`, а не `DeviceConfigured`. Це вже дві правки у двох місцях. Але головне попереду: компенсацію tax треба **окремо** вплести в задню мережу — навчити `DeviceMeterFailed` відкочувати ще й податкову. А та мережа — інший файл, інші підписки, і про неї **легко забути**, бо на прямому шляху все зелено. Ось хореографічна версія з дописаним прямим шляхом і **забутою** гілкою компенсації — типова помилка, яку робить жива команда:
 
 :::tabs
-```ts
-function wireChoreographyWithTax(reg: Registry, hub: Hub, bil: Billing, tax: Tax): Bus {
-  const bus = new Bus();
-  bus.on("DeviceReserveRequested", async e => { await reg.reserve(e.deviceId, e.homeId); await bus.emit("DeviceReserved", e); });
-  bus.on("DeviceReserved", async e => {
-    try { await hub.pushConfig(e.homeId, e.deviceId); await bus.emit("DeviceConfigured", e); }
-    catch { await bus.emit("DeviceConfigFailed", e); }
-  });
-  bus.on("DeviceConfigured", async e => { await tax.register(e.homeId, e.deviceId); await bus.emit("DeviceTaxed", e); });  // правка 1
-  bus.on("DeviceTaxed", async e => {                                                     // правка 2: білінг слухає вже Taxed
-    try { await bil.startMeter(e.homeId, e.deviceId); }
-    catch { await bus.emit("DeviceMeterFailed", e); }
-  });
-  bus.on("DeviceConfigFailed", async e => { await reg.unreserve(e.deviceId); });
-  bus.on("DeviceMeterFailed", async e => {                                              // ← гілку відкоту tax ТУТ забули
-    await hub.wipeConfig(e.homeId, e.deviceId); await bus.emit("DeviceConfigCompensated", e);
-  });
-  bus.on("DeviceConfigCompensated", async e => { await reg.unreserve(e.deviceId); });
-  return bus;
-}
-
-test("хореографія: той самий доданий крок ТЕЧЕ у шві — тест це й ловить", async () => {
-  const reg = new Registry(), hub = new Hub(), bil = new Billing(), tax = new Tax();
-  bil.down = true;
-  const bus = wireChoreographyWithTax(reg, hub, bil, tax);
-  await bus.emit("DeviceReserveRequested", { homeId: "home-7", deviceId: "dev-42" });
-  expect(reg.reserved.size).toBe(0);            // reserve відкотився
-  expect(hub.configured.size).toBe(0);          // config відкотився
-  expect(tax.registered.has("dev-42")).toBe(true);   // ← tax ЛИШИВСЯ: гілку компенсації забули
-  // а «статус саги»? спитати ніде — об'єкта саги не існує
-});
-```
-```py
-def wire_choreography_with_tax(reg, hub, bil, tax):
-    bus = Bus()
-    async def on_requested(e):  await reg.reserve(e.device_id, e.home_id); await bus.emit("DeviceReserved", e)
-    async def on_reserved(e):
-        try: await hub.push_config(e.home_id, e.device_id); await bus.emit("DeviceConfigured", e)
-        except Exception: await bus.emit("DeviceConfigFailed", e)
-    async def on_configured(e):  await tax.register(e.home_id, e.device_id); await bus.emit("DeviceTaxed", e)   # правка 1
-    async def on_taxed(e):                                                    # правка 2: білінг слухає вже Taxed
-        try: await bil.start_meter(e.home_id, e.device_id)
-        except Exception: await bus.emit("DeviceMeterFailed", e)
-    async def on_config_failed(e):  await reg.unreserve(e.device_id)
-    async def on_meter_failed(e):                                            # ← гілку відкоту tax ТУТ забули
-        await hub.wipe_config(e.home_id, e.device_id); await bus.emit("DeviceConfigCompensated", e)
-    async def on_config_compensated(e):  await reg.unreserve(e.device_id)
-    for ev, fn in [("DeviceReserveRequested", on_requested), ("DeviceReserved", on_reserved),
-                   ("DeviceConfigured", on_configured), ("DeviceTaxed", on_taxed),
-                   ("DeviceConfigFailed", on_config_failed), ("DeviceMeterFailed", on_meter_failed),
-                   ("DeviceConfigCompensated", on_config_compensated)]:
-        bus.on(ev, fn)
-    return bus
-
-@pytest.mark.asyncio
-async def test_choreography_leaks_new_step_in_the_seam():
-    reg, hub, bil, tax = Registry(), Hub(), Billing(), Tax()
-    bil.down = True
-    bus = wire_choreography_with_tax(reg, hub, bil, tax)
-    await bus.emit("DeviceReserveRequested", Enroll("home-7", "dev-42"))
-    assert reg.reserved == set()                # reserve відкотився
-    assert hub.configured == set()              # config відкотився
-    assert tax.registered == {"dev-42"}         # ← tax ЛИШИВСЯ: гілку компенсації забули
-    # а «статус саги»? спитати ніде — об'єкта саги не існує
-```
+:::code proj-saga-two-ways/ts/test-shcho-lovyt-2.ts
+:::code proj-saga-two-ways/py/test-shcho-lovyt-2.py
 :::
 
 Ось у чому підступність, і чому цей тест — [характеризаційний: пришпилює наявну поведінку системи як є, щоб мовчазна зміна не зламала її непомітно](root:progarch/characterization-tests). Він навмисне фіксує тут саме хибу, а не бажаний відкіт. Кожен окремий обробник тут **локально правильний**: `tax.register` реєструє, `on_meter_failed` чесно відкочує хаб і реєстр. Юніт-тест **будь-якого одного сервісу** буде зелений. Помилка живе не в жодному обробнику, а в **шві між ними** — у забутій підписці задньої мережі. Тому наш тест і мусить бути наскрізним: він проганяє всю сагу до падіння й ловить, що `tax` **лишився зареєстрованим**, тимчасом як усе решта відкотилося. Це рівно те «розповзання», якого не видно, поки не спитаєш систему як ціле — а спитати нема кого, бо, як каже останній коментар, **об'єкта саги не існує**. Порівняй із тим самим рядком оркестрації, де `store.load("s1").status` повертає `"compensated"` однією викличкою.

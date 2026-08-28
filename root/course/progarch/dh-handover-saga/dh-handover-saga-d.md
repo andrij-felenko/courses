@@ -62,82 +62,8 @@
 **Умова: описати сагу передачі як список кроків і провести її, відкочуючи до півота й повторюючи після.**
 
 :::tabs
-```ts
-type Kind = "compensatable" | "pivot" | "retriable";
-
-interface Step {
-  name: string;
-  kind: Kind;
-  run: (h: Handover) => Promise<void>;          // локальна транзакція у своєму контексті
-  compensate?: (h: Handover) => Promise<void>;  // зустрічна дія — лише до півота
-}
-
-// Порядок і є суть: усе зворотне ДО півота, усе обов'язкове — ПІСЛЯ.
-const HANDOVER: Step[] = [
-  { name: "freeze",          kind: "compensatable", run: freeze,          compensate: unfreeze },
-  { name: "revokeAccess",    kind: "compensatable", run: revokeOldKeys,   compensate: restoreOldKeys },
-  { name: "awaitClaim",      kind: "compensatable", run: waitForNewOwner, compensate: cancelClaim },
-  { name: "transferAndWipe", kind: "pivot",         run: transferAndShred },   // ← точка неповороту
-  { name: "rebindDevices",   kind: "retriable",     run: reissueCerts },
-  { name: "openBilling",     kind: "retriable",     run: switchBilling },
-  { name: "welcome",         kind: "retriable",     run: notifyNewOwner },
-];
-
-async function drive(h: Handover) {
-  const done: Step[] = [];
-  for (const step of HANDOVER) {
-    try {
-      await step.run(h);              // кожен run ідемпотентний: повтор ≠ подвоєння
-      done.push(step);
-    } catch (err) {
-      if (step.kind === "retriable") throw err;   // після півота — не скасовуй, повторюй
-      for (const s of [...done].reverse())        // до півота — задкуй, відкочуючи
-        await s.compensate?.(h);
-      return aborted(h);
-    }
-  }
-}
-```
-```py
-from dataclasses import dataclass
-from enum import Enum
-from typing import Callable, Optional
-
-class Kind(Enum):
-    COMPENSATABLE = "compensatable"; PIVOT = "pivot"; RETRIABLE = "retriable"
-
-@dataclass(frozen=True)
-class Step:
-    name: str
-    kind: Kind
-    run: Callable[["Handover"], None]              # локальна транзакція у своєму контексті
-    compensate: Optional[Callable[["Handover"], None]] = None  # зустрічна дія — лише до півота
-
-# Порядок і є суть: усе зворотне ДО півота, усе обов'язкове — ПІСЛЯ.
-HANDOVER = [
-    Step("freeze",          Kind.COMPENSATABLE, freeze,          unfreeze),
-    Step("revoke_access",   Kind.COMPENSATABLE, revoke_old_keys, restore_old_keys),
-    Step("await_claim",     Kind.COMPENSATABLE, wait_for_new_owner, cancel_claim),
-    Step("transfer_wipe",   Kind.PIVOT,         transfer_and_shred),   # ← точка неповороту
-    Step("rebind_devices",  Kind.RETRIABLE,     reissue_certs),
-    Step("open_billing",    Kind.RETRIABLE,     switch_billing),
-    Step("welcome",         Kind.RETRIABLE,     notify_new_owner),
-]
-
-def drive(h):
-    done = []
-    for step in HANDOVER:
-        try:
-            step.run(h)                 # кожен run ідемпотентний: повтор ≠ подвоєння
-            done.append(step)
-        except Exception:
-            if step.kind is Kind.RETRIABLE:
-                raise                   # після півота — не скасовуй, повторюй
-            for s in reversed(done):    # до півота — задкуй, відкочуючи
-                if s.compensate:
-                    s.compensate(h)
-            return aborted(h)
-```
+:::code dh-handover-saga-d/ts/index.ts
+:::code dh-handover-saga-d/py/main.py
 :::
 
 Уся логіка саги — в одному циклі: іди вперед, складаючи зроблене; впав крок **до** півота — розвертайся й відкочуй складене у зворотному порядку; впав **після** — не скасовуй нічого, віддай на повтор. Рід кроку сам вирішує, куди хилити, а порядок у списку — вся інша мудрість. Повний координатор — із ключами ідемпотентності, витримкою на людський крок, повтором із відступом і мертвою чергою для застряглих — зібрано в [робочому оркестраторі передачі](root:progarch/dh-handover-saga/proj-dh-handover-orchestrator.md); тут дано кістяк, бо на ньому вже видно головне.

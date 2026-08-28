@@ -98,43 +98,8 @@ def handle(cmd: Command, key: str) -> Result:
 А ось інший бік — клієнт у хмарі, що зводить докупи всі три речі одразу: ключ, бюджет-стелю й повтор із відступом. Зверніть увагу на дві деталі, у яких легко схибити: ключ народжується **над** циклом спроб, тож усі спроби несуть один і той самий; а дедлайн ми міряємо **монотонним** годинником, [який не стрибне назад від синхронізації часу](root:progarch/concurrency-and-clocks) посеред чекання.
 
 :::tabs
-```ts
-async function sendCommand(cmd: Command): Promise<Result> {
-  const key = uuid();                        // ОДИН ключ на команду — крізь усі спроби
-  const deadline = now() + 10_000;           // весь бюджет — 10 с, монотонний годинник
-  let backoff = 500;
-  while (true) {
-    const left = deadline - now();
-    if (left <= 0) throw new Timeout("бюджет вичерпано");   // чесне «не знаю»
-    try {
-      return await post("/hub/command", cmd, key, Math.min(left, 3_000));
-    } catch (e) {
-      if (!isRetryable(e)) throw e;          // 4xx — не мережа, повторювати нема сенсу
-      const pause = Math.min(backoff + Math.random() * backoff, left);
-      await sleep(pause);                    // відступ + розкид
-      backoff *= 2;                          // 0.5 → 1 → 2 → 4 с
-    }
-  }
-}
-```
-```py
-def send_command(cmd: Command) -> Result:
-    key = uuid4().hex                         # ОДИН ключ на команду — крізь усі спроби
-    deadline = monotonic() + 10.0             # весь бюджет — 10 с, монотонний годинник
-    backoff = 0.5
-    while True:
-        left = deadline - monotonic()
-        if left <= 0:
-            raise Timeout("бюджет вичерпано")  # чесне «не знаю»
-        try:
-            return post("/hub/command", cmd, key, timeout=min(left, 3.0))
-        except NetworkError as e:
-            if not is_retryable(e):           # 4xx — не мережа, повторювати нема сенсу
-                raise
-            pause = min(backoff + random() * backoff, left)
-            sleep(pause)                       # відступ + розкид
-            backoff *= 2                        # 0.5 → 1 → 2 → 4 с
-```
+:::code dh-bad-network-d/ts/index.ts
+:::code dh-bad-network-d/py/main.py
 :::
 
 Разом ці два боки роблять річ, яку варто назвати вголос. Повтор дає нам доставку [«щонайменше раз»](root:sf-distributed/idempotency) — команда точно дійде, можливо, кілька разів. Ключ на боці хаба перетворює її на виконання **«фактично раз»**: скільки б разів команда не прилетіла, справжня дія одна. Повний робочий клієнт із сервером, сховищем ключів і тестом, що б'є одну команду десятьма повторами й доводить одне-єдине виконання, зібрано в [стійкому клієнті команд](root:progarch/dh-bad-network/proj-resilient-command.md); там же — тонкі місця: скільки тримати ключі, що робити з двома повторами, які прилетіли одночасно, і чому ключ мусить генерувати відправник, а не хаб.

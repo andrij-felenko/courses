@@ -74,43 +74,8 @@
 Випишемо його явно — не лише що викликати, а й в яких одиницях, у яких межах, і що буде на збої. Зверни увагу: збій тут не летить винятком крізь межу, а **повертається як значення** — це теж пункт контракту, свідомо обраний:
 
 :::tabs
-```ts
-// Контракт межі «хаб ↔ драйвер пристрою». Обидві сторони спираються лише на це.
-type Celsius = number;
-
-type Reading =
-  | { ok: true;  tempC: Celsius; at: number }        // at — час зчитування, epoch-мс
-  | { ok: false; reason: "offline" | "timeout" };     // збій — значення, не виняток
-
-interface DeviceDriver {
-  // ПЕРЕДУМОВА:  викликати не частіше, ніж раз на секунду.
-  // ПОСТУМОВА:   за справного пристрою — ok:true з tempC у [-40, 85];
-  //              інакше ok:false. НІКОЛИ не кидає виняток крізь межу.
-  read(): Promise<Reading>;
-}
-```
-```py
-from dataclasses import dataclass
-from typing import Protocol, Literal, Union
-
-Celsius = float
-
-@dataclass(frozen=True)
-class Ok:
-    temp_c: Celsius
-    at: float                       # час зчитування, epoch-секунди
-
-@dataclass(frozen=True)
-class Err:
-    reason: Literal["offline", "timeout"]   # збій — значення, не виняток
-
-Reading = Union[Ok, Err]
-
-class DeviceDriver(Protocol):
-    # ПЕРЕДУМОВА: не частіше ніж раз на секунду.
-    # ПОСТУМОВА:  Ok(temp_c у [-40, 85]) або Err; НЕ кидає винятку крізь межу.
-    def read(self) -> Reading: ...
-```
+:::code contract-as-boundary-d/ts/index.ts
+:::code contract-as-boundary-d/py/main.py
 :::
 
 Оце — оголошений контракт: операція, форма даних, одиниці, діапазон, поведінка на збої, дозволена частота. Тепер подивімося, як тихо народжується **справжній**. Ось споживач у хабі:

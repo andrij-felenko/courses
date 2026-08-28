@@ -244,62 +244,8 @@ S = r + SHA-512(R, pk, m) · sk  (mod L)
 Аналіз мережевих сокетів здійснюється через eBPF tracepoint `sys_enter_connect`. Нижче наведено приклад ядра eBPF-програми та її C++ користувацького клієнта завантаження через бібліотеку `libbpf`:
 
 :::tabs
-```c
-/* Kernel C: eBPF Tracepoint for socket connect audit */
-#include <vmlinux.h>
-#include <bpf/bpf_helpers.h>
-#include <bpf/bpf_tracing.h>
-
-SEC("tracepoint/syscalls/sys_enter_connect")
-int trace_connect(struct trace_event_raw_sys_enter *ctx) {
-    u64 pid_tgid = bpf_get_current_pid_tgid();
-    struct sockaddr_in *user_addr = (struct sockaddr_in *)ctx->args[1];
-    
-    u32 dest_ip = 0;
-    u16 dest_port = 0;
-    bpf_probe_read_user(&dest_ip, sizeof(dest_ip), &user_addr->sin_addr.s_addr);
-    bpf_probe_read_user(&dest_port, sizeof(dest_port), &user_addr->sin_port);
-    
-    bpf_trace_printk("C2 Probe DETECTED: PID %d -> IP %x:%d\n", 
-                     pid_tgid >> 32, dest_ip, dest_port);
-    return 0;
-}
-
-char _license[] SEC("license") = "GPL";
-```
-```cpp
-// User Space C++20 Loader: libbpf C++ Wrapper
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <bpf/libbpf.h>
-
-namespace dh::forensics {
-
-class EbpfTracer {
-public:
-    EbpfTracer(const char* bpf_obj_path) {
-        bpf_obj_ = bpf_object__open(bpf_obj_path);
-        if (!bpf_obj_) {
-            throw std::runtime_error("Failed to open eBPF object file");
-        }
-        if (bpf_object__load(bpf_obj_)) {
-            throw std::runtime_error("Failed to load eBPF program into kernel");
-        }
-    }
-
-    ~EbpfTracer() {
-        if (bpf_obj_) {
-            bpf_object__close(bpf_obj_);
-        }
-    }
-
-private:
-    bpf_object* bpf_obj_{nullptr};
-};
-
-} // namespace dh::forensics
-```
+:::code dh-leak-day-d/c/main.c
+:::code dh-leak-day-d/cpp/main.cpp
 :::
 
 ### Криптографічний зріз логів аудиту (Audit Log Snapshot)

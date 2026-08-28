@@ -39,41 +39,8 @@
 Подивімось на обидві межі в коді — це форма серверного маршруту, тож беремо мови, якими веб-бекенд і пишуть; ідея однакова в обох. Помітно головне: Брамі 1 об'єкт не потрібен (і недоступний), Брамі 2 — потрібен, і саме тому вона живе там, де об'єкт завантажують.
 
 :::tabs
-```ts
-// Брама 1 — на краю хмари (шлюз): автентифікація + груба авторизація
-function edgeGate(req: Request): Subject {
-  const subject = verifyAccessToken(req.token);       // підпис локально → суб'єкт, або кине 401
-  if (!subject) throw new Http(401);                  // «не знаю тебе»
-  if (!policy.mayClass(subject, "device.command"))    // об'єкто-НЕЗАЛЕЖне: роль узагалі командує?
-    throw new Http(403);                              // гість — стоп ТУТ, сервіс не потурбовано
-  return subject;                                     // несемо доведеного суб'єкта далі
-}
-
-// Брама 2 — у сервісі пристроїв: тонка ОБ'ЄКТНА авторизація
-async function unlockDoor(subject: Subject, doorId: string) {
-  const door = await devices.load(doorId);            // об'єкт У РУКАХ: у ньому homeId
-  if (!authz.can(subject, "unlock", door))            // «цей замок — у ТВОЄМУ домі?»
-    throw new Http(403);                              // чужий замок — 403, IDOR закрито
-  await door.unlock();                                // обидві брами пройдено → сигнал на хаб
-}
-```
-```py
-# Брама 1 — на краю хмари (шлюз): автентифікація + груба авторизація
-def edge_gate(req) -> Subject:
-    subject = verify_access_token(req.token)          # підпис локально → суб'єкт, або None
-    if subject is None:
-        raise Http(401)                               # «не знаю тебе»
-    if not policy.may_class(subject, "device.command"):  # об'єкто-НЕЗАЛЕЖне: роль узагалі командує?
-        raise Http(403)                               # гість — стоп ТУТ, сервіс не потурбовано
-    return subject                                    # несемо доведеного суб'єкта далі
-
-# Брама 2 — у сервісі пристроїв: тонка ОБ'ЄКТНА авторизація
-def unlock_door(subject: Subject, door_id: str):
-    door = devices.load(door_id)                      # об'єкт У РУКАХ: у ньому home_id
-    if not authz.can(subject, "unlock", door):        # «цей замок — у ТВОЄМУ домі?»
-        raise Http(403)                               # чужий замок — 403, IDOR закрито
-    door.unlock()                                     # обидві брами пройдено → сигнал на хаб
-```
+:::code dh-auth-path/ts/index.ts
+:::code dh-auth-path/py/main.py
 :::
 
 Повний слід у коді — з передаванням суб'єкта крізь межу хмари, шляхом рефреша й перевіркою IDOR наживо — я виніс у [окремий розбір](root:progarch/dh-auth-path/proj-dh-auth-path.md).

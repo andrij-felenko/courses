@@ -45,19 +45,7 @@ type Job         = { kind: string; ref: string };
 
 **Черга.** Уся її суть — у трьох рядках `send`. Курсор `next` — один на всіх; кожне `send` посуває його на одного й доправляє повідомлення **лише** тому, на кого він тепер показує. Це і є «конкурентні споживачі» в зародку: підпиши двох — і кожен дістане половину.
 
-```ts
-// ПРИМІТИВ 1 — точкова черга.  Суть: кожне повідомлення дістає РІВНО ОДИН споживач.
-class Queue<T> {
-  private consumers: ((m: T) => void)[] = [];
-  private next = 0;                       // ОДИН спільний курсор на всіх споживачів
-  subscribe(fn: (m: T) => void): void { this.consumers.push(fn); }
-  send(m: T): void {
-    if (this.consumers.length === 0) throw new Error("черга без споживача — нікому доправити");
-    const i = this.next++ % this.consumers.length;   // наступний за чергою — і лише він
-    this.consumers[i](m);
-  }
-}
-```
+:::code proj-dh-traffic-router/ts/oholoshuiemo-kanaly-i.ts
 
 **Тема.** Заміни `this.next++ % length` на `for … of` — і примітив перевертається. Тепер повідомлення йде **всім**, і додати підписника означає не забрати щось у попередніх, а просто дописати ще один рядок у цикл.
 
@@ -72,158 +60,29 @@ class Topic<T> {
 
 **Журнал.** Тут ключ — `Map` імен читачів у їхні позиції. Стрічка `entries` тільки росте й нікуди не дівається (тому історію можна **переграти** з початку). А `read(reader)` дивиться, доки цей конкретний читач дочитав, віддає йому все нове й посуває **його** курсор — не чіпаючи чужих. Саме роздільність цих курсорів робить журнал придатним багатьом незалежним читачам одразу.
 
-```ts
-// ПРИМІТИВ 3 — журнал подій.  Суть: незмінна впорядкована стрічка +
-// у КОЖНОГО читача свій offset; кожен гортає у своєму темпі, нікому не заважаючи.
-class EventLog<T> {
-  private entries: T[] = [];
-  private offset = new Map<string, number>();      // ім'я читача → доки ВІН дочитав
-  append(m: T): void { this.entries.push(m); }
-  read(reader: string): T[] {
-    const from = this.offset.get(reader) ?? 0;
-    const fresh = this.entries.slice(from);
-    this.offset.set(reader, this.entries.length);   // просунули курсор САМЕ цього читача
-    return fresh;
-  }
-  replay(): T[] { return this.entries.slice(); }    // переграти з початку — стрічка ціла
-}
-```
+:::code proj-dh-traffic-router/ts/oholoshuiemo-kanaly-i-2.ts
 
 > 🔧 **Навіщо це.** Оця `Map` offset-ів — не деталь реалізації, а точна модель того, як влаштована Kafka: кожна група споживачів тримає власну позицію в темі й читає незалежно від інших, а перечитати можна з будь-якого місця. Саме тому телеметрію DH кладуть у журнал, а не в чергу: жива панель, твін, історія й тривожник — це чотири «читачі» з чотирма offset-ами, і кожен бачить увесь потік, не крадучи в сусіда. Забереш роздільність offset-ів — і журнал тихо перетвориться на чергу з усіма її крадіжками; це ми зараз і зловимо в пастках.
 
 **Робоча черга.** Це той примітив, де одна мова недоговорює. У TypeScript пул воркерів — це кілька асинхронних циклів, що по черзі тягнуть з буфера; `buf.shift()` синхронний, тож жоден таск не дістанеться двом воркерам одразу — рушій однопотоковий, гонки за буфер немає задарма. Але саме тому TS **приховує** головне: справжня робоча черга живе там, де воркери біжать по-справжньому паралельно, і тоді хтось мусить **арбітрувати**, кому дістанеться наступний таск. Go ховає цього арбітра в **каналі**: черга — це буферизований канал, а `for job := range ch` у кількох горутинах гарантує, що кожен таск прийме рівно одна з них. C++ той самий арбітр змушує написати руками: спільну `std::queue` стереже `std::mutex`, і замок — це і є арбітр, бо в черзі за раз стоїть лише один воркер; він вихоплює таск під замком, а працює вже **поза** ним — справді паралельно. Беремо всі три: TS, щоб примітив вписався в наш стенд, Go, щоб побачити конкурентність без однопотокової фори, і C++, щоб побачити самого арбітра — м'ютекс, що вирішує, кому дістанеться наступне.
 
 :::tabs
-```ts
-// ПРИМІТИВ 4 — робоча черга + пул.  Суть: черга (один таск — один виконавець),
-// але виконавців БАГАТО; перший вільний вихоплює наступний таск.
-class WorkQueue<T> {
-  private buf: T[] = [];
-  submit(job: T): void { this.buf.push(job); }
-  async drain(workers: number, handle: (job: T, w: number) => Promise<void>): Promise<void> {
-    const run = async (id: number) => {
-      let job: T | undefined;
-      while ((job = this.buf.shift()) !== undefined) {   // shift синхронний — таск дістанеться одному
-        await handle(job, id);
-      }
-    };
-    await Promise.all(Array.from({ length: workers }, (_, i) => run(i)));
-  }
-}
-```
-```go
-// Робоча черга = буферизований канал; пул із n горутин-воркерів.
-// Кожен таск дістає РІВНО один воркер — так канал арбітрує конкурентних споживачів.
-func drain(jobs []Job, workers int, handle func(job Job, worker int)) {
-	ch := make(chan Job, len(jobs))
-	for _, j := range jobs {
-		ch <- j
-	}
-	close(ch) // тасків більше не буде — воркери вийдуть, спорожнивши канал
-
-	var wg sync.WaitGroup
-	for id := 0; id < workers; id++ {
-		wg.Add(1)
-		go func(worker int) {
-			defer wg.Done()
-			for job := range ch { // кожен таск дістає лише ОДИН воркер із пулу
-				handle(job, worker)
-			}
-		}(id)
-	}
-	wg.Wait()
-}
-```
-```cpp
-// ПРИМІТИВ 4 — робоча черга + пул.  Суть: черга (один таск — один виконавець),
-// але воркери біжать ПО-СПРАВЖНЬОМУ паралельно; спільну чергу стереже м'ютекс —
-// саме він арбітрує, кому дістанеться наступний таск.
-#include <queue>
-#include <mutex>
-#include <thread>
-#include <vector>
-#include <functional>
-
-template <class T>
-class WorkQueue {
-  std::queue<T> buf;
-  std::mutex m;                                  // вартовий спільної черги
-public:
-  void submit(T job) { buf.push(std::move(job)); }   // усе кладемо ДО drain
-
-  void drain(int workers, std::function<void(const T&, int)> handle) {
-    auto run = [&](int id) {
-      for (;;) {
-        T job;
-        {
-          std::lock_guard<std::mutex> lock(m);   // у черзі — лише ОДИН воркер за раз
-          if (buf.empty()) return;               // тасків більше нема — воркер виходить
-          job = std::move(buf.front());
-          buf.pop();                             // вихопив — більше нікому не дістанеться
-        }
-        handle(job, id);                         // працюємо ПОЗА замком — справді паралельно
-      }
-    };
-    std::vector<std::thread> pool;
-    for (int id = 0; id < workers; ++id) pool.emplace_back(run, id);
-    for (auto& t : pool) t.join();               // дочекатися всіх
-  }
-};
-```
+:::code proj-dh-traffic-router/ts/oholoshuiemo-kanaly-i-3.ts
+:::code proj-dh-traffic-router/go/main.go
+:::code proj-dh-traffic-router/cpp/main.cpp
 :::
 
 ## Маршрутизатор: чотири класи → чотири дієслова
 
 Тепер зшиваємо примітиви в один диспетчер. Це і є **маршрутизатор повідомлень** у чистому вигляді: він дивиться на клас повідомлення й спрямовує його в належний канал — тільки в наш роздає не за вмістом, а за оголошеним класом. Ключова деталь — команда йде не в «якусь чергу», а в **адресовану чергу конкретного пристрою**: кожен пристрій, під'єднуючись, заводить собі власну чергу з єдиним споживачем — самим собою.
 
-```ts
-// ── МАРШРУТИЗАТОР: чотири класи → чотири канали → чотири ДІЄСЛОВА ──
-class DHTraffic {
-  private readonly deviceQueues = new Map<string, Queue<Command>>();  // адресована черга НА КОЖЕН пристрій
-  readonly telemetry = new EventLog<Reading>();
-  readonly events    = new Topic<DomainEvent>();
-  readonly jobs      = new WorkQueue<Job>();
-
-  // пристрій вмикається — заводимо йому адресовану чергу з ним єдиним споживачем
-  registerDevice(deviceId: string, onCommand: (c: Command) => void): void {
-    const q = new Queue<Command>();
-    q.subscribe(onCommand);                 // рівно ОДИН споживач — сам пристрій
-    this.deviceQueues.set(deviceId, q);
-  }
-
-  command(deviceId: string, cmd: Command): void {
-    const q = this.deviceQueues.get(deviceId);
-    if (!q) throw new Error(`пристрій ${deviceId} не підключений`);
-    q.send(cmd);                            // → у чергу САМЕ цього пристрою
-  }
-  append(r: Reading): void   { this.telemetry.append(r); }   // → журнал
-  publish(e: DomainEvent): void { this.events.publish(e); }  // → тема
-  enqueue(j: Job): void      { this.jobs.submit(j); }        // → робоча черга
-}
-```
+:::code proj-dh-traffic-router/ts/marshrutyzator-chotyry.ts
 
 Зверніть увагу, що зробили чотири дієслова, а не одне `send(channel, msg)`. Це не косметика. `command` приймає `Command` й `deviceId`, `append` — `Reading`, `publish` — `DomainEvent`, `enqueue` — `Job`; підписи різні, канали — різні класи. Тому **пустити подію домену в чергу пристрою чи команду в тему компілятор просто не дасть** — типи не збігаються. Одне розмите `send`, що ковтає будь-що, — це і є двері, крізь які катастрофа заходить у систему; чотири вузькі дієслова їх зачиняють. Ми ще повернемось до цього в пастках, бо це найтриваліший урок кроку.
 
 Проженімо три дієслова, щоб побачити їхню різну поведінку наочно:
 
-```ts
-const dh = new DHTraffic();
-
-// command → адресована черга: лише той замок дістає команду
-const garageGot: Command[] = [];
-dh.registerDevice("lock-garage", c => garageGot.push(c));
-dh.registerDevice("lock-front",  () => { throw new Error("front не мав дістати цю команду!"); });
-dh.command("lock-garage", { deviceId: "lock-garage", verb: "close" });
-console.log("command → гаражний замок дістав", garageGot.length, "(front — жодної)");
-
-// append → журнал: два незалежні читачі, кожен бачить УСЕ у своєму темпі
-for (let i = 0; i < 3; i++) dh.append({ deviceId: "th-1", kind: "temp", value: 20 + i, at: i });
-const panel1 = dh.telemetry.read("live-panel").length;   // 3 — усе, що є
-dh.append({ deviceId: "th-1", kind: "temp", value: 23, at: 3 });
-const panel2 = dh.telemetry.read("live-panel").length;   // 1 — лише нове, свій offset посунувся
-const history = dh.telemetry.read("history").length;     // 4 — свій offset із нуля: усе з початку
-console.log("append  → панель:", panel1, "+", panel2, " історія:", history, "(кожен свій offset)");
-```
+:::code proj-dh-traffic-router/ts/marshrutyzator-chotyry-2.ts
 
 ```
 command → гаражний замок дістав 1 (front — жодної)
@@ -236,32 +95,7 @@ append  → панель: 3 + 1  історія: 4 (кожен свій offset)
 
 Тепер — серце вставки. Візьмемо десять подій «гість відчинив» і пропустимо їх спершу чергою (як помилково роблять «щоб простіше»), тоді темою. Свідок — не стан каналу, а **лічильник у кожного споживача**: скільки подій він реально побачив.
 
-```ts
-const EVENTS: DomainEvent[] =
-  Array.from({ length: 10 }, (_, i) => ({ kind: "guest-unlocked", deviceId: "lock-front", at: i }));
-
-// пустити ті самі 10 подій ЧЕРГОЮ на названих споживачів — і порахувати, хто скільки дістав
-function throughQueue(consumers: string[]): Record<string, number> {
-  const q = new Queue<DomainEvent>();
-  const seen: Record<string, number> = {};
-  for (const name of consumers) { seen[name] = 0; q.subscribe(() => { seen[name]++; }); }
-  for (const e of EVENTS) q.send(e);
-  return seen;
-}
-
-// те саме, але ТЕМОЮ
-function throughTopic(consumers: string[]): Record<string, number> {
-  const t = new Topic<DomainEvent>();
-  const seen: Record<string, number> = {};
-  for (const name of consumers) { seen[name] = 0; t.subscribe(() => { seen[name]++; }); }
-  for (const e of EVENTS) t.publish(e);
-  return seen;
-}
-
-console.log("ЧЕРГА, лише пуш:", throughQueue(["push"]));
-console.log("ЧЕРГА, + аудит: ", throughQueue(["push", "audit"]));
-console.log("ТЕМА,  + аудит: ", throughTopic(["push", "audit"]));
-```
+:::code proj-dh-traffic-router/ts/test-puskaiemo-podiiu.ts
 
 Запусти — і стенд надрукує три рядки, у яких сховано весь крок:
 

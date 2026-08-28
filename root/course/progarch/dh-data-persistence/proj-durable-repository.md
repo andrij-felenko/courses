@@ -11,43 +11,8 @@
 Порт трохи підріс проти кістяка: реєстру тепер потрібен не лише «поклади» і «дай усе», а й **точковий доступ за ключем** — тож у контракті три обіцянки, `save` · `get` · `all`, а кожен пристрій носить стабільний `id`, за яким його впізнають і в памʼяті, і на диску:
 
 :::tabs
-```py
-from dataclasses import dataclass
-from typing import Protocol
-
-@dataclass(frozen=True)
-class Device:                         # доменний пристрій із реєстру — тепер з ключем
-    id: str                           # стабільний ідентифікатор, напр. "lock-1"
-    kind: str                         # "lock", "plug", "thermostat"…
-    room: str
-    state: str = "unknown"
-
-    def to_dict(self) -> dict:        # плаский рядок для серіалізації у файл
-        return {"id": self.id, "kind": self.kind, "room": self.room, "state": self.state}
-
-    @staticmethod
-    def from_dict(r: dict) -> "Device":
-        return Device(r["id"], r["kind"], r["room"], r.get("state", "unknown"))
-
-class DeviceRepository(Protocol):     # ПОРТ: три обіцянки, і жодного слова про носій
-    def save(self, d: Device) -> None: ...          # поклади (або онови за id)
-    def get(self, id: str) -> Device | None: ...    # дай один за ключем, або нічого
-    def all(self) -> list[Device]: ...              # дай усіх
-```
-```ts
-interface Device {                    // доменний пристрій із реєстру — тепер з ключем
-  id: string;                         // стабільний ідентифікатор, напр. "lock-1"
-  kind: string;                       // "lock", "plug", "thermostat"…
-  room: string;
-  state: string;
-}
-
-interface DeviceRepository {          // ПОРТ: три обіцянки, і жодного слова про носій
-  save(d: Device): void;              // поклади (або онови за id)
-  get(id: string): Device | undefined;// дай один за ключем, або нічого
-  all(): Device[];                    // дай усіх
-}
-```
+:::code proj-durable-repository/py/zadacha-toi-samyi-port-ale.py
+:::code proj-durable-repository/ts/zadacha-toi-samyi-port-ale.ts
 :::
 
 Зверніть увагу, чого в порті **немає**: ні слова «файл», ні слова «SQL», ні натяку, де саме житимуть байти. Порт описує, що застосунок уміє **питати** в сховища, і мовчить про те, хто відповідає. Саме ця мовчанка й дозволить нам поставити за нього то файл, то базу, не зачепивши нікого вище. А «чесно тривка» реалізація — це та, що закриває всі [чотири камені зі статті](root:progarch/dh-data-model): атомарний запис, що не рветься на краху; впускання писарів по черзі; швидкий пошук за частиною; групування змін «усе або нічого». Файлова версія доб'є руками перший камінь і чесно оголить решту; SQLite забере всі чотири за так. Почнімо з файлу — бо на ньому найкраще видно, **чому** запис на диск складніший, ніж здається.
@@ -70,78 +35,8 @@ t1:     ⚡ процес убито (деплой) — до json.dump(...) ви�
 Ліки — не писати поверх живого файлу взагалі. Пишемо новий вміст **збоку**, у тимчасовий файл, доводимо його до диска через `fsync`, і лише тоді одним рухом **перейменовуємо** тимчасовий поверх справжнього. Ось повний `FileDeviceRepository` за нашим портом — з атомарним записом усередині:
 
 :::tabs
-```py
-import json, os, threading
-
-class FileDeviceRepository:                        # за портом DeviceRepository з v2
-    def __init__(self, path: str = "dh-devices.json"):
-        self._path = path
-        self._lock = threading.Lock()              # черга писарів — про неї нижче
-        self._devices: dict[str, Device] = self._load()
-
-    def _load(self) -> dict[str, Device]:
-        try:
-            with open(self._path, encoding="utf-8") as f:
-                rows = json.load(f)
-        except FileNotFoundError:
-            return {}                              # перший запуск — дім порожній
-        return {r["id"]: Device.from_dict(r) for r in rows}
-
-    def save(self, d: Device) -> None:
-        with self._lock:                           # один писар за раз
-            self._devices[d.id] = d                # онови памʼять…
-            self._flush()                          # …і відразу поклади ВЕСЬ реєстр на диск
-
-    def get(self, id: str) -> Device | None:
-        return self._devices.get(id)
-
-    def all(self) -> list[Device]:
-        return list(self._devices.values())
-
-    def _flush(self) -> None:                      # атомарний тривкий запис — серце класу
-        tmp = self._path + ".tmp"
-        with open(tmp, "w", encoding="utf-8") as f:
-            json.dump([d.to_dict() for d in self._devices.values()], f, ensure_ascii=False)
-            f.flush()                              # з буфера мови → в кеш ОС (ще летюче!)
-            os.fsync(f.fileno())                   # кеш ОС → на носій, з підтвердженням
-        os.replace(tmp, self._path)                # атомарна заміна: старий XOR новий
-```
-```ts
-import * as fs from "node:fs";
-
-class FileDeviceRepository {                        // за портом DeviceRepository з v2
-  private devices: Map<string, Device>;
-  constructor(private path = "dh-devices.json") {
-    this.devices = this.load();
-  }
-
-  private load(): Map<string, Device> {
-    try {
-      const rows: Device[] = JSON.parse(fs.readFileSync(this.path, "utf8"));
-      return new Map(rows.map((d) => [d.id, d]));
-    } catch (e: any) {
-      if (e.code === "ENOENT") return new Map();    // перший запуск — дім порожній
-      throw e;
-    }
-  }
-
-  save(d: Device): void {
-    this.devices.set(d.id, d);                      // онови памʼять…
-    this.flush();                                   // …і відразу поклади ВЕСЬ реєстр на диск
-  }
-  get(id: string): Device | undefined { return this.devices.get(id); }
-  all(): Device[] { return [...this.devices.values()]; }
-
-  private flush(): void {                           // атомарний тривкий запис — серце класу
-    const tmp = this.path + ".tmp";
-    const fd = fs.openSync(tmp, "w");
-    fs.writeSync(fd, JSON.stringify([...this.devices.values()]));
-    fs.fsyncSync(fd);                               // кеш ОС → на носій, з підтвердженням
-    fs.closeSync(fd);
-    fs.renameSync(tmp, this.path);                  // атомарна заміна: старий XOR новий
-  }
-}
-```
+:::code proj-durable-repository/py/failova-versiia-zapys.py
+:::code proj-durable-repository/ts/failova-versiia-zapys.ts
 :::
 
 Чому саме перейменування **лікує** розірваний запис — і не абияк, а конструктивно, тобто вбиває поганий стан на корені, а не робить його рідшим? Бо `rename` (він же `os.replace`, він же системний виклик `rename(2)`) на одній файловій системі — **атомарна** операція. Стандарт POSIX вимагає буквально: доки перейменування триває, імʼя цілі лишається видимим іншим процесам і вказує **або** на старий файл, **або** на новий — ніколи на щось проміжне. Технічно це не копіювання байтів, а перемикання одного вказівника в каталозі: запис у теці, що донедавна показував на старий inode, миттю починає показувати на новий. Немає моменту, коли imʼя показує «нікуди» чи «на половину».
@@ -158,74 +53,8 @@ class FileDeviceRepository {                        // за портом DeviceR
 Тепер найголовніше доведення модуля. Ми беремо ту саму трійцю обіцянок — `save` · `get` · `all` — і виконуємо її геть інакше: не файлом, а базою. Якщо порт справжній, застосунок різниці не помітить.
 
 :::tabs
-```py
-import sqlite3
-
-class SqliteDeviceRepository:                      # ТОЙ САМИЙ порт DeviceRepository
-    def __init__(self, path: str = "dh.db"):
-        self._db = sqlite3.connect(path)
-        self._db.execute("PRAGMA journal_mode=WAL")   # читачі не блокують писаря
-        self._db.execute("""
-            CREATE TABLE IF NOT EXISTS devices (
-                id    TEXT PRIMARY KEY,             # ключ реєстру — на рівні схеми
-                kind  TEXT NOT NULL,
-                room  TEXT NOT NULL,
-                state TEXT NOT NULL
-            )""")
-        self._db.commit()
-
-    def save(self, d: Device) -> None:
-        self._db.execute(
-            "INSERT INTO devices (id, kind, room, state) VALUES (?, ?, ?, ?) "
-            "ON CONFLICT(id) DO UPDATE SET "        # поклади АБО онови за id — одним рухом
-            "  kind=excluded.kind, room=excluded.room, state=excluded.state",
-            (d.id, d.kind, d.room, d.state))
-        self._db.commit()                          # ← межа тривкості: тут база робить fsync
-
-    def get(self, id: str) -> Device | None:
-        row = self._db.execute(
-            "SELECT id, kind, room, state FROM devices WHERE id = ?", (id,)
-        ).fetchone()                               # частковий пошук: один рядок за ключем
-        return Device(*row) if row else None
-
-    def all(self) -> list[Device]:
-        rows = self._db.execute(
-            "SELECT id, kind, room, state FROM devices").fetchall()
-        return [Device(*r) for r in rows]
-```
-```ts
-import { DatabaseSync } from "node:sqlite";         // вбудований у Node ≥ 22.5
-
-class SqliteDeviceRepository {                      // ТОЙ САМИЙ порт DeviceRepository
-  private db: DatabaseSync;
-  constructor(path = "dh.db") {
-    this.db = new DatabaseSync(path);
-    this.db.exec("PRAGMA journal_mode=WAL");        // читачі не блокують писаря
-    this.db.exec(`CREATE TABLE IF NOT EXISTS devices (
-      id    TEXT PRIMARY KEY,                        -- ключ реєстру — на рівні схеми
-      kind  TEXT NOT NULL,
-      room  TEXT NOT NULL,
-      state TEXT NOT NULL)`);
-  }
-
-  save(d: Device): void {
-    this.db.prepare(
-      `INSERT INTO devices (id, kind, room, state) VALUES (?, ?, ?, ?)
-       ON CONFLICT(id) DO UPDATE SET               -- поклади АБО онови за id
-         kind=excluded.kind, room=excluded.room, state=excluded.state`
-    ).run(d.id, d.kind, d.room, d.state);           // run() автокомітить → тривко
-  }
-  get(id: string): Device | undefined {
-    return this.db.prepare(
-      "SELECT id, kind, room, state FROM devices WHERE id = ?"
-    ).get(id) as Device | undefined;                // частковий пошук за ключем
-  }
-  all(): Device[] {
-    return this.db.prepare(
-      "SELECT id, kind, room, state FROM devices").all() as Device[];
-  }
-}
-```
+:::code proj-durable-repository/py/ta-sama-zadacha-movoiu.py
+:::code proj-durable-repository/ts/ta-sama-zadacha-movoiu.ts
 :::
 
 І тепер — уся розписка за форму, в одному рядку. Щоб дім почав памʼятати себе через базу замість файлу, у **точці збірки** правиться рівно одне присвоєння, а `HubService` навіть не прокидається:
@@ -283,58 +112,8 @@ sqlite· один save    = один рядок + оновлення індек�
 І ще один зиск: той самий тест ганяємо **над обома** реалізаціями, файлом і базою. Так він заразом стає крихітним контрактним тестом — доводить, що дві різні виконавиці порту поводяться однаково там, де це найважливіше:
 
 :::tabs
-```py
-import pytest
-
-@pytest.fixture(params=["file", "sqlite"])
-def open_repo(request, tmp_path):
-    """Повертає функцію, що ВІДКРИВАЄ репозиторій над тим самим шляхом.
-    Покликати її двічі = два різні обʼєкти над одним сховищем."""
-    def _open():
-        if request.param == "file":
-            return FileDeviceRepository(str(tmp_path / "dh-devices.json"))
-        return SqliteDeviceRepository(str(tmp_path / "dh.db"))
-    return _open
-
-def test_registry_survives_restart(open_repo):
-    repo = open_repo()
-    repo.save(Device("lock-1", "lock", "вхідні двері"))
-    repo.save(Device("plug-2", "plug", "кухня"))
-
-    del repo                                    # ← «смерть процесу»: обʼєкт і вся його RAM зникли
-
-    reborn = open_repo()                         # новий процес відкриває те саме сховище
-    ids = {d.id for d in reborn.all()}
-    assert ids == {"lock-1", "plug-2"}           # реєстр уцілів попід «рестартом»
-    assert reborn.get("plug-2").room == "кухня"  # і поля на місці, не лише ключі
-```
-```ts
-import { test } from "node:test";
-import assert from "node:assert";
-import { mkdtempSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
-
-for (const kind of ["file", "sqlite"] as const) {
-  test(`реєстр переживає рестарт (${kind})`, () => {
-    const dir = mkdtempSync(join(tmpdir(), "dh-"));
-    const open = () =>                            // відкрити репозиторій над тим самим шляхом
-      kind === "file"
-        ? new FileDeviceRepository(join(dir, "dh-devices.json"))
-        : new SqliteDeviceRepository(join(dir, "dh.db"));
-
-    let repo = open();
-    repo.save({ id: "lock-1", kind: "lock", room: "вхідні двері", state: "unknown" });
-    repo.save({ id: "plug-2", kind: "plug", room: "кухня", state: "unknown" });
-
-    repo = open();                               // ← «смерть процесу»: новий обʼєкт, стара RAM стерта
-
-    const ids = new Set(repo.all().map((d) => d.id));
-    assert.deepStrictEqual(ids, new Set(["lock-1", "plug-2"]));   // реєстр уцілів
-    assert.strictEqual(repo.get("plug-2")!.room, "кухня");        // і поля на місці
-  });
-}
-```
+:::code proj-durable-repository/py/test-reiestr-perezhyvaie.py
+:::code proj-durable-repository/ts/test-reiestr-perezhyvaie.ts
 :::
 
 Сила цього тесту — у контрасті, який він мовчки ставить. Прожени рівно ті самі рядки над `InMemoryDeviceRepository` — і `reborn.all()` поверне порожньо, бо новий обʼєкт починає з порожнього словника, а старий помер і забрав усе. Той самий сценарій, зелений для файлу й бази й **червоний** для памʼяті, і є вимірювання тривкості: він точно окреслює, що ми купили, замінивши затичку на справжнє сховище. Жодного `sleep`, жодного справжнього перезапуску ОС — досить викинути обʼєкт і відкрити носій наново, бо саме через носій, і лише через нього, дані течуть попід розривом.

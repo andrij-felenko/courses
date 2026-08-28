@@ -44,20 +44,7 @@ function merge<T>(a: Reg<T>, b: Reg<T>): Reg<T> {
   return a.node > b.node ? a : b;                  // рівні мітки — стабільний тайбрейк за вузлом
 }
 ```
-```py
-from dataclasses import dataclass
-
-@dataclass
-class Reg:
-    value: object
-    ts: int
-    node: str
-
-def merge(a: Reg, b: Reg) -> Reg:
-    if a.ts != b.ts:
-        return a if a.ts > b.ts else b     # новіша мітка перемагає
-    return a if a.node > b.node else b      # рівні мітки — стабільний тайбрейк за вузлом
-```
+:::code conflict-resolution-strategies-d/py/main.py
 :::
 
 Тайбрейк рятує сходження, але не рятує **дані**. LWW за побудовою **втрачає** один із двох реальних намірів: «Зал» переміг — «Вітальня» зникла безслідно, ніби її не було. Для назви кімнати це прикро, але переживно. Для спільного списку покупок, якщо зберігати список одним значенням, LWW тихо викине половину — бо «останній» перезапис несе лише те, що бачив його автор.

@@ -19,54 +19,8 @@
 Почнемо з чистого прийому. Кожне з'єднання обслуговує **один обробник-корутина**; коли він доходить до читання з мережі чи запису у сховище, він каже `await` — і цикл на цей час бере наступного, хто дозрів. Жодного потоку на з'єднання: тисячі напіврозмов жонглює одна нитка.
 
 :::tabs
-```py
-import asyncio, json
-
-storage = ...  # асинхронний клієнт черги/БД: await storage.put(...) — теж по мережі
-
-async def handle_hub(reader, writer):
-    hub = writer.get_extra_info("peername")[0]
-    async for raw in reader:                 # рядок за рядком; readline під капотом
-        line = raw.strip()
-        if not line:
-            continue
-        try:
-            reading = json.loads(line)        # дрібний JSON — швидко, лишаємо в циклі
-        except ValueError:
-            continue                          # биту телеметрію мовчки кидаємо
-        reading["hub"] = hub
-        await storage.put(reading)            # await → поки сховище пише, смуга вільна
-    writer.close()
-
-async def main():
-    srv = await asyncio.start_server(handle_hub, "0.0.0.0", 9099)
-    async with srv:
-        await srv.serve_forever()
-
-asyncio.run(main())
-```
-```ts
-import { createServer, Socket } from "node:net";
-import { createInterface } from "node:readline";
-
-// асинхронний клієнт черги/БД: await storage.put(...) — теж по мережі
-declare const storage: { put(r: unknown): Promise<void> };
-
-createServer((sock: Socket) => {
-  const hub = sock.remoteAddress;
-  const lines = createInterface({ input: sock });   // рядок за рядком
-  lines.on("line", async (raw) => {
-    const line = raw.trim();
-    if (!line) return;
-    let reading: Record<string, unknown>;
-    try { reading = JSON.parse(line); }             // дрібний JSON — швидко
-    catch { return; }                                // биту телеметрію кидаємо
-    reading.hub = hub;
-    await storage.put(reading);                      // await → смуга вільна, поки пише
-  });
-  sock.on("error", () => sock.destroy());
-}).listen(9099);
-```
+:::code proj-dh-telemetry-loop/py/krok-1-pryimaty-ne.py
+:::code proj-dh-telemetry-loop/ts/krok-1-pryimaty-ne.ts
 :::
 
 Прочитаймо, де саме тут відбувається магія дешевої одночасності. Обидва `await` — на читанні рядка й на записі у сховище — це точки, де обробник **поступається**: він не тримає потік, поки ловить наступне показання чи чекає підтвердження від бази. Тим часом цикл проганяє інші з'єднання, яким уже прийшли дані. Сокет, що мовчить, не коштує жодного такту процесора — про його готовність цикл дізнається від [неблокуючого вводу-виводу](root:sf-tasks/blocking-vs-nonblocking-io), який замість «спати на `read()`» одразу каже «ще не готово», а ОС розбудить, коли буде.
@@ -78,37 +32,8 @@ createServer((sock: Socket) => {
 Тепер додаймо другий, важкий шлях — і зробімо це найприроднішим, найгіршим способом: покличемо агрегацію **прямо в обробнику**, синхронно, так само, як покликали б будь-яку функцію.
 
 :::tabs
-```py
-def aggregate_month(hub_id, rows):            # чистий CPU: перемолоти місяць показань
-    # десятки тисяч рядків → перцентилі, ковзні середні, детект аномалій
-    total = sum(r["value"] for r in rows)     # (насправді роботи на ~900 мс)
-    return {"hub": hub_id, "avg": total / len(rows)}
-
-async def handle_control(reader, writer):
-    cmd = (await reader.readline()).split()
-    if len(cmd) >= 2 and cmd[0] == b"aggregate":
-        hub_id = cmd[1].decode()
-        rows = await storage.month(hub_id)             # неблокуюче читання — ок
-        summary = aggregate_month(hub_id, rows)        # ОТРУТА: ~900 мс CPU В ЦИКЛІ
-        writer.write(json.dumps(summary).encode() + b"\n")
-        await writer.drain()
-```
-```ts
-function aggregateMonth(hubId: string, rows: Reading[]): Summary {
-  // десятки тисяч рядків → перцентилі, ковзні середні, детект аномалій
-  const total = rows.reduce((s, r) => s + r.value, 0);  // (роботи на ~900 мс)
-  return { hub: hubId, avg: total / rows.length };
-}
-
-async function handleControl(cmd: string[], sock: Socket) {
-  if (cmd[0] === "aggregate") {
-    const hubId = cmd[1];
-    const rows = await storage.month(hubId);            // неблокуюче читання — ок
-    const summary = aggregateMonth(hubId, rows);        // ОТРУТА: ~900 мс CPU В ЦИКЛІ
-    sock.write(JSON.stringify(summary) + "\n");
-  }
-}
-```
+:::code proj-dh-telemetry-loop/py/krok-2-otruta-misiachnyi.py
+:::code proj-dh-telemetry-loop/ts/krok-2-otruta-misiachnyi.ts
 :::
 
 Читання `storage.month(...)` чемно чекає через `await` — з ним усе гаразд. А от наступний рядок — катастрофа, і то тиха, бо в коді вона виглядає невинно. `aggregate_month(...)` не має жодного `await`: це просто виклик функції, що **дев'ятсот мілісекунд** крутить процесор, нікому не поступаючись. І поки вона крутиться, смуга зайнята. Тисяча хабів, що саме цієї миті надіслали показання, стоять у черзі готових; `/health` від балансувальника не отримує відповіді; нові з'єднання не приймаються. Не «повільніше» — **застигло на 900 мс**, як і обіцяла картка: один синхронний важкий виклик не віддає єдину смугу, і мерзнуть усі невинні сусіди.
@@ -126,47 +51,8 @@ async function handleControl(cmd: string[], sock: Socket) {
 Тут між рантаймами проходить чесна, повчальна різниця. У Python нитки не рятують від процесорного навантаження: глобальний замок інтерпретатора (GIL) не дає двом потокам виконувати байткод водночас, тож `aggregate_month` на сусідньому **потоці** все одно крастиме такти в циклу. Справжнє винесення дає **окремий процес** — власний інтерпретатор, власний GIL. У Node такого замка нема: `worker_threads` — це справжні паралельні ізоляти V8, тож окремого потоку досить.
 
 :::tabs
-```py
-from concurrent.futures import ProcessPoolExecutor
-
-POOL = ProcessPoolExecutor()                  # окремі процеси — оминають GIL
-
-async def handle_control(reader, writer):
-    cmd = (await reader.readline()).split()
-    if len(cmd) >= 2 and cmd[0] == b"aggregate":
-        hub_id = cmd[1].decode()
-        rows = await storage.month(hub_id)
-        loop = asyncio.get_running_loop()
-        summary = await loop.run_in_executor(      # смуга ВІЛЬНА, поки процес рахує
-            POOL, aggregate_month, hub_id, rows)
-        writer.write(json.dumps(summary).encode() + b"\n")
-        await writer.drain()
-```
-```ts
-// aggregate.worker.ts — окремий потік V8, справжня паралельність
-import { parentPort, workerData } from "node:worker_threads";
-import { aggregateMonth } from "./aggregate";
-parentPort!.postMessage(aggregateMonth(workerData.hubId, workerData.rows));
-
-// ── server.ts — віддаємо завдання потокові й чекаємо результат ──
-import { Worker } from "node:worker_threads";
-
-function aggregateOffloaded(hubId: string, rows: Reading[]): Promise<Summary> {
-  return new Promise((resolve, reject) => {
-    const w = new Worker(new URL("./aggregate.worker.js", import.meta.url),
-                         { workerData: { hubId, rows } });
-    w.once("message", (m) => { resolve(m as Summary); w.terminate(); });
-    w.once("error", reject);
-  });
-}
-
-async function handleControl(cmd: string[]) {
-  if (cmd[0] === "aggregate") {
-    const rows = await storage.month(cmd[1]);
-    return await aggregateOffloaded(cmd[1], rows);   // смуга вільна, поки потік меле
-  }
-}
-```
+:::code proj-dh-telemetry-loop/py/krok-3-lik-vynesty.py
+:::code proj-dh-telemetry-loop/ts/aggregate.worker.ts
 :::
 
 Різниця мікроскопічна в коді й тектонічна за наслідком. Було: `summary = aggregate_month(...)` — виклик у смузі. Стало: `summary = await run_in_executor(POOL, ...)` — завдання йде за межу, а `await` звільняє смугу до повернення. Верхня й нижня смуги на фігурі — це буквально ці два рядки.
@@ -183,45 +69,11 @@ async function handleControl(cmd: string[]) {
 
 Спершу — тримач на циклі подій: кожне з'єднання стає призупиненою задачею, а замір читає власний `VmRSS` без жодних залежностей.
 
-```py
-# ЦИКЛ ПОДІЙ: одне з'єднання = одна призупинена задача. Стек не зайнятий.
-import asyncio
-
-def rss_mb():                                  # VmRSS із /proc — без залежностей
-    for ln in open("/proc/self/status"):
-        if ln.startswith("VmRSS:"):
-            return int(ln.split()[1]) / 1024
-
-async def hold(reader, writer):
-    await asyncio.Event().wait()               # спить вічно; смуги не тримає
-
-async def main():
-    srv = await asyncio.start_server(hold, "127.0.0.1", 9100)
-    async with srv:
-        await srv.serve_forever()
-
-asyncio.run(main())
-# 10 000 клієнтів під'єдналися → VmRSS ≈ кілька КБ × 10⁴ + база інтерпретатора
-```
+:::code proj-dh-telemetry-loop/py/krok-4-malenkyi-zamir-10.py
 
 А тепер той самий приймач за моделлю Варіанта А — по OS-потоку на з'єднання, кожен заблокований на `recv`:
 
-```py
-# ПОТІК НА З'ЄДНАННЯ: одне з'єднання = один OS-потік, заблокований на recv.
-import socket, threading
-
-def hold(conn):
-    conn.recv(1)                               # блокується — увесь стек СТОЇТЬ
-
-srv = socket.socket()
-srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-srv.bind(("127.0.0.1", 9101)); srv.listen(10_000)
-while True:
-    conn, _ = srv.accept()
-    threading.Thread(target=hold, args=(conn,), daemon=True).start()
-# 10 000 потоків × 8 МБ стек = 80 ГБ віртуальних — система відмовить,
-# доки стек не вріжеш; навіть врізаний — RSS на сотні МБ + тасування 10⁴ потоків
-```
+:::code proj-dh-telemetry-loop/py/krok-4-malenkyi-zamir-10-2.py
 
 Числа з прогону на 64-бітному Linux — порядок величини, не константа (точні залежать від ОС і налаштувань), але форма ціни видна без сумніву:
 

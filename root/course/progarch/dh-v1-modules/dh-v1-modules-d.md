@@ -36,40 +36,8 @@
 Межу креслять два штрихи. Перший — **значення**, що ходить через шов: не гола `float`, а іменований [об'єкт передачі даних (DTO)](root:sf-apps/dto), у якому одиниця записана в самому типі. Другий — **порт**: інтерфейс, від якого залежить логіка, замість конкретного давача. Драйвер тепер зобов'язаний цей порт реалізувати, тобто [стрілка залежності інвертується](root:sf-apps/dependency-inversion) — не логіка тягнеться до заліза, а залізо підганяється під контракт логіки.
 
 :::tabs
-```py
-from dataclasses import dataclass
-from typing import Protocol
-
-@dataclass(frozen=True)            # незмінний: отримав Reading — його вже не підмінять
-class Reading:
-    celsius: float                 # ЗАВЖДИ °C: одиниця живе в контракті, не в чиїйсь голові
-    ok: bool = True                # чи вдалося дістати справжнє свіже число
-
-class Sensor(Protocol):            # ПОРТ: рішення залежатиме від цього, а не від марки заліза
-    def read(self) -> Reading: ...
-
-class OneWireThermometer:          # драйвер: мову СВОГО давача знає тільки він
-    def read(self) -> Reading:
-        raw = self._device.millicelsius()    # 20125 — діалект саме цього давача
-        return Reading(celsius=raw / 1000)   # переклад на °C ТУТ, на самому краю
-```
-```ts
-interface Reading {
-  readonly celsius: number;   // ЗАВЖДИ °C: одиниця в контракті, не в голові
-  readonly ok: boolean;       // чи вдалося дістати справжнє свіже число
-}
-
-interface Sensor {            // ПОРТ: рішення залежить від цього, а не від марки заліза
-  read(): Reading;
-}
-
-class OneWireThermometer implements Sensor {   // мову свого давача знає тільки драйвер
-  read(): Reading {
-    const raw = this.device.millicelsius();     // 20125 — діалект саме цього давача
-    return { celsius: raw / 1000, ok: true };   // переклад на °C ТУТ, на самому краю
-  }
-}
-```
+:::code dh-v1-modules-d/py/shov-pershyi-davach-za.py
+:::code dh-v1-modules-d/ts/shov-pershyi-davach-za.ts
 :::
 
 Гляньте, куди тепер потрапляє те кляте `20125`. Воно народжується всередині драйвера, там-таки, на краю, ділиться на тисячу — і за шов виходить уже чесним `Reading(celsius=20.1)`. Мілі-градуси **фізично не можуть** дотекти до рішення: між ними стоїть контракт, який каже «сюди — тільки °C». Заміна вендора стає новим класом за тим самим портом `Sensor`, що конвертує **свій** діалект у себе; рішення про цю заміну не дізнається взагалі.
@@ -88,18 +56,7 @@ class OneWireThermometer implements Sensor {   // мову свого давач
 Витягнімо його в **чисту функцію** (англ. *pure* — без домішок): вона бере вимір і конфіг, а віддає **команду-значення** — що́ належить зробити, — і сама при цьому не робить нічого. Ні розетки не смикне, ні в лог не напише.
 
 :::tabs
-```py
-from enum import Enum, auto
-
-class Command(Enum):               # рішення — це ЗНАЧЕННЯ, а не вчинок
-    HEAT = auto()
-    IDLE = auto()
-
-def decide(r: Reading, cfg: "Config") -> Command:   # чиста: ті самі входи → той самий вихід
-    if not r.ok:
-        return Command.IDLE        # давач мовчить → безпечний спокій, а не «грій наосліп»
-    return Command.HEAT if r.celsius < cfg.threshold else Command.IDLE
-```
+:::code dh-v1-modules-d/py/shov-druhyi-rishennia-iak.py
 ```ts
 type Command = "HEAT" | "IDLE";   // рішення — це ЗНАЧЕННЯ, а не вчинок
 
@@ -147,32 +104,8 @@ interface Heater {              // ПОРТ дії: розетка за абст
 Три шви прорізано — лишається зшити чотири шматки назад у робочий дім. Це робить **збірка** (англ. *composition root* — корінь склеювання): єдине місце, де абстрактні порти зустрічають конкретні драйвери й де народжується цикл.
 
 :::tabs
-```py
-def run(sensor: Sensor, heater: Heater, cfg: Config):
-    while True:
-        reading = sensor.read()          # драйвер ховає діалект заліза
-        match decide(reading, cfg):      # чисте рішення — саме лише °C усередині
-            case Command.HEAT: heater.on()
-            case Command.IDLE: heater.off()
-        sleep(30)
-
-# єдине місце, де конкретне зустрічає конкретне:
-run(sensor=OneWireThermometer(), heater=SmartPlug(), cfg=Config(threshold=20.0))
-```
-```ts
-function run(sensor: Sensor, heater: Heater, cfg: Config) {
-  while (true) {
-    const reading = sensor.read();        // драйвер ховає діалект заліза
-    const cmd = decide(reading, cfg);     // чисте рішення — саме лише °C усередині
-    if (cmd === "HEAT") heater.on();
-    else heater.off();
-    sleep(30);
-  }
-}
-
-// єдине місце, де конкретне зустрічає конкретне:
-run(new OneWireThermometer(), new SmartPlug(), { threshold: 20.0 });
-```
+:::code dh-v1-modules-d/py/zbirka-tonkyi-tsykl-shcho.py
+:::code dh-v1-modules-d/ts/zbirka-tonkyi-tsykl-shcho.ts
 :::
 
 Придивіться до `run`. Той самий кістяк `read → decide → act`, що й у v0, — але кожна стрілка тепер перетинає названий шов. Читання приходить з-за порту `Sensor` уже в градусах; рішення — окреме, чисте, бачить лише `Reading` і `Config`; дія йде за порт `Heater`. Цикл нічого не знає ні про мілі-градуси, ні про марку розетки, ні про те, звідки взявся поріг. Він лише **диригує**. Повний робочий v1 із моковою фізикою кімнати, вкиданням збоїв давача й усіма чотирма правками, прогнаними наживо, зібрано в [робочому v1](root:progarch/dh-v1-modules/proj-dh-v1.md) — тут показано кістяк, бо на ньому вже все видно.

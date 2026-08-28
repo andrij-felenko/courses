@@ -39,34 +39,8 @@
 Еталон тут — Stripe, чиї вебхуки давно стали зразком: у заголовку `Stripe-Signature` їде позначка часу `t` і геш `v1 = HMAC-SHA256` над рядком `"{t}.{тіло}"`, підписаним секретом ендпоінта. Позначка часу — не дрібниця: без неї зловмисник, що одного разу підгледів справжній підписаний POST, міг би **програти його знову** через тиждень, і підпис лишався б валідним. Тому приймач ще й перевіряє, що `t` **свіжа** — Stripe за замовчуванням дає вікно п'ять хвилин; усе старіше відкидається як [повтор](root:progarch/duplicates-and-reorder).
 
 :::tabs
-```ts
-import { createHmac, timingSafeEqual } from "node:crypto";
-
-// Перевіряємо ДО розбору тіла. rawBody — точні отримані байти, не переупакований JSON.
-function verify(rawBody: Buffer, header: string, secret: string): boolean {
-  const parts = Object.fromEntries(header.split(",").map(kv => kv.split("=", 2)));
-  const t = Number(parts.t);
-  if (!t || Math.abs(Date.now() / 1000 - t) > 300) return false; // застарілий підпис → повтор, геть
-  const signed = Buffer.concat([Buffer.from(`${t}.`), rawBody]);
-  const expected = createHmac("sha256", secret).update(signed).digest("hex");
-  const a = Buffer.from(expected);
-  const b = Buffer.from(parts.v1 ?? "");
-  return a.length === b.length && timingSafeEqual(a, b);         // звірка за СТАЛИЙ час
-}
-```
-```py
-import hmac, hashlib, time
-
-# Перевіряємо ДО розбору тіла. raw_body — точні отримані байти, не переупакований JSON.
-def verify(raw_body: bytes, header: str, secret: str) -> bool:
-    parts = dict(kv.split("=", 1) for kv in header.split(","))
-    t = int(parts.get("t", 0))
-    if not t or abs(time.time() - t) > 300:           # застарілий підпис → повтор, геть
-        return False
-    signed = f"{t}.".encode() + raw_body
-    expected = hmac.new(secret.encode(), signed, hashlib.sha256).hexdigest()
-    return hmac.compare_digest(expected, parts.get("v1", ""))    # звірка за СТАЛИЙ час
-```
+:::code dh-webhook-consumer-d/ts/index.ts
+:::code dh-webhook-consumer-d/py/spershu-perevir-todi.py
 :::
 
 Дві дрібниці в цьому коді насправді критичні. **Порівняння за сталий час** (`timingSafeEqual` / `compare_digest`) замість звичайного `==`: наївне порівняння рядків виходить раніше на першій різній літері, і за часом відповіді зловмисник міг би **вгадувати підпис байт за байтом**. І **точні байти тіла**: якщо перед перевіркою розібрати JSON і зібрати назад, порядок ключів чи пробіли зміняться — і чесний підпис не збіжиться. Тому в проді беруть готову функцію з SDK провайдера, а не пишуть звірку самотужки; ручний варіант тут — щоб було видно, **що саме** SDK робить за нас.
@@ -97,18 +71,7 @@ app.post("/hooks/acme-lock", express.raw({ type: "*/*" }), async (req, res) => {
   return res.sendStatus(200);                          // ACK за десятки мс
 });
 ```
-```py
-# Тонкий приймач: перевір → запиши → у чергу → ACK. Жодної важкої роботи інлайн.
-@app.post("/hooks/acme-lock")
-async def receive(req: Request):
-    raw = await req.body()
-    if not verify(raw, req.headers.get("x-acme-signature", ""), SECRET):
-        return Response(status_code=400)              # не той підпис — далі не читаємо
-    event = json.loads(raw)
-    if await inbox.record(event["id"]):               # True, якщо id новий
-        await queue.enqueue("lock-event", event)      # справжня робота — потім, у черзі
-    return Response(status_code=200)                   # ACK за десятки мс
-```
+:::code dh-webhook-consumer-d/py/pidtverdy-shvydko-pratsiui.py
 :::
 
 > 🔧 **Навіщо це.** Тонкий приймач — це та сама межа «швидко відповісти, повільно попрацювати», що й у довгих операціях: ендпоінт не місце для роботи, яка не влазить у бюджет відповіді. Правило просте — **у роуті вебхука не роби нічого, що може зайняти більше за пів секунди**. Усе важче йде в чергу. Тоді сплеск подій, повільна база чи затримка пуша не тягнуть за собою повторів, бо `ACK` уже пішов.

@@ -46,148 +46,10 @@
 Той самий дослід у кількох рантаймах — перемикай вкладки й порівнюй:
 
 :::tabs
-```py
-# Python + потоки: один потік на кожне сонне з'єднання
-import socket, threading, sys, time
-
-def stat_mb(field):                       # поле з /proc/self/status, КБ → МБ
-    for line in open("/proc/self/status"):
-        if line.startswith(field):
-            return int(line.split()[1]) / 1024
-    return -1.0
-
-N = int(sys.argv[1]) if len(sys.argv) > 1 else 2000
-keep = []                                 # тримаємо обидва кінці, щоб не закрились
-
-def hold(sock):
-    sock.recv(1)                          # блокує НАЗАВЖДИ — з'єднання «спить»
-
-for _ in range(N):
-    a, b = socket.socketpair()
-    keep.append((a, b))
-    threading.Thread(target=hold, args=(a,), daemon=True).start()
-
-time.sleep(0.5)                           # дати потокам осісти на recv
-print(f"{N} потоків:  VmRSS≈{stat_mb('VmRSS:'):6.0f} МБ   "
-      f"VmSize≈{stat_mb('VmSize:'):8.0f} МБ")
-# Спробуй N=2000, тоді N=20000 — і побач, як VmSize росте на 8 МБ/потік,
-# а десь коло десятків тисяч потік просто перестане створюватись: стіна.
-```
-```c
-// C + pthreads: один потік ОС на кожне сонне з'єднання — стек як стіна
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/socket.h>
-
-static void *hold(void *arg) {
-    int fd = (int)(intptr_t)arg;
-    char b;
-    read(fd, &b, 1);                  // блокує НАЗАВЖДИ — з'єднання «спить»
-    return NULL;
-}
-
-static long stat_mb(const char *field) {      // поле з /proc/self/status, КБ → МБ
-    FILE *f = fopen("/proc/self/status", "r");
-    char line[256];
-    long kb = -1;
-    while (fgets(line, sizeof line, f))
-        if (strncmp(line, field, strlen(field)) == 0) {
-            sscanf(line + strlen(field), "%ld", &kb);
-            break;
-        }
-    fclose(f);
-    return kb / 1024;
-}
-
-int main(int argc, char **argv) {
-    int N = argc > 1 ? atoi(argv[1]) : 2000;
-    int *keep = malloc(sizeof(int) * 2 * N);   // тримаємо обидва кінці, щоб не закрились
-    int i;
-    for (i = 0; i < N; i++) {
-        int sv[2];
-        socketpair(AF_UNIX, SOCK_STREAM, 0, sv);
-        keep[2*i] = sv[0];
-        keep[2*i + 1] = sv[1];
-        pthread_t t;
-        // стек за замовчуванням — 8 МБ на КОЖЕН потік (зменшує pthread_attr_setstacksize)
-        if (pthread_create(&t, NULL, hold, (void *)(intptr_t)sv[0]) != 0) {
-            fprintf(stderr, "стоп на %d-му: pthread_create → стіна лічильника\n", i);
-            break;                              // упремося в TasksMax/map_count задовго до RAM
-        }
-        pthread_detach(t);
-    }
-    usleep(500000);                             // дати потокам осісти на read()
-    printf("%d потоків:  VmRSS≈%ld МБ   VmSize≈%ld МБ\n",
-           i, stat_mb("VmRSS:"), stat_mb("VmSize:"));
-    return 0;
-}
-// gcc hold.c -lpthread ; N=2000 → VmSize +~16 ГБ (2000×8 МБ віртуально), VmRSS — десятки МБ.
-// Підніми N до десятків тисяч — pthread_create кине EAGAIN: та сама стіна, що й у Python.
-```
-```py
-# Python + asyncio: одна припаркована задача на кожне сонне з'єднання
-import socket, asyncio, sys
-
-def rss_mb():
-    for line in open("/proc/self/status"):
-        if line.startswith("VmRSS:"):
-            return int(line.split()[1]) / 1024
-    return -1.0
-
-async def hold(loop, sock):
-    await loop.sock_recv(sock, 1)         # паркується на epoll — ЖОДНОГО потоку
-
-async def main(N):
-    loop = asyncio.get_running_loop()
-    keep, tasks = [], []
-    for _ in range(N):
-        a, b = socket.socketpair()
-        a.setblocking(False)
-        keep.append((a, b))
-        tasks.append(asyncio.create_task(hold(loop, a)))
-    await asyncio.sleep(0.5)              # дати задачам зареєструватись на циклі
-    print(f"{N} задач:   VmRSS≈{rss_mb():.0f} МБ")   # задач НЕ чекаємо — спали б вічно
-
-asyncio.run(main(int(sys.argv[1]) if len(sys.argv) > 1 else 50000))
-# 50 000 задач на одному потоці — і жодної стіни лічильника: тільки RAM під об'єкти.
-```
-```go
-// Go + горутини: блокуючий код, як у потоках, — але ціна, як у циклу подій
-package main
-
-import (
-	"fmt"; "net"; "os"; "runtime"; "strconv"
-)
-
-func hold(c net.Conn) {
-	buf := make([]byte, 1)
-	c.Read(buf) // БЛОКУЄ — але це горутина, а не потік ОС
-}
-
-func main() {
-	N := 50000
-	if len(os.Args) > 1 {
-		N, _ = strconv.Atoi(os.Args[1])
-	}
-	keep := make([]net.Conn, 0, 2*N)
-	for i := 0; i < N; i++ {
-		a, b := net.Pipe() // два зв'язані кінці в пам'яті
-		keep = append(keep, a, b)
-		go hold(a)
-	}
-	runtime.GC()
-	var m runtime.MemStats
-	runtime.ReadMemStats(&m)
-	fmt.Printf("%d горутин: стеки≈%d МБ, купа≈%d МБ\n",
-		N, m.StackInuse/1024/1024, m.HeapAlloc/1024/1024)
-	_ = keep
-}
-// 50 000 горутин × ~2 КБ стартового стека ≈ сотня МБ — і код лишився блокуючим.
-```
+:::code proj-runtime-bench/py/sekundomir-trymaiemo-n.py
+:::code proj-runtime-bench/c/main.c
+:::code proj-runtime-bench/py/sekundomir-trymaiemo-n-2.py
+:::code proj-runtime-bench/go/main.go
 :::
 
 Що побачиш, коли проженеш (числа в тебе будуть свої — важить не цифра, а поведінка):
@@ -204,42 +66,7 @@ func main() {
 
 Щоб побачити «морозить» на очах, поставимо поряд **серцебиття** — легку задачу, яка хоче тікати кожні 10 мс. Поки цикл вільний, тіки йдуть рівно; щойно щось займе єдиний потік — тіки зникають, і розрив між ними одразу видно числом.
 
-```py
-import asyncio, time
-
-def recompute_home(seed: int) -> int:
-    # справжній CPU: прокрутити правила одного дому, жодного вводу-виводу
-    acc = seed & 0xFFFFFFFF
-    for r in range(200):                       # ~200 правил на дім
-        acc = (acc * 1_000_003 + r) & 0xFFFFFFFF
-        for _ in range(64):                    # трохи «м'яса» на кожне правило
-            acc ^= (acc << 13) & 0xFFFFFFFF
-            acc ^= acc >> 17
-            acc ^= (acc << 5) & 0xFFFFFFFF
-    return acc
-
-def recompute_batch(homes) -> int:
-    return sum(recompute_home(h) for h in homes)
-
-async def heartbeat():
-    prev = time.perf_counter()
-    while True:
-        await asyncio.sleep(0.01)              # хочемо тік кожні 10 мс
-        gap = (time.perf_counter() - prev) * 1000
-        if gap > 50:                           # пропущені тіки — одразу видно
-            print(f"  ⚠ серцебиття спізнилось на {gap:.0f} мс")
-        prev = time.perf_counter()
-
-async def main():
-    asyncio.create_task(heartbeat())
-    await asyncio.sleep(0.3)                   # рівне серцебиття…
-    t0 = time.perf_counter()
-    recompute_batch(range(2000))               # ❌ синхронно В ОБРОБНИКУ — морозить цикл
-    print(f"батч у циклі: {(time.perf_counter()-t0)*1000:.0f} мс")
-    await asyncio.sleep(0.3)
-
-asyncio.run(main())
-```
+:::code proj-runtime-bench/py/sekundomir-druha-chastyna.py
 
 **Висновок досліду.** Друкується один величезний пропуск: серцебиття, що билося кожні 10 мс, замовкає на **весь час батчу** — сотні мілісекунд — і аж тоді відмирає одним запізнілим тіком. Ті ж 200 мс, що в потоковому сервері з'їли б одне ядро й лишили решту обслуговувати з'єднання, тут заморозили процес цілком. Це не «повільніше» — це **застигло**: усі 50 000 сокетів, які цикл так дешево тримав, тепер разом ждуть, доки один потік догризе рахунок.
 
@@ -248,31 +75,7 @@ asyncio.run(main())
 
 Ліки очевидні за формою: не тримай смугу — **винеси рахунок геть із потоку циклу**. asyncio дає для цього `run_in_executor` — віддати важку функцію в пул і чекати результат, не блокуючи цикл. І ось тут криється пастка, вагоміша за сам прийом, — власне тому цей крок не лише про «як», а й про «чому саме так»:
 
-```py
-import asyncio, time
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-# recompute_home / recompute_batch / heartbeat — ті самі, що вище
-
-def recompute_chunk(homes) -> int:
-    return recompute_batch(homes)              # шматок батчу для одного робітника
-
-async def run(pool, label):
-    asyncio.create_task(heartbeat())
-    await asyncio.sleep(0.3)
-    loop = asyncio.get_running_loop()
-    chunks = [range(i, 2000, 4) for i in range(4)]   # 2000 домів на 4 робітники
-    t0 = time.perf_counter()
-    await asyncio.gather(*[loop.run_in_executor(pool, recompute_chunk, c)
-                           for c in chunks])
-    print(f"{label}: {(time.perf_counter()-t0)*1000:.0f} мс")
-    await asyncio.sleep(0.3)
-
-if __name__ == "__main__":
-    # ПОТОКОВИЙ пул: цикл звільнено, АЛЕ GIL пускає рахувати лише одного нараз
-    asyncio.run(run(ThreadPoolExecutor(max_workers=4), "4 потоки-робітники"))
-    # ПРОЦЕСНИЙ пул: окремі процеси, окремі GIL — рахунок справді на всіх ядрах
-    asyncio.run(run(ProcessPoolExecutor(max_workers=4), "4 процеси-робітники"))
-```
+:::code proj-runtime-bench/py/sekundomir-druha-chastyna-2.py
 
 **Висновок досліду — і головна пастка.** З `ThreadPoolExecutor` серцебиття вже тікає (потік циклу звільнено, він більше не рахує сам), але з тремтінням — а найголовніше, **сам батч не швидшає**: чотири потоки-робітники в стоковому CPython не рахують водночас, бо [глобальний замок інтерпретатора](root:sf-tasks/data-races-locks) (GIL) пускає виконувати Python-байткод лише одному потоку в кожну мить. Ти виніс рахунок зі смуги циклу — це вже добре, край ожив, — але «пул потоків» тут не додав ані краплі паралелізму на ядрах. З `ProcessPoolExecutor` картина інша: кожен робітник — окремий процес зі **своїм** інтерпретатором і своїм GIL, тож чотири ядра справді рахують разом, і батч коротшає приблизно вчетверо (мінус плата за розсилання даних між процесами). Ось чому в стоковому Python «винеси CPU в пул» означає **пул процесів**, а не потоків.
 

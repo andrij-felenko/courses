@@ -15,87 +15,8 @@
 Почнімо з джерела. Ось повна мапа DH як дані — виконуваний двійник тієї таблиці, яку ми читали рядками. Кожен контекст знає свій **корінь у коді** й, головне, свою `published` — єдину поверхню, яку йому дозволено показувати назовні. Домені ребра (партнерство, замовник-постачальник) стоять у `allow`; універсальні вершини, що їх сміють читати всі (ідентичність, шина подій, ядро ідентифікаторів), позначені `open`, а свій вид зв'язку носять поруч.
 
 :::tabs
-```ts
-// map.ts — ЄДИНЕ джерело правди про межі DH. З нього живуть і ворота, і картинка, і легенда.
-type Kind =
-  | "partnership"         // рівні, релізяться разом (двобічне)
-  | "customer-supplier"   // верховий диктує модель, низовий має голос
-  | "conformist"          // приймаємо чужу мову як є
-  | "published-language"  // нейтральна подія у спільній шині
-  | "shared-kernel"       // крихітне спільне ядро
-  | "separate-ways"       // свідомо без стику
-  | "acl";                // антикорупційний шар до чужого (за межами репо)
-
-interface Context {
-  root: string;                    // де контекст живе у файловій системі
-  pub: string;                     // ЄДИНА поверхня, видима іншим контекстам
-  allow: Record<string, Kind>;     // кого цей контекст сміє ІМПОРТУВАТИ (доменні ребра)
-  open?: boolean;                  // його pub сміють читати ВСІ (ідентичність, шина, ядро)
-  kind?: Kind;                     // вид зв'язку для open-вершини
-  isolated?: boolean;              // окремі шляхи: у нього не сміє входити НІХТО
-}
-
-// Увага: allow — це напрямок ІМПОРТУ (хто кого тягне), а НЕ напрямок течії з таблиці.
-// Замовник (низовий) імпортує постачальника (верхового) — тож ребро в даних
-// протилежне стрілці на картинці. Про цю пастку — окремо наприкінці.
-export const MAP: Record<string, Context> = {
-  hub:           { root: "src/hub",           pub: "src/hub/published",
-                   allow: { twin: "partnership" } },
-  twin:          { root: "src/twin",          pub: "src/twin/published",
-                   allow: { hub: "partnership", control: "customer-supplier" } },
-  control:       { root: "src/control",       pub: "src/control/published",
-                   allow: {} },                       // ядро моделі: імпортує НІКОГО, лише публікує
-  automations:   { root: "src/automations",   pub: "src/automations/published",
-                   allow: { twin: "customer-supplier" } },
-  billing:       { root: "src/billing",       pub: "src/billing/published",
-                   allow: { control: "customer-supplier" } },   // споживає published control, не домен
-  telemetry:     { root: "src/telemetry",     pub: "src/telemetry/published",
-                   allow: {} },                       // годується лише з шини подій (open нижче)
-  notifications: { root: "src/notifications", pub: "src/notifications/published",
-                   allow: {} },
-  video:         { root: "src/video",         pub: "src/video/published",
-                   allow: {}, isolated: true },       // окремі шляхи: тільки ідентичність
-  identity:      { root: "src/identity",      pub: "src/identity/published",
-                   allow: {}, open: true, kind: "conformist" },
-  events:        { root: "src/events",        pub: "src/events",            // уся шина — опубл. мова
-                   allow: {}, open: true, kind: "published-language" },
-  ids:           { root: "src/shared/ids",    pub: "src/shared/ids",        // усе ядро — самі типи
-                   allow: {}, open: true, kind: "shared-kernel" },
-};
-```
-```py
-# map.py — ЄДИНЕ джерело правди про межі DH. З нього живуть ворота, картинка й легенда.
-# Види зв'язку: partnership | customer-supplier | conformist |
-#               published-language | shared-kernel | separate-ways | acl
-#
-# allow — напрямок ІМПОРТУ (хто кого тягне), а НЕ напрямок течії з таблиці:
-# замовник (низовий) імпортує постачальника (верхового), тож ребро в даних
-# протилежне стрілці на картинці. Про цю пастку — окремо наприкінці.
-MAP = {
-    "hub":           {"root": "src/hub",           "pub": "src/hub/published",
-                      "allow": {"twin": "partnership"}},
-    "twin":          {"root": "src/twin",          "pub": "src/twin/published",
-                      "allow": {"hub": "partnership", "control": "customer-supplier"}},
-    "control":       {"root": "src/control",       "pub": "src/control/published",
-                      "allow": {}},                    # ядро: імпортує нікого, лише публікує
-    "automations":   {"root": "src/automations",   "pub": "src/automations/published",
-                      "allow": {"twin": "customer-supplier"}},
-    "billing":       {"root": "src/billing",       "pub": "src/billing/published",
-                      "allow": {"control": "customer-supplier"}},  # published control, не домен
-    "telemetry":     {"root": "src/telemetry",     "pub": "src/telemetry/published",
-                      "allow": {}},                    # годується лише з шини (open нижче)
-    "notifications": {"root": "src/notifications", "pub": "src/notifications/published",
-                      "allow": {}},
-    "video":         {"root": "src/video",         "pub": "src/video/published",
-                      "allow": {}, "isolated": True},  # окремі шляхи: тільки ідентичність
-    "identity":      {"root": "src/identity",      "pub": "src/identity/published",
-                      "allow": {}, "open": True, "kind": "conformist"},
-    "events":        {"root": "src/events",        "pub": "src/events",          # уся шина — опубл. мова
-                      "allow": {}, "open": True, "kind": "published-language"},
-    "ids":           {"root": "src/shared/ids",    "pub": "src/shared/ids",      # усе ядро — самі типи
-                      "allow": {}, "open": True, "kind": "shared-kernel"},
-}
-```
+:::code proj-dh-context-map/ts/map.ts
+:::code proj-dh-context-map/py/map.py
 :::
 
 Придивись, що ця структура кодує з попереднього кроку без жодного слова прози. Партнерство хаб-твін — симетричне: обидва тримають одне одного в `allow`, бо петлю синхронізації міняють разом. `control` імпортує **нікого**: ядро дому лише диктує модель і публікує факти, а само не залежить від периферії — це видно рядком `allow: {}`. Відео позначене `isolated`: у нього не сміє входити ніхто, крім спільних вершин. А ідентичність, шина й ядро — `open` для всіх, кожна зі своїм видом зв'язку. Це не документація про мапу; це **сама мапа**, яку далі читатиме машина.
@@ -113,86 +34,8 @@ MAP = {
 Такий тест — це **фітнес-функція** в тому сенсі, який Нейл Форд, Ребекка Парсонз і Патрік Куа ввели в «Building Evolutionary Architectures» (O'Reilly, 2017): виконуваний вимір, що стереже архітектурну властивість, поки код змінюється. Термін вони позичили з еволюційних обчислень, де фітнес-функція оцінює, наскільки особина пасує до середовища. Наша властивість проста: жодне ребро в коді не сміє суперечити мапі. Ось вирок над одним ребром і драйвер, що проганяє його по всіх знайдених імпортах:
 
 :::tabs
-```ts
-// ownerOf(шлях) -> контекст за найдовшим коренем і сам сканер import-ів —
-// ті самі, що в загальній перевірці; тут лише DH-вирок поверх знайдених ребер.
-function verdict(from: string, to: string, target: string): string | null {
-  if (from === to) return null;                 // всередині контексту — вільно
-  const dst = MAP[to];
-  if (!dst) return null;                         // зовнішній пакет — окрема перевірка (див. пастки)
-  const pairOk = dst.open || to in MAP[from].allow;
-  if (!pairOk) return `неоголошене ребро ${from} → ${to}`;
-  if (!target.startsWith(dst.pub))
-    return `${from} тягне НУТРОЩІ ${to}: ${target} (дозволено лише ${dst.pub})`;
-  return null;
-}
-
-type Imp = { fromFile: string; target: string };   // джерело ребра — сканер import-ів
-
-function audit(imports: Imp[], ownerOf: (p: string) => string | null): string[] {
-  const bad: string[] = [];
-  for (const { fromFile, target } of imports) {
-    const from = ownerOf(fromFile), to = ownerOf(target);
-    if (from === null || to === null) continue;      // поза мапою — не наша межа
-    const v = verdict(from, to, target);
-    if (v) bad.push(v);
-    // структурні контракти поверх пер-ребра:
-    if (MAP[to]?.isolated && from !== to) bad.push(`окремі шляхи порушено: ${from} → ${to}`);
-    if ((from === "events" || from === "ids") && to !== from)
-      bad.push(`${from} має бути листком, а тягне ${to}`);
-  }
-  return bad;
-}
-
-export function main(imports: Imp[], ownerOf: (p: string) => string | null): number {
-  const bad = audit(imports, ownerOf);
-  if (bad.length === 0) { console.log("мапа DH тримається"); return 0; }
-  console.error("АРХІТЕКТУРНІ ПОРУШЕННЯ DH:");
-  for (const b of bad) console.error("  " + b);
-  return 1;                                          // exit 1 → крок CI червоний → merge заблоковано
-}
-```
-```py
-# owner_of(шлях) -> контекст за найдовшим коренем і сам сканер import-ів —
-# ті самі, що в загальній перевірці; тут лише DH-вирок поверх знайдених ребер.
-def verdict(frm, to, target):
-    if frm == to:
-        return None                              # всередині контексту — вільно
-    dst = MAP.get(to)
-    if dst is None:
-        return None                              # зовнішній пакет — окрема перевірка (див. пастки)
-    pair_ok = dst.get("open") or to in MAP[frm]["allow"]
-    if not pair_ok:
-        return f"неоголошене ребро {frm} → {to}"
-    if not target.startswith(dst["pub"]):
-        return f"{frm} тягне НУТРОЩІ {to}: {target} (лише {dst['pub']})"
-    return None
-
-def audit(imports, owner_of):                     # imports: [(файл-джерело, ціль-модуль), …]
-    bad = []
-    for from_file, target in imports:
-        frm, to = owner_of(from_file), owner_of(target)
-        if frm is None or to is None:
-            continue                              # поза мапою — не наша межа
-        v = verdict(frm, to, target)
-        if v:
-            bad.append(v)
-        if MAP.get(to, {}).get("isolated") and frm != to:  # окремі шляхи: у video не входить ніхто ЗЗОВНІ
-            bad.append(f"окремі шляхи порушено: {frm} → {to}")
-        if frm in ("events", "ids") and to != frm:  # шина й ядро мусять бути листками
-            bad.append(f"{frm} має бути листком, а тягне {to}")
-    return bad
-
-def main(imports, owner_of):
-    bad = audit(imports, owner_of)
-    if not bad:
-        print("мапа DH тримається")
-        return 0
-    print("АРХІТЕКТУРНІ ПОРУШЕННЯ DH:")
-    for b in bad:
-        print("  " + b)
-    return 1                                       # exit 1 → крок CI червоний → merge заблоковано
-```
+:::code proj-dh-context-map/ts/vorota-fitnes-funktsiia.ts
+:::code proj-dh-context-map/py/vorota-fitnes-funktsiia.py
 :::
 
 Драйвер бере знайдені сканером ребра й проганяє кожне крізь `verdict` плюс два **структурні контракти**, яких пер-ребро мало: `isolated` стереже окремі шляхи відео (в нього не сміє входити ніхто), а перевірка листка не дає шині подій чи ядру ідентифікаторів раптом потягти чийсь контекст. Ці два — прямі DH-двійники того, що в промислових інструментах звуть «independence» та «forbidden» контрактами (`import-linter` у Python має обидва: перший забороняє будь-які імпорти між множинами модулів навіть опосередковано, другий — щоб один набір не імпортувався іншим).
@@ -216,35 +59,7 @@ def main(imports, owner_of):
 
 Ось де DH-артефакт іде далі за загальну перевірку. Та зупиняється на текстовому вироку. А ми хочемо, щоб **картинка** з попереднього кроку теж народжувалася з `MAP`, — тоді вона фізично не зможе розійтися ні з воротами, ні з правдою. Це і є diagram-as-code: не малюєш стрілки рукою, а **обходиш ті самі дані** й друкуєш вузли та підписані ребра:
 
-```py
-# draw.py — SVG-мапа DH з ТИХ САМИХ даних, що й ворота. Ребра беремо з MAP, не з голови.
-import math
-
-SHORT = {"partnership": "партн.", "customer-supplier": "зам.-пост.",
-         "conformist": "конф.", "published-language": "оп. мова",
-         "shared-kernel": "ядро", "separate-ways": "окр. шляхи", "acl": "ACL"}
-
-def draw(path):
-    names = list(MAP)
-    cx, cy, R = 430, 300, 250
-    pos = {n: (cx + R * math.cos(-math.pi / 2 + 2 * math.pi * i / len(names)),
-               cy + R * math.sin(-math.pi / 2 + 2 * math.pi * i / len(names)))
-           for i, n in enumerate(names)}
-    p = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 620">']
-    for n, meta in MAP.items():                       # ← ребра лише з даних
-        for to, kind in meta["allow"].items():
-            (x1, y1), (x2, y2) = pos[n], pos[to]
-            p.append('<line x1="%.0f" y1="%.0f" x2="%.0f" y2="%.0f" stroke="#333"/>'
-                     % (x1, y1, x2, y2))
-            p.append('<text x="%.0f" y="%.0f" font-size="10" text-anchor="middle">%s</text>'
-                     % ((x1 + x2) / 2, (y1 + y2) / 2, SHORT[kind]))
-    for n, (x, y) in pos.items():
-        p.append('<circle cx="%.0f" cy="%.0f" r="34" fill="#eef" stroke="#333"/>' % (x, y))
-        p.append('<text x="%.0f" y="%.0f" font-size="11" text-anchor="middle">%s</text>'
-                 % (x, y, n))
-    p.append("</svg>")
-    open(path, "w", encoding="utf-8").write("\n".join(p))
-```
+:::code proj-dh-context-map/py/draw.py
 
 Розкладка тут навмисно дурна — вузли по колу; краса картинки не мета. Мета — **походження стрілок**. Кожне ребро на малюнку взяте з `meta["allow"]`, а не набране пальцями. Додав у `MAP` нове ребро — на картинці **сам собою** з'явився штрих із правильним підписом. Забув додати ребро, але дописав імпорт — ворота почервоніли. Намалювати мапу, на якій бракує оголошеного ребра, тепер неможливо, бо ти її взагалі не малюєш: обидва документи, картинка й вирок, приколоті до `MAP` з двох боків, і жодному нема куди відповзти.
 

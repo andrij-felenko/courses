@@ -48,20 +48,7 @@ def commission_device(device_id, home_id):
 
 Другий спосіб на вигляд об'єктний. Тут `Device` уже клас, названий предметом, зі своїми полями — усе як у справжньої моделі. От тільки методів у ньому нема: сам він нічого не вміє, а правило знову сидить окремо, у `DeviceService`. Об'єкт названий річчю, а поводиться як структура — набір комірок, які наповнює й читає хтось інший.
 
-```py
-# Анемічна модель: об'єкт є, але це мішок полів; правило — у сервісі
-class Device:
-    def __init__(self):
-        self.status = "new"       # поля навстіж
-        self.home_id = None
-
-class DeviceService:
-    def commission(self, d: Device, home_id):
-        if d.status != "new":                # те саме правило — знову ЗЗОВНІ об'єкта
-            raise Error("пристрій уже введено в дім")
-        d.status = "online"
-        d.home_id = home_id
-```
+:::code logic-organization-choice-d/py/anemichna-model-obiekty-ie.py
 
 Це і є [анемічна (гр. *an-* — «без», *haima* — «кров»; знекровлена) модель](root:sf-apps/anemic-domain-model): тіло об'єкта є, а сили в ньому нема, бо кров — правила й рішення — витекла в сервіси.
 
@@ -75,19 +62,7 @@ class DeviceService:
 
 Третій спосіб — той, що ми вже збудували для FSM. Правило переходить туди, де живуть його дані: стає методом самого пристрою. Поля закриваються, і єдині двері всередину — команди-методи з вартовими при них. Викликачеві нема про що питати: він каже одне слово, а вся дрібна робота з полями й перевірками відбувається там, де ці поля рідні.
 
-```py
-# Багата модель: правило живе в самому пристрої, поля закриті
-class Device:
-    def __init__(self):
-        self._status = "new"      # приватне — ззовні не дотягтися
-        self._home = None
-
-    def commission(self, home_id):
-        if self._status != "new":            # вартовий переходу — ТУТ, при своїх даних
-            raise DomainError("пристрій уже введено в дім")
-        self._status = "online"
-        self._home = home_id
-```
+:::code logic-organization-choice-d/py/bahata-domenna-model.py
 
 Це [багата модель Еванса](root:sf-apps/domain-driven-design), а сам `Device` зі своїм життєвим циклом — [агрегат](root:sf-apps/aggregates-consistency), корінь, що тримає власні інваріанти.
 

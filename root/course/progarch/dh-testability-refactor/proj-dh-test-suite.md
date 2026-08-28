@@ -5,62 +5,8 @@
 Щоб набір справді запускався, спершу зафіксуймо, **що** саме він перевіряє. Це той самий код v1, у тих самих формах; тут він лише зібраний в одному місці як предмет тестів.
 
 :::tabs
-```py
-# home.py — код під тестом (форми v1, без змін)
-from dataclasses import dataclass
-from enum import Enum, auto
-from typing import Protocol
-
-@dataclass(frozen=True)
-class Reading:
-    celsius: float
-    ok: bool = True          # False ⇒ числу вірити не можна
-
-@dataclass(frozen=True)
-class Config:
-    threshold: float = 20.0
-
-class Command(Enum):
-    HEAT = auto()
-    IDLE = auto()
-
-class Sensor(Protocol):
-    def read(self) -> Reading: ...
-
-class Heater(Protocol):
-    def on(self)  -> None: ...
-    def off(self) -> None: ...
-
-def decide(r: Reading, cfg: Config) -> Command:      # чиста: вхід-значення → вихід-значення
-    if not r.ok:
-        return Command.IDLE
-    return Command.HEAT if r.celsius < cfg.threshold else Command.IDLE
-
-def tick(sensor: Sensor, heater: Heater, cfg: Config) -> None:   # рівно один оберт
-    match decide(sensor.read(), cfg):
-        case Command.HEAT: heater.on()
-        case Command.IDLE: heater.off()
-```
-```ts
-// home.ts — код під тестом (форми v1, без змін)
-export interface Reading { celsius: number; ok: boolean; }   // ok=false ⇒ числу не вірити
-export interface Config  { threshold: number; }
-export type Command = "HEAT" | "IDLE";
-
-export interface Sensor { read(): Reading; }
-export interface Heater { on(): void; off(): void; }
-
-export function decide(r: Reading, cfg: Config): Command {    // чиста: значення → значення
-  if (!r.ok) return "IDLE";
-  return r.celsius < cfg.threshold ? "HEAT" : "IDLE";
-}
-
-export function tick(sensor: Sensor, heater: Heater, cfg: Config): void {  // один оберт
-  const cmd = decide(sensor.read(), cfg);
-  if (cmd === "HEAT") heater.on();
-  else heater.off();
-}
-```
+:::code proj-dh-test-suite/py/home.py
+:::code proj-dh-test-suite/ts/home.ts
 :::
 
 Одна деталь тут вирішальна для всього набору, тож назвімо її вголос: поріг **виключний знизу**. `decide` гріє, лише поки `celsius < threshold` — рівно на порозі (`20.0` при `threshold=20.0`) вона вже мовчить. Це не дрібниця стилю: це рівно той рядок, який тест зафіксує, щоб наступний, хто його зачепить, зробив це навмисно, а не випадково.
@@ -72,50 +18,8 @@ export function tick(sensor: Sensor, heater: Heater, cfg: Config): void {  // о
 Обидві мови мають для цього рідну форму параметризації, тож таблиця в коді буквально виглядає таблицею — рядок даних окремо, тіло перевірки одне на всіх:
 
 :::tabs
-```py
-# test_decide.py
-import pytest
-from home import Reading, Config, Command, decide
-
-CFG = Config(threshold=20.0)
-
-@pytest.mark.parametrize("r, expected", [
-    pytest.param(Reading(5.0),            Command.HEAT, id="глибокий-холод→HEAT"),
-    pytest.param(Reading(19.0),           Command.HEAT, id="нижче-порога→HEAT"),
-    pytest.param(Reading(19.999),         Command.HEAT, id="на-волосину-нижче→HEAT"),
-    pytest.param(Reading(20.0),           Command.IDLE, id="рівно-на-порозі→IDLE"),
-    pytest.param(Reading(20.001),         Command.IDLE, id="на-волосину-вище→IDLE"),
-    pytest.param(Reading(25.0),           Command.IDLE, id="тепло→IDLE"),
-    pytest.param(Reading(5.0,  ok=False), Command.IDLE, id="холод+мовчить→IDLE"),
-    pytest.param(Reading(25.0, ok=False), Command.IDLE, id="тепло+мовчить→IDLE"),
-])
-def test_decide_covers_every_branch(r, expected):
-    assert decide(r, CFG) == expected
-```
-```ts
-// decide.test.ts
-import { describe, it, expect } from "vitest";
-import { decide, type Reading, type Config, type Command } from "./home";
-
-const CFG: Config = { threshold: 20.0 };
-const R = (celsius: number, ok = true): Reading => ({ celsius, ok });
-
-describe("decide покриває кожну гілку", () => {
-  const cases: Array<[Reading, Command]> = [
-    [R(5.0),         "HEAT"],   // глибокий холод
-    [R(19.0),        "HEAT"],   // нижче порога
-    [R(19.999),      "HEAT"],   // на волосину нижче
-    [R(20.0),        "IDLE"],   // рівно на порозі
-    [R(20.001),      "IDLE"],   // на волосину вище
-    [R(25.0),        "IDLE"],   // тепло
-    [R(5.0,  false), "IDLE"],   // холод, але давач мовчить
-    [R(25.0, false), "IDLE"],   // тепло, і давач мовчить
-  ];
-  it.each(cases)("decide(%o) → %s", (r, expected) => {
-    expect(decide(r, CFG)).toBe(expected);
-  });
-});
-```
+:::code proj-dh-test-suite/py/test_decide.py
+:::code proj-dh-test-suite/ts/decide.test.ts
 :::
 
 Придивіться, скільки тут вкрито однією обоймою. Дві справжні гілки політики — «холодно, грій» і «тепло, не грій» — з парою прикладів на кожну. Стик між ними, де плутанина найдорожча: `19.999` ще гріє, `20.0` уже ні. І поперечний зріз через обидві: коли `ok=false`, температура не важить зовсім — і холод, і тепло дають спокій, бо `decide` спершу питає «а чи вірю я цьому числу?». Вісім рядків описують **усю** політику дому, і жодному з них не потрібне залізо.
@@ -154,115 +58,15 @@ function run(sensor: Sensor, heater: Heater, cfg: Config): void {
 Тепер `tick` можна викликати рівно раз, згодувавши йому не справжнє залізо, а два дублери. **Фейк** давача віддає наперед задані виміри — стільки, скільки їх треба обороту. **Шпигун** розетки нічого не гріє, а тихо записує, що його просили ввімкнути чи вимкнути. Обидва тримають той самий інтерфейс, що й справжні порти, тож `tick` не бачить різниці:
 
 :::tabs
-```py
-# doubles.py
-from home import Reading, Sensor, Heater
-
-class FakeSensor:                       # фейк: віддає задані виміри, один за одним
-    def __init__(self, *readings: Reading):
-        self._q = list(readings)
-    def read(self) -> Reading:
-        return self._q.pop(0)           # порожня черга → IndexError, і це добре (див. пастки)
-
-class SpyHeater:                        # шпигун: нічого не гріє, лише пам'ятає виклики
-    def __init__(self):
-        self.calls: list[str] = []
-    def on(self):  self.calls.append("on")
-    def off(self): self.calls.append("off")
-```
-```ts
-// doubles.ts
-import type { Reading, Sensor, Heater } from "./home";
-
-export class FakeSensor implements Sensor {   // фейк: віддає задані виміри, один за одним
-  private q: Reading[];
-  constructor(...readings: Reading[]) { this.q = readings; }
-  read(): Reading {
-    const r = this.q.shift();
-    if (r === undefined) throw new Error("FakeSensor вичерпано");  // інакше — тихий undefined
-    return r;
-  }
-}
-
-export class SpyHeater implements Heater {    // шпигун: нічого не гріє, лише пам'ятає виклики
-  calls: string[] = [];
-  on()  { this.calls.push("on"); }
-  off() { this.calls.push("off"); }
-}
-```
+:::code proj-dh-test-suite/py/doubles.py
+:::code proj-dh-test-suite/ts/doubles.ts
 :::
 
 Тепер батарея тестів проводки. Кожен вставляє фейк і шпигуна в `tick`, крутить один оберт (або кілька) і питає шпигуна, що той запам'ятав. Точка ввімкнення — рядок, де ми обираємо, кого підставити, — стоїть у тесті, поза перевіреним кодом:
 
 :::tabs
-```py
-# test_wiring.py
-from home import Reading, Config, tick
-from doubles import FakeSensor, SpyHeater
-
-CFG = Config(threshold=20.0)
-
-def test_cold_reading_turns_heater_on():
-    heater = SpyHeater()
-    tick(FakeSensor(Reading(18.0)), heater, CFG)
-    assert heater.calls == ["on"]       # холодний вимір докрутив саме розетку
-
-def test_warm_reading_turns_heater_off():
-    heater = SpyHeater()
-    tick(FakeSensor(Reading(22.0)), heater, CFG)
-    assert heater.calls == ["off"]      # теплий — вимкнув, а не забув
-
-def test_dead_sensor_turns_heater_off():
-    heater = SpyHeater()
-    tick(FakeSensor(Reading(5.0, ok=False)), heater, CFG)
-    assert heater.calls == ["off"]      # холодно, та вірити нема чому → не грій
-
-def test_each_turn_drives_the_heater():
-    heater = SpyHeater()
-    sensor = FakeSensor(Reading(18.0), Reading(22.0), Reading(19.0))
-    for _ in range(3):
-        tick(sensor, heater, CFG)
-    assert heater.calls == ["on", "off", "on"]   # кожен оберт докрутив свою команду
-```
-```ts
-// wiring.test.ts
-import { describe, it, expect } from "vitest";
-import { tick, type Config } from "./home";
-import { FakeSensor, SpyHeater } from "./doubles";
-
-const CFG: Config = { threshold: 20.0 };
-
-describe("tick докручує проводку", () => {
-  it("холодний вимір вмикає розетку", () => {
-    const heater = new SpyHeater();
-    tick(new FakeSensor({ celsius: 18.0, ok: true }), heater, CFG);
-    expect(heater.calls).toEqual(["on"]);
-  });
-
-  it("теплий вимір вимикає розетку", () => {
-    const heater = new SpyHeater();
-    tick(new FakeSensor({ celsius: 22.0, ok: true }), heater, CFG);
-    expect(heater.calls).toEqual(["off"]);
-  });
-
-  it("мертвий давач вимикає розетку", () => {
-    const heater = new SpyHeater();
-    tick(new FakeSensor({ celsius: 5.0, ok: false }), heater, CFG);
-    expect(heater.calls).toEqual(["off"]);   // холодно, та вірити нема чому
-  });
-
-  it("кожен оберт докручує свою команду", () => {
-    const heater = new SpyHeater();
-    const sensor = new FakeSensor(
-      { celsius: 18.0, ok: true },
-      { celsius: 22.0, ok: true },
-      { celsius: 19.0, ok: true },
-    );
-    for (let i = 0; i < 3; i++) tick(sensor, heater, CFG);
-    expect(heater.calls).toEqual(["on", "off", "on"]);
-  });
-});
-```
+:::code proj-dh-test-suite/py/test_wiring.py
+:::code proj-dh-test-suite/ts/wiring.test.ts
 :::
 
 Тут криється тонкість, через яку варто зупинитися. На перший погляд ці тести дублюють таблицю з шару першого: там теж був холодний вимір, теплий, мертвий давач. Але вони питають **інше**. Таблиця перевіряла **політику** — «за 18 °C команда має бути HEAT». Ці тести перевіряють **проводку** — «команда HEAT докручується саме до `heater.on()`, а не до `off`, і не тоне десь між `decide` і розеткою». Це дві різні можливі поломки. Можна мати бездоганну `decide` й переплутати гілки в `tick` — тоді таблиця зелена, а дім у мороз вимикає грілку. Саме цю поломку ловить шар другий, і саме тому він дивиться на `heater.calls`, а не на команду.
@@ -294,31 +98,8 @@ it("розпечена кімната лишається в спокої", () =>
 Корінь у тім, що `Reading(...)` — конструктор без совісті: він збере будь-яку пару чисел, і правдоподібну, і неможливу. Ліки — зробити неможливе **неможливим до збирання**. Запишімо контракт межі один раз, окремою фабрикою, і будуймо всі виміри тільки через неї:
 
 :::tabs
-```py
-# honest.py — контракт межі, витягнутий у фабрику
-from home import Reading
-
-SENSOR_MIN, SENSOR_MAX = -40.0, 85.0        # паспортний діапазон давача
-
-def reading(celsius: float, ok: bool = True) -> Reading:
-    """Той самий контракт, що й драйвер: правдиве число ⇒ у паспортних межах."""
-    if ok and not (SENSOR_MIN <= celsius <= SENSOR_MAX):
-        raise ValueError(f"{celsius} °C поза −40…85: справжній давач такого з ok=True не дасть")
-    return Reading(celsius, ok)
-```
-```ts
-// honest.ts — контракт межі, витягнутий у фабрику
-import type { Reading } from "./home";
-
-const SENSOR_MIN = -40.0, SENSOR_MAX = 85.0;   // паспортний діапазон давача
-
-export function reading(celsius: number, ok = true): Reading {
-  // той самий контракт, що й драйвер: правдиве число ⇒ у паспортних межах
-  if (ok && !(celsius >= SENSOR_MIN && celsius <= SENSOR_MAX))
-    throw new Error(`${celsius} °C поза −40…85: справжній давач такого з ok=true не дасть`);
-  return { celsius, ok };
-}
-```
+:::code proj-dh-test-suite/py/honest.py
+:::code proj-dh-test-suite/ts/honest.ts
 :::
 
 Тепер брехливий тест **не збереться**. Спроба `reading(500.0)` кине помилку в мить побудови даних — у Python під час збору параметрів, у TypeScript під час завантаження модуля, тобто **до** першої перевірки. Неможливий вхід із тихого зеленого перетворюється на гучний червоний, і саме там, де його видно:

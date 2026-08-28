@@ -24,90 +24,8 @@
 Ось декодер одного пристрою за вікно — гілка за **дійсною** (виправленою) схемою, з телескопією лічильника й перенесенням показу через межу дня:
 
 :::tabs
-```py
-from collections import defaultdict
-from dataclasses import dataclass
-from datetime import datetime, timezone
-
-UTC = timezone.utc
-STEP_SEC = 3600      # номінальний крок відліку (тест — погодинний; насправді секунди)
-
-def day_of(ts: int) -> str:
-    return datetime.fromtimestamp(ts, UTC).date().isoformat()   # "2026-06-10"
-
-@dataclass(frozen=True)
-class Raw:
-    home_id: str
-    device_id: str
-    ts: int           # epoch, секунди
-    schema: int       # 1 → value є Вт (потужність); 2 → value є Вт·год (лічильник)
-    value: int        # на дроті: `w` для schema:1, `wh` для schema:2 — тут одне число
-
-@dataclass(frozen=True)
-class Override:
-    device_id: str
-    ts_from: int
-    ts_to: int
-    schema: int       # чим форма БУЛА насправді
-
-def eff_schema(r: Raw, overrides) -> int:
-    for o in overrides:
-        if o.device_id == r.device_id and o.ts_from <= r.ts < o.ts_to:
-            return o.schema        # виправлення живе тут, а не в сирому рядку
-    return r.schema
-
-def device_day_wh(rows, pre_meter, overrides) -> dict:
-    """Один пристрій, усі його відліки за вікно → {день: Вт·год}. Чиста функція."""
-    rows = sorted(rows, key=lambda r: r.ts)
-    out = defaultdict(float)
-    meter = pre_meter                      # показ лічильника ДО вікна (для schema:2)
-    for i, r in enumerate(rows):
-        day = day_of(r.ts)
-        if eff_schema(r, overrides) == 2:                  # лічильник: різниця показів
-            if meter is not None:
-                out[day] += r.value - meter
-            meter = r.value
-        else:                                              # потужність: інтеграл по dt
-            nxt = rows[i + 1].ts if i + 1 < len(rows) else r.ts + STEP_SEC
-            out[day] += r.value * (nxt - r.ts) / 3600.0
-    return dict(out)
-```
-```ts
-const STEP_SEC = 3600;   // номінальний крок відліку
-
-type Raw = {
-  homeId: string;
-  deviceId: string;
-  ts: number;            // epoch, секунди
-  schema: 1 | 2;         // 1 → value є Вт; 2 → value є Вт·год (лічильник)
-  value: number;         // на дроті `w` (schema 1) або `wh` (schema 2) — тут одне число
-};
-type Override = { deviceId: string; from: number; to: number; schema: 1 | 2 };
-
-const dayOf = (ts: number) => new Date(ts * 1000).toISOString().slice(0, 10);
-
-const effSchema = (r: Raw, ov: Override[]): 1 | 2 =>
-  ov.find(o => o.deviceId === r.deviceId && o.from <= r.ts && r.ts < o.to)?.schema
-  ?? r.schema;                                    // виправлення тут, не в сирому рядку
-
-function deviceDayWh(rows: Raw[], preMeter: number | null, ov: Override[]): Map<string, number> {
-  const sorted = [...rows].sort((a, b) => a.ts - b.ts);
-  const out = new Map<string, number>();
-  let meter = preMeter;                           // показ лічильника ДО вікна
-  sorted.forEach((r, i) => {
-    const day = dayOf(r.ts);
-    const add = (x: number) => out.set(day, (out.get(day) ?? 0) + x);
-    if (effSchema(r, ov) === 2) {                 // лічильник: різниця показів
-      if (meter !== null) add(r.value - meter);
-      meter = r.value;
-    } else {                                      // потужність: інтеграл по dt
-      const nxt = i + 1 < sorted.length ? sorted[i + 1].ts : r.ts + STEP_SEC;
-      add(r.value * (nxt - r.ts) / 3600);
-    }
-  });
-  return out;
-}
-```
+:::code proj-dh-pipeline/py/krok-1-versiinyi-dekoder.py
+:::code proj-dh-pipeline/ts/index.ts
 :::
 
 Дві дрібниці в цьому коді несуть непропорційну вагу. Перша — **`pre_meter`**, показ лічильника **до** початку вікна. Форма 2 віддає не спожите, а накопичене: щоб дізнатись, скільки намотано за перший день вікна, треба відняти від першого показу той, що був **напередодні**. Забудеш його — і перший день кожного перерахованого вікна занизиться рівно на спожите до першого відліку. Друга — **`eff_schema` перед тегом**: саме тут, і тільки тут, живе лікування зіпсованого тегу, не чіпаючи сирого.
@@ -132,63 +50,13 @@ function deviceDayWh(rows: Raw[], preMeter: number | null, ov: Override[]): Map<
 
 Ось ця функція. Вона нічого не читає й нічого не пише — лише перетворює вхід на вихід, і разом із числом карбує його родовід:
 
-```py
-@dataclass(frozen=True)
-class DailyRow:
-    home_id: str
-    day: str
-    kwh: float
-    # родовід:
-    source_from: str          # межі вихідного вікна
-    source_to: str
-    pipeline_version: str     # яка версія конвеєра це порахувала
-    schemas_seen: tuple       # СИРІ теги, як були на дроті — доказ для криміналістики
-
-def daily_rows(raw, pre_meter, overrides, window, pipeline_version):
-    """Незмінне вікно сирого → денні рядки з родоводом. Чиста функція."""
-    homes = defaultdict(lambda: defaultdict(list))     # дім → пристрій → рядки
-    seen = defaultdict(set)                             # (дім, день) → сирі теги schema
-    for r in raw:
-        homes[r.home_id][r.device_id].append(r)
-        seen[(r.home_id, day_of(r.ts))].add(r.schema)  # ← сирий тег, не виправлений
-    agg = defaultdict(float)                            # (дім, день) → Вт·год
-    for home, devices in homes.items():
-        for dev, rows in devices.items():
-            for day, wh in device_day_wh(rows, pre_meter.get(dev), overrides).items():
-                agg[(home, day)] += wh
-    frm, to = day_of(window[0]), day_of(window[1])
-    return [
-        DailyRow(home, day, round(wh / 1000, 1),        # Вт·год → кВт·год, 1 знак
-                 frm, to, pipeline_version, tuple(sorted(seen[(home, day)])))
-        for (home, day), wh in sorted(agg.items())
-    ]
-```
+:::code proj-dh-pipeline/py/krok-2-dennyi-ahrehat-iak.py
 
 Зверніть увагу на один навмисний розрив: `schemas_seen` збирає **сирі** теги (`r.schema`), а декод усередині слухає **виправлені** (`eff_schema`). Це не недогляд — це поділ ролей. Родовід має пам'ятати, що́ насправді стояло на дроті, включно з хибним `schema:1`, — бо саме цей слід згодом викриє баг. А число має рахуватись правильно, за виправленою формою. Хай родовід свідчить про брехню тегу, а результат її вже не повторює.
 
 Той самий агрегат мовою сховища виглядає інакше — і саме так він живе на масштабі. Декод залив канонічні виміри в проміжну таблицю `canon`, а SQL згортає їх множинно, не витягуючи в застосунок:
 
-```sql
--- Згортка + родовід + ідемпотентний запис — одним рухом, у сховищі.
-INSERT INTO daily_kwh
-  (home_id, day, kwh, source_from, source_to, pipeline_version, schemas_seen, computed_at)
-SELECT c.home_id,
-       c.day,
-       ROUND(SUM(c.wh) / 1000.0, 1)                          AS kwh,
-       :from, :to, :pipeline_version,
-       ARRAY_AGG(DISTINCT c.raw_schema ORDER BY c.raw_schema) AS schemas_seen,
-       now()
-FROM   canon c
-WHERE  c.day >= :from AND c.day <= :to
-GROUP  BY c.home_id, c.day
-ON CONFLICT (home_id, day) DO UPDATE SET
-       kwh              = EXCLUDED.kwh,          -- ЗАМІНА рядка, не додавання
-       source_from      = EXCLUDED.source_from,
-       source_to        = EXCLUDED.source_to,
-       pipeline_version = EXCLUDED.pipeline_version,
-       schemas_seen     = EXCLUDED.schemas_seen,
-       computed_at      = EXCLUDED.computed_at;
-```
+:::code proj-dh-pipeline/sql/krok-2-dennyi-ahrehat-iak.sql
 
 Дві версії — одне поняття: **вхід → згортка → рядок**. Python зручний там, де гілка за формою; SQL — там, де сума по мільйонах. Що важливіше за вибір мови: обидві лишаються **функцією** від сирого. Ніхто не дописує в `daily_kwh` руками, і будь-який рядок можна викинути й порахувати наново.
 
@@ -211,18 +79,7 @@ def run_etl(store, warehouse, window, pipeline_version, overrides=()):
 
 Три рядки, а в них ховається та сама межа вікна, про яку попереджає [консистентність конвеєра](root:progarch/pipeline-consistency). `raw_between` бере виміри за вікно — це очевидно. А `last_meter_before` бере **по одному** останньому показу лічильника **до** вікна на кожен пристрій — це та `pre_meter`, без якої форма 2 занизить перший день. Обидва — просте SQL, і другий варто побачити окремо, бо «останній до межі на кожну групу» — класична пастка написати неправильно:
 
-```sql
--- Сирі за вікно (EXTRACT):
-SELECT home_id, device_id, ts, schema, value
-FROM   telemetry
-WHERE  ts >= :start_ts AND ts < :end_ts;
-
--- Carry-in: останній показ лічильника СТРОГО до вікна, на кожен пристрій (schema:2):
-SELECT DISTINCT ON (device_id) device_id, value
-FROM   telemetry
-WHERE  ts < :start_ts AND schema = 2
-ORDER  BY device_id, ts DESC;         -- DISTINCT ON бере перший рядок кожної групи
-```
+:::code proj-dh-pipeline/sql/krok-3-inkrementnyi-etl-za.sql
 
 Півмежі `[start, end)` — не косметика: сусідні вікна не перекриваються й не лишають діри, тож рядок дня потрапляє рівно в один прогін. `DISTINCT ON` — синтаксис PostgreSQL для «перший рядок кожної групи за заданим порядком»; на іншому діалекті це віконна функція з `ROW_NUMBER()`, але ідея та сама.
 
@@ -266,60 +123,7 @@ ON CONFLICT (home_id, day) DO UPDATE SET
 
 `EXCLUDED` — це рядок, який ми хотіли вставити; `DO UPDATE SET kwh = EXCLUDED.kwh` каже «на конфлікті ключа поклади нове значення **замість** старого». Один прогін, три прогони, два прогони після падіння посеред роботи — стан той самий, бо кожен просто кладе поверх остаточну відповідь. А ось у поверненні `run_etl` — самі рядки, тож перевірмо машину кодом. Нижче — повний тест, що збирається з блоків вище (`Raw`, `Override`, `device_day_wh`, `daily_rows`, `run_etl`) плюс два крихітні сховища в пам'яті:
 
-```py
-class MemStore:
-    def __init__(self, rows): self.rows = rows
-    def raw_between(self, a, b): return [r for r in self.rows if a <= r.ts < b]
-    def last_meter_before(self, a):
-        out = {}
-        for r in sorted(self.rows, key=lambda r: r.ts):
-            if r.ts < a and r.schema == 2:
-                out[r.device_id] = r.value       # останній до вікна перемагає
-        return out
-
-class MemWarehouse:
-    def __init__(self): self.daily = {}
-    def upsert_daily(self, rows):
-        for r in rows:
-            self.daily[(r.home_id, r.day)] = r   # ЗАМІНА за ключем → ідемпотентно
-
-def midnight(y, m, d): return int(datetime(y, m, d, tzinfo=UTC).timestamp())
-
-def test_schema2_counts_right():
-    t0 = midnight(2026, 6, 10)
-    rows = [Raw("h", "d-bad", t0, 2, 145203), Raw("h", "d-bad", t0 + 3600, 2, 145210)]
-    assert device_day_wh(rows, None, [])["2026-06-10"] == 7        # різниця показів
-
-def test_mistag_overestimates():
-    t0 = midnight(2026, 6, 10)                                     # ті самі числа,
-    rows = [Raw("h", "d-bad", t0, 1, 145203), Raw("h", "d-bad", t0 + 3600, 1, 145210)]
-    wh = device_day_wh(rows, None, [])["2026-06-10"]              # але тег БРЕШЕ
-    assert wh == 145203 + 145210                                  # = 290413 Вт·год
-    assert wh > 1000 * 7                                          # завищення на порядки
-
-def test_override_heals():
-    t0 = midnight(2026, 6, 10)
-    rows = [Raw("h", "d-bad", t0, 1, 145203), Raw("h", "d-bad", t0 + 3600, 1, 145210)]
-    fix = [Override("d-bad", t0, t0 + 86400, 2)]                  # «це насправді лічильник»
-    assert device_day_wh(rows, None, fix)["2026-06-10"] == 7      # вилікувано, сире ціле
-
-def test_reprocess_is_idempotent():
-    t0 = midnight(2026, 6, 10)
-    store = MemStore([
-        Raw("h1", "d-fridge", t0 - 3600, 2, 145000),             # carry-in ДО вікна
-        Raw("h1", "d-fridge", t0 + 6 * 3600, 2, 145300),
-        Raw("h1", "d-fridge", t0 + 12 * 3600, 2, 145700),
-        Raw("h1", "d-fridge", t0 + 18 * 3600, 2, 146200),
-    ])
-    window = (t0, t0 + 86400)
-    a = MemWarehouse(); run_etl(store, a, window, "etl-2026.06")
-    b = MemWarehouse(); run_etl(store, b, window, "etl-2026.06")
-    run_etl(store, b, window, "etl-2026.06")                      # ще раз поверх
-    assert a.daily == b.daily                                    # 1×, 2×, 3× — той самий стан
-    row = a.daily[("h1", "2026-06-10")]
-    assert row.kwh == 1.2                                        # 146200 − 145000 = 1200 Вт·год
-    assert row.schemas_seen == (2,)                              # родовід: лише форма 2
-```
+:::code proj-dh-pipeline/py/krok-5-idempotentnyi.py
 
 Чотири перевірки закривають чотири обіцянки. `test_schema2_counts_right` доводить, що форму 2 рахуємо різницею, не інтегралом (`7`, не `290413`). `test_mistag_overestimates` показує баг живцем: ті самі числа під хибним тегом роздуваються в сорок тисяч разів. `test_override_heals` лікує його накладкою, **не торкаючись сирого**. А `test_reprocess_is_idempotent` пускає `run_etl` на те саме вікно двічі й тричі й вимагає **тотожного** стану — з єдиним законним винятком: стовпець `computed_at` у SQL-версії щоразу свіжий, тому він і належить базі як аудит, а не значенню; у чистому `DailyRow` його нема навмисно, щоб два прогони були рівні до біта. Помножте `d-bad` на тисячі домів і два тижні — і 27 зайвих кіловат-годин, що дали `318` замість `291`, стають не таємницею, а рядком у тесті.
 

@@ -35,159 +35,8 @@
 Ось усе разом — порт, TTL-кеш зі вставним годинником і сам `CachedRegistry` із закликанням та скидом. Той самий приклад двома мовами; обидві однаково рідні для застосункового шару, що диригує портами:
 
 :::tabs
-```ts
-// ── Порт: звужений зріз DeviceRepository з DH v3 (реєстр + живий стан) ──
-interface Device { id: string; name: string; room: string; kind: string; }
-interface HomeRegistry { homeId: string; plan: string; threshold: number; devices: Device[]; }
-interface LiveState { deviceId: string; on: boolean; celsius: number; }
-
-interface DeviceRepository {
-  loadRegistry(homeId: string): Promise<HomeRegistry>;                 // повільний зріз — кешуємо
-  loadState(deviceId: string): Promise<LiveState>;                     // живий зріз — повз кеш
-  renameDevice(homeId: string, deviceId: string, name: string): Promise<void>;
-  pairDevice(homeId: string, d: Device): Promise<void>;
-}
-
-// ── TTL-кеш зі ВСТАВНИМ годинником (щоб тести й стенд кермували часом) ──
-class TtlCache<V> {
-  private store = new Map<string, { value: V; expires: number }>();
-  constructor(private ttlMs: number, private now: () => number = Date.now) {}
-  get(key: string): V | undefined {
-    const e = this.store.get(key);
-    if (!e) return undefined;
-    if (this.now() >= e.expires) { this.store.delete(key); return undefined; }   // протухла → промах
-    return e.value;
-  }
-  set(key: string, value: V): void { this.store.set(key, { value, expires: this.now() + this.ttlMs }); }
-  invalidate(key: string): void { this.store.delete(key); }
-  get size(): number { return this.store.size; }
-}
-
-// ── Кеш реєстру: cache-aside + закликання + скид-на-запис, ПОВЕРХ того самого порту ──
-class CachedRegistry implements DeviceRepository {
-  private cache: TtlCache<HomeRegistry>;
-  private inflight = new Map<string, Promise<HomeRegistry>>();   // рейси в польоті (один на ключ)
-  loads = 0;                                                     // скільки читань дійшло до джерела
-
-  constructor(private inner: DeviceRepository, ttlMs: number, now: () => number = Date.now) {
-    this.cache = new TtlCache(ttlMs, now);
-  }
-
-  loadRegistry(homeId: string): Promise<HomeRegistry> {
-    const hit = this.cache.get(homeId);
-    if (hit) return Promise.resolve(hit);            // влучили — джерело не турбуємо
-    const racing = this.inflight.get(homeId);
-    if (racing) return racing;                        // хтось уже везе те саме — чекаємо на нього
-    const flight = this.fill(homeId);                 // ПЕРШИЙ промах — єдиний похід у джерело
-    this.inflight.set(homeId, flight);                // синхронно, без await між get і set → гонки нема
-    return flight;
-  }
-
-  private async fill(homeId: string): Promise<HomeRegistry> {
-    this.loads++;
-    try {
-      const fresh = await this.inner.loadRegistry(homeId);   // промах → джерело (переживаємо порожнечу)
-      this.cache.set(homeId, fresh);
-      return fresh;
-    } finally {
-      this.inflight.delete(homeId);                          // рейс завершено — прибрати слот
-    }
-  }
-
-  loadState(deviceId: string): Promise<LiveState> {          // повз кеш: on/off і °C мусять бути свіжі
-    return this.inner.loadState(deviceId);
-  }
-
-  async renameDevice(homeId: string, deviceId: string, name: string): Promise<void> {
-    await this.inner.renameDevice(homeId, deviceId, name);   // спершу джерело правди — база…
-    this.cache.invalidate(homeId);                           // …тоді скид: наступне читання перечитає свіже
-  }
-  async pairDevice(homeId: string, d: Device): Promise<void> {
-    await this.inner.pairDevice(homeId, d);                  // спарювання додало пристрій…
-    this.cache.invalidate(homeId);                           // …тож стара копія реєстру протухла
-  }
-}
-```
-```py
-import asyncio, time
-from dataclasses import dataclass
-from typing import Protocol, Callable
-
-# ── Порт: звужений зріз DeviceRepository з DH v3 (реєстр + живий стан) ──
-@dataclass(frozen=True)
-class Device:
-    id: str; name: str; room: str; kind: str
-
-@dataclass(frozen=True)
-class HomeRegistry:
-    home_id: str; plan: str; threshold: float; devices: list[Device]
-
-@dataclass(frozen=True)
-class LiveState:
-    device_id: str; on: bool; celsius: float
-
-class DeviceRepository(Protocol):
-    async def load_registry(self, home_id: str) -> HomeRegistry: ...   # повільний зріз — кешуємо
-    async def load_state(self, device_id: str) -> LiveState: ...       # живий зріз — повз кеш
-    async def rename_device(self, home_id: str, device_id: str, name: str) -> None: ...
-    async def pair_device(self, home_id: str, d: Device) -> None: ...
-
-# ── TTL-кеш зі ВСТАВНИМ годинником (щоб тести й стенд кермували часом) ──
-class TtlCache:
-    def __init__(self, ttl_s: float, now: Callable[[], float] = time.monotonic):
-        self._ttl, self._now, self._store = ttl_s, now, {}
-    def get(self, key: str):
-        e = self._store.get(key)
-        if e is None:
-            return None
-        if self._now() >= e[1]:                 # протухла → прибрати й повідомити про промах
-            self._store.pop(key, None); return None
-        return e[0]
-    def set(self, key: str, value) -> None:
-        self._store[key] = (value, self._now() + self._ttl)
-    def invalidate(self, key: str) -> None:
-        self._store.pop(key, None)
-    def __len__(self) -> int:
-        return len(self._store)
-
-# ── Кеш реєстру: cache-aside + закликання + скид-на-запис, ПОВЕРХ того самого порту ──
-class CachedRegistry:
-    def __init__(self, inner: DeviceRepository, ttl_s: float, now=time.monotonic):
-        self._inner = inner
-        self._cache = TtlCache(ttl_s, now)
-        self._inflight: dict[str, asyncio.Task] = {}   # рейси в польоті (один на ключ)
-        self.loads = 0                                  # скільки читань дійшло до джерела
-
-    async def load_registry(self, home_id: str) -> HomeRegistry:
-        hit = self._cache.get(home_id)
-        if hit is not None:
-            return hit                            # влучили — джерело не турбуємо
-        task = self._inflight.get(home_id)
-        if task is None:                          # ПЕРШИЙ промах заводить рейс…
-            task = asyncio.create_task(self._fill(home_id))
-            self._inflight[home_id] = task        # синхронно, до першого await → гонки нема
-        return await task                         # …решта чекають на той самий рейс
-
-    async def _fill(self, home_id: str) -> HomeRegistry:
-        try:
-            self.loads += 1
-            fresh = await self._inner.load_registry(home_id)   # промах → джерело (переживаємо порожнечу)
-            self._cache.set(home_id, fresh)
-            return fresh
-        finally:
-            self._inflight.pop(home_id, None)                  # рейс завершено — прибрати слот
-
-    async def load_state(self, device_id: str) -> LiveState:   # повз кеш: on/off і °C мусять бути свіжі
-        return await self._inner.load_state(device_id)
-
-    async def rename_device(self, home_id, device_id, name) -> None:
-        await self._inner.rename_device(home_id, device_id, name)  # спершу джерело правди — база…
-        self._cache.invalidate(home_id)                           # …тоді скид: наступне читання свіже
-
-    async def pair_device(self, home_id, d: Device) -> None:
-        await self._inner.pair_device(home_id, d)                 # спарювання додало пристрій…
-        self._cache.invalidate(home_id)                           # …стара копія реєстру протухла
-```
+:::code proj-dh-first-cache/ts/index.ts
+:::code proj-dh-first-cache/py/robochyi-kod-kesh-reiestru.py
 :::
 
 Порівняй дві мутації з двома читаннями — у цьому контрасті вся дисципліна зрізів. `loadRegistry` проходить крізь кеш і закликання; `loadState` **навіть не заглядає** в кеш — просто делегує порту, бо живий стан не має права бути ні на секунду старим. А обидва записи однакові за формою: **спершу джерело, тоді скид**. Порядок тут не косметичний, і чому саме такий — розберемо в пастках.
@@ -200,31 +49,7 @@ class CachedRegistry:
 
 Спершу заступник бази — словник у пам'яті, що навмисне **рахує**, скільки читань реєстру до нього справді дійшло (це число й ловитиме кожен тест), і дрібно спить на читанні, щоб під конкурентністю проступило закликання:
 
-```py
-class FakeRepo:                              # заступник бази: реєстр у пам'яті + лічильник читань
-    def __init__(self):
-        self._reg, self._state, self.reads = {}, {}, 0
-    def seed(self, reg: HomeRegistry):
-        self._reg[reg.home_id] = reg
-    async def load_registry(self, home_id):
-        self.reads += 1                       # ← скільки читань дійшло до «бази»
-        await asyncio.sleep(0)                # вдаємо мережеву затримку, щоб закликання мало що стискати
-        return self._reg[home_id]
-    async def load_state(self, device_id):
-        return self._state.get(device_id, LiveState(device_id, False, 0.0))
-    async def rename_device(self, home_id, device_id, name):
-        r = self._reg[home_id]
-        self._reg[home_id] = HomeRegistry(home_id, r.plan, r.threshold,
-            [Device(d.id, name if d.id == device_id else d.name, d.room, d.kind) for d in r.devices])
-    async def pair_device(self, home_id, d):
-        r = self._reg[home_id]
-        self._reg[home_id] = HomeRegistry(home_id, r.plan, r.threshold, [*r.devices, d])
-
-def sample():
-    return HomeRegistry("home-42", "free", 20.0,
-                        [Device("lock-1", "двері", "передпокій", "lock"),
-                         Device("therm-7", "термостат", "вітальня", "thermostat")])
-```
+:::code proj-dh-first-cache/py/try-testy-i-proba-na-otaru.py
 
 **Тест перший — порожній кеш читає з бази.** Найголовніша обіцянка: система, що прокинулась із порожньою мапою, не падає, а йде в джерело. Перевіряємо і правильність відповіді, і те, що влучання далі базу вже не турбує:
 
@@ -265,20 +90,7 @@ async def test_single_flight_collapses():
 
 **Тест третій — два процеси за балансувальником розходяться.** А ось де названу межу видно на дотик. Два `CachedRegistry` над **однією** базою — це два процеси DH за балансувальником. Обидва прогріли копію; запис прилетів лише в A; A скинув **свою** копію, а до B той скид не долетів:
 
-```py
-async def test_two_processes_diverge():
-    repo = FakeRepo(); repo.seed(sample())          # СПІЛЬНА база
-    a = CachedRegistry(repo, ttl_s=300)             # процес A
-    b = CachedRegistry(repo, ttl_s=300)             # процес B
-    await a.load_registry("home-42")                # обидва прогріли власну копію
-    await b.load_registry("home-42")
-    await a.rename_device("home-42", "lock-1", "вхідні двері")   # запис прийшов у процес A
-    seen_a = (await a.load_registry("home-42")).devices[0].name
-    seen_b = (await b.load_registry("home-42")).devices[0].name
-    assert seen_a == "вхідні двері"                 # A скинув свою копію — бачить свіже
-    assert seen_b == "двері"                        # B про запис не знає — віддає стару назву
-    assert seen_a != seen_b                         # копії РОЗІЙШЛИСЯ
-```
+:::code proj-dh-first-cache/py/try-testy-i-proba-na-otaru-2.py
 
 Цей останній тест — не помилка, яку треба виправити, а **доказ**: він ловить у код те приховане припущення про один процес, з якого росте наступний сюжет курсу. Запусти всі чотири — і кожен зелений; надрукований прогін підтверджує рядком:
 
@@ -295,35 +107,7 @@ async def test_two_processes_diverge():
 
 Лог — рівно той профіль, що описала рамка: тридцять тисяч гарячих домів, кожен полить свій `home_id` кожні п'ять секунд; старти розмазані по вікну, щоб вийшов рівний струмінь, а не синхронний сплеск. Вікно — десять хвилин:
 
-```py
-def synth_log(n_homes=30_000, poll_s=5, window_s=600):
-    """Гарячий профіль DH: n_homes домів, кожен полить свій ключ кожні poll_s с.
-    Старти розмазані по вікну → рівні ~6000 читань/с, як на живому піку."""
-    events = []
-    for home in range(n_homes):
-        t = (home / n_homes) * poll_s          # зсув першого полінгу в межах [0, poll_s)
-        while t < window_s:
-            events.append((t, f"home-{home}"))
-            t += poll_s
-    events.sort()                              # лог іде в часовому порядку
-    return events
-
-def bench(events, ttl_s, window_s=600):
-    """Прогнати лог крізь РЕАЛЬНИЙ TtlCache з фальшивим годинником.
-    Повертає (влучність, QPS на джерело, загальний QPS)."""
-    clock = [0.0]
-    cache = TtlCache(ttl_s, now=lambda: clock[0])   # той самий кеш, лише час — наш
-    hits = misses = 0
-    for t, home in events:
-        clock[0] = t                                 # крутимо годинник за міткою події
-        if cache.get(home) is not None:
-            hits += 1                                # копія свіжа — джерело не турбуємо
-        else:
-            misses += 1                              # промах → джерело, кладемо копію
-            cache.set(home, home)
-    n = hits + misses
-    return hits / n, misses / window_s, n / window_s
-```
+:::code proj-dh-first-cache/py/stend-syntetychnyi-loh-i.py
 
 Одна тонкість, у якій легко схибити: годинник рухається **мітками подій**, а не справжнім часом, тож десять хвилин трафіку прокручуються за секунди. І прогін навмисне однонитковий — послідовний, тож закликання тут **не спрацьовує** (йому нема кого стискати без конкурентності). Це саме те, що треба для влучності: ми міряємо чисту арифметику TTL cache-aside, а закликання — то запобіжник на пік, не на середнє. Женемо два строки — короткий і щедрий:
 

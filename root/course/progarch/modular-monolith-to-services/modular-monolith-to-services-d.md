@@ -123,19 +123,7 @@ WHERE device_id IN (101, 105, 120) AND timestamp > 1700000000;
 
 Таблиці модуля телеметрії переносяться у `schema_telemetry`. Для коду моноліта створюється окремий користувач БД (`monolith_user`), якому **забороняється доступ** (`REVOKE ALL`) до таблиць `schema_telemetry`. Аналогічно, користувач `telemetry_user` отримує доступ лише до своєї схеми.
 
-```sql
--- Ізоляція прав на рівні користувачів PostgreSQL
-CREATE SCHEMA schema_telemetry;
-ALTER TABLE telemetry_readings SET SCHEMA schema_telemetry;
-
--- Створення ізольованого користувача для нового мікросервісу
-CREATE USER telemetry_service_user WITH PASSWORD 'secure_pass';
-GRANT ALL PRIVILEGES ON SCHEMA schema_telemetry TO telemetry_service_user;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA schema_telemetry TO telemetry_service_user;
-
--- Відкликання прав у користувача моноліта на таблиці телеметрії
-REVOKE ALL ON SCHEMA schema_telemetry FROM monolith_user;
-```
+:::code modular-monolith-to-services-d/sql/main.sql
 
 Цей крок миттєво виявляє всі замасковані SQL-запити, які намагалися прочитати «чужі» таблиці вхідними шляхами, й примушує розробників виконувати будь-яку взаємодію лише через виділений фасад.
 

@@ -12,100 +12,15 @@
 
 Почнімо з хаба. Замок №7 має стан (відчинено чи ні), а `fires` рахує, скільки разів реле реально смикнулось — не «скільки команд надіслав клієнт», а скільки разів двері фізично клацнули:
 
-```go
-// Hub — «хаб у передпокої». Виконує команди й лічить КОЖНЕ спрацювання реле.
-// fires — не про наміри клієнта, а про фізику: скільки разів двері клацнули.
-type Hub struct {
-	mu    sync.Mutex
-	open  bool // стан замка №7
-	fires int  // ← слід кожного смикання реле; це наш детектор правди
-}
-
-func (h *Hub) unlock() {
-	h.mu.Lock()
-	defer h.mu.Unlock()
-	h.open = true
-	h.fires++
-}
-
-func (h *Hub) state() string { // «замок №7 зараз який?»
-	h.mu.Lock()
-	defer h.mu.Unlock()
-	if h.open {
-		return "відчинено"
-	}
-	return "замкнено"
-}
-
-func (h *Hub) firesCount() int {
-	h.mu.Lock()
-	defer h.mu.Unlock()
-	return h.fires
-}
-```
+:::code proj-indeterminacy/go/stend-khab-iz-lichylnykom.go
 
 Тепер канал. Він не знає, *що* за робота, — знає лише, як її (не) донести. Три збої — це рівно три світи з попереднього кроку: пакет зник туди, робота сталася а підтвердження зникло назад, робота повзе й дійде вже після того, як клієнт здався:
 
-```go
-type Fault int
-
-const (
-	None    Fault = iota
-	DropReq       // (1) запит зник дорогою ТУДИ — хаб команди не бачив
-	DropAck       // (2) хаб виконав, підтвердження зникло НАЗАД
-	SlowReq       // (3) запит повзе — дійде, та вже після терпіння клієнта
-)
-
-// Link — ненадійний канал. faults[i] — який збій станеться на i-ту спробу
-// (далі канал чистий). work() виконує ефект на боці хаба й повертає підтвердження.
-type Link struct {
-	faults  []Fault
-	slow    time.Duration
-	attempt int
-}
-
-func (l *Link) send(work func() string) <-chan string {
-	fault := None
-	if l.attempt < len(l.faults) {
-		fault = l.faults[l.attempt]
-	}
-	l.attempt++
-
-	reply := make(chan string, 1) // буфер 1: горутина не зависне, коли клієнт уже пішов
-	go func() {
-		switch fault {
-		case DropReq:
-			return // хаб work() не викликав — ні ефекту, ні відповіді
-		case DropAck:
-			work() // ефект СТАВСЯ…
-			return // …а підтвердження зникло: клієнту тиша
-		case SlowReq:
-			time.Sleep(l.slow) // повзе довше за терпіння клієнта
-			work()             // зрештою виконає — але клієнт уже не слухає
-			reply <- "пізно"   // відповідь прийде в порожнечу
-		default:
-			reply <- work() // ідеальний прохід: виконали й підтвердили
-		}
-	}()
-	return reply
-}
-```
+:::code proj-indeterminacy/go/stend-khab-iz-lichylnykom-2.go
 
 І клієнт. Уся його драма — в одному `select`: гонка між підтвердженням і власним терпінням. Хто перший, той і визначає результат:
 
-```go
-// clientUnlock шле «відчини замок №7» і чекає НЕ довше patience.
-// На таймауті повертає помилку — не знаючи, ЩО там сталося.
-func clientUnlock(l *Link, h *Hub, patience time.Duration) error {
-	reply := l.send(func() string { h.unlock(); return "ok" })
-	select {
-	case <-reply:
-		return nil // почули «ok» — успіх
-	case <-time.After(patience):
-		return errors.New("таймаут") // тиша. Котрий зі світів — невідомо.
-	}
-}
-```
+:::code proj-indeterminacy/go/stend-khab-iz-lichylnykom-3.go
 
 Ось де ховається все жало. `DropReq` і `DropAck` різняться однією-єдиною лінією — чи викликано `work()`. Але для клієнта обидва однакові: у жодному з них у `reply` нічого не приходить, тож `select` щоразу випадає в гілку `time.After` і повертає **ту саму** помилку. Клієнт фізично не має слова, щоб розрізнити «не сталося» і «сталося, та я не почув».
 
@@ -115,35 +30,7 @@ func clientUnlock(l *Link, h *Hub, patience time.Duration) error {
 
 Проженімо всі три збої з терпінням у сто мілісекунд, а «повільному» дамо триста — тобто втричі більше, ніж клієнт готовий чекати. Після кожного випадку трохи почекаємо, щоб `SlowReq` встиг доповзти, і аж тоді спитаємо лічильник:
 
-```go
-func runWorlds() {
-	patience := 100 * time.Millisecond
-	cases := []struct {
-		name  string
-		fault Fault
-	}{
-		{"(1) запит зник туди", DropReq},
-		{"(2) підтвердження зникло", DropAck},
-		{"(3) запит повзе", SlowReq},
-	}
-	for _, c := range cases {
-		hub := &Hub{}
-		link := &Link{faults: []Fault{c.fault}, slow: 300 * time.Millisecond}
-
-		err := clientUnlock(link, hub, patience)
-		time.Sleep(350 * time.Millisecond) // дати «повільному» доповзти — щоб побачити правду
-
-		fmt.Printf("%-24s клієнт: %-8s реле: %d\n", c.name, label(err), hub.firesCount())
-	}
-}
-
-func label(err error) string {
-	if err == nil {
-		return "успіх"
-	}
-	return err.Error()
-}
-```
+:::code proj-indeterminacy/go/prohin-pershyi-try-svity.go
 
 Друкує таке:
 
@@ -163,48 +50,8 @@ func label(err error) string {
 Тепер зробімо те, до чого рука тягнеться сама: раз таймаут — повторімо. Здається безпечним: підтвердження не прийшло, отже, спробуймо ще. Пастка в тому, що канал у житті глючить **минуще** — перший раз підтвердження зникло, а на повторі вже пройшло. Змоделюймо саме це: `faults: []Fault{DropAck}` — збій один раз, далі канал чистий. Ось наївний повтор — і в Go, і мовою стеку поряд, бо урок тут той самий:
 
 :::tabs
-```go
-// Наївний повтор: таймаут → ще раз. Небезпечно — таймаут ≠ «не виконалось».
-func naiveRetry(l *Link, h *Hub, patience time.Duration, tries int) error {
-	for i := 0; i < tries; i++ {
-		if err := clientUnlock(l, h, patience); err == nil {
-			return nil // почули «ok» — виходимо
-		}
-		// таймаут. Замок не чіпали — чи вже відчинили, а підтвердження зникло? Невідомо.
-		// Якщо відчинили — цей повтор смикне реле ВДРУГЕ.
-	}
-	return errors.New("вичерпано спроби")
-}
-
-func runNaive() {
-	hub := &Hub{}
-	link := &Link{faults: []Fault{DropAck}} // збій раз, тоді канал чистий
-	err := naiveRetry(link, hub, 100*time.Millisecond, 3)
-	fmt.Printf("наївний повтор: клієнт: %s | реле смикнулось: %d\n", label(err), hub.firesCount())
-	// → наївний повтор: клієнт: успіх | реле смикнулось: 2
-}
-```
-```ts
-// Стенд (Hub, Link, clientUnlock) — прямий переклад Go (в однопотоковому рантаймі — без мьютекса).
-// Наївний повтор: таймаут → ще раз. Небезпечно — таймаут ≠ «не виконалось».
-async function naiveRetry(link: Link, hub: Hub, patienceMs: number, tries: number) {
-  for (let i = 0; i < tries; i++) {
-    try {
-      await clientUnlock(link, hub, patienceMs); // чекаємо ack або таймаут
-      return;                                    // почули «ok» — виходимо
-    } catch {
-      // таймаут. Не чіпали — чи вже відчинили, а ack зник? Невідомо.
-      // Якщо відчинили — цей повтор смикне реле ВДРУГЕ.
-    }
-  }
-  throw new Error("вичерпано спроби");
-}
-
-const hub = new Hub();
-const link = new Link(["dropAck"]);              // збій раз, тоді канал чистий
-await naiveRetry(link, hub, 100, 3);
-console.log(`клієнт: успіх | реле смикнулось: ${hub.fires}`); // → 2
-```
+:::code proj-indeterminacy/go/lichylnyk-lovyt-te-choho.go
+:::code proj-indeterminacy/ts/index.ts
 :::
 
 **Умова: підтвердження зникає на першій спробі, канал відпускає на другій; терпіння 100 мс.**
@@ -220,60 +67,11 @@ console.log(`клієнт: успіх | реле смикнулось: ${hub.fir
 
 Розрізнити три світи зсередини не можна — це ми довели лічильником. Тож ціль зміщується: не «вгадати, що сталося», а зробити так, щоб **повтор не двоїв ефект, навіть якщо перша спроба таки дійшла**. Найпряміший спосіб — приколоти до команди **ключ ідемпотентності**: унікальне посвідчення, згенероване **раз** на логічну команду й незмінне на всіх повторах. Хаб запам'ятовує кожен виконаний ключ і на дубль віддає збережену відповідь, **не чіпаючи реле вдруге**:
 
-```go
-// KeyedHub — той самий хаб, але команда несе КЛЮЧ. Уже бачений ключ повертає
-// збережений результат, не виконуючи ефекту повторно.
-type KeyedHub struct {
-	mu    sync.Mutex
-	open  bool
-	fires int
-	seen  map[string]string // ключ команди → збережений результат
-}
-
-func NewKeyedHub() *KeyedHub { return &KeyedHub{seen: map[string]string{}} }
-
-func (h *KeyedHub) unlock(key string) string {
-	h.mu.Lock()
-	defer h.mu.Unlock()
-	if res, dup := h.seen[key]; dup {
-		return res // ДУБЛЬ: віддаємо збережене, реле не чіпаємо
-	}
-	h.open = true
-	h.fires++                     // виконуємо РІВНО раз на ключ
-	h.seen[key] = "ok: відчинено" // перевірка → ефект → запис ключа: усе під ОДНИМ замком
-	return h.seen[key]
-}
-
-func (h *KeyedHub) firesCount() int { h.mu.Lock(); defer h.mu.Unlock(); return h.fires }
-```
+:::code proj-indeterminacy/go/chesna-vidpovid-kliuch-na.go
 
 Клієнт генерує ключ **один раз, ще до першої спроби**, і носить його незмінним крізь усі повтори:
 
-```go
-// safeRetry: ОДИН ключ на всю логічну команду (у житті — UUID v4), той самий
-// на кожній спробі. Дубль по дорозі хаб відсіє сам.
-func safeRetry(l *Link, h *KeyedHub, patience time.Duration, tries int) error {
-	key := "unlock-7:9f2c1a" // згенеровано РАЗ; той самий на всіх спробах
-	for i := 0; i < tries; i++ {
-		reply := l.send(func() string { return h.unlock(key) })
-		select {
-		case <-reply:
-			return nil
-		case <-time.After(patience):
-			// таймаут → повтор із ТИМ САМИМ ключем
-		}
-	}
-	return errors.New("вичерпано спроби")
-}
-
-func runSafe() {
-	hub := NewKeyedHub()
-	link := &Link{faults: []Fault{DropAck}} // той самий збій, що й у наївному прогоні
-	err := safeRetry(link, hub, 100*time.Millisecond, 3)
-	fmt.Printf("повтор із ключем: клієнт: %s | реле смикнулось: %d\n", label(err), hub.firesCount())
-	// → повтор із ключем: клієнт: успіх | реле смикнулось: 1
-}
-```
+:::code proj-indeterminacy/go/chesna-vidpovid-kliuch-na-2.go
 
 **Умова та сама, що й у наївному прогоні — тільки команда тепер несе ключ.** Спроба перша (`DropAck`): `unlock(key)` не бачить ключа в `seen`, тож смикає реле (`fires` = **1**), кладе `seen[key]` — і підтвердження зникає, клієнт ловить таймаут. Спроба друга йде чистим каналом із **тим самим** ключем: `unlock(key)` знаходить ключ у `seen`, повертає збережене «ok» і реле **не чіпає** — `fires` лишається **1**. Клієнт бачить успіх, реле смикнулось рівно раз. Задвоєння зникло, і зникло не тому, що ми вгадали правильний світ, а тому, що зробили світи **нерозрізненними для результату**: хоч дійшла перша спроба, хоч ні — підсумок один.
 
@@ -283,25 +81,7 @@ func runSafe() {
 
 Ключ рятує повтор, але буває, що його ніде поставити — команду шле стороння система, яка про ключі не чула, або ти просто хочеш **пересвідчитися**, а не покладатися на пам'ять хаба. Тоді працює друга чесна відповідь: не гадати, а піти й **прочитати справжній стан** — «замок №7 зараз який?» — і діяти вже з правди. Читання — операція без побічного ефекту, тож саме читання повторювати завжди безпечно:
 
-```go
-// reconcile: на таймауті не повторюємо наосліп, а питаємо ПРАВДУ й діємо з неї.
-func reconcile(l *Link, h *Hub, patience time.Duration) error {
-	if err := clientUnlock(l, h, patience); err == nil {
-		return nil // почули «ok» — усе гаразд
-	}
-	// таймаут: не гадаємо, котрий зі світів справдився. Читаємо стан замка.
-	reply := l.send(h.state) // h.state має тип func() string — рівно те, що чекає канал
-	select {
-	case st := <-reply:
-		if st == "відчинено" {
-			return nil // замок таки відчинений → команда спрацювала, повтор НЕ потрібен
-		}
-		return clientUnlock(l, h, patience) // напевно замкнено → повторити тепер безпечно
-	case <-time.After(patience):
-		return errors.New("стан невідомий: і команда, і звірка не дійшли")
-	}
-}
-```
+:::code proj-indeterminacy/go/i-koly-kliucha-malo-zvirka.go
 
 На тому самому збої `DropAck` це відпрацьовує чисто: перша команда відчинила замок (`fires` = 1), підтвердження зникло, клієнт дістав таймаут — і замість сліпого повтору читає стан, бачить «відчинено» й **зупиняється**, не смикнувши реле вдруге. Правда з першого джерела замінила здогад.
 

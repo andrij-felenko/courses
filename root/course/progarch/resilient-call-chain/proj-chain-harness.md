@@ -17,92 +17,8 @@
 Ось кістяк моделі: годинник, детермінований генератор, лічильник викликів на C і сама квола залежність.
 
 :::tabs
-```ts
-// ── Стенд: усе детерміноване, час — це число, а не реальний сон ──
-// Віртуальний МОНОТОННИЙ годинник. now і deadline — модельні мілісекунди.
-type Ctx = { now: number; deadline: number };
-
-// Детермінований генератор — щоб «27» і p99 повторювались від прогону до прогону.
-let seed = 1;
-const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
-
-let cCalls = 0;          // ЄДИНА метрика навантаження на дно ланцюга
-let sick = false;        // драйвер вмикає «інцидент» на частину запитів
-
-// Результат несе сигнал «чи варто мене повторювати» — він потече ВГОРУ по ланцюгу.
-type Ok  = { ok: true;  value: string; latency: number };
-type Err = { ok: false; kind: string; retryable: boolean; latency: number };
-type Res = Ok | Err;
-type Call = (ctx: Ctx) => Promise<Res>;
-
-// ── C — квола й подеколи повільна залежність ──
-// Здоровий: 5% помилок, зрідка залипає. Хворий: 90% помилок, залипає часто.
-const rawCallC: Call = async (_ctx) => {
-  cCalls++;
-  const pFail = sick ? 0.90 : 0.05;
-  const pSlow = sick ? 0.70 : 0.01;
-  const latency = rnd() < pSlow ? 600 : 20;      // модель, НЕ реальний сон
-  if (rnd() < pFail) return { ok: false, kind: "overloaded", retryable: true, latency };
-  return { ok: true, value: "camera-frame", latency };
-};
-```
-```go
-// ── Стенд: усе детерміноване, час — це число, а не реальний сон ──
-// Віртуальний МОНОТОННИЙ годинник. Now, Deadline — модельні мілісекунди.
-type Clock struct{ Now, Deadline int }
-
-// Спроба повертає значення + скільки коштувала (для таймаута й p99).
-type Result struct {
-	Value   string
-	Latency int
-}
-
-// Помилка несе сигнал «чи варто повторювати» — він тече ВГОРУ по ланцюгу.
-type Failure struct {
-	Kind      string
-	Retryable bool
-}
-
-func (f *Failure) Error() string { return f.Kind }
-
-func retryable(err error) bool {
-	var f *Failure
-	if errors.As(err, &f) {
-		return f.Retryable
-	}
-	return err != nil // невідому помилку вважаємо минущою
-}
-
-type Call func(cl *Clock) (Result, error)
-
-// Детермінований генератор — щоб «27» і p99 повторювались.
-var seed int64 = 1
-
-func rnd() float64 {
-	seed = (seed*1103515245 + 12345) & 0x7fffffff
-	return float64(seed) / float64(0x7fffffff)
-}
-
-var cCalls int  // ЄДИНА метрика навантаження на дно ланцюга
-var sick bool   // драйвер вмикає «інцидент» на частину запитів
-
-// ── C — квола й подеколи повільна залежність ──
-func rawCallC(_ *Clock) (Result, error) {
-	cCalls++
-	pFail, pSlow := 0.05, 0.01
-	if sick {
-		pFail, pSlow = 0.90, 0.70
-	}
-	latency := 20
-	if rnd() < pSlow {
-		latency = 600
-	}
-	if rnd() < pFail {
-		return Result{Latency: latency}, &Failure{Kind: "overloaded", Retryable: true}
-	}
-	return Result{Value: "camera-frame", Latency: latency}, nil
-}
-```
+:::code proj-chain-harness/ts/ideia-chas-tse-chyslo.ts
+:::code proj-chain-harness/go/ideia-chas-tse-chyslo.go
 :::
 
 Зверніть увагу на дрібницю, що визначає все далі: `rawCallC` **не** посуває годинник сам — він лише повідомляє свою латентність. Посуне годинник той, хто зверху вирішить, чи ми дочекались: таймаут. Так само помилка носить свою латентність — бо збій теж коштує часу (ми ж чекали, перш ніж зрозуміти, що не вийшло).
@@ -112,82 +28,15 @@ func rawCallC(_ *Clock) (Result, error) {
 Наївна дисципліна проста: кожен, кого вчили повторювати невдалий виклик, повторює його — **на своєму рівні**, ні з ким не змовляючись. A повторює виклик до B тричі; всередині кожної спроби B повторює виклик до C тричі; всередині кожної з тих — C-клієнт повторює свою спробу тричі. Три незалежні цикли по три, вкладені один в одного.
 
 :::tabs
-```ts
-// Наївний повтор: до n спроб, поки помилка «варта повтору». Без бюджету, без змови.
-async function retryNaive(fn: () => Promise<Res>, n: number): Promise<Res> {
-  let r = await fn();
-  for (let i = 1; i < n && !r.ok && r.retryable; i++) r = await fn();
-  return r;
-}
-
-// Одна спроба до C, обгорнута лише таймаутом (стеля 300 мс).
-const attemptC: Call = (ctx) => withTimeout(rawCallC, 300)(ctx);
-
-// A повторює B (×3), B повторює C (×3), C-клієнт повторює спробу (×3).
-const naiveChain: Call = (ctx) =>
-  retryNaive(() =>                         // A→B  ×3
-    retryNaive(() =>                       //   B→C  ×3
-      retryNaive(() => attemptC(ctx),      //     C-клієнт  ×3
-      3), 3), 3);
-```
-```go
-// Наївний повтор: до n спроб, поки помилка «варта повтору». Без бюджету, без змови.
-func retryNaive(fn func() (Result, error), n int) (Result, error) {
-	res, err := fn()
-	for i := 1; i < n && err != nil && retryable(err); i++ {
-		res, err = fn()
-	}
-	return res, err
-}
-
-// A повторює B (×3), B повторює C (×3), C-клієнт повторює спробу (×3).
-func naiveChain(cl *Clock) (Result, error) {
-	attemptC := WithTimeout(rawCallC, 300) // одна спроба до C зі стелею 300 мс
-	return retryNaive(func() (Result, error) { //     A→B  ×3
-		return retryNaive(func() (Result, error) { //   B→C  ×3
-			return retryNaive(func() (Result, error) { // C-клієнт  ×3
-				return attemptC(cl)
-			}, 3)
-		}, 3)
-	}, 3)
-}
-```
+:::code proj-chain-harness/ts/naivnyi-lantsiuh-zvidky.ts
+:::code proj-chain-harness/go/naivnyi-lantsiuh-zvidky.go
 :::
 
 Тепер порахуймо буквально. Візьмімо найгірший, але цілком звичайний випадок: C зовсім не тягне й на кожну спробу відповідає минущою помилкою. Тоді жоден цикл не спиниться достроково, і кожен доходить до трьох. Проженемо це через лічильник:
 
 :::tabs
-```ts
-async function runStorm() {
-  cCalls = 0;
-  // C, що завжди відповідає минущою помилкою — кожна спроба «варта повтору».
-  const alwaysFail: Call = async () => {
-    cCalls++;
-    return { ok: false, kind: "overloaded", retryable: true, latency: 300 };
-  };
-  const chain: Call = (ctx) =>
-    retryNaive(() => retryNaive(() => retryNaive(() => alwaysFail(ctx), 3), 3), 3);
-  await chain({ now: 0, deadline: 1e9 });
-  console.log(`шторм: C дістав ${cCalls} викликів`);   // → 27
-}
-```
-```go
-func runStorm() {
-	cCalls = 0
-	// C, що завжди відповідає минущою помилкою — кожна спроба «варта повтору».
-	alwaysFail := func(cl *Clock) (Result, error) {
-		cCalls++
-		return Result{Latency: 300}, &Failure{Kind: "overloaded", Retryable: true}
-	}
-	cl := &Clock{Now: 0, Deadline: 1 << 30}
-	retryNaive(func() (Result, error) {
-		return retryNaive(func() (Result, error) {
-			return retryNaive(func() (Result, error) { return alwaysFail(cl) }, 3)
-		}, 3)
-	}, 3)
-	fmt.Printf("шторм: C дістав %d викликів\n", cCalls) // → 27
-}
-```
+:::code proj-chain-harness/ts/naivnyi-lantsiuh-zvidky-2.ts
+:::code proj-chain-harness/go/naivnyi-lantsiuh-zvidky-2.go
 :::
 
 ```
@@ -214,148 +63,8 @@ func runStorm() {
 Ось усі четверо в коді. Придивіться до **прапорця `retryable`**, який повертають запобіжник (коли розімкнено) і дедлайн (коли часу нема): обидва кажуть «`false` — не повторюй». Це і є сигнал, що тече вгору.
 
 :::tabs
-```ts
-// ТАЙМАУТ: спрацьовує на витраченому ЧАСІ, байдуже, ok спроба чи ні.
-function withTimeout(inner: Call, limit: number): Call {
-  return async (ctx) => {
-    const r = await inner(ctx);
-    if (r.latency > limit) {
-      ctx.now += limit;                                    // прочекали рівно стелю
-      return { ok: false, kind: "timeout", retryable: true, latency: limit };
-    }
-    ctx.now += r.latency;                                  // встигли — платимо реальну ціну
-    return r;
-  };
-}
-
-// ЗАПОБІЖНИК: автомат closed → open → half. Стан живе в замиканні.
-type BState = "closed" | "open" | "half";
-function withBreaker(inner: Call, o: { failsToOpen: number; cooldown: number }): Call {
-  let state: BState = "closed", fails = 0, openedAt = 0;
-  return async (ctx) => {
-    if (state === "open") {
-      if (ctx.now - openedAt < o.cooldown)                 // ще кулдаун — КОРОТИМО
-        return { ok: false, kind: "circuit-open", retryable: false, latency: 0 };
-      state = "half";                                      // час на одну пробу
-    }
-    const r = await inner(ctx);                            // (це withTimeout(rawCallC))
-    if (r.ok) { state = "closed"; fails = 0; return r; }   // одужав
-    fails++;
-    if (state === "half" || fails >= o.failsToOpen) {      // проба впала / досить невдач
-      state = "open"; openedAt = ctx.now; fails = 0;
-    }
-    return r;
-  };
-}
-
-// ПОВТОР ПІД БЮДЖЕТОМ, свідомий дедлайну й сигналу «не повторюй».
-class Budget {
-  private calls = 0; private retries = 0;
-  constructor(private ratio = 0.10) {}
-  allow(): boolean { return this.retries < this.ratio * this.calls; } // ≤10% трафіку
-  record(isRetry: boolean) { this.calls++; if (isRetry) this.retries++; }
-}
-const doomed = (): Res => ({ ok: false, kind: "deadline", retryable: false, latency: 0 });
-
-function withRetry(inner: Call, o: { tries: number; minWork: number }, b: Budget): Call {
-  return async (ctx) => {
-    if (ctx.deadline - ctx.now < o.minWork) return doomed();   // приречена робота
-    let r = await inner(ctx); b.record(false);
-    let attempt = 1;
-    while (!r.ok && r.retryable && attempt < o.tries          // помилка ВАРТА повтору
-           && ctx.deadline - ctx.now >= o.minWork             // ще є час
-           && b.allow()) {                                    // бюджет дозволяє
-      b.record(true); r = await inner(ctx); attempt++;
-    }
-    return r;
-  };
-}
-```
-```go
-// ТАЙМАУТ: спрацьовує на витраченому ЧАСІ, байдуже, ok спроба чи ні.
-func WithTimeout(inner Call, limit int) Call {
-	return func(cl *Clock) (Result, error) {
-		res, err := inner(cl)
-		if res.Latency > limit {
-			cl.Now += limit // прочекали рівно стелю
-			return Result{Latency: limit}, &Failure{Kind: "timeout", Retryable: true}
-		}
-		cl.Now += res.Latency // встигли — платимо реальну ціну
-		return res, err
-	}
-}
-
-// ЗАПОБІЖНИК: автомат closed → open → half. Мьютекс — бо в бою кличуть з багатьох горутин.
-type Breaker struct {
-	mu                    sync.Mutex
-	state                 string // "closed" | "open" | "half"
-	fails, openedAt       int
-	failsToOpen, cooldown int
-}
-
-func (b *Breaker) Wrap(inner Call) Call {
-	return func(cl *Clock) (Result, error) {
-		b.mu.Lock()
-		if b.state == "open" {
-			if cl.Now-b.openedAt < b.cooldown { // ще кулдаун — КОРОТИМО
-				b.mu.Unlock()
-				return Result{}, &Failure{Kind: "circuit-open", Retryable: false}
-			}
-			b.state = "half" // час на одну пробу
-		}
-		b.mu.Unlock()
-
-		res, err := inner(cl) // лок НЕ тримаємо під час виклику
-
-		b.mu.Lock()
-		defer b.mu.Unlock()
-		if err == nil {
-			b.state, b.fails = "closed", 0 // одужав
-			return res, nil
-		}
-		b.fails++
-		if b.state == "half" || b.fails >= b.failsToOpen {
-			b.state, b.openedAt, b.fails = "open", cl.Now, 0
-		}
-		return res, err
-	}
-}
-
-// ПОВТОР ПІД БЮДЖЕТОМ, свідомий дедлайну й сигналу «не повторюй».
-type Budget struct {
-	mu             sync.Mutex
-	ratio          float64
-	calls, retries int
-}
-
-func (b *Budget) allow() bool {
-	b.mu.Lock(); defer b.mu.Unlock()
-	return float64(b.retries) < b.ratio*float64(b.calls) // ≤10% трафіку
-}
-func (b *Budget) record(isRetry bool) {
-	b.mu.Lock(); defer b.mu.Unlock()
-	b.calls++
-	if isRetry {
-		b.retries++
-	}
-}
-
-func WithRetry(inner Call, tries, minWork int, b *Budget) Call {
-	return func(cl *Clock) (Result, error) {
-		if cl.Deadline-cl.Now < minWork { // приречена робота
-			return Result{}, &Failure{Kind: "deadline", Retryable: false}
-		}
-		res, err := inner(cl)
-		b.record(false)
-		for a := 1; a < tries && err != nil && retryable(err) &&
-			cl.Deadline-cl.Now >= minWork && b.allow(); a++ {
-			b.record(true)
-			res, err = inner(cl)
-		}
-		return res, err
-	}
-}
-```
+:::code proj-chain-harness/ts/okhorontsi-taimaut.ts
+:::code proj-chain-harness/go/okhorontsi-taimaut.go
 :::
 
 ## Складаємо дисципліну й міряємо
@@ -363,82 +72,8 @@ func WithRetry(inner Call, tries, minWork int, b *Budget) Call {
 Тепер найважливіше: **повтор живе лише на одному рівні** — там, де ми ближче до користувача, тобто на A. B кличе C **один раз** і чесно віддає відмову вгору, не крутячи власних спроб. Запобіжник стоїть на самій залежності C (де він і потрібен), а дедлайн течe крізь усі стрибки. Отак `3·3·3` розсипається на просте `3` — і навіть ці три впираються в бюджет і в розімкнений запобіжник.
 
 :::tabs
-```ts
-const MIN_WORK = 25;
-
-function makeDisciplined(): Call {
-  const budget = new Budget(0.10);
-  // C-клієнт: таймаут ВСЕРЕДИНІ запобіжника. БЕЗ повтору.
-  const cClient = withBreaker(withTimeout(rawCallC, 300), { failsToOpen: 5, cooldown: 200 });
-  // B: трохи власної роботи й ОДИН виклик до C. Відмову віддає вгору.
-  const bHop: Call = async (ctx) => {
-    if (ctx.deadline - ctx.now < MIN_WORK) return doomed();
-    ctx.now += 5;
-    return cClient(ctx);
-  };
-  // A: ПОВТОР ЛИШЕ ТУТ — під бюджетом і поки є час.
-  const aRetry = withRetry(bHop, { tries: 3, minWork: MIN_WORK }, budget);
-  return async (ctx) => { ctx.now += 5; return aRetry(ctx); };
-}
-
-// Драйвер: жене n запитів, вмикає «інцидент» на середину прогону, рахує p99.
-async function benchmark(chain: Call, n: number): Promise<{ cCalls: number; p99: number }> {
-  cCalls = 0; seed = 1;                                     // однакові умови «до» і «після»
-  const lat: number[] = [];
-  for (let i = 0; i < n; i++) {
-    sick = i >= n * 0.3 && i < n * 0.6;                     // 30% прогону — C хворіє
-    const ctx: Ctx = { now: 0, deadline: 1000 };
-    await chain(ctx);
-    lat.push(ctx.now);                                      // наскрізна затримка = витрачений час
-  }
-  lat.sort((a, b) => a - b);
-  return { cCalls, p99: lat[Math.ceil(0.99 * n) - 1] };
-}
-
-await runStorm();
-console.log("наївно:     ", await benchmark(naiveChain, 10_000));
-console.log("дисципліна: ", await benchmark(makeDisciplined(), 10_000));
-```
-```go
-const minWork = 25
-
-func makeDisciplined() Call {
-	budget := &Budget{ratio: 0.10}
-	br := &Breaker{state: "closed", failsToOpen: 5, cooldown: 200}
-	cClient := br.Wrap(WithTimeout(rawCallC, 300)) // таймаут ВСЕРЕДИНІ запобіжника, БЕЗ повтору
-	bHop := func(cl *Clock) (Result, error) {      // B: своя робота + ОДИН виклик до C
-		if cl.Deadline-cl.Now < minWork {
-			return Result{}, &Failure{Kind: "deadline", Retryable: false}
-		}
-		cl.Now += 5
-		return cClient(cl)
-	}
-	aRetry := WithRetry(bHop, 3, minWork, budget) // ПОВТОР ЛИШЕ ТУТ
-	return func(cl *Clock) (Result, error) { cl.Now += 5; return aRetry(cl) }
-}
-
-// Драйвер: жене n запитів, вмикає «інцидент» на середину прогону, рахує p99.
-func benchmark(chain Call, n int) (int, int) {
-	cCalls, seed = 0, 1 // однакові умови «до» і «після»
-	lat := make([]int, n)
-	for i := 0; i < n; i++ {
-		sick = i >= n*3/10 && i < n*6/10 // 30% прогону — C хворіє
-		cl := &Clock{Now: 0, Deadline: 1000}
-		chain(cl)
-		lat[i] = cl.Now // наскрізна затримка = витрачений час
-	}
-	sort.Ints(lat)
-	return cCalls, lat[int(0.99*float64(n))-1]
-}
-
-func main() {
-	runStorm()
-	c1, p1 := benchmark(naiveChain, 10000)
-	fmt.Printf("наївно:      C=%d  p99=%dмс\n", c1, p1)
-	c2, p2 := benchmark(makeDisciplined(), 10000)
-	fmt.Printf("дисципліна:  C=%d  p99=%dмс\n", c2, p2)
-}
-```
+:::code proj-chain-harness/ts/skladaiemo-dystsyplinu-i.ts
+:::code proj-chain-harness/go/skladaiemo-dystsyplinu-i.go
 :::
 
 Проженімо. Числа злегка гуляють від насіння й від точних порогів, але порядок величини щоразу той самий:

@@ -10,73 +10,11 @@ Digital Homes — одна система, але не однорідний мо
 
 Дивись, як кожна сходинка DDD лягає рядком коду. Спершу — **мова предмета** й **значеннєвий об'єкт**: сценарій, незмінний рецепт, названий так, як його зве господар.
 
-```ts
-class DomainError extends Error {
-  constructor(message: string) { super(message); this.name = "DomainError"; }
-}
-
-// Незмінний рецепт, названий по-людськи. Рівність — за вмістом, не за посиланням.
-type ClimateIntent =
-  | { readonly want: "heat"; readonly targetC: number }
-  | { readonly want: "cool"; readonly targetC: number }
-  | { readonly want: "off" };
-
-interface Scenario {
-  readonly name: string;            // "Ніч", "Прихід додому", "Провітрити"
-  readonly climate: ClimateIntent;
-  readonly lightsOn: boolean;
-}
-```
+:::code proj-dh-ddd-doses/ts/iadro-bahatyi-ahrehat.ts
 
 А тепер — **корінь агрегату**, кімната. Її внутрішній стан клімату захований; назовні стирчать лише команди, названі дією предмета, а не «встанови поле 3»:
 
-```ts
-class Room {
-  private heating = false;
-  private cooling = false;
-  private lightsOn = false;
-  private targetC = 21;
-
-  constructor(readonly name: string) {}
-
-  // Сценарій — цілісний стан, а не приріст до старого. Лише через корінь.
-  apply(scenario: Scenario): void {
-    this.stopClimate();                                   // новий сценарій починає з чистого
-    const c = scenario.climate;
-    if (c.want === "heat")      this.startHeating(c.targetC);
-    else if (c.want === "cool") this.startCooling(c.targetC);
-    this.lightsOn = scenario.lightsOn;
-  }
-
-  startHeating(targetC: number): void {
-    this.changeClimate(true, this.cooling);               // хочу гріти, кулер лишаю як є
-    this.targetC = targetC;
-  }
-  startCooling(targetC: number): void {
-    this.changeClimate(this.heating, true);
-    this.targetC = targetC;
-  }
-  stopClimate(): void {
-    this.changeClimate(false, false);
-  }
-
-  // Інваріант безпеки живе ТУТ — в одному захищеному місці, і ніде більше.
-  // Перевірка ПЕРЕД зміною: відмова не лишає кімнату в напівстані.
-  private changeClimate(heating: boolean, cooling: boolean): void {
-    if (heating && cooling)
-      throw new DomainError(
-        `${this.name}: обігрівач і кондиціонер не працюють у кімнаті разом`);
-    this.heating = heating;
-    this.cooling = cooling;
-  }
-
-  get climate(): "heating" | "cooling" | "idle" {
-    if (this.heating) return "heating";
-    if (this.cooling) return "cooling";
-    return "idle";
-  }
-}
-```
+:::code proj-dh-ddd-doses/ts/iadro-bahatyi-ahrehat-2.ts
 
 Затримаймося, бо в цих тридцяти рядках — уся повна доза, кожна сходинка на своєму місці. **Мова предмета:** метод зветься `startHeating`, а не `setMode(1)`; вхід — `Scenario` з іменем, а не мапа полів. Знавець, глянувши, упізнає свій предмет і скаже «так, воно працює так» — а це, як ми знаємо, і є та розмова, задля якої DDD затівають. **Усе через корінь:** поля `heating`/`cooling` приватні, і назовні немає жодного важеля, щоб їх смикнути напряму — `room.heating = true` просто не скомпілюється. Єдині двері всередину — названі команди, і двері **під охороною**. **Інваріант в одному місці:** правило «не разом» живе рівно в `changeClimate`, і перевірка стоїть **перед** зміною стану — тому навіть відмовлена команда не лишає кімнату з увімкненими обома. Один захищений вузол стереже цілу групу полів як одне ціле — це і є [агрегат із коренем](root:sf-apps/aggregates-consistency), не метафора, а тридцять рядків.
 
@@ -86,24 +24,7 @@ class Room {
 
 Ось цей тест — і йому не потрібні ані давач, ані реле, ані нагріта кімната:
 
-```ts
-import assert from "node:assert/strict";
-
-// 1) Сценарії перемикаються вільно й лишають РІВНО ОДНЕ, не обидва.
-const bedroom = new Room("спальня");
-bedroom.apply({ name: "Ніч",   climate: { want: "cool", targetC: 18 }, lightsOn: false });
-assert.equal(bedroom.climate, "cooling");
-bedroom.apply({ name: "Ранок", climate: { want: "heat", targetC: 22 }, lightsOn: true });
-assert.equal(bedroom.climate, "heating");        // холод сам згас, коли прийшло гріння
-
-// 2) Два незалежні правила конфліктують — корінь відмовляє, а не мовчить.
-const hall = new Room("вітальня");
-hall.startHeating(21);                            // правило «надворі холодно»
-assert.throws(() => hall.startCooling(24), DomainError);   // правило «волого» — конфлікт!
-
-// 3) На шляху відмови стан НЕ спотворився: досі гріємо, кулер не прокрався.
-assert.equal(hall.climate, "heating");
-```
+:::code proj-dh-ddd-doses/ts/iadro-bahatyi-ahrehat-3.ts
 
 Третій `assert` — найтихіший і найважливіший. Він доводить, що інваріант не тільки **ловить** заборонену комбінацію, а й ловить її **безпечно**: після відмови кімната лишилася рівно там, де була, а не завмерла з обома ввімкненими. Це подарунок від «перевірки перед зміною» в `changeClimate` — і саме такі гарантії на межах виправдовують багату модель. Правило доведене зеленим, а жодного вата тепла не витрачено.
 
@@ -111,27 +32,7 @@ assert.equal(hall.climate, "heating");
 
 А тепер подивись, на що перетворюється **той самий** інваріант, коли ядру не додали дози. Правило нікуди не поділося — просто ніхто не дав йому дому, і воно розтеклося краплями по сервісах:
 
-```ts
-interface DB {
-  query(sql: string, id: string): { heater: number; cooler: number };
-  exec(sql: string, id: string): void;
-}
-
-// ❌ Недобір: правило безпеки розмазане по коду магічними числами.
-function runScenario(roomId: string, scenarioId: number, db: DB): void {
-  const room = db.query(`SELECT heater, cooler FROM rooms WHERE id = ?`, roomId);
-
-  if (scenarioId === 3) {                          // 3 — це «ніч»? «ранок»? хто вже згадає
-    db.exec(`UPDATE rooms SET heater = 1 WHERE id = ?`, roomId);
-    // ...а чи не працює ще кулер — перевірити ТУТ забули
-  } else if (scenarioId === 7) {
-    if (room.cooler === 0)                         // тут перевірку згадали...
-      db.exec(`UPDATE rooms SET heater = 1 WHERE id = ?`, roomId);
-  }
-  // ...те саме правило живе ще у notifyService і в scheduleService,
-  //    і в одному з них перевірку теж загубили
-}
-```
+:::code proj-dh-ddd-doses/ts/nedobir-te-same-iadro-iak.ts
 
 Проглянь очима знавця — і побачиш **баг**. Гілка `scenarioId === 3` вмикає обігрівач **не спитавши про кулер**. Спрацюй цей сценарій, поки кондиціонер сушить кімнату, — і маєш обидва разом, рівно те, що інваріант мав не пустити ніколи. У багатій моделі такого коду просто не існує: єдина брама `changeClimate` не дала б навіть записати заборонений стан. А тут правило продубльоване в трьох файлах трьома різними руками, «стан» захований у магічну сімку й трійку, яких ніхто вже не пам'ятає, і досить одному з-поміж переписувачів позіхнути — щоб перевірка зникла в одній гілці, а система тихо стала небезпечною. Це і є [велика грудка багна](root:progarch/what-is-architecture/hist-big-ball-of-mud.md): не буря, а болото, і виростає воно рівно там, де правил найгустіше, — у частині, що найдужче заслуговувала на модель. Недобір карає точно в ядро.
 
@@ -141,45 +42,7 @@ function runScenario(roomId: string, scenarioId: number, db: DB): void {
 
 Легка, але не нульова: **трохи мови** реєстр таки заслужив. Хай пристрій зветься пристроєм, кімната — кімнатою, а ідентифікатор пристрою не можна ненароком підставити туди, де чекають назву кімнати. Ось уся доза — **названі типи** й чесний DTO, і ні на йоту більше:
 
-```ts
-// Названі типи: щоб id пристрою й назва кімнати не переплуталися мовчки.
-type DeviceId = string & { readonly __brand: "DeviceId" };
-type RoomName = string & { readonly __brand: "RoomName" };
-type DeviceKind = "heater" | "cooler" | "light" | "sensor" | "lock";
-
-const deviceId = (s: string) => s as DeviceId;    // «розумний» конструктор бренду
-const roomName = (s: string) => s as RoomName;
-
-// DTO: названі поля, жодного правила. Знекровлено — і це ПРАВИЛЬНО.
-interface Device {
-  readonly id: DeviceId;
-  readonly room: RoomName;
-  readonly kind: DeviceKind;
-  readonly name: string;            // як його зве господар: «торшер біля дивана»
-}
-
-// Тонкий сервіс: додати, перейменувати, прибрати, вибрати. І все.
-class DeviceRegistry {
-  constructor(private store: Map<DeviceId, Device>) {}
-
-  register(device: Device): void {
-    this.store.set(device.id, device);
-  }
-  rename(id: DeviceId, name: string): Device {
-    const found = this.store.get(id);
-    if (!found) throw new Error(`пристрою ${id} немає`);   // не інваріант, а перевірка існування
-    const renamed: Device = { ...found, name };           // DTO незмінний — робимо новий
-    this.store.set(id, renamed);
-    return renamed;
-  }
-  remove(id: DeviceId): void {
-    this.store.delete(id);
-  }
-  inRoom(room: RoomName): Device[] {
-    return [...this.store.values()].filter(d => d.room === room);
-  }
-}
-```
+:::code proj-dh-ddd-doses/ts/dopomizhne-reiestr-iak-dto.ts
 
 Придивись до `Device` — це чистий [DTO](root:sf-apps/dto), торба названих полів без поведінки. У ядрі така анемія була б смертю; тут вона — **норма**, бо DTO й не належить нести правил: йому належить переносити дані. А `rename`, хоч і кидає виняток, кидає його не через доменний інваріант, а через звичайну перевірку «а чи є такий рядок» — це сантехніка, не мова предмета. Бренди на типах — то весь виторг від «єдиної мови», найдешевшої сходинки: імена, що не переплутаються, і жодного `changeClimate` понад те.
 
@@ -189,36 +52,7 @@ class DeviceRegistry {
 
 Що ж буває, коли спокусі таки піддатися? Виростає дзеркальний до багна монстр — **анемічна** (гр. *an-* «без» + *haîma* «кров») церемонія: усі шати багатого домену, накинуті на те, у чому нема ані краплі правил.
 
-```ts
-interface DeviceRepo { save(agg: DeviceAggregate): void; }
-interface EventBus  { publish(event: { type: string; id: string }): void; }
-
-// ❌ Надмір: обряд багатого домену над тим, у чому інваріантів НЕМА.
-class DeviceAggregate {
-  private constructor(private device: Device) {}
-
-  static register(id: DeviceId, room: RoomName,
-                  kind: DeviceKind, name: string): DeviceAggregate {
-    return new DeviceAggregate({ id, room, kind, name });   // фабрика, що нічого не стереже
-  }
-  rename(name: string): void {
-    this.device = { ...this.device, name };                 // сетер, перевдягнений у «поведінку»
-  }
-  get snapshot(): Device { return this.device; }
-}
-
-interface RegisterDeviceCommand { id: string; room: string; kind: DeviceKind; name: string; }
-
-class RegisterDeviceHandler {
-  constructor(private repo: DeviceRepo, private bus: EventBus) {}
-  handle(cmd: RegisterDeviceCommand): void {
-    const agg = DeviceAggregate.register(
-      deviceId(cmd.id), roomName(cmd.room), cmd.kind, cmd.name);
-    this.repo.save(agg);
-    this.bus.publish({ type: "DeviceRegistered", id: cmd.id });  // подія, на яку ніхто не підписаний
-  }
-}
-```
+:::code proj-dh-ddd-doses/ts/nadmir-reiestr-v.ts
 
 Полічи шари, які тут з'явилися заради «вставити рядок»: агрегат-обгортка, приватний конструктор із фабрикою, команда, її хендлер, шина подій. П'ять конструкцій — і **жодна нічого не стереже**, бо стерегти нема чого. `rename` виглядає як поведінка, а насправді це сетер під мантією. Подія `DeviceRegistered` летить у шину, де на неї ніхто не чекає. Це рівно та [передчасна складність, від якої застерігає YAGNI](root:sf-apps/dry-kiss-yagni), тільки вбрана в доменні шати, — і, за влучним висновком [давньої суперечки про анемічну модель](root:progarch/data-access-choice/hist-anemic-domain-debate.md), вона несе всі витрати доменної моделі, не даючи жодної з її переваг. Клас, названий мовою предмета, але порожній усередині, — найпідступніша з помилок: він **виглядає** грамотно, тож проходить рев'ю, а платиш за нього щодня, читаючи п'ять шарів там, де чесний був би один рядок `store.set`.
 
@@ -226,28 +60,7 @@ class RegisterDeviceHandler {
 
 Лишилася третя частина — сповіщення, аудит, пошта. Постав той самий тест — і навіть питати ніяково: ні знавця, ні правила, ні свого предмета. Розсилати листи вміє півсвіту, це зроблено тисячу разів; тут нема чого **приборкувати** і нема чого **винаходити** — таке [беруть готовим, а не пишуть](root:progarch/dh-not-building). Доза DDD — нульова. Уся «архітектура» — одне слово нашою мовою на вході й тонкий перехідник до чужої бібліотеки на виході:
 
-```ts
-type UserId = string & { readonly __brand: "UserId" };
-
-// Порт: одне слово нашою мовою — щоб ядро не знало ні пошти, ні пушів, ні SMS.
-interface Notifier {
-  notify(userId: UserId, text: string): Promise<void>;
-}
-
-// Готові речі, яких ми не писали: бібліотека розсилання й довідник людей.
-interface Mailer        { send(msg: { to: string; subject: string; body: string }): Promise<void>; }
-interface UserDirectory { emailOf(userId: UserId): Promise<string>; }
-
-// Адаптер: уся «логіка» — перекласти НАШ виклик у виклик бібліотеки.
-class EmailNotifier implements Notifier {
-  constructor(private mailer: Mailer, private users: UserDirectory) {}
-
-  async notify(userId: UserId, text: string): Promise<void> {
-    const email = await this.users.emailOf(userId);
-    await this.mailer.send({ to: email, subject: "Digital Homes", body: text });
-  }
-}
-```
+:::code proj-dh-ddd-doses/ts/zahalne-poshta-iak-tonkyi.ts
 
 Ось де межа доречного DDD стоншується до нитки — і це правильно. Єдиний доменний слід тут — назва порту `Notifier` та його метод `notify`, щоб ядро говорило «сповісти господаря» своєю мовою, а не викликало `nodemailer.sendMail` посеред логіки сценаріїв. Жодного агрегата, жодного інваріанта, жодного значеннєвого об'єкта — сам перехідник, що перекладає наш виклик у чужий. Захотілося б завтра слати не листа, а пуш — з'явиться `PushNotifier` за тим самим портом, і ядро не здригнеться. Це вся доза, яку заслужило загальне: тонкий шов до готового, і ні кроку вглиб.
 

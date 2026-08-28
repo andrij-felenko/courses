@@ -29,24 +29,7 @@
 
 Почнімо з того, де реляційне вдома, — реєстр. Два звʼязані [відношення](root:sf-data/relational-model): доми й пристрої, і **зовнішній ключ**, що тримає їхній звʼязок.
 
-```sql
-CREATE TABLE homes (
-    id         bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name       text        NOT NULL,
-    tz         text        NOT NULL DEFAULT 'Europe/Kyiv',
-    created_at timestamptz NOT NULL DEFAULT now()
-);
-
-CREATE TABLE devices (
-    id           bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    home_id      bigint NOT NULL REFERENCES homes(id) ON DELETE CASCADE,
-    kind         text   NOT NULL CHECK (kind IN ('thermostat','lock','camera','sensor')),
-    serial       text   NOT NULL UNIQUE,
-    installed_at timestamptz NOT NULL DEFAULT now()
-);
-
-CREATE INDEX ON devices (home_id);   -- під запит «усі пристрої цього дому»
-```
+:::code proj-postgres-many-hats/sql/kapeliukh-1-reliatsiine.sql
 
 Один рядок, `home_id bigint NOT NULL REFERENCES homes(id)`, робить те, чого твій код не мусить робити сам: жоден пристрій не може вказувати на неіснуючий дім — база просто відмовить у вставці. А `ON DELETE CASCADE` каже, що зі знесенням дому підуть і його пристрої, без осиротілих рядків. Це **інваріант, який боронить сховище на найнижчому шарі**, куди не дотягнеться жоден баг застосунку. Запит через звʼязок — звична річ:
 
@@ -105,19 +88,7 @@ SELECT id, config->>'fw' AS firmware
 
 Ідея пошуку — не шукати підрядок (`LIKE '%гараж%'` повільний і дурний), а звести і документ, і запит до **лексем** — нормалізованих слів — і звіряти вже їх. Документ стає значенням типу `tsvector`; від Postgres 12 його можна тримати **згенерованою колонкою**, яку база рахує сама при кожному записі:
 
-```sql
-CREATE TABLE events (
-    id        bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    home_id   bigint NOT NULL REFERENCES homes(id) ON DELETE CASCADE,
-    device_id bigint REFERENCES devices(id) ON DELETE SET NULL,
-    at        timestamptz NOT NULL DEFAULT now(),
-    message   text NOT NULL,
-    -- база сама рахує tsvector при вставці/оновленні (Postgres 12+)
-    tsv tsvector GENERATED ALWAYS AS (to_tsvector('simple', message)) STORED
-);
-
-CREATE INDEX events_tsv_gin ON events USING gin (tsv);
-```
+:::code proj-postgres-many-hats/sql/kapeliukh-3-povnotekstovyi.sql
 
 ```sql
 INSERT INTO events (home_id, device_id, message) VALUES
@@ -152,36 +123,11 @@ SELECT message, ts_rank(tsv, q) AS rank
 
 Четвертий капелюх — той, що найбільше дивує людей, певних, ніби черга конче потребує брокера. Хмара кладе команди в таблицю; пул воркерів їх розбирає. Уся хитрість — щоб **кілька воркерів тягли паралельно**, кожен свою задачу, і жоден не блокувався на чужій.
 
-```sql
-CREATE TABLE commands (
-    id         bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    device_id  bigint NOT NULL REFERENCES devices(id) ON DELETE CASCADE,
-    kind       text   NOT NULL,                 -- 'lock','unlock','set_temp'…
-    payload    jsonb  NOT NULL DEFAULT '{}',
-    status     text   NOT NULL DEFAULT 'ready'
-                      CHECK (status IN ('ready','done','failed')),
-    created_at timestamptz NOT NULL DEFAULT now()
-);
-
--- ЧАСТКОВИЙ індекс: тільки готові рядки, тож скан лишається дешевим,
--- скільки б «done» не накопичилось у хвості
-CREATE INDEX commands_ready ON commands (created_at) WHERE status = 'ready';
-```
+:::code proj-postgres-many-hats/sql/kapeliukh-4-cherha-zadach.sql
 
 Серце черги — один запит, який кожен воркер виконує у **своїй** транзакції:
 
-```sql
-BEGIN;
-  SELECT id, device_id, kind, payload
-    FROM commands
-   WHERE status = 'ready'
-   ORDER BY created_at            -- FIFO: найстаріша готова першою
-   FOR UPDATE SKIP LOCKED         -- зайняті рядки ПРОПУСКАЄМО, а не чекаємо
-   LIMIT 1;
-  -- ...відправити команду пристрою (швидко)...
-  UPDATE commands SET status = 'done' WHERE id = :id;
-COMMIT;
-```
+:::code proj-postgres-many-hats/sql/kapeliukh-4-cherha-zadach-2.sql
 
 Розберімо чотири слова, у яких уся суть. `FOR UPDATE` бере **рядковий замок** на вибраний рядок — поки транзакція жива, ніхто інший його не змінить. Саме собою це дало б чергу, але повільну: другий воркер, наткнувшись на замкнений рядок, **став би й чекав**. `SKIP LOCKED` (додане у PostgreSQL 9.5, 2016, Томасом Манро саме для черг) міняє це докорінно: замість чекати, воркер **перескакує** замкнений рядок і бере наступний готовий. `ORDER BY created_at` тримає порядок FIFO, `LIMIT 1` — по одній задачі за раз. І ось десять воркерів, запустивши цей самий запит в одну мить, розберуть десять **різних** задач без жодної домовленості між собою й без єдиної секунди блокування. Частковий індекс `WHERE status = 'ready'` тримає скан миттєвим, навіть коли «done» назбираються мільйонами в хвості.
 
@@ -194,24 +140,7 @@ COMMIT;
 
 Пʼятий капелюх — той, задля якого найчастіше заводять окрему базу. Телеметрія росте вічно, і саме тому її треба вміти не лише **писати** й **читати за пристроєм і часом**, а й **викидати старе** дешево. PostgreSQL складає це трьома звичними деталями: секціювання за діапазоном часу, складений індекс під головний запит і політика зберігання через відкидання цілих секцій.
 
-```sql
-CREATE TABLE telemetry (
-    device_id bigint      NOT NULL REFERENCES devices(id) ON DELETE CASCADE,
-    ts        timestamptz NOT NULL,
-    metric    text        NOT NULL,          -- 'temp_c','motion','lock_state'
-    value     double precision NOT NULL
-) PARTITION BY RANGE (ts);                   -- секціювання за часом (Postgres 10+)
-
--- місячні секції: свіже окремо, старе — цілим шматком під відкидання
-CREATE TABLE telemetry_2026_07 PARTITION OF telemetry
-    FOR VALUES FROM ('2026-07-01') TO ('2026-08-01');
-CREATE TABLE telemetry_2026_08 PARTITION OF telemetry
-    FOR VALUES FROM ('2026-08-01') TO ('2026-09-01');
-
--- індекс під головний запит «цей пристрій за цей проміжок»;
--- створений на батьківській таблиці, він лягає на кожну секцію
-CREATE INDEX ON telemetry (device_id, ts DESC);
-```
+:::code proj-postgres-many-hats/sql/kapeliukh-5-chasoriad.sql
 
 **Декларативне секціювання** (PostgreSQL 10, 2017) розбиває одну логічну таблицю на фізичні шматки за діапазоном `ts`. Головний запит DH — «покажи цей пристрій за цю добу» — бʼє рівно в один місяць і йде складеним індексом `(device_id, ts)`:
 

@@ -21,51 +21,8 @@
 Але «тієї самої форми» — це водночас і найбільша брехня, яка тут можлива. Той самий підпис методу приховує **зовсім іншу тварину**: локальний виклик або повертає, або кидає — а виклик крізь мережу додає третю долю, [тишу, яку ми вже назвали часткою відмови](root:progarch/partial-failure). Спокуса вдати, що віддалений виклик — це просто трохи повільніший локальний, і є [першою з оман розподілених обчислень](root:sf-distributed/distributed-fallacies); за неї платять негайно. Тому форма порту лишається невинною, а вся правда про мережу мусить оселитися **за** ним — у новому адаптері. Подивімось, як він виглядає:
 
 :::tabs
-```ts
-// Порт — та сама форма, що й у гексагоні v2. Логіка хаба знає лише його.
-interface CloudLink {
-  send(cmd: Command): Promise<Result>;
-}
-
-// Адаптер v2: сусід у тому ж процесі. Дві долі — повернув або кинув.
-class InProcessCloud implements CloudLink {
-  send(cmd: Command) { return this.cloud.handle(cmd); }   // все-або-нічого
-}
-
-// Адаптер за межею машини: та сама форма, але за нею — мережа.
-// Уся чесність зібрана ТУТ, логіка над портом її не бачить.
-class NetworkCloud implements CloudLink {
-  async send(cmd: Command): Promise<Result> {
-    const key = cmd.id;                    // один ключ на команду — крізь усі повтори
-    const deadline = monotonic() + 10_000; // бюджет часу: чекання зі стелею
-    return withRetries(deadline, () =>     // повтор із відступом + розкидом
-      this.http.post("/cmd", cmd, key, deadline));   // а дублі впізнає бік хмари
-  }
-}
-```
-```go
-// Порт — та сама форма, що й у гексагоні v2. Логіка хаба знає лише його.
-type CloudLink interface {
-	Send(ctx context.Context, cmd Command) (Result, error)
-}
-
-// Адаптер v2: сусід у тому ж процесі. Дві долі — значення або помилка.
-type InProcessCloud struct{ cloud *Cloud }
-func (c InProcessCloud) Send(ctx context.Context, cmd Command) (Result, error) {
-	return c.cloud.Handle(cmd) // все-або-нічого
-}
-
-// Адаптер за межею машини: та сама форма, але за нею — мережа.
-// Уся чесність зібрана ТУТ, логіка над портом її не бачить.
-type NetworkCloud struct{ http *Client }
-func (c NetworkCloud) Send(ctx context.Context, cmd Command) (Result, error) {
-	ctx, cancel := context.WithTimeout(ctx, 10*time.Second) // бюджет часу
-	defer cancel()
-	return withRetries(ctx, func() (Result, error) {         // повтор з відступом
-		return c.http.Post(ctx, "/cmd", cmd, cmd.ID)         // ключ = cmd.ID
-	})
-}
-```
+:::code dh-distribution-crossing-d/ts/index.ts
+:::code dh-distribution-crossing-d/go/mezha-vzhe-bula-shvom-my.go
 :::
 
 > 🔧 **Навіщо це.** Коли постає питання «а що з нашого монолітного хаба першим піде за мережу?» — відповідь не «те, що технічно легше винести», а **той шов, який уже прорізаний чисто**, тобто оформлений портом. Якщо частина спілкується з рештою через вузький інтерфейс — її можна віддати за межу машини, підмінивши адаптер, і код над портом не здригнеться. Якщо ж виклики до неї розсипані по всій логіці голими зверненнями — спершу зроби з них порт, а вже потім став межу. Порядок саме такий: спочатку шов, потім мережа.
@@ -134,18 +91,7 @@ async function reconcile(link: CloudLink, twin: Twin) {
   twin.reported = await link.read(twin.id);       // перечитай справжній стан
 }
 ```
-```go
-// Фоновий рефлекс звірки: не гарантія, а наполегливість.
-func Reconcile(ctx context.Context, link CloudLink, twin *Twin) error {
-	if twin.Reported != twin.Desired {                    // хмара й дім розійшлися
-		if _, err := link.Send(ctx, SetState(twin.ID, twin.Desired)); err != nil {
-			return err                                    // дошли бажане (ідемпотентно!)
-		}
-	}
-	twin.Reported = link.Read(ctx, twin.ID)               // перечитай справжній стан
-	return nil
-}
-```
+:::code dh-distribution-crossing-d/go/odyn-stan-na-odnii-mashyni.go
 :::
 
 Цей об'єкт, що тримає «бажане» й «востаннє почуте» замість справжнього стану, — зерно [цифрового близнюка](root:progarch/dh-replicas) (англ. *twin* — близнюк): копії дому в хмарі, яка ганяється за оригіналом і ніколи не збігається з ним точно. А те, що дві копії одних даних розходяться, а тоді доганяють одна одну у фоні, — це і є [кінцева узгодженість](root:sf-distributed/eventual-consistency); ми щойно вивели її потребу власними руками з одного замка на поганому Wi-Fi, і далі курс візьме її вже як окрему велику тему. Повний робочий межовий адаптер — з обома течіями, локальним буфером звітів, дедупом і циклом звірки, а ще з тестом, що глушить хмару посеред потоку й показує, як контур удома не здригнувся, а звіти долетіли фактично раз, коли зв'язок вернувся, — зібрано в [проєкті межового адаптера](root:progarch/dh-distribution-crossing/proj-boundary-adapter.md).

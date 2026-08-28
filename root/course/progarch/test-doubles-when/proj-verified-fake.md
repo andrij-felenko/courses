@@ -36,20 +36,7 @@ export interface ReadingStore {
   recent(limit: number): Reading[];   // до limit найсвіжіших; найсвіжіше — перше
 }
 ```
-```py
-from dataclasses import dataclass
-from typing import Protocol
-
-@dataclass
-class Reading:
-    at: int          # epoch, мс
-    celsius: float
-
-# Контракт сховища. Дві реалізації нижче обіцяють РІВНО це — й нічого понад.
-class ReadingStore(Protocol):
-    def save(self, r: Reading) -> None: ...
-    def recent(self, limit: int) -> list[Reading]: ...   # до limit найсвіжіших; найсвіжіше — перше
-```
+:::code proj-verified-fake/py/krok-1-kontrakt.py
 :::
 
 Інтерфейс мовчить про те, **як** обіцянку дотримати — сортуванням у пам'яті чи `ORDER BY` у базі. Це навмисне: контракт описує поведінку, яку видно ззовні, а не начинку. Саме тому одна обіцянка й може мати дві геть різні реалізації — і саме тому їх треба щось звірити.
@@ -82,44 +69,8 @@ class InMemoryStore:
 Друга — **справжній адаптер** на SQLite. Тут доречно взяти вбудований у платформу двигун без сторонніх залежностей: Python має `sqlite3` у стандартній бібліотеці, а Node з версії 22.5 — модуль `node:sqlite` (`DatabaseSync`; запуск `node --experimental-sqlite`, а з v22.13/v23.4 прапорець уже не потрібен). База в пам'яті (`:memory:`) лишає адаптер справжнім по механіці — той самий SQL, ті самі типи стовпців, — але без файлів на диску:
 
 :::tabs
-```ts
-import { DatabaseSync } from "node:sqlite";
-
-export class SqliteStore implements ReadingStore {
-  private db = new DatabaseSync(":memory:");
-  constructor() {
-    // стовпець at — INTEGER: сховище тримає ЦІЛІ мілісекунди
-    this.db.exec("CREATE TABLE readings (at INTEGER NOT NULL, celsius REAL NOT NULL)");
-  }
-  save(r: Reading): void {
-    this.db.prepare("INSERT INTO readings (at, celsius) VALUES (?, ?)")
-      .run(Math.round(r.at), r.celsius);          // округлюємо на вході — стовпець цілий
-  }
-  recent(limit: number): Reading[] {
-    const rows = this.db
-      .prepare("SELECT at, celsius FROM readings ORDER BY at DESC LIMIT ?")
-      .all(limit) as Array<{ at: number; celsius: number }>;
-    return rows.map(r => ({ at: r.at, celsius: r.celsius }));
-  }
-}
-```
-```py
-import sqlite3
-
-class SqliteStore:
-    def __init__(self) -> None:
-        self._db = sqlite3.connect(":memory:")
-        # стовпець at — INTEGER: сховище тримає ЦІЛІ мілісекунди
-        self._db.execute("CREATE TABLE readings (at INTEGER NOT NULL, celsius REAL NOT NULL)")
-    def save(self, r: Reading) -> None:
-        self._db.execute("INSERT INTO readings (at, celsius) VALUES (?, ?)",
-                         (round(r.at), r.celsius))   # округлюємо на вході — стовпець цілий
-    def recent(self, limit: int) -> list[Reading]:
-        rows = self._db.execute(
-            "SELECT at, celsius FROM readings ORDER BY at DESC LIMIT ?", (limit,)
-        ).fetchall()
-        return [Reading(at, celsius) for at, celsius in rows]
-```
+:::code proj-verified-fake/ts/krok-2-dvi-realizatsii.ts
+:::code proj-verified-fake/py/krok-2-dvi-realizatsii.py
 :::
 
 Зверни увагу на два місця, де реалізації **чесно розходяться в начинці**, лишаючись при цьому вірними контракту. Порядок фейк тримає сортуванням списку, а база — `ORDER BY at DESC`. Цілість часу фейк не чіпає взагалі, а адаптер округлює на вході, бо стовпець `at` — `INTEGER`. Обидві розбіжності контракт дозволяє — його обходить лише **видима поведінка**. Але тримай їх в оці: рівно тут за мить проб'ється дрейф.
@@ -129,47 +80,8 @@ class SqliteStore:
 Тепер серце всієї затії. Пишемо перевірки **один раз** і параметризуємо їх реалізацією. У кожній перевірці — свіже сховище з фабрики (чому свіже, а не спільне, розберемо в пастках), кілька `save`, тоді звірка `recent` із контрактом:
 
 :::tabs
-```ts
-import { test } from "node:test";
-import assert from "node:assert/strict";
-
-// фабрика на кожну реалізацію — набір нижче про них нічого більше не знає
-const impls: { name: string; make: () => ReadingStore }[] = [
-  { name: "InMemoryStore", make: () => new InMemoryStore() },
-  { name: "SqliteStore",   make: () => new SqliteStore() },
-];
-
-for (const { name, make } of impls) {
-  test(`[${name}] save-then-recent повертає покладене`, () => {
-    const s = make();
-    s.save({ at: 1000, celsius: 20 });
-    assert.deepEqual(s.recent(10), [{ at: 1000, celsius: 20 }]);
-  });
-
-  test(`[${name}] recent(n) — n найсвіжіших, найсвіжіше перше`, () => {
-    const s = make();
-    for (const at of [3000, 1000, 2000]) s.save({ at, celsius: at / 100 });  // БЕЗЛАДНО
-    assert.deepEqual(s.recent(2).map(r => r.at), [3000, 2000]);
-  });
-}
-```
-```py
-import pytest
-
-# фабрика на кожну реалізацію — набір нижче про них нічого більше не знає
-@pytest.fixture(params=[InMemoryStore, SqliteStore])
-def store(request):
-    return request.param()          # свіже сховище на КОЖНУ перевірку
-
-def test_save_then_recent(store):
-    store.save(Reading(1000, 20.0))
-    assert store.recent(10) == [Reading(1000, 20.0)]
-
-def test_recent_newest_first(store):
-    for at in (3000, 1000, 2000):   # БЕЗЛАДНО
-        store.save(Reading(at, at / 100))
-    assert [r.at for r in store.recent(2)] == [3000, 2000]
-```
+:::code proj-verified-fake/ts/krok-3-parametryzovanyi.ts
+:::code proj-verified-fake/py/krok-3-parametryzovanyi.py
 :::
 
 Запусти — `node --experimental-sqlite --test` або `pytest` — і побачиш **чотири** зелені галочки: дві перевірки, кожна на двох реалізаціях. Спинися на цьому. Той самий рядок `assert` щойно виконано і над списком у пам'яті, і над SQL-запитом до бази — і обидва світи заприсяглися однаково. Оце і є перевірений фейк: не «фейк, який ми вважаємо правильним», а «фейк, прибитий до бою тим самим цвяхом».

@@ -39,18 +39,7 @@ DH записує час постійно, і дві найтиповіші за
 Протилежна ідея: не рахувати мить наперед, а зберегти сам **намір** — цивільний час плюс **назву зони** з бази IANA: `2026-03-30 07:00` та `Europe/Kyiv`. Не зсув `+02:00`, а саме **назву** зони. А справжню мить обчислюєш **в останню секунду**, коли розклад справді спрацьовує, — за **чинними** на той момент правилами з живого tzdata.
 
 :::tabs
-```py
-from datetime import datetime
-from zoneinfo import ZoneInfo   # стандартна бібліотека, читає живий tzdata IANA
-
-# зберігаємо НАМІР: локальний час + назву зони
-schedule = {"local": "2026-03-30T07:00", "zone": "Europe/Kyiv"}
-
-# у мить спрацювання РОЗВ'ЯЗУЄМО намір за ЧИННИМИ правилами
-local = datetime.fromisoformat(schedule["local"])
-instant = local.replace(tzinfo=ZoneInfo(schedule["zone"]))
-fire_at_utc = instant.astimezone(ZoneInfo("UTC"))   # 07:00 у Києві → точка на осі
-```
+:::code time-storage-choice-d/py/main.py
 ```ts
 import { DateTime } from "luxon";   // luxon читає живий tzdata IANA
 

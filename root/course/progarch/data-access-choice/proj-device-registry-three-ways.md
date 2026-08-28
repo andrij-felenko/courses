@@ -18,31 +18,7 @@
 
 Щоб приклад справді запускався без цілого проєкту, Django можна налаштувати прямо в процесі:
 
-```py
-import django
-from django.conf import settings
-
-settings.configure(
-    INSTALLED_APPS=["reg"],
-    DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3",
-                           "NAME": ":memory:"}},   # та сама вбудована SQLite
-)
-django.setup()
-
-# reg/models.py
-from django.db import models
-
-class Device(models.Model):
-    type      = models.CharField(max_length=32)
-    room      = models.CharField(max_length=64)
-    state     = models.CharField(max_length=32, default="unknown")
-    last_seen = models.IntegerField(null=True)        # секунди епохи
-    class Meta:
-        app_label = "reg"
-
-    def is_silent(self, now: int, threshold: int) -> bool:
-        return self.last_seen is None or now - self.last_seen > threshold
-```
+:::code proj-device-registry-three-ways/py/sposib-pershyi-active.py
 
 `id` Django додає сам — цілий первинний ключ. А доступ живе прямо на об'єкті:
 
@@ -54,23 +30,7 @@ same = Device.objects.get(pk=d.id)    # SELECT — і сам піднімає с
 
 Жодного посередника: `save` і є INSERT, `objects.get` і є SELECT, лише вбрані в метод. Це й зваблює — між тобою й базою майже нема коду. Але тепер напишімо тест, і хай він скаже, чим за цю прямоту платиш:
 
-```py
-import pytest
-
-@pytest.mark.django_db          # ← без цього рядка тест НЕ запуститься
-def test_save_then_find():
-    d = Device.objects.create(type="lock", room="entrance", state="locked")
-    same = Device.objects.get(pk=d.id)
-    assert same.room  == "entrance"
-    assert same.state == "locked"
-
-@pytest.mark.django_db          # ← і тут теж — правило читає базу
-def test_silent_are_found():
-    Device.objects.create(type="lamp", room="hall", last_seen=None)
-    Device.objects.create(type="lock", room="entrance", last_seen=9_000)
-    silent = list(Device.objects.filter(last_seen__isnull=True))
-    assert len(silent) == 1
-```
+:::code proj-device-registry-three-ways/py/sposib-pershyi-active-2.py
 
 Уся сіль — у декораторі `@pytest.mark.django_db`. Він не прикраса: без нього обидва тести падають ще до першого `assert`, бо `create` і `filter` — це живі звертання до бази, і виконати їх нема де. Декоратор велить `pytest-django` підняти **справжню** тестову базу (ту саму SQLite), накотити схему й прибрати за собою. Кожен тест, який торкається реєстру, тягне цей декоратор за собою — і саме так зчеплення домену зі схемою стає **вимірним**: полічи, скільки тестів не можуть запуститися офлайн, і матимеш число.
 
@@ -80,44 +40,11 @@ def test_silent_are_found():
 
 Тепер протилежний полюс. `Device` стає **чистим доменом**: клас про пристрій, не про таблицю, без жодного натяку на базу — ні базового класу від ORM, ні слова `save`. Зберігання бере на себе окремий маппер, і він один знає обидві форми — об'єкта й рядка.
 
-```py
-# ── ЧИСТИЙ домен: жодного натяку на базу ──────────────────────
-class Device:
-    def __init__(self, type, room, state="unknown", last_seen=None, id=None):
-        self.type, self.room = type, room
-        self.state, self.last_seen, self.id = state, last_seen, id
-
-    def is_silent(self, now: int, threshold: int) -> bool:
-        return self.last_seen is None or now - self.last_seen > threshold
-
-class Telemetry:                       # так само чистий — рядок потоку серцебиття
-    def __init__(self, at, device_id=None, id=None):
-        self.at, self.device_id, self.id = at, device_id, id
-```
+:::code proj-device-registry-three-ways/py/sposib-druhyi-data-mapper.py
 
 Мапу об'єкта на таблицю тримає **окремий** шматок — так зване імперативне відображення. Домен його навіть не імпортує: він міг би й не знати, що десь є база.
 
-```py
-from sqlalchemy import (Table, Column, Integer, String, ForeignKey,
-                        MetaData, create_engine, select)
-from sqlalchemy.orm import registry, relationship, Session, selectinload
-
-metadata = MetaData()
-devices = Table("devices", metadata,
-    Column("id", Integer, primary_key=True),
-    Column("type", String), Column("room", String),
-    Column("state", String), Column("last_seen", Integer))
-telemetry = Table("telemetry", metadata,
-    Column("id", Integer, primary_key=True),
-    Column("device_id", Integer, ForeignKey("devices.id")),
-    Column("at", Integer))
-
-mapper = registry()
-mapper.map_imperatively(Telemetry, telemetry)
-mapper.map_imperatively(Device, devices, properties={
-    "telemetry": relationship(Telemetry, backref="device"),   # лінива за замовчуванням
-})
-```
+:::code proj-device-registry-three-ways/py/sposib-druhyi-data-mapper-2.py
 
 `save`/`find` виглядають так — маппер розкладає чистий об'єкт у рядок і збирає назад, а ти лише кажеш «додай» і «дай»:
 
@@ -161,55 +88,11 @@ class DeviceRepository(Protocol):
 
 Бойова реалізація — рукописний SQL і невеликий шматок, що збирає рядок в об'єкт **руками**:
 
-```py
-import sqlite3
-
-class SqliteDeviceRepository:
-    def __init__(self, conn: sqlite3.Connection):
-        self.conn = conn
-
-    def save(self, d: Device) -> None:
-        cur = self.conn.execute(
-            "INSERT INTO devices (type, room, state, last_seen) VALUES (?,?,?,?)",
-            (d.type, d.room, d.state, d.last_seen))
-        d.id = cur.lastrowid            # новий id — назад в об'єкт
-        self.conn.commit()
-
-    def find(self, id: int) -> Device | None:
-        row = self.conn.execute(
-            "SELECT id, type, room, state, last_seen FROM devices WHERE id=?",
-            (id,)).fetchone()
-        return self._to_device(row) if row else None
-
-    def _to_device(self, row) -> Device:            # збірка об'єкта з рядка — РУКАМИ
-        id_, type_, room, state, last_seen = row
-        return Device(type_, room, state, last_seen, id=id_)
-```
+:::code proj-device-registry-three-ways/py/sposib-tretii-sql-za.py
 
 Тепер тест. Межа — це `DeviceRepository`, тож бізнес-логіка залежить від **інтерфейсу**, і в тесті ми підставляємо просту реалізацію в пам'яті — нуль SQL, нуль бази:
 
-```py
-class InMemoryDeviceRepository:          # той самий інтерфейс, жодного рядка SQL
-    def __init__(self):
-        self._items, self._next = {}, 1
-    def save(self, d):
-        if d.id is None:
-            d.id, self._next = self._next, self._next + 1
-        self._items[d.id] = d
-    def find(self, id):
-        return self._items.get(id)
-    def find_silent_over(self, minutes):     # логіка в пам'яті — тесту досить
-        return [d for d in self._items.values() if d.last_seen is None]
-
-def audit_silent(repo: DeviceRepository, minutes: int):   # сервіс знає лише інтерфейс
-    return repo.find_silent_over(minutes)
-
-def test_audit_swaps_the_boundary():
-    repo = InMemoryDeviceRepository()
-    repo.save(Device("lamp", "hall", last_seen=None))       # мовчить
-    repo.save(Device("lock", "entrance", last_seen=9_000))  # озвався
-    assert len(audit_silent(repo, minutes=60)) == 1
-```
+:::code proj-device-registry-three-ways/py/sposib-tretii-sql-za-2.py
 
 Сервіс `audit_silent` не знає й знати не хоче, чи за межею SQLite, чи словник у пам'яті, — він бачить лише `DeviceRepository`. У бою підставиш `SqliteDeviceRepository`, у тесті — `InMemoryDeviceRepository`, і жодного рядка сервісу міняти не треба. Третя вісь на дотик: тест не тягне ні бази, ні схеми — ти **підмінив межу**, а не завів базу.
 
@@ -229,50 +112,8 @@ def test_audit_swaps_the_boundary():
 І ось ключовий хід: ми **не** ламаємо через це всю архітектуру. Ми лишаємо той самий `DeviceRepository`, а всередині одного методу спускаємося до рукописного SQL. За межею — інтерфейс не змінився; за нею — рівно той запит, який ти хотів, один-єдиний, і ти бачиш його весь:
 
 :::tabs
-```py
-class SqliteDeviceRepository:
-    # ... save, find, _to_device — як вище ...
-    def find_silent_over(self, minutes: int) -> list[Device]:
-        rows = self.conn.execute("""
-            SELECT d.id, d.type, d.room, d.state, d.last_seen
-            FROM devices d
-            LEFT JOIN (
-                SELECT device_id, MAX(at) AS last_at
-                FROM telemetry GROUP BY device_id
-            ) t ON t.device_id = d.id
-            WHERE t.last_at IS NULL
-               OR t.last_at < CAST(strftime('%s','now') AS INTEGER) - ? * 60
-        """, (minutes,)).fetchall()
-        return [self._to_device(r) for r in rows]     # один запит — і збірка руками
-```
-```go
-// Go — рідний дім цього стилю: жодного ORM, рядок збираєш явним Scan.
-func (r *SqliteDeviceRepo) FindSilentOver(minutes int) ([]Device, error) {
-    rows, err := r.db.Query(`
-        SELECT d.id, d.type, d.room, d.state, d.last_seen
-        FROM devices d
-        LEFT JOIN (
-            SELECT device_id, MAX(at) AS last_at
-            FROM telemetry GROUP BY device_id
-        ) t ON t.device_id = d.id
-        WHERE t.last_at IS NULL
-           OR t.last_at < CAST(strftime('%s','now') AS INTEGER) - ?*60`, minutes)
-    if err != nil {
-        return nil, err
-    }
-    defer rows.Close()
-
-    var out []Device
-    for rows.Next() {
-        var d Device                                  // збираємо об'єкт із рядка РУКАМИ
-        if err := rows.Scan(&d.ID, &d.Type, &d.Room, &d.State, &d.LastSeen); err != nil {
-            return nil, err
-        }
-        out = append(out, d)
-    }
-    return out, rows.Err()
-}
-```
+:::code proj-device-registry-three-ways/py/hariachyi-zapyt.py
+:::code proj-device-registry-three-ways/go/main.go
 :::
 
 Поряд із Python я поставив Go навмисне — це рідний дім стилю «рукописний SQL за репозиторієм»: у Go нема важкого ORM, і його явний `rows.Scan(&d.ID, &d.Type, …)` **буквально** і є та «збірка об'єкта з рядка руками», яку Python ховає за розпакуванням кортежу. Дві мови, той самий задум — знання про базу замкнене в одному методі, а запит цілком твій.

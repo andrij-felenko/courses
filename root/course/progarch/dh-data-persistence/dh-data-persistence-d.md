@@ -26,18 +26,7 @@ class InMemoryDeviceRepository:              # за портом DeviceRepositor
     def all(self) -> list[Device]:
         return list(self._devices.values())
 ```
-```ts
-class InMemoryDeviceRepository {             // за портом DeviceRepository з v2
-  private devices = new Map<string, Device>();
-
-  save(d: Device): void {
-    this.devices.set(d.id, d);              // ← усе життя цієї мапи = життя процесу
-  }
-  all(): Device[] {
-    return [...this.devices.values()];
-  }
-}
-```
+:::code dh-data-persistence-d/ts/index.ts
 :::
 
 Родина заводить дім: додає замок на вхідні двері, термостат у спальню, розетку в кухню. Усе працює — сервіс справно кладе пристрої в словник і віддає їх на запит. А тоді, серед ночі, хаб отримує оновлення й перезапускається:

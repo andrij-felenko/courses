@@ -42,57 +42,14 @@ class SpyHeater:                        # шпигун: нічого не грі
     def on(self):  self.calls.append("on")
     def off(self): self.calls.append("off")
 ```
-```ts
-class FakeSensor {                      // фейк: віддає задані виміри, один за одним
-  private q: Reading[];
-  constructor(...readings: Reading[]) { this.q = readings; }
-  read(): Reading { return this.q.shift()!; }
-}
-
-class SpyHeater {                       // шпигун: нічого не гріє, лише пам'ятає виклики
-  calls: string[] = [];
-  on()  { this.calls.push("on"); }
-  off() { this.calls.push("off"); }
-}
-```
+:::code dh-testability-refactor-d/ts/shov-tse-hnizdo-dlia.ts
 :::
 
 Лишилася одна дрібна перешкода, і вона повчальна. Наш `run` — це `while True: … sleep(30)`: у ньому проводка зрощена з розкладом, а розклад тестові не потрібен (ніхто не чекатиме тридцять секунд на кожен оберт). Це останній зварений шов, що лишився від v1. Розварити його — маленький безпечний рух: витягти **один оберт** у власну функцію `tick`, а `run` хай лише повторює її за годинником.
 
 :::tabs
-```py
-def tick(sensor: Sensor, heater: Heater, cfg: Config) -> None:  # рівно один оберт, без розкладу
-    match decide(sensor.read(), cfg):
-        case Command.HEAT: heater.on()
-        case Command.IDLE: heater.off()
-
-def run(sensor, heater, cfg):
-    while True:
-        tick(sensor, heater, cfg)   # логіка обороту
-        sleep(30)                   # розклад — окремо
-
-def test_cold_room_turns_heater_on():
-    heater = SpyHeater()
-    tick(FakeSensor(Reading(18.0)), heater, Config(threshold=20.0))
-    assert heater.calls == ["on"]   # холодний вимір докрутив саме розетку
-```
-```ts
-function tick(sensor: Sensor, heater: Heater, cfg: Config): void {  // один оберт, без розкладу
-  const cmd = decide(sensor.read(), cfg);
-  if (cmd === "HEAT") heater.on();
-  else heater.off();
-}
-
-function run(sensor: Sensor, heater: Heater, cfg: Config) {
-  while (true) { tick(sensor, heater, cfg); sleep(30_000); }
-}
-
-test("cold room turns heater on", () => {
-  const heater = new SpyHeater();
-  tick(new FakeSensor({ celsius: 18.0, ok: true }), heater, { threshold: 20.0 });
-  expect(heater.calls).toEqual(["on"]);   // холодний вимір докрутив саме розетку
-});
-```
+:::code dh-testability-refactor-d/py/main.py
+:::code dh-testability-refactor-d/ts/shov-tse-hnizdo-dlia-2.ts
 :::
 
 Той самий `tick`, що в проді читає справжній термометр і смикає справжнє реле, у тесті працює з фейком і шпигуном — **той самий код проводки, підмінене лише те, що на його кінцях**. Точка ввімкнення — рядок, де ми обираємо, кого вставити в шов, — стоїть у тесті, поза перевіреним кодом. Оце й є та готова точка підміни, яку [шов купив нам ще в модулі про межі](root:progarch/seams-and-boundaries): дублер — просто те, що в неї вставляють. А який саме різновид дублера тут доречний — фейк, шпигун, стаб чи мок — [окрема розмова про дизайн](root:progarch/test-doubles-when); ми беремо рівно ті два, що потрібні цій проводці.

@@ -16,52 +16,7 @@
 
 Нижче наведено повний виробничий сценарій налаштування RLS у PostgreSQL, який включає створення обмеженої ролі доступу, примусове застосування політики та автоматичний тригер для запобігання помилкам при вставці:
 
-```sql
--- 1. Створення обмеженої ролі доступу для додатку (НЕ суперкористувача!)
-CREATE ROLE app_user WITH LOGIN PASSWORD 'secure_password';
-
--- 2. Створення таблиці пристроїв із колонкою tenant_id
-CREATE TABLE devices (
-    id UUID DEFAULT gen_random_uuid(),
-    tenant_id VARCHAR(64) NOT NULL,
-    name VARCHAR(128) NOT NULL,
-    status VARCHAR(32) NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT clock_timestamp(),
-    PRIMARY KEY (tenant_id, id)
-);
-
--- Надаємо права обмеженій ролі
-GRANT SELECT, INSERT, UPDATE, DELETE ON devices TO app_user;
-
--- 3. Вмикаємо Row-Level Security для таблиці
-ALTER TABLE devices ENABLE ROW LEVEL SECURITY;
-
--- 4. Примусове застосування RLS навіть для власника таблиці (FORCE RLS)
-ALTER TABLE devices FORCE ROW LEVEL SECURITY;
-
--- 5. Створення політики доступу на основі сесійної змінної app.current_tenant
-CREATE POLICY tenant_isolation_policy ON devices
-    FOR ALL
-    TO app_user
-    USING (tenant_id = current_setting('app.current_tenant', true))
-    WITH CHECK (tenant_id = current_setting('app.current_tenant', true));
-
--- 6. Допоміжний тригер: автоматично підставляє tenant_id із сесії, якщо додаток його не вказав
-CREATE OR REPLACE FUNCTION set_tenant_id_from_session()
-RETURNS TRIGGER AS $$
-BEGIN
-    IF NEW.tenant_id IS NULL OR NEW.tenant_id = '' THEN
-        NEW.tenant_id := current_setting('app.current_tenant', false);
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER trigger_set_tenant_id
-    BEFORE INSERT ON devices
-    FOR EACH ROW
-    EXECUTE FUNCTION set_tenant_id_from_session();
-```
+:::code proj-tenant-rls-routing/sql/krok-1-konfihuratsiia-row.sql
 
 Примусовий прапорець `FORCE ROW LEVEL SECURITY` є критично важливим. За замовчуванням власник таблиці (роль, яка виконала `CREATE TABLE`) ігнорує політики RLS. Якщо додаток підключається під тим самим користувачем, який створював схему, RLS не працюватиме без `FORCE RLS`.
 
@@ -74,181 +29,9 @@ CREATE TRIGGER trigger_set_tenant_id
 Нижче наведено ідіоматичні реалізації захищеного сесійного guards для популярних мов програмування:
 
 :::tabs
-```go
-package main
-
-import (
-	"context"
-	"database/sql"
-	"fmt"
-)
-
-type tenantKey struct{}
-
-// WithTenant додає tenant_id до контексту Go
-func WithTenant(ctx context.Context, tenantID string) context.Context {
-	return context.WithValue(ctx, tenantKey{}, tenantID)
-}
-
-// TenantFromContext витягує tenant_id з контексту
-func TenantFromContext(ctx context.Context) (string, bool) {
-	tenantID, ok := ctx.Value(tenantKey{}).(string)
-	return tenantID, ok
-}
-
-// ExecWithTenantIsolation виконує функцію у транзакції з встановленим RLS контекстом
-func ExecWithTenantIsolation(ctx context.Context, db *sql.DB, fn func(tx *sql.Tx) error) error {
-	tenantID, ok := TenantFromContext(ctx)
-	if !ok || tenantID == "" {
-		return fmt.Errorf("security violation: missing tenant_id in execution context")
-	}
-
-	// Починаємо транзакцію. Спеціальний режим заперечує брудні читання
-	tx, err := db.BeginTx(ctx, &sql.TxOptions{Isolation: sql.LevelReadCommitted})
-	if err != nil {
-		return fmt.Errorf("failed to begin transaction: %w", err)
-	}
-	defer tx.Rollback()
-
-	// Встановлюємо змінну сесії з is_local = true (третій аргумент set_config)
-	_, err = tx.ExecContext(ctx, "SELECT set_config('app.current_tenant', $1, true)", tenantID)
-	if err != nil {
-		return fmt.Errorf("failed to set tenant context: %w", err)
-	}
-
-	if err := fn(tx); err != nil {
-		return err
-	}
-
-	return tx.Commit()
-}
-```
-```ts
-import { AsyncLocalStorage } from 'node:async_hooks';
-import { Pool, PoolClient } from 'pg';
-
-const tenantStorage = new AsyncLocalStorage<string>();
-
-export class TenantContext {
-  static run<T>(tenantId: string, store: () => Promise<T>): Promise<T> {
-    if (!tenantId) {
-      throw new Error('Security violation: tenantId is required');
-    }
-    return tenantStorage.run(tenantId, store);
-  }
-
-  static current(): string {
-    const tenantId = tenantStorage.getStore();
-    if (!tenantId) {
-      throw new Error('Security violation: no tenant context bound to current async execution');
-    }
-    return tenantId;
-  }
-}
-
-export async function withTenantClient<T>(
-  pool: Pool,
-  action: (client: PoolClient) => Promise<T>
-): Promise<T> {
-  const tenantId = TenantContext.current();
-  const client = await pool.connect();
-
-  try {
-    await client.query('BEGIN');
-    // set_config z is_local = true ізолює параметр у межах цієї транзакції
-    await client.query('SELECT set_config($1, $2, true)', ['app.current_tenant', tenantId]);
-
-    const result = await action(client);
-
-    await client.query('COMMIT');
-    return result;
-  } catch (err) {
-    await client.query('ROLLBACK');
-    throw err;
-  } finally {
-    // При поверненні до пулу підключення гарантовано чисте за рахунок ROLLBACK/COMMIT
-    client.release();
-  }
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <string_view>
-#include <expected>
-#include <stdexcept>
-#include <libpq-fe.h>
-
-// RAII обгортка для управління з'єднанням PostgreSQL
-class PGConnWrapper {
-    PGconn* conn_;
-public:
-    explicit PGConnWrapper(PGconn* conn) : conn_(conn) {}
-    ~PGConnWrapper() {
-        if (conn_) PQfinish(conn_);
-    }
-    PGConnWrapper(const PGConnWrapper&) = delete;
-    PGConnWrapper& operator=(const PGConnWrapper&) = delete;
-    PGConnWrapper(PGConnWrapper&& o) noexcept : conn_(o.conn_) { o.conn_ = nullptr; }
-
-    [[nodiscard]] PGconn* get() const noexcept { return conn_; }
-};
-
-// RAII Guard для ізоляції сесії орендаря у транзакції
-class TenantSessionGuard {
-    PGconn* conn_;
-    bool committed_ = false;
-public:
-    static std::expected<TenantSessionGuard, std::string> create(PGconn* conn, std::string_view tenant_id) {
-        if (tenant_id.empty()) {
-            return std::unexpected("Security violation: tenant_id cannot be empty");
-        }
-
-        PGresult* res = PQexec(conn, "BEGIN");
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-            PQclear(res);
-            return std::unexpected("Failed to start transaction");
-        }
-        PQclear(res);
-
-        // Встановлюємо змінну сесії з is_local = true
-        const char* paramValues[1] = { tenant_id.data() };
-        res = PQexecParams(conn,
-                           "SELECT set_config('app.current_tenant', $1, true)",
-                           1, nullptr, paramValues, nullptr, nullptr, 0);
-
-        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
-            PQclear(res);
-            PQexec(conn, "ROLLBACK");
-            return std::unexpected("Failed to set app.current_tenant setting");
-        }
-        PQclear(res);
-
-        return TenantSessionGuard(conn);
-    }
-
-    ~TenantSessionGuard() {
-        if (!committed_ && conn_) {
-            PGresult* res = PQexec(conn_, "ROLLBACK");
-            PQclear(res);
-        }
-    }
-
-    std::expected<void, std::string> commit() {
-        PGresult* res = PQexec(conn_, "COMMIT");
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-            PQclear(res);
-            return std::unexpected("Failed to commit transaction");
-        }
-        PQclear(res);
-        committed_ = true;
-        return {};
-    }
-
-private:
-    explicit TenantSessionGuard(PGconn* conn) : conn_(conn) {}
-};
-```
+:::code proj-tenant-rls-routing/go/krok-2-prokydannia.go
+:::code proj-tenant-rls-routing/ts/krok-2-prokydannia.ts
+:::code proj-tenant-rls-routing/cpp/main.cpp
 :::
 
 ## Поєднання RLS із декларативним партиціюванням (Partition Pruning)
@@ -257,34 +40,7 @@ private:
 
 Поєднання **Row-Level Security** із **декларативним партиціюванням за списком (LIST Partitioning)** дає фундаментальний приріст продуктивності через механізм **Partition Pruning**:
 
-```sql
--- 1. Базово партиційована таблиця пристроїв за значенням tenant_id
-CREATE TABLE devices_partitioned (
-    id UUID DEFAULT gen_random_uuid(),
-    tenant_id VARCHAR(64) NOT NULL,
-    name VARCHAR(128) NOT NULL,
-    status VARCHAR(32) NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT clock_timestamp(),
-    PRIMARY KEY (tenant_id, id)
-) PARTITION BY LIST (tenant_id);
-
--- 2. Створення окремих партицій для великих орендарів або пулу дрібних
-CREATE TABLE devices_tenant_101 PARTITION OF devices_partitioned
-    FOR VALUES IN ('tenant_101');
-
-CREATE TABLE devices_tenant_102 PARTITION OF devices_partitioned
-    FOR VALUES IN ('tenant_102');
-
--- 3. Вмикаємо RLS на базі партиційованої таблиці
-ALTER TABLE devices_partitioned ENABLE ROW LEVEL SECURITY;
-ALTER TABLE devices_partitioned FORCE ROW LEVEL SECURITY;
-
-CREATE POLICY tenant_partition_policy ON devices_partitioned
-    FOR ALL
-    TO app_user
-    USING (tenant_id = current_setting('app.current_tenant', true))
-    WITH CHECK (tenant_id = current_setting('app.current_tenant', true));
-```
+:::code proj-tenant-rls-routing/sql/poiednannia-rls-iz.sql
 
 Коли запит виконується під сесійною змінною `app.current_tenant = 'tenant_101'`, планировальник PostgreSQL здійснює **Static & Dynamic Partition Pruning**. ДБЖ на рівні планера відсікає всі фізичні файли таблиць інших партицій (`devices_tenant_102`, `devices_default`) і виконує пошук виключно у файлі партиції `devices_tenant_101`.
 
@@ -296,25 +52,7 @@ CREATE POLICY tenant_partition_policy ON devices_partitioned
 
 Замість збереження відкритих даних у таблиці, чутливі колонки (наприклад, номер телефону чи токен доступу до замка) зберігаються як зашифрований байтовий масив `BYTEA`. Ключ шифрування передається в сесію разом із контекстом орендаря:
 
-```sql
--- Встановлюємо унікальний симетричний ключ орендаря для поточної транзакції
-SELECT set_config('app.tenant_encryption_key', 'kms_key_tenant_101_secret', true);
-
--- Вставка даних із прозорим шифруванням pgcrypto
-INSERT INTO devices (tenant_id, name, status, secret_token)
-VALUES (
-    current_setting('app.current_tenant'),
-    'Front Door Lock',
-    'active',
-    pgp_sym_encrypt('unlock_code_9876', current_setting('app.tenant_encryption_key'))
-);
-
--- Читання зашифрованих даних
-SELECT 
-    name, 
-    pgp_sym_decrypt(secret_token, current_setting('app.tenant_encryption_key')) AS secret_token 
-FROM devices;
-```
+:::code proj-tenant-rls-routing/sql/poodynychne-shyfruvannia.sql
 
 Цей підхід забезпечує **двошаровий захист (Defense in Depth)**. Навіть якщо системний адміністратор бази даних виконає запит `SELECT * FROM devices` під обліковим записом `postgres` (минаючи перевірку RLS), він побачить лише зашифровані блоби даних, оскільки симетричний ключ `app.tenant_encryption_key` зберігається у сховищі KMS додатку і розкривається лише у межах активного сесійного транзакційного блоку користувача.
 
@@ -352,23 +90,7 @@ descriptors:
 
 Наприклад, у Prisma це реалізується через розширення клієнта (Client Extensions):
 
-```ts
-// Prisma Client Extension для автоматичного RLS контексту
-export const prismaWithTenant = (tenantId: string) => {
-  return prisma.$extends({
-    query: {
-      $allModels: {
-        async $allOperations({ args, query }) {
-          return prisma.$transaction(async (tx) => {
-            await tx.$executeRaw`SELECT set_config('app.current_tenant', ${tenantId}, true)`;
-            return query(args);
-          });
-        },
-      },
-    },
-  });
-};
-```
+:::code proj-tenant-rls-routing/ts/vzaiemodiia-orm-iz-row.ts
 
 Цей підхід гарантує, що навіть при використанні сирих SQL-виразів всередині ORM нативний рушій PostgreSQL примусово застосує політики безпеки RLS.
 
@@ -376,31 +98,7 @@ export const prismaWithTenant = (tenantId: string) => {
 
 У мікросервісній архітектурі контекст орендаря має неявно транслюватися між сервісами при gRPC-викликах. Для цього реалізується gRPC Unary Server Interceptor, який перехоплює вхідні метадані:
 
-```go
-// TenantUnaryServerInterceptor перехоплює gRPC метадані й збагачує контекст
-func TenantUnaryServerInterceptor() grpc.UnaryServerInterceptor {
-	return func(
-		ctx context.Context,
-		req interface{},
-		info *grpc.UnaryServerInfo,
-		handler grpc.UnaryHandler,
-	) (interface{}, error) {
-		md, ok := metadata.FromIncomingContext(ctx)
-		if !ok {
-			return nil, status.Errorf(codes.Unauthenticated, "missing gRPC metadata")
-		}
-
-		tenantIDs := md.Get("x-tenant-id")
-		if len(tenantIDs) == 0 || tenantIDs[0] == "" {
-			return nil, status.Errorf(codes.Unauthenticated, "missing x-tenant-id in metadata")
-		}
-
-		// Збагачуємо контекст Go і передаємо далі по ланцюжку обробників
-		newCtx := WithTenant(ctx, tenantIDs[0])
-		return handler(newCtx, req)
-	}
-}
-```
+:::code proj-tenant-rls-routing/go/perekhoplennia-metadanykh.go
 
 Такий інтерцептор гарантує, що жоден gRPC-метод не буде виконаний без наявності валідного `tenant_id` у контексті виконання Go-рутини.
 
@@ -410,20 +108,7 @@ func TenantUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 
 PostgreSQL дозволяє поєднувати мультиарендність (Tenancy) із розмежовуванням доступу на основі атрибутів (Attribute-Based Access Control — ABAC) у єдиній політиці RLS:
 
-```sql
--- Політика доступу з урахуванням tenant_id ТА ролі користувача
-CREATE POLICY tenant_abac_policy ON devices
-    FOR ALL
-    TO app_user
-    USING (
-        tenant_id = current_setting('app.current_tenant', true)
-        AND (
-            current_setting('app.current_user_role', true) = 'admin'
-            OR (current_setting('app.current_user_role', true) = 'operator' AND status != 'archived')
-            OR (created_by = current_setting('app.current_user_id', true))
-        )
-    );
-```
+:::code proj-tenant-rls-routing/sql/bahatovymirni-polityky.sql
 
 Перед виконанням запиту сервіс встановлює три сесійні змінні у транзакції:
 
@@ -455,29 +140,7 @@ SELECT set_config('app.current_user_id', 'usr_55', true);
 
 Для виявлення витоків даних у CI/CD пайплайнах пишуться спеціальні інтеграційні тести, які свідомо намагаються порушити межі доступу:
 
-```go
-func TestCrossTenantIsolation(t *testing.T) {
-	db := setupTestDB(t)
-
-	// 1. Створюємо пристрій для tenant_A
-	ctxA := WithTenant(context.Background(), "tenant_A")
-	var devID string
-	err := ExecWithTenantIsolation(ctxA, db, func(tx *sql.Tx) error {
-		return tx.QueryRow("INSERT INTO devices (tenant_id, name, status) VALUES ('tenant_A', 'Lock A', 'active') RETURNING id").Scan(&devID)
-	})
-	require.NoError(t, err)
-
-	// 2. Спроба прочитати пристрій tenant_A під контекстом tenant_B
-	ctxB := WithTenant(context.Background(), "tenant_B")
-	err = ExecWithTenantIsolation(ctxB, db, func(tx *sql.Tx) error {
-		var name string
-		return tx.QueryRow("SELECT name FROM devices WHERE id = $1", devID).Scan(&name)
-	})
-
-	// Очікуємо sql.ErrNoRows, оскільки RLS має приховати рядок tenant_A від tenant_B
-	require.ErrorIs(t, err, sql.ErrNoRows, "CRITICAL: RLS failed to prevent cross-tenant read!")
-}
-```
+:::code proj-tenant-rls-routing/go/avtomatyzovane.go
 
 Такий автоматичний тест гарантує, що ніякі зміни у коді чи схемах даних не зможуть зламати межу ізоляції RLS незаміченими.
 

@@ -126,49 +126,13 @@ ORDER  BY device_id, at DESC;     -- на кожен device_id лишиться 
 
 Ідея радикальніша, ніж здається. Досі читач **щоразу** заново збирав картку з живих джерел. А що, як тримати вже зібраний, готовий до показу зріз — **денормалізовану** таблицю, де кожен рядок і є готова картка дашборда, з ім'ям, кімнатою й останнім виміром в одному місці?
 
-```sql
--- read-модель: денормалізований зріз ПІД дашборд, одна річ на пристрій
-CREATE TABLE dashboard.device_card (
-  device_id   uuid PRIMARY KEY,
-  home_id     uuid NOT NULL,
-  name        text NOT NULL,       -- прийшло з control
-  room        text,                -- прийшло з control
-  last_value  double precision,    -- прийшло з telemetry
-  last_unit   text,
-  last_at     timestamptz          -- коли зроблено вимір
-);
-```
+:::code proj-dh-read-composition/sql/main.sql
 
 Хто ж наповнює цю таблицю й тримає її свіжою? Не читач — читач лише читає. Наповнює її **проєктор** (англ. *projector* — той, що проєктує події в зріз) — ще один [підписник тієї самої шини подій](root:sf-apps/event-driven-architecture), яку ми вже збудували. Він слухає ті самі факти `DeviceEvent`, що й телеметрія, і на кожному оновлює свій рядок:
 
 :::tabs
-```ts
-// ЄДИНИЙ писар device_card; живиться тією самою шиною, що й усі
-class DeviceCardProjector {
-  onEvent(e: DeviceEvent): void {
-    // 1) голова картки (ім'я, кімната) — раз, коли пристрій уперше побачено:
-    //    рядок мусить існувати ДО того, як писати в нього вимір
-    if (!db.hasCard(e.deviceId)) {
-      const d = control.getDevice(e.deviceId);   // ОДИН виклик на пристрій за життя
-      db.insertHead(e.deviceId, e.homeId, d.name, d.room);
-    }
-    // 2) вимір — просто з події, у вже наявний рядок:
-    db.updateReading(e.deviceId, e.value, e.unit, e.at);
-  }
-}
-```
-```py
-# ЄДИНИЙ писар device_card; живиться тією самою шиною, що й усі
-class DeviceCardProjector:
-    def on_event(self, e: DeviceEvent) -> None:
-        # 1) голова картки — раз, коли пристрій уперше побачено:
-        #    рядок мусить існувати ДО того, як писати в нього вимір
-        if not db.has_card(e.device_id):
-            d = control.get_device(e.device_id)   # ОДИН виклик на пристрій за життя
-            db.insert_head(e.device_id, e.home_id, d.name, d.room)
-        # 2) вимір — просто з події, у вже наявний рядок:
-        db.update_reading(e.device_id, e.value, e.unit, e.at)
-```
+:::code proj-dh-read-composition/ts/index.ts
+:::code proj-dh-read-composition/py/main.py
 :::
 
 І тоді дашборд читає **один тривіальний запит** — усе вже склеєно, зшивати нічого:

@@ -23,68 +23,11 @@
 
 Тут ховається перша чесна складність, і замовчати її було б обманом. Узяти `hub.py` і «просто написати до нього тести» не вийде — його нíяк ухопити. Уся програма v0 — це вічний цикл із апаратними викликами всередині:
 
-```python
-# hub.py — v0, як він є
-import time
-
-THRESHOLD = 20.0                 # поріг зашитий у код
-
-def read_sensor():               # драйвер конкретного давача → °C (локальний, без мережі)
-    with open("/dev/therm0") as f:
-        return float(f.read())
-
-def heater_on():                 # драйвер конкретної розетки
-    with open("/dev/relay0", "w") as f:
-        f.write("1")
-
-def heater_off():
-    with open("/dev/relay0", "w") as f:
-        f.write("0")
-
-while True:
-    t = read_sensor()
-    if t < THRESHOLD:
-        heater_on()
-    else:
-        heater_off()
-    time.sleep(30)
-```
+:::code proj-v0-audit-run/py/hub.py
 
 Що тут викликати з тесту? Імпортувати цей файл не можна — на рядку `while True` імпорт зависне назавжди. Читання ходить у справжній `/dev/therm0`, якого на машині тесту немає. Дія смикає справжнє реле. Щоб хоч про щось запитати структуру, її треба спершу зробити **спостережною**: розчепити «один крок» і «крутити вічно», щоб той один крок можна було покликати окремо.
 
-```python
-# hub.py — той самий v0, лише крок відділено від вічного циклу
-import time
-
-THRESHOLD = 20.0
-
-def read_sensor():
-    with open("/dev/therm0") as f:
-        return float(f.read())
-
-def heater_on():
-    with open("/dev/relay0", "w") as f:
-        f.write("1")
-
-def heater_off():
-    with open("/dev/relay0", "w") as f:
-        f.write("0")
-
-def step():                      # рівно одна ітерація старого циклу
-    t = read_sensor()
-    if t < THRESHOLD:
-        heater_on()
-    else:
-        heater_off()
-
-def run():                       # те, що було while True
-    while True:
-        step()
-        time.sleep(30)
-
-if __name__ == "__main__":
-    run()
-```
+:::code proj-v0-audit-run/py/hub-2.py
 
 Ця правка нічого в поведінці не міняє: `run()` робить рівно те, що робив цикл. Але вона важлива двома речами, і обидві варто назвати вголос, бо їх легко переплутати.
 
@@ -98,88 +41,25 @@ if __name__ == "__main__":
 
 **Умова 1 (офлайн-автономія): вирубимо мережу цілком — рішення все одно має статися.** Найважливіший драйвер DH — дім живий без хмари. Закодуємо буквально: підмінюємо `socket` так, щоб будь-яка спроба вийти в мережу вибухала, а тоді женемо холодний давач крізь `step()`.
 
-```python
-import socket
-import time
-import hub
-
-def test_offline_still_decides(monkeypatch):
-    # середовище: інтернету НЕМА — будь-який сокет одразу падає
-    def no_network(*a, **k):
-        raise OSError("мережу відрубано")
-    monkeypatch.setattr(socket, "socket", no_network)
-
-    # давач каже «холодно»; команди грілці лише записуємо
-    monkeypatch.setattr(hub, "read_sensor", lambda: 18.0)
-    fired = []
-    monkeypatch.setattr(hub, "heater_on",  lambda: fired.append("on"))
-    monkeypatch.setattr(hub, "heater_off", lambda: fired.append("off"))
-
-    hub.step()                                  # один крок рішення
-
-    assert fired == ["on"]                       # рішення сталося попри вбиту мережу
-```
+:::code proj-v0-audit-run/py/chotyry-aserty.py
 
 *Висновок: зелено.* І зелено воно рівно тому, чому на рев'ю ми записали не-ризик: у `step()` немає жодного мережевого виклику, тож убивати нема чого. Тест не робить структуру офлайновою — він **показує**, що вона вже така, і робить це так, що заперечити нíчим: ось код, ось убита мережа, ось спрацьована грілка.
 
 **Умова 2 (швидка реакція): один крок рішення має вкладатися в бюджет.** Другий не-ризик — між подією і дією нема відчутної паузи. Міряємо стінним годинником сам шлях рішення (без 30-секундного сну, що живе в `run()`, а не в `step()`).
 
-```python
-import time
-import hub
-
-def test_decision_latency_under_budget(monkeypatch):
-    monkeypatch.setattr(hub, "read_sensor", lambda: 18.0)
-    monkeypatch.setattr(hub, "heater_on",  lambda: None)
-    monkeypatch.setattr(hub, "heater_off", lambda: None)
-
-    start = time.perf_counter()
-    hub.step()
-    elapsed_ms = (time.perf_counter() - start) * 1000
-
-    assert elapsed_ms < 100                      # шлях рішення без мережевого стрибка
-```
+:::code proj-v0-audit-run/py/chotyry-aserty-2.py
 
 *Висновок: зелено, з зіркою.* Локальна гілка без стрибка через мережу відпрацьовує за соті частки мілісекунди — сто в неї величезний запас. Зірку до цього «зелено» ми поставимо трохи згодом: вона й буде першою пасткою.
 
 **Умова 3 (R1, змінюваність): другий давач у другій кімнаті — кожен зі своєю грілкою.** Ось перший ризик. Сценарій дерева корисності — не просто «поміняти поріг», а «додати друге приміщення». Закодуємо його чесно: дві кімнати, у кожної власний давач і власна грілка; спальня холодна — її грілка має ввімкнутися.
 
-```python
-import hub
-
-def test_two_rooms_each_own_heater(monkeypatch):
-    fired = {"bedroom": [], "living": []}
-
-    # структура знає лише ОДИН давач і ОДНУ грілку — чиї вони, вона не питає
-    monkeypatch.setattr(hub, "read_sensor", lambda: 18.0)                 # холодно
-    monkeypatch.setattr(hub, "heater_on",  lambda: fired["bedroom"].append("on"))
-    monkeypatch.setattr(hub, "heater_off", lambda: fired["bedroom"].append("off"))
-
-    hub.step()
-
-    # у вітальні свій давач і своя грілка — а їх у структурі просто немає
-    assert fired["living"], "грілка вітальні жодного разу не отримала команди"
-```
+:::code proj-v0-audit-run/py/chotyry-aserty-3.py
 
 *Висновок: червоно.* І червоно не тому, що ми написали кривий тест, а тому, що сценарій **неможливо навіть виразити** проти цієї структури. `step()` уміє звернутися рівно до одного давача й однієї грілки; другої кімнати для нього не існує в природі. Список `fired["living"]` лишається порожнім, бо йому нíчому туди потрапити. Червоний асерт тут — точний відбиток того зрощення «давач рівно один», яке v0 закарбував у самій формі коду. R1 перестав бути буквою.
 
 **Умова 4 (R2, надійність давача): застиглий давач структура мусить помітити.** Другий ризик — сліпа довіра вхідному числу. Змоделюймо мертвий давач: 240 читань поспіль (дві години по 30 секунд) віддають те саме 19.9.
 
-```python
-import hub
-
-def test_stuck_sensor_is_flagged(monkeypatch):
-    monkeypatch.setattr(hub, "read_sensor", lambda: 19.9)                 # застиг намертво
-    monkeypatch.setattr(hub, "heater_on",  lambda: None)
-    monkeypatch.setattr(hub, "heater_off", lambda: None)
-
-    for _ in range(240):                          # 2 год по 30 с — те саме число
-        hub.step()
-
-    # надійність: після 240 однакових читань хаб мусив би засумніватися
-    assert getattr(hub, "stale_alarm", False), \
-        "давач застиг на 19.9 — хаб не помітив і грів дві години наосліп"
-```
+:::code proj-v0-audit-run/py/chotyry-aserty-4.py
 
 *Висновок: червоно.* `getattr(hub, "stale_alarm", False)` повертає `False`, бо ніякого `stale_alarm` у v0 немає й бути не може: структура ніде не тримає стану «а чи оновлюється взагалі це число?». Двісті сорок разів поспіль вона побачила 19.9 і двісті сорок разів беззастережно повірила. Асерт червоніє на цій сліпій довірі — рівно на тому, що на рев'ю ми назвали R2.
 

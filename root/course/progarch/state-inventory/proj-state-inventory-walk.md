@@ -9,93 +9,8 @@
 Ось фрагмент хаба, як він виглядає після року дописування. Кожен рядок, що заводить стан, я позначив коментарем — не тому, що так пишуть, а щоб інвентар було видно просто в коді:
 
 :::tabs
-```py
-# hub.py — підрослий хаб Digital Homes (фрагмент): пристрої, розклад, БД, кеш
-import json, sqlite3
-from time import time as now
-
-TIMEOUT_S = 90                          # мовчить довше — вважаємо офлайн
-db = sqlite3.connect("hub.db")          # ← джерело правди про пристрої: на диску
-
-class Device:                           # сесія пристрою — живе в ПАМʼЯТІ процесу
-    def __init__(self, id, name, relay):
-        self.id, self.name, self.relay = id, name, relay
-        self.last_seen = 0.0
-        self.online = False             # ← похідне від last_seen, а ЗБЕРІГАЄМО окремо
-        self.temp = None
-
-devices = {}                            # ← список у памʼяті: ДУБЛЬ таблиці devices
-status_cache = {}                       # ← кеш статусів для застосунку: похідне
-schedule = json.load(open("schedule.json"))   # ← розклад гріння: з ФАЙЛУ
-heated_since = None                     # ← лічильник «2 год поспіль»: ТІЛЬКИ в памʼяті
-
-def reload_devices():                   # тягнемо список із БД у памʼятний кеш
-    devices.clear()
-    for id, name, relay in db.execute("SELECT id, name, relay FROM devices"):
-        devices[id] = Device(id, name, relay)
-
-def poll():                             # опитувач: раз на виток питає кожен пристрій
-    for d in devices.values():
-        t = ping(d)                     # локальна змінна — живе один виток
-        if t is not None:
-            d.temp, d.last_seen, d.online = t, now(), True     # писар online №1
-        status_cache[d.id] = {"temp": d.temp, "online": d.online, "ts": now()}
-
-def on_push(msg):                       # пристрій сам штовхнув пакет
-    d = devices.get(msg["id"])
-    if d:
-        d.last_seen, d.online = now(), True                    # писар online №2
-        status_cache[d.id]["temp"] = msg["temp"]               # писар у кеш повз опитувач
-
-def api_status(device_id):              # застосунок питає статус — читає кеш
-    return status_cache.get(device_id)
-```
-```ts
-// hub.ts — підрослий хаб Digital Homes (фрагмент): пристрої, розклад, БД, кеш
-import Database from "better-sqlite3";
-import { readFileSync } from "node:fs";
-
-const TIMEOUT_S = 90;                       // мовчить довше — вважаємо офлайн
-const db = new Database("hub.db");          // ← джерело правди про пристрої: на диску
-
-class Device {                              // сесія пристрою — живе в ПАМʼЯТІ процесу
-  lastSeen = 0;
-  online = false;                           // ← похідне від lastSeen, а ЗБЕРІГАЄМО окремо
-  temp: number | null = null;
-  constructor(public id: number, public name: string, public relay: number) {}
-}
-
-const devices = new Map<number, Device>();  // ← список у памʼяті: ДУБЛЬ таблиці devices
-const statusCache = new Map<number, any>(); // ← кеш статусів для застосунку: похідне
-const schedule = JSON.parse(readFileSync("schedule.json", "utf8"));  // ← розклад: з ФАЙЛУ
-let heatedSince: number | null = null;      // ← лічильник «2 год»: ТІЛЬКИ в памʼяті
-
-function reloadDevices(): void {            // тягнемо список із БД у памʼятний кеш
-  devices.clear();
-  for (const r of db.prepare("SELECT id, name, relay FROM devices").all() as any[])
-    devices.set(r.id, new Device(r.id, r.name, r.relay));
-}
-
-function poll(): void {                     // опитувач: раз на виток питає кожен пристрій
-  for (const d of devices.values()) {
-    const t = ping(d);                      // локальна змінна — живе один виток
-    if (t !== null) { d.temp = t; d.lastSeen = Date.now(); d.online = true; }  // писар online №1
-    statusCache.set(d.id, { temp: d.temp, online: d.online, ts: Date.now() });
-  }
-}
-
-function onPush(msg: { id: number; temp: number }): void {   // пристрій штовхнув пакет
-  const d = devices.get(msg.id);
-  if (d) {
-    d.lastSeen = Date.now(); d.online = true;                 // писар online №2
-    statusCache.get(msg.id).temp = msg.temp;                  // писар у кеш повз опитувач
-  }
-}
-
-function apiStatus(deviceId: number) {      // застосунок питає статус — читає кеш
-  return statusCache.get(deviceId);
-}
-```
+:::code proj-state-inventory-walk/py/hub.py
+:::code proj-state-inventory-walk/ts/hub.ts
 :::
 
 Прочитаймо, що тут насправді живе, від найтихішого до найгучнішого. `t` в опитувачі — **локальна змінна**: народжується на витку, вмирає з ним, ніхто інший її не бачить, клопоту з нею нуль. `last_seen`, `online`, `temp` у кожного `Device` — **поле сесії в пам'яті**: живе, поки живий об'єкт, і його бачать усі, хто має посилання на пристрій. `schedule` завантажений **з файлу**: переживе перезапуск, і його редагує не лише хаб, а й власник через застосунок. `devices` у пам'яті **дублює** рядки таблиці `devices` у базі. `status_cache` — **похідний** зліпок, порахований з пристроїв і відданий телефону. А `heated_since` — той самий критичний лічильник, що й у мінімальному хабі, тільки тепер загублений серед іншого.
@@ -163,37 +78,8 @@ class Device {
 Ліки — замкнути кеш за одними дверима. Кеш стає об'єктом з **однією** точкою запису, і та точка завжди рахує значення **з пристрою**, а не приймає його збоку. Хто завгодно може попросити кеш оновитися по пристрою; ніхто не може вписати в кеш число від себе:
 
 :::tabs
-```py
-class StatusView:
-    """Похідний погляд на пристрої для застосунку. Записати можна лише З ПРИСТРОЮ."""
-    def __init__(self):
-        self._by_id = {}
-
-    def refresh(self, d):                       # ЄДИНИЙ шлях запису — завжди з пристрою
-        self._by_id[d.id] = {"temp": d.temp, "online": d.online, "ts": now()}
-
-    def get(self, device_id):                   # усі інші лише читають
-        row = self._by_id.get(device_id)
-        if row and now() - row["ts"] > TIMEOUT_S:
-            return {**row, "stale": True}        # свіжість позначена, а не прихована
-        return row
-```
-```ts
-class StatusView {
-  private byId = new Map<number, any>();
-
-  refresh(d: Device): void {                    // ЄДИНИЙ шлях запису — завжди з пристрою
-    this.byId.set(d.id, { temp: d.temp, online: d.online, ts: Date.now() });
-  }
-
-  get(deviceId: number) {                       // усі інші лише читають
-    const row = this.byId.get(deviceId);
-    if (row && Date.now() - row.ts > TIMEOUT_S * 1000)
-      return { ...row, stale: true };           // свіжість позначена, а не прихована
-    return row;
-  }
-}
-```
+:::code proj-state-inventory-walk/py/odyn-pysar-na-komirku.py
+:::code proj-state-inventory-walk/ts/odyn-pysar-na-komirku.ts
 :::
 
 Тепер і `poll`, і `on_push` після того, як оновили сам пристрій, кличуть `status.refresh(d)` — і кеш ніколи не тримає числа, якого нема в пристрої. Він фізично не може стати другою правдою, бо в нього нема способу набути значення повз пристрій. А позначка `stale` знімає останню пастку кешу: замість тихо віддавати протухле число, він каже вголос «це старе». Один писар не просто прибирає перегони — він робить кеш чесним похідним, яким кеш і мусить бути.
@@ -207,41 +93,8 @@ class StatusView {
 Правило з інвентаря пряме: якщо стан **мусить пережити процес**, то це не змінна, а тривкий запис. Кладемо лічильник на диск — у той самий `hub.db`, поруч із пристроями, — і рахуємо межу від нього:
 
 :::tabs
-```py
-MAX_RUN_S = 2 * 3600
-
-def set_heating_since(ts):                       # тривкий запис — переживе рестарт
-    db.execute("INSERT OR REPLACE INTO kv(k, v) VALUES ('heated_since', ?)", (ts,))
-    db.commit()
-
-def heating_since():
-    row = db.execute("SELECT v FROM kv WHERE k = 'heated_since'").fetchone()
-    return row[0] if row else None
-
-def guard():                                     # межа рахує від ДИСКА, не від памʼяті
-    since = heating_since()
-    if relay_is_on() and since and now() - since > MAX_RUN_S:
-        relay_off(); set_heating_since(None)
-```
-```ts
-const MAX_RUN_S = 2 * 3600;
-
-function setHeatingSince(ts: number | null): void {   // тривкий запис — переживе рестарт
-  db.prepare("INSERT OR REPLACE INTO kv(k, v) VALUES ('heated_since', ?)").run(ts);
-}
-
-function heatingSince(): number | null {
-  const row = db.prepare("SELECT v FROM kv WHERE k = 'heated_since'").get() as any;
-  return row ? row.v : null;
-}
-
-function guard(): void {                               // межа рахує від ДИСКА, не від памʼяті
-  const since = heatingSince();
-  if (relayIsOn() && since && Date.now() / 1000 - since > MAX_RUN_S) {
-    relayOff(); setHeatingSince(null);
-  }
-}
-```
+:::code proj-state-inventory-walk/py/krytychnyi-stan-u-tryvkyi.py
+:::code proj-state-inventory-walk/ts/krytychnyi-stan-u-tryvkyi.ts
 :::
 
 Тепер перезапуск нічого не забуває: хаб піднявся, прочитав `heated_since` з диска й побачив, що гріє вже півтори години, — межа спрацює вчасно. Але зверни увагу на `relay_is_on()` у `guard`: піднявшись, хаб питає **реле у світі**, а не вірить своїй пам'яті. Це той самий хід, що й з `online`, тільки назовні: «увімкнено чи ні» — теж похідне, і його джерело правди — реле, а не змінна, яку рестарт скинув у `False`. Критичний стан ми поклали на диск; похідний від світу — читаємо зі світу.

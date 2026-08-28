@@ -10,20 +10,7 @@
 
 Щоб порівняння було чесним, прибиваємо цвяхами все, крім самої моделі. Тригер **один** — подія руху, і вона тече **гарячим шляхом**: давачі в домі стріляють десятки разів за хвилину, і кожен постріл проходить через ту саму точку. Ефект **один** — блимнути й сповістити. Скелет хаба **один**: подія й невеликий контекст із рівно тими можливостями, які дія сміє чіпати.
 
-```ts
-type MotionEvent = {
-  sensor: string;   // "hallway-pir"
-  room: string;     // "коридор"
-  at: number;       // Unix-час, мілісекунди
-};
-
-// контекст — вузька поверхня: лише те, що дія має право робити
-interface HubContext {
-  home: { mode: "home" | "away" | "night" };
-  light: { blink(room: string, times: number): void };
-  notify: { push(text: string): void };
-}
-```
+:::code proj-dh-extension-three-ways/ts/zadacha-odna-diia.ts
 
 Хаб — на Node/TypeScript, тож і плагін, і рушій правил, і відправник вебхука живуть тією самою мовою. Це не дрібниця: якби правило я написав на Python, плагін на C++, а вебхук на Go, то й не розібрав би, звідки взялася різниця — від моделі чи від мови. Прибиваємо мову — тоді все, що побачимо, належить **моделі** й нічому більше. Міняється лише одне: **де** біжить логіка дії і **чим** стримано її силу.
 
@@ -45,65 +32,13 @@ then:
 
 Це не програма — це запис у структурі, яку хаб читає й виконує сам. Уся сила й уся безпека тут — у тому, що рушій розуміє лише **скінченний словник** дієслів. Умову хаб тримає розібраним деревцем, а виконує його **власним обходом**, і ось у цьому обході — головний трюк:
 
-```ts
-type Cond =
-  | { op: "and" | "or"; l: Cond; r: Cond }
-  | { op: "==" | "<";   l: Cond; r: Cond }
-  | { op: "var"; name: string }        // "time.hour", "home.mode"
-  | { op: "lit"; value: string | number };
-
-class FuelOut extends Error {}
-
-function evalCond(n: Cond, env: Record<string, unknown>, fuel: { left: number }): unknown {
-  if (--fuel.left <= 0) throw new FuelOut();   // КОЖЕН вузол коштує одиницю пального
-  switch (n.op) {
-    case "lit": return n.value;
-    case "var": return env[n.name];
-    case "and": return evalCond(n.l, env, fuel) && evalCond(n.r, env, fuel);
-    case "or":  return evalCond(n.l, env, fuel) || evalCond(n.r, env, fuel);
-    case "==":  return evalCond(n.l, env, fuel) === evalCond(n.r, env, fuel);
-    case "<":   return (evalCond(n.l, env, fuel) as number) < (evalCond(n.r, env, fuel) as number);
-  }
-}
-```
+:::code proj-dh-extension-three-ways/ts/model-persha-deklaratyvne.ts
 
 Той рядок `if (--fuel.left <= 0) throw` — і є **обмежене обчислення**. На кожен тригер рушій наливає правилу фіксовану порцію **пального** (скажімо, 10 000 одиниць), і кожен обчислений вузол дерева спалює одну. Скінчилося пальне — обчислення обривається, крапка. Це та сама ідея, що «пальне» (англ. *gas*) в обмежених віртуальних машинах чи лічильник інструкцій у пісочниці мови сценаріїв: ти не довіряєш чужій логіці не витрачати твій час — ти **міряєш** її витрату й уриваєш, коли вона переступила стелю.
 
 Тепер драйвер, що зводить усе докупи — закритий словник дій, ізоляція збою й межа каскаду:
 
-```ts
-// СЛОВНИК дій — закритий. Чого тут нема, того правило висловити НЕ МОЖЕ
-const ACTIONS: Record<string, (args: any, ctx: HubContext) => void> = {
-  "light.blink": (a, ctx) => ctx.light.blink(a.room, a.times),
-  "notify.push": (a, ctx) => ctx.notify.push(a.text),
-};
-
-const MAX_CASCADE = 4;
-
-function runRule(rule: Rule, ev: MotionEvent, ctx: HubContext, depth = 0): void {
-  if (depth > MAX_CASCADE) { log.warn("каскад правил задовгий — обрив"); return; }
-  const env = {
-    "time.hour":  new Date(ev.at).getHours(),
-    "home.mode":  ctx.home.mode,
-    "event.room": ev.room,
-  };
-  const fuel = { left: 10_000 };                 // стеля обчислення на один тригер
-  let pass = false;
-  try {
-    pass = Boolean(evalCond(rule.cond, env, fuel));
-  } catch (e) {
-    if (e instanceof FuelOut) { log.warn("правило обірвано: скінчилося пальне"); return; }
-    log.warn("умова правила кинула виняток", e); return;   // навіть кривий вузол не валить хаб
-  }
-  if (!pass) return;
-  for (const step of rule.then) {
-    const run = ACTIONS[step.action];
-    if (!run) continue;                          // невідоме дієслово — тихо ігноруємо
-    try { run(step.args, ctx); }
-    catch (e) { log.warn(`дія ${step.action} впала`, e); }  // один крок упав — решта живе
-  }
-}
-```
+:::code proj-dh-extension-three-ways/ts/model-persha-deklaratyvne-2.ts
 
 Придивімося, **чому** таке правило безпечно виконувати мільйони разів від незнайомих людей — і чому воно не може зациклитися. Тут працюють два різні замки. Перший — **сам словник**: у мові нема дієслова «повторюй» чи «крутись, доки», тож окреме правило й не має чим висловити нескінченний цикл; його умова — скінченне дерево, обхід якого завершується вже за побудовою. Але цей замок стереже лише поодиноке правило. Справжній цикл ховається деінде — у **каскаді**: правило A блимає світлом, блимання породжує подію, подія будить правило B, а те знову смикає A. Ось де народжується вічна петля, якої в жодному окремому правилі не видно. Її ловить `MAX_CASCADE` — межа глибини, за якою ланцюг обривають. А пальне лишається **третім** замком, найширшим: воно кладе стелю на **вартість** одного тригера незалежно від того, звідки взялася робота — з монструозно глибокої умови, з майбутнього дієслова, яке ти колись додаси й недооціниш, чи з того самого каскаду. Словник забороняє петлю **на письмі**, каскадна межа рве її **між правилами**, а пальне страхує від усього, що ці двоє проґавлять. Разом вони роблять «чужа логіка на гарячому шляху» безпечним **за побудовою**, а не за обіцянкою автора поводитися чемно.
 
@@ -119,23 +54,7 @@ function runRule(rule: Rule, ev: MotionEvent, ctx: HubContext, depth = 0): void 
 
 Тепер протилежний кут: та сама дія, але **справжнім кодом** у процесі хаба. Розширення реалізує інтерфейс дії й біжить прямим викликом на кожному русі:
 
-```ts
-interface ActionPlugin {
-  readonly kind: string;
-  onMotion(ev: MotionEvent, ctx: HubContext): void;   // біжить У процесі хаба, на гарячому шляху
-}
-
-class NightWatchPlugin implements ActionPlugin {
-  readonly kind = "night-watch";
-  onMotion(ev: MotionEvent, ctx: HubContext): void {
-    const hour = new Date(ev.at).getHours();
-    if (hour < 6 && ctx.home.mode === "away") {
-      ctx.light.blink(ev.room, 3);
-      ctx.notify.push(`Рух у ${ev.room}, коли нікого немає`);
-    }
-  }
-}
-```
+:::code proj-dh-extension-three-ways/ts/model-druha-plahin-u.ts
 
 Хаб на гарячому шляху кличе плагін **прямо** — жодного посередника, жодної інтерпретації:
 
@@ -169,64 +88,8 @@ onMotion(ev, ctx) {
 Третій шлях виносить код дії **за стіну**: хаб на подію руху штовхає HTTP-запит зовнішньому сервісу — адаптеру «нічного вартового» від стороннього бренду, — а вже той вирішує й діє на своєму боці. Уся тонкість збирається у **відправнику**: він мусить пережити мертвого одержувача, не зависнувши на ньому, і не дати одному трупу застопорити розсилку решті.
 
 :::tabs
-```ts
-type Subscriber = { url: string; secret: string };
-
-async function postWithTimeout(url: string, body: unknown, ms: number): Promise<void> {
-  const ctl = new AbortController();
-  const timer = setTimeout(() => ctl.abort(), ms);    // мертвий одержувач не висить вічно
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(body),
-      signal: ctl.signal,
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-async function dispatch(subs: Subscriber[], ev: MotionEvent): Promise<void> {
-  // назовні йде ЛИШЕ те, що ми свідомо поклали — ні токена, ні нутрощів
-  const payload = { type: "motion.detected", room: ev.room, at: ev.at };
-  const results = await Promise.allSettled(
-    subs.map((s) => postWithTimeout(s.url, payload, 800)),
-  );
-  results.forEach((r, i) => {
-    if (r.status === "rejected")
-      log.warn(`вебхук ${subs[i].url} впав:`, r.reason);   // один мертвий — решта доставлена
-  });
-}
-```
-```go
-type Subscriber struct{ URL, Secret string }
-
-func dispatch(subs []Subscriber, ev MotionEvent) {
-    payload, _ := json.Marshal(map[string]any{             // лише свідомо обраний вміст
-        "type": "motion.detected", "room": ev.Room, "at": ev.At,
-    })
-    var wg sync.WaitGroup
-    for _, s := range subs {
-        wg.Add(1)
-        go func(s Subscriber) {                            // кожен одержувач — окрема горутина
-            defer wg.Done()
-            ctx, cancel := context.WithTimeout(context.Background(), 800*time.Millisecond)
-            defer cancel()
-            req, _ := http.NewRequestWithContext(ctx, "POST", s.URL, bytes.NewReader(payload))
-            req.Header.Set("content-type", "application/json")
-            res, err := http.DefaultClient.Do(req)
-            if err != nil {                                // таймаут чи мертвий вузол — падає ЛИШЕ цей
-                log.Printf("вебхук %s впав: %v", s.URL, err)
-                return
-            }
-            res.Body.Close()
-        }(s)
-    }
-    wg.Wait()                                              // збій одного не чіпає інших
-}
-```
+:::code proj-dh-extension-three-ways/ts/model-tretia-vykhidnyi.ts
+:::code proj-dh-extension-three-ways/go/main.go
 :::
 
 Дві мови — той самий задум, показаний двома ідіомами ізоляції. У TypeScript стіну тримають `AbortController` (свій таймаут на кожен запит) і `Promise.allSettled` — він чекає на **всі** запити, але кожен розв'язується **окремо**: мертвий одержувач відпадає власним таймаутом, не торкнувшись сусідів. Це ключова відмінність від `Promise.all`, який завалив би **всю** пачку на першій же відмові. У Go ту саму ізоляцію дає горутина-на-одержувача з `context.WithTimeout`: кожен постріл несе свій дедлайн, а `WaitGroup` збирає всіх у кінці — падіння одного лишається в його горутині. Обидва кажуть одне: **таймаут на кожного плюс збій кожного окремо** — ось що не дає одному трупу заморозити фан-аут.

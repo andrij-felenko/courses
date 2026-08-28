@@ -38,41 +38,8 @@
 **Фаза EXPAND — додаємо нове, не чіпаючи старого.** Сервер починає віддавати **обидва** поля одночасно. `tempC` лишається точно таким, як був; поруч з'являється `temperature`. Ключова дисципліна — рахувати обидва з **одного джерела правди**, щоб вони ніколи не розійшлися:
 
 :::tabs
-```ts
-type DeviceStateDTO = {
-  // старе поле — лишаємо байт-у-байт, поки його хтось читає
-  tempC: number;
-  // нове поле — канонічне джерело правди
-  temperature: { value: number; unit: "C" | "F" };
-  at: number;
-};
-
-function buildState(d: Device): DeviceStateDTO {
-  const temperature = d.temperature;                 // єдина правда
-  return {
-    temperature,
-    tempC: toCelsius(temperature),                   // старе — ПОХІДНЕ від нового
-    at: d.lastReadingAt,
-  };
-}
-```
-```py
-from dataclasses import dataclass
-from typing import Literal
-
-@dataclass(frozen=True)
-class Temperature:
-    value: float
-    unit: Literal["C", "F"]
-
-def build_state(d: Device) -> dict:
-    temperature = d.temperature                       # єдина правда
-    return {
-        "temperature": {"value": temperature.value, "unit": temperature.unit},
-        "tempC": to_celsius(temperature),             # старе — ПОХІДНЕ від нового
-        "at": d.last_reading_at,
-    }
-```
+:::code api-evolution-dh-d/ts/index.ts
+:::code api-evolution-dh-d/py/main.py
 :::
 
 Старий клієнт бачить `tempC` незмінним — для нього нічого не сталося. Новий клієнт читає `temperature`. Обидва живуть у одній відповіді, і оскільки `tempC` **виводиться** з `temperature`, а не рахується окремо, вони фізично не можуть розійтися.

@@ -57,18 +57,7 @@ func (a *Service) handle(ctx context.Context, req Req) (Resp, error) {
     return a.callB(ctx, local)         // той самий ctx — B побачить залишок
 }
 ```
-```ts
-// A викликає B, передаючи залишок спільного дедлайну, а не свіжий таймаут.
-async function handle(req: Req, deadline: number): Promise<Resp> {
-  // deadline — абсолютна мить (monotonic), поставлена на шлюзі.
-  if (deadline - now() < MIN_WORK_NEEDED) {
-    throw new NoTimeLeft();            // приречена робота — не беремося
-  }
-  const local = doOwnWork(req);        // трохи часу з'їли тут
-  const left = deadline - now();
-  return callB(local, AbortSignal.timeout(left)); // B дістає залишок
-}
-```
+:::code resilient-call-chain-d/ts/index.ts
 :::
 
 > 🔧 **Навіщо це.** Сервіс, що на кожному стрибку ставить **свіжий** таймаут по секунді, — прихована бомба: ланцюг із п'яти таких може чесно працювати п'ять секунд над запитом, який відправник кинув на першій. Це не помилка в жодному окремому місці — і саме тому її важко знайти. Правило просте: дедлайн народжується на вході й **тече** вниз залишком; жоден внутрішній виклик не має права чекати довше, ніж лишилось усьому запиту.

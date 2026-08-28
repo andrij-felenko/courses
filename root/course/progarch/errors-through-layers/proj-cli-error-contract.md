@@ -67,126 +67,8 @@ EX_TEMPFAIL     75   тимчасовий збій — «користувача 
 Ось утиліта — ліворуч Python (де жива історія «трейсбек проти повідомлення»), праворуч Go (єдиний статичний бінарник, рідна валюта конвеєрних інструментів). Обидві загортають **ту саму** `read_temp`, лише експортовану з модуля хаба:
 
 :::tabs
-```py
-#!/usr/bin/env python3
-"""dh-temp — CLI над хабом Digital Homes: прочитати температуру кімнати.
-Результат → stdout · діагностика → stderr · рід результату → код виходу."""
-import sys, json, argparse
-from hub import read_temp, SensorUnavailable      # той самий read_temp зі статті
-
-EX_OK       = 0     # температура в stdout
-EX_USAGE    = 2     # погана команда: нема / невідома кімната
-EX_SENSOR   = 3     # давач недоступний — збій світу, можна повторити
-EX_INTERNAL = 70    # внутрішній баг (EX_SOFTWARE із sysexits) — не мало статися
-
-KNOWN_ROOMS = ("вітальня", "спальня", "кухня")
-
-def fail(args, code, kind, human):
-    """Єдиний вихід через збій: людині — рядок у stderr, машині — json у stderr."""
-    if args.json:
-        json.dump({"error": kind, "room": args.room, "message": human},
-                  sys.stderr, ensure_ascii=False)
-        sys.stderr.write("\n")
-    else:
-        print(f"dh-temp: {human}", file=sys.stderr)   # діагностика — у stderr, не в stdout
-    sys.exit(code)
-
-def run(args):
-    if args.room not in KNOWN_ROOMS:                  # ВХІД з краю — недовірений, перевіряємо тут
-        fail(args, EX_USAGE, "unknown-room",
-             f"немає кімнати «{args.room}»; відомі: {', '.join(KNOWN_ROOMS)}")
-    try:
-        t = read_temp(args.room)                      # може кинути SensorUnavailable
-    except SensorUnavailable as e:                    # очікуване, операційне → перекладаємо в код
-        fail(args, EX_SENSOR, "sensor-unavailable", str(e))
-    # РЕЗУЛЬТАТ — і тільки він — у stdout:
-    if args.json:
-        print(json.dumps({"room": args.room, "temp_c": round(t, 1)}, ensure_ascii=False))
-    else:
-        print(f"{t:.1f}")
-    return EX_OK
-
-def main(argv):
-    p = argparse.ArgumentParser(prog="dh-temp")
-    p.add_argument("room")
-    p.add_argument("--json", action="store_true")
-    return run(p.parse_args(argv))                     # погана опція → argparse сам: stderr + вихід 2
-
-if __name__ == "__main__":
-    try:
-        sys.exit(main(sys.argv[1:]))
-    except SystemExit:
-        raise                                          # наші свідомі виходи (0/2/3) — пропустити
-    except Exception:                                  # сюди доходить ЛИШЕ несподіване = баг
-        import traceback
-        traceback.print_exc()                          # трейсбек у stderr — це ЛОГ дефекту
-        sys.exit(EX_INTERNAL)                          # але тег — 70, не сирий 1
-```
-```go
-// dh-temp — CLI над хабом Digital Homes: прочитати температуру кімнати.
-// Результат → stdout · діагностика → stderr · рід результату → код виходу.
-package main
-
-import (
-	"encoding/json"
-	"errors"
-	"flag"
-	"fmt"
-	"os"
-
-	"digitalhomes/hub" // той самий ReadTemp зі статті, лише експортований
-)
-
-const (
-	exOK       = 0  // температура в stdout
-	exUsage    = 2  // погана команда: нема / невідома кімната
-	exSensor   = 3  // давач недоступний — збій світу, можна повторити
-	exInternal = 70 // внутрішній баг (EX_SOFTWARE із sysexits)
-)
-
-var knownRooms = map[string]bool{"вітальня": true, "спальня": true, "кухня": true}
-
-func fail(asJSON bool, room string, code int, kind, human string) {
-	if asJSON {
-		json.NewEncoder(os.Stderr).Encode(map[string]string{
-			"error": kind, "room": room, "message": human})
-	} else {
-		fmt.Fprintf(os.Stderr, "dh-temp: %s\n", human) // діагностика — у stderr
-	}
-	os.Exit(code)
-}
-
-func main() {
-	asJSON := flag.Bool("json", false, "машиночитний вивід")
-	flag.Parse()
-	if flag.NArg() != 1 {
-		fmt.Fprintln(os.Stderr, "вжиток: dh-temp [--json] <кімната>")
-		os.Exit(exUsage) // погана команда — свідомо 2
-	}
-	room := flag.Arg(0)
-
-	if !knownRooms[room] { // ВХІД з краю — недовірений, перевіряємо тут
-		fail(*asJSON, room, exUsage, "unknown-room", fmt.Sprintf("немає кімнати %q", room))
-	}
-
-	t, err := hub.ReadTemp(room) // помилка — звичайне значення, не виняток
-	if err != nil {
-		var un *hub.SensorUnavailable
-		if errors.As(err, &un) { // очікуване, операційне → код 3
-			fail(*asJSON, room, exSensor, "sensor-unavailable", err.Error())
-		}
-		fmt.Fprintf(os.Stderr, "dh-temp: внутрішній збій: %v\n", err) // несподіване = баг
-		os.Exit(exInternal)                                          // тег — 70, не сирий 1
-	}
-
-	if *asJSON { // РЕЗУЛЬТАТ — і тільки він — у stdout
-		json.NewEncoder(os.Stdout).Encode(map[string]any{"room": room, "temp_c": t})
-	} else {
-		fmt.Printf("%.1f\n", t)
-	}
-	os.Exit(exOK)
-}
-```
+:::code proj-cli-error-contract/py/main.py
+:::code proj-cli-error-contract/go/main.go
 :::
 
 Дві мови — та сама форма контракту, і різниця між ними повчальна саме тут. Python сигналить збій винятком, який летить угору сам, поки хтось не зловить; Go повертає помилку **звичайним значенням**, яке кожен виклик мусить прямо спитати `if err != nil`. Тому й «переклад у код виходу» виглядає різно: у Python баг долітає аж до верхнього `except Exception`, у Go несподівана `err` просто не збігається з `errors.As(&un)` і падає в гілку `exInternal`. Але результат обох — **однакова таблиця кодів** назовні: `bash` не бачить різниці, чи всередині був виняток, чи значення, — він бачить `0`, `2`, `3`, `70`.
@@ -195,25 +77,7 @@ func main() {
 
 Тепер найважливіше — заради кого весь цей контракт існує. Ось той самий розклад під `set -e`, що дивиться на кухню:
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail        # -e: будь-який ненульовий вихід — стоп; -u: невизначена змінна — стоп;
-                         # -o pipefail: конвеєр падає, якщо впала БУДЬ-ЯКА його ланка, не лише остання
-
-if temp=$(dh-temp кухня); then        # $() ловить stdout (чисте число); if бере код виходу
-    # успіх: у $temp — саме «19.4», без діагностики, бо вона пішла в stderr
-    if awk "BEGIN{ exit !($temp < 20) }"; then
-        dh-heat кухня on
-    fi
-else
-    code=$?                           # ЧОМУ не вийшло — читаємо з коду, не з тексту
-    case $code in
-        3)  echo "давач кухні мовчить — спробую наступного циклу" >&2 ;;   # світ: НЕ падати
-        2)  echo "БАГ у розкладі: погана кімната; лагодити скрипт" >&2; exit 2 ;;  # наша вина
-        *)  echo "невідомий збій dh-temp ($code)" >&2; exit "$code" ;;
-    esac
-fi
-```
+:::code proj-cli-error-contract/sh/main.sh
 
 Придивіться, що дав нам розділений контракт. По-перше, `temp=$(dh-temp кухня)` кладе в змінну **чисте число** — бо всю діагностику ми відвели в stderr; якби «читаю давач…» пішло в stdout, воно опинилося б у `$temp` і зламало б порівняння. По-друге — і це серце кроку — гілка `case $code` реагує на **рід** збою рівно так, як політика в статті реагувала на різні винятки. Код `3` (давач офлайн — факт світу) розклад **переживає**: буркнув у лог і чекає наступного циклу, бо давач цілком може відповісти за пів години. А код `2` (ми передали утиліті неіснуючу кімнату — це наш власний баг у скрипті) — фатальний: тут треба зупинитися й полагодити розклад, а не вдавати, що все гаразд. Та сама розвилка «світ проти бага», що керувала кодом усередині програми, тепер керує **сусіднім процесом** — і єдине, що її несе через межу, це маленьке ціле число.
 

@@ -43,86 +43,8 @@
 Поверхню описуємо як пласку мапу «шлях поля → його підпис». У реальному проєкті цю мапу **генерують** із типів (наприклад, зі `zod`/`TypeBox`-схем) або з OpenAPI; тут описуємо руками, щоб приклад був самодостатній. Ключова тонкість підпису — розрізняти **закритий** перелік (додати значення = зламати вичерпний розбір у старого клієнта) і **відкритий** (додати значення безпечно), бо саме на цьому тримається третя перевірка:
 
 :::tabs
-```ts
-// Підпис поля: скаляр або перелік (відкритий/закритий).
-type Sig =
-  | { kind: "scalar"; type: "string" | "number" | "boolean" }
-  | { kind: "enum"; open: boolean; values: string[] };
-
-type Field   = { sig: Sig; required: boolean };
-type Surface = Record<string, Field>;          // "DeviceDTO.temperature.unit" → Field
-type Violation = { path: string; reason: string };
-
-// Чи СУМІСНА поточна форма поля з базовою? null = сумісно; рядок = причина зламу.
-function breakOf(base: Field, cur: Field): string | null {
-  if (base.required && !cur.required)
-    return "поле більше не гарантоване (було обовʼязкове)";
-  const b = base.sig, c = cur.sig;
-  if (b.kind !== c.kind)               return `тип змінив природу: ${b.kind} → ${c.kind}`;
-  if (b.kind === "scalar" && c.kind === "scalar" && b.type !== c.type)
-    return `тип поля: ${b.type} → ${c.type}`;
-  if (b.kind === "enum" && c.kind === "enum") {
-    const removed = b.values.filter(v => !c.values.includes(v));
-    if (removed.length)     return `зникло значення переліку: ${removed.join(", ")}`;
-    const added = c.values.filter(v => !b.values.includes(v));
-    if (added.length && !b.open)
-      return `новий стан у ЗАКРИТОМУ переліку: ${added.join(", ")}`;   // ← ламає exhaustive-клієнта
-    if (b.open && !c.open)  return "відкритий перелік став закритим";
-  }
-  return null;   // додане поле, ширший відкритий перелік, нова опція — усе сумісно
-}
-
-// Поверхня мусить лише РОСТИ проти базового знімка.
-function diffSurface(base: Surface, cur: Surface, deprecated: Set<string>): Violation[] {
-  const out: Violation[] = [];
-  for (const path of Object.keys(base)) {
-    if (!(path in cur)) {
-      if (!deprecated.has(path))
-        out.push({ path, reason: "поле зникло без запису про деприкейшн" });
-      continue;                        // зникло, АЛЕ є запис → кероване вилучення
-    }
-    const why = breakOf(base[path], cur[path]);
-    if (why) out.push({ path, reason: why });
-  }
-  // Нові поля в cur, яких нема в base, — додавання: свідомо НЕ порушення.
-  return out;
-}
-```
-```py
-# Sig:   {"kind":"scalar","type":"number"} | {"kind":"enum","open":True,"values":[...]}
-# Field: {"sig": Sig, "required": bool};   Surface: dict[str, Field]
-
-def break_of(base: dict, cur: dict) -> str | None:
-    if base["required"] and not cur["required"]:
-        return "поле більше не гарантоване (було обовʼязкове)"
-    b, c = base["sig"], cur["sig"]
-    if b["kind"] != c["kind"]:
-        return f"тип змінив природу: {b['kind']} → {c['kind']}"
-    if b["kind"] == "scalar" and b["type"] != c["type"]:
-        return f"тип поля: {b['type']} → {c['type']}"
-    if b["kind"] == "enum":
-        removed = [v for v in b["values"] if v not in c["values"]]
-        if removed:
-            return "зникло значення переліку: " + ", ".join(removed)
-        added = [v for v in c["values"] if v not in b["values"]]
-        if added and not b["open"]:
-            return "новий стан у ЗАКРИТОМУ переліку: " + ", ".join(added)
-        if b["open"] and not c["open"]:
-            return "відкритий перелік став закритим"
-    return None
-
-def diff_surface(base: dict, cur: dict, deprecated: set[str]) -> list[dict]:
-    out = []
-    for path, bf in base.items():
-        if path not in cur:
-            if path not in deprecated:
-                out.append({"path": path, "reason": "поле зникло без запису про деприкейшн"})
-            continue                       # є запис → кероване вилучення
-        why = break_of(bf, cur[path])
-        if why:
-            out.append({"path": path, "reason": why})
-    return out
-```
+:::code proj-dh-surface-guard/ts/skhema-lyshe-roste-diff.ts
+:::code proj-dh-surface-guard/py/main.py
 :::
 
 Ось як виглядає сам закомічений знімок — і зверни увагу, що дві найважливіші межі модуля лежать у ньому поруч, одним файлом: `status` — **закритий** перелік (клієнт робить по ньому вичерпний `switch`), `error.code` — **відкритий** (клієнт мусить мати гілку «інше»). Один той самий сторож стереже обидва, бо різницю несе прапорець `open`:
@@ -167,44 +89,7 @@ H = −Σ pᵢ · log₂ pᵢ     біт на символ     (pᵢ — час�
 "7Kd9x2Lm4pQ8vNc3wZaB"   (20 симв.)  → H ≈ 4.32   (усі різні, майже випадковий — тривога)
 ```
 
-```ts
-// Ключі, де значення-секрет НЕ має права лежати відкритим текстом.
-const SECRET_KEY = /(pass(word)?|pwd|secret|token|api[-_]?key|private[-_]?key|cred|auth)/i;
-
-// Ентропія Шеннона: скільки біт несе символ. Випадкові токени — високі; слова — низькі.
-function shannon(s: string): number {
-  const freq = new Map<string, number>();
-  for (const ch of s) freq.set(ch, (freq.get(ch) ?? 0) + 1);
-  let h = 0;
-  for (const n of freq.values()) { const p = n / s.length; h -= p * Math.log2(p); }
-  return h;                                       // біт на символ
-}
-
-const isRef = (v: unknown): boolean =>            // посилання на секрет — законна форма
-  typeof v === "object" && v !== null && typeof (v as { secret?: unknown }).secret === "string";
-
-const ALLOW = [                                   // відома БЕЗПЕЧНА висока ентропія
-  /^[0-9a-f]{7,40}$/i,                            // git SHA
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,  // UUID
-  /-----BEGIN (PUBLIC KEY|CERTIFICATE)-----/,     // публічний ключ — не таємниця
-];
-
-function scanConfig(cfg: Record<string, unknown>): Violation[] {
-  const out: Violation[] = [];
-  for (const [key, val] of Object.entries(cfg)) {
-    if (isRef(val)) continue;                      // {secret:"…"} — правильний спосіб тримати секрет
-    if (typeof val !== "string") continue;
-    if (ALLOW.some(re => re.test(val))) continue;  // навмисний виняток
-    const looksSecret =
-      SECRET_KEY.test(key) ||                      // СИЛЬНИЙ сигнал: імʼя ключа
-      (val.length >= 20 && shannon(val) >= 4.0);   // слабший: висока ентропія
-    if (looksSecret)
-      out.push({ path: `config.${key}`,
-                 reason: "схоже на секрет-значення — тримай як посилання {secret:\"…\"}" });
-  }
-  return out;
-}
-```
+:::code proj-dh-surface-guard/ts/sekret-ne-zapovz-u-konfih.ts
 
 Ентропійний нюх — не наша вигадка: саме на ньому виріс цілий клас інструментів. TruffleHog починався як скрипт, що рахував ентропію Шеннона над кожним фрагментом коду довшим за 20 символів (для base64- і hex-абеток); Gitleaks іде від правил-регулярок, а ентропію тримає **другим** сигналом; той самий підхід у Yelp'івському `detect-secrets` (усталена індустрійна практика, не одне джерело). Ми свідомо ставимо імʼя ключа **перед** ентропією й додаємо `ALLOW`-список — бо голий ентропійний поріг сумно відомий хибними спрацюваннями (на відкритих даних він ловить ледь ~70% справжніх секретів і засипає рештою шумом). Ця слабина — окрема пастка, до неї повернемось.
 
@@ -214,31 +99,7 @@ function scanConfig(cfg: Record<string, unknown>): Violation[] {
 
 Третя перевірка бере набір **зразків** відповідей на збій (їх постачають [контрактні тести](root:sf-release/contract-testing) або золоті фікстури) і пришпилює кожен до контракту: рівно форма `{ error: { code, message } }`, код — із відкритого реєстру, повідомлення — без слідів нутрощів.
 
-```ts
-const CODES: Set<string> = new Set(loadJSON("surface/error-codes.json").codes);  // відкритий реєстр
-
-const LEAK = [                                     // чого НЕ сміє бути в message
-  /\bat\s+.+:\d+/,                                 // кадр стека: at fn (file.ts:12)
-  /\bselect\b[\s\S]+\bfrom\b/i,                    // SQL
-  /(?:[A-Za-z]:\\|\/(?:home|var|usr|etc)\/)/,      // шлях у файловій системі
-  /\b(exception|traceback|stack)\b/i,             // назви внутрішнього механізму
-];
-
-function lintError(body: unknown): string[] {
-  const errs: string[] = [];
-  const top = body && typeof body === "object" ? Object.keys(body) : [];
-  if (top.length !== 1 || top[0] !== "error")     // 1. рівно { error: … }, нічого зайвого
-    return [`конверт не { error: … }: {${top.join(",")}}`];
-  const e = (body as { error: Record<string, unknown> }).error ?? {};
-  if (Object.keys(e).sort().join(",") !== "code,message")   // жодних stack/sql/detail поруч
-    errs.push(`error має бути {code,message}, а не {${Object.keys(e).join(",")}}`);
-  if (!CODES.has(e.code as string))               // 2. код — із відкритого набору
-    errs.push(`код "${e.code}" не зареєстрований`);
-  if (LEAK.some(re => re.test(String(e.message)))) // 3. без нутрощів
-    errs.push(`message виказує нутрощі: "${e.message}"`);
-  return errs;
-}
-```
+:::code proj-dh-surface-guard/ts/konvert-pomylky-stabilnyi.ts
 
 Перша перевірка — структурна стіна: у конверті рівно `error`, а в ньому рівно `code` і `message`. Пропхнув хтось поруч `stack` чи `sql` «для налагодження» — набір ключів розійшовся з еталоном, лінт червоніє. Друга звіряє код із реєстром — ловить одрук (`device_notfound` замість `device_not_found`) і **ад-хок** код, вигаданий на місці замість оголошеного. Третя проганяє повідомлення крізь `LEAK`: те, що [всередині мусить кричати причиною, назовні мовчить про неї](root:progarch/api-error-contract) — ні кадру стека, ні тексту від бази, ні шляху файлу.
 
@@ -248,18 +109,7 @@ function lintError(body: unknown): string[] {
 
 Три функції зшиваються в один прогін. Він збирає всі порушення, друкує їх — і, якщо список не порожній, **виходить із кодом 1**, від чого CI червоніє й merge блокується:
 
-```ts
-function main(): void {
-  const V: Violation[] = [
-    ...diffSurface(baseline, describe(SURFACE), loadDeprecated()),
-    ...scanConfig(manifest),
-    ...loadSamples().flatMap(s => lintError(s).map(reason => ({ path: "error-sample", reason }))),
-  ];
-  if (V.length === 0) { console.log("✅ поверхня ціла"); return; }
-  for (const v of V) console.error(`❌ ${v.path}: ${v.reason}`);
-  process.exit(1);                 // ← падіння CI: складання червоне, merge заблоковано
-}
-```
+:::code proj-dh-surface-guard/ts/odyn-storozh-kompozytsiia.ts
 
 ```yaml
 # .github/workflows/surface.yml — сторож біжить на кожен PR

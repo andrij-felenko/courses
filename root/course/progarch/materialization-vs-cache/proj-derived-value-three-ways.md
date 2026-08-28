@@ -69,26 +69,7 @@ WHERE home_id = :home
 
 Найпряміший: хай база сама доливає кожен вимір у денний рядок тим самим записом, що його вставляє. Ключ — `(home_id, day)`, і `INSERT … ON CONFLICT DO UPDATE` (Postgres уміє це від версії 9.5) або створює денний рядок, або доливає у наявний:
 
-```sql
--- Інкрементна підтримка: кожен reading доливає СВІЙ Вт·год у рядок дня.
-CREATE OR REPLACE FUNCTION bump_daily_energy() RETURNS trigger AS $$
-BEGIN
-  INSERT INTO daily_energy AS d (home_id, day, wh_sum, n_readings, computed_at)
-  VALUES (NEW.home_id,
-          (NEW.ts AT TIME ZONE 'Europe/Kyiv')::date,   -- день за ОДНИМ годинником
-          NEW.wh, 1, now())
-  ON CONFLICT (home_id, day) DO UPDATE
-    SET wh_sum      = d.wh_sum + EXCLUDED.wh_sum,       -- доливаємо дельту
-        n_readings  = d.n_readings + 1,
-        computed_at = now();
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER trg_bump_daily
-  AFTER INSERT ON reading
-  FOR EACH ROW EXECUTE FUNCTION bump_daily_energy();
-```
+:::code proj-derived-value-three-ways/sql/sposib-a-tryher-u-samii.sql
 
 Свіжість тут ідеальна: агрегат оновлюється **в тій самій транзакції**, що й вставка, тож лаг рівно нуль — прочитаєш денний рядок одразу після запису й побачиш новий вимір усередині. Але зверни увагу на `d.wh_sum + EXCLUDED.wh_sum`: це **долив дельти**, і він тримається на одній обіцянці — що кожен вимір долетить сюди **рівно раз**. Усередині однієї бази так і є (тригер `AFTER INSERT FOR EACH ROW` спрацьовує один раз на рядок). Але саме ця дельта — не ідемпотентна: повтори її для того самого виміру, і агрегат подвоїться. Запам'ятаймо це — за хвилину воно вистрелить.
 
@@ -96,30 +77,7 @@ CREATE TRIGGER trg_bump_daily
 
 Тригер платить дорого прямо на гарячому шляху вставки (побачимо в пастках, чому «гарячий рядок дня» — це біль). Дешевша альтернатива — не чіпати агрегат синхронно, а ловити потік нових вимірів окремим обробником через [захоплення змін даних (CDC): читати журнал вставок джерела як подієвий потік](root:sf-data/change-data-capture) і доливати агрегат **пачками**. Одна згортка на партицію на пачку замість однієї на кожен вимір:
 
-```ts
-// CDC-обробник: пачку нових reading згортаємо локально й доливаємо
-// ОДНИМ upsert на (home, day) — замість одного на кожен вимір.
-async function onReadingBatch(rows: Reading[]): Promise<void> {
-  const bucket = new Map<string, { home: number; day: string; wh: number; n: number }>();
-  for (const r of rows) {                          // згорнути пачку в пам'яті
-    const day = kyivDay(r.ts);                      // той самий київський день
-    const k = `${r.home_id}|${day}`;
-    const b = bucket.get(k) ?? { home: r.home_id, day, wh: 0, n: 0 };
-    b.wh += r.wh; b.n += 1;
-    bucket.set(k, b);
-  }
-  for (const b of bucket.values()) {               // один долив на партицію
-    await db.query(
-      `INSERT INTO daily_energy (home_id, day, wh_sum, n_readings, computed_at)
-       VALUES ($1, $2, $3, $4, now())
-       ON CONFLICT (home_id, day) DO UPDATE
-         SET wh_sum     = daily_energy.wh_sum + EXCLUDED.wh_sum,
-             n_readings = daily_energy.n_readings + EXCLUDED.n_readings,
-             computed_at = now()`,
-      [b.home, b.day, b.wh, b.n]);
-  }
-}
-```
+:::code proj-derived-value-three-ways/ts/sposib-b-cdc-obrobnyk-u.ts
 
 Тепер свіжість уже не нуль: між виміром і його появою в агрегаті стоїть **лаг** — розмір пачки плюс латентність потоку, тобто секунди. Натомість гарячий рядок дня оновлюють не 8 640 разів на добу, а стільки, скільки пачок. Це та сама згортка, лише ощадливіша до запису — ціною того, що [похідне читання має право відставати на оголошений лаг](root:sf-distributed/read-model-lag), і цей лаг стає рядком контракту, а не випадковістю. І та сама пастка дельти лишається: CDC-потік мусить донести кожен вимір **рівно раз**, інакше долив подвоїть. Реальні потоки дають «щонайменше раз», тож обробник веде зсуви й відкидає повтори — а над усім цим стоїть сторож, до якого ми зараз дійдемо.
 
@@ -127,21 +85,7 @@ async function onReadingBatch(rows: Reading[]): Promise<void> {
 
 Ось де дельта вистрелює. Обидва способи вище **доливають** (`wh_sum + …`) — це швидко для живого потоку, але не переживе повтору. А тепер уяви, що агрегат треба **відбудувати** — після втрати, після баг-фіксу, після backfill історії. Відбудова не сміє доливати: вона мусить дати той самий результат, скільки її не запускай. Тож вона рахує партицію **з нуля** з сирого й **перезаписує** денний рядок:
 
-```sql
--- Відбудова агрегата з джерела: ідемпотентно (ПЕРЕЗАПИС, не долив).
--- Скільки не запускай — той самий результат: свіжа згортка тих самих фактів.
-INSERT INTO daily_energy (home_id, day, wh_sum, n_readings, computed_at)
-SELECT home_id,
-       (ts AT TIME ZONE 'Europe/Kyiv')::date AS day,
-       sum(wh), count(*), now()
-FROM reading
-WHERE ts >= :from AND ts < :to
-GROUP BY home_id, day
-ON CONFLICT (home_id, day) DO UPDATE
-  SET wh_sum     = EXCLUDED.wh_sum,        -- ПЕРЕЗАПИС, а не += :  ідемпотентно
-      n_readings = EXCLUDED.n_readings,
-      computed_at = now();
-```
+:::code proj-derived-value-three-ways/sql/dolyv-proty-perezapysu.sql
 
 Дві форми `ON CONFLICT` — на дві різні роботи, і плутати їх не можна. Долив (`d.wh_sum + EXCLUDED`) застосовує **живий** вимір, який прилетів рівно раз. Перезапис (`= EXCLUDED`) **перебудовує** партицію з незмінного джерела, і саме тому [перерахунок, що при повторі дає той самий результат, а не подвоєння](root:sf-data/idempotent-reprocessing), можна ганяти скільки завгодно, не боячись зіпсувати те, що лікуєш. Ідемпотентність тут не додана зусиллям — вона **випливає з форми**: `daily_energy` є чистою функцією `sum`/`count` над незмінними фактами, тож перезапис свіжою згорткою нічого не подвоює.
 
@@ -177,93 +121,15 @@ WHERE home_id = :home AND day = :day;
 Ліки — **однополітність** (single-flight): склеїти збіг промахів за одним ключем в **одне** обчислення, а решту змусити чекати той самий результат. Перший, хто промахнувся, рахує; хто прийшов, поки він рахує, не запускає свій скан, а приєднується до вже запущеного:
 
 :::tabs
-```ts
-// Однополітність у процесі: збіг промахів за ключем склеюється в ОДИН скан.
-const inFlight = new Map<string, Promise<number>>();
-
-async function monthlyKwh(home: string, month: string): Promise<number> {
-  const key = `kwh:${home}:${month}`;
-
-  const hit = await cache.get(key);
-  if (hit !== null) return Number(hit);               // влучання — дешево, з пам'яті
-
-  const running = inFlight.get(key);
-  if (running) return running;                        // уже рахують — приєднайся
-
-  const compute = (async () => {
-    try {
-      const kwh = await computeFromSource(home, month); // ЄДИНИЙ важкий скан
-      const ttl = 300 + Math.floor(Math.random() * 60); // TTL із розкидом (jitter)
-      await cache.set(key, kwh, { ttlSeconds: ttl });
-      return kwh;
-    } finally {
-      inFlight.delete(key);                           // звільни ключ у будь-якому разі
-    }
-  })();
-
-  inFlight.set(key, compute);                         // зареєструй ДО await
-  return compute;
-}
-```
-```py
-# Однополітність у процесі: збіг промахів за ключем склеюється в ОДИН скан.
-import asyncio, random
-
-_inflight: dict[str, asyncio.Task[float]] = {}
-
-async def monthly_kwh(home: str, month: str) -> float:
-    key = f"kwh:{home}:{month}"
-
-    hit = await cache.get(key)
-    if hit is not None:                               # влучання — дешево, з пам'яті
-        return float(hit)
-
-    running = _inflight.get(key)
-    if running is not None:                           # уже рахують — приєднайся
-        return await running
-
-    async def compute() -> float:
-        try:
-            kwh = await compute_from_source(home, month)  # ЄДИНИЙ важкий скан
-            ttl = 300 + random.randint(0, 60)             # TTL із розкидом (jitter)
-            await cache.set(key, kwh, ttl_seconds=ttl)
-            return kwh
-        finally:
-            _inflight.pop(key, None)
-
-    task = asyncio.ensure_future(compute())           # створи задачу…
-    _inflight[key] = task                             # …і зареєструй БЕЗ await між
-    return await task
-```
+:::code proj-derived-value-three-ways/ts/doroha-3-kesh-linko-i-iak.ts
+:::code proj-derived-value-three-ways/py/doroha-3-kesh-linko-i-iak.py
 :::
 
 Обидві версії тримаються на одній тонкій умові: **між перевіркою «чи вже рахують» і реєстрацією свого обчислення не повинно бути жодного await**. У TS проміс створюють і кладуть у `inFlight` синхронно, до першого `await`; у Python задачу реєструють одразу після `ensure_future`, теж без проміжного await. Однопотокова природа обох середовищ робить цей проміжок неперебивним — і саме тому сотня одночасних промахів побачить рівно один запущений скан, а не сотню. `finally` тут не прикраса: якщо скан упаде, ключ мусить звільнитися, інакше наступні застрягнуть на мертвому промісі. А `jitter` у TTL — щоб ключі не протухали синхронною пачкою: розкид у ±60 секунд розмазує наступне протухання й не дає навалі зібратися вдруге.
 
 Це знімає навалу **в межах одного процесу**. Але додатків зазвичай багато, і однополітність кожного не бачить іншого — сто процесів дадуть сто сканів попри всі мапи `inFlight`. Крос-процесний варіант виносить замок у сам кеш: перший, хто взяв замок за ключем, рахує; решта процесів чекають короткий момент і перечитують уже готове:
 
-```ts
-// Крос-процесна однополітність: замок у кеші. SET NX — атомарно «взяв або ні».
-async function monthlyKwhLocked(home: string, month: string, tries = 5): Promise<number> {
-  const key = `kwh:${home}:${month}`;
-  const hit = await cache.get(key);
-  if (hit !== null) return Number(hit);
-
-  const lock = `lock:${key}`;
-  const got = await cache.set(lock, "1", { nx: true, ttlSeconds: 10 }); // атомарний замок
-  if (!got) {
-    if (tries <= 0) return computeFromSource(home, month);  // не крутись вічно — порахуй сам
-    await sleep(50);                                        // хтось рахує — почекай і перечитай
-    return monthlyKwhLocked(home, month, tries - 1);
-  }
-  try {
-    const kwh = await computeFromSource(home, month);
-    await cache.set(key, kwh, { ttlSeconds: 300 });
-    return kwh;
-  } finally {
-    await cache.del(lock);                                  // (обережно — див. пастки)
-  }
-}
-```
+:::code proj-derived-value-three-ways/ts/doroha-3-kesh-linko-i-iak-2.ts
 
 Це та сама ідея, що її мова Go подарувала як named-примітив — пакет `singleflight` Бреда Фіцпатрика (виріс із бібліотеки groupcache для `dl.google.com`, тепер живе в `golang.org/x/sync/singleflight`): «придуши однакові виклики за ключем до одного». Ще принциповіший підхід не чекає протухання зовсім, а перераховує ключ **трохи заздалегідь, за монеткою**, чия ймовірність росте з наближенням до TTL, — так навала розсіюється в часі, бо якийсь один щасливчик оновить кеш ще до того, як усі промахнуться синхронно. Це доведено оптимальний метод «probabilistic early recomputation» (XFetch) із роботи Ваттані, К'єрікетті й Ловенстайна на VLDB 2015; коли однополітності мало, беруть його.
 
@@ -271,23 +137,7 @@ async function monthlyKwhLocked(home: string, month: string, tries = 5): Promise
 
 Досить слів «дешево» й «дорого» — прикрутімо секундомір. Тонкий джгут гоняє кожну дорогу тисячу разів і друкує медіану й хвіст:
 
-```py
-# Вимірювальний джгут: кожну дорогу — n разів, друкуємо p50 і p99 (мс).
-import time
-
-async def bench(name, fn, n=1000):
-    t = []
-    for _ in range(n):
-        s = time.perf_counter()
-        await fn()
-        t.append((time.perf_counter() - s) * 1000.0)
-    t.sort()
-    print(f"{name:16} p50={t[n // 2]:7.2f}  p99={t[int(n * 0.99)]:7.2f}")
-
-# await bench("наживо",          lambda: live_read(home, mfrom, mto))
-# await bench("матеріалізовано", lambda: materialized_read(home, mfrom, mto))
-# await bench("кеш (влучання)",  lambda: monthly_kwh(home, month))
-```
+:::code proj-derived-value-three-ways/py/vymiriaty-postavyty-try.py
 
 На теплій базі з індексами й локальним Redis (порядок величини, не рекорд) джгут друкує приблизно таке — і різниця не тонка:
 

@@ -32,96 +32,8 @@
 Для телеметрії відповідь — відмовити одразу (fail-fast): краще миттєва риска «—», ніж черга, у якій запит на прикрасу стоїть і тримає ресурс. Для ядра — навпаки: список пристроїв критичний, тож коротка **обмежена** черга доречна — хай зачекає мілісекунди на вільний слот, ніж дістане відмову. Тому семафор клієнта вміє обидва режими: `черга 0` — це fail-fast, `черга > 0` — обмежене очікування зі **своєю** стелею (черга без стелі — прихована яма затримки, туди ще повернемось).
 
 :::tabs
-```ts
-// Перебірка = семафор: ≤ limit одночасних; при переповненні або миттєва
-// відмова (fail-fast, maxQueue = 0), або коротке очікування в обмеженій черзі.
-class BulkheadFull extends Error { readonly retryable = false; }
-
-class Bulkhead {
-  private inFlight = 0;
-  private readonly q: Array<{ ok: () => void; timer: ReturnType<typeof setTimeout> }> = [];
-
-  constructor(
-    private readonly limit: number,
-    private readonly maxQueue = 0,     // 0 → fail-fast
-    private readonly maxWait = 0,      // стеля очікування в черзі, мс
-  ) {}
-
-  async run<T>(fn: () => Promise<T>): Promise<T> {
-    await this.acquire();
-    try { return await fn(); }
-    finally { this.release(); }
-  }
-
-  private acquire(): Promise<void> {
-    if (this.inFlight < this.limit) { this.inFlight++; return Promise.resolve(); }
-    if (this.q.length >= this.maxQueue) return Promise.reject(new BulkheadFull());
-    return new Promise<void>((resolve, reject) => {          // паркуємось у черзі — але не назавжди
-      const timer = setTimeout(() => {
-        const i = this.q.findIndex((w) => w.timer === timer);
-        if (i >= 0) { this.q.splice(i, 1); reject(new BulkheadFull()); }
-      }, this.maxWait);
-      this.q.push({ ok: resolve, timer });
-    });
-  }
-
-  private release(): void {
-    const w = this.q.shift();
-    if (w) { clearTimeout(w.timer); w.ok(); }   // слот ПЕРЕХОДИТЬ наступному — лічильник не чіпаємо
-    else this.inFlight--;                        // охочих нема — звільняємо слот
-  }
-}
-```
-```py
-# Перебірка = семафор: ≤ limit одночасних; при переповненні або миттєва
-# відмова (fail-fast, max_queue = 0), або коротке очікування в обмеженій черзі.
-import asyncio
-from collections import deque
-
-
-class BulkheadFull(Exception):
-    retryable = False
-
-
-class Bulkhead:
-    def __init__(self, limit, max_queue=0, max_wait=0.0):
-        self._limit = limit
-        self._max_queue = max_queue       # 0 → fail-fast
-        self._max_wait = max_wait         # стеля очікування в черзі, с
-        self._in_flight = 0
-        self._waiters: deque[asyncio.Future] = deque()
-
-    async def run(self, fn):
-        await self._acquire()
-        try:
-            return await fn()
-        finally:
-            self._release()
-
-    async def _acquire(self):
-        if self._in_flight < self._limit:
-            self._in_flight += 1
-            return
-        if len(self._waiters) >= self._max_queue:
-            raise BulkheadFull()
-        fut = asyncio.get_running_loop().create_future()
-        self._waiters.append(fut)
-        try:
-            await asyncio.wait_for(fut, self._max_wait)   # паркуємось, але не назавжди
-        except asyncio.TimeoutError:
-            if fut in self._waiters:
-                self._waiters.remove(fut)
-            raise BulkheadFull()
-        # слот передано нам напряму — лічильник уже враховує його
-
-    def _release(self):
-        while self._waiters:
-            fut = self._waiters.popleft()
-            if not fut.done():
-                fut.set_result(None)     # слот ПЕРЕХОДИТЬ наступному — лічильник не чіпаємо
-                return
-        self._in_flight -= 1              # охочих нема — звільняємо слот
-```
+:::code proj-dh-resilient-client/ts/perebirka-na-semafori-fail.ts
+:::code proj-dh-resilient-client/py/perebirka-na-semafori-fail.py
 :::
 
 Зверніть увагу на дрібницю в `release`, від якої залежить коректність: коли є хтось у черзі, ми **не** зменшуємо `inFlight`, а передаємо слот далі — він просто змінює власника. Зменшуємо лічильник тільки тоді, коли черга порожня. Інакше слот «протік» би: звільнили й одразу віддали, порахувавши двічі.
@@ -133,109 +45,8 @@ class Bulkhead:
 Ключ до «рівно одної» — те, що рішення «пускати чи ні» ухвалюється **синхронно**, без жодного `await` усередині. У однопотоковій моделі (і JS, і `asyncio`) код між двома `await` виконується атомарно: поки триває синхронна перевірка `allow()`, ніхто інший у неї не влізе. Тож прапорця «проба в польоті» досить — перший виклик у напіввідкритому стані ставить його й проходить, решта бачать прапорець і одразу коротять.
 
 :::tabs
-```ts
-// Запобіжник: closed → open → half. Рішення "пускати?" СИНХРОННЕ (без await),
-// тому в однопотоковому рушії проба гарантовано одна.
-class CircuitOpen extends Error { readonly retryable = false; }
-type BState = "closed" | "open" | "half";
-const now = () => performance.now();     // МОНОТОННИЙ годинник, не Date.now()
-
-class CircuitBreaker {
-  private state: BState = "closed";
-  private fails = 0;
-  private openedAt = 0;
-  private probeInFlight = false;
-
-  constructor(private readonly o: { failsToOpen: number; cooldown: number }) {}
-
-  async call<T>(fn: () => Promise<T>): Promise<T> {
-    if (!this.allow()) throw new CircuitOpen();   // відкритий → НЕ кличемо, миттєво нагору
-    try {
-      const r = await fn();
-      this.onSuccess();
-      return r;
-    } catch (e) {
-      this.onFailure();                            // рахуємо ЦЕЙ виклик як відмову
-      throw e;
-    }
-  }
-
-  private allow(): boolean {
-    if (this.state === "closed") return true;
-    if (this.state === "open") {
-      if (now() - this.openedAt < this.o.cooldown) return false;   // ще холонемо
-      this.state = "half"; this.probeInFlight = true; return true; // ця спроба — і є проба
-    }
-    if (this.probeInFlight) return false;          // half: пробу вже взяли — решту коротимо
-    this.probeInFlight = true; return true;
-  }
-
-  private onSuccess() { this.state = "closed"; this.fails = 0; this.probeInFlight = false; }
-
-  private onFailure() {
-    if (this.state === "half") return this.open();          // проба впала — знову відкрито
-    if (++this.fails >= this.o.failsToOpen) this.open();
-  }
-
-  private open() { this.state = "open"; this.openedAt = now(); this.fails = 0; this.probeInFlight = false; }
-}
-```
-```py
-# Запобіжник: closed → open → half. Рішення "пускати?" СИНХРОННЕ (без await),
-# тому в однопотоковому asyncio проба гарантовано одна.
-from time import monotonic     # МОНОТОННИЙ годинник, не time.time()
-
-
-class CircuitOpen(Exception):
-    retryable = False
-
-
-class CircuitBreaker:
-    def __init__(self, fails_to_open, cooldown):
-        self._fails_to_open = fails_to_open
-        self._cooldown = cooldown
-        self._state = "closed"
-        self._fails = 0
-        self._opened_at = 0.0
-        self._probe = False
-
-    async def call(self, fn):
-        if not self._allow():                 # відкритий → НЕ кличемо, миттєво нагору
-            raise CircuitOpen()
-        try:
-            r = await fn()
-        except Exception:
-            self._on_failure()                # рахуємо ЦЕЙ виклик як відмову
-            raise
-        self._on_success()
-        return r
-
-    def _allow(self):
-        if self._state == "closed":
-            return True
-        if self._state == "open":
-            if monotonic() - self._opened_at < self._cooldown:
-                return False                  # ще холонемо
-            self._state, self._probe = "half", True   # ця спроба — і є проба
-            return True
-        if self._probe:                       # half: пробу вже взяли
-            return False
-        self._probe = True
-        return True
-
-    def _on_success(self):
-        self._state, self._fails, self._probe = "closed", 0, False
-
-    def _on_failure(self):
-        if self._state == "half":             # проба впала — знову відкрито
-            return self._open()
-        self._fails += 1
-        if self._fails >= self._fails_to_open:
-            self._open()
-
-    def _open(self):
-        self._state, self._opened_at, self._fails, self._probe = "open", monotonic(), 0, False
-```
+:::code proj-dh-resilient-client/ts/zapobizhnyk-iz-troma.ts
+:::code proj-dh-resilient-client/py/zapobizhnyk-iz-troma.py
 :::
 
 Одну властивість тут варто назвати вголос, бо вона визначить порядок стосу: **запобіжник лічить запити, а не спроби**. Він бачить рівно один результат на кожен `call` — успіх або кінцеву відмову. Тому його треба поставити **зовні** повтору: тоді повтор крутить свої спроби всередині, а запобіжникові віддає лише підсумок. Якби повтор стояв зовні запобіжника, він гамселив би відкрите коло раз за разом і ховав відмови від лічильника — саме та пастка, від якої застерігала основна стаття.
@@ -247,77 +58,8 @@ class CircuitBreaker:
 Таймаут мусить не просто **облишити** повільний виклик, а **скасувати** його — інакше покинутий запит доганяє відповідь уже нікому не потрібним, тримаючи справжнє з'єднання донизу (і, як побачимо в тесті, слот перебірки). У TS це `AbortController`, у Python — `asyncio.wait_for`, який скасовує внутрішню корутину.
 
 :::tabs
-```ts
-// Спільна мова помилок: прапорець retryable тече ВГОРУ по стосу.
-class TimeoutError_ extends Error { readonly retryable = true; }
-class Upstream5xx extends Error { readonly retryable = true;  constructor(readonly status: number) { super(`5xx ${status}`); } }
-class Upstream4xx extends Error { readonly retryable = false; constructor(readonly status: number) { super(`4xx ${status}`); } }
-const isRetryable = (e: unknown): boolean => !!(e as { retryable?: boolean })?.retryable;
-
-// ТАЙМАУТ: скасовує виклик (abort), а не просто кидає його напризволяще.
-function withTimeout<T>(ms: number, fn: (signal: AbortSignal) => Promise<T>): Promise<T> {
-  const ac = new AbortController();
-  const timer = setTimeout(() => ac.abort(), ms);
-  return fn(ac.signal)
-    .catch((e) => { throw ac.signal.aborted ? new TimeoutError_() : e; })
-    .finally(() => clearTimeout(timer));
-}
-
-// ПОВТОР: до tries спроб, поки помилка ВАРТА повтору. Останню відмову — кидає далі
-// (не ковтає!), тож її бачить запобіжник, що стоїть зовні.
-async function withRetry<T>(tries: number, fn: () => Promise<T>): Promise<T> {
-  let last: unknown;
-  for (let i = 0; i < tries; i++) {
-    try { return await fn(); }
-    catch (e) { last = e; if (!isRetryable(e) || i === tries - 1) throw e; }
-  }
-  throw last;
-}
-```
-```py
-# Спільна мова помилок: прапорець retryable тече ВГОРУ по стосу.
-import asyncio
-
-
-class TimeoutErr(Exception):
-    retryable = True
-
-
-class Upstream5xx(Exception):
-    retryable = True
-    def __init__(self, status): super().__init__(f"5xx {status}"); self.status = status
-
-
-class Upstream4xx(Exception):
-    retryable = False
-    def __init__(self, status): super().__init__(f"4xx {status}"); self.status = status
-
-
-def is_retryable(e) -> bool:
-    return getattr(e, "retryable", False)
-
-
-# ТАЙМАУТ: wait_for скасовує внутрішню корутину, а не кидає її напризволяще.
-async def with_timeout(seconds, fn):
-    try:
-        return await asyncio.wait_for(fn(), seconds)
-    except asyncio.TimeoutError:
-        raise TimeoutErr()
-
-
-# ПОВТОР: до tries спроб, поки помилка ВАРТА повтору. Останню відмову — кидає далі
-# (не ковтає!), тож її бачить запобіжник, що стоїть зовні.
-async def with_retry(tries, fn):
-    last = None
-    for i in range(tries):
-        try:
-            return await fn()
-        except Exception as e:
-            last = e
-            if not is_retryable(e) or i == tries - 1:
-                raise
-    raise last
-```
+:::code proj-dh-resilient-client/ts/taimaut-zi-skasuvanniam.ts
+:::code proj-dh-resilient-client/py/taimaut-zi-skasuvanniam.py
 :::
 
 ## Клієнт: стос у правильному порядку
@@ -325,130 +67,15 @@ async def with_retry(tries, fn):
 Тепер зберімо все. `ServiceClient` — один на залежність — володіє своєю перебіркою й своїм запобіжником, а в `call` складає стос **ззовні всередину** рівно так, як ми вивели: перебірка (слот) → запобіжник (відкритий? — миттєво нагору) → повтор → таймаут на спробу → резолв адреси й сам HTTP. Мережу від резолву відділимо в `transport` — тонкий шов, який тест підмінить фейком, а прод під'єднає до реального `fetch`.
 
 :::tabs
-```ts
-type Res = { status: number; body: unknown };
-type Resolve = (dep: string) => Promise<string>;                          // реєстр виявлення
-type Transport = (addr: string, path: string, body: unknown, s: AbortSignal) => Promise<Res>;
-
-interface Limits { pool: number; queue: number; wait: number; timeout: number;
-                   tries: number; failsToOpen: number; cooldown: number; }
-
-class ServiceClient {
-  private readonly bulkhead: Bulkhead;
-  private readonly breaker: CircuitBreaker;
-  constructor(
-    private readonly dep: string,
-    private readonly resolve: Resolve,
-    private readonly transport: Transport,
-    private readonly lim: Limits,
-  ) {
-    this.bulkhead = new Bulkhead(lim.pool, lim.queue, lim.wait);          // СВІЙ пул
-    this.breaker  = new CircuitBreaker({ failsToOpen: lim.failsToOpen, cooldown: lim.cooldown }); // СВІЙ запобіжник
-  }
-
-  // Уся політика в ОДНОМУ стосі, ззовні всередину. Порядок — не косметика.
-  call<T>(path: string, body: unknown): Promise<T> {
-    return this.bulkhead.run(() =>                       // 1. слот із пулу цієї залежності / BulkheadFull
-      this.breaker.call(() =>                            // 2. відкритий? → CircuitOpen, БЕЗ виклику
-        withRetry(this.lim.tries, () =>                  // 3. повтор УСЕРЕДИНІ — відмови лічить запобіжник
-          withTimeout(this.lim.timeout, (signal) =>      //   4. стеля на СПРОБУ + скасування
-            this.send<T>(path, body, signal)))));        //     резолв адреси + HTTP
-  }
-
-  private async send<T>(path: string, body: unknown, signal: AbortSignal): Promise<T> {
-    const addr = await this.resolve(this.dep);           // готовий екземпляр з реєстру
-    const res = await this.transport(addr, path, body, signal);
-    if (res.status >= 500) throw new Upstream5xx(res.status);   // минуще → повтор + лічба запобіжника
-    if (res.status >= 400) throw new Upstream4xx(res.status);   // по суті → не повторюємо
-    return res.body as T;
-  }
-}
-```
-```py
-# transport(addr, path, body) -> {"status": int, "body": ...};  resolve(dep) -> адреса
-class ServiceClient:
-    def __init__(self, dep, resolve, transport, lim):
-        self._dep = dep
-        self._resolve = resolve
-        self._transport = transport
-        self._lim = lim
-        self._bulkhead = Bulkhead(lim["pool"], lim["queue"], lim["wait"])          # СВІЙ пул
-        self._breaker = CircuitBreaker(lim["fails_to_open"], lim["cooldown"])       # СВІЙ запобіжник
-
-    # Уся політика в ОДНОМУ стосі, ззовні всередину. Порядок — не косметика.
-    async def call(self, path, body):
-        async def attempt():
-            return await with_timeout(self._lim["timeout"],                  # 4. стеля на СПРОБУ + скасування
-                                      lambda: self._send(path, body))
-        async def retried():
-            return await with_retry(self._lim["tries"], attempt)             # 3. повтор УСЕРЕДИНІ
-        return await self._bulkhead.run(                                     # 1. слот / BulkheadFull
-            lambda: self._breaker.call(retried))                             # 2. відкритий? → CircuitOpen
-
-    async def _send(self, path, body):
-        addr = await self._resolve(self._dep)            # готовий екземпляр з реєстру
-        res = await self._transport(addr, path, body)
-        if res["status"] >= 500:
-            raise Upstream5xx(res["status"])             # минуще → повтор + лічба запобіжника
-        if res["status"] >= 400:
-            raise Upstream4xx(res["status"])             # по суті → не повторюємо
-        return res["body"]
-```
+:::code proj-dh-resilient-client/ts/kliient-stos-u-pravylnomu.ts
+:::code proj-dh-resilient-client/py/kliient-stos-u-pravylnomu.py
 :::
 
 Тепер — два клієнти з **різними** ручками й два каллери, у яких вся різниця стійкості вкладається в одне: є `.catch` чи нема. Телеметрія дістає малий пул, fail-fast і терплячий таймаут; ядро — більший пул із короткою чергою й тугіший таймаут. Головний екран кличе **обидва**, але телеметрію обгортає чесним фолбеком; команда «зачинити» йде тим самим клієнтом ядра — і **без** фолбека.
 
 :::tabs
-```ts
-const telemetry = new ServiceClient("telemetry", resolve, http,
-  { pool: 10, queue: 0,  wait: 0,   timeout: 3000, tries: 2, failsToOpen: 5,  cooldown: 2000 }); // fail-fast
-const core = new ServiceClient("core", resolve, http,
-  { pool: 40, queue: 40, wait: 200, timeout: 1000, tries: 2, failsToOpen: 10, cooldown: 1000 }); // коротка черга
-
-// ЧИТАННЯ: телеметрія — прикраса, тож у неї є ЧЕСНИЙ фолбек. Список пристроїв критичний — фолбека нема.
-async function mainScreen(userId: string) {
-  const [devices, readings] = await Promise.all([
-    core.call<Device[]>("/listDevices", { userId }),                 // свій пул; впаде — екран чесно не збереться
-    telemetry.call<Reading[]>("/lastReadings", { userId })
-      .catch(() => [] as Reading[]),                                 // ← фолбек: без виміру
-  ]);
-  const byId = new Map(readings.map((r) => [r.deviceId, r]));
-  return devices.map((d) => ({ device: d, reading: byId.get(d.id) ?? null })); // null → плитка «—»
-}
-
-// КОМАНДА: той самий стос стійкості — але БЕЗ .catch. Не дотягнулись — помилка летить нагору,
-// UI покаже «не вдалося, спробуйте ще», а не збреше «зачинено». Повтор безпечний, бо команда ідемпотентна.
-async function lockDoor(deviceId: string): Promise<LockResult> {
-  return core.call<LockResult>("/command", { deviceId, op: "lock" });
-}
-```
-```py
-telemetry = ServiceClient("telemetry", resolve, http,
-    {"pool": 10, "queue": 0,  "wait": 0.0, "timeout": 3.0, "tries": 2, "fails_to_open": 5,  "cooldown": 2.0})
-core = ServiceClient("core", resolve, http,
-    {"pool": 40, "queue": 40, "wait": 0.2, "timeout": 1.0, "tries": 2, "fails_to_open": 10, "cooldown": 1.0})
-
-
-# ЧИТАННЯ: телеметрія — прикраса, тож у неї є ЧЕСНИЙ фолбек. Список пристроїв критичний — фолбека нема.
-async def main_screen(user_id):
-    async def readings_or_empty():
-        try:
-            return await telemetry.call("/lastReadings", {"userId": user_id})
-        except Exception:
-            return []                                   # ← фолбек: без виміру
-    devices, readings = await asyncio.gather(
-        core.call("/listDevices", {"userId": user_id}),  # свій пул; впаде — екран чесно не збереться
-        readings_or_empty(),
-    )
-    by_id = {r["deviceId"]: r for r in readings}
-    return [{"device": d, "reading": by_id.get(d["id"])} for d in devices]  # None → плитка «—»
-
-
-# КОМАНДА: той самий стос — але БЕЗ except-фолбека. Не дотягнулись — помилка нагору.
-# Повтор безпечний, бо команду ми зробили ідемпотентною ще на межі з домом.
-async def lock_door(device_id):
-    return await core.call("/command", {"deviceId": device_id, "op": "lock"})
-```
+:::code proj-dh-resilient-client/ts/kliient-stos-u-pravylnomu-2.ts
+:::code proj-dh-resilient-client/py/kliient-stos-u-pravylnomu-2.py
 :::
 
 Ось де вся конструкція окупається одним поглядом: `mainScreen` і `lockDoor` ходять крізь **той самий** клієнт із **тим самим** стосом, а різниця стійкості — рівно в наявності `.catch`. Клієнт не знає й не мусить знати, що телеметрію можна підмінити, а замок — ні; він дає стійкість, а сенс «чим замінити» лишає каллеру. І повтор на команді безпечний не випадково: ми зробили команди [ідемпотентними ще на межі з домом](root:progarch/dh-bad-network), тож дві однакові спроби «зачинити» не зачиняють двічі.
@@ -466,52 +93,8 @@ async def lock_door(device_id):
 Тому поставимо сторожа — прямий рідний брат [сторожа топології](root:progarch/dh-service-boundaries-final/proj-dh-final-topology.md), що вже валить збірку на ребрі поза мапою. Правило одне: **сирий міжсервісний HTTP дозволено рівно в одному місці — у модулі клієнта**. Сканер дає список усіх викликів `fetch`/`http`/`axios` у коді з файлом, рядком і хостом; суддя лишає ті, що ведуть у відомий сервіс **повз** файл клієнта.
 
 :::tabs
-```ts
-// arch/no-raw-cross-service.ts — фітнес-тест: сирий міжсервісний HTTP дозволено ЛИШЕ в клієнті.
-const CLIENT = "infra/service-client.ts";                  // єдине легальне місце
-const SERVICES = new Set(["telemetry", "core", "video", "hub", "payments", "push"]);
-
-// Сканер дав кожен вихідний HTTP-виклик: файл, рядок, хост (якщо статичний), текст.
-type RawCall = { file: string; line: number; host: string; text: string };
-
-export function violations(calls: RawCall[]): string[] {
-  return calls
-    .filter((c) => c.file !== CLIENT && SERVICES.has(c.host))   // йде в сусідній сервіс повз клієнт
-    .map((c) => `${c.file}:${c.line} — сирий HTTP у «${c.host}» повз ServiceClient: ${c.text.trim()}`);
-}
-
-export function main(calls: RawCall[]): number {
-  const bad = violations(calls);
-  if (bad.length === 0) { console.log("усі міжсервісні виклики йдуть крізь клієнт"); return 0; }
-  console.error("ЗРАДА КЛІЄНТА DH:");
-  for (const b of bad) console.error("  " + b);
-  return 1;                       // exit 1 → CI червоний → merge заблоковано
-}
-```
-```py
-# arch/no_raw_cross_service.py — фітнес-тест: сирий міжсервісний HTTP дозволено ЛИШЕ в клієнті.
-CLIENT = "infra/service_client.py"                          # єдине легальне місце
-SERVICES = {"telemetry", "core", "video", "hub", "payments", "push"}
-
-
-def violations(calls):     # calls: [{"file","line","host","text"}] від сканера
-    bad = []
-    for c in calls:
-        if c["file"] != CLIENT and c["host"] in SERVICES:      # йде в сусідній сервіс повз клієнт
-            bad.append(f'{c["file"]}:{c["line"]} — сирий HTTP у «{c["host"]}» повз ServiceClient: {c["text"].strip()}')
-    return bad
-
-
-def main(calls):
-    bad = violations(calls)
-    if not bad:
-        print("усі міжсервісні виклики йдуть крізь клієнт")
-        return 0
-    print("ЗРАДА КЛІЄНТА DH:")
-    for b in bad:
-        print("  " + b)
-    return 1                        # exit 1 → CI червоний → merge заблоковано
-```
+:::code proj-dh-resilient-client/ts/no-raw-cross-service.ts
+:::code proj-dh-resilient-client/py/no_raw_cross_service.py
 :::
 
 Той злощасний рядок у BFF сканер бачить як `fetch` у хост `telemetry` з файлу, що не є клієнтом, — і збірка червоніє:
@@ -528,106 +111,8 @@ exit 1 — merge заблоковано. Прибираєш сирий `fetch`, 
 Лишилось найцікавіше — **показати** числами, що клієнт робить те, що обіцяє. Зберімо крихітну фейкову мережу, яка рахує **одночасні** виклики на кожен сервіс і вміє душити телеметрію: у режимі `slow` вона висить п'ять секунд (довше за таймаут — тож таймаут скасує), у `fail` — швидко віддає 503. Клієнт справжній, підмінили лише `transport`.
 
 :::tabs
-```ts
-// Фейкова мережа: лічить ОДНОЧАСНІ виклики на сервіс і душить телеметрію.
-const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-class FakeNet {
-  maxConc: Record<string, number> = {};
-  private live: Record<string, number> = {};
-  telemetryMode: "healthy" | "slow" | "fail" = "healthy";
-
-  transportFor(dep: string): Transport {
-    return async (_addr, _path, _body, signal) => {
-      this.live[dep] = (this.live[dep] ?? 0) + 1;
-      this.maxConc[dep] = Math.max(this.maxConc[dep] ?? 0, this.live[dep]);
-      try {
-        if (dep === "telemetry" && this.telemetryMode === "slow") {
-          await abortable(5000, signal);                       // висить 5 с; таймаут скасує на 3-й
-          return { status: 200, body: [] };
-        }
-        if (dep === "telemetry" && this.telemetryMode === "fail") {
-          await delay(20); return { status: 503, body: null }; // швидко падає
-        }
-        await delay(20); return { status: 200, body: sample(dep) };
-      } finally { this.live[dep]--; }
-    };
-  }
-}
-// abortable: чекає ms, але прокидається помилкою, щойно таймаут викликав abort (скасування).
-function abortable(ms: number, signal: AbortSignal): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const t = setTimeout(resolve, ms);
-    signal.addEventListener("abort", () => { clearTimeout(t); reject(new Error("aborted")); });
-  });
-}
-
-async function testDegradeAndIsolate() {
-  const net = new FakeNet();
-  net.telemetryMode = "slow";                                 // ← душимо телеметрію
-  // 50 головних екранів + 10 команд «зачинити», усі водночас.
-  const screens = Array.from({ length: 50 }, (_, i) => timed(() => mainScreen(`u${i}`)));
-  const cmds = Array.from({ length: 10 }, (_, i) => lockDoor(`d${i}`));
-  const [tiles, cmdRes] = await Promise.all([Promise.all(screens), Promise.allSettled(cmds)]);
-
-  // 1. Екран ДЕГРАДУВАВ, а не завис: кожна плитка має пристрій, але reading = null.
-  assert(tiles.every((t) => t.value.every((x) => x.device && x.reading === null)));
-  // 2. Телеметрія НЕ з'їла більше за свій пул; ядро качало вільно.
-  assert(net.maxConc.telemetry <= 10);
-  assert(net.maxConc.core >= 40);
-  // 3. БІЛЬШІСТЬ екранів повернулись швидко (миттєвий «відсік повний» → фолбек).
-  assert(tiles.filter((t) => t.ms < 100).length >= 40);
-  // 4. Усі команди пройшли своїм пулом — жодної брехні «зачинено».
-  assert(cmdRes.every((c) => c.status === "fulfilled"));
-  console.log("деградація й ізоляція: OK", net.maxConc);
-}
-```
-```py
-import asyncio
-
-
-class FakeNet:
-    def __init__(self):
-        self.max_conc = {}
-        self._live = {}
-        self.telemetry_mode = "healthy"
-
-    def transport_for(self, dep):
-        async def transport(_addr, _path, _body):
-            self._live[dep] = self._live.get(dep, 0) + 1
-            self.max_conc[dep] = max(self.max_conc.get(dep, 0), self._live[dep])
-            try:
-                if dep == "telemetry" and self.telemetry_mode == "slow":
-                    await asyncio.sleep(5.0)                    # висить 5 с; wait_for скасує на 3-й
-                    return {"status": 200, "body": []}
-                if dep == "telemetry" and self.telemetry_mode == "fail":
-                    await asyncio.sleep(0.02); return {"status": 503, "body": None}
-                await asyncio.sleep(0.02); return {"status": 200, "body": sample(dep)}
-            finally:
-                self._live[dep] -= 1
-        return transport
-
-
-async def test_degrade_and_isolate():
-    net = FakeNet()
-    net.telemetry_mode = "slow"                                # ← душимо телеметрію
-    screens = [timed(main_screen(f"u{i}")) for i in range(50)]
-    cmds = [lock_door(f"d{i}") for i in range(10)]
-    tiles, cmd_res = await asyncio.gather(
-        asyncio.gather(*screens),
-        asyncio.gather(*cmds, return_exceptions=True),
-    )
-    # 1. Екран ДЕГРАДУВАВ, а не завис: пристрій є, reading = None.
-    assert all(all(x["device"] and x["reading"] is None for x in t.value) for t in tiles)
-    # 2. Телеметрія НЕ з'їла більше за свій пул; ядро качало вільно.
-    assert net.max_conc["telemetry"] <= 10
-    assert net.max_conc["core"] >= 40
-    # 3. БІЛЬШІСТЬ екранів повернулись швидко (миттєвий «відсік повний» → фолбек).
-    assert sum(1 for t in tiles if t.ms < 0.1) >= 40
-    # 4. Усі команди пройшли — жодної брехні «зачинено».
-    assert all(not isinstance(c, Exception) for c in cmd_res)
-    print("деградація й ізоляція: OK", net.max_conc)
-```
+:::code proj-dh-resilient-client/ts/dovesty-na-zhyvomu.ts
+:::code proj-dh-resilient-client/py/dovesty-na-zhyvomu.py
 :::
 
 Прочитаймо, що саме доводить кожне твердження — і хто його забезпечив.

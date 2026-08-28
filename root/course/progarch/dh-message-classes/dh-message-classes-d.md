@@ -67,55 +67,8 @@
 Найкраще, що можна зробити з цим знанням, — **записати його в код так, щоб не покладатися на пам'ять**. Хай кожен клас трафіку DH буде не усним переказом, а оголошеною структурою: ось його форма, ось звідси випливає канал. Тоді нова інтеграція не «десь там кудись шле» — вона мусить назвати свій клас, а клас уже знає свою трубу.
 
 :::tabs
-```ts
-// Кожен клас трафіку DH — не «повідомлення взагалі», а оголошена форма:
-// хто споживає, чи чекають, яка гарантія, чи треба переграти → і звідси канал.
-type Intent   = "command" | "document" | "event";       // намір за EIP
-type Fanout   = "one-addressed" | "worker-pool" | "many-independent" | "many-unknown";
-type Delivery = "effectively-once" | "at-least-once";
-type Channel  = "queue" | "work-queue" | "log" | "topic";
-
-interface TrafficClass {
-  intent: Intent;
-  fanout: Fanout;
-  waits: boolean;        // хтось синхронно чекає відповідь?
-  delivery: Delivery;
-  replayable: boolean;   // чи треба тримати історію й переграти?
-  channel: Channel;      // сюди — і тільки сюди — лягає цей клас
-}
-
-const DH_TRAFFIC: Record<string, TrafficClass> = {
-  deviceCommand: { intent: "command",  fanout: "one-addressed",    waits: true,  delivery: "effectively-once", replayable: false, channel: "queue"      },
-  telemetry:     { intent: "document", fanout: "many-independent", waits: false, delivery: "at-least-once",     replayable: true,  channel: "log"        },
-  domainEvent:   { intent: "event",    fanout: "many-unknown",     waits: false, delivery: "at-least-once",     replayable: false, channel: "topic"      },
-  heavyJob:      { intent: "command",  fanout: "worker-pool",      waits: false, delivery: "at-least-once",     replayable: false, channel: "work-queue" },
-};
-```
-```py
-from dataclasses import dataclass
-from enum import Enum
-
-class Intent(Enum):   COMMAND = "command"; DOCUMENT = "document"; EVENT = "event"   # намір за EIP
-class Fanout(Enum):   ONE = "one-addressed"; POOL = "worker-pool"; INDEP = "many-independent"; UNKNOWN = "many-unknown"
-class Delivery(Enum): ONCE = "effectively-once"; AT_LEAST = "at-least-once"
-class Channel(Enum):  QUEUE = "queue"; WORK = "work-queue"; LOG = "log"; TOPIC = "topic"
-
-@dataclass(frozen=True)          # незмінне оголошення: форма класу не «пливе» в рантаймі
-class TrafficClass:
-    intent: Intent
-    fanout: Fanout
-    waits: bool                  # хтось синхронно чекає відповідь?
-    delivery: Delivery
-    replayable: bool             # чи треба тримати історію й переграти?
-    channel: Channel             # сюди — і тільки сюди — лягає цей клас
-
-DH_TRAFFIC = {
-    "device_command": TrafficClass(Intent.COMMAND,  Fanout.ONE,     True,  Delivery.ONCE,     False, Channel.QUEUE),
-    "telemetry":      TrafficClass(Intent.DOCUMENT, Fanout.INDEP,   False, Delivery.AT_LEAST, True,  Channel.LOG),
-    "domain_event":   TrafficClass(Intent.EVENT,    Fanout.UNKNOWN, False, Delivery.AT_LEAST, False, Channel.TOPIC),
-    "heavy_job":      TrafficClass(Intent.COMMAND,  Fanout.POOL,    False, Delivery.AT_LEAST, False, Channel.WORK),
-}
-```
+:::code dh-message-classes-d/ts/index.ts
+:::code dh-message-classes-d/py/main.py
 :::
 
 Оголошення саме собою нічого не робить — але воно робить **очевидним** те, що інакше губиться в переказах. Кожна течія тепер має ім'я, форму й одну-єдину трубу; чотири класи — **чотири різні дієслова** назовні, а не одне розмите «надіслати»:

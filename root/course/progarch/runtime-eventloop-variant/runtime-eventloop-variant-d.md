@@ -54,43 +54,8 @@ Digital Homes дійшла до розвилки, яку весь модуль �
 Уяви: цикл спокійно обслуговує тисячі. І тут один обробник робить щось важке **синхронно** — розбирає 50-мегабайтний JSON, рахує хеш пароля, крутить тісний цикл, читає файл блокуючим викликом. Поки він працює, жоден інший обробник не біжить: потік один, і він зайнятий. Не «повільніше» — **застигло**.
 
 :::tabs
-```js
-import { createServer } from "node:http";
-import { scryptSync } from "node:crypto";
-
-createServer((req, res) => {
-  if (req.url === "/health") {
-    res.end("ok");                                 // легкий обробник — миттю
-  } else {
-    scryptSync("pw", "salt", 64, { N: 2 ** 17 });  // ОТРУТА: ~200 мс на єдинім потоці
-    res.end("done");
-  }
-}).listen(3000);
-// Поки рахується scrypt, КОЖЕН паралельний /health застигає: потік один.
-```
-```py
-import asyncio, hashlib
-
-async def handle(reader, writer):
-    path = (await reader.readline()).strip()
-    if path == b"/health":
-        writer.write(b"ok")                 # легкий обробник — миттю
-    else:
-        h = b"pw"
-        for _ in range(3_000_000):          # ОТРУТА: ~200 мс тісного циклу
-            h = hashlib.sha256(h).digest()
-        writer.write(b"done")
-    await writer.drain()
-    writer.close()
-
-async def main():
-    srv = await asyncio.start_server(handle, "127.0.0.1", 3000)
-    async with srv:
-        await srv.serve_forever()
-
-asyncio.run(main())
-# Поки крутиться хеш, КОЖЕН паралельний /health застигає: цикл подій один.
-```
+:::code runtime-eventloop-variant-d/js/index.js
+:::code runtime-eventloop-variant-d/py/main.py
 :::
 
 ![Одна горизонтальна смуга — єдиний потік циклу подій; ліворуч у ній стоять готові задачі, яким epoll уже дозволив бігти, але вони чекають; посередині смугу займає червоний блокуючий/CPU-виклик на 200 мс, і праворуч від нього — «жоден інший обробник не біжить»; знизу два висновки: норма (попрацював коротко → await → звільнив смугу) і ціна (один виклик не віддає смугу — усі мерзнуть)](img/single-lane.svg)

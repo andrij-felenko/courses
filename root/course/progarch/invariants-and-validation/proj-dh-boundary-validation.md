@@ -44,97 +44,8 @@
 Спершу — хребет і об'єкти-значення. Кожне поле дістає свій розбірник з єдиними дверима: недійсне значення крізь них фізично не проходить.
 
 :::tabs
-```ts
-// ── Хребет: результат — це значення, успіх АБО помилка, ніколи не виняток ──
-type Ok<T>  = { ok: true;  value: T };
-type Err<E> = { ok: false; error: E };
-type Result<T, E> = Ok<T> | Err<E>;
-
-const ok  = <T>(value: T): Result<T, never> => ({ ok: true,  value });
-const err = <E>(error: E): Result<never, E> => ({ ok: false, error });
-
-// ── Об'єкти-значення: у кожного єдині двері — parse(), інших немає ──
-class DeviceId {
-  private constructor(readonly value: string) {}
-  static parse(raw: unknown): Result<DeviceId, string> {
-    if (typeof raw !== "string")   return err("очікувано рядок");
-    if (raw.length === 0)          return err("порожній");
-    if (raw.length > 32)           return err("задовгий (>32)");
-    if (!/^[a-z0-9-]+$/.test(raw))  return err("лише a–z, 0–9 та дефіс");
-    return ok(new DeviceId(raw));
-  }
-}
-
-// Той самий Celsius, що в статті: число в межах кімнатного давача, −50…80.
-class Celsius {
-  private constructor(readonly value: number) {}
-  static parse(raw: unknown): Result<Celsius, string> {
-    if (typeof raw !== "number" || Number.isNaN(raw)) return err("не число");
-    if (raw < -50 || raw > 80)  return err(`поза межами −50…80: ${raw}`);
-    return ok(new Celsius(raw));
-  }
-}
-
-// Action — тип-сума: рівно один із трьох режимів, і нічого «поміж».
-type Action = "heat" | "cool" | "off";
-const ACTIONS = ["heat", "cool", "off"] as const;
-function parseAction(raw: unknown): Result<Action, string> {
-  if (typeof raw !== "string")
-    return err("очікувано рядок");
-  if (!(ACTIONS as readonly string[]).includes(raw))
-    return err(`невідома дія «${raw}»; дозволені: ${ACTIONS.join(", ")}`);
-  return ok(raw as Action);
-}
-```
-```rust
-// Cargo: serde_json. Newtype-обгортки стережуть інваріанти самі.
-use serde_json::Value;
-
-// ── Помилка поля — значення, яке повертають, а не паніка ──
-#[derive(Debug, PartialEq)]
-pub struct FieldError { pub field: &'static str, pub message: String }
-
-// ── Newtype-об'єкти-значення: приватне поле → єдині двері parse() ──
-pub struct DeviceId(String);
-impl DeviceId {
-    pub fn parse(v: Option<&Value>) -> Result<DeviceId, String> {
-        let s = v.and_then(Value::as_str).ok_or("очікувано рядок")?;
-        if s.is_empty() { return Err("порожній".into()); }
-        if s.len() > 32 { return Err("задовгий (>32)".into()); }
-        if !s.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'-') {
-            return Err("лише a–z, 0–9 та дефіс".into());
-        }
-        Ok(DeviceId(s.to_owned()))
-    }
-}
-
-pub struct Celsius(f64);
-impl Celsius {
-    pub fn parse(v: Option<&Value>) -> Result<Celsius, String> {
-        let n = v.and_then(Value::as_f64).ok_or("не число")?;
-        if !(-50.0..=80.0).contains(&n) {
-            return Err(format!("поза межами −50…80: {n}"));
-        }
-        Ok(Celsius(n))
-    }
-    pub fn value(&self) -> f64 { self.0 }
-}
-
-// Тип-сума: рівно один із дозволених режимів.
-#[derive(Debug, PartialEq)]
-pub enum Action { Heat, Cool, Off }
-impl Action {
-    pub fn parse(v: Option<&Value>) -> Result<Action, String> {
-        match v.and_then(Value::as_str) {
-            Some("heat") => Ok(Action::Heat),
-            Some("cool") => Ok(Action::Cool),
-            Some("off")  => Ok(Action::Off),
-            Some(other)  => Err(format!("невідома дія «{other}»; дозволені: heat, cool, off")),
-            None         => Err("очікувано рядок".into()),
-        }
-    }
-}
-```
+:::code proj-dh-boundary-validation/ts/robochyi-konveier.ts
+:::code proj-dh-boundary-validation/rust/robochyi-konveier.rs
 :::
 
 Зверніть увагу, що `Action` — це [тип-сума, у якому недозволеного стану просто нема куди вписати](root:sf-apps/type-driven-design): після розбору `action` — це `Heat`, `Cool` або `Off`, і третього значення в цьому типі не існує. Ядро нижче за течією може робити `switch`/`match` і бути певним, що покрило всі випадки, бо їх рівно стільки, скільки варіантів у сумі. Рядок `"melt"` до ядра не дійде — він відпаде тут, на межі, звичайною помилкою.
@@ -142,75 +53,8 @@ impl Action {
 Тепер — сам конвеєр: форма, поля, агрегація, складання.
 
 :::tabs
-```ts
-// ── Довірений доменний об'єкт. Кожне поле — вже перевірений тип. ──
-type Command = {
-  readonly deviceId: DeviceId;
-  readonly target:   Celsius;
-  readonly action:   Action;
-};
-type FieldError = { field: string; message: string };
-
-function parseCommand(body: string): Result<Command, FieldError[]> {
-  // 1. РОЗБІР ФОРМИ: чи це взагалі JSON-об'єкт?
-  let root: unknown;
-  try {
-    root = JSON.parse(body);              // єдиний throw у всьому конвеєрі — тут і ловимо
-  } catch {
-    return err([{ field: "(корінь)", message: "не валідний JSON" }]);
-  }
-  if (typeof root !== "object" || root === null || Array.isArray(root))
-    return err([{ field: "(корінь)", message: "очікувано об'єкт" }]);
-  const obj = root as Record<string, unknown>;
-
-  // 2. РОЗБІР ПОЛІВ: кожне — незалежно, у свій Result. Жодного throw.
-  const id     = DeviceId.parse(obj.deviceId);
-  const target = Celsius.parse(obj.targetTemp);
-  const action = parseAction(obj.action);
-
-  // 3. АГРЕГАЦІЯ + РОЗВИЛКА: є Err — вертаємо ВЕСЬ список; усі Ok — падаємо нижче.
-  if (!id.ok || !target.ok || !action.ok) {
-    const errors: FieldError[] = [];
-    if (!id.ok)     errors.push({ field: "deviceId",   message: id.error });
-    if (!target.ok) errors.push({ field: "targetTemp", message: target.error });
-    if (!action.ok) errors.push({ field: "action",     message: action.error });
-    return err(errors);
-  }
-
-  // 4. СКЛАДАННЯ: сюди компілятор пускає ЛИШЕ коли всі три звузилися до Ok.
-  return ok({ deviceId: id.value, target: target.value, action: action.value });
-}
-```
-```rust
-// ── Довірений доменний об'єкт: існує ⟺ всі поля пройшли розбір ──
-pub struct Command { pub device_id: DeviceId, pub target: Celsius, pub action: Action }
-
-pub fn parse_command(body: &str) -> Result<Command, Vec<FieldError>> {
-    // 1. ФОРМА: чи це взагалі JSON-об'єкт?
-    let root: Value = serde_json::from_str(body)
-        .map_err(|_| vec![FieldError { field: "(корінь)", message: "не валідний JSON".into() }])?;
-    let obj = root.as_object()
-        .ok_or_else(|| vec![FieldError { field: "(корінь)", message: "очікувано об'єкт".into() }])?;
-
-    // 2. ПОЛЯ: кожне — незалежно, у свій Result
-    let id     = DeviceId::parse(obj.get("deviceId"));
-    let target = Celsius::parse(obj.get("targetTemp"));
-    let action = Action::parse(obj.get("action"));
-
-    // 3. РОЗВИЛКА: усі Ok — складаємо; інакше — збираємо ВЕСЬ список
-    match (id, target, action) {
-        (Ok(device_id), Ok(target), Ok(action)) =>
-            Ok(Command { device_id, target, action }),
-        (id, target, action) => {
-            let mut errors = Vec::new();
-            if let Err(m) = id     { errors.push(FieldError { field: "deviceId",   message: m }); }
-            if let Err(m) = target { errors.push(FieldError { field: "targetTemp", message: m }); }
-            if let Err(m) = action { errors.push(FieldError { field: "action",     message: m }); }
-            Err(errors)
-        }
-    }
-}
-```
+:::code proj-dh-boundary-validation/ts/robochyi-konveier-2.ts
+:::code proj-dh-boundary-validation/rust/robochyi-konveier-2.rs
 :::
 
 Крок 4 — тонкий, і в ньому вся краса. У TypeScript після `if (!id.ok || !target.ok || !action.ok) return …` компілятор **сам звужує** всі три змінні до `Ok`: раз ми повернулися на будь-якому провалі, то нижче лишається єдина можливість — усі три вдалися. Тому `id.value`, `target.value`, `action.value` там законні; спробуй прочитати `.value` **до** цієї перевірки — і код не скомпілюється, бо в `Err` поля `value` немає. Rust каже те саме інакше: перший рукав `match` збирає команду прямо з розпакованих `Ok(device_id)`, `Ok(target)`, `Ok(action)` — **без жодного** `unwrap`, — а якщо хоч один не `Ok`, керування піде в другий рукав по список помилок. Обидві мови однією рукою роблять одне: **складання команди фізично недосяжне, поки не доведено, що всі поля дійсні.** Правило «все або нічого» не написане в коментарі — воно вкарбоване в те, що взагалі можна скомпілювати.
@@ -218,68 +62,8 @@ pub fn parse_command(body: &str) -> Result<Command, Vec<FieldError>> {
 І перевіримо це тестами. Нас цікавлять чотири випадки: чистий вхід, кілька хиб одночасно, часткова валідність (одне погане поле губить усю команду) і зламана форма, яка не має вибухнути винятком назовні.
 
 :::tabs
-```ts
-import { test } from "node:test";
-import assert from "node:assert/strict";
-
-test("валідний вхід → довірена команда", () => {
-  const r = parseCommand('{"deviceId":"kitchen-1","targetTemp":21.5,"action":"heat"}');
-  assert.ok(r.ok);                                   // розбір удався
-  assert.equal(r.value.deviceId.value, "kitchen-1"); // .value — бо тип уже DeviceId
-  assert.equal(r.value.target.value, 21.5);
-  assert.equal(r.value.action, "heat");
-});
-
-test("три хиби одразу → ПОВНИЙ список, не перша-ліпша", () => {
-  const r = parseCommand('{"deviceId":"","targetTemp":2000,"action":"melt"}');
-  assert.ok(!r.ok);
-  assert.equal(r.error.length, 3);                   // усі три, а не одна
-  assert.deepEqual(r.error.map(e => e.field).sort(),
-                   ["action", "deviceId", "targetTemp"]);
-});
-
-test("часткова валідність → команди НЕ існує зовсім", () => {
-  const r = parseCommand('{"deviceId":"kitchen-1","targetTemp":2000,"action":"heat"}');
-  assert.ok(!r.ok);                                  // два добрі поля НЕ рятують третє
-  assert.equal(r.error.length, 1);
-  assert.equal(r.error[0].field, "targetTemp");
-});
-
-test("не JSON → одна помилка форми, БЕЗ винятку назовні", () => {
-  const r = parseCommand("{зламано");
-  assert.ok(!r.ok);
-  assert.equal(r.error[0].field, "(корінь)");        // throw від JSON.parse спіймано всередині
-});
-```
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn valid_input_becomes_trusted_command() {
-        let cmd = parse_command(r#"{"deviceId":"kitchen-1","targetTemp":21.5,"action":"heat"}"#)
-            .expect("валідний вхід має пройти");
-        assert_eq!(cmd.target.value(), 21.5);
-        assert_eq!(cmd.action, Action::Heat);
-    }
-
-    #[test]
-    fn three_failures_give_full_list() {
-        let errs = parse_command(r#"{"deviceId":"","targetTemp":2000,"action":"melt"}"#)
-            .expect_err("кривий вхід має відпасти");
-        assert_eq!(errs.len(), 3);                    // усі три, не перша-ліпша
-    }
-
-    #[test]
-    fn partial_validity_yields_no_command() {
-        let errs = parse_command(r#"{"deviceId":"kitchen-1","targetTemp":2000,"action":"heat"}"#)
-            .unwrap_err();
-        assert_eq!(errs.len(), 1);                     // одне погане поле губить усю команду
-        assert_eq!(errs[0].field, "targetTemp");
-    }
-}
-```
+:::code proj-dh-boundary-validation/ts/robochyi-konveier-3.ts
+:::code proj-dh-boundary-validation/rust/robochyi-konveier-3.rs
 :::
 
 Другий тест — головний свідок задуму. Вхід `{"deviceId":"","targetTemp":2000,"action":"melt"}` неправильний **тричі**: порожній ідентифікатор, температура в дві тисячі градусів, невідома дія. Наївний розбірник спинився б на порожньому `deviceId`, віддав одну помилку — і людина, виправивши її, наткнулася б на другу, тоді на третю, за три заходи. Наш конвеєр повертає **всі три відразу**. А третій тест стереже протилежну спокусу: коли зле лише одне поле (температура), решта два хороші — але команди все одно **нема**, бо часткова команда — це і є та діра, крізь яку тече безглуздя.

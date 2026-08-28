@@ -18,19 +18,7 @@ DH уже не скрипт під столом. Богдан тисне «ві�
 Варіант А зводить їх назад в одне: **точка рішення живе в тому самому процесі, що й точка застосування**. Вердикт обчислюється прямо там, де сервіс і так тримає об'єкт у руках — звичайним викликом функції, без жодного стрибка кудись назовні.
 
 :::tabs
-```ts
-// Сервіс пристроїв: обробник команди «відчинити замок»
-async function unlockDoor(req: Request, res: Response) {
-  const user = req.user;                            // хто прийшов (уже автентифікований)
-  const door = await devices.load(req.params.id);  // об'єкт У РУКАХ: у ньому homeId
-
-  if (!authz.can(user, "unlock", door)) {          // рішення — тут, у процесі
-    return res.status(403).json({ error: "forbidden" });
-  }
-  await door.unlock();
-  res.json({ ok: true });
-}
-```
+:::code authz-inservice-variant-d/ts/rishennia-tam-samo-de-dani.ts
 ```py
 # Сервіс пристроїв: обробник команди «відчинити замок»
 def unlock_door(request, door_id):
@@ -97,18 +85,7 @@ def unlock_door(request, door_id):
 
 Остання лінза. Почати з Варіанта А — рішення **двобічне**, але лише за однієї умови: якщо перевірка стоїть за чистим швом. Пастка — розкидати логіку інлайном:
 
-```ts
-// АНТИПАТЕРН: правило вписане прямо в обробник — і так у кожному з тридцяти
-async function unlockDoor(req: Request, res: Response) {
-  const user = req.user;
-  const door = await devices.load(req.params.id);
-  if (door.homeId !== user.homeId ||                        // те саме «член дому + роль»
-      (user.role !== "owner" && user.role !== "resident"))  // копіями по всіх маршрутах
-    return res.status(403).end();
-  await door.unlock();
-  res.json({ ok: true });
-}
-```
+:::code authz-inservice-variant-d/ts/zvorotnist-chy-lehko.ts
 
 Розсипав так по тридцятьох обробниках — і зміна моделі авторизації стала однобічними дверима: правило нема де перемкнути, його треба виловлювати по всьому коду. А сховав за одним [швом](root:progarch/seams-and-boundaries) — інтерфейсом `Authorizer` з єдиним `can(user, action, resource)`, крізь який кличуть **усі** обробники, — і весь сервіс має одну точку рішення. Тоді пізніше, коли дублювання почне пекти, ту одну реалізацію можна **замінити** викликом до центрального рушія, не чіпаючи жодного хендлера. Шов перетворює незворотне рішення на зворотне — тому Варіант А варто будувати за швом із першого дня, [зібравши перевірку DH так, щоб чужий замок не відчинявся](root:progarch/authz-inservice-variant/proj-dh-inservice-authz.md), навіть якщо згодом переростеш у центр.
 

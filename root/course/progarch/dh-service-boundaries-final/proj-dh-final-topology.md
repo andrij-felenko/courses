@@ -28,86 +28,8 @@
 Ось повна топологія DH як виконуваний двійник тієї мапи, що ми домалювали руками. Кожне розгортання знає своє **місце** (клієнт, двері, хмара, край, зовнішнє) і свою **базу** — ту єдину, якою воно володіє. Кожен шов носить поруч **стиль**, а асинхронний — ще й топік, яким реалізований.
 
 :::tabs
-```ts
-// topology.ts — ЄДИНЕ джерело правди про фінальну топологію DH.
-// З нього живуть і сторож (валить збірку), і картинка (з тих самих даних).
-export type Style = "sync" | "async";     // синхронно (запит-відповідь) | асинхронно (подія)
-type Place = "client" | "door" | "cloud" | "edge" | "external";
-
-interface Deployment {
-  place: Place;
-  db: string | null;      // база, якою розгортання ВОЛОДІЄ (лише своя); хто без бази — null
-  owns: string[];         // внутрішні модулі (для приписування зовнішніх швів білінгу/сповіщень)
-}
-interface Seam {
-  from: string; to: string;
-  style: Style;
-  topic?: string;         // для async-шва — топік, яким він реалізований
-  why: string;            // чому саме цей стиль (те, що на картинці стоїть у колонці «чому»)
-}
-
-// ── ЩО котиться в прод самостійно ──
-export const DEPLOYMENTS: Record<string, Deployment> = {
-  app:       { place: "client",   db: null, owns: [] },
-  dashboard: { place: "client",   db: null, owns: [] },
-  gateway:   { place: "door",     db: null, owns: [] },                 // TLS, токен, ліміт, маршрут
-  core:      { place: "cloud",    db: "core_db",                        // ← ТРИ хмарні розгортання
-               owns: ["control","twin","automations","notifications","billing","identity"] },
-  telemetry: { place: "cloud",    db: "telemetry_db", owns: ["telemetry"] },
-  video:     { place: "cloud",    db: "video_db",     owns: ["video"] },
-  hub:       { place: "edge",     db: null, owns: ["hub"] },            // на полиці у власника
-  payments:  { place: "external", db: null, owns: [] },                // чужий, за ACL
-  push:      { place: "external", db: null, owns: [] },
-};
-
-// ── КОЖЕН дозволений шов і його СТИЛЬ (це те, чого мапа моноліта не знала) ──
-export const SEAMS: Seam[] = [
-  { from:"app",       to:"gateway",   style:"sync",  why:"людина натиснула й дивиться на екран" },
-  { from:"dashboard", to:"gateway",   style:"sync",  why:"людина чекає відповіді" },
-  { from:"gateway",   to:"core",      style:"sync",  why:"BFF складає екран із ядра" },
-  { from:"gateway",   to:"telemetry", style:"sync",  why:"BFF читає останній вимір — терпить таймаут" },
-  { from:"gateway",   to:"video",     style:"sync",  why:"клієнт відкриває живий потік камери" },
-  { from:"core", to:"telemetry", style:"async", topic:"DeviceEvent", why:"ядро публікує факт і йде — не чекає запису" },
-  { from:"core", to:"video",     style:"async", topic:"DeviceEvent", why:"відео чує про камери з того ж потоку" },
-  { from:"core", to:"hub",       style:"async", topic:"HubCommand",  why:"команда вниз; у домі буває поганий Wi-Fi" },
-  { from:"hub",  to:"core",      style:"async", topic:"HubEvent",    why:"стан дому — подією вгору, ретрай + ідемпотентність" },
-  { from:"core", to:"payments",  style:"sync",  why:"білінгу треба тверде «так/ні» від чужого, за ACL" },
-  { from:"core", to:"push",      style:"async", topic:"Notify",      why:"сповіщення: вистрелив-забув, доставку не блокуємо" },
-];
-```
-```py
-# topology.py — ЄДИНЕ джерело правди про фінальну топологію DH.
-# З нього живуть і сторож (валить збірку), і картинка (з тих самих даних).
-# style: "sync" (запит-відповідь) | "async" (подія/повідомлення)
-# place: "client" | "door" | "cloud" | "edge" | "external";  db = база, якою розгортання ВОЛОДІЄ
-
-DEPLOYMENTS = {                                                   # ЩО котиться в прод самостійно
-    "app":       {"place": "client",   "db": None, "owns": []},
-    "dashboard": {"place": "client",   "db": None, "owns": []},
-    "gateway":   {"place": "door",     "db": None, "owns": []},           # TLS, токен, ліміт, маршрут
-    "core":      {"place": "cloud",    "db": "core_db",                   # ← ТРИ хмарні розгортання
-                  "owns": ["control","twin","automations","notifications","billing","identity"]},
-    "telemetry": {"place": "cloud",    "db": "telemetry_db", "owns": ["telemetry"]},
-    "video":     {"place": "cloud",    "db": "video_db",     "owns": ["video"]},
-    "hub":       {"place": "edge",     "db": None, "owns": ["hub"]},      # на полиці у власника
-    "payments":  {"place": "external", "db": None, "owns": []},           # чужий, за ACL
-    "push":      {"place": "external", "db": None, "owns": []},
-}
-
-SEAMS = [                        # КОЖЕН дозволений шов і його СТИЛЬ — те, чого мапа моноліта не знала
-    {"from":"app",       "to":"gateway",   "style":"sync",  "why":"людина дивиться на екран"},
-    {"from":"dashboard", "to":"gateway",   "style":"sync",  "why":"людина чекає відповіді"},
-    {"from":"gateway",   "to":"core",      "style":"sync",  "why":"BFF складає екран із ядра"},
-    {"from":"gateway",   "to":"telemetry", "style":"sync",  "why":"BFF читає вимір — терпить таймаут"},
-    {"from":"gateway",   "to":"video",     "style":"sync",  "why":"клієнт відкриває потік камери"},
-    {"from":"core", "to":"telemetry", "style":"async", "topic":"DeviceEvent", "why":"ядро публікує факт і йде"},
-    {"from":"core", "to":"video",     "style":"async", "topic":"DeviceEvent", "why":"відео чує про камери з того ж потоку"},
-    {"from":"core", "to":"hub",       "style":"async", "topic":"HubCommand",  "why":"команда вниз; поганий Wi-Fi"},
-    {"from":"hub",  "to":"core",      "style":"async", "topic":"HubEvent",    "why":"стан вгору, ретрай + ідемпотентність"},
-    {"from":"core", "to":"payments",  "style":"sync",  "why":"тверде «так/ні» від чужого, за ACL"},
-    {"from":"core", "to":"push",      "style":"async", "topic":"Notify",      "why":"вистрелив-забув"},
-]
-```
+:::code proj-dh-final-topology/ts/topology.ts
+:::code proj-dh-final-topology/py/topology.py
 :::
 
 Прочитаймо, що ця структура кодує без жодного слова прози. Три хмарні розгортання — `core`, `telemetry`, `video` — кожне зі **своєю** базою: `core_db`, `telemetry_db`, `video_db`. Це і є фізичний слід [рішення різати саме тут](root:progarch/dh-v8-services-map/proj-dh-services-adr.md): володіння даними — не гасло, а рядок `db` у розгортанні. Шви `core → telemetry` й `core → video` — обидва **асинхронні**, обидва топіком `DeviceEvent`: ядро публікує один факт, а двоє супутників його по-своєму чують. Шов `gateway → telemetry` — навпаки, **синхронний**: BFF таки читає останній вимір запит-відповіддю, тільки навчений терпіти таймаут. Той самий вузол `telemetry` дістає до себе і синхронний, і асинхронний шов — бо стиль тут властивість **шва**, а не сервіса. А `payments` і `push` — зовнішні, тож базою не володіють і в мапі стоять кінцями швів `core → payments` (синхронно за ACL) і `core → push` (вистрелив-забув).
@@ -117,112 +39,8 @@ SEAMS = [                        # КОЖЕН дозволений шов і й�
 Тепер суддя. Він читає `DEPLOYMENTS` і `SEAMS` як єдине джерело правди й виносить вирок над тим, що сканер знайшов у коді кожного сервіса. Сканер дає чотири прості списки: `calls` (кожен `rpc.call("ціль")` — синхронний шов), `pubs` і `subs` (кожен `bus.publish`/`bus.subscribe("топік")` — асинхронний), і `dbRefs` (кожен DSN чи `"база."` — доступ до бази). Уся хитрість — в одному місці: **синхронне ребро видно прямо, асинхронне відновлюємо** з'єднанням продюсерів і споживачів топіка.
 
 :::tabs
-```ts
-// arch/topology-guard.ts — сторож фінальної топології DH. Валить збірку на ТРЬОХ зрадах.
-// Джерело правди — DEPLOYMENTS і SEAMS; тут лише вирок над знайденим у коді.
-import { DEPLOYMENTS, SEAMS, Style } from "./topology";
-type Edge = { from: string; to: string; kind: Style };
-
-const declared = new Map<string, Style>(SEAMS.map(s => [`${s.from}→${s.to}`, s.style]));
-const KNOWN_DBS = new Set(Object.values(DEPLOYMENTS).map(d => d.db).filter(Boolean));
-
-// Сканер уже пройшов код кожного сервіса й дав чотири списки знайденого:
-type Scan = {
-  calls:  [string, string][];   // [сервіс, ціль]  ← rpc.call("<ціль>")       — СИНХРОННИЙ шов
-  pubs:   [string, string][];   // [сервіс, топік] ← bus.publish("<топік>")   — асинхронний
-  subs:   [string, string][];   // [сервіс, топік] ← bus.subscribe("<топік>")
-  dbRefs: [string, string][];   // [сервіс, база]  ← DSN / "<база>."          — доступ до бази
-};
-
-// СИНХРОННЕ ребро видно на місці виклику. АСИНХРОННЕ — ні: продюсер називає ТОПІК,
-// а не ціль. Тож async-ребра відновлюємо як «продюсери × споживачі того самого топіка».
-function observed(scan: Scan): Edge[] {
-  const edges: Edge[] = scan.calls.map(([from, to]) => ({ from, to, kind: "sync" }));
-  const pubsByTopic = new Map<string, string[]>();
-  for (const [dep, topic] of scan.pubs) {
-    if (!pubsByTopic.has(topic)) pubsByTopic.set(topic, []);
-    pubsByTopic.get(topic)!.push(dep);
-  }
-  for (const [sub, topic] of scan.subs)
-    for (const pub of pubsByTopic.get(topic) ?? [])
-      if (pub !== sub) edges.push({ from: pub, to: sub, kind: "async" });   // ребро pub → sub
-  return edges;
-}
-
-export function violations(scan: Scan): string[] {
-  const bad: string[] = [];
-  const edges = observed(scan);
-  for (const e of edges)                                          // 1) РЕБРО ПОЗА МАПОЮ
-    if (!declared.has(`${e.from}→${e.to}`))
-      bad.push(`ребро поза мапою: ${e.from} → ${e.to} (${e.kind})`);
-  for (const [dep, db] of scan.dbRefs)                           // 2) ЧУЖА БАЗА
-    if (KNOWN_DBS.has(db) && DEPLOYMENTS[dep]?.db !== db)
-      bad.push(`чужа база: ${dep} читає ${db} (володіє нею інший сервіс)`);
-  for (const e of edges)                                          // 3) СТИЛЬ ЗРАДЖЕНО
-    if (e.kind === "sync" && declared.get(`${e.from}→${e.to}`) === "async")
-      bad.push(`шов ${e.from} → ${e.to} оголошено асинхронним, а зустрів синхронний rpc.call`);
-  return bad;
-}
-
-export function main(scan: Scan): number {
-  const bad = violations(scan);
-  if (bad.length === 0) { console.log("топологія DH тримається"); return 0; }
-  console.error("ЗРАДА ТОПОЛОГІЇ DH:");
-  for (const b of bad) console.error("  " + b);
-  return 1;                       // exit 1 → CI кожного сервіса червоний → merge заблоковано
-}
-```
-```py
-# arch/topology_guard.py — сторож фінальної топології DH. Валить збірку на ТРЬОХ зрадах.
-# Джерело правди — DEPLOYMENTS і SEAMS; тут лише вирок над знайденим у коді.
-from collections import defaultdict
-from topology import DEPLOYMENTS, SEAMS
-
-DECLARED = {(s["from"], s["to"]): s["style"] for s in SEAMS}          # шов → стиль
-KNOWN_DBS = {d["db"] for d in DEPLOYMENTS.values() if d.get("db")}
-
-# Сканер уже пройшов код кожного сервіса й дав чотири списки знайденого:
-#   calls   = [(сервіс, ціль)]   ← rpc.call("<ціль>")        — СИНХРОННИЙ шов
-#   pubs    = [(сервіс, топік)]  ← bus.publish("<топік>")    — асинхронний
-#   subs    = [(сервіс, топік)]  ← bus.subscribe("<топік>")
-#   db_refs = [(сервіс, база)]   ← DSN / "<база>."           — доступ до бази
-
-def observed(scan):
-    """Синхронне ребро видно на місці виклику; асинхронне ВІДНОВЛЮЄМО як
-       'продюсери × споживачі топіка' — бо продюсер називає ТОПІК, не ціль."""
-    edges = [(frm, to, "sync") for frm, to in scan["calls"]]
-    pubs_by_topic = defaultdict(list)
-    for dep, topic in scan["pubs"]:
-        pubs_by_topic[topic].append(dep)
-    for sub, topic in scan["subs"]:
-        for pub in pubs_by_topic[topic]:
-            if pub != sub:
-                edges.append((pub, sub, "async"))                    # ребро pub → sub
-    return edges
-
-def violations(scan):
-    bad, edges = [], observed(scan)
-    for frm, to, kind in edges:                                      # 1) РЕБРО ПОЗА МАПОЮ
-        if (frm, to) not in DECLARED:
-            bad.append(f"ребро поза мапою: {frm} -> {to} ({kind})")
-    for dep, db in scan["db_refs"]:                                  # 2) ЧУЖА БАЗА
-        if db in KNOWN_DBS and DEPLOYMENTS.get(dep, {}).get("db") != db:
-            bad.append(f"чужа база: {dep} читає {db} (володіє нею інший сервіс)")
-    for frm, to, kind in edges:                                      # 3) СТИЛЬ ЗРАДЖЕНО
-        if kind == "sync" and DECLARED.get((frm, to)) == "async":
-            bad.append(f"шов {frm} -> {to} оголошено асинхронним, а зустрів синхронний rpc.call")
-    return bad
-
-def main(scan):
-    bad = violations(scan)
-    if not bad:
-        print("топологія DH тримається")
-        return 0
-    print("ЗРАДА ТОПОЛОГІЇ DH:")
-    for b in bad:
-        print("  " + b)
-    return 1                        # exit 1 → CI кожного сервіса червоний → merge заблоковано
-```
+:::code proj-dh-final-topology/ts/topology-guard.ts
+:::code proj-dh-final-topology/py/topology_guard.py
 :::
 
 Тепер приклад у роботі — і візьмімо найтоншу з трьох зрад, ту, що не ламає жодного тесту. Хтось у ядрі втомився від секундної затримки дашборда й на шляху запису дописав синхронне читання назад із телеметрії — «щоб екран одразу показував свіжий вимір»:
@@ -262,32 +80,7 @@ exit 1 — крок CI червоний, merge заблоковано. Приб�
 
 Ось де артефакт іде далі за текстовий вирок: **картинку** топології ми теж родимо з `DEPLOYMENTS` і `SEAMS`, а не малюємо рукою. Тоді дах кожної стрілки — суцільна вона чи пунктирна — береться прямо зі `style` в даних, і зображення фізично не може заявити, ніби `core → telemetry` синхронний, коли в даних він `async`:
 
-```py
-# draw.py — SVG-топологія DH з ТИХ САМИХ даних, що й сторож. Дах стрілки = стиль зі СПИСКУ.
-from topology import DEPLOYMENTS, SEAMS
-BAND = {"client": 60, "door": 300, "cloud": 560, "edge": 60, "external": 830}   # x за місцем
-
-def draw(path):
-    lanes, pos = {}, {}
-    for name, d in DEPLOYMENTS.items():                 # вузли стосами у своїй смузі-місці
-        x = BAND[d["place"]]
-        pos[name] = (x, 90 + lanes.get(x, 0) * 92)
-        lanes[x] = lanes.get(x, 0) + 1
-    p = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 640">']
-    for s in SEAMS:                                     # ← ребра ЛИШЕ з даних
-        (x1, y1), (x2, y2) = pos[s["from"]], pos[s["to"]]
-        dash = "" if s["style"] == "sync" else ' stroke-dasharray="7,6"'   # СТИЛЬ → ДАХ стрілки
-        p.append('<line x1="%.0f" y1="%.0f" x2="%.0f" y2="%.0f" stroke="#333"%s/>'
-                 % (x1 + 60, y1, x2, y2, dash))
-    for name, (x, y) in pos.items():
-        mark = " ⛁" if DEPLOYMENTS[name]["db"] else ""                     # своя база — значок
-        p.append('<rect x="%.0f" y="%.0f" width="120" height="42" rx="6" fill="#eef" stroke="#333"/>'
-                 % (x, y - 21))
-        p.append('<text x="%.0f" y="%.0f" font-size="11" text-anchor="middle">%s</text>'
-                 % (x + 60, y + 4, name + mark))
-    p.append("</svg>")
-    open(path, "w", encoding="utf-8").write("\n".join(p))
-```
+:::code proj-dh-final-topology/py/draw.py
 
 Розкладка тут навмисно проста — вузли стосами по смугах місця; краса не мета, мета — **походження**. Кожна стрілка на малюнку взята зі `SEAMS`, а її пунктир — зі `style`. Додав у дані новий шов — на картинці сам собою з'явився штрих із правильним дахом; переставив шов з `async` на `sync` — і **та сама зміна** одночасно перемалювала стрілку суцільною **й** переналаштувала сторожа, який тепер вимагатиме синхронного клієнта замість топіка. Обидва документи, вирок і зображення, приколоті до одного джерела з двох боків.
 

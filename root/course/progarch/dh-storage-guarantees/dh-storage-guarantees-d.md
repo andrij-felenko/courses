@@ -83,18 +83,7 @@ def save_home(conn, home: Home) -> None:
             [(home.id, d.id, d.kind, d.room) for d in home.devices])
     # краш посеред циклу → база відкотить усе: напівоновленого дому не існує
 ```
-```ts
-function saveHome(db: Database, home: Home): void {
-  const tx = db.transaction((h: Home) => {   // єдина транзакція: усе-або-нічого
-    db.prepare("UPDATE homes SET threshold=? WHERE id=?").run(h.threshold, h.id);
-    db.prepare("DELETE FROM devices WHERE home_id=?").run(h.id);
-    const ins = db.prepare(
-      "INSERT INTO devices(home_id, id, kind, room) VALUES(?,?,?,?)");
-    for (const d of h.devices) ins.run(h.id, d.id, d.kind, d.room);
-  });
-  tx(home);   // краш посеред → база відкотить усе: напівоновленого дому не існує
-}
-```
+:::code dh-storage-guarantees-d/ts/index.ts
 :::
 
 **Цілісність** заганяємо просто в схему — хай база відмовляє в порушенні сама, а не сподівається на дисципліну застосунку:

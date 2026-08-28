@@ -66,73 +66,8 @@ class DeviceStatus(Enum):
 Тепер найголовніше питання, і ми вже знаємо на нього відповідь із [моделі даних](root:progarch/dh-data-model): **де живе правило переходу?** Якщо перевірку «списаний не оживає» лишити тому, хто викликає, вона знову розсиплеться копіями по коду, і одну колись забудуть. Тож садимо її туди, де живе сам стан, — у пристрій. Поле стану закрите, а єдині двері всередину — методи-команди, і кожна має **вартового** (guard), що пускає лише законний перехід:
 
 :::tabs
-```ts
-class Device {
-  private status: DeviceStatus = "new";        // закрите: ззовні не дотягтися
-  private homeId: HomeId | null = null;
-
-  commission(homeId: HomeId): void {
-    if (this.status !== "new")
-      throw new DomainError("пристрій уже введено в дім");
-    this.status = "online";
-    this.homeId = homeId;
-  }
-
-  markOffline(): void {
-    if (this.status === "offline") return;      // уже мовчить — тихий no-op
-    if (this.status !== "online")
-      throw new DomainError("мовчати може лише пристрій, що був на зв'язку");
-    this.status = "offline";
-  }
-
-  markOnline(): void {
-    if (this.status === "online") return;        // уже на зв'язку
-    if (this.status !== "offline")
-      throw new DomainError("на зв'язок вертається лише offline-пристрій");
-    this.status = "online";
-  }
-
-  retire(): void {
-    if (this.status === "retired") return;       // ідемпотентно
-    if (this.status === "new")
-      throw new DomainError("ще не введений пристрій не списують");
-    this.status = "retired";                      // з online чи offline — назавжди
-  }
-}
-```
-```py
-class Device:
-    def __init__(self) -> None:
-        self._status = DeviceStatus.NEW          # закрите поле
-        self._home_id: HomeId | None = None
-
-    def commission(self, home_id: HomeId) -> None:
-        if self._status is not DeviceStatus.NEW:
-            raise DomainError("пристрій уже введено в дім")
-        self._status = DeviceStatus.ONLINE
-        self._home_id = home_id
-
-    def mark_offline(self) -> None:
-        if self._status is DeviceStatus.OFFLINE:
-            return                                # уже мовчить — тихий no-op
-        if self._status is not DeviceStatus.ONLINE:
-            raise DomainError("мовчати може лише пристрій, що був на зв'язку")
-        self._status = DeviceStatus.OFFLINE
-
-    def mark_online(self) -> None:
-        if self._status is DeviceStatus.ONLINE:
-            return
-        if self._status is not DeviceStatus.OFFLINE:
-            raise DomainError("на зв'язок вертається лише offline-пристрій")
-        self._status = DeviceStatus.ONLINE
-
-    def retire(self) -> None:
-        if self._status is DeviceStatus.RETIRED:
-            return                                # ідемпотентно
-        if self._status is DeviceStatus.NEW:
-            raise DomainError("ще не введений пристрій не списують")
-        self._status = DeviceStatus.RETIRED       # з online чи offline — назавжди
-```
+:::code dh-device-fsm-d/ts/index.ts
+:::code dh-device-fsm-d/py/pravylo-perekhodu-zhyve-v.py
 :::
 
 Гляньте, чого стало неможливо. Викликати `commission` двічі — друге кидає: пристрій уже в домі. Оживити списаний — кидає. А головне, немає жодного способу **ззовні** просто взяти й поставити `status = "online"` в обхід правил: поле закрите, [єдиний шлях усередину — команди з вартовими](root:progarch/invariants-and-validation). Пристрій сам стереже свій життєвий цикл; це і є [агрегат](root:sf-apps/aggregates-consistency) — корінь, що тримає власний інваріант, а не мішок полів, який кожен крутить як хоче.
@@ -147,22 +82,7 @@ class Device:
 
 Придивившись до методів, помітимо: правило переходу знов почало розтікатися — тепер по тілах команд. Поки станів чотири, це терпимо; додайте `provisioning` (пристрій паруємо, але ще не спарували) чи `quarantined` (запідозрили злам) — і кожна команда обростає новими `if`. Тож зробімо останній крок і піднімемо **всю** карту дозволеного в одне місце — **таблицю переходів**:
 
-```py
-# Одне джерело правди: (стан, команда) → новий стан. Чого в таблиці нема — заборонено.
-TRANSITIONS = {
-    (NEW,     "commission"):  ONLINE,
-    (ONLINE,  "markOffline"): OFFLINE,
-    (OFFLINE, "markOnline"):  ONLINE,
-    (ONLINE,  "retire"):      RETIRED,
-    (OFFLINE, "retire"):      RETIRED,
-}
-
-def next_state(status, command):
-    nxt = TRANSITIONS.get((status, command))
-    if nxt is None:
-        raise DomainError(f"з «{status}» команда «{command}» неможлива")
-    return nxt
-```
+:::code dh-device-fsm-d/py/tablytsia-perekhodiv-odne.py
 
 Тепер закон життєвого циклу — не розсип `if` по методах, а один словник, який **читається як опис домену**: монтажник, що й не знає Python, водить пальцем по рядках і впізнає правила дому. Додати стан — дописати рядок; заборонити перехід — стерти рядок; і жодне правило не сховане в тілі якогось методу. У таблиці лише переходи, що **міняють** стан; повторна команда в той самий стан (`markOnline` уже на зв'язку) — тихий no-op, не окремий рядок. А коли поведінки в кожному стані стає багато, той самий кістяк розкладають об'єктами — [це вже патерн Стан, який ми брали серед GoF](root:sf-apps/state); таблиця й патерн — дві форми однієї ідеї, обирай за вагою.
 

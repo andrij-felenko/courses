@@ -19,27 +19,7 @@
 
 Почнімо з питання, на яке схема — це письмова відповідь: **які факти дому мусять пережити процес?** Дисципліну ми вже маємо — [джерело правди проти похідного](root:progarch/state-inventory): на диск іде тільки те, чого світ за нас не памʼятає. Прогнавши цей фільтр, дістаємо жменю справжніх джерел — дім, його власник і тариф, пристрої, поріг опалення — і кладемо кожне **рядком у таблицю**:
 
-```sql
--- Реєстр і конфіг: джерело правди дому. Нудні реляційні таблиці.
-CREATE TABLE home (
-    id          TEXT PRIMARY KEY,
-    owner_id    TEXT    NOT NULL,
-    plan        TEXT    NOT NULL DEFAULT 'free',   -- тариф
-    device_cap  INTEGER NOT NULL DEFAULT 5,        -- межа слотів пристроїв
-    used_slots  INTEGER NOT NULL DEFAULT 0,        -- скільки зайнято
-    threshold   REAL    NOT NULL DEFAULT 20.0      -- поріг опалення (Config з v2)
-);
-
-CREATE TABLE device (
-    id          TEXT PRIMARY KEY,
-    home_id     TEXT NOT NULL REFERENCES home(id) ON DELETE CASCADE,  -- зовнішній ключ
-    kind        TEXT NOT NULL,              -- lock | thermostat | plug
-    room        TEXT NOT NULL,
-    state       TEXT NOT NULL,
-    paired_at   TEXT NOT NULL,
-    UNIQUE (id)                             -- один фізичний давач — один рядок
-);
-```
+:::code dh-v3-storage-d/sql/main.sql
 
 Дивитися тут особливо нема на що — і це найкраща новина кроку. Це просто таблиці й ключі; жодної магії. Зовнішній ключ `device.home_id → home.id` — не орнамент, а вписане в схему правило: пристрій **мусить** належати наявному дому, і база сама не дасть завести сироту. Це те, що [реляційна модель](root:sf-data/relational-model) робить дешево й надійно: звʼязки за змістом, які сховище боронить власноруч.
 
@@ -55,44 +35,8 @@ CREATE TABLE device (
 Тепер найприємніше — скільки коштувало під цю схему підвести код. Виявляється, рівно стільки ж, скільки заплановано ще у [v2](root:progarch/dh-v2-hexagon): один адаптер. Реєстр там сховано за портом `DeviceRepository`, і `InMemoryDeviceRepository` стояв за ним чесною тимчасовою затичкою. v3 просто ставить на його місце справжню реалізацію на SQL — за **тим самим портом**:
 
 :::tabs
-```py
-class SqliteDeviceRepository:                  # за тим самим портом DeviceRepository з v2
-    def __init__(self, conn):
-        self._conn = conn
-
-    def save_home(self, home: Home) -> None:
-        # увесь агрегат — в ОДНІЙ транзакції: дім і його пристрої або лягають разом, або ніяк
-        with self._conn:                        # commit на виході, rollback на будь-якому винятку
-            self._conn.execute(
-                "INSERT INTO home(id, owner_id, plan, device_cap, threshold) VALUES(?,?,?,?,?) "
-                "ON CONFLICT(id) DO UPDATE SET plan=excluded.plan, threshold=excluded.threshold",
-                (home.id, home.owner_id, home.plan, home.device_cap, home.threshold))
-            for d in home.devices:
-                self._conn.execute(
-                    "INSERT INTO device(id, home_id, kind, room, state, paired_at) VALUES(?,?,?,?,?,?) "
-                    "ON CONFLICT(id) DO UPDATE SET room=excluded.room, state=excluded.state",
-                    (d.id, home.id, d.kind, d.room, d.state, d.paired_at))
-```
-```ts
-class SqliteDeviceRepository implements DeviceRepository {   // той самий порт із v2
-  constructor(private db: Database) {}
-
-  saveHome(home: Home): void {
-    // увесь агрегат — в ОДНІЙ транзакції: дім і пристрої або разом, або ніяк
-    this.db.transaction(() => {                 // commit на виході, rollback на винятку
-      this.db.run(
-        "INSERT INTO home(id, owner_id, plan, device_cap, threshold) VALUES(?,?,?,?,?) " +
-        "ON CONFLICT(id) DO UPDATE SET plan=excluded.plan, threshold=excluded.threshold",
-        home.id, home.ownerId, home.plan, home.deviceCap, home.threshold);
-      for (const d of home.devices)
-        this.db.run(
-          "INSERT INTO device(id, home_id, kind, room, state, paired_at) VALUES(?,?,?,?,?,?) " +
-          "ON CONFLICT(id) DO UPDATE SET room=excluded.room, state=excluded.state",
-          d.id, home.id, d.kind, d.room, d.state, d.pairedAt);
-    })();
-  }
-}
-```
+:::code dh-v3-storage-d/py/main.py
+:::code dh-v3-storage-d/ts/index.ts
 :::
 
 Придивись, чого тут немає й чого не сталося. `HubService` не змінився **ні на літеру** — він як тримав у руках обіцянку `DeviceRepository`, так і тримає. Ядро домену не дізналося, що під ним зʼявився SQL. Уся заміна — новий клас за старим портом плюс той самий однорядковий підпис у [точці збірки](root:sf-apps/di-container). Рішення масштабу «даємо системі памʼять, яка переживе будь-що» **не** прокотилося ударною хвилею по коду — бо форму під нього [заклали заздалегідь](root:progarch/dh-v2-hexagon). Це не везіння, а виплата за шов: дорога зміна коштує дешево рівно тоді, коли для неї наперед лишили місце.

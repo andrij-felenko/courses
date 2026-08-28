@@ -66,55 +66,8 @@
 А тепер додамо цілком розумну на позір річ: захисну межу «не гріти довше двох годин поспіль» і невеличку оптимізацію — не смикати реле щоразу, а пам'ятати в програмі, увімкнено воно чи ні.
 
 :::tabs
-```py
-THRESHOLD  = 20.0
-MAX_RUN_S  = 2 * 3600          # безпека: не гріти довше 2 год поспіль
-
-heater_on_flag = False         # ← стан у пам'яті процесу
-on_since       = None          # ← і час теж лише в пам'яті
-
-while True:
-    t = read_sensor()
-    want_on = t < THRESHOLD
-
-    if want_on and not heater_on_flag:
-        relay_on();  heater_on_flag = True;  on_since = now()
-    elif not want_on and heater_on_flag:
-        relay_off(); heater_on_flag = False; on_since = None
-
-    # захисна межа рахує час від змінної в пам'яті:
-    if heater_on_flag and now() - on_since > MAX_RUN_S:
-        relay_off(); heater_on_flag = False; on_since = None
-
-    report_to_cloud(heater_on_flag)   # застосунок показує цей самий прапорець
-    sleep(30)
-```
-```ts
-const THRESHOLD  = 20.0;
-const MAX_RUN_MS = 2 * 3600 * 1000;   // безпека: не гріти довше 2 год поспіль
-
-let heaterOnFlag = false;             // ← стан у пам'яті процесу
-let onSince: number | null = null;    // ← і час теж лише в пам'яті
-
-while (true) {
-  const t = await readSensor();
-  const wantOn = t < THRESHOLD;
-
-  if (wantOn && !heaterOnFlag) {
-    await relayOn();  heaterOnFlag = true;  onSince = now();
-  } else if (!wantOn && heaterOnFlag) {
-    await relayOff(); heaterOnFlag = false; onSince = null;
-  }
-
-  // захисна межа рахує час від змінної в пам'яті:
-  if (heaterOnFlag && now() - onSince! > MAX_RUN_MS) {
-    await relayOff(); heaterOnFlag = false; onSince = null;
-  }
-
-  await reportToCloud(heaterOnFlag);  // застосунок показує цей самий прапорець
-  await sleep(30_000);
-}
-```
+:::code state-inventory-d/py/main.py
+:::code state-inventory-d/ts/index.ts
 :::
 
 Код виглядає бездоганно — і місяцями працює. А тоді хаб перезапускають: збій живлення, викочення нової версії, звичайний краш. Оперативна пам'ять зникає з процесом; `heater_on_flag` і `on_since` скидаються в стартові `False` і `None`. А реле у **світі** тим часом тримає обігрівач увімкненим — воно про перезапуск нічого не знає.

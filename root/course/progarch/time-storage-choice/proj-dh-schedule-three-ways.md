@@ -9,42 +9,8 @@
 Найпростіший і найпоширеніший рефлекс: узяти «07:00 Києва», порахувати з нього UTC-мить **у момент збереження** — і покласти в базу голе абсолютне число. Далі щодня будити воркер о тій самій годині UTC.
 
 :::tabs
-```py
-from datetime import datetime, timezone, timedelta
-from zoneinfo import ZoneInfo
-
-# А: рахуємо мить ЗАРАЗ, за сьогоднішнім зсувом, і морозимо її.
-def freeze_utc(local: str, zone: str) -> datetime:
-    z = ZoneInfo(zone)
-    wall = datetime.fromisoformat(local).replace(tzinfo=z)  # 07:00 у Києві
-    return wall.astimezone(timezone.utc)                    # → 05:00Z (бо взимку +02:00)
-
-frozen = freeze_utc("2026-01-10T07:00", "Europe/Kyiv")      # 2026-01-10 05:00:00+00:00
-
-# щоденне спрацювання: та сама година UTC, +24 години щодня
-def next_fire_A(after: datetime) -> datetime:
-    fire = frozen
-    while fire <= after:
-        fire += timedelta(days=1)   # ← 24 години — це ФІЗИКА, а не «завтра о 07:00»
-    return fire
-```
-```ts
-import { DateTime } from "luxon";
-
-// А: рахуємо мить ЗАРАЗ, за сьогоднішнім зсувом, і морозимо її.
-function freezeUtc(local: string, zone: string): DateTime {
-  return DateTime.fromISO(local, { zone }).toUTC();   // 07:00 Києва → 05:00Z (взимку +02:00)
-}
-
-const frozen = freezeUtc("2026-01-10T07:00", "Europe/Kyiv");   // 2026-01-10T05:00:00Z
-
-// щоденне спрацювання: та сама година UTC, +24 години щодня
-function nextFireA(after: DateTime): DateTime {
-  let fire = frozen;
-  while (fire <= after) fire = fire.plus({ days: 1 });   // на UTC-зоні days=1 і є рівно 24 год
-  return fire;
-}
-```
+:::code proj-dh-schedule-three-ways/py/sposib-a-zamorozyty-myt.py
+:::code proj-dh-schedule-three-ways/ts/sposib-a-zamorozyty-myt.ts
 :::
 
 Придивись до `+= timedelta(days=1)` (і його близнюка `plus({ days: 1 })` на UTC-мить). Це і є прихована бомба, і вона дуже спокуслива: «наступне спрацювання — це попереднє плюс доба». Але доба — це **фізична** відстань, рівно 86400 секунд; а «завтра о 07:00 в Києві» — відстань **цивільна**, і в ніч переходу вона дорівнює не 24, а 23 (або 25) годинам. Код додає фізику там, де намір вимагав календаря, і кожен наступний день після переходу з'їжджає рівно на різницю зсувів. Обчислити «наступну сьому ранку» коректно — це вже [календарна арифметика cron](root:sf-distributed/distributed-cron), а не додавання секунд.
@@ -58,37 +24,8 @@ function nextFireA(after: DateTime): DateTime {
 Протилежний хід: не рахувати мить наперед узагалі. Зберегти сам намір — **стінний час плюс назву зони** — і перетворити його на UTC-мить рівно тоді, коли планувальник питає «а коли наступне спрацювання?», за **чинними** на той момент правилами.
 
 :::tabs
-```py
-# Б: зберігаємо НАМІР — стінний час + назву зони. Мить рахуємо в останню секунду.
-schedule = {"time": "07:00", "zone": "Europe/Kyiv"}
-
-def next_fire_B(after: datetime, sched: dict) -> datetime:
-    z = ZoneInfo(sched["zone"])
-    hh, mm = map(int, sched["time"].split(":"))
-    day = after.astimezone(z).date()
-    while True:
-        # 07:00 у зоні, зібране ЗА ЧИННИМ tzdata саме на цей день
-        wall = datetime(day.year, day.month, day.day, hh, mm, tzinfo=z)
-        fire = wall.astimezone(timezone.utc)
-        if fire > after:
-            return fire
-        day += timedelta(days=1)
-```
-```ts
-// Б: зберігаємо НАМІР — стінний час + назву зони. Мить рахуємо в останню секунду.
-const schedule = { time: "07:00", zone: "Europe/Kyiv" };
-
-function nextFireB(after: DateTime, sched: { time: string; zone: string }): DateTime {
-  const [hh, mm] = sched.time.split(":").map(Number);
-  let day = after.setZone(sched.zone).startOf("day");
-  for (;;) {
-    // 07:00 у зоні, зібране ЗА ЧИННИМ tzdata саме на цей день
-    const fire = day.set({ hour: hh, minute: mm }).toUTC();
-    if (fire > after) return fire;
-    day = day.plus({ days: 1 });
-  }
-}
-```
+:::code proj-dh-schedule-three-ways/py/sposib-b-zberehty-namir-i.py
+:::code proj-dh-schedule-three-ways/ts/sposib-b-zberehty-namir-i.ts
 :::
 
 Уся різниця — в одному рядку: `datetime(..., tzinfo=z).astimezone(utc)` (і luxonове `.set({hour,minute}).toUTC()`) щоразу **питають tzdata заново**, який зсув має Київ саме на цей день. 28 березня відповідь буде +02:00, 30 березня — уже +03:00, і намір «07:00» обидва рази ляже в правильну мить. Ми зберегли **питання**, а не завчену торішню відповідь.
@@ -125,46 +62,8 @@ for day in ("2026-03-28", "2026-03-29", "2026-03-30"):
 Спосіб Б виживає під переходом, але має свою ціну: мить **не зафіксована**, доки її не розв'язали, а планувальник хоче дешево сортувати тисячі розкладів за готовою величиною й вибирати «кому пора». Третій шлях бере краще з двох: зберігає **намір** як джерело правди — і поряд **кешовану UTC-мить** наступного спрацювання, похідну від наміру, за якою черга дешево вибирає роботу.
 
 :::tabs
-```py
-class ScheduleV:
-    def __init__(self, time: str, zone: str):
-        self.time, self.zone = time, zone      # ДЖЕРЕЛО ПРАВДИ: намір
-        self.next_fire_utc: datetime | None = None   # КЕШ: похідна мить для індексу
-
-    def resolve(self, after: datetime) -> None:
-        # перекувати кеш із наміру за ЧИННИМИ правилами (той самий next_fire_B)
-        self.next_fire_utc = next_fire_B(after, {"time": self.time, "zone": self.zone})
-
-    def due(self, now: datetime) -> bool:
-        # планувальник питає дешево, за готовою міттю — як у способі А
-        return self.next_fire_utc is not None and self.next_fire_utc <= now
-
-# ПІСЛЯ ОНОВЛЕННЯ tzdata — перекувати ВСІ ще не запущені розклади:
-def on_tzdata_update(schedules: list[ScheduleV], now: datetime) -> None:
-    for s in schedules:
-        s.resolve(now)                          # ← без цього рядка В тихо стає А
-```
-```ts
-class ScheduleV {
-  nextFireUtc: DateTime | null = null;          // КЕШ: похідна мить для індексу
-  constructor(public time: string, public zone: string) {}  // ДЖЕРЕЛО ПРАВДИ: намір
-
-  resolve(after: DateTime): void {
-    // перекувати кеш із наміру за ЧИННИМИ правилами (той самий nextFireB)
-    this.nextFireUtc = nextFireB(after, { time: this.time, zone: this.zone });
-  }
-
-  due(now: DateTime): boolean {
-    // планувальник питає дешево, за готовою міттю — як у способі А
-    return this.nextFireUtc !== null && this.nextFireUtc <= now;
-  }
-}
-
-// ПІСЛЯ ОНОВЛЕННЯ tzdata — перекувати ВСІ ще не запущені розклади:
-function onTzdataUpdate(schedules: ScheduleV[], now: DateTime): void {
-  for (const s of schedules) s.resolve(now);    // ← без цього рядка В тихо стає А
-}
-```
+:::code proj-dh-schedule-three-ways/py/sposib-v-trymaty-obydva.py
+:::code proj-dh-schedule-three-ways/ts/sposib-v-trymaty-obydva.ts
 :::
 
 Тут два джоби перекування, і плутати їх не можна. Перший — **буденний**: після кожного спрацювання розклад кличе `resolve`, щоб порахувати наступний день; це той самий механізм, що дає Б виживати під сезонним переходом. Другий — **рідкісний і підступний**: `on_tzdata_update` доводиться прогнати, коли світ **змінив саме правило**, а не просто настала неділя. Бо кеш у базі міг бути порахований учора за старим правилом, спрацювання ще попереду — і якщо правило під ним підмінили, кешована мить бреше, доки її не перекували з наміру.
@@ -187,27 +86,7 @@ function onTzdataUpdate(schedules: ScheduleV[], now: DateTime): void {
 
 Python дає для цього точний інструмент — атрибут `fold` (з PEP 495): при `fold=0` береться зсув **до** переходу, при `fold=1` — **після**. Через нього обидві межі відрізняються надійно:
 
-```py
-from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
-
-def classify(local: str, zone: str) -> str:
-    z = ZoneInfo(zone)
-    naive = datetime.fromisoformat(local)
-    dt0 = naive.replace(tzinfo=z, fold=0)
-    dt1 = naive.replace(tzinfo=z, fold=1)
-    # чи існує мить? прогнана крізь UTC і назад, у ЩІЛИНІ вона зсувається
-    exists = naive == dt0.astimezone(timezone.utc).astimezone(z).replace(tzinfo=None)
-    if not exists:
-        return "щілина: миті немає (весняний перехід)"
-    if dt0.utcoffset() != dt1.utcoffset():
-        return "повтор: миті дві — fold=0 (+03) та fold=1 (+02)"
-    return "звичайна: рівно одна мить"
-
-print(classify("2026-03-29T03:30", "Europe/Kyiv"))  # щілина: миті немає
-print(classify("2026-10-25T03:30", "Europe/Kyiv"))  # повтор: миті дві
-print(classify("2026-07-01T07:00", "Europe/Kyiv"))  # звичайна: рівно одна мить
-```
+:::code proj-dh-schedule-three-ways/py/mezha-perekhodu.py
 
 Логіка прозора. Неоднозначну (осінню) годину видає те, що `fold=0` і `fold=1` дають **різні зсуви** — мить справді дві. Неіснуючу (весняну) видає інша перевірка: якщо взяти таку локальну мить, перевести в UTC і назад, вона **не повернеться в себе** — бо в щілині її просто немає, і round-trip викидає на сусідню годину. Далі політику обираєш свідомо: для щілини — зсунути вперед на 04:00, відкотити на 02:59 чи пропустити спрацювання; для повтору — взяти першу мить (`fold=0`) чи другу (`fold=1`). Головне, що це **твоє** рішення, а не мовчазний дефолт.
 

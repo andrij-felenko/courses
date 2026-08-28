@@ -49,115 +49,8 @@ ADR зберігає міркування, але міркування живе 
 Ідея пряма: обійти всі файли, витягти імпорти, знайти зону кожного кінця й упасти, якщо напрямок не в таблиці дозволених. У JS/TS-світі це компактний сканер над деревом джерел; у Python — той самий задум ідіоматично через `ast`, який розбирає імпорти по-справжньому, а не текстом.
 
 :::tabs
-```ts
-// arch/boundary.test.ts — сторож ADR-021. Ганяється в CI на кожен PR:  node --test
-// Кодує розкрій: ядро не імпортує нутрощі винесених сервісів,
-// а телеметрію/відео чіпає лише через порт і спільні контракти.
-import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
-import { fileURLToPath } from "node:url";
-import { test } from "node:test";
-import assert from "node:assert/strict";
-
-const SRC = join(fileURLToPath(new URL(".", import.meta.url)), "..", "src");
-
-type Zone = "core" | "telemetry" | "video" | "ports" | "contracts";
-const ZONES: Zone[] = ["core", "telemetry", "video", "ports", "contracts"];
-
-// Кожен модуль належить зоні за верхньою текою під src/.
-const zoneOf = (rel: string): Zone | null =>
-  ZONES.find((z) => rel === z || rel.startsWith(z + "/")) ?? null;
-
-// Дозволені напрямки залежності. Чого тут немає — заборонено. Це та сама таблиця,
-// що й на малюнку: ядро й сервіси — лише до портів/контрактів, не одне в одного.
-const ALLOWED: Record<Zone, Zone[]> = {
-  core:      ["ports", "contracts"],   // ядро — лише крізь порти й контракти
-  telemetry: ["ports", "contracts"],   // винесений сервіс не лазить у ядро
-  video:     ["ports", "contracts"],
-  ports:     ["contracts"],            // порт — чистий інтерфейс над контрактами
-  contracts: [],                       // контракти нікого не тягнуть
-};
-
-// Усі *.ts під src/ (шлях відносно src/, прямі слеші), крім самих тестів.
-function sources(dir = SRC, base = ""): string[] {
-  const out: string[] = [];
-  for (const e of readdirSync(dir, { withFileTypes: true })) {
-    const rel = base ? base + "/" + e.name : e.name;
-    if (e.isDirectory()) out.push(...sources(join(dir, e.name), rel));
-    else if (e.name.endsWith(".ts") && !e.name.endsWith(".test.ts")) out.push(rel);
-  }
-  return out;
-}
-
-// Крос-зонні імпорти йдуть через аліас "@dh/<zone>/…" (глибокі "../" крізь зони
-// заборонені окремим lint-правилом — тож досить ловити аліас).
-const CROSS = /from\s+["'`]@dh\/([\w-]+)/g;
-
-test("ADR-021: ядро не імпортує нутрощі винесених сервісів", () => {
-  const breaches: string[] = [];
-  for (const file of sources()) {
-    const from = zoneOf(file);
-    if (!from) continue;
-    const code = readFileSync(join(SRC, file), "utf8");
-    for (const [, target] of code.matchAll(CROSS)) {
-      const to = zoneOf(target);
-      if (!to || to === from) continue;                 // своя зона — вільно
-      if (!ALLOWED[from].includes(to))
-        breaches.push(`${file}  →  @dh/${target}   (${from} ✗ ${to})`);
-    }
-  }
-  assert.deepEqual(breaches, [],
-    "Розкрій ADR-021 пробито:\n  " + breaches.join("\n  "));
-});
-```
-```py
-# arch/test_boundary.py — сторож ADR-021 для Python-ядра. Ганяється в CI:
-#   pytest arch/test_boundary.py
-# Той самий розкрій: ядро тягнеться до сервісів лише крізь ports/contracts.
-import ast
-from pathlib import Path
-
-SRC = Path(__file__).resolve().parent.parent / "src"
-
-# Дозволені напрямки залежності. Чого тут немає — заборонено. Та сама таблиця,
-# що й на малюнку: ядро й сервіси — лише до портів/контрактів, не одне в одного.
-ALLOWED = {
-    "core":      {"ports", "contracts"},   # ядро — лише крізь порти й контракти
-    "telemetry": {"ports", "contracts"},   # винесений сервіс не лазить у ядро
-    "video":     {"ports", "contracts"},
-    "ports":     {"contracts"},            # порт — чистий інтерфейс над контрактами
-    "contracts": set(),                    # контракти нікого не тягнуть
-}
-ZONES = set(ALLOWED)
-
-def zone_of(dotted: str) -> str | None:
-    top = dotted.split(".", 1)[0]
-    return top if top in ZONES else None
-
-def imported_modules(tree: ast.Module):
-    """Абсолютні модулі, які тягне файл (import X / from X import …)."""
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            for alias in node.names:
-                yield alias.name
-        elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
-            yield node.module          # відносні "from ." не виходять за свій пакет
-
-def test_adr021_core_keeps_off_service_guts():
-    breaches = []
-    for path in SRC.rglob("*.py"):
-        rel = path.relative_to(SRC).with_suffix("")
-        src_zone = zone_of(".".join(rel.parts))
-        if src_zone is None:
-            continue
-        for module in imported_modules(ast.parse(path.read_text(encoding="utf-8"))):
-            dst = zone_of(module)
-            if dst is None or dst == src_zone:            # чуже/своя зона — вільно
-                continue
-            if dst not in ALLOWED[src_zone]:
-                breaches.append(f"{'/'.join(rel.parts)}  ->  {module}   ({src_zone} X {dst})")
-    assert not breaches, "Розкрій ADR-021 пробито:\n  " + "\n  ".join(breaches)
-```
+:::code proj-dh-services-adr/ts/boundary.test.ts
+:::code proj-dh-services-adr/py/test_boundary.py
 :::
 
 Дві риси роблять цей тест дешевим і чесним водночас. По-перше, він **не знає нічого про телеметрію конкретно** — він знає лише таблицю `ALLOWED`, тобто той самий малюнок. Додасться завтра третій винесений сервіс — допишеш один рядок у таблицю, і сторож уже його береже. По-друге, він падає з **іменами винуватців**: не «щось не так», а «`core/dashboard/widget.ts → @dh/telemetry`» — рецензент бачить точно той рядок, що пробиває ADR, і або відкочує його, або йде міняти ADR свідомо.
@@ -174,21 +67,7 @@ def test_adr021_core_keeps_off_service_guts():
 
 Серце другої фази — фасад, що ховає **обидва** шляхи за тим самим портом. Пише в старе (джерело правди) і в нове (тіньовий прогрів), а провал нового не валить запис:
 
-```ts
-// Фаза 2 strangler-fig: та сама форма TelemetrySink, за нею — обидва шляхи.
-class MigratingSink implements TelemetrySink {
-  constructor(private oldSink: TelemetrySink, private newSink: TelemetrySink) {}
-
-  async record(e: DeviceEvent): Promise<void> {
-    await this.oldSink.record(e);            // джерело правди — поки старе
-    try {
-      await this.newSink.record(e);          // новий шлях прогріваємо паралельно
-    } catch (err) {
-      metrics.increment("telemetry.shadow_write_failed");   // не валимо запис
-    }
-  }
-}
-```
+:::code proj-dh-services-adr/ts/poriadok-vynosu-strangler.ts
 
 ## Складність і пастки
 

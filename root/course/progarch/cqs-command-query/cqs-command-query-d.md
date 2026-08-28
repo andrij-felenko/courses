@@ -49,54 +49,15 @@
 
 Візьмімо журнал телеметрії нашого розумного дому. Наївний метод дописує показник і одразу повертає свіже середнє — здається зручним, «усе за один виклик»:
 
-```ts
-class TelemetryLog {
-  private readings: number[] = [];
-
-  // робить двоє: І дописує показник, І повертає нове середнє
-  append(reading: number): number {
-    this.readings.push(reading);
-    const sum = this.readings.reduce((a, b) => a + b, 0);
-    return sum / this.readings.length;
-  }
-}
-```
+:::code cqs-command-query-d/ts/metod-shcho-robyt-dvoie.ts
 
 Підступ у тому, що ім'я `append` (дописати) — це наказ, а от `: number` наприкінці — це вже відповідь. Метод прикидається командою, а нишком іще й запитує. Хочеш просто дописати — мусиш або проковтнути повернене середнє, або вдати, що його нема. Хочеш дізнатися середнє, не дописуючи, — не можеш узагалі, бо єдиний шлях до нього лежить через зміну стану. І тест на «чи правильно рахується середнє» тепер щоразу псує журнал.
 
 Різ очевидний: **розділити на команду й запит.**
 
 :::tabs
-```ts
-class TelemetryLog {
-  private readings: number[] = [];
-
-  // КОМАНДА: змінює стан, нічого не повертає
-  append(reading: number): void {
-    this.readings.push(reading);
-  }
-
-  // ЗАПИТ: відповідає, стану не чіпає
-  average(): number {
-    if (this.readings.length === 0) return 0;
-    const sum = this.readings.reduce((a, b) => a + b, 0);
-    return sum / this.readings.length;
-  }
-}
-```
-```py
-class TelemetryLog:
-    def __init__(self) -> None:
-        self._readings: list[float] = []
-
-    def append(self, reading: float) -> None:   # КОМАНДА: змінює стан
-        self._readings.append(reading)
-
-    def average(self) -> float:                 # ЗАПИТ: тільки читає
-        if not self._readings:
-            return 0.0
-        return sum(self._readings) / len(self._readings)
-```
+:::code cqs-command-query-d/ts/metod-shcho-robyt-dvoie-2.ts
+:::code cqs-command-query-d/py/main.py
 :::
 
 Тепер сигнатура не бреше. `append(reading): void` — це чистий наказ: віддав показник, стан змінився, крапка. `average(): number` — чисте питання: спитав скільки завгодно разів, дому нічим не нашкодив. Хто хоче дописати й одразу побачити середнє, робить два кроки в одному рядку виклику — і це навіть читабельніше, бо видно **обидва наміри окремо**:

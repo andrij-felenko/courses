@@ -20,43 +20,11 @@
 
 Обидва шляхи говорять до того самого хаба й тими самими типами. Виокремимо їх, щоб далі не повторюватись.
 
-```ts
-// domain.ts — спільний словник обох шляхів
-export type HomeId = string;
-export type CommandId = string;
-export type LockState = "locked" | "unlocked" | "unknown";
-
-export interface LockCommand {
-  commandId: CommandId;
-  home: HomeId;
-  cmd: "lock";
-}
-
-// Дві помилки хаба, які нам ВАЖЛИВО розрізняти нагорі:
-export class HubOffline extends Error {}   // хаба нема на зв'язку — команду нема куди подіти
-export class HubTimeout extends Error {}   // хаб мовчить — ми не знаємо, клацнув замок чи ні
-
-// Контракт до фізичного хаба. Обидва шляхи кличуть рівно це.
-// Може повернути стан, кинути HubOffline — або зависнути (тоді спрацює наш таймаут).
-export interface Hub {
-  send(home: HomeId, cmd: { cmd: "lock" }): Promise<{ state: LockState }>;
-}
-```
+:::code proj-dh-command-two-ways/ts/domain.ts
 
 Одна дрібна, але принципова обгортка — власний дедлайн. Ми ніколи не чекаємо на хаб «скільки треба»: або встигли, або це `HubTimeout`. Написати її треба так, щоб таймер не лишався висіти, коли відповідь усе-таки прийшла, — інакше процес поволі забиває пам'ять мертвими таймерами.
 
-```ts
-// util.ts — власний дедлайн поверх будь-якого проміса, без «підвислих» таймерів
-export function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
-  return new Promise((resolve, reject) => {
-    const t = setTimeout(() => reject(new HubTimeout(`хаб мовчить ${ms} мс`)), ms);
-    p.then(
-      (v) => { clearTimeout(t); resolve(v); },
-      (e) => { clearTimeout(t); reject(e); },
-    );
-  });
-}
-```
+:::code proj-dh-command-two-ways/ts/util.ts
 
 > 🔧 **Навіщо це.** Розрізнення `HubOffline` і `HubTimeout` — не педантизм, а серце обох шляхів. `HubTimeout` каже «я не знаю» (може, замок і зачинений) — і синхронний обробник мусить це «не знаю» повернути чесно, а не як «помилка». `HubOffline` каже «до хаба взагалі не достукатися» — і саме тут синхронний шлях безсилий (команду нема куди подіти), а асинхронний виграє (команда спокійно чекає в черзі). Один тип помилки визначає долю команди.
 
@@ -64,26 +32,7 @@ export function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
 
 Синхронний обробник тримає запит родини відкритим, поки не почує замок, і вертає те, що почув. Уся його чесність — у гілках `catch`.
 
-```ts
-// sync-route.ts — await наскрізь; відповідь = РЕАЛЬНИЙ кінцевий стан
-app.post("/homes/:id/lock", async (req, res) => {
-  try {
-    const r = await withTimeout(hub.send(req.params.id, { cmd: "lock" }), 5_000);
-    // Дійшли до замка й почули його — вертаємо стан, який він назвав.
-    res.status(200).json({ state: r.state });               // 200 «зроблено»
-  } catch (e) {
-    if (e instanceof HubTimeout) {
-      // Таймаут — це «я не знаю», а не «не вийшло»: замок МІГ клацнути.
-      res.status(504).json({ state: "unknown", reason: "хаб мовчить" });
-    } else if (e instanceof HubOffline) {
-      // Хаба нема на зв'язку — покласти команду нема куди. Вона програна ТУТ.
-      res.status(502).json({ state: "unknown", reason: "хаб офлайн" });
-    } else {
-      res.status(500).json({ state: "unknown" });
-    }
-  }
-});
-```
+:::code proj-dh-command-two-ways/ts/sync-route.ts
 
 Прочитаймо, що цей код обіцяє. За щасливого перебігу застосунок отримує `200` і в тілі — **справжній** стан замка: не «команду відправлено», а `locked`. Родина бачить правду тієї ж миті. Повільний хаб гальмує саму відповідь — і це, як ми бачили, природний зворотний тиск: ніхто не завалює хаб понад силу, бо кожен чекає своєї черги.
 
@@ -95,22 +44,7 @@ app.post("/homes/:id/lock", async (req, res) => {
 
 ### Прийом: `202` і `commandId`
 
-```ts
-// async-enqueue.ts — приймаємо команду й ОДРАЗУ відповідаємо 202
-app.post("/homes/:id/lock", async (req, res) => {
-  // Ключ ідемпотентності. Якщо застосунок ретраїть той самий POST (бо 202 загубився
-  // у дорозі), ми НЕ заведемо другу команду — той самий ключ = та сама команда.
-  const commandId = req.header("Idempotency-Key") ?? randomUUID();
-
-  // enqueue мусить бути ідемпотентним за commandId (upsert), а не сліпим push.
-  await commands.enqueue({ commandId, home: req.params.id, cmd: "lock" });
-  await status.put({ commandId, state: "accepted" });
-
-  res.status(202)
-     .location(`/commands/${commandId}`)                    // ← ось де опитувати статус
-     .json({ accepted: true, commandId });                  // 202 «прийняв, спитай пізніше»
-});
-```
+:::code proj-dh-command-two-ways/ts/async-enqueue.ts
 
 Код відповіді `202` тут не косметика, а точна назва того, що сталося. RFC 9110 визначає `202 Accepted` як «intentionally noncommittal» — навмисно ні до чого не зобов'язальний: запит **прийнято до обробки, але обробку не завершено**, і команда «може бути виконана, а може й ні». Більше того, специфікація прямо каже: у HTTP **немає** способу згодом надіслати ще одну відповідь із результатом асинхронної операції. Ось чому одного `202` замало — сам протокол відмовляється донести до нас фінал. Тому `Location` веде на окремий ендпойнт статусу, а кінцевий стан ми **самі** доставимо через нього й через твін. `202` — це чесна обіцянка «взяв», а не брехливе «зробив».
 
@@ -120,24 +54,7 @@ app.post("/homes/:id/lock", async (req, res) => {
 
 Обробник відповів, а команда ще й не почалася. Хтось мусить пам'ятати, **де вона зараз** — інакше застосунок не матиме чого опитувати. Це журнал команд: єдине джерело правди про долю кожного `commandId`. Тип запису — об'єднання, і воно саме собою малює весь життєвий цикл.
 
-```ts
-// status.ts — журнал команд: де зараз кожна команда
-export type CommandRecord =
-  | { commandId: CommandId; state: "accepted" }                   // у черзі, ще не взято
-  | { commandId: CommandId; state: "processing" }                 // споживач узяв
-  | { commandId: CommandId; state: "done"; lock: LockState }      // виконано, ось стан
-  | { commandId: CommandId; state: "failed"; reason: string };    // впало остаточно
-
-export interface StatusStore {
-  put(r: CommandRecord): Promise<void>;
-  get(id: CommandId): Promise<CommandRecord | undefined>;
-}
-
-// Твін дому — «остання відома правда» про дім, яку читає весь інтерфейс.
-export interface Twin {
-  merge(home: HomeId, patch: { lock: LockState }): Promise<void>;
-}
-```
+:::code proj-dh-command-two-ways/ts/status.ts
 
 Журнал і твін — різні речі, і плутати їх не можна. Журнал — про **команду** (ця конкретна спроба зачинити: прийнято → в обробці → зроблено). Твін — про **дім** (двері зараз зачинені, крапка), і його читають усі екрани, а не лише той, хто відправив команду. Споживач наприкінці оновить обидва: журнал скаже «ця команда виконана», твін — «двері зачинені».
 
@@ -147,36 +64,7 @@ export interface Twin {
 
 Осердя всього шляху. Окремий процес тягне команди з черги й виконує їх. Головна його чеснота — переживати те, що **та сама команда прилетить двічі**. Брокер майже завжди дає [гарантію «щонайменше раз» (at-least-once)](root:sf-distributed/delivery-guarantees): краще доставити повторно, ніж загубити, — тож [дублі стають нормою, а не збігом](root:progarch/duplicates-and-reorder).
 
-```ts
-// consumer.ts — окремий процес: тягне з черги, дедуплікує, виконує ідемпотентно
-commands.consume(async (c: LockCommand, ack, nack) => {
-  // ── Дедуп-ворота. Той самий commandId міг уже пройти повний цикл.
-  if (await processed.has(c.commandId)) {
-    return ack();                 // уже виконували — тихо підтверджуємо й виходимо
-  }
-  await status.put({ commandId: c.commandId, state: "processing" });
-  try {
-    // Ефект. lock() ідемпотентна НА РІВНІ ПРИСТРОЮ — і це наш головний захист:
-    // замкнути вже замкнене — то нічого не сталося (див. пастки нижче).
-    const r = await withTimeout(hub.send(c.home, { cmd: "lock" }), 5_000);
-
-    await processed.add(c.commandId);                                  // позначаємо ПІСЛЯ ефекту…
-    await status.put({ commandId: c.commandId, state: "done", lock: r.state });
-    await twin.merge(c.home, { lock: r.state });                       // кінцевий стан → у твін
-    ack();                                                             // …і аж тепер підтверджуємо брокеру
-  } catch (e) {
-    // НЕ позначили як зроблене → брокер віддасть команду ще раз (повтор).
-    await status.put({ commandId: c.commandId, state: "failed", reason: String(e) });
-    nack();                       // після N спроб брокер сам зсуне команду в мертву чергу
-  }
-});
-
-// processed — довговічне сховище вже виконаних commandId (Redis SET, таблиця з TTL…)
-interface Processed {
-  has(id: CommandId): Promise<boolean>;
-  add(id: CommandId): Promise<void>;
-}
-```
+:::code proj-dh-command-two-ways/ts/consumer.ts
 
 Зупинімося на порядку рядків — він тут не випадковий, а вистражданий. Ми кличемо `ack` (підтвердження брокеру «команду опрацьовано, можеш забути») **найостаннішим**, уже після ефекту, запису статусу й оновлення твіна. Якби ми підтвердили раніше й тут-таки впали, брокер вважав би команду виконаною — а замок так і лишився б відчиненим, і ніхто б не дізнався. Пізній `ack` означає: доки ми не довели справу до кінця, брокер тримає команду й за потреби віддасть її знову. Це і є суть at-least-once з боку споживача: краще двічі зачинити, ніж жодного разу.
 
@@ -197,36 +85,7 @@ app.get("/commands/:commandId", async (req, res) => {
 
 І бік застосунку — те, заради чого все затівалося. Одразу після `202` він чесно каже «в обробці», а тоді опитує статус, поки не побачить `done` чи `failed`.
 
-```ts
-// app-client.ts — 202 → «в обробці» → опитуємо → кінцевий стан на екрані
-async function lockDoor(homeId: HomeId): Promise<void> {
-  const { commandId } = await api.post(`/homes/${homeId}/lock`).json();
-  ui.badge("в обробці…");                    // одразу після 202 — чесно, бо ще НЕ зроблено
-
-  const final = await poll<CommandRecord>(`/commands/${commandId}`, {
-    ready: (r) => r.state === "done" || r.state === "failed",
-    everyMs: 1_000,
-    giveUpMs: 30_000,
-  });
-
-  if (final.state === "done") {
-    ui.badge(final.lock === "locked" ? "зачинено" : "відчинено");
-  } else {
-    ui.badge("не вдалося — повторити?");      // failed або вичерпали час опитування
-  }
-}
-
-// поллінг з інтервалом і дедлайном — вертає останнє, що встиг побачити
-async function poll<T>(url: string,
-  o: { ready: (v: T) => boolean; everyMs: number; giveUpMs: number }): Promise<T> {
-  const deadline = Date.now() + o.giveUpMs;
-  for (;;) {
-    const v = await api.get(url).json<T>();
-    if (o.ready(v) || Date.now() > deadline) return v;
-    await sleep(o.everyMs);
-  }
-}
-```
+:::code proj-dh-command-two-ways/ts/app-client.ts
 
 ![Життя асинхронної команди на хребті з трьох станів: ACCEPTED (прийнято, лежить у черзі) → PROCESSING (споживач узяв) → DONE (зачинено, твін оновлено). Над переходами підписано, що їх спричиняє: вхід — POST кладе команду в чергу й вертає 202 з commandId; перший перехід — споживач тягне з черги, і оскільки брокер at-least-once, той самий id може прийти двічі, тож стоять дедуп-ворота; другий перехід — hub.send виконує lock, замок відповідає locked, кінцевий стан іде у твін. Униз від PROCESSING — гілка невдачі: якщо не позначили done, брокер повторює, а після N спроб команда йде в МЕРТВУ ЧЕРГУ, яку розбере людина. Знизу через усю ширину — нагадування: застосунок після 202 показує «в обробці», опитує GET /commands/id (або слухає твін) і міняє на «зачинено» лише коли стан = done, доти дім у кінцевій узгодженості](img/dh-async-lifecycle.svg)
 *Одна кнопка — цілий конвеєр. `202` віддає застосунок на волю миттєво; справжній стан приходить згодом, третім шляхом — через журнал і твін. Дедуп-ворота на вході в обробку існують тому, що брокер чесно попереджає: доставлю щонайменше раз.*

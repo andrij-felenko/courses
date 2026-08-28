@@ -61,35 +61,8 @@
 У коді ця різниця — не окрема система, а **аргумент міцності на кожен чит**, який диктує клан факту:
 
 :::tabs
-```ts
-// Клас факту диктує міцність читання — не система і не «всюди строго».
-type Consistency = "strong" | "eventual";
-
-async function mayOpen(deviceId: string, userId: string): Promise<boolean> {
-  // Право відчинити двері читаємо СТРОГО: авторитетне джерело (лідер/кворум).
-  const grant = await store.read(`grant:${homeOf(deviceId)}:${userId}`, "strong");
-  return grant?.active === true;   // не підтвердили строго (розкол) → «ні»: fail-closed
-}
-
-async function latestTemp(deviceId: string): Promise<number | null> {
-  // Температуру читаємо ЗРЕШТОЮ: з найближчої репліки, хай трохи застарілу.
-  const r = await store.read(`temp:${deviceId}`, "eventual");
-  return r?.value ?? null;         // застаріле число нікому не шкодить
-}
-```
-```py
-# Клас факту диктує міцність читання — не система і не «всюди строго».
-
-async def may_open(device_id: str, user_id: str) -> bool:
-    # Право відчинити двері читаємо СТРОГО: авторитетне джерело (лідер/кворум).
-    grant = await store.read(f"grant:{home_of(device_id)}:{user_id}", "strong")
-    return bool(grant and grant.active)   # не підтвердили строго (розкол) → «ні»: fail-closed
-
-async def latest_temp(device_id: str) -> float | None:
-    # Температуру читаємо ЗРЕШТОЮ: з найближчої репліки, хай трохи застарілу.
-    r = await store.read(f"temp:{device_id}", "eventual")
-    return r.value if r else None         # застаріле число нікому не шкодить
-```
+:::code dh-consistency-choice-d/ts/index.ts
+:::code dh-consistency-choice-d/py/main.py
 :::
 
 Одна функція ходить по строге право, друга бере дешеве наближення — і ця різниця вписана в **клас факту**, а не в глобальний перемикач. Повний робочий приклад — зі строгим шляхом на кворумі, зрештою-шляхом на локальній репліці й відтворенням гонки відкликання, що доводить: строгий шлях відмовляє, а зрештою-шлях впускає, — зібрано в [окремому розборі-проєкті](root:progarch/dh-consistency-choice/proj-dh-consistency-map.md).

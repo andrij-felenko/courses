@@ -21,69 +21,8 @@
 Троє вимовляють одне слово — і мають на увазі три різні речі, що лише випадково ділять назву. Це рівно ті самі омоніми, що й горезвісний «товар» каталогу проти складу з теми про [обмежений контекст](root:sf-apps/bounded-context): одна вивіска, різні світи за нею. Спокуса — зробити один спільний клас `Device` на все — веде туди ж, куди й спільний `Product`: до роздутого мішка, де половина полів вічно порожня, а правило білінгу тихо суперечить правилу керування. Натомість дамо кожному контексту свій маленький, чесний `Device`:
 
 :::tabs
-```py
-# КОНТЕКСТ КЕРУВАННЯ (ядро): пристрій — жива керована річ
-@dataclass
-class Device:                       # control.Device
-    id: DeviceId
-    kind: str                       # "lock" | "lamp" | "sensor"
-    capabilities: frozenset[str]    # що саме вміє
-    state: DeviceState              # поточний стан, яким командуємо
-    room: RoomId
-    # тут живуть інваріанти: замок не нічий, стан завжди визначений;
-    # змінюється, коли з'являється нова радіо-можливість чи тип заліза
-
-# КОНТЕКСТ ТЕЛЕМЕТРІЇ: пристрій — лише джерело ряду вимірів
-@dataclass(frozen=True)
-class Device:                       # telemetry.Device
-    source_id: SourceId
-    unit: str                       # "°C", "lux", ...
-    retention_days: int
-    # ні стану, ні життєвого циклу, ні кімнати — тут це зайве;
-    # змінюється, коли міняють retention чи downsampling
-
-# КОНТЕКСТ БІЛІНГУ (загальне): пристрій — рядок тарифу
-@dataclass(frozen=True)
-class Device:                       # billing.Device
-    home_id: HomeId
-    counts_against_plan: bool
-    active_since: date
-    # байдуже, лампа то чи замок — важливо лише рахувати чи ні;
-    # змінюється, коли міняють ціни й плани
-```
-```ts
-// КОНТЕКСТ КЕРУВАННЯ (ядро): пристрій — жива керована річ
-namespace Control {
-  export interface Device {
-    readonly id: DeviceId;
-    readonly kind: "lock" | "lamp" | "sensor";
-    readonly capabilities: ReadonlySet<string>;   // що саме вміє
-    state: DeviceState;                            // яким командуємо
-    readonly room: RoomId;
-    // тут живуть інваріанти; змінюється з новим протоколом чи залізом
-  }
-}
-
-// КОНТЕКСТ ТЕЛЕМЕТРІЇ: пристрій — лише джерело ряду вимірів
-namespace Telemetry {
-  export interface Device {
-    readonly sourceId: SourceId;
-    readonly unit: string;              // "°C", "lux", ...
-    readonly retentionDays: number;
-    // ні стану, ні життєвого циклу; змінюється з retention/аналітикою
-  }
-}
-
-// КОНТЕКСТ БІЛІНГУ (загальне): пристрій — рядок тарифу
-namespace Billing {
-  export interface Device {
-    readonly homeId: HomeId;
-    readonly countsAgainstPlan: boolean;
-    readonly activeSince: string;       // ISO-дата
-    // байдуже, лампа то чи замок; змінюється з цінами й планами
-  }
-}
-```
+:::code dh-context-boundaries-choice-d/py/main.py
+:::code dh-context-boundaries-choice-d/ts/index.ts
 :::
 
 Придивись, що зникло в кожному: жодних чужих полів «про всяк випадок». `Telemetry.Device` не знає слова «замок»; `Billing.Device` не знає, відчинені двері чи ні. Кожна модель обіцяє рівно те, що правда в її світі, — і стіна між світами вже проступила там, де мова зламалася.

@@ -55,69 +55,8 @@
 У коді видно, що обробник тепер лише **заводить задачі й одразу відпускає** запит, а вся вага переїхала у воркер:
 
 :::tabs
-```ts
-// ЗАПИС ЗАДАЧІ — річ першого класу, а не «викликав і забув»
-type Job = {
-  id: string;
-  key: string;                 // ключ ідемпотентності: `${hubId}:${version}`
-  state: "queued" | "running" | "done" | "dead";
-  attempts: number;
-  runAfter: number;            // монотонний дедлайн: «не чіпати раніше»
-};
-
-// ВЕБ-БІК: обробник лише ставить задачі в чергу й одразу відповідає 202
-app.post("/homes/:id/firmware/:version", async (req, res) => {
-  const hubs = await hubsOf(req.params.id);
-  const jobs = hubs.map(h => ({ key: `${h}:${req.params.version}` }));
-  const batchId = await queue.enqueueAll(jobs, { runAfter: nextNightWindow() });
-  res.status(202).json({ batchId, total: jobs.length }); // «прийнято», НЕ «зроблено»
-});
-
-// ВОРКЕР-БІК: тягне задачу, дедупить за ключем, повторює або складає в мертву чергу
-queue.consume(async (job: Job) => {
-  if (await alreadyApplied(job.key)) return ok(job);     // ідемпотентність: повтор — no-op
-  try {
-    await hub.flash(job.key);
-    await markDone(job.key);                             // стан → done, поступ видно родині
-  } catch (e) {
-    if (job.attempts >= 10) return deadLetter(job);      // здалися → людина розбере
-    return retryWithBackoff(job);                        // ще спроба, з відступом
-  }
-});
-```
-```py
-from dataclasses import dataclass
-
-# ЗАПИС ЗАДАЧІ — річ першого класу, а не «викликав і забув»
-@dataclass
-class Job:
-    id: str
-    key: str            # ключ ідемпотентності: f"{hub_id}:{version}"
-    state: str          # queued | running | done | dead
-    attempts: int
-    run_after: float    # монотонний дедлайн: «не чіпати раніше»
-
-# ВЕБ-БІК: обробник лише ставить задачі в чергу й одразу відповідає 202
-@app.post("/homes/{home_id}/firmware/{version}")
-async def rollout(home_id: str, version: str):
-    hubs = await hubs_of(home_id)
-    jobs = [{"key": f"{h}:{version}"} for h in hubs]
-    batch_id = await queue.enqueue_all(jobs, run_after=next_night_window())
-    return JSONResponse({"batchId": batch_id, "total": len(jobs)}, status_code=202)
-
-# ВОРКЕР-БІК: тягне задачу, дедупить за ключем, повторює або складає в мертву чергу
-@queue.consumer
-async def apply(job: Job):
-    if await already_applied(job.key):        # ідемпотентність: повтор — no-op
-        return ok(job)
-    try:
-        await hub.flash(job.key)
-        await mark_done(job.key)              # стан → done, поступ видно родині
-    except Exception:
-        if job.attempts >= 10:
-            return dead_letter(job)           # здалися → людина розбере
-        return retry_with_backoff(job)        # ще спроба, з відступом
-```
+:::code async-work-recap-d/ts/index.ts
+:::code async-work-recap-d/py/main.py
 :::
 
 Зверніть увагу на код відповіді — `202 Accepted`, «прийняв, зроблю пізніше», а не `200 OK`. Це не косметика: різниця між «зроблено» й «прийнято» — сама суть класу. [Повний маленький рушій задач із цими сімома органами — тривкий запис, дедуп, повтор, мертва черга, запит статусу — зібрано окремо](root:progarch/async-work-recap/proj-async-job-anatomy.md), бо він однаковий для будь-якого домену й вартий того, щоб на нього подивитися цілком.

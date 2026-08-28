@@ -21,33 +21,7 @@
 
 Почнімо з того важеля, що не потребує коду взагалі, — з **цілісності**. Її місце — схема: хай база відмовляється тримати поганий стан сама, а не сподівається на дисципліну кожного ендпоінта, що колись торкнеться таблиці.
 
-```sql
--- РЕЄСТР: джерело правди про дім. Кожне обмеження — це «ні», яке база каже замість нас.
-CREATE TABLE IF NOT EXISTS homes (
-  id         TEXT PRIMARY KEY,                       -- один дім — один рядок
-  owner      TEXT NOT NULL,
-  threshold  REAL    NOT NULL CHECK (threshold BETWEEN 5 AND 35),   -- поріг у людських межах
-  heat_left  INTEGER NOT NULL CHECK (heat_left >= 0)                 -- бюджет нагріву, хвилини
-);
-
-CREATE TABLE IF NOT EXISTS devices (
-  home_id  TEXT NOT NULL,
-  id       TEXT NOT NULL,
-  kind     TEXT NOT NULL CHECK (kind IN ('lock','plug','thermostat','sensor')),
-  room     TEXT,
-  PRIMARY KEY (home_id, id),                          -- один пристрій — один запис у домі
-  UNIQUE (id),                                        -- давач не належить двом домам ОДНОЧАСНО
-  FOREIGN KEY (home_id) REFERENCES homes(id) ON DELETE CASCADE   -- пристрій-сирота неможливий
-);
-
--- ТЕЛЕМЕТРІЯ: лавина показів. Жодного обмеження понад PRIMARY KEY — рядки не сперечаються.
-CREATE TABLE IF NOT EXISTS telemetry (
-  seq     INTEGER PRIMARY KEY,      -- монотонний rowid, база веде його сама
-  device  TEXT NOT NULL,
-  ts      REAL NOT NULL,
-  value   REAL NOT NULL
-);
-```
+:::code proj-dh-guarantees/sql/main.sql
 
 Придивімось, скільки правил дому тут стало **фізично нездоланними**, а не просто записаними в чиїйсь голові. `CHECK (heat_left >= 0)` — це другий пояс безпеки під бюджет нагріву: навіть якби наш вартовий колись прогледів, база сама відмовить у відʼємному значенні й підніме помилку. `UNIQUE (id)` робить неможливим приписати давач двом домам — те саме порушення інваріанта, що ми ловили в [задачі останнього квитка](root:progarch/last-ticket-race), тільки тепер суддя стоїть у схемі, а не в коді. `FOREIGN KEY` викорінює клас «пристрій, що вказує в нікуди». Різниця між цими обмеженнями й коментарем `# не забудь перевірити` — це різниця між правилом, яке дотримують, поки памʼятають, і правилом, яке не можна порушити, навіть коли забули всі.
 
@@ -58,71 +32,15 @@ CREATE TABLE IF NOT EXISTS telemetry (
 Тепер важіль тривкості. Хитрість, яку варто побачити ясно: **`WAL` — це властивість файлу, а `synchronous` — властивість зʼєднання**. Журнальний режим записано в заголовок бази й він тримається сам, доки хтось його не змінить; а от рівень синхронізації кожне зʼєднання виставляє собі окремо. Звідси й спосіб мати два профілі на **одному** файлі: відкриваємо два зʼєднання — писаря реєстру з `FULL` і писаря телеметрії з `NORMAL`, — і обидва працюють над тим самим `dh.db`, ділячи один WAL:
 
 :::tabs
-```py
-import sqlite3
-
-def open_registry(path: str) -> sqlite3.Connection:
-    """Писар реєстру й бюджету: тривкість по максимуму."""
-    c = sqlite3.connect(path, isolation_level=None)   # ми САМІ керуємо BEGIN/COMMIT
-    c.execute("PRAGMA journal_mode = WAL")            # властивість ФАЙЛУ — досить раз на базу
-    c.execute("PRAGMA synchronous  = FULL")          # властивість ЦЬОГО зʼєднання: fsync на кожен коміт
-    c.execute("PRAGMA foreign_keys = ON")            # SQLite інакше НЕ стежить за FK (див. пастки)
-    c.execute("PRAGMA busy_timeout = 5000")          # писар ЧЕКАЄ замок, а не падає з SQLITE_BUSY
-    return c
-
-def open_telemetry(path: str) -> sqlite3.Connection:
-    """Писар телеметрії: тривкість свідомо відпущена заради пропускної."""
-    c = sqlite3.connect(path, isolation_level=None)
-    c.execute("PRAGMA journal_mode = WAL")            # той самий файл — WAL уже стоїть, рядок безкоштовний
-    c.execute("PRAGMA synchronous  = NORMAL")        # НЕ fsync на кожен коміт: хвіст під ризиком на відмові живлення
-    c.execute("PRAGMA busy_timeout = 5000")
-    return c
-```
-```ts
-import { DatabaseSync } from "node:sqlite";           // вбудований у Node ≥ 22.5
-
-function openRegistry(path: string): DatabaseSync {   // писар реєстру: тривкість по максимуму
-  const db = new DatabaseSync(path);
-  db.exec("PRAGMA journal_mode = WAL");               // властивість ФАЙЛУ
-  db.exec("PRAGMA synchronous  = FULL");             // властивість ЦЬОГО зʼєднання
-  db.exec("PRAGMA foreign_keys = ON");
-  db.exec("PRAGMA busy_timeout = 5000");
-  return db;
-}
-
-function openTelemetry(path: string): DatabaseSync {  // писар телеметрії: тривкість відпущена
-  const db = new DatabaseSync(path);
-  db.exec("PRAGMA journal_mode = WAL");
-  db.exec("PRAGMA synchronous  = NORMAL");
-  db.exec("PRAGMA busy_timeout = 5000");
-  return db;
-}
-```
+:::code proj-dh-guarantees/py/dva-profili-tryvkosti-na.py
+:::code proj-dh-guarantees/ts/index.ts
 :::
 
 Різниця між цими двома зʼєднаннями — рівно один рядок `PRAGMA synchronous`, і саме він розводить долі двох класів даних на випадок біди. Що конкретно він міняє — доведемо катуванням трохи нижче; поки що досить бачити, що обидва профілі живуть над однією базою й не заважають одне одному.
 
 Три робочі важелі-оператори лягають так само коротко. **Атомний агрегат** — увесь дім однією транзакцією, межа якої збігається з межею агрегату ([«дім лягає весь або ніяк»](root:progarch/dh-data-model)):
 
-```py
-def save_home(reg: sqlite3.Connection, home: dict) -> None:
-    reg.execute("BEGIN")                              # відкриваємо межу агрегату
-    try:
-        reg.execute(
-            "INSERT INTO homes(id, owner, threshold, heat_left) "
-            "VALUES(:id, :owner, :threshold, :heat_left) "
-            "ON CONFLICT(id) DO UPDATE SET "           # поклади АБО онови — але heat_left НЕ чіпаємо:
-            "  owner=excluded.owner, threshold=excluded.threshold",   # бюджет живе своїм життям
-            home)
-        reg.execute("DELETE FROM devices WHERE home_id = ?", (home["id"],))
-        reg.executemany(
-            "INSERT INTO devices(home_id, id, kind, room) VALUES(?,?,?,?)",
-            [(home["id"], d["id"], d["kind"], d["room"]) for d in home["devices"]])
-        reg.execute("COMMIT")                          # ОДНА мить, у яку весь дім стає видимим
-    except Exception:
-        reg.execute("ROLLBACK")
-        raise
-```
+:::code proj-dh-guarantees/py/dva-profili-tryvkosti-na-2.py
 
 **Атомний вартовий бюджету** — перевірка й віднімання одним неподільним оператором, точно як квиток на концерт, тільки на хвилинах нагріву:
 
@@ -155,21 +73,7 @@ def append_telemetry(tel: sqlite3.Connection, rows: list[tuple]) -> None:
 
 Оркеструє катування батьківський процес: він народжує дитину-писаря, чекає, доки та сяде рівно на **межу небезпеки** (усе записано, `COMMIT` ще не викликано — або навпаки, щойно повернувся), і в цю мить вбиває:
 
-```py
-import multiprocessing as mp
-
-def kill_at_brink(target, args) -> int:
-    """Народити писаря, дочекатись його сигналу «я на межі» — і вбити посеред запису.
-    target отримує mp.Event 'brink' і має викликати brink.set() РІВНО в небезпечну мить."""
-    brink = mp.Event()
-    p = mp.Process(target=target, args=(*args, brink))
-    p.start()
-    assert brink.wait(timeout=5), "писар не дійшов до межі"
-    p.kill()                        # SIGKILL / TerminateProcess: не спіймати, не прибрати за собою
-    p.join()
-    assert p.exitcode not in (0, None)   # дитина померла НЕ штатно — саме цього ми й хотіли
-    return p.exitcode
-```
+:::code proj-dh-guarantees/py/katuvannia-a-ne-obitsianka.py
 
 Три катування нижче — це один і той самий `kill_at_brink` над трьома різними писарями, і кожне доводить рівно одну гарантію свого класу даних.
 
@@ -180,52 +84,11 @@ def kill_at_brink(target, args) -> int:
 
 Писар реєстру заходить у транзакцію, робить усю роботу над домом — і сідає на межу **перед** `COMMIT`. Тут його й убивають:
 
-```py
-def _writer_home_before_commit(path, home, brink):
-    reg = open_registry(path)
-    reg.execute("BEGIN")
-    reg.execute("INSERT INTO homes(id, owner, threshold, heat_left) "
-                "VALUES(:id,:owner,:threshold,:heat_left) "
-                "ON CONFLICT(id) DO UPDATE SET threshold=excluded.threshold", home)
-    reg.execute("DELETE FROM devices WHERE home_id=?", (home["id"],))
-    reg.executemany("INSERT INTO devices(home_id,id,kind,room) VALUES(?,?,?,?)",
-                    [(home["id"], d["id"], d["kind"], d["room"]) for d in home["devices"]])
-    brink.set()                 # усе зроблено, COMMIT ще НЕ викликано — межа небезпеки
-    import time; time.sleep(3600)   # паркуємось тут, доки батько не вбʼє
-    reg.execute("COMMIT")           # сюди виконання не дійде
-```
+:::code proj-dh-guarantees/py/tortura-1-reiestr-tsilyi-i.py
 
 Тепер читаємо з диска й перевіряємо єдине, що має значення: чи не лишився дім **піврозібраним**. «Піврозібраний» — це новий поріг зі старим набором пристроїв, або половина пристроїв, або будь-яка суміш двох версій:
 
-```py
-def registry_is_whole(path, old, new) -> bool:
-    reg = open_registry(path)
-    row = reg.execute("SELECT threshold FROM homes WHERE id=?", (new["id"],)).fetchone()
-    threshold = row[0] if row else None
-    devs = {r[0] for r in reg.execute("SELECT id FROM devices WHERE home_id=?", (new["id"],))}
-    is_old = threshold == old["threshold"] and devs == {d["id"] for d in old["devices"]}
-    is_new = threshold == new["threshold"] and devs == {d["id"] for d in new["devices"]}
-    return is_old or is_new         # третього стану бути НЕ СМІЄ
-
-def test_registry_atomic_under_kill(tmp_path):
-    path = str(tmp_path / "dh.db")
-    boot = open_registry(path)
-    boot.execute("... CREATE TABLE homes ...; ... CREATE TABLE devices ...")   # схема вище
-    old = {"id":"h1","owner":"ada","threshold":21.0,"heat_left":30,
-           "devices":[{"id":"lock-1","kind":"lock","room":"двері"}]}
-    save_home(boot, old); boot.close()
-
-    new = {"id":"h1","owner":"ada","threshold":24.0,"heat_left":30,
-           "devices":[{"id":"lock-1","kind":"lock","room":"двері"},
-                      {"id":"plug-2","kind":"plug","room":"кухня"}]}
-
-    for _ in range(50):             # бʼємо багато разів — краш має бути безпечним ЩОРАЗУ
-        kill_at_brink(_writer_home_before_commit, (path, new))
-        assert registry_is_whole(path, old, new)                       # ніколи не піврозібраний
-        reg = open_registry(path)
-        assert reg.execute("PRAGMA integrity_check").fetchone()[0] == "ok"   # і не пошкоджений
-        reg.close()
-```
+:::code proj-dh-guarantees/py/tortura-1-reiestr-tsilyi-i-2.py
 
 Позаяк ми щоразу вбиваємо **до** `COMMIT`, база щоразу відкочує недороблену транзакцію — і `registry_is_whole` бачить старий дім, цілий до останнього поля. Чому так виходить **завжди**, а не «здебільшого»? Бо в [журналі попереднього запису](root:sf-data/write-ahead-log) транзакція стає видимою рівно тоді, коли до WAL дописано її **кадр коміту**, — а цей кадр або є повністю, або його нема. Це той самий неподільний перемикач, що `rename` у файловій версії сусіда: немає стану «на пів-коміту», як немає імені, що вказує «на пів-файлу». Убий до кадру коміту — відкат; убий після — новий дім цілком. Проміжку не існує.
 
@@ -235,32 +98,7 @@ def test_registry_atomic_under_kill(tmp_path):
 
 Тепер найтонше катування — і найголовніший урок усього проєкту. Писар телеметрії комітить рядки один за одним, а на певному дійшовши до межі — відкриває ще один, **отруйний**, і паркується, не закомітивши його:
 
-```py
-def _writer_flood(path, n_committed, brink):
-    tel = open_telemetry(path)
-    for i in range(1, n_committed + 1):
-        tel.execute("BEGIN")
-        tel.execute("INSERT INTO telemetry(device, ts, value) VALUES(?,?,?)",
-                    ("sensor-1", float(i), 20.0 + i))
-        tel.execute("COMMIT")           # закоміченy рядок: закритий, злитий у WAL
-    tel.execute("BEGIN")                # відкриваємо (n+1)-й — і НЕ комітимо
-    tel.execute("INSERT INTO telemetry(device, ts, value) VALUES(?,?,?)",
-                ("sensor-1", 0.0, -999.0))          # ХВІСТ: його не має пережити kill
-    brink.set()
-    import time; time.sleep(3600)
-
-def test_telemetry_loses_only_tail(tmp_path):
-    path = str(tmp_path / "dh.db")
-    open_telemetry(path).execute("... CREATE TABLE telemetry ...")
-    kill_at_brink(_writer_flood, (path, 1000))
-
-    tel = open_telemetry(path)
-    n   = tel.execute("SELECT COUNT(*) FROM telemetry").fetchone()[0]
-    poison = tel.execute("SELECT COUNT(*) FROM telemetry WHERE value = -999").fetchone()[0]
-    assert n == 1000                    # усі 1000 ЗАКОМІЧЕНИХ рядків уціліли
-    assert poison == 0                  # незакомічений хвіст зник — рівно як домовлялись
-    assert tel.execute("PRAGMA integrity_check").fetchone()[0] == "ok"   # база ціла
-```
+:::code proj-dh-guarantees/py/tortura-2-telemetriia.py
 
 Тест зелений — і ось тут треба зупинитись і не збрехати собі. **Чому 1000 закомічених рядків уціліли попри `synchronous=NORMAL`?** Бо документація SQLite каже буквально: *«транзакції тривкі попри збої застосунку незалежно від налаштування `synchronous` чи журнального режиму»*. А `kill -9` — це саме **збій застосунку**: процес помер, але операційна система жива, і закомічені байти, що вже лягли в її кеш, вона допише на диск сама, без нашого процесу. Тобто під `NORMAL` втрачається лише **незакомічений** хвіст — та транзакція, чий `COMMIT` іще не повернувся.
 
@@ -286,28 +124,7 @@ FULL робить `fsync` тисячу разів, NORMAL — одиниці. О
 
 Останнє катування — не про смерть, а про **конкурентність**. Восьмеро окремих процесів (не потоків: справжня паралельність, кожен зі своїм зʼєднанням) навперейми бʼють один бюджет нагріву, кожен намагається списати по хвилині більше разів, ніж хвилин у бюджеті:
 
-```py
-def _hammer_budget(path, home_id, tries):
-    reg = open_registry(path)                     # свій конекшн у кожного процеса
-    for _ in range(tries):
-        try_consume_heat(reg, home_id, 1)         # UPDATE … WHERE heat_left >= 1
-
-def test_budget_never_overspent(tmp_path):
-    path = str(tmp_path / "dh.db")
-    boot = open_registry(path)
-    boot.execute("... CREATE TABLE homes ...")
-    save_home(boot, {"id":"h1","owner":"ada","threshold":21.0,"heat_left":30,"devices":[]})
-    boot.close()
-
-    procs = [mp.Process(target=_hammer_budget, args=(path, "h1", 30)) for _ in range(8)]
-    for p in procs: p.start()          # 8×30 = 240 спроб списати на бюджет у 30 хвилин
-    for p in procs: p.join()
-
-    reg  = open_registry(path)
-    left = reg.execute("SELECT heat_left FROM homes WHERE id='h1'").fetchone()[0]
-    assert left == 0        # 8 процесів разом випили РІВНО бюджет — ні хвилиною більше
-    assert left >= 0        # і жодного разу не пірнули в мінус (інакше CHECK підняв би помилку)
-```
+:::code proj-dh-guarantees/py/tortura-3-biudzhet-ne-ide.py
 
 240 спроб налітають на бюджет у 30 хвилин — і рівно 30 із них мають пройти, а 210 наткнутися на вартового `heat_left >= 1` і змінити нуль рядків. Чому попри вісім конкурентних процесів `heat_left` не проскакує в мінус? Бо SQLite впускає до запису **одного** писаря за раз: восьмеро оператори `UPDATE` серіалізуються замком бази, кожен перечитує `heat_left` **свіжим** у мить свого запису, і щойно значення сягне нуля, вартовий у всіх решти виявиться хибним. Це буквально [атомний вартовий із задачі квитка](root:progarch/last-ticket-race), тепер доведений під справжньою паралельністю, а не в думках. А `CHECK (heat_left >= 0)` стоїть тут другим поясом: якби вартовий колись прогледів, база підняла б помилку замість того, щоб записати мінус.
 

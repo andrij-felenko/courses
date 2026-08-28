@@ -18,7 +18,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-dh-integration-three-ways.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sys-unix/ipc-landscape",
@@ -31,8 +38,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-chatty-vs-coarse.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-distributed/distributed-fallacies",
@@ -55,8 +70,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-indeterminacy.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-distributed/remote-interface-granularity",
@@ -79,8 +102,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-boundary-adapter.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -110,7 +141,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-dh-api-styles.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "com-protocol/graphql",
@@ -127,8 +165,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-error-boundary.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "internal-model-vs-public-view",
@@ -237,8 +283,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-result-delivery.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -283,8 +337,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-resilient-command.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -308,8 +370,16 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
-          }
+            "level": 4,
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-boundary-vs-logic-dedup.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-security/replay-protection",
@@ -323,8 +393,23 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
-          }
+            "level": 3,
+            "recode": true
+          },
+          "comp": [
+            {
+              "file": "comp-idempotency-gateways.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-outbound-retry-gateway.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "injecting-duplicates-and-reordering",
@@ -349,8 +434,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-command-two-ways.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-distributed/message-queue",
@@ -401,8 +494,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-traffic-router.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -422,7 +523,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-reorder-harness.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-distributed/out-of-order-tolerance",
@@ -484,7 +592,8 @@
           "proj": [
             {
               "file": "proj-jobs-three-ways.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -495,7 +604,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -506,7 +616,8 @@
           "proj": [
             {
               "file": "proj-dh-job-router.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -517,7 +628,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -528,7 +640,8 @@
           "proj": [
             {
               "file": "proj-dh-clip-export.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -539,7 +652,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -550,7 +664,8 @@
           "proj": [
             {
               "file": "proj-dh-nightly-rollup.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -561,7 +676,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -572,7 +688,8 @@
           "proj": [
             {
               "file": "proj-async-job-anatomy.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -611,8 +728,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-orthogonal-switches.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "events-masking-coupling",
@@ -641,8 +766,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-webhook-ingest.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-web/webhook-provider",
@@ -681,7 +814,9 @@
           "proj": [
             {
               "file": "proj-dh-notification-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -692,7 +827,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -709,7 +845,8 @@
           "proj": [
             {
               "file": "proj-notification-gate.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -732,13 +869,16 @@
           "math": [
             {
               "file": "math-fanout-cost.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-fanout-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -761,7 +901,9 @@
           "proj": [
             {
               "file": "proj-outbound-egress-node.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -826,8 +968,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-field-migration.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -869,7 +1019,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-dh-extension-three-ways.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-api-config-final",
@@ -878,8 +1035,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-surface-guard.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     }

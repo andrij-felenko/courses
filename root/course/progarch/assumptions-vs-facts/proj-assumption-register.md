@@ -30,78 +30,8 @@
 І один прапорець — **`irreversible`**: чи веде те рішення до незворотного кроку. Саме він живить гейт.
 
 :::tabs
-```py
-# assumptions.py — журнал припущень, що рахує й спиняє
-from __future__ import annotations
-from dataclasses import dataclass
-from enum import Enum
-import yaml                                   # pip install pyyaml
-
-
-class State(str, Enum):
-    OPEN     = "open"        # ще не чіпали
-    CHECKING = "checking"    # перевірка в роботі
-    ACCEPTED = "accepted"    # свідомо прийняли під знак
-    FACT     = "fact"        # доведено — доказ на руках
-    BROKEN   = "broken"      # знак спрацював, припущення впало
-
-
-LIVE = {State.OPEN, State.CHECKING, State.ACCEPTED}   # ще важать на рішення
-
-
-@dataclass
-class Assumption:
-    id: str
-    claim: str
-    kind: str                # несуче | побутове | продуктове
-    p_wrong: float           # 0..1
-    loss: float              # людино-дні, якщо хибне
-    cost_to_check: float     # людино-дні на перевірку
-    method: str              # ЧИМ перевіряємо (не «перевірити», а як саме)
-    signpost: str            # поріг, за яким припущення вважаємо зламаним
-    state: State
-    decision: str            # яке рішення (ADR) на ньому стоїть
-    irreversible: bool       # чи веде те рішення до незворотного кроку
-
-    def expected_loss(self) -> float:
-        return self.p_wrong * self.loss if self.state in LIVE else 0.0
-
-    def worth_checking(self) -> bool:
-        # перевіряти має сенс, лише поки не прийняли й не довели
-        if self.state not in (State.OPEN, State.CHECKING):
-            return False
-        return self.cost_to_check < self.expected_loss()
-```
-```ts
-// assumptions.ts — журнал припущень, що рахує й спиняє
-import { readFileSync } from "node:fs";
-import { parse } from "yaml";                 // npm i yaml
-
-type State = "open" | "checking" | "accepted" | "fact" | "broken";
-const LIVE: State[] = ["open", "checking", "accepted"]; // ще важать на рішення
-
-interface Assumption {
-  id: string;
-  claim: string;
-  kind: "несуче" | "побутове" | "продуктове";
-  pWrong: number;          // 0..1
-  loss: number;            // людино-дні, якщо хибне
-  costToCheck: number;     // людино-дні на перевірку
-  method: string;          // ЧИМ перевіряємо, не «перевірити»
-  signpost: string;        // поріг, за яким припущення вважаємо зламаним
-  state: State;
-  decision: string;        // яке рішення (ADR) на ньому стоїть
-  irreversible: boolean;   // чи веде те рішення до незворотного кроку
-}
-
-const expectedLoss = (a: Assumption): number =>
-  LIVE.includes(a.state) ? a.pWrong * a.loss : 0;
-
-const worthChecking = (a: Assumption): boolean =>
-  // перевіряти має сенс, лише поки не прийняли й не довели
-  (a.state === "open" || a.state === "checking") &&
-  a.costToCheck < expectedLoss(a);
-```
+:::code proj-assumption-register/py/assumptions.py
+:::code proj-assumption-register/ts/assumptions.ts
 :::
 
 Зверни увагу на `expected_loss`: у станах `fact` і `broken` вона повертає нуль. Це не оптимізація, а зміст. Доведене припущення вже не важить на рішення — воно стало фактом. Зламане вже спрацювало — його втрата не «очікувана», а реалізована, і місце їй у розтині після збою, а не в черзі на перевірку. Очікувану втрату несуть лише **живі** рядки, ті, що ще висять над рішенням непевні.
@@ -166,78 +96,8 @@ const worthChecking = (a: Assumption): boolean =>
 Тепер найлегша й найкорисніша частина: завантажити файл, порахувати очікувану втрату кожного рядка й вишикувати чергу. Завантаження — це заразом і перша застава: **тут ловиться `P` зі стелі, що вилізло за межу [0,1]**, і від'ємна ціна. Здогад, що не проходить цей вхідний контроль, у журнал не потрапляє.
 
 :::tabs
-```py
-def load(path: str) -> list[Assumption]:
-    with open(path, encoding="utf-8") as f:
-        raw = yaml.safe_load(f)
-    reg = [Assumption(state=State(r.pop("state")), **r) for r in raw]
-    for a in reg:
-        if not 0.0 <= a.p_wrong <= 1.0:
-            raise ValueError(f"{a.id}: P поза [0,1] — {a.p_wrong}")
-        if a.loss < 0 or a.cost_to_check < 0:
-            raise ValueError(f"{a.id}: відʼємна ціна")
-    return reg
-
-
-def ranked(reg: list[Assumption]) -> list[Assumption]:
-    live = [a for a in reg if a.state in LIVE]
-    return sorted(live, key=lambda a: a.expected_loss(), reverse=True)
-
-
-def check_first(reg: list[Assumption]) -> list[Assumption]:
-    return [a for a in ranked(reg) if a.worth_checking()]
-
-
-def report(reg: list[Assumption]) -> None:
-    print("що перевіряти першим (спадання очікуваної втрати):")
-    for i, a in enumerate(check_first(reg), 1):
-        flag = "  ⟵ ГЕЙТ незворотного кроку" if a.irreversible else ""
-        print(f"{i:>2}. {a.expected_loss():5.1f}  {a.claim}{flag}")
-    watch = [a for a in reg if a.state is State.ACCEPTED]
-    if watch:
-        print("\nпід сигнальним знаком (стежити, не перевіряти):")
-        for a in watch:
-            print(f"  • {a.claim} → знак: {a.signpost}")
-```
-```ts
-function load(path: string): Assumption[] {
-  const raw = parse(readFileSync(path, "utf8")) as any[];
-  return raw.map((r) => {
-    const a: Assumption = {
-      id: r.id, claim: r.claim, kind: r.kind,
-      pWrong: r.p_wrong, loss: r.loss, costToCheck: r.cost_to_check,
-      method: r.method, signpost: r.signpost,
-      state: r.state, decision: r.decision, irreversible: r.irreversible,
-    };
-    if (!(a.pWrong >= 0 && a.pWrong <= 1))
-      throw new Error(`${a.id}: P поза [0,1] — ${a.pWrong}`);
-    if (a.loss < 0 || a.costToCheck < 0)
-      throw new Error(`${a.id}: відʼємна ціна`);
-    return a;
-  });
-}
-
-const ranked = (reg: Assumption[]): Assumption[] =>
-  reg.filter((a) => LIVE.includes(a.state))
-     .sort((x, y) => expectedLoss(y) - expectedLoss(x));
-
-const checkFirst = (reg: Assumption[]): Assumption[] =>
-  ranked(reg).filter(worthChecking);
-
-function report(reg: Assumption[]): void {
-  console.log("що перевіряти першим (спадання очікуваної втрати):");
-  checkFirst(reg).forEach((a, i) => {
-    const flag = a.irreversible ? "  ⟵ ГЕЙТ незворотного кроку" : "";
-    const n = String(i + 1).padStart(2);
-    console.log(`${n}. ${expectedLoss(a).toFixed(1).padStart(5)}  ${a.claim}${flag}`);
-  });
-  const watch = reg.filter((a) => a.state === "accepted");
-  if (watch.length) {
-    console.log("\nпід сигнальним знаком (стежити, не перевіряти):");
-    for (const a of watch) console.log(`  • ${a.claim} → знак: ${a.signpost}`);
-  }
-}
-```
+:::code proj-assumption-register/py/rakhuvaty-i-ranzhuvaty.py
+:::code proj-assumption-register/ts/rakhuvaty-i-ranzhuvaty.ts
 :::
 
 Проженімо `report` на нашому файлі:
@@ -266,47 +126,8 @@ function report(reg: Assumption[]): void {
 Гейт простий: серед несучих припущень, що ведуть до незворотного кроку, знайти ті, які ще **варто** зняти перевіркою (живі й дешевші за свою загрозу). Якщо таких немає — брама відчинена. Якщо є хоч одне — крок зупинено, і функція називає, що саме зняти.
 
 :::tabs
-```py
-def blocks_commit(reg: list[Assumption]) -> list[Assumption]:
-    """Несучі припущення незворотного кроку, ще не зняті перевіркою."""
-    return [a for a in ranked(reg) if a.irreversible and a.worth_checking()]
-
-
-def gate(reg: list[Assumption]) -> None:
-    blockers = blocks_commit(reg)
-    if blockers:
-        lines = "\n".join(
-            f"  ✗ {a.id}: {a.claim} "
-            f"(очік. втрата {a.expected_loss():.0f}, перевірка {a.cost_to_check:.0f})"
-            for a in blockers)
-        raise SystemExit(
-            "НЕЗВОРОТНИЙ КРОК ЗАБЛОКОВАНО — спершу зніми перевіркою:\n" + lines)
-    print("гейт відкрито: усі несучі припущення незворотного кроку зняті")
-
-
-if __name__ == "__main__":
-    gate(load("assumptions.yml"))     # у CI перед заливкою прошивки в поле
-```
-```ts
-const blocksCommit = (reg: Assumption[]): Assumption[] =>
-  ranked(reg).filter((a) => a.irreversible && worthChecking(a));
-
-function gate(reg: Assumption[]): void {
-  const blockers = blocksCommit(reg);
-  if (blockers.length) {
-    const lines = blockers.map((a) =>
-      `  ✗ ${a.id}: ${a.claim} ` +
-      `(очік. втрата ${expectedLoss(a).toFixed(0)}, перевірка ${a.costToCheck})`
-    ).join("\n");
-    console.error("НЕЗВОРОТНИЙ КРОК ЗАБЛОКОВАНО — спершу зніми перевіркою:\n" + lines);
-    process.exit(1);
-  }
-  console.log("гейт відкрито: усі несучі припущення незворотного кроку зняті");
-}
-
-// у CI перед заливкою прошивки в поле:
-gate(load("assumptions.yml"));
-```
+:::code proj-assumption-register/py/praporets-nezvorotnosti.py
+:::code proj-assumption-register/ts/praporets-nezvorotnosti.ts
 :::
 
 Поставлений у збірку перед заливкою прошивки, гейт червоніє:
@@ -342,38 +163,13 @@ def fragile_pairs(reg, ratio=1.3):
 
 **Друга: забуті знаки.** «Прийнято + знак» — найпідступніший стан, бо він виглядає як завершена робота, а насправді лише почата. Поставити знак і нікуди його не підключити — те саме, що не поставити зовсім. Журнал **не монітор**: рядок `signpost` — це проза, доки за ним не стоїть жива метрика з власником, який зобов'язаний діяти, коли вона перетне поріг. Без цього «прийнято + знак» тихо вироджується в «прийнято + забуто».
 
-```python
-# знак живий, лише коли за ним стежить справжній монітор із власником
-WIRED = {
-    "A-wifi": "grafana: wifi_drop_ratio > 0.05  (власник: платформа)",
-    # A-open-daily — знака ще нікуди не підключено!
-}
-
-def unwatched(reg):
-    """Прийняті припущення, чий знак ніде не наглядається."""
-    return [a.id for a in reg
-            if a.state is State.ACCEPTED and a.id not in WIRED]
-```
+:::code proj-assumption-register/py/skladnist-i-pastky.py
 
 `unwatched` повертає `["A-open-daily"]`: звичку відчиняти ми прийняли, знак записали — а нікуди його не завели. Саме так гине найдорожчий знак в історії. У Mars Climate Orbiter поріг **спрацював** — усю весну й літо 1999-го навігаційні розв'язки вперто виходили ближчими до Марса, ніж належало, і щонайменше двоє навігаторів це бачили. Тривогу відмахнули — зокрема тому, що занепокоєння не оформили належним бланком (усталено за звітом комісії). Знак лежав просто в даних; бракувало не сигналу, а **підключеного** до нього процесу, який змусив би діяти. `unwatched` — це якраз перевірка, що такий процес існує.
 
 **Третя: припущення-міфи, що застигли фактами.** Найтихіша й найнебезпечніша. Рядок зі станом `fact` більше не важить на очікувану втрату — і правильно, доки доказ на руках і чинний. Але доказ псується. Замір пропускної здатності, знятий торік на старому залізі, сьогодні вже не факт, а спогад про факт — світ під ним змінився, а рядок і далі мовчки виведений з-під нагляду. Так здогад, колись чесно доведений, вертається в розряд припущень — а журнал про це не знає, бо ніхто не спитав про дату.
 
-```python
-from datetime import date
-
-FACT_TTL_DAYS = 180        # доказ піврічної давнини — вже не факт, а спогад
-
-def expire_stale_facts(reg, today=None):
-    """Факт зі старим доказом вертається в припущення — його переперевірять."""
-    today = today or date.today()
-    for a in reg:
-        stale = a.state is State.FACT and (today - a.checked_on).days > FACT_TTL_DAYS
-        if stale:
-            a.state = State.OPEN            # доказ протух → знову здогад у черзі
-            a.claim += "  [факт протух — переперевір]"
-    return reg
-```
+:::code proj-assumption-register/py/skladnist-i-pastky-2.py
 
 Вартовий вимагає одного нового поля — `checked_on`, дати, коли доказ востаннє тримали в руках, — і повертає протухлий факт назад у чергу, де його знову зважать і, якщо треба, переперевірять. Півроку — цифра з голови; підбирають її під те, як швидко міняється саме твій світ (чужий API старіє за місяці, фізичний закон — ніколи). Головне не число, а сама згода, що **факт — це не «правда назавжди», а доказ із терміном придатності**. Журнал, який цього не знає, з часом наповнюється впевненими рядками, під якими вже нема нічого, — і це найгірший різновид журналу, бо він заспокоює.
 

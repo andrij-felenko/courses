@@ -25,44 +25,7 @@
 
 Розбір логу й прикидка — рідна робота для Python: словники, `Counter`, зрозумілий потік. Почнемо з моделі події й входу. Реальний лог читається з файлу; щоб крок був самодостатнім і відтворним, тут його заступає генератор представницького зрізу DH — з формою, яку ми справді бачимо в цих чотирьох класах. Замінити генератор на читач свого файлу — це одна функція, решта коду не змінюється ні на рядок.
 
-```python
-from dataclasses import dataclass
-from collections import Counter, OrderedDict
-import random
-
-@dataclass(frozen=True)
-class Event:
-    t: float        # секунда доступу
-    cls: str        # клас даних: registry | twin | telemetry | rights
-    key: str        # що читали (ідентифікатор пристрою / дому / гранту)
-
-# Форма кожного класу DH: скільки ключів, наскільки гострий перекіс
-# (показник s: більший — вужчий гарячий набір), читань/с і бюджет
-# несвіжості в секундах. Бюджет — ЄДИНЕ, чого лог не знає: це політика
-# (ворота 3), а не факт, який можна виміряти.
-SHAPES = {
-    "registry":  dict(keys=5_000,  s=1.1, rps=1000, budget=3600),
-    "twin":      dict(keys=5_000,  s=0.7, rps=400,  budget=2),
-    "telemetry": dict(keys=2_000,  s=1.0, rps=40,   budget=30),
-    "rights":    dict(keys=20_000, s=1.3, rps=200,  budget=0),
-}
-WINDOW = 600  # секунд у зрізі логу
-
-def zipf_keys(n, s, count, rng):
-    # ранг r отримує вагу ≈ 1/rˢ — розподіл, близький до закону Зіпфа
-    weights = [1.0 / r**s for r in range(1, n + 1)]
-    return rng.choices(range(n), weights=weights, k=count)
-
-def synth_log(rng):
-    """Представницький зріз логу DH. Щоб узяти СВІЙ лог, заміни цю
-    функцію на читач файлу «t<таб>клас<таб>ключ» — далі все те саме."""
-    ev = []
-    for cls, sh in SHAPES.items():
-        for k in zipf_keys(sh["keys"], sh["s"], sh["rps"] * WINDOW, rng):
-            ev.append(Event(rng.random() * WINDOW, cls, f"{cls}:{k}"))
-    ev.sort(key=lambda e: e.t)      # лог іде в часовому порядку
-    return ev
-```
+:::code proj-cache-decision-run/py/rozbir-i-symuliatsiia.py
 
 Форму ключів тут задає закон Зіпфа (Джордж Кінгслі Зіпф, американський лінгвіст, 1902–1950): частота ключа падає майже обернено до його рангу — той самий перекіс, що його ще з середини 1990-х міряють у веброзподілах доступу. Показник `s` регулює гостроту: `s=1.3` для прав означає вужчий, гарячіший ніс розподілу, ніж `s=0.7` для твіна. Це не підгонка — це визнання, що доступ у реальних системах майже ніколи не рівний, і саме форму того перекосу ворота 2 й вимірюють:
 
@@ -78,61 +41,11 @@ def hot_set_share(events, cls, top_frac=0.01):
 
 А тепер серце — симуляція cache-aside із протуханням і промахами. Двадцять рядків, які й перетворюють ворота 3 і 5 на числа:
 
-```python
-def simulate(events, cls, ttl, capacity=None):
-    """Cache-aside на прогоні логу: влучання ⟺ копія в кеші й ще не протухла.
-    capacity=None — розмір необмежений (вирішує лише TTL); інакше LRU-витіснення
-    найдавнішого. Повертає (влучність, QPS на джерело)."""
-    exp = {}                       # ключ → час протухання копії
-    lru = OrderedDict()            # порядок звернень для витіснення
-    hits = misses = 0
-    for e in events:
-        if e.cls != cls:
-            continue
-        if e.key in exp and exp[e.key] > e.t:
-            hits += 1              # копія свіжа — швидко, та, можливо, несвіже
-            lru.move_to_end(e.key)
-        else:
-            misses += 1           # промах → до джерела, кладемо копію
-            exp[e.key] = e.t + ttl
-            lru[e.key] = True
-            lru.move_to_end(e.key)
-            if capacity and len(lru) > capacity:
-                old, _ = lru.popitem(last=False)   # витісняємо найдавніший
-                exp.pop(old, None)
-    n = hits + misses
-    return hits / n, misses / WINDOW      # влучність, QPS на джерело
-```
+:::code proj-cache-decision-run/py/rozbir-i-symuliatsiia-2.py
 
 Зверни увагу на одну тонкість, у якій легко схибити: влучання **не оновлює** строк протухання. Копія живе рівно від миті, коли її поклали, до `час_кладки + ttl`, скільки б разів її за цей проміжок не прочитали. Це і є чесний cache-aside: копія тухне за годинником, а не за увагою до неї. Далі лишається прогнати лог із набором TTL і надрукувати таблицю, а тоді звести все у вердикт, обмежений бюджетом:
 
-```python
-TTLS = [0, 1, 5, 30, 60, 300, 600]
-
-def report(events):
-    for cls, sh in SHAPES.items():
-        n_top, n_keys, share = hot_set_share(events, cls)
-        print(f"\n=== {cls}  (бюджет несвіжості {sh['budget']} с) ===")
-        print(f"ворота 2 — перекіс: топ {n_top}/{n_keys} ключів = {share:.0%} читань")
-        for ttl in TTLS:
-            hr, qps = simulate(events, cls, ttl)
-            factor = "∞" if qps == 0 else f"{sh['rps']/qps:,.0f}×"
-            print(f"  TTL {ttl:>4} с  влучність {hr:6.1%}  "
-                  f"QPS джерела {qps:7.2f}  розвантаження {factor:>6}")
-
-def recommend(events):
-    for cls, sh in SHAPES.items():
-        _, _, share = hot_set_share(events, cls)
-        allowed = max(t for t in TTLS if t <= sh["budget"])   # найбільший TTL у бюджеті
-        hr, _ = simulate(events, cls, allowed)
-        if sh["budget"] == 0:
-            verdict = "без TTL-кешу — лише скид на запис"
-        elif share < 0.30:
-            verdict = "кеш сумнівний — доступ надто розмазаний"
-        else:
-            verdict = f"кешуй, TTL={allowed} с → влучність {hr:.0%}"
-        print(f"{cls:>10}: перекіс {share:4.0%} | бюджет {sh['budget']:>4} с | {verdict}")
-```
+:::code proj-cache-decision-run/py/rozbir-i-symuliatsiia-3.py
 
 Уся сіль вердикта — в одному рядку: `allowed = max(t for t in TTLS if t <= budget)`. Ми не беремо найкращий TTL із таблиці — ми беремо найдовший, який **дозволяє бюджет**. Числа ранжують варіанти, але межу ставить політика несвіжості, і симуляція не має права її переступити.
 
@@ -186,59 +99,7 @@ def recommend(events):
 
 Поки лог — це десятихвилинний зріз на мільйон подій, Python усе змолотить за секунди. Але справжній лог DH — це сотні мільйонів читань на добу, а сітку прикидок хочеться прогнати по чотирьох класах, семи TTL і кількох розмірах кешу — під сотню прогонів. Python, що будує список об'єктів `Event` у пам'яті й тримає весь лог, тут захлинеться і часом, і байтами. Це вже не про виразність розбору, а про **сиру пропускну здатність гарячого циклу** — а там мова компільована й без збирача сміття на кожному об'єкті бере гору. Той самий прогін cache-aside переписуємо на Go так, щоб він **тік** лог із входу, а в пам'яті тримав лише простір ключів (тисячі пристроїв), а не самі події:
 
-```go
-// cache_gate.go — потоковий прогін ОДНОГО класу й TTL крізь лог.
-// Читає stdin по рядку: "<секунда>\t<клас>\t<ключ>". У пам'яті тримає
-// лише простір ключів (тисячі пристроїв), а не весь лог, — тож переживає
-// мільярди рядків при пам'яті, що росте з числом ключів, а не подій.
-//   go run cache_gate.go registry 300 < access.log
-package main
-
-import (
-	"bufio"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
-)
-
-func main() {
-	class := os.Args[1]
-	ttl, _ := strconv.ParseFloat(os.Args[2], 64)
-
-	expiry := make(map[string]float64) // ключ → час протухання копії
-	var hits, misses int64
-	var first, last float64
-	seen := false
-
-	sc := bufio.NewScanner(os.Stdin)
-	sc.Buffer(make([]byte, 1<<20), 1<<20) // терпіти довгі рядки логу
-	for sc.Scan() {
-		p := strings.SplitN(sc.Text(), "\t", 3)
-		if len(p) < 3 || p[1] != class {
-			continue
-		}
-		t, _ := strconv.ParseFloat(p[0], 64)
-		key := p[2]
-		if !seen {
-			first, seen = t, true
-		}
-		last = t
-
-		if exp, ok := expiry[key]; ok && exp > t {
-			hits++ // копія свіжа
-		} else {
-			misses++ // промах → до джерела
-			expiry[key] = t + ttl
-		}
-	}
-
-	window := last - first
-	fmt.Printf("клас=%s TTL=%.0f влучність=%.1f%% QPS джерела=%.2f\n",
-		class, ttl, 100*float64(hits)/float64(hits+misses),
-		float64(misses)/window)
-}
-```
+:::code proj-cache-decision-run/go/cache_gate.go
 
 Логіка — літера в літеру та сама, що в Python `simulate`: та сама перевірка «є копія й не протухла — влучання, інакше промах і кладемо». Різниця не в алгоритмі, а в тому, як він живе на масштабі. `bufio.Scanner` читає вхід рядок за рядком, не піднімаючи весь лог у пам'ять; мапа `expiry` росте не з довжиною логу, а лише з числом **різних** ключів — а їх у DH тисячі-мільйони, тоді як подій мільярди. Тому цей прогін переживе стільки логу, скільки його дадуть, витрачаючи стільки пам'яті, скільки в системі пристроїв. Сітку по TTL знімають або запуском на кожен TTL окремо (лог читається наново з диска), або, коли одного проходу шкода, значенням мапи роблять маленький масив строків протухання — по одному на TTL — і заповнюють увесь стовпчик за один тік логу.
 

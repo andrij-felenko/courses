@@ -141,69 +141,8 @@ L_avg ≈ L_3 + (1 - H_3) · L_1 + (1 - H_3) · (1 - H_1) · L_2 + M_total · L_
 Розглянемо фрагмент коду C++, який ілюструє роботу Singleflight та каскадного читання:
 
 :::tabs
-```cpp
-// Читання з каскаду L1 -> L2 -> Singleflight(Origin DB)
-HomeState TieredCacheManager::getHomeState(
-    const std::string& homeId, 
-    std::function<HomeState(const std::string&)> originDBFetch
-) {
-    std::string cacheKey = "dh:home:" + homeId;
-
-    // 1.Перевірка L1 Process Memory (без мережевого I/O)
-    {
-        std::shared_lock<std::shared_mutex> lock(l1Mutex_);
-        auto it = l1Cache_.find(cacheKey);
-        if (it != l1Cache_.end()) {
-            return it->second; // L1 HIT
-        }
-    }
-
-    // 2. Перевірка L2 Redis Cluster (мережевий RTT 1-2 ms)
-    auto l2Val = redis_->get(cacheKey);
-    if (l2Val.has_value()) {
-        populateL1(cacheKey, l2Val.value()); // заповнюємо L1 для наступних викликів
-        return l2Val.value(); // L2 HIT
-    }
-
-    // 3. L1 & L2 MISS: Викликаємо Singleflight для ізоляції Origin DB
-    return singleflight_.doCall(cacheKey, [&]() {
-        HomeState freshState = originDBFetch(homeId); // 1 SQL-запит на весь кластер
-        redis_->set(cacheKey, freshState, std::chrono::seconds(300));
-        populateL1(cacheKey, freshState);
-        return freshState;
-    });
-}
-```
-```ts
-// Аналог трирівневого кешу на TypeScript з використанням Singleflight
-async getHomeState(
-  homeId: string,
-  originDBFetch: (id: string) => Promise<HomeState>
-): Promise<HomeState> {
-  const cacheKey = `dh:home:${homeId}`;
-
-  // 1. L1 Process Memory Check
-  if (this.l1Memory.has(cacheKey)) {
-    return this.l1Memory.get(cacheKey)!;
-  }
-
-  // 2. L2 Redis Check
-  const redisVal = await this.redisClient.get(cacheKey);
-  if (redisVal) {
-    const parsed = JSON.parse(redisVal) as HomeState;
-    this.l1Memory.set(cacheKey, parsed);
-    return parsed;
-  }
-
-  // 3. Singleflight Coalescing for Origin DB Fetch
-  return this.singleflight.doCall(cacheKey, async () => {
-    const freshState = await originDBFetch(homeId);
-    await this.redisClient.set(cacheKey, JSON.stringify(freshState), "EX", 300);
-    this.l1Memory.set(cacheKey, freshState);
-    return freshState;
-  });
-}
-```
+:::code dh-cache-hierarchy-d/cpp/main.cpp
+:::code dh-cache-hierarchy-d/ts/index.ts
 :::
 
 ## Поверхня рішень: Що кешувати на краю, а що ні

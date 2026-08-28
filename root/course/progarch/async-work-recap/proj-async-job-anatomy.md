@@ -10,25 +10,7 @@
 
 Почнімо з органа, з якого виростають усі інші: намір мусить стати **річчю**, а не викликом, що полетів і забувся. Ось таблиця. Вона мала — але кожен стовпчик у ній стоїть не просто так, і найкорисніше пройтися по них по одному, питаючи «а що зламається, якщо його прибрати».
 
-```sql
-CREATE TABLE job (
-  id            BIGSERIAL PRIMARY KEY,
-  key           TEXT NOT NULL UNIQUE,             -- ключ ідемпотентності: 'hub-8f3:2.4.1'
-  payload       JSONB NOT NULL,                   -- що робити: {hub, version}
-  batch_id      TEXT,                             -- до якого розкочування належить
-  state         TEXT NOT NULL DEFAULT 'queued',   -- queued | running | done | dead
-  attempts      INT  NOT NULL DEFAULT 0,          -- скільки разів уже брали в роботу
-  max_attempts  INT  NOT NULL DEFAULT 10,         -- після скількох здаємося
-  run_after     TIMESTAMPTZ NOT NULL DEFAULT now(), -- не чіпати раніше цього часу
-  locked_until  TIMESTAMPTZ,                      -- visibility-timeout: доти клеймо дійсне
-  last_error    TEXT,                             -- чим упала остання спроба
-  created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at    TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-
--- швидко знаходити готові до забору рядки, не читаючи всю таблицю
-CREATE INDEX job_pick_idx ON job (state, run_after);
-```
+:::code proj-async-job-anatomy/sql/tryvkyi-zapys-zadacha-tse.sql
 
 `key` — це не первинний ключ (той рахує машина), а **ключ ідемпотентності**: рядок, за яким ми впізнаємо «це та сама одиниця роботи». Для розкочування він природний — пара «хаб плюс версія», `hub-8f3:2.4.1`. І тут же криється перша тонкість, яку більшість плутає: `UNIQUE` на цьому стовпчику дає нам **один вид дедупу** — «не завести двох задач на ту саму одиницю». Це не той самий дедуп, що вбереже від подвійного виконання; про другий вид мова піде окремо, і те, що вони різні, — половина розуміння всього класу.
 
@@ -60,23 +42,7 @@ ON CONFLICT (key) DO NOTHING;                          -- дедуп прост�
 
 Ось орган, заради якого й варто було зупинятися на реляційній базі. Кільком воркерам треба розібрати спільну купу задач так, щоб **жоден рядок не дістався двом одразу** й щоб ніхто не простоював, чекаючи сусіда. Наївне рішення — «прочитати одну `queued` і оновити на `running`» — розсипається миттєво: між читанням і оновленням устигне вклинитися інший воркер, і та сама задача поїде виконуватися двічі. Треба атомарно: побачив, забрав, позначив своїм — одним неподільним рухом. І Postgres дає цей рух однією конструкцією.
 
-```sql
--- КЛЕЙМ: атомарно вихопити одну готову задачу й одразу позначити її своєю
-UPDATE job
-SET state        = 'running',
-    attempts     = attempts + 1,                    -- лічимо спробу вже ТУТ, на вході
-    locked_until = now() + ($1 * interval '1 second'), -- оренда клейма на $1 секунд
-    updated_at   = now()
-WHERE id = (
-    SELECT id FROM job
-    WHERE (state = 'queued'  AND run_after   <= now())   -- готова й час настав
-       OR (state = 'running' AND locked_until <  now())  -- АБО загублене клеймо протухло
-    ORDER BY run_after
-    FOR UPDATE SKIP LOCKED                               -- ← ось воно
-    LIMIT 1
-)
-RETURNING id, key, payload, attempts, max_attempts;
-```
+:::code proj-async-job-anatomy/sql/kleim-sertse-mashyny.sql
 
 Три деталі в цьому запиті несуть усю вагу; розберімо кожну, бо кожна лікує окрему хворобу.
 
@@ -94,76 +60,9 @@ RETURNING id, key, payload, attempts, max_attempts;
 Тепер, коли клейм робить усю важку роботу, сам цикл воркера виходить **тонкий аж до нудьги** — і це добра ознака: складність осіла там, де їй місце (у транзакційній базі), а не розповзлася по коду. Воркер робить те саме по колу: заклеймити задачу, виконати, доповісти успіх або невдачу. `claim`, `complete`, `fail` — це просто драйвер, що проганяє SQL із попередніх блоків і повертає рядок; ось як вони сходяться в циклі. Мова тут — оркестрація бекенду, і цикл лягає однаково природно в кілька стеків, тож наведу три: TypeScript, Python і Go (де тісний цикл із воркерами-горутинами — рідна ідіома).
 
 :::tabs
-```ts
-const LEASE = 30;            // оренда клейма, секунд: довше за очікуваний прогін задачі
-const BASE = 2, CAP = 3600;  // відступ: база 2 c, стеля — година
-
-// full jitter (Marc Brooker, AWS, 2015): рівномірно [0, стеля), а не рівний крок
-function backoff(attempts: number): number {
-  const ceiling = Math.min(CAP, BASE * 2 ** attempts);
-  return Math.random() * ceiling;
-}
-
-async function worker(pool: Pool, run: Handler) {
-  while (alive) {
-    const job = await claim(pool, LEASE);          // атомарний UPDATE ... SKIP LOCKED
-    if (!job) { await sleep(500); continue; }      // черга без готових — перепочити
-
-    try {
-      await run(job.payload);                      // САМА робота: flash / email / …
-      await complete(pool, job.id);                // стан → done
-    } catch (err) {
-      await fail(pool, job.id, backoff(job.attempts), String(err)); // → retry або dead
-    }
-  }
-}
-```
-```py
-LEASE = 30            # оренда клейма, секунд: довше за очікуваний прогін задачі
-BASE, CAP = 2, 3600   # відступ: база 2 c, стеля — година
-
-# full jitter (Marc Brooker, AWS, 2015): рівномірно [0, стеля), а не рівний крок
-def backoff(attempts: int) -> float:
-    ceiling = min(CAP, BASE * 2 ** attempts)
-    return random.random() * ceiling
-
-async def worker(pool, run):
-    while alive:
-        job = await claim(pool, LEASE)             # атомарний UPDATE ... SKIP LOCKED
-        if job is None:
-            await asyncio.sleep(0.5)               # черга без готових — перепочити
-            continue
-        try:
-            await run(job.payload)                 # САМА робота: flash / email / …
-            await complete(pool, job.id)           # стан → done
-        except Exception as err:
-            await fail(pool, job.id, backoff(job.attempts), str(err))  # → retry або dead
-```
-```go
-const leaseSeconds = 30                 // оренда клейма: довше за очікуваний прогін
-const base, cap = 2.0, 3600.0           // відступ: база 2 c, стеля — година
-
-// full jitter (Marc Brooker, AWS, 2015): рівномірно [0, стеля), а не рівний крок
-func backoff(attempts int) float64 {
-	ceiling := math.Min(cap, base*math.Pow(2, float64(attempts)))
-	return rand.Float64() * ceiling
-}
-
-func worker(ctx context.Context, db *sql.DB, run Handler) {
-	for ctx.Err() == nil {
-		job, err := claim(ctx, db, leaseSeconds)     // атомарний UPDATE ... SKIP LOCKED
-		if err != nil || job == nil {
-			time.Sleep(500 * time.Millisecond)       // черга без готових — перепочити
-			continue
-		}
-		if err := run(ctx, job.Payload); err != nil {
-			fail(ctx, db, job.ID, backoff(job.Attempts), err.Error()) // → retry або dead
-			continue
-		}
-		complete(ctx, db, job.ID)                    // стан → done
-	}
-}
-```
+:::code proj-async-job-anatomy/ts/index.ts
+:::code proj-async-job-anatomy/py/main.py
+:::code proj-async-job-anatomy/go/main.go
 :::
 
 Масштабування цього воркера тривіальне саме завдяки клейму: запускаєш не один процес, а десять (у Go — десять горутин, що кличуть `worker`), і оскільки кожен клеймить через `SKIP LOCKED`, вони **фізично не можуть узяти той самий рядок** і жодного разу не збігаються. Ніякого коду синхронізації між воркерами ти не написав — його за тебе написали в Postgres.

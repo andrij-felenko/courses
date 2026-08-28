@@ -61,77 +61,8 @@ dh/
 Почнімо з осердя, бо від нього залежить усе решта. У `ids` живуть три речі: спільні типи, контракт події й шина. Типи — це навіть не класи, а «марковані» рядки: `DeviceId` — це `str`, але окремого сорту, щоб компілятор не дав переплутати його з `HomeId`. Подія — плаский незмінний запис. А шина — і є та тонкість, заради якої крок затіяно.
 
 :::tabs
-```ts
-// ids/types.ts — спільний словник: марковані примітиви, щоб не сплутати ідентифікатори
-export type DeviceId = string & { readonly __brand: "DeviceId" };
-export type HomeId   = string & { readonly __brand: "HomeId" };
-
-// ids/events.ts — ДРОТОВИЙ факт: ані живих агрегатів, ані вендорських типів
-import type { DeviceId, HomeId } from "./types";
-export interface DeviceEvent {
-  kind: "state" | "added" | "removed";
-  deviceId: DeviceId;
-  homeId: HomeId;
-  at: number;      // epoch-мілісекунди — примітив, не Date якоїсь бібліотеки
-  value: number;
-}
-
-// ids/bus.ts — внутрішньопроцесна шина: СИНХРОННА диспетчеризація в тій самій транзакції
-import type { DeviceEvent } from "./events";
-export type Subscriber = (e: DeviceEvent) => void;
-
-export class Bus {
-  private subs: Subscriber[] = [];
-  subscribe(handler: Subscriber): void { this.subs.push(handler); }
-  publish(event: DeviceEvent): void {
-    for (const handler of this.subs) handler(event);   // по черзі, ТУТ-ТАКИ, у tx продюсера
-  }                                                    // виняток підписника ЛЕТИТЬ УГОРУ
-}
-
-// ids/index.ts — БАР'ЄР спільного ядра
-export type { DeviceId, HomeId } from "./types";
-export type { DeviceEvent } from "./events";
-export { Bus } from "./bus";
-export type { Subscriber } from "./bus";
-```
-```py
-# ids/types.py — спільний словник: окремі типи поверх str, щоб не сплутати ідентифікатори
-from typing import NewType
-DeviceId = NewType("DeviceId", str)
-HomeId   = NewType("HomeId", str)
-
-# ids/events.py — ДРОТОВИЙ факт: ані живих агрегатів, ані вендорських типів
-from dataclasses import dataclass
-from typing import Literal
-from .types import DeviceId, HomeId
-
-@dataclass(frozen=True)
-class DeviceEvent:
-    kind: Literal["state", "added", "removed"]
-    device_id: DeviceId
-    home_id: HomeId
-    at: int            # epoch-мілісекунди — примітив, не datetime якоїсь бібліотеки
-    value: float
-
-# ids/bus.py — внутрішньопроцесна шина: СИНХРОННА диспетчеризація в тій самій транзакції
-from typing import Callable
-Subscriber = Callable[[DeviceEvent], None]
-
-class Bus:
-    def __init__(self) -> None:
-        self._subs: list[Subscriber] = []
-    def subscribe(self, handler: Subscriber) -> None:
-        self._subs.append(handler)
-    def publish(self, event: DeviceEvent) -> None:
-        for handler in self._subs:      # по черзі, ТУТ-ТАКИ, у tx продюсера
-            handler(event)              # виняток підписника ЛЕТИТЬ УГОРУ
-
-# ids/__init__.py — БАР'ЄР спільного ядра
-from .types import DeviceId, HomeId
-from .events import DeviceEvent
-from .bus import Bus, Subscriber
-__all__ = ["DeviceId", "HomeId", "DeviceEvent", "Bus", "Subscriber"]
-```
+:::code proj-dh-monolith-skeleton/ts/types.ts
+:::code proj-dh-monolith-skeleton/py/types.py
 :::
 
 Придивімося до `publish` — уся шина в ньому вміщається в один цикл, і кожне слово тут навмисне. Сьогодні DH — один процес, тож «опублікувати подію» означає буквально **покликати всіх підписників по черзі, тут-таки, у тому самому стеку й у тій самій транзакції**, що й продюсер. Жодного «поклав у чергу й пішов», жодної мережі. Наносекунди. І — головне — якщо котрийсь підписник кине виняток, `publish` не проковтне його: виняток полетить угору, до того, хто викликав `publish`. Це не недогляд. Це [навмисне зчеплення через подію, а не пряме ребро](root:sf-apps/event-driven-architecture): продюсер не знає підписників, підписники не знають продюсера, обидва знають лише контракт `DeviceEvent`. А те, що виняток летить угору, — свідома семантика, у якій за мить виявиться і сила, і найгостріша пастка всього каркаса.
@@ -141,103 +72,8 @@ __all__ = ["DeviceId", "HomeId", "DeviceEvent", "Bus", "Subscriber"]
 Дев'ять модулів однакові за формою, тож розберімо один до самого дна — телеметрію, — і решту вже читатимемо як його копії. Модуль має чотири шматки: публічний контракт, приватний доступ до **своєї** схеми, реалізацію фасаду й бар'єр, що впускає назовні лише перше й третє.
 
 :::tabs
-```ts
-// telemetry/contract.ts — ПУБЛІЧНЕ: те, що бачать сусіди
-import type { DeviceId } from "../ids";
-export interface Reading { deviceId: DeviceId; value: number; at: number; }
-
-// telemetry/store.ts — ПРИВАТНЕ: лише цей модуль торкається схеми telemetry
-import type { DeviceId } from "../ids";
-import type { Reading } from "./contract";
-import type { Schema } from "../ids/db";          // дескриптор ЛИШЕ однієї схеми
-export class ReadingStore {                        // з index не реекспортовано → зовні не існує
-  constructor(private readonly s: Schema) {
-    s.exec(`CREATE TABLE IF NOT EXISTS telemetry.reading(
-              device_id TEXT, value DOUBLE PRECISION, at BIGINT)`);
-  }
-  put(r: Reading): void {
-    this.s.exec(`INSERT INTO telemetry.reading(device_id, value, at) VALUES ($1,$2,$3)`,
-                [r.deviceId, r.value, r.at]);
-  }
-  last(id: DeviceId): Reading | null {
-    const row = this.s.queryOne(
-      `SELECT value, at FROM telemetry.reading WHERE device_id=$1 ORDER BY at DESC LIMIT 1`, [id]);
-    return row ? { deviceId: id, value: row.value, at: row.at } : null;
-  }
-}
-
-// telemetry/service.ts — реалізація фасаду (клас приватний; назовні йде лише інтерфейс)
-import type { DeviceId, DeviceEvent } from "../ids";
-import type { Reading } from "./contract";
-import type { Schema } from "../ids/db";
-import { ReadingStore } from "./store";
-export interface Telemetry {                        // ← ФАСАД: усе, що бачать сусіди
-  record(e: DeviceEvent): void;                     // підписник шини
-  lastReading(id: DeviceId): Reading | null;
-}
-class TelemetryService implements Telemetry {
-  constructor(private readonly store: ReadingStore) {}
-  record(e: DeviceEvent): void {
-    if (e.kind === "state") this.store.put({ deviceId: e.deviceId, value: e.value, at: e.at });
-  }
-  lastReading(id: DeviceId): Reading | null { return this.store.last(id); }
-}
-export function makeTelemetry(schema: Schema): Telemetry {  // фабрика в'яже приватний стор зі схемою
-  return new TelemetryService(new ReadingStore(schema));
-}
-
-// telemetry/index.ts — БАР'ЄР: єдині двері модуля
-export type { Reading } from "./contract";
-export type { Telemetry } from "./service";
-export { makeTelemetry } from "./service";
-// ReadingStore, TelemetryService, схема — НЕ реекспортовано: для сусідів їх нема
-```
-```py
-# telemetry/contract.py — ПУБЛІЧНЕ: те, що бачать сусіди
-from dataclasses import dataclass
-from ids import DeviceId
-@dataclass(frozen=True)
-class Reading:
-    device_id: DeviceId
-    value: float
-    at: int
-
-# telemetry/_store.py — ПРИВАТНЕ (під підкресленням): лише цей модуль торкається схеми telemetry
-from ids import DeviceId
-from .contract import Reading
-class _ReadingStore:
-    def __init__(self, schema):                    # schema = дескриптор ЛИШЕ схеми telemetry
-        self._s = schema
-        schema.execute("""CREATE TABLE IF NOT EXISTS telemetry.reading(
-                            device_id TEXT, value DOUBLE PRECISION, at BIGINT)""")
-    def put(self, r: Reading) -> None:
-        self._s.execute("INSERT INTO telemetry.reading(device_id, value, at) VALUES (%s,%s,%s)",
-                        (r.device_id, r.value, r.at))
-    def last(self, device_id: DeviceId) -> Reading | None:
-        row = self._s.query_one("SELECT value, at FROM telemetry.reading "
-                                "WHERE device_id=%s ORDER BY at DESC LIMIT 1", (device_id,))
-        return Reading(device_id, row.value, row.at) if row else None
-
-# telemetry/_service.py — реалізація фасаду (клас доступний, фабрика — офіційні двері)
-from ids import DeviceId, DeviceEvent
-from .contract import Reading
-from ._store import _ReadingStore
-class Telemetry:                                    # ← ФАСАД
-    def __init__(self, store: _ReadingStore):
-        self._store = store
-    def record(self, e: DeviceEvent) -> None:       # підписник шини
-        if e.kind == "state":
-            self._store.put(Reading(e.device_id, e.value, e.at))
-    def last_reading(self, device_id: DeviceId) -> Reading | None:
-        return self._store.last(device_id)
-def make_telemetry(schema) -> Telemetry:            # фабрика в'яже приватний стор зі схемою
-    return Telemetry(_ReadingStore(schema))
-
-# telemetry/__init__.py — БАР'ЄР: назовні видно лише фасад, фабрику й публічний контракт
-from ._service import Telemetry, make_telemetry
-from .contract import Reading
-__all__ = ["Telemetry", "make_telemetry", "Reading"]
-```
+:::code proj-dh-monolith-skeleton/ts/contract.ts
+:::code proj-dh-monolith-skeleton/py/contract.py
 :::
 
 Тут — уся анатомія модуля, [точно за означенням модульного моноліта](root:sf-apps/modular-monolith): контракт публічний, стор приватний і **єдиний**, хто знає слово `telemetry.reading`, сервіс реалізує фасад, а фабрика `makeTelemetry(schema)` в'яже приватний стор із виданою йому схемою. Сусід, що має посилання на `Telemetry`, може написати `lastReading(id)` — і не може дотягтися до `ReadingStore` чи до таблиці: їх бар'єр назовні не випустив.
@@ -249,44 +85,8 @@ __all__ = ["Telemetry", "make_telemetry", "Reading"]
 Тепер зшиймо шину з роботою. Коли `control` виконує команду, він у **одній транзакції** пише зміну в свою таблицю й публікує факт. А що `publish`, як ми щойно бачили, кличе підписників синхронно, тут-таки, — вони всі відпрацьовують **усередині тієї самої транзакції**:
 
 :::tabs
-```ts
-// control/service.ts — команда й розсилка події в ОДНІЙ транзакції
-import type { Bus } from "../ids";
-export class Control {
-  constructor(private readonly repo: DeviceRepo, private readonly bus: Bus) {}
-  apply(cmd: Command): void {
-    this.repo.tx((tx) => {                          // ← одна транзакція на всю операцію
-      const device = this.repo.apply(cmd, tx);      // приватна нутрощі: пише в схему control
-      this.bus.publish({                            // підписники біжать ТУТ-ТАКИ, у цій tx
-        kind: "state", deviceId: device.id, homeId: device.homeId,
-        at: Date.now(), value: device.state,
-      });
-    });   // коллбек завершився без винятку → COMMIT; кинув будь-хто всередині → ROLLBACK усього
-  }
-}
-export function makeControl(schema: Schema, bus: Bus): Control {
-  return new Control(new DeviceRepo(schema), bus);
-}
-```
-```py
-# control/_service.py — команда й розсилка події в ОДНІЙ транзакції
-from time import time
-from ids import Bus, DeviceEvent
-from ._store import _DeviceRepo
-from .contract import Command
-class Control:
-    def __init__(self, repo: _DeviceRepo, bus: Bus):
-        self._repo, self._bus = repo, bus
-    def apply(self, cmd: Command) -> None:
-        with self._repo.tx() as tx:                 # ← одна транзакція на всю операцію
-            device = self._repo.apply(cmd, tx)      # приватна нутрощі: пише в схему control
-            self._bus.publish(DeviceEvent(          # підписники біжать ТУТ-ТАКИ, у цій tx
-                kind="state", device_id=device.id, home_id=device.home_id,
-                at=int(time() * 1000), value=device.state))
-        # нормальний вихід із with = COMMIT; будь-який виняток усередині = ROLLBACK усього
-def make_control(schema, bus: Bus) -> Control:
-    return Control(_DeviceRepo(schema), bus)
-```
+:::code proj-dh-monolith-skeleton/ts/service.ts
+:::code proj-dh-monolith-skeleton/py/_service.py
 :::
 
 Це і є вся сила синхронної шини в одному процесі: команда й усі її наслідки — телеметрія записала вимір, автоматизації зважили правила — стають **однією атомарною операцією**. Або все, або нічого; ніякого «пристрій змінився, але вимір загубився, бо мережа кліпнула посеред». За таку атомарність у моноліті не треба платити ані розподіленими транзакціями, ані сагами — її дає звичайна транзакція бази, що накрила все.
@@ -304,66 +104,8 @@ def make_control(schema, bus: Bus) -> Control:
 Хто вставляє репозиторій і шину в `control`, а фасад твіна — в автоматизації? Не самі модулі — інакше вони знову зналися б напряму. Це робить **одне** місце, [корінь склеювання, де абстрактні залежності зустрічають конкретні реалізації](root:sf-apps/dependency-inversion):
 
 :::tabs
-```ts
-// app.ts — КОРІНЬ: конструює всі модулі, роздає схеми й шину, реєструє підписки
-import { Bus } from "./ids";
-import { makeControl } from "./control";
-import { makeTwin } from "./twin";
-import { makeTelemetry } from "./telemetry";
-import { makeAutomations } from "./automations";
-import { makeNotifications } from "./notifications";
-import { makeIdentity } from "./identity";
-import { makeBilling } from "./billing";
-import { makeVideo } from "./video";
-
-export function buildApp(db: Db, bus: Bus) {
-  // 1) кожен модуль дістає ЛИШЕ свою схему (і шину, якщо публікує)
-  const identity      = makeIdentity(db.schema("identity"));
-  const twin          = makeTwin(db.schema("twin"));
-  const telemetry     = makeTelemetry(db.schema("telemetry"));
-  const billing       = makeBilling(db.schema("billing"));
-  const notifications = makeNotifications(db.schema("notifications"));
-  const video         = makeVideo(db.schema("video"));
-  const control       = makeControl(db.schema("control"), bus);   // ← публікує у шину
-  const automations   = makeAutomations(twin);                    // ← кличе фасад твіна
-  // 2) підписки на DeviceEvent — теж лише тут, в одному видимому місці
-  bus.subscribe(telemetry.record);          // вимір у ряд
-  bus.subscribe(automations.onEvent);       // зважити правила
-  bus.subscribe(notifications.onEvent);     // чи будити власника
-  bus.subscribe(billing.onEvent);           // пристрій додано/знято
-  return { identity, twin, telemetry, billing, notifications, video, control, automations };
-}
-```
-```py
-# app.py — КОРІНЬ: конструює всі модулі, роздає схеми й шину, реєструє підписки
-from ids import Bus
-from control import make_control
-from twin import make_twin
-from telemetry import make_telemetry
-from automations import make_automations
-from notifications import make_notifications
-from identity import make_identity
-from billing import make_billing
-from video import make_video
-
-def build_app(db, bus: Bus):
-    # 1) кожен модуль дістає ЛИШЕ свою схему (і шину, якщо публікує)
-    identity      = make_identity(db.schema("identity"))
-    twin          = make_twin(db.schema("twin"))
-    telemetry     = make_telemetry(db.schema("telemetry"))
-    billing       = make_billing(db.schema("billing"))
-    notifications = make_notifications(db.schema("notifications"))
-    video         = make_video(db.schema("video"))
-    control       = make_control(db.schema("control"), bus)   # ← публікує у шину
-    automations   = make_automations(twin)                    # ← кличе фасад твіна
-    # 2) підписки на DeviceEvent — теж лише тут, в одному видимому місці
-    bus.subscribe(telemetry.record)          # вимір у ряд
-    bus.subscribe(automations.on_event)      # зважити правила
-    bus.subscribe(notifications.on_event)    # чи будити власника
-    bus.subscribe(billing.on_event)          # пристрій додано/знято
-    return dict(identity=identity, twin=twin, telemetry=telemetry, billing=billing,
-                notifications=notifications, video=video, control=control, automations=automations)
-```
+:::code proj-dh-monolith-skeleton/ts/app.ts
+:::code proj-dh-monolith-skeleton/py/app.py
 :::
 
 Уся топологія системи зібрана в одному місці, яке читається згори вниз за десять секунд. Кожен модуль дістає рівно те, від чого залежить — свою схему (`db.schema("telemetry")` віддає дескриптор **тільки** схеми `telemetry`, і жодного іншого), потрібний фасад, шину, — і ані краплі більше. Хто кого знає, які підписки живуть у системі — усе тут, а не розсипане по конструкторах десятка класів. Це і робить корінь єдиним джерелом правди про форму системи: змінив залежність — змінив рівно один рядок, на очах.
@@ -374,115 +116,23 @@ def build_app(db, bus: Bus):
 
 Спершу треба здобути **справжній** граф залежностей — не той, що на дошці, а той, що в коді. Для Python його чисто дає розбір синтаксису: пройди кожен файл, глянь, який верхній пакет він імпортує:
 
-```py
-# arch/graph.py — СПРАВЖНІЙ граф імпортів пакета dh через розбір AST (без евристик і регулярок)
-import ast, pathlib
-MODULES = {"ids", "control", "twin", "telemetry", "automations",
-           "video", "notifications", "identity", "billing"}
-
-def import_graph(root="dh") -> dict[str, set[str]]:
-    graph = {m: set() for m in MODULES}
-    for path in pathlib.Path(root).rglob("*.py"):
-        owner = path.relative_to(root).parts[0]         # верхній пакет = модуль-власник файлу
-        if owner not in MODULES:                        # app.py, arch/* — не модулі, пропускаємо
-            continue
-        tree = ast.parse(path.read_text(encoding="utf-8"))
-        for node in ast.walk(tree):
-            top = None
-            if isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
-                top = node.module.split(".")[0]         # from control._store import … → "control"
-            elif isinstance(node, ast.Import):
-                top = node.names[0].name.split(".")[0]
-            if top in MODULES and top != owner:
-                graph[owner].add(top)                   # ребро owner → top
-    return graph
-```
+:::code proj-dh-monolith-skeleton/py/graph.py
 
 Тепер три перевірки над цим графом. Перша — **дозволені ребра**: тримаємо єдиний список того, хто кого сміє знати, і все поза списком — порушення.
 
-```py
-# arch/rules.py — єдине джерело правди: дозволені РЕБРА графа
-ALLOWED = {
-    "control":       {"ids", "identity"},
-    "twin":          {"ids", "identity"},
-    "telemetry":     {"ids", "identity"},        # control знають лише через подію, не імпортом
-    "automations":   {"ids", "identity", "twin"},
-    "notifications": {"ids", "identity"},
-    "billing":       {"ids", "identity"},        # НЕ control!
-    "video":         {"ids", "identity"},
-    "identity":      {"ids"},
-    "ids":           set(),                       # ядро не залежить ні від кого
-}
-def forbidden_edges(graph):
-    return [(mod, d) for mod, deps in graph.items() for d in deps - ALLOWED[mod]]
-```
+:::code proj-dh-monolith-skeleton/py/rules.py
 
 Друга — **ациклічність**. Граф залежностей мусить бути без циклів: якщо `A` знає `B`, а `B` знає `A`, дві кімнати злиплися в одну, і жодну вже не вийняти окремо. Це не «перевір кілька пар» — це загальна властивість графа, і ловить її класичний обхід у глибину з трьома кольорами: сірий вузол — той, що зараз на стеку рекурсії; наткнутися на сірого — значить знайти ребро назад, тобто цикл.
 
-```py
-# arch/cycles.py — знайти цикл (обхід у глибину, три кольори); повернути сам ланцюг для звіту
-def find_cycle(graph):
-    WHITE, GREY, BLACK = 0, 1, 2
-    colour = {n: WHITE for n in graph}
-    stack = []
-    def visit(n):
-        colour[n] = GREY; stack.append(n)           # сірий = на поточному стеку рекурсії
-        for m in graph.get(n, ()):
-            if colour.get(m, WHITE) == GREY:         # ребро в сірого = ребро назад = ЦИКЛ
-                return stack[stack.index(m):] + [m]  # замкнений ланцюг для повідомлення
-            if colour.get(m, WHITE) == WHITE:
-                found = visit(m)
-                if found: return found
-        stack.pop(); colour[n] = BLACK               # відходимо — вузол пройдено повністю
-        return None
-    for n in graph:
-        if colour[n] == WHITE:
-            found = visit(n)
-            if found: return found
-    return None
-```
+:::code proj-dh-monolith-skeleton/py/cycles.py
 
 Третя — **ізоляція схем**, і вона ловить найтихіше порушення з усіх. Модуль не сміє називати чужу схему у своєму SQL. Це окрема перевірка, бо, як побачимо, її **не видно в графі імпортів узагалі**: зовнішній ключ телеметрії на `control.device` не додає жодного `import` — він живе в DDL. Скануємо саме SQL — DDL-файли й видобуті рядки-запити, — а не весь код навмисне: якби ми шукали `twin.` будь-де, легітимний виклик фасаду `twin.currentState()` з автоматизацій дав би хибне спрацювання. Зрада межі на рівні даних живе в SQL — там її й ловимо.
 
-```py
-# arch/schema_rule.py — жоден модуль не сміє називати чужу схему у своєму SQL
-import re, pathlib
-from .graph import MODULES
-SCHEMAS = MODULES - {"ids"}                          # у кожного модуля однойменна схема; в ids схеми нема
-
-def cross_schema(root="dh"):
-    bad, pat = [], re.compile(r"\b(" + "|".join(SCHEMAS) + r")\.[a-z_]+")
-    for path in pathlib.Path(root).rglob("*.sql"):   # звужуємо до SQL (DDL + видобуті запити), не весь код
-        owner = path.relative_to(root).parts[0]
-        if owner not in SCHEMAS:
-            continue
-        for schema in pat.findall(path.read_text(encoding="utf-8")):
-            if schema != owner:
-                bad.append((owner, schema, path.name))
-    return bad
-```
+:::code proj-dh-monolith-skeleton/py/schema_rule.py
 
 І сам тест, що звинчує три перевірки в одну фітнес-функцію. Він біжить у CI при кожному пуші; будь-яка з трьох умов — і збірка червона:
 
-```py
-# arch_test.py — ФІТНЕС-ФУНКЦІЯ: три червоні умови валять збірку
-from arch.graph import import_graph
-from arch.rules import forbidden_edges
-from arch.cycles import find_cycle
-from arch.schema_rule import cross_schema
-
-def test_no_forbidden_import():
-    bad = forbidden_edges(import_graph())
-    assert not bad, f"заборонені ребра імпорту: {bad}"        # напр. [('billing', 'control')]
-
-def test_graph_is_acyclic():
-    cycle = find_cycle(import_graph())
-    assert cycle is None, f"цикл у графі залежностей: {' → '.join(cycle)}"
-
-def test_schema_isolation():
-    bad = cross_schema()
-    assert not bad, f"звертання в чужу схему: {bad}"          # напр. [('telemetry','control','schema.sql')]
-```
+:::code proj-dh-monolith-skeleton/py/arch_test.py
 
 Це — хребет сторожа, написаний руками навмисне: обхід у глибину з трьома кольорами варто **побачити**, бо це і є те, що роблять під капотом зрілі інструменти. А в проді граф зазвичай не збираєш сам — його дає готовий інструмент, і ти лиш декларуєш ті самі три правила. Ось той самий сторож двома мовами стеку, декларативно:
 
@@ -509,25 +159,7 @@ modules =
     dh.notifications
     dh.video
 ```
-```js
-// .dependency-cruiser.cjs (TypeScript) — dependency-cruiser: forbidden + no-circular
-module.exports = {
-  forbidden: [
-    { name: "billing-not-control", severity: "error",
-      comment: "білінг не сміє знати control — лише подія",
-      from: { path: "^src/billing" }, to: { path: "^src/control" } },
-    { name: "no-circular", severity: "error",
-      comment: "жодних циклів у графі модулів",
-      from: {}, to: { circular: true } },              // ← ациклічність однією умовою
-    { name: "cross-module-only-via-index", severity: "error",
-      comment: "у чужий модуль — лише через його index-бар'єр, не в нутрощі",
-      from: { path: "^src/([^/]+)/" },              // $1 = модуль-власник файлу
-      to:   { path: "^src/[^/]+/[^/]+",             // глибокий шлях у якийсь модуль…
-              pathNot: ["^src/[^/]+/index\\.ts$",   // …дозволено лише через index…
-                        "^src/$1/"] } },            // …або якщо це той самий модуль ($1)
-  ],
-};
-```
+:::code proj-dh-monolith-skeleton/js/index.js
 :::
 
 Обидва інструменти [названо ще в самій статті](root:sf-apps/fitness-functions): `import-linter` для Python, `dependency-cruiser` для TypeScript, `ArchUnit` для Java, `Packwerk` для Ruby — усі роблять те саме, лише зрілим кодом і швидко. Різниця з нашим ручним хребтом лише в тому, що вони надійніше будують граф; три правила — ті самі. А ось як ця фітнес-функція виглядає збоку, коли працює:

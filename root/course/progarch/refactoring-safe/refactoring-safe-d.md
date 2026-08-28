@@ -60,38 +60,11 @@
 
 Що підказує, що ділянка просить рефакторингу? Запах коду (code smell — вислів Кента Бека): поверхневий знак, що будова опирається зміні — дублювання, задовга функція, назва, яка бреше, злиплі в купу обов'язки. Кожен запах має свій названий хід-відповідь із каталогу перетворень, і кожен такий хід зберігає поведінку. Ось така злиплість — функція рахунку з оптовою знижкою, де все зібгано в одну петлю:
 
-```ts
-function statement(invoice: Invoice): string {
-  let result = 0;
-  for (const line of invoice.lines) {
-    let amount = line.qty * line.unitPrice;
-    if (line.qty > 100) {
-      amount -= (line.qty - 100) * line.unitPrice * 0.05;
-    }
-    result += amount;
-  }
-  return `Разом: ${result} грн`;
-}
-```
+:::code refactoring-safe-d/ts/iak-tse-vyhliadaie-v-kodi.ts
 
 Крок перший — **винести функцію** `lineAmount`: обчислення одного рядка стає названим шматком. Нічого не рахуємо по-новому, лише переносимо на місце:
 
-```ts
-function lineAmount(line: Line): number {
-  let amount = line.qty * line.unitPrice;
-  if (line.qty > 100) {
-    amount -= (line.qty - 100) * line.unitPrice * 0.05;
-  }
-  return amount;
-}
-
-function statement(invoice: Invoice): string {
-  let result = 0;
-  for (const line of invoice.lines) result += lineAmount(line);
-  return `Разом: ${result} грн`;
-}
-// тести: зелено
-```
+:::code refactoring-safe-d/ts/iak-tse-vyhliadaie-v-kodi-2.ts
 
 Крок другий — **винести знижку** окремою функцією з промовистою назвою, щоб намір читався з коду, а не вгадувався:
 

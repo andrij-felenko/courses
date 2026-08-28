@@ -214,29 +214,6 @@ digital_homes:
 
 Для запобігання ситуаціям, коли розробники нового сервісу випадково звертаються до старого Твіна Б в оминення фазового фасаду `TwinMigrationFacade`, у CI-пайплайн вбудовано захисні фітнес-тести на основі аналізу графа залежностей.
 
-```typescript
-// ArchUnit / Static Analysis Fitness Test
-import { ArchRuleBuilder } from "@archunit/core";
-
-describe("Architecture Boundary & Migration Fitness Tests", () => {
-  it("BFF modules MUST NOT access Legacy Twin B directly", async () => {
-    const rule = ArchRuleBuilder.classes()
-      .that()
-      .resideInAPackage("..bff..")
-      .should()
-      .onlyDependOnClassesThat()
-      .resideInAnyPackage("..facade..", "..dto..", "java..");
-
-    await rule.check();
-  });
-
-  it("All Twin state mutations MUST generate Outbox events", async () => {
-    const mutationMethods = findAnnotatedMethods("@TwinMutation");
-    for (const method of mutationMethods) {
-      expect(method.hasOutboxTransaction()).toBe(true);
-    }
-  });
-});
-```
+:::code api-dh-migration-contract/ts/index.ts
 
 Поточні фітнес-тести гарантують, що після завершення Фази 3 будь-яка спроба затягнути код legacy-твіна Б у нові збірки призведе до автоматичної зупинки CI/CD конвеєра.

@@ -88,18 +88,7 @@ sudo perf trace -e tcp:tcp_destroy_sock,net:net_dev_xmit
 
 Тут новачки роблять свою **головну фатальну помилку**: вони генерують новий випадковий UUID безпосередньо в циклі повторів (retry loop):
 
-```ts
-// ❌ НЕПРАВИЛЬНО: Новий UUID на кожну спробу ретраю!
-for (let attempt = 0; attempt < 3; attempt++) {
-  const response = await fetch("https://api.stripe.com/v1/charges", {
-    method: "POST",
-    headers: {
-      "Idempotency-Key": crypto.randomUUID(), // Руйнує ідемпотентність!
-    },
-    body: JSON.stringify({ amount: 120 }),
-  });
-}
-```
+:::code outbound-idempotency-d/ts/index.ts
 
 Якщо при кожній спробі ретраю генерується новий UUID, то з точки зору платіжного провайдера це **три абсолютно різні операції**. Перша спроба зазнає таймауту на зворотному шляху (гроші знято), друга спроба приходить із новим UUID (гроші знято вдруге), третя — з третім UUID (гроші знято втретє). Генерація випадкового UUID усередині ретраю повністю анулює захист ідемпотентності.
 

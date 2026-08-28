@@ -85,8 +85,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-replica-reads.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "replication-choice",
@@ -95,8 +103,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-replication-fit.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -132,7 +148,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-hlc.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-data/uuid-and-guid",
@@ -183,8 +206,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-merge-convergence.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-distributed/crdt",
@@ -229,7 +260,14 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-stale-data-engine.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "consistency-cost-tradeoff",
@@ -239,7 +277,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-consistency-price-model.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-consistency-choice",
@@ -248,8 +293,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-consistency-map.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -306,8 +359,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-coordination-audit.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -349,7 +410,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-bucket-range.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-partition-key",
@@ -402,8 +470,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-saga-two-ways.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-handover-saga",
@@ -412,8 +488,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-handover-orchestrator.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -438,19 +522,23 @@
           "hist": [
             {
               "file": "hist-multi-region-lineage.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-rtt-replication-latency.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-multi-region-router.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -478,7 +566,8 @@
           "proj": [
             {
               "file": "proj-dh-georouter.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -539,8 +628,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-twin-three-ways.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-twin-choice",
@@ -550,7 +647,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-twin-composition.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-distributed-invariants",

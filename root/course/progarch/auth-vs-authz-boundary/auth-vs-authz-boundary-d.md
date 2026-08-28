@@ -74,34 +74,8 @@
 Подивись, як ці дві межі виглядають у звичайному обробнику запиту. Мова тут — не про регістри й гарячий шлях, а про форму серверного маршруту, тож беремо мови, якими веб-бекенд і пишуть; ідея однакова в обох:
 
 :::tabs
-```ts
-app.get("/homes/:id/thermostat", (req, res) => {
-  // Питання 1 — автентифікація: хто на іншому кінці?
-  const subject = authenticate(req);               // токен → суб'єкт, або нічого
-  if (!subject) return res.status(401).end();      // «не знаю тебе» → 401
-
-  // Питання 2 — авторизація: чи можна САМЕ ЦЬОМУ суб'єктові саме ЦЕ?
-  const home = homes.get(req.params.id);           // ← об'єкт, якого двері ще не бачили
-  if (!canRead(subject, home)) return res.status(403).end();  // «знаю — але ні» → 403
-
-  return res.json(readThermostat(home));           // обидві межі пройдено
-});
-```
-```py
-@app.get("/homes/{home_id}/thermostat")
-def thermostat(home_id: str, req: Request):
-    # Питання 1 — автентифікація: хто на іншому кінці?
-    subject = authenticate(req)                  # токен → суб'єкт, або None
-    if subject is None:
-        raise HTTPException(401)                 # «не знаю тебе» → 401
-
-    # Питання 2 — авторизація: чи можна САМЕ ЦЬОМУ суб'єктові саме ЦЕ?
-    home = homes.get(home_id)                    # ← об'єкт, якого двері ще не бачили
-    if not can_read(subject, home):
-        raise HTTPException(403)                 # «знаю — але ні» → 403
-
-    return read_thermostat(home)                 # обидві межі пройдено
-```
+:::code auth-vs-authz-boundary-d/ts/index.ts
+:::code auth-vs-authz-boundary-d/py/main.py
 :::
 
 Уся різниця між приватною платформою й витоком даних — це один рядок `canRead`. Прибери його — лишиться зразок «залогований = можна» з попереднього малюнка: автентифікація є, авторизації немає, і Оля читає дім Марти.

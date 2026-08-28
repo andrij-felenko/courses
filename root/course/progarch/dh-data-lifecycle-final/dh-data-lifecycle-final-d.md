@@ -141,23 +141,7 @@ DebitAccount  <===>  CreditAccount
 
 У DH ця проблема вирішується за допомогою **монотонно зростаючих версій подій (Event Sequence Versions)** та логічних годинників LSN/Stripe Event Timestamps:
 
-```ts
-// Обробка вебхуків із захистом від порушення порядку
-async function handleStripeWebhook(event: StripeEvent) {
-  const tenant = await tenantRepo.findById(event.tenantId);
-  
-  if (event.createdTimestamp <= tenant.lastProcessedBillingEventTime) {
-    // Подія застаріла і прийшла поза порядком — мовчки ігноруємо
-    logger.warn(`Out-of-order webhook ignored: ${event.id}`);
-    return;
-  }
-
-  await db.transaction(async (tx) => {
-    await ledger.postTransaction(event);
-    await tenantRepo.updateLastBillingTime(tenant.id, event.createdTimestamp);
-  });
-}
-```
+:::code dh-data-lifecycle-final-d/ts/index.ts
 
 ### Обробка повернень коштів (Chargebacks) та фінансові розбіжності
 

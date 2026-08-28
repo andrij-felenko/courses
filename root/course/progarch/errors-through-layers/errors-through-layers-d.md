@@ -18,19 +18,7 @@
 
 Друга рефлексія — злякатися падінь і обгорнути все у `try`, щоб «не падало»:
 
-```py
-t = 20.0
-while True:
-    try:
-        t = read_sensor()     # інколи кидає
-    except Exception:
-        pass                  # ← помилку проковтнули, лишили старе t
-    if t < THRESHOLD:         # рішення — на застарілому числі
-        heater_on()
-    else:
-        heater_off()
-    sleep(30)
-```
+:::code errors-through-layers-d/py/dvi-pohani-refleksii.py
 
 Тепер нічого не падає. І це гірше. Давач помер годину тому, а `t` так і застигло на `20.0`, і кожні тридцять секунд програма впевнено ухвалює рішення на числі, якого давно немає. Ми проміняли гучну смерть на тиху божевільність. **Проковтнута помилка майже завжди гірша за падіння** — бо падіння принаймні сказало правду: «я не знаю температури». А `except: pass` бреше, що все гаразд, і на цій брехні спокійно гріє порожню кімнату або морозить дитячу.
 
@@ -63,62 +51,8 @@ while True:
 Ось ці три дієслова в коді читального шляху DH. Драйвер ловить транспортний збій, раз повторює, а на повторній невдачі — прокидає перекладене. Політика ловить уже доменне, логує раз і тримає стан:
 
 :::tabs
-```py
-class SensorUnavailable(Exception):
-    def __init__(self, room):
-        super().__init__(f"давач у кімнаті «{room}» недоступний")
-        self.room = room
-
-def read_temp(room):                      # драйвер говорить мовою домену
-    last = None
-    for _ in range(2):                    # одна повторна спроба
-        try:
-            return i2c_read(room)         # може кинути I2CReadError
-        except I2CReadError as e:
-            last = e
-    raise SensorUnavailable(room) from last   # переклали, зберігши причину (from)
-
-# політика:
-for room in rooms:
-    try:
-        t = read_temp(room)
-    except SensorUnavailable as e:
-        log.warning("тримаю стан: %s", e)     # лог РАЗ, саме тут
-        continue                              # обігрівач цієї кімнати не чіпаємо
-    apply_policy(room, t)
-```
-```go
-type SensorUnavailable struct {
-    Room  string
-    Cause error
-}
-func (e *SensorUnavailable) Error() string {
-    return fmt.Sprintf("давач у кімнаті %q недоступний", e.Room)
-}
-func (e *SensorUnavailable) Unwrap() error { return e.Cause }   // зберегли причину
-
-func readTemp(room string) (float64, error) {   // помилка — звичайне значення
-    var last error
-    for i := 0; i < 2; i++ {                     // одна повторна спроба
-        t, err := i2cRead(room)
-        if err == nil {
-            return t, nil
-        }
-        last = err
-    }
-    return 0, &SensorUnavailable{Room: room, Cause: last}   // переклали вгору
-}
-
-// політика:
-for _, room := range rooms {
-    t, err := readTemp(room)
-    if err != nil {
-        log.Printf("тримаю стан: %v", err)   // лог РАЗ, саме тут
-        continue                             // обігрівач цієї кімнати не чіпаємо
-    }
-    applyPolicy(room, t)
-}
-```
+:::code errors-through-layers-d/py/try-diieslova-na-mezhi.py
+:::code errors-through-layers-d/go/main.go
 :::
 
 Два стилі — одна форма. Python прокидає помилку неявно (`raise`, і вона сама летить угору, поки хтось не зловить), Go повертає її явним значенням (`return …, err`, і кожен виклик мусить прямо спитати `if err != nil`). Різні звички, але **межа й переклад однакові**: нижній шар не пускає своє сире слово нагору, а верхній дістає рівно те, чим здатен розпорядитися. Той самий апаратний збій, що вбивав v0, тепер — записана в журнал, пережита подія: дім тримає останнє налаштування, ти дістаєш попередження, ніхто не бреше.

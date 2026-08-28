@@ -22,52 +22,8 @@ record(deviceId: string, kWh: number): Money {
 Похідне значення тут — рахунок — це **чиста функція від збереженого стану**: маєш перелік показників пристрою, помножив суму на тариф, додав абонплату, дістав рахунок. Раз воно виводиться зі стану, його не треба повертати з команди — його будь-коли перерахує окремий запит. Тому різ прямий: `record` лишає по собі тільки зміну стану, а рахунок стає власним методом-запитом.
 
 :::tabs
-```ts
-type Money = number;                 // у копійках, щоб не губити точність на дробах
-
-class EnergyService {
-  private readings = new Map<string, number[]>();
-  constructor(
-    private readonly tariff: Money,        // копійок за 1 кВт·год
-    private readonly standing: Money = 0,  // фіксована абонплата
-  ) {}
-
-  // КОМАНДА: дописала показник — і мовчить
-  record(deviceId: string, kWh: number): void {
-    const list = this.readings.get(deviceId) ?? [];
-    list.push(kWh);
-    this.readings.set(deviceId, list);
-  }
-
-  // ЗАПИТ: рахунок — чиста функція від збережених показників
-  projectedBill(deviceId: string): Money {
-    const kWh = (this.readings.get(deviceId) ?? []).reduce((a, b) => a + b, 0);
-    return Math.round(kWh * this.tariff) + this.standing;
-  }
-
-  // ЗАПИТ: скільки показників лежить — знадобиться в тестах
-  readingCount(deviceId: string): number {
-    return this.readings.get(deviceId)?.length ?? 0;
-  }
-}
-```
-```py
-class EnergyService:
-    def __init__(self, tariff: int, standing: int = 0) -> None:
-        self._readings: dict[str, list[float]] = {}
-        self._tariff = tariff          # копійок за 1 кВт·год
-        self._standing = standing      # фіксована абонплата
-
-    def record(self, device_id: str, kwh: float) -> None:      # КОМАНДА
-        self._readings.setdefault(device_id, []).append(kwh)
-
-    def projected_bill(self, device_id: str) -> int:           # ЗАПИТ
-        kwh = sum(self._readings.get(device_id, ()))
-        return round(kwh * self._tariff) + self._standing
-
-    def reading_count(self, device_id: str) -> int:            # ЗАПИТ
-        return len(self._readings.get(device_id, ()))
-```
+:::code proj-cqs-refactor/ts/ideia-rizu-komanda-pyshe.ts
+:::code proj-cqs-refactor/py/ideia-rizu-komanda-pyshe.py
 :::
 
 Зверни увагу на дрібницю в запиті: у ньому ми читаємо `self._readings.get(device_id, ())` — з дефолтом, а не `self._readings[device_id]`. Якби запит писався через `defaultdict` чи через `[...]`, він **створював би** порожній запис у мапі для невідомого пристрою — тобто нишком міняв би стан. У статті про CQS про таке говорилося як про запит, що потай діє; тут ми його не пускаємо навіть у дрібниці, бо запит, який чіпає стан, — це вже не запит.
@@ -124,19 +80,7 @@ def test_projected_bill_is_pure_query():
 **Команда тестується через стан.** Вона повертає `void` — перевіряти в неї нема чого, тож ми дивимося не на повернене, а на **слід**, який вона лишила, і читаємо цей слід окремим запитом:
 
 :::tabs
-```ts
-// КОМАНДА: перевіряємо НЕ повернене (його нема), а зміну стану — через запит
-test("record — дописує показник у стан", () => {
-  const svc = new EnergyService(250);
-  expect(svc.readingCount("boiler")).toBe(0);
-
-  const result = svc.record("boiler", 3);
-  expect(result).toBeUndefined();               // команді нема чого повертати
-
-  expect(svc.readingCount("boiler")).toBe(1);   // ефект видно лише запитом
-  expect(svc.projectedBill("boiler")).toBe(750);
-});
-```
+:::code proj-cqs-refactor/ts/testy-chomu-zmishanyi.ts
 ```py
 def test_record_changes_state_only():
     svc = EnergyService(tariff=250)
@@ -160,36 +104,8 @@ def test_record_changes_state_only():
 У Digital Homes є черга вихідних наказів пристроям: оновлення прошивок, зміни розкладів, сповіщення. Кілька воркерів розбирають її паралельно, і кожен бере наступний наказ методом, що **повертає елемент і одразу його прибирає** — класичний `dequeue`:
 
 :::tabs
-```ts
-class CommandQueue<T> {
-  private items: T[] = [];
-
-  enqueue(job: T): void { this.items.push(job); }      // КОМАНДА — чиста
-
-  // ВИНЯТОК: дістати-й-вилучити ОДНИМ кроком
-  dequeue(): T | undefined {
-    return this.items.shift();   // повертає перший і тут-таки прибирає його
-  }
-
-  get size(): number { return this.items.length; }     // ЗАПИТ
-}
-```
-```py
-from collections import deque
-
-class CommandQueue:
-    def __init__(self) -> None:
-        self._items: deque = deque()
-
-    def enqueue(self, job) -> None:        # КОМАНДА
-        self._items.append(job)
-
-    def dequeue(self):                     # ВИНЯТОК: дістати-й-вилучити
-        return self._items.popleft() if self._items else None
-
-    def size(self) -> int:                 # ЗАПИТ
-        return len(self._items)
-```
+:::code proj-cqs-refactor/ts/vyniatok-pershyi-distaty-i.ts
+:::code proj-cqs-refactor/py/vyniatok-pershyi-distaty-i.py
 :::
 
 За буквою CQS це порушення: `dequeue` і міняє стан, і повертає значення. Спокуса «виправити» — розділити на запит `peek` (подивись перший) і команду `removeFirst` (прибери перший):
@@ -230,19 +146,7 @@ if (job) { process(job); queue.removeFirst(); }
 Це той самий [стан гонитви](root:sf-tasks/atomicity-races), що й у черзі, тільки над числом: роздільні «прочитай» і «збільш» лишають вікно, у якому два потоки читають одне значення. Ліки — злити читання й запис у один неподільний крок, який процесор гарантує апаратно. У системних мовах це `fetch_add` / `getAndIncrement`:
 
 :::tabs
-```cpp
-#include <atomic>
-#include <cstdint>
-
-class EventIds {
-  std::atomic<std::uint64_t> next_{1};
-public:
-  // ВИНЯТОК: віддати поточний номер І зсунути лічильник — одним атомарним кроком
-  std::uint64_t allocate() {
-    return next_.fetch_add(1, std::memory_order_relaxed);  // повертає значення ДО +1
-  }
-};
-```
+:::code proj-cqs-refactor/cpp/main.cpp
 ```java
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -269,19 +173,7 @@ func (e *EventIds) Allocate() uint64 {
 
 `fetch_add` — окремий випадок ширшого прийому. Коли над значенням треба зробити не просто `+1`, а будь-яке перетворення, що залежить від поточного значення, роблять **цикл порівняй-і-заміни** (compare-and-swap): прочитай старе, порахуй нове, і заміни лише **якщо між читанням і заміною ніхто не втрутився**; втрутився — почни спочатку.
 
-```go
-// загальна форма: атомарно застосувати f до значення через compare-and-swap
-func (e *EventIds) Update(f func(uint64) uint64) uint64 {
-    for {
-        old := e.next.Load()
-        neu := f(old)
-        if e.next.CompareAndSwap(old, neu) {  // вдалося лише якщо ніхто не змінив old
-            return neu
-        }
-        // хтось випередив між Load і CompareAndSwap → пробуємо ще раз
-    }
-}
-```
+:::code proj-cqs-refactor/go/main.go
 
 Придивись, що робить цей цикл: він бере той самий небезпечний різ — «прочитай, тоді запиши» — і **робить його безпечним**, перевіряючи на записі, що прочитане ще чинне. `CompareAndSwap` повертає `false`, коли значення встигло змінитися, і тоді ми не затираємо чужу зміну, а перечитуємо й лічимо наново. Тобто навіть якщо дуже хочеться розділити читання й запис, під конкурентністю доводиться склеїти їх назад — цим циклом. Той самий compare-and-swap лежить в основі [оптимістичного блокування](root:sf-data/optimistic-locking) у базах: `UPDATE … SET версія = версія+1 WHERE версія = ?` оновлює рядок лише тоді, коли версія не змінилася відколи ти її прочитав, — та сама «заміна за умовою», тільки над рядком таблиці. А сам інструментарій атомарних цілих — від `fetch_add` до `compare_exchange` — розібрано в [std::atomic](root:sys-plang-cpp/std-atomic).
 

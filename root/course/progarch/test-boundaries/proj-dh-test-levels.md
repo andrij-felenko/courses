@@ -9,131 +9,15 @@
 Головна умова досліду: **усі три рівні перевіряють один і той самий код**. Не три різні реалізації — одну. Змінюється лише радіус: скільки цього коду лишається справжнім усередині кола, а скільки відсунуто за дублер. Ось та система, яку ми несемо крізь курс, — той самий `thermostat`, у якому ми колись [відкрили шов на давачі](root:progarch/seams-and-boundaries), доповнений вендоровим адаптером і тонкою збіркою-хабом.
 
 :::tabs
-```ts
-// thermostat.ts — СИСТЕМА (те, що поїде в прод). Один код на всі три рівні.
-export interface Sensor { read(): number; }        // контракт: завжди віддає °C
-export interface Heater { on(): void; off(): void; }
-
-// політика + проводка: читає крізь шов, керує грілкою
-export function decide(sensor: Sensor, heater: Heater, threshold: number): void {
-  if (sensor.read() < threshold) heater.on();
-  else heater.off();
-}
-
-export interface Device { tempF(): number; }        // вендорів пристрій говорить у °F
-
-// адаптер: вендорові °F → наші °C. Тут — правильна версія.
-export class VendorSensorAdapter implements Sensor {
-  constructor(private device: Device) {}
-  read(): number {
-    return (this.device.tempF() - 32) * 5 / 9;
-  }
-}
-
-export type Config = { threshold: number };
-
-// хаб: те, що прод збирає й крутить — справжній давач, справжня грілка, оберти
-export class Hub {
-  constructor(private sensor: Sensor, private heater: Heater,
-              private threshold: number) {}
-  tick(): void { decide(this.sensor, this.heater, this.threshold); }
-  run(everyMs: number): void { setInterval(() => this.tick(), everyMs); }
-}
-
-// збірка: розв'язує конфіг у зібраний хаб (те саме, що кличе прод на старті)
-export function buildHub(sensor: Sensor, heater: Heater, cfg: Config): Hub {
-  return new Hub(sensor, heater, cfg.threshold);
-}
-```
-```py
-# thermostat.py — СИСТЕМА (те, що поїде в прод). Один код на всі три рівні.
-from dataclasses import dataclass
-from typing import Protocol
-
-
-class Sensor(Protocol):
-    def read(self) -> float: ...          # контракт: завжди віддає °C
-
-class Heater(Protocol):
-    def on(self) -> None: ...
-    def off(self) -> None: ...
-
-
-# політика + проводка: читає крізь шов, керує грілкою
-def decide(sensor: Sensor, heater: Heater, threshold: float) -> None:
-    if sensor.read() < threshold:
-        heater.on()
-    else:
-        heater.off()
-
-
-class Device(Protocol):
-    def temp_f(self) -> float: ...        # вендорів пристрій говорить у °F
-
-
-class VendorSensorAdapter:                # адаптер: вендорові °F → наші °C (правильна версія)
-    def __init__(self, device: Device) -> None:
-        self._device = device
-    def read(self) -> float:
-        return (self._device.temp_f() - 32) * 5 / 9
-
-
-@dataclass
-class Config:
-    threshold: float
-
-
-class Hub:                                # те, що прод збирає й крутить
-    def __init__(self, sensor: Sensor, heater: Heater, threshold: float) -> None:
-        self._sensor, self._heater, self._threshold = sensor, heater, threshold
-    def tick(self) -> None:
-        decide(self._sensor, self._heater, self._threshold)
-
-
-def build_hub(sensor: Sensor, heater: Heater, cfg: Config) -> Hub:
-    return Hub(sensor, heater, cfg.threshold)
-```
+:::code proj-dh-test-levels/ts/thermostat.ts
+:::code proj-dh-test-levels/py/thermostat.py
 :::
 
 І дублери — рівно ті, що [заслуговують місця на справжньому шві](root:progarch/test-doubles-when): фейк давача, що віддає задане число, шпигун грілки, що нічого не гріє, лише пам'ятає стан, і фейк вендорового пристрою, що говорить у Фаренгейтах.
 
 :::tabs
-```ts
-// doubles.ts — те, що вішаємо ЗОВНІ розрізу
-export class FakeSensor implements Sensor {          // фейк: віддає задане число (у °C)
-  constructor(private celsius: number) {}
-  read(): number { return this.celsius; }
-}
-export class SpyHeater implements Heater {           // шпигун: не гріє, лише пам'ятає стан
-  isOn = false;
-  on()  { this.isOn = true; }
-  off() { this.isOn = false; }
-}
-export class FakeDevice implements Device {          // фейк вендорового пристрою — у °F
-  constructor(private opts: { tempF: number }) {}
-  tempF(): number { return this.opts.tempF; }
-}
-```
-```py
-# doubles.py — те, що вішаємо ЗОВНІ розрізу
-class FakeSensor:                         # фейк: віддає задане число (у °C)
-    def __init__(self, celsius: float) -> None:
-        self._c = celsius
-    def read(self) -> float:
-        return self._c
-
-class SpyHeater:                          # шпигун: не гріє, лише пам'ятає стан
-    def __init__(self) -> None:
-        self.is_on = False
-    def on(self) -> None:  self.is_on = True
-    def off(self) -> None: self.is_on = False
-
-class FakeDevice:                         # фейк вендорового пристрою — у °F
-    def __init__(self, temp_f: float) -> None:
-        self._f = temp_f
-    def temp_f(self) -> float:
-        return self._f
-```
+:::code proj-dh-test-levels/ts/doubles.ts
+:::code proj-dh-test-levels/py/doubles.py
 :::
 
 Усе. Далі не з'явиться жодного нового рядка системи — лише три способи обвести її колом.
@@ -143,19 +27,7 @@ class FakeDevice:                         # фейк вендорового пр
 Найменший радіус лишає всередині саму `decide`. Усе довкола — дублери: у шов давача стає `FakeSensor`, у шов грілки — `SpyHeater`. Пишемо дві перевірки: холодно — грій вмикається; рівно на порозі — не вмикається.
 
 :::tabs
-```ts
-test('модульний: нижче порога → грій вмикається', () => {
-  const heater = new SpyHeater();
-  decide(new FakeSensor(18), heater, 20);   // «давач дає 18 °C» — це НАШЕ припущення
-  expect(heater.isOn).toBe(true);
-});
-
-test('модульний: рівно на порозі → грій не вмикається', () => {
-  const heater = new SpyHeater();
-  decide(new FakeSensor(20), heater, 20);   // 20 < 20 — хибно
-  expect(heater.isOn).toBe(false);          // ловить «<=» замість «<»
-});
-```
+:::code proj-dh-test-levels/ts/riven-1-modulnyi-kolo-na.ts
 ```py
 def test_unit_below_threshold_heats():
     heater = SpyHeater()

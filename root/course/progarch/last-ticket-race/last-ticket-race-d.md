@@ -82,32 +82,8 @@ UPDATE events
 Це **оптимістичне** блокування (лат. *optimus* — найкращий): ти сподіваєшся на краще — що ніхто не втрутиться, — а якщо надія не справдилась (`version` уже не 7, бо хтось інкрементнув), запис просто не проходить, і ти повторюєш усе спочатку на свіжих даних. Замків не тримаєш; ціна — **зайва робота** на повтор, і що частіші конфлікти, то дорожчі повтори. Тому в застосунку такий запис завжди живе в циклі спроб:
 
 :::tabs
-```py
-def buy_seat(conn, event_id):
-    for _ in range(5):                         # кілька спроб
-        seats, ver = read_seats(conn, event_id)
-        if seats <= 0:
-            return "sold_out"
-        changed = conn.execute(
-            "UPDATE events SET seats_left = seats_left - 1, version = version + 1 "
-            "WHERE id = %s AND version = %s", (event_id, ver)).rowcount
-        if changed == 1:
-            return "ok"                        # версія збіглася — наш запис пройшов
-    return "too_busy"                          # надто велика конкуренція
-```
-```ts
-async function buySeat(db: Client, eventId: number) {
-  for (let i = 0; i < 5; i++) {                  // кілька спроб
-    const { seats, ver } = await readSeats(db, eventId);
-    if (seats <= 0) return "sold_out";
-    const { rowCount } = await db.query(
-      "UPDATE events SET seats_left = seats_left - 1, version = version + 1 " +
-      "WHERE id = $1 AND version = $2", [eventId, ver]);
-    if (rowCount === 1) return "ok";             // версія збіглася — запис пройшов
-  }
-  return "too_busy";                             // надто велика конкуренція
-}
-```
+:::code last-ticket-race-d/py/main.py
+:::code last-ticket-race-d/ts/index.ts
 :::
 
 Оптимістичний і песимістичний — це не «кращий і гірший», а **ставка на ймовірність конфлікту**: рідко б'ються — оптимістично (не плати, поки не довелось); часто — песимістично (заплати відразу й не переробляй). [Ширше про оптимістичне блокування як прийом](root:sf-data/optimistic-locking) — окремо.

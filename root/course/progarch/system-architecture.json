@@ -56,7 +56,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-microservice-premium.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-apps/modular-monolith",
@@ -81,8 +88,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-monolith-skeleton.md",
+              "status": "recheck",
+              "recode": true
+            },
+            {
+              "file": "proj-dh-read-composition.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -181,7 +201,14 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-boundary-refactor-cost.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "when-to-split",
@@ -190,7 +217,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -202,7 +230,14 @@
           "detailed": {
             "status": "deeper",
             "level": 5
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-service-extraction-cost.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "service-granularity-choice",
@@ -213,7 +248,14 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-granularity-evaluator.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "context-as-service-candidate",
@@ -261,8 +303,23 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
-          }
+            "level": 3,
+            "recode": true
+          },
+          "api": [
+            {
+              "file": "api-contract-testing.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-strangler-migration.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -283,7 +340,14 @@
           "detailed": {
             "status": "deeper",
             "level": 4
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-distributed-transaction-tax.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "com-protocol/soap-web-services",
@@ -314,7 +378,14 @@
           "detailed": {
             "status": "deeper",
             "level": 4
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-macro-pattern-evaluator.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -411,7 +482,21 @@
           "detailed": {
             "status": "deeper",
             "level": 3
-          }
+          },
+          "api": [
+            {
+              "file": "api-services-audit-matrix.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-coupling-analyzer.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-v8-services-map",
@@ -420,8 +505,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-services-adr.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-macro-choice",
@@ -432,7 +525,21 @@
           "detailed": {
             "status": "deeper",
             "level": 4
-          }
+          },
+          "api": [
+            {
+              "file": "api-dh-module-contracts.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-module-boundary.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "dh-hybrid-styles",
@@ -451,8 +558,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dh-final-topology.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     }

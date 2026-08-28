@@ -25,106 +25,8 @@
 Ось увесь субстрат: детермінований генератор чисел (щоб числа збігалися між мовами), годинник, лідер із логом, фоловер, що доганяє лідера курсором по логу, і кластер, який на кожному `tick` посуває час і дає всім фоловерам наздогнати.
 
 :::tabs
-```py
-class Rng:                                    # детермінований ГВЧ (LCG)
-    def __init__(self, seed): self.s = seed & 0xFFFFFFFF
-    def next(self):
-        self.s = (1664525 * self.s + 1013904223) & 0xFFFFFFFF
-        return self.s / 4294967296
-    def below(self, p): return self.next() < p
-    def index(self, n): return int(self.next() * n)
-    def pick(self, xs): return xs[int(self.next() * len(xs))]
-
-class Clock:
-    def __init__(self): self.t = 0.0
-    def advance(self, dt): self.t += dt
-
-class Leader:
-    def __init__(self): self.state, self.log = {}, []
-    def apply_write(self, home, device, value, t):
-        seq = len(self.log)                   # монотонний номер запису
-        self.state[(home, device)] = (value, seq)
-        self.log.append((seq, t, home, device, value))
-        return seq
-    def get(self, home, device): return self.state.get((home, device))
-
-class Follower:
-    def __init__(self, leader, lag):
-        self.leader, self.lag = leader, lag
-        self.state, self.cursor = {}, 0
-    def replicate(self, now):                 # доганяємо лідера до межі now − lag
-        log = self.leader.log
-        while self.cursor < len(log) and log[self.cursor][1] <= now - self.lag:
-            seq, t, home, device, value = log[self.cursor]
-            self.state[(home, device)] = (value, seq)
-            self.cursor += 1
-    def get(self, home, device): return self.state.get((home, device))
-
-class Cluster:
-    def __init__(self, lags):
-        self.clock, self.leader = Clock(), Leader()
-        self.followers = [Follower(self.leader, lag) for lag in lags]
-    def tick(self, dt):
-        self.clock.advance(dt)
-        for fol in self.followers: fol.replicate(self.clock.t)
-    def write(self, home, device, value):
-        return self.leader.apply_write(home, device, value, self.clock.t)
-```
-```ts
-class Rng {                                   // детермінований ГВЧ (LCG)
-  s: number;
-  constructor(seed: number) { this.s = seed >>> 0; }
-  next(): number { this.s = (Math.imul(1664525, this.s) + 1013904223) >>> 0; return this.s / 4294967296; }
-  below(p: number): boolean { return this.next() < p; }
-  index(n: number): number { return Math.floor(this.next() * n); }
-  pick<T>(xs: T[]): T { return xs[Math.floor(this.next() * xs.length)]; }
-}
-
-type Kind = "lock" | "device_state" | "registry" | "telemetry";
-type Cell = [string, number];                 // [значення, seq]
-type Row = [number, number, number, number, string];  // seq, t, home, device, value
-
-class Clock { t = 0; advance(dt: number) { this.t += dt; } }
-
-class Leader {
-  state = new Map<string, Cell>();
-  log: Row[] = [];
-  applyWrite(home: number, device: number, value: string, t: number): number {
-    const seq = this.log.length;              // монотонний номер запису
-    this.state.set(`${home}:${device}`, [value, seq]);
-    this.log.push([seq, t, home, device, value]);
-    return seq;
-  }
-  get(home: number, device: number): Cell | undefined { return this.state.get(`${home}:${device}`); }
-}
-
-class Follower {
-  state = new Map<string, Cell>();
-  cursor = 0;
-  leader: Leader; lag: number;
-  constructor(leader: Leader, lag: number) { this.leader = leader; this.lag = lag; }
-  replicate(now: number): void {              // доганяємо лідера до межі now − lag
-    const log = this.leader.log;
-    while (this.cursor < log.length && log[this.cursor][1] <= now - this.lag) {
-      const [seq, , home, device, value] = log[this.cursor];
-      this.state.set(`${home}:${device}`, [value, seq]);
-      this.cursor++;
-    }
-  }
-  get(home: number, device: number): Cell | undefined { return this.state.get(`${home}:${device}`); }
-}
-
-class Cluster {
-  clock = new Clock();
-  leader = new Leader();
-  followers: Follower[];
-  constructor(lags: number[]) { this.followers = lags.map(l => new Follower(this.leader, l)); }
-  tick(dt: number): void { this.clock.advance(dt); for (const f of this.followers) f.replicate(this.clock.t); }
-  write(home: number, device: number, value: string): number {
-    return this.leader.applyWrite(home, device, value, this.clock.t);
-  }
-}
-```
+:::code proj-dh-replica-reads/py/krok-1-klaster-zi.py
+:::code proj-dh-replica-reads/ts/krok-1-klaster-zi.ts
 :::
 
 Серце тут — `replicate`. Фоловер не «отримує» повідомлення; він **сам** доходить курсором по логу лідера рівно до тих записів, чий час уже проминув межу `now − lag`. Усе, що новіше, для нього ще не існує. Саме цей один рядок `log[self.cursor][1] <= now - self.lag` перетворює абстрактний «лаг» на конкретну, порахунковувану відсталість — і робить баг неминучим, а не випадковим.
@@ -136,60 +38,8 @@ class Cluster {
 Тепер той самий маршрутизатор, що й у кроці, але з трьома вимикачами, щоб на одному й тому самому навантаженні порівняти «наївно» проти «з класами». `classify=False` — наївний режим: усе валиться на фоловери (те, що зробив би звичайний балансувальник, який не розрізняє читань). `sticky` вмикає липке-після-запису, `pin` — прив'язку сесії до однієї копії. Увімкнені всі три — це повне рішення.
 
 :::tabs
-```py
-class ReadRouter:
-    def __init__(self, cluster, lag_window=1.5,
-                 classify=True, sticky=True, pin=True, rng=None):
-        self.c, self.lag_window = cluster, lag_window
-        self.classify, self.sticky, self.pin = classify, sticky, pin
-        self.last_write, self.rng = {}, rng or Rng(7)
-
-    def note_write(self, home):               # застосунок щойно писав у цей дім
-        self.last_write[home] = self.c.clock.t
-
-    def route(self, home, kind):
-        if not self.classify:                 # наївний режим: усе на фоловери
-            return self._follower(home)
-        if kind == "lock":                    # безпека: замок завжди з лідера
-            return self.c.leader
-        if kind == "device_state" and self.sticky:
-            if self.c.clock.t - self.last_write.get(home, -1e9) < self.lag_window:
-                return self.c.leader          # read-your-writes: свій свіжий запис
-        return self._follower(home)           # реєстр, телеметрія, давній стан
-
-    def _follower(self, home):
-        n = len(self.c.followers)
-        # прив'язка: сесія (тут — дім) завжди на ТУ САМУ копію → монотонні читання
-        return self.c.followers[home % n] if self.pin \
-            else self.c.followers[self.rng.index(n)]
-```
-```ts
-class ReadRouter {
-  c: Cluster; lagWindow: number; classify: boolean; sticky: boolean; pin: boolean; rng: Rng;
-  lastWrite = new Map<number, number>();
-  constructor(c: Cluster, lagWindow = 1.5, classify = true, sticky = true, pin = true, rng = new Rng(7)) {
-    this.c = c; this.lagWindow = lagWindow; this.classify = classify;
-    this.sticky = sticky; this.pin = pin; this.rng = rng;
-  }
-  noteWrite(home: number): void {             // застосунок щойно писав у цей дім
-    this.lastWrite.set(home, this.c.clock.t);
-  }
-  route(home: number, kind: Kind): Leader | Follower {
-    if (!this.classify) return this.follower(home);          // наївний режим
-    if (kind === "lock") return this.c.leader;               // безпека: замок з лідера
-    if (kind === "device_state" && this.sticky) {
-      if (this.c.clock.t - (this.lastWrite.get(home) ?? -1e9) < this.lagWindow)
-        return this.c.leader;                                // read-your-writes
-    }
-    return this.follower(home);                              // реєстр, телеметрія, давній стан
-  }
-  private follower(home: number): Follower {
-    const n = this.c.followers.length;
-    // прив'язка: сесія (тут — дім) завжди на ТУ САМУ копію → монотонні читання
-    return this.pin ? this.c.followers[home % n] : this.c.followers[this.rng.index(n)];
-  }
-}
-```
+:::code proj-dh-replica-reads/py/krok-2-marshrutyzator.py
+:::code proj-dh-replica-reads/ts/krok-2-marshrutyzator.ts
 :::
 
 Три галузки — три різні відповіді на три різні запитання. `lock` не питає нічого: замок завжди з лідера, бо застарілий стан замка — це вже не дрібниця, а питання безпеки. `device_state` питає «а чи писала ця сесія в цей дім щойно?» і, лише якщо так і лише коротко, тягне з лідера. Усе решта — на фоловери. Названі гарантії, які ми тут тримаємо руками, — **read-your-writes** і **монотонні читання** — не наш винахід: це дві з чотирьох «сесійних гарантій», які [сформулювали Террі, Демерс і колеги в проєкті Bayou (Xerox PARC, 1994)](https://dl.acm.org/doi/10.5555/645792.668302) саме для слабко узгоджених реплік, де застосунок читає з різних, можливо, розсинхронених серверів, але мусить бачити картину, узгоджену з власними діями.
@@ -201,128 +51,8 @@ class ReadRouter {
 Порушення ловимо просто. Для кожного перечитування знаємо `seq` запису, який його спричинив: якщо читання повернуло менший `seq` — воно не побачило власного запису (застаріле читання). Якщо `seq` менший за максимум, уже побачений у цій серії перечитувань, — час пішов назад (порушення монотонності).
 
 :::tabs
-```py
-def run(lag_window=1.5, classify=True, sticky=True, pin=True,
-        n_homes=400, steps=5000, dt=0.02, seed=42):
-    rng = Rng(seed)
-    c = Cluster([0.2, 0.5, 1.0])              # три фоловери з різним лагом, с
-    r = ReadRouter(c, lag_window, classify, sticky, pin, rng=Rng(7))
-
-    watch, burst_seen = [], {}                # заплановані перечитування; макс. seq у серії
-    served = {"leader": 0, "follower": 0}
-    ryw = viol = mono = reread_leader = burst = 0
-
-    def do_read(home, device, kind):
-        node = r.route(home, kind)
-        served["leader" if node is c.leader else "follower"] += 1
-        return node, node.get(home, device)
-
-    for _ in range(steps):
-        # ~3% кроків: користувач клацає пристрій і за мить перечитує екран 4 рази
-        if rng.below(0.03):
-            home, device = rng.index(n_homes), rng.index(4)
-            seq = c.write(home, device, rng.pick(["on", "off"]))
-            r.note_write(home); burst += 1
-            for d in (0.15, 0.35, 0.6, 0.9):
-                watch.append((c.clock.t + d, home, device, seq, burst))
-
-        due = [w for w in watch if w[0] <= c.clock.t]
-        if due:
-            watch = [w for w in watch if w[0] > c.clock.t]
-            for _, home, device, wseq, b in due:
-                node, got = do_read(home, device, "device_state")
-                if node is c.leader: reread_leader += 1
-                ryw += 1
-                gseq = got[1] if got else -1
-                if gseq < wseq: viol += 1                      # не бачу власного запису
-                if gseq < burst_seen.get(b, -1): mono += 1     # час пішов назад
-                burst_seen[b] = max(burst_seen.get(b, -1), gseq)
-
-        for _ in range(6):                    # фоновий потік: телеметрія/реєстр/замок/чужий стан
-            u = rng.next()
-            kind = ("telemetry" if u < 0.55 else "registry" if u < 0.78
-                    else "device_state" if u < 0.92 else "lock")
-            do_read(rng.index(n_homes), rng.index(4), kind)
-
-        c.tick(dt)
-
-    total = served["leader"] + served["follower"]
-    return dict(ryw=ryw, viol=viol, mono=mono, reread_leader=reread_leader,
-                leader_frac=served["leader"] / total,
-                follower_frac=served["follower"] / total, total=total)
-
-if __name__ == "__main__":
-    base = run(classify=False, pin=False)     # наївний балансувальник
-    good = run()                              # класи + липке + прив'язка
-    print("БЕЗ  маршрутизації: %d/%d перечитувань застарілих (%.0f%%), %d стрибків часу назад; "
-          "лідер %.0f%%" % (base["viol"], base["ryw"], 100*base["viol"]/base["ryw"],
-                            base["mono"], 100*base["leader_frac"]))
-    print("З    маршрутизацією: %d застарілих, %d стрибків; лідер %.1f%%, фоловери %.1f%% "
-          "(усього %d читань)" % (good["viol"], good["mono"], 100*good["leader_frac"],
-                                  100*good["follower_frac"], good["total"]))
-```
-```ts
-function run(lagWindow = 1.5, classify = true, sticky = true, pin = true,
-             nHomes = 400, steps = 5000, dt = 0.02, seed = 42) {
-  const rng = new Rng(seed);
-  const c = new Cluster([0.2, 0.5, 1.0]);     // три фоловери з різним лагом, с
-  const r = new ReadRouter(c, lagWindow, classify, sticky, pin, new Rng(7));
-
-  // елемент watch: [момент, home, device, seq запису, номер серії]
-  let watch: [number, number, number, number, number][] = [];
-  const burstSeen = new Map<number, number>();
-  const served = { leader: 0, follower: 0 };
-  let ryw = 0, viol = 0, mono = 0, rereadLeader = 0, burst = 0;
-
-  const doRead = (home: number, device: number, kind: Kind): [Leader | Follower, Cell | undefined] => {
-    const node = r.route(home, kind);
-    if (node === c.leader) served.leader++; else served.follower++;
-    return [node, node.get(home, device)];
-  };
-
-  for (let i = 0; i < steps; i++) {
-    // ~3% кроків: користувач клацає пристрій і за мить перечитує екран 4 рази
-    if (rng.below(0.03)) {
-      const home = rng.index(nHomes), device = rng.index(4);
-      const seq = c.write(home, device, rng.pick(["on", "off"]));
-      r.noteWrite(home); burst++;
-      for (const d of [0.15, 0.35, 0.6, 0.9]) watch.push([c.clock.t + d, home, device, seq, burst]);
-    }
-    const due = watch.filter(w => w[0] <= c.clock.t);
-    if (due.length) {
-      watch = watch.filter(w => w[0] > c.clock.t);
-      for (const [, home, device, wseq, b] of due) {
-        const [node, got] = doRead(home, device, "device_state");
-        if (node === c.leader) rereadLeader++;
-        ryw++;
-        const gseq = got ? got[1] : -1;
-        if (gseq < wseq) viol++;                             // не бачу власного запису
-        if (gseq < (burstSeen.get(b) ?? -1)) mono++;         // час пішов назад
-        burstSeen.set(b, Math.max(burstSeen.get(b) ?? -1, gseq));
-      }
-    }
-    for (let k = 0; k < 6; k++) {               // фоновий потік
-      const u = rng.next();
-      const kind: Kind = u < 0.55 ? "telemetry" : u < 0.78 ? "registry"
-        : u < 0.92 ? "device_state" : "lock";
-      doRead(rng.index(nHomes), rng.index(4), kind);
-    }
-    c.tick(dt);
-  }
-  const total = served.leader + served.follower;
-  return { ryw, viol, mono, rereadLeader, leaderFrac: served.leader / total,
-           followerFrac: served.follower / total, total };
-}
-
-const base = run(1.5, false, true, false);    // наївний балансувальник
-const good = run();                           // класи + липке + прив'язка
-console.log(`БЕЗ  маршрутизації: ${base.viol}/${base.ryw} перечитувань застарілих ` +
-  `(${Math.round(100*base.viol/base.ryw)}%), ${base.mono} стрибків часу назад; ` +
-  `лідер ${Math.round(100*base.leaderFrac)}%`);
-console.log(`З    маршрутизацією: ${good.viol} застарілих, ${good.mono} стрибків; ` +
-  `лідер ${(100*good.leaderFrac).toFixed(1)}%, фоловери ${(100*good.followerFrac).toFixed(1)}% ` +
-  `(усього ${good.total} читань)`);
-```
+:::code proj-dh-replica-reads/py/krok-3-navantazhennia.py
+:::code proj-dh-replica-reads/ts/krok-3-navantazhennia.ts
 :::
 
 ## Що показали числа
@@ -351,22 +81,7 @@ console.log(`З    маршрутизацією: ${good.viol} застаріли
 
 Уся дешевизна read-your-writes тримається на `last_write` — словнику «коли ця сесія востаннє писала». А він живе **в пам'яті процесу**. Що станеться, коли процес перезапустять — викотили нову версію, впав інстанс, балансувальник підняв свіжий? `last_write` порожній. І перечитування, яким **найбільше** потрібен лідер, дружно поїдуть на фоловери — бо про недавній запис ніхто вже не пам'ятає. Баг повертається саме тоді, коли систему щойно чіпали руками, тобто в найгірший момент.
 
-```py
-def restart_demo(rebuild):
-    c = Cluster([0.2, 0.5, 1.0]); r = ReadRouter(c)
-    c.write(0, 0, "on");  r.note_write(0)         # початково on усюди
-    for _ in range(60): c.tick(0.02)              # +1.2 с: усі фоловери догнали
-    c.write(0, 0, "off"); r.note_write(0)         # користувач ВИМИКАЄ (t0)
-    for _ in range(5): c.tick(0.02)               # +0.1 с
-    r.last_write.clear()                          # ← РЕСТАРТ: пам'ять вікна втрачено
-    if rebuild: r.last_write[0] = c.clock.t       # грейс: вважати дім щойно-писаним
-    for _ in range(3): c.tick(0.02)               # +0.16 с — час перечитати екран
-    node = r.route(0, "device_state")
-    got = node.get(0, 0)
-    return ("лідер" if node is c.leader else "фоловер"), (got[0] if got else None)
-
-print(restart_demo(False), restart_demo(True))    # → ('фоловер', 'on') ('лідер', 'off')
-```
+:::code proj-dh-replica-reads/py/porozhnii-last-write.py
 
 Без відновлення перечитування падає на фоловера, який ще тримає старе `on`, — користувач вимкнув, а бачить ввімкнене. З простим грейсом — «після старту пару секунд вважай усі доми щойно-писаними» — те саме читання йде на лідера й повертає чесне `off`. Грейс коштує короткого сплеску навантаження на лідера одразу після рестарту; це мізерна ціна проти повернення бага. Той самий висновок стосується й **горизонтального** масштабу: якщо маршрутизаторів кілька, `last_write`, зроблений на інстансі A, невідомий інстансу B, — тож або цей стан носить сам клієнт (маркер «мій останній запис був о такій-то версії»), або кожен інстанс мусить бути консервативним. Пам'ять про свіжий запис — це стан, і ставитися до неї треба як до стану, а не як до випадкової локальної змінної.
 
@@ -390,24 +105,7 @@ for w in (0.0, 0.25, 0.5, 1.0, 1.5, 3.0):
 
 Липке-після-запису лагодить **твій власний** свіжий запис. Але є підступніший збій, який воно не чіпає: два послідовні читання не сміють іти назад у часі, навіть коли ти сам нічого не писав. Уяви, що ти дивишся на живий стан пристрою в домі, де його смикає **хтось інший** (спільний доступ, інший мешканець). Твої опитування — це читання на фоловери. Якщо балансувальник щоразу кидає їх на випадкову копію, перше опитування може влучити в догнанішого фоловера (бачить `off`), друге — у відсталішого (бачить `on`), — і екран блимає `off → on → off`, хоча стан насправді рухався лише в один бік.
 
-```py
-def mono_demo(pin):
-    c = Cluster([0.2, 0.5, 1.0])
-    r = ReadRouter(c, sticky=False, pin=pin, rng=Rng(7))  # sticky off → device_state завжди на фоловер
-    val, seen_max, viol = "off", -1, 0
-    for i in range(600):
-        if i % 5 == 0:                        # писар перемикає стан кожні 0.1 с
-            val = "on" if val == "off" else "off"
-            c.write(0, 0, val)
-        got = r.route(0, "device_state").get(0, 0)   # спостерігач опитує живий стан
-        seq = got[1] if got else -1
-        if seq < seen_max: viol += 1          # побачив стан, СТАРШИЙ за вже бачений
-        seen_max = max(seen_max, seq)
-        c.tick(0.02)
-    return viol
-
-print(mono_demo(pin=True), mono_demo(pin=False))   # → 0 379
-```
+:::code proj-dh-replica-reads/py/vidsutnist-monotonnosti.py
 
 Без прив'язки — **379** стрибків назад за 600 кроків; із прив'язкою — рівно **нуль**. Прив'язати сесію до однієї копії коштує буквально нічого (`home % n` замість випадкового вибору), а натомість фізично забороняє читанню задкувати: одна копія свій `seq` лише нарощує, тож і побачений `seq` уже не впаде. Одна засторога до цього трюку тягне назад до попередньої пастки: прив'язувати треба за **стабільним** ключем. Убудований `hash()` у деяких середовищах підсолюється на кожен процес (у Python — типово), тож після рестарту той самий дім лягав би на **іншого** фоловера, і монотонність знову б порвалася. Прив'язуй за самим ідентифікатором дому чи сесії або за фіксованою хеш-функцією — не за тим `hash`, що змінюється між запусками.
 

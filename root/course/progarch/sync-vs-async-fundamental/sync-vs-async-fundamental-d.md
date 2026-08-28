@@ -90,39 +90,8 @@
 У коді різниця видна відразу — вона в тому, що обробник **повертає**:
 
 :::tabs
-```ts
-// СИНХРОННО — обробник тримає запит відкритим, доки хаб не відповість
-app.post("/homes/:id/lock", async (req, res) => {
-  const r = await hub.send(req.params.id, { cmd: "lock" }); // ← чекаємо ТУТ
-  res.json({ state: r.state });                    // лише тепер: 200 OK «зачинено»
-});
-
-// АСИНХРОННО — обробник кладе команду в чергу й одразу відповідає
-app.post("/homes/:id/lock", async (req, res) => {
-  const id = await commands.enqueue({ home: req.params.id, cmd: "lock" });
-  res.status(202).json({ accepted: true, commandId: id }); // 202 «прийнято», НЕ «зроблено»
-});
-// окремий споживач виконає команду, коли хаб оживе (може прийти двічі — тому lock ідемпотентна):
-commands.consume((c) => hub.send(c.home, c));
-```
-```py
-# СИНХРОННО — обробник тримає запит відкритим, доки хаб не відповість
-@app.post("/homes/{home_id}/lock")
-async def lock(home_id: str):
-    r = await hub.send(home_id, Cmd.LOCK)   # ← чекаємо ТУТ
-    return {"state": r.state}               # лише тепер: 200 OK «зачинено»
-
-# АСИНХРОННО — обробник кладе команду в чергу й одразу відповідає
-@app.post("/homes/{home_id}/lock")
-async def lock_async(home_id: str):
-    cmd_id = await commands.enqueue(home_id, Cmd.LOCK)
-    return JSONResponse({"accepted": True, "command_id": cmd_id}, status_code=202)  # «прийнято»
-
-# окремий споживач виконає команду, коли хаб оживе (може прийти двічі — тому LOCK ідемпотентна):
-@commands.consumer
-async def run(c: Command):
-    await hub.send(c.home, c)
-```
+:::code sync-vs-async-fundamental-d/ts/index.ts
+:::code sync-vs-async-fundamental-d/py/main.py
 :::
 
 Зверніть увагу на код відповіді: синхронний обробник каже `200 OK` — «зроблено»; асинхронний каже `202 Accepted` — «прийняв, зроблю пізніше». Це не випадковість: сам HTTP має окремий статус для «я взяв твій запит, але результат буде згодом», бо різниця між «зроблено» і «прийнято» — фундаментальна, а не косметична. [Повну реалізацію обох шляхів — з поверненням результату пізніше, опитуванням статусу й захистом від дубля](root:progarch/sync-vs-async-fundamental/proj-dh-command-two-ways.md) винесено окремо.

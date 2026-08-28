@@ -267,22 +267,7 @@ C4 має чотири рівні масштабу, і ми навмисно с�
 
 Правда одна — `workspace.dsl`. Вкладені `docs/diagrams/*.mmd` — **похідні**, як зкомпільований бінарник. CI на кожному пуші малює їх наново з джерела й **звіряє** з тим, що в репозиторії:
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# 1. Малюємо Mermaid з ЄДИНОГО джерела у тимчасову теку.
-#    Нова консолідована тула Structurizr (Spring Boot .war):
-java -jar structurizr.war export -workspace workspace.dsl -format mermaid -output build/diagrams
-#    (застаріла, але ще жива команда CLI:
-#     ./structurizr.sh export -workspace workspace.dsl -format mermaid -output build/diagrams)
-
-# 2. Порівнюємо згенероване з тим, що закоммічено. Будь-яка різниця — стоп.
-if ! diff -r build/diagrams docs/diagrams; then
-  echo "Діаграми застаріли: перегенеруй і закоммить docs/diagrams" >&2
-  exit 1
-fi
-```
+:::code proj-dh-structurizr/sh/main.sh
 
 Той самий крок у GitHub Actions, через готовий docker-образ:
 

@@ -27,97 +27,8 @@
 Актор тримає стан дому [живим об'єктом у пам'яті](root:sf-tasks/actor-model), а єдиний спосіб з ним заговорити — покласти команду в пошту. З цього однієї властивості серіалізація випадає задарма: пошта і є черга, а актор бере з неї по одному повідомленню й доводить кожне до кінця, перш ніж узяти наступне.
 
 :::tabs
-```ts
-type LockState = { bolt: "locked" | "unlocked"; version: number; lastCmd: string };
-type Cmd = { kind: "lock" | "unlock"; seq: number; by: string };
-
-const SNAP_EVERY = 100;   // знімок на диск — раз на сотню команд
-
-class HomeActor {
-  private box: Cmd[] = [];          // ← пошта: єдина черга дому
-  private sinceSnapshot = 0;
-
-  constructor(private homeId: string,
-              private lock: LockState = { bolt: "unlocked", version: 5, lastCmd: "" }) {}
-
-  // ЄДИНИЙ вхід ззовні: покласти команду в пошту й піти. Стан ніхто не чіпає напряму.
-  tell(cmd: Cmd): void { this.box.push(cmd); }
-
-  // ЄДИНИЙ виконавець дому: бере по одному, доводить до кінця, і лише тоді наступне.
-  // (у справжньому рантаймі цей цикл крутиться безперервно, сам собою.)
-  drain(): void {
-    for (let cmd = this.box.shift(); cmd; cmd = this.box.shift()) this.apply(cmd);
-  }
-
-  private apply(cmd: Cmd): void {
-    // жодного read-modify-write: стан ось тут, у полі, і виконавець його один
-    this.lock = {
-      bolt: cmd.kind === "lock" ? "locked" : "unlocked",
-      version: this.lock.version + 1,
-      lastCmd: `${cmd.by}#${cmd.seq}`,
-    };
-    if (++this.sinceSnapshot >= SNAP_EVERY) {
-      saveSnapshot(this.homeId, this.lock);   // періодичний знімок на диск
-      this.sinceSnapshot = 0;
-    }
-  }
-
-  snapshot(): LockState { return this.lock; }
-}
-
-// сценарій: дві «замкни» майже водночас — обидві лягають у ту саму пошту
-const a = new HomeActor("home42");
-a.tell({ kind: "lock", seq: 6, by: "A" });
-a.tell({ kind: "lock", seq: 7, by: "B" });   // у скриньці тепер ДВІ
-a.drain();                                    // виконавець бере по одній: version 5 → 6 → 7
-```
-```py
-from collections import deque
-from dataclasses import dataclass
-
-SNAP_EVERY = 100                     # знімок на диск — раз на сотню команд
-
-@dataclass
-class LockState:
-    bolt: str = "unlocked"
-    version: int = 5
-    last_cmd: str = ""
-
-class HomeActor:
-    def __init__(self, home_id, lock=None):
-        self.home_id = home_id
-        self.lock = lock or LockState()
-        self._box = deque()          # ← пошта: єдина черга дому
-        self._since_snapshot = 0
-
-    # ЄДИНИЙ вхід ззовні: покласти команду в пошту й піти. Стан ніхто не чіпає напряму.
-    def tell(self, cmd):
-        self._box.append(cmd)
-
-    # ЄДИНИЙ виконавець дому: бере по одній, доводить до кінця, і лише тоді наступну.
-    # (у справжньому рантаймі цей цикл крутиться безперервно, сам собою.)
-    def drain(self):
-        while self._box:
-            self._apply(self._box.popleft())
-
-    def _apply(self, cmd):
-        # жодного read-modify-write: стан ось тут, і виконавець його один
-        self.lock = LockState(
-            bolt="locked" if cmd["kind"] == "lock" else "unlocked",
-            version=self.lock.version + 1,
-            last_cmd=f"{cmd['by']}#{cmd['seq']}",
-        )
-        self._since_snapshot += 1
-        if self._since_snapshot >= SNAP_EVERY:
-            save_snapshot(self.home_id, self.lock)     # періодичний знімок на диск
-            self._since_snapshot = 0
-
-# сценарій: дві «замкни» майже водночас — обидві лягають у ту саму пошту
-a = HomeActor("home42")
-a.tell({"kind": "lock", "seq": 6, "by": "A"})
-a.tell({"kind": "lock", "seq": 7, "by": "B"})   # у скриньці тепер ДВІ
-a.drain()                                        # виконавець бере по одній: version 5 → 6 → 7
-```
+:::code proj-twin-three-ways/ts/variant-a-aktor-poshta-i.ts
+:::code proj-twin-three-ways/py/variant-a-aktor-poshta-i.py
 :::
 
 Придивися, де тут поділася гонка. Її **нема куди вставити**. Стан `lock` — приватне поле, і торкається його рівно один виконавець — цикл `drain`. Обидві команди лягають у ту саму пошту, а виконавець бере їх по одній і доводить кожну до кінця, перш ніж узяти наступну, тож тіла двох `apply` ніколи не переплітаються. Тому `version` чесно росте 5 → 6 → 7, і замок не потрібен: замикати нема від кого, бо спільного стану, за який змагатися, просто не існує. Це не наша хитрість, а рідна властивість моделі: у Microsoft Orleans, наприклад, кожен ґрейн виконує свої виклики строго по одному від початку до кінця, і документація каже про це прямо — немає потреби в замках чи іншій синхронізації проти станів гонки. Серіалізацію купуєш не кодом, а **формою**.
@@ -151,18 +62,7 @@ def revive_actor(home_id):
 Спершу напишімо наївно — так, як пише кожен, доки його не вкусило:
 
 :::tabs
-```ts
-// НАЇВНО: прочитали рядок, змінили, записали назад. Гонка ховається саме тут.
-async function applyNaive(db: Db, homeId: string, cmd: Cmd): Promise<void> {
-  const row = await db.get("device_state", homeId);          // read  (version = 5)
-  row.bolt = cmd.kind === "lock" ? "locked" : "unlocked";    // modify
-  row.version += 1;                                          //        (5 → 6)
-  row.lastCmd = `${cmd.by}#${cmd.seq}`;
-  await db.put("device_state", homeId, row);                 // write (version = 6)
-}
-// дві такі команди водночас: ОБИДВІ прочитали version=5, ОБИДВІ пишуть version=6.
-// друга затерла першу — «загублене оновлення». version=6, а команд було дві.
-```
+:::code proj-twin-three-ways/ts/variant-b-riadok-pravda-na.ts
 ```py
 # НАЇВНО: прочитали рядок, змінили, записали назад. Гонка ховається саме тут.
 def apply_naive(db, home_id, cmd):
@@ -181,42 +81,8 @@ def apply_naive(db, home_id, cmd):
 Ліки — не «бути обережним», а зробити гонку структурно неможливою. Найдешевший спосіб — [версія рядка](root:sf-data/optimistic-locking): пиши лише тоді, коли `version` не змінилася з-під тебе, тобто порівняй-і-заміни (compare-and-swap) по стовпцю версії.
 
 :::tabs
-```ts
-// ВЕРСІЯ РЯДКА (оптимістично): запис проходить, лише якщо version та сама, що прочитали
-async function applyCas(db: Db, homeId: string, cmd: Cmd): Promise<void> {
-  for (;;) {
-    const row = await db.get("device_state", homeId);
-    const changed = await db.update("device_state", {
-      where: { homeId, version: row.version },               // ← умова CAS
-      set: {
-        bolt: cmd.kind === "lock" ? "locked" : "unlocked",
-        version: row.version + 1,
-        lastCmd: `${cmd.by}#${cmd.seq}`,
-      },
-    });
-    if (changed === 1) return;        // ми виграли — рівно ми бумкнули version
-    // changed === 0: хтось інший бумкнув version між нашим read і write → повторити
-  }
-}
-```
-```py
-# ВЕРСІЯ РЯДКА (оптимістично): запис проходить, лише якщо version та сама, що прочитали
-def apply_cas(db, home_id, cmd):
-    while True:
-        row = db.get("device_state", home_id)
-        changed = db.update(
-            "device_state",
-            where={"home_id": home_id, "version": row["version"]},   # ← умова CAS
-            set={
-                "bolt": "locked" if cmd["kind"] == "lock" else "unlocked",
-                "version": row["version"] + 1,
-                "last_cmd": f"{cmd['by']}#{cmd['seq']}",
-            },
-        )
-        if changed == 1:            # ми виграли — рівно ми бумкнули version
-            return
-        # changed == 0: хтось бумкнув version між read і write → повторити
-```
+:::code proj-twin-three-ways/ts/variant-b-riadok-pravda-na-2.ts
+:::code proj-twin-three-ways/py/variant-b-riadok-pravda-na.py
 :::
 
 По суті це один рядок SQL, який робить читання-перевірку-запис атомарними в базі:
@@ -237,49 +103,8 @@ UPDATE device_state
 Третій варіант робить істиною не поточний стан, а [журнал подій](root:sf-apps/event-sourcing): кожна команда — це дописаний у лог факт, а «як зараз» рахують згорткою (проєкцією) над логом. Серіалізацію тут дає сам лог: він присвоює кожному запису позицію, і ця позиція **і є** порядок.
 
 :::tabs
-```ts
-type Event = { type: "Locked" | "Unlocked"; seq: number; by: string };
-
-// ЗАПИС: дописати факт. Лог сам присвоює позицію — вона й є порядок.
-async function record(log: Log, homeId: string, cmd: Cmd): Promise<void> {
-  await log.append(homeId, {
-    type: cmd.kind === "lock" ? "Locked" : "Unlocked",
-    seq: cmd.seq, by: cmd.by,
-  });                                  // durable: fsync до підтвердження
-}
-
-// ЧИТАННЯ: поточний стан = згортка журналу. «Як зараз» рахуємо, а не зберігаємо.
-function apply(s: LockState, e: Event): LockState {
-  return {
-    bolt: e.type === "Locked" ? "locked" : "unlocked",
-    version: s.version + 1,
-    lastCmd: `${e.by}#${e.seq}`,
-  };
-}
-function project(events: Event[]): LockState {
-  return events.reduce(apply, INITIAL);
-}
-```
-```py
-from functools import reduce
-
-# ЗАПИС: дописати факт. Лог сам присвоює позицію — вона й є порядок.
-def record(log, home_id, cmd):
-    log.append(home_id, {
-        "type": "Locked" if cmd["kind"] == "lock" else "Unlocked",
-        "seq": cmd["seq"], "by": cmd["by"],
-    })                                 # durable: fsync до підтвердження
-
-# ЧИТАННЯ: поточний стан = згортка журналу. «Як зараз» рахуємо, а не зберігаємо.
-def apply(s, e):
-    return LockState(
-        bolt="locked" if e["type"] == "Locked" else "unlocked",
-        version=s.version + 1,
-        last_cmd=f"{e['by']}#{e['seq']}",
-    )
-def project(events):
-    return reduce(apply, events, LockState())
-```
+:::code proj-twin-three-ways/ts/variant-v-zhurnal-poriadok.ts
+:::code proj-twin-three-ways/py/variant-v-zhurnal-poriadok.py
 :::
 
 Гонки на втрату тут нема з іншої причини, ніж в актора. Актор **не пускав** двох одночасно; лог пускає обидві, але `append` лише **дописує** — він фізично не може затерти чужий запис, як це робив наївний `put`. Дві «замкни» лягають у лог двома сусідніми позиціями, у якомусь одному порядку, і згортка над ними чесно дає `version = 7`. Порядок вирішує не наш код, а те, у якій послідовності лог прийняв дописи (єдиний писар на дім дає йому повний порядок — той самий єдиний писар, на якому [тримався твін на репліках](root:progarch/dh-replicas)).

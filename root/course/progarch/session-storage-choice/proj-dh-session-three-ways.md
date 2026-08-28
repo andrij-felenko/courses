@@ -23,32 +23,7 @@ interface SessionSeam {
 
 Одна проміжна ланка Express кличе цей шов — і вона **байдужа** до того, який варіант під нею. Прочитала пред'явлене, спитала шов, поклала `Principal` у запит — далі жоден обробник маршруту не знає й не хоче знати, звідки взялася відповідь.
 
-```ts
-import type { Request, Response, NextFunction, RequestHandler } from "express";
-
-function readCredential(req: Request): string {
-  const bearer = req.header("authorization")?.replace(/^Bearer /, "");
-  return bearer ?? (req as any).cookies?.sid ?? ""; // Bearer (Б/В) або кукі sid (А)
-}
-
-// Та сама middleware для ВСІХ трьох варіантів. Міняється лише seam при збірці.
-function authenticate(seam: SessionSeam): RequestHandler {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    const who = await seam.validate(readCredential(req));
-    if (!who) return res.status(401).json({ error: "unauthorized" });
-    (req as any).principal = who; // далі — лише Principal, походження невидиме
-    next();
-  };
-}
-
-// Викликач — і гадки не має, стор під ним чи підпис. Бачить готового principal.
-app.post("/device/:id/unlock", authenticate(seam), (req, res) => {
-  const who = (req as any).principal as Principal;
-  if (!who.scopes.includes("door:unlock")) return res.status(403).end();
-  lock.open(req.params.id, who.home); // ← ось той самий замок вхідних дверей
-  res.json({ ok: true });
-});
-```
+:::code proj-dh-session-three-ways/ts/zadacha-prybyty-vse-krim.ts
 
 Тепер уся розвилка стиснута в **один рядок** — той, де при збірці програми ми пишемо `const seam = new …()`. Поміняли цей рядок — і `authenticate`, і кожен обробник маршруту лишаються байт-у-байт тими самими. Ось що означає «сховати вибір за швом»: три геть різні сховища сесії відрізняються лише вибором конструктора.
 
@@ -75,59 +50,13 @@ const clock = () => NOW;     // впорскуємо цей годинник у 
 
 У кукі клієнта — лише короткий непрозорий `sid`, випадковий рядок, що сам собою нічого не значить. Уся правда сесії — у сторі Redis-класу, куди дотягуються всі інстанси. Логін кладе правду туди й віддає клієнтові лише ключ; перевірка на кожен запит іде в стор за цим ключем; відкликання — видалення рядка.
 
-```ts
-import { randomBytes } from "node:crypto";
-
-interface Store {                                   // рівно те, що дає Redis
-  get(k: string): Promise<string | null>;
-  set(k: string, v: string, ttlSec: number): Promise<void>;
-  del(k: string): Promise<void>;
-}
-
-class ServerStoreSeam implements SessionSeam {
-  constructor(private store: Store) {}
-
-  // холодний шлях: логін кладе правду в стор, клієнтові дає лише непрозорий sid
-  async login(p: Principal): Promise<string> {
-    const sid = randomBytes(32).toString("base64url"); // сам собою нічого не значить
-    await this.store.set(`sess:${sid}`, JSON.stringify(p), 30 * 24 * 3600);
-    return sid;
-  }
-
-  // гарячий шлях: правду шукаємо в сторі на КОЖЕН запит
-  async validate(sid: string): Promise<Principal | null> {
-    if (!sid) return null;
-    const raw = await this.store.get(`sess:${sid}`);   // ← похід у Redis
-    return raw ? (JSON.parse(raw) as Principal) : null; // нема запису — нема сесії
-  }
-
-  // орган відкликання: видалив рядок — сесія мертва в ту ж мить, на всіх інстансах
-  async revoke(sid: string): Promise<void> {
-    await this.store.del(`sess:${sid}`);
-  }
-}
-```
+:::code proj-dh-session-three-ways/ts/variant-a-server-side.ts
 
 У живому Node цей клас майже дослівно — це `express-session` поверх `connect-redis`: та сама кукі з непрозорим `sid`, той самий похід у стор на кожен запит, а `req.session.destroy()` — це рівно наш `revoke`. Я переписую його тонко власноруч лише щоб усі три варіанти сиділи за **однаковим** інтерфейсом і порівняння лишалося чистим.
 
 Тепер сценарій «відклич, потім спробуй ще раз». Стор — проста мапа в пам'яті замість Redis; API той самий.
 
-```ts
-class MemoryStore implements Store {                 // у проді — Redis, API ідентичний
-  private m = new Map<string, string>();
-  async get(k: string) { return this.m.get(k) ?? null; }
-  async set(k: string, v: string) { this.m.set(k, v); }
-  async del(k: string) { this.m.delete(k); }
-}
-
-const alice: Principal = { sub: "u-42", home: "home-7", scopes: ["door:unlock"] };
-const seamA = new ServerStoreSeam(new MemoryStore());
-
-const sid = await seamA.login(alice);
-console.log(await seamA.validate(sid)); // → { sub: 'u-42', … }  ЖИВА
-await seamA.revoke(sid);                //   ← «викинули телефон»: видалили запис
-console.log(await seamA.validate(sid)); // → null                МЕРТВА В ТУ Ж МИТЬ
-```
+:::code proj-dh-session-three-ways/ts/variant-a-server-side-2.ts
 
 ```
 t=0s   validate → Principal   (жива)
@@ -141,44 +70,7 @@ t=0s   validate → null      ← вікно відкликання = 0: мер�
 
 Протилежна філософія: сервер не тримає жодної сесії. Усе — «це користувач такий-то, ось права, чинний до такої-то хвилини» — лежить у самому токені, а зверху криптографічна печатка. Підписуємо приватним ключем при вході; перевіряємо публічним локально на кожен запит, [як і належить підписаному токену без стану](root:sf-web/jwt-tokens); нікуди не ходимо.
 
-```ts
-import jwt from "jsonwebtoken";
-
-class StatelessJwtSeam implements SessionSeam {
-  constructor(
-    private priv: string,                    // приватний ключ — лише в емітента
-    private pub: string,                     // публічний — у кожного, хто перевіряє
-    private clock: () => number = () => Math.floor(Date.now() / 1000),
-  ) {}
-
-  login(p: Principal): string {
-    const now = this.clock();
-    return jwt.sign(
-      { sub: p.sub, home: p.home, scopes: p.scopes, iat: now, exp: now + 24 * 3600 },
-      this.priv,
-      { algorithm: "RS256" },   // підпис приватним; expiresIn НЕ передаємо — exp уже в тілі
-    );
-  }
-
-  async validate(token: string): Promise<Principal | null> {
-    try {
-      const c = jwt.verify(token, this.pub, {
-        algorithms: ["RS256"],
-        clockTimestamp: this.clock(), // порівняння exp — проти НАШОГО годинника
-      }) as jwt.JwtPayload;
-      return { sub: c.sub as string, home: c.home, scopes: c.scopes };
-    } catch {
-      return null; // прострочений або підроблений — і БІЛЬШЕ дивитися нема куди
-    }
-  }
-
-  async revoke(_handle: string): Promise<void> {
-    // НІКУДИ писати. Сервер не тримає сесій — отже, нема місця сказати «ця вже ні».
-    // Єдиний спосіб — завести денилист… але це вже похід у стор на гарячому шляху,
-    // тобто вже НЕ stateless. Тож тут — чесний no-op, і в ньому вся рана.
-  }
-}
-```
+:::code proj-dh-session-three-ways/ts/variant-b-stateless-jwt.ts
 
 Зверни увагу на тіло `revoke`. Воно **порожнє** — і не тому, що я полінувався. Порожнє воно **за побудовою**: у варіанті, де сервер лише перевіряє підпис, немає жодного місця, куди записати факт «цю сесію відкликано». Токен чинний, доки ціла печатка й не настав `exp`; сервер, який тільки читає печатку, не має де тримати список винятків. Проженемо той самий сценарій — і побачимо порожнечу в дії.
 
@@ -209,69 +101,11 @@ t=24h+1s  validate → null        ← мертва лише коли exp нас
 
 Третій шлях бере локальну перевірку з Б, а орган відкликання — з А, і чесно платить складністю. Токенів два. Короткий **access** — той самий stateless-JWT, але з терміном у хвилини; ним ходять на гарячому шляху, перевіряючи локально. І довгий **refresh** — непрозорий ідентифікатор, який сервер **тримає в сторі**; ним клієнт раз на кілька хвилин виміняє свіжий access. На цьому обміні й живе право сказати «ні».
 
-```ts
-class HybridSeam implements SessionSeam {
-  constructor(
-    private priv: string,
-    private pub: string,
-    private store: Store,             // тримає лише РЕФРЕШІ, а не гарячий шлях
-    private accessTtlSec = 120,       // короткий повідок: 2 хвилини
-    private clock: () => number = () => Math.floor(Date.now() / 1000),
-  ) {}
-
-  // холодний шлях: логін дає короткий access + непрозорий refreshId (у сторі)
-  async login(p: Principal): Promise<{ access: string; refreshId: string }> {
-    const refreshId = randomBytes(32).toString("base64url");
-    await this.store.set(`refresh:${refreshId}`, JSON.stringify(p), 30 * 24 * 3600);
-    return { access: this.issueAccess(p), refreshId };
-  }
-
-  private issueAccess(p: Principal): string {
-    const now = this.clock();
-    return jwt.sign(
-      { sub: p.sub, home: p.home, scopes: p.scopes, iat: now, exp: now + this.accessTtlSec },
-      this.priv, { algorithm: "RS256" },
-    );
-  }
-
-  // ГАРЯЧИЙ шлях — суто локальний, як у Б: жодного стору
-  async validate(access: string): Promise<Principal | null> {
-    try {
-      const c = jwt.verify(access, this.pub, {
-        algorithms: ["RS256"], clockTimestamp: this.clock(),
-      }) as jwt.JwtPayload;
-      return { sub: c.sub as string, home: c.home, scopes: c.scopes };
-    } catch { return null; }
-  }
-
-  // ХОЛОДНИЙ шлях, раз на кілька хвилин: обмін refresh на свіжий access — ТУТ можна відмовити
-  async refresh(refreshId: string): Promise<string | null> {
-    const raw = await this.store.get(`refresh:${refreshId}`);
-    if (!raw) return null;                     // відкликали — нового access не дамо
-    return this.issueAccess(JSON.parse(raw) as Principal);
-  }
-
-  // орган відкликання: викидаємо refresh зі стору (або в денилист)
-  async revoke(refreshId: string): Promise<void> {
-    await this.store.del(`refresh:${refreshId}`);
-  }
-}
-```
+:::code proj-dh-session-three-ways/ts/variant-v-hibryd-hariachyi.ts
 
 `validate` тут — копія варіанта Б: локальна арифметика підпису, жодного стору. А `revoke` — копія варіанта А: видалення рядка. Хитрість у тому, що вони діють на **різні** токени. Відкликання рве refresh, але живий короткий access цього ще не знає — він протухне сам за свої дві хвилини. Проженемо сценарій і побачимо, як ці дві хвилини й стають вікном.
 
-```ts
-const seamV = new HybridSeam(privateKey, publicKey, new MemoryStore(), 120, clock);
-NOW = 0;                                              // назад на старт: логін від t=0 → exp = 0 + 120
-let { access, refreshId } = await seamV.login(alice); // access живе 2 хв
-
-NOW = 10;   console.log(await seamV.validate(access));  // → Principal   ЖИВА
-            await seamV.revoke(refreshId);              //   ← «викинули телефон»: рвемо refresh
-NOW = 11;   console.log(await seamV.validate(access));  // → Principal   access ще НЕ протух
-NOW = 60;   console.log(await seamV.validate(access));  // → Principal   у межах 2-хв повідка
-NOW = 121;  console.log(await seamV.validate(access));  // → null        access протух САМ
-            console.log(await seamV.refresh(refreshId)); // → null       а нового не дадуть
-```
+:::code proj-dh-session-three-ways/ts/variant-v-hibryd-hariachyi-2.ts
 
 ```
 t=10s     validate → Principal   (жива)

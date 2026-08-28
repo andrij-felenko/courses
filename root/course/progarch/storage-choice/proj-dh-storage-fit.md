@@ -34,22 +34,7 @@
 
 **Ворота перше: так.** Зв'язки, транзакції, скромний обсяг — це не «реляційне впорається», це земля, заради якої реляційне й зробили. Друге питання не ставимо.
 
-```sql
--- Читання: пристрої дому з останнім конфігом — з'єднання за ключем.
-SELECT d.device_id, d.kind, d.room, c.firmware, c.settings
-FROM   devices d
-JOIN   device_config c ON c.device_id = d.device_id
-WHERE  d.home_id = 42;
-
--- Запис: зміна конфігу як одна неподільна транзакція.
-BEGIN;
-  UPDATE device_config
-     SET firmware = '2.4.1'
-   WHERE device_id = 'lock-1';
-  INSERT INTO device_config_history(device_id, firmware, changed_at)
-       VALUES ('lock-1', '2.4.1', now());
-COMMIT;
-```
+:::code proj-dh-storage-fit/sql/main.sql
 
 Спробуй уявити цю пару на ключ-значенні — і одразу заболить: з'єднання за ключем доведеться робити руками в коді, а транзакцію на два записи — вигадувати з нуля. Дефолт віддає їх задарма. Реєстр лишається вдома.
 

@@ -60,46 +60,7 @@ bool unlock_allowed(const uint8_t *proof, size_t len) {
 
 Уся ротація вирішується тут, на конвеєрі, одним рішенням: замість `#define OWNER_ANCHOR` завести **звʼязку зі слотами**. Проґавив це — і жодна пізніша фаза неможлива; заклав — і решта стає доступною назавжди.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-#define MAX_KEYS   8          // фіксовано: без malloc, усе у флеші (NVS)
-#define ROLE_OP    0          // операційний: підписує дозволи на відкриття
-#define ROLE_ROOT  1          // корінь: підписує ЛИШЕ оновлення ключів
-#define SIG_LEN    64         // Ed25519
-
-typedef struct {
-    bool     used;
-    bool     revoked;         // «надгробок»: раз відкликаний — назавжди
-    uint8_t  role;            // ROLE_OP чи ROLE_ROOT
-    uint32_t kid;             // номер ключа
-    uint64_t not_before;      // чинний від (unix, с)
-    uint64_t not_after;       // чинний до
-    uint8_t  pub[32];         // відкритий ключ Ed25519
-} keyslot_t;
-
-// Звʼязка живе у флеші й переживає перезавантаження. На заводі (фаза 1)
-// в неї кладуть ДВА ключі: корінь-якір і перший операційний.
-static keyslot_t g_ring[MAX_KEYS];
-static uint32_t  g_device_id;
-
-// Обгортка над перевіркою підпису Ed25519 (напр., libsodium
-// crypto_sign_verify_detached, що вертає 0 на успіх). 32-байтний
-// відкритий ключ, 64-байтний підпис — стандарт Ed25519.
-bool ed25519_verify(const uint8_t sig[SIG_LEN], const uint8_t *msg,
-                    size_t len, const uint8_t pub[32]);
-
-void nvs_save_ring(void);     // персистить g_ring у флеш
-
-static keyslot_t *find_key(uint32_t kid, uint8_t role) {
-    for (int i = 0; i < MAX_KEYS; i++)
-        if (g_ring[i].used && g_ring[i].kid == kid && g_ring[i].role == role)
-            return &g_ring[i];
-    return NULL;
-}
-```
+:::code proj-key-rotation/c/faza-1-zakladka-zv-iazka.c
 
 Зверни увагу на дві дрібниці, що несуть увесь задум. По-перше, ключів **два роди** з самого початку: `ROLE_ROOT` і `ROLE_OP`. Корінь підписуватиме лише оновлення звʼязки й майже ніколи не вживатиметься; операційний підписуватиме щоденні дозволи. Навіщо розділяти — стане ясно, коли дійдемо до вкраденого ключа; але заклаcти обидва роди треба **тут**, на заводі, бо додати новий рід ролей у полі вже нема як. По-друге, `revoked` — окреме поле, а не просто прибирання зі звʼязки: відкликаний ключ лишається «надгробком», і далі ми побачимо, що цей надгробок — важлива частина безпеки.
 
@@ -109,57 +70,7 @@ static keyslot_t *find_key(uint32_t kid, uint8_t role) {
 
 Перш ніж ротувати, замок мусить робити свою щоденну справу — впускати хазяїна. Ось перевірка дозволу; на ній тримається все, і кожен рядок несе вагу:
 
-```c
-#define GRANT_BODY 34         // 1+1 + 4 + 4 + 8 + 16
-
-static uint8_t rd_u8 (const uint8_t *p) { return p[0]; }
-static uint32_t rd_u32(const uint8_t *p) {
-    return ((uint32_t)p[0] << 24) | ((uint32_t)p[1] << 16) |
-           ((uint32_t)p[2] <<  8) |  (uint32_t)p[3];
-}
-static uint64_t rd_u64(const uint8_t *p) {
-    uint64_t v = 0;
-    for (int i = 0; i < 8; i++) v = (v << 8) | p[i];
-    return v;
-}
-
-// Нонс, який замок щойно видав застосункові як виклик. Кожен новий виклик
-// його перезаписує; після вдалого відкриття ми його спалюємо — тож той
-// самий підписаний дозвіл не спрацює вдруге (захист від повтору-реплею).
-static uint8_t g_pending_nonce[16];
-
-// frame = тіло(34) || підпис(64). Тіло: version|type|device_id|kid|not_after|nonce.
-bool handle_unlock(const uint8_t *frame, size_t len, uint64_t now) {
-    if (len != GRANT_BODY + SIG_LEN) return false;
-
-    const uint8_t *body = frame;
-    const uint8_t *sig  = frame + GRANT_BODY;
-
-    uint8_t  version   = rd_u8 (body + 0);
-    uint8_t  type      = rd_u8 (body + 1);
-    uint32_t device_id = rd_u32(body + 2);
-    uint32_t kid       = rd_u32(body + 6);
-    uint64_t not_after = rd_u64(body + 10);
-    const uint8_t *nonce = body + 18;               // 16 байтів
-
-    if (version != 1 || type != 1)              return false;  // не той формат
-    if (device_id != g_device_id)               return false;  // дозвіл не для цього замка
-    if (now > not_after)                        return false;  // протермінований
-    if (memcmp(nonce, g_pending_nonce, 16) != 0) return false; // не на наш виклик → реплей
-
-    // Ось де працює звʼязка: шукаємо ключ ЗА НОМЕРОМ і перевіряємо його вікно.
-    keyslot_t *k = find_key(kid, ROLE_OP);
-    if (!k)                                     return false;  // такого ключа не знаємо
-    if (k->revoked)                             return false;  // відкликаний
-    if (now < k->not_before || now > k->not_after) return false; // поза вікном чинності
-
-    // Підпис перевіряємо САМЕ тим ключем, чий номер названо в дозволі.
-    if (!ed25519_verify(sig, body, GRANT_BODY, k->pub)) return false;
-
-    memset(g_pending_nonce, 0, 16);             // спалити нонс — дозвіл одноразовий
-    return true;                                // усе зійшлося — відчинити
-}
-```
+:::code proj-key-rotation/c/faza-2-3-hariachyi-shliakh.c
 
 Читається як звичайна перевірка підпису, але придивись, що дав нам номер ключа. Раніше, з `#define`, замок знав рівно один якір і перевіряв проти нього. Тепер дозвіл **сам каже**, яким ключем його підписано (`kid`), а замок дістає зі звʼязки саме той і перевіряє його вікно. Це і є перекриття в дії: у звʼязці можуть лежати і ключ #1, і ключ #2 — замок прийме дозвіл, підписаний будь-яким із них, поки той у своєму вікні й не відкликаний. Той самий замок, той самий код — а старий і новий ключі мирно співіснують.
 
@@ -169,82 +80,7 @@ bool handle_unlock(const uint8_t *frame, size_t len, uint64_t now) {
 
 А тепер серце кроку — обробник оновлень звʼязки. Це той самий тонкий канал: підписане повідомлення «додай ключ» або «відклич ключ», яке приходить хоч від застосунку власника, а замок приймає його, лише впевнившись у підписі.
 
-```c
-#define KU_BODY 59            // 1+1 + 4 + 4 + 1 + 8 + 8 + 32
-
-// Чи лишиться хоч один придатний операційний ключ, якщо викинути except_kid?
-static bool ring_has_live_op(uint32_t except_kid, uint64_t now) {
-    for (int i = 0; i < MAX_KEYS; i++) {
-        keyslot_t *k = &g_ring[i];
-        if (k->used && !k->revoked && k->role == ROLE_OP && k->kid != except_kid
-            && now >= k->not_before && now <= k->not_after)
-            return true;
-    }
-    return false;
-}
-
-// frame = тіло(59) || підпис(64). Тіло: version|type|signer_kid|target_kid|
-//         role|not_before|not_after|pub.  type: 2 = додати, 3 = відкликати.
-bool apply_key_update(const uint8_t *frame, size_t len, uint64_t now) {
-    if (len != KU_BODY + SIG_LEN) return false;
-
-    const uint8_t *body = frame;
-    const uint8_t *sig  = frame + KU_BODY;
-
-    uint8_t  version    = rd_u8 (body + 0);
-    uint8_t  type       = rd_u8 (body + 1);
-    uint32_t signer_kid = rd_u32(body + 2);
-    uint32_t target_kid = rd_u32(body + 6);
-    uint8_t  role       = rd_u8 (body + 10);
-    uint64_t not_before = rd_u64(body + 11);
-    uint64_t not_after  = rd_u64(body + 19);
-    const uint8_t *pub  = body + 27;                // 32 байти
-
-    if (version != 1) return false;
-
-    // 1) ОНОВЛЕННЯ ПІДПИСУЄ ЛИШЕ КОРІНЬ — і лише той, що сам чинний і не відкликаний.
-    keyslot_t *root = find_key(signer_kid, ROLE_ROOT);
-    if (!root || root->revoked)                          return false;
-    if (now < root->not_before || now > root->not_after) return false;
-    if (!ed25519_verify(sig, body, KU_BODY, root->pub))  return false;
-
-    if (type == 2) {                                     // ── ДОДАТИ ключ ──
-        // Надгробок: якщо цей номер колись відкликали — НЕ воскрешати.
-        // Інакше злодій переграв би старе «додай», щоб оживити мертвий ключ.
-        for (int i = 0; i < MAX_KEYS; i++)
-            if (g_ring[i].used && g_ring[i].kid == target_kid && g_ring[i].revoked)
-                return false;
-
-        keyslot_t *dst = find_key(target_kid, role);     // повторно той самий → ідемпотентно
-        if (!dst)
-            for (int i = 0; i < MAX_KEYS; i++)
-                if (!g_ring[i].used) { dst = &g_ring[i]; break; }
-        if (!dst) return false;                          // звʼязка повна — нема куди
-
-        dst->used = true;  dst->revoked = false;
-        dst->kid  = target_kid;  dst->role = role;
-        dst->not_before = not_before;  dst->not_after = not_after;
-        memcpy(dst->pub, pub, 32);
-
-    } else if (type == 3) {                              // ── ВІДКЛИКАТИ ключ ──
-        keyslot_t *victim = find_key(target_kid, ROLE_OP);
-        if (!victim) victim = find_key(target_kid, ROLE_ROOT);
-        if (!victim) return false;
-
-        // ЗАПОБІЖНИК від замурування: не відкликати останній живий операційний
-        // ключ — інакше замок осліпне й не впустить нікого, зокрема хазяїна.
-        if (victim->role == ROLE_OP && !ring_has_live_op(target_kid, now))
-            return false;
-
-        victim->revoked = true;                          // надгробок лишається назавжди
-    } else {
-        return false;
-    }
-
-    nvs_save_ring();                                     // персистимо у флеш
-    return true;
-}
-```
+:::code proj-key-rotation/c/faza-2-i-5-kanal.c
 
 Тут кожен запобіжник — це пастка, обернена на код; розберімо їх, бо саме вони роблять двері оборотними.
 
@@ -259,86 +95,8 @@ bool apply_key_update(const uint8_t *frame, size_t len, uint64_t now) {
 Пристрій лише **перевіряє** підписи; підписує їх бекенд. Ось видача — двома руками, як велить розділення ролей: операційний ключ (у мережі) підписує щоденні дозволи, а корінь (в HSM, офлайн) — рідкісні оновлення звʼязки. Головна вимога до цього коду — **побайтова тотожність серіалізації з прошивкою**: замок перевіряє підпис над тими самими байтами, які бекенд підписав, тож найменша розбіжність у розкладці завалить геть усе.
 
 :::tabs
-```go
-package issue
-
-import (
-	"crypto/ed25519"
-	"encoding/binary"
-	"time"
-)
-
-const (
-	roleOp   = 0
-	roleRoot = 1
-)
-
-// Канонічна серіалізація — МУСИТЬ збігатися з прошивкою побайтово.
-func serializeGrant(deviceID, kid uint32, notAfter uint64, nonce [16]byte) []byte {
-	b := make([]byte, 0, 34)
-	b = append(b, 1, 1) // version=1, type=1 (дозвіл на відкриття)
-	b = binary.BigEndian.AppendUint32(b, deviceID)
-	b = binary.BigEndian.AppendUint32(b, kid)
-	b = binary.BigEndian.AppendUint64(b, notAfter)
-	return append(b, nonce[:]...)
-}
-
-// ГАРЯЧИЙ шлях: операційний ключ підписує короткочасний дозвіл. Робиться
-// щоразу, коли власник відчиняє замок; приватний ключ — у пам'яті сервісу.
-func SignGrant(opPriv ed25519.PrivateKey, kid, deviceID uint32, nonce [16]byte) []byte {
-	body := serializeGrant(deviceID, kid, uint64(time.Now().Add(2*time.Minute).Unix()), nonce)
-	return append(body, ed25519.Sign(opPriv, body)...)
-}
-
-func serializeAddKey(signerKid, targetKid uint32, role byte, nb, na uint64, pub []byte) []byte {
-	b := make([]byte, 0, 59)
-	b = append(b, 1, 2) // version=1, type=2 (додати ключ)
-	b = binary.BigEndian.AppendUint32(b, signerKid)
-	b = binary.BigEndian.AppendUint32(b, targetKid)
-	b = append(b, role)
-	b = binary.BigEndian.AppendUint64(b, nb)
-	b = binary.BigEndian.AppendUint64(b, na)
-	return append(b, pub...) // 32 байти
-}
-
-// Signer ходить у HSM — приватний КОРІНЬ звідси не виходить.
-type Signer interface{ Sign(msg []byte) []byte }
-
-// РІДКІСНИЙ шлях: корінь підписує «додати операційний ключ #target».
-// Викликається раз на ротацію, вручну, з доступом до HSM.
-func IssueAddOpKey(root Signer, rootKid, targetKid uint32, pub []byte, nb, na uint64) []byte {
-	body := serializeAddKey(rootKid, targetKid, roleOp, nb, na, pub)
-	return append(body, root.Sign(body)...)
-}
-```
-```python
-import struct, time
-from typing import Callable
-from nacl.signing import SigningKey
-
-ROLE_OP, ROLE_ROOT = 0, 1
-
-def serialize_grant(device_id: int, kid: int, not_after: int, nonce: bytes) -> bytes:
-    # Канонічна серіалізація — МУСИТЬ збігатися з прошивкою побайтово.
-    # ">BBIIQ" = version|type|device_id|kid|not_after (18 б) + nonce (16 б) = 34 б.
-    return struct.pack(">BBIIQ", 1, 1, device_id, kid, not_after) + nonce
-
-def sign_grant(op_priv: SigningKey, kid: int, device_id: int, nonce: bytes) -> bytes:
-    # ГАРЯЧИЙ шлях: операційний ключ підписує короткочасний дозвіл.
-    body = serialize_grant(device_id, kid, int(time.time()) + 120, nonce)
-    return body + op_priv.sign(body).signature      # 34 + 64
-
-def serialize_add_key(signer_kid, target_kid, role, nb, na, pub) -> bytes:
-    # ">BBIIBQQ" = version|type|signer|target|role|nb|na (27 б) + pub (32 б) = 59 б.
-    return struct.pack(">BBIIBQQ", 1, 2, signer_kid, target_kid, role, nb, na) + pub
-
-def issue_add_op_key(root_sign: Callable[[bytes], bytes],
-                     root_kid, target_kid, pub, nb, na) -> bytes:
-    # РІДКІСНИЙ шлях: корінь підписує «додати операційний ключ».
-    # root_sign ходить у HSM — приватний корінь звідси не виходить.
-    body = serialize_add_key(root_kid, target_kid, ROLE_OP, nb, na, pub)
-    return body + root_sign(body)
-```
+:::code proj-key-rotation/go/main.go
+:::code proj-key-rotation/py/main.py
 :::
 
 > 🔧 **Навіщо це.** Помітив, що серіалізація винесена в окрему функцію й описана до байта? Це та сама дисципліна, що «одна формула переливу на весь проєкт» була для даних — тільки тепер ставка вища. Там розбіжні формули давали привидів у звірці; тут розбіжна розкладка на байт завалить **кожен** підпис (пощастить) або, за невдалого канонікалізування, дасть двом різним повідомленням спільний підпис — дірку в безпеці (не пощастить). Тримай розкладку підписуваних байтів в **одному** описі, з якого генеруються обидві сторони, — і прошивка з бекендом ніколи не розійдуться.

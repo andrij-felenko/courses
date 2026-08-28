@@ -11,47 +11,8 @@
 І тут TypeScript із новим `Temporal` дає точний інструмент. Метод `startOfDay()` повертає не «00:00», а **першу наявну мить доби** — і це не педантизм: є рідкісні зони, що колись переводили стрілки саме опівночі (історично `America/Sao_Paulo`), і в них 00:00 тієї ночі **не існувало зовсім**, як не існує 02:00 у нашого Києва навесні. `startOfDay()` бере таку щілину до уваги за побудовою; наївне `set hour 0` або кинуло б, або тихо збрехало. У Python стандартної `.startOfDay()` немає, тож першу мить доводиться діставати вручну — і саме тому корисно бачити обидві мови поруч: видно, що́ Temporal робить за тебе.
 
 :::tabs
-```ts
-// Temporal — стандарт ES2026, у Node 26 доступний без прапорців.
-type Window = { fromUtc: Temporal.Instant; toUtc: Temporal.Instant; hours: number };
-
-// Вікно однієї ЛОКАЛЬНОЇ доби `date` у зоні `zone`, у UTC-інстантах.
-// startOfDay() дає ПЕРШУ наявну мить доби — тож зона, що колись переводила
-// стрілки опівночі (і 00:00 не існувало), врахована сама, без «if DST».
-function localDayWindow(zone: string, date: Temporal.PlainDate): Window {
-  const start = date.toZonedDateTime(zone).startOfDay();
-  const end   = date.add({ days: 1 }).toZonedDateTime(zone).startOfDay();
-  const hours = start.until(end, { largestUnit: "hour" }).hours;
-  return { fromUtc: start.toInstant(), toUtc: end.toInstant(), hours };
-}
-
-// «Вчора» для дому — попередня локальна доба відносно поточної миті в його зоні.
-function yesterday(zone: string): Temporal.PlainDate {
-  return Temporal.Now.zonedDateTimeISO(zone).toPlainDate().subtract({ days: 1 });
-}
-```
-```py
-from datetime import datetime, date, time, timedelta, timezone
-from zoneinfo import ZoneInfo          # жива база переведень IANA у stdlib
-
-def local_midnight(d: date, zone: ZoneInfo) -> datetime:
-    """Перша наявна мить локальної доби d — ручний аналог Temporal .startOfDay().
-    Майже завжди це рівно 00:00; але зона, що колись переводила стрілки опівночі,
-    могла НЕ мати 00:00 — тоді беремо мить, куди щілина його виштовхнула."""
-    naive = datetime.combine(d, time(0, 0))
-    dt = naive.replace(tzinfo=zone)                        # fold=0 → перша, якщо складка
-    back = dt.astimezone(timezone.utc).astimezone(zone).replace(tzinfo=None)
-    if back != naive:                                      # 00:00 у весняній щілині
-        dt = back.replace(tzinfo=zone)                     # мить, куди щілина виштовхнула північ
-    return dt
-
-def local_day_window(zone_name: str, d: date) -> tuple[datetime, datetime, float]:
-    zone = ZoneInfo(zone_name)
-    start = local_midnight(d, zone)
-    end   = local_midnight(d + timedelta(days=1), zone)    # наступна локальна північ
-    hours = (end - start).total_seconds() / 3600           # 23 / 24 / 25 — саме собою
-    return start.astimezone(timezone.utc), end.astimezone(timezone.utc), hours
-```
+:::code proj-dh-nightly-rollup/ts/vikno-doby-vid-pivnochi-do.ts
+:::code proj-dh-nightly-rollup/py/vikno-doby-vid-pivnochi-do.py
 :::
 
 Зверни увагу, де сидить DST і де його **немає**. Крок «наступна доба» — це `date.add({ days: 1 })` (і `d + timedelta(days=1)` у Python): чиста арифметика **дати**, без години, без зони, завжди рівно один календарний день. А переведення в час — `startOfDay().toInstant()` — це вже єдине місце, де база зон питається про зсув, і саме там 23/24/25 годин з'являються самі. Розвести ці дві дії — календарну й часову — і є весь фокус.
@@ -88,65 +49,8 @@ CREATE TABLE cron_lease (
 Узяти лізу — це один атомарний upsert. Він вдається, лише якщо ліза або нічия, або вже прострочена; і щоразу, коли право переходить у нові руки, він **піднімає фенс на одиницю**. Продовжити свою живу лізу — окрема дія, що фенс не чіпає (те саме право, той самий токен, лише пізніший строк):
 
 :::tabs
-```ts
-import { Pool } from "pg";
-
-class CronLease {
-  constructor(private db: Pool, private name: string,
-              private me: string, private ttlSec = 60) {}
-
-  // Взяти лізу (вільну або прострочену). null — хтось інший тримає ЖИВУ.
-  async acquire(): Promise<{ fence: number } | null> {
-    const { rows } = await this.db.query(
-      `INSERT INTO cron_lease (name, holder, fence, expires_at)
-       VALUES ($1, $2, 1, now() + make_interval(secs => $3))
-       ON CONFLICT (name) DO UPDATE
-          SET holder = EXCLUDED.holder,
-              fence  = cron_lease.fence + 1,          -- новий власник → новий токен
-              expires_at = EXCLUDED.expires_at
-          WHERE cron_lease.expires_at < now()         -- лише якщо стара прострочена
-       RETURNING fence`,
-      [this.name, this.me, this.ttlSec]);
-    return rows.length ? { fence: Number(rows[0].fence) } : null;
-  }
-
-  // Продовжити СВОЮ живу лізу тим самим токеном. false — лізу втрачено, СТОП.
-  async renew(fence: number): Promise<boolean> {
-    const { rowCount } = await this.db.query(
-      `UPDATE cron_lease SET expires_at = now() + make_interval(secs => $3)
-        WHERE name = $1 AND holder = $2 AND fence = $4 AND expires_at >= now()`,
-      [this.name, this.me, this.ttlSec, fence]);
-    return rowCount === 1;
-  }
-}
-```
-```py
-class CronLease:
-    def __init__(self, pool, name, me, ttl_sec=60):
-        self.pool, self.name, self.me, self.ttl = pool, name, me, ttl_sec
-
-    async def acquire(self) -> int | None:
-        """Взяти лізу (вільну або прострочену). None — хтось інший тримає ЖИВУ."""
-        row = await self.pool.fetchrow(
-            """INSERT INTO cron_lease (name, holder, fence, expires_at)
-               VALUES ($1, $2, 1, now() + make_interval(secs => $3))
-               ON CONFLICT (name) DO UPDATE
-                  SET holder = EXCLUDED.holder,
-                      fence  = cron_lease.fence + 1,      -- новий власник → новий токен
-                      expires_at = EXCLUDED.expires_at
-                  WHERE cron_lease.expires_at < now()     -- лише якщо стара прострочена
-               RETURNING fence""",
-            self.name, self.me, self.ttl)
-        return row["fence"] if row else None
-
-    async def renew(self, fence: int) -> bool:
-        """Продовжити СВОЮ живу лізу тим самим токеном. False — лізу втрачено, СТОП."""
-        tag = await self.pool.execute(
-            """UPDATE cron_lease SET expires_at = now() + make_interval(secs => $3)
-                WHERE name = $1 AND holder = $2 AND fence = $4 AND expires_at >= now()""",
-            self.name, self.me, self.ttl, fence)
-        return tag.endswith(" 1")            # 'UPDATE 1'
-```
+:::code proj-dh-nightly-rollup/ts/odyn-zapusk-na-klaster.ts
+:::code proj-dh-nightly-rollup/py/odyn-zapusk-na-klaster.py
 :::
 
 Ліза сама по собі закриває **буденний** випадок: двоє прокинулись, один узяв право, другий бачить живу лізу й мовчить. Але вона має відому діру, і саме про неї — фенсинг-токен. Уяви: власник узяв лізу з токеном 33, почав планувати — і провалився в довгу паузу збирача сміття (кілька секунд, коли процес живий, але заморожений). Ліза за цей час спливла, наступний вузол чесно взяв її з токеном 34 і вже пише. А тоді перший **оживає** — він не знає, що спав, і його наступною дією буде запис, наче він досі власник. Ліза його вже не тримає, але код нічого про це не знає.
@@ -160,45 +64,8 @@ class CronLease:
 Правильна відповідь тримає в базі **позначку водолінії** (англ. *high-water mark*) — останню **успішно** згорнуту добу кожного дому. І тоді «які доби due» стає чистою функцією трьох речей: остання зроблена, сьогодні, політика. Наздоганяння з цього **випадає саме собою** — це не окрема функція, яку болтом прикручують, а просто відсутність бага:
 
 :::tabs
-```ts
-type MissPolicy = "skip" | "catchup" | "coalesce";
-
-// Локальні доби, ще НЕ згорнуті: інтервал (lastDone, сьогодні), обидва кінці виключно.
-function dueDays(zone: string, lastDoneIso: string): Temporal.PlainDate[] {
-  const today = Temporal.Now.zonedDateTimeISO(zone).toPlainDate();
-  const days: Temporal.PlainDate[] = [];
-  let cur = Temporal.PlainDate.from(lastDoneIso).add({ days: 1 });  // перша НЕзгорнута
-  while (Temporal.PlainDate.compare(cur, today) < 0) {             // строго ДО «сьогодні»
-    days.push(cur);
-    cur = cur.add({ days: 1 });        // чиста календарна арифметика — DST тут не живе
-  }
-  return days;
-}
-
-// Політика вирішує, ЩО робити з провалом у кілька діб.
-function applyPolicy(days: Temporal.PlainDate[], p: MissPolicy): Temporal.PlainDate[] {
-  if (days.length <= 1 || p === "catchup") return days;   // усі по черзі
-  if (p === "skip") return days.slice(-1);                // лише найсвіжіша, решта — дірки
-  return days;                            // coalesce: усі, але далі зіллються в ОДНЕ вікно
-}
-```
-```py
-def due_days(zone_name: str, last_done: date) -> list[date]:
-    """Локальні доби, ще НЕ згорнуті: (last_done, сьогодні), обидва кінці виключно."""
-    today = datetime.now(ZoneInfo(zone_name)).date()
-    days, cur = [], last_done + timedelta(days=1)          # перша НЕзгорнута
-    while cur < today:                                     # строго ДО «сьогодні»
-        days.append(cur)
-        cur += timedelta(days=1)                           # чиста дата — DST тут не живе
-    return days
-
-def apply_policy(days: list[date], p: str) -> list[date]:
-    if len(days) <= 1 or p == "catchup":
-        return days                                        # усі по черзі
-    if p == "skip":
-        return days[-1:]                                   # лише найсвіжіша, решта — дірки
-    return days                                            # coalesce: усі → в ОДНЕ вікно
-```
+:::code proj-dh-nightly-rollup/ts/nazdohaniannia-high-water.ts
+:::code proj-dh-nightly-rollup/py/nazdohaniannia-high-water.py
 :::
 
 Придивися ще раз: `dueDays` крокує **датами** (`add({ days: 1 })`), а вікно кожної дати рахує окрема `localDayWindow`. Тому наздоганяння через переведення стрілок «просто працює»: якщо серед пропущених діб трапилась 23-годинна весняна — вона й порахується 23-годинним вікном, бо кожна дата розгортається в мить незалежно. Провал у три доби, одна з яких переведення, дає три правильні вікна різної тривалості, і жодного окремого коду для цього не треба.
@@ -219,99 +86,15 @@ def apply_policy(days: list[date], p: str) -> list[date]:
 
 Лишилося записати підсумок так, щоб **другий** запуск — від осіннього подвоєння, від ретраю черги «щонайменше раз», від наздоганяння, що наклалося, — не додав, а **переписав**. Це і є ідемпотентність за ключем, і в SQL вона виражається прямо первинним ключем плюс `ON CONFLICT`:
 
-```sql
-CREATE TABLE daily_summary (
-  home_id     text    NOT NULL,
-  day         date    NOT NULL,             -- ЛОКАЛЬНА доба дому, НЕ UTC-мить
-  kwh         numeric NOT NULL,
-  peak_w      numeric NOT NULL,
-  samples     integer NOT NULL,
-  zone        text    NOT NULL,             -- зона розрахунку (для аудиту)
-  computed_at timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (home_id, day)                -- ← сам ключ ідемпотентності
-);
-
-INSERT INTO daily_summary (home_id, day, kwh, peak_w, samples, zone)
-VALUES ($1, $2, $3, $4, $5, $6)
-ON CONFLICT (home_id, day) DO UPDATE         -- другий запуск ПЕРЕПИШЕ, а не додасть
-   SET kwh = EXCLUDED.kwh, peak_w = EXCLUDED.peak_w,
-       samples = EXCLUDED.samples, computed_at = now();
-```
+:::code proj-dh-nightly-rollup/sql/main.sql
 
 Зверни увагу на тип `day`: це `date`, **локальна календарна доба**, а не timestamp. Підсумок ключований людською добою; сира телеметрія — інстантами. Дві різні породи часу в одній системі, кожна там, де доречна, — точно як минула подія живе замороженою міттю, а майбутній намір — правилом і зоною. Це відлуння [ключа ідемпотентності DH](root:progarch/dh-bad-network): випадковий рядок казав «один запис на один намір»; тут природний ключ `(дім, доба)` каже «один рядок на одну добу», і повтор наміру сходиться в те саме місце.
 
 Тепер зберемо задачу-робітника цілком. Тонкість, заради якої варто дивитися на весь код, а не на фрагмент, — **порядок і транзакція**: підсумок і просування mark комітяться **разом**, і mark рухається **лише** свіжим фенсом. А сам підсумок фенсом можна й не боронити — і ось чому це не недбалість, а точний розрахунок:
 
 :::tabs
-```ts
-type AggTask = { homeId: string; zone: string; day: string;
-                 fromUtc: string; toUtc: string; fence: number; policy: MissPolicy };
-
-async function aggregate(db: Pool, t: AggTask): Promise<void> {
-  const { rows } = await db.query(
-    `SELECT value, watts FROM telemetry
-      WHERE home_id = $1 AND at >= $2 AND at < $3`,   // напіввідкрите [from, to)
-    [t.homeId, t.fromUtc, t.toUtc]);
-  const s = rollUp(rows);                             // { kwh, peakW, samples }
-
-  await db.query("BEGIN");
-  try {
-    // 1) підсумок — ідемпотентний за (дім, доба): дубль перепише той самий рядок
-    await db.query(
-      `INSERT INTO daily_summary (home_id, day, kwh, peak_w, samples, zone)
-       VALUES ($1,$2,$3,$4,$5,$6)
-       ON CONFLICT (home_id, day) DO UPDATE
-          SET kwh=EXCLUDED.kwh, peak_w=EXCLUDED.peak_w,
-              samples=EXCLUDED.samples, computed_at=now()`,
-      [t.homeId, t.day, s.kwh, s.peakW, s.samples, t.zone]);
-    // 2) mark — після підсумку, свіжим фенсом, і на добу $2 ЛИШЕ якщо вона
-    //    БЕЗПОСЕРЕДНЬО наступна (last_done_day = $2 − 1) — АБО політика skip,
-    //    якій дозволено навмисне перестрибнути дірку. Тоді доба, що дозріла
-    //    поперед сусідів у пулі наздоганяння, mark не зрушить (інакше вона
-    //    перестрибнула б ще не зроблену добу — і та зникла б назавжди).
-    await db.query(
-      `UPDATE home_cron
-          SET last_done_day = GREATEST(last_done_day, $2), seen_fence = $3
-        WHERE home_id = $1 AND seen_fence <= $3
-          AND (last_done_day = $2::date - 1 OR $4 = 'skip')`,
-      [t.homeId, t.day, t.fence, t.policy]);
-    await db.query("COMMIT");
-  } catch (e) {
-    await db.query("ROLLBACK");                       // впав до коміту → доба лишилась due
-    throw e;
-  }
-}
-```
-```py
-async def aggregate(pool, t: dict) -> None:
-    rows = await pool.fetch(
-        """SELECT value, watts FROM telemetry
-            WHERE home_id = $1 AND at >= $2 AND at < $3""",   # напіввідкрите [from, to)
-        t["home_id"], t["from_utc"], t["to_utc"])
-    s = roll_up(rows)                                          # {'kwh','peak_w','samples'}
-
-    async with pool.acquire() as conn:
-        async with conn.transaction():                        # обидва записи — одним комітом
-            # 1) підсумок — ідемпотентний за (дім, доба): дубль перепише той самий рядок
-            await conn.execute(
-                """INSERT INTO daily_summary (home_id, day, kwh, peak_w, samples, zone)
-                   VALUES ($1,$2,$3,$4,$5,$6)
-                   ON CONFLICT (home_id, day) DO UPDATE
-                      SET kwh=EXCLUDED.kwh, peak_w=EXCLUDED.peak_w,
-                          samples=EXCLUDED.samples, computed_at=now()""",
-                t["home_id"], t["day"], s["kwh"], s["peak_w"], s["samples"], t["zone"])
-            # 2) mark — після підсумку, свіжим фенсом, і на добу $2 ЛИШЕ якщо вона
-            #    БЕЗПОСЕРЕДНЬО наступна (last_done_day = $2 − 1) — АБО політика skip,
-            #    якій дозволено навмисне перестрибнути дірку. Доба, що дозріла поперед
-            #    сусідів у пулі наздоганяння, mark не зрушить — інакше перестрибнула б
-            #    ще не зроблену добу, і та зникла б назавжди.
-            await conn.execute(
-                """UPDATE home_cron
-                      SET last_done_day = GREATEST(last_done_day, $2), seen_fence = $3
-                    WHERE home_id = $1 AND seen_fence <= $3
-                      AND (last_done_day = $2::date - 1 OR $4 = 'skip')""",
-                t["home_id"], t["day"], t["fence"], t["policy"])
-```
+:::code proj-dh-nightly-rollup/ts/idempotentnyi-upsert-i.ts
+:::code proj-dh-nightly-rollup/py/idempotentnyi-upsert-i.py
 :::
 
 Тут — уся вага вставки, і вона в одному чесному спостереженні. У цього нічного вузла **три сітки безпеки, і вони перекриваються**. Ліза каже «зазвичай планує один». Фенсинг каже «застарілий писар не зрушить вказівник». Ключ `(дім, доба)` каже «навіть якщо двоє порахують ту саму добу — підсумок той самий, бо вікно є чистою функцією зони й дати». І ось несподіванка, яку більшість статей замовчує: **для самого підсумку фенсинг не обов'язковий** — його вже боронить ідемпотентність за ключем, адже два планувальники, порахувавши `(дім, 29 бер)`, отримають байт у байт те саме число. Фенсинг стає незамінним рівно там, де запис **не** ідемпотентний: рухома позначка mark (яку зомбі міг би зрушити не туди), зовнішній ефект на кшталт відправленого пуша. Не тягни фенсинг як культ у кожен запис — але не викидай його там, де писар може напартачити необоротно.
@@ -326,35 +109,7 @@ async def aggregate(pool, t: dict) -> None:
 
 Планувальник, що зшиває все це докупи, після такого — майже формальність. Він тримає лізу, і поки тримає — обходить доми, для кожного питає `dueDays`, застосовує політику, і кладе задачі в чергу з поточним фенсом:
 
-```ts
-async function planner(db: Pool, me: string): Promise<void> {
-  const lease = new CronLease(db, "nightly-rollup", me, 60);
-  let fence: number | null = null;                         // токен поточної оренди
-  for (;;) {
-    if (fence === null) {                                  // оренди нема — БЕРЕМО (нове право)
-      const held = await lease.acquire();
-      if (!held) { await sleep(30_000); continue; }        // живу лізу тримає інший — чекаємо
-      fence = held.fence;
-    } else if (!(await lease.renew(fence))) {              // не ПРОДОВЖИЛАСЬ → оренду втрачено
-      fence = null; continue;                              // на наступному колі спробуємо взяти
-    }
-    // ми — єдиний планувальник; фенс СТАБІЛЬНИЙ на всю оренду (renew його не міняє)
-    for (const h of await loadHomes(db)) {                 // { id, zone, policy, lastDone }
-      const days = applyPolicy(dueDays(h.zone, h.lastDone), h.policy);
-      for (const day of days) {
-        const w = localDayWindow(h.zone, day);
-        await enqueue(db, {
-          homeId: h.id, zone: h.zone, day: day.toString(),
-          fromUtc: w.fromUtc.toString(), toUtc: w.toUtc.toString(),
-          fence,                                           // той самий токен їде до писаря
-          policy: h.policy,                                // політика їде із задачею — вона вирішує рух mark
-        });
-      }
-    }
-    await sleep(30_000);                                   // sleep < TTL, щоб renew устигав
-  }
-}
-```
+:::code proj-dh-nightly-rollup/ts/idempotentnyi-upsert-i-2.ts
 
 Планувальник сам **нічого не агрегує** — він лише вирішує, що́ треба зробити, і роздає роботу робітникам, кожен з яких дисциплінований тим самим контрактом, що ми вивели [на прикладі одного довгого кліпа](root:progarch/dh-long-ops): ідемпотентність, чесний статус, оренда з серцебиттям, скінченний строк. Обчислення «які доби» й виконання «згорни добу» розведені — і саме тому одну задачу можна безпечно перезапустити, не чіпаючи решти.
 

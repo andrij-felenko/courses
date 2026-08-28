@@ -63,47 +63,8 @@ function parseEmail(s: string): Email | Error { /* ... */ }
 Ось температура Digital Homes як об'єкт-значення. Конструктор закрито; єдиний вхід — розбірник `parse`, що або повертає готовий `Celsius`, у якому число вже в межах, або помилку:
 
 :::tabs
-```ts
-// Об'єкт-значення: конструктор приватний, єдині двері — parse().
-class Celsius {
-  private constructor(public readonly value: number) {}
-
-  static parse(raw: unknown): Celsius | Error {
-    if (typeof raw !== "number" || Number.isNaN(raw))
-      return new Error("температура — не число");
-    if (raw < -50 || raw > 80)
-      return new Error(`температура поза межами: ${raw}`);
-    return new Celsius(raw);          // ЄДИНЕ місце, де Celsius народжується
-  }
-}
-
-// Ядро бере Celsius, а не number — недійсне значення сюди не втрапить.
-function decideHeating(room: Celsius, target: Celsius): boolean {
-  return room.value < target.value;   // жодної повторної перевірки
-}
-```
-```rust
-/// Об'єкт-значення: поле приватне, єдині двері — parse().
-pub struct Celsius(f64);
-
-impl Celsius {
-    pub fn parse(raw: f64) -> Result<Celsius, String> {
-        if raw.is_nan() {
-            return Err("температура — не число".into());
-        }
-        if !(-50.0..=80.0).contains(&raw) {
-            return Err(format!("температура поза межами: {raw}"));
-        }
-        Ok(Celsius(raw))              // ЄДИНЕ місце, де Celsius народжується
-    }
-    pub fn value(&self) -> f64 { self.0 }
-}
-
-// Ядро бере Celsius, а не f64 — недійсне значення сюди не втрапить.
-fn decide_heating(room: &Celsius, target: &Celsius) -> bool {
-    room.value() < target.value()     // жодної повторної перевірки
-}
-```
+:::code invariants-and-validation-d/ts/index.ts
+:::code invariants-and-validation-d/rust/main.rs
 :::
 
 Придивіться, що сталося з інваріантом «температура в межах −50…80». Він **більше не розмазаний** десятками функцій — він живе в **одному** місці, у розбірнику `parse`. Це той самий виграш, що дав нам колись [шов](root:progarch/seams-and-boundaries): правило, зведене в одну точку, легко змінити й неможливо обійти. З'явиться новий давач із діапазоном до +120 — правимо один рядок, а не полюємо на всі перевірки в системі. А `decideHeating` бере `Celsius`, не число: викликач, який спробує згодувати їй сирий `float`, не пройде навіть компіляцію. Недійсне значення відсічене не в рантаймі, а в **системі типів**.

@@ -61,66 +61,8 @@ else if (body.code === "rate_limited") backOff();
 Тепер зберімо це в код і побачимо, що структурно це той самий прийом, який ми вже знаємо. У модулі меж помилка перекладалася на кожній межі, і переклад жив **в одному місці** — на самій межі, не розсипаний по всьому коду. Мережева межа нічим не інакша: доменні помилки — `DeviceNotFound`, `DeviceUnavailable` — підіймаються знизу рівно так, як підіймалися раніше, а на самому краю **одне** місце перекладає їх у відповідь-контракт:
 
 :::tabs
-```ts
-// доменні помилки — ті самі, що підіймалися крізь шари; тут вони впираються в межу HTTP
-class DeviceNotFound   extends Error { constructor(public id: string) { super("no device"); } }
-class DeviceUnavailable extends Error { constructor(public id: string) { super("offline"); } }
-
-// одне місце перекладу: доменна помилка → HTTP-відповідь як контракт
-function toProblem(err: unknown, reqId: string) {
-  if (err instanceof DeviceNotFound)
-    return { status: 404, headers: {},
-      body: { type: "https://api.dh.io/errors/device-not-found",
-              title: "Пристрій не знайдено", status: 404,
-              code: "device_not_found", detail: `Пристрою ${err.id} немає.`,
-              requestId: reqId } };
-
-  if (err instanceof DeviceUnavailable)
-    return { status: 503, headers: { "Retry-After": "5" },
-      body: { type: "https://api.dh.io/errors/device-unavailable",
-              title: "Пристрій тимчасово недоступний", status: 503,
-              code: "device_unavailable", retryable: true,
-              detail: "Давач не відповідає, спробуйте за кілька секунд.",
-              requestId: reqId } };
-
-  // усе інше — це БАГ, а не факт світу: назовні нічого, у журнал — усе
-  log.error({ reqId, err });                       // лог РАЗ, саме тут, зі стеком
-  return { status: 500, headers: {},
-    body: { type: "about:blank", title: "Внутрішня помилка", status: 500,
-            code: "internal", detail: "Сталася непередбачена помилка.",
-            requestId: reqId } };                   // жодного стека, жодного SQL назовні
-}
-```
-```py
-# доменні помилки — ті самі, що підіймалися крізь шари; тут вони впираються в межу HTTP
-class DeviceNotFound(Exception):
-    def __init__(self, id): self.id = id
-class DeviceUnavailable(Exception):
-    def __init__(self, id): self.id = id
-
-def to_problem(err, req_id):                        # одне місце перекладу
-    if isinstance(err, DeviceNotFound):
-        return 404, {}, {
-            "type": "https://api.dh.io/errors/device-not-found",
-            "title": "Пристрій не знайдено", "status": 404,
-            "code": "device_not_found", "detail": f"Пристрою {err.id} немає.",
-            "requestId": req_id}
-
-    if isinstance(err, DeviceUnavailable):
-        return 503, {"Retry-After": "5"}, {
-            "type": "https://api.dh.io/errors/device-unavailable",
-            "title": "Пристрій тимчасово недоступний", "status": 503,
-            "code": "device_unavailable", "retryable": True,
-            "detail": "Давач не відповідає, спробуйте за кілька секунд.",
-            "requestId": req_id}
-
-    # усе інше — це БАГ, а не факт світу: назовні нічого, у журнал — усе
-    log.error("unhandled", extra={"req_id": req_id}, exc_info=err)  # лог РАЗ, тут
-    return 500, {}, {
-        "type": "about:blank", "title": "Внутрішня помилка", "status": 500,
-        "code": "internal", "detail": "Сталася непередбачена помилка.",
-        "requestId": req_id}                        # жодного трейсбека назовні
-```
+:::code api-error-contract-d/ts/index.ts
+:::code api-error-contract-d/py/main.py
 :::
 
 Уся вага цього фрагмента — в останній гілці. Доменні помилки ми **самі** оголосили частиною контракту, тож перекладаємо їх чесно й докладно. Але все, чого ми **не** передбачили, — це [баг у нашому коді, а не факт світу](root:progarch/errors-through-layers), і на межі API з ним чинять протилежно до внутрішнього «впасти голосно»: назовні він стає **непрозорим** `500` без жодної деталі, а весь стек, назва винятку й SQL лишаються **вдома**, у журналі, під кореляційним id. Ця гілка — стіна редакції: те, що всередині мусить кричати причиною, назовні мусить мовчати про неї.

@@ -74,63 +74,8 @@
 Усередині моноліту v1 усі прямі SQL-запити до таблиць `device_states` та `home_telemetry` було суворо заборонено. Весь доступ до стану пристроїв було замкнено за єдиним абстрактним інтерфейсом `DeviceTwinRepository`.
 
 :::tabs
-```cpp
-// DeviceTwinRepository.hpp — Абстрактний кодовий шов C++20
-#include <string>
-#include <expected>
-#include <cstdint>
-
-struct StateUpdate {
-    std::string device_id;
-    std::string payload_json;
-    uint64_t timestamp_ms;
-};
-
-struct HomeState {
-    std::string home_id;
-    uint64_t version_seq;
-    std::string json_state;
-};
-
-enum class TwinError {
-    NotFound,
-    VersionConflict,
-    DatabaseTimeout,
-    OutboxFailure
-};
-
-class IDeviceTwinRepository {
-public:
-    virtual ~IDeviceTwinRepository() = default;
-
-    virtual std::expected<HomeState, TwinError> get_home_state(const std::string& home_id) = 0;
-    
-    virtual std::expected<void, TwinError> update_device_state(
-        const std::string& home_id,
-        const StateUpdate& update,
-        uint64_t expected_version) = 0;
-};
-```
-```python
-# device_twin_repository.py — Ідіоматичний Python-еквівалент шва для BFF
-from abc import ABC, abstractmethod
-from typing import Dict, Any, Optional
-
-class HomeState:
-    def __init__(self, home_id: str, version_seq: int, state_data: Dict[str, Any]):
-        self.home_id = home_id
-        self.version_seq = version_seq
-        self.state_data = state_data
-
-class IDeviceTwinRepository(ABC):
-    @abstractmethod
-    def get_home_state(self, home_id: str) -> Optional[HomeState]:
-        pass
-
-    @abstractmethod
-    def update_device_state(self, home_id: str, device_id: str, update_payload: Dict[str, Any], expected_version: int) -> bool:
-        pass
-```
+:::code dh-cloud-v2-d/cpp/main.cpp
+:::code dh-cloud-v2-d/py/device_twin_repository.py
 :::
 
 Цей шов у коді дозволив підміняти внутрішню реалізацію зберігання прямо під час виконання програми: від реалізації `PostgresTwinRepository` (Варіант Б) до `KafkaOutboxTwinRepository` (Варіант В), не змінюючи жодного рядка логіки в сервісах автоматизації чи авторизації.

@@ -24,22 +24,7 @@ GET /devices/d1          → { …повне представлення прис
 
 Клієнт мусить сам оркеструвати цей спуск. Ось чесний код мобільної панелі — той, який хочеться написати, бо він «простий»:
 
-```typescript
-const API = "https://api.digitalhomes.io";
-const get = (p: string) => fetch(API + p).then(r => r.json());
-
-// найгірший, але найчастіший варіант — послідовно, «бо так читається зверху вниз»
-async function loadPanelNaive(homeId: number) {
-  const home = await get(`/homes/${homeId}`);          // 1
-  for (const rid of home.roomIds) {
-    const room = await get(`/rooms/${rid}`);            // ×5
-    for (const did of room.deviceIds) {
-      const dev = await get(`/devices/${did}`);         // ×15
-      paint(room, dev);                                 // 21 оберт ПІДРЯД
-    }
-  }
-}
-```
+:::code proj-dh-api-styles/ts/index.ts
 
 Це двадцять один синхронний оберт один за одним. Порахуймо:
 
@@ -232,34 +217,11 @@ const resolvers = {
 
 Правильна форма — не питати, а покласти повідомлення в брокер і йти. Продюсер на хабі:
 
-```python
-import json, time
-import paho.mqtt.client as mqtt
-
-hub = mqtt.Client(client_id="hub-42")
-hub.connect("broker.digitalhomes.io", 1883)
-hub.loop_start()   # мережа крутиться у фоновому потоці; publish НЕ блокує
-
-def on_reading(dev_id: str, value: float) -> None:
-    topic = f"dh/home/42/{dev_id}/reading"
-    payload = json.dumps({"v": value, "at": int(time.time() * 1000)})
-    hub.publish(topic, payload, qos=1)   # поклав у буфер і повернувся — відповіді не чекаємо
-```
+:::code proj-dh-api-styles/py/styl-4-cherha-telemetrii.py
 
 Споживач у хмарі забирає, коли готовий, зовсім окремим життям:
 
-```python
-def on_message(_client, _userdata, msg) -> None:
-    r = json.loads(msg.payload)
-    dev = msg.topic.split("/")[3]
-    store_reading(dev, r["v"], r["at"])   # МУСИТЬ бути ідемпотентним — див. нижче
-
-ingest = mqtt.Client(client_id="ingest-1")
-ingest.on_message = on_message
-ingest.connect("broker.digitalhomes.io", 1883)
-ingest.subscribe("dh/home/+/+/reading", qos=1)   # + — універсал на один рівень теми
-ingest.loop_forever()
-```
+:::code proj-dh-api-styles/py/styl-4-cherha-telemetrii-2.py
 
 Виміри тут іншого роду — не round-trip панелі, а **час блокування продюсера**:
 

@@ -48,41 +48,8 @@
 **Ворота 4 — де покласти й який патерн?** Місце обирають за правилом «ближче до читача — швидше, але важче скинути». Копію можна тримати аж у браузері, на [межі мережі в CDN](root:sf-distributed/cdn), у пам'яті самого процесу (найшвидше, але в кожного вузла своя копія) чи у спільному сховищі на кшталт Redis (одна копія на всіх, зате мережевий стрибок до неї). Патерн же диктує пара «читання/запис плюс бюджет»: [з-поміж перебраних](root:sf-data/caching-strategies) типовий дефолт — cache-aside: застосунок сам питає кеш, на промаху йде до джерела й кладе копію назад. Ось він на найпростішому класі даних DH — профілі пристроїв:
 
 :::tabs
-```ts
-async function getDeviceProfile(id: string): Promise<Profile> {
-  const key = `device:${id}`;
-  const hit = await cache.get(key);
-  if (hit) return JSON.parse(hit);              // влучили — швидко, та, можливо, несвіже
-
-  const fresh = await db.loadProfile(id);        // промах — ідемо до джерела
-  await cache.set(key, JSON.stringify(fresh), { ttlSeconds: 60 });  // TTL = бюджет несвіжості
-  return fresh;
-  // пастка: якщо ключ протух і тисяча читань промахнулись РАЗОМ,
-  // усі тисяча ринуть у джерело одночасно — «гримуча отара» (ворота 5)
-}
-
-async function renameDevice(id: string, name: string): Promise<void> {
-  await db.rename(id, name);
-  await cache.del(`device:${id}`);               // інвалідація на запис: копію треба скинути
-}
-```
-```py
-async def get_device_profile(id: str) -> Profile:
-    key = f"device:{id}"
-    hit = await cache.get(key)
-    if hit:
-        return Profile.parse(hit)                 # влучили — швидко, та, можливо, несвіже
-
-    fresh = await db.load_profile(id)             # промах — ідемо до джерела
-    await cache.set(key, fresh.dump(), ttl=60)    # TTL = бюджет несвіжості
-    return fresh
-    # пастка: якщо ключ протух і тисяча читань промахнулись РАЗОМ,
-    # усі тисяча ринуть у джерело одночасно — «гримуча отара» (ворота 5)
-
-async def rename_device(id: str, name: str) -> None:
-    await db.rename(id, name)
-    await cache.delete(f"device:{id}")            # інвалідація на запис: копію треба скинути
-```
+:::code cache-decision-framework-d/ts/index.ts
+:::code cache-decision-framework-d/py/main.py
 :::
 
 Два рядки-регулятори тут видно наочно: `ttl` задає бюджет несвіжості, а `del` на запису — той самий скид копії, коли нуль секунд несвіжості пробачити не можна.

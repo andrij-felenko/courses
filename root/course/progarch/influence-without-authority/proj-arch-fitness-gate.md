@@ -19,67 +19,8 @@
 Зберемо три латки в одну перевірку. Логіка та сама, що в статті, двома мовами — вона однаково лягає і на TS, і на Python.
 
 :::tabs
-```ts
-import { readdirSync, readFileSync } from "node:fs";
-import { join, relative } from "node:path";
-
-const ROOT = "src";
-const ADAPTER = join("src", "storage");                 // єдине легальне місце драйвера
-const DRIVER = /^\s*import[^;]*\bfrom\s+["']pg["']/m;    // САМЕ import ... from "pg", не підрядок
-const IGNORE = [/\.test\.ts$/, /[\\/]migrations[\\/]/];  // законні винятки — не наша межа
-const ADR = "docs/adr/0007-telemetry-store.md";
-const MODE = process.env.ARCH_MODE ?? "gate";            // warn | gate
-
-function walk(dir: string): string[] {
-  return readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
-    const p = join(dir, e.name);
-    return e.isDirectory() ? walk(p) : [p];
-  });
-}
-
-export function offenders(): string[] {
-  return walk(ROOT)
-    .filter((p) => p.endsWith(".ts") && !p.startsWith(ADAPTER))
-    .filter((p) => !IGNORE.some((re) => re.test(p)))
-    .filter((p) => DRIVER.test(readFileSync(p, "utf8")))
-    .map((p) => relative(ROOT, p).replaceAll("\\", "/"))
-    .sort();
-}
-
-export function report(fresh: string[]): void {
-  console.error(`\nДрайвер БД імпортовано поза storage/ (${fresh.length}):`);
-  fresh.forEach((p) => console.error("  src/" + p));
-  console.error(`\n  Мощена дорога: TelemetryStore.energyByPeriod() — інтерфейс тримає базу замінною.`);
-  console.error(`  Чому саме так:  ${ADR}\n`);
-}
-```
-```py
-import os, re
-from pathlib import Path
-
-ROOT = Path("src")
-ADAPTER = ROOT / "storage"                              # єдине легальне місце драйвера
-DRIVER = re.compile(r"^\s*(from\s+psycopg\b|import\s+psycopg\b)", re.M)  # САМЕ import psycopg
-IGNORE = ("_test.py", "/migrations/")                   # законні винятки — не наша межа
-ADR = "docs/adr/0007-telemetry-store.md"
-MODE = os.environ.get("ARCH_MODE", "gate")              # warn | gate
-
-def _offends(p: Path) -> bool:
-    if ADAPTER in p.parents or any(s in p.as_posix() for s in IGNORE):
-        return False
-    return bool(DRIVER.search(p.read_text(encoding="utf-8")))
-
-def offenders() -> list[str]:
-    return sorted(p.relative_to(ROOT).as_posix()
-                  for p in ROOT.rglob("*.py") if _offends(p))
-
-def report(fresh: list[str]) -> None:
-    print(f"\nДрайвер БД імпортовано поза storage/ ({len(fresh)}):")
-    for p in fresh:
-        print(f"  src/{p}")
-    print("\n  Мощена дорога: TelemetryStore.energy_by_period() — інтерфейс тримає базу замінною.")
-    print(f"  Чому саме так:  {ADR}\n")
-```
+:::code proj-arch-fitness-gate/ts/vid-pratsiuie-na-moii.ts
+:::code proj-arch-fitness-gate/py/vid-pratsiuie-na-moii.py
 :::
 
 Уже це — чесна перевірка: точна, з винятками, з людяним повідомленням і з перемикачем `ARCH_MODE`, до якого ми повернемося за хвилину. Але якщо ти ввімкнеш її **гейтом** просто зараз, станеться катастрофа.
@@ -90,18 +31,7 @@ def report(fresh: list[str]) -> None:
 
 У світі JS/TS це насамперед **dependency-cruiser** — валідатор залежностей, де правило описуєш декларативно: звідки й куди імпорт заборонено. Те саме правило межі виглядає так:
 
-```js
-// .dependency-cruiser.cjs — одна межа сховища
-module.exports = {
-  forbidden: [{
-    name: "no-db-driver-outside-storage",
-    comment: "Драйвер БД — лише в адаптері storage/. Ходи через TelemetryStore. Див. ADR-0007.",
-    severity: "warn",                    // спершу warn (не валить білд); згодом — "error"
-    from: { pathNot: "^src/storage/" },  // будь-що поза адаптером…
-    to:   { path: "^node_modules/pg/" }, // …не сміє тягнути драйвер
-  }],
-};
-```
+:::code proj-arch-fitness-gate/js/index.js
 
 Поле `severity` тут — уже половина нашої дипломатії: `warn` друкує зауваження, але **не валить** збірку; `error` валить. Поруч живе **eslint-plugin-boundaries** — той працює на рівні редактора, підсвічуючи перетин межі просто під час набору, ще до коміту; він мислить «типами елементів» (`storage`, `domain`, `ui`) і правилами, хто кого сміє імпортувати. А в екосистемі JVM канон — **ArchUnit**, бібліотека, де архітектурне правило пишеться звичайним Java-тестом:
 
@@ -135,53 +65,8 @@ ArchRule dbDriverOnlyInStorage =
 Ось код фази 3 — базова лінія з храповиком. Він доростає до `offenders()` з попереднього блоку.
 
 :::tabs
-```ts
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
-
-const BASELINE = ".arch-baseline.json";
-const found = offenders();
-
-// перший запуск — заморожуємо наявне; білд лишається зеленим
-if (!existsSync(BASELINE)) writeFileSync(BASELINE, JSON.stringify(found, null, 2));
-const base: string[] = JSON.parse(readFileSync(BASELINE, "utf8"));
-const baseSet = new Set(base);
-
-const fresh = found.filter((p) => !baseSet.has(p));   // нове поза базою → червоне
-const survived = found.filter((p) => baseSet.has(p)); // старе, ще не полагоджене
-
-// ХРАПОВИК: щойно старе порушення зникло — база всихає й НАЗАД не росте
-if (survived.length < base.length) writeFileSync(BASELINE, JSON.stringify(survived, null, 2));
-
-if (fresh.length) {
-  report(fresh);
-  if (MODE === "gate") process.exit(1);               // у 'warn' друкуємо, але білд зелений
-}
-```
-```py
-import json
-from pathlib import Path
-
-BASELINE = Path(".arch-baseline.json")
-found = offenders()
-
-# перший запуск — заморожуємо наявне; білд лишається зеленим
-if not BASELINE.exists():
-    BASELINE.write_text(json.dumps(found, indent=2), encoding="utf-8")
-base = json.loads(BASELINE.read_text(encoding="utf-8"))
-base_set = set(base)
-
-fresh = [p for p in found if p not in base_set]     # нове поза базою → червоне
-survived = [p for p in found if p in base_set]      # старе, ще не полагоджене
-
-# ХРАПОВИК: щойно старе порушення зникло — база всихає й НАЗАД не росте
-if len(survived) < len(base):
-    BASELINE.write_text(json.dumps(survived, indent=2), encoding="utf-8")
-
-if fresh:
-    report(fresh)
-    if MODE == "gate":
-        raise SystemExit(1)                         # у 'warn' друкуємо, білд зелений
-```
+:::code proj-arch-fitness-gate/ts/holovne-iak-uvimknuty-tse.ts
+:::code proj-arch-fitness-gate/py/holovne-iak-uvimknuty-tse.py
 :::
 
 Два рухи роблять усю магію. Перший: **на першому запуску база = всі наявні порушення**, тож `fresh` порожній і білд зелений — стіни першого дня фізично не може бути. Другий, тонший: **храповик** *(він же заскочник, розм. «тріскачка»: зубчасте колесо із заскочкою — вільно йде в один бік і намертво стопориться у зворотний)*. Щойно хтось полагодив старе порушення, воно зникає з `found`, `survived` коротшає — і ми **перезаписуємо базу коротшим списком**. Тепер це порушення в базі не значиться; якщо його спробують повернути, воно вже `fresh` — і білд червоніє. База — стеля дозволеного — вміє лише спадати. Назад ходу нема.

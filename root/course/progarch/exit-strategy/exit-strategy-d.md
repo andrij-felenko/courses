@@ -43,26 +43,7 @@
 
 Найпоширеніша форма прив'язки. Розробники імпортують специфічні SDK вендора безпосередньо у доменні сервіси. Наприклад, у коді обробки подій розумного будинку Digital Homes виклик збереження стану датчика виглядає як прямий виклик AWS DynamoDB Client API:
 
-```ts
-// Пряма прив'язка: доменний сервіс знає про тип AWS DynamoDB Client
-import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
-
-export class SensorService {
-  constructor(private db: DynamoDBClient) {}
-
-  async saveTelemetry(sensorId: string, temp: number) {
-    // Proprietary формат даних {"S": ...}, {"N": ...} протекти в бізнес-код
-    await this.db.send(new PutItemCommand({
-      TableName: "Telemetry",
-      Item: {
-        SensorId: { S: sensorId },
-        Temperature: { N: temp.toString() },
-        Timestamp: { N: Date.now().toString() }
-      }
-    }));
-  }
-}
-```
+:::code exit-strategy-d/ts/vektor-kodu-ta-interfeisiv.ts
 
 У цій точці бізнес-логіка перестає бути нейтральною. Вона знає про proprietary-типи даних (`{"S": ...}`, `{"N": ...}`), специфічний синтаксис запитів та механіку обробки помилок провайдера. Якщо таких викликів у системі сотні, заміна бази даних вимагає масованого рефакторингу вихідного коду.
 
@@ -227,27 +208,7 @@ Total_Exit_Cost
 
 Застосування патерну [Порти й адаптери](root:sf-apps/hexagonal-architecture) дозволяє ізолювати бізнес-логіку від вендора. Доменний шар взаємодіє лише з абстрактним інтерфейсом (портом), а конкретний SDK хмари ховається за адаптером.
 
-```ts
-// Абстрактний порт (Нейтральний до вендора)
-export interface TelemetryRepository {
-  save(reading: SensorReading): Promise<void>;
-  getByHome(homeId: string): Promise<SensorReading[]>;
-}
-
-// Адаптер #1 (AWS DynamoDB Implementation)
-export class DynamoDBTelemetryAdapter implements TelemetryRepository {
-  constructor(private client: DynamoDBClient) {}
-  async save(reading: SensorReading): Promise<void> { /* AWS specific logic */ }
-  async getByHome(homeId: string): Promise<SensorReading[]> { /* AWS specific query */ }
-}
-
-// Адаптер #2 (PostgreSQL Implementation — Створений для евакуації)
-export class PostgresTelemetryAdapter implements TelemetryRepository {
-  constructor(private pool: PgPool) {}
-  async save(reading: SensorReading): Promise<void> { /* SQL INSERT */ }
-  async getByHome(homeId: string): Promise<SensorReading[]> { /* SQL SELECT */ }
-}
-```
+:::code exit-strategy-d/ts/3-shar-abstraktsii.ts
 
 **Ціна страховки:** Створення та підтримка власних шарів абстракції вимагає додаткових інженерних зусиль на самому початку проекту. Крім того, виникає ризик **протікання абстракцій (Law of Leaky Abstractions)**: спроба створити єдиний інтерфейс, який ідеально закриває і реляційну базу SQL, і документоорієнтовану NoSQL, призводить до того, що розробники створюють громіздкі, повільні wrapper-оркестратори, які не дозволяють використати унікальні оптимізації жодної з баз.
 

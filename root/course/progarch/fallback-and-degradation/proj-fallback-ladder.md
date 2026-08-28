@@ -24,66 +24,8 @@
 Обгортка завжди повертає не голе значення, а **який щабель його дав** — бо саме цей щабель ми хочемо міряти:
 
 :::tabs
-```ts
-// Який щабель драбини віддав відповідь — рівно ці чотири.
-type Rung = "live" | "cache" | "default" | "unavailable";
-
-// Те, що обгортка ЗАВЖДИ повертає: значення, щабель і чи воно застаріле.
-interface Served<T> {
-  value: T;
-  rung: Rung;
-  stale: boolean;
-}
-
-interface Entry<T> { value: T; at: number; } // тепла копія з відміткою часу
-interface Cache<T> {
-  get(key: string): Entry<T> | undefined;
-  put(key: string, value: T): void;
-}
-
-// Policy — це драбина В ДАНИХ: які щаблі ввімкнені саме для ЦЬОГО виклику.
-interface Policy<T> {
-  op: string;                      // ім'я для метрик: "readState", "canCommand:unlock"
-  cache: Cache<T> | null;          // null → щабель кешу вимкнено (напр., для ґейта)
-  staleBudgetMs: number;           // кеш віддаємо, лише поки вік ≤ цього
-  smartDefault: (() => T) | null;  // null → дефолту нема; для ґейта це fail-open/closed
-}
-```
-```go
-// Який щабель драбини віддав відповідь — рівно ці чотири.
-type Rung string
-
-const (
-    RungLive        Rung = "live"
-    RungCache       Rung = "cache"
-    RungDefault     Rung = "default"
-    RungUnavailable Rung = "unavailable"
-)
-
-// Те, що обгортка ЗАВЖДИ повертає: значення, щабель і чи воно застаріле.
-type Served[T any] struct {
-    Value T
-    Rung  Rung
-    Stale bool
-}
-
-type entry[T any] struct {
-    value T
-    at    time.Time
-}
-type Cache[T any] interface {
-    Get(key string) (entry[T], bool)
-    Put(key string, v T)
-}
-
-// Policy — це драбина В ДАНИХ: які щаблі ввімкнені саме для ЦЬОГО виклику.
-type Policy[T any] struct {
-    Op           string        // ім'я для метрик
-    Cache        Cache[T]      // nil → щабель кешу вимкнено
-    StaleBudget  time.Duration // кеш віддаємо, лише поки вік ≤ цього
-    SmartDefault func() T      // nil → дефолту нема; для ґейта це fail-open/closed
-}
-```
+:::code proj-fallback-ladder/ts/ideia-drabyna-tse-dani-a.ts
+:::code proj-fallback-ladder/go/ideia-drabyna-tse-dani-a.go
 :::
 
 ## Обгортка
@@ -91,97 +33,8 @@ type Policy[T any] struct {
 Тепер сам механізм. Він ходить драбиною згори вниз і на кожному **виході** — навіть успішному — карбує метрику щабля. Придивись до чотирьох гілок і до однієї сторожі на самому початку `catch`:
 
 :::tabs
-```ts
-class Unavailable extends Error {
-  constructor(op: string, key: string) {
-    super(`${op}(${key}): залежність недоступна, чесного щабля не лишилось`);
-  }
-}
-
-// Обгортка віддає НАЙВИЩИЙ щабель, що policy тримає чесно.
-async function withFallback<T>(
-  key: string,
-  policy: Policy<T>,
-  primary: () => Promise<T>,
-): Promise<Served<T>> {
-  try {
-    // ① Живий щабель. Таймаут і запобіжник — усередині primary().
-    const value = await primary();
-    policy.cache?.put(key, value);           // тримаємо копію теплою (якщо кеш увімкнено)
-    recordRung(policy.op, "live");           // метрика на КОЖНОМУ виході, навіть успішному
-    return { value, rung: "live", stale: false };
-  } catch (err) {
-    // КЛЮЧОВЕ: fallback — лише на «залежність мовчить». Баг/валідація летять далі.
-    if (!isDependencyDown(err)) throw err;
-
-    // ② Кеш у межах бюджету застарілості.
-    const hit = policy.cache?.get(key);
-    if (hit && Date.now() - hit.at <= policy.staleBudgetMs) {
-      recordRung(policy.op, "cache", Date.now() - hit.at);
-      return { value: hit.value, rung: "cache", stale: true };
-    }
-
-    // ③ Розумний дефолт. Для ґейта САМЕ ТУТ живе fail-open/fail-closed.
-    if (policy.smartDefault) {
-      recordRung(policy.op, "default");
-      return { value: policy.smartDefault(), rung: "default", stale: true };
-    }
-
-    // ④ Чесна вузька відмова. Не брехня простроченим кешем — прямо «недоступно».
-    recordRung(policy.op, "unavailable");
-    throw new Unavailable(policy.op, key);
-  }
-}
-```
-```go
-type Unavailable struct{ Op, Key string }
-
-func (e *Unavailable) Error() string {
-    return fmt.Sprintf("%s(%s): залежність недоступна, чесного щабля не лишилось", e.Op, e.Key)
-}
-
-// Обгортка віддає НАЙВИЩИЙ щабель, що policy тримає чесно.
-func WithFallback[T any](
-    key string,
-    policy Policy[T],
-    primary func() (T, error),
-) (Served[T], error) {
-    // ① Живий щабель. Таймаут і запобіжник — усередині primary().
-    value, err := primary()
-    if err == nil {
-        if policy.Cache != nil {
-            policy.Cache.Put(key, value) // тримаємо копію теплою
-        }
-        recordRung(policy.Op, RungLive, 0) // метрика на КОЖНОМУ виході, навіть успішному
-        return Served[T]{Value: value, Rung: RungLive}, nil
-    }
-
-    // КЛЮЧОВЕ: fallback — лише на «залежність мовчить». Баг/валідація летять далі.
-    if !isDependencyDown(err) {
-        return Served[T]{}, err
-    }
-
-    // ② Кеш у межах бюджету застарілості.
-    if policy.Cache != nil {
-        if hit, ok := policy.Cache.Get(key); ok {
-            if age := time.Since(hit.at); age <= policy.StaleBudget {
-                recordRung(policy.Op, RungCache, age)
-                return Served[T]{Value: hit.value, Rung: RungCache, Stale: true}, nil
-            }
-        }
-    }
-
-    // ③ Розумний дефолт. Для ґейта САМЕ ТУТ живе fail-open/fail-closed.
-    if policy.SmartDefault != nil {
-        recordRung(policy.Op, RungDefault, 0)
-        return Served[T]{Value: policy.SmartDefault(), Rung: RungDefault, Stale: true}, nil
-    }
-
-    // ④ Чесна вузька відмова. Не брехня простроченим кешем — прямо «недоступно».
-    recordRung(policy.Op, RungUnavailable, 0)
-    return Served[T]{}, &Unavailable{Op: policy.Op, Key: key}
-}
-```
+:::code proj-fallback-ladder/ts/obhortka.ts
+:::code proj-fallback-ladder/go/obhortka.go
 :::
 
 Чотири виходи — чотири щаблі, і на кожному стоїть `recordRung`. Це не косметика: без метрики на **живому** щаблі ти не маєш знаменника. «Сто викликів упало на кеш» нічого не означає, поки не знаєш, зі скількох усього — зі ста тисяч (0.1%, спокійно) чи зі ста двадцяти (кеш витримує систему на плечах, залежність фактично мертва). Тому метрика виходить **завжди**, а вже дашборд рахує частку деградованих — і саме тому деградований шлях без [спостережності](root:progarch/observability-as-testability) сліпий.
@@ -243,72 +96,8 @@ func recordRung(op string, rung Rung, age time.Duration) {
 Тепер — обіцяне «одна тиша, дві реакції», але вже в коді. Обидва виклики йдуть крізь `withFallback`; різницю задають **тільки** політики.
 
 :::tabs
-```ts
-// READ: терпить застаріле на 2 хв; коли кеш прострочено — чесна відмова (дефолту НЕМА).
-const readPolicy: Policy<Reading> = {
-  op: "readState",
-  cache: readingCache,
-  staleBudgetMs: 120_000,
-  smartDefault: null,        // прострочений кеш → Unavailable, а не тихе старе значення
-};
-
-function readState(id: string): Promise<Served<Reading>> {
-  return withFallback(id, readPolicy, () => device.read(id));
-}
-
-// ҐЕЙТ (так/ні): кешу НЕМА (щоб не відтворити застаріле «дозволено»), дефолт = fail-closed.
-// Для пейволла було б smartDefault: () => ({ allowed: true }) — fail-open.
-const unlockGatePolicy: Policy<Decision> = {
-  op: "canCommand:unlock",
-  cache: null,
-  staleBudgetMs: 0,
-  smartDefault: () => ({ allowed: false }),   // не достукались до авторизації → забороняємо
-};
-
-async function unlock(user: string, id: string): Promise<void> {
-  const gate = await withFallback(`${user}:${id}`, unlockGatePolicy,
-    () => authz.canCommand(user, id, "unlock"));
-
-  if (!gate.value.allowed) throw new Forbidden(user, id);  // fail-closed: не впустили — правильно
-  await hub.send(id, "unlock");   // саму КОМАНДУ не фолбечимо — вона не ідемпотентна
-}
-```
-```go
-// READ: терпить застаріле на 2 хв; коли кеш прострочено — чесна відмова (дефолту НЕМА).
-var readPolicy = Policy[Reading]{
-    Op:           "readState",
-    Cache:        readingCache,
-    StaleBudget:  2 * time.Minute,
-    SmartDefault: nil, // прострочений кеш → Unavailable, а не тихе старе значення
-}
-
-func ReadState(id string) (Served[Reading], error) {
-    return WithFallback(id, readPolicy, func() (Reading, error) {
-        return device.Read(id) // таймаут/запобіжник — усередині
-    })
-}
-
-// ҐЕЙТ (так/ні): кешу НЕМА (щоб не відтворити застаріле «дозволено»), дефолт = fail-closed.
-// Для пейволла було б SmartDefault: func() Decision { return Decision{Allowed: true} }.
-var unlockGatePolicy = Policy[Decision]{
-    Op:           "canCommand:unlock",
-    Cache:        nil,
-    SmartDefault: func() Decision { return Decision{Allowed: false} }, // fail-closed
-}
-
-func Unlock(user, id string) error {
-    gate, err := WithFallback(user+":"+id, unlockGatePolicy, func() (Decision, error) {
-        return authz.CanCommand(user, id, "unlock")
-    })
-    if err != nil {
-        return err // напр., не-залежницька помилка авторизації — пропускаємо як є
-    }
-    if !gate.Value.Allowed {
-        return &Forbidden{User: user, ID: id} // fail-closed: не впустили — правильно
-    }
-    return hub.Send(id, "unlock") // саму команду не фолбечимо — вона не ідемпотентна
-}
-```
+:::code proj-fallback-ladder/ts/dvi-polityky-toi-samyi.ts
+:::code proj-fallback-ladder/go/dvi-polityky-toi-samyi.go
 :::
 
 Придивись, як розходяться шляхи під **однією** тишею. У `readPolicy` є кеш і немає дефолту: жива температура → застаріла в межах двох хвилин → а якщо й кеш протух, обгортка чесно кидає `Unavailable`, бо гірше за «недоступно» лише **тихо-хибне** старе значення. У `unlockGatePolicy` навпаки — кешу немає зовсім, зате є дефолт `{ allowed: false }`. Через відсутній кеш ґейт **не може** відтворити застаріле «дозволено» навіть випадково; через дефолт-заборону він **ніколи** не доходить до `Unavailable` — ґейт завжди видає рішення, бо його контракт саме такий: не «не знаю», а «так/ні», і напрям здогаду обрано заздалегідь.
@@ -322,141 +111,15 @@ func Unlock(user, id string) error {
 Спершу підробка залежності з перемикачем `down`:
 
 :::tabs
-```ts
-// Підроблена залежність із перемикачем: down=true → кидає, наче хаб замовк.
-class FakeDevice {
-  down = false;
-  reading: Reading = { temperature: 21.5, stale: false };
-  async read(id: string): Promise<Reading> {
-    if (this.down) throw new TimeoutError(id); // ← навмисно «вимкнена» залежність
-    return { ...this.reading };
-  }
-}
-
-class MapCache<T> implements Cache<T> {
-  private m = new Map<string, Entry<T>>();
-  get(key: string) { return this.m.get(key); }
-  put(key: string, value: T) { this.m.set(key, { value, at: Date.now() }); }
-  seed(key: string, value: T, at: number) { this.m.set(key, { value, at }); } // шов для тесту
-}
-```
-```go
-// Підроблена залежність із перемикачем: down=true → кидає, наче хаб замовк.
-type fakeDevice struct {
-    down    bool
-    reading Reading
-}
-
-func (d *fakeDevice) Read(id string) (Reading, error) {
-    if d.down {
-        return Reading{}, &TimeoutError{Key: id} // ← навмисно «вимкнена» залежність
-    }
-    return d.reading, nil
-}
-
-type mapCache[T any] struct{ m map[string]entry[T] }
-
-func newMapCache[T any]() *mapCache[T]           { return &mapCache[T]{m: map[string]entry[T]{}} }
-func (c *mapCache[T]) Get(k string) (entry[T], bool) { e, ok := c.m[k]; return e, ok }
-func (c *mapCache[T]) Put(k string, v T)         { c.m[k] = entry[T]{value: v, at: time.Now()} }
-func (c *mapCache[T]) seed(k string, v T, at time.Time) { c.m[k] = entry[T]{value: v, at: at} }
-```
+:::code proj-fallback-ladder/ts/test-shcho-navmysne.ts
+:::code proj-fallback-ladder/go/test-shcho-navmysne.go
 :::
 
 Тепер три сценарії — і в кожному перевіряємо **щабель**, а не лише «встояло»:
 
 :::tabs
-```ts
-test("read + залежність down + свіжий кеш → щабель cache, не падає й не бреше простроченим", async () => {
-  const device = new FakeDevice();
-  const policy: Policy<Reading> = { ...readPolicy, cache: new MapCache<Reading>() };
-
-  await withFallback("dev-1", policy, () => device.read("dev-1")); // прогрів: жива → у кеш
-  device.down = true;                                              // ← вимикаємо залежність
-
-  const served = await withFallback("dev-1", policy, () => device.read("dev-1"));
-
-  expect(served.rung).toBe("cache");           // встояли на ОЧІКУВАНОМУ щаблі
-  expect(served.stale).toBe(true);             // і чесно позначили: це не свіже
-  expect(served.value.temperature).toBe(21.5);
-});
-
-test("read + залежність down + ПРОСТРОЧЕНИЙ кеш → чесна відмова, а не стара брехня", async () => {
-  const device = new FakeDevice();
-  const cache = new MapCache<Reading>();
-  cache.seed("dev-1", { temperature: 21.5, stale: false }, Date.now() - 5 * 60_000); // кешу 5 хв
-  const policy: Policy<Reading> = { ...readPolicy, cache, staleBudgetMs: 60_000 };    // бюджет 1 хв
-  device.down = true;
-
-  // КЛЮЧОВЕ: система НЕ віддає прострочене значення — вона чесно падає вузько.
-  await expect(withFallback("dev-1", policy, () => device.read("dev-1")))
-    .rejects.toBeInstanceOf(Unavailable);
-});
-
-test("gate unlock + залежність down + fail-closed → deny, НЕ fail-open, кеш не чіпає", async () => {
-  const authzDown = () => Promise.reject(new TimeoutError("authz")); // авторизація мовчить
-  const served = await withFallback("u1:dev-1", unlockGatePolicy, authzDown);
-
-  expect(served.rung).toBe("default");         // впав на дефолт-щабель…
-  expect(served.value.allowed).toBe(false);    // …а дефолт — ЗАБОРОНА (fail-closed)
-});
-```
-```go
-func TestReadFreshCache(t *testing.T) {
-    dev := &fakeDevice{reading: Reading{Temperature: 21.5}}
-    policy := readPolicy
-    policy.Cache = newMapCache[Reading]()
-
-    // прогрів: жива відповідь осідає в кеш
-    WithFallback("dev-1", policy, func() (Reading, error) { return dev.Read("dev-1") })
-    dev.down = true // ← вимикаємо залежність
-
-    served, err := WithFallback("dev-1", policy,
-        func() (Reading, error) { return dev.Read("dev-1") })
-
-    if err != nil {
-        t.Fatalf("не мало впасти: %v", err)
-    }
-    if served.Rung != RungCache {
-        t.Errorf("щабель = %q, хотіли cache", served.Rung)
-    }
-    if !served.Stale {
-        t.Error("cache-щабель мусить нести stale=true")
-    }
-}
-
-func TestReadExpiredCacheFailsHonestly(t *testing.T) {
-    dev := &fakeDevice{down: true}
-    cache := newMapCache[Reading]()
-    cache.seed("dev-1", Reading{Temperature: 21.5}, time.Now().Add(-5*time.Minute)) // кешу 5 хв
-    policy := readPolicy
-    policy.Cache = cache
-    policy.StaleBudget = time.Minute // бюджет 1 хв < вік кешу
-
-    _, err := WithFallback("dev-1", policy,
-        func() (Reading, error) { return dev.Read("dev-1") })
-
-    var un *Unavailable
-    if !errors.As(err, &un) { // мусить бути ЧЕСНА відмова, а не старе значення
-        t.Fatalf("хотіли Unavailable, а не стару брехню; отримали %v", err)
-    }
-}
-
-func TestGateFailClosed(t *testing.T) {
-    served, err := WithFallback("u1:dev-1", unlockGatePolicy,
-        func() (Decision, error) { return Decision{}, &TimeoutError{Key: "authz"} })
-
-    if err != nil {
-        t.Fatalf("ґейт не мав повернути помилку: %v", err)
-    }
-    if served.Rung != RungDefault {
-        t.Errorf("щабель = %q, хотіли default", served.Rung)
-    }
-    if served.Value.Allowed { // fail-closed: дефолт мусить бути ЗАБОРОНА
-        t.Error("fail-closed зламано: дефолт відчинив замок")
-    }
-}
-```
+:::code proj-fallback-ladder/ts/test-shcho-navmysne-2.ts
+:::code proj-fallback-ladder/go/test-shcho-navmysne-2.go
 :::
 
 Кожен тест ловить **свій** клас брехні. Перший стежить, щоб під живою залежністю в кеші, вимкнувши її, ми дістали кеш і **чесну позначку `stale`** — не тихо видали старе за свіже. Другий — найважливіший: коли кеш **старший за бюджет**, система мусить `throw Unavailable`, а не віддати п'ятихвилинну температуру як поточну; сам `rejects.toBeInstanceOf(Unavailable)` (Go: `errors.As` до `*Unavailable`) і є перевіркою «не збрехала простроченим». Третій пильнує ґейт: під тишею авторизації fail-closed мусить дати `allowed == false` — не впав, не відчинив наосліп, кешу не торкнувся.

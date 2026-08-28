@@ -19,47 +19,8 @@
 Зведення обох граней дає рівно одну сигнатуру: `decide(reading, cfg, heating) → heating`. На вхід — число з v1 (`Reading`), поріг з v1 (`Config`) і попередній стан із кроку про порт; на вихід — **новий** стан гріння. Правило лишається чистим островом: ті самі входи дають той самий вихід, стан лежить не в ньому, а на краю ядра, у `HubService`. Ось воно, зведене:
 
 :::tabs
-```py
-from dataclasses import dataclass, replace
-from typing import Protocol
-
-HYSTERESIS = 0.5                     # °C — ширина смуги понад поріг (з кроку про порт)
-
-@dataclass(frozen=True)
-class Reading:                       # значення давача з v1: одиниця й статус — у типі
-    celsius: float                   # ЗАВЖДИ °C
-    ok: bool = True                  # чи це справжнє свіже число
-
-@dataclass(frozen=True)
-class Config:
-    threshold: float = 20.0          # поріг — вхід рішення, а не його нутрощі
-
-@dataclass(frozen=True)
-class Device:                        # доменний пристрій із реєстру
-    kind: str                        # "lock", "lamp", "thermostat"…
-    room: str
-    state: str = "unknown"
-
-def decide(r: Reading, cfg: Config, heating: bool) -> bool:
-    if not r.ok:                     # давач мовчить → безпечний спокій (як вирішив v1)
-        return False
-    if heating:                      # вже гріємо — тримаємо, доки не перескочили верх смуги
-        return r.celsius < cfg.threshold + HYSTERESIS
-    return r.celsius < cfg.threshold # ще ні — вмикаємо, тільки-но впало під поріг
-```
-```ts
-const HYSTERESIS = 0.5;              // °C — ширина смуги понад поріг (з кроку про порт)
-
-interface Reading { readonly celsius: number; readonly ok: boolean; }  // з v1
-interface Config  { readonly threshold: number; }
-interface Device  { readonly kind: string; readonly room: string; readonly state: string; }
-
-function decide(r: Reading, cfg: Config, heating: boolean): boolean {
-  if (!r.ok) return false;                                    // давач мовчить → спокій (як v1)
-  if (heating) return r.celsius < cfg.threshold + HYSTERESIS; // гріємо — тримаємо смугу
-  return r.celsius < cfg.threshold;                           // ще ні — вмикаємо під порогом
-}
-```
+:::code proj-dh-v2/py/ideia-usi-kroky-modulia.py
+:::code proj-dh-v2/ts/ideia-usi-kroky-modulia.ts
 :::
 
 Придивіться, де тут пам'ять і де її **немає**. Пам'ять — у смузі: візьміть 20.3 °C. Якщо ми вже гріли, `decide` каже «так» (20.3 ще не перескочило верх смуги 20.5); якщо не гріли — «ні» (20.3 вже над порогом 20.0). Одна температура, дві відповіді, залежно від того, що робили мить тому — оце й глушить клацання. А от у **самій функції** пам'яті немає ані краплі: стан їй передають параметром і забирають результатом. Це те, на чому стоятиме тест, — правило без прихованого стану можна тицяти в будь-яку точку смуги за мілісекунду.
@@ -73,117 +34,8 @@ function decide(r: Reading, cfg: Config, heating: boolean): boolean {
 Ядро чисте — тепер дамо йому очі й руки, але через **обіцянки**, не через залізо. Три драйвовані порти оголошують, що застосунок уміє питати у світу, а конкретні класи цю обіцянку сповняють — кожен двічі: справжнім залізом для проду й пам'яттю для тесту.
 
 :::tabs
-```py
-# ── Порти: застосунок залежить від них, а не від марки заліза ──
-class Sensor(Protocol):
-    def read(self) -> Reading: ...
-
-class Heater(Protocol):
-    def on(self) -> None: ...        # ідемпотентно
-    def off(self) -> None: ...
-
-class DeviceRepository(Protocol):
-    def save(self, d: Device) -> None: ...
-    def all(self) -> list[Device]: ...
-
-# ── Справжні адаптери: єдині, хто говорить мовою заліза ──
-class OneWireThermometer:            # реалізує Sensor: DS18B20 по 1-Wire
-    def __init__(self, w1_id: str):
-        self._path = f"/sys/bus/w1/devices/{w1_id}/w1_slave"
-    def read(self) -> Reading:
-        try:
-            text = open(self._path).read()          # "...crc=.. YES\n.. t=20125"
-            milli = int(text.split("t=")[-1])       # DS18B20 віддає мілі-градуси
-            return Reading(celsius=milli / 1000, ok=True)   # переклад одиниць ТУТ, на краю
-        except (OSError, ValueError):
-            return Reading(celsius=float("nan"), ok=False)  # німий давач → «не вірю»
-
-class SmartPlug:                     # реалізує Heater: Wi-Fi розетка (напр. Shelly)
-    def __init__(self, url: str):
-        self._url, self._on = url, False
-    def on(self) -> None:
-        if not self._on: self._toggle("on");  self._on = True
-    def off(self) -> None:
-        if self._on:     self._toggle("off"); self._on = False
-    def _toggle(self, turn: str) -> None:
-        import urllib.request
-        urllib.request.urlopen(f"{self._url}/relay/0?turn={turn}", timeout=3)
-
-# ── Підробки: кожен порт має свою, дім живе в пам'яті ──
-class FakeSensor:                    # реалізує Sensor: віддає задану температуру
-    def __init__(self, celsius: float = 18.0):
-        self.celsius, self.ok = celsius, True   # тест крутить ці поля, граючи сценарій
-    def read(self) -> Reading:
-        return Reading(self.celsius, self.ok)
-
-class FakeHeater:                    # реалізує Heater: журнал перемикань, без реле
-    def __init__(self):
-        self._on = False
-        self.log: list[bool] = []
-    def on(self) -> None:
-        if not self._on: self._on = True;  self.log.append(True)   # лише реальні зміни
-    def off(self) -> None:
-        if self._on:     self._on = False; self.log.append(False)
-
-class InMemoryDeviceRepository:      # реалізує DeviceRepository: реєстр у пам'яті
-    def __init__(self):
-        self._items: list[Device] = []
-    def save(self, d: Device) -> None:
-        self._items.append(d)
-    def all(self) -> list[Device]:
-        return list(self._items)
-```
-```ts
-// ── Порти: застосунок залежить від них, а не від марки заліза ──
-interface Sensor { read(): Reading; }
-interface Heater { on(): void; off(): void; }          // on/off — ідемпотентні
-interface DeviceRepository { save(d: Device): void; all(): Device[]; }
-
-// ── Справжні адаптери: єдині, хто говорить мовою заліза ──
-import { readFileSync } from "node:fs";
-
-class OneWireThermometer implements Sensor {           // DS18B20 по 1-Wire
-  constructor(private w1Id: string) {}
-  read(): Reading {
-    try {
-      const text = readFileSync(`/sys/bus/w1/devices/${this.w1Id}/w1_slave`, "utf8");
-      const milli = parseInt(text.split("t=").pop()!, 10);   // мілі-градуси
-      return { celsius: milli / 1000, ok: true };            // переклад ТУТ, на краю
-    } catch {
-      return { celsius: NaN, ok: false };                    // німий давач → «не вірю»
-    }
-  }
-}
-
-class SmartPlug implements Heater {                    // Wi-Fi розетка (Shelly)
-  private on_ = false;
-  constructor(private url: string) {}
-  on():  void { if (!this.on_) { this.toggle("on");  this.on_ = true;  } }
-  off(): void { if (this.on_)  { this.toggle("off"); this.on_ = false; } }
-  private toggle(turn: string): void { void fetch(`${this.url}/relay/0?turn=${turn}`); }
-}
-
-// ── Підробки: кожен порт має свою, дім живе в пам'яті ──
-class FakeSensor implements Sensor {                   // віддає задану температуру
-  celsius = 18.0;
-  ok = true;
-  constructor(celsius = 18.0) { this.celsius = celsius; }   // тест крутить поля, граючи сценарій
-  read(): Reading { return { celsius: this.celsius, ok: this.ok }; }
-}
-
-class FakeHeater implements Heater {                   // журнал перемикань, без реле
-  private on_ = false;
-  readonly log: boolean[] = [];
-  on():  void { if (!this.on_) { this.on_ = true;  this.log.push(true);  } }   // лише реальні зміни
-  off(): void { if (this.on_)  { this.on_ = false; this.log.push(false); } }
-}
-
-class InMemoryDeviceRepository implements DeviceRepository {   // реєстр у пам'яті
-  private items: Device[] = [];
-  save(d: Device): void { this.items.push(d); }
-  all(): Device[] { return [...this.items]; }
-}
-```
+:::code proj-dh-v2/py/porty-i-obydva-vydannia.py
+:::code proj-dh-v2/ts/porty-i-obydva-vydannia.ts
 :::
 
 Порахуймо порти чесно, бо форма легко зсувається в рефлекс «обгортай усе». Драйвованих портів **три**, і кожен заробив своє окремим болем модуля: `Sensor` і `Heater` [заслужили шов на кроці про надмір](root:progarch/hexagon-when-overkill) — два різні годинники й тест без заліза; `DeviceRepository` [заробив своє на розвилці доступу до даних](root:progarch/data-access-choice) — зворотний вибір сховища й тест без бази. Жодного четвертого порту «про запас» ми не завели.
@@ -197,55 +49,8 @@ class InMemoryDeviceRepository implements DeviceRepository {   // реєстр �
 Тепер серединне кільце — місце, куди сходяться обидві двері. `HubService` не робить вводу-виводу власними руками й не тримає жодного правила; він **диригує**, спираючись на порти, і тримає той єдиний стан, якому нема місця в чистому ядрі:
 
 :::tabs
-```py
-@dataclass(frozen=True)
-class HomeSnapshot:                  # DTO: плаский знімок назовні, а не живий об'єкт
-    heating: bool
-    devices: list[Device]
-
-class HubService:
-    def __init__(self, sensor: Sensor, heater: Heater,
-                 devices: DeviceRepository, cfg: Config):
-        self._sensor, self._heater = sensor, heater     # драйвовані порти — інтерфейси
-        self._devices, self._cfg = devices, cfg
-        self._heating = False                           # стан живе ТУТ, на краю ядра
-
-    def tick(self) -> None:                             # сценарій дверей 1 (цикл)
-        reading = self._sensor.read()
-        self._heating = decide(reading, self._cfg, self._heating)   # те саме чисте ядро
-        self._heater.on() if self._heating else self._heater.off()
-
-    def add_device(self, d: Device) -> None:            # сценарій дверей 2 (CLI/HTTP)
-        self._devices.save(d)
-
-    def state(self) -> HomeSnapshot:                    # сценарій дверей 2
-        return HomeSnapshot(self._heating, self._devices.all())
-
-    def set_threshold(self, celsius: float) -> None:    # сценарій дверей 2
-        self._cfg = replace(self._cfg, threshold=celsius)
-```
-```ts
-interface HomeSnapshot { readonly heating: boolean; readonly devices: Device[]; }
-
-class HubService {
-  private heating = false;           // стан живе ТУТ, на краю ядра
-  constructor(
-    private sensor: Sensor,          // драйвовані порти — інтерфейси, не класи
-    private heater: Heater,
-    private devices: DeviceRepository,
-    private cfg: Config,
-  ) {}
-
-  tick(): void {                                        // сценарій дверей 1 (цикл)
-    const reading = this.sensor.read();
-    this.heating = decide(reading, this.cfg, this.heating);  // те саме чисте ядро
-    this.heating ? this.heater.on() : this.heater.off();
-  }
-  addDevice(d: Device): void { this.devices.save(d); }  // сценарій дверей 2
-  state(): HomeSnapshot { return { heating: this.heating, devices: this.devices.all() }; }
-  setThreshold(celsius: number): void { this.cfg = { ...this.cfg, threshold: celsius }; }
-}
-```
+:::code proj-dh-v2/py/zastosunok-hubservice-z.py
+:::code proj-dh-v2/ts/zastosunok-hubservice-z.ts
 :::
 
 Три деталі тут несуть усю вагу. По-перше, **де сидить стан**: `_heating` — поле сервіса, не глобальна змінна й не нутрощі `decide`. Це рівно той «край ядра», про який ішлося: правило чисте, а пам'ять про те, гріємо ми зараз чи ні, лежить на один крок назовні, у застосунку. `tick` бере цей стан, віддає чистому `decide` й **новим** значенням записує назад — коло замикається в сервісі, а не в правилі.
@@ -259,80 +64,8 @@ class HubService {
 Тепер найтонше — впустити в дім **обидві** двері так, щоб вони жили разом і не побилися за стан. Автономний цикл мусить дихати сам, а обробник команд — чекати на людину; і крутитися вони мусять **одночасно**, звіряючись з одним `hub`.
 
 :::tabs
-```py
-def run_loop(hub: HubService) -> None:      # двері 1: автономний цикл
-    from time import sleep
-    while True:
-        hub.tick()
-        sleep(30)
-
-def run_cli(hub: HubService) -> None:       # двері 2: читаємо команди, поки дім живе
-    import sys
-    for line in sys.stdin:                  # головний потік блокується на вводі…
-        match line.split():
-            case ["state"]:
-                s = hub.state()
-                print(f"heating={s.heating}, пристроїв={len(s.devices)}")
-            case ["set-threshold", c]:
-                hub.set_threshold(float(c)); print(f"поріг → {c} °C")
-            case ["add", kind, room]:
-                hub.add_device(Device(kind, room)); print(f"додано {kind} у {room}")
-            case ["quit"]:
-                break
-            case _:
-                print("вживай: state | set-threshold <°C> | add <kind> <room> | quit")
-
-def build(env: str) -> HubService:          # ТОЧКА ЗБІРКИ — єдине місце з конкретними іменами
-    if env == "prod":
-        sensor: Sensor = OneWireThermometer("28-0119a1b2c3d4")   # справжнє залізо
-        heater: Heater = SmartPlug("http://192.168.1.50")
-    else:
-        sensor, heater = FakeSensor(), FakeHeater()              # підробки для тесту й розробки
-    devices = InMemoryDeviceRepository()        # SQLite стане сюди в модулі про сховище
-    return HubService(sensor, heater, devices, Config(threshold=20.0))
-
-if __name__ == "__main__":
-    import os
-    from threading import Thread
-    hub = build(os.getenv("DH_ENV", "dev"))
-    Thread(target=run_loop, args=(hub,), daemon=True).start()   # двері 1 — фоновий потік
-    run_cli(hub)                                                # двері 2 — головний потік
-```
-```ts
-import { createInterface } from "node:readline";
-
-function runLoop(hub: HubService): NodeJS.Timeout {   // двері 1: тік на таймері подієвого циклу
-  return setInterval(() => hub.tick(), 30_000);       // не OS-потік — сам подієвий цикл
-}
-
-function runCli(hub: HubService): void {              // двері 2: читаємо рядки, не блокуючи цикл
-  const rl = createInterface({ input: process.stdin });
-  rl.on("line", (line) => {
-    const [cmd, ...rest] = line.trim().split(/\s+/);
-    if (cmd === "state") {
-      const s = hub.state();
-      console.log(`heating=${s.heating}, пристроїв=${s.devices.length}`);
-    } else if (cmd === "set-threshold") {
-      hub.setThreshold(Number(rest[0])); console.log(`поріг → ${rest[0]} °C`);
-    } else if (cmd === "add") {
-      hub.addDevice({ kind: rest[0], room: rest[1], state: "unknown" });
-      console.log(`додано ${rest[0]} у ${rest[1]}`);
-    } else if (cmd === "quit") rl.close();
-  });
-}
-
-function build(env: string): HubService {            // ТОЧКА ЗБІРКИ — єдине місце з конкретними іменами
-  const [sensor, heater]: [Sensor, Heater] = env === "prod"
-    ? [new OneWireThermometer("28-0119a1b2c3d4"), new SmartPlug("http://192.168.1.50")]  // залізо
-    : [new FakeSensor(), new FakeHeater()];          // підробки
-  const devices = new InMemoryDeviceRepository();    // SQLite стане сюди пізніше
-  return new HubService(sensor, heater, devices, { threshold: 20.0 });
-}
-
-const hub = build(process.env.DH_ENV ?? "dev");
-runLoop(hub);   // цокає у фоні подієвого циклу
-runCli(hub);    // а ми читаємо команди — обидві двері, один hub
-```
+:::code proj-dh-v2/py/dvoie-dverei-i-tochka.py
+:::code proj-dh-v2/ts/dvoie-dverei-i-tochka.ts
 :::
 
 `build` — це [точка збірки (composition root)](root:sf-apps/di-container): єдиний вузол на весь застосунок, що знає конкретні імена. У проді змінна оточення підставляє справжнє залізо, у тесті — підробки; усе інше бачить самі порти. Це той самий `build`, що ми зростили на порті пристрою, тільки підрослий: додав репозиторій і запускає **двоє** дверей замість одного циклу.
@@ -352,74 +85,8 @@ runCli(hub);    // а ми читаємо команди — обидві две
 *Двоє дверей (завтра троє) тримаються за один стан. Цикл пише heating, CLI пише cfg, майбутній HTTP лише читає — і що записала одна, наступне читання іншої вже бачить, бо hub один на всіх.*
 
 :::tabs
-```py
-# test_hub.py — ганяємо сервіс підробками: без заліза, без бази, без sleep
-
-def test_core_holds_the_band():          # ДОКАЗ 0: зведене ядро тримає смугу
-    cfg = Config(threshold=20.0)
-    assert decide(Reading(19.9), cfg, heating=False)          # холодно — вмикаємо
-    assert decide(Reading(20.3), cfg, heating=True)           # у смузі й гріли — тримаємо
-    assert not decide(Reading(20.6), cfg, heating=True)       # перескочили верх — гасимо
-    assert not decide(Reading(20.3), cfg, heating=False)      # та сама 20.3, вимкнено — НЕ вмикаємо
-    assert not decide(Reading(float("nan"), ok=False), cfg, heating=True)  # німий давач → спокій
-
-def test_both_doors_share_one_truth():   # ДОКАЗ 1 і 2: одна правда + HTTP задарма
-    sensor, heater = FakeSensor(celsius=21.0), FakeHeater()   # 21 °C — тепліше за поріг 20
-    hub = HubService(sensor, heater, InMemoryDeviceRepository(), Config(threshold=20.0))
-
-    hub.tick()                                    # двері 1: тік — 21 над порогом, не гріємо
-    assert hub.state().heating is False
-    assert heater.log == []                       # реле жодного разу не смикнулось
-
-    hub.set_threshold(25.0)                        # двері 2: та сама мить — CLI підняв поріг
-    hub.add_device(Device("lock", "спальня"))      # двері 2: CLI додав пристрій
-
-    hub.tick()                                     # двері 1: наступний тік БАЧИТЬ нову правду
-    snap = hub.state()
-    assert snap.heating is True                    # 21 < 25 → цикл тепер гріє
-    assert heater.log == [True]                    # і реле ввімкнулось рівно раз
-    assert any(d.room == "спальня" for d in snap.devices)   # CLI-пристрій видно циклу
-
-    def http_get_state(h: HubService) -> HomeSnapshot:   # двері 3 — HTTP, завтра
-        return h.state()                                 # той самий виклик, нуль правок ядра
-    assert http_get_state(hub).heating is True
-```
-```ts
-// test_hub.ts — ганяємо сервіс підробками: без заліза, без бази, без sleep
-import assert from "node:assert";
-
-// ДОКАЗ 0: зведене ядро тримає смугу
-{
-  const cfg = { threshold: 20.0 };
-  assert(decide({ celsius: 19.9, ok: true }, cfg, false));    // холодно — вмикаємо
-  assert(decide({ celsius: 20.3, ok: true }, cfg, true));     // у смузі й гріли — тримаємо
-  assert(!decide({ celsius: 20.6, ok: true }, cfg, true));    // перескочили верх — гасимо
-  assert(!decide({ celsius: 20.3, ok: true }, cfg, false));   // та сама 20.3, вимкнено — НЕ вмикаємо
-  assert(!decide({ celsius: NaN, ok: false }, cfg, true));    // німий давач → спокій
-}
-
-// ДОКАЗ 1 і 2: одна правда + HTTP задарма
-{
-  const sensor = new FakeSensor(21.0), heater = new FakeHeater();   // 21 °C > поріг 20
-  const hub = new HubService(sensor, heater, new InMemoryDeviceRepository(), { threshold: 20.0 });
-
-  hub.tick();                                    // двері 1: 21 над порогом — не гріємо
-  assert.strictEqual(hub.state().heating, false);
-  assert.deepStrictEqual(heater.log, []);
-
-  hub.setThreshold(25.0);                         // двері 2: CLI підняв поріг
-  hub.addDevice({ kind: "lock", room: "спальня", state: "unknown" });
-
-  hub.tick();                                     // двері 1: наступний тік бачить нову правду
-  const snap = hub.state();
-  assert.strictEqual(snap.heating, true);         // 21 < 25 → цикл тепер гріє
-  assert.deepStrictEqual(heater.log, [true]);     // реле ввімкнулось рівно раз
-  assert(snap.devices.some((d) => d.room === "спальня"));   // CLI-пристрій видно циклу
-
-  const httpGetState = (h: HubService): HomeSnapshot => h.state();  // двері 3 — HTTP
-  assert.strictEqual(httpGetState(hub).heating, true);             // нуль правок ядра
-}
-```
+:::code proj-dh-v2/py/test_hub.py
+:::code proj-dh-v2/ts/test_hub.ts
 :::
 
 Розберімо, що саме доводить кожен рядок, бо тут — уся розписка за форму.

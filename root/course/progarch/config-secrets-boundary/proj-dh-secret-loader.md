@@ -56,44 +56,8 @@ log.info("config loaded", config);        // і ось він уже в лога
 Найперша ланка — сам маніфест і функція, що відрізняє посилання від простого значення **за формою**:
 
 :::tabs
-```ts
-// Значення конфігу — або просте (рядок/число/булеве), або ПОСИЛАННЯ на секрет.
-type Ref  = { readonly secret: string };            // { secret: "dh/db/password" }
-type Leaf = string | number | boolean | Ref;
-
-// Секрет упізнаємо ЗА ФОРМОЮ: обʼєкт із полем `secret`, а не за списком імен.
-const isRef = (v: Leaf): v is Ref =>
-  typeof v === "object" && v !== null && typeof (v as Ref).secret === "string";
-
-// Той самий поділ, що в статті: горішні — конфіг, долішні — секрети.
-const manifest: Record<string, Leaf> = {
-  mqttUrl:    "mqtts://broker.dh.internal:8883",   // конфіг
-  pollSec:    30,                                  // конфіг
-  logLevel:   "info",                              // конфіг
-  dbHost:     "prod-db.internal",                  // конфіг
-  dbPassword: { secret: "dh/db/password" },        // СЕКРЕТ — лише адреса у сховищі
-  cloudToken: { secret: "dh/cloud/hub-token" },    // СЕКРЕТ — лише адреса у сховищі
-};
-```
-```py
-from typing import Protocol, Union
-
-Leaf = Union[str, int, bool, dict]        # dict тут — лише мітка {"secret": "..."}
-
-def is_ref(v: Leaf) -> bool:
-    # Секрет упізнаємо ЗА ФОРМОЮ: словник з єдиним ключем `secret`.
-    return isinstance(v, dict) and set(v) == {"secret"}
-
-# Той самий поділ, що в статті: горішні — конфіг, долішні — секрети.
-manifest: dict[str, Leaf] = {
-    "mqtt_url":    "mqtts://broker.dh.internal:8883",   # конфіг
-    "poll_sec":    30,                                  # конфіг
-    "log_level":   "info",                              # конфіг
-    "db_host":     "prod-db.internal",                  # конфіг
-    "db_password": {"secret": "dh/db/password"},        # СЕКРЕТ — лише адреса у сховищі
-    "cloud_token": {"secret": "dh/cloud/hub-token"},    # СЕКРЕТ — лише адреса у сховищі
-}
-```
+:::code proj-dh-secret-loader/ts/manifest-i-rozpiznavannia.ts
+:::code proj-dh-secret-loader/py/manifest-i-rozpiznavannia.py
 :::
 
 Поділ за формою, а не за іменем, — дрібниця з великим наслідком. Список секретних імен доводиться тримати десь окремо й вічно синхронізувати з конфігом; форма ж їде разом зі значенням і не бреше. Додав нове секретне поле — воно вже позначене, бо інакше його просто не запишеш.
@@ -103,45 +67,8 @@ manifest: dict[str, Leaf] = {
 Тепер — контракт до сховища й оболонка, що не дає значенню виллятися:
 
 :::tabs
-```ts
-// ПОРТ: застосунок знає лише «дай значення за іменем». Що по той бік —
-// змінна середовища, хмарний вольт, файл, — його не обходить.
-interface SecretStore {
-  get(name: string): Promise<string>;   // кидає, якщо секрета нема
-}
-
-// СХОВОК: справжнє значення — за приватним полем; назовні за замовчуванням ‹secret›.
-const REDACTED = "‹secret›";
-class Secret {
-  readonly #value: string;                    // приватне поле ES2022 — не видно ЖОДНОМУ обходу
-  constructor(value: string) { this.#value = value; }
-
-  expose(): string { return this.#value; }    // ЄДИНИЙ навмисний вихід значення
-
-  toString(): string { return REDACTED; }     // рядок / шаблон `${s}`
-  toJSON():   string { return REDACTED; }     // JSON.stringify, структурний логер
-  [Symbol.for("nodejs.util.inspect.custom")]() { return REDACTED; }  // console.log, util.inspect
-}
-```
-```py
-class SecretStore(Protocol):
-    def get(self, name: str) -> str: ...       # кидає, якщо секрета нема
-
-REDACTED = "‹secret›"
-
-class Secret:
-    __slots__ = ("_value",)                    # без __dict__ — важче ненароком серіалізувати
-    def __init__(self, value: str) -> None:
-        self._value = value
-
-    def expose(self) -> str:                   # ЄДИНИЙ навмисний вихід значення
-        return self._value
-
-    def __repr__(self) -> str:                 # repr(), логер, f"{s!r}"
-        return REDACTED
-    __str__ = __repr__                         # str(), f"{s}", print
-    # json.dumps(Secret(...)) без default= КИНЕ TypeError — тобто НЕ виллє, а зупинить.
-```
+:::code proj-dh-secret-loader/ts/port-skhovyshcha-i-skhovok.ts
+:::code proj-dh-secret-loader/py/port-skhovyshcha-i-skhovok.py
 :::
 
 Придивись, скільки різних дверей закриває ця маленька оболонка. Приватне поле (`#value` у TS, `__slots__` без `__dict__` у Python) прибирає значення з очей будь-якого обходу полів — спред, `Object.keys`, `vars()` його не бачать. Три перевизначені методи закривають три головні шляхи, якими рядок сам стікає в текст: перетворення на рядок, серіалізацію в JSON і друк у консоль/інспектор. Лишається **одні** навмисні двері — `expose()`, — і саме тому, що вони одні й названі, кожне їх використання видно на очі при читанні коду: `grep expose` показує повний список місць, де секрет узагалі торкається світу.
@@ -151,19 +78,7 @@ class Secret:
 Серце завантажувача — функція, що проходить маніфест, лишає простий конфіг як є, а посилання міняє на `Secret` зі значенням зі сховища:
 
 :::tabs
-```ts
-type Resolved = Record<string, string | number | boolean | Secret>;
-
-// Поділ + підстановка: просте лишаємо як є, посилання міняємо на Secret.
-// Секрети тягнемо ПАРАЛЕЛЬНО, на старті, один раз.
-async function resolve(m: Record<string, Leaf>, store: SecretStore): Promise<Resolved> {
-  const entries = await Promise.all(
-    Object.entries(m).map(async ([key, val]) =>
-      [key, isRef(val) ? new Secret(await store.get(val.secret)) : val] as const),
-  );
-  return Object.fromEntries(entries);
-}
-```
+:::code proj-dh-secret-loader/ts/rezolver-podil-i.ts
 ```py
 def resolve(m: dict[str, Leaf], store: SecretStore) -> dict[str, object]:
     # Поділ + підстановка: просте лишаємо як є, посилання міняємо на Secret.
@@ -183,113 +98,15 @@ def resolve(m: dict[str, Leaf], store: SecretStore) -> dict[str, object]:
 Останнє й найтонше — зробити знімок **живим**: щоб при ротації процес перечитав секрети й гаряче підмінив їх, не зупиняючись. Складаємо це в обʼєкт `Config`, що тримає знімок і вміє його перезавантажити:
 
 :::tabs
-```ts
-class Config {
-  #snapshot: Resolved;                       // незмінний знімок; ротація підмінює його ЦІЛКОМ
-  #reloading: Promise<void> | null = null;   // single-flight: не більше одного перечиту заразом
-
-  private constructor(
-    private readonly m: Record<string, Leaf>,
-    private readonly store: SecretStore,
-    initial: Resolved,
-  ) { this.#snapshot = initial; }
-
-  // СТАРТ: fail-closed. Немає секрета — застосунок НЕ піднімається (resolve кине).
-  static async load(m: Record<string, Leaf>, store: SecretStore): Promise<Config> {
-    return new Config(m, store, await resolve(m, store));
-  }
-
-  // Читач бере ВЕСЬ знімок за раз і працює з ним до кінця одиниці роботи.
-  snapshot(): Resolved { return this.#snapshot; }
-
-  // РОТАЦІЯ: перечитати секрети й підмінити знімок. Single-flight + fail-static.
-  reload(): Promise<void> {
-    if (this.#reloading) return this.#reloading;    // вже йде — приєднайся, не громадь стадо
-    this.#reloading = this.#doReload().finally(() => { this.#reloading = null; });
-    return this.#reloading;
-  }
-
-  async #doReload(): Promise<void> {
-    let next: Resolved;
-    try {
-      next = await resolve(this.m, this.store);
-    } catch (err) {
-      log.warn("secret reload failed, keeping snapshot", { err: String(err) });
-      return;                                        // fail-static: лишаємось на робочому знімку
-    }
-    this.#snapshot = next;                           // атомна підміна ОДНОГО посилання
-  }
-}
-```
-```py
-import signal, threading, logging
-log = logging.getLogger("dh.config")
-
-class Config:
-    def __init__(self, m, store, initial):
-        self._m, self._store = m, store
-        self._snapshot = initial               # незмінний знімок
-        self._lock = threading.Lock()          # single-flight
-
-    @classmethod
-    def load(cls, m, store) -> "Config":
-        # СТАРТ: fail-closed. Немає секрета — застосунок НЕ піднімається (resolve кине).
-        return cls(m, store, resolve(m, store))
-
-    def snapshot(self) -> dict[str, object]:
-        return self._snapshot                  # читач бере ВЕСЬ знімок за раз
-
-    def reload(self) -> None:
-        # РОТАЦІЯ: single-flight (неблокувальний acquire) + fail-static.
-        if not self._lock.acquire(blocking=False):
-            return                             # вже йде перечит — не громадимо стадо
-        try:
-            try:
-                nxt = resolve(self._m, self._store)
-            except Exception as err:
-                log.warning("secret reload failed, keeping snapshot: %s", err)
-                return                         # fail-static: лишаємось на робочому знімку
-            self._snapshot = nxt               # атомна підміна посилання (під GIL)
-        finally:
-            self._lock.release()
-```
+:::code proj-dh-secret-loader/ts/rotatsiia-syhnal-ttl-i.ts
+:::code proj-dh-secret-loader/py/rotatsiia-syhnal-ttl-i.py
 :::
 
 А ось як цей `Config` під'єднують до двох джерел ротації — зовнішнього сигналу (аварія, ротація «просто зараз») і TTL (повільний фоновий страховий перечит):
 
 :::tabs
-```ts
-const cfg = await Config.load(manifest, store);
-
-process.on("SIGHUP", () => { void cfg.reload(); });             // ротація за сигналом — БЕЗ релізу
-setInterval(() => { void cfg.reload(); }, 5 * 60_000).unref();  // + TTL-перечит на всяк випадок
-
-// ГАРЯЧИЙ шлях: знімок беруть ОДИН раз на одиницю роботи; поле-за-полем через await — НЕ читають.
-async function handleReading(req: Reading): Promise<void> {
-  const c = cfg.snapshot();                                     // цілісний знімок на весь запит
-  await db.connect(c.dbHost as string, (c.dbPassword as Secret).expose());  // значення — лише тут
-  // ...далі вся одиниця роботи бачить один узгоджений c
-}
-```
-```py
-cfg = Config.load(manifest, store)
-
-_wake = threading.Event()
-signal.signal(signal.SIGHUP, lambda *_: _wake.set())   # сигнал ЛИШЕ будить — не фетчить у хендлері
-
-def _rotator(ttl: float) -> None:
-    while True:
-        _wake.wait(timeout=ttl)      # прокидається за SIGHUP АБО коли вийшов TTL
-        _wake.clear()
-        cfg.reload()
-
-threading.Thread(target=_rotator, args=(300.0,), daemon=True).start()
-
-# ГАРЯЧИЙ шлях: знімок беруть ОДИН раз; поле-за-полем — НЕ читають.
-def handle_reading(req) -> None:
-    c = cfg.snapshot()                                   # цілісний знімок
-    db.connect(c["db_host"], c["db_password"].expose())  # значення — лише тут
-```
+:::code proj-dh-secret-loader/ts/rotatsiia-syhnal-ttl-i-2.ts
+:::code proj-dh-secret-loader/py/rotatsiia-syhnal-ttl-i-2.py
 :::
 
 Тут кожна деталь відповідає своїй вимозі, і варто пройтися по них окремо.

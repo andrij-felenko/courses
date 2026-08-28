@@ -9,38 +9,8 @@
 Почнімо з версії, що **виглядає** гібридною й навіть майже така — і саме тому підступна. Хтось узяв начерк буквально:
 
 :::tabs
-```ts
-// ❌ Три тихі помилки в одному охайному на вигляд класі.
-class NaiveHybrid {
-  constructor(private policy: Policy, private rels: RelationshipCache) {}
-
-  can(user: User, action: Action, resource: Resource): boolean {   // (1) синхронний — ламає шов А
-    let isMember: boolean;
-    try {
-      isMember = this.rels.isMemberOfSync(user.id, resource.homeId);
-    } catch {
-      isMember = true;                                             // (2) збій центру → «пустити»
-    }
-    const role = user.roleInHome[resource.homeId];
-    return this.policy.evaluate({ action, role, isMember, now: Date.now() });
-  }
-}
-```
-```py
-# ❌ Три тихі помилки в одному охайному на вигляд класі.
-class NaiveHybrid:
-    def __init__(self, policy, rels):
-        self.policy, self.rels = policy, rels
-
-    def can(self, user, action, resource) -> bool:          # (1) синхронний — ламає шов А
-        try:
-            is_member = self.rels.is_member_of_sync(user.id, resource.home_id)
-        except Exception:
-            is_member = True                                # (2) збій центру → «пустити»
-        role = user.role_in_home.get(resource.home_id)
-        return self.policy.evaluate(action=action, role=role,
-                                    is_member=is_member, now=time.time() * 1000)
-```
+:::code proj-dh-authz-hybrid/ts/zadacha-shcho-musyt-umity.ts
+:::code proj-dh-authz-hybrid/py/zadacha-shcho-musyt-umity.py
 :::
 
 Тут три діри, і всі три ховаються за словом «майже». **Перша** — синхронний `can`. Начерк малював його таким для читабельності, але кеш членства ходить по мережу на промах, а це неминуче `await`; зробивши `can` синхронним, ти або блокуєш потік на мережі, або брешеш, що мережі нема, — і в обох випадках підпис розійшовся з Варіантом А, тож жоден із тридцяти хендлерів уже не підміниш без переписування. **Друга** — `catch → isMember = true`. Написано «щоб збій центру не блокував людей», а насправді це відчинені двері: одна мить недоступності сховища зв'язків — і кожен чужий проходить. **Третя** захована в тому, чого тут узагалі нема: жодного сліду, як `policy` опинилася в пам'яті свіжою й хто чистить кеш на відкликання. Начерк ці питання відклав; робоча збірка відкласти їх не може.
@@ -71,37 +41,8 @@ class NaiveHybrid:
 Найперше — те, що гібрид **не** винаходить наново. Типи й шов ті самі, що в А; уся різниця буде глибше:
 
 :::tabs
-```ts
-type Role   = "owner" | "resident" | "guest";
-type Action = "unlock" | "lock" | "view" | "configure";
-
-// Ті самі User/Resource. Новина одна: роль у домі їде РАЗОМ з автентифікованим
-// користувачем (локальний факт із токена), а не тягнеться портом, як в А.
-interface User     { id: string; roleInHome: Record<string, Role | undefined>; }
-interface Resource { homeId: string; }
-
-// ШОВ — байт-у-байт той самий, що у Варіанті А: can асинхронний.
-// Саме тому підміна А ⇄ гібрид лишається двобічною — підпис не змінився.
-interface Authorizer {
-  can(user: User, action: Action, resource: Resource): Promise<boolean>;
-}
-```
-```py
-from typing import Literal, Optional, Protocol, Mapping
-
-Role   = Literal["owner", "resident", "guest"]
-Action = Literal["unlock", "lock", "view", "configure"]
-
-class User(Protocol):
-    id: str
-    role_in_home: Mapping[str, Optional[Role]]   # роль їде з токеном (локальний факт)
-
-class Resource(Protocol):
-    home_id: str
-
-class Authorizer(Protocol):                      # ШОВ — той самий, що у Варіанті А
-    async def can(self, user: User, action: Action, resource: Resource) -> bool: ...
-```
+:::code proj-dh-authz-hybrid/ts/slovnyk-i-shov-spilni-z.ts
+:::code proj-dh-authz-hybrid/py/slovnyk-i-shov-spilni-z.py
 :::
 
 Одна зміна проти А тут змістовна, і саме вона — третій важіль на дотик. У Варіанті А і роль, і членство йшли крізь єдиний порт `roleIn(userId, homeId)`. Гібрид **розчепив дані за місцем**: роль у домі — локальний факт, він їде клеймом у токені автентифікованого користувача (`roleInHome`), і читається без жодного походу; а от «чи справді цей користувач **зараз** член дому 7» — наскрізний факт, авторитетне джерело якого одне на всі сервіси, і саме його відкликають. Токен може ще нести старе клеймо «resident у домі 7», та поки авторитетний центр каже «вже не член», гібрид відмовить. Клеймо ролі — швидка місцева зручність; членство — повільна, але правдива й відкликувана істина. На їхньому перетині й стоїть уся безпека.
@@ -111,69 +52,8 @@ class Authorizer(Protocol):                      # ШОВ — той самий,
 Політика — це **дані**, окремий текст правила, а не розсипані по коду `if`-и; так її можна змінити в одному місці й роздати всюди. Це той самий підхід [політики як коду](root:sf-security/policy-as-code): правило пишуть, версіонують і підписують окремо від застосунку, а сервіси його лише виконують. Спершу — сам бандл і його компіляція в чистий оцінювач:
 
 :::tabs
-```ts
-interface PolicyBundle {
-  version: string;                                   // ревізія (для 304 і аудиту)
-  actionsByRole: Record<Role, Action[]>;             // базова таблиця «роль → дозволені дії»
-  guestUnlock: { fromHour: number; toHour: number }; // гість відчиняє лише у денному вікні
-}
-
-interface EvalInput { action: Action; role?: Role; isMember: boolean; now: number; }
-interface Policy    { version: string; evaluate(x: EvalInput): boolean; }
-
-const HOUR = 3_600_000;
-
-// Компіляція бандла у ЧИСТИЙ оцінювач: жодного I/O, лише обчислення. Одне місце правила.
-function compilePolicy(b: PolicyBundle): Policy {
-  const table: Record<Role, ReadonlySet<Action>> = {
-    owner:    new Set(b.actionsByRole.owner),
-    resident: new Set(b.actionsByRole.resident),
-    guest:    new Set(b.actionsByRole.guest),
-  };
-  return {
-    version: b.version,
-    evaluate({ action, role, isMember, now }) {
-      if (!isMember) return false;                   // «член дому» — обов'язкова умова (у центрі!)
-      if (!role) return false;                       // нема ролі в цьому домі → ні
-      if (table[role].has(action)) return true;      // базовий дозвіл ролі
-      if (role === "guest" && action === "unlock") { // спец-правило гостя: денне вікно
-        const h = Math.floor((now / HOUR) % 24);
-        return h >= b.guestUnlock.fromHour && h < b.guestUnlock.toHour;
-      }
-      return false;                                  // усе, чого не виписано, — заборонено
-    },
-  };
-}
-```
-```py
-HOUR = 3_600_000  # мс
-
-class PolicyBundle:
-    def __init__(self, version, actions_by_role, guest_unlock):
-        self.version = version                 # ревізія (для 304 і аудиту)
-        self.actions_by_role = actions_by_role # {role: [actions]}
-        self.guest_unlock = guest_unlock        # (from_hour, to_hour)
-
-class Policy:
-    def __init__(self, version, table, guest):
-        self.version, self._table, self._guest = version, table, guest
-
-    def evaluate(self, action, role, is_member, now):
-        if not is_member:                              # «член дому» — обов'язково (у центрі!)
-            return False
-        if role is None:                               # нема ролі в цьому домі → ні
-            return False
-        if action in self._table.get(role, frozenset()):
-            return True                                # базовий дозвіл ролі
-        if role == "guest" and action == "unlock":     # спец-правило гостя: денне вікно
-            h = int((now / HOUR) % 24)
-            return self._guest[0] <= h < self._guest[1]
-        return False                                   # усе, чого не виписано, — заборонено
-
-def compile_policy(b: PolicyBundle) -> Policy:
-    table = {r: frozenset(a) for r, a in b.actions_by_role.items()}
-    return Policy(b.version, table, b.guest_unlock)
-```
+:::code proj-dh-authz-hybrid/ts/vazhil-1-polityka-iak.ts
+:::code proj-dh-authz-hybrid/py/vazhil-1-polityka-iak.py
 :::
 
 Зверни увагу, де живе умова «мусиш бути членом»: **у політиці**, першим рядком `evaluate`, а не в обробнику й не в авторизаторі. Це навмисне — правило одне, і воно ціле в одному тексті, включно з «член дому обов'язково» й «гість лише вдень». Оцінювач — чиста функція: ті самі входи завжди дають той самий вихід, жодного годинника всередині (час приходить аргументом `now`), жодної мережі. Саме чистота робить рішення локальним і тестованим.
@@ -181,77 +61,8 @@ def compile_policy(b: PolicyBundle) -> Policy:
 Тепер — роздача. Правило треба донести з центру до кожного сервісу й тримати свіжим, не платячи мережею на кожному запиті. Класичний рецепт — той, що возить у проді **OPA**: центр підписує бандл, а локальний агент опитує його фоном і активує лише при валідному підписі. Опитування коротке: сервіс шле ревізію, центр відповідає `304 Not Modified`, якщо бандл не змінився, або новим бандлом; підпис (`.signatures.json` із SHA-хешами файлів) звіряють ключем, і бандл із чужим підписом просто не активують, лишаючи чинним останній добрий (це задокументована поведінка OPA). Ось той самий механізм у нашому коді:
 
 :::tabs
-```ts
-// Джерело бандла (центр політики).
-interface BundleSource {
-  pull(sinceRevision: string): Promise<PolicyBundle | null>;  // null = 304, без змін
-  verify(bundle: PolicyBundle): boolean;                      // підпис бандла зійшовся?
-}
-
-// Гарячий шлях бачить лише policy() — читання вказівника, БЕЗ I/O. Уся мережа — у фоні.
-interface PolicySource { policy(): Policy; }
-
-class PolicyProvider implements PolicySource {
-  private current: Policy | null = null;   // null, доки не прийшов перший валідний бандл
-  private revision = "";
-
-  constructor(private src: BundleSource, private intervalMs = 30_000) {}
-
-  policy(): Policy {
-    if (!this.current) throw new Error("policy-not-loaded"); // старт без правила: нема чому дозволяти
-    return this.current;
-  }
-
-  async refreshOnce(): Promise<void> {
-    const bundle = await this.src.pull(this.revision);
-    if (!bundle) return;                       // 304: нема нового — лишаємо чинне
-    if (!this.src.verify(bundle)) return;      // підпис не зійшовся → НЕ активуємо
-    this.current = compilePolicy(bundle);      // атомарна підміна вказівника — запит не помітив
-    this.revision = bundle.version;
-  }
-
-  start(): void {                              // фоновий цикл, окремо від запитів
-    const tick = async () => {
-      try { await this.refreshOnce(); }
-      catch { /* збій тягання → лишаємо останнє добре відоме правило (fail-static) */ }
-      finally { setTimeout(tick, this.intervalMs); }
-    };
-    void tick();
-  }
-}
-```
-```py
-import asyncio
-
-class PolicyProvider:                          # PolicySource: .policy() -> Policy (без I/O)
-    def __init__(self, src, interval_s=30.0):
-        self._src = src                        # .pull(since_rev)->bundle|None; .verify(bundle)->bool
-        self._interval = interval_s
-        self._current = None                   # None, доки не прийшов перший валідний бандл
-        self._revision = ""
-
-    def policy(self):
-        if self._current is None:
-            raise RuntimeError("policy-not-loaded")   # старт без правила: нема чому дозволяти
-        return self._current                          # читання вказівника — без I/O
-
-    async def refresh_once(self):
-        bundle = await self._src.pull(self._revision)
-        if bundle is None:
-            return                             # 304: нема нового — лишаємо чинне
-        if not self._src.verify(bundle):
-            return                             # підпис не зійшовся → НЕ активуємо
-        self._current = compile_policy(bundle) # атомарна підміна вказівника
-        self._revision = bundle.version
-
-    async def run(self):                       # фонова задача: asyncio.create_task(provider.run())
-        while True:
-            try:
-                await self.refresh_once()
-            except Exception:
-                pass                           # збій тягання → тримаємо старе (fail-static)
-            await asyncio.sleep(self._interval)
-```
+:::code proj-dh-authz-hybrid/ts/vazhil-1-polityka-iak-2.ts
+:::code proj-dh-authz-hybrid/py/vazhil-1-polityka-iak-2.py
 :::
 
 Три речі тут варті ока. `policy()` — це просто читання вказівника, тому гарячий шлях не платить нічим: уся мережа сидить у `run`/`start`, окремо від запитів. Підміна `this.current = compilePolicy(bundle)` **атомарна** — одна присвойка, тож запит бачить або старе ціле правило, або нове ціле, ніколи не половину. І, найтонше, збій тягання **не валить сервіс**: `catch` ковтає помилку, лишаючи чинним останній добрий бандл. Це `fail-static`, а не `fail-closed`, — і за мить у пастках ми побачимо, чому для *політики* напрям відмови протилежний до того, що для *членства*.
@@ -261,73 +72,8 @@ class PolicyProvider:                          # PolicySource: .policy() -> Poli
 Ось де гібрид тримає або зраджує безпеку. Наскрізне членство живе в центральному сховищі зв'язків — Zanzibar-подібному, тому за фактом ходять мережею; кеш накриває це сховище, щоб на гарячому шляху стрибка не було. Ключова деталь — що робити, коли підтвердити членство **не вдалося**:
 
 :::tabs
-```ts
-interface RelationshipStore {                            // центр зв'язків: мережевий виклик
-  isMemberOf(userId: string, homeId: string): Promise<boolean>;
-}
-
-type Entry = { member: boolean; exp: number };
-
-class RelationshipCache {
-  private cache = new Map<string, Entry>();
-
-  constructor(
-    private store: RelationshipStore,
-    private now: () => number = Date.now,
-    private posTtlMs = 60_000,   // позитив живе довше — членство змінюється рідко
-    private negTtlMs = 5_000,    // негатив — коротко, щоб свіжий член не застряг у «ні»
-  ) {}
-
-  async isMemberOf(userId: string, homeId: string): Promise<boolean> {
-    const key = `${userId}:${homeId}`;
-    const hit = this.cache.get(key);
-    if (hit && hit.exp > this.now()) return hit.member;    // свіжий кеш — жодного стрибка
-
-    let member: boolean;
-    try {
-      member = await this.store.isMemberOf(userId, homeId); // один похід у центр
-    } catch {
-      // FAIL-CLOSED: не підтвердили членство → «ні». Збій НЕ кешуємо — щоб не залипнути в deny.
-      return false;
-    }
-    const ttl = member ? this.posTtlMs : this.negTtlMs;
-    this.cache.set(key, { member, exp: this.now() + ttl });
-    return member;
-  }
-
-  // Push-інвалідація: подія «виключено» з центру зв'язків викидає запис ОДРАЗУ.
-  onRevoked(userId: string, homeId: string): void {
-    this.cache.delete(`${userId}:${homeId}`);              // вікно застарілості на відкликанні → ≈0
-  }
-}
-```
-```py
-import time
-
-class RelationshipCache:
-    def __init__(self, store, now=lambda: time.time() * 1000,
-                 pos_ttl_ms=60_000, neg_ttl_ms=5_000):
-        self._store = store                # .is_member_of(user_id, home_id) -> bool (мережа)
-        self._now = now
-        self._pos, self._neg = pos_ttl_ms, neg_ttl_ms
-        self._cache = {}                   # key -> (member: bool, exp: float)
-
-    async def is_member_of(self, user_id, home_id):
-        key = (user_id, home_id)
-        hit = self._cache.get(key)
-        if hit and hit[1] > self._now():
-            return hit[0]                                   # свіжий кеш — жодного стрибка
-        try:
-            member = await self._store.is_member_of(user_id, home_id)  # похід у центр
-        except Exception:
-            return False    # FAIL-CLOSED: не підтвердили → «ні», збій НЕ кешуємо
-        ttl = self._pos if member else self._neg
-        self._cache[key] = (member, self._now() + ttl)
-        return member
-
-    def on_revoked(self, user_id, home_id):
-        self._cache.pop((user_id, home_id), None)           # push: вікно застарілості → ≈0
-```
+:::code proj-dh-authz-hybrid/ts/vazhil-3-kesh-chlenstva.ts
+:::code proj-dh-authz-hybrid/py/vazhil-3-kesh-chlenstva.py
 :::
 
 Читай `catch → return false` як найважливіший рядок збірки. Промах кеша сам собою — не біда: ти йдеш у центр і дістаєш авторитетну відповідь. Біда — коли центр **недоступний**; і тоді єдиний безпечний хід — відмовити, бо ти не підтвердив членства, а не підтверджене членство мусить важити «ні». Наївний гібрид на цьому місці ставив `isMember = true` «щоб не блокувати» — і робив кожну мить недоступності відчиненими дверима. Ще одна дрібниця, теж безпекова: збій **не кешуємо**. Якби ми записали `false` з довгим TTL на невдалому поході, тимчасове моргання центру замкнуло б людину в «ні» на весь TTL уже після того, як центр оговтався; тому на збої ми відмовляємо *цього разу*, але наступний запит чесно спробує знову.
@@ -343,44 +89,8 @@ class RelationshipCache:
 Тепер найкоротший клас усієї збірки — і водночас той, заради якого решта існує. Він лише складає три відповіді в один локальний виклик; уся начинка вже за портами `PolicySource` і `RelationshipCache`:
 
 :::tabs
-```ts
-class HybridAuthorizer implements Authorizer {
-  constructor(
-    private policies: PolicySource,   // РОЗДАНА з центру, оновлюється ФОНОМ (не на запиті)
-    private rels: RelationshipCache,  // кеш наскрізного членства над центром зв'язків
-    private now: () => number = Date.now,
-  ) {}
-
-  async can(user: User, action: Action, resource: Resource): Promise<boolean> {
-    let policy: Policy;
-    try { policy = this.policies.policy(); }  // читання вказівника — БЕЗ I/O
-    catch { return false; }                   // правила ще нема (старт/збій) → deny
-
-    const isMember = await this.rels.isMemberOf(user.id, resource.homeId); // кеш; fail-closed
-    const role = user.roleInHome[resource.homeId];                          // локальний факт
-
-    // ВЕРДИКТ — у процесі, за центральним правилом. Жодного стрибка на рішення.
-    return policy.evaluate({ action, role, isMember, now: this.now() });
-  }
-}
-```
-```py
-class HybridAuthorizer:
-    def __init__(self, policies, rels, now=lambda: time.time() * 1000):
-        self._policies = policies    # PolicySource: .policy() -> Policy (без I/O)
-        self._rels = rels            # RelationshipCache
-        self._now = now
-
-    async def can(self, user, action, resource) -> bool:
-        try:
-            policy = self._policies.policy()      # читання вказівника — без I/O
-        except Exception:
-            return False                          # правила ще нема (старт/збій) → deny
-        is_member = await self._rels.is_member_of(user.id, resource.home_id)  # кеш; fail-closed
-        role = user.role_in_home.get(resource.home_id)                        # локальний факт
-        # ВЕРДИКТ — у процесі, за центральним правилом. Жодного стрибка на рішення.
-        return policy.evaluate(action=action, role=role, is_member=is_member, now=self._now())
-```
+:::code proj-dh-authz-hybrid/ts/vazhil-2-lokalnyi.ts
+:::code proj-dh-authz-hybrid/py/vazhil-2-lokalnyi.py
 :::
 
 Ось воно, зібране докупи. `can` асинхронний — і саме тому шов лишився тим самим, що в А: обробник, який кличе `await authz.can(...)`, не бачить різниці між локальним авторизатором А й цим гібридом, тож підміна двобічна. `policies.policy()` — читання вказівника, без мережі; уся роздача давно відбулася у фоні. `rels.isMemberOf` — єдиний потенційний стрибок, і той з кеша, і той fail-closed. А `evaluate` — чисте обчислення в процесі. Три важелі кожен на своєму місці: правило прийшло з центру, факт — з кеша над центром, рішення — тут-таки. Порівняй із наївним класом на початку: різниця не в кількості коду, а в тому, що кожне з трьох спрощень тут виправлене свідомо.
@@ -390,132 +100,8 @@ class HybridAuthorizer:
 Тепер — рядок, заради якого збиралося все. Гість дому 7 має денний доступ; його виключають; питання одне — **як довго він ще відчиняє замок після виключення.** Щоб відповісти чесно й без справжнього годинника, дамо тесту керований час і кероване сховище, і проженімо той самий сценарій двічі: спершу на голому TTL, потім із push-інвалідацією.
 
 :::tabs
-```ts
-// — Керовані двійники: тест сам рухає час і сам відкликає членство —
-class FakeClock { constructor(public t = 0) {} now = () => this.t; advance(ms: number) { this.t += ms; } }
-
-class FakeStore implements RelationshipStore {              // центр зв'язків, кероване членство
-  private members = new Set<string>();
-  grant(u: string, h: string)  { this.members.add(`${u}:${h}`); }
-  revoke(u: string, h: string) { this.members.delete(`${u}:${h}`); }  // ДЖЕРЕЛО ПРАВДИ оновлено
-  async isMemberOf(u: string, h: string) { return this.members.has(`${u}:${h}`); }
-}
-
-class FixedPolicy implements PolicySource {                 // готове правило, без фонового тягання
-  constructor(private p: Policy) {}
-  policy() { return this.p; }
-}
-
-const BUNDLE: PolicyBundle = {
-  version: "2026-07-12",
-  actionsByRole: { owner: ["unlock","lock","view","configure"],
-                   resident: ["unlock","lock","view"], guest: ["view"] },
-  guestUnlock: { fromHour: 8, toHour: 22 },                 // гість відчиняє лише вдень
-};
-const at = (h: number) => h * HOUR;
-
-test("push-інвалідація стискає вікно застарілості на відкликанні до ≈0", async () => {
-  const guest: User    = { id: "guest7", roleInHome: { "home-7": "guest" } };
-  const door:  Resource = { homeId: "home-7" };
-
-  // ── Прогін 1: СТРАТЕГІЯ «лише TTL» ──
-  const clock = new FakeClock(at(9));                        // 09:00 — у гостьовому вікні
-  const store = new FakeStore(); store.grant("guest7", "home-7");
-  const cache = new RelationshipCache(store, clock.now, 60_000, 5_000);
-  const authz = new HybridAuthorizer(new FixedPolicy(compilePolicy(BUNDLE)), cache, clock.now);
-
-  expect(await authz.can(guest, "unlock", door)).toBe(true);  // 1) тепло: член, у вікні → allow (кеш +)
-
-  store.revoke("guest7", "home-7");                           // 2) відкликано В ЦЕНТРІ; кеш ще не знає
-  clock.advance(5_000);                                       //    минуло 5 c — усе ще день
-
-  expect(await authz.can(guest, "unlock", door)).toBe(true);  // 3a) кеш «член» → ВСЕ ЩЕ allow — ДІРА
-
-  clock.advance(60_000);                                      //    дотягуємо час за TTL
-  expect(await authz.can(guest, "unlock", door)).toBe(false); // 3b) кеш протух → центр → deny
-
-  // ── Прогін 2: те саме, але з PUSH-ІНВАЛІДАЦІЄЮ на подію revoke ──
-  const clk2 = new FakeClock(at(9));
-  const st2 = new FakeStore(); st2.grant("guest7", "home-7");
-  const cch2 = new RelationshipCache(st2, clk2.now, 60_000, 5_000);
-  const az2 = new HybridAuthorizer(new FixedPolicy(compilePolicy(BUNDLE)), cch2, clk2.now);
-
-  expect(await az2.can(guest, "unlock", door)).toBe(true);    // тепло, як і раніше
-
-  st2.revoke("guest7", "home-7");                             // джерело правди оновлено…
-  cch2.onRevoked("guest7", "home-7");                         // …і подія ОДРАЗУ чистить кеш
-  clk2.advance(5_000);                                        // ті самі 5 c
-
-  expect(await az2.can(guest, "unlock", door)).toBe(false);   // вікно ≈ 0: наступна ж перевірка → deny
-});
-```
-```py
-import asyncio
-from dataclasses import dataclass
-
-class FakeClock:
-    def __init__(self, t=0): self.t = t
-    def now(self): return self.t
-    def advance(self, ms): self.t += ms
-
-class FakeStore:                                   # центр зв'язків, кероване членство
-    def __init__(self): self._m = set()
-    def grant(self, u, h):  self._m.add((u, h))
-    def revoke(self, u, h): self._m.discard((u, h))    # ДЖЕРЕЛО ПРАВДИ оновлено
-    async def is_member_of(self, u, h): return (u, h) in self._m
-
-class FixedPolicy:                                 # готове правило, без фонового тягання
-    def __init__(self, p): self._p = p
-    def policy(self): return self._p
-
-BUNDLE = PolicyBundle("2026-07-12",
-    {"owner": ["unlock","lock","view","configure"],
-     "resident": ["unlock","lock","view"], "guest": ["view"]},
-    (8, 22))                                        # гість відчиняє лише вдень
-at = lambda h: h * HOUR
-
-@dataclass
-class U:  id: str; role_in_home: dict
-@dataclass
-class Door: home_id: str
-
-def test_push_invalidation_shrinks_revocation_window():
-    async def scenario():
-        guest = U("guest7", {"home-7": "guest"})
-        door  = Door("home-7")
-
-        # ── Прогін 1: СТРАТЕГІЯ «лише TTL» ──
-        clock = FakeClock(at(9))                          # 09:00 — у гостьовому вікні
-        store = FakeStore(); store.grant("guest7", "home-7")
-        cache = RelationshipCache(store, clock.now, 60_000, 5_000)
-        authz = HybridAuthorizer(FixedPolicy(compile_policy(BUNDLE)), cache, clock.now)
-
-        assert await authz.can(guest, "unlock", door) is True    # 1) тепло → allow (кеш +)
-
-        store.revoke("guest7", "home-7")                         # 2) відкликано В ЦЕНТРІ; кеш не знає
-        clock.advance(5_000)                                     #    минуло 5 c
-
-        assert await authz.can(guest, "unlock", door) is True    # 3a) кеш «член» → ВСЕ ЩЕ allow — ДІРА
-
-        clock.advance(60_000)                                    #    за TTL
-        assert await authz.can(guest, "unlock", door) is False   # 3b) кеш протух → центр → deny
-
-        # ── Прогін 2: з PUSH-ІНВАЛІДАЦІЄЮ ──
-        clk2 = FakeClock(at(9))
-        st2 = FakeStore(); st2.grant("guest7", "home-7")
-        cch2 = RelationshipCache(st2, clk2.now, 60_000, 5_000)
-        az2 = HybridAuthorizer(FixedPolicy(compile_policy(BUNDLE)), cch2, clk2.now)
-
-        assert await az2.can(guest, "unlock", door) is True      # тепло
-
-        st2.revoke("guest7", "home-7")                           # джерело правди…
-        cch2.on_revoked("guest7", "home-7")                      # …і подія ОДРАЗУ чистить кеш
-        clk2.advance(5_000)
-
-        assert await az2.can(guest, "unlock", door) is False     # вікно ≈ 0 → deny
-
-    asyncio.run(scenario())
-```
+:::code proj-dh-authz-hybrid/ts/kulminatsiia-test.ts
+:::code proj-dh-authz-hybrid/py/kulminatsiia-test.py
 :::
 
 Прочитай два прогони поруч. У першому, на голому TTL, послідовність убивча: тепло — гість член, у денному вікні, `can` віддає `true`, кеш прогрівся позитивом на 60 секунд. Потім його виключають **у центрі** — джерело правди вже каже «не член», — але кеш про це не знає, і за 5 секунд `can` **усе ще** віддає `true`. Виключений гість відчиняє замок. Аж коли час перескочить за TTL, кеш протухне, наступний `isMemberOf` піде в центр, дістане «не член» — і аж тоді `deny`. Ціле вікно завширшки в TTL, і всі ці секунди двері відкриті тому, кого вже виставили.

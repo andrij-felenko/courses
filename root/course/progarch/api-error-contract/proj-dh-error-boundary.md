@@ -51,62 +51,8 @@ RateLimited        →  429 · rate_limited · retryable · Retry-After
 Спершу — самі помилки (ті самі, що підіймалися крізь шари) і **реєстр**: рядок на клас. Зверни увагу, чого в рядку **нема**: людського `detail`, значення `Retry-After` для ліміту й поля-винуватця — усе це залежить від конкретного випадку, не від класу, тож живе в самому винятку, а не в таблиці.
 
 :::tabs
-```ts
-// доменні помилки — ті самі, що впираються в межу HTTP знизу
-abstract class DomainError extends Error {}
-class DeviceNotFound    extends DomainError { constructor(public id: string) { super("device not found"); } }
-class DeviceUnavailable extends DomainError { constructor(public id: string) { super("device offline"); } }
-class InvalidCommand    extends DomainError { constructor(public field: string, public reason: string) { super("invalid command"); } }
-class RateLimited       extends DomainError { constructor(public retryAfterS: number) { super("rate limited"); } }
-
-// рядок каталогу = контракт ОДНОГО класу, як дані
-interface Row {
-  status: number;      // HTTP-статус
-  code: string;        // стабільний машинний ярлик — НЕ міняється ніколи
-  title: string;       // короткий людський заголовок (RFC 9457 title)
-  retryable?: boolean; // чи має сенс повторювати
-  retryAfterS?: number;// фіксована пауза, коли вона стала для класу
-}
-
-// КЛЮЧ — сам клас (посилання на конструктор), а не рядок-назва:
-// стійке до мініфікації, яка перейменувала б err.name.
-const CATALOG = new Map<Function, Row>([
-  [DeviceNotFound,    { status: 404, code: "device_not_found"   , title: "Пристрій не знайдено" }],
-  [DeviceUnavailable, { status: 503, code: "device_unavailable" , title: "Пристрій тимчасово недоступний", retryable: true, retryAfterS: 5 }],
-  [InvalidCommand,    { status: 400, code: "invalid_command"    , title: "Некоректна команда" }],
-  [RateLimited,       { status: 429, code: "rate_limited"       , title: "Забагато запитів", retryable: true }],
-]);
-```
-```py
-from dataclasses import dataclass
-
-# доменні помилки — ті самі, що впираються в межу HTTP знизу
-class DomainError(Exception): ...
-class DeviceNotFound(DomainError):
-    def __init__(self, id): self.id = id
-class DeviceUnavailable(DomainError):
-    def __init__(self, id): self.id = id
-class InvalidCommand(DomainError):
-    def __init__(self, field, reason): self.field, self.reason = field, reason
-class RateLimited(DomainError):
-    def __init__(self, retry_after_s): self.retry_after_s = retry_after_s
-
-@dataclass(frozen=True)
-class Row:                      # контракт ОДНОГО класу, як дані
-    status: int
-    code: str                   # стабільний машинний ярлик — НЕ міняється ніколи
-    title: str
-    retryable: bool = False
-    retry_after_s: int | None = None
-
-# КЛЮЧ — сам клас (тип), а не рядок-назва
-CATALOG: dict[type, Row] = {
-    DeviceNotFound:    Row(404, "device_not_found",   "Пристрій не знайдено"),
-    DeviceUnavailable: Row(503, "device_unavailable", "Пристрій тимчасово недоступний", retryable=True, retry_after_s=5),
-    InvalidCommand:    Row(400, "invalid_command",    "Некоректна команда"),
-    RateLimited:       Row(429, "rate_limited",       "Забагато запитів", retryable=True),
-}
-```
+:::code proj-dh-error-boundary/ts/kataloh-iak-dani-plius.ts
+:::code proj-dh-error-boundary/py/kataloh-iak-dani-plius.py
 :::
 
 ### Одне місце перекладу: `toProblem`
@@ -114,108 +60,8 @@ CATALOG: dict[type, Row] = {
 Тепер серце харнесу. Знайшли рядок — будуємо конверт: `type` (URL, виведений із `code`), `title`, `status`, `code`, авторський `detail`, `requestId`, а далі домальовуємо повторюваність і випадкові дрібниці. Не знайшли — гілка редакції: **лог раз, тут**, зі стеком, а назовні непрозорий `500`.
 
 :::tabs
-```ts
-const BASE = "https://api.dh.io/errors";
-const CT = "application/problem+json";
-
-interface Problem { status: number; headers: Record<string, string>; body: Record<string, unknown>; }
-
-// detail — АВТОРСЬКИЙ текст на випадок, ніколи не String(err):
-// сире err.message могло б винести назовні нутрощі нижнього шару.
-function detailFor(err: DomainError): string {
-  if (err instanceof DeviceNotFound)    return `Пристрою ${err.id} немає або він не ваш.`;
-  if (err instanceof DeviceUnavailable) return "Давач не відповідає, спробуйте за кілька секунд.";
-  if (err instanceof InvalidCommand)    return `Поле «${err.field}»: ${err.reason}.`;
-  if (err instanceof RateLimited)       return "Забагато запитів, зачекайте перед повтором.";
-  return "Помилка.";
-}
-
-function toProblem(err: unknown, reqId: string, opts = { exposeInternals: false }): Problem {
-  const row = err instanceof Error ? CATALOG.get(err.constructor) : undefined;
-
-  if (row && err instanceof DomainError) {
-    const headers: Record<string, string> = { "Content-Type": CT };
-    const body: Record<string, unknown> = {
-      type: `${BASE}/${row.code.replace(/_/g, "-")}`,   // device_not_found → …/device-not-found
-      title: row.title,
-      status: row.status,
-      code: row.code,                                   // машинний ярлик
-      detail: detailFor(err),                           // людський текст
-      requestId: reqId,                                 // кореляційний id — той самий, що в журналі
-    };
-    if (row.retryable) {
-      body.retryable = true;
-      // фіксована пауза — з рядка; динамічна (ліміт) — із самого винятку
-      const ra = err instanceof RateLimited ? err.retryAfterS : row.retryAfterS;
-      if (ra !== undefined) headers["Retry-After"] = String(ra);
-    }
-    if (err instanceof InvalidCommand) body.field = err.field; // яке поле не так
-    return { status: row.status, headers, body };
-  }
-
-  // ── гілка «усе інше»: це БАГ, а не факт світу ──
-  log.error({ reqId, err });                            // лог РАЗ, саме тут, зі стеком — ВДОМА
-  const body: Record<string, unknown> = {
-    type: "about:blank",                                // «нічого понад статус» (RFC 9457 §4.2.1)
-    title: "Внутрішня помилка",
-    status: 500,
-    code: "internal",
-    detail: "Сталася непередбачена помилка.",
-    requestId: reqId,
-  };
-  if (opts.exposeInternals) body.debug = String(err instanceof Error ? err.stack : err); // ЛИШЕ dev
-  return { status: 500, headers: { "Content-Type": CT }, body };
-}
-```
-```py
-BASE = "https://api.dh.io/errors"
-CT = "application/problem+json"
-
-def _detail(err: DomainError) -> str:
-    # АВТОРСЬКИЙ текст, ніколи не str(err): сире повідомлення винесло б нутрощі назовні
-    if isinstance(err, DeviceNotFound):    return f"Пристрою {err.id} немає або він не ваш."
-    if isinstance(err, DeviceUnavailable): return "Давач не відповідає, спробуйте за кілька секунд."
-    if isinstance(err, InvalidCommand):    return f"Поле «{err.field}»: {err.reason}."
-    if isinstance(err, RateLimited):       return "Забагато запитів, зачекайте перед повтором."
-    return "Помилка."
-
-def to_problem(err, req_id, expose_internals=False):
-    row = CATALOG.get(type(err))                          # точний тип; чужий підклас впаде в default
-
-    if row is not None and isinstance(err, DomainError):
-        headers = {"Content-Type": CT}
-        body = {
-            "type": f"{BASE}/{row.code.replace('_', '-')}",
-            "title": row.title,
-            "status": row.status,
-            "code": row.code,
-            "detail": _detail(err),
-            "requestId": req_id,                          # той самий id, що в журналі
-        }
-        if row.retryable:
-            body["retryable"] = True
-            ra = err.retry_after_s if isinstance(err, RateLimited) else row.retry_after_s
-            if ra is not None:
-                headers["Retry-After"] = str(ra)
-        if isinstance(err, InvalidCommand):
-            body["field"] = err.field
-        return row.status, headers, body
-
-    # ── гілка «усе інше»: БАГ, не факт світу ──
-    log.error("unhandled", extra={"req_id": req_id}, exc_info=err)   # лог РАЗ, тут, зі стеком
-    body = {
-        "type": "about:blank",                            # «нічого понад статус» (RFC 9457 §4.2.1)
-        "title": "Внутрішня помилка",
-        "status": 500,
-        "code": "internal",
-        "detail": "Сталася непередбачена помилка.",
-        "requestId": req_id,
-    }
-    if expose_internals:
-        import traceback
-        body["debug"] = "".join(traceback.format_exception(err))     # ЛИШЕ dev
-    return 500, {"Content-Type": CT}, body
-```
+:::code proj-dh-error-boundary/ts/odne-mistse-perekladu.ts
+:::code proj-dh-error-boundary/py/odne-mistse-perekladu.py
 :::
 
 Дві чесні дрібниці варті слова, бо вони показують межу самої ідеї «все в таблицю». `Retry-After` для `RateLimited` і поле для `InvalidCommand` **не** в реєстрі — і не тому, що я полінувався, а тому, що вони залежать від конкретного випадку, не від класу: ліміт скидається через різний час, криве поле щоразу інше. Статичний рядок таблиці описує те, що спільне для класу; те, що народжується з конкретного винятку, лишається у винятку. Реєстр — джерело **форми**, а не кожного байта відповіді.
@@ -252,43 +98,8 @@ Content-Type: application/problem+json
 Реєстр і `toProblem` — чисті функції, їх легко тестувати. Лишається пришити їх до фреймворку так, щоб **жоден** маршрут не проскочив повз межу зі своїм сирим `500`. У Express це обробник помилок (чотири аргументи), у FastAPI — глобальний `exception_handler`. Обидва роблять те саме: беруть кореляційний id, кличуть `toProblem`, віддають конверт і луною повертають id у заголовку.
 
 :::tabs
-```ts
-import { randomUUID } from "node:crypto";
-import type { Request, Response, NextFunction } from "express";
-
-function errorBoundary(opts: { exposeInternals: boolean }) {
-  return (err: unknown, req: Request, res: Response, _next: NextFunction) => {
-    // id призначає ранній middleware на вході; тут лише читаємо той самий,
-    // що вже стоїть на КОЖНОМУ рядку журналу цього запиту.
-    const reqId = res.locals.reqId ?? req.header("X-Request-Id") ?? randomUUID();
-    const { status, headers, body } = toProblem(err, reqId, opts);
-    res.set(headers);
-    res.set("X-Request-Id", reqId);          // той самий id — і в заголовку, і в тілі, і в лозі
-    res.status(status).json(body);
-  };
-}
-
-// у проді нутрощі закриті; лишити exposeInternals увімкненим у проді — пастка №1
-app.use(errorBoundary({ exposeInternals: process.env.NODE_ENV !== "production" }));
-```
-```py
-import uuid
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
-
-def install_error_boundary(app: FastAPI, expose_internals: bool) -> None:
-    @app.exception_handler(Exception)            # ловить УСЕ, що долетіло до краю
-    async def _boundary(request: Request, err: Exception):
-        req_id = getattr(request.state, "req_id", None) \
-            or request.headers.get("X-Request-Id") or str(uuid.uuid4())
-        status, headers, body = to_problem(err, req_id, expose_internals)
-        headers.pop("Content-Type", None)        # media_type виставить його сам
-        headers["X-Request-Id"] = req_id
-        return JSONResponse(status_code=status, content=body,
-                            media_type="application/problem+json", headers=headers)
-
-# install_error_boundary(app, expose_internals=settings.env != "production")
-```
+:::code proj-dh-error-boundary/ts/pidiednannia-odyn-obrobnyk.ts
+:::code proj-dh-error-boundary/py/pidiednannia-odyn-obrobnyk.py
 :::
 
 ### Додати новий код — безпечно
@@ -305,23 +116,7 @@ class DeviceUpdating extends DomainError { constructor(public id: string) { supe
 
 Обробник не чіпаємо: `retryable`+`retryAfterS` уже вміє загальна гілка, `detailFor` дописуємо одним рядком. А тепер — дзеркальна умова на боці клієнта, без якої «безпечно» не працює. Панель мусить читати множину кодів як **відкриту** — мати гілку `default` на будь-який незнаний код:
 
-```js
-// клієнт (панель) розбирає конверт помилки — перелік кодів ВІДКРИТИЙ
-switch (problem.code) {
-  case "device_unavailable":
-  case "rate_limited":
-    scheduleRetry(retryAfterSeconds(res));   // повторюване — назад через Retry-After
-    break;
-  case "device_not_found":
-    forgetDevice();
-    break;
-  case "invalid_command":
-    highlightField(problem.field);           // сервер сказав, ЯКЕ поле
-    break;
-  default:                                    // ← рятує від БУДЬ-ЯКОГО нового коду
-    showGenericError(problem.detail);        // detail — для ока, не для гілок
-}
-```
+:::code proj-dh-error-boundary/js/index.js
 
 Клієнт із цим `default` переживе твій `device_updating`: покаже загальне повідомлення й піде далі. Це не наша примха — це те, що [RFC 9457 §3.2 прямо вимагає](https://www.rfc-editor.org/rfc/rfc9457.html): «клієнти... **MUST ignore** будь-які розширення, яких не впізнають» — саме щоб типи помилок могли рости. Відкритий перелік кодів — стандартна обіцянка, і клієнт, що зробив вичерпний `switch` без `default`, порушує її **на своєму** боці.
 
@@ -338,99 +133,8 @@ switch (problem.code) {
 **(в) Тест редакції.** Кидаємо сирий баг із соковитим нутром — текстом SQL, паролем, стеком — і вимагаємо, щоб назовні не просочилося **нічого** з цього, лише непрозорий конверт, і в прод-режимі — жодного поля `debug`.
 
 :::tabs
-```ts
-import { describe, it, expect } from "vitest";
-
-const FIXED = "req-TEST";  // кореляційний id нормалізуємо, щоб знімок був стабільний
-
-// по одному зразку на клас; ключ — той самий code, що й у каталозі
-const SAMPLES: Record<string, () => DomainError> = {
-  device_not_found:   () => new DeviceNotFound("42"),
-  device_unavailable: () => new DeviceUnavailable("42"),
-  invalid_command:    () => new InvalidCommand("mode", "невідоме значення"),
-  rate_limited:       () => new RateLimited(30),
-};
-
-describe("контракт помилок DH", () => {
-  // (а) інваріанти — над УСІМА класами каталогу, не над рукописним списком
-  it("кожен зареєстрований клас дає валідний конверт RFC 9457", () => {
-    for (const row of CATALOG.values()) {
-      const make = SAMPLES[row.code];
-      expect(make, `нема зразка для ${row.code} — додай його`).toBeDefined();
-      const p = toProblem(make(), FIXED);
-      expect(p.status).toBe(row.status);
-      expect(p.body.status).toBe(row.status);              // статус у тілі === HTTP-статус
-      expect(p.body.code).toBe(row.code);                  // стабільний ярлик присутній
-      expect(p.body.requestId).toBe(FIXED);                // кореляційний id відлунено
-      expect(typeof p.body.detail).toBe("string");         // текст Є, але його ЗМІСТ не пришпилюємо
-      expect(p.headers["Content-Type"]).toBe("application/problem+json");
-      if (row.retryable) expect(p.headers["Retry-After"]).toBeDefined();
-    }
-  });
-
-  // (б) golden-знімок — точна форма кожного класу; будь-яка зміна червонить CI
-  it.each(Object.entries(SAMPLES))("форма %s пришпилена", (_code, make) => {
-    expect(toProblem(make(), FIXED)).toMatchSnapshot();
-  });
-
-  // (в) редакція: сирий баг НЕ виносить нутрощів назовні
-  it("непередбачений виняток → непрозорий 500 без нутрощів", () => {
-    const boom = new Error("SQL: SELECT password FROM users WHERE id=1");
-    boom.stack = "at db.query (secret.ts:42)\n" + (boom.stack ?? "");
-    const p = toProblem(boom, FIXED);                      // прод-режим: expose off
-    expect(p.status).toBe(500);
-    expect(p.body.code).toBe("internal");
-    expect(p.body.requestId).toBe(FIXED);
-    expect(p.body).not.toHaveProperty("debug");            // у проді жодного стека
-    expect(JSON.stringify(p)).not.toMatch(/SQL|password|secret\.ts|SELECT/);
-  });
-});
-```
-```py
-import json, pytest
-
-FIXED = "req-TEST"
-
-SAMPLES = {
-    "device_not_found":   lambda: DeviceNotFound("42"),
-    "device_unavailable": lambda: DeviceUnavailable("42"),
-    "invalid_command":    lambda: InvalidCommand("mode", "невідоме значення"),
-    "rate_limited":       lambda: RateLimited(30),
-}
-
-# (а) інваріанти — над УСІМА класами каталогу
-@pytest.mark.parametrize("row", list(CATALOG.values()), ids=lambda r: r.code)
-def test_envelope_invariants(row):
-    make = SAMPLES.get(row.code)
-    assert make, f"нема зразка для {row.code} — додай його"
-    status, headers, body = to_problem(make(), FIXED)
-    assert status == row.status
-    assert body["status"] == row.status            # статус у тілі === HTTP-статус
-    assert body["code"] == row.code                # стабільний ярлик присутній
-    assert body["requestId"] == FIXED              # кореляційний id відлунено
-    assert isinstance(body["detail"], str)         # текст Є; його ЗМІСТ не пришпилюємо
-    assert headers["Content-Type"] == "application/problem+json"
-    if row.retryable:
-        assert "Retry-After" in headers
-
-# (б) golden-знімок точної форми (syrupy: assert == snapshot)
-@pytest.mark.parametrize("code", list(SAMPLES), ids=list(SAMPLES))
-def test_shape_pinned(code, snapshot):
-    status, headers, body = to_problem(SAMPLES[code](), FIXED)
-    assert {"status": status, "headers": headers, "body": body} == snapshot
-
-# (в) редакція
-def test_opaque_500_redacts():
-    boom = RuntimeError("SQL: SELECT password FROM users WHERE id=1")
-    status, headers, body = to_problem(boom, FIXED, expose_internals=False)
-    assert status == 500
-    assert body["code"] == "internal"
-    assert body["requestId"] == FIXED
-    assert "debug" not in body                     # у проді жодного стека
-    wire = json.dumps({"h": headers, "b": body})
-    for leak in ("SQL", "password", "SELECT"):
-        assert leak not in wire
-```
+:::code proj-dh-error-boundary/ts/kontraktnyi-test-shcho.ts
+:::code proj-dh-error-boundary/py/kontraktnyi-test-shcho.py
 :::
 
 Придивися до інваріантного циклу (а): він ітерує `CATALOG.values()`, тобто **ту саму таблицю**, з якої рантайм будує відповідь. Це і є вся хитрість. Тест не тримає власного переліку «які помилки бувають» — він питає реєстр. Тому додати клас у рантайм, забувши тест, **неможливо**: новий рядок одразу опиниться в циклі, і якщо для нього нема зразка `SAMPLES`, тест впаде з чесним «додай його». Дві правди, що гнили б нарізно, стали однією, а тест — її сторожем.

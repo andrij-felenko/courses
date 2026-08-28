@@ -17,86 +17,8 @@
 Ось повний хаб. Ліворуч Python, праворуч той самий дім мовою TypeScript — обидва запускаються як є.
 
 :::tabs
-```py
-# hub.py — увесь «розумний дім» Digital Homes v0, один файл
-from time import sleep
-import random
-
-THRESHOLD = 20.0                 # °C — поріг зашитий просто в код
-
-# ── Драйвери. Тут вони МОКОВІ: замість заліза дім живе в пам'яті.
-#    Кімната сама холоне, а коли ввімкнено розетку — гріється.
-#    Ці три тіла — єдине, що знає мову конкретного пристрою. ──
-_room = 18.0                     # прихований «фізичний» стан кімнати, °C
-_heater = False                  # чи подано живлення на обігрівач
-
-def read_sensor():               # драйвер давача → °C
-    global _room
-    _room += (0.4 if _heater else -0.2) + random.uniform(-0.05, 0.05)
-    return round(_room, 1)
-
-def heater_on():                 # драйвер розетки: подати живлення
-    global _heater
-    if not _heater:              # ідемпотентно: не смикати реле дарма
-        _heater = True
-        print("[розетка] обігрівач УВІМКНЕНО")
-
-def heater_off():                # драйвер розетки: зняти живлення
-    global _heater
-    if _heater:
-        _heater = False
-        print("[розетка] обігрівач вимкнено")
-
-# ── Серце дому: read → decide → act, і так вічно. ──
-while True:
-    t = read_sensor()            # read
-    if t < THRESHOLD:            # decide
-        heater_on()              # act
-    else:
-        heater_off()
-    sleep(30)                    # знову спитати давач за 30 с
-```
-```ts
-// hub.ts — увесь «розумний дім» Digital Homes v0, один файл
-const THRESHOLD = 20.0;          // °C — поріг зашитий просто в код
-
-// ── Драйвери-моки: кімната живе в пам'яті. Холоне сама,
-//    гріється, коли ввімкнено розетку. ──
-let roomTemp = 18.0;             // прихований «фізичний» стан, °C
-let heaterIsOn = false;          // чи подано живлення
-
-function readSensor(): number {  // драйвер давача → °C
-  roomTemp += (heaterIsOn ? 0.4 : -0.2) + (Math.random() - 0.5) * 0.1;
-  return Math.round(roomTemp * 10) / 10;
-}
-
-function heaterOn(): void {      // драйвер розетки: подати живлення
-  if (!heaterIsOn) {             // ідемпотентно: не смикати реле дарма
-    heaterIsOn = true;
-    console.log("[розетка] обігрівач УВІМКНЕНО");
-  }
-}
-
-function heaterOff(): void {
-  if (heaterIsOn) {
-    heaterIsOn = false;
-    console.log("[розетка] обігрівач вимкнено");
-  }
-}
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-// ── Серце дому: read → decide → act, і так вічно. ──
-async function main() {
-  while (true) {
-    const t = readSensor();              // read
-    if (t < THRESHOLD) heaterOn();       // decide → act
-    else heaterOff();
-    await sleep(30_000);                 // знову спитати давач за 30 с
-  }
-}
-main();
-```
+:::code proj-dh-v0/py/hub.py
+:::code proj-dh-v0/ts/hub.ts
 :::
 
 Запустивши це, ви не побачите шквалу — драйвери навмисне подають голос лише коли грілка **перемикається**, а не щотакту. Кімната стартує з 18 °C, тож перший же вимір нижчий за поріг, і за кілька хвилин у консолі проступає розмірене дихання дому:

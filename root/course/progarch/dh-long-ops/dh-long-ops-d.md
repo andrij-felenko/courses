@@ -44,36 +44,8 @@ HTTP-запит — це коротка розмова: спитав — за м
 Ось та сама квитанція як структура даних — навмисно проста, з усім, що клієнтові треба знати про свою операцію:
 
 :::tabs
-```ts
-// «Квитанція» замість очікування: операція — це РЕСУРС зі своїм життям.
-type OpStatus = "queued" | "running" | "succeeded" | "failed" | "canceled";
-
-interface ClipOperation {
-  id: string;                 // /operations/{id} — за цим клієнт стежить
-  status: OpStatus;
-  progress: number;           // 0..100, поки running
-  request: { cameraId: string; from: string; to: string };  // що саме просили
-  result?: { url: string; expiresAt: string };  // з'явиться, коли succeeded
-  error?: { code: string; message: string };     // з'явиться, коли failed
-  createdAt: string;
-}
-```
-```py
-from dataclasses import dataclass
-from typing import Optional, Literal
-
-OpStatus = Literal["queued", "running", "succeeded", "failed", "canceled"]
-
-@dataclass
-class ClipOperation:
-    id: str                        # /operations/{id} — за цим клієнт стежить
-    status: OpStatus
-    progress: int                  # 0..100, поки running
-    request: dict                  # {"camera_id":…, "from":…, "to":…}
-    result: Optional[dict] = None  # {"url":…, "expires_at":…} коли succeeded
-    error: Optional[dict] = None   # {"code":…, "message":…} коли failed
-    created_at: str = ""
-```
+:::code dh-long-ops-d/ts/zrobyty-operatsiiu.ts
+:::code dh-long-ops-d/py/zrobyty-operatsiiu.py
 :::
 
 Один окремий бік цієї квитанції — те, що ми **не винаходимо власний** формат для кожної довгої дії. Кліп, експорт даних, масовий імпорт — усі стають однаковою операцією з тими самими полями `status`/`progress`/`result`. Це не наша вигадка, а усталена [конвенція, до якої async-API йшли десятиліттями](root:progarch/dh-long-ops/hist-async-operation-resource.md): від `202 Accepted` в ранньому HTTP до єдиної «операції, яку опитуєш» у хмарних платформах.
@@ -107,36 +79,8 @@ DH бере **обидві**, бо в нього два різні стани к
 Ось скелет робітника — між шматками роботи він щоразу виконує ті самі три обов'язки: перевір скасування, перевір дедлайн, продовж оренду й познач поступ:
 
 :::tabs
-```ts
-// Робітник у контексті Відео: рендерить шматками, між шматками — три обов'язки.
-async function renderClip(op: ClipOperation, lease: Lease) {
-  const deadline = monotonicNow() + 5 * 60_000;          // тверда стеля тривалості
-  for (const chunk of planChunks(op.request)) {
-    if (await isCanceled(op.id)) return finish(op, "canceled");   // передумав — стоп
-    if (monotonicNow() > deadline) return finish(op, "failed", "timeout");
-    await transcode(chunk);
-    await lease.heartbeat();                              // «я живий» — оренду продовжено
-    await setProgress(op.id, chunk.percent);             // клієнт бачить рух
-  }
-  const url = await putToObjectStore(op.id);             // результат у сховище
-  await finish(op, "succeeded", { url, expiresAt: in15min() });
-}
-```
-```py
-# Робітник у контексті Відео: рендерить шматками, між шматками — три обов'язки.
-async def render_clip(op: ClipOperation, lease: Lease) -> None:
-    deadline = monotonic_now() + 5 * 60           # тверда стеля тривалості, секунди
-    for chunk in plan_chunks(op.request):
-        if await is_canceled(op.id):
-            return await finish(op, "canceled")           # передумав — стоп
-        if monotonic_now() > deadline:
-            return await finish(op, "failed", "timeout")
-        await transcode(chunk)
-        await lease.heartbeat()                           # «я живий» — оренду продовжено
-        await set_progress(op.id, chunk.percent)          # клієнт бачить рух
-    url = await put_to_object_store(op.id)                # результат у сховище
-    await finish(op, "succeeded", {"url": url, "expires_at": in_15min()})
-```
+:::code dh-long-ops-d/ts/urvaty-i-ne-zbrekhaty-pro.ts
+:::code dh-long-ops-d/py/urvaty-i-ne-zbrekhaty-pro.py
 :::
 
 > 🔧 **Навіщо це.** Суть — у полі `status`, яке **не має права збрехати**. Наївна система знає лише «іде» й «готово», а всі негаразди — смерть, зависання, скасування — просто лишають її у вічному «іде». Серцебиття, стеля й кооперативне скасування — це три способи гарантувати, що кожна операція **дійде до чесного кінцевого стану**: або результат, або названа помилка, або «скасовано». Стежити за чимось варто лише тоді, коли його стан правдивий.

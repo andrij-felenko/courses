@@ -24,66 +24,8 @@
 Почнімо зі спільного домену — він однаковий для всіх чотирьох систем, бо домен про **замок**, а не про спосіб його зберігати:
 
 :::tabs
-```ts
-// ── Спільний домен: команда → факт, і згортка факту в стан ──
-type LockState = { locked: boolean; lastActor: string | null; at: number };
-const INITIAL: LockState = { locked: false, lastActor: null, at: 0 };
-
-type Command =
-  | { kind: "lock";   actor: string; at: number }
-  | { kind: "unlock"; actor: string; at: number };
-
-// подія — доконаний ФАКТ (те, що вже сталося), а не наказ
-type DoorEvent =
-  | { type: "DoorLocked";   actor: string; at: number }
-  | { type: "DoorUnlocked"; actor: string; at: number };
-
-// доменне правило: команда обертається на факт (або відкидається)
-function decide(s: LockState, c: Command): DoorEvent {
-  if (c.kind === "lock"   && s.locked)  throw new Error("вже зачинено");
-  if (c.kind === "unlock" && !s.locked) throw new Error("вже відчинено");
-  return c.kind === "lock"
-    ? { type: "DoorLocked",   actor: c.actor, at: c.at }
-    : { type: "DoorUnlocked", actor: c.actor, at: c.at };
-}
-
-// згортка: факт зсуває стан на один крок
-function apply(s: LockState, e: DoorEvent): LockState {
-  return e.type === "DoorLocked"
-    ? { locked: true,  lastActor: e.actor, at: e.at }
-    : { locked: false, lastActor: e.actor, at: e.at };
-}
-```
-```py
-from dataclasses import dataclass, replace
-from functools import reduce
-
-# ── Спільний домен: команда → факт, і згортка факту в стан ──
-@dataclass(frozen=True)
-class LockState:
-    locked: bool = False
-    last_actor: str | None = None
-    at: int = 0
-
-INITIAL = LockState()
-
-@dataclass(frozen=True)
-class Command:               # kind: "lock" | "unlock"
-    kind: str; actor: str; at: int
-
-@dataclass(frozen=True)
-class DoorEvent:             # доконаний ФАКТ, а не наказ
-    type: str; actor: str; at: int   # type: "DoorLocked" | "DoorUnlocked"
-
-def decide(s: LockState, c: Command) -> DoorEvent:
-    if c.kind == "lock"   and s.locked:      raise ValueError("вже зачинено")
-    if c.kind == "unlock" and not s.locked:  raise ValueError("вже відчинено")
-    typ = "DoorLocked" if c.kind == "lock" else "DoorUnlocked"
-    return DoorEvent(typ, c.actor, c.at)
-
-def apply(s: LockState, e: DoorEvent) -> LockState:   # згортка на один крок
-    return replace(s, locked=(e.type == "DoorLocked"), last_actor=e.actor, at=e.at)
-```
+:::code proj-orthogonal-switches/ts/ideia-dvi-osi-dva.ts
+:::code proj-orthogonal-switches/py/ideia-dvi-osi-dva.py
 :::
 
 Зверни увагу, що `decide` і `apply` — чисті функції домену, і жодна з них ще нічого не «зберігає». Це навмисне: питання «де взяти правду» і питання «як показати читання» ми зараз винесемо в два різні інтерфейси, а домен лишиться спільним підмурком під усіма чотирма кутами.
@@ -93,60 +35,8 @@ def apply(s: LockState, e: DoorEvent) -> LockState:   # згортка на од
 Інтерфейс правди знає рівно дві речі: як виконати команду (і повернути породжений факт) і як віддати поточний стан. Дві реалізації — два положення тумблера.
 
 :::tabs
-```ts
-// ── Вісь 1: ДЖЕРЕЛО ПРАВДИ ──
-interface Truth {
-  handle(cmd: Command): DoorEvent;   // виконати команду, повернути факт
-  state(): LockState;                // поточний стан замка
-}
-
-// ВИМК — CRUD: одна клітинка, перезапис; минуле стерто
-class CrudTruth implements Truth {
-  private s: LockState = INITIAL;
-  handle(cmd: Command): DoorEvent {
-    const e = decide(this.s, cmd);
-    this.s = apply(this.s, e);        // ← стан перезаписано, що було — забуто
-    return e;
-  }
-  state(): LockState { return this.s; }
-}
-
-// УВІМК — event sourcing: append-only журнал; стан = згортка журналу
-class EventTruth implements Truth {
-  private log: DoorEvent[] = [];
-  handle(cmd: Command): DoorEvent {
-    const e = decide(this.state(), cmd);
-    this.log.push(e);                 // ← лише дописуємо; нічого не стираємо
-    return e;
-  }
-  state(): LockState { return this.log.reduce(apply, INITIAL); }  // згортка щоразу
-}
-```
-```py
-from typing import Protocol
-
-# ── Вісь 1: ДЖЕРЕЛО ПРАВДИ ──
-class Truth(Protocol):
-    def handle(self, cmd: Command) -> DoorEvent: ...
-    def state(self) -> LockState: ...
-
-class CrudTruth:                       # ВИМК — перезапис клітинки
-    def __init__(self): self._s = INITIAL
-    def handle(self, cmd: Command) -> DoorEvent:
-        e = decide(self._s, cmd)
-        self._s = apply(self._s, e)     # ← минуле стерто
-        return e
-    def state(self) -> LockState: return self._s
-
-class EventTruth:                      # УВІМК — append-only журнал
-    def __init__(self): self._log: list[DoorEvent] = []
-    def handle(self, cmd: Command) -> DoorEvent:
-        e = decide(self.state(), cmd)
-        self._log.append(e)             # ← лише дописуємо
-        return e
-    def state(self) -> LockState:
-        return reduce(apply, self._log, INITIAL)   # згортка щоразу
-```
+:::code proj-orthogonal-switches/ts/vis-persha-dzherelo-pravdy.ts
+:::code proj-orthogonal-switches/py/vis-persha-dzherelo-pravdy.py
 :::
 
 Дві реалізації відрізняються **тільки** тим, що вони пам'ятають. `CrudTruth` тримає єдину клітинку `s` й перезаписує її — те, що було до `lock`, зникає безслідно. `EventTruth` не тримає стану зовсім: він тримає список фактів і **рахує** стан згорткою на кожен запит. Той самий замок, той самий намір — різне джерело правди, і більше нічого. Оця пара, зведена в два класи, і є перший тумблер, узятий у руки.
@@ -156,70 +46,8 @@ class EventTruth:                      # УВІМК — append-only журнал
 Другий інтерфейс — про читання. Він знає, як почути про зміну (`notify`) і як віддати рядок панелі (`dashboard`). І — ключове — він приймає `Truth` як аргумент читання, а не як свою нутрощ: так читацький бік може або спертися на правду (згорнути її на місці), або зовсім її проігнорувати й повернути власний, наперед зібраний рядок.
 
 :::tabs
-```ts
-// читацька форма — рядок панелі; інша, ніж форма запису
-type DashRow = { status: string; lastActor: string; unlockedToday: number };
-
-// ── Вісь 2: ЧИТАЦЬКИЙ БІК ──
-interface Read {
-  notify(e: DoorEvent): void;         // як читання дізнається про зміну
-  dashboard(truth: Truth): DashRow;   // читацька відповідь
-}
-
-// ВИМК — та сама модель: рахуємо форму з правди на кожному читанні
-class FoldOnRead implements Read {
-  notify(_e: DoorEvent): void { /* нічого не тримаємо */ }
-  dashboard(truth: Truth): DashRow {
-    const s = truth.state();
-    return {
-      status: s.locked ? "ЗАЧИНЕНО" : "ВІДЧИНЕНО",
-      lastActor: s.lastActor ?? "—",
-      unlockedToday: -1,              // ← без історії підсумку не порахувати
-    };
-  }
-}
-
-// УВІМК — окрема проєкція (CQRS): тримаємо готовий рядок, оновлюємо подіями
-class Projection implements Read {
-  private row: DashRow = { status: "ВІДЧИНЕНО", lastActor: "—", unlockedToday: 0 };
-  notify(e: DoorEvent): void {
-    this.row.status    = e.type === "DoorLocked" ? "ЗАЧИНЕНО" : "ВІДЧИНЕНО";
-    this.row.lastActor = e.actor;
-    if (e.type === "DoorUnlocked") this.row.unlockedToday += 1;   // підсумок
-  }
-  dashboard(_truth: Truth): DashRow { return this.row; }  // готове, без обчислень
-}
-```
-```py
-@dataclass
-class DashRow:
-    status: str = "ВІДЧИНЕНО"
-    last_actor: str = "—"
-    unlocked_today: int = 0
-
-# ── Вісь 2: ЧИТАЦЬКИЙ БІК ──
-class Read(Protocol):
-    def notify(self, e: DoorEvent) -> None: ...
-    def dashboard(self, truth: Truth) -> DashRow: ...
-
-class FoldOnRead:                       # ВИМК — та сама модель
-    def notify(self, e: DoorEvent) -> None: pass          # нічого не тримаємо
-    def dashboard(self, truth: Truth) -> DashRow:
-        s = truth.state()
-        return DashRow(status="ЗАЧИНЕНО" if s.locked else "ВІДЧИНЕНО",
-                       last_actor=s.last_actor or "—",
-                       unlocked_today=-1)                  # без історії не порахувати
-
-class Projection:                       # УВІМК — окрема проєкція (CQRS)
-    def __init__(self): self._row = DashRow()
-    def notify(self, e: DoorEvent) -> None:
-        self._row.status = "ЗАЧИНЕНО" if e.type == "DoorLocked" else "ВІДЧИНЕНО"
-        self._row.last_actor = e.actor
-        if e.type == "DoorUnlocked":
-            self._row.unlocked_today += 1                 # ⚠ див. пастку нижче
-    def dashboard(self, truth: Truth) -> DashRow:
-        return self._row                                  # готове, без обчислень
-```
+:::code proj-orthogonal-switches/ts/vis-druha-chytatskyi-bik.ts
+:::code proj-orthogonal-switches/py/vis-druha-chytatskyi-bik.py
 :::
 
 Тут проступає та сама різниця форм, задля якої ми й городили окрему читацьку модель. `FoldOnRead` уміє віддати статус і останнього актора — бо це є в стані, — але на `unlockedToday` чесно ставить `-1`: підсумок за день над стертою історією не візьмеш. `Projection` же **накопичує** цей підсумок подіями і тому віддає готовий рядок за нуль обчислень. Різні форми, різна ціна — рівно те, про що казала лінійка.
@@ -229,56 +57,15 @@ class Projection:                       # УВІМК — окрема проєк
 І ось нагорода за те, що осі — окремі інтерфейси. Каркас, який їх зшиває, дрібний до непристойності:
 
 :::tabs
-```ts
-class System {
-  constructor(private truth: Truth, private read: Read) {}
-  send(cmd: Command): void {
-    const e = this.truth.handle(cmd);   // 1. записали правду
-    this.read.notify(e);                // 2. повідомили читацький бік
-  }
-  view(): DashRow { return this.read.dashboard(this.truth); }
-}
-
-// ── ЧОТИРИ системи — вільна композиція двох осей, по рядку на кут ──
-const plainCrud = new System(new CrudTruth(),  new FoldOnRead());  // ✗ ✗  дефолт
-const crudCqrs  = new System(new CrudTruth(),  new Projection());  // ✗ ✓  CRUD + CQRS
-const esSingle  = new System(new EventTruth(), new FoldOnRead());  // ✓ ✗  ES, одна модель
-const esCqrs    = new System(new EventTruth(), new Projection());  // ✓ ✓  ES + CQRS
-```
-```py
-class System:
-    def __init__(self, truth: Truth, read: Read):
-        self.truth, self.read = truth, read
-    def send(self, cmd: Command) -> None:
-        e = self.truth.handle(cmd)     # 1. записали правду
-        self.read.notify(e)            # 2. повідомили читацький бік
-    def view(self) -> DashRow:
-        return self.read.dashboard(self.truth)
-
-# ── ЧОТИРИ системи — вільна композиція двох осей ──
-plain_crud = System(CrudTruth(),  FoldOnRead())   # ✗ ✗  дефолт
-crud_cqrs  = System(CrudTruth(),  Projection())   # ✗ ✓  CRUD + CQRS
-es_single  = System(EventTruth(), FoldOnRead())   # ✓ ✗  ES, одна модель
-es_cqrs    = System(EventTruth(), Projection())   # ✓ ✓  ES + CQRS
-```
+:::code proj-orthogonal-switches/ts/skladannia-chotyry-systemy.ts
+:::code proj-orthogonal-switches/py/skladannia-chotyry-systemy.py
 :::
 
 Ось і весь доказ ортогональності — чотири рядки. `CrudTruth` і `EventTruth` нічого не знають про `FoldOnRead` чи `Projection`, і навпаки; жоден з чотирьох інтерфейсних методів не згадує сусідню вісь. Тому будь-яка правда стикається з будь-яким читанням — компілятор пропускає всі чотири комбінації, бо в типах вони й справді незалежні. Незалежність не написана в коментарі — вона в тому, що ці два інтерфейси **не мають між собою жодного шва**.
 
 Проженімо крізь усі чотири однакову коротку історію й погляньмо, де вони збігаються, а де розходяться:
 
-```ts
-for (const sys of [plainCrud, crudCqrs, esSingle, esCqrs]) {
-  sys.send({ kind: "lock",   actor: "Аня",   at: 900 });
-  sys.send({ kind: "unlock", actor: "гість", at: 1500 });
-  sys.send({ kind: "lock",   actor: "Аня",   at: 1800 });
-  console.log(sys.view());
-}
-// plainCrud → { status: "ЗАЧИНЕНО", lastActor: "Аня", unlockedToday: -1 }
-// crudCqrs  → { status: "ЗАЧИНЕНО", lastActor: "Аня", unlockedToday:  1 }
-// esSingle  → { status: "ЗАЧИНЕНО", lastActor: "Аня", unlockedToday: -1 }
-// esCqrs    → { status: "ЗАЧИНЕНО", lastActor: "Аня", unlockedToday:  1 }
-```
+:::code proj-orthogonal-switches/ts/skladannia-chotyry-systemy-2.ts
 
 Придивись до цих чотирьох рядків — у них уся суть. **Статус** усюди однаковий: замок зачинено, останньою була Аня. А от у двох питаннях системи мовчки розійшлися. По колонці читання: хто носить окрему `Projection` (`crudCqrs`, `esCqrs`), той знає `unlockedToday: 1`; хто читає згорткою (`plainCrud`, `esSingle`), той чесно каже `-1` — підсумок за день йому нізвідки взяти. А по колонці правди різниця в цьому запуску **не видна очам зовсім** — і саме це найцікавіше: `plainCrud` і `esSingle` віддали ідентичний рядок, але `esSingle` під капотом лишив увесь журнал і тому мовчки зберіг здатність, якої в `plainCrud` нема назавжди: відповісти пізніше на «а хто відмикав о 15:00», переграти історію новим правилом, підняти аудит. За джерело правди платять не виглядом читання, а **опцією на майбутнє**, за яку тихо йде місце на диску.
 

@@ -10,19 +10,7 @@
 
 Почнімо з перевірки, яка **виглядає** правильною — і саме тому найпідступніша. Обробник чесно питає авторизацію, не забув її, як у найгрубшому недогляді. Але питає не те:
 
-```ts
-// ❌ Тонкий баг: роль перевірено, об'єкт — ні.
-async function unlockDoor(req: Request, res: Response) {
-  const user = req.user;
-  const door = await devices.load(req.params.id);     // у door є homeId
-  const role = await memberships.anyRoleOf(user.id);  // «Оксана — мешканка? так, дому 12»
-  if (role === "resident" || role === "owner") {      // роль підходить…
-    await door.unlock();                              // …а це замок ЧУЖОГО дому!
-    return res.json({ ok: true });
-  }
-  res.status(403).end();
-}
-```
+:::code proj-dh-inservice-authz/ts/zadacha-shcho-musyt-umity.ts
 
 Тут є все, крім головного. Оксана справді мешканка — дому 12. `anyRoleOf` чесно віддає «resident». Роль проходить перевірку. І замок #42, що належить дому 7, відчиняється перед тим, хто до дому 7 не має жодного стосунку. Це і є [горизонтальна ескалація](root:progarch/idor-horizontal-escalation) у чистому вигляді: та сама роль, але чужий об'єкт — користувач підставляє чужий ідентифікатор і дотягується до чужого. Помилка не в тому, що забули перевірку, — а в тому, що перевірили лишень половину: «хто ти взагалі», не спитавши «а тут, у **цьому** домі, ти хто?».
 
@@ -60,43 +48,8 @@ async function unlockDoor(req: Request, res: Response) {
 Спершу — словник і два інтерфейси, на яких тримається все інше:
 
 :::tabs
-```ts
-type Role   = "owner" | "resident" | "guest";
-type Action = "unlock" | "lock" | "view" | "configure";
-
-interface User     { id: string; }
-interface Resource { homeId: string; }   // будь-що з приналежністю до дому: замок, камера…
-
-// ШОВ: усі обробники бачать ЛИШЕ це. can асинхронний з першого дня (див. нижче — навіщо).
-interface Authorizer {
-  can(user: User, action: Action, resource: Resource): Promise<boolean>;
-}
-
-// ПОРТ до членства: «яка роль у цього користувача В ЦЬОМУ домі?».
-// Ключ — homeId; іншого способу спитати роль тут просто нема.
-interface Memberships {
-  roleIn(userId: string, homeId: string): Promise<Role | undefined>;
-}
-```
-```py
-from typing import Literal, Optional, Protocol
-
-Role   = Literal["owner", "resident", "guest"]
-Action = Literal["unlock", "lock", "view", "configure"]
-
-class User(Protocol):
-    id: str
-
-class Resource(Protocol):
-    home_id: str                       # будь-що з приналежністю до дому: замок, камера…
-
-class Authorizer(Protocol):            # ШОВ: обробники бачать ЛИШЕ це
-    async def can(self, user: User, action: Action, resource: Resource) -> bool: ...
-
-class Memberships(Protocol):           # ПОРТ до членства
-    # Яка роль у користувача В ЦЬОМУ домі? Ключ — home_id, іншого способу спитати нема.
-    async def role_in(self, user_id: str, home_id: str) -> Optional[Role]: ...
-```
+:::code proj-dh-inservice-authz/ts/typy-domenu-i-shov.ts
+:::code proj-dh-inservice-authz/py/typy-domenu-i-shov.py
 :::
 
 Один рядок тут несе всю майбутню зворотність: `can` віддає `Promise<boolean>`, а не `boolean`, дарма що локальна реалізація нічого не чекатиме. Це навмисно. Коли колись доведеться замінити внутрішню перевірку на запит до центрального рушія по мережі, вона стане асинхронною **насильно** — і якби шов був синхронний, кожен обробник довелося б переписувати з `if (...)` на `if (await ...)`. Асинхронність із першого дня коштує одного зайвого `await` сьогодні й купує двобічні двері назавтра. Ти помітиш цей `await` у хендлері нижче — його не було в начерку статті, і він там навмисне.
@@ -104,43 +57,8 @@ class Memberships(Protocol):           # ПОРТ до членства
 ### Реалізація: об'єктна перевірка + відмова за замовчуванням
 
 :::tabs
-```ts
-// Дозволи за роллю — ЄДИНА таблиця правила. Усе, чого тут НЕ виписано, — заборонено.
-const ACTIONS_BY_ROLE: Record<Role, ReadonlySet<Action>> = {
-  owner:    new Set(["unlock", "lock", "view", "configure"]),
-  resident: new Set(["unlock", "lock", "view"]),
-  guest:    new Set(["view"]),
-};
-
-class InServiceAuthorizer implements Authorizer {
-  constructor(private readonly memberships: Memberships) {}
-
-  async can(user: User, action: Action, resource: Resource): Promise<boolean> {
-    // Ключ пошуку — дім САМОГО об'єкта. Тут і закривається IDOR.
-    const role = await this.memberships.roleIn(user.id, resource.homeId);
-    if (role === undefined) return false;               // не член ЦЬОГО дому → ні
-    return ACTIONS_BY_ROLE[role]?.has(action) ?? false; // відмова за замовчуванням
-  }
-}
-```
-```py
-ACTIONS_BY_ROLE: dict[Role, frozenset[Action]] = {
-    "owner":    frozenset({"unlock", "lock", "view", "configure"}),
-    "resident": frozenset({"unlock", "lock", "view"}),
-    "guest":    frozenset({"view"}),
-}
-
-class InServiceAuthorizer:
-    def __init__(self, memberships: Memberships) -> None:
-        self._memberships = memberships
-
-    async def can(self, user: User, action: Action, resource: Resource) -> bool:
-        # Ключ пошуку — дім САМОГО об'єкта. Тут і закривається IDOR.
-        role = await self._memberships.role_in(user.id, resource.home_id)
-        if role is None:
-            return False                                        # не член ЦЬОГО дому → ні
-        return action in ACTIONS_BY_ROLE.get(role, frozenset())  # відмова за замовчуванням
-```
+:::code proj-dh-inservice-authz/ts/realizatsiia-obiektna.ts
+:::code proj-dh-inservice-authz/py/realizatsiia-obiektna.py
 :::
 
 Придивися, скільки роботи роблять три рядки. Перший — `roleIn(user.id, resource.homeId)` — фізично не дає забути об'єкт: `homeId` тут не опція, а обов'язковий аргумент, тож «спитати роль без дому» вже неможливо написати. Другий — `if role is None → false` — це і є закриття IDOR: чужий дім не має для тебе ролі, значить, «ні». Третій — пошук у таблиці з падінням у `false` — це відмова за замовчуванням у дії: невідома дія, стороння роль, порожній набір — усе дає «ні», бо «так» тут можна отримати лише явним влученням у виписаний дозвіл.
@@ -178,65 +96,8 @@ async def unlock_door(request, door_id):
 Тепер — рядок, заради якого все й збиралося. Тест, що червоніє, щойно чужий мешканець відчинить чужий замок:
 
 :::tabs
-```ts
-// Фейкове членство для тесту: проста таблиця user → home → role.
-class StaticMemberships implements Memberships {
-  constructor(private readonly table: Record<string, Record<string, Role>>) {}
-  async roleIn(userId: string, homeId: string): Promise<Role | undefined> {
-    return this.table[userId]?.[homeId];   // немає запису → undefined → «не член»
-  }
-}
-
-test("чужий мешканець не відчиняє чужий замок", async () => {
-  const authz = new InServiceAuthorizer(new StaticMemberships({
-    oksana: { "home-12": "resident" },     // Оксана — мешканка дому 12
-    bohdan: { "home-7":  "resident" },     // Богдан — мешканець дому 7
-  }));
-  const door42 = { homeId: "home-7" };     // замок Богдана
-
-  // ГОЛОВНИЙ ДОКАЗ: чужий мешканець на чужому замку — DENY.
-  expect(await authz.can({ id: "oksana" }, "unlock", door42)).toBe(false);
-  // Контроль: свій мешканець свій замок — можна.
-  expect(await authz.can({ id: "bohdan" }, "unlock", door42)).toBe(true);
-  // Відмова за замовчуванням: невідома дія — ні.
-  expect(await authz.can({ id: "bohdan" }, "detonate" as Action, door42)).toBe(false);
-  // Відмова за замовчуванням: узагалі не член жодного дому — ні.
-  expect(await authz.can({ id: "stranger" }, "unlock", door42)).toBe(false);
-});
-```
-```py
-import asyncio
-from dataclasses import dataclass
-
-@dataclass
-class U:    id: str
-@dataclass
-class Door: home_id: str
-
-class StaticMemberships:                    # фейкове членство: user → home → role
-    def __init__(self, table): self._table = table
-    async def role_in(self, user_id, home_id):
-        return self._table.get(user_id, {}).get(home_id)   # немає запису → None → «не член»
-
-def test_foreign_resident_denied():
-    async def scenario():
-        authz = InServiceAuthorizer(StaticMemberships({
-            "oksana": {"home-12": "resident"},   # Оксана — мешканка дому 12
-            "bohdan": {"home-7":  "resident"},   # Богдан — мешканець дому 7
-        }))
-        door42 = Door("home-7")                  # замок Богдана
-
-        # ГОЛОВНИЙ ДОКАЗ: чужий мешканець на чужому замку — DENY.
-        assert await authz.can(U("oksana"),  "unlock",   door42) is False
-        # Контроль: свій мешканець свій замок — можна.
-        assert await authz.can(U("bohdan"),  "unlock",   door42) is True
-        # Відмова за замовчуванням: невідома дія — ні.
-        assert await authz.can(U("bohdan"),  "detonate", door42) is False
-        # Відмова за замовчуванням: не член жодного дому — ні.
-        assert await authz.can(U("stranger"), "unlock",  door42) is False
-
-    asyncio.run(scenario())
-```
+:::code proj-dh-inservice-authz/ts/test-holovnyi-dokaz.ts
+:::code proj-dh-inservice-authz/py/test-holovnyi-dokaz.py
 :::
 
 Перший `expect` — це вся стаття, стиснута в один рядок. Оксана має роль «resident», але дому 12; замок #42 у домі 7; `roleIn("oksana", "home-7")` віддає порожнечу — і `can` повертає `false`. Наївний код на цьому місці повертав би `true`, бо питав роль без дому. Три наступні рядки стережуть межі: свій мешканець проходить (щоб перевірка не була просто «завжди ні»), невідома дія й невідомий користувач відсіваються за замовчуванням. Цей тест — не формальність: він фіксує саме той інваріант, який найлегше зламати наступною правкою, і зробить це видимо, а не тихо.
@@ -245,23 +106,7 @@ def test_foreign_resident_denied():
 
 І остання ланка — доказ, що шов справді двобічний. Коли дублювання правила по сервісах почне пекти й ми виростемо в центральний рушій, обробники **не міняються** — міняється один рядок збірки:
 
-```ts
-// Сьогодні — рішення в процесі:
-const authz: Authorizer = new InServiceAuthorizer(localMemberships);
-
-// Завтра, коли переростемо в центр, — той самий тип, інша реалізація:
-class CentralAuthorizer implements Authorizer {
-  constructor(private readonly pdp: PdpClient) {}
-  async can(user: User, action: Action, resource: Resource): Promise<boolean> {
-    try {
-      return await this.pdp.check(user.id, action, resource);  // запит до центрального PDP
-    } catch {
-      return false;                                            // збій PDP → deny (fail-closed)
-    }
-  }
-}
-const authz: Authorizer = new CentralAuthorizer(pdpClient);    // жоден обробник не змінився
-```
+:::code proj-dh-inservice-authz/ts/zamina-realizatsii-za.ts
 
 Ось де окупається асинхронність із першого дня. `can` завжди був `await`-ом, тож підставити мережеву реалізацію можна без єдиної правки в хендлерах — сам шов її й ізолює. Це і є дорога до [Варіанта Б, який виносить рішення в один центр](root:progarch/authz-central-variant): не переписування системи, а заміна однієї реалізації за незмінним інтерфейсом. Варіант А, зібраний за швом, — не глухий кут, а перша станція на цьому шляху.
 
@@ -279,28 +124,7 @@ const authz: Authorizer = new CentralAuthorizer(pdpClient);    // жоден о�
 
 Лік — не «бути уважним», а зробити прохід крізь перевірку **єдиним способом** зареєструвати маршрут. Замість того щоб кликати `can` вручну в кожному хендлері, реєструємо маршрути через обгортку, у якій перевірка вбудована в саму форму:
 
-```ts
-// Чок-пойнт: маршрут РЕЄСТРУЮТЬ лише через guard — повз перевірку його не додаси.
-function guard<R extends Resource>(
-  action: Action,
-  load: (req: Request) => Promise<R>,
-  handle: (req: Request, res: Response, resource: R) => Promise<void>,
-) {
-  return async (req: Request, res: Response) => {
-    const resource = await load(req);
-    if (!(await authz.can(req.user, action, resource))) {
-      return res.status(403).json({ error: "forbidden" });
-    }
-    await handle(req, res, resource);   // до сюди доходять лише дозволені
-  };
-}
-
-// Реєстрація: перевірка — не рядок усередині, а обов'язкова частина оголошення маршруту.
-router.post("/doors/:id/unlock",
-  guard("unlock",
-        (req) => devices.load(req.params.id),
-        (_req, res, door) => door.unlock().then(() => res.json({ ok: true }))));
-```
+:::code proj-dh-inservice-authz/ts/pastka-1-zabuta-perevirka.ts
 
 Тепер «забути перевірку» означає «не написати маршрут узагалі» — недогляд стало неможливо зробити тихо. А для другого паска є перевірена в бою практика: після кожного запиту звіряти, що авторизація **взагалі відбулась.** Так робить рубіновий Pundit — його `after_action :verify_authorized` кидає `Pundit::AuthorizationNotPerformedError`, якщо за час обробки жодного разу не покликали `authorize` (задокументована поведінка бібліотеки). Це переводить «тиху діру» в гучну помилку: маршрут без перевірки не мовчки пускає, а падає в розробці й тестах. Третій пасок — тест, що перебирає всі зареєстровані маршрути й твердить, що кожен проходить крізь `guard`; він ловить діру ще до деплою.
 
@@ -308,56 +132,11 @@ router.post("/doors/:id/unlock",
 
 Досі `roleIn` читав локальну таблицю. Але членство домогосподарств цілком може жити не тут, а в окремому сервісі — і тоді порт мусить **сходити по роль мережею.** Порт це дозволяє безболісно (у тім і його сенс), та ціну треба назвати вголос: `roleIn` стає мережевим викликом на **гарячому шляху** кожного `unlock`. Ось адаптер — цього разу мовою, де мережева межа виходить найчистіше:
 
-```go
-// Адаптер членства ПО МЕРЕЖІ: тепер roleIn — мережевий стрибок на гарячому шляху unlock.
-type RemoteMemberships struct {
-	base   string
-	client *http.Client
-}
-
-func (m *RemoteMemberships) RoleIn(ctx context.Context, userID, homeID string) (Role, error) {
-	ctx, cancel := context.WithTimeout(ctx, 200*time.Millisecond) // жорсткий дедлайн — не висіти
-	defer cancel()
-
-	url := fmt.Sprintf("%s/memberships?user=%s&home=%s", m.base, userID, homeID)
-	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
-	resp, err := m.client.Do(req)
-	if err != nil {
-		return "", err // мережа/таймаут → помилка нагору (авторизатор оберне її на deny)
-	}
-	defer resp.Body.Close()
-
-	switch resp.StatusCode {
-	case http.StatusNotFound:
-		return "", nil // не член цього дому — це «нема ролі», а НЕ збій
-	case http.StatusOK:
-		var out struct {
-			Role Role `json:"role"`
-		}
-		if err := json.NewDecoder(resp.Body).Decode(&out); err != nil {
-			return "", err
-		}
-		return out.Role, nil
-	default:
-		return "", fmt.Errorf("membership svc: %s", resp.Status)
-	}
-}
-```
+:::code proj-dh-inservice-authz/go/pastka-2-merezhevyi.go
 
 Одна деталь тут — не косметична, а безпекова: **«не член» (404) і «сервіс упав» (помилка) мусять розрізнятися.** Якщо звалити їх в один кошик — скажімо, будь-яку невдачу трактувати як «нема ролі», — то збій сервісу членства виглядатиме однаково з чесним «ти тут не мешканець», і навпаки, тимчасова недосяжність могла б випадково когось пустити. Тому 404 повертає порожню роль без помилки, а справжній збій — помилку, яку авторизатор оберне на відмову:
 
-```go
-func (a *InServiceAuthorizer) Can(ctx context.Context, u User, action Action, r Resource) (bool, error) {
-	role, err := a.memberships.RoleIn(ctx, u.ID, r.HomeID)
-	if err != nil {
-		return false, err // збій членства → DENY (fail-closed); помилку — в лог і метрику
-	}
-	if role == "" {
-		return false, nil // не член цього дому → deny (IDOR закрито)
-	}
-	return actionsByRole[role][action], nil // відмова за замовчуванням: нема запису → false
-}
-```
+:::code proj-dh-inservice-authz/go/pastka-2-merezhevyi-2.go
 
 Тепер видно, що ми повернули собі рівно те, чого Варіант А мав уникати: [мережевий стрибок і його клас відмов](root:sf-distributed/distributed-fallacies). Сервіс членства став залежністю, без якої не відчиняється жоден замок; його затримка додається до кожного `unlock`; його падіння через `fail-closed` **замикає людей у власних домах.** Це чесний компроміс, а не помилка: `fail-closed` тримає безпеку (чужий замок ніколи не відчиниться від того, що сервіс моргнув), платячи доступністю. Але саме тут Варіант А перестає «сяяти» — і саме цей факт, «де лежать дані для рішення», згодом і перемкне вибір на центр. Найчистіший він тоді, коли членство лежить у самому сервісі; щойно воно поїхало за мережу — почалися компроміси.
 
@@ -365,26 +144,7 @@ func (a *InServiceAuthorizer) Can(ctx context.Context, u User, action Action, r 
 
 Очевидна відповідь на мережевий стрибок — **кешувати** роль, щоб не ходити в сервіс на кожен запит. І тут чекає найтонша діра: кеш робить членство **несвіжим**, а несвіже членство означає, що виключений мешканець ще певний час відчиняє замок. Оберни `Memberships` кешем із TTL — і додай окремі двері, щоб викидати запис на подію відкликання:
 
-```ts
-class CachedMemberships implements Memberships {
-  private cache = new Map<string, { role?: Role; exp: number }>();
-  constructor(private readonly inner: Memberships, private readonly ttlMs = 60_000) {}
-
-  async roleIn(userId: string, homeId: string): Promise<Role | undefined> {
-    const key = `${userId}:${homeId}`;
-    const hit = this.cache.get(key);
-    if (hit && hit.exp > Date.now()) return hit.role;      // свіжий кеш — без стрибка
-    const role = await this.inner.roleIn(userId, homeId);  // проміж — один похід у джерело
-    this.cache.set(key, { role, exp: Date.now() + this.ttlMs });
-    return role;
-  }
-
-  // Подія «мешканця виключено» з сервісу домогосподарств → викидаємо запис ОДРАЗУ.
-  onRevoked(userId: string, homeId: string): void {
-    this.cache.delete(`${userId}:${homeId}`);              // вікно застарілості на відкликанні → ~0
-  }
-}
-```
+:::code proj-dh-inservice-authz/ts/pastka-3-kesh-chlenstva-i.ts
 
 Ключова думка — **асиметрія двох напрямів несвіжості.** Застарілість на боці **видачі** (свіжого мешканця пустили на хвилину пізніше, ніж додали) — дрібна прикрість зручності. Застарілість на боці **відкликання** (виключеного флатмейта ще пускають) — це вже діра в безпеці. Тож самого TTL мало: він кладе стелю на несвіжість, але ця стеля дорівнює цілому TTL, а відкликання доступу в домі має діяти за секунди, не за хвилини.
 

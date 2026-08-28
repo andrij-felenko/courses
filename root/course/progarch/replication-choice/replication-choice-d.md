@@ -44,55 +44,8 @@
 Побачмо це на найкоротшому прикладі — той самий ключ, дві моделі:
 
 :::tabs
-```py
-# ── Один лідер: усі записи серіалізуються в одному місці ──
-class SingleLeader:
-    def __init__(self): self.value = None
-    def write(self, v): self.value = v      # лягає ПОВЕРХ попереднього
-    def read(self):     return self.value   # завжди рівно одне значення
-
-leader = SingleLeader()
-leader.write("off")        # застосунок вимкнув обігрівач
-leader.write("on")         # автоматизація ввімкнула — ПІЗНІШЕ, побачивши "off"
-print(leader.read())       # -> "on"   одна історія, конфлікту нема за побудовою
-
-# ── Кілька писарів: два вузли приймають запис у той самий ключ ──
-class Replica:
-    def __init__(self, name): self.name, self.value = name, None
-    def write(self, v):       self.value = v
-
-a, b = Replica("A"), Replica("B")
-a.write("off")             # застосунок пише у вузол свого регіону
-b.write("on")              # хаб пише в інший вузол — у ту саму мить, не бачачи A
-# репліки синхронізуються й виявляють: обидва змінили ключ НЕЗАЛЕЖНО
-versions = {a.value, b.value}      # -> {"off", "on"} — дві живі версії
-assert len(versions) == 2          # жодна не "пізніша" → конфлікт, машина не розсудить
-```
-```ts
-// ── Один лідер: усі записи серіалізуються в одному місці ──
-class SingleLeader {
-  private value: string | null = null;
-  write(v: string) { this.value = v; }      // лягає ПОВЕРХ попереднього
-  read()           { return this.value; }   // завжди рівно одне значення
-}
-const leader = new SingleLeader();
-leader.write("off");        // застосунок вимкнув обігрівач
-leader.write("on");         // автоматизація ввімкнула — ПІЗНІШЕ, побачивши "off"
-console.log(leader.read()); // -> "on"   одна історія, конфлікту нема за побудовою
-
-// ── Кілька писарів: два вузли приймають запис у той самий ключ ──
-class Replica {
-  value: string | null = null;
-  constructor(public name: string) {}
-  write(v: string) { this.value = v; }
-}
-const a = new Replica("A"), b = new Replica("B");
-a.write("off");             // застосунок пише у вузол свого регіону
-b.write("on");              // хаб пише в інший вузол — у ту саму мить, не бачачи A
-// репліки синхронізуються й виявляють: обидва змінили ключ НЕЗАЛЕЖНО
-const versions = new Set([a.value, b.value]);  // -> {"off","on"} — дві версії
-console.assert(versions.size === 2);           // жодна не "пізніша" → конфлікт
-```
+:::code replication-choice-d/py/main.py
+:::code replication-choice-d/ts/index.ts
 :::
 
 Однолідерний випадок дає одне значення, бо другий запис **прийшов після** першого й через нього. Багатописарний дає два, бо два записи прийшли **незалежно** — і тепер [хтось мусить їх звести](root:progarch/conflict-resolution-strategies): останній-за-годинником, злиття, версійні вектори або ручне рішення користувача. Кожен із цих шляхів — робота, коду й голови, якої в однолідерному світі не було взагалі.

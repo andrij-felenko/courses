@@ -8,41 +8,7 @@
 
 Випишемо точно, що будуємо. Користувач шле кліп; ми записуємо факт у базу й хочемо, щоб окремий воркер згодом його перекодував. Одна таблиця фактів, одна таблиця задач, одна таблиця результатів — і, для третього варіанта, таблиця-outbox:
 
-```sql
-CREATE TABLE clips (
-  id         BIGSERIAL PRIMARY KEY,
-  home_id    BIGINT      NOT NULL,
-  url        TEXT        NOT NULL,          -- сирий файл у сховищі
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-
-CREATE TABLE jobs (
-  id         BIGSERIAL PRIMARY KEY,
-  type       TEXT        NOT NULL,
-  payload    JSONB       NOT NULL,
-  status     TEXT        NOT NULL DEFAULT 'ready',   -- ready | running | done
-  locked_by  TEXT,                                   -- який воркер узяв
-  locked_at  TIMESTAMPTZ,                            -- коли взяв (для оренди)
-  attempts   INT         NOT NULL DEFAULT 0,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-CREATE INDEX jobs_ready_idx ON jobs (id) WHERE status = 'ready';
-
-CREATE TABLE renditions (              -- РЕЗУЛЬТАТ перекодування
-  clip_id BIGINT NOT NULL,
-  profile TEXT   NOT NULL,             -- напр. 'h264-720p'
-  path    TEXT   NOT NULL,
-  PRIMARY KEY (clip_id, profile)       -- один вихід на (кліп, профіль) — ключ ідемпотентності
-);
-
-CREATE TABLE outbox (
-  id           BIGSERIAL PRIMARY KEY,
-  topic        TEXT        NOT NULL,
-  payload      JSONB       NOT NULL,
-  delivered_at TIMESTAMPTZ,            -- NULL, поки relay не доправив у брокер
-  created_at   TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-```
+:::code proj-jobs-three-ways/sql/zadacha.sql
 
 Від кожного способу хочемо дві речі: **поставити** задачу під факт кліпа й **забрати** її воркером. І один інваріант, який ми будемо захищати кодом, а не обіцянкою: *кожен зафіксований кліп рано чи пізно отримує рівно одне перекодування, і виконати задачу двічі лишає один результат, а не два*. Перше — про те, щоб задача не загубилась; друге — про те, щоб дубль її не задвоїв. Тримаймо обидва в голові весь розбір: майже все, що ми напишемо, служить одному з них.
 
@@ -63,35 +29,12 @@ class InMemoryQueue {
   depth(): number { return this.items.length; }
 }
 ```
-```py
-from collections import deque
-
-class InMemoryQueue:
-    def __init__(self):
-        self._items = deque()
-    def enqueue(self, type_, payload):
-        self._items.append({"type": type_, "payload": payload})
-    def take(self):
-        return self._items.popleft() if self._items else None
-    def depth(self):
-        return len(self._items)
-```
+:::code proj-jobs-three-ways/py/sposib-a-cherha-v-pam-iati.py
 :::
 
 Обробник кладе задачу в цю чергу й одразу відповідає; окремий цикл її розбирає. Затримка субмілісекундна, серіалізації нема, нової коробки в інфраструктурі — теж. І рівно тут чигає пастка, яку найкраще не описати, а **показати тестом**. Питання одне: що станеться з відкладеною роботою, якщо процес перезапуститься саме зараз? Рестарт процесу — це не магія; це просто новий екземпляр із порожніми полями. Напишімо це буквально:
 
-```ts
-test("черга в памʼяті губить роботу на рестарті", () => {
-  let q = new InMemoryQueue();
-  q.enqueue("transcode", { clipId: 42 });     // кліп 42 залито, задача стоїть
-  expect(q.depth()).toBe(1);
-
-  // Деплой, падіння, рестарт = НОВИЙ процес = НОВА, порожня черга:
-  q = new InMemoryQueue();
-
-  expect(q.depth()).toBe(0);   // задача зникла. Кліп у базі є, борг — випарувався.
-});
-```
+:::code proj-jobs-three-ways/ts/sposib-a-cherha-v-pam-iati.ts
 
 Оцей `q = new InMemoryQueue()` — і є весь механізм катастрофи. Черга жила в полях одного об'єкта одного процесу; не стало процесу — не стало полів. Кліп, якщо ми встигли його записати, лишився в базі; задача на перекодування зникла **без сліду в жодному лозі**. Ніхто навіть не дізнається, що є кліп без відео, — бо запису про борг ніде нема. Тест зеленіє на `depth() === 0`, і саме ця зелень — доказ провалу: ми хотіли, щоб робота пережила рестарт, а вона його не пережила.
 
@@ -102,46 +45,8 @@ test("черга в памʼяті губить роботу на рестарт
 Крок правіше — і черга переїжджає в базу, яку застосунок і так тримає. Тут зʼявляється властивість, заради якої все й затівалось: **постановка задачі неподільна із записом факту**. Кладемо кліп і задачу під нього **в одну транзакцію**:
 
 :::tabs
-```ts
-import { Pool } from "pg";
-
-async function uploadClip(pool: Pool, homeId: number, url: string): Promise<number> {
-  const client = await pool.connect();
-  try {
-    await client.query("BEGIN");
-    const { rows } = await client.query(
-      "INSERT INTO clips (home_id, url) VALUES ($1, $2) RETURNING id",
-      [homeId, url]);
-    const clipId = rows[0].id;
-    await client.query(
-      "INSERT INTO jobs (type, payload) VALUES ('transcode', $1::jsonb)",
-      [JSON.stringify({ clipId })]);
-    await client.query("COMMIT");     // кліп І задача лягають разом — або жоден
-    return clipId;
-  } catch (e) {
-    await client.query("ROLLBACK");   // відкотилось — задачі теж нема, ніби й не було
-    throw e;
-  } finally {
-    client.release();
-  }
-}
-```
-```py
-from psycopg_pool import AsyncConnectionPool
-from psycopg.types.json import Jsonb
-
-async def upload_clip(pool: AsyncConnectionPool, home_id: int, url: str) -> int:
-    async with pool.connection() as conn:          # транзакція — контекст
-        async with conn.transaction():             # вихід без винятку → COMMIT
-            row = await (await conn.execute(
-                "INSERT INTO clips (home_id, url) VALUES (%s, %s) RETURNING id",
-                (home_id, url))).fetchone()
-            clip_id = row[0]
-            await conn.execute(
-                "INSERT INTO jobs (type, payload) VALUES ('transcode', %s)",
-                (Jsonb({"clipId": clip_id}),))     # виняток усередині → ROLLBACK усього
-        return clip_id
-```
+:::code proj-jobs-three-ways/ts/sposib-b-cherha-v-bazi.ts
+:::code proj-jobs-three-ways/py/sposib-b-cherha-v-bazi.py
 :::
 
 Немає жодної шпарини, крізь яку кліп міг би існувати без своєї задачі: обидва INSERT-и — усередині однієї межі, тож фіксуються разом або відкочуються разом. Клас багів «записали факт, а задача загубилась» тут **не існує як можливість** — не бо ми акуратні, а бо база фізично не дає цим двом записам розійтися. Цю неподільність дає [транзакційність (ACID)](root:sf-data/transactions-acid): атомарність означає, що набір записів у транзакції — неподільне ціле.
@@ -150,36 +55,9 @@ async def upload_clip(pool: AsyncConnectionPool, home_id: int, url: str) -> int:
 
 Наївний хід — «взяти рядок під замок, перекодувати, поставити `done`, закомітити» — має тиху ваду **саме для нашої задачі**. Перекодування триває хвилини. Тримати транзакцію (а з нею й замок на рядку, і зайняте зʼєднання) відкритою всі ці хвилини — отруйно: довгі транзакції розпухають, зʼєднання не вертаються в пул, `VACUUM` не може прибрати старі версії рядків. Тож для довгих задач забір роблять **у два такти**: спершу коротка транзакція, що лише *claim'ить* задачу — перемикає `ready → running` і ставить оренду (хто взяв і коли), — а сама важка робота йде **поза** будь-яким тримання замка:
 
-```sql
--- КОРОТКИЙ claim: атомарно вихопити одну готову задачу й позначити своєю.
--- SKIP LOCKED усередині підзапиту → двоє воркерів беруть РІЗНІ рядки, ніхто не чекає.
-UPDATE jobs
-   SET status = 'running', locked_by = $1, locked_at = now()
- WHERE id = (
-   SELECT id FROM jobs
-    WHERE status = 'ready'
-    ORDER BY id
-    LIMIT 1
-    FOR UPDATE SKIP LOCKED
- )
-RETURNING id, type, payload;
-```
+:::code proj-jobs-three-ways/sql/sposib-b-cherha-v-bazi.sql
 
-```ts
-async function claim(pool: Pool, workerId: string): Promise<Job | null> {
-  const { rows } = await pool.query(claimSql, [workerId]);   // SQL вище
-  return rows[0] ?? null;      // pg сам розбирає jsonb payload в обʼєкт
-}
-
-async function runOnce(pool: Pool, workerId: string,
-                       handle: (job: Job) => Promise<void>): Promise<boolean> {
-  const job = await claim(pool, workerId);   // короткий такт: вихопили
-  if (!job) return false;
-  await handle(job);                          // довгий такт: кодуємо, БЕЗ відкритої транзакції
-  await pool.query("UPDATE jobs SET status = 'done' WHERE id = $1", [job.id]);
-  return true;
-}
-```
+:::code proj-jobs-three-ways/ts/sposib-b-cherha-v-bazi-2.ts
 
 Тепер найважливіше в цьому такті — те, що робить забір **чесним** попри падіння. Уяви, що воркер вихопив задачу (`running`), перекодував, але впав **до** `UPDATE ... done`. Задача застрягла в `running` навіки? Ні — для цього й стоїть оренда. Окремий «жнець» (reaper) вертає в чергу все, що висить у `running` довше за розумний строк:
 
@@ -210,59 +88,15 @@ SELECT status, count(*) AS n,
 Отже, воркер **зобовʼязаний** стерпіти повторну доставку тієї самої задачі. Властивість, яка це дає, зветься [ідемпотентністю](root:sf-distributed/idempotency): операцію можна застосувати раз чи багато разів — а видимий результат однаковий. Секрет майже завжди один — **природний ключ результату**, за яким «зробити ще раз» стає «нічого не міняти». У нас цей ключ уже є в схемі: `renditions (clip_id, profile)` — первинний ключ, тобто один результат на пару «кліп + профіль».
 
 :::tabs
-```ts
-type Encode = (clipId: number, profile: string) => Promise<string>;
-
-async function transcode(pool: Pool, clipId: number, encode: Encode,
-                         profile = "h264-720p"): Promise<void> {
-  // Ключ ідемпотентності: якщо результат уже є — ця доставка дубль, виходимо.
-  const done = await pool.query(
-    "SELECT 1 FROM renditions WHERE clip_id = $1 AND profile = $2", [clipId, profile]);
-  if (done.rowCount) return;                       // уже перекодовано — no-op, дорогого кодека не чіпаємо
-
-  const path = await encode(clipId, profile);      // ← єдине дороге місце
-
-  await pool.query(
-    `INSERT INTO renditions (clip_id, profile, path) VALUES ($1, $2, $3)
-       ON CONFLICT (clip_id, profile) DO NOTHING`, // ← навіть гонка двох воркерів згортається в 1 рядок
-    [clipId, profile, path]);
-}
-```
-```py
-async def transcode(pool, clip_id, encode, profile="h264-720p"):
-    async with pool.connection() as conn:
-        row = await (await conn.execute(
-            "SELECT 1 FROM renditions WHERE clip_id=%s AND profile=%s",
-            (clip_id, profile))).fetchone()
-        if row:
-            return                                  # дубль доставки — нічого не робимо
-        path = await encode(clip_id, profile)       # дорогий кодек — лише коли справді треба
-        await conn.execute(
-            "INSERT INTO renditions (clip_id, profile, path) VALUES (%s,%s,%s) "
-            "ON CONFLICT (clip_id, profile) DO NOTHING",
-            (clip_id, profile, path))
-```
+:::code proj-jobs-three-ways/ts/idempotentnyi-vorker.ts
+:::code proj-jobs-three-ways/py/idempotentnyi-vorker.py
 :::
 
 Тут два рубежі, і вони різні. Попередній `SELECT` — рубіж **економії**: коли дубль очевидний, ми не запускаємо дорогий кодек удруге. А `ON CONFLICT DO NOTHING` — рубіж **коректності**: він ловить навіть те, що перевірка проґавить, — гонку, де два воркери одночасно пройшли `SELECT` (обидва побачили «порожньо»), обидва закодували й обидва пишуть результат; конфлікт первинного ключа лишить **один** рядок, а не два. Перевірка одна без одної недостатня: без `SELECT` ми марно палили б кодек, без `ON CONFLICT` — падали б на гонці.
 
 Доведемо це тестом. Вручаємо ту саму задачу двічі поспіль і рахуємо, скільки разів реально смикнувся кодек:
 
-```ts
-test("воркер ідемпотентний: та сама задача двічі — перекодування одне", async () => {
-  const clipId = await insertClip(pool, "s3://clips/raw/42.mov");
-  let encodes = 0;
-  const encode: Encode = async () => { encodes++; return `s3://clips/out/${clipId}.mp4`; };
-
-  await transcode(pool, clipId, encode);   // перша доставка
-  await transcode(pool, clipId, encode);   // ДУБЛЬ (жнець повернув, relay доправив двічі — байдуже)
-
-  expect(encodes).toBe(1);                 // кодек смикнувся РІВНО раз
-  const r = await pool.query(
-    "SELECT count(*) FROM renditions WHERE clip_id = $1", [clipId]);
-  expect(Number(r.rows[0].count)).toBe(1); // один результат, не два
-});
-```
+:::code proj-jobs-three-ways/ts/idempotentnyi-vorker-2.ts
 
 `encodes === 1` при двох доставках — оце й є ідемпотентність на дотик: доставок скільки завгодно, ефект один. Тепер «щонайменше раз» уже не страшне — ми його **знешкодили ключем**, а не намагаємось (марно) досягти «рівно раз» на доставці.
 
@@ -303,95 +137,17 @@ async function uploadClipNaive(pool: Pool, broker: FakeBroker,
 
 Між рядком 1 і рядком 2 немає спільної транзакції — це шов між двома світами. Впаде застосунок або брокер саме тут — і кліп у базі є, а задачі нема. Відтворімо цю сироту тестом:
 
-```ts
-test("наївний подвійний запис сиротить кліп, коли enqueue падає", async () => {
-  const broker = new FakeBroker();
-  broker.failNext();                               // брокер на мить ліг — рівно на нашому enqueue
-  const url = "s3://clips/raw/7.mov";
-
-  await expect(uploadClipNaive(pool, broker, 7, url)).rejects.toThrow();
-
-  // Кліп ЗАфіксувався (перший запит пройшов і закомітився сам собою)...
-  const clip = await pool.query("SELECT id FROM clips WHERE url = $1", [url]);
-  expect(clip.rowCount).toBe(1);                   // кліп ІСНУЄ
-  // ...а задача НЕ доправлена. Осиротілий кліп, нуль сліду.
-  expect(broker.delivered).toHaveLength(0);        // борг зник — і ніхто не знає
-});
-```
+:::code proj-jobs-three-ways/ts/sposib-v-okremyi-broker.ts
 
 Тест зелений — і ця зелень болюча: вона стверджує, що система **штатно** лишає кліпи без відео щоразу, коли брокер моргне між двома записами. Оце і є [проблема подвійного запису](root:sf-distributed/outbox-pattern) на дотик.
 
 Лік — **транзакційний outbox**. Ідея точна: раз ми не можемо втягнути брокер у транзакцію бази, покладімо в ту транзакцію *намір* — рядок у таблицю `outbox` **тією ж транзакцією, що й кліп**. А окремий relay вже несе намір із таблиці в брокер. Постановка знову стала неподільною з фактом — бо `outbox` живе в тій самій базі:
 
-```ts
-async function uploadClipOutbox(pool: Pool, homeId: number, url: string): Promise<number> {
-  const client = await pool.connect();
-  try {
-    await client.query("BEGIN");
-    const { rows } = await client.query(
-      "INSERT INTO clips (home_id, url) VALUES ($1, $2) RETURNING id", [homeId, url]);
-    const clipId = rows[0].id;
-    await client.query(
-      "INSERT INTO outbox (topic, payload) VALUES ('transcode', $1::jsonb)",
-      [JSON.stringify({ clipId })]);               // ← НАМІР у ТІЙ САМІЙ транзакції
-    await client.query("COMMIT");                  // кліп + намір лягають атомарно
-    return clipId;
-  } catch (e) {
-    await client.query("ROLLBACK");
-    throw e;
-  } finally {
-    client.release();
-  }
-}
-
-// Relay: злити недоправлене з outbox у брокер. Ганяється циклічно, окремо від застосунку.
-async function relayOnce(pool: Pool, broker: FakeBroker): Promise<void> {
-  const client = await pool.connect();
-  try {
-    await client.query("BEGIN");
-    const { rows } = await client.query(`
-      SELECT id, topic, payload FROM outbox
-       WHERE delivered_at IS NULL
-       ORDER BY id
-       LIMIT 100
-       FOR UPDATE SKIP LOCKED`);                   // кілька relay-інстансів не переступлять одне одному
-    for (const row of rows) {
-      await broker.enqueue(row.topic, row.payload);// може доправити двічі → воркер ідемпотентний, дубль ок
-      await client.query(
-        "UPDATE outbox SET delivered_at = now() WHERE id = $1", [row.id]);
-    }
-    await client.query("COMMIT");
-  } catch (e) {
-    await client.query("ROLLBACK");                // не встигли позначити → на наступному колі перешлемо
-    throw e;
-  } finally {
-    client.release();
-  }
-}
-```
+:::code proj-jobs-three-ways/ts/sposib-v-okremyi-broker-2.ts
 
 І ось доказ, заради якого весь розділ. Зламаймо relay **рівно в тій точці**, де наївна версія сиротила кліп, — на першому `enqueue`. Наївний варіант там втратив задачу назавжди. Подивімось, що станеться з outbox'ом:
 
-```ts
-test("outbox доправляє задачу, навіть коли relay спершу падає", async () => {
-  const broker = new FakeBroker();
-  const url = "s3://clips/raw/8.mov";
-  await uploadClipOutbox(pool, 7, url);            // кліп + рядок outbox — одна транзакція
-
-  broker.failNext();                               // перша спроба relay падає — ТА САМА мить збою
-  await expect(relayOnce(pool, broker)).rejects.toThrow();
-  expect(broker.delivered).toHaveLength(0);        // ще нічого не доправлено...
-
-  // ...але намір ЦІЛИЙ в outbox, тож повторний прогін relay доводить справу:
-  await relayOnce(pool, broker);                   // брокер ожив
-  expect(broker.delivered).toEqual([
-    { topic: "transcode", payload: { clipId: expect.any(Number) } },
-  ]);
-  const stuck = await pool.query(
-    "SELECT count(*) FROM outbox WHERE delivered_at IS NULL");
-  expect(Number(stuck.rows[0].count)).toBe(0);     // жодної сироти не лишилось
-});
-```
+:::code proj-jobs-three-ways/ts/sposib-v-okremyi-broker-3.ts
 
 Порівняй два тести рядок у рядок. Той самий збій, та сама мить — «база зафіксувалась, доставка впала». У наївній версії задача **зникла**, і другого шансу не було. З outbox'ом намір пережив збій у базі (він же там і лежав, атомарно з кліпом), тож relay просто спробував ще раз — і доправив. Різниця не в тому, що outbox «надійніший брокер». Різниця в тому, що постановку задачі знову втягнуто в транзакцію факту — а **брокер винесено за неї, у крок relay, який можна безпечно повторювати**.
 

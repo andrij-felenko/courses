@@ -61,78 +61,7 @@ guard: fitness/no_direct_radio.py
 
 Спершу — модель ADR і читання фронт-матера. Ключ вузла — **число**, а не рядок, і це не дрібниця: `ADR-7` і `ADR-007` мусять бути тим самим вузлом, інакше граф розпадеться на двійників.
 
-```python
-# fitness/trace_check.py — фітнес-функція на ЦІЛІСНІСТЬ усього сліду рішень DH.
-# Запуск із кореня репозиторію:  python fitness/trace_check.py
-# Ненульовий код виходу = CI червоний, і в КОЖНОМУ рядку — ім'я винного ADR.
-from __future__ import annotations
-from dataclasses import dataclass
-from pathlib import Path
-import ast, re, sys, tokenize, yaml      # yaml: pip install pyyaml — фронт-матер це YAML
-
-ADR_DIR = Path("docs/adr")               # тут лежать записи виду ADR-NNN.md
-REPO    = Path(".")                      # корінь репозиторію
-LOGIC   = Path("hub/logic")             # правила / стан / сценарії — «мозок» хаба
-RADIO   = {"zigbee", "zwave", "matter", "zigpy", "bellows"}  # верхні пакети радіо-стеків
-ID_RE   = re.compile(r"ADR-0*(\d+)")     # ловить і ADR-7, і ADR-007; число — канонічний ключ
-
-
-def canon(num: int) -> str:
-    return f"ADR-{num:03d}"               # ЄДИНА форма запису: ADR-007, ніколи ADR-7
-
-
-@dataclass
-class Adr:
-    num: int
-    status: str
-    supersedes: list[int]
-    superseded_by: list[int]
-    code: list[str]
-    view: str
-    path: Path
-
-    @property
-    def id(self) -> str:
-        return canon(self.num)
-
-
-def front_matter(path: Path) -> dict | None:
-    """YAML-шапка між двома рядками «---». Прив'язка до меж рядка береже «---» у тілі."""
-    text = path.read_text(encoding="utf-8")
-    m = re.match(r"^---\r?\n(.*?)\r?\n---\r?\n", text, re.S)
-    if not m:
-        return None                       # не ADR-запис — просто markdown
-    return yaml.safe_load(m.group(1)) or {}
-
-
-def as_nums(raw) -> list[int]:
-    """Список ADR-номерів із поля фронт-матера: [ADR-023] чи 'ADR-023' → [23]."""
-    if raw is None:
-        return []
-    items = [raw] if isinstance(raw, (str, int)) else list(raw)
-    return [int(ID_RE.search(str(x)).group(1)) for x in items if ID_RE.search(str(x))]
-
-
-def load_adrs(adr_dir: Path) -> dict[int, Adr]:
-    adrs: dict[int, Adr] = {}
-    for path in sorted(adr_dir.glob("*.md")):
-        meta = front_matter(path)
-        if meta is None:
-            continue
-        m = ID_RE.search(str(meta.get("id", "")))
-        if not m:
-            raise SystemExit(f"{path}: у фронт-матері бракує поля id виду ADR-NNN")
-        num = int(m.group(1))
-        adrs[num] = Adr(
-            num=num,
-            status=str(meta.get("status", "")).strip().lower(),
-            supersedes=as_nums(meta.get("supersedes")),
-            superseded_by=as_nums(meta.get("superseded-by")),
-            code=[str(c) for c in (meta.get("code") or [])],
-            view=str(meta.get("view") or ""),
-            path=path)
-    return adrs
-```
+:::code proj-trace-check/py/trace_check.py
 
 Три деталі варті ока. `ID_RE` з'їдає провідні нулі (`0*`) й лишає саме число — тому `canon()` завжди друкує один вигляд, а граф не двоїться на `ADR-7`/`ADR-007`. `front_matter` шукає закривальний `---` **на межі рядка** (`^---$` у режимі `re.S`), а не будь-де: інакше тире-роздільник `---` у тілі запису розрубав би шапку навпіл. І `as_nums` не переймається, чи записали ціль списком `[ADR-023]`, чи голим рядком `ADR-023`, — витягує число з будь-чого, де воно є.
 
@@ -142,61 +71,7 @@ def load_adrs(adr_dir: Path) -> dict[int, Adr]:
 
 Рятунок у тому, що справжнє посилання-ланку ставлять у **коментар** (`# сторож шва, див. ADR-007`), а не в рядок коду. А коментар і рядок-літерал — це різні **токени** для самого Python. Тож у `.py` беремо згадки лише з коментарів через `tokenize`; у діаграмах і markdown читаємо прозу — але **без** структурного фронт-матера, бо його поля (`superseded-by` тощо) перевіряє окремо ланцюг замін, і рахувати їх ще й як «згадки» означало б бити на сполох двічі за одне.
 
-```python
-SKIP = {".git", "node_modules", ".venv", "venv", "__pycache__", "dist", "build"}
-
-
-def skipped(path: Path) -> bool:
-    return any(part in SKIP for part in path.parts)
-
-
-def refs_in_comments(path: Path) -> set[int]:
-    """ADR-номери з КОМЕНТАРІВ .py — не з рядків-літералів (ось де ховалася пастка)."""
-    nums: set[int] = set()
-    try:
-        with tokenize.open(path) as f:                # враховує coding-cookie файлу
-            for tok in tokenize.generate_tokens(f.readline):
-                if tok.type == tokenize.COMMENT:      # рядок-літерал сюди не потрапить
-                    nums |= {int(n) for n in ID_RE.findall(tok.string)}
-    except (tokenize.TokenError, SyntaxError, ValueError):
-        pass                                          # битий синтаксис не валить перевірку сліду
-    return nums
-
-
-def strip_front_matter(text: str) -> str:
-    """Прибрати YAML-шапку: її поля читає ланцюг замін, це не «згадки» в прозі."""
-    return re.sub(r"^---\r?\n.*?\r?\n---\r?\n", "", text, count=1, flags=re.S)
-
-
-def refs_in_prose(path: Path) -> set[int]:
-    """ADR-номери з тексту діаграм і markdown (без структурного фронт-матера)."""
-    body = strip_front_matter(path.read_text(encoding="utf-8", errors="ignore"))
-    return {int(n) for n in ID_RE.findall(body)}
-
-
-@dataclass
-class Break:
-    adr: str        # ім'я винного запису — саме воно потрапить у лог CI
-    detail: str
-
-
-def check_dangling_refs(adrs: dict[int, Adr], repo: Path) -> list[Break]:
-    known = set(adrs)                                 # множина наявних номерів
-    out: list[Break] = []
-    for path in sorted(repo.rglob("*")):
-        if not path.is_file() or skipped(path):
-            continue
-        if path.suffix == ".py":
-            found = refs_in_comments(path)
-        elif path.suffix in (".md", ".puml", ".svg", ".dot"):
-            found = refs_in_prose(path)
-        else:
-            continue
-        for num in sorted(found - known):             # згадано, а запису нема
-            out.append(Break(canon(num),
-                f"згадано у {path.as_posix()}, а запису в {ADR_DIR.as_posix()} нема"))
-    return out
-```
+:::code proj-trace-check/py/posylannia-zbyraiemo.py
 
 `tokenize.open` сам розбереться з кодуванням файлу за cookie, а `generate_tokens` віддасть потік токенів, з якого ми чіпаємо **лише** `COMMENT`. Рядок `port = ZigbeeConn("ADR-042-fixture")` для токенізатора — це `STRING`, і жоден випадковий `ADR` у ньому не зіб'є перевірку. А `except` навколо токенізації свідомий: один файл із поламаним синтаксисом не має ронити перевірку всього сліду — гірше за виявлений розрив лише інструмент, що сам падає на першій же дивині.
 
@@ -204,73 +79,7 @@ def check_dangling_refs(adrs: dict[int, Adr], repo: Path) -> list[Break]:
 
 Друга й третя перевірки — над самими вузлами. Сирота проста: живий ADR мусить мати якір, і названі файли мусять існувати. Ланцюг складніший — це вже обхід графа.
 
-```python
-def check_orphans(adrs: dict[int, Adr], repo: Path) -> list[Break]:
-    out: list[Break] = []
-    for a in adrs.values():
-        if a.status != "accepted":                    # лінтимо лише ЖИВІ; замінене хай спочиває
-            continue
-        if not a.code and not a.view:
-            out.append(Break(a.id, "ухвалене, а ні code:, ні view: — висить без якоря"))
-        for rel in a.code:                            # названий код мусить існувати
-            if not (repo / rel).exists():
-                out.append(Break(a.id, f"code: {rel} — такого файлу в репозиторії нема"))
-    return out
-
-
-def check_chains(adrs: dict[int, Adr]) -> list[Break]:
-    out: list[Break] = []
-    for a in adrs.values():
-        for tgt in a.superseded_by:                   # ціль існує + ланка дзеркальна
-            b = adrs.get(tgt)
-            if b is None:
-                out.append(Break(a.id, f"«замінено {canon(tgt)}», а того ADR нема — висяча ланка"))
-            elif a.num not in b.supersedes:
-                out.append(Break(a.id,
-                    f"каже «замінено {canon(tgt)}», але {canon(tgt)} не каже «замінює {a.id}»"))
-        for tgt in a.supersedes:
-            b = adrs.get(tgt)
-            if b is None:
-                out.append(Break(a.id, f"«замінює {canon(tgt)}», а того ADR нема"))
-            elif a.num not in b.superseded_by:
-                out.append(Break(a.id,
-                    f"каже «замінює {canon(tgt)}», але {canon(tgt)} не каже «замінено {a.id}»"))
-        if a.superseded_by and a.status != "superseded":
-            out.append(Break(a.id,
-                f"має «замінено», а статус «{a.status}» — замінене мусить бути superseded"))
-        if a.status == "superseded" and not a.superseded_by:
-            out.append(Break(a.id, "статус superseded, а «замінено» порожнє — чим замінили?"))
-    out += find_cycles(adrs)
-    return out
-
-
-def find_cycles(adrs: dict[int, Adr]) -> list[Break]:
-    """Пошук кілець у графі замін — обхід у глибину з трьома кольорами вузлів."""
-    WHITE, GRAY, BLACK = 0, 1, 2                       # ще не бачив / у стеку / завершений
-    color = {n: WHITE for n in adrs}
-    out: list[Break] = []
-
-    def walk(node: int, stack: list[int]) -> None:
-        color[node] = GRAY
-        stack.append(node)
-        for nxt in adrs[node].superseded_by:
-            if nxt not in adrs:
-                continue                               # відсутню ціль уже впіймали вище
-            if color[nxt] == GRAY:                     # ребро назад у стек → знайшли цикл
-                loop = stack[stack.index(nxt):] + [nxt]
-                out.append(Break(canon(loop[0]),
-                    "цикл замін: " + " → ".join(canon(x) for x in loop)
-                    + " — рішення (транзитивно) замінює саме себе"))
-            elif color[nxt] == WHITE:
-                walk(nxt, stack)
-        stack.pop()
-        color[node] = BLACK
-
-    for n in adrs:
-        if color[n] == WHITE:
-            walk(n, [])
-    return out
-```
+:::code proj-trace-check/py/syrota-i-lantsiuh-obkhid.py
 
 `check_chains` перевіряє чотири речі, і всі — **локальні** для пари вузлів: ціль існує; ланка дзеркальна (якщо A «замінено B», то B мусить «замінювати A»); статус узгоджений із графом (є `superseded-by` → статус `superseded`, і навпаки — `superseded` без `superseded-by` це висяча ланка). Але локальних перевірок мало: пара за парою може бути бездоганна, а граф загалом — містити кільце. Саме тому окремо стоїть `find_cycles` — класичний обхід у глибину з трьома кольорами: білий вузол ще не бачили, сірий лежить у поточному стеку, чорний завершено. Ребро в **сірий** вузол — це стрибок назад у власний стек, тобто цикл; ми зрізаємо петлю зі стека й називаємо її повністю. Ось те, чого жодна перевірка пари не побачить: A замінює B, B замінює C, C замінює A — кожна ланка окремо чесна, а разом вони кільце без початку.
 
@@ -278,32 +87,7 @@ def find_cycles(adrs: dict[int, Adr]) -> list[Break]:
 
 Четверта перевірка — той самий сторож зі статті, але **загострений**. У тілі кроку `no_direct_radio.py` шукав заборонене ім'я підрядком: `any(r in mod.lower() for r in FORBIDDEN)`. Це працює, доки не трапиться `mail_formatter` — а в ньому підрядок `matter` сидить чесно (f-o-r-**m-a-t-t-e-r**), і наївний сторож зчинить хибну тривогу на цілком безневинному імпорті. Ліки — не порівнювати підрядки, а брати **верхній пакет** імпорту й звіряти на точну рівність зі списком радіо-стеків.
 
-```python
-def imported_top_packages(tree: ast.AST):
-    """Верхній пакет кожного import: 'import zigbee.zcl' і 'from zigbee.zcl import X' → 'zigbee'."""
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            for alias in node.names:
-                yield alias.name.split(".", 1)[0]
-        elif isinstance(node, ast.ImportFrom):
-            if node.level == 0 and node.module:       # level>0 — відносний імпорт, у межах пакета
-                yield node.module.split(".", 1)[0]
-
-
-def check_radio_guard(repo: Path) -> list[Break]:
-    """Сторож ADR-007: логіка хаба не тягне радіо напряму — лише крізь DevicePort."""
-    out: list[Break] = []
-    for src in sorted((repo / LOGIC).rglob("*.py")):
-        try:
-            tree = ast.parse(src.read_text(encoding="utf-8"), filename=str(src))
-        except (SyntaxError, UnicodeDecodeError) as e:
-            out.append(Break("ADR-007", f"{src.as_posix()}: не читається як Python ({e}) — пропущено"))
-            continue
-        for pkg in sorted({p for p in imported_top_packages(tree) if p in RADIO}):
-            out.append(Break("ADR-007",
-                f"{src.as_posix()} тягне радіо напряму: import {pkg} — тільки крізь DevicePort"))
-    return out
-```
+:::code proj-trace-check/py/storozh-adr-007-skanuvaty.py
 
 `import zigbee.zcl` дає верхній пакет `zigbee` — заборонено; `import mail_formatter` дає `mail_formatter` — не збігається з жодним радіо, тож проходить. `ast` бачить структуру там, де підрядок бачив лише літери, — і хибна тривога зникає. Відносні імпорти (`from . import codec`) навмисне пропускаємо: `level > 0` означає «в межах свого пакета», а свій пакет до чужого радіо-стеку дотягтися не може. І тут-таки видно, чому інструмент **сканує** код, а не вірить полю `guard` у фронт-матері: поле каже лише, що сторож десь є; скан доводить, що логіка справді чиста **зараз**. Перше — обіцянка, друге — факт.
 
@@ -311,26 +95,7 @@ def check_radio_guard(repo: Path) -> list[Break]:
 
 Лишилося зшити чотири перевірки в один прогін, що завершується кодом виходу.
 
-```python
-def main() -> int:
-    adrs = load_adrs(ADR_DIR)
-    breaks = (check_dangling_refs(adrs, REPO)
-              + check_orphans(adrs, REPO)
-              + check_chains(adrs)
-              + check_radio_guard(REPO))
-    print(f"Слід рішень DH — {len(adrs)} ADR, чотири перевірки\n")
-    if not breaks:
-        print("  слід цілий: посилання ведуть кудись, ухвалені прив'язані, ланцюги без циклів")
-        return 0
-    for b in sorted(breaks, key=lambda x: (x.adr, x.detail)):
-        print(f"  ✗  {b.adr}  {b.detail}")
-    print(f"\n{len(breaks)} розрив(ів) сліду → CI падає")
-    return 1
-
-
-if __name__ == "__main__":
-    sys.exit(main())
-```
+:::code proj-trace-check/py/obkhid-i-heit.py
 
 Увесь фокус — в останньому рядку. `main` повертає `1`, коли є хоч один розрив, а `sys.exit` перетворює це число на код виходу процесу. Ненульовий код — універсальна мова CI: будь-яка збірка читає його як «впало» й фарбує білд червоним. У пайплайні це один крок поряд із тестами:
 

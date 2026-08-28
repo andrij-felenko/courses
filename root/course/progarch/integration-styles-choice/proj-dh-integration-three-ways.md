@@ -34,18 +34,7 @@ WHERE home_id = $1 AND active = true;
 
 У коді білінгу це кілька рядків на `pg`:
 
-```ts
-// billing/active-count.ts — білінг тримає з'єднання ДО БАЗИ ПРИСТРОЇВ
-async function activeDeviceCount(devicesDb: Pool, homeId: number): Promise<number> {
-  const { rows } = await devicesDb.query(
-    `SELECT count(*)::int AS n
-       FROM devices
-      WHERE home_id = $1 AND active = true`,   // ← ім'я таблиці, колонки й зміст «active=true»
-    [homeId],
-  );
-  return rows[0].n;
-}
-```
+:::code proj-dh-integration-three-ways/ts/active-count.ts
 
 Придивімося, до чого тут причепився білінг, бо це не «до пристроїв» узагалі, а до дуже конкретного. Він причепився до **імені таблиці** `devices`, до **імені колонки** `home_id`, до **імені колонки** `active`, до її **типу** (булеве) і — найтонше — до її **змісту**: що `active = true` означає саме «пристрій зараз увімкнений і рахується в рахунок». Це не вузький контракт на два слова, це залежність від **схеми** — найдетальнішого опису даних, що взагалі існує. Кожна з цих п'яти зачіпок мовчить, доки схема не рухається, і кожна — зведений міст, яким білінг заліз у чужий дім.
 
@@ -64,22 +53,7 @@ export interface DeviceCatalog {
 
 Реалізацію тримає власник — і всередині вона робить рівно той самий запит, що й білінг робив у стилі першому. Але тепер запит живе **по той бік межі**, у коді того, хто володіє таблицею:
 
-```ts
-// devices/service.ts — усередині контексту пристроїв, за його власною стіною
-class DevicesService implements DeviceCatalog {
-  constructor(private db: Pool) {}                    // ← ЙОГО база, тільки його
-
-  async activeCount({ homeId }: { homeId: number }): Promise<{ count: number }> {
-    const { rows } = await this.db.query(
-      `SELECT count(*)::int AS n
-         FROM devices
-        WHERE home_id = $1 AND active = true`,          // той самий SQL — але це ЙОГО SQL
-      [homeId],
-    );
-    return { count: rows[0].n };
-  }
-}
-```
+:::code proj-dh-integration-three-ways/ts/service.ts
 
 А білінг тепер тримає в руках не рядок SQL, а виклик:
 
@@ -118,54 +92,8 @@ CREATE TABLE home_device_state (
 Обробник згортає кожну подію в цю табличку. Ключовий рядок — умова `at > ...at`: вона робить згортку **ідемпотентною** (повторна доставка несе той самий `at`, тож `>` хибне — подія просто нічого не змінює) і **стійкою до переупорядкування** (стара подія, що приповзла із запізненням, програє свіжішому станові). Ось той самий обробник двома ідіомами — TypeScript, як усюди в DH, і Go, рідний дім споживачів подій, де явний `Exec` показує згортку без жодного ORM:
 
 :::tabs
-```ts
-// billing/projection.ts — згортаємо ПОДІЮ у власну табличку
-async function onDeviceEvent(db: Pool, e: DeviceEvent): Promise<void> {
-  const active = e.type === "device.activated";
-  await db.query(
-    `INSERT INTO home_device_state (device_id, home_id, active, at)
-     VALUES ($1, $2, $3, $4)
-     ON CONFLICT (device_id) DO UPDATE
-       SET active = EXCLUDED.active, at = EXCLUDED.at
-       WHERE EXCLUDED.at > home_device_state.at`,   // дубль/стара подія → пустий хід
-    [e.deviceId, e.homeId, active, e.at],
-  );
-}
-
-// нарахування читає ВЛАСНУ табличку — ні виклику, ні чужої схеми, ні чужого «вгорі»
-async function activeDeviceCount(db: Pool, homeId: number): Promise<number> {
-  const { rows } = await db.query(
-    `SELECT count(*)::int AS n
-       FROM home_device_state
-      WHERE home_id = $1 AND active = true`,
-    [homeId],
-  );
-  return rows[0].n;
-}
-```
-```go
-// billing/projection.go — та сама згортка, явним SQL без ORM
-func onDeviceEvent(db *sql.DB, e DeviceEvent) error {
-    active := e.Type == "device.activated"
-    _, err := db.Exec(`
-        INSERT INTO home_device_state (device_id, home_id, active, at)
-        VALUES ($1, $2, $3, $4)
-        ON CONFLICT (device_id) DO UPDATE
-            SET active = EXCLUDED.active, at = EXCLUDED.at
-            WHERE EXCLUDED.at > home_device_state.at`, // дубль/стара подія → пустий хід
-        e.DeviceID, e.HomeID, active, e.At)
-    return err
-}
-
-// нарахування читає ВЛАСНУ табличку білінга
-func activeDeviceCount(db *sql.DB, homeID int) (int, error) {
-    var n int
-    err := db.QueryRow(`
-        SELECT count(*) FROM home_device_state
-        WHERE home_id = $1 AND active = true`, homeID).Scan(&n)
-    return n, err
-}
-```
+:::code proj-dh-integration-three-ways/ts/projection.ts
+:::code proj-dh-integration-three-ways/go/projection.go
 :::
 
 Дві мови — той самий задум: подія-факт заходить, стан пристрою оновлюється, а число нарахування береться з **власної** таблиці білінга. Зчеплення переїхало втретє — тепер білінг причеплений лише до **форми події** (`device.activated` з полями `deviceId`, `homeId`, `at`), і більше ні до чого: ні до чужої таблиці, ні навіть до того, щоб власник був **живий** у мить нарахування. Це найслабше зчеплення з трьох.

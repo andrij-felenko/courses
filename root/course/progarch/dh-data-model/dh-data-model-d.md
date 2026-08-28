@@ -43,20 +43,7 @@ class DeviceId {
   equals(o: DeviceId): boolean { return this.value === o.value; }
 }
 ```
-```py
-from enum import Enum
-from dataclasses import dataclass
-
-class LockState(Enum):          # замкнений перелік: жодного стану поза цими чотирма
-    LOCKED = "locked"
-    UNLOCKED = "unlocked"
-    JAMMED = "jammed"
-    UNKNOWN = "unknown"         # чесний стан «хаб не чув від замка», не None і не діра
-
-@dataclass(frozen=True)         # frozen → незмінний + рівність за вмістом задарма
-class DeviceId:
-    value: str
-```
+:::code dh-data-model-d/py/shcho-tut-sutnist-a-shcho.py
 
 Придивіться до `LockState`. Це прямий доказ мовою типів другого домашнього правила, до якого ми зараз перейдемо: **замок ніколи не буває ні відчинений, ні зачинений**. Не «переважно в якомусь стані», а завжди рівно в одному з названих. Навіть «не знаємо» — це не порожнеча, а окремий, чесно поіменований стан `Unknown`. Спокуса написати `isLocked: boolean` (два стани) або `isLocked: boolean | null` (null = «невідомо») підступна саме тим, що «невідомо» тоді протікає як `null` крізь усю систему й рано чи пізно кимось прочитається як «відчинено» — а це вже небезпечна брехня про двері. Замкнений перелік прибирає діру конструктивно: стану поза списком просто **нема як записати**.
 
@@ -70,57 +57,8 @@ class DeviceId:
 Складімо:
 
 :::tabs
-```ts
-class Lock {                                   // СУТНІСТЬ + корінь свого агрегата
-  private state: LockState = "Unknown";        // завжди визначений — інваріант 2 тримає тип
-
-  constructor(
-    readonly id: DeviceId,
-    readonly homeId: HomeId,                    // ← власника вимагають при народженні:
-    readonly roomId: RoomId,                    //    інваріант 1 «не буває нічий»
-  ) {}
-
-  // Єдині двері всередину. Стан міняють лише через них — сирого поля ззовні не видно.
-  lock(): void {
-    if (this.state === "Jammed")
-      throw new DomainError("заклинений замок не замкнути — спершу ремонт");
-    this.state = "Locked";
-  }
-  unlock(): void {
-    if (this.state === "Jammed")
-      throw new DomainError("заклинений замок не відчинити командою");
-    this.state = "Unlocked";
-  }
-
-  reportFromDevice(s: LockState): void { this.state = s; }  // фізика доповіла — приймаємо як є
-  isLocked(): boolean { return this.state === "Locked"; }
-}
-```
-```py
-class Lock:                                     # СУТНІСТЬ + корінь свого агрегата
-    def __init__(self, id: DeviceId, home_id: "HomeId", room_id: "RoomId"):
-        self.id = id
-        self.home_id = home_id                  # ← власника вимагають при народженні:
-        self.room_id = room_id                  #    інваріант 1 «не буває нічий»
-        self._state = LockState.UNKNOWN         # завжди визначений — інваріант 2
-
-    # Єдині двері всередину: стан міняють лише через них.
-    def lock(self) -> None:
-        if self._state is LockState.JAMMED:
-            raise DomainError("заклинений замок не замкнути — спершу ремонт")
-        self._state = LockState.LOCKED
-
-    def unlock(self) -> None:
-        if self._state is LockState.JAMMED:
-            raise DomainError("заклинений замок не відчинити командою")
-        self._state = LockState.UNLOCKED
-
-    def report_from_device(self, s: LockState) -> None:
-        self._state = s                         # фізика доповіла — приймаємо як є
-
-    def is_locked(self) -> bool:
-        return self._state is LockState.LOCKED
-```
+:::code dh-data-model-d/ts/index.ts
+:::code dh-data-model-d/py/zamok-shcho-sterezhe.py
 :::
 
 Гляньте, що стало неможливим. Сконструювати замок без дому й кімнати — не виходить: конструктор їх вимагає, і `Lock` без власника просто не народиться. Поставити стан у порожнечу — теж: поле закрите, єдиний шлях усередину — методи `lock`/`unlock`, і кожен лишає замок у названому стані. Правило «нічий» стереже конструктор, правило «ні відчинений, ні зачинений» — тип разом із закритим полем. Це і є суть багатої моделі: замок не «зберігає дані про замок», він **є** замком з усіма його «можна» й «не можна», і привести його в некоректний стан ззовні нема як.
@@ -150,18 +88,7 @@ class Home {                                   // окремий МАЛИЙ аг
   setMode(m: HomeMode): void { this.mode = m; } // міняє СВІЙ стан — і тільки
 }
 ```
-```py
-@dataclass
-class Home:                                     # окремий МАЛИЙ агрегат
-    id: "HomeId"
-    owner_id: "UserId"                          # дім не буває без власника
-    mode: "HomeMode" = "home"                   # «вдома» | «нікого немає» | «ніч»
-    room_ids: list["RoomId"] = field(default_factory=list)
-    device_ids: list[DeviceId] = field(default_factory=list)  # лише id, не живі пристрої
-
-    def set_mode(self, m: "HomeMode") -> None:
-        self.mode = m                           # міняє СВІЙ стан — і тільки
-```
+:::code dh-data-model-d/py/de-provesty-mezhu-ahrehata.py
 :::
 
 Помітьте, чого `Home` **не** робить: він не замикає замки й не гасить світло сам, бо не тримає їх у руках — лише їхні `id`. Дім вирішує **своє** (який зараз режим), пристрій вирішує **своє** (у якому він стані). Дві одиниці узгодженості, дві окремі транзакції. А правило «один агрегат — одна транзакція» тепер працює вентилем: щойно хтось спробує однією операцією атомарно змінити й режим дому, і стан десяти замків — це сигнал, що межу проводять не там.

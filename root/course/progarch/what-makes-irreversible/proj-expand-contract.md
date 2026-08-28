@@ -88,23 +88,7 @@ ALTER TABLE readings ADD COLUMN temp_mc bigint;   -- milli-°C, поки скр�
 
 А тепер — те, чого у фазі 1 робити **не можна**, бо кожне з цього однобічне:
 
-```sql
--- ❌ Пастки фази 1 — усе це однобічні двері, не роби їх тут:
-
--- (1) зміна типу на місці — той самий перезапис усієї таблиці під ACCESS
---     EXCLUSIVE, з якого ми й тікаємо.
-ALTER TABLE readings ALTER COLUMN temp_c TYPE bigint USING round(temp_c*1000);
-
--- (2) перейменування колонки — миттєве, але старий код, що читає temp_c,
---     ламається В ТУ Ж СЕКУНДУ: немає фази співіснування, немає відкату.
-ALTER TABLE readings RENAME COLUMN temp_c TO temp_mc;
-
--- (3) одразу NOT NULL — на непорожній таблиці Postgres відмовить
---     («column contains null values»), бо старі рядки порожні; а якщо
---     продавити через DEFAULT-вираз, дістанеш перезапис. NOT NULL — аж
---     наприкінці, коли колонка вже заповнена (фаза 5).
-ALTER TABLE readings ADD COLUMN temp_mc bigint NOT NULL;
-```
+:::code proj-expand-contract/sql/faza-1-expand-dodaty-nove.sql
 
 Правило фази 1 одне: **тільки додаємо, нічого не міняємо й не звужуємо**. Щойно DDL робить незворотний рух — перезапис, перейменування, обмеження на ще-порожнє поле, — ти власноруч замінив першу двобічну двер на одну однобічну й спалив увесь задум.
 
@@ -113,39 +97,8 @@ ALTER TABLE readings ADD COLUMN temp_mc bigint NOT NULL;
 Колонка є, але порожня. Тепер навчимо застосунок **писати водночас у старе й нове** — щоб з цієї миті кожен новий вимір лягав в обидві колонки узгоджено. Ключове тут — обидва записи в **одній транзакції**, щоб вони не могли розійтися.
 
 :::tabs
-```python
-# Одна формула переливу — ОДНЕ місце на весь проєкт.
-# Її вживають і подвійний запис, і бекфіл, і звірка — інакше вони розійдуться.
-def to_milli_c(temp_c: float) -> int:
-    return round(temp_c * 1000)                 # 23.5 °C → 23500
-
-def insert_reading(cur, device_id: int, ts, temp_c: float) -> None:
-    # Пишемо в ОБИДВІ колонки в ОДНОМУ INSERT — один рядок, одна транзакція:
-    # старе й нове не можуть розійтися, бо кладуться разом або ніяк.
-    cur.execute(
-        "INSERT INTO readings (device_id, ts, temp_c, temp_mc) "
-        "VALUES (%s, %s, %s, %s)",
-        (device_id, ts, temp_c, to_milli_c(temp_c)),
-    )
-```
-```typescript
-// Одна формула переливу — ОДНЕ місце на весь проєкт.
-// Її вживають і подвійний запис, і бекфіл, і звірка — інакше вони розійдуться.
-export function toMilliC(tempC: number): number {
-  return Math.round(tempC * 1000);              // 23.5 °C → 23500
-}
-
-export async function insertReading(
-  db: Pool, deviceId: number, ts: Date, tempC: number,
-): Promise<void> {
-  // Пишемо в ОБИДВІ колонки в ОДНОМУ INSERT — один рядок, одна транзакція.
-  await db.query(
-    `INSERT INTO readings (device_id, ts, temp_c, temp_mc)
-     VALUES ($1, $2, $3, $4)`,
-    [deviceId, ts, tempC, toMilliC(tempC)],
-  );
-}
-```
+:::code proj-expand-contract/py/faza-2-podviinyi-zapys.py
+:::code proj-expand-contract/ts/faza-2-podviinyi-zapys.ts
 :::
 
 З цієї миті все **нове** правильне в обох колонках. Стара `temp_c` лишається джерелом правди (на неї ще спираються всі читачі), а `temp_mc` тихо наповнюється паралельно — але поки лише для свіжих рядків. Уся історія — ті мільярди, що були до ввімкнення подвійного запису, — у новій колонці ще `NULL`. Її переллємо наступною фазою.
@@ -166,76 +119,8 @@ UPDATE readings SET temp_mc = round(temp_c * 1000) WHERE temp_mc IS NULL;
 Такий `UPDATE` — це одна транзакція, що замикає й переписує мільярди рядків: журнал попереджувального запису (WAL) роздувається на терабайти, реплікам нема як наздогнати, автовакуум відстає, місце на диску тане — і прод лягає. Тому переливаємо **порціями**: маленькими партіями, кожна — своя транзакція, з паузами, і з оком на здоров'я бази.
 
 :::tabs
-```python
-import time
-
-BATCH = 5000
-
-def backfill(conn, replica_lag_seconds) -> None:
-    last_id = 0
-    while True:
-        with conn.cursor() as cur:
-            # Порція ще не перелитих рядків за зростанням id (keyset-пагінація).
-            # WHERE temp_mc IS NULL — не чіпаємо те, що вже наповнив живий трафік:
-            # свіже значення не можна перетерти старою копією.
-            cur.execute(
-                "SELECT id, temp_c FROM readings "
-                "WHERE id > %s AND temp_mc IS NULL "
-                "ORDER BY id LIMIT %s",
-                (last_id, BATCH),
-            )
-            rows = cur.fetchall()
-            if not rows:
-                break                                    # усе перелито — кінець
-            cur.executemany(
-                "UPDATE readings SET temp_mc = %s "
-                "WHERE id = %s AND temp_mc IS NULL",      # ідемпотентно
-                [(to_milli_c(t), rid) for rid, t in rows],
-            )
-        conn.commit()                                    # КОЖНА порція — своя транзакція
-        last_id = rows[-1][0]                            # звідки продовжити після рестарту
-
-        # ТРОТЛІНГ: не женемо базу на межу.
-        while replica_lag_seconds() > 5.0:               # репліка відстала — чекаємо
-            time.sleep(1.0)
-        time.sleep(BATCH / 20_000)                       # темп ≈ 20 000 рядків/с
-```
-```typescript
-const BATCH = 5000;
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-export async function backfill(
-  db: Pool, replicaLagSeconds: () => Promise<number>,
-): Promise<void> {
-  let lastId = "0";
-  for (;;) {
-    // Порція ще не перелитих рядків за зростанням id (keyset-пагінація).
-    // id як рядок — pg віддає bigint рядком, щоб не втратити точність.
-    const { rows } = await db.query<{ id: string; temp_c: number }>(
-      `SELECT id, temp_c FROM readings
-       WHERE id > $1 AND temp_mc IS NULL
-       ORDER BY id LIMIT $2`,
-      [lastId, BATCH],
-    );
-    if (rows.length === 0) break;                        // усе перелито — кінець
-
-    const ids = rows.map((r) => r.id);
-    const mc = rows.map((r) => toMilliC(r.temp_c));
-    // Один UPDATE на порцію через unnest; AND temp_mc IS NULL — ідемпотентність.
-    await db.query(
-      `UPDATE readings AS r SET temp_mc = v.mc
-         FROM unnest($1::bigint[], $2::bigint[]) AS v(id, mc)
-        WHERE r.id = v.id AND r.temp_mc IS NULL`,
-      [ids, mc],
-    );
-    lastId = rows[rows.length - 1].id;                   // продовжити після рестарту
-
-    // ТРОТЛІНГ: не женемо базу на межу.
-    while ((await replicaLagSeconds()) > 5.0) await sleep(1000);
-    await sleep((BATCH / 20_000) * 1000);                // темп ≈ 20 000 рядків/с
-  }
-}
-```
+:::code proj-expand-contract/py/faza-3-fonove-perelyvannia.py
+:::code proj-expand-contract/ts/faza-3-fonove-perelyvannia.ts
 :::
 
 Тут кожен рядок несе вагу, тож розберімо, чому все саме так.
@@ -276,49 +161,8 @@ SELECT count(*) AS not_backfilled FROM readings WHERE temp_mc IS NULL;
 А точну звірку значень робимо тим самим перетвором, що й запис, — щоб не порівнювати з іншою, злегка інакшою формулою (про цю пастку — далі):
 
 :::tabs
-```python
-def reconcile(conn) -> tuple[int, int]:
-    """Гейт: (скільки ще NULL, скільки розбіжностей). Пускаємо далі лише коли ОБИДВА = 0."""
-    nulls = mismatches = 0
-    last_id = 0
-    with conn.cursor() as cur:
-        while True:
-            cur.execute(
-                "SELECT id, temp_c, temp_mc FROM readings "
-                "WHERE id > %s ORDER BY id LIMIT %s",
-                (last_id, 50_000),
-            )
-            rows = cur.fetchall()
-            if not rows:
-                break
-            for rid, temp_c, temp_mc in rows:
-                if temp_mc is None:
-                    nulls += 1
-                elif temp_mc != to_milli_c(temp_c):      # ТОЙ САМИЙ перетвір, що в записі
-                    mismatches += 1
-            last_id = rows[-1][0]
-    return nulls, mismatches
-```
-```typescript
-export async function reconcile(db: Pool): Promise<[number, number]> {
-  // Гейт: [скільки ще NULL, скільки розбіжностей]. Далі — лише коли ОБИДВА = 0.
-  let nulls = 0, mismatches = 0, lastId = "0";
-  for (;;) {
-    const { rows } = await db.query<{ id: string; temp_c: number; temp_mc: number | null }>(
-      `SELECT id, temp_c, temp_mc FROM readings
-       WHERE id > $1 ORDER BY id LIMIT $2`,
-      [lastId, 50_000],
-    );
-    if (rows.length === 0) break;
-    for (const r of rows) {
-      if (r.temp_mc === null) nulls++;
-      else if (r.temp_mc !== toMilliC(r.temp_c)) mismatches++;  // ТОЙ САМИЙ перетвір
-    }
-    lastId = rows[rows.length - 1].id;
-  }
-  return [nulls, mismatches];
-}
-```
+:::code proj-expand-contract/py/faza-4-zvirka-i.py
+:::code proj-expand-contract/ts/faza-4-zvirka-i.ts
 :::
 
 Гейт відкриється, лише коли `nulls == 0 && mismatches == 0`. Це наш **контракт-тест** між фазами: доки він червоний, ми на нове не переходимо. Якщо звірка знайшла розбіжності — це не привід махнути рукою, а сигнал, що десь у подвійному записі був баг (наприклад, вікно, коли сервіс писав старе, а нове ні); його треба знайти й доперелити ті рядки, і лише тоді рухатись далі.
@@ -326,41 +170,8 @@ export async function reconcile(db: Pool): Promise<[number, number]> {
 Коли гейт зелений, перемикаємо **читачів** — і робимо це через [прапорець](root:sf-release/feature-flags), щоб перемикання було миттєвим в обидва боки:
 
 :::tabs
-```python
-def read_temp_milli_c(cur, reading_id: int, flags) -> int:
-    cur.execute("SELECT temp_c, temp_mc FROM readings WHERE id = %s", (reading_id,))
-    temp_c, temp_mc = cur.fetchone()
-
-    if flags.read_from_new:
-        # Нове — джерело правди. Але поки не прибрали старе, у «тіньовому»
-        # режимі звіряємо на льоту й голосно скаржимось на будь-яку розбіжність.
-        if flags.shadow_compare and temp_mc != to_milli_c(temp_c):
-            log.warning("divergence id=%s new=%s old=%s",
-                        reading_id, temp_mc, to_milli_c(temp_c))
-        return temp_mc
-
-    # Прапорець вимкнено → читаємо СТАРЕ. Це наша дорога назад:
-    # один тумблер повертає всіх читачів на перевірену колонку.
-    return to_milli_c(temp_c)
-```
-```typescript
-export async function readTempMilliC(
-  db: Pool, readingId: number, flags: Flags,
-): Promise<number> {
-  const { rows: [row] } = await db.query<{ temp_c: number; temp_mc: number | null }>(
-    `SELECT temp_c, temp_mc FROM readings WHERE id = $1`, [readingId],
-  );
-  if (flags.readFromNew) {
-    // Нове — джерело правди; у «тіньовому» режимі звіряємо й скаржимось.
-    if (flags.shadowCompare && row.temp_mc !== toMilliC(row.temp_c)) {
-      log.warn(`divergence id=${readingId} new=${row.temp_mc} old=${toMilliC(row.temp_c)}`);
-    }
-    return row.temp_mc!;
-  }
-  // Прапорець вимкнено → СТАРЕ. Дорога назад — один тумблер.
-  return toMilliC(row.temp_c);
-}
-```
+:::code proj-expand-contract/py/faza-4-zvirka-i-2.py
+:::code proj-expand-contract/ts/faza-4-zvirka-i-2.ts
 :::
 
 Придивись до симетрії. Прапорець вирішує лише **джерело** (стара колонка чи нова), а не формат — назовні обидві гілки віддають мілі-°C. Увімкнув `read_from_new` — читаємо з нового; зловив у проді щось дивне — вимкнув, і всі читачі за секунду знову на старій, перевіреній колонці, яку весь цей час справно наповнював подвійний запис. Це і є **відкат фази 4**: не міграція назад, а порух тумблера. А «тіньовий» режим (`shadow_compare`) дає ще й м'яке приземлення: якийсь час читаємо нове, але паралельно звіряємо зі старим на кожному запиті й логуємо розбіжності — якщо їх нуль за кілька днів живого трафіку, нове справді довело себе.
@@ -373,20 +184,7 @@ export async function readTempMilliC(
 
 І лише коли нове беззаперечно довело себе — прибираємо стару колонку. Спочатку закріплюємо інваріант (тепер, коли колонка заповнена, це можна зробити **без довгого замка**), тоді видаляємо старе:
 
-```sql
--- ФАЗА 5 (contract) — ЛИШЕ коли нове відлежалося в проді, звірка тримає нуль
--- розбіжностей, а читачі давно на новому.
-
--- Крок 1. Закріплюємо NOT NULL БЕЗ повного замка на запис:
---   NOT VALID — миттєво, перевіряє лише нові рядки;
---   VALIDATE — сканує старі під м'яким замком (читання й запис не блокує).
-ALTER TABLE readings ADD CONSTRAINT temp_mc_nn CHECK (temp_mc IS NOT NULL) NOT VALID;
-ALTER TABLE readings VALIDATE CONSTRAINT temp_mc_nn;
-
--- Крок 2. Єдина незворотна дія — прибрати старе. Тому вона тут, останньою,
---   і тільки після всього попереднього. Оце й є та однобічна двер.
-ALTER TABLE readings DROP COLUMN temp_c;
-```
+:::code proj-expand-contract/sql/faza-5-contract-prybraty.sql
 
 `DROP COLUMN` у Postgres сам по собі швидкий (позначає колонку зниклою в метаданих, а місце звільняє згодом вакуум) — але **логічно** незворотний: дані пішли. Тому ми й підвели його аж під кінець усього ланцюга. Тепер `readings` має лише `temp_mc`, чисту цілочислову колонку, а всі мільярди історичних рядків тихо переїхали в новий формат — без жодної секунди простою й без утраченого виміру.
 

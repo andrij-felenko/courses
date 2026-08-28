@@ -25,44 +25,7 @@ interface EvaluationContext {
 
 SDK надає розширені методи для отримання примітивних типів та складних об'єктів конфігурації. Метод `evaluateDetail` повертає звіт про причинно-наслідковий зв'язок оцінки, що є необхідним для відлагодження політик та реєстрації аудит-логів.
 
-```ts
-interface FeatureFlagSDK {
-  // Оцінка булевого прапорця
-  boolVariation(
-    flagKey: string, 
-    context: EvaluationContext, 
-    defaultValue: boolean
-  ): boolean;
-
-  // Оцінка мультиваріантного прапорця (строкові конфігурації)
-  stringVariation(
-    flagKey: string, 
-    context: EvaluationContext, 
-    defaultValue: string
-  ): string;
-
-  // Оцінка складної JSON-конфігурації для динамічного налаштування
-  jsonVariation<T>(
-    flagKey: string, 
-    context: EvaluationContext, 
-    defaultValue: T
-  ): T;
-
-  // Оцінка з поверненням детального причинно-наслідкового звіту
-  evaluateDetail<T>(
-    flagKey: string, 
-    context: EvaluationContext, 
-    defaultValue: T
-  ): EvaluationDetail<T>;
-}
-
-interface EvaluationDetail<T> {
-  value: T;
-  variationIndex?: number;
-  reason: "OFF_FALLBACK" | "TARGET_MATCH" | "PERCENTAGE_ROLLOUT" | "RULE_MATCH" | "DEFAULT";
-  ruleId?: string;
-}
-```
+:::code api-feature-flag-service/ts/index.ts
 
 Поле `reason` приймає наступні значення:
 - `OFF_FALLBACK`: прапорець вимкнено на центральному сервері, повернуто значення за замовчуванням.

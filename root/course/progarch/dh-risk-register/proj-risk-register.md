@@ -36,76 +36,8 @@
 Спершу тип рядка й дві шкали. Числа шкал — ті самі, що в тілі статті: ймовірність `1·2·3`, вплив `1·3·4`.
 
 :::tabs
-```ts
-// risk-register.ts — реєстр Digital Homes як дані, що самі себе лінтять.
-// Запуск у CI:  npx tsx risk-register.ts   (ненульовий код виходу = білд червоний)
-
-type Probability = "low" | "med" | "high" | "unknown";
-type Impact      = "minor" | "major" | "catastrophic";
-type State       = "open" | "watching" | "accepted" | "closed";
-
-interface Risk {
-  id: string;
-  what: string;              // подія, не абстракція
-  probability: Probability;
-  impact: Impact;
-  trigger: string;           // ознака-тригер; "" = ще нема
-  owner: string;             // жива людина; "" = ще нема
-  reviewed: string;          // "YYYY-MM-DD" — коли рядок востаннє чіпали
-  state: State;
-}
-
-// Щаблі, не проценти: три поділки на осі — стільки, скільки чесно можна оцінити.
-const P_SCORE: Record<Probability, number> = { low: 1, med: 2, high: 3, unknown: 3 };
-//                                                                       ^ невідома коштує
-//   як найгірша: поки зрізом не збили туман, «відоме невідоме» тримаємо у верхньому куті.
-const I_SCORE: Record<Impact, number> = { minor: 1, major: 3, catastrophic: 4 };
-
-const exposure = (r: Risk): number => P_SCORE[r.probability] * I_SCORE[r.impact];
-
-// рідкісне ≠ нестрашне: у катастрофи хвіст без дна — важка й на низькій імовірності.
-const isHeavy  = (r: Risk): boolean => exposure(r) >= 6 || r.impact === "catastrophic";
-const isActive = (r: Risk): boolean => r.state === "open" || r.state === "watching";
-```
-```python
-# risk_register.py — реєстр Digital Homes як дані, що самі себе лінтять.
-# Запуск у CI:  python risk_register.py   (ненульовий код виходу = білд червоний)
-
-from dataclasses import dataclass
-from datetime import date
-import sys
-
-# Щаблі, не проценти: три поділки на осі — стільки, скільки чесно можна оцінити.
-P_SCORE = {"low": 1, "med": 2, "high": 3, "unknown": 3}
-#                                          ^ невідома коштує як найгірша:
-#   поки зрізом не збили туман, «відоме невідоме» тримаємо у верхньому куті.
-I_SCORE = {"minor": 1, "major": 3, "catastrophic": 4}
-
-
-@dataclass
-class Risk:
-    id: str
-    what: str            # подія, не абстракція
-    probability: str     # low | med | high | unknown
-    impact: str          # minor | major | catastrophic
-    trigger: str         # ознака-тригер; "" = ще нема
-    owner: str           # жива людина; "" = ще нема
-    reviewed: date       # коли рядок востаннє чіпали
-    state: str           # open | watching | accepted | closed
-
-    @property
-    def exposure(self) -> int:
-        return P_SCORE[self.probability] * I_SCORE[self.impact]
-
-    @property
-    def heavy(self) -> bool:
-        # рідкісне ≠ нестрашне: у катастрофи хвіст без дна — важка й на низькій імовірності.
-        return self.exposure >= 6 or self.impact == "catastrophic"
-
-    @property
-    def active(self) -> bool:
-        return self.state in ("open", "watching")
-```
+:::code proj-risk-register/ts/risk-register.ts
+:::code proj-risk-register/py/risk_register.py
 :::
 
 Перевіримо шкалу на трьох найповчальніших рядках — тих, де щаблі поводяться неочевидно:
@@ -123,81 +55,8 @@ OTA без підпису:  unknown × catastrophic = 3 × 4 = 12   → важк
 Тепер — дані. Це ті самі рядки, що ми виписали в статті, лише перекладені у структуру. Два з них навмисне «підпсуто», щоб побачити, як лінтер кусає: `cloud-brain` востаннє чіпали три тижні тому (застій), а `ota-unsigned` хтось накидав на тижні й не встиг дописати — без тригера й без власника.
 
 :::tabs
-```ts
-const REGISTER: Risk[] = [
-  { id: "cloud-brain", what: "Весь розум у хмарі → дім тупіє офлайн",
-    probability: "high", impact: "major",
-    trigger: "у дизайні правил зʼявився крок, що ходить у хмару на кожну дію",
-    owner: "Оля", reviewed: "2026-03-02", state: "open" },        // ← чіпали давно
-
-  { id: "lock-double", what: "Команда замку: дубль або запізнення",
-    probability: "med", impact: "major",
-    trigger: "у тесті помічено дубль чи запізнення команди",
-    owner: "Данило", reviewed: "2026-03-23", state: "open" },
-
-  { id: "firmware-reconnect", what: "Прошивку без джитера не полагодиш",
-    probability: "med", impact: "major",
-    trigger: "наближається дата заморозки прошивки першої партії",
-    owner: "Данило", reviewed: "2026-03-23", state: "open" },
-
-  { id: "vendor-eol", what: "Вендор вимкне хмару → доми-цеглини",
-    probability: "low", impact: "catastrophic",
-    trigger: "вендора купують / оголосив EOL / близько дата продовження угоди",
-    owner: "Оля", reviewed: "2026-03-23", state: "watching" },
-
-  { id: "telemetry-gaps", what: "Дірки в телеметрії офлайн-дому",
-    probability: "high", impact: "minor",
-    trigger: "частка «дірявих» домів за добу перевалила за фон",
-    owner: "Марта", reviewed: "2026-03-23", state: "watching" },
-
-  { id: "room-rename", what: "Два телефони перейменували кімнату",
-    probability: "low", impact: "minor",
-    trigger: "", owner: "", reviewed: "2026-01-10", state: "accepted" }, // прийнято — не стежимо
-
-  // Щойно на тижні хтось накидав новий страх — і не встиг дописати рядок:
-  { id: "ota-unsigned", what: "OTA без підпису → хаб виконає чужу прошивку",
-    probability: "unknown", impact: "catastrophic",
-    trigger: "", owner: "", reviewed: "2026-03-23", state: "open" },
-];
-```
-```python
-REGISTER = [
-    Risk("cloud-brain",
-         "Весь розум у хмарі → дім тупіє офлайн",
-         "high", "major",
-         "у дизайні правил зʼявився крок, що ходить у хмару на кожну дію",
-         "Оля", date(2026, 3, 2), "open"),           # ← чіпали давно
-    Risk("lock-double",
-         "Команда замку: дубль або запізнення",
-         "med", "major",
-         "у тесті помічено дубль чи запізнення команди",
-         "Данило", date(2026, 3, 23), "open"),
-    Risk("firmware-reconnect",
-         "Прошивку без джитера не полагодиш",
-         "med", "major",
-         "наближається дата заморозки прошивки першої партії",
-         "Данило", date(2026, 3, 23), "open"),
-    Risk("vendor-eol",
-         "Вендор вимкне хмару → доми-цеглини",
-         "low", "catastrophic",
-         "вендора купують / оголосив EOL / близько дата продовження угоди",
-         "Оля", date(2026, 3, 23), "watching"),
-    Risk("telemetry-gaps",
-         "Дірки в телеметрії офлайн-дому",
-         "high", "minor",
-         "частка «дірявих» домів за добу перевалила за фон",
-         "Марта", date(2026, 3, 23), "watching"),
-    Risk("room-rename",
-         "Два телефони перейменували кімнату",
-         "low", "minor",
-         "", "", date(2026, 1, 10), "accepted"),     # прийнято — не стежимо
-    # Щойно на тижні хтось накидав новий страх — і не встиг дописати рядок:
-    Risk("ota-unsigned",
-         "OTA без підпису → хаб виконає чужу прошивку",
-         "unknown", "catastrophic",
-         "", "", date(2026, 3, 23), "open"),
-]
-```
+:::code proj-risk-register/ts/sami-riadky-reiestru.ts
+:::code proj-risk-register/py/sami-riadky-reiestru.py
 :::
 
 Зверни увагу на `room-rename`: у нього теж порожні тригер і власник, але стан `accepted` — команда свідомо його прийняла й стежити не буде. Лінтер його не чіпатиме, і це важлива симетрія: порожні поля — не гріх самі по собі, гріх — це порожні поля у **важкому й відкритому** рядку. Прийнятий дріб'язок має право бути голим.
@@ -207,104 +66,8 @@ REGISTER = [
 І нарешті — три функції, заради яких усе будувалося: сортування, лінт і звіт, що завершується кодом виходу.
 
 :::tabs
-```ts
-const byThreat = (reg: Risk[]): Risk[] =>
-  // спад експозиції, за рівної — важчий вплив вище; .sort стабільний, тож порядок ties сталий
-  [...reg].sort((a, b) => exposure(b) - exposure(a) || I_SCORE[b.impact] - I_SCORE[a.impact]);
-
-interface Violation { id: string; detail: string; }
-
-function daysIdle(reviewedISO: string, today: Date): number {
-  const then = Date.parse(reviewedISO + "T00:00:00Z");
-  const now  = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
-  return Math.floor((now - then) / 86_400_000);
-}
-
-function lint(reg: Risk[], today: Date, staleDays = 14): Violation[] {
-  const out: Violation[] = [];
-  for (const r of reg) {
-    if (!isActive(r)) continue;                 // прийняте/закрите свідомо не чіпаємо
-    const idle = daysIdle(r.reviewed, today);
-    if (idle > staleDays)
-      out.push({ id: r.id, detail: `застій: ${idle} дн. без перегляду (поріг ${staleDays})` });
-    if (isHeavy(r)) {                           // важкий і відкритий → мусить мати тригер і власника
-      if (!r.trigger.trim()) out.push({ id: r.id, detail: "важкий відкритий ризик без тригера" });
-      if (!r.owner.trim())   out.push({ id: r.id, detail: "важкий відкритий ризик без власника" });
-    }
-  }
-  return out;
-}
-
-const LABEL: Record<State, string> = {
-  open: "відкритий", watching: "під наглядом", accepted: "прийнято", closed: "закритий",
-};
-
-function report(reg: Risk[], today: Date): number {
-  console.log(`Реєстр Digital Homes — ${reg.length} рядків, станом на ${today.toISOString().slice(0, 10)}\n`);
-  console.log("  експ  стан          рядок");
-  for (const r of byThreat(reg))
-    console.log(`  ${String(exposure(r)).padStart(4)}  ${LABEL[r.state].padEnd(12)}  ${r.what}`);
-
-  const problems = lint(reg, today);
-  console.log("\nЛІНТЕР");
-  if (problems.length === 0) {
-    console.log("  чисто — жодного застояного чи напівпорожнього важкого рядка");
-    return 0;
-  }
-  for (const p of problems) console.log(`  ✗  ${p.id.padEnd(18)} ${p.detail}`);
-  console.log(`\n${problems.length} порушення → реєстр застоявся, CI падає`);
-  return 1;
-}
-
-// У CI today = new Date(); тут фіксуємо дату для відтворюваного прикладу.
-process.exit(report(REGISTER, new Date("2026-03-24T00:00:00Z")));
-```
-```python
-def by_threat(reg):
-    # спад експозиції, за рівної — важчий вплив вище; sorted стабільний → порядок ties сталий
-    return sorted(reg, key=lambda r: (r.exposure, I_SCORE[r.impact]), reverse=True)
-
-
-def lint(reg, today, stale_days=14):
-    out = []
-    for r in reg:
-        if not r.active:                     # прийняте/закрите свідомо не чіпаємо
-            continue
-        idle = (today - r.reviewed).days
-        if idle > stale_days:
-            out.append((r.id, f"застій: {idle} дн. без перегляду (поріг {stale_days})"))
-        if r.heavy:                          # важкий і відкритий → мусить мати тригер і власника
-            if not r.trigger.strip():
-                out.append((r.id, "важкий відкритий ризик без тригера"))
-            if not r.owner.strip():
-                out.append((r.id, "важкий відкритий ризик без власника"))
-    return out
-
-
-LABEL = {"open": "відкритий", "watching": "під наглядом",
-         "accepted": "прийнято", "closed": "закритий"}
-
-
-def report(reg, today) -> int:
-    print(f"Реєстр Digital Homes — {len(reg)} рядків, станом на {today}\n")
-    print("  експ  стан          рядок")
-    for r in by_threat(reg):
-        print(f"  {r.exposure:>4}  {LABEL[r.state]:<12}  {r.what}")
-    problems = lint(reg, today)
-    print("\nЛІНТЕР")
-    if not problems:
-        print("  чисто — жодного застояного чи напівпорожнього важкого рядка")
-        return 0
-    for rid, detail in problems:
-        print(f"  ✗  {rid:<18} {detail}")
-    print(f"\n{len(problems)} порушення → реєстр застоявся, CI падає")
-    return 1
-
-
-if __name__ == "__main__":
-    # У CI today = date.today(); тут фіксуємо дату для відтворюваного прикладу.
-    sys.exit(report(REGISTER, date(2026, 3, 24)))
-```
+:::code proj-risk-register/ts/linter-zhyvosti-i-ci-heit.ts
+:::code proj-risk-register/py/linter-zhyvosti-i-ci-heit.py
 :::
 
 Три деталі варті окремого слова. Перша — `if (!isActive(r)) continue`: перевірку застою застосовуємо лише до живих рядків, бо прийнятий чи закритий рядок за визначенням ніхто не чіпає, і скаржитися на це безглуздо. Друга — стабільність сортування: `lock-double` і `firmware-reconnect` мають однакову експозицію 6, і стабільний `sort`/`sorted` збереже їх у тому порядку, в якому вони лежать у реєстрі, а не тасуватиме довільно щоразу. Третя — власне гейт: `report` повертає `1`, коли є хоч одне порушення, а `process.exit`/`sys.exit` перетворює це число на код виходу процесу. Усе, що робить CI, — дивиться на цей код.

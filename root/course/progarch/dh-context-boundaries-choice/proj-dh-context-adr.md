@@ -86,34 +86,8 @@ forbidden_modules =
 # нащадки перевіряються самі: dh.billing.invoices теж не сміє тягнути dh.control.device.
 # ланцюг перевіряється НАСКРІЗЬ: billing → utils → control теж упіймається (див. пастки).
 ```
-```js
-// .dependency-cruiser.cjs — ганяє `depcruise src`; severity:error → білд падає
-module.exports = {
-  forbidden: [{
-    name: "billing-not-into-control",
-    comment: "ADR-014: білінг не знає Control. Легальний місток — тільки contracts/.",
-    severity: "error",                 // саме error повертає ненульовий код виходу
-    from: { path: "^src/billing/" },   // будь-що в білінгу…
-    to:   { path: "^src/control/" },   // …не сміє залежати від ядра
-  }],
-  options: {
-    tsPreCompilationDeps: "specify",   // щоб ловити й `import type { Device }` — стерті типи
-    doNotFollow: { path: "node_modules" },
-  },
-};
-```
-```java
-// ContextBoundaryTest.java — ArchUnit як звичайний JUnit-5-тест
-@AnalyzeClasses(packages = "com.dh")
-class ContextBoundaryTest {
-
-  @ArchTest
-  static final ArchRule billing_isolated_from_control =
-      noClasses().that().resideInAPackage("..billing..")
-          .should().dependOnClassesThat().resideInAPackage("..control..")
-          .because("ADR-014: білінг — загальний контекст, ізольований від ядра керування");
-}
-```
+:::code proj-dh-context-adr/js/index.js
+:::code proj-dh-context-adr/java/ContextBoundaryTest.java
 :::
 
 Три різні механізми за однією обіцянкою. **import-linter** будує граф модулів Python і перевіряє `forbidden`-контракт, дивлячись на весь ланцюг імпортів — не лише на прямі ребра. **dependency-cruiser** робить те саме для JS/TS, а `severity: "error"` — це і є вимикач збірки: рівно він повертає ненульовий код, на який CI реагує червоним. **ArchUnit** іде глибше за текст імпортів: він читає **байткод** і бачить будь-яку залежність — виклик методу, тип параметра, поле, — тож `import type`, що зникає при компіляції, від нього не сховається.

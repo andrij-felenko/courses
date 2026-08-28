@@ -129,72 +129,8 @@ i перед j дешевше   ⟺   CoD_j·d_i  <  CoD_i·d_j
 Правило коротке настільки, що вміщається в кілька рядків: порахувати `W` для довільного порядку — і відсортувати за спаданням `r`. Ось те й те, щоб можна було підставити свої числа. Задача суто організаційна (черга, сортування, порівняння варіантів), тож мова — зі стеку продукту, а не системна:
 
 :::tabs
-```python
-from dataclasses import dataclass
-
-@dataclass
-class Decision:
-    name: str
-    cod: float          # вартість зволікання, €/тиждень
-    dur: float          # тривалість розбору, тижнів
-
-def waiting_cost(order: list[Decision]) -> float:
-    """Сумарна зважена вартість очікування Σ CoD_j · C_j."""
-    week, total = 0.0, 0.0
-    for d in order:
-        week += d.dur                 # тиждень готовності цього рішення
-        total += d.cod * week         # усе зволікання, що набігло до нього
-    return total
-
-def wsjf_order(ds: list[Decision]) -> list[Decision]:
-    # спадання відношення CoD/тривалість — правило Сміта
-    return sorted(ds, key=lambda d: d.cod / d.dur, reverse=True)
-
-board = [
-    Decision("телеметрія",     4000, 2),
-    Decision("автентифікація", 1500, 1),
-    Decision("білінг",         6000, 6),
-]
-
-best = wsjf_order(board)
-loud = sorted(board, key=lambda d: d.cod, reverse=True)   # спершу найбільша CoD
-
-print([d.name for d in best], waiting_cost(best))   # …, 66500.0
-print([d.name for d in loud], waiting_cost(loud))   # …, 81500.0
-```
-```ts
-interface Decision {
-  name: string;
-  cod: number;   // вартість зволікання, €/тиждень
-  dur: number;   // тривалість розбору, тижнів
-}
-
-// Сумарна зважена вартість очікування Σ CoD_j · C_j.
-function waitingCost(order: Decision[]): number {
-  let week = 0, total = 0;
-  for (const d of order) {
-    week += d.dur;              // тиждень готовності цього рішення
-    total += d.cod * week;      // усе зволікання, що набігло до нього
-  }
-  return total;
-}
-
-// спадання відношення CoD/тривалість — правило Сміта
-const wsjfOrder = (ds: Decision[]): Decision[] =>
-  [...ds].sort((a, b) => b.cod / b.dur - a.cod / a.dur);
-
-const board: Decision[] = [
-  { name: "телеметрія",     cod: 4000, dur: 2 },
-  { name: "автентифікація", cod: 1500, dur: 1 },
-  { name: "білінг",         cod: 6000, dur: 6 },
-];
-
-const best = wsjfOrder(board);
-const loud = [...board].sort((a, b) => b.cod - a.cod);   // спершу найбільша CoD
-
-console.log(best.map((d) => d.name), waitingCost(best));  // …, 66500
-console.log(loud.map((d) => d.name), waitingCost(loud));  // …, 81500
-```
+:::code math-wsjf/py/main.py
+:::code math-wsjf/ts/index.ts
 :::
 
 Сортування — один рядок `O(n log n)`; усе інше в задачі не в коді.

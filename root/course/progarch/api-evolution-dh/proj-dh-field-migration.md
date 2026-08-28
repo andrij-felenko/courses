@@ -32,69 +32,8 @@
 Спершу — серце фази `expand`: старе й нове поле в одній відповіді, але **старе виведене з нового**, щоб вони фізично не могли розійтися. `temperature` і `atMs` — канонічні; `tempC` і `at` — похідні від них, а не пораховані окремою гілкою:
 
 :::tabs
-```ts
-type Temperature = { value: number; unit: "C" | "F" };
-
-interface Device {
-  id: string;
-  temperature: Temperature;   // канонічне джерело правди
-  lastReadingAtMs: number;    // канонічне: epoch у мілісекундах
-}
-
-// DTO на дроті: нові поля канонічні, старі — суто похідні.
-interface DeviceStateDTO {
-  temperature: Temperature;   // нове
-  atMs: number;               // нове
-  tempC: number;              // старе — ПОХІДНЕ
-  at: number;                 // старе — ПОХІДНЕ (секунди)
-}
-
-const toCelsius = (t: Temperature): number =>
-  t.unit === "C" ? t.value : ((t.value - 32) * 5) / 9;
-
-const round1 = (x: number): number => Math.round(x * 10) / 10;
-
-function buildDeviceState(d: Device): DeviceStateDTO {
-  return {
-    temperature: d.temperature,                  // єдина правда
-    atMs: d.lastReadingAtMs,                      // єдина правда
-    tempC: round1(toCelsius(d.temperature)),      // ← виводимо, не рахуємо окремо
-    at: Math.floor(d.lastReadingAtMs / 1000),     // ← виводимо
-  };
-}
-```
-```py
-from dataclasses import dataclass
-from typing import Literal, TypedDict
-
-@dataclass(frozen=True)
-class Temperature:
-    value: float
-    unit: Literal["C", "F"]
-
-@dataclass(frozen=True)
-class Device:
-    id: str
-    temperature: Temperature     # канонічне джерело правди
-    last_reading_at_ms: int      # канонічне: epoch у мілісекундах
-
-class DeviceStateDTO(TypedDict):
-    temperature: dict
-    atMs: int
-    tempC: float
-    at: int
-
-def to_celsius(t: Temperature) -> float:
-    return t.value if t.unit == "C" else (t.value - 32) * 5 / 9
-
-def build_device_state(d: Device) -> DeviceStateDTO:
-    return {
-        "temperature": {"value": d.temperature.value, "unit": d.temperature.unit},  # нове
-        "atMs": d.last_reading_at_ms,                       # нове
-        "tempC": round(to_celsius(d.temperature), 1),       # старе — ПОХІДНЕ
-        "at": d.last_reading_at_ms // 1000,                 # старе — ПОХІДНЕ (секунди)
-    }
-```
+:::code proj-dh-field-migration/ts/odne-dzherelo-pravdy-dva.ts
+:::code proj-dh-field-migration/py/odne-dzherelo-pravdy-dva.py
 :::
 
 Жодної окремої гілки, що рахувала б `tempC` своїм шляхом: є один `temperature`, і `tempC` — його тінь. Пара брехунів, якою лякає крок, тут просто не має де народитися.
@@ -103,60 +42,17 @@ def build_device_state(d: Device) -> DeviceStateDTO:
 
 Далі опишемо, що саме застаріло і на що заходить сонце. Дати тримаємо в **секундах epoch** — рівно в тому вигляді, якого хоче заголовок `Deprecation` (про це нижче):
 
-```ts
-interface Deprecation {
-  field: string;         // "tempC"
-  replacedBy: string;    // "temperature"
-  deprecatedAt: number;  // epoch-СЕКУНДИ — для заголовка Deprecation (RFC 9745)
-  sunsetAt: number;      // epoch-СЕКУНДИ — для заголовка Sunset  (RFC 8594)
-  docs: string;
-}
-
-const DEPRECATED: Deprecation[] = [
-  { field: "tempC", replacedBy: "temperature",
-    deprecatedAt: Date.UTC(2026, 0, 15) / 1000,   // 2026-01-15
-    sunsetAt:     Date.UTC(2026, 6, 15) / 1000,   // 2026-07-15
-    docs: "https://developer.digitalhomes.io/deprecations/tempC" },
-  { field: "at", replacedBy: "atMs",
-    deprecatedAt: Date.UTC(2026, 0, 15) / 1000,
-    sunsetAt:     Date.UTC(2026, 6, 15) / 1000,
-    docs: "https://developer.digitalhomes.io/deprecations/at-ms" },
-];
-```
+:::code proj-dh-field-migration/ts/khto-pytaie-reiestr.ts
 
 Тепер — когорта. Це функція «запит → ключ», і в ній ховається одна дисциплінарна дрібниця, яка згодом урятує від фальшивої зелені: **того, кого не впізнали, не викидають, а зводять у чесний кошик `unknown`.** `unknown` — це не сміття, це чужі інтеграції, `curl`-скрипти й той партнер, про якого ти забув; саме вони читатимуть старе поле найдовше.
 
-```ts
-function cohortOf(req: Request): string {
-  const v = req.get("Api-Version");                 // "2026-01-10"
-  if (v) return `api:${v}`;
-  const ua = req.get("User-Agent") ?? "";
-  const app = ua.match(/DHApp\/(\d+)\.(\d+)/);        // "DHApp/3.4 (iOS 17)"
-  if (app) return `app:${app[1]}.${app[2]}`;
-  const panel = ua.match(/DHPanel\/(\d+)/);           // прошивка панелі
-  if (panel) return `panel:fw${panel[1]}`;
-  return "unknown";                                  // чужі інтеграції, curl, боти
-}
-```
+:::code proj-dh-field-migration/ts/khto-pytaie-reiestr-2.ts
 
 ### Як «читання» стає видимим: проєкція за полями
 
 Третя сходинка драбини — вибір полів — це два маленькі помічники. `parseFields` читає `?fields=`, `project` лишає у відповіді тільки замовлене. Якщо `fields` нема, повертаємо `null` — «віддати всю форму, включно зі старими полями»:
 
-```ts
-function parseFields(q: unknown): Set<string> | null {
-  if (typeof q !== "string" || q.trim() === "") return null;   // нема ?fields → уся форма
-  return new Set(q.split(",").map(s => s.trim()).filter(Boolean));
-}
-
-function project<T extends object>(body: T, fields: Set<string>): Partial<T> {
-  const out: Partial<T> = {};
-  for (const k of Object.keys(body) as (keyof T)[]) {
-    if (fields.has(k as string)) out[k] = body[k];
-  }
-  return out;
-}
-```
+:::code proj-dh-field-migration/ts/iak-chytannia-staie.ts
 
 Ось де окупається `project`: клієнт, що прислав `?fields=temperature,atMs`, **не отримає** `tempC` у відповіді — а отже, не буде порахований його читачем. Читання щойно стало видимим тим, що клієнт сам його назвав або сам оминув.
 
@@ -164,52 +60,7 @@ function project<T extends object>(body: T, fields: Set<string>): Partial<T> {
 
 Тепер зшиваємо все в одну обгортку. Вона підміняє `res.json`, щоб перехопити відповідь **на виході**: спроєктувати за полями, порахувати кожне застаріле поле, що таки поїхало клієнтові цієї когорти, і навісити заголовки-попередження.
 
-```ts
-function deprecationMiddleware(counter: ReadCounter) {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const cohort = cohortOf(req);
-    const fields = parseFields(req.query.fields);
-    const sendJson = res.json.bind(res);
-
-    res.json = (body: unknown) => {
-      const projected =
-        fields && body && typeof body === "object"
-          ? project(body as object, fields)
-          : body;
-
-      // Які застарілі поля таки поїхали ЦІЙ відповіді?
-      const inPlay = DEPRECATED.filter(
-        d => projected != null &&
-             Object.prototype.hasOwnProperty.call(projected, d.field),
-      );
-
-      for (const dep of inPlay) {
-        counter.hit(dep.field, cohort);   // ← поле поїхало когорті: рахуємо як читання
-        res.append("Link", `<${dep.docs}>; rel="deprecation"; type="text/html"`);
-      }
-
-      if (inPlay.length > 0) {
-        // Deprecation/Sunset — на РЕСУРС (RFC 9745 їх означує ресурсними, не польовими),
-        // тож беремо найраніше застаріння й найближчий захід сонця з тих, що в грі.
-        const dep = Math.min(...inPlay.map(d => d.deprecatedAt));
-        const sunset = Math.min(...inPlay.map(d => d.sunsetAt));
-        res.setHeader("Deprecation", `@${dep}`);                         // RFC 9745
-        res.setHeader("Sunset", new Date(sunset * 1000).toUTCString());  // RFC 8594
-        // Щоб CDN не «поглинув» ці читання й не осліпив лічильник (див. пастки):
-        res.setHeader("Cache-Control", "private, no-store");
-        res.setHeader("Vary", "Api-Version, User-Agent");
-      }
-      return sendJson(projected);
-    };
-    next();
-  };
-}
-
-// Хендлер лишається наївно простим — уся дисципліна в обгортці:
-app.get("/devices/:id", deprecationMiddleware(counter), (req, res) => {
-  res.json(buildDeviceState(registry.load(req.params.id)));
-});
-```
+:::code proj-dh-field-migration/ts/middleware-lichyt-kohortu.ts
 
 Той самий шов у Python — це Starlette-middleware чи FastAPI-залежність, що по дорозі проєктує тіло й ставить ті самі заголовки; механіка обгортання інша, обов'язки ті самі.
 
@@ -231,105 +82,8 @@ Vary: Api-Version, User-Agent
 Лишилося замкнути коло. Лічильник — віконний, за парою `(поле, когорта)`; кардинальність у нього крихітна (кілька полів на кілька когорт), тож його не семплюють — рахують кожен запит. А `canContract` — предикат готовності: він зеленіє **лише** коли за все вікно жодна когорта не прочитала поле. Ключове рішення тут одне й воно рятівне: **когорти беруться з самої телеметрії, не з рукотворного списку.** Хто читав — той лишив по собі кошик; отже, ворота фізично не можуть проґавити читача, якого не вписали заздалегідь.
 
 :::tabs
-```ts
-interface ReadCounter {
-  hit(field: string, cohort: string): void;
-  perCohort(field: string, windowMs: number): Map<string, number>;
-}
-
-class WindowedReadCounter implements ReadCounter {
-  // (поле|когорта) → (epoch-день → лічильник)
-  private buckets = new Map<string, Map<number, number>>();
-  private day(ts = Date.now()): number { return Math.floor(ts / 86_400_000); }
-
-  hit(field: string, cohort: string): void {
-    const key = `${field}|${cohort}`;
-    const b = this.buckets.get(key) ?? new Map<number, number>();
-    b.set(this.day(), (b.get(this.day()) ?? 0) + 1);
-    this.buckets.set(key, b);
-  }
-
-  perCohort(field: string, windowMs: number): Map<string, number> {
-    const since = this.day(Date.now() - windowMs);
-    const out = new Map<string, number>();
-    for (const [key, b] of this.buckets) {
-      const [f, cohort] = key.split("|");
-      if (f !== field) continue;
-      let n = 0;
-      for (const [d, c] of b) if (d >= since) n += c;
-      if (n > 0) out.set(cohort, n);   // у вікні читали → когорта в грі
-    }
-    return out;
-  }
-}
-
-interface GateResult {
-  field: string;
-  green: boolean;
-  windowDays: number;
-  stillReading: Record<string, number>;   // когорта → читань за вікно (лише >0)
-}
-
-function canContract(field: string, counter: ReadCounter, windowMs: number): GateResult {
-  const perCohort = counter.perCohort(field, windowMs);   // когорти — із телеметрії!
-  const stillReading = Object.fromEntries(perCohort);
-  return {
-    field,
-    windowDays: windowMs / 86_400_000,
-    green: perCohort.size === 0,          // зелено ⟺ НУЛЬ у КОЖНІЙ когорті
-    stillReading,
-  };
-}
-```
-```py
-import time
-from collections import defaultdict
-from dataclasses import dataclass
-
-DAY_MS = 86_400_000
-
-class WindowedReadCounter:
-    def __init__(self) -> None:
-        # (поле, когорта) → {epoch-день: лічильник}
-        self._buckets: dict[tuple[str, str], dict[int, int]] = defaultdict(
-            lambda: defaultdict(int))
-
-    @staticmethod
-    def _day(ts_ms: float) -> int:
-        return int(ts_ms // DAY_MS)
-
-    def hit(self, field: str, cohort: str) -> None:
-        self._buckets[(field, cohort)][self._day(time.time() * 1000)] += 1
-
-    def per_cohort(self, field: str, window_ms: int) -> dict[str, int]:
-        since = self._day(time.time() * 1000 - window_ms)
-        out: dict[str, int] = defaultdict(int)
-        for (f, cohort), days in self._buckets.items():
-            if f != field:
-                continue
-            n = sum(c for d, c in days.items() if d >= since)
-            if n > 0:                      # у вікні читали → когорта в грі
-                out[cohort] = n
-        return dict(out)
-
-
-@dataclass
-class GateResult:
-    field: str
-    green: bool
-    window_days: float
-    still_reading: dict[str, int]
-
-
-def can_contract(field: str, counter: WindowedReadCounter, window_ms: int) -> GateResult:
-    per_cohort = counter.per_cohort(field, window_ms)   # когорти — із телеметрії!
-    return GateResult(
-        field=field,
-        window_days=window_ms / DAY_MS,
-        green=len(per_cohort) == 0,        # зелено ⟺ НУЛЬ у КОЖНІЙ когорті
-        still_reading=per_cohort,
-    )
-```
+:::code proj-dh-field-migration/ts/vorota-zeleno-lyshe-koly.ts
+:::code proj-dh-field-migration/py/vorota-zeleno-lyshe-koly.py
 :::
 
 Погляньмо, як ворота відповідають на живих даних. Нехай сонце над `tempC` уже зайшло за календарем, а ти питаєш ворота:

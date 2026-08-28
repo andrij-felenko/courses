@@ -57,75 +57,21 @@
 
 Ось як **не** треба — перший, зварений різ, у якому рішення втоплене серед сантехніки:
 
-```ts
-// Заплутаний різ: годинник, база й залізо прибиті просто в логіку рішення.
-class CoolingController {
-  tick(): void {
-    const now = Date.now();                                  // ← прибитий годинник
-    const rows = db.query("select at, celsius from readings order by at desc limit 50");
-    const inWindow = rows.filter(r => r.at >= now - 300_000); // 5 хв — сама логіка…
-    const avg = inWindow.reduce((s, r) => s + r.celsius, 0) / inWindow.length;
-    if (avg > 25) gpio.write(COOLER_PIN, 1);                 // ← прибите залізо
-  }
-}
-```
+:::code test-doubles-when-d/ts/tsi-try-rishennia-razom.ts
 
 Спробуй це перевірити. Годинник недетермінований — треба дубль. База повільна — треба дубль. Реле незворотне — треба дубль. А **ризикована частина** — вікно й середнє, те єдине, де реально ховається баг, — затиснута між трьома підробками й важким налаштуванням. Три дублі, аби дотягтися до п'ятьох рядків арифметики: лічильник дизайну кричить, що логіка зрослася із сантехнікою.
 
 Тепер послухаймо тести й **витягнемо чисте ядро**. Рішення про охолодження нічого не потребує від світу, крім значень — дай йому показники, теперішній час і політику, і хай поверне вирок. Це рівно хід [«чисте ядро, імперативна оболонка»](root:sf-apps/functional-core-imperative-shell):
 
 :::tabs
-```ts
-type Reading = { at: number; celsius: number };   // at — epoch, мс
-type Policy  = { threshold: number; windowMs: number };
-
-// Чисте рішення: ні годинника, ні бази — самі значення на вході.
-function decideCooling(readings: Reading[], now: number, policy: Policy): "on" | "off" {
-  const inWindow = readings.filter(r => r.at >= now - policy.windowMs);
-  if (inWindow.length === 0) return "off";                 // немає свідчень — не вмикаємо
-  const avg = inWindow.reduce((s, r) => s + r.celsius, 0) / inWindow.length;
-  return avg > policy.threshold ? "on" : "off";
-}
-```
-```py
-from dataclasses import dataclass
-from typing import Literal
-
-@dataclass
-class Reading:
-    at: int          # epoch, мс
-    celsius: float
-
-@dataclass
-class Policy:
-    threshold: float
-    window_ms: int
-
-# Чисте рішення: ні годинника, ні бази — самі значення на вході.
-def decide_cooling(readings: list[Reading], now: int, policy: Policy) -> Literal["on", "off"]:
-    in_window = [r for r in readings if r.at >= now - policy.window_ms]
-    if not in_window:                                       # немає свідчень — не вмикаємо
-        return "off"
-    avg = sum(r.celsius for r in in_window) / len(in_window)
-    return "on" if avg > policy.threshold else "off"
-```
+:::code test-doubles-when-d/ts/tsi-try-rishennia-razom-2.ts
+:::code test-doubles-when-d/py/tsi-try-rishennia-razom.py
 :::
 
 Тепер найважче й найризикованіше в системі перевіряється **без жодного дубля** — просто годуємо йому масив і число:
 
 :::tabs
-```ts
-const policy = { threshold: 25, windowMs: 5 * 60_000 };    // 5 хв
-const now = 1_000_000;
-
-// стійка спека у вікні → вмикаємо (жодної підробки не треба)
-assert.equal(decideCooling(
-  [{ at: now - 60_000, celsius: 26 }, { at: now - 10_000, celsius: 27 }], now, policy), "on");
-
-// один давній сплеск ПОЗА вікном → ігноруємо
-assert.equal(decideCooling(
-  [{ at: now - 10 * 60_000, celsius: 40 }], now, policy), "off");
-```
+:::code test-doubles-when-d/ts/tsi-try-rishennia-razom-3.ts
 ```py
 policy = Policy(threshold=25, window_ms=5 * 60_000)         # 5 хв
 now = 1_000_000
@@ -142,63 +88,8 @@ def test_old_spike_ignored():   # давній сплеск поза вікно�
 Лишилася тонка оболонка — вона тільки **склеює**: питає годинник, дістає показники, кличе чисте рішення й смикає реле. Логіки, здатної помилитися, у ній майже нема, тож і дублі тут — лише на трьох справжніх зовнішніх швах, і кожен точно за своїм гачком: годинник (недетермінований) — фейк, сховище (стан) — фейк, реле (незворотний ефект) — шпигун:
 
 :::tabs
-```ts
-interface Clock  { now(): number; }
-interface Store  { recent(): Reading[]; }
-interface Cooler { turnOn(): void; turnOff(): void; }
-
-class CoolingController {
-  constructor(private clock: Clock, private store: Store,
-              private cooler: Cooler, private policy: Policy) {}
-  tick(): void {
-    const d = decideCooling(this.store.recent(), this.clock.now(), this.policy);
-    d === "on" ? this.cooler.turnOn() : this.cooler.turnOff();
-  }
-}
-
-// три тривіальні дублі — кожен рівно за своїм гачком:
-class FakeClock implements Clock { now() { return 1_000_000; } }        // недетермінований → фейк
-class FakeStore implements Store {                                      // тримає стан → фейк
-  recent() { return [{ at: 1_000_000 - 60_000, celsius: 26 },
-                     { at: 1_000_000 - 10_000, celsius: 27 }]; }
-}
-class SpyCooler implements Cooler {                                     // незворотний ефект → шпигун
-  readonly calls: string[] = [];
-  turnOn()  { this.calls.push("on");  }
-  turnOff() { this.calls.push("off"); }
-}
-
-test("спека у вікні → контролер вмикає охолодження", () => {
-  const spy = new SpyCooler();
-  new CoolingController(new FakeClock(), new FakeStore(), spy,
-                        { threshold: 25, windowMs: 5 * 60_000 }).tick();
-  assert.deepEqual(spy.calls, ["on"]);                     // перевірка взаємодії
-});
-```
-```py
-class CoolingController:
-    def __init__(self, clock, store, cooler, policy: Policy) -> None:
-        self._clock, self._store, self._cooler, self._policy = clock, store, cooler, policy
-    def tick(self) -> None:
-        d = decide_cooling(self._store.recent(), self._clock.now(), self._policy)
-        (self._cooler.turn_on if d == "on" else self._cooler.turn_off)()
-
-# три тривіальні дублі — кожен рівно за своїм гачком:
-class FakeClock:                                            # недетермінований → фейк
-    def now(self) -> int: return 1_000_000
-class FakeStore:                                            # тримає стан → фейк
-    def recent(self) -> list[Reading]:
-        return [Reading(1_000_000 - 60_000, 26), Reading(1_000_000 - 10_000, 27)]
-class SpyCooler:                                            # незворотний ефект → шпигун
-    def __init__(self) -> None: self.calls: list[str] = []
-    def turn_on(self) -> None:  self.calls.append("on")
-    def turn_off(self) -> None: self.calls.append("off")
-
-def test_controller_turns_on():
-    spy = SpyCooler()
-    CoolingController(FakeClock(), FakeStore(), spy, Policy(25, 5 * 60_000)).tick()
-    assert spy.calls == ["on"]                              # перевірка взаємодії
-```
+:::code test-doubles-when-d/ts/tsi-try-rishennia-razom-4.ts
+:::code test-doubles-when-d/py/tsi-try-rishennia-razom-2.py
 :::
 
 Придивися, що сталося з дублями. Їх не побільшало — їх поменшало **там, де важить**. Ризикована логіка (вікно, середнє, поріг) тепер тестується голими значеннями, нуль підробок; дублі лишилися тільки на тонкій оболонці, де їм і місце — на справжніх зовнішніх швах. І кожен із трьох стоїть за своїм гачком: фейк годинника — бо час недетермінований; фейк сховища — бо тримає стан; шпигун реле — бо його дія незворотна й спостерегти її можна лише як факт виклику. Це й є дублери **як рішення дизайну**: не «скільки мокати», а «як провести межі, щоб мокати майже нічого не треба».

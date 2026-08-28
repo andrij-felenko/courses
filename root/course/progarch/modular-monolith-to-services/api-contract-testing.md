@@ -275,91 +275,8 @@ NON-BREAKING CHANGES                            BREAKING CHANGES
 ```
 
 :::tabs
-```c
-/* C: Обробник станів Провайдера (Provider State Callbacks) */
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-typedef struct {
-    const char *state_name;
-    bool (*setup_func)(const char *params_json);
-} provider_state_entry_t;
-
-/* Хук підготовки даних для існуючого пристрою 105 */
-static bool setup_device_105_exists(const char *params_json) {
-    printf("[PACT STATE SETUP] Clearing test DB & inserting device_id=105 with telemetry...\n");
-    /* Виконання SQL: INSERT INTO telemetry (device_id, temp) VALUES (105, 22.5); */
-    return true;
-}
-
-/* Хук підготовки даних для відсутнього пристрою 99999 */
-static bool setup_device_99999_absent(const char *params_json) {
-    printf("[PACT STATE SETUP] Ensuring device_id=99999 is DELETED from test DB...\n");
-    /* Виконання SQL: DELETE FROM telemetry WHERE device_id = 99999; */
-    return true;
-}
-
-/* Таблиця реєстрації станів провайдера */
-static provider_state_entry_t STATE_REGISTRY[] = {
-    { "device with ID 105 has historical telemetry readings", setup_device_105_exists },
-    { "device with ID 99999 does not exist", setup_device_99999_absent }
-};
-
-/* Головний обробник State Setup HTTP запиту від pact-verifier */
-bool handle_pact_state_setup(const char *requested_state, const char *params_json) {
-    size_t count = sizeof(STATE_REGISTRY) / sizeof(STATE_REGISTRY[0]);
-    for (size_t i = 0; i < count; i++) {
-        if (strcmp(STATE_REGISTRY[i].state_name, requested_state) == 0) {
-            return STATE_REGISTRY[i].setup_func(params_json);
-        }
-    }
-    printf("[PACT STATE ERROR] Unknown provider state requested: %s\n", requested_state);
-    return false;
-}
-```
-```cpp
-// C++17: Обробник станів Провайдера (Provider States) з використанням std::unordered_map та std::function
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <unordered_map>
-#include <functional>
-
-class ProviderStateRegistry {
-public:
-    using StateSetupHandler = std::function<bool(std::string_view params_json)>;
-
-    void register_state(std::string state_name, StateSetupHandler handler) {
-        handlers_[std::move(state_name)] = std::move(handler);
-    }
-
-    bool handle_state_setup(std::string_view requested_state, std::string_view params_json) const {
-        auto it = handlers_.find(std::string(requested_state));
-        if (it != handlers_.end()) {
-            return it->second(params_json);
-        }
-        std::cerr << "[PACT STATE ERROR] Unknown provider state requested: " << requested_state << "\n";
-        return false;
-    }
-
-private:
-    std::unordered_map<std::string, StateSetupHandler> handlers_;
-};
-
-// Приклад підключення станів у контролері Провайдера
-inline void register_telemetry_provider_states(ProviderStateRegistry& registry) {
-    registry.register_state("device with ID 105 has historical telemetry readings", [](std::string_view params) {
-        std::cout << "[PACT STATE SETUP] Seeding DB: INSERT INTO telemetry (device_id, temp) VALUES (105, 22.5);\n";
-        return true;
-    });
-
-    registry.register_state("device with ID 99999 does not exist", [](std::string_view params) {
-        std::cout << "[PACT STATE SETUP] Seeding DB: DELETE FROM telemetry WHERE device_id = 99999;\n";
-        return true;
-    });
-}
-```
+:::code api-contract-testing/c/main.c
+:::code api-contract-testing/cpp/main.cpp
 :::
 
 ---
@@ -370,43 +287,7 @@ inline void register_telemetry_provider_states(ProviderStateRegistry& registry) 
 
 ### Повний сценарій CI/CD конвеєра
 
-```bash
-#!/usr/bin/env bash
-# ==============================================================================
-# Сценарій автоматичної перевірки контрактів у CI/CD пайплайні
-# ==============================================================================
-set -euo pipefail
-
-BROKER_URL="http://pact-broker.internal.net"
-CONSUMER_NAME="DigitalHomes-MonolithBackend"
-PROVIDER_NAME="Telemetry-Microservice"
-GIT_COMMIT=$(git rev-parse HEAD)
-GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
-echo "=== 1. ЗАПУСК КЛІЄНТСЬКИХ ТЕСТІВ ТА ГЕНЕРАЦІЯ КОНТРАКТІВ ==="
-# Виконання unit-тестів моноліта, які генерують файли в ./pacts/
-npm test -- --grep "PactContractTests"
-
-echo "=== 2. ПУБЛІКАЦІЯ КОНТРАКТУ В PACT BROKER ==="
-pact-broker publish ./pacts \
-  --consumer-app-version="${GIT_COMMIT}" \
-  --branch="${GIT_BRANCH}" \
-  --broker-base-url="${BROKER_URL}"
-
-echo "=== 3. ПЕРЕВІРКА МАТРИЦІ СУМІСНОСТІ (CAN-I-DEPLOY) ==="
-# Команда запитує в Broker: "Чи безпечно розгортати цю версію моноліта на Production?"
-# Broker перевіряє, чи верифікував Провайдер, розгорнутий на Production, саме цей коміт.
-if pact-broker can-i-deploy \
-    --pacticipant "${CONSUMER_NAME}" \
-    --version "${GIT_COMMIT}" \
-    --to-environment production \
-    --broker-base-url="${BROKER_URL}"; then
-  echo "[SUCCESS] Матриця сумісна! Розпочинаємо розгортання на Production."
-else
-  echo "[FAILURE] Злам сумісності контрактів! Деплой заблоковано."
-  exit 1
-fi
-```
+:::code api-contract-testing/sh/main.sh
 
 ### Довідник кодів завершення CLI `can-i-deploy`
 

@@ -10,39 +10,8 @@
 Почнімо з болю. Digital Homes уже не той скрипт із першого вечора — платформа подорослішала, і тепер під хабом живе цілий зоопарк пристроїв: давачі температури, розумні розетки, дверні замки, камери. Щоб хаб міг ганяти їх усіх однією петлею, хтось завів спільний тип — `IDevice`, у який позносив геть усе, що вміє робити хоч якийсь пристрій:
 
 :::tabs
-```ts
-interface IDevice {
-  read(): number;          // прочитати вимір
-  turnOn(): void;          // увімкнути
-  turnOff(): void;         // вимкнути
-  lock(): void;            // замкнути
-  startStream(): string;   // почати відеопотік
-}
-
-class TempSensor implements IDevice {
-  read(): number { return this.celsius; }           // це він уміє
-  turnOn():  void { throw new Error("датчик не вмикається"); }
-  turnOff(): void { throw new Error("датчик не вимикається"); }
-  lock():    void { throw new Error("датчик не замикається"); }
-  startStream(): string { throw new Error("у датчика немає камери"); }
-}
-```
-```py
-class IDevice(Protocol):
-    def read(self) -> float: ...
-    def turn_on(self) -> None: ...
-    def turn_off(self) -> None: ...
-    def lock(self) -> None: ...
-    def start_stream(self) -> str: ...
-
-class TempSensor:
-    def read(self) -> float:            # це він уміє
-        return self.celsius
-    def turn_on(self):      raise NotImplementedError("датчик не вмикається")
-    def turn_off(self):     raise NotImplementedError("датчик не вимикається")
-    def lock(self):         raise NotImplementedError("датчик не замикається")
-    def start_stream(self): raise NotImplementedError("у датчика немає камери")
-```
+:::code lsp-isp-together-d/ts/index.ts
+:::code lsp-isp-together-d/py/part.py
 :::
 
 Придивися до `TempSensor`. Із п'яти методів, які вимагає `IDevice`, він чесно вміє **один** — `read`. Решту чотири він мусив написати, бо інакше код не компілюється: тип обіцяв п'ять методів, значить, усі п'ять мають бути. І що йому лишалося? Написати тіла, які кричать «не підтримую». Датчик температури не вмикається, не замикається й не знімає відео — але тип змусив його вдавати, що вміє.
@@ -107,24 +76,7 @@ class SmartSocket implements Readable, Switchable { /* покази + вмика
 class DoorLock    implements Lockable { /* замикання */ }
 class Camera      implements Streamable { /* відеопотік */ }
 ```
-```py
-@runtime_checkable
-class Readable(Protocol):
-    def read(self) -> float: ...
-
-@runtime_checkable
-class Switchable(Protocol):
-    def turn_on(self) -> None: ...
-    def turn_off(self) -> None: ...
-
-class TempSensor:                # лише Readable
-    def read(self) -> float: return self.celsius
-
-class SmartSocket:               # Readable + Switchable
-    def read(self) -> float: ...
-    def turn_on(self): ...
-    def turn_off(self): ...
-```
+:::code lsp-isp-together-d/py/toi-samyi-rozriz-likuie.py
 :::
 
 Подивися, що сталося з датчиком: тепер `TempSensor` — це `Readable`, і **все**. У ньому немає жодного методу, якого він не вміє. Порожні тіла зникли, викидати винятки нема з чого — бо тип більше не змушує обіцяти зайвого. Датчик став **чесним підтипом** `Readable`: усюди, де код чекає на щось, що вміє `read`, датчик підставляється без жодного сюрпризу. LSP відновлено — і відновлено не окремим зусиллям, а **тим самим розрізом**, яким ми задовольнили ISP.

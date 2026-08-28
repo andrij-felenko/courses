@@ -65,32 +65,8 @@ async function controlLoop() {
 Тепер відкриймо шов. Витягнемо давач і розетку **назовні** — хай політика приймає їх як входи, а не створює сама:
 
 :::tabs
-```py
-def decide(sensor, heater, threshold):
-    t = sensor.read()                # ← шов: чим є sensor — вирішують ЗЗОВНІ
-    if t < threshold:
-        heater.on()
-    else:
-        heater.off()
-
-# точка ввімкнення — головний код обирає, ЩО під'єднати до шва:
-decide(RealSensor(), RealHeater(), 20.0)      # у продакшені — справжнє залізо
-decide(FakeSensor(reads=19.0), SpyHeater(), 20.0)  # у тесті — підробки
-```
-```ts
-interface Sensor { read(): number; }
-interface Heater { on(): void; off(): void; }
-
-function decide(sensor: Sensor, heater: Heater, threshold: number) {
-  const t = sensor.read();           // ← шов: чим є sensor — вирішують ЗЗОВНІ
-  if (t < threshold) heater.on();
-  else heater.off();
-}
-
-// точка ввімкнення — головний код обирає, ЩО під'єднати до шва:
-decide(new RealSensor(), new RealHeater(), 20.0);        // продакшен
-decide(new FakeSensor(19.0), new SpyHeater(), 20.0);     // тест
-```
+:::code seams-and-boundaries-d/py/main.py
+:::code seams-and-boundaries-d/ts/index.ts
 :::
 
 Придивися, що сталося. Тіло `decide` не знає й не хоче знати, звідки береться температура: воно кличе `sensor.read()` — і на цьому вхідному стику тепер **шов**. Підмінити давач можна, не торкнувшись жодного рядка політики; вимикач — це той рядок збірки, де вирішено, `RealSensor` чи `FakeSensor` передати. Ось вона, точка ввімкнення, і стоїть вона зовні, у головному коді. Повний робочий приклад — відкритий шов, тест, що жене крізь нього підроблений давач і доводить, що поведінка змінилася без жодної правки політики, і той самий трюк для чужої бібліотеки, якої не переписати зсередини — зібрано в [робочому прикладі шва](root:progarch/seams-and-boundaries/proj-dh-sensor-seam.md).

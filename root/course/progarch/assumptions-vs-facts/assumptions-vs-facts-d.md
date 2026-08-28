@@ -82,47 +82,8 @@ P(хибне)              = 0.30          # вендор молодий, API в
 Розсортувати переконання й вирішити, що перевіряти, можна прямо в типах. Факт несе доказ; припущення несе числа, з яких рахується очікувана втрата, — і функція повертає, чи варто платити за перевірку тепер.
 
 :::tabs
-```ts
-type Belief =
-  | { kind: "fact"; claim: string; evidence: string }
-  | { kind: "assumption"; claim: string;
-      pWrong: number; lossIfWrong: number; costToCheck: number };
-
-function shouldValidateNow(b: Belief): boolean {
-  if (b.kind === "fact") return false;         // доказ уже на руках — перевіряти нічого
-  const expectedLoss = b.pWrong * b.lossIfWrong;
-  return b.costToCheck < expectedLoss;         // купуй інформацію, поки вона дешевша за втрату
-}
-
-const lockApi: Belief = {
-  kind: "assumption", claim: "модуль замка тримає API ≥ 2 роки",
-  pWrong: 0.3, lossIfWrong: 120, costToCheck: 3,
-};
-shouldValidateNow(lockApi); // true → перевірити до коміту
-```
-```py
-from dataclasses import dataclass
-
-@dataclass
-class Fact:
-    claim: str
-    evidence: str          # доказ уже на руках
-
-@dataclass
-class Assumption:
-    claim: str
-    p_wrong: float         # 0..1
-    loss_if_wrong: float   # людино-дні
-    cost_to_check: float
-
-def should_validate_now(b) -> bool:
-    if isinstance(b, Fact):
-        return False
-    return b.cost_to_check < b.p_wrong * b.loss_if_wrong
-
-lock_api = Assumption("модуль замка тримає API ≥ 2 роки", 0.3, 120, 3)
-should_validate_now(lock_api)  # True → перевірити до коміту
-```
+:::code assumptions-vs-facts-d/ts/index.ts
+:::code assumptions-vs-facts-d/py/main.py
 :::
 
 Тип `Belief` навмисне не дає навіть спитати про `pWrong` у факту — доказ або є, або перед тобою припущення, яке треба зважити. Повний журнал припущень і код, що ранжує їх за очікуваною втратою й підказує, що звірити перед незворотним кроком, зібрано окремою [майстернею з ранжування припущень](root:progarch/assumptions-vs-facts/proj-assumption-register.md).

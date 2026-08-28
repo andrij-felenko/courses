@@ -93,55 +93,8 @@
 У коді різниця — знову в тому, хто ініціює звертання:
 
 :::tabs
-```ts
-// СЕРВЕР DH: статус для тих, хто ОПИТУЄ (телефон тягне сам)
-app.get("/jobs/:id", async (req, res) => {
-  const j = await jobs.get(req.params.id);
-  res.json({ status: j.status, ok: j.ok });   // "processing" → ... → "done"
-});
-
-// СЕРВЕР DH: коли задача завершилась — ШТОВХАЄМО вебхук тим, хто зареєстрував адресу
-async function onFirmwareDone(job) {
-  for (const url of await hooks.for(job.home)) {
-    const body = JSON.stringify({ event: "firmware.updated", home: job.home, ok: job.ok });
-    await deliver(url, body, sign(body, secret)); // з підписом + повтор при збої (див. проєкт)
-  }
-}
-
-// ТЕЛЕФОН: опитування з відступом, поки екран відкритий
-async function pollUntilDone(id) {
-  let wait = 1000;
-  for (;;) {
-    const r = await (await fetch(`/jobs/${id}`)).json();
-    if (r.status === "done") return r;              // дізналися результат
-    await sleep(wait);
-    wait = Math.min(wait * 2, 15000);               // відступ, щоб не бити щосекунди
-  }
-}
-```
-```py
-# СЕРВЕР DH: статус для тих, хто ОПИТУЄ (телефон тягне сам)
-@app.get("/jobs/{job_id}")
-async def job_status(job_id: str):
-    j = await jobs.get(job_id)
-    return {"status": j.status, "ok": j.ok}          # "processing" → ... → "done"
-
-# СЕРВЕР DH: задача завершилась — ШТОВХАЄМО вебхук тим, хто лишив адресу
-async def on_firmware_done(job):
-    for url in await hooks.for_home(job.home):
-        body = json.dumps({"event": "firmware.updated", "home": job.home, "ok": job.ok})
-        await deliver(url, body, sign(body, secret))  # з підписом + повтор при збої (див. проєкт)
-
-# ТЕЛЕФОН: опитування з відступом, поки екран відкритий
-async def poll_until_done(job_id: str):
-    wait = 1.0
-    while True:
-        r = await http_get_json(f"/jobs/{job_id}")
-        if r["status"] == "done":
-            return r                                  # дізналися результат
-        await asyncio.sleep(wait)
-        wait = min(wait * 2, 15.0)                    # відступ, щоб не бити щосекунди
-```
+:::code polling-vs-callback-d/ts/index.ts
+:::code polling-vs-callback-d/py/main.py
 :::
 
 Тут навмисне спрощено найтонше — підпис, дедуп на приймачі й звірку. [Повну реалізацію обох боків — статус-точку, поллінг-клієнт із відступом і джитером, підписаний вебхук із повтором у мертву чергу та ідемпотентний приймач зі звіркою-сіткою](root:progarch/polling-vs-callback/proj-dh-result-delivery.md) винесено в окремий проєкт.

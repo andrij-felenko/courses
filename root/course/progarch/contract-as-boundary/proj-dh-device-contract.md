@@ -22,64 +22,8 @@
 Форму даних, що перетинає стик, називають окремим словом — [DTO](root:sf-apps/dto); `Reading` і `Ack` — саме вони. Ось артефакт, дві його ідіоматичні подоби:
 
 :::tabs
-```ts
-// device-driver.ts — АРТЕФАКТ КОНТРАКТУ межі «хаб ↔ драйвер пристрою».
-// Обидві сторони імпортують САМЕ цей файл і спираються лише на нього.
-export type Celsius = number;
-
-// Збій межі — завжди одне з ЦИХ значень, і не інше (множина ЗАКРИТА).
-export type Fault = "offline" | "timeout";
-
-// DTO показу — розрізнене об'єднання: успіх АБО типізований збій-як-значення.
-export type Reading =
-  | { ok: true;  tempC: Celsius; at: number }   // at — момент зчитування, epoch-МС
-  | { ok: false; reason: Fault };
-
-// Команда звітує так само — значенням, не винятком.
-export type Ack =
-  | { ok: true }
-  | { ok: false; reason: Fault };
-
-export interface DeviceDriver {
-  read(): Promise<Reading>;                 // читання заліза — асинхронне
-  setTarget(tempC: Celsius): Promise<Ack>;  // команда: виставити цільову t°
-}
-```
-```py
-# device_driver.py — АРТЕФАКТ КОНТРАКТУ межі «хаб ↔ драйвер пристрою».
-# Обидві сторони імпортують САМЕ цей модуль і спираються лише на нього.
-from dataclasses import dataclass
-from typing import Literal, Protocol, Union
-
-Celsius = float
-Fault = Literal["offline", "timeout"]   # збій межі — лише одне з ЦИХ (множина ЗАКРИТА)
-
-# DTO показу — розрізнене об'єднання: успіх АБО типізований збій-як-значення.
-@dataclass(frozen=True)
-class Ok:
-    temp_c: Celsius
-    at: float                # момент зчитування, epoch-СЕКУНДИ
-
-@dataclass(frozen=True)
-class Err:
-    reason: Fault            # збій — значення, не виняток
-
-Reading = Union[Ok, Err]
-
-# Команда звітує так само — значенням.
-@dataclass(frozen=True)
-class Accepted: ...
-
-@dataclass(frozen=True)
-class Rejected:
-    reason: Fault
-
-Ack = Union[Accepted, Rejected]
-
-class DeviceDriver(Protocol):
-    def read(self) -> Reading: ...                     # читання заліза
-    def set_target(self, temp_c: Celsius) -> Ack: ...  # команда: цільова t°
-```
+:::code proj-dh-device-contract/ts/device-driver.ts
+:::code proj-dh-device-contract/py/device_driver.py
 :::
 
 Дві мови — не переклад слово в слово, а два ідіоми того самого контракту. TypeScript висловлює розрізнене об'єднання через об'єктні типи з тегом `ok` — так пише весь екосистемний код; Python — через заморожені `dataclass` і `Union`, які потім розбирають зіставленням зі зразком. У TS `read` асинхронний (`Promise`), бо в Node звернення до заліза — це ввід-вивід; у Python драйвери частіше блокувальні й синхронні. Кожна тримається свого ремесла — і саме тому обидві правдиві.
@@ -124,72 +68,8 @@ class DeviceDriver(Protocol):
 Артефакт готовий; випробуймо його першою половиною — постачальником. Нам не потрібне залізо, щоб перевіряти хаб, тож напишімо **фальшивий драйвер**. Уся його чеснота — в одному: тримати I-1..I-6 і не показувати нічого понад обіцяне. Це той самий [дублер](root:progarch/test-doubles-when), що його вставляють у шов замість справжньої сторони, і єдина його цінність у тому, що він грає той самий контракт, який грала б реальність.
 
 :::tabs
-```ts
-// fake-device.ts — фальшивий драйвер, що ЧЕСНО грає контракт вище.
-// Не читає заліза; існує, щоб проти нього перевіряли хаб. Чеснота — тримати I-1..I-6.
-import type { DeviceDriver, Reading, Ack, Celsius, Fault } from "./device-driver.ts";
-
-export class FakeDevice implements DeviceDriver {
-  private i = 0;
-  private targetC: Celsius = 20;
-  writes = 0;                       // лічильник фізичних записів — для аудиту, НЕ контракт
-
-  // сценарій: майбутнє tempC або збій; крутиться по колу
-  constructor(
-    private script: Array<Celsius | Fault> = [21.4, "timeout", 22, "offline", 19.998],
-  ) {}
-
-  async read(): Promise<Reading> {
-    const step = this.script[this.i++ % this.script.length];
-    if (step === "offline" || step === "timeout") {
-      return { ok: false, reason: step };              // I-3: збій — ЗНАЧЕННЯ, не викид
-    }
-    const tempC = Math.min(85, Math.max(-40, step));   // I-2: чесно затискає в межі
-    return { ok: true, tempC, at: Date.now() };        // I-6: at у МС
-  }
-
-  async setTarget(tempC: Celsius): Promise<Ack> {
-    if (tempC === this.targetC) return { ok: true };   // I-4: уже там — запис НЕ повторюємо
-    this.targetC = tempC;
-    this.writes++;                                     // фізичний запис стався РІВНО раз
-    return { ok: true };
-  }
-
-  get target(): Celsius { return this.targetC; }       // аудитове вікно у фейк — НЕ контракт
-}
-```
-```py
-# fake_device.py — фальшивий драйвер, що ЧЕСНО грає контракт.
-# Не читає заліза; існує, щоб проти нього перевіряли хаб. Чеснота — тримати I-1..I-6.
-import time
-from device_driver import Reading, Ok, Err, Ack, Accepted, Celsius
-
-class FakeDevice:
-    def __init__(self, script=None):
-        self._script = script or [21.4, "timeout", 22.0, "offline", 19.998]
-        self._i = 0
-        self._target: Celsius = 20.0
-        self.writes = 0                       # лічильник фізичних записів — аудит, НЕ контракт
-
-    def read(self) -> Reading:
-        step = self._script[self._i % len(self._script)]
-        self._i += 1
-        if step in ("offline", "timeout"):
-            return Err(reason=step)                     # I-3: збій — значення, не викид
-        temp_c = min(85.0, max(-40.0, step))            # I-2: чесно затискає в межі
-        return Ok(temp_c=temp_c, at=time.time())        # I-6: at у секундах
-
-    def set_target(self, temp_c: Celsius) -> Ack:
-        if temp_c == self._target:
-            return Accepted()                           # I-4: уже там — не повторюємо запис
-        self._target = temp_c
-        self.writes += 1                                # фізичний запис стався рівно раз
-        return Accepted()
-
-    @property
-    def target(self) -> Celsius:                        # аудитове вікно — НЕ контракт
-        return self._target
-```
+:::code proj-dh-device-contract/ts/fake-device.ts
+:::code proj-dh-device-contract/py/fake_device.py
 :::
 
 Кожен рядок тіла — це інваріант у дії, не для окраси. Затиск `min(85, max(-40, …))` — це I-2, зроблений руками: навіть якщо сценарій підсуне 200, назовні вийде 85, бо фейк радше збреше про значення, ніж про **межу**. Гілка збою повертає значення, а не кидає, — це I-3. `setTarget`, що не чіпає таргет удруге, коли він уже той самий, — це I-4, і водночас та сама ідемпотентність реле, яку ми колись вписали в `RealHeater.on()`, щоб не смикати залізо дарма. А `writes` і `target` — це не частина контракту; це вікно всередину фейка, крізь яке його чесність зараз перевіримо. Позначмо це чітко: споживач цих полів не бачить і бачити не сміє.
@@ -199,81 +79,8 @@ class FakeDevice:
 Тепер перевіримо самого фейка — не хаб, а те, чи він **справді** грає I-1..I-6. Це ще не контрактні тести (систематична двобічна перевірка сторін проти спільного еталона — наступний крок курсу) і аж ніяк не готовий фреймворк на кшталт Pact. Це саморобний **пробник**: він читає обіцянки назад із будь-якого драйвера й падає, щойно той збрехав. Зерно тієї великої ідеї, посаджене вручну.
 
 :::tabs
-```ts
-// honesty-check.ts — чи ЧЕСНО драйвер грає контракт? НЕ контрактні тести й не Pact:
-// пробник, що читає I-1..I-6 назад із драйвера й падає, якщо той збрехав.
-import assert from "node:assert/strict";
-import type { DeviceDriver } from "./device-driver.ts";
-import { FakeDevice } from "./fake-device.ts";
-
-const FAULTS = new Set(["offline", "timeout"]);
-
-// Крізь контракт видно лише read → перевіряємо I-2/I-3/I-6 «чорною скринькою».
-async function readHonoursContract(d: DeviceDriver): Promise<void> {
-  for (let n = 0; n < 100; n++) {
-    let r;
-    try { r = await d.read(); }
-    catch (e) { assert.fail(`I-3 зламано: read кинув крізь межу — ${e}`); }
-
-    if (r.ok) {
-      assert.ok(r.tempC >= -40 && r.tempC <= 85, `I-2: tempC поза [−40,85]: ${r.tempC}`);
-      assert.ok(r.at > 1e12, `I-6: at не схоже на epoch-мс: ${r.at}`);   // мс, не секунди!
-    } else {
-      assert.ok(FAULTS.has(r.reason), `I-3: reason поза закритою множиною: ${r.reason}`);
-    }
-  }
-}
-
-// I-4 — про ПРИХОВАНИЙ ефект, якого read не показує; тут треба вікно у фейк.
-async function commandIsIdempotent(f: FakeDevice): Promise<void> {
-  await f.setTarget(21);
-  const w1 = f.writes;
-  await f.setTarget(21);                       // той самий таргет, ще раз
-  assert.equal(f.target, 21, "I-4: кінцевий стан має бути 21");
-  assert.equal(f.writes, w1, "I-4: повтор не мав чіпати залізо вдруге");
-}
-
-const fake = new FakeDevice();
-await readHonoursContract(fake);
-await commandIsIdempotent(fake);
-console.log("контракт дотримано: I-1..I-6 чесні ✓");
-```
-```py
-# honesty_check.py — чи ЧЕСНО драйвер грає контракт? НЕ контрактні тести й не Pact:
-# пробник, що читає I-1..I-6 назад із драйвера й падає, якщо той збрехав.
-from device_driver import DeviceDriver, Ok, Err
-from fake_device import FakeDevice
-
-FAULTS = {"offline", "timeout"}
-
-# Крізь контракт видно лише read → перевіряємо I-2/I-3/I-6 «чорною скринькою».
-def read_honours_contract(d: DeviceDriver) -> None:
-    for _ in range(100):
-        try:
-            r = d.read()
-        except Exception as e:                     # I-3: read НЕ сміє кинути крізь межу
-            raise AssertionError(f"I-3 зламано: read кинув — {e}")
-        match r:
-            case Ok(temp_c=t, at=at):
-                assert -40 <= t <= 85, f"I-2: temp_c поза [−40,85]: {t}"
-                assert at > 1e9, f"I-6: at не схоже на epoch-с: {at}"   # секунди, не мс!
-            case Err(reason=reason):
-                assert reason in FAULTS, f"I-3: reason поза закритою множиною: {reason}"
-
-# I-4 — про ПРИХОВАНИЙ ефект, якого read не показує; тут треба вікно у фейк.
-def command_is_idempotent(f: FakeDevice) -> None:
-    f.set_target(21.0)
-    w1 = f.writes
-    f.set_target(21.0)                             # той самий таргет, ще раз
-    assert f.target == 21.0, "I-4: кінцевий стан має бути 21"
-    assert f.writes == w1, "I-4: повтор не мав чіпати залізо вдруге"
-
-if __name__ == "__main__":
-    fake = FakeDevice()
-    read_honours_contract(fake)
-    command_is_idempotent(fake)
-    print("контракт дотримано: I-1..I-6 чесні ✓")
-```
+:::code proj-dh-device-contract/ts/honesty-check.ts
+:::code proj-dh-device-contract/py/honesty_check.py
 :::
 
 Придивися, що пробник ділиться надвоє за однією тонкою межею — **що взагалі видно крізь контракт**. Інваріанти показу — I-2, I-3, I-6 — перевіряються **чорною скринькою**: сто разів кличемо `read`, і кожен результат мусить лягти в обіцянку — або успіх у межах, або збій із закритої множини, і жодного викиду. Для цього не треба знати нутро драйвера, досить контрактної поверхні. А от I-4 — про **прихований ефект**: `read` повертає температуру, не таргет, тож ідемпотентність команди крізь контрактну поверхню **не побачиш**. Щоб її перевірити, доводиться зазирнути у фейк через аудитове вікно `writes`/`target` — і це чесно, бо ми перевіряємо сам фейк, а не продакшен-споживача. Урок ширший за код: одні інваріанти видно з поверхні межі, інші — про сховані наслідки, і до других потрібен окремий шов у дублера.
@@ -285,56 +92,8 @@ if __name__ == "__main__":
 Друга половина — хаб, що читає драйвер. Його мистецтво все в одному: **не спертися на жодну дрібницю поза I-1..I-6**. Пригадай необачного споживача, який форматував число, покладаючись на знаки драйвера, і планував наступний показ як `at + 30 секунд`, — обидва припущення контракт не давав, і обидва одного дня зламалися б. Ось як пише дисциплінований:
 
 :::tabs
-```ts
-// hub-consumer.ts — споживач, що спирається ЛИШЕ на I-1..I-6 і ні на що поза ними.
-import type { DeviceDriver, Fault } from "./device-driver.ts";
-
-const MIN_PERIOD_MS = 1_000;                     // I-5: не частіше 1/с — НАШ борг
-
-function label(reason: Fault): string {
-  switch (reason) {                              // I-3: множина ЗАКРИТА → розбір вичерпний
-    case "offline": return "пристрій офлайн";
-    case "timeout": return "пристрій не встиг";
-    default: { const _never: never = reason; return _never; }  // забудеш гілку — не збереться
-  }
-}
-
-async function poll(driver: DeviceDriver, show: (s: string) => void): Promise<void> {
-  const r = await driver.read();                 // I-3: воно не кине — обробляємо ЗНАЧЕННЯ
-  if (!r.ok) {
-    show(label(r.reason));
-  } else {
-    // I-1+I-2: tempC — це °C у [−40,85]. Формат — НАШ, на межі: I-6 мовчить про точність,
-    // тож кількість знаків драйвера ми НЕ пускаємо назовні, а нав'язуємо свою.
-    show(`${r.tempC.toFixed(1)} °C`);
-  }
-  // I-6: період НЕ гарантовано → розклад ведемо від СВОГО годинника, а не з r.at
-  // (вивести період із at — то опертися на випадковість, тобто на кільце Гайрама).
-  setTimeout(() => poll(driver, show), MIN_PERIOD_MS);
-}
-```
-```py
-# hub_consumer.py — споживач, що спирається ЛИШЕ на I-1..I-6.
-import time
-from device_driver import DeviceDriver, Ok, Err
-
-MIN_PERIOD_S = 1.0                                # I-5: не частіше 1/с — наш борг
-
-def render(r) -> str:
-    match r:                                      # I-3: множина закрита → розбір вичерпний
-        case Err(reason="offline"): return "пристрій офлайн"
-        case Err(reason="timeout"): return "пристрій не встиг"
-        case Ok(temp_c=t):
-            # I-1+I-2: t — °C у [−40,85]. Формат НАШ, на межі (I-6 мовчить про точність).
-            return f"{t:.1f} °C"
-        case _:
-            raise AssertionError("нечинний Reading — контракт зламано")
-
-def run(driver: DeviceDriver, show) -> None:
-    while True:
-        show(render(driver.read()))               # read не кине — обробляємо значення
-        time.sleep(MIN_PERIOD_S)                  # розклад від СВОГО годинника, не з at
-```
+:::code proj-dh-device-contract/ts/hub-consumer.ts
+:::code proj-dh-device-contract/py/hub_consumer.py
 :::
 
 Тут кожен рядок — це відмова від опори поза контрактом, і за неї платять готівкою. **Формат — на межі.** `toFixed(1)` і `{t:.1f}` не читають, скільки знаків дав драйвер, — вони **нав'язують** один, бо I-6 про точність мовчить. Отже, заміниш драйвер на точніший — зовні нічого не попливе: споживач ніколи й не залежав від його знаків. **Розклад — від свого годинника.** Наступний показ планується через `MIN_PERIOD_MS`, а не через `at + щось`; `at` — це мітка **моменту зчитування**, і виводити з неї період означало б спертися на «кожні 30 секунд», яких контракт не обіцяв. **Розбір збою — вичерпний.** Оце найгарніший зиск. Оскільки за I-3 множина `reason` закрита, TypeScript через гілку `never` **не дасть зібратися**, якщо ти забув випадок, а Python лишає чесний `case _` на «контракт зламано». Закритість, яку ми свідомо вписали в тип, тут обертається на компіляторову сторожу: споживач вичерпав рівно те, що межа пообіцяла, — ні більше, ні менше. Спертися вузько виявилося не аскезою, а силою.

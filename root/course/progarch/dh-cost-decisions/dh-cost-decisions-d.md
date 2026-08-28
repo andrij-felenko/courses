@@ -198,80 +198,8 @@ net.ipv4.tcp_keepalive_probes = 4
 Нижче показано фрагмент обчислювального ядра на рівні сервісу, яке оцінює розмір пакета та бюджетну відповідність:
 
 :::tabs
-```c
-/* telemetry_budget.c — Оцінка бюджетного навантаження телеметрії на мові C */
-#include <stdio.h>
-#include <stdbool.h>
-
-#define MAX_ALLOWED_UNIT_COST_USD 0.015
-#define FLEET_HOMES_COUNT 5000000.0
-
-typedef struct {
-    size_t payload_bytes;
-    int polling_interval_sec;
-    double delta_filter_efficiency;
-} TelemetryParam;
-
-bool verify_telemetry_budget(const TelemetryParam* param, double* calculated_unit_cost) {
-    /* 2592000 сек у місяці */
-    double raw_msgs_per_month = (2592000.0 / param->polling_interval_sec) * 20.0;
-    double actual_msgs_per_month = raw_msgs_per_month * (1.0 - param->delta_filter_efficiency);
-    
-    /* Обчислення витрат на EMQX + S3 Parquet */
-    double broker_cost = (actual_msgs_per_month * FLEET_HOMES_COUNT / 1000000.0) * 0.05;
-    double storage_gb = (actual_msgs_per_month * (param->payload_bytes + 78) * FLEET_HOMES_COUNT) / (1024.0 * 1024.0 * 1024.0);
-    double storage_cost = storage_gb * 0.015;
-    
-    double total_cost = broker_cost + storage_cost;
-    *calculated_unit_cost = total_cost / FLEET_HOMES_COUNT;
-    
-    return (*calculated_unit_cost <= MAX_ALLOWED_UNIT_COST_USD);
-}
-```
-```cpp
-// telemetry_budget.cpp — Оцінка бюджетного навантаження телеметрії на мові C++20
-#include <iostream>
-#include <expected>
-
-namespace dh::budget {
-
-constexpr double kMaxAllowedUnitCostUsd = 0.015;
-constexpr double kFleetHomesCount = 5'000'000.0;
-
-struct TelemetryParam {
-    std::size_t payload_bytes{100};
-    int polling_interval_sec{5};
-    double delta_filter_efficiency{0.90};
-};
-
-struct BudgetCheckResult {
-    double unit_cost_usd;
-    bool is_passed;
-};
-
-class BudgetGuard {
-public:
-    [[nodiscard]] static BudgetCheckResult evaluate(const TelemetryParam& param) noexcept {
-        const double raw_msgs = (2592000.0 / param.polling_interval_sec) * 20.0;
-        const double actual_msgs = raw_msgs * (1.0 - param.delta_filter_efficiency);
-        
-        const double broker_cost = (actual_msgs * kFleetHomesCount / 1'000'000.0) * 0.05;
-        const double total_bytes = actual_msgs * (param.payload_bytes + 78) * kFleetHomesCount;
-        const double storage_gb = total_bytes / (1024.0 * 1024.0 * 1024.0);
-        const double storage_cost = storage_gb * 0.015;
-        
-        const double total_cost = broker_cost + storage_cost;
-        const double unit_cost = total_cost / kFleetHomesCount;
-        
-        return BudgetCheckResult{
-            .unit_cost_usd = unit_cost,
-            .is_passed = (unit_cost <= kMaxAllowedUnitCostUsd)
-        };
-    }
-};
-
-} // namespace dh::budget
-```
+:::code dh-cost-decisions-d/c/telemetry_budget.c
+:::code dh-cost-decisions-d/cpp/main.hpp
 :::
 
 ## Стратегія FinOps та практичне розгортання ресурсів

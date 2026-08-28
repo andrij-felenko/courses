@@ -88,87 +88,8 @@ P(схибив; t) = P_підлога  +  P_зменшуване · e^(−t/τ)
 Ось той самий порт і адаптер у коді. Показую двома мовами, бо суть — не в синтаксисі, а в тому, що домен приймає **будь-що**, аби воно вміло `write` та `query`; TypeScript оголошує цей контракт явним `interface`, а Go цікавий тим, що адаптер задовольняє інтерфейс **неявно** — просто маючи потрібні методи, навіть не згадуючи його імені:
 
 :::tabs
-```ts
-// Порт — єдина річ, від якої залежить домен.
-export interface TelemetryStore {
-  write(r: Reading): Promise<void>;
-  query(home: HomeId, from: Date, to: Date): Promise<Series>;
-}
-
-// Адаптер #1 — Postgres. Домен його ніколи не бачить.
-export class PostgresStore implements TelemetryStore {
-  constructor(private db: PgPool) {}
-
-  async write(r: Reading): Promise<void> {
-    await this.db.query(
-      "insert into readings(home, ts, metric, value) values ($1,$2,$3,$4)",
-      [r.home, r.ts, r.metric, r.value],
-    );
-  }
-
-  async query(home: HomeId, from: Date, to: Date): Promise<Series> {
-    const rows = await this.db.query(
-      "select ts, value from readings where home=$1 and ts between $2 and $3 order by ts",
-      [home, from, to],
-    );
-    return rows.map((x) => ({ ts: x.ts, value: x.value }));
-  }
-}
-
-// Домен бере будь-який store — і не знає, який саме.
-export class EnergyPanel {
-  constructor(private store: TelemetryStore) {}
-
-  daily(home: HomeId, day: Date): Promise<Series> {
-    return this.store.query(home, startOfDay(day), endOfDay(day));
-  }
-}
-```
-```go
-// Порт — інтерфейс. Домен залежить лише від нього.
-type TelemetryStore interface {
-    Write(ctx context.Context, r Reading) error
-    Query(ctx context.Context, home HomeID, from, to time.Time) (Series, error)
-}
-
-// Адаптер #1 — Postgres. Задовольняє інтерфейс НЕЯВНО:
-// має потрібні методи — отже вже TelemetryStore, без жодного "implements".
-type PostgresStore struct{ db *pgxpool.Pool }
-
-func (s *PostgresStore) Write(ctx context.Context, r Reading) error {
-    _, err := s.db.Exec(ctx,
-        `insert into readings(home, ts, metric, value) values ($1,$2,$3,$4)`,
-        r.Home, r.TS, r.Metric, r.Value)
-    return err
-}
-
-func (s *PostgresStore) Query(ctx context.Context, home HomeID, from, to time.Time) (Series, error) {
-    rows, err := s.db.Query(ctx,
-        `select ts, value from readings where home=$1 and ts between $2 and $3 order by ts`,
-        home, from, to)
-    if err != nil {
-        return nil, err
-    }
-    defer rows.Close()
-
-    var out Series
-    for rows.Next() {
-        var p Point
-        if err := rows.Scan(&p.TS, &p.Value); err != nil {
-            return nil, err
-        }
-        out = append(out, p)
-    }
-    return out, rows.Err()
-}
-
-// Домен бере будь-який TelemetryStore — і не знає, який саме.
-type EnergyPanel struct{ store TelemetryStore }
-
-func (p *EnergyPanel) Daily(ctx context.Context, home HomeID, day time.Time) (Series, error) {
-    return p.store.Query(ctx, home, startOfDay(day), endOfDay(day))
-}
-```
+:::code cost-of-delay-d/ts/index.ts
+:::code cost-of-delay-d/go/main.go
 :::
 
 Порт зупиняє протікання **виклику** — домен більше не викликає базу напряму. Але є ще й друге, підступніше протікання: чужа модель даних. Якщо `Reading` та `Series` у сигнатурах порту — це насправді рядки Postgres, лише перейменовані, база все одно протекла, просто через тип. Ліки від цього — **шар проти псування** *(англ. anti-corruption layer; [Ерік Еванс, «Domain-Driven Design», 2003](root:sf-apps/anti-corruption-layer)).* Він стоїть на межі й **перекладає** чужу модель на власну домену: назовні — таблиці й діалект бази, усередину — чисті доменні поняття «оселя», «показник», «ряд у часі». Тоді підміна бази справді впирається лише в новий адаптер, а не в переписування типів по всьому продукту. Саму механіку такої підміни — розширити-стиснути, паралельний запис, засипання старих даних — ми вже проходили у [кроці про те, що робить рішення незворотним](root:progarch/what-makes-irreversible); порт і шар проти псування — це те, що робить ту механіку **можливою** дешево.

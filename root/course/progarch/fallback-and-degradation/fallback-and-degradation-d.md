@@ -73,39 +73,8 @@
 У коді один щабель драбини виглядає так — спробувати живу відповідь, а на збої зійти на кеш у межах бюджету:
 
 :::tabs
-```ts
-// Один щабель драбини: жива відповідь → інакше кеш у межах бюджету застарілості.
-async function readState(id: string): Promise<Reading> {
-  try {
-    const fresh = await device.read(id);      // запобіжник/таймаут — усередині
-    cache.put(id, fresh, now());               // тримаємо копію теплою
-    return fresh;
-  } catch {
-    const c = cache.get(id);
-    if (c && now() - c.at <= STALE_BUDGET_MS) {
-      metrics.inc("fallback.cache", { id });   // деградуємо ГОЛОСНО (нижче)
-      return { ...c.value, stale: true };
-    }
-    throw new Unavailable(id);                  // кеш надто старий — чесна відмова
-  }
-}
-```
-```go
-// Один щабель драбини: жива відповідь → інакше кеш у межах бюджету застарілості.
-func ReadState(ctx context.Context, id string) (Reading, error) {
-    fresh, err := device.Read(ctx, id) // запобіжник/таймаут — усередині
-    if err == nil {
-        cache.Put(id, fresh, time.Now()) // тримаємо копію теплою
-        return fresh, nil
-    }
-    if c, ok := cache.Get(id); ok && time.Since(c.At) <= staleBudget {
-        metrics.Inc("fallback.cache", id) // деградуємо ГОЛОСНО (нижче)
-        c.Value.Stale = true
-        return c.Value, nil
-    }
-    return Reading{}, ErrUnavailable // кеш надто старий — чесна відмова
-}
-```
+:::code fallback-and-degradation-d/ts/index.ts
+:::code fallback-and-degradation-d/go/main.go
 :::
 
 Повний прогін — драбина з усіма щаблями, перемикач fail-open/closed і тест, що навмисне вимикає залежність, — [розібрано окремим проєктом](root:progarch/fallback-and-degradation/proj-fallback-ladder.md).

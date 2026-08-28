@@ -89,18 +89,7 @@ class Automations:
 Перевіряється це правило на тому самому незручному місці, яке [чесно назвав ADR-014](root:progarch/dh-context-boundaries-choice): дашборд «покажи пристрій і його останній вимір». Дані лежать у двох світах — сам пристрій у `control`, а вимір у `telemetry`, — і рука сама тягнеться до `JOIN`. Але цей `JOIN` намертво зшив би дві схеми: відтепер жодну з них не посунеш, не зачепивши другу. Тому робимо інакше — **зшиваємо на боці читача**, двома викликами фасадів:
 
 :::tabs
-```ts
-// НЕ РОБИМО так — JOIN через стіну зшиває схеми навіки:
-//   SELECT d.*, r.value FROM control.device d
-//   JOIN telemetry.reading r ON r.device_id = d.id     ← заборонено
-
-// РОБИМО так — читання-композиція через два фасади:
-function deviceCard(id: DeviceId): DeviceCard {
-  const device = control.getDevice(id);        // свій фасад control
-  const last = telemetry.lastReading(id);       // свій фасад telemetry
-  return { ...device, lastReading: last };      // склеюємо вже в читачі
-}
-```
+:::code dh-monolith-boundaries-d/ts/odna-baza-deviat-komor.ts
 ```py
 # НЕ РОБИМО так — JOIN через стіну зшиває схеми навіки (заборонено):
 #   SELECT d.*, r.value FROM control.device d
@@ -157,18 +146,7 @@ def apply_command(cmd: Command, tx: Tx) -> None:
 Хто ж вставляє фасад твіна в автоматизації, а шину — в `control`? Модулі цього не роблять самі — інакше вони б знову зналися напряму. Усе зшиває **одне** місце — корінь склеювання (composition root). Ми його вже бачили: [у v1 це був крихітний `run(sensor, heater, cfg)`](root:progarch/dh-v1-modules), де абстрактні порти вперше зустрічали конкретні драйвери. Той диригент просто виріс до розмірів усього застосунку:
 
 :::tabs
-```ts
-function buildApp(db: Db, bus: Bus) {
-  const identity = makeIdentity(db.schema("identity"));
-  const twin = makeTwin(db.schema("twin"));
-  const telemetry = makeTelemetry(db.schema("telemetry"));
-  const control = makeControl(db.schema("control"), bus);   // публікує у шину
-  const automations = makeAutomations(twin);                 // кличе фасад твіна
-  bus.subscribe(telemetry.record);                           // підписки — теж тут
-  bus.subscribe(automations.onEvent);
-  return { identity, twin, telemetry, control, automations };
-}
-```
+:::code dh-monolith-boundaries-d/ts/odyn-korin-shcho-zbyraie.ts
 ```py
 def build_app(db: Db, bus: Bus):
     identity = make_identity(db.schema("identity"))
@@ -191,31 +169,8 @@ def build_app(db: Db, bus: Bus):
 Тому в живому DH граф залежностей роблять **машинно вимушеним** — [фітнес-функцією](root:sf-apps/fitness-functions), тестом архітектури, який валить збірку на порушенні. Він тримає перелік дозволених ребер як єдине джерело правди й падає, щойно ребро з'явилося поза списком:
 
 :::tabs
-```ts
-// arch.test.ts — виконуваний тест графа (dependency-cruiser / eslint-boundaries)
-const ALLOWED: Record<string, Set<string>> = {
-  automations: new Set(["twin", "ids", "identity"]),
-  billing:     new Set(["ids", "identity"]),        // НЕ control!
-  telemetry:   new Set(["ids", "identity"]),        // control знають лише через подію
-};
-test("жоден модуль не проліз повз двері", () => {
-  for (const [mod, deps] of actualImports()) {
-    for (const d of deps) expect(ALLOWED[mod]).toContain(d);
-  }
-});
-```
-```py
-# arch_test.py — виконуваний тест графа (import-linter-стиль)
-ALLOWED = {
-    "automations": {"twin", "ids", "identity"},
-    "billing":     {"ids", "identity"},             # НЕ control!
-    "telemetry":   {"ids", "identity"},             # control знають лише через подію
-}
-def test_no_forbidden_import():
-    for module, deps in actual_imports().items():
-        leaked = deps - ALLOWED[module]
-        assert not leaked, f"{module} проліз повз двері: {leaked}"
-```
+:::code dh-monolith-boundaries-d/ts/arch.test.ts
+:::code dh-monolith-boundaries-d/py/arch_test.py
 :::
 
 Той самий сторож ловить і цикл у графі, і звертання модуля в чужу схему бази. [ADR-014 накидав таку перевірку на одне ребро](root:progarch/dh-context-boundaries-choice) (`billing` не сміє знати `control`); тут вона розгорнута на **весь** граф. Готові інструменти на кожен стек — `import-linter` для Python, `dependency-cruiser` чи ESLint-правила меж для TypeScript, `ArchUnit` для Java, `Packwerk` для Ruby; повний сторож для DH — у тому ж [каркасі моноліта](root:progarch/dh-monolith-boundaries/proj-dh-monolith-skeleton.md).

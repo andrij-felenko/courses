@@ -9,128 +9,15 @@
 Щоб гонка була справжня, а не підіграна, сховище має мати рівно одну властивість реального світу: **запис доходить до копій не миттєво**. Змоделюймо це чесно. Кожна копія (`Replica`) тримає версійовані записи й знає **лише те, що вже до неї доїхало**. Версія — просто число, що строго зростає з кожним записом; копія приймає оновлення, тільки якщо воно **новіше** за те, що вже має, — інакше кадр, який приплентався із запізненням, затер би свіжіший. Це і є монотонність версій, і саме версії потім дадуть строгому читанню спосіб упізнати, котра копія несе правду.
 
 :::tabs
-```ts
-type Version = number;
-type Rec = { value: unknown; version: Version };
-
-// Одна копія дому. Знає лише те, що вже до неї доїхало.
-class Replica {
-  private data = new Map<string, Rec>();
-  linked = true;                         // чи доходять оновлення від лідера (false — у розкол)
-  constructor(readonly id: string) {}
-
-  local(key: string): Rec | undefined { return this.data.get(key); }
-
-  // Монотонність версій: приймаємо лише СВІЖІШЕ; старий кадр не затирає нового.
-  apply(key: string, rec: Rec): void {
-    const cur = this.data.get(key);
-    if (cur === undefined || rec.version > cur.version) this.data.set(key, rec);
-  }
-}
-```
-```py
-from dataclasses import dataclass
-from typing import Any, Optional
-
-@dataclass
-class Rec:
-    value: Any
-    version: int
-
-class Replica:
-    def __init__(self, rid: str):
-        self.id = rid
-        self.linked = True                 # чи доходять оновлення від лідера (False — у розкол)
-        self._data: dict[str, Rec] = {}
-
-    def local(self, key: str) -> Optional[Rec]:
-        return self._data.get(key)
-
-    # Монотонність версій: приймаємо лише СВІЖІШЕ; старий кадр не затирає нового.
-    def apply(self, key: str, rec: Rec) -> None:
-        cur = self._data.get(key)
-        if cur is None or rec.version > cur.version:
-            self._data[key] = rec
-```
+:::code proj-dh-consistency-map/ts/model-kopii-versii.ts
+:::code proj-dh-consistency-map/py/model-kopii-versii.py
 :::
 
 Над копіями стоїть кластер з **одним лідером** і реплікаційним лагом до кожної репліки. Запис іде через лідера: той карбує наступну версію, кладе її **в себе негайно**, а на решту копій ставить у чергу — кожну з її власною затримкою. Час у моделі логічний, у «тиках»: `advance(n)` просуває годинник і доставляє всі реплікації, чий тик уже настав. Одна тонкість, яка потім зіграє в розколі: доставляємо оновлення **лише тим копіям, що на зв'язку** (`linked`). Відрізаній копії кадр лишається в черзі — це та сама майбутня робота [анти-ентропії](root:sf-distributed/anti-entropy-repair), що доллється, коли лінія повернеться.
 
 :::tabs
-```ts
-type Pending = { at: number; to: Replica; key: string; rec: Rec };
-
-// Кластер копій із ОДНИМ лідером і реплікаційним лагом до кожної репліки.
-class Cluster {
-  private clock = 0;                      // логічний час у «тиках»
-  private queue: Pending[] = [];          // реплікації в дорозі, кожна з тиком доставки
-  private nextVersion: Version = 1;
-
-  constructor(
-    readonly replicas: Replica[],
-    private readonly leader: Replica,
-    private readonly lag: (to: Replica) => number,   // тиків, поки запис доїде до копії
-  ) {}
-
-  now(): number { return this.clock; }
-
-  // Запис через лідера: карбує версію, кладе В СЕБЕ негайно, на репліки — з лагом.
-  write(key: string, value: unknown): Version {
-    const rec: Rec = { value, version: this.nextVersion++ };
-    this.leader.apply(key, rec);
-    for (const to of this.replicas) {
-      if (to === this.leader) continue;
-      this.queue.push({ at: this.clock + this.lag(to), to, key, rec });
-    }
-    return rec.version;
-  }
-
-  // Просунути час і доставити дозрілі реплікації — лише копіям на зв'язку.
-  // Відрізаній копії кадр лишається в черзі (майбутня робота анти-ентропії).
-  advance(ticks: number): void {
-    this.clock += ticks;
-    const kept: Pending[] = [];
-    for (const p of this.queue) {
-      if (p.at <= this.clock && p.to.linked) p.to.apply(p.key, p.rec);
-      else kept.push(p);
-    }
-    this.queue = kept;
-  }
-}
-```
-```py
-class Cluster:
-    def __init__(self, replicas, leader, lag):
-        self.replicas, self.leader, self.lag = replicas, leader, lag
-        self.clock = 0
-        self.queue = []                    # (тик_доставки, копія, ключ, запис)
-        self._next = 1                     # наступна версія
-
-    def now(self) -> int:
-        return self.clock
-
-    # Запис через лідера: карбує версію, кладе В СЕБЕ негайно, на репліки — з лагом.
-    def write(self, key: str, value: Any) -> int:
-        rec = Rec(value, self._next); self._next += 1
-        self.leader.apply(key, rec)
-        for to in self.replicas:
-            if to is self.leader:
-                continue
-            self.queue.append((self.clock + self.lag(to), to, key, rec))
-        return rec.version
-
-    # Просунути час і доставити дозрілі реплікації — лише копіям на зв'язку.
-    # Відрізаній копії кадр лишається в черзі (майбутня робота анти-ентропії).
-    def advance(self, ticks: int) -> None:
-        self.clock += ticks
-        kept = []
-        for at, to, key, rec in self.queue:
-            if at <= self.clock and to.linked:
-                to.apply(key, rec)
-            else:
-                kept.append((at, to, key, rec))
-        self.queue = kept
-```
+:::code proj-dh-consistency-map/ts/model-kopii-versii-2.ts
+:::code proj-dh-consistency-map/py/model-kopii-versii-2.py
 :::
 
 Це вся інфраструктура. Двадцять рядків на копію й тридцять на кластер — і в них уже сидить головна риса реального сховища: **вікно, у якому копії не збігаються**. Далі — лише те, як ми крізь це вікно читаємо.
@@ -144,81 +31,8 @@ class Cluster:
 Зрештою-читання простіше нікуди: одна найближча копія, без жодного кворуму. Швидко й доступно навіть у розкол — але віддає те, що **ця** копія знає **зараз**, хай і застаріле.
 
 :::tabs
-```ts
-const N = 3, W = 2, R = 2;               // R + W = 4 > N = 3 → кворуми ПЕРЕТИНАЮТЬСЯ
-
-class NoQuorum extends Error {}
-
-// СТРОГО: опитати R копій і взяти НАЙСВІЖІШУ версію серед них. Перетин кворумів
-// гарантує, що серед прочитаних є копія з останнім підтвердженим записом.
-function readStrong(key: string, reachable: Replica[]): Rec | undefined {
-  if (reachable.length < R)
-    throw new NoQuorum(`строге читання: доступно ${reachable.length} < R=${R} копій`);
-  let best: Rec | undefined;
-  for (const r of reachable) {
-    const rec = r.local(key);
-    if (rec && (best === undefined || rec.version > best.version)) best = rec;
-  }
-  return best;
-}
-
-// ЗРЕШТОЮ: одна найближча копія, без кворуму. Доступно навіть у розкол,
-// але віддає те, що ця копія знає зараз, — хай і застаріле.
-function readEventual(key: string, local: Replica): Rec | undefined {
-  return local.local(key);
-}
-
-// Ворота доступу читають право СТРОГО; будь-який сумнів (нема кворуму) → «ні».
-function mayOpen(key: string, reachable: Replica[]): boolean {
-  try {
-    return readStrong(key, reachable)?.value === true;   // нема запису / active=false → ні
-  } catch (e) {
-    if (e instanceof NoQuorum) return false;             // fail-closed: за сумніву — замкнено
-    throw e;
-  }
-}
-
-// Телеметрію читаємо ЗРЕШТОЮ — застаріле число нікому не шкодить.
-function latestTemp(key: string, local: Replica): number | undefined {
-  return readEventual(key, local)?.value as number | undefined;
-}
-```
-```py
-N, W, R = 3, 2, 2                          # R + W = 4 > N = 3 → кворуми ПЕРЕТИНАЮТЬСЯ
-
-class NoQuorum(Exception):
-    ...
-
-# СТРОГО: опитати R копій і взяти НАЙСВІЖІШУ версію серед них. Перетин кворумів
-# гарантує, що серед прочитаних є копія з останнім підтвердженим записом.
-def read_strong(key: str, reachable) -> Optional[Rec]:
-    if len(reachable) < R:
-        raise NoQuorum(f"строге читання: доступно {len(reachable)} < R={R} копій")
-    best = None
-    for r in reachable:
-        rec = r.local(key)
-        if rec and (best is None or rec.version > best.version):
-            best = rec
-    return best
-
-# ЗРЕШТОЮ: одна найближча копія, без кворуму. Доступно навіть у розкол,
-# але віддає те, що ця копія знає зараз, — хай і застаріле.
-def read_eventual(key: str, local: Replica) -> Optional[Rec]:
-    return local.local(key)
-
-# Ворота доступу читають право СТРОГО; будь-який сумнів (нема кворуму) → «ні».
-def may_open(key: str, reachable) -> bool:
-    try:
-        grant = read_strong(key, reachable)
-        return bool(grant and grant.value is True)       # нема запису / active=False → ні
-    except NoQuorum:
-        return False                                     # fail-closed: за сумніву — замкнено
-
-# Телеметрію читаємо ЗРЕШТОЮ — застаріле число нікому не шкодить.
-def latest_temp(key: str, local: Replica):
-    r = read_eventual(key, local)
-    return r.value if r else None
-```
+:::code proj-dh-consistency-map/ts/dvi-dorohy-chytannia.ts
+:::code proj-dh-consistency-map/py/dvi-dorohy-chytannia.py
 :::
 
 Придивися, де живе весь вибір: `mayOpen` ловить `NoQuorum` і повертає `false`. Це і є **fail-closed** одним рядком — не змогли строго підтвердити право, отже, «ні». Не «пропустимо про всяк випадок», а «замкнемось про всяк випадок». Для воріт це єдина безпечна відповідь, і зараз ми побачимо, чому.
@@ -234,54 +48,8 @@ def latest_temp(key: str, local: Replica):
 Тепер зберемо сцену з малюнка й проженімо. Три копії: лідер `A`, репліка `B` (лаг один тик) і край `E` біля дверей (лаг п'ять тиків — він найдальший від хмари, хоч і найближчий фізично). Спершу власник **видає** доступ і чекаємо, поки він розійдеться по всіх копіях. Потім — момент істини: власник **відкликає**, минає лише два тики, і в цю саму мить підрядник тягне двері.
 
 :::tabs
-```ts
-const A = new Replica("A·лідер"), B = new Replica("B·репліка"), E = new Replica("E·край");
-const cluster = new Cluster([A, B, E], A, (to) => (to === B ? 1 : 5)); // E лагає вп'ятеро
-
-const KEY = "grant:home-42:pidryadnyk";
-cluster.write(KEY, true);          // власник видав доступ → версія 1
-cluster.advance(10);               // усі копії наздогнали: A, B, E = v1(true)
-
-// T0: власник ВІДКЛИКАЄ доступ.
-cluster.write(KEY, false);         // → версія 2, лягає на A негайно
-cluster.advance(2);                // 2 тики: B (лаг 1) уже має v2, E (лаг 5) — ще ні
-
-// T1: підрядник тягне двері. Той самий факт, дві дороги читання.
-// Навмисне беремо кворум БЕЗ лідера — {B, E} — і все одно ловимо відкликання.
-console.log("строго {B,E}:", mayOpen(KEY, [B, E]) ? "ВІДЧИНИТИ" : "ВІДМОВА");
-const stale = readEventual(KEY, E);
-console.log("зрештою E:  ", stale?.value === true ? "ВІДЧИНИТИ" : "ВІДМОВА",
-            `(версія ${stale?.version})`);
-
-cluster.advance(4);                // E наздоганяє (лаг 5 від T0)
-const now = readEventual(KEY, E);
-console.log("зрештою E, збіжність:", now?.value === true ? "ВІДЧИНИТИ" : "ВІДМОВА",
-            `(версія ${now?.version})`);
-```
-```py
-A, B, E = Replica("A·лідер"), Replica("B·репліка"), Replica("E·край")
-cluster = Cluster([A, B, E], A, lambda to: 1 if to is B else 5)   # E лагає вп'ятеро
-
-KEY = "grant:home-42:pidryadnyk"
-cluster.write(KEY, True)           # власник видав доступ → версія 1
-cluster.advance(10)                # усі копії наздогнали: A, B, E = v1(True)
-
-# T0: власник ВІДКЛИКАЄ доступ.
-cluster.write(KEY, False)          # → версія 2, лягає на A негайно
-cluster.advance(2)                 # 2 тики: B (лаг 1) уже має v2, E (лаг 5) — ще ні
-
-# T1: підрядник тягне двері. Той самий факт, дві дороги читання.
-# Навмисне беремо кворум БЕЗ лідера — {B, E} — і все одно ловимо відкликання.
-print("строго {B,E}:", "ВІДЧИНИТИ" if may_open(KEY, [B, E]) else "ВІДМОВА")
-stale = read_eventual(KEY, E)
-print("зрештою E:  ", "ВІДЧИНИТИ" if stale and stale.value is True else "ВІДМОВА",
-      f"(версія {stale.version})")
-
-cluster.advance(4)                 # E наздоганяє (лаг 5 від T0)
-now = read_eventual(KEY, E)
-print("зрештою E, збіжність:", "ВІДЧИНИТИ" if now and now.value is True else "ВІДМОВА",
-      f"(версія {now.version})")
-```
+:::code proj-dh-consistency-map/ts/honka-vidtvorena.ts
+:::code proj-dh-consistency-map/py/honka-vidtvorena.py
 :::
 
 Запусти — і побачиш чорним по білому те, заради чого затівалася вся строгість:
@@ -303,73 +71,8 @@ print("зрештою E, збіжність:", "ВІДЧИНИТИ" if now and n
 Сцена така: доступ виданий і розійшовся по всіх копіях. Тоді край `E` відрізає від хмари. І — підступність — саме в цей час власник **відкликає** доступ у хмарі, але до відрізаного краю відкликання **не доходить**. На боці хаба лишається копія, яка локально каже «дозволено», хоч насправді вже «відкликано». Що зробить дім?
 
 :::tabs
-```ts
-// Локальне керування домом — НЕ потребує ні хмари, ні кворуму.
-class Hub {
-  private telemetry: Array<{ key: string; value: number }> = [];
-  constructor(private edge: Replica) {}
-  toggleLight(on: boolean): string { return `лампу ${on ? "увімкнено" : "вимкнено"} локально`; }
-  recordTemp(key: string, celsius: number): void { this.telemetry.push({ key, value: celsius }); }
-  backlog(): number { return this.telemetry.length; }
-}
-
-const a = new Replica("A"), b = new Replica("B"), edge = new Replica("E·край");
-const cloud = new Cluster([a, b, edge], a, (to) => (to === b ? 1 : 5));
-const GK = "grant:home-42:guest";
-cloud.write(GK, true); cloud.advance(10);   // усі копії: v1(true) — доступ виданий
-
-edge.linked = false;                         // РОЗКОЛ: край відрізано від хмари
-
-cloud.write(GK, false); cloud.advance(10);   // у хмарі відкликано (a,b → v2); до краю НЕ доходить
-
-// Дім живе локально: хаб керує пристроями й копить телеметрію в чергу.
-const hub = new Hub(edge);
-console.log("хаб:", hub.toggleLight(true));          // працює без хмари
-hub.recordTemp("temp:home-42:kitchen", 21.4);
-console.log("телеметрія в черзі:", hub.backlog());   // доллється потім
-
-// Ворота на боці хаба: доступна ЛИШЕ застаріла edge.
-console.log("край локально каже:", readEventual(GK, edge)?.value); // true — ЗАСТАРІЛЕ!
-console.log("ворота (строго, лише край):",
-            mayOpen(GK, [edge]) ? "ВІДЧИНИТИ" : "ВІДМОВА");          // fail-closed
-console.log("ворота (строго, хмара):",
-            mayOpen(GK, [a, b]) ? "ВІДЧИНИТИ" : "ВІДМОВА");          // бачить v2
-```
-```py
-# Локальне керування домом — НЕ потребує ні хмари, ні кворуму.
-class Hub:
-    def __init__(self, edge: Replica):
-        self.edge = edge
-        self._telemetry = []
-    def toggle_light(self, on: bool) -> str:
-        return f"лампу {'увімкнено' if on else 'вимкнено'} локально"
-    def record_temp(self, key: str, celsius: float) -> None:
-        self._telemetry.append((key, celsius))
-    def backlog(self) -> int:
-        return len(self._telemetry)
-
-a, b, edge = Replica("A"), Replica("B"), Replica("E·край")
-cloud = Cluster([a, b, edge], a, lambda to: 1 if to is b else 5)
-GK = "grant:home-42:guest"
-cloud.write(GK, True); cloud.advance(10)    # усі копії: v1(True) — доступ виданий
-
-edge.linked = False                          # РОЗКОЛ: край відрізано від хмари
-
-cloud.write(GK, False); cloud.advance(10)    # у хмарі відкликано (a,b → v2); до краю НЕ доходить
-
-# Дім живе локально: хаб керує пристроями й копить телеметрію в чергу.
-hub = Hub(edge)
-print("хаб:", hub.toggle_light(True))               # працює без хмари
-hub.record_temp("temp:home-42:kitchen", 21.4)
-print("телеметрія в черзі:", hub.backlog())         # доллється потім
-
-# Ворота на боці хаба: доступна ЛИШЕ застаріла edge.
-print("край локально каже:", read_eventual(GK, edge).value)   # True — ЗАСТАРІЛЕ!
-print("ворота (строго, лише край):",
-      "ВІДЧИНИТИ" if may_open(GK, [edge]) else "ВІДМОВА")       # fail-closed
-print("ворота (строго, хмара):",
-      "ВІДЧИНИТИ" if may_open(GK, [a, b]) else "ВІДМОВА")       # бачить v2
-```
+:::code proj-dh-consistency-map/ts/rozkol-vorota-zamykaiutsia.ts
+:::code proj-dh-consistency-map/py/rozkol-vorota-zamykaiutsia.py
 :::
 
 Вивід:

@@ -48,18 +48,7 @@ daily_energy(home_id, day date, n_readings, kwh_sum, computed_at)  -- ключ (
 
 Перша ланка — згортка сирих фактів у тоталі партицій. Дні беремо лише запечатані, а нижню межу вікна задаємо параметром, щоб не сканувати всю історію щоразу:
 
-```sql
--- Тоталі ДЖЕРЕЛА: згортаємо сирі reading у (home, day) → COUNT + SUM.
--- Межі партиції рахуємо в ОДНОМУ поясі (Europe/Kyiv), той самий і в похідному.
-SELECT home_id,
-       (ts AT TIME ZONE 'Europe/Kyiv')::date          AS day,
-       count(*)                                        AS n_src,
-       sum(kwh)                                        AS kwh_src
-FROM reading
-WHERE ts >= %(from_day)s::date    AT TIME ZONE 'Europe/Kyiv'   -- нижня межа вікна
-  AND ts <  %(seal_before)s::date AT TIME ZONE 'Europe/Kyiv'   -- лише ЗАПЕЧАТАНЕ
-GROUP BY home_id, day;
-```
+:::code proj-reconcile-derived/sql/sql-kontrolni-totali.sql
 
 Тут кожен рядок несе вагу. `(ts AT TIME ZONE 'Europe/Kyiv')::date` кладе кожен факт у **календарний день за київським настінним годинником** — і саме це визначення дня має бути єдиним обабіч звірки. `%(seal_before)s` — це «сьогодні мінус лаг» як дата; усе, що пізніше, ми не чіпаємо. `%(from_day)s` обмежує скан знизу: звіряємо тільки свіжозапечатане вікно, а не мільярд старих рядків.
 
@@ -82,44 +71,7 @@ WHERE day >= %(from_day)s
 
 Тепер склейка. Тягнемо обидва набори в словники за ключем партиції й проходимо об'єднання ключів, розкладаючи кожну партицію по одній із категорій розходження:
 
-```python
-import math
-from dataclasses import dataclass
-
-ABS_TOL = 1e-6     # долішній поріг: трохи нижчий за найменший осмислений показ
-REL_TOL = 1e-9     # відносний: на кілька порядків вищий за шум коми, нижчий за дрейф
-
-@dataclass(frozen=True)
-class Part:
-    home_id: int
-    day: str
-
-def load_totals(cur, sql, params):
-    cur.execute(sql, params)
-    # партиція → (кількість, сума)
-    return {Part(r[0], str(r[1])): (r[2], float(r[3] or 0.0)) for r in cur.fetchall()}
-
-def sums_close(a, b) -> bool:
-    # НІКОЛИ не порівнюй суми рухомої коми через ==; лише в межах допуску.
-    return math.isclose(a, b, rel_tol=REL_TOL, abs_tol=ABS_TOL)
-
-def reconcile(cur, src_sql, der_sql, params):
-    src = load_totals(cur, src_sql, params)   # джерело — істина
-    der = load_totals(cur, der_sql, params)   # похідне — що бачить користувач
-    drift = []
-    for p in src.keys() | der.keys():
-        n_s, kwh_s = src.get(p, (0, 0.0))
-        n_d, kwh_d = der.get(p, (0, 0.0))
-        if p not in der:                       # факти є, агрегата нема → ВТРАТА
-            drift.append((p, "ВІДСУТНЯ", f"джерело n={n_s}, Σ={kwh_s:.4f}; похідного нема"))
-        elif p not in src:                     # агрегат є, фактів нема → підозріло
-            drift.append((p, "СИРОТА",  f"похідне n={n_d}, Σ={kwh_d:.4f}; джерела нема"))
-        elif n_s != n_d:                       # кількість — точна рівність
-            drift.append((p, "COUNT",   f"джерело n={n_s} ≠ похідне n={n_d}"))
-        elif not sums_close(kwh_s, kwh_d):     # сума — у межах допуску
-            drift.append((p, "SUM",     f"Δ={abs(kwh_s - kwh_d):.6f} кВт·год"))
-    return drift
-```
+:::code proj-reconcile-derived/py/python-tsykl-zvirky-zvit-i.py
 
 Чотири категорії — не примха, а пряме відлуння того, як конвеєр рветься. «ВІДСУТНЯ» (факти в джерелі є, агрегата нема) — це **втрата**: партицію проґавили при завантаженні. «СИРОТА» (агрегат є, джерела під нього нема) — тривожний виняток: сирі факти зникли з-під готового числа. «COUNT» і «SUM» — це вже **дрейф значення** всередині наявної партиції. Кожна каже не лише «розійшлося», а й натякає, **як** саме, — а це вже половина діагнозу.
 
@@ -141,24 +93,7 @@ def run(cur, conn, params):
 
 Остання й найважливіша ланка. Знайшовши дрейф, ми не «додаємо різницю» й не «докидаємо, чого бракує» — ми **перераховуємо партицію з нуля** з сирих фактів і вписуємо результат поверх наявного:
 
-```python
-def recompute_partition(cur, conn, p):
-    # Перерахунок ОДНІЄЇ партиції: згорнути її reading і ВПИСАТИ поверх (upsert).
-    # Межа дня — той самий київський настінний годинник, що й у звірці.
-    cur.execute("""
-        INSERT INTO daily_energy AS d (home_id, day, n_readings, kwh_sum, computed_at)
-        SELECT %(home)s, %(day)s::date, count(*), sum(kwh), now()
-        FROM reading
-        WHERE home_id = %(home)s
-          AND ts >= %(day)s::date            AT TIME ZONE 'Europe/Kyiv'
-          AND ts <  (%(day)s::date + 1)      AT TIME ZONE 'Europe/Kyiv'
-        ON CONFLICT (home_id, day) DO UPDATE
-          SET n_readings  = EXCLUDED.n_readings,
-              kwh_sum     = EXCLUDED.kwh_sum,
-              computed_at = EXCLUDED.computed_at;
-    """, {"home": p.home_id, "day": p.day})
-    conn.commit()
-```
+:::code proj-reconcile-derived/py/sql-idempotentnyi.py
 
 Ось де змикається вся дисципліна цього кроку. Перерахунок мусить бути [ідемпотентним](root:sf-data/idempotent-reprocessing) — обчисленням, що при повторі дає той самий результат, не подвоюючи: інакше кожна звірка, натрапивши на дрейф, роздувала б агрегат замість гоїти його. Ідемпотентність тут не додаємо зусиллям — вона **випливає з форми**. Оскільки `daily_energy` — це чиста функція `COUNT`/`SUM` над незмінними фактами під ключем `(meter_id, ts)`, `INSERT … ON CONFLICT DO UPDATE` **перезаписує** партицію новим тоталем, а не додає до старого. Запусти перерахунок раз, двічі, десять разів — результат той самий: свіжа згортка тих самих фактів. Тому звірку можна ганяти скільки завгодно часто й нацьковувати перерахунок на будь-яку підозрілу партицію, не боячись, що сам процес лікування щось зіпсує.
 
@@ -197,19 +132,7 @@ def recompute_partition(cur, conn, p):
 
 Коли потрібна бітова певність — аудит рахунку, підозра на псування — тоталь доводиться посилити **контрольною сумою** над самим змістом партиції:
 
-```sql
--- Контрольна сума ПОНАД тоталі: детермінований відбиток усіх фактів партиції.
--- Рядки сортуємо (щоб порядок не впливав), зшиваємо й хешуємо. Збіжиться,
--- лише якщо збіглася КОЖНА трійка (meter, ts, kwh), а не тільки їх сума.
-SELECT home_id,
-       (ts AT TIME ZONE 'Europe/Kyiv')::date AS day,
-       md5(string_agg(meter_id || '|' || ts || '|' || kwh, ','
-                      ORDER BY meter_id, ts)) AS checksum
-FROM reading
-WHERE ts >= %(from_day)s::date    AT TIME ZONE 'Europe/Kyiv'
-  AND ts <  %(seal_before)s::date AT TIME ZONE 'Europe/Kyiv'
-GROUP BY home_id, day;
-```
+:::code proj-reconcile-derived/sql/skladnist-i-pastky.sql
 
 Це вже коштовно: `string_agg` збирає всю партицію в один рядок, а сортування її впорядковує. Тому контрольну суму не ганяють щоцикл — її тримають про запас: на вибірці партицій, за підозрою, чи при закритті білінгового періоду. Дешевший, нечутливий до порядку варіант — `bit_xor(hashtextextended(...))` по рядках, — теж існує, але XOR **гаситься** на однакових рядках (`h ⊕ h = 0`), тож годиться лише там, де ключ гарантує унікальність фактів. І щоб не сканувати джерело заради похідного боку, збережений відбиток кладуть у `daily_energy` при матеріалізації — поряд із `n_readings` і `kwh_sum`.
 
