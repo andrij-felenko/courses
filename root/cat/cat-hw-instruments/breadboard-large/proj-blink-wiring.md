@@ -57,60 +57,9 @@
 Програма для мікроконтролера скрізь має однаковий кістяк: **разове налаштування на старті** (задати напрямок ніжок) і **нескінченний цикл** роботи. Однакові й дві дії з ніжкою-виходом: **оголосити її виходом** і **виставити на ній рівень**. Різняться лише назви. В Arduino це функції `setup()`/`loop()` і виклики `pinMode()`/`digitalWrite()`; в ESP-IDF — `app_main()` з власним `while (1)`, `gpio_config()`/`gpio_set_level()`; на STM32 з HAL — `main()` з `while (1)`, налаштування ніжки в `MX_GPIO_Init()` і `HAL_GPIO_WritePin()`.
 
 :::tabs
-```arduino
-const uint8_t PIN_LED = 8;   // ніжка OUT зі схеми — до неї резистор і світлодіод
-
-void setup() {
-    pinMode(PIN_LED, OUTPUT); // оголошуємо ніжку виходом: тепер вона НАВ'ЯЗУЄ напругу
-}
-
-void loop() {
-    digitalWrite(PIN_LED, HIGH); // ніжка тягне до живлення → через резистор тече струм → LED світиться
-    delay(500);                  // тримаємо так 500 мс
-    digitalWrite(PIN_LED, LOW);  // ніжка тягне до нуля → різниці напруг нема → LED гасне
-    delay(500);                  // тримаємо темряву 500 мс
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define PIN_LED  GPIO_NUM_18     // ніжка OUT зі схеми — до неї резистор і світлодіод
-
-void app_main(void) {
-    gpio_config_t out = {
-        .pin_bit_mask = 1ULL << PIN_LED,
-        .mode = GPIO_MODE_OUTPUT,
-    };
-    gpio_config(&out);           // те саме оголошення: ніжка — вихід, тепер вона НАВ'ЯЗУЄ напругу
-
-    while (1) {
-        gpio_set_level(PIN_LED, 1);      // ніжка тягне до живлення → тече струм → LED світиться
-        vTaskDelay(pdMS_TO_TICKS(500));  // тримаємо так 500 мс
-        gpio_set_level(PIN_LED, 0);      // ніжка тягне до нуля → різниці напруг нема → LED гасне
-        vTaskDelay(pdMS_TO_TICKS(500));  // тримаємо темряву 500 мс
-    }
-}
-```
-```stm32
-// Ногу PB8 у CubeMX задано як GPIO_Output, push-pull, без підтяжки.
-#define LED_PORT  GPIOB
-#define LED_PIN   GPIO_PIN_8
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();               // тут увімкнено такт порту й ніжку оголошено виходом
-
-  while (1) {
-    HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_SET);    // тягне до живлення → LED світиться
-    HAL_Delay(500);                                        // тримаємо так 500 мс
-    HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_RESET);  // тягне до нуля → LED гасне
-    HAL_Delay(500);                                        // тримаємо темряву 500 мс
-  }
-}
-```
+:::code proj-blink-wiring/c/arduino/krok-1-zmusyty-svitlodiod.ino
+:::code proj-blink-wiring/c/esp-idf/krok-1-zmusyty-svitlodiod.c
+:::code proj-blink-wiring/c/stm32/krok-1-zmusyty-svitlodiod.c
 :::
 
 Три рядки логіки, і в них уся суть виходу: оголошення ніжки виходом дає їй право нав'язувати напругу, а запис рівня вибирає, яку саме. Якщо світлодіод не блимає — дивись не в код, а в залізо: чи не переплутано анод із катодом (діод пропускає струм лише в один бік), чи стоїть резистор, чи не сів дріт повз стовпчик.
@@ -122,79 +71,9 @@ int main(void) {
 Тепер друга ніжка — вхід із кнопкою. Дій знову дві, і вони однакові скрізь: **оголосити ніжку входом з увімкненою внутрішньою підтяжкою** й **прочитати з неї рівень**. В Arduino це `pinMode(ніжка, INPUT_PULLUP)` і `digitalRead(ніжка)`; в ESP-IDF — поле `.pull_up_en` у `gpio_config()` і `gpio_get_level()`; на STM32 — режим входу з `GPIO_PULLUP` і `HAL_GPIO_ReadPin()`. Підтяжка ввімкнена — і відпущена кнопка дає стабільний HIGH.
 
 :::tabs
-```arduino
-const uint8_t PIN_LED = 8;
-const uint8_t PIN_BTN = 3;   // ніжка IN зі схеми: сюди одна нога кнопки, друга — на «−»
-
-void setup() {
-    pinMode(PIN_LED, OUTPUT);
-    pinMode(PIN_BTN, INPUT_PULLUP); // вхід + внутрішня підтяжка до «+»
-}
-
-void loop() {
-    // active-low: натиснуто = LOW. Тож "світло є" ⇔ "на вході LOW".
-    if (digitalRead(PIN_BTN) == LOW) {
-        digitalWrite(PIN_LED, HIGH); // кнопку тримають → світимо
-    } else {
-        digitalWrite(PIN_LED, LOW);  // відпущено → гасимо
-    }
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define PIN_LED  GPIO_NUM_18
-#define PIN_BTN  GPIO_NUM_19     // ніжка IN зі схеми: сюди одна нога кнопки, друга — на «−»
-
-void app_main(void) {
-    gpio_config_t out = {
-        .pin_bit_mask = 1ULL << PIN_LED,
-        .mode = GPIO_MODE_OUTPUT,
-    };
-    gpio_config(&out);
-
-    gpio_config_t in = {
-        .pin_bit_mask = 1ULL << PIN_BTN,
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_ENABLE,   // вхід + внутрішня підтяжка до «+»
-    };
-    gpio_config(&in);
-
-    while (1) {
-        // active-low: натиснуто = 0. Тож "світло є" ⇔ "на вході 0".
-        if (gpio_get_level(PIN_BTN) == 0) {
-            gpio_set_level(PIN_LED, 1);     // кнопку тримають → світимо
-        } else {
-            gpio_set_level(PIN_LED, 0);     // відпущено → гасимо
-        }
-        vTaskDelay(pdMS_TO_TICKS(5));       // опитуємо часто, але віддаємо час іншим задачам
-    }
-}
-```
-```stm32
-// PB8 у CubeMX — GPIO_Output; PB9 — GPIO_Input із Pull-up (внутрішня підтяжка до «+»).
-#define LED_PORT  GPIOB
-#define LED_PIN   GPIO_PIN_8
-#define BTN_PORT  GPIOB
-#define BTN_PIN   GPIO_PIN_9
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();               // тут задано напрямки ніжок і ввімкнено підтяжку на BTN_PIN
-
-  while (1) {
-    // active-low: натиснуто = RESET. Тож "світло є" ⇔ "на вході RESET".
-    if (HAL_GPIO_ReadPin(BTN_PORT, BTN_PIN) == GPIO_PIN_RESET) {
-      HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_SET);    // кнопку тримають → світимо
-    } else {
-      HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_RESET);  // відпущено → гасимо
-    }
-  }
-}
-```
+:::code proj-blink-wiring/c/arduino/krok-2-prochytaty-knopku.ino
+:::code proj-blink-wiring/c/esp-idf/krok-2-prochytaty-knopku.c
+:::code proj-blink-wiring/c/stm32/krok-2-prochytaty-knopku.c
 :::
 
 Це вже повний «кнопка → світлодіод»: тримаєш кнопку — горить, відпустив — згасло. Зверни увагу на перевернуту логіку: `== LOW` означає «натиснуто», бо підтяжка тримає відпущений вхід у HIGH. Тут пауза не потрібна зовсім — головний цикл крутиться тисячі разів на секунду й щоразу свіжо питає кнопку, тож реакція миттєва.
@@ -212,141 +91,9 @@ int main(void) {
 Найгірший спосіб «зачекати» — блокувальна пауза на 30 мс: вона знову паралізує чіп. Правильно рахувати час, не спиняючи роботу, — за **монотонним годинником**, який є в кожної платформи й робить те саме: каже, скільки часу минуло від старту (`millis()` в Arduino, `esp_timer_get_time()` в ESP-IDF — у мікросекундах, `HAL_GetTick()` на STM32). Ідея: запам'ятати мить останньої зміни на вході й приймати новий стан, лише коли від неї минуло більше за поріг.
 
 :::tabs
-```arduino
-const uint8_t PIN_LED = 8;
-const uint8_t PIN_BTN = 3;
-
-const unsigned long DEBOUNCE_MS = 30;  // поріг: скільки чекати, поки брязкіт уляжеться
-
-bool     ledOn        = false;         // поточний стан світла (перемикач)
-int      btnStable     = HIGH;         // останній «усталений» стан кнопки (відпущена = HIGH)
-int      btnLastRead   = HIGH;         // що прочитали минулого разу (для лову зміни)
-unsigned long lastEdge = 0;            // мить останнього дрижання на вході
-
-void setup() {
-    pinMode(PIN_LED, OUTPUT);
-    pinMode(PIN_BTN, INPUT_PULLUP);
-}
-
-void loop() {
-    int reading = digitalRead(PIN_BTN);
-
-    // помітили будь-яку зміну на вході — це може бути і корисний натиск, і брязкіт.
-    // Заводимо годинник наново: чекатимемо, поки вхід ПОСТОЇТЬ незмінним DEBOUNCE_MS.
-    if (reading != btnLastRead) {
-        lastEdge = millis();
-    }
-
-    // якщо від останнього дрижання минуло досить — вхід уже усталився, йому можна вірити
-    if (millis() - lastEdge > DEBOUNCE_MS) {
-        if (reading != btnStable) {          // усталений стан справді змінився
-            btnStable = reading;
-            if (btnStable == LOW) {          // саме натиснули (active-low) — момент перемикання
-                ledOn = !ledOn;              // перевертаємо світло
-                digitalWrite(PIN_LED, ledOn ? HIGH : LOW);
-            }
-        }
-    }
-
-    btnLastRead = reading; // запам'ятали для наступного кола
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define PIN_LED  GPIO_NUM_18
-#define PIN_BTN  GPIO_NUM_19
-
-#define DEBOUNCE_MS  30                 // поріг: скільки чекати, поки брязкіт уляжеться
-
-static uint32_t now_ms(void) {          // монотонний годинник від старту, у мілісекундах
-    return (uint32_t)(esp_timer_get_time() / 1000);
-}
-
-void app_main(void) {
-    gpio_config_t out = { .pin_bit_mask = 1ULL << PIN_LED, .mode = GPIO_MODE_OUTPUT };
-    gpio_config(&out);
-    gpio_config_t in = {
-        .pin_bit_mask = 1ULL << PIN_BTN,
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_ENABLE,
-    };
-    gpio_config(&in);
-
-    bool     led_on    = false;         // поточний стан світла (перемикач)
-    int      btn_stable = 1;            // останній «усталений» стан кнопки (відпущена = 1)
-    int      btn_last   = 1;            // що прочитали минулого разу (для лову зміни)
-    uint32_t last_edge  = 0;            // мить останнього дрижання на вході
-
-    while (1) {
-        int reading = gpio_get_level(PIN_BTN);
-
-        // будь-яка зміна на вході — чи то натиск, чи то брязкіт — заводить годинник наново
-        if (reading != btn_last) {
-            last_edge = now_ms();
-        }
-
-        // вхід постояв незмінним досить довго — йому вже можна вірити
-        if (now_ms() - last_edge > DEBOUNCE_MS) {
-            if (reading != btn_stable) {
-                btn_stable = reading;
-                if (btn_stable == 0) {          // саме натиснули (active-low)
-                    led_on = !led_on;           // перевертаємо світло
-                    gpio_set_level(PIN_LED, led_on ? 1 : 0);
-                }
-            }
-        }
-
-        btn_last = reading;             // запам'ятали для наступного кола
-        vTaskDelay(pdMS_TO_TICKS(2));   // опитуємо часто, але віддаємо час іншим задачам
-    }
-}
-```
-```stm32
-// PB8 — GPIO_Output (LED); PB9 — GPIO_Input із Pull-up (кнопка на «−»).
-#define LED_PORT  GPIOB
-#define LED_PIN   GPIO_PIN_8
-#define BTN_PORT  GPIOB
-#define BTN_PIN   GPIO_PIN_9
-
-#define DEBOUNCE_MS  30u              // поріг: скільки чекати, поки брязкіт уляжеться
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();                     // LED — вихід, кнопка — вхід із підтяжкою до «+»
-
-  bool          led_on     = false;            // поточний стан світла (перемикач)
-  GPIO_PinState btn_stable = GPIO_PIN_SET;     // усталений стан кнопки (відпущена = SET)
-  GPIO_PinState btn_last   = GPIO_PIN_SET;     // що прочитали минулого разу
-  uint32_t      last_edge  = 0;                // мить останнього дрижання на вході
-
-  while (1) {
-    GPIO_PinState reading = HAL_GPIO_ReadPin(BTN_PORT, BTN_PIN);
-
-    // будь-яка зміна на вході — чи то натиск, чи то брязкіт — заводить годинник наново
-    if (reading != btn_last) {
-      last_edge = HAL_GetTick();
-    }
-
-    // вхід постояв незмінним досить довго — йому вже можна вірити
-    if (HAL_GetTick() - last_edge > DEBOUNCE_MS) {
-      if (reading != btn_stable) {
-        btn_stable = reading;
-        if (btn_stable == GPIO_PIN_RESET) {    // саме натиснули (active-low)
-          led_on = !led_on;                    // перевертаємо світло
-          HAL_GPIO_WritePin(LED_PORT, LED_PIN, led_on ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        }
-      }
-    }
-
-    btn_last = reading;               // запам'ятали для наступного кола
-  }
-}
-```
+:::code proj-blink-wiring/c/arduino/krok-3-briazkit-kontaktiv.ino
+:::code proj-blink-wiring/c/esp-idf/krok-3-briazkit-kontaktiv.c
+:::code proj-blink-wiring/c/stm32/krok-3-briazkit-kontaktiv.c
 :::
 
 Тепер натиск перемикає світло рівно раз, хоч би скільки разів контакт брязнув: перші дрижання щоразу «переводять годинник» `lastEdge`, і поки вхід не постоїть спокійно цілих 30 мс, код нового стану не приймає. головний цикл при цьому ніде не спиняється — чіп вільний робити ще хоч десять справ між опитуваннями кнопки. Це канонічний неблокувальний антидребезг, і саме його варто мати в пам'яті як заготовку: будь-яка механічна кнопка в будь-якому проєкті просить того самого.
