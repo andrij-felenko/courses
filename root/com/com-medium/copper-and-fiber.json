@@ -18,7 +18,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         },
         {
@@ -34,7 +35,8 @@
           "proj": [
             {
               "file": "proj-mdio-driver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -56,7 +58,8 @@
           "proj": [
             {
               "file": "proj-link-monitor.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -78,13 +81,15 @@
           "proj": [
             {
               "file": "proj-an-fsm.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-mii-registers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -132,7 +137,9 @@
           "comp": [
             {
               "file": "comp-pd-interface.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "math": [
@@ -149,7 +156,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -160,13 +168,16 @@
           "proj": [
             {
               "file": "proj-mdio-bitbang.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-clause22-clause45-registers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -218,7 +229,8 @@
           "proj": [
             {
               "file": "proj-dispersion-calc.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -259,13 +271,15 @@
           "proj": [
             {
               "file": "proj-link-budget-calc.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sfp-dom.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -299,7 +313,8 @@
           "proj": [
             {
               "file": "proj-otdr-trace.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -327,7 +342,8 @@
           "proj": [
             {
               "file": "proj-edfa-sim.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -362,13 +378,15 @@
           "proj": [
             {
               "file": "proj-wdm-sim.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-dwdm-grid.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -385,12 +403,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-ir-receivers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -402,13 +422,16 @@
           "math": [
             {
               "file": "math-ir-link-budget.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-ir-nec-transceiver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }

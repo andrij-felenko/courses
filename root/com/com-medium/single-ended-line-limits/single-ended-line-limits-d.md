@@ -303,66 +303,9 @@ R_term = 50 Ω - 20 Ω = 30 Ω  (стандартний ряд: 27–33 Ω)
 Сучасні мікроконтролери дозволяють регулювати крутизну фронту та вихідну потужність драйвера (Drive Strength) для кожного виводу GPIO через внутрішні регістри. Зменшення крутизни фронту досягається вмиканням меншої кількості паралельних транзисторів у вихідному каскаді чіпа.
 
 :::tabs
-```stm32
-/* Налаштування GPIO у мікроконтролерах STM32 (HAL / LL)
- * Для ліній SPI або UART на частотах до 10-20 МГц слід обирати
- * помірну швидкість наростання замість максимальної VERY_HIGH. */
-
-GPIO_InitTypeDef gpio = {0};
-gpio.Pin = GPIO_PIN_5 | GPIO_PIN_7; // SCK, MOSI
-gpio.Mode = GPIO_MODE_AF_PP;
-gpio.Pull = GPIO_NOPULL;
-
-/* GPIO_SPEED_FREQ_LOW     : t_rise ≈ 20-50 нс (ідеально для I2C, UART)
- * GPIO_SPEED_FREQ_MEDIUM  : t_rise ≈ 10-15 нс (для SPI до 10-15 МГц)
- * GPIO_SPEED_FREQ_HIGH    : t_rise ≈ 4-6 нс
- * GPIO_SPEED_FREQ_VERY_HIGH: t_rise ≈ 1.2-2 нс (джерело сильного дзвону!) */
-gpio.Speed = GPIO_SPEED_FREQ_MEDIUM;
-
-HAL_GPIO_Init(GPIOA, &gpio);
-```
-```esp-idf
-/* Налаштування сили вихідного каскаду в ESP-IDF (ESP32)
- * Зниження струмової здатності сповільнює dV/dt та di/dt,
- * радикально пригнічуючи Ground Bounce та дзвін. */
-
-#include "driver/gpio.h"
-
-gpio_config_t io_conf = {
-    .pin_bit_mask = (1ULL << GPIO_NUM_18), // SPI CLK
-    .mode = GPIO_MODE_OUTPUT,
-    .pull_up_en = GPIO_PULLUP_DISABLE,
-    .pull_down_en = GPIO_PULLDOWN_DISABLE,
-    .intr_type = GPIO_INTR_DISABLE
-};
-gpio_config(&io_conf);
-
-/* Доступні рівні:
- * GPIO_DRIVE_CAP_0 : слабкий (~5 мА, найм'якший фронт)
- * GPIO_DRIVE_CAP_1 : середній (~10 мА)
- * GPIO_DRIVE_CAP_2 : стандартний (~20 мА)
- * GPIO_DRIVE_CAP_3 : максимальний (~40 мА, максимальний шум) */
-gpio_set_drive_capability(GPIO_NUM_18, GPIO_DRIVE_CAP_1);
-```
-```arduino
-/* В середовищі Arduino для сумісних ядер (наприклад, RP2040 або STM32)
- * доступне керування slew rate через прямий доступ до регістрів або API */
-
-void setup() {
-    pinMode(13, OUTPUT); // SPI SCK
-    
-    #if defined(ARDUINO_ARCH_RP2040)
-    // Обмеження швидкості наростання на RP2040 (Raspberry Pi Pico)
-    // Slew rate: 0 = повільний (Slow), 1 = швидкий (Fast)
-    gpio_set_slew_rate(13, GPIO_SLEW_RATE_SLOW);
-    gpio_set_drive_strength(13, GPIO_DRIVE_STRENGTH_4MA);
-    #endif
-}
-
-void loop() {
-    // Основний цикл обміну
-}
-```
+:::code single-ended-line-limits-d/c/stm32/main.c
+:::code single-ended-line-limits-d/c/esp-idf/main.h
+:::code single-ended-line-limits-d/c/arduino/main.ino
 :::
 
 Збільшення часу фронту з 1.5 нс до 15 нс знижує `di/dt` та `dV/dt` рівно вдесятеро. Це пропорційно зменшує амплітуду перехресних наведень на сусідні лінії та усуває підстрибування внутрішньої землі мікросхеми, не вимагаючи жодних додаткових компонентів на платі.

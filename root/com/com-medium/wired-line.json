@@ -23,25 +23,30 @@
           "hist": [
             {
               "file": "hist-heaviside-telephony.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-telegrapher-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-line-transient-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-line-parameters.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -74,19 +79,22 @@
           "math": [
             {
               "file": "math-telegrapher-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-line-impedance-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-t-line-parameters.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -108,19 +116,22 @@
           "math": [
             {
               "file": "math-effective-permittivity.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-tdr-calculator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-dielectric-materials.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         }
@@ -161,7 +172,8 @@
           "proj": [
             {
               "file": "proj-gamma-calculator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -194,7 +206,8 @@
           "proj": [
             {
               "file": "proj-return-loss-vna.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -229,7 +242,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "math": [
             {
@@ -240,7 +254,8 @@
           "proj": [
             {
               "file": "proj-smith-calculator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -269,13 +284,15 @@
           "proj": [
             {
               "file": "proj-tdr-analyzer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-tdr-scpi.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -310,7 +327,8 @@
           "proj": [
             {
               "file": "proj-l-network-calc.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -333,7 +351,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -344,7 +363,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "math": [
             {
@@ -370,7 +390,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -387,7 +408,8 @@
           "proj": [
             {
               "file": "proj-current-loop-uart.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -415,19 +437,22 @@
           "comp": [
             {
               "file": "comp-differential-interfaces.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-rs422-transceiver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-pinout-and-signals.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -439,7 +464,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         },
         {
@@ -449,7 +475,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -466,7 +493,8 @@
           "proj": [
             {
               "file": "proj-dir-control.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -495,19 +523,23 @@
           "api": [
             {
               "file": "api-shield-transfer-impedance.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-radiated-fields.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-cm-dm-filter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },

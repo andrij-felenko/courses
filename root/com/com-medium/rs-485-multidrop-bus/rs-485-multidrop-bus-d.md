@@ -103,19 +103,7 @@ void rs485_send(const uint8_t *buf, size_t n) {
     digitalWrite(RS485_DE_PIN, LOW);    // відпускаємо лінію: знову слухаємо
 }
 ```
-```python
-# MicroPython: DE і RE зведені в один пін (DE=1 → передаємо, DE=0 → слухаємо)
-from machine import Pin, UART
-
-de = Pin(4, Pin.OUT)
-uart = UART(1, baudrate=9600, bits=8, parity=None, stop=1)
-
-def rs485_send(buf):
-    de.value(1)          # беремо лінію: вузол говорить
-    uart.write(buf)      # штовхаємо байти в апаратний UART
-    uart.flush()         # ЧЕКАЄМО, поки піде ОСТАННІЙ стоп-біт
-    de.value(0)          # відпускаємо лінію: знову слухаємо
-```
+:::code rs-485-multidrop-bus-d/py/main.py
 :::
 
 Уся суть — у `flush()` між `write()` і опусканням DE: без нього програма зняла б DE, поки останні байти ще сидять у буфері передавача, і обірвала б власний кадр. Це найчастіша причина, чому «передаю — а на тому кінці сміття».

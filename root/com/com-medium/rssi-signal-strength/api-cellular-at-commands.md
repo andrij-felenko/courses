@@ -114,44 +114,8 @@ mmcli -m 0 --signal-get
 
 Програмні опитування з Python чи C/C++ через бібліотеку `libmm-glib`:
 :::tabs
-```c
-#include <libmm-glib.h>
-
-void read_signal_metrics(MMModemSignal *signal_object) {
-    MMSignalLte *lte_info = mm_modem_signal_get_lte(signal_object);
-    if (lte_info) {
-        gdouble rsrp = mm_signal_lte_get_rsrp(lte_info);
-        gdouble rsrq = mm_signal_lte_get_rsrq(lte_info);
-        gdouble rssi = mm_signal_lte_get_rssi(lte_info);
-        gdouble snr  = mm_signal_lte_get_snr(lte_info);
-
-        g_print("LTE Metrics -> RSRP: %.1f dBm, RSRQ: %.1f dB, RSSI: %.1f dBm, SINR: %.1f dB\n",
-                rsrp, rsrq, rssi, snr);
-        g_object_unref(lte_info);
-    }
-}
-```
-```cpp
-#include <libmm-glib.h>
-#include <iostream>
-#include <memory>
-
-void read_signal_metrics(MMModemSignal *signal_object) {
-    // Використання RAII-обгортки для управління ресурсами GLib об'єкта
-    using LteSignalPtr = std::unique_ptr<MMSignalLte, decltype([](MMSignalLte* p) { g_object_unref(p); })>;
-    LteSignalPtr lte_info{mm_modem_signal_get_lte(signal_object)};
-
-    if (lte_info) {
-        const double rsrp = mm_signal_lte_get_rsrp(lte_info.get());
-        const double rsrq = mm_signal_lte_get_rsrq(lte_info.get());
-        const double rssi = mm_signal_lte_get_rssi(lte_info.get());
-        const double snr  = mm_signal_lte_get_snr(lte_info.get());
-
-        std::cout << "LTE Metrics -> RSRP: " << rsrp << " dBm, RSRQ: " << rsrq
-                  << " dB, RSSI: " << rssi << " dBm, SINR: " << snr << " dB\n";
-    }
-}
-```
+:::code api-cellular-at-commands/c/main.c
+:::code api-cellular-at-commands/cpp/main.cpp
 :::
 
 ## 3. Telephony Framework в Android
@@ -164,23 +128,7 @@ void read_signal_metrics(MMModemSignal *signal_object) {
 
 #### Приклад вичитування метрик у Java / Kotlin:
 
-```kotlin
-import android.telephony.CellInfoLte
-import android.telephony.CellSignalStrengthLte
-import android.telephony.TelephonyManager
-
-fun processLteSignalInfo(cellInfo: CellInfoLte) {
-    val lteSignal: CellSignalStrengthLte = cellInfo.cellSignalStrength
-
-    val rsrpDbm: Int = lteSignal.rsrp     // Діапазон: -140..-44 dBm
-    val rsrqDb: Int = lteSignal.rsrq       // Діапазон: -20..-3 dB
-    val rssiDbm: Int = lteSignal.rssi     // Загальний RSSI у dBm
-    val snrDb: Int = lteSignal.rssnr       // Відношення сигнал/шум (SNR)
-    val level: Int = lteSignal.level       // 5-бальна оцінка статусу (0..4)
-
-    println("Android Telephony -> RSRP: $rsrpDbm dBm, RSRQ: $rsrqDb dB, Level: $level/4")
-}
-```
+:::code api-cellular-at-commands/kotlin/main.kt
 
 Обчислений метод `getLevel()` розраховує кількість «паличок» (signal bars) для графічного інтерфейсу системи. Алгоритм Android порівнює RSRP та RSQN із порогами, заданими в конфігураційному файлі оператора `carrier_config.xml`, що запобігає маніпуляціям вендорів із штучним завищенням рівня сигналу.
 

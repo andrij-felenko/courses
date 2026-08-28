@@ -43,108 +43,8 @@
 У програмуванні приймачів бінарний потік даних із демодулятора спочатку розпаковується у бітові поля сирої структури, після чого декодувальний модуль масштабує біти у плаваючі величини та перевіряє їх на відповідність діапазонам специфікації IS-GPS-200.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <math.h>
-
-#pragma pack(push, 1)
-/* Сирий бінарний пакет Subframe 4 Page 18 (упакований) */
-typedef struct {
-    int8_t  alpha0_raw; /* LSB = 2^-30 s */
-    int8_t  alpha1_raw; /* LSB = 2^-27 s/semi-circle */
-    int8_t  alpha2_raw; /* LSB = 2^-24 s/semi-circle^2 */
-    int8_t  alpha3_raw; /* LSB = 2^-24 s/semi-circle^3 */
-    int8_t  beta0_raw;  /* LSB = 2^11 s */
-    int8_t  beta1_raw;  /* LSB = 2^14 s/semi-circle */
-    int8_t  beta2_raw;  /* LSB = 2^16 s/semi-circle^2 */
-    int8_t  beta3_raw;  /* LSB = 2^16 s/semi-circle^3 */
-} gps_klobuchar_raw_t;
-#pragma pack(pop)
-
-/* Декодовані фізичні параметри у міжнародних одиницях */
-typedef struct {
-    double alpha[4];    /* Альфа-коефіцієнти амплітуди (с, с/напівколо, ...) */
-    double beta[4];     /* Бета-коефіцієнти періоду (с, с/напівколо, ...) */
-    uint32_t tow_sec;   /* Час тижня GPS (Time of Week) */
-    bool   is_valid;    /* Прапорець цілісності й коректності декодування */
-} gps_klobuchar_decoded_t;
-
-/**
- * Декодує сирі біти супутникового кадру GPS у фізичні параметри Klobuchar.
- */
-static inline void gps_klobuchar_decode(const gps_klobuchar_raw_t* raw, uint32_t tow, gps_klobuchar_decoded_t* out) {
-    out->alpha[0] = raw->alpha0_raw * pow(2.0, -30);
-    out->alpha[1] = raw->alpha1_raw * pow(2.0, -27);
-    out->alpha[2] = raw->alpha2_raw * pow(2.0, -24);
-    out->alpha[3] = raw->alpha3_raw * pow(2.0, -24);
-
-    out->beta[0]  = raw->beta0_raw  * pow(2.0, 11);
-    out->beta[1]  = raw->beta1_raw  * pow(2.0, 14);
-    out->beta[2]  = raw->beta2_raw  * pow(2.0, 16);
-    out->beta[3]  = raw->beta3_raw  * pow(2.0, 16);
-
-    out->tow_sec  = tow;
-    out->is_valid = true;
-}
-```
-```cpp
-#include <array>
-#include <cstdint>
-#include <cmath>
-#include <optional>
-
-namespace gnss::api {
-
-/* Зпакована сира бітова структура кадру IS-GPS-200 */
-struct alignas(1) GpsKlobucharRaw {
-    std::int8_t alpha0_raw;
-    std::int8_t alpha1_raw;
-    std::int8_t alpha2_raw;
-    std::int8_t alpha3_raw;
-    std::int8_t beta0_raw;
-    std::int8_t beta1_raw;
-    std::int8_t beta2_raw;
-    std::int8_t beta3_raw;
-};
-
-/* Ідіоматична структура C++ з вбудованою валидацією */
-struct GpsKlobucharBroadcast {
-    std::array<double, 4> alpha{};
-    std::array<double, 4> beta{};
-    std::uint32_t         tow_sec{0};
-    bool                  valid{false};
-
-    [[nodiscard]] static constexpr GpsKlobucharBroadcast decode(const GpsKlobucharRaw& raw, std::uint32_t tow) noexcept {
-        GpsKlobucharBroadcast decoded{};
-        decoded.alpha[0] = raw.alpha0_raw * std::pow(2.0, -30);
-        decoded.alpha[1] = raw.alpha1_raw * std::pow(2.0, -27);
-        decoded.alpha[2] = raw.alpha2_raw * std::pow(2.0, -24);
-        decoded.alpha[3] = raw.alpha3_raw * std::pow(2.0, -24);
-
-        decoded.beta[0]  = raw.beta0_raw  * std::pow(2.0, 11);
-        decoded.beta[1]  = raw.beta1_raw  * std::pow(2.0, 14);
-        decoded.beta[2]  = raw.beta2_raw  * std::pow(2.0, 16);
-        decoded.beta[3]  = raw.beta3_raw  * std::pow(2.0, 16);
-
-        decoded.tow_sec  = tow;
-        decoded.valid    = decoded.checkBounds();
-        return decoded;
-    }
-
-    [[nodiscard]] constexpr bool checkBounds() const noexcept {
-        for (double a : alpha) {
-            if (std::isnan(a)) return false;
-        }
-        for (double b : beta) {
-            if (std::isnan(b)) return false;
-        }
-        return true;
-    }
-};
-
-} // namespace gnss::api
-```
+:::code api-gnss-iono-corrections/c/zaholovochni-struktury.c
+:::code api-gnss-iono-corrections/cpp/zaholovochni-struktury.cpp
 :::
 
 ### 2. Galileo NeQuick-G Broadcast Interface (Galileo OS SIS ICD)
@@ -173,52 +73,8 @@ A_z = a_z0 + a_z1 · μ + a_z2 · μ²
 #### Структури даних Galileo NeQuick-G у коді C та C++
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    double a_z0;            /* Ефективне значення сонячного потоку Az (SFU) */
-    double a_z1;            /* Лінійний коефіцієнт за широтою MODIP */
-    double a_z2;            /* Квадратичний коефіцієнт за широтою MODIP */
-    uint8_t region_flags;   /* 5 біт регіональних прапорців іоносферного шторму */
-    uint32_t issue_of_data; /* Ідентифікатор версії даних IODN (Issue of Data) */
-    bool is_valid;
-} galileo_nequick_broadcast_t;
-
-/**
- * Ініціалізує структуру NeQuick-G за замовчуванням при відсутності супутникових поправок.
- */
-static inline void galileo_nequick_set_default(galileo_nequick_broadcast_t* params) {
-    params->a_z0 = 63.7;  /* Середнє значення сонячного потоку у спокійний період */
-    params->a_z1 = 0.0;
-    params->a_z2 = 0.0;
-    params->region_flags = 0;
-    params->issue_of_data = 0;
-    params->is_valid = false;
-}
-```
-```cpp
-#include <cstdint>
-#include <optional>
-
-namespace gnss::api {
-
-struct GalileoNeQuickBroadcast {
-    double        a_z0{63.7};
-    double        a_z1{0.0};
-    double        a_z2{0.0};
-    std::uint8_t  region_flags{0};
-    std::uint32_t issue_of_data{0};
-    bool          valid{false};
-
-    [[nodiscard]] constexpr double calculateAz(double modip_deg) const noexcept {
-        return a_z0 + a_z1 * modip_deg + a_z2 * modip_deg * modip_deg;
-    }
-};
-
-} // namespace gnss::api
-```
+:::code api-gnss-iono-corrections/c/struktury-danykh-galileo.c
+:::code api-gnss-iono-corrections/cpp/struktury-danykh-galileo.cpp
 :::
 
 ### 3. SBAS Ionospheric Grid Point Interface (ICAO Annex 10 / RTCA DO-229)
@@ -262,60 +118,8 @@ struct GalileoNeQuickBroadcast {
 #### Структури даних SBAS IGP у коді C та C++
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint16_t igp_number;       /* Номер вузла сітки IGP (1..201) */
-    double   delay_vertical_m; /* Вертикальна затримка в метрах (0.125 м LSB) */
-    uint8_t  givei;            /* Індекс помилки цілісності (0..15) */
-    double   sigma_give_m;     /* Декодоване СКО помилки в метрах */
-    bool     is_monitored;     /* Прапорець активного моніторингу */
-} sbas_igp_point_t;
-
-/* Двовимірна картографічна інтерполяція в осередку IGP */
-typedef struct {
-    sbas_igp_point_t corners[4]; /* 4 кутові вузли сітки навколо IPP */
-    bool is_valid_quad;          /* Чи всі 4 вузли придатні для інтерполяції */
-} sbas_igp_cell_t;
-```
-```cpp
-#include <array>
-#include <cstdint>
-
-namespace gnss::api {
-
-struct SbasIgpPoint {
-    std::uint16_t igp_id{0};
-    double        delay_vertical_m{0.0};
-    std::uint8_t  givei{15};
-    double        sigma_give_m{1e9};
-    bool          monitored{false};
-
-    [[nodiscard]] static constexpr double decodeGiveiSigma(std::uint8_t givei) noexcept {
-        constexpr std::array<double, 15> give_table{
-            0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40,
-            0.50, 0.60, 0.75, 1.00, 1.50, 2.50, 7.50
-        };
-        if (givei < 15) return give_table[givei];
-        return 1e9; /* Поріг непридатності */
-    }
-};
-
-struct SbasIgpCell {
-    std::array<SbasIgpPoint, 4> corners{};
-
-    [[nodiscard]] bool isValidForNavigation() const noexcept {
-        for (const auto& pt : corners) {
-            if (!pt.monitored || pt.givei >= 15) return false;
-        }
-        return true;
-    }
-};
-
-} // namespace gnss::api
-```
+:::code api-gnss-iono-corrections/c/struktury-danykh-sbas-igp.c
+:::code api-gnss-iono-corrections/cpp/struktury-danykh-sbas-igp.cpp
 :::
 
 ### 4. Стандартний файл обміну картами іоносфери IONEX (v1.0 / v2.0)
@@ -366,83 +170,8 @@ VTEC_TECU = Value_raw · 10^(EXPONENT)
 #### C та C++ структури для парсингу файлів IONEX
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <math.h>
-#include <stdlib.h>
-
-typedef struct {
-    double lat1_deg;     /* Стартова широта (-87.5) */
-    double lat2_deg;     /* Кінцева широта (+87.5) */
-    double dlat_deg;     /* Крок сітки за широтою (2.5) */
-    double lon1_deg;     /* Стартова довгота (-180.0) */
-    double lon2_deg;     /* Кінцева довгота (+180.0) */
-    double dlon_deg;     /* Крок сітки за довготою (5.0) */
-    double height_km;    /* Висота іоносферної оболонки (350.0 км) */
-    int32_t exponent;    /* Масштабний експоненційний множник (зазвичай -1) */
-} ionex_header_t;
-
-typedef struct {
-    uint32_t epoch_seconds;   /* Час епохи карти (Unix timestamp) */
-    int16_t* grid_data_raw;   /* Одновимірний масив розміру (n_lat * n_lon) */
-    size_t   n_lat;
-    size_t   n_lon;
-} ionex_map_t;
-
-/**
- * Отримує фізичне значення VTEC у TECU для заданого індексу сітки.
- */
-static inline double ionex_get_vtec_tecu(const ionex_map_t* map, int32_t exp_val, size_t i_lat, size_t i_lon) {
-    if (i_lat >= map->n_lat || i_lon >= map->n_lon) return 0.0;
-    size_t idx = i_lat * map->n_lon + i_lon;
-    return (double)map->grid_data_raw[idx] * pow(10.0, exp_val);
-}
-```
-```cpp
-#include <vector>
-#include <cstdint>
-#include <cmath>
-#include <cstddef>
-
-namespace gnss::api {
-
-struct IonexHeader {
-    double       lat1_deg{-87.5};
-    double       lat2_deg{87.5};
-    double       dlat_deg{2.5};
-    double       lon1_deg{-180.0};
-    double       lon2_deg{180.0};
-    double       dlon_deg{5.0};
-    double       height_km{350.0};
-    std::int32_t exponent{-1};
-};
-
-class IonexMapGrid {
-public:
-    IonexMapGrid(std::size_t rows, std::size_t cols, std::int32_t exp_val)
-        : num_rows_(rows), num_cols_(cols), exponent_(exp_val), data_(rows * cols, 0) {}
-
-    void setRawValue(std::size_t row, std::size_t col, std::int16_t val) noexcept {
-        if (row < num_rows_ && col < num_cols_) {
-            data_[row * num_cols_ + col] = val;
-        }
-    }
-
-    [[nodiscard]] double getVtecTecu(std::size_t row, std::size_t col) const noexcept {
-        if (row >= num_rows_ || col >= num_cols_) return 0.0;
-        return static_cast<double>(data_[row * num_cols_ + col]) * std::pow(10.0, exponent_);
-    }
-
-private:
-    std::size_t num_rows_;
-    std::size_t num_cols_;
-    std::int32_t exponent_;
-    std::vector<std::int16_t> data_;
-};
-
-} // namespace gnss::api
-```
+:::code api-gnss-iono-corrections/c/c-ta-c-struktury-dlia.c
+:::code api-gnss-iono-corrections/cpp/c-ta-c-struktury-dlia.cpp
 :::
 
 ### 5. Обробка помилок та відмова від відповідальності (Error Handling)

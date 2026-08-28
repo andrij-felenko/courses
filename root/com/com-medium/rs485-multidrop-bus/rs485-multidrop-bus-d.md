@@ -178,78 +178,8 @@ V_AB(idle) ≈ +200 мВ .. +300 мВ
 Опускати `DE = 0` можна лише після отримання прапорця **`TC` (*Transmission Complete*)**, який свідчить про те, що останній стоп-біт фізично залишив апаратний зсувний регістр UART.
 
 :::tabs
-```c
-// ============================================================================
-// Мова C: Коректний алгоритм відправки кадру по RS-485 з перевіркою прапорця TC
-// ============================================================================
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-extern void gpio_set_de_pin(bool state);
-extern bool uart_is_txe(void);
-extern bool uart_is_tc(void);
-extern void uart_send_byte_raw(uint8_t b);
-
-void rs485_send_buffer(const uint8_t *data, size_t len) {
-    // 1. Переводимо трансивер у режим передачі
-    gpio_set_de_pin(true);
-
-    for (size_t i = 0; i < len; i++) {
-        // Очікуємо готовності апаратного буфера передачі (TXE)
-        while (!uart_is_txe());
-        uart_send_byte_raw(data[i]);
-    }
-
-    // 2. Обов'язково чекаємо повного виходу останнього стоп-біта у дріт (TC!)
-    while (!uart_is_tc());
-
-    // 3. Звільняємо шину — повертаємося в режим приймання High-Z
-    gpio_set_de_pin(false);
-}
-```
-```cpp
-// ============================================================================
-// Мова C++: Ідіоматичне RAII-керування піном напрямку RS-485 із std::span
-// ============================================================================
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-class Rs485DirectionGuard {
-public:
-    Rs485DirectionGuard() {
-        setDeHardware(true);  // Умикаємо передавач RS-485 при створенні об'єкта
-    }
-    
-    ~Rs485DirectionGuard() {
-        waitUartTcHardware(); // Чекаємо повного виходу останнього стоп-біта (TC)
-        setDeHardware(false); // Завжди відпускаємо шину в RX навіть при винятках
-    }
-
-    Rs485DirectionGuard(const Rs485DirectionGuard&) = delete;
-    Rs485DirectionGuard& operator=(const Rs485DirectionGuard&) = delete;
-
-private:
-    static void setDeHardware(bool active) {
-        extern void platform_set_de(bool);
-        platform_set_de(active);
-    }
-
-    static void waitUartTcHardware() {
-        extern void platform_wait_tc(void);
-        platform_wait_tc();
-    }
-};
-
-void send_telemetry_packet(std::span<const std::uint8_t> packet) {
-    Rs485DirectionGuard guard; // RAII тримає шину під час роботи функції
-    for (std::uint8_t byte : packet) {
-        extern void platform_uart_write(std::uint8_t);
-        platform_uart_write(byte);
-    }
-}
-```
+:::code rs485-multidrop-bus-d/c/main.c
+:::code rs485-multidrop-bus-d/cpp/main.cpp
 :::
 
 > ⚙️ Детальний неблокуючий драйвер RS-485 на перериваннях, обробку гонок та налаштування апаратного режиму `DE` у мікроконтролерах STM32 розібрано у [вставці про керування напрямком RS-485 у коді](root:com-medium/rs485-multidrop-bus/proj-dir-control.md).

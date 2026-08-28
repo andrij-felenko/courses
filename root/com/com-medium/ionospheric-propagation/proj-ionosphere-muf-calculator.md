@@ -47,177 +47,8 @@
 ### Реалізація коду (C та C++)
 
 :::tabs
-```c
-#include <stdio.h>
-#include <math.h>
-
-typedef struct {
-    double f_c_mhz;         /* Критична частота (МГц) */
-    double muf_mhz;         /* Максимум придатної частоти (МГц) */
-    double muf_factor;      /* MUF-фактор sec(theta) */
-    double owf_mhz;         /* Оптимальна робоча частота (85% MUF) */
-    double skip_dist_km;    /* Відстань стрибка для робочої частоти (км) */
-    int is_reflected;       /* 1 якщо промінь повертається на Землю, 0 якщо вилітає */
-} iono_path_result_t;
-
-iono_path_result_t calculate_iono_path(double n_e_m3, double layer_h_km, double distance_km, double f_op_mhz) {
-    iono_path_result_t res;
-    double r_e = 6371.0;
-    
-    /* Критична частота шару */
-    double f_c_hz = 8.98 * sqrt(n_e_m3);
-    res.f_c_mhz = f_c_hz / 1.0e6;
-    
-    /* Кут падіння та корекція сферичності Землі */
-    double half_d = distance_km / 2.0;
-    double theta_flat = atan2(half_d, layer_h_km);
-    double sin_theta_sph = sin(theta_flat) * (r_e / (r_e + layer_h_km));
-    if (sin_theta_sph > 1.0) sin_theta_sph = 1.0;
-    double cos_theta_sph = sqrt(1.0 - sin_theta_sph * sin_theta_sph);
-    
-    res.muf_factor = 1.0 / cos_theta_sph;
-    res.muf_mhz = res.f_c_mhz * res.muf_factor;
-    res.owf_mhz = 0.85 * res.muf_mhz;
-    
-    if (f_op_mhz <= res.f_c_mhz) {
-        /* Сигнал відбивається навіть при вертикальному випромінюванні */
-        res.skip_dist_km = 0.0;
-        res.is_reflected = 1;
-    } else if (f_op_mhz <= res.muf_mhz) {
-        /* Обчислення відстані стрибка D_skip */
-        double sec_req = f_op_mhz / res.f_c_mhz;
-        double cos_req = 1.0 / sec_req;
-        double sin_req = sqrt(1.0 - cos_req * cos_req);
-        double tan_req = sin_req / cos_req;
-        res.skip_dist_km = 2.0 * layer_h_km * tan_req;
-        res.is_reflected = 1;
-    } else {
-        /* Робоча частота вища за MUF — промінь іде у космос */
-        res.skip_dist_km = -1.0;
-        res.is_reflected = 0;
-    }
-    
-    return res;
-}
-
-int main(void) {
-    /* Приклад: денний шар F2 (N_e = 1.2e12 ел/м³, h = 300 км, траса D = 2000 км) */
-    double n_e = 1.2e12;
-    double h = 300.0;
-    double distance = 2000.0;
-    double f_op = 14.150; /* 20-метровий аматорський діапазон */
-
-    iono_path_result_t res = calculate_iono_path(n_e, h, distance, f_op);
-
-    printf("=== РЕЗУЛЬТАТИ РОЗРАХУНКУ ІОНОСФЕРНОЇ ТРАСИ ===\n");
-    printf("Критична частота f_c : %.2f МГц\n", res.f_c_mhz);
-    printf("MUF-фактор           : %.2f\n", res.muf_factor);
-    printf("Максимальна частота MUF: %.2f МГц\n", res.muf_mhz);
-    printf("Оптимальна частота OWF: %.2f МГц\n", res.owf_mhz);
-    printf("Робоча частота f_op  : %.2f МГц\n", f_op);
-    
-    if (res.is_reflected) {
-        printf("Статус: ВІДБИТТЯ УСПІШНЕ\n");
-        printf("Відстань стрибка D_skip: %.1f км\n", res.skip_dist_km);
-    } else {
-        printf("Статус: ПРОБИВАННЯ ІОНОСФЕРИ (сигнал вилітає у космос)\n");
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cmath>
-#include <optional>
-#include <iomanip>
-#include <algorithm>
-
-namespace iono {
-
-struct PathParams {
-    double electron_density_m3;  // Електронна густина (ел/м³)
-    double layer_height_km;      // Висота відбивального шару (км)
-    double target_distance_km;   // Відстань між станціями (км)
-    double operational_freq_mhz; // Обрана робоча частота (МГц)
-};
-
-struct PathMetrics {
-    double critical_freq_mhz{0.0};
-    double muf_mhz{0.0};
-    double muf_factor{0.0};
-    double owf_mhz{0.0};
-    std::optional<double> skip_distance_km{std::nullopt};
-};
-
-class IonosphereCalculator {
-public:
-    static constexpr double EarthRadiusKm = 6371.0;
-
-    [[nodiscard]] static PathMetrics compute(const PathParams& params) noexcept {
-        PathMetrics metrics{};
-        
-        // 1. Критична частота
-        const double f_c_hz = 8.98 * std::sqrt(params.electron_density_m3);
-        metrics.critical_freq_mhz = f_c_hz / 1.0e6;
-        
-        // 2. Геометрія похилого променя
-        const double half_d = params.target_distance_km / 2.0;
-        const double theta_flat = std::atan2(half_d, params.layer_height_km);
-        
-        const double sin_sph = std::sin(theta_flat) * (EarthRadiusKm / (EarthRadiusKm + params.layer_height_km));
-        const double cos_sph = std::sqrt(1.0 - std::min(1.0, sin_sph * sin_sph));
-        
-        metrics.muf_factor = 1.0 / cos_sph;
-        metrics.muf_mhz = metrics.critical_freq_mhz * metrics.muf_factor;
-        metrics.owf_mhz = 0.85 * metrics.muf_mhz;
-        
-        // 3. Відстань стрибка для обраної частоти
-        if (params.operational_freq_mhz <= metrics.critical_freq_mhz) {
-            metrics.skip_distance_km = 0.0; // Покриття починається від передавача
-        } else if (params.operational_freq_mhz <= metrics.muf_mhz) {
-            const double sec_req = params.operational_freq_mhz / metrics.critical_freq_mhz;
-            const double cos_req = 1.0 / sec_req;
-            const double sin_req = std::sqrt(1.0 - cos_req * cos_req);
-            metrics.skip_distance_km = 2.0 * params.layer_height_km * (sin_req / cos_req);
-        } else {
-            metrics.skip_distance_km = std::nullopt; // Пробиває іоносферу
-        }
-        
-        return metrics;
-    }
-};
-
-} // namespace iono
-
-int main() {
-    iono::PathParams params{
-        .electron_density_m3 = 1.2e12,
-        .layer_height_km = 300.0,
-        .target_distance_km = 2000.0,
-        .operational_freq_mhz = 14.150
-    };
-
-    const auto res = iono::IonosphereCalculator::compute(params);
-
-    std::cout << std::fixed << std::setprecision(2);
-    std::cout << "=== РЕЗУЛЬТАТИ РОЗРАХУНКУ ІОНОСФЕРНОЇ ТРАСИ (C++) ===\n";
-    std::cout << "Критична частота f_c : " << res.critical_freq_mhz << " МГц\n";
-    std::cout << "MUF-фактор           : " << res.muf_factor << "\n";
-    std::cout << "Максимальна частота MUF: " << res.muf_mhz << " МГц\n";
-    std::cout << "Оптимальна частота OWF: " << res.owf_mhz << " МГц\n";
-    std::cout << "Робоча частота f_op  : " << params.operational_freq_mhz << " МГц\n";
-
-    if (res.skip_distance_km.has_value()) {
-        std::cout << "Статус: ВІДБИТТЯ УСПІШНЕ\n";
-        std::cout << "Відстань стрибка D_skip: " << *res.skip_distance_km << " км\n";
-    } else {
-        std::cout << "Статус: ПРОБИВАННЯ ІОНОСФЕРИ (сигнал вилітає у космос)\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-ionosphere-muf-calculator/c/main.c
+:::code proj-ionosphere-muf-calculator/cpp/realizatsiia-kodu-c-ta-c.cpp
 :::
 
 ---
@@ -332,20 +163,7 @@ f_op < f_c(F2)
 
 Для інтеграції обчислювального двигуна у картографічні веб-панелі оператора радіомоніторингу результат роботи C++ модуля розширюється функцією серіалізації в JSON:
 
-```cpp
-std::string to_json(const PathParams& p, const PathMetrics& m) {
-    std::ostringstream ss;
-    ss << "{\"fc_mhz\":" << m.critical_freq_mhz
-       << ",\"muf_mhz\":" << m.muf_mhz
-       << ",\"owf_mhz\":" << m.owf_mhz
-       << ",\"reflected\":" << (m.skip_distance_km.has_value() ? "true" : "false");
-    if (m.skip_distance_km) {
-        ss << ",\"skip_km\":" << *m.skip_distance_km;
-    }
-    ss << "}";
-    return ss.str();
-}
-```
+:::code proj-ionosphere-muf-calculator/cpp/serializatsiia-rezultativ.cpp
 
 Це дозволяє передавати результати розрахунку іоносферної траси безпосередньо у JS-фронтенд для візуалізації дуги Великого кола та підсвічування зони покриття на інтерактивній карті.
 
@@ -355,19 +173,7 @@ std::string to_json(const PathParams& p, const PathMetrics& m) {
 
 Обчислювальний модуль оформлюється як автономна стабільно закомпонована C/C++ бібліотека `libionopath`. Для збірки застосовується стандартний сценарій `CMakeLists.txt`:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(ionopath C CXX)
-
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_CXX_STANDARD 20)
-
-add_library(ionopath_c calculate_iono.c)
-add_library(ionopath_cpp IonosphereCalculator.cpp)
-
-add_executable(iono_calc_cli main.cpp)
-target_link_libraries(iono_calc_cli PRIVATE ionopath_cpp)
-```
+:::code proj-ionosphere-muf-calculator/cmake/CMakeLists.txt
 
 Такий підхід дає змогу легко вбудовувати обчислювальний калькулятор у бортове ПЗ радіостанцій, мікроконтролери SDR-приймачів чи високопродуктивні серверні геофізичні сервіси.
 

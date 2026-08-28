@@ -295,47 +295,8 @@ mdio eth0 0 0x0e          # Читання значення
 Нижче наведено компактний приклад програмного сканування та читання регістрів мовами C та C++:
 
 :::tabs
-```c
-/* Приклад сканування шини MDC/MDIO та виявлення активних PHY на мові C */
-#include <stdint.h>
-#include <stdbool.h>
-
-extern bool mdio_read_c22(uint8_t phy_addr, uint8_t reg_addr, uint16_t *val);
-
-uint32_t scan_mdio_bus(void) {
-    uint32_t active_phys = 0;
-    for (uint8_t addr = 0; addr < 32; ++addr) {
-        uint16_t phy_id1 = 0;
-        /* Читаємо Регістр 2 (PHYID1) */
-        if (mdio_read_c22(addr, 0x02, &phy_id1)) {
-            /* Відкрита шина повертає 0xFFFF, коротке замикання — 0x0000 */
-            if (phy_id1 != 0xFFFFU && phy_id1 != 0x0000U) {
-                active_phys |= (1U << addr);
-            }
-        }
-    }
-    return active_phys; // Бітова маска знайдених трансиверів
-}
-```
-```cpp
-// Приклад сканування шини MDC/MDIO та виявлення активних PHY на C++20
-#include <cstdint>
-#include <optional>
-#include <span>
-
-extern auto mdio_read_c22(uint8_t phy_addr, uint8_t reg_addr) noexcept -> std::optional<uint16_t>;
-
-[[nodiscard]] auto scan_mdio_bus() noexcept -> uint32_t {
-    uint32_t active_phys = 0;
-    for (uint8_t addr = 0; addr < 32; ++addr) {
-        const auto phy_id1 = mdio_read_c22(addr, 0x02);
-        if (phy_id1.has_value() && *phy_id1 != 0xFFFFU && *phy_id1 != 0x0000U) {
-            active_phys |= (1U << addr);
-        }
-    }
-    return active_phys; // Бітова маска знайдених трансиверів
-}
-```
+:::code mdi-mdio-bus-d/c/main.c
+:::code mdi-mdio-bus-d/cpp/main.cpp
 :::
 
 Повний промисловий драйвер біт-бенгінгу з детальними функціями затримок, конфігурацією GPIO та підтримкою Clause 45 наведено в окремій практичній [програмній реалізації драйвера MDC/MDIO](root:com-medium/mdi-mdio-bus/proj-mdio-bitbang.md).
