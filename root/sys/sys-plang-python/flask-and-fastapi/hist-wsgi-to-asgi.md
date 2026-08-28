@@ -70,19 +70,7 @@ Flask закріпив синхронну парадигму WSGI в елега�
 * **ASGI 1.0 / 2.0**: побудований навколо системи повідомлень та канальних шарів (Channel Layers) на базі черг Redis. Сервер і обробник спілкувалися через асинхронні повідомлення.
 * **ASGI 3.0 (2019)**: відмова від складного канального прошарку на користь прямого інтерфейсу єдиної корутини. Нова специфікація визначила інтерфейс як виклик `async def application(scope, receive, send)`.
 
-```py
-async def simple_asgi_app(scope, receive, send):
-    if scope["type"] == "http":
-        await send({
-            "type": "http.response.start",
-            "status": 200,
-            "headers": [[b"content-type", b"text/plain"]],
-        })
-        await send({
-            "type": "http.response.body",
-            "body": b"Async telemetry accepted\n",
-        })
-```
+:::code hist-wsgi-to-asgi/py/main.py
 
 ## Поява Starlette, Uvicorn та FastAPI (2018)
 

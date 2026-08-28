@@ -61,88 +61,8 @@
 У мові C++ цю проблему вирішують за допомогою ідіоми RAII (*Resource Acquisition Is Initialization*), інкапсулюючи виклики в деструкторі захисного класу:
 
 :::tabs
-```c
-// native_worker.c
-#include <Python.h>
-#include <unistd.h>
-
-PyObject* long_computation_c(PyObject *self, PyObject *args) {
-    int duration_sec = 0;
-    if (!PyArg_ParseTuple(args, "i", &duration_sec)) {
-        return NULL;
-    }
-
-    // 1. Відпускаємо GIL перед блокувальною системною операцією
-    Py_BEGIN_ALLOW_THREADS
-
-    // Потік виконує чистий C-код. Інтерпретатор Python вільний для інших потоків
-    sleep(duration_sec);
-
-    // 2. Обов'язково відновлюємо GIL перед поверненням у Python
-    Py_END_ALLOW_THREADS
-
-    Py_RETURN_NONE;
-}
-```
-```cpp
-// native_worker.cpp
-#include <Python.h>
-#include <chrono>
-#include <thread>
-
-namespace py_guard {
-
-// RAII обгортка для безпечного керування GIL у стилі сучасного C++
-class ScopedAllowThreads {
-public:
-    ScopedAllowThreads() noexcept : thread_state_(PyEval_SaveThread()) {}
-    
-    ~ScopedAllowThreads() noexcept {
-        if (thread_state_) {
-            PyEval_RestoreThread(thread_state_);
-        }
-    }
-
-    ScopedAllowThreads(const ScopedAllowThreads&) = delete;
-    ScopedAllowThreads& operator=(const ScopedAllowThreads&) = delete;
-    ScopedAllowThreads(ScopedAllowThreads&& other) noexcept 
-        : thread_state_(other.thread_state_) {
-        other.thread_state_ = nullptr;
-    }
-    ScopedAllowThreads& operator=(ScopedAllowThreads&& other) noexcept {
-        if (this != &other) {
-            if (thread_state_) PyEval_RestoreThread(thread_state_);
-            thread_state_ = other.thread_state_;
-            other.thread_state_ = nullptr;
-        }
-        return *this;
-    }
-
-private:
-    PyThreadState* thread_state_{nullptr};
-};
-
-} // namespace py_guard
-
-extern "C" PyObject* long_computation_cpp(PyObject *self, PyObject *args) {
-    int duration_sec = 0;
-    if (!PyArg_ParseTuple(args, "i", &duration_sec)) {
-        return nullptr;
-    }
-
-    {
-        // Конструктор ScopedAllowThreads відпускає GIL
-        py_guard::ScopedAllowThreads allow_threads;
-
-        // C++ код виконується паралельно на рівні ядра ОС
-        std::this_thread::sleep_for(std::chrono::seconds(duration_sec));
-        
-        // Деструктор гарантовано захоплює GIL при виході з блоку або при винятку
-    }
-
-    Py_RETURN_NONE;
-}
-```
+:::code api-gil-management/c/native_worker.c
+:::code api-gil-management/cpp/native_worker.cpp
 :::
 
 ## 2. Керування GIL зі сторонніх системних потоків: PyGILState API
@@ -164,79 +84,8 @@ extern "C" PyObject* long_computation_cpp(PyObject *self, PyObject *args) {
 Функція `PyGILState_Release(PyGILState_STATE state)` звільняє GIL. Якщо `PyGILState_Ensure()` створив тимчасову структуру `PyThreadState` виключно на час цього виклику, `PyGILState_Release` автоматично видаляє її з черги інтерпретатора та вивільняє пам'ять, запобігаючи витоку ресурсів.
 
 :::tabs
-```c
-// callback_handler.c
-#include <Python.h>
-
-void on_hardware_interrupt_c(int sensor_id, double value) {
-    // Сторонній потік переривання ОС реєструється в CPython
-    PyGILState_STATE gstate = PyGILState_Ensure();
-
-    // Тепер безпечно викликати Python C API
-    PyObject *module = PyImport_ImportModule("telemetry_service");
-    if (module) {
-        PyObject *func = PyObject_GetAttrString(module, "on_sensor_event");
-        if (func && PyCallable_Check(func)) {
-            PyObject *args = Py_BuildValue("(id)", sensor_id, value);
-            PyObject *res = PyObject_CallObject(func, args);
-            Py_XDECREF(res);
-            Py_DECREF(args);
-            Py_DECREF(func);
-        }
-        Py_DECREF(module);
-    }
-
-    // Звільняємо GIL і знищуємо прив'язку потоку
-    PyGILState_Release(gstate);
-}
-```
-```cpp
-// callback_handler.cpp
-#include <Python.h>
-#include <utility>
-
-namespace py_guard {
-
-class ScopedGILState {
-public:
-    ScopedGILState() noexcept : state_(PyGILState_Ensure()) {}
-    
-    ~ScopedGILState() noexcept {
-        PyGILState_Release(state_);
-    }
-
-    ScopedGILState(const ScopedGILState&) = delete;
-    ScopedGILState& operator=(const ScopedGILState&) = delete;
-    ScopedGILState(ScopedGILState&&) = delete;
-    ScopedGILState& operator=(ScopedGILState&&) = delete;
-
-private:
-    PyGILState_STATE state_;
-};
-
-} // namespace py_guard
-
-extern "C" void on_hardware_interrupt_cpp(int sensor_id, double value) {
-    // Автоматичне захоплення та вивільнення GIL через RAII
-    py_guard::ScopedGILState gil_lock;
-
-    PyObject *module = PyImport_ImportModule("telemetry_service");
-    if (!module) {
-        PyErr_Clear();
-        return;
-    }
-
-    PyObject *func = PyObject_GetAttrString(module, "on_sensor_event");
-    if (func && PyCallable_Check(func)) {
-        PyObject *args = Py_BuildValue("(id)", sensor_id, value);
-        PyObject *res = PyObject_CallObject(func, args);
-        Py_XDECREF(res);
-        Py_XDECREF(args);
-        Py_DECREF(func);
-    }
-    Py_DECREF(module);
-}
-```
+:::code api-gil-management/c/callback_handler.c
+:::code api-gil-management/cpp/callback_handler.cpp
 :::
 
 ## 3. Системний інтерфейс Python: модуль `sys` та параметри середовища
@@ -267,61 +116,8 @@ extern "C" void on_hardware_interrupt_cpp(int sensor_id, double value) {
 Для забезпечення безпеки C-розширень у збірці `python3.13t` впроваджено спеціальний слот ініціалізації модуля `Py_mod_gil`:
 
 :::tabs
-```c
-// module_definition.c
-#include <Python.h>
-
-static PyModuleDef_Slot telemetry_slots[] = {
-    {Py_mod_gil, Py_MOD_GIL_NOT_USED}, // Декларуємо сумісність з free-threaded
-    {0, NULL}
-};
-
-static struct PyModuleDef telemetry_module = {
-    PyModuleDef_HEAD_INIT,
-    "telemetry_c",
-    "Телеметричний модуль без GIL",
-    0,
-    NULL,
-    telemetry_slots,
-    NULL,
-    NULL,
-    NULL
-};
-
-PyMODINIT_FUNC PyInit_telemetry_c(void) {
-    return PyModuleDef_Init(&telemetry_module);
-}
-```
-```cpp
-// module_definition.cpp
-#include <Python.h>
-#include <array>
-
-namespace {
-
-constexpr std::array<PyModuleDef_Slot, 2> module_slots = {{
-    {Py_mod_gil, Py_MOD_GIL_NOT_USED},
-    {0, nullptr}
-}};
-
-PyModuleDef telemetry_module = {
-    PyModuleDef_HEAD_INIT,
-    "telemetry_cpp",
-    "Телеметричний C++ модуль без GIL",
-    0,
-    nullptr,
-    const_cast<PyModuleDef_Slot*>(module_slots.data()),
-    nullptr,
-    nullptr,
-    nullptr
-};
-
-} // namespace
-
-extern "C" PyMODINIT_FUNC PyInit_telemetry_cpp(void) {
-    return PyModule_Create(&telemetry_module);
-}
-```
+:::code api-gil-management/c/module_definition.c
+:::code api-gil-management/cpp/module_definition.cpp
 :::
 
 Якщо імпортоване бінарне розширення не містить слота `Py_MOD_GIL_NOT_USED`, інтерпретатор `python3.13t` видає попередження середовища виконання `RuntimeWarning` і автоматично повторно вмикає GIL для всього процесу, щоб захистити неадаптоване розширення від станів гонитви та пошкодження пам'яті.
@@ -333,44 +129,8 @@ extern "C" PyMODINIT_FUNC PyInit_telemetry_cpp(void) {
 Для забезпечення коректного реагування на сигнали тривалі чисельні цикли в нативному коді розбивають на порції (chunks) і періодично викликають функцію `PyErr_CheckSignals()`:
 
 :::tabs
-```c
-// interruptible_loop.c
-#include <Python.h>
-
-int compute_with_signals_c(size_t total_iterations) {
-    for (size_t i = 0; i < total_iterations; i += 10000) {
-        // Виконуємо порцію чисельних розрахунків без GIL
-        Py_BEGIN_ALLOW_THREADS
-        // Нативний чисельний розрахунок 10 000 ітерацій
-        Py_END_ALLOW_THREADS
-
-        // Перевіряємо, чи надійшов сигнал переривання (SIGINT)
-        if (PyErr_CheckSignals() != 0) {
-            // Сигнал отримано: виняток уже виставлено в інтерпретаторі
-            return -1;
-        }
-    }
-    return 0;
-}
-```
-```cpp
-// interruptible_loop.cpp
-#include <Python.h>
-#include <cstddef>
-
-int compute_with_signals_cpp(std::size_t total_iterations) noexcept {
-    for (std::size_t i = 0; i < total_iterations; i += 10000) {
-        Py_BEGIN_ALLOW_THREADS
-        // Нативний чисельний розрахунок 10 000 ітерацій
-        Py_END_ALLOW_THREADS
-
-        if (PyErr_CheckSignals() != 0) {
-            return -1;
-        }
-    }
-    return 0;
-}
-```
+:::code api-gil-management/c/interruptible_loop.c
+:::code api-gil-management/cpp/interruptible_loop.cpp
 :::
 
 ## 5. Зведена таблиця інваріантів безпеки пам'яті

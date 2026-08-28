@@ -53,18 +53,7 @@ import math
 # 6 STORE_NAME     0 (math)      [збереження модуля у локальну змінну math]
 ```
 
-```python
-# Варіант 2: вибірковий імпорт атрибута
-from math import sqrt
-
-# Байткод CPython:
-# 0 LOAD_CONST     0 (0)         [level = 0]
-# 2 LOAD_CONST     1 (('sqrt',)) [fromlist = ('sqrt',)]
-# 4 IMPORT_NAME    0 (math)      [завантажує модуль math на вершину стека]
-# 6 IMPORT_FROM    1 (sqrt)      [видобуває функцію sqrt на стек]
-# 8 STORE_NAME     1 (sqrt)      [зберігає sqrt у локальний простір]
-# 10 POP_TOP                     [скидає об'єкт модуля math зі стека]
-```
+:::code import-machinery-d/py/2-instruktsii-virtualnoi.py
 
 Цей механізм пояснює важливу технічну деталь: навіть при вибірковому імпорті `from math import sqrt` інтерпретатор завжди завантажує весь модуль `math` цілком і розміщує його у глобальному кеші `sys.modules`. Конструкція `from math import sqrt` не економить оперативну пам'ять інтерпретатора — вона лише визначає, яке саме ім'я буде зв'язане у поточному просторі імен.
 
@@ -341,66 +330,7 @@ CPython дозволяє повністю перевизначити або до
 
 Для створення повноцінного імпортера необхідно реалізувати два класи: знахідник (`MetaPathFinder`) та завантажувач (`Loader`).
 
-```python
-import sys
-import types
-from importlib.abc import Loader, MetaPathFinder
-from importlib.machinery import ModuleSpec
-
-
-class VirtualCodeLoader(Loader):
-    """Завантажувач коду з віртуального сховища пам'яті."""
-
-    def __init__(self, source_code: str):
-        self.source_code = source_code
-
-    def create_module(self, spec: ModuleSpec) -> types.ModuleType | None:
-        # Повертаємо None: CPython самостійно створить об'єкт types.ModuleType
-        return None
-
-    def exec_module(self, module: types.ModuleType) -> None:
-        # Компілюємо вихідний текст у просторі імен модуля
-        origin = module.__spec__.origin or "<virtual>"
-        code_obj = compile(self.source_code, origin, "exec")
-        exec(code_obj, module.__dict__)
-
-
-class VirtualPathFinder(MetaPathFinder):
-    """Знахідник мета-шляху для віртуальних модулів."""
-
-    def __init__(self, code_registry: dict[str, str]):
-        self.code_registry = code_registry
-
-    def find_spec(
-        self,
-        fullname: str,
-        path: list[str] | None = None,
-        target: types.ModuleType | None = None,
-    ) -> ModuleSpec | None:
-        if fullname in self.code_registry:
-            source = self.code_registry[fullname]
-            loader = VirtualCodeLoader(source)
-            return ModuleSpec(
-                name=fullname,
-                loader=loader,
-                origin=f"<virtual://{fullname}>",
-                is_package=False,
-            )
-        return None
-
-
-# Реєстрація власного знахідника на початку системного списку
-storage = {
-    "telemetry_client": "def send_ping(): return {'status': 'ok', 'code': 200}"
-}
-
-sys.meta_path.insert(0, VirtualPathFinder(storage))
-
-# Звичайний імпорт віртуального модуля
-import telemetry_client
-response = telemetry_client.send_ping()
-print("Результат віртуального виклику:", response)
-```
+:::code import-machinery-d/py/12-stvorennia-vlasnykh.py
 
 Повний практичний проект зі створення віртуального завантажувача з пам'яті для C++ та Python наведено у вставці [Створення віртуального імпортера файлів і пам'яті](root:sys-plang-python/import-machinery/proj-memory-importer.md).
 
@@ -416,98 +346,8 @@ print("Результат віртуального виклику:", response)
 Нижче наведено порівняння імпорту модуля та виклику функції мовами C та C++20:
 
 :::tabs
-```c
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <stdio.h>
-
-/**
- * Імпортує модуль math та викликає функцію sqrt засобами чистого C C-API.
- */
-int calculate_square_root_c(double value, double *result) {
-    // 1. Імпортуємо системний модуль (повертає New reference)
-    PyObject *math_mod = PyImport_ImportModule("math");
-    if (!math_mod) {
-        PyErr_Print();
-        return -1;
-    }
-
-    // 2. Отримуємо функцію sqrt зі словника модуля
-    PyObject *sqrt_func = PyObject_GetAttrString(math_mod, "sqrt");
-    Py_DECREF(math_mod); // Модуль більше не потрібен напряму
-
-    if (!sqrt_func || !PyCallable_Check(sqrt_func)) {
-        Py_XDECREF(sqrt_func);
-        PyErr_Print();
-        return -1;
-    }
-
-    // 3. Викликаємо функцію з числовим аргументом
-    PyObject *args = PyTuple_Pack(1, PyFloat_FromDouble(value));
-    PyObject *py_res = PyObject_CallObject(sqrt_func, args);
-    Py_DECREF(sqrt_func);
-    Py_DECREF(args);
-
-    if (!py_res) {
-        PyErr_Print();
-        return -1;
-    }
-
-    *result = PyFloat_AsDouble(py_res);
-    Py_DECREF(py_res);
-    return 0;
-}
-```
-```cpp
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <string_view>
-
-// RAII-обгортка над PyObject* для безпечного автоматичного зменшення посилань
-struct PyDeleter {
-    void operator()(PyObject* ptr) const noexcept {
-        if (ptr) {
-            Py_DECREF(ptr);
-        }
-    }
-};
-
-using ScopedPyObject = std::unique_ptr<PyObject, PyDeleter>;
-
-/**
- * Ідіоматичний C++20 клас для імпорту та взаємодії з модулями CPython.
- */
-class PythonImporter {
-public:
-    static double calculate_sqrt(double value) {
-        // 1. Імпорт модуля через RAII
-        ScopedPyObject math_mod(PyImport_ImportModule("math"));
-        if (!math_mod) {
-            throw std::runtime_error("Не вдалося імпортувати модуль math");
-        }
-
-        // 2. Отримання атрибута функції
-        ScopedPyObject sqrt_func(PyObject_GetAttrString(math_mod.get(), "sqrt"));
-        if (!sqrt_func || !PyCallable_Check(sqrt_func.get())) {
-            throw std::runtime_error("Функція sqrt відсутня або не є викликаємою");
-        }
-
-        // 3. Підготовка аргументів та виклик
-        ScopedPyObject arg(PyFloat_FromDouble(value));
-        ScopedPyObject args_tuple(PyTuple_Pack(1, arg.get()));
-        ScopedPyObject py_result(PyObject_CallObject(sqrt_func.get(), args_tuple.get()));
-
-        if (!py_result) {
-            throw std::runtime_error("Помилка виконання функції math.sqrt");
-        }
-
-        return PyFloat_AsDouble(py_result.get());
-    }
-};
-```
+:::code import-machinery-d/c/main.c
+:::code import-machinery-d/cpp/main.cpp
 :::
 
 ## 14. Терміни та етимологія

@@ -44,72 +44,15 @@
 ### Структура мовою C / C++
 
 :::tabs
-```c
-// point_struct.h
-#include <stdint.h>
-
-typedef struct {
-    int32_t x;
-    int32_t y;
-    double  weight;
-    uint8_t flags;
-    // Компілятор додає 7 байтів padding у кінці, щоб загальний розмір структури
-    // був кратний максимальному вирівнюванню поля double (8 байтів).
-} PointRecord;
-
-typedef union {
-    uint32_t as_uint;
-    float    as_float;
-    uint8_t  as_bytes[4];
-} FloatIntUnion;
-```
-```cpp
-// point_struct.hpp
-#pragma once
-#include <cstdint>
-#include <array>
-
-struct PointRecord {
-    std::int32_t x;
-    std::int32_t y;
-    double       weight;
-    std::uint8_t flags;
-};
-
-union FloatIntUnion {
-    std::uint32_t           as_uint;
-    float                   as_float;
-    std::array<std::uint8_t, 4> as_bytes;
-};
-```
+:::code api-ffi-contracts/c/main.c
+:::code api-ffi-contracts/cpp/point_struct.hpp
 :::
 
 ### Оголошення в ctypes
 
 У `ctypes` структура створюється як спадкоємець базового класу `ctypes.Structure`, а опис полів задається через спеціальний класовий атрибут `_fields_`, який містить список кортежів `("назва_поля", ctypes_тип)`:
 
-```python
-import ctypes
-
-class PointRecord(ctypes.Structure):
-    _fields_ = [
-        ("x", ctypes.c_int32),
-        ("y", ctypes.c_int32),
-        ("weight", ctypes.c_double),
-        ("flags", ctypes.c_uint8),
-    ]
-
-class FloatIntUnion(ctypes.Union):
-    _fields_ = [
-        ("as_uint", ctypes.c_uint32),
-        ("as_float", ctypes.c_float),
-        ("as_bytes", ctypes.c_uint8 * 4),
-    ]
-
-# Перевірка розміру пам'яті
-p = PointRecord(x=10, y=20, weight=3.14, flags=1)
-print(f"Розмір структури: {ctypes.sizeof(p)} байтів")  # Рівно 24 байти
-```
+:::code api-ffi-contracts/py/oholoshennia-v-ctypes.py
 
 ### Керування порядком байтів і упаковані структури
 
@@ -122,26 +65,7 @@ print(f"Розмір структури: {ctypes.sizeof(p)} байтів")  # Р
 
 У бібліотеці `cffi` опис структур повністю повторює стандартну мову C:
 
-```python
-from cffi import FFI
-
-ffibuilder = FFI()
-ffibuilder.cdef("""
-    typedef struct {
-        int32_t x;
-        int32_t y;
-        double  weight;
-        uint8_t flags;
-        ...; /* cffi самостійно розрахує вирівнювання через C-компілятор */
-    } PointRecord;
-
-    typedef union {
-        uint32_t as_uint;
-        float    as_float;
-        uint8_t  as_bytes[4];
-    } FloatIntUnion;
-""")
-```
+:::code api-ffi-contracts/py/oholoshennia-v-cffi-api.py
 
 Символ `...;` у вихідному описі `cffi` наказує генератору модуля не вгадувати зсуви самостійно, а звернутися до компілятора мови C під час збірки для підстановки реальних розмірів і вирівнювання безпосередньо з системних заголовків.
 
@@ -261,21 +185,7 @@ lib = ffi.dlopen("./libmath.so")
 
 ### Оголошення прототипу функції
 
-```python
-# ctypes: явне налаштування argtypes та restype
-lib_cdecl.calculate_matrix.argtypes = [
-    ctypes.POINTER(ctypes.c_double),
-    ctypes.c_size_t,
-    ctypes.c_size_t,
-    ctypes.c_double
-]
-lib_cdecl.calculate_matrix.restype = ctypes.c_int32
-
-# cffi: прямий C-заголовок
-ffi.cdef("""
-    int calculate_matrix(double *data, size_t rows, size_t cols, double factor);
-""")
-```
+:::code api-ffi-contracts/py/oholoshennia-prototypu.py
 
 ---
 
@@ -316,35 +226,10 @@ if res == -1:
 
 ### Оголошення зворотного виклику в ctypes
 
-```python
-# Оголошення типу вказівника на функцію: (restype, *argtypes)
-CALLBACK_TYPE = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int, ctypes.c_int)
-
-@CALLBACK_TYPE
-def py_comparator(a, b):
-    return (a > b) - (a < b)
-
-# Передача у функцію C
-lib.register_callback(py_comparator)
-# УВАГА: py_comparator повинен утримуватися в пам'яті Python,
-# інакше GC збере його і виклик із C призведе до Segmentation Fault.
-```
+:::code api-ffi-contracts/py/oholoshennia-zvorotnoho.py
 
 ### Оголошення зворотного виклику в cffi (API Mode)
 
-```python
-ffibuilder.cdef("""
-    typedef int (*comparator_t)(int, int);
-    void register_callback(comparator_t cb);
-    extern "Python" int py_comparator(int a, int b);
-""")
-
-# У модулі реалізації:
-@ffi.def_extern()
-def py_comparator(a, b):
-    return (a > b) - (a < b)
-
-lib.register_callback(lib.py_comparator)
-```
+:::code api-ffi-contracts/py/oholoshennia-zvorotnoho-2.py
 
 Механізм `@ffi.def_extern()` у `cffi` генерує C-трамплін під час компіляції модуля. Цей трамплін автоматично викликає `PyGILState_Ensure()`, захищаючи інтерпретатор від збоїв при виклику з довільного фонового потоку операційної системи.

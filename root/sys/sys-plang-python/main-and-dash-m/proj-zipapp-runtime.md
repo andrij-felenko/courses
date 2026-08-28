@@ -25,62 +25,13 @@ __version__ = "1.0.0"
 ```
 
 Файл `monitor/collector.py` реалізує збір базової інформації про операційне середовище процесу:
-```python
-import os
-import platform
-import sys
-
-
-def collect_metrics() -> dict[str, str | int]:
-    """Збирає базову інформацію про середовище виконання."""
-    load_avg = os.getloadavg() if hasattr(os, "getloadavg") else (0.0, 0.0, 0.0)
-    return {
-        "platform": platform.platform(),
-        "python_version": sys.version.split()[0],
-        "pid": os.getpid(),
-        "load_1m": load_avg[0],
-        "load_5m": load_avg[1],
-        "load_15m": load_avg[2],
-    }
-```
+:::code proj-zipapp-runtime/py/1-arkhitektura-proiektu-ta.py
 
 Файл `monitor/formatter.py` форматує зібрані дані у зручний для читання текстовий звіт:
-```python
-def format_text(metrics: dict[str, str | int]) -> str:
-    """Перетворює словник метрик у читабельний текстовий звіт."""
-    lines = [
-        "=== ЗВІТ СИСТЕМНОГО МОНІТОРИНГУ ===",
-        f"Платформа:       {metrics['platform']}",
-        f"Версія Python:   {metrics['python_version']}",
-        f"PID процесу:     {metrics['pid']}",
-        f"Навантаження:    1хв={metrics['load_1m']:.2f}, 5хв={metrics['load_5m']:.2f}, 15хв={metrics['load_15m']:.2f}",
-        "==================================",
-    ]
-    return "\n".join(lines)
-```
+:::code proj-zipapp-runtime/py/1-arkhitektura-proiektu-ta-2.py
 
 Головна точка входу `__main__.py` розташована в корені каталогу застосунку. Вона пов'язує компоненти в єдину консольну програму і повертає цілочисельний статус завершення:
-```python
-import sys
-from monitor.collector import collect_metrics
-from monitor.formatter import format_text
-
-
-def main() -> int:
-    """Точка входу автономного пакунка."""
-    try:
-        metrics = collect_metrics()
-        output = format_text(metrics)
-        print(output)
-        return 0
-    except Exception as err:
-        sys.stderr.write(f"Помилка виконання монітора: {err}\n")
-        return 1
-
-
-if __name__ == "__main__":
-    sys.exit(main())
-```
+:::code proj-zipapp-runtime/py/1-arkhitektura-proiektu-ta-3.py
 
 ## 2. Автоматизований збирач zipapp-пакета на Python
 
@@ -88,48 +39,7 @@ if __name__ == "__main__":
 
 Зверніть увагу на алгоритм обробки шляхів: функція `zipapp.create_archive()` зчитує всі вкладені модулі, створює заголовок шебангу з переносом рядка `\n` і записує бінарні структури ZIP безпосередньо після нього.
 
-```python
-#!/usr/bin/env python3
-import os
-import stat
-import zipapp
-from pathlib import Path
-
-
-def build_standalone_zipapp(
-    source_dir: str | Path,
-    output_file: str | Path,
-    shebang: str = "/usr/bin/env python3",
-) -> None:
-    """Збирає автономний zipapp-архів із каталогу source_dir."""
-    src = Path(source_dir).resolve()
-    out = Path(output_file).resolve()
-
-    if not (src / "__main__.py").exists():
-        raise FileNotFoundError(
-            f"Каталог {src} не містить обов'язкового файлу точки входу __main__.py"
-        )
-
-    out.parent.mkdir(parents=True, exist_ok=True)
-
-    print(f"Збирання zipapp: {src} -> {out}...")
-    zipapp.create_archive(
-        source=src,
-        target=out,
-        interpreter=shebang,
-        main=None,  # Використовувати наявний файл __main__.py у корені каталогу
-        compressed=True,
-    )
-
-    # Встановлюємо права виконання rwxr-xr-x для систем Unix/Linux/macOS
-    current_mode = os.stat(out).st_mode
-    os.chmod(out, current_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-    print(f"Архів створено успішно (розмір: {out.stat().st_size} байтів).")
-
-
-if __name__ == "__main__":
-    build_standalone_zipapp("system_monitor", "bin/sysmon.pyz")
-```
+:::code proj-zipapp-runtime/py/2-avtomatyzovanyi-zbyrach.py
 
 Після виконання скрипту утворюється файл `bin/sysmon.pyz`. Користувач у POSIX-терміналі може запустити його безпосередньо як `./bin/sysmon.pyz` або через передачу інтерпретатору `python3 bin/sysmon.pyz`.
 
@@ -140,131 +50,8 @@ if __name__ == "__main__":
 Процес ініціалізації вимагає точного дотримання послідовності викликів стандарту PEP 587: спершу заповнюється конфігураційна структура, налаштовується прапорець парсингу аргументів `parse_argv = 1`, передається ім'я архіву в поле `config.run_filename`, і лише після цього викликається функція `Py_InitializeFromConfig()`. Завершальний виклик `Py_RunMain()` завантажує `__main__.py` та повертає код виходу програми.
 
 :::tabs
-```c
-/* runner.c — Системний C-завантажувач для zipapp-пакета */
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int run_zipapp_package(const char* pyz_path, int argc, char* argv[]) {
-    PyStatus status;
-    PyConfig config;
-
-    /* Ініціалізуємо базову структуру конфігурації CPython */
-    PyConfig_InitPythonConfig(&config);
-    config.parse_argv = 1;
-
-    /* Встановлюємо ім'я файлу zipapp як цільовий сценарій виконання */
-    status = PyConfig_SetBytesString(&config, &config.run_filename, pyz_path);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        fprintf(stderr, "Помилка встановлення шляху run_filename\n");
-        return 1;
-    }
-
-    /* Передаємо аргументи командного рядка у середовище Python */
-    status = PyConfig_SetBytesArgv(&config, argc, argv);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        fprintf(stderr, "Помилка встановлення argv у PyConfig\n");
-        return 1;
-    }
-
-    /* Ініціалізуємо ядро середовища CPython */
-    status = Py_InitializeFromConfig(&config);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        fprintf(stderr, "Помилка ініціалізації середовища CPython\n");
-        return 1;
-    }
-    PyConfig_Clear(&config);
-
-    /* Запускаємо модуль __main__ цільового архіву через головну точку входу */
-    int exit_code = Py_RunMain();
-    return exit_code;
-}
-
-int main(int argc, char* argv[]) {
-    const char* pyz_file = "bin/sysmon.pyz";
-    if (argc > 1) {
-        pyz_file = argv[1];
-    }
-
-    printf("[C Host] Запуск автономного Python zipapp: %s\n", pyz_file);
-    int result = run_zipapp_package(pyz_file, argc, argv);
-    printf("[C Host] Виконання завершено з кодом: %d\n", result);
-    return result;
-}
-```
-```cpp
-// runner.cpp — Сучасний C++20 завантажувач із RAII та керуванням винятками
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <string_view>
-#include <vector>
-#include <span>
-
-class PythonRuntime {
-public:
-    PythonRuntime(std::string_view pyz_path, std::span<char*> args) {
-        PyConfig config;
-        PyConfig_InitPythonConfig(&config);
-        config.parse_argv = 1;
-
-        PyStatus status = PyConfig_SetBytesString(&config, &config.run_filename, pyz_path.data());
-        if (PyStatus_Exception(status)) {
-            PyConfig_Clear(&config);
-            throw std::runtime_error("Не вдалося встановити шлях до zipapp архіву");
-        }
-
-        status = PyConfig_SetBytesArgv(&config, static_cast<int>(args.size()), args.data());
-        if (PyStatus_Exception(status)) {
-            PyConfig_Clear(&config);
-            throw std::runtime_error("Не вдалося ініціалізувати аргументи argv");
-        }
-
-        status = Py_InitializeFromConfig(&config);
-        PyConfig_Clear(&config);
-
-        if (PyStatus_Exception(status)) {
-            throw std::runtime_error("Фатальний збій ініціалізації ядра CPython");
-        }
-    }
-
-    ~PythonRuntime() {
-        if (Py_IsInitialized()) {
-            Py_Finalize();
-        }
-    }
-
-    PythonRuntime(const PythonRuntime&) = delete;
-    PythonRuntime& operator=(const PythonRuntime&) = delete;
-
-    [[nodiscard]] int run() noexcept {
-        return Py_RunMain();
-    }
-};
-
-int main(int argc, char* argv[]) {
-    try {
-        std::string_view pyz_file = (argc > 1) ? argv[1] : "bin/sysmon.pyz";
-        std::span<char*> args(argv, static_cast<size_t>(argc));
-
-        std::cout << "[C++ Host] Ініціалізація CPython для: " << pyz_file << std::endl;
-        PythonRuntime runtime(pyz_file, args);
-        int exit_code = runtime.run();
-        std::cout << "[C++ Host] Код завершення: " << exit_code << std::endl;
-        return exit_code;
-    } catch (const std::exception& ex) {
-        std::cerr << "[C++ Error] " << ex.what() << std::endl;
-        return 1;
-    }
-}
-```
+:::code proj-zipapp-runtime/c/runner.c
+:::code proj-zipapp-runtime/cpp/runner.cpp
 :::
 
 ## 4. Аналіз внутрішнього стану модуля `__main__` через C API
@@ -274,73 +61,8 @@ int main(int argc, char* argv[]) {
 Зверніть увагу: функція `PyModule_GetDict()` повертає запозичене посилання (Borrowed Reference), яке не вимагає зменшення лічильника посилань через `Py_DECREF`. Натомість значення, отримані функціями `PyObject_Str()` або `PyObject_GetAttrString()`, створюють нові об'єкти (New References) і вимагають обов'язкового звільнення пам'яті.
 
 :::tabs
-```c
-/* inspect_main.c — Інспекція стану __main__ після завантаження */
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <stdio.h>
-
-void inspect_main_module(void) {
-    /* Отримуємо вказівник на завантажений модуль __main__ */
-    PyObject* main_mod = PyImport_AddModule("__main__");
-    if (!main_mod) {
-        PyErr_Print();
-        return;
-    }
-
-    PyObject* main_dict = PyModule_GetDict(main_mod); /* Запозичене посилання */
-
-    /* Зчитуємо системні атрибути __file__ та __loader__ */
-    PyObject* py_file = PyDict_GetItemString(main_dict, "__file__");
-    PyObject* py_spec = PyDict_GetItemString(main_dict, "__spec__");
-
-    if (py_file) {
-        PyObject* str_repr = PyObject_Str(py_file);
-        const char* file_str = PyUnicode_AsUTF8(str_repr);
-        printf("[C Debug] __main__.__file__ = %s\n", file_str);
-        Py_XDECREF(str_repr);
-    }
-
-    if (py_spec && py_spec != Py_None) {
-        PyObject* spec_name = PyObject_GetAttrString(py_spec, "name");
-        if (spec_name) {
-            printf("[C Debug] __main__.__spec__.name = %s\n", PyUnicode_AsUTF8(spec_name));
-            Py_DECREF(spec_name);
-        }
-    }
-}
-```
-```cpp
-// inspect_main.cpp — Інспекція стану __main__ мовою C++
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <iostream>
-#include <string_view>
-
-void inspect_main_module_cpp() {
-    PyObject* main_mod = PyImport_AddModule("__main__");
-    if (!main_mod) {
-        PyErr_Print();
-        return;
-    }
-
-    PyObject* main_dict = PyModule_GetDict(main_mod);
-
-    auto print_attr = [main_dict](const char* attr_name) {
-        PyObject* val = PyDict_GetItemString(main_dict, attr_name);
-        if (val && val != Py_None) {
-            PyObject* repr = PyObject_Str(val);
-            std::cout << "[C++ Debug] __main__." << attr_name << " = " 
-                      << PyUnicode_AsUTF8(repr) << std::endl;
-            Py_XDECREF(repr);
-        }
-    };
-
-    print_attr("__file__");
-    print_attr("__package__");
-    print_attr("__doc__");
-}
-```
+:::code proj-zipapp-runtime/c/inspect_main.c
+:::code proj-zipapp-runtime/cpp/inspect_main.cpp
 :::
 
 ## 5. Діагностика структури файлу zipapp системними утилітами
@@ -361,18 +83,7 @@ void inspect_main_module_cpp() {
    ```
 
 3. **Перегляд вмісту ZIP-архіву без розпакування:**
-   ```bash
-   $ unzip -l bin/sysmon.pyz
-   Archive:  bin/sysmon.pyz
-     Length      Date    Time    Name
-   ---------  ---------- -----   ----
-         312  2026-08-26 12:00   __main__.py
-          68  2026-08-26 12:00   monitor/__init__.py
-         480  2026-08-26 12:00   monitor/collector.py
-         410  2026-08-26 12:00   monitor/formatter.py
-   ---------                     -------
-        1270                     4 files
-   ```
+   :::code proj-zipapp-runtime/sh/main.sh
    Стандартна утиліта `unzip` ігнорує початковий шебанг, оскільки знаходить таблицю файлів з кінця архіву (EOCD).
 
 4. **Діагностика через модуль `zipapp`:**

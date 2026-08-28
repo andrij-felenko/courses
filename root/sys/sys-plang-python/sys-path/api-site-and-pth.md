@@ -20,22 +20,7 @@
 | `site.ENABLE_USER_SITE` | `bool \| None` | Прапорець дозволу використання користувацьких каталогів. Встановлюється в `False` при передачі прапорця `-s`, `-I` або встановленні змінної `PYTHONNOUSERSITE=1`. |
 | `site.PREFIXES` | `list[str]` | Список префіксів встановлення інтерпретатора. За замовчуванням містить `[sys.prefix, sys.exec_prefix]`. |
 
-```python
-import site
-import sys
-from pathlib import Path
-
-# Програмне підключення зовнішнього каталогу пакунків з обробкою його .pth файлів
-known_paths = set(sys.path)
-plugin_dir = Path("/opt/custom_plugins")
-
-if plugin_dir.is_dir():
-    site.addsitedir(str(plugin_dir), known_paths=known_paths)
-
-print("Загальні каталоги site-packages:", site.getsitepackages())
-print("Користувацький site-packages:", site.getusersitepackages())
-print("Статус активації User Site:", site.ENABLE_USER_SITE)
-```
+:::code api-site-and-pth/py/1-prohramnyi-interfeis.py
 
 ## 2. Специфікація конфігураційних файлів .pth
 
@@ -123,23 +108,7 @@ import _editable_setuptools_myproject_finder; _editable_setuptools_myproject_fin
   - Якщо жоден обробник із `sys.path_hooks` не повернув шукача, стандартний механізм `PathFinder` створює екземпляр `_frozen_importlib_external.FileFinder` для звичайної файлової системи.
 - `sys.path_importer_cache`: Словник, що відображає рядки шляхів на екземпляри шукачів. Якщо каталог не існує або для нього не знайдено жодного імпортера, у словник записується значення `None` (або `NullFinder`), щоб уникнути повторних дорогих перевірок системними викликами `stat()`.
 
-```python
-import sys
-from importlib.machinery import FileFinder, SourceFileLoader
-
-# Приклад реєстрації власного хука для пошуку модулів у зашифрованих контейнерах
-def custom_archive_hook(path: str):
-    if path.endswith(".secure_pkg"):
-        # Повертаємо спеціалізований Finder для захищеного архіву
-        return CustomSecureFinder(path)
-    raise ImportError(f"Шлях {path} не є захищеним пакетом")
-
-# Додавання хука на початок списку перехоплювачів
-sys.path_hooks.insert(0, custom_archive_hook)
-
-# Очищення кешу імпортерів для форсування повторного опитування
-sys.path_importer_cache.clear()
-```
+:::code api-site-and-pth/py/spetsyfikatsiia-obrobnykiv.py
 
 ## 5. Конфігураційні прапорці CLI та змінні оточення
 

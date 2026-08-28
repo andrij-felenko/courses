@@ -8,79 +8,7 @@
 
 Специфікація PyInstaller будується як послідовний конвеєр трансформації артефактів за допомогою чотирьох фундаментальних класів: `Analysis`, `PYZ`, `EXE` та `COLLECT`. Кожен клас приймає результати роботи попереднього етапу, трансформує структури даних і передає їх далі за графом.
 
-```python
-# Приклад розширеного app.spec для комбінованого застосунку
-# -*- mode: python ; coding: utf-8 -*-
-
-from PyInstaller.utils.hooks import collect_data_files, collect_submodules, copy_metadata
-
-block_cipher = None
-
-# 1. ЕТАП: Статичний аналіз коду, парсинг AST та агрегація залежностей
-a = Analysis(
-    ['src/entrypoint.py'],
-    pathex=['src'],
-    binaries=[
-        ('vendor/libcustom.so', '.')            # Кортеж: (вихідний шлях на хості, цільова тека в бандлі)
-    ],
-    datas=[
-        ('config/*.yaml', 'config'),
-        ('assets/logo.png', 'assets')
-    ] + collect_data_files('certifi') + copy_metadata('cryptography'),
-    hiddenimports=[
-        'pkg_resources.py2_warn',
-        'sqlalchemy.dialects.sqlite'
-    ] + collect_submodules('my_plugins'),
-    hookspath=['build_hooks'],
-    hooksconfig={},
-    runtime_hooks=['build_hooks/runtime_init.py'],
-    excludes=['tkinter', 'unittest', 'pytest', 'matplotlib'],
-    win_no_prefer_redirects=False,
-    win_private_assemblies=False,
-    cipher=block_cipher,
-    noarchive=False
-)
-
-# 2. ЕТАП: Компіляція та компресія чистого Python-байткоду в PYZ-контейнер
-pyz = PYZ(
-    a.pure,
-    a.zipped_data,
-    cipher=block_cipher
-)
-
-# 3. ЕТАП: Компонування двійкового завантажувача з PYZ та прапорцями виконання
-exe = EXE(
-    pyz,
-    a.scripts,
-    [],
-    exclude_binaries=True,                       # True для режиму onedir, False для режиму onefile
-    name='my_application',
-    debug=False,
-    bootloader_ignore_signals=False,
-    strip=False,                                # Видалення налагоджувальних символів через strip
-    upx=True,                                   # Стиснення бінарників алгоритмом UPX
-    upx_exclude=['vcruntime140.dll'],           # Виключення нестабільних DLL з UPX-компресії
-    runtime_tmpdir=None,                        # Перевизначення базового каталогу для _MEIxxxxxx
-    console=True,                               # Запуск у консолі (True) або прихований GUI-режим (False)
-    disable_windowed_traceback=False,
-    target_arch=None,
-    codesign_identity=None,
-    entitlements_file=None,
-    icon='assets/app.ico'
-)
-
-# 4. ЕТАП: Формування кінцевого каталогу розгортання (використовується лише для --onedir)
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    name='my_application'
-)
-```
+:::code api-pyinstaller-spec/py/1-arkhitektura-ta-konveier.py
 
 ## 2. Довідник параметрів ключових класів збирання
 
@@ -169,22 +97,7 @@ coll = COLLECT(
 
 У такому сценарії створюється два об'єкти `Analysis`, два архіви `PYZ` та два виклики `EXE`, об'єднані в один каталог через `COLLECT`:
 
-```python
-# Багатоцільова збірка клієнта та демона в єдиному каталозі dist/my_suite/
-a_client = Analysis(['src/client_main.py'], pathex=['src'], datas=[('assets/*', 'assets')])
-pyz_client = PYZ(a_client.pure, a_client.zipped_data)
-exe_client = EXE(pyz_client, a_client.scripts, exclude_binaries=True, name='client', console=False)
-
-a_server = Analysis(['src/server_daemon.py'], pathex=['src'])
-pyz_server = PYZ(a_server.pure, a_server.zipped_data)
-exe_server = EXE(pyz_server, a_server.scripts, exclude_binaries=True, name='server', console=True)
-
-coll = COLLECT(
-    exe_client, a_client.binaries, a_client.zipfiles, a_client.datas,
-    exe_server, a_server.binaries, a_server.zipfiles, a_server.datas,
-    strip=False, upx=True, name='my_suite'
-)
-```
+:::code api-pyinstaller-spec/py/client_main.py
 
 Такий підхід суттєво економить дисковий простір: динамічні бібліотеки `libpython`, DLL-файли та C-розширення розкладаються в спільний підкаталог `_internal`, і обидва двійкові завантажувачі повторно використовують спільні системні компоненти без дублювання.
 

@@ -439,21 +439,7 @@ import 'math' # <_frozen_importlib_external.ExtensionFileLoader object at 0x7f8b
 
 Під час виконання програми точне фізичне розташування кожного завантаженого модуля можна визначити через його атрибут `__file__` або властивість специфікації `__spec__.origin`:
 
-```python
-import sys
-import math
-import random
-
-def inspect_module_origins():
-    print(f"sys.path[0]: {sys.path[0]}")
-    for name in ["math", "random", "os", "sys"]:
-        if name in sys.modules:
-            mod = sys.modules[name]
-            origin = getattr(mod, "__file__", None) or getattr(getattr(mod, "__spec__", None), "origin", "built-in")
-            print(f"Модуль '{name}': origin = {origin}")
-
-inspect_module_origins()
-```
+:::code sys-path-d/py/main.py
 
 ## 10. Внутрішня реалізація CPython: структура PyConfig
 
@@ -481,84 +467,8 @@ typedef struct {
 Нижче наведено приклад коду на C та ідіоматичному C++, що демонструє витягування розрахованих шляхів пошуку модулів під час ініціалізації середовища CPython:
 
 :::tabs
-```c
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <stdio.h>
-#include <wchar.h>
-
-/* Витягування та друк розрахованого списку sys.path через структуру PyConfig */
-int inspect_cpython_path_configuration(void) {
-    PyStatus status;
-    PyConfig config;
-    PyConfig_InitPythonConfig(&config);
-
-    /* Зчитування системної конфігурації з урахуванням оточення процесу */
-    status = PyConfig_Read(&config);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        return -1;
-    }
-
-    wprintf(L"Кількість розрахованих шляхів пошуку: %zu\n", config.module_search_paths.length);
-    for (size_t i = 0; i < config.module_search_paths.length; i++) {
-        wprintf(L"  [%zu] %ls\n", i, config.module_search_paths.items[i]);
-    }
-
-    /* Звільнення виділених C-структур без запуску повного runtime */
-    PyConfig_Clear(&config);
-    return 0;
-}
-```
-```cpp
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <iostream>
-#include <memory>
-#include <span>
-#include <string_view>
-#include <vector>
-#include <expected>
-
-namespace cpython_diag {
-
-class ConfigInspector {
-public:
-    static std::expected<std::vector<std::wstring>, std::string_view> get_resolved_search_paths() {
-        PyConfig config;
-        PyConfig_InitPythonConfig(&config);
-
-        // Автоматичне очищення пам'яті конфігурації при виході з області видимості (RAII)
-        struct ConfigCleaner {
-            PyConfig& cfg;
-            ~ConfigCleaner() { PyConfig_Clear(&cfg); }
-        } cleaner{config};
-
-        PyStatus status = PyConfig_Read(&config);
-        if (PyStatus_Exception(status)) {
-            return std::unexpected("Не вдалося прочитати системну конфігурацію CPython");
-        }
-
-        std::vector<std::wstring> paths;
-        paths.reserve(config.module_search_paths.length);
-
-        std::span<wchar_t*> items_span(
-            config.module_search_paths.items, 
-            config.module_search_paths.length
-        );
-
-        for (const wchar_t* path_str : items_span) {
-            if (path_str != nullptr) {
-                paths.emplace_back(path_str);
-            }
-        }
-
-        return paths;
-    }
-};
-
-} // namespace cpython_diag
-```
+:::code sys-path-d/c/main.c
+:::code sys-path-d/cpp/main.cpp
 :::
 
 ## 11. Терміни та етимологія

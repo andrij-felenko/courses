@@ -61,28 +61,7 @@ mov [rdi + 0], rax    ; 3. Запис оновленого значення на
 У вихідному коді CPython (файли `Include/internal/pycore_ceval.h` та `Python/ceval_gil.h`) механізм блокування інтерпретатора інкапсульовано в структурі `struct _gil_runtime_state`:
 
 :::tabs
-```c
-// pycore_ceval.h
-struct _gil_runtime_state {
-    /* Атомарний інтервал перемикання потоків у мікросекундах */
-    unsigned long interval;
-    
-    /* Прапорець стану: 1 - замок зайнятий, 0 - вільний */
-    _Py_atomic_int locked;
-    
-    /* Системний м'ютекс ОС для захисту самого стану GIL */
-    PyMUTEX_T mutex;
-    
-    /* Умовна змінна ОС для сповіщення потоків, що чекають */
-    PyCOND_T cond;
-    
-    /* Умовна змінна для підтвердження передачі керування */
-    PyCOND_T switch_cond;
-    
-    /* Покажчик на стан потоку (PyThreadState), що останнім утримував GIL */
-    _Py_atomic_address last_holder;
-};
-```
+:::code cpython-gil-d/c/2-vnutrishnia-arkhitektura.c
 ```cpp
 // pycore_ceval.hpp (еквівалентне представлення структури стану GIL)
 struct alignas(64) GILRuntimeState {
@@ -165,41 +144,8 @@ struct alignas(64) GILRuntimeState {
 Коли потік у Python виконує операцію вводу-виводу (наприклад, читання з мережевого сокета `sock.recv(4096)`, запис у файл на диску `f.write(data)` або очікування відповіді від бази даних), низькорівнева реалізація функції в C-коді CPython огортає блокувальний системний виклик спеціальними макросами:
 
 :::tabs
-```c
-// socket_wrapper.c
-#include <Python.h>
-#include <sys/socket.h>
-
-ssize_t custom_socket_receive(int socket_fd, void *buffer, size_t size) {
-    ssize_t bytes_read;
-    
-    Py_BEGIN_ALLOW_THREADS
-    /* GIL вивільнено! Поточний потік не виконує байткод Python.
-       Інтерпретатор вільний для виконання інших потоків. */
-    bytes_read = recv(socket_fd, buffer, size, 0);
-    Py_END_ALLOW_THREADS
-    /* Після отримання даних потік знову захоплює GIL для створення об'єкта bytes */
-    
-    return bytes_read;
-}
-```
-```cpp
-// socket_wrapper.cpp
-#include <Python.h>
-#include <sys/socket.h>
-#include <span>
-#include <cstddef>
-
-ssize_t custom_socket_receive_cpp(int socket_fd, std::span<char> buffer) noexcept {
-    ssize_t bytes_read = 0;
-    
-    Py_BEGIN_ALLOW_THREADS
-    bytes_read = recv(socket_fd, buffer.data(), buffer.size(), 0);
-    Py_END_ALLOW_THREADS
-    
-    return bytes_read;
-}
-```
+:::code cpython-gil-d/c/socket_wrapper.c
+:::code cpython-gil-d/cpp/socket_wrapper.cpp
 :::
 
 У момент виклику `Py_BEGIN_ALLOW_THREADS` потік добровільно віддає GIL. Поки операційна система очікує прибуття мережевих пакетів від віддаленого сервера, інші 10, 50 чи 100 потоків Python можуть безперешкодно виконувати свій код. 
@@ -275,59 +221,8 @@ T_total(N) = T_work + N · T_context_switch + T_contention_overhead
 Усередині C/C++ розширення розробник явно відпускає GIL на час виконання чисельного циклу:
 
 :::tabs
-```c
-// matrix_simd.c
-#include <Python.h>
-
-void fast_matrix_multiply(const float *a, const float *b, float *c, int n) {
-    // Відпускаємо GIL: цикл виконуватиметься паралельно з іншими потоками
-    Py_BEGIN_ALLOW_THREADS
-
-    #pragma omp parallel for
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            float sum = 0.0f;
-            for (int k = 0; k < n; ++k) {
-                sum += a[i * n + k] * b[k * n + j];
-            }
-            c[i * n + j] = sum;
-        }
-    }
-
-    // Відновлюємо GIL перед поверненням у простір інтерпретатора
-    Py_END_ALLOW_THREADS
-}
-```
-```cpp
-// matrix_simd.cpp
-#include <Python.h>
-#include <vector>
-#include <span>
-#include <omp.h>
-
-namespace linalg {
-
-void fast_matrix_multiply(std::span<const float> a, std::span<const float> b, 
-                          std::span<float> c, int n) noexcept {
-    // Звільняємо GIL на час обчислень
-    Py_BEGIN_ALLOW_THREADS
-
-    #pragma omp parallel for collapse(2)
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            float sum = 0.0f;
-            for (int k = 0; k < n; ++k) {
-                sum += a[i * n + k] * b[k * n + j];
-            }
-            c[i * n + j] = sum;
-        }
-    }
-
-    Py_END_ALLOW_THREADS
-}
-
-} // namespace linalg
-```
+:::code cpython-gil-d/c/matrix_simd.c
+:::code cpython-gil-d/cpp/matrix_simd.cpp
 :::
 
 Усередині блоку `Py_BEGIN_ALLOW_THREADS` C-код може використовувати технологію OpenMP, заводити власні системні потоки `std::thread` або використовувати векторні інструкції SIMD/AVX2. Інтерпретатор Python у цей час залишається вільним для виконання коду в інших потоках.

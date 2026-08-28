@@ -40,43 +40,7 @@ sudo sysctl -w net.ipv4.tcp_tw_reuse=1
 
 ### Сервер 1: Flask (Синхронна модель WSGI)
 
-```py
-import time
-from flask import Flask, jsonify, request
-
-app = Flask(__name__)
-
-@app.route("/api/v1/telemetry", methods=["POST"])
-def ingest_telemetry():
-    # 1. Перевірка заголовка автентифікації
-    token = request.headers.get("X-Sensor-Token")
-    if token != "secret-station-token":
-        return jsonify({"error": "Unauthorized"}), 401
-
-    # 2. Отримання та валідація JSON-пакета
-    data = request.get_json(silent=True)
-    if not data:
-        return jsonify({"error": "Missing JSON body"}), 400
-
-    device_id = data.get("device_id")
-    temperature = data.get("temperature")
-    humidity = data.get("humidity")
-    battery_mv = data.get("battery_mv")
-
-    if not isinstance(device_id, str) or not (3 <= len(device_id) <= 32):
-        return jsonify({"error": "Invalid device_id"}), 422
-    if not isinstance(temperature, (int, float)) or not (-50.0 <= temperature <= 150.0):
-        return jsonify({"error": "Invalid temperature"}), 422
-    if not isinstance(humidity, (int, float)) or not (0.0 <= humidity <= 100.0):
-        return jsonify({"error": "Invalid humidity"}), 422
-    if not isinstance(battery_mv, int) or not (0 <= battery_mv <= 5000):
-        return jsonify({"error": "Invalid battery_mv"}), 422
-
-    # 3. Емуляція блокувального запису в БД (15 мс)
-    time.sleep(0.015)
-
-    return jsonify({"status": "stored", "device_id": device_id}), 200
-```
+:::code proj-iot-telemetry-bench/py/server-1-flask-synkhronna.py
 
 Запуск сервера Flask під Gunicorn (4 синхронні воркери):
 
@@ -86,38 +50,7 @@ gunicorn -w 4 -b 0.0.0.0:8000 --backlog 2048 flask_app:app
 
 ### Сервер 2: FastAPI (Асинхронна модель ASGI)
 
-```py
-import asyncio
-from typing import Annotated
-from pydantic import BaseModel, Field
-from fastapi import FastAPI, Header, HTTPException, status
-
-app = FastAPI()
-
-class TelemetryPayload(BaseModel):
-    device_id: str = Field(min_length=3, max_length=32, pattern=r"^[a-zA-Z0-9_-]+$")
-    temperature: float = Field(ge=-50.0, le=150.0)
-    humidity: float = Field(ge=0.0, le=100.0)
-    battery_mv: int = Field(ge=0, le=5000)
-
-async def verify_token(x_sensor_token: Annotated[str, Header()]) -> str:
-    if x_sensor_token != "secret-station-token":
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Unauthorized sensor"
-        )
-    return x_sensor_token
-
-@app.post("/api/v1/telemetry", status_code=status.HTTP_200_OK)
-async def ingest_telemetry(
-    payload: TelemetryPayload,
-    _: Annotated[str, Header(alias="X-Sensor-Token")]
-):
-    # Емуляція неблокувального запису в БД через асинхронний драйвер (15 мс)
-    await asyncio.sleep(0.015)
-
-    return {"status": "stored", "device_id": payload.device_id}
-```
+:::code proj-iot-telemetry-bench/py/server-2-fastapi.py
 
 Запуск сервера FastAPI під Uvicorn (1 асинхронний воркер з uvloop):
 
@@ -129,94 +62,7 @@ uvicorn fastapi_app:app --host 0.0.0.0 --port 8000 --workers 1 --loop uvloop --h
 
 Скрипт навантаження реалізовано на базі асинхронної бібліотеки `httpx` та пулу з'єднань. Він вимірює розподіл квантилів затримки (P50, P95, P99), кількість помилок та опитує стан системного перемикання контексту процесора через інтерфейс `/proc/[pid]/status`:
 
-```py
-import asyncio
-import os
-import time
-import httpx
-import numpy as np
-
-URL = "http://127.0.0.1:8000/api/v1/telemetry"
-CONCURRENCY = 1000
-TOTAL_REQUESTS = 10000
-
-PAYLOAD = {
-    "device_id": "sensor_station_042",
-    "temperature": 23.85,
-    "humidity": 55.4,
-    "battery_mv": 3280
-}
-
-HEADERS = {
-    "X-Sensor-Token": "secret-station-token",
-    "Content-Type": "application/json"
-}
-
-def get_context_switches(pid: int) -> tuple[int, int]:
-    voluntary, nonvoluntary = 0, 0
-    try:
-        with open(f"/proc/{pid}/status", "r", encoding="utf-8") as f:
-            for line in f:
-                if line.startswith("voluntary_ctxt_switches:"):
-                    voluntary = int(line.split(":")[1].strip())
-                elif line.startswith("nonvoluntary_ctxt_switches:"):
-                    nonvoluntary = int(line.split(":")[1].strip())
-    except FileNotFoundError:
-        pass
-    return voluntary, nonvoluntary
-
-async def worker(client: httpx.AsyncClient, queue: asyncio.Queue, latencies: list[float], errors: list[int]):
-    while not queue.empty():
-        try:
-            queue.get_nowait()
-        except asyncio.QueueEmpty:
-            break
-
-        start_time = time.perf_counter()
-        try:
-            resp = await client.post(URL, json=PAYLOAD, headers=HEADERS, timeout=10.0)
-            elapsed_ms = (time.perf_counter() - start_time) * 1000.0
-            if resp.status_code == 200:
-                latencies.append(elapsed_ms)
-            else:
-                errors.append(resp.status_code)
-        except Exception:
-            errors.append(500)
-        finally:
-            queue.task_done()
-
-async def run_benchmark():
-    queue = asyncio.Queue()
-    for _ in range(TOTAL_REQUESTS):
-        queue.put_nowait(1)
-
-    latencies: list[float] = []
-    errors: list[int] = []
-
-    limits = httpx.Limits(max_connections=CONCURRENCY, max_keepalive_connections=CONCURRENCY)
-    async with httpx.AsyncClient(limits=limits) as client:
-        start_time = time.perf_counter()
-        tasks = [
-            asyncio.create_task(worker(client, queue, latencies, errors))
-            for _ in range(CONCURRENCY)
-        ]
-        await asyncio.gather(*tasks)
-        total_time = time.perf_counter() - start_time
-
-    rps = len(latencies) / total_time
-    arr = np.array(latencies)
-    print(f"=== Результати ({TOTAL_REQUESTS} запитів, {CONCURRENCY} клієнтів) ===")
-    print(f"Загальний час:       {total_time:.2f} с")
-    print(f"Пропускна здатність: {rps:.1f} req/s")
-    print(f"Кількість помилок:   {len(errors)} ({len(errors)/TOTAL_REQUESTS*100:.1f}%)")
-    print(f"Latency P50:         {np.percentile(arr, 50):.2f} мс")
-    print(f"Latency P95:         {np.percentile(arr, 95):.2f} мс")
-    print(f"Latency P99:         {np.percentile(arr, 99):.2f} мс")
-    print(f"Latency Max:         {np.max(arr):.2f} мс")
-
-if __name__ == "__main__":
-    asyncio.run(run_benchmark())
-```
+:::code proj-iot-telemetry-bench/py/henerator-navantazhennia.py
 
 ## Зведені результати навантажувального тесту
 

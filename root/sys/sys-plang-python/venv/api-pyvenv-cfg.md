@@ -45,20 +45,7 @@
 
 Модуль `venv` надає функцію швидкого створення середовища для типових скриптів автоматизації:
 
-```py
-import venv
-
-venv.create(
-    env_dir,
-    system_site_packages=False,
-    clear=False,
-    symlinks=False,
-    with_pip=False,
-    prompt=None,
-    upgrade_deps=False,
-    scm_ignore_files=frozenset(),
-)
-```
+:::code api-pyvenv-cfg/py/2-vysokorivneva-funktsiia.py
 
 Функція приймає такі параметри:
 - `env_dir`: шлях до каталогу цільового середовища (рядок або об'єкт `pathlib.Path`). Якщо каталог не існує, він створюється разом з усіма проміжними батьківськими каталогами.
@@ -105,50 +92,6 @@ venv.create(
 
 Завдяки архітектурі хуків розробник може створити спеціалізований клас білдера, який не лише генерує оточення, але й автоматично створює конфігураційні файли проєкту, встановлює внутрішні сертифікати безпеки та розгортає обов'язкові інструменти розробки:
 
-```py
-import os
-import subprocess
-import venv
-from pathlib import Path
-
-class CorporateEnvBuilder(venv.EnvBuilder):
-    """Спеціалізований конструктор venv для корпоративної інфраструктури."""
-    
-    def __init__(self, dev_tools=None, extra_index_url=None, **kwargs):
-        super().__init__(**kwargs)
-        self.dev_tools = dev_tools or ["pytest", "ruff", "mypy"]
-        self.extra_index_url = extra_index_url
-
-    def post_setup(self, context):
-        """Хук розширення, що виконується після базового створення середовища."""
-        # 1. Автоматична генерація файлу .gitignore
-        gitignore = Path(context.env_dir) / ".gitignore"
-        if not gitignore.exists():
-            gitignore.write_text("*\n", encoding="utf-8")
-
-        # 2. Налаштування корпоративного індексу пакетів pip.conf всередині venv
-        if self.extra_index_url:
-            pip_conf_dir = Path(context.env_dir)
-            pip_conf = pip_conf_dir / "pip.conf"
-            pip_conf.write_text(
-                f"[global]\nextra-index-url = {self.extra_index_url}\n",
-                encoding="utf-8"
-            )
-
-        # 3. Автоматичне встановлення базових інструментів тестування
-        if self.with_pip and self.dev_tools:
-            cmd = [context.executable, "-m", "pip", "install", "--quiet"] + self.dev_tools
-            subprocess.run(cmd, check=True)
-            print(f"Успішно встановлено корпоративний набір утиліт: {', '.join(self.dev_tools)}")
-
-if __name__ == "__main__":
-    builder = CorporateEnvBuilder(
-        with_pip=True,
-        prompt="corp-backend",
-        extra_index_url="https://pypi.internal.corp/simple",
-        dev_tools=["fastapi", "pytest", "ruff"]
-    )
-    builder.create("./.backend_env")
-```
+:::code api-pyvenv-cfg/py/4-stvorennia-kastomnoho.py
 
 Такий підхід забезпечує повну відтворюваність робочих оточень серед усіх членів команди розробки, гарантує єдині версії лінтерів та автоматизує інтеграцію з локальними репозиторіями артефактів.

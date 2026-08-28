@@ -74,24 +74,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-gil-management.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-gil-origins-and-attempts.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-telemetry-benchmarking.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -165,24 +171,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-event-loop-core.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-async-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-telemetry-server.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -224,12 +235,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-executor-bridge.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
@@ -241,7 +255,9 @@
           "proj": [
             {
               "file": "proj-hybrid-telemetry-server.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },

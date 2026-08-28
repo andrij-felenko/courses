@@ -31,19 +31,7 @@
 
 Якщо корутину, яка очікує завершення `asyncio.to_thread()`, скасовано через `task.cancel()`, об'єкт `asyncio.Future` переходить у стан скасування і генерує `asyncio.CancelledError` у точці `await`. Проте **системний потік операційної системи продовжить виконувати функцію `func` до кінця**. Операційні системи POSIX та Windows не дозволяють безпечно примусово переривати довільні системні потоки без ризику пошкодження пам'яті інтерпретатора CPython.
 
-```python
-import asyncio
-import time
-
-def blocking_disk_operation(filename: str, retry_count: int = 3) -> int:
-    time.sleep(0.5)
-    return len(filename) * retry_count
-
-async def handle_request():
-    # Безпечне винесення виклику без зупинки циклу подій
-    result = await asyncio.to_thread(blocking_disk_operation, "report.pdf", retry_count=5)
-    print(f"Обчислено розмір: {result}")
-```
+:::code api-executor-bridge/py/obmezhennia-skasuvannia.py
 
 ---
 
@@ -65,20 +53,7 @@ async def handle_request():
 1. **При виклику з `ThreadPoolExecutor`:** Функція виконується у системному потоці в тому самому адресному просторі процесу. Дозволено передавати будь-які об'єкти Python за посиланням. Накладні витрати на виклик становлять одиниці мікросекунд. Проте байткод Python залишається обмеженим спільним замком GIL.
 2. **При виклику з `ProcessPoolExecutor`:** Функція та всі її позиційні аргументи повинні підтримувати серіалізацію модулем `pickle`. Інтерпретатор серіалізує дані, відправляє їх через канали IPC до дочірнього процесу, де вони десеріалізуються та виконуються на власному ядрі процесора з окремим GIL. Накладні витрати на один виклик становлять сотні мікросекунд або мілісекунди залежно від обсягу даних.
 
-```python
-import asyncio
-from concurrent.futures import ProcessPoolExecutor
-
-def heavy_number_crunching(base: int, exponent: int) -> int:
-    return pow(base, exponent, 1_000_000_007)
-
-async def compute():
-    loop = asyncio.get_running_loop()
-    with ProcessPoolExecutor(max_workers=4) as pool:
-        # Виклик процесу для обходу обмежень GIL
-        val = await loop.run_in_executor(pool, heavy_number_crunching, 1234567, 9876543)
-        print(f"Результат розрахунку: {val}")
-```
+:::code api-executor-bridge/py/vidminnosti-mizh.py
 
 ---
 
@@ -135,24 +110,7 @@ async def compute():
 
 **Критична помилка:** Ніколи не викликайте `future.result()` у тому самому системному потоці, де запущено цикл подій `loop`. Оскільки потік циклу подій буде заблокований очікуванням результату `Future`, він не зможе виконати жодної ітерації `_run_once()`, корутина ніколи не виконається, і програма потрапить у стан мертвого блокування (*deadlock*).
 
-```python
-import asyncio
-import threading
-import time
-
-def sync_worker_thread(loop: asyncio.AbstractEventLoop):
-    time.sleep(1.0)
-    
-    async def async_database_insert(record_id: int) -> str:
-        await asyncio.sleep(0.1)  # Імітація асинхронного запиту
-        return f"OK_{record_id}"
-
-    # Безпечний запуск корутини з фонового потоку
-    future = asyncio.run_coroutine_threadsafe(async_database_insert(42), loop)
-    # Очікування відповіді з таймаутом
-    result = future.result(timeout=2.0)
-    print(f"Синхронний потік отримав результат: {result}")
-```
+:::code api-executor-bridge/py/pravyla-zastosuvannia-ta.py
 
 ---
 

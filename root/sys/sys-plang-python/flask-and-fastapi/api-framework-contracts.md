@@ -6,18 +6,7 @@
 
 Синхронний веб-інтерфейс WSGI (англ. *Web Server Gateway Interface*) базується на концепції єдиного викликального об'єкта (функції або екземпляра класу з методом `__call__`), що приймає два позиційні аргументи:
 
-```py
-from collections.abc import Callable, Iterable
-
-def application(
-    environ: dict[str, object],
-    start_response: Callable[
-        [str, list[tuple[str, str]], tuple | None],
-        Callable[[bytes], None]
-    ]
-) -> Iterable[bytes]:
-    ...
-```
+:::code api-framework-contracts/py/kontrakt-wsgi-pep-3333.py
 
 ### Життєвий цикл виконання WSGI-запиту
 
@@ -75,18 +64,7 @@ def start_response(
 
 WSGI дозволяє будувати ланцюжки обробників (Middleware), де кожен компонент є одночасно клієнтом для внутрішнього шару і сервером для зовнішнього:
 
-```py
-class AuthenticationMiddleware:
-    def __init__(self, app):
-        self.app = app
-
-    def __call__(self, environ, start_response):
-        token = environ.get("HTTP_X_SENSOR_TOKEN")
-        if token != "valid-token":
-            start_response("401 Unauthorized", [("Content-Type", "application/json")])
-            return [b'{"error": "Unauthorized"}\n']
-        return self.app(environ, start_response)
-```
+:::code api-framework-contracts/py/promizhne-prohramne.py
 
 ### Обмеження потокового вводу та обробки помилок у WSGI
 
@@ -116,58 +94,13 @@ async def application(
 
 #### Структура scope для протоколу HTTP (`scope["type"] == "http"`)
 
-```py
-{
-    "type": "http",
-    "asgi": {
-        "version": "3.0",
-        "spec_version": "2.3"
-    },
-    "http_version": "1.1",
-    "method": "POST",
-    "scheme": "http",
-    "path": "/api/v1/telemetry",
-    "raw_path": b"/api/v1/telemetry",
-    "query_string": b"station_id=alpha&compress=gzip",
-    "root_path": "",
-    "headers": [
-        [b"host", b"iot.factory.internal:8000"],
-        [b"content-type", b"application/json"],
-        [b"content-length", b"128"],
-        [b"x-sensor-token", b"device-secret-key"]
-    ],
-    "client": ("192.168.1.50", 49152),
-    "server": ("192.168.1.10", 8000),
-    "state": {}
-}
-```
+:::code api-framework-contracts/py/struktura-scope-dlia.py
 
 Усі заголовки у списку `headers` передаються як кортежі сирих байтів `list[tuple[bytes, bytes]]` у нижньому регістрі. Це усуває накладні витрати на декодування рядків і запобігає спотворенню кодувань.
 
 #### Структура scope для протоколу WebSocket (`scope["type"] == "websocket"`)
 
-```py
-{
-    "type": "websocket",
-    "asgi": {"version": "3.0", "spec_version": "2.3"},
-    "http_version": "1.1",
-    "scheme": "ws",
-    "path": "/ws/v1/live-feed",
-    "raw_path": b"/ws/v1/live-feed",
-    "query_string": b"device_id=node_42",
-    "root_path": "",
-    "headers": [
-        [b"host", b"iot.factory.internal:8000"],
-        [b"upgrade", b"websocket"],
-        [b"connection", b"Upgrade"],
-        [b"sec-websocket-key", b"dGhlIHNhbXBsZSBub25jZQ=="],
-        [b"sec-websocket-version", b"13"]
-    ],
-    "client": ("192.168.1.50", 49154),
-    "server": ("192.168.1.10", 8000),
-    "subprotocols": ["sensor-binary-v2"]
-}
-```
+:::code api-framework-contracts/py/struktura-scope-dlia-2.py
 
 ### Протокол повідомлень HTTP
 
@@ -221,53 +154,13 @@ await send({
 
 Протокол Lifespan дозволяє додатку виконати асинхронну ініціалізацію спільних системних ресурсів (пулів підключень до PostgreSQL через `asyncpg`, клієнтів Redis, брокерів MQTT) до відкриття мережевого порту сервером:
 
-```py
-async def lifespan_handler(scope, receive, send):
-    if scope["type"] == "lifespan":
-        while True:
-            message = await receive()
-            if message["type"] == "lifespan.startup":
-                try:
-                    # Асинхронний старт системних пулів
-                    await database_engine.connect()
-                    await send({"type": "lifespan.startup.complete"})
-                except Exception as exc:
-                    await send({"type": "lifespan.startup.failed", "message": str(exc)})
-                    return
-            elif message["type"] == "lifespan.shutdown":
-                # Гарантоване закриття з'єднань і збереження буферів
-                await database_engine.disconnect()
-                await send({"type": "lifespan.shutdown.complete"})
-                return
-```
+:::code api-framework-contracts/py/podii-zhyttievoho-tsyklu.py
 
 ### Проміжне програмне забезпечення у ASGI (Middleware)
 
 У середовищі ASGI проміжний шар реалізується як обгортка над корутиною:
 
-```py
-class TelemetryTimingMiddleware:
-    def __init__(self, app):
-        self.app = app
-
-    async def __call__(self, scope, receive, send):
-        if scope["type"] != "http":
-            await self.app(scope, receive, send)
-            return
-
-        import time
-        start_time = time.perf_counter()
-
-        async def send_wrapper(message):
-            if message["type"] == "http.response.start":
-                duration_ms = (time.perf_counter() - start_time) * 1000.0
-                headers = list(message.get("headers", []))
-                headers.append((b"x-process-time-ms", f"{duration_ms:.2f}".encode("ascii")))
-                message["headers"] = headers
-            await send(message)
-
-        await self.app(scope, receive, send_wrapper)
-```
+:::code api-framework-contracts/py/promizhne-prohramne-2.py
 
 ## Порівняння протокольних характеристик
 

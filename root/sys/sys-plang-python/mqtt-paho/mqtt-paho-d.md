@@ -35,20 +35,7 @@
 
 Метод `loop_forever(timeout=1.0, retry_first_connection=False)` повністю бере під контроль поточний потік операційної системи. Всередині нього крутиться безкінечний цикл, який на кожній ітерації викликає `select()` над мережевим сокетом та парою `_sockpairR`.
 
-```python
-import paho.mqtt.client as mqtt
-
-def on_message(client, userdata, msg):
-    # Обробка виконується в тому ж потоці, що й мережевий цикл
-    print(f"Отримано: {msg.topic} -> {msg.payload.decode('utf-8')}")
-
-client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-client.on_message = on_message
-client.connect("mqtt.internal.iot", 1883, keepalive=60)
-
-# Потік блокується, обслуговуючи з'єднання та зворотні виклики
-client.loop_forever()
-```
+:::code mqtt-paho-d/py/blokuvalnyi-tsykl-loop.py
 
 Головна перевага `loop_forever()` полягає у простоті синхронізації: мережеві операції та користувацькі колбеки виконуються послідовно в одному системному потоці. Доступ до внутрішнього стану клієнта та переданих об'єктів не створює перегонів даних (Race Conditions) і не потребує замків (`threading.Lock`). Крім того, `loop_forever()` автоматично обробляє розриви з'єднання: при втраті TCP-каналу він переходить у стан очікування та повторно виконує підключення з наростаючою затримкою.
 
@@ -58,41 +45,7 @@ client.loop_forever()
 
 Для звільнення головного потоку програми застосовується пара методів `loop_start()` та `loop_stop()`. Виклик `loop_start()` створює новий системний потік `threading.Thread` із прапорцем демона (`daemon=True`), всередині якого безперервно викликається метод `loop()`.
 
-```python
-import time
-import queue
-import paho.mqtt.client as mqtt
-
-# Потокобезпечна черга для ізоляції фонового потоку від головного
-telemetry_queue: queue.Queue = queue.Queue(maxsize=10000)
-
-def on_message(client, userdata, msg):
-    # Цей код виконується у фоновому потоці paho-mqtt
-    try:
-        telemetry_queue.put_nowait((msg.topic, msg.payload))
-    except queue.Full:
-        # Стратегія протитиску: скидання найстарішого пакета або логування
-        pass
-
-client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-client.on_message = on_message
-client.connect("mqtt.internal.iot", 1883, keepalive=60)
-
-# Запуск фонового мережевого демона
-client.loop_start()
-
-try:
-    while True:
-        # Головний потік займається важкою обробкою та записом на диск
-        topic, payload = telemetry_queue.get()
-        # Тривала операція запису в БД чи аналітики
-        time.sleep(0.005)
-        telemetry_queue.task_done()
-finally:
-    # Коректна зупинка фонового потоку та очікування завершення його join()
-    client.loop_stop()
-    client.disconnect()
-```
+:::code mqtt-paho-d/py/fonovyi-demon-loop-start.py
 
 У цій схемі фоновий потік гарантує своєчасну відповідь на пінги брокера та моментальне спорожнення системного буфера сокета навіть тоді, коли головний потік завантажений важкими обчисленнями. 
 
@@ -145,28 +98,7 @@ MQTT 5.0 запроваджує важливі можливості для по�
 
 Функція `on_connect` викликається в мережевому потоці після отримання підтвердження `CONNACK`:
 
-```python
-from paho.mqtt.client import Client, CallbackAPIVersion, ConnectFlags
-from paho.mqtt.enums import ReasonCode
-from paho.mqtt.properties import Properties
-
-def on_connect(
-    client: Client,
-    userdata: dict,
-    flags: ConnectFlags,
-    reason_code: ReasonCode,
-    properties: Properties | None
-) -> None:
-    if reason_code.is_failure:
-        print(f"Помилка авторизації або підключення до брокера: {reason_code}")
-        return
-
-    print(f"Успішне підключення. Відновлення сесії: {flags.session_present}")
-
-    # Оформлення підписок завжди виконується всередині on_connect!
-    # Це гарантує поновлення підписок при автоматичному перепідключенні
-    client.subscribe("tenants/+/devices/+/telemetry", qos=1)
-```
+:::code mqtt-paho-d/py/obrobnyk-pidkliuchennia-on.py
 
 Властивість `reason_code.is_failure` повертає `True`, якщо брокер відхилив запит на підключення. Метод `str(reason_code)` виводить читабельне пояснення помилки (наприклад, `Not authorized` або `Bad user name or password`).
 
@@ -176,25 +108,7 @@ def on_connect(
 
 Функція `on_message` викликається щоразу, коли клієнт отримує пакет `PUBLISH`:
 
-```python
-from paho.mqtt.client import Client, MQTTMessage
-
-def on_message(client: Client, userdata: dict, message: MQTTMessage) -> None:
-    topic: str = message.topic
-    payload: bytes = message.payload
-    qos: int = message.qos
-    retain: bool = message.retain
-    mid: int = message.mid
-
-    # Робота з метаданими MQTT 5.0
-    if message.properties:
-        content_type = getattr(message.properties, "ContentType", "application/json")
-        user_properties = getattr(message.properties, "UserProperty", [])
-        print(f"Формат: {content_type}, Користувацькі мітки: {user_properties}")
-
-    # Збереження або оновлення стану через переданий контекст
-    userdata["counter"] += 1
-```
+:::code mqtt-paho-d/py/obrobnyk-vkhidnykh.py
 
 Поле `message.payload` завжди є об'єктом байтів `bytes`. Серверний приймач не повинен робити припущень щодо кодування: текст слід явно декодувати за допомогою `.decode("utf-8", errors="replace")`.
 
@@ -202,40 +116,13 @@ def on_message(client: Client, userdata: dict, message: MQTTMessage) -> None:
 
 Функція викликається при втраті зв'язку або завершенні сесії:
 
-```python
-from paho.mqtt.client import Client, DisconnectFlags
-from paho.mqtt.enums import ReasonCode
-from paho.mqtt.properties import Properties
-
-def on_disconnect(
-    client: Client,
-    userdata: dict,
-    flags: DisconnectFlags,
-    reason_code: ReasonCode,
-    properties: Properties | None
-) -> None:
-    if reason_code == 0:
-        print("Штатне завершення сесії за командою client.disconnect().")
-    else:
-        print(f"Аварійний обрив TCP-з'єднання ({reason_code}). Запуск процедури reconnect...")
-```
+:::code mqtt-paho-d/py/obrobnyk-rozryvu.py
 
 ### Маршрутизація через message_callback_add
 
 Якщо сервер підписується на різноманітні класи топіків (телеметрія, події тривоги, відповіді на команди), складання єдиного монолітного `if-elif` дерева всередині `on_message` ускладнює код. Бібліотека надає механізм маршрутизації за шаблонами:
 
-```python
-def handle_telemetry(client, userdata, msg):
-    # Обробка даних вимірювань
-    pass
-
-def handle_alerts(client, userdata, msg):
-    # Пріоритетна обробка критичних тривог
-    pass
-
-client.message_callback_add("tenants/+/devices/+/telemetry", handle_telemetry)
-client.message_callback_add("tenants/+/devices/+/alerts", handle_alerts)
-```
+:::code mqtt-paho-d/py/marshrutyzatsiia-cherez.py
 
 Клієнт автоматично зіставляє топік вхідного повідомлення зі зареєстрованими масками (включно з однорівневим підстановочним знаком `+` та багаторівневим `#`). Якщо жоден спеціалізований шаблон не збігся, керування передається загальному обробнику за замовчуванням `client.on_message`.
 
@@ -245,19 +132,7 @@ client.message_callback_add("tenants/+/devices/+/alerts", handle_alerts)
 
 Це дозволяє створювати повністю ізольовані екземпляри служб без звернення до глобальних змінних:
 
-```python
-class TelemetryReceiver:
-    def __init__(self, broker_url: str):
-        self.stats = {"received": 0, "errors": 0}
-        self.client = mqtt.Client(
-            mqtt.CallbackAPIVersion.VERSION2,
-            userdata=self.stats
-        )
-        self.client.on_message = self._on_message
-
-    def _on_message(self, client, userdata, message):
-        userdata["received"] += 1
-```
+:::code mqtt-paho-d/py/patern-userdata-unyknennia.py
 
 ## 3. Живучість з'єднання, перепідключення, буферизація та TLS/SSL
 
@@ -298,29 +173,7 @@ client.max_inflight_messages_set(50)
 
 Бібліотека надає два методи конфігурації TLS:
 
-```python
-import ssl
-
-# Варіант 1: Спрощений через tls_set()
-client.tls_set(
-    ca_certs="/etc/ssl/certs/internal-ca.crt",
-    certfile="/etc/ssl/certs/backend-client.crt",  # Для mTLS
-    keyfile="/etc/ssl/private/backend-client.key",  # Для mTLS
-    cert_reqs=ssl.CERT_REQUIRED,
-    tls_version=ssl.PROTOCOL_TLS_CLIENT
-)
-
-# Варіант 2: Пряма передача ssl.SSLContext (рекомендовано для production)
-context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, cafile="/etc/ssl/certs/internal-ca.crt")
-context.load_cert_chain(
-    certfile="/etc/ssl/certs/backend-client.crt",
-    keyfile="/etc/ssl/private/backend-client.key"
-)
-context.check_hostname = True
-context.verify_mode = ssl.CERT_REQUIRED
-
-client.tls_set_context(context)
-```
+:::code mqtt-paho-d/py/nalashtuvannia-bezpechnoho.py
 
 > [!CAUTION]
 > Метод `client.tls_insecure_set(True)` вимикає верифікацію доменного імені брокера у сертифікаті. Це робить систему вразливою до перехоплення трафіку (Man-in-the-Middle) і категорично заборонено у виробничому середовищі.
@@ -329,18 +182,7 @@ client.tls_set_context(context)
 
 Для авторизації клієнта та реєстрації сповіщення про аварійне падіння застосовуються методи:
 
-```python
-# Передача облікових даних
-client.username_pw_set("telemetry_service_01", "SecureServiceToken_XYZ")
-
-# Заповіт LWT: брокер надішле це повідомлення в топік при нештатному розриві сесії
-client.will_set(
-    topic="services/ingestion-srv-01/status",
-    payload=b'{"state": "crashed", "node": "srv-prod-01"}',
-    qos=1,
-    retain=True
-)
-```
+:::code mqtt-paho-d/py/avtentyfikatsiia-ta-last.py
 
 > 🔧 **Навіщо це.**
 > Збережене повідомлення LWT (`retain=True`) дозволяє системі моніторингу та сусіднім сервісам миттєво дізнатися про падіння приймача: при оформленні підписки на `services/+/status` вони негайно отримують останній актуальний стан вузла.
@@ -371,32 +213,7 @@ client.will_set(
 
 Використання `aiomqtt` забезпечує ідіоматичний асинхронний синтаксис:
 
-```python
-import asyncio
-from aiomqtt import Client, MqttError
-
-async def main():
-    async with Client(
-        hostname="mqtt.internal.iot",
-        port=8883,
-        identifier="async-ingestion-srv",
-        clean_session=False
-    ) as client:
-        # Асинхронне оформлення підписки
-        await client.subscribe("tenants/+/devices/+/telemetry", qos=1)
-
-        # Асинхронне вичитування потоку повідомлень
-        async for message in client.messages:
-            print(f"Отримано топік {message.topic}: {len(message.payload)} байт")
-            # Тут можна безпечно виконувати неблокувальні await-виклики:
-            # await db_pool.execute("INSERT INTO ...", message.payload)
-
-if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except MqttError as err:
-        print(f"Помилка мережевого клієнта MQTT: {err}")
-```
+:::code mqtt-paho-d/py/asynkhronnyi-kontekstnyi.py
 
 Якщо під час ітерації відбувається розрив з'єднання, менеджер контексту перехоплює аварійний стан і викидає виняток `MqttError`, що дозволяє організувати надійне зовнішнє відновлення сесії в корутині верхнього рівня.
 

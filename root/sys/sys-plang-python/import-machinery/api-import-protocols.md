@@ -38,28 +38,7 @@ class importlib.machinery.ModuleSpec(
 
 Базовий абстрактний клас для знахідників найвищого пріоритету, зареєстрованих у системному списку `sys.meta_path`. Інтерпретатор послідовно викликає метод `find_spec` кожного зареєстрованого знахідника доти, доки один із них не поверне об'єкт `ModuleSpec`. Якщо знахідник не може знайти модуль, він зобов'язаний повернути `None`. Збудження винятків дозволяється лише у випадках фатальних системних збоїв або пошкодження структури сховища.
 
-```python
-class importlib.abc.MetaPathFinder:
-    def find_spec(
-        self,
-        fullname: str,
-        path: Sequence[str] | None,
-        target: types.ModuleType | None = None
-    ) -> ModuleSpec | None:
-        """Шукає специфікацію модуля.
-        
-        Параметри:
-          fullname: повна кваліфікована назва модуля.
-          path: None для модулів верхнього рівня або значення __path__ 
-                батьківського пакунка при імпорті підмодуля.
-          target: існуючий модуль (передається лише під час перезавантаження reload()).
-        """
-        ...
-
-    def invalidate_caches(self) -> None:
-        """Скидає внутрішні кеші знахідника (викликається importlib.invalidate_caches())."""
-        ...
-```
+:::code api-import-protocols/py/importlib-abc.py
 
 Метод `invalidate_caches()` є обов'язковим для знахідників, які кешують стан файлової системи (наприклад, список файлів у каталогах). Виклик цієї функції гарантує, що новостворені файли на диску будуть коректно виявлені без перезапуску процесу інтерпретатора.
 
@@ -67,20 +46,7 @@ class importlib.abc.MetaPathFinder:
 
 Протокол для знахідників, прив'язаних до конкретного запису у списку шляхів (елемента `sys.path` або списку `pkg.__path__`). Вони створюються фабричними функціями, зареєстрованими у `sys.path_hooks`. Кожен екземпляр `PathEntryFinder` інкапсулює логіку пошуку лише в межах одного конкретного каталогу чи архіву.
 
-```python
-class importlib.abc.PathEntryFinder:
-    def find_spec(
-        self,
-        fullname: str,
-        target: types.ModuleType | None = None
-    ) -> ModuleSpec | None:
-        """Шукає специфікацію модуля в межах закріпленого каталогу/шляху."""
-        ...
-
-    def invalidate_caches(self) -> None:
-        """Очищає кеш файлових дескрипторів або списків файлів каталогу."""
-        ...
-```
+:::code api-import-protocols/py/importlib-abc-2.py
 
 ## 3. Протокол завантажувачів (Loaders)
 
@@ -88,33 +54,7 @@ class importlib.abc.PathEntryFinder:
 
 ### `importlib.abc.Loader`
 
-```python
-class importlib.abc.Loader:
-    def create_module(self, spec: ModuleSpec) -> types.ModuleType | None:
-        """Алокує новий об'єкт модуля.
-        
-        Повертає новий types.ModuleType або None. Якщо повернено None,
-        CPython створює стандартний модуль types.ModuleType(spec.name).
-        """
-        return None
-
-    def exec_module(self, module: types.ModuleType) -> None:
-        """Виконує код модуля у просторі імен module.__dict__.
-        
-        Обов'язковий метод за стандартом PEP 451. Усі винятки,
-        викинуті цим методом, призводять до відкату та видалення
-        модуля з sys.modules.
-        """
-        ...
-
-    def load_module(self, fullname: str) -> types.ModuleType:
-        """Застарілий метод епохи PEP 302.
-        
-        У сучасному коді не реалізується; за замовчуванням емулюється
-        через виклики create_module() та exec_module().
-        """
-        ...
-```
+:::code api-import-protocols/py/importlib-abc-loader.py
 
 Метод `create_module()` викликається інтерпретатором першим. Більшість завантажувачів повертають `None`, дозволяючи CPython виконати стандартну алокацію об'єкта `types.ModuleType` та заповнити службові атрибути (`__name__`, `__spec__`, `__loader__`, `__file__`, `__path__`). Власна реалізація `create_module` потрібна лише у специфічних випадках, наприклад, при завантаженні C-розширень або поверненні спеціальних проксі-об'єктів.
 

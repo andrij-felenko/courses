@@ -50,62 +50,13 @@
 У `ctypes` маршалінг відбувається повністю динамічно під час кожного виклику. Розглянемо приклад налаштування сигнатури для C-функції додавання векторів:
 
 :::tabs
-```c
-// math_ops.c
-#include <stdint.h>
-
-int32_t add_vectors(const int32_t *a, const int32_t *b, int32_t *out, size_t n) {
-    if (!a || !b || !out) return -1;
-    for (size_t i = 0; i < n; ++i) {
-        out[i] = a[i] + b[i];
-    }
-    return 0;
-}
-```
-```cpp
-// math_ops.cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-extern "C" int32_t add_vectors(const int32_t *a, const int32_t *b, int32_t *out, std::size_t n) noexcept {
-    if (!a || !b || !out) return -1;
-    std::span<const int32_t> span_a(a, n);
-    std::span<const int32_t> span_b(b, n);
-    std::span<int32_t>       span_out(out, n);
-    for (std::size_t i = 0; i < n; ++i) {
-        span_out[i] = span_a[i] + span_b[i];
-    }
-    return 0;
-}
-```
+:::code ctypes-and-cffi-d/c/math_ops.c
+:::code ctypes-and-cffi-d/cpp/math_ops.cpp
 :::
 
 Виклик цієї функції з Python через `ctypes` вимагає суворого опису типів аргументів та результату:
 
-```python
-import ctypes
-
-lib = ctypes.CDLL("./libmath_ops.so")
-
-# Обов'язкове налаштування сигнатури: restype та argtypes
-lib.add_vectors.restype = ctypes.c_int32
-lib.add_vectors.argtypes = [
-    ctypes.POINTER(ctypes.c_int32),
-    ctypes.POINTER(ctypes.c_int32),
-    ctypes.POINTER(ctypes.c_int32),
-    ctypes.c_size_t,
-]
-
-size = 4
-arr_type = ctypes.c_int32 * size
-vec_a = arr_type(1, 2, 3, 4)
-vec_b = arr_type(10, 20, 30, 40)
-vec_out = arr_type()
-
-ret = lib.add_vectors(vec_a, vec_b, vec_out, size)
-# vec_out містить результат [11, 22, 33, 44]
-```
+:::code ctypes-and-cffi-d/py/oholoshennia-typiv.py
 
 Якщо властивості `argtypes` або `restype` не задано явно, `ctypes` вважає всі цілочисельні аргументи C-типом `int` (4 байти), а результат — також `int`. На 64-бітних системах це є поширеним джерелом критичних помилок: якщо функція повертає покажчик `void*` (8 байтів), `ctypes` відсікає старші 32 біти адреси, що призводить до негайного падіння з помилкою сегментації пам'яті (*Segmentation Fault*).
 
@@ -201,33 +152,7 @@ lib.add_vectors.errcheck = check_negative_status
 
 У режимі `cffi API` розробник використовує синтаксис `...;` у тілі структури:
 
-```python
-# build_sensor.py
-from cffi import FFI
-
-ffibuilder = FFI()
-
-ffibuilder.cdef("""
-    typedef struct {
-        int sensor_id;
-        double calibration_factor;
-        ...; /* Невідомі або внутрішні поля та вирівнювання */
-    } SensorData;
-
-    int read_sensor(SensorData *dev);
-""")
-
-ffibuilder.set_source(
-    "_sensor_backend",
-    """
-    #include <sensor_driver.h>
-    """,
-    libraries=["sensor_driver"],
-)
-
-if __name__ == "__main__":
-    ffibuilder.compile(verbose=True)
-```
+:::code ctypes-and-cffi-d/py/build_sensor.py
 
 Під час виконання `ffibuilder.compile()` `cffi` генерує C-файл, де для кожного поля структури компілятор обчислює точний зсув за допомогою стандартного макросу `offsetof(SensorData, calibration_factor)` та оператора `sizeof(SensorData)`. Якщо поле відсутнє або має інший тип, C-компілятор видасть помилку компіляції ще на етапі збірки пакета, запобігши фатальному збою під час роботи програми у продакшені.
 
@@ -236,37 +161,8 @@ if __name__ == "__main__":
 Згенерований CFFI файл розширення (наприклад, `_sensor_backend.c`) містить статичну таблицю функцій та прямі C-виклики:
 
 :::tabs
-```c
-/* Фрагмент C-коду, згенерованого CFFI у режимі API */
-static PyObject *
-_cffi_f_read_sensor(PyObject *self, PyObject *arg0)
-{
-    SensorData *x0;
-    int result;
-
-    /* Пряме отримання нативного покажчика з CData */
-    if (_cffi_to_c((char *)&x0, _cffi_type(1), arg0) < 0)
-        return NULL;
-
-    Py_BEGIN_ALLOW_THREADS
-    result = read_sensor(x0); /* Прямий C-виклик без libffi! */
-    Py_END_ALLOW_THREADS
-
-    return _cffi_from_c_int(result, int);
-}
-```
-```cpp
-// Еквівалентна пряма обгортка у C++ модулі розширення
-#include <pybind11/pybind11.h>
-#include "sensor_driver.hpp"
-
-namespace py = pybind11;
-
-int read_sensor_cpp(SensorData &dev) {
-    py::gil_scoped_release release; // RAII-відпускання та захоплення GIL
-    return read_sensor(&dev);       // Прямий виклик нативної функції
-}
-```
+:::code ctypes-and-cffi-d/c/heneratsiia-kodu.c
+:::code ctypes-and-cffi-d/cpp/heneratsiia-kodu.cpp
 :::
 
 У середовищі PyPy трасувальний JIT-компілятор розпізнає внутрішні операції CFFI і повністю розгортає їх (*inline expansion*), перетворюючи виклик C-функції на одну машинну інструкцію `call` без виділення проміжних об'єктів у купі.
@@ -275,28 +171,7 @@ int read_sensor_cpp(SensorData &dev) {
 
 Бібліотека `cffi` підтримує режим зворотної інтеграції (*embedding*): компіляцію логіки Python у стандартну нативну динамічну бібліотеку (`.so` або `.dll`), яка експортує звичайні C-функції. Сторонній застосунок на мові C, C++, Rust або Go завантажує цю бібліотеку через `dlopen()` і викликає функції без знання про те, що всередині працює інтерпретатор Python:
 
-```python
-# embedding_build.py
-from cffi import FFI
-
-ffibuilder = FFI()
-
-ffibuilder.embedding_api("""
-    int calculate_checksum(const char *data, int len);
-""")
-
-ffibuilder.embedding_init_code("""
-    from _embedded_lib import ffi
-
-    @ffi.def_extern()
-    def calculate_checksum(data, length):
-        raw_bytes = ffi.buffer(data, length)[:]
-        return sum(raw_bytes) % 256
-""")
-
-ffibuilder.set_source("_embedded_lib", "")
-ffibuilder.compile(target="libchecksum.so", verbose=True)
-```
+:::code ctypes-and-cffi-d/py/embedding_build.py
 
 При першому зверненні до функції `calculate_checksum` нативний C-трамплін автоматично ініціалізує середовище виконання CPython (`Py_Initialize()`), завантажує вбудований байткод і передає аргументи у Python.
 
@@ -346,20 +221,7 @@ setup(
 
 Модуль `cffi` вирішує цю проблему за допомогою функції `ffi.gc(cdata, destructor)`:
 
-```python
-from _sensor_backend import ffi, lib
-
-def create_managed_context():
-    # Нативна функція C виділяє пам'ять через malloc()
-    raw_ctx = lib.sensor_context_create()
-    if raw_ctx == ffi.NULL:
-        raise MemoryError("Не вдалося ініціалізувати нативний контекст")
-
-    # Прив'язуємо C-деструктор до об'єкта cdata
-    # Коли gc_ctx збирається GC Python, автоматично викликається sensor_context_destroy(raw_ctx)
-    gc_ctx = ffi.gc(raw_ctx, lib.sensor_context_destroy)
-    return gc_ctx
-```
+:::code ctypes-and-cffi-d/py/zapobihannia-vytokam.py
 
 Об'єкт `gc_ctx` можна вільно передавати між функціями або зберігати в структурах Python. Коли кількість посилань на `gc_ctx` падає до нуля, CPython викликає фіналізатор об'єкта, який гарантовано передає сирий покажчик функції `sensor_context_destroy()`.
 
@@ -373,18 +235,7 @@ def create_managed_context():
 
 У `ctypes` доступ до пам'яті буферних об'єктів здійснюється через метод `from_buffer()`:
 
-```python
-import ctypes
-
-# Створюємо мутабельний байтовий буфер розміром 1 МБ
-buffer_data = bytearray(1024 * 1024)
-
-# Отримуємо обгортку ctypes над тим самим блоком пам'яті (без копіювання!)
-c_buffer = (ctypes.c_uint8 * len(buffer_data)).from_buffer(buffer_data)
-
-# Передаємо покажчик нативній C-функції
-lib.process_raw_bytes(c_buffer, len(buffer_data))
-```
+:::code ctypes-and-cffi-d/py/peredacha-bez-kopiiuvannia.py
 
 #### Передача без копіювання в cffi
 
@@ -455,22 +306,7 @@ ffibuilder.cdef("""
 
 У `ctypes` тип функції-колбека створюється фабрикою `ctypes.CFUNCTYPE(restype, *argtypes)`:
 
-```python
-import ctypes
-
-# 1. Визначаємо прототип функції: (повертає int, приймає два int)
-CMP_FUNC_TYPE = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int, ctypes.c_int)
-
-# 2. Пишемо звичайну функцію Python
-def my_comparator(a, b):
-    return (a > b) - (a < b)
-
-# 3. Створюємо C-покажчик на функцію (C-callable object)
-c_callback = CMP_FUNC_TYPE(my_comparator)
-
-# 4. Передаємо в C-бібліотеку
-lib.quick_sort(array_ptr, size, c_callback)
-```
+:::code ctypes-and-cffi-d/py/mekhanizm-zvorotnykh.py
 
 > [!CAUTION]
 > **Небезпека передчасного збирання сміття (GC Garbage Collection):**

@@ -124,26 +124,7 @@ def start_response(
 
 Згідно зі специфікацією PEP 3333, якщо ітерований об'єкт відповіді містить метод `close()`, WSGI-сервер зобов'язаний гарантовано викликати його після завершення надсилання всіх байтів або в разі аварійного розриву клієнтського TCP-з'єднання. Це забезпечує звільнення відкритих файлових дескрипторів, курсорів баз даних та мережевих з'єднань через стандартну конструкцію `try ... finally`:
 
-```python
-def streaming_file_app(environ: dict, start_response):
-    """Приклад генератора потокової відповіді з гарантованим закриттям ресурсу."""
-    file_handle = open("telemetry_archive.log", "rb")
-
-    def file_stream():
-        try:
-            while chunk := file_handle.read(65536):
-                yield chunk
-        finally:
-            file_handle.close()
-
-    status = "200 OK"
-    headers = [
-        ("Content-Type", "application/octet-stream"),
-        ("Content-Disposition", "attachment; filename=archive.log"),
-    ]
-    start_response(status, headers)
-    return file_stream()
-```
+:::code api-wsgi-environ/py/4-potokove-peredavannia.py
 
 ## 5. Обробка мережевих винятків і помилок сокета
 
@@ -170,20 +151,4 @@ def streaming_file_app(environ: dict, start_response):
 
 Застосування валідатора в тестах гарантує сумісність із будь-яким виробничим вебсервером:
 
-```python
-from wsgiref.validate import validator
-from wsgiref.simple_server import make_server
-
-
-def my_app(environ, start_response):
-    start_response("200 OK", [("Content-Type", "text/plain; charset=utf-8")])
-    return [b"Valid WSGI response"]
-
-
-# Обгортання додатку валідатором для перевірки сумісності
-strict_app = validator(my_app)
-
-if __name__ == "__main__":
-    with make_server("127.0.0.1", 8080, strict_app) as httpd:
-        httpd.serve_forever()
-```
+:::code api-wsgi-environ/py/6-validatsiia-za.py

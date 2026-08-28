@@ -217,22 +217,7 @@ pyinstaller --onefile \
 
 У замороженому застосунку цим двійковим файлом є сам завантажувач `app.exe`. Якщо на початку головного скрипта відсутній виклик `multiprocessing.freeze_support()`, дочірній процес не розпізнає службові аргументи і почне заново виконувати головний скрипт програми з першого рядка. Це призводить до катастрофічної неконтрольованої ланцюгової реакції: кожен новий процес породжує сотні нових копій самого себе («форк-бомба»), повністю вичерпуючи пам'ять та ресурси процесора за лічені секунди.
 
-```python
-import multiprocessing
-import sys
-
-def worker_task(task_id: int):
-    print(f"Обробка задачі {task_id} у дочірньому процесі")
-
-if __name__ == "__main__":
-    # КРИТИЧНО для заморожених застосунків на Windows/macOS:
-    multiprocessing.freeze_support()
-
-    # Подальша безпечна робота з пулом процесів:
-    processes = [multiprocessing.Process(target=worker_task, args=(i,)) for i in range(4)]
-    for p in processes: p.start()
-    for p in processes: p.join()
-```
+:::code pyinstaller-freeze-d/py/pastka.py
 
 ### Пастка некоректного визначення шляхів через `__file__`
 
@@ -250,29 +235,7 @@ config_path = os.path.join(base_dir, "config.yaml")
 
 Коректний підхід полягає у перевірці атрибута `sys.frozen` та використанні модуля `pathlib.Path`:
 
-```python
-import sys
-from pathlib import Path
-
-def get_bundle_dir() -> Path:
-    """
-    Повертає базовий каталог розпакованих або локальних ресурсів застосунку.
-    Працює однаково надійно у сирцевому режимі (.py), у режимі --onedir та --onefile.
-    """
-    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
-        # Режим замороженого файлу (PyInstaller): повертаємо тимчасову теку _MEI
-        return Path(sys._MEIPASS)
-    
-    # Звичайний режим виконання через python main.py
-    return Path(__file__).resolve().parent
-
-def resolve_asset_path(relative_asset_path: str) -> Path:
-    """Знаходить вшитий файл ресурсів (зображення, сертифікат, шаблон)."""
-    target = get_bundle_dir() / relative_asset_path
-    if not target.exists():
-        raise FileNotFoundError(f"Вбудований ресурс не знайдено: {target}")
-    return target
-```
+:::code pyinstaller-freeze-d/py/nadiinyi-patern.py
 
 ### Заборона запису у каталог `sys._MEIPASS`
 
@@ -285,26 +248,7 @@ def resolve_asset_path(relative_asset_path: str) -> Path:
 - **Windows:** Каталог `%APPDATA%\my_app\` (`C:\Users\<User>\AppData\Roaming\my_app`).
 - **macOS:** Каталог `~/Library/Application Support/my_app/`.
 
-```python
-import os
-import sys
-from pathlib import Path
-
-def get_user_data_dir(app_name: str) -> Path:
-    """Повертає постійний каталог для запису даних та конфігурацій користувача."""
-    if sys.platform == "win32":
-        base = Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming"))
-    elif sys.platform == "darwin":
-        base = Path.home() / "Library" / "Application Support"
-    else:
-        # Linux / POSIX стандарт XDG
-        xdg_data = os.environ.get("XDG_DATA_HOME")
-        base = Path(xdg_data) if xdg_data else Path.home() / ".local" / "share"
-    
-    app_dir = base / app_name
-    app_dir.mkdir(parents=True, exist_ok=True)
-    return app_dir
-```
+:::code pyinstaller-freeze-d/py/zaborona-zapysu-u-kataloh.py
 
 ## 6. Виробничі підводні камені, захист інтелектуальної власності та сумісність ABI
 

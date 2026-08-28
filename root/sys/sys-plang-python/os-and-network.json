@@ -89,12 +89,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-wsgi-environ.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
@@ -112,24 +115,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-framework-contracts.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-wsgi-to-asgi.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-iot-telemetry-bench.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -150,12 +159,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-paho-v2.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
@@ -167,7 +179,9 @@
           "proj": [
             {
               "file": "proj-iot-ingestion-service.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

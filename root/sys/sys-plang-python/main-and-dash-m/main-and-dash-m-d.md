@@ -239,123 +239,8 @@ if __name__ == '__main__':
 Нижче наведено приклад хост-програми, яка конфігурує інтерпретатор через стандартизовану структуру `PyConfig` (PEP 587), передає аргументи командного рядка та запускає цільовий модуль або скрипт.
 
 :::tabs
-```c
-/* main_host.c — Запуск модуля Python через C API */
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <stdio.h>
-
-int run_embedded_module(const char *module_name, int argc, char *argv[]) {
-    PyStatus status;
-    PyConfig config;
-
-    /* Ініціалізуємо конфігурацію Python за замовчуванням */
-    PyConfig_InitPythonConfig(&config);
-    config.parse_argv = 1;
-
-    /* Встановлюємо модуль, який буде запущено як точка входу (аналог python -m) */
-    status = PyConfig_SetBytesString(&config, &config.run_module, module_name);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        fprintf(stderr, "Помилка встановлення імені модуля в PyConfig\n");
-        return 1;
-    }
-
-    /* Передаємо список аргументів командного рядка */
-    status = PyConfig_SetBytesArgv(&config, argc, argv);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        fprintf(stderr, "Помилка встановлення аргументів argv\n");
-        return 1;
-    }
-
-    /* Розгортаємо структури ядра інтерпретатора */
-    status = Py_InitializeFromConfig(&config);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        fprintf(stderr, "Фатальна помилка ініціалізації середовища CPython\n");
-        return 1;
-    }
-    PyConfig_Clear(&config);
-
-    /* Запускаємо модуль у контексті __main__ */
-    int exit_code = Py_RunMain();
-    return exit_code;
-}
-
-int main(int argc, char *argv[]) {
-    const char *target = (argc > 1) ? argv[1] : "http.server";
-    printf("[Host C] Запуск цільового модуля Python: %s\n", target);
-    return run_embedded_module(target, argc, argv);
-}
-```
-```cpp
-// main_host.cpp — Ідіоматичний C++20 завантажувач модуля з RAII
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <string_view>
-#include <span>
-
-class EmbeddedPythonHost {
-public:
-    explicit EmbeddedPythonHost(std::string_view module_name, std::span<char*> args) {
-        PyConfig config;
-        PyConfig_InitPythonConfig(&config);
-        config.parse_argv = 1;
-
-        PyStatus status = PyConfig_SetBytesString(&config, &config.run_module, module_name.data());
-        if (PyStatus_Exception(status)) {
-            PyConfig_Clear(&config);
-            throw std::runtime_error("Не вдалося сконфігурувати цільовий модуль run_module");
-        }
-
-        status = PyConfig_SetBytesArgv(&config, static_cast<int>(args.size()), args.data());
-        if (PyStatus_Exception(status)) {
-            PyConfig_Clear(&config);
-            throw std::runtime_error("Не вдалося ініціалізувати масив аргументів CLI");
-        }
-
-        status = Py_InitializeFromConfig(&config);
-        PyConfig_Clear(&config);
-
-        if (PyStatus_Exception(status)) {
-            throw std::runtime_error("Помилка розгортання структур середовища CPython");
-        }
-    }
-
-    ~EmbeddedPythonHost() {
-        if (Py_IsInitialized()) {
-            Py_Finalize();
-        }
-    }
-
-    EmbeddedPythonHost(const EmbeddedPythonHost&) = delete;
-    EmbeddedPythonHost& operator=(const EmbeddedPythonHost&) = delete;
-
-    [[nodiscard]] int execute() noexcept {
-        return Py_RunMain();
-    }
-};
-
-int main(int argc, char* argv[]) {
-    try {
-        std::string_view target_module = (argc > 1) ? argv[1] : "http.server";
-        std::span<char*> args(argv, static_cast<size_t>(argc));
-
-        std::cout << "[Host C++] Ініціалізація CPython для модуля: " << target_module << std::endl;
-        EmbeddedPythonHost host(target_module, args);
-        int exit_code = host.execute();
-        std::cout << "[Host C++] Виконання модуля завершено з кодом: " << exit_code << std::endl;
-        return exit_code;
-    } catch (const std::exception& err) {
-        std::cerr << "[Host C++ Error] " << err.what() << std::endl;
-        return 1;
-    }
-}
-```
+:::code main-and-dash-m-d/c/main_host.c
+:::code main-and-dash-m-d/cpp/main_host.cpp
 :::
 
 ## 6. Діагностика, типові пастки та інженерні практики
@@ -408,36 +293,7 @@ server = start_server(args.port)  # Негайно відкриває мереж
 
 **Канонічний шаблон побудови точки входу:**
 
-```python
-# ПРАВИЛЬНО: повна ізоляція логіки виконання
-import sys
-import argparse
-
-
-def parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
-    """Парсить параметри командного рядка."""
-    parser = argparse.ArgumentParser(description="Мережевий мікросервіс")
-    parser.add_argument("--port", type=int, default=8080, help="Порт сервера")
-    return parser.parse_args(argv)
-
-
-def main(argv: list[str] | None = None) -> int:
-    """Головна точка входу: повертає числовий код завершення."""
-    args = parse_arguments(argv)
-    try:
-        server = start_server(args.port)
-        server.serve_forever()
-        return 0
-    except KeyboardInterrupt:
-        return 130
-    except Exception as err:
-        sys.stderr.write(f"Фатальна помилка: {err}\n")
-        return 1
-
-
-if __name__ == "__main__":
-    sys.exit(main())
-```
+:::code main-and-dash-m-d/py/main.py
 
 Переваги канонічного шаблону:
 1. Функція `main()` приймає опціональний аргумент `argv`, що дозволяє легко тестувати точку входу в модульних тестах `unittest`/`pytest` без маніпуляцій з глобальним `sys.argv`.

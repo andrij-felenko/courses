@@ -163,20 +163,7 @@ def in_virtualenv() -> bool:
 
 Простежимо реальний стан `sys.path` усередині активованого віртуального середовища:
 
-```py
-import sys
-import site
-
-print(f"sys.prefix:      {sys.prefix}")
-print(f"sys.base_prefix: {sys.base_prefix}")
-print("\nКаталоги пошуку sys.path:")
-for idx, path in enumerate(sys.path):
-    print(f"  [{idx}] {path}")
-
-print("\nЗареєстровані каталоги site-packages:")
-for sp in site.getsitepackages():
-    print(f"  • {sp}")
-```
+:::code venv-d/py/main.py
 
 Результат виклику у Linux-середовищі:
 
@@ -265,140 +252,8 @@ if __name__ == "__main__":
 Нижче наведено приклади ініціалізації інтерпретатора CPython мовами C та C++ з явним заданням шляху до віртуального середовища та наступною перевіркою коректності розрахунку `sys.prefix` і `sys.base_prefix`.
 
 :::tabs
-```c
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-/* Ініціалізація CPython з явним підключенням venv через PyConfig */
-int run_embedded_venv(const wchar_t *venv_path) {
-    PyStatus status;
-    PyConfig config;
-    PyConfig_InitPythonConfig(&config);
-
-    /* Задаємо ізольований префікс середовища */
-    status = PyConfig_SetString(&config, &config.prefix, venv_path);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        return 1;
-    }
-
-    /* Дозволяємо виконання site.py для сканування site-packages */
-    config.site_import = 1;
-
-    /* Ініціалізуємо середовище CPython */
-    status = Py_InitializeFromConfig(&config);
-    PyConfig_Clear(&config);
-    if (PyStatus_Exception(status)) {
-        return 2;
-    }
-
-    /* Інтроспекція сформованих шляхів через модуль sys */
-    PyObject *sys_mod = PyImport_ImportModule("sys");
-    if (!sys_mod) {
-        PyErr_Print();
-        Py_FinalizeEx();
-        return 3;
-    }
-
-    PyObject *prefix = PyObject_GetAttrString(sys_mod, "prefix");
-    PyObject *base_prefix = PyObject_GetAttrString(sys_mod, "base_prefix");
-
-    if (prefix && base_prefix) {
-        PyObject *p_str = PyObject_Str(prefix);
-        PyObject *bp_str = PyObject_Str(base_prefix);
-        printf("C Runtime: sys.prefix      = %s\n", PyUnicode_AsUTF8(p_str));
-        printf("C Runtime: sys.base_prefix = %s\n", PyUnicode_AsUTF8(bp_str));
-        Py_XDECREF(p_str);
-        Py_XDECREF(bp_str);
-    }
-
-    Py_XDECREF(prefix);
-    Py_XDECREF(base_prefix);
-    Py_DECREF(sys_mod);
-
-    Py_FinalizeEx();
-    return 0;
-}
-
-int main(void) {
-    const wchar_t *env = L"/home/user/project/.venv";
-    return run_embedded_venv(env);
-}
-```
-```cpp
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include <iostream>
-#include <string_view>
-#include <memory>
-#include <stdexcept>
-
-/* RAII-обгортка над життєвим циклом вбудованого інтерпретатора CPython */
-class PythonRuntime {
-public:
-    explicit PythonRuntime(std::wstring_view venv_path) {
-        PyConfig config;
-        PyConfig_InitPythonConfig(&config);
-
-        PyStatus status = PyConfig_SetString(&config, &config.prefix, venv_path.data());
-        if (PyStatus_Exception(status)) {
-            PyConfig_Clear(&config);
-            throw std::runtime_error("Не вдалося встановити prefix для PyConfig");
-        }
-
-        config.site_import = 1;
-
-        status = Py_InitializeFromConfig(&config);
-        PyConfig_Clear(&config);
-        if (PyStatus_Exception(status)) {
-            throw std::runtime_error("Помилка ініціалізації CPython із PyConfig");
-        }
-    }
-
-    ~PythonRuntime() {
-        if (Py_IsInitialized()) {
-            Py_FinalizeEx();
-        }
-    }
-
-    PythonRuntime(const PythonRuntime&) = delete;
-    PythonRuntime& operator=(const PythonRuntime&) = delete;
-
-    void inspect_prefixes() const {
-        PyObject* sys_mod = PyImport_ImportModule("sys");
-        if (!sys_mod) {
-            PyErr_Print();
-            throw std::runtime_error("Не вдалося імпортувати модуль sys");
-        }
-
-        auto py_decref = [](PyObject* obj) { Py_XDECREF(obj); };
-        std::unique_ptr<PyObject, decltype(py_decref)> sys_guard(sys_mod, py_decref);
-
-        PyObject* prefix = PyObject_GetAttrString(sys_mod, "prefix");
-        PyObject* base_prefix = PyObject_GetAttrString(sys_mod, "base_prefix");
-        std::unique_ptr<PyObject, decltype(py_decref)> pref_guard(prefix, py_decref);
-        std::unique_ptr<PyObject, decltype(py_decref)> base_guard(base_prefix, py_decref);
-
-        if (prefix && base_prefix) {
-            std::cout << "C++ Runtime: sys.prefix      = " << PyUnicode_AsUTF8(prefix) << "\n";
-            std::cout << "C++ Runtime: sys.base_prefix = " << PyUnicode_AsUTF8(base_prefix) << "\n";
-        }
-    }
-};
-
-int main() {
-    try {
-        PythonRuntime runtime(L"/home/user/project/.venv");
-        runtime.inspect_prefixes();
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка виконання: " << ex.what() << "\n";
-        return 1;
-    }
-    return 0;
-}
-```
+:::code venv-d/c/main.c
+:::code venv-d/cpp/main.cpp
 :::
 
 ## 6. Порівняння архітектурних моделей ізоляції

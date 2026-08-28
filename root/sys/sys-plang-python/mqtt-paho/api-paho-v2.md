@@ -10,18 +10,7 @@
 
 Клас `Client` інкапсулює стан мережевого TCP-з'єднання, внутрішні черги відправлення, буфери вхідних пакетів, лічильники транзакцій та механізм диспетчеризації зворотних викликів.
 
-```python
-class paho.mqtt.client.Client(
-    callback_api_version: CallbackAPIVersion,
-    client_id: str = "",
-    clean_session: bool | None = None,
-    userdata: Any = None,
-    protocol: int = MQTTv311,
-    transport: str = "tcp",
-    reconnect_on_failure: bool = True,
-    manual_ack: bool = False
-)
-```
+:::code api-paho-v2/py/1-initsializatsiia-ta.py
 
 ### Параметри конструктора
 
@@ -114,23 +103,7 @@ def on_publish(
 
 Викликаються після отримання від брокера відповідей `SUBACK` та `UNSUBACK` відповідно.
 
-```python
-def on_subscribe(
-    client: Client,
-    userdata: Any,
-    mid: int,
-    reason_codes: list[ReasonCode],
-    properties: Properties | None
-) -> None
-
-def on_unsubscribe(
-    client: Client,
-    userdata: Any,
-    mid: int,
-    reason_codes: list[ReasonCode],
-    properties: Properties | None
-) -> None
-```
+:::code api-paho-v2/py/zvorotni-vyklyky-on.py
 
 - `reason_codes` (`list[ReasonCode]`): список статусів підтвердження для кожного запитаного в підписці топіка. У MQTT 3.1.1 містить наданий брокером рівень QoS (`0`, `1`, `2`) або код `0x80` (`Failure`). У MQTT 5.0 містить деталізовані коди (наприклад, `GrantedQoS0`, `GrantedQoS1`, `GrantedQoS2`, `UnspecifiedError`, `NotAuthorized`, `TopicFilterInvalid`).
 
@@ -138,46 +111,14 @@ def on_unsubscribe(
 
 ### Методи `connect()` та `connect_async()`
 
-```python
-client.connect(
-    host: str,
-    port: int = 1883,
-    keepalive: int = 60,
-    bind_address: str = "",
-    bind_port: int = 0,
-    clean_start: bool = MQTT_CLEAN_START_FIRST_ONLY,
-    properties: Properties | None = None
-) -> ReasonCode
-
-client.connect_async(
-    host: str,
-    port: int = 1883,
-    keepalive: int = 60,
-    bind_address: str = "",
-    bind_port: int = 0,
-    clean_start: bool = MQTT_CLEAN_START_FIRST_ONLY,
-    properties: Properties | None = None
-) -> None
-```
+:::code api-paho-v2/py/metody-connect-ta-connect.py
 
 - `connect()`: виконує синхронне блокувальне підключення сокета до сервера і повертає `ReasonCode`.
 - `connect_async()`: не виконує миттєвого блокувального виклику `socket.connect()`; фактичне відкриття TCP-сокета делегується мережевому циклу `loop_start()` або `loop_forever()`.
 
 ### Методи `subscribe()` та `unsubscribe()`
 
-```python
-client.subscribe(
-    topic: str | tuple[str, int | SubscribeOptions] | list[tuple[str, int | SubscribeOptions]],
-    qos: int = 0,
-    options: SubscribeOptions | None = None,
-    properties: Properties | None = None
-) -> tuple[ReasonCode, int]
-
-client.unsubscribe(
-    topic: str | list[str],
-    properties: Properties | None = None
-) -> tuple[ReasonCode, int]
-```
+:::code api-paho-v2/py/metody-subscribe-ta.py
 
 Повертають кортеж `(result, mid)`. Якщо `result == ReasonCode.Success`, пакет `SUBSCRIBE` успішно поставлено у чергу відправлення, а ціле число `mid` можна використовувати для зіставлення відповіді у зворотному виклику `on_subscribe`.
 
@@ -223,20 +164,7 @@ client.message_callback_remove(sub: str) -> None
 
 ### Налаштування TLS/SSL
 
-```python
-client.tls_set(
-    ca_certs: str | None = None,
-    certfile: str | None = None,
-    keyfile: str | None = None,
-    cert_reqs: ssl.VerifyMode = ssl.CERT_REQUIRED,
-    tls_version: int = ssl.PROTOCOL_TLS_CLIENT,
-    ciphers: str | None = None,
-    keyfile_password: str | None = None
-) -> None
-
-client.tls_set_context(context: ssl.SSLContext) -> None
-client.tls_insecure_set(value: bool) -> None
-```
+:::code api-paho-v2/py/nalashtuvannia-tls-ssl.py
 
 Використання `tls_set_context()` є рекомендованим підходом у сучасних версіях Python: воно дозволяє повноцінно конфігурувати шифри, версії TLS 1.3, перевірку ланцюгів сертифікатів та завантажувати системні сховища ключів.
 

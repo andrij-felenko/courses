@@ -28,24 +28,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "api": [
             {
               "file": "api-import-protocols.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-pep302-pep451.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-memory-importer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -57,12 +63,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-site-and-pth.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "hist": [
@@ -74,11 +83,14 @@
           "proj": [
             {
               "file": "proj-shadow-detector.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             },
             {
               "file": "proj-pth-trace-and-hook.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -120,24 +132,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-runpy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "hist": [
             {
               "file": "hist-runpy-and-pep338.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-zipapp-runtime.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -165,18 +183,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-pyvenv-cfg.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "comp": [
             {
               "file": "comp-isolation-models.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -188,7 +210,9 @@
           "proj": [
             {
               "file": "proj-minimal-venv.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -205,11 +229,14 @@
           "api": [
             {
               "file": "api-pep-503.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             },
             {
               "file": "api-pip-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
@@ -221,7 +248,9 @@
           "proj": [
             {
               "file": "proj-repo-client.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -258,7 +287,8 @@
           "api": [
             {
               "file": "api-universal-lock.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -270,7 +300,9 @@
           "proj": [
             {
               "file": "proj-sat-resolver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -286,19 +318,23 @@
           "api": [
             {
               "file": "api-pep668-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-pep668-origin.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-env-auditor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -346,24 +382,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-wheel-metadata.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ],
           "hist": [
             {
               "file": "hist-wheel-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-c-wheel-builder.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -374,12 +416,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-pyinstaller-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
@@ -391,7 +436,9 @@
           "proj": [
             {
               "file": "proj-mini-bootloader.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },

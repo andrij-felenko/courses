@@ -73,29 +73,7 @@
 2. **Збереження трасування стека створення задач:** Кожен екземпляр `Task` або `Handle` зберігає стек викликів того місця, де його було ініціалізовано. Це дозволяє точно бачити, яка саме корутина породила заблокований обробник.
 3. **Контроль закриття ресурсів:** Відстежує сокети та асинхронні генератори, які було знищено збирачем сміття без явного закриття.
 
-```python
-import asyncio
-import logging
-import time
-
-# Налаштування логера для виводу повідомлень відладки asyncio
-logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
-
-async def problematic_coroutine():
-    # Симуляція прихованого блокувального виклику
-    time.sleep(0.12)
-
-async def main():
-    loop = asyncio.get_running_loop()
-    # Зниження порогу реакції до 50 мілісекунд для точної діагностики
-    loop.slow_callback_duration = 0.05
-    
-    task = asyncio.create_task(problematic_coroutine())
-    await task
-
-if __name__ == "__main__":
-    asyncio.run(main(), debug=True)
-```
+:::code blocking-in-async-d/py/vbudovanyi-rezhym.py
 
 При запуску цього скрипта інтерпретатор сформує діагностичний звіт:
 
@@ -107,18 +85,7 @@ WARNING: Executing <Handle problematic_coroutine() created at diag.py:16> took 0
 
 Для діагностики завислих задач у працюючому додатку використовують інспекцію активних екземплярів `asyncio.Task`. Метод `asyncio.all_tasks(loop)` повертає множину всіх зареєстрованих задач, дозволяючи отримати їхній поточний стан і стек викликів:
 
-```python
-import asyncio
-
-def dump_active_tasks():
-    loop = asyncio.get_running_loop()
-    tasks = asyncio.all_tasks(loop)
-    print(f"[*] Активних задач у циклі: {len(tasks)}")
-    for t in tasks:
-        print(f"--- Задача: {t.get_name()} ---")
-        # Друк поточного стека виконання корутини
-        t.print_stack()
-```
+:::code blocking-in-async-d/py/audyt-stanu-aktyvnykh.py
 
 Цей метод дозволяє ідентифікувати задачі, які зависли в очікуванні ресурсу або не повернули керування планувальнику.
 
@@ -126,24 +93,7 @@ def dump_active_tasks():
 
 У виробничому середовищі (*production*) постійний запуск із прапорцем `debug=True` не рекомендується через накладні витрати на збереження стеків викликів для кожної створеної задачі. Легковаговою альтернативою є фонова сторожова корутина (*Watchdog*), яка вимірює дрейф таймера (*timer drift*):
 
-```python
-import asyncio
-import time
-
-async def event_loop_drift_monitor(check_interval: float = 0.05, alert_threshold: float = 0.02):
-    """
-    Періодично призупиняє виконання на фіксований час і порівнює
-    реальний інтервал очікування з розрахунковим.
-    """
-    while True:
-        expected_wake = time.perf_counter() + check_interval
-        await asyncio.sleep(check_interval)
-        actual_wake = time.perf_counter()
-        
-        drift = actual_wake - expected_wake
-        if drift > alert_threshold:
-            print(f"[КРИТИЧНА ЗАТРИМКА] Цикл подій був заблокований на {drift * 1000:.2f} мс!")
-```
+:::code blocking-in-async-d/py/storozhovyi-taimer.py
 
 Якщо будь-яка інша корутина блокує потік на 150 мілісекунд, корутина `event_loop_drift_monitor` не зможе прокинутися вчасно. Різниця між реальним часом пробудження та очікуваним точно показує тривалість простою селектора.
 
@@ -184,21 +134,7 @@ async def event_loop_drift_monitor(check_interval: float = 0.05, alert_threshold
 
 Починаючи з Python 3.9, стандартним методом виклику є `asyncio.to_thread()`:
 
-```python
-import asyncio
-import time
-
-def sync_file_processor(filepath: str) -> int:
-    """Синхронна блокувальна функція читання файлу."""
-    with open(filepath, "rb") as f:
-        data = f.read()
-    return len(data)
-
-async def handle_client_request(path: str):
-    # Делегування у фоновий системний потік
-    file_size = await asyncio.to_thread(sync_file_processor, path)
-    print(f"Файл успішно оброблено, розмір: {file_size} байтів")
-```
+:::code blocking-in-async-d/py/delehuvannia-i-o-bound.py
 
 Внутрішня послідовність кроків `asyncio.to_thread()`:
 1. **Копіювання контексту:** Викликає `contextvars.copy_context()`. Це гарантує, що значення контекстних змінних (наприклад, ідентифікатор сесії або логін користувача) будуть автоматично доступні всередині функції `sync_file_processor`.
@@ -214,33 +150,7 @@ async def handle_client_request(path: str):
 
 Для обчислювальних задач використовують окремі процеси операційної системи через `ProcessPoolExecutor`:
 
-```python
-import asyncio
-from concurrent.futures import ProcessPoolExecutor
-
-def heavy_prime_search(limit: int) -> int:
-    """CPU-bound задача: чисті обчислення на Python."""
-    count = 0
-    for num in range(2, limit):
-        if all(num % i != 0 for i in range(2, int(num**0.5) + 1)):
-            count += 1
-    return count
-
-async def main():
-    loop = asyncio.get_running_loop()
-    # Створення пулу дочірніх процесів операційної системи
-    with ProcessPoolExecutor() as process_pool:
-        # Виклик низькорівневого моста run_in_executor
-        result = await loop.run_in_executor(
-            process_pool, 
-            heavy_prime_search, 
-            500_000
-        )
-        print(f"Знайдено простих чисел: {result}")
-
-if __name__ == "__main__":
-    asyncio.run(main())
-```
+:::code blocking-in-async-d/py/delehuvannia-cpu-bound.py
 
 Кожен дочірній процес у `ProcessPoolExecutor` має повністю ізольований адресний простір, власний екземпляр інтерпретатора CPython і власний GIL. Завдяки цьому обчислення паралеляться на всіх доступних фізичних ядрах процесора, не впливаючи на чутливість циклу подій.
 
@@ -264,27 +174,7 @@ if __name__ == "__main__":
 
 Щоб безпечно передати об'єкт із фонового системного потоку в чергу `asyncio.Queue`, використовують метод `loop.call_soon_threadsafe()`:
 
-```python
-import asyncio
-import threading
-import time
-
-def hardware_telemetry_thread(loop: asyncio.AbstractEventLoop, async_queue: asyncio.Queue):
-    """Синхронний робочий потік: читає дані з USB/COM-порту."""
-    while True:
-        time.sleep(0.2)  # Імітація блокувального читання з апаратного інтерфейсу
-        packet = {"timestamp": time.time(), "voltage": 12.4}
-        
-        # Потокобезпечна реєстрація додавання елемента в асинхронну чергу
-        loop.call_soon_threadsafe(async_queue.put_nowait, packet)
-
-async def telemetry_consumer(async_queue: asyncio.Queue):
-    """Асинхронний споживач у головному циклі подій."""
-    while True:
-        data = await async_queue.get()
-        print(f"[Event Loop] Отримано телеметрію: {data}")
-        async_queue.task_done()
-```
+:::code blocking-in-async-d/py/patern-1-peredacha-danykh.py
 
 Внутрішня механіка роботи `loop.call_soon_threadsafe()`:
 - Робочий потік захоплює системний замок `_thread_safe_lock` і додає виклик `async_queue.put_nowait` до списку запланованих колбеків.
@@ -312,28 +202,7 @@ async def send_command_to_worker(command: str):
 
 Якщо фоновому системному потоку потрібно не просто покласти дані в чергу, а виконати повноцінну асинхронну корутину в головному циклі подій і отримати від неї результат, застосовують метод `asyncio.run_coroutine_threadsafe()`:
 
-```python
-import asyncio
-import threading
-import time
-
-def sync_monitoring_agent(loop: asyncio.AbstractEventLoop):
-    time.sleep(1.0)
-    
-    async def async_fetch_status(device_id: int) -> dict:
-        await asyncio.sleep(0.05)  # Асинхронний мережевий запит
-        return {"device_id": device_id, "status": "ONLINE"}
-
-    # Відправка корутини в цикл подій із фонового потоку
-    future = asyncio.run_coroutine_threadsafe(async_fetch_status(101), loop)
-    
-    # Очікування відповіді у синхронному потоці з таймаутом
-    try:
-        response = future.result(timeout=3.0)
-        print(f"Фоновий потік отримав статус: {response}")
-    except TimeoutError:
-        print("Таймаут очікування відповіді від циклу подій!")
-```
+:::code blocking-in-async-d/py/patern-3-vyklyk-korutyny-z.py
 
 Цей метод повертає стандартний об'єкт `concurrent.futures.Future`. Фоновий потік може викликати `future.result()`, чекаючи на відповідь, не блокуючи водночас цикл подій.
 

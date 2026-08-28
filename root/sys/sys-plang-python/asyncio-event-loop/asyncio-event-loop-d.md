@@ -39,49 +39,8 @@
 На низькому системному рівні очікування готовності сокетів реалізується через реєстрацію дескрипторів у ядрі ОС:
 
 :::tabs
-```c
-// epoll_reactor.c: Низькорівневе очікування подій сокета
-#include <sys/epoll.h>
-#include <unistd.h>
-
-int wait_for_socket_event(int epoll_fd, int socket_fd, int timeout_ms) {
-    struct epoll_event event;
-    event.events = EPOLLIN | EPOLLET; // Edge-Triggered читання
-    event.data.fd = socket_fd;
-    
-    if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, socket_fd, &event) < 0) {
-        return -1;
-    }
-    
-    struct epoll_event active_events[1];
-    int n = epoll_wait(epoll_fd, active_events, 1, timeout_ms);
-    return n; // Кількість активних подій
-}
-```
-```cpp
-// epoll_reactor.cpp: Ідіоматична обгортка над системним селектором
-#include <sys/epoll.h>
-#include <unistd.h>
-#include <span>
-#include <system_error>
-
-int wait_for_socket_event(int epoll_fd, int socket_fd, int timeout_ms) {
-    epoll_event ev{};
-    ev.events = EPOLLIN | EPOLLET;
-    ev.data.fd = socket_fd;
-
-    if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, socket_fd, &ev) < 0) {
-        throw std::system_error(errno, std::generic_category(), "epoll_ctl error");
-    }
-
-    epoll_event active_events[1];
-    int n = epoll_wait(epoll_fd, active_events, 1, timeout_ms);
-    if (n < 0) {
-        throw std::system_error(errno, std::generic_category(), "epoll_wait error");
-    }
-    return n;
-}
-```
+:::code asyncio-event-loop-d/c/epoll_reactor.c
+:::code asyncio-event-loop-d/cpp/epoll_reactor.cpp
 :::
 
 ### Структури даних циклу: _ready та _scheduled
@@ -245,20 +204,7 @@ results = await asyncio.gather(
 
 У Python 3.11 для цього введено асинхронний контекстний менеджер `asyncio.TaskGroup`:
 
-```python
-async def load_dashboard_data(user_id: int) -> dict:
-    async with asyncio.TaskGroup() as tg:
-        task_profile = tg.create_task(fetch_user_profile(user_id))
-        task_orders = tg.create_task(fetch_user_orders(user_id))
-        task_metrics = tg.create_task(fetch_analytics_metrics(user_id))
-
-    # Вихід із блоку 'async with' гарантує, що ВСІ задачі успішно завершилися
-    return {
-        "profile": task_profile.result(),
-        "orders": task_orders.result(),
-        "metrics": task_metrics.result(),
-    }
-```
+:::code asyncio-event-loop-d/py/main.py
 
 ### Механіка обробки помилок та ExceptionGroup (PEP 654)
 
