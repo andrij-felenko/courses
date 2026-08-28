@@ -93,6 +93,46 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "arinc-429-avionics-bus-protocol",
+          "title": "ARINC 429: авіаційна цифрова шина, 32-бітні слова та матриця стану (SSM)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "opc-ua-industrial-information-model",
+          "title": "OPC UA: адресний простір, інформаційна модель і коди стану (StatusCode)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "iec-61850-substation-automation-goose",
+          "title": "IEC 61850: об'єктна модель цифрової підстанції, швидкі блокування GOOSE та керування SBO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dnp3-iec-60870-5-scada-protocols",
+          "title": "DNP3 та IEC 60870-5: протоколи телемеханіки SCADA та об'єкти керування CROB",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -171,8 +211,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-coap-options.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-coap-core-wg.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-coap-packet-parser.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "lwm2m-keruvannia-prystroiem-iak-standart",
@@ -181,8 +239,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-lwm2m-core-objects.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-oma-lwm2m-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lwm2m-tlv-codec.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

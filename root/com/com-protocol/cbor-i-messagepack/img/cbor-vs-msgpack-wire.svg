@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="960.0" height="560.0" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="start" font-weight="700">Порівняння упаковки повідомлення у форматах даних</text>
+<text x="40.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Телеметрія: sensor_id=1, temp=23.5°C, ok=true — розмір, накладні метадані та самоописовість</text>
+<rect x="40.0" y="100.0" width="920.0" height="105.0" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="55.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. JSON (текстовий формат, RFC 8259)</text>
+<rect x="840.0" y="110.0" width="105.0" height="24.0" rx="4" fill="#ef4444" stroke="#ef4444" stroke-width="1.5"/>
+<text x="892.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">42 байтів</text>
+<rect x="55.0" y="142.0" width="256.0" height="24.0" rx="4" fill="#ffffff" stroke="#ef4444" stroke-width="1.0"/>
+<text x="183.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">{&quot;temp&quot;:23.5,&quot;id&quot;:1,&quot;ok&quot;:true}</text>
+<text x="55.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">{&quot;temp&quot;:23.5,&quot;id&quot;:1,&quot;ok&quot;:true}: Символи ASCII: лапки, двокрапки, коми, числа текстом; 42 байти</text>
+<rect x="40.0" y="215.0" width="920.0" height="105.0" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="55.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. MessagePack (бінарний з рядковими ключами)</text>
+<rect x="840.0" y="225.0" width="105.0" height="24.0" rx="4" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="892.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">22 байтів</text>
+<rect x="55.0" y="257.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="85.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">83</text>
+<rect x="121.0" y="257.0" width="128.0" height="24.0" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="185.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">A4 74 65 6D 70</text>
+<rect x="255.0" y="257.0" width="128.0" height="24.0" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="319.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">CA 41 BC 00 00</text>
+<rect x="389.0" y="257.0" width="80.0" height="24.0" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="429.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">A2 69 64</text>
+<rect x="475.0" y="257.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="505.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">01</text>
+<rect x="541.0" y="257.0" width="80.0" height="24.0" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="581.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">A2 6F 6B</text>
+<rect x="627.0" y="257.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="657.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">C3</text>
+<text x="55.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">83: fixmap(3)   |   A4 74 65 6D 70: fixstr(4): &quot;temp&quot;   |   CA 41 BC 00 00: float32: 23.5   |   A2 69 64: fixstr(2): &quot;id&quot;   |   ...</text>
+<rect x="40.0" y="330.0" width="920.0" height="105.0" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="1.2"/>
+<text x="55.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">3. CBOR (бінарний з цілочисельними ключами)</text>
+<rect x="840.0" y="340.0" width="105.0" height="24.0" rx="4" fill="#10b981" stroke="#10b981" stroke-width="1.5"/>
+<text x="892.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">9 байтів</text>
+<rect x="55.0" y="372.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.0"/>
+<text x="85.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">A3</text>
+<rect x="121.0" y="372.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.0"/>
+<text x="151.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">01</text>
+<rect x="187.0" y="372.0" width="80.0" height="24.0" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.0"/>
+<text x="227.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">F9 51 E0</text>
+<rect x="273.0" y="372.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.0"/>
+<text x="303.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">02</text>
+<rect x="339.0" y="372.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.0"/>
+<text x="369.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">01</text>
+<rect x="405.0" y="372.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.0"/>
+<text x="435.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">03</text>
+<rect x="471.0" y="372.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.0"/>
+<text x="501.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">F5</text>
+<text x="55.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">A3: map(3)   |   01: key 1 (temp)   |   F9 51 E0: float16: 23.5 (0x51E0)   |   02: key 2 (id)   |   ...</text>
+<rect x="40.0" y="445.0" width="920.0" height="105.0" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="55.0" y="469.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Raw C-Struct (пам'ять без метаданих)</text>
+<rect x="840.0" y="455.0" width="105.0" height="24.0" rx="4" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="892.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">8 байтів</text>
+<rect x="55.0" y="487.0" width="104.0" height="24.0" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="107.0" y="503.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">00 00 BC 41</text>
+<rect x="165.0" y="487.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="195.0" y="503.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">01</text>
+<rect x="231.0" y="487.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="261.0" y="503.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">01</text>
+<rect x="297.0" y="487.0" width="60.0" height="24.0" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="327.0" y="503.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">00 00</text>
+<text x="55.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">00 00 BC 41: float temp (LE)   |   01: uint8 id   |   01: uint8 ok   |   00 00: 2 байти вирівнювання (padding)</text>
+</svg>

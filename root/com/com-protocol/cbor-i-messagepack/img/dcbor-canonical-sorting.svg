@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="960.0" height="520.0" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="start" font-weight="700">Детерміноване кодування (dCBOR) для криптографії COSE (RFC 9052)</text>
+<text x="40.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Канонізація усуває неоднозначність серіалізації: однаковий зміст завжди дає ідентичний байтовий геш</text>
+<rect x="40.0" y="100.0" width="420.0" height="420.0" rx="8" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.2"/>
+<text x="55.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#9f1239" text-anchor="start" font-weight="700">Неканонічний CBOR (Підпис ламається)</text>
+<rect x="55.0" y="150.0" width="390.0" height="42.0" rx="4" fill="#ffffff" stroke="#fecdd3" stroke-width="1.0"/>
+<text x="70.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#be123c" text-anchor="start" font-weight="700">✗  Неоптимальні цілі</text>
+<text x="70.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Число 10 закодовано як 0x19 00 0A (uint16) замість 0x0A (1 байт)</text>
+<rect x="55.0" y="200.0" width="390.0" height="42.0" rx="4" fill="#ffffff" stroke="#fecdd3" stroke-width="1.0"/>
+<text x="70.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#be123c" text-anchor="start" font-weight="700">✗  Довільний порядок ключів</text>
+<text x="70.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Мапа: {&quot;b&quot;: 1, &quot;a&quot;: 2} серіалізована у порядку вставки</text>
+<rect x="55.0" y="250.0" width="390.0" height="42.0" rx="4" fill="#ffffff" stroke="#fecdd3" stroke-width="1.0"/>
+<text x="70.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#be123c" text-anchor="start" font-weight="700">✗  Невизначена довжина</text>
+<text x="70.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Масив [1, 2] закодовано через 0x9F ... 0xFF (indefinite-length)</text>
+<rect x="55.0" y="300.0" width="390.0" height="42.0" rx="4" fill="#ffffff" stroke="#fecdd3" stroke-width="1.0"/>
+<text x="70.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#be123c" text-anchor="start" font-weight="700">✗  Різна точність Float</text>
+<text x="70.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">23.0 закодовано як 8-байтний float64 або float32</text>
+<rect x="55.0" y="350.0" width="390.0" height="42.0" rx="4" fill="#ffffff" stroke="#fecdd3" stroke-width="1.0"/>
+<text x="70.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#be123c" text-anchor="start" font-weight="700">✗  Нестандартні NaN</text>
+<text x="70.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Різні бітові патерни сигнальних та тихих значень NaN</text>
+<rect x="55.0" y="415.0" width="390.0" height="85.0" rx="6" fill="#ffe4e6" stroke="#fb7185" stroke-width="1.5"/>
+<text x="70.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#881337" text-anchor="start" font-weight="700">Наслідок для COSE / WebAuthn:</text>
+<text x="70.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Сервер отримав байтовий потік, обчислив SHA-256,</text>
+<text x="70.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">але через інший порядок ключів хеш не збігся з підписаним.</text>
+<text x="70.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#be123c" text-anchor="start" font-weight="700">Результат: Crypto Signature Verification Failed!</text>
+<rect x="500.0" y="100.0" width="460.0" height="420.0" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.2"/>
+<text x="515.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="start" font-weight="700">Вимоги dCBOR (Детермінований канон)</text>
+<rect x="515.0" y="150.0" width="430.0" height="42.0" rx="4" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="530.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">✓  Найкоротше представлення</text>
+<text x="530.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Цілі числа упаковуються у мінімальну кількість байтів (0..23 -&gt; 1B)</text>
+<rect x="515.0" y="200.0" width="430.0" height="42.0" rx="4" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="530.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">✓  Лексикографічне сортування</text>
+<text x="530.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Ключі мап сортуються: спершу за байтовою довжиною, тоді побайтово</text>
+<rect x="515.0" y="250.0" width="430.0" height="42.0" rx="4" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="530.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">✓  Заборона невизначеної довжини</text>
+<text x="530.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Використовуються виключно definite-length масиви та мапи</text>
+<rect x="515.0" y="300.0" width="430.0" height="42.0" rx="4" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="530.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">✓  Канонізація чисел з комою</text>
+<text x="530.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Єдиний формат float (або найменший без втрати); NaN = 0x7E00 (half)</text>
+<rect x="515.0" y="350.0" width="430.0" height="42.0" rx="4" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="530.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">✓  Унікальність ключів</text>
+<text x="530.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Дублікати ключів у словниках суворо заборонені й відхиляються</text>
+<rect x="515.0" y="415.0" width="430.0" height="85.0" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+<text x="530.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="start" font-weight="700">Гарантія криптографічної стійкості:</text>
+<text x="530.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Будь-який вузол мережі на будь-якій архітектурі формує</text>
+<text x="530.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">100% бінарно ідентичний потік байтів для однакових даних.</text>
+<text x="530.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start" font-weight="700">Хеш SHA-256 і підпис Ed25519 валідні на всіх пристроях.</text>
+</svg>
