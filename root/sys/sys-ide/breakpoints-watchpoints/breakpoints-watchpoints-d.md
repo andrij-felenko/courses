@@ -104,18 +104,7 @@ DWT має до чотирьох компараторів. Кожен описа
 
 **Умова. ESP32: спіймати, хто обнуляє `g_state.valid`, спинитись у двох обробниках у Flash і раз — у RAM-циклі, не впершись у ліміт.**
 
-```c
-// Прошивка (фрагмент, що нас цікавить)
-typedef struct { uint32_t valid; uint32_t rate; } state_t;
-state_t g_state;            // у RAM (DRAM)
-
-void flash_handler_a(void); // код у Flash
-void flash_handler_b(void); // код у Flash
-
-void ram_buffer_fill(uint8_t *p, size_t n) {  // гарячий цикл
-    for (size_t i = 0; i < n; i++) p[i] = 0;  // тут хочемо спинятись
-}
-```
+:::code breakpoints-watchpoints-d/c/main.c
 
 ```
 # GDB через OpenOCD. Ресурси ESP32: 2 апаратні брейки + 2 вотчпоінти (окремо).

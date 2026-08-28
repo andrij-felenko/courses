@@ -164,43 +164,8 @@
 Генератори коду використовують цю інформацію для оптимізації структур C/C++: замість створення окремих структур `USART1_TypeDef` та `USART2_TypeDef` створюється один єдиний базовий тип `USART_TypeDef`, а екземпляри периферії отримують покажчики на власні базові адреси:
 
 :::tabs
-```c
-/* Базова структура генерується один раз для всієї групи USART */
-typedef struct {
-    __IO uint32_t SR;    /* 0x00: Status register */
-    __IO uint32_t DR;    /* 0x04: Data register */
-    __IO uint32_t BRR;   /* 0x08: Baud rate register */
-    __IO uint32_t CR1;   /* 0x0C: Control register 1 */
-    __IO uint32_t CR2;   /* 0x10: Control register 2 */
-    __IO uint32_t CR3;   /* 0x14: Control register 3 */
-    __IO uint32_t GTPR;  /* 0x18: Guard time and prescaler register */
-} USART_TypeDef;
-
-#define USART1_BASE  (0x40013800UL)
-#define USART2_BASE  (0x40004400UL)
-
-#define USART1       ((USART_TypeDef *) USART1_BASE)
-#define USART2       ((USART_TypeDef *) USART2_BASE)
-```
-```cpp
-#include <cstdint>
-
-struct UsartRegisters {
-    volatile uint32_t sr;
-    volatile uint32_t dr;
-    volatile uint32_t brr;
-    volatile uint32_t cr1;
-    volatile uint32_t cr2;
-    volatile uint32_t cr3;
-    volatile uint32_t gtpr;
-};
-
-inline constexpr uintptr_t usart1_base_addr = 0x40013800UL;
-inline constexpr uintptr_t usart2_base_addr = 0x40004400UL;
-
-inline auto* const Usart1 = reinterpret_cast<UsartRegisters*>(usart1_base_addr);
-inline auto* const Usart2 = reinterpret_cast<UsartRegisters*>(usart2_base_addr);
-```
+:::code svd-format-d/c/mekhanizm-uspadkuvannia.c
+:::code svd-format-d/cpp/mekhanizm-uspadkuvannia.hpp
 :::
 
 ## Регістри та кластери: `<registers>`, `<register>` і `<cluster>`
@@ -335,39 +300,8 @@ inline auto* const Usart2 = reinterpret_cast<UsartRegisters*>(usart2_base_addr);
 У мові C така конструкція транслюється у вкладену структуру або масив підструктур:
 
 :::tabs
-```c
-typedef struct {
-    __IO uint32_t CCR;    /* Offset 0x00 */
-    __IO uint32_t CNDTR;  /* Offset 0x04 */
-    __IO uint32_t CPAR;   /* Offset 0x08 */
-    __IO uint32_t CMAR;   /* Offset 0x0C */
-    uint32_t      RESERVED; /* Offset 0x10 padding to 0x14 stride */
-} DMA_Channel_TypeDef;
-
-typedef struct {
-    __IO uint32_t       ISR;   /* Offset 0x00 */
-    __IO uint32_t       IFCR;  /* Offset 0x04 */
-    DMA_Channel_TypeDef CH[8]; /* Offset 0x08 .. 0xA7 */
-} DMA_TypeDef;
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-struct DmaChannelRegisters {
-    volatile uint32_t ccr;
-    volatile uint32_t cndtr;
-    volatile uint32_t cpar;
-    volatile uint32_t cmar;
-    uint32_t          reserved;
-};
-
-struct DmaRegisters {
-    volatile uint32_t isr;
-    volatile uint32_t ifcr;
-    std::array<DmaChannelRegisters, 8> channels;
-};
-```
+:::code svd-format-d/c/klasteryzatsiia-rehistriv.c
+:::code svd-format-d/cpp/klasteryzatsiia-rehistriv.cpp
 :::
 
 ## Бітові поля та переліки: `<fields>`, `<field>` і `<enumeratedValues>`
@@ -552,47 +486,8 @@ gap_bytes = 0x14 - 0x08 = 0x0C (12 байтів)
 Щоб захистити прошивку від розбіжностей ABI, викликаних нестандартними прапорцями вирівнювання компілятора (наприклад, `#pragma pack` або прапорцями компілятора `-fpack-struct`), згенерований заголовок обов'язково включає статичні перевірки зміщень на етапі компіляції (C11 `_Static_assert` або C++ `static_assert`):
 
 :::tabs
-```c
-#include <stddef.h>
-#include <stdint.h>
-
-#define __IO volatile
-#define __I  volatile const
-#define __O  volatile
-
-typedef struct {
-    __IO uint32_t CR1;       /* Offset 0x00 */
-    __IO uint32_t CR2;       /* Offset 0x04 */
-    uint8_t       RESERVED0[8]; /* Offset 0x08..0x0F */
-    __IO uint32_t SR;        /* Offset 0x10 */
-    __IO uint32_t DR;        /* Offset 0x14 */
-} SPI_TypeDef;
-
-/* Статична валідація розмітки пам'яті компілятором */
-_Static_assert(offsetof(SPI_TypeDef, CR1) == 0x00, "SPI CR1 offset mismatch!");
-_Static_assert(offsetof(SPI_TypeDef, CR2) == 0x04, "SPI CR2 offset mismatch!");
-_Static_assert(offsetof(SPI_TypeDef, SR)  == 0x10, "SPI SR offset mismatch!");
-_Static_assert(offsetof(SPI_TypeDef, DR)  == 0x14, "SPI DR offset mismatch!");
-_Static_assert(sizeof(SPI_TypeDef)        == 0x18, "SPI struct size mismatch!");
-```
-```cpp
-#include <cstddef>
-#include <cstdint>
-
-struct SpiRegisters {
-    volatile uint32_t cr1;
-    volatile uint32_t cr2;
-    uint8_t           reserved0[8];
-    volatile uint32_t sr;
-    volatile uint32_t dr;
-};
-
-static_assert(offsetof(SpiRegisters, cr1) == 0x00, "SPI cr1 offset mismatch!");
-static_assert(offsetof(SpiRegisters, cr2) == 0x04, "SPI cr2 offset mismatch!");
-static_assert(offsetof(SpiRegisters, sr)  == 0x10, "SPI sr offset mismatch!");
-static_assert(offsetof(SpiRegisters, dr)  == 0x14, "SPI dr offset mismatch!");
-static_assert(sizeof(SpiRegisters)        == 0x18, "SPI struct size mismatch!");
-```
+:::code svd-format-d/c/stddef.h
+:::code svd-format-d/cpp/4-avtomatychna-heneratsiia.hpp
 :::
 
 Якщо через помилку компілятора чи випадкову правку заголовка розмір структури або положення хоча б одного регістра зміститься бодай на 1 байт, компіляція аварійно зупиниться з точним повідомленням про помилку ще до генерації бінарного файлу.
@@ -621,98 +516,7 @@ USART1->CR1 |= (USART_CR1_TE_Msk | USART_CR1_RXNEIE_Msk);
 
 Сучасний C++20 дозволяє будувати генератори SVD, які створюють нульові за накладними витратами (Zero-Overhead), але абсолютно безпечні за типізацією абстракції регістрів. За допомогою концептів (Concepts), строго типізованих переліків `enum class` та шаблонів із параметрами `constexpr` адрес перевірка прав доступу та допустимих масок повністю переноситься на етап компіляції:
 
-```cpp
-#include <cstdint>
-#include <concepts>
-
-namespace hal {
-
-// Концепти прав доступу до регістрів
-template <typename T>
-concept Readable = requires(T reg) {
-    { reg.read_raw() } -> std::same_as<uint32_t>;
-};
-
-template <typename T>
-concept Writable = requires(T reg, uint32_t val) {
-    reg.write_raw(val);
-};
-
-// Строго типізований перелік для бітового поля довжини слова
-enum class UsartWordLength : uint32_t {
-    Bits8 = 0,
-    Bits9 = 1
-};
-
-// Шаблон типізованого бітового поля
-template <uint32_t Offset, uint32_t Width, typename ValueType = uint32_t>
-struct BitField {
-    static constexpr uint32_t pos = Offset;
-    static constexpr uint32_t mask = ((1UL << Width) - 1UL) << pos;
-
-    static constexpr uint32_t encode(ValueType value) noexcept {
-        return (static_cast<uint32_t>(value) << pos) & mask;
-    }
-
-    static constexpr ValueType decode(uint32_t reg_val) noexcept {
-        return static_cast<ValueType>((reg_val & mask) >> pos);
-    }
-};
-
-// Типобезпечний клас регістра
-template <uintptr_t Address, typename AccessPolicy>
-class HardwareRegister {
-public:
-    static constexpr uintptr_t address = Address;
-
-    [[nodiscard]] static uint32_t read_raw() noexcept requires Readable<AccessPolicy> {
-        return *reinterpret_cast<volatile uint32_t*>(address);
-    }
-
-    static void write_raw(uint32_t val) noexcept requires Writable<AccessPolicy> {
-        *reinterpret_cast<volatile uint32_t*>(address) = val;
-    }
-
-    // Безпечна модифікація через типізовані поля
-    template <typename Field, typename ValType>
-    static void set_field(ValType value) noexcept requires Writable<AccessPolicy> && Readable<AccessPolicy> {
-        uint32_t current = read_raw();
-        current &= ~Field::mask;
-        current |= Field::encode(value);
-        write_raw(current);
-    }
-};
-
-// Політики доступу
-struct ReadWritePolicy {
-    static uint32_t read_raw();
-    static void write_raw(uint32_t);
-};
-
-struct ReadOnlyPolicy {
-    static uint32_t read_raw();
-};
-
-// Оголошення конкретних полів і регістрів зі зміщеннями
-using Usart1Cr1 = HardwareRegister<0x4001380CUL, ReadWritePolicy>;
-
-struct Usart1Fields {
-    using Enable = BitField<0, 1, bool>;
-    using WordLength = BitField<12, 1, UsartWordLength>;
-    using ParityControl = BitField<10, 1, bool>;
-};
-
-} // namespace hal
-
-void configure_usart() {
-    // Безпечний запис конфігурації
-    hal::Usart1Cr1::set_field<hal::Usart1Fields::WordLength>(hal::UsartWordLength::Bits8);
-    hal::Usart1Cr1::set_field<hal::Usart1Fields::Enable>(true);
-
-    // Спроба передати невідповідний тип або записати в Read-Only викликає помилку компіляції:
-    // hal::Usart1Cr1::set_field<hal::Usart1Fields::WordLength>(42); // ПОМИЛКА: 42 не є UsartWordLength
-}
-```
+:::code svd-format-d/cpp/typobezpechni-abstraktsii.cpp
 
 У наведеному C++20 коді відсутні будь-які накладні витрати пам'яті (відсутні поля екземплярів і віртуальні таблиці), усі зміщення та маски обчислюються під час збирання, а оптимізатор компілятора генерує точно такий самий компактний асемблерний код з інструкціями `LDR`/`STR`, як і ручний C99 код, але з повною гарантією типобезпеки.
 

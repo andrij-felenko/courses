@@ -29,21 +29,7 @@ a(X)  — скільки кандидатів досяжні з X разом і�
 
 Природне подання графа — вузол із покажчиками на батьків — тут програє. За один крок граф обходять щонайменше тричі, а самих кроків близько десятка; на репозиторії в кілька сотень тисяч комітів це сотні мільйонів переходів за покажчиками, і кожен такий перехід із великою ймовірністю не влучає в [кеш процесора](root:hw-arch/cache) — швидку пам'ять поруч із ядром, яка тримає нещодавно читані ділянки й віддає їх за одиниці тактів замість сотень. Тому граф кладемо у два суцільні масиви: усі списки батьків підряд і масив зсувів, де починається список кожної вершини.
 
-```cpp
-#include <algorithm>
-#include <bit>
-#include <cstdint>
-#include <cstdlib>
-#include <vector>
-
-// Граф комітів у стисненому вигляді: батьки вершини v лежать
-// підряд у par[par_off[v] .. par_off[v+1]).
-struct Dag {
-    int              n = 0;   // скільки всього комітів
-    std::vector<int> par_off; // n + 1 зсувів
-    std::vector<int> par;     // батьки всіх вершин підряд
-};
-```
+:::code proj-bisect-scoring/cpp/hraf-na-masyvakh.cpp
 
 Такий граф будується одним проходом по виводу `git rev-list --all --parents`, де кожен рядок — коміт і його батьки; хеші замінюються на цілі номери через хеш-таблицю. Далі жодних хешів у гарячому коді немає — тільки індекси, і всі допоміжні масиви адресуються тим самим індексом.
 
@@ -53,60 +39,7 @@ struct Dag {
 
 Тож спершу помічаємо все, що досяжне з добрих, а потім обходимо предків поганого, не заходячи в помічене.
 
-```cpp
-// Позначити все, що досяжне з roots (разом із самими roots).
-static void mark_reachable(const Dag& g, const std::vector<int>& roots,
-                           std::vector<char>& mark)
-{
-    std::vector<int> stack;
-    for (int r : roots)
-        if (!mark[r]) { mark[r] = 1; stack.push_back(r); }
-
-    while (!stack.empty()) {
-        const int v = stack.back();
-        stack.pop_back();
-        for (int k = g.par_off[v]; k < g.par_off[v + 1]; ++k) {
-            const int p = g.par[k];
-            if (!mark[p]) { mark[p] = 1; stack.push_back(p); }
-        }
-    }
-}
-
-struct Candidates {
-    std::vector<int> id;    // локальний номер 0..N-1 → номер у повному графі
-    std::vector<int> local; // номер у повному графі → локальний номер або −1
-};
-
-static Candidates collect(const Dag& g, int bad, const std::vector<int>& good)
-{
-    std::vector<char> checked(g.n, 0);
-    mark_reachable(g, good, checked);   // усе, що вже накрите добрими
-
-    Candidates c;
-    c.local.assign(g.n, -1);
-    if (checked[bad])
-        return c;                       // поганий в історії доброго — вхід суперечливий
-
-    std::vector<int> stack;
-    c.local[bad] = 0;
-    c.id.push_back(bad);
-    stack.push_back(bad);
-
-    while (!stack.empty()) {
-        const int v = stack.back();
-        stack.pop_back();
-        for (int k = g.par_off[v]; k < g.par_off[v + 1]; ++k) {
-            const int p = g.par[k];
-            if (checked[p] || c.local[p] >= 0)
-                continue;               // за межі множини не виходимо
-            c.local[p] = static_cast<int>(c.id.size());
-            c.id.push_back(p);
-            stack.push_back(p);
-        }
-    }
-    return c;
-}
-```
+:::code proj-bisect-scoring/cpp/mnozhyna-kandydativ.cpp
 
 Обидва обходи — [пошук у глибину](root:sf-algorithms/depth-first-search) зі своїм стеком замість рекурсії: історія в кілька сотень тисяч комітів дає такі довгі ланцюжки, що рекурсивний обхід просто переповнить стек процесу.
 
@@ -139,44 +72,7 @@ a(X) = 1 + Σ a(P)   по всіх батьках P
 
 Перша: коли рахуємо вершину, ваги всіх її батьків-кандидатів мають бути вже готові. Це [топологічний порядок](root:sf-algorithms/topological-sort) — лінійне впорядкування вершин DAG, у якому кожна вершина стоїть після всіх, від яких залежить. Будуємо його лічильниками: кожній вершині записуємо, скільки в неї батьків **усередині множини**; черга починається з тих, у кого їх нуль; опрацювавши вершину, зменшуємо лічильник у кожної її дитини й ставимо в чергу ту, у якої лічильник упав до нуля. Для цього потрібен зворотний бік ребер — списки дітей, яких у графі комітів немає, тож будуємо їх тим самим стисненим поданням.
 
-```cpp
-struct SubGraph {
-    std::vector<int> nparents; // скільки батьків-кандидатів у кожного кандидата
-    std::vector<int> kid_off;  // N + 1 зсувів у kids
-    std::vector<int> kids;     // діти-кандидати всіх кандидатів підряд
-};
-
-static SubGraph build_sub(const Dag& g, const Candidates& c)
-{
-    const int N = static_cast<int>(c.id.size());
-    SubGraph s;
-    s.nparents.assign(N, 0);
-    s.kid_off.assign(N + 1, 0);
-
-    for (int i = 0; i < N; ++i) {
-        const int v = c.id[i];
-        for (int k = g.par_off[v]; k < g.par_off[v + 1]; ++k) {
-            const int j = c.local[g.par[k]];
-            if (j < 0) continue;    // ребро назовні — обрізане
-            ++s.nparents[i];
-            ++s.kid_off[j + 1];     // у батька j стало на одну дитину більше
-        }
-    }
-    for (int j = 0; j < N; ++j)     // зсуви = часткові суми кількостей
-        s.kid_off[j + 1] += s.kid_off[j];
-
-    s.kids.assign(s.kid_off[N], 0);
-    std::vector<int> cursor(s.kid_off.begin(), s.kid_off.end() - 1);
-    for (int i = 0; i < N; ++i) {
-        const int v = c.id[i];
-        for (int k = g.par_off[v]; k < g.par_off[v + 1]; ++k) {
-            const int j = c.local[g.par[k]];
-            if (j >= 0) s.kids[cursor[j]++] = i;
-        }
-    }
-    return s;
-}
-```
+:::code proj-bisect-scoring/cpp/pravylnyi-pidrakhunok.cpp
 
 Два проходи й часткові суми замість вектора векторів — та сама причина, що й раніше: одне суцільне виділення пам'яті замість N дрібних.
 
@@ -187,33 +83,7 @@ static SubGraph build_sub(const Dag& g, const Candidates& c)
 
 У вершини **один** батько-кандидат — жодного перетину немає, `a(X) = a(P) + 1`, ціна O(1). У вершини **два або більше** — перетин є, і чесно порахувати можна лише обійшовши всю досяжну частину множини й полічивши різні вершини. Саме так це зроблено і в самому git: у `bisect.c` лінійні ділянки протягуються дешево, а на кожне злиття викликається окремий обхід `count_distance()`.
 
-```cpp
-// Скільки різних кандидатів досяжні зі start (разом зі start).
-// stamp — мітки обходу; за мітку править номер вершини, з якої почали,
-// тому масив не треба чистити між викликами.
-static int count_reachable(const Dag& g, const Candidates& c, int start,
-                           std::vector<int>& stamp, std::vector<int>& stack)
-{
-    int seen = 0;
-    stack.clear();
-    stack.push_back(start);
-    stamp[start] = start;
-
-    while (!stack.empty()) {
-        const int i = stack.back();
-        stack.pop_back();
-        ++seen;
-        const int v = c.id[i];
-        for (int k = g.par_off[v]; k < g.par_off[v + 1]; ++k) {
-            const int j = c.local[g.par[k]];
-            if (j < 0 || stamp[j] == start) continue;
-            stamp[j] = start;
-            stack.push_back(j);
-        }
-    }
-    return seen;
-}
-```
+:::code proj-bisect-scoring/cpp/pravylnyi-pidrakhunok-2.cpp
 
 Мітка-номер замість прапорця, який довелося б скидати після кожного злиття, — дрібниця, але вона прибирає прохід по всьому масиву на кожне злиття. Кожна вершина стає `start` щонайбільше раз, тому мітки різних обходів не сплутуються.
 
@@ -223,66 +93,7 @@ static int count_reachable(const Dag& g, const Candidates& c, int start,
 
 Ранній вихід випливає з форми балу. min(a, N − a) не може перевищити ⌊N/2⌋, і рівність настає рівно тоді, коли |2a − N| ≤ 1: при парному N це a = N/2, при непарному — a = (N ± 1)/2, і третього не дано через парність. Тому щойно трапилася вершина з |2a − N| ≤ 1, шукати далі нема сенсу — кращого балу не буває, і всі недораховані злиття можна не рахувати зовсім.
 
-```cpp
-struct Choice {
-    int commit = -1; // що перевіряти наступним (номер у повному графі)
-    int total  = 0;  // N — скільки кандидатів лишилося
-    int score  = 0;  // скільки з них гарантовано відпаде після відповіді
-};
-
-// skipped — прапорці завдовжки g.n у нумерації повного графа.
-Choice next_to_test(const Dag& g, int bad, const std::vector<int>& good,
-                    const std::vector<char>& skipped)
-{
-    const Candidates c = collect(g, bad, good);
-    const SubGraph   s = build_sub(g, c);
-    const int        N = static_cast<int>(c.id.size());
-
-    Choice out;
-    out.total = N;
-    if (N <= 1) {                   // кандидат один — він і є перший поганий,
-        if (N == 1) out.commit = c.id[0];   // перевіряти вже нічого
-        return out;
-    }
-
-    std::vector<int> a(N, 0), stamp(N, -1);
-    std::vector<int> pending = s.nparents;
-    std::vector<int> stack, order;
-    order.reserve(N);
-    for (int i = 0; i < N; ++i)
-        if (pending[i] == 0) order.push_back(i);
-
-    for (std::size_t h = 0; h < order.size(); ++h) {
-        const int i = order[h];
-        const int v = c.id[i];
-
-        int np = 0, only_parent = -1;
-        for (int k = g.par_off[v]; k < g.par_off[v + 1]; ++k) {
-            const int j = c.local[g.par[k]];
-            if (j >= 0) { ++np; only_parent = j; }
-        }
-
-        if (np == 0)                        // дно множини
-            a[i] = 1;
-        else if (np == 1)                   // ланцюжок — задарма
-            a[i] = a[only_parent] + 1;
-        else                                // злиття — тільки повним обходом
-            a[i] = count_reachable(g, c, i, stamp, stack);
-
-        if (!skipped[v]) {                  // те, чого не повернемо, не оцінюємо
-            const int score = std::min(a[i], N - a[i]);
-            if (score > out.score) { out.score = score; out.commit = v; }
-            if (std::abs(2 * a[i] - N) <= 1)
-                return out;                 // бал уже максимальний, ⌊N/2⌋
-        }
-
-        for (int k = s.kid_off[i]; k < s.kid_off[i + 1]; ++k)
-            if (--pending[s.kids[k]] == 0)
-                order.push_back(s.kids[k]);
-    }
-    return out;                             // commit < 0 ⟺ усе пропущене
-}
-```
+:::code proj-bisect-scoring/cpp/bal-rannii-vykhid-i-povnyi.cpp
 
 Умова `!skipped[v]` навколо раннього виходу — не оптимізація, а виправлення помилки: обірвати підрахунок можна лише на вершині, яку ми справді збираємося повернути. У самому git цю думку записано коментарем над відповідною перевіркою — «не зрізай шлях до того, чого не збираєшся повертати».
 
@@ -296,37 +107,7 @@ Git тут іде на ще один компроміс. Точна рівніс
 
 Git на це відповідає стрибком: коли найкращий кандидат пропущений, він не бере другого за балом, а вибирає з непропущених за псевдовипадковим індексом, зміщеним до початку списку.
 
-```cpp
-constexpr unsigned PRN_MOD = 16384;
-
-// Класичний лінійний конгруентний генератор із «man 3 rand».
-static unsigned prn(unsigned seed)
-{
-    seed = seed * 1103515245u + 12345u;
-    return (seed / 65536u) % PRN_MOD;
-}
-
-static unsigned isqrt(unsigned v)
-{
-    if (v == 0) return 0;
-    unsigned x = v, y = (x + 1) / 2;
-    while (y < x) { x = y; y = (x + v / x) / 2; }
-    return x;
-}
-
-// ranked — непропущені кандидати в порядку спадання балу.
-static int pick_after_skip(const std::vector<int>& ranked)
-{
-    if (ranked.empty()) return -1;      // перевіряти нема чого
-    const unsigned n = static_cast<unsigned>(ranked.size());
-    const unsigned r = prn(n);
-    // дві частки, кожна менша за одиницю: індекс тягне до початку списку,
-    // але хвіст лишається — інколи стрибаємо далеко
-    const unsigned index = static_cast<unsigned>(
-        static_cast<std::uint64_t>(n) * r / PRN_MOD * isqrt(r) / isqrt(PRN_MOD));
-    return ranked[std::min(index, n - 1)];
-}
-```
+:::code proj-bisect-scoring/cpp/propushcheni-komity.cpp
 
 У цьому «псевдовипадково» найважливіше слово — **псевдо**. Зерно генератора — не час і не стан системи, а кількість кандидатів. Той самий репозиторій із тим самим списком відповідей завжди дасть той самий наступний коміт, тож `git bisect log` можна відтворити крок у крок, а звіт про баг із чужої машини повторюється в себе. Випадковість тут потрібна лише для того, щоб розкидати спроби по графу, а не щоб бути непередбачуваною.
 
@@ -352,26 +133,7 @@ static int pick_after_skip(const std::vector<int>& ranked)
 
 Квадрат прибирається бітовими масками: якщо для кожного кандидата тримати N-бітну маску досяжних, то маска вершини — це об'єднання масок батьків плюс власний біт, а a — кількість одиниць у ній.
 
-```cpp
-const int W = (N + 63) / 64;                 // слів на одну маску
-std::vector<std::uint64_t> reach(static_cast<std::size_t>(N) * W, 0);
-
-for (int i : order) {                        // order — той самий топологічний
-                                             // порядок, побудований наперед
-    std::uint64_t* row = &reach[static_cast<std::size_t>(i) * W];
-    const int v = c.id[i];
-    for (int k = g.par_off[v]; k < g.par_off[v + 1]; ++k) {
-        const int j = c.local[g.par[k]];
-        if (j < 0) continue;
-        const std::uint64_t* prow = &reach[static_cast<std::size_t>(j) * W];
-        for (int w = 0; w < W; ++w) row[w] |= prow[w];
-    }
-    row[i >> 6] |= std::uint64_t{1} << (i & 63);
-    int cnt = 0;
-    for (int w = 0; w < W; ++w) cnt += std::popcount(row[w]);
-    a[i] = cnt;
-}
-```
+:::code proj-bisect-scoring/cpp/tsina-kroku-i-kilkist.cpp
 
 Об'єднання множин стає порозрядним `|`, потужність — підрахунком одиниць (`std::popcount`, одна інструкція на сучасному процесорі). Час — O((N + e)·N/64) без жодних особливих випадків, зате пам'ять N²/8 байтів: при N = 4096 це 2 МіБ і кількадесят мікросекунд, при N = 10⁵ — 1.2 ГіБ, тобто нездійсненно. Git обрав обхід на злиттях саме тому, що межа за пам'яттю там не виникає ніколи, а квадрат за часом — майже ніколи.
 
