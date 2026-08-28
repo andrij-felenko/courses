@@ -298,59 +298,8 @@ I_сер = Q_цикл / T_цикл
 Нижче наведено базовий інтерфейс розрахунку для інтеграції в автоматизовані САПР та системи оцінки надійності:
 
 :::tabs
-```c
-#include <stdio.h>
-
-/* Розрахунок середнього струму Wi-Fi вузла в мікроамперах */
-double wifi_calc_average_current_ua(double q_active_uc, double i_sleep_ua, double interval_s) {
-    if (interval_s <= 0.0) return 0.0;
-    double t_sleep_s = interval_s; /* Наближення для t_active << interval_s */
-    double q_sleep_uc = i_sleep_ua * t_sleep_s;
-    double q_total_uc = q_active_uc + q_sleep_uc;
-    return q_total_uc / interval_s;
-}
-
-/* Розрахунок прогнозованого терміну служби батареї в роках */
-double wifi_calc_battery_years(double cap_mah, double k_use, double self_leak_pct, double i_avg_ua) {
-    double eff_cap_mah = cap_mah * k_use;
-    double leak_ua = (eff_cap_mah * (self_leak_pct / 100.0) * 1000.0) / 8760.0;
-    double total_current_ma = (i_avg_ua + leak_ua) / 1000.0;
-    if (total_current_ma <= 0.0) return 0.0;
-    return eff_cap_mah / (total_current_ma * 8760.0);
-}
-```
-```cpp
-#include <iostream>
-#include <algorithm>
-
-class WiFiEnergyModel {
-public:
-    static constexpr double calculate_average_current_ua(
-        double active_charge_uc,
-        double sleep_current_ua,
-        double interval_seconds) noexcept 
-    {
-        if (interval_seconds <= 0.0) return 0.0;
-        const double sleep_charge_uc = sleep_current_ua * interval_seconds;
-        return (active_charge_uc + sleep_charge_uc) / interval_seconds;
-    }
-
-    static constexpr double estimate_lifetime_years(
-        double nominal_capacity_mah,
-        double capacity_derating,
-        double annual_self_discharge_pct,
-        double average_current_ua) noexcept 
-    {
-        const double effective_capacity_mah = nominal_capacity_mah * capacity_derating;
-        const double self_discharge_current_ua = 
-            (effective_capacity_mah * (annual_self_discharge_pct / 100.0) * 1000.0) / 8760.0;
-        const double total_load_ma = (average_current_ua + self_discharge_current_ua) / 1000.0;
-        
-        if (total_load_ma <= 0.0) return 0.0;
-        return effective_capacity_mah / (total_load_ma * 8760.0);
-    }
-};
-```
+:::code wi-fi-power-modes-d/c/main.c
+:::code wi-fi-power-modes-d/cpp/main.cpp
 :::
 
 ## Інженерні правила проєктування батарейних Wi-Fi систем

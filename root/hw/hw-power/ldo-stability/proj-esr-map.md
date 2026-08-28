@@ -48,46 +48,7 @@ L(s) = A₀ · (1 + s/ω_нуль) / [ (1 + s/ω_нав)·(1 + s/ω_пх)·(1 + 
 
 Уся модель — це один комплексний вираз, і Python рахує його як є. Один прийом варто помітити зразу: у кожному множнику стоїть s/ω, тобто (j·2πf)/(2πf_x) — двійки з пі скорочуються, лишається j·f/f_x. Тому в коді ніде немає 2π, а всі частоти живуть у звичайних герцах.
 
-```python
-import math
-
-TWO_PI = 2.0 * math.pi
-
-
-class Loop:
-    """Петля LDO: підсилення на постійному струмі, два сталі полюси
-    (підсилювача похибки й прохідного транзистора) плюс вузол виходу,
-    який дає рухомий полюс навантаження й нуль ESR."""
-
-    def __init__(self, a0_db, f_ea, f_pass, r_out):
-        self.a0 = 10.0 ** (a0_db / 20.0)   # підсилення петлі, у разах
-        self.f_ea = f_ea                   # полюс підсилювача похибки, Гц
-        self.f_pass = f_pass               # полюс прохідного транзистора, Гц
-        self.r_out = r_out                 # вихідний опір ≈ Vвих/Iнав, Ом
-
-    def features(self, cout, esr):
-        """Полюс навантаження й нуль ESR для цієї пари (Cвих, ESR), Гц."""
-        f_load = 1.0 / (TWO_PI * cout * (self.r_out + esr))
-        f_zero = 1.0 / (TWO_PI * cout * esr)
-        return f_load, f_zero
-
-    def gain(self, f, cout, esr):
-        """|L| на частоті f. s/ω = j·f/f_x — множники 2π скоротилися."""
-        f_load, f_zero = self.features(cout, esr)
-        s = 1j * f
-        return abs(self.a0 * (1 + s / f_zero)
-                   / ((1 + s / f_load) * (1 + s / self.f_ea) * (1 + s / self.f_pass)))
-
-    def phase(self, f, cout, esr):
-        """Фаза петлі, градуси. Сума арктангенсів, а НЕ кут комплексного
-        добутку: за −180° кут згортається в +180°, і мертва петля
-        прикидається бездоганною."""
-        f_load, f_zero = self.features(cout, esr)
-        deg = math.degrees(math.atan(f / f_zero))          # нуль тягне вгору
-        for f_pole in (f_load, self.f_ea, self.f_pass):
-            deg -= math.degrees(math.atan(f / f_pole))     # кожен полюс — униз
-        return deg
-```
+:::code proj-esr-map/py/petlia-v-chotyrokh.py
 
 На модуль беремо `abs()` від комплексного числа — тут усе чесно. А от фазу через `cmath.phase()` брати **не можна**, і це не педантизм. Три полюси проти одного нуля дають асимптоту −270°, тобто петля цілком законно заходить за −180°. Кут комплексного числа живе в межах (−180°, +180°] і на цьому переході згортається. Ось що видає та сама модель на 10 МГц:
 
@@ -104,36 +65,7 @@ class Loop:
 
 Ліки прості й дешеві: спершу грубо просканувати лог-сітку й запам'ятати **останній** перехід згори вниз, а вже в цій вилці уточнювати.
 
-```python
-    def crossover(self, cout, esr, f_lo=1e-1, f_hi=1e10, steps=400):
-        """Частота зрізу: ОСТАННІЙ перехід |L| через одиницю згори вниз."""
-        lo, hi = math.log10(f_lo), math.log10(f_hi)
-        prev_f, prev_above = f_lo, self.gain(f_lo, cout, esr) >= 1.0
-        bracket = None
-        for i in range(1, steps + 1):
-            f = 10.0 ** (lo + (hi - lo) * i / steps)
-            above = self.gain(f, cout, esr) >= 1.0
-            if prev_above and not above:
-                bracket = (prev_f, f)      # не виходимо: беремо останній
-            prev_f, prev_above = f, above
-        if bracket is None:
-            return None
-        a, b = bracket
-        for _ in range(50):                # уточнення в лог-масштабі
-            m = math.sqrt(a * b)
-            if self.gain(m, cout, esr) >= 1.0:
-                a = m
-            else:
-                b = m
-        return math.sqrt(a * b)
-
-    def margin(self, cout, esr):
-        """(частота зрізу, запас фази в градусах)."""
-        fc = self.crossover(cout, esr)
-        if fc is None:
-            return None, None
-        return fc, 180.0 + self.phase(fc, cout, esr)
-```
+:::code proj-esr-map/py/zriz-tse-ostannia.py
 
 Дві дрібниці в цих рядках варті окремої згадки. По-перше, `if prev_above and not above: bracket = ...` — **без** `break`: цикл дочовгує до кінця, і в `bracket` осідає останній знайдений перехід, а не перший. По-друге, уточнення йде через `math.sqrt(a * b)` — геометричну середину, а не арифметичну: на логарифмічній осі половина відрізка між 100 Гц і 10 кГц — це 1 кГц, а не 5.05 кГц. З арифметичною серединою п'ятдесят ітерацій згорять на першій декаді й не дійдуть до потрібної.
 
@@ -164,43 +96,7 @@ class Loop:
 
 Тепер, коли модель заслужила довіру, лишається дурна робота: прогнати площину.
 
-```python
-GOOD, EDGE = 45.0, 30.0     # пороги запасу фази: спокійно / на межі
-
-
-def esr_map(loop, c_lo, c_hi, rows, esr_lo, esr_hi, cols):
-    """Площина (Cвих, ESR) у символах: # запас ≥45°, + ≥30°, . менше."""
-    def grid(lo, hi, n):
-        step = (math.log10(hi) - math.log10(lo)) / (n - 1)
-        return [10.0 ** (math.log10(lo) + i * step) for i in range(n)]
-
-    esrs = grid(esr_lo, esr_hi, cols)
-    out = []
-    for cout in reversed(grid(c_lo, c_hi, rows)):
-        line = ""
-        for esr in esrs:
-            _, pm = loop.margin(cout, esr)
-            line += "#" if pm >= GOOD else ("+" if pm >= EDGE else ".")
-        out.append("%7.1f |%s|" % (cout * 1e6, line))
-    return out
-
-
-def wall(loop, cout, target, lo, hi):
-    """ESR, на якому запас фази дорівнює target, у вилці [lo, hi]. None —
-    якщо на кінцях вилки запас по один бік порога: стіни тут просто нема."""
-    def excess(esr):
-        _, pm = loop.margin(cout, esr)
-        return (pm if pm is not None else -999.0) - target
-    if excess(lo) * excess(hi) > 0:
-        return None
-    for _ in range(60):
-        mid = math.sqrt(lo * hi)
-        if excess(lo) * excess(mid) <= 0:
-            hi = mid
-        else:
-            lo = mid
-    return math.sqrt(lo * hi)
-```
+:::code proj-esr-map/py/karta.py
 
 Тринадцять рядків на шістдесят один стовпчик — 793 клітини, кожна зі своїм скануванням і півсотнею уточнень. Уся карта малюється за секунду:
 

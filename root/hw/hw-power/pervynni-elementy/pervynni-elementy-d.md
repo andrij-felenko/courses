@@ -394,59 +394,8 @@ Q_total = Q_sleep + Q_active + Q_self(T) + Q_margin
 Щоб вбудоване програмне забезпечення автономного пристрою могло безпечно керувати сеансами зв'язку, воно повинно містити предиктивну модель розрахунку клемної напруги. Наведений нижче модуль обчислює прогнозовану напругу шини під планованим струмом навантаження та перевіряє безпеку запуску передавача.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Прогнозування клемної напруги первинного елемента під імпульсним струмом */
-bool battery_check_pulse_safe(uint16_t ocv_mv, 
-                              uint32_t pulse_current_ua, 
-                              uint32_t esr_milliohm, 
-                              uint16_t uvlo_threshold_mv, 
-                              uint16_t *predicted_vterm_mv) {
-    /* Омічне просідання: ΔU (мВ) = I (мкА) * ESR (мОм) / 10^6 */
-    uint32_t sag_mv = ((uint64_t)pulse_current_ua * esr_milliohm) / 1000000ULL;
-    
-    if (ocv_mv <= sag_mv) {
-        if (predicted_vterm_mv) *predicted_vterm_mv = 0;
-        return false;
-    }
-    
-    uint16_t vterm_mv = ocv_mv - (uint16_t)sag_mv;
-    if (predicted_vterm_mv) {
-        *predicted_vterm_mv = vterm_mv;
-    }
-    
-    /* Безпечно, якщо напруга під навантаженням перевищує поріг UVLO з запасом 100 мВ */
-    return (vterm_mv >= (uvlo_threshold_mv + 100));
-}
-```
-```cpp
-#include <cstdint>
-#include <optional>
-
-namespace embedded::power {
-
-struct BatteryPulsePredictor {
-    uint32_t esrMilliohm;
-    uint16_t uvloThresholdMilliVolts;
-
-    [[nodiscard]] constexpr std::optional<uint16_t> predictVoltage(uint16_t ocvMilliVolts, uint32_t pulseCurrentMicroAmps) const noexcept {
-        const uint32_t sagMilliVolts = (static_cast<uint64_t>(pulseCurrentMicroAmps) * esrMilliohm) / 1000000ULL;
-        if (ocvMilliVolts <= sagMilliVolts) {
-            return std::nullopt;
-        }
-        return static_cast<uint16_t>(ocvMilliVolts - sagMilliVolts);
-    }
-
-    [[nodiscard]] constexpr bool isSafe(uint16_t ocvMilliVolts, uint32_t pulseCurrentMicroAmps, uint16_t marginMilliVolts = 100) const noexcept {
-        const auto vterm = predictVoltage(ocvMilliVolts, pulseCurrentMicroAmps);
-        return vterm.has_value() && (*vterm >= (uvloThresholdMilliVolts + marginMilliVolts));
-    }
-};
-
-} // namespace embedded::power
-```
+:::code pervynni-elementy-d/c/main.c
+:::code pervynni-elementy-d/cpp/main.cpp
 :::
 
 > ⚙️ Повну реалізацію драйвера з підтримкою температурного саморозряду Арреніуса, лічби кулонів та автоматичного тригера депасивації наведено у вставці: [Програмний профіль батареї, лічба кулонів та депасивація первинних елементів](root:hw-power/pervynni-elementy/proj-primary-gauge.md).

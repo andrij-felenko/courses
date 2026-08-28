@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -48,7 +49,8 @@
           "proj": [
             {
               "file": "proj-precharge-fsm.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -59,7 +61,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -75,7 +78,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "math": [
             {
@@ -108,13 +112,15 @@
           "proj": [
             {
               "file": "proj-bq2419x-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bq2419x-registers.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -125,24 +131,29 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-plante-and-nimh.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-lead-acid-temp.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-universal-charger-fsm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -159,12 +170,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-coulomb-counting.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -175,7 +188,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -196,7 +210,8 @@
           "proj": [
             {
               "file": "proj-ocv-lookup.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -213,7 +228,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -262,7 +278,8 @@
           "proj": [
             {
               "file": "proj-active-balancer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -273,7 +290,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -283,7 +301,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -319,24 +338,29 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "hist": [
             {
               "file": "hist-tesla-model-s-pack.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-busbar-losses.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-pack-topology-calc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -359,13 +383,16 @@
           "math": [
             {
               "file": "math-cell-mismatch.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-cell-binning-optimizer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -376,7 +403,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -413,25 +441,30 @@
           "comp": [
             {
               "file": "comp-dc-fuse.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-dc-arc-safety.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-i2t-blowout.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-short-circuit-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -443,24 +476,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-sony-1991-safety.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-thermal-runaway-balance.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-jeita-guard.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },

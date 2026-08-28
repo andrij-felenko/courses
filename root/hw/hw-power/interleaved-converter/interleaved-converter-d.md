@@ -101,41 +101,8 @@
 Тепер приклад коду — як контролер зсуває фази. У найпростішому вигляді це один такт-лічильник, поділений на N рівних порогів; кожна фаза стартує на своєму порозі:
 
 :::tabs
-```cpp
-// N-фазний зсув: один такт ділимо на N рівних інтервалів.
-// TIMER_TOP — значення лічильника за повний такт (=1/f).
-#define N_PHASES   4
-#define TIMER_TOP  1000u   // тактів таймера на один період комутації
-
-// Поріг старту фази i: рівномірний зсув на 360°/N.
-static inline uint16_t phase_start(uint8_t i) {
-    // i-та фаза починає свій такт на (i * TIMER_TOP / N)
-    return (uint16_t)((uint32_t)i * TIMER_TOP / N_PHASES);
-}
-
-void setup_phase_offsets(void) {
-    for (uint8_t i = 0; i < N_PHASES; i++) {
-        // кожній фазі — власний зсув фази ШІМ у її таймері/каналі
-        pwm_set_phase(i, phase_start(i));   // 0, 250, 500, 750 тактів
-    }
-}
-```
-```python
-# N-фазний зсув: один такт ділимо на N рівних інтервалів.
-# TIMER_TOP — значення лічильника за повний такт (=1/f).
-N_PHASES = 4
-TIMER_TOP = 1000   # тактів таймера на один період комутації
-
-def phase_start(i):
-    """Поріг старту фази i: рівномірний зсув на 360°/N."""
-    # i-та фаза починає свій такт на (i * TIMER_TOP / N)
-    return i * TIMER_TOP // N_PHASES
-
-def setup_phase_offsets():
-    for i in range(N_PHASES):
-        # кожній фазі — власний зсув фази ШІМ у її таймері/каналі
-        pwm_set_phase(i, phase_start(i))   # 0, 250, 500, 750 тактів
-```
+:::code interleaved-converter-d/cpp/skilky-same-vyhraiemo.cpp
+:::code interleaved-converter-d/py/main.py
 :::
 
 Зверніть увагу: зсуви — це просто `i * TIMER_TOP / N` (0, 250, 500, 750 для чотирьох фаз при TIMER_TOP = 1000). Рівні пороги дають рівний зсув 90°, а він і забезпечує найкраще скасування. Помиліться в цьому діленні — і фази з'їдуть, гасіння погіршиться.
@@ -143,20 +110,7 @@ def setup_phase_offsets():
 А ось спрощене ядро балансування струму, що підправляє заповнення кожної фази до середнього по всіх фазах:
 
 :::tabs
-```cpp
-// Балансування: тягнемо кожну фазу до середнього струму по всіх фазах.
-void balance_phases(int16_t i_phase[N_PHASES], uint16_t duty[N_PHASES]) {
-    int32_t sum = 0;
-    for (uint8_t k = 0; k < N_PHASES; k++) sum += i_phase[k];
-    int16_t i_avg = (int16_t)(sum / N_PHASES);   // цільовий струм на фазу
-
-    for (uint8_t k = 0; k < N_PHASES; k++) {
-        int16_t err = i_phase[k] - i_avg;         // ця фаза тягне більше/менше?
-        // тягне більше середнього → трохи прикрити її заповнення, і навпаки
-        duty[k] -= (err >> 4);                     // м'який коефіцієнт (÷16)
-    }
-}
-```
+:::code interleaved-converter-d/cpp/skilky-same-vyhraiemo-2.cpp
 ```python
 # Балансування: тягнемо кожну фазу до середнього струму по всіх фазах.
 def balance_phases(i_phase, duty):

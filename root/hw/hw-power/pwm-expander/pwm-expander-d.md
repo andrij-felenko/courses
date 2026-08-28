@@ -55,41 +55,9 @@ OFF = p · 4096
 
 :::tabs
 
-```cpp
-// Записати шпаруватість каналу (0..4095) у PWM-розширювач по I2C.
-// reg_base — адреса першого регістра ON цього каналу; OFF іде за двома
-// байтами ON. У поширеній мікросхемі регістри йдуть четвірками:
-// ON_L, ON_H, OFF_L, OFF_H — по 4 на канал.
-void pwm_set_duty(uint8_t ch, uint16_t off_count) {
-    uint8_t reg = 0x06 + 4 * ch;            // база регістрів каналу ch
-    uint8_t buf[5] = {
-        reg,
-        0x00, 0x00,                          // ON = 0  (вмикаємось на початку)
-        (uint8_t)(off_count & 0xFF),         // OFF молодший байт
-        (uint8_t)(off_count >> 8)            // OFF старший байт (лише 4 біти значущі)
-    };
-    i2c_write(EXPANDER_ADDR, buf, sizeof buf);
-}
+:::code pwm-expander-d/cpp/skilky-same-krokiv-tse-i.cpp
 
-// 40 % на каналі 5:
-pwm_set_duty(5, (uint16_t)(0.40f * 4096));   // → 1638
-```
-
-```python
-# MicroPython: той самий запис по I2C через machine.I2C.
-# Регістри каналу йдуть четвірками: ON_L, ON_H, OFF_L, OFF_H.
-def pwm_set_duty(ch, off_count):
-    reg = 0x06 + 4 * ch                      # база регістрів каналу ch
-    buf = bytes((
-        0x00, 0x00,                          # ON = 0  (вмикаємось на початку)
-        off_count & 0xFF,                    # OFF молодший байт
-        off_count >> 8,                      # OFF старший байт (лише 4 біти значущі)
-    ))
-    i2c.writeto_mem(EXPANDER_ADDR, reg, buf)
-
-# 40 % на каналі 5:
-pwm_set_duty(5, int(0.40 * 4096))            # → 1638
-```
+:::code pwm-expander-d/py/skilky-same-krokiv-tse-i.py
 
 :::
 
@@ -111,18 +79,7 @@ pwm_set_duty(5, int(0.40 * 4096))            # → 1638
 
 :::tabs
 
-```cpp
-// Розкидати 16 каналів рівномірно по фазі, щоб не було спільного піку струму.
-// Кожен канал стартує на своєму зсуві, а гасне через (p*4096) кроків після старту.
-void pwm_spread_phase(float p) {
-    uint16_t width = (uint16_t)(p * 4096);          // ширина «високо» в кроках
-    for (uint8_t ch = 0; ch < 16; ch++) {
-        uint16_t on  = (uint16_t)((4096u * ch) / 16);   // старт каналу
-        uint16_t off = (on + width) & 0x0FFF;           // кінець, із загортанням у 0..4095
-        pwm_set_on_off(ch, on, off);                    // записати обидва пороги
-    }
-}
-```
+:::code pwm-expander-d/cpp/druha-ruchka-faza.cpp
 
 ```python
 # Розкидати 16 каналів рівномірно по фазі, щоб не було спільного піку струму.
@@ -164,32 +121,9 @@ count     = 1.5 мс / крок
 
 :::tabs
 
-```cpp
-// Кут серво через ширину імпульсу. Частота розширювача виставлена на 50 Гц,
-// тож весь період = 4096 кроків = 20 мс, крок ≈ 4.883 мкс.
-void servo_set_us(uint8_t ch, uint16_t pulse_us) {
-    // скільки кроків лічильника вкладається в pulse_us
-    uint16_t count = (uint16_t)((uint32_t)pulse_us * 4096u / 20000u);
-    pwm_set_duty(ch, count);          // ON=0, OFF=count
-}
+:::code pwm-expander-d/cpp/servo-okremyi-uliublenyi.cpp
 
-servo_set_us(3, 1500);                // центр  → ≈ 307
-servo_set_us(3, 1000);                // край   → ≈ 205
-servo_set_us(3, 2000);                // край   → ≈ 410
-```
-
-```python
-# Кут серво через ширину імпульсу. Частота розширювача виставлена на 50 Гц,
-# тож весь період = 4096 кроків = 20 мс, крок ≈ 4.883 мкс.
-def servo_set_us(ch, pulse_us):
-    # скільки кроків лічильника вкладається в pulse_us
-    count = pulse_us * 4096 // 20000
-    pwm_set_duty(ch, count)           # ON=0, OFF=count
-
-servo_set_us(3, 1500)                 # центр  → ≈ 307
-servo_set_us(3, 1000)                 # край   → ≈ 205
-servo_set_us(3, 2000)                 # край   → ≈ 410
-```
+:::code pwm-expander-d/py/servo-okremyi-uliublenyi.py
 
 :::
 

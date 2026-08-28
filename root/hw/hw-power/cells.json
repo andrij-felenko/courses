@@ -43,30 +43,36 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-hlc-supercap.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-primary-cells.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-pulse-sag.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-primary-gauge.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -98,19 +104,23 @@
           "math": [
             {
               "file": "math-ragone-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-ragone-simulation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-ragone-metrics.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -164,7 +174,8 @@
           "math": [
             {
               "file": "math-self-discharge.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -186,7 +197,8 @@
           "proj": [
             {
               "file": "proj-soh-estimator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -215,13 +227,16 @@
           "math": [
             {
               "file": "math-discharge-model.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-soc-estimator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -258,7 +273,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -274,7 +290,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -285,7 +302,8 @@
           "math": [
             {
               "file": "math-peukert-derivation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -296,7 +314,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         }
       ]

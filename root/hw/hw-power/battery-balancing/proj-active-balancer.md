@@ -36,175 +36,28 @@
 
 Почнімо з кістяка: константи, типи й прототипи нижчого рівня, які реалізує драйвер конкретної плати. Домен тут наскрізь залізний — регістри, ISR, ключі, — тож мова C.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define NCELLS        12u
-#define NODES         (NCELLS + 1u)   // відводи n0..n12 між комірками
-
-// гістерезис (на напрузі комірки біля верху заряду, де OCV крута)
-#define VSTART_MV     20u             // почати, коли розкид > 20 мВ
-#define VSTOP_MV       8u             // спинити, коли розкид < 8 мВ  (стоп < старт!)
-
-// «чесне» вікно напруги
-#define IPACK_MAX_MA  200             // балансуємо лише коли |струм пакета| < 200 мА
-
-// шатл
-#define SHUTTLE_HZ    25000u          // повних циклів переносу за секунду
-#define DEADTIME_NS   300u            // мертвий час між фазами
-
-typedef enum { BAL_IDLE, BAL_ACTIVE } bal_state_t;
-
-typedef struct {
-    bal_state_t state;
-    uint8_t     donor;      // найповніша: звідки беремо заряд
-    uint8_t     recipient;  // найпорожніша: куди кладемо
-} balancer_t;
-
-// ── нижчий рівень (реалізує драйвер плати) ──────────────────────────────
-void    cellmon_read(uint16_t v_mv[NCELLS]);  // isoSPI/SPI: усі напруги, мВ
-int32_t pack_current_ma(void);                // з шунта; + = заряд
-bool    charger_in_cv(void);                  // зарядник тримає сталу напругу?
-
-void    sw_set(uint8_t rail, uint8_t node, bool on);  // rail 0=верх цапа, 1=низ
-void    sw_all_open(void);                    // розімкнути ВСІ ключі крос-бару
-void    timer_set_hz(uint32_t hz);            // запустити ISR шатла на hz
-void    timer_stop(void);
-void    delay_ns(uint32_t ns);
-
-// ── самого балансира ────────────────────────────────────────────────────
-void shuttle_start(uint8_t donor, uint8_t recipient);
-void shuttle_stop(void);
-```
+:::code proj-active-balancer/c/stdint.h
 
 Вибір пари — це просто пройтися масивом і запам'ятати індекси максимуму й мінімуму. Ворота — теж кілька рядків, але саме вони вирішують долю всього балансування, тож коментар до них розтягнемо в окремому розділі про пастки.
 
-```c
-static void find_extremes(const uint16_t v[NCELLS], uint8_t *hi, uint8_t *lo)
-{
-    uint8_t imax = 0u, imin = 0u;
-    for (uint8_t i = 1u; i < NCELLS; ++i) {
-        if (v[i] > v[imax]) imax = i;
-        if (v[i] < v[imin]) imin = i;
-    }
-    *hi = imax;
-    *lo = imin;
-}
-
-static bool window_open(void)
-{
-    int32_t i = pack_current_ma();
-    if (i < 0) i = -i;
-    if (i > IPACK_MAX_MA) return false;   // під струмом напруга бреше (IR-падіння)
-    return charger_in_cv();               // балансуємо у крутій верхівці OCV
-}
-```
+:::code proj-active-balancer/c/robochyi-kod.c
 
 Тепер серце мозку — машина станів. Два стани: `IDLE` (нічого не переносимо) і `ACTIVE` (шатл жене заряд). Перехід уперед — коли розкид переріс поріг пуску; назад — коли комірки зійшлися **нижче іншого, меншого** порога. Ці два пороги (`VSTART_MV` > `VSTOP_MV`) і є гістерезис: без нього балансир, ледь стуливши розрив до самого порога, вимикався б, розрив тут-таки знову перевищував поріг, і схема торохтіла б увімкнено-вимкнено на межі. А ще в стані `ACTIVE` крайня комірка може змінитися — інша стала найповнішою, — і тоді пару треба **переприцілити**, але обов'язково через розмикання.
 
-```c
-// «мозок»: викликати повільно, 1..10 Гц. Це НЕ гарячий шлях.
-void balancer_tick(balancer_t *b)
-{
-    if (!window_open()) {                 // вийшли з вікна — негайно стоп
-        shuttle_stop();
-        b->state = BAL_IDLE;
-        return;
-    }
-
-    uint16_t v[NCELLS];
-    cellmon_read(v);                      // сам паузить шатл на час виміру (див. пастки)
-
-    uint8_t hi, lo;
-    find_extremes(v, &hi, &lo);
-    uint16_t spread = (uint16_t)(v[hi] - v[lo]);
-
-    switch (b->state) {
-    case BAL_IDLE:
-        if (spread > VSTART_MV) {         // розкид переріс поріг пуску
-            b->donor = hi; b->recipient = lo;
-            b->state = BAL_ACTIVE;
-            shuttle_start(hi, lo);
-        }
-        break;
-
-    case BAL_ACTIVE:
-        if (spread < VSTOP_MV) {          // зійшлися — гістерезисний стоп
-            shuttle_stop();
-            b->state = BAL_IDLE;
-        } else if (hi != b->donor || lo != b->recipient) {
-            shuttle_stop();               // пара змінилась: спершу РОЗІМКНУТИ,
-            b->donor = hi; b->recipient = lo;
-            shuttle_start(hi, lo);        // аж тоді нова пара
-        }
-        break;
-    }
-}
-```
+:::code proj-active-balancer/c/robochyi-kod-2.c
 
 ![Логіка керма: ворота вікна пускають у гістерезисну машину IDLE↔ACTIVE; переприцілювання йде тільки через розмикання](img/balance-fsm.svg)
 *Ворота відкриваються, лише коли струм пакета малий і зарядник у фазі CV. За відкритих воріт машина йде з IDLE в ACTIVE, коли розкид перевищив V_старт, і назад — коли впав нижче меншого V_стоп; смуга між ними гасить торохтіння. Зміна крайньої комірки переприцілює пару, але завжди через stop із мертвим часом.*
 
 Лишився гарячий шлях — секвенсер ключів. Він живе у перериванні таймера, і в ньому втілене головне залізне правило крос-бару: **break-before-make** (розімкни, перш ніж замкнути). Кожен виклик ISR — рівно одна фаза: спершу розімкнути **все**, витримати мертвий час, і лише тоді замкнути нову пару ключів. Порядок саме такий, і жодного скорочення тут не можна.
 
-```c
-typedef enum { PH_CHARGE, PH_DUMP } phase_t;
-
-static struct {
-    volatile bool run;
-    uint8_t donor, recipient;
-    phase_t phase;
-} sh;
-
-void shuttle_start(uint8_t donor, uint8_t recipient)
-{
-    sh.donor = donor; sh.recipient = recipient;
-    sh.phase = PH_CHARGE;
-    sh.run   = true;
-    timer_set_hz(SHUTTLE_HZ * 2u);        // дві фази на один цикл переносу
-}
-
-void shuttle_stop(void)
-{
-    sh.run = false;
-    timer_stop();
-    sw_all_open();                        // безпечний стан: усе розімкнено
-}
-
-// ISR таймера шатла: рівно ОДНА фаза за виклик, break-before-make.
-void shuttle_timer_isr(void)
-{
-    sw_all_open();                        // 1) розімкнути ВСЕ
-    delay_ns(DEADTIME_NS);                // 2) мертвий час: жоден ключ не встиг
-    if (!sh.run) return;
-
-    uint8_t cell = (sh.phase == PH_CHARGE) ? sh.donor : sh.recipient;
-    sw_set(0u, cell,        true);        // 3) верх цапа → n[cell]
-    sw_set(1u, cell + 1u,   true);        //    низ цапа  → n[cell+1]
-
-    sh.phase = (sh.phase == PH_CHARGE) ? PH_DUMP : PH_CHARGE;
-}
-```
+:::code proj-active-balancer/c/robochyi-kod-3.c
 
 Коротка ремарка про `delay_ns` у перериванні: активне очікування 300 нс у гарячій ISR (яка тут спрацьовує 50 000 разів на секунду) з'їдає близько 1.5% часу процесора — терпимо, але не красиво. На зрілій платі мертвий час вставляє **саме залізо**: таймери зі комплементарними виходами (як advanced-control TIM у Cortex-M) мають апаратний dead-time generator, що фізично не дає верхньому й нижньому виходам перекритися. Тоді ISR лише перемикає, яку пару вивести, а зазор тримає таймер. Але логіка break-before-make лишається тією ж — просто переїжджає з коду в кремній.
 
 Індуктивний варіант несе ту саму заповідь, лише гостріше. Там на кожну пару комірок стоїть напівміст, і верхній та нижній ключі **ніколи** не проводять разом — інакше вони коротять комірку крізь себе:
 
-```c
-void gate_high(bool on);   // драйвер верхнього ключа напівмоста
-void gate_low(bool on);    // драйвер нижнього ключа напівмоста
-
-// напівміст індуктивного (buck-boost) балансира: між фазами — той самий зазор
-void halfbridge_drive(bool high_side)
-{
-    gate_high(false);                     // розімкнути ОБИДВА,
-    gate_low(false);
-    delay_ns(DEADTIME_NS);                // витримати мертвий час,
-    if (high_side) gate_high(true);       // тоді замкнути лише потрібний
-    else           gate_low(true);
-}
-```
+:::code proj-active-balancer/c/robochyi-kod-4.c
 
 **Приклад — струм і втрата переносу.** Конденсатор C = 100 мкФ, частота f = 25 кГц, донор 4.152 В, реципієнт 4.121 В.
 

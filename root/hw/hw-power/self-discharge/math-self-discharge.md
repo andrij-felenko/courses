@@ -228,38 +228,8 @@ t = 36 міс:  0.5 · √36 = 0.5 · 6 = 3.0 %      (пряма дала б 0.5
 **Поправка паливоміра за сон.** Кулонометрія (лічба ампер-годин крізь клеми) саморозряду **не бачить у принципі** — витік іде повз клеми. Тому оцінка [SoC](root:hw-power/state-of-charge) сплячого пристрою систематично дрейфує вгору, і поправку рахують саме цією математикою: знаючи час сну (від годинника реального часу), температуру й хімію, прошивка віднімає передбачену втрату k(T)·Δt від оцінки заряду ще до пробудження. У коді це буквально кілька рядків:
 
 :::tabs
-```cpp
-#include <algorithm>
-#include <cmath>
-
-constexpr float q10 = 2.0f;   // множник Арреніуса на +10 °C (консервативно)
-
-// Поправка SoC на саморозряд за час сну (лінійна модель).
-// k_ref — паспортний темп, %/місяць за t_ref_C (напр. 2.0 за 25 °C).
-float self_discharge_loss(float k_ref, float t_ref_C,
-                          float t_cell_C, float sleep_months)
-{
-    float k = k_ref * std::pow(q10, (t_cell_C - t_ref_C) / 10.0f);  // темп при T
-    return k * sleep_months;                                        // втрата, %
-}
-
-// на пробудженні:
-soc_percent -= self_discharge_loss(2.0f, 25.0f, temp_C, months_asleep);
-soc_percent = std::max(soc_percent, 0.0f);
-```
-```python
-Q10 = 2.0   # множник Арреніуса на +10 °C (консервативно)
-
-# Поправка SoC на саморозряд за час сну (лінійна модель).
-# k_ref — паспортний темп, %/місяць за t_ref_C (напр. 2.0 за 25 °C).
-def self_discharge_loss(k_ref, t_ref_C, t_cell_C, sleep_months):
-    k = k_ref * Q10 ** ((t_cell_C - t_ref_C) / 10.0)   # темп при T
-    return k * sleep_months                            # втрата, %
-
-# на пробудженні:
-soc_percent -= self_discharge_loss(2.0, 25.0, temp_C, months_asleep)
-soc_percent = max(soc_percent, 0.0)
-```
+:::code math-self-discharge/cpp/main.cpp
+:::code math-self-discharge/py/main.py
 :::
 
 Без цих рядків прилад, що показав бадьорі «80%» після трьох місяців сну, за хвилини роботи впаде до реальних ~74% — бо весь загублений саморозрядом заряд лічильник просто пропустив. З поправкою оцінка чесна ще до пробудження.

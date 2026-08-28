@@ -73,72 +73,9 @@
 
 **Приклад. Опитати розпорядник по PMBus: чи живий і що бачить на шинах.**
 :::tabs
-```cpp
-// Розпорядник сидить на шині PMBus (двопровідній, як I²C) за адресою 0x40.
-#define SEQ_ADDR        0x40
-#define CMD_READ_VOUT   0x8B    // стандартна команда PMBus: напруга каналу
-#define CMD_STATUS_WORD 0x79    // зведений статус: є збій / який саме
-
-// Прочитати напругу одного каналу (повертає «сире» 16-розрядне слово).
-static uint16_t seq_read_vout(uint8_t channel) {
-    pmbus_write_byte(SEQ_ADDR, 0x00, channel);   // PAGE: обрати канал
-    return pmbus_read_word(SEQ_ADDR, CMD_READ_VOUT);
-}
-
-void seq_first_check(void) {
-    uint16_t st = pmbus_read_word(SEQ_ADDR, CMD_STATUS_WORD);
-    if (st == 0xFFFF) {              // шина «висить» у одиницях — чип не відповів
-        log("seq: немає відповіді — перевір живлення й адресу");
-        return;
-    }
-    for (uint8_t ch = 0; ch < 4; ch++) {
-        uint16_t v = seq_read_vout(ch);
-        log("seq: канал %u = %u (сире)", ch, v);   // звірити з очікуваним рівнем
-    }
-}
-```
-```python
-# Розпорядник сидить на шині PMBus (двопровідній, як I²C) за адресою 0x40.
-SEQ_ADDR        = 0x40
-CMD_READ_VOUT   = 0x8B    # стандартна команда PMBus: напруга каналу
-CMD_STATUS_WORD = 0x79    # зведений статус: є збій / який саме
-
-def seq_read_vout(bus, channel):
-    """Прочитати напругу одного каналу (повертає «сире» 16-розрядне слово)."""
-    bus.write_byte_data(SEQ_ADDR, 0x00, channel)   # PAGE: обрати канал
-    return bus.read_word_data(SEQ_ADDR, CMD_READ_VOUT)
-
-def seq_first_check(bus):
-    st = bus.read_word_data(SEQ_ADDR, CMD_STATUS_WORD)
-    if st == 0xFFFF:              # шина «висить» у одиницях — чип не відповів
-        log("seq: немає відповіді — перевір живлення й адресу")
-        return
-    for ch in range(4):
-        v = seq_read_vout(bus, ch)
-        log(f"seq: канал {ch} = {v} (сире)")   # звірити з очікуваним рівнем
-```
-```micropython
-# Розпорядник сидить на шині PMBus (двопровідній, як I²C) за адресою 0x40.
-SEQ_ADDR        = 0x40
-CMD_READ_VOUT   = 0x8B    # стандартна команда PMBus: напруга каналу
-CMD_STATUS_WORD = 0x79    # зведений статус: є збій / який саме
-
-def seq_read_vout(i2c, channel):
-    # Прочитати напругу одного каналу (повертає «сире» 16-розрядне слово).
-    i2c.writeto_mem(SEQ_ADDR, 0x00, bytes([channel]))   # PAGE: обрати канал
-    raw = i2c.readfrom_mem(SEQ_ADDR, CMD_READ_VOUT, 2)
-    return raw[0] | (raw[1] << 8)                        # PMBus — молодший байт перший
-
-def seq_first_check(i2c):
-    raw = i2c.readfrom_mem(SEQ_ADDR, CMD_STATUS_WORD, 2)
-    st = raw[0] | (raw[1] << 8)
-    if st == 0xFFFF:              # шина «висить» у одиницях — чип не відповів
-        print("seq: немає відповіді — перевір живлення й адресу")
-        return
-    for ch in range(4):
-        v = seq_read_vout(i2c, ch)
-        print("seq: канал", ch, "=", v, "(сире)")   # звірити з очікуваним рівнем
-```
+:::code comp-sequencer-ic/cpp/main.cpp
+:::code comp-sequencer-ic/py/main.py
+:::code comp-sequencer-ic/py/micropython/main.py
 :::
 
 Якщо чип мовчить (`0xFFFF` — шина просто підтягнута вгору, ніхто не відповів) — це майже завжди банальщина: не те живлення диригента, не та адреса, переплутані лінії шини або забута підтяжка на ній. Якщо відповідає й показує розумні напруги на каналах — диригент живий і бачить плату, можна заливати програму послідовності й переходити до справжніх перевірок порядку.

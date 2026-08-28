@@ -66,22 +66,7 @@ P = I² · ESR
 **Приклад: чому однакові на вигляд конденсатори гріються по-різному.** Крізь конденсатор у фільтрі імпульсного живлення тече пульсівний струм 2 А (діюче значення). Порівняймо звичайний електроліт з ESR = 0.5 Ом і low-ESR конденсатор тієї самої ємності з ESR = 0.02 Ом.
 
 :::tabs
-```c
-// Скільки тепла народжує пульсівний струм на ESR конденсатора.
-// I_rms — діюче значення пульсації, А; esr — еквівалентний послідовний опір, Ом.
-#include <stdio.h>
-
-float ripple_heat(float i_rms, float esr) {
-    return i_rms * i_rms * esr;     // P = I² · ESR, Вт
-}
-
-int main(void) {
-    float i = 2.0f;                          // пульсівний струм 2 А (rms)
-    printf("ESR=0.50: P = %.2f W\n", ripple_heat(i, 0.50f));  // звичайний електроліт
-    printf("ESR=0.02: P = %.2f W\n", ripple_heat(i, 0.02f));  // low-ESR
-    return 0;
-}
-```
+:::code esr-capacitor-d/c/main.c
 ```python
 # Скільки тепла народжує пульсівний струм на ESR конденсатора.
 # i_rms — діюче значення пульсації, А; esr — еквівалентний послідовний опір, Ом.
@@ -93,35 +78,8 @@ i = 2.0                             # пульсівний струм 2 А (rms)
 print(f"ESR=0.50: P = {ripple_heat(i, 0.50):.2f} W")  # звичайний електроліт
 print(f"ESR=0.02: P = {ripple_heat(i, 0.02):.2f} W")  # low-ESR
 ```
-```js
-// Скільки тепла народжує пульсівний струм на ESR конденсатора.
-// iRms — діюче значення пульсації, А; esr — еквівалентний послідовний опір, Ом.
-
-function rippleHeat(iRms, esr) {
-    return iRms * iRms * esr;       // P = I² · ESR, Вт
-}
-
-const i = 2.0;                                             // пульсівний струм 2 А (rms)
-console.log(`ESR=0.50: P = ${rippleHeat(i, 0.50).toFixed(2)} W`);  // звичайний електроліт
-console.log(`ESR=0.02: P = ${rippleHeat(i, 0.02).toFixed(2)} W`);  // low-ESR
-```
-```go
-// Скільки тепла народжує пульсівний струм на ESR конденсатора.
-// iRms — діюче значення пульсації, А; esr — еквівалентний послідовний опір, Ом.
-package main
-
-import "fmt"
-
-func rippleHeat(iRms, esr float64) float64 {
-	return iRms * iRms * esr // P = I² · ESR, Вт
-}
-
-func main() {
-	i := 2.0                                                     // пульсівний струм 2 А (rms)
-	fmt.Printf("ESR=0.50: P = %.2f W\n", rippleHeat(i, 0.50)) // звичайний електроліт
-	fmt.Printf("ESR=0.02: P = %.2f W\n", rippleHeat(i, 0.02)) // low-ESR
-}
-```
+:::code esr-capacitor-d/js/index.js
+:::code esr-capacitor-d/go/main.go
 :::
 
 Порахуймо обидва випадки вручну, щоб побачити прірву:

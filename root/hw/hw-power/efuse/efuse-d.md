@@ -80,86 +80,15 @@ eFuse — це, по суті, розумний [ключ живлення](root
 **Умова.** ESP32 керує eFuse на вході SSD (12 В). Треба ввімкнути живлення на старті, а якщо eFuse зловила аварію (лінія FLT впала в нуль) — прочитати це й погасити зовнішній індикатор.
 
 :::tabs
-```cpp
-#define EFUSE_EN   GPIO_NUM_25   // керує ніжкою EN мікросхеми eFuse
-#define EFUSE_FLT  GPIO_NUM_26   // вхід аварії, активний нуль (open-drain)
-
-void efuse_init(void) {
-    gpio_set_direction(EFUSE_EN,  GPIO_MODE_OUTPUT);
-    gpio_set_direction(EFUSE_FLT, GPIO_MODE_INPUT);   // назовні підтягнуто до +
-    gpio_set_level(EFUSE_EN, 1);                      // відчинити ключ — подати живлення
-}
-
-// true, якщо eFuse ЗАРАЗ сигналить про аварію (FLT == 0)
-bool efuse_fault(void) {
-    return gpio_get_level(EFUSE_FLT) == 0;
-}
-```
-```python
-from machine import Pin
-
-EFUSE_EN  = 25   # керує ніжкою EN мікросхеми eFuse
-EFUSE_FLT = 26   # вхід аварії, активний нуль (open-drain)
-
-en  = Pin(EFUSE_EN,  Pin.OUT)
-flt = Pin(EFUSE_FLT, Pin.IN, Pin.PULL_UP)   # підтягнуто до +
-
-def efuse_init():
-    en.value(1)                             # відчинити ключ — подати живлення
-
-# True, якщо eFuse ЗАРАЗ сигналить про аварію (FLT == 0)
-def efuse_fault():
-    return flt.value() == 0
-```
+:::code efuse-d/cpp/proshyvka-uvimknuty.cpp
+:::code efuse-d/py/proshyvka-uvimknuty.py
 :::
 
 Тонкість, через яку часто спотикаються: у режимі **автоповтору** лінія FLT сіпається — то нуль (під час зриву), то знову «висока» (у паузі між спробами). Тому одноразове читання «зараз аварія» оманливе — під час паузи FLT ще «висока», хоч система вже клацає по колу. Правильно рахувати **зриви за вікно часу**: якщо їх забагато за кілька секунд — аварія стійка, і час гасити навантаження самим і кричати нагору, а не покладатися на автоповтор.
 
 :::tabs
-```cpp
-// Лічимо зриви FLT у ковзному вікні; якщо їх забагато — аварія стійка.
-static int  fault_hits    = 0;
-static bool prev_fault    = false;
-
-// Кличемо, приміром, кожні 10 мс із таймера.
-bool efuse_persistent_fault(void) {
-    bool now = efuse_fault();
-    if (now && !prev_fault) fault_hits++;   // рахуємо ФРОНТ у зрив, не рівень
-    prev_fault = now;
-
-    // за 3 с (300 викликів по 10 мс) більш ніж 5 зривів — стійка аварія
-    static int window = 0;
-    if (++window >= 300) {
-        bool persistent = (fault_hits > 5);
-        window = 0; fault_hits = 0;         // почати нове вікно
-        return persistent;
-    }
-    return false;
-}
-```
-```python
-# Лічимо зриви FLT у ковзному вікні; якщо їх забагато — аварія стійка.
-_fault_hits = 0
-_prev_fault = False
-_window     = 0
-
-# Кличемо, приміром, кожні 10 мс із таймера.
-def efuse_persistent_fault():
-    global _fault_hits, _prev_fault, _window
-    now = efuse_fault()
-    if now and not _prev_fault:
-        _fault_hits += 1                    # рахуємо ФРОНТ у зрив, не рівень
-    _prev_fault = now
-
-    # за 3 с (300 викликів по 10 мс) більш ніж 5 зривів — стійка аварія
-    _window += 1
-    if _window >= 300:
-        persistent = _fault_hits > 5
-        _window = 0                         # почати нове вікно
-        _fault_hits = 0
-        return persistent
-    return False
-```
+:::code efuse-d/cpp/proshyvka-uvimknuty-2.cpp
+:::code efuse-d/py/proshyvka-uvimknuty-2.py
 :::
 
 **Висновок.** Рахуємо саме **фронти** входу в аварію (перехід 0→1 змінної `now`), а не поточний рівень, — тому короткі паузи автоповтору не збивають лік. Понад п'ять зривів за три секунди означають, що аварія не минає сама; тоді прошивка сама зачиняє eFuse через EN (переводить у «засувку» програмно) і повідомляє про несправність, замість дозволяти вічне клацання.

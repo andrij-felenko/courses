@@ -34,53 +34,9 @@
 
 :::tabs
 
-```cpp
-// Термінація Li-ion за спадом струму у фазі сталої напруги.
-#define CAP_MAH        2000      // ємність комірки, мА·год
-#define I_TERM_MA      (CAP_MAH / 10)   // поріг C/10 = 200 мА
-#define V_CV_MV        4200      // стеля напруги фази CV
-#define DEBOUNCE_N     3         // скільки вимірів поспіль під порогом
+:::code charge-termination-d/cpp/terminatsiia-za-strumom.cpp
 
-static uint8_t below_cnt = 0;
-
-// Повертає true, коли заряд треба зупинити.
-bool charge_done(uint16_t vcell_mv, uint16_t icharge_ma) {
-    // Термінація за струмом чинна ЛИШЕ у фазі CV: напруга вже на стелі.
-    if (vcell_mv < V_CV_MV - 20)         // ще у фазі CC — рано
-        return false;
-    if (icharge_ma < I_TERM_MA) {
-        if (++below_cnt >= DEBOUNCE_N)   // стабільно нижче порога
-            return true;                 // → повна, вимикаємо
-    } else {
-        below_cnt = 0;                   // струм підскочив — лічильник назад
-    }
-    return false;
-}
-```
-
-```python
-# Термінація Li-ion за спадом струму у фазі сталої напруги.
-CAP_MAH    = 2000            # ємність комірки, мА·год
-I_TERM_MA  = CAP_MAH // 10   # поріг C/10 = 200 мА
-V_CV_MV    = 4200            # стеля напруги фази CV
-DEBOUNCE_N = 3               # скільки вимірів поспіль під порогом
-
-_below_cnt = 0               # стан між викликами
-
-def charge_done(vcell_mv, icharge_ma):
-    """Повертає True, коли заряд треба зупинити."""
-    global _below_cnt
-    # Термінація за струмом чинна ЛИШЕ у фазі CV: напруга вже на стелі.
-    if vcell_mv < V_CV_MV - 20:          # ще у фазі CC — рано
-        return False
-    if icharge_ma < I_TERM_MA:
-        _below_cnt += 1
-        if _below_cnt >= DEBOUNCE_N:     # стабільно нижче порога
-            return True                  # → повна, вимикаємо
-    else:
-        _below_cnt = 0                   # струм підскочив — лічильник назад
-    return False
-```
+:::code charge-termination-d/py/terminatsiia-za-strumom.py
 
 :::
 
@@ -117,64 +73,9 @@ def charge_done(vcell_mv, icharge_ma):
 
 :::tabs
 
-```cpp
-// Термінація NiMH за dT/dt: ловимо різкий нагрів у мить повноти.
-#define DTDT_STOP_DC_PER_MIN  10    // поріг 1.0 °C/хв, у десятих °C
-#define SAMPLE_S              5     // період вимірювання температури, с
+:::code charge-termination-d/cpp/terminatsiia-za.cpp
 
-static int16_t  t_prev_dc = 0;      // попередня температура, десяті °C
-static uint32_t t_prev_ms = 0;
-
-// cell_temp_dc — температура комірки в десятих градуса (напр., 253 = 25.3 °C)
-bool nimh_done(int16_t cell_temp_dc, uint32_t now_ms) {
-    if (t_prev_ms == 0) {           // перший виклик — лише запам'ятати
-        t_prev_dc = cell_temp_dc;
-        t_prev_ms = now_ms;
-        return false;
-    }
-    if (now_ms - t_prev_ms < SAMPLE_S * 1000UL)
-        return false;               // ще рано міряти нахил
-
-    int32_t d_temp = cell_temp_dc - t_prev_dc;             // приріст, десяті °C
-    int32_t d_min  = (now_ms - t_prev_ms) / 60000;         // час, хвилини (цілі)
-    t_prev_dc = cell_temp_dc;
-    t_prev_ms = now_ms;
-
-    // нахил у десятих °C за хвилину; ділення бережемо від нуля
-    if (d_min > 0 && d_temp / d_min >= DTDT_STOP_DC_PER_MIN)
-        return true;                // комірка різко гріється → повна
-    return false;
-}
-```
-
-```python
-# Термінація NiMH за dT/dt: ловимо різкий нагрів у мить повноти.
-DTDT_STOP_DC_PER_MIN = 10    # поріг 1.0 °C/хв, у десятих °C
-SAMPLE_S             = 5     # період вимірювання температури, с
-
-_t_prev_dc = 0              # попередня температура, десяті °C
-_t_prev_ms = 0             # стан між викликами
-
-def nimh_done(cell_temp_dc, now_ms):
-    # cell_temp_dc — температура комірки в десятих градуса (напр., 253 = 25.3 °C)
-    global _t_prev_dc, _t_prev_ms
-    if _t_prev_ms == 0:             # перший виклик — лише запам'ятати
-        _t_prev_dc = cell_temp_dc
-        _t_prev_ms = now_ms
-        return False
-    if now_ms - _t_prev_ms < SAMPLE_S * 1000:
-        return False                # ще рано міряти нахил
-
-    d_temp = cell_temp_dc - _t_prev_dc          # приріст, десяті °C
-    d_min  = (now_ms - _t_prev_ms) // 60000     # час, хвилини (цілі)
-    _t_prev_dc = cell_temp_dc
-    _t_prev_ms = now_ms
-
-    # нахил у десятих °C за хвилину; ділення бережемо від нуля
-    if d_min > 0 and d_temp // d_min >= DTDT_STOP_DC_PER_MIN:
-        return True                 # комірка різко гріється → повна
-    return False
-```
+:::code charge-termination-d/py/terminatsiia-za.py
 
 :::
 

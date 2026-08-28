@@ -86,68 +86,9 @@ Vвих = Vоп · (1 + Rверх/Rниз)
 **Стрибок навантаження з мікроконтролера (тригер для осцилографа):**
 
 :::tabs
-```arduino
-// LOAD_PIN кермує MOSFET, що підмикає резистор-«гирю» до виходу.
-// TRIG_PIN іде на зовнішній запуск осцилографа — фронт співпадає зі стрибком.
-#define LOAD_PIN  5
-#define TRIG_PIN  6
-
-void load_step(void) {
-    digitalWrite(TRIG_PIN, HIGH);   // спершу армуємо запуск осцилографа
-    digitalWrite(LOAD_PIN, HIGH);   // тим самим тактом — різко даємо повне навантаження
-    delayMicroseconds(500);         // тримаємо, поки контур відпрацює провал і дзвін
-    digitalWrite(LOAD_PIN, LOW);    // знімаємо навантаження
-    digitalWrite(TRIG_PIN, LOW);
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_rom_sys.h"        // esp_rom_delay_us() — пауза без віддачі керування
-
-#define LOAD_PIN  GPIO_NUM_5    // MOSFET підмикає резистор-«гирю» до виходу
-#define TRIG_PIN  GPIO_NUM_6    // зовнішній запуск осцилографа
-
-void load_pins_init(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = (1ULL << LOAD_PIN) | (1ULL << TRIG_PIN),
-        .mode = GPIO_MODE_OUTPUT,
-    };
-    gpio_config(&cfg);
-}
-
-void load_step(void) {
-    gpio_set_level(TRIG_PIN, 1);    // спершу армуємо запуск осцилографа
-    gpio_set_level(LOAD_PIN, 1);    // тим самим тактом — різко даємо повне навантаження
-    esp_rom_delay_us(500);          // тримаємо, поки контур відпрацює провал і дзвін
-    gpio_set_level(LOAD_PIN, 0);    // знімаємо навантаження
-    gpio_set_level(TRIG_PIN, 0);
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-#define LOAD_PORT GPIOB
-#define LOAD_PIN  GPIO_PIN_5    // MOSFET резистора-«гирі»
-#define TRIG_PORT GPIOB
-#define TRIG_PIN  GPIO_PIN_6    // зовнішній запуск осцилографа
-
-// HAL_Delay() міряє мілісекундами, а нам треба 500 мкс — беремо лічильник тактів ядра.
-// DWT вмикають один раз при старті:
-//   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-static void delay_us(uint32_t us) {
-    uint32_t start = DWT->CYCCNT;
-    uint32_t ticks = us * (HAL_RCC_GetHCLKFreq() / 1000000U);
-    while ((DWT->CYCCNT - start) < ticks) { }
-}
-
-void load_step(void) {
-    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_SET);     // армуємо запуск осцилографа
-    HAL_GPIO_WritePin(LOAD_PORT, LOAD_PIN, GPIO_PIN_SET);     // різко даємо повне навантаження
-    delay_us(500);                                            // поки контур відпрацює провал і дзвін
-    HAL_GPIO_WritePin(LOAD_PORT, LOAD_PIN, GPIO_PIN_RESET);   // знімаємо навантаження
-    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_RESET);
-}
-```
+:::code feedback-stability-d/c/arduino/main.ino
+:::code feedback-stability-d/c/esp-idf/main.c
+:::code feedback-stability-d/c/stm32/main.c
 :::
 
 ### Підступ: вихідний конденсатор впливає на стійкість

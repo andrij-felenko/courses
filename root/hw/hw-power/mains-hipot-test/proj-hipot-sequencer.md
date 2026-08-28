@@ -14,130 +14,11 @@
 
 Зверніть увагу на форму автомата. Уперед веде одна пряма дорога. Униз, з будь-якого стану, веде спільна **аварійна рейка** — відкритий кожух, спрацьований тригер, тайм-аут, провалена проба скидають автомат у той самий стан `ABORT`. І — найважливіше — обидві дороги, і тріумфальна, і аварійна, зливаються в одному вузлі: `РОЗРЯД`. Це не випадковість компонування, а вимога безпеки, зашита в топологію: **немає** шляху від «під напругою» до «оператор бере виріб», який оминав би розряд.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef enum {
-    ST_IDLE, ST_GROUND_BOND, ST_INSUL_RES,
-    ST_HIPOT_RAMP, ST_HIPOT_DWELL, ST_DISCHARGE, ST_PASS, ST_FAIL
-} state_t;
-
-typedef enum { V_NONE, V_PASS, V_FAIL } verdict_t;
-
-typedef struct {
-    state_t   state;
-    verdict_t verdict;
-    uint32_t  t_ms;        // час у поточному стані, мс
-    uint16_t  dac_code;    // поточний код ЦАП (команда напруги джерела)
-    uint16_t  dac_target;  // код на кінець наростання
-    uint16_t  dac_step;    // приріст коду за один 1-мс такт
-    const char *fail_reason;
-} hipot_t;
-
-// Прапорці, спільні з обробником переривання (тому volatile):
-volatile bool     g_arc_armed   = false;  // детектор дуги активний (уся HV-фаза)
-volatile bool     g_level_armed = false;  // абсолютний поріг активний (лише витримка)
-volatile uint16_t g_i_limit     = 0;      // поріг струму в кодах АЦП
-volatile uint8_t  g_trip        = 0;      // 1 = тригер спрацював (ставить ISR)
-
-// Межа апаратури — реалізує плата (contactor, ЦАП, шунт, реле баласту):
-extern bool  hv_is_live(void);
-extern void  hv_off(void);           // мʼяко зняти джерело
-extern void  hv_off_hard(void);      // найшвидший розрив, безпечно з ISR
-extern void  hv_enable(void);
-extern void  dac_write(uint16_t code);
-extern uint16_t hv_meas_volts(void); // зчитати вихідну напругу (для розряду)
-extern void  bleed_on(void);
-extern void  bleed_off(void);
-extern bool  enclosure_open(void);
-extern bool  button_l(void), button_r(void);
-extern float ground_bond_ohms(void);
-extern float insul_res_megohm(void);
-extern uint16_t volts_to_code(uint16_t v);
-extern void  latch_fault(const char *why);
-extern void  log_result(const hipot_t *h);
-
-#define DWELL_MS              1000     // витримка гіпоту (конвеєр: 1 с)
-#define DISCHARGE_TIMEOUT_MS  500
-
-static void enter(hipot_t *h, state_t s) { h->state = s; h->t_ms = 0; }
-
-static void abort_test(hipot_t *h, const char *why) {
-    hv_off_hard();
-    h->verdict = V_FAIL;
-    h->fail_reason = why;
-    g_trip = 0;                 // прапорець спожито
-    enter(h, ST_DISCHARGE);     // навіть у провалі — СПЕРШУ розрядити
-}
-```
+:::code proj-hipot-sequencer/c/kistiak-mashyna-staniv.c
 
 Тепер сам такт автомата. Його викликає таймер кожну мілісекунду. Перше, що він робить у **будь-якому** стані, — перевіряє аварійні умови; лише потім розгалужується за станом. Порядок тут навмисний: небезпека має пріоритет над логікою послідовності.
 
-```c
-void hipot_tick(hipot_t *h) {          // виклик кожні 1 мс
-    // ── Аварійні умови — найперше, у будь-якому стані ──
-    bool live = hv_is_live();
-    if (live && enclosure_open())                 abort_test(h, "кожух відчинено");
-    else if (live && !(button_l() && button_r())) abort_test(h, "відпущено кнопку");
-    else if (g_trip)                              abort_test(h, "тригер: поріг або дуга");
-
-    switch (h->state) {
-    case ST_IDLE:
-        hv_off(); bleed_off();
-        g_level_armed = g_arc_armed = false;
-        if (two_hand_ok() && !enclosure_open())
-            enter(h, ST_GROUND_BOND);
-        break;
-
-    case ST_GROUND_BOND:                        // Клас I: 25 А, R < 0.1 Ом
-        if (ground_bond_ohms() > 0.10f) abort_test(h, "заземл. звʼязок > 0.1 Ом");
-        else if (h->t_ms > 500)         enter(h, ST_INSUL_RES);
-        break;
-
-    case ST_INSUL_RES:                          // 500 В=, R має бути > 10 МОм
-        if (insul_res_megohm() < 10.0f) abort_test(h, "опір ізоляції < 10 МОм");
-        else if (h->t_ms > 1000) {
-            ramp_setup(h, volts_to_code(2121), 2000);
-            g_arc_armed = true;                 // дугу стежимо вже з наростання
-            enter(h, ST_HIPOT_RAMP);
-        }
-        break;
-
-    case ST_HIPOT_RAMP:                         // наростання: активний ЛИШЕ детектор дуги
-        h->dac_code += h->dac_step;
-        if (h->dac_code >= h->dac_target) {
-            h->dac_code = h->dac_target;
-            g_level_armed = true;               // у витримці вмикаємо й абсолютний поріг
-            enter(h, ST_HIPOT_DWELL);
-        }
-        dac_write(h->dac_code);
-        break;
-
-    case ST_HIPOT_DWELL:                        // витримка: поріг + дуга
-        if (h->t_ms > DWELL_MS) { h->verdict = V_PASS; enter(h, ST_DISCHARGE); }
-        break;
-
-    case ST_DISCHARGE:                          // спільний вузол: і успіх, і ABORT
-        hv_off(); bleed_on();
-        g_level_armed = g_arc_armed = false;
-        if (hv_meas_volts() < 50) {             // ВИМІР, не таймер
-            bleed_off();
-            enter(h, h->verdict == V_FAIL ? ST_FAIL : ST_PASS);
-        } else if (h->t_ms > DISCHARGE_TIMEOUT_MS) {
-            latch_fault("розряд не завершився"); // баласт відгорів — станцію в стоп
-        }
-        break;
-
-    case ST_PASS:
-    case ST_FAIL:
-        log_result(h);
-        enter(h, ST_IDLE);
-        break;
-    }
-    h->t_ms++;
-}
-```
+:::code proj-hipot-sequencer/c/kistiak-mashyna-staniv-2.c
 
 Цей кістяк уже вміщує чотири з пʼяти обіцянок керма: порядок проб, аварійний скид, обовʼязковий розряд, вирок наприкінці. Бракує серця — швидкого годинника, що ловить пробій. Але спершу подивімося на порядок проб під іншим кутом, бо саме тут ховається найтонший різновид помилки.
 
@@ -148,53 +29,8 @@ void hipot_tick(hipot_t *h) {          // виклик кожні 1 мс
 Мова з типами-станами (typestate) переносить цю оборону з часу виконання в **час компіляції**: недозволений порядок просто не збереться. Це той рідкісний випадок, коли інша мова не переписує той самий код, а дає інакшу гарантію, тож варто побачити обидва підходи поряд.
 
 :::tabs
-```c
-// C: порядок — перевірка під час ВИКОНАННЯ.
-// Помилку («гіпот без опору ізоляції») ловимо на стенді, не в компіляторі.
-static void go_hipot(hipot_t *h) {
-    if (h->state != ST_INSUL_RES || h->verdict == V_FAIL) {
-        abort_test(h, "гіпот без пройденого опору ізоляції");
-        return;
-    }
-    ramp_setup(h, volts_to_code(2121), 2000);
-    g_arc_armed = true;
-    enter(h, ST_HIPOT_RAMP);
-}
-```
-```rust
-// Rust: кожна фаза — окремий ТИП. Метод `hipot` існує лише на `Station<InsulOk>`,
-// тож «гіпот без опору ізоляції» — помилка КОМПІЛЯЦІЇ, а не сюрприз на стенді.
-use core::marker::PhantomData;
-
-struct GroundOk;
-struct InsulOk;
-struct Station<S> { hv: Hv, _s: PhantomData<S> }
-
-impl Station<GroundOk> {
-    // Пройти опір ізоляції можна лише звідси; успіх ВИДАЄ новий тип-стан.
-    fn insulation(self, r_meg: f32) -> Result<Station<InsulOk>, Fail> {
-        if r_meg > 10.0 { Ok(Station { hv: self.hv, _s: PhantomData }) }
-        else            { Err(Fail::Insulation) }
-    }
-}
-
-impl Station<InsulOk> {
-    // `hipot` НЕ існує ніде, крім цього impl — раніше його не викликати.
-    fn hipot(self, v: u16, dwell_ms: u32) -> Charged {
-        self.hv.ramp_dwell(v, dwell_ms)
-    }
-}
-
-// `Charged` неможливо «забути»: єдиний спосіб його позбутися — знищення,
-// а воно ЗАВЖДИ розряджає — навіть на ранньому return чи паніці.
-struct Charged { hv: Hv }
-impl Charged {
-    fn leakage(&mut self) -> f32 { self.hv.read_leak() }
-}
-impl Drop for Charged {
-    fn drop(&mut self) { self.hv.bleed_until(50); }   // страж розряду
-}
-```
+:::code proj-hipot-sequencer/c/poriadok-prob-iak.c
+:::code proj-hipot-sequencer/rust/main.rs
 :::
 
 Обидва варіанти обороняють той самий інваріант — «гіпот лише після опору ізоляції, розряд обовʼязково». Різниця в тому, **де** стоїть оборона. У C вона стоїть уголові програміста й перевіряється числом під час роботи; забудькуватість коштує баг, який доведеться ловити пробами. У Rust illegal-стан **непредставний**: тип `Station<GroundOk>` фізично не має методу `hipot`, а `Drop` для `Charged` робить пропущений розряд неможливим — компілятор не дасть скомпонувати програму, де виріб лишається зарядженим. Для станції, що може вбити, ця різниця не косметична.
@@ -264,34 +100,7 @@ I_нар = 0.05·10⁻⁶ · 1060 ≈ 53 мкА
 
 Сам обробник робить дві незалежні перевірки. Перша — **абсолютний поріг**: якщо струм перевищив дозволене, виток завеликий. Друга — **виявлення дуги за похідною**: якщо струм від відліку до відліку **стрибнув**, це ознака дуги чи часткового пробою, бо здоровий виток міняється плавно, а дуга бʼє різко.
 
-```c
-// Викликається апаратно на кожен готовий відлік АЦП (10 кГц).
-#define DI_ARC_ADC  40          // поріг стрибка |I[n]-I[n-1]| у кодах АЦП
-
-extern volatile uint32_t g_sum_sq;  // накопичувач для СКЗ (читає автомат)
-extern volatile uint32_t g_n;
-
-void ADC_IRQHandler(void) {
-    uint16_t i_now = (uint16_t)ADC_DR;      // читання DR знімає прапорець EOC
-    static uint16_t i_prev = 0;
-
-    int32_t di = (int32_t)i_now - (int32_t)i_prev;
-    if (di < 0) di = -di;
-
-    // Дуга: різкий стрибок — стежимо всю HV-фазу (наростання + витримка).
-    // Поріг: перевищення рівня — лише у витримці (сталій напрузі).
-    if ((g_arc_armed   && di    > DI_ARC_ADC) ||
-        (g_level_armed && i_now > g_i_limit)) {
-        hv_off_hard();          // РОЗІРВАТИ HV негайно, прямо з ISR
-        g_trip = 1;             // повідомити повільний автомат
-    }
-
-    // Накопичити квадрати для СКЗ витоку у витримці (потрібне для змінної проби):
-    g_sum_sq += (uint32_t)i_now * i_now;
-    g_n++;
-    i_prev = i_now;
-}
-```
+:::code proj-hipot-sequencer/c/sertse-sempluvannia-strumu.c
 
 Детектор дуги за di/dt — це чесна, але спрощена модель. Справжні промислові тестери ловлять дугу не за одним стрибком відліку, а за **високочастотним** вмістом струму: дуга шумить широкосмугово, тож її виказує смуговий фільтр, налаштований на сотні кілогерц. Стрибок «відлік до відліку» — це перше наближення тієї ж ідеї, і ламається воно там, де пробій розвивається **повільно**: поверхневе трекінгове проростання по забрудненому діелектрику наростає плавно й похідну не збудить. Саме тому три проби стоять разом і страхують одна одну: те, що проґавить швидкий детектор дуги, зловить абсолютний поріг витоку, а те, що проґавить гіпот загалом, — виловить попередня проба опору ізоляції, чутлива до вологи й бруду.
 
@@ -326,25 +135,7 @@ t(до 50 В) = τ · ln(U₀ / U)
 
 Стандарт на дворучне керування (EN ISO 13851, тип III) вимагає двох речей: обидві кнопки натиснуті **одночасно** — у вікні 0.5 с одна від одної, — і обидві слід **відпустити**, перш ніж почати новий цикл. Друга вимога — захист від фіксації: щоб оператор не заклинив одну кнопку скотчем і не запускав станцію однією рукою.
 
-```c
-// Дві кнопки: обидві натиснуті у вікні 500 мс, і обидві відпущені перед новим пуском.
-bool two_hand_ok(void) {
-    static uint16_t l_ms = 0, r_ms = 0;   // як довго кожна тримається, мс
-    static bool armed = true;             // чи відпускали обидві після минулого пуску
-    bool l = button_l(), r = button_r();
-
-    l_ms = l ? (uint16_t)(l_ms + 1) : 0;
-    r_ms = r ? (uint16_t)(r_ms + 1) : 0;
-
-    if (!l && !r) armed = true;           // обидві відпущено — знову дозволено
-
-    if (armed && l && r && l_ms < 500 && r_ms < 500) {
-        armed = false;                    // до наступного відпускання — блок
-        return true;                      // одночасне свіже натискання
-    }
-    return false;
-}
-```
+:::code proj-hipot-sequencer/c/dvoruchnyi-pusk-i.c
 
 Умова `l_ms < 500 && r_ms < 500` при обох натиснутих означає, що жодна з кнопок не тримається довше пів секунди, — тобто друга наздогнала першу в межах вікна. Прапорець `armed` спадає в момент пуску й підіймається лише коли **обидві** кнопки відпущено, — це і є захист від фіксації: заклинена кнопка не дасть `armed` піднятися, і другого пуску не буде. А неперервність утримання під час небезпеки стереже вже знайомий рядок в аварійному блоці такту: `live && !(button_l() && button_r())` рве HV, щойно оператор прибрав руку.
 
@@ -352,28 +143,7 @@ bool two_hand_ok(void) {
 
 Остання дія кожної проби — запис у **журнал**. Для мережевого виробу це не діагностика для себе, а слід простежуваності: за серійним номером має лишитися, коли, якою напругою й з яким витоком виріб пройшов гіпот. Тому журнал ведуть у енергонезалежній памʼяті й лише **дописують** (append-only): переписати чи стерти рядок не можна — інакше слід нічого не вартий.
 
-```c
-typedef struct {
-    uint32_t  serial;     // серійний номер виробу
-    uint32_t  t_unix;     // мітка часу
-    verdict_t verdict;    // V_PASS / V_FAIL
-    uint16_t  v_test;     // напруга проби, В
-    uint16_t  i_leak_ua;  // виміряний виток, мкА
-    char      reason[24]; // причина провалу (або "")
-} record_t;
-
-void log_result(const hipot_t *h) {
-    record_t r = {0};
-    r.serial    = current_serial();
-    r.t_unix    = rtc_now();
-    r.verdict   = h->verdict;
-    r.v_test    = code_to_volts(h->dac_target);
-    r.i_leak_ua = leak_microamps();
-    if (h->verdict == V_FAIL && h->fail_reason)
-        strncpy(r.reason, h->fail_reason, sizeof r.reason - 1);
-    fram_append(&r, sizeof r);   // тільки дозапис, у FRAM/SD
-}
-```
+:::code proj-hipot-sequencer/c/zhurnal-slid-shcho.c
 
 ## Складність і пастки
 

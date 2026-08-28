@@ -116,57 +116,9 @@
 Програмно body-діод «не вимикається» — про нього дбають залізом. Але код мусить **знати**, що вимкнений одинарний ключ ще не гарантує знеструмленого виходу, і не покладатися на «вимкнув — значить нуль». Якщо в схемі одинарний ключ, а вузол має бути гарантовано відрізаний, — код може лише **перевірити факт**, що вихід просів:
 
 :::tabs
-```arduino
-// Гасимо ключ і ПЕРЕКОНУЄМОСЯ, що вихід зник.
-// Одинарний ключ: якщо на виході чуже живлення, body-діод тримає напругу.
-digitalWrite(SWITCH_EN, LOW);                 // закрили канал
-delay(10);                                    // даємо ємності стекти
-
-int raw = analogRead(VOUT_SENSE);             // дільник із виходу ключа
-int mv  = (int)((long)raw * 5000L / 1023L);   // АЦП 10 біт, опора 5 В
-if (mv > VOUT_OFF_THRESHOLD_MV) {
-    // канал закрито, а напруга є → тече крізь body-діод (зворотне живлення)
-    // справжнє відключення тут потребує пари спина-до-спини або true-RCB ключа
-    Serial.print(F("vyhid ne znyksya, mV: "));
-    Serial.println(mv);
-}
-```
-```esp-idf
-// Те саме на ESP-IDF: затвор — driver/gpio.h, вихід — oneshot-АЦП.
-#include "driver/gpio.h"
-#include "esp_adc/adc_oneshot.h"
-#include "esp_adc/adc_cali.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-gpio_set_level(SWITCH_EN, 0);                 // закрили канал
-vTaskDelay(pdMS_TO_TICKS(10));                // даємо ємності стекти
-
-int raw = 0, mv = 0;                          // adc/cali заведені при ініціалізації
-ESP_ERROR_CHECK(adc_oneshot_read(adc, VOUT_SENSE_CH, &raw));
-ESP_ERROR_CHECK(adc_cali_raw_to_voltage(cali, raw, &mv));
-if (mv > VOUT_OFF_THRESHOLD_MV) {
-    // канал закрито, а напруга є → тече крізь body-діод (зворотне живлення)
-    ESP_LOGW(TAG, "vyhid ne znyksya: %d mV — mozhlyve zhyvlennya kriz body-diod", mv);
-}
-```
-```stm32
-// Те саме на STM32 HAL: затвор — HAL_GPIO_WritePin, вихід — вбудований АЦП.
-HAL_GPIO_WritePin(SWITCH_EN_GPIO_Port, SWITCH_EN_Pin, GPIO_PIN_RESET);  // закрили канал
-HAL_Delay(10);                                                          // ємності стекти
-
-uint32_t raw = 0;
-HAL_ADC_Start(&hadc1);
-if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK) raw = HAL_ADC_GetValue(&hadc1);
-HAL_ADC_Stop(&hadc1);
-
-uint32_t mv = raw * 3300u / 4095u;            // АЦП 12 біт, опора 3.3 В
-if (mv > VOUT_OFF_THRESHOLD_MV) {
-    // канал закрито, а напруга є → тече крізь body-діод (зворотне живлення)
-    reverse_feed_detected = 1;                // прапорець для верхнього рівня
-}
-```
+:::code mosfet-back-to-back-d/c/arduino/main.ino
+:::code mosfet-back-to-back-d/c/esp-idf/iak-tse-stosuietsia.c
+:::code mosfet-back-to-back-d/c/stm32/main.c
 :::
 
 А там, де стоїть **пара** з роздільним керуванням (як у батарейному захисті), прошивка дістає рідкісну змогу керувати напрямами **окремо**: увімкнути обидва канали — провід в обидва боки; лишити тільки «розрядний» — дозволити віддачу, заборонити приймання; закрити обидва — повний розрив. Це і є те, заради чого пару ставлять: два незалежні вимикачі на один і той самий провід.
@@ -182,25 +134,7 @@ void power_path(bool allow_charge, bool allow_discharge) {
     // обидва HIGH → провід в обидва боки (2·Rds(on))
 }
 ```
-```esp-idf
-// Те саме на ESP-IDF: два звичайні виходи — два незалежні дозволи на одну лінію.
-#include "driver/gpio.h"
-
-void power_path_init(void) {
-    gpio_config_t io = {
-        .pin_bit_mask = (1ULL << FET_CHG_EN) | (1ULL << FET_DSG_EN),
-        .mode = GPIO_MODE_OUTPUT,
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-}
-
-void power_path(bool allow_charge, bool allow_discharge) {
-    gpio_set_level(FET_CHG_EN, allow_charge    ? 1 : 0);    // канал напряму «заряд»
-    gpio_set_level(FET_DSG_EN, allow_discharge ? 1 : 0);    // канал напряму «розряд»
-    // обидва 0 → лінія розірвана в обидва боки (body-діоди назустріч)
-    // обидва 1 → провід в обидва боки (2·Rds(on))
-}
-```
+:::code mosfet-back-to-back-d/c/esp-idf/iak-tse-stosuietsia-2.c
 ```stm32
 // Те саме на STM32 HAL: два піни, налаштовані виходами (push-pull).
 void power_path(bool allow_charge, bool allow_discharge) {

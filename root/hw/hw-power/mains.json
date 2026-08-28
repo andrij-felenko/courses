@@ -57,7 +57,8 @@
           "proj": [
             {
               "file": "proj-avr-pid-controller.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -79,13 +80,16 @@
           "math": [
             {
               "file": "math-hvdc-economics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-hvdc-converter-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
@@ -113,7 +117,8 @@
           "comp": [
             {
               "file": "comp-lcc-vs-vsc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -148,13 +153,15 @@
           "math": [
             {
               "file": "math-three-phase-ac.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-three-phase-ac.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -176,7 +183,8 @@
           "hist": [
             {
               "file": "hist-tesla-ferraris.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -188,7 +196,8 @@
           "proj": [
             {
               "file": "proj-power-meter.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -227,7 +236,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -253,7 +263,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -263,7 +274,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -285,7 +297,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -301,18 +314,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-pfc-controller.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "math": [
             {
               "file": "math-current-reference.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -350,7 +366,8 @@
           "comp": [
             {
               "file": "comp-smps-controller.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -373,7 +390,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "math": [
             {
@@ -384,7 +402,8 @@
           "proj": [
             {
               "file": "proj-dimmer-algorithm.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -395,7 +414,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -422,7 +442,8 @@
           "proj": [
             {
               "file": "proj-burst-control.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -466,7 +487,8 @@
           "comp": [
             {
               "file": "comp-ac-softstarter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -478,7 +500,8 @@
           "proj": [
             {
               "file": "proj-softstart-controller.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -527,7 +550,8 @@
           "comp": [
             {
               "file": "comp-safety-barriers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -539,7 +563,8 @@
           "proj": [
             {
               "file": "proj-isolation-routing.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -567,7 +592,8 @@
           "proj": [
             {
               "file": "proj-hipot-sequencer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -640,13 +666,15 @@
           "proj": [
             {
               "file": "proj-spiral-wave-sim.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-iec60479-limits.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -668,19 +696,23 @@
           "math": [
             {
               "file": "math-hemispherical-ground.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-earth-potential-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-grounding-standards.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -708,13 +740,15 @@
           "proj": [
             {
               "file": "proj-ground-fault-sim.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-grounding-standards.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         }

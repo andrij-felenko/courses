@@ -82,22 +82,7 @@ void on_timer(void) {              // сплив час провідності
     gate_write(0);                 // ЗАКРИТИ ключ — обрізаємо задній фронт
 }
 ```
-```micropython
-from machine import Pin, Timer
-
-gate = Pin(15, Pin.OUT)            # затвор ключа (через драйвер)
-tmr = Timer(0)
-
-def turn_off(t):                   # сплив час провідності
-    gate.off()                     # ЗАКРИТИ ключ — обрізаємо задній фронт
-
-def on_zero_cross(pin):            # переривання від детектора нуля
-    gate.on()                      # ВІДКРИТИ ключ одразу — і тримаємо рівень
-    tmr.init(mode=Timer.ONE_SHOT, period=5, callback=turn_off)  # 5.0 мс = 50%
-
-zc = Pin(14, Pin.IN)               # детектор нуля
-zc.irq(trigger=Pin.IRQ_RISING, handler=on_zero_cross)
-```
+:::code trailing-edge-dimmer-d/py/micropython/main.py
 :::
 
 Порівняно з симісторним димером, де таймер відлічує затримку **до** імпульсу вмикання, тут той самий таймер відлічує момент **вимикання** — і в цьому вся інверсія «переднього» на «задній».

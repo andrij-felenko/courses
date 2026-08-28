@@ -54,55 +54,8 @@
 **Приклад (порахувати виграш у нижній смузі).** Перетворювач крутиться на fsw = 440 кГц. Проблемна — третя гармоніка, 1.32 МГц (прямо в АМ-діапазоні), і на кондуктивному випробуванні вона на 8 дБ вища за стелю. Приймач CISPR 25 має вікно RBW = 9 кГц. Ставимо розмаз ±6 %. Порахуймо, чи вистачить.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <math.h>
-
-int main(void) {
-    double fsw      = 440e3;    // частота перемикання, Гц
-    int    harm     = 3;        // проблемна гармоніка
-    double spread   = 0.06;     // ±6 % розмаху
-    double rbw      = 9e3;      // вікно приймача CISPR 25 (низька смуга), Гц
-
-    double f_harm = harm * fsw;             // 1.32 МГц — де стоїть спиця
-    double df     = 2.0 * spread * f_harm;  // повна ширина розмазу (±6 % → 12 %)
-    double gain   = 10.0 * log10(df / rbw); // наближене падіння піку
-
-    printf("гармоніка : %.2f МГц\n", f_harm / 1e6);
-    printf("розмаз Δf  : %.0f кГц (%.0f %% від гармоніки)\n",
-           df / 1e3, 2 * spread * 100);
-    printf("вікно RBW  : %.0f кГц\n", rbw / 1e3);
-    printf("падіння піку ~ %.1f дБ\n", gain);
-
-    double before = -8.0;                   // було: на 8 дБ ВИЩЕ стелі
-    double after  = before + gain;
-    printf("запас до стелі: %.1f -> %.1f дБ  %s\n",
-           before, after, after > 0 ? "(проходить)" : "(усе ще завалено)");
-    return 0;
-}
-```
-```python
-import math
-
-fsw    = 440e3    # частота перемикання, Гц
-harm   = 3        # проблемна гармоніка
-spread = 0.06     # ±6 % розмаху
-rbw    = 9e3      # вікно приймача CISPR 25 (низька смуга), Гц
-
-f_harm = harm * fsw               # 1.32 МГц — де стоїть спиця
-df     = 2.0 * spread * f_harm    # повна ширина розмазу (±6 % → 12 %)
-gain   = 10.0 * math.log10(df / rbw)  # наближене падіння піку
-
-print(f"гармоніка : {f_harm / 1e6:.2f} МГц")
-print(f"розмаз Δf  : {df / 1e3:.0f} кГц ({2 * spread * 100:.0f} % від гармоніки)")
-print(f"вікно RBW  : {rbw / 1e3:.0f} кГц")
-print(f"падіння піку ~ {gain:.1f} дБ")
-
-before = -8.0                     # було: на 8 дБ ВИЩЕ стелі
-after  = before + gain
-print(f"запас до стелі: {before:.1f} -> {after:.1f} дБ  "
-      f"{'(проходить)' if after > 0 else '(усе ще завалено)'}")
-```
+:::code spread-spectrum-emc-d/c/main.c
+:::code spread-spectrum-emc-d/py/main.py
 :::
 
 ```

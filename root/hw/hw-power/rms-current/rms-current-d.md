@@ -102,34 +102,8 @@ Iвих(rms) = ΔI / √12  ≈  0.29 · ΔI
 Спершу — за формулами, у кілька рядків:
 
 :::tabs
-```cpp
-#include <cmath>
-
-// Діючий струм вхідного конденсатора buck-перетворювача.
-// I — вихідний струм навантаження, A;  D — шпаруватість (0..1).
-float cin_rms(float I, float D)
-{
-    return I * std::sqrt(D * (1.0f - D));   // I·√(D(1−D))
-}
-
-// Діючий струм верхнього ключа (прямокутник зі шпаруватістю D).
-float highside_rms(float I, float D)
-{
-    return I * std::sqrt(D);                // I·√D
-}
-```
-```python
-from math import sqrt
-
-# Діючий струм вхідного конденсатора buck-перетворювача.
-# I — вихідний струм навантаження, A;  D — шпаруватість (0..1).
-def cin_rms(I, D):
-    return I * sqrt(D * (1.0 - D))          # I·√(D(1−D))
-
-# Діючий струм верхнього ключа (прямокутник зі шпаруватістю D).
-def highside_rms(I, D):
-    return I * sqrt(D)                      # I·√D
-```
+:::code rms-current-d/cpp/rakhunok-u-proshyvtsi.cpp
+:::code rms-current-d/py/main.py
 :::
 
 **Розбір на числах.** Підставмо I = 3 А, D = 0.3:
@@ -144,19 +118,7 @@ def highside_rms(I, D):
 Коли ж форма струму довільна (є масив відліків), діюче рахують у лоб — той самий триступеневий рецепт, що й у формулі, лише чисельно:
 
 :::tabs
-```cpp
-#include <cmath>
-#include <span>
-
-// Діюче (RMS) значення блоку відліків струму. Блок не порожній.
-float rms_of_block(std::span<const float> i)
-{
-    float sum_sq = 0.0f;
-    for (float s : i)
-        sum_sq += s * s;                        // крок 1: квадрат, одразу в суму
-    return std::sqrt(sum_sq / i.size());        // крок 2 і 3: середнє, тоді корінь
-}
-```
+:::code rms-current-d/cpp/rakhunok-u-proshyvtsi-2.cpp
 ```python
 import numpy as np
 

@@ -23,19 +23,23 @@
           "comp": [
             {
               "file": "comp-surge-stopper.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-surge-dissipation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-transient-generator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -84,7 +88,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -111,7 +116,8 @@
           "proj": [
             {
               "file": "proj-reverse-current-supervisor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -174,7 +180,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -201,7 +208,8 @@
           "comp": [
             {
               "file": "comp-body-diode.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -273,7 +281,8 @@
           "proj": [
             {
               "file": "proj-precharge-sequencer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -284,7 +293,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -300,18 +310,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-semiconductor-fuse.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "math": [
             {
               "file": "math-i2t-adiabatic.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -328,7 +341,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -343,7 +357,8 @@
           "comp": [
             {
               "file": "comp-sequencer-ics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -355,7 +370,9 @@
           "proj": [
             {
               "file": "proj-fpga-power-sequencer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -366,7 +383,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -377,11 +395,13 @@
           "comp": [
             {
               "file": "comp-isolation-switch.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "comp-sequencer-ic.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -431,7 +451,8 @@
           "proj": [
             {
               "file": "proj-supervisor-firmware.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -459,7 +480,8 @@
           "proj": [
             {
               "file": "proj-power-sequencing.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -519,7 +541,9 @@
           "proj": [
             {
               "file": "proj-backup-supervisor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -564,7 +588,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "comp": [
             {
@@ -585,13 +610,15 @@
           "proj": [
             {
               "file": "proj-sink-fsm.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sink-request.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },

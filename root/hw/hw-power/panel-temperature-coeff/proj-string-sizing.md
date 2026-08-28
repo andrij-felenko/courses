@@ -36,96 +36,13 @@ T_елемента = T_повітря + (NOCT − 20) · освітленіст�
 
 Задача суто арифметична, і мова тут — не про регістри чи гарячий цикл, а про читабельний інженерний розрахунок; Python лягає рівно. Уся логіка — чотири короткі функції: температура елемента через NOCT, масштаб будь-якої величини за її коефіцієнтом, і збірка трьох відповідей.
 
-```python
-from dataclasses import dataclass
-from math import floor, ceil
-
-
-@dataclass
-class Panel:
-    voc: float      # Voc за STC, В
-    vmpp: float     # Vmpp за STC, В
-    pmax: float     # Pmax за STC, Вт
-    b_voc: float    # βVoc,  %/°C  (від'ємний)
-    b_vmpp: float   # βVmpp, %/°C  (від'ємний; нема в даташиті → став b_voc)
-    g_pmax: float   # γPmax, %/°C  (від'ємний)
-    noct: float     # NOCT, °C
-
-
-@dataclass
-class Inverter:
-    v_max: float        # абсолютний максимум входу, В
-    v_mppt_min: float   # нижня межа вікна MPPT, В
-
-
-@dataclass
-class Site:
-    t_air_cold: float        # рекордний місцевий мінімум повітря, °C
-    t_air_hot: float         # розрахунковий гарячий максимум повітря, °C
-    ghi_hot: float = 1000.0  # освітленість у гарячий полудень, Вт/м²
-
-
-def cell_temp(t_air, noct, ghi):
-    """Температура елемента через NOCT (лінійна теплова модель)."""
-    return t_air + (noct - 20.0) * ghi / 800.0
-
-
-def scale(v_stc, coeff_pct, t_cell):
-    """Значення за температурою елемента: лінійний температурний коефіцієнт."""
-    return v_stc * (1.0 + coeff_pct / 100.0 * (t_cell - 25.0))
-
-
-def size_string(p: Panel, inv: Inverter, s: Site):
-    # ── ХОЛОДНИЙ бік: стеля напруги. Voc, елемент ≈ повітря (сонце ще низьке) ──
-    t_cold = s.t_air_cold                       # без NOCT: гріти нема чому
-    voc_cold = scale(p.voc, p.b_voc, t_cold)    # Voc однієї панелі на морозі
-    n_max = floor(inv.v_max / voc_cold)         # більше — пробій входу
-
-    # ── ГАРЯЧИЙ бік: підлога напруги. Vmpp, елемент через NOCT ──
-    t_hot = cell_temp(s.t_air_hot, p.noct, s.ghi_hot)
-    vmpp_hot = scale(p.vmpp, p.b_vmpp, t_hot)   # Vmpp однієї панелі на спеці
-    n_min = ceil(inv.v_mppt_min / vmpp_hot)     # менше — випадаєш із вікна MPPT
-
-    # ── Втрата потужності на спеці ──
-    pmax_hot = scale(p.pmax, p.g_pmax, t_hot)
-    loss_pct = (1.0 - pmax_hot / p.pmax) * 100.0
-
-    return {
-        "t_cold": t_cold, "voc_cold": voc_cold, "n_max": n_max,
-        "t_hot": t_hot, "vmpp_hot": vmpp_hot, "n_min": n_min,
-        "pmax_hot": pmax_hot, "loss_pct": loss_pct,
-    }
-```
+:::code proj-string-sizing/py/robochyi-kalkuliator.py
 
 Зверніть увагу на два `floor` і `ceil` — вони не косметичні. Стелю **округлюють униз** (одна зайва панель уже перевищує максимум), підлогу — **вгору** (одна відсутня панель уже провалює під вікно). Заокруглити не в той бік — і калькулятор дозволить рівно ту довжину, якої не можна.
 
 Тепер проженемо реальний приклад. Панель — звичайний монокристалічний модуль 400 Вт; інвертор — з максимумом входу 600 В і нижнім вікном MPPT 150 В; майданчик — континентальний клімат із морозними ясними ранками:
 
-```python
-if __name__ == "__main__":
-    panel = Panel(voc=41.0, vmpp=34.2, pmax=400.0,
-                  b_voc=-0.29, b_vmpp=-0.34, g_pmax=-0.35, noct=45.0)
-    inv = Inverter(v_max=600.0, v_mppt_min=150.0)
-    site = Site(t_air_cold=-25.0, t_air_hot=40.0)
-
-    r = size_string(panel, inv, site)
-    n_naive = floor(inv.v_max / panel.voc)      # ПАСТКА: рахунок за STC
-
-    print(f"холодний бік:  елемент {r['t_cold']:+.0f} °C, "
-          f"Voc = {r['voc_cold']:.1f} В  →  max {r['n_max']} панелей")
-    print(f"гарячий бік:   елемент {r['t_hot']:+.0f} °C, "
-          f"Vmpp = {r['vmpp_hot']:.1f} В  →  min {r['n_min']} панелей")
-    print(f"вікно рядка:   {r['n_min']} … {r['n_max']} панелей")
-    print(f"Pmax на спеці: {r['pmax_hot']:.0f} Вт/панель  (−{r['loss_pct']:.0f} %)")
-    print(f"якби за STC:   помилково дозволив би {n_naive} панелей "
-          f"(на {n_naive - r['n_max']} більше — взимку це пробій)")
-
-    n = r["n_max"] - 1                          # на панель нижче стелі — запас
-    print(f"\nвибір {n} панелей у рядку:")
-    print(f"  холодна Voc рядка = {n * r['voc_cold']:.0f} В  (стеля {inv.v_max:.0f} В)")
-    print(f"  гаряча Vmpp рядка = {n * r['vmpp_hot']:.0f} В  (підлога {inv.v_mppt_min:.0f} В)")
-    print(f"  потужність на спеці = {n * r['pmax_hot']:.0f} Вт  (STC {n * panel.pmax:.0f} Вт)")
-```
+:::code proj-string-sizing/py/robochyi-kalkuliator-2.py
 
 Вивід:
 

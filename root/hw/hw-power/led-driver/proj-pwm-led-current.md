@@ -42,61 +42,7 @@
 
 Спершу піднімемо таймер і канал, увімкнемо службу fade — і навчимося плавно переходити на будь-який рівень duty без участі процесора.
 
-```c
-#include "driver/ledc.h"
-#include "esp_err.h"
-
-// ── Параметри ШІМ-димінгу ───────────────────────────────────────────────
-#define DIM_TIMER      LEDC_TIMER_0
-#define DIM_MODE       LEDC_LOW_SPEED_MODE     // low-speed group: є на всіх ESP32
-#define DIM_RES        LEDC_TIMER_12_BIT       // 12 біт → duty 0..4095
-#define DIM_FREQ_HZ    20000                   // 20 кГц: вище чутного й видимого
-#define DIM_DUTY_MAX   ((1 << 12) - 1)         // 4095
-
-// Один фізичний канал димінгу: ніжка EN драйвера ↔ канал LEDC.
-typedef struct {
-    int              gpio;      // ніжка EN/PWM драйвера струму
-    ledc_channel_t   channel;   // апаратний канал LEDC
-} dim_ch_t;
-
-// Підняти спільний таймер (робимо раз перед каналами).
-static void dim_timer_init(void) {
-    ledc_timer_config_t tcfg = {
-        .speed_mode      = DIM_MODE,
-        .timer_num       = DIM_TIMER,
-        .duty_resolution = DIM_RES,
-        .freq_hz         = DIM_FREQ_HZ,
-        .clk_cfg         = LEDC_AUTO_CLK,
-    };
-    ESP_ERROR_CHECK(ledc_timer_config(&tcfg));
-}
-
-// Прив'язати канал до ніжки; старт із нуля (світлодіод погашено).
-static void dim_channel_init(const dim_ch_t *ch) {
-    ledc_channel_config_t ccfg = {
-        .speed_mode = DIM_MODE,
-        .channel    = ch->channel,
-        .timer_sel  = DIM_TIMER,
-        .gpio_num   = ch->gpio,
-        .duty       = 0,
-        .hpoint     = 0,        // фаза вмикання (див. синхронізацію нижче)
-    };
-    ESP_ERROR_CHECK(ledc_channel_config(&ccfg));
-}
-
-// Увімкнути апаратну службу fade (раз на весь застосунок).
-static void dim_fade_service_init(void) {
-    ESP_ERROR_CHECK(ledc_fade_func_install(0));   // 0 = без своїх прапорців ISR
-}
-
-// Плавний перехід каналу до цільового duty за задану кількість мілісекунд.
-// Залізо саме прокручує duty; процесор вільний.  NO_WAIT = не блокуємось.
-static void dim_fade_to(const dim_ch_t *ch, uint32_t target_duty, int ms) {
-    if (target_duty > DIM_DUTY_MAX) target_duty = DIM_DUTY_MAX;
-    ESP_ERROR_CHECK(ledc_set_fade_with_time(DIM_MODE, ch->channel, target_duty, ms));
-    ESP_ERROR_CHECK(ledc_fade_start(DIM_MODE, ch->channel, LEDC_FADE_NO_WAIT));
-}
-```
+:::code proj-pwm-led-current/c/bazovyi-kanal-i-aparatnyi.c
 
 Кілька рішень тут не випадкові. **12 біт** роздільності (`0..4095`) взято навмисно з запасом: після гамма-корекції низ шкали розтягується, і 8 біт там дали б грубі, помітні сходинки на малій яскравості (детальніше — у пастках). **`LEDC_LOW_SPEED_MODE`** — бо high-speed група є не на всіх кристалах (S2/C3 її не мають), а low-speed — всюди; для димінгу її цілком досить. **20 кГц** — вище і за поріг видимого мерехтіння, і за верх чутного діапазону (див. пастку про свист). А `ledc_set_fade_with_time` + `ledc_fade_start` — це і є той самий апаратний fade: після старту процесор ні на що не витрачається, залізо саме доведе duty до цілі за `ms` мілісекунд рівними кроками.
 
@@ -104,36 +50,7 @@ static void dim_fade_to(const dim_ch_t *ch, uint32_t target_duty, int ms) {
 
 Тепер надбудуємо шкалу «на око». Найпростіший і найшвидший спосіб — **таблиця**: наперед порахувати для кожного положення повзунка відповідний duty за законом `duty = duty_max · (pos/pos_max)^γ`, покласти в масив і на льоту брати індексом. Так у гарячому шляху немає жодного `pow()` — тільки читання з таблиці.
 
-```c
-#include <math.h>
-#include <stdint.h>
-
-// Роздільність повзунка яскравості (окремо від роздільності duty!).
-#define DIM_LEVELS   256                 // положення 0..255
-#define DIM_GAMMA    2.2f                // ≈ сприйняття ока
-
-// Таблиця: положення повзунка → гамма-скоригований duty.
-static uint16_t g_gamma_lut[DIM_LEVELS];
-
-// Порахувати таблицю раз при старті.  duty = MAX · (level/(LEVELS-1))^γ
-static void dim_gamma_build(void) {
-    for (int i = 0; i < DIM_LEVELS; i++) {
-        float x = (float)i / (float)(DIM_LEVELS - 1);        // 0.0 .. 1.0
-        float d = powf(x, DIM_GAMMA) * (float)DIM_DUTY_MAX;
-        // округлення до найближчого; нуль лишається нулем (повне гасіння)
-        g_gamma_lut[i] = (uint16_t)(d + 0.5f);
-    }
-    // Гарантуємо монотонність і крайні точки навіть за похибок округлення.
-    g_gamma_lut[0]             = 0;
-    g_gamma_lut[DIM_LEVELS-1]  = DIM_DUTY_MAX;
-}
-
-// Задати яскравість каналу за положенням повзунка (0..255), плавно за ms.
-static void dim_set_level(const dim_ch_t *ch, uint8_t level, int ms) {
-    uint16_t duty = g_gamma_lut[level];          // гамма вже врахована
-    dim_fade_to(ch, duty, ms);                   // і одразу плавний перехід
-}
-```
+:::code proj-pwm-led-current/c/hamma-korektsiia-poverkh.c
 
 Розберімо, що дає ця таблиця. Візьміть `DIM_GAMMA = 2.2` і подивіться на кілька точок: положення 128 (середина повзунка) дає не 2048 (половина duty), а `4095·(128/255)^2.2 ≈ 4095·0.226 ≈ 926` — усього ~23 % шпаруватості. Око при цьому побачить рівно «половину яскравості», бо його власна крива це компенсує. Низ шкали розтягнутий: положення 1…10 дають duty 0…8 — тонкі градації на самому дні, де око найчутливіше. Ось чому 12-бітна роздільність duty критична: якби duty був 8-бітний (`0..255`), уся нижня чверть повзунка відображалась би лише в duty 0…3, і замість плавного тління ви б мали чотири грубі сходинки.
 
@@ -147,30 +64,7 @@ ESP-IDF, до речі, вміє гнути гамма-криву й **апар�
 
 Спільний таймер уже забезпечено: `dim_channel_init()` прив'язує кожен канал до `DIM_TIMER`. Лишається синхронне оновлення. Тут є тонкість: `ledc_fade_start()` запускає fade **пооканально** й асинхронно, тож для по-справжньому синхронного **миттєвого** перемикання (без fade) кількох каналів беруть пару «підготувати duty, не застосовуючи» → «застосувати все разом».
 
-```c
-// Група каналів (напр. R, G, B одного пікселя або кілька зон підсвітки).
-#define DIM_GROUP_N   3
-static const dim_ch_t g_group[DIM_GROUP_N] = {
-    { .gpio = 25, .channel = LEDC_CHANNEL_0 },   // R
-    { .gpio = 26, .channel = LEDC_CHANNEL_1 },   // G
-    { .gpio = 27, .channel = LEDC_CHANNEL_2 },   // B
-};
-
-// Миттєво й СИНХРОННО виставити рівні всіх каналів групи (без fade).
-// Спершу заряджаємо duty у тіньові регістри БЕЗ застосування,
-// потім одним викликом даємо їм набути чинності від спільного фронту.
-static void dim_group_set_sync(const uint8_t level[DIM_GROUP_N]) {
-    for (int i = 0; i < DIM_GROUP_N; i++) {
-        uint16_t duty = g_gamma_lut[level[i]];
-        // set_duty записує в буфер; update_duty застосовує. Тут — тільки set:
-        ESP_ERROR_CHECK(ledc_set_duty(DIM_MODE, g_group[i].channel, duty));
-    }
-    // Тепер застосовуємо всі разом — фронти збігаються.
-    for (int i = 0; i < DIM_GROUP_N; i++) {
-        ESP_ERROR_CHECK(ledc_update_duty(DIM_MODE, g_group[i].channel));
-    }
-}
-```
+:::code proj-pwm-led-current/c/synkhronnyi-start-kilkokh.c
 
 Розділення `set_duty` (записати в тіньовий регістр) і `update_duty` (застосувати) — це і є важіль синхронності: спершу ми заряджаємо всі три нові значення, і жодне ще не діє; потім швидко застосовуємо їх поспіль. Оскільки всі канали тактуються **одним** таймером, нові значення підхоплюються від того самого перемикання лічильника, і три складові пікселя перемикаються злагоджено — без видимого «розтікання» кольору в межах періоду.
 

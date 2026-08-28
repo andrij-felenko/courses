@@ -29,28 +29,7 @@
 
 > 🔧 **Навіщо це.** Ціла арифметика тут не аскеза, а швидкодія й передбачуваність. Множення `int32 × int32` — це один такт на будь-якому ядрі; float на МК без FPU — це виклик бібліотечної процедури й десятки тактів із непередбачуваним часом, а нам потрібен рівний період такту. Хто хоче дробів (коефіцієнти фільтра, підсилення) — тримає їх [фіксованою комою](root:hw-arch/fixed-point): дріб як ціле, зсунуте на кілька бітів, замість рухомої коми. Тому весь трекер нижче — цілочисловий від АЦП до шпаруватості.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// Зовнішні залежності від драйверів конкретного МК:
-extern uint16_t adc_read_raw(uint8_t ch);   // один сирий відлік 0..ADC_MAX
-extern void     pwm_set_duty(uint16_t duty); // шпаруватість в одиницях таймера
-
-#define ADC_MAX     4095u   // 12-бітний АЦП
-#define CH_PANEL_V  0u
-#define CH_PANEL_I  1u
-#define CH_BATT_V   2u
-#define CH_BATT_I   3u
-
-// Калібрування «відлік → величина» лінійне: величина = відлік·(NUM/DEN).
-// Дріб тримаємо цілим. Числа — приклад під конкретний дільник напруги й
-// підсилювач шунта; на своїй платі їх заміряти й підставити.
-#define PANEL_V_NUM 26000u   // повна шкала ≈ 26 В
-#define PANEL_V_DEN  4095u
-#define PANEL_I_NUM  8000u   // повна шкала ≈ 8 А
-#define PANEL_I_DEN  4095u
-```
+:::code proj-po-tracker/c/odynytsi-tsili-chysla.c
 
 ### Шар виміру: усереднення плюс легкий фільтр
 
@@ -60,56 +39,11 @@ extern void     pwm_set_duty(uint16_t duty); // шпаруватість в од
 
 Струм міряють на [шунті](root:hw-components/shunt-resistor) — малому точному резисторі, спад напруги на якому пропорційний струмові; докладніше про відбір напруги й струму на вході перетворювача — у [вимірюванні перетворювача](root:hw-power/converter-measure).
 
-```c
-// Передискретизація: N сирих відліків → середнє (N — степінь двійки).
-#define OVERSAMPLE  16u
-
-static uint16_t adc_avg(uint8_t ch) {
-    uint32_t acc = 0;
-    for (uint8_t i = 0; i < OVERSAMPLE; ++i)
-        acc += adc_read_raw(ch);
-    return (uint16_t)(acc / OVERSAMPLE);   // компілятор зробить зсув
-}
-
-static inline uint16_t raw_to_mv(uint16_t code) {
-    return (uint16_t)(((uint32_t)code * PANEL_V_NUM) / PANEL_V_DEN);
-}
-static inline uint16_t raw_to_ma(uint16_t code) {
-    return (uint16_t)(((uint32_t)code * PANEL_I_NUM) / PANEL_I_DEN);
-}
-
-// EMA без втрати молодших бітів: стан у масштабі ×2^k, зсув лише на виході.
-//   s += x − (s >> k);   значення = s >> k
-typedef struct { int32_t s; bool primed; } ema_t;
-
-static uint16_t ema_upd(ema_t *f, uint16_t x, uint8_t k) {
-    if (!f->primed) { f->s = (int32_t)x << k; f->primed = true; }
-    f->s += (int32_t)x - (f->s >> k);
-    return (uint16_t)(f->s >> k);
-}
-```
+:::code proj-po-tracker/c/shar-vymiru-userednennia.c
 
 Тепер зберемо один вимір у пакет — напруга, струм і одразу потужність у мікроватах:
 
-```c
-#define EMA_K  2u    // сила згладжування: більший k — тихіше, але повільніше
-
-typedef struct {
-    uint16_t vmv;    // напруга панелі, мВ
-    uint16_t ima;    // струм панелі, мА
-    int32_t  puw;    // потужність, мкВт
-} meas_t;
-
-static ema_t f_v, f_i;
-
-static meas_t measure_panel(void) {
-    meas_t m;
-    m.vmv = ema_upd(&f_v, raw_to_mv(adc_avg(CH_PANEL_V)), EMA_K);
-    m.ima = ema_upd(&f_i, raw_to_ma(adc_avg(CH_PANEL_I)), EMA_K);
-    m.puw = (int32_t)m.vmv * (int32_t)m.ima;   // мВ×мА = мкВт, влазить у int32
-    return m;
-}
-```
+:::code proj-po-tracker/c/shar-vymiru-userednennia-2.c
 
 ### Ядро P&O з адаптивним кроком
 
@@ -122,50 +56,7 @@ static meas_t measure_panel(void) {
 ![Три заїзди до піка: малий крок повільно й тихо, великий швидко й тряско, адаптивний швидко здалеку й дрібно біля піка](img/adaptive-step.svg)
 *Малий фіксований крок повзе до стелі поволі, зате майже не гойдається; великий доганяє Pmp за кілька кроків, але на піку пиляє широкою пилкою, гублячи потужність; адаптивний бере краще з обох — здалеку крокує широко, а біля піка сам мілішає. Розмір кроку не задають наперед, його диктує |ΔP|: крутий схил — великий крок, пологий — дрібний.*
 
-```c
-// ── Ядро Perturb & Observe з адаптивним кроком ─────────────────────────────
-#define DUTY_MIN      80u     // не даємо перетворювачу впасти в нуль
-#define DUTY_MAX     900u     // і не заганяємо в насичення (одиниці таймера)
-#define STEP_MIN       1u     // найдрібніший крок біля піка
-#define STEP_MAX      24u     // найбільший крок здалеку
-#define DP_DEADBAND  30000    // мкВт (30 мВт): поріг шуму — менше не реагуємо
-#define STEP_GAIN_SH   14     // |ΔP| >> 14 → крок; коефіцієнт підбирають під плату
-
-static uint16_t duty   = DUTY_MIN;
-static int32_t  p_prev = 0;
-static int8_t   dir    = +1;
-
-static uint16_t clamp_duty(int32_t d) {
-    if (d < DUTY_MIN) return DUTY_MIN;
-    if (d > DUTY_MAX) return DUTY_MAX;
-    return (uint16_t)d;
-}
-
-// Крок пропорційний |ΔP|, затиснутий у [STEP_MIN, STEP_MAX].
-static uint16_t adaptive_step(int32_t dp_abs) {
-    uint32_t s = (uint32_t)dp_abs >> STEP_GAIN_SH;
-    if (s < STEP_MIN) s = STEP_MIN;
-    if (s > STEP_MAX) s = STEP_MAX;
-    return (uint16_t)s;
-}
-
-// Один крок рішення P&O. Викликати ЛИШЕ після влягання й на свіжому,
-// усередненому за вікно вимірі — інакше рішення випадкове (див. нижче).
-static void po_decide(const meas_t *m) {
-    int32_t dp = m->puw - p_prev;
-
-    if (dp < -DP_DEADBAND)       // потужність ВІДЧУТНО впала —
-        dir = -dir;              //   минулий крок був не туди, розвернутись
-    // |dp| ≤ DP_DEADBAND — у межах шуму, напрям лишаємо (інакше пульсації
-    //   самі клацали б dir туди-сюди на піку).
-
-    uint16_t step = adaptive_step(dp < 0 ? -dp : dp);
-    duty = clamp_duty((int32_t)duty + dir * (int32_t)step);
-    pwm_set_duty(duty);          // ЦЕ і є збурення D
-
-    p_prev = m->puw;             // запам'ятати для наступного порівняння
-}
-```
+:::code proj-po-tracker/c/iadro-p-o-z-adaptyvnym.c
 
 ### Час: влягання, вбудоване в такт
 
@@ -176,18 +67,7 @@ static void po_decide(const meas_t *m) {
 ![Часова вісь після збурення: перехідний процес влягається, зона влягання — не міряти, далі вікно усередненого виміру; ранній вимір потрапляє на перехідний і бреше](img/settle-window.svg)
 *Збурили шпаруватість — і потужність не стрибнула в нову точку, а загойдалася. Червона зона — влягання: міряти тут означає читати перехідний процес, а не робочу точку (звідси випадкові рішення). Аж коли гойдання вляглося, відкривається зелене вікно, де кілька усереднень дають чесне значення. Правило залізне: спершу влягання, потім вимір.*
 
-```c
-// ── Фазовий такт: влягання ВБУДОВАНЕ, а не «сподіваємось на delay» ─────────
-#define SETTLE_MS  6u    // > динаміки перетворювача: чекаємо влягання
-#define MEAS_MS    3u    // скільки мс збирати усереднений вимір
-
-typedef enum { PH_SETTLE, PH_MEASURE } phase_t;
-
-static phase_t  phase      = PH_SETTLE;
-static uint16_t ph_ms      = 0;
-static int32_t  meas_acc_p = 0;   // акумулятор потужності за вікно виміру
-static uint16_t meas_n     = 0;
-```
+:::code proj-po-tracker/c/chas-vliahannia-vbudovane.c
 
 Сам крок фазового циклу впишемо у верхній такт трохи нижче — спершу доберімо два запобіжники, без яких трекер небезпечний уже на першій секунді.
 
@@ -195,19 +75,7 @@ static uint16_t meas_n     = 0;
 
 Кламп ми вже маємо — `clamp_duty()` не дасть шпаруватості вилізти в нуль чи в насичення на **кожному** записі. Лишається старт. Якщо на ввімкненні одразу задати робочу шпаруватість, перетворювач шарпне повну потужність у розряджені конденсатори й батарею — кидок струму, просідання, а то й спрацювання захисту. Тому шпаруватість піднімають **плавно** від безпечного низу — [м'який старт](root:hw-power/soft-start-circuits): маленькими приростами за такт, доки не дійде до скромної відправної точки, з якої P&O уже сам поведе стеження.
 
-```c
-// ── М'який старт: плавно підняти шпаруватість від безпечного низу ──────────
-#define SOFT_TARGET  (DUTY_MIN + 40u)   // куди дійти, перш ніж пускати P&O
-#define SOFT_STEP     2u                // приріст за 1 мс
-
-static bool soft_done = false;
-
-static void soft_start_tick(void) {
-    if (duty + SOFT_STEP >= SOFT_TARGET) { duty = SOFT_TARGET; soft_done = true; }
-    else                                   duty += SOFT_STEP;
-    pwm_set_duty(clamp_duty(duty));
-}
-```
+:::code proj-po-tracker/c/miakyi-start-i-klamp.c
 
 ### Наглядач: коли віддати кермо заряду
 
@@ -218,98 +86,17 @@ static void soft_start_tick(void) {
 ![Три режими одного контролера: MPPT віддає кермо на CC при струмовому ліміті, CC на CV при повній напрузі, і назад у MPPT через гістерезис](img/mode-handoff.svg)
 *Поки батарея бере все — працює MPPT. Струм уперся в ліміт — кермо переходить до регулятора струму (CC). Напруга дійшла до «повної» — до регулятора напруги (CV). Назад у MPPT повертаються, лише коли умова відпустила з запасом (гістерезис), інакше на межі режими деренчали б. Дуга внизу — повернення до стеження, коли панель уже не тягне ліміт або напруга просіла.*
 
-```c
-// ── Наглядач: коли MPPT має відпустити кермо ───────────────────────────────
-#define I_BATT_LIMIT_MA  3000    // паспортний струм заряду
-#define V_BATT_FULL_MV  14200    // поріг CV (приклад: 4S LiFePO4)
-#define V_FULL_HYST_MV    200     // гістерезис повернення в MPPT з CV
-#define I_LIMIT_HYST_MA   150     // гістерезис повернення в MPPT з CC
-
-typedef enum { MODE_MPPT, MODE_CC, MODE_CV } mode_t;
-static mode_t mode = MODE_MPPT;
-
-static void supervisor_update(uint16_t vbatt_mv, uint16_t ibatt_ma) {
-    switch (mode) {
-    case MODE_MPPT:
-        if      (vbatt_mv >= V_BATT_FULL_MV)   mode = MODE_CV;   // напруга повна
-        else if (ibatt_ma >= I_BATT_LIMIT_MA)  mode = MODE_CC;   // струм на ліміті
-        break;
-    case MODE_CC:
-        if      (vbatt_mv >= V_BATT_FULL_MV)   mode = MODE_CV;
-        else if (ibatt_ma <  I_BATT_LIMIT_MA - I_LIMIT_HYST_MA) mode = MODE_MPPT;
-        break;
-    case MODE_CV:
-        if (vbatt_mv < V_BATT_FULL_MV - V_FULL_HYST_MV) mode = MODE_MPPT;
-        break;
-    }
-}
-```
+:::code proj-po-tracker/c/nahliadach-koly-viddaty.c
 
 Самі регулятори CC/CV тут навмисно найпростіші — повільний інтегральний нудж шпаруватості до цілі із зоною нечутливості. Знак реакції (побільшити D підніме чи опустить вихід) залежить від топології перетворювача, тож винесений у сталу. Серйозна плата поставить сюди повноцінну петлю [зі зворотним зв'язком](root:hw-power/control-loop-compensation) з належним підсиленням і захистом від насичення інтегратора; для демонстрації передачі керма досить нуджа.
 
-```c
-#define REG_SIGN     (+1)   // напрям «побільшити D → підняти вихід»: під плату
-#define REG_DEAD_MV   50
-#define REG_DEAD_MA   40
-
-static void regulate_cv(uint16_t vbatt_mv) {           // тримати напругу
-    int32_t e = (int32_t)V_BATT_FULL_MV - (int32_t)vbatt_mv;
-    if (e >  REG_DEAD_MV) duty = clamp_duty((int32_t)duty + REG_SIGN);
-    if (e < -REG_DEAD_MV) duty = clamp_duty((int32_t)duty - REG_SIGN);
-    pwm_set_duty(duty);
-}
-static void regulate_cc(uint16_t ibatt_ma) {           // тримати струм
-    int32_t e = (int32_t)I_BATT_LIMIT_MA - (int32_t)ibatt_ma;
-    if (e >  REG_DEAD_MA) duty = clamp_duty((int32_t)duty + REG_SIGN);
-    if (e < -REG_DEAD_MA) duty = clamp_duty((int32_t)duty - REG_SIGN);
-    pwm_set_duty(duty);
-}
-```
+:::code proj-po-tracker/c/nahliadach-koly-viddaty-2.c
 
 ### Верхній такт: усе разом
 
 Тепер зшиваємо шари в одну функцію, яку таймер кличе рівно раз на мілісекунду. Порядок такий: спершу відпрацювати м'який старт; далі наглядач вибирає режим; якщо кермо не в MPPT — його крутить регулятор заряду; якщо в MPPT — обертається фазовий цикл із вбудованим вляганням.
 
-```c
-extern uint16_t adc_batt_vmv(void);   // напруга батареї (свої канали, ті ж усереднення)
-extern uint16_t adc_batt_ima(void);   // струм заряду
-
-// Викликати РІВНО раз на 1 мс (з таймера).
-void tracker_tick(void) {
-    if (!soft_done) { soft_start_tick(); return; }   // 1) спершу м'який старт
-
-    uint16_t vb = adc_batt_vmv();
-    uint16_t ib = adc_batt_ima();
-    supervisor_update(vb, ib);                        // 2) хто крутить D?
-
-    if (mode != MODE_MPPT) {                          // 3) кермо в регулятора заряду
-        if (mode == MODE_CV) regulate_cv(vb);
-        else                 regulate_cc(ib);
-        phase = PH_SETTLE; ph_ms = 0;                 //   скинути фазу P&O на потім
-        return;
-    }
-
-    // 4) MODE_MPPT: фазовий цикл «влягання → вимір → рішення»
-    if (phase == PH_SETTLE) {
-        if (++ph_ms >= SETTLE_MS) {                   // влягання скінчилось
-            phase = PH_MEASURE; ph_ms = 0;
-            meas_acc_p = 0; meas_n = 0;
-        }
-        return;                                       // МОВЧКИ чекаємо, не міряємо
-    }
-
-    // PH_MEASURE: збираємо усереднену потужність за вікно
-    meas_t m = measure_panel();
-    meas_acc_p += m.puw;
-    ++meas_n;
-    if (++ph_ms >= MEAS_MS) {                         // вікно заповнене — рішення
-        meas_t avg = m;
-        avg.puw = meas_acc_p / (int32_t)meas_n;       // середнє за вікно
-        po_decide(&avg);                              // збурити D у (можливо) новому напрямі
-        phase = PH_SETTLE; ph_ms = 0;                 // і знову чекати влягання
-    }
-}
-```
+:::code proj-po-tracker/c/verkhnii-takt-use-razom.c
 
 Ось і повний трекер: сирий АЦП угорі, шпаруватість унизу, а поміж них — усереднення, фільтр, цілочислова потужність, адаптивний крок із зоною нечутливості, вбудоване влягання, м'який старт, кламп і наглядач із гістерезисом. Тепер — пастки, бо кожен із цих шматочків має свій спосіб зіпсувати життя.
 

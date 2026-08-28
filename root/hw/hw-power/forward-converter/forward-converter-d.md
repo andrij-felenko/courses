@@ -409,73 +409,8 @@ ESR_max ≤ (0.8 · ΔVout) / ΔIL_real
 Нижче наведено приклад коду для розрахунку параметрів і цифрового захисту forward-перетворювача від перекосу осердя.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// Розрахунок максимальної шпаруватості та перевірка безпеки розмагнічування
-typedef struct {
-    float vin;
-    float vout;
-    float np_ns_ratio;
-    float np_nr_ratio;
-    float duty_limit;
-} ForwardParams;
-
-// Обчислення безпечної шпаруватості ШІМ
-float forward_calculate_duty(const ForwardParams* p) {
-    // Теоретична межа за вольт-секундним балансом
-    float d_max_theoretical = 1.0f / (1.0f + p->np_nr_ratio);
-    
-    // Захисний інженерний бар'єр (віднімаємо 5% для гарантованого скидання)
-    float d_safe_ceiling = d_max_theoretical - 0.05f;
-    if (d_safe_ceiling > p->duty_limit) {
-        d_safe_ceiling = p->duty_limit;
-    }
-    
-    // Розрахунок необхідної шпаруватості для підтримки Vout
-    float d_target = (p->vout / p->vin) * p->np_ns_ratio;
-    
-    // Захисне насичення
-    if (d_target > d_safe_ceiling) {
-        return d_safe_ceiling;
-    }
-    if (d_target < 0.05f) {
-        return 0.05f;
-    }
-    return d_target;
-}
-```
-```cpp
-#include <algorithm>
-#include <cstdint>
-
-// Обчислення безпечної шпаруватості ШІМ для Forward-перетворювача
-class ForwardController {
-public:
-    struct Config {
-        float np_ns_ratio{1.272f};
-        float np_nr_ratio{1.000f};
-        float hard_duty_limit{0.450f};
-    };
-
-    explicit ForwardController(Config cfg) : cfg_(cfg) {}
-
-    [[nodiscard]] float compute_safe_duty(float vin, float vout) const noexcept {
-        if (vin <= 1.0f) return 0.0f;
-
-        // Теоретична межа вольт-секундного балансу: D < 1 / (1 + Nr/Np)
-        const float d_max_theoretical = 1.0f / (1.0f + cfg_.np_nr_ratio);
-        const float d_safe_ceiling = std::min(d_max_theoretical - 0.05f, cfg_.hard_duty_limit);
-
-        const float d_target = (vout / vin) * cfg_.np_ns_ratio;
-        return std::clamp(d_target, 0.05f, d_safe_ceiling);
-    }
-
-private:
-    Config cfg_;
-};
-```
+:::code forward-converter-d/c/main.c
+:::code forward-converter-d/cpp/main.cpp
 :::
 
 Прямоходовий перетворювач поєднує ізоляційні властивості трансформатора з низьким рівнем пульсацій та високою струмовою віддачею понижувального LC-фільтра. Усвідомлене керування вольт-секундним балансом індуктивності намагнічування та вибір належного методу розмагнічування осердя перетворюють його на високоефективну та надійну основу сучасних промислових джерел живлення середньої потужності.

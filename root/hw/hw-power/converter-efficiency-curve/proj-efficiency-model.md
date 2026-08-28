@@ -8,33 +8,7 @@
 
 Означення просте: η = P_вих / (P_вих + P_втрат), де P_вих = V·I. Цікаве діється не в одному місці, а на цілих порядках струму — від міліампер, де перетворювач ледь животіє на власному споживанні, до амперів, де його душить I²·R. Тому струм прогонимо **логарифмічно**: лінійний прогін збив би всю роздільність у високострумний кінець і лишив би голодним лівий злам на легкому навантаженні. Пік шукаємо просто — `argmax` по масиву η — і звіряємо з закритою формою √(P_фікс/R).
 
-```python
-import numpy as np
-
-# коефіцієнти моделі втрат (ті самі, що в тексті)
-V_out = 3.3      # В    — регульована вихідна напруга
-P_fix = 0.030    # Вт   — фіксовані втрати: спокій + затвор + осердя
-k_sw  = 0.05     # Вт/А — комутаційні, ростуть ∝ I
-R     = 0.20     # Ом   — провідні, ростуть ∝ I²
-
-def p_loss(I):                       # повні втрати за струмом
-    return P_fix + k_sw*I + R*I**2
-
-def efficiency(I):                   # η = P_вих / (P_вих + P_втрат)
-    p_out = V_out * I
-    return p_out / (p_out + p_loss(I))
-
-# логарифмічний прогін струму: 10 мА … 5 А
-I   = np.logspace(np.log10(0.01), np.log10(5.0), 4000)
-eta = efficiency(I)
-
-j          = np.argmax(eta)          # чисельний пік
-I_peak_num = I[j]
-I_peak_ana = np.sqrt(P_fix / R)      # закрита форма: √(P_фікс/R)
-
-print(f"чисельний пік:  I = {I_peak_num:.4f} А,  η = {eta[j]*100:.2f} %")
-print(f"√(P_фікс/R):    I = {I_peak_ana:.4f} А,  η = {efficiency(I_peak_ana)*100:.2f} %")
-```
+:::code proj-efficiency-model/py/priama-zadacha-z.py
 
 ```
 чисельний пік:  I = 0.3873 А,  η = 94.15 %
@@ -83,26 +57,7 @@ P_втрат = P_фікс·1  +  k·I  +  R·I²
 
 Отже кожна точка — це одне лінійне рівняння на (P_фікс, k, R). Три точки — три рівняння — звичайна [лінійна система](root:math-algebra/linear-systems) 3×3. Складаємо рядки [1, I, I²] у матрицю, розв'язуємо — і по всьому. Більше ніж три точки — система перевизначена, тоді переходимо на [метод найменших квадратів](root:math-probability/least-squares); у numpy це той самий виклик, тільки `lstsq` замість `solve`.
 
-```python
-def recover(I_meas, eta_meas):
-    """З виміряних (I, η) відновити (P_фікс, k, R) моделі втрат."""
-    I_meas   = np.asarray(I_meas, float)
-    eta_meas = np.asarray(eta_meas, float)
-    # крок-ключ: з кожної точки дістаємо ВТРАТИ на цьому струмі
-    p_loss_meas = V_out * I_meas * (1.0 - eta_meas) / eta_meas
-    # P_втрат = P_фікс·1 + k·I + R·I²  — лінійно за невідомими
-    A = np.column_stack([np.ones_like(I_meas), I_meas, I_meas**2])
-    if len(I_meas) == 3:
-        return np.linalg.solve(A, p_loss_meas)                    # точна система
-    coeffs, *_ = np.linalg.lstsq(A, p_loss_meas, rcond=None)      # МНК
-    return coeffs
-
-# три точки, «як із даташита» — беремо їх із самої моделі (повна точність)
-I3   = np.array([0.03, 0.387, 3.0])
-eta3 = efficiency(I3)
-P_fix_r, k_r, R_r = recover(I3, eta3)
-print(f"відновлено:  P_фікс = {P_fix_r:.4f} Вт   k = {k_r:.4f} Вт/А   R = {R_r:.4f} Ом")
-```
+:::code proj-efficiency-model/py/obernena-zadacha-z-trokh.py
 
 ```
 відновлено:  P_фікс = 0.0300 Вт   k = 0.0500 Вт/А   R = 0.2000 Ом

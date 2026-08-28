@@ -74,44 +74,8 @@
 
 **Приклад. Послідовний пуск двох шин із паузами на усталення.**
 :::tabs
-```cpp
-// Вивід EN кожного перетворювача керує його шиною: 1 — увімкнено.
-#define EN_SENSORS  GPIO_PIN(B, 0)   // шина давачів, 1.8 В
-#define EN_RADIO    GPIO_PIN(B, 1)   // шина радіо, 3.3 В
-
-void power_up_sequence(void) {
-    gpio_low(EN_SENSORS);
-    gpio_low(EN_RADIO);              // старт: усе вимкнено
-
-    gpio_high(EN_SENSORS);           // 1) перша шина
-    delay_ms(5);                     //    пауза на усталення й inrush
-
-    gpio_high(EN_RADIO);             // 2) друга шина — лише тепер
-    delay_ms(5);
-
-    radio_enable_interface();        // 3) дозвіл на обмін — останнім
-}
-```
-```python
-from machine import Pin
-import time
-
-# Вивід EN кожного перетворювача керує його шиною: 1 — увімкнено.
-en_sensors = Pin('B0', Pin.OUT)      # шина давачів, 1.8 В
-en_radio   = Pin('B1', Pin.OUT)      # шина радіо, 3.3 В
-
-def power_up_sequence():
-    en_sensors.value(0)
-    en_radio.value(0)                # старт: усе вимкнено
-
-    en_sensors.value(1)              # 1) перша шина
-    time.sleep_ms(5)                 #    пауза на усталення й inrush
-
-    en_radio.value(1)                # 2) друга шина — лише тепер
-    time.sleep_ms(5)
-
-    radio_enable_interface()         # 3) дозвіл на обмін — останнім
-```
+:::code power-sequencing-d/cpp/inkoly-poriadok-zadaie-sam.cpp
+:::code power-sequencing-d/py/inkoly-poriadok-zadaie-sam.py
 :::
 Порядок дій тут — це і є черговість: спершу одна шина, пауза, тоді друга, і **наприкінці** дозвіл на роботу інтерфейсів. Пауза `delay_ms(5)` дає шині дорости до номіналу й розводить пускові струми в часі, щоб вони не наклалися.
 
@@ -119,51 +83,8 @@ def power_up_sequence():
 
 **Приклад. Чекати готовності шини за сигналом Power-Good, а не наосліп.**
 :::tabs
-```cpp
-#define PG_SENSORS  GPIO_PIN(C, 0)   // Power-Good шини давачів (вхід)
-
-// Чекати, доки шина підтвердить готовність; не зависати назавжди.
-static bool wait_power_good(gpio_t pg, uint32_t timeout_ms) {
-    while (timeout_ms--) {
-        if (gpio_read(pg)) return true;   // шина дійшла номіналу
-        delay_ms(1);
-    }
-    return false;                          // не піднялася — несправність
-}
-
-void power_up_sequence(void) {
-    gpio_high(EN_SENSORS);
-    if (!wait_power_good(PG_SENSORS, 50)) {
-        fault_shutdown();                  // шина не встала — гасимо все
-        return;
-    }
-    gpio_high(EN_RADIO);
-    // ... далі за тією ж схемою
-}
-```
-```python
-from machine import Pin
-import time
-
-pg_sensors = Pin('C0', Pin.IN)       # Power-Good шини давачів (вхід)
-
-# Чекати, доки шина підтвердить готовність; не зависати назавжди.
-def wait_power_good(pg, timeout_ms):
-    deadline = time.ticks_add(time.ticks_ms(), timeout_ms)
-    while time.ticks_diff(deadline, time.ticks_ms()) > 0:
-        if pg.value():                 # шина дійшла номіналу
-            return True
-        time.sleep_ms(1)
-    return False                       # не піднялася — несправність
-
-def power_up_sequence():
-    en_sensors.value(1)
-    if not wait_power_good(pg_sensors, 50):
-        fault_shutdown()               # шина не встала — гасимо все
-        return
-    en_radio.value(1)
-    # ... далі за тією ж схемою
-```
+:::code power-sequencing-d/cpp/inkoly-poriadok-zadaie-sam-2.cpp
+:::code power-sequencing-d/py/inkoly-poriadok-zadaie-sam-2.py
 :::
 Тут пуск рухається **за фактом**: наступний крок настає, тільки коли попередня шина підтвердила номінал. А якщо за розумний час (50 мс) готовності нема — це **несправність** (коротке замикання, перевантаження), і правильна реакція — не йти далі, а **погасити все**. Сторожовий час (timeout) рятує від вічного зависання в циклі очікування.
 

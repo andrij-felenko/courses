@@ -38,7 +38,8 @@
           "math": [
             {
               "file": "math-battery-math.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -49,7 +50,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -60,7 +62,8 @@
           "comp": [
             {
               "file": "comp-sensor-standby.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -83,13 +86,16 @@
           "math": [
             {
               "file": "math-buffer-sizing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-peak-current-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -100,24 +106,29 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-wifi-power-save.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-beacon-twt-budget.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-wifi-power-calc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -139,7 +150,8 @@
           "proj": [
             {
               "file": "proj-battery-life-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -183,7 +195,8 @@
           "proj": [
             {
               "file": "proj-shading-iv-curve.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -205,7 +218,8 @@
           "proj": [
             {
               "file": "proj-string-sizing.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -226,7 +240,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -243,7 +258,8 @@
           "proj": [
             {
               "file": "proj-po-tracker.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -254,24 +270,29 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-solar-mounting-hardware.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "math": [
             {
               "file": "math-solar-geometry-tilt.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-solar-harvest-calc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -303,19 +324,23 @@
           "hist": [
             {
               "file": "hist-albert-betz.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-betz-limit.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-weibull-wind-yield.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -331,7 +356,8 @@
           "comp": [
             {
               "file": "comp-dump-load-resistor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -343,13 +369,16 @@
           "math": [
             {
               "file": "math-pmsg-power-torque.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-wind-controller-fsm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -360,30 +389,36 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-ultra-low-voltage-booster.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-seebeck-discovery.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-teg-thermal-electrical-model.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-teg-harvester-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -400,24 +435,28 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-indoor-pv-materials.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-rectenna-and-wireless-power.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-rf-rectenna-link.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -434,19 +473,23 @@
           "comp": [
             {
               "file": "comp-jfet-cold-start.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-storage-energy-sizing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-cold-start-simulation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
