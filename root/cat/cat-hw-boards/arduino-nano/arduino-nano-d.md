@@ -82,32 +82,8 @@ Nano беруть саме тоді, коли UNO завеликий, а окр�
 Ось звична «нульова» програма — блимання світлодіодом на `D13` (він розпаяний на платі, окремий не потрібен):
 
 :::tabs
-```cpp
-// Класичний "blink": вбудований світлодіод на D13 моргає раз на секунду.
-void setup() {
-    pinMode(LED_BUILTIN, OUTPUT);   // LED_BUILTIN == 13 на Nano
-}
-
-void loop() {
-    digitalWrite(LED_BUILTIN, HIGH);  // засвітити
-    delay(500);                       // почекати 0.5 с
-    digitalWrite(LED_BUILTIN, LOW);   // згасити
-    delay(500);
-}
-```
-```micropython
-# Класичний "blink": вбудований світлодіод на D13 моргає раз на секунду.
-from machine import Pin
-from time import sleep_ms
-
-led = Pin(13, Pin.OUT)               # D13 на Nano
-
-while True:
-    led.on()                         # засвітити
-    sleep_ms(500)                    # почекати 0.5 с
-    led.off()                        # згасити
-    sleep_ms(500)
-```
+:::code arduino-nano-d/cpp/shcho-z-nym-realno-robliat.cpp
+:::code arduino-nano-d/py/micropython/shcho-z-nym-realno-robliat.py
 :::
 
 А ось приклад, що показує три вміння виводів разом — цифровий вхід із підтяжкою, аналогове читання та ШІМ:
@@ -115,45 +91,8 @@ while True:
 **Кнопка на `D2` вмикає світлодіод, а потенціометр на `A0` регулює його яскравість.**
 
 :::tabs
-```cpp
-const uint8_t PIN_BTN = 2;    // кнопка між D2 і GND
-const uint8_t PIN_POT = A0;   // середній вивід потенціометра
-const uint8_t PIN_LED = 9;    // світлодіод на ШІМ-виводі ~D9
-
-void setup() {
-    pinMode(PIN_BTN, INPUT_PULLUP);  // внутрішня підтяжка: вільний стан = HIGH
-    pinMode(PIN_LED, OUTPUT);
-}
-
-void loop() {
-    bool pressed = (digitalRead(PIN_BTN) == LOW);  // натиснуто = замкнуто на GND
-    if (pressed) {
-        int raw = analogRead(PIN_POT);      // 0..1023 (десятибітний АЦП)
-        int duty = raw / 4;                 // звести до 0..255 для ШІМ
-        analogWrite(PIN_LED, duty);         // яскравість за положенням ручки
-    } else {
-        analogWrite(PIN_LED, 0);            // відпущено — згасити
-    }
-}
-```
-```micropython
-from machine import Pin, ADC, PWM
-from time import sleep_ms
-
-btn = Pin(2, Pin.IN, Pin.PULL_UP)   # внутрішня підтяжка: вільний стан = HIGH
-pot = ADC(0)                        # A0, середній вивід потенціометра
-led = PWM(Pin(9))                   # світлодіод на ШІМ-виводі ~D9
-
-while True:
-    pressed = (btn.value() == 0)    # натиснуто = замкнуто на GND
-    if pressed:
-        raw = pot.read()            # 0..1023 (десятибітний АЦП)
-        duty = raw >> 2             # звести до 0..255 для ШІМ
-        led.duty(duty)              # яскравість за положенням ручки
-    else:
-        led.duty(0)                 # відпущено — згасити
-    sleep_ms(10)
-```
+:::code arduino-nano-d/cpp/shcho-z-nym-realno-robliat-2.cpp
+:::code arduino-nano-d/py/micropython/shcho-z-nym-realno-robliat-2.py
 :::
 
 Тут варто помітити `INPUT_PULLUP`: у ATmega є внутрішні підтягувальні резистори, тож кнопку можна вішати прямо між виводом і землею, без зовнішнього резистора. Вільний вивід тоді читається як `HIGH`, натиснута кнопка притягує його до `LOW`. Це прибирає [плаваючий вхід](root:hw-digital/floating-pullups) — стан, коли неприєднаний вивід ловить наводки й читається то так, то сяк.

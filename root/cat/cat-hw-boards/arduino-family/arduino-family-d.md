@@ -44,77 +44,11 @@
 Ти пишеш **скетч** (англ. *sketch* — «начерк»; так тут називають програму) у файлі `.ino`. Він майже завжди має дві функції, і в них — уся модель Arduino. Сама задача при цьому спільна для будь-якого мікроконтролера й ніяк не Arduino-специфічна: **один раз** налаштувати вивід на роботу виходом — і далі **вічно** перемикати на ньому рівень із паузою. Нижче — той самий блимач у трьох середовищах; різниться лише те, як кожне називає ці дві речі:
 
 :::tabs
-```arduino
-void setup() {
-  // виконується один раз при старті: тут налаштовуємо піни, порти, давачі
-  pinMode(13, OUTPUT);
-}
+:::code arduino-family-d/c/arduino/main.ino
 
-void loop() {
-  // крутиться нескінченно, доки плата жива: тут головна робота
-  digitalWrite(13, HIGH);
-  delay(500);
-  digitalWrite(13, LOW);
-  delay(500);
-}
-```
+:::code arduino-family-d/c/esp-idf/blink.c
 
-```esp-idf
-// blink.c — той самий блимач на ESP-IDF
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define LED_PIN GPIO_NUM_2
-
-void app_main(void)              // точка входу; виконується один раз
-{
-    gpio_config_t io = {         // налаштування виводу: тут «раз при старті»
-        .pin_bit_mask = 1ULL << LED_PIN,
-        .mode         = GPIO_MODE_OUTPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    gpio_config(&io);
-
-    while (1) {                  // вічний цикл пишемо самі
-        gpio_set_level(LED_PIN, 1);
-        vTaskDelay(pdMS_TO_TICKS(500));
-        gpio_set_level(LED_PIN, 0);
-        vTaskDelay(pdMS_TO_TICKS(500));
-    }
-}
-```
-
-```stm32
-/* main.c — той самий блимач на STM32 HAL */
-#include "stm32f4xx_hal.h"
-
-#define LED_PORT GPIOA
-#define LED_PIN  GPIO_PIN_5
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();                  // тактування ядра (згенерував CubeMX)
-
-    __HAL_RCC_GPIOA_CLK_ENABLE();          // без такту порт мовчить
-    GPIO_InitTypeDef io = {0};             // налаштування виводу: «раз при старті»
-    io.Pin   = LED_PIN;
-    io.Mode  = GPIO_MODE_OUTPUT_PP;
-    io.Pull  = GPIO_NOPULL;
-    io.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(LED_PORT, &io);
-
-    while (1) {                            // вічний цикл пишемо самі
-        HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_SET);
-        HAL_Delay(500);
-        HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_RESET);
-        HAL_Delay(500);
-    }
-}
-```
+:::code arduino-family-d/c/stm32/main.c
 :::
 
 `setup()` спрацьовує **раз** — це підготовка. `loop()` виконується **знову і знову без кінця** — це і є життя пристрою. Така модель напрочуд точно лягає на природу мікроконтролера: він не має що «завершувати», він просто вічно робить свою справу, доки на нього подано живлення. Замість того щоб самому писати цикл `while(1)`, ти отримуєш його даром — у ESP-IDF чи STM32 HAL той самий цикл видно на очах, бо там його пишеш власноруч у `app_main()` або `main()`.

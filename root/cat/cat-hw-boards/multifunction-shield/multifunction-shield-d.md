@@ -96,117 +96,9 @@ UART-роз'єм (RX/TX)        D0 / D1          під Bluetooth / модуль
 
 **Показати «5» у першому розряді дисплея.**
 :::tabs
-```arduino
-const byte LATCH = 4;   // ST_CP — «клац», виставити біти
-const byte CLK   = 7;   // SH_CP — тактує зсув
-const byte DATA  = 8;   // DS    — біти по одному
-
-// байти сегментів для цифр 0..9 (спільний анод: 0 = світиться)
-const byte SEG[10] = {
-  0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90
-};
-// вибір розряду: перший, другий, третій, четвертий
-const byte SEL[4]  = { 0xF1, 0xF2, 0xF4, 0xF8 };
-
-void setup() {
-  pinMode(LATCH, OUTPUT);
-  pinMode(CLK,   OUTPUT);
-  pinMode(DATA,  OUTPUT);
-}
-
-void showDigit(byte value, byte pos) {
-  digitalWrite(LATCH, LOW);                       // латч униз — набираємо
-  shiftOut(DATA, CLK, MSBFIRST, SEG[value]);      // спершу байт сегментів
-  shiftOut(DATA, CLK, MSBFIRST, SEL[pos]);        // потім байт вибору розряду
-  digitalWrite(LATCH, HIGH);                      // клац — виставити на виходи
-}
-
-void loop() {
-  showDigit(5, 0);   // цифра «5» у першому (правому) розряді
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-// три вільні виводи, підведені до ліній шилда LATCH/CLK/DATA
-#define LATCH  GPIO_NUM_18   // ST_CP — «клац», виставити біти
-#define CLK    GPIO_NUM_19   // SH_CP — тактує зсув
-#define DATA   GPIO_NUM_21   // DS    — біти по одному
-
-// байти сегментів для цифр 0..9 (спільний анод: 0 = світиться)
-static const uint8_t SEG[10] = {
-    0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90
-};
-static const uint8_t SEL[4] = { 0xF1, 0xF2, 0xF4, 0xF8 };
-
-static void display_init(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = (1ULL << LATCH) | (1ULL << CLK) | (1ULL << DATA),
-        .mode         = GPIO_MODE_OUTPUT,
-    };
-    gpio_config(&cfg);
-}
-
-static void shift_out(uint8_t b) {          // старший біт першим
-    for (int i = 7; i >= 0; i--) {
-        gpio_set_level(DATA, (b >> i) & 1);
-        gpio_set_level(CLK, 1);             // фронт такту заштовхує біт
-        gpio_set_level(CLK, 0);
-    }
-}
-
-static void show_digit(uint8_t value, uint8_t pos) {
-    gpio_set_level(LATCH, 0);   // латч униз — набираємо
-    shift_out(SEG[value]);      // спершу байт сегментів
-    shift_out(SEL[pos]);        // потім байт вибору розряду
-    gpio_set_level(LATCH, 1);   // клац — виставити на виходи
-}
-
-void app_main(void) {
-    display_init();
-    while (1) {
-        show_digit(5, 0);       // цифра «5» у першому (правому) розряді
-        vTaskDelay(pdMS_TO_TICKS(5));
-    }
-}
-```
-```stm32
-/* LATCH, CLK, DATA налаштовано в CubeMX як GPIO_Output (push-pull) */
-
-// байти сегментів для цифр 0..9 (спільний анод: 0 = світиться)
-static const uint8_t SEG[10] = {
-    0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90
-};
-static const uint8_t SEL[4] = { 0xF1, 0xF2, 0xF4, 0xF8 };
-
-static void ShiftOut(uint8_t b) {           // старший біт першим
-    for (int i = 7; i >= 0; i--) {
-        HAL_GPIO_WritePin(DATA_GPIO_Port, DATA_Pin,
-                          ((b >> i) & 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(CLK_GPIO_Port, CLK_Pin, GPIO_PIN_SET);   // фронт такту
-        HAL_GPIO_WritePin(CLK_GPIO_Port, CLK_Pin, GPIO_PIN_RESET);
-    }
-}
-
-static void ShowDigit(uint8_t value, uint8_t pos) {
-    HAL_GPIO_WritePin(LATCH_GPIO_Port, LATCH_Pin, GPIO_PIN_RESET);  // набираємо
-    ShiftOut(SEG[value]);       // спершу байт сегментів
-    ShiftOut(SEL[pos]);         // потім байт вибору розряду
-    HAL_GPIO_WritePin(LATCH_GPIO_Port, LATCH_Pin, GPIO_PIN_SET);    // клац
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    while (1) {
-        ShowDigit(5, 0);        // цифра «5» у першому (правому) розряді
-        HAL_Delay(5);
-    }
-}
-```
+:::code multifunction-shield-d/c/arduino/pershyi-kod-zapalyty-odnu.ino
+:::code multifunction-shield-d/c/esp-idf/pershyi-kod-zapalyty-odnu.c
+:::code multifunction-shield-d/c/stm32/pershyi-kod-zapalyty-odnu.c
 :::
 
 Тут `shiftOut` — стандартна функція Arduino, що заштовхує вісім бітів по лінії `DATA`, тактуючи їх лінією `CLK`; `MSBFIRST` каже посилати старший біт першим. Там, де такої функції немає, її роль грає цикл на вісім кроків — виставити біт на лінію даних, смикнути такт — рівно те, що видно у двох сусідніх вкладках. Два виклики поспіль наповнюють обидва регістри каскаду: перший байт «протікає» у другий регістр, коли на його місце заходить другий. Клац латчем — і обидві вісімки бітів разом стають на виходи.
@@ -221,75 +113,9 @@ int main(void) {
 
 **Спалахнути світлодіодом, поки натиснута кнопка S1.**
 :::tabs
-```arduino
-const byte S1  = A1;   // кнопка 1
-const byte LED1 = 13;  // світлодіод 1 (активний низьким!)
-
-void setup() {
-  pinMode(S1, INPUT_PULLUP);   // у спокої HIGH, натиснута — LOW
-  pinMode(LED1, OUTPUT);
-  digitalWrite(LED1, HIGH);    // HIGH = згашено
-}
-
-void loop() {
-  if (digitalRead(S1) == LOW)  // кнопку натиснуто
-    digitalWrite(LED1, LOW);   // LOW = світиться
-  else
-    digitalWrite(LED1, HIGH);  // відпустив — гасне
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define S1    GPIO_NUM_18   // кнопка 1
-#define LED1  GPIO_NUM_19   // світлодіод 1 (активний низьким!)
-
-void app_main(void) {
-    gpio_config_t btn = {
-        .pin_bit_mask = 1ULL << S1,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_ENABLE,   // у спокої 1, натиснута — 0
-    };
-    gpio_config(&btn);
-
-    gpio_config_t led = {
-        .pin_bit_mask = 1ULL << LED1,
-        .mode         = GPIO_MODE_OUTPUT,
-    };
-    gpio_config(&led);
-    gpio_set_level(LED1, 1);                  // 1 = згашено
-
-    while (1) {
-        if (gpio_get_level(S1) == 0)          // кнопку натиснуто
-            gpio_set_level(LED1, 0);          // 0 = світиться
-        else
-            gpio_set_level(LED1, 1);          // відпустив — гасне
-        vTaskDelay(pdMS_TO_TICKS(10));
-    }
-}
-```
-```stm32
-/* S1 — GPIO_Input із підтяжкою вгору (GPIO_PULLUP),
-   LED1 — GPIO_Output push-pull; обидва задано в CubeMX */
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);   // SET = згашено
-
-    while (1) {
-        // у спокої на кнопці SET, натиснута садить вивід на землю — RESET
-        if (HAL_GPIO_ReadPin(S1_GPIO_Port, S1_Pin) == GPIO_PIN_RESET)
-            HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET); // світиться
-        else
-            HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);   // гасне
-        HAL_Delay(10);
-    }
-}
-```
+:::code multifunction-shield-d/c/arduino/knopky-zumer-svitlodiody.ino
+:::code multifunction-shield-d/c/esp-idf/knopky-zumer-svitlodiody.c
+:::code multifunction-shield-d/c/stm32/knopky-zumer-svitlodiody.c
 :::
 
 Тут добре видно перевернуту логіку одразу в двох місцях: кнопку натиснуто, коли читається `LOW`, а світлодіод світиться, коли пишеш `LOW`. У живому проєкті кнопку ще й «відбивають» (англ. *debounce*) — механічний контакт деренчить кілька мілісекунд і дає хибні спрацювання, тож натискання підтверджують коротким витриманням, а не першим-ліпшим `LOW`.

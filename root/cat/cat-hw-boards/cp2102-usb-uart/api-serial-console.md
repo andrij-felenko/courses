@@ -13,86 +13,9 @@
 Це загальний код для комп'ютера, не регістри заліза, тож писати його природно мовами прикладного стеку. Той самий приклад однаково добре лягає трьома мовами — Python (канонічний спосіб через `pyserial`), Node/TypeScript і Rust; подаю їх вкладками. Кожна вкладка — не переклад рядок-у-рядок, а ідіоматичний варіант тією мовою.
 
 :::tabs
-```py
-# pip install pyserial
-import serial
-
-PORT = "COM7"        # Windows; на Linux — "/dev/ttyUSB0", на macOS — "/dev/cu.SLAB_USBtoUART"
-BAUD = 115200
-
-# with-блок гарантує, що порт закриється навіть при винятку чи Ctrl+C
-with serial.Serial(PORT, BAUD, bytesize=8, parity="N", stopbits=1, timeout=1) as ser:
-    print(f"Відкрито {ser.name} на {BAUD} бод. Ctrl+C — вихід.")
-    # надіслати пристрою команду (не забути перевід рядка, якщо він його чекає)
-    ser.write(b"status\n")
-
-    while True:
-        line = ser.readline()          # читає до \n або поки не спрацює timeout
-        if line:                        # порожньо = timeout без даних, просто чекаємо далі
-            # decode із errors="replace": один битий байт не завалить увесь рядок
-            print(line.decode("utf-8", errors="replace").rstrip())
-```
-```ts
-// npm install serialport
-import { SerialPort } from "serialport";
-import { ReadlineParser } from "@serialport/parser-readline";
-
-const PORT = "COM7"; // Linux: "/dev/ttyUSB0", macOS: "/dev/cu.SLAB_USBtoUART"
-const BAUD = 115200;
-
-const port = new SerialPort({
-  path: PORT,
-  baudRate: BAUD,
-  dataBits: 8,
-  parity: "none",
-  stopBits: 1,
-});
-
-// парсер сам ріже потік на рядки по \n — не доводиться склеювати шматки вручну
-const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
-parser.on("data", (line: string) => console.log(line.trimEnd()));
-
-port.on("open", () => {
-  console.log(`Відкрито ${PORT} на ${BAUD} бод.`);
-  port.write("status\n"); // надіслати команду пристрою
-});
-port.on("error", (err) => console.error("Помилка порту:", err.message));
-```
-```rust
-// Cargo.toml: serialport = "4"
-use std::io::{BufRead, BufReader, Write};
-use std::time::Duration;
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let path = "COM7"; // Linux: "/dev/ttyUSB0", macOS: "/dev/cu.SLAB_USBtoUART"
-    let baud = 115_200;
-
-    let mut port = serialport::new(path, baud)
-        .data_bits(serialport::DataBits::Eight)
-        .parity(serialport::Parity::None)
-        .stop_bits(serialport::StopBits::One)
-        .timeout(Duration::from_millis(1000))
-        .open()?;
-
-    println!("Відкрито {path} на {baud} бод.");
-    port.write_all(b"status\n")?;          // надіслати команду
-
-    // окремий читач для рядкового буферування; клон даскриптора порту
-    let reader = port.try_clone()?;
-    let mut buf = BufReader::new(reader);
-    let mut line = String::new();
-    loop {
-        line.clear();
-        match buf.read_line(&mut line) {
-            Ok(0) => break,                       // порт закрито
-            Ok(_) => print!("{line}"),
-            Err(ref e) if e.kind() == std::io::ErrorKind::TimedOut => continue,
-            Err(e) => return Err(e.into()),
-        }
-    }
-    Ok(())
-}
-```
+:::code api-serial-console/py/main.py
+:::code api-serial-console/ts/index.ts
+:::code api-serial-console/rust/main.rs
 :::
 
 Три деталі, які роблять цей код робочим, а не іграшковим. Перша — **`timeout`**: без нього читання блокується назавжди, і програму не перервати, поки не прийде байт; з таймаутом цикл дихає — прокидається раз на секунду, навіть коли пристрій мовчить. Друга — **читання рядками, а не байтами**: `readline`/`ReadlineParser`/`read_line` збирають потік до символу переводу рядка, тож ви бачите цілі повідомлення, а не рвані шматки (UART віддає байти як прийде, і одне повідомлення легко приходить двома порціями). Третя — **декодування з заміною битих байтів**: перший-ліпший збій на лінії дасть байт, що не є валідним UTF-8; `errors="replace"` (та її аналоги) підмінить його знаком-замінником замість того, щоб завалити весь рядок винятком.
@@ -128,38 +51,7 @@ for p in list_ports.comports():
 
 Це вже інший бік дроту — залізо, регістри периферії, конкретний мікроконтролер. Тут доречна саме C/C++: код прив'язаний до апаратури й пишеться мовою, якою ця апаратура програмується; переписувати регістри STM32 умовним Python-ом було б безглуздям. Тому — один блок мовою домену. Візьмімо STM32 з бібліотекою HAL (той самий сімейний чип, що й у прикладі прошивання нижче):
 
-```c
-#include <stdio.h>
-#include "stm32f0xx_hal.h"
-
-extern UART_HandleTypeDef huart1;   // USART1 налаштований у CubeMX: 115200 8N1
-
-// Гачок стандартної бібліотеки: printf врешті кличе саме сюди для КОЖНОГО символу.
-// Перевизначаємо його — і весь printf/putchar починає йти в UART.
-// (Ім'я функції залежить від toolchain: у newlib це _write, у деяких — __io_putchar.)
-int __io_putchar(int ch)
-{
-    // блокуюча передача одного байта; HAL_MAX_DELAY = чекати, поки передавач звільниться
-    HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
-    return ch;
-}
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();   // згенеровано CubeMX
-    MX_GPIO_Init();
-    MX_USART1_UART_Init();  // тут USART1 і піднімається на 115200 8N1
-
-    int t = 0;
-    while (1) {
-        // звичайнісінький printf — а рядок виходить на ніжку TX (PA9)
-        printf("темп = %d C\r\n", t);
-        t = (t + 1) % 100;
-        HAL_Delay(1000);    // раз на секунду
-    }
-}
-```
+:::code api-serial-console/c/main.c
 
 Механізм короткий, тож варто назвати його чесно. `HAL_UART_Transmit` — це «поклади байт і чекай, поки передасться»: проста, надійна, блокуюча передача. Для налагоджувального `printf`, що спрацьовує зрідка, блокування на кілька десятків мікросекунд неважливе. `\r\n` замість самого `\n` — щоб рядки рівно лягали в термінал, який очікує «повернення каретки + новий рядок» (класична консольна звичка). А поділ «`printf` складає — `__io_putchar` віддає в залізо» — це і є вся суть: ви пишете звичний код, а бібліотека сама розбирає рядок на символи й несе кожен у ваш перевизначений вихід.
 
@@ -203,26 +95,7 @@ CP2102 (адаптер)            STM32 (гола плата)
 
 Тепер самі команди. Спершу переконаймося, що зв'язок із завантажувачем є — `stm32flash` без дій просто читає й друкує ідентифікацію чипа:
 
-```bash
-# 1) Зібрати схему з BOOT0 на 3.3 В і скинути плату (кнопкою RESET або пере-подачею живлення).
-#    Тепер чип у завантажувачі й слухає USART.
-
-# 2) Перевірити зв'язок: прочитати ідентифікацію (нічого не пишемо).
-#    Порт: Linux — /dev/ttyUSB0, Windows — COM7, macOS — /dev/cu.SLAB_USBtoUART
-stm32flash /dev/ttyUSB0
-# Успіх виглядає приблизно так:
-#   Version      : 0x31
-#   Device ID    : 0x0440 (STM32F03xx4/6)
-#   ...
-# Якщо замість цього "Failed to init device" — чип НЕ в завантажувачі (див. пастки).
-
-# 3) Залити прошивку (сирий .bin), перевірити запис і одразу запустити з початку флеш:
-#      -w  — записати файл у флеш          -v — звірити записане
-#      -g 0x0 — після запису стрибнути на початок флеш (0x08000000) і виконати
-stm32flash -w firmware.bin -v -g 0x0 /dev/ttyUSB0
-
-# 4) Перевести BOOT0 назад на GND і скинути плату ще раз — тепер стартує ваша прошивка.
-```
+:::code api-serial-console/sh/main.sh
 
 Кілька практичних штрихів до команд. Швидкість завантажувач визначає сам, тож задавати `-b` зазвичай не треба; якщо ж хочете швидше або зв'язок хисткий — додайте, скажімо, `-b 57600` (типове усталене значення `stm32flash`). Формат файлу — сирий `.bin` або Intel HEX — утиліта розпізнає сама. Хочете спершу стерти флеш повністю — це відбувається автоматично перед записом, але за потреби керується окремо. І найзручніше: якщо на платі й адаптері виведені лінії `RESET` і `BOOT0` на ніжки `DTR`/`RTS` адаптера, `stm32flash` уміє смикати їх сам — тоді не доведеться тиснути кнопки руками:
 

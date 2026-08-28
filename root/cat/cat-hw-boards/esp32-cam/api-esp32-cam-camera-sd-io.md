@@ -8,26 +8,7 @@
 
 Драйвер `esp_camera` універсальний: він працює з десятком різних плат, а плати розводять сенсор на різні виводи. Тому першим ділом ви віддаєте йому **карту пінів саме вашої плати**. Для AI-Thinker ESP32-CAM ця карта фіксована й перевірена — її не вигадують, а беруть як є:
 
-```c
-// Розводка сенсора OV2640 на платі AI-Thinker ESP32-CAM.
-// Ці номери НЕ вигадують — вони визначені розводкою плати.
-#define PWDN_GPIO_NUM  32   // power-down сенсора
-#define RESET_GPIO_NUM -1   // апаратного reset немає (−1 = не використовується)
-#define XCLK_GPIO_NUM   0   // тактовий сигнал для сенсора
-#define SIOD_GPIO_NUM  26   // SCCB data (керування сенсором, як I2C)
-#define SIOC_GPIO_NUM  27   // SCCB clock
-#define Y9_GPIO_NUM    35   // D7  ─┐
-#define Y8_GPIO_NUM    34   // D6   │
-#define Y7_GPIO_NUM    39   // D5   │
-#define Y6_GPIO_NUM    36   // D4   │ вісім ліній даних
-#define Y5_GPIO_NUM    21   // D3   │ паралельного порту DVP
-#define Y4_GPIO_NUM    19   // D2   │
-#define Y3_GPIO_NUM    18   // D1   │
-#define Y2_GPIO_NUM     5   // D0  ─┘
-#define VSYNC_GPIO_NUM 25   // синхронізація кадру
-#define HREF_GPIO_NUM  23   // синхронізація рядка
-#define PCLK_GPIO_NUM  22   // тактовий сигнал пікселів
-```
+:::code api-esp32-cam-camera-sd-io/c/piny-sensora-ov2640-karta.c
 
 Тут корисно бачити, звідки береться теза «камера з'їдає майже всі виводи». Вісім ліній даних `Y2..Y9` — це і є ті вісім бітів пікселя, які сенсор виставляє паралельно щотакту `PCLK`. Плюс дві синхронізації (`VSYNC` каже «почався новий кадр», `HREF` — «іде видимий рядок»), плюс `XCLK`, яким процесор задає серце сенсору, плюс дві лінії `SIOD`/`SIOC` — це маленька шина керування (SCCB, майже точний клон I2C), через яку в сенсор пишуть налаштування яскравості, балансу білого, роздільності. Ось звідки набігає півтора десятка виводів на саму лише камеру.
 
@@ -35,56 +16,7 @@
 
 Далі ці піни разом із режимом роботи складають у структуру `camera_config_t`. Це найгустіше місце всього підключення, тож пройдімо його полями, а не гуртом:
 
-```c
-#include "esp_camera.h"
-
-static camera_config_t make_camera_config(void) {
-    camera_config_t config = {};        // важливо занулити всю структуру
-
-    // канал і таймер LEDC — драйвер ними формує XCLK для сенсора
-    config.ledc_channel = LEDC_CHANNEL_0;
-    config.ledc_timer   = LEDC_TIMER_0;
-
-    // вісім ліній даних
-    config.pin_d0 = Y2_GPIO_NUM;  config.pin_d1 = Y3_GPIO_NUM;
-    config.pin_d2 = Y4_GPIO_NUM;  config.pin_d3 = Y5_GPIO_NUM;
-    config.pin_d4 = Y6_GPIO_NUM;  config.pin_d5 = Y7_GPIO_NUM;
-    config.pin_d6 = Y8_GPIO_NUM;  config.pin_d7 = Y9_GPIO_NUM;
-
-    // тактові й синхронізація
-    config.pin_xclk  = XCLK_GPIO_NUM;
-    config.pin_pclk  = PCLK_GPIO_NUM;
-    config.pin_vsync = VSYNC_GPIO_NUM;
-    config.pin_href  = HREF_GPIO_NUM;
-
-    // шина керування сенсором (SCCB ≈ I2C)
-    config.pin_sccb_sda = SIOD_GPIO_NUM;
-    config.pin_sccb_scl = SIOC_GPIO_NUM;
-
-    config.pin_pwdn  = PWDN_GPIO_NUM;
-    config.pin_reset = RESET_GPIO_NUM;
-
-    config.xclk_freq_hz = 20000000;          // 20 МГц на сенсор
-    config.pixel_format = PIXFORMAT_JPEG;    // просимо готовий JPEG, не сирі пікселі
-
-    // Розмір кадру, якість і кількість буферів — залежать від наявності PSRAM.
-    if (psramFound()) {
-        config.frame_size   = FRAMESIZE_UXGA; // 1600×1200 — на повну
-        config.jpeg_quality = 10;             // менше число = краща якість
-        config.fb_count     = 2;              // подвійний буфер
-        config.fb_location  = CAMERA_FB_IN_PSRAM;
-        config.grab_mode    = CAMERA_GRAB_LATEST;
-    } else {
-        // без PSRAM тягнемо лише скромний кадр в один буфер
-        config.frame_size   = FRAMESIZE_SVGA; // 800×600
-        config.jpeg_quality = 12;
-        config.fb_count     = 1;
-        config.fb_location  = CAMERA_FB_IN_DRAM;
-        config.grab_mode    = CAMERA_GRAB_WHEN_EMPTY;
-    }
-    return config;
-}
-```
+:::code api-esp32-cam-camera-sd-io/c/polia-camera-config-t.c
 
 Три поля тут вирішують долю проєкту, і кожне варто зрозуміти.
 
@@ -98,22 +30,7 @@ static camera_config_t make_camera_config(void) {
 
 Сама ініціалізація — і одразу гасимо спалах, поки він не встиг блимнути:
 
-```c
-static bool camera_start(void) {
-    // Спалах сидить на GPIO4. Заганяємо його в нуль ЩЕ ДО init камери й картки,
-    // щоб світлодіод не спалахнув навіть на мить.
-    pinMode(4, OUTPUT);
-    digitalWrite(4, LOW);
-
-    camera_config_t config = make_camera_config();
-    esp_err_t err = esp_camera_init(&config);
-    if (err != ESP_OK) {
-        Serial.printf("Камера не піднялася, помилка 0x%x\n", err);
-        return false;   // далі йти немає сенсу
-    }
-    return true;
-}
-```
+:::code api-esp32-cam-camera-sd-io/c/pidniaty-kameru-esp-camera.c
 
 Зверніть увагу на порядок: **`GPIO4` у нуль — першим ділом**. Причина — у наступному розділі про картку.
 
@@ -123,24 +40,7 @@ static bool camera_start(void) {
 
 Вихід елегантний і задається одним прапорцем. Функція `SD_MMC.begin()` бере другим аргументом ознаку однобітного режиму:
 
-```c
-#include "SD_MMC.h"
-
-static bool sdcard_start(void) {
-    //                         точка монтування,  1-біт-режим
-    if (!SD_MMC.begin("/sdcard", true)) {
-        Serial.println("microSD не змонтувалася");
-        return false;
-    }
-    // Перевіримо, що картка справді вставлена, а не «просто змонтувалося».
-    uint8_t type = SD_MMC.cardType();
-    if (type == CARD_NONE) {
-        Serial.println("Картки в гнізді немає");
-        return false;
-    }
-    return true;
-}
-```
+:::code api-esp32-cam-camera-sd-io/c/rezhymy-kartky-sd-mmc-na.c
 
 Той самий `true` другим аргументом робить одразу три корисні речі. По-перше, картка тепер тримає **одну** лінію даних (`DATA0`) замість чотирьох — і `DATA1`/`GPIO4` більше не смикається карткою, спалах перестає моргати. По-друге, звільняються **GPIO12 і GPIO13** (це були `DATA2` і `DATA3`) — два живі виводи повертаються у ваше розпорядження, і саме на них потім часто вішають давач по I2C. Платня — нижча швидкість запису, але для поодиноких знімків чи журналу її з головою.
 

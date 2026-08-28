@@ -76,67 +76,8 @@ UART     TXD (GPIO14), RXD(15) 8, 10           послідовний порт, 
 **Ідея.** Оскільки плата пасивна, `GPIO17` на макетці — це буквально `GPIO17` процесора, лише винесений на зручну точку. Тому код нічим не відрізняється від блимання прямо на голій гребінці Pi: просимо в ядра лінію 17 як вихід і смикаємо її. На Raspberry Pi 5 (і сучасних ядрах Pi 4) це роблять через бібліотеку `libgpiod`.
 
 :::tabs
-```c
-// blink.c — блимаємо світлодіодом на GPIO17, виведеному платою на макетку
-// збірка:  gcc blink.c -o blink -lgpiod
-#include <gpiod.h>
-#include <stdio.h>
-#include <unistd.h>      // usleep
-
-#define CHIP_PATH  "/dev/gpiochip0"   // гребінка Pi у свіжому ядрі
-#define LED_LINE   17                 // BCM-ім'я, надруковане на платі
-
-int main(void)
-{
-    struct gpiod_chip *chip = gpiod_chip_open(CHIP_PATH);
-    if (!chip) { perror("chip"); return 1; }
-
-    struct gpiod_line_settings *st = gpiod_line_settings_new();
-    gpiod_line_settings_set_direction(st, GPIOD_LINE_DIRECTION_OUTPUT);
-
-    struct gpiod_line_config *lc = gpiod_line_config_new();
-    unsigned int off = LED_LINE;
-    gpiod_line_config_add_line_settings(lc, &off, 1, st);
-
-    struct gpiod_request_config *rc = gpiod_request_config_new();
-    gpiod_request_config_set_consumer(rc, "blink");
-
-    struct gpiod_line_request *req = gpiod_chip_request_lines(chip, rc, lc);
-    if (!req) { perror("request"); return 1; }
-
-    for (int i = 0; i < 20; i++) {
-        gpiod_line_request_set_value(req, LED_LINE, GPIOD_LINE_VALUE_ACTIVE);
-        usleep(500000);                 // горить 0.5 с
-        gpiod_line_request_set_value(req, LED_LINE, GPIOD_LINE_VALUE_INACTIVE);
-        usleep(500000);                 // згас 0.5 с
-    }
-    gpiod_line_request_release(req);
-    gpiod_chip_close(chip);
-    return 0;
-}
-```
-```py
-# blink.py — блимаємо світлодіодом на GPIO17, виведеному платою на макетку
-# постановка:  sudo apt install python3-libgpiod   (пакет gpiod)
-import time
-import gpiod
-from gpiod.line import Direction, Value
-
-CHIP_PATH = "/dev/gpiochip0"   # гребінка Pi у свіжому ядрі
-LED_LINE  = 17                 # BCM-ім'я, надруковане на платі
-
-# with сам звільнить лінію й закриє чип на виході — заміна release/close
-with gpiod.request_lines(
-    CHIP_PATH,
-    consumer="blink",
-    config={LED_LINE: gpiod.LineSettings(direction=Direction.OUTPUT)},
-) as req:
-    for _ in range(20):
-        req.set_value(LED_LINE, Value.ACTIVE)
-        time.sleep(0.5)                 # горить 0.5 с
-        req.set_value(LED_LINE, Value.INACTIVE)
-        time.sleep(0.5)                 # згас 0.5 с
-```
+:::code gpio-extension-board-d/c/blink.c
+:::code gpio-extension-board-d/py/blink.py
 :::
 
 **Висновок.** Число в коді — `17` — це те саме, що надруковано на платі біля штиря (`GPIO17`), і це ж BCM-номер лінії в `libgpiod`. Плата вставилась у цю картину так гладко, що в коді про неї немає жодного сліду: ми керуємо тим самим GPIO17, лише фізично він тепер зручно винесений на макетку з підписом. Повніше про роботу з GPIO Raspberry Pi з коду — усі чотири типові задачі (вивід, кнопка, I2C-давач, диск) з граблями — у [проєкт-вставці цієї теми](root:cat-hw-boards/gpio-extension-board/api-libgpiod-breadboard.md).

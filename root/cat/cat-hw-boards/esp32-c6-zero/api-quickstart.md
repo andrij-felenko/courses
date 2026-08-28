@@ -40,45 +40,7 @@ idf.py add-dependency "espressif/led_strip"
 
 А далі — робочий приклад, що блимає вбудованим вогником: зелений, потім згас, по колу.
 
-```c
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "led_strip.h"
-
-#define WS2812_GPIO  8      // вбудований піксель ESP32-C6-Zero
-#define WS2812_COUNT 1      // він один
-
-static led_strip_handle_t strip;
-
-static void ws2812_init(void)
-{
-    led_strip_config_t strip_cfg = {
-        .strip_gpio_num = WS2812_GPIO,
-        .max_leds = WS2812_COUNT,
-        .led_model = LED_MODEL_WS2812,
-        .color_component_format = LED_STRIP_COLOR_COMPONENT_FMT_GRB,
-    };
-    led_strip_rmt_config_t rmt_cfg = {
-        .resolution_hz = 10 * 1000 * 1000,   // 10 МГц → 1 тік = 0.1 мкс
-    };
-    ESP_ERROR_CHECK(led_strip_new_rmt_device(&strip_cfg, &rmt_cfg, &strip));
-    led_strip_clear(strip);                  // почати з погашеного
-}
-
-void app_main(void)
-{
-    ws2812_init();
-    while (1) {
-        led_strip_set_pixel(strip, 0, 0, 40, 0);  // піксель 0: R=0 G=40 B=0
-        led_strip_refresh(strip);                  // тепер відправити в LED
-        vTaskDelay(pdMS_TO_TICKS(400));
-
-        led_strip_clear(strip);                    // погасити
-        led_strip_refresh(strip);
-        vTaskDelay(pdMS_TO_TICKS(400));
-    }
-}
-```
+:::code api-quickstart/c/esp-idf-led-strip-poverkh.c
 
 Тут кожен рядок несе сенс, і два — критичні. `resolution_hz = 10 000 000` задає крок RMT-лічильника: 10 МГц означає, що один тік — 0.1 мкс, і саме на цій сітці компонент викладає імпульси WS2812 потрібної довжини. `led_strip_set_pixel(strip, 0, 0, 40, 0)` **лише кладе колір у буфер** — палітру для пікселя номер 0, з яскравістю R=0, G=40, B=0. Поки ви не покличете `led_strip_refresh`, у самому світлодіоді нічого не змінюється: refresh — це момент, коли RMT фізично виштовхує біти в ногу. Забути refresh — найчастіша причина «код правильний, а вогник мертвий».
 
@@ -88,30 +50,7 @@ void app_main(void)
 
 В Arduino той самий піксель водять бібліотекою **Adafruit_NeoPixel** (ставиться через *Library Manager*). Код помітно коротший, бо RMT сховано ще глибше:
 
-```cpp
-#include <Adafruit_NeoPixel.h>
-
-#define WS2812_PIN   8
-#define WS2812_COUNT 1
-
-Adafruit_NeoPixel pixel(WS2812_COUNT, WS2812_PIN, NEO_GRB + NEO_KHZ800);
-
-void setup() {
-  pixel.begin();       // ініціалізація
-  pixel.setBrightness(40);   // 0..255, глобальний масштаб яскравості
-  pixel.show();        // погасити стартово (буфер порожній)
-}
-
-void loop() {
-  pixel.setPixelColor(0, pixel.Color(0, 255, 0));  // зелений
-  pixel.show();                                    // відправити
-  delay(400);
-
-  pixel.setPixelColor(0, 0);   // 0 = чорний = згас
-  pixel.show();
-  delay(400);
-}
-```
+:::code api-quickstart/cpp/arduino-adafruit-neopixel.cpp
 
 Три речі, які легко проґавити. `NEO_GRB + NEO_KHZ800` — це **порядок кольорів** (у WS2812 біти йдуть зелений-червоний-синій, а не RGB) і частота потоку (800 кГц). Переплутаєте GRB із RGB — червоне світитиме зеленим і навпаки; це перша підозра, коли «кольори переплуталися». `setBrightness` тут масштабує все глобально, тож у `Color(0, 255, 0)` можна писати повні 255 і регулювати яскравість окремо. І знову — **`show()` обов'язковий**: `setPixelColor` лише пише в буфер, `show()` жене його в ногу. Це той самий поділ «задав колір / відправив колір», що й refresh у IDF, — не випадковість, а природа адресованих пікселів.
 
@@ -125,46 +64,7 @@ void loop() {
 
 ### ESP-IDF: gpio_config
 
-```c
-#include "driver/gpio.h"
-
-#define LED_OUT  15   // якийсь вільний вивід під зовнішній світлодіод
-#define BTN_IN   18   // кнопка між цим виводом і GND
-
-static void gpio_init(void)
-{
-    // вихід
-    gpio_config_t out_cfg = {
-        .pin_bit_mask = 1ULL << LED_OUT,
-        .mode = GPIO_MODE_OUTPUT,
-        .pull_up_en = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type = GPIO_INTR_DISABLE,
-    };
-    gpio_config(&out_cfg);
-
-    // вхід із підтяжкою вгору
-    gpio_config_t in_cfg = {
-        .pin_bit_mask = 1ULL << BTN_IN,
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_ENABLE,     // тримати лінію на 3.3 В
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type = GPIO_INTR_DISABLE,
-    };
-    gpio_config(&in_cfg);
-}
-
-void app_main(void)
-{
-    gpio_init();
-    while (1) {
-        // кнопка замикає на GND → 0 = натиснута
-        int pressed = (gpio_get_level(BTN_IN) == 0);
-        gpio_set_level(LED_OUT, pressed);      // світло, поки тримаєш
-        vTaskDelay(pdMS_TO_TICKS(20));
-    }
-}
-```
+:::code api-quickstart/c/esp-idf-gpio-config.c
 
 `pin_bit_mask = 1ULL << LED_OUT` — це спосіб IDF назвати ногу: не число ноги, а **біт у масці**, де кожен розряд — окремий GPIO (тому `1ULL << 15` вмикає в маску саме IO15). Один виклик `gpio_config` уміє налаштувати одразу групу ніг, якщо в масці кілька бітів. `pull_up_en = GPIO_PULLUP_ENABLE` — і є та внутрішня підтяжка, завдяки якій вхід не плаває. Логіка читання **інвертована навмисне**: кнопка замикає ногу на землю, тож натиск — це 0, а спокій — 1; тому `pressed` — це `level == 0`.
 
@@ -172,21 +72,7 @@ void app_main(void)
 
 В Arduino це коротше й звичніше:
 
-```cpp
-#define LED_OUT  15
-#define BTN_IN   18
-
-void setup() {
-  pinMode(LED_OUT, OUTPUT);
-  pinMode(BTN_IN, INPUT_PULLUP);   // ← увага: див. нижче
-}
-
-void loop() {
-  bool pressed = (digitalRead(BTN_IN) == LOW);  // LOW = натиснута
-  digitalWrite(LED_OUT, pressed ? HIGH : LOW);
-  delay(20);
-}
-```
+:::code api-quickstart/cpp/arduino-pinmode.cpp
 
 І тут — **важлива пастка, специфічна саме для ESP32-C6**. У деяких версіях Arduino-ядра `pinMode(pin, INPUT_PULLUP)` на C6 **не вмикає підтяжку** — просто нічого не робить (це задокументована вада ядра, issue #11324 у репозиторії `arduino-esp32`). Наслідок підступний: код виглядає правильно, компілюється, а вхід усе одно плаває й кнопка «сама натискається» від наведень. Якщо ви на це наштовхнулися — рятує або зовнішній резистор-підтяжка на 10 кОм від ноги до 3.3 В, або звернення до IDF-рівня прямо з Arduino:
 
@@ -215,21 +101,7 @@ U ≈ (сире · 3.3) / 4095      (при атенюації 11 дБ, груб
 
 ### Arduino: три рядки
 
-```cpp
-#define POT_PIN  3     // IO3 — один із каналів ADC1
-
-void setup() {
-  Serial.begin(115200);
-  analogReadResolution(12);   // 0..4095 (це і є типове)
-}
-
-void loop() {
-  int raw = analogRead(POT_PIN);          // 0..4095
-  int mv  = analogReadMilliVolts(POT_PIN);  // одразу мілівольти, з калібруванням
-  Serial.printf("raw=%d  U=%d мВ\n", raw, mv);
-  delay(200);
-}
-```
+:::code api-quickstart/cpp/arduino-try-riadky.cpp
 
 Тут варто взяти собі за звичку `analogReadMilliVolts` замість ручного множення: він застосовує заводське калібрування чипа й повертає напругу в мілівольтах чесніше, ніж формула вище. Відома дрібниця саме на C6: у певних версіях ядра «сирий» `analogRead` може віддавати трохи зсунуті числа, тоді як `analogReadMilliVolts` лишається коректним, — ще одна причина покладатися на мілівольтний варіант.
 
@@ -237,49 +109,7 @@ void loop() {
 
 У IDF ADC новішого драйвера читають так — трохи довше, зате видно всі шестерні:
 
-```c
-#include "esp_adc/adc_oneshot.h"
-#include "esp_adc/adc_cali.h"
-#include "esp_adc/adc_cali_scheme.h"
-
-#define POT_CHANNEL  ADC_CHANNEL_3   // IO3 = канал 3 на ADC1
-
-static adc_oneshot_unit_handle_t adc1;
-static adc_cali_handle_t cali;
-
-static void adc_init(void)
-{
-    adc_oneshot_unit_init_cfg_t unit_cfg = { .unit_id = ADC_UNIT_1 };
-    ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit_cfg, &adc1));
-
-    adc_oneshot_chan_cfg_t chan_cfg = {
-        .atten = ADC_ATTEN_DB_12,        // діапазон до ~3.3 В
-        .bitwidth = ADC_BITWIDTH_12,     // 0..4095
-    };
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, POT_CHANNEL, &chan_cfg));
-
-    // калібрування «крива-припасування» (curve fitting) для C6
-    adc_cali_curve_fitting_config_t cali_cfg = {
-        .unit_id = ADC_UNIT_1,
-        .chan = POT_CHANNEL,
-        .atten = ADC_ATTEN_DB_12,
-        .bitwidth = ADC_BITWIDTH_12,
-    };
-    ESP_ERROR_CHECK(adc_cali_create_scheme_curve_fitting(&cali_cfg, &cali));
-}
-
-void app_main(void)
-{
-    adc_init();
-    while (1) {
-        int raw = 0, mv = 0;
-        adc_oneshot_read(adc1, POT_CHANNEL, &raw);      // 0..4095
-        adc_cali_raw_to_voltage(cali, raw, &mv);        // → мілівольти
-        printf("raw=%d  U=%d мВ\n", raw, mv);
-        vTaskDelay(pdMS_TO_TICKS(200));
-    }
-}
-```
+:::code api-quickstart/c/esp-idf-odnorazove.c
 
 `ADC_ATTEN_DB_12` — те саме послаблення входу, що розтягує вимірюваний діапазон приблизно до 3.3 В; поставите менше — упрешся в стелю раніше й «зверху» все читатиметься як 4095. `adc_oneshot_read` дає сире число, а `adc_cali_raw_to_voltage` перетворює його у мілівольти за заводською кривою чипа. Це і є той самий калібрований шлях, який в Arduino схований за одним `analogReadMilliVolts`.
 
@@ -297,54 +127,7 @@ void app_main(void)
 
 Свіжий драйвер IDF будує шину як «шину + пристрої на ній»: спершу створюєш шину, тоді додаєш на неї конкретний давач за адресою.
 
-```c
-#include "driver/i2c_master.h"
-
-#define I2C_SDA   6
-#define I2C_SCL   7
-#define DEV_ADDR  0x68     // приклад: адреса давача на шині
-#define REG_WHO   0x75     // реєстр «хто ти» (ідентифікатор)
-
-static i2c_master_dev_handle_t dev;
-
-static void i2c_init(void)
-{
-    i2c_master_bus_config_t bus_cfg = {
-        .i2c_port = I2C_NUM_0,
-        .sda_io_num = I2C_SDA,
-        .scl_io_num = I2C_SCL,
-        .clk_source = I2C_CLK_SRC_DEFAULT,
-        .glitch_ignore_cnt = 7,
-        .flags.enable_internal_pullup = true,   // ввімкнути слабкі внутрішні підтяжки
-    };
-    i2c_master_bus_handle_t bus;
-    ESP_ERROR_CHECK(i2c_new_master_bus(&bus_cfg, &bus));
-
-    i2c_device_config_t dev_cfg = {
-        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
-        .device_address = DEV_ADDR,
-        .scl_speed_hz = 100000,    // 100 кГц — стандартна швидкість
-    };
-    ESP_ERROR_CHECK(i2c_master_bus_add_device(bus, &dev_cfg, &dev));
-}
-
-void app_main(void)
-{
-    i2c_init();
-
-    uint8_t reg = REG_WHO;
-    uint8_t who = 0;
-    // атомарно: записати номер регістра, тоді прочитати 1 байт відповіді
-    esp_err_t err = i2c_master_transmit_receive(dev, &reg, 1, &who, 1,
-                                                pdMS_TO_TICKS(100));
-    if (err == ESP_OK)
-        printf("Давач відповів, WHO_AM_I = 0x%02X\n", who);
-    else
-        printf("Давач мовчить (err=%d): перевір адресу й підтяжки\n", err);
-
-    while (1) vTaskDelay(pdMS_TO_TICKS(1000));
-}
-```
+:::code api-quickstart/c/esp-idf-novyi-draiver-i2c.c
 
 Серце тут — `i2c_master_transmit_receive`: він робить типовий для I2C жест «спершу скажи давачу, який регістр тебе цікавить (передаємо 1 байт — номер регістра), тоді, без відпускання шини, прочитай відповідь (1 байт)». Це один неподільний обмін, і саме так читають майже всі I2C-давачі. `enable_internal_pullup = true` вмикає слабкі внутрішні підтяжки — рятунок для голого давача на столі, але для надійної шини з кількома пристроями все одно кращі зовнішні 4.7 кОм: внутрішні заслабкі. Прапорець `glitch_ignore_cnt = 7` — типове значення, що відсіює короткі завади на лінії.
 
@@ -352,33 +135,7 @@ void app_main(void)
 
 В Arduino та сама шина — через бібліотеку `Wire`, а перепризначення ніг задають прямо у `begin`:
 
-```cpp
-#include <Wire.h>
-
-#define I2C_SDA   6
-#define I2C_SCL   7
-#define DEV_ADDR  0x68
-#define REG_WHO   0x75
-
-void setup() {
-  Serial.begin(115200);
-  Wire.begin(I2C_SDA, I2C_SCL);   // ← ноги шини задаються тут
-
-  Wire.beginTransmission(DEV_ADDR);
-  Wire.write(REG_WHO);            // сказати, який регістр читаємо
-  Wire.endTransmission(false);    // false = не відпускати шину (repeated start)
-
-  Wire.requestFrom(DEV_ADDR, 1);  // попросити 1 байт
-  if (Wire.available()) {
-    uint8_t who = Wire.read();
-    Serial.printf("WHO_AM_I = 0x%02X\n", who);
-  } else {
-    Serial.println("Давач мовчить: перевір адресу й підтяжки");
-  }
-}
-
-void loop() {}
-```
+:::code api-quickstart/cpp/arduino-wire-z.cpp
 
 Головна деталь Arduino-версії — `Wire.begin(I2C_SDA, I2C_SCL)`: саме два аргументи кажуть ядру ESP32 перепризначити шину на IO6/IO7 (на «звичайному» Arduino цих аргументів немає — там ноги фіксовані, а на ESP32 їх обираєте ви). І `endTransmission(false)` замість `true` — той самий *repeated start*, тобто «не відпускай шину між записом і читанням», без якого багато давачів віддадуть не той регістр. Це прямий відповідник неподільного `transmit_receive` з IDF.
 

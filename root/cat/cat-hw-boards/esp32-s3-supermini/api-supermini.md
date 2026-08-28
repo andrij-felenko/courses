@@ -23,43 +23,8 @@
 Ось найменша перевірка, що плата жива й говорить:
 
 :::tabs
-```cpp
-void setup() {
-  Serial.begin(115200);
-  // S3 піднімає USB-CDC не миттєво; коротко дочекаємось порту,
-  // але не вічно — щоб плата працювала й без відкритого термінала.
-  unsigned long t0 = millis();
-  while (!Serial && millis() - t0 < 2000) { /* чекаємо до 2 с */ }
-
-  Serial.println();
-  Serial.println("ESP32-S3 SuperMini живий.");
-  Serial.printf("Чип: %s, ревізія %d, ядер: %d\n",
-                ESP.getChipModel(), ESP.getChipRevision(), ESP.getChipCores());
-  Serial.printf("Вільна купа: %u байт\n", ESP.getFreeHeap());
-}
-
-void loop() {
-  Serial.printf("аптайм: %lu мс\n", millis());
-  delay(1000);
-}
-```
-```micropython
-import machine
-import gc
-import time
-
-# У MicroPython USB-CDC уже піднято до старту скрипта,
-# а print() пише саме в нього — окремо чекати порту не треба.
-print()
-print("ESP32-S3 SuperMini живий.")
-freq = machine.freq()  # тактова частота, Гц
-print("Чип: ESP32-S3, частота: {} МГц".format(freq // 1_000_000))
-print("Вільна купа: {} байт".format(gc.mem_free()))
-
-while True:
-    print("аптайм: {} мс".format(time.ticks_ms()))
-    time.sleep_ms(1000)
-```
+:::code api-supermini/cpp/ideia-obraty-pravylnu.cpp
+:::code api-supermini/py/micropython/ideia-obraty-pravylnu.py
 :::
 
 Рядок `while (!Serial ...)` — тонкість саме нативного USB. На платі з окремим перехідником `Serial` «готовий» одразу; тут порт з'являється лише коли операційна система підключилася до USB-пристрою, а це кількасот мілісекунд після старту. Якщо друкувати раніше — перші рядки підуть у нікуди. Але чекати `!Serial` **вічно** теж не можна: тоді плата, запущена від батарейки без комп'ютера, зависне назавжди на цьому рядку. Тому — з тайм-аутом.
@@ -94,59 +59,8 @@ I²C влаштований так, що кожен пристрій на шин
 Тут вилазить перша особливість ESP32 проти класичної Arduino. На Arduino Uno виводи I²C прибиті до конкретних ніг (A4/A5) і `Wire.begin()` без аргументів знає, куди йти. У ESP32 матриця вводу-виводу дозволяє повісити шину майже на будь-яку пару виводів — тому їх треба **назвати явно**. На SuperMini за домовленістю беруть пару `GPIO8`/`GPIO9`, бо так налаштована більшість прикладів:
 
 :::tabs
-```cpp
-#include <Wire.h>
-
-#define SDA_PIN 8
-#define SCL_PIN 9
-
-void setup() {
-  Serial.begin(115200);
-  while (!Serial && millis() < 2000) {}
-
-  // Явно кажемо, які ноги — SDA і SCL, і на якій швидкості (100 кГц — стандарт).
-  Wire.begin(SDA_PIN, SCL_PIN, 100000);
-  Serial.println("Сканую шину I2C...");
-}
-
-void loop() {
-  int found = 0;
-  for (uint8_t addr = 0x08; addr <= 0x77; addr++) {
-    Wire.beginTransmission(addr);         // готуємо звертання до adr
-    uint8_t err = Wire.endTransmission(); // 0, якщо хтось відповів ACK
-    if (err == 0) {
-      Serial.printf("  знайдено пристрій за адресою 0x%02X\n", addr);
-      found++;
-    }
-  }
-  if (found == 0)
-    Serial.println("  нікого. Перевір підтяжки, живлення й виводи.");
-  Serial.println("---");
-  delay(3000);
-}
-```
-```micropython
-from machine import Pin, I2C
-import time
-
-SDA_PIN = 8
-SCL_PIN = 9
-
-# Явно кажемо, які ноги — SDA і SCL, і на якій швидкості (100 кГц — стандарт).
-i2c = I2C(0, sda=Pin(SDA_PIN), scl=Pin(SCL_PIN), freq=100000)
-print("Сканую шину I2C...")
-
-while True:
-    # scan() сам перебирає адреси 0x08..0x77 і повертає ті, що відповіли ACK.
-    devices = i2c.scan()
-    if devices:
-        for addr in devices:
-            print("  знайдено пристрій за адресою 0x{:02X}".format(addr))
-    else:
-        print("  нікого. Перевір підтяжки, живлення й виводи.")
-    print("---")
-    time.sleep(3)
-```
+:::code api-supermini/cpp/ideia-pidniaty-shynu-na.cpp
+:::code api-supermini/py/micropython/ideia-pidniaty-shynu-na.py
 :::
 
 Серце тут — пара `beginTransmission` / `endTransmission`. Перша лише **готує** звертання в пам'яті; друга реально виштовхує адресу в шину й повертає код: `0` означає, що на цю адресу хтось відповів ACK. Ми не шлемо жодного байта даних — сам факт ACK на адресу вже каже, що пристрій там сидить. Це найдешевша й найнадійніша перевірка «шина зібрана правильно».
@@ -174,85 +88,8 @@ while True:
 У BMP280 за регістром `0xD0` лежить незмінний **ідентифікатор чипа — значення `0x58`**. (Факт із даташита Bosch BMP280, ревізія документа 1.14; усталено.) Прочитавши цей байт вручну, ви за одну дію дізнаєтесь одразу три речі: давач відгукується, він за тією адресою, що ви думаєте, і це справді BMP280, а не схожий на нього BME280 (у того ідентифікатор `0x60` — і він додатково міряє вологість).
 
 :::tabs
-```cpp
-#include <Wire.h>
-
-#define SDA_PIN 8
-#define SCL_PIN 9
-
-// Типова адреса модуля GY-BMP280: SDO притягнутий до землі → 0x76.
-// Якщо SDO на живленні (або в «рідному» виконанні Bosch) → 0x77.
-#define BMP_ADDR 0x76
-#define REG_ID   0xD0     // регістр ідентифікатора чипа
-#define BMP280_ID 0x58    // очікуване значення для BMP280
-
-// Прочитати один байт із регістра reg пристрою addr.
-bool readReg(uint8_t addr, uint8_t reg, uint8_t &out) {
-  Wire.beginTransmission(addr);
-  Wire.write(reg);
-  if (Wire.endTransmission(false) != 0)   // false: повторний старт, без стопу
-    return false;                          // давач не відповів на адресу
-  if (Wire.requestFrom(addr, (uint8_t)1) != 1)
-    return false;                          // давач не віддав байт
-  out = Wire.read();
-  return true;
-}
-
-void setup() {
-  Serial.begin(115200);
-  while (!Serial && millis() < 2000) {}
-  Wire.begin(SDA_PIN, SCL_PIN, 100000);
-
-  uint8_t id = 0;
-  if (!readReg(BMP_ADDR, REG_ID, id)) {
-    Serial.printf("За адресою 0x%02X ніхто не відповідає. "
-                  "Спробуй 0x77 і перевір дроти.\n", BMP_ADDR);
-    return;
-  }
-  Serial.printf("Регістр 0x%02X = 0x%02X — ", REG_ID, id);
-  if (id == BMP280_ID)      Serial.println("це BMP280, як і чекали.");
-  else if (id == 0x60)      Serial.println("це BME280 (з вологістю), не BMP280!");
-  else                      Serial.println("невідомий чип за цією адресою.");
-}
-
-void loop() {}
-```
-```micropython
-from machine import Pin, I2C
-
-SDA_PIN = 8
-SCL_PIN = 9
-
-# Типова адреса модуля GY-BMP280: SDO притягнутий до землі → 0x76.
-# Якщо SDO на живленні (або в «рідному» виконанні Bosch) → 0x77.
-BMP_ADDR = 0x76
-REG_ID = 0xD0      # регістр ідентифікатора чипа
-BMP280_ID = 0x58   # очікуване значення для BMP280
-
-i2c = I2C(0, sda=Pin(SDA_PIN), scl=Pin(SCL_PIN), freq=100000)
-
-# Прочитати один байт із регістра reg пристрою addr; None, якщо не відповів.
-def read_reg(addr, reg):
-    try:
-        # readfrom_mem сам робить запис регістра + повторний старт + читання.
-        data = i2c.readfrom_mem(addr, reg, 1)
-    except OSError:
-        return None       # давач не відповів на адресу
-    return data[0]
-
-chip_id = read_reg(BMP_ADDR, REG_ID)
-if chip_id is None:
-    print("За адресою 0x{:02X} ніхто не відповідає. "
-          "Спробуй 0x77 і перевір дроти.".format(BMP_ADDR))
-else:
-    print("Регістр 0x{:02X} = 0x{:02X} — ".format(REG_ID, chip_id), end="")
-    if chip_id == BMP280_ID:
-        print("це BMP280, як і чекали.")
-    elif chip_id == 0x60:
-        print("це BME280 (з вологістю), не BMP280!")
-    else:
-        print("невідомий чип за цією адресою.")
-```
+:::code api-supermini/cpp/ideia-pidkliuchyty.cpp
+:::code api-supermini/py/micropython/ideia-pidkliuchyty.py
 :::
 
 Тут `endTransmission(false)` — тонкість протоколу. Аргумент `false` означає «не відпускай шину, зроби **повторний старт**»: спершу ми пишемо номер регістра, який хочемо, а тоді, не відпускаючи шину, читаємо з нього. Якби ми відпустили шину (`true`) між записом адреси регістра й читанням, деякі давачі «забули» б, який регістр запитано. Це стандартний спосіб «прочитати регістр» по I²C.
@@ -260,86 +97,8 @@ else:
 Коли ідентифікатор підтверджено, підключаємо повноцінну бібліотеку й читаємо фізичні величини:
 
 :::tabs
-```cpp
-#include <Wire.h>
-#include <Adafruit_BMP280.h>
-
-#define SDA_PIN 8
-#define SCL_PIN 9
-#define BMP_ADDR 0x76
-
-Adafruit_BMP280 bmp;   // працює через глобальний Wire
-
-void setup() {
-  Serial.begin(115200);
-  while (!Serial && millis() < 2000) {}
-  Wire.begin(SDA_PIN, SCL_PIN, 100000);
-
-  // begin сам прочитає ідентифікатор і поверне false, якщо чипа немає
-  // або адреса не та — тому перевіряти результат обов'язково.
-  if (!bmp.begin(BMP_ADDR)) {
-    Serial.println("BMP280 не знайдено за 0x76. Пробую 0x77...");
-    if (!bmp.begin(0x77)) {
-      Serial.println("Не знайдено ні за 0x76, ні за 0x77. Перевір дроти.");
-      while (true) delay(1000);   // далі йти нема сенсу
-    }
-  }
-
-  // Розумні налаштування для метеозадачі: помірне усереднення, рідкі виміри.
-  bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,
-                  Adafruit_BMP280::SAMPLING_X2,    // температура ×2
-                  Adafruit_BMP280::SAMPLING_X16,   // тиск ×16 (точніше)
-                  Adafruit_BMP280::FILTER_X16,
-                  Adafruit_BMP280::STANDBY_MS_500);
-  Serial.println("BMP280 готовий.");
-}
-
-void loop() {
-  float tempC = bmp.readTemperature();     // °C
-  float presPa = bmp.readPressure();       // Па
-  float presHpa = presPa / 100.0f;         // гПа (мілібари) — звичніші одиниці
-
-  Serial.printf("t = %.2f °C   p = %.1f гПа\n", tempC, presHpa);
-  delay(1000);
-}
-```
-```micropython
-from machine import Pin, I2C
-from bmp280 import BMP280   # micropython-bmp280
-import time
-
-SDA_PIN = 8
-SCL_PIN = 9
-BMP_ADDR = 0x76
-
-i2c = I2C(0, sda=Pin(SDA_PIN), scl=Pin(SCL_PIN), freq=100000)
-
-# Конструктор сам прочитає ідентифікатор і кине виняток, якщо чипа немає
-# або адреса не та — тому перевіряти результат обов'язково.
-try:
-    bmp = BMP280(i2c, addr=BMP_ADDR)
-except OSError:
-    print("BMP280 не знайдено за 0x76. Пробую 0x77...")
-    try:
-        bmp = BMP280(i2c, addr=0x77)
-    except OSError:
-        print("Не знайдено ні за 0x76, ні за 0x77. Перевір дроти.")
-        while True:
-            time.sleep(1)   # далі йти нема сенсу
-
-# Розумні налаштування для метеозадачі: помірне усереднення, рідкі виміри.
-bmp.oversample(BMP280.OVERSAMPLE_16)   # тиск ×16 (точніше)
-bmp.use_case(BMP280.BMP280_CASE_WEATHER)
-print("BMP280 готовий.")
-
-while True:
-    temp_c = bmp.temperature        # °C
-    pres_pa = bmp.pressure          # Па
-    pres_hpa = pres_pa / 100.0      # гПа (мілібари) — звичніші одиниці
-
-    print("t = {:.2f} °C   p = {:.1f} гПа".format(temp_c, pres_hpa))
-    time.sleep(1)
-```
+:::code api-supermini/cpp/ideia-pidkliuchyty-2.cpp
+:::code api-supermini/py/micropython/ideia-pidkliuchyty-2.py
 :::
 
 Числа виходять справжні: температура з точністю до сотих градуса, тиск у гектопаскалях (гПа) — тих самих одиницях, у яких дають атмосферний тиск у прогнозі погоди. Нормальний тиск на рівні моря — близько 1013 гПа; у горах і на верхніх поверхах він помітно нижчий, і саме на цій різниці BMP280 можна вживати як висотомір.
@@ -361,45 +120,8 @@ while True:
 WS2812 — це [адресний світлодіод](root:hw-motion/addressable-leds): усередині корпусу діода сидить крихітний контролер, що чекає на одному проводі потік бітів у власному часовому форматі (одиниця й нуль кодуються імпульсами різної довжини, з точністю до наносекунд). Формувати ці імпульси руками важко й крихко. На щастя, Arduino-ядро ESP32 має готову функцію, яка робить це апаратно через блок RMT:
 
 :::tabs
-```cpp
-#define RGB_PIN 48   // вбудований WS2812 на SuperMini
-
-void setup() {
-  neopixelWrite(RGB_PIN, 0, 0, 0);   // згасити на старті
-}
-
-void loop() {
-  neopixelWrite(RGB_PIN, 30, 0, 0);  // червоний
-  delay(400);
-  neopixelWrite(RGB_PIN, 0, 30, 0);  // зелений
-  delay(400);
-  neopixelWrite(RGB_PIN, 0, 0, 30);  // синій
-  delay(400);
-}
-```
-```micropython
-from machine import Pin
-from neopixel import NeoPixel
-import time
-
-RGB_PIN = 48   # вбудований WS2812 на SuperMini
-
-np = NeoPixel(Pin(RGB_PIN), 1)   # один діод у ланцюжку
-
-np[0] = (0, 0, 0)                # згасити на старті
-np.write()
-
-while True:
-    np[0] = (30, 0, 0)           # червоний
-    np.write()
-    time.sleep_ms(400)
-    np[0] = (0, 30, 0)           # зелений
-    np.write()
-    time.sleep_ms(400)
-    np[0] = (0, 0, 30)           # синій
-    np.write()
-    time.sleep_ms(400)
-```
+:::code api-supermini/cpp/ideia-odyn-vyklyk-zamist.cpp
+:::code api-supermini/py/micropython/ideia-odyn-vyklyk-zamist.py
 :::
 
 Підпис функції — `neopixelWrite(pin, R, G, B)`, де кожна складова кольору — байт `0..255`. Один виклик формує весь пакет імпульсів і засвічує діод. Числа беруть **малі** (30–40, не 255) з двох причин: діод дуже яскравий і на повній силі різить очі, а ще на повній яскравості він відчутно гріється й тягне більше струму — зайве навантаження на регулятор.
@@ -415,22 +137,7 @@ void statusBusy()  { neopixelWrite(RGB_PIN, 30, 20, 0); } // бурштин — 
 void statusError() { neopixelWrite(RGB_PIN, 40, 0, 0); }  // червоний — помилка
 void statusOff()   { neopixelWrite(RGB_PIN, 0, 0, 0); }   // згас
 ```
-```micropython
-from machine import Pin
-from neopixel import NeoPixel
-
-RGB_PIN = 48
-np = NeoPixel(Pin(RGB_PIN), 1)
-
-def _show(r, g, b):
-    np[0] = (r, g, b)
-    np.write()
-
-def status_ok():    _show(0, 30, 0)    # зелений — усе добре
-def status_busy():  _show(30, 20, 0)   # бурштин — працюю
-def status_error(): _show(40, 0, 0)    # червоний — помилка
-def status_off():   _show(0, 0, 0)     # згас
-```
+:::code api-supermini/py/micropython/ideia-odyn-vyklyk-zamist-2.py
 :::
 
 ### Складність і пастки світлодіода
@@ -456,60 +163,8 @@ def status_off():   _show(0, 0, 0)     # згас
 Друга тонкість, суто ESP32-S3: **типова роздільність АЦП у ядрі — 13 біт**, тобто `analogRead` повертає число `0..8191`, а не звичні `0..4095`, як на класичному ESP32 і Arduino. Якщо перерахувати сире значення в напругу за старою константою 4095 — отримаєте вдвічі занижений результат. Найнадійніше взагалі не рахувати вручну, а взяти `analogReadMilliVolts()`: ця функція повертає напругу одразу в мілівольтах, користуючись **калібрувальними даними, зашитими у чип на заводі** (eFuse). Це найточніший шлях без ручної арифметики.
 
 :::tabs
-```cpp
-#include <WiFi.h>
-
-// ADC1 на S3 — це GPIO1..GPIO10; беремо один із них.
-#define ADC_PIN 3     // GPIO3 = ADC1_CH2 — придатний під активне радіо
-
-void setup() {
-  Serial.begin(115200);
-  while (!Serial && millis() < 2000) {}
-
-  // Розширюємо діапазон входу до повних ~3.3 В (найбільше згасання сигналу).
-  analogSetAttenuation(ADC_11db);
-
-  // Вмикаємо Wi-Fi, щоб показати: на ADC1 виміри лишаються чистими.
-  WiFi.mode(WIFI_STA);
-  WiFi.begin("SSID", "PASSWORD");   // підстав свою мережу
-  Serial.println("Wi-Fi піднято; читаю ADC1...");
-}
-
-void loop() {
-  int raw = analogRead(ADC_PIN);              // 0..8191 (13 біт на S3!)
-  uint32_t mv = analogReadMilliVolts(ADC_PIN); // одразу мілівольти, з калібруванням
-
-  Serial.printf("сире = %4d   напруга = %u мВ (%.3f В)\n",
-                raw, mv, mv / 1000.0f);
-  delay(500);
-}
-```
-```micropython
-from machine import Pin, ADC
-import network
-import time
-
-# ADC1 на S3 — це GPIO1..GPIO10; беремо один із них.
-ADC_PIN = 3     # GPIO3 = ADC1_CH2 — придатний під активне радіо
-
-adc = ADC(Pin(ADC_PIN))
-# Розширюємо діапазон входу до повних ~3.3 В (найбільше згасання сигналу).
-adc.atten(ADC.ATTN_11DB)
-
-# Вмикаємо Wi-Fi, щоб показати: на ADC1 виміри лишаються чистими.
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect("SSID", "PASSWORD")   # підстав свою мережу
-print("Wi-Fi піднято; читаю ADC1...")
-
-while True:
-    raw = adc.read()                # 0..8191 (13 біт на S3!)
-    mv = adc.read_uv() // 1000       # мікровольти → мілівольти, з калібруванням
-
-    print("сире = {:4d}   напруга = {} мВ ({:.3f} В)".format(
-        raw, mv, mv / 1000.0))
-    time.sleep_ms(500)
-```
+:::code api-supermini/cpp/ideia-tilky-adc1-i-ne.cpp
+:::code api-supermini/py/micropython/ideia-tilky-adc1-i-ne.py
 :::
 
 Тут `analogSetAttenuation(ADC_11db)` розширює вхідний діапазон АЦП майже до повних 3.3 В (без згасання перетворювач бачить лише вужчу смугу близько вольта й «упирається в стелю» на вищих напругах). А `analogReadMilliVolts` уже враховує і згасання, і заводське калібрування — тому дає мілівольти, яким можна вірити, без множення на опорну напругу руками.

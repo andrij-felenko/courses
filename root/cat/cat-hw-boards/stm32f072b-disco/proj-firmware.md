@@ -31,66 +31,13 @@ arm-none-eabi-gcc --version
 
 Тепер найважливіший файл проєкту після самого коду — **CMake-файл тулчейна**. Він каже CMake: «не збирай під цей ПК, збирай під Cortex-M0». Без нього CMake за звичкою покличе системний компілятор — і збірка або впаде, або дасть непридатний код. Ось робочий `arm-none-eabi.cmake`:
 
-```cmake
-# arm-none-eabi.cmake — націлює CMake на bare-metal Cortex-M0.
-set(CMAKE_SYSTEM_NAME Generic)          # «Generic» = немає ОС на цільовій системі
-set(CMAKE_SYSTEM_PROCESSOR arm)
-
-set(TOOLCHAIN arm-none-eabi)
-set(CMAKE_C_COMPILER   ${TOOLCHAIN}-gcc)
-set(CMAKE_ASM_COMPILER ${TOOLCHAIN}-gcc)
-set(CMAKE_CXX_COMPILER ${TOOLCHAIN}-g++)
-set(CMAKE_OBJCOPY      ${TOOLCHAIN}-objcopy CACHE INTERNAL "")
-set(CMAKE_SIZE         ${TOOLCHAIN}-size    CACHE INTERNAL "")
-
-# КЛЮЧОВЕ: прапорці ядра. Cortex-M0 = архітектура ARMv6-M, набір інструкцій Thumb.
-set(CPU_FLAGS "-mcpu=cortex-m0 -mthumb")
-
-# Не намагайся лінкувати тестову програмку при перевірці компілятора:
-# на bare-metal їй нема куди «запуститися», тож CMake інакше вирішить, що компілятор зламаний.
-set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
-```
+:::code proj-firmware/cmake/arm-none-eabi.cmake
 
 Рядок `-mcpu=cortex-m0` — не косметика: Cortex-M0 розуміє лише набір інструкцій **Thumb** (архітектура ARMv6-M), без апаратного ділення й без рухомої коми. Скажеш компілятору не ту архітектуру — дістанеш інструкції, яких чип фізично не виконує, і він упаде в HardFault на першій же з них.
 
 Тепер сам `CMakeLists.txt`. Він збирає код у `.elf`, а потім робить із нього «сирий» образ `.bin` для заливання й показує розмір — щоб одразу бачити, чи вліз у 128 КБ Flash:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(disco_fw C ASM)
-
-set(CMAKE_C_STANDARD 11)
-
-add_executable(disco_fw.elf
-    startup_stm32f072.s        # старт-код (таблиця векторів + скидання)
-    main.c)
-
-# Скрипт лінкера розкладає код у Flash, а змінні — в SRAM цього чипа.
-# Файл stm32f072rb.ld описує: Flash 128К @ 0x08000000, RAM 16К @ 0x20000000.
-target_link_options(disco_fw.elf PRIVATE
-    -T${CMAKE_SOURCE_DIR}/stm32f072rb.ld
-    -mcpu=cortex-m0 -mthumb
-    -nostartfiles                     # свій startup, стандартний не потрібен
-    -Wl,--gc-sections                 # викинути невживаний код — критично при 128 КБ
-    -Wl,-Map=disco_fw.map)            # карта пам'яті — видно, що скільки з'їло
-
-target_compile_options(disco_fw.elf PRIVATE
-    -mcpu=cortex-m0 -mthumb
-    -Og -g3                           # -Og: оптимізація, дружня до дебагу
-    -ffunction-sections -fdata-sections
-    -Wall -Wextra)
-
-# Після збірки: зробити .bin і показати, скільки Flash/RAM зайнято.
-add_custom_command(TARGET disco_fw.elf POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -O binary disco_fw.elf disco_fw.bin
-    COMMAND ${CMAKE_SIZE} disco_fw.elf)
-
-# Зручна ціль `make flash`: залити прошивку через ST-LINK за OpenOCD.
-add_custom_target(flash
-    COMMAND openocd -f interface/stlink.cfg -f target/stm32f0x.cfg
-            -c "program disco_fw.elf verify reset exit"
-    DEPENDS disco_fw.elf)
-```
+:::code proj-firmware/cmake/tulchein-i-cmake-iak-kod.cmake
 
 Конфігурується проєкт так, щоб CMake підхопив файл тулчейна:
 
@@ -129,31 +76,7 @@ CMake-проєкт Qt Creator відкриває напряму: **File → Open
 
 Ось повний, робочий регістровий старт (заголовок `stm32f0xx.h` з CMSIS ST дає всі імена регістрів і бітів):
 
-```c
-#include "stm32f0xx.h"   // CMSIS: визначення RCC, GPIOC, SPI2, USART1, FLASH...
-
-// Підняти системний такт з 8 МГц HSI до 48 МГц через PLL (×12 від HSI/2).
-static void clock_48mhz(void) {
-    // 1. СПЕРШУ — дозволити Flash чекати 1 такт. БЕЗ ЦЬОГО 48 МГц вішають чип.
-    FLASH->ACR |= FLASH_ACR_LATENCY;            // LATENCY = 1 wait-state
-    FLASH->ACR |= FLASH_ACR_PRFTBE;             // увімкнути буфер попередньої вибірки
-
-    // 2. Налаштувати PLL: джерело = HSI/2 (це нуль у PLLSRC), множник = ×12.
-    //    Код множника: PLLMUL = 0b1010 (десяткове 10) означає саме ×12.
-    RCC->CFGR &= ~RCC_CFGR_PLLMUL;              // очистити старі біти множника
-    RCC->CFGR |= RCC_CFGR_PLLMUL12;             // ×12
-
-    // 3. Увімкнути PLL і дочекатися, поки він «захопиться» (стане стабільним).
-    RCC->CR |= RCC_CR_PLLON;
-    while (!(RCC->CR & RCC_CR_PLLRDY)) { }      // чекаємо прапорець готовності
-
-    // 4. Перемкнути системний такт із HSI на PLL і дочекатися підтвердження.
-    RCC->CFGR &= ~RCC_CFGR_SW;
-    RCC->CFGR |= RCC_CFGR_SW_PLL;
-    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL) { }
-    // Тепер ядро йде на 48 МГц.
-}
-```
+:::code proj-firmware/c/takt-48-mhts-startup.c
 
 Два цикли `while` — не формальність. PLL фізично потребує мікросекунд, щоб стабілізувати частоту, а перемикання джерела такту — часу на синхронізацію. Поки апаратура не підняла прапорець готовності, рушати далі означає перемкнутися на ще нестабільне джерело й повісити чип. Ця «дисципліна очікування прапорців» — основа роботи з **будь-якою** периферією STM32, не лише з тактом.
 
@@ -163,55 +86,13 @@ static void clock_48mhz(void) {
 
 **Спершу на голих регістрах** — щоб було видно кожен крок. Три речі: увімкнути тактування порту GPIOC (без цього порт мертвий, скільки не пиши в його регістри), налаштувати PC6 як вихід, і в циклі перемикати біт:
 
-```c
-static void delay_crude(volatile uint32_t n) {   // груба затримка циклом
-    while (n--) { __asm volatile("nop"); }
-}
-
-int main(void) {
-    clock_48mhz();
-
-    // 1. Тактування порту GPIOC. ЦЕ ЗАБУВАЮТЬ НАЙЧАСТІШЕ: без такту порт німий.
-    RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
-
-    // 2. PC6 як цифровий вихід. Кожен вивід у F0 має 2 біти режиму в MODER:
-    //    01 = вихід. Для виводу 6 це біти [13:12].
-    GPIOC->MODER &= ~(3u << (6 * 2));            // очистити обидва біти виводу 6
-    GPIOC->MODER |=  (1u << (6 * 2));            // 01 = загальний вихід
-
-    // 3. Блимати: перемикати біт 6 у регістрі виходу ODR.
-    for (;;) {
-        GPIOC->ODR ^= (1u << 6);                 // інвертувати стан LD3
-        delay_crude(400000);
-    }
-}
-```
+:::code proj-firmware/c/pershyi-svitlodiod.c
 
 Вираз `1u << (6 * 2)` варто читати вголос: «беремо одиницю, зсуваємо на дванадцять позицій, бо кожен із шести молодших виводів займає по два біти режиму». Це не магія — це прямий доступ до апаратури: `MODER` каже, чим є вивід (вхід/вихід/альтернативна функція/аналог), `ODR` (output data register) — який на ньому логічний рівень. Регістрова робота з виводами у всіх деталях — у [регістрах GPIO STM32](root:sf-devices/gpio-registers).
 
 **Тепер те саме через HAL** — бібліотеку абстракції ST. Той самий світлодіод, але кроки сховані за іменами:
 
-```c
-#include "stm32f0xx_hal.h"
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();                        // згенерований аналог clock_48mhz()
-
-    __HAL_RCC_GPIOC_CLK_ENABLE();                // те саме тактування GPIOC — лише іменем
-
-    GPIO_InitTypeDef led = {0};
-    led.Pin   = GPIO_PIN_6;                       // PC6 = LD3
-    led.Mode  = GPIO_MODE_OUTPUT_PP;             // push-pull вихід
-    led.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(GPIOC, &led);
-
-    for (;;) {
-        HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_6);   // перемкнути LD3
-        HAL_Delay(500);                          // 500 мс, рахує системний таймер
-    }
-}
-```
+:::code proj-firmware/c/pershyi-svitlodiod-2.c
 
 Зверни увагу: `__HAL_RCC_GPIOC_CLK_ENABLE()` — це **той самий** рядок `RCC->AHBENR |= RCC_AHBENR_GPIOCEN`, лише під зрозумілим іменем. HAL нічого не робить магічно — він робить те саме, просто ховає номери бітів. Тому знаючи регістровий варіант, ти читаєш HAL-код як переклад, а не як заклинання; а коли HAL підводить (а він підводить на нестандартних сценаріях), спускаєшся на рівень регістрів без страху.
 
@@ -230,105 +111,13 @@ int main(void) {
 
 Тепер код. Спершу — ініціалізація SPI2 і CS на регістрах (щоб було видно, що там нема нічого страшного), далі — функції обміну, тоді читання давача:
 
-```c
-#include "stm32f0xx.h"
-#include <stdint.h>
-
-// ── Адреси регістрів L3GD20 (з даташита) ──
-#define L3GD20_WHO_AM_I    0x0F   // має повернути 0xD4 — «я справді L3GD20»
-#define L3GD20_CTRL_REG1   0x20   // живлення + вмикання осей
-#define L3GD20_CTRL_REG4   0x23   // діапазон (±250/500/2000 °/с)
-#define L3GD20_OUT_X_L     0x28   // перший із шести байтів даних XYZ
-
-#define SPI_READ   0x80           // біт 7: 1 = читання
-#define SPI_AUTOINC 0x40          // біт 6: 1 = адреса росте сама
-
-// ── CS на PC0: ручний вибір давача ──
-static inline void cs_low(void)  { GPIOC->BSRR = (1u << (0 + 16)); } // скинути PC0 в 0
-static inline void cs_high(void) { GPIOC->BSRR = (1u <<  0);       } // підняти PC0 в 1
-
-// Обмін одним байтом: віддати tx, одночасно прийняти те, що виставив давач.
-static uint8_t spi_xfer(uint8_t tx) {
-    while (!(SPI2->SR & SPI_SR_TXE)) { }        // чекаємо, поки буфер передачі вільний
-    *(volatile uint8_t *)&SPI2->DR = tx;        // 8-бітний запис у DR — важливо саме байтом
-    while (!(SPI2->SR & SPI_SR_RXNE)) { }       // чекаємо, поки прийшов байт-відповідь
-    return *(volatile uint8_t *)&SPI2->DR;
-}
-
-static void l3gd20_init(void) {
-    // Тактування: порт B (лінії SPI), порт C (CS), сам блок SPI2.
-    RCC->AHBENR  |= RCC_AHBENR_GPIOBEN | RCC_AHBENR_GPIOCEN;
-    RCC->APB1ENR |= RCC_APB1ENR_SPI2EN;         // SPI2 сидить на шині APB1
-
-    // PB13/14/15 → альтернативна функція AF0 (це і є SPI2 на цих виводах).
-    for (int p = 13; p <= 15; p++) {
-        GPIOB->MODER &= ~(3u << (p * 2));
-        GPIOB->MODER |=  (2u << (p * 2));       // 10 = альтернативна функція
-    }
-    // AF0 для виводів 13..15 у старшому регістрі AFR[1] — нулі, тож явно чистимо.
-    GPIOB->AFR[1] &= ~((0xFu << ((13 - 8) * 4)) |
-                       (0xFu << ((14 - 8) * 4)) |
-                       (0xFu << ((15 - 8) * 4)));
-
-    // PC0 → звичайний вихід (CS), і одразу в 1 (давач не вибрано).
-    GPIOC->MODER &= ~(3u << (0 * 2));
-    GPIOC->MODER |=  (1u << (0 * 2));
-    cs_high();
-
-    // Налаштувати SPI2 як майстер, режим 3 (CPOL=1, CPHA=1 — так вимагає даташит L3GD20).
-    // Дільник такту: 48 МГц / 32 = 1.5 МГц — з запасом у межах 10 МГц, що тримає L3GD20.
-    SPI2->CR1 = SPI_CR1_MSTR                     // майстер
-              | SPI_CR1_CPOL | SPI_CR1_CPHA      // режим 3
-              | (3u << SPI_CR1_BR_Pos)           // BR = 011 → поділ на 32
-              | SPI_CR1_SSM | SPI_CR1_SSI;       // CS керуємо софтом, не апаратним NSS
-    SPI2->CR2 = (7u << SPI_CR2_DS_Pos)           // розмір кадру = 8 біт
-              | SPI_CR2_FRXTH;                   // поріг RXNE спрацьовує вже на 1 байті
-    SPI2->CR1 |= SPI_CR1_SPE;                    // увімкнути SPI
-}
-
-// Прочитати один регістр давача.
-static uint8_t l3gd20_read(uint8_t reg) {
-    cs_low();
-    spi_xfer(reg | SPI_READ);                    // командний байт: читаю цей регістр
-    uint8_t v = spi_xfer(0xFF);                  // «холостий» байт — щоб дати такт для відповіді
-    cs_high();
-    return v;
-}
-
-// Прочитати одразу три осі (6 байтів) з авто-інкрементом адреси.
-static void l3gd20_read_xyz(int16_t *x, int16_t *y, int16_t *z) {
-    uint8_t b[6];
-    cs_low();
-    spi_xfer(L3GD20_OUT_X_L | SPI_READ | SPI_AUTOINC);   // 0x28 | 0x80 | 0x40 = 0xE8
-    for (int i = 0; i < 6; i++) b[i] = spi_xfer(0xFF);
-    cs_high();
-    // Кожна вісь — 16 біт, молодший байт першим (little-endian).
-    *x = (int16_t)((b[1] << 8) | b[0]);
-    *y = (int16_t)((b[3] << 8) | b[2]);
-    *z = (int16_t)((b[5] << 8) | b[4]);
-}
-```
+:::code proj-firmware/c/hiroskop-l3gd20-po-spi.c
 
 Зверни увагу на **три тонкощі, кожна з яких — реальна причина, чому чужий код не працює**. Перша: запис у `SPI2->DR` роблено **саме байтом** (`*(volatile uint8_t *)`), а не 16-бітним словом; на F0 SPI віддає дані порціями за розміром доступу, і 16-бітний запис пошле два байти замість одного. Друга: `SPI_CR2_FRXTH` опускає поріг «прийнято» до одного байта — без нього прапорець RXNE не підніметься після одного байта, і `spi_xfer` зависне в очікуванні назавжди. Третя: CS перемикаємо через `BSRR` (bit set/reset register) — атомарний спосіб виставити/скинути один вивід без читання-модифікації-запису всього порту.
 
 Тепер запуск давача й читання в реальних одиницях. L3GD20 після скидання **спить** — його треба розбудити, ввімкнувши всі осі, а перед читанням варто впевнитися, що це справді L3GD20:
 
-```c
-static void l3gd20_start(void) {
-    // Перевірка «хто ти»: WHO_AM_I має повернути 0xD4. Інакше — не той чип / не та шина.
-    if (l3gd20_read(L3GD20_WHO_AM_I) != 0xD4) {
-        // сюди потрапляєш, якщо CS/лінії/режим SPI неправильні — став тут точку зупину
-        for (;;) { GPIOC->ODR ^= (1u << 9); }   // швидко блимай червоним LD5 як сигнал біди
-    }
-    // CTRL_REG1 = 0x0F: нормальне живлення (не sleep) + увімкнути осі X, Y, Z.
-    // Це запис: старший біт командного байта = 0, тож просто адреса регістра.
-    cs_low();
-    spi_xfer(L3GD20_CTRL_REG1);
-    spi_xfer(0x0F);
-    cs_high();
-    // CTRL_REG4 залишаємо за замовчуванням: діапазон ±250 °/с.
-}
-```
+:::code proj-firmware/c/hiroskop-l3gd20-po-spi-2.c
 
 Число **0x0F** у CTRL_REG1 читається так: молодші чотири біти — це біт «увімкнено» (PD) плюс по біту на кожну вісь; `0b00001111` = живлення увімкнено, всі три осі активні. Пропустиш цей запис — давач спить, і читання дає нулі чи сміття.
 
@@ -377,42 +166,7 @@ BRR = такт / швидкість = 48 000 000 / 115 200 = 416.67 → окру
 
 Код ініціалізації й функції виводу:
 
-```c
-#include "stm32f0xx.h"
-
-static void uart1_init(void) {
-    RCC->AHBENR  |= RCC_AHBENR_GPIOAEN;         // порт A: там PA9/PA10
-    RCC->APB2ENR |= RCC_APB2ENR_USART1EN;       // USART1 сидить на APB2
-
-    // PA9, PA10 → альтернативна функція AF1 (це USART1 на цих виводах).
-    GPIOA->MODER &= ~((3u << (9 * 2)) | (3u << (10 * 2)));
-    GPIOA->MODER |=  ((2u << (9 * 2)) | (2u << (10 * 2)));   // 10 = альт. функція
-    GPIOA->AFR[1] &= ~((0xFu << ((9 - 8) * 4)) | (0xFu << ((10 - 8) * 4)));
-    GPIOA->AFR[1] |=  ((1u   << ((9 - 8) * 4)) | (1u   << ((10 - 8) * 4)));  // AF1
-
-    USART1->BRR = 417;                          // 48 МГц / 115200 ≈ 417
-    USART1->CR1 = USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;  // TX, RX, увімкнути
-}
-
-static void uart_putc(char c) {
-    while (!(USART1->ISR & USART_ISR_TXE)) { }  // чекаємо, поки регістр передачі вільний
-    USART1->TDR = (uint8_t)c;
-}
-
-static void uart_print(const char *s) {
-    while (*s) uart_putc(*s++);
-}
-
-// Вивести ціле число зі знаком у десятковому вигляді (без printf — щоб не тягти важку бібліотеку).
-static void uart_print_int(int v) {
-    char buf[12];
-    int i = 0, neg = (v < 0);
-    unsigned u = neg ? (unsigned)(-v) : (unsigned)v;
-    do { buf[i++] = (char)('0' + u % 10); u /= 10; } while (u);
-    if (neg) buf[i++] = '-';
-    while (i--) uart_putc(buf[i]);
-}
-```
+:::code proj-firmware/c/seriinyi-vyvid-usart1-i.c
 
 `uart_print_int` написано руками зумисне: повний `printf` на цьому чипі тягне десятки кілобайтів бібліотеки заради форматування, а нам треба лише вивести число. На великому ПК про це не думаєш; тут кожен кілобайт із 128 на рахунку.
 
@@ -420,35 +174,7 @@ static void uart_print_int(int v) {
 
 Складемо повний `main`, який об'єднує всі ланки — такт, світлодіод-серцебиття, гіроскоп, вивід:
 
-```c
-int main(void) {
-    clock_48mhz();
-    // LD3 (PC6) як «серцебиття» — щоб очима бачити, що прошивка жива.
-    RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
-    GPIOC->MODER &= ~(3u << (6 * 2));
-    GPIOC->MODER |=  (1u << (6 * 2));
-
-    uart1_init();
-    l3gd20_init();
-    l3gd20_start();
-
-    uart_print("L3GD20 ok, WHO_AM_I=0xD4\r\n");
-
-    for (;;) {
-        int16_t rx, ry, rz;
-        l3gd20_read_xyz(&rx, &ry, &rz);
-
-        // Вивести три осі в °/с ×100 (щоб не морочитися з float у консолі).
-        uart_print("wx="); uart_print_int(rx * 875 / 100000);
-        uart_print(" wy="); uart_print_int(ry * 875 / 100000);
-        uart_print(" wz="); uart_print_int(rz * 875 / 100000);
-        uart_print(" dps\r\n");
-
-        GPIOC->ODR ^= (1u << 6);                // моргнути LD3
-        for (volatile int d = 0; d < 800000; d++) { }  // ~пів секунди
-    }
-}
-```
+:::code proj-firmware/c/use-razom-hiroskop-shcho.c
 
 Заливаєш це (`cmake --build build`, тоді `make flash` чи кнопка в Qt Creator), відкриваєш на боці CP2102 будь-який термінал на 115200 бод — і бачиш, як числа `wx/wy/wz` оживають, коли крутиш плату в руках. Нахилив праворуч — одна вісь стрибнула; вертиш навколо іншої осі — інша. Гіроскоп задихав у консоль.
 

@@ -104,41 +104,8 @@ ESP32-S3 має багато ліній вводу-виводу, але на м�
 Найшвидший спосіб переконатися, що плата жива, — змусити її вбудований RGB-діод змінити колір. Він на `GPIO48` і слухає протокол WS2812 (точні імпульси), тож звичайним `digitalWrite` його не запалиш — потрібен один виклик із бібліотеки адресних діодів, яка вже є в ядрі ESP32 для Arduino:
 
 :::tabs
-```cpp
-#define RGB_PIN 48   // вбудований WS2812 на SuperMini
-
-void setup() {
-  // зелений на повну; аргументи — GPIO, R, G, B (0..255)
-  neopixelWrite(RGB_PIN, 0, 40, 0);   // не 255 — діод яскравий, 40 досить
-}
-
-void loop() {
-  neopixelWrite(RGB_PIN, 40, 0, 0);   // червоний
-  delay(500);
-  neopixelWrite(RGB_PIN, 0, 0, 40);   // синій
-  delay(500);
-}
-```
-```micropython
-from machine import Pin
-from neopixel import NeoPixel
-from time import sleep_ms
-
-RGB_PIN = 48                          # вбудований WS2812 на SuperMini
-np = NeoPixel(Pin(RGB_PIN), 1)        # один діод на цьому виводі
-
-# зелений на повну; порядок — R, G, B (0..255)
-np[0] = (0, 40, 0)                    # не 255 — діод яскравий, 40 досить
-np.write()
-
-while True:
-    np[0] = (40, 0, 0)               # червоний
-    np.write()
-    sleep_ms(500)
-    np[0] = (0, 0, 40)               # синій
-    np.write()
-    sleep_ms(500)
-```
+:::code esp32-s3-supermini-d/cpp/main.cpp
+:::code esp32-s3-supermini-d/py/micropython/main.py
 :::
 
 Якщо діод блимає червоним і синім — плата працює, USB бачиться, прошивка зайшла. Це найкоротший тест «плата не мертва».

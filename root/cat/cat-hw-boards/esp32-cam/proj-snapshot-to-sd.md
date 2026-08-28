@@ -19,70 +19,9 @@
 Беремо кадр, відкриваємо файл, ллємо байти, повертаємо буфер:
 
 :::tabs
-```arduino
-static bool save_photo(const char *path) {
-    // 1. Просимо драйвер камери віддати готовий кадр.
-    camera_fb_t *fb = esp_camera_fb_get();
-    if (!fb) {
-        Serial.println("Не вдалося зняти кадр");
-        return false;
-    }
+:::code proj-snapshot-to-sd/c/arduino/znimok-i-fail-vlasne-te.ino
 
-    // 2. Відкриваємо файл на картці для запису.
-    File file = SD_MMC.open(path, FILE_WRITE);
-    if (!file) {
-        Serial.printf("Не відкрити файл %s\n", path);
-        esp_camera_fb_return(fb);   // буфер усе одно ПОВЕРНУТИ
-        return false;
-    }
-
-    // 3. Ллємо стиснені байти JPEG у файл одним махом.
-    file.write(fb->buf, fb->len);   // fb->buf — адреса, fb->len — довжина
-    file.close();
-
-    Serial.printf("Збережено %s  (%u байт)\n", path, (unsigned)fb->len);
-
-    // 4. ОБОВ'ЯЗКОВО повертаємо буфер драйверу.
-    esp_camera_fb_return(fb);
-    return true;
-}
-```
-
-```esp-idf
-#include <stdio.h>
-#include "esp_camera.h"
-#include "esp_log.h"
-
-static const char *TAG = "snapshot";
-
-static bool save_photo(const char *path) {
-    // 1. Просимо драйвер камери віддати готовий кадр.
-    camera_fb_t *fb = esp_camera_fb_get();
-    if (!fb) {
-        ESP_LOGE(TAG, "Не вдалося зняти кадр");
-        return false;
-    }
-
-    // 2. Відкриваємо файл на картці: FAT примонтована у VFS, тож звичайний fopen.
-    FILE *f = fopen(path, "wb");    // шлях ПОВНИЙ, від точки монтування: "/sdcard/…"
-    if (!f) {
-        ESP_LOGE(TAG, "Не відкрити файл %s", path);
-        esp_camera_fb_return(fb);   // буфер усе одно ПОВЕРНУТИ
-        return false;
-    }
-
-    // 3. Ллємо стиснені байти JPEG у файл одним махом.
-    size_t written = fwrite(fb->buf, 1, fb->len, f);   // fb->buf — адреса, fb->len — довжина
-    bool ok = (written == fb->len);
-    fclose(f);
-
-    ESP_LOGI(TAG, "Збережено %s  (%u байт)", path, (unsigned)written);
-
-    // 4. ОБОВ'ЯЗКОВО повертаємо буфер драйверу.
-    esp_camera_fb_return(fb);
-    return ok;
-}
-```
+:::code proj-snapshot-to-sd/c/esp-idf/znimok-i-fail-vlasne-te.c
 :::
 
 Тут кожен рядок несе сенс, і два з них — критичні.
@@ -96,47 +35,9 @@ static bool save_photo(const char *path) {
 Будь-яка прошивка має місце, що виконується **один раз при старті**, і місце, що крутиться далі без кінця. В Arduino це дві окремі функції — `setup()` і `loop()`; в ESP-IDF це одна `app_main()`, яку система викликає зі своєї задачі, а «далі без кінця» пишуть звичайним циклом усередині. Знімок робимо в стартовій частині:
 
 :::tabs
-```arduino
-void setup() {
-    Serial.begin(115200);
+:::code proj-snapshot-to-sd/c/arduino/zibraty-vse-dokupy.ino
 
-    if (!camera_start())  return;   // камера не піднялася — далі немає сенсу
-    if (!sdcard_start())  return;   // картка не змонтувалася — так само
-
-    // Ім'я файлу зі зростаючим лічильником, щоб не затирати попередні.
-    static int n = 0;
-    char path[32];
-    snprintf(path, sizeof(path), "/photo_%04d.jpg", n++);
-
-    save_photo(path);
-}
-
-void loop() {
-    // порожньо: один знімок зробили в setup(); тут можна спати або чекати кнопки
-}
-```
-
-```esp-idf
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-void app_main(void) {
-    // Журнал тут окремо не піднімають: ESP_LOG* пише в UART від старту.
-
-    if (!camera_start())  return;   // камера не піднялася — далі немає сенсу
-    if (!sdcard_start())  return;   // картка не змонтувалася — так само
-
-    // Ім'я файлу зі зростаючим лічильником, щоб не затирати попередні.
-    static int n = 0;
-    char path[40];
-    snprintf(path, sizeof(path), "/sdcard/photo_%04d.jpg", n++);
-
-    save_photo(path);
-
-    // Замість порожнього loop() — задача просто спить: один знімок уже зроблено.
-    while (true) vTaskDelay(pdMS_TO_TICKS(1000));
-}
-```
+:::code proj-snapshot-to-sd/c/esp-idf/zibraty-vse-dokupy.c
 :::
 
 Оце і є повний робочий цикл. Функції `camera_start()` і `sdcard_start()` — підняття сенсора та картки — визначені в [довіднику підключення](root:cat-hw-boards/esp32-cam/api-esp32-cam-camera-sd-io.md); саме там живе карта пінів та однобітний режим. Ім'я `"/photo_0004.jpg"` формуємо зі зростаючим лічильником — інакше кожен новий знімок затирав би попередній під тим самим іменем. Файлова система на картці — [FAT](root:sf-data/flash-filesystems), тож картку виймають і читають на комп'ютері напряму, без жодних драйверів.

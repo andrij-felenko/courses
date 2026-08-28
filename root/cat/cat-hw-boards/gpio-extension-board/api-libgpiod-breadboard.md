@@ -58,85 +58,8 @@ gpioget gpiochip0 27       # надрукує поточний рівень лі
 **Ідея.** Раз плата пасивна, точка `GPIO17` на макетці — це буквально лінія GPIO17 процесора, лише винесена на зручне місце. Тому код нічим не відрізняється від блимання прямо на гребінці: просимо в ядра лінію 17 як вихід і смикаємо її через `libgpiod`. Число `17` у коді — те саме, що надруковано біля штиря (`GPIO17`), і те саме, що ми виставляли утилітою `gpioset`. Три написи одного числа — надпис на платі, аргумент `gpioset`, константа в коді — мусять збігатися; якщо десь інше число, ви смикаєте не ту лінію.
 
 :::tabs
-```c
-// blink.c — блимаємо світлодіодом на GPIO17, виведеному платою на макетку
-// збірка:  gcc blink.c -o blink -lgpiod
-#include <gpiod.h>
-#include <stdio.h>
-#include <unistd.h>      // usleep
-#include <string.h>
-#include <errno.h>
-
-#define CHIP_PATH  "/dev/gpiochip0"   // гребінка Pi у свіжому ядрі
-#define LED_LINE   17                 // BCM-ім'я, надруковане на платі біля штиря
-
-int main(void)
-{
-    struct gpiod_chip *chip = gpiod_chip_open(CHIP_PATH);
-    if (!chip) { fprintf(stderr, "чип: %s\n", strerror(errno)); return 1; }
-
-    // напрямок — вихід, початковий рівень — низький (світлодіод згаслий)
-    struct gpiod_line_settings *st = gpiod_line_settings_new();
-    gpiod_line_settings_set_direction(st, GPIOD_LINE_DIRECTION_OUTPUT);
-    gpiod_line_settings_set_output_value(st, GPIOD_LINE_VALUE_INACTIVE);
-
-    // прив'язуємо ці налаштування до зсуву 17
-    struct gpiod_line_config *lc = gpiod_line_config_new();
-    unsigned int off = LED_LINE;
-    gpiod_line_config_add_line_settings(lc, &off, 1, st);
-
-    // підпис споживача — щоб gpioinfo показував, хто зайняв лінію
-    struct gpiod_request_config *rc = gpiod_request_config_new();
-    gpiod_request_config_set_consumer(rc, "blink");
-
-    struct gpiod_line_request *req = gpiod_chip_request_lines(chip, rc, lc);
-    if (!req) { fprintf(stderr, "запит лінії 17: %s\n", strerror(errno)); return 1; }
-
-    for (int i = 0; i < 20; i++) {
-        gpiod_line_request_set_value(req, LED_LINE, GPIOD_LINE_VALUE_ACTIVE);
-        usleep(500000);                              // горить 0.5 с
-        gpiod_line_request_set_value(req, LED_LINE, GPIOD_LINE_VALUE_INACTIVE);
-        usleep(500000);                              // згас 0.5 с
-    }
-
-    gpiod_line_request_release(req);                 // прибираємо за собою
-    gpiod_line_settings_free(st);
-    gpiod_line_config_free(lc);
-    gpiod_request_config_free(rc);
-    gpiod_chip_close(chip);
-    return 0;
-}
-```
-```python
-# blink.py — блимаємо світлодіодом на GPIO17, виведеному платою на макетку
-# постав:  sudo apt install python3-libgpiod   (офіційна прив'язка gpiod v2)
-import time
-import gpiod
-from gpiod.line import Direction, Value
-
-CHIP_PATH = "/dev/gpiochip0"   # гребінка Pi у свіжому ядрі
-LED_LINE  = 17                 # BCM-ім'я, надруковане на платі біля штиря
-
-# request_lines збирає ті самі три конфіги, що в C, в один виклик:
-# напрямок — вихід, початковий рівень — низький (світлодіод згаслий);
-# consumer — підпис, щоб gpioinfo показував, хто зайняв лінію.
-with gpiod.request_lines(
-    CHIP_PATH,
-    consumer="blink",
-    config={
-        LED_LINE: gpiod.LineSettings(
-            direction=Direction.OUTPUT,
-            output_value=Value.INACTIVE,
-        )
-    },
-) as req:
-    for _ in range(20):
-        req.set_value(LED_LINE, Value.ACTIVE)     # горить 0.5 с
-        time.sleep(0.5)
-        req.set_value(LED_LINE, Value.INACTIVE)   # згас 0.5 с
-        time.sleep(0.5)
-# вихід із with сам звільняє лінію — окремий release не потрібен
-```
+:::code api-libgpiod-breadboard/c/blink.c
+:::code api-libgpiod-breadboard/py/blink.py
 :::
 
 **Складність — де саме церемонія.** Код здається довгим для «блимнути», і це особливість версії 2 `libgpiod`: вона розбиває запит на **три об'єкти-конфіги**. `line_settings` — як поводиться лінія (напрямок, підтяжка, початкове значення); `line_config` — які саме зсуви ліній беремо й з якими налаштуваннями; `request_config` — метадані запиту (підпис споживача). Ці три збираються одним викликом `gpiod_chip_request_lines()`, що повертає **дескриптор запиту** — далі всі значення пишуться-читаються через нього. Для однієї лінії це виглядає надлишковим, але окупається, коли ліній багато й у кожної свій режим: ви складаєте конфіг як конструктор, а не сиплете десяток аргументів в одну функцію.
@@ -154,86 +77,8 @@ with gpiod.request_lines(
 Рятує **підтяжка** — резистор, що м'яко тягне вхід до відомого рівня, коли зовні нічого не задано. Найзручніше ввімкнути **підтяжку до плюса** (*pull-up*): внутрішній резистор тягне вхід до 3.3 В, тож у спокої ми стабільно читаємо **одиницю**. Другий кінець кнопки — на землі. Натиснули → коло замкнулося на землю → вхід просів у **нуль**. Виходить перевернута логіка: **розімкнено = 1, натиснуто = 0**. Найпоширеніша схема, бо потребує лише кнопки та двох дротів — резистор дає сам чип, паяти зовнішній не треба. RP1 має вбудовані підтяжки на кожному вводі, і `libgpiod` вмикає їх одним викликом.
 
 :::tabs
-```c
-// button.c — читаємо кнопку на GPIO27 із внутрішньою підтяжкою до плюса
-// збірка:  gcc button.c -o button -lgpiod
-#include <gpiod.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
-
-#define CHIP_PATH  "/dev/gpiochip0"
-#define BTN_LINE   27
-
-int main(void)
-{
-    struct gpiod_chip *chip = gpiod_chip_open(CHIP_PATH);
-    if (!chip) { perror("chip"); return 1; }
-
-    struct gpiod_line_settings *st = gpiod_line_settings_new();
-    gpiod_line_settings_set_direction(st, GPIOD_LINE_DIRECTION_INPUT);
-    // внутрішня підтяжка до 3.3 В: у спокої лінія читається як ACTIVE
-    gpiod_line_settings_set_bias(st, GPIOD_LINE_BIAS_PULL_UP);
-
-    struct gpiod_line_config *lc = gpiod_line_config_new();
-    unsigned int off = BTN_LINE;
-    gpiod_line_config_add_line_settings(lc, &off, 1, st);
-
-    struct gpiod_request_config *rc = gpiod_request_config_new();
-    gpiod_request_config_set_consumer(rc, "button");
-
-    struct gpiod_line_request *req = gpiod_chip_request_lines(chip, rc, lc);
-    if (!req) { perror("request"); return 1; }
-
-    printf("натисніть кнопку (Ctrl+C — вихід)\n");
-    int prev = -1;
-    for (;;) {
-        enum gpiod_line_value v = gpiod_line_request_get_value(req, BTN_LINE);
-        // ПІДТЯЖКА ДО ПЛЮСА: ACTIVE (3.3 В) — відпущено, INACTIVE (0) — натиснуто
-        int pressed = (v == GPIOD_LINE_VALUE_INACTIVE);
-        if (pressed != prev) {              // друкуємо лише коли стан змінився
-            printf("%s\n", pressed ? "натиснуто" : "відпущено");
-            prev = pressed;
-        }
-        usleep(20000);                      // 20 мс — заразом гасить дребезг
-    }
-    // сюди не доходимо; у реальному коді — release + close
-}
-```
-```python
-# button.py — читаємо кнопку на GPIO27 із внутрішньою підтяжкою до плюса
-# постав:  sudo apt install python3-libgpiod
-import time
-import gpiod
-from gpiod.line import Direction, Bias, Value
-
-CHIP_PATH = "/dev/gpiochip0"
-BTN_LINE  = 27
-
-# напрямок — вхід; внутрішня підтяжка до 3.3 В: у спокої лінія читається як ACTIVE
-with gpiod.request_lines(
-    CHIP_PATH,
-    consumer="button",
-    config={
-        BTN_LINE: gpiod.LineSettings(
-            direction=Direction.INPUT,
-            bias=Bias.PULL_UP,
-        )
-    },
-) as req:
-    print("натисніть кнопку (Ctrl+C — вихід)")
-    prev = None
-    while True:
-        v = req.get_value(BTN_LINE)
-        # ПІДТЯЖКА ДО ПЛЮСА: ACTIVE (3.3 В) — відпущено, INACTIVE (0) — натиснуто
-        pressed = (v == Value.INACTIVE)
-        if pressed != prev:                 # друкуємо лише коли стан змінився
-            print("натиснуто" if pressed else "відпущено")
-            prev = pressed
-        time.sleep(0.02)                    # 20 мс — заразом гасить дребезг
-# вихід із with сам звільняє лінію
-```
+:::code api-libgpiod-breadboard/c/button.c
+:::code api-libgpiod-breadboard/py/button.py
 :::
 
 **Складність і дві пастки.** Перша — вибір підтяжки, і його треба зробити **свідомо під свою схему**. `GPIOD_LINE_BIAS_PULL_UP` тягне до плюса (спокій = 1, натиск = 0). Є ще `PULL_DOWN` (тягне до землі, натиск дає 1), `DISABLE` (жодної підтяжки — коли її дає зовнішнє коло) і `AS_IS` (не чіпати). Саме підтяжка задає, що ви прочитаєте в спокої, тож рядок логіки `pressed = (v == INACTIVE)` прямо залежить від неї — переставите підтяжку, а логіку ні, і кнопка «читатиметься навпаки».
@@ -257,65 +102,8 @@ i2cdetect -y 1     # просканує шину i2c-1 і покаже адре�
 **Читання регістра — це «напиши, потім прочитай».** Щоб дістати регістр 0xD0, треба спершу **записати** давачу один байт — номер потрібного регістра, — а тоді **прочитати** один байт відповіді. Класична двотактна розмова майже з усіма I²C-давачами.
 
 :::tabs
-```c
-// i2c_id.c — читаємо регістр 0xD0 (id) BMP280 за адресою 0x76 на шині i2c-1
-// збірка:  gcc i2c_id.c -o i2c_id
-#include <stdio.h>
-#include <fcntl.h>            // open
-#include <unistd.h>          // read, write, close
-#include <string.h>
-#include <errno.h>
-#include <linux/i2c-dev.h>   // I2C_SLAVE
-#include <sys/ioctl.h>
-
-#define I2C_BUS   "/dev/i2c-1"   // лінії SDA (GPIO2) і SCL (GPIO3), виведені платою
-#define ADDR      0x76           // адреса BMP280 на шині
-#define REG_ID    0xD0           // регістр «id»; має віддати 0x58
-
-int main(void)
-{
-    int fd = open(I2C_BUS, O_RDWR);
-    if (fd < 0) { fprintf(stderr, "відкрити %s: %s\n", I2C_BUS, strerror(errno)); return 1; }
-
-    // кажемо драйверу, з яким пристроєм на шині говоримо
-    if (ioctl(fd, I2C_SLAVE, ADDR) < 0) {
-        fprintf(stderr, "нема пристрою 0x%02X: %s\n", ADDR, strerror(errno));
-        close(fd); return 1;
-    }
-
-    unsigned char reg = REG_ID;
-    if (write(fd, &reg, 1) != 1) {           // крок 1: пишемо номер регістра
-        fprintf(stderr, "запис регістра: %s\n", strerror(errno)); close(fd); return 1;
-    }
-
-    unsigned char id = 0;
-    if (read(fd, &id, 1) != 1) {             // крок 2: читаємо його вміст
-        fprintf(stderr, "читання: %s\n", strerror(errno)); close(fd); return 1;
-    }
-
-    printf("id давача = 0x%02X %s\n", id,
-           id == 0x58 ? "(BMP280 — зв'язок є!)" : "(не той підпис?)");
-    close(fd);
-    return 0;
-}
-```
-```python
-# i2c_id.py — читаємо регістр 0xD0 (id) BMP280 за адресою 0x76 на шині i2c-1
-# постав:  pip install smbus2
-from smbus2 import SMBus
-
-I2C_BUS = 1        # /dev/i2c-1 — лінії SDA (GPIO2) і SCL (GPIO3), виведені платою
-ADDR    = 0x76     # адреса BMP280 на шині
-REG_ID  = 0xD0     # регістр «id»; має віддати 0x58
-
-# with сам відкриє й закриє шину; адресу пристрою передаємо в кожен виклик.
-# read_byte_data робить обидва такти за раз: пише номер регістра, потім читає байт.
-with SMBus(I2C_BUS) as bus:
-    dev_id = bus.read_byte_data(ADDR, REG_ID)
-
-note = "(BMP280 — зв'язок є!)" if dev_id == 0x58 else "(не той підпис?)"
-print(f"id давача = 0x{dev_id:02X} {note}")
-```
+:::code api-libgpiod-breadboard/c/i2c_id.c
+:::code api-libgpiod-breadboard/py/i2c_id.py
 :::
 
 **Складність.** Тут працює принцип «усе — файл»: пристрій на шині виглядає як файл `/dev/i2c-1`, і єдине спеціальне — `ioctl(fd, I2C_SLAVE, ADDR)`, яким ми один раз кажемо драйверу, до **кого** з пристроїв на шині адресуємо наступні `write`/`read`. Далі байти йдуть туди-сюди звичайно; про такти, старт-стоп-умови й підтвердження шини дбає контролер I²C у ядрі.
@@ -339,78 +127,8 @@ ls /dev/spidev0.0     # є файл → шина SPI0 увімкнена, дра
 **Обмін — це один «повнодуплексний» transfer.** На відміну від I²C, у SPI надсилання й отримання відбуваються **разом**: ви подаєте буфер на вихід (`MOSI`) і водночас забираєте те, що прийшло на вхід (`MISO`) за ті самі такти. У Linux один такий обмін описує структура `spi_ioc_transfer`, а запускає його `ioctl(fd, SPI_IOC_MESSAGE(1), …)`.
 
 :::tabs
-```c
-// spi_xfer.c — повнодуплексний обмін по SPI0, chip-enable CE0 (/dev/spidev0.0)
-// збірка:  gcc spi_xfer.c -o spi_xfer
-#include <stdio.h>
-#include <fcntl.h>            // open
-#include <unistd.h>          // close
-#include <string.h>          // memset
-#include <errno.h>
-#include <stdint.h>
-#include <linux/spi/spidev.h>
-#include <sys/ioctl.h>
-
-#define SPI_DEV   "/dev/spidev0.0"   // SPI0, CE0 = GPIO8 (штир 24)
-
-int main(void)
-{
-    int fd = open(SPI_DEV, O_RDWR);
-    if (fd < 0) { fprintf(stderr, "відкрити %s: %s\n", SPI_DEV, strerror(errno)); return 1; }
-
-    // параметри шини: режим 0, 8 біт на слово, 1 МГц (звіряйте з даташитом пристрою)
-    uint8_t  mode = SPI_MODE_0;
-    uint8_t  bits = 8;
-    uint32_t hz   = 1000000;
-    if (ioctl(fd, SPI_IOC_WR_MODE, &mode)          < 0 ||
-        ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &bits) < 0 ||
-        ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &hz)    < 0) {
-        fprintf(stderr, "налаштування шини: %s\n", strerror(errno)); close(fd); return 1;
-    }
-
-    // надсилаємо 2 байти й водночас забираємо 2 байти відповіді
-    uint8_t tx[2] = { 0x9F, 0x00 };   // напр. команда «read ID» + порожній такт
-    uint8_t rx[2] = { 0, 0 };
-
-    struct spi_ioc_transfer tr;
-    memset(&tr, 0, sizeof tr);         // ОБОВ'ЯЗКОВО: обнулити невживані поля
-    tr.tx_buf        = (unsigned long) tx;
-    tr.rx_buf        = (unsigned long) rx;
-    tr.len           = 2;
-    tr.speed_hz      = hz;
-    tr.bits_per_word = bits;
-
-    // SPI_IOC_MESSAGE(1) — один transfer; поки жене такт, tx їде, rx приходить
-    if (ioctl(fd, SPI_IOC_MESSAGE(1), &tr) < 0) {
-        fprintf(stderr, "обмін не вдався: %s\n", strerror(errno)); close(fd); return 1;
-    }
-
-    printf("прийнято: 0x%02X 0x%02X\n", rx[0], rx[1]);
-    close(fd);
-    return 0;
-}
-```
-```python
-# spi_xfer.py — повнодуплексний обмін по SPI0, chip-enable CE0 (/dev/spidev0.0)
-# постав:  pip install spidev
-import spidev
-
-spi = spidev.SpiDev()
-spi.open(0, 0)                 # SPI0, CE0 = GPIO8 (штир 24) → /dev/spidev0.0
-
-# параметри шини: режим 0, 8 біт на слово, 1 МГц (звіряйте з даташитом пристрою)
-spi.mode = 0b00                # SPI_MODE_0
-spi.bits_per_word = 8
-spi.max_speed_hz = 1000000
-
-# xfer2 і є повний дуплекс: скільки байтів шлемо (tx), стільки й приходить (rx).
-# другий байт 0x00 — порожній такт, під який пристрій висуне відповідь.
-tx = [0x9F, 0x00]              # напр. команда «read ID» + порожній такт
-rx = spi.xfer2(tx)            # поки жене такт, tx їде, rx приходить
-
-print(f"прийнято: 0x{rx[0]:02X} 0x{rx[1]:02X}")
-spi.close()
-```
+:::code api-libgpiod-breadboard/c/spi_xfer.c
+:::code api-libgpiod-breadboard/py/spi_xfer.py
 :::
 
 **Складність і пастки.** По-перше, `memset(&tr, 0, sizeof tr)` — **не косметика**. Структура `spi_ioc_transfer` має поля, яких ми не заповнюємо (`delay_usecs`, `cs_change` та інші); лишити їх зі сміттям зі стека — значить наказати драйверу непередбачувані затримки чи зняття chip-enable серед обміну. Обнуляйте структуру завжди.

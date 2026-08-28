@@ -87,63 +87,8 @@ ArduPilot дивиться інакше. Він не ділить виходи �
 **Задача-приклад: вигнати серво на виході № 5 у нейтраль (1500 мкс) — як під час перевірки керма на столі.**
 
 :::tabs
-```c
-#include <mavlink.h>
-
-// Примусово задати ширину імпульсу на виході серворульової машинки.
-// УВАГА: команда ОБХОДИТЬ штатне змішування. На реальному апараті з
-// увімкненими (озброєними) моторами так робити НЕ можна — лише перевірка
-// на столі, без пропелерів.
-void servo_set_pwm(int serial_fd, uint8_t out_channel, uint16_t pulse_us)
-{
-    mavlink_message_t msg;
-    uint8_t buf[MAVLINK_MAX_PACKET_LEN];
-
-    const uint8_t my_sysid  = 255;   // id нашої наземної станції
-    const uint8_t my_compid = 0;
-    const uint8_t target_sys  = 1;   // автопілот зазвичай має system id = 1
-    const uint8_t target_comp = 1;   // MAV_COMP_ID_AUTOPILOT1
-
-    mavlink_msg_command_long_pack(
-        my_sysid, my_compid,
-        &msg,
-        target_sys, target_comp,
-        MAV_CMD_DO_SET_SERVO,        // команда «задати вихід серва»
-        0,                           // confirmation: 0 = не повтор
-        (float)out_channel,          // param1: номер виходу (гребінки)
-        (float)pulse_us,             // param2: ширина імпульсу, мкс
-        0, 0, 0, 0, 0);              // param3..7 не потрібні
-
-    int len = mavlink_msg_to_send_buffer(buf, &msg);
-    write(serial_fd, buf, len);      // відправити в порт телеметрії
-}
-
-// виклик: серво на виході 5 — у нейтраль
-servo_set_pwm(fd, 5, 1500);
-```
-```py
-from pymavlink import mavutil
-
-# Примусово задати ширину імпульсу на виході серворульової машинки.
-# УВАГА: команда ОБХОДИТЬ штатне змішування. На реальному апараті з
-# увімкненими (озброєними) моторами так робити НЕ можна — лише перевірка
-# на столі, без пропелерів.
-def servo_set_pwm(master, out_channel, pulse_us):
-    # master — відкрите з'єднання mavutil.mavlink_connection();
-    # наша наземна станція має sysid 255 (задано при mavlink_connection).
-    master.mav.command_long_send(
-        master.target_system,        # автопілот зазвичай має system id = 1
-        master.target_component,     # MAV_COMP_ID_AUTOPILOT1
-        mavutil.mavlink.MAV_CMD_DO_SET_SERVO,  # команда «задати вихід серва»
-        0,                           # confirmation: 0 = не повтор
-        out_channel,                 # param1: номер виходу (гребінки)
-        pulse_us,                    # param2: ширина імпульсу, мкс
-        0, 0, 0, 0, 0)              # param3..7 не потрібні
-
-
-# виклик: серво на виході 5 — у нейтраль
-servo_set_pwm(master, 5, 1500)
-```
+:::code api-pwm-config/c/do-set-servo-zadaty.c
+:::code api-pwm-config/py/do-set-servo-zadaty.py
 :::
 
 Тут видно всю суть: команда несе **номер виходу** (param1) і **ширину** (param2). Автопілот сформує на сигнальному штирі цього виходу імпульс 1500 мкс — серво піде в центр. Але тільки якщо «плюсову» рейку серв **живлено** [окремим BEC](root:hw-power/companion-power-thermal/comp-bec.md): автопілот кладе на сигнальну жилу лише слабку логіку, а робочий струм серво тягне з рейки. Не напоєна рейка — і команда чесно пішла, а серво не ворухнулось, бо йому нема чим ворухнутись.
@@ -168,61 +113,8 @@ param6  →  порядок обходу моторів
 **Задача-приклад: крутнути мотор № 1 на 10% газу протягом 3 секунд — стендова перевірка обертання й напряму.**
 
 :::tabs
-```c
-#include <mavlink.h>
-
-// Стендова перевірка одного мотора: крутнути на малому газі й дати
-// команді САМІЙ зупинити його за таймаутом.
-// УВАГА: ТІЛЬКИ БЕЗ ПРОПЕЛЕРІВ. Мотор крутнеться фізично.
-void motor_test(int serial_fd, uint8_t motor_num,
-                float throttle_percent, float seconds)
-{
-    mavlink_message_t msg;
-    uint8_t buf[MAVLINK_MAX_PACKET_LEN];
-
-    mavlink_msg_command_long_pack(
-        255, 0,                      // хто шле: наземна станція
-        &msg,
-        1, 1,                        // кому: система 1, автопілот
-        MAV_CMD_DO_MOTOR_TEST,
-        0,                           // не повтор
-        (float)motor_num,            // param1: номер мотора (1..N)
-        0,                           // param2: тип газу 0 = відсоток
-        throttle_percent,            // param3: значення газу (%)
-        seconds,                     // param4: таймаут, с — САМ зупинить
-        0,                           // param5: один мотор
-        0, 0);                       // param6..7 не потрібні
-
-    int len = mavlink_msg_to_send_buffer(buf, &msg);
-    write(serial_fd, buf, len);
-}
-
-// виклик: мотор 1, 10% газу, 3 секунди, тоді автостоп
-motor_test(fd, 1, 10.0f, 3.0f);
-```
-```py
-from pymavlink import mavutil
-
-# Стендова перевірка одного мотора: крутнути на малому газі й дати
-# команді САМІЙ зупинити його за таймаутом.
-# УВАГА: ТІЛЬКИ БЕЗ ПРОПЕЛЕРІВ. Мотор крутнеться фізично.
-def motor_test(master, motor_num, throttle_percent, seconds):
-    master.mav.command_long_send(
-        master.target_system,        # кому: система 1, автопілот
-        master.target_component,
-        mavutil.mavlink.MAV_CMD_DO_MOTOR_TEST,
-        0,                           # не повтор
-        motor_num,                   # param1: номер мотора (1..N)
-        0,                           # param2: тип газу 0 = відсоток
-        throttle_percent,            # param3: значення газу (%)
-        seconds,                     # param4: таймаут, с — САМ зупинить
-        0,                           # param5: один мотор
-        0, 0)                        # param6..7 не потрібні
-
-
-# виклик: мотор 1, 10% газу, 3 секунди, тоді автостоп
-motor_test(master, 1, 10.0, 3.0)
-```
+:::code api-pwm-config/c/do-motor-test-krutnuty.c
+:::code api-pwm-config/py/do-motor-test-krutnuty.py
 :::
 
 > 🔧 **Навіщо це.** Дві команди — два інструменти під дві задачі. `DO_SET_SERVO` — коли перевіряєш **серво** (кермо, заслінку, підвіс): треба саме поставити механізм у конкретне положення й подивитись, куди й наскільки він поїхав. `DO_MOTOR_TEST` — коли перевіряєш **мотор**: треба безпечно крутнути його малим газом, переконатися, що він обертається в правильний бік і на правильному місці фрейму, і щоб він **сам згас**. Обидві незамінні на складанні (звірити, що канал іде туди, куди думаєш) — і обидві живуть за одним залізним правилом, до якого переходимо.

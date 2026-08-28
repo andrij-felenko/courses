@@ -22,67 +22,9 @@
 Візьмемо схему з опису плати: давач сидить на SDA=GPIO8, SCL=GPIO9, живиться з виходу 3V3. Прочитаємо, скажімо, ходовий барометр BMP280 (адреса 0x76) — спершу переконаємось, що він узагалі відповідає на шині:
 
 :::tabs
-```arduino
-#include <Wire.h>
-
-void setup() {
-  Serial.begin(115200);
-  Wire.begin(8, 9);              // SDA=GPIO8, SCL=GPIO9 — свої ноги
-  Wire.setClock(400000);        // 400 кГц (fast mode); за замовчуванням 100 кГц
-
-  Wire.beginTransmission(0x76); // чи є хтось за адресою 0x76?
-  if (Wire.endTransmission() == 0)
-    Serial.println("BMP280 відповідає");
-  else
-    Serial.println("тиша на шині: перевір ноги, живлення й підтяжки");
-}
-
-void loop() {}
-```
-```esp-idf
-#include "driver/i2c.h"
-#include "esp_log.h"
-
-static const char *TAG = "i2c";
-
-void app_main(void) {
-  i2c_config_t cfg = {
-    .mode = I2C_MODE_MASTER,
-    .sda_io_num = 8,                    // SDA=GPIO8, SCL=GPIO9 — свої ноги
-    .scl_io_num = 9,
-    .sda_pullup_en = GPIO_PULLUP_ENABLE, // слабка внутрішня; зовнішня однаково потрібна
-    .scl_pullup_en = GPIO_PULLUP_ENABLE,
-    .master.clk_speed = 400000,          // 400 кГц (fast mode)
-  };
-  i2c_param_config(I2C_NUM_0, &cfg);
-  i2c_driver_install(I2C_NUM_0, cfg.mode, 0, 0, 0);
-
-  i2c_cmd_handle_t cmd = i2c_cmd_link_create();   // чи є хтось за адресою 0x76?
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, (0x76 << 1) | I2C_MASTER_WRITE, true);
-  i2c_master_stop(cmd);
-  esp_err_t err = i2c_master_cmd_begin(I2C_NUM_0, cmd, pdMS_TO_TICKS(100));
-  i2c_cmd_link_delete(cmd);
-
-  if (err == ESP_OK) ESP_LOGI(TAG, "BMP280 відповідає");
-  else               ESP_LOGW(TAG, "тиша на шині: перевір ноги, живлення й підтяжки");
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-extern I2C_HandleTypeDef hi2c1;   // ноги й частоту задано в MX_I2C1_Init();
-                                  // тут вибору ніг нема — вони прибиті до блоку I2C1
-
-void probe(void) {
-  // те саме опитування адреси: 3 спроби, таймаут 100 мс.
-  // адреса в HAL — 7-бітна, зсунута на біт вліво під бітом «читання/запис»
-  if (HAL_I2C_IsDeviceReady(&hi2c1, 0x76 << 1, 3, 100) == HAL_OK)
-    printf("BMP280 відповідає\r\n");
-  else
-    printf("тиша на шині: перевір ноги, живлення й підтяжки\r\n");
-}
-```
+:::code api-quickstart/c/arduino/i-c-na-svoikh-nohakh.ino
+:::code api-quickstart/c/esp-idf/i-c-na-svoikh-nohakh.c
+:::code api-quickstart/c/stm32/i-c-na-svoikh-nohakh.c
 :::
 
 Тут захована найтиповіша I²C-пастка, і вона не в коді, а в залізі: **лінії I²C потребують підтяжок до 3.3 В**. SDA і SCL — це виходи з відкритим стоком: пристрої вміють тягнути лінію в нуль, але підняти її в одиницю мусить зовнішній резистор (типово 4.7 кОм) на кожну лінію. Багато готових модулів давачів уже несуть ці резистори на собі — тоді додавати нічого; але гола мікросхема без підтяжок дасть саме оту «тишу на шині», хоч би код був бездоганний. Внутрішні підтяжки ESP32-S3 (одиниці десятків кОм) для I²C зазвичай заслабкі — покладатися на них не варто.
@@ -119,76 +61,9 @@ HAL_I2C_Init(&hi2c2);             // частота — у hi2c2.Init.ClockSpeed
 SPI швидший за I²C і йде на дисплеї, SD-картки, радіомодулі. Ліній чотири: такт SCK, дані від ведучого MOSI, дані до ведучого MISO і вибір пристрою CS. Налаштування скрізь однакове за змістом — ноги, частота такту, режим (CPOL/CPHA), керування CS — і різниться лише тим, де його записують: в Arduino на ESP32-S3 ноги йдуть аргументами `SPI.begin(sck, miso, mosi, ss)`, в ESP-IDF — полями `spi_bus_config_t`, на STM32 — налаштуваннями самого периферійного блоку:
 
 :::tabs
-```arduino
-#include <SPI.h>
-
-static const int PIN_SCK = 12, PIN_MISO = 13, PIN_MOSI = 11, PIN_CS = 10;
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(PIN_CS, OUTPUT);
-  digitalWrite(PIN_CS, HIGH);          // CS у спокої — високий
-  SPI.begin(PIN_SCK, PIN_MISO, PIN_MOSI, PIN_CS);
-}
-
-// один обмін байтом з веденим пристроєм
-uint8_t spiExchange(uint8_t out) {
-  SPI.beginTransaction(SPISettings(10000000, MSBFIRST, SPI_MODE0)); // 10 МГц
-  digitalWrite(PIN_CS, LOW);           // вибрали пристрій
-  uint8_t in = SPI.transfer(out);      // одночасно шлемо out і читаємо in
-  digitalWrite(PIN_CS, HIGH);          // відпустили
-  SPI.endTransaction();
-  return in;
-}
-
-void loop() {}
-```
-```esp-idf
-#include "driver/spi_master.h"
-
-static spi_device_handle_t dev;
-
-void spi_init(void) {
-  spi_bus_config_t bus = {
-    .sclk_io_num = 12, .miso_io_num = 13, .mosi_io_num = 11,   // свої ноги
-    .quadwp_io_num = -1, .quadhd_io_num = -1, .max_transfer_sz = 4096,
-  };
-  ESP_ERROR_CHECK(spi_bus_initialize(SPI2_HOST, &bus, SPI_DMA_CH_AUTO));
-
-  spi_device_interface_config_t devcfg = {
-    .clock_speed_hz = 10 * 1000 * 1000,   // 10 МГц
-    .mode = 0,                            // CPOL=0, CPHA=0 — те саме, що SPI_MODE0
-    .spics_io_num = 10,                   // CS смикає сам драйвер
-    .queue_size = 1,
-  };
-  ESP_ERROR_CHECK(spi_bus_add_device(SPI2_HOST, &devcfg, &dev));
-}
-
-// один обмін байтом з веденим пристроєм
-uint8_t spi_exchange(uint8_t out) {
-  uint8_t in = 0;
-  spi_transaction_t t = { .length = 8, .tx_buffer = &out, .rx_buffer = &in };
-  ESP_ERROR_CHECK(spi_device_transmit(dev, &t));   // одночасно шлемо out і читаємо in
-  return in;
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-extern SPI_HandleTypeDef hspi1;   // частоту (дільник) і режим задано в MX_SPI1_Init();
-                                  // SCK/MISO/MOSI прибиті до блоку SPI1 — вибору ніг нема
-#define CS_PORT GPIOA
-#define CS_PIN  GPIO_PIN_4        // CS — звичайний GPIO, смикаємо руками
-
-// один обмін байтом з веденим пристроєм
-uint8_t spi_exchange(uint8_t out) {
-  uint8_t in = 0;
-  HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_RESET);   // вибрали пристрій
-  HAL_SPI_TransmitReceive(&hspi1, &out, &in, 1, 100);   // шлемо out і читаємо in
-  HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_SET);     // відпустили
-  return in;
-}
-```
+:::code api-quickstart/c/arduino/spi-na-svoikh-nohakh.ino
+:::code api-quickstart/c/esp-idf/spi-na-svoikh-nohakh.c
+:::code api-quickstart/c/stm32/spi-na-svoikh-nohakh.c
 :::
 
 Ключове в SPI — це **одночасний обмін**: `SPI.transfer` за один такт і виштовхує байт, і зчитує те, що ведений подав назустріч; окремих «читати» й «писати» на рівні шини немає. Число в `SPISettings` — частота такту; ESP32-S3 тягне десятки мегагерц, але реальну стелю диктує не чип, а якість проводів і сам ведений пристрій — на макетці з довгими дротами 10 МГц безпечніше за 40.
@@ -213,45 +88,8 @@ void loop() {
     Serial.write(Serial1.read());    // пересилаємо його в журнал
 }
 ```
-```esp-idf
-#include "driver/uart.h"
-#include "esp_log.h"
-
-void app_main(void) {
-  uart_config_t cfg = {
-    .baud_rate = 9600,
-    .data_bits = UART_DATA_8_BITS,        // 8 біт даних…
-    .parity    = UART_PARITY_DISABLE,     // …без парності…
-    .stop_bits = UART_STOP_BITS_1,        // …і 1 стоповий — це і є «8N1»
-    .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
-    .source_clk = UART_SCLK_DEFAULT,
-  };
-  uart_driver_install(UART_NUM_1, 1024, 0, 0, NULL, 0);
-  uart_param_config(UART_NUM_1, &cfg);
-  uart_set_pin(UART_NUM_1, 43, 44,        // TX=GPIO43, RX=GPIO44 — свої ноги
-               UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);   // RTS/CTS не потрібні
-
-  uint8_t b;
-  while (1) {
-    if (uart_read_bytes(UART_NUM_1, &b, 1, pdMS_TO_TICKS(20)) == 1)
-      ESP_LOGI("uart", "прийшов байт 0x%02X", b);   // журнал іде в рідний USB
-  }
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-extern UART_HandleTypeDef huart1;   // зовнішній пристрій; 9600 8N1 задано в MX_USART1_UART_Init()
-extern UART_HandleTypeDef huart2;   // журнал у комп'ютер через перехідник USB↔UART
-
-void forward_forever(void) {
-  uint8_t b;
-  while (1) {
-    if (HAL_UART_Receive(&huart1, &b, 1, 20) == HAL_OK)  // прийшов байт
-      HAL_UART_Transmit(&huart2, &b, 1, 10);             // пересилаємо його в журнал
-  }
-}
-```
+:::code api-quickstart/c/esp-idf/uart-na-svoikh-nohakh.c
+:::code api-quickstart/c/stm32/uart-na-svoikh-nohakh.c
 :::
 
 Тут криється пастка, від якої губляться цілими вечорами: **канал у комп'ютер і фізичний UART до зовнішнього заліза — це різні порти**, хоч у коді вони й виглядають однаково. Журнальний на цій платі за замовчуванням іде по рідному USB, не займаючи жодної зовнішньої ноги (в Arduino це `Serial`, в ESP-IDF — консоль), а другий — це UART на призначених вами ногах для розмови з іншим залізом (GPS-модуль, інший МК, датчик із UART-виходом): `Serial1` в Arduino, `UART_NUM_1` в ESP-IDF. Плутанина «чому мій GPS мовчить, хоч Serial щось друкує» майже завжди — сплутані ці два порти.
@@ -272,65 +110,17 @@ void forward_forever(void) {
 Перевірити наявність — один рядок на старті, щоб брак виявився тут, а не пізніше загадковим `NULL`:
 
 :::tabs
-```arduino
-void setup() {
-  Serial.begin(115200);
-  delay(300);
-  if (psramFound())
-    Serial.printf("PSRAM є: %u КБ усього, %u КБ вільно\n",
-                  (unsigned)(ESP.getPsramSize()      / 1024),
-                  (unsigned)(ESP.getFreePsram()      / 1024));
-  else
-    Serial.println("PSRAM не знайдено: увімкни її в Tools → PSRAM");
-}
-```
-```esp-idf
-#include "esp_psram.h"
-#include "esp_heap_caps.h"
-#include "esp_log.h"
-
-void app_main(void) {
-  if (esp_psram_is_initialized())
-    ESP_LOGI("psram", "PSRAM є: %u КБ усього, %u КБ вільно",
-             (unsigned)(esp_psram_get_size() / 1024),
-             (unsigned)(heap_caps_get_free_size(MALLOC_CAP_SPIRAM) / 1024));
-  else
-    ESP_LOGW("psram", "PSRAM не знайдено: увімкни CONFIG_SPIRAM у menuconfig");
-}
-```
+:::code api-quickstart/c/arduino/psram-2-mehabaity-pid.ino
+:::code api-quickstart/c/esp-idf/psram-2-mehabaity-pid.c
 :::
 
 Тепер саме виділення. У Arduino на ESP32 є коротка обгортка `ps_malloc(size)` — той самий `malloc`, але гарантовано з PSRAM. Заведемо кадровий буфер дисплея 320×240 у форматі RGB565 (два байти на піксель):
 
-```arduino
-static const int FB_W = 320, FB_H = 240;
-uint16_t *fb = nullptr;
-
-void allocFrame() {
-  size_t bytes = (size_t)FB_W * FB_H * sizeof(uint16_t);  // 320·240·2 = 153 600 Б
-  fb = (uint16_t *) ps_malloc(bytes);                     // явно у PSRAM
-  if (!fb) { Serial.println("немає місця під кадр"); return; }
-
-  for (int y = 0; y < FB_H; y++)                          // малюємо як у звичайний масив
-    for (int x = 0; x < FB_W; x++)
-      fb[y * FB_W + x] = ((x ^ y) & 1) ? 0xFFFF : 0x0000; // шахівниця
-}
-```
+:::code api-quickstart/c/arduino/psram-2-mehabaity-pid-2.ino
 
 Під капотом `ps_malloc` — це `heap_caps_malloc(size, MALLOC_CAP_SPIRAM)`: універсальний виклик ESP-IDF, де прапорцем ви кажете, з якої пам'яті брати блок. Той самий приклад мовою IDF, щоб було видно механізм і одразу — вибір «велике в PSRAM, гаряче й дрібне у внутрішній»:
 
-```esp-idf
-#include "esp_heap_caps.h"
-
-// великий рідко-чіпаний кадр — у PSRAM:
-uint16_t *fb  = heap_caps_malloc(320 * 240 * 2, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
-
-// маленький гарячий буфер, критичний за часом — у внутрішній SRAM:
-uint8_t  *hot = heap_caps_malloc(2 * 1024,      MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
-
-if (!fb || !hot) { /* чесна обробка браку, не мовчазне «якось працюватиме» */ }
-// звільняють обидва звичайним free()
-```
+:::code api-quickstart/c/esp-idf/psram-2-mehabaity-pid-2.c
 
 Перевірити, скільки якої пам'яті лишилось у будь-який момент, — `heap_caps_get_free_size` із тим самим прапорцем (`MALLOC_CAP_SPIRAM` для зовнішньої, `MALLOC_CAP_INTERNAL` для внутрішньої). Це той рядок, що рятує від «чомусь падає, коли даних побільшало»: видно наживо, яка пам'ять кінчається першою.
 
@@ -345,41 +135,8 @@ if (!fb || !hot) { /* чесна обробка браку, не мовчазн�
 ESP32 має для цього спеціальну периферію — **RMT**, апаратний генератор точних імпульсних послідовностей: ви віддаєте йому байти, він сам формує біти з витриманим таймінгом, поки процесор зайнятий іншим. Готові обгортки ховають цю периферію за одним викликом: в Arduino це функція `rgbLedWrite(pin, r, g, b)`, в ESP-IDF — компонент `led_strip`; обидві під капотом піднімають той самий RMT:
 
 :::tabs
-```arduino
-void setup() {
-  // r, g, b — кожен 0..255
-  rgbLedWrite(21, 0, 40, 0);   // тьмяно-зелений: «плата ожила»
-}
-
-void loop() {
-  rgbLedWrite(21, 40, 0, 0);   // червоний
-  delay(500);
-  rgbLedWrite(21, 0, 0, 40);   // синій
-  delay(500);
-}
-```
-```esp-idf
-#include "led_strip.h"
-
-void app_main(void) {
-  led_strip_handle_t strip;
-  led_strip_config_t cfg = { .strip_gpio_num = 21, .max_leds = 1 };
-  led_strip_rmt_config_t rmt = { .resolution_hz = 10 * 1000 * 1000 };  // крок 100 нс
-  ESP_ERROR_CHECK(led_strip_new_rmt_device(&cfg, &rmt, &strip));
-
-  led_strip_set_pixel(strip, 0, 0, 40, 0);   // r, g, b — кожен 0..255
-  led_strip_refresh(strip);                  // тьмяно-зелений: «плата ожила»
-
-  while (1) {
-    led_strip_set_pixel(strip, 0, 40, 0, 0); // червоний
-    led_strip_refresh(strip);                // кадр іде в RMT
-    vTaskDelay(pdMS_TO_TICKS(500));
-    led_strip_set_pixel(strip, 0, 0, 0, 40); // синій
-    led_strip_refresh(strip);
-    vTaskDelay(pdMS_TO_TICKS(500));
-  }
-}
-```
+:::code api-quickstart/c/arduino/vbudovanyi-ws2812-na.ino
+:::code api-quickstart/c/esp-idf/vbudovanyi-ws2812-na.c
 :::
 
 Дві дрібниці, на яких спотикаються. Перша: **порядок кольорів у WS2812 фізично GRB**, не RGB — але обидві обгортки приймають аргументи як (червоний, зелений, синій) і самі переставляють їх у потрібний порядок, тож думати про GRB тут не треба; думати доведеться, якщо перейдете на сторонню бібліотеку зі стрічкою й побачите переплутані червоний із зеленим. Друга: **тримайте яскравість низькою для індикатора** — значення 20–40 цілком видно, а повні 255 сліплять і марно гріють; для одного діода це дрібниця, для стрічки з десятків — уже помітний струм.
@@ -395,45 +152,8 @@ void app_main(void) {
 Найпростіший режим — **CDC, тобто послідовний порт по USB**. Коли ви друкуєте журнал звичним способом, а в налаштуваннях увімкнено рідний USB, він іде в комп'ютер **прямо через USB-контролер чипа**, не займаючи жодної фізичної ноги UART. В Arduino IDE це вмикають двома пунктами: **Tools → USB CDC On Boot → Enabled** і **Tools → USB Mode → «USB-OTG (TinyUSB)»**; в ESP-IDF ту саму роль грає компонент `esp_tinyusb` із класом CDC-ACM. Після цього звичний код працює як завжди — просто журнал тепер фізично тече по рідному USB:
 
 :::tabs
-```arduino
-void setup() {
-  Serial.begin(115200);
-  while (!Serial && millis() < 3000) { }   // трохи чекаємо, поки хост відкриє порт
-  Serial.println("привіт із рідного USB");
-}
-
-void loop() {
-  Serial.printf("uptime: %lu c\n", millis() / 1000);
-  delay(1000);
-}
-```
-```esp-idf
-#include "tinyusb.h"
-#include "tusb_cdc_acm.h"
-#include "esp_timer.h"
-
-void app_main(void) {
-  const tinyusb_config_t tusb_cfg = { .external_phy = false };
-  ESP_ERROR_CHECK(tinyusb_driver_install(&tusb_cfg));
-
-  const tinyusb_config_cdcacm_t acm_cfg = {
-    .usb_dev = TINYUSB_USBDEV_0, .cdc_port = TINYUSB_CDC_ACM_0,
-  };
-  ESP_ERROR_CHECK(tusb_cdc_acm_init(&acm_cfg));
-
-  // трохи чекаємо, поки хост відкриє порт
-  for (int i = 0; i < 30 && !tud_cdc_connected(); i++) vTaskDelay(pdMS_TO_TICKS(100));
-
-  while (1) {
-    char line[48];
-    int n = snprintf(line, sizeof line, "uptime: %lld c\n",
-                     esp_timer_get_time() / 1000000);
-    tinyusb_cdcacm_write_queue(TINYUSB_CDC_ACM_0, (uint8_t *)line, n);
-    tinyusb_cdcacm_write_flush(TINYUSB_CDC_ACM_0, 0);
-    vTaskDelay(pdMS_TO_TICKS(1000));
-  }
-}
-```
+:::code api-quickstart/c/arduino/ridnyi-usb-zhurnal-i.ino
+:::code api-quickstart/c/esp-idf/ridnyi-usb-zhurnal-i.c
 :::
 
 Тут ховається пастка, унікальна саме для рідного USB, — оте очікування хоста на старті (`while (!Serial …)` в Arduino, `tud_cdc_connected()` в ESP-IDF). На класичному перехіднику UART порт існує завжди, і перший рядок ніколи не губиться. А рідний USB **з'являється в системі лише після того, як прошивка стартувала й підняла USB-стек**; поки комп'ютер не «побачив» і не відкрив порт, ранні рядки журналу летять у нікуди. Тому на старті дають цю коротку паузу — інакше найперші повідомлення (часто найважливіші, про ініціалізацію) просто зникають, і здається, що плата мертва.
@@ -441,43 +161,8 @@ void app_main(void) {
 Друга сторона рідного USB — **режим повноцінного USB-пристрою**. Чип може постати перед комп'ютером клавіатурою (HID) чи мишею й слати натискання, флешкою (MSC) з файлами на внутрішньому сховищі, або кількома віртуальними портами заразом. Робить це в обох середовищах той самий стек TinyUSB — Arduino лише накриває його бібліотеками `USBHIDKeyboard`, `USBMSC` та іншими, тоді як в ESP-IDF з ним працюють напряму. Ось мінімальний приклад — плата, увімкнена в комп'ютер, «натискає» клавіші сама:
 
 :::tabs
-```arduino
-#include "USB.h"
-#include "USBHIDKeyboard.h"
-
-USBHIDKeyboard keyboard;
-
-void setup() {
-  keyboard.begin();
-  USB.begin();
-  delay(2000);                 // час хостові розпізнати пристрій
-  keyboard.println("Привіт від ESP32-S3");   // ніби надрукували з клавіатури
-}
-
-void loop() {}
-```
-```esp-idf
-#include "tinyusb.h"
-#include "class/hid/hid_device.h"
-
-// дескриптор звіту — те, чим пристрій оголошує себе клавіатурою.
-// В Arduino його ховає бібліотека; тут ми віддаємо його самі.
-static const uint8_t kbd_desc[] = { TUD_HID_REPORT_DESC_KEYBOARD() };
-
-const uint8_t *tud_hid_descriptor_report_cb(uint8_t instance) { return kbd_desc; }
-
-void app_main(void) {
-  const tinyusb_config_t tusb_cfg = { .external_phy = false };
-  ESP_ERROR_CHECK(tinyusb_driver_install(&tusb_cfg));
-
-  while (!tud_mounted()) vTaskDelay(pdMS_TO_TICKS(100));  // час хостові розпізнати пристрій
-
-  uint8_t keys[6] = { HID_KEY_A };                  // натиснули «A»…
-  tud_hid_keyboard_report(0, 0, keys);
-  vTaskDelay(pdMS_TO_TICKS(20));
-  tud_hid_keyboard_report(0, 0, NULL);              // …і відпустили
-}
-```
+:::code api-quickstart/c/arduino/ridnyi-usb-zhurnal-i-2.ino
+:::code api-quickstart/c/esp-idf/ridnyi-usb-zhurnal-i-2.c
 :::
 
 І тут — головна практична обережність рідного USB: **GPIO19 і GPIO20 зайняті, поки ви ним користуєтесь**. Це ті самі ноги D−/D+, і, на відміну від решти сигналів, вони **не ходять через комутатор** — вони прибиті до USB-контролера через IOMUX і перенести їх нікуди. Тож якщо задіяли рідний USB (журнал по CDC, режим пристрою) — викресліть GPIO19/GPIO20 зі списку вільних для своєї периферії. Спроба повісити на них давач, поки активний USB, дасть або мовчазний конфлікт, або зникнення USB-порту. Ще підступніше: навіть якщо USB у коді не використовуєте, ці дві ноги з'єднані з роз'ємом, тож коли кабель устромлено, зовнішня схема на них конфліктує з лініями USB — тож для власної периферії їх краще обходити взагалі.
@@ -491,44 +176,8 @@ void app_main(void) {
 Логіка коду незвична для тих, хто звик до нескінченного головного циклу: **після глибокого сну чип не «прокидається туди, де заснув» — він стартує з нуля, як після скидання**. Уся оперативна пам'ять (окрім невеликого RTC-шматка) стирається; програма починається знову з точки входу — `setup()` в Arduino, `app_main()` в ESP-IDF. Тому глибокий сон — це не пауза всередині логіки, а «зроби діло → засни → почни спочатку». Ось скелет вимірювача, що прокидається щохвилини:
 
 :::tabs
-```arduino
-void setup() {
-  Serial.begin(115200);
-  delay(200);
-
-  // 1) корисна робота: тут прокидання, вимір, відправка в мережу…
-  Serial.println("прокинувся, роблю вимір");
-
-  // 2) наказуємо RTC-таймеру розбудити нас через 60 секунд
-  esp_sleep_enable_timer_wakeup(60ULL * 1000000ULL);   // аргумент — у мікросекундах
-
-  // 3) засинаємо; наступний рядок ніколи не виконається —
-  //    після сну буде новий старт із setup()
-  Serial.println("засинаю на 60 с");
-  Serial.flush();                    // договорити журнал, поки USB живий
-  esp_deep_sleep_start();
-}
-
-void loop() {}                       // сюди керування навіть не доходить
-```
-```esp-idf
-#include "esp_sleep.h"
-#include "esp_log.h"
-
-void app_main(void) {
-  // 1) корисна робота: тут прокидання, вимір, відправка в мережу…
-  ESP_LOGI("sleep", "прокинувся, роблю вимір");
-
-  // 2) наказуємо RTC-таймеру розбудити нас через 60 секунд
-  esp_sleep_enable_timer_wakeup(60ULL * 1000000ULL);   // аргумент — у мікросекундах
-
-  // 3) засинаємо; наступний рядок ніколи не виконається —
-  //    після сну буде новий старт із app_main()
-  ESP_LOGI("sleep", "засинаю на 60 с");
-  vTaskDelay(pdMS_TO_TICKS(50));     // договорити журнал, поки USB живий
-  esp_deep_sleep_start();
-}
-```
+:::code api-quickstart/c/arduino/hlybokyi-son-iak-pryspaty.ino
+:::code api-quickstart/c/esp-idf/hlybokyi-son-iak-pryspaty.c
 :::
 
 Крім таймера, чип уміє прокидатися від **зовнішнього сигналу на нозі** — натиснута кнопка, спрацьований датчик руху. Для цього нога має належати до RTC-домену (на ESP32-S3 це GPIO0–GPIO21), бо решта чипа спить:

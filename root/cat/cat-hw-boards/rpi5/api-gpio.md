@@ -29,96 +29,8 @@
 **Робочий код (C, `libgpiod` v2).** Спершу поставте бібліотеку й заголовки: `sudo apt install libgpiod-dev gpiod`. Пакет `gpiod` дає ще й командні утиліти (`gpioset`, `gpioget`, `gpioinfo`) — ними зручно перевіряти залізо руками до того, як писати програму.
 
 :::tabs
-```c
-// blink.c — блимаємо світлодіодом на GPIO 17 через libgpiod v2
-// збірка:  gcc blink.c -o blink -lgpiod
-#include <gpiod.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>      // usleep
-#include <string.h>
-#include <errno.h>
-
-#define CHIP_PATH  "/dev/gpiochip0"   // гребінка на Pi 5 у свіжому ядрі
-#define LED_LINE   17                 // BCM-зсув, а НЕ фізичний штирок
-
-int main(void)
-{
-    struct gpiod_chip *chip = gpiod_chip_open(CHIP_PATH);
-    if (!chip) {
-        fprintf(stderr, "не відкрив %s: %s\n", CHIP_PATH, strerror(errno));
-        return 1;
-    }
-
-    // 1. Налаштування лінії: напрямок — вихід, старт — низький рівень
-    struct gpiod_line_settings *settings = gpiod_line_settings_new();
-    gpiod_line_settings_set_direction(settings, GPIOD_LINE_DIRECTION_OUTPUT);
-    gpiod_line_settings_set_output_value(settings, GPIOD_LINE_VALUE_INACTIVE);
-
-    // 2. Конфіг ліній: прив'язуємо ці налаштування до зсуву 17
-    struct gpiod_line_config *lcfg = gpiod_line_config_new();
-    unsigned int offset = LED_LINE;
-    gpiod_line_config_add_line_settings(lcfg, &offset, 1, settings);
-
-    // 3. Конфіг запиту: підпис — щоб інші бачили, хто зайняв лінію
-    struct gpiod_request_config *rcfg = gpiod_request_config_new();
-    gpiod_request_config_set_consumer(rcfg, "blink");
-
-    // 4. Власне запит лінії в ядра
-    struct gpiod_line_request *req =
-        gpiod_chip_request_lines(chip, rcfg, lcfg);
-    if (!req) {
-        fprintf(stderr, "не вдалось узяти лінію 17: %s\n", strerror(errno));
-        return 1;
-    }
-
-    // 5. Блимаємо: 1 → горить, 0 → згас, пауза 500 мс
-    for (int i = 0; i < 20; i++) {
-        gpiod_line_request_set_value(req, LED_LINE, GPIOD_LINE_VALUE_ACTIVE);
-        usleep(500000);
-        gpiod_line_request_set_value(req, LED_LINE, GPIOD_LINE_VALUE_INACTIVE);
-        usleep(500000);
-    }
-
-    // 6. Прибираємо за собою — звільняємо лінію й закриваємо чип
-    gpiod_line_request_release(req);
-    gpiod_line_settings_free(settings);
-    gpiod_line_config_free(lcfg);
-    gpiod_request_config_free(rcfg);
-    gpiod_chip_close(chip);
-    return 0;
-}
-```
-```py
-# blink.py — блимаємо світлодіодом на GPIO 17 через libgpiod v2
-# постановка:  sudo apt install python3-libgpiod   (пакет gpiod)
-import time
-import gpiod
-from gpiod.line import Direction, Value
-
-CHIP_PATH = "/dev/gpiochip0"   # гребінка на Pi 5 у свіжому ядрі
-LED_LINE  = 17                 # BCM-зсув, а НЕ фізичний штирок
-
-# request_lines бере той самий набір понять, що й C: зсув лінії, її
-# налаштування (напрямок, старт) і підпис споживача. Менеджер контексту
-# (with) сам звільнить лінію й закриє чип на виході — це заміна кроку 6.
-with gpiod.request_lines(
-    CHIP_PATH,
-    consumer="blink",
-    config={
-        LED_LINE: gpiod.LineSettings(
-            direction=Direction.OUTPUT,
-            output_value=Value.INACTIVE,   # старт — низький рівень
-        )
-    },
-) as req:
-    # блимаємо: ACTIVE → горить, INACTIVE → згас, пауза 500 мс
-    for _ in range(20):
-        req.set_value(LED_LINE, Value.ACTIVE)
-        time.sleep(0.5)
-        req.set_value(LED_LINE, Value.INACTIVE)
-        time.sleep(0.5)
-```
+:::code api-gpio/c/blink.c
+:::code api-gpio/py/blink.py
 :::
 
 Код здається довгим для «блимнути світлодіодом», і це не випадково. Версія 2 `libgpiod` розбиває запит на **три окремі об'єкти-конфіги**: `line_settings` (як поводиться лінія — напрямок, підтяжка, початкове значення), `line_config` (які саме зсуви ліній беремо й з якими налаштуваннями) і `request_config` (метадані запиту — підпис споживача). Ці три збираються в один виклик `gpiod_chip_request_lines()`, що й повертає **дескриптор запиту** — далі всі значення читаються-пишуться через нього. Розбиття виглядає надлишковим для однієї лінії, але воно окупається, коли ліній багато й у кожної свій режим: ви складаєте конфіг як конструктор, а не сиплете десяток аргументів в одну функцію.
@@ -138,87 +50,8 @@ RP1 має вбудовані підтяжки на кожному вводі, �
 **Робочий код (C).**
 
 :::tabs
-```c
-// button.c — читаємо кнопку на GPIO 27 із внутрішньою підтяжкою до плюса
-// збірка:  gcc button.c -o button -lgpiod
-#include <gpiod.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
-
-#define CHIP_PATH  "/dev/gpiochip0"
-#define BTN_LINE   27
-
-int main(void)
-{
-    struct gpiod_chip *chip = gpiod_chip_open(CHIP_PATH);
-    if (!chip) { perror("gpiod_chip_open"); return 1; }
-
-    struct gpiod_line_settings *settings = gpiod_line_settings_new();
-    gpiod_line_settings_set_direction(settings, GPIOD_LINE_DIRECTION_INPUT);
-    // внутрішня підтяжка до 3.3 В: у спокої лінія читається як ACTIVE
-    gpiod_line_settings_set_bias(settings, GPIOD_LINE_BIAS_PULL_UP);
-
-    struct gpiod_line_config *lcfg = gpiod_line_config_new();
-    unsigned int offset = BTN_LINE;
-    gpiod_line_config_add_line_settings(lcfg, &offset, 1, settings);
-
-    struct gpiod_request_config *rcfg = gpiod_request_config_new();
-    gpiod_request_config_set_consumer(rcfg, "button");
-
-    struct gpiod_line_request *req =
-        gpiod_chip_request_lines(chip, rcfg, lcfg);
-    if (!req) { perror("request_lines"); return 1; }
-
-    printf("натисніть кнопку (Ctrl+C — вихід)\n");
-    int prev = -1;
-    for (;;) {
-        enum gpiod_line_value v = gpiod_line_request_get_value(req, BTN_LINE);
-        // ПІДТЯЖКА ДО ПЛЮСА: ACTIVE (=3.3 В) — відпущено, INACTIVE (=0) — натиснуто
-        int pressed = (v == GPIOD_LINE_VALUE_INACTIVE);
-        if (pressed != prev) {             // друкуємо лише коли стан змінився
-            printf("%s\n", pressed ? "натиснуто" : "відпущено");
-            prev = pressed;
-        }
-        usleep(20000);                     // 20 мс — заразом гасить дребезг
-    }
-    // сюди не доходимо, але в реальному коді — release + close
-}
-```
-```py
-# button.py — читаємо кнопку на GPIO 27 із внутрішньою підтяжкою до плюса
-# постановка:  sudo apt install python3-libgpiod   (пакет gpiod)
-import time
-import gpiod
-from gpiod.line import Direction, Bias, Value
-
-CHIP_PATH = "/dev/gpiochip0"
-BTN_LINE  = 27
-
-with gpiod.request_lines(
-    CHIP_PATH,
-    consumer="button",
-    config={
-        BTN_LINE: gpiod.LineSettings(
-            direction=Direction.INPUT,
-            # внутрішня підтяжка до 3.3 В: у спокої лінія читається як ACTIVE
-            bias=Bias.PULL_UP,
-        )
-    },
-) as req:
-    print("натисніть кнопку (Ctrl+C — вихід)")
-    prev = None
-    while True:
-        v = req.get_value(BTN_LINE)
-        # ПІДТЯЖКА ДО ПЛЮСА: ACTIVE (=3.3 В) — відпущено, INACTIVE (=0) — натиснуто
-        pressed = (v == Value.INACTIVE)
-        if pressed != prev:                # друкуємо лише коли стан змінився
-            print("натиснуто" if pressed else "відпущено")
-            prev = pressed
-        time.sleep(0.02)                   # 20 мс — заразом гасить дребезг
-```
+:::code api-gpio/c/button.c
+:::code api-gpio/py/button.py
 :::
 
 Дві деталі варті слів. По-перше, `GPIOD_LINE_BIAS_PULL_UP` — це і є прохання «увімкни внутрішню підтяжку до плюса». Є ще `PULL_DOWN` (тягне до землі, тоді натиск дає одиницю), `DISABLE` (жодної підтяжки — коли її дає зовнішнє коло) і `AS_IS` (не чіпати те, що є). Обрати треба свідомо під свою схему, бо саме підтяжка задає, що ви прочитаєте в спокої.
@@ -238,77 +71,8 @@ with gpiod.request_lines(
 **Робочий код (C, через ioctl ядра).**
 
 :::tabs
-```c
-// i2c_id.c — читаємо регістр 0xD0 (id) давача BMP280 за адресою 0x76 на шині i2c-1
-// збірка:  gcc i2c_id.c -o i2c_id
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>          // open
-#include <unistd.h>         // read, write, close
-#include <string.h>
-#include <errno.h>
-#include <linux/i2c-dev.h>  // I2C_SLAVE
-#include <sys/ioctl.h>
-
-#define I2C_BUS   "/dev/i2c-1"   // фізичні штирки 3 (SDA) і 5 (SCL)
-#define ADDR      0x76           // адреса BMP280 на шині
-#define REG_ID    0xD0           // регістр «id»; має віддати 0x58
-
-int main(void)
-{
-    int fd = open(I2C_BUS, O_RDWR);
-    if (fd < 0) {
-        fprintf(stderr, "не відкрив %s: %s\n", I2C_BUS, strerror(errno));
-        return 1;
-    }
-
-    // кажемо драйверу, з яким пристроєм на шині говоримо
-    if (ioctl(fd, I2C_SLAVE, ADDR) < 0) {
-        fprintf(stderr, "нема пристрою 0x%02X: %s\n", ADDR, strerror(errno));
-        close(fd);
-        return 1;
-    }
-
-    // крок 1: пишемо номер регістра, який хочемо прочитати
-    unsigned char reg = REG_ID;
-    if (write(fd, &reg, 1) != 1) {
-        fprintf(stderr, "запис регістра не вдався: %s\n", strerror(errno));
-        close(fd);
-        return 1;
-    }
-
-    // крок 2: читаємо один байт — вміст цього регістра
-    unsigned char id = 0;
-    if (read(fd, &id, 1) != 1) {
-        fprintf(stderr, "читання не вдалось: %s\n", strerror(errno));
-        close(fd);
-        return 1;
-    }
-
-    printf("id давача = 0x%02X %s\n", id,
-           id == 0x58 ? "(BMP280 — зв'язок є!)" : "(не той підпис?)");
-    close(fd);
-    return 0;
-}
-```
-```py
-# i2c_id.py — читаємо регістр 0xD0 (id) давача BMP280 за адресою 0x76 на шині i2c-1
-# постановка:  pip install smbus2   (або sudo apt install python3-smbus2)
-from smbus2 import SMBus
-
-I2C_BUS = 1        # шина i2c-1: фізичні штирки 3 (SDA) і 5 (SCL)
-ADDR    = 0x76     # адреса BMP280 на шині
-REG_ID  = 0xD0     # регістр «id»; має віддати 0x58
-
-# with сам відкриє /dev/i2c-1 і закриє його на виході.
-with SMBus(I2C_BUS) as bus:
-    # read_byte_data робить обидва такти за раз: пише номер регістра,
-    # потім читає один байт відповіді — та сама розмова, що в C.
-    id = bus.read_byte_data(ADDR, REG_ID)
-
-hint = "(BMP280 — зв'язок є!)" if id == 0x58 else "(не той підпис?)"
-print(f"id давача = 0x{id:02X} {hint}")
-```
+:::code api-gpio/c/i2c_id.c
+:::code api-gpio/py/i2c_id.py
 :::
 
 Тут працює той самий принцип «усе — файл», яким Linux пишається. Пристрій на шині I²C виглядає як файл `/dev/i2c-1`; єдине спеціальне — `ioctl(fd, I2C_SLAVE, ADDR)`, яким ми один раз кажемо драйверу, до **кого** з пристроїв на шині адресуємо наступні `write`/`read`. Далі `write(fd, &reg, 1)` шле давачу один байт (номер регістра), а `read(fd, &id, 1)` забирає один байт відповіді. Ніякого возні з тактами й старт-стоп-умовами шини — це все бере на себе драйвер контролера I²C у ядрі; наша справа — байти змісту.
@@ -326,59 +90,8 @@ print(f"id давача = 0x{id:02X} {hint}")
 **Робочий код (C).** Прочитаємо перші 16 байтів **сирого** диска (де в розмічених дисків лежить завантажувальний сектор) і роздрукуємо їх шістнадцятково.
 
 :::tabs
-```c
-// nvme_peek.c — читаємо перші 16 байтів NVMe-диска як звичайного файлу
-// збірка:  gcc nvme_peek.c -o nvme_peek
-// запуск:  sudo ./nvme_peek   (сирий диск читає лише root)
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
-
-#define DISK  "/dev/nvme0n1"   // весь диск; розділ був би nvme0n1p1
-
-int main(void)
-{
-    // O_RDONLY — тільки читаємо; писати в сирий диск наосліп НЕБЕЗПЕЧНО
-    int fd = open(DISK, O_RDONLY);
-    if (fd < 0) {
-        fprintf(stderr, "не відкрив %s: %s\n", DISK, strerror(errno));
-        return 1;
-    }
-
-    unsigned char buf[16];
-    ssize_t n = read(fd, buf, sizeof buf);   // читаємо з початку диска
-    if (n < 0) {
-        fprintf(stderr, "читання не вдалось: %s\n", strerror(errno));
-        close(fd);
-        return 1;
-    }
-
-    printf("перші %zd байтів %s:\n", n, DISK);
-    for (ssize_t i = 0; i < n; i++)
-        printf("%02X ", buf[i]);
-    printf("\n");
-
-    close(fd);
-    return 0;
-}
-```
-```py
-# nvme_peek.py — читаємо перші 16 байтів NVMe-диска як звичайного файлу
-# запуск:  sudo python3 nvme_peek.py   (сирий диск читає лише root)
-
-DISK = "/dev/nvme0n1"   # весь диск; розділ був би nvme0n1p1
-
-# "rb" — тільки читаємо, у двійковому режимі; писати в сирий диск наосліп
-# НЕБЕЗПЕЧНО. with сам закриє файл на виході.
-with open(DISK, "rb") as f:
-    buf = f.read(16)    # читаємо з початку диска
-
-print(f"перші {len(buf)} байтів {DISK}:")
-print(" ".join(f"{b:02X}" for b in buf))
-```
+:::code api-gpio/c/nvme_peek.c
+:::code api-gpio/py/nvme_peek.py
 :::
 
 Уся суть — у тому, чого в коді **немає**. Немає слова «NVMe», немає роботи з PCIe, немає драйвера — бо ядро вже перетворило швидкий диск на PCIe у простий потік байтів за іменем `/dev/nvme0n1`. Це той самий код, яким ви прочитали б файл на диску чи навіть звичайний текстовий файл; змінилося тільки ім'я. У цьому й сила Linux на такій платі: щойно щось стало блочним пристроєм, ви працюєте з ним звичними інструментами, не знаючи, чи це NVMe, чи USB-флешка, чи microSD.

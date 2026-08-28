@@ -36,47 +36,8 @@ void setup() {
   MFS.initialize();        // запустити фонове переривання й налаштувати виводи
 }
 ```
-```esp-idf
-// ESP-IDF: виводи шилда — на вихід, а тик 1 кГц веде дисплей, кнопки й писк
-#include "driver/gpio.h"
-#include "esp_timer.h"
-
-static void shield_tick(void *arg);   // один розряд, опитування кнопок, відлік писку
-
-void app_main(void) {
-    gpio_config_t io = {
-        .pin_bit_mask = (1ULL << PIN_LATCH) | (1ULL << PIN_CLK) | (1ULL << PIN_DATA),
-        .mode         = GPIO_MODE_OUTPUT,
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-
-    const esp_timer_create_args_t args = { .callback = shield_tick, .name = "mfs" };
-    esp_timer_handle_t tim;
-    ESP_ERROR_CHECK(esp_timer_create(&args, &tim));
-    ESP_ERROR_CHECK(esp_timer_start_periodic(tim, 1000));   // кожні 1000 мкс = 1 кГц
-    // з цієї миті дисплей ведеться сам — далі в коді лише логіка
-}
-```
-```stm32
-// STM32 HAL: та сама рутина — у перериванні апаратного таймера, зведеного на 1 кГц
-extern TIM_HandleTypeDef htim6;
-
-void shield_tick(void);               // один розряд, опитування кнопок, відлік писку
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();                     // латч/такт/дані — виходи, кнопки — входи з підтяжкою
-  MX_TIM6_Init();                     // прескалер і період дають 1 кГц
-  HAL_TIM_Base_Start_IT(&htim6);      // з цієї миті дисплей ведеться сам
-
-  while (1) { /* тут лише логіка */ }
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Instance == TIM6) shield_tick();
-}
-```
+:::code api-multifunction-shield/c/esp-idf/main.c
+:::code api-multifunction-shield/c/stm32/vstanovlennia-i-pershyi.c
 :::
 
 `MFS` — це вже готовий об'єкт бібліотеки (він оголошений усередині, окремо створювати не треба). Виклик `MFS.initialize()` робить дві речі: налаштовує всі виводи шилда й **запускає той самий фоновий таймер**. З цієї миті дисплей уже живий — просто поки що порожній, — а кнопки вже опитуються. Уся решта коду лише каже бібліотеці, *що* показати й *що* робити з натисканнями.
@@ -158,21 +119,7 @@ if (xQueueReceive(btn_q, &ev, 0) == pdTRUE) {   // 0 тиків очікуван
     }
 }
 ```
-```stm32
-// STM32 HAL: кнопку опитує той самий тик таймера, у головний цикл іде вже подія
-void shield_tick(void) {                       // 1 кГц
-  static uint8_t stable, cnt;
-  uint8_t now = (HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin) == GPIO_PIN_RESET);
-  if (now == stable) cnt = 0;                  // без змін — лічильник спокою обнуляється
-  else if (++cnt >= 20) {                      // 20 однакових тиків = 20 мс без деренчання
-    stable = now; cnt = 0;
-    btn_push(now ? BTN_1_PRESSED : BTN_1_SHORT_RELEASE);
-  }
-}
-
-uint8_t ev = btn_pop();                        // 0, якщо черга порожня — як getButton()
-if (ev == BTN_1_SHORT_RELEASE) { /* ... робимо дію */ }
-```
+:::code api-multifunction-shield/c/stm32/prochytaty-knopky.c
 :::
 
 Чому реагувати найчастіше на `SHORT_RELEASE`, а не на `PRESSED`? Бо клацання, яке спрацьовує **на відпусканні**, дає людині шанс передумати: притиснув, побачив, забрав палець — нічого не сталося. Це звична поведінка кнопок скрізь. А `PRESSED` беруть, коли треба миттєвий відгук (наприклад, почати щось, поки тримають). `LONG_PRESSED` зручний для «швидкого перемотування»: тримаєш — і число біжить само; `LONG_RELEASE` — для дій «утримати три секунди, щоб скинути», щоб випадковим тиком не зачепити.

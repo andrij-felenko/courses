@@ -98,46 +98,8 @@ ESP32-S3-Pico        Давач (приклад, 3.3 В)
 У коді підняти світлодіод і Wi-Fi — кілька рядків. Ось найкоротша перевірка, що плата жива (Arduino-стиль):
 
 :::tabs
-```cpp
-#include <WiFi.h>
-#include <Adafruit_NeoPixel.h>
-
-Adafruit_NeoPixel led(1, 21, NEO_GRB + NEO_KHZ800);  // 1 діод на GPIO21
-
-void setup() {
-  Serial.begin(115200);
-  led.begin();
-  led.setPixelColor(0, led.Color(0, 40, 0));         // тьмяно-зелений
-  led.show();                                        // «плата ожила»
-
-  WiFi.begin("SSID", "пароль");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(300);
-    Serial.print(".");
-  }
-  Serial.printf("\nПідключено, IP: %s\n", WiFi.localIP().toString().c_str());
-}
-
-void loop() {}
-```
-```micropython
-import network, time
-from machine import Pin
-from neopixel import NeoPixel
-
-led = NeoPixel(Pin(21), 1)          # 1 діод на GPIO21
-led[0] = (0, 40, 0)                 # тьмяно-зелений
-led.write()                         # «плата ожила»
-
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect("SSID", "пароль")
-while not wlan.isconnected():
-    time.sleep_ms(300)
-    print(".", end="")
-
-print("\nПідключено, IP:", wlan.ifconfig()[0])
-```
+:::code esp32-s3-pico-d/cpp/main.cpp
+:::code esp32-s3-pico-d/py/micropython/main.py
 :::
 
 Повніший розбір — як налаштувати I²C і SPI на довільних ногах, як тримати кадри й буфери в PSRAM, як завести рідний USB як послідовний порт і на що зважати з бібліотеками — винесено в окрему добірку прикладів: [підключення й код для ESP32-S3-Pico](root:cat-hw-boards/esp32-s3-pico/api-quickstart.md).
