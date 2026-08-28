@@ -26,66 +26,8 @@
 Спершу — складання кадру 8N1 і обчислення біта парності для довільного формату:
 
 :::tabs
-```cpp
-#include <cstdint>
-
-// Парність байта: XOR усіх 8 біт. Повертає 1, якщо одиниць непарно.
-static uint8_t parity_xor(uint8_t b) {
-    b ^= b >> 4;          // згортаємо half-байти
-    b ^= b >> 2;
-    b ^= b >> 1;
-    return b & 1u;        // лишився XOR усіх вихідних біт
-}
-
-// Біт парності під обрану схему. even: щоб разом стало парно; odd: навпаки.
-enum parity_t { PAR_NONE, PAR_EVEN, PAR_ODD };
-
-static uint8_t parity_bit(uint8_t data, parity_t mode) {
-    uint8_t p = parity_xor(data);          // =1, якщо одиниць у даних непарно
-    if (mode == PAR_EVEN) return p;        // even: P доповнює до парного
-    if (mode == PAR_ODD)  return p ^ 1u;   // odd: дзеркально
-    return 0;                              // none: біта нема
-}
-
-// Зібрати кадр 8N1 у 16-бітне слово; нульовий біт слова виходить у лінію першим.
-uint16_t build_frame_8N1(uint8_t data) {
-    uint16_t frame = 0;
-    frame |= 0u << 0;                 // старт «0» (позиція 0)
-    frame |= (uint16_t)data << 1;     // 8 біт даних (позиції 1..8), LSB-first задарма
-    frame |= 1u << 9;                 // стоп «1» (позиція 9)
-    return frame;                     // напр. 0x41 → 0x282
-}
-```
-```python
-from enum import Enum
-
-# Парність байта: XOR усіх 8 біт. Повертає 1, якщо одиниць непарно.
-def parity_xor(b: int) -> int:
-    b ^= b >> 4          # згортаємо half-байти
-    b ^= b >> 2
-    b ^= b >> 1
-    return b & 1         # лишився XOR усіх вихідних біт
-
-# Біт парності під обрану схему. even: щоб разом стало парно; odd: навпаки.
-class Parity(Enum):
-    NONE = 0
-    EVEN = 1
-    ODD  = 2
-
-def parity_bit(data: int, mode: Parity) -> int:
-    p = parity_xor(data)                   # =1, якщо одиниць у даних непарно
-    if mode is Parity.EVEN: return p       # even: P доповнює до парного
-    if mode is Parity.ODD:  return p ^ 1   # odd: дзеркально
-    return 0                               # none: біта нема
-
-# Зібрати кадр 8N1 у 16-бітне слово; нульовий біт слова виходить у лінію першим.
-def build_frame_8N1(data: int) -> int:
-    frame = 0
-    frame |= 0 << 0                  # старт «0» (позиція 0)
-    frame |= data << 1               # 8 біт даних (позиції 1..8), LSB-first задарма
-    frame |= 1 << 9                  # стоп «1» (позиція 9)
-    return frame                     # напр. 0x41 → 0x282
-```
+:::code proj-frame-in-code/cpp/robochyi-kod.cpp
+:::code proj-frame-in-code/py/robochyi-kod.py
 :::
 
 Перевіримо на знаку `'A'` (0x41): `0x41 << 1 = 0x82`, плюс стоп `1<<9 = 0x200`, разом `0x282 = 0b10_1000_0010`. Молодший біт слова — 0 (старт), далі 1,0,0,0,0,0,1,0 (це 0x41 молодшим уперед), тоді 1 (стоп). Саме те, що видно на лінії.
@@ -93,68 +35,8 @@ def build_frame_8N1(data: int) -> int:
 Тепер дзеркальний розбір. Уявімо, що рівні кадру вже захоплені в масив `bits[]` (по одному значенню «0»/«1» на бод, від старту до стопа). Розберемо їх у байт і перевіримо обидві помилки:
 
 :::tabs
-```cpp
-struct rx_result_t {
-    uint8_t  data;          // зібраний байт
-    bool     framing_error; // стоп був не «1»
-    bool     parity_error;  // парність не збіглася
-};
-
-// bits[0] = старт, bits[1..8] = дані (D0..D7), bits[9] = парність, bits[10] = стоп
-// (для 8N1 parity пропускаємо: передати mode = PAR_NONE і зсунути стоп на 9)
-rx_result_t parse_frame(const uint8_t *bits, parity_t mode) {
-    rx_result_t r = {0, false, false};
-
-    uint8_t data = 0;
-    for (int i = 0; i < 8; i++)
-        data |= (bits[1 + i] & 1u) << i;   // D0 першим → лягає в біт 0
-    r.data = data;
-
-    int idx = 9;                            // наступна позиція після даних
-    if (mode != PAR_NONE) {
-        uint8_t expected = parity_bit(data, mode);
-        if ((bits[idx] & 1u) != expected)
-            r.parity_error = true;          // прийнятий P не збігся з перерахованим
-        idx++;                              // стоп зсувається на 10
-    }
-
-    if ((bits[idx] & 1u) != 1u)             // стоп ЗОБОВ'ЯЗАНИЙ бути «1»
-        r.framing_error = true;             // інакше межі кадру втрачено
-
-    return r;
-}
-```
-```python
-from dataclasses import dataclass
-
-@dataclass
-class RxResult:
-    data: int = 0              # зібраний байт
-    framing_error: bool = False  # стоп був не «1»
-    parity_error: bool = False   # парність не збіглася
-
-# bits[0] = старт, bits[1..8] = дані (D0..D7), bits[9] = парність, bits[10] = стоп
-# (для 8N1 parity пропускаємо: передати mode = Parity.NONE і зсунути стоп на 9)
-def parse_frame(bits, mode: Parity) -> RxResult:
-    r = RxResult()
-
-    data = 0
-    for i in range(8):
-        data |= (bits[1 + i] & 1) << i     # D0 першим → лягає в біт 0
-    r.data = data
-
-    idx = 9                                 # наступна позиція після даних
-    if mode is not Parity.NONE:
-        expected = parity_bit(data, mode)
-        if (bits[idx] & 1) != expected:
-            r.parity_error = True           # прийнятий P не збігся з перерахованим
-        idx += 1                            # стоп зсувається на 10
-
-    if (bits[idx] & 1) != 1:                # стоп ЗОБОВ'ЯЗАНИЙ бути «1»
-        r.framing_error = True              # інакше межі кадру втрачено
-
-    return r
-```
+:::code proj-frame-in-code/cpp/robochyi-kod-2.cpp
+:::code proj-frame-in-code/py/robochyi-kod-2.py
 :::
 
 Зверни увагу на головне рішення розбору: **парність перевіряємо й однаково повертаємо байт**, навіть коли вона не збіглася — рішення, що робити зі зіпсованим байтом, належить рівню вище. А ось **помилка кадру** серйозніша: стоп не на місці означає, що ми, найпевніше, читали кадр не з тієї позиції, і самому байту довіряти не можна взагалі.
@@ -162,59 +44,8 @@ def parse_frame(bits, mode: Parity) -> RxResult:
 Якщо приймач не апаратний, а програмний (так званий bit-bang на звичайній ніжці), додається ще один крок — **знайти середину біта**. Лінію передискретизовують частіше за бод (класично у 16 разів), ловлять перепад «1→0» старту й далі читають кожен біт **посередині** його тривалості, де рівень устоявся:
 
 :::tabs
-```cpp
-#define OVERSAMPLE 16
-
-// Прийняти один кадр 8N1 на голій ніжці. Читання — по центру кожного біта.
-// tick() блокує рівно на 1/(16·baud); pin() віддає поточний рівень лінії.
-bool soft_uart_rx(uint8_t *out) {
-    while (pin() == 1) { /* чекаємо перепад спокій→старт */ }
-
-    // переміститися в СЕРЕДИНУ старт-біта й перевірити, що це не голка шуму
-    for (int k = 0; k < OVERSAMPLE / 2; k++) tick();
-    if (pin() != 0) return false;           // фальшивий старт — відкинути
-
-    uint8_t data = 0;
-    for (int i = 0; i < 8; i++) {
-        for (int k = 0; k < OVERSAMPLE; k++) tick();  // крок на цілий біт
-        data |= (pin() & 1u) << i;          // зчитуємо по центру, D0 першим
-    }
-
-    for (int k = 0; k < OVERSAMPLE; k++) tick();
-    if (pin() != 1) return false;           // стоп не «1» → помилка кадру
-
-    *out = data;
-    return true;
-}
-```
-```python
-OVERSAMPLE = 16
-
-# Прийняти один кадр 8N1 на голій ніжці. Читання — по центру кожного біта.
-# tick() блокує рівно на 1/(16·baud); pin() віддає поточний рівень лінії.
-def soft_uart_rx():
-    while pin() == 1:                       # чекаємо перепад спокій→старт
-        pass
-
-    # переміститися в СЕРЕДИНУ старт-біта й перевірити, що це не голка шуму
-    for _ in range(OVERSAMPLE // 2):
-        tick()
-    if pin() != 0:
-        return None                         # фальшивий старт — відкинути
-
-    data = 0
-    for i in range(8):
-        for _ in range(OVERSAMPLE):
-            tick()                          # крок на цілий біт
-        data |= (pin() & 1) << i            # зчитуємо по центру, D0 першим
-
-    for _ in range(OVERSAMPLE):
-        tick()
-    if pin() != 1:
-        return None                         # стоп не «1» → помилка кадру
-
-    return data
-```
+:::code proj-frame-in-code/cpp/robochyi-kod-3.cpp
+:::code proj-frame-in-code/py/robochyi-kod-3.py
 :::
 
 Уся хитрість — у першому півкроці на `OVERSAMPLE/2`: він зсуває всі наступні вибірки в середину їхніх біт, найдалі від країв, де сигнал ще перемикається. Без цього зсуву читання випадало б на самі фронти — і поодинокий джиттер давав би то один біт, то сусідній.

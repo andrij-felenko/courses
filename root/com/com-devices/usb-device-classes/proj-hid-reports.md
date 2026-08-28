@@ -37,107 +37,19 @@
 
 Структура `kbd_report_t` дзеркалює цей формат побайтово — це не випадковий вибір, а канонічний формат HID boot keyboard:
 
-```cpp
-#include "Adafruit_TinyUSB.h"   // або esp_tinyusb.h на ESP-IDF
-
-// Модифікатори (byte 0, бітові маски)
-#define KEY_LCTRL  0x01
-#define KEY_LSHIFT 0x02
-#define KEY_LALT   0x04
-#define KEY_LGUI   0x08   // Win/Cmd — ліва
-#define KEY_RCTRL  0x10
-#define KEY_RSHIFT 0x20
-#define KEY_RALT   0x40
-#define KEY_RGUI   0x80
-
-// Usage ID (Keyboard/Keypad page 0x07), вибірка
-#define KEY_A  0x04
-#define KEY_R  0x15
-#define KEY_NONE 0x00
-
-typedef struct __attribute__((packed)) {
-    uint8_t modifier;   // byte 0: бітова маска модифікаторів
-    uint8_t reserved;   // byte 1: завжди 0x00
-    uint8_t keys[6];    // byte 2..7: до 6 одночасних usage ID
-} kbd_report_t;
-
-// Дескриптор звіту — цей «бланк» стек віддає хосту при енумерації.
-// TUD_HID_REPORT_DESC_KEYBOARD() розгортається у повний набір HID-item-байтів.
-uint8_t const desc_hid_report[] = { TUD_HID_REPORT_DESC_KEYBOARD() };
-
-Adafruit_USBD_HID usb_hid;
-```
+:::code proj-hid-reports/cpp/robochyi-kod-c-c-esp32-s2.cpp
 
 Рядок `TUD_HID_REPORT_DESC_KEYBOARD()` — готовий макрос TinyUSB, який генерує той самий «бланк», описаний вище. Переписувати його вручну не потрібно: стек знає формат і передає хосту при запиті дескриптора.
 
 **Блок 2 — дві примітивні операції.**
 
-```cpp
-// Надіслати стан: modifier — бітова маска, usage — код звичайної клавіші.
-// Якщо потрібно кілька клавіш одночасно — заповнити кілька слотів keys[].
-void key_send(uint8_t modifier, uint8_t usage) {
-    if (!usb_hid.ready()) return;   // endpoint ще не готовий — пропускаємо
-    uint8_t keys[6] = { usage, 0, 0, 0, 0, 0 };  // масив 6 байтів, решта — 0
-    // tud_hid_keyboard_report(report_id, modifier, keys[6])
-    usb_hid.keyboardReport(0, modifier, keys);   // стан, не подія!
-}
-
-// Відпустити всі клавіші — порожній звіт (0x00 × 8).
-// ОБОВ'ЯЗКОВО після кожного key_send(), інакше хост вважає клавішу затиснутою.
-void key_release(void) {
-    if (!usb_hid.ready()) return;
-    usb_hid.keyboardRelease(0);
-}
-```
+:::code proj-hid-reports/cpp/robochyi-kod-c-c-esp32-s2-2.cpp
 
 Зверніть увагу: `usb_hid.ready()` перевіряє, чи endpoint готовий прийняти наступний звіт. Виклик без перевірки мовчки провалюється — натиск губиться. Затримка між `key_send()` і `key_release()` має бути мінімальною, але ненульовою: хост повинен встигнути забрати перший звіт до того, як надійде другий.
 
 **Блок 3 — макро-пад: фізична кнопка → комбінація і рядок.**
 
-```cpp
-// Мінімальна таблиця ASCII → usage ID (тільки US-layout, нижній регістр).
-// Для верхнього регістру потрібен modifier KEY_LSHIFT; кирилиця — неможлива
-// без знання системної розкладки хоста (пастка №2 нижче).
-struct { char ascii; uint8_t usage; } ascii_map[] = {
-    { 'a', 0x04 }, { 'b', 0x05 }, { 'r', 0x15 },
-    // ... повна таблиця 'a'-'z': usage 0x04..0x1D
-    { ' ', 0x2C }, { '\n', 0x28 },
-};
-
-uint8_t ascii_to_usage(char c) {
-    for (auto& e : ascii_map)
-        if (e.ascii == c) return e.usage;
-    return KEY_NONE;
-}
-
-// Надрукувати C-рядок символ за символом (тільки US-layout).
-void type_string(const char* s) {
-    for (; *s; s++) {
-        uint8_t u = ascii_to_usage(*s);
-        if (u == KEY_NONE) continue;
-        key_send(KEY_NONE, u);
-        delay(8);          // дати хосту забрати звіт (залежить від bInterval)
-        key_release();
-        delay(8);
-    }
-}
-
-// Антибрязкіт — окрема тема про усунення брязкоту контактів.
-bool button_pressed_edge();   // повертає true один раз при фронті
-
-void loop() {
-    if (button_pressed_edge()) {
-        // Комбінація Win+R → відкрити «Виконати»
-        key_send(KEY_LGUI, KEY_R);
-        delay(8);
-        key_release();
-        delay(50);         // пауза перед наступним макро
-
-        // Або надрукувати рядок (тільки US-layout, нижній регістр):
-        // type_string("hello");
-    }
-}
-```
+:::code proj-hid-reports/cpp/robochyi-kod-c-c-esp32-s2-3.cpp
 
 Функція `type_string()` демонструє принцип: цикл по символах, кожен — окрема пара send/release. `delay(8)` тут — не магічне число, а оцінка: при `bInterval=1 мс` хост опитує кожну мілісекунду, але між надсиланням і тим, як хост підніме звіт, потрібен мінімум один повний інтервал опитування. Занадто короткий `delay` губить символи; занадто довгий сповільнює набір.
 

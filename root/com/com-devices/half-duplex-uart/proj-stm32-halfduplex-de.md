@@ -71,60 +71,8 @@ struct GpioSpeedController {
 Нижче наведено порівняння конфігурації напівдуплексного режиму на мовах C та C++:
 
 :::tabs
-```c
-// Регістрова ініціалізація USART1 у режимі Single-Wire Half-Duplex (STM32, C)
-void usart1_half_duplex_init(uint32_t baudrate, uint32_t pclk_hz) {
-    // 1. Тактування GPIOA та USART1
-    RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
-    RCC->APBENR2 |= RCC_APBENR2_USART1EN;
-
-    // 2. Налаштування піна PA9 (USART1_TX): Alternate Function, Open-Drain, Pull-up, High Speed
-    GPIOA->MODER &= ~(GPIO_MODER_MODE9_Msk);
-    GPIOA->MODER |= (0x02 << GPIO_MODER_MODE9_Pos);      // AF mode
-    GPIOA->AFR[1] |= (0x01 << GPIO_AFRH_AFSEL9_Pos);      // AF1 = USART1
-    GPIOA->OTYPER |= GPIO_OTYPER_OT9;                    // Open-Drain (обов'язково!)
-    GPIOA->PUPDR |= GPIO_PUPDR_PUPD9_0;                  // Внутрішня підтяжка Pull-up
-    GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEED9;              // High speed
-
-    // 3. Налаштування USART1
-    USART1->CR1 = 0;                                     // Вимкнення перед конфігурацією
-    USART1->BRR = (pclk_hz + (baudrate / 2)) / baudrate; // Розрахунок подільника частоти
-
-    // 4. Увімкнення режиму Half-Duplex
-    USART1->CR3 |= USART_CR3_HDSEL;
-
-    // 5. Увімкнення передавача та приймача
-    USART1->CR1 |= (USART_CR1_TE | USART_CR1_RE | USART_CR1_UE);
-}
-```
-```cpp
-// Об'єктно-орієнтована ініціалізація USART1 у режимі Single-Wire Half-Duplex (C++)
-#include <cstdint>
-
-struct UsartSingleWireConfig {
-    static constexpr void init(std::uint32_t baudrate, std::uint32_t pclk_hz) noexcept {
-        // 1. Тактування GPIOA та USART1
-        RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
-        RCC->APBENR2 |= RCC_APBENR2_USART1EN;
-
-        // 2. Налаштування PA9 (TX): Alternate Function, Open-Drain, Pull-up
-        GPIOA->MODER &= ~(GPIO_MODER_MODE9_Msk);
-        GPIOA->MODER |= (0x02 << GPIO_MODER_MODE9_Pos);
-        GPIOA->AFR[1] |= (0x01 << GPIO_AFRH_AFSEL9_Pos);
-        GPIOA->OTYPER |= GPIO_OTYPER_OT9;
-        GPIOA->PUPDR |= GPIO_PUPDR_PUPD9_0;
-        GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEED9;
-
-        // 3. Налаштування бодрейту та режиму Half-Duplex
-        USART1->CR1 = 0;
-        USART1->BRR = (pclk_hz + (baudrate / 2)) / baudrate;
-        USART1->CR3 |= USART_CR3_HDSEL;
-
-        // 4. Увімкнення передавача, приймача та блоку USART
-        USART1->CR1 |= (USART_CR1_TE | USART_CR1_RE | USART_CR1_UE);
-    }
-};
-```
+:::code proj-stm32-halfduplex-de/c/konfihuratsiia.c
+:::code proj-stm32-halfduplex-de/cpp/konfihuratsiia.hpp
 :::
 
 ### Апаратне автокерування сигналом DE (Hardware Driver Enable)
@@ -147,19 +95,7 @@ void usart1_rs485_hw_de_init(void) {
     USART1->CR3 |= (4 << USART_CR3_DEDT_Pos);           // 4 тактових імпульси затримки
 }
 ```
-```cpp
-// Конфігурація апаратного DE (RS-485 Driver Enable, C++)
-#include <cstdint>
-
-struct HardwareDriverEnable {
-    static constexpr void configure(std::uint8_t assert_clocks = 4, std::uint8_t deassert_clocks = 4) noexcept {
-        USART1->CR3 |= USART_CR3_DEM;
-        USART1->CR3 &= ~USART_CR3_DEP;
-        USART1->CR3 |= (static_cast<std::uint32_t>(assert_clocks) << USART_CR3_DEAT_Pos);
-        USART1->CR3 |= (static_cast<std::uint32_t>(deassert_clocks) << USART_CR3_DEDT_Pos);
-    }
-};
-```
+:::code proj-stm32-halfduplex-de/cpp/aparatne-avtokeruvannia.hpp
 :::
 
 ### Програмне керування DE через GPIO: скінченний автомат на базі переривань
@@ -200,18 +136,7 @@ void usart1_setup_modbus_timeout(uint32_t bit_clocks) {
     USART1->CR1 |= USART_CR1_RTOIE;                   // Дозвіл переривання таймауту
 }
 ```
-```cpp
-// Налаштування апаратного Modbus RTO таймера (C++)
-#include <cstdint>
-
-struct HardwareReceiverTimeout {
-    static constexpr void enable(std::uint32_t bit_clocks = 35) noexcept {
-        USART1->RTOR = (bit_clocks & USART_RTOR_RTO_Msk);
-        USART1->CR2 |= USART_CR2_RTOEN;
-        USART1->CR1 |= USART_CR1_RTOIE;
-    }
-};
-```
+:::code proj-stm32-halfduplex-de/cpp/aparatnyi-taimaut-pryiomu.cpp
 :::
 
 ### Автоматичне очищення та відновлення після апаратних помилок
@@ -219,36 +144,8 @@ struct HardwareReceiverTimeout {
 При виникненні переповнення буфера (`ORE`), помилки кадрування (`FE`) чи шуму (`NE`) апаратний приймач блокує нові дані. Для запобігання «зависанню» драйвера переривання повинно гарантовано скидати прапорці збоїв:
 
 :::tabs
-```c
-// Обробка та очищення прапорців помилок UART (STM32, C)
-static inline void usart1_clear_error_flags(uint32_t isr) {
-    uint32_t clear_mask = 0;
-    if (isr & USART_ISR_ORE) clear_mask |= USART_ICR_ORECF;
-    if (isr & USART_ISR_FE)  clear_mask |= USART_ICR_FECF;
-    if (isr & USART_ISR_NE)  clear_mask |= USART_ICR_NECF;
-    if (isr & USART_ISR_PE)  clear_mask |= USART_ICR_PECF;
-    if (clear_mask != 0) {
-        USART1->ICR = clear_mask;
-    }
-}
-```
-```cpp
-// Обробка та очищення прапорців помилок UART (C++)
-#include <cstdint>
-
-struct HardwareErrorManager {
-    static inline void clear_if_present(std::uint32_t isr_status) noexcept {
-        std::uint32_t clear_mask = 0;
-        if (isr_status & USART_ISR_ORE) clear_mask |= USART_ICR_ORECF;
-        if (isr_status & USART_ISR_FE)  clear_mask |= USART_ICR_FECF;
-        if (isr_status & USART_ISR_NE)  clear_mask |= USART_ICR_NECF;
-        if (isr_status & USART_ISR_PE)  clear_mask |= USART_ICR_PECF;
-        if (clear_mask != 0) {
-            USART1->ICR = clear_mask;
-        }
-    }
-};
-```
+:::code proj-stm32-halfduplex-de/c/avtomatychne-ochyshchennia.c
+:::code proj-stm32-halfduplex-de/cpp/avtomatychne-ochyshchennia.cpp
 :::
 
 ### Кеш-когерентність на ядрах ARM Cortex-M7
@@ -261,38 +158,8 @@ struct HardwareErrorManager {
 Нижче наведено коректне керування кеш-пам'яттю на C та C++:
 
 :::tabs
-```c
-// Керування когерентністю D-Cache для буферів DMA (ARM Cortex-M7, C)
-void dma_rx_cache_invalidate(uint8_t *buffer, size_t length) {
-    // Вирівнювання адреси та розміру по межі кеш-рядка (32 байти)
-    uint32_t addr = (uint32_t)buffer;
-    SCB_InvalidateDCache_by_Addr((uint32_t*)addr, length);
-}
-
-void dma_tx_cache_clean(const uint8_t *buffer, size_t length) {
-    uint32_t addr = (uint32_t)buffer;
-    SCB_CleanDCache_by_Addr((uint32_t*)addr, length);
-}
-```
-```cpp
-// RAII-обгортка керування когерентністю D-Cache (C++)
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-template <typename T>
-struct DmaCacheManager {
-    static void invalidate(std::span<T> memory_block) noexcept {
-        auto addr = reinterpret_cast<uint32_t*>(const_cast<std::remove_cv_t<T>*>(memory_block.data()));
-        SCB_InvalidateDCache_by_Addr(addr, memory_block.size_bytes());
-    }
-
-    static void clean(std::span<const T> memory_block) noexcept {
-        auto addr = reinterpret_cast<uint32_t*>(const_cast<T*>(memory_block.data()));
-        SCB_CleanDCache_by_Addr(addr, memory_block.size_bytes());
-    }
-};
-```
+:::code proj-stm32-halfduplex-de/c/kesh-koherentnist-na.c
+:::code proj-stm32-halfduplex-de/cpp/kesh-koherentnist-na.hpp
 :::
 
 ### Інтеграція з RTOS: неблокувальні сповіщення задач
@@ -318,74 +185,8 @@ struct DmaCacheManager {
 Для обробки безперервного потоку пакетів у напівдуплексній шині без затримок копіювання пам'яті застосовують структуру кільцевого буфера (*Circular Ring Buffer*). Це дає змогу вичитувати кадри на льоту:
 
 :::tabs
-```c
-// Структура кільцевого буфера для прийому кадрів (C)
-typedef struct {
-    uint8_t storage[RS485_BUFFER_SIZE];
-    volatile size_t head;
-    volatile size_t tail;
-} ring_buffer_t;
-
-static inline bool ring_buffer_push(ring_buffer_t *rb, uint8_t byte) {
-    size_t next = (rb->head + 1) % RS485_BUFFER_SIZE;
-    if (next == rb->tail) {
-        return false; // Переповнення буфера
-    }
-    rb->storage[rb->head] = byte;
-    rb->head = next;
-    return true;
-}
-
-static inline bool ring_buffer_pop(ring_buffer_t *rb, uint8_t *byte) {
-    if (rb->head == rb->tail) {
-        return false; // Буфер порожній
-    }
-    *byte = rb->storage[rb->tail];
-    rb->tail = (rb->tail + 1) % RS485_BUFFER_SIZE;
-    return true;
-}
-```
-```cpp
-// Інкапсульований нуль-копіювальний кільцевий буфер (C++)
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <optional>
-
-template <size_t Capacity = 256>
-class RingBuffer {
-public:
-    constexpr RingBuffer() noexcept = default;
-
-    [[nodiscard]] bool push(uint8_t byte) noexcept {
-        const size_t next = (head_ + 1) % Capacity;
-        if (next == tail_) {
-            return false; // Переповнення буфера
-        }
-        storage_[head_] = byte;
-        head_ = next;
-        return true;
-    }
-
-    [[nodiscard]] std::optional<uint8_t> pop() noexcept {
-        if (head_ == tail_) {
-            return std::nullopt; // Буфер порожній
-        }
-        const uint8_t byte = storage_[tail_];
-        tail_ = (tail_ + 1) % Capacity;
-        return byte;
-    }
-
-    [[nodiscard]] size_t available() const noexcept {
-        return (head_ >= tail_) ? (head_ - tail_) : (Capacity - tail_ + head_);
-    }
-
-private:
-    std::array<uint8_t, Capacity> storage_{};
-    volatile size_t head_{0};
-    volatile size_t tail_{0};
-};
-```
+:::code proj-stm32-halfduplex-de/c/kiltsevyi-bufer-ta-nul.c
+:::code proj-stm32-halfduplex-de/cpp/kiltsevyi-bufer-ta-nul.cpp
 :::
 
 ### Повна реалізація напівдуплексного драйвера
@@ -393,257 +194,8 @@ private:
 Нижче наведено модульну, виробничу реалізацію драйвера напівдуплексного зв'язку з захистом від блокування, реалізовану на мовах C та ідіоматичному C++.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-#define RS485_BUFFER_SIZE 256
-
-typedef enum {
-    RS485_STATE_IDLE = 0,
-    RS485_STATE_TRANSMITTING,
-    RS485_STATE_RECEIVING,
-    RS485_STATE_ERROR
-} rs485_state_t;
-
-typedef struct {
-    uint8_t tx_buf[RS485_BUFFER_SIZE];
-    volatile size_t tx_head;
-    volatile size_t tx_len;
-    uint8_t rx_buf[RS485_BUFFER_SIZE];
-    volatile size_t rx_len;
-    volatile rs485_state_t state;
-    bool local_echo_enabled;
-    volatile size_t echo_skip_count;
-} rs485_driver_t;
-
-static rs485_driver_t g_rs485;
-
-// Керування піном DE через атомарний регістр BSRR (порт GPIOA, пін PA4)
-static inline void de_pin_set_high(void) {
-    GPIOA->BSRR = (1 << 4);
-}
-
-static inline void de_pin_set_low(void) {
-    GPIOA->BSRR = (1 << (4 + 16));
-}
-
-void rs485_init(bool enable_local_echo) {
-    g_rs485.tx_head = 0;
-    g_rs485.tx_len = 0;
-    g_rs485.rx_len = 0;
-    g_rs485.state = RS485_STATE_IDLE;
-    g_rs485.local_echo_enabled = enable_local_echo;
-    g_rs485.echo_skip_count = 0;
-    de_pin_set_low();
-}
-
-bool rs485_send_packet(const uint8_t *data, size_t len) {
-    if (len == 0 || len > RS485_BUFFER_SIZE || g_rs485.state == RS485_STATE_TRANSMITTING) {
-        return false;
-    }
-
-    for (size_t i = 0; i < len; ++i) {
-        g_rs485.tx_buf[i] = data[i];
-    }
-    g_rs485.tx_head = 0;
-    g_rs485.tx_len = len;
-    g_rs485.echo_skip_count = g_rs485.local_echo_enabled ? 0 : len;
-    g_rs485.state = RS485_STATE_TRANSMITTING;
-
-    // Піднімаємо лінію DE перед першим байтом
-    de_pin_set_high();
-
-    // Записуємо перший байт і вмикаємо переривання TXE
-    USART1->TDR = g_rs485.tx_buf[g_rs485.tx_head++];
-    USART1->CR1 |= USART_CR1_TXEIE;
-
-    return true;
-}
-
-// Обробник переривання USART (ISR)
-void USART1_IRQHandler(void) {
-    uint32_t isr = USART1->ISR;
-    uint32_t cr1 = USART1->CR1;
-
-    // 1. Очищення апаратних помилок
-    usart1_clear_error_flags(isr);
-
-    // 2. Обробка передачі: TDR звільнився (TXE)
-    if ((isr & USART_ISR_TXE_TXFNF) && (cr1 & USART_CR1_TXEIE)) {
-        if (g_rs485.tx_head < g_rs485.tx_len) {
-            USART1->TDR = g_rs485.tx_buf[g_rs485.tx_head++];
-        } else {
-            // Буфер вичерпано: вимикаємо TXE, вмикаємо очікування завершення стоп-біта (TC)
-            USART1->CR1 &= ~USART_CR1_TXEIE;
-            USART1->CR1 |= USART_CR1_TCIE;
-        }
-    }
-
-    // 3. Обробка повного завершення передачі (TC)
-    if ((isr & USART_ISR_TC) && (cr1 & USART_CR1_TCIE)) {
-        USART1->ICR = USART_ICR_TCCF; // Очищення прапорця TC
-        USART1->CR1 &= ~USART_CR1_TCIE;
-        de_pin_set_low();             // Опускаємо DE: перехід у прийом
-        g_rs485.state = RS485_STATE_IDLE;
-    }
-
-    // 4. Обробка прийому даних (RXNE)
-    if (isr & USART_ISR_RXNE_RXFNE) {
-        uint8_t byte = (uint8_t)USART1->RDR;
-        if (g_rs485.echo_skip_count > 0) {
-            g_rs485.echo_skip_count--; // Скидання байта власного відлуння
-        } else if (g_rs485.rx_len < RS485_BUFFER_SIZE) {
-            g_rs485.rx_buf[g_rs485.rx_len++] = byte;
-        }
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <array>
-#include <expected>
-
-enum class DriverError {
-    BusBusy,
-    BufferOverflow,
-    HardwareFault,
-    Timeout
-};
-
-enum class BusState {
-    Idle,
-    Transmitting,
-    Receiving,
-    Error
-};
-
-template <size_t BufferSize = 256>
-class HalfDuplexUart {
-public:
-    constexpr explicit HalfDuplexUart(bool suppress_echo = true) noexcept
-        : suppress_local_echo_(suppress_echo) {}
-
-    void init() noexcept {
-        tx_head_ = 0;
-        tx_len_ = 0;
-        rx_len_ = 0;
-        state_ = BusState::Idle;
-        echo_to_skip_ = 0;
-        set_driver_enable(false);
-    }
-
-    [[nodiscard]] std::expected<void, DriverError> send(std::span<const uint8_t> data) noexcept {
-        if (data.empty() || data.size() > BufferSize) {
-            return std::unexpected(DriverError::BufferOverflow);
-        }
-        if (state_ == BusState::Transmitting) {
-            return std::unexpected(DriverError::BusBusy);
-        }
-
-        for (size_t i = 0; i < data.size(); ++i) {
-            tx_buffer_[i] = data[i];
-        }
-        tx_len_ = data.size();
-        tx_head_ = 0;
-        echo_to_skip_ = suppress_local_echo_ ? tx_len_ : 0;
-        state_ = BusState::Transmitting;
-
-        // Активація режиму передачі
-        set_driver_enable(true);
-        start_hardware_tx();
-        return {};
-    }
-
-    [[nodiscard]] std::span<const uint8_t> received_data() const noexcept {
-        return std::span<const uint8_t>(rx_buffer_.data(), rx_len_);
-    }
-
-    void clear_rx_buffer() noexcept {
-        rx_len_ = 0;
-    }
-
-    [[nodiscard]] BusState state() const noexcept {
-        return state_;
-    }
-
-    // Обробники внутрішніх переривань апаратного контролера
-    void on_txe_interrupt() noexcept {
-        if (state_ != BusState::Transmitting) return;
-
-        if (tx_head_ < tx_len_) {
-            write_hw_tdr(tx_buffer_[tx_head_++]);
-        } else {
-            disable_hw_txe_interrupt();
-            enable_hw_tc_interrupt();
-        }
-    }
-
-    void on_tc_interrupt() noexcept {
-        clear_hw_tc_flag();
-        disable_hw_tc_interrupt();
-        set_driver_enable(false); // Повернення лінії в прийом
-        state_ = BusState::Idle;
-    }
-
-    void on_rxne_interrupt(uint8_t received_byte) noexcept {
-        if (echo_to_skip_ > 0) {
-            --echo_to_skip_;
-            return;
-        }
-        if (rx_len_ < BufferSize) {
-            rx_buffer_[rx_len_++] = received_byte;
-        }
-    }
-
-private:
-    std::array<uint8_t, BufferSize> tx_buffer_{};
-    std::array<uint8_t, BufferSize> rx_buffer_{};
-    volatile size_t tx_head_{0};
-    volatile size_t tx_len_{0};
-    volatile size_t rx_len_{0};
-    volatile size_t echo_to_skip_{0};
-    volatile BusState state_{BusState::Idle};
-    bool suppress_local_echo_{true};
-
-    // Апаратно-залежні методи доступу до регістрів
-    static void set_driver_enable(bool enable) noexcept {
-        if (enable) {
-            GPIOA->BSRR = (1 << 4);
-        } else {
-            GPIOA->BSRR = (1 << (4 + 16));
-        }
-    }
-
-    void start_hardware_tx() noexcept {
-        USART1->TDR = tx_buffer_[tx_head_++];
-        USART1->CR1 |= USART_CR1_TXEIE;
-    }
-
-    static void write_hw_tdr(uint8_t byte) noexcept {
-        USART1->TDR = byte;
-    }
-
-    static void disable_hw_txe_interrupt() noexcept {
-        USART1->CR1 &= ~USART_CR1_TXEIE;
-    }
-
-    static void enable_hw_tc_interrupt() noexcept {
-        USART1->CR1 |= USART_CR1_TCIE;
-    }
-
-    static void clear_hw_tc_flag() noexcept {
-        USART1->ICR = USART_ICR_TCCF;
-    }
-
-    static void disable_hw_tc_interrupt() noexcept {
-        USART1->CR1 &= ~USART_CR1_TCIE;
-    }
-};
-```
+:::code proj-stm32-halfduplex-de/c/povna-realizatsiia.c
+:::code proj-stm32-halfduplex-de/cpp/povna-realizatsiia.cpp
 :::
 
 ### Осцилографічне налагодження та діагностика дефектів

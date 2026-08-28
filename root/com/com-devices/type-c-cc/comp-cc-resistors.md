@@ -105,65 +105,12 @@ V(CC) = 80 мкА × 5.1 кОм
 Якщо профіль струму не потрібен (пристрій і так споживає менше 0.5 А), кроки 4–5 пропускають — досить самих резисторів, і це найнадійніший варіант, бо ламатися нема чому. Якщо ж треба знати стелю — ось читання порогів на мікроконтролері з 12-бітним АЦП і опорною 3.3 В:
 
 :::tabs
-```c
-// Прочитати дозволений струм USB-C із напруги на активному CC.
-// adc_read_mv(pin) повертає напругу на піні в мілівольтах.
-
-typedef enum { CC_NONE, CC_DEFAULT, CC_1A5, CC_3A0 } cc_level_t;
-
-static cc_level_t cc_decode(uint16_t mv) {
-    if (mv < 200)   return CC_NONE;     // < 0.20 В — нічого не під'єднано
-    if (mv < 660)   return CC_DEFAULT;  // 0.20–0.66 В — звичайний USB
-    if (mv < 1230)  return CC_1A5;      // 0.66–1.23 В — 1.5 А
-    return CC_3A0;                       // > 1.23 В — повні 3.0 А
-}
-
-// Роз'єм реверсивний: активний той CC, на якому є напруга.
-cc_level_t usbc_read_profile(void) {
-    uint16_t v1 = adc_read_mv(PIN_CC1);
-    uint16_t v2 = adc_read_mv(PIN_CC2);
-    uint16_t cc = (v1 > v2) ? v1 : v2;   // живий пін — з вищою напругою
-    return cc_decode(cc);
-}
-```
-```python
-# Прочитати дозволений струм USB-C із напруги на активному CC.
-# adc_read_mv(pin) повертає напругу на піні в мілівольтах.
-
-from enum import Enum
-
-class CcLevel(Enum):
-    NONE    = 0   # нічого не під'єднано
-    DEFAULT = 1   # звичайний USB (0.5 / 0.9 А)
-    A1V5    = 2   # 1.5 А
-    A3V0    = 3   # 3.0 А
-
-def cc_decode(mv):
-    if mv < 200:    return CcLevel.NONE     # < 0.20 В — нічого не під'єднано
-    if mv < 660:    return CcLevel.DEFAULT  # 0.20–0.66 В — звичайний USB
-    if mv < 1230:   return CcLevel.A1V5     # 0.66–1.23 В — 1.5 А
-    return CcLevel.A3V0                      # > 1.23 В — повні 3.0 А
-
-# Роз'єм реверсивний: активний той CC, на якому є напруга.
-def usbc_read_profile():
-    cc = max(adc_read_mv(PIN_CC1), adc_read_mv(PIN_CC2))  # живий пін — з вищою напругою
-    return cc_decode(cc)
-```
+:::code comp-cc-resistors/c/retsept-naiprostishoho.c
+:::code comp-cc-resistors/py/main.py
 :::
 
 Далі прошивка обмежує апетит під прочитаний рівень — наприклад, тримає вхідний струм перетворювача в межах профілю:
 
-```c
-cc_level_t lvl = usbc_read_profile();
-
-uint16_t budget_ma;
-switch (lvl) {
-    case CC_3A0:     budget_ma = 3000; break;   // 15 Вт при 5 В
-    case CC_1A5:     budget_ma = 1500; break;
-    case CC_DEFAULT: budget_ma = 500;  break;   // консервативно: рівень USB2
-    default:         budget_ma = 0;    break;    // нічого не під'єднано
-}
-set_input_current_limit(budget_ma);
-```
+:::code comp-cc-resistors/c/retsept-naiprostishoho-2.c
 
 Це і є вся «розумність» базового USB-C: два резистори оголошують роль і виявлення, одна виміряна напруга дає профіль струму, кілька рядків коду тримають пристрій у межах контракту. Коли ж 15 ват замало й треба підняти **напругу** (9, 12, 20 В), самих резисторів не вистачить — починається цифрова розмова [USB Power Delivery](root:com-devices/usb-pd), і тоді на лінії CC замість статичного дільника з'являються пакети BMC-кодування. Але доти, доки межа — 5 В і до 3 А, надійніше за пару Rd 5.1 кОм немає нічого.

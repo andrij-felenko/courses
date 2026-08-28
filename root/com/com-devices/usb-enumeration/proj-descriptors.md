@@ -33,65 +33,13 @@ Device-дескриптор не містить усього. Він лише п
 
 **Блок 1 — Device Descriptor (18 байтів)**
 
-```c
-// Device Descriptor — відповідь на GET_DESCRIPTOR(Device, 0)
-static const uint8_t desc_device[18] = {
-    18,           // bLength          = 18 (розмір цього дескриптора)
-    0x01,         // bDescriptorType  = DEVICE (0x01)
-    0x00, 0x02,   // bcdUSB           = 0x0200 → USB 2.0 (LE: low, high)
-    0x00,         // bDeviceClass     = 0x00 (клас задається в інтерфейсі)
-    0x00,         // bDeviceSubClass  = 0
-    0x00,         // bDeviceProtocol  = 0
-    64,           // bMaxPacketSize0  = 64 (EP0 max packet, Full Speed)
-    0x03, 0x30,   // idVendor         = 0x3003 (LE: low, high) — тестовий / Espressif
-    0x01, 0x00,   // idProduct        = 0x0001 (LE: low, high)
-    0x00, 0x01,   // bcdDevice        = 0x0100 → версія прошивки 1.0 (LE: low, high)
-    0x00,         // iManufacturer    = 0 (рядкового дескриптора нема)
-    0x00,         // iProduct         = 0
-    0x00,         // iSerialNumber    = 0
-    1,            // bNumConfigurations = 1
-};
-```
+:::code proj-descriptors/c/kod-dva-deskryptory-bait-u.c
 
 Зверніть увагу на `idVendor`: значення `0x3003` лягає як `0x03 0x30` — молодший байт першим. Саме так це показано на фігурі вище. Поле `bMaxPacketSize0 = 64` — особливе: хост читає перші 8 байтів Device-дескриптора ще до того, як дізнається повний розмір структури, і саме за `bMaxPacketSize0` налаштовує EP0 для подальшого обміну.
 
 **Блок 2 — Configuration tree (9 + 9 + 7 = 25 байтів)**
 
-```c
-// Configuration + Interface + Endpoint — відповідь на GET_DESCRIPTOR(Configuration, 0)
-// Три дескриптори склеєні в один буфер; хост читає все за один запит
-static const uint8_t desc_config[] = {
-
-    // ── Config Descriptor (9 байтів) ──────────────────────────────────────
-    9,            // bLength              = 9
-    0x02,         // bDescriptorType      = CONFIGURATION (0x02)
-    0x19, 0x00,   // wTotalLength         = 25 (LE: 0x19, 0x00) = 9+9+7
-    1,            // bNumInterfaces       = 1
-    1,            // bConfigurationValue  = 1 (індекс конфігурації)
-    0x00,         // iConfiguration       = 0 (рядка нема)
-    0x80,         // bmAttributes         = 0x80 (bus-powered, без remote-wakeup)
-    50,           // bMaxPower            = 50 × 2 мА = 100 мА (живлення по USB)
-
-    // ── Interface Descriptor (9 байтів) ────────────────────────────────────
-    9,            // bLength              = 9
-    0x04,         // bDescriptorType      = INTERFACE (0x04)
-    0,            // bInterfaceNumber     = 0
-    0,            // bAlternateSetting    = 0
-    1,            // bNumEndpoints        = 1 (крім EP0)
-    0xFF,         // bInterfaceClass      = 0xFF vendor-specific (клас інтерфейсу)
-    0x00,         // bInterfaceSubClass   = 0
-    0x00,         // bInterfaceProtocol   = 0
-    0x00,         // iInterface           = 0
-
-    // ── Endpoint Descriptor (7 байтів) ─────────────────────────────────────
-    7,            // bLength              = 7
-    0x05,         // bDescriptorType      = ENDPOINT (0x05)
-    0x81,         // bEndpointAddress     = 0x81 (IN, endpoint 1)
-    0x03,         // bmAttributes         = 0x03 (interrupt; тип передачі)
-    0x08, 0x00,   // wMaxPacketSize       = 8 (LE: low, high)
-    10,           // bInterval            = 10 мс (інтервал опитування)
-};
-```
+:::code proj-descriptors/c/kod-dva-deskryptory-bait-u-2.c
 
 Поле `wTotalLength = 25` — ключове: хост читає Config-дескриптор першого разу лише на 9 байтів, дізнається `wTotalLength`, потім робить ще один запит вже на всі 25 байтів і отримує ціле дерево. Якщо `wTotalLength` не відповідає фактичному розміру буфера, хост або урізає дерево, або отримує сміттєві байти — інтерфейс і кінцева точка «зникають».
 
@@ -100,19 +48,7 @@ static const uint8_t desc_config[] = {
 
 **Колбеки TinyUSB — де масиви «віддаються» хосту**
 
-```c
-// TinyUSB викликає ці функції під час енумерації;
-// ми лише повертаємо вказівник на static const буфер у Flash
-
-uint8_t const *tud_descriptor_device_cb(void) {
-    return desc_device;
-}
-
-uint8_t const *tud_descriptor_configuration_cb(uint8_t index) {
-    (void)index;        // у нас одна конфігурація
-    return desc_config;
-}
-```
+:::code proj-descriptors/c/kod-dva-deskryptory-bait-u-3.c
 
 Це функції, які USB-стек викликає під час енумерації. Ми лише повертаємо байти; NRZI-кодування, біт-стафінг і квитування виконує [апаратний USB-блок](root:sf-devices/esp32-usb) ESP32-S2/S3 разом зі стеком на [фізичному рівні шини](root:com-devices/usb-physical).
 

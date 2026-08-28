@@ -37,96 +37,15 @@
 
 Почнемо зі словника машини. Стани — рівно ті, що на карті, плюс `ERROR_RECOVERY` (аварійний скид з'єднання). Підтяжки CC, те, що ми бачимо на CC, і під-стани обміну — окремими переліками, щоб компілятор ловив безглузді значення. Увесь мінливий стан порту — в одній структурі: так його легко скинути й неможливо «забути» глобальну змінну.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// ── Стани під'єднання (карта вище) ───────────────────────────────
-typedef enum {
-    TC_UNATTACHED,        // гойдалка Rp<->Rd, чекаємо партнера
-    TC_ATTACHWAIT_SNK,    // бачимо джерело — відлежуємо (дебаунс)
-    TC_ATTACHWAIT_SRC,    // бачимо стік — відлежуємо
-    TC_ATTACHED_SNK,      // ми СТІК: споживаємо VBUS
-    TC_ATTACHED_SRC,      // ми ДЖЕРЕЛО: жену VBUS
-    TC_TRY_SRC,           // вподобання: наполягаємо стати джерелом
-    TC_TRYWAIT_SNK,       // Try не вигорів — поступаємось у стік
-    TC_ERROR_RECOVERY,    // аварійний скид: усе off, CC=Open
-} tc_state_t;
-
-// Що МИ виставляємо на CC
-typedef enum { CC_PULL_OPEN, CC_PULL_RP, CC_PULL_RD } cc_pull_t;
-
-// Що ми БАЧИМО на CC (залізо тлумачить відносно нашої підтяжки):
-//  RD_PARTNER — ми на Rp і бачимо чужий Rd => партнер СТІК
-//  RP_PARTNER — ми на Rd і бачимо чужий Rp => партнер ДЖЕРЕЛО
-typedef enum { CC_OPEN, CC_RD_PARTNER, CC_RP_PARTNER } cc_seen_t;
-
-// Під-стани обміну ролі (PR_Swap)
-typedef enum {
-    SWAP_IDLE,
-    SWAP_WAIT_ACCEPT,     // надіслали PR_Swap, чекаємо Accept
-    SWAP_SRC_OFF,         // були джерелом: гасимо VBUS до vSafe0V
-    SWAP_WAIT_PSRDY,      // були стоком: чекаємо PS_RDY від джерела
-    SWAP_SRC_ON,          // ми новий: піднімаємо VBUS до vSafe5V
-} swap_state_t;
-
-typedef struct {
-    tc_state_t  state;
-    uint32_t    t_enter;      // мітка часу входу в стан, мс
-    // гойдалка DRP
-    uint32_t    t_toggle;     // коли востаннє перемкнули підтяжку
-    bool        show_rp;      // фаза гойдалки: зараз показуємо Rp?
-    // дебаунс краю CC
-    cc_seen_t   cc_last;
-    uint32_t    t_cc_edge;    // відколи CC тримає поточне значення
-    // конфіг
-    bool        try_src;      // вподобання Try.SRC увімкнене?
-    // обмін ролі
-    swap_state_t swap;
-    uint32_t    t_swap;       // таймер поточного кроку обміну
-} port_t;
-```
+:::code proj-drp-state-machine/c/kistiak-stany-kontekst.c
 
 Тепер тонкий шар до заліза — рівно ті дії, які машина вміє замовити. Реалізація за ним залежить від конкретного TCPC (реєстри по I²C) чи від дискретної обв'язки, але машині байдуже: вона знає лише ці підписи. Час — платформні `now_ms()` (лічильник мілісекунд) і `delay_us()` (коротка зайнята пауза).
 
-```c
-// ── HAL: що вміє залізо; машина лише замовляє ────────────────────
-extern void      tcpc_set_cc(cc_pull_t pull);   // виставити Rp / Rd / Open
-extern cc_seen_t tcpc_cc_seen(void);            // що бачимо на CC (відн. нашої підтяжки)
-extern bool      tcpc_vbus_present(void);       // VBUS вище порога під'єднання?
-extern uint16_t  tcpc_vbus_mv(void);            // виміряна VBUS, мВ (уже відфільтрована)
-extern void      tcpc_src_switch(bool on);      // ключ-джерело (пара back-to-back)
-extern void      tcpc_snk_switch(bool on);      // ключ-стік (пара back-to-back)
-extern void      tcpc_discharge(bool on);       // розрядний ключ на VBUS
-extern void      tcpc_vconn(bool on);           // VCONN на другий пін CC
-extern bool      tcpc_fault_oc(void);           // спрацював струмовий захист виходу?
-extern void      pd_send(int msg);              // відправити PD-повідомлення
-extern uint32_t  now_ms(void);
-extern void      delay_us(uint32_t us);
-
-enum { PD_PR_SWAP, PD_ACCEPT, PD_REJECT, PD_PS_RDY };
-
-// Попередні оголошення (тіла — далі за текстом)
-static void enter(port_t *p, tc_state_t s);
-static void begin_swap(port_t *p);
-static void prswap_tick(port_t *p);
-```
+:::code proj-drp-state-machine/c/kistiak-stany-kontekst.h
 
 І числа. Усі пороги часу — з іменами зі стандарту Type-C та PD; поруч у коментарі допустимий діапазон, а в константі — розумна середина. Тримати їх в одному місці, а не «магічними» по коду, — щоб при перевірці на відповідність специфікації правити одну таблицю.
 
-```c
-// ── Часові пороги (Type-C / PD; у дужках — діапазон стандарту) ────
-enum {
-    tDRP_MS         = 75,   // 50–100:  період гойдалки Rp<->Rd
-    dcSRC_DRP_PCT   = 30,   // 30–70 %: частка періоду, коли показуємо Rp
-    tCCDebounce_MS  = 150,  // 100–200: відлежати CC перед фіксацією ролі
-    tPDDebounce_MS  = 15,   // 10–20:   відлежати зникнення/зміну CC
-    tDRPTry_MS      = 100,  // 75–150:  тримаємо Try.SRC, чекаючи чужий Rd
-    tTryCCDeb_MS    = 15,   // стабільний Rd, щоб зафіксувати перемогу SRC
-    tErrRecovery_MS = 30,   // >= 25:   тримати CC=Open, щоб і партнер скинувся
-    DEADTIME_US     = 40,   // > часу вимикання силового ключа
-};
-```
+:::code proj-drp-state-machine/c/kistiak-stany-kontekst-2.c
 
 ## Дії на вході в стан: тут живе безпека
 
@@ -134,77 +53,13 @@ enum {
 
 Напрям VBUS — це і є той інваріант у коді. Порядок дій непорушний: **спершу безумовно закрити обидва боки, витримати [мертвий час](root:hw-power/dead-time-sizing), і лише тоді відкрити рівно один.** Немає жодної гілки, де два ввімкнення стоять поруч, тож хоч би як швидко сипались виклики, стан «джерело і стік разом» не існує. Додаткова тонкість, якої не видно з наскоку: **розрядний ключ несумісний із джерелом.** Забути зняти розряд, вмикаючи джерело, — це власноруч навісити на свій щойно ввімкнений вихід кількасот ом до землі: перетворювач гріє розрядний резистор, VBUS не хоче підійматися. Тож `vbus_apply` завжди спершу гасить розряд.
 
-```c
-typedef enum { DIR_OFF, DIR_SOURCE, DIR_SINK } vbus_dir_t;
-
-static void vbus_apply(vbus_dir_t dir) {
-    // 1) БЕЗУМОВНО зняти обидва силові ключі
-    tcpc_src_switch(false);
-    tcpc_snk_switch(false);
-    // 2) мертвий час: дочекатись реального закриття каналів
-    delay_us(DEADTIME_US);      // > часу вимикання ключа
-    // 3) рівно один бік (розряд — геть, він несумісний із подачею)
-    switch (dir) {
-        case DIR_SOURCE:
-            tcpc_discharge(false);
-            tcpc_src_switch(true);   // м'який пуск — усередині драйвера ключа
-            break;
-        case DIR_SINK:
-            tcpc_discharge(false);
-            tcpc_snk_switch(true);
-            break;
-        case DIR_OFF:
-            break;                    // лишаємось знеструмленими
-    }
-}
-```
+:::code proj-drp-state-machine/c/dii-na-vkhodi-v-stan-tut.c
 
 > 🔧 **Навіщо це.** Кожен бік — [пара транзисторів спина-до-спини](root:hw-power/mosfet-back-to-back), і саме тому `tcpc_src_switch(false)` справді глушить струм: якби там був один MOSFET, його body-діод пропустив би чужі 20 вольтів назад у вашу шину навіть «закритим». Мертвий час у кроці (2) закриває вікно, у якому команди зверху могли б відкрити другий бік раніше, ніж фізично зачинився перший. `soft_start` усередині драйвера ключа-джерела плавно піднімає напругу — це [м'який верхній ключ](root:hw-power/load-switch) проти кидка струму в холодну ємність партнера.
 
 Тепер вхідні дії. `enter()` — єдині двері в будь-який стан: він проставляє мітку часу (для таймерів «скільки ми вже тут») і виконує дію стану. Помітьте, як роль **читається просто з коду**: тільки `TC_ATTACHED_SRC` кличе `DIR_SOURCE`, тільки `TC_ATTACHED_SNK` — `DIR_SINK`, решта тримають VBUS знеструмленою. І чому машина стартує з `CC_PULL_RD`: порожній пристрій, який лише під'єднали, має показати джерелу свій Rd, щоб дістати перші 5 вольтів. Це узгоджується з мертвою батареєю — про неї в пастках нижче.
 
-```c
-static void enter(port_t *p, tc_state_t s) {
-    p->state = s;
-    p->t_enter = now_ms();
-    switch (s) {
-    case TC_UNATTACHED:
-        vbus_apply(DIR_OFF);
-        tcpc_vconn(false);
-        p->show_rp = false;
-        tcpc_set_cc(CC_PULL_RD);       // стартуємо як стік — безпечно
-        p->t_toggle = now_ms();
-        break;
-    case TC_ATTACHWAIT_SNK:
-        tcpc_set_cc(CC_PULL_RD);
-        break;
-    case TC_ATTACHWAIT_SRC:
-        tcpc_set_cc(CC_PULL_RP);
-        break;
-    case TC_ATTACHED_SNK:
-        tcpc_set_cc(CC_PULL_RD);
-        vbus_apply(DIR_SINK);          // споживаємо чужу напругу
-        break;
-    case TC_ATTACHED_SRC:
-        tcpc_set_cc(CC_PULL_RP);
-        vbus_apply(DIR_SOURCE);        // жену свої 5 В
-        tcpc_vconn(true);              // живимо e-marker кабелю
-        break;
-    case TC_TRY_SRC:
-        vbus_apply(DIR_OFF);
-        tcpc_set_cc(CC_PULL_RP);       // наполягаємо: я джерело
-        break;
-    case TC_TRYWAIT_SNK:
-        tcpc_set_cc(CC_PULL_RD);       // поступились: пробуємо стоком
-        break;
-    case TC_ERROR_RECOVERY:
-        vbus_apply(DIR_OFF);
-        tcpc_vconn(false);
-        tcpc_set_cc(CC_PULL_OPEN);     // повний скид на tErrRecovery
-        break;
-    }
-}
-```
+:::code proj-drp-state-machine/c/dii-na-vkhodi-v-stan-tut-2.c
 
 ## Розв'язання ролі: гойдалка, дебаунс, детур Try.SRC
 
@@ -214,98 +69,11 @@ static void enter(port_t *p, tc_state_t s) {
 
 **Дебаунс краю CC.** Механічне встромляння роз'єму — не миттєве: контакти труться, рівень CC кілька мілісекунд брязкає. Зафіксуєш роль по першому ж читанню — і впіймаєш фальшивий стан. Тому кожен край CC відлежують; ідея та сама, що в [усуненні брязкоту контактів](root:hw-digital/contact-debounce), лише поріг тут — сотні мілісекунд стандарту, а не десятки. `cc_stable_ms` повертає, скільки CC тримає незмінне значення.
 
-```c
-static void toggle_drp(port_t *p) {
-    uint32_t dt  = now_ms() - p->t_toggle;
-    uint32_t rp_win = (uint32_t)tDRP_MS * dcSRC_DRP_PCT / 100;   // фаза Rp
-    uint32_t win = p->show_rp ? rp_win : (tDRP_MS - rp_win);     // фаза Rd
-    if (dt >= win) {
-        p->show_rp = !p->show_rp;
-        tcpc_set_cc(p->show_rp ? CC_PULL_RP : CC_PULL_RD);
-        p->t_toggle = now_ms();
-    }
-}
-
-// Скільки мілісекунд CC тримає поточне значення (для дебаунсу країв)
-static uint32_t cc_stable_ms(port_t *p, cc_seen_t cc) {
-    if (cc != p->cc_last) { p->cc_last = cc; p->t_cc_edge = now_ms(); }
-    return now_ms() - p->t_cc_edge;
-}
-```
+:::code proj-drp-state-machine/c/rozviazannia-roli-hoidalka.c
 
 І серце — `tc_tick`, який кличуть періодично (скажімо, кожну мілісекунду або на кожну подію-переривання від TCPC). Він читає CC один раз і в кожному стані питає рівно ті умови, що його рухають. Простежте по карті станів: `TC_UNATTACHED` гойдається й ловить обидва боки; `AttachWait` відлежує й **вилітає назад в Unattached при першому ж брязкоті** (умова зникла — це не під'єднання); а розвилка Try.SRC живе рівно в одному місці — на виході з `TC_ATTACHWAIT_SNK`.
 
-```c
-static void tc_tick(port_t *p) {
-    cc_seen_t cc = tcpc_cc_seen();
-    uint32_t  held = now_ms() - p->t_enter;
-
-    switch (p->state) {
-    case TC_UNATTACHED:
-        toggle_drp(p);
-        // побачили ДЖЕРЕЛО (чужий Rp + жива VBUS) -> у бік стоку
-        if (cc == CC_RP_PARTNER && tcpc_vbus_present())
-            enter(p, TC_ATTACHWAIT_SNK);
-        // побачили СТІК (чужий Rd) -> у бік джерела
-        else if (cc == CC_RD_PARTNER)
-            enter(p, TC_ATTACHWAIT_SRC);
-        break;
-
-    case TC_ATTACHWAIT_SNK:
-        if (cc != CC_RP_PARTNER || !tcpc_vbus_present()) {
-            enter(p, TC_UNATTACHED);            // брязкіт -> назад
-        } else if (cc_stable_ms(p, cc) >= tCCDebounce_MS) {
-            enter(p, p->try_src ? TC_TRY_SRC     // вподобання: спробувати джерелом
-                                : TC_ATTACHED_SNK);
-        }
-        break;
-
-    case TC_ATTACHWAIT_SRC:
-        if (cc != CC_RD_PARTNER)
-            enter(p, TC_UNATTACHED);
-        else if (cc_stable_ms(p, cc) >= tCCDebounce_MS)
-            enter(p, TC_ATTACHED_SRC);
-        break;
-
-    case TC_TRY_SRC:
-        // партнер став стоком (стабільний Rd) -> ми виграли джерело
-        if (cc == CC_RD_PARTNER && cc_stable_ms(p, cc) >= tTryCCDeb_MS)
-            enter(p, TC_ATTACHED_SRC);
-        // час вийшов, а Rd не з'явився -> поступаємось
-        else if (held >= tDRPTry_MS)
-            enter(p, TC_TRYWAIT_SNK);
-        break;
-
-    case TC_TRYWAIT_SNK:
-        if (cc == CC_OPEN && cc_stable_ms(p, cc) >= tPDDebounce_MS)
-            enter(p, TC_UNATTACHED);
-        else if (tcpc_vbus_present() && held >= tCCDebounce_MS)
-            enter(p, TC_ATTACHED_SNK);
-        break;
-
-    case TC_ATTACHED_SNK:
-        if (!tcpc_vbus_present() && cc_stable_ms(p, cc) >= tPDDebounce_MS)
-            enter(p, TC_UNATTACHED);            // джерело зникло
-        else
-            prswap_tick(p);                     // може йти обмін ролі
-        break;
-
-    case TC_ATTACHED_SRC:
-        if (tcpc_fault_oc())
-            enter(p, TC_ERROR_RECOVERY);        // коротке/перевантаження виходу
-        else if (cc == CC_OPEN && cc_stable_ms(p, cc) >= tPDDebounce_MS)
-            enter(p, TC_UNATTACHED);            // партнер від'єднався
-        else
-            prswap_tick(p);
-        break;
-
-    case TC_ERROR_RECOVERY:
-        if (held >= tErrRecovery_MS)
-            enter(p, TC_UNATTACHED);
-        break;
-    }
-}
-```
+:::code proj-drp-state-machine/c/rozviazannia-roli-hoidalka-2.c
 
 Прочитаймо детур Try.SRC як історію. Ноутбук налаштований `try_src = true` — він радше живитиме периферію. Гойдаючись, він упіймав чужий Rp (партнер — джерело) і рушив у `TC_ATTACHWAIT_SNK`, тобто «я стаю стоком». Але на виході, замість зафіксувати стік, вподобання кидає його в `TC_TRY_SRC`: він перестає гойдатися, твердо виставляє Rp і чекає — а раптом партнер теж дворольовий і погодиться стати стоком? Якщо партнер справді показав Rd (`CC_RD_PARTNER`) і потримав `tTryCCDeb` — ноутбук виграв роль джерела, `TC_ATTACHED_SRC`. Якщо ж за `tDRPTry` чужого Rd не видно (партнер — тверде джерело, поступатися не буде) — ноутбук чемно здається: `TC_TRYWAIT_SNK`, знову Rd, і за появи VBUS фіксується стоком. Так двоє «розумних» розходяться по ролях без зіткнення, і напрям визначений ще до першого вольта на VBUS.
 
@@ -346,88 +114,11 @@ bool prswap_request(port_t *p) {
 
 Прийняті PD-повідомлення тлумачимо в контексті обміну. Щойно обидві сторони узгодились (наш запит дістав `Accept`, або ми прийняли й підтвердили чужий), `begin_swap` розводить нас по ролях: **діюче джерело** негайно знімає ключ-джерело й вмикає активне зціджування; **діючий стік** переходить у терпляче чекання PS_RDY.
 
-```c
-static bool accept_swap(port_t *p);   // політика: чи згодні мінятись зараз
-
-// Прийшло PD-повідомлення (кличеться з приймача PD)
-void prswap_on_msg(port_t *p, int msg) {
-    switch (msg) {
-    case PD_PR_SWAP:                              // партнер просить обмін
-        if (accept_swap(p)) { pd_send(PD_ACCEPT); begin_swap(p); }
-        else                  pd_send(PD_REJECT);
-        break;
-    case PD_ACCEPT:                               // наш запит прийнято
-        if (p->swap == SWAP_WAIT_ACCEPT) begin_swap(p);
-        break;
-    case PD_REJECT:                               // партнер відмовив
-        if (p->swap == SWAP_WAIT_ACCEPT) p->swap = SWAP_IDLE;  // лишаємось як є
-        break;
-    case PD_PS_RDY:                               // старе джерело: «я вимкнувся»
-        if (p->swap == SWAP_WAIT_PSRDY) {         // ми новий -> час давати VBUS
-            p->swap   = SWAP_SRC_ON;
-            p->t_swap = now_ms();
-        }
-        break;
-    }
-}
-
-static void begin_swap(port_t *p) {
-    if (p->state == TC_ATTACHED_SRC) {            // ми джерело -> станемо стоком
-        p->swap = SWAP_SRC_OFF;
-        tcpc_src_switch(false);                   // геть ключ-джерело
-        tcpc_discharge(true);                     // активно зціджуємо VBUS
-    } else {                                      // ми стік -> станемо джерелом
-        p->swap = SWAP_WAIT_PSRDY;                // чекаємо, поки той вимкнеться
-    }
-    p->t_swap = now_ms();
-}
-```
+:::code proj-drp-state-machine/c/zmina-roli-zhyvlennia-pr.c
 
 І хід обміну в часі — `prswap_tick`, який ми вже кличемо з обох `TC_ATTACHED_*`. Кожен під-стан має **свій таймаут і свій безпечний вихід**. Ось де інваріант «два джерела не зустрінуться» стає механізмом: новий бік доходить до `vbus_apply(DIR_SOURCE)` **тільки** через прийом PS_RDY (`SWAP_SRC_ON`), а PS_RDY старий бік шле **тільки** досягнувши vSafe0V. Ланцюг замкнено: немає шляху подати нове джерело, поки старі вольти не зійшли в нуль.
 
-```c
-static void prswap_tick(port_t *p) {
-    uint32_t dt = now_ms() - p->t_swap;
-    switch (p->swap) {
-    case SWAP_IDLE:
-        break;
-
-    case SWAP_WAIT_ACCEPT:
-        if (dt >= tSenderResponse_MS)
-            p->swap = SWAP_IDLE;             // Accept не прийшов -> лишаємось як є
-        break;
-
-    case SWAP_SRC_OFF:                       // ми гасимо своє джерело
-        if (tcpc_vbus_mv() <= VSAFE0V_MV) {
-            tcpc_discharge(false);
-            pd_send(PD_PS_RDY);              // «я вимкнувся, шина в нулі»
-            p->swap = SWAP_IDLE;
-            enter(p, TC_ATTACHED_SNK);        // тепер ми стік
-        } else if (dt >= tSrcTransition_MS + 20) {
-            enter(p, TC_ERROR_RECOVERY);      // не впали в нуль -> жорсткий скид
-        }
-        break;
-
-    case SWAP_WAIT_PSRDY:                     // ми чекаємо, поки той вимкнеться
-        if (dt >= tPSSourceOff_MS)
-            enter(p, TC_ERROR_RECOVERY);      // PS_RDY не прийшов -> партнер завис
-        break;
-
-    case SWAP_SRC_ON:                         // ми піднімаємо нове джерело
-        if (dt < tSwapSourceStart_MS)
-            break;                            // коротка пауза перед подачею
-        vbus_apply(DIR_SOURCE);
-        if (tcpc_vbus_mv() >= VSAFE5V_MV) {
-            pd_send(PD_PS_RDY);              // «я джерело, тримаю vSafe5V»
-            p->swap = SWAP_IDLE;
-            enter(p, TC_ATTACHED_SRC);        // тепер ми джерело
-        } else if (dt >= tPSSourceOn_MS) {
-            enter(p, TC_ERROR_RECOVERY);      // не піднялись вчасно -> скид
-        }
-        break;
-    }
-}
-```
+:::code proj-drp-state-machine/c/zmina-roli-zhyvlennia-pr-2.c
 
 Порахуймо, чому таймери саме такі — і чому широкий `PSSourceOffTimer` каже не «поквапся», а «терпи».
 

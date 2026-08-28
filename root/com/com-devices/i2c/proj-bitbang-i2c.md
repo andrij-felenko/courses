@@ -31,51 +31,8 @@
 Нижче — цей шар для ATmega328P на ніжках PC4 і PC5 (тих самих, куди виведено апаратний блок, тож порівняння виходить прямим). У C це шість коротких функцій; у C++ вивід стає параметром типу, і компілятор підставляє адресу регістра та номер біта ще на етапі збирання — виклик лишається однією інструкцією, без непрямої адресації, яка на 400 кГц з'їдала б помітну частку такту.
 
 :::tabs
-```c
-#include <avr/io.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-#define SDA_BIT 4          /* PC4 */
-#define SCL_BIT 5          /* PC5 */
-
-void i2c_pins_init(void) {
-    /* засувка виходу = 0 назавжди; для входу цей же нуль вимикає
-       внутрішню підтяжку — вона надто слабка, підтяжки мають бути зовнішні */
-    PORTC &= ~((1 << SDA_BIT) | (1 << SCL_BIT));
-    DDRC  &= ~((1 << SDA_BIT) | (1 << SCL_BIT));   /* обидві ніжки відпущено */
-}
-
-static inline void sda_low(void)     { DDRC |=  (1 << SDA_BIT); }   /* вихід → «0» */
-static inline void sda_release(void) { DDRC &= ~(1 << SDA_BIT); }   /* вхід  → відпущено */
-static inline bool sda_read(void)    { return (PINC >> SDA_BIT) & 1; }
-
-static inline void scl_low(void)     { DDRC |=  (1 << SCL_BIT); }
-static inline void scl_release(void) { DDRC &= ~(1 << SCL_BIT); }
-static inline bool scl_read(void)    { return (PINC >> SCL_BIT) & 1; }
-```
-```cpp
-#include <cstdint>
-
-// Той самий шар, але ніжка — параметр типу: адреси регістрів і номер біта
-// відомі компіляторові, тож кожен виклик згортається в одну інструкцію.
-template <std::uintptr_t DDR, std::uintptr_t PORT, std::uintptr_t PIN, std::uint8_t BIT>
-struct OpenDrainPin {
-    static constexpr std::uint8_t mask = std::uint8_t(1u << BIT);
-
-    static volatile std::uint8_t& reg(std::uintptr_t a) {
-        return *reinterpret_cast<volatile std::uint8_t*>(a);
-    }
-    static void init()    { reg(PORT) &= ~mask; reg(DDR) &= ~mask; }
-    static void low()     { reg(DDR)  |=  mask; }   // вихід із нулем у засувці
-    static void release() { reg(DDR)  &= ~mask; }   // вхід: високий опір
-    static bool read()    { return (reg(PIN) & mask) != 0; }
-};
-
-// ATmega328P: PINC = 0x26, DDRC = 0x27, PORTC = 0x28
-using Sda = OpenDrainPin<0x27, 0x28, 0x26, 4>;
-using Scl = OpenDrainPin<0x27, 0x28, 0x26, 5>;
-```
+:::code proj-bitbang-i2c/c/shar-vyvodiv-open-drain-iz.c
+:::code proj-bitbang-i2c/cpp/main.cpp
 :::
 
 Далі протокол однаковий незалежно від того, який варіант шару взято: він викликає лише ці шість дій.
@@ -112,97 +69,7 @@ using Scl = OpenDrainPin<0x27, 0x28, 0x26, 5>;
 
 Тепер усе складається. Домовмося про інваріант, який тримає код укупі: **усі функції входять і виходять при низькому SCL**, а першу чверть кожної витрачають на хвіст низької півхвилі від попереднього біта. Завдяки цьому їх можна викликати в довільному порядку — вони склеюються самі.
 
-```c
-#include <util/delay.h>
-
-#define I2C_RISE_TIMEOUT_US 1000u    /* стеля очікування підйому SCL */
-
-static bool i2c_fault;               /* «липкий» прапорець: SCL не піднявся вчасно */
-
-static inline void qd(void) { _delay_us(2.5); }   /* чверть такту */
-
-/* Відпустити SCL і дочекатися, поки лінія СПРАВДІ піднялася. */
-static void scl_high(void) {
-    scl_release();
-    for (uint16_t t = 0; t < I2C_RISE_TIMEOUT_US; t++) {
-        if (scl_read()) return;      /* фронт відбувся, високий такт пішов */
-        _delay_us(1);
-    }
-    i2c_fault = true;                /* лінію хтось тримає внизу — далі все марно */
-}
-
-/* ── біт ────────────────────────────────────────────────────────────────── */
-
-static void write_bit(bool b) {
-    qd();                                   /* чверть 1: хвіст низького такту */
-    if (b) sda_release(); else sda_low();   /* SDA міняємо лише при низькому SCL */
-    qd();                                   /* чверть 2: дані встоялися до фронту */
-    scl_high();
-    qd(); qd();                             /* чверті 3 і 4: тут ведений читає */
-    scl_low();
-}
-
-static bool read_bit(void) {
-    qd();
-    sda_release();          /* лінію віддано веденому: рівень задає він */
-    qd();
-    scl_high();
-    qd();
-    bool b = sda_read();    /* середина високого такту */
-    qd();
-    scl_low();
-    return b;
-}
-
-/* ── рамка повідомлення ─────────────────────────────────────────────────── */
-
-/* START: ↓SDA при високому SCL. Ця сама функція дає й повторний START —
-   різниця між ними лише в тому, чи стояв перед нею STOP. */
-bool i2c_start(void) {
-    qd();
-    sda_release();          /* SDA відпускаємо при низькому SCL: інакше вийшов би STOP */
-    qd();
-    scl_high();
-    qd();
-    if (!sda_read()) return false;   /* SDA внизу — шину тримає хтось інший */
-    qd();                            /* разом дві чверті: t_SU;STA */
-    sda_low();                       /* ← власне START */
-    qd(); qd();                      /* t_HD;STA */
-    scl_low();
-    return !i2c_fault;
-}
-
-/* STOP: ↑SDA при високому SCL. */
-void i2c_stop(void) {
-    qd();
-    sda_low();              /* SDA має бути внизу ще до підйому SCL */
-    qd();
-    scl_high();
-    qd(); qd();             /* t_SU;STO */
-    sda_release();          /* ← власне STOP */
-    qd(); qd();             /* t_BUF: шина мусить постояти вільною */
-}
-
-/* ── байт ───────────────────────────────────────────────────────────────── */
-
-/* Передати байт старшим бітом уперед; true — ведений підтвердив. */
-bool i2c_write_byte(uint8_t b) {
-    for (uint8_t i = 0; i < 8; i++) {
-        write_bit((b & 0x80u) != 0);
-        b = (uint8_t)(b << 1);
-    }
-    return !read_bit() && !i2c_fault;   /* дев'ятий такт: «0» на SDA = ACK */
-}
-
-/* Прийняти байт; ack = true — просимо ще, false — це був останній. */
-uint8_t i2c_read_byte(bool ack) {
-    uint8_t b = 0;
-    for (uint8_t i = 0; i < 8; i++)
-        b = (uint8_t)((b << 1) | (read_bit() ? 1u : 0u));
-    write_bit(!ack);        /* ACK — притягнути SDA до землі; NACK — відпустити */
-    return b;
-}
-```
+:::code proj-bitbang-i2c/c/kod-start-bait-ack.c
 
 Тут варто спинитися на трьох місцях, бо саме вони й розкривають протокол.
 
@@ -214,24 +81,7 @@ uint8_t i2c_read_byte(bool ack) {
 
 Складімо з цього найпоширенішу операцію — читання регістра:
 
-```c
-/* Записати номер регістра, повторний START, прочитати n байт. */
-bool i2c_read_reg(uint8_t addr7, uint8_t reg, uint8_t *buf, uint8_t n) {
-    i2c_fault = false;
-    if (!i2c_start())                                 goto fail;
-    if (!i2c_write_byte((uint8_t)((addr7 << 1) | 0))) goto fail;  /* R/W = 0: запис */
-    if (!i2c_write_byte(reg))                         goto fail;
-    if (!i2c_start())                                 goto fail;  /* повторний START */
-    if (!i2c_write_byte((uint8_t)((addr7 << 1) | 1))) goto fail;  /* R/W = 1: читання */
-    for (uint8_t i = 0; i < n; i++)
-        buf[i] = i2c_read_byte((uint8_t)(i + 1) < n); /* останньому — NACK */
-    i2c_stop();
-    return !i2c_fault;
-fail:
-    i2c_stop();             /* хоч би що сталося — звільнити шину */
-    return false;
-}
-```
+:::code proj-bitbang-i2c/c/kod-start-bait-ack-2.c
 
 А тепер виклик до живого давача. Візьмімо TMP102: типова адреса 0x48, регістр температури — нульовий, значення лежить у двох байтах як 12-бітове знакове число, вирівняне вліво, з кроком 0.0625 °C.
 
@@ -256,18 +106,7 @@ if (i2c_read_reg(0x48, 0x00, raw, 2)) {
 
 **Зависла шина.** Якщо майстра перезавантажили посеред байта (скидання, налагоджувач, зникнення живлення), ведений лишається в середині своєї передачі й може тримати SDA внизу, чекаючи наступного такту. START видати неможливо: SDA і так нуль. Специфікація (UM10204, розділ «Bus clear») радить простий вихід — видати **дев'ять тактів** на SCL і дивитися на SDA: ведений дотисне недописаний байт, дійде до свого дев'ятого такту, відпустить лінію, і після цього коректний STOP поверне всіх у початковий стан. Дев'ять — бо стільки тактів щонайбільше лишалося веденому до кінця його байта разом із підтвердженням.
 
-```c
-/* Розчистити шину, яку тримає завислий ведений. */
-void i2c_bus_recover(void) {
-    sda_release();
-    for (uint8_t i = 0; i < 9 && !sda_read(); i++) {
-        scl_low();     qd(); qd();
-        scl_release(); qd(); qd();   /* навмисно без очікування рівня:
-                                        лінію може тримати той самий завислий чип */
-    }
-    i2c_stop();        /* коректний STOP — усі повертаються в початковий стан */
-}
-```
+:::code proj-bitbang-i2c/c/skladnist-i-pastky.c
 
 Якщо після дев'яти тактів SDA і далі внизу, програмою вже не зарадиш: лишається апаратне скидання самого веденого або зняття з нього живлення. [Що ще роблять із завислою шиною I²C](root:com-devices/i2c-bus-recovery) — окрема історія, бо в реальних системах до цього додають наглядові таймери й керовані ключі живлення периферії.
 
@@ -291,18 +130,6 @@ void i2c_bus_recover(void) {
 
 **Кілька майстрів.** Якщо на шині може заговорити ще хтось, `write_bit` треба навчити зауважувати програш. Механізм той самий, що й скрізь тут: виставив одиницю (відпустив), а прочитав нуль — отже лінію притягнув хтось інший, і він сильніший.
 
-```c
-static bool write_bit_checked(bool b) {
-    qd();
-    if (b) sda_release(); else sda_low();
-    qd();
-    scl_high();
-    qd();
-    bool lost = b && !sda_read();   /* виставив «1», а на лінії «0» */
-    qd();
-    scl_low();
-    return !lost;                   /* false → негайно кинути передачу */
-}
-```
+:::code proj-bitbang-i2c/c/skladnist-i-pastky-2.c
 
 Програвши, майстер мусить одразу замовкнути й відпустити обидві лінії — без STOP, бо STOP зіпсував би чужий кадр, — а спробувати ще раз згодом. Переможець при цьому нічого не помітить: усі його біти лишилися своїми. Докладніше про те, як [арбітраж шини](root:hw-arch/bus-arbitration) вирішує суперечки без зіпсутих кадрів, — окрема тема; тут важливо лише, що програмний майстер уміє в ньому чесно брати участь, бо він і так зчитує обидві лінії назад.

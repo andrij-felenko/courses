@@ -18,12 +18,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-i2c-bus-recovery.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -45,12 +47,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-clock-stretching-slave.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -68,12 +72,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-sensor-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -84,7 +90,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
@@ -95,7 +102,8 @@
           "proj": [
             {
               "file": "proj-dma-burst.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -106,18 +114,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-burst-dma-reader.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-fifo-registers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -128,7 +139,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -143,13 +155,15 @@
           "proj": [
             {
               "file": "proj-interrupt-driver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-register-architecture.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }

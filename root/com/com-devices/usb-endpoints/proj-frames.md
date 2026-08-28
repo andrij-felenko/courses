@@ -59,50 +59,13 @@ rate_hz   = 1000 / bInterval
 
 **Приклад 1. bInterval у дескрипторі точки — один байт визначає темп.**
 
-```c
-// Дескриптор HID-endpoint через TinyUSB
-// bInterval = 8 → хост опитує раз на 8 мс = 125 Гц
-static const tusb_desc_endpoint_t hid_ep_desc = {
-    .bLength          = sizeof(tusb_desc_endpoint_t),
-    .bDescriptorType  = TUSB_DESC_ENDPOINT,
-    .bEndpointAddress = 0x81,          // EP1, напрям IN
-    .bmAttributes = {
-        .xfer = TUSB_XFER_INTERRUPT,   // тип = interrupt
-    },
-    .wMaxPacketSize   = 8,             // байтів у звіті
-    .bInterval        = 8,             // 8 кадрів = 8 мс → 125 Гц
-};
-```
+:::code proj-frames/c/robochyi-kod-c-c-tinyusb.c
 
 Цей байт хост прочитає при [енумерації](root:com-devices/usb-enumeration) — і відтоді опитуватиме точку раз на 8 мс, хай що відбувається в прошивці.
 
 **Приклад 2. Пристрій віддає звіт лише у відповідь на запит хоста.**
 
-```c
-// Поточний стан (оновлюється з loop або ISR)
-static hid_mouse_report_t g_state;
-
-// Прапорець: стек TinyUSB готовий слати наступний звіт
-static volatile bool g_can_send = true;
-
-// Callback: хост забрав попередній звіт, можна готувати наступний
-void tud_hid_report_complete_cb(uint8_t instance,
-                                uint8_t const *report,
-                                uint16_t len)
-{
-    (void)instance; (void)report; (void)len;
-    g_can_send = true;
-}
-
-// Виклик у loop() або по таймеру — НЕ частіше, ніж раз на bInterval мс
-void hid_send_if_ready(void)
-{
-    if (!tud_hid_ready() || !g_can_send) return;
-    g_can_send = false;
-    tud_hid_report(0, &g_state, sizeof(g_state));
-    // Реальний вихід на дріт станеться в IN-токені від хоста, не тут
-}
-```
+:::code proj-frames/c/robochyi-kod-c-c-tinyusb-2.c
 
 Хоч би як часто крутився `loop()`, на дріт дані підуть не частіше за bInterval; зайві виклики `hid_send_if_ready` лише перезапишуть буфер свіжішим станом — що якраз і треба.
 

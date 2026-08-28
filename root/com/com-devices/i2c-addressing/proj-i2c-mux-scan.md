@@ -14,49 +14,8 @@
 У коді ці два кроки природно лягають у дві функції: `mux_select` вибирає гілку, а `read_sensor_on` спершу викликає її, а потім читає давача.
 
 :::tabs
-```cpp
-#include <Wire.h>
-
-#define MUX_ADDR 0x70          // власна 7-бітна адреса мультиплексора
-
-// Увімкнути рівно одну гілку (0…7), решту вимкнути.
-void mux_select(uint8_t channel) {
-  if (channel > 7) return;
-  Wire.beginTransmission(MUX_ADDR);
-  Wire.write(1 << channel);    // один біт = одна гілка
-  Wire.endTransmission();
-}
-
-void read_sensor_on(uint8_t channel) {
-  mux_select(channel);         // крок 1: вибрати гілку
-  // крок 2: далі — звичайна робота з давачем 0x68 на ЦІЙ гілці
-  Wire.beginTransmission(0x68);
-  Wire.write(0x3B);            // напр., адреса регістра даних
-  Wire.endTransmission(false); // повторний старт без відпускання шини
-  Wire.requestFrom(0x68, 6);   // забрати 6 байт
-  // ... читання Wire.read() ...
-}
-```
-```micropython
-from machine import I2C, Pin
-
-MUX_ADDR = 0x70                # власна 7-бітна адреса мультиплексора
-
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))
-
-# Увімкнути рівно одну гілку (0…7), решту вимкнути.
-def mux_select(channel):
-    if channel > 7:
-        return
-    i2c.writeto(MUX_ADDR, bytes([1 << channel]))  # один біт = одна гілка
-
-def read_sensor_on(channel):
-    mux_select(channel)        # крок 1: вибрати гілку
-    # крок 2: далі — звичайна робота з давачем 0x68 на ЦІЙ гілці
-    #         напр., адреса регістра даних 0x3B, забрати 6 байт
-    data = i2c.readfrom_mem(0x68, 0x3B, 6)  # запис регістра + повторний старт
-    # ... використати data ...
-```
+:::code proj-i2c-mux-scan/cpp/ideia-dvorivneva.cpp
+:::code proj-i2c-mux-scan/py/micropython/main.py
 :::
 
 > 🔧 **Навіщо це.** Дисципліна «вибрав — попрацював»: перед **кожним** звертанням до давача за мультиплексором переконайся, що ввімкнено саме його гілку. У програмі з кількома давачами легко забути перемкнути канал — і ти читаєш зовсім інший чіп, який випадково має ту саму адресу на іншій гілці. Найбезпечніше — обгорнути доступ до давача функцією, що **спершу** викликає `mux_select`, а вже потім говорить із чіпом.
@@ -68,19 +27,7 @@ def read_sensor_on(channel):
 Щоб дізнатися, який давач на якій гілці сидить, перебирають гілки зовнішнім циклом, а на кожній запускають звичайний [скан адрес I2C](root:com-devices/i2c-addressing) внутрішнім — і дістають повну карту дерева:
 
 :::tabs
-```cpp
-for (uint8_t ch = 0; ch < 8; ch++) {
-  mux_select(ch);
-  for (uint8_t addr = 0x08; addr <= 0x77; addr++) {
-    if (addr == MUX_ADDR) continue;       // не чіпати сам комутатор
-    Wire.beginTransmission(addr);
-    if (Wire.endTransmission() == 0) {
-      Serial.print("гілка "); Serial.print(ch);
-      Serial.print(": 0x");   Serial.println(addr, HEX);
-    }
-  }
-}
-```
+:::code proj-i2c-mux-scan/cpp/skan-usoho-dereva.cpp
 ```micropython
 for ch in range(8):
     mux_select(ch)

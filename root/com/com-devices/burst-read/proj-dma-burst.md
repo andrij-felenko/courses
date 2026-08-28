@@ -52,42 +52,10 @@
 :::tabs
 
 @tab C (Структура кадру)
-```c
-#include <stdint.h>
-
-#pragma pack(push, 1)
-typedef struct {
-    uint8_t  status;
-    int16_t  gyro_x;
-    int16_t  gyro_y;
-    int16_t  gyro_z;
-    int16_t  accel_x;
-    int16_t  accel_y;
-    int16_t  accel_z;
-    int16_t  temperature;
-} imu_raw_frame_t;
-#pragma pack(pop)
-```
+:::code proj-dma-burst/c/struktura-kadru-vymiriv.c
 
 @tab C++ (Структура кадру)
-```cpp
-#include <cstdint>
-
-namespace sensor {
-
-struct [[gnu::packed]] RawImuData {
-    uint8_t  status;
-    int16_t  gyro_x;
-    int16_t  gyro_y;
-    int16_t  gyro_z;
-    int16_t  accel_x;
-    int16_t  accel_y;
-    int16_t  accel_z;
-    int16_t  temperature;
-};
-
-} // namespace sensor
-```
+:::code proj-dma-burst/cpp/struktura-kadru-vymiriv.cpp
 
 :::
 
@@ -96,98 +64,10 @@ struct [[gnu::packed]] RawImuData {
 :::tabs
 
 @tab C (STM32 HAL / LL)
-```c
-#include "stm32f4xx_hal.h"
-#include <stdbool.h>
-#include <stdint.h>
-#include <string.h>
-
-#define IMU_SPI_HANDLE       hspi1
-#define IMU_FRAME_SIZE       15
-#define IMU_READ_BURST_CMD   0x80 | 0x20
-
-extern SPI_HandleTypeDef IMU_SPI_HANDLE;
-
-static uint8_t g_spi_tx_buf[IMU_FRAME_SIZE] __attribute__((aligned(4)));
-static uint8_t g_spi_rx_buf[2][IMU_FRAME_SIZE] __attribute__((aligned(4)));
-
-static volatile uint8_t g_active_rx_buf_idx = 0;
-static volatile bool    g_imu_data_ready_flag = false;
-
-void imu_dma_init(void) {
-    memset(g_spi_tx_buf, 0x00, IMU_FRAME_SIZE);
-    g_spi_tx_buf[0] = IMU_READ_BURST_CMD;
-}
-
-void imu_trigger_burst_read(void) {
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
-    uint8_t rx_idx = g_active_rx_buf_idx;
-    HAL_SPI_TransmitReceive_DMA(&IMU_SPI_HANDLE, g_spi_tx_buf, g_spi_rx_buf[rx_idx], IMU_FRAME_SIZE);
-}
-
-void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
-    if (hspi->Instance == SPI1) {
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
-        g_active_rx_buf_idx ^= 1;
-        __DMB(); /* Апаратний бар'єр пам'яті для синхронізації ядер */
-        g_imu_data_ready_flag = true;
-    }
-}
-```
+:::code proj-dma-burst/c/struktura-kadru-vymiriv-2.c
 
 @tab C++ (STM32 Сучасний драйвер)
-```cpp
-#include "stm32f4xx_hal.h"
-#include <array>
-#include <atomic>
-#include <cmath>
-#include <cstdint>
-#include <numbers>
-#include <span>
-
-namespace sensor {
-
-struct MotionSample {
-    std::array<float, 3> accel{};
-    std::array<float, 3> gyro{};
-    float temperature_c{};
-};
-
-class ImuDmaDriver {
-public:
-    static constexpr size_t kFrameSize = 15;
-    static constexpr uint8_t kBurstCmd = 0x80 | 0x20;
-
-    explicit ImuDmaDriver(SPI_HandleTypeDef& spi, GPIO_TypeDef* cs_port, uint16_t cs_pin) noexcept
-        : spi_(spi), cs_port_(cs_port), cs_pin_(cs_pin) {
-        tx_buf_.fill(0x00);
-        tx_buf_[0] = kBurstCmd;
-    }
-
-    void start_burst_transfer() noexcept {
-        HAL_GPIO_WritePin(cs_port_, cs_pin_, GPIO_PIN_RESET);
-        const uint8_t idx = active_buf_idx_.load(std::memory_order_relaxed);
-        HAL_SPI_TransmitReceive_DMA(&spi_, tx_buf_.data(), rx_double_buf_[idx].data(), kFrameSize);
-    }
-
-    void on_dma_complete_isr() noexcept {
-        HAL_GPIO_WritePin(cs_port_, cs_pin_, GPIO_PIN_SET);
-        active_buf_idx_.store(active_buf_idx_.load(std::memory_order_relaxed) ^ 1, std::memory_order_release);
-        has_new_data_.store(true, std::memory_order_release);
-    }
-
-private:
-    SPI_HandleTypeDef& spi_;
-    GPIO_TypeDef*      cs_port_;
-    uint16_t           cs_pin_;
-    alignas(4) std::array<uint8_t, kFrameSize> tx_buf_{};
-    alignas(4) std::array<std::array<uint8_t, kFrameSize>, 2> rx_double_buf_{};
-    std::atomic<uint8_t> active_buf_idx_{0};
-    std::atomic<bool>    has_new_data_{false};
-};
-
-} // namespace sensor
-```
+:::code proj-dma-burst/cpp/struktura-kadru-vymiriv-2.cpp
 
 :::
 
@@ -212,31 +92,7 @@ private:
 :::tabs
 
 @tab C (ESP-IDF)
-```c
-#include "driver/spi_master.h"
-#include "esp_heap_caps.h"
-#include <string.h>
-
-#define IMU_HOST        SPI2_HOST
-#define IMU_PAYLOAD_LEN 14
-
-static spi_device_handle_t s_spi_dev;
-static uint8_t *s_dma_tx_buf = NULL;
-static uint8_t *s_dma_rx_buf = NULL;
-static spi_transaction_t s_trans;
-
-void imu_esp32_init(void) {
-    s_dma_tx_buf = (uint8_t *)heap_caps_malloc(16, MALLOC_CAP_DMA);
-    s_dma_rx_buf = (uint8_t *)heap_caps_malloc(16, MALLOC_CAP_DMA);
-    memset(s_dma_tx_buf, 0x00, 16);
-    s_dma_tx_buf[0] = 0x80 | 0x20;
-
-    memset(&s_trans, 0, sizeof(s_trans));
-    s_trans.length    = (1 + IMU_PAYLOAD_LEN) * 8;
-    s_trans.tx_buffer = s_dma_tx_buf;
-    s_trans.rx_buffer = s_dma_rx_buf;
-}
-```
+:::code proj-dma-burst/c/realizatsiia-na.c
 
 @tab C++ (ESP-IDF C++ Wrapper)
 ```cpp

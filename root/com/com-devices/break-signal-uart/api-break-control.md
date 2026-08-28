@@ -13,48 +13,8 @@
 Для переведення передавача у стан Break стандарт POSIX передбачає два основні механізми: високорівневу функцію `tcsendbreak()` та прямі запити драйверу термінала через виклик `ioctl()`.
 
 :::tabs
-```c
-/* Системні виклики керування сигналом Break на мові C */
-#include <termios.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-
-/* Відправка нормованого імпульсу Break */
-int tcsendbreak(int fd, int duration);
-
-/* Низькорівневе пряме увімкнення та вимкнення стану розриву */
-int ioctl_set_break(int fd) {
-    return ioctl(fd, TIOCSBRK);
-}
-
-int ioctl_clear_break(int fd) {
-    return ioctl(fd, TIOCCBRK);
-}
-```
-```cpp
-// Системні виклики керування сигналом Break на мові C++20
-#include <termios.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <system_error>
-
-namespace serial_api {
-
-inline void send_break(int fd, int duration = 0) {
-    if (::tcsendbreak(fd, duration) != 0) {
-        throw std::system_error(errno, std::generic_category(), "tcsendbreak failed");
-    }
-}
-
-inline void set_break_state(int fd, bool active) {
-    const unsigned long request = active ? TIOCSBRK : TIOCCBRK;
-    if (::ioctl(fd, request) != 0) {
-        throw std::system_error(errno, std::generic_category(), "ioctl break request failed");
-    }
-}
-
-} // namespace serial_api
-```
+:::code api-break-control/c/1-1-systemni-funktsii-ta.c
+:::code api-break-control/cpp/1-1-systemni-funktsii-ta.cpp
 :::
 
 Функція `tcsendbreak(fd, duration)` є найбільш переносним засобом. Коли параметр `duration` дорівнює `0`, функція генерує розрив лінії тривалістю від **0.25 до 0.5 секунди** (від 250 до 500 мілісекунд). Якщо значення `duration` більше нуля, у класичному стандарті POSIX.1 тривалість імпульсу визначалася множенням на фіксований часовий квант драйвера. Проте в багатьох версіях ядра Linux значення `duration > 0` розглядається як ідентичне нулю або інтерпретується залежно від конкретного апаратного драйвера мікросхеми.
@@ -119,38 +79,8 @@ inline void set_break_state(int fd, bool active) {
 Для керування сигналом Break у Win32 API використовуються такі спеціалізовані системні функції:
 
 :::tabs
-```c
-/* Керування послідовним портом через Win32 API на мові C */
-#include <windows.h>
-
-BOOL win32_send_break(HANDLE hSerial, DWORD duration_ms) {
-    /* Перемикання лінії TX у стан Space (логічний нуль) */
-    if (!SetCommBreak(hSerial)) return FALSE;
-    Sleep(duration_ms);
-    /* Повернення лінії TX у стан Mark (логічна одиниця) */
-    return ClearCommBreak(hSerial);
-}
-```
-```cpp
-// Керування послідовним портом через Win32 API на мові C++
-#include <windows.h>
-#include <stdexcept>
-#include <chrono>
-#include <thread>
-
-class Win32SerialBreak {
-public:
-    static void send_break(HANDLE handle, std::chrono::milliseconds duration) {
-        if (!::SetCommBreak(handle)) {
-            throw std::runtime_error("SetCommBreak failed");
-        }
-        std::this_thread::sleep_for(duration);
-        if (!::ClearCommBreak(handle)) {
-            throw std::runtime_error("ClearCommBreak failed");
-        }
-    }
-};
-```
+:::code api-break-control/c/2-interfeis-windows.c
+:::code api-break-control/cpp/2-interfeis-windows.cpp
 :::
 
 Для виявлення вхідного Break у Windows застосовується маска подій `SetCommMask(hSerial, EV_BREAK | EV_RXCHAR)` у поєднанні з асинхронним викликом `WaitCommEvent()`. Коли віддалений пристрій генерує Break, операційна система виставляє прапорець `EV_BREAK`, що дозволяє потоку обробки негайно зафіксувати подію без постійного опитування портів.
@@ -162,46 +92,8 @@ public:
 У підсистемі ядра `drivers/tty/serial/serial_core.c` обробка сигналу Break відбувається в контексті обробника переривання апаратного порту.
 
 :::tabs
-```c
-/* Фрагмент інтерфейсу ядра serial_core (drivers/tty/serial/serial_core.c) */
-#include <linux/serial_core.h>
-#include <linux/tty.h>
-#include <linux/sysrq.h>
-
-/* Обробник Break у контексті переривання драйвера порту */
-void kernel_uart_handle_break(struct uart_port *port) {
-    if (uart_handle_break(port))
-        return;
-
-    /* Вставка TTY_BREAK у буфер термінала */
-    tty_insert_flip_char(&port->state->port, 0, TTY_BREAK);
-}
-```
-```cpp
-// Концептуальна модель поведінки ядра serial_core на C++
-#include <cstdint>
-#include <chrono>
-
-struct UartPort {
-    bool is_console{true};
-    bool sysrq_enabled{true};
-    std::chrono::steady_clock::time_point sysrq_timeout{};
-    bool in_sysrq_mode{false};
-};
-
-class SerialCoreHandler {
-public:
-    static bool handle_break(UartPort& port) noexcept {
-        if (port.is_console && port.sysrq_enabled) {
-            // Активація 5-секундного вікна очікування клавіші SysRq
-            port.in_sysrq_mode = true;
-            port.sysrq_timeout = std::chrono::steady_clock::now() + std::chrono::seconds(5);
-            return true; // Перехоплено підсистемою SysRq
-        }
-        return false; // Передати далі в термінальний буфер
-    }
-};
-```
+:::code api-break-control/c/serial_core.c
+:::code api-break-control/cpp/3-riven-iadra-linux-serial.cpp
 :::
 
 Функція `uart_handle_break()` перевіряє, чи скомпільовано ядро з підтримкою магічних комбінацій `CONFIG_MAGIC_SYSRQ`. Якщо поточний порт зареєстровано як системну консоль (`port->cons`), ядро активує таймер очікування магічної команди (типово 5 секунд). Усі наступні байти перевіряються таблицею обробників `sysrq_key_table`:
@@ -311,43 +203,8 @@ public:
 У спеціалізованих мікросхемах мостів USB-UART пряме керування станом Break здійснюється через бібліотечні функції вендорних драйверів (FTDI D2XX та Silicon Labs CP210x VCP):
 
 :::tabs
-```c
-/* Керування Break через бібліотеки FTDI D2XX та Silicon Labs VCP на мові C */
-#include <ftd2xx.h>
-
-/* FTDI D2XX API */
-FT_STATUS ftdi_set_break_on(FT_HANDLE ftHandle) {
-    return FT_SetBreakOn(ftHandle);
-}
-
-FT_STATUS ftdi_set_break_off(FT_HANDLE ftHandle) {
-    return FT_SetBreakOff(ftHandle);
-}
-```
-```cpp
-// Керування Break через обгортку FTDI D2XX на C++
-#include <ftd2xx.h>
-#include <stdexcept>
-
-class FtdiBreakGuard {
-public:
-    explicit FtdiBreakGuard(FT_HANDLE handle) : handle_{handle} {
-        if (::FT_SetBreakOn(handle_) != FT_OK) {
-            throw std::runtime_error("FT_SetBreakOn failed");
-        }
-    }
-
-    ~FtdiBreakGuard() noexcept {
-        ::FT_SetBreakOff(handle_);
-    }
-
-    FtdiBreakGuard(const FtdiBreakGuard&) = delete;
-    FtdiBreakGuard& operator=(const FtdiBreakGuard&) = delete;
-
-private:
-    FT_HANDLE handle_;
-};
-```
+:::code api-break-control/c/8-usb-uart-kontrolery-ftdi.c
+:::code api-break-control/cpp/8-usb-uart-kontrolery-ftdi.cpp
 :::
 
 Бібліотека FTDI транслює виклик `FT_SetBreakOn()` у службовий USB-пакет `SIO_SET_BREAK_REQUEST` (значення запиту `0x05`), який внутрішній процесор чіпа FT232R обробляє як команду примусового замикання лінії TX на нульовий рівень Space.

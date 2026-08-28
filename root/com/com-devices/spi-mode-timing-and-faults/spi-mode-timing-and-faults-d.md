@@ -308,49 +308,8 @@ f_MAX ≈ 24.15 МГц
 В операційній системі ESP-IDF конфігурація режиму задається цілочисельним полем `mode` (від 0 до 3) у структурі `spi_device_interface_config_t`:
 
 :::tabs
-```c
-#include "driver/spi_master.h"
-
-spi_device_handle_t spi_dev;
-spi_device_interface_config_t devcfg = {
-    .clock_speed_hz = 10 * 1000 * 1000, // Тактова частота 10 МГц
-    .mode = 0,                          // Mode 0 (CPOL=0, CPHA=0)
-    .spics_io_num = 5,                  // Вивід Chip Select (GPIO 5)
-    .queue_size = 7,
-};
-// Реєстрація пристрою на шині SPI2_HOST
-spi_bus_add_device(SPI2_HOST, &devcfg, &spi_dev);
-```
-```cpp
-#include "driver/spi_master.h"
-#include <stdexcept>
-
-class EspSpiDevice {
-public:
-    EspSpiDevice(spi_host_device_t host, int cs_pin, int mode, int speed_hz) {
-        spi_device_interface_config_t devcfg{};
-        devcfg.clock_speed_hz = speed_hz;
-        devcfg.mode = static_cast<uint8_t>(mode); // Вибір режиму 0..3
-        devcfg.spics_io_num = cs_pin;
-        devcfg.queue_size = 1;
-
-        if (spi_bus_add_device(host, &devcfg, &handle_) != ESP_OK) {
-            throw std::runtime_error("Не вдалося додати пристрій SPI до шини");
-        }
-    }
-
-    ~EspSpiDevice() {
-        if (handle_) {
-            spi_bus_remove_device(handle_);
-        }
-    }
-
-    spi_device_handle_t get() const noexcept { return handle_; }
-
-private:
-    spi_device_handle_t handle_{nullptr};
-};
-```
+:::code spi-mode-timing-and-faults-d/c/konfihuratsiia-v-esp-idf.c
+:::code spi-mode-timing-and-faults-d/cpp/konfihuratsiia-v-esp-idf.cpp
 :::
 
 #### Підсистема SPI в ядрі Linux (spidev)
@@ -358,68 +317,8 @@ private:
 У середовищі Linux режим SPI налаштовується користувацьким простором через системний виклик `ioctl` над файлом пристрою `/dev/spidevX.Y` за допомогою макросів із заголовкового файлу `<linux/spi/spidev.h>`:
 
 :::tabs
-```c
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/spi/spidev.h>
-#include <stdint.h>
-#include <stdio.h>
-
-int set_spi_mode(const char *device_path, uint8_t mode) {
-    int fd = open(device_path, O_RDWR);
-    if (fd < 0) return -1;
-
-    /* mode може набувати значень: SPI_MODE_0, SPI_MODE_1, SPI_MODE_2, SPI_MODE_3 */
-    if (ioctl(fd, SPI_IOC_WR_MODE, &mode) < 0) {
-        close(fd);
-        return -2;
-    }
-
-    return fd;
-}
-```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/spi/spidev.h>
-#include <cstdint>
-#include <string_view>
-#include <system_error>
-
-class LinuxSpidev {
-public:
-    enum class Mode : uint8_t {
-        Mode0 = SPI_MODE_0,
-        Mode1 = SPI_MODE_1,
-        Mode2 = SPI_MODE_2,
-        Mode3 = SPI_MODE_3
-    };
-
-    explicit LinuxSpidev(std::string_view path, Mode mode) {
-        fd_ = ::open(path.data(), O_RDWR);
-        if (fd_ < 0) {
-            throw std::system_error(errno, std::generic_category(), "Не вдалося відкрити пристрій spidev");
-        }
-
-        uint8_t raw_mode = static_cast<uint8_t>(mode);
-        if (::ioctl(fd_, SPI_IOC_WR_MODE, &raw_mode) < 0) {
-            ::close(fd_);
-            throw std::system_error(errno, std::generic_category(), "Помилка встановлення режиму SPI_IOC_WR_MODE");
-        }
-    }
-
-    ~LinuxSpidev() {
-        if (fd_ >= 0) ::close(fd_);
-    }
-
-    int native_handle() const noexcept { return fd_; }
-
-private:
-    int fd_{-1};
-};
-```
+:::code spi-mode-timing-and-faults-d/c/pidsystema-spi-v-iadri.c
+:::code spi-mode-timing-and-faults-d/cpp/pidsystema-spi-v-iadri.cpp
 :::
 
 Для вичерпного практичного аналізу того, як алгоритми керування виводами реалізуються на рівні окремих інструкцій мікроконтролера та як будувати власні часові затримки для всіх чотирьох режимів без апаратного модуля, доступна окрема [програмна реалізація біт-бенгінгу](root:com-devices/spi-mode-timing-and-faults/proj-spi-bitbang.md).

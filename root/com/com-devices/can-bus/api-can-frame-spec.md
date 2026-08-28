@@ -64,39 +64,8 @@
 ### Класичний кадр CAN (`struct can_frame`)
 
 :::tabs
-```c
-/* C: системний заголовок <linux/can.h> */
-#include <linux/can.h>
-
-struct can_frame {
-    can_id_t can_id;  /* 32-бітний ID + служебні прапорці (EFF, RTR, ERR) */
-    __u8     can_dlc; /* Довжина корисної підкладки (0..8) */
-    __u8     __pad;   /* Падінг для вирівнювання за межею 32 бітів */
-    __u8     __res0;  /* Резервний байт */
-    __u8     len8_dlc;/* Спеціальний параметр для некоректних DLC */
-    __u8     data[8] __attribute__((aligned(8))); /* Буфер даних 8 байтів */
-};
-```
-```cpp
-// C++: Ідіоматична обгортка класичного кадру CAN
-#include <cstdint>
-#include <array>
-#include <span>
-
-namespace can {
-
-struct Frame {
-    std::uint32_t id{0};                           // 11/29-біт ID та прапорці
-    std::uint8_t  dlc{0};                          // Фактичний розмір (0..8)
-    std::array<std::uint8_t, 8> data{};            // Фіксований буфер даних
-
-    [[nodiscard]] constexpr std::span<const std::uint8_t> payload() const noexcept {
-        return std::span<const std::uint8_t>{data.data(), dlc};
-    }
-};
-
-} // namespace can
-```
+:::code api-can-frame-spec/c/klasychnyi-kadr-can-struct.c
+:::code api-can-frame-spec/cpp/klasychnyi-kadr-can-struct.cpp
 :::
 
 ### Маски прапорців ідентифікатора `can_id`
@@ -114,26 +83,7 @@ struct Frame {
 #define CAN_EFF_MASK 0x1FFFFFFFU /* Маска для виділення 29-бітного ID */
 #define CAN_ERR_MASK 0x1FFFFFFFU /* Маска типів помилок шини */
 ```
-```cpp
-// C++: Типізовані бітові константи та enum class
-#include <cstdint>
-
-namespace can {
-
-enum class Flag : std::uint32_t {
-    Extended  = 0x80000000U, // 29-бітний розширений ID
-    Remote    = 0x40000000U, // Запит передачі Remote Frame
-    Error     = 0x20000000U  // Повідомлення про помилку шини
-};
-
-enum class Mask : std::uint32_t {
-    StandardId = 0x000007FFU, // Маска 11-бітного ID
-    ExtendedId = 0x1FFFFFFFU, // Маска 29-бітного ID
-    ErrorId    = 0x1FFFFFFFU  // Маска коду помилки
-};
-
-} // namespace can
-```
+:::code api-can-frame-spec/cpp/masky-praportsiv.cpp
 :::
 
 ### Апаратна фільтрація `struct can_filter`
@@ -148,23 +98,7 @@ struct can_filter {
     can_id_t can_mask; /* Маска перевірки (1 = порівнювати біт, 0 = ігнорувати) */
 };
 ```
-```cpp
-// C++: Структура фільтра з методикою конструювання
-#include <cstdint>
-
-namespace can {
-
-struct Filter {
-    std::uint32_t id{0};   // Цільовий ID
-    std::uint32_t mask{0}; // Маска перевірки бітів
-
-    [[nodiscard]] constexpr bool matches(std::uint32_t input_id) const noexcept {
-        return (input_id & mask) == (id & mask);
-    }
-};
-
-} // namespace can
-```
+:::code api-can-frame-spec/cpp/aparatna-filtratsiia.cpp
 :::
 
 ---
@@ -174,47 +108,8 @@ struct Filter {
 Для підтримки високоефективного протоколу CAN FD у системі Linux створено структуру `canfd_frame`, яка вміщує до 64 байтів корисного навантаження та прапорці перемикання швидкості BRS.
 
 :::tabs
-```c
-/* C: структура кадру CAN FD у <linux/can.h> */
-#include <linux/can.h>
-
-struct canfd_frame {
-    can_id_t can_id;  /* 32-бітний ID та прапорці (EFF, RTR, ERR) */
-    __u8     len;     /* Фактична довжина навантаження (від 0 до 64) */
-    __u8     flags;   /* Прапорці CAN FD (CANFD_BRS, CANFD_ESI) */
-    __u8     __res0;  /* Зарезервовано */
-    __u8     __res1;  /* Зарезервовано */
-    __u8     data[64] __attribute__((aligned(8))); /* Буфер 64 байти */
-};
-
-#define CANFD_BRS 0x01 /* Bit Rate Switch: перемикання на високу швидкість */
-#define CANFD_ESI 0x02 /* Error State Indicator: 0 = Active, 1 = Passive */
-```
-```cpp
-// C++: Обгортка кадру CAN FD
-#include <cstdint>
-#include <array>
-#include <span>
-
-namespace can {
-
-struct FdFrame {
-    std::uint32_t id{0};                           // ID та прапорці
-    std::uint8_t  len{0};                          // Довжина (0..64)
-    std::uint8_t  flags{0};                        // Прапорці BRS / ESI
-    std::array<std::uint8_t, 64> data{};           // Розширений буфер
-
-    [[nodiscard]] constexpr bool has_brs() const noexcept {
-        return (flags & 0x01) != 0;
-    }
-
-    [[nodiscard]] constexpr std::span<const std::uint8_t> payload() const noexcept {
-        return std::span<const std::uint8_t>{data.data(), len};
-    }
-};
-
-} // namespace can
-```
+:::code api-can-frame-spec/c/4-rozshyrenyi-kadr-can-fd.c
+:::code api-can-frame-spec/cpp/4-rozshyrenyi-kadr-can-fd.cpp
 :::
 
 ---
@@ -223,16 +118,4 @@ struct FdFrame {
 
 У системі Linux налаштування швидкості шини (Bit Timing), включення режимів CAN FD та керування автоповтором після стану Bus-Off виконується через утиліту `ip` (пакет iproute2) з використанням системного інтерфейсу Netlink:
 
-```bash
-# Встановлення швидкості 500 кбіт/с для класичного CAN
-sudo ip link set can0 type can bitrate 500000
-
-# Включення CAN FD: номінальна швидкість 500 кбіт/с, швидкість даних 2 Мбіт/с
-sudo ip link set can0 type can bitrate 500000 dbitrate 2000000 fd on
-
-# Автоматичне відновлення зі стану Bus-Off через 100 мс
-sudo ip link set can0 type can restart-ms 100
-
-# Активація мережевого інтерфейсу
-sudo ip link set can0 up
-```
+:::code api-can-frame-spec/sh/main.sh

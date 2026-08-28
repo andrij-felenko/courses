@@ -18,7 +18,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -35,12 +36,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-frame-in-code.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -69,13 +72,15 @@
           "proj": [
             {
               "file": "proj-baud-calculator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-uart-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -119,7 +124,8 @@
           "proj": [
             {
               "file": "proj-baud-bitrate-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -146,19 +152,22 @@
           "math": [
             {
               "file": "math-bresenham-accumulator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-brr-calculator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-mcu-brr-registers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         }
@@ -175,18 +184,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
               "file": "math-baud-error-budget.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-brr-error-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -208,7 +220,8 @@
           "proj": [
             {
               "file": "proj-oversampling-receiver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -236,13 +249,17 @@
           "proj": [
             {
               "file": "proj-break-detection.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-break-control.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -253,7 +270,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {
@@ -270,7 +288,8 @@
           "proj": [
             {
               "file": "proj-stm32-halfduplex-de.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

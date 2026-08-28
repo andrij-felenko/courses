@@ -56,18 +56,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-retimer-redriver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-pd-cable-vdo.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -89,13 +94,15 @@
           "proj": [
             {
               "file": "proj-vdm-decoder.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-vdm-descriptors.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         },
@@ -106,7 +113,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {
@@ -117,7 +125,8 @@
           "api": [
             {
               "file": "api-audio-accessory.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }
@@ -134,12 +143,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-cc-resistors.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -150,7 +161,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -160,7 +172,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -171,11 +184,13 @@
           "proj": [
             {
               "file": "proj-drp-state-machine.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-drp-controller-ic.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -203,7 +218,8 @@
           "proj": [
             {
               "file": "proj-bmc-codec.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -220,7 +236,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -236,13 +253,15 @@
           "proj": [
             {
               "file": "proj-pd-parser.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-pd-messages.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         },
@@ -270,7 +289,8 @@
           "proj": [
             {
               "file": "proj-epr-sink.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -281,7 +301,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -298,7 +319,8 @@
           "proj": [
             {
               "file": "proj-pps-cc-loop.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -348,7 +370,9 @@
           "api": [
             {
               "file": "api-bc12-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -359,7 +383,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -370,13 +395,15 @@
           "math": [
             {
               "file": "math-hvdcp-optimum.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-qc-sink.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -387,7 +414,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -398,19 +426,22 @@
           "comp": [
             {
               "file": "comp-dcp-signature-ic.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "math": [
             {
               "file": "math-divider-window.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-divider-signature.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

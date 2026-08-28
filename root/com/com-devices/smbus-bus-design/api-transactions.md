@@ -378,76 +378,8 @@
 У просторі ядра Linux та через інтерфейс пристрою `/dev/i2c-N` доступні стандартні системні виклики та структури для виконання транзакцій SMBus.
 
 :::tabs
-```c
-#include <linux/i2c.h>
-#include <linux/i2c-dev.h>
-#include <stdint.h>
-
-#define I2C_SMBUS_QUICK             0
-#define I2C_SMBUS_BYTE              1
-#define I2C_SMBUS_BYTE_DATA         2
-#define I2C_SMBUS_WORD_DATA         3
-#define I2C_SMBUS_PROC_CALL         4
-#define I2C_SMBUS_BLOCK_DATA        5
-#define I2C_SMBUS_I2C_BLOCK_DATA    8
-#define I2C_SMBUS_BLOCK_PROC_CALL   9
-
-#define I2C_SMBUS_READ  1
-#define I2C_SMBUS_WRITE 0
-
-union i2c_smbus_data {
-    uint8_t  byte;
-    uint16_t word;
-    uint8_t  block[I2C_SMBUS_BLOCK_MAX + 2]; /* block[0] = лічильник довжини */
-};
-
-struct i2c_smbus_ioctl_data {
-    uint8_t read_write;                  /* I2C_SMBUS_READ або I2C_SMBUS_WRITE */
-    uint8_t command;                     /* Код команди (Command Code) */
-    uint32_t size;                       /* Тип транзакції (I2C_SMBUS_*) */
-    union i2c_smbus_data *data;          /* Покажчик на буфер даних */
-};
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <array>
-
-namespace smbus::uapi {
-
-inline constexpr size_t BLOCK_MAX = 32;
-
-enum class Direction : uint8_t {
-    Write = 0,
-    Read  = 1
-};
-
-enum class TransactionSize : uint32_t {
-    Quick           = 0,
-    Byte            = 1,
-    ByteData        = 2,
-    WordData        = 3,
-    ProcCall        = 4,
-    BlockData       = 5,
-    I2cBlockData    = 8,
-    BlockProcCall   = 9
-};
-
-union SmbusDataBuffer {
-    uint8_t  byte;
-    uint16_t word;
-    std::array<uint8_t, BLOCK_MAX + 2> block;
-};
-
-struct SmbusIoctlArgs {
-    Direction        direction{Direction::Read};
-    uint8_t          command{0};
-    TransactionSize  size{TransactionSize::ByteData};
-    SmbusDataBuffer* data{nullptr};
-};
-
-} // namespace smbus::uapi
-```
+:::code api-transactions/c/main.c
+:::code api-transactions/cpp/main.cpp
 :::
 
 #### Стандартні функції ядра Linux для драйверів пристроїв

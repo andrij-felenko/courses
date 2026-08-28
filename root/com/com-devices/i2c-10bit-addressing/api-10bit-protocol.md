@@ -65,42 +65,8 @@
 Для програмного розрахунку байтів заголовка за заданою 10-бітною адресою `addr10` застосовують такі стандартні бітові вирази:
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* Розрахунок першого байта для операції запису (R/W = 0) */
-uint8_t i2c_10bit_header_write(uint16_t addr10) {
-    return (uint8_t)(0xF0 | (((addr10 >> 8) & 0x03) << 1) | 0x00);
-}
-
-/* Розрахунок першого байта для операції читання (R/W = 1) */
-uint8_t i2c_10bit_header_read(uint16_t addr10) {
-    return (uint8_t)(0xF0 | (((addr10 >> 8) & 0x03) << 1) | 0x01);
-}
-
-/* Розрахунок другого байта (молодші 8 бітів) */
-uint8_t i2c_10bit_header_low(uint16_t addr10) {
-    return (uint8_t)(addr10 & 0xFF);
-}
-```
-```cpp
-#include <cstdint>
-
-/* Розрахунок першого байта для операції запису (R/W = 0) */
-constexpr uint8_t i2c_10bit_header_write(uint16_t addr10) noexcept {
-    return static_cast<uint8_t>(0xF0 | (((addr10 >> 8) & 0x03) << 1) | 0x00);
-}
-
-/* Розрахунок першого байта для операції читання (R/W = 1) */
-constexpr uint8_t i2c_10bit_header_read(uint16_t addr10) noexcept {
-    return static_cast<uint8_t>(0xF0 | (((addr10 >> 8) & 0x03) << 1) | 0x01);
-}
-
-/* Розрахунок другого байта (молодші 8 бітів) */
-constexpr uint8_t i2c_10bit_header_low(uint16_t addr10) noexcept {
-    return static_cast<uint8_t>(addr10 & 0xFF);
-}
-```
+:::code api-10bit-protocol/c/4-bitovi-operatsii.c
+:::code api-10bit-protocol/cpp/4-bitovi-operatsii.hpp
 :::
 
 ### 5. Кінцевий автомат апаратного декодера веденого (Slave FSM State Machine)
@@ -205,34 +171,8 @@ struct I2cMessage {
 #### Конфігураційна структура `I2C_InitTypeDef`
 
 :::tabs
-```c
-#include <stdint.h>
-
-typedef struct {
-    uint32_t ClockSpeed;       /* Тактова частота шини (100000 для Standard або 400000 для Fast) */
-    uint32_t DutyCycle;        /* Коефіцієнт заповнення сигналу SCL у швидкому режимі (2 або 16/9) */
-    uint32_t OwnAddress1;      /* Власна 7- або 10-бітна адреса мікроконтролера в режимі веденого */
-    uint32_t AddressingMode;   /* Розрядність адреси: I2C_ADDRESSINGMODE_7BIT або I2C_ADDRESSINGMODE_10BIT */
-    uint32_t DualAddressMode;  /* Дозвіл використання другої власної адреси */
-    uint32_t OwnAddress2;      /* Друга власна адреса (підтримує лише 7-бітний формат) */
-    uint32_t GeneralCallMode;  /* Реакція на адресу загального виклику 0x00 */
-    uint32_t NoStretchMode;    /* Заборона розтягування тактового сигналу (Clock Stretching) */
-} I2C_InitTypeDef;
-```
-```cpp
-#include <cstdint>
-
-struct Stm32I2cConfig {
-    uint32_t clockSpeed{100000};       // Тактова частота шини (100000 для Standard або 400000 для Fast)
-    uint32_t dutyCycle{2};             // Коефіцієнт заповнення сигналу SCL у швидкому режимі
-    uint32_t ownAddress1{0};           // Власна 7- або 10-бітна адреса мікроконтролера в режимі веденого
-    uint32_t addressingMode{0x0000C000};// I2C_ADDRESSINGMODE_10BIT
-    uint32_t dualAddressMode{0};       // Дозвіл використання другої власної адреси
-    uint32_t ownAddress2{0};           // Друга власна адреса
-    uint32_t generalCallMode{0};       // Реакція на адресу загального виклику
-    uint32_t noStretchMode{0};         // Заборона розтягування тактового сигналу
-};
-```
+:::code api-10bit-protocol/c/konfihuratsiina-struktura.c
+:::code api-10bit-protocol/cpp/konfihuratsiina-struktura.cpp
 :::
 
 #### Константи режимів адресації в STM32 HAL

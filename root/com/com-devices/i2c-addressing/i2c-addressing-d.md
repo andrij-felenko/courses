@@ -93,24 +93,7 @@ rbyte = (addr7 << 1) | 1               # 1101 0001 = 0xD1  (читання, R/W=
 Логіка проста: для кожної адреси ведучий шле старт і адресний байт — і дивиться на відповідь. ACK означає «тут хтось є», NACK — «порожньо». Жодних даних у пристрій не пишуть, тож сканування безпечне. Увесь сканер на Arduino вкладається в кілька рядків:
 
 :::tabs
-```cpp
-#include <Wire.h>
-
-void setup() {
-  Wire.begin();
-  Serial.begin(115200);
-
-  for (uint8_t addr = 0x08; addr <= 0x77; addr++) {   // лише придатний діапазон
-    Wire.beginTransmission(addr);        // старт + 7-бітна адреса + біт W
-    if (Wire.endTransmission() == 0) {   // 0 == прийшов ACK на адресу
-      Serial.print("found device at 0x");
-      Serial.println(addr, HEX);         // друкуємо саме 7-бітну адресу
-    }
-  }
-}
-
-void loop() {}
-```
+:::code i2c-addressing-d/cpp/main.cpp
 ```python
 from machine import I2C, Pin
 

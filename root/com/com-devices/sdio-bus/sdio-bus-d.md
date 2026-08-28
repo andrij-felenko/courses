@@ -210,21 +210,7 @@
 
 Клієнтський драйвер описує підтримувані ідентифікатори обладнання через таблицю `sdio_device_id` та реєструється у підсистемі ядра за допомогою макросу `module_sdio_driver()`:
 
-```c
-static const struct sdio_device_id brcmf_sdio_ids[] = {
-    { SDIO_DEVICE(SDIO_VENDOR_ID_BROADCOM, SDIO_DEVICE_ID_BROADCOM_43430) },
-    { SDIO_DEVICE(SDIO_VENDOR_ID_CYPRESS,  SDIO_DEVICE_ID_CYPRESS_43455)  },
-    { /* кінцевий нульовий елемент */ }
-};
-MODULE_DEVICE_TABLE(sdio, brcmf_sdio_ids);
-
-static struct sdio_driver brcmf_sdiod_driver = {
-    .name     = "brcmfmac",
-    .id_table = brcmf_sdio_ids,
-    .probe    = brcmf_sdiod_probe,
-    .remove   = brcmf_sdiod_remove,
-};
-```
+:::code sdio-bus-d/c/main.c
 
 Коли ядро виявляє на шині функцію з відповідним кодом виробника (Vendor ID) та моделі (Device ID), викликається функція `probe`:
 

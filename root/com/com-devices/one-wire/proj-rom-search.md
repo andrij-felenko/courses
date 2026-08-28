@@ -49,157 +49,19 @@
 
 Пошук стоїть на трьох елементарних операціях нижнього шару — скиданні, записі й читанні одного біта; [їх дає біт-бенг-драйвер ведучого](root:com-devices/one-wire/proj-bitbang-master.md), що точним таймінгом розгойдує жилу. Тут вони — чорні скриньки:
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Нижній шар (біт-бенг ведучого) — реалізовано окремо:
-   OWReset()      : скидання; true, якщо був імпульс присутності (шина не порожня)
-   OWWriteByte(b) : записати байт, молодшим бітом уперед
-   OWWriteBit(b)  : записати один біт
-   OWReadBit()    : прочитати один біт (монтажне І шини)                     */
-bool    OWReset(void);
-void    OWWriteByte(uint8_t b);
-void    OWWriteBit(uint8_t bit);
-uint8_t OWReadBit(void);
-```
+:::code proj-rom-search/c/stdint.h
 
 Стан пошуку живе **між** викликами — це і є та закладка, що дає обійтися без стека:
 
-```c
-uint8_t ROM_NO[8];                 /* адреса, що будується цим проходом      */
-static int  LastDiscrepancy;       /* найглибша неопрацьована розвилка (1..64)*/
-static int  LastFamilyDiscrepancy; /* те саме в межах першого байта (родини)  */
-static bool LastDeviceFlag;        /* останній пристрій уже знайдено          */
-static uint8_t crc8;               /* накопичувальний залишок CRC             */
-
-/* Команда пошуку: 0xF0 — усі пристрої; 0xEC — лише зі зведеною тривогою */
-uint8_t OWSearchCommand = 0xF0;
-
-/* CRC-8/Dallas, поліном X⁸+X⁵+X⁴+1 (віддзеркалений — 0x8C), накопичувальний */
-static uint8_t docrc8(uint8_t value)
-{
-    crc8 ^= value;
-    for (int i = 0; i < 8; i++)
-        crc8 = (crc8 & 1) ? (crc8 >> 1) ^ 0x8C : (crc8 >> 1);
-    return crc8;
-}
-```
+:::code proj-rom-search/c/robochyi-kod.c
 
 Серце — один прохід дерева. Він або кладе наступну адресу в `ROM_NO`, або каже «більше нікого»:
 
-```c
-bool OWSearch(void)
-{
-    int id_bit_number   = 1;       /* 1..64 — котрий біт адреси зараз          */
-    int last_zero       = 0;       /* де цього проходу обрали 0 на розвилці    */
-    int rom_byte_number = 0;
-    uint8_t rom_byte_mask = 1;
-    bool search_result  = false;
-    crc8 = 0;
-
-    if (!LastDeviceFlag) {
-        if (!OWReset()) {                     /* немає присутності — шина порожня */
-            LastDiscrepancy = 0;
-            LastDeviceFlag = false;
-            LastFamilyDiscrepancy = 0;
-            return false;
-        }
-        OWWriteByte(OWSearchCommand);         /* 0xF0 (або 0xEC для тривоги) */
-
-        do {
-            uint8_t id_bit     = OWReadBit(); /* прямий біт   */
-            uint8_t cmp_id_bit = OWReadBit(); /* інверсний біт */
-
-            if (id_bit && cmp_id_bit)         /* (1,1) — ніхто не відповів */
-                break;                         /* прохід зіпсовано, вийти   */
-
-            uint8_t search_direction;
-            if (id_bit != cmp_id_bit) {
-                /* (0,1) або (1,0) — усі згодні: гілку задає сам біт */
-                search_direction = id_bit;
-            } else {
-                /* (0,0) — розвилка: є і 0, і 1, обираємо напрям */
-                if (id_bit_number < LastDiscrepancy)
-                    /* мілкіше за закладку — повторюємо торішній вибір */
-                    search_direction = (ROM_NO[rom_byte_number] & rom_byte_mask) ? 1 : 0;
-                else
-                    /* на самій закладці — тепер 1; глибше за неї — 0 */
-                    search_direction = (id_bit_number == LastDiscrepancy) ? 1 : 0;
-
-                if (search_direction == 0) {
-                    last_zero = id_bit_number;         /* тут лишилась гілка 1 на потім */
-                    if (last_zero < 9)
-                        LastFamilyDiscrepancy = last_zero;
-                }
-            }
-
-            /* записати обраний біт у ROM_NO ... */
-            if (search_direction)
-                ROM_NO[rom_byte_number] |=  rom_byte_mask;
-            else
-                ROM_NO[rom_byte_number] &= ~rom_byte_mask;
-
-            /* ... і оголосити його шині: невідповідні ведені замовкають */
-            OWWriteBit(search_direction);
-
-            id_bit_number++;
-            rom_byte_mask <<= 1;
-            if (rom_byte_mask == 0) {                  /* байт зібрано цілком */
-                docrc8(ROM_NO[rom_byte_number]);       /* накопичити CRC     */
-                rom_byte_number++;
-                rom_byte_mask = 1;
-            }
-        } while (rom_byte_number < 8);                 /* усі 64 біти */
-
-        /* успіх лише якщо пройшли всі 64 біти і CRC зійшовся (залишок 0) */
-        if (id_bit_number >= 65 && crc8 == 0) {
-            LastDiscrepancy = last_zero;
-            if (LastDiscrepancy == 0)
-                LastDeviceFlag = true;                 /* глибших розвилок нема — останній */
-            search_result = true;
-        }
-    }
-
-    if (!search_result || ROM_NO[0] == 0) {            /* нічого не знайшли — скинути стан */
-        LastDiscrepancy = 0;
-        LastDeviceFlag = false;
-        LastFamilyDiscrepancy = 0;
-        search_result = false;
-    }
-    return search_result;
-}
-```
+:::code proj-rom-search/c/robochyi-kod-2.c
 
 Обгортки «перший» і «наступний» та драйвер-перелік усієї шини:
 
-```c
-bool OWFirst(void)                 /* почати пошук спочатку */
-{
-    LastDiscrepancy = 0;
-    LastDeviceFlag = false;
-    LastFamilyDiscrepancy = 0;
-    return OWSearch();
-}
-
-bool OWNext(void)                  /* наступний пристрій; стан лишається від минулого */
-{
-    return OWSearch();
-}
-
-/* Перелічити все, що висить на шині. Повертає кількість знайдених. */
-int OWEnumerate(uint8_t addr[][8], int max)
-{
-    int count = 0;
-    for (bool ok = OWFirst(); ok && count < max; ok = OWNext()) {
-        /* CRC кожної адреси вже перевірено всередині OWSearch */
-        for (int i = 0; i < 8; i++)
-            addr[count][i] = ROM_NO[i];   /* зберегти: ROM_NO наступний прохід перепише */
-        count++;
-    }
-    return count;                          /* 0 — шина порожня */
-}
-```
+:::code proj-rom-search/c/robochyi-kod-3.c
 
 ## Складність, пастки й пошук за тривогою
 

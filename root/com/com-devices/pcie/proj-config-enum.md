@@ -36,36 +36,7 @@
 
 Отже, примітив доступу:
 
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-/* Початок вікна ECAM цього сегмента (з таблиці MCFG). */
-static volatile uint8_t *ecam;
-
-static inline volatile uint32_t *cfg_ptr(uint8_t bus, uint8_t dev, uint8_t fn, uint16_t off)
-{
-    return (volatile uint32_t *)(ecam + ((uint32_t)bus << 20)
-                                      + ((uint32_t)dev << 15)
-                                      + ((uint32_t)fn  << 12)
-                                      + (off & ~3u));          /* вирівняно на слово */
-}
-
-static uint32_t cfg_r32(uint8_t b, uint8_t d, uint8_t f, uint16_t o)
-{
-    return *cfg_ptr(b, d, f, o);
-}
-
-static uint16_t cfg_r16(uint8_t b, uint8_t d, uint8_t f, uint16_t o)
-{
-    return (uint16_t)(cfg_r32(b, d, f, o) >> ((o & 2) * 8));
-}
-
-static uint8_t cfg_r8(uint8_t b, uint8_t d, uint8_t f, uint16_t o)
-{
-    return (uint8_t)(cfg_r32(b, d, f, o) >> ((o & 3) * 8));
-}
-```
+:::code proj-config-enum/c/vikno-kriz-iake-vydno.c
 
 Дві дрібниці тут не косметичні. По-перше, `volatile` обов'язкове: компілятор не має права ані викидати ці читання як «однакові», ані переставляти їх місцями — за адресою не пам'ять, а жива транзакція до пристрою; докладніше про це — [volatile](root:sf-lang/volatile). По-друге, байт і півслово тут добуваються **зсувом із прочитаного слова**, а не окремим вузьким читанням. Причина не в елегантності: більшість кореневих мостів (а поза x86 — майже всі) приймають конфігураційні звернення лише повними 32-бітними словами, і байтове читання з ECAM на такій платі або віддасть сміття, або впаде.
 
@@ -85,64 +56,7 @@ static uint8_t cfg_r8(uint8_t b, uint8_t d, uint8_t f, uint16_t o)
 
 Три питання складаються в три функції, і код майже дослівно повторює абзаци вище:
 
-```c
-#define VENDOR_NONE 0xFFFFu
-
-static void     scan_bus(uint8_t bus);      /* взаємна рекурсія зі scan_function */
-static void     decode_bars(uint8_t b, uint8_t d, uint8_t f, int count);
-static uint64_t bar_size(uint8_t b, uint8_t d, uint8_t f, uint16_t off, int is64);
-static void     dump_link(uint8_t b, uint8_t d, uint8_t f);
-
-static void scan_function(uint8_t bus, uint8_t dev, uint8_t fn)
-{
-    uint16_t vid = cfg_r16(bus, dev, fn, 0x00);
-    uint16_t did = cfg_r16(bus, dev, fn, 0x02);
-    uint32_t cls = cfg_r32(bus, dev, fn, 0x08) >> 8;    /* клас, підклас, інтерфейс */
-    uint8_t  hdr = cfg_r8 (bus, dev, fn, 0x0E) & 0x7Fu; /* тип заголовка без біта багатофункційності */
-
-    printf("%02x:%02x.%u  %04x:%04x  клас %06x\n",
-           (unsigned)bus, (unsigned)dev, (unsigned)fn,
-           (unsigned)vid, (unsigned)did, (unsigned)cls);
-
-    if (hdr == 0x00) {                       /* кінцевий пристрій: шість BAR-ів */
-        decode_bars(bus, dev, fn, 6);
-    } else if (hdr == 0x01) {                /* міст: два власні BAR-и й ціла шина за ним */
-        decode_bars(bus, dev, fn, 2);
-        uint8_t sec = cfg_r8(bus, dev, fn, 0x19);
-        if (sec > bus)                       /* захист від циклу на кривому залізі */
-            scan_bus(sec);
-    }
-    dump_link(bus, dev, fn);
-}
-
-static void scan_device(uint8_t bus, uint8_t dev)
-{
-    if (cfg_r16(bus, dev, 0, 0x00) == VENDOR_NONE)
-        return;                              /* нема функції 0 — нема пристрою взагалі */
-
-    scan_function(bus, dev, 0);
-
-    if ((cfg_r8(bus, dev, 0, 0x0E) & 0x80u) == 0)
-        return;                              /* однофункційний — решту сімки не питаємо */
-
-    for (uint8_t fn = 1; fn < 8; fn++)
-        if (cfg_r16(bus, dev, fn, 0x00) != VENDOR_NONE)
-            scan_function(bus, dev, fn);
-}
-
-static void scan_bus(uint8_t bus)
-{
-    for (uint8_t dev = 0; dev < 32; dev++)
-        scan_device(bus, dev);
-}
-
-int main(void)
-{
-    ecam = map_ecam(mcfg_base_of_segment(0), 256u << 20);
-    scan_bus(0);
-    return 0;
-}
-```
+:::code proj-config-enum/c/kod-obkhodu.c
 
 Функція `scan_device` спирається на правило «нема нульової функції — нема пристрою», і це не евристика: специфікація вимагає, щоб багатофункційний пристрій обов'язково реалізовував функцію 0. Тому єдиного зонда досить, щоб відкинути порожню координату.
 
@@ -156,22 +70,7 @@ int main(void)
 
 Але скільки шин виявиться в піддереві, наперед не знає ніхто. Тому граничний номер ставлять двічі:
 
-```c
-static uint8_t next_bus;                     /* лічильник виданих номерів; на старті 0 */
-
-static void assign_bus(uint8_t bus, uint8_t dev, uint8_t fn)
-{
-    uint8_t sec = ++next_bus;
-
-    cfg_w8(bus, dev, fn, 0x18, bus);         /* первинна  — де стоїть сам міст */
-    cfg_w8(bus, dev, fn, 0x19, sec);         /* підлегла  — перша шина за мостом */
-    cfg_w8(bus, dev, fn, 0x1A, 0xFF);        /* гранична  — поки що «пропускай геть усе» */
-
-    scan_bus_assign(sec);                    /* спуск у глибину: усі номери під нами > sec */
-
-    cfg_w8(bus, dev, fn, 0x1A, next_bus);    /* тепер справжній максимум піддерева відомий */
-}
-```
+:::code proj-config-enum/c/khto-rozdaie-nomery-shynam.c
 
 Тимчасове `0xFF` — не недбалість, а необхідність: доки триває спуск, конфігураційні звернення до щойно відкритої шини мусять якось крізь цей міст проходити, а міст пропускає лише те, що влазить у його діапазон. Ставимо діапазон навстіж, спускаємося, повертаємось — і звужуємо до чесної межі. Класичний обхід у глибину, де значення вузла стає відоме лише після повернення з нащадків.
 
@@ -180,26 +79,7 @@ static void assign_bus(uint8_t bus, uint8_t dev, uint8_t fn)
 
 Записи в конфігураційний простір — дзеркало читань, і в них є лише одна незручність: слово лягає цілком, а байт і півслово доводиться вставляти в уже прочитане.
 
-```c
-static void cfg_w32(uint8_t b, uint8_t d, uint8_t f, uint16_t o, uint32_t v)
-{
-    *cfg_ptr(b, d, f, o) = v;                          /* слово лягає цілком */
-}
-
-static void cfg_w16(uint8_t b, uint8_t d, uint8_t f, uint16_t o, uint16_t v)
-{
-    volatile uint32_t *p = cfg_ptr(b, d, f, o);
-    unsigned sh = (o & 2) * 8;
-    *p = (*p & ~(0xFFFFu << sh)) | ((uint32_t)v << sh); /* читання-зміна-запис */
-}
-
-static void cfg_w8(uint8_t b, uint8_t d, uint8_t f, uint16_t o, uint8_t v)
-{
-    volatile uint32_t *p = cfg_ptr(b, d, f, o);
-    unsigned sh = (o & 3) * 8;
-    *p = (*p & ~(0xFFu << sh)) | ((uint32_t)v << sh);
-}
-```
+:::code proj-config-enum/c/khto-rozdaie-nomery-shynam-2.c
 
 Тут причаїлася пастка, варта окремої уваги. Записати один байт словом можна лише через читання-зміну-запис, а в конфігураційному просторі є біти, що **скидаються записом одиниці** (так позначають помічені помилки). Зачепиш такий біт випадково — і мовчки згубиш запис про помилку, яку хтось збирався прочитати. Для трійки `0x18`–`0x1A` це безпечно, бо в їхньому слові таких бітів нема. А от сусіднє слово моста за зміщенням `0x1C` містить регістр вторинного стану — і сліпе читання-зміна-запис по ньому вже нашкодить.
 
@@ -225,66 +105,11 @@ static void cfg_w8(uint8_t b, uint8_t d, uint8_t f, uint16_t o, uint8_t v)
 
 Розбір читається прямо з цієї картинки, з єдиною обережністю щодо 64-бітних BAR-ів: вони з'їдають два слова, тож лічильник треба перескочити, інакше старша половина адреси буде прочитана вдруге — уже як окремий BAR зі сміттям усередині.
 
-```c
-static void decode_bars(uint8_t b, uint8_t d, uint8_t f, int count)
-{
-    for (int i = 0; i < count; i++) {
-        uint16_t off = (uint16_t)(0x10 + 4 * i);
-        uint32_t lo  = cfg_r32(b, d, f, off);
-        if (lo == 0)
-            continue;                                  /* BAR не реалізований */
-
-        if (lo & 1u) {                                 /* простір вводу-виводу */
-            printf("  BAR%d  I/O   0x%04x\n", i, lo & ~3u);
-            continue;
-        }
-
-        int      is64 = ((lo >> 1) & 3u) == 2u;
-        int      pref = (lo >> 3) & 1u;
-        uint64_t base = lo & ~0xFu;
-        int      idx  = i;
-
-        if (is64) {
-            base |= (uint64_t)cfg_r32(b, d, f, (uint16_t)(off + 4)) << 32;
-            i++;                                       /* верхнє слово — частина ЦЬОГО ж BAR-а */
-        }
-
-        printf("  BAR%d  MEM%s%s  0x%016llx  розмір %llu\n",
-               idx, is64 ? "64" : "32", pref ? " prefetch" : "",
-               (unsigned long long)base,
-               (unsigned long long)bar_size(b, d, f, off, is64));
-    }
-}
-```
+:::code proj-config-enum/c/bar-skilky-i-iakoi-pamiati.c
 
 Лишилося дізнатися розмір — а він у BAR-і ніде не записаний. Його добувають фокусом, який тримається на тому, що блок завжди має розмір, кратний степеню двійки, і вирівняний сам на себе: молодші розряди адреси в такому блоці **завжди нулі**, тому пристрій їх просто не реалізовує — вони прошиті нулем і не приймають запису. Отже, пишемо в BAR суцільні одиниці, читаємо назад і дивимось, скільки молодших бітів залишилися нулями: стільки їх і в розмірі.
 
-```c
-static uint64_t bar_size(uint8_t b, uint8_t d, uint8_t f, uint16_t off, int is64)
-{
-    uint16_t cmd = cfg_r16(b, d, f, 0x04);
-    cfg_w16(b, d, f, 0x04, (uint16_t)(cmd & ~3u));   /* глушимо декодування: BAR зараз «поїде» */
-
-    uint32_t lo = cfg_r32(b, d, f, off);
-    uint32_t hi = is64 ? cfg_r32(b, d, f, (uint16_t)(off + 4)) : 0;
-
-    cfg_w32(b, d, f, off, 0xFFFFFFFFu);
-    uint64_t raw = cfg_r32(b, d, f, off) & ~0xFu;
-    if (is64) {
-        cfg_w32(b, d, f, (uint16_t)(off + 4), 0xFFFFFFFFu);
-        raw |= (uint64_t)cfg_r32(b, d, f, (uint16_t)(off + 4)) << 32;
-        cfg_w32(b, d, f, (uint16_t)(off + 4), hi);
-    }
-    cfg_w32(b, d, f, off, lo);                /* повертаємо як було */
-    cfg_w16(b, d, f, 0x04, cmd);              /* і вмикаємо декодування назад */
-
-    if (raw == 0)
-        return 0;                             /* BAR не реалізований */
-
-    uint64_t mask = is64 ? raw : (raw | 0xFFFFFFFF00000000ull);
-    return ~mask + 1;                         /* молодший встановлений біт і є розмір */
-}
-```
+:::code proj-config-enum/c/bar-skilky-i-iakoi-pamiati-2.c
 
 Останній рядок вартий перевірки на числах — це найкоротший спосіб переконатися, що фокус працює:
 
@@ -306,63 +131,19 @@ static uint64_t bar_size(uint8_t b, uint8_t d, uint8_t f, uint16_t off, int is64
 
 Стандартний заголовок займає перші 64 байти, і в нього не влізло майже нічого з того, що додали за тридцять років. Тому все інше живе списком: у регістрі стану (зміщення `0x06`) біт 4 каже, що список є; байт `0x34` вказує на перший елемент; кожен елемент починається з байта-ідентифікатора й байта-вказівника на наступний; нуль — кінець.
 
-```c
-static uint8_t find_cap(uint8_t b, uint8_t d, uint8_t f, uint8_t id)
-{
-    if ((cfg_r16(b, d, f, 0x06) & 0x10u) == 0)
-        return 0;                                    /* списку немає взагалі */
-
-    uint8_t p = cfg_r8(b, d, f, 0x34) & 0xFCu;       /* два молодші біти — резерв */
-    for (int ttl = 48; p >= 0x40 && ttl; ttl--) {    /* лічильник — від зациклення */
-        if (cfg_r8(b, d, f, p) == id)
-            return p;
-        p = cfg_r8(b, d, f, (uint16_t)(p + 1)) & 0xFCu;
-    }
-    return 0;
-}
-```
+:::code proj-config-enum/c/lantsiuh-mozhlyvostei.c
 
 Лічильник кроків тут не перестраховка з увічливості. Список лежить у самому пристрої, і криве або зіпсоване залізо цілком здатне дати вказівник сам на себе — обхід зациклиться назавжди ще до того, як система встигне завантажитись. Ядро Linux страхує цей самий обхід таким самим лічильником, і з тієї самої причини.
 
 Найчастіші мешканці цього списку — керування живленням (`0x01`), MSI (`0x05`) і MSI-X (`0x11`): саме там драйвер потім пропише, за якою адресою і яким числом пристрій має слати свої [переривання](root:hw-arch/interrupts). А найцікавіша можливість — власне PCIe, ідентифікатор `0x10`. У ній лежить те, чим з'єднання виявилося насправді:
 
-```c
-static void dump_link(uint8_t b, uint8_t d, uint8_t f)
-{
-    static const char *gts[] = { "?", "2.5", "5.0", "8.0", "16.0", "32.0", "64.0" };
-
-    uint8_t cap = find_cap(b, d, f, 0x10);
-    if (!cap) return;                                /* не PCIe, а старий PCI-пристрій */
-
-    uint16_t sta = cfg_r16(b, d, f, (uint16_t)(cap + 0x12));   /* Link Status */
-    unsigned speed =  sta       & 0x0Fu;             /* 1→2.5 … 6→64 ГТ/с */
-    unsigned width = (sta >> 4) & 0x3Fu;             /* стільки смуг натренувалося */
-
-    printf("  з'єднання: %s ГТ/с ×%u\n",
-           speed < 7 ? gts[speed] : "?", width);
-}
-```
+:::code proj-config-enum/c/lantsiuh-mozhlyvostei-2.c
 
 Два числа з цього регістра варто читати разом і порівнювати з тим, що пристрій **уміє** (сусідній регістр можливостей з'єднання за зміщенням `cap + 0x0C`, у ньому ті самі два поля). Диск, що вміє ×4 на 16 ГТ/с, а натренувався на ×1 і 2.5 ГТ/с, — це не дивина, а типовий діагноз: або слот поділили між двома роз'ємами, або з'єднання не витягло еквалізацію й відкотилося на нижчу швидкість. Один запуск цього коду відповідає на питання «чому воно вчетверо повільніше, ніж на етикетці» швидше, ніж будь-який замір швидкості.
 
 Розширений простір понад 256 байтів має свій, окремий список — від зміщення `0x100`, і елемент у ньому вже не байтовий, а завширшки в ціле слово:
 
-```c
-static void walk_ext_caps(uint8_t b, uint8_t d, uint8_t f)
-{
-    uint16_t off = 0x100;
-    for (int ttl = 48; off >= 0x100 && off < 0x1000 && ttl; ttl--) {
-        uint32_t h = cfg_r32(b, d, f, off);
-        if (h == 0 || h == 0xFFFFFFFFu)
-            return;                                  /* розширених можливостей немає */
-
-        printf("  ext %04x  версія %u  @ %03x\n",
-               h & 0xFFFFu, (h >> 16) & 0xFu, (unsigned)off);
-
-        off = (uint16_t)((h >> 20) & 0xFFCu);        /* біти 31:20 — наступний, вирівняний */
-    }
-}
-```
+:::code proj-config-enum/c/lantsiuh-mozhlyvostei-3.c
 
 За ідентифікаторами тут ховається все дороге: `0x0001` — розширене звітування про помилки (AER), `0x0003` — унікальний серійний номер пристрою, `0x000E` — ARI, `0x0010` — віртуалізація SR-IOV. Дві перевірки на початку — і на нуль, і на суцільні одиниці — обидві потрібні: пристрій без розширених можливостей віддає нулі, а пристрій зі звичайним 256-байтовим простором на звернення понад межу віддасть одиниці.
 

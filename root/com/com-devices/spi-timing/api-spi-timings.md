@@ -178,66 +178,8 @@
 Драйвер ESP-IDF підтримує детальне налаштування компенсації затримок читання через структуру `spi_device_interface_config_t`.
 
 :::tabs
-```c
-#include "driver/spi_master.h"
-
-void configure_spi_device(spi_device_handle_t *handle) {
-    spi_device_interface_config_t devcfg = {
-        .command_bits = 8,
-        .address_bits = 24,
-        .dummy_bits = 8,                // Холості такти Dummy для компенсації t_V
-        .mode = 0,                      // SPI Mode 0 (CPOL=0, CPHA=0)
-        .clock_speed_hz = 20 * 1000 * 1000, // 20 МГц
-        .input_delay_ns = 15,           // Очікувана кругова затримка MISO (Round-Trip)
-        .spics_io_num = 15,             // Вивід CS
-        .flags = SPI_DEVICE_NO_DUMMY,   // Прапорці керування
-        .queue_size = 7,
-    };
-    spi_bus_add_device(SPI2_HOST, &devcfg, handle);
-}
-```
-```cpp
-#include "driver/spi_master.h"
-#include <memory>
-#include <expected>
-
-class EspSpiDevice {
-public:
-    enum class Error { AddDeviceFailed };
-
-    static std::expected<EspSpiDevice, Error> create(spi_host_device_t host, int csPin, int freqHz, int inputDelayNs) {
-        spi_device_interface_config_t devcfg{};
-        devcfg.command_bits = 8;
-        devcfg.address_bits = 24;
-        devcfg.dummy_bits = 8;
-        devcfg.mode = 0;
-        devcfg.clock_speed_hz = freqHz;
-        devcfg.input_delay_ns = inputDelayNs;
-        devcfg.spics_io_num = csPin;
-        devcfg.queue_size = 7;
-
-        spi_device_handle_t handle{nullptr};
-        if (spi_bus_add_device(host, &devcfg, &handle) != ESP_OK) {
-            return std::unexpected(Error::AddDeviceFailed);
-        }
-        return EspSpiDevice(handle);
-    }
-
-    ~EspSpiDevice() {
-        if (handle_) {
-            spi_bus_remove_device(handle_);
-        }
-    }
-
-    EspSpiDevice(const EspSpiDevice&) = delete;
-    EspSpiDevice& operator=(const EspSpiDevice&) = delete;
-    EspSpiDevice(EspSpiDevice&& o) noexcept : handle_(o.handle_) { o.handle_ = nullptr; }
-
-private:
-    explicit EspSpiDevice(spi_device_handle_t h) : handle_(h) {}
-    spi_device_handle_t handle_{nullptr};
-};
-```
+:::code api-spi-timings/c/2-simeistvo-esp32-esp-idf.c
+:::code api-spi-timings/cpp/2-simeistvo-esp32-esp-idf.cpp
 :::
 
 Параметр `input_delay_ns` використовується драйвером для автоматичного визначення необхідності застосування пред-вибірки (Sample Pre-sampling / Rx Delay) або вставки холостих тактів (*dummy cycles*), якщо фізична затримка перевищує допустимий напівперіод `t_CLK / 2`.
@@ -272,68 +214,8 @@ private:
 У просторі користувача (User Space) конфігурація тривалості затримок між словами та транзакціями здійснюється структурою `struct spi_ioc_transfer` через системний виклик `ioctl`:
 
 :::tabs
-```c
-#include <linux/spi/spidev.h>
-#include <sys/ioctl.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-bool perform_spi_transfer(int fd, const uint8_t *tx, uint8_t *rx, uint32_t len) {
-    struct spi_ioc_transfer tr = {
-        .tx_buf = (unsigned long)tx,
-        .rx_buf = (unsigned long)rx,
-        .len = len,
-        .speed_hz = 25000000,               // 25 МГц
-        .delay_usecs = 0,                   // Пауза після передачі пакета в мікросекундах
-        .bits_per_word = 8,
-        .cs_change = 0,                     // 0 = утримувати CS активним, 1 = відпустити після трансферу
-        .word_delay_usecs = 0,              // Затримка між окремими словами
-    };
-
-    return ioctl(fd, SPI_IOC_MESSAGE(1), &tr) >= 0;
-}
-```
-```cpp
-#include <linux/spi/spidev.h>
-#include <sys/ioctl.h>
-#include <cstdint>
-#include <span>
-#include <expected>
-#include <unistd.h>
-
-class SpiUserDevice {
-public:
-    enum class Error { IoctlFailed, InvalidBuffer };
-
-    explicit SpiUserDevice(int fd) : fd_(fd) {}
-
-    [[nodiscard]] std::expected<void, Error> transfer(
-        std::span<const uint8_t> tx,
-        std::span<uint8_t> rx,
-        uint32_t speedHz = 25'000'000
-    ) const noexcept {
-        if (tx.size() != rx.size() || tx.empty()) {
-            return std::unexpected(Error::InvalidBuffer);
-        }
-
-        spi_ioc_transfer tr{};
-        tr.tx_buf = reinterpret_cast<unsigned long>(tx.data());
-        tr.rx_buf = reinterpret_cast<unsigned long>(rx.data());
-        tr.len = static_cast<uint32_t>(tx.size());
-        tr.speed_hz = speedHz;
-        tr.bits_per_word = 8;
-        tr.cs_change = 0;
-
-        if (ioctl(fd_, SPI_IOC_MESSAGE(1), &tr) < 0) {
-            return std::unexpected(Error::IoctlFailed);
-        }
-        return {};
-    }
-
-private:
-    int fd_{-1};
-};
-```
+:::code api-spi-timings/c/konfihuratsiia-chasovykh.c
+:::code api-spi-timings/cpp/konfihuratsiia-chasovykh.cpp
 :::
 
 ---

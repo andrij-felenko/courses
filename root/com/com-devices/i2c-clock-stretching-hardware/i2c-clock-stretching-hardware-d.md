@@ -173,42 +173,8 @@ V_SCL = I_pullup · R_DS(on) ≈ 0.1 ... 0.2 В
 Правильний алгоритм перемикання тактової лінії вимагає організації циклу опитування з контролем апаратного таймауту:
 
 :::tabs
-```c
-// Коректне переведення SCL у високий рівень з контролем розтягування такту в C
-bool i2c_soft_scl_release_and_wait(uint32_t timeout_us) {
-    // 1. Відпускаємо лінію в стан Hi-Z (зовнішній резистор підтягує лінію до 3.3В)
-    gpio_set_pin_hiz(SCL_PIN);
-    
-    uint32_t start_time = timer_get_micros();
-    
-    // 2. Опитуємо реальний стан фізичного виводу через вхідний буфер IDR
-    while (gpio_read_pin(SCL_PIN) == 0) {
-        // Ведений утримує SCL в нулі (розтягує такт)
-        if ((timer_get_micros() - start_time) >= timeout_us) {
-            // Ведений перевищив допустимий ліміт часу: фіксуємо аварію шини
-            return false; // Помилка таймауту SCL
-        }
-    }
-    
-    // 3. Лінія SCL успішно піднялася до 3.3В — продовжуємо такт
-    return true;
-}
-```
-```cpp
-// Переведення SCL у високий рівень з таймаутом у C++
-template <typename Gpio, typename Timer>
-bool i2c_soft_scl_release_and_wait(Gpio& scl_pin, Timer& timer, uint32_t timeout_us) {
-    scl_pin.set_high_z();
-    const uint32_t start = timer.get_micros();
-
-    while (!scl_pin.read()) {
-        if ((timer.get_micros() - start) >= timeout_us) {
-            return false; // Таймаут шини
-        }
-    }
-    return true;
-}
-```
+:::code i2c-clock-stretching-hardware-d/c/main.c
+:::code i2c-clock-stretching-hardware-d/cpp/main.cpp
 :::
 
 Якщо ведений пристрій зависає під час сеансу читання, утримуючи лінію даних SDA в нулі, програмний ведучий зобов'язаний виконати нормативну процедуру аварійного очищення шини: подати до 9 імпульсів на лінію SCL, доки ведений не просуне зсувний регістр і не відпустить SDA, після чого сформувати примусову умову STOP.

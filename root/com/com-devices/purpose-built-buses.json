@@ -29,13 +29,15 @@
           "proj": [
             {
               "file": "proj-can-socket-filter.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-can-frame-spec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -57,7 +59,8 @@
           "proj": [
             {
               "file": "proj-socketcan-error-handling.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -69,7 +72,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -103,7 +107,8 @@
           "proj": [
             {
               "file": "proj-lin-frame-parser.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -137,7 +142,8 @@
           "proj": [
             {
               "file": "proj-flexray-cycle-simulator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -154,7 +160,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -177,7 +184,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         },
         {
@@ -198,18 +206,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-dshot-commands.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-dshot-encoder-decoder.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "math": [
@@ -232,7 +244,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -243,19 +256,22 @@
           "math": [
             {
               "file": "math-sd-crc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-sd-driver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sd-commands.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         },
@@ -266,7 +282,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -277,13 +294,16 @@
           "proj": [
             {
               "file": "proj-sdio-driver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sdio-linux.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -306,7 +326,8 @@
           "proj": [
             {
               "file": "proj-i2s-transmit.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -335,11 +356,13 @@
           "proj": [
             {
               "file": "proj-rom-search.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-bitbang-master.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -367,13 +390,17 @@
           "proj": [
             {
               "file": "proj-raw10-unpacker.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-packet-format.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -384,7 +411,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -411,7 +439,8 @@
           "proj": [
             {
               "file": "proj-config-enum.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

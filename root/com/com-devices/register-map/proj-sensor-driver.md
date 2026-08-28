@@ -24,115 +24,10 @@
 Кожен обмін по I2C завершується кодом: підтвердив пристрій свою адресу чи ні, дійшли байти чи шина відвалилася. Називається цей код у кожному середовищі по-своєму — `Wire.endTransmission()` віддає 0 при успіху й ненульове число при збої, ESP-IDF повертає `esp_err_t`, STM32 HAL — `HAL_StatusTypeDef`, — але сенс однаковий, і надійний драйвер його **повертає далі**, а не викидає, як базовий рецепт. Друга спільна для всіх деталь читання: між «назвати регістр» і «прочитати» шину не можна відпускати — там має бути **повторний старт**, а не стоп, інакше чіп забуде, який регістр питали (механіка — у [транзакції I2C](root:com-devices/i2c-transaction)). В Arduino цього просять явно, `endTransmission(false)`; в ESP-IDF повторний старт уже сидить усередині `i2c_master_write_read_device()`, у STM32 HAL — усередині `HAL_I2C_Mem_Read()`.
 
 :::tabs
-```arduino
-#include <Wire.h>
-
-#define MPU_ADDR     0x68
-#define REG_WHO      0x75
-#define REG_PWR      0x6B
-#define REG_CFG      0x1C
-#define REG_XOUT_H   0x3B
-#define MPU_OK       0
-
-// записати один байт val у регістр reg; повертає код помилки Wire (0 — успіх)
-uint8_t mpu_write(uint8_t reg, uint8_t val) {
-    Wire.beginTransmission(MPU_ADDR);
-    Wire.write(reg);
-    Wire.write(val);
-    return Wire.endTransmission();          // 0 — успіх, інакше код збою
-}
-
-// прочитати n байтів поспіль від reg у buf; повертає код помилки
-uint8_t mpu_read(uint8_t reg, uint8_t *buf, uint8_t n) {
-    Wire.beginTransmission(MPU_ADDR);
-    Wire.write(reg);
-    uint8_t err = Wire.endTransmission(false);   // повторний старт, без stop
-    if (err) return err;                         // адреса не підтвердилась — далі марно
-    uint8_t got = Wire.requestFrom(MPU_ADDR, n);
-    if (got != n) return 0xFF;                   // прийшло менше, ніж просили
-    for (uint8_t i = 0; i < n; i++) buf[i] = Wire.read();
-    return MPU_OK;
-}
-```
-```esp-idf
-#include "driver/i2c.h"
-#include "esp_log.h"
-
-#define I2C_PORT     I2C_NUM_0
-#define MPU_ADDR     0x68
-#define REG_WHO      0x75
-#define REG_PWR      0x6B
-#define REG_CFG      0x1C
-#define REG_XOUT_H   0x3B
-#define MPU_OK       ESP_OK
-#define MPU_WAIT     pdMS_TO_TICKS(100)   // стеля очікування обміну
-
-static const char *TAG = "mpu";
-
-// записати один байт val у регістр reg; повертає esp_err_t (ESP_OK — успіх)
-static esp_err_t mpu_write(uint8_t reg, uint8_t val) {
-    uint8_t tx[2] = { reg, val };            // номер регістра + дані одним обміном
-    return i2c_master_write_to_device(I2C_PORT, MPU_ADDR, tx, 2, MPU_WAIT);
-}
-
-// прочитати n байтів поспіль від reg у buf; повертає esp_err_t
-static esp_err_t mpu_read(uint8_t reg, uint8_t *buf, size_t n) {
-    // write_read сам ставить повторний старт між номером регістра й читанням
-    esp_err_t err = i2c_master_write_read_device(I2C_PORT, MPU_ADDR,
-                                                 &reg, 1, buf, n, MPU_WAIT);
-    if (err != ESP_OK) ESP_LOGE(TAG, "reg 0x%02X: %s", reg, esp_err_to_name(err));
-    return err;
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-extern I2C_HandleTypeDef hi2c1;              // готує CubeMX: MX_I2C1_Init()
-
-#define MPU_ADDR     (0x68 << 1)             // HAL чекає 8-бітову адресу зі зсувом
-#define REG_WHO      0x75
-#define REG_PWR      0x6B
-#define REG_CFG      0x1C
-#define REG_XOUT_H   0x3B
-#define MPU_OK       HAL_OK
-#define MPU_WAIT     100                     // стеля очікування обміну, мс
-
-// записати один байт val у регістр reg; повертає HAL_StatusTypeDef
-static HAL_StatusTypeDef mpu_write(uint8_t reg, uint8_t val) {
-    return HAL_I2C_Mem_Write(&hi2c1, MPU_ADDR, reg, I2C_MEMADD_SIZE_8BIT,
-                             &val, 1, MPU_WAIT);
-}
-
-// прочитати n байтів поспіль від reg у buf; повертає HAL_StatusTypeDef
-static HAL_StatusTypeDef mpu_read(uint8_t reg, uint8_t *buf, uint16_t n) {
-    // Mem_Read сам видає повторний старт після номера регістра
-    return HAL_I2C_Mem_Read(&hi2c1, MPU_ADDR, reg, I2C_MEMADD_SIZE_8BIT,
-                            buf, n, MPU_WAIT);
-}
-```
-```python
-from smbus2 import SMBus, i2c_msg
-
-MPU_ADDR   = 0x68
-REG_WHO    = 0x75
-REG_PWR    = 0x6B
-REG_CFG    = 0x1C
-REG_XOUT_H = 0x3B
-
-bus = SMBus(1)   # шина I2C №1 (типова на Raspberry Pi)
-
-# записати один байт val у регістр reg; збій шини підніме OSError
-def mpu_write(reg, val):
-    bus.write_byte_data(MPU_ADDR, reg, val)   # адреса регістра + дані одним обміном
-
-# прочитати n байтів поспіль від reg; збій шини підніме OSError
-def mpu_read(reg, n):
-    # запис номера регістра + повторний старт + читання одним викликом ядра
-    write = i2c_msg.write(MPU_ADDR, [reg])
-    read  = i2c_msg.read(MPU_ADDR, n)
-    bus.i2c_rdwr(write, read)                 # повторний старт між write і read
-    return list(read)                          # рівно n байтів або OSError
-```
+:::code proj-sensor-driver/c/arduino/nyzhnii-shar-dostup-do.ino
+:::code proj-sensor-driver/c/esp-idf/nyzhnii-shar-dostup-do.c
+:::code proj-sensor-driver/c/stm32/nyzhnii-shar-dostup-do.c
+:::code proj-sensor-driver/py/nyzhnii-shar-dostup-do.py
 :::
 
 Пакетне читання спирається на **авто-інкремент адреси**: давач після кожного відданого байта сам переходить до наступного регістра. Тому шість байтів вимірів (X, Y, Z по два) забираються одним читанням, а не шістьма окремими обмінами. Виграш тут не лише у швидкості. Якби осі читалися окремими транзакціями, між ними міг би трапитися новий вимір — і старший байт X дістався б від одного відліку, а молодший від наступного, давши «склеєне» з двох миттєвостей число. Один пакет читає всі шість байтів із того самого знімку, тож вісь лишається цілісною. Тому перевага пакета — це насамперед цілісність даних, а вже потім економія обмінів.
@@ -144,41 +39,8 @@ def mpu_read(reg, n):
 Тут примітиви перетворюються на осмислені кроки, які прямо читаються в даташиті. Пробудження — простий запис нуля в PWR_MGMT_1: після ввімкнення живлення MPU-6050 стартує у сні задля економії струму, і без цього запису всі виміри будуть нульові, хоча звірка ID пройде успішно (живлення є, чіп відповідає — але спить). Вибір діапазону — читай-зміни-запиши по полю AFS (біти 4:3): сусідні біти цього ж байта керують самоперевіркою осей, і сліпий запис діапазону ввімкнув би самоперевірку, спотворивши покази. Тому навіть таке буденне налаштування проходить через читання-маску-запис, а не через прямий запис байта.
 
 :::tabs
-```c
-// перевірити, що на шині справді MPU-6050
-bool mpu_present(void) {
-    uint8_t id = 0;
-    if (mpu_read(REG_WHO, &id, 1) != MPU_OK) return false;
-    return id == 0x68;                       // сталий код саме цього чіпа
-}
-
-// розбудити чіп і виставити діапазон ±8g (AFS = 0b10 у бітах 4:3)
-uint8_t mpu_begin(void) {
-    uint8_t err = mpu_write(REG_PWR, 0x00);  // вийти зі сну
-    if (err) return err;
-    uint8_t cfg = 0;
-    err = mpu_read(REG_CFG, &cfg, 1);        // читай…
-    if (err) return err;
-    cfg = (cfg & ~0x18) | (0b10 << 3);       // …зміни поле AFS…
-    return mpu_write(REG_CFG, cfg);          // …запиши
-}
-```
-```python
-# перевірити, що на шині справді MPU-6050
-def mpu_present():
-    try:
-        id = mpu_read(REG_WHO, 1)[0]
-    except OSError:
-        return False
-    return id == 0x68                        # сталий код саме цього чіпа
-
-# розбудити чіп і виставити діапазон ±8g (AFS = 0b10 у бітах 4:3)
-def mpu_begin():
-    mpu_write(REG_PWR, 0x00)                  # вийти зі сну
-    cfg = mpu_read(REG_CFG, 1)[0]            # читай…
-    cfg = (cfg & ~0x18) | (0b10 << 3)        # …зміни поле AFS…
-    mpu_write(REG_CFG, cfg)                   # …запиши
-```
+:::code proj-sensor-driver/c/serednii-shar-dii-z.c
+:::code proj-sensor-driver/py/serednii-shar-dii-z.py
 :::
 
 ## Верхній шар: три осі в g
@@ -188,22 +50,7 @@ def mpu_begin():
 Ще одна тонкість того ж рядка — **знак**. Прискорення буває від'ємним (вісь дивиться в інший бік), і чіп кодує його у доповняльному коді 16-бітового цілого. Тому проміжне число конче має бути `int16_t`, а не `uint16_t`: інакше від'ємні відліки обернуться на великі додатні, і давач, що лежить «догори ногами», покаже не −1 g, а якесь велетенське число.
 
 :::tabs
-```c
-// прочитати прискорення трьох осей у одиницях g; повертає код помилки
-uint8_t mpu_read_accel(float *ax, float *ay, float *az) {
-    uint8_t b[6];
-    uint8_t err = mpu_read(REG_XOUT_H, b, 6);    // X, Y, Z — одним пакетом
-    if (err) return err;
-    int16_t rx = (int16_t)((b[0] << 8) | b[1]);  // старший байт ПЕРШИЙ
-    int16_t ry = (int16_t)((b[2] << 8) | b[3]);
-    int16_t rz = (int16_t)((b[4] << 8) | b[5]);
-    const float SENS = 4096.0f;                   // ±8g → 4096 LSB/g
-    *ax = rx / SENS;
-    *ay = ry / SENS;
-    *az = rz / SENS;
-    return MPU_OK;
-}
-```
+:::code proj-sensor-driver/c/verkhnii-shar-try-osi-v-g.c
 ```python
 # прочитати прискорення трьох осей у одиницях g; збій шини підніме OSError
 def mpu_read_accel():
@@ -222,83 +69,10 @@ def mpu_read_accel():
 Складання всього докупи коротке й читабельне саме завдяки шарам:
 
 :::tabs
-```arduino
-void setup() {
-    Wire.begin();
-    if (!mpu_present()) { /* біда з дротами/адресою */ return; }
-    if (mpu_begin() != MPU_OK) { /* збій налаштування */ return; }
-}
-
-void loop() {
-    float ax, ay, az;
-    if (mpu_read_accel(&ax, &ay, &az) == MPU_OK) {
-        // ax, ay, az — у g, можна використовувати
-    }
-}
-```
-```esp-idf
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-static void mpu_task(void *arg) {
-    float ax, ay, az;
-    for (;;) {
-        if (mpu_read_accel(&ax, &ay, &az) == ESP_OK) {
-            // ax, ay, az — у g, можна використовувати
-        }
-        vTaskDelay(pdMS_TO_TICKS(20));       // віддати процесор іншим задачам
-    }
-}
-
-void app_main(void) {
-    i2c_config_t cfg = {
-        .mode = I2C_MODE_MASTER,
-        .sda_io_num = 21, .scl_io_num = 22,
-        .sda_pullup_en = GPIO_PULLUP_ENABLE, // слабкі внутрішні; на платі — свої
-        .scl_pullup_en = GPIO_PULLUP_ENABLE,
-        .master.clk_speed = 400000,
-    };
-    ESP_ERROR_CHECK(i2c_param_config(I2C_PORT, &cfg));
-    ESP_ERROR_CHECK(i2c_driver_install(I2C_PORT, cfg.mode, 0, 0, 0));
-
-    if (!mpu_present()) return;              // біда з дротами/адресою
-    if (mpu_begin() != ESP_OK) return;       // збій налаштування
-    xTaskCreate(mpu_task, "mpu", 4096, NULL, 5, NULL);
-}
-```
-```stm32
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_I2C1_Init();                          // hi2c1: 400 кГц, піни — з CubeMX
-
-    if (!mpu_present()) Error_Handler();     // біда з дротами/адресою
-    if (mpu_begin() != HAL_OK) Error_Handler();  // збій налаштування
-
-    float ax, ay, az;
-    while (1) {
-        if (mpu_read_accel(&ax, &ay, &az) == HAL_OK) {
-            // ax, ay, az — у g, можна використовувати
-        }
-        HAL_Delay(20);
-    }
-}
-```
-```python
-def main():
-    if not mpu_present():
-        return                      # біда з дротами/адресою
-    mpu_begin()                     # збій налаштування підніме OSError
-
-    while True:
-        try:
-            ax, ay, az = mpu_read_accel()
-        except OSError:
-            continue                # обмін не вдався — пропускаємо цей цикл
-        # ax, ay, az — у g, можна використовувати
-
-main()
-```
+:::code proj-sensor-driver/c/arduino/verkhnii-shar-try-osi-v-g.ino
+:::code proj-sensor-driver/c/esp-idf/verkhnii-shar-try-osi-v-g.c
+:::code proj-sensor-driver/c/stm32/verkhnii-shar-try-osi-v-g.c
+:::code proj-sensor-driver/py/verkhnii-shar-try-osi-v-g.py
 :::
 
 ## Пастки

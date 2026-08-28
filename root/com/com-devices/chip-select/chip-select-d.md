@@ -81,46 +81,8 @@ I2C: 2 (SDA + SCL), скільки б пристроїв не було
 **Кілька різних ведених на одній шині.** Кожному — своя ніжка CS, свої параметри, активний нуль на час обміну:
 
 :::tabs
-```cpp
-// у кожного веденого — своя ніжка CS і свої параметри
-const int CS_DISP = 10, CS_ADC = 9, CS_FLASH = 8;
-SPISettings disp (20000000, MSBFIRST, SPI_MODE0);   // дисплей: швидко
-SPISettings adc  ( 1000000, MSBFIRST, SPI_MODE3);   // АЦП: повільніше
-
-void setup() {
-  pinMode(CS_DISP, OUTPUT);  digitalWrite(CS_DISP, HIGH);  // усі CS —
-  pinMode(CS_ADC,  OUTPUT);  digitalWrite(CS_ADC,  HIGH);  // високі ще
-  pinMode(CS_FLASH,OUTPUT);  digitalWrite(CS_FLASH,HIGH);  // до обміну
-  SPI.begin();
-}
-
-uint16_t readAdc() {
-  SPI.beginTransaction(adc);          // режим і швидкість саме АЦП
-  digitalWrite(CS_ADC, LOW);          // обрали його: активний нуль
-  uint16_t v = SPI.transfer16(0x0000);// обмін (пише й читає водночас)
-  digitalWrite(CS_ADC, HIGH);         // відпустили — підняли одразу
-  SPI.endTransaction();
-  return v;
-}
-```
-```python
-from machine import Pin, SPI
-
-# у кожного веденого — своя ніжка CS, усі за замовчуванням високі
-cs_disp  = Pin(10, Pin.OUT, value=1)   # усі CS —
-cs_adc   = Pin(9,  Pin.OUT, value=1)   # високі ще
-cs_flash = Pin(8,  Pin.OUT, value=1)   # до обміну
-
-spi = SPI(0, baudrate=1_000_000, polarity=1, phase=1,   # старт у режимі АЦП:
-          firstbit=SPI.MSB)                             # Mode 3, повільніше
-
-def read_adc():
-    spi.init(baudrate=1_000_000, polarity=1, phase=1)  # режим і швидкість АЦП
-    cs_adc(0)                          # обрали його: активний нуль
-    buf = spi.read(2, 0x00)            # обмін (пише й читає водночас)
-    cs_adc(1)                          # відпустили — підняли одразу
-    return (buf[0] << 8) | buf[1]
-```
+:::code chip-select-d/cpp/main.cpp
+:::code chip-select-d/py/main.py
 :::
 
 Кожен ведений має власну ніжку CS; обмін з ним загорнуто в опускання саме його CS у нуль і негайне підняття назад. Інші ніжки CS весь цей час лишаються високими, тож решта ведених шину не чують. Це й є стандартний спосіб працювати з кількома різними веденими на одній шині, не плутаючи їхні режими й швидкості.

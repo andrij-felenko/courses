@@ -153,67 +153,7 @@ I_сер = C_ADC · ΔU · f
 
 Усе, що ми вивели, лягає у два десятки рядків. Мова тут не обирається: регістри АЦП, поля часу вибірки, режими виводів — це C і тільки C.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include "stm32f1xx.h"
-
-/* Лінії підпису заведено на два аналогові входи:
-   D+ → PA0 (ADC12_IN0),  D− → PA1 (ADC12_IN1). */
-#define CH_DP    0u
-#define CH_DM    1u
-#define VREF_MV  3300
-
-static void dline_adc_init(void)
-{
-    RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_ADC1EN;
-
-    /* PA0 і PA1 — аналоговий режим (CNF=00, MODE=00). Це вимикає тригер Шмітта
-       й від'єднує підтяжки. Будь-який інший режим виводу сам зруйнує підпис —
-       навіть «нешкідливий» цифровий вхід із внутрішньою підтяжкою на 40 кОм. */
-    GPIOA->CRL &= ~0xFFu;
-
-    /* Такт АЦП не вище 14 МГц: 72 МГц / 6 = 12 МГц. */
-    RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_ADCPRE) | RCC_CFGR_ADCPRE_DIV6;
-
-    /* SMP = 7 → 239.5 такту вибірки. Порахували 34.5 як мінімум; беремо
-       максимум, бо вимір робиться раз на встромляння і 20 мкс тут — ніщо. */
-    ADC1->SMPR2 |= (7u << (3 * CH_DP)) | (7u << (3 * CH_DM));
-
-    ADC1->CR2 |= ADC_CR2_ADON;                 /* прокинути АЦП */
-    delay_us(10);                              /* t_STAB */
-    ADC1->CR2 |= ADC_CR2_RSTCAL;
-    while (ADC1->CR2 & ADC_CR2_RSTCAL) { }
-    ADC1->CR2 |= ADC_CR2_CAL;                  /* калібрування зсуву */
-    while (ADC1->CR2 & ADC_CR2_CAL) { }
-}
-
-static uint16_t adc_read_raw(uint32_t ch)
-{
-    ADC1->SQR3 = ch;                           /* послідовність з однієї конверсії */
-    ADC1->CR2 |= ADC_CR2_ADON;                 /* у F1 повторний ADON — це старт */
-    while (!(ADC1->SR & ADC_SR_EOC)) { }
-    return (uint16_t)ADC1->DR;                 /* читання DR скидає EOC */
-}
-
-/* Медіана з п'яти. Не середнє: середнє зсувається від одного викиду, медіана —
-   ні. Проти недобору вибірки не помагає ні те, ні те — його вже прибрано
-   часом вибірки вище. */
-static int dline_read_mv(uint32_t ch)
-{
-    uint16_t s[5];
-    for (int i = 0; i < 5; i++)
-        s[i] = adc_read_raw(ch);
-
-    for (int i = 1; i < 5; i++) {              /* сортування вставками */
-        uint16_t v = s[i];
-        int j = i - 1;
-        while (j >= 0 && s[j] > v) { s[j + 1] = s[j]; j--; }
-        s[j + 1] = v;
-    }
-    return (int)((uint32_t)s[2] * VREF_MV / 4095u);
-}
-```
+:::code proj-divider-signature/c/kod-chytannia.c
 
 Двадцять один мікросекунда на конверсію, п'ять конверсій на канал, два канали — разом 210 мкс на весь вимір. За це ви купили п'ятикратний запас до бюджету струму й тридцятикратний до потрібної вибірки. Коли вимір робиться раз на встромляння кабелю, **беріть найповільніший режим, який є**: тут щедрість буквально безкоштовна, а скнарість коштує неправильного класу.
 
@@ -230,66 +170,11 @@ static int dline_read_mv(uint32_t ch)
 
 Ширина запасу береться з геометрії: між вікнами лежить нічия земля завширшки `2.57 − 2.1 = 470 мВ`. Шістдесят мілівольтів з кожного боку туди вміщаються з великим запасом і не дають розширеним вікнам перетнутися.
 
-```c
-/* Специфіковані вікна. Вхід у клас — ТІЛЬКИ за ними. */
-#define W2V0_LO  1900
-#define W2V0_HI  2100
-#define W2V7_LO  2570
-#define W2V7_HI  2840
-
-/* Запас — лише на ВИХІД. Нічия земля між вікнами завширшки 470 мВ, тож
-   60 мВ з кожного боку туди вміщаються, не перетинаючись. */
-#define GUARD_MV 60
-
-typedef enum { LVL_NONE, LVL_2V0, LVL_2V7 } lvl_t;
-
-/* Увійти в рівень можна лише за чистим вікном. */
-static lvl_t lvl_enter(int mv)
-{
-    if (mv >= W2V0_LO && mv <= W2V0_HI) return LVL_2V0;
-    if (mv >= W2V7_LO && mv <= W2V7_HI) return LVL_2V7;
-    return LVL_NONE;
-}
-
-/* А втриматися в ньому — за вікном плюс запас. Асиметрія й є гістерезис. */
-static bool lvl_holds(lvl_t l, int mv)
-{
-    switch (l) {
-    case LVL_2V0: return mv >= W2V0_LO - GUARD_MV && mv <= W2V0_HI + GUARD_MV;
-    case LVL_2V7: return mv >= W2V7_LO - GUARD_MV && mv <= W2V7_HI + GUARD_MV;
-    default:      return false;
-    }
-}
-```
+:::code proj-divider-signature/c/histerezys-zapas-lyshe-tam.c
 
 Клас складається з пари рівнів — ті самі чотири комбінації, тільки тепер кожна лінія спершу проходить крізь `lvl_enter`. Саме це розкладання на рівні й дає змогу питати окремо «чи ще тримається»:
 
-```c
-typedef enum { SRC_UNKNOWN, SRC_500MA, SRC_1A, SRC_2A1, SRC_2A4 } src_class_t;
-
-static src_class_t class_of(lvl_t dp, lvl_t dm)
-{
-    if (dp == LVL_2V0 && dm == LVL_2V0) return SRC_500MA;
-    if (dp == LVL_2V0 && dm == LVL_2V7) return SRC_1A;
-    if (dp == LVL_2V7 && dm == LVL_2V0) return SRC_2A1;
-    if (dp == LVL_2V7 && dm == LVL_2V7) return SRC_2A4;
-    return SRC_UNKNOWN;
-}
-
-/* Чи тримається ще той клас, який ми колись прийняли. */
-static bool class_still_holds(src_class_t c, int dp_mv, int dm_mv)
-{
-    lvl_t dp, dm;
-    switch (c) {
-    case SRC_500MA: dp = LVL_2V0; dm = LVL_2V0; break;
-    case SRC_1A:    dp = LVL_2V0; dm = LVL_2V7; break;
-    case SRC_2A1:   dp = LVL_2V7; dm = LVL_2V0; break;
-    case SRC_2A4:   dp = LVL_2V7; dm = LVL_2V7; break;
-    default:        return false;
-    }
-    return lvl_holds(dp, dp_mv) && lvl_holds(dm, dm_mv);
-}
-```
+:::code proj-divider-signature/c/histerezys-zapas-lyshe-tam-2.c
 
 Цікаво, що кремній робить точно те саме й на своєму боці: у даташиті контролера зарядного порту поряд із порогом від'єднання 310/330/350 мВ окремим рядком стоїть «гістерезис — 50 мВ». Обидві сторони цієї розмови незалежно дійшли думки, що рішення на межі мусить мати роздільну смугу.
 
@@ -329,91 +214,7 @@ static bool class_still_holds(src_class_t c, int dp_mv, int dm_mv)
 5. **Вирішити й засунути** — виставити ліміт.
 6. **Аж тепер**, за потреби, під'єднувати фізику чи пробувати BC1.2.
 
-```c
-typedef enum { ST_DETACHED, ST_SETTLE, ST_MEASURE, ST_LATCHED } state_t;
-
-#define SETTLE_MS  100
-#define MAX_TRIES  3
-
-static state_t     st  = ST_DETACHED;
-static src_class_t cls = SRC_UNKNOWN;
-static uint32_t    t_mark;
-static uint8_t     tries;
-
-/* VBUS: є — вище 4.4 В, нема — нижче 4.0 В. Ті самі два пороги, що й у класі:
-   рішення на межі мусить мати роздільну смугу. */
-static bool vbus_present(void)
-{
-    static bool present = false;
-    int mv = vbus_read_mv();
-
-    if (!present && mv > 4400)      present = true;
-    else if (present && mv < 4000)  present = false;
-    return present;
-}
-
-static uint16_t limit_ma(src_class_t c)
-{
-    switch (c) {
-    case SRC_500MA: return 500;
-    case SRC_1A:    return 1000;
-    case SRC_2A1:   return 2100;
-    case SRC_2A4:   return 2400;
-    default:        return 500;   /* чужий діалект — найнижче безпечне */
-    }
-}
-
-/* Викликати раз на ~10 мс. */
-void charger_tick(uint32_t now_ms)
-{
-    if (!vbus_present()) {
-        if (st != ST_DETACHED) {
-            set_input_limit_ma(0);
-            cls = SRC_UNKNOWN;
-            st  = ST_DETACHED;    /* тільки тут скидається засув */
-        }
-        return;
-    }
-
-    switch (st) {
-    case ST_DETACHED:
-        usb_phy_attach(false);    /* зняти з D+ підтяжку 1.5 кОм — інакше 3.27 В */
-        dline_adc_init();         /* аналоговий режим + 239.5 такту вибірки */
-        set_input_limit_ma(100);  /* поки не знаємо — беремо мінімум */
-        tries  = 0;
-        t_mark = now_ms;
-        st     = ST_SETTLE;
-        break;
-
-    case ST_SETTLE:
-        if (now_ms - t_mark >= SETTLE_MS)
-            st = ST_MEASURE;
-        break;
-
-    case ST_MEASURE: {
-        int dp = dline_read_mv(CH_DP);
-        int dm = dline_read_mv(CH_DM);
-        src_class_t c = class_of(lvl_enter(dp), lvl_enter(dm));
-
-        if (c == SRC_UNKNOWN && ++tries < MAX_TRIES) {
-            t_mark = now_ms;
-            st     = ST_SETTLE;   /* дати ще вгамуватися й спробувати ще раз */
-            break;
-        }
-        cls = c;
-        set_input_limit_ma(limit_ma(cls));
-        usb_phy_attach(want_usb_data());  /* аж тепер: підпис уже прочитано */
-        st = ST_LATCHED;
-        break;
-    }
-
-    case ST_LATCHED:
-        /* Свідомо порожньо. Просадка під навантаженням — не привід
-           перекласифіковувати: цим займається вхідний регулятор зарядника. */
-        break;
-    }
-}
-```
+:::code proj-divider-signature/c/poriadok-dii-pislia-poiavy.c
 
 Зверніть увагу на `usb_phy_attach(false)` у першому ж рядку переходу. Це не гігієна, це необхідність: підтяжка 1.5 кОм на D+, якою USB-пристрій заявляє про себе фізиці, — джерело в двадцять разів жорсткіше за наш дільник. Вона просто прибиває вузол до 3.27 В, і читати після цього нема чого. Найприкріше, що ця поразка мовчазна: код працює, АЦП дає стабільне число, число просто не з того світу.
 

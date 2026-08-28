@@ -357,37 +357,8 @@ cat /proc/tty/driver/serial
 У користувацькому просторі програмний стек може отримувати сповіщення про помилки через системний виклик `ioctl` з командою `TIOCGICOUNT`:
 
 :::tabs
-```c
-#include <sys/ioctl.h>
-#include <linux/serial.h>
-#include <stdbool.h>
-
-bool check_framing_errors_c(int fd) {
-    struct serial_icounter_struct icounter;
-    if (ioctl(fd, TIOCGICOUNT, &icounter) == 0) {
-        return (icounter.frame > 0);
-    }
-    return false;
-}
-```
-```cpp
-#include <sys/ioctl.h>
-#include <linux/serial.h>
-#include <expected>
-#include <string_view>
-
-namespace serial_diag {
-
-[[nodiscard]] std::expected<bool, std::string_view> hasFramingErrors(int fd) noexcept {
-    serial_icounter_struct icounter{};
-    if (::ioctl(fd, TIOCGICOUNT, &icounter) < 0) {
-        return std::unexpected{"Failed to query serial icounter"};
-    }
-    return (icounter.frame > 0);
-}
-
-} // namespace serial_diag
-```
+:::code clock-tolerance-uart-d/c/main.c
+:::code clock-tolerance-uart-d/cpp/main.cpp
 :::
 
 Моніторинг лічильника `frame` у реальному часі дає змогу виявити деградацію зв'язку задовго до повного розриву з'єднання (наприклад, під час поступового нагрівання блоку керування).

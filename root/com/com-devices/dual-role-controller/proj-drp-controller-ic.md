@@ -7,98 +7,14 @@
 Уся розмова з чипом — це [читання й запис реєстрів по двопровідній шині I²C](root:com-devices/i2c-bus): хост тактує SCL, дані йдуть по SDA, а адресу веденого задає strap на ADDR. Які саме реєстри існують, що на яких виводах і як усе це обвʼязано, зібрано в довідці [📋 Виводи, обв'язка й реєстри дворольового контролера](root:com-devices/dual-role-controller/api-drp-controller-ic.md); тут ми ними користуємось. Погляньмо, що саме процесор пише в перші мілісекунди, щоб оживити порт. Це код рівня реєстрів конкретного заліза, тож мова тут одна — C.
 
 **Ініціалізація TCPC й запуск чергування ролей.**
-```c
-// ── Реєстри TCPCI (адреси однакові в кожного виробника) ──
-#define REG_VENDOR_ID       0x00   // 2 байти
-#define REG_ALERT           0x10   // 2 байти, запис-1-скидає біт
-#define REG_ALERT_MASK      0x12   // 2 байти
-#define REG_ROLE_CONTROL    0x1A
-#define REG_POWER_CONTROL   0x1C
-#define REG_CC_STATUS       0x1D
-#define REG_POWER_STATUS    0x1E
-#define REG_FAULT_STATUS    0x1F
-#define REG_COMMAND         0x23
-#define REG_VBUS_VOLTAGE    0x70   // 2 байти
-
-// ── Значення для COMMAND ──
-#define CMD_WAKE_I2C        0x11   // збудити з режиму сну
-#define CMD_LOOK4CONNECTION 0x99   // запустити автономне чергування DRP
-
-// ── ROLE_CONTROL: по 2 біти на кожен вивід CC ──
-#define CC_RA   0x0
-#define CC_RP   0x1
-#define CC_RD   0x2
-#define CC_OPEN 0x3
-#define RP_DEF  0x0            // рекламований струм джерела: типовий USB
-#define RP_1_5A 0x1
-#define RP_3_0A 0x2
-#define ROLE(drp, rp, cc2, cc1)  (((drp)<<6)|((rp)<<4)|((cc2)<<2)|(cc1))
-
-// ── ALERT: біти подій ──
-#define ALRT_CC_STATUS    (1u<<0)
-#define ALRT_POWER_STATUS (1u<<1)
-#define ALRT_RX_MSG       (1u<<2)
-#define ALRT_FAULT        (1u<<9)
-
-// Примітиви шини реалізує ваш драйвер I²C (адреса пристрою — зі strap ADDR):
-uint8_t  r8 (uint8_t reg);
-void     w8 (uint8_t reg, uint8_t val);
-uint16_t r16(uint8_t reg);
-void     w16(uint8_t reg, uint16_t val);
-
-void tcpc_init(void) {
-    // 0) Мертва батарея вже подбала про Rd: чип тримає стік ще до першого
-    //    байта. Тому ми не поспішаємо — оживаємо спокійно.
-    w8(REG_COMMAND, CMD_WAKE_I2C);
-
-    // 1) Хто там? Санітарна перевірка присутності по VENDOR_ID.
-    if (r16(REG_VENDOR_ID) == 0x0000) return;      // чипа нема — виходимо
-
-    // 2) Скинути все, що встигло накопичитись у ALERT (запис-1-скидає).
-    w16(REG_ALERT, 0xFFFF);
-
-    // 3) Які події хочемо бачити як переривання.
-    w16(REG_ALERT_MASK, ALRT_CC_STATUS | ALRT_POWER_STATUS |
-                        ALRT_RX_MSG    | ALRT_FAULT);
-
-    // 4) На старті — ні примусової, ні авто-розрядки: поки біт
-    //    AutoDischargeDisconnect = 0, чипу дозволено вільно чергувати.
-    w8(REG_POWER_CONTROL, 0x00);   // VCONN off, розрядка off, монітор VBUS увімк. типово
-
-    // 5) Стати дворольовим: DRP=1, старт зі стоку на обох CC, рекламуємо 1.5 А.
-    w8(REG_ROLE_CONTROL, ROLE(1, RP_1_5A, CC_RD, CC_RD));   // = 0x5A
-
-    // 6) Пуск. Далі чип САМ гойдає Rp↔Rd й ловить партнера.
-    w8(REG_COMMAND, CMD_LOOK4CONNECTION);
-}
-```
+:::code proj-drp-controller-ic/c/pershyi-bait-pidniaty-po-i.c
 
 Порядок тут не випадковий. Спершу ми **не поспішаємо** — бо термінація стоку вже стоїть завдяки мертвій батареї, і навіть якби процесор гальмував, розряджений сусід усе одно нас побачить. Тоді ми чистимо старі тривоги (інакше перше ж переривання прилетить із мотлохом), відкриваємо потрібні події, притлумлюємо розрядку (щоб дозволити чергування) і аж наприкінці одним записом у `ROLE_CONTROL` оголошуємо себе дворольовими, а командою `Look4Connection` віддаємо чипу право самому гойдати CC.
 
 А коли партнер таки з'явиться, чип сіпне ALERT — і починається читання:
 
 **Обробник переривання ALERT.**
-```c
-// Викликається, коли вивід ALERT притягнув лінію переривання.
-void tcpc_on_alert(void) {
-    uint16_t alert = r16(REG_ALERT);
-
-    if (alert & ALRT_CC_STATUS) {              // з'явився/зник партнер, змінилась роль
-        uint8_t cc = r8(REG_CC_STATUS);
-        //   біти [1:0] — стан CC1, [3:2] — стан CC2;
-        //   ненульове = бачу термінацію партнера на цьому виводі.
-        tcpm_on_cc_change(cc);                 // далі веде машина станів (TCPM)
-    }
-    if (alert & ALRT_FAULT) {
-        uint8_t f = r8(REG_FAULT_STATUS);
-        //   сюди прилітають VConnOCFault, VbusOCFault, VbusOVFault…
-        tcpm_on_fault(f);
-    }
-    // ... тут же дивляться POWER_STATUS і прийняте PD-повідомлення.
-
-    w16(REG_ALERT, alert);                     // скинути опрацьовані біти (запис-1-скидає)
-}
-```
+:::code proj-drp-controller-ic/c/pershyi-bait-pidniaty-po-i-2.c
 
 Зверніть увагу на останній рядок: тривоги скидають, **записавши одиниці в ті самі біти**, що прочитали. Це навмисне — так неможливо ненароком стерти подію, яка прилетіла між читанням і скиданням: її біт лишиться в нулі маски, чип підніме ALERT ще раз, і ви її не проґавите. Повну машину станів, яку далі веде `tcpm_on_cc_change`, розписано у вставці [⚙️ Машина станів DRP і зміни ролі](root:com-devices/dual-role-controller/proj-drp-state-machine.md).
 
