@@ -38,39 +38,7 @@
 
 **`ulp/main.c` — програма ULP-RISC-V (ESP32-S2/S3)**
 
-```c
-#include <stdint.h>
-#include "ulp_riscv_utils.h"
-#include "ulp_riscv_adc_ulp_core.h"
-
-/* АЦП-канал і поріг — підганяємо під свій давач */
-#define EXAMPLE_ADC_UNIT    ADC_UNIT_1
-#define EXAMPLE_ADC_CHANNEL ADC_CHANNEL_0
-/* 2000 — сирий код АЦП; при atten 12 dB і ADC_BITWIDTH_DEFAULT
-   це приблизно 1.75 В (як у канонічному прикладі ESP-IDF).     */
-#define EXAMPLE_ADC_THRESHOLD 2000
-
-/* Глобальні змінні, доступні головному ядру через префікс ulp_:
-   ulp_adc_threshold і ulp_wakeup_result                        */
-uint32_t adc_threshold = EXAMPLE_ADC_THRESHOLD;
-int32_t  wakeup_result = 0;
-
-int main(void)
-{
-    /* Читаємо АЦП у RTC-домені (не esp_adc — той у high-power домені). */
-    int32_t v = ulp_riscv_adc_read_channel(EXAMPLE_ADC_UNIT, EXAMPLE_ADC_CHANNEL);
-
-    if (v > (int32_t)adc_threshold) {
-        wakeup_result = v;
-        ulp_riscv_wakeup_main_processor(); /* піднімаємо сигнал пробудження */
-    }
-
-    return 0;
-    /* Після return 0: ulp_riscv_halt() викликається АВТОМАТИЧНО —
-       ULP паркується до наступного тіку RTC-таймера.
-       Ставити while(1) або явний halt тут не потрібно і шкідливо. */
-}
-```
+:::code proj-ulp-program/c/prohrama-ulp.c
 
 Тут немає ні `while(1)`, ні `delay()` — на відміну від наївного уявлення про «нескінченний цикл мікроконтролера». Період задає апаратний RTC-таймер на боці головного ядра (`ulp_set_wakeup_period`), а ULP лише виконує один вимір і гасне. Саме в цьому економія: ядро ULP активне мікросекунди за тік, а не весь інтервал між вимірами.
 
@@ -84,64 +52,7 @@ ULP сам себе не завантажує — це робить велике
 
 **`ulp_riscv_adc_example_main.c` — ініціалізація та режим сну**
 
-```c
-#include "esp_sleep.h"
-#include "ulp_riscv.h"
-#include "ulp_adc.h"
-#include "ulp_main.h"   /* згенерований заголовок: оголошує ulp_adc_threshold,
-                           ulp_wakeup_result і т. д.                         */
-
-/* Символи бінарника ULP — лінкер підставляє автоматично */
-extern const uint8_t ulp_main_bin_start[] asm("_binary_ulp_main_bin_start");
-extern const uint8_t ulp_main_bin_end[]   asm("_binary_ulp_main_bin_end");
-
-static void init_ulp_program(void);
-
-void app_main(void)
-{
-    /* Дізнаємось, чому прокинулись */
-    esp_sleep_wakeup_cause_t causes = esp_sleep_get_wakeup_causes();
-
-    if (!(causes & BIT(ESP_SLEEP_WAKEUP_ULP))) {
-        /* Перший старт або пробудження НЕ від ULP — заливаємо й запускаємо ULP */
-        init_ulp_program();
-    } else {
-        /* ULP розбудив нас: є значення вище порогу */
-        printf("ULP wakeup! value=%ld threshold=%lu\n",
-               (long)ulp_wakeup_result, (unsigned long)ulp_adc_threshold);
-    }
-
-    /* Тримаємо RTC-периферію живою — інакше АЦП-конфіг загубиться в сні.
-       Це типова пастка: без цього рядка ULP читатиме сміття.              */
-    ESP_ERROR_CHECK(esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH,
-                                        ESP_PD_OPTION_ON));
-    esp_sleep_enable_ulp_wakeup();
-    esp_deep_sleep_start();
-}
-
-static void init_ulp_program(void)
-{
-    /* Конфігуруємо АЦП під ULP-RISC-V */
-    ulp_adc_cfg_t cfg = {
-        .adc_n   = EXAMPLE_ADC_UNIT,
-        .channel = EXAMPLE_ADC_CHANNEL,
-        .width   = ADC_BITWIDTH_DEFAULT,
-        .atten   = ADC_ATTEN_DB_12,
-        .ulp_mode = ADC_ULP_MODE_RISCV,
-    };
-    ESP_ERROR_CHECK(ulp_adc_init(&cfg));
-
-    /* Заливаємо бінарник ULP у RTC slow memory */
-    ESP_ERROR_CHECK(ulp_riscv_load_binary(ulp_main_bin_start,
-                        ulp_main_bin_end - ulp_main_bin_start));
-
-    /* Таймер: ULP прокидатиметься кожні 20 000 мкс = 20 мс */
-    ulp_set_wakeup_period(0, 20000);
-
-    /* Запускаємо ULP */
-    ESP_ERROR_CHECK(ulp_riscv_run());
-}
-```
+:::code proj-ulp-program/c/prohrama-holovnoho-iadra.c
 
 Дві половини зв'язує «контракт» через символи з префіксом `ulp_`. Глобальна змінна `adc_threshold` у ULP-коді стає `ulp_adc_threshold` у заголовку `ulp_main.h`, який генерується системою збірки. Так само `wakeup_result` стає `ulp_wakeup_result`. Обидва живуть прямо в RTC slow memory — ніякої шини, ніякого UART чи I²C. Велике ядро читає `ulp_wakeup_result` прямим зверненням до пам'яті, ніби це звичайна глобальна змінна. Це механізм shared-symbol: прямий «канал зв'язку» між ULP і великим ядром через спільну [RTC-пам'ять](root:hw-arch/rtc-memory), що переживає сон.
 

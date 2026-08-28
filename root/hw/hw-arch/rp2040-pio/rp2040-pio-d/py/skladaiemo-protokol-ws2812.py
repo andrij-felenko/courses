@@ -1,0 +1,17 @@
+# WS2812 — rp2.asm_pio; автомат @20 МГц (1 такт ≈ 50 нс), 1 біт = 25 тактів
+import rp2
+from rp2 import PIO
+
+# 1 ніжка під side-set → 4 біти лишаються затримці [0..15];
+# autopull із порогом 24 і напрям зсуву задано просто в декораторі
+@rp2.asm_pio(sideset_init=PIO.OUT_LOW,
+             out_shiftdir=PIO.SHIFT_LEFT, autopull=True, pull_thresh=24)
+def ws2812():
+    wrap_target()                                # нескінченна петля без втрати такту на стрибок
+    label("bitloop")
+    out(x, 1)            .side(0) [6]   # 1 такт: висунути 1 біт у X, ніжка LOW; +6 затримки = 7 тактів (350 нс)
+    jmp(not_x, "do0")   .side(1) [3]   # 1 такт: якщо біт==0 → do0; підняти ніжку HIGH; +3 = 4 такти
+    jmp("bitloop")      .side(1) [11]  # біт «1»: тримати HIGH ще 1+11 = 12 тактів → сумарно T1H ≈ 800 нс
+    label("do0")
+    jmp("bitloop")      .side(0) [7]   # біт «0»: ніжку LOW, 1+7 = 8 тактів → T0H ≈ 400 нс
+    wrap()

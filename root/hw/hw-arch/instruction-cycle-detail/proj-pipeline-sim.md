@@ -33,65 +33,17 @@
 
 Одна засувка тримає все, що наступним стадіям треба знати про команду в польоті. Прапорець `valid` відрізняє справжню команду від **порожнього слота** — «бульбашки», що займає стадію на такт, нічого не роблячи.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-enum { OP_NOP, OP_LOAD, OP_ADD, OP_STORE, OP_HALT };
-
-// Одна засувка (pipeline register): усе, що команда несе між стадіями.
-typedef struct {
-    bool     valid;    // true — справжня команда; false — порожній слот (бульбашка)
-    uint8_t  op;       // яка операція (OP_*)
-    uint8_t  rd;       // регістр призначення
-    uint8_t  rs1, rs2; // регістри-джерела
-    uint16_t addr;     // адреса для LOAD/STORE
-    int32_t  a, b;     // операнди, прочитані з регістрів (для АЛП / значення STORE)
-    int32_t  alu;      // результат АЛП
-    int32_t  memdata;  // число, привезене з пам'яті (для LOAD)
-} Latch;
-```
+:::code proj-pipeline-sim/c/krok-1-zasuvka-iak.c
 
 Тепер — п'ять стадій і чотири засувки між ними. Тримаємо засувки **масивом**, і одразу заведемо зручні імена-індекси, щоб код читався як діаграма:
 
-```c
-// Чотири засувки на межах п'яти стадій IF-ID-EX-MEM-WB.
-enum { IF_ID, ID_EX, EX_MEM, MEM_WB, NLATCH };
-
-typedef struct {
-    Latch    L[NLATCH];   // засувки на межах стадій
-    uint16_t pc;          // лічильник команд
-    int32_t  reg[8];      // регістровий файл
-    int32_t  dmem[256];   // пам'ять даних
-    bool     fetch_halted;// вибірка спинена (зустріли HALT)
-} CPU;
-```
+:::code proj-pipeline-sim/c/krok-1-zasuvka-iak-2.c
 
 ### Крок 2. Пам'ять команд
 
 Команду подамо не сирими байтами, а вже розібраним записом — так модель лишається короткою, а фокус тримається на конвеєрі, не на декодуванні опкодів (розбір бітів у сигнали — окрема історія [пристрою керування](root:hw-arch/control-unit)). Пам'ять команд — просто масив таких записів, а `pc` індексує в нього.
 
-```c
-typedef struct { uint8_t op, rd, rs1, rs2; uint16_t addr; } Instr;
-
-// Проста програма: п'ять справжніх команд, тоді HALT.
-//   0: LOAD  r1,[0x20]      r1 <- пам'ять[0x20]
-//   1: LOAD  r2,[0x21]      r2 <- пам'ять[0x21]
-//   2: ADD   r3,r5,r6       r3 <- r5 + r6
-//   3: STORE [0x22],r7      пам'ять[0x22] <- r7
-//   4: ADD   r4,r5,r5       r4 <- r5 + r5
-//   5: HALT
-static const Instr PROG[] = {
-    { OP_LOAD,  1, 0, 0, 0x20 },
-    { OP_LOAD,  2, 0, 0, 0x21 },
-    { OP_ADD,   3, 5, 6, 0    },
-    { OP_STORE, 0, 7, 0, 0x22 },
-    { OP_ADD,   4, 5, 5, 0    },
-    { OP_HALT,  0, 0, 0, 0    },
-};
-#define PROG_LEN ((uint16_t)(sizeof(PROG)/sizeof(PROG[0])))
-```
+:::code proj-pipeline-sim/c/krok-2-pamiat-komand.c
 
 Команди навмисно **незалежні** одна від одної: `ADD` беруть регістри `r5,r6,r7`, які виставлені наперед, а не результати сусідів. Так перший прогін буде чистий, без плутанини даних, — а що станеться із **залежними** командами, розберемо окремо в пастках, бо це виводить прямо на затори конвеєра.
 
@@ -99,67 +51,7 @@ static const Instr PROG[] = {
 
 Ось серце проєкту. Функція `tick` виконує роботу **всіх п'яти стадій за один такт** і оновлює засувки — обов'язково від хвоста (WB) до голови (IF), щоб кожна стадія читала стан попереднього такту.
 
-```c
-void tick(CPU *c)
-{
-    // ── СТАДІЯ 5: ЗАПИС (write-back) ─ споживає MEM_WB ──
-    Latch w = c->L[MEM_WB];
-    if (w.valid) {
-        if (w.op == OP_LOAD)  c->reg[w.rd] = w.memdata; // дані з пам'яті → регістр
-        else if (w.op == OP_ADD) c->reg[w.rd] = w.alu;  // сума з АЛП → регістр
-        // STORE і HALT у регістр нічого не пишуть
-    }
-
-    // ── СТАДІЯ 4: ПАМ'ЯТЬ ─ EX_MEM → нова MEM_WB ──
-    Latch m = c->L[EX_MEM];
-    Latch nmw = (Latch){0};
-    if (m.valid) {
-        nmw.valid = true; nmw.op = m.op; nmw.rd = m.rd; nmw.alu = m.alu;
-        if (m.op == OP_LOAD)  nmw.memdata = c->dmem[m.addr]; // читаємо пам'ять
-        else if (m.op == OP_STORE) c->dmem[m.addr] = m.b;    // пишемо пам'ять
-    }
-
-    // ── СТАДІЯ 3: ВИКОНАННЯ (АЛП) ─ ID_EX → нова EX_MEM ──
-    Latch e = c->L[ID_EX];
-    Latch nem = (Latch){0};
-    if (e.valid) {
-        nem.valid = true; nem.op = e.op; nem.rd = e.rd; nem.b = e.b; nem.addr = e.addr;
-        if (e.op == OP_ADD) nem.alu = e.a + e.b;  // власне арифметика
-        // для LOAD/STORE адреса вже готова (пряма) — АЛП лише пропускає її далі
-    }
-
-    // ── СТАДІЯ 2: ДЕКОДУВАННЯ + читання регістрів ─ IF_ID → нова ID_EX ──
-    Latch d = c->L[IF_ID];
-    Latch nie = (Latch){0};
-    if (d.valid) {
-        nie.valid = true; nie.op = d.op; nie.rd = d.rd; nie.addr = d.addr;
-        nie.a = c->reg[d.rs1];                    // перший операнд
-        nie.b = (d.op == OP_ADD) ? c->reg[d.rs2]  // другий операнд для ADD
-                                 : c->reg[d.rs1]; // або значення для STORE
-    }
-
-    // ── СТАДІЯ 1: ВИБІРКА ─ пам'ять команд → нова IF_ID ──
-    Latch nif = (Latch){0};
-    if (!c->fetch_halted && c->pc < PROG_LEN) {
-        Instr ins = PROG[c->pc];
-        if (ins.op == OP_HALT) {
-            c->fetch_halted = true;               // HALT спиняє вибірку; конвеєр дренажить
-        } else {
-            nif.valid = true; nif.op = ins.op; nif.rd = ins.rd;
-            nif.rs1 = ins.rs1; nif.rs2 = ins.rs2; nif.addr = ins.addr;
-            c->pc++;                              // PC на наступну команду
-        }
-    }
-
-    // ── ФРОНТ ТАКТУ: усі засувки клацають РАЗОМ ──
-    // Ми вже прочитали кожну засувку у своїй стадії вище (з хвоста в голову),
-    // тож тепер безпечно записати всі нові значення.
-    c->L[MEM_WB] = nmw;
-    c->L[EX_MEM] = nem;
-    c->L[ID_EX]  = nie;
-    c->L[IF_ID]  = nif;
-}
-```
+:::code proj-pipeline-sim/c/krok-3-odyn-takt-funktsiia.c
 
 Придивися до двох речей. По-перше, **кожна стадія — дослівний переклад свого квадратика з діаграми**: запис кладе результат у регістр, пам'ять читає або пише `dmem`, виконання рахує в `a + b`, декодування дістає операнди з регістрів, вибірка тягне команду з `PROG` і зсуває `pc`. По-друге — і це головний урок — **ми читаємо кожну засувку `c->L[...]` у локальну копію (`w`, `m`, `e`, `d`) на початку її стадії, а записуємо всі нові засувки одним блоком у кінці**. Саме ці локальні копії й імітують те, що тригери читають старий стан: скопіювавши `EX_MEM` у `m` до того, як стадія виконання перезапише `EX_MEM`, ми гарантуємо, що пам'ять працює зі станом **попереднього** такту. Порядок стадій у функції — від запису до вибірки — не випадковий: він і є той самий «з хвоста в голову».
 
@@ -167,29 +59,7 @@ void tick(CPU *c)
 
 Лишилося завести машину й крутити такти, поки в конвеєрі є хоч одна жива команда. «Порожньо» — коли вибірка вже спинилася **і** всі чотири засувки невалідні: остання команда допрацювала.
 
-```c
-static bool pipeline_busy(const CPU *c)
-{
-    for (int i = 0; i < NLATCH; i++) if (c->L[i].valid) return true;
-    return !c->fetch_halted && c->pc < PROG_LEN;   // ще є що вибирати?
-}
-
-int main(void)
-{
-    CPU c = (CPU){0};
-    c.dmem[0x20] = 10; c.dmem[0x21] = 32;        // дані для LOAD
-    c.reg[5] = 5; c.reg[6] = 6; c.reg[7] = 99;   // операнди для ADD/STORE
-
-    for (int t = 1; pipeline_busy(&c) && t < 100; t++) {
-        tick(&c);
-        printf("такт %d:  IF/ID valid=%d  ID/EX valid=%d  EX/MEM valid=%d  MEM/WB valid=%d\n",
-               t, c.L[IF_ID].valid, c.L[ID_EX].valid, c.L[EX_MEM].valid, c.L[MEM_WB].valid);
-    }
-    printf("r1=%d r2=%d r3=%d r4=%d  пам'ять[0x22]=%d\n",
-           c.reg[1], c.reg[2], c.reg[3], c.reg[4], c.dmem[0x22]);
-    return 0;
-}
-```
+:::code proj-pipeline-sim/c/krok-4-rozhin-polit-i.c
 
 Проженемо в голові — і побачимо ту саму діагональ, що на діаграмі, лише тепер вона народжується з коду.
 

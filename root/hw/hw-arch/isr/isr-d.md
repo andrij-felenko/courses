@@ -79,94 +79,9 @@
 **Лічильник імпульсів: короткий обробник і обробка в головному циклі.** Хай яке середовище, деталей рівно три: піна-вхід із підтяжкою й перериванням по спаду, обробник, що тільки збільшує лічильник, і головний цикл, який раз на секунду знімає накопичене й друкує.
 
 :::tabs
-```arduino
-volatile uint32_t pulses = 0;          // спільний лічильник — тому volatile
-
-void IRAM_ATTR onPulse() {             // короткий обробник, у RAM
-  pulses++;                            // лише рахуємо — і все
-}
-
-void setup() {
-  pinMode(SENSOR, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(SENSOR), onPulse, FALLING);
-}
-
-void loop() {
-  static uint32_t last = 0;
-  if (millis() - last >= 1000) {       // раз на секунду
-    last = millis();
-    noInterrupts();                    // безпечно зняти спільне значення
-    uint32_t n = pulses; pulses = 0;
-    interrupts();
-    Serial.println(n);                 // друк — у loop(), НЕ в обробнику
-  }
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_attr.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define SENSOR GPIO_NUM_4
-static const char *TAG = "pulses";
-static portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
-static volatile uint32_t pulses = 0;   // спільний лічильник — тому volatile
-
-static void IRAM_ATTR on_pulse(void *arg) {   // короткий обробник, у RAM
-    pulses++;                                 // лише рахуємо — і все
-}
-
-void app_main(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << SENSOR,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_ENABLE,
-        .intr_type    = GPIO_INTR_NEGEDGE,    // спад — те саме, що FALLING
-    };
-    gpio_config(&cfg);
-    gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
-    gpio_isr_handler_add(SENSOR, on_pulse, NULL);
-
-    while (1) {
-        vTaskDelay(pdMS_TO_TICKS(1000));      // раз на секунду
-        portENTER_CRITICAL(&mux);             // безпечно зняти спільне значення
-        uint32_t n = pulses; pulses = 0;
-        portEXIT_CRITICAL(&mux);
-        ESP_LOGI(TAG, "%u", (unsigned)n);     // друк — у задачі, НЕ в обробнику
-    }
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-volatile uint32_t pulses = 0;          // спільний лічильник — тому volatile
-
-// HAL кличе цей callback з обробника EXTI — спільний на всі лінії
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {
-    if (pin == SENSOR_Pin) pulses++;   // лише рахуємо — і все
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();                    // піна SENSOR: GPIO_MODE_IT_FALLING + GPIO_PULLUP
-    HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(EXTI0_IRQn);    // дозволити переривання лінії
-
-    uint32_t last = 0;
-    while (1) {
-        if (HAL_GetTick() - last >= 1000) {   // раз на секунду
-            last = HAL_GetTick();
-            __disable_irq();                  // безпечно зняти спільне значення
-            uint32_t n = pulses; pulses = 0;
-            __enable_irq();
-            printf("%lu\r\n", (unsigned long)n);  // друк — у main, НЕ в обробнику
-        }
-    }
-}
-```
+:::code isr-d/c/arduino/main.ino
+:::code isr-d/c/esp-idf/main.c
+:::code isr-d/c/stm32/main.c
 :::
 
 Кожен рядок утілює правило: обробник короткий, спільний лічильник `pulses` оголошено `volatile`, а вся «важка» робота — рахунок раз на секунду й друк — діється в головному циклі чи задачі, де їй ніщо не заважає (на ESP32 обробник ще й позначено `IRAM_ATTR`; на STM32 код виконується просто з флеша, і цієї турботи нема). Зверніть увагу й на коротке заборонення переривань навколо знімання значення (`noInterrupts()`/`interrupts()`, `portENTER_CRITICAL`, `__disable_irq()`) — це безпечне [«вихоплення» спільної змінної](root:sf-tasks/atomicity-races), щоб переривання не змінило `pulses` саме посеред читання й обнулення.

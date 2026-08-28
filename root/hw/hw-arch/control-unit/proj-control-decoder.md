@@ -31,45 +31,11 @@
 
 Спершу — **що саме** автомат вмикає. Це структура `Control`: по одному полю на керувальну лінію. Різниця з наївною моделлю власника в тому, що тепер ця структура — **сигнали одного такту**, а не всієї команди. Наступного такту вона буде іншою.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-// Сигнали керування — набір ліній НА ОДИН ТАКТ.
-// Кожне поле — окремий "дріт": що вмикаємо саме цього такту.
-typedef struct {
-    bool     addr_out;   // виставити адресу на шину
-    bool     mem_read;   // лінія шини "читаю"
-    bool     mem_write;  // лінія шини "пишу"
-    bool     alu_enable; // подати операнди на АЛП і взяти результат
-    uint8_t  alu_op;     // яку операцію ввімкнути в АЛП
-    bool     reg_write;  // защіпнути результат/дані у регістр призначення
-    uint8_t  reg_dst;    // куди защіпувати
-    uint8_t  reg_a;      // операнди для АЛП / регістр-джерело адреси
-} Control;
-
-enum { ALU_ADD, ALU_SUB, ALU_PASS };   // операції АЛП
-```
+:::code proj-control-decoder/c/krok-1-keruvalni-syhnaly-i.c
 
 Тепер — «залізо», яким автомат диригує. Датапат тримає регістри, шину адреси/даних і, головне, **лінію `ready` від пам'яті** — той сигнал, задля якого автомат узагалі мусить уміти чекати. Пам'ять тут — навмисно повільна модель: вона віддає число не одразу, а лише через кілька тактів після запиту.
 
-```c
-#define NREG 16
-#define MEMSZ 256
-
-typedef struct {
-    uint16_t reg[NREG];      // регістри загального призначення
-    uint8_t  mem[MEMSZ];     // "повільна" пам'ять
-
-    uint16_t addr_bus;       // що зараз на шині адреси
-    uint16_t data_bus;       // що зараз на шині даних
-    bool     mem_ready;      // пам'ять підняла "дані готові"
-
-    // модель повільної пам'яті: скільки тактів ще "їхати" до відповіді
-    int      mem_countdown;
-} Datapath;
-```
+:::code proj-control-decoder/c/krok-1-keruvalni-syhnaly-i-2.c
 
 > 🔧 **Навіщо це.** Лінія `mem_ready` — не вигадка моделі. У реальному процесорі це фізичний вхід (у 6502 його звали `RDY`, у багатьох MCU-шинах — `WAIT`/`READY`): повільний пристрій утримує його низьким, і процесор **завмирає** зайвий такт, доки той не відпустить. Це апаратне джерело «wait state», який ти потім бачиш у налаштуваннях флешу чи зовнішньої шини. Наш автомат моделює саме цей рукостиск.
 
@@ -77,19 +43,7 @@ typedef struct {
 
 Стадії — це `enum`. Їх небагато, і вони — не самі команди, а **фази виконання будь-якої команди**. `S_FETCH` спільна для всіх (привезти команду в IR); далі шляхи розходяться залежно від опкоду.
 
-```c
-// Стадії автомата — фази виконання, спільний "кістяк" для всіх команд.
-typedef enum {
-    S_FETCH,       // привезти команду в IR, підготувати декод
-    S_DECODE,      // розкласти опкод, обрати гілку
-    S_ADDR,        // (load/store) виставити адресу на шину
-    S_READ,        // (load) чекати й прийняти дані з пам'яті
-    S_CALC,        // (add/sub) порахувати в АЛП
-    S_WRITE_REG,   // защіпнути результат/дані у регістр
-    S_WRITE_MEM,   // (store) віддати дані в пам'ять
-    S_DONE         // команда завершена → назад у FETCH
-} Stage;
-```
+:::code proj-control-decoder/c/krok-2-stadii-i-dekoder.c
 
 Стан самого пристрою керування — компактний: поточна стадія, регістр команд `IR` і розкладені поля операндів (щоб не декодувати їх щоразу).
 
@@ -122,138 +76,17 @@ static void decode_fields(ControlUnit *cu) {
 
 Зверни увагу на дві речі, заради яких усе й затівалося. По-перше, стадія `S_READ` **не завжди** переходить далі: якщо `mem_ready` ще 0, вона лишає стадію тією самою — це вставлений такт чекання. По-друге, кожен `case` піднімає **лише свої** лінії: жодна стадія не вмикає нічого зайвого, і саме тому порядок увімкнень строгий.
 
-```c
-// Один такт роботи пристрою керування.
-// Повертає сигнали, ВИСТАВЛЕНІ цього такту (зручно для трасування/тестів).
-Control cu_step(ControlUnit *cu, Datapath *dp) {
-    Control c = {0};   // усі лінії спершу опущені — це важливо (див. пастки)
-
-    switch (cu->stage) {
-
-    case S_FETCH:
-        // Привезти команду за PC у IR. (Модель: пам'ять команд миттєва.)
-        cu->ir = ((uint16_t)dp->mem[cu->pc] << 8) | dp->mem[cu->pc + 1];
-        cu->pc += 2;
-        cu->stage = S_DECODE;
-        break;
-
-    case S_DECODE:
-        decode_fields(cu);                 // розкласти опкод і поля
-        switch (cu->op) {                  // обрати ПЛАН за опкодом
-        case OP_ADD:
-        case OP_SUB:   cu->stage = S_CALC;       break;  // регістрова: одразу рахуємо
-        case OP_LOAD:  cu->stage = S_ADDR;       break;  // з пам'яті: спершу адреса
-        case OP_STORE: cu->stage = S_ADDR;       break;
-        default:       cu->stage = S_DONE;       break;  // невідома → нічого не робимо
-        }
-        break;
-
-    case S_ADDR:
-        // Виставити адресу з регістра a на шину й підняти потрібну лінію шини.
-        c.addr_out = true;
-        c.reg_a    = cu->a;
-        dp->addr_bus = dp->reg[cu->a];
-        if (cu->op == OP_LOAD)  c.mem_read  = true;
-        else                    c.mem_write = true;
-        mem_start(dp);                     // "завести" повільну пам'ять
-        cu->stage = (cu->op == OP_LOAD) ? S_READ : S_WRITE_MEM;
-        break;
-
-    case S_READ:
-        // Тримаємо read і ЧЕКАЄМО. Поки пам'ять не готова — лишаємось тут.
-        c.mem_read = true;                 // лінію треба ТРИМАТИ весь час чекання
-        if (!dp->mem_ready) {
-            // пам'ять ще їде: цей такт — такт чекання, стадію НЕ міняємо
-            break;
-        }
-        // ready=1: дані вже на шині — приймаємо їх
-        c.reg_write = true;
-        c.reg_dst   = cu->dst;
-        dp->reg[cu->dst] = dp->data_bus;
-        cu->stage = S_DONE;
-        break;
-
-    case S_CALC:
-        // Порахувати в АЛП; результат защіпнемо НАСТУПНИМ тактом.
-        c.alu_enable = true;
-        c.reg_a = cu->a; c.reg_b = cu->b;
-        c.alu_op = (cu->op == OP_ADD) ? ALU_ADD : ALU_SUB;
-        dp->data_bus = (cu->op == OP_ADD)
-                     ? (uint16_t)(dp->reg[cu->a] + dp->reg[cu->b])
-                     : (uint16_t)(dp->reg[cu->a] - dp->reg[cu->b]);
-        cu->stage = S_WRITE_REG;
-        break;
-
-    case S_WRITE_REG:
-        c.reg_write = true;
-        c.reg_dst   = cu->dst;
-        dp->reg[cu->dst] = dp->data_bus;
-        cu->stage = S_DONE;
-        break;
-
-    case S_WRITE_MEM:
-        c.mem_write = true;                // тримаємо write під час чекання
-        if (!dp->mem_ready) break;         // так само чекаємо готовності
-        dp->mem[dp->addr_bus] = (uint8_t)dp->reg[cu->dst];
-        cu->stage = S_DONE;
-        break;
-
-    case S_DONE:
-        cu->stage = S_FETCH;               // команда завершена → нова
-        break;
-    }
-
-    return c;
-}
-```
+:::code proj-control-decoder/c/krok-3-krok-funktsiia.c
 
 Модель повільної пам'яті — окремо, щоб автомат був чистий. `mem_start()` заводить зворотний відлік; кожен такт `mem_tick()` наближає готовність, і коли відлік добіг нуля — виставляє дані на шину й піднімає `mem_ready`.
 
-```c
-#define MEM_LATENCY 3     // пам'ять "їде" 3 такти після запиту
-
-static void mem_start(Datapath *dp) {
-    dp->mem_ready    = false;
-    dp->mem_countdown = MEM_LATENCY;
-}
-
-// Викликається РАЗ на такт, синхронно з cu_step (модель тактованої шини).
-static void mem_tick(Datapath *dp) {
-    if (dp->mem_countdown > 0) {
-        dp->mem_countdown--;
-        if (dp->mem_countdown == 0) {
-            // дані "доїхали": кладемо на шину й піднімаємо ready
-            dp->data_bus  = dp->mem[dp->addr_bus];
-            dp->mem_ready = true;
-        }
-    }
-}
-```
+:::code proj-control-decoder/c/krok-3-krok-funktsiia-2.c
 
 ### Крок 4. Цикл тактів — зшиваємо все докупи
 
 Автомат сам по собі мертвий; його оживляє [такт](root:hw-digital/clock-signal). Ось цикл, що б'є тактами: кожен такт спершу просуває пам'ять (`mem_tick`), потім робить крок керування (`cu_step`), і трасує, які лінії піднялися. Порядок «спершу пам'ять, потім керування» відповідає тому, як у залізі сигнали, виставлені минулого такту, встигають устоятися до фронту нового.
 
-```c
-static const char *stage_name(Stage s) {
-    static const char *n[] = {"FETCH","DECODE","ADDR","READ",
-                              "CALC","WRITE_REG","WRITE_MEM","DONE"};
-    return n[s];
-}
-
-// Прогнати одну команду до кінця, друкуючи, що робиться кожного такту.
-void run_one_instruction(ControlUnit *cu, Datapath *dp) {
-    int tick = 0;
-    do {
-        mem_tick(dp);                   // пам'ять просувається
-        Stage before = cu->stage;
-        Control c = cu_step(cu, dp);    // крок автомата
-        printf("такт %2d | стадія %-9s | rd=%d wr=%d alu=%d regW=%d ready=%d\n",
-               tick++, stage_name(before),
-               c.mem_read, c.mem_write, c.alu_enable, c.reg_write, dp->mem_ready);
-    } while (cu->stage != S_FETCH);     // поки команда не завершилась
-}
-```
+:::code proj-control-decoder/c/krok-4-tsykl-taktiv.c
 
 ### Крок 5. Прогін: як `load` розгортається в такти
 
@@ -285,25 +118,7 @@ void run_one_instruction(ControlUnit *cu, Datapath *dp) {
 
 Ось як виглядає зламана стадія READ поряд із правильною:
 
-```c
-// ХИБНО: защіпуємо, не глянувши на ready — ловимо сміття з неготової шини.
-case S_READ:
-    c.reg_write = true;                 // ← увімкнули запис БЕЗУМОВНО
-    c.reg_dst   = cu->dst;
-    dp->reg[cu->dst] = dp->data_bus;    // data_bus ще не оновлена!
-    cu->stage = S_DONE;
-    break;
-
-// ПРАВИЛЬНО: тримаємо read і чекаємо; защіпуємо ЛИШЕ коли ready=1.
-case S_READ:
-    c.mem_read = true;
-    if (!dp->mem_ready) break;          // ← петля чекання: ще не готово — стоїмо
-    c.reg_write = true;
-    c.reg_dst   = cu->dst;
-    dp->reg[cu->dst] = dp->data_bus;
-    cu->stage = S_DONE;
-    break;
-```
+:::code proj-control-decoder/c/pastka-1-honka-z-povilnoiu.c
 
 Різниця — один рядок `if (!dp->mem_ready) break;`, і саме він перетворює жорсткий «встиг-не-встиг» на надійний рукостиск. Правило універсальне: **на будь-яку транзакцію з асинхронним пристроєм автомат мусить мати стадію чекання його готовності**, а не покладатися на те, що «зазвичай встигає».
 

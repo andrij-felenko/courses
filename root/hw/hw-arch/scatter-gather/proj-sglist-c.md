@@ -22,26 +22,7 @@
 
 Дисципліна проста, і в типі її немає: **один список живе в одному просторі**, і хто його створив, той і знає, в якому. Linux цю дисципліну вносить прямо в систему типів — заводить окремий `dma_addr_t`, щоб адресу для пристрою не можна було випадково підставити туди, де компілятор чекає покажчик. У коді нижче простір названо в контракті кожної функції; це слабше за окремий тип, але принаймні чесно.
 
-```c
-#include <stdint.h>    // uintptr_t, SIZE_MAX
-#include <stddef.h>    // size_t
-#include <string.h>    // memcpy
-#include <stdbool.h>
-
-// Один суцільний клапоть. Простір адреси НЕ закодовано в типі —
-// його задає той, хто список побудував (див. контракт кожної функції).
-struct sg_seg {
-    uintptr_t addr;    // початок клаптя
-    size_t    len;     // скільки байтів у клапті
-};
-
-// ВИД (view) на масив сегментів. НЕ власник памʼяті: під масив хтось
-// інший (виклик, арена, пул драйвера) уже виділив місце.
-struct sg_list {
-    struct sg_seg *seg;   // куди дивимось зараз
-    int            n;     // скільки сегментів попереду
-};
-```
+:::code proj-sglist-c/c/odna-struktura-dva-adresni.c
 
 Розділення «вид ≠ власник» виглядає педантизмом рівно доти, доки не дійдемо до `advance` — там воно виявиться тим, що робить операцію дешевою, і водночас тим, що ставить найпідступнішу пастку в усьому файлі.
 
@@ -49,19 +30,7 @@ struct sg_list {
 
 Найпростіша операція — і на ній уже видно різницю між макетом і робочим кодом.
 
-```c
-// Сумарна довжина списку. Простір адрес — будь-який (адреси не чіпаємо).
-// false ⇒ сума не влазить у size_t; *out не змінено. O(n).
-bool sg_total(const struct sg_list *sg, size_t *out) {
-    size_t s = 0;
-    for (int i = 0; i < sg->n; i++) {
-        if (s > SIZE_MAX - sg->seg[i].len) return false;   // перевірка ДО додавання
-        s += sg->seg[i].len;
-    }
-    *out = s;
-    return true;
-}
-```
+:::code proj-sglist-c/c/sumarna-dovzhyna-mistse-de.c
 
 Уся суть — у рядку перевірки, і в тому, що вона стоїть **перед** додаванням, а не після. Спокуса написати `if (s + len < s) return false;` — «додав, глянув, чи не перескочило» — для беззнакових типів працює: перенос у `size_t` визначений стандартом, і сума справді стане меншою. Але ця перевірка тримається на тому, що тип беззнаковий, і ламається тихо в той день, коли хтось поміняє поле на `ssize_t` чи `int64_t`: для знакових типів переповнення — невизначена поведінка, компілятор має право вважати, що його не буває, і **викидає перевірку разом із гілкою**. Форма `s > SIZE_MAX - len` не переповнює нічого ніколи (`len ≤ SIZE_MAX`, отже, різниця невід'ємна), тож переживає таку заміну без сюрпризів.
 
@@ -75,53 +44,7 @@ bool sg_total(const struct sg_list *sg, size_t *out) {
 
 Вхід: віртуальна адреса й довжина. Вихід: список фізичних сегментів. Між ними — прохід, що бере від кожної сторінки рівно стільки, скільки та може дати.
 
-```c
-#define PAGE_SIZE  4096u
-#define PAGE_MASK  (PAGE_SIZE - 1u)
-
-// Адреса кадру, у який відображено сторінку page_vaddr (у житті — virt_to_phys(),
-// або те, що поверне шар DMA-відображення разом із програмуванням IOMMU).
-typedef uintptr_t (*page_phys_fn)(uintptr_t page_vaddr, void *ctx);
-
-// Побудувати список ФІЗИЧНИХ сегментів із суцільного ВІРТУАЛЬНОГО буфера.
-// store/cap — памʼять під сегменти (виклик — власник).
-// Повертає кількість сегментів або -1, якщо не влізло в cap.
-int sg_build(struct sg_list *sg, struct sg_seg *store, int cap,
-             uintptr_t vaddr, size_t len,
-             page_phys_fn page_phys, void *ctx)
-{
-    sg->seg = store;
-    sg->n   = 0;
-
-    uintptr_t v    = vaddr;
-    size_t    left = len;
-
-    while (left > 0) {
-        size_t off   = (size_t)(v & PAGE_MASK);   // зсув усередині сторінки
-        size_t chunk = PAGE_SIZE - off;           // скільки лишилось до кінця сторінки
-        if (chunk > left) chunk = left;           // ...або до кінця буфера
-
-        uintptr_t phys = page_phys(v - off, ctx) + off;
-
-        // ЗЛИТТЯ: чи продовжує цей шматок попередній сегмент ФІЗИЧНО?
-        if (sg->n > 0) {
-            struct sg_seg *last = &store[sg->n - 1];
-            if (last->addr + last->len == phys) {
-                last->len += chunk;               // ростимо той самий сегмент
-                v += chunk; left -= chunk;
-                continue;                         // слот не потрібен
-            }
-        }
-
-        if (sg->n == cap) return -1;              // стеля списку
-        store[sg->n].addr = phys;
-        store[sg->n].len  = chunk;
-        sg->n++;
-        v += chunk; left -= chunk;
-    }
-    return sg->n;
-}
-```
+:::code proj-sglist-c/c/pobudova-storinka-za.c
 
 Три місця тут варті погляду.
 
@@ -160,29 +83,7 @@ int sg_build(struct sg_list *sg, struct sg_seg *store, int cap,
 
 Реальна передача рідко зупиняється на межі сегмента. `send` віддав 650 байтів зі 1200; `n` влучило всередину другого сегмента; з рештою треба продовжити. Ось повна операція.
 
-```c
-// Просунути список на bytes переданих байтів.
-// ІНВАРІАНТ:  total(до) == bytes + total(після).
-// false ⇒ bytes > total; список НЕ змінено. O(зʼїдених сегментів).
-bool sg_advance(struct sg_list *sg, size_t bytes) {
-    int    i    = 0;
-    size_t rest = bytes;
-
-    while (i < sg->n && rest >= sg->seg[i].len) {   // цілі сегменти — геть
-        rest -= sg->seg[i].len;
-        i++;
-    }
-    if (i == sg->n && rest > 0) return false;       // просять більше, ніж є
-
-    if (rest > 0) {                                 // влучений — розрізати
-        sg->seg[i].addr += rest;                    // база вперед
-        sg->seg[i].len  -= rest;                    // довжина менша
-    }
-    sg->seg += i;                                   // вид зсувається — без memmove
-    sg->n   -= i;
-    return true;
-}
-```
+:::code proj-sglist-c/c/advance-rozriz-i-zakon.c
 
 Тут кожен рядок тримає щось, що ламається, якщо його посунути.
 
@@ -233,37 +134,7 @@ K = 1024 (стеля iovec у Linux):
 
 Іноді список програє: рушій не бере стільки сегментів, вимагає вирівнювання, якого немає, або сегменти такі дрібні, що дескриптор дорожчий за копію. Тоді лишається зробити руками те, що мав зробити рушій, — і це рівно два цикли.
 
-```c
-// GATHER: зібрати розкидані сегменти в один суцільний буфер.
-// ⚠ addr мусять бути ВІРТУАЛЬНІ (розіменовні). Повертає скільки зібрано.
-size_t sg_gather(const struct sg_list *sg, void *dst, size_t cap) {
-    unsigned char *d = (unsigned char *)dst;
-    size_t done = 0;
-    for (int i = 0; i < sg->n && done < cap; i++) {
-        size_t take = sg->seg[i].len;
-        if (take > cap - done) take = cap - done;      // не вилізти за dst
-        if (take == 0) continue;                       // memcpy з NULL — навіть на 0 Б
-        memcpy(d + done, (const void *)sg->seg[i].addr, take);
-        done += take;
-    }
-    return done;
-}
-
-// SCATTER: розкласти суцільний буфер по сегментах.
-// ⚠ addr мусять бути ВІРТУАЛЬНІ. Повертає скільки розклано.
-size_t sg_scatter(const struct sg_list *sg, const void *src, size_t len) {
-    const unsigned char *s = (const unsigned char *)src;
-    size_t done = 0;
-    for (int i = 0; i < sg->n && done < len; i++) {
-        size_t put = sg->seg[i].len;
-        if (put > len - done) put = len - done;        // не вичерпати src
-        if (put == 0) continue;
-        memcpy((void *)sg->seg[i].addr, s + done, put);
-        done += put;
-    }
-    return done;
-}
-```
+:::code proj-sglist-c/c/shliakh-vidskok-zbyrannia.c
 
 Дві функції — дзеркальні, і кожна тримає ту саму пару охоронців. `done < cap` в умові циклу й кліп `take > cap - done` разом дають те, що `cap - done` ніколи не піде під нуль (бо `done ≤ cap` завжди) і `memcpy` ніколи не вийде за виділений буфер. Функція повертає **скільки насправді перенесла**, а не мовчить: якщо список несе більше, ніж вміщає `dst`, виклик про це дізнається з повернення, а не з пошкодженої пам'яті сусіда.
 
@@ -275,31 +146,7 @@ size_t sg_scatter(const struct sg_list *sg, const void *src, size_t len) {
 
 Усе, що рушій вимагає, дешевше перевірити один раз перед подачею, ніж ловити по симптомах.
 
-```c
-enum sg_err {
-    SG_OK = 0,
-    SG_E_EMPTY_SEG,   // сегмент нульової довжини
-    SG_E_ALIGN,       // база чи довжина не вирівняні
-    SG_E_TOOMANY,     // більше сегментів, ніж бере рушій
-    SG_E_OVERFLOW,    // сумарна довжина не влазить у size_t
-};
-
-// align — СТЕПІНЬ ДВІЙКИ (1 = вимог немає). O(n).
-enum sg_err sg_check(const struct sg_list *sg, size_t align, int max_segs) {
-    if (sg->n > max_segs) return SG_E_TOOMANY;
-
-    const uintptr_t m = (uintptr_t)align - 1;          // маска молодших бітів
-    size_t total = 0;
-    for (int i = 0; i < sg->n; i++) {
-        if (sg->seg[i].len == 0)                 return SG_E_EMPTY_SEG;
-        if (sg->seg[i].addr & m)                 return SG_E_ALIGN;
-        if ((uintptr_t)sg->seg[i].len & m)       return SG_E_ALIGN;
-        if (total > SIZE_MAX - sg->seg[i].len)   return SG_E_OVERFLOW;
-        total += sg->seg[i].len;
-    }
-    return SG_OK;
-}
-```
+:::code proj-sglist-c/c/perevirka-spysku-pered.c
 
 Маска `align - 1` для степеня двійки дає всі молодші біти, і `addr & m` не-нуль рівно тоді, коли адреса не кратна `align`. Окремий випадок «вимог немає» окремим випадком не є: `align = 1` дає `m = 0`, і обидві перевірки чесно пропускають усе.
 

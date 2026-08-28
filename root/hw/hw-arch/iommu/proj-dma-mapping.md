@@ -49,59 +49,17 @@ DMA-мапінг буває двох ґатунків, і плутати їх н
 
 Складімо це докупи на прикладі мережевої карти. Спершу — **когерентне** кільце дескрипторів, яке і ядро, і карта чіпають безперервно:
 
-```c
-#include <linux/dma-mapping.h>
-
-struct rx_desc { __le64 addr; __le32 len; __le32 status; };  /* формат заліза */
-
-/* Кільце дескрипторів — обидва боки смикають його весь час → когерентний мапінг. */
-ring->desc = dma_alloc_coherent(dev, RING_N * sizeof(struct rx_desc),
-                                &ring->desc_dma, GFP_KERNEL);
-if (!ring->desc)
-    return -ENOMEM;
-/* ring->desc     — адреса для ЯДРА (ним ядро пише дескриптори)
-   ring->desc_dma — IOVA, яку віддаємо карті в регістр бази кільця        */
-iowrite32(lower_32_bits(ring->desc_dma), regs + REG_RXRING_BASE_LO);
-iowrite32(upper_32_bits(ring->desc_dma), regs + REG_RXRING_BASE_HI);
-```
+:::code proj-dma-mapping/c/dma-mapping.h
 
 Тепер **потокове** відправлення одного пакета — одна передача, один напрям, `DMA_TO_DEVICE`:
 
-```c
-/* skb з готовим пакетом на відправлення. */
-dma_addr_t da = dma_map_single(dev, skb->data, skb->len, DMA_TO_DEVICE);
-if (dma_mapping_error(dev, da))          /* IOVA скінчились чи мапінг не вдався */
-    return -ENOMEM;
-
-desc->addr = cpu_to_le64(da);            /* карті — IOVA, а НЕ skb->data! */
-desc->len  = cpu_to_le32(skb->len);
-dma_wmb();                               /* дескриптор видимий ДО дзвінка */
-desc->status = cpu_to_le32(DESC_OWN_NIC);
-iowrite32(tx_tail, regs + REG_TX_TAIL);  /* дзвінок: «є що слати» */
-
-/* ... карта відіслала пакет і підняла переривання «готово» ... */
-dma_unmap_single(dev, da, skb->len, DMA_TO_DEVICE);
-dev_kfree_skb(skb);
-```
+:::code proj-dma-mapping/c/robochyi-kod.h
 
 `dma_wmb()` між записом дескриптора й дзвінком — не забаганка: без цього [бар'єра](root:hw-arch/memory-barrier-instructions) запис дзвінкового регістра міг би дійти до карти раніше за запис дескриптора, і карта прочитала б порожній рядок. Порядок «спершу дескриптор, тоді дзвінок» тут обов'язковий.
 
 Якщо буфер розкиданий по кількох фізичних шматках, замість `dma_map_single` беруть **[scatter-gather](root:hw-arch/scatter-gather)**:
 
-```c
-int n = dma_map_sg(dev, sglist, nents, DMA_TO_DEVICE);
-if (n == 0)
-    return -ENOMEM;
-
-struct scatterlist *sg;
-int i;
-for_each_sg(sglist, sg, n, i) {
-    desc[i].addr = cpu_to_le64(sg_dma_address(sg));   /* IOVA шматка */
-    desc[i].len  = cpu_to_le32(sg_dma_len(sg));
-}
-/* ... передача ... */
-dma_unmap_sg(dev, sglist, nents, DMA_TO_DEVICE);
-```
+:::code proj-dma-mapping/c/robochyi-kod.c
 
 Тонкість, яку легко проґавити: з IOMMU `dma_map_sg` часто повертає `n` **менше** за `nents`. IOMMU здатен розкидані фізичні шматки замапити на **суцільний** діапазон IOVA — і тоді кілька вхідних сегментів схлопуються в один вихідний. Тому цикл ходить по `n` (повернене), а не по `nents` (подане), і `sg_dma_address`/`sg_dma_len` треба брати саме з опрацьованого списку, а не з фізичних довжин.
 
@@ -118,29 +76,7 @@ dma_unmap_sg(dev, sglist, nents, DMA_TO_DEVICE);
 
 Розв'язок — **мапувати наперед і перевикористовувати**. Драйвер замапляє буфери кільця **раз при старті** й тримає їх замапленими весь час роботи, а на кожен пакет платить лише за дешевий `dma_sync` — саме те обслуговування кеша, без виділення IOVA, без запису в таблицю, без знеправлення IOTLB:
 
-```c
-/* Старт: замапити КОЖЕН буфер кільця РАЗ і тримати замапленим. */
-for (i = 0; i < RING_N; i++) {
-    buf[i] = kmalloc(BUF_SZ, GFP_KERNEL);
-    dma[i] = dma_map_single(dev, buf[i], BUF_SZ, DMA_FROM_DEVICE);
-    if (dma_mapping_error(dev, dma[i]))
-        goto unwind;
-    desc[i].addr = cpu_to_le64(dma[i]);   /* IOVA у дескриптор кільця */
-}
-
-/* Гарячий шлях: на кожен прийнятий пакет — БЕЗ map/unmap, лише sync. */
-static void rx_one(int i)
-{
-    dma_sync_single_for_cpu(dev, dma[i], BUF_SZ, DMA_FROM_DEVICE); /* забрати собі */
-    process_packet(buf[i], le32_to_cpu(desc[i].len));
-    dma_sync_single_for_device(dev, dma[i], BUF_SZ, DMA_FROM_DEVICE); /* вернути карті */
-    desc[i].status = cpu_to_le32(DESC_OWN_NIC);
-}
-
-/* Зупинка: зняти кожен буфер — тепер уже раз. */
-for (i = 0; i < RING_N; i++)
-    dma_unmap_single(dev, dma[i], BUF_SZ, DMA_FROM_DEVICE);
-```
+:::code proj-dma-mapping/c/tsina-na-pototsi-paketiv-i.c
 
 Пара `dma_sync_single_for_cpu` / `dma_sync_single_for_device` — це та сама естафета володіння, тільки **без зняття мапінгу**: `for_cpu` позичає буфер процесору назад (знецінює кеш, щоб CPU побачив дані карти), `for_device` повертає його карті (виштовхує кеш, щоб карта побачила зміни). IOVA лишається живою, IOTLB не чіпається. Саме так працює й `page_pool` у сучасних драйверах — тримає DMA-мапінги в кеші й переганяє сторінки по колу, а не мапує їх щоразу. Дорогий цикл map/unmap амортизується на тисячі пакетів у майже нуль.
 

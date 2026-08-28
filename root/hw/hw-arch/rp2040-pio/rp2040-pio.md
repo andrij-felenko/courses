@@ -65,37 +65,8 @@ PIO  →  частка ядра ≈ 0 %  при будь-якому N
 Подивімося на справжню програму, що генерує WS2812. Її пишуть не на C, а спеціальним міні-асемблером `pioasm` — рідною мовою PIO. Дільник такту виставлено так, що автомат працює на 20 МГц (один такт ≈ 50 нс), і один біт займає 25 тактів ≈ 1.25 мкс — рівно стільки, скільки вимагає WS2812.
 
 :::tabs
-```asm
-; WS2812 — pioasm; автомат на 20 МГц, 1 такт ≈ 50 нс, 1 біт = 25 тактів
-.program ws2812
-.side_set 1               ; side-set керує 1 ніжкою (DATA) паралельно з командою
-
-.wrap_target
-bitloop:
-    out x, 1   side 0 [6]  ; зсунути 1 біт у X; ніжка LOW   (7 тактів = 350 нс)
-    jmp !x, do0 side 1 [3] ; X==0 → do0; ніжка HIGH, фронт вгору (+4 такти)
-    jmp bitloop side 1 [11]; біт «1»: HIGH ще +12 тактів  → T1H ≈ 800 нс
-do0:
-    jmp bitloop side 0 [7] ; біт «0»: LOW  +8 тактів       → T0H ≈ 400 нс
-.wrap
-```
-```python
-# WS2812 — rp2.asm_pio; автомат на 20 МГц, 1 такт ≈ 50 нс, 1 біт = 25 тактів
-import rp2
-from rp2 import PIO
-
-@rp2.asm_pio(sideset_init=PIO.OUT_LOW,          # side-set керує 1 ніжкою (DATA) паралельно з командою
-             out_shiftdir=PIO.SHIFT_LEFT, autopull=True, pull_thresh=24)
-def ws2812():
-    wrap_target()
-    label("bitloop")
-    out(x, 1)            .side(0) [6]   # зсунути 1 біт у X; ніжка LOW   (7 тактів = 350 нс)
-    jmp(not_x, "do0")   .side(1) [3]   # X==0 → do0; ніжка HIGH, фронт вгору (+4 такти)
-    jmp("bitloop")      .side(1) [11]  # біт «1»: HIGH ще +12 тактів  → T1H ≈ 800 нс
-    label("do0")
-    jmp("bitloop")      .side(0) [7]   # біт «0»: LOW  +8 тактів       → T0H ≈ 400 нс
-    wrap()
-```
+:::code rp2040-pio/asm/main.s
+:::code rp2040-pio/py/iak-vyhliadaie-realna-pio.py
 :::
 
 Кожна команда тут робить дві речі одночасно. Основну дію (зсунути біт, перевірити умову, стрибнути) і — через `side 0`/`side 1` — паралельно виставляє стан ніжки DATA, не витрачаючи на це окремого такту. Число у квадратних дужках `[n]` — це затримка: автомат після команди чекає ще `n` тактів. Складаючи такти команди й затримки, програміст вимірює тривалість кожної фази сигналу з точністю до 50 нс. Різниця між «1» і «0» — лише в тому, наскільки довго ніжка тримається у стані HIGH, тобто в кількості тактів затримки.
@@ -107,48 +78,8 @@ def ws2812():
 Решта — звичайний C-драйвер навколо цієї програми: він заливає її в автомат, виставляє дільник такту й вихідну ніжку, а далі лише кладе кольори пікселів у FIFO.
 
 :::tabs
-```cpp
-#include "hardware/pio.h"
-#include "hardware/clocks.h"
-#include "ws2812.pio.h"          // згенеровано pioasm із програми вище
-
-#define WS2812_PIN 16
-#define SM         0
-
-void ws2812_init(void) {
-    uint off = pio_add_program(pio0, &ws2812_program);          // залити програму
-    pio_sm_config c = ws2812_program_get_default_config(off);
-    sm_config_set_sideset_pins(&c, WS2812_PIN);                 // ніжка DATA
-    float div = (float)clock_get_hz(clk_sys) / (800000.f * 25.f);
-    sm_config_set_clkdiv(&c, div);                              // автомат на 20 МГц
-    sm_config_set_out_shift(&c, false, true, 24);              // autopull 24 біти (GRB)
-    pio_gpio_init(pio0, WS2812_PIN);
-    pio_sm_set_consecutive_pindirs(pio0, SM, WS2812_PIN, 1, true);
-    pio_sm_init(pio0, SM, off, &c);
-    pio_sm_set_enabled(pio0, SM, true);                         // пуск
-}
-
-void ws2812_send(const uint32_t *pixels, uint n) {
-    for (uint i = 0; i < n; i++)
-        pio_sm_put_blocking(pio0, SM, pixels[i] << 8u);        // ядро лише годує FIFO
-}
-```
-```python
-import rp2
-from machine import Pin
-
-WS2812_PIN = 16
-# autopull 24 біти (GRB) і напрям зсуву задано в декораторі @rp2.asm_pio(ws2812) вище
-
-sm = rp2.StateMachine(0, ws2812,                                # залити програму
-                      freq=800_000 * 25,                        # автомат на 20 МГц
-                      sideset_base=Pin(WS2812_PIN))             # ніжка DATA
-sm.active(1)                                                    # пуск
-
-def ws2812_send(pixels):
-    for px in pixels:
-        sm.put(px << 8)                                        # ядро лише годує FIFO
-```
+:::code rp2040-pio/cpp/main.cpp
+:::code rp2040-pio/py/iak-vyhliadaie-realna-pio-2.py
 :::
 
 Ядро тут не формує жодного фронту — воно лише висипає пікселі у чергу. Точні наносекундні імпульси робить автомат. Якщо до FIFO підключити канал DMA, ядро не торкнеться передачі взагалі.

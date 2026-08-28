@@ -238,61 +238,8 @@ sizeof(short) ≤ sizeof(int) ≤ sizeof(long) ≤ sizeof(long long)
 Розглянемо практичну перевірку розмірів та розкладки полів у мовах C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stddef.h>
-
-struct MemoryBlock {
-    int id;              /* 4 байти */
-    long tag;            /* 4 байти в Windows LLP64, але 8 байтів у Linux LP64! */
-    void* payload;       /* 8 байтів на обох 64-бітних системах */
-};
-
-int main(void) {
-    printf("Розмір int:       %zu байтів\n", sizeof(int));
-    printf("Розмір long:      %zu байтів\n", sizeof(long));
-    printf("Розмір void*:     %zu байтів\n", sizeof(void*));
-    printf("Розмір uintptr_t: %zu байтів\n", sizeof(uintptr_t));
-    printf("Розмір структури: %zu байтів\n", sizeof(struct MemoryBlock));
-    printf("Зміщення payload: %zu байтів\n", offsetof(struct MemoryBlock, payload));
-
-    /* НЕБЕЗПЕЧНО: непереносне перетворення покажчика у long */
-    void* ptr = (void*)0x123456789ABCDEF0ULL;
-    /* long p_bad = (long)ptr;  -- На Windows x64 зріже старші 32 біти! */
-    uintptr_t p_safe = (uintptr_t)ptr; /* Працює всюди */
-    printf("Безпечна адреса:  0x%jx\n", (uintmax_t)p_safe);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstdint>
-#include <cstddef>
-
-struct MemoryBlock {
-    int id;              // 4 байти
-    long tag;            // 4 байти в Windows LLP64, але 8 байтів у Linux LP64!
-    void* payload;       // 8 байтів на обох 64-бітних системах
-};
-
-int main() {
-    std::cout << "Розмір int:       " << sizeof(int) << " байтів\n";
-    std::cout << "Розмір long:      " << sizeof(long) << " байтів\n";
-    std::cout << "Розмір void*:     " << sizeof(void*) << " байтів\n";
-    std::cout << "Розмір uintptr_t: " << sizeof(std::uintptr_t) << " байтів\n";
-    std::cout << "Розмір структури: " << sizeof(MemoryBlock) << " байтів\n";
-    std::cout << "Зміщення payload: " << offsetof(MemoryBlock, payload) << " байтів\n";
-
-    // ПРАВИЛЬНО: статичний контроль розрядності покажчика
-    static_assert(sizeof(std::uintptr_t) == sizeof(void*), "uintptr_t must match pointer size");
-
-    void* ptr = reinterpret_cast<void*>(0x123456789ABCDEF0ULL);
-    auto p_safe = reinterpret_cast<std::uintptr_t>(ptr);
-    std::cout << "Безпечна адреса:  0x" << std::hex << p_safe << '\n';
-    return 0;
-}
-```
+:::code processor-word-size-d/c/main.c
+:::code processor-word-size-d/cpp/main.cpp
 :::
 
 На 64-бітному Linux (LP64) вираз `(long)ptr` скомпілюється й працюватиме бездоганно, оскільки `sizeof(long) == 8 == sizeof(void*)`.

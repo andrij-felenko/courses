@@ -44,47 +44,9 @@
 
 :::tabs
 === "C"
-```c
-#include <stdint.h>
-
-/* Бітові маски та зміщення регістра ADC_CCR (STM32 ADC Common Control Register) */
-#define ADC_CCR_VREFEN_Pos      (22U)
-#define ADC_CCR_VREFEN_Msk      (0x1UL << ADC_CCR_VREFEN_Pos)
-#define ADC_CCR_VREFEN          ADC_CCR_VREFEN_Msk      /* Дозвіл буфера VREFINT */
-
-#define ADC_CCR_TSEN_Pos        (23U)
-#define ADC_CCR_TSEN_Msk        (0x1UL << ADC_CCR_TSEN_Pos)
-#define ADC_CCR_TSEN            ADC_CCR_TSEN_Msk        /* Дозвіл датчика температури */
-
-#define ADC_CCR_VBATEN_Pos      (24U)
-#define ADC_CCR_VBATEN_Msk      (0x1UL << ADC_CCR_VBATEN_Pos)
-#define ADC_CCR_VBATEN          ADC_CCR_VBATEN_Msk      /* Дозвіл внутрішнього дільника VBAT */
-
-#define ADC_CCR_PRESC_Pos       (18U)
-#define ADC_CCR_PRESC_Msk       (0xFUL << ADC_CCR_PRESC_Pos) /* Дільник тактування АЦП */
-```
+:::code api-calibration-registers/c/rehistry-spilnoho.c
 === "C++"
-```cpp
-#include <cstdint>
-
-namespace McuAdc::Registers {
-
-struct AdcCommonControl {
-    static constexpr uint32_t vref_enable_pos   = 22U;
-    static constexpr uint32_t vref_enable_mask  = (1UL << vref_enable_pos);
-
-    static constexpr uint32_t temp_enable_pos   = 23U;
-    static constexpr uint32_t temp_enable_mask  = (1UL << temp_enable_pos);
-
-    static constexpr uint32_t vbat_enable_pos   = 24U;
-    static constexpr uint32_t vbat_enable_mask  = (1UL << vbat_enable_pos);
-
-    static constexpr uint32_t prescaler_pos     = 18U;
-    static constexpr uint32_t prescaler_mask    = (0xFUL << prescaler_pos);
-};
-
-} // namespace McuAdc::Registers
-```
+:::code api-calibration-registers/cpp/rehistry-spilnoho.hpp
 :::
 
 #### Детальний аналіз функціональних бітів:
@@ -138,54 +100,9 @@ struct AdcCommonControl {
 
 :::tabs
 === "C"
-```c
-/* Коефіцієнти внутрішнього дільника VBAT для різних архітектур */
-#if defined(STM32F4) || defined(STM32F2)
-    #define MCU_VBAT_DIVIDER_RATIO      (2U)  /* Дільник 1/2: V_ADC = VBAT / 2 */
-#elif defined(STM32G0) || defined(STM32G4) || defined(STM32L4) || defined(STM32WB)
-    #define MCU_VBAT_DIVIDER_RATIO      (3U)  /* Дільник 1/3: V_ADC = VBAT / 3 */
-#elif defined(STM32H7) || defined(STM32H5) || defined(STM32U5)
-    #define MCU_VBAT_DIVIDER_RATIO      (4U)  /* Дільник 1/4: V_ADC = VBAT / 4 */
-#else
-    #define MCU_VBAT_DIVIDER_RATIO      (3U)  /* За замовчуванням для сучасних MCU */
-#endif
-```
+:::code api-calibration-registers/c/dilnyky-kanalu-batarei-za.c
 === "C++"
-```cpp
-#include <cstdint>
-
-namespace McuAdc {
-
-enum class McuFamily {
-    Stm32F4,
-    Stm32G4,
-    Stm32H7,
-    Stm32U5
-};
-
-template <McuFamily Family>
-struct FamilyTraits;
-
-template <>
-struct FamilyTraits<McuFamily::Stm32F4> {
-    static constexpr uint8_t vbat_divider = 2U;
-    static constexpr uint16_t cal_vref_mv = 3300U;
-};
-
-template <>
-struct FamilyTraits<McuFamily::Stm32G4> {
-    static constexpr uint8_t vbat_divider = 3U;
-    static constexpr uint16_t cal_vref_mv = 3000U;
-};
-
-template <>
-struct FamilyTraits<McuFamily::Stm32H7> {
-    static constexpr uint8_t vbat_divider = 4U;
-    static constexpr uint16_t cal_vref_mv = 3300U;
-};
-
-} // namespace McuAdc
-```
+:::code api-calibration-registers/cpp/dilnyky-kanalu-batarei-za.cpp
 :::
 
 ---
@@ -198,111 +115,7 @@ struct FamilyTraits<McuFamily::Stm32H7> {
 
 :::tabs
 === "C"
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/**
- * @brief Апаратні адреси заводських калібрувальних значень для STM32G4
- */
-#define STM32G4_VREFINT_CAL_ADDR   ((const volatile uint16_t*)0x1FFF75AAUL)
-#define STM32G4_TS_CAL1_ADDR       ((const volatile uint16_t*)0x1FFF75A8UL)
-#define STM32G4_TS_CAL2_ADDR       ((const volatile uint16_t*)0x1FFF75CAUL)
-
-/**
- * @brief Структура параметрів калібрування АЦП
- */
-typedef struct {
-    uint16_t vrefint_cal;    /* Значення VREFINT_CAL при напрузі калібрування */
-    uint16_t ts_cal1;        /* Значення TS_CAL1 при температурі T1 (30 °C) */
-    uint16_t ts_cal2;        /* Значення TS_CAL2 при температурі T2 (110 або 130 °C) */
-    uint16_t cal_vref_mv;    /* Еталонна напруга калібрування (типово 3000 мВ) */
-    int16_t  ts_cal1_temp;   /* Температура калібрування точки 1 (°C) */
-    int16_t  ts_cal2_temp;   /* Температура калібрування точки 2 (°C) */
-    uint8_t  vbat_div;       /* Коефіцієнт дільника напруги батареї VBAT */
-    bool     valid;          /* Прапорець достовірності даних у пам'яті */
-} McuAdcCalibrationData;
-
-static inline McuAdcCalibrationData mcu_adc_read_factory_cal(void) {
-    McuAdcCalibrationData cal;
-    cal.vrefint_cal  = *STM32G4_VREFINT_CAL_ADDR;
-    cal.ts_cal1      = *STM32G4_TS_CAL1_ADDR;
-    cal.ts_cal2      = *STM32G4_TS_CAL2_ADDR;
-    cal.cal_vref_mv  = 3000U;
-    cal.ts_cal1_temp = 30;
-    cal.ts_cal2_temp = 130;
-    cal.vbat_div     = 3U;
-
-    // Перевірка цілісності: діапазон валідних значень для 12-бітного АЦП
-    if ((cal.vrefint_cal > 1000 && cal.vrefint_cal < 2500) &&
-        (cal.ts_cal1 > 500 && cal.ts_cal1 < 3000) &&
-        (cal.ts_cal2 > cal.ts_cal1 && cal.ts_cal2 < 4095)) {
-        cal.valid = true;
-    } else {
-        // Fallback константи при пошкодженій або незаписаній Flash
-        cal.vrefint_cal = 1650;
-        cal.ts_cal1     = 1035;
-        cal.ts_cal2     = 1380;
-        cal.valid       = false;
-    }
-
-    return cal;
-}
-```
+:::code api-calibration-registers/c/struktury-danykh.c
 === "C++"
-```cpp
-#include <cstdint>
-#include <span>
-#include <optional>
-
-namespace McuAdc {
-
-/**
- * @brief Структура заводського калібрування з типізованими параметрами
- */
-struct FactoryCalibration {
-    uint16_t vrefint_cal{1650};
-    uint16_t ts_cal1{1035};
-    uint16_t ts_cal2{1380};
-    uint16_t cal_vref_mv{3000};
-    int16_t  ts_cal1_temp_c{30};
-    int16_t  ts_cal2_temp_c{130};
-    uint8_t  vbat_multiplier{3};
-
-    [[nodiscard]] constexpr bool is_valid() const noexcept {
-        return (vrefint_cal > 1000 && vrefint_cal < 2500) &&
-               (ts_cal1 > 500 && ts_cal1 < 3000) &&
-               (ts_cal2 > ts_cal1 && ts_cal2 < 4095);
-    }
-};
-
-/**
- * @brief Безпечне читання заводських констант для сімейства STM32G4
- */
-[[nodiscard]] inline FactoryCalibration read_hardware_calibration() noexcept {
-    constexpr uintptr_t addr_vrefint = 0x1FFF75AAUL;
-    constexpr uintptr_t addr_ts_cal1 = 0x1FFF75A8UL;
-    constexpr uintptr_t addr_ts_cal2 = 0x1FFF75CAUL;
-
-    FactoryCalibration cal;
-    cal.vrefint_cal     = *reinterpret_cast<const volatile uint16_t*>(addr_vrefint);
-    cal.ts_cal1         = *reinterpret_cast<const volatile uint16_t*>(addr_ts_cal1);
-    cal.ts_cal2         = *reinterpret_cast<const volatile uint16_t*>(addr_ts_cal2);
-    cal.cal_vref_mv     = 3000;
-    cal.ts_cal1_temp_c  = 30;
-    cal.ts_cal2_temp_c  = 130;
-    cal.vbat_multiplier = 3;
-
-    if (!cal.is_valid()) {
-        // Fallback константи при пошкодженій системній пам'яті
-        cal.vrefint_cal = 1650;
-        cal.ts_cal1     = 1035;
-        cal.ts_cal2     = 1380;
-    }
-
-    return cal;
-}
-
-} // namespace McuAdc
-```
+:::code api-calibration-registers/cpp/struktury-danykh.cpp
 :::

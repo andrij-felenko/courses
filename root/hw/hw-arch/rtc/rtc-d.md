@@ -63,86 +63,8 @@
 **Умова: написати дату-час у DS3231 (адреса 0x68), потім читати його назад.** Ключ — перевід між звичайним числом і BCD та порядок регістрів від 0x00.
 
 :::tabs
-```cpp
-#include <Wire.h>
-#define DS3231_ADDR 0x68
-
-// звичайне число → BCD (десяткові цифри по півбайтах)
-uint8_t decToBcd(uint8_t v) { return (v / 10) << 4 | (v % 10); }
-// BCD → звичайне число
-uint8_t bcdToDec(uint8_t b) { return (b >> 4) * 10 + (b & 0x0F); }
-
-// виставити час один раз: 2026-06-11, 14:30:00, середа (день тижня 1..7)
-void setTime() {
-  Wire.beginTransmission(DS3231_ADDR);
-  Wire.write(0x00);             // почати з регістра секунд
-  Wire.write(decToBcd(0));      // 0x00 секунди
-  Wire.write(decToBcd(30));     // 0x01 хвилини
-  Wire.write(decToBcd(14));     // 0x02 години (24-годинний режим)
-  Wire.write(decToBcd(4));      // 0x03 день тижня (1..7)
-  Wire.write(decToBcd(11));     // 0x04 число
-  Wire.write(decToBcd(6));      // 0x05 місяць
-  Wire.write(decToBcd(26));     // 0x06 рік (від 2000)
-  Wire.endTransmission();
-}
-
-void setup() {
-  Serial.begin(115200);
-  Wire.begin();
-  // setTime();   // розкоментувати ОДИН раз, щоб завести годинник
-}
-
-void loop() {
-  // 1) сказати, з якого регістра читати
-  Wire.beginTransmission(DS3231_ADDR);
-  Wire.write(0x00);                       // покажчик на секунди
-  Wire.endTransmission(false);            // false = повторний старт, шину не відпускаємо
-  // 2) прочитати 7 байтів підряд (авто-інкремент регістра)
-  Wire.requestFrom(DS3231_ADDR, 7);
-  uint8_t ss  = bcdToDec(Wire.read() & 0x7F);  // лишаємо 7 бітів цифр секунд
-  uint8_t mm  = bcdToDec(Wire.read());
-  uint8_t hh  = bcdToDec(Wire.read() & 0x3F);  // 24-год. режим: біти 6..0
-  Wire.read();                                  // день тижня — пропускаємо
-  uint8_t day = bcdToDec(Wire.read());
-  uint8_t mon = bcdToDec(Wire.read());
-  uint8_t yr  = bcdToDec(Wire.read());
-
-  Serial.printf("20%02u-%02u-%02u %02u:%02u:%02u\n", yr, mon, day, hh, mm, ss);
-  delay(1000);
-}
-```
-```micropython
-from machine import Pin, I2C
-import time
-
-DS3231_ADDR = 0x68
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))   # свої ноги шини
-
-def dec_to_bcd(v):  return (v // 10) << 4 | (v % 10)   # число → BCD
-def bcd_to_dec(b):  return (b >> 4) * 10 + (b & 0x0F)  # BCD → число
-
-# виставити час один раз: 2026-06-11, 14:30:00, середа (день тижня 1..7)
-def set_time():
-    payload = bytes(dec_to_bcd(x) for x in (0, 30, 14, 4, 11, 6, 26))
-    #                                   сек хв год дт  чис міс рік
-    i2c.writeto_mem(DS3231_ADDR, 0x00, payload)  # запис від регістра 0x00
-
-# set_time()   # розкоментувати ОДИН раз, щоб завести годинник
-
-while True:
-    # прочитати 7 байтів від регістра 0x00 (авто-інкремент усередині)
-    d = i2c.readfrom_mem(DS3231_ADDR, 0x00, 7)
-    ss  = bcd_to_dec(d[0] & 0x7F)   # лишаємо 7 бітів цифр секунд
-    mm  = bcd_to_dec(d[1])
-    hh  = bcd_to_dec(d[2] & 0x3F)   # 24-год. режим: біти 6..0
-    # d[3] — день тижня, пропускаємо
-    day = bcd_to_dec(d[4])
-    mon = bcd_to_dec(d[5])
-    yr  = bcd_to_dec(d[6])
-
-    print("20%02u-%02u-%02u %02u:%02u:%02u" % (yr, mon, day, hh, mm, ss))
-    time.sleep(1)
-```
+:::code rtc-d/cpp/main.cpp
+:::code rtc-d/py/micropython/main.py
 :::
 
 Розберімо, що тут відбувається. Запис часу — це «у пристрій 0x68, починаючи з регістра 0x00, поклади сім байтів»; завдяки **авто-інкременту** покажчик сам переходить 0x00 → 0x01 → … після кожного байта, тож сім полів лягають одним обміном. Читання — дзеркальне: спершу холостим записом ставимо покажчик на 0x00, тоді **повторним стартом** (`endTransmission(false)`) забираємо сім байтів зразу. Кожен — BCD, тому проганяємо через `bcdToDec`. Дрібні маски (`& 0x7F`, `& 0x3F`) гасять службові біти, що ділять байт із цифрами часу. На практиці цю саму роботу за вас зробить бібліотека (RTClib і подібні), але всередині в неї — рівно цей обмін.

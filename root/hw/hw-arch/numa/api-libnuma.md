@@ -100,19 +100,7 @@ long get_mempolicy(int *mode, unsigned long *nodemask,
                    unsigned long maxnode, void *addr,
                    unsigned long flags);
 ```
-```cpp
-#include <numaif.h>
-#include <expected>
-#include <system_error>
-
-struct MemoryPolicyInfo {
-    int mode{0};
-    unsigned long nodemask{0};
-};
-
-std::expected<MemoryPolicyInfo, std::error_code> query_address_policy(
-    const void* addr, unsigned long flags = 0) noexcept;
-```
+:::code api-libnuma/cpp/get-mempolicy.cpp
 :::
 
 **Прапорці інтроспекції:**
@@ -212,43 +200,8 @@ std::expected<void, std::error_code> migrate_process_nodes(
 Ключові поля структури `pg_data_t`:
 
 :::tabs
-```c
-typedef struct pglist_data {
-    struct zone node_zones[MAX_NR_ZONES];       // масив зон пам'яті (DMA, DMA32, Normal, Movable)
-    struct zonelist node_zonelists[MAX_ZONELISTS]; // списки зон для пошуку вільної пам'яті при дефіциті
-    int nr_zones;                               // кількість активних зон на цьому вузлі
-    
-    struct page *node_mem_map;                  // масив дескрипторів фізичних сторінок (struct page)
-    unsigned long node_start_pfn;               // перший номер фізичного фрейму сторінки (Page Frame Number)
-    unsigned long node_present_pages;           // реальна кількість присутніх сторінок
-    unsigned long node_spanned_pages;           // загальний діапазон сторінок включно з дірками
-    int node_id;                                // числовий номер NUMA-вузла (0, 1, ...)
-    
-    wait_queue_head_t kswapd_wait;              // черга очікування для фонового демона вивільнення kswapd
-    struct task_struct *kswapd;                 // покажчик на потік ядра kswapd для даного вузла
-    
-    unsigned long min_unmapped_pages;           // поріг невідображених сторінок для zone_reclaim
-    unsigned long min_slab_pages;               // поріг кешів SLAB для zone_reclaim
-    
-    CACHELINE_PADDING(_pad1_);
-    spinlock_t lru_lock;                        // спінлок списків активних/неактивних сторінок (LRU)
-    struct lruvec __lruvec;                     // списки сторінок LRU для алгоритмів заміщення
-} pg_data_t;
-```
-```cpp
-// Концептуальне відображення стану зон вузла в C++
-#include <vector>
-#include <string>
-#include <cstdint>
-
-struct NumaZoneDescriptor {
-    std::string zone_name;
-    std::uint64_t free_pages{0};
-    std::uint64_t watermark_min{0};
-    std::uint64_t watermark_low{0};
-    std::uint64_t watermark_high{0};
-};
-```
+:::code api-libnuma/c/3-struktury-danykh.c
+:::code api-libnuma/cpp/3-struktury-danykh.cpp
 :::
 
 Кожен вузол має **повністю незалежні екземпляри зон та списків бадді-алокатора**. Це означає, що коли ядро виділяє сторінку на Вузлі 0, воно захоплює локальний спінлок `free_area` Вузла 0 і взагалі не контактує з пам'яттю Вузла 1, усуваючи будь-який міжпроцесорний контеншн на рівні системного алокатора сторінок.
@@ -271,122 +224,22 @@ struct NumaZoneDescriptor {
 #### Перевірка середовища та топології
 
 :::tabs
-```c
-// Перевірка підтримки NUMA (повертає -1, якщо вимкнено або не підтримується)
-int numa_available(void);
-
-// Максимальний номер NUMA-вузла в системі (наприклад, 1 для двосокетного сервера)
-int numa_max_node(void);
-
-// Кількість налаштованих та доступних вузлів
-int numa_num_configured_nodes(void);
-
-// Кількість наявних процесорних ядер у системі
-int numa_num_configured_cpus(void);
-
-// Отримання розміру пам'яті вузла та обсягу вільної пам'яті
-long long numa_node_size64(int node, long long *freep);
-
-// Відносна дистанція між двома вузлами за таблицею SLIT (10 = локально, 21 = сусід)
-int numa_distance(int node1, int node2);
-```
-```cpp
-#include <numa.h>
-#include <stdexcept>
-#include <format>
-#include <utility>
-
-class NumaTopologyInspector {
-public:
-    static bool is_supported() noexcept { return numa_available() >= 0; }
-    static int get_max_node() noexcept { return numa_max_node(); }
-    static int get_configured_nodes() noexcept { return numa_num_configured_nodes(); }
-    static int get_configured_cpus() noexcept { return numa_num_configured_cpus(); }
-    static int get_node_distance(int from, int to) noexcept { return numa_distance(from, to); }
-};
-```
+:::code api-libnuma/c/perevirka-seredovyshcha-ta.h
+:::code api-libnuma/cpp/perevirka-seredovyshcha-ta.cpp
 :::
 
 #### Виділення та звільнення пам'яті
 
 :::tabs
-```c
-// Виділити пам'ять на конкретному вузлі
-void* numa_alloc_onnode(size_t size, int node);
-
-// Виділити пам'ять на локальному вузлі поточного потоку
-void* numa_alloc_local(size_t size);
-
-// Виділити пам'ять із посторінковим чергуванням між усіма вузлами
-void* numa_alloc_interleaved(size_t size);
-
-// Виділити пам'ять із чергуванням за заданою маскою вузлів
-void* numa_alloc_interleaved_subset(size_t size, struct bitmask *nodemask);
-
-// Звільнити пам'ять, виділену функціями numa_alloc_*
-void numa_free(void *start, size_t size);
-```
-```cpp
-#include <numa.h>
-#include <span>
-#include <memory>
-#include <stdexcept>
-
-template <typename T>
-class NumaScopedBlock {
-public:
-    NumaScopedBlock(std::size_t count, int node) : count_(count), bytes_(count * sizeof(T)) {
-        ptr_ = static_cast<T*>(numa_alloc_onnode(bytes_, node));
-        if (!ptr_) throw std::bad_alloc();
-    }
-    ~NumaScopedBlock() noexcept {
-        if (ptr_) numa_free(ptr_, bytes_);
-    }
-    [[nodiscard]] std::span<T> span() noexcept { return {ptr_, count_}; }
-private:
-    T* ptr_{nullptr};
-    std::size_t count_{0};
-    std::size_t bytes_{0};
-};
-```
+:::code api-libnuma/c/vydilennia-ta-zvilnennia.h
+:::code api-libnuma/cpp/vydilennia-ta-zvilnennia.cpp
 :::
 
 #### Керування прив'язкою потоків і процесів
 
 :::tabs
-```c
-// Прив'язати виконання поточного процесу/потоку до ядер вказаного вузла
-int numa_run_on_node(int node);
-
-// Прив'язати виконання до маски ядер
-int numa_run_on_node_mask(struct bitmask *nodemask);
-
-// Встановити жорстку прив'язку виконання і пам'яті (CPU + Memory Bind)
-void numa_bind(struct bitmask *nodemask);
-
-// Встановити бажаний вузол для виділення пам'яті
-void numa_set_preferred(int node);
-
-// Встановити маску для чергування сторінок у поточному потоці
-void numa_set_interleave_mask(struct bitmask *nodemask);
-```
-```cpp
-#include <numa.h>
-#include <stdexcept>
-#include <format>
-
-class NumaThreadAffinityManager {
-public:
-    static void bind_current_thread_to_node(int node) {
-        if (numa_run_on_node(node) != 0) {
-            throw std::runtime_error(std::format("Не вдалося прив'язати потік до вузла {}", node));
-        }
-    }
-    static void set_preferred_memory_node(int node) noexcept {
-        numa_set_preferred(node);
-    }
-};
-```
+:::code api-libnuma/c/keruvannia-pryviazkoiu.h
+:::code api-libnuma/cpp/keruvannia-pryviazkoiu.cpp
 :::
 
 #### Робота зі структурою `struct bitmask`
@@ -394,60 +247,8 @@ public:
 Бібліотека `libnuma` використовує динамічну структуру `bitmask` для представлення множин процесорів і вузлів будь-якого розміру:
 
 :::tabs
-```c
-#include <numa.h>
-#include <stdio.h>
-
-void configure_nodes(void) {
-    // Виділення бітової маски під усі можливі вузли системи
-    struct bitmask *nodes = numa_allocate_nodemask();
-
-    // Очищення маски
-    numa_bitmask_clearall(nodes);
-
-    // Встановлення бітів для Вузла 0 та Вузла 2
-    numa_bitmask_setbit(nodes, 0);
-    numa_bitmask_setbit(nodes, 2);
-
-    if (numa_bitmask_isbitset(nodes, 0)) {
-        printf("Node 0 обрано для виділення пам'яті\n");
-    }
-
-    // Звільнення пам'яті дескриптора маски
-    numa_bitmask_free(nodes);
-}
-```
-```cpp
-#include <numa.h>
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-
-// Безпечна RAII-обгортка для struct bitmask
-struct BitmaskDeleter {
-    void operator()(bitmask* bm) const noexcept {
-        if (bm) numa_bitmask_free(bm);
-    }
-};
-using ScopedBitmask = std::unique_ptr<bitmask, BitmaskDeleter>;
-
-ScopedBitmask make_scoped_nodemask() {
-    bitmask* bm = numa_allocate_nodemask();
-    if (!bm) throw std::bad_alloc();
-    return ScopedBitmask(bm);
-}
-
-void configure_nodes_cpp() {
-    auto nodes = make_scoped_nodemask();
-    numa_bitmask_clearall(nodes.get());
-    numa_bitmask_setbit(nodes.get(), 0);
-    numa_bitmask_setbit(nodes.get(), 2);
-
-    if (numa_bitmask_isbitset(nodes.get(), 0)) {
-        std::cout << "Node 0 обрано для виділення пам'яті\n";
-    }
-}
-```
+:::code api-libnuma/c/robota-zi-strukturoiu.c
+:::code api-libnuma/cpp/robota-zi-strukturoiu.cpp
 :::
 
 ---
@@ -458,27 +259,7 @@ void configure_nodes_cpp() {
 
 Головний системний інструмент запуску процесів із попередньо налаштованими політиками прив'язки.
 
-```bash
-# 1. Виведення апаратної топології системи: кількість вузлів, ядер, обсяг пам'яті та таблиця SLIT
-numactl --hardware
-# або скорочено:
-numactl -H
-
-# 2. Виведення поточної політики NUMA для активного сеансу shell
-numactl --show
-
-# 3. Запуск процесу з прив'язкою до ядер та пам'яті Вузла 0 (повна локалізація)
-numactl --cpunodebind=0 --membind=0 ./my_server_node0
-
-# 4. Запуск процесу з прив'язкою до конкретних фізичних ядер (наприклад, ядра 0-15)
-numactl --physcpubind=0-15 --membind=0 ./compute_task
-
-# 5. Запуск процесу з посторінковим чергуванням між усіма доступними вузлами
-numactl --interleave=all ./postgres -D /data/pg_db
-
-# 6. Запуск процесу з бажаним виділенням на Вузлі 1 (з можливістю fallback)
-numactl --preferred=1 ./worker_app
-```
+:::code api-libnuma/sh/utylita-numactl.sh
 
 #### Прапорці утиліти `numactl`:
 
@@ -495,19 +276,7 @@ numactl --preferred=1 ./worker_app
 
 Виводить статистику звернень до пам'яті для кожного вузла системи.
 
-```bash
-# Перегляд загальної системної статистики
-numastat
-
-# Перегляд статистики пам'яті у зручному форматі (МБ) за вузлами
-numastat -m
-
-# Перегляд розподілу пам'яті конкретного процесу за його PID
-numastat -p 12345
-
-# Неперервний моніторинг із періодом оновлення 1 секунда
-watch -n 1 numastat -c
-```
+:::code api-libnuma/sh/utylita-numastat.sh
 
 ---
 
@@ -638,60 +407,8 @@ hwloc-ps -a
 #### Програмний інтерфейс C/C++ бібліотеки `hwloc`
 
 :::tabs
-```c
-#include <hwloc.h>
-#include <stdio.h>
-
-void print_hwloc_topology(void) {
-    hwloc_topology_t topo;
-    hwloc_topology_init(&topo);
-    hwloc_topology_load(topo);
-
-    // Отримання кількості NUMA-вузлів через тип HWLOC_OBJ_NUMANODE
-    int num_nodes = hwloc_get_nbobjs_by_type(topo, HWLOC_OBJ_NUMANODE);
-    printf("Виявлено NUMA-вузлів через hwloc: %d\n", num_nodes);
-
-    for (int i = 0; i < num_nodes; ++i) {
-        hwloc_obj_t node = hwloc_get_obj_by_type(topo, HWLOC_OBJ_NUMANODE, i);
-        printf("  NUMANode #%d: обсяг пам'яті = %.2f ГБ\n",
-               node->os_index,
-               (double)node->attr->numanode.memory_overhead / (1024 * 1024 * 1024));
-    }
-
-    hwloc_topology_destroy(topo);
-}
-```
-```cpp
-#include <hwloc.h>
-#include <iostream>
-#include <memory>
-#include <format>
-#include <stdexcept>
-
-struct HwlocTopologyDeleter {
-    void operator()(hwloc_topology_t topo) const noexcept {
-        if (topo) hwloc_topology_destroy(topo);
-    }
-};
-using UniqueTopology = std::unique_ptr<hwloc_topology, HwlocTopologyDeleter>;
-
-void print_hwloc_topology_cpp() {
-    hwloc_topology_t raw_topo;
-    if (hwloc_topology_init(&raw_topo) != 0) {
-        throw std::runtime_error("hwloc_topology_init failed");
-    }
-    UniqueTopology topo(raw_topo);
-    hwloc_topology_load(topo.get());
-
-    const int num_nodes = hwloc_get_nbobjs_by_type(topo.get(), HWLOC_OBJ_NUMANODE);
-    std::cout << std::format("Виявлено NUMA-вузлів через hwloc: {}\n", num_nodes);
-
-    for (int i = 0; i < num_nodes; ++i) {
-        const hwloc_obj_t node = hwloc_get_obj_by_type(topo.get(), HWLOC_OBJ_NUMANODE, i);
-        std::cout << std::format("  NUMANode #{}: індекс ОС = {}\n", i, node->os_index);
-    }
-}
-```
+:::code api-libnuma/c/prohramnyi-interfeis-c-c.c
+:::code api-libnuma/cpp/prohramnyi-interfeis-c-c.cpp
 :::
 
 ---

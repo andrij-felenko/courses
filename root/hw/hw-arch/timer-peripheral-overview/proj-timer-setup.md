@@ -83,36 +83,8 @@ rcc::sync_barrier();                  // зворотне читання / ба�
 Забути «мінус один» в одному місці — отримати період на тік довший, ніж треба. На тисячі тіків це 1000 ppm, тобто в п'ятдесят разів гірше за похибку кварцу; помилка мала на око й величезна за міркою точного часу. Найдешевша страховка — не писати числа руками, а порахувати їх із вимог і перевірити на етапі компіляції:
 
 :::tabs
-```c
-#define TIMCLK_HZ   84000000u   /* частота, що доходить до TIM3 (не PCLK1!) */
-#define TICK_HZ      1000000u   /* хочемо тік 1 мкс */
-#define PERIOD_HZ       1000u   /* хочемо період 1 мс */
-
-#define PSC_VAL  (TIMCLK_HZ / TICK_HZ   - 1u)   /* 84   − 1 = 83  */
-#define ARR_VAL  (TICK_HZ  / PERIOD_HZ  - 1u)   /* 1000 − 1 = 999 */
-#define CCR_VAL  250u                            /* 250 тіків високого рівня */
-
-_Static_assert(TIMCLK_HZ % TICK_HZ  == 0u, "передільник не цілий — тік поїде");
-_Static_assert(TICK_HZ % PERIOD_HZ  == 0u, "межа не ціла — період поїде");
-_Static_assert(PSC_VAL <= 0xFFFFu,         "PSC не влазить у 16 бітів");
-_Static_assert(ARR_VAL <= 0xFFFFu,         "TIM3 шістнадцятибітний, ARR завеликий");
-_Static_assert(CCR_VAL <= ARR_VAL + 1u,    "поріг за межею періоду — збігу не буде");
-```
-```cpp
-constexpr uint32_t timclk_hz = 84'000'000;
-constexpr uint32_t tick_hz   = 1'000'000;
-constexpr uint32_t period_hz = 1'000;
-
-constexpr uint32_t psc_val = (timclk_hz / tick_hz) - 1;
-constexpr uint32_t arr_val = (tick_hz / period_hz) - 1;
-constexpr uint32_t ccr_val = 250;
-
-static_assert(timclk_hz % tick_hz == 0, "передільник не цілий");
-static_assert(tick_hz % period_hz == 0, "межа не ціла");
-static_assert(psc_val <= 0xFFFF,        "PSC не влазить у 16 бітів");
-static_assert(arr_val <= 0xFFFF,        "ARR не влазить у 16 бітів");
-static_assert(ccr_val <= arr_val + 1,   "поріг за межею періоду");
-```
+:::code proj-timer-setup/c/krok-druhyi-dva-chysla-i.h
+:::code proj-timer-setup/cpp/krok-druhyi-dva-chysla-i.hpp
 :::
 
 П'ять перевірок, які нічого не коштують під час роботи, ловлять п'ять найчастіших способів схибити. Перевірка ширини ARR особливо доречна саме на шістнадцятибітному таймері: варто взяти період довший за 65 536 тіків — і без неї число мовчки обріжеться до молодших шістнадцяти бітів, а період вийде яким завгодно.
@@ -221,18 +193,7 @@ void TIM3_IRQHandler(void)
     }
 }
 ```
-```cpp
-#include <atomic>
-
-std::atomic<uint32_t> ms_ticks{0};
-
-extern "C" void TIM3_IRQHandler() {
-    if (TIM3->SR & TIM_SR_UIF) {
-        TIM3->SR = ~TIM_SR_UIF;
-        ms_ticks.fetch_add(1, std::memory_order_relaxed);
-    }
-}
-```
+:::code proj-timer-setup/cpp/krok-shostyi-praporets.cpp
 :::
 
 Слово `volatile` (або `std::atomic` у C++) біля змінної теж не прикраса: її міняє переривання, і без цього компілятор має повне право прочитати її один раз перед циклом і більше не перечитувати — а цикл очікування «поки не мине 10 мс» стане вічним.
@@ -240,94 +201,8 @@ extern "C" void TIM3_IRQHandler() {
 ## Уся ініціалізація разом
 
 :::tabs
-```c
-#include "stm32f4xx.h"   /* CMSIS: описи TIM3, RCC, GPIOA, NVIC і назви бітів */
-
-void tim3_init(void)
-{
-    /* 1 — такт периферії; без нього наступні записи впадуть у порожнечу */
-    RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
-    (void)RCC->APB1ENR;
-
-    /* 2 — ніжка PA6 віддається каналу 1 (альтернативна функція 2) */
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-    (void)RCC->AHB1ENR;
-    GPIOA->AFR[0] = (GPIOA->AFR[0] & ~(0xFu << (6 * 4))) | (2u << (6 * 4));
-    GPIOA->MODER  = (GPIOA->MODER  & ~(3u << (6 * 2))) | (2u << (6 * 2));
-
-    /* 3 — часова база: обидва регістри зберігають «на одиницю менше» */
-    TIM3->PSC = PSC_VAL;    /* 83  → ділити на 84  → тік 1 мкс   */
-    TIM3->ARR = ARR_VAL;    /* 999 → 1000 тіків    → період 1 мс */
-
-    /* 4 — канал 1: ШІМ, високий рівень перші 250 тіків із 1000 */
-    TIM3->CCR1  = CCR_VAL;
-    TIM3->CCMR1 = (6u << TIM_CCMR1_OC1M_Pos)   /* 110 — ШІМ, режим 1     */
-                | TIM_CCMR1_OC1PE;             /* поріг теж через тінь   */
-    TIM3->CCER |= TIM_CCER_CC1E;               /* вивести канал на ніжку */
-
-    /* 5 — межа міняється тільки на межі періоду */
-    TIM3->CR1 |= TIM_CR1_ARPE;
-
-    /* 6 — перенести PSC/ARR/CCR у тіні негайно, не турбуючи переривання */
-    TIM3->CR1 |= TIM_CR1_URS;
-    TIM3->EGR  = TIM_EGR_UG;
-    TIM3->SR   = ~TIM_SR_UIF;
-
-    /* 7 — дозволити переривання: спершу в таймері, потім у контролері */
-    TIM3->DIER |= TIM_DIER_UIE;
-    NVIC_SetPriority(TIM3_IRQn, 5);
-    NVIC_EnableIRQ(TIM3_IRQn);
-
-    /* 8 — і тільки тепер пустити лічбу */
-    TIM3->CR1 |= TIM_CR1_CEN;
-}
-```
-```cpp
-#include "stm32f4xx.h"
-
-namespace hal::timer {
-
-struct hardware_timer3 {
-    static void init() {
-        // 1. Увімкнення тактування
-        RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
-        (void)RCC->APB1ENR;
-
-        // 2. Альтернативна функція піна PA6
-        RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-        (void)RCC->AHB1ENR;
-        GPIOA->AFR[0] = (GPIOA->AFR[0] & ~(0xFu << (6 * 4))) | (2u << (6 * 4));
-        GPIOA->MODER  = (GPIOA->MODER  & ~(3u << (6 * 2))) | (2u << (6 * 2));
-
-        // 3. База часу
-        TIM3->PSC = psc_val;
-        TIM3->ARR = arr_val;
-
-        // 4. ШІМ канал 1
-        TIM3->CCR1  = ccr_val;
-        TIM3->CCMR1 = (6u << TIM_CCMR1_OC1M_Pos) | TIM_CCMR1_OC1PE;
-        TIM3->CCER |= TIM_CCER_CC1E;
-
-        // 5. Буферизація ARR
-        TIM3->CR1 |= TIM_CR1_ARPE;
-
-        // 6. Оновлення тіней
-        TIM3->CR1 |= TIM_CR1_URS;
-        TIM3->EGR  = TIM_EGR_UG;
-        TIM3->SR   = ~TIM_SR_UIF;
-
-        // 7. Дозвіл переривань
-        TIM3->DIER |= TIM_DIER_UIE;
-        NVIC_SetPriority(TIM3_IRQn, 5);
-        NVIC_EnableIRQ(TIM3_IRQn);
-
-        // 8. Старт лічби
-        TIM3->CR1 |= TIM_CR1_CEN;
-    }
-};
-
-} // namespace hal::timer
-```
+:::code proj-timer-setup/c/usia-initsializatsiia.c
+:::code proj-timer-setup/cpp/usia-initsializatsiia.cpp
 :::
 
 Порядок двох останніх кроків теж не довільний. Дозвіл у самому таймері (біт UIE) і дозвіл у контролері переривань — це два різні вентилі, і між ними є асиметрія. Якщо ввімкнути лічбу раніше, ніж дозволити переривання, перше переповнення підніме прапорець, поки ніхто не слухає, — і щойно ви дозволите переривання, обробник викличеться миттєво з «простроченої» події. Зворотний порядок, як у коді вище, цього не допускає: до першого спрацювання лічильник іще навіть не почав рахувати. Про те, як контролер переривань вирішує, кого пускати першим, — у статті [NVIC Cortex-M](root:hw-arch/nvic-cortex-m).
@@ -349,19 +224,7 @@ uint16_t tcnt1_read(void)
     return v;
 }
 ```
-```cpp
-// RAII блокування переривань у C++
-struct irq_lock {
-    uint8_t sreg = SREG;
-    irq_lock() { cli(); }
-    ~irq_lock() { SREG = sreg; }
-};
-
-uint16_t tcnt1_read() {
-    irq_lock lock;
-    return TCNT1;
-}
-```
+:::code proj-timer-setup/cpp/chytannia-lichylnyka.cpp
 :::
 
 Зверніть увагу на збереження й відновлення регістра стану замість простого `sei()` наприкінці. Функцію можуть покликати з місця, де переривання вже були заборонені, і безумовний дозвіл тихо відкрив би вікно посеред чужої критичної ділянки.
@@ -374,40 +237,8 @@ uint16_t tcnt1_read() {
 Гірше того, самої лише повторної перевірки старшої половини замало. Уявімо, що перескок стався, але обробник ще не запустився — процесор саме всередині переривання вищого пріоритету. Старша половина не змінилася й не зміниться, скільки не перечитуй, а молодша вже почала новий період. Єдиний свідок — прапорець переповнення, який стоїть піднятий і чекає свого обробника. Отже, читати треба **три** речі, і прапорець серед них:
 
 :::tabs
-```c
-uint32_t micros_since_start(void)
-{
-    uint32_t hi, cnt, pending;
-
-    do {
-        hi      = ms_ticks;                  /* старша половина  */
-        cnt     = TIM3->CNT;                 /* молодша половина */
-        pending = TIM3->SR & TIM_SR_UIF;     /* перескок стався, обробник ще ні? */
-    } while (hi != ms_ticks);                /* обробник утрутився — перечитати */
-
-    if (pending && cnt < (ARR_VAL / 2u))     /* знімок узято вже після нуля */
-        hi++;
-
-    return hi * 1000u + cnt;
-}
-```
-```cpp
-uint32_t micros_since_start() {
-    uint32_t hi, cnt, pending;
-
-    do {
-        hi      = ms_ticks.load(std::memory_order_relaxed);
-        cnt     = TIM3->CNT;
-        pending = TIM3->SR & TIM_SR_UIF;
-    } while (hi != ms_ticks.load(std::memory_order_relaxed));
-
-    if (pending && cnt < (arr_val / 2u)) {
-        hi++;
-    }
-
-    return hi * 1000u + cnt;
-}
-```
+:::code proj-timer-setup/c/chytannia-lichylnyka.c
+:::code proj-timer-setup/cpp/chytannia-lichylnyka-2.cpp
 :::
 
 Умова `cnt < ARR_VAL/2` розводить два різні випадки, у яких прапорець однаково піднятий. Якщо перескок стався **до** читання лічильника, той показує маленьке число — треба додати мілісекунду. Якщо перескок стався між читанням лічильника й читанням прапорця, лічильник показує велике число, близьке до межі, — додавати не можна, бо ця мілісекунда ще не минула. Половина періоду розділяє «маленьке» й «велике» з величезним запасом: щоб умова збрехала, між двома сусідніми рядками мало б минути півмілісекунди. Цей самий прийом стоїть під `micros()` в Arduino — там перевіряється прапорець переповнення нульового таймера й додаткова умова, що лічильник не дорахував до кінця.
@@ -421,42 +252,8 @@ uint32_t micros_since_start() {
 **Порахувати назад із самих регістрів.** Зупиніть програму налагоджувачем після ініціалізації й прочитайте PSC та ARR такими, які вони насправді стали. Це ловить обрізання ARR по шістнадцяти бітах, забуте «мінус один» і випадок, коли чужа бібліотека вже переписала ваш таймер під себе. Другу половину — частоту, від якої все рахується, — теж можна взяти не з голови, а з дерева тактування, прямо під час роботи:
 
 :::tabs
-```c
-extern const uint8_t APBPrescTable[8];   /* {0,0,0,0,1,2,3,4} — із system_stm32f4xx.c */
-
-static uint32_t tim_clk_hz(void)
-{
-    uint32_t ppre1 = (RCC->CFGR & RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;  /* біти 12:10 */
-    uint32_t pclk1 = SystemCoreClock >> APBPrescTable[ppre1];
-    return (ppre1 < 4u) ? pclk1 : pclk1 * 2u;   /* подільник 1 → як є, інакше ×2 */
-}
-
-/* період у наносекундах — з тих самих чисел, які реально лежать у залізі */
-uint32_t tim3_period_ns(void)
-{
-    uint64_t ticks = (uint64_t)(TIM3->PSC + 1u) * (TIM3->ARR + 1u);
-    return (uint32_t)(ticks * 1000000000ull / tim_clk_hz());
-}
-```
-```cpp
-#include <chrono>
-
-namespace hal::timer {
-
-uint32_t tim_clk_hz() {
-    const uint32_t ppre1 = (RCC->CFGR & RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;
-    const uint32_t pclk1 = SystemCoreClock >> APBPrescTable[ppre1];
-    return (ppre1 < 4u) ? pclk1 : pclk1 * 2u;
-}
-
-std::chrono::nanoseconds tim3_period() {
-    const uint64_t ticks = static_cast<uint64_t>(TIM3->PSC + 1u) * (TIM3->ARR + 1u);
-    const uint64_t ns = (ticks * 1'000'000'000ULL) / tim_clk_hz();
-    return std::chrono::nanoseconds(ns);
-}
-
-} // namespace hal::timer
-```
+:::code proj-timer-setup/c/system_stm32f4xx.c
+:::code proj-timer-setup/cpp/perevirka-chy-spravdi.cpp
 :::
 
 Ця функція чесна рівно настільки, наскільки чесна `SystemCoreClock`, — а вона всього лише змінна, яку хтось мав оновити після налаштування множників. Якщо є найменший сумнів, її теж рахують із регістрів, а не беруть на віру.

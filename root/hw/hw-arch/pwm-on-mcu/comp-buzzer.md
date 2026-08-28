@@ -65,34 +65,8 @@ while True:
 **Пасивний бузер — це ШІМ, де керуємо ЧАСТОТОЮ.** Меандр (50% шпаруватості) потрібної частоти змушує мембрану коливатися на цій частоті — і саме ця нота лунає. Контраст із LED: там крутили шпаруватість, тут — **частоту**.
 
 :::tabs
-```cpp
-const int BUZ = 4;
-void setup() {
-    ledcAttach(BUZ, 2000, 10);   // ніжка; стартова частота 2000 Гц; 10 біт
-}
-void loop() {
-    ledcWriteTone(BUZ, 440);     // нота «ля» — 440 Гц
-    delay(300);
-    ledcWriteTone(BUZ, 880);     // на октаву вище
-    delay(300);
-    ledcWriteTone(BUZ, 0);       // 0 Гц = тиша
-    delay(400);
-}
-```
-```micropython
-from machine import Pin, PWM
-from time import sleep_ms
-
-buz = PWM(Pin(4), freq=2000, duty=512)   # ніжка; стартова частота 2000 Гц; 50% (з 1023)
-while True:
-    buz.duty(512)
-    buz.freq(440)                # нота «ля» — 440 Гц
-    sleep_ms(300)
-    buz.freq(880)                # на октаву вище
-    sleep_ms(300)
-    buz.duty(0)                  # тиша (шпаруватість 0)
-    sleep_ms(400)
-```
+:::code comp-buzzer/cpp/main.cpp
+:::code comp-buzzer/py/micropython/main.py
 :::
 
 Синонім для новачків: `tone(pin, freq)` — робить те саме, зустрінете в прикладах. Шпаруватість лишаємо 50% — для п'єзо вона майже не впливає на гучність.

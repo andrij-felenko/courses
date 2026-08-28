@@ -28,202 +28,9 @@
 
 :::tabs
 @tab C
-```c
-/* privtrap.c — питає процесор про власний рівень і ловить його відмови.
- * Linux, x86-64.  Збірка:  cc -O2 -o privtrap privtrap.c
- */
-#define _GNU_SOURCE
-#include <setjmp.h>
-#include <signal.h>
-#include <stdio.h>
-#include <string.h>
-
-static sigjmp_buf resume;                   /* куди вертатися після пастки */
-static volatile sig_atomic_t got_signo;     /* що прилетіло */
-static volatile sig_atomic_t got_code;
-static volatile unsigned long produced;     /* що команда встигла повернути */
-
-/* Обробник. Друкувати тут не можна: в обробнику дозволені лише
-   async-signal-safe виклики, а printf до них не належить. */
-static void on_trap(int signo, siginfo_t *si, void *uctx)
-{
-    (void)uctx;
-    got_signo = signo;
-    got_code  = si->si_code;
-    siglongjmp(resume, 1);   /* просте return запустило б ту саму команду наново */
-}
-
-/* CPL — два молодші біти селектора CS. Читати CS дозволено з будь-якого кільця. */
-static unsigned cpl(void)
-{
-    unsigned short cs;
-    __asm__ volatile ("mov %%cs, %0" : "=r"(cs));
-    return cs & 3u;
-}
-
-/* Піддослідні команди. volatile — щоб оптимізатор не викинув те,
-   що з його погляду не має видимого наслідку. */
-static void t_nop  (void) { __asm__ volatile ("nop"); }
-static void t_hlt  (void) { __asm__ volatile ("hlt"); }
-static void t_cli  (void) { __asm__ volatile ("cli"); }
-static void t_cr0  (void) { unsigned long v;
-                            __asm__ volatile ("mov %%cr0, %0" : "=r"(v));
-                            produced = v; }
-static void t_rdmsr(void) { unsigned int lo, hi;
-                            __asm__ volatile ("rdmsr" : "=a"(lo), "=d"(hi)
-                                                      : "c"(0xC0000080u));
-                            produced = ((unsigned long)hi << 32) | lo; }
-static void t_smsw (void) { unsigned short w;
-                            __asm__ volatile ("smsw %0" : "=r"(w));
-                            produced = w; }
-static void t_sldt (void) { unsigned short s;
-                            __asm__ volatile ("sldt %0" : "=r"(s));
-                            produced = s; }
-static void t_ud2  (void) { __asm__ volatile ("ud2"); }
-
-struct probe { const char *mnem; void (*run)(void); const char *what; };
-
-static void try_one(const struct probe *p)
-{
-    got_signo = 0;
-    produced  = 0;
-    if (sigsetjmp(resume, 1) == 0) {     /* 1 — зберегти й відновити маску сигналів */
-        p->run();
-        printf("  %-6s виконано, результат 0x%lx   (%s)\n",
-               p->mnem, produced, p->what);
-    } else {
-        printf("  %-6s пастка: %s, si_code=%d   (%s)\n", p->mnem,
-               strsignal((int)got_signo), (int)got_code, p->what);
-    }
-}
-
-int main(void)
-{
-    static const struct probe probes[] = {
-        { "nop",   t_nop,   "звичайна команда — контрольний дослід" },
-        { "hlt",   t_hlt,   "спинити процесор" },
-        { "cli",   t_cli,   "вимкнути переривання" },
-        { "cr0",   t_cr0,   "прочитати керівний регістр CR0" },
-        { "rdmsr", t_rdmsr, "прочитати машинний регістр EFER" },
-        { "smsw",  t_smsw,  "прочитати молодші 16 бітів CR0 (спадок 80286)" },
-        { "sldt",  t_sldt,  "прочитати селектор локальної таблиці дескрипторів" },
-        { "ud2",   t_ud2,   "завжди невизначена команда — для порівняння" },
-    };
-    struct sigaction sa;
-    size_t i;
-
-    printf("рівень привілею цього процесу: CPL = %u\n\n", cpl());
-
-    memset(&sa, 0, sizeof sa);
-    sa.sa_sigaction = on_trap;
-    sa.sa_flags     = SA_SIGINFO;
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGSEGV, &sa, NULL);   /* сюди Linux переводить #GP */
-    sigaction(SIGILL,  &sa, NULL);   /* а сюди — #UD */
-
-    for (i = 0; i < sizeof probes / sizeof probes[0]; i++)
-        try_one(&probes[i]);
-    return 0;
-}
-```
+:::code proj-privileged-trap/c/privtrap.c
 @tab C++
-```cpp
-// privtrap.cpp — опитування CPL та ізольоване тестування привілейованих інструкцій
-// Linux, x86-64. Збірка: g++ -O2 -std=c++20 -o privtrap privtrap.cpp
-#define _GNU_SOURCE
-#include <array>
-#include <csetjmp>
-#include <csignal>
-#include <cstdint>
-#include <cstring>
-#include <functional>
-#include <iostream>
-#include <string_view>
-
-namespace {
-
-sigjmp_buf g_resume;
-volatile sig_atomic_t g_got_signo = 0;
-volatile sig_atomic_t g_got_code = 0;
-volatile uint64_t g_produced = 0;
-
-void on_trap(int signo, siginfo_t* si, void* /*uctx*/) {
-    g_got_signo = signo;
-    g_got_code = si->si_code;
-    siglongjmp(g_resume, 1);
-}
-
-[[nodiscard]] unsigned get_cpl() noexcept {
-    uint16_t cs = 0;
-    __asm__ volatile ("mov %%cs, %0" : "=r"(cs));
-    return static_cast<unsigned>(cs & 3u);
-}
-
-struct Probe {
-    std::string_view mnem;
-    void (*run)();
-    std::string_view description;
-};
-
-void try_one(const Probe& p) {
-    g_got_signo = 0;
-    g_produced = 0;
-    if (sigsetjmp(g_resume, 1) == 0) {
-        p.run();
-        std::cout << "  " << p.mnem << " виконано, результат 0x"
-                  << std::hex << g_produced << std::dec << " (" << p.description << ")\n";
-    } else {
-        std::cout << "  " << p.mnem << " пастка: "
-                  << strsignal(g_got_signo) << ", si_code=" << g_got_code
-                  << " (" << p.description << ")\n";
-    }
-}
-
-} // namespace
-
-int main() {
-    std::cout << "рівень привілею цього процесу: CPL = " << get_cpl() << "\n\n";
-
-    struct sigaction sa{};
-    sa.sa_sigaction = on_trap;
-    sa.sa_flags = SA_SIGINFO;
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGSEGV, &sa, nullptr);
-    sigaction(SIGILL, &sa, nullptr);
-
-    constexpr std::array probes = {
-        Probe{"nop",   [] { __asm__ volatile ("nop"); }, "звичайна команда — контроль"},
-        Probe{"hlt",   [] { __asm__ volatile ("hlt"); }, "зупинка CPU"},
-        Probe{"cli",   [] { __asm__ volatile ("cli"); }, "вимикання переривань"},
-        Probe{"cr0",   [] {
-            uint64_t v = 0;
-            __asm__ volatile ("mov %%cr0, %0" : "=r"(v));
-            g_produced = v;
-        }, "читання CR0"},
-        Probe{"rdmsr", [] {
-            uint32_t lo = 0, hi = 0;
-            __asm__ volatile ("rdmsr" : "=a"(lo), "=d"(hi) : "c"(0xC0000080u));
-            g_produced = (static_cast<uint64_t>(hi) << 32) | lo;
-        }, "читання EFER MSR"},
-        Probe{"smsw",  [] {
-            uint16_t w = 0;
-            __asm__ volatile ("smsw %0" : "=r"(w));
-            g_produced = w;
-        }, "читання 16 бітів CR0"},
-        Probe{"sldt",  [] {
-            uint16_t s = 0;
-            __asm__ volatile ("sldt %0" : "=r"(s));
-            g_produced = s;
-        }, "читання селектора LDT"},
-        Probe{"ud2",   [] { __asm__ volatile ("ud2"); }, "невизначена інструкція"}
-    };
-
-    for (const auto& probe : probes) {
-        try_one(probe);
-    }
-    return 0;
-}
-```
+:::code proj-privileged-trap/cpp/privtrap.cpp
 :::
 
 Вісім піддослідних команд підібрано не навмання. `nop` — контроль: якщо вже й вона впала, зламано саму оснастку. `hlt`, `cli`, `mov %cr0`, `rdmsr` — чотири різні способи вкласти руки в машину: спинити кристал, заглушити переривання, перепрограмувати режим процесора, залізти в машинний регістр. `smsw` і `sldt` — старі команди читання, що колись були дозволені всім. `ud2` — навпаки, команда, чия єдина робота полягає в тому, щоб бути невизначеною: процесор гарантовано відповідає на неї `#UD`. Вона потрібна, щоб відрізнити відмову «не маєш права» від відмови «такого слова взагалі не існує».
@@ -303,29 +110,7 @@ static void t_isar0(void)     { unsigned long v;
     __asm__ volatile ("mrs %0, id_aa64isar0_el1" : "=r"(v)); produced = v; }
 ```
 @tab C++
-```cpp
-// AArch64: еквівалентні лямбда-зонди на C++20
-inline auto probe_currentel = []() noexcept {
-    uint64_t v = 0;
-    __asm__ volatile ("mrs %0, CurrentEL" : "=r"(v));
-    g_produced = v >> 2;
-};
-inline auto probe_sctlr = []() noexcept {
-    uint64_t v = 0;
-    __asm__ volatile ("mrs %0, sctlr_el1" : "=r"(v));
-    g_produced = v;
-};
-inline auto probe_ctr = []() noexcept {
-    uint64_t v = 0;
-    __asm__ volatile ("mrs %0, ctr_el0" : "=r"(v));
-    g_produced = v;
-};
-inline auto probe_isar0 = []() noexcept {
-    uint64_t v = 0;
-    __asm__ volatile ("mrs %0, id_aa64isar0_el1" : "=r"(v));
-    g_produced = v;
-};
-```
+:::code proj-privileged-trap/cpp/na-arm-navit-pytannia.hpp
 :::
 
 Регістр `CurrentEL` тримає номер поточного рівня виключень — рівно те, що ми питали на x86 через `CS`. Але доступ до нього означено лише з `EL1` і вище; на `EL0` така команда взагалі не означена — процесор бере виключення невизначеної команди, і Linux шле `SIGILL` із `si_code = 1` (`ILL_ILLOPC`). Спитати «на якому я рівні» з користувацького коду не можна. Відповідь доводиться діставати від протилежного: якщо `mrs CurrentEL` впала — ви на `EL0`.
@@ -352,23 +137,7 @@ __except (GetExceptionCode() == EXCEPTION_PRIV_INSTRUCTION   /* 0xC0000096 */
 }
 ```
 @tab C++
-```cpp
-// MSVC, x64 C++: структурна обробка виключень (SEH) у C++ коді
-#include <iostream>
-#include <windows.h>
-
-extern "C" void do_hlt();
-
-void test_privileged_seh() {
-    __try {
-        do_hlt();
-    }
-    __except (GetExceptionCode() == EXCEPTION_PRIV_INSTRUCTION
-                  ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
-        std::cout << "процесор відмовив: привілейована команда (EXCEPTION_PRIV_INSTRUCTION)\n";
-    }
-}
-```
+:::code proj-privileged-trap/cpp/windows-nazyvaie-vidmovu.cpp
 :::
 
 Код `0xC0000096`, `STATUS_PRIVILEGED_INSTRUCTION`, означає буквально «спроба виконати привілейовану команду» — окремий, ні з чим не змішаний діагноз. А Linux зливає всі `#GP` в один `SIGSEGV` разом зі зверненнями до чужої пам'яті, і розрізняти доводиться за `si_code`. Апаратура під обома системами однакова до біта; різна лише мова, якою ОС переказує процесові одну й ту саму відмову заліза.
@@ -379,45 +148,9 @@ void test_privileged_seh() {
 
 :::tabs
 @tab C
-```c
-/* потребує #include <time.h> */
-static void bench(unsigned n)
-{
-    struct timespec a, b;
-    volatile unsigned i;      /* volatile — бо міняється між sigsetjmp і siglongjmp */
-
-    clock_gettime(CLOCK_MONOTONIC, &a);
-    for (i = 0; i < n; i++)
-        if (sigsetjmp(resume, 1) == 0)
-            __asm__ volatile ("hlt");
-    clock_gettime(CLOCK_MONOTONIC, &b);
-
-    printf("одна відмова ≈ %.0f нс\n",
-           ((double)(b.tv_sec - a.tv_sec) * 1e9 + (b.tv_nsec - a.tv_nsec)) / n);
-}
-```
+:::code proj-privileged-trap/c/skilky-koshtuie-odna.c
 @tab C++
-```cpp
-#include <chrono>
-#include <cstdint>
-#include <iostream>
-
-void bench_cpp(unsigned n) {
-    using clock = std::chrono::steady_clock;
-    volatile unsigned i = 0;
-
-    const auto start = clock::now();
-    for (i = 0; i < n; ++i) {
-        if (sigsetjmp(g_resume, 1) == 0) {
-            __asm__ volatile ("hlt");
-        }
-    }
-    const auto end = clock::now();
-
-    const auto total_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-    std::cout << "одна відмова ≈ " << (static_cast<double>(total_ns) / n) << " нс\n";
-}
-```
+:::code proj-privileged-trap/cpp/skilky-koshtuie-odna.cpp
 :::
 
 Порядок величини на сучасній машині — одиниці мікросекунд на одну відмову. Порівняння того варте:

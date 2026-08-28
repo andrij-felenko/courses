@@ -36,10 +36,12 @@
           "slug": "timer-peripheral-overview",
           "title": "Таймер як периферія: переповнення, порівняння, захоплення",
           "basic": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -50,7 +52,8 @@
           "proj": [
             {
               "file": "proj-timer-setup.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -92,7 +95,8 @@
           "proj": [
             {
               "file": "proj-input-capture.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -103,7 +107,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -168,7 +173,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         },
         {
@@ -178,7 +184,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]
@@ -194,7 +201,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -205,7 +213,8 @@
           "comp": [
             {
               "file": "comp-buzzer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "math": [
@@ -227,7 +236,8 @@
           "proj": [
             {
               "file": "proj-pwm-alignment.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -281,12 +291,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-power-protection.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -297,24 +310,31 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-calibration-registers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-calibration-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-calibration-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

@@ -241,25 +241,7 @@ void enter_critical_section(void) {
     __enable_irq();  /* Асемблерна інструкція CPSIE i (скидає PRIMASK) */
 }
 ```
-```cpp
-/* Ідіоматична C++ RAII-обгортка для критичної секції */
-class InterruptLock {
-public:
-    InterruptLock() noexcept {
-        __disable_irq();
-    }
-    ~InterruptLock() noexcept {
-        __enable_irq();
-    }
-    InterruptLock(const InterruptLock&) = delete;
-    InterruptLock& operator=(const InterruptLock&) = delete;
-};
-
-void update_system_state() noexcept {
-    InterruptLock lock; // Автоматичне блокування
-    update_shared_resources();
-} // Автоматичне розблокування при виході з області видимості
-```
+:::code latentnist-pereryvannia-d/cpp/main.hpp
 :::
 
 Поки прапорець `PRIMASK` піднято, сигнал переривання від аварійного компаратора чи таймера зависає в стані Pending у контролері NVIC. Реальна латентність у такому випадку дорівнює:

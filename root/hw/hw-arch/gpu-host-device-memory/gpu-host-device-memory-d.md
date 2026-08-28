@@ -105,107 +105,8 @@ I = Число операцій (FLOP) ÷ Обсяг передачі (Байт)
 Погляньмо, як відрізняється робота з фіксованою та звичайною пам'яттю в коді:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <cuda_runtime.h>
-
-#define N (16 * 1024 * 1024) /* 16M елементів = 64 МБ */
-
-int main(void) {
-    size_t bytes = N * sizeof(float);
-
-    /* 1. Звичайна сторінкова пам'ять (повільно, подвійне копіювання) */
-    float *h_pageable = (float *)malloc(bytes);
-
-    /* 2. Фіксована пам'ять (швидко, прямий DMA-коридор) */
-    float *h_pinned = NULL;
-    cudaError_t err = cudaHostAlloc((void **)&h_pinned, bytes, cudaHostAllocDefault);
-    if (err != cudaSuccess) {
-        fprintf(stderr, "Помилка cudaHostAlloc: %s\n", cudaGetErrorString(err));
-        free(h_pageable);
-        return 1;
-    }
-
-    /* 3. Пам'ять пристрою у VRAM */
-    float *d_data = NULL;
-    cudaMalloc((void **)&d_data, bytes);
-
-    /* Копіювання з Pinned пам'яті відбувається в 2-3 рази швидше */
-    cudaMemcpy(d_data, h_pinned, bytes, cudaMemcpyHostToDevice);
-
-    /* Звільнення ресурсів */
-    cudaFree(d_data);
-    cudaFreeHost(h_pinned);
-    free(h_pageable);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <memory>
-#include <stdexcept>
-#include <cuda_runtime.h>
-
-constexpr size_t N = 16 * 1024 * 1024; // 16M елементів = 64 МБ
-
-// Користувацький видаляч для керування фіксованою пам'яттю через RAII
-template <typename T>
-struct CudaHostDeleter {
-    void operator()(T* ptr) const noexcept {
-        if (ptr) {
-            cudaFreeHost(ptr);
-        }
-    }
-};
-
-template <typename T>
-using UniquePinnedHost = std::unique_ptr<T[], CudaHostDeleter<T>>;
-
-template <typename T>
-UniquePinnedHost<T> make_pinned_buffer(size_t count) {
-    void* raw_ptr = nullptr;
-    cudaError_t err = cudaHostAlloc(&raw_ptr, count * sizeof(T), cudaHostAllocDefault);
-    if (err != cudaSuccess) {
-        throw std::runtime_error(std::string("Не вдалося виділити Pinned пам'ять: ") + 
-                                 cudaGetErrorString(err));
-    }
-    return UniquePinnedHost<T>(static_cast<T*>(raw_ptr));
-}
-
-int main() {
-    try {
-        const size_t bytes = N * sizeof(float);
-
-        // 1. Звичайна пам'ять у RAII-векторі (Pageable)
-        std::vector<float> pageable_buf(N);
-
-        // 2. Фіксована пам'ять через розумний вказівник (Pinned)
-        auto pinned_buf = make_pinned_buffer<float>(N);
-
-        // 3. Пам'ять пристрою
-        float* d_data = nullptr;
-        if (cudaMalloc(&d_data, bytes) != cudaSuccess) {
-            throw std::runtime_error("Помилка cudaMalloc");
-        }
-
-        // Прямий DMA-трансфер з Pinned пам'яті
-        if (cudaMemcpy(d_data, pinned_buf.get(), bytes, cudaMemcpyHostToDevice) != cudaSuccess) {
-            cudaFree(d_data);
-            throw std::runtime_error("Помилка копіювання");
-        }
-
-        cudaFree(d_data);
-        std::cout << "Трансфер фіксованої пам'яті успішно виконано.\n";
-
-    } catch (const std::exception& e) {
-        std::cerr << "Помилка: " << e.what() << '\n';
-        return 1;
-    }
-    return 0;
-}
-```
+:::code gpu-host-device-memory-d/c/fiksovana-pamiat-pinned.c
+:::code gpu-host-device-memory-d/cpp/fiksovana-pamiat-pinned.cpp
 :::
 
 ### Ціна та небезпеки фіксованої пам'яті
@@ -287,66 +188,8 @@ int main() {
 Щоб запобігти гранулярним затримкам сторінкових промахів під час старту ядра, застосовують **явне асинхронне підтягування сторінок** (англ. *prefetching*):
 
 :::tabs
-```c
-/* C: використання керованої пам'яті з завчасним префетчингом */
-#include <cuda_runtime.h>
-
-void run_managed_computation(size_t bytes, size_t n, int device_id, cudaStream_t stream) {
-    float *data = NULL;
-    cudaMallocManaged((void **)&data, bytes, cudaMemAttachGlobal);
-
-    /* Ініціалізація на CPU */
-    for (size_t i = 0; i < n; ++i) data[i] = 1.0f;
-
-    /* Завчасне підтягування сторінок у VRAM перед стартом ядра */
-    cudaMemPrefetchAsync(data, bytes, device_id, stream);
-
-    /* Ядро стартує без жодного Page Fault */
-    /* kernel<<<grid, block, 0, stream>>>(data, n); */
-
-    /* Повернення сторінок у системну RAM */
-    cudaMemPrefetchAsync(data, bytes, cudaCpuDeviceId, stream);
-    cudaStreamSynchronize(stream);
-
-    cudaFree(data);
-}
-```
-```cpp
-/* C++: обгортка Unified Memory з автоматичним префетчингом */
-#include <cuda_runtime.h>
-#include <stdexcept>
-
-template <typename T>
-class PrefetchedManagedMemory {
-public:
-    explicit PrefetchedManagedMemory(size_t count) : count_(count) {
-        cudaError_t err = cudaMallocManaged(reinterpret_cast<void**>(&ptr_),
-                                            count_ * sizeof(T),
-                                            cudaMemAttachGlobal);
-        if (err != cudaSuccess) {
-            throw std::runtime_error("cudaMallocManaged failed");
-        }
-    }
-    ~PrefetchedManagedMemory() noexcept {
-        if (ptr_) cudaFree(ptr_);
-    }
-
-    void prefetch_to_gpu(int device_id, cudaStream_t stream = 0) {
-        cudaMemPrefetchAsync(ptr_, count_ * sizeof(T), device_id, stream);
-    }
-
-    void prefetch_to_cpu(cudaStream_t stream = 0) {
-        cudaMemPrefetchAsync(ptr_, count_ * sizeof(T), cudaCpuDeviceId, stream);
-    }
-
-    [[nodiscard]] T* data() noexcept { return ptr_; }
-    [[nodiscard]] size_t size() const noexcept { return count_; }
-
-private:
-    T *ptr_{nullptr};
-    size_t count_{0};
-};
-```
+:::code gpu-host-device-memory-d/c/pastka-probuksovuvannia.c
+:::code gpu-host-device-memory-d/cpp/pastka-probuksovuvannia.cpp
 :::
 
 Виклик `cudaMemPrefetchAsync()` змушує драйвер завчасно перенести весь масив єдиним неперервним апаратним DMA-пакетом по шині PCIe. Це зводить кількість сторінкових промахів під час роботи обчислювальних ядер до абсолютного нуля, поєднуючи простоту єдиного покажчика з піковою продуктивністю прямого DMA. Повні сигнатури функцій підтягування та підказок розміщення наведені у [специфікації інтерфейсів пам'яті](root:hw-arch/gpu-host-device-memory/api-memory-management.md).

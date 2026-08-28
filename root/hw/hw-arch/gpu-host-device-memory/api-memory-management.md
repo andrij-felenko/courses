@@ -39,53 +39,7 @@ hipError_t hipMalloc(void **ptr, size_t size);
 hipError_t hipMallocPitch(void **ptr, size_t *pitch, size_t width, size_t height);
 hipError_t hipFree(void *ptr);
 ```
-```cpp
-/* C++ RAII-обгортка з контролем винятків */
-#include <cuda_runtime.h>
-#include <stdexcept>
-#include <string>
-
-template <typename T>
-class DeviceMemory {
-public:
-    explicit DeviceMemory(size_t count) : count_(count) {
-        cudaError_t err = cudaMalloc(reinterpret_cast<void**>(&ptr_), count_ * sizeof(T));
-        if (err != cudaSuccess) {
-            throw std::runtime_error(std::string("cudaMalloc error: ") + cudaGetErrorString(err));
-        }
-    }
-    ~DeviceMemory() noexcept {
-        if (ptr_) {
-            cudaFree(ptr_);
-        }
-    }
-    DeviceMemory(const DeviceMemory&) = delete;
-    DeviceMemory& operator=(const DeviceMemory&) = delete;
-    DeviceMemory(DeviceMemory&& other) noexcept : ptr_(other.ptr_), count_(other.count_) {
-        other.ptr_ = nullptr;
-        other.count_ = 0;
-    }
-    DeviceMemory& operator=(DeviceMemory&& other) noexcept {
-        if (this != &other) {
-            if (ptr_) cudaFree(ptr_);
-            ptr_ = other.ptr_;
-            count_ = other.count_;
-            other.ptr_ = nullptr;
-            other.count_ = 0;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] T* get() noexcept { return ptr_; }
-    [[nodiscard]] const T* get() const noexcept { return ptr_; }
-    [[nodiscard]] size_t size() const noexcept { return count_; }
-    [[nodiscard]] size_t bytes() const noexcept { return count_ * sizeof(T); }
-
-private:
-    T *ptr_{nullptr};
-    size_t count_{0};
-};
-```
+:::code api-memory-management/cpp/2-1-syhnatury-funktsii.cpp
 :::
 
 ### 2.2. Параметри та семантика виклику
@@ -110,72 +64,8 @@ private:
 ### 3.1. Сигнатури потокового виділення
 
 :::tabs
-```c
-/* CUDA Runtime API */
-cudaError_t cudaMallocAsync(void **devPtr, size_t size, cudaStream_t stream);
-cudaError_t cudaFreeAsync(void *devPtr, cudaStream_t stream);
-
-cudaError_t cudaMemPoolCreate(cudaMemPool_t *memPool, const cudaMemPoolProps *poolProps);
-cudaError_t cudaMemPoolDestroy(cudaMemPool_t memPool);
-cudaError_t cudaMemPoolTrimTo(cudaMemPool_t memPool, size_t minBytesToKeep);
-
-/* ROCm HIP API */
-hipError_t hipMallocAsync(void **devPtr, size_t size, hipStream_t stream);
-hipError_t hipFreeAsync(void *devPtr, hipStream_t stream);
-```
-```cpp
-/* C++ інтерфейс асинхронного буфера, прив'язаного до життєвого циклу потоку */
-#include <cuda_runtime.h>
-#include <stdexcept>
-#include <string>
-
-template <typename T>
-class AsyncDeviceMemory {
-public:
-    AsyncDeviceMemory(size_t count, cudaStream_t stream) 
-        : count_(count), stream_(stream) {
-        cudaError_t err = cudaMallocAsync(reinterpret_cast<void**>(&ptr_),
-                                          count_ * sizeof(T),
-                                          stream_);
-        if (err != cudaSuccess) {
-            throw std::runtime_error(std::string("cudaMallocAsync error: ") + 
-                                     cudaGetErrorString(err));
-        }
-    }
-    ~AsyncDeviceMemory() noexcept {
-        if (ptr_) {
-            cudaFreeAsync(ptr_, stream_);
-        }
-    }
-    AsyncDeviceMemory(const AsyncDeviceMemory&) = delete;
-    AsyncDeviceMemory& operator=(const AsyncDeviceMemory&) = delete;
-    AsyncDeviceMemory(AsyncDeviceMemory&& other) noexcept 
-        : ptr_(other.ptr_), count_(other.count_), stream_(other.stream_) {
-        other.ptr_ = nullptr;
-        other.count_ = 0;
-    }
-    AsyncDeviceMemory& operator=(AsyncDeviceMemory&& other) noexcept {
-        if (this != &other) {
-            if (ptr_) cudaFreeAsync(ptr_, stream_);
-            ptr_ = other.ptr_;
-            count_ = other.count_;
-            stream_ = other.stream_;
-            other.ptr_ = nullptr;
-            other.count_ = 0;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] T* get() noexcept { return ptr_; }
-    [[nodiscard]] size_t size() const noexcept { return count_; }
-    [[nodiscard]] size_t bytes() const noexcept { return count_ * sizeof(T); }
-
-private:
-    T *ptr_{nullptr};
-    size_t count_{0};
-    cudaStream_t stream_{nullptr};
-};
-```
+:::code api-memory-management/c/3-1-syhnatury-potokovoho.h
+:::code api-memory-management/cpp/3-1-syhnatury-potokovoho.cpp
 :::
 
 ### 3.2. Налаштування атрибутів пулу пам'яті
@@ -194,20 +84,7 @@ cudaMemPoolSetAttribute(pool, cudaMemPoolAttrReleaseThreshold, &threshold);
 int enable_reuse = 1;
 cudaMemPoolSetAttribute(pool, cudaMemPoolReuseFollowEventDependencies, &enable_reuse);
 ```
-```cpp
-/* C++ обгортка конфігурації пулу пам'яті */
-#include <cuda_runtime.h>
-#include <stdexcept>
-
-inline void configure_pool(cudaMemPool_t pool, uint64_t release_threshold_bytes) {
-    cudaError_t err = cudaMemPoolSetAttribute(pool, 
-                                              cudaMemPoolAttrReleaseThreshold, 
-                                              &release_threshold_bytes);
-    if (err != cudaSuccess) {
-        throw std::runtime_error("cudaMemPoolSetAttribute failed");
-    }
-}
-```
+:::code api-memory-management/cpp/3-2-nalashtuvannia.cpp
 :::
 
 ## 4. Фіксована пам'ять хоста (Pinned / Page-Locked Host Memory)
@@ -227,33 +104,7 @@ cudaError_t cudaFreeHost(void *pHost);
 hipError_t hipHostMalloc(void **ptr, size_t size, unsigned int flags);
 hipError_t hipHostFree(void *ptr);
 ```
-```cpp
-/* C++ інтерфейс типізованого виділення фіксованого буфера */
-#include <cuda_runtime.h>
-#include <span>
-#include <memory>
-#include <new>
-
-template <typename T>
-struct PinnedDeleter {
-    void operator()(T *ptr) const noexcept {
-        if (ptr) cudaFreeHost(ptr);
-    }
-};
-
-template <typename T>
-using UniquePinned = std::unique_ptr<T[], PinnedDeleter<T>>;
-
-template <typename T>
-UniquePinned<T> make_pinned(size_t count, unsigned int flags = cudaHostAllocDefault) {
-    void *raw = nullptr;
-    cudaError_t err = cudaHostAlloc(&raw, count * sizeof(T), flags);
-    if (err != cudaSuccess) {
-        throw std::bad_alloc();
-    }
-    return UniquePinned<T>(static_cast<T*>(raw));
-}
-```
+:::code api-memory-management/cpp/4-1-syhnatury-funktsii.cpp
 :::
 
 ### 4.2. Таблиця конфігураційних прапорців (`flags`)
@@ -272,46 +123,8 @@ UniquePinned<T> make_pinned(size_t count, unsigned int flags = cudaHostAllocDefa
 Якщо буфер уже виділений стандартним розподільником ОС (`malloc`, `posix_memalign`, `mmap`), його можна заблокувати для прямого DMA без виділення нового масиву. Це критично для інтеграції з існуючими сторонніми бібліотеками, мережевими буферами та драйверами захоплення відео.
 
 :::tabs
-```c
-/* CUDA Runtime API: блокування наявного віртуального діапазону ОС */
-cudaError_t cudaHostRegister(void *ptr, size_t size, unsigned int flags);
-cudaError_t cudaHostUnregister(void *ptr);
-
-/* Прапорці:
- * cudaHostRegisterDefault    - фіксація сторінок
- * cudaHostRegisterPortable   - доступність усім контекстам
- * cudaHostRegisterMapped     - відображення адрес у простір GPU
- * cudaHostRegisterIoMemory   - для пам'яті сторонніх PCIe пристроїв
- */
-```
-```cpp
-/* C++ RAII-обгортка для реєстрації існуючих контейнерів (std::vector) */
-#include <cuda_runtime.h>
-#include <span>
-#include <stdexcept>
-
-template <typename T>
-class RegisteredHostSpan {
-public:
-    explicit RegisteredHostSpan(std::span<T> data_span, unsigned int flags = cudaHostRegisterDefault)
-        : span_(data_span) {
-        cudaError_t err = cudaHostRegister(span_.data(), span_.size_bytes(), flags);
-        if (err != cudaSuccess) {
-            throw std::runtime_error("cudaHostRegister failed");
-        }
-    }
-    ~RegisteredHostSpan() noexcept {
-        cudaHostUnregister(span_.data());
-    }
-    RegisteredHostSpan(const RegisteredHostSpan&) = delete;
-    RegisteredHostSpan& operator=(const RegisteredHostSpan&) = delete;
-
-    [[nodiscard]] std::span<T> span() const noexcept { return span_; }
-
-private:
-    std::span<T> span_;
-};
-```
+:::code api-memory-management/c/4-3-blokuvannia-naiavnoi.h
+:::code api-memory-management/cpp/4-3-blokuvannia-naiavnoi.cpp
 :::
 
 ## 5. Відображена пам'ять (Zero-Copy / Mapped Memory API)
@@ -327,21 +140,7 @@ private:
 /* Отримання покажчика пристрою для Mapped буфера */
 cudaError_t cudaHostGetDevicePointer(void **pDevice, void *pHost, unsigned int flags);
 ```
-```cpp
-/* C++ допоміжна функція отримання device покажчика */
-#include <cuda_runtime.h>
-#include <stdexcept>
-
-template <typename T>
-T* get_mapped_device_pointer(T* host_mapped_ptr) {
-    void* dev_ptr = nullptr;
-    cudaError_t err = cudaHostGetDevicePointer(&dev_ptr, host_mapped_ptr, 0);
-    if (err != cudaSuccess) {
-        throw std::runtime_error("cudaHostGetDevicePointer failed");
-    }
-    return static_cast<T*>(dev_ptr);
-}
-```
+:::code api-memory-management/cpp/5-1-otrymannia-pokazhchyka.cpp
 :::
 
 - `pDevice`: повертає адресу у віртуальному просторі пристрою, яку можна передавати аргументом у ядро `kernel<<<grid, block>>>(pDevice)`.
@@ -362,42 +161,7 @@ cudaError_t cudaMallocManaged(void **devPtr, size_t size, unsigned int flags);
 /* ROCm HIP API */
 hipError_t hipMallocManaged(void **ptr, size_t size, unsigned int flags);
 ```
-```cpp
-/* C++ обгортка автоматичної пам'яті з префетчингом */
-#include <cuda_runtime.h>
-#include <stdexcept>
-
-template <typename T>
-class ManagedBuffer {
-public:
-    explicit ManagedBuffer(size_t count, unsigned int flags = cudaMemAttachGlobal) 
-        : count_(count) {
-        cudaError_t err = cudaMallocManaged(reinterpret_cast<void**>(&ptr_),
-                                            count_ * sizeof(T),
-                                            flags);
-        if (err != cudaSuccess) {
-            throw std::runtime_error("cudaMallocManaged failed");
-        }
-    }
-    ~ManagedBuffer() noexcept {
-        if (ptr_) cudaFree(ptr_);
-    }
-
-    void prefetch_to_device(int device_id, cudaStream_t stream = 0) {
-        cudaMemPrefetchAsync(ptr_, count_ * sizeof(T), device_id, stream);
-    }
-    void prefetch_to_host(cudaStream_t stream = 0) {
-        cudaMemPrefetchAsync(ptr_, count_ * sizeof(T), cudaCpuDeviceId, stream);
-    }
-
-    [[nodiscard]] T* data() noexcept { return ptr_; }
-    [[nodiscard]] size_t size() const noexcept { return count_; }
-
-private:
-    T *ptr_{nullptr};
-    size_t count_{0};
-};
-```
+:::code api-memory-management/cpp/6-1-syhnatura-vydilennia.cpp
 :::
 
 Прапорець `cudaMemAttachGlobal` робить виділену пам'ять доступною для будь-якого потоку будь-якого пристрою системи. Прапорець `cudaMemAttachHost` створює пам'ять, яка спочатку відображається лише в контексті процесора хоста, що дозволяє оптимізувати використання віртуальних адрес на системах із багатьма відеокартами.
@@ -439,18 +203,7 @@ cudaError_t cudaMemAdvise(const void *devPtr,
                           enum cudaMemoryAdvise advice,
                           int device);
 ```
-```cpp
-/* C++ обгортка конфігурації підказок розміщення пам'яті */
-#include <cuda_runtime.h>
-#include <stdexcept>
-
-inline void advise_memory(const void* ptr, size_t bytes, cudaMemoryAdvise advice, int device) {
-    cudaError_t err = cudaMemAdvise(ptr, bytes, advice, device);
-    if (err != cudaSuccess) {
-        throw std::runtime_error("cudaMemAdvise failed");
-    }
-}
-```
+:::code api-memory-management/cpp/6-3-pidkazky.cpp
 :::
 
 | Значення `cudaMemoryAdvise` | Призначення та оптимізація драйвера |
@@ -471,22 +224,7 @@ cudaMemRangeGetAttribute(&location, sizeof(int),
                          cudaMemRangeAttributeLastPrefetchLocation, 
                          devPtr, count);
 ```
-```cpp
-/* C++ функція отримання пристрою поточної локації пам'яті */
-#include <cuda_runtime.h>
-#include <stdexcept>
-
-inline int query_last_prefetch_device(const void* ptr, size_t bytes) {
-    int dev_id = -1;
-    cudaError_t err = cudaMemRangeGetAttribute(&dev_id, sizeof(int),
-                                               cudaMemRangeAttributeLastPrefetchLocation,
-                                               ptr, bytes);
-    if (err != cudaSuccess) {
-        throw std::runtime_error("cudaMemRangeGetAttribute failed");
-    }
-    return dev_id;
-}
-```
+:::code api-memory-management/cpp/6-4-opytuvannia-atrybutiv.cpp
 :::
 
 ## 7. Внутрішня ієрархія пам'яті пристрою (On-Device Memory Hierarchy)
@@ -505,33 +243,8 @@ inline int query_last_prefetch_device(const void* ptr, size_t bytes) {
 Функція `cudaMemcpyAsync()` здійснює неблокуюче копіювання пам'яті між будь-якими адресними просторами системи. Виклик негайно повертає керування центральному процесору, поміщаючи задачу копіювання у чергу вказаного потоку `stream`.
 
 :::tabs
-```c
-/* CUDA Runtime API */
-cudaError_t cudaMemcpyAsync(void *dst,
-                            const void *src,
-                            size_t count,
-                            enum cudaMemcpyKind kind,
-                            cudaStream_t stream);
-
-/* ROCm HIP API */
-hipError_t hipMemcpyAsync(void *dst,
-                          const void *src,
-                          size_t count,
-                          hipMemcpyKind kind,
-                          hipStream_t stream);
-```
-```cpp
-/* C++ безпечна обгортка неблокуючого копіювання */
-#include <cuda_runtime.h>
-#include <stdexcept>
-
-inline void async_copy(void* dst, const void* src, size_t bytes, cudaMemcpyKind kind, cudaStream_t stream) {
-    cudaError_t err = cudaMemcpyAsync(dst, src, bytes, kind, stream);
-    if (err != cudaSuccess) {
-        throw std::runtime_error("cudaMemcpyAsync failed");
-    }
-}
-```
+:::code api-memory-management/c/8-1-syhnatura-ta-napriamky.h
+:::code api-memory-management/cpp/8-1-syhnatura-ta-napriamky.cpp
 :::
 
 - `kind` визначає топологічний напрямок копіювання:
@@ -556,22 +269,7 @@ cudaError_t cudaMemcpyPeerAsync(void *dst, int dstDevice,
                                 const void *src, int srcDevice,
                                 size_t count, cudaStream_t stream);
 ```
-```cpp
-/* C++ утиліта підключення прямого P2P доступу між двома картами */
-#include <cuda_runtime.h>
-#include <iostream>
-
-inline bool enable_p2p_if_supported(int dev_a, int dev_b) {
-    int can_access = 0;
-    cudaDeviceCanAccessPeer(&can_access, dev_a, dev_b);
-    if (can_access) {
-        cudaSetDevice(dev_a);
-        cudaError_t err = cudaDeviceEnablePeerAccess(dev_b, 0);
-        return (err == cudaSuccess || err == cudaErrorPeerAccessAlreadyEnabled);
-    }
-    return false;
-}
-```
+:::code api-memory-management/cpp/9-priamyi-dostup-mizh.cpp
 :::
 
 ## 10. Особливості моделі пам'яті в AMD ROCm / HIP
@@ -596,21 +294,7 @@ if (err != cudaSuccess) {
     printf("Асинхронний збій ядра: %s (%s)\n", cudaGetErrorName(err), cudaGetErrorString(err));
 }
 ```
-```cpp
-/* C++: функція верифікації стану пристрою */
-#include <cuda_runtime.h>
-#include <stdexcept>
-#include <string>
-
-inline void verify_device_health() {
-    cudaError_t err = cudaGetLastError();
-    if (err != cudaSuccess) {
-        throw std::runtime_error(std::string("GPU Health Failure: ") + 
-                                 cudaGetErrorName(err) + " - " + 
-                                 cudaGetErrorString(err));
-    }
-}
-```
+:::code api-memory-management/cpp/11-diahnostyka-pomylok.cpp
 :::
 
 Для точного знаходження рядка коду, де відбувся недійсний доступ, застосовують запуск програми зі змінною середовища `CUDA_LAUNCH_BLOCKING=1`, що змушує драйвер автоматично синхронізувати процесор після кожного виклику ядра, або використовують санітайзер пам'яті **compute-sanitizer** (`compute-sanitizer --tool memcheck ./app`).

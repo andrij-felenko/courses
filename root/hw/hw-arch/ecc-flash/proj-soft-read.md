@@ -18,29 +18,7 @@
 
 ## Крок 1 — канал і тверде читання
 
-```python
-import numpy as np
-from math import erf, erfc, sqrt, comb, log
-
-rng = np.random.default_rng(20260719)
-
-MU0, MU1 = -1.0, +1.0            # центри двох сусідніх рівнів (умовна напруга)
-REF      = 0.5 * (MU0 + MU1)     # тверда опорна лінія — посередині, 0.0
-HALF     = 0.5 * (MU1 - MU0)     # півпроміжок між рівнями, = 1.0
-
-def Q(x):                        # хвіст стандартної нормалі: Q(x) = P(Z > x)
-    return 0.5 * erfc(x / sqrt(2))
-
-def q_inv(p):                    # обернена до Q, дихотомією
-    lo, hi = 0.0, 15.0
-    for _ in range(200):
-        mid = 0.5 * (lo + hi)
-        lo, hi = (mid, hi) if Q(mid) > p else (lo, mid)
-    return 0.5 * (lo + hi)
-
-def sigma_for_rber(rber):        # RBER = Q(HALF/σ)  =>  σ = HALF / Q⁻¹(RBER)
-    return HALF / q_inv(rber)
-```
+:::code proj-soft-read/py/krok-1-kanal-i-tverde.py
 
 Уся фізика каналу — у трьох рядках: два центри, одна опорна лінія, одна ширина дзвона. `sigma_for_rber` — це та сама формула перекриття хвостів, розв'язана назад: задаєш, який фон помилок хочеш бачити, — дістаєш σ, що його дає. `Q` рахуємо через доповнювальну функцію похибок `erfc` (вона й є гаусів хвіст із точністю до масштабу), а обернену `q_inv` — простою дихотомією: `Q` монотонно спадає, тож двадцять поділів навпіл дають σ з точністю, якої тут із головою.
 
@@ -64,23 +42,7 @@ def llr_full(v, sigma):
 
 Але тут криється пастка реальності: комірку **не можна** прочитати як аналогову величину `v`. Читання вміє тільки одне — порівняти поріг із опорною лінією. Тож м'яке рішення добувають інакше: `K` зсунутих ліній розрізають вісь на `K+1` **смуг**, і вимір — це те, у яку смугу впав поріг. Кожна смуга несе свій **точний** LLR, порахований один раз із гаусіан: `ln[ P(смуга|0) / P(смуга|1) ]`. Крайні смуги (глибоко в рівні) дають великий LLR, середні дві навколо лінії — крихітний.
 
-```python
-def Phi(x):
-    return 0.5 * (1.0 + erf(x / sqrt(2)))
-
-def band_llr_table(edges, sigma):
-    # точний LLR кожної смуги між зсунутими лініями read-retry
-    lo = np.concatenate(([-np.inf], edges))
-    hi = np.concatenate((edges, [np.inf]))
-    out = []
-    for a, b in zip(lo, hi):
-        p0 = (1.0 if b == np.inf else Phi((b-MU0)/sigma)) - (0.0 if a == -np.inf else Phi((a-MU0)/sigma))
-        p1 = (1.0 if b == np.inf else Phi((b-MU1)/sigma)) - (0.0 if a == -np.inf else Phi((a-MU1)/sigma))
-        out.append(log(p0 / p1))
-    return np.array(out)
-
-RETRY = np.array([-1.2, -0.6, 0.0, 0.6, 1.2])   # ×σ навколо межі; центр = тверде читання
-```
+:::code proj-soft-read/py/krok-2-pevnist-iak-llr.py
 
 П'ять ліній read-retry (одна з них — та сама тверда, посередині) дають шість смуг довіри. Це ключ: тверде читання — окремий випадок м'якого з **однією** лінією й нулем інформації про певність.
 
@@ -88,45 +50,11 @@ RETRY = np.array([-1.2, -0.6, 0.0, 0.6, 1.2])   # ×σ навколо межі; 
 
 Тепер зіштовхуємо всіх трьох на тому самому каналі. `simulate` генерує `M` слів по `N` комірок, читає їх твердо (більшість) і м'яко (сума LLR — повна й квантована), і рахує **WER** — частку слів, декодованих **неправильно**, тобто невиправних. Поруч рахуємо ті самі величини аналітично, щоб було з чим звірити Монте-Карло.
 
-```python
-def simulate(rber, N, M):
-    sigma = sigma_for_rber(rber)
-    edges = REF + RETRY * sigma
-    table = band_llr_table(edges, sigma)
-
-    msg   = rng.integers(0, 2, M)                       # M збережених бітів
-    means = np.where(msg == 0, MU0, MU1)[:, None]
-    vth   = means + sigma * rng.standard_normal((M, N)) # M×N аналогових порогів
-
-    rber_emp = np.mean((vth > REF).astype(int) != msg[:, None])
-
-    hard_dec  = ((vth > REF).sum(axis=1) > N/2).astype(int)          # більшість голосів
-    full_dec  = (llr_full(vth, sigma).sum(axis=1) < 0).astype(int)   # сума певностей
-    quant_dec = (table[np.digitize(vth, edges)].sum(axis=1) < 0).astype(int)
-
-    wer = lambda dec: np.mean(dec != msg)
-    hard_an = sum(comb(N, k) * rber**k * (1-rber)**(N-k) for k in range(N//2+1, N+1))
-    soft_an = Q(sqrt(N) * q_inv(rber))
-    return sigma, rber_emp, edges, table, wer(hard_dec), wer(quant_dec), wer(full_dec), hard_an, soft_an
-```
+:::code proj-soft-read/py/krok-3-rozplata.py
 
 Три рішення — три рядки. Тверде: скільки комірок опинилося по «одиничний» бік лінії, більшість перемагає. М'яке повної роздільності: підсумуй лінійні LLR і глянь на знак. М'яке квантоване: `np.digitize` каже, у яку смугу впала кожна комірка, `table[...]` підставляє її LLR, знову сума й знак. Аналітика: твердий декодер помиляється, коли перевернулося **більшість** із N (хвіст біноміального розподілу); м'який — коли гаусова сума перетнула нуль, а це рівно `Q(√N · Q⁻¹(RBER))`.
 
-```python
-RBER, N, M = 0.05, 5, 2_000_000
-sigma, rber_emp, edges, table, w_hard, w_quant, w_full, hard_an, soft_an = simulate(RBER, N, M)
-
-print(f"σ = {sigma:.4f}    емпіричний RBER (голі біти) = {rber_emp:.4f}")
-for name, v in [("глибоко в рівні 0    ", MU0), ("майже на межі (0-бік)", -0.05),
-                ("майже на межі (1-бік)", +0.05), ("глибоко в рівні 1    ", MU1)]:
-    print(f"  {name}  Vth = {v:+.2f}   LLR = {llr_full(v, sigma):+.2f}")
-print("  межі read-retry:", "  ".join(f"{e:+.3f}" for e in edges))
-print("  LLR смуг:       ", "  ".join(f"{t:+.2f}" for t in table))
-print(f"  ТВЕРДЕ  більшість голосів : WER = {w_hard:.2e}   (аналітично {hard_an:.2e})")
-print(f"  М'ЯКЕ   квантоване (5 чит.): WER = {w_quant:.2e}")
-print(f"  М'ЯКЕ   повна роздільність : WER = {w_full:.2e}   (аналітично {soft_an:.2e})")
-print(f"  виграш тверде / м'яке ≈ {w_hard/w_full:.0f}×")
-```
+:::code proj-soft-read/py/krok-3-rozplata-2.py
 
 Ось що друкує ця програма (два мільйони слів по п'ять комірок):
 

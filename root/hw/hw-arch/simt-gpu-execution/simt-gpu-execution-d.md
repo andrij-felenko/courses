@@ -94,38 +94,8 @@
 Розглянемо типовий фрагмент коду:
 
 :::tabs
-```c
-// Код із потенційною дивергенцією варпу (C)
-__global__ void process_data(float *data, int n)
-{
-    int tid = blockIdx.x * blockDim.x + threadIdx.x;
-    if (tid >= n) return;
-
-    if (tid < 16) {
-        data[tid] = data[tid] * 2.0f; // Гілка THEN
-    } else {
-        data[tid] = data[tid] + 5.0f; // Гілка ELSE
-    }
-}
-```
-```cpp
-// Код із потенційною дивергенцією варпу (C++)
-#include <cuda_runtime.h>
-
-__global__ void process_data(float *data, int n)
-{
-    const int tid = blockIdx.x * blockDim.x + threadIdx.x;
-    if (tid >= n) {
-        return;
-    }
-
-    if (tid < 16) {
-        data[tid] = data[tid] * 2.0f; // Гілка THEN
-    } else {
-        data[tid] = data[tid] + 5.0f; // Гілка ELSE
-    }
-}
-```
+:::code simt-gpu-execution-d/c/problema-dyverhentsii.c
+:::code simt-gpu-execution-d/cpp/problema-dyverhentsii.cpp
 :::
 
 У першому варпі потоки з індексами `0..15` повинні піти в гілку `THEN`, а потоки з індексами `16..31` — у гілку `ELSE`. Ця ситуація називається **дивергенцією варпу** (англ. *warp divergence*, розходження шляхів виконання).
@@ -251,35 +221,8 @@ __global__ void process_data(float *data, int n)
 Починаючи з архітектури Nvidia Kepler (2012), графічні процесори отримали апаратний механізм прямого обміну даними між потоками всередині одного варпу без використання спільної пам'яті — інструкції **Warp Shuffle** (`__shfl_sync`, `__shfl_down_sync`, `__shfl_xor_sync`):
 
 :::tabs
-```c
-// Редукція всередині варпу без Shared Memory (C)
-__inline__ __device__ float warp_reduce(float val)
-{
-    // Обмін значеннями регістрів безпосередньо через комутаційну матрицю
-    val += __shfl_down_sync(0xffffffff, val, 16);
-    val += __shfl_down_sync(0xffffffff, val, 8);
-    val += __shfl_down_sync(0xffffffff, val, 4);
-    val += __shfl_down_sync(0xffffffff, val, 2);
-    val += __shfl_down_sync(0xffffffff, val, 1);
-    return val; // Потік 0 містить суму всіх 32 потоків
-}
-```
-```cpp
-// Редукція всередині варпу без Shared Memory (C++)
-#include <cuda_runtime.h>
-
-__inline__ __device__ float warp_reduce(float val)
-{
-    constexpr unsigned int mask = 0xffffffffU;
-    // Обмін значеннями регістрів безпосередньо через комутаційну матрицю
-    val += __shfl_down_sync(mask, val, 16);
-    val += __shfl_down_sync(mask, val, 8);
-    val += __shfl_down_sync(mask, val, 4);
-    val += __shfl_down_sync(mask, val, 2);
-    val += __shfl_down_sync(mask, val, 1);
-    return val; // Потік 0 містить суму всіх 32 потоків
-}
-```
+:::code simt-gpu-execution-d/c/vnutrishnovarpova.c
+:::code simt-gpu-execution-d/cpp/vnutrishnovarpova.cpp
 :::
 
 Shuffle-інструкції виконуються безпосередньо на внутрішній комутаційній кросбар-матриці АЛП за 1 такт. Вони повністю усувають потребу в операціях запису/читання у Shared Memory, звільняють спільну пам'ять для розміщення більшої кількості блоків на SM і не потребують виклику дорогих бар'єрів синхронізації `__syncthreads()`.

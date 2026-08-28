@@ -9,55 +9,8 @@
 Токен є атомарним неподільним квантом даних, що циркулює крізь обчислювальне кільце рушія. У системі визначено строгий поділ обов'язків між адресацією інструкції, контекстом виконання та корисним навантаженням.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef uint32_t df_frame_id_t;  /* Унікальний числовий дескриптор кадру активації ETS */
-typedef uint16_t df_node_id_t;   /* Індекс інструкції всередині статичного графа */
-typedef uint8_t  df_port_t;      /* Номер цільового вхідного порту: 0 (лівий), 1 (правий) */
-
-typedef struct {
-    df_frame_id_t frame_id;      /* Базовий контекст кадру активації */
-    df_node_id_t  node_id;       /* Адреса цільового оператора в Node Store */
-    df_port_t     port;          /* Вхідний порт операнда */
-    uint8_t       flags;         /* Прапорці керування (EOF, Ack, Trap) */
-    uint64_t      value;         /* 64-бітне значення операнда (IEEE 754 або ціле) */
-} df_token_t;
-```
-```cpp
-#include <cstdint>
-#include <concepts>
-#include <span>
-#include <optional>
-
-namespace dataflow {
-
-using FrameId = uint32_t;
-using NodeId  = uint16_t;
-using Port    = uint8_t;
-
-enum class TokenFlags : uint8_t {
-    None         = 0x00,
-    EndOfStream  = 0x01,
-    Acknowledge  = 0x02,
-    ExceptionTrap= 0x04
-};
-
-struct Token {
-    FrameId    frame_id{0};
-    NodeId     node_id{0};
-    Port       port{0};
-    TokenFlags flags{TokenFlags::None};
-    uint64_t   value{0};
-
-    [[nodiscard]] constexpr bool is_ack() const noexcept {
-        return (static_cast<uint8_t>(flags) & static_cast<uint8_t>(TokenFlags::Acknowledge)) != 0;
-    }
-};
-
-} // namespace dataflow
-```
+:::code api-dataflow-runtime/c/1-bazovi-typy-ta-model.c
+:::code api-dataflow-runtime/cpp/1-bazovi-typy-ta-model.cpp
 :::
 
 ### Пояснення полів токена:
@@ -72,69 +25,8 @@ struct Token {
 Кожен вузол графа описує один чистий функціональний оператор та перелік орієнтованих дуг, якими результат передається вузлам-наступникам.
 
 :::tabs
-```c
-typedef enum {
-    DF_OP_NOP      = 0x00,  /* Пересилка операнда без змін */
-    DF_OP_ADD      = 0x01,  /* Додавання: result = in0 + in1 */
-    DF_OP_SUB      = 0x02,  /* Віднімання: result = in0 - in1 */
-    DF_OP_MUL      = 0x03,  /* Множення: result = in0 * in1 */
-    DF_OP_DIV      = 0x04,  /* Ділення: result = in0 / in1 */
-    DF_OP_BRANCH   = 0x05,  /* Умовне розгалуження за предикатом */
-    DF_OP_MERGE    = 0x06,  /* Детерміноване злиття потоків */
-    DF_OP_I_READ   = 0x07,  /* Нестроге читання з I-структури */
-    DF_OP_I_WRITE  = 0x08,  /* Одноразовий запис у I-структуру */
-    DF_OP_CALL     = 0x09,  /* Виділення кадру та виклик підграфа */
-    DF_OP_RET      = 0x0A   /* Повернення результату у батьківський контекст */
-} df_opcode_t;
-
-#define DF_MAX_ARCS 4
-
-typedef struct {
-    df_node_id_t dest_node;
-    df_port_t    dest_port;
-} df_arc_t;
-
-typedef struct {
-    df_opcode_t opcode;
-    uint8_t     is_binary;     /* 1 = бінарна (потребує ETS), 0 = унарна */
-    uint8_t     slot_offset;   /* Зміщення слота в кадрі активації FP + offset */
-    uint8_t     arc_count;     /* Кількість вихідних з'єднань (0..DF_MAX_ARCS) */
-    df_arc_t    arcs[DF_MAX_ARCS];
-} df_node_desc_t;
-```
-```cpp
-#include <vector>
-
-namespace dataflow {
-
-enum class Opcode : uint8_t {
-    Nop,
-    Add,
-    Sub,
-    Mul,
-    Div,
-    Branch,
-    Merge,
-    IRead,
-    IWrite,
-    Call,
-    Return
-};
-
-struct Arc {
-    NodeId dest_node{0};
-    Port   dest_port{0};
-};
-
-struct NodeDesc {
-    Opcode           opcode{Opcode::Nop};
-    bool             is_binary{false};
-    uint8_t          slot_offset{0};
-    std::vector<Arc> successors;
-};
-
-} // namespace dataflow
-```
+:::code api-dataflow-runtime/c/2-kody-operatsii-ta.c
+:::code api-dataflow-runtime/cpp/2-kody-operatsii-ta.cpp
 :::
 
 ## 3. Статуси та коди завершення функцій
@@ -156,56 +48,8 @@ struct NodeDesc {
 Функції ініціалізації виділяють ресурси пулу потоків, створюють внутрішні кільцеві черги FIFO та налаштовують структури пам'яті ETS.
 
 :::tabs
-```c
-typedef struct {
-    uint32_t worker_threads;       /* Кількість потоків-обчислювачів (0 = автовизначення) */
-    size_t   token_queue_capacity; /* Розмір буфера черги токенів (степінь 2) */
-    uint32_t max_frames;           /* Розмір пулу кадрів активації */
-    uint32_t slots_per_frame;      /* Кількість операндних слотів у кожному кадрі */
-} df_engine_cfg_t;
-
-typedef struct df_engine df_engine_t;
-
-df_status_t df_engine_init(
-    df_engine_t**          out_engine,
-    const df_engine_cfg_t* cfg
-);
-
-df_status_t df_engine_shutdown(df_engine_t* engine);
-```
-```cpp
-#include <memory>
-#include <expected>
-
-namespace dataflow {
-
-struct EngineConfig {
-    uint32_t worker_threads{0};
-    size_t   token_queue_capacity{4096};
-    uint32_t max_frames{256};
-    uint32_t slots_per_frame{16};
-};
-
-enum class Status : int32_t {
-    Ok                 = 0,
-    InvalidArg         = -1,
-    QueueFull          = -2,
-    FrameExhausted     = -3,
-    IStructDuplicate   = -4,
-    NodeOutOfBounds    = -5,
-    NoMemory           = -6
-};
-
-class Engine {
-public:
-    static std::expected<std::unique_ptr<Engine>, Status> create(const EngineConfig& cfg);
-    virtual ~Engine() = default;
-
-    virtual Status shutdown() noexcept = 0;
-};
-
-} // namespace dataflow
-```
+:::code api-dataflow-runtime/c/4-keruvannia-zhyttievym.h
+:::code api-dataflow-runtime/cpp/4-keruvannia-zhyttievym.cpp
 :::
 
 ### Контракт життєвого циклу:
@@ -217,37 +61,8 @@ public:
 Граф є незмінною (*immutable*) структурою після завершення стадії конфігурації. Будь-яка модифікація вузлів під час виконання є помилкою і призводить до невизначеної поведінки.
 
 :::tabs
-```c
-typedef struct df_graph df_graph_t;
-
-df_status_t df_graph_create(
-    df_graph_t** out_graph,
-    uint32_t     max_nodes
-);
-
-df_status_t df_graph_set_node(
-    df_graph_t*           graph,
-    df_node_id_t          node_id,
-    const df_node_desc_t* desc
-);
-
-df_status_t df_graph_destroy(df_graph_t* graph);
-```
-```cpp
-namespace dataflow {
-
-class Graph {
-public:
-    static std::expected<std::unique_ptr<Graph>, Status> create(uint32_t max_nodes);
-    virtual ~Graph() = default;
-
-    virtual Status set_node(NodeId node_id, NodeDesc desc) noexcept = 0;
-    [[nodiscard]] virtual const NodeDesc* get_node(NodeId node_id) const noexcept = 0;
-    [[nodiscard]] virtual size_t node_count() const noexcept = 0;
-};
-
-} // namespace dataflow
-```
+:::code api-dataflow-runtime/c/5-stvorennia-ta.h
+:::code api-dataflow-runtime/cpp/5-stvorennia-ta.cpp
 :::
 
 ## 6. Керування кадрами активації (ETS Allocator)
@@ -266,36 +81,7 @@ df_status_t df_frame_free(
     df_frame_id_t frame_id
 );
 ```
-```cpp
-namespace dataflow {
-
-class FrameHandle {
-public:
-    FrameHandle() noexcept = default;
-    FrameHandle(Engine* engine, FrameId id) noexcept : engine_(engine), id_(id) {}
-    ~FrameHandle() {
-        if (engine_ && id_ != 0) {
-            release();
-        }
-    }
-
-    FrameHandle(const FrameHandle&) = delete;
-    FrameHandle& operator=(const FrameHandle&) = delete;
-    FrameHandle(FrameHandle&& other) noexcept : engine_(other.engine_), id_(other.id_) {
-        other.engine_ = nullptr;
-        other.id_ = 0;
-    }
-
-    [[nodiscard]] FrameId id() const noexcept { return id_; }
-
-private:
-    void release() noexcept;
-    Engine* engine_{nullptr};
-    FrameId id_{0};
-};
-
-} // namespace dataflow
-```
+:::code api-dataflow-runtime/cpp/6-keruvannia-kadramy.cpp
 :::
 
 ### Інваріанти кадрів ETS:
@@ -335,44 +121,8 @@ public:
 I-структури надають апаратну абстракцію масивів з одноразовим записом та автоматичною чергою очікування для передчасних читачів.
 
 :::tabs
-```c
-typedef struct df_istructure df_istructure_t;
-
-df_status_t df_istructure_create(
-    df_istructure_t** out_istruct,
-    size_t            element_count
-);
-
-df_status_t df_istructure_read_async(
-    df_istructure_t* istruct,
-    size_t           index,
-    df_token_t       consumer_token
-);
-
-df_status_t df_istructure_write(
-    df_engine_t*     engine,
-    df_istructure_t* istruct,
-    size_t           index,
-    uint64_t         value
-);
-
-df_status_t df_istructure_destroy(df_istructure_t* istruct);
-```
-```cpp
-namespace dataflow {
-
-class IStructure {
-public:
-    static std::expected<std::unique_ptr<IStructure>, Status> create(size_t element_count);
-    virtual ~IStructure() = default;
-
-    virtual Status read_async(size_t index, Token consumer_token) noexcept = 0;
-    virtual Status write(Engine* engine, size_t index, uint64_t value) noexcept = 0;
-    [[nodiscard]] virtual size_t size() const noexcept = 0;
-};
-
-} // namespace dataflow
-```
+:::code api-dataflow-runtime/c/8-pidsystema-nestrohoi.h
+:::code api-dataflow-runtime/cpp/8-pidsystema-nestrohoi.cpp
 :::
 
 ### Семантичні правила I-структур:

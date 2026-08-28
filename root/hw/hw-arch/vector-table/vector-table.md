@@ -63,60 +63,8 @@
 Нижче наведено базовий приклад переходу на C99 та C++20.
 
 :::tabs
-```c
-#include <stdint.h>
-
-typedef void (*entry_fn)(void);
-
-void boot_jump_to_app(uint32_t app_base) {
-    __asm__ volatile ("cpsid i" : : : "memory");
-
-    /* Зупинка SysTick */
-    *(volatile uint32_t*)0xE000E010 = 0;
-
-    /* Встановлення VTOR */
-    *(volatile uint32_t*)0xE000ED08 = app_base;
-
-    __asm__ volatile ("dsb 0xF" : : : "memory");
-    __asm__ volatile ("isb 0xF" : : : "memory");
-
-    /* Завантаження стека та перехід */
-    uint32_t msp_val = *(volatile uint32_t*)app_base;
-    uint32_t reset_val = *(volatile uint32_t*)(app_base + 4);
-
-    __asm__ volatile ("msr msp, %0" : : "r" (msp_val) : "memory");
-    ((entry_fn)reset_val)();
-}
-```
-```cpp
-#include <cstdint>
-
-namespace boot {
-
-using entry_point_t = void (*)() noexcept;
-
-inline void jump_to_application(uintptr_t app_base) noexcept {
-    asm volatile ("cpsid i" : : : "memory");
-
-    // Зупинка SysTick
-    *reinterpret_cast<volatile uint32_t*>(0xE000E010) = 0;
-
-    // Релокація VTOR
-    *reinterpret_cast<volatile uint32_t*>(0xE000ED08) = static_cast<uint32_t>(app_base);
-
-    asm volatile ("dsb 0xF\n isb 0xF" : : : "memory");
-
-    const auto stack_top = *reinterpret_cast<const uint32_t*>(app_base);
-    const auto entry_addr = *reinterpret_cast<const uint32_t*>(app_base + sizeof(uint32_t));
-
-    asm volatile ("msr msp, %0" : : "r"(stack_top) : "memory");
-
-    auto entry_point = reinterpret_cast<entry_point_t>(entry_addr);
-    entry_point();
-}
-
-} // namespace boot
-```
+:::code vector-table/c/main.c
+:::code vector-table/cpp/main.hpp
 :::
 
 Таблиця векторів забезпечує детермінований і надійний старт мікроконтролера та слугує апаратним шлюзом між цифровими сигналами зовнішнього світу та кодом системної прошивки.

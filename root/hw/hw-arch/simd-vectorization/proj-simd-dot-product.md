@@ -46,45 +46,7 @@ s = a₀·b₀ + a₁·b₁ + … + aₙ₋₁·bₙ₋₁
 
 Один файл, який збирається й запускається. Спершу еталон і дві «безкоштовні» версії.
 
-```c
-/* dot.c — скалярний добуток трьома способами
-   gcc -O3 -march=native -fopenmp-simd dot.c -o dot                */
-
-#include <immintrin.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
-
-/* 0. Еталон: та сама сума, але акумулятор подвійної точності.
-      Не для швидкості — щоб було з чим порівнювати.               */
-double dot_ref(const float *a, const float *b, size_t n)
-{
-    double s = 0.0;
-    for (size_t i = 0; i < n; i++)
-        s += (double)a[i] * (double)b[i];
-    return s;
-}
-
-/* 1. Наївно: один акумулятор, порядок доданків зафіксовано мовою.  */
-float dot_naive(const float *a, const float *b, size_t n)
-{
-    float s = 0.0f;
-    for (size_t i = 0; i < n; i++)
-        s += a[i] * b[i];
-    return s;
-}
-
-/* 2. Той самий цикл плюс явний дозвіл переставляти доданки.        */
-float dot_omp(const float *a, const float *b, size_t n)
-{
-    float s = 0.0f;
-    #pragma omp simd reduction(+:s)
-    for (size_t i = 0; i < n; i++)
-        s += a[i] * b[i];
-    return s;
-}
-```
+:::code proj-simd-dot-product/c/dot.c
 
 Різниця між першою й другою функціями — один рядок, і цей рядок не «підказка компіляторові пришвидшити цикл», а зняття цілком конкретної заборони. Тепер попросімо компілятор розповісти, що він про них думає.
 
@@ -113,52 +75,7 @@ GCC із прапорцем `-fopt-info-vec` друкує тільки успі�
 
 Тепер версія вручну.
 
-```c
-/* 3. AVX2 вручну: вісім незалежних акумуляторів, FMA, хвіст, зведення.
-      Потребує -mavx2 -mfma (входять у -march=native на Haswell і новіших). */
-float dot_avx2(const float *a, const float *b, size_t n)
-{
-    __m256 acc[8];
-    for (int k = 0; k < 8; k++)
-        acc[k] = _mm256_setzero_ps();
-
-    size_t i = 0;
-
-    /* Основне тіло: 8 акумуляторів × 8 доріжок = 64 елементи за прохід. */
-    for (; i + 64 <= n; i += 64)
-        for (int k = 0; k < 8; k++) {
-            __m256 x = _mm256_loadu_ps(a + i + 8 * k);
-            __m256 y = _mm256_loadu_ps(b + i + 8 * k);
-            acc[k] = _mm256_fmadd_ps(x, y, acc[k]);   /* acc += x·y */
-        }
-
-    /* Догортання по вісім елементів — усе в нульовий ланцюжок.        */
-    for (; i + 8 <= n; i += 8) {
-        __m256 x = _mm256_loadu_ps(a + i);
-        __m256 y = _mm256_loadu_ps(b + i);
-        acc[0] = _mm256_fmadd_ps(x, y, acc[0]);
-    }
-
-    /* Крок 1: вісім регістрів у один, дерево 8 → 4 → 2 → 1.           */
-    for (int step = 4; step >= 1; step >>= 1)
-        for (int k = 0; k < step; k++)
-            acc[k] = _mm256_add_ps(acc[k], acc[k + step]);
-
-    /* Крок 2: вісім доріжок одного регістра в одне число.             */
-    __m128 lo = _mm256_castps256_ps128(acc[0]);        /* доріжки 0..3 */
-    __m128 hi = _mm256_extractf128_ps(acc[0], 1);      /* доріжки 4..7 */
-    lo = _mm_add_ps(lo, hi);                                  /* 8 → 4 */
-    lo = _mm_add_ps(lo, _mm_movehl_ps(lo, lo));               /* 4 → 2 */
-    lo = _mm_add_ss(lo, _mm_shuffle_ps(lo, lo, 0x55));        /* 2 → 1 */
-    float s = _mm_cvtss_f32(lo);
-
-    /* Хвіст: менше за вісім елементів, скалярно.                      */
-    for (; i < n; i++)
-        s += a[i] * b[i];
-
-    return s;
-}
-```
+:::code proj-simd-dot-product/c/robochyi-kod.c
 
 Три місця в цьому коді варті окремого погляду.
 
@@ -170,66 +87,7 @@ float dot_avx2(const float *a, const float *b, size_t n)
 
 Лишилося обв'язування — перевірка й вимірювання.
 
-```c
-static double now_sec(void)
-{
-    struct timespec t;
-    clock_gettime(CLOCK_MONOTONIC, &t);
-    return t.tv_sec + t.tv_nsec * 1e-9;
-}
-
-typedef float (*dot_fn)(const float *, const float *, size_t);
-
-/* Час ОДНОГО проходу. volatile-приймач не дає компіляторові
-   викинути виклик, у якого «результат нікому не потрібен».        */
-static double bench(dot_fn f, const float *a, const float *b,
-                    size_t n, int reps)
-{
-    static volatile float sink;
-    f(a, b, n);                       /* прогрів: кеш і передбачувач */
-    double t0 = now_sec();
-    for (int r = 0; r < reps; r++)
-        sink = f(a, b, n);
-    return (now_sec() - t0) / reps;
-}
-
-static void report(const char *name, dot_fn f, const float *a,
-                   const float *b, size_t n, int reps, double ref, double ghz)
-{
-    float got = f(a, b, n);
-    double rel = fabs((double)got - ref) / fabs(ref);
-    double dt  = bench(f, a, b, n, reps);
-    printf("  %-22s  такти/елемент %6.2f   ГБ/с %7.1f   похибка %.1e\n",
-           name, dt * ghz * 1e9 / n, 8.0 * n / dt / 1e9, rel);
-}
-
-int main(void)
-{
-    const double ghz = 3.0;                    /* підставте свою частоту */
-    const size_t sizes[] = { 2048, 1u << 23 }; /* 8 КіБ і 32 МіБ на масив */
-    const int    reps[]  = { 200000, 20 };
-
-    for (int s = 0; s < 2; s++) {
-        size_t n = sizes[s];
-        /* aligned_alloc вимагає, щоб розмір був кратний вирівнюванню */
-        float *a = aligned_alloc(64, n * sizeof *a);
-        float *b = aligned_alloc(64, n * sizeof *b);
-        for (size_t i = 0; i < n; i++) {
-            a[i] = (float)rand() / RAND_MAX - 0.5f;
-            b[i] = (float)rand() / RAND_MAX - 0.5f;
-        }
-        double ref = dot_ref(a, b, n);
-
-        printf("\nn = %zu  (%.0f КіБ на масив)\n", n, n * sizeof *a / 1024.0);
-        report("наївний цикл",     dot_naive, a, b, n, reps[s], ref, ghz);
-        report("omp simd",         dot_omp,   a, b, n, reps[s], ref, ghz);
-        report("AVX2, 8 акум.",    dot_avx2,  a, b, n, reps[s], ref, ghz);
-
-        free(a); free(b);
-    }
-    return 0;
-}
-```
+:::code proj-simd-dot-product/c/robochyi-kod-2.c
 
 > 🔧 **Навіщо це.** Функція `dot_ref` виглядає зайвою — вона ж повільна й нікому не потрібна в продакшені. Насправді вона тут головна. Рукописна векторна версія — це десятки рядків, у яких помилка **не падає й не сигналить**: переплутана доріжка, з'їдений хвіст, забутий акумулятор дають просто трохи інше число, і побачити це на око неможливо. Еталон подвійної точності — єдиний спосіб відрізнити «інший результат через інший порядок додавання» (нормально, різниця ~10⁻⁷) від «інший результат через баг» (різниця будь-яка). Тому правило просте: жодного інтрінсика в проєкт без функції-оракула поруч і тесту, що звіряє їх на масивах усіх довжин — зокрема на 1, 7, 63, 64, 65.
 

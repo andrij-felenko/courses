@@ -212,42 +212,8 @@ IPC                    = 1 / 6 ≈ 0.167
 Для вирішення цієї проблеми інтерфейс Flash надає механізм примусової програмної інвалідації (скидання) кешів:
 
 :::tabs
-```c
-/* Безпечна інвалідація кешу інструкцій та даних у C */
-void flash_cache_flush(void) {
-    /* 1. Тимчасово вимикаємо кеші (біти ICEN та DCEN скидаються в 0) */
-    FLASH_ACR_REG &= ~(FLASH_ACR_ICEN_BIT | FLASH_ACR_DCEN_BIT);
-
-    /* 2. Подаємо команду скидання тегів (запис 1 у біти ICRST та DCRST) */
-    FLASH_ACR_REG |= (FLASH_ACR_ICRST_BIT | FLASH_ACR_DCRST_BIT);
-
-    /* 3. Очищаємо біти скидання */
-    FLASH_ACR_REG &= ~(FLASH_ACR_ICRST_BIT | FLASH_ACR_DCRST_BIT);
-
-    /* 4. Вмикаємо кеші назад для нових звертань */
-    FLASH_ACR_REG |= (FLASH_ACR_ICEN_BIT | FLASH_ACR_DCEN_BIT);
-}
-```
-```cpp
-/* Безпечна інвалідація кешу інструкцій та даних у C++ */
-namespace mcu::flash {
-
-inline void cache_flush() noexcept {
-    auto& acr = *reinterpret_cast<volatile uint32_t*>(0x40023C00U);
-    constexpr uint32_t IcenBit  = 1U << 9;
-    constexpr uint32_t DcenBit  = 1U << 10;
-    constexpr uint32_t IcrstBit = 1U << 11;
-    constexpr uint32_t DcrstBit = 1U << 12;
-
-    /* Вимикаємо кеші перед скиданням тегів */
-    acr &= ~(IcenBit | DcenBit);
-    acr |= (IcrstBit | DcrstBit);
-    acr &= ~(IcrstBit | DcrstBit);
-    acr |= (IcenBit | DcenBit);
-}
-
-} // namespace mcu::flash
-```
+:::code zatrymky-chytannia-flesh-pamiati-i-taktova-chastota-d/c/invalidatsiia-keshiv-ta.c
+:::code zatrymky-chytannia-flesh-pamiati-i-taktova-chastota-d/cpp/invalidatsiia-keshiv-ta.hpp
 :::
 
 Інвалідація кешів є обов'язковою процедурою перед передачею керування новому завантаженому образу прошивки у будь-якому завантажувачі.
@@ -284,18 +250,7 @@ void Critical_Motor_ISR(void) {
     GPIO_PORT->BSRR = GPIO_PIN_0; // 1 такт, детерміновано
 }
 ```
-```cpp
-/* Оголошення функції для виконання з RAM у C++ */
-namespace control {
-
-[[gnu::noinline, gnu::section(".ramfunc")]]
-void critical_motor_isr() noexcept {
-    /* Алгоритм швидкого регулятора струму */
-    // Детерміноване виконання без затримок Flash
-}
-
-} // namespace control
-```
+:::code zatrymky-chytannia-flesh-pamiati-i-taktova-chastota-d/cpp/krok-1-markuvannia.cpp
 :::
 
 ### Крок 2: Налаштування скрипта компонувальника (Linker Script)
@@ -327,46 +282,8 @@ SECTIONS
 Перед тим як функція буде викликана вперше, її машинний код має бути скопійований із адреси LMA у Flash за адресою VMA у RAM. Це виконується у функції системного скидання (`Reset_Handler`) або на початку `main()`:
 
 :::tabs
-```c
-/* Копіювання секції .ramfunc у C */
-extern uint32_t _si_ramfunc; /* Початок у Flash */
-extern uint32_t _sramfunc;    /* Початок у RAM */
-extern uint32_t _eramfunc;    /* Кінець у RAM */
-
-void copy_ramfunc_to_ram(void) {
-    uint32_t *src = &_si_ramfunc;
-    uint32_t *dst = &_sramfunc;
-    while (dst < &_eramfunc) {
-        *dst++ = *src++;
-    }
-    __DSB();
-    __ISB();
-}
-```
-```cpp
-/* Копіювання секції .ramfunc у C++ */
-#include <cstdint>
-
-extern "C" {
-    extern uint32_t _si_ramfunc;
-    extern uint32_t _sramfunc;
-    extern uint32_t _eramfunc;
-}
-
-namespace mcu::startup {
-
-inline void copy_ramfunc() noexcept {
-    const uint32_t* src = &_si_ramfunc;
-    uint32_t* dst = &_sramfunc;
-    while (dst < &_eramfunc) {
-        *dst++ = *src++;
-    }
-    asm volatile("dsb 0xF" ::: "memory");
-    asm volatile("isb 0xF" ::: "memory");
-}
-
-} // namespace mcu::startup
-```
+:::code zatrymky-chytannia-flesh-pamiati-i-taktova-chastota-d/c/krok-3-kopiiuvannia-kodu.c
+:::code zatrymky-chytannia-flesh-pamiati-i-taktova-chastota-d/cpp/krok-3-kopiiuvannia-kodu.cpp
 :::
 
 Після виконання цього копіювання будь-який виклик функції `Critical_Motor_ISR()` виконується безпосередньо з високошвидкісної пам'яті SRAM/CCMRAM із нульовою затримкою.
@@ -376,125 +293,8 @@ inline void copy_ramfunc() noexcept {
 Нижче наведено практичну реалізацію модуля безпечного налаштування Flash Latency, ініціалізації прискорювачів та перемикання системи тактування на мовах C та C++.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define FLASH_ACR_REG     (*(volatile uint32_t *)0x40023C00U)
-#define RCC_CR_REG        (*(volatile uint32_t *)0x40023800U)
-#define RCC_CFGR_REG      (*(volatile uint32_t *)0x40023808U)
-
-#define FLASH_ACR_LATENCY_5WS (5U)
-#define FLASH_ACR_PRFTEN      (1U << 8)
-#define FLASH_ACR_ICEN        (1U << 9)
-#define FLASH_ACR_DCEN        (1U << 10)
-
-#define RCC_CR_PLLON          (1U << 24)
-#define RCC_CR_PLLRDY         (1U << 25)
-#define RCC_CFGR_SW_PLL       (2U)
-#define RCC_CFGR_SWS_MASK     (0x0CU)
-#define RCC_CFGR_SWS_PLL      (0x08U)
-
-/* Безпечний перехід на високу частоту 168 МГц */
-bool system_clock_scale_up_168mhz(void) {
-    /* 1. СПЕРШУ збільшуємо затримку Flash до 5WS та вмикаємо кеші */
-    FLASH_ACR_REG = FLASH_ACR_LATENCY_5WS | FLASH_ACR_PRFTEN | 
-                    FLASH_ACR_ICEN | FLASH_ACR_DCEN;
-
-    /* 2. Очікуємо фіксації затримки 5WS */
-    uint32_t timeout = 5000U;
-    while ((FLASH_ACR_REG & 0x0FU) != FLASH_ACR_LATENCY_5WS) {
-        if (--timeout == 0U) return false;
-    }
-
-    /* 3. Запускаємо PLL (передбачається, що дільники PLLM/PLLN/PLLP вже налаштовані) */
-    RCC_CR_REG |= RCC_CR_PLLON;
-    timeout = 10000U;
-    while (!(RCC_CR_REG & RCC_CR_PLLRDY)) {
-        if (--timeout == 0U) return false;
-    }
-
-    /* 4. Перемикаємо системний такт на вихід PLL */
-    uint32_t cfgr = RCC_CFGR_REG;
-    cfgr &= ~0x03U;
-    cfgr |= RCC_CFGR_SW_PLL;
-    RCC_CFGR_REG = cfgr;
-
-    /* 5. Очікуємо підтвердження перемикання джерела тактування */
-    timeout = 5000U;
-    while ((RCC_CFGR_REG & RCC_CFGR_SWS_MASK) != RCC_CFGR_SWS_PLL) {
-        if (--timeout == 0U) return false;
-    }
-
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-
-namespace mcu::system {
-
-class ClockManager {
-private:
-    static constexpr uintptr_t FlashAcrAddr = 0x40023C00U;
-    static constexpr uintptr_t RccCrAddr    = 0x40023800U;
-    static constexpr uintptr_t RccCfgrAddr  = 0x40023808U;
-
-    static constexpr uint32_t Latency5Ws = 5U;
-    static constexpr uint32_t Prften     = 1U << 8;
-    static constexpr uint32_t Icen       = 1U << 9;
-    static constexpr uint32_t Dcen       = 1U << 10;
-
-    static constexpr uint32_t PllOn      = 1U << 24;
-    static constexpr uint32_t PllRdy     = 1U << 25;
-    static constexpr uint32_t SwPll      = 2U;
-    static constexpr uint32_t SwsMask    = 0x0CU;
-    static constexpr uint32_t SwsPll     = 0x08U;
-
-    static auto& flash_acr() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(FlashAcrAddr);
-    }
-    static auto& rcc_cr() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(RccCrAddr);
-    }
-    static auto& rcc_cfgr() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(RccCfgrAddr);
-    }
-
-public:
-    [[nodiscard]] static bool scale_up_to_168mhz() noexcept {
-        /* 1. Спершу збільшуємо затримку Flash */
-        flash_acr() = Latency5Ws | Prften | Icen | Dcen;
-
-        uint32_t timeout = 5000U;
-        while ((flash_acr() & 0x0FU) != Latency5Ws) {
-            if (--timeout == 0U) return false;
-        }
-
-        /* 2. Запуск PLL */
-        rcc_cr() |= PllOn;
-        timeout = 10000U;
-        while (!(rcc_cr() & PllRdy)) {
-            if (--timeout == 0U) return false;
-        }
-
-        /* 3. Перемикання системного такту */
-        auto cfgr = rcc_cfgr();
-        cfgr &= ~0x03U;
-        cfgr |= SwPll;
-        rcc_cfgr() = cfgr;
-
-        timeout = 5000U;
-        while ((rcc_cfgr() & SwsMask) != SwsPll) {
-            if (--timeout == 0U) return false;
-        }
-
-        return true;
-    }
-};
-
-} // namespace mcu::system
-```
+:::code zatrymky-chytannia-flesh-pamiati-i-taktova-chastota-d/c/povnyi-draiver.c
+:::code zatrymky-chytannia-flesh-pamiati-i-taktova-chastota-d/cpp/povnyi-draiver.cpp
 :::
 
 Практичне порівняння швидкодії коду з різними комбінаціями затримок, буфера Prefetch, кешу та релокації в оперативну пам'ять детально розібрано у вставці [Бенчмарк виконання коду з Flash та RAM](root:hw-arch/zatrymky-chytannia-flesh-pamiati-i-taktova-chastota/proj-flash-ram-benchmark.md).

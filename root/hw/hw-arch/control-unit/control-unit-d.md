@@ -57,77 +57,8 @@
 **Умова:** у IR лежить 16-бітна команда `0x1345`. Домовленість набору: біти 15–12 — опкод, 11–8 — регістр призначення, 7–4 — перший операнд, 3–0 — другий. Опкод `0x1` означає «додати». Що видасть декодер:
 
 :::tabs
-```cpp
-// Керувальні сигнали — по одному "дроту" на поле (модель зашитого декодера).
-typedef struct {
-    uint8_t reg_a, reg_b, reg_dst; // які регістри читати / куди писати
-    uint8_t alu_op;                // яку операцію ввімкнути в АЛП
-    bool    reg_write;             // лінія "защіпнути результат у регістр"
-    bool    mem_read;              // лінія "читати з пам'яті по шині"
-} Control;
-
-enum { OP_ADD = 0x1, OP_SUB = 0x2, OP_LOAD = 0x3 };
-enum { ALU_ADD, ALU_SUB, ALU_PASS };
-
-Control decode(uint16_t ir) {
-    Control c = {0};                       // усі лінії спершу опущені (0)
-    uint8_t op  = (ir >> 12) & 0xF;        // опкод      = старші 4 біти
-    uint8_t dst = (ir >>  8) & 0xF;        // призначення = наступні 4
-    uint8_t a   = (ir >>  4) & 0xF;        // операнд A
-    uint8_t b   =  ir        & 0xF;        // операнд B
-
-    switch (op) {                          // зіставлення опкоду зі взірцем
-    case OP_ADD:                           // 0x1 → додати
-        c.reg_a = a; c.reg_b = b; c.reg_dst = dst;
-        c.alu_op = ALU_ADD;                // увімкнути в АЛП додавання
-        c.reg_write = true;                // після рахунку — записати результат
-        break;
-    case OP_LOAD:                          // 0x3 → завантажити з пам'яті
-        c.reg_dst = dst;
-        c.mem_read = true;                 // спершу привезти число шиною
-        c.reg_write = true;
-        break;
-    // ... решта опкодів
-    }
-    return c;                              // готовий набір сигналів на цей такт
-}
-```
-```python
-from dataclasses import dataclass
-
-# Опкоди й операції АЛП
-OP_ADD, OP_SUB, OP_LOAD = 0x1, 0x2, 0x3
-ALU_ADD, ALU_SUB, ALU_PASS = 0, 1, 2
-
-# Керувальні сигнали — по одному "дроту" на поле (модель зашитого декодера).
-@dataclass
-class Control:
-    reg_a: int = 0
-    reg_b: int = 0
-    reg_dst: int = 0        # які регістри читати / куди писати
-    alu_op: int = ALU_PASS  # яку операцію ввімкнути в АЛП
-    reg_write: bool = False # лінія "защіпнути результат у регістр"
-    mem_read: bool = False  # лінія "читати з пам'яті по шині"
-
-def decode(ir: int) -> Control:
-    c = Control()                   # усі лінії спершу опущені (0)
-    op  = (ir >> 12) & 0xF          # опкод      = старші 4 біти
-    dst = (ir >>  8) & 0xF          # призначення = наступні 4
-    a   = (ir >>  4) & 0xF          # операнд A
-    b   =  ir        & 0xF          # операнд B
-
-    if op == OP_ADD:                # 0x1 → додати
-        c.reg_a, c.reg_b, c.reg_dst = a, b, dst
-        c.alu_op = ALU_ADD          # увімкнути в АЛП додавання
-        c.reg_write = True          # після рахунку — записати результат
-    elif op == OP_LOAD:             # 0x3 → завантажити з пам'яті
-        c.reg_dst = dst
-        c.mem_read = True           # спершу привезти число шиною
-        c.reg_write = True
-    # ... решта опкодів
-
-    return c                        # готовий набір сигналів на цей такт
-```
+:::code control-unit-d/cpp/main.cpp
+:::code control-unit-d/py/main.py
 :::
 
 Розберемо, що станеться на вході `0x1345`:

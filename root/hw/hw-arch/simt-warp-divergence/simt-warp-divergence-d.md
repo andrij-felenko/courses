@@ -22,47 +22,8 @@
 Проблема виникає, коли в програмі з'являється умовне розгалуження, умова якого залежить від номера потоку (`threadIdx.x`) або від оброблюваних даних:
 
 :::tabs
-```c
-// Приклад дивергентного коду (C / CUDA C)
-__global__ void process_elements(float *output, const float *input, int threshold)
-{
-    int tid = threadIdx.x;
-    float value = input[tid];
-
-    if (value > threshold) {
-        // Гілка A: тривале математичне обчислення
-        output[tid] = sqrtf(value) * logf(value) + expf(value * 0.1f);
-    } else {
-        // Гілка B: швидке обнулення
-        output[tid] = 0.0f;
-    }
-}
-```
-```cpp
-// Приклад дивергентного коду (Modern CUDA C++)
-#include <cuda_runtime.h>
-#include <cmath>
-#include <span>
-
-namespace gpu {
-
-template <typename T>
-__global__ void process_elements(T * __restrict__ output, const T * __restrict__ input, T threshold)
-{
-    const int tid = threadIdx.x;
-    const T value = input[tid];
-
-    if (value > threshold) {
-        // Гілка A: тривале обчислення
-        output[tid] = std::sqrt(value) * std::log(value) + std::exp(value * static_cast<T>(0.1));
-    } else {
-        // Гілка B: обнулення
-        output[tid] = static_cast<T>(0);
-    }
-}
-
-} // namespace gpu
-```
+:::code simt-warp-divergence-d/c/main.c
+:::code simt-warp-divergence-d/cpp/main.cpp
 :::
 
 Якщо у вхідному масиві частина елементів більша за поріг, а частина менша, виникає розходження: потоки 0..15 мають піти у гілку `A`, а потоки 16..31 — у гілку `B`. Оскільки апаратний лічильник команд у варпі один, процесор фізично не здатний одночасно передати на виконавчі блоки інструкції квадратного кореня для першої половини варпу та команду збереження нуля для другої половини.

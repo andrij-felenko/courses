@@ -52,81 +52,9 @@
 Візьмімо найпоширеніший випадок — **прапорець**. Давач замикає ніжку (скажімо, лічильник обертів або кнопку). Загальне тут одне й те саме на будь-якому МК: ніжка, здатна на переривання, налаштована на вхід із підтяжкою до живлення й на спадний фронт; обробник підіймає прапорець; уся реакція — у головному циклі. Різняться лише назви:
 
 :::tabs
-```arduino
-volatile bool fired = false;      // спільний прапорець — тому volatile
-
-void IRAM_ATTR onEvent() {        // верхня половина: коротка, у RAM
-  fired = true;                   // лише відмітити — і вийти
-}
-
-void setup() {
-  pinMode(PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(PIN), onEvent, FALLING);
-  Serial.begin(115200);
-}
-
-void loop() {                     // нижня половина: тут можна все
-  if (fired) {
-    fired = false;                // скинути ПЕРЕД роботою
-    Serial.println("подія!");     // друк, обчислення — будь-що
-  }
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-static volatile bool fired = false;          // спільний прапорець
-
-static void IRAM_ATTR on_event(void *arg) {  // верхня половина: коротка, у RAM
-    fired = true;                            // лише відмітити — і вийти
-}
-
-void app_main(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << PIN,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_ENABLE,
-        .intr_type    = GPIO_INTR_NEGEDGE,   // спадний фронт
-    };
-    gpio_config(&cfg);
-    gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
-    gpio_isr_handler_add(PIN, on_event, NULL);
-
-    while (1) {                              // нижня половина: тут можна все
-        if (fired) {
-            fired = false;                   // скинути ПЕРЕД роботою
-            ESP_LOGI("app", "подія!");       // друк, обчислення — будь-що
-        }
-        vTaskDelay(pdMS_TO_TICKS(10));       // віддати CPU іншим задачам
-    }
-}
-```
-```stm32
-volatile bool fired = false;                     // спільний прапорець
-
-// верхня половина: HAL сам скидає прапорець EXTI й кличе цей callback
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {
-    if (pin == EVENT_Pin) fired = true;          // лише відмітити — і вийти
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();          // ніжка: GPIO_MODE_IT_FALLING + GPIO_PULLUP
-    HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
-    while (1) {                                  // нижня половина: тут можна все
-        if (fired) {
-            fired = false;                       // скинути ПЕРЕД роботою
-            printf("подія!\r\n");                // друк через retarget на UART
-        }
-    }
-}
-```
+:::code proj-deferred-work/c/arduino/robochyi-kod.ino
+:::code proj-deferred-work/c/esp-idf/robochyi-kod.c
+:::code proj-deferred-work/c/stm32/robochyi-kod.c
 :::
 
 Обробник торкається лише прапорця; увесь друк — у нижній половині, де він нікому не заважає. Скидаємо `fired` **до** обробки: якщо подія прийде під час неї, прапорець знову стане `true`, і наступний прохід циклу її підхопить. Порядок тут не дрібниця: скинь ми прапорець **після** друку — подію, що влетіла під час друку, було б затерто, і ми б її проґавили. Дрібна перестановка двох рядків — і поведінка міняється від «нічого не губимо» до «зрідка губимо під навантаженням».
@@ -134,78 +62,9 @@ int main(void) {
 Коли ж подій багато й вони несуть **дані**, прапорця замало — потрібна **черга**. Обробник складає байти, а розбір — у нижній половині:
 
 :::tabs
-```arduino
-volatile uint8_t  buf[64];        // кільцевий буфер
-volatile uint8_t  head = 0, tail = 0;   // індекси: пише обробник, читає loop
-
-void IRAM_ATTR onByte() {         // верхня половина
-  uint8_t next = (head + 1) % sizeof(buf);
-  if (next != tail) {             // є місце?
-    buf[head] = readByte();       // лише читання регістра + запис
-    head = next;
-  }                               // переповнення — мовчки відкидаємо
-}
-
-void loop() {                     // нижня половина
-  while (tail != head) {          // поки є непрочитане
-    uint8_t b = buf[tail];
-    tail = (tail + 1) % sizeof(buf);
-    parse(b);                     // розбір, друк, математика — без поспіху
-  }
-}
-```
-```esp-idf
-#include "freertos/FreeRTOS.h"
-#include "freertos/queue.h"
-#include "freertos/task.h"
-
-static QueueHandle_t q;                        // черга замість власного кільця
-
-static void IRAM_ATTR on_byte(void *arg) {     // верхня половина
-    uint8_t b = read_byte();                   // лише читання регістра
-    BaseType_t woken = pdFALSE;
-    xQueueSendFromISR(q, &b, &woken);          // черга повна — байт відкидається
-    if (woken) portYIELD_FROM_ISR();           // розбудили задачу — віддати їй CPU
-}
-
-static void parser_task(void *arg) {           // нижня половина
-    uint8_t b;
-    while (xQueueReceive(q, &b, portMAX_DELAY) == pdTRUE)
-        parse(b);                              // розбір, друк, математика — без поспіху
-}
-
-void app_main(void) {
-    q = xQueueCreate(64, sizeof(uint8_t));     // 64 байти місткості
-    xTaskCreate(parser_task, "parser", 4096, NULL, 5, NULL);
-}
-```
-```stm32
-volatile uint8_t  buf[64];        // кільцевий буфер
-volatile uint8_t  head = 0, tail = 0;   // індекси: пише переривання, читає main
-static   uint8_t  rx;             // куди HAL кладе черговий байт
-
-// верхня половина: HAL кличе це з переривання, коли байт прийнято
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-    uint8_t next = (head + 1) % sizeof(buf);
-    if (next != tail) {           // є місце?
-        buf[head] = rx;
-        head = next;
-    }                             // переповнення — мовчки відкидаємо
-    HAL_UART_Receive_IT(huart, &rx, 1);   // одразу замовити наступний байт
-}
-
-int main(void) {
-    /* … HAL_Init(), MX_USART2_UART_Init() … */
-    HAL_UART_Receive_IT(&huart2, &rx, 1); // запустити ланцюжок прийому
-    while (1) {                   // нижня половина
-        while (tail != head) {    // поки є непрочитане
-            uint8_t b = buf[tail];
-            tail = (tail + 1) % sizeof(buf);
-            parse(b);             // розбір, друк, математика — без поспіху
-        }
-    }
-}
-```
+:::code proj-deferred-work/c/arduino/robochyi-kod-2.ino
+:::code proj-deferred-work/c/esp-idf/robochyi-kod-2.c
+:::code proj-deferred-work/c/stm32/robochyi-kod-2.c
 :::
 
 Один пише `head`, інший читає `tail` — і за такої однонапрямної схеми проста перевірка `next != tail` тримає буфер цілим без важких замків. Це працює саме тому, що ролі **розведені**: обробник лише рухає `head` уперед, нижня половина лише рухає `tail`. Жоден не чіпає індекс іншого, тож їм нема за що битися — і складний захист (замки, заборона переривань) тут просто не потрібен. Якби обидва писали в обидва індекси, ця проста схема розсипалася б, і довелося б вимикати переривання на кожен доступ.

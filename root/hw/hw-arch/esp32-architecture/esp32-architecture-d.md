@@ -28,24 +28,7 @@
 
 **Прив'язуємо лічильник до ядра 1 і друкуємо, де він виконується.**
 
-```cpp
-// ESP-IDF / Arduino-ESP32: остання цифра — номер ядра (0 або 1)
-void worker(void *arg) {
-    for (;;) {
-        printf("рахую на ядрі %d\n", xPortGetCoreID());   // → 1
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
-
-void app_main(void) {
-    xTaskCreatePinnedToCore(
-        worker, "worker",
-        4096,   // стек задачі, байтів
-        NULL, 5,
-        NULL,
-        1);     // APP_CPU_NUM — закріпити за ядром 1
-}
-```
+:::code esp32-architecture-d/cpp/main.cpp
 
 Виклик `xTaskCreatePinnedToCore` із номером `1` лишає ядро 0 системному й радіо-стеку, а `xPortGetCoreID()` повертає той самий `1` — апаратна двоядерність проступає рядком коду.
 

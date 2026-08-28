@@ -125,81 +125,8 @@ unsigned int rank = __popc(ballot & ((1u << laneId) - 1));
 Редукція 32 чисел у межах варпу за допомогою `__shfl_down_sync` виконується за `log₂(32) = 5` кроків без використання спільної пам'яті та без блокових синхронізацій:
 
 :::tabs
-```c
-// warp_primitives.c (C API / CUDA C)
-#include <cuda_runtime.h>
-
-// Швидка редукція суми всередині варпу
-__device__ inline float warp_reduce_sum(float val)
-{
-    unsigned int mask = 0xFFFFFFFF; // Усі 32 потоки активні
-
-    // Деревна редукція: 16 -> 8 -> 4 -> 2 -> 1
-    val += __shfl_down_sync(mask, val, 16);
-    val += __shfl_down_sync(mask, val, 8);
-    val += __shfl_down_sync(mask, val, 4);
-    val += __shfl_down_sync(mask, val, 2);
-    val += __shfl_down_sync(mask, val, 1);
-
-    // Потік 0 містить фінальну суму всіх 32 потоків
-    return val;
-}
-
-// Префіксне сумування (Inclusive Scan) всередині варпу
-__device__ inline float warp_prefix_scan(float val)
-{
-    unsigned int mask = 0xFFFFFFFF;
-
-    for (int offset = 1; offset < 32; offset <<= 1) {
-        float temp = __shfl_up_sync(mask, val, offset);
-        if ((threadIdx.x & 31) >= offset) {
-            val += temp;
-        }
-    }
-    return val;
-}
-```
-```cpp
-// warp_primitives.hpp (Modern CUDA C++ / Type-safe Templates)
-#pragma once
-#include <cuda_runtime.h>
-#include <concepts>
-#include <type_traits>
-
-namespace gpu {
-
-// Концепт арифметичного типу, що підтримується апаратним shuffle
-template <typename T>
-concept Shuffleable = std::is_arithmetic_v<T> && (sizeof(T) == 4 || sizeof(T) == 8);
-
-// Універсальна типобезпечна редукція варпу
-template <Shuffleable T, typename BinaryOp>
-__device__ inline T warp_reduce(T val, BinaryOp op, unsigned int mask = 0xFFFFFFFF) noexcept
-{
-    #pragma unroll
-    for (int offset = 16; offset > 0; offset >>= 1) {
-        T other = __shfl_down_sync(mask, val, offset);
-        val = op(val, other);
-    }
-    return val;
-}
-
-// Спеціалізація суми для довільного числового типу
-template <Shuffleable T>
-__device__ inline T warp_sum(T val, unsigned int mask = 0xFFFFFFFF) noexcept
-{
-    return warp_reduce(val, [](T a, T b) { return a + b; }, mask);
-}
-
-// Спеціалізація максимуму
-template <Shuffleable T>
-__device__ inline T warp_max(T val, unsigned int mask = 0xFFFFFFFF) noexcept
-{
-    return warp_reduce(val, [](T a, T b) { return (a > b) ? a : b; }, mask);
-}
-
-} // namespace gpu
-```
+:::code api-warp-intrinsics/c/warp_primitives.c
+:::code api-warp-intrinsics/cpp/warp_primitives.hpp
 :::
 
 ### Бар'єри пам'яті проти бар'єрів виконання

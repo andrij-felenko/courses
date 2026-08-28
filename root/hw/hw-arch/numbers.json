@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -37,7 +38,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         }
       ]
@@ -68,11 +70,13 @@
           "proj": [
             {
               "file": "proj-cordic.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-fixed-point.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -84,7 +88,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "hist": [
             {
@@ -105,7 +110,8 @@
           "proj": [
             {
               "file": "proj-float-compare.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -116,7 +122,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -127,7 +134,8 @@
           "proj": [
             {
               "file": "proj-half-precision-convert.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -176,24 +184,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
               "file": "math-eft-proofs.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-double-double.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-fma-intrinsics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

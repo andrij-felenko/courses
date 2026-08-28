@@ -41,64 +41,8 @@ ESP32 дає чотири такі сторожі, і вони впорядко�
 **Умова.** Давач має прокидатися раз на 15 хвилин для планового виміру, але користувач має змогу будь-коли підняти його кнопкою. Кнопка заведена на GPIO 36 (RTC-здатний), притискає лінію в нуль; обидва джерела вмикаємо разом, а після старту обираємо гілку за причиною пробудження.
 
 :::tabs
-```c
-#include "esp_sleep.h"
-#include "driver/gpio.h"
-
-#define WAKE_GPIO     GPIO_NUM_36          // мусить бути RTC-здатною ніжкою!
-#define SLEEP_MINUTES 15
-#define US_PER_MIN    60000000ULL          // мікросекунд у хвилині
-
-void app_main(void) {
-    // 1. Чому нас підняли?
-    switch (esp_sleep_get_wakeup_cause()) {
-        case ESP_SLEEP_WAKEUP_TIMER:        // сплив період
-            handle_periodic_measurement();
-            break;
-        case ESP_SLEEP_WAKEUP_EXT0:         // натиснули кнопку
-            handle_button_press();
-            break;
-        default:                            // перше холодне ввімкнення
-            cold_start_init();
-            break;
-    }
-
-    // 2. Вмикаємо ОБИДВА сторожі перед сном.
-    esp_sleep_enable_timer_wakeup(SLEEP_MINUTES * US_PER_MIN);
-    esp_sleep_enable_ext0_wakeup(WAKE_GPIO, 0);   // рівень 0 (LOW) будить
-
-    // 3. У глибокий сон — прокинемося від того, що настане раніше.
-    esp_deep_sleep_start();
-    // Рядки нижче не виконуються: deep-sleep перезапускає чип з app_main().
-}
-```
-```micropython
-import machine
-import esp32
-from machine import Pin
-
-WAKE_GPIO     = 36            # мусить бути RTC-здатною ніжкою!
-SLEEP_MINUTES = 15
-MS_PER_MIN    = 60000        # мілісекунд у хвилині
-
-# 1. Чому нас підняли?
-cause = machine.wake_reason()
-if cause == machine.TIMER_WAKE:          # сплив період
-    handle_periodic_measurement()
-elif cause == machine.EXT0_WAKE:         # натиснули кнопку
-    handle_button_press()
-else:                                    # перше холодне ввімкнення
-    cold_start_init()
-
-# 2. Вмикаємо ОБИДВА сторожі перед сном.
-#    ext0 будить рівнем 0 (LOW) на RTC-ніжці.
-esp32.wake_on_ext0(pin=Pin(WAKE_GPIO), level=esp32.WAKEUP_ALL_LOW)
-
-# 3. У глибокий сон — таймер задають самим викликом deepsleep(ms);
-#    прокинемося від того, що настане раніше.
-machine.deepsleep(SLEEP_MINUTES * MS_PER_MIN)
-# Рядки нижче не виконуються: deep-sleep перезапускає чип з початку.
-```
+:::code wakeup-sources-d/c/main.c
+:::code wakeup-sources-d/py/micropython/main.py
 :::
 
 Два рядки налаштування — і пристрій реагує і на розклад, і на людину; гілку коду обирає причина пробудження, прочитана першою ж дією. Варто додати ще третій сторож — наприклад, акселерометр на ext1 для пробудження від руху, — і логіка масштабується тим самим патерном: увімкнути джерело, додати гілку в `switch`. А коли треба не просто прокидатися дешево, а взагалі **знеструмити чип у нуль** і будити його ззовні, на сцену виходять [зовнішні залізні будильники](root:hw-arch/wakeup-sources/comp-wake-hw.md) — окремий клас схемних рішень поза самим чипом.

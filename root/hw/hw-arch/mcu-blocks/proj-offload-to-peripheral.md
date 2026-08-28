@@ -7,55 +7,9 @@
 Найочевидніше — вмикати й вимикати ніжку самому, відмірюючи паузи затримкою. Англійці звуть це *bit-banging* (буквально «гупання бітами» — формувати сигнал, перемикаючи лінію кодом):
 
 :::tabs
-```arduino
-const int PIN = 18;
-
-void setup() {
-  pinMode(PIN, OUTPUT);
-}
-
-void loop() {
-  // ШІМ ~1 кГц, шпаруватість 50 %: 500 мкс «1», 500 мкс «0»
-  digitalWrite(PIN, HIGH);
-  delayMicroseconds(500);
-  digitalWrite(PIN, LOW);
-  delayMicroseconds(500);
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_rom_sys.h"       // esp_rom_delay_us()
-
-#define PIN GPIO_NUM_18
-
-void bitbang_task(void *arg) {
-  gpio_config_t io = { .pin_bit_mask = 1ULL << PIN, .mode = GPIO_MODE_OUTPUT };
-  gpio_config(&io);
-  for (;;) {
-    // ШІМ ~1 кГц, шпаруватість 50 %: 500 мкс «1», 500 мкс «0»
-    gpio_set_level(PIN, 1);
-    esp_rom_delay_us(500);
-    gpio_set_level(PIN, 0);
-    esp_rom_delay_us(500);
-  }
-}
-```
-```stm32
-// ніжку вже налаштовано як вихід (CubeMX: PA5, Output Push Pull)
-static void delay_us(uint32_t us) {          // HAL уміє лише HAL_Delay() у мілісекундах —
-  uint32_t t0 = DWT->CYCCNT;                 // мікросекунди доводиться крутити самим
-  uint32_t n  = us * (SystemCoreClock / 1000000U);
-  while (DWT->CYCCNT - t0 < n) { }
-}
-
-while (1) {
-  // ШІМ ~1 кГц, шпаруватість 50 %: 500 мкс «1», 500 мкс «0»
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-  delay_us(500);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-  delay_us(500);
-}
-```
+:::code proj-offload-to-peripheral/c/arduino/sposib-pershyi-smykaty.ino
+:::code proj-offload-to-peripheral/c/esp-idf/sposib-pershyi-smykaty.c
+:::code proj-offload-to-peripheral/c/stm32/sposib-pershyi-smykaty.c
 :::
 
 Це працює — поки ядро більше нічого не робить. Біда у двох речах. По-перше, головний цикл програми **повністю з'їдений** цією парою затримок: поки ми тут крутимося, ядро не може ні опитати давач, ні відповісти на мережу — воно стоїть і рахує мікросекунди. По-друге — і це підступніше — сигнал **тремтить**. Варто десь увімкнутися перериванню (а вони на МК трапляються постійно: системний таймер, надходження байта по UART), і чергова пауза розтягнеться рівно на стільки, скільки виконувався обробник. Період «попливе», шпаруватість зіб'ється — для світлодіода дрібниця, а для сервопривода чи звуку вже чути й видно.
@@ -77,64 +31,9 @@ while (1) {
 Тепер та сама задача через апаратний таймер ШІМ. Такий вузол є в кожному сучасному МК і всюди влаштований однаково: лічильник, межа періоду й регістр порога, а ніжку перемикає схема порівняння «лічильник = поріг». Різняться лише назви: на ESP32 це **LEDC** (*LED Controller* — попри назву, придатний для будь-якого ШІМ, не лише для світлодіодів), на STM32 — канал таймера загального призначення в режимі PWM. Ідея інша в самій суті: ми **один раз** кажемо вузлові частоту й шпаруватість, а далі він жене ідеальний прямокутник сам, у залізі, поки ми його не зупинимо.
 
 :::tabs
-```arduino
-const int PIN = 18;
-const int CH  = 0;       // канал LEDC
-const int FREQ = 1000;   // Гц
-const int RES  = 10;     // розрядність лічильника: 10 біт → діапазон 0..1023
-
-void setup() {
-  ledcSetup(CH, FREQ, RES);    // налаштувати канал: частота і роздільність
-  ledcAttachPin(PIN, CH);      // прив'язати ніжку до каналу
-  ledcWrite(CH, 512);          // шпаруватість 512/1023 ≈ 50 % — і все
-}
-
-void loop() {
-  // порожньо: сигнал іде сам; ядро вільне для будь-чого
-}
-```
-```esp-idf
-#include "driver/ledc.h"
-
-void pwm_start(void) {
-  ledc_timer_config_t tcfg = {
-    .speed_mode      = LEDC_LOW_SPEED_MODE,
-    .timer_num       = LEDC_TIMER_0,
-    .duty_resolution = LEDC_TIMER_10_BIT,   // 10 біт → діапазон 0..1023
-    .freq_hz         = 1000,                // Гц
-    .clk_cfg         = LEDC_AUTO_CLK,
-  };
-  ledc_timer_config(&tcfg);
-
-  ledc_channel_config_t ccfg = {
-    .gpio_num   = 18,
-    .speed_mode = LEDC_LOW_SPEED_MODE,
-    .channel    = LEDC_CHANNEL_0,
-    .timer_sel  = LEDC_TIMER_0,
-    .duty       = 512,                      // 512/1023 ≈ 50 % — і все
-    .hpoint     = 0,
-  };
-  ledc_channel_config(&ccfg);
-}
-// далі задача app_main() вільна: сигнал іде сам
-```
-```stm32
-// TIM2, канал 1, ніжка PA0 (CubeMX: TIM2_CH1, PWM Generation CH1).
-// Шина 72 МГц, PSC = 71 → лічильник цокає 1 МГц; ARR = 999 → період 1000 мкс = 1 кГц
-extern TIM_HandleTypeDef htim2;
-
-void pwm_start(void) {
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 500);   // поріг 500/1000 = 50 %
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);            // і все
-}
-
-int main(void) {
-  pwm_start();
-  while (1) {
-    // порожньо: сигнал іде сам; ядро вільне для будь-чого
-  }
-}
-```
+:::code proj-offload-to-peripheral/c/arduino/sposib-druhyi-nalashtuvaty.ino
+:::code proj-offload-to-peripheral/c/esp-idf/sposib-druhyi-nalashtuvaty.c
+:::code proj-offload-to-peripheral/c/stm32/sposib-druhyi-nalashtuvaty.c
 :::
 
 Порахуймо, що насправді означає «512»: лічильник вузла рахує від 0 до 2¹⁰−1, тобто до 1023, і тримає лінію в «1», поки не дійде до порога.
@@ -174,75 +73,9 @@ ledcWrite(PIN, 512);          // адресуємо ніжкою, не кана�
 ШІМ — лише один приклад. Та сама схема «налаштував і відійшов» повторюється з усією периферією, і впізнавати її варто наперед. Скажімо, треба робити щось **точно щомілісекунди** — зчитувати давач, крутити регулятор. Перша думка новачка — затримка на мілісекунду в циклі; та ми вже бачили, чим це кінчається. Правильний хід — апаратний таймер, що сам смикає коротке переривання рівно через заданий інтервал, поки головний цикл живе своїм життям:
 
 :::tabs
-```arduino
-volatile bool tick = false;          // прапорець «настала мить» — ставить ISR
-
-void IRAM_ATTR onTimer() {           // обробник: коротко, лише підняти прапорець
-  tick = true;
-}
-
-void setup() {
-  // таймер 0, дільник 80: лічильник цокає раз на мікросекунду (80 МГц / 80)
-  hw_timer_t *t = timerBegin(0, 80, true);
-  timerAttachInterrupt(t, &onTimer, true);
-  timerAlarmWrite(t, 1000, true);    // спрацьовувати кожні 1000 мкс = 1 мс
-  timerAlarmEnable(t);
-}
-
-void loop() {
-  if (tick) {                        // ядро реагує, коли зручно, а відлік — залізний
-    tick = false;
-    // тут — робота строго раз на мілісекунду
-  }
-}
-```
-```esp-idf
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-static volatile bool tick = false;   // прапорець «настала мить» — ставить обробник
-
-static void on_timer(void *arg) {    // обробник: коротко, лише підняти прапорець
-  tick = true;
-}
-
-void app_main(void) {
-  const esp_timer_create_args_t args = { .callback = &on_timer, .name = "tick" };
-  esp_timer_handle_t t;
-  esp_timer_create(&args, &t);
-  esp_timer_start_periodic(t, 1000); // період у мікросекундах: 1000 мкс = 1 мс
-
-  for (;;) {
-    if (tick) {                      // ядро реагує, коли зручно, а відлік — залізний
-      tick = false;
-      // тут — робота строго раз на мілісекунду
-    }
-    vTaskDelay(1);                   // віддати процесор, поки події нема
-  }
-}
-```
-```stm32
-// TIM6 (CubeMX: Prescaler 71 → лічильник 1 МГц, Period 999 → переповнення раз на 1 мс)
-extern TIM_HandleTypeDef htim6;
-volatile bool tick = false;          // прапорець «настала мить» — ставить ISR
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Instance == TIM6) tick = true;   // обробник: коротко, лише прапорець
-}
-
-int main(void) {
-  /* … HAL_Init(), MX_TIM6_Init() з CubeMX … */
-  HAL_TIM_Base_Start_IT(&htim6);     // відлік веде таймер, ядро вільне
-
-  while (1) {
-    if (tick) {                      // ядро реагує, коли зручно, а відлік — залізний
-      tick = false;
-      // тут — робота строго раз на мілісекунду
-    }
-  }
-}
-```
+:::code proj-offload-to-peripheral/c/arduino/toi-samyi-khid-z-bud-iakym.ino
+:::code proj-offload-to-peripheral/c/esp-idf/toi-samyi-khid-z-bud-iakym.c
+:::code proj-offload-to-peripheral/c/stm32/toi-samyi-khid-z-bud-iakym.c
 :::
 
 Дільник `80` тут не випадковий: відняти від тактового сигналу рівно стільки, щоб лічильник рахував зручними мікросекундами.
@@ -264,40 +97,8 @@ void loop() {
   // тут же — будь-яка інша робота, бо ми не застрягли в очікуванні
 }
 ```
-```esp-idf
-#include "driver/uart.h"
-
-void app_main(void) {
-  uint8_t c;
-  for (;;) {
-    // UART сам склав байти у свій FIFO й чергу драйвера, поки ми були вільні;
-    // час очікування 0 — не стоїмо ані такту, лише забираємо готове
-    if (uart_read_bytes(UART_NUM_1, &c, 1, 0) == 1) {
-      // обробити отриманий символ
-    }
-    // тут же — будь-яка інша робота, бо ми не застрягли в очікуванні
-  }
-}
-```
-```stm32
-volatile bool has_byte = false;
-uint8_t rx;
-
-// приймання запускають один раз: HAL_UART_Receive_IT(&huart1, &rx, 1);
-// далі байт кладе в rx апаратура з обробником, а не наш цикл
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-  has_byte = true;
-  HAL_UART_Receive_IT(huart, &rx, 1);   // одразу чекати наступний
-}
-
-while (1) {
-  if (has_byte) {
-    has_byte = false;
-    // обробити отриманий символ rx
-  }
-  // тут же — будь-яка інша робота, бо ми не застрягли в очікуванні
-}
-```
+:::code proj-offload-to-peripheral/c/esp-idf/toi-samyi-khid-z-bud-iakym-2.c
+:::code proj-offload-to-peripheral/c/stm32/toi-samyi-khid-z-bud-iakym-2.c
 :::
 
 В усіх трьох випадках малюнок один: вузол тягне рутину (відлік, прийом, формування сигналу), а ядро або **налаштовує й відходить**, або **реагує на готове**. Ось чому пустий головний цикл біля працюючого ШІМ — не дивина, а норма доброї прошивки на МК.

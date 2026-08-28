@@ -149,39 +149,8 @@ NUMA Ratio = Latency(Remote) / Latency(Local)
 На найвищому рівні кожен NUMA-вузол описується структурою `struct pglist_data` (скорочено `pg_data_t`). Ядро зберігає глобальний масив покажчиків `node_data[MAX_NUMNODES]`, а швидкий доступ до дескриптора поточного вузла здійснюється через макрос `NODE_DATA(node_id)`.
 
 :::tabs
-```c
-// Ядро Linux: linux/mmzone.h
-typedef struct pglist_data {
-    struct zone node_zones[MAX_NR_ZONES];
-    struct zonelist node_zonelists[MAX_ZONELISTS];
-    int nr_zones;
-    
-    unsigned long node_start_pfn;
-    unsigned long node_present_pages;
-    unsigned long node_spanned_pages;
-    int node_id;
-    
-    wait_queue_head_t kswapd_wait;
-    struct task_struct *kswapd;
-    
-    spinlock_t lru_lock;
-    struct lruvec __lruvec;
-} pg_data_t;
-```
-```cpp
-// Простір користувача C++: об'єктна модель дескриптора NUMA-вузла
-#include <string>
-#include <vector>
-#include <cstdint>
-
-struct NumaNodeDescriptor {
-    int node_id{0};
-    std::uint64_t total_memory_bytes{0};
-    std::uint64_t free_memory_bytes{0};
-    std::vector<int> associated_cpu_ids;
-    std::vector<int> relative_distances;
-};
-```
+:::code numa-d/c/main.c
+:::code numa-d/cpp/orhanizatsiia-pamiati-v.cpp
 :::
 
 ![Структури пам'яті ядра Linux для NUMA: незалежний стан кожного вузла](img/linux-numa-arch.svg)
@@ -206,18 +175,7 @@ struct NumaNodeDescriptor {
 #### Класична пастка ініціалізації
 Уявіть типовий серверний застосунок на C/C++:
 
-```cpp
-// Головний потік стартує на Ядрі 0 (Вузол 0)
-std::vector<DataRecord> shared_table(100'000'000);
-
-// Ініціалізація даних одним циклом у головному потоці:
-for (auto& record : shared_table) {
-    record.init(); // <-- ТУТ ВІДБУВАЄТЬСЯ ПЕРШИЙ ДОТИК!
-}
-
-// Запуск 64 робочих потоків на всіх ядрах Вузла 0 та Вузла 1:
-start_worker_threads(shared_table);
-```
+:::code numa-d/cpp/klasychna-pastka.cpp
 
 Оскільки ініціалізацію виконав один головний потік на Ядрі 0, **усі 100% фізичних сторінок таблиці виділилися на NUMA-вузлі 0**.
 

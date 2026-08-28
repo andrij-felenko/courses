@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -49,7 +50,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -76,7 +78,8 @@
           "proj": [
             {
               "file": "proj-reg-access.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -87,7 +90,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -119,7 +123,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -135,12 +140,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-cache-friendly-code.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -162,19 +169,23 @@
           "math": [
             {
               "file": "math-false-positive.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-cache-blocked.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-bloom-filter.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -191,7 +202,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -202,7 +214,8 @@
           "proj": [
             {
               "file": "proj-false-sharing.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -213,7 +226,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -240,7 +254,8 @@
           "proj": [
             {
               "file": "proj-dma-ring-buffer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -248,10 +263,12 @@
           "slug": "false-sharing",
           "title": "Хибне спільне використання кеш-лінії",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -273,12 +290,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-flash-barriers.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -311,7 +330,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -354,13 +374,16 @@
           "proj": [
             {
               "file": "proj-segment-registers-and-tls.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-descriptor-structures.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -371,7 +394,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -382,7 +406,8 @@
           "proj": [
             {
               "file": "proj-dma-mapping.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -393,7 +418,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -404,7 +430,8 @@
           "proj": [
             {
               "file": "proj-rtos-task-isolation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

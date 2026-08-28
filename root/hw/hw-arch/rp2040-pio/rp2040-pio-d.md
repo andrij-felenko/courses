@@ -107,39 +107,8 @@ SET   — записати малу сталу (0–31) у піни, напря�
 Тепер усі частини є, і програма читається повністю. WS2812 кодує кожен біт довжиною імпульсу HIGH: довгий HIGH — «1», короткий — «0», повний біт триває ≈1.25 мкс. На автоматі @20 МГц один такт ≈ 50 нс, тож біт — це 25 тактів.
 
 :::tabs
-```asm
-; WS2812 — pioasm; автомат @20 МГц (1 такт ≈ 50 нс), 1 біт = 25 тактів
-.program ws2812
-.side_set 1               ; 1 ніжка під side-set → 4 біти лишаються затримці [0..15]
-
-.wrap_target              ; нескінченна петля без втрати такту на стрибок
-bitloop:
-    out x, 1   side 0 [6]  ; 1 такт: висунути 1 біт у X, ніжка LOW; +6 затримки = 7 тактів (350 нс)
-    jmp !x, do0 side 1 [3] ; 1 такт: якщо біт==0 → do0; підняти ніжку HIGH; +3 = 4 такти
-    jmp bitloop side 1 [11]; біт «1»: тримати HIGH ще 1+11 = 12 тактів → сумарно T1H ≈ 800 нс
-do0:
-    jmp bitloop side 0 [7] ; біт «0»: ніжку LOW, 1+7 = 8 тактів → T0H ≈ 400 нс
-.wrap
-```
-```python
-# WS2812 — rp2.asm_pio; автомат @20 МГц (1 такт ≈ 50 нс), 1 біт = 25 тактів
-import rp2
-from rp2 import PIO
-
-# 1 ніжка під side-set → 4 біти лишаються затримці [0..15];
-# autopull із порогом 24 і напрям зсуву задано просто в декораторі
-@rp2.asm_pio(sideset_init=PIO.OUT_LOW,
-             out_shiftdir=PIO.SHIFT_LEFT, autopull=True, pull_thresh=24)
-def ws2812():
-    wrap_target()                                # нескінченна петля без втрати такту на стрибок
-    label("bitloop")
-    out(x, 1)            .side(0) [6]   # 1 такт: висунути 1 біт у X, ніжка LOW; +6 затримки = 7 тактів (350 нс)
-    jmp(not_x, "do0")   .side(1) [3]   # 1 такт: якщо біт==0 → do0; підняти ніжку HIGH; +3 = 4 такти
-    jmp("bitloop")      .side(1) [11]  # біт «1»: тримати HIGH ще 1+11 = 12 тактів → сумарно T1H ≈ 800 нс
-    label("do0")
-    jmp("bitloop")      .side(0) [7]   # біт «0»: ніжку LOW, 1+7 = 8 тактів → T0H ≈ 400 нс
-    wrap()
-```
+:::code rp2040-pio-d/asm/main.s
+:::code rp2040-pio-d/py/skladaiemo-protokol-ws2812.py
 :::
 
 Розберемо такти по фазах, бо саме тут видно, як side-set і затримка дають точний час.
@@ -166,49 +135,8 @@ def ws2812():
 Драйвер на C лишається тонким — він тільки заводить автомат і годує FIFO:
 
 :::tabs
-```cpp
-#include "hardware/pio.h"
-#include "hardware/clocks.h"
-#include "ws2812.pio.h"          // згенеровано pioasm із програми вище
-
-#define WS2812_PIN 16
-#define SM         0
-
-void ws2812_init(void) {
-    uint off = pio_add_program(pio0, &ws2812_program);
-    pio_sm_config c = ws2812_program_get_default_config(off);
-    sm_config_set_sideset_pins(&c, WS2812_PIN);                // ніжка під side-set
-    float div = (float)clock_get_hz(clk_sys) / (800000.f * 25.f);
-    sm_config_set_clkdiv(&c, div);                             // 6.25 → автомат @20 МГц
-    sm_config_set_out_shift(&c, false, true, 24);             // зсув ліворуч, autopull, поріг 24
-    pio_gpio_init(pio0, WS2812_PIN);
-    pio_sm_set_consecutive_pindirs(pio0, SM, WS2812_PIN, 1, true);
-    pio_sm_init(pio0, SM, off, &c);
-    pio_sm_set_enabled(pio0, SM, true);
-}
-
-void ws2812_send(const uint32_t *pixels, uint n) {
-    for (uint i = 0; i < n; i++)
-        pio_sm_put_blocking(pio0, SM, pixels[i] << 8u);       // вирівняти GRB у старші 24 біти
-}
-```
-```python
-import rp2
-from machine import Pin
-
-WS2812_PIN = 16
-# зсув ліворуч, autopull і поріг 24 задано в декораторі @rp2.asm_pio(ws2812) вище
-
-# freq = 800 кГц × 25 тактів = 20 МГц (дільник 6.25 рахує рушій MicroPython)
-sm = rp2.StateMachine(0, ws2812,
-                      freq=800_000 * 25,
-                      sideset_base=Pin(WS2812_PIN))            # ніжка під side-set
-sm.active(1)
-
-def ws2812_send(pixels):
-    for px in pixels:
-        sm.put(px << 8)                                       # вирівняти GRB у старші 24 біти
-```
+:::code rp2040-pio-d/cpp/main.cpp
+:::code rp2040-pio-d/py/skladaiemo-protokol-ws2812-2.py
 :::
 
 Аргументи `sm_config_set_out_shift(&c, false, true, 24)` — це рівно ті дві тонкощі, про які йшлося: `false` — напрям зсуву (ліворуч), `true` — увімкнути autopull, `24` — поріг. Помилка в будь-якому з трьох дає «попливлі» кольори без жодного попередження компілятора.

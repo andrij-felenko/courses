@@ -87,68 +87,9 @@
 **Те саме кодом.** Хоч би яке середовище, робота однакова: налаштувати канал таймера й покласти поріг 77.
 
 :::tabs
-```arduino
-const int LED = 9;              // ніжка з апаратним ШІМ на цій платі
-
-void setup() {
-  pinMode(LED, OUTPUT);
-  analogWrite(LED, 77);         // 77/255 ≈ 30%; частоту задає плата
-}
-
-void loop() {
-  // порожньо: імпульси формує залізо, процесор вільний
-}
-
-// яскравіше — просто новий поріг:
-//   analogWrite(LED, 191);     // ≈75%
-```
-```esp-idf
-#include "driver/ledc.h"
-
-#define LED_GPIO 18
-
-void led_pwm_start(void)
-{
-    ledc_timer_config_t tim = {
-        .speed_mode      = LEDC_LOW_SPEED_MODE,
-        .duty_resolution = LEDC_TIMER_8_BIT,   // шкала 0…255
-        .timer_num       = LEDC_TIMER_0,
-        .freq_hz         = 1000,               // 1 кГц — око не ловить
-        .clk_cfg         = LEDC_AUTO_CLK,
-    };
-    ESP_ERROR_CHECK(ledc_timer_config(&tim));
-
-    ledc_channel_config_t ch = {
-        .gpio_num   = LED_GPIO,
-        .speed_mode = LEDC_LOW_SPEED_MODE,
-        .channel    = LEDC_CHANNEL_0,
-        .timer_sel  = LEDC_TIMER_0,
-        .duty       = 77,                      // 77/255 ≈ 30%
-        .hpoint     = 0,
-    };
-    ESP_ERROR_CHECK(ledc_channel_config(&ch));
-}
-
-// яскравіше — новий поріг і підтвердження:
-//   ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 191);
-//   ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
-```
-```stm32
-/* CubeMX: TIM3_CH1 у режимі PWM Generation.
-   PSC дає такт ≈256 кГц, ARR = 255 → період 256 тактів ≈ 1 кГц, шкала 0…255. */
-extern TIM_HandleTypeDef htim3;
-
-void led_pwm_start(void)
-{
-    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);           // таймер веде ніжку сам
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 77);   // 77/256 ≈ 30%
-}
-
-void led_pwm_set(uint8_t duty)                          // 0…255
-{
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, duty); // новий поріг — і все
-}
-```
+:::code pwm-on-mcu-d/c/arduino/main.ino
+:::code pwm-on-mcu-d/c/esp-idf/main.c
+:::code pwm-on-mcu-d/c/stm32/main.c
 :::
 
 Зверніть увагу: ми **не** живили світлодіод напругою 0.99 В — ми давали йому повні 3.3 В 30% часу, і око усереднило це в «третину яскравості». Світлодіод і його [струмообмежувальний резистор](root:hw-digital/pin-drive-limits) лишаються ті самі; ШІМ лише керує тим, **яку частку часу** через них тече струм.

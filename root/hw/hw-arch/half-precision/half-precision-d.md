@@ -54,18 +54,7 @@ log₁₀(2¹¹) = log₁₀(2048) ≈ 3.3 десяткової цифри
 **Умова:** показати, як велике й мале число «випадають» за межі float16 (типи `_Float16` підтримують сучасні GCC/Clang на ARM).
 
 :::tabs
-```c
-#include <stdio.h>
-
-int main(void) {
-    _Float16 big = 70000.0f16;    // більше за стелю 65504
-    _Float16 tiny = 1e-8f16;      // менше за найменше денормальне
-
-    printf("%f\n", (float)big);   // inf   ← переповнення до нескінченності
-    printf("%f\n", (float)tiny);  // 0.000000  ← зникло до нуля
-    return 0;
-}
-```
+:::code half-precision-d/c/float16-tochna-miniatiura.c
 ```python
 import numpy as np
 
@@ -108,38 +97,8 @@ log₁₀(2⁸) = log₁₀(256) ≈ 2.4 десяткової цифри
 **Умова:** показати, що перетворення float32 → bfloat16 — це буквально «взяти старші два байти» (грубе відкидання, без округлення — для наочності).
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-// Грубе (truncating) перетворення float32 → bfloat16.
-// bfloat16 = старші 16 бітів бітового образу float.
-uint16_t float_to_bf16_truncate(float x) {
-    uint32_t bits;
-    memcpy(&bits, &x, sizeof bits);   // безпечно дістати біти float
-    return (uint16_t)(bits >> 16);    // просто верхня половина слова
-}
-
-float bf16_to_float(uint16_t b) {
-    uint32_t bits = (uint32_t)b << 16;   // дописати 16 молодших нулів
-    float x;
-    memcpy(&x, &bits, sizeof x);
-    return x;
-}
-```
-```python
-import struct
-
-# Грубе (truncating) перетворення float32 → bfloat16.
-# bfloat16 = старші 16 бітів бітового образу float.
-def float_to_bf16_truncate(x):
-    bits = struct.unpack("<I", struct.pack("<f", x))[0]  # дістати біти float
-    return bits >> 16                                    # просто верхня половина слова
-
-def bf16_to_float(b):
-    bits = b << 16                                       # дописати 16 молодших нулів
-    return struct.unpack("<f", struct.pack("<I", bits))[0]
-```
+:::code half-precision-d/c/bfloat16-diapazon.c
+:::code half-precision-d/py/main.py
 :::
 
 Уся конвертація в один бік — один зсув. Порівняйте це з тим, скільки роботи потребує float16 (інший порядок, інша ширина мантиси), — і стане зрозуміло, чому виробники заліза для машинного навчання полюбили саме bfloat16. Щоправда, чесне перетворення додає ще й **округлення** останнього біта замість грубого відкидання (інакше похибка систематично зміщена вниз) — і саме там ховаються всі тонкощі. Повний код в обидва боки, з коректним округленням, обробкою ∞/NaN і денормалей, — у вставці [Перетворення float16 і bfloat16 у C](root:hw-arch/half-precision/proj-half-precision-convert.md).
@@ -161,18 +120,7 @@ def bf16_to_float(b):
 
 **Умова:** типовий корисний патерн на МК — компактна таблиця у float16 у Flash, обчислення у float32.
 
-```c
-#include <stdint.h>
-
-// Таблиця калібрування давача: 256 точок.
-// У float32 — 1024 байти; у float16 — 512 байтів (удвічі менше Flash).
-extern const _Float16 calib_table[256];   // лежить у Flash як 16-бітні числа
-
-float lookup_calibrated(uint8_t index) {
-    // Читаємо 16-бітне значення, рахуємо у float32:
-    return (float)calib_table[index] * 1.001f + 0.5f;
-}
-```
+:::code half-precision-d/c/shcho-z-tsym-na.c
 
 Таблиця вдвічі менша у Flash (важливо, коли пам'ять на межі), а конкретне обчислення йде у звичному float32 через наявний FPU — без повільної емуляції 16-бітної арифметики. Виграш у пам'яті ми беремо, ціну повільних 16-бітних операцій — оминаємо. Це і є типове, тверезе застосування напівточності поза великими прискорювачами.
 

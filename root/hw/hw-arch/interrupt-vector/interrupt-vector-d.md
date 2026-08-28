@@ -94,93 +94,9 @@ void gpio_isr() {
 **Обробник кнопки на GPIO0: підняти прапорець і миттю вийти.**
 
 :::tabs
-```arduino
-volatile bool pressed = false;        // volatile: ISR і цикл бачать ту саму змінну
-
-void IRAM_ATTR onButton() {           // IRAM_ATTR: код обробника тримати в RAM
-  pressed = true;                     // одна дешева дія — і все
-}
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(0, INPUT_PULLUP);           // підтяжка догори: у спокої вхід високий
-  attachInterrupt(digitalPinToInterrupt(0), onButton, FALLING);
-}
-
-void loop() {
-  if (pressed) {                      // важку роботу робимо ТУТ, поза ISR
-    pressed = false;
-    Serial.println("кнопку натиснуто");
-  }
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-static const char *TAG = "button";
-static volatile bool pressed = false;   // ISR і задача бачать ту саму змінну
-
-static void IRAM_ATTR on_button(void *arg) {   // IRAM_ATTR: обробник тримати в RAM
-    pressed = true;                            // одна дешева дія — і все
-}
-
-void app_main(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << GPIO_NUM_0,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_ENABLE,    // підтяжка догори
-        .intr_type    = GPIO_INTR_NEGEDGE,     // спад: кнопка тягне вхід до землі
-    };
-    gpio_config(&cfg);
-    gpio_install_isr_service(0);               // той самий спільний обробник GPIO
-    gpio_isr_handler_add(GPIO_NUM_0, on_button, NULL);
-
-    while (1) {                                // важку роботу робимо ТУТ, поза ISR
-        if (pressed) {
-            pressed = false;
-            ESP_LOGI(TAG, "кнопку натиснуто");
-        }
-        vTaskDelay(pdMS_TO_TICKS(10));
-    }
-}
-```
-```stm32
-#include "main.h"                     // згенерований заголовок HAL
-#include <stdbool.h>
-#include <stdio.h>                    // printf перенаправлено на UART
-
-volatile bool pressed = false;        // ISR і main() бачать ту саму змінну
-
-// Вектор EXTI0 → HAL_GPIO_EXTI_IRQHandler() → цей колбек
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {
-  if (pin == GPIO_PIN_0) pressed = true;   // одна дешева дія — і все
-}
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-
-  GPIO_InitTypeDef cfg = {0};
-  cfg.Pin  = GPIO_PIN_0;
-  cfg.Mode = GPIO_MODE_IT_FALLING;    // спад: кнопка тягне вхід до землі
-  cfg.Pull = GPIO_PULLUP;             // підтяжка догори: у спокої вхід високий
-  HAL_GPIO_Init(GPIOA, &cfg);
-
-  HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0);  // NVIC: пріоритет і дозвіл
-  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
-  while (1) {                         // важку роботу робимо ТУТ, поза ISR
-    if (pressed) {
-      pressed = false;
-      printf("кнопку натиснуто\r\n");
-    }
-  }
-}
-```
+:::code interrupt-vector-d/c/arduino/main.ino
+:::code interrupt-vector-d/c/esp-idf/main.c
+:::code interrupt-vector-d/c/stm32/main.c
 :::
 
 Те, що `attachInterrupt`, `gpio_isr_handler_add` чи пара EXTI+NVIC ховають за кількома рядками, на рівні заліза розкладається на знайому таблицю. Кожному джерелу відповідає номер, номеру у векторі — адреса обробника, а сам обробник робить рівно одну дешеву дію:

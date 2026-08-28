@@ -56,7 +56,8 @@
           "math": [
             {
               "file": "math-immediate-split.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -84,7 +85,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -95,7 +97,8 @@
           "proj": [
             {
               "file": "proj-pointer-overhead.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -112,7 +115,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -127,13 +131,16 @@
             },
             {
               "file": "proj-simd-dispatch.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-leaves.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         },
@@ -144,7 +151,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -177,13 +185,15 @@
           "proj": [
             {
               "file": "proj-xsave-detection.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-xsave-layout.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         }
@@ -201,7 +211,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "hist": [
             {
@@ -212,7 +223,8 @@
           "proj": [
             {
               "file": "proj-privileged-trap.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -223,7 +235,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -234,13 +247,15 @@
           "proj": [
             {
               "file": "proj-raw-syscall.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-syscall-abi.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -251,7 +266,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         }
       ]
@@ -278,13 +294,15 @@
           "math": [
             {
               "file": "math-nested-paging.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-kvm-run-loop.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -295,24 +313,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-cpuid-virtualization.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-vmm-cpuid-filter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-kvm-cpuid-ioctl.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -323,7 +347,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -356,7 +381,8 @@
           "proj": [
             {
               "file": "proj-dbt-engine.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

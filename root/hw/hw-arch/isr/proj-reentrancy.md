@@ -44,31 +44,8 @@ void IRAM_ATTR onByte() {
     // ... три способи тихо зламати систему в одному обробнику
 }
 ```
-```esp-idf
-// НЕ РОБІТЬ ТАК — усе нереентерабельне в обробнику
-static const char *TAG = "uart";
-
-static void IRAM_ATTR uart_isr(void *arg) {
-    char buf[32];
-    size_t n = read_line(buf);           // умовно: читаємо рядок
-    char *tok = strtok(buf, ",");        // статичний стан! — зітре позицію задачі
-    int *vals = malloc(n * sizeof(int)); // замок купи! — з ISR у FreeRTOS заборонено
-    ESP_LOGI(TAG, "got %s", tok);        // буфер виводу + malloc! — подвійний удар
-    // ... три способи тихо зламати систему в одному обробнику
-}
-```
-```stm32
-// НЕ РОБІТЬ ТАК — усе нереентерабельне в обробнику
-// HAL кличе цей callback із контексту переривання USART
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-    char buf[32];
-    size_t n = read_line(buf);           // умовно: читаємо рядок
-    char *tok = strtok(buf, ",");        // статичний стан! — зітре позицію main()
-    int *vals = malloc(n * sizeof(int)); // замок купи newlib! — псує її структури
-    printf("got %s\r\n", tok);           // буфер виводу + malloc! — подвійний удар
-    // ... три способи тихо зламати систему в одному обробнику
-}
-```
+:::code proj-reentrancy/c/esp-idf/robochyi-kod.c
+:::code proj-reentrancy/c/stm32/robochyi-kod.c
 :::
 
 Кожен із трьох викликів небезпечний саме через спільний стан, а не лише через швидкість. `strtok` затирає статичний покажчик `loop()`, `malloc` застає купу в напіврозібраному стані, а `printf` додає до цього ще й свій буфер і власний `malloc`. На ESP32 з FreeRTOS додатково діє IRAM-пастка: якщо обробник не позначений `IRAM_ATTR`, він може бути недоступний, коли флеш зайнята.
@@ -78,100 +55,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 Принцип «двох половин» — коротка верхня половина в ISR і вся обробка в нижній половині (у `loop()` чи задачі) — тут є природним рішенням. ISR отримує лише ті операції, що є справді реентерабельними: читання апаратного регістра і запис у буфер по одному байту.
 
 :::tabs
-```arduino
-volatile char line[64];      // спільний сирий буфер (тому volatile)
-volatile bool ready = false; // прапорець «рядок готовий»
-
-void IRAM_ATTR onByte() {    // верхня половина — нічого «розумного»
-    static uint8_t i = 0;
-    char c = (char)readByte();       // лише читання регістра — реентерабельно
-    if (c == '\n') {
-        line[i] = 0;
-        ready = true;                // сигнал нижній половині
-        i = 0;
-    } else if (i < sizeof(line) - 1) {
-        line[i++] = c;               // складаємо байти по одному
-    }
-    // жодних strtok / malloc / printf — тільки складаємо байти
-}
-
-void loop() {                // нижня половина — тут можна ВСЕ
-    if (ready) {
-        ready = false;
-        char tmp[64];
-        noInterrupts();
-        strncpy(tmp, (const char*)line, sizeof(tmp)); // атомарний знімок буфера
-        interrupts();
-        char *tok = strtok(tmp, ",");   // strtok — але лише в одному місці!
-        Serial.println(tok);            // друк — у loop(), де безпечно
-    }
-}
-```
-```esp-idf
-static volatile char line[64];   // спільний сирий буфер (тому volatile)
-static SemaphoreHandle_t ready;  // сигнал «рядок готовий» замість прапорця
-static portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
-
-static void IRAM_ATTR uart_isr(void *arg) {  // верхня половина — нічого «розумного»
-    static uint8_t i = 0;
-    BaseType_t woken = pdFALSE;
-    char c = (char)read_byte();      // лише читання регістра — реентерабельно
-    if (c == '\n') {
-        line[i] = 0;
-        i = 0;
-        xSemaphoreGiveFromISR(ready, &woken);   // *FromISR — єдина дозволена форма
-    } else if (i < sizeof(line) - 1) {
-        line[i++] = c;               // складаємо байти по одному
-    }
-    if (woken) portYIELD_FROM_ISR(); // жодних strtok / malloc / ESP_LOGI
-}
-
-static void parse_task(void *arg) {  // нижня половина — тут можна ВСЕ
-    char tmp[64];
-    for (;;) {
-        xSemaphoreTake(ready, portMAX_DELAY);
-        portENTER_CRITICAL(&mux);
-        strncpy(tmp, (const char *)line, sizeof(tmp)); // атомарний знімок буфера
-        portEXIT_CRITICAL(&mux);
-        char *save, *tok = strtok_r(tmp, ",", &save);  // розбір — в одному місці!
-        ESP_LOGI(TAG, "%s", tok);                      // лог — у задачі, де безпечно
-    }
-}
-```
-```stm32
-volatile char line[64];          // спільний сирий буфер (тому volatile)
-volatile bool ready = false;     // прапорець «рядок готовий»
-volatile uint8_t rx;             // сюди HAL кладе черговий прийнятий байт
-
-// HAL кличе це з контексту переривання USART — верхня половина
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-    static uint8_t i = 0;
-    char c = (char)rx;               // байт уже в пам'яті — реентерабельно
-    if (c == '\n') {
-        line[i] = 0;
-        ready = true;                // сигнал нижній половині
-        i = 0;
-    } else if (i < sizeof(line) - 1) {
-        line[i++] = c;               // складаємо байти по одному
-    }
-    HAL_UART_Receive_IT(huart, (uint8_t *)&rx, 1);  // знову озброїти прийом
-}
-
-int main(void) {                 // нижня половина — тут можна ВСЕ
-    HAL_Init(); MX_USART2_UART_Init();
-    HAL_UART_Receive_IT(&huart2, (uint8_t *)&rx, 1);
-    while (1) {
-        if (!ready) continue;
-        ready = false;
-        char tmp[64];
-        __disable_irq();
-        strncpy(tmp, (const char *)line, sizeof(tmp)); // атомарний знімок буфера
-        __enable_irq();
-        char *tok = strtok(tmp, ",");   // strtok — але лише в одному місці!
-        printf("%s\r\n", tok);          // друк — у main(), де безпечно
-    }
-}
-```
+:::code proj-reentrancy/c/arduino/main.ino
+:::code proj-reentrancy/c/esp-idf/robochyi-kod-2.c
+:::code proj-reentrancy/c/stm32/robochyi-kod-2.c
 :::
 
 ISR робить лише те, що реентерабельне: читає один байт із апаратного регістра і кладе його в масив. Жодних функцій зі спільним станом. Усі нереентерабельні `strtok`, друк, `malloc` живуть тепер у нижній половині — `loop()`, задачі RTOS чи головному циклі `main()`, — де викликаються з одного потоку — і спільному станові нема з ким конфліктувати. Зверніть увагу: `strtok` не став безпечнішим сам по собі, він такий само, як був. Безпечним стало те, що більше немає другого паралельного виклику.

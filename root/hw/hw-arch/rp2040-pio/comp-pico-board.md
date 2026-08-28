@@ -81,21 +81,7 @@ SWDIO   — дані SWD
 Канонічний приклад — blink з Pico SDK (мова курсу — C):
 
 :::tabs
-```c
-#include "pico/stdlib.h"
-
-int main(void) {
-    const uint LED = PICO_DEFAULT_LED_PIN;   // GP25 на Pico
-    gpio_init(LED);
-    gpio_set_dir(LED, GPIO_OUT);
-    while (true) {
-        gpio_put(LED, 1);
-        sleep_ms(500);
-        gpio_put(LED, 0);
-        sleep_ms(500);
-    }
-}
-```
+:::code comp-pico-board/c/main.c
 ```python
 from machine import Pin
 from time import sleep_ms

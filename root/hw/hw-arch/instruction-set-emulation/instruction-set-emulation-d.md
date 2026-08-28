@@ -34,54 +34,8 @@
 Приклад моделювання 32-розрядного процесора архітектури RISC/CISC демонструє організацію віртуального контексту:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define GUEST_REGS_COUNT 32
-
-typedef struct CPUState {
-    uint32_t regs[GUEST_REGS_COUNT]; // Регістри загального призначення (R0-R31)
-    uint32_t pc;                     // Гостьовий лічильник команд (Program Counter)
-    uint32_t sp;                     // Вказівник стека
-    
-    // Поля лінивого обчислення прапорців стану
-    uint32_t cc_op;                  // Код останньої операції (ADD, SUB, AND...)
-    uint32_t cc_src1;                // Перший вхідний операнд
-    uint32_t cc_src2;                // Другий вхідний операнд
-    uint32_t cc_dst;                 // Результат операції
-    
-    // Бюджет інструкцій для детермінованих таймерів та переривань
-    int32_t  icount_budget;
-    
-    bool     halted;                 // Прапорець зупинки процесора
-    uint32_t pending_interrupts;     // Бітова маска активних ліній переривань
-} CPUState;
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-constexpr size_t GuestRegsCount = 32;
-
-struct CPUState {
-    std::array<uint32_t, GuestRegsCount> regs{}; // Регістри загального призначення
-    uint32_t pc{0};                              // Гостьовий лічильник команд
-    uint32_t sp{0};                              // Вказівник стека
-    
-    // Поля лінивого обчислення прапорців стану
-    uint32_t cc_op{0};                           // Код останньої операції
-    uint32_t cc_src1{0};                         // Перший вхідний операнд
-    uint32_t cc_src2{0};                         // Другий вхідний операнд
-    uint32_t cc_dst{0};                          // Результат операції
-    
-    // Бюджет інструкцій для таймерів та переривань
-    int32_t  icount_budget{0};
-    
-    bool     halted{false};                      // Прапорець зупинки
-    uint32_t pending_interrupts{0};              // Бітова маска переривань
-};
-```
+:::code instruction-set-emulation-d/c/arkhitekturnyi-stan.c
+:::code instruction-set-emulation-d/cpp/arkhitekturnyi-stan.cpp
 :::
 
 У високопродуктивних емуляторах структура `CPUState` розміщується в пам'яті так, щоб її поля були вирівняні за межами ліній кешу L1 (64 байти). Окрім цілочисельних регістрів, структура містить стан регістрів плаваючої коми та векторних співпроцесорів (наприклад, 128-розрядні регістри NEON/SSE чи 512-розрядні ZMM). Оскільки векторні інструкції хоста вимагають вирівнювання за 16, 32 або 64 байти, масиви векторних даних у `CPUState` завжди вирівнюються директивами компілятора (`alignas(64)` або `__attribute__((aligned(64)))`).
@@ -126,121 +80,8 @@ OF (для віднімання): ((cc_src1 ^ cc_src2) & (cc_src1 ^ cc_dst)) >> 
 ```
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-enum CCOperation {
-    CC_OP_NONE = 0,
-    CC_OP_ADD,
-    CC_OP_SUB,
-    CC_OP_LOGIC,
-    CC_OP_SHR
-};
-
-bool cpu_compute_flag_z(const CPUState *env) {
-    return (env->cc_dst == 0);
-}
-
-bool cpu_compute_flag_s(const CPUState *env) {
-    return ((int32_t)env->cc_dst < 0);
-}
-
-bool cpu_compute_flag_c(const CPUState *env) {
-    switch (env->cc_op) {
-        case CC_OP_ADD:
-            return (env->cc_dst < env->cc_src1);
-        case CC_OP_SUB:
-            return (env->cc_src1 < env->cc_src2);
-        case CC_OP_SHR:
-            if (env->cc_src2 == 0) return false;
-            return (env->cc_src1 >> (env->cc_src2 - 1)) & 1;
-        case CC_OP_LOGIC:
-            return false;
-        default:
-            return false;
-    }
-}
-
-bool cpu_compute_flag_o(const CPUState *env) {
-    switch (env->cc_op) {
-        case CC_OP_ADD:
-            return (((env->cc_src1 ^ ~env->cc_src2) & (env->cc_src1 ^ env->cc_dst)) >> 31) & 1;
-        case CC_OP_SUB:
-            return (((env->cc_src1 ^ env->cc_src2) & (env->cc_src1 ^ env->cc_dst)) >> 31) & 1;
-        case CC_OP_LOGIC:
-            return false;
-        default:
-            return false;
-    }
-}
-
-// Перевірка парності (Parity Flag) через швидку таблицю на 256 байтів
-bool cpu_compute_flag_p(const CPUState *env) {
-    static const uint8_t parity_table[256] = {
-        1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1,
-        0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0,
-        // ... решта 224 значень заповнюються бітовим XOR
-    };
-    return parity_table[env->cc_dst & 0xFF];
-}
-```
-```cpp
-#include <cstdint>
-
-enum class CCOperation : uint32_t {
-    None = 0,
-    Add,
-    Sub,
-    Logic,
-    Shr
-};
-
-bool compute_flag_z(const CPUState& env) noexcept {
-    return env.cc_dst == 0;
-}
-
-bool compute_flag_s(const CPUState& env) noexcept {
-    return static_cast<int32_t>(env.cc_dst) < 0;
-}
-
-bool compute_flag_c(const CPUState& env) noexcept {
-    switch (static_cast<CCOperation>(env.cc_op)) {
-        case CCOperation::Add:
-            return env.cc_dst < env.cc_src1;
-        case CCOperation::Sub:
-            return env.cc_src1 < env.cc_src2;
-        case CCOperation::Shr:
-            if (env.cc_src2 == 0) return false;
-            return (env.cc_src1 >> (env.cc_src2 - 1)) & 1;
-        case CCOperation::Logic:
-            return false;
-        default:
-            return false;
-    }
-}
-
-bool compute_flag_o(const CPUState& env) noexcept {
-    switch (static_cast<CCOperation>(env.cc_op)) {
-        case CCOperation::Add:
-            return (((env.cc_src1 ^ ~env.cc_src2) & (env.cc_src1 ^ env.cc_dst)) >> 31) & 1;
-        case CCOperation::Sub:
-            return (((env.cc_src1 ^ env.cc_src2) & (env.cc_src1 ^ env.cc_dst)) >> 31) & 1;
-        case CCOperation::Logic:
-            return false;
-        default:
-            return false;
-    }
-}
-
-bool compute_flag_p(const CPUState& env) noexcept {
-    uint8_t byte = static_cast<uint8_t>(env.cc_dst & 0xFF);
-    byte ^= byte >> 4;
-    byte ^= byte >> 2;
-    byte ^= byte >> 1;
-    return (byte & 1) == 0; // 1 якщо кількість бітів парна
-}
-```
+:::code instruction-set-emulation-d/c/linyve-obchyslennia.c
+:::code instruction-set-emulation-d/cpp/linyve-obchyslennia.cpp
 :::
 
 Якщо між двома умовними переходами виконалося кілька операцій додавання чи віднімання, проміжні прапорці просто затираються новими значеннями без жодного такту процесорного часу на їхній розрахунок. Це заощаджує 30–40% загального часу виконання емулятора.
@@ -262,98 +103,8 @@ bool compute_flag_p(const CPUState& env) noexcept {
 Найпростіший спосіб організації диспетчеризації — використання оператора `switch` усередині нескінченного циклу:
 
 :::tabs
-```c
-void cpu_interpret_loop_switch(CPUState *env, const uint8_t *guest_ram) {
-    while (!env->halted) {
-        // 1. Fetch: вибірка 32-бітної інструкції
-        uint32_t instr = *(const uint32_t *)(guest_ram + env->pc);
-        env->pc += 4;
-        
-        // 2. Decode: виділення опкоду (старші 8 біт)
-        uint8_t opcode = (instr >> 24) & 0xFF;
-        uint8_t rd     = (instr >> 16) & 0x1F;
-        uint8_t rs1    = (instr >> 11) & 0x1F;
-        uint8_t rs2    = (instr >> 6)  & 0x1F;
-        
-        // 3. Execute: диспетчеризація через switch
-        switch (opcode) {
-            case 0x01: // ADD rd, rs1, rs2
-                env->cc_op   = CC_OP_ADD;
-                env->cc_src1 = env->regs[rs1];
-                env->cc_src2 = env->regs[rs2];
-                env->cc_dst  = env->cc_src1 + env->cc_src2;
-                env->regs[rd] = env->cc_dst;
-                break;
-                
-            case 0x02: // SUB rd, rs1, rs2
-                env->cc_op   = CC_OP_SUB;
-                env->cc_src1 = env->regs[rs1];
-                env->cc_src2 = env->regs[rs2];
-                env->cc_dst  = env->cc_src1 - env->cc_src2;
-                env->regs[rd] = env->cc_dst;
-                break;
-                
-            case 0xFF: // HALT
-                env->halted = true;
-                break;
-                
-            default:
-                // Невідома інструкція — аварійна зупинка
-                env->halted = true;
-                break;
-        }
-    }
-}
-```
-```cpp
-#include <span>
-
-void cpu_interpret_loop_switch(CPUState& env, std::span<const uint8_t> guest_ram) {
-    while (!env.halted) {
-        // 1. Fetch: вибірка 32-бітної інструкції
-        if (env.pc + 4 > guest_ram.size()) {
-            env.halted = true;
-            break;
-        }
-        
-        uint32_t instr = *reinterpret_cast<const uint32_t*>(guest_ram.data() + env.pc);
-        env.pc += 4;
-        
-        // 2. Decode: виділення опкоду та полів регістрів
-        uint8_t opcode = (instr >> 24) & 0xFF;
-        uint8_t rd     = (instr >> 16) & 0x1F;
-        uint8_t rs1    = (instr >> 11) & 0x1F;
-        uint8_t rs2    = (instr >> 6)  & 0x1F;
-        
-        // 3. Execute: диспетчеризація
-        switch (opcode) {
-            case 0x01: // ADD
-                env.cc_op   = static_cast<uint32_t>(CCOperation::Add);
-                env.cc_src1 = env.regs[rs1];
-                env.cc_src2 = env.regs[rs2];
-                env.cc_dst  = env.cc_src1 + env.cc_src2;
-                env.regs[rd] = env.cc_dst;
-                break;
-                
-            case 0x02: // SUB
-                env.cc_op   = static_cast<uint32_t>(CCOperation::Sub);
-                env.cc_src1 = env.regs[rs1];
-                env.cc_src2 = env.regs[rs2];
-                env.cc_dst  = env.cc_src1 - env.cc_src2;
-                env.regs[rd] = env.cc_dst;
-                break;
-                
-            case 0xFF: // HALT
-                env.halted = true;
-                break;
-                
-            default:
-                env.halted = true;
-                break;
-        }
-    }
-}
-```
+:::code instruction-set-emulation-d/c/bazovyi-switch.c
+:::code instruction-set-emulation-d/cpp/bazovyi-switch.cpp
 :::
 
 ### Чому switch-інтерпретатор повільний: ціна непрямих переходів
@@ -373,123 +124,8 @@ JMP [table + opcode * 8]
 Замість повернення на спільну точку `switch`, кожен обробник завершується власним індивідуальним стрибком на наступну команду:
 
 :::tabs
-```c
-void cpu_interpret_threaded(CPUState *env, const uint8_t *guest_ram) {
-    // Таблиця адрес міток-обробників інструкцій
-    static const void *dispatch_table[256] = {
-        [0x00] = &&op_nop,
-        [0x01] = &&op_add,
-        [0x02] = &&op_sub,
-        [0xFF] = &&op_halt
-    };
-
-    #define DISPATCH() do {                                     \
-        uint32_t instr = *(const uint32_t *)(guest_ram + env->pc); \
-        env->pc += 4;                                           \
-        uint8_t opcode = (instr >> 24) & 0xFF;                  \
-        goto *dispatch_table[opcode];                           \
-    } while (0)
-
-    // Початковий запуск диспетчеризації
-    DISPATCH();
-
-op_add: {
-    uint32_t instr = *(const uint32_t *)(guest_ram + env->pc - 4);
-    uint8_t rd  = (instr >> 16) & 0x1F;
-    uint8_t rs1 = (instr >> 11) & 0x1F;
-    uint8_t rs2 = (instr >> 6)  & 0x1F;
-    
-    env->cc_op   = CC_OP_ADD;
-    env->cc_src1 = env->regs[rs1];
-    env->cc_src2 = env->regs[rs2];
-    env->cc_dst  = env->cc_src1 + env->cc_src2;
-    env->regs[rd] = env->cc_dst;
-    
-    DISPATCH();
-}
-
-op_sub: {
-    uint32_t instr = *(const uint32_t *)(guest_ram + env->pc - 4);
-    uint8_t rd  = (instr >> 16) & 0x1F;
-    uint8_t rs1 = (instr >> 11) & 0x1F;
-    uint8_t rs2 = (instr >> 6)  & 0x1F;
-    
-    env->cc_op   = CC_OP_SUB;
-    env->cc_src1 = env->regs[rs1];
-    env->cc_src2 = env->regs[rs2];
-    env->cc_dst  = env->cc_src1 - env->cc_src2;
-    env->regs[rd] = env->cc_dst;
-    
-    DISPATCH();
-}
-
-op_nop:
-    DISPATCH();
-
-op_halt:
-    env->halted = true;
-    return;
-}
-```
-```cpp
-#include <array>
-#include <span>
-
-// У C++ стандарті без розширень компілятора пряма потокова диспетчеризація
-// емулюється через масив покажчиків на функції-обробники:
-using OpcodeHandler = void (*)(CPUState&, uint32_t);
-
-void handler_add(CPUState& env, uint32_t instr) noexcept {
-    uint8_t rd  = (instr >> 16) & 0x1F;
-    uint8_t rs1 = (instr >> 11) & 0x1F;
-    uint8_t rs2 = (instr >> 6)  & 0x1F;
-    
-    env.cc_op   = static_cast<uint32_t>(CCOperation::Add);
-    env.cc_src1 = env.regs[rs1];
-    env.cc_src2 = env.regs[rs2];
-    env.cc_dst  = env.cc_src1 + env.cc_src2;
-    env.regs[rd] = env.cc_dst;
-}
-
-void handler_sub(CPUState& env, uint32_t instr) noexcept {
-    uint8_t rd  = (instr >> 16) & 0x1F;
-    uint8_t rs1 = (instr >> 11) & 0x1F;
-    uint8_t rs2 = (instr >> 6)  & 0x1F;
-    
-    env.cc_op   = static_cast<uint32_t>(CCOperation::Sub);
-    env.cc_src1 = env.regs[rs1];
-    env.cc_src2 = env.regs[rs2];
-    env.cc_dst  = env.cc_src1 - env.cc_src2;
-    env.regs[rd] = env.cc_dst;
-}
-
-void handler_halt(CPUState& env, uint32_t) noexcept {
-    env.halted = true;
-}
-
-void cpu_interpret_function_table(CPUState& env, std::span<const uint8_t> guest_ram) {
-    static constexpr std::array<OpcodeHandler, 256> Table = []() constexpr {
-        std::array<OpcodeHandler, 256> t{};
-        t[0x01] = &handler_add;
-        t[0x02] = &handler_sub;
-        t[0xFF] = &handler_halt;
-        return t;
-    }();
-
-    while (!env.halted) {
-        uint32_t instr = *reinterpret_cast<const uint32_t*>(guest_ram.data() + env.pc);
-        env.pc += 4;
-        uint8_t opcode = (instr >> 24) & 0xFF;
-        
-        OpcodeHandler handler = Table[opcode];
-        if (handler) {
-            handler(env, instr);
-        } else {
-            env.halted = true;
-        }
-    }
-}
-```
+:::code instruction-set-emulation-d/c/priama-potokova.c
+:::code instruction-set-emulation-d/cpp/priama-potokova.cpp
 :::
 
 У варіанті з обчислюваними переходами кожен обробник має свою власну фізичну інструкцію непрямого стрибка в кінці тіла. Апаратний предиктор переходів процесора відстежує історію для кожної точки окремо, фіксуючи типові пари інструкцій (наприклад, що після `CMP` майже завжди слідує `BNE`). Завдяки цьому точність передбачення переходів зростає з 25% до 75–85%, а швидкість інтерпретації подвоюється.
@@ -564,47 +200,8 @@ struct TranslationBlock {
 Щоб миттєво знаходити готовий нативний код за значенням `Guest PC`, емулятор підтримує швидку хеш-таблицю прямого відображення (Code Cache Index):
 
 :::tabs
-```c
-#define TB_CACHE_SIZE 65536
-#define TB_HASH(pc) (((pc) ^ ((pc) >> 6)) & (TB_CACHE_SIZE - 1))
-
-static TranslationBlock *tb_cache[TB_CACHE_SIZE];
-
-TranslationBlock *tb_find(uint32_t guest_pc) {
-    uint32_t hash = TB_HASH(guest_pc);
-    TranslationBlock *tb = tb_cache[hash];
-    if (tb && tb->guest_pc == guest_pc) {
-        return tb; // Влучання в кеш (Cache Hit)
-    }
-    return NULL;   // Промах (Cache Miss) — необхідна JIT-трансляція
-}
-```
-```cpp
-constexpr size_t TBCacheSize = 65536;
-
-inline size_t tb_hash(uint32_t pc) noexcept {
-    return (pc ^ (pc >> 6)) & (TBCacheSize - 1);
-}
-
-class TranslationCache {
-public:
-    TranslationBlock* find(uint32_t guest_pc) noexcept {
-        size_t idx = tb_hash(guest_pc);
-        TranslationBlock* tb = table_[idx];
-        if (tb && tb->guest_pc == guest_pc) {
-            return tb;
-        }
-        return nullptr;
-    }
-
-    void insert(TranslationBlock* tb) noexcept {
-        table_[tb_hash(tb->guest_pc)] = tb;
-    }
-
-private:
-    std::array<TranslationBlock*, TBCacheSize> table_{};
-};
-```
+:::code instruction-set-emulation-d/c/kesh-transliatsii.c
+:::code instruction-set-emulation-d/cpp/kesh-transliatsii.cpp
 :::
 
 Коли пошук дає влучання, емулятор не виконує жодного аналізу інструкцій. Він бере покажчик `host_code_ptr` і робить прямий виклик нативної функції: `((void (*)(CPUState *))tb->host_code_ptr)(env)`.
@@ -631,43 +228,8 @@ private:
 4. Наступного разу, коли процесор виконає `TB1`, він перейде на `TB2` за **рівно один машинний такт** на рівні кремнієвого конвеєра, без виклику диспетчера, без обчислення хешів і без звернення до таблиць!
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-// Приклад патчингу 32-бітного відносного стрибка JMP на архітектурі x86-64
-void tb_chain_blocks_x86(TranslationBlock *src_tb, int branch_idx, const TranslationBlock *dst_tb) {
-    uint8_t *patch_site = src_tb->jmp_patch_addr[branch_idx];
-    uint8_t *target_addr = (uint8_t *)dst_tb->host_code_ptr;
-    
-    // Обчислення відносного зміщення: Target - (PatchSite + 5 байтів розміру інструкції JMP)
-    int32_t rel_offset = (int32_t)(target_addr - (patch_site + 5));
-    
-    // Формування коду інструкції: E9 <4 байти зміщення> (JMP rel32)
-    patch_site[0] = 0xE9;
-    memcpy(patch_site + 1, &rel_offset, sizeof(int32_t));
-    
-    // Запам'ятовуємо зв'язок для можливої подальшої розшивки
-    src_tb->jmp_dest[branch_idx] = (TranslationBlock *)dst_tb;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstring>
-
-void chain_blocks_x86(TranslationBlock& src_tb, size_t branch_idx, const TranslationBlock& dst_tb) noexcept {
-    uint8_t* patch_site = src_tb.jmp_patch_addr[branch_idx];
-    auto* target_addr = static_cast<uint8_t*>(dst_tb.host_code_ptr);
-    
-    // Відносне 32-бітне зміщення для інструкції JMP rel32 (опкод 0xE9)
-    int32_t rel_offset = static_cast<int32_t>(target_addr - (patch_site + 5));
-    
-    patch_site[0] = 0xE9;
-    std::memcpy(patch_site + 1, &rel_offset, sizeof(int32_t));
-    
-    src_tb.jmp_dest[branch_idx] = const_cast<TranslationBlock*>(&dst_tb);
-}
-```
+:::code instruction-set-emulation-d/c/zshyvannia-bazovykh-blokiv.c
+:::code instruction-set-emulation-d/cpp/zshyvannia-bazovykh-blokiv.hpp
 :::
 
 ### Обробка непрямих переходів: кеш IBTC
@@ -704,38 +266,8 @@ void chain_blocks_x86(TranslationBlock& src_tb, size_t branch_idx, const Transla
 SoftTLB являє собою кеш прямого відображення, розміщений у пам'яті емулятора:
 
 :::tabs
-```c
-#define SOFTTLB_SIZE 512
-#define PAGE_SHIFT   12
-#define PAGE_SIZE    (1UL << PAGE_SHIFT) // 4096 байтів
-#define PAGE_MASK    (~(PAGE_SIZE - 1))
-
-typedef struct SoftTLBEntry {
-    uint32_t tag_vaddr;     // Тег віртуальної сторінки (GVA & PAGE_MASK)
-    uintptr_t addend;       // Зміщення для отримання адреси хоста: HVA = GVA + addend
-} SoftTLBEntry;
-
-typedef struct CPUMMUState {
-    SoftTLBEntry tlb_read[SOFTTLB_SIZE];
-    SoftTLBEntry tlb_write[SOFTTLB_SIZE];
-} CPUMMUState;
-```
-```cpp
-constexpr size_t SoftTLBSize = 512;
-constexpr size_t PageShift   = 12;
-constexpr size_t PageSize    = 1ULL << PageShift; // 4 КіБ
-constexpr size_t PageMask    = ~(PageSize - 1);
-
-struct SoftTLBEntry {
-    uint32_t  tag_vaddr{0xFFFFFFFF}; // Невалідний початковий тег
-    uintptr_t addend{0};             // HVA = GVA + addend
-};
-
-struct CPUMMUState {
-    std::array<SoftTLBEntry, SoftTLBSize> tlb_read{};
-    std::array<SoftTLBEntry, SoftTLBSize> tlb_write{};
-};
-```
+:::code instruction-set-emulation-d/c/struktura-zapysu-softtlb.c
+:::code instruction-set-emulation-d/cpp/struktura-zapysu-softtlb.cpp
 :::
 
 ### Швидкий та повільний шляхи (Fast Path vs Slow Path)
@@ -754,81 +286,8 @@ struct CPUMMUState {
 ```
 
 :::tabs
-```c
-// Повільний шлях (Slow Path) — виконується лише під час промахів або MMIO
-uint32_t softtlb_slow_read32(CPUState *env, uint32_t gva) {
-    uint32_t page_addr = gva & PAGE_MASK;
-    uint32_t gpa;
-    
-    // Перевірка на перетин межі сторінки (Split Page Access)
-    if ((gva & ~PAGE_MASK) > (PAGE_SIZE - 4)) {
-        // Читання перетинає межу двох сторінок — зчитуємо по байтах
-        uint8_t b0 = softtlb_slow_read8(env, gva + 0);
-        uint8_t b1 = softtlb_slow_read8(env, gva + 1);
-        uint8_t b2 = softtlb_slow_read8(env, gva + 2);
-        uint8_t b3 = softtlb_slow_read8(env, gva + 3);
-        return b0 | (b1 << 8) | (b2 << 16) | (b3 << 24);
-    }
-    
-    // 1. Прохід гостьових таблиць сторінок MMU
-    if (!guest_mmu_translate(env, page_addr, &gpa, ACCESS_READ)) {
-        // Сторінка відсутня або немає прав — генеруємо гостьовий Page Fault!
-        raise_guest_exception(env, EXCP_PAGE_FAULT, gva);
-        return 0;
-    }
-    
-    // 2. Перевірка: чи це фізична RAM, чи апаратний регістр пристрою (MMIO)
-    if (is_mmio_address(gpa)) {
-        return mmio_device_read(gpa, 4);
-    }
-    
-    // 3. Сторінка в RAM — вираховуємо відповідну адресу хоста
-    uint8_t *host_ptr = get_host_ram_pointer(gpa);
-    uint32_t index = (gva >> PAGE_SHIFT) & (SOFTTLB_SIZE - 1);
-    
-    // 4. Оновлюємо запис у SoftTLB для наступних миттєвих звернень
-    env->mmu.tlb_read[index].tag_vaddr = page_addr;
-    env->mmu.tlb_read[index].addend    = (uintptr_t)host_ptr - page_addr;
-    
-    // 5. Повертаємо прочитане значення
-    return *(const uint32_t *)(host_ptr + (gva & ~PAGE_MASK));
-}
-```
-```cpp
-uint32_t softtlb_slow_read32(CPUState& env, uint32_t gva) {
-    uint32_t page_addr = gva & PageMask;
-    uint32_t gpa{0};
-    
-    // Перевірка на перетин межі сторінки (Split Page Access)
-    if ((gva & ~PageMask) > (PageSize - 4)) {
-        uint8_t b0 = softtlb_slow_read8(env, gva + 0);
-        uint8_t b1 = softtlb_slow_read8(env, gva + 1);
-        uint8_t b2 = softtlb_slow_read8(env, gva + 2);
-        uint8_t b3 = softtlb_slow_read8(env, gva + 3);
-        return b0 | (b1 << 8) | (b2 << 16) | (b3 << 24);
-    }
-    
-    // 1. Прохід гостьових таблиць MMU
-    if (!guest_mmu_translate(env, page_addr, gpa, AccessType::Read)) {
-        raise_guest_exception(env, ExceptionCode::PageFault, gva);
-        return 0;
-    }
-    
-    // 2. Перевірка на MMIO
-    if (is_mmio_address(gpa)) {
-        return mmio_device_read(gpa, 4);
-    }
-    
-    // 3. Оновлення SoftTLB
-    uint8_t* host_ptr = get_host_ram_pointer(gpa);
-    size_t index = (gva >> PageShift) & (SoftTLBSize - 1);
-    
-    env.mmu.tlb_read[index].tag_vaddr = page_addr;
-    env.mmu.tlb_read[index].addend    = reinterpret_cast<uintptr_t>(host_ptr) - page_addr;
-    
-    return *reinterpret_cast<const uint32_t*>(host_ptr + (gva & ~PageMask));
-}
-```
+:::code instruction-set-emulation-d/c/shvydkyi-ta-povilnyi.c
+:::code instruction-set-emulation-d/cpp/shvydkyi-ta-povilnyi.cpp
 :::
 
 У разі влучання операція читання з пам'яті виконується за 3–5 тактів нативного процесора. Якщо ж гостьова програма звертається до регістра таймера чи мережевої карти, тег у SoftTLB навмисно виставляється як невалідний (`0xFFFFFFFF`), що автоматично перенаправляє операцію на функцію обробки емульованого обладнання.

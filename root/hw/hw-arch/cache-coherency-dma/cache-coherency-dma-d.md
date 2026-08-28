@@ -59,35 +59,11 @@ DMA → процесор (приймаємо ззовні):  INVALIDATE  піс�
 
 **Приймання: DMA пише в буфер, ми читаємо після invalidate**
 
-```c
-// 32 — розмір лінії кеша Cortex-M7; буфер вирівняно на межу лінії
-static uint8_t rx_buf[256] __attribute__((aligned(32)));
-
-void receive_frame(void) {
-    start_dma_receive(rx_buf, sizeof(rx_buf));   // DMA пише в ОЗП
-    while (!dma_done()) { /* чекаємо або спимо */ }
-
-    // DMA поклав свіже в ОЗП; кеш може тримати старе — викидаємо його
-    SCB_InvalidateDCache_by_Addr((uint32_t *)rx_buf, sizeof(rx_buf));
-
-    process(rx_buf);   // тепер читання піде в ОЗП і візьме нові байти
-}
-```
+:::code cache-coherency-dma-d/c/iak-tse-vyhliadaie-v-kodi.c
 
 **Відправлення: наповнюємо буфер, робимо clean, тоді пускаємо DMA**
 
-```c
-static uint8_t tx_buf[256] __attribute__((aligned(32)));
-
-void send_frame(const uint8_t *data, size_t n) {
-    memcpy(tx_buf, data, n);   // пишемо через кеш — свіже поки в кеші
-
-    // зіштовхуємо кеш у ОЗП, щоб DMA прочитав саме нове
-    SCB_CleanDCache_by_Addr((uint32_t *)tx_buf, sizeof(tx_buf));
-
-    start_dma_transmit(tx_buf, n);   // DMA читає з ОЗП — і бачить свіже
-}
-```
+:::code cache-coherency-dma-d/c/iak-tse-vyhliadaie-v-kodi-2.c
 
 Три деталі тут не косметичні, а частина коректності.
 

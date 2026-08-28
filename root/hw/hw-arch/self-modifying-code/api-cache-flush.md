@@ -145,18 +145,7 @@ SBI Extension ID: 0x12 (старий стиль) або 0x52464E43 ("RFNC" - Rem
 ```c
 void __builtin___clear_cache(char *begin, char *end);
 ```
-```cpp
-#include <span>
-#include <cstdint>
-
-// Ідіоматична C++ обгортка над вбудованою функцією компілятора
-inline void clear_instruction_cache(std::span<const uint8_t> code_range) noexcept {
-    __builtin___clear_cache(
-        reinterpret_cast<char*>(const_cast<uint8_t*>(code_range.data())),
-        reinterpret_cast<char*>(const_cast<uint8_t*>(code_range.data() + code_range.size()))
-    );
-}
-```
+:::code api-cache-flush/cpp/funktsiia-builtin-clear.cpp
 :::
 
 #### Детальний аналіз контракту
@@ -181,22 +170,7 @@ inline void clear_instruction_cache(std::span<const uint8_t> code_range) noexcep
 
 long syscall(__NR_cacheflush, void *addr, int nbytes, int op);
 ```
-```cpp
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <span>
-#include <expected>
-#include <system_error>
-
-inline std::expected<void, std::error_code> flush_cache_range(
-    std::span<uint8_t> buffer, int operation_flags) noexcept {
-    long ret = syscall(__NR_cacheflush, buffer.data(), static_cast<int>(buffer.size()), operation_flags);
-    if (ret != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code api-cache-flush/cpp/1-sys-cacheflush.cpp
 :::
 
 * **Параметр `addr`:** віртуальна базова адреса початку модифікованого блоку коду.
@@ -219,30 +193,7 @@ inline std::expected<void, std::error_code> flush_cache_range(
 
 long syscall(SYS_riscv_flush_icache, uintptr_t start, uintptr_t end, uintptr_t flags);
 ```
-```cpp
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <span>
-#include <expected>
-#include <system_error>
-
-#define SYS_riscv_flush_icache __NR_riscv_flush_icache
-enum class RiscvFlushScope : uintptr_t {
-    AllCores = 0UL,
-    LocalCoreOnly = 1UL
-};
-
-inline std::expected<void, std::error_code> riscv_flush_icache(
-    std::span<const uint8_t> code, RiscvFlushScope scope) noexcept {
-    uintptr_t start = reinterpret_cast<uintptr_t>(code.data());
-    uintptr_t end = start + code.size();
-    long ret = syscall(SYS_riscv_flush_icache, start, end, static_cast<uintptr_t>(scope));
-    if (ret != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code api-cache-flush/cpp/2-sys-riscv-flush-icache.cpp
 :::
 
 * **Параметри:** віртуальні адреси `start` та `end`.
@@ -258,20 +209,7 @@ inline std::expected<void, std::error_code> riscv_flush_icache(
 
 int syscall(__NR_membarrier, int cmd, unsigned int flags, int cpu_id);
 ```
-```cpp
-#include <linux/membarrier.h>
-#include <sys/syscall.h>
-#include <expected>
-#include <system_error>
-
-inline std::expected<void, std::error_code> sync_all_cores_membarrier() noexcept {
-    int ret = syscall(__NR_membarrier, MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE, 0, 0);
-    if (ret != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code api-cache-flush/cpp/3-systemnyi-vyklyk.cpp
 :::
 
 Режим `MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE` реєструє процес у підсистемі планувальника завдань. При кожній модифікації коду JIT-компілятор викликає `membarrier`, і ядро автоматично ініціює скидання конвеєрів виконання на всіх процесорних ядрах, де наразі виконуються інші потоки цієї ж програми, забезпечуючи безпечне виконання нового коду без індивідуального блокування кожного потоку.
@@ -293,22 +231,7 @@ BOOL FlushInstructionCache(
     SIZE_T  dwSize
 );
 ```
-```cpp
-#include <windows.h>
-#include <processthreadsapi.h>
-#include <span>
-#include <expected>
-#include <system_error>
-
-inline std::expected<void, DWORD> flush_instruction_cache(
-    HANDLE process_handle, std::span<const uint8_t> memory_range) noexcept {
-    BOOL ok = FlushInstructionCache(process_handle, memory_range.data(), memory_range.size());
-    if (!ok) {
-        return std::unexpected(GetLastError());
-    }
-    return {};
-}
-```
+:::code api-cache-flush/cpp/flushinstructioncache.cpp
 :::
 
 * **Параметр `hProcess`:** дескриптор цільового процесу. Функція дозволяє оновлювати кеш не лише у власному адресному просторі, а й у пам'яті іншого процесу (що критично для розробки налагоджувачів, систем профілювання та ін'єкцій коду). Для модифікації власного процесу передається дескриптор `GetCurrentProcess()`.
@@ -355,22 +278,7 @@ inline void darwin_invalidate_instruction_cache(std::span<const uint8_t> code) n
 
 void pthread_jit_write_protect_np(int enabled);
 ```
-```cpp
-#include <pthread.h>
-
-// RAII обгортка для тимчасового відкриття прав на запис у потік JIT
-class ScopedJitWriteAccess {
-public:
-    ScopedJitWriteAccess() noexcept {
-        pthread_jit_write_protect_np(0); // Дозволити запис у поточному потоці
-    }
-    ~ScopedJitWriteAccess() noexcept {
-        pthread_jit_write_protect_np(1); // Повернути режим виконання
-    }
-    ScopedJitWriteAccess(const ScopedJitWriteAccess&) = delete;
-    ScopedJitWriteAccess& operator=(const ScopedJitWriteAccess&) = delete;
-};
-```
+:::code api-cache-flush/cpp/aparatne-keruvannia-jit.cpp
 :::
 
 * **Значення `enabled = 0`:** потік тимчасово перемикає свій стан у режим запису `RW`. У цей момент потік може записувати щойно згенеровані машинні інструкції в буфер JIT, але будь-яка спроба виконати код із цього буфера викличе апаратну помилку.

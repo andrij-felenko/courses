@@ -142,47 +142,8 @@ x = x.hi + x.lo
    ```
 
 :::tabs
-```c
-#include <math.h>
-
-typedef struct { double hi, lo; } dd_t;
-
-/* Швидке додавання з умовою |a| >= |b| */
-static inline dd_t fast_two_sum(double a, double b) {
-    double s = a + b;
-    double z = s - a;
-    return (dd_t){ .hi = s, .lo = b - z };
-}
-
-/* Множення double-double з використанням апаратного FMA */
-static inline dd_t dd_mul(dd_t a, dd_t b) {
-    double p = a.hi * b.hi;
-    double e = fma(a.hi, b.hi, -p);
-    double cross = fma(a.hi, b.lo, a.lo * b.hi);
-    return fast_two_sum(p, e + cross);
-}
-```
-```cpp
-#include <cmath>
-
-struct dd_real {
-    double hi{0.0};
-    double lo{0.0};
-};
-
-[[nodiscard]] constexpr dd_real fast_two_sum(double a, double b) noexcept {
-    const double s = a + b;
-    const double z = s - a;
-    return {s, b - z};
-}
-
-[[nodiscard]] inline dd_real operator*(const dd_real& a, const dd_real& b) noexcept {
-    const double p = a.hi * b.hi;
-    const double e = std::fma(a.hi, b.hi, -p);
-    const double cross = std::fma(a.hi, b.lo, a.lo * b.hi);
-    return fast_two_sum(p, e + cross);
-}
-```
+:::code fma-algorithms-d/c/aryfmetychni-operatsii-nad.c
+:::code fma-algorithms-d/cpp/aryfmetychni-operatsii-nad.hpp
 :::
 
 > ⚙️ Повну оптимізовану бібліотеку арифметики `double-double` (додавання, віднімання, множення, ділення, квадратний корінь, векторизацію AVX2 та бенчмарки) дивіться у вставці [Бібліотека розширеної точності double-double та компенсовані алгоритми](root:hw-arch/fma-algorithms/proj-double-double.md).
@@ -242,60 +203,8 @@ eᵢ = fma(eᵢ₋₁, x, πᵢ + σᵢ)
 Алгоритм `Dot2` використовує `TwoProductFMA` для кожного елемента вектора та акумулює похибки додавання й множення:
 
 :::tabs
-```c
-#include <stddef.h>
-#include <math.h>
-
-/* Компенсований скалярний добуток Dot2 */
-double dot2(const double* x, const double* y, size_t n) {
-    if (n == 0) return 0.0;
-    double p = x[0] * y[0];
-    double s = p;
-    double c = fma(x[0], y[0], -p);
-
-    for (size_t i = 1; i < n; ++i) {
-        double pi = x[i] * y[i];
-        double pi_err = fma(x[i], y[i], -pi);
-
-        /* TwoSum для акумуляції суми */
-        double s_next = s + pi;
-        double v = s_next - s;
-        double s_err = (s - (s_next - v)) + (pi - v);
-
-        s = s_next;
-        c += (s_err + pi_err);
-    }
-    return s + c;
-}
-```
-```cpp
-#include <span>
-#include <cmath>
-#include <cstddef>
-
-/* Компенсований скалярний добуток Dot2 на C++20 */
-[[nodiscard]] double dot2(std::span<const double> x, std::span<const double> y) noexcept {
-    const size_t n = x.size();
-    if (n == 0 || n != y.size()) return 0.0;
-
-    const double p = x[0] * y[0];
-    double s = p;
-    double c = std::fma(x[0], y[0], -p);
-
-    for (size_t i = 1; i < n; ++i) {
-        const double pi = x[i] * y[i];
-        const double pi_err = std::fma(x[i], y[i], -pi);
-
-        const double s_next = s + pi;
-        const double v = s_next - s;
-        const double s_err = (s - (s_next - v)) + (pi - v);
-
-        s = s_next;
-        c += (s_err + pi_err);
-    }
-    return s + c;
-}
-```
+:::code fma-algorithms-d/c/kompensovanyi-skaliarnyi.c
+:::code fma-algorithms-d/cpp/kompensovanyi-skaliarnyi.cpp
 :::
 
 ---
@@ -334,30 +243,8 @@ det = d_val + e
 Застосовуючи алгоритм Кахана для `b × b − (4a) × c`, отримуємо гарантовано точний розрахунок:
 
 :::tabs
-```c
-#include <math.h>
-
-/* Точний розрахунок дискримінанта квадратного рівняння D = b^2 - 4ac */
-double accurate_discriminant(double a, double b, double c) {
-    double four_a = 4.0 * a;
-    double p = four_a * c;
-    double dp = fma(four_a, c, -p);
-    double d = fma(b, b, -p);
-    return d - dp;
-}
-```
-```cpp
-#include <cmath>
-
-/* Точний розрахунок дискримінанта квадратного рівняння D = b^2 - 4ac */
-[[nodiscard]] constexpr double accurate_discriminant(double a, double b, double c) noexcept {
-    const double four_a = 4.0 * a;
-    const double p = four_a * c;
-    const double dp = std::fma(four_a, c, -p);
-    const double d = std::fma(b, b, -p);
-    return d - dp;
-}
-```
+:::code fma-algorithms-d/c/tochnyi-rozrakhunok.c
+:::code fma-algorithms-d/cpp/tochnyi-rozrakhunok.hpp
 :::
 
 #### Геометричні предикати орієнтації (Джонатан Шевчук)

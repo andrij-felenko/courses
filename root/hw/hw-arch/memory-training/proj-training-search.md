@@ -15,18 +15,7 @@
 Тобто інтерфейс до заліза — рівно дві функції, і на них тримається все:
 
 :::tabs
-```cpp
-#include <cstdint>
-
-// Виставити ручку (код затримки / порога) у ціле значення code.
-// Реалізація — запис у регістр конкретного PHY чи чіпа.
-void knob_set(int code);
-
-// Прогнати відомий взірець крізь канал за поточної ручки й порівняти.
-// true  = прочитане == еталон (pass),
-// false = хоч один біт розійшовся (fail).
-bool probe_once();
-```
+:::code proj-training-search/cpp/zadacha-peretvoryty-kruty.hpp
 ```python
 # Виставити ручку (код затримки / порога) у ціле значення code.
 # Реалізація — запис у регістр конкретного PHY чи чіпа.
@@ -48,34 +37,8 @@ def probe_once() -> bool: ...
 Найперше — обійти весь діапазон ручки й для кожного значення записати `true`/`false`. Це буквальний переклад слова «розгортка» (англ. *sweep*) у код: цикл від 0 до `range_max`, на кожному кроці поставити ручку, дати каналу заспокоїтися, опитати пробник.
 
 :::tabs
-```cpp
-constexpr int RANGE_MAX = 64;    // скільки кодів у ручки (0 .. RANGE_MAX-1)
-
-// Заповнює map[i] результатом пробника за коду затримки i.
-// Повертає кількість зібраних точок (== RANGE_MAX).
-int sweep(bool map[], int range_max)
-{
-    for (int code = 0; code < range_max; code++) {
-        knob_set(code);          // виставили ручку
-        settle();                // пауза на встановлення лінії затримки
-        map[code] = probe_once();
-    }
-    return range_max;
-}
-```
-```python
-RANGE_MAX = 64                   # скільки кодів у ручки (0 .. RANGE_MAX-1)
-
-# Заповнює map[i] результатом пробника за коду затримки i.
-# Повертає зібрану карту (довжиною range_max).
-def sweep(range_max: int) -> list[bool]:
-    pf_map = [False] * range_max
-    for code in range(range_max):
-        knob_set(code)           # виставили ручку
-        settle()                 # пауза на встановлення лінії затримки
-        pf_map[code] = probe_once()
-    return pf_map
-```
+:::code proj-training-search/cpp/krok-nul-rozhortka-zibraty.cpp
+:::code proj-training-search/py/krok-nul-rozhortka-zibraty.py
 :::
 
 Дрібниця, яку легко проґавити й яка коштує найдовше: **`settle()`**. Лінія затримки перемикається не миттєво — усередині PHY це ланцюжок керованих елементів, і після зміни коду сигнал якийсь час «дзвенить», поки не влаштується на новій затримці. Опитаєте пробник, поки триває цей перехід, — дістанете `false` там, де насправді вже `true`, і карта збрешеться саме на межах вікна, де кожна точка на вагу золота. Тому між `knob_set` і `probe_once` завжди мусить бути коротка витримка (від одиниць до десятків тактів, залежно від PHY). У наївній версії її забувають першою.
@@ -100,18 +63,7 @@ int center_naive(const bool map[], int n)
     return (lo + hi) / 2;                 // «центр»
 }
 ```
-```python
-# НАЇВНО, НЕ ВЖИВАТИ: перша й остання одиниця, середина між ними.
-def center_naive(pf_map: list[bool]) -> int:
-    n = len(pf_map)
-    lo = 0
-    while lo < n and not pf_map[lo]:      # перша P
-        lo += 1
-    hi = n - 1
-    while hi >= 0 and not pf_map[hi]:     # остання P
-        hi -= 1
-    return (lo + hi) // 2                 # «центр»
-```
+:::code proj-training-search/py/naivne-iadro-i-chomu-vono.py
 :::
 
 На ідеальній карті `FFFPPPPPPPFF` це дає правильну відповідь. І саме тому воно небезпечне: працює рівно доти, доки карта ідеальна. А реальна карта майже ніколи не буває ідеальною. Ось три способи, якими вона підкладає свиню, і кожен розберемо з кодом.
@@ -126,82 +78,14 @@ def center_naive(pf_map: list[bool]) -> int:
 Правильна ідея — не «перша й остання одиниця», а **найширша суцільна смуга одиниць**. Пройдімо масив одним проходом, ведучи поточну смугу `P` і запам'ятовуючи найкращу. Це класичний прохід «поточний відрізок проти найкращого», рідня [пошуку максимума одним проходом](root:sf-algorithms/binary-search) — лінійний, без жодного зайвого перебору.
 
 :::tabs
-```cpp
-struct Window {
-    int lo;        // індекс першої P у вікні
-    int hi;        // індекс останньої P у вікні
-    int width;     // hi - lo + 1; 0 = вікна нема (усе F)
-};
-
-// Знаходить НАЙШИРШЕ суцільне вікно P у map[0..n-1].
-Window widest_window(const bool map[], int n)
-{
-    Window best = { -1, -1, 0 };
-    int cur_lo = -1;                       // початок поточної смуги, -1 = поза смугою
-
-    for (int i = 0; i < n; i++) {
-        if (map[i]) {
-            if (cur_lo < 0) cur_lo = i;    // смуга щойно почалась
-            int w = i - cur_lo + 1;
-            if (w > best.width) {          // поточна побила рекорд — зберігаємо
-                best.lo = cur_lo;
-                best.hi = i;
-                best.width = w;
-            }
-        } else {
-            cur_lo = -1;                   // смуга обірвалась
-        }
-    }
-    return best;                           // best.width == 0, якщо жодної P
-}
-```
-```python
-from dataclasses import dataclass
-
-@dataclass
-class Window:
-    lo: int        # індекс першої P у вікні
-    hi: int        # індекс останньої P у вікні
-    width: int     # hi - lo + 1; 0 = вікна нема (усе F)
-
-# Знаходить НАЙШИРШЕ суцільне вікно P у pf_map[0..n-1].
-def widest_window(pf_map: list[bool]) -> Window:
-    best = Window(-1, -1, 0)
-    cur_lo = -1                            # початок поточної смуги, -1 = поза смугою
-
-    for i, cell in enumerate(pf_map):
-        if cell:
-            if cur_lo < 0:
-                cur_lo = i                 # смуга щойно почалась
-            w = i - cur_lo + 1
-            if w > best.width:             # поточна побила рекорд — зберігаємо
-                best.lo = cur_lo
-                best.hi = i
-                best.width = w
-        else:
-            cur_lo = -1                    # смуга обірвалась
-    return best                            # best.width == 0, якщо жодної P
-```
+:::code proj-training-search/cpp/pravylne-iadro-naishyrshe.cpp
+:::code proj-training-search/py/pravylne-iadro-naishyrshe.py
 :::
 
 Це вже переживає рядок B: два вікна виявляються обидва, і `best` лишається на ширшому — саме тому порівняння `w > best.width` бере **строго** ширше й не перескакує на пізніше вікно тієї самої ширини (перше з рівних стабільніше). Тепер центр беремо **тільки всередині знайденого вікна**:
 
 :::tabs
-```cpp
-// Головна процедура: розгорнути, знайти вікно, повернути його центр.
-// Повертає код ручки для посадки, або -1, якщо робочого вікна нема взагалі.
-int find_center()
-{
-    bool map[RANGE_MAX];
-    int n = sweep(map, RANGE_MAX);
-
-    Window w = widest_window(map, n);
-    if (w.width == 0) {
-        return -1;                         // жодної робочої точки — канал мертвий
-    }
-    return (w.lo + w.hi) / 2;              // центр САМЕ цього вікна
-}
-```
+:::code proj-training-search/cpp/pravylne-iadro-naishyrshe-2.cpp
 ```python
 # Головна процедура: розгорнути, знайти вікно, повернути його центр.
 # Повертає код ручки для посадки, або -1, якщо робочого вікна нема взагалі.
@@ -228,37 +112,8 @@ def find_center() -> int:
 Правильна поведінка — **не мовчати про це**. Ядро має розрізняти вікно, обидва краї якого — справжні межі ока (усередині діапазону), і вікно, що торкається стінки:
 
 :::tabs
-```cpp
-enum WinKind {
-    WIN_OK,          // обидва краї вікна — справжні межі ока
-    WIN_CLIP_LO,     // вікно впирається у код 0 — око тягнеться нижче діапазону
-    WIN_CLIP_HI,     // вікно впирається у range_max-1 — око тягнеться вище
-    WIN_NONE         // вікна нема (усе F)
-};
-
-WinKind classify(Window w, int n)
-{
-    if (w.width == 0)          return WIN_NONE;
-    if (w.lo == 0)             return WIN_CLIP_LO;   // почалось на самому краю
-    if (w.hi == n - 1)         return WIN_CLIP_HI;   // дійшло до самого краю
-    return WIN_OK;
-}
-```
-```python
-from enum import Enum, auto
-
-class WinKind(Enum):
-    WIN_OK = auto()       # обидва краї вікна — справжні межі ока
-    WIN_CLIP_LO = auto()  # вікно впирається у код 0 — око тягнеться нижче діапазону
-    WIN_CLIP_HI = auto()  # вікно впирається у range_max-1 — око тягнеться вище
-    WIN_NONE = auto()     # вікна нема (усе F)
-
-def classify(w: Window, n: int) -> WinKind:
-    if w.width == 0:       return WinKind.WIN_NONE
-    if w.lo == 0:          return WinKind.WIN_CLIP_LO   # почалось на самому краю
-    if w.hi == n - 1:      return WinKind.WIN_CLIP_HI   # дійшло до самого краю
-    return WinKind.WIN_OK
-```
+:::code proj-training-search/cpp/krai-diapazonu-koly-oko-ne.cpp
+:::code proj-training-search/py/krai-diapazonu-koly-oko-ne.py
 :::
 
 Що робити з `WIN_CLIP_*` — рішення рівня системи, не ядра. Іноді край терпимий: діапазон ручки в цьому PHY просто ширший за потрібне рідко, і клип на кілька кодів означає, що запас усе одно величезний. Іноді це симптом грубої помилки — не та довжина доріжки, не той код грубого зсуву, — і тренування має зупинитись із діагностикою «око не вміщується, перевір розводку». Але щоб **ухвалити** це рішення, автомат мусить спершу **знати** про клип — а наївна «середина між першою й останньою» його ховає. Отут різниця між кодом, що бреше тихо, і кодом, що каже правду.
@@ -274,95 +129,15 @@ def classify(w: Window, n: int) -> WinKind:
 Лікують це **згладжуванням** карти перед пошуком вікна. Ідея проста: справжній край ока — це коли `F` йдуть **підряд**, а не поодинці. Тому дірку в одну (чи задану кількість) клітинку, оточену з обох боків одиницями, вважаємо шумом і затираємо назад у `P`. Тільки суцільна смуга `F` завдовжки більш ніж `gap` рахується справжнім краєм.
 
 :::tabs
-```cpp
-// Замазує «діри» з F завдовжки <= max_gap, оточені P з обох боків:
-// такі короткі провали — шум на межі ока, а не справжній край.
-// map правиться на місці.
-void despeckle(bool map[], int n, int max_gap)
-{
-    int i = 0;
-    while (i < n) {
-        if (map[i]) { i++; continue; }
-
-        int j = i;                         // початок смуги F
-        while (j < n && !map[j]) j++;      // j — перша P після смуги (або n)
-        int gap = j - i;                   // довжина смуги F
-
-        bool bounded = (i > 0) && (j < n); // P ліворуч І P праворуч
-        if (bounded && gap <= max_gap) {
-            for (int k = i; k < j; k++)    // коротка внутрішня діра — затерти
-                map[k] = true;
-        }
-        i = j;                             // йдемо далі від кінця смуги
-    }
-}
-```
-```python
-# Замазує «діри» з F завдовжки <= max_gap, оточені P з обох боків:
-# такі короткі провали — шум на межі ока, а не справжній край.
-# pf_map правиться на місці.
-def despeckle(pf_map: list[bool], max_gap: int) -> None:
-    n = len(pf_map)
-    i = 0
-    while i < n:
-        if pf_map[i]:
-            i += 1
-            continue
-
-        j = i                              # початок смуги F
-        while j < n and not pf_map[j]:     # j — перша P після смуги (або n)
-            j += 1
-        gap = j - i                        # довжина смуги F
-
-        bounded = (i > 0) and (j < n)      # P ліворуч І P праворуч
-        if bounded and gap <= max_gap:
-            for k in range(i, j):          # коротка внутрішня діра — затерти
-                pf_map[k] = True
-        i = j                              # йдемо далі від кінця смуги
-```
+:::code proj-training-search/cpp/shumova-mezha-odynychnyi-f.cpp
+:::code proj-training-search/py/shumova-mezha-odynychnyi-f.py
 :::
 
 Тепер конвеєр повний:
 
 :::tabs
-```cpp
-int find_center_robust(int max_gap)
-{
-    bool map[RANGE_MAX];
-    int n = sweep(map, RANGE_MAX);
-
-    despeckle(map, n, max_gap);            // прибрати шумові провали
-    Window w = widest_window(map, n);
-
-    switch (classify(w, n)) {
-    case WIN_NONE:
-        return -1;                         // канал не заводиться
-    case WIN_CLIP_LO:
-    case WIN_CLIP_HI:
-        report_clip();                     // діагностика: око за межею діапазону
-        break;                             // (рішення — далі; тут беремо що є)
-    case WIN_OK:
-        break;
-    }
-    return (w.lo + w.hi) / 2;
-}
-```
-```python
-def find_center_robust(max_gap: int) -> int:
-    pf_map = sweep(RANGE_MAX)
-
-    despeckle(pf_map, max_gap)             # прибрати шумові провали
-    w = widest_window(pf_map)
-
-    kind = classify(w, len(pf_map))
-    if kind is WinKind.WIN_NONE:
-        return -1                          # канал не заводиться
-    elif kind in (WinKind.WIN_CLIP_LO, WinKind.WIN_CLIP_HI):
-        report_clip()                      # діагностика: око за межею діапазону
-                                           # (рішення — далі; тут беремо що є)
-    # WIN_OK — нічого додатково не робимо
-    return (w.lo + w.hi) // 2
-```
+:::code proj-training-search/cpp/shumova-mezha-odynychnyi-f-2.cpp
+:::code proj-training-search/py/shumova-mezha-odynychnyi-f-2.py
 :::
 
 Але тут причаїлась зворотна пастка, і про неї треба сказати прямо. `despeckle` замазує діри — а що, як діра **справжня**? Що, як вікно й правда розколоте фізично (два окремі просвіти від якогось резонансу в тракті), і `F` посередині — не шум, а реальна межа? Тоді агресивне згладжування **зліпить** два вікна в одне фальшиве й посадить строб у мертву зону між ними — рівно та біда, від якої ми тікали на рядку B, тільки тепер ми її самі й створили.
@@ -378,53 +153,8 @@ def find_center_robust(max_gap: int) -> int:
 Тут немає вікна й немає центру — є **єдина точка переходу**. І перебирати заради неї весь діапазон марнотратно: коли функція монотонна (спершу все `0`, потім усе `1`), точку зламу знаходять **навпіл**, [бінарним пошуком](root:sf-algorithms/binary-search). Дивимось на середину діапазону: якщо там `0`, злам правіше — відкидаємо ліву половину; якщо `1`, злам не правіше — відкидаємо праву. За кілька кроків замість десятків локалізуємо перехід із точністю до одного коду.
 
 :::tabs
-```cpp
-// Пробник для монотонного випадку: true, якщо за коду затримки
-// чіп повернув рівень CK == 1 (строб уже наздогнав фронт).
-bool probe_ck_is_high(int code)
-{
-    knob_set(code);
-    settle();
-    return probe_once();     // тут probe_once читає біт, повернений чіпом на DQ
-}
-
-// Бінарний пошук першого коду, за якого відповідь стала 1
-// (перехід 0 -> 1) на монотонній осі 0 .. range_max-1.
-// Повертає цей код, або range_max, якщо 1 не з'явилась узагалі.
-int find_transition(int range_max)
-{
-    int lo = 0, hi = range_max;           // шукаємо в [lo, hi): перший code з '1'
-    while (lo < hi) {
-        int mid = lo + (hi - lo) / 2;     // так безпечніше від переповнення
-        if (probe_ck_is_high(mid))
-            hi = mid;                      // '1' тут — межа не правіше mid
-        else
-            lo = mid + 1;                  // '0' тут — межа строго правіше
-    }
-    return lo;                             // перший код з '1'; == range_max, якщо '1' нема
-}
-```
-```python
-# Пробник для монотонного випадку: True, якщо за коду затримки
-# чіп повернув рівень CK == 1 (строб уже наздогнав фронт).
-def probe_ck_is_high(code: int) -> bool:
-    knob_set(code)
-    settle()
-    return probe_once()      # тут probe_once читає біт, повернений чіпом на DQ
-
-# Бінарний пошук першого коду, за якого відповідь стала 1
-# (перехід 0 -> 1) на монотонній осі 0 .. range_max-1.
-# Повертає цей код, або range_max, якщо 1 не з'явилась узагалі.
-def find_transition(range_max: int) -> int:
-    lo, hi = 0, range_max                 # шукаємо в [lo, hi): перший code з '1'
-    while lo < hi:
-        mid = lo + (hi - lo) // 2         # так безпечніше від переповнення
-        if probe_ck_is_high(mid):
-            hi = mid                       # '1' тут — межа не правіше mid
-        else:
-            lo = mid + 1                   # '0' тут — межа строго правіше
-    return lo                             # перший код з '1'; == range_max, якщо '1' нема
-```
+:::code proj-training-search/cpp/monotonnyi-vypadok.cpp
+:::code proj-training-search/py/monotonnyi-vypadok.py
 :::
 
 Це той самий інваріант, що й у будь-якому чесному бінарному пошуку межі: у напіввідкритому проміжку `[lo, hi)` завжди тримаємо `lo` на території `0`, `hi` — на території `1` (або за краєм). `mid = lo + (hi-lo)/2` замість `(lo+hi)/2` — не педантизм: на широких діапазонах і 32-бітних лічильниках `lo+hi` може переповнитись, а цей запис — ніколи. І умова циклу `lo < hi` (не `<=`) із напіввідкритим `[lo, hi)` не дає ні зациклитись, ні промахнутись повз останній код.

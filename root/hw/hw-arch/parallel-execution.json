@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "math": [
             {
@@ -44,7 +45,8 @@
           "proj": [
             {
               "file": "proj-pipeline-sim.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -55,7 +57,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -66,7 +69,8 @@
           "proj": [
             {
               "file": "proj-hazard-detect-forward.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -108,7 +112,8 @@
           "proj": [
             {
               "file": "proj-branchless.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -196,13 +201,16 @@
           "math": [
             {
               "file": "math-mrt-scheduling.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-modulo-scheduler.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -224,13 +232,16 @@
           "proj": [
             {
               "file": "proj-jit-trampoline.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cache-flush.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -247,7 +258,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -274,13 +286,15 @@
           "proj": [
             {
               "file": "proj-smt-bench.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-linux-smt-control.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -291,7 +305,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -302,13 +317,16 @@
           "proj": [
             {
               "file": "proj-numa-bench.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-libnuma.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -342,7 +360,8 @@
           "proj": [
             {
               "file": "proj-simd-dot-product.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -370,7 +389,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -398,30 +418,37 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-stack-to-its.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-bank-stride.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-matrix-transpose-smem.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-warp-intrinsics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -432,7 +459,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -443,13 +471,15 @@
           "proj": [
             {
               "file": "proj-async-double-buffering.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-memory-management.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -505,13 +535,16 @@
           "proj": [
             {
               "file": "proj-dynamic-dataflow-vm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-dataflow-runtime.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -528,7 +561,8 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {

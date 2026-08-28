@@ -80,22 +80,7 @@ TCH  — Transfer in Channel: перехід усередині канально
 
 Тут корисно спинитися й оцінити, наскільки чужий це ґрунт. У 709 список сегментів читало **залізо**. У Берклі ніякого каналу немає: `readv` — це системний виклик, і список обходить **процесор** звичайним циклом. Спільного з CCW — нуль: інша машина (VAX), інша задача (сокети й файли), інші люди, інша галактика. І все ж:
 
-```c
-/*	uio.h	6.1	83/07/29	*/
-
-struct iovec {
-	caddr_t	iov_base;
-	int	iov_len;
-};
-
-struct uio {
-	struct	iovec *uio_iov;
-	int	uio_iovcnt;
-	int	uio_offset;
-	int	uio_segflg;
-	int	uio_resid;
-};
-```
+:::code hist-scatter-gather-lineage/c/deviatnadtsiat-rokiv-i.c
 
 `iov_base` і `iov_len` — адреса й довжина. Знову вони.
 
@@ -128,21 +113,7 @@ i386: sizeof(struct scatterlist) ≈ 20 Б
 
 Тепер — як саме сказано «є ще». Адреса сторінки завжди вирівняна, тож молодші біти покажчика завжди нульові: місце, яке дарма пропадає. Туди й поклали ознаку:
 
-```c
-#define SG_CHAIN	0x01UL   /* біт 0: у page_link не сторінка, а покажчик
-                                    на наступну пачку записів */
-#define SG_END		0x02UL   /* біт 1: цей запис — останній у списку */
-
-static inline struct scatterlist *sg_next(struct scatterlist *sg)
-{
-	if (sg_is_last(sg))
-		return NULL;
-	sg++;
-	if (unlikely(sg_is_chain(sg)))
-		sg = sg_chain_ptr(sg);
-	return sg;
-}
-```
+:::code hist-scatter-gather-lineage/c/linux-masyv-upyraietsia-v.c
 
 Порівняйте `sg_next` із каналом System/360. Автомат дивиться на запис. Піднято ознаку кінця — стоп. Не піднято — береться наступний запис; а якщо той каже «я не сегмент, я перехід», автомат іде за покажчиком і веде далі. Це `CD`, `CC` і `TIC` (Transfer In Channel — той самий перехід, що на 7090 звався `TCH`) в одній інлайновій функції на C, написаній 2007 року людиною, якій System/360 для цього не була потрібна.
 

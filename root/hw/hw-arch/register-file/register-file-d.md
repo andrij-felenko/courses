@@ -60,34 +60,8 @@
 **Умова: змоделювати файл 32 × 32 з двома портами читання та синхронним записом; показати, чому без пересилання читання «того самого» дає старе.**
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-static uint32_t regfile[32];   // 32 регістри по 32 біти
-
-// два порти читання — комбінаційні: просто дивимось у масив
-static inline uint32_t rf_read(uint8_t addr) {
-    return regfile[addr & 31];        // 5-бітна адреса
-}
-
-// порт запису — «спрацьовує» на фронті такту (виклик = фронт)
-static inline void rf_write_on_edge(uint8_t addr, uint32_t data, int wen) {
-    if (wen) regfile[addr & 31] = data;
-}
-```
-```python
-regfile = [0] * 32                    # 32 регістри по 32 біти
-MASK32 = 0xFFFFFFFF
-
-# два порти читання — комбінаційні: просто дивимось у масив
-def rf_read(addr):
-    return regfile[addr & 31]         # 5-бітна адреса
-
-# порт запису — «спрацьовує» на фронті такту (виклик = фронт)
-def rf_write_on_edge(addr, data, wen):
-    if wen:
-        regfile[addr & 31] = data & MASK32
-```
+:::code register-file-d/cpp/main.cpp
+:::code register-file-d/py/main.py
 :::
 
 Один такт команди `add r5, r1, r2` виглядає так:

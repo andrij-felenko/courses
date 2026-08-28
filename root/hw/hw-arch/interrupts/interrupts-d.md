@@ -79,57 +79,8 @@
 **Кнопка: опитування проти переривання.**
 
 :::tabs
-```cpp
-// --- Опитування: loop сам перевіряє ---
-void loop() {
-  if (digitalRead(BTN) == LOW) { /* натиснуто */ }
-  // ... інша робота, що затримує перевірку
-}
-
-// --- Переривання: подія сама кличе ---
-volatile bool pressed = false;          // прапорець (volatile — обовʼязково для ISR)
-
-void IRAM_ATTR onPress() {               // обробник: КОРОТКО
-  pressed = true;                        // лише підняти прапорець
-}
-
-void setup() {
-  pinMode(BTN, INPUT_PULLUP);            // увімкнути підтяжку
-  attachInterrupt(digitalPinToInterrupt(BTN), onPress, FALLING);
-}
-
-void loop() {
-  if (pressed) {                         // loop вільний, реакція вмить
-    pressed = false;
-    /* обробити натиск */
-  }
-}
-```
-```micropython
-from machine import Pin
-
-# --- Опитування: цикл сам перевіряє ---
-btn = Pin(BTN, Pin.IN, Pin.PULL_UP)
-while True:
-    if btn.value() == 0:          # натиснуто
-        pass
-    # ... інша робота, що затримує перевірку
-
-# --- Переривання: подія сама кличе ---
-pressed = False                   # прапорець
-
-def on_press(pin):                # обробник: КОРОТКО
-    global pressed
-    pressed = True                # лише підняти прапорець
-
-btn = Pin(BTN, Pin.IN, Pin.PULL_UP)                 # увімкнути підтяжку
-btn.irq(handler=on_press, trigger=Pin.IRQ_FALLING)  # повісити «дзвоник»
-
-while True:
-    if pressed:                   # цикл вільний, реакція вмить
-        pressed = False
-        pass                      # обробити натиск
-```
+:::code interrupts-d/cpp/main.cpp
+:::code interrupts-d/py/micropython/main.py
 :::
 
 У цьому крихітному прикладі вже видно всю архітектуру переривань: обробник `onPress` короткий і лише ставить прапорець `pressed`; слово [`volatile`](root:sf-lang/volatile) каже компіляторові не «оптимізувати» цей прапорець (бо його міняє обробник); `IRAM_ATTR` кладе обробник у швидку пам'ять; а `loop()` тепер вільний робити іншу роботу, реагуючи на натиск практично вмить. Кожна з цих дрібниць заслуговує окремого розгляду.
