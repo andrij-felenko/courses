@@ -88,7 +88,7 @@ if (hints.length) {
 const rep = M.applyOps(bookDir, ops, { dry: DRY });
 
 console.log(`\n${DRY ? "DRY — нічого не записано" : "ЗАПИСАНО"}: ${path.relative(process.cwd(), path.join(bookDir, "manifest.json"))}`);
-console.log(`  груп +${rep.group || 0} · розділів +${rep.chapter || 0} · тем +${rep.topic || 0} · ref +${rep.ref || 0} · статусів ${rep.status || 0} · вставок ${rep.insert || 0}`);
+console.log(`  груп +${rep.group || 0} · розділів +${rep.chapter || 0} · тем +${rep.topic || 0} · ref +${rep.ref || 0} · статусів ${rep.status || 0} · вставок ${rep.insert || 0} · знято ${rep.removed || 0} · перекладено ${rep.moved || 0} · перейменовано ${rep.retitled || 0}`)
 if ((rep.skipped || []).length) {
   console.log(`  пропущено (уже так): ${rep.skipped.length}`);
   rep.skipped.slice(0, 12).forEach((s) => console.log(`     · ${s}`));

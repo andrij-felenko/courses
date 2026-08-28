@@ -144,6 +144,9 @@ function write(p, data) {
  *   { op:"status",    slug, ver:"basic"|"detailed", status }
  *   { op:"status-if", slug, ver, from, to }
  *   { op:"insert",    slug, type, file, status }
+ *   { op:"remove",    slug }                                  ← зняти тему з маніфесту
+ *   { op:"relocate",  slug, group, chapter, groupTitle?, chapterTitle? }  ← інший розділ
+ *   { op:"retitle",   slug, title }                           ← змінити назву теми
  *   { op:"ref",       group, chapter, ref, title }                ← крок-вказівник (курси)
  *
  * dry:true — нічого не пише, лише вертає звіт. Ідемпотентно: повтор не дублює.
@@ -154,7 +157,7 @@ function applyOps(bookDir, ops, opt) {
   let book = loadBook(bookDir);
   if (!book) return { errors: [`нема маніфесту: ${path.join(bookDir, "manifest.json")}`], changed: 0 };
 
-  const rep = { group: 0, chapter: 0, topic: 0, ref: 0, status: 0, insert: 0, skipped: [], errors: [] };
+  const rep = { group: 0, chapter: 0, topic: 0, ref: 0, status: 0, insert: 0, removed: 0, moved: 0, retitled: 0, skipped: [], errors: [] };
   const touched = new Set();
   const touchGroup = (g) => touched.add(g);
 
@@ -220,11 +223,46 @@ function applyOps(bookDir, ops, opt) {
         else arr.push({ file: o.file, status: o.status });
         rep.insert++; touchGroup(t.group);
 
+      } else if (o.op === "remove") {
+        /* Зняти тему. Потрібно там, де матеріал переїхав: злився з іншою темою, став
+           вставкою або пішов у чужу книгу. Запис теми лишався б у черзі назавжди —
+           файлу нема, писати нема чого, а `pending` вічно проситься в батч. */
+        const t = findTopic(book, o.slug);
+        if (!t) { rep.skipped.push(`теми «${o.slug}» нема — знімати нічого`); continue }
+        const g = book.groups.get(t.group);
+        const ch = (g.data.chapters || []).find((c) => c.slug === t.chapter);
+        const i = (ch.topics || []).indexOf(t.node);
+        if (i < 0) { rep.errors.push(`тему «${o.slug}» не знайдено в розділі «${t.chapter}»`); continue }
+        ch.topics.splice(i, 1); rep.removed++; touchGroup(t.group);
+
+      } else if (o.op === "relocate") {
+        /* Перекласти тему в інший розділ ТІЄЇ Ж книги — з усіма статусами й вставками:
+           переносимо сам вузол, а не його копію. Між книгами так не можна: там два
+           різні маніфести, і це робиться парою «topic у цільову + remove з джерела». */
+        const t = findTopic(book, o.slug);
+        if (!t) { rep.errors.push(`нема теми «${o.slug}» для перекладання`); continue }
+        if (t.group === o.group && t.chapter === o.chapter) { rep.skipped.push(`«${o.slug}» уже в «${o.group}/${o.chapter}»`); continue }
+        const from = book.groups.get(t.group);
+        const fromCh = (from.data.chapters || []).find((c) => c.slug === t.chapter);
+        const i = (fromCh.topics || []).indexOf(t.node);
+        if (i < 0) { rep.errors.push(`тему «${o.slug}» не знайдено в «${t.chapter}»`); continue }
+        const g = getGroup(o.group, o.groupTitle, o.groupScope);
+        const ch = getChapter(g, o.chapter, o.chapterTitle);
+        fromCh.topics.splice(i, 1);
+        ch.topics.push(t.node);
+        rep.moved++; touchGroup(t.group); touchGroup(g.data.slug);
+
+      } else if (o.op === "retitle") {
+        const t = findTopic(book, o.slug);
+        if (!t) { rep.errors.push(`нема теми «${o.slug}» для перейменування`); continue }
+        if (t.node.title === o.title) { rep.skipped.push(`«${o.slug}» уже має цю назву`); continue }
+        t.node.title = o.title; rep.retitled++; touchGroup(t.group);
+
       } else rep.errors.push(`невідома операція «${o.op}»`);
     } catch (e) { rep.errors.push(`${o.op} «${o.slug || o.ref || ""}»: ${e.message}`); }
   }
 
-  rep.changed = rep.group + rep.chapter + rep.topic + rep.ref + rep.status + rep.insert;
+  rep.changed = rep.group + rep.chapter + rep.topic + rep.ref + rep.status + rep.insert + rep.removed + rep.moved + rep.retitled;
   if (!dry && rep.changed) {
     if (touched.has("__manifest__")) write(book.mfPath, book.manifest);
     for (const gslug of touched) { const g = book.groups.get(gslug); if (g) write(g.path, g.data); }

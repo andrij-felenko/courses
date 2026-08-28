@@ -1,0 +1,514 @@
+{
+ "merge": [
+  {
+   "id": "com-medium/masthead-poe-and-fiber",
+   "verdict": "keep",
+   "reason": "Стаття про PoE описує лише стандарт 802.3af/at/bt; пасивного PoE без рукостискання й оптоволокна там немає.",
+   "covers": false
+  },
+  {
+   "id": "sf-devices/alarm-flood-suppression-and-shelving",
+   "verdict": "keep",
+   "reason": "ціль ненаписана, але за назвами це governance-цикл ISA-18.2, а не рантайм-механіка масок, графів причин і shelving",
+   "covers": false
+  },
+  {
+   "id": "sf-ml/machine-ethics-safe-autonomy",
+   "verdict": "keep",
+   "covers": false,
+   "reason": "цільова про межі моделі й відповідальність людей; вето-механізму дій агента (ethical governor) там немає"
+  },
+  {
+   "id": "sys-dron/marine-steering-and-thrusters",
+   "verdict": "keep",
+   "covers": false,
+   "reason": "Наявна стаття лише побіжно згадує кермо — гвинтовий струмінь, підрулювачі й втрата керованості на малій швидкості не розкриті"
+  },
+  {
+   "id": "sys-dron/uav-flight-handover-protocol",
+   "verdict": "keep",
+   "covers": false,
+   "reason": "арбітраж судить одночасні станції за пріоритетом, а хендовер LRE→MCE — послідовна передача з перемиканням каналу"
+  },
+  {
+   "id": "com-medium/antenna-diversity-systems",
+   "verdict": "merge",
+   "reason": "Ціль уже дає поляризаційне й просторове рознесення та SC/EGC/MRC; бракує лише комутаційного — на абзац",
+   "covers": true
+  },
+  {
+   "id": "sys-dron/line-of-sight-stabilization",
+   "verdict": "merge",
+   "reason": "Стаття вже має розділ Dual IMU, базовий IMU рами, feedforward і каскад стабілізації осі візування",
+   "covers": true
+  },
+  {
+   "id": "sys-dron/whole-body-control",
+   "verdict": "merge",
+   "covers": true,
+   "reason": "судячи з назв: підзаголовок нового — нуль-простір і пріоритети задач — це і є зміст цілі про надлишковість"
+  }
+ ],
+ "move": [
+  {
+   "id": "hw-components/iso-13849-machinery-safety-categories",
+   "winner": "sys-notary",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "sys-notary",
+     "chapter": "Закон і сертифікація",
+     "conf": "high",
+     "reason": "категорії архітектури й рівні PL — нормативний допуск машини, тобто закон і сертифікація"
+    },
+    {
+     "book": "sys-notary",
+     "chapter": "Закон і сертифікація",
+     "conf": "high",
+     "reason": "рівні продуктивності PL — нормативна вимога до виробу, а не властивість деталі"
+    },
+    {
+     "book": "sys-notary",
+     "chapter": "Закон і сертифікація",
+     "conf": "high",
+     "reason": "категорії архітектури й рівні PL — нормативне зобов'язання виробника, не властивість деталі"
+    }
+   ]
+  },
+  {
+   "id": "hw-motion/esc-firmware-architecture",
+   "winner": "sys-dron",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "sys-dron",
+     "chapter": "Апарат і його борт",
+     "conf": "low",
+     "reason": "BLHeli й AM32 — іменовані версійовані прошивки борту, а книга веде складники дрона"
+    },
+    {
+     "book": "sys-dron",
+     "chapter": "Апарат і його борт",
+     "conf": "low",
+     "reason": "BLHeli та AM32 — версійовані прошивки бортового стека апарата"
+    },
+    {
+     "book": "sys-dron",
+     "chapter": "Апарат і його борт",
+     "conf": "low",
+     "reason": "BLHeli та AM32 — версійовані прошивки бортового вузла апарата"
+    }
+   ]
+  },
+  {
+   "id": "ph-mechanics/contact-stability-and-passivity",
+   "winner": "math-analysis",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "тут живе керування зі зворотним зв'язком, а пасивність і затримка — умови стійкості такої петлі"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "умова пасивності з дискретною затримкою — критерій стійкості контуру зворотного зв'язку"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "умова пасивності й вплив дискретної затримки — стійкість замкненого контуру керування"
+    }
+   ]
+  },
+  {
+   "id": "ph-mechanics/tailsitter-flight-dynamics",
+   "winner": "STAY",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "STAY",
+     "chapter": "Політ",
+     "conf": "low",
+     "reason": "динаміка планера — це рівняння руху й обдув, тобто механіка польоту з розділу «Політ»"
+    },
+    {
+     "book": "STAY",
+     "chapter": "Політ",
+     "conf": "low",
+     "reason": "обдув елевонів і зрив — динаміка тіла в потоці, місце розділу «Політ»"
+    },
+    {
+     "book": "STAY",
+     "chapter": "Політ",
+     "conf": "low",
+     "reason": "обдув елевонів і зрив у перевороті — динаміка польоту, рідний розділ «Політ»"
+    }
+   ]
+  },
+  {
+   "id": "ph-mechanics/tiltrotor-aerodynamics",
+   "winner": "STAY",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "STAY",
+     "chapter": "Політ",
+     "conf": "low",
+     "reason": "косий обдув і гіроскопічна прецесія — механічні явища, і книга має власний розділ «Політ»"
+    },
+    {
+     "book": "STAY",
+     "chapter": "Політ",
+     "conf": "low",
+     "reason": "косий обдув і гіроскопічна прецесія — явища аеромеханіки, а книга має розділ «Політ»"
+    },
+    {
+     "book": "STAY",
+     "chapter": "Політ",
+     "conf": "low",
+     "reason": "косий обдув і гіроскопічна прецесія — аеромеханічні явища, розділ «Політ» саме про них"
+    }
+   ]
+  },
+  {
+   "id": "ph-waves/ground-sampling-distance-aerial-imaging",
+   "winner": "sf-visual",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "sf-visual",
+     "chapter": "Карта й місцевість",
+     "conf": "low",
+     "reason": "GSD — параметр знімання заради карти, а розділ «Карта й місцевість» саме про таке знімання"
+    },
+    {
+     "book": "sf-visual",
+     "chapter": "Карта й місцевість",
+     "conf": "low",
+     "reason": "GSD — фотограмметричний розрахунок зйомки місцевості, а не властивість світла"
+    },
+    {
+     "book": "sf-visual",
+     "chapter": "Карта й місцевість",
+     "conf": "low",
+     "reason": "GSD — фотограмметричний параметр знімання для карти, живе поруч із місцевістю"
+    }
+   ]
+  },
+  {
+   "id": "sf-algorithms/control-barrier-functions-safety-filters",
+   "winner": "math-analysis",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "CBF — сертифікат стійкості й безпеки замкненої петлі, рідний матеріал розділу керування"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "бар'єрна функція — умова інваріантності контуру, місце розділу про зворотний зв'язок"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "бар'єрні функції обмежують керування в замкненому контурі — апарат теорії керування"
+    }
+   ]
+  },
+  {
+   "id": "sf-algorithms/passivity-based-control-energy-tanks",
+   "winner": "math-analysis",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "пасивність — теорема стійкості замкненого контуру, а книга тримає керування зі зворотним зв'язком"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "енергетичний резервуар і пасивність — принцип стійкості контуру керування"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "енергетичні резервуари доводять стійкість контуру — тема розділу керування зворотним зв'язком"
+    }
+   ]
+  },
+  {
+   "id": "sf-tasks/rate-monotonic-scheduling-rms",
+   "winner": "sf-os",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "sf-os",
+     "chapter": "Процеси й процесорний час",
+     "conf": "low",
+     "reason": "планування за пріоритетами й строками живе поруч із EDF у розділі процесорного часу"
+    },
+    {
+     "book": "sf-os",
+     "chapter": "Процеси й процесорний час",
+     "conf": "low",
+     "reason": "планування за пріоритетами й строками стоїть поряд із близнюком EDF"
+    },
+    {
+     "book": "sf-os",
+     "chapter": "Процеси й процесорний час",
+     "conf": "low",
+     "reason": "планувальник за пріоритетом і строком стоїть поруч із EDF у процесорному часі"
+    }
+   ]
+  },
+  {
+   "id": "sys-dron/active-inceptors-and-tactile-cueing",
+   "winner": "hw-motion",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "hw-motion",
+     "chapter": "Актуатори й навантаження",
+     "conf": "low",
+     "reason": "книга виконавчих пристроїв тримає приводи й керування ними — активний орган це силовий привід під рукою"
+    },
+    {
+     "book": "hw-motion",
+     "chapter": "Актуатори й навантаження",
+     "conf": "low",
+     "reason": "клас приводів зі зворотним зв'язком за зусиллям — саме актуатор і його навантаження"
+    },
+    {
+     "book": "hw-motion",
+     "chapter": "Актуатори й навантаження",
+     "conf": "low",
+     "reason": "активна ручка — приводний пристрій із зусиллям на валу, тобто клас виконавчого механізму"
+    }
+   ]
+  },
+  {
+   "id": "sys-dron/collaborative-robot-safety-iso-15066",
+   "winner": "sys-notary",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "sys-notary",
+     "chapter": "Закон і сертифікація",
+     "conf": "high",
+     "reason": "ISO 10218 і TS 15066 — норми допуску виробу, а книга саме про закон і сертифікацію"
+    },
+    {
+     "book": "sys-notary",
+     "chapter": "Закон і сертифікація",
+     "conf": "high",
+     "reason": "ISO-стандарти й нормовані межі — класичне зобов'язання довкола виробу"
+    },
+    {
+     "book": "sys-notary",
+     "chapter": "Закон і сертифікація",
+     "conf": "high",
+     "reason": "іменовані стандарти з нормованими межами — рівно те, про що книга зобов'язань довкола виробу"
+    }
+   ]
+  },
+  {
+   "id": "sys-dron/utm-u-space",
+   "winner": "sys-notary",
+   "votes": 3,
+   "of": 3,
+   "unanimous": true,
+   "picks": [
+    {
+     "book": "sys-notary",
+     "chapter": "Закон і сертифікація",
+     "conf": "low",
+     "reason": "правовий режим неба й допуск апарата до польотів — це закон і сертифікація довкола виробу"
+    },
+    {
+     "book": "sys-notary",
+     "chapter": "Закон і сертифікація",
+     "conf": "low",
+     "reason": "UTM і U-Space — регуляторна рамка та служба довкола апарата, не його борт"
+    },
+    {
+     "book": "sys-notary",
+     "chapter": "Закон і сертифікація",
+     "conf": "low",
+     "reason": "UTM/U-Space — регуляторна служба довкола апарата, місце їй серед закону й сертифікації"
+    }
+   ]
+  },
+  {
+   "id": "math-geometry/denavit-hartenberg-kinematic-parameters",
+   "winner": "STAY",
+   "votes": 2,
+   "of": 3,
+   "unanimous": false,
+   "picks": [
+    {
+     "book": "STAY",
+     "chapter": "Кут і обертання",
+     "conf": "low",
+     "reason": "кут, обертання й однорідні перетворення живуть тут, а DH — домовлений ланцюг таких перетворень"
+    },
+    {
+     "book": "STAY",
+     "chapter": "Кут і обертання",
+     "conf": "low",
+     "reason": "призначення осей і перехід між системами координат — прямо розділ «Кут і обертання»"
+    },
+    {
+     "book": "sf-algorithms",
+     "chapter": "Геометрія й простір",
+     "conf": "low",
+     "reason": "угода про ланцюг однорідних перетворень — прикладний просторовий метод, а не властивість фігур"
+    }
+   ]
+  },
+  {
+   "id": "math-probability/stochastic-sensor-noise-simulation",
+   "winner": "hw-sensing",
+   "votes": 2,
+   "of": 3,
+   "unanimous": false,
+   "picks": [
+    {
+     "book": "hw-sensing",
+     "chapter": "Перетворювач і його якість",
+     "conf": "low",
+     "reason": "шум і дрейф перетворювача — його якість, і книга давачів судить саме цю характеристику"
+    },
+    {
+     "book": "com-signal",
+     "chapter": "Оцінювання стану",
+     "conf": "low",
+     "reason": "моделі шуму давача живлять фільтри стану — там їх і застосовують"
+    },
+    {
+     "book": "hw-sensing",
+     "chapter": "Перетворювач і його якість",
+     "conf": "low",
+     "reason": "блукання зміщення й гаус-марковський шум описують якість самого перетворювача"
+    }
+   ]
+  },
+  {
+   "id": "ph-mechanics/multibody-physics-engines-lcp",
+   "winner": "math-numeric",
+   "votes": 2,
+   "of": 3,
+   "unanimous": false,
+   "picks": [
+    {
+     "book": "math-numeric",
+     "chapter": "Рівняння та підгонка моделей",
+     "conf": "low",
+     "reason": "LCP-розв'язувач із обмеженнями — числовий метод, а книга саме про рівняння та їх розв'язування"
+    },
+    {
+     "book": "math-numeric",
+     "chapter": "Рівняння та підгонка моделей",
+     "conf": "low",
+     "reason": "LCP-розв'язувач зі зв'язками — числовий метод розв'язання рівнянь, не явище природи"
+    },
+    {
+     "book": "sf-algorithms",
+     "chapter": "Геометрія й простір",
+     "conf": "low",
+     "reason": "LCP-розв'язувач і обробка контактів — просторова алгоритміка загального призначення"
+    }
+   ]
+  },
+  {
+   "id": "sf-algorithms/control-allocation-matrix-mixing",
+   "winner": "math-analysis",
+   "votes": 2,
+   "of": 3,
+   "unanimous": false,
+   "picks": [
+    {
+     "book": "com-signal",
+     "chapter": "Навігація й керування",
+     "conf": "low",
+     "reason": "мікшер зусиль це ланка керувального контуру — розділ «Навігація й керування» саме про такі ланки"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "псевдоінверсія розподіляє зусилля в контурі керування, поряд із рештою теорії керування"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "розподіл зусиль між приводами — ланка контуру керування, псевдоінверсія лише інструмент"
+    }
+   ]
+  },
+  {
+   "id": "sf-algorithms/impedance-and-admittance-robot-control",
+   "winner": "math-analysis",
+   "votes": 2,
+   "of": 3,
+   "unanimous": false,
+   "picks": [
+    {
+     "book": "com-signal",
+     "chapter": "Навігація й керування",
+     "conf": "low",
+     "reason": "розділ «Навігація й керування» тримає закони контуру, куди імпеданс і адмітанс лягають природно"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "імпедансний закон зв'язує силу й рух — це закон контуру зворотного зв'язку"
+    },
+    {
+     "book": "math-analysis",
+     "chapter": "Керування зі зворотним зв'язком",
+     "conf": "low",
+     "reason": "імпеданс і адмітанс задають закон замкненого контуру, місце їм серед керування зворотним зв'язком"
+    }
+   ]
+  }
+ ],
+ "moveJudges": 3
+}

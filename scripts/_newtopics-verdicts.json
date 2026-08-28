@@ -1,0 +1,2120 @@
+[
+ {
+  "id": "sys-dron/supervisory-control-and-automation-levels",
+  "verdict": "keep",
+  "reason": "рівні автономії — самостійне поняття операторської роботи, свій читач",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/swarm-coordination-and-consensus",
+  "verdict": "keep",
+  "reason": "координація рою — окрема інженерна тема, у сусідів її нема",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/fan-out-ratio-and-neglect-tolerance",
+  "verdict": "insert",
+  "target": "supervisory-control-and-automation-levels",
+  "reason": "метрика місткості оператора — розрахунок усередині статті про нагляд",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/takeover-request-and-minimum-risk-maneuver",
+  "verdict": "keep",
+  "reason": "протокол передачі керування людині самодостатній, сусіди його не покривають",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/minimum-snap-trajectory-generation",
+  "verdict": "keep",
+  "reason": "класичний метод генерації траєкторії, сусіди дають лише покриття площ",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/dynamic-window-approach-local-planner",
+  "verdict": "keep",
+  "reason": "локальний планувальник як окремий метод, поруч лише карта й ціна",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/euclidean-signed-distance-fields-esdf",
+  "verdict": "keep",
+  "reason": "неперервне подання перешкод — самостійна альтернатива сітці зайнятості",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/stick-override-pilot-intent-detection",
+  "verdict": "insert",
+  "target": "mode-state-machine",
+  "reason": "правило переходу з авто в ручний — механізм усередині автомата режимів",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/pilot-induced-oscillations",
+  "verdict": "keep",
+  "reason": "відоме явище з власним читачем і власними засобами захисту",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/mcruer-pilot-model",
+  "verdict": "insert",
+  "target": "pilot-induced-oscillations",
+  "reason": "передатна функція оператора — математичне підґрунтя статті про PIO",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/flight-envelope-protection",
+  "verdict": "keep",
+  "reason": "обмеження конверта — самостійний захисний шар, сусіди не покривають",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/input-shaping-and-rate-models",
+  "verdict": "keep",
+  "reason": "криві чутливості й моделі швидкостей — окрема настроювана ланка керування",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/rc-setpoint-smoothing-and-feedforward",
+  "verdict": "insert",
+  "target": "input-shaping-and-rate-models",
+  "reason": "ланка того самого тракту обробки уставки з пульта",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/vtol-transition-controller",
+  "verdict": "keep",
+  "reason": "перехід VTOL — самодостатній вузол зі своїми станами й ризиками",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/deep-stall-landing",
+  "verdict": "keep",
+  "reason": "окремий спосіб посадки крила зі своєю аеродинамікою й логікою",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/thrust-linearization-and-tpa",
+  "verdict": "keep",
+  "reason": "компенсація нелінійності тяги — самостійна тема настроювання",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/line-of-sight-stabilization",
+  "verdict": "merge",
+  "target": "stabilizovanyi-pidvis",
+  "reason": "це стабілізація підвісу під іншою назвою, стаття вже є",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/total-energy-control-system-tecs",
+  "verdict": "keep",
+  "reason": "TECS — класичний самостійний контур керування літаком",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/airspeed-scaling-and-gain-scheduling",
+  "verdict": "keep",
+  "reason": "планування підсилення за напором — окремий прийом, сусіди мовчать",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/mass-drop-dynamics-and-compensation",
+  "verdict": "keep",
+  "reason": "динаміка після скидання маси відмінна від механіки й безпеки скиду",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/single-axis-spin-recovery",
+  "verdict": "insert",
+  "target": "dynamic-control-reallocation",
+  "reason": "окремий випадок керування після відмови ротора, підрозділ перерозподілу",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/dynamic-control-reallocation",
+  "verdict": "keep",
+  "reason": "відмовостійкий розподіл керування — самостійний механізм із власним читачем",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/revers-tiahy-3d-polot",
+  "verdict": "keep",
+  "reason": "двонапрямлена тяга — окремий режим побудови борту, свій читач",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/active-inceptors-and-tactile-cueing",
+  "verdict": "move",
+  "target": "hw",
+  "reason": "клас пристроїв зі зворотним зв'язком за зусиллям, не версійована система",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": "kind",
+  "targetNote": "названо ВИД, не книгу"
+ },
+ {
+  "id": "sys-dron/vector-field-guidance-vfg-npfg",
+  "verdict": "keep",
+  "reason": "векторне поле — самостійний закон наведення поряд із pure pursuit",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/stanley-steering-controller-ugv",
+  "verdict": "keep",
+  "reason": "класичний регулятор ведення, рівноправний сусід pure pursuit",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/loiter-and-orbit-patterns",
+  "verdict": "keep",
+  "reason": "кругова навігація — самостійна поведінка, серед сусідів її нема",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/uav-flight-handover-protocol",
+  "verdict": "merge",
+  "target": "multi-gcs-control-arbitration",
+  "reason": "передача керування між станціями — той самий арбітраж кількох GCS",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/flight-test-plan-and-procedures",
+  "verdict": "keep",
+  "reason": "методика льотних випробувань доповнює главу випробувань самостійною темою",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/micro-xrce-dds-client-agent-bridge",
+  "verdict": "keep",
+  "reason": "версійований компонент стека з власною архітектурою й читачем",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/control-multiplexer-topic-router",
+  "verdict": "keep",
+  "reason": "мультиплексор джерел керування — окремий вузол offboard-архітектури",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/mavros-bridge-and-transforms",
+  "verdict": "keep",
+  "reason": "MAVROS — інший міст, ніж XRCE-DDS, зі своїми плагінами",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/osd-telemetry-video-overlay",
+  "verdict": "keep",
+  "reason": "накладання телеметрії — самостійна підсистема, відеотракт її не покриває",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/edgetx-opentx-mixers-and-logic-switches",
+  "verdict": "keep",
+  "reason": "прошивка пульта — версійована система з власною моделлю мікшерів",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/node-firmware-update",
+  "verdict": "keep",
+  "reason": "оновлення вузлів CAN — окремий протокол передачі, доречний серед файлових",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/multi-gcs-control-arbitration",
+  "verdict": "keep",
+  "reason": "дзеркало до наявного «кілька апаратів», окрема задача арбітражу",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/mavsdk-architecture-grpc-streams",
+  "verdict": "keep",
+  "reason": "MAVSDK — окрема версійована бібліотека, поряд лише pymavlink",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/moving-base-rtk-relative-positioning",
+  "verdict": "keep",
+  "reason": "супутниковий компас — окрема здатність, а не режим наявної RTK-статті",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/synthetic-airspeed-estimation",
+  "verdict": "keep",
+  "reason": "оцінювання швидкості без трубки — самостійна задача спостерігача",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/antenna-tracker-systems",
+  "verdict": "keep",
+  "reason": "трекер — окремий пристрій зі своєю геометрією й сингулярністю",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/utm-u-space",
+  "verdict": "move",
+  "target": "sys-notary",
+  "reason": "регуляторна рамка неба, а не складник плану чи станції",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true,
+  "targetNote": "книга sys/sys-notary"
+ },
+ {
+  "id": "sys-dron/primary-flight-display-basic-t",
+  "verdict": "keep",
+  "reason": "компонування приладового екрана — стала конвенція з власним читачем",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/flight-trajectory-reconstruction-fdr",
+  "verdict": "keep",
+  "reason": "відновлення траєкторії за логом — окрема аналітична задача розслідування",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/payload-drop-safety-and-interlocks",
+  "verdict": "keep",
+  "reason": "інтерлоки й дозвіл на скид — окремий передстартовий бар'єр",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/propulsion-fault-detection-isolation",
+  "verdict": "keep",
+  "reason": "виявлення відмови приводу передує failsafe, самостійна тема",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/marine-steering-and-thrusters",
+  "verdict": "merge",
+  "target": "boat-underwater",
+  "reason": "керування човном уже покрито наявною статтею про човен",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/marine-craft-dynamics-added-mass",
+  "verdict": "keep",
+  "reason": "модель Фоссена — самостійна динамічна основа керування судном",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/fully-actuated-multirotors",
+  "verdict": "keep",
+  "reason": "повнокерована схема — окремий клас апарата, впливає на вибір",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/teplovyi-rezhym-i-oholodzhennia-bortu",
+  "verdict": "keep",
+  "reason": "тепловий режим борту — самостійна задача компонування",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/kolokatsiia-anten-i-rf-sumisnist",
+  "verdict": "keep",
+  "reason": "розміщення антен і десенсибілізація — окрема задача інтеграції борту",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/teoriia-zakhvatu-force-form-closure",
+  "verdict": "insert",
+  "target": "zakhvat-typy-syla-utrymannia",
+  "reason": "матриця силових гвинтів — математичне підґрунтя наявної статті про захват",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/kinematychna-nadlyshkovist-manipuliatoriv",
+  "verdict": "keep",
+  "reason": "надлишковість і нуль-простір — самостійне поняття кінематики маніпулятора",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/dynamika-manipuliatora-ta-rnea",
+  "verdict": "keep",
+  "reason": "динаміка — рівноправна пара до наявної кінематики маніпулятора",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/planuvannia-traiektorii-manipuliatora",
+  "verdict": "keep",
+  "reason": "планування руху ланок — окрема задача поверх кінематики",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/sposterihach-impulsu-i-detektuvannia-zitknen",
+  "verdict": "keep",
+  "reason": "детекція зіткнення без давача сили — самостійний метод безпеки",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/hibrydne-keruvannia-polozhenniam-i-syloiu",
+  "verdict": "keep",
+  "reason": "гібридна схема — окремий класичний підхід, не те саме, що піддатливість",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/operatsiinyi-prostir-i-dynamika-khatiba",
+  "verdict": "keep",
+  "reason": "керування в операційному просторі — самостійна класична постановка",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/whole-body-control",
+  "verdict": "merge",
+  "target": "kinematychna-nadlyshkovist-manipuliatoriv",
+  "reason": "той самий нуль-простір і пріоритети задач, лише під іншою назвою",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true
+ },
+ {
+  "id": "sys-dron/aerial-manipulation",
+  "verdict": "keep",
+  "reason": "взаємодія літального апарата із середовищем — окремий клас задачі",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/collaborative-robot-safety-iso-15066",
+  "verdict": "move",
+  "target": "sys-notary",
+  "reason": "стандарти й біомеханічні межі — зобов'язання довкола виробу",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": true,
+  "targetNote": "книга sys/sys-notary"
+ },
+ {
+  "id": "sys-dron/uav-catapults-and-launch-rails",
+  "verdict": "keep",
+  "reason": "пускове обладнання — самостійна тема зі своєю механікою й читачем",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/net-recovery-and-skyhook",
+  "verdict": "keep",
+  "reason": "вилов апарата — окрема задача, протилежна до старту",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/payload-release-mechanisms",
+  "verdict": "keep",
+  "reason": "механізми скиду — окремий вузол, безпека й динаміка описані інде",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/quick-release-mechanisms",
+  "verdict": "keep",
+  "reason": "кріплення навантаження — інша функція, ніж скид у польоті",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "sys-dron/uav-impact-attenuation-and-airbags",
+  "verdict": "keep",
+  "reason": "поглинання удару при посадці — самостійна конструкторська тема",
+  "pack": "sys-dron",
+  "book": "sys-dron",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/ballistic-trajectory-with-drag-ccip",
+  "verdict": "keep",
+  "reason": "рух тіла з квадратичним опором середовища — самостійне явище механіки",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/traction-dynamics-and-drawbar-pull",
+  "verdict": "keep",
+  "reason": "тяговий баланс — класична задача другого закону з власним читачем",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/contact-stability-and-passivity",
+  "verdict": "move",
+  "target": "eng",
+  "reason": "пасивність і дискретна затримка — метод керування, не закон механіки",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": "kind",
+  "targetNote": "названо ВИД, не книгу"
+ },
+ {
+  "id": "ph-mechanics/terramechanics-and-soil-shear",
+  "verdict": "keep",
+  "reason": "зсув ґрунту під рушієм — окреме явище контакту з власними моделями",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/sideslip-angle-and-directional-stability",
+  "verdict": "keep",
+  "reason": "шляхова стійкість — самостійне аеродинамічне поняття, окреме від поздовжньої",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/induced-drag-and-lifting-line",
+  "verdict": "keep",
+  "reason": "індукований опір скінченного крила — класична самодостатня теорія",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/longitudinal-static-stability-and-neutral-point",
+  "verdict": "keep",
+  "reason": "нейтральна точка й статичний запас — окреме поняття з власним читачем",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/high-lift-devices-and-flaps",
+  "verdict": "keep",
+  "reason": "щілинний ефект і керування примежовим шаром — самостійна фізика крила",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/aerodynamic-spin-and-autorotation",
+  "verdict": "keep",
+  "reason": "авторотація при несиметричному зриві — окреме явище, не варіант поляри",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/dynamic-stall-and-unsteady-flow",
+  "verdict": "keep",
+  "reason": "нестаціонарний вихор передньої кромки — явище, відмінне від статичного зриву",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/aeroelasticity-and-wing-flutter",
+  "verdict": "keep",
+  "reason": "згинно-крутильне автоколивання — самостійне явище зв'язку пружності й потоку",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/tiltrotor-aerodynamics",
+  "verdict": "move",
+  "target": "hw",
+  "reason": "аеромеханіка конкретної конфігурації апарата, а не закон механіки",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": "kind",
+  "targetNote": "названо ВИД, не книгу"
+ },
+ {
+  "id": "ph-mechanics/tailsitter-flight-dynamics",
+  "verdict": "move",
+  "target": "hw",
+  "reason": "динаміка конкретного типу планера, а не загальне явище",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": "kind",
+  "targetNote": "названо ВИД, не книгу"
+ },
+ {
+  "id": "ph-mechanics/rotor-wing-aerodynamic-interference",
+  "verdict": "keep",
+  "reason": "взаємодія струменя з поверхнею — окреме явище з власним читачем",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/blade-element-momentum-theory",
+  "verdict": "keep",
+  "reason": "BEMT — самодостатня теорія гвинта; збіг зі слугом momentum випадковий",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/water-hammer-joukowsky-pressure-waves",
+  "verdict": "keep",
+  "reason": "хвиля тиску в трубі — окреме явище нестаціонарної течії",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/wind-triangle-and-course-correction",
+  "verdict": "insert",
+  "target": "velocity",
+  "reason": "це додавання швидкостей у рухомому середовищі — приклад усередині статті",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": true
+ },
+ {
+  "id": "ph-mechanics/liquid-sloshing-dynamics-in-tanks",
+  "verdict": "keep",
+  "reason": "плескання рідини з рухомою масою — самостійне явище динаміки",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/atmospheric-boundary-layer-wind-shear-profile",
+  "verdict": "keep",
+  "reason": "приземний профіль вітру — окреме явище, ширше за загальний примежовий шар",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/transonic-airfoil-and-supercritical-profile",
+  "verdict": "keep",
+  "reason": "хвильовий опір і критичне число Маха — самостійна тема стисливих течій",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/zero-moment-point",
+  "verdict": "keep",
+  "reason": "критерій динамічної рівноваги опори — самостійне поняття, часто згадуване",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/multibody-physics-engines-lcp",
+  "verdict": "move",
+  "target": "eng",
+  "reason": "LCP-розв'язувач і рушій — числовий метод та програма, не механіка",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": "kind",
+  "targetNote": "названо ВИД, не книгу"
+ },
+ {
+  "id": "ph-mechanics/multibody-dynamics",
+  "verdict": "keep",
+  "reason": "рівняння руху систем зв'язаних тіл — самостійний розділ механіки",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/rotor-balancing",
+  "verdict": "keep",
+  "reason": "статичний і динамічний дисбаланс — окреме явище обертання з власним читачем",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/von-mises-yield-criterion",
+  "verdict": "keep",
+  "reason": "критерій переходу в пластичність — самостійний закон міцності",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/tribology-and-lubrication",
+  "verdict": "keep",
+  "reason": "режими змащення й крива Штрібека — самостійне явище тертя",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/crashworthiness-and-energy-absorption",
+  "verdict": "keep",
+  "reason": "прогресивне зминання як механізм поглинання енергії — самостійна тема",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/cellular-solids-and-foams",
+  "verdict": "keep",
+  "reason": "модель Гібсона-Ешбі описує клас матеріалів, а не конструкцію",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/bolted-joint-mechanics",
+  "verdict": "keep",
+  "reason": "піддатливість затягнутого стику — самостійна задача пружності з власним читачем",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/anisotropic-elasticity-and-tensors",
+  "verdict": "keep",
+  "reason": "ортотропні середовища й тензор податливості — ширше за скалярний Гук",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-mechanics/linear-elastic-fracture-mechanics",
+  "verdict": "keep",
+  "reason": "коефіцієнт інтенсивності напружень і ріст тріщини — самостійна теорія",
+  "pack": "ph-mechanics",
+  "book": "ph-mechanics",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/haptic-actuators-erm-lra-piezo",
+  "verdict": "keep",
+  "reason": "ERM і LRA — окремий клас пристроїв, не покритий соленоїдом чи п'єзо",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/soft-robotics-grippers",
+  "verdict": "keep",
+  "reason": "еластомерні пневмоактуатори — самостійний клас виконавчих пристроїв із власним читачем",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/vakuumnyi-ezhektor-venturi",
+  "verdict": "keep",
+  "reason": "ежектор — окремий різновид виконавчого пристрою, у розділі його нема",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/elektropostiini-mahnity-epm",
+  "verdict": "keep",
+  "reason": "бістабільний магнітний актуатор — окремий клас, сусідів у розділі немає",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/spring-applied-safety-brakes",
+  "verdict": "keep",
+  "reason": "механічне гальмо знеструмлення відмінне від електричних режимів гальмування мотора",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/pyrotechnic-actuators-and-squibs",
+  "verdict": "keep",
+  "reason": "одноразовий піроактуатор — самостійний клас із власною логікою підпалу",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/pcap-harsh-environment-dsp",
+  "verdict": "insert",
+  "target": "touch-tech",
+  "reason": "режими обробки дотику — підрозділ статті про сенсорний ввід",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": true
+ },
+ {
+  "id": "hw-motion/display-surface-treatments",
+  "verdict": "keep",
+  "reason": "покриття поверхні — окремий шар оптичного стека, сусідами не покритий",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/anti-short-cycling-protection",
+  "verdict": "keep",
+  "reason": "захисна функція силового каскаду з власним читачем і відмінна від сусідів",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/safe-torque-off-drive-safety-functions",
+  "verdict": "keep",
+  "reason": "стандартизовані функції безпеки привода — самостійне поняття, збіг лише за словом",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/actuator-rate-limiting-phase-lag",
+  "verdict": "keep",
+  "reason": "насичення швидкості — поведінка привода, яку шукають окремо",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/bldc-esc-desync",
+  "verdict": "insert",
+  "target": "esc",
+  "reason": "зрив комутації — режим відмови самого регулятора, місце в його статті",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": true
+ },
+ {
+  "id": "hw-motion/esc-firmware-architecture",
+  "verdict": "move",
+  "target": "sys",
+  "reason": "BLHeli та AM32 — іменовані прошивки, доречне питання «а в якій версії»",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": "kind",
+  "targetNote": "названо ВИД, не книгу"
+ },
+ {
+  "id": "hw-motion/anti-cogging-and-torque-ripple",
+  "verdict": "keep",
+  "reason": "компенсація пульсацій моменту — самостійна задача замкненої петлі",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/motor-dynamic-thermal-model",
+  "verdict": "keep",
+  "reason": "теплова модель і захист ширші за класи ізоляції чи заклинювання",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/backdrivability-and-quasi-direct-drive",
+  "verdict": "keep",
+  "reason": "прозорість трансмісії — окрема властивість редукторного вузла, схожість лише словесна",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/mechanical-differential",
+  "verdict": "keep",
+  "reason": "диференціал — окремий механізм передачі, у розділі відсутній",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/geometric-trafficability-and-obstacle-climbing",
+  "verdict": "keep",
+  "reason": "геометрія прохідності шасі — самостійна інженерна тема з власним читачем",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/tracked-undercarriage-and-flotation",
+  "verdict": "keep",
+  "reason": "ходова частина й тиск на ґрунт відмінні від повороту ковзанням",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/rotor-auto-balancing",
+  "verdict": "keep",
+  "reason": "автобалансир — окремий механізм, у розділі не представлений",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "hw-motion/cardan-hooke-joint",
+  "verdict": "keep",
+  "reason": "карданний шарнір — самостійний вузол передачі з власною нерівномірністю",
+  "pack": "hw-motion",
+  "book": "hw-motion",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/embedded-stream-compression-heatshrink",
+  "verdict": "keep",
+  "reason": "самостійний метод потокового стиснення без кучі; розділ побітових операцій підібрано невдало",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/rrt-and-rrt-star-motion-planning",
+  "verdict": "keep",
+  "reason": "класичний планувальник із власним читачем, у книзі вже згадується дев'ять разів",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/artificial-potential-fields-navigation",
+  "verdict": "keep",
+  "reason": "окремий реактивний метод навігації, не переріз наявних просторових індексів",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/dubins-and-reeds-shepp-paths",
+  "verdict": "keep",
+  "reason": "самодостатня геометрія найкоротших неголономних траєкторій, шукають саме за цією назвою",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/probabilistic-roadmap-prm",
+  "verdict": "keep",
+  "reason": "багатозапитне планування — окремий алгоритм, відмінний від деревного RRT",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/hybrid-a-star-and-state-lattice",
+  "verdict": "keep",
+  "reason": "кінематичне планування в SE(2) — інша задача, ніж класичний A*",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/a-star-search-algorithm",
+  "verdict": "keep",
+  "reason": "базовий алгоритм найкоротших шляхів поряд із Дейкстрою, у книзі бракує",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/rete-algorithm-pattern-matching",
+  "verdict": "keep",
+  "reason": "самостійний алгоритм зіставлення правил; збіг зі «matching» суто словесний",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/dynamic-time-warping-algorithm",
+  "verdict": "keep",
+  "reason": "класична міра схожості послідовностей, доречна поряд із Левенштейном",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/carryless-multiplication-and-clmul-crc",
+  "verdict": "keep",
+  "reason": "окрема техніка множення, рівня Карацуби й Монтгомері, які вже є",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/impedance-and-admittance-robot-control",
+  "verdict": "move",
+  "reason": "закон силового керування роботом, а не універсальний алгоритм; книга чужа",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": false,
+  "targetNote": "ціль не названо"
+ },
+ {
+  "id": "sf-algorithms/control-allocation-matrix-mixing",
+  "verdict": "move",
+  "reason": "мікшер приводів із теорії керування, не загальний алгоритмічний каркас",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": false,
+  "targetNote": "ціль не названо"
+ },
+ {
+  "id": "sf-algorithms/lttb-downsampling-time-series-visual",
+  "verdict": "keep",
+  "reason": "іменований алгоритм проріджування з власним читачем і чіткою задачею",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/control-barrier-functions-safety-filters",
+  "verdict": "move",
+  "reason": "апарат теорії керування, чужий книзі універсальних алгоритмів",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": false,
+  "targetNote": "ціль не названо"
+ },
+ {
+  "id": "sf-algorithms/smooth-and-dynamic-deadband",
+  "verdict": "insert",
+  "reason": "дрібна деталь закону керування; батька в цій книзі не видно",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": false,
+  "targetNote": "ціль не названо"
+ },
+ {
+  "id": "sf-algorithms/continuous-collision-detection-ccd",
+  "verdict": "keep",
+  "reason": "обчислювальна геометрія, доречна поряд із наявним gjk-collision",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/fabrik-and-ccd-inverse-kinematics",
+  "verdict": "keep",
+  "reason": "ітеративні геометричні алгоритми; збіг абревіатури CCD не означає того самого",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "sf-algorithms/passivity-based-control-energy-tanks",
+  "verdict": "move",
+  "reason": "принцип теорії керування, а не алгоритм загального призначення",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": false,
+  "targetNote": "ціль не названо"
+ },
+ {
+  "id": "sf-algorithms/table-driven-state-machine-and-matrix-compression",
+  "verdict": "keep",
+  "reason": "пам'ять замість обчислення — доречно; варто вкоротити задовгий слуг",
+  "pack": "sf-algorithms",
+  "book": "sf-algorithms",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/cross-correlation-time-delay-estimation",
+  "verdict": "keep",
+  "reason": "самостійний метод міри подібності, затримки й узгодженого приймання",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/slew-rate-limiter-filter",
+  "verdict": "keep",
+  "reason": "окремий нелінійний елемент тракту з власним читачем",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/dynamic-rpm-notch-filtering",
+  "verdict": "keep",
+  "reason": "самостійна методика адаптивного придушення вібрацій за обертами",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/gnss-multipath-mitigation-techniques",
+  "verdict": "keep",
+  "reason": "самостійне явище приймача плюс власний набір методів придушення",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/override-and-auctioneering-control",
+  "verdict": "keep",
+  "reason": "самостійна структура керування з вибором сигналу, окремий читач",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/gimbaled-inertial-platform",
+  "verdict": "keep",
+  "reason": "окрема механізація інерціальної навігації, протиставлена безплатформній",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/relay-feedback-autotuning",
+  "verdict": "keep",
+  "reason": "самостійний іменований метод визначення критичного підсилення",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/s-curve-velocity-profile-jerk-limiting",
+  "verdict": "keep",
+  "reason": "самостійна задача планування руху з власним читачем",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/video-intra-refresh-low-latency-streaming",
+  "verdict": "insert",
+  "target": "h264-nal-structure",
+  "reason": "режим кодування замість ключових кадрів — частина статті про них",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": true
+ },
+ {
+  "id": "com-signal/velocity-algorithm-incremental-pid",
+  "verdict": "insert",
+  "target": "discrete-pid",
+  "reason": "інша форма запису того самого дискретного регулятора",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": true
+ },
+ {
+  "id": "com-signal/error-state-kalman-filter",
+  "verdict": "keep",
+  "reason": "окремий варіант фільтра для многовидів поряд з EKF/UKF",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/recursive-parameter-estimation-rls",
+  "verdict": "keep",
+  "reason": "самостійний метод онлайн-ідентифікації параметрів, свій читач",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": null
+ },
+ {
+  "id": "com-signal/sei-metadata-video-telemetry",
+  "verdict": "insert",
+  "target": "h264-nal-structure",
+  "reason": "окремий тип NAL-одиниці, місце — у батьківській статті",
+  "pack": "com-signal",
+  "book": "com-signal",
+  "targetOk": true
+ },
+ {
+  "id": "sf-devices/sil-simulation-embedded",
+  "verdict": "keep",
+  "reason": "перевірка прошивки на хості в замкненому контурі — самостійний метод із власним читачем",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/embedded-command-deduplication",
+  "verdict": "unsure",
+  "reason": "назва пошкоджена, межа з ідемпотентністю команд по цьому файлу не встановлюється",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/operational-design-domain-limits",
+  "verdict": "keep",
+  "reason": "межі допустимих умов роботи автономії — окреме самостійне інженерне поняття",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/hardware-compensating-transactions-rollback",
+  "verdict": "keep",
+  "reason": "відкат фізичних дій — інше, ніж відкат прошивки в ota-rollback",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/control-blending-vs-winner-take-all",
+  "verdict": "keep",
+  "reason": "арбітраж команд керування — окремий архітектурний вибір із власним читачем",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/mode-and-target-confusion-hmi",
+  "verdict": "keep",
+  "reason": "людський чинник у станах пристрою; safe-mode і limp-home про інше",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/safety-shielding-cage-architecture",
+  "verdict": "keep",
+  "reason": "рантайм-наглядач над виходом регулятора ширший за умови допуску interlock",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/alarm-management-lifecycle-isa18",
+  "verdict": "keep",
+  "reason": "раціоналізація тривог за стандартами — самостійна практика з власним читачем",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/alarm-flood-suppression-and-shelving",
+  "verdict": "merge",
+  "target": "alarm-management-lifecycle-isa18",
+  "reason": "техніка всередині керування тривогами; дві статті ріжуть одне поняття",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": true
+ },
+ {
+  "id": "sf-devices/haptic-shared-control-and-cooperative-steering",
+  "verdict": "keep",
+  "reason": "поділ моменту з людиною — окрема галузь, не просто змішування виходів",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/embedded-sd-log-rotation-tail-latency",
+  "verdict": "keep",
+  "reason": "журналювання на флеш з обмеженою затримкою — самостійна прошивкова задача",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "sf-devices/embedded-bytecode-vm-sequencer",
+  "verdict": "keep",
+  "reason": "інтерпретатор сценаріїв у прошивці — самостійний архітектурний патерн каркаса",
+  "pack": "sf-devices",
+  "book": "sf-devices",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-controls/toggle-switches-and-switch-guards",
+  "verdict": "keep",
+  "reason": "окремий клас купованих органів керування, у розділі його ще немає",
+  "pack": "hvist-cat",
+  "book": "cat-hw-controls",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-controls/estop-mushroom-button",
+  "verdict": "keep",
+  "reason": "інший виріб і стандарт, ніж тактильна кнопка KY-004",
+  "pack": "hvist-cat",
+  "book": "cat-hw-controls",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-controls/hall-effect-gimbal-joystick",
+  "verdict": "keep",
+  "reason": "безконтактний стік — інший виріб, ніж резистивний модуль KY-023",
+  "pack": "hvist-cat",
+  "book": "cat-hw-controls",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-parts/capsule-slip-ring",
+  "verdict": "keep",
+  "reason": "самостійний купований вузол зʼєднання крізь обертову вісь",
+  "pack": "hvist-cat",
+  "book": "cat-hw-parts",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-parts/pogo-pins",
+  "verdict": "keep",
+  "reason": "окремий тип контакту, аналога серед наявних розʼємів немає",
+  "pack": "hvist-cat",
+  "book": "cat-hw-parts",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-parts/wire-rope-isolators",
+  "verdict": "keep",
+  "reason": "конкретні куповані демпфери; розділ радше «кріплення», ніж «кабелі»",
+  "pack": "hvist-cat",
+  "book": "cat-hw-parts",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-parts/threaded-inserts-and-heat-set",
+  "verdict": "keep",
+  "reason": "куповані втулки з власним читачем; розділ варто змінити на кріплення",
+  "pack": "hvist-cat",
+  "book": "cat-hw-parts",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-parts/fastener-strength-classes-and-materials",
+  "verdict": "keep",
+  "reason": "питання «що саме купити» для родини кріплення — суто каталожне",
+  "pack": "hvist-cat",
+  "book": "cat-hw-parts",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-power/power-distribution-board",
+  "verdict": "keep",
+  "reason": "окрема плата, а не HAT чи модуль зі схожих за словом power",
+  "pack": "hvist-cat",
+  "book": "cat-hw-power",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-sensors/ina226-power-monitor-module",
+  "verdict": "keep",
+  "reason": "конкретний цифровий модуль; розділ «серії плат» йому не пасує",
+  "pack": "hvist-cat",
+  "book": "cat-hw-sensors",
+  "targetOk": null
+ },
+ {
+  "id": "cat-hw-sensors/acs712-current-sensor-module",
+  "verdict": "keep",
+  "reason": "аналоговий давач струму, інший виріб за INA226; розділ хибний",
+  "pack": "hvist-cat",
+  "book": "cat-hw-sensors",
+  "targetOk": null
+ },
+ {
+  "id": "com-devices/bidirectional-dshot-rpm-telemetry",
+  "verdict": "insert",
+  "target": "dshot-protocol",
+  "reason": "розширення й режим того самого протоколу, що вже описаний у книзі",
+  "pack": "hvist-com",
+  "book": "com-devices",
+  "targetOk": true
+ },
+ {
+  "id": "com-devices/usb-uart-buffering-and-latency-timer",
+  "verdict": "keep",
+  "reason": "самостійне джерело лагу в мості; поруч лише кадр і асинхронність",
+  "pack": "hvist-com",
+  "book": "com-devices",
+  "targetOk": null
+ },
+ {
+  "id": "com-devices/usb-hid-joystick-and-gamepad",
+  "verdict": "keep",
+  "reason": "дескриптори звітів — окремий шар зі своїм читачем, схожих поруч нема",
+  "pack": "hvist-com",
+  "book": "com-devices",
+  "targetOk": null
+ },
+ {
+  "id": "com-devices/usb-dfu-protocol",
+  "verdict": "keep",
+  "reason": "окремий стандарт із власним автоматом, поруч нічого подібного",
+  "pack": "hvist-com",
+  "book": "com-devices",
+  "targetOk": null
+ },
+ {
+  "id": "com-medium/antenna-diversity-systems",
+  "verdict": "merge",
+  "target": "polarization-diversity",
+  "reason": "те саме рознесення вже описане в цьому ж розділі",
+  "pack": "hvist-com",
+  "book": "com-medium",
+  "targetOk": true
+ },
+ {
+  "id": "com-medium/masthead-poe-and-fiber",
+  "verdict": "merge",
+  "target": "poe",
+  "reason": "сценарій монтажу, зібраний із наявних атомів живлення й волокна",
+  "pack": "hvist-com",
+  "book": "com-medium",
+  "targetOk": true
+ },
+ {
+  "id": "com-medium/single-pair-ethernet",
+  "verdict": "keep",
+  "reason": "інша фізика лінка й кодування, ніж загальна стаття про фізику",
+  "pack": "hvist-com",
+  "book": "com-medium",
+  "targetOk": null
+ },
+ {
+  "id": "com-medium/uav-radio-relay-systems",
+  "verdict": "keep",
+  "reason": "ретрансляція — самостійний спосіб долати відстань, поруч такого нема",
+  "pack": "hvist-com",
+  "book": "com-medium",
+  "targetOk": null
+ },
+ {
+  "id": "com-modulation/msk-and-gmsk-modulation",
+  "verdict": "keep",
+  "reason": "класична сім'я модуляцій зі сталою обвідною, дублів поруч нема",
+  "pack": "hvist-com",
+  "book": "com-modulation",
+  "targetOk": null
+ },
+ {
+  "id": "com-modulation/flrc-fast-long-range-communication",
+  "verdict": "keep",
+  "reason": "окрема схема модуляції, як і сусідня LoRa у книзі",
+  "pack": "hvist-com",
+  "book": "com-modulation",
+  "targetOk": null
+ },
+ {
+  "id": "com-modulation/closed-loop-power-control",
+  "verdict": "keep",
+  "reason": "замкнена петля бюджету лінка — самостійний механізм, аналогів поруч нема",
+  "pack": "hvist-com",
+  "book": "com-modulation",
+  "targetOk": null
+ },
+ {
+  "id": "com-protocol/asynchronous-action-server-protocol",
+  "verdict": "keep",
+  "reason": "довготривалий виклик зі скасуванням — окремий шаблон поряд із RPC",
+  "pack": "hvist-com",
+  "book": "com-protocol",
+  "targetOk": null
+ },
+ {
+  "id": "com-protocol/arinc-429-avionics-bus-protocol",
+  "verdict": "keep",
+  "reason": "самостійний авіаційний стандарт зі своїм словником міток",
+  "pack": "hvist-com",
+  "book": "com-protocol",
+  "targetOk": null
+ },
+ {
+  "id": "com-protocol/opc-ua-industrial-information-model",
+  "verdict": "keep",
+  "reason": "адресний простір і модель — окремий рівень поряд із Modbus",
+  "pack": "hvist-com",
+  "book": "com-protocol",
+  "targetOk": null
+ },
+ {
+  "id": "com-protocol/iec-61850-substation-automation-goose",
+  "verdict": "keep",
+  "reason": "об'єктна модель підстанції відрізняється від телемеханічних протоколів поруч",
+  "pack": "hvist-com",
+  "book": "com-protocol",
+  "targetOk": null
+ },
+ {
+  "id": "com-protocol/dnp3-iec-60870-5-scada-protocols",
+  "verdict": "keep",
+  "reason": "споріднена пара телемеханіки, окрема від об'єктної моделі підстанції",
+  "pack": "hvist-com",
+  "book": "com-protocol",
+  "targetOk": null
+ },
+ {
+  "id": "com-transport/link-quality-estimation-lqi-etx",
+  "verdict": "keep",
+  "reason": "метрики якості — самостійна тема, сусіди описують повтори й нумерацію",
+  "pack": "hvist-com",
+  "book": "com-transport",
+  "targetOk": null
+ },
+ {
+  "id": "com-transport/multi-bearer-packet-deduplication",
+  "verdict": "insert",
+  "target": "sequence-numbering",
+  "reason": "техніка реалізації поверх нумерації, а не окреме поняття",
+  "pack": "hvist-com",
+  "book": "com-transport",
+  "targetOk": true
+ },
+ {
+  "id": "com-transport/ads-b-transponder",
+  "verdict": "keep",
+  "reason": "окрема система спостереження в ефірі, поруч аналогів нема",
+  "pack": "hvist-com",
+  "book": "com-transport",
+  "targetOk": null
+ },
+ {
+  "id": "com-transport/wifi-management-frames",
+  "verdict": "keep",
+  "reason": "службовий шар 802.11 ширший за оглядову статтю про Wi-Fi",
+  "pack": "hvist-com",
+  "book": "com-transport",
+  "targetOk": null
+ },
+ {
+  "id": "com-transport/wifi-nan-aware",
+  "verdict": "keep",
+  "reason": "окремий механізм виявлення без точки доступу, свій стандарт",
+  "pack": "hvist-com",
+  "book": "com-transport",
+  "targetOk": null
+ },
+ {
+  "id": "sf-apps/hick-and-fitts-laws-hci-limits",
+  "verdict": "keep",
+  "reason": "кількісні межі людського вибору й наведення — окремий предмет, не системний час відгуку",
+  "pack": "hvist-eng",
+  "book": "sf-apps",
+  "targetOk": null
+ },
+ {
+  "id": "sf-apps/cognitive-tunneling-and-inattentional-blindness",
+  "verdict": "keep",
+  "reason": "самостійне явище уваги оператора зі своїм читачем-проєктувальником критичних HMI",
+  "pack": "hvist-eng",
+  "book": "sf-apps",
+  "targetOk": null
+ },
+ {
+  "id": "sf-apps/automation-surprises",
+  "verdict": "keep",
+  "reason": "усталене поняття людських факторів із власною літературою й читачем",
+  "pack": "hvist-eng",
+  "book": "sf-apps",
+  "targetOk": null
+ },
+ {
+  "id": "sf-apps/operator-vigilance-and-fatigue-detection",
+  "verdict": "keep",
+  "reason": "окремий метод вимірювання стану оператора, самодостатній і з чіткими метриками",
+  "pack": "hvist-eng",
+  "book": "sf-apps",
+  "targetOk": null
+ },
+ {
+  "id": "sf-apps/tactical-rugged-hmi-ergonomics",
+  "verdict": "keep",
+  "reason": "самостійний звід рішень для важких умов, нічого схожого поруч немає",
+  "pack": "hvist-eng",
+  "book": "sf-apps",
+  "targetOk": null
+ },
+ {
+  "id": "sf-data/complex-event-processing-stream-windows",
+  "verdict": "keep",
+  "reason": "CEP із вікнами й вотермарками — окрема інженерна модель обробки потоку",
+  "pack": "hvist-eng",
+  "book": "sf-data",
+  "targetOk": null
+ },
+ {
+  "id": "sf-data/digital-elevation-models-dem-formats",
+  "verdict": "unsure",
+  "reason": "невідомо, чи geo-data-formats уже покриває растровий рельєф і його інтерполяцію",
+  "pack": "hvist-eng",
+  "book": "sf-data",
+  "targetOk": null
+ },
+ {
+  "id": "sf-distributed/cristian-algorithm-clock-sync",
+  "verdict": "keep",
+  "reason": "класичний іменований алгоритм, а сусіди описують дрейф і PTP, не його",
+  "pack": "hvist-eng",
+  "book": "sf-distributed",
+  "targetOk": null
+ },
+ {
+  "id": "sf-lang/state-machine-compilers-and-codegen",
+  "verdict": "keep",
+  "reason": "окремий клас генераторів коду зі своїм читачем; поруч нічого подібного",
+  "pack": "hvist-eng",
+  "book": "sf-lang",
+  "targetOk": null
+ },
+ {
+  "id": "sf-ml/out-of-distribution-detection-safety",
+  "verdict": "keep",
+  "reason": "метод виявлення, тоді як distribution-shift описує саме явище зсуву",
+  "pack": "hvist-eng",
+  "book": "sf-ml",
+  "targetOk": null
+ },
+ {
+  "id": "sf-ml/machine-ethics-safe-autonomy",
+  "verdict": "merge",
+  "target": "ml-limits-ethics",
+  "reason": "етика ML уже має статтю; дилеми — не окремий інженерний метод",
+  "pack": "hvist-eng",
+  "book": "sf-ml",
+  "targetOk": true
+ },
+ {
+  "id": "sf-os/dpc-isr-latency-and-jitter",
+  "verdict": "keep",
+  "reason": "поведінка десктопного ядра в часі — самостійна тема поза RTOS-планувальниками",
+  "pack": "hvist-eng",
+  "book": "sf-os",
+  "targetOk": null
+ },
+ {
+  "id": "sf-release/decision-table-verification",
+  "verdict": "keep",
+  "reason": "перевірка повноти й несуперечливості таблиць — окрема техніка, не формальна верифікація",
+  "pack": "hvist-eng",
+  "book": "sf-release",
+  "targetOk": null
+ },
+ {
+  "id": "sf-release/rcm-and-pf-curve",
+  "verdict": "keep",
+  "reason": "стратегія обслуговування природно стоїть поряд із FMEA та FTA",
+  "pack": "hvist-eng",
+  "book": "sf-release",
+  "targetOk": null
+ },
+ {
+  "id": "sf-security/cose-and-cwt-iot-security",
+  "verdict": "keep",
+  "reason": "конкретні структури й токени, широко згадувані в прозі книги, без дубля",
+  "pack": "hvist-eng",
+  "book": "sf-security",
+  "targetOk": null
+ },
+ {
+  "id": "sf-security/two-person-rule-dual-authorization",
+  "verdict": "keep",
+  "reason": "окрема організаційна підстава доступу, ширша за моделі авторизації",
+  "pack": "hvist-eng",
+  "book": "sf-security",
+  "targetOk": null
+ },
+ {
+  "id": "sf-tasks/behavior-trees-agent-architecture",
+  "verdict": "keep",
+  "reason": "самостійний архітектурний патерн автономії; розділ лише невдалий, поняття не дубль",
+  "pack": "hvist-eng",
+  "book": "sf-tasks",
+  "targetOk": null
+ },
+ {
+  "id": "sf-tasks/lock-free-spsc-ring-buffer",
+  "verdict": "keep",
+  "reason": "канонічна структура з власними вимогами до впорядкування памʼяті, а не переказ основ",
+  "pack": "hvist-eng",
+  "book": "sf-tasks",
+  "targetOk": null
+ },
+ {
+  "id": "sf-tasks/rate-monotonic-scheduling-rms",
+  "verdict": "move",
+  "target": "sf-os",
+  "reason": "близнюк edf-scheduling із розділу пріоритетів і строків, не гонки",
+  "pack": "hvist-eng",
+  "book": "sf-tasks",
+  "targetOk": true,
+  "targetNote": "книга eng/sf-os"
+ },
+ {
+  "id": "sf-visual/visual-servoing-control",
+  "verdict": "keep",
+  "reason": "керування за зображенням — окремий предмет поруч із супроводом цілей",
+  "pack": "hvist-eng",
+  "book": "sf-visual",
+  "targetOk": null
+ },
+ {
+  "id": "hw-arch/dmamux",
+  "verdict": "keep",
+  "reason": "окремий апаратний блок маршрутизації запитів, поруч є лише канали й GDMA",
+  "pack": "hvist-hw",
+  "book": "hw-arch",
+  "targetOk": null
+ },
+ {
+  "id": "hw-arch/dual-bank-flash",
+  "verdict": "keep",
+  "reason": "самостійний механізм банків і RWW із власним читачем оновлень прошивки",
+  "pack": "hvist-hw",
+  "book": "hw-arch",
+  "targetOk": null
+ },
+ {
+  "id": "hw-components/thermal-cutoff-tco-fuse-protection",
+  "verdict": "keep",
+  "reason": "окремий клас компонента з температурним, а не струмовим спрацюванням",
+  "pack": "hvist-hw",
+  "book": "hw-components",
+  "targetOk": null
+ },
+ {
+  "id": "hw-components/reliability-prediction",
+  "verdict": "keep",
+  "reason": "розділ уже про ресурс і запас, поняття живе в прозі книги",
+  "pack": "hvist-hw",
+  "book": "hw-components",
+  "targetOk": null
+ },
+ {
+  "id": "hw-components/iso-13849-machinery-safety-categories",
+  "verdict": "move",
+  "target": "sys-notary",
+  "reason": "норма функційної безпеки машини, а не клас компонента чи його випробування",
+  "pack": "hvist-hw",
+  "book": "hw-components",
+  "targetOk": true,
+  "targetNote": "книга sys/sys-notary"
+ },
+ {
+  "id": "hw-components/safety-relay-force-guided-contacts",
+  "verdict": "keep",
+  "reason": "примусове ведення контактів робить це окремим типом реле",
+  "pack": "hvist-hw",
+  "book": "hw-components",
+  "targetOk": null
+ },
+ {
+  "id": "hw-components/slip-ring-rotary-joints",
+  "verdict": "keep",
+  "reason": "самостійний клас контактних вузлів безперервного обертання",
+  "pack": "hvist-hw",
+  "book": "hw-components",
+  "targetOk": null
+ },
+ {
+  "id": "hw-components/electric-contact-physics",
+  "verdict": "keep",
+  "reason": "поведінка контакту спільна для реле й конекторів, книга саме про поведінку",
+  "pack": "hvist-hw",
+  "book": "hw-components",
+  "targetOk": null
+ },
+ {
+  "id": "hw-pcb/rozrakhunok-oring-ushchilnennia",
+  "verdict": "keep",
+  "reason": "у розділі немає статті про ущільнення, IP-клас цього не покриває",
+  "pack": "hvist-hw",
+  "book": "hw-pcb",
+  "targetOk": null
+ },
+ {
+  "id": "hw-pcb/pcb-shock-and-vibration",
+  "verdict": "keep",
+  "reason": "механіка плати самостійна, сусідів про удар і прогин немає",
+  "pack": "hvist-hw",
+  "book": "hw-pcb",
+  "targetOk": null
+ },
+ {
+  "id": "hw-pcb/kabelni-vvody-i-hermoprokhodky",
+  "verdict": "keep",
+  "reason": "окремий клас вузлів вводу, кабелі й конектори цього не описують",
+  "pack": "hvist-hw",
+  "book": "hw-pcb",
+  "targetOk": null
+ },
+ {
+  "id": "hw-power/thermal-overload-relay-motor-protection",
+  "verdict": "keep",
+  "reason": "окремий пристрій захисту, збіг слів із твердотільним реле випадковий",
+  "pack": "hvist-hw",
+  "book": "hw-power",
+  "targetOk": null
+ },
+ {
+  "id": "hw-power/contact-charging-interlocks-arc-suppression",
+  "verdict": "keep",
+  "reason": "послідовність контактів і дуга при стикуванні — самостійна конструкторська тема",
+  "pack": "hvist-hw",
+  "book": "hw-power",
+  "targetOk": null
+ },
+ {
+  "id": "hw-sensing/safety-interlock-switches-and-light-curtains",
+  "verdict": "keep",
+  "reason": "клас давачів присутності з OSSD, сусіди покривають інші принципи",
+  "pack": "hvist-hw",
+  "book": "hw-sensing",
+  "targetOk": null
+ },
+ {
+  "id": "hw-sensing/taktylni-matrytsi-i-optotaktylna-sensoryka",
+  "verdict": "keep",
+  "reason": "окремий клас давачів дотику, тензодавачі його не покривають",
+  "pack": "hvist-hw",
+  "book": "hw-sensing",
+  "targetOk": null
+ },
+ {
+  "id": "hw-sensing/six-axis-force-torque-sensor",
+  "verdict": "keep",
+  "reason": "багатоосьовий давач відрізняється від одноосьового тензодавача устроєм і застосуванням",
+  "pack": "hvist-hw",
+  "book": "hw-sensing",
+  "targetOk": null
+ },
+ {
+  "id": "hw-sensing/optical-stroboscopic-tachometry",
+  "verdict": "keep",
+  "reason": "безконтактний вимір обертів — окремий метод, енкодерів у розділі не заміняє",
+  "pack": "hvist-hw",
+  "book": "hw-sensing",
+  "targetOk": null
+ },
+ {
+  "id": "hw-sensing/optical-gyroscopes-fog-rlg",
+  "verdict": "keep",
+  "reason": "інший фізичний принцип і клас точності, ніж MEMS-гіроскоп поруч",
+  "pack": "hvist-hw",
+  "book": "hw-sensing",
+  "targetOk": null
+ },
+ {
+  "id": "hw-sensing/vibration-rectification-error",
+  "verdict": "keep",
+  "reason": "названий механізм похибки з власним читачем, ширший за статтю про дрейф",
+  "pack": "hvist-hw",
+  "book": "hw-sensing",
+  "targetOk": null
+ },
+ {
+  "id": "math-algebra/lie-group-se3",
+  "verdict": "keep",
+  "reason": "окрема група з власним апаратом, поруч SO(3) лише сусід, не дубль",
+  "pack": "hvist-sci",
+  "book": "math-algebra",
+  "targetOk": null
+ },
+ {
+  "id": "math-algebra/moore-penrose-pseudoinverse",
+  "verdict": "keep",
+  "reason": "самостійне поняття лінійної алгебри для перевизначених систем, свій читач",
+  "pack": "hvist-sci",
+  "book": "math-algebra",
+  "targetOk": null
+ },
+ {
+  "id": "math-analysis/smith-predictor",
+  "verdict": "keep",
+  "reason": "окрема структура компенсації запізнення, у главі про ланки петлі доречна",
+  "pack": "hvist-sci",
+  "book": "math-analysis",
+  "targetOk": null
+ },
+ {
+  "id": "math-analysis/disturbance-observer-and-adrc",
+  "verdict": "keep",
+  "reason": "самостійний підхід до збурень, зі спостерігачем стану лише спільне слово",
+  "pack": "hvist-sci",
+  "book": "math-analysis",
+  "targetOk": null
+ },
+ {
+  "id": "math-analysis/luenberger-state-observer",
+  "verdict": "keep",
+  "reason": "класична самодостатня конструкція відновлення стану поруч із простором станів",
+  "pack": "hvist-sci",
+  "book": "math-analysis",
+  "targetOk": null
+ },
+ {
+  "id": "math-analysis/describing-function-method",
+  "verdict": "keep",
+  "reason": "власний метод аналізу нелінійних автоколивань, доречний у главі стійкості",
+  "pack": "hvist-sci",
+  "book": "math-analysis",
+  "targetOk": null
+ },
+ {
+  "id": "math-analysis/two-dof-pid-controller",
+  "verdict": "keep",
+  "reason": "глава вже так само дробить ПІД; структура має власного читача",
+  "pack": "hvist-sci",
+  "book": "math-analysis",
+  "targetOk": null
+ },
+ {
+  "id": "math-geometry/solid-angle",
+  "verdict": "keep",
+  "reason": "самостійна кутова міра з власним читачем, у главі функцій кута",
+  "pack": "hvist-sci",
+  "book": "math-geometry",
+  "targetOk": null
+ },
+ {
+  "id": "math-geometry/bezier-curves",
+  "verdict": "keep",
+  "reason": "класичні криві з власним апаратом; сусідство з клотоїдою не дубль",
+  "pack": "hvist-sci",
+  "book": "math-geometry",
+  "targetOk": null
+ },
+ {
+  "id": "math-geometry/clothoid-transition-curves",
+  "verdict": "keep",
+  "reason": "окрема крива з лінійною кривиною, точно в главі про кривину",
+  "pack": "hvist-sci",
+  "book": "math-geometry",
+  "targetOk": null
+ },
+ {
+  "id": "math-geometry/haversine-formula-bearing-elevation",
+  "verdict": "keep",
+  "reason": "відстань і пеленг на сфері — самостійна тема глави координат",
+  "pack": "hvist-sci",
+  "book": "math-geometry",
+  "targetOk": null
+ },
+ {
+  "id": "math-geometry/denavit-hartenberg-kinematic-parameters",
+  "verdict": "move",
+  "target": "eng",
+  "reason": "угода про призначення систем координат — інженерний метод, не геометричний закон",
+  "pack": "hvist-sci",
+  "book": "math-geometry",
+  "targetOk": "kind",
+  "targetNote": "названо ВИД, не книгу"
+ },
+ {
+  "id": "math-logic/lob-theorem-and-provability-logic",
+  "verdict": "keep",
+  "reason": "самостійна теорема й модальна логіка доказовості, збіг лише у слові theorem",
+  "pack": "hvist-sci",
+  "book": "math-logic",
+  "targetOk": null
+ },
+ {
+  "id": "math-probability/queueing-theory-finite-buffer-mm1k",
+  "verdict": "keep",
+  "reason": "самостійна імовірнісна модель черги з власним читачем",
+  "pack": "hvist-sci",
+  "book": "math-probability",
+  "targetOk": null
+ },
+ {
+  "id": "math-probability/stochastic-sensor-noise-simulation",
+  "verdict": "move",
+  "target": "eng",
+  "reason": "рецепт синтезу шуму давача — прикладний метод, а не ймовірнісний закон",
+  "pack": "hvist-sci",
+  "book": "math-probability",
+  "targetOk": "kind",
+  "targetNote": "названо ВИД, не книгу"
+ },
+ {
+  "id": "ph-electromagnetism/geomagnetic-storms",
+  "verdict": "keep",
+  "reason": "окреме природне явище поля Землі, у корпусі ще не описане",
+  "pack": "hvist-sci",
+  "book": "ph-electromagnetism",
+  "targetOk": null
+ },
+ {
+  "id": "ph-thermodynamics/forced-convection",
+  "verdict": "keep",
+  "reason": "інший механізм, ніж природна конвекція; парна самостійна тема",
+  "pack": "hvist-sci",
+  "book": "ph-thermodynamics",
+  "targetOk": null
+ },
+ {
+  "id": "ph-waves/lighthill-acoustic-analogy",
+  "verdict": "keep",
+  "reason": "самостійна теорія випромінювання звуку потоком, у главі випромінювання",
+  "pack": "hvist-sci",
+  "book": "ph-waves",
+  "targetOk": null
+ },
+ {
+  "id": "ph-waves/psychoacoustics-auditory-alarms",
+  "verdict": "keep",
+  "reason": "маскування й гучність — явище слуху, доречне в главі гучності",
+  "pack": "hvist-sci",
+  "book": "ph-waves",
+  "targetOk": null
+ },
+ {
+  "id": "ph-waves/ground-sampling-distance-aerial-imaging",
+  "verdict": "move",
+  "target": "eng",
+  "reason": "розрахунок параметрів аерозйомки — прикладна метода, не мова коливань",
+  "pack": "hvist-sci",
+  "book": "ph-waves",
+  "targetOk": "kind",
+  "targetNote": "названо ВИД, не книгу"
+ },
+ {
+  "id": "sys-plang-python/zipimport-module",
+  "verdict": "keep",
+  "reason": "окремий механізм зі своїми наслідками: нема __file__, не працюють C-розширення",
+  "pack": "hvist-sys",
+  "book": "sys-plang-python",
+  "targetOk": null
+ },
+ {
+  "id": "sys-plang-python/pth-files-mechanics",
+  "verdict": "insert",
+  "target": "sys-path",
+  "reason": "один зі способів наповнення sys.path, а не самостійне поняття",
+  "pack": "hvist-sys",
+  "book": "sys-plang-python",
+  "targetOk": true
+ },
+ {
+  "id": "sys-plang-python/conda-and-binary-environments",
+  "verdict": "keep",
+  "reason": "окрема екосистема з бінарними пакетами й власним розв'язувачем, поруч із venv",
+  "pack": "hvist-sys",
+  "book": "sys-plang-python",
+  "targetOk": null
+ },
+ {
+  "id": "sys-plang-python/pipx-cli-isolation",
+  "verdict": "keep",
+  "reason": "окремий інструмент із власною версією; сусідні теми ставлення утиліт не покривають",
+  "pack": "hvist-sys",
+  "book": "sys-plang-python",
+  "targetOk": null
+ },
+ {
+  "id": "sys-plang-python/zipapp-executables",
+  "verdict": "keep",
+  "reason": "самостійний формат постачання .pyz, відмінний від заморожування одним файлом",
+  "pack": "hvist-sys",
+  "book": "sys-plang-python",
+  "targetOk": null
+ },
+ {
+  "id": "sys-plang-python/private-package-indexes",
+  "verdict": "keep",
+  "reason": "серверна інфраструктура дзеркал і приватних індексів ширша за клієнтський pip",
+  "pack": "hvist-sys",
+  "book": "sys-plang-python",
+  "targetOk": null
+ }
+]
