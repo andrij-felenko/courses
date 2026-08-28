@@ -183,62 +183,8 @@ NF = 10·log₁₀(10.065) ≈ 10.0 дБ
 Ключова пастка, через яку формулу Фрііса найчастіше рахують неправильно: вона працює **в разах, не в децибелах**. Даташити подають NF і підсилення в децибелах; перш ніж складати за Фріісом, кожне число треба перевести в рази, скласти, і аж тоді результат повернути в децибели. Спробуєш скласти децибели прямо — дістанеш дурницю.
 
 :::tabs
-```c
-#include <math.h>
-#include <stddef.h>
-
-// дБ → рази (за потужністю)
-static float db2lin(float db) { return powf(10.0f, db / 10.0f); }
-// рази → дБ
-static float lin2db(float x)  { return 10.0f * log10f(x); }
-
-// Повний коефіцієнт шуму ланцюга за формулою Фрііса.
-// nf_db[i], gain_db[i] — коефіцієнт шуму й підсилення i-ї ланки В ДЕЦИБЕЛАХ.
-// n — число ланок. Повертає повний NF тракту в дБ.
-float cascade_nf_db(const float *nf_db, const float *gain_db, size_t n)
-{
-    if (n == 0) return 0.0f;
-
-    float F_total    = db2lin(nf_db[0]);   // перша ланка входить ЦІЛОЮ, без поділу
-    float gain_accum = db2lin(gain_db[0]); // добуток підсилень УСІХ ланок перед наступною
-
-    for (size_t i = 1; i < n; ++i) {
-        float Fi = db2lin(nf_db[i]);
-        // надлишок (Fᵢ − 1), поділений на добуток підсилень усіх попередніх
-        F_total   += (Fi - 1.0f) / gain_accum;
-        gain_accum *= db2lin(gain_db[i]);   // долучаємо підсилення цієї ланки до добутку
-    }
-    return lin2db(F_total);
-}
-```
-```python
-import math
-
-# дБ → рази (за потужністю)
-def db2lin(db):
-    return 10.0 ** (db / 10.0)
-
-# рази → дБ
-def lin2db(x):
-    return 10.0 * math.log10(x)
-
-# Повний коефіцієнт шуму ланцюга за формулою Фрііса.
-# nf_db[i], gain_db[i] — коефіцієнт шуму й підсилення i-ї ланки В ДЕЦИБЕЛАХ.
-# Повертає повний NF тракту в дБ.
-def cascade_nf_db(nf_db, gain_db):
-    if not nf_db:
-        return 0.0
-
-    F_total    = db2lin(nf_db[0])    # перша ланка входить ЦІЛОЮ, без поділу
-    gain_accum = db2lin(gain_db[0])  # добуток підсилень УСІХ ланок перед наступною
-
-    for i in range(1, len(nf_db)):
-        Fi = db2lin(nf_db[i])
-        # надлишок (Fᵢ − 1), поділений на добуток підсилень усіх попередніх
-        F_total    += (Fi - 1.0) / gain_accum
-        gain_accum *= db2lin(gain_db[i])   # долучаємо підсилення цієї ланки до добутку
-    return lin2db(F_total)
-```
+:::code math-friis-cascade/c/robochyi-rozrakhunok.c
+:::code math-friis-cascade/py/main.py
 :::
 
 Випробуймо на реальному тракті — антена через кабель, LNA, змішувач, підсилювач проміжної частоти:
@@ -246,20 +192,7 @@ def cascade_nf_db(nf_db, gain_db):
 **Тракт: кабель −2 дБ → LNA (NF 1 дБ, G 20 дБ) → змішувач (NF 8 дБ, G 6 дБ) → ПЧ-підсилювач (NF 5 дБ, G 30 дБ).** Який повний коефіцієнт шуму?
 
 :::tabs
-```c
-#include <stdio.h>
-
-int main(void)
-{
-    // кабель: пасивна втрата 2 дБ → NF = 2 дБ, підсилення = −2 дБ (від'ємне!)
-    float nf_db[]   = {  2.0f,  1.0f,  8.0f,  5.0f };
-    float gain_db[] = { -2.0f, 20.0f,  6.0f, 30.0f };
-
-    float total = cascade_nf_db(nf_db, gain_db, 4);
-    printf("повний NF = %.2f дБ\n", total);   // ≈ 3.20 дБ
-    return 0;
-}
-```
+:::code math-friis-cascade/c/robochyi-rozrakhunok-2.c
 ```python
 # кабель: пасивна втрата 2 дБ → NF = 2 дБ, підсилення = −2 дБ (від'ємне!)
 nf_db   = [ 2.0,  1.0,  8.0,  5.0]

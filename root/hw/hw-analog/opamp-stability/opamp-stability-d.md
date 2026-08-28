@@ -79,74 +79,9 @@
 **Декомпенсований ОП, замкнений на ×4: безпечно чи зірветься?** Беремо підсилювач із GBW = 50 МГц і другим полюсом на f_p2 = 6 МГц. Перевіримо два ввімкнення: бажане ×4 і повторювач ×1.
 
 :::tabs
-```cpp
-#include <stdio.h>
-
-// Частота, де розімкнене |A| падає до заданого замкненого підсилення G:
-//   на ділянці одного полюса |A|·f = GBW (стала площа),
-//   тож перетин лінії 1/β настає на f_cross = GBW / G.
-static float crossover_hz(float gbw, float gain) {
-    return gbw / gain;            // частота зрізу петлі для цього G
-}
-
-int main(void) {
-    float gbw   = 50.0e6f;        // 50 МГц з даташита
-    float f_p2  =  6.0e6f;        // другий полюс — 6 МГц
-
-    float gains[2] = { 4.0f, 1.0f };
-    for (int i = 0; i < 2; i++) {
-        float fc = crossover_hz(gbw, gains[i]);
-        // перетин безпечний, лише якщо він НИЖЧЕ за другий полюс
-        // (тоді крива там ще на пологому −20 дБ/дек)
-        int safe = (fc < f_p2);
-        printf("G=%.0f: f_cross=%.1f MHz  ->  %s\n",
-               gains[i], fc / 1e6f,
-               safe ? "перетин до p2 -> стійко"
-                    : "перетин ЗА p2 -> дзвін!");
-    }
-    return 0;
-}
-```
-```python
-# Частота, де розімкнене |A| падає до заданого замкненого підсилення G:
-#   на ділянці одного полюса |A|·f = GBW (стала площа),
-#   тож перетин лінії 1/β настає на f_cross = GBW / G.
-def crossover_hz(gbw, gain):
-    return gbw / gain             # частота зрізу петлі для цього G
-
-
-gbw  = 50.0e6                     # 50 МГц з даташита
-f_p2 =  6.0e6                     # другий полюс — 6 МГц
-
-for gain in (4.0, 1.0):
-    fc = crossover_hz(gbw, gain)
-    # перетин безпечний, лише якщо він НИЖЧЕ за другий полюс
-    # (тоді крива там ще на пологому −20 дБ/дек)
-    safe = fc < f_p2
-    verdict = "перетин до p2 -> стійко" if safe else "перетин ЗА p2 -> дзвін!"
-    print(f"G={gain:.0f}: f_cross={fc / 1e6:.1f} MHz  ->  {verdict}")
-```
-```js
-// Частота, де розімкнене |A| падає до заданого замкненого підсилення G:
-//   на ділянці одного полюса |A|·f = GBW (стала площа),
-//   тож перетин лінії 1/β настає на f_cross = GBW / G.
-function crossoverHz(gbw, gain) {
-  return gbw / gain;              // частота зрізу петлі для цього G
-}
-
-const gbw  = 50.0e6;              // 50 МГц з даташита
-const fP2  =  6.0e6;              // другий полюс — 6 МГц
-
-for (const gain of [4.0, 1.0]) {
-  const fc = crossoverHz(gbw, gain);
-  // перетин безпечний, лише якщо він НИЖЧЕ за другий полюс
-  // (тоді крива там ще на пологому −20 дБ/дек)
-  const safe = fc < fP2;
-  const verdict = safe ? "перетин до p2 -> стійко"
-                       : "перетин ЗА p2 -> дзвін!";
-  console.log(`G=${gain.toFixed(0)}: f_cross=${(fc / 1e6).toFixed(1)} MHz  ->  ${verdict}`);
-}
-```
+:::code opamp-stability-d/cpp/main.cpp
+:::code opamp-stability-d/py/main.py
+:::code opamp-stability-d/js/index.js
 :::
 
 Покрокова арифметика:

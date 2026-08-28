@@ -204,66 +204,8 @@ SNR[дБ] = 6.02 · N + 1.76
 **Скласти граничний SNR з компонентів і звірити з формулою.** Беремо 12-розрядний АЦП на діапазоні 3.3 В; рахуємо крок, RMS шуму, RMS повношкального синуса, їхнє відношення в децибелах — і перевіряємо, що збіглося з 6.02·N+1.76.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <math.h>
-
-int main(void) {
-    const int   N    = 12;        // розрядність
-    const float Vfs  = 3.3f;      // повна шкала, В
-    const float levels = (float)(1u << N);   // 2^N = 4096 рівнів
-
-    // 1) крок квантування
-    float q = Vfs / levels;                          // 3.3/4096 ≈ 0.806 мВ
-
-    // 2) RMS шуму квантування з рівномірного розподілу: q/√12
-    float e_rms = q / sqrtf(12.0f);                  // ≈ 0.233 мВ
-
-    // 3) RMS повношкального синуса: амплітуда/√2, амплітуда = Vfs/2
-    float sig_rms = (Vfs / 2.0f) / sqrtf(2.0f);      // ≈ 1.167 В
-
-    // 4) SNR як відношення RMS у децибелах (за напругою → 20·log10)
-    float snr_built = 20.0f * log10f(sig_rms / e_rms);
-
-    // 5) та сама величина з готової формули
-    float snr_formula = 6.02f * N + 1.76f;
-
-    printf("крок q          = %.4f мВ\n", q * 1e3f);
-    printf("шум  e_rms      = %.4f мВ  (= q/sqrt(12))\n", e_rms * 1e3f);
-    printf("сигнал sig_rms  = %.4f В   (= (Vfs/2)/sqrt(2))\n", sig_rms);
-    printf("SNR зібраний    = %.2f дБ\n", snr_built);
-    printf("SNR за формулою = %.2f дБ\n", snr_formula);
-    return 0;
-}
-```
-```python
-from math import sqrt, log10
-
-N   = 12          # розрядність
-Vfs = 3.3         # повна шкала, В
-levels = 1 << N   # 2^N = 4096 рівнів
-
-# 1) крок квантування
-q = Vfs / levels                       # 3.3/4096 ≈ 0.806 мВ
-
-# 2) RMS шуму квантування з рівномірного розподілу: q/√12
-e_rms = q / sqrt(12)                    # ≈ 0.233 мВ
-
-# 3) RMS повношкального синуса: амплітуда/√2, амплітуда = Vfs/2
-sig_rms = (Vfs / 2) / sqrt(2)          # ≈ 1.167 В
-
-# 4) SNR як відношення RMS у децибелах (за напругою → 20·log10)
-snr_built = 20 * log10(sig_rms / e_rms)
-
-# 5) та сама величина з готової формули
-snr_formula = 6.02 * N + 1.76
-
-print(f"крок q          = {q * 1e3:.4f} мВ")
-print(f"шум  e_rms      = {e_rms * 1e3:.4f} мВ  (= q/sqrt(12))")
-print(f"сигнал sig_rms  = {sig_rms:.4f} В   (= (Vfs/2)/sqrt(2))")
-print(f"SNR зібраний    = {snr_built:.2f} дБ")
-print(f"SNR за формулою = {snr_formula:.2f} дБ")
-```
+:::code math-quantization-noise/c/main.c
+:::code math-quantization-noise/py/main.py
 :::
 
 Вивід:

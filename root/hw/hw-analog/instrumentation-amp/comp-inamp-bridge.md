@@ -58,40 +58,8 @@
 Сам по собі in-amp дає лише напругу на OUT — переводить її у вагу вже прошивка. Ось як могло б виглядати читання тих самих тензоваг: АЦП мікроконтролера 12 біт, опорна 5.000 В, in-amp із G = 400.
 
 :::tabs
-```cpp
-// Тензоваги: in-amp із G = 400, АЦП 12 біт, опорна 5.000 В.
-// Чутливість моста 2 мВ/В при 5 В живлення → повна шкала = 4.000 В на виході.
-constexpr float kAdcRefV   = 5.0f;
-constexpr float kAdcMax    = 4095.0f;
-constexpr float kInampGain = 400.0f;
-constexpr float kBridgeFsV = 0.010f;   // 10 мВ диференційного при повній шкалі
-constexpr float kScaleFsKg = 20.0f;    // повна шкала терезів, кг
-
-constexpr float weight_kg(std::uint16_t adc_code)
-{
-    const float v_out  = (adc_code / kAdcMax) * kAdcRefV;  // напруга на виході in-amp
-    const float v_diff = v_out / kInampGain;               // зведено до входу (диф.)
-    const float frac   = v_diff / kBridgeFsV;              // частка повної шкали
-    return frac * kScaleFsKg;                              // вага
-}
-```
-```c
-// Тензоваги: in-amp із G = 400, АЦП 12 біт, опорна 5.000 В.
-// Чутливість моста 2 мВ/В при 5 В живлення → повна шкала = 4.000 В на виході.
-#define ADC_REF_V     5.0f
-#define ADC_MAX       4095.0f
-#define INAMP_GAIN    400.0f
-#define BRIDGE_FS_V   0.010f     // 10 мВ диференційного при повній шкалі
-#define SCALE_FS_KG   20.0f      // повна шкала терезів, кг
-
-float weight_kg(uint16_t adc_code)
-{
-    float v_out  = (adc_code / ADC_MAX) * ADC_REF_V;   // напруга на виході in-amp
-    float v_diff = v_out / INAMP_GAIN;                  // зведено до входу (диф.)
-    float frac   = v_diff / BRIDGE_FS_V;               // частка повної шкали
-    return frac * SCALE_FS_KG;                          // вага
-}
-```
+:::code comp-inamp-bridge/cpp/main.cpp
+:::code comp-inamp-bridge/c/main.c
 :::
 
 Тут видно роль кожного числа: підсилення G повертає виміряну на виході напругу до справжніх мілівольтів давача, а чутливість моста переводить мілівольти у фізичну величину. Якщо змінити Rg (а отже G), у коді міняється одна стала INAMP_GAIN — решта тракту лишається тією самою.

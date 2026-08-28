@@ -51,60 +51,9 @@
 Перш ніж довіряти показу АЦП, варто чесно порахувати, чи лишається вхідний сигнал у вікні ОП за найгірших умов. Хай ОП живиться 0…5 В, його синфазне вікно — від 0 до V+−1.5 = 3.5 В, а попереду стоїть повторювач-буфер на вході АЦП.
 
 :::tabs
-```cpp
-// Чи безпечний синфазний рівень для ОП на одному живленні 0..5 В?
-// Вікно з довідника: [v_cm_min .. v_cm_max]. Сигнал може мати викид.
-#include <stdbool.h>
-
-static const float V_CM_MIN = 0.0f;     // нижня межа синфазного вікна, В
-static const float V_CM_MAX = 3.5f;     // верхня межа: V+ − 1.5 В
-static const float MARGIN   = 0.20f;    // запас на дрейф/температуру, В
-
-bool cm_level_safe(float v_signal_peak) {
-    float lo = V_CM_MIN + MARGIN;       // 0.20 В
-    float hi = V_CM_MAX - MARGIN;       // 3.30 В
-    return (v_signal_peak >= lo) && (v_signal_peak <= hi);
-}
-
-// приклад: давач інколи викидає до 3.8 В
-//   cm_level_safe(3.8f) → 3.8 > 3.30 → false → переворот можливий!
-```
-```python
-# Чи безпечний синфазний рівень для ОП на одному живленні 0..5 В?
-# Вікно з довідника: [v_cm_min .. v_cm_max]. Сигнал може мати викид.
-
-V_CM_MIN = 0.0    # нижня межа синфазного вікна, В
-V_CM_MAX = 3.5    # верхня межа: V+ − 1.5 В
-MARGIN   = 0.20   # запас на дрейф/температуру, В
-
-def cm_level_safe(v_signal_peak: float) -> bool:
-    lo = V_CM_MIN + MARGIN    # 0.20 В
-    hi = V_CM_MAX - MARGIN    # 3.30 В
-    return lo <= v_signal_peak <= hi
-
-# приклад: давач інколи викидає до 3.8 В
-#   cm_level_safe(3.8) → 3.8 > 3.30 → False → переворот можливий!
-```
-```go
-// Чи безпечний синфазний рівень для ОП на одному живленні 0..5 В?
-// Вікно з довідника: [v_cm_min .. v_cm_max]. Сигнал може мати викид.
-package sensor
-
-const (
-	vCmMin = 0.0  // нижня межа синфазного вікна, В
-	vCmMax = 3.5  // верхня межа: V+ − 1.5 В
-	margin = 0.20 // запас на дрейф/температуру, В
-)
-
-func cmLevelSafe(vSignalPeak float64) bool {
-	lo := vCmMin + margin // 0.20 В
-	hi := vCmMax - margin // 3.30 В
-	return vSignalPeak >= lo && vSignalPeak <= hi
-}
-
-// приклад: давач інколи викидає до 3.8 В
-//   cmLevelSafe(3.8) → 3.8 > 3.30 → false → переворот можливий!
-```
+:::code phase-inversion-opamp-d/cpp/tse-ne-vyhorannia-ale.cpp
+:::code phase-inversion-opamp-d/py/tse-ne-vyhorannia-ale.py
+:::code phase-inversion-opamp-d/go/tse-ne-vyhorannia-ale.go
 :::
 
 Висновок прямий: 3.8 В уже вище за робочу межу 3.3 В — сигнал залазить у небезпечну зону, і саме на цих викидах тракт може перекинутись. Лік — або тримати сигнал нижче (дільником, іншим розмахом), або взяти ОП із ширшим вікном чи захищений від перевороту, або поставити фіксатори на вході.
@@ -123,87 +72,9 @@ func cmLevelSafe(vSignalPeak float64) bool {
 **Сторож защіпки в прошивці**
 
 :::tabs
-```cpp
-// Виявити «застряглий» вихід ОП (ознака перевороту/защіпки) і скинути вузол.
-// Якщо АЦП довго стоїть у крайньому коді — фізичний сигнал так не поводиться.
-#include <stdint.h>
-#include <stdbool.h>
-
-#define ADC_MAX        4095u     // 12-бітний АЦП
-#define RAIL_GUARD     20u       // «крайня» зона: ≤20 або ≥4075
-#define STUCK_LIMIT    50u       // стільки поспіль вибірок у рейці = підозра
-
-static uint16_t stuck_count = 0;
-
-void power_cycle_analog(void);   // зняти/подати живлення аналогового вузла
-
-bool opamp_latched(uint16_t adc) {
-    bool at_rail = (adc <= RAIL_GUARD) || (adc >= ADC_MAX - RAIL_GUARD);
-    stuck_count = at_rail ? (stuck_count + 1) : 0;
-
-    if (stuck_count >= STUCK_LIMIT) {
-        power_cycle_analog();    // струсонути тракт — вибити защіпку
-        stuck_count = 0;
-        return true;             // повідомити верхньому рівню: був збій
-    }
-    return false;
-}
-```
-```python
-# Виявити «застряглий» вихід ОП (ознака перевороту/защіпки) і скинути вузол.
-# Якщо АЦП довго стоїть у крайньому коді — фізичний сигнал так не поводиться.
-
-ADC_MAX     = 4095   # 12-бітний АЦП
-RAIL_GUARD  = 20     # «крайня» зона: ≤20 або ≥4075
-STUCK_LIMIT = 50     # стільки поспіль вибірок у рейці = підозра
-
-_stuck_count = 0
-
-def power_cycle_analog() -> None:   # зняти/подати живлення аналогового вузла
-    ...
-
-def opamp_latched(adc: int) -> bool:
-    global _stuck_count
-    at_rail = adc <= RAIL_GUARD or adc >= ADC_MAX - RAIL_GUARD
-    _stuck_count = _stuck_count + 1 if at_rail else 0
-
-    if _stuck_count >= STUCK_LIMIT:
-        power_cycle_analog()        # струсонути тракт — вибити защіпку
-        _stuck_count = 0
-        return True                 # повідомити верхньому рівню: був збій
-    return False
-```
-```go
-// Виявити «застряглий» вихід ОП (ознака перевороту/защіпки) і скинути вузол.
-// Якщо АЦП довго стоїть у крайньому коді — фізичний сигнал так не поводиться.
-package analog
-
-const (
-	adcMax     = 4095 // 12-бітний АЦП
-	railGuard  = 20   // «крайня» зона: ≤20 або ≥4075
-	stuckLimit = 50   // стільки поспіль вибірок у рейці = підозра
-)
-
-var stuckCount uint16
-
-func powerCycleAnalog() // зняти/подати живлення аналогового вузла
-
-func opampLatched(adc uint16) bool {
-	atRail := adc <= railGuard || adc >= adcMax-railGuard
-	if atRail {
-		stuckCount++
-	} else {
-		stuckCount = 0
-	}
-
-	if stuckCount >= stuckLimit {
-		powerCycleAnalog() // струсонути тракт — вибити защіпку
-		stuckCount = 0
-		return true        // повідомити верхньому рівню: був збій
-	}
-	return false
-}
-```
+:::code phase-inversion-opamp-d/cpp/iak-tse-likuiut.cpp
+:::code phase-inversion-opamp-d/py/iak-tse-likuiut.py
+:::code phase-inversion-opamp-d/go/iak-tse-likuiut.go
 :::
 
 Логіка проста: реальний аналоговий сигнал не «прилипає» до крайнього коду АЦП на десятки вибірок поспіль — він гуляє. Якщо ж прилип, найімовірніша причина — тракт перекинувся й тримає сам себе; короткий перезапуск живлення вузла розмикає защіпку, і вимірювання оживає.

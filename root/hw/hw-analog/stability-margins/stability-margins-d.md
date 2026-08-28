@@ -98,55 +98,8 @@
 **Дано:** на 50 кГц фаза контуру −120°, на 100 кГц −150°; частота зрізу (де |Aβ| = 0 дБ) виміряна як 80 кГц. Знайти запас фази.
 
 :::tabs
-```c
-#include <stdio.h>
-
-// лінійна інтерполяція фази (у градусах) на частоті f_x
-// за двома виміряними точками (f1,ph1) і (f2,ph2)
-static float phase_at(float fx,
-                      float f1, float ph1,
-                      float f2, float ph2) {
-    float k = (fx - f1) / (f2 - f1);   // частка шляху від точки 1 до 2
-    return ph1 + k * (ph2 - ph1);      // фаза на fx
-}
-
-int main(void) {
-    float f_cross = 80.0e3f;           // частота зрізу контуру (|Aβ| = 1)
-
-    // фаза на частоті зрізу — інтерполяцією між 50 кГц і 100 кГц
-    float ph = phase_at(f_cross,
-                        50.0e3f, -120.0f,
-                        100.0e3f, -150.0f);
-
-    // запас фази = 180° − |фаза на частоті зрізу|
-    float pm = 180.0f - (ph < 0 ? -ph : ph);
-
-    printf("phase at crossover: %.1f deg\n", ph);  // -138.0
-    printf("phase margin:       %.1f deg\n", pm);  //  42.0
-    return 0;
-}
-```
-```python
-# лінійна інтерполяція фази (у градусах) на частоті f_x
-# за двома виміряними точками (f1, ph1) і (f2, ph2)
-def phase_at(fx, f1, ph1, f2, ph2):
-    k = (fx - f1) / (f2 - f1)          # частка шляху від точки 1 до 2
-    return ph1 + k * (ph2 - ph1)       # фаза на fx
-
-
-f_cross = 80.0e3                       # частота зрізу контуру (|Aβ| = 1)
-
-# фаза на частоті зрізу — інтерполяцією між 50 кГц і 100 кГц
-ph = phase_at(f_cross,
-              50.0e3, -120.0,
-              100.0e3, -150.0)
-
-# запас фази = 180° − |фаза на частоті зрізу|
-pm = 180.0 - abs(ph)
-
-print(f"phase at crossover: {ph:.1f} deg")  # -138.0
-print(f"phase margin:       {pm:.1f} deg")  #  42.0
-```
+:::code stability-margins-d/c/main.c
+:::code stability-margins-d/py/main.py
 :::
 
 Покрокова арифметика, щоб бачити, звідки числа:

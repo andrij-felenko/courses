@@ -76,18 +76,7 @@ R_E ≈ 12 000 Ом   →   беремо 12 кОм
 У коді цей підбір — звичайна арифметика проєктування, яку зручно тримати поряд зі схемою:
 
 :::tabs
-```cpp
-#include <cmath>
-
-// Підбір емітерного резистора джерела Відлара під заданий малий вихідний струм.
-// Усе у вольтах і амперах; повертає опір в омах.
-double widlar_emitter_resistor(double i_ref, double i_out)
-{
-    const double V_T = 0.026;                     // термічний потенціал при ~27 °C
-    return (V_T * std::log(i_ref / i_out)) / i_out; // R_E = V_T·ln(I_REF/I_OUT)/I_OUT
-}
-// widlar_emitter_resistor(1.0e-3, 10.0e-6) -> ~12 кОм
-```
+:::code comp-mirror-variants/cpp/main.cpp
 ```python
 import math
 
@@ -108,19 +97,7 @@ function widlarEmitterResistor(iRef, iOut) {
 }
 // widlarEmitterResistor(1.0e-3, 10.0e-6) -> ~12 кОм
 ```
-```go
-package main
-
-import "math"
-
-// Підбір емітерного резистора джерела Відлара під заданий малий вихідний струм.
-// Усе у вольтах і амперах; повертає опір в омах.
-func widlarEmitterResistor(iRef, iOut float64) float64 {
-    const V_T = 0.026                              // термічний потенціал при ~27 °C
-    return (V_T * math.Log(iRef/iOut)) / iOut      // R_E = V_T·ln(I_REF/I_OUT)/I_OUT
-}
-// widlarEmitterResistor(1.0e-3, 10.0e-6) -> ~12 кОм
-```
+:::code comp-mirror-variants/go/main.go
 :::
 
 Зверніть увагу: рівняння **трансцендентне**, якщо невідомий саме струм. Коли ви фіксуєте R_E й питаєте «який буде I_OUT?» — I_OUT стоїть і ліворуч (множником), і праворуч (під логарифмом), і аналітично не виражається. Тоді його шукають ітерацією: вгадали I_OUT, підставили праворуч, дістали ліворуч новий I_OUT, повторили — збігається за кілька кроків. У задачі проєктування ж простіше: задаєш обидва струми й рахуєш резистор однією дією, як вище.

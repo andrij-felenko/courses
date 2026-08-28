@@ -197,35 +197,8 @@ t_j ≈ 1 / (2π · 10·10⁶ · 16384)
 Той самий розрахунок у прошивці, коли межу треба прикинути на льоту (наприклад, у майстрі вибору режиму приладу):
 
 :::tabs
-```cpp
-#include <cmath>
-#include <numbers>
-
-// Максимально допустимий RMS-джиттер такту (с),
-// щоб на частоті f_hz отримати задану кількість ефективних розрядів.
-float max_jitter_for_bits(float f_hz, float bits)
-{
-    float snr_db = 6.02f * bits + 1.76f;                    // цільовий SNR
-    float ratio  = std::pow(10.0f, snr_db / 20.0f);        // SNR у разах (амплітудно)
-    return 1.0f / (2.0f * std::numbers::pi_v<float> * f_hz * ratio);
-}
-
-// приклад: max_jitter_for_bits(10e6f, 14.0f) ≈ 0.79e-12 с (з урахуванням 1.76 дБ)
-```
-```python
-import math
-
-
-# Максимально допустимий RMS-джиттер такту (с),
-# щоб на частоті f_hz отримати задану кількість ефективних розрядів.
-def max_jitter_for_bits(f_hz, bits):
-    snr_db = 6.02 * bits + 1.76            # цільовий SNR
-    ratio = 10.0 ** (snr_db / 20.0)        # SNR у разах (амплітудно)
-    return 1.0 / (2.0 * math.pi * f_hz * ratio)
-
-
-# приклад: max_jitter_for_bits(10e6, 14.0) ≈ 0.79e-12 с (з урахуванням 1.76 дБ)
-```
+:::code math-jitter-snr/cpp/main.cpp
+:::code math-jitter-snr/py/main.py
 ```js
 // Максимально допустимий RMS-джиттер такту (с),
 // щоб на частоті f_hz отримати задану кількість ефективних розрядів.
@@ -237,21 +210,7 @@ function maxJitterForBits(fHz, bits) {
 
 // приклад: maxJitterForBits(10e6, 14) ≈ 0.79e-12 с (з урахуванням 1.76 дБ)
 ```
-```go
-package jitter
-
-import "math"
-
-// Максимально допустимий RMS-джиттер такту (с),
-// щоб на частоті fHz отримати задану кількість ефективних розрядів.
-func MaxJitterForBits(fHz, bits float64) float64 {
-	snrDB := 6.02*bits + 1.76             // цільовий SNR
-	ratio := math.Pow(10, snrDB/20)       // SNR у разах (амплітудно)
-	return 1 / (2 * math.Pi * fHz * ratio)
-}
-
-// приклад: MaxJitterForBits(10e6, 14) ≈ 0.79e-12 с (з урахуванням 1.76 дБ)
-```
+:::code math-jitter-snr/go/main.go
 :::
 
 (Число тут трохи менше за усну оцінку 0.97 пс саме через доданок 1.76 дБ, який суворий розрахунок ураховує, а прикидка `2^N` — відкидає. Різниця — частка розряду, і для вибору генератора вона неважлива, але код чесніший.)

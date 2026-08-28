@@ -72,49 +72,8 @@ Vout = − Rf · (Vref / R) · (8·b3 + 4·b2 + 2·b1 + 1·b0)
 **Код для виставлення значення.** Хочемо вивести число 11 (`1011₂`) — тобто запалити біти b0, b1 і b3:
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Чотири виводи, на яких висять резистори R, R/2, R/4, R/8.
-// PIN_B0 — наймолодший біт (через найбільший резистор R),
-// PIN_B3 — старший біт (через найменший резистор R/8).
-#define PIN_B0  0   // вага 1
-#define PIN_B1  1   // вага 2
-#define PIN_B2  2   // вага 4
-#define PIN_B3  3   // вага 8
-
-// Виставити 4-бітне значення на ЦАП із зважених резисторів.
-void dac_write(uint8_t value)
-{
-    gpio_write(PIN_B0, (value >> 0) & 1);   // наймолодший біт
-    gpio_write(PIN_B1, (value >> 1) & 1);
-    gpio_write(PIN_B2, (value >> 2) & 1);
-    gpio_write(PIN_B3, (value >> 3) & 1);   // старший біт
-}
-
-int main(void)
-{
-    dac_write(11);   // 1011 → очікуємо рівень коду 11 із 15
-    for (;;) { }
-}
-```
-```python
-from machine import Pin
-
-# Чотири виводи, на яких висять резистори R, R/2, R/4, R/8.
-# pins[0] — наймолодший біт (через найбільший резистор R),
-# pins[3] — старший біт (через найменший резистор R/8).
-pins = [Pin(n, Pin.OUT) for n in (0, 1, 2, 3)]   # ваги 1, 2, 4, 8
-
-# Виставити 4-бітне значення на ЦАП із зважених резисторів.
-def dac_write(value):
-    for i, pin in enumerate(pins):
-        pin.value((value >> i) & 1)   # біт i → від молодшого до старшого
-
-dac_write(11)   # 1011 → очікуємо рівень коду 11 із 15
-while True:
-    pass
-```
+:::code dac-weighted-resistors-d/c/main.c
+:::code dac-weighted-resistors-d/py/main.py
 :::
 
 **Що буде на виході.** Код 11 запалює b3, b1, b0 (на цих виводах Vref = 5 В), а b2 лишається на нулі:

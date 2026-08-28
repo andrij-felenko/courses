@@ -139,107 +139,13 @@ f = 440 Гц  →  M = round(440 · 2³² / 40000) = 47244640
 Таблицю треба десь узяти. Перший спосіб — порахувати її окремим сценарієм і покласти в проєкт готовим заголовком; другий — примусити компілятор порахувати її самому під час складання, і тоді таблиця ніколи не розійдеться з розкладкою виводів, хоч би як ту правили.
 
 :::tabs
-```python
-# gen_table.py — генератор таблиці слів BSRR (запускається один раз при складанні)
-import math
-
-LEN     = 256                       # точок на період
-PINMAP  = [0, 1, 4, 5, 6, 7, 8, 9]  # b0…b7 → номери виводів у групі порту
-ALL     = sum(1 << p for p in PINMAP)
-
-def bsrr(value: int) -> int:
-    """Слово BSRR: молодша половина ставить одиниці, старша скидає решту наших виводів."""
-    set_mask = sum(1 << p for b, p in enumerate(PINMAP) if value & (1 << b))
-    return set_mask | ((ALL & ~set_mask) << 16)
-
-words = []
-for i in range(LEN):
-    s = math.sin(2 * math.pi * (i + 0.5) / LEN)     # +0.5 — відлік у середині кроку
-    words.append(bsrr(round(127.5 + 127.5 * s)))    # 0…255 на всю шкалу
-
-with open("sine_bsrr.h", "w", encoding="utf-8") as f:
-    f.write("/* Згенеровано gen_table.py — не правити руками. */\n")
-    f.write("#include <stdint.h>\n")
-    f.write(f"const uint32_t sine_bsrr[{LEN}] = {{\n")
-    for i in range(0, LEN, 4):
-        f.write("    " + " ".join(f"0x{w:08X}," for w in words[i:i + 4]) + "\n")
-    f.write("};\n")
-```
-```cpp
-// sine_bsrr.hpp — та сама таблиця, але її будує компілятор (C++17 і новіший).
-// std::sin не constexpr, тому чверть періоду рахуємо рядом Тейлора:
-// на [0, π/2] шести членів вистачає з запасом (похибка < 1e-9 проти 1/256 у LSB).
-#include <array>
-#include <cstdint>
-
-inline constexpr int      LEN    = 256;
-inline constexpr double   TWO_PI = 6.283185307179586;
-inline constexpr uint8_t  PINMAP[8] = {0, 1, 4, 5, 6, 7, 8, 9};   // b0…b7 → виводи
-
-constexpr double sin_quarter(double x) {          // x у [0, π/2]
-    double x2 = x * x, term = x, sum = x;
-    for (int k = 1; k <= 6; ++k) { term *= -x2 / ((2 * k) * (2 * k + 1)); sum += term; }
-    return sum;
-}
-
-constexpr double sine(double t) {                 // t — доля періоду, [0, 1)
-    if (t < 0.25) return  sin_quarter(TWO_PI * t);
-    if (t < 0.50) return  sin_quarter(TWO_PI * (0.5 - t));
-    if (t < 0.75) return -sin_quarter(TWO_PI * (t - 0.5));
-    return                -sin_quarter(TWO_PI * (1.0 - t));
-}
-
-constexpr uint32_t bsrr(unsigned value) {
-    uint32_t set_mask = 0, all_mask = 0;
-    for (int b = 0; b < 8; ++b) {
-        all_mask |= 1u << PINMAP[b];
-        if (value & (1u << b)) set_mask |= 1u << PINMAP[b];
-    }
-    return set_mask | ((all_mask & ~set_mask) << 16);
-}
-
-inline constexpr std::array<uint32_t, LEN> sine_bsrr = [] {
-    std::array<uint32_t, LEN> t{};
-    for (int i = 0; i < LEN; ++i)
-        t[i] = bsrr(static_cast<unsigned>(127.5 + 127.5 * sine((i + 0.5) / LEN) + 0.5));
-    return t;
-}();
-```
+:::code proj-gpio-r2r/py/gen_table.py
+:::code proj-gpio-r2r/cpp/main.cpp
 :::
 
 Драйвер у прошивці працює з готовою таблицею. Тут регістри й переривання, тож мова одна — C:
 
-```c
-#include <stdint.h>
-
-#define GPIOA_BSRR   (*(volatile uint32_t *)(0x40010800u + 0x10u))
-#define TIM2_SR      (*(volatile uint32_t *)(0x40000000u + 0x10u))
-
-extern const uint32_t sine_bsrr[256];   /* згенерована таблиця слів BSRR */
-
-static uint32_t          phase;         /* накопичувач фази: чіпає лише переривання */
-static volatile uint32_t step;          /* настроювальне слово: пише головний цикл  */
-
-/* Перерахувати частоту в настроювальне слово.
-   f подається в мілігерцах, щоб не тягти в прошивку дробову арифметику.  */
-static uint32_t tuning_word(uint32_t f_millihz, uint32_t fs_hz)
-{
-    uint64_t denom = (uint64_t)fs_hz * 1000u;
-    return (uint32_t)((((uint64_t)f_millihz << 32) + denom / 2u) / denom);
-}
-
-void dac_set_freq(uint32_t f_millihz, uint32_t fs_hz)
-{
-    step = tuning_word(f_millihz, fs_hz);   /* 32-бітний запис неподільний — без критичної секції */
-}
-
-void TIM2_IRQHandler(void)
-{
-    TIM2_SR = ~1u;                          /* зняти прапорець оновлення */
-    phase += step;                          /* крок фази                 */
-    GPIOA_BSRR = sine_bsrr[phase >> 24];    /* усе перетворення — оцей рядок */
-}
-```
+:::code proj-gpio-r2r/c/main.c
 
 Три дії в перериванні: додати, зсунути, записати. `phase` навмисно не `volatile` — його чіпає тільки обробник, а кваліфікатор змусив би компілятор після запису ще раз читати змінну з пам'яті заради `phase >> 24` замість того, щоб узяти щойно пораховане значення. `step`, навпаки, `volatile` обов'язково: його пише головний цикл, а читає переривання, і без кваліфікатора компілятор має право вважати, що всередині обробника змінна не міняється, і винести читання за межі коду.
 

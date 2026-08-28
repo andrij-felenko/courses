@@ -70,18 +70,7 @@ float resonant_freq(float L, float C)
 }
 // resonant_freq(100e-6f, 250e-12f) -> ~1.0e6 Гц = 1 МГц
 ```
-```python
-import math
-
-
-# Резонансна частота послідовного (чи паралельного) LC-контуру.
-# L у генрі, C у фарадах; повертає частоту в герцах.
-def resonant_freq(L, C):
-    return 1.0 / (2.0 * math.pi * math.sqrt(L * C))
-
-
-# resonant_freq(100e-6, 250e-12) -> ~1.0e6 Гц = 1 МГц
-```
+:::code series-resonance-d/py/rezonansna-chastota-de.py
 :::
 
 ## Провал опору: контур стає голим дротом
@@ -165,48 +154,8 @@ Q = XL / R = 628 / 12 ≈ 52
 Смуга ~19 кГц біля 1 МГц — для AM-мовлення це впритул, бо канали стоять через 9–10 кГц; реальні приймачі підбирають Q компромісно: надто гостро — глушить краї звукової смуги самого сигналу, надто розмито — лізе сусід. Порахувати це в прошивці контролера, що, скажімо, керує перебудовою контуру, теж нескладно:
 
 :::tabs
-```c
-#include <math.h>
-
-// Добротність і смуга послідовного контуру на його f0.
-// L у генрі, C у фарадах, R — повний послідовний опір втрат (Ом).
-typedef struct { float f0, Q, bw; } Resonance;
-
-Resonance series_resonance(float L, float C, float R)
-{
-    Resonance r;
-    r.f0 = 1.0f / (2.0f * (float)M_PI * sqrtf(L * C));
-    float XL = 2.0f * (float)M_PI * r.f0 * L;   // = Xc на резонансі
-    r.Q  = XL / R;                              // добротність
-    r.bw = r.f0 / r.Q;                          // смуга −3 дБ
-    return r;
-}
-// series_resonance(100e-6f, 250e-12f, 12.0f) -> f0≈1 МГц, Q≈52, bw≈19 кГц
-```
-```python
-import math
-from dataclasses import dataclass
-
-
-# Добротність і смуга послідовного контуру на його f0.
-# L у генрі, C у фарадах, R — повний послідовний опір втрат (Ом).
-@dataclass
-class Resonance:
-    f0: float
-    Q: float
-    bw: float
-
-
-def series_resonance(L, C, R):
-    f0 = 1.0 / (2.0 * math.pi * math.sqrt(L * C))
-    XL = 2.0 * math.pi * f0 * L                 # = Xc на резонансі
-    Q = XL / R                                  # добротність
-    bw = f0 / Q                                 # смуга −3 дБ
-    return Resonance(f0, Q, bw)
-
-
-# series_resonance(100e-6, 250e-12, 12.0) -> f0≈1 МГц, Q≈52, bw≈19 кГц
-```
+:::code series-resonance-d/c/main.c
+:::code series-resonance-d/py/hostrota-pika-dobrotnist-i.py
 :::
 
 ## Дві сторони однієї монети: послідовний проти паралельного

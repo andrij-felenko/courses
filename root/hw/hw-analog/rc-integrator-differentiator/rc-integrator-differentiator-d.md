@@ -102,36 +102,9 @@ V_вих = R · i = R · C · (dV_вх/dt) = τ · (dV_вх/dt)
 
 :::tabs
 
-```c
-// Цифровий двійник RC-інтегратора (дірявого): експоненційне згладжування.
-// V_out += (dt/τ) · (V_in − V_out)  — рівно те, що робить конденсатор за крок dt.
-#include <stdint.h>
+:::code rc-integrator-differentiator-d/c/porakhuimo-u-proshyvtsi.c
 
-static float v_out = 0.0f;          // «напруга на конденсаторі» — згладжений вихід
-
-float rc_integrate(float v_in) {
-    const float dt    = 0.1e-3f;    // крок опитування, 0.1 мс
-    const float tau   = 5.0e-3f;    // стала часу RC, 5 мс
-    const float alpha = dt / tau;   // частка нового струму за крок ≈ 0.02
-    v_out += alpha * (v_in - v_out);
-    return v_out;
-}
-```
-
-```micropython
-# Цифровий двійник RC-інтегратора (дірявого): експоненційне згладжування.
-# v_out += (dt/τ) · (v_in − v_out) — рівно те, що робить конденсатор за крок dt.
-DT    = 0.1e-3     # крок опитування, 0.1 мс
-TAU   = 5.0e-3     # стала часу RC, 5 мс
-ALPHA = DT / TAU   # частка нового струму за крок ≈ 0.02
-
-_v_out = 0.0       # «напруга на конденсаторі» — згладжений вихід
-
-def rc_integrate(v_in):
-    global _v_out
-    _v_out += ALPHA * (v_in - _v_out)
-    return _v_out
-```
+:::code rc-integrator-differentiator-d/py/micropython/porakhuimo-u-proshyvtsi.py
 
 :::
 
@@ -141,32 +114,9 @@ def rc_integrate(v_in):
 
 :::tabs
 
-```c
-// Цифровий двійник RC-диференціатора: вихід ∝ швидкості зміни входу.
-static float v_prev = 0.0f;
+:::code rc-integrator-differentiator-d/c/porakhuimo-u-proshyvtsi-2.c
 
-float rc_differentiate(float v_in) {
-    const float dt  = 0.1e-3f;          // крок 0.1 мс
-    const float tau = 5.0e-3f;          // та сама стала часу
-    float deriv = tau * (v_in - v_prev) / dt;   // τ · dV/dt
-    v_prev = v_in;
-    return deriv;                       // сплеск на зміні, нуль на сталому вході
-}
-```
-
-```micropython
-# Цифровий двійник RC-диференціатора: вихід ∝ швидкості зміни входу.
-DT  = 0.1e-3       # крок 0.1 мс
-TAU = 5.0e-3       # та сама стала часу
-
-_v_prev = 0.0
-
-def rc_differentiate(v_in):
-    global _v_prev
-    deriv = TAU * (v_in - _v_prev) / DT   # τ · dV/dt
-    _v_prev = v_in
-    return deriv                          # сплеск на зміні, нуль на сталому вході
-```
+:::code rc-integrator-differentiator-d/py/micropython/porakhuimo-u-proshyvtsi-2.py
 
 :::
 

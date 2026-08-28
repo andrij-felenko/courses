@@ -88,36 +88,8 @@ uint16_t read_avg16(uint8_t pin) {
     return (uint16_t)(acc / 16);    // середнє — у тому самому масштабі 0..4095
 }
 ```
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-
-// Просте усереднення 16 знімків — повертає те саме 12-бітне число, лише чистіше.
-uint16_t read_avg16(adc_oneshot_unit_handle_t adc, adc_channel_t ch) {
-    uint32_t acc = 0;
-    int raw = 0;
-    for (int i = 0; i < 16; i++) {
-        ESP_ERROR_CHECK(adc_oneshot_read(adc, ch, &raw));  // 16 знімків того самого каналу
-        acc += (uint32_t)raw;
-    }
-    return (uint16_t)(acc / 16);    // середнє — у тому самому масштабі 0..4095
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-// Просте усереднення 16 знімків — повертає те саме 12-бітне число, лише чистіше.
-// Канал уже налаштовано (одиничне перетворення), hadc — ADC_HandleTypeDef.
-uint16_t read_avg16(ADC_HandleTypeDef *hadc) {
-    uint32_t acc = 0;
-    for (int i = 0; i < 16; i++) {
-        HAL_ADC_Start(hadc);
-        HAL_ADC_PollForConversion(hadc, 10);  // 16 знімків того самого входу
-        acc += HAL_ADC_GetValue(hadc);
-    }
-    HAL_ADC_Stop(hadc);
-    return (uint16_t)(acc / 16);    // середнє — у тому самому масштабі 0..4095
-}
-```
+:::code oversampling-decimation-d/c/esp-idf/iak-tse-robytsia-v.c
+:::code oversampling-decimation-d/c/stm32/iak-tse-robytsia-v.c
 ```micropython
 # Просте усереднення 16 знімків — повертає те саме 12-бітне число, лише чистіше.
 def read_avg16(adc):
@@ -131,55 +103,9 @@ def read_avg16(adc):
 Це вже гасить шум, але викидає здобуте: ділення на 16 повертає результат у старий 12-бітний масштаб, відрізаючи дробову частину щабля, заради якої все й робилося. Щоб **зберегти** додаткові біти, ділити треба не на 16, а на 4 — тоді сума 16 знімків лягає у ширший, 14-бітний масштаб (0…16380):
 
 :::tabs
-```arduino
-// Передискретизація з децимацією: 16 знімків → один 14-бітний результат.
-// Сума ділиться на √16 = 4, а не на 16 — так зберігаються 2 додаткові біти.
-//   ×4 знімків = +1 біт  →  ×16 = +2 біти  →  ділимо на 2² = 4.
-uint16_t oversample_14bit(uint8_t pin) {
-    uint32_t acc = 0;
-    for (int i = 0; i < 16; i++) {
-        acc += analogRead(pin);     // 12-бітні знімки (0..4095)
-    }
-    return (uint16_t)(acc >> 2);    // ÷4: результат уже 14-бітний (0..16380)
-}
-```
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-
-// Передискретизація з децимацією: 16 знімків → один 14-бітний результат.
-// Сума ділиться на √16 = 4, а не на 16 — так зберігаються 2 додаткові біти.
-//   ×4 знімків = +1 біт  →  ×16 = +2 біти  →  ділимо на 2² = 4.
-esp_err_t oversample_14bit(adc_oneshot_unit_handle_t adc, adc_channel_t ch, uint16_t *out) {
-    uint32_t acc = 0;
-    int raw = 0;
-    for (int i = 0; i < 16; i++) {
-        esp_err_t err = adc_oneshot_read(adc, ch, &raw);  // 12-бітні знімки (0..4095)
-        if (err != ESP_OK) return err;
-        acc += (uint32_t)raw;
-    }
-    *out = (uint16_t)(acc >> 2);    // ÷4: результат уже 14-бітний (0..16380)
-    return ESP_OK;
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-// Передискретизація з децимацією: 16 знімків → один 14-бітний результат.
-// Сума ділиться на √16 = 4, а не на 16 — так зберігаються 2 додаткові біти.
-//   ×4 знімків = +1 біт  →  ×16 = +2 біти  →  ділимо на 2² = 4.
-// (На L4/G4/H7 те саме вміє саме залізо — поле Oversampling у налаштуванні АЦП:
-//  Ratio = 16, RightBitShift = 2; тоді петля не потрібна взагалі.)
-uint16_t oversample_14bit(ADC_HandleTypeDef *hadc) {
-    uint32_t acc = 0;
-    for (int i = 0; i < 16; i++) {
-        HAL_ADC_Start(hadc);
-        HAL_ADC_PollForConversion(hadc, 10);
-        acc += HAL_ADC_GetValue(hadc);   // 12-бітні знімки (0..4095)
-    }
-    HAL_ADC_Stop(hadc);
-    return (uint16_t)(acc >> 2);    // ÷4: результат уже 14-бітний (0..16380)
-}
-```
+:::code oversampling-decimation-d/c/arduino/main.ino
+:::code oversampling-decimation-d/c/esp-idf/iak-tse-robytsia-v-2.c
+:::code oversampling-decimation-d/c/stm32/iak-tse-robytsia-v-2.c
 ```micropython
 # Передискретизація з децимацією: 16 знімків → один 14-бітний результат.
 # Сума ділиться на √16 = 4, а не на 16 — так зберігаються 2 додаткові біти.

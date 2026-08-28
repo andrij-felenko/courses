@@ -166,39 +166,8 @@ if (digitalRead(2) == HIGH) {     // вихід відпущений підтя�
     fan_off();                    // холодно
 }
 ```
-```esp-idf
-#include "driver/gpio.h"
-// вихід компаратора на GPIO4; підтяжку на платі ведемо до 3.3 В (вигода №1)
-gpio_config_t io = {
-    .pin_bit_mask = 1ULL << GPIO_NUM_4,
-    .mode         = GPIO_MODE_INPUT,
-    .pull_up_en   = GPIO_PULLUP_DISABLE,   // «1» дає зовнішній Rpull
-    .pull_down_en = GPIO_PULLDOWN_DISABLE,
-    .intr_type    = GPIO_INTR_DISABLE,
-};
-ESP_ERROR_CHECK(gpio_config(&io));
-
-if (gpio_get_level(GPIO_NUM_4)) {          // вихід відпущений → перейдено поріг
-    fan_on();                              // гаряче: вмикаємо вентилятор
-} else {
-    fan_off();                             // холодно
-}
-```
-```stm32
-// вихід компаратора на PB0; підтяжку на платі ведемо до 3.3 В (вигода №1)
-GPIO_InitTypeDef io = {0};
-__HAL_RCC_GPIOB_CLK_ENABLE();
-io.Pin  = GPIO_PIN_0;
-io.Mode = GPIO_MODE_INPUT;
-io.Pull = GPIO_NOPULL;                     // «1» дає зовнішній Rpull
-HAL_GPIO_Init(GPIOB, &io);
-
-if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0) == GPIO_PIN_SET) {  // перейдено поріг
-    fan_on();                              // гаряче: вмикаємо вентилятор
-} else {
-    fan_off();                             // холодно
-}
-```
+:::code comp-comparator-ics/c/esp-idf/main.c
+:::code comp-comparator-ics/c/stm32/main.c
 :::
 
 ### LM311: коли треба швидше й гнучкіше
