@@ -24,81 +24,8 @@
 Для забезпечення максимальної переносимості між 32-бітними та 64-бітними архітектурами всі типи спираються на стандартні фіксовані розміри з `<stdint.h>` та концептуальні обмеження C++20 Concepts.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-/* Коди завершення та статуси виконання операцій */
-typedef enum {
-    CANTOR_SUCCESS           =  0, /* Операцію виконано успішно без помилок */
-    CANTOR_ERR_NULL_POINTER  = -1, /* Передано нульовий покажчик для вихідних даних */
-    CANTOR_ERR_OVERFLOW      = -2, /* Арифметичне переповнення цілочисельної розрядної сітки */
-    CANTOR_ERR_INVALID_DIM   = -3  /* Некоректна розмірність кортежу (k == 0 або k > MAX_DIM) */
-} cantor_status_t;
-
-/* Двовимірна пара 32-бітних невід'ємних координат (ℕ₀ × ℕ₀) */
-typedef struct {
-    uint32_t x; /* Горизонтальна координата точки */
-    uint32_t y; /* Вертикальна координата точки (зсув всередині діагоналі) */
-} cantor_pair32_t;
-
-/* Двовимірна пара 64-бітних невід'ємних координат */
-typedef struct {
-    uint64_t x;
-    uint64_t y;
-} cantor_pair64_t;
-
-/* Двовимірна пара 32-бітних знакових цілих чисел для простору ℤ × ℤ */
-typedef struct {
-    int32_t x;  /* Знакова координата x */
-    int32_t y;  /* Знакова координата y */
-} cantor_signed_pair32_t;
-```
-```cpp
-#include <cstdint>
-#include <optional>
-#include <vector>
-#include <span>
-#include <concepts>
-#include <type_traits>
-
-namespace pairing {
-
-/* Поняття для перевірки цілочисельних беззнакових типів */
-template<typename T>
-concept UnsignedIntegral = std::is_unsigned_v<T> && std::integral<T>;
-
-/* Поняття для перевірки цілочисельних знакових типів */
-template<typename T>
-concept SignedIntegral = std::is_signed_v<T> && std::integral<T>;
-
-/* Строго типізована структура для 32-бітних координат */
-struct Pair32 {
-    uint32_t x{0};
-    uint32_t y{0};
-
-    constexpr bool operator==(const Pair32&) const noexcept = default;
-};
-
-/* Строго типізована структура для 64-бітних координат */
-struct Pair64 {
-    uint64_t x{0};
-    uint64_t y{0};
-
-    constexpr bool operator==(const Pair64&) const noexcept = default;
-};
-
-/* Структура для знакових координат у просторі ℤ × ℤ */
-struct SignedPair32 {
-    int32_t x{0};
-    int32_t y{0};
-
-    constexpr bool operator==(const SignedPair32&) const noexcept = default;
-};
-
-} // namespace pairing
-```
+:::code api-cantor-pairing/c/2-typy-danykh-struktury-ta.c
+:::code api-cantor-pairing/cpp/2-typy-danykh-struktury-ta.cpp
 :::
 
 ---
@@ -261,28 +188,7 @@ c_{k-1} = π(c_{k-2}, v[k-1])
 
 Для зручного використання індексів Кантора як комбінованих ключів у стандартних контейнерах `std::unordered_map` та `std::unordered_set` бібліотека надає готовий лавинний функтор хешування:
 
-```cpp
-namespace pairing {
-
-/* Спеціалізований функтор хешування пар координат */
-struct PairHash {
-    [[nodiscard]] size_t operator()(const Pair32& p) const noexcept {
-        auto code_opt = cantor_encode(p.x, p.y);
-        if (!code_opt) return 0;
-
-        /* Фіналізатор MurmurHash3 fmix64 для усунення діагональної кластеризації */
-        uint64_t k = *code_opt;
-        k ^= k >> 33;
-        k *= 0xff51afd7ed558ccdULL;
-        k ^= k >> 33;
-        k *= 0xc4ceb9fe1a85ec53ULL;
-        k ^= k >> 33;
-        return static_cast<size_t>(k);
-    }
-};
-
-} // namespace pairing
-```
+:::code api-cantor-pairing/cpp/6-intehratsiia-z.hpp
 
 Приклад оголошення хеш-таблиці для збереження ваг ребер графа:
 ```cpp
@@ -376,18 +282,7 @@ std::unordered_map<pairing::Pair32, double, pairing::PairHash> edge_weights;
 Для забезпечення інтеграції зі сторонніми екосистемами специфікація API визначає канонічні інтерфейси FFI:
 
 1. **Rust FFI (`extern "C"` блок):**
-   ```rust
-   #[repr(C)]
-   pub struct CantorPair32 {
-       pub x: u32,
-       pub y: u32,
-   }
-
-   extern "C" {
-       pub fn cantor_encode32(x: u32, y: u32, out_code: *mut u64) -> i32;
-       pub fn cantor_decode32(code: u64, out_pair: *mut CantorPair32) -> i32;
-   }
-   ```
+   :::code api-cantor-pairing/rust/main.rs
 
 2. **Python CFFI / ctypes:**
    ```python
@@ -421,24 +316,7 @@ std::unordered_map<pairing::Pair32, double, pairing::PairHash> edge_weights;
   @*/
 cantor_status_t cantor_encode32_verified(uint32_t x, uint32_t y, uint64_t *out_code);
 ```
-```cpp
-namespace pairing {
-
-/**
- * @brief Верифіковане C++ кодування пари координат.
- * @pre (uint64_t)x + (uint64_t)y <= 6074000999ULL
- * @post return.has_value() ==> cantor_decode(*return) == Pair32{x, y}
- */
-[[nodiscard]] constexpr std::optional<uint64_t> cantor_encode_verified(uint32_t x, uint32_t y) noexcept {
-    const uint64_t ux = x;
-    const uint64_t uy = y;
-    const uint64_t w = ux + uy;
-    if (w > 6074000999ULL) return std::nullopt;
-    return (w * (w + 1)) / 2 + uy;
-}
-
-} // namespace pairing
-```
+:::code api-cantor-pairing/cpp/13-formalna-deduktyvna.cpp
 :::
 
 Застосування плагіна WP (Weakest Precondition) інструмента Frama-C автоматично доводить повну відсутність ділення на нуль, розіменування нульових покажчиків та переповнення розрядної сітки.
@@ -503,57 +381,8 @@ namespace pairing {
 Нижче наведено зіставлення типових сценаріїв використання API для мов C99 та C++20: кодування та декодування ребер графів поряд із кешуванням предикатів переходів станів.
 
 :::tabs
-```c
-#include <stdio.h>
-#include "cantor_pairing.h"
-
-/* Сценарій C99: Серіалізація та валідація ребра орієнтованого графа */
-void process_graph_edge(uint32_t u, uint32_t v) {
-    uint64_t edge_key;
-    cantor_status_t status = cantor_encode32(u, v, &edge_key);
-
-    if (status == CANTOR_SUCCESS) {
-        printf("Ребро (%u -> %u) закодовано у ключ: %llu\n", u, v, (unsigned long long)edge_key);
-
-        /* Відновлення координат для верифікації */
-        cantor_pair32_t recovered;
-        if (cantor_decode32(edge_key, &recovered) == CANTOR_SUCCESS) {
-            printf("Відновлено ребро: (%u -> %u)\n", recovered.x, recovered.y);
-        }
-    } else if (status == CANTOR_ERR_OVERFLOW) {
-        fprintf(stderr, "Помилка: переповнення розрядності для вершин (%u, %u)\n", u, v);
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <unordered_map>
-#include "cantor_pairing.hpp"
-
-/* Сценарій C++20: Кешування предикатів переходів станів автомата */
-class StateTransitionCache {
-private:
-    std::unordered_map<uint64_t, bool> cache_;
-
-public:
-    bool query_transition(uint32_t state_a, uint32_t state_b) {
-        auto key_opt = pairing::cantor_encode(state_a, state_b);
-        if (!key_opt) {
-            return false; /* Захист від переповнення */
-        }
-
-        uint64_t key = *key_opt;
-        if (auto it = cache_.find(key); it != cache_.end()) {
-            return it->second;
-        }
-
-        /* Обчислюємо предикат переходу */
-        bool result = (state_a + state_b) % 7 == 0;
-        cache_[key] = result;
-        return result;
-    }
-};
-```
+:::code api-cantor-pairing/c/18-praktychni-stsenarii.c
+:::code api-cantor-pairing/cpp/18-praktychni-stsenarii.cpp
 :::
 
 ---

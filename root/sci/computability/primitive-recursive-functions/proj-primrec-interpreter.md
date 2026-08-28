@@ -15,22 +15,7 @@ data Expr
   | Comp Expr [Expr]   -- f( g₁, …, gₘ )
   | Rec  Expr Expr     -- база f, крок g
 ```
-```python
-from dataclasses import dataclass
-
-@dataclass
-class Zero: pass                       # Z(x⃗) = 0
-@dataclass
-class Succ: pass                       # S(x) = x + 1
-@dataclass
-class Proj: i: int                     # Pᵢⁿ: вертає i-й аргумент (від 1)
-@dataclass
-class Comp: f: "Expr"; gs: list        # f( g₁, …, gₘ )
-@dataclass
-class Rec:  base: "Expr"; step: "Expr" # база, крок
-
-Expr = Zero | Succ | Proj | Comp | Rec
-```
+:::code proj-primrec-interpreter/py/piat-konstruktoriv-i.py
 :::
 
 Кожен конструктор — це один рядок означення, застиглий у дані. `Zero` і `Succ` полів не мають: діяти їм нема з чим, вони самі є дією. `Proj i` носить лише номер потрібного аргументу. `Comp f gs` тримає функцію `f` і список рецептів `gs`, чиї відповіді підуть їй на вхід. `Rec base step` — два під-рецепти: що робити на нулі й як із попереднього значення дістати наступне. Один тонкий недогляд навмисний: у математиці проєкція `Pᵢⁿ` несе ще й арність `n`, а тут її немає. Обчислювачеві `n` не потрібна — він просто бере `i`-й елемент того, що йому подали; арність — справа окремої перевірки, що рецепт узгоджений, і на самі числа вона не впливає.
@@ -54,20 +39,7 @@ eval e@(Rec base st) xs
   where pre = init xs          -- сталі аргументи x⃗
         y   = last xs          -- лічильник рекурсії
 ```
-```python
-def ev(e, xs):
-    match e:
-        case Zero():       return 0
-        case Succ():       return xs[0] + 1
-        case Proj(i):      return xs[i - 1]
-        case Comp(f, gs):  return ev(f, [ev(g, xs) for g in gs])
-        case Rec(base, step):
-            *pre, y = xs                   # x⃗ і лічильник y
-            if y == 0:
-                return ev(base, pre)       # база: значення на нулі
-            prev = ev(e, pre + [y - 1])    # спускаємося на сходинку нижче
-            return ev(step, pre + [y - 1, prev])
-```
+:::code proj-primrec-interpreter/py/odyn-obchysliuvach-na-vsi.py
 :::
 
 Чотири перші гілки прозорі: нуль вертає нуль, наступник додає одиницю, проєкція вихоплює свій аргумент, композиція спершу рахує всі під-рецепти на тих самих `xs`, а тоді подає їхні відповіді у `f`. Уся сіль — в останній гілці, у `Rec`. Прочитаймо її повільно. Якщо лічильник `y` дорівнює нулю, вертаємо базу від сталих аргументів — драбина скінчилася, відповідь дано прямо. Інакше спускаємося на сходинку: рахуємо те саме дерево `e` на `y-1` (це `prev`, попереднє значення), а тоді згодовуємо кроковій функції три речі — сталі `x⃗`, поточний лічильник `y-1` і `prev`.
@@ -160,25 +132,7 @@ compile (Rec base st) =
   in \xs -> let pre = init xs; y = last xs
             in foldl' (\acc k -> cs (pre ++ [k, acc])) (cb pre) [0 .. y - 1]
 ```
-```python
-def compile(e):
-    match e:
-        case Zero():      return lambda xs: 0
-        case Succ():      return lambda xs: xs[0] + 1
-        case Proj(i):     return lambda xs, i=i: xs[i - 1]
-        case Comp(f, gs):
-            cf, cg = compile(f), [compile(g) for g in gs]
-            return lambda xs: cf([c(xs) for c in cg])
-        case Rec(base, step):
-            cb, cs = compile(base), compile(step)
-            def run(xs):
-                *pre, y = xs
-                acc = cb(pre)
-                for k in range(y):                 # межа y відома до входу в цикл
-                    acc = cs(pre + [k, acc])
-                return acc
-            return run
-```
+:::code proj-primrec-interpreter/py/liky-pershi-skompiliuvaty.py
 :::
 
 Що це змінило. По-перше, рекурсії по `y` більше немає: `Rec` став циклом зі сталою пам'яттю, стек не переповнюється — `exp(2,20)` тепер **рахується**, а не падає. По-друге — і це головне для нашої теми — межа кожного циклу, `y`, відома **до** входу в нього. Жодного `while`, чия умова могла б не настати ніколи: сам вид скомпільованого коду є доведенням, що він спиниться. Це і є та межа між `for` і `while`, об яку впирається весь клас: обчислити рівно примітивно-рекурсивні функції вміє машина з єдиною циклічною конструкцією «повтори наперед відому кількість разів», а щоб дістати решту обчислюваного, треба долити необмежений пошук — і разом з ним ризик зациклитися. Клас, що виходить із таким доливанням, — це [загальнорекурсивні функції](root:computability/general-recursive-functions), де `while` уже дозволено, а гарантія зупинки — втрачено.
@@ -189,26 +143,7 @@ def compile(e):
 
 Звідки той квадрат? Наївний обхід раз по раз рахує **те саме**. Складаючи `mul(2,k)`, обчислювач кличе `add(2,0)`, `add(2,2)`, `add(2,4)`, … — і кожне `add(2,v)` наново відбудовує весь свій ланцюг від `v` до нуля, хоч нижчі ланки цього ланцюга щойно рахувалися для меншого `v`. Ті самі пари «рецепт + аргументи» перемелюються знову й знову. Напрошується кеш: обчислив `(рецепт, аргументи)` — запам'ятай.
 
-```python
-def ev_memo(e, xs, cache):
-    key = (id(e), tuple(xs))
-    if key in cache:
-        return cache[key]                         # уже рахували — віддаємо готове
-    match e:
-        case Zero():      r = 0
-        case Succ():      r = xs[0] + 1
-        case Proj(i):     r = xs[i - 1]
-        case Comp(f, gs): r = ev_memo(f, [ev_memo(g, xs, cache) for g in gs], cache)
-        case Rec(base, step):
-            *pre, y = xs
-            if y == 0:
-                r = ev_memo(base, pre, cache)
-            else:
-                prev = ev_memo(e, pre + [y - 1], cache)
-                r = ev_memo(step, pre + [y - 1, prev], cache)
-    cache[key] = r
-    return r
-```
+:::code proj-primrec-interpreter/py/liky-druhi-kesh-proty.py
 
 Ефект вимірний і величезний — квадрат згортається до лінії:
 

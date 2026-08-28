@@ -43,38 +43,8 @@
 Задає налаштування ресурсомісткості та поведінки двигуна при створенні контексту.
 
 :::tabs
-```c
-typedef enum {
-    DEDUP_HASHSET,   // Дедуплікація через хеш-таблицю O(1)
-    DEDUP_BLOOM,     // Ймовірнісна дедуплікація через фільтр Блума
-    DEDUP_ARRAY      // Лінійний пошук O(N) у масиві (для малих систем)
-} DedupPolicy;
-
-typedef struct DovetailConfig {
-    size_t initial_task_capacity; // Початкова ємність масиву задач (за замовчуванням 64)
-    size_t initial_result_capacity; // Початкова ємність результатів (за замовчуванням 256)
-    size_t memory_limit_bytes;   // Жорсткий ліміт пам'яті в байтах (0 = без обмежень)
-    uint64_t max_diagonals;       // Гранична кількість діагоналей (0 = нескінченно)
-    DedupPolicy dedup_policy;     // Політика перевірки унікальності
-    bool enable_profiling;        // Прапорець збору метрик часу та промахів кешу
-} DovetailConfig;
-```
-```cpp
-enum class DedupPolicy : uint8_t {
-    HashSet, // Дедуплікація через std::unordered_set O(1)
-    Bloom,   // Ймовірнісна дедуплікація через фільтр Блума
-    Array    // Лінійний пошук O(N) у масиві (для малих систем)
-};
-
-struct DovetailConfig {
-    std::size_t initial_task_capacity{64};
-    std::size_t initial_result_capacity{256};
-    std::size_t memory_limit_bytes{0}; // 0 = без обмежень
-    std::uint64_t max_diagonals{0};      // 0 = нескінченно
-    DedupPolicy dedup_policy{DedupPolicy::HashSet};
-    bool enable_profiling{false};
-};
-```
+:::code api-enumerator-interface/c/2-2-struktura.c
+:::code api-enumerator-interface/cpp/2-2-struktura.cpp
 :::
 
 #### Деталізація полів та семантика конфігурації:
@@ -239,18 +209,7 @@ engine.step_diagonal();
 Запускає ітеративний цикл перебору до виконання заданої умови зупинки або досягнення ліміту діагоналей.
 
 :::tabs
-```c
-typedef bool (*StopPredicateFunc)(
-    const StepMetrics *metrics,
-    void *user_data
-);
-
-EnumeratorStatus enumerator_run_until(
-    EnumeratorHandle *handle,
-    StopPredicateFunc stop_pred,
-    void *user_data
-);
-```
+:::code api-enumerator-interface/c/enumerator-run-until.h
 ```cpp
 engine.run_until([](const StepMetrics& m) {
     return m.unique_results_found >= 100;
@@ -289,22 +248,7 @@ std::span<const int32_t> results = engine.results();
 Двигун дозволяє підключати спостерігачі (англ. *event listeners*) для обробки подій у реальному часі без необхідності періодичного опитування (polling).
 
 :::tabs
-```c
-// Подія виявлення нового унікального елемента RE-множини
-typedef void (*OnElementFoundCb)(
-    uint32_t task_id,
-    int32_t element_value,
-    uint64_t step_found,
-    void *user_data
-);
-
-// Реєстрація обробника події виявлення елемента
-EnumeratorStatus enumerator_set_element_callback(
-    EnumeratorHandle *handle,
-    OnElementFoundCb callback,
-    void *user_data
-);
-```
+:::code api-enumerator-interface/c/4-kontrakt-kolbekiv.h
 ```cpp
 engine.set_element_callback([](uint32_t task_id, int32_t val, uint64_t step) {
     std::cout << "Знайдено: " << val << " на кроці " << step << "\n";
@@ -322,59 +266,7 @@ engine.set_element_callback([](uint32_t task_id, int32_t val, uint64_t step) {
 
 Для мови C++20 надається header-only обгортка, яка приховує роботу з сирими вказівниками й реалізує безпечний RAII-інтерфейс:
 
-```cpp
-namespace cpp {
-
-class DovetailEngine {
-private:
-    EnumeratorHandle* handle_{nullptr};
-
-public:
-    explicit DovetailEngine(const DovetailConfig& config = {}) {
-        if (enumerator_create(&config, &handle_) != ENUM_OK) {
-            throw std::bad_alloc();
-        }
-    }
-
-    ~DovetailEngine() {
-        if (handle_) {
-            enumerator_destroy(handle_);
-        }
-    }
-
-    // Заборона копіювання (RAII семантика)
-    DovetailEngine(const DovetailEngine&) = delete;
-    DovetailEngine& operator=(const DovetailEngine&) = delete;
-
-    // Дозвіл переміщення
-    DovetailEngine(DovetailEngine&& other) noexcept : handle_(other.handle_) {
-        other.handle_ = nullptr;
-    }
-
-    void register_task(TaskStepFunc step_fn, void* ctx) {
-        uint32_t id = 0;
-        auto status = enumerator_register_task(handle_, step_fn, ctx, &id);
-        if (status != ENUM_OK) {
-            throw std::runtime_error("Task registration failed");
-        }
-    }
-
-    void step_diagonal() {
-        if (enumerator_step_diagonal(handle_, nullptr) != ENUM_OK) {
-            throw std::runtime_error("Diagonal step execution failed");
-        }
-    }
-
-    [[nodiscard]] std::span<const int32_t> results() const {
-        const int32_t* arr = nullptr;
-        size_t count = 0;
-        enumerator_get_results(handle_, &arr, &count);
-        return {arr, count};
-    }
-};
-
-} // namespace cpp
-```
+:::code api-enumerator-interface/cpp/5-obhortka-dlia-c-20-cpp.cpp
 
 ---
 
@@ -394,19 +286,7 @@ public:
 У реальних обчислювально містких задачах перебір може тривати годинами або днями. Для забезпечення стійкості до збоїв (Fault Tolerance) двигун надає функціонал збереження й відновлення контрольних точок (контрольних зрізів станів) на диск.
 
 :::tabs
-```c
-// Серіалізація поточного стану двигуна у файл
-EnumeratorStatus enumerator_serialize_state(
-    const EnumeratorHandle *handle,
-    const char *file_path
-);
-
-// Відновлення стану двигуна з файлу контрольної точки
-EnumeratorStatus enumerator_deserialize_state(
-    const char *file_path,
-    EnumeratorHandle **out_handle
-);
-```
+:::code api-enumerator-interface/c/7-serializatsiia-ta.h
 ```cpp
 engine.serialize_state("checkpoint.bin");
 auto restored_engine = DovetailEngine::deserialize_state("checkpoint.bin");

@@ -10,19 +10,7 @@
 
 Задача про **суму підмножини** (англ. *subset sum*) формулюється по-дитячому просто: дано список чисел і ціль; чи є серед чисел така підмножина, що дає в сумі рівно ціль? Свідок тут очевидний — самі обрані числа. І перевірити такий свідок можна за один-єдиний прохід:
 
-```python
-from collections import Counter
-
-def verify_subset_sum(numbers, target, cert):
-    """Свідок cert — обрана підмножина. True, якщо (1) усе взяте справді
-    є серед numbers у потрібній кількості і (2) сума дорівнює цілі."""
-    pool = Counter(numbers)          # скільки разів кожне число доступне
-    for x in cert:
-        if pool[x] <= 0:
-            return False             # свідок бере число, якого вже (чи взагалі) нема
-        pool[x] -= 1                 # витратили одну «копію»
-    return sum(cert) == target
-```
+:::code proj-verify-reduce/py/suma-pidmnozhyny.py
 
 Придивімося, чому тут два окремі рядки перевірки, а не один. Спокуса написати просто `return sum(cert) == target` велика — і хибна. Тоді свідок `[9]` для набору `{3, 4, 5}` пройшов би: сума дев'ять, ціль дев'ять, «так». Але дев'ятки в наборі немає — свідок збрехав, підсунувши число зі стелі. Тому перевіряч мусить пересвідчитися, що **кожне** число свідка справді лежить серед даних, і то лежить у достатній кількості: якщо в наборі одна трійка, свідок `[3, 3]` брати двох трійок не має права. Саме для цього — `Counter`: він тримає рахунок копій, і друга трійка натрапить на вичерпаний запас.
 
@@ -52,40 +40,8 @@ True
 Той самий перебір однаково прямий і в мові-скрипті, і в системній мові; різниця лише в тому, як швидко машина домеле ті 2ⁿ масок:
 
 :::tabs
-```python
-def find_subset_sum(numbers, target):
-    n = len(numbers)
-    for mask in range(1 << n):                 # усі 2ⁿ підмножин
-        s = 0
-        for i in range(n):
-            if mask & (1 << i):
-                s += numbers[i]
-        if s == target:
-            return [numbers[i] for i in range(n) if mask & (1 << i)]
-    return None                                # жодна підмножина не підійшла
-```
-```cpp
-#include <cstdint>
-#include <optional>
-#include <vector>
-
-std::optional<std::vector<long long>>
-find_subset_sum(const std::vector<long long>& a, long long target) {
-    int n = (int)a.size();
-    for (uint64_t mask = 0; mask < (uint64_t(1) << n); ++mask) {   // усі 2ⁿ підмножин
-        long long s = 0;
-        for (int i = 0; i < n; ++i)
-            if (mask & (uint64_t(1) << i)) s += a[i];
-        if (s == target) {
-            std::vector<long long> pick;
-            for (int i = 0; i < n; ++i)
-                if (mask & (uint64_t(1) << i)) pick.push_back(a[i]);
-            return pick;
-        }
-    }
-    return std::nullopt;                        // жодна підмножина не підійшла
-}
-```
+:::code proj-verify-reduce/py/toi-samyi-pryklad-chesnyi.py
+:::code proj-verify-reduce/cpp/main.cpp
 :::
 
 На дрібному наборі перебір відповідає вмить:
@@ -124,35 +80,11 @@ print(find_subset_sum([3, 34, 4, 12, 5, 2], 11))   # -> [4, 5, 2]
 
 Свідок — сам набір вершин. Перевірити його знову дешево: пройтися по **всіх ребрах** і впевнитися, що жодне ребро не з'єднує двох обраних, та що набір досить великий:
 
-```python
-def verify_independent(n, edges, cert, k):
-    """True, якщо cert — незалежна множина розміру щонайменше k."""
-    S = set(cert)
-    if len(S) != len(cert) or any(v < 0 or v >= n for v in S):
-        return False                      # дублікати чи неіснуючі вершини
-    if len(S) < k:
-        return False                      # замала
-    for (u, v) in edges:
-        if u in S and v in S:
-            return False                  # обидва кінці ребра обрано — не незалежна
-    return True
-```
+:::code proj-verify-reduce/py/naibilsha-nezalezhna.py
 
 Це один прохід по ребрах, `O(ребер)` — знову лінійно від входу, знову без тіні перебору. А пошук найбільшої незалежної множини йде тим самим приреченим шляхом, що й сума підмножини: перебрати всі 2ⁿ підмножин вершин, для кожної перевірити незалежність, запам'ятати найбільшу вдалу:
 
-```python
-def max_independent(n, edges):
-    adj = [set() for _ in range(n)]
-    for (u, v) in edges:
-        adj[u].add(v); adj[v].add(u)
-    best = []
-    for mask in range(1 << n):                       # усі 2ⁿ підмножин вершин
-        S = [i for i in range(n) if mask & (1 << i)]
-        ok = all(v not in adj[u] for a, u in enumerate(S) for v in S[a + 1:])
-        if ok and len(S) > len(best):
-            best = S
-    return best
-```
+:::code proj-verify-reduce/py/naibilsha-nezalezhna-2.py
 
 Виміри — той самий портрет, лише крива експоненти трохи крутіша, бо перевірка незалежності всередині кожної маски й сама коштує:
 

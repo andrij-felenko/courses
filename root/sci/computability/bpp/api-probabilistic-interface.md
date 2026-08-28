@@ -9,43 +9,8 @@
 Кожен BPP-модуль приймає конфігураційну структуру `bpp_config_t`, яка задає граничну ймовірність помилки або фіксовану кількість випробувань, а також покажчик на контекст генератора випадкових чисел.
 
 :::tabs
-```c
-/* c */
-typedef enum {
-    BPP_MODE_FIXED_ROUNDS = 0, /* Фіксоване число раундів k */
-    BPP_MODE_TARGET_ERROR  = 1  /* Автоматична ампліфікація до заданої хиби epsilon */
-} bpp_amplification_mode_t;
-
-typedef struct {
-    bpp_amplification_mode_t mode;
-    uint32_t                 rounds_k;      /* Кількість повторень (при BPP_MODE_FIXED_ROUNDS) */
-    double                   max_error_eps; /* Максимальна допустима хиба (наприклад, 1e-12) */
-    void*                    rng_context;   /* Контекст генератора випадкових чисел */
-    uint64_t (*rng_next_u64)(void* ctx);    /* Функція вибірки 64 випадкових бітів */
-} bpp_config_t;
-```
-```cpp
-// cpp
-#include <cstdint>
-#include <functional>
-
-namespace bpp {
-
-enum class AmplificationMode : std::uint8_t {
-    FixedRounds = 0, // Фіксоване число раундів k
-    TargetError = 1  // Автоматична ампліфікація до заданої хиби epsilon
-};
-
-struct BppConfig {
-    AmplificationMode mode{AmplificationMode::FixedRounds};
-    std::uint32_t     rounds_k{30};         // Кількість повторень
-    double            max_error_eps{1e-9};  // Максимальна допустима хиба (наприклад, 1e-12)
-    void*             rng_context{nullptr}; // Контекст генератора випадкових чисел
-    std::function<std::uint64_t(void*)> rng_next_u64{}; // Функція вибірки 64 випадкових бітів
-};
-
-} // namespace bpp
-```
+:::code api-probabilistic-interface/c/1-kontrakt-nalashtuvannia.c
+:::code api-probabilistic-interface/cpp/1-kontrakt-nalashtuvannia.cpp
 :::
 
 Структура `bpp_config_t` (або `bpp::BppConfig` у C++) відіграє роль основного контракту між викликаючим кодом та ймовірнісним обчислювачем. Вибір між двома режимами ампліфікації `BPP_MODE_FIXED_ROUNDS` та `BPP_MODE_TARGET_ERROR` визначає обчислювальний бюджет процедури. У режимі фіксованих раундів розробник явно обмежує час виконання, погоджуючись із отриманим рівнем помилки. У режимі цільової помилки бібліотека самостійно розраховує необхідне число запусків `k` за допомогою межі Чернова, виходячи з початкового зазору алгоритму `ε` та бажаного рівня хиби `max_error_eps`.
@@ -65,51 +30,8 @@ struct BppConfig {
 Оскільки BPP-алгоритми працюють із двостороннім ризиком помилки, результат обчислення повертається разом із оцінкою досягнутого рівня надійності та детальною статистикою виконання.
 
 :::tabs
-```c
-/* c */
-typedef enum {
-    BPP_SUCCESS_ACCEPT     =  1, /* Слово належить мові (прийнято з гарантією 1 - eps) */
-    BPP_SUCCESS_REJECT     =  0, /* Слово не належить мові (відхилено з гарантією 1 - eps) */
-    BPP_ERROR_INVALID_PARAM = -1, /* Некоректні параметри (наприклад, eps >= 0.5) */
-    BPP_ERROR_ENTROPY_FAIL = -2, /* Збій джерела випадкових чисел (виснаження ентропії) */
-    BPP_ERROR_TIMEOUT      = -3  /* Перевищено часовий ліміт повторень */
-} bpp_status_t;
-
-typedef struct {
-    uint32_t total_rounds_executed; /* Загальна кількість виконаних раундів k */
-    uint32_t accept_votes;          /* Кількість раундів, що повернули 1 */
-    uint32_t reject_votes;          /* Кількість раундів, що повернули 0 */
-    double   estimated_error_bound; /* Обчислена верхня межа помилки за межею Чернова */
-    uint64_t entropy_bytes_used;    /* Сумарний обсяг зчитаних випадкових байтів */
-    uint64_t execution_time_us;     /* Час виконання у мікросекундах */
-} bpp_execution_stats_t;
-```
-```cpp
-// cpp
-#include <cstdint>
-#include <chrono>
-
-namespace bpp {
-
-enum class Status : int32_t {
-    SuccessAccept    =  1, // Слово належить мові (прийнято)
-    SuccessReject    =  0, // Слово не належить мові (відхилено)
-    ErrorInvalidParam = -1, // Некоректні параметри (eps >= 0.5)
-    ErrorEntropyFail  = -2, // Збій джерела випадкових чисел
-    ErrorTimeout      = -3  // Перевищено часовий ліміт
-};
-
-struct ExecutionStats {
-    std::uint32_t total_rounds_executed{0}; // Загальна кількість раундів k
-    std::uint32_t accept_votes{0};          // Кількість раундів з відповіддю 1
-    std::uint32_t reject_votes{0};          // Кількість раундів з відповіддю 0
-    double        estimated_error_bound{1.0}; // Межа помилки Чернова
-    std::uint64_t entropy_bytes_used{0};    // Обсяг використаної ентропії
-    std::chrono::microseconds execution_time{0}; // Час виконання
-};
-
-} // namespace bpp
-```
+:::code api-probabilistic-interface/c/2-kody-vidpovidei-ta.c
+:::code api-probabilistic-interface/cpp/2-kody-vidpovidei-ta.cpp
 :::
 
 Аналіз структури `bpp_execution_stats_t` дозволяє розробнику проводити моніторинг обчислювального процесу в реальному часі. Поля `accept_votes` та `reject_votes` відображають розподіл голосів за результатами `k` випробувань. Якщо співвідношення голосів близьке до 50/50, це свідчить про те, що алгоритм працює поблизу межі порогового зазору відокремлення, або що джерело випадковості має зміщення.
@@ -121,45 +43,8 @@ struct ExecutionStats {
 Системний контракт розробки BPP-обчислювачів передбачає чотири ключові процедури життєвого циклу:
 
 :::tabs
-```c
-/* c */
-bpp_status_t bpp_init(bpp_config_t* config);
-
-bpp_status_t bpp_execute(const bpp_config_t* config, 
-                         const uint8_t* data, 
-                         size_t len, 
-                         bpp_execution_stats_t* stats);
-
-uint32_t bpp_calculate_required_rounds(double max_eps, double delta_gap);
-
-void bpp_cleanup(bpp_config_t* config);
-```
-```cpp
-// cpp
-#include <span>
-#include <expected>
-
-namespace bpp {
-
-class BppEngine {
-public:
-    explicit BppEngine(BppConfig config);
-    ~BppEngine();
-
-    [[nodiscard]] std::expected<Status, Status> execute(
-        std::span<const std::uint8_t> data, 
-        ExecutionStats& stats) const noexcept;
-
-    [[nodiscard]] static std::uint32_t calculate_required_rounds(
-        double max_eps, 
-        double delta_gap) noexcept;
-
-private:
-    BppConfig config_;
-};
-
-} // namespace bpp
-```
+:::code api-probabilistic-interface/c/3-funktsionalnyi-api.h
+:::code api-probabilistic-interface/cpp/3-funktsionalnyi-api.hpp
 :::
 
 Функція `bpp_init` (або конструктор `bpp::BppEngine`) виконує первинну перевірку конфігурації. Вона перевіряє коректність параметрів, тестує доступність джерела випадковості через пробний виклик `rng_next_u64` та виділяє необхідні внутрішні буфери. Якщо покажчик на конфігурацію є довільним або параметри виходять за допустимі межі, функція повертає `BPP_ERROR_INVALID_PARAM`.

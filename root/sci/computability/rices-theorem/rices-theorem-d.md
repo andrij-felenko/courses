@@ -30,38 +30,8 @@
 Розглянемо дві функції:
 
 :::tabs
-```c
-// Варіант A: пряме додавання
-int compute_a(int x) {
-    return x + x;
-}
-
-// Варіант B: цикл з акумулятором
-int compute_b(int x) {
-    int sum = 0;
-    for (int i = 0; i < x; ++i) {
-        sum += 2;
-    }
-    return sum;
-}
-```
-```cpp
-#include <concepts>
-
-// Варіант A: пряме додавання
-constexpr int compute_a(int x) noexcept {
-    return x + x;
-}
-
-// Варіант B: цикл з акумулятором
-constexpr int compute_b(int x) noexcept {
-    int sum = 0;
-    for (int i = 0; i < x; ++i) {
-        sum += 2;
-    }
-    return sum;
-}
-```
+:::code rices-theorem-d/c/main.c
+:::code rices-theorem-d/cpp/main.cpp
 :::
 
 Синтаксично ці дві функції абсолютно різні: у `compute_a` немає циклів і всього один рядок, тоді як `compute_b` містить локальну змінну та цикл `for`. Проте семантично для невід'ємних чисел вони задають **одну й ту саму часткову функцію** `f(x) = 2·x`.

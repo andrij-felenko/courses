@@ -10,39 +10,7 @@
 
 Почнімо, однак, саме з перебору: він короткий, очевидно правильний і стане нам за еталон, з яким ми звірятимемо розумніший лічильник. Домовимося про подання. Літерал — ціле число: додатне v означає «xᵥ істинна», від'ємне −v означає «¬xᵥ». Клауза — вектор літералів, формула — вектор клауз.
 
-```cpp
-#include <vector>
-#include <string>
-#include <unordered_map>
-#include <algorithm>
-#include <cstdint>
-#include <cstdio>
-using std::vector;
-
-using Lit    = int;                  // v>0 → xᵥ істинна;  v<0 → ¬x|v|
-using Clause = vector<Lit>;          // диз'юнкція літералів
-using CNF    = vector<Clause>;       // кон'юнкція клауз
-using Count  = unsigned long long;   // лічильник моделей (вміщає до 2⁶³)
-
-inline int var(Lit L)       { return L > 0 ? L : -L; }               // номер змінної літерала
-inline int bits(uint64_t m) { int k = 0; for (; m; m &= m - 1) ++k; return k; }  // популяція одиниць
-
-// Еталон: прямий перебір усіх 2ⁿ наборів. Лише для звірки на малих n.
-Count bruteForce(const CNF& F, int n) {
-    Count models = 0;
-    for (uint64_t a = 0; a < (1ULL << n); ++a) {       // a — набір: біт (v-1) = значення xᵥ
-        bool ok = true;
-        for (const Clause& c : F) {
-            bool sat = false;
-            for (Lit L : c)
-                if (((a >> (var(L) - 1)) & 1) == (Count)(L > 0)) { sat = true; break; }
-            if (!sat) { ok = false; break; }
-        }
-        models += ok;
-    }
-    return models;
-}
-```
+:::code proj-sharp-sat-counter/cpp/zadacha-i-chomu-naivnyi.cpp
 
 Цей код — визначення #SAT, записане буквально: пробіжись по всіх наборах, для кожного перевір усі клаузи, полічи задоволені. Він правильний за побудовою, але живе тільки до n ≈ 25. Тепер — як не перебирати все.
 
@@ -63,28 +31,7 @@ Count bruteForce(const CNF& F, int n) {
 
 Щоб спрощення не писати двічі, винесемо його в окрему функцію: присвоїти літералові значення «істина» й повернути нову, зменшену формулу, а спорожнілу клаузу відзначити як конфлікт.
 
-```cpp
-// Присвоїти літералові L значення «істина» й спростити формулу:
-//   клаузу з L викидаємо (задоволена); з решти прибираємо ¬L (хибний літерал).
-// Порожня клауза → конфлікт (через out-параметр).
-CNF assign(const CNF& F, Lit L, bool& conflict) {
-    CNF out;
-    out.reserve(F.size());
-    for (const Clause& c : F) {
-        bool satisfied = false;
-        Clause reduced;
-        for (Lit m : c) {
-            if (m ==  L) { satisfied = true; break; }   // істинний літерал → клауза знята
-            if (m == -L) continue;                       // хибний літерал → викинути
-            reduced.push_back(m);
-        }
-        if (satisfied) continue;
-        if (reduced.empty()) { conflict = true; return out; }   // порожня клауза → суперечність
-        out.push_back(std::move(reduced));
-    }
-    return out;
-}
-```
+:::code proj-sharp-sat-counter/cpp/ideia-rozhaluzytys-za.cpp
 
 ## Одиничні диз'юнкти: форсовані ходи
 
@@ -92,34 +39,7 @@ CNF assign(const CNF& F, Lit L, bool& conflict) {
 
 Тепер зберемо лічильник. Він приймає формулу, повне число змінних n і лічильник уже зафіксованих змінних `assigned`; повертає число моделей.
 
-```cpp
-// Точний лічильник: розгалуження за змінною + додавання гілок, з поширенням
-// одиничних диз'юнктів. assigned — скільки змінних уже зафіксовано.
-Count countDPLL(CNF F, int n, int assigned) {
-    for (bool changed = true; changed; ) {             // 1. поширення одиничних диз'юнктів
-        changed = false;
-        for (const Clause& c : F)
-            if (c.size() == 1) {                       // клауза з одного літерала форсує його
-                bool conflict = false;
-                F = assign(F, c[0], conflict);
-                ++assigned;                            // ця змінна тепер зафіксована
-                if (conflict) return 0;                // суперечність → 0 моделей у цій гілці
-                changed = true;
-                break;                                 // F змінилась — переглянути заново
-            }
-    }
-    if (F.empty())                                     // 2. база: клауз нема — решта змінних вільні
-        return (Count)1 << (n - assigned);             //    2^(вільні),   n - assigned < 64
-
-    int v = var(F[0][0]);                              // 3. розвилка за першою-ліпшою змінною
-    bool cf1 = false, cf0 = false;
-    CNF F1 = assign(F,  v, cf1);                        //    xᵥ = 1
-    CNF F0 = assign(F, -v, cf0);                        //    xᵥ = 0
-    Count s1 = cf1 ? 0 : countDPLL(std::move(F1), n, assigned + 1);
-    Count s0 = cf0 ? 0 : countDPLL(std::move(F0), n, assigned + 1);
-    return s1 + s0;                                     //    СКЛАДАЄМО обидві гілки
-}
-```
+:::code proj-sharp-sat-counter/cpp/odynychni-dyziunkty.cpp
 
 Три частини читаються прямо як задум: спершу вичерпуємо форсовані ходи, потім перевіряємо межі (клауз немає → вільні змінні дають 2^(вільні); суперечність спіймана раніше поверненням 0), і лише тоді розгалужуємось, додаючи результати обох половин. Це і є перетворення «розв'язати» на «розгалузитись і скласти»: той самий кістяк, що в SAT-розв'язувачі, тільки замість «знайшли модель — стоп» ми **сумуємо** внески всіх гілок.
 
@@ -152,79 +72,7 @@ int main() {
 
 Щоб усе це поєдналось із вільними змінними без плутанини, змінимо погляд на облік. Зробимо ядро `core(F)`, яке рахує моделі **рівно над тими змінними, що з'являються у F** — не більше й не менше. Тоді добуток компонент коректний: кожна компонента знає лише свої змінні, а вільні (ті, кого немає в жодній клаузі) множаться окремим 2^(вільні) на самому верху. І головне: значення `core(F)` залежить **тільки** від F — тож його можна безпечно класти в кеш за ключем самої формули.
 
-```cpp
-uint64_t varsMask(const CNF& F) {                  // маска змінних, що з'являються у F
-    uint64_t m = 0;
-    for (const Clause& c : F) for (Lit L : c) m |= 1ULL << (var(L) - 1);
-    return m;
-}
-
-struct DSU {                                       // об'єднання-пошук: змінні однієї компоненти
-    vector<int> p;
-    DSU(int n) : p(n) { for (int i = 0; i < n; ++i) p[i] = i; }
-    int find(int x) { return p[x] == x ? x : p[x] = find(p[x]); }
-    void unite(int a, int b) { p[find(a)] = find(b); }
-};
-
-// Розкласти формулу на незалежні компоненти (клаузи без спільних змінних).
-vector<CNF> decompose(const CNF& F, int n) {
-    DSU dsu(n);
-    for (const Clause& c : F)
-        for (size_t i = 1; i < c.size(); ++i)
-            dsu.unite(var(c[0]) - 1, var(c[i]) - 1);   // усі змінні клаузи — в один клас
-    std::unordered_map<int, CNF> groups;
-    for (const Clause& c : F)
-        groups[dsu.find(var(c[0]) - 1)].push_back(c);  // клауза йде до кореня свого класу
-    vector<CNF> out;
-    for (auto& kv : groups) out.push_back(std::move(kv.second));
-    return out;
-}
-
-// Канонічний ключ компоненти: відсортовані літерали в клаузах, відсортовані клаузи.
-std::string key(CNF F) {
-    for (Clause& c : F) std::sort(c.begin(), c.end());
-    std::sort(F.begin(), F.end());
-    std::string s;
-    for (const Clause& c : F) { for (Lit L : c) { s += std::to_string(L); s += ','; } s += ';'; }
-    return s;
-}
-
-// core(F): число моделей НАД РІВНО тими змінними, що з'являються у F.
-// Залежить лише від F → безпечно кешується за key(F).
-Count core(const CNF& F, int n, std::unordered_map<std::string, Count>& cache) {
-    if (F.empty()) return 1;                        // жодної змінної → одна порожня модель
-    std::string k = key(F);
-    auto it = cache.find(k);
-    if (it != cache.end()) return it->second;       // готове число — без нового піддерева
-
-    uint64_t Vin = varsMask(F);
-    vector<CNF> comps = decompose(F, n);
-    Count result;
-    if (comps.size() > 1) {                         // незалежні компоненти → числа МНОЖАТЬСЯ
-        result = 1;
-        for (const CNF& Fi : comps) result *= core(Fi, n, cache);
-    } else {                                        // одна компонента → розгалуження + додавання
-        int v = var(F[0][0]);
-        bool cf1 = false, cf0 = false;
-        CNF F1 = assign(F,  v, cf1);
-        CNF F0 = assign(F, -v, cf0);
-        uint64_t drop1 = Vin & ~varsMask(F1) & ~(1ULL << (v - 1));  // змінні, що випали в гілці
-        uint64_t drop0 = Vin & ~varsMask(F0) & ~(1ULL << (v - 1));
-        Count s1 = cf1 ? 0 : core(F1, n, cache) << bits(drop1);     // × 2^(вільні в гілці)
-        Count s0 = cf0 ? 0 : core(F0, n, cache) << bits(drop0);
-        result = s1 + s0;
-    }
-    cache[k] = result;
-    return result;
-}
-
-// Повний лічильник: core над змінними-учасницями × 2^(змінні поза всіма клаузами).
-Count countModels(const CNF& F, int n) {
-    std::unordered_map<std::string, Count> cache;
-    int freeTop = n - bits(varsMask(F));            // змінні, яких нема в жодній клаузі
-    return core(F, n, cache) << freeTop;            // × 2^(вільні верхнього рівня)
-}
-```
+:::code proj-sharp-sat-counter/cpp/nezalezhni-komponenty-i.cpp
 
 Тут проступає та сама відмінність, що й у теорії: незалежні компоненти **множаться** (добуток `result *= core(Fi, …)`), а гілки однієї змінної **додаються** (`s1 + s0`). Множник `2^(вільні)` тепер з'являється лише там, де змінна справді випадає з розгляду: у гілці, де присвоєння звільнило змінну (`drop1`, `drop0`), і на верху, де є змінні поза всіма клаузами (`freeTop`). Додавши третій рядок `countModels(F, n)` у `main`, дістанемо ту саму **8** — і на формулі з двох незалежних компонент `(x₁∨x₂)·(¬x₁∨¬x₂)·(x₃∨x₄)` кеш-лічильник поверне 2 × 3 = 6, розібравши її на дві половинки замість одного дерева на чотири змінні.
 

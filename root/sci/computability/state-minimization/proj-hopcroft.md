@@ -10,23 +10,7 @@
 
 Візьмімо наскрізним прикладом п'ятистановий автомат над {a, b}, що приймає рядки, де **«a» трапляється щонайменше двічі**. Стани, названі 1…5, стають індексами 0…4:
 
-```python
-# приймальний стан — 5;  таблиця переходів:
-#   стан │  a    b        індекс │  a    b
-#    1   │  3    2           0   │  2    1
-#    2   │  4    1           1   │  3    0
-#    3   │  5    3           2   │  4    2
-#    4   │  5    4           3   │  4    3
-#    5   │  5    5           4   │  4    4
-SIGMA  = ("a", "b")
-DELTA  = [[2, 1],
-          [3, 0],
-          [4, 2],
-          [4, 3],
-          [4, 4]]
-ACCEPT = {4}
-START  = 0
-```
+:::code proj-hopcroft/py/shcho-na-vkhodi-shcho-na.py
 
 На виході має бути автомат **тієї самої форми** — таблиця, множина приймальних, початковий стан, — просто менший. Це важливо тримати в голові: мінімізація, що повертає лише розбиття станів на класи, роботу не доробила. Увесь шлях — три кроки: викинути недосяжне → знайти класи → зібрати з класів таблицю.
 
@@ -34,25 +18,7 @@ START  = 0
 
 Почнімо з кроку, який здається технічним і тому першим вилітає з реалізації. У машині можуть бути стани, у які з початкового не веде жоден шлях. Знайти їх — звичайний обхід графа переходів:
 
-```python
-def reachable(delta, start):
-    """Стани, у які веде хоч який шлях зі start."""
-    seen, stack = {start}, [start]
-    while stack:
-        for t in delta[stack.pop()]:
-            if t not in seen:
-                seen.add(t)
-                stack.append(t)
-    return seen
-
-
-def prune(delta, accept, start):
-    """Викинути недосяжне й перенумерувати стани у 0…m−1."""
-    keep = sorted(reachable(delta, start))
-    idx = {s: i for i, s in enumerate(keep)}
-    new_delta = [[idx[t] for t in delta[s]] for s in keep]
-    return new_delta, {idx[s] for s in accept if s in idx}, idx[start]
-```
+:::code proj-hopcroft/py/krok-nul-iakyi-movchky.py
 
 А тепер про те, чому цей крок мусить бути **перед** уточненням, а не після нього чи замість. Спокуса міркувати так: недосяжні стани все одно ні на що не впливають, уточнення їх просто розкладе по якихось класах, а зайве відсіємо потім. Не розкладе — вірніше, розкладе так, що зіпсує відповідь. Ось найдрібніший приклад, який це показує. Алфавіт з однієї літери «a», три стани:
 
@@ -79,21 +45,7 @@ def prune(delta, accept, start):
 
 Тепер класи. Найпростіший спосіб уточнювати розбиття — дати кожному станові **підпис**: його поточний блок плюс блоки, куди він веде по кожному символу. Стани з однаковим підписом лишаються разом, з різним — розходяться. Повторюємо, доки розбиття не завмре:
 
-```python
-def moore(delta, accept):
-    """Класи нерозрізнюваності уточненням розбиття. Повертає block[s]."""
-    n = len(delta)
-    block = [1 if s in accept else 0 for s in range(n)]
-    while True:
-        # підпис = (свій блок, блоки, куди ведуть переходи по кожному символі)
-        sig = [(block[s], tuple(block[t] for t in delta[s])) for s in range(n)]
-        ids, new = {}, [0] * n
-        for s in range(n):
-            new[s] = ids.setdefault(sig[s], len(ids))   # номер за першою появою
-        if new == block:                                # ніщо не розкололось
-            return block
-        block = new
-```
+:::code proj-hopcroft/py/mur-pidpys-stanu.py
 
 Одна деталь варта пояснення, бо в неї вбудована ціла асимптотика. Номери блоків роздаємо **за першою появою** підпису — через `setdefault`, а не сортуванням різних підписів. Номери тут працюють лише як мітки: усе, що від них треба, — щоб однакові підписи в межах проходу дістали однакове число, а різні — різні. Сортування дало б те саме з точністю до перейменування блоків, але коштувало б зайвий множник log n на кожному проході — плата за впорядкованість, якою ніхто не скористається.
 
@@ -219,117 +171,8 @@ def moore(delta, accept):
 Тепер усе разом. Обернені переходи будуємо один раз наперед; блоки тримаємо як множини, а `where[s]` каже, у якому блоці живе стан s, — це дозволяє від стану миттю дістатися до його блоку:
 
 :::tabs
-```python
-from collections import defaultdict
-
-def hopcroft(delta, accept):
-    """Класи нерозрізнюваності за O(|Σ|·n·log n). Повертає список блоків."""
-    n, k = len(delta), len(delta[0])
-
-    # обернені переходи: inv[a][t] — усі s, що по a йдуть у t
-    inv = [defaultdict(list) for _ in range(k)]
-    for s in range(n):
-        for a in range(k):
-            inv[a][delta[s][a]].append(s)
-
-    F = set(accept)
-    blocks = [b for b in (F, set(range(n)) - F) if b]
-    if len(blocks) == 1:                       # усі стани в одному класі
-        return blocks
-    where = [0] * n                            # where[s] — індекс блоку стану s
-    for i, b in enumerate(blocks):
-        for s in b:
-            where[s] = i
-
-    # у чергу — лише МЕНША з двох стартових половин (лема про доповнення)
-    work = {0 if len(blocks[0]) <= len(blocks[1]) else 1}
-    while work:
-        splitter = set(blocks[work.pop()])     # знімок: блок ще може подрібнитись
-        for a in range(k):
-            # згрупувати δ⁻¹(splitter, a) за блоками — торкаємось лише їх
-            touched = defaultdict(list)
-            for t in splitter:
-                for s in inv[a][t]:
-                    touched[where[s]].append(s)
-            for j, part in touched.items():
-                if len(part) == len(blocks[j]):
-                    continue                   # блок цілком у splitter — стабільний
-                blocks[j] -= set(part)         # Y лишається на місці як Y∖X
-                new = len(blocks)
-                blocks.append(set(part))       # Y∩X виїжджає в новий блок
-                for s in part:
-                    where[s] = new
-                if j in work:                  # Y ще не оброблений — обидві половини
-                    work.add(new)
-                else:                          # інакше досить МЕНШОЇ
-                    work.add(new if len(blocks[new]) <= len(blocks[j]) else j)
-    return blocks
-```
-```cpp
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <utility>
-using std::vector, std::unordered_set, std::unordered_map;
-
-// Класи нерозрізнюваності за O(|Σ|·n·log n). Повертає список блоків.
-vector<unordered_set<int>> hopcroft(const vector<vector<int>>& delta,
-                                    const unordered_set<int>& accept) {
-    const int n = (int)delta.size();
-    const int k = n ? (int)delta[0].size() : 0;
-
-    // обернені переходи: inv[a][t] — усі s, що по a йдуть у t
-    vector<vector<vector<int>>> inv(k, vector<vector<int>>(n));
-    for (int s = 0; s < n; ++s)
-        for (int a = 0; a < k; ++a)
-            inv[a][delta[s][a]].push_back(s);
-
-    // стартовий поділ: приймальні окремо від решти
-    unordered_set<int> F(accept.begin(), accept.end()), rest;
-    for (int s = 0; s < n; ++s)
-        if (!F.count(s)) rest.insert(s);
-    vector<unordered_set<int>> blocks;
-    if (!F.empty())    blocks.push_back(std::move(F));
-    if (!rest.empty()) blocks.push_back(std::move(rest));
-    if (blocks.size() == 1) return blocks;          // усі стани в одному класі
-
-    vector<int> where(n);                           // where[s] — індекс блоку стану s
-    for (int i = 0; i < (int)blocks.size(); ++i)
-        for (int s : blocks[i]) where[s] = i;
-
-    // у чергу — лише МЕНША з двох стартових половин (лема про доповнення)
-    unordered_set<int> work{ blocks[0].size() <= blocks[1].size() ? 0 : 1 };
-    while (!work.empty()) {
-        int wi = *work.begin();
-        work.erase(work.begin());
-        // знімок: блок ще може подрібнитись, поки ми ним працюємо
-        vector<int> splitter(blocks[wi].begin(), blocks[wi].end());
-        for (int a = 0; a < k; ++a) {
-            // згрупувати δ⁻¹(splitter, a) за блоками — торкаємось лише їх
-            unordered_map<int, vector<int>> touched;
-            for (int t : splitter)
-                for (int s : inv[a][t])
-                    touched[where[s]].push_back(s);
-            for (auto& [j, part] : touched) {
-                if (part.size() == blocks[j].size())
-                    continue;                       // блок цілком у splitter — стабільний
-                int fresh = (int)blocks.size();
-                blocks.emplace_back();              // Y∩X виїжджає в новий блок
-                for (int s : part) {
-                    blocks[j].erase(s);             // Y лишається як Y∖X
-                    blocks[fresh].insert(s);
-                    where[s] = fresh;
-                }
-                if (work.count(j))                  // Y ще не оброблений — обидві половини
-                    work.insert(fresh);
-                else                                // інакше досить МЕНШОЇ
-                    work.insert(blocks[fresh].size() <= blocks[j].size() ? fresh : j);
-            }
-        }
-    }
-    return blocks;
-}
-```
+:::code proj-hopcroft/py/holovnyi-tsykl.py
+:::code proj-hopcroft/cpp/main.cpp
 :::
 
 Два місця в цьому коді варті окремого погляду, бо саме там реалізації тихо ламаються.
@@ -375,23 +218,7 @@ vector<unordered_set<int>> hopcroft(const vector<vector<int>>& delta,
 
 Класи є — лишилося перетворити їх на таблицю. По одному стану на клас, переходи беремо з **будь-якого** представника:
 
-```python
-def rebuild(delta, accept, start, blocks):
-    """Зібрати мінімальний автомат: по одному стану на клас."""
-    where = {s: i for i, b in enumerate(blocks) for s in b}
-    new_delta, new_accept = [], set()
-    for i, b in enumerate(blocks):
-        rep = min(b)                           # будь-який представник класу
-        new_delta.append([where[t] for t in delta[rep]])
-        if rep in accept:
-            new_accept.add(i)
-    return new_delta, new_accept, where[start]
-
-
-def minimize(delta, accept, start):
-    delta, accept, start = prune(delta, accept, start)
-    return rebuild(delta, accept, start, hopcroft(delta, accept))
-```
+:::code proj-hopcroft/py/zibraty-avtomat-iz-klasiv.py
 
 Слово «будь-якого» тут не недбалість, а вся суть — і воно чесно заслужене двома інваріантами. Переходи представника можна брати за весь клас, **бо розбиття стабільне**: усі стани блоку ведуть по кожному символі в один і той самий блок, тож який представник не візьми, `where[delta[rep][a]]` дасть те саме. А приймальність представника можна брати за весь клас, **бо стартовий поділ був за прийманням**, і жодне уточнення блоки не зливає, лише дробить — отже всередині класу приймальність однакова від початку й назавжди. Якби бодай один із цих інваріантів був не той, `rebuild` мовчки збрехав би.
 

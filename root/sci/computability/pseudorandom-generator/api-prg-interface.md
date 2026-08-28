@@ -178,35 +178,8 @@ void nw_generator_destroy(nw_generator_ctx_t *ctx);
 Для формальної перевірки нерозрізненності згенерованої послідовності реалізується тестовий контролер статистичної переваги:
 
 :::tabs
-```c
-typedef struct {
-    double prob_prg;      /* Імовірність Pr[D(G(s)) = 1] */
-    double prob_random;   /* Імовірність Pr[D(r) = 1] */
-    double advantage;     /* Перевага |prob_prg - prob_random| */
-    size_t total_samples; /* Кількість випробувань */
-} nw_test_result_t;
-
-nw_status_t nw_evaluate_distinguisher(
-    const nw_generator_ctx_t *ctx,
-    const nw_distinguisher_t *distinguisher,
-    size_t num_samples,
-    nw_test_result_t *result
-);
-```
-```cpp
-struct TestResult {
-    double prob_prg{0.0};
-    double prob_random{0.0};
-    double advantage{0.0};
-    std::size_t total_samples{0};
-};
-
-std::expected<TestResult, nw_status_t> evaluateDistinguisher(
-    const GeneratorContext& ctx,
-    const Distinguisher& distinguisher,
-    std::size_t num_samples
-);
-```
+:::code api-prg-interface/c/main.c
+:::code api-prg-interface/cpp/3-otsinka-rozrizniuvachiv.cpp
 :::
 
 ### Алгоритм обчислення переваги
@@ -226,29 +199,7 @@ Adv_D(NW) = | (1 / N) * ∑ D(G(s_i)) - (1 / N) * ∑ D(r_i) |
 
 Для об'єктно-орієнтованих систем надається C++20 клас `NisanWigdersonEngine`, який обгортає низькорівневий C API з дотриманням семантики RAII:
 
-```cpp
-#include <span>
-#include <vector>
-#include <memory>
-#include <expected>
-
-class NisanWigdersonEngine {
-public:
-    explicit NisanWigdersonEngine(
-        const DesignConfig& config,
-        std::span<const uint8_t> truth_table
-    );
-    
-    ~NisanWigdersonEngine() = default;
-    NisanWigdersonEngine(const NisanWigdersonEngine&) = delete;
-    NisanWigdersonEngine& operator=(const NisanWigdersonEngine&) = delete;
-    NisanWigdersonEngine(NisanWigdersonEngine&&) noexcept = default;
-    NisanWigdersonEngine& operator=(NisanWigdersonEngine&&) noexcept = default;
-
-    [[nodiscard]] std::expected<std::vector<uint8_t>, nw_status_t> 
-    generateStream(std::span<const uint8_t> seed) const noexcept;
-};
-```
+:::code api-prg-interface/cpp/4-spetsyfikatsiia-obhortky.cpp
 
 Використання `std::expected` дозволяє передавати коди помилок `nw_status_t` без генерації винятків у критичних за продуктивністю алгоритмах. Метод `generateStream` призначений для безпечного виклику з багатьох потоків виконання одночасно, оскільки екземпляр класу є незмінним після конструювання.
 

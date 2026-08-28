@@ -19,73 +19,15 @@
 ### Перелічувальні типи кванторів та класів
 
 :::tabs
-```c
-typedef enum {
-    AH_CLASS_DELTA_0 = 0,  /* Обчислювані предикати з обмеженими кванторами */
-    AH_CLASS_SIGMA_N = 1,  /* Клас Sigma_n^0 (починається з квантора існування EXISTS) */
-    AH_CLASS_PI_N    = 2,  /* Клас Pi_n^0 (починається з квантора загальності FORALL) */
-    AH_CLASS_DELTA_N = 3   /* Клас Delta_n^0 = Sigma_n^0 ∩ Pi_n^0 (відносно розв'язні) */
-} ah_class_type_t;
-
-typedef enum {
-    AH_QUANT_EXISTS = 0,   /* Необмежений або обмежений квантор існування (EXISTS) */
-    AH_QUANT_FORALL = 1    /* Необмежений або обмежений квантор загальності (FORALL) */
-} ah_quantifier_kind_t;
-```
-```cpp
-enum class ArithmeticClassType {
-    Delta0 = 0,  // Обчислювані предикати з обмеженими кванторами
-    SigmaN = 1,  // Клас Sigma_n^0 (починається з квантора існування EXISTS)
-    PiN    = 2,  // Клас Pi_n^0 (починається з квантора загальності FORALL)
-    DeltaN = 3   // Клас Delta_n^0 = Sigma_n^0 ∩ Pi_n^0 (відносно розв'язні)
-};
-
-enum class QuantifierKind {
-    Exists = 0,  // Необмежений або обмежений квантор існування (EXISTS)
-    Forall = 1   // Необмежений або обмежений квантор загальності (FORALL)
-};
-```
+:::code api-arithmetic-oracle/c/perelichuvalni-typy.c
+:::code api-arithmetic-oracle/cpp/perelichuvalni-typy.cpp
 :::
 
 Структура `ah_quantifier_t` (або `QuantifierDescriptor` у C++) представляє поодинокий квантор у ланцюжку префікса. Якщо поле `is_bounded` встановлено в `true`, квантор вважається обмеженим верхньою межею `bound_limit`. Закони арифметичної ієрархії стверджують, що обмежені квантори не збільшують кванторну складність формули (не додають чергувань), тому аналізатор враховує їх як предикати рівня `Δ₀⁰`.
 
 :::tabs
-```c
-typedef struct {
-    ah_quantifier_kind_t kind; /* Тип квантора (EXISTS або FORALL) */
-    char var_symbol[32];       /* Унікальний символьний ідентифікатор змінної */
-    bool is_bounded;           /* Прапорець наявності верхньої межі (обмежений квантор) */
-    uint64_t bound_limit;      /* Верхня межа діапазону [0, bound_limit] якщо is_bounded == true */
-} ah_quantifier_t;
-
-typedef struct {
-    ah_class_type_t class_type;    /* Канонічний клас (SIGMA_N, PI_N, DELTA_N) */
-    uint32_t level_n;             /* Кількість суворих чергувань кванторів (індекс n) */
-    uint32_t oracle_jump_required;/* Номер оракульного стрибка 0^(n-1) */
-    size_t raw_quantifier_count;  /* Початкова кількість кванторів у формулі */
-    size_t contracted_count;      /* Кількість кванторів після згортання Кантора */
-    bool is_decidable;            /* Чи є предикат повністю розв'язним без оракула (Δ₁⁰) */
-    bool is_recursively_enumerable; /* Чи є предикат напіврозв'язним (Σ₁⁰) */
-} ah_hierarchy_info_t;
-```
-```cpp
-struct QuantifierDescriptor {
-    QuantifierKind kind{QuantifierKind::Exists};
-    std::string var_symbol;
-    bool is_bounded{false};
-    std::uint64_t bound_limit{0};
-};
-
-struct HierarchyAnalysisResult {
-    ArithmeticClassType class_type{ArithmeticClassType::Delta0};
-    std::uint32_t level_n{0};
-    std::uint32_t oracle_jump_required{0};
-    std::size_t raw_quantifier_count{0};
-    std::size_t contracted_count{0};
-    bool is_decidable{true};
-    bool is_recursively_enumerable{true};
-};
-```
+:::code api-arithmetic-oracle/c/perelichuvalni-typy-2.c
+:::code api-arithmetic-oracle/cpp/perelichuvalni-typy-2.cpp
 :::
 
 ## 3. Опис функціонального інтерфейсу та алгоритмічний механізм
@@ -131,40 +73,8 @@ classify_prefix(std::span<const QuantifierDescriptor> quants);
 Для реалізації згортання змінних бібліотека надає точні арифметичні функції кодування та декодування Кантора. Функція `ah_cantor_encode` обчислює пару `⟨x, y⟩ = ((x + y)(x + y + 1))/2 + y`. Вона включає суворий аналіз можливого арифметичного переповнення 64-бітного цілого числа та повертає статус помилки `AH_ERR_INTEGER_OVERFLOW`, якщо результат перевищує `UINT64_MAX`.
 
 :::tabs
-```c
-/**
- * @brief Пряме кодування двох 64-бітних цілих чисел у код Кантора.
- * 
- * @param x Перше натуральне число.
- * @param y Друге натуральне число.
- * @param out_code Вказівник на змінну для збереження результату <x, y>.
- * @return int AH_SUCCESS або AH_ERR_INTEGER_OVERFLOW.
- */
-int ah_cantor_encode(uint64_t x, uint64_t y, uint64_t* out_code);
-
-/**
- * @brief Декодування коду Кантора на вихідну пару чисел (обернена бієкція).
- * 
- * @param code Код парування.
- * @param out_x Вказівник на першу відновлену змінну.
- * @param out_y Вказівник на другу відновлену змінну.
- * @return int AH_SUCCESS або AH_ERR_INVALID_ARGUMENT.
- */
-int ah_cantor_decode(uint64_t code, uint64_t* out_x, uint64_t* out_y);
-```
-```cpp
-/**
- * @brief Пряме кодування паруванням Кантора у C++ (constexpr).
- */
-[[nodiscard]] constexpr std::expected<std::uint64_t, std::string_view>
-cantor_encode(std::uint64_t x, std::uint64_t y) noexcept;
-
-/**
- * @brief Декодування коду Кантора у C++23.
- */
-[[nodiscard]] constexpr std::pair<std::uint64_t, std::uint64_t>
-cantor_decode(std::uint64_t code) noexcept;
-```
+:::code api-arithmetic-oracle/c/3-2-matematychnyi-blok.h
+:::code api-arithmetic-oracle/cpp/3-2-matematychnyi-blok.cpp
 :::
 
 ### 3.3. Модуль взаємодії з оракулом ступенів Тюринга
@@ -172,25 +82,7 @@ cantor_decode(std::uint64_t code) noexcept;
 Симуляція обчислень із оракулом виконується через зареєстрований зворотний виклик (callback) або об'єкт функтора. Оракул рівня `jump_level` відповідає `jump_level`-му стрибку Тюринга. Рівень `0` відповідає порожньому оракулу (звичайне обчислення без підказок). Рівень `1` відповідає оракулу проблеми зупинки `0' = K`. Рівень `2` відповідає другому стрибку `0'' = K'`.
 
 :::tabs
-```c
-typedef bool (*ah_oracle_callback_t)(uint64_t query_id, void* user_ctx);
-
-/**
- * @brief Симуляція оцінки належності елемента до предикату рівня jump_level.
- * 
- * @param element Вхідний елемент для перевірки.
- * @param jump_level Індекс необхідного оракульного стрибка (0 для ∅, 1 для K, 2 для K').
- * @param oracle Зворотний виклик для звернення до оракула нижчого рівня.
- * @param user_ctx Довільний контекст користувача, що передається в oracle.
- * @param out_result Вказівник на результат перевірки (true/false).
- * @return int AH_SUCCESS у разі завершення обчислення; код помилки при нерозв'язності або циклюванні.
- */
-int ah_oracle_evaluate(uint64_t element, 
-                       uint32_t jump_level, 
-                       ah_oracle_callback_t oracle, 
-                       void* user_ctx, 
-                       bool* out_result);
-```
+:::code api-arithmetic-oracle/c/3-3-modul-vzaiemodii-z.h
 ```cpp
 using OracleCallback = std::function<bool(std::uint64_t query_id)>;
 
@@ -278,93 +170,8 @@ enum class ArithmeticErrorCode {
 Нижче наведено завершений приклад використання C та C++ API для класифікації префікса специфікації верифікації програми та обчислення потрібного оракула.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdint.h>
-
-/* Включення заголовочного файла специфікації API */
-/* #include "arithmetic_oracle_api.h" */
-
-int main(void) {
-    printf("=== Демонстрація використання C API Арифметичної Ієрархії ===\n\n");
-
-    /* Побудова префікса для перевірки тотальності: ∀x ∃s T(e, x, s) */
-    ah_quantifier_t total_prefix[] = {
-        { AH_QUANT_FORALL, "x", false, 0 },
-        { AH_QUANT_EXISTS, "s", false, 0 }
-    };
-    size_t count = sizeof(total_prefix) / sizeof(total_prefix[0]);
-
-    ah_hierarchy_info_t info;
-    int status = ah_classify_prefix(total_prefix, count, &info);
-
-    if (status == AH_SUCCESS) {
-        printf("Успішна класифікація формули:\n");
-        printf(" - Початкових кванторів:  %zu\n", info.raw_quantifier_count);
-        printf(" - Згорнутих кванторів:   %zu\n", info.contracted_count);
-        printf(" - Рівень ієрархії (n):   %u\n", info.level_n);
-        printf(" - Клас складності:       %s_%u^0\n", 
-               (info.class_type == AH_CLASS_SIGMA_N) ? "Sigma" : "Pi", 
-               info.level_n);
-        printf(" - Потрібний оракул:      0^(%u)\n", info.oracle_jump_required);
-        printf(" - Розв'язна (Delta_1):   %s\n", info.is_decidable ? "Так" : "Ні");
-        printf(" - Перелічувана (Sigma_1): %s\n", info.is_recursively_enumerable ? "Так" : "Ні");
-    } else {
-        printf("Помилка класифікації: код %d\n", status);
-    }
-
-    /* Демонстрація безпечного кодування Кантора */
-    uint64_t x = 42, y = 100, code = 0;
-    if (ah_cantor_encode(x, y, &code) == AH_SUCCESS) {
-        printf("\nПарування Кантора: <%lu, %lu> = %lu\n", (unsigned long)x, (unsigned long)y, (unsigned long)code);
-        
-        uint64_t rx = 0, ry = 0;
-        if (ah_cantor_decode(code, &rx, &ry) == AH_SUCCESS) {
-            printf("Декодування Кантора: %lu -> <%lu, %lu>\n", (unsigned long)code, (unsigned long)rx, (unsigned long)ry);
-        }
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <span>
-#include <expected>
-#include <cstdint>
-
-int main() {
-    std::cout << "=== Демонстрація використання C++ API Арифметичної Ієрархії ===\n\n";
-
-    const std::vector<QuantifierDescriptor> total_prefix{
-        { QuantifierKind::Forall, "x", false, 0 },
-        { QuantifierKind::Exists, "s", false, 0 }
-    };
-
-    const auto result = classify_prefix(total_prefix);
-
-    if (result) {
-        std::cout << "Успішна класифікація формули:\n";
-        std::cout << " - Початкових кванторів:  " << result->raw_quantifier_count << "\n";
-        std::cout << " - Згорнутих кванторів:   " << result->contracted_count << "\n";
-        std::cout << " - Рівень ієрархії (n):   " << result->level_n << "\n";
-        std::cout << " - Потрібний оракул:      0^(" << result->oracle_jump_required << ")\n";
-    } else {
-        std::cerr << "Помилка класифікації: " << result.error() << "\n";
-    }
-
-    const auto paired = cantor_encode(42, 100);
-    if (paired) {
-        std::cout << "\nПарування Кантора: <42, 100> = " << *paired << "\n";
-    }
-
-    return 0;
-}
-```
+:::code api-arithmetic-oracle/c/6-pryklad-praktychnoho.c
+:::code api-arithmetic-oracle/cpp/6-pryklad-praktychnoho.cpp
 :::
 
 Ця специфікація фіксує точний розробницький контракт для створення модулів статичного аналізу та автоматичних верифікаторів логічних формул.

@@ -19,61 +19,8 @@
 Розглянемо дві реалізації: класичний квайн мовою C на основі форматованого рядка з кодами ASCII та сучасний ідіоматичний квайн мовою C++ з використанням об'єктів `std::string_view` та алгоритмічного екранування.
 
 :::tabs
-```c
-#include <stdio.h>
-
-int main(void) {
-    /* Блок A (Дані): шаблон програми, де %s позначає місце для літерала, а %c - символи */
-    const char *code = "#include <stdio.h>%c%cint main(void) {%c    const char *code = %c%s%c;%c    printf(code, 10, 10, 10, 34, code, 34, 10, 10, 10);%c    return 0;%c}%c";
-
-    /* Блок B (Алгоритм): виклик printf з подвійним використанням рядка code:
-       - перший раз code використовується як форматний рядок;
-       - другий раз code передається як значення для специфікатора %s;
-       - числа 10 генерують символи '\n', а числа 34 - подвійні лапки '\"'. */
-    printf(code, 10, 10, 10, 34, code, 34, 10, 10, 10);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-
-int main() {
-    // Блок A: початковий фрагмент коду як незмінний строковий літерал
-    constexpr std::string_view head = 
-        "#include <iostream>\n"
-        "#include <string_view>\n\n"
-        "int main() {\n"
-        "    constexpr std::string_view head = \n"
-        "        ";
-
-    // Хвостовий фрагмент коду, що містить логіку конструктора (Блок B)
-    constexpr std::string_view tail = 
-        ";\n"
-        "    constexpr char q = '\"';\n"
-        "    std::cout << head << q;\n"
-        "    for (char c : head) {\n"
-        "        if (c == '\\n') std::cout << \"\\n        \";\n"
-        "        else if (c == '\"' || c == '\\\\') std::cout << '\\\\' << c;\n"
-        "        else std::cout << c;\n"
-        "    }\n"
-        "    std::cout << q << tail;\n"
-        "    return 0;\n"
-        "}\n";
-
-    constexpr char q = '"';
-
-    // Блок B: відтворення повного тексту через послідовний вивід частин
-    std::cout << head << q;
-    for (char c : head) {
-        if (c == '\n') std::cout << "\n        ";
-        else if (c == '"' || c == '\\') std::cout << '\\' << c;
-        else std::cout << c;
-    }
-    std::cout << q << tail;
-    return 0;
-}
-```
+:::code proj-quine-generator/c/main.c
+:::code proj-quine-generator/cpp/main.cpp
 :::
 
 ## Покроковий розбір роботи C-квайна

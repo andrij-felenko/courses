@@ -154,138 +154,16 @@ char BitQuery(uint64_t bit_index, const char* original_input_x, uint64_t input_l
 Нижче наведено C-код встановлення жорсткого просторового обмеження для обчислювального процесу:
 
 :::tabs
-```c
-#include <sys/resource.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-/* Sets strict virtual memory limit for logspace execution */
-int set_logspace_memory_limit(size_t limit_bytes) {
-    struct rlimit rl;
-    
-    rl.rlim_cur = limit_bytes; /* Soft limit */
-    rl.rlim_max = limit_bytes; /* Hard limit */
-
-    if (setrlimit(RLIMIT_AS, &rl) != 0) {
-        perror("Failed to set RLIMIT_AS memory limit");
-        return -1;
-    }
-    
-    return 0;
-}
-```
-```cpp
-// C++20 implementation: Memory limit configuration with std::expected
-#include <sys/resource.h>
-#include <system_error>
-#include <expected>
-#include <cstddef>
-#include <cerrno>
-
-namespace space_complexity {
-
-[[nodiscard]] inline std::expected<void, std::error_code> set_logspace_memory_limit(size_t limit_bytes) noexcept {
-    struct rlimit rl;
-    rl.rlim_cur = limit_bytes;
-    rl.rlim_max = limit_bytes;
-
-    if (setrlimit(RLIMIT_AS, &rl) != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-
-} // namespace space_complexity
-```
+:::code api-logspace-transducer/c/obmezhennia-resursiv.c
+:::code api-logspace-transducer/cpp/obmezhennia-resursiv.cpp
 :::
 
 ### Програмувальний інтерфейс Arena-алокатора з фіксованим буфером
 Для запобігання динамічному виділенню пам'яті (`malloc`/`free`) реалізується арена-алокатор фіксованого розміру `O(\log n)`, який гарантує виконання обчислення у межах заздалегідь виділеного статичного буфера.
 
 :::tabs
-```c
-/* C11 Static Arena Allocator contract for Logspace Execution */
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-#define LOGSPACE_BUFFER_SIZE 4096 /* 4 KB fixed work tape */
-
-typedef struct {
-    uint8_t buffer[LOGSPACE_BUFFER_SIZE];
-    size_t offset;
-} LogspaceArena;
-
-void logspace_arena_init(LogspaceArena *arena) {
-    arena->offset = 0;
-}
-
-void* logspace_arena_alloc(LogspaceArena *arena, size_t bytes) {
-    /* Align bytes to 8-byte boundary */
-    size_t aligned_bytes = (bytes + 7) & ~((size_t)7);
-    
-    if (arena->offset + aligned_bytes > LOGSPACE_BUFFER_SIZE) {
-        return NULL; /* Out of logspace buffer error! */
-    }
-    
-    void *ptr = &arena->buffer[arena->offset];
-    arena->offset += aligned_bytes;
-    return ptr;
-}
-
-void logspace_arena_reset(LogspaceArena *arena) {
-    arena->offset = 0;
-}
-```
-```cpp
-// C++20 Fixed Work-Tape Allocator Specification
-#include <cstddef>
-#include <cstdint>
-#include <span>
-#include <array>
-#include <expected>
-#include <new>
-
-namespace space_complexity {
-
-template <size_t BufferSize = 4096>
-class FixedWorkTape {
-public:
-    constexpr FixedWorkTape() noexcept : offset_(0) {}
-
-    // Non-copyable, non-movable to guarantee physical memory stability
-    FixedWorkTape(const FixedWorkTape&) = delete;
-    FixedWorkTape& operator=(const FixedWorkTape&) = delete;
-
-    [[nodiscard]] std::expected<std::span<uint8_t>, std::errc> allocate(size_t bytes) noexcept {
-        const size_t aligned = (bytes + 7) & ~size_t{7};
-        if (offset_ + aligned > BufferSize) {
-            return std::unexpected(std::errc::not_enough_memory);
-        }
-        uint8_t* ptr = &buffer_[offset_];
-        offset_ += aligned;
-        return std::span<uint8_t>(ptr, bytes);
-    }
-
-    constexpr void reset() noexcept {
-        offset_ = 0;
-    }
-
-    [[nodiscard]] constexpr size_t used_bytes() const noexcept {
-        return offset_;
-    }
-
-    [[nodiscard]] constexpr size_t capacity() const noexcept {
-        return BufferSize;
-    }
-
-private:
-    alignas(8) std::array<uint8_t, BufferSize> buffer_{};
-    size_t offset_{0};
-};
-
-} // namespace space_complexity
-```
+:::code api-logspace-transducer/c/prohramuvalnyi-interfeis.c
+:::code api-logspace-transducer/cpp/prohramuvalnyi-interfeis.cpp
 :::
 
 ---
@@ -300,43 +178,8 @@ private:
 Структура `rusage` повертає максимальний розмір резидентної пам'яті (Resident Set Size, RSS), який показує фізичний обсяг RAM, виділений процесу ядрами Linux:
 
 :::tabs
-```c
-#include <sys/resource.h>
-#include <stdio.h>
-
-void print_peak_memory_usage(void) {
-    struct rusage usage;
-    if (getrusage(RUSAGE_SELF, &usage) == 0) {
-        /* ru_maxrss returns memory in kilobytes on Linux */
-        printf("Peak Resident Set Size (RSS): %ld KB\n", usage.ru_maxrss);
-    }
-}
-```
-```cpp
-// C++20 implementation: Memory usage reader with std::optional
-#include <sys/resource.h>
-#include <iostream>
-#include <optional>
-#include <cstdint>
-
-namespace space_complexity {
-
-[[nodiscard]] inline std::optional<uint64_t> get_peak_rss_kb() noexcept {
-    struct rusage usage;
-    if (getrusage(RUSAGE_SELF, &usage) == 0) {
-        return static_cast<uint64_t>(usage.ru_maxrss);
-    }
-    return std::nullopt;
-}
-
-inline void print_peak_memory_usage() {
-    if (auto rss = get_peak_rss_kb(); rss.has_value()) {
-        std::cout << "Peak Resident Set Size (RSS): " << *rss << " KB\n";
-    }
-}
-
-} // namespace space_complexity
-```
+:::code api-logspace-transducer/c/interfeis-vyklyku.c
+:::code api-logspace-transducer/cpp/interfeis-vyklyku.cpp
 :::
 
 ### Програмний доступ до procfs (/proc/self/statm)
@@ -350,67 +193,8 @@ inline void print_peak_memory_usage() {
 5. `data` — розмір стека та даних.
 
 :::tabs
-```c
-/* C11 procfs memory reader for Logspace Verification */
-#include <stdio.h>
-#include <stdint.h>
-
-typedef struct {
-    uint64_t total_pages;
-    uint64_t resident_pages;
-    uint64_t shared_pages;
-} StatmMemoryInfo;
-
-bool read_proc_statm(StatmMemoryInfo *info) {
-    FILE *f = fopen("/proc/self/statm", "r");
-    if (!f) return false;
-
-    if (fscanf(f, "%lu %lu %lu", &info->total_pages, &info->resident_pages, &info->shared_pages) != 3) {
-        fclose(f);
-        return false;
-    }
-
-    fclose(f);
-    return true;
-}
-```
-```cpp
-// C++20 procfs Memory Monitor Specification
-#include <fstream>
-#include <cstdint>
-#include <optional>
-#include <string>
-
-namespace space_complexity {
-
-struct ProcMemoryStats {
-    uint64_t total_pages{0};
-    uint64_t resident_pages{0};
-    uint64_t shared_pages{0};
-
-    [[nodiscard]] uint64_t resident_bytes(uint64_t page_size = 4096) const noexcept {
-        return resident_pages * page_size;
-    }
-};
-
-class ProcfsMonitor {
-public:
-    [[nodiscard]] static std::optional<ProcMemoryStats> current_usage() noexcept {
-        std::ifstream statm_file("/proc/self/statm");
-        if (!statm_file.is_open()) {
-            return std::nullopt;
-        }
-
-        ProcMemoryStats stats;
-        if (statm_file >> stats.total_pages >> stats.resident_pages >> stats.shared_pages) {
-            return stats;
-        }
-        return std::nullopt;
-    }
-};
-
-} // namespace space_complexity
-```
+:::code api-logspace-transducer/c/prohramnyi-dostup-do.c
+:::code api-logspace-transducer/cpp/prohramnyi-dostup-do.cpp
 :::
 
 ### Специфікація таблиці порівняння просторових системних викликів

@@ -28,113 +28,15 @@
 ### Коди помилок та типи рушіїв
 
 :::tabs
-```c
-/* ncd_core.h — Коди помилок та типи в C */
-typedef enum {
-    NCD_SUCCESS             =  0,  /* Успішне виконання */
-    NCD_ERR_NULL_POINTER    = -1,  /* Передано NULL-вказівник у критичний аргумент */
-    NCD_ERR_EMPTY_BUFFER    = -2,  /* Довжина буфера дорівнює 0 */
-    NCD_ERR_ALLOC_FAILED    = -3,  /* Помилка виділення пам'яті під час конкатенації */
-    NCD_ERR_COMPRESS_FAIL   = -4,  /* Сбій внутрішнього алгоритму стиснення */
-    NCD_ERR_INVALID_ENGINE  = -5   /* Непідтримуваний або недоступний рушій компресії */
-} ncd_error_t;
-
-typedef enum {
-    NCD_ENGINE_ZLIB  = 0,  /* zlib / Deflate (швидкий, словникове вікно 32 КБ) */
-    NCD_ENGINE_BZ2   = 1,  /* bzip2 (перетворення Барроуза-Вілера, вікно 900 КБ) */
-    NCD_ENGINE_LZMA  = 2,  /* LZMA / xz (високий коефіцієнт стиснення, вікно до 1 ГБ) */
-    NCD_ENGINE_ZSTD  = 3   /* Zstandard (оптимальний баланс швидкості та вікна) */
-} ncd_engine_t;
-
-typedef struct {
-    ncd_engine_t engine;   /* Обраний алгоритм стиснення */
-    int level;             /* Рівень стиснення (від 1 до 9 або від 1 до 22 для zstd) */
-    size_t window_size;    /* Розмір словника / вікна в байтах (0 = за замовчуванням) */
-    int threads;           /* Кількість паралельних потоків для матричних обчислень */
-} ncd_config_t;
-```
-```cpp
-// ncd.hpp — Перелічувачі та конфігурація в C++
-namespace ncd {
-
-enum class Error : int {
-    Success           =  0,
-    NullPointer       = -1,
-    EmptyBuffer       = -2,
-    AllocFailed       = -3,
-    CompressFail      = -4,
-    InvalidEngine     = -5
-};
-
-enum class Engine {
-    Zlib,
-    Bzip2,
-    Lzma,
-    Zstd
-};
-
-struct Config {
-    Engine engine = Engine::Zstd;
-    int compression_level = 3;
-    size_t window_size = 0; // 0 = default for engine
-    unsigned int threads = std::thread::hardware_concurrency();
-};
-
-} // namespace ncd
-```
+:::code api-compress-distance/c/kody-pomylok-ta-typy.c
+:::code api-compress-distance/cpp/kody-pomylok-ta-typy.cpp
 :::
 
 ### Основні функції обчислення відстані
 
 :::tabs
-```c
-/* ncd_core.h — Сигнатури C API */
-
-/* Ініціалізація конфігурації за замовчуванням */
-ncd_config_t ncd_config_default(void);
-
-/* Обчислення NCD для двох бінарних буферів */
-ncd_error_t ncd_compute_pair(const ncd_config_t *config,
-                             const uint8_t *buf_a, size_t size_a,
-                             const uint8_t *buf_b, size_t size_b,
-                             double *out_distance);
-
-/* Обчислення симетричної матриці NCD для N буферів */
-ncd_error_t ncd_compute_matrix(const ncd_config_t *config,
-                               const uint8_t **buffers, const size_t *sizes,
-                               size_t count,
-                               double *out_matrix);
-```
-```cpp
-// ncd.hpp — Сигнатури C++ RAII Класу
-namespace ncd {
-
-class Calculator {
-public:
-    explicit Calculator(Config config = Config{});
-    ~Calculator();
-
-    Calculator(const Calculator&) = delete;
-    Calculator& operator=(Calculator&) = delete;
-
-    Calculator(Calculator&&) noexcept;
-    Calculator& operator=(Calculator&&) noexcept;
-
-    // Обчислення відстані між двома спанами байтів
-    [[nodiscard]] std::expected<double, Error> 
-    distance(std::span<const uint8_t> a, std::span<const uint8_t> b) const;
-
-    // Пакетне обчислення матриці подібності
-    [[nodiscard]] std::expected<std::vector<double>, Error> 
-    matrix(std::span<const std::span<const uint8_t>> items) const;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> impl_;
-};
-
-} // namespace ncd
-```
+:::code api-compress-distance/c/ncd_core.h
+:::code api-compress-distance/cpp/ncd.hpp
 :::
 
 ### Детальний опис функцій, параметрів та кодів помилок

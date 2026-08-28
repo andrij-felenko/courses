@@ -316,48 +316,8 @@ CNF гарантує, що для будь-якого слова довжини 
 Нижче наведено фрагмент, що ілюструє ядро рекурсивного розбору правила `Expr → Term { ('+' | '-') Term }`:
 
 :::tabs
-```c
-/* Обробка правила <Expr> ::= <Term> { ("+" | "-") <Term> } */
-double parse_expr(Parser *p) {
-    double left = parse_term(p);
-
-    while (p->current.type == TOK_PLUS || p->current.type == TOK_MINUS) {
-        TokenType op = p->current.type;
-        next_token(p);
-        double right = parse_term(p);
-
-        if (op == TOK_PLUS) {
-            left += right;
-        } else {
-            left -= right;
-        }
-    }
-    return left;
-}
-```
-```cpp
-// Обробка правила Expr = Term , { ( "+" | "-" ) , Term } ;
-std::expected<double, std::string> Parser::parse_expr() {
-    auto left_res = parse_term();
-    if (!left_res) return left_res;
-    double left = *left_res;
-
-    while (current_.type == TokenType::Plus || current_.type == TokenType::Minus) {
-        TokenType op = current_.type;
-        advance();
-        auto right_res = parse_term();
-        if (!right_res) return right_res;
-        double right = *right_res;
-
-        if (op == TokenType::Plus) {
-            left += right;
-        } else {
-            left -= right;
-        }
-    }
-    return left;
-}
-```
+:::code formal-grammar-d/c/main.c
+:::code formal-grammar-d/cpp/main.cpp
 :::
 
 Код парсера безпосередньо відображає структуру EBNF-правила: нетермінал `Term` викликається як підпрограма, а цикл `while` реалізує повторення `{...}`.

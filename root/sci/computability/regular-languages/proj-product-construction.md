@@ -81,105 +81,8 @@ accept(x, y) = x ≠ y          →  L₁ ⊕ L₂      симетрична р�
 Ядро — подання автомата й сам добуток. Мови тут дві, і вони показують **різні** способи думати про автомат: у Python δ — це таблиця (словник), у TypeScript — функція. Друге дає добуток, що взагалі нічого не будує наперед.
 
 :::tabs
-```py
-from collections import deque
-
-class DFA:
-    """Повний детермінований автомат: із КОЖНОГО стану по КОЖНОМУ символу
-    веде рівно один перехід."""
-    def __init__(self, alphabet, states, delta, start, accepting):
-        self.alphabet = alphabet      # множина символів
-        self.states = states          # множина станів (будь-що хешоване)
-        self.delta = delta            # (стан, символ) -> стан
-        self.start = start
-        self.accepting = accepting    # підмножина states
-        for q in states:              # тотальність — умова коректності доповнення
-            for c in alphabet:
-                assert (q, c) in delta, "немає переходу з %r по %r" % (q, c)
-
-    def accepts(self, word):
-        q = self.start
-        for c in word:
-            if c not in self.alphabet:
-                raise ValueError("символ %r поза алфавітом" % c)
-            q = self.delta[(q, c)]
-        return q in self.accepting
-
-
-AND  = lambda x, y: x and y        # L₁ ∩ L₂
-OR   = lambda x, y: x or y         # L₁ ∪ L₂
-DIFF = lambda x, y: x and not y    # L₁ ∖ L₂
-XOR  = lambda x, y: x != y         # L₁ ⊕ L₂
-
-def product(a, b, accept):
-    """Добутковий автомат. accept вирішує, ЯКА булева операція вийде.
-    Будуємо ЛІНИВО: обхід завширшки від стартової пари — недосяжні пари
-    навіть не створюються."""
-    assert a.alphabet == b.alphabet, "спільний алфавіт обов'язковий"
-    start = (a.start, b.start)
-    states, delta, accepting = {start}, {}, set()
-    queue = deque([start])
-    while queue:
-        p, q = queue.popleft()
-        if accept(p in a.accepting, q in b.accepting):
-            accepting.add((p, q))
-        for c in a.alphabet:
-            nxt = (a.delta[(p, c)], b.delta[(q, c)])
-            delta[((p, q), c)] = nxt
-            if nxt not in states:
-                states.add(nxt)
-                queue.append(nxt)
-    return DFA(a.alphabet, states, delta, start, accepting)
-```
-```ts
-type Sym = string;
-
-interface DFA<S> {
-  alphabet: Sym[];
-  start: S;
-  step: (q: S, c: Sym) => S;   // тотальна за побудовою: функція, а не таблиця
-  accepts: (q: S) => boolean;
-  key: (q: S) => string;       // канонічний ключ: Map порівнює обʼєкти за ПОСИЛАННЯМ
-}
-
-const AND  = (x: boolean, y: boolean) => x && y;    // L₁ ∩ L₂
-const OR   = (x: boolean, y: boolean) => x || y;    // L₁ ∪ L₂
-const DIFF = (x: boolean, y: boolean) => x && !y;   // L₁ ∖ L₂
-const XOR  = (x: boolean, y: boolean) => x !== y;   // L₁ ⊕ L₂
-
-// Добуток — просто запис із п'яти полів: жодного стану не збудовано наперед.
-function product<A, B>(a: DFA<A>, b: DFA<B>,
-                       op: (x: boolean, y: boolean) => boolean): DFA<[A, B]> {
-  return {
-    alphabet: a.alphabet,
-    start: [a.start, b.start],
-    step: ([p, q], c) => [a.step(p, c), b.step(q, c)],
-    accepts: ([p, q]) => op(a.accepts(p), b.accepts(q)),
-    key: ([p, q]) => `${a.key(p)}|${b.key(q)}`,
-  };
-}
-
-function run<S>(d: DFA<S>, word: string): boolean {
-  let q = d.start;
-  for (const c of word) {
-    if (!d.alphabet.includes(c)) throw new Error(`символ '${c}' поза алфавітом`);
-    q = d.step(q, c);
-  }
-  return d.accepts(q);
-}
-
-// Матеріалізувати досяжні стани — лише коли вони справді потрібні.
-function explore<S>(d: DFA<S>): S[] {
-  const seen = new Set([d.key(d.start)]);
-  const out: S[] = [d.start];
-  for (let head = 0; head < out.length; head++)
-    for (const c of d.alphabet) {
-      const nx = d.step(out[head], c), nk = d.key(nx);
-      if (!seen.has(nk)) { seen.add(nk); out.push(nx); }
-    }
-  return out;
-}
-```
+:::code proj-product-construction/py/robochyi-kod.py
+:::code proj-product-construction/ts/robochyi-kod.ts
 :::
 
 Різниця між вкладками не косметична, і вона повчальна. Табличне подання доводиться **стерегти на повноту** — звідси перевірка в конструкторі. Функційне подання робить δ тотальною **за побудовою типу**: функція `(q, c) => S` зобов'язана повернути стан для будь-якої пари, і пастка неповноти просто не існує. Зате з'являється інша: у JavaScript `Map` і `Set` порівнюють об'єкти за посиланням, тож пара `[p, q]` ключем бути не може — два однакові масиви вважатимуться різними. Тому в інтерфейсі й живе `key`: канонічний рядок-ключ стану.
@@ -187,73 +90,8 @@ function explore<S>(d: DFA<S>): S[] {
 Тепер самі машини прикладу. Перша — «закінчується на `.log`»; її стан має напрочуд ясний зміст: **довжина найдовшого суфікса прочитаного, який є початком слова `.log`**. Прочитали `.` — зібрали одиницю; прочитали `l` — двійку; спіткнулися на чужому символі — відкотилися до найдовшого збігу, який ще лишився:
 
 :::tabs
-```py
-def ends_with(pattern, alphabet):
-    """«Слово закінчується на pattern».
-    Стан i = довжина найдовшого суфікса прочитаного, що є префіксом pattern."""
-    m = len(pattern)
-    delta = {}
-    for i in range(m + 1):
-        for c in alphabet:
-            cand = pattern[:i] + c          # що тепер у хвості
-            k = 0
-            for k2 in range(min(len(cand), m), 0, -1):
-                if cand.endswith(pattern[:k2]):
-                    k = k2                  # найдовший префікс, що лишився суфіксом
-                    break
-            delta[(i, c)] = k
-    return DFA(alphabet, set(range(m + 1)), delta, 0, {m})
-
-def contains(pattern, alphabet):
-    """«Слово МІСТИТЬ pattern». Той самий кістяк — стан m стає пасткою."""
-    a = ends_with(pattern, alphabet)
-    m = len(pattern)
-    delta = dict(a.delta)
-    for c in alphabet:
-        delta[(m, c)] = m                   # ← уся різниця
-    return DFA(alphabet, a.states, delta, 0, {m})
-
-def not_starting_with(bad, alphabet):
-    """«Слово непорожнє й НЕ починається з bad»."""
-    delta = {}
-    for c in alphabet:
-        delta[("поч", c)] = "мертв" if c == bad else "ок"
-        delta[("ок", c)] = "ок"
-        delta[("мертв", c)] = "мертв"
-    return DFA(alphabet, {"поч", "ок", "мертв"}, delta, "поч", {"ок"})
-```
-```ts
-function endsWith(pattern: string, alphabet: Sym[]): DFA<number> {
-  const m = pattern.length;
-  return {
-    alphabet,
-    start: 0,
-    step: (i, c) => {
-      const cand = pattern.slice(0, i) + c;          // що тепер у хвості
-      for (let k = Math.min(cand.length, m); k > 0; k--)
-        if (cand.endsWith(pattern.slice(0, k))) return k;  // найдовший уцілілий
-      return 0;
-    },
-    accepts: (i) => i === m,
-    key: String,
-  };
-}
-
-function contains(pattern: string, alphabet: Sym[]): DFA<number> {
-  const base = endsWith(pattern, alphabet), m = pattern.length;
-  return { ...base, step: (i, c) => (i === m ? m : base.step(i, c)) };  // m — пастка
-}
-
-function notStartingWith(bad: Sym, alphabet: Sym[]): DFA<"поч" | "ок" | "мертв"> {
-  return {
-    alphabet,
-    start: "поч",
-    step: (q, c) => (q === "поч" ? (c === bad ? "мертв" : "ок") : q),
-    accepts: (q) => q === "ок",
-    key: (q) => q,
-  };
-}
-```
+:::code proj-product-construction/py/robochyi-kod-2.py
+:::code proj-product-construction/ts/robochyi-kod-2.ts
 :::
 
 Зверніть увагу на `contains`: різниця між «закінчується на `.log`» і «містить `.log`» — **один рядок**. Зробіть стан повного збігу пасткою, з якої нема виходу, — і замість «збіг у самому кінці» дістанете «збіг колись трапився». Той самий кістяк, інша мова.
@@ -261,67 +99,8 @@ function notStartingWith(bad: Sym, alphabet: Sym[]): DFA<"поч" | "ок" | "м
 Лишилося три речі: доповнення, пошук найкоротшого прийнятого слова й перевірка включення.
 
 :::tabs
-```py
-def complement(a):
-    """Доповнення: поміняти приймальні й неприймальні місцями.
-    Правильно ЛИШЕ на повному ДСА — тому DFA і стежить за тотальністю."""
-    return DFA(a.alphabet, a.states, a.delta, a.start, a.states - a.accepting)
-
-def witness(a):
-    """Найкоротше слово, яке автомат приймає, або None, якщо мова порожня.
-    Обхід завширшки СТАНАМИ (не словами!) — тому перше знайдене найкоротше."""
-    parent = {a.start: None}
-    queue = deque([a.start])
-    while queue:
-        q = queue.popleft()
-        if q in a.accepting:
-            out = []
-            while parent[q] is not None:
-                q, c = parent[q]
-                out.append(c)
-            return "".join(reversed(out))
-        for c in sorted(a.alphabet):
-            nxt = a.delta[(q, c)]
-            if nxt not in parent:
-                parent[nxt] = (q, c)
-                queue.append(nxt)
-    return None
-
-def subset_witness(a, b):
-    """None ⟺ L(a) ⊆ L(b). Інакше — найкоротше слово з L(a), якого нема в L(b)."""
-    return witness(product(a, complement(b), AND))
-
-def equiv_witness(a, b):
-    """None ⟺ L(a) = L(b). Інакше — найкоротше слово, де вони розходяться."""
-    return witness(product(a, b, XOR))
-```
-```ts
-function complement<S>(d: DFA<S>): DFA<S> {
-  return { ...d, accepts: (q) => !d.accepts(q) };   // δ тотальна за побудовою
-}
-
-function witness<S>(d: DFA<S>): string | null {
-  const back = new Map<string, { from: string; via: Sym } | null>([[d.key(d.start), null]]);
-  const queue: S[] = [d.start];
-  for (let head = 0; head < queue.length; head++) {   // обхід завширшки СТАНАМИ
-    const q = queue[head];
-    if (d.accepts(q)) {
-      const out: Sym[] = [];
-      for (let k = d.key(q), p = back.get(k); p; k = p.from, p = back.get(k)) out.push(p.via);
-      return out.reverse().join("");
-    }
-    for (const c of [...d.alphabet].sort()) {
-      const nx = d.step(q, c), nk = d.key(nx);
-      if (!back.has(nk)) { back.set(nk, { from: d.key(q), via: c }); queue.push(nx); }
-    }
-  }
-  return null;
-}
-
-// None ⟺ L(a) ⊆ L(b); інакше — найкоротший контрприклад.
-const subsetWitness = <A, B>(a: DFA<A>, b: DFA<B>) => witness(product(a, complement(b), AND));
-const equivWitness  = <A, B>(a: DFA<A>, b: DFA<B>) => witness(product(a, b, XOR));
-```
+:::code proj-product-construction/py/robochyi-kod-3.py
+:::code proj-product-construction/ts/robochyi-kod-3.ts
 :::
 
 Придивіться до `witness` — там сховано трюк, вартий окремої уваги. Обхід іде **станами**, а не словами: слів нескінченно, станів жменя. Дійшовши до приймального стану, ми відмотуємо шлях назад по батьках і **складаємо слово із символів на ребрах**. А що обхід завширшки, перше знайдене слово — найкоротше можливе. Тобто перевірка на порожнечу не просто каже «ні, не порожня» — вона задарма видає **найкоротший контрприклад**, який можна показати людині.

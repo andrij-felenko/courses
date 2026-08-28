@@ -64,80 +64,9 @@ inline uint32_t target(uint32_t a) { return a >> 2; }                   // == n 
 Але саме тут і причаїлася вся філософія бобра, вкладена в один рядок коду. Оте `if steps >= cap` — не технічна дрібниця, а **єдине**, що не дає програмі зависнути на машині, яка крутиться вічно. Без стелі симулятор на першому ж вічному циклі зупинявся б сам — тобто ніколи. Стеля рятує програму від зависання, але за це бере ціну, до якої ми зараз дійдемо.
 
 :::tabs
-```rust
-// Женемо `table` з чистої стрічки, не більш як `cap` кроків.
-// Повертає (зупинилась?, кроків, одиниць).
-fn simulate(table: &[u32], n: u32, cap: u64) -> (bool, u64, u64) {
-    let width = (2 * cap + 3) as usize;
-    let mut tape = vec![0u8; width];       // стрічка — щільний масив
-    let mut h = (cap + 1) as usize;        // голівка стартує в центрі
-    let mut st = 0u32;                     // стан A
-    let mut steps = 0u64;
-    loop {
-        let sym = tape[h];
-        let a = table[(st * 2 + sym as u32) as usize];
-        tape[h] = write(a);
-        steps += 1;
-        if target(a) == n {                // перейшли в стан зупинки
-            let ones = tape.iter().map(|&b| b as u64).sum();
-            return (true, steps, ones);
-        }
-        h = (h as i64 + dir(a)) as usize;  // зсув на одну клітинку
-        st = target(a);
-        if steps >= cap {                  // СТЕЛЯ — далі не женемо
-            let ones = tape.iter().map(|&b| b as u64).sum();
-            return (false, steps, ones);
-        }
-    }
-}
-```
-```cpp
-#include <vector>
-#include <numeric>
-
-struct Run { bool halted; uint64_t steps; uint64_t ones; };
-
-// Женемо `table` з чистої стрічки, не більш як `cap` кроків.
-// Повертає (зупинилась?, кроків, одиниць).
-Run simulate(const std::vector<uint32_t>& table, uint32_t n, uint64_t cap) {
-    size_t width = 2 * cap + 3;
-    std::vector<uint8_t> tape(width, 0);   // стрічка — щільний масив
-    size_t h = cap + 1;                    // голівка стартує в центрі
-    uint32_t st = 0;                       // стан A
-    uint64_t steps = 0;
-    for (;;) {
-        uint32_t a = table[st * 2 + tape[h]];
-        tape[h] = write(a);
-        ++steps;
-        if (target(a) == n) {              // перейшли в стан зупинки
-            uint64_t ones = std::accumulate(tape.begin(), tape.end(), uint64_t{0});
-            return {true, steps, ones};
-        }
-        h = (size_t)((int64_t)h + dir(a)); // зсув на одну клітинку
-        st = target(a);
-        if (steps >= cap) {                // СТЕЛЯ — далі не женемо
-            uint64_t ones = std::accumulate(tape.begin(), tape.end(), uint64_t{0});
-            return {false, steps, ones};
-        }
-    }
-}
-```
-```python
-def simulate(table, n, cap):
-    tape = {}                              # позиція → символ (0 за замовчуванням)
-    h = st = steps = 0
-    while True:
-        a = table[st * 2 + tape.get(h, 0)]
-        tape[h] = a & 1                    # write
-        steps += 1
-        t = a >> 2                         # target
-        if t == n:                         # перейшли в стан зупинки
-            return True, steps, sum(tape.values())
-        h += 1 if (a >> 1) & 1 else -1     # dir: 1 = праворуч
-        st = t
-        if steps >= cap:                   # СТЕЛЯ — далі не женемо
-            return False, steps, sum(tape.values())
-```
+:::code proj-beaver-search/rust/symuliator-odniiei-mashyny.rs
+:::code proj-beaver-search/cpp/symuliator-odniiei-mashyny.cpp
+:::code proj-beaver-search/py/symuliator-odniiei-mashyny.py
 :::
 
 ## Перебір арени і коронація
@@ -147,86 +76,9 @@ def simulate(table, n, cap):
 Одну клітинку зафіксуємо наперед: старт `A,0 = (1, R, B)`. Чому саме так — розберемо нижче в скороченнях; поки досить знати, що чемпіон для `n ≥ 2` завжди можна привести до цього старту, а це вже ділить арену на `4n+4`.
 
 :::tabs
-```rust
-fn hunt(n: u32, cap: u64) -> (u64, u64, u64, u64, u64) {
-    let a_size = 4 * n + 4;                 // дій на клітинку
-    let cells = (2 * n) as usize;
-    let mut table = vec![0u32; cells];
-    table[0] = 7;                           // старт-нормалізація: A,0 = (1,R,B) = 7
-    let free = cells - 1;                    // вільні клітинки — 1 … cells-1
-    let mut idx = vec![0u32; free];          // мішано-основний лічильник
-    let (mut total, mut halted, mut undecided) = (0u64, 0u64, 0u64);
-    let (mut best_ones, mut best_steps) = (0u64, 0u64);
-    loop {
-        for i in 0..free { table[i + 1] = idx[i]; }
-        total += 1;
-        let (ok, steps, ones) = simulate(&table, n, cap);
-        if ok {
-            halted += 1;
-            best_ones = best_ones.max(ones);      // рекорд одиниць  → Σ(n)
-            best_steps = best_steps.max(steps);   // рекорд кроків   → S(n)
-        } else {
-            undecided += 1;                       // ще працює на стелі
-        }
-        // ++лічильник за основою a_size; переповнення → арену пройдено
-        let mut k = 0;
-        while k < free { idx[k] += 1; if idx[k] < a_size { break; } idx[k] = 0; k += 1; }
-        if k == free { break; }
-    }
-    (total, halted, undecided, best_ones, best_steps)
-}
-```
-```cpp
-struct Hunt { uint64_t total, halted, undecided, best_ones, best_steps; };
-
-Hunt hunt(uint32_t n, uint64_t cap) {
-    uint32_t a_size = 4 * n + 4;              // дій на клітинку
-    size_t cells = 2 * n;
-    std::vector<uint32_t> table(cells, 0);
-    table[0] = 7;                             // старт-нормалізація: A,0 = (1,R,B) = 7
-    size_t free_cells = cells - 1;            // вільні клітинки — 1 … cells-1
-    std::vector<uint32_t> idx(free_cells, 0); // мішано-основний лічильник
-    Hunt r{0, 0, 0, 0, 0};
-    for (;;) {
-        for (size_t i = 0; i < free_cells; ++i) table[i + 1] = idx[i];
-        ++r.total;
-        Run run = simulate(table, n, cap);
-        if (run.halted) {
-            ++r.halted;
-            if (run.ones  > r.best_ones)  r.best_ones  = run.ones;   // рекорд одиниць → Σ(n)
-            if (run.steps > r.best_steps) r.best_steps = run.steps;  // рекорд кроків  → S(n)
-        } else {
-            ++r.undecided;                        // ще працює на стелі
-        }
-        // ++лічильник за основою a_size; переповнення → арену пройдено
-        size_t k = 0;
-        while (k < free_cells) { if (++idx[k] < a_size) break; idx[k] = 0; ++k; }
-        if (k == free_cells) break;
-    }
-    return r;
-}
-```
-```python
-from itertools import product
-
-def hunt(n, cap):
-    A = 4 * n + 4                           # дій на клітинку
-    cells = 2 * n
-    ranges = [[7]] + [range(A)] * (cells - 1)   # A,0 = 7 = (1,R,B) фіксовано
-    total = halted = undecided = 0
-    best_ones = best_steps = 0
-    for combo in product(*ranges):          # усі таблиці арени
-        table = list(combo)
-        total += 1
-        ok, steps, ones = simulate(table, n, cap)
-        if ok:
-            halted += 1
-            best_ones = max(best_ones, ones)     # рекорд одиниць → Σ(n)
-            best_steps = max(best_steps, steps)  # рекорд кроків  → S(n)
-        else:
-            undecided += 1                       # ще працює на стелі
-    return total, halted, undecided, best_ones, best_steps
-```
+:::code proj-beaver-search/rust/perebir-areny-i.rs
+:::code proj-beaver-search/cpp/perebir-areny-i.cpp
+:::code proj-beaver-search/py/perebir-areny-i.py
 :::
 
 Запускаємо для двох і трьох станів зі стелею із запасом — і ось що друкує програма (до лічильників я додав ще й запис виграшної таблиці — це зайвий рядок: копіюй `table`, щойно побив рекорд):
@@ -301,52 +153,7 @@ cap = 50:  зупинились 471 236   недокласовано 577 340   �
 
 Ідея TNF прибирає обидві біди заразом: не генеруймо таблицю наперед, а **вирощуймо її по ходу симуляції**. Женемо машину; щойно вона впирається в клітинку, якої ще не визначено, — саме тут розгалужуємось і пробуємо всі дії для цієї клітинки. А нові стани вводимо **строго за порядком**: перехід дозволено лише в уже вжитий стан або в один-єдиний наступний свіжий. Так кожна машина породжується рівно в одному канонічному вигляді, а недосяжні клітинки просто ніколи не визначаються — їх нема куди перебирати.
 
-```python
-import sys
-sys.setrecursionlimit(100_000)
-
-def hunt_tnf(n, cap):
-    st = {"leaves": 0, "halted": 0, "holdouts": 0, "best_ones": 0, "best_steps": 0}
-
-    def simulate(table):                        # симуляція з ЧАСТКОВОЮ таблицею
-        tape = {}; h = s = steps = 0
-        while True:
-            key = (s, tape.get(h, 0))
-            if key not in table:                # клітинку ще не визначено —
-                return ("undef", key)           # час розгалужуватись
-            w, d, t = table[key]
-            tape[h] = w; steps += 1
-            if t == n:
-                return ("halt", steps, sum(tape.values()))
-            h += 1 if d == 1 else -1; s = t
-            if steps >= cap:
-                return ("cap", steps, sum(tape.values()))
-
-    def search(table, used):                    # used — скільки станів уже введено
-        r = simulate(table)
-        if r[0] == "halt":
-            _, steps, ones = r
-            st["leaves"] += 1; st["halted"] += 1
-            st["best_ones"]  = max(st["best_ones"],  ones)
-            st["best_steps"] = max(st["best_steps"], steps)
-            return
-        if r[0] == "cap":
-            st["leaves"] += 1; st["holdouts"] += 1   # недобиток: не класифікувати
-            return
-        _, cell = r                              # невизначена клітинка → гілкуємось
-        targets = list(range(used)) + ([used] if used < n else [])  # вжиті + ОДИН новий
-        for w in (0, 1):
-            for d in (0, 1):                     # 0=L, 1=R
-                for t in targets:
-                    nxt = dict(table); nxt[cell] = (w, d, t)
-                    search(nxt, max(used, t + 1))
-        for w in (0, 1):                         # зупинка: напрям байдужий — одна гілка
-            nxt = dict(table); nxt[cell] = (w, 1, n)
-            search(nxt, used)
-
-    search({(0, 0): (1, 1, 1)}, 2)               # старт A,0=(1,R,B); стани A,B уведено
-    return st
-```
+:::code proj-beaver-search/py/symetriini-skorochennia.py
 
 Той самий алгоритм системною мовою (C++ чи Rust) читався б майже слово в слово — тільки часткову таблицю зручніше тримати масивом із «порожнім» значенням-міткою, а не хеш-мапою, і рекурсію лишити на стеку. Виграш — не у виразності, а у швидкодії гарячої петлі; логіка розгалуження ідентична.
 

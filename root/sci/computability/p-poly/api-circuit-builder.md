@@ -22,38 +22,8 @@
 Виконання будь-якої операції підпорядковується строгому переліку статусних кодів. Повернення від'ємного значення завжди сигналізує про критичну помилку валідації або недостатність обчислювальних ресурсів.
 
 :::tabs
-```c
-/**
- * @brief Типи помилок виконання оцінювача P/poly (C API)
- */
-typedef enum {
-    P_POLY_OK                  =  0,  /* Успішне виконання */
-    P_POLY_ERR_NULL_PTR        = -1,  /* Передано нулевий вказівник */
-    P_POLY_ERR_INVALID_CIRCUIT = -2,  /* Некоректна топологія DAG (цикл або битий індекс) */
-    P_POLY_ERR_INPUT_MISMATCH  = -3,  /* Невідповідність довжини входу |x| != n */
-    P_POLY_ERR_ADVICE_MISMATCH = -4,  /* Довжина підказки перевищує поліноміальний ліміт */
-    P_POLY_ERR_OUT_OF_MEMORY   = -5   /* Нестача пам'яті під час виділення буфера */
-} PPolyStatus;
-```
-```cpp
-#include <cstdint>
-
-namespace p_poly {
-
-/**
- * @brief Перелічуваний тип помилок оцінювача P/poly (C++ API)
- */
-enum class Status : int32_t {
-    Ok                  =  0,  // Успішне виконання
-    ErrNullPtr          = -1,  // Передано нулевий вказівник
-    ErrInvalidCircuit   = -2,  // Некоректна топологія DAG
-    ErrInputMismatch    = -3,  // Невідповідність довжини входу |x| != n
-    ErrAdviceMismatch   = -4,  // Перевищення ліміту підказки
-    ErrOutOfMemory      = -5   // Нестача пам'яті
-};
-
-} // namespace p_poly
-```
+:::code api-circuit-builder/c/konstanty-ta-kody.c
+:::code api-circuit-builder/cpp/konstanty-ta-kody.cpp
 :::
 
 ### Структури даних заголовка та елементів
@@ -72,69 +42,14 @@ typedef struct {
     uint32_t max_depth;      /* Максимальна глибина DAG (критичний шлях) */
 } CircuitHeader;
 ```
-```cpp
-#include <cstdint>
-
-namespace p_poly {
-
-/**
- * @brief Структурний опис метаданих булевої схеми C_n (C++ API)
- */
-struct CircuitHeader {
-    std::uint32_t input_length{0};   // Довжина входу n = |x|
-    std::uint32_t advice_length{0};  // Довжина підказки |a_n| <= p(n)
-    std::uint32_t gate_count{0};     // Загальна кількість гейтів у схемі
-    std::uint32_t max_depth{0};      // Максимальна глибина DAG
-};
-
-} // namespace p_poly
-```
+:::code api-circuit-builder/cpp/struktury-danykh-zaholovka.cpp
 :::
 
 ### Декларації основних функцій обробки
 
 :::tabs
-```c
-/**
- * @brief Валідація та обчислення схеми C_n(x, a_n) (C API)
- */
-PPolyStatus p_poly_validate_circuit(
-    const CircuitHeader *header,
-    const void *gates
-);
-
-PPolyStatus p_poly_evaluate(
-    const CircuitHeader *header,
-    const void *gates,
-    const uint8_t *input_x,
-    const uint8_t *advice_a,
-    uint8_t *out_result
-);
-```
-```cpp
-#include <span>
-#include <cstdint>
-
-namespace p_poly {
-
-/**
- * @brief Безпечний C++20 контракт валідації та виконання оцінювача
- */
-Status validate_circuit(
-    const CircuitHeader& header,
-    std::span<const std::uint8_t> gates_payload
-);
-
-Status evaluate(
-    const CircuitHeader& header,
-    std::span<const std::uint8_t> gates_payload,
-    std::span<const std::uint8_t> input_x,
-    std::span<const std::uint8_t> advice_a,
-    bool& out_result
-);
-
-} // namespace p_poly
-```
+:::code api-circuit-builder/c/deklaratsii-osnovnykh.h
+:::code api-circuit-builder/cpp/deklaratsii-osnovnykh.hpp
 :::
 
 ---

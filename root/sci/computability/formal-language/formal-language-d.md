@@ -77,41 +77,8 @@ n = 16:  2¹⁷ − 1 = 131 071    ← уже забагато
 Ось той самий перелік у коді. Він ніколи не завершиться, та й не повинен: його призначення — на будь-який номер видати рівно одне слово.
 
 :::tabs
-```py
-from itertools import count, product
-
-def sigma_star(alphabet):
-    """Усі слова над alphabet у шортлекс-порядку: коротші раніше,
-    рівні за довжиною — за абеткою. Перелік нескінченний."""
-    for n in count(0):                       # довжина 0, 1, 2, …
-        for letters in product(alphabet, repeat=n):
-            yield "".join(letters)           # n = 0 дає рівно одне слово: ε
-
-words = sigma_star("ab")
-print([next(words) for _ in range(8)])
-# ['', 'a', 'b', 'aa', 'ab', 'ba', 'bb', 'aaa']
-```
-```ts
-/** Усі слова над alphabet у шортлекс-порядку. Перелік нескінченний. */
-function* sigmaStar(alphabet: string[]): Generator<string> {
-  const k = alphabet.length;
-  for (let n = 0; ; n++) {
-    // слова довжини n — це числа 0…kⁿ−1, записані в системі з основою k
-    for (let i = 0; i < k ** n; i++) {
-      let w = "", rest = i;
-      for (let p = 0; p < n; p++) {
-        w = alphabet[rest % k] + w;
-        rest = Math.floor(rest / k);
-      }
-      yield w;                       // n = 0 дає рівно одне слово: ε
-    }
-  }
-}
-
-const words = sigmaStar(["a", "b"]);
-console.log(Array.from({ length: 8 }, () => words.next().value));
-// [ '', 'a', 'b', 'aa', 'ab', 'ba', 'bb', 'aaa' ]
-```
+:::code formal-language-d/py/main.py
+:::code formal-language-d/ts/index.ts
 :::
 
 Тепер видно, чим Σ\* є алгебраїчно. Множина з асоціативною дією й нейтральним елементом, але без обернених, називається [моноїдом](root:math-algebra/monoid); Σ\* зі склейкою — моноїд найпростішого можливого ґатунку, бо в ньому не діє жодне співвідношення, крім тих трьох. Слова нічого не спрощують — вони лише накопичуються, і `ab` ніколи не дорівнює `ba`. Через це такий моноїд називають **вільним**: він не має власних законів, окрім неминучих.

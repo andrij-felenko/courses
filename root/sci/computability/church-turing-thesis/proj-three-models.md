@@ -27,79 +27,7 @@ add = λa.λb.λf.λx.  a f (b f x)
 Щоб довести собі, що це справді обчислення, а не фокус, ми **не** покладемося на λ мови-господаря (це б перекинуло редукцію на неї). Натомість збудуємо власний **редуктор**: терм як дерево (змінна / абстракція / застосування) і функцію, що знаходить редекс і виконує β-крок сама. Ось повний, робочий редуктор — і у Пайтоні (його `lambda` тут лише синтаксис, справжню роботу робить наш код), і в Гаскелі, мові, що сама виросла з λ-числення:
 
 :::tabs
-```python
-from itertools import count
-
-# терм: змінна, абстракція (λ), застосування
-class Var:
-    def __init__(s, name): s.name = name
-class Lam:
-    def __init__(s, param, body): s.param, s.body = param, body
-class App:
-    def __init__(s, fn, arg): s.fn, s.arg = fn, arg
-
-def free(t):                       # вільні (незв'язані) змінні терма
-    if isinstance(t, Var): return {t.name}
-    if isinstance(t, Lam): return free(t.body) - {t.param}
-    return free(t.fn) | free(t.arg)
-
-_n = count()
-def fresh(base): return f"{base}#{next(_n)}"
-
-def subst(t, x, s):                # t[x := s], без захоплення змінних
-    if isinstance(t, Var):
-        return s if t.name == x else t
-    if isinstance(t, App):
-        return App(subst(t.fn, x, s), subst(t.arg, x, s))
-    if t.param == x:               # x перекрито цією λ — далі не чіпаємо
-        return t
-    if t.param in free(s):         # підстановка спіймала б вільну змінну —
-        p = fresh(t.param)         # перейменовуємо зв'язану, щоб не захопити
-        body = subst(t.body, t.param, Var(p))
-        return Lam(p, subst(body, x, s))
-    return Lam(t.param, subst(t.body, x, s))
-
-def step(t):                       # один крок нормального порядку (лівий-зовнішній)
-    if isinstance(t, App):
-        if isinstance(t.fn, Lam):                   # ось він, зовнішній редекс
-            return subst(t.fn.body, t.fn.param, t.arg)
-        f = step(t.fn)
-        if f is not None: return App(f, t.arg)
-        a = step(t.arg)
-        if a is not None: return App(t.fn, a)
-        return None
-    if isinstance(t, Lam):
-        b = step(t.body)
-        return Lam(t.param, b) if b is not None else None
-    return None                                     # Var — нема куди редукувати
-
-def normalize(t, limit=100_000):
-    for _ in range(limit):
-        nt = step(t)
-        if nt is None: return t                     # нормальна форма
-        t = nt
-    raise RuntimeError("нормальної форми не видно — можливо, її й немає")
-
-# число Черча n = λf.λx. f (f (… x …))  — рівно n застосувань f
-def church(n):
-    body = Var("x")
-    for _ in range(n): body = App(Var("f"), body)
-    return Lam("f", Lam("x", body))
-
-add = Lam("a", Lam("b", Lam("f", Lam("x",
-        App(App(Var("a"), Var("f")),
-            App(App(Var("b"), Var("f")), Var("x")))))))
-
-def to_int(t):                     # нормалізуй і полічи застосування f
-    t = normalize(t)
-    f, inner = t.param, t.body
-    x, cur, n = inner.param, inner.body, 0
-    while isinstance(cur, App) and cur.fn.name == f:
-        n, cur = n + 1, cur.arg
-    return n
-
-print(to_int(App(App(add, church(2)), church(3))))   # 5
-```
+:::code proj-three-models/py/doroha-persha-chyslennia.py
 ```haskell
 data Term = Var String | Lam String Term | App Term Term
 
@@ -181,36 +109,7 @@ add(a, S b)  = S(add(a, b))      крок:  додати на одиницю б�
 
 Ця пара рядків і є вся ідея: щоб додати `b`, застосуй наступника `b` разів. Тепер запишімо це не як звичайну функцію, а через **самі формальні цеглинки** — щоб було видно, що жодної схованої арифметики немає, лише нуль, наступник, проєкції та схеми складання:
 
-```python
-# базові функції
-def Z(*_):  return 0                  # нуль-функція: за будь-яких аргументів 0
-def S(x):   return x + 1              # наступник — єдиний атом арифметики
-def Proj(i):                          # проєкція: i-й з аргументів
-    return lambda *a: a[i]
-
-# способи будувати нові функції з наявних
-def Comp(f, gs):                      # композиція:  f(g₁(…), …, gₖ(…))
-    return lambda *a: f(*(g(*a) for g in gs))
-
-def PrimRec(f, g):                    # примітивна рекурсія по останньому аргументу
-    def h(*a):
-        *xs, y = a
-        if y == 0: return f(*xs)                   # h(xs, 0)   = f(xs)
-        return g(*xs, y - 1, h(*xs, y - 1))        # h(xs, y+1) = g(xs, y, h(xs, y))
-    return h
-
-def Mu(f):                            # μ: найменше y, за якого f(…, y) = 0
-    def m(*a):
-        y = 0
-        while f(*a, y) != 0: y += 1   # може не спинитися ніколи
-        return y
-    return m
-
-# add(a, 0) = a ;  add(a, S b) = S(add(a, b))
-add = PrimRec(Proj(0), Comp(S, [Proj(2)]))
-
-print(add(2, 3))   # 5
-```
+:::code proj-three-models/py/doroha-druha-chysla-z.py
 
 Розберімо той єдиний насичений рядок `add = PrimRec(Proj(0), Comp(S, [Proj(2)]))`. У базі, коли другий аргумент нуль, віддаємо перший — це `f = Proj(0)` (візьми аргумент з індексом 0, тобто `a`). У кроці рекурсії `PrimRec` викликає `g` з трьома значеннями: `(xs, y, h(xs, y))` — тут це `(a, b−1, add(a, b−1))`. Нам треба взяти останнє з них, попередній результат `add(a, b−1)`, і навісити наступника: `S(add(a, b−1))`. «Взяти третій аргумент» — це `Proj(2)`, «навісити S» — `Comp(S, [Proj(2)])`. Уся арифметика додавання зведена до вибору потрібного значення й одного `S`. Запусти — `5`.
 
@@ -236,34 +135,7 @@ print(add(2, 3))   # 5
 
 Тепер — короткий інтерпретатор, що просто ганяє цю таблицю над стрічкою (стрічку тримаємо як словник «індекс → символ», тож вона росте в обидва боки без меж):
 
-```python
-BLANK = "_"
-# δ: (стан, символ) → (новий стан, що записати, куди рухатись: -1, 0, +1)
-delta = {
-    ("q0", "1"): ("q0", "1", +1),
-    ("q0", "0"): ("q1", "1", +1),
-    ("q1", "1"): ("q1", "1", +1),
-    ("q1", "_"): ("q2", "_", -1),
-    ("q2", "1"): ("qH", "_",  0),
-}
-
-def run(word):
-    tape = dict(enumerate(word))
-    head, state, steps = 0, "q0", 0
-    while state != "qH":                     # qH — стан-зупинка
-        sym = tape.get(head, BLANK)
-        state, write, move = delta[(state, sym)]
-        tape[head] = write
-        head += move
-        steps += 1
-    return sum(1 for v in tape.values() if v == "1"), steps
-
-def tm_add(m, n):
-    ones, steps = run("1" * m + "0" + "1" * n)
-    return ones                              # кількість одиниць = сума
-
-print(tm_add(2, 3))   # 5
-```
+:::code proj-three-models/py/doroha-tretia-holivka.py
 
 Простежмо, як машина додає 2 + 3 на стрічці `110111`. Голівка стартує ліворуч у стані `q0`:
 

@@ -43,91 +43,8 @@
 Тепер код пишеться майже сам. Вирок — три можливості: `ПРИЙНЯТО`, `ВІДКИНУТО` і — про це нижче окремо — `НЕ ЗНАЮ`. Приймальний і відкидальний стани звемо `qa` й `qr`: «зупинитися з відповіддю» — це просто перехід у виділений стан, і жодного окремого механізму для цього не треба.
 
 :::tabs
-```py
-BL = "␣"                                      # порожня клітинка
-
-def run(delta, w, start="q0", limit=10_000, trace=False):
-    tape = {i: c for i, c in enumerate(w)}    # стрічка — словник, не масив
-    q, head = start, 0
-    for steps in range(limit + 1):
-        if trace:
-            print(snapshot(tape, head, q))
-        if q == "qa":
-            return "ПРИЙНЯТО", steps, content(tape)
-        if q == "qr":
-            return "ВІДКИНУТО", steps, content(tape)
-        rule = delta.get((q, tape.get(head, BL)))     # уся δ — один пошук
-        if rule is None:                              # правила немає — за домовленістю «ні»
-            return "ВІДКИНУТО", steps, content(tape)
-        write, move, q = rule
-        tape[head] = write
-        head += 1 if move == "R" else -1
-    return "НЕ ЗНАЮ", limit, content(tape)            # ліміт вичерпано — і це НЕ «зациклилась»
-
-def snapshot(tape, head, q):
-    keys = list(tape) + [head]
-    cells = "".join(("▸" if i == head else " ") + tape.get(i, BL)
-                    for i in range(min(keys), max(keys) + 1))
-    return "%-3s%s" % (q + ":", cells)
-
-def content(tape):
-    return "".join(tape[i] for i in sorted(tape)).strip(BL)
-
-# таблиця δ машини, що перевіряє мову {0ⁿ1ⁿ}: викреслюємо пари 0↔1 позначками X та Y
-D01 = {
-    ("q0", "0"): ("X", "R", "q1"), ("q0", "Y"): ("Y", "R", "q3"), ("q0", BL): (BL, "R", "qa"),
-    ("q1", "0"): ("0", "R", "q1"), ("q1", "Y"): ("Y", "R", "q1"), ("q1", "1"): ("Y", "L", "q2"),
-    ("q2", "0"): ("0", "L", "q2"), ("q2", "Y"): ("Y", "L", "q2"), ("q2", "X"): ("X", "R", "q0"),
-    ("q3", "Y"): ("Y", "R", "q3"), ("q3", BL): (BL, "R", "qa"),
-}
-```
-```ts
-const BL = "␣";
-
-type Dir = "L" | "R";
-type Rule = { write: string; move: Dir; next: string };
-type Delta = Map<string, Rule>;
-type Verdict = "ПРИЙНЯТО" | "ВІДКИНУТО" | "НЕ ЗНАЮ";
-
-const key = (q: string, c: string) => `${q},${c}`;
-const table = (rows: [string, string, string, Dir, string][]): Delta =>
-  new Map(rows.map(([q, c, write, move, next]) => [key(q, c), { write, move, next }]));
-
-function run(delta: Delta, w: string, start = "q0", limit = 10_000, trace = false) {
-  const tape = new Map<number, string>([...w].map((c, i) => [i, c])); // словник, не масив
-  let q = start, head = 0;
-  for (let steps = 0; steps <= limit; steps++) {
-    if (trace) console.log(snapshot(tape, head, q));
-    if (q === "qa") return { v: "ПРИЙНЯТО" as Verdict, steps, tape: content(tape) };
-    if (q === "qr") return { v: "ВІДКИНУТО" as Verdict, steps, tape: content(tape) };
-    const rule = delta.get(key(q, tape.get(head) ?? BL));   // уся δ — один пошук
-    if (!rule) return { v: "ВІДКИНУТО" as Verdict, steps, tape: content(tape) };
-    tape.set(head, rule.write);
-    head += rule.move === "R" ? 1 : -1;
-    q = rule.next;
-  }
-  return { v: "НЕ ЗНАЮ" as Verdict, steps: limit, tape: content(tape) };
-}
-
-function snapshot(tape: Map<number, string>, head: number, q: string) {
-  const ks = [...tape.keys(), head];
-  let cells = "";
-  for (let i = Math.min(...ks); i <= Math.max(...ks); i++)
-    cells += (i === head ? "▸" : " ") + (tape.get(i) ?? BL);
-  return (q + ":").padEnd(3) + cells;
-}
-
-const content = (tape: Map<number, string>) =>
-  [...tape.keys()].sort((a, b) => a - b).map((i) => tape.get(i)!).join("").replace(/^␣+|␣+$/g, "");
-
-// таблиця δ машини, що перевіряє мову {0ⁿ1ⁿ}: викреслюємо пари 0↔1 позначками X та Y
-const D01 = table([
-  ["q0", "0", "X", "R", "q1"], ["q0", "Y", "Y", "R", "q3"], ["q0", BL, BL, "R", "qa"],
-  ["q1", "0", "0", "R", "q1"], ["q1", "Y", "Y", "R", "q1"], ["q1", "1", "Y", "L", "q2"],
-  ["q2", "0", "0", "L", "q2"], ["q2", "Y", "Y", "L", "q2"], ["q2", "X", "X", "R", "q0"],
-  ["q3", "Y", "Y", "R", "q3"], ["q3", BL, BL, "R", "qa"],
-]);
-```
+:::code proj-turing-simulator/py/riven-1-symuliator.py
+:::code proj-turing-simulator/ts/riven-1-symuliator.ts
 :::
 
 Сімнадцять рядків — і машина жива. `run(D01, "0011", trace=True)` друкує весь прогін, `▸` стоїть перед клітинкою під голівкою:
@@ -201,95 +118,8 @@ qa: X X Y Y ␣▸␣
 Тепер сам цикл U. Він робить рівно те, що ви робили б олівцем, читаючи чужу таблицю: подивитися, у якому M стані й що в неї під голівкою, знайти в таблиці рядок, зробити написане.
 
 :::tabs
-```py
-def encode(delta):                                     # правило → рівно 7 клітинок
-    return "".join(q + c + w + d + n for (q, c), (w, d, n) in sorted(delta.items()))
-
-def load(delta, w, start="q0"):                        # опис + стан + робоча стрічка
-    return "^" + encode(delta) + "#" + start + "|*" + w
-
-def universal(tape_str, limit=200_000):
-    T = {i: c for i, c in enumerate(tape_str)}
-    at = lambda i: T.get(i, BL)
-    left, h = 0, 1
-    while at(h) != "#":                                # h — межа «#», за нею стан M
-        h += 1
-    bar = h + 3                                        # bar — межа «|», за нею стрічка M
-    for steps in range(limit + 1):
-        q = at(h + 1) + at(h + 2)                      # хто я: стан M — 2 клітинки
-        if q == "qa":
-            return "ПРИЙНЯТО", steps, work(T, bar)
-        if q == "qr":
-            return "ВІДКИНУТО", steps, work(T, bar)
-        s = bar
-        while at(s) != "*":                            # що бачу: дійти до позначки голівки
-            s += 1
-        c = at(s + 1)
-        p = left + 1                                   # шукаємо правило: крок сімками
-        while p < h and not (at(p) + at(p + 1) == q and at(p + 2) == c):
-            p += 7
-        if p >= h:
-            return "ВІДКИНУТО", steps, work(T, bar)
-        T[s + 1] = at(p + 3)                           # пише
-        T[h + 1], T[h + 2] = at(p + 5), at(p + 6)      # новий стан
-        if at(p + 4) == "R":
-            T[s], T[s + 1] = at(s + 1), "*"            # позначка міняється з сусідом
-        else:
-            if s - 1 == bar:                           # ліворуч межа: посунути весь опис
-                for i in range(left, bar + 1):
-                    T[i - 1] = at(i)
-                T[bar] = BL
-                left -= 1; h -= 1; bar -= 1
-            T[s], T[s - 1] = at(s - 1), "*"
-    return "НЕ ЗНАЮ", limit, work(T, bar)
-
-def work(T, bar):
-    return "".join(T[i] for i in sorted(k for k in T if k > bar) if T[i] != "*").strip(BL)
-```
-```ts
-const encode = (d: Delta): string =>
-  [...d].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
-    .map(([k, r]) => { const [q, c] = k.split(","); return q + c + r.write + r.move + r.next; })
-    .join("");
-
-const load = (d: Delta, w: string, start = "q0") => `^${encode(d)}#${start}|*${w}`;
-
-function universal(tapeStr: string, limit = 200_000) {
-  const T = new Map<number, string>([...tapeStr].map((c, i) => [i, c]));
-  const at = (i: number) => T.get(i) ?? BL;
-  let left = 0, h = 1;
-  while (at(h) !== "#") h++;                       // h — межа «#», за нею стан M
-  let bar = h + 3;                                 // bar — межа «|», за нею стрічка M
-  for (let steps = 0; steps <= limit; steps++) {
-    const q = at(h + 1) + at(h + 2);               // хто я: стан M — 2 клітинки
-    if (q === "qa") return { v: "ПРИЙНЯТО" as Verdict, steps, tape: work(T, bar) };
-    if (q === "qr") return { v: "ВІДКИНУТО" as Verdict, steps, tape: work(T, bar) };
-    let s = bar;
-    while (at(s) !== "*") s++;                     // що бачу: дійти до позначки голівки
-    const c = at(s + 1);
-    let p = left + 1;                              // шукаємо правило: крок сімками
-    while (p < h && !(at(p) + at(p + 1) === q && at(p + 2) === c)) p += 7;
-    if (p >= h) return { v: "ВІДКИНУТО" as Verdict, steps, tape: work(T, bar) };
-    T.set(s + 1, at(p + 3));                       // пише
-    T.set(h + 1, at(p + 5)); T.set(h + 2, at(p + 6));   // новий стан
-    if (at(p + 4) === "R") {
-      T.set(s, at(s + 1)); T.set(s + 1, "*");      // позначка міняється з сусідом
-    } else {
-      if (s - 1 === bar) {                         // ліворуч межа: посунути весь опис
-        for (let i = left; i <= bar; i++) T.set(i - 1, at(i));
-        T.set(bar, BL);
-        left--; h--; bar--;
-      }
-      T.set(s, at(s - 1)); T.set(s - 1, "*");
-    }
-  }
-  return { v: "НЕ ЗНАЮ" as Verdict, steps: limit, tape: work(T, bar) };
-}
-
-const work = (T: Map<number, string>, bar: number) =>
-  [...T.keys()].filter((i) => i > bar).sort((a, b) => a - b)
-    .map((i) => T.get(i)!).filter((c) => c !== "*").join("").replace(/^␣+|␣+$/g, "");
-```
+:::code proj-turing-simulator/py/riven-2-prohrama.py
+:::code proj-turing-simulator/ts/riven-2-prohrama.ts
 :::
 
 Прочитайте цей код ще раз і спробуйте знайти в ньому бодай слово про нулі, одиниці, `X`, `Y` чи про мову 0ⁿ1ⁿ. Його там немає. Є `#`, `|`, `*`, число 7 і чотири порівняння символів. Уся «розумність» машини 0ⁿ1ⁿ лишилася в тих сімдесяти семи клітинках на стрічці — а U просто ходить туди-сюди й звіряє клітинки.
@@ -343,22 +173,7 @@ INC = {
 
 Опис M — рядок над скінченним алфавітом. А рядок над скінченним алфавітом — це запис числа в позиційній системі: пронумеруймо тринадцять використаних символів і читаймо опис як число за основою 13.
 
-```py
-ABC = "␣0123XYqacrLR"
-
-def to_number(desc):
-    n = 0
-    for ch in desc:
-        n = n * 13 + ABC.index(ch) + 1
-    return n
-
-def from_number(n):
-    out = ""
-    while n:
-        n, r = divmod(n - 1, 13)
-        out = ABC[r] + out
-    return out
-```
+:::code proj-turing-simulator/py/opys-tse-chyslo.py
 
 Машина `+1` — це число:
 

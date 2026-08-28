@@ -25,40 +25,8 @@
 Для обробки виняткових ситуацій усі функції C ABI повертають цілочисельний статус типу `otm_status_t`. Значення `0` відповідає успішному виконанню, а від'ємні значення вказують на конкретні системні або логічні збої.
 
 :::tabs
-```c
-typedef enum {
-    OTM_SUCCESS              =  0,
-    OTM_ERR_NULL_POINTER     = -1,
-    OTM_ERR_OUT_OF_MEMORY    = -2,
-    OTM_ERR_ORACLE_TIMEOUT   = -3,
-    OTM_ERR_BOUNDS_EXCEEDED  = -4,
-    OTM_ERR_INVALID_MACHINE  = -5
-} otm_status_t;
-
-typedef enum {
-    ORACLE_TYPE_FINITE_SET,
-    ORACLE_TYPE_COMPUTABLE_PREDICATE,
-    ORACLE_TYPE_HALTING_ORACLE,
-    ORACLE_TYPE_CUSTOM_CALLBACK
-} oracle_type_t;
-```
-```cpp
-enum class Status : int32_t {
-    Success            =  0,
-    ErrNullPointer     = -1,
-    ErrOutOfMemory     = -2,
-    ErrOracleTimeout   = -3,
-    ErrBoundsExceeded  = -4,
-    ErrInvalidMachine  = -5
-};
-
-enum class OracleType {
-    FiniteSet,
-    ComputablePredicate,
-    HaltingOracle,
-    CustomCallback
-};
-```
+:::code api-oracle-interface/c/2-1-kody-pomylok-ta-typy.c
+:::code api-oracle-interface/cpp/2-1-kody-pomylok-ta-typy.cpp
 :::
 
 Перелічення `oracle_type_t` (або `OracleType` у C++) визначає категорію провайдера:
@@ -72,53 +40,8 @@ enum class OracleType {
 Для протоколювання кожного звернення до оракула та подальшого обчислення функції використання `u(x)` застосовуються структури запиту та траси.
 
 :::tabs
-```c
-/* Структура для запису одного оракульного запиту */
-typedef struct {
-    uint64_t query_value;    /* Число, надіслане оракулу */
-    bool answer;             /* Відповідь: true (1) / false (0) */
-    uint64_t step_timestamp; /* Крок обчислення, на якому зроблено запит */
-} otm_query_entry_t;
-
-/* Протокол журналювання запитів */
-typedef struct {
-    otm_query_entry_t *entries;
-    size_t count;
-    size_t capacity;
-    uint64_t max_queried_value; /* Значення u(x) - 1 */
-} otm_query_trace_t;
-
-/* Структура Провайдера Оракула */
-typedef struct oracle_provider {
-    oracle_type_t type;
-    void *user_data;
-    bool (*query_func)(struct oracle_provider *self, uint64_t val, otm_status_t *err);
-    void (*free_func)(struct oracle_provider *self);
-} oracle_provider_t;
-```
-```cpp
-struct QueryEntry {
-    uint64_t query_value;
-    bool answer;
-    uint64_t step_timestamp;
-};
-
-struct QueryTrace {
-    std::vector<QueryEntry> entries;
-    uint64_t max_queried_value{0};
-
-    [[nodiscard]] uint64_t get_use_bound() const noexcept {
-        return entries.empty() ? 0 : max_queried_value + 1;
-    }
-};
-
-class IOracleProvider {
-public:
-    virtual ~IOracleProvider() = default;
-    [[nodiscard]] virtual bool contains(uint64_t value) const = 0;
-    [[nodiscard]] virtual std::string_view get_type_name() const noexcept = 0;
-};
-```
+:::code api-oracle-interface/c/2-2-struktury-reiestratsii.h
+:::code api-oracle-interface/cpp/2-2-struktury-reiestratsii.cpp
 :::
 
 Описовий розбір полів структури `oracle_provider_t`:
@@ -134,53 +57,8 @@ public:
 Нижче наведено основні функції управління оракульним середовищем.
 
 :::tabs
-```c
-/**
- * @brief Створює новий екземпляр провайдера оракула на основі скінченного масиву.
- */
-otm_status_t otm_oracle_create_finite(
-    const uint64_t *elements,
-    size_t count,
-    oracle_provider_t **out_provider
-);
-
-/**
- * @brief Здійснює запит до оракула з автоматичним протоколюванням.
- */
-otm_status_t otm_oracle_query(
-    oracle_provider_t *provider,
-    uint64_t query_val,
-    otm_query_trace_t *trace,
-    bool *out_answer
-);
-
-/**
- * @brief Обчислює точне значення функції використання u(x) за трасою.
- */
-uint64_t otm_trace_get_use_bound(const otm_query_trace_t *trace);
-
-/**
- * @brief Звільняє ресурси оракула.
- */
-void otm_oracle_destroy(oracle_provider_t *provider);
-```
-```cpp
-namespace otm {
-
-class OracleFactory {
-public:
-    [[nodiscard]] static std::expected<std::shared_ptr<IOracleProvider>, Status>
-    create_finite(std::span<const uint64_t> elements);
-};
-
-class OracleEngine {
-public:
-    [[nodiscard]] std::expected<bool, Status>
-    query(IOracleProvider& provider, uint64_t query_val, QueryTrace& trace);
-};
-
-} // namespace otm
-```
+:::code api-oracle-interface/c/2-3-syhnatury-ta-opys.h
+:::code api-oracle-interface/cpp/2-3-syhnatury-ta-opys.hpp
 :::
 
 **Механізм роботи `otm_oracle_query`**:
@@ -196,49 +74,7 @@ public:
 
 C++20 інтерфейс забезпечує строго типізований контракт на основі концептів (англ. *concepts*), шаблонів та смарт-вказівників.
 
-```cpp
-namespace otm {
-
-template <typename T>
-concept OracleProviderConcept = requires(T a, uint64_t val) {
-    { a.contains(val) } -> std::same_as<bool>;
-    { a.get_type_name() } -> std::convertible_to<std::string_view>;
-};
-
-struct ExecutionMetrics {
-    uint64_t total_steps{0};
-    uint64_t oracle_queries_count{0};
-    uint64_t max_restraint_use{0};
-    bool halted{false};
-};
-
-class MemoryBoundOracle final : public IOracleProvider {
-private:
-    std::vector<uint64_t> sorted_elements_;
-
-public:
-    explicit MemoryBoundOracle(std::vector<uint64_t> elements);
-    [[nodiscard]] bool contains(uint64_t value) const override;
-    [[nodiscard]] std::string_view get_type_name() const noexcept override {
-        return "MemoryBoundOracle";
-    }
-};
-
-class ExecutionEngine {
-private:
-    std::shared_ptr<IOracleProvider> oracle_;
-    ExecutionMetrics metrics_;
-
-public:
-    explicit ExecutionEngine(std::shared_ptr<IOracleProvider> oracle)
-        : oracle_(std::move(oracle)) {}
-
-    [[nodiscard]] std::expected<ExecutionMetrics, otm_status_t>
-    execute_machine(uint64_t machine_index, uint64_t input_x, uint64_t max_steps);
-};
-
-} // namespace otm
-```
+:::code api-oracle-interface/cpp/3-spetsyfikatsiia-c-20.cpp
 
 **Опис класів C++20**:
 - `OracleProviderConcept`: Гарантує, що будь-який шаблонний клас, переданий у рушій виконання, реалізує метод `contains(uint64_t)` із поверненням `bool` та метод `get_type_name()`. Це виключає помилки компіляції при підключенні сторонніх оракулів.

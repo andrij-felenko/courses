@@ -1,0 +1,15 @@
+typedef enum {
+    OTM_SUCCESS              =  0,
+    OTM_ERR_NULL_POINTER     = -1,
+    OTM_ERR_OUT_OF_MEMORY    = -2,
+    OTM_ERR_ORACLE_TIMEOUT   = -3,
+    OTM_ERR_BOUNDS_EXCEEDED  = -4,
+    OTM_ERR_INVALID_MACHINE  = -5
+} otm_status_t;
+
+typedef enum {
+    ORACLE_TYPE_FINITE_SET,
+    ORACLE_TYPE_COMPUTABLE_PREDICATE,
+    ORACLE_TYPE_HALTING_ORACLE,
+    ORACLE_TYPE_CUSTOM_CALLBACK
+} oracle_type_t;

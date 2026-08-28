@@ -16,63 +16,7 @@
 
 Це системний код: ручне виділення й звільнення пам'яті, копіювання блоку, арифметика вказівників. Тут доречна мова, у якій усе це видно без завіси, — C. Уся хитрість в одному рядку `v->copies += v->len` усередині гілки росту: він накопичує саме ту роботу, яку ми хочемо зміряти.
 
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-    int    *data;               // блок пам'яті під елементи
-    size_t  len, cap;           // зайнято / вміщає
-    double  factor;             // коефіцієнт росту: 2.0, 1.5 або 1.0 (=«+1»)
-    unsigned long long copies;  // скільки елементів скопійовано за весь пробіг
-    unsigned           reallocs;// скільки разів росли
-    size_t             peak;    // найбільша місткість, яку тримали
-} Vec;
-
-// Наступна місткість за коефіцієнтом. Ключова тонкість — гарантований приріст:
-// коли cap мале, cap*1.5 може округлитись донизу до cap, і масив завис би навіки.
-static size_t grow(size_t cap, double f) {
-    if (cap == 0) return 1;                 // перший блок
-    size_t nc = (size_t)(cap * f);
-    if (nc <= cap) nc = cap + 1;            // приріст хоч на один — інакше глухий кут
-    return nc;
-}
-
-void push(Vec *v, int x) {
-    if (v->len == v->cap) {                     // місця немає — треба рости
-        size_t nc = grow(v->cap, v->factor);
-        int *bigger = malloc(nc * sizeof(int));
-        for (size_t i = 0; i < v->len; i++)     // копіюємо ВСЕ старе: O(len)
-            bigger[i] = v->data[i];
-        v->copies += v->len;                     // ← ось де лічимо реальну роботу
-        v->reallocs++;
-        free(v->data);
-        v->data = bigger;
-        v->cap  = nc;
-        if (nc > v->peak) v->peak = nc;
-    }
-    v->data[v->len++] = x;                        // дешевий запис: O(1)
-}
-
-int main(void) {
-    const size_t N = 1000000;                     // мільйон додатків
-    double      factor[] = {2.0, 1.5, 1.0};
-    const char *name[]   = {"× 2", "× 1.5", "+ 1"};
-
-    printf("коеф.   копіювань          росли    пік. місткість   копій/додаток\n");
-    for (int f = 0; f < 3; f++) {
-        Vec v = {0};                              // усе в нулі: data=NULL, len=cap=0
-        v.factor = factor[f];
-        for (size_t i = 0; i < N; i++)
-            push(&v, (int)i);
-        printf("%-6s %14llu %8u %16zu %13.3f\n",
-               name[f], v.copies, v.reallocs, v.peak,
-               (double)v.copies / N);
-        free(v.data);
-    }
-    return 0;
-}
-```
+:::code proj-dynamic-array/c/robochyi-kod-masyv-iz.c
 
 Тип лічильника — `unsigned long long`, і це не педантизм: для політики «+1» сума копіювань переросте чотири мільярди, і 32-розрядного `unsigned long` (яким він буває, зокрема, на Windows) не вистачило б — число тихо переповнилося б і збрехало.
 
@@ -157,24 +101,7 @@ printf("%d\n", v.data[i]);   // ✓ адресу беремо ЗАНОВО ві�
 
 Коли розмір відомий наперед, є прямий вихід — **зарезервувати місткість заздалегідь**:
 
-```c
-void reserve(Vec *v, size_t want) {
-    if (want <= v->cap) return;
-    int *bigger = malloc(want * sizeof(int));
-    for (size_t i = 0; i < v->len; i++)
-        bigger[i] = v->data[i];
-    v->copies += v->len;
-    free(v->data);
-    v->data = bigger;
-    v->cap  = want;
-}
-
-// далі — мільйон додатків БЕЗ жодного росту:
-Vec v = {0}; v.factor = 2.0;
-reserve(&v, 1000000);         // одне-єдине виділення наперед
-for (int i = 0; i < 1000000; i++)
-    push(&v, i);              // v->len ніколи не дорівнює v->cap → гілка росту мовчить
-```
+:::code proj-dynamic-array/c/pastka-druha-reserve.c
 
 Тепер `push` **жодного разу** не заходить у гілку росту: лічильник `copies` лишиться на нулі, `reallocs` — теж. Кожен додаток — рівно один запис, тверда O(1) на **кожну** операцію, без сплесків. Ми проміняли амортизовану межу (дешево в середньому, зрідка дорого) на **гарантію** (дешево завжди).
 
@@ -184,53 +111,7 @@ for (int i = 0; i < 1000000; i++)
 
 Масив, що росте, — не єдина структура, чия чесна вартість ховається в сумі по пробігу. Візьмімо стек із незвичною операцією `multipop(k)` — «зняти зверху відразу k елементів (або скільки є, коли менше)». Один її виклик може коштувати O(n): якщо в стеку мільйон елементів, `multipop(1000000)` зніме їх усі. Наївно множимо цей сплеск на кількість операцій — і лякаємось квадрата. Але й тут переляк оманливий.
 
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-    int   *data;
-    size_t len, cap;
-    unsigned long long moves;   // реальні переміщення: кожен запис і кожен зняток
-} Stack;
-
-void st_push(Stack *s, int x) {
-    if (s->len == s->cap) {
-        size_t nc = s->cap ? s->cap * 2 : 1;
-        s->data = realloc(s->data, nc * sizeof(int));
-        s->cap  = nc;
-    }
-    s->data[s->len++] = x;
-    s->moves++;                                  // один запис
-}
-
-size_t st_multipop(Stack *s, size_t k) {
-    size_t popped = 0;
-    while (k-- && s->len) {                       // знімаємо min(k, len)
-        s->len--;
-        s->moves++;                               // один зняток
-        popped++;
-    }
-    return popped;
-}
-
-int main(void) {
-    Stack s = {0};
-    unsigned ops = 0, pushes = 0;
-
-    for (int i = 0; i < 20; i++) { st_push(&s, i); ops++; pushes++; }
-    st_multipop(&s, 100); ops++;                  // ДОРОГИЙ виклик: зняв усі 20
-    for (int i = 0; i < 5; i++)  { st_push(&s, i); ops++; pushes++; }
-    st_multipop(&s, 3);   ops++;                  // зняв 3
-    st_push(&s, 99);      ops++; pushes++;
-    st_multipop(&s, 100); ops++;                  // зняв рештку 3
-
-    printf("операцій: %u,  штовхань: %u,  переміщень: %llu\n", ops, pushes, s.moves);
-    printf("межа 2·штовхань = %u  ≥  переміщень %llu\n", 2 * pushes, s.moves);
-    free(s.data);
-    return 0;
-}
-```
+:::code proj-dynamic-array/c/druhyi-pryklad-stek-iz.c
 
 Друкує:
 

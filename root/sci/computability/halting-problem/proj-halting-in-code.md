@@ -20,80 +20,8 @@ print(s % s)
 **Робочий код.** Збудуймо машину-пастку. Вона будується **з** судді `guess` й чинить наперекір тому, що той пророкує про неї саму: даємо судді на вхід текст `paradox` (код-як-дані); якщо суддя віщує «спиниться» — `paradox` іде в нескінченну гілку, якщо «не спиниться» — негайно спиняється. Мова з інтроспекцією (Python) дістає власне джерело просто під час роботи через `inspect.getsource`; у C, де інтроспекції нема, ми подаємо текст `paradox` явною сталою — це той самий код-як-дані, лише виписаний руками. `guess` тут — параметр: підстав будь-якого претендента на суддю. Досконалого `halts` підставити не можна, бо його не існує, — але **будь-якого конкретного** здогадувача можна, і `paradox` неодмінно виявиться тим входом, на якому той бреше. Перевірмо це на трьох геть різних претендентах: один завжди каже «спиниться», другий завжди «ні», третій зазирає в текст і лякається явного нескінченного циклу (`for (;;)` у C, `while True` у Python):
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-// Суддя бачить програму як дані — її текст (код = дані):
-typedef struct { const char *text; } Program;
-
-// Суддя вгадує: чи спиниться програма, коли дати їй на вхід саму себе?
-typedef bool (*Judge)(Program self, Program input);
-
-bool always_halts(Program self, Program input) { return true;  }
-bool always_loops(Program self, Program input) { return false; }
-bool guess_by_text(Program self, Program input) {           // наївна статична евристика
-    return strstr(input.text, "for (;;)") == NULL;          // не видно циклу — кажу «спиниться»
-}
-
-// Текст paradox подаємо явно: у C нема інтроспекції, тож код-як-дані пишемо руками.
-static const Program paradox = {
-    "if (guess(self, self)) for (;;);  else return;"
-};
-
-// Що paradox РОБИТЬ, коли суддя видав verdict (нескінченну гілку не запускаємо):
-//   verdict=true  («спиниться»)    -> гілка for(;;) -> насправді loops
-//   verdict=false («не спиниться») -> return        -> насправді halts
-static const char *paradox_does(bool verdict) { return verdict ? "loops" : "halts"; }
-
-int main(void) {
-    struct { const char *name; Judge guess; } probe[] = {
-        { "always_halts",  always_halts  },
-        { "always_loops",  always_loops  },
-        { "guess_by_text", guess_by_text },
-    };
-    for (int k = 0; k < 3; k++) {
-        bool verdict = probe[k].guess(paradox, paradox);    // пророцтво про paradox(paradox)
-        const char *predicted = verdict ? "halts" : "loops";
-        const char *actual    = paradox_does(verdict);
-        printf("%-13s пророчить: %-5s | paradox робить: %-5s | суддя збрехав: %s\n",
-               probe[k].name, predicted, actual,
-               strcmp(predicted, actual) != 0 ? "так" : "ні");
-    }
-    return 0;
-}
-```
-```py
-import inspect
-
-def make_paradox(guess):
-    def paradox():
-        src = inspect.getsource(paradox)   # програма читає власний текст
-        if guess(src, src):                # суддя: чи спиниться paradox на собі?
-            while True:                    # каже «спиниться» -> крутимось вічно
-                pass
-        else:
-            return "спинилась"             # каже «не спиниться» -> стоп негайно
-    return paradox
-
-def always_halts(src, arg):  return True
-def always_loops(src, arg):  return False
-def guess_by_text(src, arg): return "while True" not in src   # наївна статична евристика
-
-def defeat(name, guess):
-    src = inspect.getsource(make_paradox(guess))   # текст paradox — той самий для всіх суддів
-    verdict   = guess(src, src)                    # пророцтво про paradox(paradox)
-    predicted = "halts" if verdict else "loops"
-    actual    = "loops" if verdict else "halts"    # береться протилежна гілка
-    print("%-13s пророчить: %-5s | paradox робить: %-5s | суддя збрехав: %s"
-          % (name, predicted, actual, "так" if predicted != actual else "ні"))
-
-for name, g in [("always_halts", always_halts),
-                ("always_loops", always_loops),
-                ("guess_by_text", guess_by_text)]:
-    defeat(name, g)
-```
+:::code proj-halting-in-code/c/1-mashyna-shcho.c
+:::code proj-halting-in-code/py/1-mashyna-shcho.py
 :::
 
 Обидві мови друкують те саме:
@@ -127,91 +55,8 @@ guess_by_text пророчить: loops | paradox робить: halts | судд
 **Робочий код.** Щоб чесно порахувати кроки будь-якої програми, треба вміти виконувати її **по одному кроку** й після кожного питати «чи вже кінець?». Найпрозоріша модель цього — програма як **крокова функція**: вона рухає стан і повертає `RUNNING`, доки працює, або `DONE`, коли спинилась. Напівсуддя жене таку функцію не більш як `budget` разів. Ця модель — не навчальна умовність: так улаштовані обмежені виконавці й лічильники «пального» в реальних віртуальних машинах (те саме газове метрування в EVM). Головне — межа «кроку» тут **явна**, і ми ще побачимо, як багато це важить.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdbool.h>
-
-typedef enum { RUNNING, DONE } Status;
-typedef Status (*Step)(long *state);   // один крок: рухає стан; DONE, коли спинилась
-
-typedef enum { HALTS, UNKNOWN } Verdict;   // LOOPS не буває — у цьому вся суть
-
-// Женемо step не більш як budget кроків.
-Verdict halts_within(Step step, long init, long budget, long *steps_out) {
-    long st = init;
-    for (long i = 0; i < budget; i++) {
-        if (step(&st) == DONE) {
-            *steps_out = i + 1;
-            return HALTS;              // достеменно спинилась — ми бачили
-        }
-    }
-    *steps_out = budget;
-    return UNKNOWN;                    // бюджет вичерпано — не знаємо
-}
-
-Status countdown(long *s) {            // рахує вниз до 0, тоді спиняється
-    if (*s <= 0) return DONE;
-    (*s)--;
-    return RUNNING;
-}
-
-Status forever(long *s) {              // вічна
-    (void)s;
-    return RUNNING;
-}
-
-Status heavy(long *s) {                // уся праця — в одному кроці
-    long acc = 0;
-    for (long k = 0; k < 2000000; k++) acc += k;   // мільйони додавань під одним кроком
-    *s = acc;
-    return DONE;
-}
-
-int main(void) {
-    const char *V[] = { "HALTS", "UNKNOWN" };
-    long n; Verdict v;
-
-    v = halts_within(countdown, 50,  10000, &n);
-    printf("countdown(50),  б=10000 -> %-7s кроків %ld\n", V[v], n);
-    v = halts_within(forever,   0,   10000, &n);
-    printf("forever,        б=10000 -> %-7s кроків %ld\n", V[v], n);
-    v = halts_within(countdown, 500, 100,   &n);
-    printf("countdown(500), б=100   -> %-7s кроків %ld\n", V[v], n);
-    v = halts_within(countdown, 500, 5000,  &n);
-    printf("countdown(500), б=5000  -> %-7s кроків %ld\n", V[v], n);
-    v = halts_within(heavy,     0,   5,     &n);
-    printf("heavy,          б=5     -> %-7s кроків %ld\n", V[v], n);
-    return 0;
-}
-```
-```py
-RUNNING, DONE = 0, 1
-
-def halts_within(step, state, budget):
-    """Напівсуддя: женемо не більш як budget кроків.
-    Повертає ('HALTS', кроки) або ('UNKNOWN', кроки) — ніколи 'LOOPS'."""
-    for i in range(budget):
-        status, state = step(state)
-        if status == DONE:
-            return ("HALTS", i + 1)     # достеменно спинилась — ми бачили
-    return ("UNKNOWN", budget)          # бюджет вичерпано — не знаємо
-
-def countdown(s):                       # рахує вниз до 0, тоді спиняється
-    return (DONE, s) if s <= 0 else (RUNNING, s - 1)
-
-def forever(s):                         # вічна
-    return (RUNNING, s)
-
-def heavy(s):                           # уся праця — в одному кроці
-    acc = sum(range(2_000_000))         # мільйони додавань під одним кроком
-    return (DONE, acc)
-
-print("countdown(50),  б=10000 -> %-7s кроків %d" % halts_within(countdown, 50,  10000))
-print("forever,        б=10000 -> %-7s кроків %d" % halts_within(forever,   0,   10000))
-print("countdown(500), б=100   -> %-7s кроків %d" % halts_within(countdown, 500, 100))
-print("countdown(500), б=5000  -> %-7s кроків %d" % halts_within(countdown, 500, 5000))
-print("heavy,          б=5     -> %-7s кроків %d" % halts_within(heavy,     0,   5))
-```
+:::code proj-halting-in-code/c/2-chesnyi-napivsuddia.c
+:::code proj-halting-in-code/py/2-chesnyi-napivsuddia.py
 :::
 
 Обидві мови дають один вивід:
@@ -241,89 +86,11 @@ heavy,          б=5     -> HALTS   кроків 1
 
 **Робочий код.** Це єдина з трьох спроб, що лишається суто в Python, — і причина по суті. Тут ми не виконуємо код, а розбираємо його **текст**: мова з готовим синтаксичним аналізатором дає дерево розбору задарма. Вбудований модуль `ast` перетворює джерело на дерево вузлів, яким зручно ходити; писати заради цього власний парсер (як довелося б у C) означало б поміняти інструмент, що пасує задачі, на той, що ні. Спершу три помічники: чи є в тілі циклу вихід, що належить **саме йому**; чи є там виклики; скільки разів тіло переприсвоює змінну.
 
-```py
-import ast
-
-def escapes(node, kinds, mine=True):
-    """Чи є в node вихід одного з типів kinds, що належить НАШОМУ циклу?
-    break/continue гілкуються до найближчого циклу (тому mine гасне у вкладеному);
-    return/raise виносять із функції завжди."""
-    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda, ast.ClassDef)):
-        return False                                   # інша область видимості
-    if isinstance(node, kinds):
-        if isinstance(node, (ast.Break, ast.Continue)):
-            if mine:
-                return True
-        else:
-            return True
-    inner = isinstance(node, (ast.For, ast.While, ast.AsyncFor))
-    return any(escapes(ch, kinds, mine and not inner) for ch in ast.iter_child_nodes(node))
-
-def has_call(node):
-    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda, ast.ClassDef)):
-        return False
-    if isinstance(node, (ast.Call, ast.Await)):
-        return True
-    return any(has_call(ch) for ch in ast.iter_child_nodes(node))
-
-def binds(node, name):
-    """Скільки разів тіло переприсвоює `name` (=, +=, ціль for)."""
-    n = 0
-    for ch in ast.iter_child_nodes(node):
-        if isinstance(ch, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda, ast.ClassDef)):
-            continue
-        if isinstance(ch, ast.Assign):
-            n += sum(isinstance(t, ast.Name) and t.id == name for t in ch.targets)
-        elif isinstance(ch, ast.AugAssign):
-            n += int(isinstance(ch.target, ast.Name) and ch.target.id == name)
-        elif isinstance(ch, (ast.For, ast.AsyncFor)):
-            n += int(isinstance(ch.target, ast.Name) and ch.target.id == name)
-        n += binds(ch, name)
-    return n
-```
+:::code proj-halting-in-code/py/3-vuzkyi-ale-nadiinyi.py
 
 `escapes` — не педантизм, а серце надійності. Наївний перевіряльник, побачивши будь-який `break`, вирішив би «є вихід» і промовчав. Але `break` у **вкладеному** циклі виходить із того циклу, а не з нашого; тож, спускаючись у вкладений цикл, ми гасимо прапорець `mine` — і той `break` для нас уже не вихід. Проґавити цю тонкість — значить проґавити справжні вічні цикли. Тепер сам присуд:
 
-```py
-def classify(loop):
-    body, test = loop.body, loop.test
-    exits = any(escapes(st, (ast.Break, ast.Return, ast.Raise)) for st in body)
-    calls = any(has_call(st) for st in body)
-
-    # (1) тривіальна нескінченність: while True без жодного виходу й виклику
-    if isinstance(test, ast.Constant) and test.value is True:
-        if not exits and not calls:
-            return "LOOPS", "while True — жодного виходу, жодного виклику"
-        return "UNKNOWN", "while True, але є вихід чи виклик — не беруся"
-
-    # (2) простий лічильниковий варіант:  while i {<,<=,>,>=} межа
-    if (isinstance(test, ast.Compare) and len(test.ops) == 1
-            and isinstance(test.left, ast.Name)):
-        i, op, bound = test.left.id, test.ops[0], test.comparators[0]
-        if calls:
-            return "UNKNOWN", "у тілі виклик — чужа функція могла б не повернутись"
-        if any(escapes(st, (ast.Continue,)) for st in body):
-            return "UNKNOWN", "є continue — крок може прослизнути"
-        if binds(loop, i) != 1:
-            return "UNKNOWN", "i змінюється не рівно одну безумовну дію"
-        step = next((st for st in body if isinstance(st, ast.AugAssign)
-                     and isinstance(st.target, ast.Name) and st.target.id == i), None)
-        if step is None:
-            return "UNKNOWN", "єдина зміна i — не безумовне i ±= c на верхньому рівні"
-        c = step.value
-        if not (isinstance(c, ast.Constant) and isinstance(c.value, int) and c.value > 0):
-            return "UNKNOWN", "крок не є додатною цілою константою"
-        if isinstance(bound, ast.Name) and binds(loop, bound.id) > 0:
-            return "UNKNOWN", "межу теж рухають — варіант не сталий"
-        up = isinstance(step.op, ast.Add)
-        toward = (isinstance(op, (ast.Lt, ast.LtE)) and up) or \
-                 (isinstance(op, (ast.Gt, ast.GtE)) and isinstance(step.op, ast.Sub))
-        if not toward:
-            return "UNKNOWN", "крок веде i ГЕТЬ від межі — може не спинитись"
-        return "TERMINATES", "варіант строго спадає до дна, крок %d" % c.value
-
-    return "UNKNOWN", "форма циклу не з тих, що вміє цей інструмент"
-```
+:::code proj-halting-in-code/py/3-vuzkyi-ale-nadiinyi-2.py
 
 Пройдімося тим самим набором циклів, який тільки й може попастися в реальному коді:
 

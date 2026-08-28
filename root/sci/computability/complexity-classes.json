@@ -35,7 +35,8 @@
           "proj": [
             {
               "file": "proj-sat-solver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -47,18 +48,21 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "math": [
             {
               "file": "math-classes.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-verify-reduce.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -87,7 +91,8 @@
           "proj": [
             {
               "file": "proj-sat-verifier.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -109,19 +114,23 @@
           "math": [
             {
               "file": "math-delayed-simulation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-ladner-simulator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-ladner-reduction.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -150,7 +159,8 @@
           "proj": [
             {
               "file": "proj-dpll-solver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -179,13 +189,16 @@
           "math": [
             {
               "file": "math-savitch.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-tqbf-evaluator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -207,19 +220,24 @@
           "math": [
             {
               "file": "math-immerman-szelepcsenyi.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-st-connectivity.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-logspace-transducer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -248,7 +266,8 @@
           "proj": [
             {
               "file": "proj-qsat-solver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -283,11 +302,13 @@
           "proj": [
             {
               "file": "proj-permanent-ryser.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-sharp-sat-counter.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -303,25 +324,30 @@
           "hist": [
             {
               "file": "hist-toda-valiant.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-valiant-vazirani.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-parity-sat.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-parity-interface.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -343,19 +369,23 @@
           "math": [
             {
               "file": "math-valiant-proof.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-ryser-glynn.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-matrix-permanent.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -384,19 +414,23 @@
           "math": [
             {
               "file": "math-error-amplification.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-miller-rabin.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-probabilistic-interface.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -424,7 +458,8 @@
           "proj": [
             {
               "file": "proj-majsat-solver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -446,19 +481,23 @@
           "math": [
             {
               "file": "math-public-vs-private-coins.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-graph-nonisomorphism.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-protocol-spec.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -475,7 +514,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -486,13 +526,15 @@
           "math": [
             {
               "file": "math-period-finding-qft.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-shor-simulation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -520,19 +562,23 @@
           "math": [
             {
               "file": "math-ehrenfeucht-fraisse.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-fo-model-checker.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-fo-structures.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

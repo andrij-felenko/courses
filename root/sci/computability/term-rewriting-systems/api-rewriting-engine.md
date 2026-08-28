@@ -17,79 +17,10 @@
 Бібліотека визначає чітку ієрархію структур даних, що описують елементи сигнатури, синтаксичні дерева, правила редукції та структури індексації.
 
 ### 2.1. Базові типи та дескриптори
-```cpp
-namespace trs {
-
-// Ідентифікатор виду вузла синтаксичного дерева
-enum class NodeKind : uint8_t {
-    Variable = 0,    // Синтаксична змінна (наприклад, x, y, z)
-    Function = 1     // Функціональний символ або константа (арність >= 0)
-};
-
-// Стратегія обходу та скорочення редексів
-enum class ReductionStrategy : uint8_t {
-    Innermost = 0,        // Найглибші підтерми спочатку (Call-by-Value, жадібна)
-    Outermost = 1,        // Корінь спочатку (Call-by-Name, лінива)
-    ParallelOutermost = 2 // Одночасне скорочення всіх максимальних редексів
-};
-
-// Результат виконання процедури поповнення
-enum class CompletionStatus : uint8_t {
-    Success = 0,            // Отримано повну канонічну систему (термінантну та конфлюентну)
-    UnorientableEquation = 1, // Зустрілася рівність, яку неможливо орієнтувати порядком
-    StepLimitExceeded = 2,  // Перевищено ліміт ітерацій або кількості критичних пар
-    MemoryLimitExceeded = 3 // Перевищено виділений бюджет оперативної пам'яті
-};
-
-// Дескриптор функціонального символу сигнатури
-struct Symbol {
-    std::string name;       // Текстовий ідентифікатор ("*", "+", "i", "e")
-    uint32_t arity;         // Кількість аргументів (0 для констант)
-    uint32_t precedence;    // Числовий пріоритет для порядку LPO/KBO (більше число = вищий пріоритет)
-    double weight;          // Додатна вага символу для порядку KBO
-};
-
-} // namespace trs
-```
+:::code api-rewriting-engine/cpp/2-1-bazovi-typy-ta.cpp
 
 ### 2.2. Синтаксичне дерево та правила
-```cpp
-namespace trs {
-
-struct Term;
-using TermPtr = std::shared_ptr<const Term>;
-
-struct Term {
-    NodeKind kind;
-    std::string name;             // Ім'я змінної або символу
-    std::vector<TermPtr> args;    // Список підтермів-аргументів
-    size_t hash_code;             // Кешований хеш виразу
-    size_t size;                  // Кількість вузлів у дереві
-    size_t depth;                 // Максимальна глибина дерева
-};
-
-// Правило переписування l -> r
-struct RewriteRule {
-    uint32_t id;                  // Унікальний числовий ідентифікатор правила
-    TermPtr lhs;                  // Ліва частина (не може бути змінною: lhs->kind != Variable)
-    TermPtr rhs;                  // Права частина (Var(rhs) subseteq Var(lhs))
-    std::string label;            // Текстова мітка або коментар
-};
-
-// Критична пара, породжена накладанням правил
-struct CriticalPair {
-    TermPtr source;               // Базовий уніфікований вираз l1[l2]_p
-    TermPtr left;                 // Лівий результат редукції (r1)
-    TermPtr right;                // Правий результат редукції (l1[r2]_p)
-    uint32_t rule1_id;            // Ідентифікатор першого правила
-    uint32_t rule2_id;            // Ідентифікатор другого правила
-};
-
-// Підстановка (відображення змінних у терми)
-using Substitution = std::unordered_map<std::string, TermPtr>;
-
-} // namespace trs
-```
+:::code api-rewriting-engine/cpp/2-2-syntaksychne-derevo-ta.cpp
 
 ## 3. Специфікація функцій ядра API (C++ Interface)
 
@@ -180,106 +111,8 @@ using Substitution = std::unordered_map<std::string, TermPtr>;
 Для інтеграції з мовами системного рівня (Rust, Python FFI, Zig, Go) бібліотека експортує чистий C-сумісний інтерфейс з ручним керуванням пам'яттю через арени поряд із сучасним C++ інтерфейсом на базі RAII та `std::span`.
 
 :::tabs
-```c
-#ifndef TRS_C_API_H
-#define TRS_C_API_H
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct trs_term_t trs_term_t;
-typedef struct trs_subst_t trs_subst_t;
-typedef struct trs_system_t trs_system_t;
-typedef struct trs_arena_t trs_arena_t;
-
-// Створення та звільнення пулу пам'яті
-trs_arena_t* trs_arena_create(size_t initial_capacity_bytes);
-void trs_arena_destroy(trs_arena_t* arena);
-void trs_arena_reset(trs_arena_t* arena);
-
-// Створення термів у пам'яті арени
-trs_term_t* trs_make_var(trs_arena_t* arena, const char* name);
-trs_term_t* trs_make_fn(trs_arena_t* arena, const char* name, uint32_t arity, trs_term_t** args);
-
-// Базові операції
-bool trs_terms_equal(const trs_term_t* a, const trs_term_t* b);
-bool trs_contains_var(const trs_term_t* term, const char* var_name);
-size_t trs_term_size(const trs_term_t* term);
-size_t trs_term_depth(const trs_term_t* term);
-
-// Уніфікація та підстановки
-trs_subst_t* trs_subst_create(trs_arena_t* arena);
-bool trs_unify(const trs_term_t* s, const trs_term_t* t, trs_subst_t* out_subst);
-trs_term_t* trs_apply_subst(trs_arena_t* arena, const trs_term_t* term, const trs_subst_t* subst);
-
-// Редукція та поповнення
-trs_system_t* trs_system_create(trs_arena_t* arena);
-void trs_system_add_rule(trs_system_t* sys, const trs_term_t* lhs, const trs_term_t* rhs);
-trs_term_t* trs_normalize(trs_arena_t* arena, const trs_term_t* term, const trs_system_t* sys);
-
-int trs_knuth_bendix(trs_arena_t* arena, trs_system_t* sys, size_t max_iterations);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif // TRS_C_API_H
-```
-```cpp
-#pragma once
-
-#include <string_view>
-#include <span>
-#include <memory>
-#include <optional>
-#include <vector>
-
-namespace trs::ffi {
-
-class MemoryArena {
-public:
-    explicit MemoryArena(size_t initial_bytes = 1024 * 1024);
-    ~MemoryArena();
-
-    MemoryArena(const MemoryArena&) = delete;
-    MemoryArena& operator=(const MemoryArena&) = delete;
-    MemoryArena(MemoryArena&&) noexcept = default;
-    MemoryArena& operator=(MemoryArena&&) noexcept = default;
-
-    void reset() noexcept;
-    void* allocate(size_t bytes, size_t alignment = alignof(std::max_align_t));
-};
-
-struct TermHandle {
-    const void* internal_repr{nullptr};
-    bool is_valid() const noexcept { return internal_repr != nullptr; }
-};
-
-class RewritingEngine {
-public:
-    explicit RewritingEngine(std::shared_ptr<MemoryArena> arena);
-
-    TermHandle make_var(std::string_view name);
-    TermHandle make_fn(std::string_view name, std::span<const TermHandle> args);
-
-    bool equals(TermHandle a, TermHandle b) const noexcept;
-    bool contains_var(TermHandle term, std::string_view var) const noexcept;
-
-    std::optional<TermHandle> unify_and_substitute(TermHandle s, TermHandle t);
-    TermHandle normalize(TermHandle term);
-    int run_knuth_bendix(size_t max_steps);
-
-private:
-    std::shared_ptr<MemoryArena> arena_;
-};
-
-} // namespace trs::ffi
-```
+:::code api-rewriting-engine/c/main.h
+:::code api-rewriting-engine/cpp/4-spetsyfikatsiia.hpp
 :::
 
 ## 5. Підсистема терм-індексації: Дискримінаційні дерева
@@ -292,32 +125,7 @@ private:
 - Кожен шлях від кореня до листка відповідає лівій частині певного правила.
 - Запит зіставлення `dtree_find_matches(tree, target_term)` повертає всі застосовні правила за час `O(depth(target_term))` без перегляду всієї бази знань.
 
-```cpp
-namespace trs {
-
-class DiscriminationTree {
-public:
-    DiscriminationTree();
-    ~DiscriminationTree();
-
-    // Додавання правила в індексний префіксний граф
-    void insert_rule(const RewriteRule& rule);
-
-    // Видалення правила з індексу
-    void remove_rule(uint32_t rule_id);
-
-    // Пошук усіх правил, чия ліва частина зіставляється з термом target
-    std::vector<RewriteRule> find_applicable_rules(TermPtr target) const;
-
-    // Пошук усіх термів в індексі, які уніфікуються з виразом query
-    std::vector<RewriteRule> find_unifiable_rules(TermPtr query) const;
-
-    // Очищення структури
-    void clear();
-};
-
-} // namespace trs
-```
+:::code api-rewriting-engine/cpp/5-1-pryntsyp-dii-ta.hpp
 
 ## 6. Парсери та серіалізатори виразів
 
@@ -341,20 +149,7 @@ sig["e"] = {"e", 0, 1, 1.0};      // Нейтральний константни
 
 ### 7.2. Фаза 2: Створення змінних та формування вхідних аксіом
 Використовуючи фабричні методи `make_variable` та `make_function`, клієнт конструює дерева виразів для аксіом теорії:
-```cpp
-auto x = trs::make_variable("x");
-auto y = trs::make_variable("y");
-auto z = trs::make_variable("z");
-auto e = trs::make_function("e", {});
-auto inv = [](trs::TermPtr a) { return trs::make_function("i", {a}); };
-auto mul = [](trs::TermPtr a, trs::TermPtr b) { return trs::make_function("*", {a, b}); };
-
-std::vector<std::pair<trs::TermPtr, trs::TermPtr>> axioms = {
-    { mul(e, x), x },
-    { mul(inv(x), x), e },
-    { mul(mul(x, y), z), mul(x, mul(y, z)) }
-};
-```
+:::code api-rewriting-engine/cpp/7-2-faza-2-stvorennia.cpp
 
 ### 7.3. Фаза 3: Виклик процедури поповнення Кнута-Бендікса
 Клієнт передає аксіоми до рушія поповнення, отримуючи повністю канонізовану систему правил:
@@ -395,34 +190,7 @@ if (norm_lhs == norm_rhs) {
 
 Для завдань оптимізації в сучасних компіляторах бібліотека експортує альтернативний рушій насичення рівностями без деструктивного переписування термів:
 
-```cpp
-namespace trs {
-
-using EClassId = uint32_t;
-
-class EGraph {
-public:
-    EGraph();
-    ~EGraph();
-
-    // Додавання терма до графа конгруентності (повертає ідентифікатор класу еквівалентності)
-    EClassId add_term(TermPtr term);
-
-    // Злиття двох класів еквівалентності на основі доведеної рівності
-    void merge_classes(EClassId id1, EClassId id2);
-
-    // Відновлення інваріантів конгруентності після пачки злить
-    void rebuild_congruence();
-
-    // Виконання одного раунду насичення рівностями за правилами rewrite_rules
-    size_t saturate_step(const std::vector<RewriteRule>& rules);
-
-    // Екстракція оптимального терма з класу еквівалентності за функцією вартості
-    TermPtr extract_best(EClassId id, const std::function<double(TermPtr)>& cost_fn) const;
-};
-
-} // namespace trs
-```
+:::code api-rewriting-engine/cpp/9-pidsystema-nasychennia.hpp
 
 ## 10. Керування чергою критичних пар та справедливість вибору
 
@@ -435,23 +203,7 @@ public:
 
 Окрім вбудованих синтаксичних порядків LPO та KBO, бібліотека дозволяє підключати зовнішні користувацькі компаратори термів (наприклад, поліноміальні інтерпретації або нейромережеві евристики):
 
-```cpp
-namespace trs {
-
-// Інтерфейс користувацького порядку редукції
-class IReductionOrder {
-public:
-    virtual ~IReductionOrder() = default;
-
-    // Повертає true, якщо s > t за заданим порядком
-    virtual bool is_greater(TermPtr s, TermPtr t) const = 0;
-
-    // Перевірка сумісності порядку з поточною сигнатурою
-    virtual bool validate_signature(const std::unordered_map<std::string, Symbol>& sig) const = 0;
-};
-
-} // namespace trs
-```
+:::code api-rewriting-engine/cpp/11-korystuvatski-poriadky.cpp
 
 ## 12. Безпека винятків та модель обробки помилок
 
