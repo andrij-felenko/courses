@@ -134,57 +134,8 @@ M        = a(1−e²) / W³     = 6 335 439 / 0.994 113 3  = 6 372 956 м
 Ось короткий перерахунок, який робить рівно те, що зроблено вище вручну.
 
 :::tabs
-```cpp
-#include <cmath>
-
-// Означальні сталі WGS-84 (задані точно, не виміряні).
-constexpr double WGS84_A     = 6378137.0;            // велика піввісь, м
-constexpr double WGS84_INV_F = 298.257223563;        // обернене сплющення
-constexpr double DEG2RAD     = 3.14159265358979324 / 180.0;
-
-struct Radii { double m, n; };                       // меридіанний і першого вертикала
-
-Radii wgs84_radii(double lat_deg) {
-    const double f  = 1.0 / WGS84_INV_F;
-    const double e2 = 2.0 * f - f * f;               // квадрат ексцентриситету
-    const double s  = std::sin(lat_deg * DEG2RAD);
-    const double w2 = 1.0 - e2 * s * s;
-    const double w  = std::sqrt(w2);
-    return { WGS84_A * (1.0 - e2) / (w2 * w), WGS84_A / w };
-}
-
-// Скільки метрів в одному градусі широти й довготи на цій широті.
-void metres_per_degree(double lat_deg, double& north, double& east) {
-    const Radii r = wgs84_radii(lat_deg);
-    north = r.m * DEG2RAD;
-    east  = r.n * DEG2RAD * std::cos(lat_deg * DEG2RAD);
-}
-// lat = 50°:  north ≈ 111 229 м/°,  east ≈ 71 696 м/°
-```
-```python
-import math
-
-# Означальні сталі WGS-84 (задані точно, не виміряні).
-WGS84_A     = 6_378_137.0          # велика піввісь, м
-WGS84_INV_F = 298.257223563        # обернене сплющення
-
-def wgs84_radii(lat_deg: float) -> tuple[float, float]:
-    """Меридіанний радіус M і радіус першого вертикала N на заданій широті."""
-    f  = 1.0 / WGS84_INV_F
-    e2 = 2.0 * f - f * f                      # квадрат ексцентриситету
-    s  = math.sin(math.radians(lat_deg))
-    w2 = 1.0 - e2 * s * s
-    w  = math.sqrt(w2)
-    return WGS84_A * (1.0 - e2) / (w2 * w), WGS84_A / w
-
-def metres_per_degree(lat_deg: float) -> tuple[float, float]:
-    """Скільки метрів в одному градусі широти й довготи на цій широті."""
-    m, n = wgs84_radii(lat_deg)
-    rad = math.radians(1.0)
-    return m * rad, n * rad * math.cos(math.radians(lat_deg))
-
-# metres_per_degree(50.0) -> (111229.0..., 71696.0...)
-```
+:::code wgs84-datum-d/cpp/main.cpp
+:::code wgs84-datum-d/py/main.py
 :::
 
 Звідки беруться самі формули `M` і `N` — не з таблиці, а з рівняння еліпса й означення кривини, — показано окремо: [алгебраїчне виведення обох радіусів кривини та довжини дуги меридіана](root:math-geometry/wgs84-datum/math-radii-of-curvature.md). Там же видно, чому відрізок нормалі до осі дорівнює саме `N`, і чому довжина меридіана від екватора до полюса не виражається елементарними функціями.

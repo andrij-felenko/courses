@@ -159,13 +159,16 @@
           "math": [
             {
               "file": "math-gimbal-jacobian.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-gimbal-kinematics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -177,7 +180,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         }
       ]

@@ -28,105 +28,9 @@
 
 :::tabs
 
-```cpp
-#include <algorithm>
-#include <vector>
+:::code proj-convex-minkowski/cpp/normalizatsiia-vkhodu.cpp
 
-struct Pt {
-    long long x, y;
-    Pt operator+(Pt o) const { return {x + o.x, y + o.y}; }
-    Pt operator-(Pt o) const { return {x - o.x, y - o.y}; }
-    Pt operator-()     const { return {-x, -y}; }
-    bool operator==(Pt o) const { return x == o.x && y == o.y; }
-};
-
-// z-складова векторного добутку: >0 — b лівіше a, <0 — правіше, 0 — той самий напрям
-inline long long cross(Pt a, Pt b) { return a.x * b.y - a.y * b.x; }
-
-// Без повторів і вершин посеред ребра, обхід проти годинникової стрілки,
-// вершина 0 — найнижча, а серед рівних — найлівіша.
-void normalize(std::vector<Pt>& p) {
-    if (p.empty()) return;
-    p.erase(std::unique(p.begin(), p.end()), p.end());
-    while (p.size() > 1 && p.front() == p.back()) p.pop_back();
-
-    long long area2 = 0;                        // подвоєна орієнтована площа
-    for (size_t i = 0, n = p.size(); i < n; ++i) area2 += cross(p[i], p[(i + 1) % n]);
-    if (area2 < 0) std::reverse(p.begin(), p.end());   // ==0 — точка або відрізок, лишаємо
-
-    if (p.size() > 2) {                         // викинути вершини всередині ребра
-        std::vector<Pt> r;
-        r.reserve(p.size());
-        for (Pt v : p) {
-            while (r.size() >= 2 && cross(r.back() - r[r.size() - 2], v - r.back()) == 0)
-                r.pop_back();
-            r.push_back(v);
-        }
-        while (r.size() > 2 && cross(r.back() - r[r.size() - 2], r[0] - r.back()) == 0)
-            r.pop_back();
-        while (r.size() > 2 && cross(r[0] - r.back(), r[1] - r[0]) == 0)
-            r.erase(r.begin());
-        p.swap(r);
-    }
-
-    size_t k = 0;
-    for (size_t i = 1; i < p.size(); ++i)
-        if (p[i].y < p[k].y || (p[i].y == p[k].y && p[i].x < p[k].x)) k = i;
-    std::rotate(p.begin(), p.begin() + k, p.end());
-}
-```
-
-```rust
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-struct Pt { x: i64, y: i64 }
-
-impl std::ops::Add for Pt {
-    type Output = Pt;
-    fn add(self, o: Pt) -> Pt { Pt { x: self.x + o.x, y: self.y + o.y } }
-}
-impl std::ops::Sub for Pt {
-    type Output = Pt;
-    fn sub(self, o: Pt) -> Pt { Pt { x: self.x - o.x, y: self.y - o.y } }
-}
-impl std::ops::Neg for Pt {
-    type Output = Pt;
-    fn neg(self) -> Pt { Pt { x: -self.x, y: -self.y } }
-}
-
-/// z-складова векторного добутку: >0 — b лівіше a, <0 — правіше, 0 — той самий напрям
-fn cross(a: Pt, b: Pt) -> i64 { a.x * b.y - a.y * b.x }
-
-/// Без повторів і вершин посеред ребра, обхід проти годинникової стрілки,
-/// вершина 0 — найнижча, а серед рівних — найлівіша.
-fn normalize(p: &mut Vec<Pt>) {
-    if p.is_empty() { return; }
-    p.dedup();
-    while p.len() > 1 && p[0] == p[p.len() - 1] { p.pop(); }
-
-    let n = p.len();                            // подвоєна орієнтована площа
-    let area2: i64 = (0..n).map(|i| cross(p[i], p[(i + 1) % n])).sum();
-    if area2 < 0 { p.reverse(); }               // ==0 — точка або відрізок, лишаємо
-
-    if p.len() > 2 {                            // викинути вершини всередині ребра
-        let mut r: Vec<Pt> = Vec::with_capacity(p.len());
-        for &v in p.iter() {
-            while r.len() >= 2
-                && cross(r[r.len() - 1] - r[r.len() - 2], v - r[r.len() - 1]) == 0 {
-                r.pop();
-            }
-            r.push(v);
-        }
-        while r.len() > 2
-            && cross(r[r.len() - 1] - r[r.len() - 2], r[0] - r[r.len() - 1]) == 0 { r.pop(); }
-        while r.len() > 2
-            && cross(r[0] - r[r.len() - 1], r[1] - r[0]) == 0 { r.remove(0); }
-        *p = r;
-    }
-
-    let k = (0..p.len()).min_by_key(|&i| (p[i].y, p[i].x)).unwrap();
-    p.rotate_left(k);
-}
-```
+:::code proj-convex-minkowski/rust/normalizatsiia-vkhodu.rs
 
 :::
 
@@ -134,52 +38,9 @@ fn normalize(p: &mut Vec<Pt>) {
 
 :::tabs
 
-```cpp
-// Сума Мінковського двох опуклих багатокутників — O(m + n).
-std::vector<Pt> minkowski(std::vector<Pt> a, std::vector<Pt> b) {
-    normalize(a);
-    normalize(b);
-    const size_t n = a.size(), m = b.size();
+:::code proj-convex-minkowski/cpp/zlyttia-dvokh-spyskiv.cpp
 
-    const Pt a0 = a[0], a1 = a[1 % n], b0 = b[0], b1 = b[1 % m];
-    a.push_back(a0); a.push_back(a1);      // хвіст, щоб не брати індекси за модулем
-    b.push_back(b0); b.push_back(b1);
-
-    std::vector<Pt> res;
-    res.reserve(n + m);
-    size_t i = 0, j = 0;
-    while (i < n || j < m) {
-        res.push_back(a[i] + b[j]);
-        const long long c = cross(a[i + 1] - a[i], b[j + 1] - b[j]);
-        if (c >= 0 && i < n) ++i;          // ребро A за напрямом не пізніше — беремо його
-        if (c <= 0 && j < m) ++j;          // ребро B за напрямом не пізніше — беремо його
-    }
-    return res;
-}
-```
-
-```rust
-/// Сума Мінковського двох опуклих багатокутників — O(m + n).
-fn minkowski(mut a: Vec<Pt>, mut b: Vec<Pt>) -> Vec<Pt> {
-    normalize(&mut a);
-    normalize(&mut b);
-    let (n, m) = (a.len(), b.len());
-
-    let (a0, a1, b0, b1) = (a[0], a[1 % n], b[0], b[1 % m]);
-    a.push(a0); a.push(a1);                // хвіст, щоб не брати індекси за модулем
-    b.push(b0); b.push(b1);
-
-    let mut res = Vec::with_capacity(n + m);
-    let (mut i, mut j) = (0usize, 0usize);
-    while i < n || j < m {
-        res.push(a[i] + b[j]);
-        let c = cross(a[i + 1] - a[i], b[j + 1] - b[j]);
-        if c >= 0 && i < n { i += 1; }      // ребро A за напрямом не пізніше — беремо його
-        if c <= 0 && j < m { j += 1; }      // ребро B за напрямом не пізніше — беремо його
-    }
-    res
-}
-```
+:::code proj-convex-minkowski/rust/zlyttia-dvokh-spyskiv.rs
 
 :::
 
@@ -204,65 +65,9 @@ fn minkowski(mut a: Vec<Pt>, mut b: Vec<Pt>) -> Vec<Pt> {
 
 :::tabs
 
-```cpp
-// Чи лежить q в опуклому CCW-багатокутнику v (межа рахується всередині). O(log n).
-// v уже нормалізований, тож v[0] — опорна вершина віяла.
-bool pointInConvex(const std::vector<Pt>& v, Pt q) {
-    const size_t n = v.size();
-    if (n == 1) return q == v[0];
-    if (n == 2) {                                   // вироджений випадок — відрізок
-        const Pt d = v[1] - v[0], e = q - v[0];
-        const long long t = d.x * e.x + d.y * e.y;
-        return cross(d, e) == 0 && t >= 0 && t <= d.x * d.x + d.y * d.y;
-    }
-    if (cross(v[1] - v[0], q - v[0]) < 0) return false;       // поза віялом з одного боку
-    if (cross(v[n - 1] - v[0], q - v[0]) > 0) return false;   // ...і з другого
+:::code proj-convex-minkowski/cpp/zitknennia-odna-tochka.cpp
 
-    size_t lo = 1, hi = n - 1;                      // шукаємо сектор між lo та lo+1
-    while (hi - lo > 1) {
-        const size_t mid = (lo + hi) / 2;
-        if (cross(v[mid] - v[0], q - v[0]) >= 0) lo = mid; else hi = mid;
-    }
-    return cross(v[hi] - v[lo], q - v[lo]) >= 0;    // з внутрішнього боку ребра
-}
-
-// Чи перетинаються два опуклі багатокутники.
-bool convexIntersect(const std::vector<Pt>& A, const std::vector<Pt>& B) {
-    std::vector<Pt> mirrored;
-    mirrored.reserve(B.size());
-    for (Pt p : B) mirrored.push_back(-p);          // саме −B, а не зсув B
-    return pointInConvex(minkowski(A, mirrored), Pt{0, 0});
-}
-```
-
-```rust
-/// Чи лежить q в опуклому CCW-багатокутнику v (межа рахується всередині). O(log n).
-/// v уже нормалізований, тож v[0] — опорна вершина віяла.
-fn point_in_convex(v: &[Pt], q: Pt) -> bool {
-    let n = v.len();
-    if n == 1 { return q == v[0]; }
-    if n == 2 {                                     // вироджений випадок — відрізок
-        let (d, e) = (v[1] - v[0], q - v[0]);
-        let t = d.x * e.x + d.y * e.y;
-        return cross(d, e) == 0 && t >= 0 && t <= d.x * d.x + d.y * d.y;
-    }
-    if cross(v[1] - v[0], q - v[0]) < 0 { return false; }      // поза віялом з одного боку
-    if cross(v[n - 1] - v[0], q - v[0]) > 0 { return false; }  // ...і з другого
-
-    let (mut lo, mut hi) = (1usize, n - 1);         // шукаємо сектор між lo та lo+1
-    while hi - lo > 1 {
-        let mid = (lo + hi) / 2;
-        if cross(v[mid] - v[0], q - v[0]) >= 0 { lo = mid } else { hi = mid }
-    }
-    cross(v[hi] - v[lo], q - v[lo]) >= 0            // з внутрішнього боку ребра
-}
-
-/// Чи перетинаються два опуклі багатокутники.
-fn convex_intersect(a: &[Pt], b: &[Pt]) -> bool {
-    let mirrored: Vec<Pt> = b.iter().map(|&p| -p).collect();   // саме −B, а не зсув B
-    point_in_convex(&minkowski(a.to_vec(), mirrored), Pt { x: 0, y: 0 })
-}
-```
+:::code proj-convex-minkowski/rust/zitknennia-odna-tochka.rs
 
 :::
 
@@ -280,68 +85,9 @@ support(u) = far(A, u) − far(B, −u)
 
 :::tabs
 
-```cpp
-#include <cstdio>
+:::code proj-convex-minkowski/cpp/oporna-funktsiia-koly.cpp
 
-// Найдальша точка багатокутника в напрямі u. Строге «>» — щоб за рівності
-// відповідь була та сама, інакше GJK зациклиться на перпендикулярному ребрі.
-Pt far(const std::vector<Pt>& v, Pt u) {
-    size_t best = 0;
-    long long bestDot = v[0].x * u.x + v[0].y * u.y;
-    for (size_t i = 1; i < v.size(); ++i) {
-        const long long d = v[i].x * u.x + v[i].y * u.y;
-        if (d > bestDot) { bestDot = d; best = i; }
-    }
-    return v[best];
-}
-
-// Опорна точка множини різниць A ⊕ (−B) — без побудови самої множини.
-Pt support(const std::vector<Pt>& A, const std::vector<Pt>& B, Pt u) {
-    return far(A, u) - far(B, -u);
-}
-
-int main() {
-    const std::vector<Pt> tri = {{0, 0}, {4, 0}, {0, 3}};
-    const std::vector<Pt> sq  = {{0, 0}, {1, 0}, {1, 1}, {0, 1}};
-
-    for (Pt p : minkowski(tri, sq)) printf("(%lld,%lld) ", p.x, p.y);
-    putchar('\n');
-
-    std::vector<Pt> away;                       // той самий трикутник, зсунутий убік
-    for (Pt p : tri) away.push_back(p + Pt{10, 0});
-    printf("%d %d\n", convexIntersect(tri, sq), convexIntersect(tri, away));
-}
-```
-
-```rust
-/// Найдальша точка багатокутника в напрямі u. Строге «>» — щоб за рівності
-/// відповідь була та сама, інакше GJK зациклиться на перпендикулярному ребрі.
-fn far(v: &[Pt], u: Pt) -> Pt {
-    let mut best = v[0];
-    let mut best_dot = v[0].x * u.x + v[0].y * u.y;
-    for &p in v.iter().skip(1) {
-        let d = p.x * u.x + p.y * u.y;
-        if d > best_dot { best_dot = d; best = p; }
-    }
-    best
-}
-
-/// Опорна точка множини різниць A ⊕ (−B) — без побудови самої множини.
-fn support(a: &[Pt], b: &[Pt], u: Pt) -> Pt { far(a, u) - far(b, -u) }
-
-fn main() {
-    let tri = vec![Pt { x: 0, y: 0 }, Pt { x: 4, y: 0 }, Pt { x: 0, y: 3 }];
-    let sq = vec![Pt { x: 0, y: 0 }, Pt { x: 1, y: 0 },
-                  Pt { x: 1, y: 1 }, Pt { x: 0, y: 1 }];
-
-    for p in minkowski(tri.clone(), sq.clone()) { print!("({},{}) ", p.x, p.y); }
-    println!();
-
-    // той самий трикутник, зсунутий убік
-    let away: Vec<Pt> = tri.iter().map(|&p| p + Pt { x: 10, y: 0 }).collect();
-    println!("{} {}", convex_intersect(&tri, &sq), convex_intersect(&tri, &away));
-}
-```
+:::code proj-convex-minkowski/rust/oporna-funktsiia-koly.rs
 
 :::
 

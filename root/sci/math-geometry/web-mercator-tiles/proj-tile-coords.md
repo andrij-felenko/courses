@@ -24,76 +24,8 @@ y = 10⁻¹²      2·arctan(eʸ) − π/2   →  1.000088900582e−12     ві�
 Далі — код. Функція бере **дробові** тайлові координати: ціла частина — номер тайла, дробова — позиція всередині нього. Так одна функція покриває і «кут тайла», і «піксель під курсором». Чотири фрагменти C++ нижче йдуть підряд і складають один файл: перший відкриває простір імен, останній його закриває.
 
 :::tabs
-```ts
-export const MAX_LAT = 85.0511287798;   // широта зрізу: там висота карти = ширині
-export const TILE = 256;                // сторона тайла в пікселях
-
-export interface LatLon { lat: number; lon: number; }
-export interface BBox { north: number; south: number; west: number; east: number; }
-
-/** Дробові тайлові координати рівня z -> широта/довгота. */
-export function tileToLatLon(fx: number, fy: number, z: number): LatLon {
-  const n = 2 ** z;
-  const lon = (fx / n) * 360 - 180;              // горизонталь лінійна
-  const ym = (0.5 - fy / n) * 2 * Math.PI;       // назад у меркаторові одиниці
-  return { lat: (Math.atan(Math.sinh(ym)) * 180) / Math.PI, lon };
-}
-
-/** Тайл (z,x,y) плюс піксель усередині нього -> градуси. */
-export function pixelToLatLon(x: number, y: number, px: number, py: number, z: number): LatLon {
-  return tileToLatLon(x + px / TILE, y + py / TILE, z);
-}
-
-/** Географічні межі тайла: NW-кут і SE-кут. */
-export function tileBounds(x: number, y: number, z: number): BBox {
-  const nw = tileToLatLon(x, y, z);
-  const se = tileToLatLon(x + 1, y + 1, z);
-  return { north: nw.lat, west: nw.lon, south: se.lat, east: se.lon };
-}
-```
-```cpp
-#include <cmath>
-#include <cstdint>
-#include <cstddef>
-#include <algorithm>
-#include <initializer_list>
-#include <string>
-#include <vector>
-
-namespace tiles {
-
-inline constexpr double PI      = 3.14159265358979323846;
-inline constexpr double MAX_LAT = 85.0511287798;   // широта зрізу: висота = ширині
-inline constexpr int    TILE    = 256;             // сторона тайла в пікселях
-
-struct LatLon { double lat, lon; };
-struct BBox   { double north, south, west, east; };
-struct TileId { int z; std::int64_t x, y; };
-
-// 2^z точно й дешево — без pow()
-inline double pow2(int z) { return std::ldexp(1.0, z); }
-
-// Дробові тайлові координати рівня z -> широта/довгота.
-LatLon tile_to_lat_lon(double fx, double fy, int z) {
-    const double n   = pow2(z);
-    const double lon = fx / n * 360.0 - 180.0;          // горизонталь лінійна
-    const double ym  = (0.5 - fy / n) * 2.0 * PI;       // назад у меркаторові одиниці
-    return { std::atan(std::sinh(ym)) * 180.0 / PI, lon };
-}
-
-// Тайл (z,x,y) плюс піксель усередині нього -> градуси.
-LatLon pixel_to_lat_lon(std::int64_t x, std::int64_t y, double px, double py, int z) {
-    return tile_to_lat_lon(static_cast<double>(x) + px / TILE,
-                           static_cast<double>(y) + py / TILE, z);
-}
-
-// Географічні межі тайла: NW-кут і SE-кут.
-BBox tile_bounds(std::int64_t x, std::int64_t y, int z) {
-    const LatLon nw = tile_to_lat_lon(static_cast<double>(x),     static_cast<double>(y),     z);
-    const LatLon se = tile_to_lat_lon(static_cast<double>(x + 1), static_cast<double>(y + 1), z);
-    return { nw.lat, se.lat, nw.lon, se.lon };
-}
-```
+:::code proj-tile-coords/ts/obernenyi-khid-vid.ts
+:::code proj-tile-coords/cpp/obernenyi-khid-vid.cpp
 :::
 
 **Перевірка на тайлі `15/19162/11049` (центр Києва).**
@@ -129,86 +61,8 @@ SE-кут тайла   tileToLatLon(19163, 11050, 15)   → 50.44351305°, 30.53
 *По горизонталі карта — циліндр: стовпець 7 сусідить зі стовпцем 0, і перехід між ними є взяттям лишку за модулем 2ᶻ. По вертикалі карта — смуга з обрізаними краями: за верхнім рядком нічого немає, тому номер рядка притискається до діапазону, а не загортається. Наївні min/max на циклічній осі перетворюють два тайли на всі вісім.*
 
 :::tabs
-```ts
-export interface TileId { z: number; x: number; y: number; }
-
-/** Довгота -> дробова тайлова X. НЕ обрізається: значення може вийти за [0,n). */
-function lonToX(lonDeg: number, z: number): number {
-  return ((lonDeg + 180) / 360) * 2 ** z;
-}
-
-/** Широта -> дробова тайлова Y. Зріз до ±MAX_LAT ОБОВ'ЯЗКОВИЙ перед asinh/log. */
-function latToY(latDeg: number, z: number): number {
-  const lat = Math.min(MAX_LAT, Math.max(-MAX_LAT, latDeg));
-  const ym = Math.asinh(Math.tan((lat * Math.PI) / 180));   // = ln tan(π/4 + φ/2)
-  return (0.5 - ym / (2 * Math.PI)) * 2 ** z;
-}
-
-/** Усі тайли рівня z, що накривають прямокутник. Коректно через 180-й меридіан. */
-export function tilesForBBox(b: BBox, z: number): TileId[] {
-  const n = 2 ** z;
-
-  // y: обрізаємо — полюсів на карті немає, склеювати нема чого
-  const yTop = Math.max(0, Math.floor(latToY(b.north, z)));
-  const yBot = Math.min(n - 1, Math.floor(latToY(b.south, z)));
-
-  // x: ширину рахуємо в ДРОБОВИХ координатах, до floor
-  const fLeft = lonToX(b.west, z);
-  let fRight = lonToX(b.east, z);
-  if (fRight < fLeft) fRight += n;                 // прямокутник перетнув шов
-  const xLeft = Math.floor(fLeft);
-  const spanX = Math.min(n, Math.floor(fRight) - xLeft + 1);
-
-  const out: TileId[] = [];
-  for (let y = yTop; y <= yBot; y++) {
-    for (let i = 0; i < spanX; i++) {
-      out.push({ z, x: (((xLeft + i) % n) + n) % n, y });   // циклічність по x
-    }
-  }
-  return out;
-}
-```
-```cpp
-// Довгота -> дробова тайлова X. НЕ обрізається: значення може вийти за [0,n).
-double lon_to_x(double lon_deg, int z) {
-    return (lon_deg + 180.0) / 360.0 * pow2(z);
-}
-
-// Широта -> дробова тайлова Y. Зріз до ±MAX_LAT ОБОВ'ЯЗКОВИЙ перед asinh/log.
-double lat_to_y(double lat_deg, int z) {
-    const double lat = std::clamp(lat_deg, -MAX_LAT, MAX_LAT);
-    const double ym  = std::asinh(std::tan(lat * PI / 180.0));   // = ln tan(π/4 + φ/2)
-    return (0.5 - ym / (2.0 * PI)) * pow2(z);
-}
-
-// Усі тайли рівня z, що накривають прямокутник. Коректно через 180-й меридіан.
-std::vector<TileId> tiles_for_bbox(const BBox& b, int z) {
-    const std::int64_t n = std::int64_t{1} << z;    // z ≤ 62, інакше UB
-
-    // y: обрізаємо — полюсів на карті немає, склеювати нема чого
-    const std::int64_t y_top = std::max<std::int64_t>(
-        0, static_cast<std::int64_t>(std::floor(lat_to_y(b.north, z))));
-    const std::int64_t y_bot = std::min<std::int64_t>(
-        n - 1, static_cast<std::int64_t>(std::floor(lat_to_y(b.south, z))));
-
-    // x: ширину рахуємо в ДРОБОВИХ координатах, до floor
-    const double f_left = lon_to_x(b.west, z);
-    double f_right      = lon_to_x(b.east, z);
-    if (f_right < f_left) f_right += static_cast<double>(n);   // перетнули шов
-
-    const std::int64_t x_left = static_cast<std::int64_t>(std::floor(f_left));
-    const std::int64_t span_x = std::min<std::int64_t>(
-        n, static_cast<std::int64_t>(std::floor(f_right)) - x_left + 1);
-
-    std::vector<TileId> out;
-    if (y_bot < y_top || span_x <= 0) return out;
-    out.reserve(static_cast<std::size_t>((y_bot - y_top + 1) * span_x));
-    for (std::int64_t y = y_top; y <= y_bot; ++y)
-        for (std::int64_t i = 0; i < span_x; ++i)
-            out.push_back({ z, ((x_left + i) % n + n) % n, y });   // циклічність по x
-    return out;
-}
-```
+:::code proj-tile-coords/ts/taily-pid-vydymu-oblast.ts
+:::code proj-tile-coords/cpp/taily-pid-vydymu-oblast.cpp
 :::
 
 **Київська область на рівні 13.** Прямокутник 50.35…50.60° широти, 30.35…30.75° довготи дає стовпці 4786…4795 і рядки 2756…2765 — рівно сто тайлів. Для порівняння, екран 1280×800 накриває щонайбільше 6×5 = 30 тайлів. Розбіжність утричі означає, що прямокутник просто ширший за екран, і це нормально; але той самий підрахунок — єдиний захист від помилки в `z`, яка перетворює сто запитів на мільйон. Рахувати кількість треба **до** циклу, а не всередині нього.
@@ -236,55 +90,8 @@ d = 16 − 10 = 6
 Обхід пишемо явним стеком, без рекурсії: глибина відома наперед, а рекурсивний виклик на гарячій дорозі рендера дає лише зайвий кадр стека на кожен тайл.
 
 :::tabs
-```ts
-/** Усі нащадки тайла — від нього самого до рівня maxZ включно. */
-export function* descendants(root: TileId, maxZ: number): Generator<TileId> {
-  const stack: TileId[] = [root];
-  while (stack.length > 0) {
-    const cur = stack.pop()!;
-    yield cur;
-    if (cur.z >= maxZ) continue;
-    const z = cur.z + 1, x = cur.x * 2, y = cur.y * 2;
-    stack.push({ z, x, y }, { z, x: x + 1, y }, { z, x, y: y + 1 }, { z, x: x + 1, y: y + 1 });
-  }
-}
-
-/** Скільки тайлів це буде. Викликати ПЕРЕД завантаженням. */
-export function descendantCount(fromZ: number, toZ: number, seeds: number): number {
-  if (toZ < fromZ) return 0;
-  const d = toZ - fromZ;
-  return seeds * ((4 ** (d + 1) - 1) / 3);       // 1 + 4 + … + 4ᵈ
-}
-```
-```cpp
-// Усі нащадки тайла — від нього самого до рівня max_z включно.
-// Явний стек, не рекурсія: глибина відома, зайві кадри на гарячій дорозі ні до чого.
-template <class F>
-void for_each_descendant(TileId root, int max_z, F&& visit) {
-    std::vector<TileId> stack{ root };
-    while (!stack.empty()) {
-        const TileId cur = stack.back();
-        stack.pop_back();
-        visit(cur);
-        if (cur.z >= max_z) continue;
-        const int z = cur.z + 1;
-        const std::int64_t x = cur.x * 2, y = cur.y * 2;
-        stack.push_back({ z, x,     y     });
-        stack.push_back({ z, x + 1, y     });
-        stack.push_back({ z, x,     y + 1 });
-        stack.push_back({ z, x + 1, y + 1 });
-    }
-}
-
-// Скільки тайлів це буде. Викликати ПЕРЕД завантаженням.
-std::int64_t descendant_count(int from_z, int to_z, std::int64_t seeds) {
-    if (to_z < from_z) return 0;
-    const int d = to_z - from_z;
-    if (d > 30) return -1;                       // 4^31 уже не влазить — сигналимо
-    const std::int64_t total = ((std::int64_t{1} << (2 * (d + 1))) - 1) / 3;
-    return seeds * total;                        // ділимо ПЕРЕД множенням
-}
-```
+:::code proj-tile-coords/ts/obkhid-hilky-kvadrodereva.ts
+:::code proj-tile-coords/cpp/obkhid-hilky-kvadrodereva.cpp
 :::
 
 ## Масштабна лінійка
@@ -308,55 +115,8 @@ std::int64_t descendant_count(int from_z, int to_z, std::int64_t seeds) {
 Смужка вийшла коротшою за бюджет майже вдвічі — така плата за круглий підпис, і саме тому бюджет беруть із запасом. Важливіше інше: лінійка чесна лише на тій широті, для якої порахована, і лише на коротких відстанях. Розтягувати її на пів екрана не можна — `cos φ` встигне помітно змінитися. Для справжніх вимірів беруть [відстань по великому колу](root:math-geometry/great-circle-distance) або геодезичні розв'язки на еліпсоїді.
 
 :::tabs
-```ts
-const EQUATOR = 2 * Math.PI * 6378137;          // 40 075 016.686 м
-
-/** Метрів землі в одному пікселі екрана на цій широті й цьому рівні. */
-export function resolution(latDeg: number, z: number): number {
-  return (EQUATOR * Math.cos((latDeg * Math.PI) / 180)) / (TILE * 2 ** z);
-}
-
-export interface ScaleBar { metres: number; pixels: number; label: string; }
-
-/** Найбільша «кругла» відстань (ряд 1-2-5), що вміщується в maxPx пікселів. */
-export function scaleBar(latDeg: number, z: number, maxPx = 120): ScaleBar {
-  const mPerPx = resolution(latDeg, z);
-  const raw = mPerPx * maxPx;
-  const pow = 10 ** Math.floor(Math.log10(raw));
-  const nice = [5, 2, 1].find((c) => raw >= c * pow)! * pow;
-  return {
-    metres: nice,
-    pixels: nice / mPerPx,
-    label: nice >= 1000 ? `${nice / 1000} км` : `${nice} м`,
-  };
-}
-```
-```cpp
-inline constexpr double EQUATOR = 40075016.685578488;   // 2π·6378137 м
-
-// Метрів землі в одному пікселі екрана на цій широті й цьому рівні.
-double resolution(double lat_deg, int z) {
-    return EQUATOR * std::cos(lat_deg * PI / 180.0) / (TILE * pow2(z));
-}
-
-struct ScaleBar { double metres, pixels; std::string label; };
-
-// Найбільша «кругла» відстань (ряд 1-2-5), що вміщується в max_px пікселів.
-ScaleBar scale_bar(double lat_deg, int z, double max_px = 120.0) {
-    const double m_per_px = resolution(lat_deg, z);
-    const double raw      = m_per_px * max_px;
-    const double p        = std::pow(10.0, std::floor(std::log10(raw)));
-
-    double nice = p;
-    for (double c : { 5.0, 2.0, 1.0 })
-        if (raw >= c * p) { nice = c * p; break; }
-
-    const std::string label =
-        nice >= 1000.0 ? std::to_string(static_cast<long long>(nice / 1000.0)) + " км"
-                       : std::to_string(static_cast<long long>(nice)) + " м";
-    return { nice, nice / m_per_px, label };
-}
-```
+:::code proj-tile-coords/ts/masshtabna-liniika.ts
+:::code proj-tile-coords/cpp/masshtabna-liniika.cpp
 :::
 
 ## П'ять пасток

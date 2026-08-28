@@ -229,71 +229,8 @@ y = a · [ ln tan(π/4 + φ/2) + (e/2)·ln((1 − e·sin φ)/(1 + e·sin φ)) ]
 Обидва напрямки перетворення вкладаються в кілька рядків. Нижче — пряме перетворення в дробові тайлові координати, з якого потім беруть цілу частину (номер тайла) і дробову (піксель); зворотний хід, обчислення списку тайлів під видиму область і типові пастки на кшталт переходу через 180-й меридіан винесено в [окрему добірку](root:math-geometry/web-mercator-tiles/proj-tile-coords.md).
 
 :::tabs
-```ts
-const MAX_LAT = 85.0511287798;   // широта зрізу: там висота карти = ширині
-const TILE = 256;                // сторона тайла в пікселях
-
-interface TilePos { x: number; y: number; px: number; py: number; }
-
-/** Географічні координати -> тайл рівня z і піксель усередині нього. */
-function latLonToTile(latDeg: number, lonDeg: number, z: number): TilePos {
-  const lat = Math.max(-MAX_LAT, Math.min(MAX_LAT, latDeg));  // зріз полярних шапок
-  const phi = (lat * Math.PI) / 180;
-
-  const xn = (lonDeg + 180) / 360;                            // довгота лінійна
-  const ym = Math.log(Math.tan(Math.PI / 4 + phi / 2));       // інтеграл секанса
-  const yn = 0.5 - ym / (2 * Math.PI);                        // мінус: північ угорі
-
-  const n = 2 ** z;
-  const fx = xn * n;
-  const fy = yn * n;
-  return {
-    x: Math.floor(fx),
-    y: Math.floor(fy),
-    px: (fx - Math.floor(fx)) * TILE,
-    py: (fy - Math.floor(fy)) * TILE,
-  };
-}
-
-/** Скільки метрів землі в пікселі на цій широті й цьому рівні. */
-function resolution(latDeg: number, z: number): number {
-  const EQUATOR = 2 * Math.PI * 6378137;                      // 40 075 016.686 м
-  return (EQUATOR * Math.cos((latDeg * Math.PI) / 180)) / (TILE * 2 ** z);
-}
-```
-```cpp
-#include <cmath>
-#include <algorithm>
-
-constexpr double MAX_LAT = 85.0511287798;   // широта зрізу: висота карти = ширині
-constexpr int    TILE    = 256;             // сторона тайла в пікселях
-constexpr double EQUATOR = 2.0 * M_PI * 6378137.0;   // 40 075 016.686 м
-
-struct TilePos { int x, y; double px, py; };
-
-// Географічні координати -> тайл рівня z і піксель усередині нього.
-TilePos lat_lon_to_tile(double lat_deg, double lon_deg, int z) {
-    const double lat = std::clamp(lat_deg, -MAX_LAT, MAX_LAT);  // зріз полярних шапок
-    const double phi = lat * M_PI / 180.0;
-
-    const double xn = (lon_deg + 180.0) / 360.0;                // довгота лінійна
-    const double ym = std::log(std::tan(M_PI / 4.0 + phi / 2.0));  // інтеграл секанса
-    const double yn = 0.5 - ym / (2.0 * M_PI);                  // мінус: північ угорі
-
-    const double n  = std::ldexp(1.0, z);                       // 2^z без pow()
-    const double fx = xn * n;
-    const double fy = yn * n;
-    const double ix = std::floor(fx);
-    const double iy = std::floor(fy);
-    return { static_cast<int>(ix), static_cast<int>(iy),
-             (fx - ix) * TILE, (fy - iy) * TILE };
-}
-
-// Скільки метрів землі в пікселі на цій широті й цьому рівні.
-double resolution(double lat_deg, int z) {
-    return EQUATOR * std::cos(lat_deg * M_PI / 180.0) / (TILE * std::ldexp(1.0, z));
-}
-```
+:::code web-mercator-tiles-d/ts/index.ts
+:::code web-mercator-tiles-d/cpp/main.cpp
 :::
 
 Три рядки в цьому коді несуть усю попередню математику. `Math.log(Math.tan(...))` — це інтеграл секанса, тобто плата за збереження кутів. Зріз на `MAX_LAT` — це квадратність карти, без якої не було б квадродерева. А `cos` у роздільності — той самий sec φ, тільки навиворіт: карта розтягнула, дійсність стискає назад.
