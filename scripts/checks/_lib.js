@@ -78,15 +78,55 @@ const scaleOf = (kind) => KIND_SCALE[kind] || SCALE;
 const r50 = (x) => Math.round(x / 50) * 50;
 
 const CANON = {
-  basic:    { lo: 500,  hi: 1200, aim: [700, 1000],   max: 1200 },
-  detailed: { lo: 1000, hi: 6500, aim: [2100, 2600],  max: 9000 },
-  /* вставки — смуга спільна (400–5000), а ОРІЄНТИР свій на кожен тип:
-     hist/comp — чиста проза, math — виведення, proj — код і розбір, api — поверхня */
-  hist: { lo: 400, hi: 5000, aim: [900, 1600],  max: 9000 },
-  comp: { lo: 400, hi: 5000, aim: [900, 1600],  max: 9000 },
-  math: { lo: 500, hi: 5000, aim: [1200, 2200], max: 9000 },
-  proj: { lo: 500, hi: 5000, aim: [1400, 2600], max: 9000 },
-  api:  { lo: 450, hi: 5000, aim: [1000, 2000], max: 9000 },
+  basic:    { lo: 500,  hi: 1200, max: 1200 },
+  detailed: { lo: 1000, hi: 6500, max: 9000 },
+  /* вставки — смуга спільна (400–5000), нижній край свій: у math/proj/api
+     навіть найдотичніший випадок має показати виведення, код чи поверхню */
+  hist: { lo: 400, hi: 5000, max: 9000 },
+  comp: { lo: 400, hi: 5000, max: 9000 },
+  math: { lo: 500, hi: 5000, max: 9000 },
+  proj: { lo: 500, hi: 5000, max: 9000 },
+  api:  { lo: 450, hi: 5000, max: 9000 },
+};
+
+/* ── РІВЕНЬ РОЗКРИТТЯ (1–5) — підлога, не ціль ────────────────────────────────
+   Колонка «орієнтир» звідси прибрана двічі й обидва рази з тієї самої причини:
+   письменник пише на будь-яке число, яке йому показали. Поки орієнтир стояв,
+   детальні вирівнювалися по ньому (заміряно 2026-08-28: медіана 2970 при орієнтирі
+   2950, міжквартильний розкид 300 слів на смузі 7700 — довжину задавала таблиця,
+   а не предмет). Коли орієнтир прибрали, письмо сповзло на нижній край смуги —
+   `proj-` дали медіану 737 при підлозі 650, 55% у першій десятині смуги.
+
+   Тобто число неминуче стає ціллю. Висновок не «прибрати число», а «зробити число
+   властивістю ТЕМИ, а не таблиці»: рівень ставить окрема фаза оцінки ПЕРЕД письмом,
+   і він у кожної теми свій.
+
+   Механіка навмисно однобока. Смуга виду ділиться на п'ять зон, рівень підіймає
+   НИЖНІЙ край на початок своєї зони; верхній край і виняткова стеля лишаються
+   спільними для всіх рівнів:
+
+       підлога(вид, рівень) = lo + (рівень − 1) × (hi − lo) / 5
+
+   Верхньої межі рівень не має свідомо. Двостороннє вікно навколо цілі зіштовхнулось
+   би з залізним «скорочувати текст заради гейта заборонено»: письменник, у якого тема
+   переросла оцінку, опинився б між двома правилами без виходу. Однобока підлога цього
+   не робить — переріс свій рівень і лишився під стелею виду означає рівно те, що рівень
+   недооцінили, а текст правильний. Тому Р3, яка вийшла на обсяг Р5, дефекту не дає;
+   дефект дає Р5, яка вийшла на обсяг Р1.
+
+   Ціна помилки в оцінці лягає на 06-ту: занижений рівень вона судить не лічильником,
+   а читанням («рівень ↔ зміст»), бо це єдине місце, де заниження можна впіймати.       */
+const LEVELS = 5;
+const LEVEL_NAMES = {
+  1: "дотична — читач її мине без утрати",
+  2: "звичайна — своє місце в розділі, без опор на неї",
+  3: "робоча — на неї спираються сусідні теми",
+  4: "несуча — без неї розділ не читається",
+  5: "наріжна — книга стоїть на ній",
+};
+const clampLevel = (v) => {
+  const n = Math.round(Number(v));
+  return Number.isFinite(n) && n >= 1 && n <= LEVELS ? n : null;
 };
 /* Пороги ГЕЙТА БАЗОВОЇ (§3, ознака 1) — теж × SCALE, і це не сваволя:
    канонні 2250 виведені з самої стелі базової (1200 × 2 ≈ 2400, з допуском 2250), а поріг
@@ -95,14 +135,73 @@ const CANON = {
    кожна його стаття автоматично опинялась би в зоні «базова потрібна».                    */
 const BASIC_GATE = { low: r50(2250 * scaleOf("detailed")), high: r50(4000 * scaleOf("detailed")) };
 
-function bandOf(kind) {
+/* Смуга виду, з підлогою, піднятою на зону рівня. Рівень не заданий (basic, або
+   оцінки ще немає) — підлога лишається нижнім краєм смуги, тобто рівнем 1.       */
+function bandOf(kind, level) {
   const c = CANON[kind] || CANON.detailed;
   const k = scaleOf(kind);
+  const lo = r50(c.lo * k), hi = r50(c.hi * k), max = r50(c.max * k);
+  const lv = clampLevel(level);
   return {
-    lo: r50(c.lo * k), hi: r50(c.hi * k), max: r50(c.max * k),
-    aim: [r50(c.aim[0] * k), r50(c.aim[1] * k)],
-    scale: k, canon: c,
+    lo, hi, max, scale: k, canon: c,
+    level: lv,
+    zone: r50((hi - lo) / LEVELS),
+    floor: lv ? r50(lo + ((lv - 1) * (hi - lo)) / LEVELS) : lo,
   };
+}
+
+/* ── звідки береться рівень ───────────────────────────────────────────────────
+   З БАТЧ-ФАЙЛА, а не з теки теми. Фаза оцінки на старті батчу проходить списком
+   тем і кладе кожній `level` туди ж, де лежить сам список:
+
+       scripts/_finish/_batch-<книга>.json   (письмо)
+       scripts/_finish/_update-<книга>.json  (дописування)
+       [ { "dir": "root/<вид>/<книга>/<тема>", "level": 3,
+           "inserts": { "proj-scheduler.md": 2 } }, … ]
+
+   Окремого файлу в теці теми немає навмисно: рівень — це параметр ПРОГОНУ, а не
+   властивість статті на диску. Корпус від нього не залежить: не буде батч-файла —
+   06-та просто скаже, що фаза оцінки не відпрацювала.
+
+   `inserts` наповнюється по ходу: вставки до письма не існує, її рівень оголошує
+   письменник у звіті, а оркестратор дописує сюди перед гейтом.
+
+   Базова рівня НЕ має: її обсяг задає не важливість теми, а залізо §3 «≤ ½
+   детальної», і другий важіль тут лише сперечався б із першим.                    */
+const BATCHDIR = path.join(ROOT, "scripts", "_finish");
+let _levelIndex = null;
+function levelIndex() {
+  if (_levelIndex) return _levelIndex;
+  _levelIndex = new Map();
+  let files = [];
+  try { files = fs.readdirSync(BATCHDIR).filter((f) => /^_(batch|update)-.*\.json$/.test(f)); } catch { }
+  for (const f of files) {
+    let j; try { j = JSON.parse(fs.readFileSync(path.join(BATCHDIR, f), "utf8")); } catch { continue; }
+    const list = Array.isArray(j) ? j : (j.topics || j.units || []);
+    for (const x of list) {
+      if (!x || typeof x !== "object" || !x.dir) continue;
+      const key = path.resolve(ROOT, x.dir);
+      const topic = clampLevel(x.level);
+      /* Та сама тема трапляється в кількох батч-файлах (старі прогони нікуди не діваються).
+         Запис БЕЗ рівня не затирає запис із рівнем: інакше давній список тем, де рівнів ще
+         не було, гасив би оцінку поточного прогону, і тема падала б «рівень не оголошено». */
+      const had = _levelIndex.get(key);
+      if (had && had.topic && !topic) continue;
+      const inserts = { ...(had && had.topic === topic ? had.inserts : {}) };
+      for (const [k, v] of Object.entries(x.inserts || {})) inserts[k] = clampLevel(v);
+      _levelIndex.set(key, { topic, inserts, from: f });
+    }
+  }
+  return _levelIndex;
+}
+function readLevel(dir) { return levelIndex().get(path.resolve(dir)) || null; }
+
+/* Рівень конкретного файлу теми: детальна бере рівень теми, вставка — свій,
+   базова не має жодного. `undefined` означає «мало бути, але не оголошено». */
+function levelFor(lv, item) {
+  if (!lv || item.kind === "basic" || item.kind === "other") return null;
+  if (item.kind === "detailed") return lv.topic;
+  return Object.prototype.hasOwnProperty.call(lv.inserts, item.file) ? lv.inserts[item.file] : undefined;
 }
 
 /* ── класифікація файлів теми ─────────────────────────────────────────────── */
@@ -353,6 +452,7 @@ function adjudicate(dir, items, ask) {
 
 module.exports = {
   PASS, DEFECT, JUDGE, USAGE, ROOT, SCALE, INSERT_TYPES, KIND_LABEL, BASIC_GATE,
+  LEVELS, LEVEL_NAMES, clampLevel, readLevel, levelFor,
   bandOf, classify, readTopic, read, strip, codeBlocks, proseWords, run, resolveDir, python,
   manifestOf, queuedTopics,
   head, pass, defects, adjudicate,
