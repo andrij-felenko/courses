@@ -48,30 +48,8 @@
 Для захисту використовують класичний ідіоматичний механізм — **header guards** (вартові заголовків):
 
 :::tabs
-```c
-/* Файл: sensor_types.h */
-#ifndef SENSOR_TYPES_H
-#define SENSOR_TYPES_H
-
-typedef struct {
-    float temperature;
-    float humidity;
-} SensorData;
-
-#endif /* SENSOR_TYPES_H */
-```
-```cpp
-// Файл: sensor_types.hpp
-#ifndef SENSOR_TYPES_HPP
-#define SENSOR_TYPES_HPP
-
-struct SensorData {
-    float temperature;
-    float humidity;
-};
-
-#endif // SENSOR_TYPES_HPP
-```
+:::code preprocessor-macros-d/c/sensor_types.h
+:::code preprocessor-macros-d/cpp/sensor_types.hpp
 :::
 
 Коли препроцесор зустрічає файл уперше, макрос `SENSOR_TYPES_H` ще не визначений, тому препроцесор заходить усередину, визначає макрос через `#define` і опрацьовує структури. При другому включенні того самого файлу перевірка `#ifndef` повертає хибність, і препроцесор миттєво пропускає весь вміст файлу до кінцевого `#endif`.
@@ -257,33 +235,8 @@ int main() {
 Оператор `##` (*token pasting*) з'єднує два сусідні токени в один новий токен. Результат має бути лексично коректним:
 
 :::tabs
-```c
-#include <stdio.h>
-
-#define REGISTER_HANDLE(name) int handle_##name = 0
-
-REGISTER_HANDLE(uart); // Розгортається у: int handle_uart = 0;
-REGISTER_HANDLE(spi);  // Розгортається у: int handle_spi = 0;
-
-int main(void) {
-    printf("UART handle: %d, SPI handle: %d\n", handle_uart, handle_spi);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-
-#define REGISTER_HANDLE(name) int handle_##name = 0
-
-REGISTER_HANDLE(uart); // int handle_uart = 0;
-REGISTER_HANDLE(spi);  // int handle_spi = 0;
-
-int main() {
-    std::cout << "UART handle: " << handle_uart
-              << ", SPI handle: " << handle_spi << "\n";
-    return 0;
-}
-```
+:::code preprocessor-macros-d/c/operator-skleiuvannia.c
+:::code preprocessor-macros-d/cpp/operator-skleiuvannia.cpp
 :::
 
 #### Варіативні макроси та оператор `__VA_OPT__`
@@ -315,18 +268,7 @@ int main(void) {
     return 0;
 }
 ```
-```cpp
-#include <iostream>
-#include <cstdio>
-
-#define LOG_MSG(fmt, ...) std::printf(fmt __VA_OPT__(,) __VA_ARGS__)
-
-int main() {
-    LOG_MSG("Повідомлення без аргументів\n");
-    LOG_MSG("Координати: x=%d, y=%d\n", 10, 20);
-    return 0;
-}
-```
+:::code preprocessor-macros-d/cpp/variatyvni-makrosy-ta.cpp
 :::
 
 Якщо варіативні аргументи передано, `__VA_OPT__(,)` вставляє кому; якщо список порожній — вираз зникає повністю.
@@ -374,48 +316,8 @@ int res = MULTIPLY(2 + 3, 4 + 5);
 Якщо функціональний макрос використовує аргумент більше одного разу, будь-який вираз із побічним ефектом (інкремент, виклик функції, читання з черги) виконається багаторазово:
 
 :::tabs
-```c
-#include <stdio.h>
-
-#define MIN_MACRO(a, b) (((a) < (b)) ? (a) : (b))
-
-static int get_next_val(int* ptr) {
-    return (*ptr)++;
-}
-
-int main(void) {
-    int counter = 0;
-    int limit = 5;
-
-    /* get_next_val() викличеться двічі через дублювання аргументу в тілі макросу! */
-    int m = MIN_MACRO(get_next_val(&counter), limit);
-
-    printf("m = %d, counter = %d (очікували counter=1)\n", m, counter);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <algorithm>
-
-template <typename T>
-constexpr T min_func(T a, T b) noexcept {
-    return (a < b) ? a : b;
-}
-
-int main() {
-    int counter = 0;
-    int limit = 5;
-
-    auto get_next = [&counter]() { return counter++; };
-
-    // Функція гарантує одиничне обчислення аргументу під час виклику
-    int m = min_func(get_next(), limit);
-
-    std::cout << "m = " << m << ", counter = " << counter << " (counter=1)\n";
-    return 0;
-}
-```
+:::code preprocessor-macros-d/c/2-pobichni-efekty-pry.c
+:::code preprocessor-macros-d/cpp/2-pobichni-efekty-pry.cpp
 :::
 
 ![Порівняння макросу та типізованої функції: текстовий макрос дублює інкремент змінної, тоді як функція гарантує одиничне обчислення аргументу](img/macro-hazards-comparison.svg)
@@ -439,50 +341,8 @@ int main() {
 Єдиним стандартним та переносним рішенням у C/C++ є огортання тіла макросу в конструкцію `do { ... } while (0)`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-#define SAFE_CLEANUP(ptr) \
-    do { \
-        free(ptr); \
-        printf("Ресурс звільнено\n"); \
-    } while (0)
-
-int main(void) {
-    int* data = (int*)malloc(sizeof(int));
-    int ok = 1;
-
-    if (ok)
-        SAFE_CLEANUP(data);
-    else
-        printf("Помилка\n");
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-
-// У C++ подібні макроси замінюють на RAII-обгортки або звичайні лямбда-виклики
-inline void safe_cleanup(std::unique_ptr<int>& ptr) noexcept {
-    ptr.reset();
-    std::cout << "Ресурс звільнено через RAII\n";
-}
-
-int main() {
-    auto data = std::make_unique<int>(42);
-    bool ok = true;
-
-    if (ok)
-        safe_cleanup(data);
-    else
-        std::cout << "Помилка\n";
-
-    return 0;
-}
-```
+:::code preprocessor-macros-d/c/3-pastka-dangling-else-ta.c
+:::code preprocessor-macros-d/cpp/3-pastka-dangling-else-ta.cpp
 :::
 
 Синтаксично конструкція `do { ... } while (0)` вимагає завершальної крапки з комою `;`, що ідеально інтегрує макрос у будь-який умовний блок `if-else`.
@@ -523,40 +383,8 @@ namespace Graphics {
 Розгляньмо практичний приклад заміни макросів логування метаданих на сучасний `std::source_location`:
 
 :::tabs
-```c
-#include <stdio.h>
-
-/* Класичний C-підхід: вимагає макросу для фіксації __FILE__ та __LINE__ */
-#define LOG_EVENT(msg) log_internal(msg, __FILE__, __LINE__, __func__)
-
-static void log_internal(const char* msg, const char* file, int line, const char* func) {
-    printf("[%s:%d in %s()] %s\n", file, line, func, msg);
-}
-
-int main(void) {
-    LOG_EVENT("Ініціалізація підсистеми C");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <source_location>
-
-// У C++20 функція фіксує місце виклику за замовчуванням через std::source_location
-void log_event(std::string_view msg,
-               const std::source_location location = std::source_location::current()) {
-    std::cout << "[" << location.file_name() << ":"
-              << location.line() << " in "
-              << location.function_name() << "()] "
-              << msg << "\n";
-}
-
-int main() {
-    log_event("Ініціалізація підсистеми C++20 без жодного макросу");
-    return 0;
-}
-```
+:::code preprocessor-macros-d/c/suchasni-alternatyvy-c-vid.c
+:::code preprocessor-macros-d/cpp/suchasni-alternatyvy-c-vid.cpp
 :::
 
 ---
@@ -579,47 +407,8 @@ int main() {
 Функція перевірки інваріантів `assert()` зобов'язана не лише зупинити програму при збої, а й надрукувати точний текст виразу, який виявився хибним. Це принципово неможливо зробити засобами мови без оператора стрінгіфікації `#`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-#define CUSTOM_ASSERT(expr) \
-    do { \
-        if (!(expr)) { \
-            fprintf(stderr, "ASSERT FAILED: (%s) at %s:%d in %s()\n", \
-                    #expr, __FILE__, __LINE__, __func__); \
-            abort(); \
-        } \
-    } while (0)
-
-int main(void) {
-    int valid_handle = 1;
-    CUSTOM_ASSERT(valid_handle != 0);
-    printf("Перевірку інваріанта пройдено успішно.\n");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstdlib>
-
-#define CUSTOM_ASSERT(expr) \
-    do { \
-        if (!(expr)) { \
-            std::cerr << "ASSERT FAILED: (" #expr ") at " \
-                      << __FILE__ << ":" << __LINE__ << " in " \
-                      << __func__ << "()\n"; \
-            std::abort(); \
-        } \
-    } while (0)
-
-int main() {
-    int valid_handle = 1;
-    CUSTOM_ASSERT(valid_handle != 0);
-    std::cout << "Перевірку інваріанта C++ пройдено успішно.\n";
-    return 0;
-}
-```
+:::code preprocessor-macros-d/c/2-zakhoplennia-riadka.c
+:::code preprocessor-macros-d/cpp/2-zakhoplennia-riadka.cpp
 :::
 
 #### 3. Абстракція платформ і компіляторних атрибутів
@@ -627,36 +416,8 @@ int main() {
 Системний код повинен компілюватися на різних компіляторах (GCC, Clang, MSVC) та операційних системах (Linux, Windows, macOS, bare-metal). Макроси забезпечують уніфіковану обгортку над специфічними розширеннями:
 
 :::tabs
-```c
-#if defined(_MSC_VER)
-    #define FORCE_INLINE __forceinline
-    #define PACKED_STRUCT_START __pragma(pack(push, 1))
-    #define PACKED_STRUCT_END   __pragma(pack(pop))
-#elif defined(__GNUC__) || defined(__clang__)
-    #define FORCE_INLINE inline __attribute__((always_inline))
-    #define PACKED_STRUCT_START
-    #define PACKED_STRUCT_END   __attribute__((packed))
-#else
-    #define FORCE_INLINE inline
-    #define PACKED_STRUCT_START
-    #define PACKED_STRUCT_END
-#endif
-```
-```cpp
-#if defined(_MSC_VER)
-    #define FORCE_INLINE [[msvc::forceinline]] inline
-    #define PACKED_STRUCT_START __pragma(pack(push, 1))
-    #define PACKED_STRUCT_END   __pragma(pack(pop))
-#elif defined(__GNUC__) || defined(__clang__)
-    #define FORCE_INLINE [[gnu::always_inline]] inline
-    #define PACKED_STRUCT_START
-    #define PACKED_STRUCT_END   __attribute__((packed))
-#else
-    #define FORCE_INLINE inline
-    #define PACKED_STRUCT_START
-    #define PACKED_STRUCT_END
-#endif
-```
+:::code preprocessor-macros-d/c/3-abstraktsiia-platform-i.c
+:::code preprocessor-macros-d/cpp/3-abstraktsiia-platform-i.cpp
 :::
 
 ---

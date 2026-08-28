@@ -63,18 +63,7 @@ for (int i = 0; i < n; ++i) {
     strcat(buffer, pieces[i]); // Складність сумарно O(N^2) замість O(N)!
 }
 ```
-```cpp
-#include <string>
-#include <vector>
-
-// У C++ std::string відстежує розмір і місткість:
-// конкатенація має амортизовану лінійну складність O(N)!
-std::string buffer;
-buffer.reserve(1024);
-for (const auto& piece : pieces) {
-    buffer += piece; // Швидке дописування в кінець без пошуку вартового
-}
-```
+:::code hist-billion-dollar-mistake/cpp/main.cpp
 :::
 
 Кожен наступний виклик `strcat` витрачає час на повторне сканування того, що вже було записано на попередніх ітераціях.

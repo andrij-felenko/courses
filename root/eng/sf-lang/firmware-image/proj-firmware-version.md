@@ -51,21 +51,7 @@ configure_file(version.h.in ${CMAKE_BINARY_DIR}/app_version.h @ONLY)
 
 **Б. Читання при старті (реальний C, прошивка ESP32).** Короткий компільований фрагмент: дістаємо дескриптор образу через `esp_ota_get_app_description()` і друкуємо і його `version`, і наш git-рядок:
 
-```c
-#include "esp_ota_ops.h"
-#include "esp_log.h"
-#include "app_version.h"      // згенерований збіркою
-
-static const char *TAG = "boot";
-
-void log_firmware_version(void) {
-    const esp_app_desc_t *app = esp_ota_get_app_description();
-    ESP_LOGI(TAG, "git:   %s", APP_GIT_VERSION);
-    ESP_LOGI(TAG, "ver:   %s", app->version);
-    ESP_LOGI(TAG, "built: %s %s", app->date, app->time);
-    ESP_LOGI(TAG, "idf:   %s", app->idf_ver);
-}
-```
+:::code proj-firmware-version/c/main.c
 
 Виклик `log_firmware_version()` ставимо на початку `setup()` або у [стартовій послідовності завантажувача](root:hw-arch/bootloader) — і пристрій у першому ж рядку лога повідомляє, ким він є. Та сама інформація лежить і в `.bin`, тож хеш можна звірити й не вмикаючи плату.
 

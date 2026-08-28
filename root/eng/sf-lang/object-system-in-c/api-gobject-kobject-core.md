@@ -11,84 +11,8 @@
 ### Базові структури даних та їхній еквівалент у C++
 
 :::tabs
-```c
-/* Числовий ідентифікатор типу в системі GType (зазвичай uintptr_t) */
-typedef gsize GType;
-
-/* Заголовок будь-якого екземпляра об'єкта */
-struct _GTypeInstance {
-    GTypeClass *g_class;           /* Вказівник на структуру класу (vtable) */
-};
-
-/* Заголовок будь-якої структури класу (синглтона) */
-struct _GTypeClass {
-    GType g_type;                  /* Зворотне посилання на зареєстрований GType */
-};
-
-/* Базовий об'єкт GObject */
-struct _GObject {
-    GTypeInstance  g_type_instance;/* Зсув 0: вказівник на клас */
-    volatile guint ref_count;      /* Атомарний лічильник посилань */
-    GData         *qdata;          /* Асоціативний список довільних атрибутів */
-};
-
-/* Базовий клас GObjectClass */
-struct _GObjectClass {
-    GTypeClass   g_type_class;     /* Зсув 0: GType */
-    
-    /* Таблиця конструкторів та деструкторів */
-    GObject*   (*constructor)     (GType type, guint n_props, GObjectConstructParam *props);
-    void       (*set_property)    (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
-    void       (*get_property)    (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
-    void       (*dispose)         (GObject *object);   /* Розрив циклічних посилань */
-    void       (*finalize)        (GObject *object);   /* Фінальне звільнення пам'яті */
-    void       (*constructed)     (GObject *object);
-};
-```
-```cpp
-// Концептуальне відображення об'єктної моделі GObject на класи C++20
-#pragma once
-#include <cstdint>
-#include <memory>
-#include <string_view>
-#include <unordered_map>
-#include <any>
-
-using GType = std::uintptr_t;
-
-// Еквівалент метакласу GTypeClass (визначає метадані та поведінку типу)
-class ObjectClass {
-public:
-    virtual ~ObjectClass() = default;
-    [[nodiscard]] virtual GType type_id() const noexcept = 0;
-    [[nodiscard]] virtual std::string_view type_name() const noexcept = 0;
-};
-
-// Еквівалент екземпляра GObject з інкапсульованим керуванням життям
-class Object : public std::enable_shared_from_this<Object> {
-public:
-    virtual ~Object() = default;
-
-    virtual void dispose() noexcept {
-        // Розрив можливих циклічних зв'язків
-        m_qdata.clear();
-    }
-
-    void set_qdata(std::string_view key, std::any value) {
-        m_qdata.insert_or_assign(std::string(key), std::move(value));
-    }
-
-    [[nodiscard]] std::any get_qdata(std::string_view key) const {
-        if (auto it = m_qdata.find(std::string(key)); it != m_qdata.end()) {
-            return it->second;
-        }
-        return {};
-    }
-
-private:
-    std::unordered_map<std::string, std::any> m_qdata;
-};
-```
+:::code api-gobject-kobject-core/c/bazovi-struktury-danykh-ta.h
+:::code api-gobject-kobject-core/cpp/bazovi-struktury-danykh-ta.hpp
 :::
 
 ### Детальний опис полів та інваріантів розкладки
@@ -139,76 +63,8 @@ private:
 ### Базові структури ядра та концептуальна модель C++
 
 :::tabs
-```c
-/* Структури простору ядра Linux */
-struct kobject {
-    const char          *name;     /* Ім'я об'єкта (каталог у sysfs) */
-    struct list_head     entry;    /* Входження до списку kset */
-    struct kobject      *parent;   /* Батьківський kobject (ієрархія) */
-    struct kset         *kset;     /* Група/підсистема */
-    const struct kobj_type *ktype; /* Таблиця операцій та деструктор */
-    struct kernfs_node  *sd;       /* Вузол віртуальної ФС sysfs */
-    struct kref          kref;     /* Атомарний лічильник посилань */
-    unsigned int state_initialized:1;
-    unsigned int state_in_sysfs:1;
-    unsigned int state_add_uevent_sent:1;
-    unsigned int state_remove_uevent_sent:1;
-    unsigned int uevent_suppress:1;
-};
-
-struct kobj_type {
-    void (*release)(struct kobject *kobj);        /* Обов'язковий деструктор */
-    const struct sysfs_ops *sysfs_ops;            /* Обробники читання/запису */
-    const struct attribute_group **default_groups;/* Файли атрибутів у /sys */
-};
-
-struct sysfs_ops {
-    ssize_t (*show)(struct kobject *kobj, struct attribute *attr, char *buf);
-    ssize_t (*store)(struct kobject *kobj, struct attribute *attr, const char *buf, size_t count);
-};
-```
-```cpp
-// Концептуальне відображення інтрузивного вузла ядра в C++
-#pragma once
-#include <atomic>
-#include <string>
-#include <functional>
-#include <string_view>
-
-struct KObjectType;
-
-// Інтрузивний блок ядра, що вбудовується всередину об'єкта
-class KObject {
-public:
-    KObject(std::string name, const KObjectType* type)
-        : m_name(std::move(name)), m_ktype(type), m_refcount(1) {}
-
-    void get() noexcept {
-        m_refcount.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    void put() noexcept;
-
-    [[nodiscard]] const std::string& name() const noexcept { return m_name; }
-
-private:
-    std::string m_name;
-    const KObjectType* m_ktype;
-    std::atomic<int> m_refcount;
-};
-
-struct KObjectType {
-    std::function<void(KObject*)> release;
-};
-
-inline void KObject::put() noexcept {
-    if (m_refcount.fetch_sub(1, std::memory_order_acq_rel) == 1) {
-        if (m_ktype && m_ktype->release) {
-            m_ktype->release(this);
-        }
-    }
-}
-```
+:::code api-gobject-kobject-core/c/bazovi-struktury-iadra-ta.h
+:::code api-gobject-kobject-core/cpp/bazovi-struktury-iadra-ta.hpp
 :::
 
 ### Основні функції ядра Linux
@@ -234,43 +90,8 @@ COM визначає двійковий стандарт віртуальної 
 ### Базовий інтерфейс IUnknown у C та C++
 
 :::tabs
-```c
-/* Оголошення IUnknown мовою C */
-#include <windows.h>
-
-typedef struct IUnknownVtbl {
-    /* [0] Запит інтерфейсу за GUID */
-    HRESULT (*QueryInterface)(void *This, REFIID riid, void **ppvObject);
-    
-    /* [1] Атомарне додавання посилання */
-    ULONG (*AddRef)(void *This);
-    
-    /* [2] Атомарне зменшення посилання та деструкція */
-    ULONG (*Release)(void *This);
-} IUnknownVtbl;
-
-typedef struct IUnknown {
-    const IUnknownVtbl *lpVtbl;    /* Зсув 0: покажчик на vtable */
-} IUnknown;
-```
-```cpp
-// Оголошення IUnknown мовою C++ (чистий абстрактний клас з віртуальними методами)
-#pragma once
-#include <unknwn.h>
-
-// Компілятор C++ генерує ідентичну двійкову vtable з трьома покажчиками
-struct ICustomUnknown {
-    virtual HRESULT STDMETHODCALLTYPE QueryInterface(
-        REFIID riid, 
-        void **ppvObject) = 0;
-
-    virtual ULONG STDMETHODCALLTYPE AddRef() = 0;
-
-    virtual ULONG STDMETHODCALLTYPE Release() = 0;
-
-    virtual ~ICustomUnknown() = default;
-};
-```
+:::code api-gobject-kobject-core/c/windows.h
+:::code api-gobject-kobject-core/cpp/bazovyi-interfeis-iunknown.hpp
 :::
 
 ### Стандартні коди помилок HRESULT

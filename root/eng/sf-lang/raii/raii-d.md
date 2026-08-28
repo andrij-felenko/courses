@@ -41,95 +41,8 @@
 Погляньмо на реальний приклад: функцію, яка відкриває системний файл журналу, захоплює захисний м'ютекс для запобігання паралельному запису й виділяє тимчасовий буфер.
 
 :::tabs
-```cpp
-#include <mutex>
-#include <vector>
-#include <fstream>
-#include <stdexcept>
-
-std::mutex log_mutex;
-
-void write_log_entry(const std::string& message) {
-    // 1. Захоплення блокування через RAII
-    std::lock_guard<std::mutex> lock(log_mutex);
-
-    // 2. Захоплення файлового дескриптора через RAII
-    std::ofstream file("app.log", std::ios::app);
-    if (!file.is_open()) {
-        // Ранній вихід: mtx автоматично розблокується деструктором lock
-        throw std::runtime_error("Не вдалося відкрити файл журналу");
-    }
-
-    // 3. Захоплення динамічної пам'яті через RAII-контейнер
-    std::vector<char> buffer(message.begin(), message.end());
-
-    if (buffer.empty()) {
-        // Ранній return: file закриється, lock розблокує м'ютекс
-        return;
-    }
-
-    file.write(buffer.data(), static_cast<std::streamsize>(buffer.size()));
-    file.put('\n');
-
-    // Успішний вихід: усе звільняється компілятором у строгому порядку LIFO:
-    // 1. ~vector() звільняє купу
-    // 2. ~ofstream() закриває файл
-    // 3. ~lock_guard() відпускає м'ютекс
-}
-```
-```c
-#include <pthread.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-pthread_mutex_t log_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-int write_log_entry_c(const char* message) {
-    // Ручне блокування
-    if (pthread_mutex_lock(&log_mutex) != 0) {
-        return -1;
-    }
-
-    // Ручне відкриття файлу
-    FILE* file = fopen("app.log", "a");
-    if (!file) {
-        // Помилка: не забути розблокувати м'ютекс перед виходом!
-        pthread_mutex_unlock(&log_mutex);
-        return -2;
-    }
-
-    // Ручне виділення пам'яті
-    size_t len = strlen(message);
-    char* buffer = (char*)malloc(len + 1);
-    if (!buffer) {
-        // Помилка: не забути закрити файл І розблокувати м'ютекс!
-        fclose(file);
-        pthread_mutex_unlock(&log_mutex);
-        return -3;
-    }
-
-    memcpy(buffer, message, len);
-    buffer[len] = '\0';
-
-    if (len == 0) {
-        // Ранній вихід: знову повний ручний ритуал очищення
-        free(buffer);
-        fclose(file);
-        pthread_mutex_unlock(&log_mutex);
-        return 0;
-    }
-
-    fwrite(buffer, 1, len, file);
-    fputc('\n', file);
-
-    // Фінальне ручне звільнення на успішному шляху
-    free(buffer);
-    fclose(file);
-    pthread_mutex_unlock(&log_mutex);
-    return 0;
-}
-```
+:::code raii-d/cpp/porivniannia-v-kodi-ruchne.cpp
+:::code raii-d/c/main.c
 :::
 
 У варіанті на C один і той самий код очищення продубльовано чотири рази. Якщо розробник додасть ще один проміжний `if` і забуде в ньому рядок `pthread_mutex_unlock(&log_mutex)`, програма безповоротно зависне під час першого ж збою. У варіанті на C++ логіка звільнення записана нуль разів: компілятор гарантує правильний виклик деструкторів на будь-якому шляху виконання.
@@ -276,21 +189,7 @@ using UniqueFile = std::unique_ptr<FILE, FileCloser>;
 
 Для цього використовують патерн **Scope Guard** (охоронець області видимості), стандартизований у бібліотеках під іменами `scope_exit`, `scope_fail` та `scope_success`:
 
-```cpp
-void transfer_money(Account& from, Account& to, double amount) {
-    from.withdraw(amount);
-
-    // Охоронець відкату: якщо функція впаде з винятком, кошти повернуться
-    auto rollback = make_scope_fail([&] {
-        from.deposit(amount);
-    });
-
-    to.deposit(amount); // Якщо тут станеться виняток — rollback спрацює автоматично!
-    log_transaction(from, to, amount);
-
-    // Успіх: rollback не виконується, транзакція зафіксована
-}
-```
+:::code raii-d/cpp/tranzaktsiinyi-raii-ta.cpp
 
 Цей підхід дозволяє легко реалізовувати **строгу гарантію безпеки винятків** (англ. *Strong Exception Guarantee* / ідемпотентний Commit-or-Rollback), де операція або завершується повністю успішно, або залишає стан системи абсолютно незмінним у разі будь-якого збою.
 
@@ -305,23 +204,7 @@ void transfer_money(Account& from, Account& to, double amount) {
 3. **Статична заборона use-after-free:** Після виконання `let b = a;` ім'я `a` стає фізично недійсним на етапі компіляції. Спроба звернутися до `a` викликає помилку компілятора.
 4. **Гарантія єдиного власника:** Компілятор під час збирання точно знає, де закінчується життя єдиного дійсного власника, і сам вставляє туди виклик `Drop::drop`.
 
-```rust
-use std::fs::File;
-use std::io::{self, Read};
-
-fn read_credentials() -> io::Result<String> {
-    // 1. Захоплення ресурсу: відкриття файлу
-    let mut file = File::open("secret.key")?; // '?' — раннє повернення при помилці
-
-    let mut content = String::new();
-    file.read_to_string(&mut content)?;
-
-    // 2. Успішне повернення:
-    // Змінна 'file' виходить зі scope, компілятор автоматично викликає File::drop(&mut file),
-    // дескриптор файлу закривається без жодного рядка ручного коду.
-    Ok(content)
-}
-```
+:::code raii-d/rust/main.rs
 
 Якщо в рядку зчитування стається помилка оператора `?`, функція виконує ранній вихід `return Err(...)`. У цей момент локальна змінна `file` покидає область видимості, і її деструктор `File::drop` викликається непохитно.
 
@@ -405,40 +288,13 @@ defer f.Close() // виконається при виході з функції
 
 Уявіть клас, що володіє двома ресурсами:
 
-```cpp
-class DualDevice {
-    int fd1_;
-    int fd2_;
-public:
-    DualDevice() {
-        fd1_ = ::open("/dev/dev1", O_RDWR); // Успішно відкрито
-        fd2_ = ::open("/dev/dev2", O_RDWR); // Помилка! Викидаємо виняток
-        if (fd2_ < 0) throw std::runtime_error("Device 2 failed");
-    }
-
-    ~DualDevice() {
-        if (fd1_ >= 0) ::close(fd1_);
-        if (fd2_ >= 0) ::close(fd2_);
-    }
-};
-```
+:::code raii-d/cpp/kraiovyi-vypadok-vyniatok.cpp
 
 Тут криється смертельна пастка. За стандартом C++, якщо конструктор об'єкта викинув виняток, **об'єкт вважається нествореним, і його деструктор `~DualDevice()` ніколи не буде викликано**. Як наслідок, дескриптор `fd1_` витече назавжди!
 
 Єдиний правильний спосіб розв'язання цієї проблеми — композиція з RAII-полів:
 
-```cpp
-class SafeDualDevice {
-    UniqueFd fd1_; // Якщо fd2_ впаде, деструктор fd1_
-    UniqueFd fd2_; // викличеться автоматично!
-public:
-    SafeDualDevice() 
-        : fd1_(::open("/dev/dev1", O_RDWR)),
-          fd2_(::open("/dev/dev2", O_RDWR)) {
-        if (!fd1_ || !fd2_) throw std::runtime_error("Device open failed");
-    }
-};
-```
+:::code raii-d/cpp/kraiovyi-vypadok-vyniatok-2.cpp
 
 Коли клас складається з окремих RAII-полів, рантайм під час аварії конструктора автоматично викличе деструктори для всіх полів, чиї конструктори вже встигли успішно завершитися.
 

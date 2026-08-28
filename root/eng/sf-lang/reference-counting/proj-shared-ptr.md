@@ -26,64 +26,13 @@
 
 Почнемо з однопотокової версії, де лічильник — звичайне `long`. Вона правильна, поки об'єкт не ділять між потоками, і в ній видно всю логіку без шуму атомарних операцій. Блок несе покажчик на об'єкт і два лічильники, а правила життя оформимо його ж методами — хай сам об'єкт «носить свій рахунок»:
 
-```cpp
-template <class T> class Weak;   // наперед: блок і Shared на нього посилаються
-
-template <class T>
-struct ControlBlock {
-    T*   obj;        // сам керований об'єкт (nullptr після знищення)
-    long strong;     // скільки Shared володіють об'єктом
-    long weak;       // скільки Weak спостерігають за блоком
-
-    explicit ControlBlock(T* p) : obj(p), strong(1), weak(0) {}
-
-    void retain() { ++strong; }              // нове сильне посилання
-
-    void release() {                         // сильне посилання зникло
-        if (--strong == 0) {                 // пішов останній власник
-            delete obj;                      // ← ~T() тут-таки, детерміновано
-            obj = nullptr;
-            if (weak == 0)                    // і жоден Weak не дивиться на блок
-                delete this;                 // → блок теж можна віддати
-        }
-    }
-
-    void weak_retain() { ++weak; }           // новий спостерігач
-
-    void weak_release() {                    // спостерігач зник
-        if (--weak == 0 && strong == 0)      // ні власників, ні спостерігачів
-            delete this;                     // → блок нікому не потрібен
-    }
-};
-```
+:::code proj-shared-ptr/cpp/kistiak-kerivnyi-blok-i.cpp
 
 Тут уже видно всю нетривіальність. `release()` на нулі робить **дві** речі: знищує об'єкт (`delete obj` кличе `~T()` негайно, у цьому самому рядку — оце і є детермінований розпад, на якому стоїть [RAII](root:sf-lang/raii)) і, якщо слабких теж нема, звільняє блок. Але якщо слабкі ще є, блок лишається жити з `obj == nullptr` — порожня оболонка, у якій слабкі прочитають, що об'єкт помер. Звільнить її вже `weak_release`, коли піде останній слабкий.
 
 Тепер сам `Shared` — тонка обгортка над покажчиком на блок:
 
-```cpp
-template <class T>
-class Shared {
-    ControlBlock<T>* cb_ = nullptr;
-
-    // приватний ctor: приймає блок ЯК Є (strong уже піднято тим, хто кличе)
-    explicit Shared(ControlBlock<T>* cb) : cb_(cb) {}
-    friend class Weak<T>;                    // Weak::lock будує Shared із блока
-
-public:
-    Shared() = default;                      // порожній покажчик
-
-    // взяти сирий об'єкт під нагляд: створити блок, стати єдиним власником
-    explicit Shared(T* raw)
-        : cb_(raw ? new ControlBlock<T>(raw) : nullptr) {}
-
-    T* get() const { return cb_ ? cb_->obj : nullptr; }
-    T* operator->() const { return cb_->obj; }
-    T& operator*()  const { return *cb_->obj; }
-    long use_count() const { return cb_ ? cb_->strong : 0; }
-    explicit operator bool() const { return cb_ && cb_->obj; }
-};
-```
+:::code proj-shared-ptr/cpp/kistiak-kerivnyi-blok-i-2.cpp
 
 Поки що це напівфабрикат: він уміє взяти об'єкт (`Shared<Node> a(new Node)`), але скопіювати чи знищити його правильно ще не вміє. Саме копіювання, присвоєння й знищення й несуть весь облік — додамо їх по одному, бо кожне ховає свою пастку.
 
@@ -130,18 +79,7 @@ public:
 
 Для повноти додамо переміщення. Переміщення `Shared` — це передача володіння без зайвого дотику до лічильника: новий власник краде блок, старий стає порожнім. Жодного `retain`/`release`, бо загальна кількість посилань не змінилася — воно лише переїхало:
 
-```cpp
-    Shared(Shared&& o) noexcept : cb_(o.cb_) { o.cb_ = nullptr; }
-
-    Shared& operator=(Shared&& o) noexcept {
-        if (this != &o) {
-            if (cb_) cb_->release();          // звільнити своє старе
-            cb_ = o.cb_;                       // вкрасти чуже
-            o.cb_ = nullptr;                   // джерело спорожніти
-        }
-        return *this;
-    }
-```
+:::code proj-shared-ptr/cpp/prysvoiennia-zakhopyty-do.cpp
 
 Різниця між копією й переміщенням — це різниця між «нас тепер двоє» (лічильник +1) і «власник переїхав» (лічильник не чіпаємо). Саме тому переміщення дешевше: воно не б'є записом по лічильнику, а це, як побачимо в ціні, найдорожче в усьому механізмі.
 
@@ -149,71 +87,13 @@ public:
 
 Слабкий покажчик влаштований дзеркально до сильного, тільки смикає інший лічильник. Він **не** тримає об'єкт живим — лише спостерігає за блоком:
 
-```cpp
-template <class T>
-class Weak {
-    ControlBlock<T>* cb_ = nullptr;
-
-public:
-    Weak() = default;
-
-    Weak(const Shared<T>& s) : cb_(s.cb_) {  // почати спостерігати за тим, чим володіє s
-        if (cb_) cb_->weak_retain();          // +1 до СЛАБКОГО лічильника
-    }
-    Weak(const Weak& o) : cb_(o.cb_) {
-        if (cb_) cb_->weak_retain();
-    }
-    Weak& operator=(const Weak& o) {
-        if (o.cb_) o.cb_->weak_retain();      // той самий порядок: захопити до звільнити
-        if (cb_)   cb_->weak_release();
-        cb_ = o.cb_;
-        return *this;
-    }
-    ~Weak() { if (cb_) cb_->weak_release(); }
-
-    bool expired() const { return !cb_ || cb_->strong == 0; }
-
-    Shared<T> lock() const {
-        if (cb_ && cb_->strong != 0) {        // об'єкт іще живий?
-            cb_->retain();                     // застовпити ще одне СИЛЬНЕ посилання
-            return Shared<T>(cb_);             // приватний ctor: блок уже з піднятим strong
-        }
-        return Shared<T>();                    // порожньо — об'єкта вже нема
-    }
-};
-```
+:::code proj-shared-ptr/cpp/slabkyi-pokazhchyk-i.cpp
 
 Уся сіль тут — у `lock()`. Розіменувати слабке посилання напряму не можна: між миттю, коли ти перевірив «живий», і миттю, коли зчитав об'єкт, останній `Shared` міг зникнути, і ти прочитав би звільнену пам'ять. Тому `lock` не віддає сирий покажчик — він **підвищує** слабке до сильного: піднімає `strong`, тим самим гарантуючи, що об'єкт не помре, поки ти тримаєш повернутий `Shared`. Або ти дістаєш живий об'єкт із гарантією на весь час володіння тимчасовим `Shared`, або чесний порожній покажчик. Третього — прочитати труп — конструкція не допускає. Про різновиди й тонкощі таких посилань — окрема тема [слабкі й м'які посилання](root:sf-lang/weak-references).
 
 Зберемо все й переконаймося, що воно живе:
 
-```cpp
-#include <cstdio>
-
-struct Node {
-    int          value;
-    Shared<Node> next;      // сильне ребро (тут причаїться цикл)
-    Weak<Node>   parent;    // слабке ребро (навмисно розірваний цикл)
-    explicit Node(int v) : value(v) {}
-    ~Node() { std::printf("  ~Node(%d)\n", value); }
-};
-
-int main() {
-    Shared<Node> a(new Node(1));                 // strong = 1
-    Shared<Node> b = a;                          // strong = 2  (копія)
-    Weak<Node>   w = a;                          // strong = 2, weak = 1
-    std::printf("use = %ld\n", a.use_count());   // 2
-
-    if (Shared<Node> s = w.lock())               // підвищення: strong = 3
-        std::printf("живий: %d\n", s->value);    // 1
-    // s гине тут → strong = 2
-
-    b = Shared<Node>();                          // release → strong = 1
-    a = Shared<Node>();                          // release → strong = 0 → ~Node(1)
-    std::printf("expired = %d\n", w.expired());  // 1  (true)
-    return 0;                                    // w гине → блок звільнено
-}
-```
+:::code proj-shared-ptr/cpp/slabkyi-pokazhchyk-i-2.cpp
 
 Друкує:
 
@@ -234,42 +114,7 @@ expired = 1
 
 Заразом полагодимо ще одну ваду, яка вилазить саме в багатопотоковому коді, — про неї в пастках нижче. Щоб рішення «звільнити блок» ухвалював **один** лічильник, а не двоє наввипередки, застосуємо усталений трюк: сильні власники **гуртом** тримають один слабкий токен. Тобто `weak` рахує справжні слабкі посилання **плюс один**, поки `strong > 0`. Тоді блок звільняє рівно той, хто опустить `weak` до нуля, — і ніхто інший:
 
-```cpp
-#include <atomic>
-
-template <class T>
-struct ControlBlock {
-    T*                obj;
-    std::atomic<long> strong;   // скільки Shared
-    std::atomic<long> weak;     // скільки Weak + 1, поки strong > 0
-
-    explicit ControlBlock(T* p)
-        : obj(p), strong(1), weak(1) {}   // +1 — спільний токен сильних
-
-    void retain() {
-        strong.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    void release() {
-        if (strong.fetch_sub(1, std::memory_order_release) == 1) {
-            std::atomic_thread_fence(std::memory_order_acquire);
-            delete obj; obj = nullptr;         // об'єкт мертвий
-            weak_release();                     // віддати спільний токен сильних
-        }
-    }
-
-    void weak_retain() {
-        weak.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    void weak_release() {                       // ЄДИНИЙ власник рішення «звільнити блок»
-        if (weak.fetch_sub(1, std::memory_order_release) == 1) {
-            std::atomic_thread_fence(std::memory_order_acquire);
-            delete this;
-        }
-    }
-};
-```
+:::code proj-shared-ptr/cpp/toi-samyi-lichylnyk-ale.cpp
 
 Три різні впорядкованості — і кожна зумовлена причиною, а не осторогою «про всяк випадок». Тема [впорядкованість пам'яті](root:sf-tasks/memory-ordering-barriers) розбирає їх докладно; ось чому саме такий набір.
 
@@ -281,19 +126,7 @@ struct ControlBlock {
 
 Слабке підвищення теж мусить стати атомарним. Наївна перевірка `if (strong != 0) { retain(); }` тут — гонка: між перевіркою й інкрементом останній `Shared` міг звільнити об'єкт. Правильний `lock` — це цикл **порівняй-і-обміняй** (compare-and-swap), який піднімає `strong` лише якщо той **не нуль**, і повторює спробу, якщо значення змінилося під руками:
 
-```cpp
-    Shared<T> lock() const {
-        if (!cb_) return {};
-        long s = cb_->strong.load(std::memory_order_relaxed);
-        while (s != 0) {                          // поки хтось іще володіє
-            if (cb_->strong.compare_exchange_weak(
-                    s, s + 1, std::memory_order_relaxed))
-                return Shared<T>(cb_);            // підняли strong з s до s+1
-            // невдача: s оновлено поточним значенням — пробуємо знову
-        }
-        return {};                                // strong досяг нуля — об'єкт мертвий
-    }
-```
+:::code proj-shared-ptr/cpp/toi-samyi-lichylnyk-ale-2.cpp
 
 `compare_exchange_weak` атомарно перевіряє, що `strong` досі дорівнює прочитаному `s`, і лише тоді записує `s + 1`. Якщо між `load` і обміном хтось `strong` змінив — обмін не вдасться, оновить `s` свіжим значенням, і цикл спробує ще раз. Об'єкт не проскочить від «живий» до «мертвий» непоміченим: якщо в мить обміну `strong` уже нуль, ми туди й не зайдемо. Це і є те, чого не дає проста перевірка.
 

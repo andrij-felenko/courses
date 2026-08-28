@@ -192,45 +192,12 @@ constexpr auto process_data(T value) {
    
    Єдина залізна вимога стандарту: **вся виділена динамічна пам'ять мусить бути звільнена до того, як завершиться обчислення константного виразу**. Пам'ять не може «витекти» з компілятора в рантайм, оскільки адреси вказівників у віртуальній пам'яті компілятора не мають сенсу для цільового процесора:
 
-   ```cpp
-   #include <vector>
-   #include <numeric>
-   #include <algorithm>
-
-   constexpr int sum_of_sorted_evens() {
-       std::vector<int> data = {9, 2, 7, 4, 5, 6, 1, 8};
-       data.erase(std::remove_if(data.begin(), data.end(), [](int x) { return x % 2 != 0; }), data.end());
-       std::sort(data.begin(), data.end());
-       
-       int sum = std::accumulate(data.begin(), data.end(), 0);
-       return sum; // Вектор data знищується тут, пам'ять звільняється через delete
-   }
-
-   static_assert(sum_of_sorted_evens() == 20); // Працює на етапі компіляції!
-   ```
+   :::code constexpr-d/cpp/c-20-povnotsinna-mova.cpp
 
 4. **Поліморфізм та віртуальні методи (`constexpr virtual`):**
    Компілятор навчився будувати та розв'язувати таблиці віртуальних методів у своїй абстрактній машині. Об'єкти базових класів можуть викликати перевизначені методи спадкоємців під час збірки:
 
-   ```cpp
-   struct BaseShape {
-       virtual constexpr double area() const = 0;
-       virtual ~BaseShape() = default;
-   };
-
-   struct Square : BaseShape {
-       double side;
-       constexpr explicit Square(double s) : side(s) {}
-       constexpr double area() const override { return side * side; }
-   };
-
-   constexpr double get_area(const BaseShape& shape) {
-       return shape.area(); // Віртуальний виклик резолвиться компілятором!
-   }
-
-   constexpr Square sq(4.0);
-   static_assert(get_area(sq) == 16.0);
-   ```
+   :::code constexpr-d/cpp/c-20-povnotsinna-mova-2.cpp
 
 5. **`std::is_constant_evaluated()` та `if consteval` (C++23):**
    Інструменти, що дозволяють алгоритму перевірити, де він зараз виконується: якщо в компіляторі — виконати простий портабельний код, якщо в рантаймі — задіяти низькорівневі SIMD-інструкції процесора чи вбудований асемблер.
@@ -251,18 +218,7 @@ constexpr auto process_data(T value) {
 
 У C++20 механізм `consteval`-конструкторів дозволив аналізувати рядок формату безпосередньо під час компіляції:
 
-```cpp
-#include <format>
-#include <string>
-
-void log_status(int code, const std::string& message) {
-    // Коректно: компілятор розбирає "{}: {}" і звіряє кількість та типи аргументів
-    std::string s = std::format("Error {}: {}", code, message);
-
-    // ПОМИЛКА КОМПІЛЯЦІЇ: форматний рядок очікує два аргументи, а передано один!
-    // std::string bad = std::format("Error {}: {}", code);
-}
-```
+:::code constexpr-d/cpp/statychnyi-syntaksychnyi.cpp
 
 Клас `std::format_string<Args...>` приймає строковий літерал у свій `consteval`-конструктор. Під час трансляції компілятор запускає синтаксичний парсер рядка, підраховує кількість фігурних дужок `{}`, витягує специфікатори точності та позиційні індекси і зіставляє їх із типами з кортежу `Args...`. Якщо виявлено невідповідність, компілятор зупиняє збірку та вказує на точне місце помилки в рядку формату.
 
@@ -279,44 +235,7 @@ void log_status(int code, const std::string& message) {
 
 Створимо генератор математичної таблиці для швидкого обчислення значень функції або тригонометричної сітки на 256 кроків:
 
-```cpp
-#include <array>
-#include <cstdint>
-#include <cmath>
-
-// Структура для зберігання попередньо розрахованих коефіцієнтів
-struct SineLUT {
-    std::array<int16_t, 256> values{};
-
-    // Конструктор виконує дискретизацію синусоїди
-    constexpr SineLUT() noexcept {
-        // Простий поліноміальний розрахунок або ряд Тейлора для синуса
-        for (size_t i = 0; i < 256; ++i) {
-            // Нормалізований кут від 0 до 2*pi у фіксованій точці
-            double rad = (double(i) / 256.0) * 6.283185307179586;
-            
-            // Наближення Тейлора: x - x^3/6 + x^5/120 - x^7/5040
-            double x = rad;
-            while (x > 3.141592653589793) x -= 6.283185307179586;
-            while (x < -3.141592653589793) x += 6.283185307179586;
-            
-            double x2 = x * x;
-            double sin_approx = x * (1.0 - x2 / 6.0 * (1.0 - x2 / 20.0 * (1.0 - x2 / 42.0)));
-            
-            // Масштабування до діапазону int16_t [-32767, 32767]
-            values[i] = static_cast<int16_t>(sin_approx * 32767.0);
-        }
-    }
-};
-
-// Глобальна незмінна таблиця
-inline constexpr SineLUT SINE_TABLE{};
-
-// Функція доступу з константним часом O(1)
-constexpr int16_t fast_sin(uint8_t phase) noexcept {
-    return SINE_TABLE.values[phase];
-}
-```
+:::code constexpr-d/cpp/praktychnyi-patern.cpp
 
 Що відбувається під капотом під час збірки такого файлу?
 1. Компілятор бачить `inline constexpr SineLUT SINE_TABLE{};` і запускає інтерпретатор конструктора.
@@ -356,18 +275,7 @@ constexpr int16_t fast_sin(uint8_t phase) noexcept {
 
 Розгляньмо практичний приклад:
 
-```cpp
-constexpr int get_element(int index) {
-    int arr[4] = {10, 20, 30, 40};
-    return arr[index]; // Якщо index >= 4 — це вихід за межі!
-}
-
-// Перевірка коректного індексу
-static_assert(get_element(2) == 30); // Успішно!
-
-// Спроба викликати з помилковим індексом
-constexpr int bad = get_element(5); // ПОМИЛКА КОМПІЛЯЦІЇ!
-```
+:::code constexpr-d/cpp/naisuvorishyi-sanitaizer.cpp
 
 Компілятор GCC або Clang видасть вичерпне повідомлення про помилку:
 
@@ -395,21 +303,7 @@ note: in call to 'get_element(5)'
 
 У попередніх стандартах `constexpr` міг обчислювати лише дані користувача (числа, масиви, структури). Статична рефлексія розширює можливості `constexpr` на метадані самої програми. За допомогою нового оператора віддзеркалення `^^` компілятор повертає непрозорий дескриптор `std::meta::info`, який можна передавати у звичайні `constexpr`-функції:
 
-```cpp
-// Концептуальний вигляд статичної рефлексії C++26:
-struct DeviceConfig {
-    int baud_rate;
-    int timeout_ms;
-    bool enable_crc;
-};
-
-consteval std::string generate_json_schema() {
-    // Рефлексія аналізує поля структури через constexpr-алгоритми
-    // std::meta::members_of(^^DeviceConfig) повертає вектор дескрипторів
-    // Генерація тексту схеми відбувається без жодних сторонніх інструментів
-    return "{ ... }";
-}
-```
+:::code constexpr-d/cpp/maibutnie-statychna.cpp
 
 Завдяки цьому `constexpr` стає єдиним універсальним рушієм метапрограмування в C++, остаточно витісняючи макроси препроцесора, сторонні парсери коду та складні шаблони TMP.
 

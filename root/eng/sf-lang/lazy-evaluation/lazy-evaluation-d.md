@@ -212,19 +212,7 @@ int my_if_c(int cond, int (*then_fn)(void*), int (*else_fn)(void*), void* ctx) {
     else return else_fn(ctx);
 }
 ```
-```cpp
-#include <functional>
-
-// У C++ ми передаємо функціональні об'єкти (ручні санки)
-template <typename ThenFn, typename ElseFn>
-auto my_if_cpp(bool cond, ThenFn then_branch, ElseFn else_branch) {
-    if (cond) {
-        return then_branch();
-    } else {
-        return else_branch();
-    }
-}
-```
+:::code lazy-evaluation-d/cpp/main.cpp
 :::
 
 У лінивій мові `my_if` — це найпростіша функція з трьома аргументами `my_if cond a b = if cond then a else b`, де аргументи `a` і `b` автоматично стають санками без додаткових синтаксичних зусиль.

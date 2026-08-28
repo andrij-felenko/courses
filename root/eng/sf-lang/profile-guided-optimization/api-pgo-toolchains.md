@@ -51,18 +51,7 @@
 Службова утиліта `llvm-profdata` виконує перетворення неструктурованих сирих файлів `.profraw` у бінарне деревоподібне представлення `.profdata`, яке оптимізатор здатний читати з постійною часовою складністю `O(1)`.
 
 ##### 1. Об'єднання та зважування (`merge`)
-```bash
-# Базове злиття кількох файлів сирих профілів в єдиний індексований файл
-llvm-profdata merge -output=code.profdata input1.profraw input2.profraw
-
-# Злиття з ваговими коефіцієнтами для комбінування денного та нічного навантаження
-llvm-profdata merge -weighted-input=8,day_read.profdata \
-                    -weighted-input=2,night_write.profdata \
-                    -output=production_blend.profdata
-
-# Експорт бінарного профілю у текстовий вигляд для ручного аналізу
-llvm-profdata merge -text -output=profile.txt code.profdata
-```
+:::code api-pgo-toolchains/sh/utylita-obrobky-profiliv.sh
 
 ##### 2. Статистичний аналіз та інспекція (`show`)
 ```bash
@@ -114,19 +103,7 @@ GCC надає набір інструментів для маніпулюван
 Мова Rust транслює код через LLVM IR, що забезпечує повну сумісність із профілювальними рантаймами та форматами LLVM.
 
 #### Покроковий конвеєр через прапорці `rustc`
-```bash
-# Крок 1. Збірка інструментованого релізного бінарника
-RUSTFLAGS="-C profile-generate=/tmp/pgo-data" cargo build --release
-
-# Крок 2. Тренувальний прогін під типовим робочим навантаженням
-./target/release/server_app --benchmark
-
-# Крок 3. Індексація зібраних профілів через llvm-profdata
-llvm-profdata merge -output=/tmp/pgo-data/merged.profdata /tmp/pgo-data
-
-# Крок 4. Оптимізована збірка з використанням профілю та діагностикою
-RUSTFLAGS="-C profile-use=/tmp/pgo-data/merged.profdata -C llvm-args=-pgo-warn-missing-function" cargo build --release
-```
+:::code api-pgo-toolchains/sh/pokrokovyi-konveier-cherez.sh
 
 #### Використання плагіна автоматизації `cargo-pgo`
 ```bash
@@ -164,19 +141,7 @@ Sample-based PGO дозволяє отримувати профілі безпо
 
 Сучасні мікропроцесори Intel та AMD містять апаратний кільцевий буфер LBR, який у режимі реального часу апаратно фіксує адреси джерела та призначення для останніх 16–32 виконаних переходів (Taken Branches). Системний профілювальник Linux `perf` налаштовується на зчитування стану буфера LBR з фіксованою частотою семплювання (наприклад, одне переривання на кожен 1 000 003 виконаний перехід).
 
-```bash
-# Крок 1. Компіляція з налагоджувальними мітками (без зміни коду програми)
-clang++ -O3 -gline-tables-only -fdebug-info-for-profiling main.cpp -o app_server
-
-# Крок 2. Збір траси переходів через perf LBR на бойовому сервері (тривалість 60 с)
-perf record -b -e br_inst_retired.near_taken:pp -c 1000003 -o perf.data -- ./app_server
-
-# Крок 3. Перетворення траси апаратних адрес у формат вихідних рядків LLVM
-create_llvm_prof --binary=app_server --profile=perf.data --out=app.afdo
-
-# Крок 4. Компіляція релізу з використанням вибіркового профілю
-clang++ -O3 -fprofile-sample-use=app.afdo main.cpp -o app_server_opt
-```
+:::code api-pgo-toolchains/sh/mekhanizm-aparatnoho.sh
 
 ---
 
@@ -185,25 +150,7 @@ clang++ -O3 -fprofile-sample-use=app.afdo main.cpp -o app_server_opt
 LLVM BOLT — це пост-лінкерний оптимізатор, який перетворює готовий слінкований ELF-бінарник на основі профілю переходів LBR.
 
 #### Конвеєр оптимізації через BOLT
-```bash
-# Крок 1. Збірка програми з обов'язковим збереженням таблиць релокацій
-clang++ -O3 -flto=thin -Wl,-q -Wl,--emit-relocs main.cpp -o app_bin
-
-# Крок 2. Збір апаратного LBR-профілю під навантаженням
-perf record -e cycles:u -j any,u -o perf.data -- ./app_bin
-
-# Крок 3. Перетворення бінарної траси perf у текстовий профіль переходів BOLT
-perf2bolt -p perf.data -o app.fdata app_bin
-
-# Крок 4. Запуск бінарної трансформації коду
-llvm-bolt app_bin -o app_bin.bolt \
-          -data=app.fdata \
-          -reorder-blocks=ext-tsp \
-          -reorder-functions=hfsort+ \
-          -split-functions \
-          -split-all-cold \
-          -dyno-stats
-```
+:::code api-pgo-toolchains/sh/konveier-optymizatsii.sh
 
 #### Опис параметрів `llvm-bolt`
 

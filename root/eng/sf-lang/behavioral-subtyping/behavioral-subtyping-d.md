@@ -51,21 +51,7 @@ struct Rect {
     uint32_t area() const { return (uint32_t)w * h; }
 };
 ```
-```python
-class Rect:
-    def __init__(self, w: int, h: int):
-        self.w = w
-        self.h = h
-
-    def set_width(self, w: int) -> None:   # висоту НЕ чіпає
-        self.w = w
-
-    def set_height(self, h: int) -> None:
-        self.h = h
-
-    def area(self) -> int:
-        return self.w * self.h
-```
+:::code behavioral-subtyping-d/py/main.py
 ```java
 class Rect {
     protected int w, h;

@@ -217,44 +217,8 @@ struct StackFrameWithRedzones {
 Розглянемо типовий приклад помилки виходу за межі динамічного масиву та використання звільненої пам'яті:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-void heap_overflow_demo(void) {
-    int *array = (int *)malloc(5 * sizeof(int)); // Виділено 20 байтів
-    // Допустимі індекси: 0, 1, 2, 3, 4
-    array[5] = 100; // ASan зловить Heap Buffer Overflow (вихід на 4 байти вправо)
-    free(array);
-}
-
-void use_after_free_demo(void) {
-    char *buffer = (char *)malloc(64);
-    free(buffer);
-    buffer[0] = 'A'; // ASan зловить Heap Use-After-Free
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <memory>
-
-void heap_overflow_demo() {
-    auto array = std::make_unique<int[]>(5);
-    // При прямому індексуванні через сирий покажчик без перевірки меж:
-    int* raw_ptr = array.get();
-    raw_ptr[5] = 100; // ASan фіксує Heap Buffer Overflow
-}
-
-void use_after_free_demo() {
-    int* dangling_ptr = nullptr;
-    {
-        auto temp_obj = std::make_unique<int>(42);
-        dangling_ptr = temp_obj.get();
-    } // temp_obj виходить з області видимості та звільняє пам'ять
-    *dangling_ptr = 999; // ASan фіксує Heap Use-After-Free
-}
-```
+:::code dynamic-sanitizers-d/c/chervoni-zony-redzones-ta.c
+:::code dynamic-sanitizers-d/cpp/chervoni-zony-redzones-ta.cpp
 :::
 
 ## ThreadSanitizer (TSan v2): Гонки даних і векторні годинники
@@ -300,53 +264,8 @@ ThreadSanitizer (прапор `-fsanitize=thread`) виявляє гонки д�
 Якщо всі 4 слоти тіні зайняті попередніми зверненнями, TSan витісняє один із записів за алгоритмом випадкового або псевдо-LRU вибору. Витіснення старого запису може призвести до того, що дуже давня гонка не буде помічена (false negative), проте TSan **ніколи не генерує хибних спрацьовувань** (false positives) на коректно синхронізованому коді.
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-
-static int g_shared_counter = 0; // Несинхронізована змінна
-
-void *worker_thread(void *arg) {
-    (void)arg;
-    for (int i = 0; i < 1000; ++i) {
-        g_shared_counter++; // Гонка даних (читання-модифікація-запис)
-    }
-    return NULL;
-}
-
-int main(void) {
-    pthread_t t1, t2;
-    pthread_create(&t1, NULL, worker_thread, NULL);
-    pthread_create(&t2, NULL, worker_thread, NULL);
-
-    pthread_join(t1, NULL);
-    pthread_join(t2, NULL);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <thread>
-#include <atomic>
-
-int g_unsynchronized_counter = 0;
-
-void worker() {
-    for (int i = 0; i < 1000; ++i) {
-        // Одночасна модифікація сирого int двома потоками
-        ++g_unsynchronized_counter; // TSan фіксує Data Race
-    }
-}
-
-int main() {
-    std::thread t1(worker);
-    std::thread t2(worker);
-
-    t1.join();
-    t2.join();
-    return 0;
-}
-```
+:::code dynamic-sanitizers-d/c/struktura-tini-tsan.c
+:::code dynamic-sanitizers-d/cpp/struktura-tini-tsan.cpp
 :::
 
 ## MemorySanitizer (MSan): Побітове відстеження неініціалізованої пам'яті

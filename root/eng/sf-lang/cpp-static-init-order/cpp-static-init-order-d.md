@@ -60,54 +60,8 @@ Device g_third;
 Обидва модулі рознесено по окремих вихідних файлах для модульності:
 
 :::tabs
-```cpp
-// logger.hpp
-#pragma once
-#include <string>
-#include <iostream>
-
-class Logger {
-public:
-    explicit Logger(const std::string& log_file) 
-        : m_filename(log_file), m_is_open(true) {
-        std::cout << "[Logger] Відкрито файл: " << m_filename << "\n";
-    }
-
-    void log(const std::string& message) const {
-        if (!m_is_open) {
-            std::cerr << "[Logger ERROR] Спроба запису в невідкритий журнал!\n";
-            return;
-        }
-        std::cout << "[" << m_filename << "] " << message << "\n";
-    }
-
-private:
-    std::string m_filename;
-    bool m_is_open{false};
-};
-
-// Експорт глобального об'єкта журналу
-extern Logger g_logger;
-```
-```c
-/* logger_c.h - класичний C-аналог з глобальним дескриптором */
-#ifndef LOGGER_C_H
-#define LOGGER_C_H
-
-#include <stdio.h>
-#include <stdbool.h>
-
-typedef struct {
-    const char* filename;
-    bool is_open;
-} CLogger;
-
-extern CLogger g_c_logger;
-void c_logger_init(const char* filename);
-void c_logger_log(const char* message);
-
-#endif
-```
+:::code cpp-static-init-order-d/cpp/logger.hpp
+:::code cpp-static-init-order-d/c/logger_c.h
 :::
 
 Реалізація журналу міститься у файлі `logger.cpp`:
@@ -122,21 +76,7 @@ Logger g_logger("application.log");
 
 Тим часом мережевий модуль оголошує власного глобального клієнта, який прагне зафіксувати старт своєї роботи у журналі безпосередньо під час конструювання:
 
-```cpp
-// network.cpp
-#include "logger.hpp"
-
-class NetworkClient {
-public:
-    NetworkClient() {
-        // Залежність: клієнт вимагає працездатного g_logger
-        g_logger.log("NetworkClient: ініціалізація мережевих сокетів...");
-    }
-};
-
-// Глобальний об'єкт мережевої підсистеми
-NetworkClient g_network_client;
-```
+:::code cpp-static-init-order-d/cpp/network.cpp
 
 Точка входу програми міститься у третьому файлі `main.cpp`:
 
@@ -183,24 +123,7 @@ int main() {
 
 Розглянемо, як це створює пастку:
 
-```cpp
-// database.cpp
-#include "logger.hpp"
-
-class DatabaseConnection {
-public:
-    DatabaseConnection() {
-        // Припустимо, DatabaseConnection сконструювався ПЕРШИМ
-    }
-
-    ~DatabaseConnection() {
-        // Деструктор намагається записати підсумок у журнал
-        g_logger.log("DatabaseConnection: скидання транзакцій і закриття з'єднання.");
-    }
-};
-
-DatabaseConnection g_db_conn;
-```
+:::code cpp-static-init-order-d/cpp/database.cpp
 
 Якщо під час запуску програми об'єкти конструювалися у послідовності:
 ```
@@ -223,76 +146,13 @@ DatabaseConnection g_db_conn;
 Ідея полягає в тому, щоб перетворити небезпечну глобальну змінну на локальну статичну змінну всередині функції-обгортки, яка повертає посилання на готовий екземпляр:
 
 :::tabs
-```cpp
-// safe_logger.hpp
-#pragma once
-#include <string>
-#include <iostream>
-
-class Logger {
-public:
-    explicit Logger(const std::string& log_file) 
-        : m_filename(log_file), m_is_open(true) {
-        std::cout << "[Logger] Файл відкрито: " << m_filename << "\n";
-    }
-
-    void log(const std::string& message) const {
-        std::cout << "[" << m_filename << "] " << message << "\n";
-    }
-
-    // Статичний метод-фабрика доступу
-    static Logger& instance() {
-        // Локальна статична змінна: ініціалізується під час першого входу у функцію
-        static Logger s_instance("application.log");
-        return s_instance;
-    }
-
-private:
-    std::string m_filename;
-    bool m_is_open{false};
-};
-```
-```c
-/* safe_logger_c.c - C-еквівалент із ледачою ініціалізацією */
-#include <stdio.h>
-#include <stdbool.h>
-
-typedef struct {
-    const char* filename;
-    bool is_open;
-} CLogger;
-
-static CLogger s_c_logger_instance;
-static bool s_is_initialized = false;
-
-CLogger* get_logger_instance(void) {
-    if (!s_is_initialized) {
-        s_c_logger_instance.filename = "application.log";
-        s_c_logger_instance.is_open = true;
-        s_is_initialized = true;
-        printf("[CLogger] Ініціалізовано: %s\n", s_c_logger_instance.filename);
-    }
-    return &s_c_logger_instance;
-}
-```
+:::code cpp-static-init-order-d/cpp/safe_logger.hpp
+:::code cpp-static-init-order-d/c/safe_logger_c.c
 :::
 
 Тепер залежний клієнт викликає функцію замість прямого звернення до глобальної змінної:
 
-```cpp
-// network.cpp
-#include "safe_logger.hpp"
-
-class NetworkClient {
-public:
-    NetworkClient() {
-        // Безпечно: instance() гарантує створення Logger до повернення посилання
-        Logger::instance().log("NetworkClient: старт сокетів.");
-    }
-};
-
-NetworkClient g_network_client;
-```
+:::code cpp-static-init-order-d/cpp/network-2.cpp
 
 Чому це повністю усуває SIOF:
 1. Якщо `NetworkClient` конструюється першим, виклик `Logger::instance()` змушує компілятор виконати конструктор `Logger` безпосередньо в цій точці.
@@ -307,26 +167,7 @@ NetworkClient g_network_client;
 
 Компілятори реалізують це через внутрішній атомарний захист (у рантаймі Itanium ABI — через функції `__cxa_guard_acquire` та `__cxa_guard_release`):
 
-```cpp
-// Концептуальний асемблерний еквівалент, який компілятор генерує для static Logger s_instance:
-Logger& Logger::instance() {
-    static int guard_flag = 0;
-    static char storage[sizeof(Logger)];
-
-    if (__atomic_load_n(&guard_flag, __ATOMIC_ACQUIRE) == 0) {
-        if (__cxa_guard_acquire(&guard_flag)) {
-            try {
-                new (storage) Logger("application.log");
-                __cxa_guard_release(&guard_flag);
-            } catch (...) {
-                __cxa_guard_abort(&guard_flag);
-                throw;
-            }
-        }
-    }
-    return *reinterpret_cast<Logger*>(storage);
-}
-```
+:::code cpp-static-init-order-d/cpp/potokobezpeka-ta-mahichna.cpp
 
 *Ціна рішення:* на гарячих шляхах виконання кожен виклик `instance()` супроводжується перевіркою атомарного прапорця. Завдяки апаратному передбаченню переходів процесора (branch prediction) ця перевірка коштує частки наносекунди, проте в критичних до затримок циклах виклик методу краще винести за межі циклу, зберігши посилання локально.
 
@@ -345,62 +186,11 @@ Logger& Logger::instance() {
 
 1. Пам'ять під глобальний об'єкт виділяється як сирий вирівняний байтовий масив, щоб запобігти автоматичному виклику статичного конструктора:
 
-```cpp
-// stream.hpp
-#pragma once
-#include <new>
-#include <type_traits>
-
-class StreamBuffer {
-public:
-    void write(const char* str);
-    void flush();
-};
-
-// Буфер сирої пам'яті
-extern typename std::aligned_storage<sizeof(StreamBuffer), alignof(StreamBuffer)>::type g_stream_storage;
-
-// Прозоре глобальне посилання для користувача
-#define g_stream (*reinterpret_cast<StreamBuffer*>(&g_stream_storage))
-
-// Клас лічильника
-class StreamInitializer {
-public:
-    StreamInitializer();
-    ~StreamInitializer();
-};
-
-// Статичний об'єкт у кожному .cpp, що підключає stream.hpp
-static StreamInitializer s_stream_init;
-```
+:::code cpp-static-init-order-d/cpp/stream.hpp
 
 2. У файлі реалізації `stream.cpp` оголошується сам буфер та лічильник посилань:
 
-```cpp
-// stream.cpp
-#include "stream.hpp"
-
-// Визначення буфера пам'яті
-decltype(g_stream_storage) g_stream_storage;
-
-// Глобальний лічильник кількості одиниць трансляції
-static int g_init_count = 0;
-
-StreamInitializer::StreamInitializer() {
-    // Якщо це перший модуль, що завантажився — конструюємо об'єкт
-    if (g_init_count++ == 0) {
-        new (&g_stream_storage) StreamBuffer();
-    }
-}
-
-StreamInitializer::~StreamInitializer() {
-    // Якщо це останній модуль, що завершується — руйнуємо об'єкт
-    if (--g_init_count == 0) {
-        reinterpret_cast<StreamBuffer*>(&g_stream_storage)->flush();
-        reinterpret_cast<StreamBuffer*>(&g_stream_storage)->~StreamBuffer();
-    }
-}
-```
+:::code cpp-static-init-order-d/cpp/stream.cpp
 
 3. **Гарантія на старті:** Коли будь-який користувацький `.cpp` підключає `#include "stream.hpp"`, компілятор розміщує копію `s_stream_init` перед будь-якими глобальними змінними цього `.cpp`. Конструктор `s_stream_init` виконується першим, збільшує лічильник і створює `StreamBuffer` у сирій пам'яті за допомогою `placement new`.
 4. **Гарантія на виході:** Об'єкт `StreamBuffer` залишається живим доти, доки не виконається деструктор останнього `s_stream_init`. Це усуває проблему передчасного знищення ресурсу під час виходу з програми.
@@ -415,28 +205,7 @@ StreamInitializer::~StreamInitializer() {
 
 Для розв'язання цієї дилеми стандарт **C++20** ввів специфікатор `constinit`:
 
-```cpp
-#include <string_view>
-
-struct DeviceDescriptor {
-    int port;
-    int baud_rate;
-    bool is_active;
-
-    // Конструктор повинен підтримувати constexpr
-    constexpr DeviceDescriptor(int p, int baud)
-        : port(p), baud_rate(baud), is_active(false) {}
-};
-
-// C++20 constinit: змінна є МУТАБЕЛЬНОЮ (не const),
-// але гарантовано ініціалізується у статичній фазі:
-constinit DeviceDescriptor g_primary_device(8080, 115200);
-
-void enable_device() {
-    // Зміну стану дозволено під час виконання!
-    g_primary_device.is_active = true;
-}
-```
+:::code cpp-static-init-order-d/cpp/harantiia-kompiliatora.cpp
 
 Відмінність специфікаторів:
 

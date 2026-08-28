@@ -25,76 +25,7 @@
 
 Розгляньмо повний самодостатній модуль, що демонструє генерацію таблиці через `constexpr`, обчислення контрольної суми строкових літералів та повну перевірку інваріантів за допомогою статичних тверджень:
 
-```cpp
-#include <array>
-#include <cstdint>
-#include <string_view>
-#include <span>
-
-namespace crc32 {
-
-// Стандартний поліном IEEE 802.3 для зворотного представлення бітів
-inline constexpr uint32_t POLYNOMIAL = 0xEDB88320u;
-
-// Розрахунок одного 32-бітного елемента таблиці для заданого значення байта
-constexpr uint32_t make_table_entry(uint8_t byte_value) noexcept {
-    uint32_t crc = byte_value;
-    for (int bit = 0; bit < 8; ++bit) {
-        if (crc & 1u) {
-            crc = (crc >> 1) ^ POLYNOMIAL;
-        } else {
-            crc >>= 1;
-        }
-    }
-    return crc;
-}
-
-// Генерація повної таблиці на 256 записів
-constexpr std::array<uint32_t, 256> generate_table() noexcept {
-    std::array<uint32_t, 256> table{};
-    for (size_t i = 0; i < 256; ++i) {
-        table[i] = make_table_entry(static_cast<uint8_t>(i));
-    }
-    return table;
-}
-
-// Глобальна стала таблиця: створюється компілятором у секції .rodata
-inline constexpr auto TABLE = generate_table();
-
-// Потокове обчислення CRC-32 для довільного буфера пам'яті
-constexpr uint32_t calculate(std::string_view data) noexcept {
-    uint32_t crc = 0xFFFFFFFFu;
-    for (char c : data) {
-        const uint8_t byte = static_cast<uint8_t>(c);
-        const uint8_t index = static_cast<uint8_t>(crc ^ byte);
-        crc = (crc >> 8) ^ TABLE[index];
-    }
-    return crc ^ 0xFFFFFFFFu;
-}
-
-// Негайна функція (consteval): гарантує виконання ВИКЛЮЧНО компілятором
-consteval uint32_t calculate_compile_time(std::string_view data) noexcept {
-    return calculate(data);
-}
-
-} // namespace crc32
-
-// ── Верифікація під час компіляції (Compile-Time Unit Testing) ────────────────
-
-// 1. Перевірка на канонічному тестовому векторі "123456789"
-// Результат зобов'язаний точно дорівнювати 0xCBF43926 за стандартом POSIX/IEEE
-static_assert(crc32::calculate("123456789") == 0xCBF43926u,
-              "Помилка розрахунку CRC-32 на стандартному тестовому векторі!");
-
-// 2. Перевірка контрольної суми порожнього рядка
-static_assert(crc32::calculate("") == 0x00000000u,
-              "CRC-32 порожнього рядка мусить дорівнювати нулю!");
-
-// 3. Перевірка окремих ключових комірок згенерованої таблиці
-static_assert(crc32::TABLE[0] == 0x00000000u);
-static_assert(crc32::TABLE[1] == 0x77073096u);
-static_assert(crc32::TABLE[255] == 0x2D02EF8Du);
-```
+:::code proj-constexpr-lut/cpp/realizatsiia-heneratora.cpp
 
 ---
 
@@ -103,80 +34,8 @@ static_assert(crc32::TABLE[255] == 0x2D02EF8Du);
 Щоб побачити якісну різницю в архітектурі системи, зіставимо традиційну реалізацію мовою C із сучасним підходом C++20:
 
 :::tabs
-```c
-/* Традиційна реалізація на C: динамічна побудова таблиці в RAM */
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#define CRC32_POLYNOMIAL 0xEDB88320u
-
-static uint32_t crc32_table[256];
-static bool is_table_initialized = false;
-
-void crc32_init_table(void) {
-    if (is_table_initialized) return;
-    for (uint32_t i = 0; i < 256; ++i) {
-        uint32_t crc = i;
-        for (int bit = 0; bit < 8; ++bit) {
-            if (crc & 1u) {
-                crc = (crc >> 1) ^ CRC32_POLYNOMIAL;
-            } else {
-                crc >>= 1;
-            }
-        }
-        crc32_table[i] = crc;
-    }
-    is_table_initialized = true;
-}
-
-uint32_t crc32_calculate(const uint8_t *data, size_t length) {
-    if (!is_table_initialized) {
-        crc32_init_table();
-    }
-    uint32_t crc = 0xFFFFFFFFu;
-    for (size_t i = 0; i < length; ++i) {
-        uint8_t index = (uint8_t)(crc ^ data[i]);
-        crc = (crc >> 8) ^ crc32_table[index];
-    }
-    return crc ^ 0xFFFFFFFFu;
-}
-```
-```cpp
-// Сучасна реалізація на C++20: нульовий оверхед і статичне розміщення
-#include <array>
-#include <cstdint>
-#include <span>
-
-namespace crc32 {
-
-inline constexpr uint32_t POLYNOMIAL = 0xEDB88320u;
-
-constexpr auto make_table() noexcept {
-    std::array<uint32_t, 256> table{};
-    for (size_t i = 0; i < 256; ++i) {
-        uint32_t crc = static_cast<uint32_t>(i);
-        for (int bit = 0; bit < 8; ++bit) {
-            crc = (crc & 1u) ? ((crc >> 1) ^ POLYNOMIAL) : (crc >> 1);
-        }
-        table[i] = crc;
-    }
-    return table;
-}
-
-inline constexpr auto TABLE = make_table();
-
-constexpr uint32_t calculate(std::span<const uint8_t> data) noexcept {
-    uint32_t crc = 0xFFFFFFFFu;
-    for (uint8_t byte : data) {
-        const uint8_t index = static_cast<uint8_t>(crc ^ byte);
-        crc = (crc >> 8) ^ TABLE[index];
-    }
-    return crc ^ 0xFFFFFFFFu;
-}
-
-} // namespace crc32
-```
+:::code proj-constexpr-lut/c/main.c
+:::code proj-constexpr-lut/cpp/porivnialnyi-analiz-c.cpp
 :::
 
 #### Порівняння параметрів системних ресурсів
@@ -228,29 +87,7 @@ uint32_t calculate_stream(std::string_view buffer) {
 
 Асемблерний лістинг:
 
-```nasm
-calculate_stream(std::string_view):
-    mov     rax, rsi                ; rax = розмір рядка (довжина)
-    test    rsi, rsi
-    je      .Lempty                 ; Якщо буфер порожній — повернути 0
-    mov     edx, -1                 ; edx = crc (0xFFFFFFFF)
-    xor     ecx, ecx                ; ecx = індекс ітератора
-.Lloop:
-    movzx   esi, byte ptr [rdi+rcx] ; esi = читання чергового байта з буфера
-    xor     esi, edx                ; esi = crc ^ byte
-    movzx   esi, sil                ; esi = молодший байт (індекс у таблиці)
-    shr     edx, 8                  ; edx = crc >> 8
-    xor     edx, dword ptr [crc32::TABLE+rsi*4] ; edx ^= TABLE[index]
-    inc     rcx
-    cmp     rax, rcx
-    jne     .Lloop                  ; Перехід на наступну ітерацію циклу
-    not     edx                     ; edx = crc ^ 0xFFFFFFFF
-    mov     eax, edx
-    ret
-.Lempty:
-    xor     eax, eax
-    ret
-```
+:::code proj-constexpr-lut/asm/main.s
 
 Зверніть увагу: звернення `[crc32::TABLE + rsi*4]` напряму адресує пам'ять секції `.rodata`. Функція максимально компактна, не містить коду перевірки ініціалізації та ідеально лягає в кеш інструкцій процесора.
 

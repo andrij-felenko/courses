@@ -161,48 +161,8 @@ asm volatile ("..." : /* виходи */ : /* входи */ : "rax", "rcx", "mem
 Синтаксична форма `asm goto` дозволяє передавати керування безпосередньо на мітки мови C/C++, уникаючи проміжних прапорців та зайвих умовних переходів у коді високого рівня:
 
 :::tabs
-```c
-#include <stdbool.h>
-
-/* Прямий стрибок на мітку error_handler у разі виникнення переносу */
-bool check_add_overflow(unsigned long a, unsigned long b, unsigned long *res) {
-    __asm__ __volatile__ goto (
-        "addq %[val], %[dest]\n\t"
-        "jc %l[overflow_label]"
-        : [dest] "+r" (a)
-        : [val] "r" (b)
-        : "cc"
-        : overflow_label
-    );
-    
-    *res = a;
-    return false;
-
-overflow_label:
-    return true;
-}
-```
-```cpp
-#include <utility>
-
-/* C++ варіант з поверненням прапорця успіху */
-bool check_add_overflow(unsigned long a, unsigned long b, unsigned long &res) noexcept {
-    asm volatile goto (
-        "addq %[val], %[dest]\n\t"
-        "jc %l[overflow_label]"
-        : [dest] "+r" (a)
-        : [val] "r" (b)
-        : "cc"
-        : overflow_label
-    );
-    
-    res = a;
-    return false;
-
-overflow_label:
-    return true;
-}
-```
+:::code api-extended-asm-constraints/c/main.c
+:::code api-extended-asm-constraints/cpp/main.cpp
 :::
 
 Починаючи з GCC 9 та Clang 9, конструкція `asm goto` підтримує не лише вхідні, але й вихідні операнди (форма `asm goto with outputs`), що дозволяє одночасно повертати обчислені значення по звичайному шляху виконання та передавати керування на мітки виняткових ситуацій з мінімальними накладними витратами.

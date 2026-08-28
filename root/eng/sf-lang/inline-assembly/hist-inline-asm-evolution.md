@@ -41,32 +41,8 @@ void enable_interrupts() noexcept {
 Вони створили синтаксис розширеного асемблера (**Extended Asm**), який базувався на декларативній системі обмежень (constraints):
 
 :::tabs
-```c
-/* Контракт Extended Asm у GCC 2.0 (1992 рік) */
-int add_extended(int a, int b) {
-    int result;
-    __asm__ __volatile__ (
-        "addl %2, %0"
-        : "=r" (result)        /* вихідний операнд */
-        : "0" (a), "r" (b)     /* вхідні операнди */
-        : "cc"                 /* зіпсовані прапорці */
-    );
-    return result;
-}
-```
-```cpp
-/* Еквівалент на C++ */
-int add_extended(int a, int b) noexcept {
-    int result = 0;
-    asm volatile (
-        "addl %2, %0"
-        : "=r" (result)
-        : "0" (a), "r" (b)
-        : "cc"
-    );
-    return result;
-}
-```
+:::code hist-inline-asm-evolution/c/narodzhennia-extended-asm.c
+:::code hist-inline-asm-evolution/cpp/narodzhennia-extended-asm.cpp
 :::
 
 Замість жорсткого закріплення конкретних фізичних регістрів програміст декларував *роль* операндів:
@@ -83,30 +59,8 @@ int add_extended(int a, int b) noexcept {
 Microsoft представила блоковий синтаксис `__asm { ... }` з нотацією Intel (destination first):
 
 :::tabs
-```c
-/* Модель MSVC для 32-розрядної архітектури x86 */
-int add_msvc(int a, int b) {
-    int res;
-    __asm {
-        mov eax, a
-        add eax, b
-        mov res, eax
-    }
-    return res;
-}
-```
-```cpp
-/* Еквівалент MSVC у C++ */
-int add_msvc(int a, int b) noexcept {
-    int res = 0;
-    __asm {
-        mov eax, a
-        add eax, b
-        mov res, eax
-    }
-    return res;
-}
-```
+:::code hist-inline-asm-evolution/c/dramatychnyi-rozkol.c
+:::code hist-inline-asm-evolution/cpp/dramatychnyi-rozkol.cpp
 :::
 
 Синтаксис MSVC здавався розробникам набагато простішим і читабельнішим за складний механізм двокрапок та лапок у GCC. Проте з точки зору архітектури компілятора це була міна сповільненої дії:

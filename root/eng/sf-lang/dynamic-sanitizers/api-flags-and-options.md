@@ -111,42 +111,8 @@ export UBSAN_OPTIONS="print_stacktrace=1:halt_on_error=1:suppressions=ubsan.supp
 Компілятори підтримують атрибути `no_sanitize`, що забороняють вставку перевірок у тіло конкретної функції:
 
 :::tabs
-```c
-#include <stddef.h>
-
-// Вимкнення перевірок AddressSanitizer для оптимізованої функції копіювання
-__attribute__((no_sanitize("address")))
-void fast_unaligned_block_copy(void *dest, const void *src, size_t n) {
-    char *d = (char *)dest;
-    const char *s = (const char *)src;
-    while (n--) {
-        *d++ = *s++;
-    }
-}
-
-// Вимкнення TSan для прямого опитування апаратного регістра без м'ютекса
-__attribute__((no_sanitize("thread")))
-unsigned int poll_hardware_status_register(volatile const unsigned int *reg_addr) {
-    return *reg_addr;
-}
-```
-```cpp
-#include <cstddef>
-
-// Вимкнення перевірок ASan у C++ за допомогою стандартного синтаксису атрибутів
-[[gnu::no_sanitize("address")]]
-void fast_memory_clear(std::byte* dest, std::size_t size) noexcept {
-    for (std::size_t i = 0; i < size; ++i) {
-        dest[i] = std::byte{0};
-    }
-}
-
-// Вимкнення TSan для специфічного lock-free алгоритму
-[[gnu::no_sanitize("thread")]]
-auto read_relaxed_counter(const volatile unsigned int* counter) noexcept -> unsigned int {
-    return *counter;
-}
-```
+:::code api-flags-and-options/c/atrybuty-vymknennia.c
+:::code api-flags-and-options/cpp/atrybuty-vymknennia.cpp
 :::
 
 У сучасних версіях Clang (починаючи з версії 14) доступний більш радикальний атрибут `__attribute__((disable_sanitizer_instrumentation))`. На відміну від `no_sanitize`, він вимикає абсолютно всі санітайзери (включно з прологами перевірки стеків, перевіркою вирівнювання та покриттям коду), що критично важливо для функцій перемикання контексту процесора, обробників апаратних переривань та низькорівневих точок входу в ядро ОС.
@@ -156,70 +122,8 @@ auto read_relaxed_counter(const volatile unsigned int* counter) noexcept -> unsi
 При написанні власних пулів пам'яті (наприклад, арени або блокового алокатора) стандартний ASan не знає, які ділянки виділеного монолітного буфера зараз зайняті об'єктами, а які є вільними. За допомогою заголовка `<sanitizer/asan_interface.h>` розробник може вручну позначати байти як отруєні або валідні:
 
 :::tabs
-```c
-#include <sanitizer/asan_interface.h>
-#include <stdlib.h>
-#include <stddef.h>
-
-typedef struct {
-    char buffer[1024];
-    size_t allocated;
-} SimpleArena;
-
-void arena_init(SimpleArena *arena) {
-    arena->allocated = 0;
-    // Початково отруюємо весь буфер арени
-    ASAN_POISON_MEMORY_REGION(arena->buffer, sizeof(arena->buffer));
-}
-
-void *arena_alloc(SimpleArena *arena, size_t size) {
-    if (arena->allocated + size > sizeof(arena->buffer)) {
-        return NULL;
-    }
-    void *ptr = &arena->buffer[arena->allocated];
-    arena->allocated += size;
-    // Знімаємо отруєння лише з тих байтів, які віддаються клієнту
-    ASAN_UNPOISON_MEMORY_REGION(ptr, size);
-    return ptr;
-}
-```
-```cpp
-#include <sanitizer/asan_interface.h>
-#include <array>
-#include <cstddef>
-#include <span>
-#include <stdexcept>
-
-class CustomStackArena {
-public:
-    static constexpr std::size_t Capacity = 2048;
-
-    CustomStackArena() noexcept {
-        // Отруюємо всю область пам'яті арени при створенні
-        ASAN_POISON_MEMORY_REGION(m_storage.data(), m_storage.size());
-    }
-
-    ~CustomStackArena() noexcept {
-        // Знімаємо отруєння перед знищенням об'єкта
-        ASAN_UNPOISON_MEMORY_REGION(m_storage.data(), m_storage.size());
-    }
-
-    [[nodiscard]] auto allocate(std::size_t size) -> std::span<std::byte> {
-        if (m_offset + size > Capacity) {
-            throw std::bad_alloc();
-        }
-        auto* ptr = &m_storage[m_offset];
-        m_offset += size;
-        // Дозволяємо доступ лише до виділеного діапазону
-        ASAN_UNPOISON_MEMORY_REGION(ptr, size);
-        return {reinterpret_cast<std::byte*>(ptr), size};
-    }
-
-private:
-    alignas(16) std::array<uint8_t, Capacity> m_storage{};
-    std::size_t m_offset{0};
-};
-```
+:::code api-flags-and-options/c/interfeis-ruchnoho.c
+:::code api-flags-and-options/cpp/interfeis-ruchnoho.cpp
 :::
 
 ## 4. Файли придушення (Suppression Files)

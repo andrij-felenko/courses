@@ -39,86 +39,8 @@
 У мовах C та C++ це розмежування можна спостерігати безпосередньо через механізм розміщувального створення (*placement new*):
 
 :::tabs
-```cpp
-#include <new>
-#include <memory>
-#include <iostream>
-#include <string>
-
-struct Packet {
-    int id;
-    std::string payload;
-
-    Packet(int i, std::string p) : id(i), payload(std::move(p)) {
-        std::cout << "  Конструктор Packet #" << id << "\n";
-    }
-
-    ~Packet() {
-        std::cout << "  Деструктор Packet #" << id << "\n";
-    }
-};
-
-void lifecycle_demo() {
-    // 1. Алокація сирої пам'яті під об'єкт (об'єкта ще немає)
-    alignas(Packet) std::byte raw_storage[sizeof(Packet)];
-
-    // 2. Ініціалізація: placement new викликає конструктор за вказаною адресою
-    Packet* pkt = ::new (raw_storage) Packet(42, "Telemetry data");
-
-    // 3. Час життя: об'єкт повністю валідний
-    std::cout << "  Payload: " << pkt->payload << "\n";
-
-    // 4. Деструкція: явний виклик деструктора (пам'ять raw_storage НЕ звільняється)
-    pkt->~Packet();
-
-    // 5. Деалокація: raw_storage автоматично зникає зі стека при виході
-}
-```
-```c
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-typedef struct {
-    int id;
-    char* payload;
-} PacketC;
-
-// Явний аналог конструктора
-void packet_construct(PacketC* pkt, int id, const char* p) {
-    pkt->id = id;
-    size_t len = strlen(p) + 1;
-    pkt->payload = (char*)malloc(len);
-    if (pkt->payload) {
-        memcpy(pkt->payload, p, len);
-    }
-    printf("  Конструктор C Packet #%d\n", pkt->id);
-}
-
-// Явний аналог деструктора
-void packet_destruct(PacketC* pkt) {
-    printf("  Деструктор C Packet #%d\n", pkt->id);
-    free(pkt->payload);
-    pkt->payload = NULL;
-}
-
-void lifecycle_demo_c(void) {
-    // 1. Алокація сирої пам'яті під структуру
-    _Alignas(PacketC) char raw_storage[sizeof(PacketC)];
-    PacketC* pkt = (PacketC*)raw_storage;
-
-    // 2. Ініціалізація сирої пам'яті
-    packet_construct(pkt, 42, "Telemetry data");
-
-    // 3. Час життя
-    printf("  Payload: %s\n", pkt->payload);
-
-    // 4. Деструкція внутрішніх ресурсів
-    packet_destruct(pkt);
-
-    // 5. Деалокація: raw_storage зникає зі стека
-}
-```
+:::code constructors-destructors-d/cpp/zhyttievyi-tsykl-u-pamiati.cpp
+:::code constructors-destructors-d/c/zhyttievyi-tsykl-u-pamiati.c
 :::
 
 Можливість явно розділяти виділення пам'яті та виклик конструктора є фундаментом для побудови високоефективних структур даних (наприклад, динамічного масиву `std::vector`, який резервує сиру пам'ять наперед і створює об'єкти лише при `push_back`) та користувацьких пулів пам'яті. Практичну реалізацію такого механізму розібрано у вставці про [пул об'єктів на фіксованій пам'яті](root:sf-lang/constructors-destructors/proj-placement-new-pool.md).
@@ -130,64 +52,8 @@ void lifecycle_demo_c(void) {
 Існує фундаментальна різниця між **ініціалізацією полів у списку ініціалізації** (англ. *member initializer list*) та **присвоєнням значень у тілі конструктора**:
 
 :::tabs
-```cpp
-#include <string>
-#include <vector>
-
-class BadBuffer {
-    std::string name_;
-    std::vector<int> data_;
-public:
-    // Помилковий підхід: подвійна робота
-    BadBuffer(const std::string& name, const std::vector<int>& data) {
-        name_ = name;  // 1. Спочатку name_ ініціалізовано конструктором за замовчуванням
-                       // 2. Потім викликано оператор operator=(const std::string&)
-        data_ = data;  // 1. Спочатку data_ виділив порожній вектор
-                       // 2. Потім викликано operator=(const std::vector<int>&)
-    }
-};
-
-class GoodBuffer {
-    std::string name_;
-    std::vector<int> data_;
-public:
-    // Правильний підхід: пряма ініціалізація в списку ініціалізації
-    GoodBuffer(std::string name, std::vector<int> data)
-        : name_(std::move(name)), data_(std::move(data)) {
-        // Поля створюються одразу з потрібними даними через конструктори переміщення.
-        // Тіло конструктора порожнє, жодних зайвих алокацій чи очищень.
-    }
-};
-```
-```c
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    char* name;
-    int* data;
-    size_t size;
-} GoodBufferC;
-
-// У мові C ініціалізація завжди записується явно у функції
-void good_buffer_init(GoodBufferC* buf, const char* name, const int* data, size_t size) {
-    size_t name_len = strlen(name) + 1;
-    buf->name = (char*)malloc(name_len);
-    if (buf->name) memcpy(buf->name, name, name_len);
-
-    buf->size = size;
-    buf->data = (int*)malloc(size * sizeof(int));
-    if (buf->data && data) memcpy(buf->data, data, size * sizeof(int));
-}
-
-void good_buffer_free(GoodBufferC* buf) {
-    free(buf->name);
-    free(buf->data);
-    buf->name = NULL;
-    buf->data = NULL;
-    buf->size = 0;
-}
-```
+:::code constructors-destructors-d/cpp/anatomiia-konstruktora.cpp
+:::code constructors-destructors-d/c/anatomiia-konstruktora.c
 :::
 
 У C++ список ініціалізації є обов'язковим у трьох ключових випадках:
@@ -199,19 +65,7 @@ void good_buffer_free(GoodBufferC* buf) {
 
 Порядок ініціалізації полів у пам'яті визначається **виключно порядком їхнього оголошення в тілі класу**, а не порядком їхнього запису в списку ініціалізації конструктора:
 
-```cpp
-class SensorNode {
-    int size_;
-    int* buffer_;
-public:
-    // Помилка: buffer_ оголошено ПІСЛЯ size_, але якби buffer_ стояв першим у класі:
-    SensorNode(int s) : buffer_(new int[size_]), size_(s) {
-        // Якщо в класі buffer_ оголошено раніше за size_, компілятор спочатку виділить
-        // buffer_ розміром size_ (який ще НЕ ініціалізований і містить сміття!),
-        // а вже потім ініціалізує size_ числом s.
-    }
-};
-```
+:::code constructors-destructors-d/cpp/zalizne-pravylo-poriadku.cpp
 
 Якщо оголошення `int* buffer_` розміщене вище за `int size_`, компілятор завжди ініціалізуватиме `buffer_` першим. У виразі `new int[size_]` буде прочитано невизначене сміттєве значення поля `size_`, що призведе до спроби виділити гігабайти пам'яті або до винятку `std::bad_alloc`. Сучасні компілятори виявляють невідповідність порядку за допомогою прапорця попереджень `-Wreorder`.
 
@@ -240,57 +94,8 @@ public:
 Будь-який конструктор, який можна викликати з одним аргументом, за замовчуванням оголошує неявне перетворення типу (англ. *implicit conversion*). Це є джерелом небезпечних прихованих багів:
 
 :::tabs
-```cpp
-#include <iostream>
-
-class DynamicArray {
-    int capacity_;
-public:
-    // Без explicit: компілятор дозволяє неявне перетворення int -> DynamicArray
-    // explicit DynamicArray(int capacity) : capacity_(capacity) {}
-    DynamicArray(int capacity) : capacity_(capacity) {}
-
-    int capacity() const { return capacity_; }
-};
-
-void print_array(const DynamicArray& arr) {
-    std::cout << "Array capacity: " << arr.capacity() << "\n";
-}
-
-int main() {
-    // Несподівана поведінка: випадкова передача числа неявно конструює масив на 100 елементів!
-    print_array(100); // Скомпілюється і створить тимчасовий об'єкт DynamicArray(100)
-    return 0;
-}
-```
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-    int capacity;
-    int* data;
-} DynamicArrayC;
-
-DynamicArrayC array_create(int capacity) {
-    DynamicArrayC arr;
-    arr.capacity = capacity;
-    arr.data = (int*)malloc(capacity * sizeof(int));
-    return arr;
-}
-
-void print_array_c(const DynamicArrayC* arr) {
-    printf("Array capacity: %d\n", arr->capacity);
-}
-
-int main(void) {
-    // У мові C неявні перетворення структур неможливі: помилка фіксується на етапі компіляції
-    DynamicArrayC arr = array_create(100);
-    print_array_c(&arr);
-    free(arr.data);
-    return 0;
-}
-```
+:::code constructors-destructors-d/cpp/2-konstruktory.cpp
+:::code constructors-destructors-d/c/2-konstruktory.c
 :::
 
 Додавання ключового слова `explicit` забороняє компілятору застосовувати цей конструктор для неявних приведень та ініціалізації через знак рівності `DynamicArray a = 10;`. Конструктор можна буде викликати лише явно: `DynamicArray a(10);` або `static_cast<DynamicArray>(10)`.
@@ -341,24 +146,7 @@ int main(void) {
 
 Це правило пояснює, чому збереження сирих покажчиків у полях класу є небезпечною антипатерною практикою:
 
-```cpp
-class DangerousOwner {
-    int* buffer_a_;
-    int* buffer_b_;
-public:
-    DangerousOwner() {
-        buffer_a_ = new int[1000]; // 1. Успішно виділено пам'ять
-        buffer_b_ = new int[5000]; // 2. Якщо тут виникає std::bad_alloc, конструктор обривається!
-    }
-
-    ~DangerousOwner() {
-        // Цей деструктор НІКОЛИ не виконається при збої на другому new!
-        // Пам'ять buffer_a_ витікає назавжди.
-        delete[] buffer_a_;
-        delete[] buffer_b_;
-    }
-};
-```
+:::code constructors-destructors-d/cpp/povedinka-pid-chas.cpp
 
 Якщо загорнути поля в стандартні розумні покажчики `std::unique_ptr<int[]>`, проблема зникає: якщо ініціалізація другого поля кидає виняток, рантайм автоматично викличе деструктор першого поля `std::unique_ptr`, який коректно звільнить пам'ять `buffer_a_`.
 
@@ -374,23 +162,7 @@ public:
 
 Розгляньмо ситуацію, коли базовий клас `Base` не має віртуального деструктора:
 
-```cpp
-class Base {
-public:
-    ~Base() { /* Не віртуальний! */ }
-};
-
-class Derived : public Base {
-    int* large_buffer_;
-public:
-    Derived() : large_buffer_(new int[10000]) {}
-    ~Derived() { delete[] large_buffer_; }
-};
-
-void cleanup(Base* ptr) {
-    delete ptr; // Фатальна помилка: статичне зв'язування!
-}
-```
+:::code constructors-destructors-d/cpp/polimorfizm-ta-virtualni.cpp
 
 Коли компілятор обробляє інструкцію `delete ptr`, він виконує статичний аналіз типу покажчика. Оскільки деструктор `~Base()` не є віртуальним, компілятор генерує прямий виклик коду `~Base()`, повністю ігноруючи реальний динамічний тип об'єкта `Derived`.
 
@@ -448,43 +220,8 @@ void cleanup(Base* ptr) {
 Замість того щоб самостійно тримати сирі покажчики й звільняти їх у деструкторі, клас має складати свій стан із готових компонентів, що самостійно підтримують RAII: `std::unique_ptr`, `std::shared_ptr`, `std::vector`, `std::string`.
 
 :::tabs
-```cpp
-#include <string>
-#include <vector>
-#include <memory>
-
-// Правило нуля: клас не оголошує жодної спеціальної функції.
-// Компілятор сам генерує правильні деструктор, копіювання та переміщення.
-class UserProfile {
-    std::string username_;
-    std::vector<int> permissions_;
-    std::unique_ptr<int[]> cache_buffer_; // unique_ptr автоматично забороняє некоректне
-                                          // копіювання й дозволяє коректне переміщення
-public:
-    UserProfile(std::string name)
-        : username_(std::move(name)), cache_buffer_(std::make_unique<int[]>(256)) {}
-};
-```
-```c
-#include <stdlib.h>
-#include <string.h>
-
-// У мові C аналог «Правила нуля» неможливий: будь-яка композиція структур
-// вимагає написання повного ланцюжка ручних функцій init/destroy
-typedef struct {
-    char* username;
-    int* permissions;
-    size_t perm_count;
-} UserProfileC;
-
-void user_profile_destroy(UserProfileC* profile) {
-    free(profile->username);
-    free(profile->permissions);
-    profile->username = NULL;
-    profile->permissions = NULL;
-    profile->perm_count = 0;
-}
-```
+:::code constructors-destructors-d/cpp/pravylo-nulia-modern-c.cpp
+:::code constructors-destructors-d/c/pravylo-nulia-modern-c.c
 :::
 
 ## Порівняння моделей життєвого циклу в мовах програмування
@@ -505,18 +242,7 @@ void user_profile_destroy(UserProfileC* profile) {
 
 Знищення об'єктів повністю детерміноване й спирається на систему статичної власності (англ. *ownership*) та типаж `Drop`:
 
-```rust
-struct DeviceHandle {
-    fd: i32,
-}
-
-impl Drop for DeviceHandle {
-    fn drop(&mut self) {
-        // Викликається компілятором автоматично в точці втрати власності (scope end)
-        unsafe { libc::close(self.fd); }
-    }
-}
-```
+:::code constructors-destructors-d/rust/main.rs
 
 Rust виключає цілі класи помилок C++ на етапі компіляції: афінна система типів (*affine types*) забороняє використання об'єкта після його переміщення (*Use-After-Move*), що унеможливлює випадкове звернення до порожнього або мертвого екземпляра.
 
@@ -535,18 +261,7 @@ Rust виключає цілі класи помилок C++ на етапі к�
 
 Мова Go поєднує збирач сміття для оперативної пам'яті з явною конструкцією `defer` для звільнення зовнішніх системних ресурсів. Інструкція `defer` реєструє функцію, яка гарантовано виконається в момент виходу з поточної функції за принципом LIFO:
 
-```go
-func processFile(filename string) error {
-    f, err := os.Open(filename)
-    if err != nil {
-        return err
-    }
-    defer f.Close() // Гарантоване закриття дескриптора при будь-якому виході з функції
-
-    // Робота з файлом...
-    return nil
-}
-```
+:::code constructors-destructors-d/go/main.go
 
 Головна відмінність `defer` від деструкторів RAII полягає в області дії: `defer` прив'язаний до **виходу з усієї функції**, а не до внутрішнього блоку `{ ... }` (наприклад, тіла циклу `for`), що може призводити до накопичення відкритих дескрипторів у довгих ітераціях.
 

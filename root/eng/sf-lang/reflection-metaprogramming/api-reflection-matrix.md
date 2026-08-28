@@ -28,33 +28,7 @@
 
 Оператор зрощення `[: r :]` (англ. *splice operator*) виконує зворотну операцію: він бере дескриптор `r` і вставляє відповідну сутність назад у синтаксичне дерево абстрактної машини компілятора. Залежно від граматичного контексту, результат сплайсингу може інтерпретуватися як вираз, назва типу або шаблонний аргумент.
 
-```cpp
-namespace std::meta {
-    // Перевірка категорій сутностей
-    consteval bool is_type(info r);
-    consteval bool is_variable(info r);
-    consteval bool is_function(info r);
-    consteval bool is_nonstatic_data_member(info r);
-
-    // Отримання властивостей та метрик
-    consteval string_view name_of(info r);
-    consteval string_view display_name_of(info r);
-    consteval info        type_of(info r);
-    consteval size_t      offset_of(info r);
-    consteval size_t      size_of(info r);
-    consteval size_t      alignment_of(info r);
-
-    // Дослідження структури та ієрархій
-    consteval vector<info> members_of(info r);
-    consteval vector<info> nonstatic_data_members_of(info r);
-    consteval vector<info> bases_of(info r);
-    consteval vector<info> enumerators_of(info r);
-
-    // Генерація нових сутностей
-    consteval info identifier(string_view name);
-    consteval info substitute(info template_entity, span<const info> args);
-}
-```
+:::code api-reflection-matrix/cpp/kontrakt-bazovykh.hpp
 
 Усі функції простору імен `std::meta` гарантовано детерміновані. Будь-яка спроба передати недійсний дескриптор або викликати функцію з порушенням семантики (наприклад, викликати `offset_of` для типу або функції) призводить до негайної помилки збірки (`compile-time error`).
 
@@ -72,43 +46,13 @@ namespace std::meta {
 - Методи `getFields()` та `getMethods()` повертають лише публічні члени класу, включно з успадкованими від суперкласів та інтерфейсів.
 - Методи `getDeclaredFields()` та `getDeclaredMethods()` повертають усі члени, оголошені безпосередньо в цьому класі (включно з `private`, `protected` та `package-private`), але ігнорують успадковані сутності.
 
-```java
-// Отримання та маніпуляція полями
-Class<?> clazz = UserProfile.class;
-Field field = clazz.getDeclaredField("secretToken");
-
-// Примусове вимкнення перевірок контролю доступу JVM
-field.setAccessible(true);
-
-// Читання та модифікація стану об'єкта
-Object value = field.get(userInstance);
-field.set(userInstance, "new_secret_value");
-
-// Динамічний пошук та виклик методу
-Method method = clazz.getDeclaredMethod("updateBalance", double.class, boolean.class);
-method.setAccessible(true);
-Object result = method.invoke(userInstance, 100.50, true);
-```
+:::code api-reflection-matrix/java/zhyttievyi-tsykl-ta-robota.java
 
 #### Механізм динамічних проксі (Dynamic Proxies)
 
 Клас `java.lang.reflect.Proxy` дозволяє створювати примірники інтерфейсів у реальному часі без генерації вихідного коду. Віртуальна машина створює синтетичний клас у пам'яті, який реалізує зазначені інтерфейси та перенаправляє всі виклики методів у єдиний обробник `InvocationHandler`:
 
-```java
-UserProfileService proxy = (UserProfileService) Proxy.newProxyInstance(
-    UserProfileService.class.getClassLoader(),
-    new Class<?>[] { UserProfileService.class },
-    new InvocationHandler() {
-        @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            System.out.println("Логування перед викликом: " + method.getName());
-            Object result = method.invoke(targetInstance, args);
-            System.out.println("Логування після виклику");
-            return result;
-        }
-    }
-);
-```
+:::code api-reflection-matrix/java/mekhanizm-dynamichnykh.java
 
 #### Винятки та обробка помилок у рантаймі
 - `ClassNotFoundException` — виникає при виклику `Class.forName()`, якщо завантажувач не знайшов відповідний `.class` файл у classpath.
@@ -190,28 +134,7 @@ int result = fastAddDelegate(40, 2); // Швидкість виконання д
 
 Препроцесор MOC генерує статичні константні масиви цілих чисел, які лінкуються в секцію `.rodata` бінарного файлу:
 
-```cpp
-// Структура заголовка метаданих Qt MOC
-static const uint qt_meta_data_DeviceController[] = {
-    // Зміст заголовка (Header):
-    // 0: Ревізія формату метаданих MOC (наприклад, 8)
-    // 1: Зміщення назви класу в таблиці рядків
-    // 2, 3: Кількість методів класу та індекс початку їхнього опису
-    // 4, 5: Кількість властивостей Q_PROPERTY та їхній індекс
-    // 6, 7: Кількість перелічувачів Q_ENUM та їхній індекс
-    // 8, 9: Кількість конструкторів та їхній індекс
-    // 10: Прапорці метаоб'єкта
-    // 11: Кількість зареєстрованих сигналів
-    8,       // Revision
-    0,       // Classname offset
-    3, 14,   // 3 методи, зміщення опису = 14
-    1, 26,   // 1 властивість, зміщення = 26
-    0, 0,    // 0 перелічувачів
-    0, 0,    // 0 конструкторів
-    0,       // Flags
-    1,       // 1 сигнал (завжди передує слотам)
-};
-```
+:::code api-reflection-matrix/cpp/vnutrishnia-budova.cpp
 
 #### Публічний інтерфейс інтроспекції та диспетчеризації
 
@@ -229,43 +152,7 @@ static const uint qt_meta_data_DeviceController[] = {
 У мові Rust статичне метапрограмування виконується шляхом прямої трансформації абстрактного синтаксичного дерева під час компіляції. Процедурні макроси є окремими динамічними бібліотеками, що виконуються компілятором `rustc`.
 
 #### Публічний контракт `proc_macro_derive`
-```rust
-use proc_macro::TokenStream;
-use syn::{parse_macro_input, DeriveInput, Data, Fields};
-use quote::quote;
-
-#[proc_macro_derive(MySerializer)]
-pub fn derive_serializer(input: TokenStream) -> TokenStream {
-    // 1. Парсинг вхідного потоку токенів у типізоване AST дерево
-    let ast = parse_macro_input!(input as DeriveInput);
-    let name = &ast.ident;
-
-    // 2. Інтроспекція полів структури
-    let field_names = match &ast.data {
-        Data::Struct(data_struct) => match &data_struct.fields {
-            Fields::Named(fields_named) => {
-                fields_named.named.iter().map(|f| &f.ident).collect::<Vec<_>>()
-            }
-            _ => panic!("Підтримуються лише іменовані структури!"),
-        },
-        _ => panic!("Підтримуються лише структури, а не enum чи union!"),
-    };
-
-    // 3. Генерація коду за допомогою квазіцитування quote!
-    let expanded = quote! {
-        impl #name {
-            pub fn print_fields(&self) {
-                #(
-                    println!("{}: {:?}", stringify!(#field_names), self.#field_names);
-                )*
-            }
-        }
-    };
-
-    // 4. Повернення згенерованого AST назад у компілятор
-    TokenStream::from(expanded)
-}
-```
+:::code api-reflection-matrix/rust/main.rs
 
 Модель процедурних макросів гарантує нульові витрати у фінальному бінарнику: якщо в процесі розгортання макроса виявлено помилку, макрос викидає діагностичне повідомлення `syn::Error`, яке компілятор підсвічує безпосередньо у вихідному коді користувача з точним номером рядка та стовпця.
 

@@ -92,21 +92,7 @@ Newlib вирішує цю суперечність: вона реалізує �
 
 Якщо проект зібрано з `--specs=nosys.specs`, але розробник не надав власної реалізації, наприклад, `_write()`, лінкер візьме стандартну заглушку:
 
-```c
-/* Типова реалізація з libnosys */
-#include <errno.h>
-#undef errno
-extern int errno;
-
-__attribute__((weak))
-int _write(int fd, const char *buf, int nbytes) {
-    (void)fd;
-    (void)buf;
-    (void)nbytes;
-    errno = ENOSYS; /* Функцію не реалізовано */
-    return -1;
-}
-```
+:::code newlib-d/c/2-dvorivneva-arkhitektura.c
 
 Виклик `printf()` успішно скомпонується, виконає все внутрішнє форматування рядка у буфер, викличе `_write(1, "Hello", 5)`, отримає `-1` та помилку `ENOSYS`, після чого тихо поверне код помилки, не вивівши назовні жодного байта.
 
@@ -204,52 +190,8 @@ int _read(int fd, char *buf, int len);
 Ці дві функції часто вважають порожніми формальностями, але від них безпосередньо залежить поведінка підсистеми `stdio`:
 
 :::tabs
-```c
-#include <sys/stat.h>
-#include <errno.h>
-
-int _isatty(int fd) {
-    if (fd >= 0 && fd <= 2) {
-        return 1; /* Дескриптори 0, 1, 2 прив'язані до терміналу TTY */
-    }
-    errno = EBADF;
-    return 0;
-}
-
-int _fstat(int fd, struct stat *st) {
-    if (fd >= 0 && fd <= 2) {
-        st->st_mode = S_IFCHR; /* Символьний пристрій (Character Device) */
-        return 0;
-    }
-    errno = EBADF;
-    return -1;
-}
-```
-```cpp
-#include <sys/stat.h>
-#include <cerrno>
-
-extern "C" {
-
-auto _isatty(int fd) noexcept -> int {
-    if (fd >= 0 && fd <= 2) {
-        return 1; // Дескриптори 0, 1, 2 є терміналом TTY
-    }
-    errno = EBADF;
-    return 0;
-}
-
-auto _fstat(int fd, struct stat *st) noexcept -> int {
-    if (fd >= 0 && fd <= 2) {
-        st->st_mode = S_IFCHR; // Символьний пристрій (Character Device)
-        return 0;
-    }
-    errno = EBADF;
-    return -1;
-}
-
-} // extern "C"
-```
+:::code newlib-d/c/4-4-fstat-ta-isatty.c
+:::code newlib-d/cpp/4-4-fstat-ta-isatty.cpp
 :::
 
 Чому це критично: Newlib обирає стратегію буферизації потоку `stdout` на основі повернених значень `_isatty` та `_fstat`. Якщо `_isatty()` повертає 1, Newlib вмикає **рядкову буферизацію** (*line buffering*): вивід передається в `_write` щоразу, коли зустрічається символ `\n`. Якщо ж `_isatty` повертає 0 (вважаючи, що вивід іде у звичайний файл на диску), Newlib вмикає **повну блокову буферизацію** (*full block buffering*): дані накопичуються у внутрішньому буфері розміром 1024 байти й не виводяться в UART взагалі, поки буфер повністю не заповниться або не буде явно викликано `fflush(stdout)`.
@@ -302,24 +244,7 @@ Semihosting (від англ. *semi-hosting* — «напівгостюванн�
 
 Внутрішня буферизація Newlib реалізована навколо структури `__sFILE` (псевдонім `FILE`). Розуміння її будови дозволяє реалізувати кастомні канали виводу (наприклад, направлення `stdout` одночасно у Flash-пам'ять та дисплей):
 
-```c
-struct __sFILE {
-    unsigned char *_p;   /* Поточний покажчик у буфері I/O */
-    int            _r;   /* Кількість байтів, доступних для читання */
-    int            _w;   /* Кількість вільного місця для запису */
-    short          _flags;/* Прапорці стану: читання, запис, помилка, EOF */
-    short          _file; /* Номер файлового дескриптора (fd) */
-    struct __sbuf  _bf;  /* Опис буфера: адреса початку та загальний розмір */
-    int            _lbfsize; /* Розмір буфера рядка */
-    
-    /* Функціональні покажчики (Cookie I/O) */
-    void          *_cookie;
-    _READ_WRITE_RETURN_TYPE (*_read) (struct _reent *, void *, char *, int);
-    _READ_WRITE_RETURN_TYPE (*_write)(struct _reent *, void *, const char *, int);
-    _fpos_t                 (*_seek) (struct _reent *, void *, _fpos_t, int);
-    int                     (*_close)(struct _reent *, void *);
-};
-```
+:::code newlib-d/c/6-anatomiia-struktury.h
 
 Коли розробник викликає `fopencookie()` або `funopen()`, Newlib дозволяє створити об'єкт `FILE*`, операції запису та читання якого будуть викликати не глобальні `_write`/`_read`, а персональні колбеки, закріплені за цим конкретним екземпляром потоку. Це усуває необхідність розгалуження в `_write` через оператори `switch (fd)` при роботі з багатьма периферійними інтерфейсами.
 
@@ -368,108 +293,8 @@ Newlib-nano замінює dlmalloc надлегким алокатором, с�
 Для запобігання колізії `_sbrk` зчитує поточний стан головного вказівника стека MSP (*Main Stack Pointer*) безпосередньо з регістра ядра процесора:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <errno.h>
-
-/* Символи, визначені компонувальником у linker script */
-extern uint8_t _end;          /* Початок купи відразу за .bss */
-extern uint8_t _estack;       /* Фізична вершина SRAM */
-extern uint8_t __StackLimit;  /* Нижній ліміт виділеного простору стека */
-
-/* Мінімальний резервний зазор між купою та стеком (наприклад, 1024 байти) */
-#define STACK_SAFETY_MARGIN  1024U
-
-/* Функція отримання поточного вказівника стека (ARM Cortex-M) */
-static inline uintptr_t get_stack_pointer(void) {
-    uintptr_t sp;
-    __asm__ volatile ("mov %0, sp" : "=r" (sp));
-    return sp;
-}
-
-void *_sbrk(ptrdiff_t incr) {
-    static uint8_t *heap_end = NULL;
-    uint8_t *prev_heap_end;
-
-    /* Перша ініціалізація: встановлення початкової межі на символ _end */
-    if (heap_end == NULL) {
-        heap_end = &_end;
-    }
-
-    prev_heap_end = heap_end;
-
-    /* Розрахунок потенційної нової межі купи */
-    uint8_t *next_heap_end = heap_end + incr;
-    uintptr_t current_sp = get_stack_pointer();
-
-    /* Перевірка 1: Нова купа не повинна перетинати поточний SP із запасом безпеки */
-    if ((uintptr_t)next_heap_end + STACK_SAFETY_MARGIN > current_sp) {
-        errno = ENOMEM;
-        return (void *)-1;
-    }
-
-    /* Перевірка 2: Нова купа не повинна виходити за статичну межу стека з linker script */
-    if (next_heap_end > &__StackLimit) {
-        errno = ENOMEM;
-        return (void *)-1;
-    }
-
-    /* Виділення дозволено: фіксуємо нову межу */
-    heap_end = next_heap_end;
-    return (void *)prev_heap_end;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <cerrno>
-
-extern "C" {
-    extern std::uint8_t _end;
-    extern std::uint8_t _estack;
-    extern std::uint8_t __StackLimit;
-}
-
-namespace sys {
-
-constexpr std::size_t StackSafetyMargin = 1024;
-
-[[nodiscard]] inline auto get_stack_pointer() noexcept -> std::uintptr_t {
-    std::uintptr_t sp{};
-    asm volatile ("mov %0, sp" : "=r" (sp));
-    return sp;
-}
-
-} // namespace sys
-
-extern "C" auto _sbrk(std::ptrdiff_t incr) noexcept -> void * {
-    static std::uint8_t *heap_end{nullptr};
-
-    if (heap_end == nullptr) {
-        heap_end = &_end;
-    }
-
-    auto *prev_heap_end = heap_end;
-    auto *next_heap_end = heap_end + incr;
-    const auto current_sp = sys::get_stack_pointer();
-
-    // Перевірка колізії з динамічним стеком процесора
-    if (reinterpret_cast<std::uintptr_t>(next_heap_end) + sys::StackSafetyMargin > current_sp) {
-        errno = ENOMEM;
-        return reinterpret_cast<void *>(-1);
-    }
-
-    // Перевірка перевищення ліміту скрипта компонування
-    if (next_heap_end > &__StackLimit) {
-        errno = ENOMEM;
-        return reinterpret_cast<void *>(-1);
-    }
-
-    heap_end = next_heap_end;
-    return reinterpret_cast<void *>(prev_heap_end);
-}
-```
+:::code newlib-d/c/realizatsiia-sbrk-z.c
+:::code newlib-d/cpp/realizatsiia-sbrk-z.cpp
 :::
 
 Завдяки цьому механізму, коли пам'ять SRAM вичерпується, `malloc` не призводить до краху прошивки, а штатно повертає `NULL`, дозволяючи програмі коректно обробити позаштатну ситуацію.
@@ -728,88 +553,8 @@ int _write(int fd, const char *buf, int len) {
 В середовищі FreeRTOS ці функції реалізуються через м'ютекс або призупинення планувальника:
 
 :::tabs
-```c
-#include <sys/reent.h>
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
-
-static SemaphoreHandle_t g_malloc_mutex = NULL;
-static StaticSemaphore_t g_malloc_mutex_buffer;
-
-void init_malloc_lock(void) {
-    if (g_malloc_mutex == NULL) {
-        g_malloc_mutex = xSemaphoreCreateMutexStatic(&g_malloc_mutex_buffer);
-    }
-}
-
-void __malloc_lock(struct _reent *r) {
-    (void)r;
-    /* Якщо планувальник вже запущено, захоплюємо м'ютекс */
-    if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED) {
-        if (g_malloc_mutex != NULL) {
-            xSemaphoreTake(g_malloc_mutex, portMAX_DELAY);
-        }
-    }
-}
-
-void __malloc_unlock(struct _reent *r) {
-    (void)r;
-    if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED) {
-        if (g_malloc_mutex != NULL) {
-            xSemaphoreGive(g_malloc_mutex);
-        }
-    }
-}
-```
-```cpp
-#include <sys/reent.h>
-#include <span>
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
-
-namespace rtos {
-
-class MallocLockGuard {
-public:
-    static void init() noexcept {
-        if (mutex_handle_ == nullptr) {
-            mutex_handle_ = xSemaphoreCreateMutexStatic(&mutex_buffer_);
-        }
-    }
-
-    static void lock() noexcept {
-        if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED && mutex_handle_ != nullptr) {
-            xSemaphoreTake(mutex_handle_, portMAX_DELAY);
-        }
-    }
-
-    static void unlock() noexcept {
-        if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED && mutex_handle_ != nullptr) {
-            xSemaphoreGive(mutex_handle_);
-        }
-    }
-
-private:
-    static inline SemaphoreHandle_t mutex_handle_{nullptr};
-    static inline StaticSemaphore_t mutex_buffer_{};
-};
-
-} // namespace rtos
-
-extern "C" {
-
-void __malloc_lock(struct _reent * /*r*/) {
-    rtos::MallocLockGuard::lock();
-}
-
-void __malloc_unlock(struct _reent * /*r*/) {
-    rtos::MallocLockGuard::unlock();
-}
-
-} // extern "C"
-```
+:::code newlib-d/c/blokuvannia-alokatora.c
+:::code newlib-d/cpp/blokuvannia-alokatora.cpp
 :::
 
 ---
@@ -822,24 +567,7 @@ void __malloc_unlock(struct _reent * /*r*/) {
 
 Стандартний C++ рантайм (`libsupc++`) реалізує глобальні оператори `new` та `delete` як прямі обгортки над `malloc()` та `free()`:
 
-```cpp
-void* operator new(std::size_t size) {
-    if (size == 0) size = 1;
-    void* p = malloc(size);
-    if (!p) {
-        #if __cpp_exceptions
-        throw std::bad_alloc();
-        #else
-        std::abort(); // На вбудованих системах без винятків
-        #endif
-    }
-    return p;
-}
-
-void operator delete(void* p) noexcept {
-    if (p) free(p);
-}
-```
+:::code newlib-d/cpp/operatory-new-ta-delete.cpp
 
 Оскільки `operator new` використовує `malloc`, він повністю залежить від системної заглушки `_sbrk` та блокувань `__malloc_lock`. Якщо `_sbrk` реалізований коректно, вичерпання пам'яті в середовищі з відключеними винятками (`-fno-exceptions`) призводить до виклику `std::abort()` -> `_exit()`, захищаючи пам'ять від неконтрольованого руйнування.
 
@@ -853,61 +581,8 @@ void operator delete(void* p) noexcept {
 3. **Виділення пам'яті:** `std::format` повертає `std::string`, що викликає алокацію в купі. Для вбудованих систем рекомендується використовувати `std::format_to` або `std::format_to_n`, які здійснюють запис безпосередньо у статичний буфер `std::span<char>` без жодних динамічних алокацій:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-
-void log_telemetry_c(uint32_t timestamp, float current, float voltage) {
-    char buffer[64];
-    /* Безпечне форматування у фіксований стек-буфер */
-    int len = snprintf(buffer, sizeof(buffer), "[%lu ms] I=%.2f A, U=%.2f V\r\n", 
-                       (unsigned long)timestamp, (double)current, (double)voltage);
-    if (len > 0) {
-        /* Прямий вивід у дескриптор stdout */
-        fwrite(buffer, 1, (size_t)len, stdout);
-    }
-}
-```
-```cpp
-#include <array>
-#include <string_view>
-#include <span>
-#include <cstdio>
-#include <cstdint>
-
-// Ідіоматичне форматування C++ без використання динамічної купи
-namespace logger {
-
-template <std::size_t N>
-class StackBuffer {
-public:
-    constexpr auto data() noexcept -> char* { return buffer_.data(); }
-    constexpr auto size() const noexcept -> std::size_t { return N; }
-    constexpr auto span() noexcept -> std::span<char> { return {buffer_.data(), N}; }
-
-private:
-    std::array<char, N> buffer_{};
-};
-
-void log_telemetry_cpp(std::uint32_t timestamp, float current, float voltage) noexcept {
-    StackBuffer<64> log_buf;
-    
-    // snprintf залишається найекономнішим за обсягом Flash у Newlib-nano
-    const int len = std::snprintf(
-        log_buf.data(), log_buf.size(),
-        "[%lu ms] I=%.2f A, U=%.2f V\r\n",
-        static_cast<unsigned long>(timestamp),
-        static_cast<double>(current),
-        static_cast<double>(voltage)
-    );
-
-    if (len > 0) {
-        std::fwrite(log_buf.data(), 1, static_cast<std::size_t>(len), stdout);
-    }
-}
-
-} // namespace logger
-```
+:::code newlib-d/c/suchasne-formatuvannia-c.c
+:::code newlib-d/cpp/suchasne-formatuvannia-c.cpp
 :::
 
 ---

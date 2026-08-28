@@ -67,18 +67,7 @@
     type get_##name(const void* self); \
     void set_##name(void* self, type val);
 ```
-```cpp
-// Ідіоматична типобезпечна обгортка властивості в C++
-template <typename T>
-class Property {
-    T value_{};
-public:
-    constexpr Property() = default;
-    constexpr explicit Property(T val) : value_(std::move(val)) {}
-    constexpr const T& get() const noexcept { return value_; }
-    constexpr void set(T val) noexcept { value_ = std::move(val); }
-};
-```
+:::code reflection-metaprogramming-d/cpp/tekstovi-makrosy-proty.cpp
 :::
 
 Текстовий підхід макросів породжує критичні проблеми: неможливість перевірки типів до розгортання, колізії імен, відсутність інтроспекції та нечитабельні повідомлення про помилки.
@@ -121,21 +110,7 @@ pub struct SensorPacket {
 
 Це відкрило факт, що підсистема шаблонів C++ є повноцінною чистою функційною мовою програмування, що працює всередині компілятора і є **Тюрінг-повною**:
 
-```cpp
-// Класичне шаблонне метапрограмування C++98
-template <size_t N>
-struct Factorial {
-    static constexpr size_t value = N * Factorial<N - 1>::value;
-};
-
-// Термінальна спеціалізація (базовий випадок рекурсії)
-template <>
-struct Factorial<0> {
-    static constexpr size_t value = 1;
-};
-
-static_assert(Factorial<5>::value == 120);
-```
+:::code reflection-metaprogramming-d/cpp/1-shablonne.cpp
 
 Замість імперативних змінних тут виступають типи та параметри шаблонів, замість циклів — рекурсивні інстанціювання, а замість розгалужень `if` — часткова спеціалізація класів.
 
@@ -145,24 +120,7 @@ static_assert(Factorial<5>::value == 120);
 
 Якщо під час підстановки типу в сигнатуру шаблонної функції виникає синтаксична або семантична невідповідність, компілятор не зупиняє збірку з фатальною помилкою, а мовчки викидає цю перевантажену функцію з набору кандидатів:
 
-```cpp
-#include <type_traits>
-#include <iostream>
-
-// Перевантаження 1: лише для цілих чисел
-template <typename T>
-typename std::enable_if<std::is_integral<T>::value, void>::type
-process(T value) {
-    std::cout << "Цілочисельна обробка: " << value << '\n';
-}
-
-// Перевантаження 2: лише для чисел із рухомою комою
-template <typename T>
-typename std::enable_if<std::is_floating_point<T>::value, void>::type
-process(T value) {
-    std::cout << "Обробка числа з рухомою комою: " << value << '\n';
-}
-```
+:::code reflection-metaprogramming-d/cpp/2-sfinae-ta-std-enable-if.cpp
 
 Компілятор оцінює предикат `std::is_integral<T>::value`. Якщо він повертає `true`, структура `enable_if` містить вкладений тип `type`, і підстановка вдається. Якщо `false` — типу `type` не існує, виникає невдача підстановки, і компілятор переходить до наступного варіанта.
 
@@ -170,19 +128,7 @@ process(T value) {
 
 Стандарти C++14 та C++17 докорінно спростили метапрограмування завдяки розширенню обчислень константних виразів ([constexpr](root:sf-lang/constexpr)) та конструкції `if constexpr`:
 
-```cpp
-template <typename T>
-auto serialize_value(const T& val) {
-    if constexpr (std::is_arithmetic_v<T>) {
-        return std::to_string(val);
-    } else if constexpr (std::is_same_v<T, std::string>) {
-        return "\"" + val + "\"";
-    } else {
-        // Відкинута гілка навіть не вимагає валідності операцій для невідповідного типу
-        return val.custom_to_json();
-    }
-}
-```
+:::code reflection-metaprogramming-d/cpp/3-revoliutsiia-constexpr.cpp
 
 Конструкція `if constexpr` виконує розгалуження під час компіляції. Тіло відкинутої гілки повністю вилучається з генерації коду, що дозволило позбутися сотень рядків SFINAE-шаблонів.
 
@@ -190,19 +136,7 @@ auto serialize_value(const T& val) {
 
 Стандарт C++20 остаточно перевів інтроспекцію типів у прості декларативні конструкції за допомогою ключового слова `requires`:
 
-```cpp
-#include <concepts>
-
-template <typename T>
-concept Printable = requires(T a) {
-    { std::cout << a } -> std::same_as<std::ostream&>;
-};
-
-// Функція інстанціюється лише для типів, що задовольняють концепт
-void print_element(Printable auto const& item) {
-    std::cout << item << '\n';
-}
-```
+:::code reflection-metaprogramming-d/cpp/4-kontseptsii-c-20.cpp
 
 Компілятор самостійно перевіряє семантичний контракт типу, а у випадку невідповідності генерує точне повідомлення про те, якої саме операції бракує типу `T`.
 
@@ -238,32 +172,7 @@ RTTI навмисно обмежений: він не дозволяє дізн�
 У керованих віртуальних машинах ([байткод і віртуальна машина](root:sf-lang/bytecode-vm)) ситуація є протилежною: виконуваний файл (`.class`, `.jar` або `.dll`) за стандартом містить вичерпні таблиці символів та метадані всіх типів.
 
 :::tabs
-```java
-// Java Reflection API: динамічна інтроспекція та виклик методів
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-public class ReflectionDemo {
-    public static void inspectAndInvoke(Object obj) throws Exception {
-        Class<?> clazz = obj.getClass();
-        System.out.println("Клас: " + clazz.getName());
-
-        // Читання всіх полів, включно з приватними
-        for (Field field : clazz.getDeclaredFields()) {
-            field.setAccessible(true); // Обхід контролю доступу
-            System.out.println("  Поле: " + field.getName() + 
-                               ", Тип: " + field.getType().getSimpleName() + 
-                               ", Значення: " + field.get(obj));
-        }
-
-        // Динамічний пошук та виклик методу
-        Method method = clazz.getDeclaredMethod("calculateTotal", double.class);
-        method.setAccessible(true);
-        Object result = method.invoke(obj, 15.5);
-        System.out.println("Результат виклику: " + result);
-    }
-}
-```
+:::code reflection-metaprogramming-d/java/main.java
 ```csharp
 // C# .NET: Рефлексія через System.Reflection
 using System;
@@ -304,36 +213,7 @@ public class ReflectionDemo {
 1. **Оператор підйому / рефлексії `^^` (Reflection Operator):** перетворює будь-яку сутність C++ (тип, поле, змінну, функцію, простір імен) на непрозорий дескриптор часу компіляції типу `std::meta::info`.
 2. **Оператор зрощення / сплайсингу `[: ... :]` (Splice Operator):** перетворює значення `std::meta::info` назад у вихідний синтаксичний контекст C++ (тип, вираз, шаблонний аргумент або ідентифікатор).
 
-```cpp
-#include <experimental/meta>
-#include <iostream>
-#include <string_view>
-
-struct UserAccount {
-    int id;
-    std::string name;
-    double balance;
-};
-
-// Універсальний друк полів будь-якої структури на етапі компіляції
-template <typename T>
-void print_struct_fields(const T& obj) {
-    // 1. Отримуємо дескриптор метаданих типу
-    constexpr std::meta::info type_meta = ^^T;
-
-    // 2. У constexpr-контексті отримуємо вектор дескрипторів усіх нестатичних полів
-    constexpr auto fields = std::meta::nonstatic_data_members_of(type_meta);
-
-    // 3. Розгортаємо цикл по полях через шаблонну згортку
-    [:expand(fields):] >> [&]<auto field_meta>() {
-        // Отримуємо назву поля як рядок під час збірки
-        constexpr std::string_view field_name = std::meta::name_of(field_meta);
-        
-        // Звертаємося до поля об'єкта obj через сплайсинг дескриптора поля
-        std::cout << field_name << " = " << obj.[:field_meta:] << '\n';
-    };
-}
-```
+:::code reflection-metaprogramming-d/cpp/model-operatoriv-ta.cpp
 
 ![Цикл статичної рефлексії та сплайсингу у C++26](img/p2996-reflection-cycle.svg)
 *Конвеєр P2996: оператор `^^` передає метадані у звичайні `constexpr`-алгоритми, а сплайсинг `[: ... :]` вбудовує згенерований код назад у дерево AST без сторонніх генераторів коду чи макросів.*

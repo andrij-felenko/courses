@@ -55,7 +55,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -87,7 +88,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -96,23 +98,27 @@
             },
             {
               "file": "hist-trusting-trust.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "comp": [
             {
               "file": "comp-cross-compiler.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "comp-reproducible-builds.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-gcc-bootstrap.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -140,7 +146,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "hist": [
             {
@@ -157,7 +164,8 @@
           "proj": [
             {
               "file": "proj-ast-parser.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -185,7 +193,8 @@
           "proj": [
             {
               "file": "proj-shunting-evaluator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -201,25 +210,30 @@
           "hist": [
             {
               "file": "hist-cocke-younger-kasami.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-cnf-and-complexity.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-cyk-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-cnf-grammar.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -231,30 +245,36 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-regex-syntax.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "hist": [
             {
               "file": "hist-regex-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-kleene-automata.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-posix-regex.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -335,7 +355,8 @@
           "proj": [
             {
               "file": "proj-register-allocation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -353,7 +374,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -364,13 +386,17 @@
           "proj": [
             {
               "file": "proj-xmacros.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-preprocessor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -381,7 +407,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -392,13 +419,17 @@
           "proj": [
             {
               "file": "proj-constexpr-lut.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-constexpr-specifiers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -410,7 +441,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -421,13 +453,17 @@
           "proj": [
             {
               "file": "proj-metaobject-system.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-reflection-matrix.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -454,7 +490,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -482,7 +519,9 @@
           "proj": [
             {
               "file": "proj-jit-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }

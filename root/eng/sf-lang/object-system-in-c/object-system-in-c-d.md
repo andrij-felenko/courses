@@ -27,42 +27,8 @@
 У загальнодоступному заголовному файлі (`.h`) структура лише оголошується без розкриття полів, а доступ до неї надається виключно через типізований покажчик та набір функцій-методів, першим аргументом яких виступає контекст об'єкта `self` (аналог прихованого покажчика `this` у C++):
 
 :::tabs
-```c
-/* widget.h — публічний інтерфейс: внутрішня розкладка прихована */
-#ifndef WIDGET_H
-#define WIDGET_H
-
-typedef struct Widget Widget;
-
-Widget* widget_new(int x, int y);
-void widget_free(Widget *self);
-void widget_set_position(Widget *self, int x, int y);
-void widget_get_position(const Widget *self, int *x, int *y);
-
-#endif
-```
-```cpp
-// widget.hpp — публічний інтерфейс з ідіоматичною C++ інкапсуляцією
-#pragma once
-#include <memory>
-#include <utility>
-
-class Widget {
-public:
-    Widget(int x, int y);
-    ~Widget();
-
-    Widget(Widget&&) noexcept;
-    Widget& operator=(Widget&&) noexcept;
-
-    void set_position(int x, int y) noexcept;
-    [[nodiscard]] std::pair<int, int> get_position() const noexcept;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> m_impl;
-};
-```
+:::code object-system-in-c-d/c/widget.h
+:::code object-system-in-c-d/cpp/widget.hpp
 :::
 
 У файлі реалізації (`.c`) структура визначається повністю. Компілятор, обробляючи клієнтський код, знає лише розмір покажчика (8 байтів на 64-бітних архітектурах). Це унеможливлює пряме читання чи модифікацію внутрішніх полів і дозволяє змінювати розмір і розкладку внутрішньої структури без перекомпіляції модулів, що використовують бібліотеку.
@@ -72,18 +38,7 @@ private:
 Для побудови ієрархії типів («тип `Derived` є розширенням типу `Base`») у C застосовують **префіксне вкладення структур**. Базова структура вбудовується як **найперше поле** структури-нащадка за значенням:
 
 :::tabs
-```c
-typedef struct {
-    int x;
-    int y;
-} Widget;
-
-typedef struct {
-    Widget base;          /* Зсув 0 байтів від початку Button */
-    char *label;          /* Зсув після sizeof(Widget) */
-    bool is_pressed;
-} Button;
-```
+:::code object-system-in-c-d/c/2-spadkuvannia-cherez.c
 ```cpp
 struct Widget {
     int x;
@@ -117,134 +72,8 @@ struct Button : public Widget {
 Розглянемо практичну реалізацію динамічної диспетчеризації у порівнянні з C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-/* Оголошення таблиці класу (vtable) базового типу */
-typedef struct Widget Widget;
-typedef struct WidgetClass WidgetClass;
-
-struct WidgetClass {
-    void (*draw)(Widget *self);
-    void (*handle_click)(Widget *self, int x, int y);
-};
-
-/* Базовий примірник */
-struct Widget {
-    const WidgetClass *klass; /* Вказівник на таблицю vtable (зсув 0) */
-    int x, y;
-};
-
-void widget_draw_default(Widget *self) {
-    printf("Base Widget drawing at (%d, %d)\n", self->x, self->y);
-}
-
-static const WidgetClass g_widget_class = {
-    .draw = widget_draw_default,
-    .handle_click = NULL
-};
-
-/* Нащадок: Button */
-typedef struct Button Button;
-typedef struct ButtonClass ButtonClass;
-
-struct ButtonClass {
-    WidgetClass parent_class; /* Вкладення таблиці предка (зсув 0) */
-    void (*on_pressed)(Button *self);
-};
-
-struct Button {
-    Widget base;              /* Вкладення екземпляра предка (зсув 0) */
-    const char *label;
-};
-
-void button_draw_override(Widget *self) {
-    Button *btn = (Button*)self;
-    printf("Button drawing [%s] at (%d, %d)\n", btn->label, self->x, self->y);
-}
-
-static const ButtonClass g_button_class = {
-    .parent_class = {
-        .draw = button_draw_override,
-        .handle_click = NULL
-    },
-    .on_pressed = NULL
-};
-
-/* Поліморфний виклик */
-void render_scene(Widget *w) {
-    /* Непрямий виклик через vtable: аналог w->draw() у C++ */
-    if (w && w->klass && w->klass->draw) {
-        w->klass->draw(w);
-    }
-}
-
-int main(void) {
-    Widget base_obj = { .klass = &g_widget_class, .x = 10, .y = 20 };
-    Button btn_obj = { 
-        .base = { .klass = (const WidgetClass*)&g_button_class, .x = 100, .y = 200 },
-        .label = "Submit"
-    };
-
-    render_scene(&base_obj);
-    render_scene((Widget*)&btn_obj); /* Двійковий поліморфізм у дії */
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <memory>
-
-// Базовий поліморфний клас: компілятор автоматично генерує прихований vptr
-class Widget {
-public:
-    Widget(int x, int y) : m_x(x), m_y(y) {}
-    virtual ~Widget() = default;
-
-    virtual void draw() const {
-        std::cout << "Base Widget drawing at (" << m_x << ", " << m_y << ")\n";
-    }
-
-    [[nodiscard]] int x() const noexcept { return m_x; }
-    [[nodiscard]] int y() const noexcept { return m_y; }
-
-private:
-    int m_x;
-    int m_y;
-};
-
-// Клас-нащадок з явним перевизначенням методу
-class Button : public Widget {
-public:
-    Button(int x, int y, std::string label)
-        : Widget(x, y), m_label(std::move(label)) {}
-
-    void draw() const override {
-        std::cout << "Button drawing [" << m_label << "] at (" 
-                  << x() << ", " << y() << ")\n";
-    }
-
-private:
-    std::string m_label;
-};
-
-// Поліморфна функція
-void render_scene(const Widget& w) {
-    w.draw(); // Динамічна диспетчеризація через vtable компілятора
-}
-
-int main() {
-    auto base_obj = std::make_unique<Widget>(10, 20);
-    auto btn_obj = std::make_unique<Button>(100, 200, "Submit");
-
-    render_scene(*base_obj);
-    render_scene(*btn_obj);
-    return 0;
-}
-```
+:::code object-system-in-c-d/c/3-polimorfizm-cherez.c
+:::code object-system-in-c-d/cpp/3-polimorfizm-cherez.cpp
 :::
 
 У C-версії диспетчеризація `w->klass->draw(w)` розгортається у два послідовні розіменування покажчиків: спочатку витягується адреса таблиці класу `w->klass`, а потім за фіксованим зміщенням береться адреса функції `draw` і викликається з передачею `w` як першого аргументу. Це двійковий еквівалент виклику віртуального методу в C++.
@@ -363,54 +192,8 @@ COM стандартизував структуру таблиці віртуа�
 Двійкова розкладка COM була навмисно спроєктована так, щоб у C++ виклик інтерфейсу відбувався як звичайний виклик віртуального методу через неявний `vptr`. У мові C цей самий виклик записується явно:
 
 :::tabs
-```c
-/* Виклик методу COM у чистому C */
-#include <windows.h>
-#include <stdio.h>
-
-void use_com_interface_c(IUnknown *pUnk) {
-    if (!pUnk) return;
-
-    /* 1. Збільшуємо лічильник посилань */
-    pUnk->lpVtbl->AddRef(pUnk);
-
-    /* 2. Запитуємо цільовий інтерфейс */
-    void *pStream = NULL;
-    static const IID IID_ISequentialStream = { 
-        0x0c733a30, 0x2a1c, 0x11ce, {0xad, 0xe5, 0x00, 0xaa, 0x00, 0x44, 0x77, 0x3d} 
-    };
-
-    HRESULT hr = pUnk->lpVtbl->QueryInterface(pUnk, &IID_ISequentialStream, &pStream);
-    if (SUCCEEDED(hr) && pStream) {
-        printf("Інтерфейс ISequentialStream успішно отримано в C\n");
-        
-        IUnknown *pStreamUnk = (IUnknown*)pStream;
-        pStreamUnk->lpVtbl->Release(pStreamUnk);
-    }
-
-    /* 3. Звільняємо початкове посилання */
-    pUnk->lpVtbl->Release(pUnk);
-}
-```
-```cpp
-// Виклик методу COM у C++ з використанням розумних покажчиків WRL / winrt
-#include <windows.h>
-#include <wrl/client.h>
-#include <iostream>
-
-void use_com_interface_cpp(Microsoft::WRL::ComPtr<IUnknown> unk) {
-    if (!unk) return;
-
-    // Microsoft::WRL::ComPtr автоматично керує AddRef/Release за правилами RAII
-    Microsoft::WRL::ComPtr<ISequentialStream> stream;
-    
-    // As() всередині викликає QueryInterface з автоматичним виведенням IID
-    HRESULT hr = unk.As(&stream);
-    if (SUCCEEDED(hr) && stream) {
-        std::cout << "Інтерфейс ISequentialStream успішно отримано в C++\n";
-    }
-}
-```
+:::code object-system-in-c-d/c/2-vyklyk-com-metodiv-u-c.c
+:::code object-system-in-c-d/cpp/2-vyklyk-com-metodiv-u-c.cpp
 :::
 
 У мові C розробник змушений вручну розіменовувати `p->lpVtbl->Method(p, ...)` та явно передавати покажчик `p` як перший параметр `This`. У C++ компілятор виконує ці дії неявно, генеруючи ідентичний машинний код виклику.

@@ -23,35 +23,8 @@
 Зведімо ідею в готові перевірки. Кожна з них рахує лише **різницю межі й доданка** — дію, що завжди лишається в діапазоні, — і тому безпечна сама собою (`UINT_MAX`, `INT_MAX`, `INT_MIN` — із `<limits.h>`).
 
 :::tabs
-```cpp
-// беззнакове a + b  (wrap визначений, але все одно небажаний)
-if (a > UINT_MAX - b)
-    overflow();              // суму НЕ рахуємо
-else
-    sum = a + b;
-
-// знакове a + b  (переповнення = UB → ловимо обидві межі)
-if (b > 0 && a > INT_MAX - b)      overflow();   // переб'є зверху
-else if (b < 0 && a < INT_MIN - b) overflow();   // провалиться знизу
-else                               sum = a + b;
-```
-```python
-# межі 32-бітних типів (у Python int безмежний — тримаємо їх явно)
-UINT_MAX = 0xFFFFFFFF
-INT_MAX  = 0x7FFFFFFF
-INT_MIN  = -0x80000000
-
-# беззнакове a + b  (wrap визначений, але все одно небажаний)
-if a > UINT_MAX - b:
-    overflow()              # суму НЕ рахуємо
-else:
-    sum = a + b
-
-# знакове a + b  (та сама переставлена нерівність → ловимо обидві межі)
-if b > 0 and a > INT_MAX - b:      overflow()   # переб'є зверху
-elif b < 0 and a < INT_MIN - b:    overflow()   # провалиться знизу
-else:                              sum = a + b
-```
+:::code proj-overflow-checks/cpp/hotovi-perevirky-na-c.cpp
+:::code proj-overflow-checks/py/main.py
 :::
 
 Той самий принцип «спершу перевір, тоді дій» переноситься й на решту операцій, тільки замість віднімання межа **ділиться** на множник. Множення небезпечніше за додавання — воно вистрілює за діапазон куди швидше, тож на ньому перевірка ДО потрібна ще частіше.
@@ -59,20 +32,7 @@ else:                              sum = a + b
 **Множимо два беззнакові `uint32_t a, b` — чи влізе добуток у 32 біти?**
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <limits.h>
-
-// беззнакове a * b: добуток вилазить ⇔ a > UINT_MAX / b  (при b != 0)
-uint32_t mul_checked(uint32_t a, uint32_t b, int *overflowed) {
-    if (b != 0 && a > UINT_MAX / b) {   // ділення безпечне: b != 0
-        *overflowed = 1;
-        return 0;                       // добуток НЕ рахуємо
-    }
-    *overflowed = 0;
-    return a * b;                       // тут уже певно влізе
-}
-```
+:::code proj-overflow-checks/cpp/hotovi-perevirky-na-c-2.cpp
 ```python
 UINT_MAX = 0xFFFFFFFF   # стеля 32-бітного беззнакового
 

@@ -109,22 +109,7 @@ struct SensorPayload {
     /* 7 байтів кінцевої набивки */
 };
 ```
-```cpp
-#include <cstdint>
-#include <type_traits>
-
-struct alignas(8) SensorPayload {
-    uint8_t  sensor_id;   // 1 байт,  зміщення 0
-    // 3 байти набивки (padding)
-    uint32_t timestamp;   // 4 байти, зміщення 4
-    double   temperature; // 8 байтів, зміщення 8
-    uint8_t  status_flag; // 1 байт,  зміщення 16
-    // 7 байтів кінцевої набивки
-};
-
-static_assert(sizeof(SensorPayload) == 24);
-static_assert(alignof(SensorPayload) == 8);
-```
+:::code foreign-function-interface-d/cpp/rozkladka-ta.hpp
 :::
 
 Сумарний розмір цієї структури у пам'яті становить **24 байти**, хоча корисні дані займають лише `1 + 4 + 8 + 1 = 14` байтів:
@@ -195,19 +180,7 @@ EngineContext* engine_create(int config_flags);
 int            engine_process(EngineContext *ctx, const double *data, size_t len);
 void           engine_destroy(EngineContext *ctx);
 ```
-```cpp
-// Заголовний файл library.hpp
-#pragma once
-#include <cstddef>
-
-extern "C" {
-    struct EngineContext;
-
-    EngineContext* engine_create(int config_flags);
-    int            engine_process(EngineContext *ctx, const double *data, size_t len);
-    void           engine_destroy(EngineContext *ctx);
-}
-```
+:::code foreign-function-interface-d/cpp/library.hpp
 :::
 
 Клієнтські мови (Python, Java, Rust) отримують цю структуру як «чорну скриньку» — бестиповий покажчик `void*` або число `uintptr_t`. Клієнт не може напряму прочитати чи змінити поля структури; він зберігає дескриптор і передає його назад у функції бібліотеки. Знищення об'єкта відбувається строго через виклик `engine_destroy()`, що гарантує виклик рідного `free()`.

@@ -6,28 +6,7 @@
 
 Домовитися треба спершу про структуру, бо від неї залежить кожна наступна функція.
 
-```c
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-
-#if defined(__SIZEOF_INT128__)
-typedef uint64_t          limb;    // «цифра» за основою B = 2⁶⁴
-typedef unsigned __int128 dlimb;   // подвійне слово: сюди влазить добуток
-  #define LIMB_BITS 64
-#else
-typedef uint32_t limb;
-typedef uint64_t dlimb;
-  #define LIMB_BITS 32
-#endif
-
-typedef struct {
-    limb  *d;    // лімби, молодший — d[0]
-    size_t n;    // скільки значущих: d[n−1] ≠ 0, або n = 0
-    size_t cap;  // скільки лімбів виділено
-    int    neg;  // 1 — від'ємне; для нуля завжди 0
-} big;
-```
+:::code proj-bignum-c/c/kontrakt-chym-ie-chyslo.c
 
 `big x = {0};` — це готовий нуль, і жодного виклику до купи він не коштує. Далі буфер росте сам.
 
@@ -36,22 +15,7 @@ typedef struct {
 ![Структура big: буфер лімбів, довжина n, ємність cap, окремий прапорець знака, два інваріанти](img/bignum-layout.svg)
 *Значущі лімби — це `d[0..n−1]`; далі до `cap` лежить сміття, яке ніхто не читає. Обидва інваріанти тримає одна маленька функція, і тому всі решта можуть на них покладатися.*
 
-```c
-static void big_trim(big *x) {
-    while (x->n > 0 && x->d[x->n - 1] == 0) x->n--;
-    if (x->n == 0) x->neg = 0;
-}
-
-static void big_reserve(big *x, size_t need) {
-    if (x->cap >= need) return;
-    size_t cap = x->cap ? x->cap : 4;
-    while (cap < need) cap *= 2;
-    limb *p = realloc(x->d, cap * sizeof *p);
-    if (!p) abort();                 // у справжній бібліотеці — код помилки
-    x->d = p;
-    x->cap = cap;
-}
-```
+:::code proj-bignum-c/c/kontrakt-chym-ie-chyslo-2.c
 
 Подвоєння ємності замість «додати рівно скільки треба» — не забаганка: воно робить сумарну вартість n додавань лінійною замість квадратичної, бо кожен лімб переїжджає в середньому один раз ([купа](root:sf-lang/heap-dynamic-memory) — область, з якої `realloc` бере пам'ять, і кожне звертання туди коштує на порядки більше за додавання двох слів). `abort()` при браку пам'яті — свідоме спрощення: у бібліотеці тут був би повернений код помилки, і кожен виклик довелося б перевіряти.
 
@@ -72,30 +36,7 @@ static int cmp_abs(const big *a, const big *b) {
 
 Два чесні ядра працюють із самими лімбами й нічого не знають про знак.
 
-```c
-// r[0..na] := a[0..na−1] + b[0..nb−1],  вимога na ≥ nb
-// у r має бути місце на na+1 лімб; повертає довжину результату
-static size_t add_abs(limb *r, const limb *a, size_t na,
-                               const limb *b, size_t nb) {
-    limb carry = 0;
-    for (size_t i = 0; i < nb; i++) {
-        limb ai = a[i], bi = b[i];
-        limb s  = ai + bi;
-        limb c  = (s < ai);        // загорнулося на a+b
-        s += carry;
-        c |= (s < carry);          // або вже на додаванні переносу
-        r[i]  = s;
-        carry = c;
-    }
-    for (size_t i = nb; i < na; i++) {   // хвіст довшого числа
-        limb s = a[i] + carry;
-        carry  = (s < carry);
-        r[i]   = s;
-    }
-    r[na] = carry;
-    return carry ? na + 1 : na;
-}
-```
+:::code proj-bignum-c/c/dodavannia-i-vidnimannia.c
 
 Перенос тут дістають порівнянням, бо беззнакова сума загортається за модулем 2ᵂ і меншою за доданок може стати лише через це. Одночасно обидві перевірки не спрацьовують ніколи — після першого загортання залишок не більший за B−2, тож додавання одиниці вже не вилізе за межу, — і тому `|` є точним виразом переносу, а не наближенням.
 
@@ -103,30 +44,7 @@ static size_t add_abs(limb *r, const limb *a, size_t na,
 
 Віднімання дзеркальне, з позикою замість переносу:
 
-```c
-// r[0..na−1] := a − b, вимога |a| ≥ |b|; повертає довжину після зрізання
-static size_t sub_abs(limb *r, const limb *a, size_t na,
-                               const limb *b, size_t nb) {
-    limb borrow = 0;
-    for (size_t i = 0; i < nb; i++) {
-        limb ai = a[i], bi = b[i];
-        limb t  = ai - bi;
-        limb br = (ai < bi);
-        limb u  = t - borrow;
-        br |= (t < borrow);
-        r[i]   = u;
-        borrow = br;
-    }
-    for (size_t i = nb; i < na; i++) {
-        limb ai = a[i];
-        r[i]   = ai - borrow;
-        borrow = (ai < borrow);
-    }
-    size_t n = na;              // позики назовні бути не може: |a| ≥ |b|
-    while (n > 0 && r[n - 1] == 0) n--;
-    return n;
-}
-```
+:::code proj-bignum-c/c/dodavannia-i-vidnimannia-2.c
 
 Різниця з додаванням лише в одному: довжина може **впасти** відразу на багато лімбів. `2¹²⁸ − (2¹²⁸ − 1)` — це два лімби мінус два лімби, а результат один-єдиний біт. Тому `sub_abs` зрізає ведучі нулі сам, не покладаючись на того, хто викликає.
 
@@ -136,30 +54,7 @@ static size_t sub_abs(limb *r, const limb *a, size_t na,
 
 У записі «знак і модуль» додавання й віднімання — це та сама дія з різним трактуванням знака другого доданка. Отже, писати два майже однакові диспетчери не треба:
 
-```c
-static void add_signed(big *r, const big *a, const big *b, int bneg) {
-    if (a->neg == bneg) {                    // однакові знаки — модулі складаємо
-        const big *x = a, *y = b;
-        if (x->n < y->n) { const big *t = x; x = y; y = t; }
-        big_reserve(r, x->n + 1);
-        r->n   = add_abs(r->d, x->d, x->n, y->d, y->n);
-        r->neg = a->neg;
-    } else {                                 // різні — менший модуль віднімаємо
-        int c = cmp_abs(a, b);
-        if (c == 0) { r->n = 0; r->neg = 0; return; }
-        const big *x = (c > 0) ? a : b;      // більший модуль
-        const big *y = (c > 0) ? b : a;
-        int sign = (c > 0) ? a->neg : bneg;  // знак більшого модуля
-        big_reserve(r, x->n);
-        r->n   = sub_abs(r->d, x->d, x->n, y->d, y->n);
-        r->neg = sign;
-    }
-    if (r->n == 0) r->neg = 0;               // єдиний нуль, без «мінус нуля»
-}
-
-void big_add(big *r, const big *a, const big *b) { add_signed(r, a, b,  b->neg); }
-void big_sub(big *r, const big *a, const big *b) { add_signed(r, a, b, !b->neg); }
-```
+:::code proj-bignum-c/c/znak-odyn-dyspetcher-na.c
 
 Порядок рядків усередині гілки з відніманням не випадковий. `big_reserve` може викликати `realloc` і перенести буфер, тому `x->d` читають **після** резервування — з поля структури, а не з копії, узятої раніше. І з тієї самої причини знак спершу лягає в локальну `sign`: якщо `r` і `a` — той самий об'єкт, запис у `r->neg` затер би `a->neg` ще до того, як його прочитали б.
 
@@ -169,22 +64,7 @@ void big_sub(big *r, const big *a, const big *b) { add_signed(r, a, b, !b->neg);
 
 На папері множать так: усі часткові добутки окремо, потім сума. У пам'яті так робити марно — простіше одразу додавати кожен частковий добуток у результат.
 
-```c
-// r[0..na+nb−1] := a·b;  r НЕ може збігатися з a чи b
-static void mul_basecase(limb *r, const limb *a, size_t na,
-                                  const limb *b, size_t nb) {
-    memset(r, 0, (na + nb) * sizeof *r);
-    for (size_t j = 0; j < nb; j++) {
-        limb bj = b[j], carry = 0;
-        for (size_t i = 0; i < na; i++) {
-            dlimb t  = (dlimb)a[i] * bj + r[i + j] + carry;
-            r[i + j] = (limb)t;
-            carry    = (limb)(t >> LIMB_BITS);
-        }
-        r[j + na] = carry;
-    }
-}
-```
+:::code proj-bignum-c/c/mnozhennia-nakopychuvalnym.c
 
 Внутрішній цикл — це весь модуль у мініатюрі: подвійне слово вміщує добуток двох лімбів **разом** зі старим значенням клітинки й переносом (найгірший випадок дає рівно B²−1, на одиницю менше за межу), молодша половина лишається на місці, старша йде далі.
 
@@ -195,20 +75,7 @@ static void mul_basecase(limb *r, const limb *a, size_t na,
 
 Публічна обгортка мусить дати окремий буфер:
 
-```c
-void big_mul(big *r, const big *a, const big *b) {
-    if (a->n == 0 || b->n == 0) { r->n = 0; r->neg = 0; return; }
-    size_t n = a->n + b->n;
-    limb *t = malloc(n * sizeof *t);
-    if (!t) abort();
-    mul_basecase(t, a->d, a->n, b->d, b->n);
-    free(r->d);                    // r міг бути тим самим об'єктом, що a чи b:
-    r->d   = t;                    // до цього рядка ми дочитали все потрібне
-    r->cap = n;
-    r->neg = (a->neg != b->neg);
-    r->n   = n - (t[n - 1] == 0);  // лімбів або n, або n−1 — третього не буває
-}
-```
+:::code proj-bignum-c/c/mnozhennia-nakopychuvalnym-2.c
 
 Множити «на місці» неможливо в принципі, і причина не в акуратності коду: позицію i+j читають знову на наступних проходах, тож затерти в ній аргумент означає зіпсувати ще не використані дані. Окремий буфер тут не оптимізаційний вибір, а вимога алгоритму.
 
@@ -220,42 +87,7 @@ void big_mul(big *r, const big *a, const big *b) {
 
 Зсув потрібен не лише як «помножити на 2ᵏ»: на ньому тримається нормалізація перед повним діленням, і він же найдешевший спосіб узяти половину.
 
-```c
-void big_shl(big *x, size_t k) {
-    if (x->n == 0 || k == 0) return;
-    size_t words = k / LIMB_BITS, bits = k % LIMB_BITS;
-    size_t n = x->n + words + (bits != 0);
-    big_reserve(x, n);
-    limb *d = x->d;                       // тільки ПІСЛЯ можливого realloc
-    if (bits) {
-        d[x->n + words] = d[x->n - 1] >> (LIMB_BITS - bits);
-        for (size_t i = x->n - 1; i > 0; i--)
-            d[i + words] = (d[i] << bits) | (d[i - 1] >> (LIMB_BITS - bits));
-        d[words] = d[0] << bits;
-    } else {
-        for (size_t i = x->n; i-- > 0; ) d[i + words] = d[i];
-    }
-    memset(d, 0, words * sizeof *d);
-    x->n = n;
-    big_trim(x);
-}
-
-void big_shr(big *x, size_t k) {
-    size_t words = k / LIMB_BITS, bits = k % LIMB_BITS;
-    if (words >= x->n) { x->n = 0; x->neg = 0; return; }
-    limb  *d = x->d;
-    size_t n = x->n - words;
-    if (bits) {
-        for (size_t i = 0; i + 1 < n; i++)
-            d[i] = (d[i + words] >> bits) | (d[i + words + 1] << (LIMB_BITS - bits));
-        d[n - 1] = d[x->n - 1] >> bits;
-    } else {
-        memmove(d, d + words, n * sizeof *d);
-    }
-    x->n = n;
-    big_trim(x);
-}
-```
+:::code proj-bignum-c/c/zsuvy.c
 
 Напрямок циклів тут не стиль, а коректність. Ліворуч кожен лімб їде на **більшу** позицію, тому йти треба згори вниз: інакше запис затре сусіда, який ще потрібен. Праворуч — навпаки, знизу вгору. Перевірка проста: якщо джерело й ціль в одному масиві, рухайся від того кінця, куди дані переїжджають.
 
@@ -267,19 +99,7 @@ void big_shr(big *x, size_t k) {
 
 Повне ділення числа на число — окрема історія з угадуванням цифри й виправленнями. Але для друку його не треба: досить ділити на **одне слово**, і тут формула точна.
 
-```c
-// x := x / v; повертає залишок. Вимога: v ≠ 0
-static limb div_limb(big *x, limb v) {
-    dlimb rem = 0;
-    for (size_t i = x->n; i-- > 0; ) {
-        dlimb cur = (rem << LIMB_BITS) | x->d[i];
-        x->d[i]   = (limb)(cur / v);
-        rem       = cur % v;
-    }
-    big_trim(x);
-    return (limb)rem;
-}
-```
+:::code proj-bignum-c/c/dilennia-na-odne-slovo-i.c
 
 Звуження `(limb)(cur / v)` безпечне, і це варто побачити на числах: залишок завжди менший за дільник, тобто rem ≤ v−1, а тоді
 
@@ -290,46 +110,7 @@ cur = rem·B + цифра ≤ (v−1)·B + (B−1) = v·B − 1 < v·B
 
 Тепер друк. У 64-бітне слово найбільший степінь десятки вміщується як 10¹⁹, тож кожне ділення на цю сталу видає одразу дев'ятнадцять десяткових цифр.
 
-```c
-#if LIMB_BITS == 64
-  #define DEC_CHUNK    UINT64_C(10000000000000000000)  // 10¹⁹ < 2⁶⁴
-  #define DEC_DIGITS   19
-  #define DEC_PER_LIMB 20        // 2⁶⁴−1 має рівно 20 цифр
-#else
-  #define DEC_CHUNK    UINT32_C(1000000000)            // 10⁹ < 2³²
-  #define DEC_DIGITS   9
-  #define DEC_PER_LIMB 10
-#endif
-
-// десятковий запис; звільняє буфер той, хто викликав
-char *big_to_dec(const big *x) {
-    size_t cap = x->n * DEC_PER_LIMB + 2;     // цифри + знак + '\0'
-    if (cap < 3) cap = 3;
-    char *s = malloc(cap);
-    if (!s) abort();
-    size_t pos = cap;
-    s[--pos] = '\0';
-    if (x->n == 0) { s[--pos] = '0'; memmove(s, s + pos, cap - pos); return s; }
-
-    big t = {0};                              // ділення руйнівне — працюємо з копією
-    big_reserve(&t, x->n);
-    memcpy(t.d, x->d, x->n * sizeof *t.d);
-    t.n = x->n;
-
-    while (t.n > 0) {                         // пишемо з кінця буфера
-        limb rem = div_limb(&t, DEC_CHUNK);
-        for (int k = 0; k < DEC_DIGITS; k++) {
-            s[--pos] = (char)('0' + rem % 10);
-            rem /= 10;
-            if (t.n == 0 && rem == 0) break;  // старша група — без ведучих нулів
-        }
-    }
-    if (x->neg) s[--pos] = '-';
-    free(t.d);
-    memmove(s, s + pos, cap - pos);
-    return s;
-}
-```
+:::code proj-bignum-c/c/dilennia-na-odne-slovo-i-2.c
 
 Умова виходу з внутрішнього циклу тонша, ніж виглядає. Ведучі нулі можна відкидати **лише** в найстаршій групі, тобто коли частка вже вичерпалася (`t.n == 0`). У всіх інших групах нулі значущі: число 10¹⁹ дає першу групу з дев'ятнадцяти нулів і другу з одиниці, і якщо ті нулі не написати, вийде «1» замість «10000000000000000000».
 

@@ -60,49 +60,8 @@
 3. `#pragma message("текст")` — виводить інформаційне повідомлення в консоль компіляції.
 
 :::tabs
-```c
-#include <stdio.h>
-
-/* Вказівка компілятору запакувати поля без вирівнювання (1 байт) */
-#pragma pack(push, 1)
-typedef struct {
-    unsigned char flag;
-    unsigned int  data;
-} CompactHeader;
-#pragma pack(pop)
-
-/* Застосування _Pragma всередині функціонального макросу */
-#define SUPPRESS_DEPRECATED_WARNING \
-    _Pragma("GCC diagnostic push") \
-    _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
-
-int main(void) {
-    printf("Розмір CompactHeader: %zu байтів\n", sizeof(CompactHeader));
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstdint>
-
-// Вказівка компілятору запакувати поля без вирівнювання (1 байт)
-#pragma pack(push, 1)
-struct CompactHeader {
-    uint8_t  flag;
-    uint32_t data;
-};
-#pragma pack(pop)
-
-// Застосування _Pragma всередині макросу для ізоляції попереджень
-#define SUPPRESS_DEPRECATED_WARNING \
-    _Pragma("GCC diagnostic push") \
-    _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
-
-int main() {
-    std::cout << "Розмір CompactHeader: " << sizeof(CompactHeader) << " байтів\n";
-    return 0;
-}
-```
+:::code api-preprocessor/c/prahmy-kompiliatora-pragma.c
+:::code api-preprocessor/cpp/prahmy-kompiliatora-pragma.cpp
 :::
 
 ---
@@ -126,18 +85,7 @@ int main(void) {
     return 0;
 }
 ```
-```cpp
-#include <iostream>
-#include <string_view>
-
-#define STRINGIFY_VAL(x) #x
-
-int main() {
-    constexpr std::string_view expr = STRINGIFY_VAL(a + b * (c - d));
-    std::cout << "Результат: " << expr << "\n";
-    return 0;
-}
-```
+:::code api-preprocessor/cpp/operator-strinhifikatsii.cpp
 :::
 
 #### Оператор склеювання токенів: `##`
@@ -145,36 +93,8 @@ int main() {
 З'єднує два сусідні токени в один новий токен. Застосовується для генерації унікальних імен функцій, змінних або констант. Результат зобов'язаний бути коректним лексичним токеном (наприклад, валідним ідентифікатором або числом). Так само як і оператор `#`, оператор `##` блокує розгортання макросів у своїх безпосередніх операндах.
 
 :::tabs
-```c
-#include <stdio.h>
-
-#define MAKE_FN_NAME(prefix, name) prefix##_##name
-
-void api_v1_init(void) {
-    printf("Ініціалізація API v1\n");
-}
-
-int main(void) {
-    void (*init_ptr)(void) = MAKE_FN_NAME(api_v1, init);
-    init_ptr();
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-
-#define MAKE_FN_NAME(prefix, name) prefix##_##name
-
-void api_v1_init() {
-    std::cout << "Ініціалізація API v1 C++\n";
-}
-
-int main() {
-    auto* init_ptr = &MAKE_FN_NAME(api_v1, init);
-    init_ptr();
-    return 0;
-}
-```
+:::code api-preprocessor/c/operator-skleiuvannia.c
+:::code api-preprocessor/cpp/operator-skleiuvannia.cpp
 :::
 
 #### Варіативні оператори: `__VA_ARGS__` та `__VA_OPT__`
@@ -185,31 +105,8 @@ int main() {
 У старіших компіляторах GCC та Clang замість `__VA_OPT__` використовувалося нестандартне розширення `, ##__VA_ARGS__`, де оператор конкатенації перед комою ковтав попередню кому, якщо список аргументів був порожнім. У сучасному коді слід надавати перевагу стандартизованому `__VA_OPT__`.
 
 :::tabs
-```c
-#include <stdio.h>
-
-#define DBG_PRINT(tag, fmt, ...) \
-    printf("[" tag "] " fmt "\n" __VA_OPT__(,) __VA_ARGS__)
-
-int main(void) {
-    DBG_PRINT("NET", "З'єднання встановлено");
-    DBG_PRINT("CPU", "Завантаження: %d%%, Температура: %d C", 45, 62);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstdio>
-
-#define DBG_PRINT(tag, fmt, ...) \
-    std::printf("[" tag "] " fmt "\n" __VA_OPT__(,) __VA_ARGS__)
-
-int main() {
-    DBG_PRINT("NET", "З'єднання встановлено");
-    DBG_PRINT("CPU", "Завантаження: %d%%, Температура: %d C", 45, 62);
-    return 0;
-}
-```
+:::code api-preprocessor/c/variatyvni-operatory-va.c
+:::code api-preprocessor/cpp/variatyvni-operatory-va.cpp
 :::
 
 #### Оператори перевірки середовища: `defined`, `__has_include`, `__has_cpp_attribute`
@@ -219,48 +116,8 @@ int main() {
 - `__has_cpp_attribute(attr)` та `__has_c_attribute(attr)` — повертають ціле ненульове число (версію або дату прийняття стандартом), якщо компілятор підтримує відповідний синтаксичний атрибут.
 
 :::tabs
-```c
-#include <stdio.h>
-
-#if defined(__has_include)
-    #if __has_include(<stdfix.h>)
-        #define HAS_FIXED_POINT 1
-    #else
-        #define HAS_FIXED_POINT 0
-    #endif
-#else
-    #define HAS_FIXED_POINT 0
-#endif
-
-int main(void) {
-    printf("Підтримка фіксованої коми: %d\n", HAS_FIXED_POINT);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-
-#if defined(__has_cpp_attribute)
-    #if __has_cpp_attribute(nodiscard) >= 201907L
-        #define SAFE_CHECK [[nodiscard("Ігнорування результату неприпустиме")]]
-    #elif __has_cpp_attribute(nodiscard)
-        #define SAFE_CHECK [[nodiscard]]
-    #else
-        #define SAFE_CHECK
-    #endif
-#else
-    #define SAFE_CHECK
-#endif
-
-SAFE_CHECK int compute_status() {
-    return 1;
-}
-
-int main() {
-    std::cout << "Статус обчислення: " << compute_status() << "\n";
-    return 0;
-}
-```
+:::code api-preprocessor/c/operatory-perevirky.c
+:::code api-preprocessor/cpp/operatory-perevirky.cpp
 :::
 
 ---

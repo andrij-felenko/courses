@@ -263,70 +263,8 @@ _sdata = .;
 Тому звернення до символів лінкера завжди вимагає або оператора взяття адреси `&`, або оголошення символу як неповнорозмірного масиву (incomplete array):
 
 :::tabs
-```c
-/* Отримання адрес символів лінкера мовою C */
-#include <stdint.h>
-
-/* Варіант 1: Оголошення як змінної та взяття адреси через & */
-extern uint32_t _sdata;
-extern uint32_t _edata;
-
-/* Варіант 2: Оголошення як масиву без розміру (ім'я масиву є адресою) */
-extern uint32_t _sbss[];
-extern uint32_t _ebss[];
-
-void memory_audit(void) {
-    /* Отримання числових адрес початку та кінця .data */
-    uint32_t *p_data_start = &_sdata;
-    uint32_t *p_data_end   = &_edata;
-    uint32_t data_bytes    = (uint8_t*)p_data_end - (uint8_t*)p_data_start;
-
-    /* Отримання числових адрес початку та кінця .bss */
-    uint32_t *p_bss_start  = _sbss;
-    uint32_t *p_bss_end    = _ebss;
-    uint32_t bss_bytes     = (uint8_t*)p_bss_end - (uint8_t*)p_bss_start;
-}
-```
-```cpp
-// Отримання адрес символів лінкера мовою C++20
-#include <cstdint>
-#include <span>
-#include <concepts>
-
-// Експорт символів із лінкер-скрипта через масиви
-extern "C" {
-    extern std::uint32_t _sdata[];
-    extern std::uint32_t _edata[];
-    extern std::uint32_t _sbss[];
-    extern std::uint32_t _ebss[];
-}
-
-struct MemorySectionInfo {
-    std::uintptr_t start_address;
-    std::uintptr_t end_address;
-    std::size_t size_bytes;
-};
-
-MemorySectionInfo get_data_section_info() noexcept {
-    const auto start = reinterpret_cast<std::uintptr_t>(_sdata);
-    const auto end   = reinterpret_cast<std::uintptr_t>(_edata);
-    return {
-        .start_address = start,
-        .end_address   = end,
-        .size_bytes    = end - start
-    };
-}
-
-MemorySectionInfo get_bss_section_info() noexcept {
-    const auto start = reinterpret_cast<std::uintptr_t>(_sbss);
-    const auto end   = reinterpret_cast<std::uintptr_t>(_ebss);
-    return {
-        .start_address = start,
-        .end_address   = end,
-        .size_bytes    = end - start
-    };
-}
-```
+:::code linker-script-d/c/zvernennia-do-symvoliv.c
+:::code linker-script-d/cpp/zvernennia-do-symvoliv.hpp
 :::
 
 ### Директива `PROVIDE`
@@ -359,88 +297,8 @@ PROVIDE(end = .);
 До того, як керування перейде до першого рядка функції `main()`, `Reset_Handler` повинен виконати критичні дії з підготовки пам'яті:
 
 :::tabs
-```c
-/* startup.c — Стартова ініціалізація пам'яті мовою C */
-#include <stdint.h>
-
-/* Символи-маркери, експортовані лінкер-скриптом */
-extern uint32_t _sidata;  /* Початок початкових значень .data у Flash (LMA) */
-extern uint32_t _sdata;   /* Початок .data у RAM (VMA) */
-extern uint32_t _edata;   /* Кінець .data у RAM (VMA) */
-extern uint32_t _sbss;    /* Початок .bss у RAM (VMA) */
-extern uint32_t _ebss;    /* Кінець .bss у RAM (VMA) */
-
-extern void __libc_init_array(void);
-extern int main(void);
-
-void Reset_Handler(void) {
-    /* 1. Копіювання ініціалізованих змінних .data з Flash у SRAM */
-    uint32_t *src = &_sidata;
-    uint32_t *dst = &_sdata;
-    while (dst < &_edata) {
-        *dst++ = *src++;
-    }
-
-    /* 2. Очищення секції .bss (заповнення нулями) */
-    dst = &_sbss;
-    while (dst < &_ebss) {
-        *dst++ = 0U;
-    }
-
-    /* 3. Виклик статичних і глобальних конструкторів C++ */
-    __libc_init_array();
-
-    /* 4. Запуск головної логіки застосунку */
-    main();
-
-    /* Якщо main() завершився — зупинка процесора */
-    while (1) {
-        __asm volatile("wfi");
-    }
-}
-```
-```cpp
-// startup.cpp — Ідіоматична стартова ініціалізація мовою C++20
-#include <cstdint>
-#include <span>
-#include <algorithm>
-
-// Імпорт символів зі скрипта компонування
-extern "C" {
-    extern std::uint32_t _sidata[];
-    extern std::uint32_t _sdata[];
-    extern std::uint32_t _edata[];
-    extern std::uint32_t _sbss[];
-    extern std::uint32_t _ebss[];
-
-    void __libc_init_array() noexcept;
-    int main();
-    void Reset_Handler() noexcept;
-}
-
-void Reset_Handler() noexcept {
-    // 1. Безпечне перенесення .data через std::span та std::copy
-    const auto data_words = static_cast<std::size_t>(_edata - _sdata);
-    const std::span<const std::uint32_t> flash_data{_sidata, data_words};
-    const std::span<std::uint32_t> ram_data{_sdata, data_words};
-    std::copy(flash_data.begin(), flash_data.end(), ram_data.begin());
-
-    // 2. Обнулення .bss через std::fill
-    const auto bss_words = static_cast<std::size_t>(_ebss - _sbss);
-    const std::span<std::uint32_t> ram_bss{_sbss, bss_words};
-    std::fill(ram_bss.begin(), ram_bss.end(), 0U);
-
-    // 3. Ініціалізація глобальних об'єктів C++ (конструктори .init_array)
-    __libc_init_array();
-
-    // 4. Передача керування в main()
-    main();
-
-    while (true) {
-        asm volatile("wfi");
-    }
-}
-```
+:::code linker-script-d/c/startup.c
+:::code linker-script-d/cpp/startup.cpp
 :::
 
 Повний приклад побудови проєкту зі складанням таблиці векторів, стартапом і конфігурацією збірки винесено у вставку [Практика розробки: Bare-Metal стартап і Linker Script для ARM Cortex-M](root:sf-lang/linker-script/proj-baremetal-cortexm.md).

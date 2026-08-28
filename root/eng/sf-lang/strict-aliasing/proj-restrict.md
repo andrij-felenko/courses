@@ -93,51 +93,9 @@ void copy32(uint32_t* restrict dst,
 
 Читати асемблер повчально, але в реальній роботі цінніше **число**. Ось скелет мікробенчмарку, який чесно показує різницю на вашому залізі. Дві однакові функції, різниця лише в `restrict`; ганяємо кожну багато разів на достатньо великому буфері й дивимося такти. Важлива дрібниця — обидві функції винесені в **окремі одиниці трансляції** (окремі `.c`-файли) або хоча б позначені так, щоб компілятор не «побачив» виклик і не заінлайнив його зі знанням фактичних аргументів; інакше він може сам довести неперетинність із місця виклику, і різниця зникне (що саме собою повчально — це показує, що `restrict` потрібен там, де компілятор контексту виклику **не бачить**).
 
-```c
-#include <stdint.h>
-#include <stddef.h>
+:::code proj-restrict/c/vymiriaty-a-ne-poviryty-na.c
 
-// у файлі add_plain.c
-void vec_add_plain(float* out, const float* a, const float* b, size_t n) {
-    for (size_t i = 0; i < n; i++) out[i] = a[i] + b[i];
-}
-
-// у файлі add_restrict.c
-void vec_add_restrict(float* restrict out,
-                      const float* restrict a,
-                      const float* restrict b, size_t n) {
-    for (size_t i = 0; i < n; i++) out[i] = a[i] + b[i];
-}
-```
-
-```c
-// bench.c — вимір у тактах (приклад для Cortex-M з DWT->CYCCNT)
-#include <stdint.h>
-#include <stddef.h>
-
-void vec_add_plain(float*, const float*, const float*, size_t);
-void vec_add_restrict(float*, const float*, const float*, size_t);
-
-// на Cortex-M лічильник тактів вмикається так:
-//   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-//   DWT->CYCCNT = 0; DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-extern volatile uint32_t* const CYCCNT;   // = &DWT->CYCCNT
-
-#define N 4096
-static float out[N], a[N], b[N];
-
-uint32_t bench_plain(void) {
-    uint32_t t0 = *CYCCNT;
-    vec_add_plain(out, a, b, N);
-    return *CYCCNT - t0;
-}
-
-uint32_t bench_restrict(void) {
-    uint32_t t0 = *CYCCNT;
-    vec_add_restrict(out, a, b, N);
-    return *CYCCNT - t0;
-}
-```
+:::code proj-restrict/c/bench.c
 
 На процесорі з SIMD і при `-O2 -ffast-math` (останнє потрібне, щоб компілятор мав право переставляти дії з рухомою комою — інакше векторизація складання блокується вже не аліасуванням, а порядком округлення) версія з `restrict` для великого `N` виходить у рази швидшою. Точна цифра залежить від архітектури, ширини SIMD і того, чи впирається задача в пам'ять; сенс вправи не в конкретному числі, а в тому, щоб побачити відрив на власному залізі й переконатися, що обіцянка не безкоштовна метафора, а реальні викинуті інструкції.
 
@@ -195,26 +153,7 @@ void vec_add(float* __restrict out,
 
 Практичний висновок для переносного коду простий: заведіть один макрос і сховайте всі три діалекти за ним.
 
-```c
-// portable_restrict.h — один макрос RESTRICT на всі компілятори й обидві мови
-#if defined(__cplusplus)
-    #if defined(_MSC_VER)
-        #define RESTRICT __restrict
-    #elif defined(__GNUC__) || defined(__clang__)
-        #define RESTRICT __restrict__
-    #else
-        #define RESTRICT            /* невідомий компілятор — просто прибрати */
-    #endif
-#else                                /* чистий C */
-    #if __STDC_VERSION__ >= 199901L  /* C99 і новіші — є справжнє restrict */
-        #define RESTRICT restrict
-    #elif defined(_MSC_VER)
-        #define RESTRICT __restrict
-    #else
-        #define RESTRICT
-    #endif
-#endif
-```
+:::code proj-restrict/c/tonkist-msvc-shcho-lovyt.c
 
 ```c
 // тепер функція пишеться один раз і компілюється всюди:

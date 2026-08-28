@@ -17,67 +17,8 @@
 У наївній об'єктній моделі без підтримки абстрактності розробник змушений створювати базові класи із «заглушками». Розглянемо систему аудіоефектів, де базовий клас `AudioFilter` обробляє буфер семплів.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-/* Ручна таблиця функцій без підтримки перевірки абстрактності */
-typedef struct AudioFilter AudioFilter;
-
-typedef struct AudioFilterVTable {
-    void (*process)(AudioFilter* self, float* buffer, size_t frames);
-    double (*get_latency_ms)(const AudioFilter* self);
-} AudioFilterVTable;
-
-struct AudioFilter {
-    const AudioFilterVTable* vptr;
-    int sample_rate;
-};
-
-/* Фіктивні функції-заглушки базового класу */
-static void base_process_dummy(AudioFilter* self, float* buffer, size_t frames) {
-    (void)self; (void)buffer; (void)frames;
-    /* Порожнє тіло: звук проходить без змін або псується */
-}
-
-static double base_latency_dummy(const AudioFilter* self) {
-    (void)self;
-    return 0.0; /* Фіктивне значення, яке може спотворити таймінги мікшера */
-}
-
-static const AudioFilterVTable g_base_audio_vtable = {
-    .process = base_process_dummy,
-    .get_latency_ms = base_latency_dummy
-};
-
-void audio_filter_init(AudioFilter* filter, int sample_rate) {
-    filter->vptr = &g_base_audio_vtable;
-    filter->sample_rate = sample_rate;
-}
-```
-```cpp
-#include <cstddef>
-#include <iostream>
-#include <vector>
-
-class AudioFilter {
-public:
-    explicit AudioFilter(int sample_rate) : m_sample_rate(sample_rate) {}
-    virtual ~AudioFilter() = default;
-
-    // Фіктивні реалізації за замовчуванням
-    virtual void process(float* buffer, std::size_t frames) {
-        // Порожнє тіло: не робить нічого
-    }
-
-    virtual double get_latency_ms() const {
-        return 0.0; // Фіктивне значення
-    }
-
-protected:
-    int m_sample_rate;
-};
-```
+:::code abstract-class-d/c/problema-nepovnoi-formy-ta.c
+:::code abstract-class-d/cpp/problema-nepovnoi-formy-ta.cpp
 :::
 
 Такий підхід несе чотири системні вади:
@@ -95,20 +36,7 @@ protected:
 
 У C++ для цього використовується спеціальний синтаксис присвоєння нуля в кінці сигнатури: `= 0`.
 
-```cpp
-class AudioFilter {
-public:
-    explicit AudioFilter(int sample_rate) : m_sample_rate(sample_rate) {}
-    virtual ~AudioFilter() = default;
-
-    // Чисті віртуальні методи: клас більше не має реалізації за замовчуванням
-    virtual void process(float* buffer, std::size_t frames) = 0;
-    virtual double get_latency_ms() const = 0;
-
-protected:
-    int m_sample_rate;
-};
-```
+:::code abstract-class-d/cpp/chysti-virtualni-metody-ta.cpp
 
 Синтаксис `= 0` виглядає незвично на тлі ключових слів `abstract` у Java або C#. Він виник через жорстку вимогу зворотної сумісності з мовою C під час розробки C++ наприкінці 1980-х років. Детальніше про дискусії довкола вибору цього позначення й відмову від окремого ключового слова можна дізнатися в [історії введення чистої віртуальності в C++](root:sf-lang/abstract-class/hist-pure-virtual.md).
 
@@ -212,29 +140,7 @@ public:
 
 Проте якщо виклик відбувається **непрямо** — через допоміжний метод або інший об'єкт, — компілятор безсилий помітити пастку:
 
-```cpp
-class Base {
-public:
-    Base() {
-        setup(); // Виклик невіртуального методу предка
-    }
-
-    void setup() {
-        // Непрямий виклик: на момент виконання setup() vptr вказує на vtable for Base!
-        draw(); 
-    }
-
-    virtual void draw() = 0;
-    virtual ~Base() = default;
-};
-
-class Derived : public Base {
-public:
-    void draw() override {
-        std::cout << "Derived::draw()\n";
-    }
-};
-```
+:::code abstract-class-d/cpp/zhyttievyi-tsykl-obiekta.cpp
 
 Під час виконання виразу `Derived d;`:
 1. Викликається `Base()`, покажчик `vptr` налаштовується на `vtable for Base`.
@@ -256,20 +162,7 @@ public:
 
 Поширене хибне уявлення полягає в тому, що чистий віртуальний метод нібито принципово не може мати виконуваного коду. У мові C++ це не так: метод можна оголосити чистим (`= 0`) в описі класу, але надати йому повноцінне тіло за межами класу:
 
-```cpp
-class MessageHandler {
-public:
-    virtual ~MessageHandler() = default;
-
-    // Чистий метод із визначенням за межами класу
-    virtual void log_event(const std::string& msg) = 0;
-};
-
-// Визначення базової поведінки
-void MessageHandler::log_event(const std::string& msg) {
-    std::cout << "[DEFAULT LOG]: " << msg << "\n";
-}
-```
+:::code abstract-class-d/cpp/chysta-virtualna-funktsiia.cpp
 
 Навіщо потрібна така конструкція? Вона розв'язує дві архітектурні задачі.
 
@@ -279,19 +172,7 @@ void MessageHandler::log_event(const std::string& msg) {
 * Нащадок **зобов'язаний** явно оголосити перевизначення `override`, інакше він не скомпілюється.
 * Водночас нащадок може явно викликати базову логіку за потреби: `MessageHandler::log_event(msg)`.
 
-```cpp
-class NetworkHandler : public MessageHandler {
-public:
-    void log_event(const std::string& msg) override {
-        // Явний виклик базової логіки предка
-        MessageHandler::log_event(msg);
-        // Додаткова специфічна дія
-        send_to_remote_syslog(msg);
-    }
-private:
-    void send_to_remote_syslog(const std::string& msg) { /* ... */ }
-};
-```
+:::code abstract-class-d/cpp/1-prymusove.cpp
 
 Цей патерн часто використовується у великих фреймворках (наприклад, у підсистемах ядра Chromium та компілятора LLVM), коли базовий клас надає складний алгоритм валідації або збору статистики, але категорично вимагає, щоб кожен підтип зареєстрував власну назву та виконав локальні дії.
 
@@ -301,21 +182,7 @@ private:
 
 У такому разі чистим віртуальним оголошують **деструктор**:
 
-```cpp
-class AbstractTransaction {
-public:
-    virtual void commit() { /* спільна логіка */ }
-    virtual void rollback() { /* спільна логіка */ }
-
-    // Робимо клас абстрактним через деструктор
-    virtual ~AbstractTransaction() = 0;
-};
-
-// Тіло чистого деструктора ОБОВ'ЯЗКОВЕ!
-AbstractTransaction::~AbstractTransaction() {
-    // Очищення спільних ресурсів транзакції
-}
-```
+:::code abstract-class-d/cpp/2-chystyi-virtualnyi.cpp
 
 > ⚠️ **Критичне правило:** чистий віртуальний деструктор **мусить мати тіло**. Коли знищується об'єкт похідного класу, компілятор після виконання `~Derived()` неявно генерує виклик деструктора базового класу `AbstractTransaction::~AbstractTransaction()`. Якщо тіло не визначене, компонувальник (linker) видасть помилку нерозв'язаного символу (`undefined reference to AbstractTransaction::~AbstractTransaction()`).
 
@@ -330,124 +197,8 @@ AbstractTransaction::~AbstractTransaction() {
 * **Точки розширення — приватні або захищені віртуальні методи.** Вони відповідають виключно за варіативні деталі конкретного нащадка.
 
 :::tabs
-```cpp
-#include <iostream>
-#include <memory>
-#include <chrono>
-#include <string_view>
-
-class DataPipeline {
-public:
-    virtual ~DataPipeline() = default;
-
-    // Каркасний невіртуальний метод (NVI): задає незмінний порядок
-    void execute_pipeline(std::string_view raw_payload) {
-        std::cout << ">>> Початок обробки транзакції\n";
-        auto start = std::chrono::steady_clock::now();
-
-        // Крок 1: обов'язкова перевірка інваріанта
-        if (raw_payload.empty()) {
-            throw std::invalid_argument("Порожнє корисне навантаження");
-        }
-
-        // Крок 2: делегування специфічного кроку нащадку
-        parse_and_transform(raw_payload);
-
-        // Крок 3: опціональний гачок (hook)
-        if (should_audit()) {
-            record_audit_log();
-        }
-
-        auto end = std::chrono::steady_clock::now();
-        std::cout << "<<< Завершено за "
-                  << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count()
-                  << " мкс\n";
-    }
-
-private:
-    // Чистий віртуальний метод: нащадок ЗОБОВ'ЯЗАНИЙ надати синтаксичний аналіз
-    virtual void parse_and_transform(std::string_view payload) = 0;
-
-    // Віртуальний гачок із типовою поведінкою: нащадок МОЖЕ змінити за потреби
-    virtual bool should_audit() const {
-        return true;
-    }
-
-    void record_audit_log() {
-        std::cout << "[AUDIT]: Запис успішно збережено в журнал\n";
-    }
-};
-
-class JsonPipeline final : public DataPipeline {
-private:
-    void parse_and_transform(std::string_view payload) override {
-        std::cout << "  Парсинг JSON-дерева: " << payload << "\n";
-    }
-
-    bool should_audit() const override {
-        return false; // Вимикаємо аудит для високошвидкісного JSON
-    }
-};
-```
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-
-typedef struct DataPipeline DataPipeline;
-
-typedef struct DataPipelineVTable {
-    void (*parse_and_transform)(DataPipeline* self, const char* payload);
-    bool (*should_audit)(const DataPipeline* self);
-} DataPipelineVTable;
-
-struct DataPipeline {
-    const DataPipelineVTable* vptr;
-};
-
-/* Невіртуальний каркас NVI мовою C */
-void data_pipeline_execute(DataPipeline* self, const char* payload) {
-    printf(">>> Початок обробки транзакції\n");
-    if (!payload || strlen(payload) == 0) {
-        fprintf(stderr, "Помилка: порожні дані\n");
-        return;
-    }
-
-    /* Виклик обов'язкового кроку нащадка */
-    self->vptr->parse_and_transform(self, payload);
-
-    /* Виклик опціонального гачка */
-    if (self->vptr->should_audit(self)) {
-        printf("[AUDIT]: Запис успішно збережено в журнал\n");
-    }
-    printf("<<< Завершено\n");
-}
-
-/* Конкретний нащадок мовою C */
-typedef struct JsonPipeline {
-    DataPipeline base;
-} JsonPipeline;
-
-static void json_parse_impl(DataPipeline* self, const char* payload) {
-    (void)self;
-    printf("  Парсинг JSON-дерева: %s\n", payload);
-}
-
-static bool json_audit_impl(const DataPipeline* self) {
-    (void)self;
-    return false;
-}
-
-static const DataPipelineVTable g_json_vtable = {
-    .parse_and_transform = json_parse_impl,
-    .should_audit = json_audit_impl
-};
-
-void json_pipeline_init(JsonPipeline* pipeline) {
-    pipeline->base.vptr = &g_json_vtable;
-}
-```
+:::code abstract-class-d/cpp/chastkova-realizatsiia-ta.cpp
+:::code abstract-class-d/c/chastkova-realizatsiia-ta.c
 :::
 
 За такої організації нащадок `JsonPipeline` не може спотворити таймінги або випадково пропустити перевірку вхідних даних: скелет алгоритму замкнений у публічному методі предка, а нащадок оперує виключно виділеними йому слотами варіативності.
@@ -488,18 +239,7 @@ public:
     virtual void deserialize(const std::vector<uint8_t>& data) = 0;
 };
 ```
-```java
-// Java: чіткий поділ на abstract class та interface
-// Інтерфейс підтримує множинне наслідування поведінки (через default-методи),
-// але категорично не має стану екземпляра (полів)
-public interface SerializableProtocol {
-    byte[] serialize();
-    void deserialize(byte[] data);
-
-    // Допоміжний метод за замовчуванням
-    default int getVersion() { return 1; }
-}
-```
+:::code abstract-class-d/java/modeli-interfeisiv-u.java
 ```rust
 // Rust: повна відмова від успадкування класів на користь типажів (traits)
 pub trait Serializable {
@@ -527,24 +267,7 @@ type Serializable interface {
 
 Якщо ж конкретний тип відомий у місці використання під час компіляції, аналогічний контрактний поділ можна реалізувати за допомогою **статичного поліморфізму** через шаблонний патерн CRTP (Curiously Recurring Template Pattern):
 
-```cpp
-template <typename Derived>
-class StaticAudioFilter {
-public:
-    void process(float* buffer, std::size_t frames) {
-        // Статичний NVI-каркас: нуль накладних витрат у рантаймі
-        static_cast<Derived*>(this)->process_impl(buffer, frames);
-    }
-};
-
-class FastLowPass : public StaticAudioFilter<FastLowPass> {
-public:
-    void process_impl(float* buffer, std::size_t frames) {
-        // Прямий виклик: компілятор повністю вбудовує цей код!
-        for (std::size_t i = 0; i < frames; ++i) buffer[i] *= 0.5f;
-    }
-};
-```
+:::code abstract-class-d/cpp/statychnyi-polimorfizm-iak.cpp
 
 У C++20 цю задачу ще елегантніше розв'язують **концепти** (`concepts`), які перевіряють наявність потрібних методів і типів узагалі без спадкування. Вибір між абстрактним класом та концептом зводиться до питання часу зв'язування: чи потрібна гетерогенна колекція в рантаймі (абстрактний клас), чи достатньо мономорфізації під час компіляції (концепти).
 
@@ -607,22 +330,7 @@ public:
 
 Коли базовий абстрактний клас оголошується як `sealed`, мова вимагає, щоб усі можливі його прямі нащадки були перелічені в тому ж модулі або файлі:
 
-```java
-// Java 17: запечатаний інтерфейс з фіксованим списком нащадків
-public sealed interface Result<T> permits Success, Failure {}
-
-public final class Success<T> implements Result<T> {
-    private final T value;
-    public Success(T value) { this.value = value; }
-    public T value() { return value; }
-}
-
-public final class Failure<T> implements Result<T> {
-    private final String error;
-    public Failure(String error) { this.error = error; }
-    public String error() { return error; }
-}
-```
+:::code abstract-class-d/java/zapechatani-iierarkhii-ta.java
 
 Головна перевага запечатаної ієрархії — **вичерпний аналіз відповідностей** (exhaustive pattern matching). Компілятор точно знає весь замкнений набір типів, тому у конструкції сортування `switch` / `match` не потрібна гілка `default`. Якщо розробник додасть новий підтип у запечатану ієрархію, компілятор знайде всі місця в системі, де цей новий випадок не оброблено, і видасть помилку.
 

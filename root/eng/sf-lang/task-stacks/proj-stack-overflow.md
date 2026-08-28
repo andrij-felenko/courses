@@ -28,20 +28,7 @@ FreeRTOS дає інструмент `uxTaskGetStackHighWaterMark`, що вим�
 
 **Ручне сканування патерну:**
 
-```c
-// заповнюємо область відомим візерунком на старті
-static const uint8_t CANARY = 0xA5;
-void paint(uint8_t *base, size_t n) {
-    for (size_t i = 0; i < n; i++) base[i] = CANARY;
-}
-
-// глибина використання = скільки патерну затерто з «дна» вгору
-size_t used_from_pattern(const uint8_t *base, size_t n) {
-    size_t free_bytes = 0;
-    while (free_bytes < n && base[free_bytes] == CANARY) free_bytes++;
-    return n - free_bytes;   // байтів, яких торкалися
-}
-```
+:::code proj-stack-overflow/c/ideia-1-farbuiemo-stek.c
 
 Саме це FreeRTOS робить для кожної задачі автоматично; нам лишається лише зчитати результат через `uxTaskGetStackHighWaterMark`.
 
@@ -84,19 +71,7 @@ void vApplicationStackOverflowHook(TaskHandle_t task, char *name) {
 
 **Ручна канарка для довільного буфера:**
 
-```c
-#define GUARD 0xDEADBEEFu
-static uint8_t  work[2048];
-static volatile uint32_t guard = GUARD;   // вартовий ОДРАЗУ за межею ділянки
-
-static inline bool guard_ok(void) { return guard == GUARD; }
-
-// у діагностичному циклі (наприклад, watchdog-задача):
-if (!guard_ok()) {
-    esp_rom_printf("guard corrupted: overflow near 'work'\n");
-    abort();
-}
-```
+:::code proj-stack-overflow/c/ideia-3-ruchna-kanarka.c
 
 Розташовуйте `guard` відразу за масивом `work` у пам'яті (або перед ним, залежно від того, в який бік росте загроза). Є важливе обмеження: канарка ловить **лише перехід через її конкретну адресу** — якщо переповнення «перестрибнуло» вартового й сягнуло ще далі, канарка промовчить. Саме тому метод 2 FreeRTOS, що перевіряє цілу смугу патерну, надійніший за одного вартового.
 

@@ -82,50 +82,8 @@ scale:
 Розгляньмо, як це працює в коді:
 
 :::tabs
-```c
-// Поліморфізм через структури з покажчиками на функції (C)
-typedef struct IHandler {
-    int (*handle)(void* ctx, int event);
-} IHandler;
-
-typedef struct FastHandler {
-    IHandler base;
-    int multiplier;
-} FastHandler;
-
-static int fast_handle(void* ctx, int event) {
-    FastHandler* self = (FastHandler*)ctx;
-    return event * self->multiplier;
-}
-
-int dispatch_event(IHandler* handler, int event) {
-    // Непрямий виклик через покажчик — дорожчий за прямий
-    return handler->handle(handler, event);
-}
-```
-```cpp
-// Поліморфізм через віртуальні класи (C++)
-class IHandler {
-public:
-    virtual ~IHandler() = default;
-    virtual int handle(int event) const = 0;
-};
-
-class FastHandler final : public IHandler {
-private:
-    int multiplier_;
-public:
-    explicit FastHandler(int multiplier) noexcept : multiplier_(multiplier) {}
-    int handle(int event) const noexcept override {
-        return event * multiplier_;
-    }
-};
-
-int dispatch_event(const IHandler& handler, int event) {
-    // Віртуальний виклик через vtable
-    return handler.handle(event);
-}
-```
+:::code link-time-optimization-d/c/main.c
+:::code link-time-optimization-d/cpp/main.cpp
 :::
 
 Під час локальної компіляції файлу з `dispatch_event` компілятор не знає, скільки спадкоємців `IHandler` існує у проєкті. Можливо, в іншому модулі є ще `SlowHandler` чи `NetworkHandler`. Тому компілятор зобов'язаний згенерувати непрямий перехід: прочитати покажчик `vptr` з об'єкта, зсунутися на індекс методу у `vtable`, завантажити адресу функції та виконати `call *%rax`. Такий непрямий виклик призводить до промахів передбачувача переходів процесора (*Branch Target Buffer, BTB*) і заважає конвеєру процесора.

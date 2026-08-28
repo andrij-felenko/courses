@@ -22,20 +22,7 @@ struct NaiveOptionalU32 {
     // Компілятор змушений додати 3 байти невидимого паддінгу!
 }; // Загальний sizeof = 8 байтів!
 ```
-```cpp
-#include <cstdint>
-#include <optional>
-
-// У стандартному C++ std::optional<uint32_t> поводиться так само
-struct ManualOptionalU32 {
-    uint32_t value{0};
-    bool has_value{false};
-    // 3 байти сміття (padding) для збереження вирівнювання за 4 байти
-};
-
-static_assert(sizeof(ManualOptionalU32) == 8);
-static_assert(sizeof(std::optional<uint32_t>) == 8);
-```
+:::code proj-niche-filling/cpp/anatomiia-problemy.hpp
 :::
 
 Щоб зберегти 4 байти корисного числа зі статусом його наявності, компілятор виділяє 8 байтів. Накладні витрати пам'яті становлять рівно **100%**.
@@ -68,70 +55,8 @@ static_assert(sizeof(std::optional<uint32_t>) == 8);
 Подивімося, як концепція ніш виглядає на практиці в мовах Rust та C++.
 
 :::tabs
-```rust
-use std::mem::size_of;
-use std::num::NonZeroU32;
-
-fn main() {
-    // 1. Звичайний Option<u32>: 4 байти payload + 1 байт тег + 3 байти padding = 8 байтів
-    println!("sizeof(Option<u32>):          {} байтів", size_of::<Option<u32>>()); // 8
-
-    // 2. Option<NonZeroU32>: 0 кодує None -> рівно 4 байти (0% оверхеду!)
-    println!("sizeof(Option<NonZeroU32>):  {} байти",  size_of::<Option<NonZeroU32>>()); // 4
-
-    // 3. Option<&i32>: null вказівник кодує None -> рівно 8 байтів
-    println!("sizeof(Option<&i32>):        {} байтів", size_of::<Option<&i32>>()); // 8
-
-    // 4. Багатошарове вкладення в тип bool завдяки 254 вільним нішам:
-    // Option<bool> використовує нішу 2 для None -> 1 байт!
-    println!("sizeof(Option<bool>):        {} байт",   size_of::<Option<bool>>()); // 1
-    // Option<Option<bool>> використовує нішу 3 для зовнішнього None -> все ще 1 байт!
-    println!("sizeof(Option<Option<bool>>): {} байт",  size_of::<Option<Option<bool>>>()); // 1
-}
-```
-```cpp
-#include <iostream>
-#include <optional>
-#include <cstdint>
-#include <cassert>
-
-// Ручна реалізація Niche-оптимізованого Optional для ненульових ідентифікаторів у C++
-template <typename T, T SentinelValue = 0>
-class CompactOptional {
-    T value_{SentinelValue};
-
-public:
-    constexpr CompactOptional() noexcept = default;
-    constexpr CompactOptional(T val) noexcept : value_(val) {
-        assert(val != SentinelValue && "Значення не може дорівнювати вартовому!");
-    }
-
-    [[nodiscard]] constexpr bool has_value() const noexcept {
-        return value_ != SentinelValue;
-    }
-
-    [[nodiscard]] constexpr T value() const noexcept {
-        return value_;
-    }
-};
-
-int main() {
-    // Стандартний std::optional<uint32_t>: займає 8 байтів через паддінг тегу bool
-    std::cout << "sizeof(std::optional<uint32_t>): "
-              << sizeof(std::optional<uint32_t>) << " байтів\n"; // 8
-
-    // Компактний варіант: використовує 0 як in-band вартовий, займає рівно 4 байти!
-    std::cout << "sizeof(CompactOptional<uint32_t>): "
-              << sizeof(CompactOptional<uint32_t>) << " байти\n"; // 4
-
-    CompactOptional<uint32_t> opt(42);
-    if (opt.has_value()) {
-        std::cout << "Отримано значення: " << opt.value() << "\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-niche-filling/rust/main.rs
+:::code proj-niche-filling/cpp/praktychnyi-analiz-rust-ta.cpp
 :::
 
 ---

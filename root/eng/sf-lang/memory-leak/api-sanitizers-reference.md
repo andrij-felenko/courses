@@ -40,26 +40,7 @@ export LSAN_OPTIONS="detect_leaks=1:report_objects=1:suppressions=leaks.supp:exi
 
 Для довгоживучих серверних застосунків, які не завершуються під час тестування, LSan надає програмний API, що дозволяє виконувати діагностику пам'яті в довільні моменти часу:
 
-```cpp
-#include <sanitizer/lsan_interface.h>
-
-// Примусовий запуск перевірки витоків. У разі виявлення втрачених блоків
-// друкує звіт і негайно перериває процес з аварійним кодом exitcode.
-void __lsan_do_leak_check(void);
-
-// Примусова перевірка без аварійної зупинки: повертає 1, якщо знайдено витік,
-// або 0, якщо вся виділена пам'ять коректно звільнена.
-int __lsan_do_recoverable_leak_check(void);
-
-// Позначає конкретну адресу пам'яті p як прихований корінь: LSan вважатиме цей блок
-// і всі досяжні з нього об'єкти живими, навіть якщо на нього немає явних вказівників.
-void __lsan_ignore_object(const void *p);
-
-// Реєструє довільний користувацький регіон пам'яті (наприклад, власний стек корутин)
-// як додатковий кореневий простір для пошуку вказівників.
-void __lsan_register_root_region(const void *p, size_t size);
-void __lsan_unregister_root_region(const void *p, size_t size);
-```
+:::code api-sanitizers-reference/cpp/main.hpp
 
 #### Синтаксис файлу придушення (`suppressions`)
 

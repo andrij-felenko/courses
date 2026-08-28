@@ -88,60 +88,8 @@ points = (RSS + swap_usage) · 1000 ÷ total_memory + oom_score_adj
 У функціях із численними перевірками помилок потік керування може вийти через `return`, `goto` або `break` до того, як виконається завершальний блок очищення пам'яті:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-int parse_config(const char *filename) {
-    char *header = (char *)malloc(128);
-    char *body = (char *)malloc(1024);
-    if (!header || !body) {
-        /* Якщо body не виділився, header витікає! */
-        return -1; 
-    }
-
-    FILE *f = fopen(filename, "r");
-    if (!f) {
-        /* ПОМИЛКА: забули free(header) та free(body) */
-        return -2; 
-    }
-
-    if (fread(header, 1, 128, f) < 128) {
-        fclose(f);
-        /* ПОМИЛКА: ще один витік обох буферів */
-        return -3; 
-    }
-
-    fclose(f);
-    free(body);
-    free(header);
-    return 0;
-}
-```
-```cpp
-#include <fstream>
-#include <memory>
-#include <string>
-#include <vector>
-
-// Безпечний еквівалент на C++: пам'ять та файловий дескриптор
-// гарантовано звільняються автоматично через деструктори (RAII)
-int parse_config(const std::string &filename) {
-    std::vector<char> header(128);
-    std::vector<char> body(1024);
-
-    std::ifstream file(filename, std::ios::binary);
-    if (!file.is_open()) {
-        return -2; // Ресурси header і body звільняються автоматично!
-    }
-
-    if (!file.read(header.data(), 128)) {
-        return -3; // Ресурси та файл закриваються автоматично!
-    }
-
-    return 0;
-}
-```
+:::code memory-leak-d/c/1-skladne-rozhaluzhennia.c
+:::code memory-leak-d/cpp/1-skladne-rozhaluzhennia.cpp
 :::
 
 #### 2. Невіртуальні деструктори в ієрархіях успадкування
@@ -160,65 +108,8 @@ int parse_config(const std::string &filename) {
 Якщо між виділенням сирої динамічної пам'яті та її звільненням викликається функція, що генерує виняток, нормальний потік виконання переривається. Стек розкручується, локальний покажчик знищується, а блок у купі витікає, оскільки сирі покажчики не мають деструкторів:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-/* У мові C винятків немає, але аналогічний витік виникає при
-   використанні setjmp/longjmp для обробки помилок */
-#include <setjmp.h>
-
-static jmp_buf error_recovery;
-
-void worker(void) {
-    char *temp_buffer = (char *)malloc(8192);
-    /* Імітація виявлення фатальної помилки протоколу */
-    longjmp(error_recovery, 1);
-    
-    /* До цього рядка потік керування ніколи не доходить */
-    free(temp_buffer);
-}
-
-int main(void) {
-    if (setjmp(error_recovery) == 0) {
-        worker();
-    } else {
-        printf("[C] Помилку перехоплено, але temp_buffer 8 KB витік назавжди!\n");
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <string>
-
-void process_network_packet() {
-    throw std::runtime_error("Мережевий тайм-аут");
-}
-
-void unsafe_handler() {
-    int *raw_array = new int[5000]; // 20 KB у купі
-    process_network_packet();        // Генерує виняток!
-    delete[] raw_array;              // Ніколи не виконається -> ВИТІК!
-}
-
-void safe_handler() {
-    // std::unique_ptr гарантує виклик delete[] під час розкрутки стека
-    auto safe_array = std::make_unique<int[]>(5000);
-    process_network_packet(); // Навіть при винятку пам'ять звільниться!
-}
-
-int main() {
-    try {
-        safe_handler();
-    } catch (const std::exception &e) {
-        std::cout << "[C++] Виняток оброблено, уся пам'ять безпечно повернута купі.\n";
-    }
-    return 0;
-}
-```
+:::code memory-leak-d/c/3-vyniatky-do-zavershennia.c
+:::code memory-leak-d/cpp/3-vyniatky-do-zavershennia.cpp
 :::
 
 ### Механіка витоків у мовах із Garbage Collection
@@ -237,26 +128,7 @@ int main() {
 Найпростіший спосіб викликати витік пам'яті в Java, Go або Node.js — створити глобальну або статичну колекцію і складати туди об'єкти без політики витіснення (наприклад, LRU — *Least Recently Used*) або обмеження часу життя (TTL):
 
 :::tabs
-```js
-// JavaScript / Node.js
-class UserSessionManager {
-    constructor() {
-        // Глобальна мапа живе весь час роботи сервера (GC Root)
-        this.activeSessions = new Map();
-    }
-
-    login(userId, sessionPayload) {
-        // Кожна авторизація додає новий великий об'єкт
-        this.activeSessions.set(userId, {
-            data: sessionPayload,
-            createdAt: Date.now()
-        });
-    }
-
-    // Якщо розробник забув викликати logout або таймер очищення,
-    // сесії накопичуватимуться, доки процес не вичерпає ліміт пам'яті V8
-}
-```
+:::code memory-leak-d/js/Node.js
 ```py
 # Python
 class EventLogger:
@@ -268,24 +140,7 @@ class EventLogger:
         # Об'єкт event_dict утримується у списку назавжди
         self.history.append(event_dict)
 ```
-```go
-// Go
-package main
-
-import "sync"
-
-type Registry struct {
-	mu    sync.Mutex
-	cache map[string][]byte
-}
-
-func (r *Registry) Store(key string, data []byte) {
-	r.mu.Lock()
-	defer r.mu.Unlock()
-	// Мапа ніколи не видаляє старі ключі -> необмежене розбухання купи
-	r.cache[key] = data
-}
-```
+:::code memory-leak-d/go/1-statychni-mapy-ta.go
 :::
 
 #### 2. Забуті слухачі подій (Dangling Event Listeners)
@@ -298,41 +153,13 @@ func (r *Registry) Store(key string, data []byte) {
 
 У JavaScript, Python та Go внутрішня функція або анонімна лямбда зберігає посилання на лексичне середовище (Scope Context), у якому вона була створена. Якщо контекст містить великі структури даних, а замикання зберігається в довгоживучому місці, уся пам'ять контексту утримується від збирання сміття:
 
-```js
-function createButtonHandler() {
-    // Величезний масив на 50 мегабайтів
-    const hugeDataset = new Uint8Array(50 * 1024 * 1024);
-    
-    // Повертаємо крихітну функцію
-    return function onClick() {
-        // Навіть якщо onClick не звертається до hugeDataset безпосередньо,
-        // деякі рушії оптимізації можуть зберегти весь спільний фрейм змінних
-        console.log("Кнопку натиснуто");
-    };
-}
-```
+:::code memory-leak-d/js/3-leksychni-zamykannia.js
 
 #### 4. Витік горутин (Goroutine Leaks у мові Go)
 
 У мові Go поширеним видом витоку є залишені горутини, які блокуються на читанні або записі в небуферизований канал, з якого більше ніхто ніколи не прочитає:
 
-```go
-func queryUser(id int) (*User, error) {
-    ch := make(chan *User) // Небуферизований канал
-
-    go func() {
-        user := fetchFromDatabase(id)
-        ch <- user // Якщо викликач вийшов через тайм-аут, горутина заблокується назавжди!
-    }()
-
-    select {
-    case res := <-ch:
-        return res, nil
-    case <-time.After(100 * time.Millisecond):
-        return nil, errors.New("тайм-аут запиту")
-    }
-}
-```
+:::code memory-leak-d/go/4-vytik-horutyn-goroutine.go
 
 Заблокована горутина ніколи не завершується. Збирач сміття Go не має права видаляти активні горутини, тому її стек викликів (від 2 KB до мегабайтів) та всі змінні, на які вона посилається, залишаються у пам'яті назавжди. При інтенсивному потоці запитів накопичення тисяч завислих горутин неминуче виснажує пам'ять процесу.
 

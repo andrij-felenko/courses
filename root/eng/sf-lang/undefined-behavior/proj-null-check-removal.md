@@ -20,27 +20,7 @@
 
 Ось та сама функція з `drivers/net/tun.c` версії 2.6.30 — початок, де й ховається вся драма (я лишив суттєве, прибравши дрібниці, що до справи не стосуються):
 
-```c
-static unsigned int tun_chr_poll(struct file *file, poll_table *wait)
-{
-    struct tun_file *tfile = file->private_data;
-    struct tun_struct *tun = __tun_get(tfile);
-    struct sock *sk = tun->sk;          // (A) розіменували tun
-    unsigned int mask = 0;
-
-    if (!tun)                            // (B) аж тепер перевірка на null
-        return POLLERR;
-
-    DBG(KERN_INFO "%s: tun_chr_poll\n", tun->dev->name);
-
-    poll_wait(file, &tun->socket.wait, wait);
-
-    if (!skb_queue_empty(&sk->receive_queue))
-        mask |= POLLIN | POLLRDNORM;
-    // ... далі формується маска й повертається ...
-    return mask;
-}
-```
+:::code proj-null-check-removal/c/iak-vyhliadaie-vykhidnyi.c
 
 Прочитаймо очима людини, рядок за рядком, і все виглядатиме бездоганно.
 
@@ -162,22 +142,7 @@ mov   [sk], rax         ; зберегли sk
 
 Виправлена функція читається так:
 
-```c
-static unsigned int tun_chr_poll(struct file *file, poll_table *wait)
-{
-    struct tun_file *tfile = file->private_data;
-    struct tun_struct *tun = __tun_get(tfile);
-    struct sock *sk;                     // (A') лише оголошення — доступу нема
-    unsigned int mask = 0;
-
-    if (!tun)                            // (B') перевірка ПЕРША
-        return POLLERR;
-
-    sk = tun->sk;                        // (C') тепер безпечно розіменувати
-    // ... далі як було ...
-    return mask;
-}
-```
+:::code proj-null-check-removal/c/vypravlennia-v-odyn-riadok.c
 
 Погляньмо, чому цього досить. Тепер перше розіменування `tun` — це рядок `(C')`, і він **недосяжний**, якщо `tun == NULL`: перевірка `(B')` перехопить нуль і поверне `POLLERR` раніше. Компілятор більше **не має підстав** вважати `tun` не-null у точці перевірки: до неї жодного розіменування нема, обіцянки «`tun` не null» ми не давали. Отже, аналіз null-ності мовчить, мертвого коду нема, `if (!tun)` лишається в бінарнику живим. Порядок відновлено — і компіляторова логіка тепер працює **на** нас.
 

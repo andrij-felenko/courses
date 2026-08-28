@@ -17,45 +17,7 @@
 
 Щоб чітко розрізняти призначення цих специфікаторів, розгляньмо їхні інваріанти на прикладах:
 
-```cpp
-#include <string_view>
-#include <cstdint>
-
-// 1. constexpr змінна: гарантована константа часу збірки, незмінна в рантаймі
-constexpr int MAX_PACKET_SIZE = 1500;
-
-// 2. constexpr функція: подвійний режим роботи (compile-time або runtime)
-constexpr int compute_buffer(int multiplier) noexcept {
-    return MAX_PACKET_SIZE * multiplier;
-}
-
-// 3. consteval функція: жорсткий бар'єр, який ніколи не транслюється в рантайм
-consteval uint32_t fnv1a_hash(std::string_view str) noexcept {
-    uint32_t hash = 2166136261u;
-    for (char c : str) {
-        hash = (hash ^ static_cast<uint8_t>(c)) * 16777619u;
-    }
-    return hash;
-}
-
-// 4. constinit змінна: ініціалізується компілятором, але може змінюватися в рантаймі
-constinit int g_transaction_counter = compute_buffer(2); // Початкове значення 3000
-
-void process_event(int dynamic_multiplier) {
-    // Коректно: constexpr функція працює в рантаймі з динамічними даними
-    int runtime_buf = compute_buffer(dynamic_multiplier);
-
-    // Коректно: consteval функція викликається зі статичним рядковим літералом
-    constexpr uint32_t packet_id = fnv1a_hash("SENSOR_TELEMETRY_V1");
-
-    // Помилка компіляції: consteval не можна викликати з динамічним рядком!
-    // std::string dyn_str = "DYNAMIC_KEY";
-    // uint32_t bad_id = fnv1a_hash(dyn_str);
-
-    // Коректно: constinit змінну вільно модифікуємо під час виконання
-    g_transaction_counter += 1;
-}
-```
+:::code api-constexpr-specifiers/cpp/mekhanizm-vzaiemodii-ta.cpp
 
 ---
 
@@ -69,21 +31,7 @@ void process_event(int dynamic_multiplier) {
 - **Відкинуті гілки (Discarded Statements):** Гілка, умова якої обчислилася в `false`, стає відкинутою. Компілятор не генерує для неї машинний код.
 - **Семантичні вимоги до відкинутих гілок:** Код у відкинутій гілці не інстанціюється для поточних шаблонних параметрів. Це означає, що виклики методів, які відсутні у даного типу `T`, не викликають помилки компіляції, якщо вони знаходяться всередині відкинутого блоку:
 
-```cpp
-#include <type_traits>
-#include <vector>
-
-template <typename T>
-auto extract_element(const T& container) {
-    if constexpr (std::is_pointer_v<T>) {
-        return *container;          // Інстанціюється, лише якщо T — вказівник
-    } else if constexpr (requires { container.front(); }) {
-        return container.front();   // Інстанціюється для контейнерів із методом front()
-    } else {
-        return container;           // Інстанціюється для скалярних значень
-    }
-}
-```
+:::code api-constexpr-specifiers/cpp/if-constexpr-c-17.cpp
 
 #### `std::is_constant_evaluated()` (C++20, заголовок `<type_traits>`)
 
@@ -96,21 +44,7 @@ auto extract_element(const T& container) {
 > Оскільки сама конструкція `if constexpr` вимагає константного контексту для обчислення своєї умови, `std::is_constant_evaluated()` всередині неї **завжди повертає `true`**, навіть якщо вся зовнішня функція викликається у звичайному рантаймі.
 > Правильне використання — виключно зі звичайним динамічним оператором `if`:
 
-```cpp
-#include <type_traits>
-
-constexpr double power(double base, int exp) {
-    if (std::is_constant_evaluated()) {
-        // Гілка для компілятора: чистий цикл без системних інтринсиків
-        double res = 1.0;
-        for (int i = 0; i < exp; ++i) res *= base;
-        return res;
-    } else {
-        // Гілка для рантайму: використання апаратних інструкцій процесора
-        return __builtin_pow(base, exp);
-    }
-}
-```
+:::code api-constexpr-specifiers/cpp/std-is-constant-evaluated.cpp
 
 #### `if consteval` / `if !consteval` (C++23)
 
@@ -182,23 +116,7 @@ constexpr double smart_sqrt(double x) {
 
 Починаючи зі стандарту C++20, класи, які належать до типів літералів і мають відкриті поля, можуть використовуватися як нетипові параметри шаблонів (англ. *Non-Type Template Parameters, NTTP*). Це дозволяє передавати фіксовані рядки та складні конфігураційні структури безпосередньо у кутові дужки шаблонів:
 
-```cpp
-template <size_t N>
-struct FixedString {
-    char data[N]{};
-    constexpr FixedString(const char (&str)[N]) noexcept {
-        for (size_t i = 0; i < N; ++i) data[i] = str[i];
-    }
-};
-
-template <FixedString Str>
-void print_compile_time_tag() {
-    // Str доступний як константа часу компіляції безпосередньо в типі
-}
-
-// Виклик:
-// print_compile_time_tag<"SYSTEM_LOG_TAG">();
-```
+:::code api-constexpr-specifiers/cpp/netypovi-parametry.cpp
 
 ---
 

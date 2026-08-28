@@ -36,19 +36,7 @@ typedef struct {
     Elf64_Xword   st_size;      // Розмір об'єкта чи функції в байтах
 } Elf64_Sym;
 ```
-```cpp
-// elf_sym.hpp — опис структури символу у форматі ELF на C++20
-#include <cstdint>
-
-struct Elf64_Sym {
-    std::uint32_t st_name;      // Зсув імені символу в таблиці рядків .strtab
-    std::uint8_t  st_info;      // Тип символу (STT_*) та атрибут зв'язування (STB_*)
-    std::uint8_t  st_other;     // Видимість символу (STV_DEFAULT тощо)
-    std::uint16_t st_shndx;     // Індекс секції, де розташовано тіло символу
-    std::uint64_t st_value;     // Адреса або зміщення символу всередині секції
-    std::uint64_t st_size;      // Розмір об'єкта чи функції в байтах
-};
-```
+:::code weak-symbol-d/cpp/syla-zviazuvannia-v.cpp
 :::
 
 Ключову роль у процесі розв'язання імен відіграє байтове поле `st_info`. Воно кодує дві незалежні характеристики:
@@ -179,105 +167,8 @@ extern "C" {
 Розгляньмо три фундаментальні форми застосування слабких символів: слабке визначення, слабкий псевдонім і слабке посилання.
 
 :::tabs
-```c
-// weak_forms.c — три форми використання слабких символів у C99
-#include <stdio.h>
-#include <stdint.h>
-
-// 1. Слабке визначення (Weak Definition)
-// Якщо застосунок не визначить власну функцію log_event,
-// лінкер збереже це базове тіло.
-__attribute__((weak)) void log_event(const char* msg)
-{
-    printf("[DEFAULT LOG]: %s\n", msg);
-}
-
-// 2. Спільна функція-заглушка для слабких псевдонімів
-void Default_Handler(void)
-{
-    // Нескінченна пастка або безпечна заглушка
-    while (1) {
-        // Очікування переривання або скидання сторожового таймера
-    }
-}
-
-// Слабкий псевдонім (Weak Alias)
-// Оголошує символ SysTick_Handler слабким і спрямовує його
-// на адресу функції Default_Handler, якщо користувач не надасть сильного тіла.
-void SysTick_Handler(void) __attribute__((weak, alias("Default_Handler")));
-void USART1_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
-
-// 3. Слабке посилання (Weak Reference)
-// Повідомляє лінкеру, що функція hardware_crypto_init може існувати,
-// а може бути відсутньою у двійковому образі.
-extern __attribute__((weak)) void hardware_crypto_init(void);
-
-void system_startup(void)
-{
-    log_event("Ініціалізація підсистем...");
-
-    // Обов'язкова перевірка адреси слабкого посилання перед викликом!
-    if (hardware_crypto_init != NULL) {
-        hardware_crypto_init();
-    } else {
-        printf("Апаратний криптомодуль не знайдено, використовуємо софтверний fallback.\n");
-    }
-}
-```
-```cpp
-// weak_forms.cpp — еквівалентна ідіоматична реалізація для C++20
-#include <iostream>
-#include <string_view>
-#include <cstdint>
-
-// У C++ через спотворення імен (name mangling) для взаємодії з таблицями векторів
-// та системним лінкером слабкі функції зазвичай експортують через extern "C".
-
-extern "C" {
-
-// 1. Слабке визначення (Weak Definition)
-[[gnu::weak]] void log_event(const char* msg)
-{
-    std::cout << "[DEFAULT LOG]: " << (msg ? msg : "") << '\n';
-}
-
-// 2. Базовий обробник пастки
-void Default_Handler() noexcept
-{
-    while (true) {
-        #if defined(__x86_64__) || defined(_M_X64)
-        __builtin_ia32_pause();
-        #elif defined(__arm__) || defined(__aarch64__)
-        __asm__ volatile("wfi");
-        #endif
-    }
-}
-
-// Слабкі псевдоніми через синтаксис атрибутів GNU
-void SysTick_Handler() noexcept [[gnu::weak, gnu::alias("Default_Handler")]];
-void USART1_IRQHandler() noexcept [[gnu::weak, gnu::alias("Default_Handler")]];
-
-// 3. Слабке посилання
-[[gnu::weak]] void hardware_crypto_init() noexcept;
-
-} // extern "C"
-
-namespace core::system {
-
-void startup()
-{
-    log_event("Запуск підсистеми C++20...");
-
-    // Перевірка наявності слабкого посилання в пам'яті
-    if (hardware_crypto_init != nullptr) {
-        hardware_crypto_init();
-    } else {
-        std::cout << "Криптомодуль відсутній, використовуємо софтверний fallback.\n";
-    }
-}
-
-} // namespace core::system
-```
+:::code weak-symbol-d/c/weak_forms.c
+:::code weak-symbol-d/cpp/weak_forms.cpp
 :::
 
 Зверніть увагу на конструкцію `__attribute__((weak, alias("Target")))`. Компілятор не генерує для слабкого псевдоніма окремого машинного коду. Замість цього він створює запис у таблиці символів з типом `STB_WEAK`, адреса якого (`st_value`) вказує точно на початок функції `Default_Handler`. Це дозволяє оголосити хоч 200 обробників переривань без жодного додаткового байта у Flash-пам'яті мікроконтролера.
@@ -302,127 +193,15 @@ void startup()
 Виробники мікроконтролерів реалізують стартовий файл (`startup_stm32.c` або асемблерний еквівалент), використовуючи слабкі псевдоніми.
 
 :::tabs
-```c
-// startup_cortexm.c — типовий стартовий файл на C99 з таблицею векторів
-#include <stdint.h>
-
-// Оголошення типів покажчиків на обробники
-typedef void (*isr_handler_t)(void);
-
-// Зовнішні символи з лінкер-скрипта
-extern uint32_t _estack;
-extern void Reset_Handler(void);
-
-// Єдина універсальна пастка для непередбачених переривань
-void Default_Handler(void)
-{
-    // Якщо програма потрапила сюди, спрацювало апаратне переривання,
-    // для якого розробник не написав власного обробника.
-    while (1) {
-        // Пастка
-    }
-}
-
-// Оголошення слабких псевдонімів для системних та периферійних переривань
-void NMI_Handler(void)        __attribute__((weak, alias("Default_Handler")));
-void HardFault_Handler(void)  __attribute__((weak, alias("Default_Handler")));
-void SysTick_Handler(void)    __attribute__((weak, alias("Default_Handler")));
-void USART1_IRQHandler(void)  __attribute__((weak, alias("Default_Handler")));
-void TIM2_IRQHandler(void)    __attribute__((weak, alias("Default_Handler")));
-
-// Таблиця векторів розміщується у спеціальній секції .isr_vector
-__attribute__((section(".isr_vector"), used))
-const isr_handler_t g_vector_table[] = {
-    (isr_handler_t)&_estack,      // Початкова вершина стека
-    Reset_Handler,                // Точка входу процесора
-    NMI_Handler,                  // Non-Maskable Interrupt
-    HardFault_Handler,            // Апаратна аварія
-    0, 0, 0, 0, 0, 0, 0,          // Зарезервовано архітектурою ARM
-    SysTick_Handler,              // Системний таймер
-    USART1_IRQHandler,            // Переривання UART1
-    TIM2_IRQHandler               // Переривання таймера TIM2
-};
-```
-```cpp
-// startup_cortexm.cpp — типовий стартовий файл на C++20
-#include <cstdint>
-#include <array>
-
-extern "C" {
-
-using isr_handler_t = void (*)();
-
-extern std::uint32_t _estack;
-void Reset_Handler() noexcept;
-
-// Спільна аварійна пастка
-void Default_Handler() noexcept
-{
-    while (true) {
-        #if defined(__arm__) || defined(__aarch64__)
-        __asm__ volatile("wfi");
-        #endif
-    }
-}
-
-// Оголошення слабких псевдонімів
-void NMI_Handler() noexcept [[gnu::weak, gnu::alias("Default_Handler")]];
-void HardFault_Handler() noexcept [[gnu::weak, gnu::alias("Default_Handler")]];
-void SysTick_Handler() noexcept [[gnu::weak, gnu::alias("Default_Handler")]];
-void USART1_IRQHandler() noexcept [[gnu::weak, gnu::alias("Default_Handler")]];
-void TIM2_IRQHandler() noexcept [[gnu::weak, gnu::alias("Default_Handler")]];
-
-// Таблиця векторів
-[[gnu::section(".isr_vector"), gnu::used]]
-const std::array<isr_handler_t, 14> g_vector_table = {
-    reinterpret_cast<isr_handler_t>(&_estack),
-    Reset_Handler,
-    NMI_Handler,
-    HardFault_Handler,
-    nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-    SysTick_Handler,
-    USART1_IRQHandler,
-    TIM2_IRQHandler
-};
-
-} // extern "C"
-```
+:::code weak-symbol-d/c/startup_cortexm.c
+:::code weak-symbol-d/cpp/startup_cortexm.cpp
 :::
 
 Якщо користувач у власному файлі `main.c` напише звичайну функцію:
 
 :::tabs
-```c
-// main.c — користувацький сильний обробник переривання
-#include <stdint.h>
-
-volatile uint32_t g_system_ticks = 0;
-
-// Звичайне (сильне) визначення: STB_GLOBAL
-void SysTick_Handler(void)
-{
-    g_system_ticks++;
-}
-```
-```cpp
-// main.cpp — користувацький сильний обробник переривання на C++20
-#include <cstdint>
-#include <atomic>
-
-namespace {
-    std::atomic<std::uint32_t> g_system_ticks{0};
-}
-
-extern "C" {
-
-// Сильне визначення SysTick_Handler (STB_GLOBAL)
-void SysTick_Handler() noexcept
-{
-    g_system_ticks.fetch_add(1, std::memory_order_relaxed);
-}
-
-} // extern "C"
-```
+:::code weak-symbol-d/c/main.c
+:::code weak-symbol-d/cpp/main.cpp
 :::
 
 Під час лінкування відбуваються такі події:
@@ -448,60 +227,8 @@ void SysTick_Handler() noexcept
 Розгляньмо практичний приклад системи логування та аудиту пам'яті, де діагностичний модуль є абсолютно необов'язковим.
 
 :::tabs
-```c
-// system_core.c — ядро системи зі слабким посиланням на діагностику
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-
-// Оголошуємо зовнішню функцію слабким посиланням
-extern __attribute__((weak)) void memory_audit_hook(const void* ptr, size_t size);
-
-void* allocate_buffer(size_t size)
-{
-    void* ptr = malloc(size);
-    if (!ptr) {
-        return NULL;
-    }
-
-    // Перевірка наявності модуля в збірці
-    if (memory_audit_hook != NULL) {
-        memory_audit_hook(ptr, size);
-    }
-
-    return ptr;
-}
-```
-```cpp
-// system_core.cpp — ядро системи зі слабким посиланням на C++20
-#include <iostream>
-#include <memory>
-#include <cstddef>
-
-extern "C" {
-    // Слабке посилання на необов'язковий C-інтерфейс аудиту
-    [[gnu::weak]] void memory_audit_hook(const void* ptr, std::size_t size) noexcept;
-}
-
-namespace core::memory {
-
-void* allocate_buffer(std::size_t size)
-{
-    void* ptr = std::malloc(size);
-    if (!ptr) {
-        return nullptr;
-    }
-
-    // Перевірка адреси слабкого посилання
-    if (memory_audit_hook != nullptr) {
-        memory_audit_hook(ptr, size);
-    }
-
-    return ptr;
-}
-
-} // namespace core::memory
-```
+:::code weak-symbol-d/c/system_core.c
+:::code weak-symbol-d/cpp/system_core.cpp
 :::
 
 Якщо до збірки проєкту додати модуль `diagnostics.c`:
@@ -517,20 +244,7 @@ void memory_audit_hook(const void* ptr, size_t size)
     printf("[AUDIT] Виділено %zu байтів за адресою %p\n", size, ptr);
 }
 ```
-```cpp
-// diagnostics.cpp — необов'язковий модуль на C++20
-#include <iostream>
-#include <cstddef>
-
-extern "C" {
-
-void memory_audit_hook(const void* ptr, std::size_t size) noexcept
-{
-    std::cout << "[AUDIT] Виділено " << size << " байтів за адресою " << ptr << '\n';
-}
-
-} // extern "C"
-```
+:::code weak-symbol-d/cpp/diagnostics.cpp
 :::
 
 Якщо `diagnostics.c` скомпільовано й передано лінкеру, адреса `memory_audit_hook` стає ненульовою, і кожне виділення пам'яті супроводжується діагностичним повідомленням. Якщо цей файл видалити зі збірки, програма продовжить працювати без збоїв і без жодної зміни у вихідному тексті ядра `system_core.c`.
@@ -576,34 +290,8 @@ SECTIONS
 У стандартній бібліотеці C `libc.so` майже всі системні виклики та стандартні функції (`malloc`, `free`, `read`, `write`, `printf`) оголошені як слабкі псевдоніми до внутрішніх сильних реалізацій з префіксом `__libc_`:
 
 :::tabs
-```c
-// libc_internals.c — спрощена схема експорту функцій у libc.so
-#include <stddef.h>
-
-void* __libc_malloc(size_t size)
-{
-    // Внутрішня реалізація системного алокатора
-    return (void*)0;
-}
-
-// Експорт публічного слабкого символу malloc
-void* malloc(size_t size) __attribute__((weak, alias("__libc_malloc")));
-```
-```cpp
-// libc_internals.cpp — спрощена схема експорту функцій на C++20
-#include <cstddef>
-
-extern "C" {
-
-void* __libc_malloc(std::size_t size) noexcept
-{
-    return nullptr;
-}
-
-void* malloc(std::size_t size) noexcept [[gnu::weak, gnu::alias("__libc_malloc")]];
-
-} // extern "C"
-```
+:::code weak-symbol-d/c/libc_internals.c
+:::code weak-symbol-d/cpp/libc_internals.cpp
 :::
 
 Це архітектурне рішення забезпечує дві критичні можливості:
@@ -708,34 +396,8 @@ extern "C" {
 Якщо слабка функція визначена і викликається всередині однієї й тієї самої одиниці трансляції `hal.c`:
 
 :::tabs
-```c
-// hal_hazard.c (C99)
-__attribute__((weak)) void hal_tick_hook(void)
-{
-    // порожньо
-}
-
-void hal_process(void)
-{
-    hal_tick_hook(); // Компілятор може вбудувати (inline) це порожнє тіло!
-}
-```
-```cpp
-// hal_hazard.cpp (C++20)
-extern "C" {
-
-[[gnu::weak]] void hal_tick_hook() noexcept
-{
-    // порожньо
-}
-
-void hal_process() noexcept
-{
-    hal_tick_hook(); // Ризик внутрішнього інлайнінгу
-}
-
-} // extern "C"
-```
+:::code weak-symbol-d/c/hal_hazard.c
+:::code weak-symbol-d/cpp/hal_hazard.cpp
 :::
 
 Без прапорця LTO компілятор генерував би звичайний зовнішній виклик через таблицю релокацій, дозволяючи користувацькому коду перекрити `hal_tick_hook`. Проте під час агресивного аналізу всередині одного файлу оптимізатор може вирішити, що функція `hal_tick_hook` є занадто простою, і підставити її тіло на місце виклику безпосередньо в момент компіляції `hal.c`. Якщо це станеться, сильне визначення користувача з `main.c` буде успішно злінковане, але `hal_process` продовжить виконувати старе заінлайнене тіло!
@@ -867,62 +529,8 @@ $1 = {void (void)} 0x0 <Default_Handler-0x120>
 Щоб програма могла зібратися навіть на мінімальній системі без операційної системи, бібліотека `newlib` містить файл `stubs.c`, у якому кожен системний виклик реалізовано як слабкий символ, що повертає код помилки `ENOSYS` («функцію не реалізовано») або `ENOMEM`:
 
 :::tabs
-```c
-// newlib_stubs.c — слабкі заглушки системних викликів у newlib
-#include <errno.h>
-#include <stddef.h>
-
-__attribute__((weak)) int _write(int file, const char* ptr, int len)
-{
-    // За замовчуванням вивід відсутній
-    errno = ENOSYS;
-    return -1;
-}
-
-__attribute__((weak)) void* _sbrk(ptrdiff_t incr)
-{
-    extern char _end; // Символ кінця секції BSS з лінкер-скрипта
-    static char* heap_end = 0;
-    char* prev_heap_end;
-
-    if (heap_end == 0) {
-        heap_end = &_end;
-    }
-
-    prev_heap_end = heap_end;
-    heap_end += incr;
-    return (void*)prev_heap_end;
-}
-```
-```cpp
-// newlib_stubs.cpp — слабкі заглушки системних викликів на C++20
-#include <cerrno>
-#include <cstddef>
-
-extern "C" {
-
-[[gnu::weak]] int _write(int file, const char* ptr, int len) noexcept
-{
-    errno = ENOSYS;
-    return -1;
-}
-
-[[gnu::weak]] void* _sbrk(std::ptrdiff_t incr) noexcept
-{
-    extern char _end;
-    static char* heap_end = nullptr;
-
-    if (heap_end == nullptr) {
-        heap_end = &_end;
-    }
-
-    char* prev_heap_end = heap_end;
-    heap_end += incr;
-    return static_cast<void*>(prev_heap_end);
-}
-
-} // extern "C"
-```
+:::code weak-symbol-d/c/newlib_stubs.c
+:::code weak-symbol-d/cpp/newlib_stubs.cpp
 :::
 
 Коли розробник пише драйвер послідовного порту UART, він визначає звичайну сильну функцію `int _write(int file, const char* ptr, int len)`, яка відправляє байти у регістр передавача `USART1->TDR`. Сильний символ з файлу `uart_stdio.o` миттєво перекриває слабку заглушку з `libc.a`, і всі виклики `printf` у програмі починають надсилати текст у консоль UART без жодної правки сирців `newlib`.

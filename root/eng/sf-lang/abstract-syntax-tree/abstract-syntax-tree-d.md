@@ -137,49 +137,8 @@ Var (a)    Var (b)
 Нижче наведено спрощену концептуальну реалізацію побудови вузлів AST на C++ та Python:
 
 :::tabs
-```cpp
-#include <memory>
-#include <string>
-#include <utility>
-
-// Базовий вузол AST
-struct ASTNode {
-    virtual ~ASTNode() = default;
-};
-
-// Вузол чисельної константи (Листок)
-struct NumberNode : public ASTNode {
-    double value;
-    explicit NumberNode(double val) : value(val) {}
-};
-
-// Вузол бінарної операції (Внутрішній вузол)
-struct BinaryOpNode : public ASTNode {
-    char op;
-    std::unique_ptr<ASTNode> left;
-    std::unique_ptr<ASTNode> right;
-
-    BinaryOpNode(char op, std::unique_ptr<ASTNode> l, std::unique_ptr<ASTNode> r)
-        : op(op), left(std::move(l)), right(std::move(r)) {}
-};
-```
-```py
-from dataclasses import dataclass
-from typing import Union
-
-class ASTNode:
-    pass
-
-@dataclass
-class NumberNode(ASTNode):
-    value: float
-
-@dataclass
-class BinaryOpNode(ASTNode):
-    op: str
-    left: ASTNode
-    right: ASTNode
-```
+:::code abstract-syntax-tree-d/cpp/pobudova-ast-rekursyvnyi.cpp
+:::code abstract-syntax-tree-d/py/main.py
 :::
 
 Процес побудови виразу `2 + 3 * 4` у рекурсивному парсері працює так:
@@ -200,25 +159,7 @@ class BinaryOpNode(ASTNode):
 
 Щоб обчислити значення дерева виразу, використовують **зворотний обхід** (англ. *post-order traversal*): спочатку рекурсивно обчислюються ліве та праве піддерева, а потім отримані значення застосовуються до оператора в корені.
 
-```cpp
-double evaluate(const ASTNode* node) {
-    if (auto num = dynamic_cast<const NumberNode*>(node)) {
-        return num->value; // Листок: повертаємо число
-    }
-    if (auto bin = dynamic_cast<const BinaryOpNode*>(node)) {
-        double left_val  = evaluate(bin->left.get());  // Обчислюємо ліве піддерево
-        double right_val = evaluate(bin->right.get()); // Обчислюємо праве піддерево
-        
-        switch (bin->op) {
-            case '+': return left_val + right_val;
-            case '-': return left_val - right_val;
-            case '*': return left_val * right_val;
-            case '/': return left_val / right_val;
-        }
-    }
-    return 0.0;
-}
-```
+:::code abstract-syntax-tree-d/cpp/1-otsiniuvannia.cpp
 
 ### 2. Згортання констант (Constant Folding)
 

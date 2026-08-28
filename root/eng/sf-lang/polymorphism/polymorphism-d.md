@@ -63,49 +63,8 @@
 3. **Блокування інлайнінгу:** компілятор AOT (Ahead-of-Time) не може вбудувати невідоме тіло функції, тому оптимізації навколо точки виклику зупиняються на межі функції.
 
 :::tabs
-```c
-#include <stdio.h>
-
-/* Статичне зв'язування: звичайна C-функція */
-void static_render_circle(double radius) {
-    (void)radius;
-}
-
-/* Динамічне зв'язування: виклик через покажчик на функцію */
-typedef void (*draw_fn)(void *data);
-
-void invoke_dynamic(draw_fn fn, void *data) {
-    /* Непрямий виклик: процесор бере адресу з аргументу fn */
-    fn(data);
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <vector>
-
-struct Shape {
-    virtual ~Shape() = default;
-    virtual void draw() const = 0; // Динамічне зв'язування
-};
-
-struct Circle final : Shape {
-    void draw() const override {
-        // Конкретне коло
-    }
-};
-
-// Статичне зв'язування: шаблонна функція інстанціюється для конкретного типу
-template <typename T>
-void render_static(const T& shape) {
-    shape.draw(); // Прямий виклик з можливістю повного інлайнінгу
-}
-
-// Динамічне зв'язування: виклик через абстрактний інтерфейс
-void render_dynamic(const Shape& shape) {
-    shape.draw(); // Непрямий виклик через vtable
-}
-```
+:::code polymorphism-d/c/main.c
+:::code polymorphism-d/cpp/main.cpp
 :::
 
 ## Механіка віртуальних таблиць (vtable)

@@ -91,49 +91,8 @@ asm [volatile] [inline] [goto] (
 Розглянемо покроково, як влаштована кожна секція на прикладі обчислення 64-розрядної суми двох чисел з генерацією прапорця переносу (Carry Flag):
 
 :::tabs
-```c
-#include <stdint.h>
-
-uint64_t add_with_carry(uint64_t a, uint64_t b, uint8_t *carry_out) {
-    uint64_t sum;
-    uint8_t carry;
-    
-    __asm__ __volatile__ (
-        "addq %[src], %[dst]\n\t"   /* Додавання: dst = dst + src */
-        "setc %[c_out]"             /* Запис прапорця Carry у змінну */
-        : [dst] "=r" (sum),         /* Вихід 0: результат суми */
-          [c_out] "=q" (carry)      /* Вихід 1: прапорець переносу (8-бітний регістр) */
-        : [src] "r" (b),            /* Вхід 0: доданок b */
-          "[dst]" (a)               /* Вхід 1: початкове значення для dst (збігається з sum) */
-        : "cc"                      /* Clobber: змінено арифметичні прапорці */
-    );
-    
-    *carry_out = carry;
-    return sum;
-}
-```
-```cpp
-#include <cstdint>
-#include <utility>
-
-/* Ідіоматична C++ версія, що повертає пару зі значенням і прапорцем */
-std::pair<uint64_t, uint8_t> add_with_carry(uint64_t a, uint64_t b) noexcept {
-    uint64_t sum = 0;
-    uint8_t carry = 0;
-    
-    asm volatile (
-        "addq %[src], %[dst]\n\t"
-        "setc %[c_out]"
-        : [dst] "=r" (sum),
-          [c_out] "=q" (carry)
-        : [src] "r" (b),
-          "[dst]" (a)
-        : "cc"
-    );
-    
-    return {sum, carry};
-}
-```
+:::code inline-assembly-d/c/anatomiia-extended-asm-u.c
+:::code inline-assembly-d/cpp/anatomiia-extended-asm-u.cpp
 :::
 
 ### Роль ключового слова volatile
@@ -185,44 +144,8 @@ std::pair<uint64_t, uint8_t> add_with_carry(uint64_t a, uint64_t b) noexcept {
 Якщо асемблерний блок містить більше ніж одну команду, і вихідний операнд модифікується на першому кроці, значення вхідного операнда у спільному регістрі знищується до того, як наступні інструкції встигнуть його використати:
 
 :::tabs
-```c
-/* НЕБЕЗПЕЧНО: помилка через відсутність раннього клірингу */
-uint32_t broken_combine(uint32_t a, uint32_t b) {
-    uint32_t result;
-    __asm__ (
-        "movl %1, %0\n\t"   /* Якщо %0 та %2 в одному регістрі, %2 затерто! */
-        "addl %2, %0"
-        : "=r" (result)     /* ДЕФЕКТ: компілятор може призначити result та b регістр %eax */
-        : "r" (a), "r" (b)
-    );
-    return result;
-}
-
-/* БЕЗПЕЧНО: модифікатор & забороняє спільне використання регістрів */
-uint32_t safe_combine(uint32_t a, uint32_t b) {
-    uint32_t result;
-    __asm__ (
-        "movl %1, %0\n\t"
-        "addl %2, %0"
-        : "=&r" (result)    /* ВИПРАВЛЕНО: result гарантовано отримає унікальний регістр */
-        : "r" (a), "r" (b)
-    );
-    return result;
-}
-```
-```cpp
-/* C++ версія безпечного комбінування операндів */
-uint32_t safe_combine(uint32_t a, uint32_t b) noexcept {
-    uint32_t result = 0;
-    asm (
-        "movl %1, %0\n\t"
-        "addl %2, %0"
-        : "=&r" (result)
-        : "r" (a), "r" (b)
-    );
-    return result;
-}
-```
+:::code inline-assembly-d/c/modyfikatory-obmezhen.c
+:::code inline-assembly-d/cpp/modyfikatory-obmezhen.cpp
 :::
 
 Практичні експерименти з відтворенням пастки Earlyclobber під різними рівнями оптимізації детально розібрано у практикумі [Практикум: таймери процесора, бар'єри компілятора та пастки оптимізації](root:sf-lang/inline-assembly/proj-benchmark-barrier.md).
@@ -280,33 +203,8 @@ void trigger_dma_transfer(volatile uint32_t *dma_flag, uint8_t *buffer) noexcept
 Традиційний вбудований асемблер повертає результат через змінну, після чого код на C виконує умовний перехід за допомогою оператора `if`:
 
 :::tabs
-```c
-/* Звичайний підхід: генерація проміжного прапорця */
-void check_overflow_classic(int a, int b) {
-    int is_overflow;
-    __asm__ ("addl %2, %0\n\t"
-             "seto %b1"
-             : "+r" (a), "=q" (is_overflow)
-             : "r" (b)
-             : "cc");
-    if (is_overflow) {
-        /* Обробка помилки */
-    }
-}
-```
-```cpp
-void check_overflow_classic(int a, int b) noexcept {
-    int is_overflow = 0;
-    asm ("addl %2, %0\n\t"
-         "seto %b1"
-         : "+r" (a), "=q" (is_overflow)
-         : "r" (b)
-         : "cc");
-    if (is_overflow) {
-        /* Обробка помилки */
-    }
-}
-```
+:::code inline-assembly-d/c/priami-perekhody-v-c.c
+:::code inline-assembly-d/cpp/priami-perekhody-v-c.cpp
 :::
 
 Така конструкція змушує процесор спочатку записати біт прапорця в регістр через команду `seto`, а потім перевірити цей регістр через `test` або `cmp` перед інструкцією умовного переходу `jne`.
@@ -314,48 +212,8 @@ void check_overflow_classic(int a, int b) noexcept {
 Для усунення цих накладних витрат у GCC 4.5 та Clang 9 було впроваджено синтаксис **`asm goto`**. Він дозволяє машинній інструкції стрибати безпосередньо на мітки мови C:
 
 :::tabs
-```c
-#include <stdbool.h>
-#include <stdio.h>
-
-void execute_fast_math(int a, int b) {
-    /* asm goto виконує прямий стрибок на мітку overflow_detected */
-    __asm__ __volatile__ goto (
-        "addl %1, %0\n\t"
-        "jo %l[overflow_detected]" /* Jump if Overflow прямо на C-мітку */
-        :
-        : "r" (a), "r" (b)
-        : "cc"
-        : overflow_detected
-    );
-    
-    printf("Обчислення успішне, переповнення немає.\n");
-    return;
-
-overflow_detected:
-    fprintf(stderr, "Помилка: арифметичне переповнення!\n");
-}
-```
-```cpp
-#include <iostream>
-
-void execute_fast_math(int a, int b) noexcept {
-    asm volatile goto (
-        "addl %1, %0\n\t"
-        "jo %l[overflow_detected]"
-        :
-        : "r" (a), "r" (b)
-        : "cc"
-        : overflow_detected
-    );
-    
-    std::cout << "Обчислення успішне, переповнення немає.\n";
-    return;
-
-overflow_detected:
-    std::cerr << "Помилка: арифметичне переповнення!\n";
-}
-```
+:::code inline-assembly-d/c/priami-perekhody-v-c-2.c
+:::code inline-assembly-d/cpp/priami-perekhody-v-c-2.cpp
 :::
 
 У ядрі Linux механізм `asm goto` став фундаментом оптимізації **Static Keys (Jump Labels)**. Коли трасування ядра вимкнено, на місці перевірки стоїть однобайтова інструкція `NOP`. Якщо адміністратор активує трасування, ядро динамічно замінює байт `NOP` на інструкцію безумовного переходу `JMP`, що забезпечує нульові накладні витрати на перевірку умов у гарячих мережевих шляхах.
@@ -421,26 +279,7 @@ int add_fast_msvc(int a, int b) noexcept {
 Розглянемо практичний приклад оптимізації підрахунку ненульових бітів у 64-розрядному числі (Population Count):
 
 :::tabs
-```c
-#include <stdint.h>
-#include <immintrin.h>
-
-/* Спосіб 1: Через вбудований асемблер (неефективно при константах) */
-int popcount_asm(uint64_t val) {
-    uint64_t count;
-    __asm__ ("popcntq %1, %0" : "=r" (count) : "r" (val) : "cc");
-    return (int)count;
-}
-
-/* Спосіб 2: Через intrinsic-функцію GCC/Clang/MSVC (оптимально) */
-int popcount_intrinsic(uint64_t val) {
-    #if defined(_MSC_VER)
-        return (int)__popcnt64(val);
-    #else
-        return __builtin_popcountll(val);
-    #endif
-}
-```
+:::code inline-assembly-d/c/porivniannia-vlastyvostei.c
 ```cpp
 #include <cstdint>
 #include <bit>
@@ -484,32 +323,8 @@ constexpr int popcount_modern(uint64_t val) noexcept {
 Якщо програміст вирішить використати всередині асемблерної вставки інструкцію `push`:
 
 :::tabs
-```c
-/* КАТАСТРОФА: push знищує змінні у Red Zone */
-void broken_stack_usage(int val) {
-    int local_data = val * 10; /* Компілятор може тримати local_data у Red Zone: -8(%rsp) */
-    __asm__ __volatile__ (
-        "pushq %0\n\t"         /* Записує значення за адресою -8(%rsp), затираючи local_data! */
-        "popq %%rax"
-        :
-        : "r" ((uint64_t)val)
-        : "rax"
-    );
-    /* local_data тепер містить сміття */
-}
-```
-```cpp
-void broken_stack_usage(int val) noexcept {
-    int local_data = val * 10;
-    asm volatile (
-        "pushq %0\n\t"
-        "popq %%rax"
-        :
-        : "r" (static_cast<uint64_t>(val))
-        : "rax"
-    );
-}
-```
+:::code inline-assembly-d/c/nebezpeka-chervonoi-zony.c
+:::code inline-assembly-d/cpp/nebezpeka-chervonoi-zony.cpp
 :::
 
 Інструкція `push` декрементує `%rsp` і записує дані у пам'ять, що безповоротно руйнує збережені компілятором змінні в Red Zone. У коді операційних систем та обробників переривань розробники завжди вимикають використання червоної зони за допомогою прапорця компіляції `-mno-red-zone`.
@@ -527,25 +342,7 @@ void broken_stack_usage(int val) noexcept {
 До стандарту C11 та C++11 системні програмісти реалізовували потокобезпечні примітиви за допомогою вбудованого асемблера з апаратним префіксом блокування шини `lock`:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Застарілий підхід: ручний inline asm для x86 */
-bool atomic_compare_exchange_asm(uint32_t *ptr, uint32_t expected, uint32_t desired) {
-    uint8_t success;
-    __asm__ __volatile__ (
-        "lock; cmpxchgl %[desired], %[memory]\n\t"
-        "sete %[success]"
-        : [memory] "+m" (*ptr),
-          [success] "=q" (success),
-          "+a" (expected)
-        : [desired] "r" (desired)
-        : "cc", "memory"
-    );
-    return success != 0;
-}
-```
+:::code inline-assembly-d/c/porivniannia-ruchni.c
 ```cpp
 #include <atomic>
 #include <cstdint>

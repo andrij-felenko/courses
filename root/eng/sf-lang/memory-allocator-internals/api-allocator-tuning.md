@@ -95,19 +95,7 @@ extern "C" struct mallinfo2 mallinfo2(void) noexcept;
 
 Поведінку алокатора можна модифікувати під час запуску виконуваного файлу без внесення змін до вихідного коду програми:
 
-```bash
-# 1. Обмеження кількості арен для мінімізації споживання пам'яті в Docker
-MALLOC_ARENA_MAX=2 ./backend_service
-
-# 2. Фіксація порогу виділення через mmap на рівні 64 КіБ
-MALLOC_MMAP_THRESHOLD_=65536 ./backend_service
-
-# 3. Увімкнення суворої перевірки пошкодження цілісності купи (діагностика багів)
-MALLOC_CHECK_=3 ./debug_binary
-
-# 4. Тонке налаштування потокового кешу tcache через GLIBC_TUNABLES (glibc 2.34+)
-GLIBC_TUNABLES="glibc.malloc.tcache_max=1024:glibc.malloc.tcache_count=16" ./app
-```
+:::code api-allocator-tuning/sh/main.sh
 
 Механізм `GLIBC_TUNABLES` є сучасним стандартом конфігурації у дистрибутивах Linux. Він дозволяє задавати:
 - `glibc.malloc.tcache_max` — максимальний розмір чанка в байтах, який дозволено розміщувати у швидкому потоковому кеші `tcache` (за замовчуванням `1032` байти);
@@ -167,107 +155,8 @@ MALLOC_CONF="prof:true,prof_prefix:jeprof.out,prof_active:true" ./app
 Наведемо повноцінний інженерний приклад на мовах C та C++, що демонструє зміну параметрів `M_ARENA_MAX`, вимірювання обсягу внутрішніх резервів через `mallinfo2` та примусовий тримінг сторінок.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <malloc.h>
-
-void print_allocator_state(const char* checkpoint_label) {
-    struct mallinfo2 info = mallinfo2();
-    printf("[%s]\n", checkpoint_label);
-    printf("  Купа (arena):        %8zu КіБ\n", info.arena / 1024);
-    printf("  Блоки mmap (hblkhd): %8zu КіБ\n", info.hblkhd / 1024);
-    printf("  Зайнято (uordblks):  %8zu КіБ\n", info.uordblks / 1024);
-    printf("  Резерв (fordblks):   %8zu КіБ\n", info.fordblks / 1024);
-}
-
-int main(void) {
-    // 1. Обмежуємо максимальну кількість арен двома
-    mallopt(M_ARENA_MAX, 2);
-
-    print_allocator_state("Початковий стан");
-
-    // 2. Інтенсивне виділення 1000 блоків по 16 КіБ (сумарно 16 МіБ)
-    void* buffers[1000];
-    for (int i = 0; i < 1000; i++) {
-        buffers[i] = malloc(16 * 1024);
-    }
-    print_allocator_state("Після виділення 16 МіБ");
-
-    // 3. Звільнення всіх блоків
-    for (int i = 0; i < 1000; i++) {
-        free(buffers[i]);
-    }
-    print_allocator_state("Після free() (пам'ять у внутрішньому резерві)");
-
-    // 4. Примусовий тримінг пам'яті назад ядру операційної системи
-    int trimmed = malloc_trim(0);
-    printf("Результат malloc_trim: %s\n", trimmed ? "успішно" : "без змін");
-
-    print_allocator_state("Після malloc_trim()");
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <memory>
-#include <span>
-#include <malloc.h>
-
-struct MemorySnapshot {
-    size_t arena_kb{0};
-    size_t mmap_kb{0};
-    size_t in_use_kb{0};
-    size_t free_cached_kb{0};
-
-    [[nodiscard]] static MemorySnapshot capture() noexcept {
-        const auto info = mallinfo2();
-        return MemorySnapshot{
-            .arena_kb = info.arena / 1024,
-            .mmap_kb = info.hblkhd / 1024,
-            .in_use_kb = info.uordblks / 1024,
-            .free_cached_kb = info.fordblks / 1024
-        };
-    }
-};
-
-std::ostream& operator<<(std::ostream& os, const MemorySnapshot& s) {
-    os << "  Купа (arena):        " << s.arena_kb << " КіБ\n"
-       << "  Блоки mmap (hblkhd): " << s.mmap_kb << " КіБ\n"
-       << "  Зайнято (in_use):    " << s.in_use_kb << " КіБ\n"
-       << "  Резерв (free_cache): " << s.free_cached_kb << " КіБ";
-    return os;
-}
-
-int main() {
-    // 1. Конфігурація алокатора
-    mallopt(M_ARENA_MAX, 2);
-
-    std::cout << "[Початковий стан]\n" << MemorySnapshot::capture() << "\n\n";
-
-    // 2. Блок виділення пам'яті з використанням RAII
-    {
-        std::vector<std::unique_ptr<char[]>> buffers;
-        buffers.reserve(1000);
-        for (size_t i = 0; i < 1000; ++i) {
-            buffers.push_back(std::make_unique<char[]>(16 * 1024));
-        }
-        std::cout << "[Після виділення 16 МіБ]\n" << MemorySnapshot::capture() << "\n\n";
-    }
-
-    std::cout << "[Після знищення vector (пам'ять повернуто в списки)]\n"
-              << MemorySnapshot::capture() << "\n\n";
-
-    // 3. Примусове скидання сторінок ядру
-    const int result = malloc_trim(0);
-    std::cout << "Результат malloc_trim: " << (result ? "успішно" : "без змін") << "\n";
-    std::cout << "[Після malloc_trim()]\n" << MemorySnapshot::capture() << "\n";
-
-    return 0;
-}
-```
+:::code api-allocator-tuning/c/main.c
+:::code api-allocator-tuning/cpp/main.cpp
 :::
 
 ### Типові виробничі сценарії та підводні камені

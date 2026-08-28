@@ -60,50 +60,8 @@ S₀ ──(inst₁)──> S₁ ──(inst₂)──> S₂ ──(inst₃)─�
 Погляньмо на типовий імперативний алгоритм обробки фінансових рахунків:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-typedef struct {
-    int id;
-    double balance;
-    bool is_active;
-} Account;
-
-// Імперативна мутація стану масиву за місцем
-void apply_monthly_fee(Account* accounts, size_t count, double fee) {
-    for (size_t i = 0; i < count; ++i) {
-        // Керування потоком і зміна стану комірки пам'яті
-        if (accounts[i].is_active && accounts[i].balance >= fee) {
-            accounts[i].balance -= fee; // Побічний ефект: мутація пам'яті
-        } else if (accounts[i].is_active) {
-            accounts[i].is_active = false; // Зміна інваріанту активності
-        }
-    }
-}
-```
-```cpp
-#include <cstddef>
-#include <span>
-
-struct Account {
-    int id;
-    double balance;
-    bool is_active;
-};
-
-// Імперативна функція: покрокова зміна мутабельних об'єктів
-void apply_monthly_fee(std::span<Account> accounts, double fee) {
-    for (auto& account : accounts) {
-        if (account.is_active && account.balance >= fee) {
-            account.balance -= fee;
-        } else if (account.is_active) {
-            account.is_active = false;
-        }
-    }
-}
-```
+:::code declarative-vs-imperative-d/c/main.c
+:::code declarative-vs-imperative-d/cpp/tsina-mutabelnosti-ta.cpp
 :::
 
 У цьому коді кожен крок залежить від попереднього, а переданий масив змінюється безпосередньо. Якщо паралельний потік прочитає `accounts` посередині циклу, він побачить частково оновлений, внутрішньо неузгоджений стан.
@@ -216,30 +174,7 @@ ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
 
 Порівняймо, як виглядає обробка даних у C++20:
 
-```cpp
-#include <vector>
-#include <string>
-#include <ranges>
-#include <iostream>
-
-struct User {
-    std::string name;
-    int age;
-    bool is_active;
-};
-
-void print_active_adult_names(const std::vector<User>& users) {
-    // Декларативний конвеєр C++20: композиція операторів через пайп '|'
-    auto active_adults = users
-        | std::views::filter([](const User& u) { return u.is_active && u.age >= 18; })
-        | std::views::transform([](const User& u) { return u.name; })
-        | std::views::take(5);
-
-    for (const auto& name : active_adults) {
-        std::cout << name << '\n';
-    }
-}
-```
+:::code declarative-vs-imperative-d/cpp/hibrydyzatsiia-v.cpp
 
 #### Механіка компіляції та абстракції нульової вартості
 

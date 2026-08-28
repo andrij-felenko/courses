@@ -51,18 +51,7 @@ int16_t  (−32768…32767) → влазять → стає int
 
 **`uint8_t port = 0x5a; (~port) >> 4` — що в результаті?**
 
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-int main(void) {
-    uint8_t port = 0x5a;              // 0101 1010
-    uint8_t result = (~port) >> 4;    // намір: інвертувати 8 бітів і зсунути
-
-    printf("0x%02x\n", result);       // очікуємо 0x0a — а буде 0xfa
-    return 0;
-}
-```
+:::code integer-promotion-d/c/main.c
 
 Розкладімо покроково, тримаючи в голові головне: `port` підіймається до **знакового** 32-бітного `int` ще до `~`.
 

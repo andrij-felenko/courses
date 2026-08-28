@@ -11,87 +11,8 @@
 Типова інженерна помилка полягає у спробі виконати початкове налаштування підсистеми або зареєструвати об'єкт у диспетчері подій безпосередньо всередині конструктора базового класу.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Обробник помилки чистого виклику */
-void pure_virtual_trap(void) {
-    fprintf(stderr, "FATAL: pure virtual method called!\n");
-    abort();
-}
-
-typedef struct PacketReceiver PacketReceiver;
-
-typedef struct ReceiverVTable {
-    void (*process_payload)(PacketReceiver* self, const uint8_t* data, size_t len);
-    void (*cleanup)(PacketReceiver* self);
-} ReceiverVTable;
-
-struct PacketReceiver {
-    const ReceiverVTable* vptr;
-    int socket_fd;
-};
-
-/* Спільна допоміжна функція налаштування предка */
-void receiver_setup_subsystem(PacketReceiver* self) {
-    const uint8_t handshake[4] = {0xAA, 0x55, 0x01, 0x00};
-    /* Непрямий виклик через vptr до завершення конструювання нащадка! */
-    self->vptr->process_payload(self, handshake, sizeof(handshake));
-}
-
-void receiver_base_init(PacketReceiver* self, int fd) {
-    static const ReceiverVTable base_vtable = {
-        .process_payload = pure_virtual_trap,
-        .cleanup = NULL
-    };
-    /* Встановлюємо таблицю базового типу */
-    self->vptr = &base_vtable;
-    self->socket_fd = fd;
-
-    /* Викликаємо логіку налаштування */
-    receiver_setup_subsystem(self);
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <vector>
-#include <cstdint>
-
-class PacketReceiver {
-public:
-    explicit PacketReceiver(int socket_fd) : m_socket_fd(socket_fd) {
-        // Конструктор базового класу кличе допоміжний метод конфігурації
-        setup_subsystem();
-    }
-
-    virtual ~PacketReceiver() = default;
-
-    // Контракт обробки корисного навантаження
-    virtual void process_payload(const uint8_t* data, std::size_t len) = 0;
-
-private:
-    void setup_subsystem() {
-        const uint8_t handshake[4] = {0xAA, 0x55, 0x01, 0x00};
-        // НЕБЕЗПЕКА: непрямий віртуальний виклик під час виконання конструктора предка!
-        process_payload(handshake, sizeof(handshake));
-    }
-
-    int m_socket_fd;
-};
-
-class TelemetryReceiver : public PacketReceiver {
-public:
-    explicit TelemetryReceiver(int socket_fd) : PacketReceiver(socket_fd) {}
-
-    void process_payload(const uint8_t* data, std::size_t len) override {
-        std::cout << "Успішна обробка телеметрії, розмір: " << len << " байтів\n";
-    }
-};
-```
+:::code proj-pure-virtual-crash/c/praktychnyi-stsenarii.c
+:::code proj-pure-virtual-crash/cpp/praktychnyi-stsenarii.cpp
 :::
 
 Під час запуску цього коду програма завершується аварійно:
@@ -170,26 +91,7 @@ g++ -O1 -g -fsanitize=undefined,vptr receiver.cpp -o receiver
 
 Ще складніший випадок виникає тоді, коли конструктор базового класу не кличе віртуальний метод сам, але запускає фоновий потік виконання або реєструє покажчик `this` у глобальному диспетчері подій:
 
-```cpp
-class Worker {
-public:
-    Worker() {
-        // Фоновий потік стартує ДО завершення конструктора похідного класу!
-        m_thread = std::thread([this]() {
-            this->do_work(); // ГОНКА: vptr може ще вказувати на vtable for Worker!
-        });
-    }
-
-    virtual ~Worker() {
-        if (m_thread.joinable()) m_thread.join();
-    }
-
-    virtual void do_work() = 0;
-
-private:
-    std::thread m_thread;
-};
-```
+:::code proj-pure-virtual-crash/cpp/krakh-u-bahatopotokovomu.cpp
 
 Тут виникає стан гонки (race condition): якщо планувальник операційної системи передасть квант часу новоствореному потоку до того, як головний потік перейде до виконання конструктора нащадка `DerivedWorker`, фоновий потік зчитає `vptr`, налаштований на `vtable for Worker`, і впаде у `__cxa_pure_virtual`. Ця помилка виникає нерегулярно й залежить від навантаження на процесор і таймінгів планувальника.
 
@@ -218,108 +120,8 @@ private:
 2. **Поліморфний запуск** переноситься у відкритий метод життєвого циклу, який викликається через статичну фабричну функцію після повного завершення всіх конструкторів.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-
-typedef struct PacketReceiver PacketReceiver;
-
-typedef struct ReceiverVTable {
-    void (*process_payload)(PacketReceiver* self, const uint8_t* data, size_t len);
-    void (*destroy)(PacketReceiver* self);
-} ReceiverVTable;
-
-struct PacketReceiver {
-    const ReceiverVTable* vptr;
-    int socket_fd;
-};
-
-typedef struct TelemetryReceiver {
-    PacketReceiver base;
-    uint64_t processed_packets;
-} TelemetryReceiver;
-
-static void telemetry_process(PacketReceiver* self_base, const uint8_t* data, size_t len) {
-    TelemetryReceiver* self = (TelemetryReceiver*)self_base;
-    self->processed_packets++;
-    printf("Пакет телеметрії #%lu успішно розібрано, байтів: %zu\n", self->processed_packets, len);
-}
-
-static void telemetry_destroy(PacketReceiver* self_base) {
-    free(self_base);
-}
-
-static const ReceiverVTable g_telemetry_vtable = {
-    .process_payload = telemetry_process,
-    .destroy = telemetry_destroy
-};
-
-/* Безпечна фабрика створення */
-PacketReceiver* telemetry_receiver_create(int socket_fd) {
-    TelemetryReceiver* obj = (TelemetryReceiver*)malloc(sizeof(TelemetryReceiver));
-    if (!obj) return NULL;
-
-    obj->base.vptr = &g_telemetry_vtable;
-    obj->base.socket_fd = socket_fd;
-    obj->processed_packets = 0;
-
-    /* Безпечний виклик: таблиця конкретного нащадка гарантовано встановлена */
-    const uint8_t handshake[4] = {0xAA, 0x55, 0x01, 0x00};
-    obj->base.vptr->process_payload((PacketReceiver*)obj, handshake, sizeof(handshake));
-
-    return (PacketReceiver*)obj;
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <vector>
-#include <cstdint>
-
-class PacketReceiver {
-public:
-    virtual ~PacketReceiver() = default;
-
-    // Контракт чистої віртуальної поведінки
-    virtual void process_payload(const uint8_t* data, std::size_t len) = 0;
-
-    // Каркасний метод запуску (NVI)
-    void start_receiver() {
-        const uint8_t handshake[4] = {0xAA, 0x55, 0x01, 0x00};
-        // Безпечно: цей метод викликається лише після повного конструювання об'єкта
-        process_payload(handshake, sizeof(handshake));
-    }
-
-protected:
-    // Конструктор доступний лише похідним класам
-    explicit PacketReceiver(int socket_fd) : m_socket_fd(socket_fd) {}
-
-private:
-    int m_socket_fd;
-};
-
-class TelemetryReceiver final : public PacketReceiver {
-public:
-    // Статична фабрика повертає повністю ініціалізований розумний покажчик
-    static std::unique_ptr<TelemetryReceiver> create(int socket_fd) {
-        // Створюємо об'єкт: виконуються конструктори PacketReceiver і TelemetryReceiver
-        auto instance = std::unique_ptr<TelemetryReceiver>(new TelemetryReceiver(socket_fd));
-
-        // Тепер vptr гарантовано вказує на vtable for TelemetryReceiver
-        instance->start_receiver();
-        return instance;
-    }
-
-    void process_payload(const uint8_t* data, std::size_t len) override {
-        std::cout << "Телеметрію розібрано, розмір: " << len << " байтів\n";
-    }
-
-private:
-    // Конструктор приватний: створення лише через create()
-    explicit TelemetryReceiver(int socket_fd) : PacketReceiver(socket_fd) {}
-};
-```
+:::code proj-pure-virtual-crash/c/bezpechne-rozviazannia.c
+:::code proj-pure-virtual-crash/cpp/bezpechne-rozviazannia.cpp
 :::
 
 Завдяки патерну фабрики:

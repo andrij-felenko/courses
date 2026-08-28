@@ -58,27 +58,7 @@ arm-none-eabi-objdump -d -C maxof.o
 
 Тепер найпоказовіше — клас навколо GPIO. Опишемо ніжку як тип, параметризований **номером** (нетиповий шаблонний параметр — не тип, а ціле число):
 
-```cpp
-#include <cstdint>
-
-// Спрощена модель регістрів GPIO (як у CMSIS-заголовку МК)
-struct GpioRegs {
-    volatile uint32_t MODER;       // +0
-    volatile uint32_t reserved[5]; // +4 … +20 (пропуск інших регістрів)
-    volatile uint32_t BSRR;        // +24  set/reset — регістр лише для запису
-};
-#define GPIOA (reinterpret_cast<GpioRegs*>(0x48000000u))
-
-template <uint8_t PIN>
-struct Pin {
-    static void high() { GPIOA->BSRR = (1u << PIN); }
-    static void low()  { GPIOA->BSRR = (1u << (PIN + 16)); }
-};
-
-void turn_on() {
-    Pin<5>::high();     // читабельно: «ніжка п'ять — увімкнути»
-}
-```
+:::code proj-monomorphization/cpp/main.cpp
 
 Тут навмисне взято **BSRR** (*bit set/reset register*), а не регістр даних. BSRR — регістр **лише для запису**: одиниця в молодшій половині вмикає відповідну ніжку, одиниця в старшій (біт `PIN + 16`) — вимикає, а решта бітів ігноруються. Тому запис у нього **не потребує** читати-модифікувати-записувати: жодного `ldr` старого значення, `orr` нової маски й `str` назад — самий лише `str`. Це реальна властивість периферії Cortex-M, і саме вона робить чесним фінальне «одна інструкція».
 

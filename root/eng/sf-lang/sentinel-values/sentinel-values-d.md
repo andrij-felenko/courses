@@ -145,23 +145,7 @@ void execute_ptr(void* ptr) {
     }
 }
 ```
-```cpp
-#include <iostream>
-
-void dispatch(int value) {
-    std::cout << "Виклик цілочисельної функції: " << value << "\n";
-}
-
-void dispatch(double* ptr) {
-    std::cout << "Виклик функції для покажчика\n";
-}
-
-int main() {
-    // dispatch(NULL); // ПОМИЛКА: неоднозначність! NULL у старих стандартах розгортався в 0
-    dispatch(nullptr); // ПРАВИЛЬНО: nullptr має власний тип std::nullptr_t
-    return 0;
-}
-```
+:::code sentinel-values-d/cpp/3-null-ta-nullptr-v.cpp
 :::
 
 Ключове слово `nullptr`, стандартизоване в C++11, має тип `std::nullptr_t`. Воно неявно конвертується в будь-який покажчик на тип або покажчик на метод, але захищене від перетворення в цілі числа, усуваючи неоднозначності на рівні компіляції.
@@ -177,20 +161,7 @@ int main() {
 Ключова семантична особливість NaN: **NaN не дорівнює жодному значенню, включно із самим собою**:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <math.h>
-
-void check_nan_c(void) {
-    float val = 0.0f / 0.0f;
-    if (val != val) {
-        printf("val є NaN через пряме порівняння\n");
-    }
-    if (isnan(val)) {
-        printf("val є NaN через макрос isnan()\n");
-    }
-}
-```
+:::code sentinel-values-d/c/4-nan-not-a-number-u.c
 ```cpp
 #include <iostream>
 #include <cmath>
@@ -230,55 +201,8 @@ void check_nan_cpp() {
 Порівняння видалення вузла зі списку демонструє різницю у складності коду:
 
 :::tabs
-```c
-#include <stdlib.h>
-
-typedef struct Node {
-    int data;
-    struct Node *prev, *next;
-} Node;
-
-// ЗВИЧАЙНИЙ список: 4 розгалуження для обробки країв
-void remove_classic(Node** head, Node** tail, Node* node) {
-    if (node->prev != NULL) {
-        node->prev->next = node->next;
-    } else {
-        *head = node->next;
-    }
-    if (node->next != NULL) {
-        node->next->prev = node->prev;
-    } else {
-        *tail = node->prev;
-    }
-    free(node);
-}
-
-// СПИСОК З ВАРТОВИМ: 0 розгалужень, чисті присвоєння покажчиків
-void remove_sentinel(Node* node) {
-    node->prev->next = node->next;
-    node->next->prev = node->prev;
-    free(node);
-}
-```
-```cpp
-#include <utility>
-
-struct NodeBase {
-    NodeBase* prev{nullptr};
-    NodeBase* next{nullptr};
-};
-
-template <typename T>
-struct ListNode : public NodeBase {
-    T data;
-};
-
-// Видалення вузла в списку з вартовим складається з двох переприв'язок
-inline void unlink_sentinel_node(NodeBase* node) noexcept {
-    node->prev->next = node->next;
-    node->next->prev = node->prev;
-}
-```
+:::code sentinel-values-d/c/kruhovyi-spysok-iz.c
+:::code sentinel-values-d/cpp/kruhovyi-spysok-iz.cpp
 :::
 
 Вартовий вузол забезпечує важливі системні переваги:
@@ -308,43 +232,8 @@ inline void unlink_sentinel_node(NodeBase* node) noexcept {
 2. `None` — однозначно позначає відсутність значення на рівні типів.
 
 :::tabs
-```c
-#include <stdbool.h>
-#include <stdint.h>
-
-// Емуляція Option мовою C через структуру з прапорцем
-typedef struct {
-    bool has_value;
-    uint32_t value;
-} OptionalU32;
-
-OptionalU32 lookup_id(const char* key) {
-    if (key == NULL) {
-        return (OptionalU32){ .has_value = false, .value = 0 };
-    }
-    return (OptionalU32){ .has_value = true, .value = 1001 };
-}
-```
-```cpp
-#include <iostream>
-#include <optional>
-#include <string_view>
-
-std::optional<uint32_t> lookup_id(std::string_view key) {
-    if (key.empty()) {
-        return std::nullopt; // Явна відсутність
-    }
-    return 1001; // Неявна ініціалізація валідним значенням
-}
-
-int main() {
-    auto id = lookup_id("admin");
-    if (id.has_value()) {
-        std::cout << "Отримано ID: " << id.value() << "\n";
-    }
-    return 0;
-}
-```
+:::code sentinel-values-d/c/suchasni-alternatyvy.c
+:::code sentinel-values-d/cpp/suchasni-alternatyvy.cpp
 :::
 
 У цій моделі комбінації даних не викрадаються з числового діапазону: `uint32_t` може набувати будь-якого значення від `0` до `4 294 967 295`, а статус `None` кодується окремим полем дискримінанта.
@@ -374,80 +263,8 @@ int main() {
 Патерн **Нульовий об'єкт** (англ. *Null Object Pattern*) замінює `nullptr` повноцінним екземпляром об'єкта, методи якого реалізують нейтральну поведінку (порожню дію, або no-op):
 
 :::tabs
-```c
-#include <stdio.h>
-
-typedef struct EventSinkOps {
-    void (*on_event)(const char* text);
-} EventSinkOps;
-
-typedef struct EventSink {
-    const EventSinkOps* ops;
-} EventSink;
-
-static void stdout_sink_impl(const char* text) {
-    printf("[EVENT]: %s\n", text);
-}
-
-static void null_sink_impl(const char* text) {
-    (void)text; // Порожня дія
-}
-
-static const EventSinkOps STDOUT_OPS = { .on_event = stdout_sink_impl };
-static const EventSinkOps NULL_OPS   = { .on_event = null_sink_impl };
-
-int main(void) {
-    EventSink active_sink = { .ops = &STDOUT_OPS };
-    EventSink silent_sink = { .ops = &NULL_OPS };
-
-    // Виклики безпечні без жодної перевірки на NULL!
-    active_sink.ops->on_event("З'єднання встановлено");
-    silent_sink.ops->on_event("Ця подія тихо ігнорується");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <string_view>
-
-class IEventSink {
-public:
-    virtual ~IEventSink() = default;
-    virtual void on_event(std::string_view text) = 0;
-};
-
-class StdoutSink : public IEventSink {
-public:
-    void on_event(std::string_view text) override {
-        std::cout << "[EVENT]: " << text << "\n";
-    }
-};
-
-class NullEventSink : public IEventSink {
-public:
-    void on_event(std::string_view /*text*/) noexcept override {
-        // Нейтральна поведінка без побічних ефектів
-    }
-};
-
-class EventManager {
-    std::shared_ptr<IEventSink> sink_;
-public:
-    explicit EventManager(std::shared_ptr<IEventSink> sink)
-        : sink_(sink ? std::move(sink) : std::make_shared<NullEventSink>()) {}
-
-    void trigger(std::string_view message) {
-        sink_->on_event(message); // Безпечний виклик без if (sink_)
-    }
-};
-
-int main() {
-    EventManager mgr(nullptr); // Передано nullptr — використовується NullEventSink
-    mgr.trigger("Системна подія");
-    return 0;
-}
-```
+:::code sentinel-values-d/c/patern-nulovyi-obiekt-null.c
+:::code sentinel-values-d/cpp/patern-nulovyi-obiekt-null.cpp
 :::
 
 Переваги Null Object:

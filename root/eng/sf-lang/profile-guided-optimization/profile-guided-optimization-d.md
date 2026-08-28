@@ -146,55 +146,8 @@ br i1 %cond, label %hot_bb, label %cold_bb, !prof !0
 Завдяки профілюванню значень компілятор дізнається, що в 99.4% випадків покажчик вказує на конкретну функцію `FastHandler::process`. Оптимізатор трансформує непрямий виклик у захищений прямий виклик (*guarded direct call*):
 
 :::tabs
-```c
-// Вихідний виклик через покажчик на функцію (C)
-typedef struct Handler {
-    uint64_t (*process)(const void* data);
-} Handler;
-
-uint64_t dispatch(Handler* h, const void* data) {
-    // Непрямий перехід у статичній збірці:
-    // return h->process(data);
-
-    // Трансформація компілятора після PGO (Indirect Call Promotion):
-    if (h->process == fast_process) {
-        // Прямий виклик + повний інлайнінг тіла fast_process
-        return fast_process(data);
-    } else {
-        // Резервний непрямий виклик для решти 0.6% випадків
-        return h->process(data);
-    }
-}
-```
-```cpp
-// Вихідний поліморфний виклик через інтерфейс (C++)
-class IHandler {
-public:
-    virtual ~IHandler() = default;
-    virtual uint64_t process(const void* data) const = 0;
-};
-
-class FastHandler final : public IHandler {
-public:
-    uint64_t process(const void* data) const override {
-        return *reinterpret_cast<const uint64_t*>(data) * 42;
-    }
-};
-
-uint64_t dispatch(const IHandler* h, const void* data) {
-    // Віртуальний виклик у статичній збірці:
-    // return h->process(data);
-
-    // Трансформація компілятора після PGO (Спекулятивна девіртуалізація):
-    if (typeid(*h) == typeid(FastHandler)) {
-        // Прямий виклик + повний інлайнінг методу FastHandler::process
-        return static_cast<const FastHandler*>(h)->FastHandler::process(data);
-    } else {
-        // Звичайний поліморфний виклик через vtable
-        return h->process(data);
-    }
-}
-```
+:::code profile-guided-optimization-d/c/main.c
+:::code profile-guided-optimization-d/cpp/main.cpp
 :::
 
 Після перетворення тіло `fast_process` інлайниться безпосередньо в гарячу гілку, де оптимізатор поширює константи, усуває спільні підвирази та генерує векторні SIMD-інструкції.

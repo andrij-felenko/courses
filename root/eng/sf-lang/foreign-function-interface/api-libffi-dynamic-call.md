@@ -122,22 +122,7 @@ void ffi_call(
 
 Замикання libffi дозволяють створити нативну адресу C-функції (покажчик на функцію), виклик якої перенаправляється в універсальний динамічний обробник (callback) мови вищого рівня.
 
-```c
-/* Виділення виконуваної пам'яті для трампліна */
-void* ffi_closure_alloc(size_t size, void **code);
-
-/* Налаштування прив'язки трампліна до обробника */
-ffi_status ffi_prep_closure_loc(
-    ffi_closure *closure,
-    ffi_cif     *cif,
-    void       (*fun)(ffi_cif *cif, void *ret, void **args, void *user_data),
-    void        *user_data,
-    void        *codeloc
-);
-
-/* Вивільнення пам'яті замикання */
-void ffi_closure_free(void *closure);
-```
+:::code api-libffi-dynamic-call/c/3-zvorotni-vyklyky.h
 
 ### Механізм подвійного відображення сторінок (Dual Mapping)
 
@@ -154,63 +139,8 @@ void ffi_closure_free(void *closure);
 Наведений приклад демонструє динамічний виклик стандартної функції `puts("Привіт зі світу FFI")` без прямого звернення до імені функції на етапі компіляції:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <ffi.h>
-
-int main(void) {
-    ffi_cif cif;
-    ffi_type *args[1];
-    void *values[1];
-
-    /* Опис аргументів: один покажчик (const char*) */
-    args[0] = &ffi_type_pointer;
-
-    /* Підготовка дескриптора виклику */
-    if (ffi_prep_cif(&cif, FFI_DEFAULT_ABI, 1, &ffi_type_sint32, args) != FFI_OK) {
-        fprintf(stderr, "Помилка ініціалізації CIF\n");
-        return 1;
-    }
-
-    const char *message = "Привіт зі світу libffi!";
-    values[0] = &message; /* Покажчик на комірку з аргументом */
-
-    int result = 0;
-
-    /* Динамічний виклик puts */
-    ffi_call(&cif, FFI_FN(puts), &result, values);
-
-    printf("puts повернув код: %d\n", result);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <string_view>
-#include <ffi.h>
-
-int main() {
-    ffi_cif cif;
-    std::vector<ffi_type*> arg_types = { &ffi_type_pointer };
-    std::vector<void*> arg_values(1);
-
-    if (ffi_prep_cif(&cif, FFI_DEFAULT_ABI, static_cast<unsigned int>(arg_types.size()),
-                     &ffi_type_sint32, arg_types.data()) != FFI_OK) {
-        std::cerr << "Помилка ініціалізації CIF\n";
-        return 1;
-    }
-
-    const char* message = "Привіт зі світу libffi (C++)!";
-    arg_values[0] = const_cast<char**>(&message);
-
-    int result = 0;
-    ffi_call(&cif, FFI_FN(puts), &result, arg_values.data());
-
-    std::cout << "puts повернув код: " << result << '\n';
-    return 0;
-}
-```
+:::code api-libffi-dynamic-call/c/4-praktychnyi-pryklad.c
+:::code api-libffi-dynamic-call/cpp/main.cpp
 :::
 
 ## 5. Критичні інваріанти та вимоги до пам'яті

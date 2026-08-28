@@ -79,135 +79,8 @@
 Розглянемо оголошення базових структур заголовка мовами C99 та C++20 для розбору та валідації двійкових образів:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-#define EI_NIDENT 16
-
-/* Константи типу двійкового файлу e_type */
-#define ET_NONE 0
-#define ET_REL  1  /* Relocatable file (.o) */
-#define ET_EXEC 2  /* Executable file (.elf) */
-#define ET_DYN  3  /* Shared object / Position-Independent Executable */
-
-/* Архітектурні коди процесорів e_machine */
-#define EM_ARM     40  /* 0x28: ARM 32-bit Architecture */
-#define EM_RISCV  243  /* 0xF3: RISC-V Architecture */
-#define EM_XTENSA  94  /* 0x5E: Tensilica Xtensa (ESP32) */
-
-typedef struct {
-    uint8_t  e_ident[EI_NIDENT];
-    uint16_t e_type;
-    uint16_t e_machine;
-    uint32_t e_version;
-    uint32_t e_entry;      /* Адреса точки входу */
-    uint32_t e_phoff;      /* Зміщення Program Header Table від початку файлу */
-    uint32_t e_shoff;      /* Зміщення Section Header Table від початку файлу */
-    uint32_t e_flags;      /* Прапорці архітектури та ABI */
-    uint16_t e_ehsize;     /* Розмір цього заголовка */
-    uint16_t e_phentsize;  /* Розмір одного запису в таблиці сегментів */
-    uint16_t e_phnum;      /* Кількість сегментів */
-    uint16_t e_shentsize;  /* Розмір одного запису в таблиці секцій */
-    uint16_t e_shnum;      /* Кількість секцій */
-    uint16_t e_shstrndx;   /* Індекс секції .shstrtab для назв секцій */
-} Elf32_Ehdr_Custom;
-
-bool validate_elf32_header(const Elf32_Ehdr_Custom* hdr, size_t file_size) {
-    if (!hdr) return false;
-    if (file_size < sizeof(Elf32_Ehdr_Custom)) return false;
-
-    if (hdr->e_ident[0] != 0x7F || hdr->e_ident[1] != 'E' ||
-        hdr->e_ident[2] != 'L'  || hdr->e_ident[3] != 'F') {
-        return false;
-    }
-    if (hdr->e_ident[4] != 1) return false; /* Перевірка: лише 32-бітний ELF */
-    if (hdr->e_version != 1) return false;
-
-    /* Перевірка меж таблиць у межах фізичного розміру файлу */
-    if (hdr->e_phoff != 0) {
-        uint64_t ph_end = (uint64_t)hdr->e_phoff + ((uint64_t)hdr->e_phentsize * hdr->e_phnum);
-        if (ph_end > file_size) return false;
-    }
-    if (hdr->e_shoff != 0) {
-        uint64_t sh_end = (uint64_t)hdr->e_shoff + ((uint64_t)hdr->e_shentsize * hdr->e_shnum);
-        if (sh_end > file_size) return false;
-    }
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <span>
-#include <optional>
-#include <string_view>
-
-namespace elf {
-
-inline constexpr std::size_t IdentSize = 16;
-
-enum class FileType : std::uint16_t {
-    None = 0,
-    Relocatable = 1,
-    Executable = 2,
-    SharedObject = 3
-};
-
-enum class MachineArchitecture : std::uint16_t {
-    Arm = 40,
-    RiscV = 243,
-    Xtensa = 94
-};
-
-struct Header32 {
-    std::array<std::uint8_t, IdentSize> ident;
-    FileType type;
-    MachineArchitecture machine;
-    std::uint32_t version;
-    std::uint32_t entry_address;
-    std::uint32_t ph_offset;
-    std::uint32_t sh_offset;
-    std::uint32_t flags;
-    std::uint16_t header_size;
-    std::uint16_t ph_entry_size;
-    std::uint16_t ph_count;
-    std::uint16_t sh_entry_size;
-    std::uint16_t sh_count;
-    std::uint16_t sh_str_index;
-
-    [[nodiscard]] constexpr bool is_valid(std::size_t file_size) const noexcept {
-        if (file_size < sizeof(Header32)) return false;
-        if (ident[0] != 0x7F || ident[1] != 'E' || ident[2] != 'L' || ident[3] != 'F') {
-            return false;
-        }
-        if (ident[4] != 1 || version != 1) return false;
-
-        if (ph_offset != 0) {
-            const auto ph_end = static_cast<std::uint64_t>(ph_offset) +
-                                (static_cast<std::uint64_t>(ph_entry_size) * ph_count);
-            if (ph_end > file_size) return false;
-        }
-        if (sh_offset != 0) {
-            const auto sh_end = static_cast<std::uint64_t>(sh_offset) +
-                                (static_cast<std::uint64_t>(sh_entry_size) * sh_count);
-            if (sh_end > file_size) return false;
-        }
-        return true;
-    }
-
-    [[nodiscard]] constexpr bool is_arm() const noexcept {
-        return machine == MachineArchitecture::Arm;
-    }
-
-    [[nodiscard]] constexpr bool is_riscv() const noexcept {
-        return machine == MachineArchitecture::RiscV;
-    }
-};
-
-} // namespace elf
-```
+:::code elf-image-d/c/anatomiia-dviikovoho.c
+:::code elf-image-d/cpp/anatomiia-dviikovoho.cpp
 :::
 
 Особливу увагу слід звернути на поле `e_entry`. Для архітектури ARM Cortex-M точка входу вказує на адресу функції обробника скидання `Reset_Handler`. Проте, оскільки процесори Cortex-M підтримують виключно набір інструкцій Thumb-2, молодший біт адреси точки входу обов'язково встановлюється в `1` (наприклад, `0x08000101` для інструкції, розміщеної за фізичною адресою `0x08000100`). Цей біт сигналізує процесорному ядру про необхідність роботи в режимі Thumb (встановлення прапорця T в регістрі стану програми xPSR). Якщо завантажувач спробує передати керування на парну адресу з молодшим нульовим бітом, ядро негайно згенерує виняток `UsageFault` (спроба переходу в непідтримуваний режим ARM State).
@@ -402,100 +275,8 @@ LMA(.text) = VMA(.text) = 0x08000100
 Нижче наведено реалізацію цієї процедури мовами C99 та C++20 з використанням символів лінкера:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-/* Символи експортуються лінкер-скриптом.
-   Вони не є змінними, їхні АДРЕСИ позначають межі областей пам'яті! */
-extern uint32_t _sidata; /* LMA: Початок початкових даних .data у Flash */
-extern uint32_t _sdata;  /* VMA: Початок секції .data в SRAM */
-extern uint32_t _edata;  /* VMA: Кінець секції .data в SRAM */
-extern uint32_t _sbss;   /* VMA: Початок секції .bss в SRAM */
-extern uint32_t _ebss;   /* VMA: Кінець секції .bss в SRAM */
-
-void SystemInit(void);
-int main(void);
-
-void Reset_Handler_C(void) {
-    /* 1. Копіювання ініціалізованих змінних (.data) з Flash у RAM */
-    uint32_t *p_src = &_sidata;
-    uint32_t *p_dst = &_sdata;
-
-    while (p_dst < &_edata) {
-        *p_dst++ = *p_src++;
-    }
-
-    /* 2. Обнулення неініціалізованих змінних (.bss) у RAM */
-    uint32_t *p_bss = &_sbss;
-    while (p_bss < &_ebss) {
-        *p_bss++ = 0;
-    }
-
-    /* 3. Базове налаштування тактування процесора */
-    SystemInit();
-
-    /* 4. Перехід до виконання користувацького коду */
-    (void)main();
-
-    /* Захисний нескінченний цикл на випадок виходу з main() */
-    while (1) {
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <algorithm>
-#include <span>
-
-extern "C" {
-    extern std::uint32_t _sidata;
-    extern std::uint32_t _sdata;
-    extern std::uint32_t _edata;
-    extern std::uint32_t _sbss;
-    extern std::uint32_t _ebss;
-
-    void SystemInit();
-    int main();
-    void __libc_init_array(); // Ініціалізація глобальних конструкторів C++
-}
-
-extern "C" void Reset_Handler_Cpp() noexcept {
-    // 1. Копіювання .data з Flash LMA в SRAM VMA
-    const std::uint32_t* src = &_sidata;
-    std::uint32_t* dst_begin = &_sdata;
-    std::uint32_t* dst_end = &_edata;
-
-    while (dst_begin < dst_end) {
-        *dst_begin++ = *src++;
-    }
-
-    // 2. Очищення секції .bss в SRAM VMA
-    std::uint32_t* bss_begin = &_sbss;
-    std::uint32_t* bss_end = &_ebss;
-
-    while (bss_begin < bss_end) {
-        *bss_begin++ = 0U;
-    }
-
-    // 3. Апаратна ініціалізація генераторів тактової частоти
-    SystemInit();
-
-    // 4. Виклик конструкторів глобальних та статичних об'єктів C++ (.init_array)
-    __libc_init_array();
-
-    // 5. Виклик точки входу програми
-    main();
-
-    // Запобігання виходу в невизначений стан
-    while (true) {
-        #if defined(__arm__) || defined(__thumb__)
-        asm volatile("wfi"); // Очікування переривання (Wait For Interrupt)
-        #endif
-    }
-}
-```
+:::code elf-image-d/c/robota-startovoho-kodu.c
+:::code elf-image-d/cpp/robota-startovoho-kodu.cpp
 :::
 
 > 🔧 **Навіщо це.** Якщо лінкер-скрипт некоректно вирівнює межі `_sdata` чи `_sbss` по 4-байтовій межі (наприклад, секція закінчується на непарному байті через наявність масиву `uint8_t`), 32-бітний цикл копіювання `*p_dst++ = *p_src++` здійснить непарний запис за межі виділеної області пам'яті, що може пошкодити сусідні змінні або викликати виняток `Alignment Fault` на ядрах ARM Cortex-M0/M0+. Завжди використовуйте вирівнювання `. = ALIGN(4);` у лінкер-скриптах перед оголошенням символів меж.
@@ -543,38 +324,8 @@ SECTIONS
 Стартовий код повинен розширити процедуру ініціалізації, виконавши копіювання коду та даних у всі цільові регіони пам'яті:
 
 :::tabs
-```c
-extern uint32_t _siccmram;
-extern uint32_t _sccmram;
-extern uint32_t _eccmram;
-
-void copy_ccmram_section_c(void) {
-    uint32_t *src = &_siccmram;
-    uint32_t *dst = &_sccmram;
-
-    while (dst < &_eccmram) {
-        *dst++ = *src++;
-    }
-}
-```
-```cpp
-#include <cstdint>
-
-extern "C" {
-    extern std::uint32_t _siccmram;
-    extern std::uint32_t _sccmram;
-    extern std::uint32_t _eccmram;
-}
-
-void copy_ccmram_section_cpp() noexcept {
-    const std::uint32_t* src = &_siccmram;
-    std::uint32_t* dst = &_sccmram;
-
-    while (dst < &_eccmram) {
-        *dst++ = *src++;
-    }
-}
-```
+:::code elf-image-d/c/heterohenna-pamiat-ccmram.c
+:::code elf-image-d/cpp/heterohenna-pamiat-ccmram.cpp
 :::
 
 Якщо функція розмічена атрибутом `__attribute__((section(".ccmram")))`, компілятор розмістить її код у цій секції, лінкер розрахує всі виклики за VMA-адресами з діапазону `0x10000000`, а стартовий код завантажить інструкції з Flash у CCMRAM до входу в `main()`.
@@ -600,81 +351,8 @@ void copy_ccmram_section_cpp() noexcept {
 Розглянемо налаштування MPU мовами C99 та C++20 на основі символів меж, згенерованих лінкером:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define MPU_TYPE_REG   (*(volatile uint32_t*)0xE000ED90)
-#define MPU_CTRL_REG   (*(volatile uint32_t*)0xE000ED94)
-#define MPU_RNR_REG    (*(volatile uint32_t*)0xE000ED98)
-#define MPU_RBAR_REG   (*(volatile uint32_t*)0xE000ED9C)
-#define MPU_RASR_REG   (*(volatile uint32_t*)0xE000EDA0)
-
-extern uint32_t _srom;
-extern uint32_t _erom;
-extern uint32_t _sram;
-extern uint32_t _eram;
-
-void configure_mpu_regions_c(void) {
-    /* Вимкнення MPU під час конфігурації */
-    MPU_CTRL_REG = 0;
-
-    /* Регіон 0: Flash пам'ять (ReadOnly, Executable, 512KB) */
-    MPU_RNR_REG  = 0;
-    MPU_RBAR_REG = 0x08000000 | 0x10; /* VALID=1, REGION=0 */
-    /* SIZE=18 (512KB), AP=010 (Privileged RO), XN=0 (Executable), ENABLE=1 */
-    MPU_RASR_REG = (0 << 28) | (2 << 24) | (18 << 1) | 1;
-
-    /* Регіон 1: SRAM пам'ять (ReadWrite, Non-Executable, 128KB) */
-    MPU_RNR_REG  = 1;
-    MPU_RBAR_REG = 0x20000000 | 0x10;
-    /* SIZE=16 (128KB), AP=011 (Privileged RW), XN=1 (Execute-Never), ENABLE=1 */
-    MPU_RASR_REG = (1 << 28) | (3 << 24) | (16 << 1) | 1;
-
-    /* Увімкнення MPU з фоновою картою пам'яті за замовчуванням */
-    MPU_CTRL_REG = 0x05; /* ENABLE=1, PRIVDEFENA=1 */
-    __builtin_arm_isb(15);
-    __builtin_arm_dsb(15);
-}
-```
-```cpp
-#include <cstdint>
-
-namespace mpu {
-
-struct MpuRegisters {
-    volatile std::uint32_t type;
-    volatile std::uint32_t ctrl;
-    volatile std::uint32_t rnr;
-    volatile std::uint32_t rbar;
-    volatile std::uint32_t rasr;
-};
-
-inline auto* const Regs = reinterpret_cast<MpuRegisters*>(0xE000ED90);
-
-void setup_memory_protection() noexcept {
-    Regs->ctrl = 0; // Вимкнення MPU на час переналаштування
-
-    // Регіон 0: Flash пам'ять (ReadOnly, Executable, 512KB)
-    Regs->rnr  = 0;
-    Regs->rbar = 0x08000000U | 0x10U;
-    Regs->rasr = (0U << 28) | (2U << 24) | (18U << 1) | 1U;
-
-    // Регіон 1: SRAM пам'ять (ReadWrite, Execute-Never, 128KB)
-    Regs->rnr  = 1;
-    Regs->rbar = 0x20000000U | 0x10U;
-    Regs->rasr = (1U << 28) | (3U << 24) | (16U << 1) | 1U;
-
-    // Увімкнення MPU
-    Regs->ctrl = 0x05U;
-
-    #if defined(__arm__) || defined(__thumb__)
-    asm volatile("dsb 0xF\nisb 0xF" ::: "memory");
-    #endif
-}
-
-} // namespace mpu
-```
+:::code elf-image-d/c/nalashtuvannia-bloku.c
+:::code elf-image-d/cpp/nalashtuvannia-bloku.hpp
 :::
 
 ---
@@ -738,50 +416,8 @@ LDR r1, [r0]  ; Читання значення самої змінної
 Структури записів релокацій мають вигляд:
 
 :::tabs
-```c
-typedef struct {
-    uint32_t r_offset; /* Адреса/зміщення у секції, яку треба модифікувати */
-    uint32_t r_info;   /* Індекс символу у .symtab та тип релокації */
-} Elf32_Rel;
-
-typedef struct {
-    uint32_t r_offset;
-    uint32_t r_info;
-    int32_t  r_addend; /* Явне додаткове зміщення (Addend) */
-} Elf32_Rela;
-```
-```cpp
-#include <cstdint>
-
-namespace elf {
-
-struct RelocationEntry {
-    std::uint32_t offset;
-    std::uint32_t info;
-
-    [[nodiscard]] constexpr std::uint32_t symbol_index() const noexcept {
-        return info >> 8;
-    }
-    [[nodiscard]] constexpr std::uint8_t type() const noexcept {
-        return static_cast<std::uint8_t>(info & 0xFFU);
-    }
-};
-
-struct RelocationAddendEntry {
-    std::uint32_t offset;
-    std::uint32_t info;
-    std::int32_t  addend;
-
-    [[nodiscard]] constexpr std::uint32_t symbol_index() const noexcept {
-        return info >> 8;
-    }
-    [[nodiscard]] constexpr std::uint8_t type() const noexcept {
-        return static_cast<std::uint8_t>(info & 0xFFU);
-    }
-};
-
-} // namespace elf
-```
+:::code elf-image-d/c/relokatsii-ta-dynamichne.c
+:::code elf-image-d/cpp/relokatsii-ta-dynamichne.hpp
 :::
 
 Для архітектури ARM застосовується специфікація AAELF (ARM Architecture ELF), яка визначає десятки типів релокацій:
@@ -838,42 +474,8 @@ UartDriver g_uart(115200); // Повинен сконструюватися до
 Функція стандартної бібліотеки `__libc_init_array()` або користувацький стартовий код ітерується по масиву покажчиків між `__init_array_start` та `__init_array_end`, послідовно викликаючи кожен конструктор:
 
 :::tabs
-```c
-typedef void (*init_func_t)(void);
-
-extern init_func_t __init_array_start[];
-extern init_func_t __init_array_end[];
-
-void call_global_constructors_c(void) {
-    size_t count = (size_t)(__init_array_end - __init_array_start);
-    for (size_t i = 0; i < count; ++i) {
-        __init_array_start[i]();
-    }
-}
-```
-```cpp
-#include <cstddef>
-#include <span>
-
-extern "C" {
-    using InitFunc = void (*)();
-    extern InitFunc __init_array_start[];
-    extern InitFunc __init_array_end[];
-}
-
-void call_global_constructors_cpp() noexcept {
-    const std::span<InitFunc> constructors(
-        __init_array_start,
-        static_cast<std::size_t>(__init_array_end - __init_array_start)
-    );
-
-    for (const auto& constructor : constructors) {
-        if (constructor != nullptr) {
-            constructor();
-        }
-    }
-}
-```
+:::code elf-image-d/c/masyv-konstruktoriv-init.c
+:::code elf-image-d/cpp/masyv-konstruktoriv-init.cpp
 :::
 
 ### Таблиці віртуальних функцій (vtable) у .rodata
@@ -1055,25 +657,7 @@ SRAM_Occupied  = data + bss
 
 ### Корисні рецепти аналізу ELF-образу
 
-```bash
-# 1. Перегляд головного заголовка ELF (архітектура, точка входу, адреси таблиць)
-arm-none-eabi-readelf -h firmware.elf
-
-# 2. Перегляд таблиці завантажуваних сегментів (LMA, VMA, розміри filesz та memsz)
-arm-none-eabi-readelf -l firmware.elf
-
-# 3. Перегляд списку всіх секцій з їхніми прапорцями та адресами
-arm-none-eabi-readelf -S firmware.elf
-
-# 4. Пошук 20 найбільших символів у прошивці за розміром (деревний аналіз споживання пам'яті)
-arm-none-eabi-nm --size-sort -C -r firmware.elf | head -n 20
-
-# 5. Дизасемблювання секції коду зі співставленням сирцевих рядків C/C++
-arm-none-eabi-objdump -d -S -C firmware.elf > firmware_disasm.txt
-
-# 6. Перегляд налаштувань таблиць конструкторів .init_array
-arm-none-eabi-readelf -x .init_array firmware.elf
-```
+:::code elf-image-d/sh/main.sh
 
 ---
 
@@ -1097,51 +681,8 @@ arm-none-eabi-readelf -x .init_array firmware.elf
 2. **Перемикання у стартовому коді:** Стартовий код нової прошивки повинен оновити `VTOR` до дозволу будь-яких глобальних переривань:
 
 :::tabs
-```c
-#include <stdint.h>
-
-#define SCB_VTOR_REG (*(volatile uint32_t*)0xE000ED08)
-
-extern uint32_t _isr_vector_start;
-
-void relocate_vector_table_c(void) {
-    /* Вимкнення глобальних переривань */
-    __builtin_arm_set_primask(1);
-
-    /* Запис базової адреси нової таблиці векторів */
-    SCB_VTOR_REG = (uint32_t)&_isr_vector_start;
-
-    /* Бар'єри пам'яті для синхронізації процесорного конвеєра */
-    __builtin_arm_dsb(15);
-    __builtin_arm_isb(15);
-
-    /* Увімкнення переривань */
-    __builtin_arm_set_primask(0);
-}
-```
-```cpp
-#include <cstdint>
-
-namespace system {
-
-inline volatile auto* const ScbVtor = reinterpret_cast<volatile std::uint32_t*>(0xE000ED08);
-extern "C" extern std::uint32_t _isr_vector_start;
-
-void relocate_vector_table_cpp() noexcept {
-    #if defined(__arm__) || defined(__thumb__)
-    asm volatile("cpsid i" ::: "memory"); // Вимкнення переривань
-    #endif
-
-    *ScbVtor = reinterpret_cast<std::uintptr_t>(&_isr_vector_start);
-
-    #if defined(__arm__) || defined(__thumb__)
-    asm volatile("dsb 0xF\nisb 0xF" ::: "memory");
-    asm volatile("cpsie i" ::: "memory"); // Увімкнення переривань
-    #endif
-}
-
-} // namespace system
-```
+:::code elf-image-d/c/rehistr-zmishchennia.c
+:::code elf-image-d/cpp/rehistr-zmishchennia.hpp
 :::
 
 ---
@@ -1176,24 +717,7 @@ uint32_t reset_handler_addr = *(volatile uint32_t*)(app_vector_table + 4);
 app_entry_t app_entry = (app_entry_t)reset_handler_addr;
 app_entry();
 ```
-```cpp
-#include <cstdint>
-
-namespace boot {
-
-using AppEntryPoint = void (*)();
-
-inline void jump_to_application(std::uint32_t app_vector_table_addr) noexcept {
-    const auto* vector_table = reinterpret_cast<const volatile std::uint32_t*>(app_vector_table_addr);
-    const auto reset_handler_addr = vector_table[1]; // Вектор Reset_Handler
-
-    // Адреса в таблиці векторів уже містить Thumb-біт (біт 0 = 1)
-    const auto app_entry = reinterpret_cast<AppEntryPoint>(reset_handler_addr);
-    app_entry();
-}
-
-} // namespace boot
-```
+:::code elf-image-d/cpp/2-porushennia-parnosti.hpp
 :::
 Якщо розробник помилково очистить молодший біт виразом `reset_handler_addr & ~1`, перехід викличе фатальний збій процесора.
 

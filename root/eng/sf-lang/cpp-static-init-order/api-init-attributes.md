@@ -21,27 +21,7 @@
 
 До появи стандарту C++20 єдиним інструментом гарантованої ініціалізації під час компіляції був специфікатор `constexpr`. Проте `constexpr` нерозривно пов'язував статичне створення з константністю типу (`const`), унеможливлюючи подальшу модифікацію полів об'єкта під час обробки запитів. Специфікатор `constinit` знімає це обмеження: він вимагає виконання константної ініціалізації на етапі збирання, але залишає сам об'єкт повністю мутабельним.
 
-```cpp
-#include <string_view>
-
-struct EngineConfig {
-    int worker_threads;
-    double tick_rate_hz;
-    bool is_running;
-
-    // Конструктор зобов'язаний бути constexpr
-    constexpr EngineConfig(int threads, double rate)
-        : worker_threads(threads), tick_rate_hz(rate), is_running(false) {}
-};
-
-// Гарантовано константна ініціалізація, але змінний стан у рантаймі:
-constinit EngineConfig g_engine_config(8, 60.0);
-
-void start_engine() {
-    // Зміна дозволена, оскільки constinit не накладає константності:
-    g_engine_config.is_running = true;
-}
-```
+:::code api-init-attributes/cpp/spetsyfikator-c-20.cpp
 
 Якщо ініціалізатор містить функцію або вираз, який компілятор не здатний розрахувати статично через виклики сторонніх неконстантних бібліотек або виділення пам'яті в купі, збирання негайно переривається з діагностичним повідомленням про помилку:
 
@@ -66,23 +46,7 @@ note: non-constexpr function 'get_system_cores()' cannot be used in a constant e
 
 Під час компонування стандартний скрипт компонувальника GNU ld або LLVM lld застосовує директиву `SORT_BY_INIT_PRIORITY`, яка сортує ці підсекції строго за алфавітом. Це гарантує, що підсекція `.init_array.00150` буде розміщена в пам'яті раніше за `.init_array.00300`, а системний завантажувач процесу викличе їхні конструктори у точній числовій черговості.
 
-```cpp
-#include <iostream>
-
-class MemoryManager {
-public:
-    MemoryManager() { std::cout << "[INIT 150] Менеджер пам'яті готовий\n"; }
-};
-
-class TaskScheduler {
-public:
-    TaskScheduler() { std::cout << "[INIT 300] Планувальник задач готовий\n"; }
-};
-
-// Менше число = вищий пріоритет (виконується раніше)
-MemoryManager g_mem_mgr [[gnu::init_priority(150)]];
-TaskScheduler g_sched [[gnu::init_priority(300)]];
-```
+:::code api-init-attributes/cpp/atrybut-init-priority-dlia.cpp
 
 *Діапазони числових пріоритетів:*
 - `0` — `100`: Зарезервовано для системної реалізації C-рантайму та стандартної бібліотеки мови (наприклад, для внутрішніх буферів вводу-виводу). Використання цих значень у прикладному коді заборонено або генерує попередження компілятора.
@@ -94,33 +58,8 @@ TaskScheduler g_sched [[gnu::init_priority(300)]];
 Для функцій мов C та C++ компілятори GCC та Clang надають атрибути `constructor` та `destructor`. Вони дозволяють реєструвати процедурні точки входу, які виконуються системним завантажувачем до виклику функції `main()` та після завершення роботи процесу:
 
 :::tabs
-```c
-#include <stdio.h>
-
-/* Виконується до main() у порядку зростання пріоритетів (150 -> 200) */
-void __attribute__((constructor(150))) init_hardware_bus(void) {
-    printf("[C HW] Активація системної шини периферії\n");
-}
-
-/* Виконується після exit() у порядку спадання пріоритетів (200 -> 150) */
-void __attribute__((destructor(150))) shutdown_hardware_bus(void) {
-    printf("[C HW] Вимкнення системної шини периферії\n");
-}
-```
-```cpp
-#include <iostream>
-
-/* Еквівалентний C++ синтаксис атрибутів GNU */
-extern "C" {
-    [[gnu::constructor(150)]] void init_hardware_bus_cpp() {
-        std::cout << "[C++ HW] Активація системної шини периферії\n";
-    }
-
-    [[gnu::destructor(150)]] void shutdown_hardware_bus_cpp() {
-        std::cout << "[C++ HW] Вимкнення системної шини периферії\n";
-    }
-}
-```
+:::code api-init-attributes/c/main.c
+:::code api-init-attributes/cpp/atrybuty-constructor-ta.cpp
 :::
 
 Ці атрибути особливо корисні у спільних динамічних бібліотеках (`.so`), оскільки вони автоматично спрацьовують під час завантаження бібліотеки в пам'ять через системний виклик `dlopen()` та під час вивантаження через `dlclose()`.
@@ -154,22 +93,7 @@ extern "C" {
 
 Клас `std::ios_base::Init` інкапсулює реалізацію ідіоми Nifty Counter у стандартній бібліотеці для забезпечення безпечного доступу до потоків `std::cin`, `std::cout`, `std::cerr` та `std::clog`.
 
-```cpp
-#include <ios>
-
-namespace std {
-    class ios_base::Init {
-    public:
-        // Збільшує внутрішній лічильник посилань.
-        // При переході 0 -> 1 виконує placement new для об'єктів потоків.
-        Init();
-
-        // Зменшує внутрішній лічильник посилань.
-        // При переході 1 -> 0 скидає буфери (flush) та викликає деструктори потоків.
-        ~Init();
-    };
-}
-```
+:::code api-init-attributes/cpp/standartnyi-klas-std-ios.hpp
 
 Кожна одиниця трансляції, яка підключає заголовок `<iostream>`, автоматично отримує статичний екземпляр `std::ios_base::Init`. Оскільки включення заголовка зазвичай стоїть на початку файлу, конструктор `Init` гарантовано виконується до створення користувацьких об'єктів у цьому модулі.
 
@@ -177,25 +101,7 @@ namespace std {
 
 Для забезпечення безпечного відкладеного створення ресурсів у багатопотокових системах заголовок `<mutex>` надає функцію `std::call_once` та тип `std::once_flag`:
 
-```cpp
-#include <mutex>
-#include <memory>
-
-class HardwareRegistry {
-public:
-    static HardwareRegistry& instance() {
-        std::call_once(s_init_flag, []() {
-            s_instance.reset(new HardwareRegistry());
-        });
-        return *s_instance;
-    }
-
-private:
-    HardwareRegistry() = default;
-    static inline std::unique_ptr<HardwareRegistry> s_instance;
-    static inline std::once_flag s_init_flag;
-};
-```
+:::code api-init-attributes/cpp/prymityvy-potokobezpechnoi.cpp
 
 Сигнатура функції:
 ```cpp

@@ -41,33 +41,7 @@ _getpid  — «мій PID»: фіктивне число (1)
 
 Звідки `_sbrk` бере першу адресу? З **лінкера**. Лінкер-скрипт лишає по кінці статичних секцій символ (класично `_end`, або `end`) — це перший вільний байт RAM одразу за `.bss`. Купа росте вгору від нього; стек росте вниз від вершини RAM. `_sbrk` лише веде покажчик `heap_end` і стежить, щоб той не наїхав на стек.
 
-```c
-#include <errno.h>
-#include <sys/types.h>
-
-extern char _end;            // символ із лінкер-скрипта: кінець .bss = початок купи
-extern char _estack;         // вершина RAM (низ стека) — теж із лінкер-скрипта
-
-static char *heap_end = 0;
-
-void *_sbrk(ptrdiff_t increment) {
-    if (heap_end == 0)
-        heap_end = &_end;                 // перший виклик: купа стартує за .bss
-
-    char *prev = heap_end;
-    char *next = heap_end + increment;
-
-    // межа: не дати купі врости у стек (лишаємо запас під поточний кадр)
-    char *limit = &_estack - 512;         // 512 Б оберегу під стек
-    if (next > limit) {
-        errno = ENOMEM;                   // пам'ять скінчилась
-        return (void *) -1;               // malloc побачить -1 → поверне NULL
-    }
-
-    heap_end = next;
-    return prev;                          // стара межа = адреса нового блоку
-}
-```
+:::code proj-newlib-syscalls/c/sbrk-sertse-kupy.c
 
 Три пастки тут гострі. **Перша:** забути перевірку межі — тоді `malloc` радо «виділить» пам'ять, що накладається на стек, і програма впаде не в момент виділення, а пізніше й в іншому місці, коли стек перепише купу (або навпаки). **Друга:** повернути на помилці `0` (`NULL`) замість `(void *)-1` — newlib чекає саме `-1` як знак провалу; `NULL` вона прийме за валідну адресу 0 і піде писати туди. **Третя:** оберіг (`-512`) надто малий — глибокий ланцюг викликів або велике переривання роздує стек нижче розрахунку, і він мовчки потре верхівку купи.
 
@@ -75,25 +49,7 @@ void *_sbrk(ptrdiff_t increment) {
 
 `printf` усю важку роботу (форматування) робить сам, а наприкінці виштовхує готові байти одним викликом `_write(fd, buf, len)`. Дескриптор `fd` тут — домовленість POSIX: `1` — stdout, `2` — stderr. На МК обидва зазвичай ведуть в один UART.
 
-```c
-#include <unistd.h>
-#include "driver/uart.h"          // приклад під ESP-IDF; ідея спільна для будь-якого UART
-
-int _write(int fd, const char *buf, int len) {
-    if (fd != STDOUT_FILENO && fd != STDERR_FILENO) {
-        errno = EBADF;            // у нас лише консоль; інші дескриптори невідомі
-        return -1;
-    }
-    uart_write_bytes(UART_NUM_0, buf, len);
-    return len;                   // скільки байтів прийняли (тут — усі)
-}
-
-int _read(int fd, char *buf, int len) {
-    if (fd != STDIN_FILENO) { errno = EBADF; return -1; }
-    int n = uart_read_bytes(UART_NUM_0, (uint8_t *)buf, len, pdMS_TO_TICKS(20));
-    return n < 0 ? 0 : n;         // 0 = «поки нема даних» (EOF-семантика для stdin)
-}
-```
+:::code proj-newlib-syscalls/c/write-i-read-mist-do-uart.c
 
 Чому повернене число важливе: newlib вірить `_write` на слово. Повернете менше за `len` — бібліотека вважатиме, що решта не пішла, і спробує дослати «хвіст» наступним викликом; повернете більше — зіпсуєте внутрішній облік `stdio`. Тому або віддавайте рівно `len` (UART-драйвер сам поставить байти в чергу), або повертайте реально прийняту кількість і будьте готові, що `printf` гукне `_write` ще раз.
 
@@ -101,21 +57,7 @@ int _read(int fd, char *buf, int len) {
 
 Решта викликів на МК не мають сенсу — але злінкуватися мусять, інакше `printf` потягне за собою `undefined reference` на `_fstat` чи `_isatty` (бо `stdio` всередині питає в системи, чи дескриптор — термінал, щоб обрати буферизацію). Тому стаб має не «робити нічого», а **повертати таке значення, яке не зламає логіку newlib**.
 
-```c
-#include <sys/stat.h>
-
-int _close(int fd)              { (void)fd; return -1; }      // нема чого закривати
-int _lseek(int fd, int p, int w){ (void)fd;(void)p;(void)w; return 0; }
-int _isatty(int fd)             { (void)fd; return 1; }       // консоль = термінал
-int _fstat(int fd, struct stat *st) {
-    (void)fd;
-    st->st_mode = S_IFCHR;      // «символьний пристрій»: stdio вимкне блочну буферизацію
-    return 0;
-}
-void _exit(int code)            { (void)code; while (1) {} }  // на МК нема куди «вийти»
-int _kill(int pid, int sig)     { (void)pid;(void)sig; errno = EINVAL; return -1; }
-int _getpid(void)               { return 1; }
-```
+:::code proj-newlib-syscalls/c/zahlushky-shcho-chesno.c
 
 Найтонше тут — `_fstat`, що повертає `S_IFCHR`. Якби стаб збрехав, що дескриптор — звичайний файл (`S_IFREG`), `stdio` увімкнув би повну буферизацію, і ваш `printf("готовий\n")` осів би в буфері, **не з'явившись на екрані**, доки буфер не переповниться або не буде `fflush`. Класична загадка «чому лог видно лише після краху» — часто саме брехливий `_fstat` (або відсутній `_isatty`).
 

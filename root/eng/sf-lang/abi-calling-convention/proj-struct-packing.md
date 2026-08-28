@@ -58,44 +58,11 @@ struct SensorPacket {
 
 **Синтаксис пакування — два діалекти.** GCC і Clang розуміють атрибут `__attribute__((packed))`; він переносний між цими компіляторами й типовий у прошивковому коді. MSVC та частина вбудованих компіляторів воліють `#pragma pack`. Часто в кодовій базі бачать обидва, огорнуті в макрос, щоб код збирався скрізь. Тримаймося атрибута GCC/Clang — це те, з чим ви найчастіше стрінетеся на ARM-прошивці.
 
-```c
-#include <stdint.h>
-#include <stddef.h>   // offsetof
-
-// ── Звичайна структура: компілятор вставляє набивку ──
-struct SensorPacket {
-    uint8_t  msg_id;
-    uint32_t timestamp;
-    int16_t  temperature;
-    uint8_t  flags;
-};
-
-// ── Та сама структура, запакована: набивки нема ──
-struct __attribute__((packed)) SensorPacketPacked {
-    uint8_t  msg_id;
-    uint32_t timestamp;
-    int16_t  temperature;
-    uint8_t  flags;
-};
-```
+:::code proj-struct-packing/c/robochyi-kod-ta-sama.c
 
 Що покаже `sizeof` і `offsetof` (макрос, що повертає зсув поля в байтах):
 
-```c
-// Звичайна:
-sizeof(struct SensorPacket)                       == 12
-offsetof(struct SensorPacket, msg_id)             == 0
-offsetof(struct SensorPacket, timestamp)          == 4    // ← посунуте набивкою
-offsetof(struct SensorPacket, temperature)        == 8
-offsetof(struct SensorPacket, flags)              == 10
-
-// Запакована:
-sizeof(struct SensorPacketPacked)                 == 8
-offsetof(struct SensorPacketPacked, msg_id)       == 0
-offsetof(struct SensorPacketPacked, timestamp)    == 1    // ← впритул, НЕ кратне 4
-offsetof(struct SensorPacketPacked, temperature)  == 5
-offsetof(struct SensorPacketPacked, flags)        == 7
-```
+:::code proj-struct-packing/c/robochyi-kod-ta-sama-2.c
 
 Ось воно, чорним по білому. Пакування зробило рівно те, чого ви хотіли для дроту: 8 щільних байтів, кожне поле на передбачуваному зсуві, жодної діри. Здавалося б — перемога. Насправді ви щойно заклали під код відкладену бомбу, і щоб побачити її, треба спуститися на рівень інструкцій.
 
@@ -163,33 +130,7 @@ warning: taking address of packed member of 'struct SensorPacketPacked'
 Ось надійний серіалізатор для нашого пакета. Він приймає **звичайну** структуру (з набивкою — байдуже, ми її не шлемо як блок) і викладає 8 байтів у буфер у форматі **little-endian** (молодший байт першим — так домовилися обидва боки):
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-// helper: покласти uint32 у буфер молодшим байтом уперед (little-endian)
-static void put_u32_le(uint8_t *buf, uint32_t v) {
-    buf[0] = (uint8_t)(v      );
-    buf[1] = (uint8_t)(v >>  8);
-    buf[2] = (uint8_t)(v >> 16);
-    buf[3] = (uint8_t)(v >> 24);
-}
-
-static void put_u16_le(uint8_t *buf, uint16_t v) {
-    buf[0] = (uint8_t)(v     );
-    buf[1] = (uint8_t)(v >> 8);
-}
-
-// Серіалізація: структура → рівно 8 байтів дроту. Порядок і розрядність — наші.
-// Повертає кількість записаних байтів.
-size_t pack_sensor(const struct SensorPacket *p, uint8_t *out) {
-    out[0] = p->msg_id;                                  // 1 байт
-    put_u32_le(&out[1], p->timestamp);                   // 4 байти
-    put_u16_le(&out[5], (uint16_t)p->temperature);       // 2 байти
-    out[7] = p->flags;                                   // 1 байт
-    return 8;
-}
-```
+:::code proj-struct-packing/c/pravylne-rishennia.c
 ```python
 import struct
 
@@ -199,68 +140,14 @@ import struct
 def pack_sensor(msg_id, timestamp, temperature, flags):
     return struct.pack("<B I h B", msg_id, timestamp, temperature, flags)
 ```
-```go
-package sensor
-
-import "encoding/binary"
-
-type SensorPacket struct {
-	MsgID       uint8
-	Timestamp   uint32
-	Temperature int16
-	Flags       uint8
-}
-
-// Серіалізація: структура → рівно 8 байтів дроту. Порядок і розрядність — наші.
-// binary.LittleEndian кладе молодший байт уперед; байти пишемо по одному —
-// жодного припущення про розкладку структури в пам'яті.
-func PackSensor(p SensorPacket, out []byte) int {
-	out[0] = p.MsgID                                            // 1 байт
-	binary.LittleEndian.PutUint32(out[1:], p.Timestamp)        // 4 байти
-	binary.LittleEndian.PutUint16(out[5:], uint16(p.Temperature)) // 2 байти
-	out[7] = p.Flags                                            // 1 байт
-	return 8
-}
-```
-```js
-// Серіалізація: поля → рівно 8 байтів дроту. Порядок і розрядність — наші.
-// DataView з прапорцем littleEndian=true кладе молодший байт уперед;
-// setInt16 знакове (temperature ×100).
-function packSensor(msgId, timestamp, temperature, flags) {
-  const buf = new Uint8Array(8);
-  const dv = new DataView(buf.buffer);
-  dv.setUint8(0, msgId);                 // 1 байт
-  dv.setUint32(1, timestamp, true);      // 4 байти
-  dv.setInt16(5, temperature, true);     // 2 байти
-  dv.setUint8(7, flags);                 // 1 байт
-  return buf;
-}
-```
+:::code proj-struct-packing/go/pravylne-rishennia.go
+:::code proj-struct-packing/js/pravylne-rishennia.js
 :::
 
 І симетричний розбір на приймачі — теж байт за байтом, з жодним припущенням про розкладку структури відправника:
 
 :::tabs
-```c
-static uint32_t get_u32_le(const uint8_t *buf) {
-    return  (uint32_t)buf[0]
-         | ((uint32_t)buf[1] <<  8)
-         | ((uint32_t)buf[2] << 16)
-         | ((uint32_t)buf[3] << 24);
-}
-
-static uint16_t get_u16_le(const uint8_t *buf) {
-    return (uint16_t)(buf[0] | (buf[1] << 8));
-}
-
-// Десеріалізація: 8 байтів дроту → структура. Заповнюємо ЗВИЧАЙНУ структуру.
-void unpack_sensor(const uint8_t *in, struct SensorPacket *p) {
-    p->msg_id      = in[0];
-    p->timestamp   = get_u32_le(&in[1]);
-    p->temperature = (int16_t)get_u16_le(&in[5]);
-    p->flags       = in[7];
-}
-```
+:::code proj-struct-packing/c/pravylne-rishennia-2.c
 ```python
 import struct
 
@@ -270,35 +157,8 @@ def unpack_sensor(data):
     msg_id, timestamp, temperature, flags = struct.unpack("<B I h B", data)
     return msg_id, timestamp, temperature, flags
 ```
-```go
-package sensor
-
-import "encoding/binary"
-
-// Десеріалізація: 8 байтів дроту → структура. Читаємо побайтово,
-// binary.LittleEndian збирає багатобайтові числа з молодшого байта.
-func UnpackSensor(in []byte) SensorPacket {
-	return SensorPacket{
-		MsgID:       in[0],
-		Timestamp:   binary.LittleEndian.Uint32(in[1:]),
-		Temperature: int16(binary.LittleEndian.Uint16(in[5:])),
-		Flags:       in[7],
-	}
-}
-```
-```js
-// Десеріалізація: 8 байтів дроту → об'єкт полів. littleEndian=true;
-// getInt16 повертає знакове (temperature ×100).
-function unpackSensor(data) {
-  const dv = new DataView(data.buffer, data.byteOffset, data.byteLength);
-  return {
-    msgId:       dv.getUint8(0),
-    timestamp:   dv.getUint32(1, true),
-    temperature: dv.getInt16(5, true),
-    flags:       dv.getUint8(7),
-  };
-}
-```
+:::code proj-struct-packing/go/pravylne-rishennia-2.go
+:::code proj-struct-packing/js/pravylne-rishennia-2.js
 :::
 
 Розберімо, чому це — правильна відповідь, а не просто «довший спосіб зробити те саме».
@@ -319,21 +179,7 @@ function unpackSensor(data) {
 
 Наприклад, безпечно:
 
-```c
-struct __attribute__((packed)) FrameHeader {
-    uint8_t  version;
-    uint32_t length;   // невирівняне поле (зсув 1)
-    uint16_t crc;
-};
-
-void handle(const uint8_t *raw) {
-    const struct FrameHeader *hdr = (const struct FrameHeader *)raw;
-
-    uint32_t len = hdr->length;   // OK: компілятор читає побайтово, вирівняно
-    if (len > MAX_FRAME) reject();
-    // ...працюємо з len (це вже звичайне число в регістрі)
-}
-```
+:::code proj-struct-packing/c/koly-pakuvannia-vse-zh.c
 
 А ось так — **зась**, навіть якщо `hdr->length` поруч працює:
 

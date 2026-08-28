@@ -171,22 +171,7 @@ x = [1, 2, 3]   # x тепер вказує на об'єкт типу list
 
 У TypeScript розробник сам обирає рівень строгості:
 
-```typescript
-// Повністю динамічний фрагмент (поступова міграція)
-function legacy_calculate(data: any) {
-    return data.price * data.count; // Типи не перевіряються
-}
-
-// Статично типізований контракт
-interface OrderItem {
-    readonly price: number;
-    readonly count: number;
-}
-
-function safe_calculate(item: OrderItem): number {
-    return item.price * item.count; // Перевіряється на етапі збірки
-}
-```
+:::code static-vs-dynamic-typing-d/ts/index.ts
 
 Головна архітектурна особливість TypeScript полягає в тому, що його типи існують **виключно під час трансляції** (англ. *compile-time only*). Транспілятор `tsc` перевіряє типи, після чого видаляє всі інтерфейси й анотації, генеруючи стандартний JavaScript. Якщо у рантаймі через мережу прийде некоректний JSON, TypeScript-типи не врятують від аварії — для валідації зовнішніх даних потрібні додаткові бібліотеки парсингу схем (як-от Zod чи io-ts).
 
@@ -195,102 +180,8 @@ function safe_calculate(item: OrderItem): number {
 Статичні мови надають спеціальні контейнери для роботи з гетерогенними даними, чия структура стає відомою лише під час виконання (наприклад, розбір довільного JSON або побудова плагінної архітектури):
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-/* Універсальне динамічне значення у C через дискриміноване об'єднання */
-typedef enum { TYPE_INT, TYPE_STRING, TYPE_INVALID } DataType;
-
-typedef struct {
-    DataType type;
-    union {
-        int int_val;
-        char *str_val;
-    } as;
-} DynamicBox;
-
-DynamicBox make_int(int v) {
-    DynamicBox b;
-    b.type = TYPE_INT;
-    b.as.int_val = v;
-    return b;
-}
-
-DynamicBox make_str(const char *s) {
-    DynamicBox b;
-    b.type = TYPE_STRING;
-    b.as.str_val = strdup(s);
-    return b;
-}
-
-void print_box(const DynamicBox *b) {
-    if (b->type == TYPE_INT) {
-        printf("Int: %d\n", b->as.int_val);
-    } else if (b->type == TYPE_STRING) {
-        printf("String: %s\n", b->as.str_val);
-    }
-}
-
-void free_box(DynamicBox *b) {
-    if (b->type == TYPE_STRING && b->as.str_val) {
-        free(b->as.str_val);
-        b->as.str_val = NULL;
-    }
-}
-
-int main(void) {
-    DynamicBox b1 = make_int(100);
-    DynamicBox b2 = make_str("Статична мова з динамічним контейнером");
-
-    print_box(&b1);
-    print_box(&b2);
-
-    free_box(&b1);
-    free_box(&b2);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <variant>
-#include <any>
-#include <vector>
-
-// 1. Безпечний закритий поліморфізм через std::variant (C++17)
-using SafeDynamicValue = std::variant<int, double, std::string>;
-
-void process_variant(const SafeDynamicValue& val) {
-    std::visit([](const auto& arg) {
-        std::cout << "Значення: " << arg << '\n';
-    }, val);
-}
-
-// 2. Повністю відкритий динамічний тип через std::any (аналог Object у C# / Java)
-void process_any(const std::any& val) {
-    if (val.type() == typeid(int)) {
-        std::cout << "std::any містить int: " << std::any_cast<int>(val) << '\n';
-    } else if (val.type() == typeid(std::string)) {
-        std::cout << "std::any містить string: " << std::any_cast<std::string>(val) << '\n';
-    }
-}
-
-int main() {
-    SafeDynamicValue v1 = 42;
-    SafeDynamicValue v2 = std::string("C++ Variant");
-    process_variant(v1);
-    process_variant(v2);
-
-    std::any a1 = 1000;
-    std::any a2 = std::string("C++ Any");
-    process_any(a1);
-    process_any(a2);
-
-    return 0;
-}
-```
+:::code static-vs-dynamic-typing-d/c/main.c
+:::code static-vs-dynamic-typing-d/cpp/main.cpp
 :::
 
 ## Вплив на архітектуру, рефакторинг та екосистему тестування

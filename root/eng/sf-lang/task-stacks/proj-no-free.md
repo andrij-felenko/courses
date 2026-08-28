@@ -40,51 +40,13 @@
 
 **Блок 1 — оголошення пулу й ініціалізація free list**
 
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-#define POOL_N   16          /* кількість блоків                    */
-#define BLOCK_SZ 64          /* розмір кожного блоку, байт          */
-
-static uint8_t pool[POOL_N][BLOCK_SZ];  /* статична пам'ять — НЕ купа */
-static void   *freeList;                /* голова списку вільних       */
-
-void pool_init(void)
-{
-    /* Зшиваємо всі блоки в ланцюг:
-       у перших sizeof(void*) байтах кожного вільного блоку
-       зберігаємо вказівник на наступний вільний блок.       */
-    for (int i = 0; i < POOL_N - 1; i++)
-        *(void **)pool[i] = pool[i + 1];   /* pool[i] → pool[i+1] */
-    *(void **)pool[POOL_N - 1] = NULL;     /* останній → NULL     */
-    freeList = pool[0];                    /* голова = pool[0]    */
-}
-```
+:::code proj-no-free/c/robochyi-kod-c-c-dlia.c
 
 Трюк `*(void **)pool[i]` виглядає незвично, але безпечний: поки блок вільний, у ньому нічиїх даних немає — ми просто позичаємо його перші байти під вказівник. Як тільки блок видано, ці байти перекриються справжніми даними записувача — і вказівник там уже не читається. Коли блок повертають назад, ті самі байти знову стають нашими.
 
 **Блок 2 — alloc і free за O(1)**
 
-```c
-void *pool_alloc(void)
-{
-    if (freeList == NULL)
-        return NULL;              /* пул вичерпано — штатна ситуація */
-
-    void *blk  = freeList;       /* знімаємо голову                 */
-    freeList   = *(void **)blk;  /* голова → наступний вільний      */
-    return blk;
-}
-
-void pool_free(void *p)
-{
-    if (p == NULL) return;
-
-    *(void **)p = freeList;      /* у блок пишемо стару голову      */
-    freeList    = p;             /* блок стає новою головою         */
-}
-```
+:::code proj-no-free/c/robochyi-kod-c-c-dlia-2.c
 
 Жодного `malloc`, жодного `free()` з libC. Обидві функції — кілька машинних інструкцій, час сталий. «Звільнення» — це повернення в пул, а не повернення операційній системі: пам'ять нікуди не йде, вона лишається в тому самому статичному масиві.
 
@@ -92,31 +54,7 @@ void pool_free(void *p)
 
 Якщо `pool_alloc`/`pool_free` викликаються з кількох задач, `freeList` — спільний ресурс, і його треба захистити. Операція коротка — два-три рядки — тому критична секція доречніша за повноцінний м'ютекс.
 
-```c
-#include "freertos/FreeRTOS.h"
-#include "freertos/portmacro.h"
-
-static portMUX_TYPE pool_mux = portMUX_INITIALIZER_UNLOCKED;
-
-void *pool_alloc_safe(void)
-{
-    void *blk;
-    portENTER_CRITICAL(&pool_mux);
-    blk = pool_alloc();
-    portEXIT_CRITICAL(&pool_mux);
-    return blk;
-}
-
-void pool_free_safe(void *p)
-{
-    portENTER_CRITICAL(&pool_mux);
-    pool_free(p);
-    portEXIT_CRITICAL(&pool_mux);
-}
-
-/* З обробника переривань (ISR) — варіанти ...FromISR():       */
-/* portENTER_CRITICAL_ISR / portEXIT_CRITICAL_ISR(&pool_mux)  */
-```
+:::code proj-no-free/c/robochyi-kod-c-c-dlia-3.c
 
 Це той самий [захист спільного ресурсу](root:sf-tasks/task-ipc), лише навколо двох рядків; коротка операція — короткий замок.
 

@@ -15,97 +15,8 @@
 ### Реалізація на x86-64 та AArch64
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-/* Зчитування TSC на x86-64 із серіалізацією конвеєра через lfence */
-static inline uint64_t cpu_cycles_x86(void) {
-    uint32_t lo, hi;
-    /* lfence запобігає випереджальному виконанню rdtsc процесором */
-    __asm__ __volatile__ (
-        "lfence\n\t"
-        "rdtsc"
-        : "=a" (lo), "=d" (hi)
-        :
-        : "memory"
-    );
-    return ((uint64_t)hi << 32) | lo;
-}
-
-/* Зчитування віртуального лічильника CNTVCT_EL0 на ARM64 */
-static inline uint64_t cpu_cycles_arm64(void) {
-    uint64_t val;
-    __asm__ __volatile__ (
-        "isb\n\t"
-        "mrs %0, cntvct_el0"
-        : "=r" (val)
-        :
-        : "memory"
-    );
-    return val;
-}
-
-int main(void) {
-    uint64_t start = cpu_cycles_x86();
-    
-    /* Вимірювана ділянка коду: простий накопичувальний цикл */
-    volatile int sum = 0;
-    for (int i = 0; i < 1000; ++i) {
-        sum += i;
-    }
-    
-    uint64_t end = cpu_cycles_x86();
-    printf("Витрачено тактів процесора: %lu\n", (unsigned long)(end - start));
-    return 0;
-}
-```
-```cpp
-#include <cstdint>
-#include <iostream>
-
-/* Ідіоматична C++ обгортка над апаратним таймером процесора */
-class CpuCycleTimer {
-public:
-    static uint64_t now() noexcept {
-#if defined(__x86_64__) || defined(_M_X64)
-        uint32_t lo = 0, hi = 0;
-        asm volatile (
-            "lfence\n\t"
-            "rdtsc"
-            : "=a" (lo), "=d" (hi)
-            :
-            : "memory"
-        );
-        return (static_cast<uint64_t>(hi) << 32) | lo;
-#elif defined(__aarch64__)
-        uint64_t val = 0;
-        asm volatile (
-            "isb\n\t"
-            "mrs %0, cntvct_el0"
-            : "=r" (val)
-            :
-            : "memory"
-        );
-        return val;
-#else
-        return 0;
-#endif
-    }
-};
-
-int main() {
-    const uint64_t start = CpuCycleTimer::now();
-    
-    volatile int sum = 0;
-    for (int i = 0; i < 1000; ++i) {
-        sum += i;
-    }
-    
-    const uint64_t end = CpuCycleTimer::now();
-    std::cout << "Витрачено тактів процесора: " << (end - start) << '\n';
-}
-```
+:::code proj-benchmark-barrier/c/realizatsiia-na-x86-64-ta.c
+:::code proj-benchmark-barrier/cpp/realizatsiia-na-x86-64-ta.cpp
 :::
 
 Зверніть увагу на обмеження `"=a"` та `"=d"` у варіанті для x86: вони жорстко наказують розподілювачу регістрів пов'язати змінну `lo` з регістром `EAX`, а `hi` — з `EDX`, що точно відповідає апаратній специфікації інструкції `rdtsc`. Для забезпечення стабільності результатів вимірювання у реальних тестах потік рекомендується прив'язувати до одного ядра процесора через `sched_setaffinity`, щоб уникнути міграції між ядрами з різними базовими значеннями лічильників.
@@ -119,48 +30,8 @@ int main() {
 ### Експериментальний стенд
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Функція обробки буфера з явним бар'єром компілятора */
-void process_with_barrier(int *shared_buffer, int count) {
-    for (int i = 0; i < count; ++i) {
-        shared_buffer[i] = i * 2;
-        
-        /* Програмний бар'єр забороняє переносити або об'єднувати записи */
-        __asm__ __volatile__ ("" ::: "memory");
-    }
-}
-
-/* Функція обробки буфера без бар'єра (піддається агресивній оптимізації) */
-void process_without_barrier(int *shared_buffer, int count) {
-    for (int i = 0; i < count; ++i) {
-        shared_buffer[i] = i * 2;
-    }
-}
-```
-```cpp
-#include <span>
-#include <cstdint>
-
-/* C++ варіант з безпечним інтерфейсом std::span */
-void process_with_barrier(std::span<int> buffer) noexcept {
-    int val = 0;
-    for (int &elem : buffer) {
-        elem = val++ * 2;
-        /* Програмний бар'єр інвалідує кешовані значення в регістрах */
-        asm volatile ("" ::: "memory");
-    }
-}
-
-void process_without_barrier(std::span<int> buffer) noexcept {
-    int val = 0;
-    for (int &elem : buffer) {
-        elem = val++ * 2;
-    }
-}
-```
+:::code proj-benchmark-barrier/c/eksperymentalnyi-stend.c
+:::code proj-benchmark-barrier/cpp/eksperymentalnyi-stend.cpp
 :::
 
 ### Аналіз згенерованого асемблерного коду
@@ -181,42 +52,8 @@ void process_without_barrier(std::span<int> buffer) noexcept {
 ### Відтворення помилки
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-/* ДЕФЕКТ: при оптимізації -O2 змінна multiplier буде пошкоджена */
-uint64_t unsafe_accumulate(uint64_t base, uint64_t multiplier) {
-    uint64_t result;
-    __asm__ (
-        "movq %1, %0\n\t"       /* Крок 1: запис у %0 руйнує %2, якщо вони в одному регістрі! */
-        "imulq %2, %0\n\t"      /* Крок 2: множення на вже пошкоджений %2 */
-        "addq %1, %0"           /* Крок 3: додавання base */
-        : "=r" (result)         /* ПОМИЛКА: пропущено модифікатор & */
-        : "r" (base), "r" (multiplier)
-        : "cc"
-    );
-    return result;
-}
-```
-```cpp
-#include <cstdint>
-#include <iostream>
-
-/* ДЕФЕКТ: некоректний розподіл регістрів під оптимізацією */
-uint64_t unsafe_accumulate(uint64_t base, uint64_t multiplier) noexcept {
-    uint64_t result = 0;
-    asm (
-        "movq %1, %0\n\t"
-        "imulq %2, %0\n\t"
-        "addq %1, %0"
-        : "=r" (result)         /* ПОМИЛКА: пропущено модифікатор & */
-        : "r" (base), "r" (multiplier)
-        : "cc"
-    );
-    return result;
-}
-```
+:::code proj-benchmark-barrier/c/vidtvorennia-pomylky.c
+:::code proj-benchmark-barrier/cpp/vidtvorennia-pomylky.cpp
 :::
 
 Під час компіляції з `-O2` розподілювач регістрів бачить, що вхідний аргумент `multiplier` більше не потрібен після завершення вставки, і призначає вихідному операнду `result` та вхідному `multiplier` спільний регістр `%rax`. У результаті перша ж інструкція `movq %rdi, %rax` затирає значення `multiplier`, а наступна команда `imulq %rax, %rax` множить число саме на себе замість потрібного коефіцієнта.
@@ -224,40 +61,8 @@ uint64_t unsafe_accumulate(uint64_t base, uint64_t multiplier) noexcept {
 ### Виправлення за допомогою модифікатора `=&r`
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* КОРЕКТНО: модифікатор & гарантує унікальність фізичного регістра */
-uint64_t safe_accumulate(uint64_t base, uint64_t multiplier) {
-    uint64_t result;
-    __asm__ (
-        "movq %1, %0\n\t"
-        "imulq %2, %0\n\t"
-        "addq %1, %0"
-        : "=&r" (result)        /* ВИПРАВЛЕНО: earlyclobber захищає від злиття регістрів */
-        : "r" (base), "r" (multiplier)
-        : "cc"
-    );
-    return result;
-}
-```
-```cpp
-#include <cstdint>
-
-/* КОРЕКТНИЙ ідіоматичний C++ код */
-uint64_t safe_accumulate(uint64_t base, uint64_t multiplier) noexcept {
-    uint64_t result = 0;
-    asm (
-        "movq %1, %0\n\t"
-        "imulq %2, %0\n\t"
-        "addq %1, %0"
-        : "=&r" (result)        /* ВИПРАВЛЕНО: earlyclobber */
-        : "r" (base), "r" (multiplier)
-        : "cc"
-    );
-    return result;
-}
-```
+:::code proj-benchmark-barrier/c/vypravlennia-za-dopomohoiu.c
+:::code proj-benchmark-barrier/cpp/vypravlennia-za-dopomohoiu.cpp
 :::
 
 Модифікатор `&` змушує планувальник графів інтерференції вважати інтервал життя вихідного регістра перекритим з інтервалами життя всіх вхідних регістрів, що гарантує виділення абсолютно незалежного фізичного регістра.
@@ -269,53 +74,8 @@ uint64_t safe_accumulate(uint64_t base, uint64_t multiplier) noexcept {
 ### Порівняльний аналіз: підрахунок провідних нулів та SIMD-додавання
 
 :::tabs
-```c
-#include <stdint.h>
-#include <immintrin.h>
-
-/* Варіант 1: Вбудований асемблер (не підтримує згортання констант) */
-int count_leading_zeros_asm(uint32_t val) {
-    if (val == 0) return 32;
-    int res;
-    __asm__ ("bsrl %1, %0" : "=r" (res) : "r" (val) : "cc");
-    return 31 - res;
-}
-
-/* Варіант 2: Вбудована функція компілятора (повна оптимізація в IR) */
-int count_leading_zeros_intrinsic(uint32_t val) {
-    if (val == 0) return 32;
-    return __builtin_clz(val); /* Автоматично генерує LZCNT або BSR */
-}
-
-/* Паралельне векторне додавання через SSE Intrinsics */
-void add_vectors_sse(const float *a, const float *b, float *result) {
-    __m128 va = _mm_loadu_ps(a);
-    __m128 vb = _mm_loadu_ps(b);
-    __m128 vres = _mm_add_ps(va, vb);
-    _mm_storeu_ps(result, vres);
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-#include <immintrin>
-#include <span>
-
-/* Варіант C++20: стандартний алгоритм транслюється прямо в intrinsic */
-constexpr int count_leading_zeros_modern(uint32_t val) noexcept {
-    return std::countl_zero(val); /* Може обчислюватися під час компіляції (constexpr) */
-}
-
-/* Ідіоматична робота з SIMD через intrinsics у C++ */
-void add_vectors_sse(std::span<const float, 4> a, 
-                     std::span<const float, 4> b, 
-                     std::span<float, 4> result) noexcept {
-    const __m128 va = _mm_loadu_ps(a.data());
-    const __m128 vb = _mm_loadu_ps(b.data());
-    const __m128 vres = _mm_add_ps(va, vb);
-    _mm_storeu_ps(result.data(), vres);
-}
-```
+:::code proj-benchmark-barrier/c/porivnialnyi-analiz.c
+:::code proj-benchmark-barrier/cpp/porivnialnyi-analiz.hpp
 :::
 
 Якщо передати константу `count_leading_zeros_intrinsic(0x00FF0000)` у варіант з intrinsics, компілятор виконає операцію `__builtin_clz` безпосередньо під час аналізу синтаксичного дерева, повністю замінивши виклик функції на число `8`. Варіант на вбудованому асемблері змушений щоразу генерувати інструкцію `bsrl` під час виконання у процесорі.

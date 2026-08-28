@@ -18,139 +18,22 @@
 Створимо два модулі: модуль обробки `engine` та головний модуль `main`.
 
 :::tabs
-```c
-// engine.h — оголошення інтерфейсу та допоміжних функцій (C)
-#ifndef ENGINE_H
-#define ENGINE_H
-
-#include <stdint.h>
-
-typedef struct IFilter {
-    int32_t (*process)(void* self, int32_t sample);
-} IFilter;
-
-typedef struct GainFilter {
-    IFilter base;
-    int32_t gain;
-} GainFilter;
-
-void gain_filter_init(GainFilter* filter, int32_t gain);
-int32_t fast_scale(int32_t value, int32_t factor);
-int32_t dead_helper_function(int32_t x);
-
-#endif // ENGINE_H
-```
-```cpp
-// engine.hpp — оголошення інтерфейсу та класів (C++)
-#ifndef ENGINE_HPP
-#define ENGINE_HPP
-
-#include <cstdint>
-
-struct IFilter {
-    virtual ~IFilter() = default;
-    virtual std::int32_t process(std::int32_t sample) const = 0;
-};
-
-class GainFilter final : public IFilter {
-private:
-    std::int32_t gain_;
-public:
-    explicit GainFilter(std::int32_t gain) noexcept : gain_(gain) {}
-    std::int32_t process(std::int32_t sample) const noexcept override;
-};
-
-std::int32_t fast_scale(std::int32_t value, std::int32_t factor) noexcept;
-std::int32_t dead_helper_function(std::int32_t x) noexcept;
-
-#endif // ENGINE_HPP
-```
+:::code proj-cross-tu-inline/c/engine.h
+:::code proj-cross-tu-inline/cpp/engine.hpp
 :::
 
 Тепер створимо файл реалізації обчислювального рушія `engine.c` / `engine.cpp`:
 
 :::tabs
-```c
-// engine.c — реалізація логіки та обробки (C)
-#include "engine.h"
-
-static int32_t gain_process(void* self, int32_t sample) {
-    GainFilter* gf = (GainFilter*)self;
-    return sample * gf->gain;
-}
-
-void gain_filter_init(GainFilter* filter, int32_t gain) {
-    filter->base.process = gain_process;
-    filter->gain = gain;
-}
-
-int32_t fast_scale(int32_t value, int32_t factor) {
-    return (value * factor) + 7;
-}
-
-int32_t dead_helper_function(int32_t x) {
-    return (x ^ 0x55AA55AA) + 12345;
-}
-```
-```cpp
-// engine.cpp — реалізація логіки та обробки (C++)
-#include "engine.hpp"
-
-std::int32_t GainFilter::process(std::int32_t sample) const noexcept {
-    return sample * gain_;
-}
-
-std::int32_t fast_scale(std::int32_t value, std::int32_t factor) noexcept {
-    return (value * factor) + 7;
-}
-
-std::int32_t dead_helper_function(std::int32_t x) noexcept {
-    return (x ^ 0x55AA55AA) + 12345;
-}
-```
+:::code proj-cross-tu-inline/c/engine.c
+:::code proj-cross-tu-inline/cpp/engine.cpp
 :::
 
 І файл точки входу `main.c` / `main.cpp`, де створюється фільтр із фіксованим коефіцієнтом підсилення і викликається ланцюжок обробки сигналу:
 
 :::tabs
-```c
-// main.c — точка входу та використання інтерфейсу (C)
-#include <stdio.h>
-#include "engine.h"
-
-int main(void) {
-    GainFilter filter;
-    gain_filter_init(&filter, 5);
-
-    // Віртуальний / непрямий виклик через покажчик на функцію
-    int32_t step1 = filter.base.process(&filter, 10);
-
-    // Виклик окремої функції з іншого модуля
-    int32_t step2 = fast_scale(step1, 3);
-
-    printf("Result: %d\n", step2);
-    return 0;
-}
-```
-```cpp
-// main.cpp — точка входу та використання інтерфейсу (C++)
-#include <iostream>
-#include <memory>
-#include "engine.hpp"
-
-int main() {
-    std::unique_ptr<IFilter> filter = std::make_unique<GainFilter>(5);
-
-    // Віртуальний виклик через vtable
-    std::int32_t step1 = filter->process(10);
-
-    // Виклик функції з іншого модуля
-    std::int32_t step2 = fast_scale(step1, 3);
-
-    std::cout << "Result: " << step2 << "\n";
-    return 0;
-}
-```
+:::code proj-cross-tu-inline/c/main.c
+:::code proj-cross-tu-inline/cpp/main.cpp
 :::
 
 ---

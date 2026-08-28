@@ -63,73 +63,15 @@
 Ключове слово `extern` (*external* — «зовнішній») слугує для оголошення символу без його визначення, повідомляючи компілятору: «цей символ існує, його тип такий, а точну адресу знайде лінкер в іншому файлі».
 
 :::tabs
-```c
-// math_module.c
-// Визначення глобальної змінної та функції (External Linkage)
-int g_operation_count = 0;
-
-int calculate_checksum(const unsigned char* data, int len) {
-    g_operation_count++;
-    int sum = 0;
-    for (int i = 0; i < len; ++i) {
-        sum += data[i];
-    }
-    return sum;
-}
-```
-```cpp
-// math_module.cpp
-#include <span>
-#include <cstdint>
-
-// Визначення глобальної змінної та функції (External Linkage)
-int g_operation_count = 0;
-
-int calculate_checksum(std::span<const uint8_t> data) noexcept {
-    g_operation_count++;
-    int sum = 0;
-    for (uint8_t byte : data) {
-        sum += byte;
-    }
-    return sum;
-}
-```
+:::code translation-unit-d/c/math_module.c
+:::code translation-unit-d/cpp/math_module.cpp
 :::
 
 Щоб використати цю змінну та функцію в іншій одиниці трансляції `main.cpp`, їх оголошують через `extern`:
 
 :::tabs
-```c
-// main.c
-#include <stdio.h>
-
-extern int g_operation_count;
-extern int calculate_checksum(const unsigned char* data, int len);
-
-int main(void) {
-    unsigned char buffer[] = {1, 2, 3, 4};
-    int cs = calculate_checksum(buffer, 4);
-    printf("Checksum: %d, Ops: %d\n", cs, g_operation_count);
-    return 0;
-}
-```
-```cpp
-// main.cpp
-#include <iostream>
-#include <span>
-#include <vector>
-#include <cstdint>
-
-extern int g_operation_count;
-extern int calculate_checksum(std::span<const uint8_t> data) noexcept;
-
-int main() {
-    std::vector<uint8_t> buffer = {1, 2, 3, 4};
-    int cs = calculate_checksum(buffer);
-    std::cout << "Checksum: " << cs << ", Ops: " << g_operation_count << "\n";
-    return 0;
-}
-```
+:::code translation-unit-d/c/main.c
+:::code translation-unit-d/cpp/main.cpp
 :::
 
 #### Внутрішнє зв'язування (Internal Linkage)
@@ -142,35 +84,8 @@ int main() {
 3. Глобальні змінні з модифікатором `const` або `constexpr` у C++ (за замовчуванням у C++ глобальний `const` має внутрішнє зв'язування, на відміну від мови C, де `const` залишається external!).
 
 :::tabs
-```c
-// crypto.c
-// static обмежує видимість цим файлом:
-static int s_private_seed = 42;
-
-static int internal_hash(int val) {
-    return val ^ s_private_seed;
-}
-
-int public_encrypt(int raw) {
-    return internal_hash(raw);
-}
-```
-```cpp
-// crypto.cpp
-namespace {
-// У C++ анонімні простори імен є сучаснішою заміною static на рівні файлу.
-// Вони надають внутрішнє зв'язування не лише функціям, а й класам та типам.
-int g_private_seed = 42;
-
-int internal_hash(int val) noexcept {
-    return val ^ g_private_seed;
-}
-} // namespace
-
-int public_encrypt(int raw) noexcept {
-    return internal_hash(raw);
-}
-```
+:::code translation-unit-d/c/crypto.c
+:::code translation-unit-d/cpp/crypto.cpp
 :::
 
 Чому в C++ анонімні простори імен `namespace { }` переважають над словом `static`? Модифікатор `static` у C та C++ можна застосувати лише до імен функцій та змінних, але неможливо застосувати до визначення типів: `static class SecretHelper { ... };` є синтаксичною помилкою. Анонімний простір імен огортає будь-які оголошення (класи, структури, псевдоніми типів `using`, шаблони), гарантуючи, що вони дістають унікальне ім'я трансляції та не створюють прихованих колізій ODR між файлами.
@@ -261,20 +176,7 @@ inline int add(int a, int b) noexcept {
 
 Починаючи з C++17, ключове слово `inline` дозволено для змінних:
 
-```cpp
-// global_context.hpp (C++17)
-#pragma once
-#include <string>
-
-struct AppConfig {
-    std::string app_name = "CoreEngine";
-    int worker_threads = 8;
-};
-
-// inline-змінна: дозволено визначення в заголовку,
-// лінкер гарантує існування рівно одного екземпляра в пам'яті програми!
-inline AppConfig g_app_config;
-```
+:::code translation-unit-d/cpp/global_context.hpp
 
 Компілятор поміщає `g_app_config` у секцію даних COMDAT, і вся програма ділить єдиний глобальний стан без необхідності заводити допоміжний `global_context.cpp`.
 
@@ -310,21 +212,7 @@ ODR складається з трьох ключових положень:
 
 Розглянемо практичний приклад прихованого краху:
 
-```cpp
-// packet.hpp
-#pragma once
-#include <cstdint>
-
-struct NetworkPacket {
-    uint32_t id;
-#ifdef ENABLE_DIAGNOSTICS
-    uint64_t timestamp;
-#endif
-    uint32_t payload_size;
-};
-
-void send_packet(const NetworkPacket& pkt);
-```
+:::code translation-unit-d/cpp/packet.hpp
 
 Якщо файл `sender.cpp` був скомпільований із прапорцем компілятора `-DENABLE_DIAGNOSTICS`, то для нього розмір `sizeof(NetworkPacket)` становить 24 байти, а поле `payload_size` лежить за зміщенням `+16`.
 
@@ -359,68 +247,15 @@ void send_packet(const NetworkPacket& pkt);
 Найпростіший та найнадійніший спосіб гарантувати безпечну ініціалізацію — відмовитися від нелокальних глобальних змінних на користь функцій із локальними статичними змінними:
 
 :::tabs
-```c
-// database_safe.h
-#ifndef DATABASE_SAFE_H
-#define DATABASE_SAFE_H
-
-typedef struct {
-    int connection_id;
-    int is_ready;
-} Database;
-
-Database* get_database(void);
-
-#endif // DATABASE_SAFE_H
-
-// database_safe.c
-#include "database_safe.h"
-
-Database* get_database(void) {
-    static Database db = { .connection_id = 101, .is_ready = 1 };
-    return &db;
-}
-```
-```cpp
-// database_safe.hpp
-#pragma once
-#include <string>
-
-class Database {
-public:
-    Database() : conn_str_("postgres://localhost:5432") {}
-    [[nodiscard]] const std::string& connection() const noexcept { return conn_str_; }
-private:
-    std::string conn_str_;
-};
-
-// Construct-On-First-Use:
-inline Database& get_database() {
-    // Гарантія C++11: ініціалізація локального static є строго потокобезпечною
-    // та відбувається рівно один раз під час першого проходження через цей рядок.
-    static Database instance;
-    return instance;
-}
-```
+:::code translation-unit-d/c/database_safe.h
+:::code translation-unit-d/cpp/database_safe.hpp
 :::
 
 #### C++20 constinit: розв'язання на рівні компілятора
 
 Починаючи зі стандарту C++20, мова отримала ключове слово `constinit`. Воно змушує компілятор виконати ініціалізацію змінної виключно у фазі **статичної ініціалізації** під час компіляції:
 
-```cpp
-// system_clock.hpp (C++20)
-#pragma once
-
-struct ClockConfig {
-    unsigned long default_frequency_hz;
-    constexpr ClockConfig(unsigned long freq) : default_frequency_hz(freq) {}
-};
-
-// constinit гарантує: змінна ініціалізується до запуску будь-якого динамічного коду!
-// Якщо конструктор не є constexpr — компілятор видасть помилку збірки.
-constinit inline ClockConfig g_clock_config{16'000'000};
-```
+:::code translation-unit-d/cpp/system_clock.hpp
 
 Оскільки об'єкти з `constinit` записуються безпосередньо у бінарний образ програми (`.data` або `.rodata`), вони фізично не можуть страждати від проблеми порядку міжфайлової ініціалізації.
 
@@ -442,23 +277,7 @@ constinit inline ClockConfig g_clock_config{16'000'000};
 
 Модуль C++20 — це окрема одиниця трансляції, яка явно оголошує свій експорт:
 
-```cpp
-// math_engine.ixx (або math_engine.cppm)
-export module math_engine; // Оголошення модуля
-
-// Ця функція експортується та доступна тим, хто робить import:
-export int calculate_factorial(int n) noexcept {
-    int res = 1;
-    for (int i = 2; i <= n; ++i) res *= i;
-    return res;
-}
-
-// Ця функція має module linkage: вона видима всередині модуля math_engine,
-// але недоступна ззовні, навіть якщо знаходиться в іншій частині цього ж модуля!
-int internal_helper(int x) noexcept {
-    return x * 2;
-}
-```
+:::code translation-unit-d/cpp/anatomiia-modulia.cpp
 
 Використання модуля в іншій одиниці трансляції:
 

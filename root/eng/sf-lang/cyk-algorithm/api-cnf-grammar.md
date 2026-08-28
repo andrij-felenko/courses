@@ -42,64 +42,16 @@ inline constexpr cyk_symbol_t CYK_NULL_SYMBOL = 0xFFFF;
 Граматика розбивається на два незалежні масиви продукцій для мінімізації промахів кешу процесора (L1 Instruction / Data Cache):
 
 :::tabs
-```c
-typedef struct {
-    cyk_symbol_t lhs;   /* Ліва частина: нетермінал A */
-    cyk_symbol_t rhs1;  /* Права частина: перший нетермінал B */
-    cyk_symbol_t rhs2;  /* Права частина: другий нетермінал C */
-} cyk_binary_rule_t;
-
-typedef struct {
-    cyk_symbol_t lhs;       /* Ліва частина: нетермінал A */
-    cyk_symbol_t terminal;  /* Права частина: термінальний символ a */
-} cyk_terminal_rule_t;
-```
-```cpp
-struct BinaryRule {
-    cyk_symbol_t lhs;
-    cyk_symbol_t rhs1;
-    cyk_symbol_t rhs2;
-};
-
-struct TerminalRule {
-    cyk_symbol_t lhs;
-    cyk_symbol_t terminal;
-};
-```
+:::code api-cnf-grammar/c/2-2-struktura-pravyla.c
+:::code api-cnf-grammar/cpp/2-2-struktura-pravyla.cpp
 :::
 
 ### 2.3. Контекст парсера (`cyk_context_t`)
 Головний об'єкт стану, що містить скомпільовану граматику, зворотні індекси та конфігурацію:
 
 :::tabs
-```c
-typedef struct {
-    cyk_symbol_t start_symbol;
-    const cyk_binary_rule_t* binary_rules;
-    size_t num_binary_rules;
-    const cyk_terminal_rule_t* terminal_rules;
-    size_t num_terminal_rules;
-    
-    /* Зворотний індекс пар: lookup[B * max_symbols + C] -> список правил */
-    uint32_t* pair_index_offsets;
-    cyk_symbol_t* pair_index_rules;
-    size_t max_nonterminals;
-} cyk_context_t;
-```
-```cpp
-#include <vector>
-#include <span>
-
-class GrammarContext {
-public:
-    cyk_symbol_t start_symbol;
-    std::vector<BinaryRule> binary_rules;
-    std::vector<TerminalRule> terminal_rules;
-    std::vector<uint32_t> pair_index_offsets;
-    std::vector<cyk_symbol_t> pair_index_rules;
-    size_t max_nonterminals = 0;
-};
-```
+:::code api-cnf-grammar/c/2-3-kontekst-parsera-cyk.c
+:::code api-cnf-grammar/cpp/2-3-kontekst-parsera-cyk.cpp
 :::
 
 ---
@@ -154,21 +106,7 @@ cyk_status_t cyk_parse_tokens(
     cyk_tree_node_t** out_tree_root
 );
 ```
-```cpp
-#include <optional>
-#include <span>
-
-struct ParseResult {
-    bool accepted = false;
-    std::unique_ptr<TreeNode> tree = nullptr;
-};
-
-std::expected<ParseResult, cyk_status_t> parse_tokens(
-    const GrammarContext& ctx,
-    std::span<const cyk_symbol_t> tokens,
-    bool build_tree = true
-);
-```
+:::code api-cnf-grammar/cpp/3-2-syntaksychnyi-rozbir.cpp
 :::
 
 - **Параметри:**
@@ -248,19 +186,7 @@ typedef struct cyk_tree_node {
     struct cyk_tree_node* right_child; /* Правий нащадок (C) */
 } cyk_tree_node_t;
 ```
-```cpp
-#include <memory>
-#include <optional>
-
-struct TreeNode {
-    cyk_symbol_t symbol;
-    std::optional<cyk_symbol_t> terminal_value;
-    size_t span_start;
-    size_t span_length;
-    std::unique_ptr<TreeNode> left_child;
-    std::unique_ptr<TreeNode> right_child;
-};
-```
+:::code api-cnf-grammar/cpp/5-derevo-syntaksychnoho.cpp
 :::
 
 Кожен внутрішній вузол гарантує виконання інваріанта:
@@ -283,34 +209,8 @@ node->right_child->span_start = node->left_child->span_start + node->left_child-
 Для задач комп'ютерної лінгвістики та аналізу неоднозначних природних мов інтерфейс розширюється підтримкою ваг та ймовірностей:
 
 :::tabs
-```c
-typedef struct {
-    cyk_symbol_t lhs;
-    cyk_symbol_t rhs1;
-    cyk_symbol_t rhs2;
-    float log_probability; /* Логарифм ймовірності log P(A -> BC) */
-} cyk_prob_binary_rule_t;
-
-typedef struct {
-    cyk_symbol_t lhs;
-    cyk_symbol_t terminal;
-    float log_probability; /* Логарифм ймовірності log P(A -> a) */
-} cyk_prob_terminal_rule_t;
-```
-```cpp
-struct ProbBinaryRule {
-    cyk_symbol_t lhs;
-    cyk_symbol_t rhs1;
-    cyk_symbol_t rhs2;
-    float log_probability;
-};
-
-struct ProbTerminalRule {
-    cyk_symbol_t lhs;
-    cyk_symbol_t terminal;
-    float log_probability;
-};
-```
+:::code api-cnf-grammar/c/7-rozshyrennia-dlia.c
+:::code api-cnf-grammar/cpp/7-rozshyrennia-dlia.cpp
 :::
 
 Використання логарифмів ймовірностей замість прямих чисел із плаваючою комою усуває арифметичне зникнення порядку (underflow) при множенні десятків малих ймовірностей у глибоких деревах синтаксичного виведення.
@@ -341,51 +241,6 @@ RAM_Bytes(n, |V_N|) = ((n(n + 1)) / 2) · [ sizeof(cyk_bitset_t) + k_avg · size
 ## 10. Приклад використання API у сторонньому додатку
 
 :::tabs
-```c
-/* Приклад компіляції граматики та розбору послідовності токенів */
-cyk_context_t* ctx = NULL;
-cyk_binary_rule_t bin_rules[] = {
-    { 0, 1, 2 }, /* S -> A B */
-    { 1, 2, 1 }  /* A -> B A */
-};
-cyk_terminal_rule_t term_rules[] = {
-    { 1, 100 },  /* A -> 'a' */
-    { 2, 101 }   /* B -> 'b' */
-};
-
-cyk_status_t status = cyk_context_create(0, bin_rules, 2, term_rules, 2, &ctx);
-if (status == CYK_STATUS_OK) {
-    cyk_symbol_t input_tokens[] = { 101, 100 }; /* "ba" */
-    bool accepted = false;
-    cyk_tree_node_t* tree = NULL;
-    
-    if (cyk_parse_tokens(ctx, input_tokens, 2, &accepted, &tree) == CYK_STATUS_OK) {
-        if (accepted) {
-            /* Обробка синтаксичного дерева */
-            cyk_tree_free(tree);
-        }
-    }
-    cyk_context_destroy(ctx);
-}
-```
-```cpp
-/* Приклад на C++20 із безпечним керуванням пам'яттю */
-std::vector<BinaryRule> bin_rules = {
-    { 0, 1, 2 },
-    { 1, 2, 1 }
-};
-std::vector<TerminalRule> term_rules = {
-    { 1, 100 },
-    { 2, 101 }
-};
-
-auto ctx_res = make_grammar_context(0, bin_rules, term_rules);
-if (ctx_res.has_value()) {
-    std::vector<cyk_symbol_t> input_tokens = { 101, 100 };
-    auto parse_res = parse_tokens(*ctx_res.value(), input_tokens);
-    if (parse_res.has_value() && parse_res.value().accepted) {
-        /* Обробка синтаксичного дерева: parse_res.value().tree */
-    }
-}
-```
+:::code api-cnf-grammar/c/10-pryklad-vykorystannia.c
+:::code api-cnf-grammar/cpp/10-pryklad-vykorystannia.cpp
 :::

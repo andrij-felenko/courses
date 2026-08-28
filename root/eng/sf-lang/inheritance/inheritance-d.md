@@ -28,76 +28,8 @@
 Розглянемо це розміщення на конкретному прикладі коду:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stddef.h>
-
-/* Базовий під-об'єкт */
-typedef struct {
-    int id;
-    int flags;
-} Base;
-
-/* Похідна структура: базовий блок стоїть строго першим */
-typedef struct {
-    Base base;         /* Зсув 0 байтів */
-    double score;      /* Зсув 8 байтів (після вирівнювання) */
-    int extra;         /* Зсув 16 байтів */
-} Derived;
-
-void print_base(const Base* b) {
-    printf("Base id: %d, flags: 0x%X\n", b->id, b->flags);
-}
-
-int main(void) {
-    Derived d;
-    d.base.id = 42;
-    d.base.flags = 0x01;
-    d.score = 99.5;
-    d.extra = 7;
-
-    /* Безпечне приведення вказівника: адреса d збігається з адресою d.base */
-    const Base* b_ptr = (const Base*)&d;
-    print_base(b_ptr);
-
-    printf("Зсув base:  %zu B\n", offsetof(Derived, base));
-    printf("Зсув score: %zu B\n", offsetof(Derived, score));
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstddef>
-
-class Base {
-public:
-    int id{42};
-    int flags{0x01};
-};
-
-class Derived : public Base {
-public:
-    double score{99.5};
-    int extra{7};
-};
-
-void print_base(const Base* b) {
-    std::cout << "Base id: " << b->id << ", flags: 0x" << std::hex << b->flags << std::dec << "\n";
-}
-
-int main() {
-    Derived d;
-
-    // Upcast: компілятор не генерує жодної машинної інструкції зміщення
-    const Base* b_ptr = &d;
-    print_base(b_ptr);
-
-    std::cout << "Адреса Derived: " << static_cast<const void*>(&d) << "\n";
-    std::cout << "Адреса Base:    " << static_cast<const void*>(b_ptr) << "\n";
-    std::cout << "Різниця адрес:  " << reinterpret_cast<uintptr_t>(b_ptr) - reinterpret_cast<uintptr_t>(&d) << " B\n";
-    return 0;
-}
-```
+:::code inheritance-d/c/pid-obiekty-ta-dviikova.c
+:::code inheritance-d/cpp/pid-obiekty-ta-dviikova.cpp
 :::
 
 Завдяки префіксному розташуванню виникає ключова інваріантна властивість одиничного спадкування: **приведення типу вгору по ієрархії (англ. *upcasting*) є абсолютно безкоштовною операцією часу компіляції (zero-cost abstraction)**. Чисельне значення адреси `Derived*` та `Base*` ідентичне:
@@ -152,26 +84,7 @@ Base b = d; // Зрізання: копіюються лише sizeof(Base) ба
 
 Нехай клас `Derived` успадковує `BaseA` та `BaseB`:
 
-```cpp
-class BaseA {
-public:
-    virtual void opA();
-    int a;
-};
-
-class BaseB {
-public:
-    virtual void opB();
-    int b;
-};
-
-class Derived : public BaseA, public BaseB {
-public:
-    void opA() override;
-    void opB() override;
-    int d;
-};
-```
+:::code inheritance-d/cpp/mnozhynne-spadkuvannia-ta.hpp
 
 Компілятор змушений вибудувати під-об'єкти послідовно один за одним. Перший базовий клас (`BaseA`) отримує зсув `0`. Другий базовий клас (`BaseB`) розміщується зі зсувом `Δ = sizeof(BaseA)` (з урахуванням вирівнювання).
 
@@ -251,27 +164,7 @@ Thunk відновлює правильну адресу `this` за один т
 
 Розглянемо, що відбувається за звичайного (невіртуального) спадкування:
 
-```cpp
-struct Base {
-    int counter;
-};
-
-struct Left : public Base {
-    void stepLeft() { counter++; }
-};
-
-struct Right : public Base {
-    void stepRight() { counter += 2; }
-};
-
-struct Bottom : public Left, public Right {
-    void stepBoth() {
-        // counter++; // ПОМИЛКА КОМПІЛЯЦІЇ: неоднозначність!
-        Left::counter++;   // змінює копію Base всередині Left
-        Right::counter++;  // змінює копію Base всередині Right
-    }
-};
-```
+:::code inheritance-d/cpp/rombopodibne-spadkuvannia.cpp
 
 ![Ромбоподібне невіртуальне спадкування: об'єкт Bottom містить два незалежні екземпляри Base, викликаючи неоднозначність доступу та дублювання стану](img/diamond-problem.svg)
 *Ромбоподібне спадкування без віртуальних баз. Усередині об'єкта Bottom утворюються два незалежні під-об'єкти Base. Доступ до поля counter без явної вказівки гілки Left:: або Right:: викликає помилку компілятора.*
@@ -290,23 +183,7 @@ struct Bottom : public Left, public Right {
 
 Щоб гарантувати наявність рівно **одного спільного екземпляра** базового класу в усій ієрархії нащадка, мова C++ надає механізм **віртуального базового спадкування** (англ. *virtual base inheritance*):
 
-```cpp
-struct Base {
-    int counter;
-};
-
-struct Left : virtual public Base {
-    int left_data;
-};
-
-struct Right : virtual public Base {
-    int right_data;
-};
-
-struct Bottom : public Left, public Right {
-    int bot_data;
-};
-```
+:::code inheritance-d/cpp/virtualne-bazove.cpp
 
 Ключове слово `virtual` докорінно змінює фізичну розкладку об'єкта.
 
@@ -379,71 +256,8 @@ struct Bottom : public Left, public Right {
 У мовах зі статичною типізацією (C++) міксини реалізують через параметризоване спадкування (шаблони):
 
 :::tabs
-```cpp
-#include <iostream>
-#include <string>
-
-// Міксин логування: приймає базовий клас як параметр шаблону
-template <typename BaseClass>
-class LoggingMixin : public BaseClass {
-public:
-    template <typename... Args>
-    LoggingMixin(Args&&... args) : BaseClass(std::forward<Args>(args)...) {}
-
-    void executeWithLog() {
-        std::cout << "[LOG] Початок виконання операції\n";
-        this->execute(); // Викликає метод базового класу
-        std::cout << "[LOG] Операцію завершено\n";
-    }
-};
-
-class Task {
-public:
-    void execute() {
-        std::cout << "Виконуються корисні обчислення...\n";
-    }
-};
-
-// Лінеаризація під час компіляції: LoggingTask є нащадком Task
-using LoggingTask = LoggingMixin<Task>;
-
-int main() {
-    LoggingTask task;
-    task.executeWithLog();
-    return 0;
-}
-```
-```c
-#include <stdio.h>
-
-/* В C міксини імітують через таблиці функціональних покажчиків та агрегацію */
-typedef struct {
-    void (*log_start)(void);
-    void (*log_end)(void);
-} LoggerOps;
-
-static void default_start(void) { printf("[LOG] Початок виконання операції\n"); }
-static void default_end(void)   { printf("[LOG] Операцію завершено\n"); }
-
-static const LoggerOps g_default_logger = { default_start, default_end };
-
-typedef struct {
-    const LoggerOps* logger;
-    int task_id;
-} TaskWithLogging;
-
-void task_execute(TaskWithLogging* self) {
-    self->logger->log_start();
-    printf("Виконуються корисні обчислення для завдання %d...\n", self->task_id);
-    self->logger->log_end();
-}
-
-int main(void) {
-    TaskWithLogging task = { &g_default_logger, 101 };
-    task_execute(&task);
-    return 0;
-}
-```
+:::code inheritance-d/cpp/miksyny-mixins.cpp
+:::code inheritance-d/c/miksyny-mixins.c
 :::
 
 Міксини на базі шаблонів перетворюють дерево спадкування на строго лінійний ланцюжок під час компіляції. Це усуває ромбоподібні конфлікти, зберігає інлайнінг методів і не створює жодних прихованих `vbtable`.
@@ -452,22 +266,7 @@ int main(void) {
 
 Особливою формою міксину є **ідіома дивно рекурентного шаблону** (англ. *Curiously Recurring Template Pattern*, CRTP). У цій моделі клас-нащадок передає сам себе як параметр шаблону своєму базовому класу:
 
-```cpp
-template <typename Derived>
-class NumericOperations {
-public:
-    void increment() {
-        // Статичний upcast без віртуальної таблиці та без витрат пам'яті
-        static_cast<Derived*>(this)->add(1);
-    }
-};
-
-class Counter : public NumericOperations<Counter> {
-public:
-    int value{0};
-    void add(int n) { value += n; }
-};
-```
+:::code inheritance-d/cpp/statychnyi-polimorfizm.cpp
 
 CRTP забезпечує поліморфне перевизначення поведінки під час компіляції:
 - Об'єкт `Counter` не містить `vptr` (0 байтів накладних витрат).
@@ -495,37 +294,7 @@ CRTP забезпечує поліморфне перевизначення по
 
 Класичний сценарій: підрахунок елементів у колекції.
 
-```cpp
-// Базовий клас бібліотеки версії 1.0
-class CustomArray {
-public:
-    virtual void add(int item) {
-        // Додає елемент у буфер...
-    }
-
-    virtual void addAll(const int* items, size_t count) {
-        for (size_t i = 0; i < count; ++i) {
-            add(items[i]); // Версія 1.0: addAll викликає add для кожного елемента
-        }
-    }
-};
-
-// Користувацький клас, який хоче рахувати кількість доданих елементів
-class CountingArray : public CustomArray {
-public:
-    size_t added_count{0};
-
-    void add(int item) override {
-        added_count++;
-        CustomArray::add(item);
-    }
-
-    void addAll(const int* items, size_t count) override {
-        added_count += count;
-        CustomArray::addAll(items, count);
-    }
-};
-```
+:::code inheritance-d/cpp/problema-lamkoho-bazovoho.cpp
 
 У версії 1.0 виклик `CountingArray::addAll` з масивом із 3 елементів дасть катастрофічний результат:
 1. `CountingArray::addAll` збільшує лічильник на `3`.
@@ -572,104 +341,8 @@ Object -> Entity -> Renderable -> Movable -> Character -> Player
 *Порівняння двох підходів. Спадкування жорстко зв'язує похідний клас із внутрішньою будовою предка. Композиція будує систему з незалежних чорних скриньок, які спілкуються через стабільні контракти.*
 
 :::tabs
-```cpp
-#include <iostream>
-#include <memory>
-
-// Інтерфейс (контракт)
-class OutputDevice {
-public:
-    virtual ~OutputDevice() = default;
-    virtual void write(const std::string& msg) = 0;
-};
-
-class ConsoleOutput : public OutputDevice {
-public:
-    void write(const std::string& msg) override {
-        std::cout << "[Консоль]: " << msg << "\n";
-    }
-};
-
-class FileOutput : public OutputDevice {
-public:
-    void write(const std::string& msg) override {
-        std::cout << "[Файл]: " << msg << "\n";
-    }
-};
-
-// Замість спадкування від конкретного виводу — володіння через інтерфейс (HAS-A)
-class ApplicationLogger {
-private:
-    std::unique_ptr<OutputDevice> device_;
-
-public:
-    explicit ApplicationLogger(std::unique_ptr<OutputDevice> dev) : device_(std::move(dev)) {}
-
-    void setDevice(std::unique_ptr<OutputDevice> dev) {
-        device_ = std::move(dev);
-    }
-
-    void log(const std::string& text) {
-        if (device_) {
-            device_->write(text);
-        }
-    }
-};
-
-int main() {
-    ApplicationLogger app_logger(std::make_unique<ConsoleOutput>());
-    app_logger.log("Старт системи");
-
-    // Заміна стратегії під час виконання без зміни коду логера
-    app_logger.setDevice(std::make_unique<FileOutput>());
-    app_logger.log("Дані збережено у звіт");
-    return 0;
-}
-```
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-/* Контракт виводу на C через покажчик на функцію */
-typedef struct OutputDevice {
-    void (*write)(struct OutputDevice* self, const char* msg);
-} OutputDevice;
-
-static void console_write(OutputDevice* self, const char* msg) {
-    (void)self;
-    printf("[Консоль]: %s\n", msg);
-}
-
-static void file_write(OutputDevice* self, const char* msg) {
-    (void)self;
-    printf("[Файл]: %s\n", msg);
-}
-
-/* Композиція (HAS-A) */
-typedef struct {
-    OutputDevice* device;
-} ApplicationLogger;
-
-void logger_log(ApplicationLogger* self, const char* text) {
-    if (self->device && self->device->write) {
-        self->device->write(self->device, text);
-    }
-}
-
-int main(void) {
-    OutputDevice console_dev = { console_write };
-    OutputDevice file_dev = { file_write };
-
-    ApplicationLogger app_logger = { &console_dev };
-    logger_log(&app_logger, "Старт системи");
-
-    /* Зміна поведінки без перекомпіляції */
-    app_logger.device = &file_dev;
-    logger_log(&app_logger, "Дані збережено у звіт");
-
-    return 0;
-}
-```
+:::code inheritance-d/cpp/kompozytsiia-proty.cpp
+:::code inheritance-d/c/kompozytsiia-proty.c
 :::
 
 ### Коли обирати спадкування, а коли композицію

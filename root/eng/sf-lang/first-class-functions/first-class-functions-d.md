@@ -59,78 +59,8 @@ fold(⊕, acc, [x₁, x₂, x₃]) = ((acc ⊕ x₁) ⊕ x₂) ⊕ x₃
 У низькорівневих мовах без автоматичного керування пам'яттю (таких як C) передача поведінки традиційно реалізується через покажчики на функції. Проте чистий покажчик на функцію має суттєве обмеження: він не несе з собою жодного стану. Якщо функції зворотного виклику потрібні додаткові контекстні дані, їх доводиться передавати окремим «сліпим» покажчиком `void *user_data`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stddef.h>
-
-/* Функція вищого порядку: фільтрує масив за предикатом з контекстом */
-typedef int (*predicate_fn)(int value, void *ctx);
-
-size_t filter_integers(const int *src, size_t len, int *dst,
-                       predicate_fn pred, void *ctx) {
-    size_t out_count = 0;
-    for (size_t i = 0; i < len; ++i) {
-        if (pred(src[i], ctx)) {
-            dst[out_count++] = src[i];
-        }
-    }
-    return out_count;
-}
-
-/* Конкретний предикат: перевірка на перевищення порогу */
-static int is_greater_than(int val, void *ctx) {
-    int threshold = *(int *)ctx;
-    return val > threshold;
-}
-
-int main(void) {
-    int data[] = {12, 45, 3, 89, 23, 67, 8};
-    int results[7];
-    int threshold = 25;
-
-    size_t count = filter_integers(data, 7, results, is_greater_than, &threshold);
-
-    for (size_t i = 0; i < count; ++i) {
-        printf("%d ", results[i]); /* 45 89 67 */
-    }
-    printf("\n");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <span>
-#include <vector>
-#include <algorithm>
-
-/* В ідіоматичному C++ функція вищого порядку приймає довільний callable */
-template <typename Predicate>
-std::vector<int> filter_integers(std::span<const int> src, Predicate pred) {
-    std::vector<int> dst;
-    for (int val : src) {
-        if (pred(val)) {
-            dst.push_back(val);
-        }
-    }
-    return dst;
-}
-
-int main() {
-    std::vector<int> data = {12, 45, 3, 89, 23, 67, 8};
-    int threshold = 25;
-
-    // Лямбда-вираз автоматично захоплює поріг без ручного void*
-    auto results = filter_integers(data, [threshold](int val) {
-        return val > threshold;
-    });
-
-    for (int val : results) {
-        std::cout << val << " "; /* 45 89 67 */
-    }
-    std::cout << "\n";
-    return 0;
-}
-```
+:::code first-class-functions-d/c/main.c
+:::code first-class-functions-d/cpp/funktsii-vyshchoho.cpp
 :::
 
 Як видно з порівняння, у чистому C розробник змушений самостійно підтримувати дві незалежні сутності: покажчик на машинний код `predicate_fn` та покажчик на дані `void *ctx`. Щойно ми об'єднуємо код і дані в одне ціле, виникає концепція замикання.
@@ -321,21 +251,7 @@ auto multiply = [factor](int x) { return x * factor; };
 
 Компілятор під час трансляції автоматично виконує синтаксичне перетворення (децукрування — *desugaring*), перетворюючи цей вираз на унікальний анонімний клас:
 
-```cpp
-class __Lambda_Unique_Generated_Name {
-private:
-    int factor; // Захоплена змінна стає полем класу
-public:
-    __Lambda_Unique_Generated_Name(int f) : factor(f) {}
-
-    int operator()(int x) const {
-        return x * factor;
-    }
-};
-
-// Створення об'єкта-функтора на стеку
-__Lambda_Unique_Generated_Name multiply(factor);
-```
+:::code first-class-functions-d/cpp/funktsionalni-obiekty.cpp
 
 У такій моделі:
 - Захоплені змінні стають **полями структури**.

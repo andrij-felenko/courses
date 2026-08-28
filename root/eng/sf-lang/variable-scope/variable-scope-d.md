@@ -39,45 +39,8 @@
 Яскравим прикладом розділення двох понять є ключове слово `static` для локальної змінної всередині функції.
 
 :::tabs
-```c
-#include <stdio.h>
-
-int generate_transaction_id(void) {
-    // Область видимості: локальна (тільки всередині generate_transaction_id)
-    // Тривалість життя: статична (зберігається в сегменті .data на весь час процесу)
-    static int s_id_counter = 1000;
-    return ++s_id_counter;
-}
-
-int main(void) {
-    printf("ID 1: %d\n", generate_transaction_id()); // 1001
-    printf("ID 2: %d\n", generate_transaction_id()); // 1002
-    
-    // Помилка компіляції: s_id_counter недоступний за межами функції
-    // s_id_counter = 0; 
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstdint>
-
-int32_t generate_transaction_id() noexcept {
-    // Область видимості: локальна (тільки всередині generate_transaction_id)
-    // Тривалість життя: статична (зберігається в сегменті .data на весь час процесу)
-    static int32_t s_id_counter = 1000;
-    return ++s_id_counter;
-}
-
-int main() {
-    std::cout << "ID 1: " << generate_transaction_id() << '\n'; // 1001
-    std::cout << "ID 2: " << generate_transaction_id() << '\n'; // 1002
-
-    // Помилка компіляції: s_id_counter недоступний за межами функції
-    // s_id_counter = 0;
-    return 0;
-}
-```
+:::code variable-scope-d/c/lokalna-statychna-zminna.c
+:::code variable-scope-d/cpp/lokalna-statychna-zminna.cpp
 :::
 
 У наведеному прикладі текстовий ідентифікатор `s_id_counter` має суто блокову видимість: спроба звернутися до нього з `main()` викличе помилку компілятора. Проте виділена пам'ять не знищується під час виходу з `generate_transaction_id()`. Змінна зберігає свій стан між викликами, тому що її тривалість життя прив'язана до життєвого циклу всієї програми.
@@ -191,45 +154,8 @@ def mutate():
 Внутрішня змінна перекриває доступ до зовнішньої. Компілятор, шукаючи ідентифікатор знизу вгору по дереву областей, зупиняється на першому знайденому збігу. Зовнішня змінна не знищується і не змінює свого значення в пам'яті — вона просто стає невидимою за коротким іменем.
 
 :::tabs
-```c
-#include <stdio.h>
-
-int val = 100; // [A] Глобальна змінна
-
-int main(void) {
-    int val = 200; // [B] Затінює глобальну [A]
-    printf("Local val = %d\n", val); // 200
-
-    {
-        int val = 300; // [C] Затінює локальну [B]
-        printf("Inner block val = %d\n", val); // 300
-    }
-
-    printf("Back to local val = %d\n", val); // 200
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-
-int val = 100; // [A] Глобальна змінна
-
-int main() {
-    int val = 200; // [B] Затінює глобальну [A]
-    std::cout << "Local val = " << val << '\n'; // 200
-
-    {
-        int val = 300; // [C] Затінює локальну [B]
-        std::cout << "Inner block val = " << val << '\n'; // 300
-        
-        // У C++ унарний оператор :: дозволяє дістатися до глобальної змінної [A]
-        std::cout << "Global val via ::val = " << ::val << '\n'; // 100
-    }
-
-    std::cout << "Back to local val = " << val << '\n'; // 200
-    return 0;
-}
-```
+:::code variable-scope-d/c/zatinennia-zminnykh.c
+:::code variable-scope-d/cpp/zatinennia-zminnykh.cpp
 :::
 
 #### Коли затінення корисне, а коли шкідливе
@@ -282,61 +208,8 @@ let input: u32 = input.parse().unwrap(); // затінює числовим ти
 У мові C++ компілятор не виконує автоматичного складання сміття. Розробник має повний контроль і несе повну відповідальність:
 
 :::tabs
-```c
-// В чистому C замикання реалізують вручну через пару: покажчик на функцію + void* контекст
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-    int factor; // Стан, виділений у купі для уникнення dangling pointer
-} MultiplierContext;
-
-typedef int (*TransformFn)(void* context, int value);
-
-int multiply_impl(void* context, int value) {
-    MultiplierContext* ctx = (MultiplierContext*)context;
-    return value * ctx->factor;
-}
-
-int main(void) {
-    MultiplierContext* ctx = (MultiplierContext*)malloc(sizeof(MultiplierContext));
-    if (!ctx) return 1;
-    ctx->factor = 5;
-
-    TransformFn fn = multiply_impl;
-    printf("Result: %d\n", fn(ctx, 10)); // 50
-
-    free(ctx);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <functional>
-#include <memory>
-
-// Небезпечний випадок: повернення лямбди із захопленням за посиланням [&]
-std::function<int()> create_broken_counter() {
-    int local_val = 42;
-    // Катастрофа: local_val знищується на стеку при виході з функції!
-    // Лямбда зберігає посилання на мертву пам'ять (Dangling Reference).
-    return [&]() { return ++local_val; }; 
-}
-
-// Коректний випадок: захоплення за значенням [=] або переміщення [val = std::move(...)]
-std::function<int()> create_safe_counter() {
-    int local_val = 42;
-    // local_val безпечно копіюється всередину об'єкта-замикання
-    return [local_val]() mutable { return ++local_val; }; 
-}
-
-int main() {
-    auto safe_fn = create_safe_counter();
-    std::cout << "Safe call 1: " << safe_fn() << '\n'; // 43
-    std::cout << "Safe call 2: " << safe_fn() << '\n'; // 44
-    return 0;
-}
-```
+:::code variable-scope-d/c/problema-eskeipu-escape.c
+:::code variable-scope-d/cpp/problema-eskeipu-escape.cpp
 :::
 
 #### Просування змінних у купу (Heap Promotion)

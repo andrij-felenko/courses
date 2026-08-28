@@ -22,28 +22,7 @@
 
 Почнімо з кістяка — створити тлумач, виконати рядок, забрати відповідь, прибрати за собою. Це три виклики бібліотеки, і кожен робить рівно те, що обіцяє назва.
 
-```c
-#include <tcl.h>
-#include <stdio.h>
-
-int main(void) {
-    Tcl_Interp *interp = Tcl_CreateInterp();   // 1. народити тлумач зі словником вбудованих команд
-
-    // 2. згодувати рядок Tcl як код; повертає TCL_OK або TCL_ERROR
-    int rc = Tcl_Eval(interp, "expr {40 + 2}");
-
-    if (rc == TCL_OK) {
-        const char *res = Tcl_GetStringResult(interp);   // 3. результат — завжди рядок
-        printf("порахувало: %s\n", res);                 // друкує: порахувало: 42
-    } else {
-        // на помилці в результаті лежить текст помилки — теж читаємо як рядок
-        printf("помилка: %s\n", Tcl_GetStringResult(interp));
-    }
-
-    Tcl_DeleteInterp(interp);   // 4. знищити тлумач, звільнити всю його пам'ять
-    return 0;
-}
-```
+:::code proj-embed-interp/c/robochyi-c-povnyi-tsykl.c
 
 Зверніть увагу на дрібницю, що виказує всю філософію мови: результат — **завжди рядок**, і на успіху (`42`), і на помилці (текст повідомлення). Тлумач не повертає вам «число» чи «об'єкт помилки» — він кладе у свій результат текст, а ви вирішуєте за кодом повернення (`TCL_OK`/`TCL_ERROR`), успіх це чи біда. Один канал відповіді, один тип відповіді. Про те, чому «завжди рядок» тут не коштує швидкості, — за мить, коли дійдемо до `Tcl_Obj`.
 
@@ -51,54 +30,7 @@ int main(void) {
 
 Тепер найцінніше — навчити мову нашого слова. Зареєструємо команду `led`, за якою стоїть наша апаратна дія. Ось повна, робоча реєстрація з правильним розбором аргументів:
 
-```c
-#include <tcl.h>
-#include <string.h>
-
-// уявна апаратна функція прошивки
-extern void hw_set_led(int on);
-
-// C-функція, що стане Tcl-командою "led".
-// Сигнатура задана бібліотекою — міняти її не можна:
-//   clientData — довільний вказівник, який ми передали при реєстрації (тут не треба);
-//   interp     — тлумач, у чий результат ми кладемо відповідь чи помилку;
-//   objc       — скільки слів у команді, ВКЛЮЧНО з іменем "led";
-//   objv       — масив слів-значень; objv[0] — саме ім'я "led", objv[1] — перший аргумент.
-static int LedCmd(void *clientData, Tcl_Interp *interp,
-                  int objc, Tcl_Obj *const objv[]) {
-    if (objc != 2) {                                  // чекаємо рівно 1 аргумент після імені
-        // стандартний спосіб поскаржитися на кількість: сам складе гарне повідомлення
-        Tcl_WrongNumArgs(interp, 1, objv, "on|off");
-        return TCL_ERROR;
-    }
-
-    const char *arg = Tcl_GetString(objv[1]);         // беремо аргумент як рядок
-    if (strcmp(arg, "on") == 0) {
-        hw_set_led(1);
-    } else if (strcmp(arg, "off") == 0) {
-        hw_set_led(0);
-    } else {
-        // кладемо СВІЙ текст помилки в результат тлумача й сигналимо біду
-        Tcl_SetObjResult(interp, Tcl_NewStringObj("led: чекав on або off", -1));
-        return TCL_ERROR;
-    }
-    return TCL_OK;      // успіх; результат лишаємо порожнім
-}
-
-int main(void) {
-    Tcl_Interp *interp = Tcl_CreateInterp();
-
-    // прив'язати ім'я "led" до нашої C-функції; NULL — це clientData й deleteProc
-    Tcl_CreateObjCommand(interp, "led", LedCmd, NULL, NULL);
-
-    // тепер у будь-якому скрипті слово "led" кличе наш C-код:
-    Tcl_Eval(interp, "led on");
-    Tcl_Eval(interp, "for {set i 0} {$i < 3} {incr i} { led on; led off }");
-
-    Tcl_DeleteInterp(interp);
-    return 0;
-}
-```
+:::code proj-embed-interp/c/pryviazaty-vlasnu-komandu.c
 
 Розберімо, що тут насправді відбувається, бо кожна деталь несе вагу.
 
@@ -116,33 +48,7 @@ int main(void) {
 
 Аргумент прийшов не сирим `char *`, а як `Tcl_Obj *` — той самий подвійнопортовий об'єкт-значення, що всередині тримає й рядок, і кешовану розібрану форму. Це дає нам розбирати аргументи **за типом**, не колупаючи рядок руками. Скажімо, команда `pwm` хоче ціле число — шпаруватість від 0 до 255:
 
-```c
-extern void hw_set_pwm(int duty);
-
-static int PwmCmd(void *cd, Tcl_Interp *interp,
-                  int objc, Tcl_Obj *const objv[]) {
-    if (objc != 2) {
-        Tcl_WrongNumArgs(interp, 1, objv, "duty");
-        return TCL_ERROR;
-    }
-
-    int duty;
-    // розібрати аргумент як ціле; якщо це не число — САМА покладе помилку в результат
-    if (Tcl_GetIntFromObj(interp, objv[1], &duty) != TCL_OK) {
-        return TCL_ERROR;        // текст «expected integer but got …» уже в результаті
-    }
-    if (duty < 0 || duty > 255) {
-        Tcl_SetObjResult(interp, Tcl_NewStringObj("pwm: шпаруватість поза 0..255", -1));
-        return TCL_ERROR;
-    }
-
-    hw_set_pwm(duty);
-
-    // повернути в скрипт фактично встановлене значення — теж через Tcl_Obj
-    Tcl_SetObjResult(interp, Tcl_NewIntObj(duty));
-    return TCL_OK;
-}
-```
+:::code proj-embed-interp/c/peredaty-dani-v-obydva.c
 
 Тут `Tcl_GetIntFromObj` робить дві речі одразу. Якщо аргумент — це `"128"`, вона розбирає його в машинне ціле й, за принципом подвійного подання, **кешує** розібране число прямо в об'єкті: наступний раз те саме значення дасть ціле безкоштовно. Якщо ж прийшло `"привіт"`, вона повертає `TCL_ERROR` і сама кладе в результат тлумача акуратне повідомлення `expected integer but got "привіт"` — вам лишається тільки прокинути `TCL_ERROR` нагору. Ви не пишете розбір числа вручну й не вигадуєте текст помилки — усе вже в бібліотеці, узгоджене з рештою мови.
 
@@ -163,26 +69,7 @@ static int PwmCmd(void *cd, Tcl_Interp *interp,
 
 Правильно — **утримати** значення на час небезпеки:
 
-```c
-static int RunTwiceCmd(void *cd, Tcl_Interp *interp,
-                       int objc, Tcl_Obj *const objv[]) {
-    if (objc != 2) {
-        Tcl_WrongNumArgs(interp, 1, objv, "body");
-        return TCL_ERROR;
-    }
-
-    Tcl_Obj *body = objv[1];
-    Tcl_IncrRefCount(body);        // ← «це моє»: підняли лічильник, тепер eval його не звільнить
-
-    int rc = Tcl_EvalObjEx(interp, body, 0);      // виконали тіло раз
-    if (rc == TCL_OK) {
-        rc = Tcl_EvalObjEx(interp, body, 0);      // і вдруге — body ГАРАНТОВАНО ще живий
-    }
-
-    Tcl_DecrRefCount(body);        // ← відпустили; якщо ми були останні — звільниться тут
-    return rc;
-}
-```
+:::code proj-embed-interp/c/pastka-persha-chas-zhyttia.c
 
 Симетрія тут священна: скільки разів підняли лічильник, стільки й опустити, і опустити **на всіх шляхах виходу** — зокрема на помилкових. Забули `Tcl_DecrRefCount` — значення ніколи не звільниться, це витік пам'яті; у прошивці, що працює тижнями без перезапуску, витік по краплі з'їдає всю купу й валить пристрій. Опустили зайвий раз — звільнили те, що ще комусь потрібне, і знову висячий вказівник. Ця бухгалтерія посилань — плата за відсутність збирача сміття, і в C-коді, що вбудовує Tcl, вона ваша щоденна турбота.
 
@@ -201,34 +88,7 @@ static int RunTwiceCmd(void *cd, Tcl_Interp *interp,
 
 Ось робоча команда `repeat` — виконати тіло задану кількість разів:
 
-```c
-static int RepeatCmd(void *cd, Tcl_Interp *interp,
-                     int objc, Tcl_Obj *const objv[]) {
-    if (objc != 3) {                                  // repeat + число + тіло
-        Tcl_WrongNumArgs(interp, 1, objv, "count body");
-        return TCL_ERROR;
-    }
-
-    int count;
-    if (Tcl_GetIntFromObj(interp, objv[1], &count) != TCL_OK) {
-        return TCL_ERROR;                             // перший аргумент не число
-    }
-
-    Tcl_Obj *body = objv[2];
-    Tcl_IncrRefCount(body);                           // утримуємо тіло на весь цикл
-
-    int rc = TCL_OK;
-    for (int i = 0; i < count; i++) {
-        rc = Tcl_EvalObjEx(interp, body, 0);          // виконати тіло в кадрі викликача
-        if (rc == TCL_BREAK) { rc = TCL_OK; break; }  // тіло сказало break — чемно вийти
-        if (rc == TCL_CONTINUE) { rc = TCL_OK; continue; }
-        if (rc != TCL_OK) break;                      // помилка чи return — припинити цикл
-    }
-
-    Tcl_DecrRefCount(body);
-    return rc;
-}
-```
+:::code proj-embed-interp/c/pryiom-vlasna-kerivna.c
 
 Придивімося до тонкощів, бо тут кожен рядок відповідає на «а що, як…».
 
