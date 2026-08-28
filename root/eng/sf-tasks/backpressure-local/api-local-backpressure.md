@@ -52,49 +52,8 @@
 Для динамічного моніторингу черг без блокування застосовують спеціальні керуючі виклики `ioctl`.
 
 :::tabs
-```c
-#include <sys/ioctl.h>
-#include <linux/sockios.h>
-#include <unistd.h>
-#include <stdio.h>
-
-/* Отримання поточного стану черг сокета ядра */
-int get_socket_queue_depth(int sock_fd, int *rx_bytes, int *tx_bytes) {
-    /* Кількість байтів, готових до читання у вхідному буфері ядра */
-    if (ioctl(sock_fd, FIONREAD, rx_bytes) == -1) {
-        return -1;
-    }
-    /* Кількість байтів, які ще не надіслані у вихідному буфері ядра */
-    if (ioctl(sock_fd, SIOCOUTQ, tx_bytes) == -1) {
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <sys/ioctl.h>
-#include <linux/sockios.h>
-#include <unistd.h>
-#include <expected>
-#include <system_error>
-
-struct SocketQueueDepth {
-    int rx_bytes{0}; // Непрочитані байти у вхідному буфері
-    int tx_bytes{0}; // Ненадіслані байти у вихідному буфері
-};
-
-// Безпечне отримання глибини черг сокета засобами C++
-std::expected<SocketQueueDepth, std::error_code> get_socket_queue_depth(int sock_fd) {
-    SocketQueueDepth depth{};
-    if (::ioctl(sock_fd, FIONREAD, &depth.rx_bytes) == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    if (::ioctl(sock_fd, SIOCOUTQ, &depth.tx_bytes) == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return depth;
-}
-```
+:::code api-local-backpressure/c/inspektsiia-zapovnenosti.c
+:::code api-local-backpressure/cpp/inspektsiia-zapovnenosti.cpp
 :::
 
 #### Системні параметри ядра для налаштування пам'яті сокетів
@@ -119,41 +78,8 @@ std::expected<SocketQueueDepth, std::error_code> get_socket_queue_depth(int sock
 #### Керування маскою дескриптора для увімкнення та вимкнення читання
 
 :::tabs
-```c
-#include <sys/epoll.h>
-#include <stdbool.h>
-#include <errno.h>
-
-/* Призупинення або відновлення читання з дескриптора джерела */
-int toggle_source_reading(int epfd, int source_fd, bool enable_reading) {
-    struct epoll_event ev;
-    ev.events = enable_reading ? (EPOLLIN | EPOLLRDHUP) : 0;
-    ev.data.fd = source_fd;
-
-    if (epoll_ctl(epfd, EPOLL_CTL_MOD, source_fd, &ev) == -1) {
-        return -errno;
-    }
-    return 0;
-}
-```
-```cpp
-#include <sys/epoll.h>
-#include <cerrno>
-#include <expected>
-#include <system_error>
-
-// Ідіоматичне керування маскою epoll для асинхронного протитиску
-std::expected<void, std::error_code> toggle_source_reading(int epfd, int source_fd, bool enable_reading) {
-    epoll_event ev{};
-    ev.events = enable_reading ? (EPOLLIN | EPOLLRDHUP) : 0;
-    ev.data.fd = source_fd;
-
-    if (::epoll_ctl(epfd, EPOLL_CTL_MOD, source_fd, &ev) == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code api-local-backpressure/c/keruvannia-maskoiu.c
+:::code api-local-backpressure/cpp/keruvannia-maskoiu.cpp
 :::
 
 #### Відмінність між режимами Level-Triggered та Edge-Triggered (`EPOLLET`)

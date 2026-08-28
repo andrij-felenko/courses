@@ -15,38 +15,8 @@
 Замок може бути створений статично під час компіляції або динамічно під час роботи програми:
 
 :::tabs
-```c
-#include <pthread.h>
-
-// 1. Статична ініціалізація (тільки зі стандартними атрибутами)
-pthread_mutex_t g_static_lock = PTHREAD_MUTEX_INITIALIZER;
-
-// 2. Динамічна ініціалізація (дозволяє налаштовувати атрибути)
-void init_dynamic_mutex(void) {
-    pthread_mutex_t dynamic_lock;
-    pthread_mutexattr_t attr;
-    
-    pthread_mutexattr_init(&attr);
-    pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
-    
-    pthread_mutex_init(&dynamic_lock, &attr);
-    
-    pthread_mutexattr_destroy(&attr); // Атрибути можна знищити одразу після ініціалізації
-    pthread_mutex_destroy(&dynamic_lock);
-}
-```
-```cpp
-#include <mutex>
-
-// 1. Статична ініціалізація (C++ гарантує константну ініціалізацію з C++20)
-constinit std::mutex g_static_lock;
-
-// 2. Динамічна ініціалізація (конструктор викликається автоматично під час створення)
-void init_dynamic_mutex() {
-    std::mutex dynamic_lock;
-    // Деструктор автоматично звільнить системні ресурси при виході з області видимості
-}
-```
+:::code api-pthread-mutex/c/main.c
+:::code api-pthread-mutex/cpp/statychna-ta-dynamichna.cpp
 :::
 
 #### Сигнатури основних функцій POSIX
@@ -147,26 +117,7 @@ void init_dynamic_mutex() {
 
 Конструктори `std::unique_lock` та `std::lock_guard` приймають спеціальні службові теги:
 
-```cpp
-std::mutex m1, m2;
-
-// 1. std::defer_lock — створити обгортку, але не захоплювати замок зараз
-std::unique_lock<std::mutex> lock1(m1, std::defer_lock);
-std::unique_lock<std::mutex> lock2(m2, std::defer_lock);
-// Захопити обидва одночасно за алгоритмом уникнення дедлоку
-std::lock(lock1, lock2);
-
-// 2. std::try_to_lock — спробувати захопити через try_lock()
-std::unique_lock<std::mutex> try_l(m1, std::try_to_lock);
-if (try_l.owns_lock()) {
-    // Критична секція успішно захоплена
-}
-
-// 3. std::adopt_lock — повідомити обгортці, що замок ВЖЕ захоплено раніше
-m1.lock();
-std::lock_guard<std::mutex> adopt_g(m1, std::adopt_lock);
-// Тепер adopt_g відповідає за звільнення m1 у деструкторі
-```
+:::code api-pthread-mutex/cpp/tehy-konstruktoriv-dlia.cpp
 
 ---
 

@@ -42,278 +42,21 @@
 
 Далі — чотири шматки одного файла `backpressure_demo.go`; складені по порядку, вони компілюються й біжать. Перший шматок задає числа досліду, одиницю роботи й той єдиний інтерфейс, реалізації якого відрізняють два прогони.
 
-```go
-// backpressure_demo.go — один конвеєр, два прогони.
-//   go run backpressure_demo.go unbounded      // черга без стелі
-//   go run backpressure_demo.go bounded 32     // черга зі стелею 32
-package main
-
-import (
-	"fmt"
-	"os"
-	"runtime"
-	"strconv"
-	"sync"
-	"time"
-)
-
-const (
-	produceEvery = 2 * time.Millisecond  // виробник: не швидше ніж 500 елементів/с
-	handleCost   = 20 * time.Millisecond // споживач: рівно 50 елементів/с
-	payloadSize  = 1024                  // ~1 КіБ вантажу на елемент
-	runFor       = 20 * time.Second
-)
-
-// Job — одиниця роботи. born — мить створення, ще до черги:
-// саме від неї, а не від миті, коли елемент дістали з черги, лічимо затримку.
-type Job struct {
-	id      int
-	born    time.Time
-	payload []byte // вантаж: він і займатиме пам'ять, поки елемент чекає
-}
-
-// queue — єдине, що відрізняє два прогони. Усе інше в програмі — спільне.
-type queue interface {
-	put(Job)           // покласти: може блокувати, а може й ні — у цьому вся інтрига
-	take() (Job, bool) // узяти; false = чергу закрито й вичерпано
-	length() int       // скільки лежить просто зараз
-	close()
-}
-```
+:::code proj-backpressure-demo/go/backpressure_demo.go
 
 Тепер обидві черги. Перша — та, що зі стелею, і вона коротша за свій опис.
 
-```go
-// ── Черга зі стелею: канал скінченної місткості.
-// Протитиску тут не написано жодного рядка — він вбудований у сам факт стелі.
-// Усередині каналу — кільцевий буфер: рухаються два індекси, елементи не їздять.
-type boundedQueue struct{ ch chan Job }
-
-func newBounded(capacity int) *boundedQueue { return &boundedQueue{make(chan Job, capacity)} }
-
-// put у ПОВНИЙ канал присипляє горутину, доки споживач не звільнить місце. O(1).
-func (q *boundedQueue) put(j Job) { q.ch <- j }
-
-// take з ПОРОЖНЬОГО каналу присипляє споживача, доки не з'явиться робота. O(1).
-func (q *boundedQueue) take() (Job, bool) { j, ok := <-q.ch; return j, ok }
-
-func (q *boundedQueue) length() int { return len(q.ch) }
-func (q *boundedQueue) close()      { close(q.ch) }
-
-// ── Черга без стелі: у Go її немає, тож доводиться зібрати руками.
-// Уже це мало б насторожити — мову спроєктували так, що небезпечне
-// не дається задарма. (Канал на мільйон стелю має: це не «без стелі»,
-// це «стеля на мільйон», і Go виділяє під неї весь масив одразу.)
-type unboundedQueue struct {
-	mu       sync.Mutex
-	notEmpty *sync.Cond
-	items    []Job
-	closed   bool
-}
-
-func newUnbounded() *unboundedQueue {
-	q := &unboundedQueue{}
-	q.notEmpty = sync.NewCond(&q.mu)
-	return q
-}
-
-// put НІКОЛИ не чекає: стану «повна» тут просто не існує.
-// Амортизовано O(1) — append час від часу подвоює масив і копіює вміст.
-func (q *unboundedQueue) put(j Job) {
-	q.mu.Lock()
-	q.items = append(q.items, j)
-	q.mu.Unlock()
-	q.notEmpty.Signal()
-}
-
-// take чекає лише на ПОРОЖНІЙ черзі. O(1): голову зсуваємо, хвіст не копіюємо.
-func (q *unboundedQueue) take() (Job, bool) {
-	q.mu.Lock()
-	defer q.mu.Unlock()
-	for len(q.items) == 0 && !q.closed {
-		q.notEmpty.Wait()
-	}
-	if len(q.items) == 0 {
-		return Job{}, false
-	}
-	j := q.items[0]
-	q.items[0] = Job{}    // обнулити ОБОВ'ЯЗКОВО: інакше масив триматиме вантаж
-	q.items = q.items[1:] // мертвого елемента, і збирач сміття його не забере
-	return j, true
-}
-
-func (q *unboundedQueue) length() int {
-	q.mu.Lock()
-	defer q.mu.Unlock()
-	return len(q.items)
-}
-
-func (q *unboundedQueue) close() {
-	q.mu.Lock()
-	q.closed = true
-	q.mu.Unlock()
-	q.notEmpty.Broadcast()
-}
-```
+:::code proj-backpressure-demo/go/stend.go
 
 Придивися до `put` без стелі. У ній немає нічого злого — навпаки, вона бездоганно ввічлива: завжди приймає, ніколи не сперечається, повертається за наносекунди. Уся біда цієї черги — рівно в тому, чого в ній **немає**: жодного шляху, яким звістка «я не встигаю» дійшла б до того, хто кладе.
 
 Третій шматок — вимірювання й дві дійові особи.
 
-```go
-// ── Вимірювання. Кожне число відповідає на своє питання.
-type meters struct {
-	mu      sync.Mutex
-	done    int           // скільки оброблено від старту
-	service time.Duration // тривалість САМОЇ обробки останнього елемента
-	sojourn time.Duration // повне життя останнього елемента: від born до кінця обробки
-	blocked time.Duration // сумарний час, який виробник простояв усередині put
-}
-
-func (m *meters) record(service, sojourn time.Duration) {
-	m.mu.Lock()
-	m.done++
-	m.service, m.sojourn = service, sojourn
-	m.mu.Unlock()
-}
-
-func (m *meters) addBlocked(d time.Duration) {
-	m.mu.Lock()
-	m.blocked += d
-	m.mu.Unlock()
-}
-
-func (m *meters) snapshot() (done int, service, sojourn, blocked time.Duration) {
-	m.mu.Lock()
-	defer m.mu.Unlock()
-	return m.done, m.service, m.sojourn, m.blocked
-}
-
-// Виробник нічого не знає про споживача й не має способу його спитати.
-// Єдине, що здатне його вгамувати, — put, який не повертається.
-func producer(q queue, m *meters, stop <-chan struct{}) {
-	defer q.close() // він єдиний, хто пише в чергу, тож закриває її він
-	for id := 0; ; id++ {
-		select {
-		case <-stop:
-			return
-		default:
-		}
-		time.Sleep(produceEvery) // тримає темп: не частіше ніж раз на 2 мс
-
-		j := Job{id: id, born: time.Now(), payload: make([]byte, payloadSize)}
-
-		t0 := time.Now()
-		q.put(j) // ← увесь протитиск світу відбувається саме в цьому рядку
-		m.addBlocked(time.Since(t0))
-	}
-}
-
-// Споживач — вузьке місце. Його темп і є темпом усього конвеєра.
-func consumer(q queue, m *meters, wg *sync.WaitGroup) {
-	defer wg.Done()
-	for {
-		j, ok := q.take()
-		if !ok {
-			return
-		}
-		t0 := time.Now()
-		handle(j)
-		m.record(time.Since(t0), time.Since(j.born)) // два різні числа — у цьому вся сіль
-	}
-}
-
-// handle — повільна ланка: запис у базу, виклик по мережі, кодування кадру.
-// В обох прогонах вона однакова до останньої наносекунди. Змінюємо тільки чергу.
-func handle(j Job) { time.Sleep(handleCost) }
-```
+:::code proj-backpressure-demo/go/stend-2.go
 
 Останній шматок друкує зріз щосекунди й складає програму докупи.
 
-```go
-// Репортер: раз на секунду — шість чисел.
-func reporter(q queue, m *meters, stop <-chan struct{}, wg *sync.WaitGroup) {
-	defer wg.Done()
-	fmt.Printf("%4s %9s %9s %10s %11s %7s %10s\n",
-		"t", "черга", "обробка", "затримка", "зроблено/с", "у put", "купа")
-
-	tick := time.NewTicker(time.Second)
-	defer tick.Stop()
-	start := time.Now()
-	prevDone, prevBlocked := 0, time.Duration(0)
-
-	for {
-		select {
-		case <-stop:
-			return
-		case now := <-tick.C:
-			done, service, sojourn, blocked := m.snapshot()
-
-			// GC перед заміром — щоб побачити ЖИВИЙ набір, а не сміття,
-			// яке збирач ще не встиг прибрати. У службі так не роблять:
-			// це спиняє світ. Тут це чесність заміру, а не спосіб жити.
-			runtime.GC()
-			var ms runtime.MemStats
-			runtime.ReadMemStats(&ms)
-
-			fmt.Printf("%3.0fс %9d %6.0f мс %8.2f с %9d/с %5.0f %% %6.1f МіБ\n",
-				now.Sub(start).Seconds(), q.length(),
-				float64(service.Milliseconds()), sojourn.Seconds(),
-				done-prevDone,                       // пропускна здатність за секунду
-				100*(blocked-prevBlocked).Seconds(), // частка секунди, яку виробник простояв у put
-				float64(ms.HeapAlloc)/(1<<20))
-			prevDone, prevBlocked = done, blocked
-		}
-	}
-}
-
-func main() {
-	mode, capacity := "bounded", 32
-	if len(os.Args) > 1 {
-		mode = os.Args[1]
-	}
-	if len(os.Args) > 2 {
-		capacity, _ = strconv.Atoi(os.Args[2])
-	}
-
-	var q queue
-	switch mode {
-	case "unbounded":
-		q = newUnbounded()
-	case "bounded":
-		q = newBounded(capacity)
-	default:
-		fmt.Println("вжиток: go run backpressure_demo.go [unbounded | bounded <місткість>]")
-		return
-	}
-
-	m := &meters{}
-	stop := make(chan struct{})
-	var wg sync.WaitGroup
-	start := time.Now()
-
-	wg.Add(2)
-	go consumer(q, m, &wg)
-	go reporter(q, m, stop, &wg)
-	go producer(q, m, stop) // отримавши stop, сам закриє чергу
-
-	time.Sleep(runFor)
-	close(stop)
-
-	// Штатне вимкнення: чесно дочекатися, поки черга спорожніє.
-	// Ось тут і з'ясується справжня ціна черги без стелі.
-	fmt.Printf("\nвимикаємось: у черзі лишилося %d — це ще %v роботи\n",
-		q.length(), time.Duration(q.length())*handleCost)
-	t0 := time.Now()
-	wg.Wait()
-
-	done, _, _, blocked := m.snapshot()
-	fmt.Printf("злив забрав %v; оброблено %d за %v (%.0f/с); виробник простояв у put %.1f с\n",
-		time.Since(t0).Round(time.Millisecond), done,
-		time.Since(start).Round(time.Second), float64(done)/time.Since(start).Seconds(),
-		blocked.Seconds())
-}
-```
+:::code proj-backpressure-demo/go/stend-3.go
 
 ## Прогін перший: черга без стелі
 
@@ -466,26 +209,7 @@ N ≥ (λ_сплеск − μ) · T_сплеск = (500 − 50) · 0.5 = 225 е�
 
 Протитиск тече проти течії даних: споживач тисне на того, хто вище. Доки цей напрям **ациклічний**, тиск має куди дійти — до самого джерела, яке зрештою просто пригальмує. А тепер додаймо в конвеєр найзвичайнісіньку річ — шлях повернення. Елемент, який етап B не зміг обробити, повертається на етап A на переробку:
 
-```go
-forward := make(chan Job, 4) // A → B
-back := make(chan Job, 4)    // B → A: те, що треба переробити
-
-// Етап A: бере з поворотної черги, віддає в пряму.
-go func() {
-	for j := range back {
-		forward <- rework(j) // ← застрягне тут, коли forward повний
-	}
-}()
-
-// Етап B: бере з прямої, частину повертає назад.
-go func() {
-	for j := range forward {
-		if needsRework(j) {
-			back <- j // ← застрягне тут, коли back повний
-		}
-	}
-}()
-```
+:::code proj-backpressure-demo/go/pastka-kiltse-u-iakomu.go
 
 Код невинний, кожна черга має стелю, обидва канали — зразковий протитиск. І одного дня цей конвеєр спиниться назавжди. Порахуймо місця:
 
@@ -530,108 +254,10 @@ default:
 Ми щойно зібрали необмежену чергу вручну — і саме через це вона має вигляд екзотики, якої в житті не буває. Насправді її просто ніхто не пише руками: вона приходить сама — з дефолтом бібліотеки, з фабричним методом, із «тимчасовим» виправленням. Тому корисно знати в обличчя обидві черги свого рантайму: у кожного є і стеля, і її небезпечний двійник.
 
 :::tabs
-```go
-// Стеля: канал скінченної місткості. Відправлення в повний БЛОКУЄ.
-jobs := make(chan Job, 32)
-
-// Двійника-черги немає: необмеженого каналу в Go не існує, його треба
-// писати руками. Але є двійник, замаскований під невинність:
-for j := range source {
-	go handle(j) // ← черга без стелі; нею стала черга горутин у планувальнику
-}
-
-// Кожна горутина — це кілька кілобайтів стека й одне місце в черзі планувальника.
-// Мільйон повільних викликів — мільйон горутин, і жоден рядок не натякає на чергу.
-// Чесний варіант — семафор: канал-лічильник дозволів зі стелею.
-sem := make(chan struct{}, 8) // не більше 8 обробників водночас
-for j := range source {
-	sem <- struct{}{} // на дев'ятому елементі цикл ЗУПИНИТЬСЯ тут — це і є протитиск
-	go func(j Job) {  // (параметр явно: так код працює й до Go 1.22)
-		defer func() { <-sem }()
-		handle(j)
-	}(j)
-}
-```
-```rust
-use std::sync::mpsc::{channel, sync_channel};
-use std::thread;
-
-// Стеля: sync_channel(32) — send() у повну чергу присипляє нитку.
-// (sync_channel(0) — стеля нуль: передача з рук у руки, виробник
-//  чекає особисто на споживача, між ними не лежить нічого.)
-let (tx, rx) = sync_channel::<Job>(32);
-
-thread::spawn(move || {
-    for job in source {
-        tx.send(job).unwrap(); // ← на повній черзі нитка засинає тут
-    }
-});
-
-for job in rx {  // ітератор бере по одному; на порожній черзі — чекає
-    handle(job); // повільна ланка: вона й диктує темп усього конвеєра
-}
-
-// Двійник: channel() — та сама черга, але БЕЗ стелі. send() той самий,
-// тільки він ніколи не чекає: черга росте, доки є пам'ять.
-let (tx_unbounded, rx_unbounded) = channel::<Job>();
-```
-```cpp
-#include <condition_variable>
-#include <mutex>
-#include <queue>
-
-// Стеля: у STL готової конкурентної черги немає — пишемо руками.
-// Уся стеля — це друга умовна змінна notFull, на якій засинає той, хто кладе.
-template <class T>
-class bounded_queue {
-    std::mutex              mu;
-    std::condition_variable notFull, notEmpty;
-    std::queue<T>           items;
-    const std::size_t       cap;
-public:
-    explicit bounded_queue(std::size_t cap) : cap(cap) {}
-
-    void put(T j) {                                    // на ПОВНІЙ черзі блокує
-        std::unique_lock lk(mu);
-        notFull.wait(lk, [&] { return items.size() < cap; });
-        items.push(std::move(j));
-        notEmpty.notify_one();
-    }
-    T take() {                                         // на ПОРОЖНІЙ — чекає
-        std::unique_lock lk(mu);
-        notEmpty.wait(lk, [&] { return !items.empty(); });
-        T j = std::move(items.front());
-        items.pop();
-        notFull.notify_one();
-        return j;
-    }
-};
-
-// Двійник без стелі — це та сама черга, з якої вийняли один рядок:
-// приберіть notFull разом із notFull.wait — і put уже НІКОЛИ не чекає,
-// а черга росте до OOM. Саме так необмежена черга й повертається: хтось
-// «спрощує» put, викинувши очікування, якого на швидкому споживачі й не видно.
-```
-```java
-// Стеля: put() у повну чергу присипляє нитку.
-BlockingQueue<Job> jobs = new ArrayBlockingQueue<>(32);
-
-// Двійник: LinkedBlockingQueue без місткості. Її стеля — Integer.MAX_VALUE,
-// тобто фактично вся пам'ять процесу.
-BlockingQueue<Job> unbounded = new LinkedBlockingQueue<>();
-
-// І найгірше: саме ця необмежена черга сидить усередині стандартної
-// фабрики пулів — у документації JDK так і написано, що пул із фіксованим
-// числом ниток працює над спільною НЕОБМЕЖЕНОЮ чергою.
-ExecutorService pool = Executors.newFixedThreadPool(8);
-
-// Чесний варіант — зібрати пул руками: стеля черги + явне рішення,
-// що робити з тим, хто не вліз.
-ExecutorService safe = new ThreadPoolExecutor(
-        8, 8, 0L, TimeUnit.MILLISECONDS,
-        new ArrayBlockingQueue<>(32),                 // стеля
-        new ThreadPoolExecutor.CallerRunsPolicy());   // не вліз — виконуй сам, у своїй нитці
-```
+:::code proj-backpressure-demo/go/pastka-cherha-bez-steli.go
+:::code proj-backpressure-demo/rust/main.rs
+:::code proj-backpressure-demo/cpp/main.cpp
+:::code proj-backpressure-demo/java/main.java
 :::
 
 Остання політика варта окремого погляду: `CallerRunsPolicy` віддає завдання, що не влізло, тому, хто його подав, — і той мусить виконати його власною ниткою, замість подавати наступні. Виробник, зайнятий чужою роботою, нічого не виробляє. Це протитиск, зібраний із того, що було під рукою: рантайм не має способу приспати подавача, тож він просто вантажить його роботою, доки той не вгамується.
@@ -642,59 +268,7 @@ ExecutorService safe = new ThreadPoolExecutor(
 
 Необмежена черга повертається в код тихо, і жоден звичайний тест її не помітить: на швидкому споживачі обидві черги поводяться однаково. Помітить лише той тест, у якому споживач **навмисне** повільний або взагалі мовчить.
 
-```go
-// backpressure_demo_test.go
-package main
-
-import (
-	"testing"
-	"time"
-)
-
-// Свідомо повільний споживач — найдешевший доказ, що стеля є.
-// З boundedQueue тест проходить. Підстав сюди unboundedQueue — і він упаде
-// на першій же перевірці, показавши рівно те, що ми ловимо: виробник
-// проштовхнув усе й нічого не помітив.
-func TestSlowConsumerHoldsProducerBack(t *testing.T) {
-	const capacity, total = 4, 100
-	q := newBounded(capacity)
-
-	accepted := make(chan struct{}, total) // позначка на кожен put, що ПОВЕРНУВСЯ
-	go func() {
-		for i := 0; i < total; i++ {
-			q.put(Job{id: i, born: time.Now()})
-			accepted <- struct{}{}
-		}
-		q.close()
-	}()
-
-	// Споживача поки що немає взагалі. За 50 мс виробник мусить упертися
-	// у стелю: рівно capacity put'ів повернулися, наступний спить усередині.
-	time.Sleep(50 * time.Millisecond)
-	if got := len(accepted); got > capacity {
-		t.Fatalf("у чергу зі стелею %d пролізло %d елементів — стелі немає", capacity, got)
-	}
-
-	// Тепер умикаємо повільного споживача: 5 мс на елемент.
-	seen, maxLen := 0, 0
-	for {
-		if n := q.length(); n > maxLen {
-			maxLen = n
-		}
-		if _, ok := q.take(); !ok {
-			break
-		}
-		time.Sleep(5 * time.Millisecond)
-		seen++
-	}
-	if seen != total {
-		t.Fatalf("дійшло %d із %d — протитиск не сміє нічого губити", seen, total)
-	}
-	if maxLen > capacity {
-		t.Fatalf("черга роздулася до %d за стелі %d", maxLen, capacity)
-	}
-}
-```
+:::code proj-backpressure-demo/go/backpressure_demo_test.go
 
 Перевірок три, і кожна ловить свою біду. Перша — чи є стеля взагалі: без споживача виробник мусить стати, і зупинити його може лише повна черга. Друга — чи протитиск нічого не загубив: сто покладено, сто отримано; якби хтось «оптимізував» блокування в `select` із `default`, тут би недорахувалися. Третя — чи черга не роздулася попри стелю: для каналу це справджується за побудовою, але тест переживе заміну реалізації, а саме заміна й буває тим самим тихим поверненням необмеженої черги.
 

@@ -350,34 +350,8 @@ inline void write_once(T& x, const T& val) noexcept {
 Основним інструментом у мовах C++ та C є використання спеціалізованих атомарних типів (`std::atomic<T>` у C++, `_Atomic(T)` у C11):
 
 :::tabs
-```c
-#include <stdatomic.h>
-#include <stdint.h>
-
-_Atomic uint64_t telemetry_counter = 0;
-
-void producer(uint64_t val) {
-    atomic_store_explicit(&telemetry_counter, val, memory_order_relaxed);
-}
-
-uint64_t consumer(void) {
-    return atomic_load_explicit(&telemetry_counter, memory_order_relaxed);
-}
-```
-```cpp
-#include <atomic>
-#include <cstdint>
-
-std::atomic<uint64_t> telemetry_counter{0};
-
-void producer(uint64_t val) {
-    telemetry_counter.store(val, std::memory_order_relaxed);
-}
-
-uint64_t consumer() {
-    return telemetry_counter.load(std::memory_order_relaxed);
-}
-```
+:::code torn-reads-d/c/1-standartyzovani-atomarni.c
+:::code torn-reads-d/cpp/1-standartyzovani-atomarni.cpp
 :::
 
 Якщо програмі потрібен лише захист від розривного читання без накладання суворих бар'єрів упорядкування інших інструкцій, використовується модель пам'яті `memory_order_relaxed`. На 64-розрядному процесорі це транслюється у звичайну інструкцію `MOV`/`LDR`, не несучи жодних накладних витрат у порівнянні з неатомарним кодом, але водночас зобов'язуючи компілятор вирівняти змінну та забороняючи розривні оптимізації.
@@ -400,18 +374,7 @@ bool check_hardware_support(void) {
     return atomic_is_lock_free(&counter);
 }
 ```
-```cpp
-#include <atomic>
-#include <cstdint>
-
-// Перевірка на етапі компіляції:
-static_assert(std::atomic<uint64_t>::is_always_lock_free);
-
-bool check_hardware_support() {
-    std::atomic<uint64_t> counter{0};
-    return counter.is_lock_free();
-}
-```
+:::code torn-reads-d/cpp/2-perevirka-bezblokuvalnoi.cpp
 :::
 
 ### 3. Замки послідовностей (Sequence Locks / Seqlock)
@@ -421,56 +384,8 @@ bool check_hardware_support() {
 Класичним системним рішенням без важких м'ютексів є **Seqlock** (замок послідовностей), що активно застосовується в ядрі Linux для обліку системного часу (`jiffies` та підсистема `xtime`):
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint32_t sequence;
-    uint64_t x;
-    uint64_t y;
-    uint64_t z;
-} telemetry_record_t;
-
-void read_telemetry(const volatile telemetry_record_t *src, telemetry_record_t *dst) {
-    uint32_t seq;
-    do {
-        seq = src->sequence;
-        while (seq & 1) { // Непарний лічильник — триває запис
-            seq = src->sequence;
-        }
-        dst->x = src->x;
-        dst->y = src->y;
-        dst->z = src->z;
-    } while (src->sequence != seq);
-}
-```
-```cpp
-#include <atomic>
-#include <cstdint>
-
-struct TelemetryRecord {
-    std::atomic<uint32_t> sequence{0};
-    uint64_t x{0};
-    uint64_t y{0};
-    uint64_t z{0};
-
-    TelemetryRecord read_snapshot() const noexcept {
-        TelemetryRecord result;
-        uint32_t seq = 0;
-        do {
-            seq = sequence.load(std::memory_order_acquire);
-            while (seq & 1) { // Непарний стан — іде активний запис
-                seq = sequence.load(std::memory_order_acquire);
-            }
-            result.x = x;
-            result.y = y;
-            result.z = z;
-        } while (sequence.load(std::memory_order_acquire) != seq);
-        return result;
-    }
-};
-```
+:::code torn-reads-d/c/3-zamky-poslidovnostei.c
+:::code torn-reads-d/cpp/3-zamky-poslidovnostei.cpp
 :::
 
 Якщо під час читання письменник змінив структуру, лічильник `sequence` зміниться, і читач повторить спробу. Це повністю ліквідує розривне читання багатослівних структур без блокування потоку-письменника.
@@ -480,145 +395,8 @@ struct TelemetryRecord {
 Розглянемо повноцінний тест на мовах C та C++, який наочно демонструє руйнування даних при неатомарному паралельному доступі та підтверджує надійність атомарного розв'язання.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <pthread.h>
-#include <inttypes.h>
-
-#define TEST_ITERATIONS 50000000ULL
-
-// Невирівняна структура, що примусово перетинає межу кеш-лінії
-typedef struct {
-    char offset_padding[60];
-    uint64_t counter;
-} __attribute__((packed)) shared_payload_t;
-
-static shared_payload_t g_payload;
-static volatile bool g_active = true;
-static uint64_t g_total_torn_reads = 0;
-
-void *producer_worker(void *arg) {
-    (void)arg;
-    const uint64_t pattern_low = 0x0000000000000000ULL;
-    const uint64_t pattern_high = 0xFFFFFFFFFFFFFFFFULL;
-
-    for (uint64_t i = 0; i < TEST_ITERATIONS && g_active; ++i) {
-        g_payload.counter = (i & 1) ? pattern_low : pattern_high;
-    }
-    g_active = false;
-    return NULL;
-}
-
-void *consumer_worker(void *arg) {
-    (void)arg;
-    const uint64_t pattern_low = 0x0000000000000000ULL;
-    const uint64_t pattern_high = 0xFFFFFFFFFFFFFFFFULL;
-    uint64_t local_torn_hits = 0;
-
-    while (g_active) {
-        uint64_t val = g_payload.counter;
-        if (val != pattern_low && val != pattern_high) {
-            local_torn_hits++;
-        }
-    }
-
-    __sync_fetch_and_add(&g_total_torn_reads, local_torn_hits);
-    return NULL;
-}
-
-int main(void) {
-    pthread_t writer_thread;
-    pthread_t reader_threads[4];
-
-    printf("Запуск перевірки неатомарного доступу...\n");
-
-    pthread_create(&writer_thread, NULL, producer_worker, NULL);
-    for (int i = 0; i < 4; ++i) {
-        pthread_create(&reader_threads[i], NULL, consumer_worker, NULL);
-    }
-
-    pthread_join(writer_thread, NULL);
-    for (int i = 0; i < 4; ++i) {
-        pthread_join(reader_threads[i], NULL);
-    }
-
-    printf("Виявлено розривних станів пам'яті: %" PRIu64 "\n", g_total_torn_reads);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <thread>
-#include <vector>
-#include <atomic>
-#include <cstdint>
-
-struct alignas(64) BenchmarkContext {
-    struct alignas(1) UnalignedTarget {
-        char padding[60];
-        uint64_t data_field;
-    } target;
-
-    std::atomic<uint64_t> safe_atomic_target{0};
-    std::atomic<bool> is_running{true};
-    std::atomic<uint64_t> torn_event_counter{0};
-};
-
-void execute_writer(BenchmarkContext& ctx, uint64_t limit) {
-    constexpr uint64_t mask_zero = 0x0000000000000000ULL;
-    constexpr uint64_t mask_full = 0xFFFFFFFFFFFFFFFFULL;
-
-    for (uint64_t i = 0; i < limit && ctx.is_running.load(std::memory_order_relaxed); ++i) {
-        ctx.target.data_field = (i & 1) ? mask_zero : mask_full;
-    }
-    ctx.is_running.store(false, std::memory_order_relaxed);
-}
-
-void execute_reader(BenchmarkContext& ctx) {
-    constexpr uint64_t mask_zero = 0x0000000000000000ULL;
-    constexpr uint64_t mask_full = 0xFFFFFFFFFFFFFFFFULL;
-    uint64_t thread_torn_count = 0;
-
-    while (ctx.is_running.load(std::memory_order_relaxed)) {
-        uint64_t snapshot = ctx.target.data_field;
-        if (snapshot != mask_zero && snapshot != mask_full) {
-            thread_torn_count++;
-        }
-    }
-
-    ctx.torn_event_counter.fetch_add(thread_torn_count, std::memory_order_relaxed);
-}
-
-int main() {
-    BenchmarkContext ctx{};
-    constexpr uint64_t total_iterations = 50'000'000ULL;
-    constexpr size_t total_readers = 4;
-
-    std::cout << "Запуск багатопотокового аналізу розривного читання..." << std::endl;
-
-    std::vector<std::jthread> readers;
-    readers.reserve(total_readers);
-    for (size_t i = 0; i < total_readers; ++i) {
-        readers.emplace_back(execute_reader, std::ref(ctx));
-    }
-
-    std::jthread writer(execute_writer, std::ref(ctx), total_iterations);
-    writer.join();
-
-    for (auto& reader : readers) {
-        reader.join();
-    }
-
-    std::cout << "Підсумок: зафіксовано розривних читань: "
-              << ctx.torn_event_counter.load() << std::endl;
-
-    return 0;
-}
-```
+:::code torn-reads-d/c/praktychnyi-stres-test.c
+:::code torn-reads-d/cpp/praktychnyi-stres-test.cpp
 :::
 
 Повний інженерний проект вимірювання затримок та статистичного аналізу розривів доступний у [Виявлення розривного читання у багатопотоковому середовищі](root:sf-tasks/torn-reads/proj-torn-read-detector.md).

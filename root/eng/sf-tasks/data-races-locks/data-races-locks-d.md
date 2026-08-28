@@ -310,30 +310,8 @@ void bad_lock(bool& is_locked) {
 У мові C ручне керування замками через прямі виклики `pthread_mutex_lock()` та `pthread_mutex_unlock()` є джерелом постійних дефектів. Якщо функція повертає керування раніше через помилку валідації або в коді виникає аварійна ситуація:
 
 :::tabs
-```c
-// НЕБЕЗПЕЧНО В C:
-bool process_transaction(Transaction *tx) {
-    pthread_mutex_lock(&g_mutex);
-    if (!validate_transaction(tx)) {
-        return false; // КАТАСТРОФА: М'ютекс залишився заблокованим назавжди!
-    }
-    apply_transaction(tx);
-    pthread_mutex_unlock(&g_mutex);
-    return true;
-}
-```
-```cpp
-// НАЇВНО І НЕБЕЗПЕЧНО В C++:
-bool process_transaction(Transaction& tx) {
-    g_mutex.lock();
-    if (!validate_transaction(tx)) {
-        return false; // КАТАСТРОФА: Замок не звільнено!
-    }
-    apply_transaction(tx);
-    g_mutex.unlock();
-    return true;
-}
-```
+:::code data-races-locks-d/c/inzhenerna-dystsyplina.c
+:::code data-races-locks-d/cpp/inzhenerna-dystsyplina.cpp
 :::
 
 Будь-який наступний потік, який спробує захопити `g_mutex`, засне навічно. Програма зависне в глухому дедлоку.
@@ -342,112 +320,15 @@ bool process_transaction(Transaction& tx) {
 У C++ синхронізація будується на принципі **RAII** (англ. *Resource Acquisition Is Initialization* — отримання ресурсу є ініціалізацією). Замок захоплюється в конструкторі спеціального об'єкта-обгортки на стеку і **гарантовано звільняється в його деструкторі** при виході з області видимості, навіть якщо виник виняток чи виконано `return`:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdbool.h>
-
-typedef struct {
-    int value;
-    pthread_mutex_t lock;
-} Counter;
-
-// У мові C використовують явне ручне звільнення або структурований вихід goto cleanup
-bool counter_add_safe(Counter *c, int delta) {
-    pthread_mutex_lock(&c->lock);
-    
-    if (delta < 0 && c->value < -delta) {
-        pthread_mutex_unlock(&c->lock); // Ручне звільнення перед виходом
-        return false;
-    }
-    
-    c->value += delta;
-    pthread_mutex_unlock(&c->lock);
-    return true;
-}
-```
-```cpp
-#include <mutex>
-
-class Counter {
-public:
-    bool add(int delta) {
-        // std::lock_guard захоплює замок у конструкторі
-        // і автоматично звільняє його в деструкторі при будь-якому return чи винятку!
-        std::lock_guard<std::mutex> guard(mutex_);
-        
-        if (delta < 0 && value_ < -delta) {
-            return false; // Замок звільняється автоматично!
-        }
-        
-        value_ += delta;
-        return true;
-    }
-
-private:
-    int value_{0};
-    mutable std::mutex mutex_;
-};
-```
+:::code data-races-locks-d/c/idiomatychnyi-pidkhid-u-c.c
+:::code data-races-locks-d/cpp/idiomatychnyi-pidkhid-u-c.cpp
 :::
 
 Якщо потрібно одночасно захопити кілька замків (наприклад, для переказу коштів між двома рахунками), стандарт C++17 надає шаблон `std::scoped_lock`, який автоматично впорядковує захоплення кількох м'ютексів за спеціальним алгоритмом уникнення дедлоків:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <pthread.h>
-
-typedef struct {
-    int64_t balance;
-    pthread_mutex_t lock;
-} Account;
-
-bool transfer_c(Account *from, Account *to, int64_t amount) {
-    // Впорядковуємо захоплення за фізичною адресою в пам'яті для уникнення дедлоку
-    Account *first = from;
-    Account *second = to;
-    if ((uintptr_t)from > (uintptr_t)to) {
-        first = to;
-        second = from;
-    }
-
-    pthread_mutex_lock(&first->lock);
-    pthread_mutex_lock(&second->lock);
-
-    bool success = false;
-    if (from->balance >= amount) {
-        from->balance -= amount;
-        to->balance += amount;
-        success = true;
-    }
-
-    pthread_mutex_unlock(&second->lock);
-    pthread_mutex_unlock(&first->lock);
-    return success;
-}
-```
-```cpp
-#include <cstdint>
-#include <mutex>
-
-struct Account {
-    int64_t balance{0};
-    mutable std::mutex mtx;
-};
-
-bool transfer_cpp(Account& from, Account& to, int64_t amount) {
-    // Одночасне захоплення двох замків без ризику дедлоку завдяки std::scoped_lock!
-    std::scoped_lock lock(from.mtx, to.mtx);
-
-    if (from.balance >= amount) {
-        from.balance -= amount;
-        to.balance += amount;
-        return true;
-    }
-    return false;
-}
-```
+:::code data-races-locks-d/c/idiomatychnyi-pidkhid-u-c-2.c
+:::code data-races-locks-d/cpp/idiomatychnyi-pidkhid-u-c-2.cpp
 :::
 
 > ⚙️ **Практична реалізація банківського переказу.** Повний код банківської системи з тестуванням закону збереження грошей на C та C++ наведено у вставці [Конкурентний банківський рахунок: перегони даних і замки](root:sf-tasks/data-races-locks/proj-mutex-bank.md).
@@ -515,27 +396,7 @@ typedef struct {
     int data GUARDED_BY(mtx); // Компілятор забороняє чіпати data без захоплення mtx!
 } ProtectedData;
 ```
-```cpp
-#include <mutex>
-
-// Використання розширень безпеки Clang
-class SafeStorage {
-public:
-    void update(int val) {
-        std::lock_guard<std::mutex> lock(mutex_);
-        data_ = val; // Компілятор перевіряє, що mutex_ захоплено!
-    }
-
-    int get() const {
-        std::lock_guard<std::mutex> lock(mutex_);
-        return data_;
-    }
-
-private:
-    mutable std::mutex mutex_;
-    int data_{0}; // Прив'язка даних до замка на рівні типів
-};
-```
+:::code data-races-locks-d/cpp/statychnyi-analiz-i.cpp
 :::
 
 Якщо розробник спробує звернутися до захищеного поля `data_` без попереднього виклику `lock()`, компілятор видасть помилку збирання ще до запуску програми.
@@ -563,22 +424,7 @@ private:
 
 Для гарантованого виявлення перегонів даних використовують динамічні аналізатори пам'яті, перш за все **ThreadSanitizer (TSan)**, інтегрований у компілятори GCC і Clang.
 
-```bash
-clang++ -fsanitize=thread -g -O1 bank_account.cpp -o bank_test
-./bank_test
-# Вивід ThreadSanitizer:
-WARNING: ThreadSanitizer: data race (pid=41920)
-  Write of size 8 at 0x7ffd9b8f2140 by thread T2:
-    #0 Counter::increment() counter.cpp:14 (bank_test+0x49a120)
-    #1 worker_thread(void*) counter.cpp:28 (bank_test+0x49a340)
-
-  Previous Read of size 8 at 0x7ffd9b8f2140 by thread T1:
-    #0 Counter::get_value() counter.cpp:18 (bank_test+0x49a180)
-    #1 monitor_thread(void*) counter.cpp:35 (bank_test+0x49a3c0)
-
-  Location is stack of main thread at 0x7ffd9b8f2140.
-SUMMARY: ThreadSanitizer: data race counter.cpp:14 in Counter::increment()
-```
+:::code data-races-locks-d/sh/main.sh
 
 #### Як працює ThreadSanitizer
 ThreadSanitizer інструментує кожне звернення до пам'яті (читання і запис), а також усі виклики функцій синхронізації (`lock`, `unlock`, `atomic`). Для кожної комірки пам'яті TSan виділяє так звану **тіньову пам'ять** (англ. *shadow memory*), де фіксує векторні годинники (Vector Clocks) останніх операцій.

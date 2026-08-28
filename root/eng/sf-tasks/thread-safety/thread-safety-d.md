@@ -62,18 +62,7 @@ unsigned long generate_id_unsafe(void) {
     return g_next_id++;
 }
 ```
-```cpp
-/* Потоконебезпечний генератор ідентифікаторів */
-namespace unsafe_generator {
-
-static unsigned long g_next_id = 1;
-
-unsigned long generate_id() noexcept {
-    return g_next_id++;
-}
-
-} // namespace unsafe_generator
-```
+:::code thread-safety-d/cpp/pryroda-problemy-iak.cpp
 :::
 
 Для програміста `g_next_id++` — це один вираз. Проте процесор виконує його як послідовність із трьох кроків:
@@ -154,36 +143,8 @@ unsigned long generate_id() noexcept {
 Уявімо функцію ведення системного журналу, яка захищає запис у файл внутрішнім замком (м'ютексом):
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-
-static pthread_mutex_t g_log_lock = PTHREAD_MUTEX_INITIALIZER;
-
-void log_message_safe(const char *msg) {
-    pthread_mutex_lock(&g_log_lock);
-    /* Критична секція запису в лог */
-    printf("[LOG]: %s\n", msg);
-    pthread_mutex_unlock(&g_log_lock);
-}
-```
-```cpp
-#include <mutex>
-#include <iostream>
-#include <string_view>
-
-namespace safe_logger {
-
-static std::mutex g_log_mutex{};
-
-void log_message(std::string_view msg) {
-    std::lock_guard<std::mutex> guard(g_log_mutex);
-    /* Критична секція запису в лог */
-    std::cout << "[LOG]: " << msg << '\n';
-}
-
-} // namespace safe_logger
-```
+:::code thread-safety-d/c/chomu-potokobezpechna.c
+:::code thread-safety-d/cpp/chomu-potokobezpechna.cpp
 :::
 
 Ця функція є **потокобезпечною**: якщо десять потоків одночасно викличуть `log_message()`, м'ютекс вишикує їх у чергу, і записи не перемішаються.
@@ -221,46 +182,8 @@ void log_message(std::string_view msg) {
 У спробі уникнути накладних витрат на захоплення м'ютекса під час кожного звернення до єдиного об'єкта (патерн Singleton), розробники тривалий час використовували таку ідіому:
 
 :::tabs
-```cpp
-/* ІСТОРИЧНО ЗЛАМАНА РЕАЛІЗАЦІЯ DOUBLE-CHECKED LOCKING (C++03) */
-class BrokenSingleton {
-public:
-    static BrokenSingleton* get_instance() {
-        if (instance_ == nullptr) { // Перша перевірка (без замка)
-            std::lock_guard<std::mutex> lock(mutex_);
-            if (instance_ == nullptr) { // Друга перевірка (під замком)
-                instance_ = new BrokenSingleton(); // НЕБЕЗПЕКА!
-            }
-        }
-        return instance_;
-    }
-private:
-    static BrokenSingleton* instance_;
-    static std::mutex mutex_;
-};
-```
-```c
-/* ІСТОРИЧНО ЗЛАМАНА РЕАЛІЗАЦІЯ ДВОХЕТАПНОЇ ІНІЦІАЛІЗАЦІЇ */
-typedef struct {
-    int data;
-} Resource;
-
-static Resource *g_resource = NULL;
-static pthread_mutex_t g_init_lock = PTHREAD_MUTEX_INITIALIZER;
-
-Resource *get_resource_broken(void) {
-    if (g_resource == NULL) {
-        pthread_mutex_lock(&g_init_lock);
-        if (g_resource == NULL) {
-            Resource *res = (Resource *)malloc(sizeof(Resource));
-            res->data = 42; // Ініціалізація полів
-            g_resource = res; // Публікація вказівника
-        }
-        pthread_mutex_unlock(&g_init_lock);
-    }
-    return g_resource;
-}
-```
+:::code thread-safety-d/cpp/dvokhetapna.cpp
+:::code thread-safety-d/c/dvokhetapna.c
 :::
 
 #### Анатомія катастрофи:
@@ -277,37 +200,8 @@ Resource *get_resource_broken(void) {
 У сучасному стандарті C++11 цю проблему вирішено на рівні мови завдяки потокобезпечній ініціалізації локальних статичних змінних (так звані «магічні статики» Мейєрса):
 
 :::tabs
-```cpp
-/* ПОВНІСТЮ ПОТОКОБЕЗПЕЧНИЙ SINGLETON (C++11 Meyer's Singleton) */
-class ModernSingleton {
-public:
-    static ModernSingleton& get_instance() {
-        // Стандарт C++11 гарантує потокобезпечну ініціалізацію під час першого виклику
-        static ModernSingleton instance;
-        return instance;
-    }
-private:
-    ModernSingleton() = default;
-};
-```
-```c
-#include <pthread.h>
-#include <stdlib.h>
-
-/* КОРЕКТНА ІНІЦІАЛІЗАЦІЯ ЧЕРЕЗ pthread_once */
-static pthread_once_t g_init_once = PTHREAD_ONCE_INIT;
-static Resource *g_safe_resource = NULL;
-
-static void init_resource_routine(void) {
-    g_safe_resource = (Resource *)malloc(sizeof(Resource));
-    g_safe_resource->data = 42;
-}
-
-Resource *get_resource_safe(void) {
-    pthread_once(&g_init_once, init_resource_routine);
-    return g_safe_resource;
-}
-```
+:::code thread-safety-d/cpp/suchasne-rozviazannia-v-c.cpp
+:::code thread-safety-d/c/suchasne-rozviazannia-v-c.c
 :::
 
 ---
@@ -331,38 +225,8 @@ Resource *get_resource_safe(void) {
 Стандарт POSIX.1c-1995 подолав цю кризу, ввівши реентрабельний аналог `strtok_r()`, де параметр `saveptr` передається явно як вказівник на локальну змінну викликача на стеку:
 
 :::tabs
-```c
-#include <string.h>
-#include <stdio.h>
-
-void parse_tokens_reentrant(char *input_str) {
-    char *saveptr = NULL;
-    char *token = strtok_r(input_str, " ", &saveptr);
-    while (token != NULL) {
-        printf("Лексема: %s\n", token);
-        token = strtok_r(NULL, " ", &saveptr);
-    }
-}
-```
-```cpp
-#include <string_view>
-#include <iostream>
-
-void parse_tokens_reentrant(std::string_view input) {
-    size_t start = 0;
-    while (start < input.size()) {
-        auto end = input.find(' ', start);
-        if (end == std::string_view::npos) {
-            end = input.size();
-        }
-        std::string_view token = input.substr(start, end - start);
-        if (!token.empty()) {
-            std::cout << "Лексема: " << token << '\n';
-        }
-        start = end + 1;
-    }
-}
-```
+:::code thread-safety-d/c/dzherela-problem.c
+:::code thread-safety-d/cpp/dzherela-problem.cpp
 :::
 
 Детальний аналіз історичних передумов, суперечок навколо стандартизації та еволюції змінної `errno` від глобальної пам'яті до потоково-локального макросу наведено у вставці [Еволюція потокової безпеки в стандарті POSIX](root:sf-tasks/thread-safety/hist-posix-r-evolution.md). Повну матрицю небезпечних викликів libc та їхніх сучасних реентрабельних замін наведено у довідці [Порівняльна довідка потокобезпечних і реентрабельних функцій POSIX](root:sf-tasks/thread-safety/api-posix-reentrant-matrix.md).
@@ -506,40 +370,8 @@ if !safeQueue.IsEmpty() {
 *Правильне рішення:* об'єднання перевірки та дії в одну неподільну операцію з атомарним контрактом:
 
 :::tabs
-```c
-bool thread_safe_queue_try_pop(queue_t *q, item_t *out_item) {
-    pthread_mutex_lock(&q->lock);
-    if (q->head == NULL) {
-        pthread_mutex_unlock(&q->lock);
-        return false;
-    }
-    *out_item = dequeue_internal(q);
-    pthread_mutex_unlock(&q->lock);
-    return true;
-}
-```
-```cpp
-#include <optional>
-#include <mutex>
-#include <queue>
-
-template <typename T>
-class SafeQueue {
-public:
-    std::optional<T> try_pop() {
-        std::lock_guard<std::mutex> guard(mutex_);
-        if (data_.empty()) {
-            return std::nullopt;
-        }
-        T item = std::move(data_.front());
-        data_.pop();
-        return item;
-    }
-private:
-    std::mutex mutex_;
-    std::queue<T> data_;
-};
-```
+:::code thread-safety-d/c/1-iliuziia-kompozytsii.c
+:::code thread-safety-d/cpp/1-iliuziia-kompozytsii.cpp
 :::
 
 #### 2. Витік незахищених посилань (Leaky Abstraction)
@@ -555,19 +387,7 @@ char *thread_safe_buffer_get_raw(buffer_t *b) {
     return ptr; // Користувач читатиме пам'ять без замка!
 }
 ```
-```cpp
-/* Небезпечний витік внутрішнього стану */
-class LeakyConfig {
-public:
-    std::string& get_database_url() {
-        std::lock_guard<std::mutex> guard(mutex_);
-        return db_url_; // Повернення посилання в обхід м'ютекса!
-    }
-private:
-    std::mutex mutex_;
-    std::string db_url_;
-};
-```
+:::code thread-safety-d/cpp/2-vytik-nezakhyshchenykh.cpp
 :::
 
 *Правильне рішення:* повертати копію значення або приймати функціональний об'єкт (зворотний виклик), який виконує потрібну дію безпосередньо всередині критичної секції під замком.
@@ -588,78 +408,8 @@ private:
 Нижче наведено зразок кінцевої промислової реалізації потокобезпечного агрегатора з можливістю отримання узгодженого знімка метрик:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    pthread_mutex_t lock;
-    uint64_t total_requests;
-    uint64_t total_errors;
-} RequestAggregator;
-
-int aggregator_init(RequestAggregator *agg) {
-    if (!agg) return -1;
-    agg->total_requests = 0;
-    agg->total_errors = 0;
-    return pthread_mutex_init(&agg->lock, NULL);
-}
-
-void aggregator_record(RequestAggregator *agg, bool is_error) {
-    if (!agg) return;
-    pthread_mutex_lock(&agg->lock);
-    agg->total_requests++;
-    if (is_error) {
-        agg->total_errors++;
-    }
-    pthread_mutex_unlock(&agg->lock);
-}
-
-void aggregator_read_snapshot(RequestAggregator *agg, uint64_t *out_req, uint64_t *out_err) {
-    if (!agg) return;
-    pthread_mutex_lock(&agg->lock);
-    if (out_req) *out_req = agg->total_requests;
-    if (out_err) *out_err = agg->total_errors;
-    pthread_mutex_unlock(&agg->lock);
-}
-
-void aggregator_destroy(RequestAggregator *agg) {
-    if (agg) {
-        pthread_mutex_destroy(&agg->lock);
-    }
-}
-```
-```cpp
-#include <mutex>
-#include <cstdint>
-
-struct AggregatorSnapshot {
-    uint64_t total_requests{0};
-    uint64_t total_errors{0};
-};
-
-class RequestAggregator {
-public:
-    void record(bool is_error) noexcept {
-        std::lock_guard<std::mutex> guard(mutex_);
-        ++total_requests_;
-        if (is_error) {
-            ++total_errors_;
-        }
-    }
-
-    [[nodiscard]] AggregatorSnapshot snapshot() const noexcept {
-        std::lock_guard<std::mutex> guard(mutex_);
-        return {total_requests_, total_errors_};
-    }
-
-private:
-    mutable std::mutex mutex_{};
-    uint64_t total_requests_{0};
-    uint64_t total_errors_{0};
-};
-```
+:::code thread-safety-d/c/inzhenernyi-refaktorynh.c
+:::code thread-safety-d/cpp/inzhenernyi-refaktorynh.cpp
 :::
 
 ---
@@ -675,29 +425,7 @@ private:
 Компілятор Clang містить механізм статичної перевірки блокувань на етапі компіляції. За допомогою спеціальних атрибутів розробник декларує, який саме м'ютекс захищає кожне конкретне поле структури даних:
 
 :::tabs
-```cpp
-#include <mutex>
-
-class GuardedAccount {
-public:
-    void deposit(double amount) {
-        std::lock_guard<std::mutex> lock(mu_);
-        balance_ += amount; // OK: замок mu_ захоплено
-    }
-
-    double get_balance_unsafe() const {
-        // Помилка компіляції: спроба читання balance_ без захоплення mu_!
-        // return balance_; 
-        std::lock_guard<std::mutex> lock(mu_);
-        return balance_;
-    }
-
-private:
-    mutable std::mutex mu_;
-    // Атрибут guarded_by вказує компілятору на зв'язок поля із замком
-    double balance_ [[clang::guarded_by(mu_)]] {0.0};
-};
-```
+:::code thread-safety-d/cpp/2-statychnyi-analiz.cpp
 ```c
 #include <pthread.h>
 

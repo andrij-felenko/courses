@@ -57,57 +57,8 @@
 Нижче наведено приклад налаштування мовами C та C++:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-
-int init_writer_preferring_rwlock(pthread_rwlock_t *rwlock) {
-    pthread_rwlockattr_t attr;
-    if (pthread_rwlockattr_init(&attr) != 0) {
-        return -1;
-    }
-
-    // Встановлення пріоритету письменників без рекурсивного захоплення читачами
-    pthread_rwlockattr_setkind_np(&attr, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP);
-
-    int res = pthread_rwlock_init(rwlock, &attr);
-    pthread_rwlockattr_destroy(&attr);
-    return res;
-}
-```
-```cpp
-#include <iostream>
-#include <pthread.h>
-#include <shared_mutex>
-
-// У стандартному C++ std::shared_mutex використовує системну політику за замовчуванням.
-// Для явного задання пріоритету письменників створюється RAII-обгортка над POSIX-атрибутами.
-class NativeConfiguredRwLock {
-public:
-    NativeConfiguredRwLock() {
-        pthread_rwlockattr_t attr;
-        pthread_rwlockattr_init(&attr);
-        pthread_rwlockattr_setkind_np(&attr, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP);
-        pthread_rwlock_init(&rwlock_, &attr);
-        pthread_rwlockattr_destroy(&attr);
-    }
-
-    ~NativeConfiguredRwLock() {
-        pthread_rwlock_destroy(&rwlock_);
-    }
-
-    void lock_shared() { pthread_rwlock_rdlock(&rwlock_); }
-    void unlock_shared() { pthread_rwlock_unlock(&rwlock_); }
-    void lock() { pthread_rwlock_wrlock(&rwlock_); }
-    void unlock() { pthread_rwlock_unlock(&rwlock_); }
-
-    NativeConfiguredRwLock(const NativeConfiguredRwLock&) = delete;
-    NativeConfiguredRwLock& operator=(const NativeConfiguredRwLock&) = delete;
-
-private:
-    pthread_rwlock_t rwlock_;
-};
-```
+:::code api-posix-cpp/c/1-5-nalashtuvannia.c
+:::code api-posix-cpp/cpp/1-5-nalashtuvannia.cpp
 :::
 
 ---
@@ -138,123 +89,8 @@ private:
 У сучасному C++ прямі виклики `lock()` та `unlock()` вважаються антипатерном, оскільки генерація винятку всередині критичної секції призведе до невивільненого замка і мертвого дедлоку. Застосовуються спеціалізовані RAII-обгортки:
 
 :::tabs
-```cpp
-#include <chrono>
-#include <iostream>
-#include <optional>
-#include <shared_mutex>
-#include <string>
-#include <thread>
-#include <unordered_map>
-
-class ThreadSafeRegistry {
-public:
-    // Операція читання: багато потоків читають одночасно
-    std::optional<std::string> get(const std::string& key) const {
-        std::shared_lock<std::shared_mutex> lock(mutex_);
-        auto it = map_.find(key);
-        if (it != map_.end()) {
-            return it->second;
-        }
-        return std::nullopt;
-    }
-
-    // Операція запису: монопольний доступ одного потоку
-    void set(const std::string& key, const std::string& value) {
-        std::unique_lock<std::shared_mutex> lock(mutex_);
-        map_[key] = value;
-    }
-
-    // Операція читання з обмеженням за часом очікування
-    std::optional<std::string> get_timed(const std::string& key, std::chrono::milliseconds timeout) const {
-        std::shared_lock<std::shared_timed_mutex> lock(timed_mutex_, timeout);
-        if (!lock.owns_lock()) {
-            return std::nullopt; // Таймаут очікування замка
-        }
-        auto it = timed_map_.find(key);
-        if (it != timed_map_.end()) {
-            return it->second;
-        }
-        return std::nullopt;
-    }
-
-private:
-    mutable std::shared_mutex                   mutex_;
-    std::unordered_map<std::string, std::string> map_;
-
-    mutable std::shared_timed_mutex             timed_mutex_;
-    std::unordered_map<std::string, std::string> timed_map_;
-};
-```
-```c
-#include <errno.h>
-#include <pthread.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-
-typedef struct {
-    pthread_rwlock_t rwlock;
-    char             key[64];
-    char             value[256];
-} registry_entry_t;
-
-void registry_init(registry_entry_t *reg) {
-    pthread_rwlock_init(&reg->rwlock, NULL);
-    strcpy(reg->key, "status");
-    strcpy(reg->value, "active");
-}
-
-bool registry_read(registry_entry_t *reg, char *out_buf, size_t max_len) {
-    if (pthread_rwlock_rdlock(&reg->rwlock) != 0) {
-        return false;
-    }
-    strncpy(out_buf, reg->value, max_len - 1);
-    out_buf[max_len - 1] = '\0';
-    pthread_rwlock_unlock(&reg->rwlock);
-    return true;
-}
-
-bool registry_read_timed(registry_entry_t *reg, char *out_buf, size_t max_len, int timeout_ms) {
-    struct timespec ts;
-    clock_gettime(CLOCK_REALTIME, &ts);
-    ts.tv_sec += timeout_ms / 1000;
-    ts.tv_nsec += (timeout_ms % 1000) * 1000000;
-    if (ts.tv_nsec >= 1000000000) {
-        ts.tv_sec += 1;
-        ts.tv_nsec -= 1000000000;
-    }
-
-    int rc = pthread_rwlock_timedrdlock(&reg->rwlock, &ts);
-    if (rc == ETIMEDOUT) {
-        return false;
-    }
-    if (rc != 0) {
-        return false;
-    }
-
-    strncpy(out_buf, reg->value, max_len - 1);
-    out_buf[max_len - 1] = '\0';
-    pthread_rwlock_unlock(&reg->rwlock);
-    return true;
-}
-
-bool registry_write(registry_entry_t *reg, const char *new_val) {
-    if (pthread_rwlock_wrlock(&reg->rwlock) != 0) {
-        return false;
-    }
-    strncpy(reg->value, new_val, sizeof(reg->value) - 1);
-    reg->value[sizeof(reg->value) - 1] = '\0';
-    pthread_rwlock_unlock(&reg->rwlock);
-    return true;
-}
-
-void registry_destroy(registry_entry_t *reg) {
-    pthread_rwlock_destroy(&reg->rwlock);
-}
-```
+:::code api-posix-cpp/cpp/2-2-idiomatychne.cpp
+:::code api-posix-cpp/c/2-2-idiomatychne.c
 :::
 
 ---
@@ -266,44 +102,8 @@ void registry_destroy(registry_entry_t *reg) {
 Для надійного захисту в C обов'язково застосовують стек обробників очищення `pthread_cleanup_push` / `pthread_cleanup_pop`:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <string.h>
-
-void rwlock_cleanup_handler(void *arg) {
-    pthread_rwlock_t *rwlock = (pthread_rwlock_t *)arg;
-    pthread_rwlock_unlock(rwlock);
-}
-
-void safe_cancellation_read(pthread_rwlock_t *rwlock, char *shared_data, char *out_buf, size_t len) {
-    pthread_rwlock_rdlock(rwlock);
-    pthread_cleanup_push(rwlock_cleanup_handler, (void *)rwlock);
-
-    // Критична секція читання з потенційними точками скасування (наприклад, операції вводу-виводу)
-    strncpy(out_buf, shared_data, len - 1);
-    out_buf[len - 1] = '\0';
-
-    // 0 означає не викликати обробник зараз, але безпечно зняти його зі стека
-    pthread_cleanup_pop(0);
-    pthread_rwlock_unlock(rwlock);
-}
-```
-```cpp
-#include <shared_mutex>
-#include <string>
-#include <string_view>
-
-// У C++ завдяки семантиці RAII об'єкт std::shared_lock автоматично звільняє замок
-// як при звичайному виході з області видимості, так і при розгортанні стека винятків (exception unwinding).
-void safe_raii_read(std::shared_mutex& mutex, const std::string& shared_data, std::string& out_buf) {
-    std::shared_lock<std::shared_mutex> lock(mutex);
-    
-    // Навіть якщо тут виникне виняток std::bad_alloc або std::runtime_error,
-    // деструктор об'єкта lock гарантовано викличе unlock_shared().
-    out_buf = shared_data;
-}
-```
+:::code api-posix-cpp/c/3-bezpeka-skasuvannia.c
+:::code api-posix-cpp/cpp/3-bezpeka-skasuvannia.cpp
 :::
 
 ---

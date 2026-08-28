@@ -67,24 +67,7 @@ ldadd  w1, w2, [x0]   ; Атомарно додає W1 до адреси X0 та
 
 Використання базового типу `int` у мові C є небезпечним для атомарного доступу, оскільки мова C дозволяє вільно застосовувати оператор присвоєння `=` або оператори `++` та `--` до звичайних змінних `int`, які компілятор перетворює на неатомарні послідовності інструкцій. Обгортання в структуру з єдиним полем `counter` є принциповим рішенням розробників ядра: вона викликає помилку компіляції при спробі написати `v = 5` або `v++`, змушуючи розробників явно використовувати тільки функції з ядерного API атомарних операцій. У вихідному коді ядра Linux атомарні цілі числа представлені окремими C-структурами-обгортками:
 
-```c
-// Визначення типів у заголовковому файлі include/linux/types.h
-typedef struct {
-    int counter;
-} atomic_t;
-
-#ifdef CONFIG_64BIT
-typedef struct {
-    s64 counter;
-} atomic64_t;
-#endif
-
-// include/linux/atomic/atomic-long.h — не окрема структура, а псевдонім:
-// #ifdef CONFIG_64BIT
-typedef atomic64_t atomic_long_t;
-// #else
-// typedef atomic_t atomic_long_t;
-```
+:::code atomic-ops-d/c/abstraktsii-iadra-linux.c
 
 Змінна `atomic_t` працює з 32-бітними цілими числами зі знаком. Змінна `atomic64_t` реалізує 64-бітну атомарну арифметику. Змінна `atomic_long_t` адаптується під розрядність системи: на 64-бітних архітектурах вона еквівалентна `atomic64_t`, на 32-бітних — `atomic_t`.
 
@@ -200,20 +183,7 @@ do {
 
 Для оновлення лічильників у таблицях пам'яті eBPF (eBPF Maps) набір інструкцій eBPF має власний клас атомарних операцій — модифікатор `BPF_ATOMIC` над інструкціями `BPF_STX`:
 
-```c
-// eBPF C-код для оновлення лічильника пакетів у мапі
-SEC("xdp")
-int xdp_packet_counter(struct xdp_md *ctx)
-{
-    u32 key = 0;
-    u64 *count = bpf_map_lookup_elem(&pkt_count_map, &key);
-    if (count) {
-        // Компілятор породжує BPF-інструкцію BPF_ADD із модифікатором BPF_ATOMIC
-        __sync_fetch_and_add(count, 1);
-    }
-    return XDP_PASS;
-}
-```
+:::code atomic-ops-d/c/atomarnist-u-pidsystemi.c
 
 Верифікатор ядра (eBPF Verifier) суворо перевіряє, що атомарний виклик виконується над вирівняною адресою пам'яті у мапі, запобігаючи краху ядра від split locks. JIT-компілятор ядра транслює `BPF_ATOMIC` безпосередньо в апаратну інструкцію `LOCK XADD` на x86-64 або `LDADD` на ARM64 з розширенням LSE (а на давніших ARM64 без LSE — у короткий цикл `LDXR`/`STXR`): лічильник коштує саму атомарну модифікацію, без жодного виклику допоміжної функції — саме це й дозволяє XDP тримати десятки мільйонів пакетів на секунду на ядро.
 
@@ -314,39 +284,7 @@ if (test_and_set_bit(2, &flags)) {
 
 Для повного усунення цього класу вразливостей у ядрі Linux було запроваджено спеціалізований тип `refcount_t` (`#include <linux/refcount.h>`):
 
-```c
-#include <linux/refcount.h>
-
-struct kernel_device_data {
-    refcount_t refcount;
-    char buffer[128];
-};
-
-struct kernel_device_data *device_alloc(void)
-{
-    struct kernel_device_data *dev = kmalloc(sizeof(*dev), GFP_KERNEL);
-    if (!dev)
-        return NULL;
-
-    // Ініціалізація початкового значення refcount = 1
-    refcount_set(&dev->refcount, 1);
-    return dev;
-}
-
-void device_get(struct kernel_device_data *dev)
-{
-    // Безпечне збільшення лічильника посилань
-    refcount_inc(&dev->refcount);
-}
-
-void device_put(struct kernel_device_data *dev)
-{
-    // Зменшує і перевіряє на 0
-    if (refcount_dec_and_test(&dev->refcount)) {
-        kfree(dev);
-    }
-}
-```
+:::code atomic-ops-d/c/zakhyshchenyi-lichylnyk.c
 
 Тип `refcount_t` реалізовано як обгортку над `atomic_t`, але з додаванням захисних апаратних перевірок:
 

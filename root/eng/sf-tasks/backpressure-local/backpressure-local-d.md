@@ -82,75 +82,8 @@
 Конфігурацію розмірів буферів пайпів через `fcntl(fd, F_SETPIPE_SZ)`, інспекцію черг сокетів через `ioctl(SIOCOUTQ)` та маніпуляцію опціями `SO_SNDBUF`/`SO_RCVBUF` систематизовано в [довіднику системних інтерфейсів та контрактів протитиску](root:sf-tasks/backpressure-local/api-local-backpressure.md).
 
 :::tabs
-```c
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <stdio.h>
-
-/* Обробка неблокуючого протитиску на рівні дескриптора POSIX */
-ssize_t safe_write_with_backpressure(int fd, const void *buf, size_t count) {
-    size_t written = 0;
-    const char *ptr = (const char *)buf;
-
-    while (written < count) {
-        ssize_t res = write(fd, ptr + written, count - written);
-        if (res > 0) {
-            written += res;
-            continue;
-        }
-        if (res == -1) {
-            if (errno == EINTR) continue; /* Сигнал ОС: повторити спробу */
-            if (errno == EAGAIN || errno == EWOULDBLOCK) {
-                /* Спрацював протитиск: буфер ядра повний.
-                   Повертаємо кількість реально записаних байтів */
-                return (written > 0) ? (ssize_t)written : -EAGAIN;
-            }
-            return -errno; /* Фатальна помилка дескриптора */
-        }
-    }
-    return (ssize_t)written;
-}
-```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <cerrno>
-#include <span>
-#include <expected>
-#include <system_error>
-
-enum class IoStatus {
-    Backpressure, // Буфер ядра повний (EAGAIN/EWOULDBLOCK)
-    BrokenPipe,   // Канал закрито на стороні читача (EPIPE)
-    SysError      // Інша помилка ОС
-};
-
-// Ідіоматична обробка неблокуючого протитиску засобами сучасного C++
-std::expected<size_t, IoStatus> safe_write_with_backpressure(int fd, std::span<const std::byte> data) {
-    size_t written = 0;
-
-    while (written < data.size()) {
-        ssize_t res = ::write(fd, data.data() + written, data.size() - written);
-        if (res > 0) {
-            written += static_cast<size_t>(res);
-            continue;
-        }
-        if (res == -1) {
-            if (errno == EINTR) continue;
-            if (errno == EAGAIN || errno == EWOULDBLOCK) {
-                if (written > 0) return written;
-                return std::unexpected(IoStatus::Backpressure);
-            }
-            if (errno == EPIPE) {
-                return std::unexpected(IoStatus::BrokenPipe);
-            }
-            return std::unexpected(IoStatus::SysError);
-        }
-    }
-    return written;
-}
-```
+:::code backpressure-local-d/c/main.c
+:::code backpressure-local-d/cpp/main.cpp
 :::
 
 ### Асинхронний протитиск у циклі подій (Event Loop & Reactor)

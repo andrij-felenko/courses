@@ -118,63 +118,8 @@ Acquire-Release семантика зв'язує парні операції з�
 Проілюструємо переписаний Producer-Consumer приклад за допомогою Acquire-Release:
 
 :::tabs
-```c
-// Застосування Acquire-Release у коді ядра Linux (C)
-#include <linux/compiler.h>
-
-// Потік 1: Виробник (CPU Core 0)
-void producer(struct my_data *payload)
-{
-    payload->value = 42;
-    payload->status = STATUS_READY;
-
-    // Публікація прапорця з семантикою Release
-    smp_store_release(&global_ready_flag, 1);
-}
-
-// Потік 2: Споживач (CPU Core 1)
-void consumer(struct my_data *payload)
-{
-    // Перевірка прапорця з семантикою Acquire
-    if (smp_load_acquire(&global_ready_flag) == 1) {
-        // Гарантовано зчитає payload->value == 42!
-        pr_info("Payload value: %d\n", payload->value);
-    }
-}
-```
-```cpp
-// Застосування Acquire-Release у користувацькому просторі (C++17)
-#include <atomic>
-#include <iostream>
-
-struct MyData {
-    int value{0};
-    int status{0};
-};
-
-std::atomic<int> global_ready_flag{0};
-MyData payload;
-
-// Потік 1: Виробник
-void producer()
-{
-    payload.value = 42;
-    payload.status = 1;
-
-    // Публікація прапорця з семантикою Release
-    global_ready_flag.store(1, std::memory_order_release);
-}
-
-// Потік 2: Споживач
-void consumer()
-{
-    // Перевірка прапорця з семантикою Acquire
-    if (global_ready_flag.load(std::memory_order_acquire) == 1) {
-        // Гарантовано надрукує 42!
-        std::cout << "Payload value: " << payload.value << "\n";
-    }
-}
-```
+:::code memory-barriers-d/c/pryntsyp-roboty-acquire.c
+:::code memory-barriers-d/cpp/pryntsyp-roboty-acquire.cpp
 :::
 
 ### Апаратна перевага Acquire-Release на ARM64
@@ -211,72 +156,8 @@ void consumer()
 У кільцевому буфері з одним виробником і одним споживачем (Single-Producer Single-Consumer) передача індексів `head` та `tail` здійснюється без використання спінлоків:
 
 :::tabs
-```c
-// SPSC кільцевий буфер мовою C (ядро Linux)
-void spsc_ring_enqueue(struct spsc_ring *ring, void *data)
-{
-    unsigned int head = ring->head;
-    unsigned int tail = smp_load_acquire(&ring->tail);
-
-    if ((head - tail) >= ring->size)
-        return; // Буфер повністю заповнений
-
-    ring->buffer[head & (ring->size - 1)] = data;
-    smp_store_release(&ring->head, head + 1);
-}
-
-void *spsc_ring_dequeue(struct spsc_ring *ring)
-{
-    unsigned int tail = ring->tail;
-    unsigned int head = smp_load_acquire(&ring->head);
-
-    if (tail == head)
-        return NULL; // Буфер порожній
-
-    void *data = ring->buffer[tail & (ring->size - 1)];
-    smp_store_release(&ring->tail, tail + 1);
-    return data;
-}
-```
-```cpp
-// SPSC кільцевий буфер мовою C++17 (std::atomic, std::optional)
-#include <atomic>
-#include <vector>
-#include <optional>
-
-template <typename T, size_t Size>
-class SPSCQueue {
-private:
-    std::vector<T> buffer_ = std::vector<T>(Size);
-    alignas(64) std::atomic<size_t> head_{0};
-    alignas(64) std::atomic<size_t> tail_{0};
-
-public:
-    bool enqueue(T val) {
-        size_t head = head_.load(std::memory_order_relaxed);
-        size_t tail = tail_.load(std::memory_order_acquire);
-
-        if ((head - tail) >= Size)
-            return false;
-
-        buffer_[head % Size] = std::move(val);
-        head_.store(head + 1, std::memory_order_release);
-        return true;
-    }
-
-    std::optional<T> dequeue() {
-        size_t tail = tail_.load(std::memory_order_relaxed);
-        size_t head = head_.load(std::memory_order_acquire);
-
-        if (tail == head)
-            return std::nullopt;
-
-        T val = std::move(buffer_[tail % Size]);
-        tail_.store(tail + 1, std::memory_order_release);
-        return val;
-    }
-};
-```
+:::code memory-barriers-d/c/1-odnoprodiuserni-kiltsevi.c
+:::code memory-barriers-d/cpp/1-odnoprodiuserni-kiltsevi.cpp
 :::
 
 ### 2. Публікація вказівників у RCU (Read-Copy-Update)

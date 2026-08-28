@@ -75,33 +75,9 @@ uv_ref(reinterpret_cast<uv_handle_t*>(&heartbeat_timer));
 
 :::tabs
 @tab C
-```c
-static void on_socket_closed(uv_handle_t *handle) {
-    // Пам'ять дозволено звільняти ЛИШЕ всередині close-колбека!
-    printf("Дескриптор успішно видалено з ядра, звільняємо пам'ять.
-");
-    free(handle);
-}
-
-void safe_close_client(uv_tcp_t *client) {
-    // 1. Повідомляємо libuv про необхідність закриття
-    uv_close((uv_handle_t*)client, on_socket_closed);
-}
-```
+:::code api-libuv-loop/c/asynkhronnyi-protokol.c
 @tab C++
-```cpp
-auto on_socket_closed = [](uv_handle_t* handle) {
-    // Пам'ять дозволено звільняти ЛИШЕ всередині close-колбека!
-    std::cout << "Дескриптор успішно видалено з ядра, звільняємо пам'ять.
-";
-    delete reinterpret_cast<uv_tcp_t*>(handle);
-};
-
-void safe_close_client(uv_tcp_t* client) {
-    // 1. Повідомляємо libuv про необхідність закриття
-    uv_close(reinterpret_cast<uv_handle_t*>(client), on_socket_closed);
-}
-```
+:::code api-libuv-loop/cpp/asynkhronnyi-protokol.cpp
 :::
 
 ---
@@ -126,86 +102,9 @@ void safe_close_client(uv_tcp_t* client) {
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <uv.h>
-
-void heavy_work_task(uv_work_t *req) {
-    // Виконується у фоновому потоці з пулу робітників!
-    long sum = 0;
-    for (long i = 0; i < 100000000L; ++i) {
-        sum += i;
-    }
-    req->data = (void*)sum;
-}
-
-void on_work_completed(uv_work_t *req, int status) {
-    // Виконується у головному потоці циклу подій!
-    printf("Фонову задачу завершено, результат: %ld
-", (long)req->data);
-    free(req);
-}
-
-int main(void) {
-    uv_loop_t *loop = uv_default_loop();
-
-    uv_work_t *req = malloc(sizeof(uv_work_t));
-    uv_queue_work(loop, req, heavy_work_task, on_work_completed);
-
-    printf("Головний цикл подій запущено...
-");
-    uv_run(loop, UV_RUN_DEFAULT);
-
-    uv_loop_close(loop);
-    return 0;
-}
-```
+:::code api-libuv-loop/c/vynesennia-vazhkykh.c
 @tab C++
-```cpp
-#include <iostream>
-#include <memory>
-#include <uv.h>
-
-struct WorkTask {
-    uv_work_t req;
-    long result{0};
-};
-
-int main() {
-    uv_loop_t* loop = uv_default_loop();
-
-    auto task = std::make_unique<WorkTask>();
-    task->req.data = task.get();
-
-    auto work_cb = [](uv_work_t* req) {
-        // Виконується у фоновому потоці з пулу робітників!
-        auto* t = static_cast<WorkTask*>(req->data);
-        long sum = 0;
-        for (long i = 0; i < 100000000L; ++i) {
-            sum += i;
-        }
-        t->result = sum;
-    };
-
-    auto after_work_cb = [](uv_work_t* req, int status) {
-        // Виконується у головному потоці циклу подій!
-        auto* t = static_cast<WorkTask*>(req->data);
-        std::cout << "Фонову задачу завершено, результат: " << t->result << std::endl;
-        delete t;
-    };
-
-    auto* raw_task = task.release();
-    uv_queue_work(loop, &raw_task->req, work_cb, after_work_cb);
-
-    std::cout << "Головний цикл подій запущено...
-";
-    uv_run(loop, UV_RUN_DEFAULT);
-
-    uv_loop_close(loop);
-    return 0;
-}
-```
+:::code api-libuv-loop/cpp/vynesennia-vazhkykh.cpp
 :::
 
 ---

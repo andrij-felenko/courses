@@ -152,19 +152,7 @@ void send_packet(void) {
     is_ready = 1;                   // 2. Сигнал обробнику переривання
 }
 ```
-```cpp
-#include <cstdint>
-#include <array>
-
-std::array<std::uint8_t, 64> tx_buffer;  // Звичайний буфер (не volatile)
-volatile std::uint32_t is_ready = 0;     // Прапорець готовності
-
-void send_packet() {
-    tx_buffer[0] = 0xAA;                 // 1. Запис корисних даних
-    tx_buffer[1] = 0xBB;
-    is_ready = 1;                        // 2. Сигнал обробнику переривання
-}
-```
+:::code volatile-register-d/cpp/3-perevporiadkuvannia.cpp
 :::
 
 Оскільки масив `tx_buffer` не позначений як `volatile`, компілятор під час оптимізації `-O3` має повне право перенести інструкцію `is_ready = 1` **вище** заповнення масиву `tx_buffer`, якщо вважатиме це вигідним для планування конвеєра інструкцій. Обробник переривання побачить `is_ready == 1` ще до того, як процесор реально запише байти `0xAA` та `0xBB` у пам'ять.
@@ -180,37 +168,8 @@ void send_packet() {
 У компіляторах GCC та Clang такий бар'єр створюється за допомогою порожньої асемблерної вставки з вимогою перезавантаження пам'яті:
 
 :::tabs
-```c
-// Класичний компіляторний бар'єр GCC/Clang
-#define COMPILER_BARRIER() asm volatile("" ::: "memory")
-
-void send_packet_safe(void) {
-    tx_buffer[0] = 0xAA;
-    tx_buffer[1] = 0xBB;
-    
-    COMPILER_BARRIER(); // Компілятор скидає всі збережені змінні в RAM
-    
-    is_ready = 1;       // Цей запис гарантовано буде в asm після заповнення буфера
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <atomic>
-
-std::array<std::uint8_t, 64> tx_buffer;
-volatile std::uint32_t is_ready = 0;
-
-void send_packet_safe() {
-    tx_buffer[0] = 0xAA;
-    tx_buffer[1] = 0xBB;
-    
-    // Ідіоматичний компіляторний бар'єр C++11 (не генерує інструкцій CPU)
-    std::atomic_signal_fence(std::memory_order_release);
-    
-    is_ready = 1;
-}
-```
+:::code volatile-register-d/c/kompiliatornyi-barier.c
+:::code volatile-register-d/cpp/kompiliatornyi-barier.cpp
 :::
 
 Компіляторний бар'єр змушує компілятор скинути всі оптимізовані в регістрах CPU змінні назад у фізичну пам'ять. При цьому сам компіляторний бар'єр **не генерує жодної інструкції в машинному коді** процесора і має нульову апаратну вартість. Проте він діє виключно під час компіляції: якщо процесор має позапорядковий конвеєр або буфери запису, компіляторний бар'єр не захищає від апаратного перевпорядкування.
@@ -236,26 +195,7 @@ void prepare_and_trigger_dma(void) {
     DMA1_Channel1->CCR |= DMA_CCR_EN; // Запуск апаратного каналу DMA
 }
 ```
-```cpp
-#include <cstdint>
-#include <atomic>
-
-// На C++ для контролю доступу використовують апаратні бар'єри CMSIS або std::atomic_thread_fence
-extern "C" void __DMB(void);
-
-struct DMAChannel {
-    volatile std::uint32_t CCR;
-    volatile std::uint32_t CNDTR;
-    volatile std::uint32_t CPAR;
-    volatile std::uint32_t CMAR;
-};
-
-void trigger_dma_safe(DMAChannel &dma) {
-    // Встановлення апаратного бар'єра пам'яті
-    __DMB();
-    dma.CCR |= 0x01U; // Запуск DMA
-}
-```
+:::code volatile-register-d/cpp/1-dmb-data-memory-barrier.cpp
 :::
 
 #### 2. DSB (Data Synchronization Barrier / Бар'єр синхронізації даних)
@@ -288,60 +228,8 @@ void trigger_dma_safe(DMAChannel &dma) {
 Розглянемо еталонне оголошення структури периферійного модуля (на прикладі універсального таймера/UART):
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Оголошення структури регістрів периферійного модуля
-typedef struct {
-    volatile uint32_t CR1;        // +0x00: Регістр керування 1 (Читання/Запис, RW)
-    volatile uint32_t CR2;        // +0x04: Регістр керування 2 (Читання/Запис, RW)
-    const volatile uint32_t SR;   // +0x08: Регістр статусу (Тільки читання, RO)
-    uint32_t RESERVED[2];         // +0x0C .. +0x10: Нереалізований адресний простір
-    volatile uint32_t DR;         // +0x14: Регістр даних (Читання/Запис, RW)
-} USART_TypeDef;
-
-// Фіксація базової адреси периферійного блоку в пам'яті
-#define USART1_BASE  (0x40013800UL)
-#define USART1       ((USART_TypeDef *)USART1_BASE)
-
-// Функція передачі байта
-void usart_send_byte(USART_TypeDef *usart, uint8_t byte) {
-    // Очікування встановлення біта TXE (Transmit Data Register Empty)
-    while (!(usart->SR & (1U << 7))) {
-        // Опитування статусу через const volatile uint32_t
-    }
-    // Запис байта в регістр даних
-    usart->DR = byte;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-// Оголошення структури регістрів для C++
-struct USART_TypeDef {
-    volatile std::uint32_t CR1;        // +0x00: RW
-    volatile std::uint32_t CR2;        // +0x04: RW
-    const volatile std::uint32_t SR;   // +0x08: RO (Захист від запису компілятором)
-    std::uint32_t RESERVED[2];         // +0x0C .. +0x10: Відступ
-    volatile std::uint32_t DR;         // +0x14: RW
-};
-
-inline constexpr std::uintptr_t USART1_BASE = 0x40013800UL;
-
-// Отримання посилання на апаратний модуль
-inline USART_TypeDef& get_usart1() noexcept {
-    return *reinterpret_cast<USART_TypeDef*>(USART1_BASE);
-}
-
-void usart_send_byte(USART_TypeDef &usart, std::uint8_t byte) noexcept {
-    constexpr std::uint32_t TXE_BIT = 1U << 7;
-    while (!(usart->SR & TXE_BIT)) {
-        // Опитування згенеровано коректно через volatile-семантику
-    }
-    usart->DR = byte;
-}
-```
+:::code volatile-register-d/c/paterny-bezpechnoho.c
+:::code volatile-register-d/cpp/paterny-bezpechnoho.cpp
 :::
 
 Ключові архітектурні правила створення MMIO-структур:
@@ -356,65 +244,8 @@ void usart_send_byte(USART_TypeDef &usart, std::uint8_t byte) noexcept {
 Для запобігання гонкам розробники кремнію (наприклад, у мікроконтролерах STM32) додають спеціальні **атомарні регістри встановлення та скидання бітів (Bit Set/Reset Register, BSRR)**:
 
 :::tabs
-```c
-// Атомарне перемикання ніжки GPIO без операцій RMW і без блокування переривань
-typedef struct {
-    volatile uint32_t MODER;   // Режим виводів
-    volatile uint32_t OTYPER;  // Тип виходу
-    volatile uint32_t OSPEEDR; // Швидкість
-    volatile uint32_t PUPDR;   // Підтяжка
-    volatile uint32_t IDR;     // Вхідні дані (RO)
-    volatile uint32_t ODR;     // Вихідні дані (RW - небезпечно для RMW!)
-    volatile uint32_t BSRR;    // Атомарне встановлення/скидання (Write-Only)
-} GPIO_TypeDef;
-
-#define GPIOA ((GPIO_TypeDef *)0x40020000UL)
-
-void set_pin_5_high(void) {
-    // Запис 1 у молодші 16 біт BSRR встановлює пін 5 у логічну 1
-    GPIOA->BSRR = (1U << 5); // Одиночна атомарна інструкція STR
-}
-
-void set_pin_5_low(void) {
-    // Запис 1 у старші 16 біт BSRR скидає пін 5 у логічний 0
-    GPIOA->BSRR = (1U << (5 + 16)); // Одиночна атомарна інструкція STR
-}
-```
-```cpp
-#include <cstdint>
-
-struct GPIO_TypeDef {
-    volatile std::uint32_t MODER;
-    volatile std::uint32_t OTYPER;
-    volatile std::uint32_t OSPEEDR;
-    volatile std::uint32_t PUPDR;
-    const volatile std::uint32_t IDR;
-    volatile std::uint32_t ODR;
-    volatile std::uint32_t BSRR;
-};
-
-inline constexpr std::uintptr_t GPIOA_BASE = 0x40020000UL;
-
-inline GPIO_TypeDef& get_gpioa() noexcept {
-    return *reinterpret_cast<GPIO_TypeDef*>(GPIOA_BASE);
-}
-
-class GPIOPin {
-public:
-    constexpr explicit GPIOPin(std::uint8_t pin_idx) noexcept : pin_mask_{1U << pin_idx} {}
-
-    void set_high(GPIO_TypeDef &gpio) const noexcept {
-        gpio.BSRR = pin_mask_; // Атомарний запис встановлення
-    }
-
-    void set_low(GPIO_TypeDef &gpio) const noexcept {
-        gpio.BSRR = (pin_mask_ << 16); // Атомарний запис скидання
-    }
-
-private:
-    std::uint32_t pin_mask_;
-};
-```
+:::code volatile-register-d/c/atomarni-rehistry.c
+:::code volatile-register-d/cpp/atomarni-rehistry.cpp
 :::
 
 Запис у регістр `BSRR` виконується однією машинною інструкцією `STR`, а логіка всередині самого апаратного модуля GPIO здійснює зміну тригера відповідного піна. Це повністю виключає необхідність зупиняти переривання або використовувати м'ютекси.
@@ -423,65 +254,7 @@ private:
 
 У сучасному C++ замість сирих макросів та вказівників будують типобезпечні шаблони регістрів, які перевіряють права доступу на етапі компіляції та не витрачають жодного зайвого байта пам'яті:
 
-```cpp
-#include <cstdint>
-#include <type_traits>
-
-namespace mmio {
-
-// Політики доступу до регістрів
-struct ReadOnly {};
-struct WriteOnly {};
-struct ReadWrite : ReadOnly, WriteOnly {};
-
-// Шаблонний клас для роботи з окремим регістром
-template <std::uintptr_t Address, typename AccessPolicy = ReadWrite, typename T = std::uint32_t>
-class Register {
-public:
-    static_assert(std::is_integral_v<T>, "Регістр повинен бути цілочисельного типу");
-
-    // Читання доступне тільки якщо політика підтримує ReadOnly
-    template <typename P = AccessPolicy, typename = std::enable_if_t<std::is_base_of_v<ReadOnly, P>>>
-    [[nodiscard]] static T read() noexcept {
-        return *reinterpret_cast<const volatile T*>(Address);
-    }
-
-    // Запис доступний тільки якщо політика підтримує WriteOnly
-    template <typename P = AccessPolicy, typename = std::enable_if_t<std::is_base_of_v<WriteOnly, P>>>
-    static void write(T value) noexcept {
-        *reinterpret_cast<volatile T*>(Address) = value;
-    }
-
-    // Модифікація бітів доступна тільки для ReadWrite
-    template <typename P = AccessPolicy, typename = std::enable_if_t<std::is_same_v<ReadWrite, P>>>
-    static void set_bits(T mask) noexcept {
-        write(read() | mask);
-    }
-
-    template <typename P = AccessPolicy, typename = std::enable_if_t<std::is_same_v<ReadWrite, P>>>
-    static void clear_bits(T mask) noexcept {
-        write(read() & ~mask);
-    }
-};
-
-// Оголошення конкретних апаратних регістрів за фіксованими адресами
-using UART1_CR1 = Register<0x40013800UL, ReadWrite>;
-using UART1_SR  = Register<0x40013808UL, ReadOnly>;
-using UART1_DR  = Register<0x40013814UL, ReadWrite>;
-
-} // namespace mmio
-
-void transmit_data(std::uint8_t byte) noexcept {
-    constexpr std::uint32_t TXE_FLAG = 1U << 7;
-    
-    // Помилка компіляції виникне, якщо спробувати викликати UART1_SR::write(0)
-    while (!(mmio::UART1_SR::read() & TXE_FLAG)) {
-        // Опитування статусу
-    }
-    
-    mmio::UART1_DR::write(byte);
-}
-```
+:::code volatile-register-d/cpp/idiomatychni-c-mmio.cpp
 
 Цей підхід забезпечує повну строгість компіляторних перевірок типів, запобігає передачі помилкових вказівників і завдяки повній оптимізації (`inline`) генерує точнісінько такий самий компактний асемблерний код з інструкціями `LDR`/`STR`, як і низькорівневий код на C.
 

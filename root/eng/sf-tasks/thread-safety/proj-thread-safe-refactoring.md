@@ -21,81 +21,8 @@
 У першій версії коду розробник використав глобальні змінні для збереження накопичувальних метрик та внутрішній статичний вказівник для відстеження поточної позиції розбору між послідовними викликами функції:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-/* Прихований статичний стан розбору та глобальні лічильники */
-static char *g_last_token_ptr = NULL;
-static unsigned long g_total_bytes = 0;
-static unsigned long g_error_count = 0;
-
-char *log_parser_next_token_unsafe(char *log_line, const char *delimiter) {
-    if (log_line != NULL) {
-        g_last_token_ptr = log_line;
-    }
-    if (g_last_token_ptr == NULL || *g_last_token_ptr == '\0') {
-        return NULL;
-    }
-
-    char *start = g_last_token_ptr;
-    char *end = strpbrk(start, delimiter);
-    if (end != NULL) {
-        *end = '\0';
-        g_last_token_ptr = end + 1;
-    } else {
-        g_last_token_ptr = NULL;
-    }
-    return start;
-}
-
-void log_parser_record_metric_unsafe(int status_code, unsigned long bytes) {
-    g_total_bytes += bytes;
-    if (status_code >= 400) {
-        g_error_count++;
-    }
-}
-```
-```cpp
-#include <string_view>
-#include <cstdint>
-
-namespace unsafe_log {
-
-static std::string_view g_remaining{};
-static uint64_t g_total_bytes = 0;
-static uint64_t g_error_count = 0;
-
-std::string_view next_token(std::string_view log_line, char delimiter) {
-    if (!log_line.empty()) {
-        g_remaining = log_line;
-    }
-    if (g_remaining.empty()) {
-        return {};
-    }
-
-    auto pos = g_remaining.find(delimiter);
-    if (pos != std::string_view::npos) {
-        auto token = g_remaining.substr(0, pos);
-        g_remaining.remove_prefix(pos + 1);
-        return token;
-    } else {
-        auto token = g_remaining;
-        g_remaining = {};
-        return token;
-    }
-}
-
-void record_metric(int status_code, uint64_t bytes) {
-    g_total_bytes += bytes;
-    if (status_code >= 400) {
-        ++g_error_count;
-    }
-}
-
-} // namespace unsafe_log
-```
+:::code proj-thread-safe-refactoring/c/etap-1-potokonebezpechna.c
+:::code proj-thread-safe-refactoring/cpp/etap-1-potokonebezpechna.cpp
 :::
 
 #### Механізм руйнування стану в багатопотоковому середовищі:
@@ -113,72 +40,8 @@ void record_metric(int status_code, uint64_t bytes) {
 Щоб зробити функцію розбору реентрабельною, ми повинні повністю усунути будь-який неконстантний статичний або глобальний стан. Відповідальність за збереження проміжного положення передається викликачу, який виділяє структуру контексту на власному стеку викликів.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-/* Контекст розбору, що живе виключно на стеку викликача */
-typedef struct {
-    char *cursor;
-} LogParserContext;
-
-void log_parser_context_init(LogParserContext *ctx, char *log_line) {
-    if (ctx != NULL) {
-        ctx->cursor = log_line;
-    }
-}
-
-char *log_parser_next_token_r(LogParserContext *ctx, const char *delimiter) {
-    if (ctx == NULL || ctx->cursor == NULL || *ctx->cursor == '\0') {
-        return NULL;
-    }
-
-    char *start = ctx->cursor;
-    char *end = strpbrk(start, delimiter);
-    if (end != NULL) {
-        *end = '\0';
-        ctx->cursor = end + 1;
-    } else {
-        ctx->cursor = NULL;
-    }
-    return start;
-}
-```
-```cpp
-#include <string_view>
-#include <optional>
-
-class ReentrantLogTokenizer {
-public:
-    explicit ReentrantLogTokenizer(std::string_view line) noexcept 
-        : remaining_(line) {}
-
-    std::optional<std::string_view> next_token(char delimiter) noexcept {
-        if (remaining_.empty()) {
-            return std::nullopt;
-        }
-
-        auto pos = remaining_.find(delimiter);
-        if (pos != std::string_view::npos) {
-            auto token = remaining_.substr(0, pos);
-            remaining_.remove_prefix(pos + 1);
-            return token;
-        }
-
-        auto token = remaining_;
-        remaining_ = {};
-        return token;
-    }
-
-    [[nodiscard]] bool has_more() const noexcept {
-        return !remaining_.empty();
-    }
-
-private:
-    std::string_view remaining_{};
-};
-```
+:::code proj-thread-safe-refactoring/c/etap-2-refaktorynh-u.c
+:::code proj-thread-safe-refactoring/cpp/etap-2-refaktorynh-u.cpp
 :::
 
 #### Властивості та гарантії реентрабельного коду:
@@ -192,79 +55,8 @@ private:
 Для збору загальних метрик кількома паралельними потоками стан необхідно інкапсулювати всередині об'єкта, захищеного замком взаємного виключення (м'ютексом). Щоб унеможливити витік незаблокованого стану, операція отримання знімка метрик повинна повертати узгоджену копію обох лічильників одночасно.
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdint.h>
-
-typedef struct {
-    pthread_mutex_t lock;
-    uint64_t total_bytes;
-    uint64_t error_count;
-} ThreadSafeMetrics;
-
-int metrics_init(ThreadSafeMetrics *m) {
-    if (m == NULL) return -1;
-    m->total_bytes = 0;
-    m->error_count = 0;
-    return pthread_mutex_init(&m->lock, NULL);
-}
-
-void metrics_record(ThreadSafeMetrics *m, int status_code, uint64_t bytes) {
-    if (m == NULL) return;
-
-    pthread_mutex_lock(&m->lock);
-    m->total_bytes += bytes;
-    if (status_code >= 400) {
-        m->error_count++;
-    }
-    pthread_mutex_unlock(&m->lock);
-}
-
-void metrics_get_snapshot(ThreadSafeMetrics *m, uint64_t *out_bytes, uint64_t *out_errors) {
-    if (m == NULL) return;
-
-    pthread_mutex_lock(&m->lock);
-    if (out_bytes != NULL) *out_bytes = m->total_bytes;
-    if (out_errors != NULL) *out_errors = m->error_count;
-    pthread_mutex_unlock(&m->lock);
-}
-
-void metrics_destroy(ThreadSafeMetrics *m) {
-    if (m != NULL) {
-        pthread_mutex_destroy(&m->lock);
-    }
-}
-```
-```cpp
-#include <mutex>
-#include <cstdint>
-
-struct MetricsSnapshot {
-    uint64_t total_bytes{0};
-    uint64_t error_count{0};
-};
-
-class SynchronizedMetrics {
-public:
-    void record(int status_code, uint64_t bytes) {
-        std::lock_guard<std::mutex> guard(mutex_);
-        total_bytes_ += bytes;
-        if (status_code >= 400) {
-            ++error_count_;
-        }
-    }
-
-    [[nodiscard]] MetricsSnapshot get_snapshot() const {
-        std::lock_guard<std::mutex> guard(mutex_);
-        return {total_bytes_, error_count_};
-    }
-
-private:
-    mutable std::mutex mutex_{};
-    uint64_t total_bytes_{0};
-    uint64_t error_count_{0};
-};
-```
+:::code proj-thread-safe-refactoring/c/etap-3-potokobezpechnyi.c
+:::code proj-thread-safe-refactoring/cpp/etap-3-potokobezpechnyi.cpp
 :::
 
 #### Особливості коректної синхронізації:
@@ -280,51 +72,8 @@ private:
 Найбільш продуктивне архітектурне рішення — повна ліквідація спільних блокувань шляхом виділення кожному потоку власного локального екземпляра лічильників через механізм **Thread-Local Storage (TLS)**:
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* Локальні змінні потоку в секції TLS */
-static _Thread_local uint64_t tls_thread_bytes = 0;
-static _Thread_local uint64_t tls_thread_errors = 0;
-
-void tls_metrics_record(int status_code, uint64_t bytes) {
-    tls_thread_bytes += bytes;
-    if (status_code >= 400) {
-        tls_thread_errors++;
-    }
-}
-
-void tls_metrics_get_local(uint64_t *out_bytes, uint64_t *out_errors) {
-    if (out_bytes != NULL) *out_bytes = tls_thread_bytes;
-    if (out_errors != NULL) *out_errors = tls_thread_errors;
-}
-```
-```cpp
-#include <cstdint>
-
-namespace fast_metrics {
-
-struct LocalCounters {
-    uint64_t total_bytes{0};
-    uint64_t error_count{0};
-};
-
-// Кожен потік володіє незалежним екземпляром структури
-inline thread_local LocalCounters tls_counters{};
-
-void record(int status_code, uint64_t bytes) noexcept {
-    tls_counters.total_bytes += bytes;
-    if (status_code >= 400) {
-        ++tls_counters.error_count;
-    }
-}
-
-[[nodiscard]] LocalCounters get_local() noexcept {
-    return tls_counters;
-}
-
-} // namespace fast_metrics
-```
+:::code proj-thread-safe-refactoring/c/etap-4-vysokoproduktyvna.c
+:::code proj-thread-safe-refactoring/cpp/etap-4-vysokoproduktyvna.cpp
 :::
 
 #### Механізм роботи та архітектурні висновки TLS:

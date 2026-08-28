@@ -76,20 +76,7 @@ type PromiseState<T> =
 
 Оскільки стандартний проміс може мати довільну кількість незалежних підписників, прямий метод скасування `.cancel()` у ньому відсутній (один споживач не повинен ламати обчислення для іншого). Стандартним механізмом переривання є патерн **кооперативного скасування** на базі `AbortController`:
 
-```ts
-interface AbortSignal {
-  readonly aborted: boolean;
-  readonly reason: unknown;
-  addEventListener(type: "abort", listener: (ev: Event) => void): void;
-  removeEventListener(type: "abort", listener: (ev: Event) => void): void;
-  throwIfAborted(): void;
-}
-
-interface AbortController {
-  readonly signal: AbortSignal;
-  abort(reason?: unknown): void;
-}
-```
+:::code api-promise-concurrency/ts/index.ts
 
 ### Правила побудови скасовуваної функції:
 1. Функція приймає параметр `{ signal }: { signal?: AbortSignal }`.

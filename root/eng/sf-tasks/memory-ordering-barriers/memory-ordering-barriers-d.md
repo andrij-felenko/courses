@@ -77,52 +77,8 @@
 **Надійна передача повідомлення між потоками.**
 
 :::tabs
-```cpp
-#include <atomic>
-#include <cstdint>
-
-uint32_t         payload = 0;          // звичайні дані — без atomic
-std::atomic<int> ready{0};             // прапорець-публікація
-
-// Потік A — виробник
-void produce() {
-    payload = 42;                                  // 1) готуємо дані
-    ready.store(1, std::memory_order_release);     // 2) публікуємо: release
-    // release не дає запису payload просочитися ПІСЛЯ цього рядка
-}
-
-// Потік B — споживач
-uint32_t consume() {
-    while (ready.load(std::memory_order_acquire) == 0) {
-        // чекаємо публікації; acquire не дає читанню payload
-        // піднятися ВИЩЕ цієї перевірки
-    }
-    return payload;                                // гарантовано вже 42
-}
-```
-```rust
-use std::sync::atomic::{AtomicU32, Ordering};
-
-static mut PAYLOAD: u32 = 0;               // звичайні дані — без atomic
-static READY: AtomicU32 = AtomicU32::new(0); // прапорець-публікація
-
-// Потік A — виробник
-fn produce() {
-    unsafe { PAYLOAD = 42; }                       // 1) готуємо дані
-    READY.store(1, Ordering::Release);             // 2) публікуємо: release
-    // release не дає запису PAYLOAD просочитися ПІСЛЯ цього рядка
-}
-
-// Потік B — споживач
-fn consume() -> u32 {
-    while READY.load(Ordering::Acquire) == 0 {
-        // чекаємо публікації; acquire не дає читанню PAYLOAD
-        // піднятися ВИЩЕ цієї перевірки
-        std::hint::spin_loop();
-    }
-    unsafe { PAYLOAD }                             // гарантовано вже 42
-}
-```
+:::code memory-ordering-barriers-d/cpp/main.cpp
+:::code memory-ordering-barriers-d/rust/main.rs
 :::
 
 Зверніть увагу: `payload` — **звичайна** змінна, не атомарна. Її впорядкованість забезпечує не вона сама, а пара `release`/`acquire` на прапорці `ready`: release «замикає» запис `payload` перед публікацією, acquire «відмикає» його читання лише після того, як публікацію видно. Це і є весь патерн «опублікувати → спожити» в чотирьох рядках.

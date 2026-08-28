@@ -31,21 +31,7 @@ char *strtok_r(char *str, const char *delim, char **saveptr);
 
 Класичні функції перетворення секундного лічильника епохи Unix (`time_t`) повертають вказівники на статичні структури `struct tm` або статичні символьні масиви в сегменті даних бібліотеки. Потокобезпечні аналоги стандарту POSIX.1c вимагають, щоб викликач передав адресу структури або буфера фіксованого розміру.
 
-```c
-#include <time.h>
-
-/* ЗАСТАРІЛІ ФУНКЦІЇ (Статичний буфер повернення) */
-struct tm *gmtime(const time_t *timep);
-struct tm *localtime(const time_t *timep);
-char *asctime(const struct tm *tm);
-char *ctime(const time_t *timep);
-
-/* РЕЕНТРАБЕЛЬНІ ДВІЙНИКИ СТАНДАРТУ POSIX */
-struct tm *gmtime_r(const time_t *timep, struct tm *result);
-struct tm *localtime_r(const time_t *timep, struct tm *result);
-char *asctime_r(const struct tm *tm, char *buf);
-char *ctime_r(const time_t *timep, char *buf);
-```
+:::code api-posix-reentrant-matrix/c/time.h
 
 #### Вимоги до виділення пам'яті:
 - Для `gmtime_r()` та `localtime_r()`: параметр `result` повинен вказувати на дійсну структуру `struct tm`, виділену викликачем на стеку або в купі.
@@ -78,18 +64,7 @@ int rand_r(unsigned int *seedp);
 
 Функція `strerror()` повертає вказівник на статичний символьний масив, вміст якого може перезаписуватися наступними викликами `strerror()` з інших потоків.
 
-```c
-#include <string.h>
-
-/* ЗАСТАРІЛА ФУНКЦІЯ (Повертає статичний рядок) */
-char *strerror(int errnum);
-
-/* ВАРІАНТ 1: POSIX.1-2001 (XSI-Compliant) */
-int strerror_r(int errnum, char *buf, size_t buflen);
-
-/* ВАРІАНТ 2: GNU-Specific (glibc за наявності _GNU_SOURCE) */
-char *strerror_r(int errnum, char *buf, size_t buflen);
-```
+:::code api-posix-reentrant-matrix/c/string.h
 
 #### Порівняння варіантів `strerror_r`:
 - **XSI-версія (POSIX стандарт):** Завжди копіює текст повідомлення у буфер `buf` довжиною `buflen`. Повертає `0` у разі успіху або позитивне число помилки (наприклад, `ERANGE`, якщо буфер замалий, або `EINVAL`, якщо код помилки невідомий).
@@ -101,27 +76,7 @@ char *strerror_r(int errnum, char *buf, size_t buflen);
 
 Функції читання системних записів `/etc/passwd` та `/etc/group` у традиційному варіанті повертають вказівник на єдину внутрішню статичну структуру. Реентрабельні версії вимагають передачі як цільової структури, так і додаткового робочого буфера для збереження текстових полів (ім'я користувача, хеш пароля, повне ім'я, домашній каталог та оболонка).
 
-```c
-#include <sys/types.h>
-#include <pwd.h>
-#include <grp.h>
-
-/* ЗАСТАРІЛІ ОДНОПОТОКОВІ ФУНКЦІЇ */
-struct passwd *getpwnam(const char *name);
-struct passwd *getpwuid(uid_t uid);
-struct group  *getgrnam(const char *name);
-struct group  *getgrgid(gid_t gid);
-
-/* РЕЕНТРАБЕЛЬНІ АНАЛОГИ POSIX */
-int getpwnam_r(const char *name, struct passwd *pwd,
-               char *buf, size_t buflen, struct passwd **result);
-int getpwuid_r(uid_t uid, struct passwd *pwd,
-               char *buf, size_t buflen, struct passwd **result);
-int getgrnam_r(const char *name, struct group *grp,
-               char *buf, size_t buflen, struct group **result);
-int getgrgid_r(gid_t gid, struct group *grp,
-               char *buf, size_t buflen, struct group **result);
-```
+:::code api-posix-reentrant-matrix/c/types.h
 
 #### Контракт виклику та виділення пам'яті:
 - Рекомендований початковий розмір робочого буфера `buflen` отримують через системний запит `sysconf(_SC_GETPW_R_SIZE_MAX)` (типово від 1024 до 4096 байтів). Якщо `sysconf` повертає `-1`, стандарт рекомендує виділяти 16 КіБ.
@@ -134,25 +89,7 @@ int getgrgid_r(gid_t gid, struct group *grp,
 
 Історична функція `gethostbyname()` повертала вказівник на статичну структуру `struct hostent` і не підтримувала протокол IPv6. У сучасному стандарті POSIX.1-2001 її повністю замінено універсальним, потокобезпечним та реентрабельним інтерфейсом `getaddrinfo()`.
 
-```c
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-
-/* ЗАСТАРІЛА / ОГОЛОШЕНА НЕБЕЗПЕЧНОЮ (POSIX.1-2008 Deprecated) */
-struct hostent *gethostbyname(const char *name);
-
-/* СУЧАСНИЙ РЕЕНТРАБЕЛЬНИЙ ТА ПОТОКОБЕЗПЕЧНИЙ СТАНДАРТ */
-int getaddrinfo(const char *node, const char *service,
-                const struct addrinfo *hints,
-                struct addrinfo **res);
-
-void freeaddrinfo(struct addrinfo *res);
-
-int getnameinfo(const struct sockaddr *addr, socklen_t addrlen,
-                char *host, socklen_t hostlen,
-                char *serv, socklen_t servlen, int flags);
-```
+:::code api-posix-reentrant-matrix/c/types-2.h
 
 #### Переваги та контракт `getaddrinfo`:
 - **Потокова безпека:** Пам'ять для результату виділяється динамічно під час кожного виклику; функція не має побічних ефектів на глобальний стан.
@@ -186,20 +123,7 @@ int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result);
 
 Для розв'язання цієї проблеми стандарт надає явні функції управління замками дескриптора та їхні швидкі неблокувальні варіанти:
 
-```c
-#include <stdio.h>
-
-/* ЯВНЕ ЗАХОПЛЕННЯ ТА ЗВІЛЬНЕННЯ ВНУТРІШНЬОГО ЗАМКА ПОТОКУ */
-void flockfile(FILE *filehandle);
-int  ftrylockfile(FILE *filehandle);
-void funlockfile(FILE *filehandle);
-
-/* ШВИДКІ НЕБЛОКУВАЛЬНІ ОПЕРАЦІЇ (Викликаються лише всередині flockfile) */
-int getc_unlocked(FILE *stream);
-int getchar_unlocked(void);
-int putc_unlocked(int c, FILE *stream);
-int putchar_unlocked(int c);
-```
+:::code api-posix-reentrant-matrix/c/stdio.h
 
 #### Правило використання неблокувального I/O:
 Виклики із суфіксом `_unlocked` є повністю потоконебезпечними самі по собі. Їх дозволено використовувати лише тоді, коли викликач попередньо захопив замок дескриптора через `flockfile(stream)` і гарантовано звільнить його через `funlockfile(stream)` після завершення циклу обробки.

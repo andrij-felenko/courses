@@ -232,20 +232,7 @@ void safe_entry() [[clang::locks_excluded(mtx_a)]];
 Якщо два потоки викличуть функцію `swap_nodes` одночасно з протилежним порядком аргументів (`swap_nodes(n1, n2)` та `swap_nodes(n2, n1)`), виникне взаємне блокування.
 
 :::tabs
-```c
-// НЕБЕЗПЕЧНО: порядок взяття замків залежить від переданих аргументів!
-void swap_nodes_unsafe(node_t *a, node_t *b) {
-    pthread_mutex_lock(&a->mtx);
-    pthread_mutex_lock(&b->mtx);
-
-    int temp = a->value;
-    a->value = b->value;
-    b->value = temp;
-
-    pthread_mutex_unlock(&b->mtx);
-    pthread_mutex_unlock(&a->mtx);
-}
-```
+:::code deadlock-d/c/nebezpechnyi-kod.c
 ```cpp
 // НЕБЕЗПЕЧНО: блокування у порядку отримання параметрів
 void swap_nodes_unsafe(Node& a, Node& b) {
@@ -262,64 +249,8 @@ void swap_nodes_unsafe(Node& a, Node& b) {
 У мові C безпека досягається порівнянням числових значень адрес вказівників (адреса меншого замка завжди береться першою). У C++17 застосовується `std::scoped_lock`, який за принципом RAII інкапсулює алгоритм безпечного множинного захоплення і гарантовано звільняє ресурси при виході з області видимості або при виникненні винятків.
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    int value;
-    pthread_mutex_t mtx;
-} node_t;
-
-// БЕЗПЕЧНО: замки захоплюються в єдиному глобальному порядку за адресою в пам'яті
-void swap_nodes_safe(node_t *a, node_t *b) {
-    if (a == NULL || b == NULL || a == b) {
-        return; // Захист від самоблокування (self-deadlock)
-    }
-
-    pthread_mutex_t *first = &a->mtx;
-    pthread_mutex_t *second = &b->mtx;
-
-    // Впорядкування адрес: ліквідація циклічного очікування
-    if ((uintptr_t)first > (uintptr_t)second) {
-        first = &b->mtx;
-        second = &a->mtx;
-    }
-
-    pthread_mutex_lock(first);
-    pthread_mutex_lock(second);
-
-    int temp = a->value;
-    a->value = b->value;
-    b->value = temp;
-
-    pthread_mutex_unlock(second);
-    pthread_mutex_unlock(first);
-}
-```
-```cpp
-#include <mutex>
-#include <utility>
-
-struct Node {
-    int value{0};
-    mutable std::mutex mtx;
-};
-
-// БЕЗПЕЧНО: C++17 std::scoped_lock гарантує відсутність дедлоку для будь-якої кількості замків
-void swap_nodes_safe(Node& a, Node& b) {
-    if (&a == &b) {
-        return; // Самовтягнення не потребує блокувань
-    }
-
-    // std::scoped_lock автоматично впорядковує захоплення замків
-    // та звільняє їх у деструкторі за принципом RAII
-    std::scoped_lock lock(a.mtx, b.mtx);
-
-    std::swap(a.value, b.value);
-}
-```
+:::code deadlock-d/c/bezpechnyi-kod.c
+:::code deadlock-d/cpp/main.cpp
 :::
 
 ## Підсумковий синтез

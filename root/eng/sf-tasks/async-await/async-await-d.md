@@ -23,24 +23,7 @@
 
 Викликаючи асинхронну операцію, програма передає аргументи та функцію-обробник. Системний виклик ініціює операцію в ядрі й негайно завершується. Головний потік продовжує крутити цикл подій. Коли мережева карта чи диск закінчують передачу даних, ядро генерує подію, цикл подій витягує збережену функцію-колбек і викликає її з отриманими даними.
 
-```ts
-// Класичний патерн зворотного виклику з обробкою помилок першим аргументом
-function loadUserData(userId: string, callback: (err: Error | null, data?: User) => void): void {
-  db.findUser(userId, (err, user) => {
-    if (err) {
-      callback(err);
-      return;
-    }
-    fetchPermissions(user.roleId, (err, perms) => {
-      if (err) {
-        callback(err);
-        return;
-      }
-      callback(null, { ...user, permissions: perms });
-    });
-  });
-}
-```
+:::code async-await-d/ts/pokolinnia-1-zvorotni.ts
 
 На перший погляд, механізм повністю розв'язує задачу: потік ніколи не блокується, а ресурси вивільняються. Проте в реальних промислових системах колбеки виявили критичні дефекти, які зробили побудову великих систем надзвичайно крихкою.
 
@@ -89,22 +72,7 @@ isReady = true; // Якщо колбек спрацював синхронно, 
 
 Будь-який послідовний алгоритм з `N` кроків при використанні зворотних викликів змушений вкладати кожну наступну дію всередину тіла попередньої. Це створює характерну форму коду, відому як «піраміда приреченості» (англ. *Pyramid of Doom*):
 
-```ts
-// Піраміда вкладень: горизонтальне розростання замість вертикального
-loadConfig((err, config) => {
-  if (err) return handleError(err);
-  connectDatabase(config.dbUrl, (err, db) => {
-    if (err) return handleError(err);
-    authenticateUser(db, token, (err, user) => {
-      if (err) return handleError(err);
-      fetchAccount(db, user.id, (err, account) => {
-        if (err) return handleError(err);
-        sendResponse({ user, account });
-      });
-    });
-  });
-});
-```
+:::code async-await-d/ts/piramida-vkladen-callback.ts
 
 Код розростається вправо швидше, ніж униз. Стандартні конструкції мови — цикли `for`, `while`, розгалуження `switch`, оператори `break`, `continue` та `return` — стають повністю непридатними. Щоб організувати послідовний цикл над масивом асинхронних операцій з колбеками, програмісту доводиться вручну писати рекурсивні функції або лічильники завершення.
 
@@ -232,22 +200,7 @@ fetchOrder(orderId)
 
 Остаточним кроком в еволюції стало стирання синтаксичної різниці між синхронним та асинхронним кодом. Конструкція `async / await` дозволила писати неблокуючий асинхронний код так, ніби він є абсолютно синхронним і лінійним.
 
-```ts
-// Сучасний вигляд: лінійний потік, нативний try/catch, прозорі змінні
-async function handleUserRequest(userId: string): Promise<Response> {
-  try {
-    const config = await loadConfig();
-    const db = await connectDatabase(config.dbUrl);
-    const user = await authenticateUser(db, token);
-    const account = await fetchAccount(db, user.id);
-    
-    return { status: 200, body: { user, account } };
-  } catch (err) {
-    logger.error("Помилка обробки запиту:", err);
-    return { status: 500, body: { error: "Внутрішній збій" } };
-  }
-}
-```
+:::code async-await-d/ts/pokolinnia-3-syntaksychnyi.ts
 
 Змінні `user` та `account` залишаються доступними в межах однієї лексичної області видимості; блок `try / catch` природно ловить помилки на будь-якому з етапів; цикл `for (const item of items) { await process(item); }` виконується послідовно, без жодних рекурсивних хаків.
 
@@ -314,28 +267,7 @@ await Promise.all(fileList.map((file) => readFileAsync(file)));
 
 Операційна система має ліміти на кількість відкритих дескрипторів сокетів і файлів (`ulimit -n`), а база даних — ліміт пулу з'єднань. Щоб запобігти збою системи, застосовують патерн **обмеженої конкурентності** (англ. *Bounded Concurrency Pool*), де фіксована кількість асинхронних воркерів розбирає спільну чергу задач:
 
-```ts
-async function runWithConcurrencyLimit<T, R>(
-  items: T[],
-  limit: number,
-  worker: (item: T) => Promise<R>
-): Promise<R[]> {
-  const results: R[] = new Array(items.length);
-  let currentIndex = 0;
-
-  const runWorker = async () => {
-    while (currentIndex < items.length) {
-      const index = currentIndex++;
-      results[index] = await worker(items[index]);
-    }
-  };
-
-  // Запускаємо строго фіксовану кількість паралельних воркерів
-  const workers = Array.from({ length: Math.min(limit, items.length) }, () => runWorker());
-  await Promise.all(workers);
-  return results;
-}
-```
+:::code async-await-d/ts/obmezhennia-konkurentnosti.ts
 
 ### Проблема «кольорових функцій» (Function Coloring)
 

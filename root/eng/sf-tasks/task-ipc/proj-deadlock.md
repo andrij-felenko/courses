@@ -55,124 +55,15 @@
 Профілактика дедлоку в нашому сценарії не вимагає жодного нового механізму. Достатньо переписати задачу B так, щоб вона брала замки в тому ж порядку, що й A: спочатку `spiMtx`, потім `sdMtx`. Порядок у задачах A і B стає однаковим — кільце стає неможливим.
 
 :::tabs
-```cpp
-SemaphoreHandle_t spiMtx, sdMtx;   // два спільні ресурси, кожен під своїм м'ютексом
-
-// ✗ НЕБЕЗПЕЧНО: задачі беруть замки в РІЗНОМУ порядку → можливий дедлок
-void taskA(void *p) {              // A: spi, потім sd
-    for (;;) {
-        xSemaphoreTake(spiMtx, portMAX_DELAY);
-        xSemaphoreTake(sdMtx,  portMAX_DELAY);   // ← чекає на sd, тримаючи spi
-        drawAndLog();
-        xSemaphoreGive(sdMtx);
-        xSemaphoreGive(spiMtx);
-        vTaskDelay(pdMS_TO_TICKS(20));
-    }
-}
-void taskB(void *p) {              // B: sd, потім spi  ← ПРОТИЛЕЖНИЙ порядок!
-    for (;;) {
-        xSemaphoreTake(sdMtx,  portMAX_DELAY);
-        xSemaphoreTake(spiMtx, portMAX_DELAY);   // ← кільце замикається тут
-        logAndDraw();
-        xSemaphoreGive(spiMtx);
-        xSemaphoreGive(sdMtx);
-        vTaskDelay(pdMS_TO_TICKS(20));
-    }
-}
-```
-```python
-import threading, time
-
-spi_mtx = threading.Lock()         # два спільні ресурси, кожен під своїм м'ютексом
-sd_mtx  = threading.Lock()
-
-# ✗ НЕБЕЗПЕЧНО: потоки беруть замки в РІЗНОМУ порядку → можливий дедлок
-def task_a():                      # A: spi, потім sd
-    while True:
-        spi_mtx.acquire()
-        sd_mtx.acquire()           # ← чекає на sd, тримаючи spi
-        draw_and_log()
-        sd_mtx.release()
-        spi_mtx.release()
-        time.sleep(0.02)
-
-def task_b():                      # B: sd, потім spi  ← ПРОТИЛЕЖНИЙ порядок!
-    while True:
-        sd_mtx.acquire()
-        spi_mtx.acquire()          # ← кільце замикається тут
-        log_and_draw()
-        spi_mtx.release()
-        sd_mtx.release()
-        time.sleep(0.02)
-```
-```go
-// два спільні ресурси, кожен під своїм м'ютексом
-var spiMtx, sdMtx sync.Mutex
-
-// ✗ НЕБЕЗПЕЧНО: горутини беруть замки в РІЗНОМУ порядку → можливий дедлок
-func taskA() {                     // A: spi, потім sd
-    for {
-        spiMtx.Lock()
-        sdMtx.Lock()               // ← чекає на sd, тримаючи spi
-        drawAndLog()
-        sdMtx.Unlock()
-        spiMtx.Unlock()
-        time.Sleep(20 * time.Millisecond)
-    }
-}
-func taskB() {                     // B: sd, потім spi  ← ПРОТИЛЕЖНИЙ порядок!
-    for {
-        sdMtx.Lock()
-        spiMtx.Lock()              // ← кільце замикається тут
-        logAndDraw()
-        spiMtx.Unlock()
-        sdMtx.Unlock()
-        time.Sleep(20 * time.Millisecond)
-    }
-}
-```
+:::code proj-deadlock/cpp/robochyi-kod-dystsyplina.cpp
+:::code proj-deadlock/py/robochyi-kod-dystsyplina.py
+:::code proj-deadlock/go/robochyi-kod-dystsyplina.go
 :::
 
 :::tabs
-```cpp
-// ✓ БЕЗПЕЧНО: ЄДИНИЙ порядок для ВСІХ — завжди spiMtx ПЕРЕД sdMtx
-//   (домовленість, що рве умову №4 «кругове очікування»)
-void takeBoth() {                  // спільний хелпер — один порядок на весь код
-    xSemaphoreTake(spiMtx, portMAX_DELAY);   // 1) завжди spi
-    xSemaphoreTake(sdMtx,  portMAX_DELAY);   // 2) потім sd
-}
-void giveBoth() {                  // віддаємо у ЗВОРОТНОМУ порядку
-    xSemaphoreGive(sdMtx);
-    xSemaphoreGive(spiMtx);
-}
-// тепер і taskA, і taskB викликають takeBoth()/giveBoth() — кільце неможливе
-```
-```python
-# ✓ БЕЗПЕЧНО: ЄДИНИЙ порядок для ВСІХ — завжди spi_mtx ПЕРЕД sd_mtx
-#   (домовленість, що рве умову №4 «кругове очікування»)
-def take_both():                   # спільний хелпер — один порядок на весь код
-    spi_mtx.acquire()              # 1) завжди spi
-    sd_mtx.acquire()               # 2) потім sd
-
-def give_both():                   # віддаємо у ЗВОРОТНОМУ порядку
-    sd_mtx.release()
-    spi_mtx.release()
-
-# тепер і task_a, і task_b викликають take_both()/give_both() — кільце неможливе
-```
-```go
-// ✓ БЕЗПЕЧНО: ЄДИНИЙ порядок для ВСІХ — завжди spiMtx ПЕРЕД sdMtx
-//   (домовленість, що рве умову №4 «кругове очікування»)
-func takeBoth() {                  // спільний хелпер — один порядок на весь код
-    spiMtx.Lock()                  // 1) завжди spi
-    sdMtx.Lock()                   // 2) потім sd
-}
-func giveBoth() {                  // віддаємо у ЗВОРОТНОМУ порядку
-    sdMtx.Unlock()
-    spiMtx.Unlock()
-}
-// тепер і taskA, і taskB викликають takeBoth()/giveBoth() — кільце неможливе
-```
+:::code proj-deadlock/cpp/robochyi-kod-dystsyplina-2.cpp
+:::code proj-deadlock/py/robochyi-kod-dystsyplina-2.py
+:::code proj-deadlock/go/robochyi-kod-dystsyplina-2.go
 :::
 
 У реальному проєкті порядок зручно закріпити правилом — наприклад, завжди за зростанням числового ідентифікатора замка — щоб новачок, який додасть третій замок, не порушив дисципліну довільним вибором. Для двох замків досить чіткого коментаря в коді та хелпера `takeBoth()/giveBoth()`, який унеможливлює відхилення.

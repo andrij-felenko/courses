@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -28,15 +29,18 @@
           "proj": [
             {
               "file": "proj-deadlock.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-priority-inheritance.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-queue-pattern.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -78,7 +82,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -89,13 +94,16 @@
           "math": [
             {
               "file": "math-queueing-backpressure.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-bounded-buffer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
@@ -119,7 +127,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -130,19 +139,23 @@
           "math": [
             {
               "file": "math-actor-semantics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-actor-runtime.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-actor-primitives.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -159,25 +172,30 @@
           "hist": [
             {
               "file": "hist-hoare-csp.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-csp-algebra.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-csp-channel-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-channel-primitives.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -188,30 +206,36 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-erlang-supervision.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-restart-intensity.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-supervisor-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-supervisor-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }

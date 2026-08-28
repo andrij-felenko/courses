@@ -12,33 +12,7 @@ DMA (англ. *direct memory access* — прямий доступ до пам'
 
 **Передавання — DMA читає те, що підготувало ядро.** Ядро записало дані в буфер, але запис ліг у кеш, а до пам'яті ще не дійшов — кеш скидає «брудні» рядки за власним розкладом, відкладено. Ядро запускає DMA. Контролер читає пам'ять — а там ще старе. Ліки: перед стартом DMA зробити **запис назад** (англ. *write-back*, у документації ARM — *clean*) — примусово виштовхнути кешовані рядки в пам'ять.
 
-```c
-/* Приймання (периферія → пам'ять → ядро): invalidate ПЕРЕД читанням */
-
-// 1. Запустити приймання по DMA в buf
-dma_start_receive(buf, BUF_SIZE);
-
-// 2. Дочекатися завершення DMA (переривання / семафор)
-xSemaphoreTake(sem_ready, portMAX_DELAY);
-
-// 3. Інвалідувати кеш: наступне читання піде в пам'ять, не в кеш
-esp_cache_msync(buf, BUF_SIZE, ESP_CACHE_MSYNC_FLAG_DIR_M2C);
-
-// 4. Читати buf — ядро бачить актуальне з пам'яті
-process_block(buf, BUF_SIZE);
-
-
-/* Передавання (ядро → пам'ять → периферія): write-back ПЕРЕД стартом DMA */
-
-// 1. Заповнити buf
-fill_frame(buf, BUF_SIZE);
-
-// 2. Write-back: виштовхнути «брудні» рядки кешу в пам'ять
-esp_cache_msync(buf, BUF_SIZE, ESP_CACHE_MSYNC_FLAG_DIR_C2M);
-
-// 3. Запускати DMA — він побачить у пам'яті актуальне
-dma_start_send(buf, BUF_SIZE);
-```
+:::code dma-cache-races-d/c/pastka-persha-koherentnist.h
 
 Тут легко переплутати бік. Прапорці IDF промовисті, якщо читати їх уголос: `M2C` — *memory-to-cache*, тобто інвалідація (підтягнути з пам'яті, робити перед читанням); `C2M` — *cache-to-memory*, тобто запис назад (виштовхнути в пам'ять, робити перед стартом DMA).
 
@@ -78,18 +52,7 @@ static DMA_ATTR uint8_t buf[BUF_SIZE];
 
 **Округлення розміру буфера до кратного кешлінії (S3, рядок 32 Б).** Потрібен аудіокадр на 100 байтів; скільки виділяти?
 
-```c
-#define CACHE_LINE  32u
-#define ALIGN_UP(n, a)  (((n) + (a) - 1u) / (a) * (a))   /* округлення вгору */
-
-size_t need  = 100;                       /* корисних байтів */
-size_t alloc = ALIGN_UP(need, CACHE_LINE);
-/* alloc = (100 + 31) / 32 * 32 = 131 / 32 * 32 = 4 * 32 = 128 байтів */
-
-uint8_t *buf = heap_caps_aligned_alloc(   /* початок — на межі 32 Б */
-                   CACHE_LINE, alloc,
-                   MALLOC_CAP_SPIRAM | MALLOC_CAP_DMA);
-```
+:::code dma-cache-races-d/c/pastka-druha.h
 
 Сто байтів зайняли б три повні лінії (96 Б) плюс шматок четвертої; округлення до 128 віддає буферові всі чотири лінії цілком, і ні інвалідація, ні запис назад не зачеплять сусіда.
 
@@ -111,36 +74,7 @@ DMA асинхронний за природою: контролер ще воз
 
 **Безпечна передача (S3, статичний вирівняний буфер), правильно проти неправильного.**
 
-```c
-/* НЕПРАВИЛЬНО */
-void bad_dma_example(void) {
-    uint8_t buf[1024];           /* на стеку, невирівняний */
-    fill_data(buf, sizeof(buf));
-    dma_start_send(buf, sizeof(buf));
-    /* функція повертається → кадр стеку перезаписано, DMA ще зайнятий */
-}
-
-/* ПРАВИЛЬНО */
-static uint8_t buf[1024] __attribute__((aligned(32)));  /* статичний, вирівняний */
-static SemaphoreHandle_t sem_tx;
-
-void good_dma_example(void) {
-    fill_data(buf, sizeof(buf));
-    esp_cache_msync(buf, sizeof(buf),
-                    ESP_CACHE_MSYNC_FLAG_DIR_C2M);  /* write-back перед стартом */
-    __DSB();                                        /* записи в пам'ять — до старту DMA */
-    dma_start_send(buf, sizeof(buf));
-    xSemaphoreTake(sem_tx, portMAX_DELAY);          /* чекаємо переривання завершення */
-    /* лише тепер buf вільний для наступного використання */
-}
-
-/* Переривання завершення */
-void IRAM_ATTR tx_done_isr(void *arg) {
-    BaseType_t woken = pdFALSE;
-    xSemaphoreGiveFromISR(sem_tx, &woken);
-    portYIELD_FROM_ISR(woken);
-}
-```
+:::code dma-cache-races-d/c/pastka-tretia-chas-zhyttia.c
 
 ### Діагностика «плаваючих» помилок
 
@@ -152,19 +86,7 @@ DMA-помилки підступні саме тим, що відтворюют
 
 Ловлять їх так:
 
-```c
-/* 1. Канарка: відомий патерн до DMA, перевірка після завершення */
-memset(buf, 0xAA, sizeof(buf));         /* до старту приймання */
-/* ... DMA, чекання завершення, invalidate ... */
-if (buf[sizeof(buf) - 1] == 0xAA)       /* хвіст не перезаписано */
-    ESP_LOGE(TAG, "DMA не дописав буфер: overrun або гонка");
-
-/* 2. Вирівнювання — твердження на місці виділення */
-assert(((uintptr_t)buf & (CACHE_LINE - 1)) == 0);   /* молодші біти = 0 */
-
-/* 3. Власник дескриптора після завершення: 1 = ще в DMA */
-assert(desc.owner == 0);
-```
+:::code dma-cache-races-d/c/diahnostyka-plavaiuchykh.h
 
 > 🔧 **Навіщо це.** Проганяйте кожен DMA-буфер крізь чотири ворота: вирівняний на межу рядка кешу? у DMA-придатній пам'яті (внутрішня SRAM або `static`)? інвалідація чи запис назад на місці й у правильний бік? власник зараз один — ядро або DMA, не обидва? Пропустиш бодай одні — дістанеш «плаваючу» помилку, що не відтворюється під відлагоджувачем із точками зупину.
 

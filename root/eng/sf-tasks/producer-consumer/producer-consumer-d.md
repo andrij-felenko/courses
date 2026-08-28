@@ -133,18 +133,7 @@ auto item = queue.pop();
 > Перевірка умови готовності буфера повинна завжди виконуватися виключно в циклі `while`, і ніколи в одинарному умовному блоці `if`!
 
 :::tabs
-```c
-// КАТЕГОРИЧНО НЕПРАВИЛЬНО:
-if (queue->count == 0) {
-    pthread_cond_wait(&queue->not_empty, &queue->lock);
-}
-// Тут черга все ще може бути порожньою через гонку або хибне пробудження!
-
-// ПРАВИЛЬНО (семантика Меса):
-while (queue->count == 0 && !queue->is_closed) {
-    pthread_cond_wait(&queue->not_empty, &queue->lock);
-}
-```
+:::code producer-consumer-d/c/semantyka-mesa-proty.c
 ```cpp
 // КАТЕГОРИЧНО НЕПРАВИЛЬНО:
 if (count_ == 0) {
@@ -173,66 +162,8 @@ not_empty_cv_.wait(lock, [this] {
 Історично першим і математично найбільш симетричним способом розв'язання задачі є класична схема Едсгера Дейкстри на основі трьох семафорів:
 
 :::tabs
-```c
-#include <semaphore.h>
-#include <pthread.h>
-
-sem_t empty_slots; // Початкове значення = N (місткість)
-sem_t full_slots;  // Початкове значення = 0
-pthread_mutex_t mtx; // Початкове значення = 1
-
-void producer(void* item) {
-    sem_wait(&empty_slots); // P(empty_slots): чекаємо вільного місця
-    pthread_mutex_lock(&mtx);
-
-    // Критична секція: запис у буфер
-    enqueue(item);
-
-    pthread_mutex_unlock(&mtx);
-    sem_post(&full_slots);  // V(full_slots): сповіщаємо про новий елемент
-}
-
-void* consumer(void) {
-    sem_wait(&full_slots);  // P(full_slots): чекаємо появи даних
-    pthread_mutex_lock(&mtx);
-
-    // Критична секція: вилучення з буфера
-    void* item = dequeue();
-
-    pthread_mutex_unlock(&mtx);
-    sem_post(&empty_slots); // V(empty_slots): сповіщаємо про звільнення місця
-    return item;
-}
-```
-```cpp
-#include <semaphore>
-#include <mutex>
-
-constexpr std::ptrdiff_t BUFFER_CAPACITY = 16;
-std::counting_semaphore<BUFFER_CAPACITY> empty_slots(BUFFER_CAPACITY);
-std::counting_semaphore<BUFFER_CAPACITY> full_slots(0);
-std::mutex mtx;
-
-void producer(Data item) {
-    empty_slots.acquire(); // Очікування вільного слота
-    {
-        std::lock_guard<std::mutex> lock(mtx);
-        enqueue(std::move(item));
-    }
-    full_slots.release();  // Сповіщення про наявність даних
-}
-
-Data consumer() {
-    full_slots.acquire();  // Очікування заповненого слота
-    Data item;
-    {
-        std::lock_guard<std::mutex> lock(mtx);
-        item = dequeue();
-    }
-    empty_slots.release(); // Звільнення слота для виробників
-    return item;
-}
-```
+:::code producer-consumer-d/c/semaforne-rishennia.c
+:::code producer-consumer-d/cpp/main.cpp
 :::
 
 **Фатальна помилка інверсії порядку захоплення:**

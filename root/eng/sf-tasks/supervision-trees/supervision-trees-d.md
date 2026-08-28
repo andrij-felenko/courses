@@ -45,36 +45,8 @@
 У середовищі ОС POSIX наглядач виступає батьківським процесом, який породжує працівників через системний виклик `fork()` або `clone()`. Коли дочірній процес гине, ядро ОС надсилає батькові асинхронний сигнал `SIGCHLD`. Батьківський процес вичитує код виходу через системний виклик `waitpid()`:
 
 :::tabs
-```c
-int status;
-pid_t dead_child = waitpid(-1, &status, WNOHANG);
-if (dead_child > 0) {
-    if (WIFSIGNALED(status)) {
-        // Процес упав від сигналу (наприклад, SIGSEGV або SIGABRT)
-        int sig = WTERMSIG(status);
-        handle_crash_signal(dead_child, sig);
-    } else if (WIFEXITED(status)) {
-        // Процес вийшов самостійно через exit()
-        int exit_code = WEXITSTATUS(status);
-        handle_exit_code(dead_child, exit_code);
-    }
-}
-```
-```cpp
-int status = 0;
-pid_t dead_child = ::waitpid(-1, &status, WNOHANG);
-if (dead_child > 0) {
-    if (WIFSIGNALED(status)) {
-        // Процес упав від сигналу (наприклад, SIGSEGV або SIGABRT)
-        int sig = WTERMSIG(status);
-        handle_crash_signal(dead_child, sig);
-    } else if (WIFEXITED(status)) {
-        // Процес вийшов самостійно через exit()
-        int exit_code = WEXITSTATUS(status);
-        handle_exit_code(dead_child, exit_code);
-    }
-}
-```
+:::code supervision-trees-d/c/main.c
+:::code supervision-trees-d/cpp/main.cpp
 :::
 
 У середовищах із моделлю акторів (Erlang/OTP, Akka, CAF) наглядач викликає системну функцію перехоплення сигналів виходу (*trap_exit*). Сигнал смерті не вбиває наглядача, а трансформується у структуроване повідомлення у його поштовій скриньці:

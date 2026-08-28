@@ -11,45 +11,8 @@
 Спершу розглянемо наївну реалізацію рахунку, де модифікація балансу виконується прямими арифметичними операціями над пам'яттю:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    int64_t balance;
-} UnsafeAccount;
-
-void account_deposit_unsafe(UnsafeAccount *acc, int64_t amount) {
-    acc->balance += amount; // ПЕРЕГОНИ ДАНИХ (Load -> Add -> Store)
-}
-
-bool account_withdraw_unsafe(UnsafeAccount *acc, int64_t amount) {
-    if (acc->balance >= amount) {
-        acc->balance -= amount; // ПЕРЕГОНИ ДАНИХ (Check-Then-Act)
-        return true;
-    }
-    return false;
-}
-```
-```cpp
-#include <cstdint>
-
-struct UnsafeAccount {
-    int64_t balance{0};
-
-    void deposit(int64_t amount) noexcept {
-        balance += amount; // ПЕРЕГОНИ ДАНИХ (неподільна на вигляд, але три кроки в CPU)
-    }
-
-    bool withdraw(int64_t amount) noexcept {
-        if (balance >= amount) {
-            balance -= amount; // ПЕРЕГОНИ ДАНИХ (між перевіркою і відніманням втручається інший потік)
-            return true;
-        }
-        return false;
-    }
-};
-```
+:::code proj-mutex-bank/c/1-vrazlyvyi-rakhunok-iak.c
+:::code proj-mutex-bank/cpp/1-vrazlyvyi-rakhunok-iak.cpp
 :::
 
 #### Анатомія руйнування балансу в апаратурі
@@ -67,84 +30,8 @@ struct UnsafeAccount {
 Щоб зробити операції поповнення та зняття неподільними (атомарними), пов'яжемо кожен рахунок із його власним замком:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <pthread.h>
-
-typedef struct {
-    int64_t balance;
-    pthread_mutex_t lock;
-} SafeAccount;
-
-void safe_account_init(SafeAccount *acc, int64_t initial_balance) {
-    acc->balance = initial_balance;
-    pthread_mutex_init(&acc->lock, NULL);
-}
-
-void safe_account_destroy(SafeAccount *acc) {
-    pthread_mutex_destroy(&acc->lock);
-}
-
-void safe_account_deposit(SafeAccount *acc, int64_t amount) {
-    pthread_mutex_lock(&acc->lock);
-    acc->balance += amount;
-    pthread_mutex_unlock(&acc->lock);
-}
-
-bool safe_account_withdraw(SafeAccount *acc, int64_t amount) {
-    pthread_mutex_lock(&acc->lock);
-    if (acc->balance >= amount) {
-        acc->balance -= amount;
-        pthread_mutex_unlock(&acc->lock);
-        return true;
-    }
-    pthread_mutex_unlock(&acc->lock);
-    return false;
-}
-```
-```cpp
-#include <cstdint>
-#include <mutex>
-
-class SafeAccount {
-public:
-    explicit SafeAccount(int64_t initial_balance = 0) noexcept
-        : balance_(initial_balance) {}
-
-    void deposit(int64_t amount) {
-        // std::lock_guard гарантує звільнення замка в деструкторі
-        std::lock_guard<std::mutex> guard(mutex_);
-        balance_ += amount;
-    }
-
-    bool withdraw(int64_t amount) {
-        std::lock_guard<std::mutex> guard(mutex_);
-        if (balance_ >= amount) {
-            balance_ -= amount;
-            return true;
-        }
-        return false;
-    }
-
-    int64_t get_balance() const {
-        std::lock_guard<std::mutex> guard(mutex_);
-        return balance_;
-    }
-
-    std::mutex& get_mutex() const noexcept {
-        return mutex_;
-    }
-
-    // Внутрішні методи для складених операцій (викликати виключно під захопленим замком)
-    int64_t raw_balance() const noexcept { return balance_; }
-    void raw_modify(int64_t delta) noexcept { balance_ += delta; }
-
-private:
-    int64_t balance_{0};
-    mutable std::mutex mutex_;
-};
-```
+:::code proj-mutex-bank/c/2-zakhyst-okremoho.c
+:::code proj-mutex-bank/cpp/2-zakhyst-okremoho.cpp
 :::
 
 У C++ версії деструктор `std::lock_guard` автоматично звільняє замок під час повернення з функції (навіть при виникненні винятку), що повністю виключає ризик витоку замків.
@@ -158,38 +45,8 @@ private:
 Погляньмо на наївну реалізацію переказу:
 
 :::tabs
-```c
-// НЕБЕЗПЕЧНО: ПРИЗВОДИТЬ ДО ДЕДЛОКУ ПРИ ЗУСТРІЧНИХ ПЕРЕКАЗАХ!
-bool bad_transfer(SafeAccount *from, SafeAccount *to, int64_t amount) {
-    pthread_mutex_lock(&from->lock); // Захоплюємо перший рахунок
-    pthread_mutex_lock(&to->lock);   // Захоплюємо другий рахунок
-
-    bool success = false;
-    if (from->balance >= amount) {
-        from->balance -= amount;
-        to->balance += amount;
-        success = true;
-    }
-
-    pthread_mutex_unlock(&to->lock);
-    pthread_mutex_unlock(&from->lock);
-    return success;
-}
-```
-```cpp
-// НЕБЕЗПЕЧНО: ПРИЗВОДИТЬ ДО ДЕДЛОКУ!
-bool bad_transfer(SafeAccount& from, SafeAccount& to, int64_t amount) {
-    std::unique_lock<std::mutex> lock_from(from.get_mutex());
-    std::unique_lock<std::mutex> lock_to(to.get_mutex());
-
-    if (from.raw_balance() >= amount) {
-        from.raw_modify(-amount);
-        to.raw_modify(amount);
-        return true;
-    }
-    return false;
-}
-```
+:::code proj-mutex-bank/c/3-problema-dvokh-zamkiv.c
+:::code proj-mutex-bank/cpp/3-problema-dvokh-zamkiv.cpp
 :::
 
 #### Умови виникнення взаємного блокування (Дедлоку)
@@ -212,65 +69,8 @@ bool bad_transfer(SafeAccount& from, SafeAccount& to, int64_t amount) {
 У сучасному C++ (C++17) для цього створено шаблон `std::scoped_lock`, який приймає довільну кількість м'ютексів і всередині реалізує алгоритм запобігання дедлокам (на основі `std::lock` із механізмом `try_lock` backoff):
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <pthread.h>
-
-bool safe_account_transfer(SafeAccount *from, SafeAccount *to, int64_t amount) {
-    if (from == to || amount <= 0) {
-        return false;
-    }
-
-    // Визначаємо канонічний порядок блокування за адресою в пам'яті
-    SafeAccount *first = from;
-    SafeAccount *second = to;
-    if ((uintptr_t)from > (uintptr_t)to) {
-        first = to;
-        second = from;
-    }
-
-    // Захоплюємо замки у строго визначеному порядку: менша адреса -> більша адреса
-    pthread_mutex_lock(&first->lock);
-    pthread_mutex_lock(&second->lock);
-
-    bool success = false;
-    if (from->balance >= amount) {
-        from->balance -= amount;
-        to->balance += amount;
-        success = true;
-    }
-
-    // Звільняємо у зворотному порядку
-    pthread_mutex_unlock(&second->lock);
-    pthread_mutex_unlock(&first->lock);
-
-    return success;
-}
-```
-```cpp
-#include <cstdint>
-#include <mutex>
-
-bool transfer_money(SafeAccount& from, SafeAccount& to, int64_t amount) {
-    if (&from == &to || amount <= 0) {
-        return false;
-    }
-
-    // std::scoped_lock гарантує одночасне захоплення двох замків без ризику дедлоку
-    // і автоматично звільняє їх при будь-якому виході з функції
-    std::scoped_lock lock(from.get_mutex(), to.get_mutex());
-
-    if (from.raw_balance() >= amount) {
-        from.raw_modify(-amount);
-        to.raw_modify(amount);
-        return true;
-    }
-
-    return false;
-}
-```
+:::code proj-mutex-bank/c/4-rishennia-kanonichne.c
+:::code proj-mutex-bank/cpp/4-rishennia-kanonichne.cpp
 :::
 
 ---
@@ -280,99 +80,8 @@ bool transfer_money(SafeAccount& from, SafeAccount& to, int64_t amount) {
 Напишемо тестовий стенд, який запускає 8 паралельних потоків. Половина потоків переказує кошти з рахунку 1 на рахунок 2, а інша половина — одночасно з рахунку 2 на рахунок 1. Загалом виконується 4 000 000 зустрічних переказів:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <pthread.h>
-
-#define NUM_TRANSFERS 500000
-
-SafeAccount g_acc1;
-SafeAccount g_acc2;
-
-void* worker_1_to_2(void *arg) {
-    (void)arg;
-    for (int i = 0; i < NUM_TRANSFERS; ++i) {
-        safe_account_transfer(&g_acc1, &g_acc2, 10);
-    }
-    return NULL;
-}
-
-void* worker_2_to_1(void *arg) {
-    (void)arg;
-    for (int i = 0; i < NUM_TRANSFERS; ++i) {
-        safe_account_transfer(&g_acc2, &g_acc1, 10);
-    }
-    return NULL;
-}
-
-int main(void) {
-    safe_account_init(&g_acc1, 100000);
-    safe_account_init(&g_acc2, 100000);
-
-    pthread_t threads[8];
-    for (int i = 0; i < 4; ++i) {
-        pthread_create(&threads[i], NULL, worker_1_to_2, NULL);
-        pthread_create(&threads[i + 4], NULL, worker_2_to_1, NULL);
-    }
-
-    for (int i = 0; i < 8; ++i) {
-        pthread_join(threads[i], NULL);
-    }
-
-    int64_t total = g_acc1.balance + g_acc2.balance;
-    printf("Баланс 1: %lld, Баланс 2: %lld, Разом: %lld (Очікувалося: 200000)\n",
-           (long long)g_acc1.balance, (long long)g_acc2.balance, (long long)total);
-
-    safe_account_destroy(&g_acc1);
-    safe_account_destroy(&g_acc2);
-    return (total == 200000) ? 0 : 1;
-}
-```
-```cpp
-#include <iostream>
-#include <thread>
-#include <vector>
-
-constexpr int NUM_TRANSFERS = 500000;
-
-int main() {
-    SafeAccount acc1(100000);
-    SafeAccount acc2(100000);
-
-    std::vector<std::jthread> threads;
-    threads.reserve(8);
-
-    // 4 потоки переказують з acc1 на acc2
-    for (int i = 0; i < 4; ++i) {
-        threads.emplace_back([&acc1, &acc2]() {
-            for (int k = 0; k < NUM_TRANSFERS; ++k) {
-                transfer_money(acc1, acc2, 10);
-            }
-        });
-    }
-
-    // 4 потоки паралельно переказують з acc2 на acc1
-    for (int i = 0; i < 4; ++i) {
-        threads.emplace_back([&acc1, &acc2]() {
-            for (int k = 0; k < NUM_TRANSFERS; ++k) {
-                transfer_money(acc2, acc1, 10);
-            }
-        });
-    }
-
-    // Очікуємо завершення всіх потоків
-    threads.clear();
-
-    const int64_t total = acc1.get_balance() + acc2.get_balance();
-    std::cout << "Баланс 1: " << acc1.get_balance()
-              << ", Баланс 2: " << acc2.get_balance()
-              << ", Разом: " << total << " (Очікувалося: 200000)\n";
-
-    return (total == 200000) ? 0 : 1;
-}
-```
+:::code proj-mutex-bank/c/5-povnyi-veryfikatsiinyi.c
+:::code proj-mutex-bank/cpp/5-povnyi-veryfikatsiinyi.cpp
 :::
 
 #### Підсумковий результат та аналіз продуктивності

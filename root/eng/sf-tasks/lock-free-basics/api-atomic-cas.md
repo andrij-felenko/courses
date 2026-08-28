@@ -7,76 +7,8 @@
 ### Сигнатури інтерфейсів у C та C++
 
 :::tabs
-```c
-#include <stdatomic.h>
-#include <stdbool.h>
-
-// Сильний варіант: успіх або гарантована невідповідність значення
-bool atomic_compare_exchange_strong(
-    volatile _Atomic(T)* object,
-    T* expected,
-    T desired
-);
-
-// Слабкий варіант: дозволяє хибні збої для оптимізації циклів
-bool atomic_compare_exchange_weak(
-    volatile _Atomic(T)* object,
-    T* expected,
-    T desired
-);
-
-// Варіанти з явним зазначенням моделей пам'яті для успіху та невдачі
-bool atomic_compare_exchange_strong_explicit(
-    volatile _Atomic(T)* object,
-    T* expected,
-    T desired,
-    memory_order success_order,
-    memory_order failure_order
-);
-
-bool atomic_compare_exchange_weak_explicit(
-    volatile _Atomic(T)* object,
-    T* expected,
-    T desired,
-    memory_order success_order,
-    memory_order failure_order
-);
-```
-```cpp
-#include <atomic>
-
-template <typename T>
-class atomic {
-public:
-    // Сильний варіант CAS
-    bool compare_exchange_strong(
-        T& expected,
-        T desired,
-        std::memory_order success_order,
-        std::memory_order failure_order
-    ) noexcept;
-
-    bool compare_exchange_strong(
-        T& expected,
-        T desired,
-        std::memory_order order = std::memory_order_seq_cst
-    ) noexcept;
-
-    // Слабкий варіант CAS
-    bool compare_exchange_weak(
-        T& expected,
-        T desired,
-        std::memory_order success_order,
-        std::memory_order failure_order
-    ) noexcept;
-
-    bool compare_exchange_weak(
-        T& expected,
-        T desired,
-        std::memory_order order = std::memory_order_seq_cst
-    ) noexcept;
-};
-```
+:::code api-atomic-cas/c/stdatomic.h
+:::code api-atomic-cas/cpp/main.cpp
 :::
 
 ### Поведінковий контракт та семантика параметрів

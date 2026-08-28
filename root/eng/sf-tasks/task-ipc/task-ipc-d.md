@@ -77,68 +77,9 @@
 **Виробник-споживач через чергу, зі спільною шиною під м'ютексом.**
 
 :::tabs
-```c
-QueueHandle_t    q;          // черга відліків давача
-SemaphoreHandle_t busMutex;  // замок на спільну шину дисплея
-
-void taskSensor(void *p) {                 // ВИРОБНИК
-    for (;;) {
-        int v = readSensor();
-        xQueueSend(q, &v, portMAX_DELAY);      // безпечно передали відлік (копія)
-        vTaskDelay(pdMS_TO_TICKS(100));
-    }
-}
-
-void taskLog(void *p) {                    // СПОЖИВАЧ
-    for (;;) {
-        int v;
-        xQueueReceive(q, &v, portMAX_DELAY);            // чекаємо й беремо (блок)
-        xSemaphoreTake(busMutex, portMAX_DELAY);        // ← зайняли спільну шину
-        writeToDisplay(v);                              //   працюємо з нею
-        xSemaphoreGive(busMutex);                       // ← звільнили шину
-    }
-}
-```
-```python
-import queue, threading, time
-
-q = queue.Queue()          # черга відліків давача
-bus_lock = threading.Lock()  # замок на спільну шину дисплея
-
-def task_sensor():                          # ВИРОБНИК
-    while True:
-        v = read_sensor()
-        q.put(v)                            # безпечно передали відлік (копія)
-        time.sleep(0.1)
-
-def task_log():                             # СПОЖИВАЧ
-    while True:
-        v = q.get()                         # чекаємо й беремо (блок)
-        with bus_lock:                      # ← зайняли спільну шину
-            write_to_display(v)             #   працюємо з нею
-                                            # ← замок звільнено на виході з with
-```
-```go
-q := make(chan int)     // черга відліків давача
-var busMutex sync.Mutex // замок на спільну шину дисплея
-
-func taskSensor() { // ВИРОБНИК
-    for {
-        v := readSensor()
-        q <- v // безпечно передали відлік (копія)
-        time.Sleep(100 * time.Millisecond)
-    }
-}
-
-func taskLog() { // СПОЖИВАЧ
-    for {
-        v := <-q          // чекаємо й беремо (блок)
-        busMutex.Lock()   // ← зайняли спільну шину
-        writeToDisplay(v) //   працюємо з нею
-        busMutex.Unlock() // ← звільнили шину
-    }
-}
-```
+:::code task-ipc-d/c/main.c
+:::code task-ipc-d/py/main.py
+:::code task-ipc-d/go/main.go
 :::
 
 Дані з давача йдуть **через чергу** (жодної спільної змінної), а спільну шину дисплея береже **м'ютекс** (ніколи двох одночасно). Дві задачі співпрацюють, не заважаючи одна одній і без жодної гонки — і, що важливо, кожну з них досі можна читати окремо, як просту послідовну програму: уся складність їхньої взаємодії охайно прихована у двох надійних засобах RTOS (черзі й м'ютексі), а не розмазана плутаниною прапорців по всьому коду.

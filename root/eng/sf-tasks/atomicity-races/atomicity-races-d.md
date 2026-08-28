@@ -77,63 +77,9 @@
 **Безпечне читання спільного лічильника.**
 
 :::tabs
-```arduino
-volatile uint32_t pulses = 0;          // volatile — свіжість значення
-
-void IRAM_ATTR onPulse() { pulses++; } // обробник лише рахує
-
-void loop() {
-  noInterrupts();                      // ← критична секція: цілісно
-  uint32_t n = pulses;                 //   «знімок» спільних даних
-  pulses = 0;
-  interrupts();                        // ← переривання знову ввімкнені
-  // ... далі працюємо з локальним n, поза секцією ...
-  Serial.println(n);                   // повільний друк — НЕ в секції
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-static portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
-static volatile uint32_t pulses = 0;   // volatile — свіжість значення
-
-static void IRAM_ATTR on_pulse(void *arg) {   // обробник лише рахує
-    portENTER_CRITICAL_ISR(&mux);
-    pulses++;
-    portEXIT_CRITICAL_ISR(&mux);
-}
-
-void pulse_task(void *arg) {
-    while (1) {
-        portENTER_CRITICAL(&mux);      // ← критична секція: цілісно (й проти 2-го ядра)
-        uint32_t n = pulses;           //   «знімок» спільних даних
-        pulses = 0;
-        portEXIT_CRITICAL(&mux);       // ← переривання знову ввімкнені
-        // ... далі працюємо з локальним n, поза секцією ...
-        ESP_LOGI("pulse", "%u", (unsigned) n);   // повільний лог — НЕ в секції
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
-```
-```stm32
-volatile uint32_t pulses = 0;          // volatile — свіжість значення
-
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {   // обробник лише рахує
-  if (pin == GPIO_PIN_0) pulses++;
-}
-
-void read_pulses(void) {
-  __disable_irq();                     // ← критична секція: цілісно
-  uint32_t n = pulses;                 //   «знімок» спільних даних
-  pulses = 0;
-  __enable_irq();                      // ← переривання знову ввімкнені
-  // ... далі працюємо з локальним n, поза секцією ...
-  printf("%lu\r\n", (unsigned long) n);  // повільний вивід — НЕ в секції
-}
-```
+:::code atomicity-races-d/c/arduino/main.ino
+:::code atomicity-races-d/c/esp-idf/main.c
+:::code atomicity-races-d/c/stm32/main.c
 :::
 
 Цей крихітний фрагмент поєднує все: [`volatile`](root:sf-lang/volatile) дає свіжість, критична секція робить пару «зчитати-обнулити» неподільною, а патерн «знімок» виносить повільний друк назовні. Так гонка даних усунена, а система лишається чуйною.

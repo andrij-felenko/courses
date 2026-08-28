@@ -53,30 +53,7 @@ static std::condition_variable global_cond;
 Для забезпечення передбачуваності та надійності систем системні інженери налаштовують атрибут умовної змінної на використання монотонного годинника `CLOCK_MONOTONIC`, який неперервно рахує час від моменту завантаження ядра і не піддається стрибкам:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <time.h>
-#include <stdio.h>
-
-int init_monotonic_condition(pthread_cond_t *cond) {
-    pthread_condattr_t attr;
-    int rc;
-
-    rc = pthread_condattr_init(&attr);
-    if (rc != 0) return rc;
-
-    /* Встановлюємо монотонний годинник для тайм-аутів */
-    rc = pthread_condattr_setclock(&attr, CLOCK_MONOTONIC);
-    if (rc != 0) {
-        pthread_condattr_destroy(&attr);
-        return rc;
-    }
-
-    rc = pthread_cond_init(cond, &attr);
-    pthread_condattr_destroy(&attr);
-    return rc;
-}
-```
+:::code api-posix-cond/c/robota-z-atrybutamy.c
 ```cpp
 #include <condition_variable>
 #include <chrono>
@@ -94,18 +71,7 @@ int init_monotonic_condition(pthread_cond_t *cond) {
 Для цього у структурі атрибутів налаштовується прапорець `PTHREAD_PROCESS_SHARED`:
 
 :::tabs
-```c
-#include <pthread.h>
-
-int init_pshared_condition(pthread_cond_t *cond) {
-    pthread_condattr_t attr;
-    pthread_condattr_init(&attr);
-    pthread_condattr_setpshared(&attr, PTHREAD_PROCESS_SHARED);
-    int rc = pthread_cond_init(cond, &attr);
-    pthread_condattr_destroy(&attr);
-    return rc;
-}
-```
+:::code api-posix-cond/c/mizhprotsesni-umovni.c
 ```cpp
 #include <condition_variable>
 
@@ -171,99 +137,8 @@ int init_pshared_condition(pthread_cond_t *cond) {
 Нижче наведено порівняння безпечної реалізації прапорця події з підтримкою тайм-аутів мовами C та C++:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdbool.h>
-#include <time.h>
-#include <errno.h>
-
-typedef struct {
-    pthread_mutex_t mtx;
-    pthread_cond_t cv;
-    bool ready;
-} event_flag_t;
-
-int event_flag_init(event_flag_t *e) {
-    e->ready = false;
-    pthread_mutex_init(&e->mtx, NULL);
-
-    pthread_condattr_t attr;
-    pthread_condattr_init(&attr);
-    pthread_condattr_setclock(&attr, CLOCK_MONOTONIC);
-    pthread_cond_init(&e->cv, &attr);
-    pthread_condattr_destroy(&attr);
-    return 0;
-}
-
-bool event_flag_wait(event_flag_t *e, long timeout_ms) {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    ts.tv_sec += timeout_ms / 1000;
-    ts.tv_nsec += (timeout_ms % 1000) * 1000000;
-    if (ts.tv_nsec >= 1000000000) {
-        ts.tv_sec += 1;
-        ts.tv_nsec -= 1000000000;
-    }
-
-    pthread_mutex_lock(&e->mtx);
-    while (!e->ready) {
-        int rc = pthread_cond_timedwait(&e->cv, &e->mtx, &ts);
-        if (rc == ETIMEDOUT) {
-            break;
-        }
-    }
-    bool status = e->ready;
-    pthread_mutex_unlock(&e->mtx);
-    return status;
-}
-
-void event_flag_set(event_flag_t *e) {
-    pthread_mutex_lock(&e->mtx);
-    e->ready = true;
-    pthread_cond_broadcast(&e->cv);
-    pthread_mutex_unlock(&e->mtx);
-}
-
-void event_flag_destroy(event_flag_t *e) {
-    pthread_mutex_destroy(&e->mtx);
-    pthread_cond_destroy(&e->cv);
-}
-```
-```cpp
-#include <mutex>
-#include <condition_variable>
-#include <chrono>
-
-class EventFlag {
-public:
-    EventFlag() : ready_(false) {}
-
-    bool wait(std::chrono::milliseconds timeout) {
-        std::unique_lock<std::mutex> lock(mutex_);
-        return cv_.wait_for(lock, timeout, [this] {
-            return ready_;
-        });
-    }
-
-    void set() {
-        {
-            std::lock_guard<std::mutex> lock(mutex_);
-            ready_ = true;
-        }
-        cv_.notify_all();
-    }
-
-    void reset() {
-        std::lock_guard<std::mutex> lock(mutex_);
-        ready_ = false;
-    }
-
-private:
-    std::mutex mutex_;
-    std::condition_variable cv_;
-    bool ready_;
-};
-```
+:::code api-posix-cond/c/5-praktychnyi-pryklad.c
+:::code api-posix-cond/cpp/main.cpp
 :::
 
 ---

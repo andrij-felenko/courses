@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -28,11 +29,13 @@
           "proj": [
             {
               "file": "proj-atomics-barriers.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-critical-sections.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -43,7 +46,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -54,13 +58,15 @@
           "proj": [
             {
               "file": "proj-lockfree-ringbuffer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-kernel-atomic-ops.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -72,18 +78,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-word-tearing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-torn-read-detector.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -110,7 +120,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -126,7 +137,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -137,7 +149,8 @@
           "proj": [
             {
               "file": "proj-lockfree-stack.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -164,7 +177,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]
@@ -180,12 +194,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-cache-dma.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -196,7 +212,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "math": [
             {
@@ -207,7 +224,8 @@
           "proj": [
             {
               "file": "proj-ring-buffer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },

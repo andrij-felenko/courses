@@ -28,34 +28,7 @@ BaseType_t xQueueSendFromISR(
     BaseType_t *pxHigherPriorityTaskWoken
 );
 ```
-```cpp
-#include <concepts>
-#include <expected>
-
-namespace rtos {
-
-template <typename T>
-class QueueIsrEndpoint {
-public:
-    explicit QueueIsrEndpoint(QueueHandle_t handle) noexcept : handle_(handle) {}
-
-    [[nodiscard]] std::expected<void, BaseType_t> send(
-        const T& item,
-        BaseType_t* higher_priority_woken
-    ) noexcept {
-        BaseType_t status = xQueueSendFromISR(handle_, &item, higher_priority_woken);
-        if (status == pdPASS) {
-            return {};
-        }
-        return std::unexpected(status);
-    }
-
-private:
-    QueueHandle_t handle_;
-};
-
-} // namespace rtos
-```
+:::code api-fromisr-contracts/cpp/xqueuesendtobackfromisr.cpp
 :::
 
 * **Параметри**:
@@ -76,24 +49,7 @@ BaseType_t xQueueOverwriteFromISR(
     BaseType_t *pxHigherPriorityTaskWoken
 );
 ```
-```cpp
-namespace rtos {
-
-template <typename T>
-class MailboxIsrEndpoint {
-public:
-    explicit MailboxIsrEndpoint(QueueHandle_t handle) noexcept : handle_(handle) {}
-
-    void overwrite(const T& item, BaseType_t* higher_priority_woken) noexcept {
-        xQueueOverwriteFromISR(handle_, &item, higher_priority_woken);
-    }
-
-private:
-    QueueHandle_t handle_;
-};
-
-} // namespace rtos
-```
+:::code api-fromisr-contracts/cpp/xqueueoverwritefromisr.cpp
 :::
 
 * **Призначення**: ідеально підходить для телеметрії та високочастотних давачів, де важливе лише найсвіжіше вимірювання, а пропуск проміжних станів не є критичним.
@@ -113,23 +69,7 @@ BaseType_t xSemaphoreGiveFromISR(
     BaseType_t *pxHigherPriorityTaskWoken
 );
 ```
-```cpp
-namespace rtos {
-
-class BinarySemaphoreIsr {
-public:
-    explicit BinarySemaphoreIsr(SemaphoreHandle_t handle) noexcept : handle_(handle) {}
-
-    [[nodiscard]] bool give(BaseType_t* higher_priority_woken) noexcept {
-        return xSemaphoreGiveFromISR(handle_, higher_priority_woken) == pdPASS;
-    }
-
-private:
-    SemaphoreHandle_t handle_;
-};
-
-} // namespace rtos
-```
+:::code api-fromisr-contracts/cpp/xsemaphoregivefromisr.cpp
 :::
 
 * **Застосування**: сигналізація про завершення апаратних передач по шинах SPI, I2C або каналах прямого доступу до пам'яті (DMA).
@@ -152,23 +92,7 @@ void vTaskNotifyGiveFromISR(
     BaseType_t *pxHigherPriorityTaskWoken
 );
 ```
-```cpp
-namespace rtos {
-
-class TaskNotifier {
-public:
-    explicit TaskNotifier(TaskHandle_t target_task) noexcept : target_(target_task) {}
-
-    void notify_give(BaseType_t* higher_priority_woken) noexcept {
-        vTaskNotifyGiveFromISR(target_, higher_priority_woken);
-    }
-
-private:
-    TaskHandle_t target_;
-};
-
-} // namespace rtos
-```
+:::code api-fromisr-contracts/cpp/vtasknotifygivefromisr.cpp
 :::
 
 #### `xTaskNotifyFromISR`
@@ -183,27 +107,7 @@ BaseType_t xTaskNotifyFromISR(
     BaseType_t *pxHigherPriorityTaskWoken
 );
 ```
-```cpp
-namespace rtos {
-
-class AdvancedTaskNotifier {
-public:
-    explicit AdvancedTaskNotifier(TaskHandle_t target_task) noexcept : target_(target_task) {}
-
-    bool set_bits(uint32_t bits, BaseType_t* higher_priority_woken) noexcept {
-        return xTaskNotifyFromISR(target_, bits, eSetBits, higher_priority_woken) == pdPASS;
-    }
-
-    bool overwrite_value(uint32_t val, BaseType_t* higher_priority_woken) noexcept {
-        return xTaskNotifyFromISR(target_, val, eSetValueWithOverwrite, higher_priority_woken) == pdPASS;
-    }
-
-private:
-    TaskHandle_t target_;
-};
-
-} // namespace rtos
-```
+:::code api-fromisr-contracts/cpp/xtasknotifyfromisr.cpp
 :::
 
 * **Дії `eAction`**:
@@ -228,25 +132,7 @@ size_t xStreamBufferSendFromISR(
     BaseType_t *pxHigherPriorityTaskWoken
 );
 ```
-```cpp
-#include <span>
-
-namespace rtos {
-
-class StreamBufferIsrSender {
-public:
-    explicit StreamBufferIsrSender(StreamBufferHandle_t handle) noexcept : handle_(handle) {}
-
-    size_t send(std::span<const uint8_t> data, BaseType_t* higher_priority_woken) noexcept {
-        return xStreamBufferSendFromISR(handle_, data.data(), data.size(), higher_priority_woken);
-    }
-
-private:
-    StreamBufferHandle_t handle_;
-};
-
-} // namespace rtos
-```
+:::code api-fromisr-contracts/cpp/potokovi-bufery.cpp
 :::
 
 #### Групи подій (`xEventGroupSetBitsFromISR` та демон таймерів)
@@ -262,23 +148,7 @@ BaseType_t xEventGroupSetBitsFromISR(
     BaseType_t *pxHigherPriorityTaskWoken
 );
 ```
-```cpp
-namespace rtos {
-
-class EventGroupIsrSetter {
-public:
-    explicit EventGroupIsrSetter(EventGroupHandle_t handle) noexcept : handle_(handle) {}
-
-    bool set_bits(EventBits_t bits, BaseType_t* higher_priority_woken) noexcept {
-        return xEventGroupSetBitsFromISR(handle_, bits, higher_priority_woken) == pdPASS;
-    }
-
-private:
-    EventGroupHandle_t handle_;
-};
-
-} // namespace rtos
-```
+:::code api-fromisr-contracts/cpp/hrupy-podii.cpp
 :::
 
 ---
@@ -296,26 +166,7 @@ void SysTick_Handler_Custom(void) {
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 ```
-```cpp
-namespace rtos {
-
-/* C++ RAII вартовий для гарантованого перемикання контексту */
-class ScopedIsrYield {
-public:
-    ScopedIsrYield() noexcept : woken_(pdFALSE) {}
-    ~ScopedIsrYield() noexcept {
-        portYIELD_FROM_ISR(woken_);
-    }
-
-    [[nodiscard]] BaseType_t* flag() noexcept { return &woken_; }
-    [[nodiscard]] bool is_woken() const noexcept { return woken_ == pdTRUE; }
-
-private:
-    BaseType_t woken_;
-};
-
-} // namespace rtos
-```
+:::code api-fromisr-contracts/cpp/mekhanika-makrosiv-vykhodu.cpp
 :::
 
 * **Внутрішня робота макросу**:

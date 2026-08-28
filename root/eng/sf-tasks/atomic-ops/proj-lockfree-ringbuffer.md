@@ -48,125 +48,8 @@ index = head & (RING_SIZE - 1)
 Нижче наведено робочі реалізації безблокувального буфера для ядра Linux (C) та для багатопотокових систем користувача (C++).
 
 :::tabs
-```c
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/slab.h>
-#include <linux/atomic.h>
-
-#define RING_SIZE 64 // Мусить бути ступенем двійки (2^N)
-#define RING_MASK (RING_SIZE - 1)
-
-struct kernel_spsc_ring {
-    void *buffer[RING_SIZE];
-    atomic_t head ____cacheline_aligned;
-    atomic_t tail ____cacheline_aligned;
-};
-
-struct kernel_spsc_ring *ring_create(void)
-{
-    struct kernel_spsc_ring *rb = kmalloc(sizeof(*rb), GFP_KERNEL);
-    if (!rb)
-        return NULL;
-
-    atomic_set(&rb->head, 0);
-    atomic_set(&rb->tail, 0);
-    return rb;
-}
-
-void ring_destroy(struct kernel_spsc_ring *rb)
-{
-    kfree(rb);
-}
-
-bool ring_push(struct kernel_spsc_ring *rb, void *item)
-{
-    // head правимо тільки ми — читаємо без бар'єра
-    int head = atomic_read(&rb->head);
-    // tail пише споживач на іншому ядрі — потрібен acquire
-    int tail = atomic_read_acquire(&rb->tail);
-
-    // Перевірка на заповненість буфера
-    if ((head - tail) >= RING_SIZE)
-        return false;
-
-    // Запис даних у слот
-    rb->buffer[head & RING_MASK] = item;
-
-    // Забезпечуємо завершення запису даних до оновлення індексу head
-    atomic_set_release(&rb->head, head + 1);
-    return true;
-}
-
-void *ring_pop(struct kernel_spsc_ring *rb)
-{
-    int tail = atomic_read(&rb->tail);
-    // Гарантуємо зчитування оновленого head після перевірки
-    int head = atomic_read_acquire(&rb->head);
-
-    // Перевірка на порожнечу буфера
-    if (tail == head)
-        return NULL;
-
-    void *item = rb->buffer[tail & RING_MASK];
-
-    // Оновлюємо tail із семантикою release
-    atomic_set_release(&rb->tail, tail + 1);
-    return item;
-}
-```
-```cpp
-#include <atomic>
-#include <cstddef>
-#include <new>
-#include <optional>
-#include <utility>
-#include <vector>
-
-template <typename T, std::size_t Capacity>
-class LockFreeRingBuffer {
-    static_assert((Capacity & (Capacity - 1)) == 0, "Capacity must be a power of two");
-
-public:
-    LockFreeRingBuffer() : head_(0), tail_(0) {
-        buffer_.resize(Capacity);
-    }
-
-    template <typename... Args>
-    bool push(Args&&... args) {
-        const std::size_t head = head_.load(std::memory_order_relaxed);
-        const std::size_t tail = tail_.load(std::memory_order_acquire);
-
-        if ((head - tail) >= Capacity) {
-            return false; // Буфер переповнений
-        }
-
-        buffer_[head & (Capacity - 1)] = T(std::forward<Args>(args)...);
-        head_.store(head + 1, std::memory_order_release);
-        return true;
-    }
-
-    std::optional<T> pop() {
-        const std::size_t tail = tail_.load(std::memory_order_relaxed);
-        const std::size_t head = head_.load(std::memory_order_acquire);
-
-        if (tail == head) {
-            return std::nullopt; // Буфер порожній
-        }
-
-        T item = std::move(buffer_[tail & (Capacity - 1)]);
-        tail_.store(tail + 1, std::memory_order_release);
-        return item;
-    }
-
-private:
-    std::vector<T> buffer_;
-    
-    // Запобігаємо False Sharing між Producer та Consumer
-    alignas(64) std::atomic<std::size_t> head_;
-    alignas(64) std::atomic<std::size_t> tail_;
-};
-```
+:::code proj-lockfree-ringbuffer/c/praktychna-realizatsiia-v.c
+:::code proj-lockfree-ringbuffer/cpp/main.cpp
 :::
 
 ## Покрокове трасування синхронізації
@@ -195,25 +78,7 @@ private:
 
 У реальних розробках для ядра Linux розробникам рідко доводиться писати власний безблокувальний буфер вручну. Ядро надає високооптимізований примітив `kfifo`, макроси якого (`kfifo_put()` та `kfifo_get()`) абстрагують і реалізують принципи впорядкування пам'яті acquire-release, бітового маскування за модулем `2^N` та вирівнювання ліній кешу, захищаючи код драйверів від апаратних розбіжностей між x86_64, ARM64 та RISC-V:
 
-```c
-#include <linux/kfifo.h>
-
-// Оголошення kfifo на 64 елементи; сама структура ще не готова до вжитку —
-// перед першим kfifo_put() її треба один раз ініціалізувати INIT_KFIFO(my_fifo)
-DECLARE_KFIFO(my_fifo, struct my_packet, 64);
-
-void producer_work(struct my_packet *pkt)
-{
-    // Атомарно пушить елемент у kfifo без блокувань (SPSC)
-    kfifo_put(&my_fifo, *pkt);
-}
-
-bool consumer_work(struct my_packet *out_pkt)
-{
-    // Атомарно витягує елемент з kfifo
-    return kfifo_get(&my_fifo, out_pkt);
-}
-```
+:::code proj-lockfree-ringbuffer/c/standartnyi-iadernyi.c
 
 ## Інтеграція з відкладеною обробкою у ядрі: Workqueues та Hrtimers
 
@@ -250,26 +115,7 @@ bool consumer_work(struct my_packet *out_pkt)
 
 Розширений варіант безблокувального буфера підтримує пакетне додавання та вилучення елементів:
 
-```c
-// Пакетне вилучення до 32 елементів за один атомарний крок
-int ring_pop_batch(struct kernel_spsc_ring *rb, void **out_items, int max_items)
-{
-    int tail = atomic_read(&rb->tail);
-    int head = atomic_read_acquire(&rb->head);
-    int available = head - tail;
-
-    if (available <= 0)
-        return 0;
-
-    int count = min(available, max_items);
-    for (int i = 0; i < count; i++) {
-        out_items[i] = rb->buffer[(tail + i) & RING_MASK];
-    }
-
-    atomic_set_release(&rb->tail, tail + count);
-    return count;
-}
-```
+:::code proj-lockfree-ringbuffer/c/paketna-obrobka-elementiv.c
 
 Пакетна обробка скорочує кількість оновлень атомарного індексу `tail` у `count` разів, що додатково знижує навантаження на підсистему когерентності кешів процесора.
 
@@ -281,22 +127,7 @@ int ring_pop_batch(struct kernel_spsc_ring *rb, void **out_items, int max_items)
 
 Для розв'язання цієї проблеми в структуру додається атомарний лічильник скинутих елементів `atomic_t drops`:
 
-```c
-bool ring_push_with_stats(struct kernel_spsc_ring *rb, void *item, atomic_t *drops)
-{
-    int head = atomic_read(&rb->head);
-    int tail = atomic_read_acquire(&rb->tail);
-
-    if ((head - tail) >= RING_SIZE) {
-        atomic_inc(drops); // Атомарно збільшуємо лічильник втрат
-        return false;
-    }
-
-    rb->buffer[head & RING_MASK] = item;
-    atomic_set_release(&rb->head, head + 1);
-    return true;
-}
-```
+:::code proj-lockfree-ringbuffer/c/zakhyst-vid-vtraty-danykh.c
 
 Моніторинг лічильника `drops` через інструмент `ethtool -S` інформує мережевого адміністратора про потребу збільшення розміру кільцевого буфера `RING_SIZE` або виділення додаткових ядер CPU під обробку мережевих переривань.
 
