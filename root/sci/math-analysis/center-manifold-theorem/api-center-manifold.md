@@ -79,41 +79,8 @@ struct SolverConfig {
 Визначає лінійну та нелінійну частини вихідної диференціальної системи у канонічному відокремленому вигляді.
 
 :::tabs
-```c
-typedef struct {
-    uint32_t dim_center;   /* Вимірність n центрального підпростору E^c */
-    uint32_t dim_stable;   /* Вимірність m стійкого підпростору E^s */
-    
-    double  *matrix_A;     /* Двовимірний масив (n x n) нейтральної матриці A */
-    double  *matrix_B;     /* Двовимірний масив (m x m) гурвіцевої матриці B */
-    
-    /* Функтор нелінійностей f(x, y) розміру n */
-    void (*func_f)(const double *x, const double *y, double *out_f, void *user_data);
-    
-    /* Функтор нелінійностей g(x, y) розміру m */
-    void (*func_g)(const double *x, const double *y, double *out_g, void *user_data);
-    
-    void *user_data;       /* Укористувацький контекст даних для функторів */
-} cm_system_t;
-```
-```cpp
-namespace CM {
-using VectorFunc = std::function<void(std::span<const double>, std::span<const double>, std::span<double>)>;
-
-class System {
-public:
-    System(std::size_t dim_center, std::size_t dim_stable);
-    
-    void set_matrix_A(std::span<const double> A);
-    void set_matrix_B(std::span<const double> B);
-    void set_nonlinearity_f(VectorFunc f);
-    void set_nonlinearity_g(VectorFunc g);
-
-    [[nodiscard]] std::size_t dim_center() const noexcept;
-    [[nodiscard]] std::size_t dim_stable() const noexcept;
-};
-} // namespace CM
-```
+:::code api-center-manifold/c/3-2-struktura-opysu.h
+:::code api-center-manifold/cpp/3-2-struktura-opysu.hpp
 :::
 
 Вказувані матриці `matrix_A` та `matrix_B` зберігаються у пам'яті за правилом Row-Major order (по рядках). Функтори `func_f` та `func_g` повинні обчислювати лише суто нелінійні доданки вищого порядку (`O(|x|² + |y|²)`), не включаючи лінійні члени, що вже входять до матриць `A` та `B`.
@@ -180,24 +147,7 @@ namespace CM {
 Процедура редукції виконує автоматичне формування символьно-чисельної системи лінійних рівнянь для знаходження невизначених коефіцієнтів.
 
 :::tabs
-```c
-/* Обчислює тензори коефіцієнтів h(x) до вказаного порядку order */
-cm_status_e cm_compute_manifold(
-    const cm_system_t       *sys,
-    const cm_solver_config_t *config,
-    cm_manifold_t          **manifold
-);
-
-/* Обчислює векторне значення h(x) у заданій фазовій точці x */
-cm_status_e cm_eval_manifold(
-    const cm_manifold_t *manifold,
-    const double        *x,
-    double              *out_y
-);
-
-/* Звільняє пам'ять тензора коефіцієнтів многовиду */
-void cm_manifold_destroy(cm_manifold_t *manifold);
-```
+:::code api-center-manifold/c/4-2-obchyslennia.h
 ```cpp
 namespace CM {
 // C++ метод обчислення повернуто об'єкт Manifold у списку std::expected
@@ -214,23 +164,7 @@ namespace CM {
 Обчислення правих частин та виконання кроку чисельного інтегрування реалізовано з оптимізацією векторних інструкцій (SIMD) для досягнення максимальної швидкодії.
 
 :::tabs
-```c
-/* Обчислює вектор правого боку редукованої системи: dx/dt = A*x + f(x, h(x)) */
-cm_status_e cm_eval_reduced_rhs(
-    const cm_system_t   *sys,
-    const cm_manifold_t *manifold,
-    const double        *x,
-    double              *out_dxdt
-);
-
-/* Виконує один крок чисельного інтегрування редукованої системи методом RK4 */
-cm_status_e cm_step_reduced_rk4(
-    const cm_system_t   *sys,
-    const cm_manifold_t *manifold,
-    double              *inout_x,
-    double               dt
-);
-```
+:::code api-center-manifold/c/4-3-obchyslennia.h
 ```cpp
 namespace CM {
 class Solver {
@@ -278,117 +212,6 @@ public:
 Нижче наведено практичний приклад ініціалізації системи, розрахунку многовиду та виконання кроків чисельного інтегрування для нелінійного механічного осцилятора.
 
 :::tabs
-```c
-#include <stdio.h>
-#include "center_manifold.h"
-
-/* Нелінійність f(x, y) = x*y */
-static void my_func_f(const double *x, const double *y, double *out_f, void *user_data) {
-    (void)user_data;
-    out_f[0] = x[0] * y[0];
-}
-
-/* Нелінійність g(x, y) = x^2 */
-static void my_func_g(const double *x, const double *y, double *out_g, void *user_data) {
-    (void)user_data;
-    (void)y;
-    out_g[0] = x[0] * x[0];
-}
-
-int main(void) {
-    cm_solver_config_t config;
-    cm_config_init_default(&config);
-    config.max_taylor_order = 3;
-    
-    cm_system_t *sys = NULL;
-    if (cm_system_create(&sys, 1, 1) != CM_SUCCESS) {
-        fprintf(stderr, "Помилка створення системи\n");
-        return 1;
-    }
-    
-    sys->matrix_A[0] = 0.0;    /* Нейтральний спектр */
-    sys->matrix_B[0] = -5.0;   /* Стійкий спектр (gamma = 5) */
-    sys->func_f = my_func_f;
-    sys->func_g = my_func_g;
-    
-    cm_manifold_t *mf = NULL;
-    cm_status_e status = cm_compute_manifold(sys, &config, &mf);
-    if (status != CM_SUCCESS) {
-        fprintf(stderr, "Помилка обчислення многовиду: %d\n", status);
-        cm_system_destroy(sys);
-        return 1;
-    }
-    
-    printf("Многовид успішно побудовано (порядок %u)\n", mf->order);
-    
-    double x_state[1] = {0.3};
-    double dt = 0.01;
-    
-    for (int step = 0; step < 50; step++) {
-        cm_step_reduced_rk4(sys, mf, x_state, dt);
-        if (step % 10 == 0) {
-            double y_eval[1];
-            cm_eval_manifold(mf, x_state, y_eval);
-            printf("Крок %2d: x = %.6f, h(x) = %.6f\n", step, x_state[0], y_eval[0]);
-        }
-    }
-    
-    cm_manifold_destroy(mf);
-    cm_system_destroy(sys);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <span>
-#include <format>
-#include <center_manifold.hpp>
-
-int main() {
-    CM::SolverConfig config{.max_taylor_order = 3};
-
-    auto sys_exp = CM::create_system(1, 1);
-    if (!sys_exp) {
-        std::cerr << "Помилка створення системи\n";
-        return 1;
-    }
-
-    auto sys = std::move(*sys_exp);
-    sys.set_matrix_A(std::array{0.0});
-    sys.set_matrix_B(std::array{-5.0});
-
-    sys.set_nonlinearity_f([](auto x, auto y, auto out_f) {
-        out_f[0] = x[0] * y[0];
-    });
-
-    sys.set_nonlinearity_g([](auto x, auto y, auto out_g) {
-        out_g[0] = x[0] * x[0];
-    });
-
-    auto mf_exp = CM::compute_manifold(sys, config);
-    if (!mf_exp) {
-        std::cerr << "Помилка обчислення многовиду\n";
-        return 1;
-    }
-
-    const auto& mf = *mf_exp;
-    std::cout << std::format("Многовид успішно побудовано (порядок {})\n", mf.order());
-
-    CM::Solver solver(sys, mf);
-    std::vector<double> x_state{0.3};
-    constexpr double dt = 0.01;
-
-    for (int step = 0; step < 50; ++step) {
-        solver.step_reduced_rk4(x_state, dt);
-        if (step % 10 == 0) {
-            auto y_eval = mf.evaluate(x_state);
-            std::cout << std::format("Крок {:2d}: x = {:.6f}, h(x) = {:.6f}\n", 
-                                     step, x_state[0], y_eval[0]);
-        }
-    }
-
-    return 0;
-}
-```
+:::code api-center-manifold/c/7-povnyi-pryklad.c
+:::code api-center-manifold/cpp/7-povnyi-pryklad.cpp
 :::

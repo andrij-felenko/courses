@@ -74,36 +74,8 @@
 Якщо функція-колбек повертає значення `false`, обчислювальний процес сканування негайно переривається з кодом повернення `CIRCLE_MAP_ERROR_CONVERGENCE`, а вже обчислені точки залишаються збереженими у вихідному масиві. Це дозволяє користувачу реалізувати кнопку скасування (англ. *Cancel*) у графічному інтерфейсі.
 
 :::tabs
-```c
-#include <stddef.h>
-#include <stdbool.h>
-
-/**
- * @brief Сигнатура зворотного виклику прогресу виконання C-API.
- * @param completed_tasks Кількість завершених точок.
- * @param total_tasks Загальна кількість точок сітки.
- * @param user_data Користувацький вказівник контексту.
- * @return true продовжує обчислення, false перериває процес.
- */
-typedef bool (*circle_map_progress_cb_t)(
-    size_t completed_tasks,
-    size_t total_tasks,
-    void *user_data
-);
-```
-```cpp
-#include <functional>
-#include <cstddef>
-
-namespace physics::nonlinear::api {
-
-/**
- * @brief Псевдонім C++20 для зворотного виклику прогресу.
- */
-using ProgressCallback = std::function<bool(std::size_t completed, std::size_t total)>;
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/prohres-kolbeky-ta.c
+:::code api-circle-map/cpp/prohres-kolbeky-ta.cpp
 :::
 
 ## Серіалізація та чекпоінти станцій обчислень
@@ -113,51 +85,8 @@ using ProgressCallback = std::function<bool(std::size_t completed, std::size_t t
 Серіалізований буфер містить поточне значення фази `x[n]`, накопичений цілочисельний лічильник обертів `turns`, параметри відображення `Ω`, `K` та поточний номер кроку `current_step`.
 
 :::tabs
-```c
-#include <stddef.h>
-#include <stdint.h>
-
-typedef struct {
-    double current_x;
-    int64_t total_turns;
-    double omega;
-    double k;
-    size_t current_step;
-} circle_map_state_t;
-
-/**
- * @brief Зберігає поточний стан траєкторії у структуру стану.
- */
-circle_map_status_t circle_map_save_state(
-    double x, int64_t turns, double omega, double k, size_t step,
-    circle_map_state_t *out_state
-);
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-namespace physics::nonlinear::api {
-
-struct SimulationState {
-    double current_x{0.0};
-    std::int64_t total_turns{0};
-    double omega{0.0};
-    double k{0.0};
-    std::size_t current_step{0};
-};
-
-class StateSerializer {
-public:
-    [[nodiscard]] static SimulationState capture(
-        double x, std::int64_t turns, double omega, double k, std::size_t step) noexcept 
-    {
-        return SimulationState{x, turns, omega, k, step};
-    }
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/serializatsiia-ta.c
+:::code api-circle-map/cpp/serializatsiia-ta.cpp
 :::
 
 ## Управління пулом обчислювальних потоків (Thread Pool API)
@@ -167,41 +96,8 @@ public:
 Функції керування пулом дозволяють фіксувати потоки за конкретними процесорними ядрами (англ. *CPU thread affinity*) для усунення перемикання контекстів кешу.
 
 :::tabs
-```c
-typedef struct circle_map_thread_pool circle_map_thread_pool_t;
-
-/**
- * @brief Створює новий пул обчислювальних потоків.
- */
-circle_map_thread_pool_t* circle_map_thread_pool_create(size_t num_threads);
-
-/**
- * @brief Знищує пул потоків та вивільняє ресурси.
- */
-void circle_map_thread_pool_destroy(circle_map_thread_pool_t *pool);
-```
-```cpp
-#include <memory>
-#include <thread>
-#include <vector>
-
-namespace physics::nonlinear::api {
-
-class ThreadPool {
-public:
-    explicit ThreadPool(std::size_t thread_count = std::thread::hardware_concurrency());
-    ~ThreadPool();
-
-    ThreadPool(const ThreadPool&) = delete;
-    ThreadPool& operator=(const ThreadPool&) = delete;
-
-private:
-    class Impl;
-    std::unique_ptr<Impl> impl_;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/upravlinnia-pulom.h
+:::code api-circle-map/cpp/upravlinnia-pulom.hpp
 :::
 
 ## Табличне прискорення тригонометрії (LUT Optimization API)
@@ -211,37 +107,8 @@ private:
 Попередньо розрахована таблиця синусів розміром `LUT_SIZE` (наприклад 4096 точок) з лінійною інтерполяцією підвищує швидкість обчислення кроку відображення у 3–5 разів порівняно зі стандартним викликом `sin()`.
 
 :::tabs
-```c
-typedef struct {
-    size_t table_size;
-    const double *lut_values;
-} circle_map_lut_config_t;
-
-/**
- * @brief Ініціалізує та повертає конфігурацію LUT для прискорення.
- */
-circle_map_status_t circle_map_init_lut(
-    size_t table_size,
-    circle_map_lut_config_t *out_lut
-);
-```
-```cpp
-#include <vector>
-#include <cstddef>
-
-namespace physics::nonlinear::api {
-
-class LookupTable {
-public:
-    explicit LookupTable(std::size_t size = 4096);
-    [[nodiscard]] double fast_sin(double phase) const noexcept;
-
-private:
-    std::vector<double> table_;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/tablychne-pryskorennia.c
+:::code api-circle-map/cpp/tablychne-pryskorennia.cpp
 :::
 
 ## Адаптивне подрібнення сітки (Adaptive Grid Refinement API)
@@ -251,40 +118,8 @@ private:
 Якщо різниця чисел обертання `|W_a - W_b|` між сусідніми вузлами сітки перевищує заданий поріг `delta_threshold`, комірка автоматично ділиться на чотири підкомірки.
 
 :::tabs
-```c
-typedef struct {
-    double delta_threshold;
-    size_t max_depth;
-} circle_map_adaptive_config_t;
-
-/**
- * @brief Виконує адаптивне подрібнення сітки параметрів.
- */
-circle_map_status_t circle_map_scan_grid_adaptive(
-    const circle_map_config_t *base_cfg,
-    const circle_map_adaptive_config_t *adapt_cfg,
-    double omega_min, double omega_max,
-    double k_min, double k_max
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct AdaptiveConfig {
-    double delta_threshold{1e-3};
-    std::size_t max_depth{5};
-};
-
-class AdaptiveGridScanner {
-public:
-    [[nodiscard]] static std::expected<void, ApiErrorCode> scan_adaptive(
-        const CircleMapConfig& base_config,
-        const AdaptiveConfig& adapt_config,
-        const GridBounds& bounds) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/adaptyvne-podribnennia.c
+:::code api-circle-map/cpp/adaptyvne-podribnennia.cpp
 :::
 
 ## Модуль аналізу квазіперіодичності та золотого перетину (Golden Ratio API)
@@ -292,38 +127,8 @@ public:
 Для дослідження критичного переходу від торичного квазіперіодичного руху до хаосу при золотому перетині `Ω_golden = (√5 - 1) / 2 ≈ 0.6180339887` надається спеціалізована функція обчислення сходинок дробу Фібоначчі.
 
 :::tabs
-```c
-typedef struct {
-    double golden_ratio_w;
-    double critical_k;
-    double lyapunov_at_critical;
-} circle_map_golden_result_t;
-
-/**
- * @brief Аналізує критичну універсальність при золотому перетині.
- */
-circle_map_status_t circle_map_analyze_golden_ratio(
-    size_t steps,
-    circle_map_golden_result_t *out_result
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct GoldenRatioMetrics {
-    double golden_w{0.618033988749895};
-    double critical_k{1.0};
-    double lyapunov{0.0};
-};
-
-class GoldenRatioAnalyzer {
-public:
-    [[nodiscard]] static std::expected<GoldenRatioMetrics, ApiErrorCode> analyze(
-        std::size_t steps = 100000) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-analizu.c
+:::code api-circle-map/cpp/modul-analizu.cpp
 :::
 
 ## Модуль графічного прискорення GPGPU (CUDA / OpenCL Accelerator API)
@@ -331,41 +136,8 @@ public:
 Для проведення масивних комп'ютерних експериментів із роздільною здатністю понад `10000 × 10000` точок сітки бібліотека інтегрує інтерфейс делегування обчислень на графічні процесори (GPGPU).
 
 :::tabs
-```c
-typedef struct {
-    int device_id;
-    size_t threads_per_block;
-} circle_map_gpu_config_t;
-
-/**
- * @brief Виконує сканування сітки на прискорювачі GPU.
- */
-circle_map_status_t circle_map_scan_grid_gpu(
-    const circle_map_config_t *base_cfg,
-    const circle_map_gpu_config_t *gpu_cfg,
-    double omega_min, double omega_max, size_t res_omega,
-    double k_min, double k_max, size_t res_k,
-    double *out_w_matrix
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct GpuConfig {
-    int device_id{0};
-    std::size_t threads_per_block{256};
-};
-
-class GpuGridScanner {
-public:
-    [[nodiscard]] static std::expected<std::vector<double>, ApiErrorCode> scan_gpu(
-        const CircleMapConfig& base_config,
-        const GpuConfig& gpu_config,
-        const GridBounds& bounds) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-hrafichnoho.c
+:::code api-circle-map/cpp/modul-hrafichnoho.cpp
 :::
 
 ## Модуль аналізу біфуркацій подвоєння періоду (Period-Doubling Bifurcation API)
@@ -375,39 +147,8 @@ public:
 Функції цього модуля дозволяють обчислювати точки послідовних біфуркацій та розраховувати універсальну константу Фейгенбаума `δ ≈ 4.6692016`.
 
 :::tabs
-```c
-typedef struct {
-    double k_bifurcation;
-    int period;
-    double feigenbaum_delta;
-} circle_map_bifurcation_point_t;
-
-/**
- * @brief Знаходить точку наступної біфуркації подвоєння періоду.
- */
-circle_map_status_t circle_map_find_bifurcation(
-    double k_start,
-    int current_period,
-    circle_map_bifurcation_point_t *out_bif
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct BifurcationPoint {
-    double k_bifurcation{0.0};
-    int period{1};
-    double feigenbaum_delta{4.6692016};
-};
-
-class BifurcationAnalyzer {
-public:
-    [[nodiscard]] static std::expected<BifurcationPoint, ApiErrorCode> find_next_bifurcation(
-        double k_start, int current_period) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-analizu-bifurkatsii.c
+:::code api-circle-map/cpp/modul-analizu-bifurkatsii.cpp
 :::
 
 ## Модуль перевірки системної точності та лімітів (Capability & Precision API)
@@ -415,36 +156,8 @@ public:
 Для забезпечення коректної роботи на різних апаратних платформах надаються методи інспекції системних можливостей (англ. *system capabilities*).
 
 :::tabs
-```c
-typedef struct {
-    bool has_avx2_support;
-    bool has_fp16_support;
-    size_t simd_vector_width;
-} circle_map_capabilities_t;
-
-/**
- * @brief Отримує апаратні характеристики процесора.
- */
-circle_map_status_t circle_map_get_capabilities(
-    circle_map_capabilities_t *out_caps
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct SystemCapabilities {
-    bool has_avx2{false};
-    bool has_fp16{false};
-    std::size_t simd_width{4};
-};
-
-class CapabilityInspector {
-public:
-    [[nodiscard]] static SystemCapabilities inspect() noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-perevirky-systemnoi.c
+:::code api-circle-map/cpp/modul-perevirky-systemnoi.cpp
 :::
 
 ## Модуль генерації палітри колірного відображення (Palette Color Mapping API)
@@ -452,42 +165,8 @@ public:
 Для перетворення матриць чисел обертання у повноколірні RGB-зображення карти Арнольда надається модуль палітри:
 
 :::tabs
-```c
-typedef struct {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-} circle_map_color_rgb_t;
-
-/**
- * @brief Перетворює число обертання W у RGB колір за вибраною палітрою.
- */
-circle_map_color_rgb_t circle_map_rotation_to_rgb(double w, bool is_locked);
-```
-```cpp
-#include <cstdint>
-
-namespace physics::nonlinear::api {
-
-struct RGBColor {
-    std::uint8_t r{0};
-    std::uint8_t g{0};
-    std::uint8_t b{0};
-};
-
-class ColorMapper {
-public:
-    [[nodiscard]] static constexpr RGBColor map_rotation(double w, bool is_locked) noexcept {
-        if (is_locked) {
-            return RGBColor{0, 128, 255};
-        }
-        const auto val = static_cast<std::uint8_t>(w * 255.0);
-        return RGBColor{val, val, val};
-    }
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-heneratsii-palitry.c
+:::code api-circle-map/cpp/modul-heneratsii-palitry.cpp
 :::
 
 ## Модуль зв'язаних кругових відображень (Coupled Maps Array API)
@@ -501,41 +180,8 @@ x_i[n+1] = x_i[n] + Ω_i - (K / (2·π)) · sin(2·π·x_i[n]) + (g / 2) · (sin
 де `g` — коефіцієнт міжосциляторного зв'язку (англ. *inter-oscillator coupling strength*).
 
 :::tabs
-```c
-typedef struct {
-    size_t num_oscillators;
-    const double *omegas;
-    double k_global;
-    double coupling_g;
-} circle_map_coupled_config_t;
-
-/**
- * @brief Обчислює вектор чисел обертання для ансамблю осциляторів.
- */
-circle_map_status_t circle_map_solve_coupled(
-    const circle_map_coupled_config_t *cfg,
-    size_t steps,
-    double *out_rotations
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct CoupledSystemConfig {
-    std::vector<double> omegas;
-    double k_global{0.5};
-    double coupling_strength{0.1};
-    std::size_t steps{10000};
-};
-
-class CoupledCircleMapSolver {
-public:
-    [[nodiscard]] static std::expected<std::vector<double>, ApiErrorCode> solve_ensemble(
-        const CoupledSystemConfig& config) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-zviazanykh-kruhovykh.c
+:::code api-circle-map/cpp/modul-zviazanykh-kruhovykh.cpp
 :::
 
 ## Модуль профілювання продуктивності та тестування (Profiling & Benchmark API)
@@ -543,38 +189,8 @@ public:
 Для оцінки швидконодії та точності обчислень бібліотека містить вбудовані утиліти профілювання часу виконання та перевірки накреслених метрик.
 
 :::tabs
-```c
-typedef struct {
-    double execution_time_seconds;
-    double iterations_per_second;
-    size_t cache_misses_est;
-} circle_map_perf_metrics_t;
-
-/**
- * @brief Вимірює час виконання та продуктивність ядра.
- */
-circle_map_status_t circle_map_benchmark(
-    const circle_map_config_t *cfg,
-    circle_map_perf_metrics_t *out_metrics
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct PerformanceMetrics {
-    double execution_time_seconds{0.0};
-    double iterations_per_second{0.0};
-    std::size_t cache_misses_est{0};
-};
-
-class Profiler {
-public:
-    [[nodiscard]] static PerformanceMetrics benchmark_solver(
-        const CircleMapConfig& config) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-profiliuvannia.c
+:::code api-circle-map/cpp/modul-profiliuvannia.cpp
 :::
 
 ## Модуль розподіленого сканування MPI (MPI Distributed API)
@@ -595,18 +211,7 @@ circle_map_status_t circle_map_scan_grid_mpi(
     double *out_w_matrix
 );
 ```
-```cpp
-namespace physics::nonlinear::api {
-
-class MpiGridScanner {
-public:
-    [[nodiscard]] static std::expected<std::vector<double>, ApiErrorCode> scan_distributed(
-        const CircleMapConfig& base_config,
-        const GridBounds& bounds) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/cpp/modul-rozpodilenoho.cpp
 :::
 
 ## Модуль тестування фазового шуму (Phase Noise API)
@@ -620,45 +225,8 @@ x[n+1] = x[n] + Ω - (K / (2·π)) · sin(2·π·x[n]) + ξ[n]
 де `ξ[n]` — білий гауссівський шум з нульовим математичним сподіванням та середньоквадратичним відхиленням `σ_noise`.
 
 :::tabs
-```c
-typedef struct {
-    double noise_sigma;
-    uint64_t random_seed;
-} circle_map_noise_config_t;
-
-/**
- * @brief Розраховує траєкторію за наявності гауссівського фазового шуму.
- */
-circle_map_status_t circle_map_solve_noisy(
-    const circle_map_config_t *cfg,
-    const circle_map_noise_config_t *noise_cfg,
-    circle_map_result_t *out_result
-);
-```
-```cpp
-#include <cstdint>
-
-namespace physics::nonlinear::api {
-
-struct NoiseConfig {
-    double noise_sigma{0.001};
-    std::uint64_t random_seed{42};
-};
-
-class NoisyCircleMapSolver {
-public:
-    NoisyCircleMapSolver(CircleMapConfig base_config, NoiseConfig noise_config)
-        : base_config_{base_config}, noise_config_{noise_config} {}
-
-    [[nodiscard]] std::expected<SimulationResult, ApiErrorCode> solve() const noexcept;
-
-private:
-    CircleMapConfig base_config_;
-    NoiseConfig noise_config_;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-testuvannia-fazovoho.c
+:::code api-circle-map/cpp/modul-testuvannia-fazovoho.cpp
 :::
 
 ## Модуль аналізу ізоліній та ізоклін числа обертання (Isocline API)
@@ -668,46 +236,8 @@ private:
 Алгоритм відстеження ізокліни (англ. *isocline continuation*) застосовує адаптивний крок по `K` та шукає відповідне значення `Ω` методом Ньютона на кожному зрізі.
 
 :::tabs
-```c
-typedef struct {
-    double target_w;
-    double k_start;
-    double k_end;
-    size_t steps_k;
-} circle_map_isocline_config_t;
-
-/**
- * @brief Розраховує вектор точок ізолінії W = const.
- */
-circle_map_status_t circle_map_trace_isocline(
-    const circle_map_isocline_config_t *cfg,
-    double *out_omega_array,
-    double *out_k_array
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct IsoclineConfig {
-    double target_w{0.5};
-    double k_start{0.0};
-    double k_end{1.0};
-    std::size_t steps_k{100};
-};
-
-struct IsoclinePoint {
-    double omega{0.0};
-    double k{0.0};
-};
-
-class IsoclineTracer {
-public:
-    [[nodiscard]] static std::expected<std::vector<IsoclinePoint>, ApiErrorCode> trace(
-        const IsoclineConfig& config) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-analizu-izolinii-ta.c
+:::code api-circle-map/cpp/modul-analizu-izolinii-ta.cpp
 :::
 
 ## Модуль спектрального аналізу фазових траєкторій (FFT Spectral API)
@@ -717,40 +247,8 @@ public:
 Спектральні піки відповідають раціональним гармонікам числа обертання `W`, а суцільний шумовий спектр сигналізує про виникнення детермінованого хаосу при `K > 1`.
 
 :::tabs
-```c
-typedef struct {
-    size_t fft_size;
-    double *real_spectrum;
-    double *imag_spectrum;
-    double dominant_frequency;
-} circle_map_spectrum_t;
-
-/**
- * @brief Обчислює спектр потужності фазової послідовності.
- */
-circle_map_status_t circle_map_compute_spectrum(
-    const circle_map_config_t *cfg,
-    size_t fft_size,
-    circle_map_spectrum_t *out_spectrum
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct FourierSpectrum {
-    std::vector<double> frequencies;
-    std::vector<double> magnitudes;
-    double dominant_frequency{0.0};
-};
-
-class SpectrumAnalyzer {
-public:
-    [[nodiscard]] static std::expected<FourierSpectrum, ApiErrorCode> analyze(
-        const CircleMapConfig& config, std::size_t fft_size = 1024) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/modul-spektralnoho-analizu.c
+:::code api-circle-map/cpp/modul-spektralnoho-analizu.cpp
 :::
 
 ## Експорт результатів у бінарні файли формату HDF5
@@ -771,23 +269,7 @@ circle_map_status_t circle_map_export_hdf5(
     size_t res_k
 );
 ```
-```cpp
-#include <string_view>
-#include <span>
-
-namespace physics::nonlinear::api {
-
-class Hdf5Exporter {
-public:
-    [[nodiscard]] static std::expected<void, ApiErrorCode> save(
-        std::string_view filepath,
-        std::span<const double> w_matrix,
-        std::size_t res_omega,
-        std::size_t res_k) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/cpp/eksport-rezultativ-u.cpp
 :::
 
 ## Опис функцій C-API та C++20 API
@@ -799,101 +281,8 @@ public:
 **Призначення:** Моделює траєкторію відображення для заданих параметрів, розраховує число обертання та показник Ляпунова.
 
 :::tabs
-```c
-#include <stddef.h>
-#include <stdbool.h>
-
-typedef enum {
-    CIRCLE_MAP_SUCCESS = 0,
-    CIRCLE_MAP_ERROR_NULL_POINTER = -1,
-    CIRCLE_MAP_ERROR_INVALID_PARAM = -2,
-    CIRCLE_MAP_ERROR_CONVERGENCE = -3,
-    CIRCLE_MAP_ERROR_OUT_OF_MEMORY = -4
-} circle_map_status_t;
-
-typedef struct {
-    double omega;
-    double k;
-    size_t transient_steps;
-    size_t measure_steps;
-    double initial_x;
-} circle_map_config_t;
-
-typedef struct {
-    double rotation_number;
-    int numerator;
-    int denominator;
-    bool is_locked;
-    double lyapunov_exponent;
-} circle_map_result_t;
-
-/**
- * @brief Обчислює число обертання та режим захоплення фази.
- * @param[in] cfg Вказівник на конфігурацію параметрів.
- * @param[in] max_q Максимальний розглядний знаменник резонансу.
- * @param[in] tol Допустиме відхилення для фіксації фазового захоплення.
- * @param[out] out_result Вказівник на структуру для запису результатів.
- * @return Код статусу виконання circle_map_status_t.
- */
-circle_map_status_t circle_map_solve(
-    const circle_map_config_t *cfg,
-    int max_q,
-    double tol,
-    circle_map_result_t *out_result
-);
-```
-```cpp
-#include <optional>
-#include <expected>
-#include <numbers>
-#include <span>
-#include <string_view>
-#include <vector>
-
-namespace physics::nonlinear::api {
-
-enum class ApiErrorCode {
-    NullPointer,
-    InvalidParameter,
-    ConvergenceFailure,
-    OutOfMemory
-};
-
-struct CircleMapConfig {
-    double omega{0.0};
-    double k{0.0};
-    std::size_t transient_steps{10000};
-    std::size_t measure_steps{50000};
-    double initial_x{0.0};
-};
-
-struct ResonanceInfo {
-    int numerator{0};
-    int denominator{1};
-    double error{0.0};
-};
-
-struct SimulationResult {
-    double rotation_number{0.0};
-    std::optional<ResonanceInfo> resonance{};
-    double lyapunov_exponent{0.0};
-};
-
-class CircleMapSolver {
-public:
-    explicit constexpr CircleMapSolver(CircleMapConfig config) noexcept
-        : config_{config} {}
-
-    [[nodiscard]] std::expected<SimulationResult, ApiErrorCode> solve(
-        int max_denominator = 16,
-        double tolerance = 1e-4) const noexcept;
-
-private:
-    CircleMapConfig config_;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/1-funktsiia-obchyslennia.c
+:::code api-circle-map/cpp/1-funktsiia-obchyslennia.cpp
 :::
 
 ### 2. Функція сканування двовимірної сітки `circle_map_scan_grid`
@@ -909,54 +298,8 @@ private:
 **Керування пам'яттю:** Виділення та звільнення пам'яті під вихідні масиви покладається на клієнтський код. Бібліотека не зберігає вказівники на виділені буфери.
 
 :::tabs
-```c
-/**
- * @brief Сканує двовимірну сітку параметрів (Omega, K).
- * @param[in] base_cfg Кількість ітерацій та початкові умови.
- * @param[in] omega_min Нижнє значення Omega.
- * @param[in] omega_max Верхнє значення Omega.
- * @param[in] res_omega Роздільна здатність по осі Omega.
- * @param[in] k_min Нижнє значення K.
- * @param[in] k_max Верхнє значення K.
- * @param[in] res_k Роздільна здатність по осі K.
- * @param[out] out_w_matrix Вихідний масив чисел обертання (розмір res_w * res_k).
- * @param[out] out_locked_matrix Вихідний масив статусу захоплення (розмір res_w * res_k).
- * @return Код статусу виконання circle_map_status_t.
- */
-circle_map_status_t circle_map_scan_grid(
-    const circle_map_config_t *base_cfg,
-    double omega_min, double omega_max, size_t res_omega,
-    double k_min, double k_max, size_t res_k,
-    double *out_w_matrix,
-    bool *out_locked_matrix
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct GridBounds {
-    double omega_min{0.0};
-    double omega_max{1.0};
-    std::size_t res_omega{100};
-    double k_min{0.0};
-    double k_max{1.0};
-    std::size_t res_k{100};
-};
-
-class GridScanner {
-public:
-    explicit GridScanner(CircleMapConfig base_config)
-        : base_config_{base_config} {}
-
-    [[nodiscard]] std::expected<std::vector<SimulationResult>, ApiErrorCode> scan(
-        const GridBounds& bounds) const;
-
-private:
-    CircleMapConfig base_config_;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/2-funktsiia-skanuvannia.c
+:::code api-circle-map/cpp/2-funktsiia-skanuvannia.cpp
 :::
 
 ### 3. Функція виявлення точних меж язика `circle_map_find_tongue_boundaries`
@@ -971,43 +314,8 @@ private:
 * `out_omega_right`: Вказівник для запису правої межі `Ω_right`.
 
 :::tabs
-```c
-/**
- * @brief Знаходить ліву та праву межі язика Арнольда p/q при заданому K.
- * @param[in] k_val Амплітуда нелінійного зв'язку K.
- * @param[in] p Чисельник резонансу.
- * @param[in] q Знаменник резонансу.
- * @param[in] bisection_tol Точність пошуку межі.
- * @param[out] out_omega_left Ліва межа язика Omega_left.
- * @param[out] out_omega_right Права межа язика Omega_right.
- * @return Код статусу виконання circle_map_status_t.
- */
-circle_map_status_t circle_map_find_tongue_boundaries(
-    double k_val,
-    int p,
-    int q,
-    double bisection_tol,
-    double *out_omega_left,
-    double *out_omega_right
-);
-```
-```cpp
-namespace physics::nonlinear::api {
-
-struct TongueBoundaries {
-    double omega_left{0.0};
-    double omega_right{0.0};
-    double width{0.0};
-};
-
-class TongueBoundaryFinder {
-public:
-    [[nodiscard]] static std::expected<TongueBoundaries, ApiErrorCode> find_boundaries(
-        double k_val, int p, int q, double tolerance = 1e-6) noexcept;
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/3-funktsiia-vyiavlennia.c
+:::code api-circle-map/cpp/3-funktsiia-vyiavlennia.cpp
 :::
 
 ## Специфікація двійкового інтерфейсу (ABI) та зв'язування
@@ -1019,41 +327,8 @@ public:
 3. **Версіонування ABI:** Заголовочний файл містить константи версії `CIRCLE_MAP_VERSION_MAJOR`, `CIRCLE_MAP_VERSION_MINOR` та `CIRCLE_MAP_VERSION_PATCH`.
 
 :::tabs
-```c
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#define CIRCLE_MAP_VERSION_MAJOR 1
-#define CIRCLE_MAP_VERSION_MINOR 0
-#define CIRCLE_MAP_VERSION_PATCH 0
-
-/**
- * @brief Повертає текстовий рядок з повною версією бібліотеки.
- */
-const char* circle_map_get_version_string(void);
-
-#ifdef __cplusplus
-}
-#endif
-```
-```cpp
-#include <string_view>
-
-namespace physics::nonlinear::api {
-
-struct LibraryVersion {
-    int major{1};
-    int minor{0};
-    int patch{0};
-
-    [[nodiscard]] static constexpr std::string_view string() noexcept {
-        return "1.0.0";
-    }
-};
-
-} // namespace physics::nonlinear::api
-```
+:::code api-circle-map/c/spetsyfikatsiia-dviikovoho.c
+:::code api-circle-map/cpp/spetsyfikatsiia-dviikovoho.cpp
 :::
 
 ## Інтеграція з іншими мовами програмування
@@ -1064,141 +339,15 @@ struct LibraryVersion {
 
 Приклад створення Python-обгортки над системною динамічною бібліотекою `libcirclemap.so` / `circlemap.dll`:
 
-```python
-import ctypes
-
-class CircleMapConfig(ctypes.Structure):
-    _fields_ = [
-        ("omega", ctypes.c_double),
-        ("k", ctypes.c_double),
-        ("transient_steps", ctypes.c_size_t),
-        ("measure_steps", ctypes.c_size_t),
-        ("initial_x", ctypes.c_double)
-    ]
-
-class CircleMapResult(ctypes.Structure):
-    _fields_ = [
-        ("rotation_number", ctypes.c_double),
-        ("numerator", ctypes.c_int),
-        ("denominator", ctypes.c_int),
-        ("is_locked", ctypes.c_bool),
-        ("lyapunov_exponent", ctypes.c_double)
-    ]
-
-# Завантаження бібліотеки
-lib = ctypes.CDLL("./libcirclemap.so")
-lib.circle_map_solve.argtypes = [
-    ctypes.POINTER(CircleMapConfig),
-    ctypes.c_int,
-    ctypes.c_double,
-    ctypes.POINTER(CircleMapResult)
-]
-lib.circle_map_solve.restype = ctypes.c_int
-```
+:::code api-circle-map/py/main.py
 
 ## Повний приклад використання C-API та C++20 API
 
 Нижче наведено завершені приклади програм, які ініціалізують конфігураційні структури, викликають функції розрахунку траєкторії та обробляють повернені результати або коди помилок.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-/* Припускаємо наявність заголовочного файла C-API */
-#include "circle_map.h"
-
-int main(void) {
-    circle_map_config_t cfg = {
-        .omega = 0.5,
-        .k = 0.7,
-        .transient_steps = 10000,
-        .measure_steps = 50000,
-        .initial_x = 0.2
-    };
-
-    circle_map_result_t result;
-    circle_map_status_t status = circle_map_solve(&cfg, 16, 1e-4, &result);
-
-    if (status != CIRCLE_MAP_SUCCESS) {
-        fprintf(stderr, "Помилка обчислення: код %d\n", status);
-        return EXIT_FAILURE;
-    }
-
-    printf("=== Результати обчислення через C-API ===\n");
-    printf("Число обертання W: %.6f\n", result.rotation_number);
-    printf("Показник Ляпунова lambda: %.6f\n", result.lyapunov_exponent);
-
-    if (result.is_locked) {
-        printf("Статус: Захоплення фази на резонансі %d/%d\n", result.numerator, result.denominator);
-    } else {
-        printf("Статус: Квазіперіодичний режим\n");
-    }
-
-    /* Пошук меж язика 1/2 при K = 0.7 */
-    double w_left = 0.0, w_right = 0.0;
-    status = circle_map_find_tongue_boundaries(0.7, 1, 2, 1e-6, &w_left, &w_right);
-    if (status == CIRCLE_MAP_SUCCESS) {
-        printf("Межі язика 1/2 при K=0.7: Omega in [%.6f, %.6f], ширина = %.6f\n",
-               w_left, w_right, w_right - w_left);
-    }
-
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <vector>
-
-// Припускаємо наявність заголовочного файла C++ API
-#include "circle_map.hpp"
-
-int main() {
-    using namespace physics::nonlinear::api;
-
-    const CircleMapConfig config{
-        .omega = 0.5,
-        .k = 0.7,
-        .transient_steps = 10000,
-        .measure_steps = 50000,
-        .initial_x = 0.2
-    };
-
-    const CircleMapSolver solver{config};
-    const auto outcome = solver.solve(16, 1e-4);
-
-    if (!outcome) {
-        std::cerr << "Помилка обчислення C++ API!\n";
-        return 1;
-    }
-
-    const auto& res = outcome.value();
-    std::cout << std::fixed << std::setprecision(6);
-    std::cout << "=== Результати обчислення через C++20 API ===\n";
-    std::cout << "Число обертання W: " << res.rotation_number << "\n";
-    std::cout << "Показник Ляпунова lambda: " << res.lyapunov_exponent << "\n";
-
-    if (res.resonance) {
-        std::cout << "Статус: Захоплення фази на резонансі "
-                  << res.resonance->numerator << "/" << res.resonance->denominator
-                  << " (абсолютна похибка: " << res.resonance->error << ")\n";
-    } else {
-        std::cout << "Статус: Квазіперіодичний режим\n";
-    }
-
-    const auto bounds_outcome = TongueBoundaryFinder::find_boundaries(0.7, 1, 2, 1e-6);
-    if (bounds_outcome) {
-        const auto& b = bounds_outcome.value();
-        std::cout << "Межі язика 1/2 при K=0.7: Omega in ["
-                  << b.omega_left << ", " << b.omega_right
-                  << "], ширина = " << b.width << "\n";
-    }
-
-    return 0;
-}
-```
+:::code api-circle-map/c/povnyi-pryklad.c
+:::code api-circle-map/cpp/povnyi-pryklad.cpp
 :::
 
 ## Рекомендації з інтеграції та сумісності

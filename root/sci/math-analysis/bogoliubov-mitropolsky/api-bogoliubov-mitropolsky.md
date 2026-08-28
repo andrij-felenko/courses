@@ -189,174 +189,11 @@ auto solver = std::move(*solver_res);
 
 @tab C (ISO C11)
 
-```c
-#ifndef LIBBM_AVERAGING_H
-#define LIBBM_AVERAGING_H
-
-#include <stddef.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    BM_SUCCESS = 0,
-    BM_ERROR_NULL_POINTER = -1,
-    BM_ERROR_INVALID_EPS = -2,
-    BM_ERROR_INVALID_ORDER = -3,
-    BM_ERROR_ALLOCATION_FAILED = -4,
-    BM_ERROR_DIVERGENCE = -5,
-    BM_ERROR_QUADRATURE_FAILED = -6
-} bm_status_t;
-
-typedef struct {
-    double eps;
-    double omega0;
-    int order;
-    size_t quadrature_points;
-} bm_config_t;
-
-typedef struct {
-    double t;
-    double amplitude;
-    double phase;
-    double x_full;
-    double v_full;
-} bm_state_t;
-
-/* Вказівник на функцію нелінійного збурення f(x, v) */
-typedef double (*bm_perturbation_fn)(double x, double v, void *user_data);
-
-/* Опаковий контекст обчислювача */
-typedef struct bm_context bm_context_t;
-
-/**
- * Створення та ініціалізація контексту усереднення Боголюбова — Митропольського.
- */
-bm_status_t bm_context_create(const bm_config_t *config,
-                              bm_perturbation_fn fn,
-                              void *user_data,
-                              bm_context_t **out_ctx);
-
-/**
- * Звільнення ресурсів контексту.
- */
-bm_status_t bm_context_destroy(bm_context_t *ctx);
-
-/**
- * Встановлення початкового стану осцилятора.
- */
-bm_status_t bm_set_initial_state(bm_context_t *ctx, double a0, double psi0);
-
-/**
- * Виконання одного кроку інтегрування усередненої системи на інтервал dt.
- */
-bm_status_t bm_step(bm_context_t *ctx, double dt);
-
-/**
- * Отримання поточного відновленого стану осцилятора.
- */
-bm_status_t bm_get_state(const bm_context_t *ctx, bm_state_t *out_state);
-
-/**
- * Обчислення першої осцилюючої поправки u1(a, theta) в точці.
- */
-bm_status_t bm_compute_u1(const bm_context_t *ctx, double a, double theta, double *out_u1);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* LIBBM_AVERAGING_H */
-```
+:::code api-bogoliubov-mitropolsky/c/main.h
 
 @tab C++ (C++20)
 
-```cpp
-#ifndef LIBBM_AVERAGING_HPP
-#define LIBBM_AVERAGING_HPP
-
-#include <expected>
-#include <span>
-#include <functional>
-#include <memory>
-#include <string_view>
-#include <concepts>
-
-namespace bm {
-
-enum class ErrorCode {
-    NullPointer = -1,
-    InvalidEps = -2,
-    InvalidOrder = -3,
-    AllocationFailed = -4,
-    Divergence = -5,
-    QuadratureFailed = -6
-};
-
-[[nodiscard]] constexpr std::string_view formatError(ErrorCode err) noexcept {
-    switch (err) {
-        case ErrorCode::NullPointer: return "Null pointer argument provided";
-        case ErrorCode::InvalidEps: return "Small parameter eps is out of bounds (0, 0.5]";
-        case ErrorCode::InvalidOrder: return "Unsupported approximation order (must be 1 or 2)";
-        case ErrorCode::AllocationFailed: return "Memory allocation failed";
-        case ErrorCode::Divergence: return "Asymptotic expansion diverged";
-        case ErrorCode::QuadratureFailed: return "Quadrature integration failed to converge";
-    }
-    return "Unknown error";
-}
-
-struct Config {
-    double eps{0.1};
-    double omega0{1.0};
-    int order{2};
-    size_t quadraturePoints{32};
-};
-
-struct State {
-    double t{0.0};
-    double amplitude{0.0};
-    double phase{0.0};
-    double xFull{0.0};
-    double vFull{0.0};
-};
-
-using PerturbationFn = std::function<double(double x, double v)>;
-
-template <typename T>
-concept PerturbationCallable = std::is_invocable_r_v<double, T, double, double>;
-
-class AveragingSolver {
-public:
-    [[nodiscard]] static std::expected<AveragingSolver, ErrorCode>
-    create(const Config& config, PerturbationFn fn) noexcept;
-
-    AveragingSolver(AveragingSolver&&) noexcept = default;
-    AveragingSolver& operator=(AveragingSolver&&) noexcept = default;
-
-    AveragingSolver(const AveragingSolver&) = delete;
-    AveragingSolver& operator=(const AveragingSolver&) = delete;
-
-    ~AveragingSolver() = default;
-
-    [[nodiscard]] std::expected<void, ErrorCode> setInitialState(double a0, double psi0) noexcept;
-    [[nodiscard]] std::expected<void, ErrorCode> step(double dt) noexcept;
-    [[nodiscard]] std::expected<State, ErrorCode> getState() const noexcept;
-    [[nodiscard]] std::expected<double, ErrorCode> computeU1(double a, double theta) const noexcept;
-
-private:
-    explicit AveragingSolver(const Config& config, PerturbationFn fn);
-
-    Config config_;
-    PerturbationFn perturbation_;
-    State currentState_{};
-};
-
-} // namespace bm
-
-#endif /* LIBBM_AVERAGING_HPP */
-```
+:::code api-bogoliubov-mitropolsky/cpp/main.hpp
 
 :::
 
@@ -484,19 +321,7 @@ bm_status_t bm_get_phase_buffer(const bm_context_t *ctx, const double **out_buf,
 
 Для підключення бібліотеки у сторонній C або C++ проєкт достатньо використовувати стандартний механізм CMake:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(OscillatorSimulation LANGUAGES C CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Пошук встановленої бібліотеки libbm_averaging
-find_package(libbm_averaging REQUIRED)
-
-add_executable(sim_main main.cpp)
-target_link_libraries(sim_main PRIVATE libbm_averaging::bm_averaging)
-```
+:::code api-bogoliubov-mitropolsky/cmake/CMakeLists.txt
 
 ### 10.2. Файл метаданих Pkg-Config (`libbm_averaging.pc`)
 

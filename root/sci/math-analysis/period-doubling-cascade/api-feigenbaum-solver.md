@@ -32,20 +32,7 @@ typedef enum {
 ```
 
 @tab C++ (C++20 Strong Enum)
-```cpp
-namespace feigenbaum {
-
-enum class ErrorCode : int {
-    Success = 0,
-    InvalidParam = -1,
-    MaxItersReached = -2,
-    DerivativeZero = -3,
-    OutOfMemory = -4,
-    NumericalOverflow = -5
-};
-
-} // namespace feigenbaum
-```
+:::code api-feigenbaum-solver/cpp/2-1-perelik-statusiv.cpp
 :::
 
 В описі помилок статус `FEIGENBAUM_SUCCESS` (або `ErrorCode::Success`) гарантує, що всі вихідні структури заповнені валідними чисельними значеннями. При виникненні будь-якої помилки вихідні буфери залишаються недоторканими, а функція повертає відповідне від'ємне значення коду помилки.
@@ -67,19 +54,7 @@ typedef struct {
 ```
 
 @tab C++ (C++20 Struct with Defaults)
-```cpp
-namespace feigenbaum {
-
-struct Config {
-    double r_min = 2.8;
-    double r_max = 4.0;
-    std::size_t r_steps = 1000;
-    std::size_t transient_iters = 1000;
-    std::size_t orbit_iters = 500;
-};
-
-} // namespace feigenbaum
-```
+:::code api-feigenbaum-solver/cpp/3-1-konfihuratsiia.cpp
 :::
 
 Структура `BifurcationConfig` (або `Config` у C++) задає розмірність сітки та тривалість інтегрування:
@@ -102,18 +77,7 @@ typedef struct {
 ```
 
 @tab C++ (C++20 Struct)
-```cpp
-namespace feigenbaum {
-
-struct SuperstablePoint {
-    double r_superstable = 0.0;
-    double residual = 0.0;
-    std::size_t iterations = 0;
-    double lyapunov = 0.0;
-};
-
-} // namespace feigenbaum
-```
+:::code api-feigenbaum-solver/cpp/3-2-rezultat-nadstiikoho.cpp
 :::
 
 Ця структура повертає повну інформацію про знайдену надстійку точку:
@@ -136,18 +100,7 @@ typedef struct {
 ```
 
 @tab C++ (C++20 Struct)
-```cpp
-namespace feigenbaum {
-
-struct Constants {
-    double delta = 0.0;
-    double alpha = 0.0;
-    double delta_error = 0.0;
-    double alpha_error = 0.0;
-};
-
-} // namespace feigenbaum
-```
+:::code api-feigenbaum-solver/cpp/3-3-obchysleni-stali.cpp
 :::
 
 Структура накопичує розраховані параметричні та просторові масштабні коефіцієнти разом із їхніми відносними похибками відносно канонічних теоретичних значень `δ = 4.66920160910299...` та `α = 2.50290787509589...`.
@@ -158,143 +111,10 @@ struct Constants {
 
 :::tabs
 @tab C Header (feigenbaum.h)
-```c
-#ifndef FEIGENBAUM_H
-#define FEIGENBAUM_H
-
-#include <stddef.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    FEIGENBAUM_SUCCESS               =  0,
-    FEIGENBAUM_ERR_INVALID_PARAM     = -1,
-    FEIGENBAUM_ERR_MAX_ITERS_REACHED = -2,
-    FEIGENBAUM_ERR_DERIVATIVE_ZERO   = -3,
-    FEIGENBAUM_ERR_OUT_OF_MEMORY     = -4,
-    FEIGENBAUM_ERR_NUMERICAL_OVERFLOW= -5
-} FeigenbaumStatus;
-
-typedef struct {
-    double r_min;
-    double r_max;
-    size_t r_steps;
-    size_t transient_iters;
-    size_t orbit_iters;
-} BifurcationConfig;
-
-typedef struct {
-    double r_superstable;
-    double f_val;
-    size_t iterations_used;
-    double lyapunov_exp;
-} SuperstableResult;
-
-typedef struct {
-    double delta;
-    double alpha;
-    double delta_error;
-    double alpha_error;
-} FeigenbaumConstants;
-
-/* Публічні функції C API */
-
-FeigenbaumStatus feigenbaum_compute_diagram(
-    const BifurcationConfig* config,
-    double* out_orbit_buffer
-);
-
-FeigenbaumStatus feigenbaum_find_superstable(
-    int period_power,
-    double r_guess,
-    double tolerance,
-    size_t max_iters,
-    SuperstableResult* out_result
-);
-
-FeigenbaumStatus feigenbaum_estimate_constants(
-    const double* r_superstable_array,
-    size_t array_length,
-    FeigenbaumConstants* out_constants
-);
-
-FeigenbaumStatus feigenbaum_compute_lyapunov(
-    double r,
-    size_t num_iters,
-    double* out_lyapunov
-);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* FEIGENBAUM_H */
-```
+:::code api-feigenbaum-solver/c/main.h
 
 @tab C++ Header (feigenbaum.hpp)
-```cpp
-#pragma once
-#include <vector>
-#include <expected>
-#include <span>
-#include <cstddef>
-
-namespace feigenbaum {
-
-enum class ErrorCode {
-    InvalidParam = -1,
-    MaxItersReached = -2,
-    DerivativeZero = -3,
-    OutOfMemory = -4,
-    NumericalOverflow = -5
-};
-
-struct Config {
-    double r_min = 2.8;
-    double r_max = 4.0;
-    std::size_t r_steps = 1000;
-    std::size_t transient_iters = 1000;
-    std::size_t orbit_iters = 500;
-};
-
-struct SuperstablePoint {
-    double r_superstable = 0.0;
-    double residual = 0.0;
-    std::size_t iterations = 0;
-    double lyapunov = 0.0;
-};
-
-struct Constants {
-    double delta = 0.0;
-    double alpha = 0.0;
-    double delta_error = 0.0;
-    double alpha_error = 0.0;
-};
-
-class Solver {
-public:
-    explicit Solver(Config config) : config_(config) {}
-
-    [[nodiscard]] std::expected<std::vector<double>, ErrorCode> 
-    compute_bifurcation_mesh() const;
-
-    [[nodiscard]] std::expected<SuperstablePoint, ErrorCode> 
-    find_superstable(int period_power, double r_guess, double tol = 1e-12) const;
-
-    [[nodiscard]] static std::expected<Constants, ErrorCode> 
-    estimate_constants(std::span<const double> r_superstable_series);
-
-    [[nodiscard]] std::expected<double, ErrorCode> 
-    compute_lyapunov(double r, std::size_t num_iters = 50000) const;
-
-private:
-    Config config_;
-};
-
-} // namespace feigenbaum
-```
+:::code api-feigenbaum-solver/cpp/4-povnyi-publichnyi.hpp
 :::
 
 ## 5. Детальний опис публічних функцій API
@@ -430,34 +250,7 @@ make -j4
 
 Нижче наведено ілюстративний приклад використання обгортки C++20 для обчислення надстійкої точки `R_3` періоду 8:
 
-```cpp
-#include <feigenbaum.hpp>
-#include <iostream>
-
-int main() {
-    feigenbaum::Config config{
-        .r_min = 3.0,
-        .r_max = 3.57,
-        .r_steps = 2000,
-        .transient_iters = 2000,
-        .orbit_iters = 1000
-    };
-
-    feigenbaum::Solver solver(config);
-    
-    // Знаходження надстійкої точки R_3 (період 8)
-    auto result = solver.find_superstable(3, 3.5546);
-    
-    if (result) {
-        std::cout << "Знайдено R_3: " << result->r_superstable << "\n";
-        std::cout << "Показник Ляпунова: " << result->lyapunov << "\n";
-    } else {
-        std::cerr << "Помилка розрахунку: " << static_cast<int>(result.error()) << "\n";
-    }
-
-    return 0;
-}
-```
+:::code api-feigenbaum-solver/cpp/8-pryklad-vykorystannia-c.cpp
 
 ## 9. Потокобезпечність та стратегії оптимізації пам'яті
 

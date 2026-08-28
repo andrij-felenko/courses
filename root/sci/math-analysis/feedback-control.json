@@ -35,7 +35,8 @@
           "proj": [
             {
               "file": "proj-feedback-sim.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -270,18 +271,22 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
               "file": "math-tracking-dynamics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-industrial-pid.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },

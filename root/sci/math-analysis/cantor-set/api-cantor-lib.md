@@ -190,66 +190,7 @@ struct AnalysisResult {
 
 ### 4.1. Специфікація класів та типів
 
-```cpp
-namespace math::fractals {
-
-enum class Status {
-    Success = 0,
-    NullPointer = -1,
-    InvalidLevel = -2,
-    OutOfBounds = -3,
-    MemoryAllocationFailed = -4,
-    PrecisionLimitReached = -5
-};
-
-class CantorException : public std::runtime_error {
-public:
-    explicit CantorException(Status status, const std::string& message);
-    [[nodiscard]] Status status() const noexcept;
-private:
-    Status status_;
-};
-
-struct AnalysisResult {
-    double box_counting_dim{0.0};
-    double hausdorff_dim{0.0};
-    double mean_squared_error{0.0};
-    std::size_t total_boxes_checked{0};
-};
-
-class CantorSet {
-public:
-    explicit CantorSet(std::size_t level = 0);
-    ~CantorSet() noexcept = default;
-
-    CantorSet(const CantorSet&) = default;
-    CantorSet& operator=(const CantorSet&) = default;
-    CantorSet(CantorSet&&) noexcept = default;
-    CantorSet& operator=(CantorSet&&) noexcept = default;
-
-    void generate(std::size_t level);
-    [[nodiscard]] std::size_t level() const noexcept;
-    [[nodiscard]] std::size_t size() const noexcept;
-    [[nodiscard]] std::span<const Interval> intervals() const noexcept;
-
-    [[nodiscard]] static bool contains(double x, std::size_t max_depth = 30);
-    [[nodiscard]] static double evaluate_staircase(double x, std::size_t depth = 20);
-
-private:
-    std::size_t level_{0};
-    std::vector<Interval> intervals_;
-};
-
-class CantorAnalyzer {
-public:
-    explicit CantorAnalyzer(CantorSet set);
-
-    [[nodiscard]] AnalysisResult compute_box_counting() const;
-    [[nodiscard]] std::vector<double> compute_renyi_spectrum(std::span<const double> q_orders) const;
-};
-
-} // namespace math::fractals
-```
+:::code api-cantor-lib/cpp/4-1-spetsyfikatsiia-klasiv.hpp
 
 ### 4.2. Гарантії безпеки винятків та потокобезпечність
 
@@ -295,25 +236,7 @@ public:
 
 Для забезпечення максимальної гнучкості C++20 інтерфейс `cantor.hpp` надає шаблонні узагальнення для довільних типів із плаваючою комою (`float`, `double`, `long double`, `__float128`):
 
-```cpp
-template <std::floating_point FloatT>
-class GenericCantorSet {
-public:
-    explicit GenericCantorSet(std::size_t level = 0);
-    
-    [[nodiscard]] static constexpr bool contains(FloatT x, std::size_t max_depth = 30) noexcept {
-        if (x < FloatT{0} || x > FloatT{1}) return false;
-        FloatT curr = x;
-        for (std::size_t i = 0; i < max_depth; ++i) {
-            curr *= FloatT{3};
-            const auto digit = static_cast<int>(std::floor(curr));
-            if (digit == 1) return false;
-            if (digit == 2) curr -= FloatT{2};
-        }
-        return true;
-    }
-};
-```
+:::code api-cantor-lib/cpp/7-kontsepty-c-20-ta.cpp
 
 Використання концепту `std::floating_point` запобігає випадковому передаванню цілочисельних типів або несумісних вказівників на етапі компіляції (Compile-time type safety).
 
@@ -329,113 +252,15 @@ public:
 Наведений нижче приклад демонструє завершений обчислювальний сценарій аналізу множини Кантора із обробкою винятків C++.
 
 
-```cpp
-#include "cantor.hpp"
-#include <iostream>
-#include <vector>
-
-int main() {
-    try {
-        using namespace math::fractals;
-
-        std::cout << "=== Інтеграційний тест бібліотеки libcantor ===\n";
-
-        // 1. Створення та генерація Канторової множини 6-го рівня
-        CantorSet cantor(6);
-        std::cout << "Успішно згенеровано " << cantor.size() << " інтервалів.\n";
-
-        // 2. Оцінка вимірності методом Box-Counting
-        CantorAnalyzer analyzer(cantor);
-        const auto result = analyzer.compute_box_counting();
-
-        std::cout << "Обчислена вимірність: " << result.box_counting_dim << "\n";
-        std::cout << "Середньоквадратична похибка регресії: " << result.mean_squared_error << "\n";
-
-        // 3. Сканування точок фазового простору
-        const std::vector<double> test_points{0.0, 0.25, 1.0 / 3.0, 0.5, 0.75, 1.0};
-        std::cout << "\nПеревірка належності точок (глибина 25):\n";
-        for (double pt : test_points) {
-            const bool inside = CantorSet::contains(pt, 25);
-            std::cout << "  x = " << pt << " -> " << (inside ? "C (Належить)" : "U (Вилучено)") << "\n";
-        }
-
-        // 4. Обчислення значення функції Кантора ("Диявольських сходів")
-        const double x_val = 0.4;
-        const double staircase_val = CantorSet::evaluate_staircase(x_val);
-        std::cout << "\nЗначення функції Кантора F(" << x_val << ") = " << staircase_val << "\n";
-
-    } catch (const math::fractals::CantorException& ex) {
-        std::cerr << "Критична помилка CantorLib: " << ex.what() << " (код статусу: " << static_cast<int>(ex.status()) << ")\n";
-        return 1;
-    } catch (const std::exception& ex) {
-        std::cerr << "Системний виняток: " << ex.what() << "\n";
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code api-cantor-lib/cpp/9-pryklad-povnoho.cpp
 
 ## 10. Інтерфейс Python-розширення (C-API та C++ pybind11)
 
 Для забезпечення прямої сумісності з Python-екосистемою аналізу даних (NumPy, SciPy) бібліотека надає нативний C-API модуль розширення та C++20 pybind11 обгортку:
 
 :::tabs
-```c
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include "cantor.h"
-
-static PyObject* py_cantor_contains(PyObject* self, PyObject* args) {
-    double x;
-    int depth = 30;
-    if (!PyArg_ParseTuple(args, "d|i", &x, &depth)) {
-        return NULL;
-    }
-    bool result = false;
-    cantor_status_t status = cantor_contains(x, depth, &result);
-    if (status != CANTOR_SUCCESS) {
-        PyErr_SetString(PyExc_ValueError, "Invalid input parameters for cantor_contains");
-        return NULL;
-    }
-    if (result) {
-        Py_RETURN_TRUE;
-    } else {
-        Py_RETURN_FALSE;
-    }
-}
-
-static PyMethodDef CantorMethods[] = {
-    {"contains", py_cantor_contains, METH_VARARGS, "Check if point x belongs to Cantor set"},
-    {NULL, NULL, 0, NULL}
-};
-
-static struct PyModuleDef cantormodule = {
-    PyModuleDef_HEAD_INIT,
-    "libcantor",
-    "High-performance Cantor set computation module",
-    -1,
-    CantorMethods
-};
-
-PyMODINIT_FUNC PyInit_libcantor(void) {
-    return PyModule_Create(&cantormodule);
-}
-```
-```cpp
-#include <pybind11/pybind11.h>
-#include "cantor.hpp"
-
-namespace py = pybind11;
-
-PYBIND11_MODULE(libcantor, m) {
-    m.doc() = "High-performance C++20 Cantor set computation module";
-    
-    m.def("contains", &math::fractals::CantorGenerator::contains_point,
-          py::arg("x"), py::arg("max_depth") = 30,
-          "Check if point x belongs to Cantor set");
-}
-```
+:::code api-cantor-lib/c/main.c
+:::code api-cantor-lib/cpp/10-interfeis-python.cpp
 :::
 
 Модуль компілюється у бінарне розширення `.so` / `.pyd` і дозволяє виконувати векторні перевірки масивів NumPy без проміжного копіювання буферів у пам'яті.
@@ -454,28 +279,7 @@ PYBIND11_MODULE(libcantor, m) {
 
 Для використання `libcantor` у системному середовищі мови Rust розроблено модуль `cantor-sys`:
 
-```rust
-use std::os::raw::{c_double, c_int, c_void};
-
-#[repr(C)]
-pub struct CantorInterval {
-    pub start: c_double,
-    pub end: c_double,
-}
-
-extern "C" {
-    pub fn cantor_contains(x: c_double, max_depth: c_int, result: *mut bool) -> i32;
-    pub fn cantor_generate_level(level: c_int) -> *mut c_void;
-}
-
-pub fn is_in_cantor_set(x: f64, max_depth: i32) -> bool {
-    let mut res = false;
-    unsafe {
-        cantor_contains(x, max_depth, &mut res);
-    }
-    res
-}
-```
+:::code api-cantor-lib/rust/main.rs
 
 ### 12.2. Julia High-Performance Interface (`CantorLib.jl`)
 

@@ -122,245 +122,8 @@ MSE = (1 / M) · ∑ (Y_j - (a · X_j + b))²
 Версія мовою C++ спирається на сучасні стандарти C++20, інкапсулює алгоритми у просторі імен `math::fractals`, використовує семантику переміщення, контейнери `std::vector`, типу безпечні уявлення `std::span`, автоматичне управління ресурсами RAII та специфікатор `constexpr`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <math.h>
-
-typedef struct {
-    double start;
-    double end;
-} cantor_interval_t;
-
-typedef struct {
-    cantor_interval_t* data;
-    size_t count;
-    size_t capacity;
-} cantor_set_t;
-
-cantor_set_t* cantor_set_create(size_t initial_capacity) {
-    cantor_set_t* set = (cantor_set_t*)malloc(sizeof(cantor_set_t));
-    if (!set) return NULL;
-    set->data = (cantor_interval_t*)malloc(initial_capacity * sizeof(cantor_interval_t));
-    if (!set->data) {
-        free(set);
-        return NULL;
-    }
-    set->count = 0;
-    set->capacity = initial_capacity;
-    return set;
-}
-
-void cantor_set_free(cantor_set_t* set) {
-    if (set) {
-        free(set->data);
-        free(set);
-    }
-}
-
-bool cantor_set_append(cantor_set_t* set, double start, double end) {
-    if (set->count >= set->capacity) {
-        size_t new_cap = set->capacity * 2;
-        cantor_interval_t* new_data = (cantor_interval_t*)realloc(set->data, new_cap * sizeof(cantor_interval_t));
-        if (!new_data) return false;
-        set->data = new_data;
-        set->capacity = new_cap;
-    }
-    set->data[set->count].start = start;
-    set->data[set->count].end = end;
-    set->count++;
-    return true;
-}
-
-cantor_set_t* cantor_generate_level(int level) {
-    size_t expected_count = (size_t)1 << level;
-    cantor_set_t* current = cantor_set_create(expected_count);
-    if (!current) return NULL;
-
-    cantor_set_append(current, 0.0, 1.0);
-
-    for (int lvl = 0; lvl < level; lvl++) {
-        cantor_set_t* next = cantor_set_create(current->count * 2);
-        if (!next) {
-            cantor_set_free(current);
-            return NULL;
-        }
-
-        for (size_t i = 0; i < current->count; i++) {
-            double a = current->data[i].start;
-            double b = current->data[i].end;
-            double third = (b - a) / 3.0;
-
-            cantor_set_append(next, a, a + third);
-            cantor_set_append(next, b - third, b);
-        }
-
-        cantor_set_free(current);
-        current = next;
-    }
-
-    return current;
-}
-
-bool cantor_contains_point(double x, int max_depth) {
-    if (x < 0.0 || x > 1.0) return false;
-
-    double curr = x;
-    for (int i = 0; i < max_depth; i++) {
-        curr *= 3.0;
-        int digit = (int)floor(curr);
-        if (digit == 1) {
-            return false;
-        }
-        if (digit == 2) {
-            curr -= 2.0;
-        }
-    }
-    return true;
-}
-
-double cantor_estimate_box_counting_dim(int level) {
-    cantor_set_t* set = cantor_generate_level(level);
-    if (!set) return -1.0;
-
-    double epsilon = pow(3.0, -level);
-    double num_boxes = (double)set->count;
-
-    double dimension = log(num_boxes) / log(1.0 / epsilon);
-
-    cantor_set_free(set);
-    return dimension;
-}
-
-int main(void) {
-    int depth = 5;
-    printf("=== Обчислення триадної множини Кантора (Рівень %d) ===\n", depth);
-
-    cantor_set_t* cantor = cantor_generate_level(depth);
-    if (cantor) {
-        printf("Кількість інтервалів на рівні %d: %zu\n", depth, cantor->count);
-        printf("Перші 4 інтервали:\n");
-        for (size_t i = 0; i < 4 && i < cantor->count; i++) {
-            printf("  [%f, %f]\n", cantor->data[i].start, cantor->data[i].end);
-        }
-        cantor_set_free(cantor);
-    }
-
-    double test_points[] = {0.0, 0.25, 0.3333333333333333, 0.5, 0.75, 1.0};
-    size_t num_tests = sizeof(test_points) / sizeof(test_points[0]);
-
-    printf("\nПеревірка належності точок (глибина 20):\n");
-    for (size_t i = 0; i < num_tests; i++) {
-        bool in_cantor = cantor_contains_point(test_points[i], 20);
-        printf("  x = %.4f -> %s\n", test_points[i], in_cantor ? "Належить (C)" : "Вилучено (U)");
-    }
-
-    printf("\nЧисельна оцінка фрактальної вимірності:\n");
-    for (int k = 1; k <= 8; k++) {
-        double dim = cantor_estimate_box_counting_dim(k);
-        printf("  Рівень k = %d: N = %d, dim = %.6f\n", k, 1 << k, dim);
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <span>
-#include <optional>
-#include <iomanip>
-
-namespace math::fractals {
-
-struct Interval {
-    double start{0.0};
-    double end{1.0};
-
-    [[nodiscard]] constexpr double length() const noexcept {
-        return end - start;
-    }
-};
-
-class CantorGenerator {
-public:
-    [[nodiscard]] static std::vector<Interval> generate_level(std::size_t level) {
-        std::vector<Interval> current;
-        current.reserve(1ULL << level);
-        current.push_back({0.0, 1.0});
-
-        for (std::size_t lvl = 0; lvl < level; ++lvl) {
-            std::vector<Interval> next;
-            next.reserve(current.size() * 2);
-
-            for (const auto& [a, b] : current) {
-                const double third = (b - a) / 3.0;
-                next.push_back({a, a + third});
-                next.push_back({b - third, b});
-            }
-            current = std::move(next);
-        }
-        return current;
-    }
-
-    [[nodiscard]] static bool contains_point(double x, std::size_t max_depth = 30) noexcept {
-        if (x < 0.0 || x > 1.0) return false;
-
-        double curr = x;
-        for (std::size_t i = 0; i < max_depth; ++i) {
-            curr *= 3.0;
-            const auto digit = static_cast<int>(std::floor(curr));
-            if (digit == 1) {
-                return false;
-            }
-            if (digit == 2) {
-                curr -= 2.0;
-            }
-        }
-        return true;
-    }
-
-    [[nodiscard]] static double estimate_box_counting_dimension(std::size_t level) {
-        const auto intervals = generate_level(level);
-        const double epsilon = std::pow(3.0, -static_cast<double>(level));
-        const double num_boxes = static_cast<double>(intervals.size());
-        return std::log(num_boxes) / std::log(1.0 / epsilon);
-    }
-};
-
-} // namespace math::fractals
-
-int main() {
-    using namespace math::fractals;
-
-    constexpr std::size_t depth = 5;
-    std::cout << "=== C++20 Модуль обчислення множини Кантора ===\n";
-
-    const auto intervals = CantorGenerator::generate_level(depth);
-    std::cout << "Рівень " << depth << ": " << intervals.size() << " інтервалів.\n";
-    std::cout << "Перші 4 інтервали:\n";
-    for (const auto& inv : std::span(intervals).subspan(0, std::min<std::size_t>(4, intervals.size()))) {
-        std::cout << "  [" << std::fixed << std::setprecision(6) << inv.start << ", " << inv.end << "]\n";
-    }
-
-    const std::vector<double> test_points{0.0, 0.25, 1.0 / 3.0, 0.5, 0.75, 1.0};
-    std::cout << "\nПеревірка належності точок (глибина 25):\n";
-    for (double pt : test_points) {
-        const bool inside = CantorGenerator::contains_point(pt, 25);
-        std::cout << "  x = " << std::setw(8) << pt << " -> " << (inside ? "C (Належить)" : "U (Вилучено)") << "\n";
-    }
-
-    std::cout << "\nФрактальна вимірність Box-Counting:\n";
-    for (std::size_t k = 1; k <= 8; ++k) {
-        const double dim = CantorGenerator::estimate_box_counting_dimension(k);
-        std::cout << "  k = " << k << " | dim = " << std::setprecision(8) << dim << "\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-cantor-generator/c/4-realizatsiia-movamy-c-ta.c
+:::code proj-cantor-generator/cpp/4-realizatsiia-movamy-c-ta.cpp
 :::
 
 ## 5. Аналіз обчислювальної точності та пастки реалізації
@@ -477,29 +240,7 @@ S(f) = | FFT { F(t) } |² ∼ f^{-β}
 
 Для побудови та інтеграції даного обчислювального модуля у проєкти на мовах C та C++ надається стандартний сценарій `CMakeLists.txt`:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(CantorGenerator VERSION 1.0.0 LANGUAGES C CXX)
-
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(OpenMP REQUIRED)
-
-add_executable(cantor_demo 
-    proj-cantor-generator.c
-    main.cpp
-)
-
-target_link_libraries(cantor_demo PRIVATE OpenMP::OpenMP_CXX)
-target_compile_options(cantor_demo PRIVATE 
-    $<$<CXX_COMPILER_ID:GNU>:-O3 -march=native -ffast-math>
-    $<$<CXX_COMPILER_ID:Clang>:-O3 -march=native -ffast-math>
-    $<$<CXX_COMPILER_ID:MSVC>:/O2 /arch:AVX2>
-)
-```
+:::code proj-cantor-generator/cmake/CMakeLists.txt
 
 Збирання проєкту виконується стандартною послідовністю команд:
 
@@ -557,20 +298,7 @@ Point2D smale_horseshoe_map(const Point2D& p, double mu, double lambda) {
 
 Для інтеграції C-ядра у науково-дослідні скрипти на Python надається легковажна обгортка `pycantor.py`:
 
-```python
-import ctypes
-import os
-
-class CantorInterval(ctypes.Structure):
-    _fields_ = [("start", ctypes.c_double), ("end", ctypes.c_double)]
-
-lib = ctypes.CDLL(os.path.abspath("libcantor.so"))
-lib.cantor_contains_point.argtypes = [ctypes.c_double, ctypes.c_int]
-lib.cantor_contains_point.restype = ctypes.c_bool
-
-def is_in_cantor_set(x: float, depth: int = 30) -> bool:
-    return lib.cantor_contains_point(x, depth)
-```
+:::code proj-cantor-generator/py/main.py
 
 Це дозволяє використовувати обчислювальне ядро у поєднанні з бібліотеками `NumPy`, `SciPy` та `Matplotlib` для побудови графіків та візуалізації дивних атракторів без втрати швидкодії.
 
@@ -579,35 +307,8 @@ def is_in_cantor_set(x: float, depth: int = 30) -> bool:
 Для обробки терабайтних даних фазового простору у सुपरкомп'ютерних центрах реалізовано розподілений модуль на базі стандарту MPI (Message Passing Interface):
 
 :::tabs
-```c
-#include <mpi.h>
-
-void distributed_cantor_scan(double* local_points, size_t local_count, uint8_t* local_results) {
-    int rank, size;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &size);
-
-    #pragma omp parallel for simd
-    for (size_t i = 0; i < local_count; i++) {
-        local_results[i] = cantor_contains_point(local_points[i], 30) ? 1 : 0;
-    }
-
-    MPI_Barrier(MPI_COMM_WORLD);
-}
-```
-```cpp
-#include <mpi.h>
-#include <vector>
-#include <execution>
-
-void distributed_cantor_scan_cpp(std::span<const double> points, std::vector<uint8_t>& results) {
-    results.resize(points.size());
-    std::transform(std::execution::par_unseq, points.begin(), points.end(), results.begin(), [](double pt) {
-        return math::fractals::CantorGenerator::contains_point(pt, 30) ? 1 : 0;
-    });
-    MPI_Barrier(MPI_COMM_WORLD);
-}
-```
+:::code proj-cantor-generator/c/17-rozpodilene.c
+:::code proj-cantor-generator/cpp/17-rozpodilene.cpp
 :::
 
 Використання гібридної обчислювальної моделі MPI+OpenMP забезпечує лінійне прискорення розрахунків при масштабуванні на тисячі обчислювальних вузлів суперкомп'ютера.
@@ -617,52 +318,8 @@ void distributed_cantor_scan_cpp(std::span<const double> points, std::vector<uin
 У найсучасніших процесорах Intel Xeon та AMD EPYC підтримка 512-бітних векторних регістрів ZMM дозволяє одночасно обробляти 8 точок типу `double`:
 
 :::tabs
-```c
-#include <immintrin.h>
-
-void cantor_scan_avx512(const double* in_pts, uint8_t* out_res, size_t count, int depth) {
-    size_t i = 0;
-    __m512d v_three = _mm512_set1_pd(3.0);
-    __m512d v_two   = _mm512_set1_pd(2.0);
-    __m512d v_one   = _mm512_set1_pd(1.0);
-
-    for (; i + 8 <= count; i += 8) {
-        __m512d v_curr = _mm512_loadu_pd(&in_pts[i]);
-        __m512i v_mask_active = _mm512_set1_epi64(-1);
-
-        for (int d = 0; d < depth; d++) {
-            v_curr = _mm512_mul_pd(v_curr, v_three);
-            __m512d v_floor = _mm512_floor_pd(v_curr);
-            
-            // Маска точок, де потрійна цифра дорівнює 1
-            __mmask8 m_is_one = _mm512_cmpeq_pd_mask(v_floor, v_one);
-            if (m_is_one) {
-                // Відмічаємо вилучені точки
-            }
-        }
-    }
-}
-```
-```cpp
-#include <immintrin.h>
-#include <span>
-
-namespace math::fractals {
-
-void scan_avx512(std::span<const double> points, std::span<uint8_t> results, std::size_t depth) {
-    const __m512d v_three = _mm512_set1_pd(3.0);
-    const __m512d v_one   = _mm512_set1_pd(1.0);
-
-    for (std::size_t i = 0; i + 8 <= points.size(); i += 8) {
-        __m512d v_curr = _mm512_loadu_pd(&points[i]);
-        __m512d v_floor = _mm512_floor_pd(_mm512_mul_pd(v_curr, v_three));
-        __mmask8 m_is_one = _mm512_cmpeq_pd_mask(v_floor, v_one);
-        results[i] = m_is_one ? 0 : 1;
-    }
-}
-
-} // namespace math::fractals
-```
+:::code proj-cantor-generator/c/18-vektoryzatsiia.c
+:::code proj-cantor-generator/cpp/18-vektoryzatsiia.cpp
 :::
 
 Завдяки цьому продуктивність досягає 12.8 мільярдів перевірок на секунду на односокетному серверному вузлі, роблячи обчислювач готовим до промислових фізико-механічних досліджень будь-якої складності.

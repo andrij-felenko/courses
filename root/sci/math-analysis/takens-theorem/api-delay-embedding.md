@@ -21,34 +21,8 @@
 Усі публічні C-функції бібліотеки повертають статусний код типу `TakensStatus`. Значення `TAKENS_OK` (дорівнює `0`) відповідає успішному виконанню. Від'ємні значення вказують на конкретний тип помилки.
 
 :::tabs
-```c
-typedef enum {
-    TAKENS_OK                     =  0,  /* Успішне виконання операції */
-    TAKENS_ERR_NULL_POINTER       = -1,  /* Передано вказівник NULL у критичний параметр */
-    TAKENS_ERR_INVALID_PARAM      = -2,  /* Некоректне значення параметрів (наприклад, delay=0 чи n_bins=0) */
-    TAKENS_ERR_SIGNAL_TOO_SHORT   = -3,  /* Довжина часового ряду є недостатньою для вказаних m та delay */
-    TAKENS_ERR_OUT_OF_MEMORY      = -4,  /* Помилка виділення динамічної пам'яті у купі */
-    TAKENS_ERR_NO_MINIMUM_FOUND   = -5,  /* У заданому діапазоні не знайдено локального мінімуму взаємної інформації */
-    TAKENS_ERR_FNN_CONVERGENCE    = -6,  /* Дріб FNN не досяг заданого порогу при m <= max_m */
-    TAKENS_ERR_ZERO_VARIANCE      = -7   /* Вхідний сигнал має нульову дисперсію (константний сигнал) */
-} TakensStatus;
-```
-```cpp
-#include <cstdint>
-
-namespace takens {
-enum class Status : int32_t {
-    Ok                  =  0,
-    NullPointer         = -1,
-    InvalidParam        = -2,
-    SignalTooShort      = -3,
-    OutOfMemory         = -4,
-    NoMinimumFound      = -5,
-    FnnConvergenceError = -6,
-    ZeroVariance        = -7
-};
-}
-```
+:::code api-delay-embedding/c/2-kody-pomylok-ta-statusiv.c
+:::code api-delay-embedding/cpp/2-kody-pomylok-ta-statusiv.cpp
 :::
 
 #### 2.1. Опис семантики статусів помилок
@@ -78,18 +52,7 @@ typedef struct {
     size_t num_threads;        /* Кількість потоків OpenMP для паралельних обчислень (0 — автовизначення) */
 } TakensConfig;
 ```
-```cpp
-namespace takens {
-struct Config {
-    size_t max_delay{50};
-    size_t n_bins{32};
-    size_t max_embedding_dim{10};
-    double r_tol{15.0};
-    double fnn_threshold{0.01};
-    size_t num_threads{0};
-};
-}
-```
+:::code api-delay-embedding/cpp/3-osnovni-struktury-danykh.cpp
 :::
 
 #### 3.1. Детальний розбір полів структури `TakensConfig`
@@ -182,43 +145,8 @@ compute_mutual_information(std::span<const double> signal, const Config& config 
 - `out_optimal_delay`: Вказівник на змінну, куди буде записано індекс першого локального мінімуму `I(p)`.
 
 :::tabs
-```c
-#include "takens.h"
-#include <stdio.h>
-
-void run_mi_example(const double *signal, size_t n) {
-    TakensConfig config;
-    takens_config_init_default(&config);
-    config.max_delay = 40;
-
-    double mi_buffer[40];
-    size_t opt_delay = 0;
-
-    TakensStatus status = takens_compute_mutual_information(signal, n, &config, mi_buffer, &opt_delay);
-    if (status == TAKENS_OK) {
-        printf("Оптимальна затримка tau: %zu відліків\n", opt_delay);
-    } else {
-        printf("Помилка обчислення MI: %s\n", takens_status_string(status));
-    }
-}
-```
-```cpp
-#include "takens.hpp"
-#include <iostream>
-#include <vector>
-
-void run_mi_example_cpp(const std::vector<double>& signal) {
-    takens::Config config;
-    config.max_delay = 40;
-
-    auto result = takens::compute_mutual_information(signal, config);
-    if (result.has_value()) {
-        std::cout << "Оптимальна затримка tau: " << result->optimal_delay << " відліків\n";
-    } else {
-        std::cerr << "Помилка обчислення MI\n";
-    }
-}
-```
+:::code api-delay-embedding/c/4-2-rozrakhunok-serednoi.c
+:::code api-delay-embedding/cpp/4-2-rozrakhunok-serednoi.cpp
 :::
 
 #### 4.3. Розрахунок хибних найближчих сусідів (FNN)
@@ -252,34 +180,8 @@ compute_fnn(std::span<const double> signal, size_t delay, const Config& config =
 - `out_optimal_dim`: Вказівник на змінну, куди записується найменше `m`, при якому `FNN(m) < config->fnn_threshold`.
 
 :::tabs
-```c
-void run_fnn_example(const double *signal, size_t n, size_t delay) {
-    TakensConfig config;
-    takens_config_init_default(&config);
-    config.max_embedding_dim = 8;
-    config.r_tol = 15.0;
-
-    double fnn_buffer[8];
-    size_t opt_dim = 0;
-
-    TakensStatus status = takens_compute_fnn(signal, n, delay, &config, fnn_buffer, &opt_dim);
-    if (status == TAKENS_OK) {
-        printf("Оптимальна вимірність m: %zu\n", opt_dim);
-    }
-}
-```
-```cpp
-void run_fnn_example_cpp(const std::vector<double>& signal, size_t delay) {
-    takens::Config config;
-    config.max_embedding_dim = 8;
-    config.r_tol = 15.0;
-
-    auto result = takens::compute_fnn(signal, delay, config);
-    if (result.has_value()) {
-        std::cout << "Оптимальна вимірність m: " << result->optimal_dim << "\n";
-    }
-}
-```
+:::code api-delay-embedding/c/4-3-rozrakhunok-khybnykh.c
+:::code api-delay-embedding/cpp/4-3-rozrakhunok-khybnykh.cpp
 :::
 
 #### 4.4. Створення та звільнення затримкової матриці
@@ -313,65 +215,15 @@ create_embedding(std::span<const double> signal, size_t delay, size_t dim);
 - `out_embedding`: Вказівник на вказівник, куди буде записано адресу створеної структури `TakensEmbedding`.
 
 :::tabs
-```c
-void run_full_pipeline_c(const double *signal, size_t n) {
-    TakensConfig config;
-    takens_config_init_default(&config);
-
-    size_t opt_delay = 0;
-    size_t opt_dim = 0;
-
-    if (takens_compute_mutual_information(signal, n, &config, NULL, &opt_delay) != TAKENS_OK) return;
-    if (takens_compute_fnn(signal, n, opt_delay, &config, NULL, &opt_dim) != TAKENS_OK) return;
-
-    TakensEmbedding *emb = NULL;
-    if (takens_embedding_create(signal, n, opt_delay, opt_dim, &emb) == TAKENS_OK) {
-        printf("Успішно побудовано матрицю розміром %zu x %zu\n", emb->rows, emb->cols);
-        
-        /* Робота з даними emb->matrix_data ... */
-
-        takens_embedding_free(emb); /* Обов'язкове звільнення пам'яті */
-    }
-}
-```
-```cpp
-void run_full_pipeline_cpp(const std::vector<double>& signal) {
-    try {
-        takens::Embedder embedder(signal);
-        auto embedding = embedder.auto_embed(); // Автоматичний вибір tau та m
-        
-        std::cout << "Успішно побудовано матрицю розміром " 
-                  << embedding.rows() << " x " << embedding.cols() << "\n";
-                  
-        // Пам'ять звільняється автоматично у деструкторі embedding
-    } catch (const std::exception& e) {
-        std::cerr << "Помилка реконструкції: " << e.what() << "\n";
-    }
-}
-```
+:::code api-delay-embedding/c/4-4-stvorennia-ta.c
+:::code api-delay-embedding/cpp/4-4-stvorennia-ta.cpp
 :::
 
 #### 4.5. Обчислення нелінійних інваріантів у C API
 Бібліотека `libtakens` містить додаткові низькорівневі функції для аналізу побудованої затримкової матриці `TakensEmbedding`:
 
 :::tabs
-```c
-/* Обчислення кореляційного інтегралу C(r) для заданого масиву радіусів */
-TakensStatus takens_compute_correlation_integral(
-    const TakensEmbedding *embedding,
-    const double *r_values,
-    size_t r_count,
-    double *out_c_r
-);
-
-/* Оцінка старшого показника Ляпунова за алгоритмом Розенштейна */
-TakensStatus takens_compute_lyapunov_max(
-    const TakensEmbedding *embedding,
-    size_t theiler_window,
-    size_t max_steps,
-    double *out_lyapunov_exp
-);
-```
+:::code api-delay-embedding/c/4-5-obchyslennia.h
 ```cpp
 namespace takens {
 [[nodiscard]] std::expected<std::vector<double>, Status>
@@ -398,64 +250,7 @@ compute_lyapunov_max(const DelayMatrix& matrix, size_t theiler_window, size_t ma
 
 Обгортка C++ надає високорівневий клас `takens::Embedder` та об'єкт матриці `takens::DelayMatrix`. Вона перетворює низькорівневі коди помилок у тип `std::expected` або генерує стандартні винятки `std::runtime_error`.
 
-```cpp
-namespace takens {
-
-class DelayMatrix {
-public:
-    DelayMatrix() noexcept = default;
-    DelayMatrix(size_t rows, size_t cols, size_t delay, std::vector<double> data);
-
-    [[nodiscard]] size_t rows() const noexcept { return m_rows; }
-    [[nodiscard]] size_t cols() const noexcept { return m_cols; }
-    [[nodiscard]] size_t delay() const noexcept { return m_delay; }
-
-    [[nodiscard]] double operator()(size_t r, size_t c) const {
-        return m_data[r * m_cols + c];
-    }
-
-    [[nodiscard]] std::span<const double> row(size_t r) const {
-        return std::span<const double>(&m_data[r * m_cols], m_cols);
-    }
-
-    [[nodiscard]] const std::vector<double>& data() const noexcept { return m_data; }
-
-private:
-    size_t m_rows{0};
-    size_t m_cols{0};
-    size_t m_delay{0};
-    std::vector<double> m_data;
-};
-
-struct MutualInfoResult {
-    std::vector<double> mi_values;
-    size_t optimal_delay;
-};
-
-struct FNNResult {
-    std::vector<double> fnn_ratios;
-    size_t optimal_dim;
-};
-
-class Embedder {
-public:
-    explicit Embedder(std::span<const double> signal, Config config = Config{});
-
-    [[nodiscard]] std::expected<MutualInfoResult, Status> compute_mutual_information() const;
-    [[nodiscard]] std::expected<FNNResult, Status> compute_fnn(size_t delay) const;
-
-    [[nodiscard]] std::expected<DelayMatrix, Status> embed(size_t delay, size_t dim) const;
-    [[nodiscard]] std::expected<DelayMatrix, Status> auto_embed() const;
-
-    [[nodiscard]] std::expected<double, Status> estimate_lyapunov(const DelayMatrix& matrix) const;
-
-private:
-    std::span<const double> m_signal;
-    Config m_config;
-};
-
-} // namespace takens
-```
+:::code api-delay-embedding/cpp/5-spetsyfikatsiia-obhortky.hpp
 
 ---
 
@@ -464,101 +259,12 @@ private:
 #### 6.1. Python ctypes обгортка (`takens.py`)
 Завдяки стабільному C-ABI бібліотека `libtakens` миттєво підключається до Python без необхідності збирання складних C-розширень.
 
-```python
-import ctypes
-import numpy as np
-
-# Завантаження динамічної бібліотеки
-lib = ctypes.CDLL("./libtakens.so")
-
-# Визначення типів C
-class TakensConfig(ctypes.Structure):
-    _fields_ = [
-        ("max_delay", ctypes.c_size_t),
-        ("n_bins", ctypes.c_size_t),
-        ("max_embedding_dim", ctypes.c_size_t),
-        ("r_tol", ctypes.c_double),
-        ("fnn_threshold", ctypes.c_double),
-        ("num_threads", ctypes.c_size_t)
-    ]
-
-# Налаштування аргументів функцій
-lib.takens_config_init_default.argtypes = [ctypes.POINTER(TakensConfig)]
-lib.takens_config_init_default.restype = ctypes.c_int
-
-def py_compute_mutual_info(signal: np.ndarray, max_delay: int = 50) -> int:
-    signal = np.ascontiguousarray(signal, dtype=np.float64)
-    config = TakensConfig()
-    lib.takens_config_init_default(ctypes.byref(config))
-    config.max_delay = max_delay
-
-    opt_delay = ctypes.c_size_t(0)
-    mi_buffer = (ctypes.c_double * max_delay)()
-
-    res = lib.takens_compute_mutual_information(
-        signal.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
-        len(signal),
-        ctypes.byref(config),
-        mi_buffer,
-        ctypes.byref(opt_delay)
-    )
-    if res == 0:
-        return opt_delay.value
-    raise RuntimeError(f"Помилка libtakens код: {res}")
-```
+:::code api-delay-embedding/py/main.py
 
 #### 6.2. Rust FFI зв'язування (`sys.rs`)
 У мові Rust виклики C API відтворюються через модуль `foreign function interface (FFI)`.
 
-```rust
-#[repr(C)]
-pub struct TakensConfig {
-    pub max_delay: usize,
-    pub n_bins: usize,
-    pub max_embedding_dim: usize,
-    pub r_tol: f64,
-    pub fnn_threshold: f64,
-    pub num_threads: usize,
-}
-
-extern "C" {
-    pub fn takens_config_init_default(config: *mut TakensConfig) -> i32;
-    pub fn takens_compute_mutual_information(
-        signal: *const f64,
-        n: usize,
-        config: *const TakensConfig,
-        out_mi: *mut f64,
-        out_opt_delay: *mut usize,
-    ) -> i32;
-}
-
-pub struct TakensEmbedder<'a> {
-    signal: &'a [f64],
-    config: TakensConfig,
-}
-
-impl<'a> TakensEmbedder<'a> {
-    pub fn new(signal: &'a [f64]) -> Self {
-        let mut config = unsafe { std::mem::zeroed() };
-        unsafe { takens_config_init_default(&mut config) };
-        Self { signal, config }
-    }
-
-    pub fn compute_mutual_info(&self) -> Result<usize, i32> {
-        let mut opt_delay: usize = 0;
-        let res = unsafe {
-            takens_compute_mutual_information(
-                self.signal.as_ptr(),
-                self.signal.len(),
-                &self.config,
-                std::ptr::null_mut(),
-                &mut opt_delay,
-            )
-        };
-        if res == 0 { Ok(opt_delay) } else { Err(res) }
-    }
-}
-```
+:::code api-delay-embedding/rust/main.rs
 
 ---
 

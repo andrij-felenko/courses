@@ -23,40 +23,10 @@
 
 :::tabs
 @tab C (Типи даних)
-```c
-typedef enum {
-    FLOQUET_SUCCESS               =  0,
-    FLOQUET_ERROR_INVALID_PARAM   = -1,
-    FLOQUET_ERROR_INTEGRATION_FAIL= -2,
-    FLOQUET_ERROR_EIGEN_FAIL      = -3,
-    FLOQUET_ERROR_ALLOCATION      = -4
-} floquet_status_t;
-
-typedef struct {
-    size_t dim;               /* Розмірність n (dim >= 1) */
-    double period;            /* Фізичний період T (period > 0) */
-    size_t steps;             /* Кількість кроків сітки RK4 (steps >= 10) */
-    double tol;               /* Допуск чистової стійкості (наприклад, 1e-5) */
-} floquet_config_t;
-```
+:::code api-floquet-solver/c/systemni-kody-povernennia.c
 
 @tab C++ (Типи даних)
-```cpp
-enum class FloquetStatus : int32_t {
-    Success             =  0,
-    InvalidParam        = -1,
-    IntegrationFailure  = -2,
-    EigenvalueFailure   = -3,
-    AllocationError     = -4
-};
-
-struct FloquetConfig {
-    std::size_t dim{2};
-    double period{3.14159265358979323846};
-    std::size_t steps{1000};
-    double tolerance{1e-5};
-};
-```
+:::code api-floquet-solver/cpp/systemni-kody-povernennia.cpp
 :::
 
 ### Детальний опис полів структур конфігурації та результату
@@ -77,122 +47,10 @@ struct FloquetConfig {
 
 :::tabs
 @tab C (floquet_solver.h)
-```c
-#ifndef FLOQUET_SOLVER_H
-#define FLOQUET_SOLVER_H
-
-#include <stddef.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    FLOQUET_SUCCESS                =  0,
-    FLOQUET_ERROR_INVALID_PARAM    = -1,
-    FLOQUET_ERROR_INTEGRATION_FAIL = -2,
-    FLOQUET_ERROR_EIGEN_FAIL       = -3,
-    FLOQUET_ERROR_ALLOCATION       = -4
-} floquet_status_t;
-
-/* Вказівник на функцію коефіцієнтів A(t): заповнює плоский масив out_matrix (size n*n) */
-typedef void (*floquet_rhs_fn)(double t, size_t n, double* out_matrix, void* user_data);
-
-typedef struct {
-    size_t dim;               /* Розмірність n */
-    double period;            /* Період T */
-    size_t steps;             /* Кількість кроків RK4 */
-    double tol;               /* Чисельний допуск стійкості */
-} floquet_config_t;
-
-typedef struct {
-    double* monodromy;        /* Вихідна матриця M розміру n*n (row-major) */
-    double* re_multipliers;   /* Дійсна частина мультиплікаторів (розмір n) */
-    double* im_multipliers;   /* Уявна частина мультиплікаторів (розмір n) */
-    double max_modulus;       /* Максимальний модуль |lambda| */
-    double trace;             /* Слід матриці монодромії tr(M) */
-    bool is_stable;           /* Прапорець стійкості */
-} floquet_result_t;
-
-/* Виділення ресурсів для результату */
-floquet_status_t floquet_result_alloc(size_t dim, floquet_result_t* res);
-
-/* Звільнення ресурсів */
-void floquet_result_free(floquet_result_t* res);
-
-/* Обчислення матриці монодромії та аналіз мультиплікаторів */
-floquet_status_t floquet_solve(
-    const floquet_config_t* config,
-    floquet_rhs_fn rhs,
-    void* user_data,
-    floquet_result_t* out_result
-);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* FLOQUET_SOLVER_H */
-```
+:::code api-floquet-solver/c/3-syhnatury-funktsii-ta.h
 
 @tab C++ (FloquetSolver.hpp)
-```cpp
-#ifndef FLOQUET_SOLVER_HPP
-#define FLOQUET_SOLVER_HPP
-
-#include <vector>
-#include <complex>
-#include <functional>
-#include <span>
-#include <expected>
-#include <cstdint>
-
-namespace Physics::Mechanics {
-
-enum class FloquetStatus : int32_t {
-    Success             =  0,
-    InvalidParam        = -1,
-    IntegrationFailure  = -2,
-    EigenvalueFailure   = -3,
-    AllocationError     = -4
-};
-
-struct FloquetConfig {
-    std::size_t dim{2};
-    double period{3.14159265358979323846};
-    std::size_t steps{1000};
-    double tolerance{1e-5};
-};
-
-struct FloquetResult {
-    std::vector<double> monodromy_matrix; // row-major n x n
-    std::vector<std::complex<double>> multipliers;
-    std::vector<std::complex<double>> exponents;
-    double max_modulus{0.0};
-    double trace{0.0};
-    bool is_stable{false};
-};
-
-class FloquetSolver {
-public:
-    using SystemMatrixFn = std::function<void(double t, std::span<double> out_flat_matrix)>;
-
-    explicit FloquetSolver(FloquetConfig config) noexcept
-        : m_config(std::move(config)) {}
-
-    [[nodiscard]] std::expected<FloquetResult, FloquetStatus> solve(const SystemMatrixFn& sys_fn) const;
-
-private:
-    FloquetConfig m_config;
-
-    void rk4_step(double t, double dt, std::span<double> phi, const SystemMatrixFn& sys_fn, std::vector<double>& scratch) const noexcept;
-};
-
-} // namespace Physics::Mechanics
-
-#endif // FLOQUET_SOLVER_HPP
-```
+:::code api-floquet-solver/cpp/3-syhnatury-funktsii-ta.hpp
 :::
 
 ## 4. Покроковий розбір прикладів використання
@@ -215,96 +73,10 @@ private:
 
 :::tabs
 @tab C (Приклад виклику)
-```c
-#include "floquet_solver.h"
-#include <stdio.h>
-#include <math.h>
-
-/* Система Матьє у C-стилі */
-static void mathieu_rhs(double t, size_t n, double* out_matrix, void* user_data) {
-    (void)user_data;
-    double a = 1.5;
-    double q = 0.2;
-    double f_t = a - 2.0 * q * cos(2.0 * t);
-
-    out_matrix[0 * n + 0] = 0.0;
-    out_matrix[0 * n + 1] = 1.0;
-    out_matrix[1 * n + 0] = -f_t;
-    out_matrix[1 * n + 1] = 0.0;
-}
-
-int main(void) {
-    floquet_config_t config = {
-        .dim = 2,
-        .period = 3.141592653589793,
-        .steps = 1000,
-        .tol = 1e-5
-    };
-
-    floquet_result_t result;
-    if (floquet_result_alloc(config.dim, &result) != FLOQUET_SUCCESS) {
-        fprintf(stderr, "Помилка виділення пам'яті\n");
-        return 1;
-    }
-
-    floquet_status_t status = floquet_solve(&config, mathieu_rhs, NULL, &result);
-    if (status == FLOQUET_SUCCESS) {
-        printf("Обчислення успішне!\n");
-        printf("Слід M: %.6f\n", result.trace);
-        printf("Максимальний модуль |lambda|: %.6f\n", result.max_modulus);
-        printf("Система стійка: %s\n", result.is_stable ? "ТАК" : "НІ");
-    } else {
-        fprintf(stderr, "Помилка обчислення: %d\n", status);
-    }
-
-    floquet_result_free(&result);
-    return 0;
-}
-```
+:::code api-floquet-solver/c/opys-poriadku-vykonannia-u.c
 
 @tab C++ (Приклад виклику)
-```cpp
-#include "FloquetSolver.hpp"
-#include <iostream>
-#include <cmath>
-
-int main() {
-    using namespace Physics::Mechanics;
-
-    FloquetConfig config{
-        .dim = 2,
-        .period = 3.14159265358979323846,
-        .steps = 1000,
-        .tolerance = 1e-5
-    };
-
-    FloquetSolver solver(config);
-
-    double a = 1.5;
-    double q = 0.2;
-
-    auto sys_fn = [a, q](double t, std::span<double> out_matrix) {
-        double f_t = a - 2.0 * q * std::cos(2.0 * t);
-        out_matrix[0] = 0.0;
-        out_matrix[1] = 1.0;
-        out_matrix[2] = -f_t;
-        out_matrix[3] = 0.0;
-    };
-
-    auto result = solver.solve(sys_fn);
-
-    if (result) {
-        std::cout << "Обчислення C++ успішне!\n";
-        std::cout << "Слід M: " << result->trace << "\n";
-        std::cout << "Максимальний модуль |lambda|: " << result->max_modulus << "\n";
-        std::cout << "Система стійка: " << (result->is_stable ? "ТАК" : "НІ");
-    } else {
-        std::cerr << "Помилка обчислення з кодом: " << static_cast<int>(result.error()) << "\n";
-    }
-
-    return 0;
-}
-```
+:::code api-floquet-solver/cpp/opys-poriadku-vykonannia-u.cpp
 :::
 
 ## 5. Інваріанти, виняткові ситуації та багатопоточність

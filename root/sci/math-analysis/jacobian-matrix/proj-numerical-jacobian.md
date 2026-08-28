@@ -14,40 +14,7 @@
 
 Тут eⱼ — одиничний вектор уздовж j-ї осі. Значення F(x) спільне для всіх стовпців, тож уся матриця коштує **n + 1 виклик** F, і ця ціна не залежить від m: скільки б виходів функція не мала, кожен виклик приносить цілий стовпець одразу.
 
-```cpp
-#include <algorithm>
-#include <cmath>
-#include <cstddef>
-#include <functional>
-#include <limits>
-#include <vector>
-
-using Vec = std::vector<double>;
-using Mat = std::vector<Vec>;                 // J[i][j] = ∂fᵢ/∂xⱼ
-using Fun = std::function<Vec(const Vec&)>;   // F: ℝⁿ → ℝᵐ
-
-// Однобічні різниці. f0 = F(x) приходить ззовні: у методі Ньютона
-// це нев'язка, яку однаково вже порахували.
-// scale[j] — типовий масштаб j-ї змінної в її власних одиницях, строго > 0.
-Mat jacobianForward(const Fun& F, const Vec& x, const Vec& f0, const Vec& scale)
-{
-    static const double rt = std::sqrt(std::numeric_limits<double>::epsilon()); // ≈1.49e-8
-    const std::size_t n = x.size(), m = f0.size();
-    Mat J(m, Vec(n));
-    Vec xt = x;
-    for (std::size_t j = 0; j < n; ++j) {
-        const double step = rt * std::max(std::abs(x[j]), scale[j]);
-        volatile double bumped = x[j] + step;   // volatile — щоб компілятор
-        const double h = bumped - x[j];         // не «спростив» цей рядок
-        xt[j] = bumped;
-        const Vec f1 = F(xt);
-        xt[j] = x[j];
-        for (std::size_t i = 0; i < m; ++i)
-            J[i][j] = (f1[i] - f0[i]) / h;
-    }
-    return J;
-}
-```
+:::code proj-numerical-jacobian/cpp/odyn-poshtovkh-odyn.cpp
 
 Два рядки тут не косметичні. По-перше, `h` беруть не таким, яким його задумали, а таким, яким він **справді вийшов**: сума `x[j] + step` округлюється до найближчого представного числа, тож фактичний приріст трохи інший за `step`. Різниця `bumped - x[j]` дає цей приріст точно (обидва числа різняться менш ніж удвічі, тож віднімання виконується без похибки), і ділити треба саме на нього. Слово `volatile` змушує компілятор покласти суму в пам'ять і прочитати назад, інакше оптимізатор згорне вираз до `step` і зіпсує задум. По-друге, крок ніколи не беруть просто `rt * x[j]`: у точці x[j] = 0 він виродився б у нуль.
 
@@ -111,36 +78,7 @@ f′(x)  =   ─────────────  + O(h²)
 
 Уявна частина складається **лише** з непарних доданків, серед яких f(x) немає взагалі — віднімати нічого. Тому h можна брати яким завгодно малим: при h = 10⁻³⁰ зріз ряду має порядок 10⁻⁶⁰, тобто його просто немає, а лишається звичайне округлення арифметики, ≈2·10⁻¹⁶. Це точність аналітичної похідної за ціною одного обчислення функції на стовпець.
 
-```cpp
-#include <complex>
-
-using Cplx = std::complex<double>;
-
-// F пишемо шаблоном, щоб її можна було інстанціювати і для double,
-// і для std::complex<double>. Це головна вимога способу.
-template <class T>
-std::vector<T> F(const std::vector<T>& v)
-{
-    return { v[0] * v[0] + v[1] * v[1] - T(4.0),
-             v[0] * v[1]               - T(1.0) };
-}
-
-Mat jacobianComplexStep(const Vec& x, std::size_t m)
-{
-    const double h = 1e-30;
-    const std::size_t n = x.size();
-    Mat J(m, Vec(n));
-    std::vector<Cplx> z(x.begin(), x.end());
-    for (std::size_t j = 0; j < n; ++j) {
-        z[j] = Cplx(x[j], h);
-        const std::vector<Cplx> f = F(z);
-        z[j] = Cplx(x[j], 0.0);
-        for (std::size_t i = 0; i < m; ++i)
-            J[i][j] = f[i].imag() / h;
-    }
-    return J;
-}
-```
+:::code proj-numerical-jacobian/cpp/complex-step-vidnimannia.cpp
 
 Платня за це — вимоги до самої F. Вона мусить бути аналітичною поблизу точки: арифметика, `exp`, `sin`, `cos`, степені це витримують, а `std::abs`, `std::max`, спряження та будь-яке порівняння значень — ні, бо ламають комплексну диференційовність. Кожне `if (v > 0)` всередині доводиться переписувати так, щоб воно дивилося тільки на дійсну частину. І код F має компілюватися для комплексного типу — саме тому шаблон.
 
@@ -158,39 +96,7 @@ F₂(x, y) = x·y − 1             x* = 2·cos 15° = 1.9318516525781366
 
 [Метод Ньютона](root:math-numeric/newton-raphson) у багатьох вимірах — це щоразу розв'язати J·δ = −F(x) і зробити крок x ← x + δ. Для n = 2 систему розв'язує правило Крамера; для довільного n на його місці стоїть [LU-розклад](root:math-algebra/lu-decomposition) із вибором головного елемента.
 
-```cpp
-#include <cstdio>
-
-static const double XR = 1.9318516525781366;   // точний корінь — лише щоб
-static const double YR = 0.5176380902050415;   // друкувати справжню похибку
-
-static bool solve2(const Mat& J, const Vec& f0, Vec& d)
-{
-    const double det = J[0][0] * J[1][1] - J[0][1] * J[1][0];
-    const double mag = std::abs(J[0][0] * J[1][1]) + std::abs(J[0][1] * J[1][0]);
-    if (std::abs(det) < 1e-12 * mag) return false;   // майже вироджена
-    d[0] = (-f0[0] * J[1][1] + J[0][1] * f0[1]) / det;
-    d[1] = (-J[0][0] * f0[1] + J[1][0] * f0[0]) / det;
-    return true;
-}
-
-int main()
-{
-    const Vec scale{1.0, 1.0};
-    Vec x{3.0, 1.0}, d(2);
-    for (int k = 0; k < 12; ++k) {
-        const Vec f0 = F(x);                       // нев'язка — і вона ж вхід якобіана
-        const double res = std::hypot(f0[0], f0[1]);
-        std::printf("%2d  x = (%17.14f, %17.14f)   |F| = %.1e   |x-x*| = %.1e\n",
-                    k, x[0], x[1], res, std::hypot(x[0] - XR, x[1] - YR));
-        if (res < 1e-14) break;
-        const Mat J = jacobianForward(F<double>, x, f0, scale);
-        if (!solve2(J, f0, d)) { std::puts("якобіан майже вироджений"); break; }
-        x[0] += d[0];
-        x[1] += d[1];
-    }
-}
-```
+:::code proj-numerical-jacobian/cpp/robochyi-pryklad-metod.cpp
 
 Вивід, розкладений по стовпцях:
 

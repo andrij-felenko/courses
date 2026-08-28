@@ -69,172 +69,10 @@ enum class MappingStatus {
 
 :::tabs
 @tab C
-```c
-#ifndef HORSESHOE_C_H
-#define HORSESHOE_C_H
-
-#include <stddef.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    HORSESHOE_SUCCESS = 0,
-    HORSESHOE_ERROR_OUT_OF_BOUNDS = -1,
-    HORSESHOE_ERROR_ESCAPED_DOMAIN = -2,
-    HORSESHOE_ERROR_INVALID_PARAM = -3,
-    HORSESHOE_ERROR_NULL_POINTER = -4
-} HorseshoeStatus;
-
-typedef struct {
-    double x;
-    double y;
-} HorseshoePoint2D;
-
-typedef struct {
-    double alpha;
-    double beta;
-} HorseshoeConfig;
-
-HorseshoeStatus horseshoe_init_config(double alpha, double beta, HorseshoeConfig* config);
-
-HorseshoeStatus horseshoe_map_forward(const HorseshoePoint2D* in_pt,
-                                      HorseshoePoint2D* out_pt,
-                                      const HorseshoeConfig* config);
-
-HorseshoeStatus horseshoe_map_inverse(const HorseshoePoint2D* in_pt,
-                                      HorseshoePoint2D* out_pt,
-                                      const HorseshoeConfig* config);
-
-HorseshoeStatus horseshoe_get_lyapunov(const HorseshoeConfig* config,
-                                       double* lyap_x,
-                                       double* lyap_y);
-
-HorseshoeStatus horseshoe_reconstruct_orbit(const int* future_code,
-                                            size_t future_len,
-                                            const int* past_code,
-                                            size_t past_len,
-                                            const HorseshoeConfig* config,
-                                            HorseshoePoint2D* out_pt);
-
-HorseshoeStatus horseshoe_compute_capacity_dim(const HorseshoeConfig* config,
-                                               double* out_dim);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* HORSESHOE_C_H */
-```
+:::code api-horseshoe-map/c/spetsyfikatsiia.h
 
 @tab C++
-```cpp
-#ifndef HORSESHOE_HPP
-#define HORSESHOE_HPP
-
-#include <cmath>
-#include <expected>
-#include <optional>
-#include <span>
-#include <utility>
-#include <vector>
-
-namespace physics::mechanics {
-
-struct Point2D {
-    double x{0.0};
-    double y{0.0};
-};
-
-struct Config {
-    double alpha{0.35};
-    double beta{2.4};
-};
-
-enum class MappingStatus {
-    Success,
-    OutOfBounds,
-    EscapedDomain,
-    InvalidParameter
-};
-
-class HorseshoeMap {
-public:
-    explicit HorseshoeMap(Config cfg) : config_(cfg) {}
-
-    [[nodiscard]] std::expected<Point2D, MappingStatus> forward(const Point2D& pt) const noexcept {
-        if (pt.x < 0.0 || pt.x > 1.0 || pt.y < 0.0 || pt.y > 1.0) {
-            return std::unexpected(MappingStatus::OutOfBounds);
-        }
-
-        if (pt.y >= 0.0 && pt.y <= config_.alpha) {
-            return Point2D{config_.alpha * pt.x, config_.beta * pt.y};
-        }
-        if (pt.y >= (1.0 - config_.alpha) && pt.y <= 1.0) {
-            return Point2D{1.0 - config_.alpha * pt.x, config_.beta * (1.0 - pt.y)};
-        }
-
-        return std::unexpected(MappingStatus::EscapedDomain);
-    }
-
-    [[nodiscard]] std::expected<Point2D, MappingStatus> inverse(const Point2D& pt) const noexcept {
-        if (pt.x < 0.0 || pt.x > 1.0 || pt.y < 0.0 || pt.y > 1.0) {
-            return std::unexpected(MappingStatus::OutOfBounds);
-        }
-
-        if (pt.x >= 0.0 && pt.x <= config_.alpha) {
-            return Point2D{pt.x / config_.alpha, pt.y / config_.beta};
-        }
-        if (pt.x >= (1.0 - config_.alpha) && pt.x <= 1.0) {
-            return Point2D{(1.0 - pt.x) / config_.alpha, 1.0 - (pt.y / config_.beta)};
-        }
-
-        return std::unexpected(MappingStatus::EscapedDomain);
-    }
-
-    [[nodiscard]] std::pair<double, double> lyapunovExponents() const noexcept {
-        return {std::log(config_.alpha), std::log(config_.beta)};
-    }
-
-    [[nodiscard]] Point2D reconstructFromSymbolicCode(std::span<const int> code_future,
-                                                      std::span<const int> code_past) const noexcept {
-        double x = 0.0;
-        double alpha_power = 1.0;
-        for (int s : code_future) {
-            if (s == 1) {
-                x += alpha_power * (1.0 - config_.alpha);
-            }
-            alpha_power *= config_.alpha;
-        }
-
-        double y = 0.0;
-        double beta_power = 1.0 / config_.beta;
-        for (int s : code_past) {
-            if (s == 1) {
-                y += beta_power;
-            }
-            beta_power /= config_.beta;
-        }
-
-        return Point2D{x, y};
-    }
-
-    [[nodiscard]] double capacityDimension() const noexcept {
-        const double d_x = std::log(2.0) / std::log(1.0 / config_.alpha);
-        const double d_y = std::log(2.0) / std::log(config_.beta);
-        return d_x + d_y;
-    }
-
-private:
-    Config config_;
-};
-
-} // namespace physics::mechanics
-
-#endif /* HORSESHOE_HPP */
-```
+:::code api-horseshoe-map/cpp/spetsyfikatsiia.hpp
 :::
 
 ## Детальний опис функціональних контрактів C-інтерфейсу
@@ -314,26 +152,7 @@ HorseshoeStatus horseshoe_compute_transition_matrix(const HorseshoeConfig* confi
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct TransitionMatrix {
-    size_t states_count{2};
-    std::vector<std::vector<int>> matrix;
-};
-
-class MarkovAnalyzer {
-public:
-    static TransitionMatrix computeTransitionMatrix(const Config& cfg) noexcept {
-        return TransitionMatrix{
-            .states_count = 2,
-            .matrix = {{1, 1}, {1, 1}}
-        };
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-identyfikatsii.cpp
 :::
 
 ### Модуль реконструкції за затримками Такенса (`horseshoe_takens_embed`)
@@ -342,45 +161,10 @@ public:
 
 :::tabs
 @tab C
-```c
-typedef struct {
-    size_t delay_tau;
-    size_t dimension_d;
-} HorseshoeTakensConfig;
-
-HorseshoeStatus horseshoe_embed_time_series(const double* series,
-                                            size_t series_len,
-                                            HorseshoeTakensConfig cfg,
-                                            HorseshoePoint2D* out_points,
-                                            size_t* out_len);
-```
+:::code api-horseshoe-map/c/modul-rekonstruktsii-za.c
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct TakensEmbeddingConfig {
-    size_t delay_tau{1};
-    size_t dimension_d{2};
-};
-
-class TakensReconstructor {
-public:
-    [[nodiscard]] static std::vector<Point2D> embedTimeSeries(std::span<const double> series,
-                                                              TakensEmbeddingConfig cfg) {
-        std::vector<Point2D> embedded;
-        if (series.size() <= cfg.delay_tau) return embedded;
-
-        embedded.reserve(series.size() - cfg.delay_tau);
-        for (size_t i = 0; i < series.size() - cfg.delay_tau; ++i) {
-            embedded.push_back(Point2D{series[i], series[i + cfg.delay_tau]});
-        }
-        return embedded;
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-rekonstruktsii-za.cpp
 :::
 
 ### Модуль розрахунку функції Мельникова (`horseshoe_melnikov_eval`)
@@ -400,25 +184,7 @@ double horseshoe_compute_melnikov(double t0, const HorseshoeMelnikovParams* para
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct MelnikovParams {
-    double gamma{0.3};
-    double delta{0.15};
-    double omega{1.0};
-};
-
-class MelnikovEvaluator {
-public:
-    [[nodiscard]] static double computeMelnikovFunction(double t0, MelnikovParams params) noexcept {
-        const double critical_ratio = (3.0 * M_PI * params.gamma) / (2.0 * std::sqrt(2.0) * params.delta);
-        return -params.delta + params.gamma * std::cos(params.omega * t0) * critical_ratio;
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-rozrakhunku-funktsii.cpp
 :::
 
 ### Модуль оцінки витоку фазового об'єму (`horseshoe_escape_rate`)
@@ -435,21 +201,7 @@ HorseshoeStatus horseshoe_estimate_escape_rate(const HorseshoeConfig* config,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class EscapeRateEngine {
-public:
-    [[nodiscard]] static double estimateEscapeRate(const HorseshoeMap& map,
-                                                    size_t sample_size,
-                                                    size_t max_steps) {
-        size_t survivors = sample_size;
-        return std::log(static_cast<double>(sample_size) / survivors) / max_steps;
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-otsinky-vytoku.cpp
 :::
 
 ### Модуль розрахунку топологічної ентропії (`horseshoe_entropy_eval`)
@@ -464,18 +216,7 @@ HorseshoeStatus horseshoe_compute_topological_entropy(const HorseshoeTransitionM
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class EntropyEvaluator {
-public:
-    [[nodiscard]] static double computeTopologicalEntropy(const TransitionMatrix& transition) noexcept {
-        return std::log(2.0);
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-rozrakhunku.cpp
 :::
 
 ### Модуль чисельного пошуку нестійких періодичних орбіт методом Ньютона — Рафсона (`horseshoe_newton_orbit_search`)
@@ -492,19 +233,7 @@ HorseshoeStatus horseshoe_find_periodic_orbit_newton(const HorseshoeConfig* conf
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class NewtonOrbitFinder {
-public:
-    [[nodiscard]] static std::expected<Point2D, MappingStatus> findPeriodicPoint(const HorseshoeMap& map,
-                                                                                 std::span<const int> code) {
-        return map.reconstructFromSymbolicCode(code, code);
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-chyselnoho-poshuku.cpp
 :::
 
 ### Модуль обчислення кореляційного інтеграла Грассбергера — Прокаччіа (`horseshoe_correlation_dim`)
@@ -521,29 +250,7 @@ HorseshoeStatus horseshoe_compute_correlation_integral(const HorseshoePoint2D* p
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class CorrelationDimensionAnalyzer {
-public:
-    [[nodiscard]] static double computeCorrelationIntegral(std::span<const Point2D> points, double r) {
-        size_t count = 0;
-        const size_t N = points.size();
-        for (size_t i = 0; i < N; ++i) {
-            for (size_t j = i + 1; j < N; ++j) {
-                double dx = points[i].x - points[j].x;
-                double dy = points[i].y - points[j].y;
-                if (std::sqrt(dx * dx + dy * dy) < r) {
-                    count++;
-                }
-            }
-        }
-        return (2.0 * count) / (N * (N - 1));
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-obchyslennia.cpp
 :::
 
 ### Модуль квазікласичного спектра Гутцвіллера (`horseshoe_gutzwiller_sum`)
@@ -563,28 +270,7 @@ double horseshoe_gutzwiller_amplitude(const HorseshoeClassicOrbit* orbit, double
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct ClassicOrbit {
-    double action_S;
-    double period_T;
-    double lyapunov_lambda;
-};
-
-class GutzwillerSpectrumEvaluator {
-public:
-    [[nodiscard]] static double computeOrbitContribution(const ClassicOrbit& orbit,
-                                                          double energy,
-                                                          double hbar) noexcept {
-        double phase = orbit.action_S / hbar;
-        double stability_factor = 1.0 / (2.0 * std::sinh(orbit.lyapunov_lambda / 2.0));
-        return orbit.period_T * stability_factor * std::cos(phase);
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-kvaziklasychnoho.hpp
 :::
 
 ### Модуль векторизованої обробки SIMD (`horseshoe_simd_vector_eval`)
@@ -603,26 +289,7 @@ HorseshoeStatus horseshoe_map_vector_forward(const double* x_in,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class SimdVectorEvaluator {
-public:
-    static void forwardBatch(std::span<const double> x_in,
-                             std::span<const double> y_in,
-                             std::span<double> x_out,
-                             std::span<double> y_out,
-                             const Config& config) noexcept {
-        const size_t count = x_in.size();
-        for (size_t i = 0; i < count; ++i) {
-            x_out[i] = config.alpha * x_in[i];
-            y_out[i] = config.beta * y_in[i];
-        }
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-vektoryzovanoi.cpp
 :::
 
 ### Модуль форматизованого експорту даних VTK (`horseshoe_export_vtk`)
@@ -638,18 +305,7 @@ HorseshoeStatus horseshoe_export_vtk_polylines(const HorseshoePoint2D* points,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class VtkExporter {
-public:
-    static bool exportPolylines(std::span<const Point2D> points, std::string_view filepath) {
-        return !points.empty() && !filepath.empty();
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-formatyzovanoho.cpp
 :::
 
 ### Модуль біфуркаційного аналізу відображення Ено (`horseshoe_henon_bifurcation`)
@@ -670,23 +326,7 @@ HorseshoeStatus horseshoe_eval_henon_forward(const HorseshoePoint2D* in_pt,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct HenonParams {
-    double a{1.4};
-    double b{0.3};
-};
-
-class HenonMapEvaluator {
-public:
-    [[nodiscard]] static Point2D forward(const Point2D& pt, const HenonParams& params) noexcept {
-        return Point2D{1.0 - params.a * pt.x * pt.x + pt.y, params.b * pt.x};
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-bifurkatsiinoho.cpp
 :::
 
 ### Модуль аналізу топологічних зачеплень Бірман — Вільямса (`horseshoe_knot_braid_eval`)
@@ -706,22 +346,7 @@ HorseshoeStatus horseshoe_compute_knot_invariant(const HorseshoePoint2D* orbit_p
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct KnotInvariant {
-    int self_linking_number{0};
-};
-
-class KnotAnalyzer {
-public:
-    [[nodiscard]] static KnotInvariant computeKnotInvariant(std::span<const Point2D> orbit) noexcept {
-        return KnotInvariant{.self_linking_number = static_cast<int>(orbit.size() / 2)};
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-analizu.cpp
 :::
 
 ### Модуль керування пам'яттю та пул-алокаторів (`horseshoe_memory_pool_eval`)
@@ -741,18 +366,7 @@ HorseshoeStatus horseshoe_arena_init(HorseshoeMemoryArena* arena, void* buffer, 
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class MemoryArena {
-public:
-    MemoryArena(std::span<std::byte> buffer) : buffer_(buffer) {}
-private:
-    std::span<std::byte> buffer_;
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-keruvannia-pamiattiu.cpp
 :::
 
 ### Модуль класичного кластерного розподілу задач MPI (`horseshoe_mpi_cluster_eval`)
@@ -770,20 +384,7 @@ HorseshoeStatus horseshoe_mpi_distribute_grid(const HorseshoeConfig* config,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class MpiGridDistributor {
-public:
-    static void distributeGrid(const Config& config,
-                               size_t grid_width,
-                               size_t grid_height,
-                               int rank,
-                               int world_size) noexcept {}
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-klasychnoho.cpp
 :::
 
 ### Модуль апаратного прискорення CUDA / GPGPU (`horseshoe_cuda_accelerator`)
@@ -800,18 +401,7 @@ HorseshoeStatus horseshoe_cuda_map_array(const HorseshoePoint2D* d_in,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class CudaAccelerator {
-public:
-    static void launchKernelBatch(std::span<const Point2D> in_array,
-                                  std::span<Point2D> out_array,
-                                  const Config& config) noexcept {}
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-aparatnoho.cpp
 :::
 
 ### Модуль аналізу стійкості за матрицею Якобі (`horseshoe_jacobian_stability`)
@@ -831,29 +421,7 @@ HorseshoeStatus horseshoe_compute_jacobian(const HorseshoePoint2D* pt,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct JacobianMatrix {
-    double j00, j01, j10, j11;
-};
-
-class StabilityAnalyzer {
-public:
-    [[nodiscard]] static std::expected<JacobianMatrix, MappingStatus> computeJacobian(const Point2D& pt,
-                                                                                      const Config& cfg) noexcept {
-        if (pt.y >= 0.0 && pt.y <= cfg.alpha) {
-            return JacobianMatrix{cfg.alpha, 0.0, 0.0, cfg.beta};
-        }
-        if (pt.y >= (1.0 - cfg.alpha) && pt.y <= 1.0) {
-            return JacobianMatrix{-cfg.alpha, 0.0, 0.0, -cfg.beta};
-        }
-        return std::unexpected(MappingStatus::EscapedDomain);
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-analizu-stiikosti-za.cpp
 :::
 
 ### Модуль розрахунку фрактальної Канторової множини (`horseshoe_cantor_set_gen`)
@@ -875,25 +443,7 @@ HorseshoeStatus horseshoe_generate_cantor_intervals(size_t level,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct Interval {
-    double min_val;
-    double max_val;
-};
-
-class CantorGenerator {
-public:
-    [[nodiscard]] static std::vector<Interval> generateCantorSet(size_t level, const Config& cfg) {
-        std::vector<Interval> result;
-        result.push_back(Interval{0.0, 1.0});
-        return result;
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-rozrakhunku-2.cpp
 :::
 
 ### Модуль розширеного системного журналювання (`horseshoe_logger_module`)
@@ -909,18 +459,7 @@ void horseshoe_set_log_callback(HorseshoeLogCallback callback);
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-using LogCallback = void(*)(std::string_view message, int level);
-
-class Logger {
-public:
-    static void setCallback(LogCallback cb) noexcept {}
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-rozshyrenoho.cpp
 :::
 
 ### Модуль порівняння метрик з теоретичними межами (`horseshoe_bounds_eval`)
@@ -934,18 +473,7 @@ bool horseshoe_check_theoretical_bounds(const HorseshoeConfig* config);
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class TheoreticalChecker {
-public:
-    [[nodiscard]] static bool verifyBounds(const Config& cfg) noexcept {
-        return (cfg.alpha > 0.0 && cfg.alpha < 0.5 && cfg.beta > 2.0);
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-porivniannia-metryk.cpp
 :::
 
 ### Модуль обчислення точного фазового об'єму інваріантного канторового множина (`horseshoe_invariant_volume`)
@@ -959,18 +487,7 @@ double horseshoe_compute_invariant_measure(const HorseshoeConfig* config);
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class MeasureEvaluator {
-public:
-    [[nodiscard]] static double computeMeasure(const Config& cfg) noexcept {
-        return 0.0;
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-obchyslennia-2.cpp
 :::
 
 ### Модуль генерації градієнтних карт фазової стабільності (`horseshoe_gradient_map`)
@@ -987,19 +504,7 @@ HorseshoeStatus horseshoe_compute_escape_gradient(const HorseshoePoint2D* pt,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class GradientMapEvaluator {
-public:
-    [[nodiscard]] static std::pair<double, double> computeEscapeGradient(const Point2D& pt,
-                                                                          const Config& cfg) noexcept {
-        return {0.0, 0.0};
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-heneratsii.cpp
 :::
 
 ### Модуль розрахунку обобщених вимірностей Реньї (`horseshoe_renyi_dimensions`)
@@ -1015,18 +520,7 @@ HorseshoeStatus horseshoe_compute_renyi_dimension(double q,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class RenyiDimensionEvaluator {
-public:
-    [[nodiscard]] static double computeRenyi(double q, const Config& cfg) noexcept {
-        return 0.0;
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-rozrakhunku-3.cpp
 :::
 
 ### Модуль аналізу класичних біфуркацій Неймарка — Закера (`horseshoe_neimark_sacker`)
@@ -1045,22 +539,7 @@ HorseshoeStatus horseshoe_eval_neimark_sacker(const HorseshoeConfig* config,
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct NeimarkSackerResult {
-    double rotation_angle{0.0};
-};
-
-class NeimarkSackerEvaluator {
-public:
-    [[nodiscard]] static std::expected<NeimarkSackerResult, MappingStatus> evaluate(const Config& cfg) noexcept {
-        return NeimarkSackerResult{0.0};
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-analizu-klasychnykh.cpp
 :::
 
 ### Модуль обчислення порядку Шарковського для одновимірних зрізів (`horseshoe_sharkovsky_ordering`)
@@ -1074,18 +553,7 @@ bool horseshoe_has_period_three(const HorseshoeConfig* config);
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class SharkovskyAnalyzer {
-public:
-    [[nodiscard]] static bool hasPeriodThree(const Config& cfg) noexcept {
-        return true;
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-obchyslennia-3.cpp
 :::
 
 ### Модуль оцінки статистичної автономії та кореляцій орбіт (`horseshoe_orbit_autonomy_eval`)
@@ -1099,18 +567,7 @@ HorseshoeStatus horseshoe_eval_orbit_autonomy(const int* code, size_t code_len, 
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class AutonomyEvaluator {
-public:
-    [[nodiscard]] static double evaluateOrbitAutonomy(std::span<const int> code) noexcept {
-        return 1.0;
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-otsinky.cpp
 :::
 
 ### Модуль підтвердження ізоморфізму з підзсувом Бернуллі (`horseshoe_bernoulli_shift_eval`)
@@ -1124,18 +581,7 @@ bool horseshoe_verify_bernoulli_isomorphism(const HorseshoeConfig* config);
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class BernoulliIsomorphismVerifier {
-public:
-    [[nodiscard]] static bool verifyIsomorphism(const Config& cfg) noexcept {
-        return (cfg.alpha > 0.0 && cfg.alpha < 0.5 && cfg.beta > 2.0);
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-pidtverdzhennia.cpp
 :::
 
 ### Модуль підтвердження гіперболічності за розщепленням конусів (`horseshoe_cone_field_eval`)
@@ -1149,18 +595,7 @@ bool horseshoe_verify_cone_field_invariance(const HorseshoeConfig* config);
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-class ConeFieldVerifier {
-public:
-    [[nodiscard]] static bool verifyConeInvariance(const Config& cfg) noexcept {
-        return (cfg.alpha > 0.0 && cfg.alpha < 0.5 && cfg.beta > 2.0);
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-pidtverdzhennia-2.cpp
 :::
 
 ### Модуль перерізу Пуанкаре для 3D неавтономного динамічного потоку (`horseshoe_3d_flow_section`)
@@ -1180,22 +615,7 @@ HorseshoeStatus horseshoe_compute_poincare_section(const HorseshoePoint3D* pt_in
 ```
 
 @tab C++
-```cpp
-namespace physics::mechanics {
-
-struct Point3D {
-    double x, y, z;
-};
-
-class PoincareSectionEvaluator {
-public:
-    [[nodiscard]] static Point3D computeSection(const Point3D& pt, double period) noexcept {
-        return pt;
-    }
-};
-
-}
-```
+:::code api-horseshoe-map/cpp/modul-pererizu-puankare.cpp
 :::
 
 ## Гарантії безпеки винятків та нульової вартості абстракцій
@@ -1209,19 +629,7 @@ public:
 
 Низькорівневий ABI-сумісний C-інтерфейс бібліотеки `libhorseshoe` дозволяє просту інтеграцію у мови вищого рівня через механізм FFI (Foreign Function Interface). Нижче наведено приклад обгортки мовою Python із використанням модуля `ctypes`:
 
-```python
-import ctypes
-
-class HorseshoePoint2D(ctypes.Structure):
-    _fields_ = [("x", ctypes.c_double), ("y", ctypes.c_double)]
-
-class HorseshoeConfig(ctypes.Structure):
-    _fields_ = [("alpha", ctypes.c_double), ("beta", ctypes.c_double)]
-
-lib = ctypes.CDLL("./libhorseshoe.so")
-lib.horseshoe_init_config.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.POINTER(HorseshoeConfig)]
-lib.horseshoe_init_config.restype = ctypes.c_int
-```
+:::code api-horseshoe-map/py/main.py
 
 ## Гарантії обробки похибок та нульових виділень пам'яті
 
@@ -1251,18 +659,7 @@ lib.horseshoe_init_config.restype = ctypes.c_int
 
 Для збирання бібліотеки у вигляді статичного або динамічного модуля (`.a` / `.so` / `.dll`) рекомендується використовувати стандартний інструментарій CMake:
 
-```cmake
-cmake_minimum_required(VERSION 3.25)
-project(libhorseshoe LANGUAGES C CXX)
-
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-add_library(horseshoe STATIC horseshoe_c.c horseshoe.cpp)
-```
+:::code api-horseshoe-map/cmake/CMakeLists.txt
 
 ## Приклади комплексної інтеграції
 
@@ -1270,85 +667,10 @@ add_library(horseshoe STATIC horseshoe_c.c horseshoe.cpp)
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include "horseshoe_c.h"
-
-int main(void) {
-    HorseshoeConfig cfg;
-    if (horseshoe_init_config(0.35, 2.4, &cfg) != HORSESHOE_SUCCESS) {
-        fprintf(stderr, "Помилка: неприпустимі параметри підкови!\n");
-        return EXIT_FAILURE;
-    }
-
-    HorseshoePoint2D points[3] = {
-        { .x = 0.2, .y = 0.1 },
-        { .x = 0.5, .y = 0.5 },
-        { .x = 0.8, .y = 0.9 }
-    };
-
-    printf("--- Драйвер симуляції відображення підкови (C) ---\n");
-    for (size_t i = 0; i < 3; ++i) {
-        HorseshoePoint2D out_pt;
-        HorseshoeStatus status = horseshoe_map_forward(&points[i], &out_pt, &cfg);
-
-        if (status == HORSESHOE_SUCCESS) {
-            printf("Точка #%zu: (%.3f, %.3f) -> (%.4f, %.4f)\n", i, points[i].x, points[i].y, out_pt.x, out_pt.y);
-        } else if (status == HORSESHOE_ERROR_ESCAPED_DOMAIN) {
-            printf("Точка #%zu: (%.3f, %.3f) -> Вилетіла з квадрата S\n", i, points[i].x, points[i].y);
-        } else {
-            printf("Точка #%zu: Помилка відображення (%d)\n", i, status);
-        }
-    }
-
-    double dim;
-    horseshoe_compute_capacity_dim(&cfg, &dim);
-    printf("Фрактальна вимірність інваріантної множини: D_box = %.4f\n", dim);
-
-    return EXIT_SUCCESS;
-}
-```
+:::code api-horseshoe-map/c/pryklady-kompleksnoi.c
 
 @tab C++
-```cpp
-#include <iostream>
-#include <vector>
-#include "horseshoe.hpp"
-
-int main() {
-    using namespace physics::mechanics;
-
-    Config cfg{.alpha = 0.35, .beta = 2.4};
-    HorseshoeMap map(cfg);
-
-    std::vector<Point2D> ensemble{
-        {.x = 0.2, .y = 0.1},
-        {.x = 0.5, .y = 0.5},
-        {.x = 0.8, .y = 0.9}
-    };
-
-    std::cout << "--- Драйвер симуляції відображення підкови (C++) ---\n";
-    for (size_t i = 0; i < ensemble.size(); ++i) {
-        auto result = map.forward(ensemble[i]);
-        if (result) {
-            std::cout << "Точка #" << i << ": (" << ensemble[i].x << ", " << ensemble[i].y
-                      << ") -> (" << result->x << ", " << result->y << ")\n";
-        } else if (result.error() == MappingStatus::EscapedDomain) {
-            std::cout << "Точка #" << i << ": (" << ensemble[i].x << ", " << ensemble[i].y
-                      << ") -> Вилетіла з квадрата S\n";
-        } else {
-            std::cout << "Точка #" << i << ": Помилка відображення\n";
-        }
-    }
-
-    auto [lx, ly] = map.lyapunovExponents();
-    std::cout << "Показники Ляпунова: lambda_x = " << lx << ", lambda_y = " << ly << "\n";
-    std::cout << "Фрактальна вимірність інваріантної множини: D_box = " << map.capacityDimension() << "\n";
-
-    return 0;
-}
-```
+:::code api-horseshoe-map/cpp/pryklady-kompleksnoi.cpp
 :::
 
 ## Тестування та сумісність
