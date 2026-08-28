@@ -71,20 +71,7 @@ L = α · L_м'яка(учень at T, учитель at T)  +  (1 − α) · L_
 **Умова: одна цифра, порахуймо м'яку мітку.** Нехай учитель видав для прикладу три логіти `z = (2.0, 1.0, 0.1)`. Порахуймо його м'яку мітку за T = 1 і за T = 2 — і побачимо, як тінь висвітлюється.
 
 :::tabs
-```c
-#include <math.h>
-
-// softmax із температурою: логіти z[n] → ймовірності p[n]
-void softmax_T(const float *z, float *p, int n, float T) {
-    float sum = 0.0f;
-    for (int i = 0; i < n; ++i) {
-        p[i] = expf(z[i] / T);   // ділимо логіт на T, тоді експонента
-        sum += p[i];
-    }
-    for (int i = 0; i < n; ++i)
-        p[i] /= sum;             // нормуємо, щоб додавалося в 1
-}
-```
+:::code knowledge-distillation-d/c/main.c
 ```python
 import numpy as np
 

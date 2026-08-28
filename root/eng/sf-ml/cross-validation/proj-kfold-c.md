@@ -11,86 +11,8 @@
 Суть його одним реченням: ідемо з кінця масиву до початку і для кожної позиції `i` міняємо елемент місцями з випадковим елементом **із діапазону `0..i` включно**. Останнє — критичне. Якби ми брали випадкову позицію з **усього** масиву `0..N−1` (а так пишуть наївно й дуже часто), перемішування вийшло б **зсунутим**: одні перестановки ставали б імовірнішими за інші, і блоки все одно тихо перекошувалися б. Діапазон, що звужується на кожному кроці, — саме те, що робить усі `N!` перестановок рівноймовірними.
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <stdlib.h>
-#include <math.h>
-
-/* Простий відтворюваний ГПВЧ (xorshift32): один seed → один і той самий
-   поділ. Відтворюваність тут не примха: та сама розбивка потрібна, щоб
-   чесно порівнювати дві моделі на однакових блоках, і щоб баг можна було
-   відтворити. rand() із libc для цього гірший — його якість і період
-   залежать від платформи. */
-static uint32_t rng_state;
-
-static void rng_seed(uint32_t s) {
-    rng_state = s ? s : 0x1234567u;   /* нуль зациклив би xorshift на нулі */
-}
-
-static uint32_t rng_next(void) {
-    uint32_t x = rng_state;
-    x ^= x << 13;
-    x ^= x >> 17;
-    x ^= x << 5;
-    rng_state = x;
-    return x;
-}
-
-/* Рівномірне ціле в [0, m) без модуло-зсуву:
-   наївне rng_next() % m трохи частішає малі залишки, коли 2³² не кратне m.
-   Відкидаємо «хвіст», що псує рівномірність. */
-static uint32_t rng_below(uint32_t m) {
-    uint32_t limit = UINT32_MAX - (UINT32_MAX % m);   /* найбільше кратне m */
-    uint32_t r;
-    do { r = rng_next(); } while (r >= limit);
-    return r % m;
-}
-
-/* Перемішати order[0..n-1] на місці (Фішер–Єйтс, прохід із кінця). */
-static void shuffle(int *order, int n) {
-    for (int i = n - 1; i > 0; i--) {
-        uint32_t j = rng_below((uint32_t)(i + 1));   /* j ∈ [0, i] включно */
-        int t = order[i]; order[i] = order[j]; order[j] = t;
-    }
-}
-```
-```python
-# Простий відтворюваний ГПВЧ (xorshift32): один seed → один і той самий
-# поділ. Відтворюваність тут не примха: та сама розбивка потрібна, щоб
-# чесно порівнювати дві моделі на однакових блоках, і щоб баг можна було
-# відтворити. random зі stdlib для цього гірший — залежить від платформи.
-_MASK = 0xFFFFFFFF       # тримаємо стан у межах 32 біт
-_rng_state = 0
-
-def rng_seed(s: int) -> None:
-    global _rng_state
-    _rng_state = s if s else 0x1234567   # нуль зациклив би xorshift на нулі
-
-def rng_next() -> int:
-    global _rng_state
-    x = _rng_state
-    x ^= (x << 13) & _MASK
-    x ^= x >> 17
-    x ^= (x << 5) & _MASK
-    _rng_state = x & _MASK
-    return _rng_state
-
-# Рівномірне ціле в [0, m) без модуло-зсуву:
-# наївне rng_next() % m трохи частішає малі залишки, коли 2³² не кратне m.
-# Відкидаємо «хвіст», що псує рівномірність.
-def rng_below(m: int) -> int:
-    limit = _MASK - (_MASK % m)      # найбільше кратне m
-    while True:
-        r = rng_next()
-        if r < limit:
-            return r % m
-
-# Перемішати order[0..n-1] на місці (Фішер–Єйтс, прохід із кінця).
-def shuffle(order: list[int], n: int) -> None:
-    for i in range(n - 1, 0, -1):
-        j = rng_below(i + 1)                     # j ∈ [0, i] включно
-        order[i], order[j] = order[j], order[i]
-```
+:::code proj-kfold-c/cpp/rukh-pershyi-peremishaty.cpp
+:::code proj-kfold-c/py/rukh-pershyi-peremishaty.py
 :::
 
 Тут дві тонкощі, повз які легко пройти. Перша — **`j` береться з `0..i` включно**, тобто `rng_below(i + 1)`, а не `rng_below(i)`: позиція має право лишитися на місці (обмінятися сама з собою), інакше знову дістанемо зсунутий розподіл, де жоден елемент не стоїть там, де почав. Друга — сам генератор випадкових. Я не беру `rand()` зі стандартної бібліотеки не через снобізм: його якість і період не гарантовані стандартом і різняться від платформи до платформи, а нам потрібне **відтворюване** число — той самий `seed` має давати той самий поділ, щоб можна було чесно порівняти дві моделі на **однакових** блоках і щоб баг у поділі можна було відтворити. `xorshift32` крихітний, швидкий і однаковий усюди.
@@ -107,18 +29,7 @@ def shuffle(order: list[int], n: int) -> None:
 Щоб не рахувати межі блоку щоразу заново, зручно один раз збудувати масив **початків** блоків. Початок блоку `f` — це сума розмірів усіх попередніх; знаючи його й розмір поточного, легко вирізати «іспитовий» діапазон, а решту віддати в навчання.
 
 :::tabs
-```cpp
-/* Розмір блоку f при поділі n на k з роздачею залишку першим блокам. */
-static int fold_size(int n, int k, int f) {
-    return n / k + (f < n % k ? 1 : 0);   /* перші (n%k) блоків — на 1 більші */
-}
-
-/* Початок (offset у order[]) блоку f: сума розмірів блоків 0..f-1. */
-static int fold_start(int n, int k, int f) {
-    int base = n / k, r = n % k;
-    return f * base + (f < r ? f : r);    /* +по одному за кожен «довгий» блок до f */
-}
-```
+:::code proj-kfold-c/cpp/rukh-druhyi-narizaty-na-k.cpp
 ```python
 # Розмір блоку f при поділі n на k з роздачею залишку першим блокам.
 def fold_size(n: int, k: int, f: int) -> int:
@@ -138,102 +49,8 @@ def fold_start(n: int, k: int, f: int) -> int:
 Тепер серце модуля. У кожному проході `f` вирізаємо блок `f` як «іспит», усе інше — навчання, вчимо **з нуля**, міряємо, запам'ятовуємо точність. Зібравши `k` чисел, рахуємо середнє **й розкид**. Розкид рахуємо чесним стандартним відхиленням: спершу середнє, тоді корінь із середнього квадрата відхилень від нього.
 
 :::tabs
-```cpp
-/* Результат крос-валідації: середнє й розкид точностей по проходах. */
-typedef struct { float mean; float sd; int k; } cv_result;
-
-/* Твої функції моделі (заглушки під конкретний алгоритм):
-   train    — навчити модель з нуля на прикладах idx[0..n-1];
-   accuracy — частка правильних на прикладах idx[0..n-1] (0..1). */
-extern void  train(const int *idx, int n);
-extern float accuracy(const int *idx, int n);
-
-/* k-кратна крос-валідація над n прикладами. seed фіксує поділ.
-   Повертає середнє й стандартне відхилення точностей k проходів. */
-static cv_result cross_validate(int n, int k, uint32_t seed) {
-    int *order = (int *)malloc((size_t)n * sizeof(int));
-    int *test  = (int *)malloc((size_t)n * sizeof(int));
-    int *train_idx = (int *)malloc((size_t)n * sizeof(int));
-    float *acc = (float *)malloc((size_t)k * sizeof(float));
-
-    for (int i = 0; i < n; i++) order[i] = i;   /* 0,1,2,…,n-1 */
-    rng_seed(seed);
-    shuffle(order, n);                          /* перемішали РАЗ наперед */
-
-    for (int f = 0; f < k; f++) {
-        int lo = fold_start(n, k, f);
-        int hi = lo + fold_size(n, k, f);       /* [lo, hi) — «іспитовий» блок */
-
-        int nt = 0, ntr = 0;
-        for (int i = 0; i < n; i++) {
-            if (i >= lo && i < hi) test[nt++]      = order[i];   /* іспит  */
-            else                   train_idx[ntr++] = order[i];  /* навч.  */
-        }
-
-        train(train_idx, ntr);                  /* НАВЧАЄМО З НУЛЯ щоразу */
-        acc[f] = accuracy(test, nt);            /* міряємо на відкладеному */
-    }
-
-    /* середнє */
-    float sum = 0.0f;
-    for (int f = 0; f < k; f++) sum += acc[f];
-    float mean = sum / (float)k;
-
-    /* розкид: √( (1/k) · Σ(acc[f] − mean)² ) */
-    float ss = 0.0f;
-    for (int f = 0; f < k; f++) {
-        float d = acc[f] - mean;
-        ss += d * d;
-    }
-    float sd = sqrtf(ss / (float)k);
-
-    cv_result res = { mean, sd, k };
-    free(order); free(test); free(train_idx); free(acc);
-    return res;
-}
-```
-```python
-import math
-from dataclasses import dataclass
-
-# Результат крос-валідації: середнє й розкид точностей по проходах.
-@dataclass
-class CVResult:
-    mean: float
-    sd: float
-    k: int
-
-# Твої функції моделі (заглушки під конкретний алгоритм):
-#   train    — навчити модель з нуля на прикладах idx[0..n-1];
-#   accuracy — частка правильних на прикладах idx[0..n-1] (0..1).
-# Тут — зовнішні функції, які ти реалізуєш під свій алгоритм.
-
-# k-кратна крос-валідація над n прикладами. seed фіксує поділ.
-# Повертає середнє й стандартне відхилення точностей k проходів.
-def cross_validate(n: int, k: int, seed: int) -> CVResult:
-    order = list(range(n))          # 0,1,2,…,n-1
-    rng_seed(seed)
-    shuffle(order, n)               # перемішали РАЗ наперед
-
-    acc = [0.0] * k
-    for f in range(k):
-        lo = fold_start(n, k, f)
-        hi = lo + fold_size(n, k, f)            # [lo, hi) — «іспитовий» блок
-
-        test = [order[i] for i in range(n) if lo <= i < hi]        # іспит
-        train_idx = [order[i] for i in range(n) if not (lo <= i < hi)]  # навч.
-
-        train(train_idx, len(train_idx))        # НАВЧАЄМО З НУЛЯ щоразу
-        acc[f] = accuracy(test, len(test))      # міряємо на відкладеному
-
-    # середнє
-    mean = sum(acc) / k
-    # розкид: √( (1/k) · Σ(acc[f] − mean)² )
-    ss = sum((a - mean) ** 2 for a in acc)
-    sd = math.sqrt(ss / k)
-
-    return CVResult(mean, sd, k)
-```
+:::code proj-kfold-c/cpp/rukh-tretii-k-prokhodiv.cpp
+:::code proj-kfold-c/py/rukh-tretii-k-prokhodiv.py
 :::
 
 Три речі тут вирішують усе, і кожна — це одна з майбутніх пасток, поставлена правильно. Перше: `train` викликається **всередині** циклу проходів, тобто модель щоразу народжується заново на своїй порції даних. Якщо винести навчання назовні або накопичувати ваги між проходами, блоки перемішаються — модель у проході `f` уже бачитиме приклади, на яких її потім перевірятимуть. Друге: перемішування — **один раз до циклу**, а не в кожному проході; блоки мають бути стабільними, інакше приклад може двічі попасти в «іспит» або жодного разу. Третє: ми зберігаємо **всі** `k` точностей, а не лише їхню суму, бо для розкиду потрібні самі числа — і саме розкид, а не тільки середнє, скаже, чи можна оцінці вірити.
@@ -262,67 +79,8 @@ def cross_validate(n: int, k: int, seed: int) -> CVResult:
 *Стратифікований поділ по колу. Червоні — рідкісний клас (10 бракованих), сірі — 40 добрих. Кожен клас роздаємо по 5 блоках **окремо, по колу**: 10 бракованих лягають рівно по 2 в блок, 40 добрих — по 8. У кожному блоці виходить та сама пропорція 2:8, що й у повному наборі (1:4). Порівняй із наївним поділом угорі, де брак міг скупчитися й лишити блок без жодного бракованого приклада.*
 
 :::tabs
-```cpp
-/* Стратифікований поділ n прикладів на k блоків за мітками класу.
-   label[i] — клас прикладу i, значення 0..num_classes-1.
-   Заповнює fold_of[i] = номер блоку (0..k-1), куди потрапив приклад i.
-   Пропорція класів у кожному блоці ≈ пропорція в усьому наборі. */
-static void stratified_split(int n, int k, int num_classes,
-                             const int *label, uint32_t seed, int *fold_of) {
-    /* buckets[c] збиратиме індекси прикладів класу c */
-    int **buckets = (int **)malloc((size_t)num_classes * sizeof(int *));
-    int  *cnt     = (int  *)calloc((size_t)num_classes, sizeof(int));
-
-    for (int i = 0; i < n; i++) cnt[label[i]]++;            /* скільки в кожнім класі */
-    for (int c = 0; c < num_classes; c++)
-        buckets[c] = (int *)malloc((size_t)(cnt[c] ? cnt[c] : 1) * sizeof(int));
-
-    int *pos = (int *)calloc((size_t)num_classes, sizeof(int));
-    for (int i = 0; i < n; i++) {                           /* розклали по відрах */
-        int c = label[i];
-        buckets[c][pos[c]++] = i;
-    }
-
-    rng_seed(seed);
-    for (int c = 0; c < num_classes; c++)
-        shuffle(buckets[c], cnt[c]);                        /* перемішали КОЖЕН клас */
-
-    /* роздача по колу: приклад j класу c → блок (j % k).
-       старт кола зсуваємо на клас, щоб залишки різних класів не сідали всі в блок 0 */
-    for (int c = 0; c < num_classes; c++)
-        for (int j = 0; j < cnt[c]; j++)
-            fold_of[buckets[c][j]] = (j + c) % k;
-
-    for (int c = 0; c < num_classes; c++) free(buckets[c]);
-    free(buckets); free(cnt); free(pos);
-}
-```
-```python
-# Стратифікований поділ n прикладів на k блоків за мітками класу.
-# label[i] — клас прикладу i, значення 0..num_classes-1.
-# Повертає fold_of[i] = номер блоку (0..k-1), куди потрапив приклад i.
-# Пропорція класів у кожному блоці ≈ пропорція в усьому наборі.
-def stratified_split(n: int, k: int, num_classes: int,
-                     label: list[int], seed: int) -> list[int]:
-    fold_of = [0] * n
-
-    # buckets[c] збирає індекси прикладів класу c
-    buckets = [[] for _ in range(num_classes)]
-    for i in range(n):                              # розклали по відрах
-        buckets[label[i]].append(i)
-
-    rng_seed(seed)
-    for c in range(num_classes):
-        shuffle(buckets[c], len(buckets[c]))        # перемішали КОЖЕН клас
-
-    # роздача по колу: приклад j класу c → блок (j % k).
-    # старт кола зсуваємо на клас, щоб залишки різних класів не сідали всі в блок 0
-    for c in range(num_classes):
-        for j, idx in enumerate(buckets[c]):
-            fold_of[idx] = (j + c) % k
-
-    return fold_of
-```
+:::code proj-kfold-c/cpp/stratyfikovanyi-podil-koly.cpp
+:::code proj-kfold-c/py/stratyfikovanyi-podil-koly.py
 :::
 
 Один тонкий штрих у роздачі — зсув старту кола на номер класу: `(j + c) % k` замість простого `j % k`. Навіщо? Коли в класі не рівно `k·щось` прикладів, «хвіст» (останні кілька, що не добили повне коло) завжди сідав би в перші блоки — блок 0, потім 1 і так далі. Якщо всі класи починають коло з блоку 0, ці хвости **накопичуються** в перших блоках, і вони трохи розпухають. Зсунувши старт кожного класу на `c`, ми розкидаємо хвости різних класів по різних блоках, і розміри блоків лишаються рівнішими. Дрібниця, але саме з таких дрібниць складається різниця між «майже рівно» і «помітно перекошено».
@@ -330,59 +88,8 @@ def stratified_split(n: int, k: int, num_classes: int,
 Далі стратифікований поділ вживають замість `shuffle`+`fold_start`/`fold_size`: у кожному проході `f` «іспит» — це всі `i`, де `fold_of[i] == f`, а решта — навчання.
 
 :::tabs
-```cpp
-/* Крос-валідація зі стратифікованим поділом за мітками класу. */
-static cv_result cross_validate_stratified(int n, int k, int num_classes,
-                                           const int *label, uint32_t seed) {
-    int *fold_of   = (int *)malloc((size_t)n * sizeof(int));
-    int *test      = (int *)malloc((size_t)n * sizeof(int));
-    int *train_idx = (int *)malloc((size_t)n * sizeof(int));
-    float *acc     = (float *)malloc((size_t)k * sizeof(float));
-
-    stratified_split(n, k, num_classes, label, seed, fold_of);
-
-    for (int f = 0; f < k; f++) {
-        int nt = 0, ntr = 0;
-        for (int i = 0; i < n; i++) {
-            if (fold_of[i] == f) test[nt++]        = i;   /* іспит цього проходу */
-            else                 train_idx[ntr++]  = i;   /* решта — навчання    */
-        }
-        train(train_idx, ntr);                            /* знову — з нуля */
-        acc[f] = accuracy(test, nt);
-    }
-
-    float sum = 0.0f;
-    for (int f = 0; f < k; f++) sum += acc[f];
-    float mean = sum / (float)k;
-    float ss = 0.0f;
-    for (int f = 0; f < k; f++) { float d = acc[f] - mean; ss += d * d; }
-    float sd = sqrtf(ss / (float)k);
-
-    cv_result res = { mean, sd, k };
-    free(fold_of); free(test); free(train_idx); free(acc);
-    return res;
-}
-```
-```python
-# Крос-валідація зі стратифікованим поділом за мітками класу.
-def cross_validate_stratified(n: int, k: int, num_classes: int,
-                              label: list[int], seed: int) -> CVResult:
-    fold_of = stratified_split(n, k, num_classes, label, seed)
-
-    acc = [0.0] * k
-    for f in range(k):
-        test = [i for i in range(n) if fold_of[i] == f]        # іспит цього проходу
-        train_idx = [i for i in range(n) if fold_of[i] != f]   # решта — навчання
-
-        train(train_idx, len(train_idx))                       # знову — з нуля
-        acc[f] = accuracy(test, len(test))
-
-    mean = sum(acc) / k
-    ss = sum((a - mean) ** 2 for a in acc)
-    sd = math.sqrt(ss / k)
-
-    return CVResult(mean, sd, k)
-```
+:::code proj-kfold-c/cpp/stratyfikovanyi-podil-koly-2.cpp
+:::code proj-kfold-c/py/stratyfikovanyi-podil-koly-2.py
 :::
 
 Зверни увагу: структура проходів **та сама**, змінився лише спосіб вирішити, який приклад у якому блоці. Це не випадково — стратифікація чіпає **тільки поділ**, а рух «навчи з нуля, зміряй на відкладеному, збери середнє й розкид» лишається незмінним. Гарний модуль так і будують: один спосіб проходів, кілька взаємозамінних способів поділу під нього.
@@ -392,67 +99,8 @@ def cross_validate_stratified(n: int, k: int, num_classes: int,
 Заглушки `train`/`accuracy` ти пишеш під свій алгоритм — модуль їх лише кличе. Ось як виглядає кістяк під, скажімо, найпростіший класифікатор; тіло лишаю тобі, бо воно залежить від моделі, але сигнатури й контракт — саме такі, яких чекає модуль.
 
 :::tabs
-```cpp
-/* --- Твоя частина: одна модель, дві функції під контракт модуля. --- */
-
-static Model g_model;                 /* стан однієї моделі (ваги тощо) */
-extern Sample g_data[];               /* десь лежать самі приклади */
-
-/* Навчити З НУЛЯ на прикладах, чиї індекси дав модуль.
-   Ключове: обнулити модель на вході, бо той самий g_model
-   використовується в наступному проході. */
-void train(const int *idx, int n) {
-    model_reset(&g_model);            /* СКИНУТИ — інакше ваги накопичаться між проходами */
-    for (int i = 0; i < n; i++)
-        model_update(&g_model, &g_data[idx[i]]);   /* учимо лише на цих прикладах */
-}
-
-/* Частка правильних на прикладах, чиї індекси дав модуль. */
-float accuracy(const int *idx, int n) {
-    int correct = 0;
-    for (int i = 0; i < n; i++) {
-        int pred = model_predict(&g_model, &g_data[idx[i]]);
-        if (pred == g_data[idx[i]].label) correct++;
-    }
-    return (float)correct / (float)n;
-}
-
-/* --- Виклик: --- */
-void run_evaluation(void) {
-    cv_result r = cross_validate(200, 5, /*seed=*/42u);
-    printf("точність: %.1f%% ± %.1f%%\n", r.mean * 100.0f, r.sd * 100.0f);
-    /* напр.: "точність: 86.0% ± 1.7%" — середнє й розкид по 5 проходах */
-}
-```
-```python
-# --- Твоя частина: одна модель, дві функції під контракт модуля. ---
-
-g_model = Model()          # стан однієї моделі (ваги тощо)
-g_data: list[Sample] = []  # десь лежать самі приклади
-
-# Навчити З НУЛЯ на прикладах, чиї індекси дав модуль.
-# Ключове: обнулити модель на вході, бо той самий g_model
-# використовується в наступному проході.
-def train(idx: list[int], n: int) -> None:
-    model_reset(g_model)                       # СКИНУТИ — інакше ваги накопичаться між проходами
-    for i in range(n):
-        model_update(g_model, g_data[idx[i]])  # учимо лише на цих прикладах
-
-# Частка правильних на прикладах, чиї індекси дав модуль.
-def accuracy(idx: list[int], n: int) -> float:
-    correct = 0
-    for i in range(n):
-        pred = model_predict(g_model, g_data[idx[i]])
-        if pred == g_data[idx[i]].label:
-            correct += 1
-    return correct / n
-
-# --- Виклик: ---
-def run_evaluation() -> None:
-    r = cross_validate(200, 5, seed=42)
-    print(f"точність: {r.mean * 100:.1f}% ± {r.sd * 100:.1f}%")
-    # напр.: "точність: 86.0% ± 1.7%" — середнє й розкид по 5 проходах
-```
+:::code proj-kfold-c/cpp/iak-tse-vyklykaty.cpp
+:::code proj-kfold-c/py/iak-tse-vyklykaty.py
 :::
 
 Найважливіший рядок тут — `model_reset(&g_model)` **на вході** `train`. Модуль викликає `train` `k` разів поспіль над тим самим `g_model`; якщо не скинути ваги, кожен наступний прохід довчатиме модель поверх попереднього — і вона побачить майже весь набір, зокрема свої майбутні «іспитові» приклади. Це найпідступніша з грабель, бо код компілюється, працює й видає **красиві завищені** числа — просто вони брехливі. Скидання моделі — межа між чесною оцінкою і самообманом.

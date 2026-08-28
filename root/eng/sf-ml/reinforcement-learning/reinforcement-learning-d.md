@@ -109,44 +109,8 @@ Q(s,a) ← Q(s,a) + α · [ r + γ · max Q(s',a') − Q(s,a) ]
 **Worked-приклад: одне оновлення Q-навчання.** Хай агент у стані s зробив дію a, дістав винагороду r = 1 і потрапив у s', де можливі дві дії з поточними оцінками Q(s',ліворуч) = 5 і Q(s',праворуч) = 8. Стара оцінка Q(s,a) = 4. Візьмімо α = 0.1, γ = 0.9. Реальний код прошивки, що робить один такий крок:
 
 :::tabs
-```cpp
-// Q-таблиця: [скільки станів][скільки дій]; тут S станів, A дій
-float Q[S][A];
-
-// одне оновлення Q-навчання після переходу s --a--> s' з винагородою r
-void q_update(int s, int a, float r, int s_next,
-              float alpha, float gamma)
-{
-    // 1) знайти найкраще Q у наступному стані (max по діях)
-    float best_next = Q[s_next][0];
-    for (int j = 1; j < A; ++j)
-        if (Q[s_next][j] > best_next)
-            best_next = Q[s_next][j];
-
-    // 2) ціль за Беллманом: винагорода + знецінене найкраще продовження
-    float target = r + gamma * best_next;   // 1 + 0.9*8 = 8.2
-
-    // 3) несподіванка δ і крок до цілі
-    float delta = target - Q[s][a];         // 8.2 - 4 = 4.2
-    Q[s][a] += alpha * delta;               // 4 + 0.1*4.2 = 4.42
-}
-```
-```python
-# Q-таблиця: [скільки станів][скільки дій]; тут S станів, A дій
-Q = [[0.0] * A for _ in range(S)]
-
-# одне оновлення Q-навчання після переходу s --a--> s' з винагородою r
-def q_update(s, a, r, s_next, alpha, gamma):
-    # 1) знайти найкраще Q у наступному стані (max по діях)
-    best_next = max(Q[s_next])
-
-    # 2) ціль за Беллманом: винагорода + знецінене найкраще продовження
-    target = r + gamma * best_next          # 1 + 0.9*8 = 8.2
-
-    # 3) несподіванка δ і крок до цілі
-    delta = target - Q[s][a]                # 8.2 - 4 = 4.2
-    Q[s][a] += alpha * delta                # 4 + 0.1*4.2 = 4.42
-```
+:::code reinforcement-learning-d/cpp/q-znachennia-i-q.cpp
+:::code reinforcement-learning-d/py/q-znachennia-i-q.py
 :::
 
 Порахуймо руками, щоб побачити механізм:
@@ -174,41 +138,8 @@ Q(s,a)    = 4 + 0.1 · 4.2      = 4.42
 Найпростіший робочий рецепт зветься **ε-жадібним** (англ. *epsilon-greedy*): з імовірністю ε (скажімо, 0.1) агент робить **випадкову** дію-розвідку, а решту часу — **найкращу відому**. Ось як це виглядає в коді:
 
 :::tabs
-```cpp
-#include <stdlib.h>
-
-// вибір дії: з імовірністю eps — випадкова (розвідка),
-// інакше — з найбільшим Q (визиск)
-int choose_action(const float *q_row, int A, float eps)
-{
-    // rand()/RAND_MAX — псевдовипадкове число в [0,1)
-    if ((float)rand() / RAND_MAX < eps)
-        return rand() % A;              // розвідка: будь-яка дія
-
-    int best = 0;                       // визиск: argmax по Q
-    for (int j = 1; j < A; ++j)
-        if (q_row[j] > q_row[best])
-            best = j;
-    return best;
-}
-```
-```python
-import random
-
-# вибір дії: з імовірністю eps — випадкова (розвідка),
-# інакше — з найбільшим Q (визиск)
-def choose_action(q_row, eps):
-    # random.random() — псевдовипадкове число в [0,1)
-    if random.random() < eps:
-        return random.randrange(len(q_row))   # розвідка: будь-яка дія
-
-    # визиск: argmax по Q
-    best = 0
-    for j in range(1, len(q_row)):
-        if q_row[j] > q_row[best]:
-            best = j
-    return best
-```
+:::code reinforcement-learning-d/cpp/rozvidka-proty-vyzysku.cpp
+:::code reinforcement-learning-d/py/rozvidka-proty-vyzysku.py
 :::
 
 Часто ε роблять великим на початку (агент нічого не знає — хай досліджує) і поступово зменшують (агент вивчив світ — хай користається). Цей простий прийом розв'язує ту саму дилему, з якою стикається будь-хто в житті: ходити в перевірений ресторан чи спробувати новий, який може виявитися і кращим, і гіршим.

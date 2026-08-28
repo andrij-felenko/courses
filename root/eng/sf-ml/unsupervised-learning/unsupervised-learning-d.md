@@ -52,61 +52,15 @@
 
 **Крок присвоєння: причепити кожну точку до найближчого центру.**
 :::tabs
-```cpp
-// pts[N] — точки, cent[K] — центри, assign[N] — вихід
-// повертає, скільки точок змінили групу (0 => можна спинятись)
-int assign_step(const Pt *pts, int N, const Pt *cent, int K, int *assign) {
-    int changed = 0;
-    for (int i = 0; i < N; i++) {
-        int    best  = 0;
-        double bestd = 1e300;          // квадрат відстані до найближчого
-        for (int c = 0; c < K; c++) {
-            double dx = pts[i].x - cent[c].x;
-            double dy = pts[i].y - cent[c].y;
-            double d  = dx*dx + dy*dy;  // корінь брати не треба: порядок той самий
-            if (d < bestd) { bestd = d; best = c; }
-        }
-        if (assign[i] != best) { assign[i] = best; changed++; }
-    }
-    return changed;
-}
-```
-```python
-import numpy as np
-
-# pts[N,2] — точки, cent[K,2] — центри, assign[N] — попереднє присвоєння
-# повертає нове присвоєння і скільки точок змінили групу (0 => можна спинятись)
-def assign_step(pts, cent, assign):
-    # квадрати відстаней кожної точки до кожного центру; корінь зайвий — порядок той самий
-    d2 = np.sum((pts[:, None, :] - cent[None, :, :]) ** 2, axis=2)
-    best = np.argmin(d2, axis=1)       # найближчий центр для кожної точки
-    changed = int(np.sum(best != assign))
-    return best, changed
-```
+:::code unsupervised-learning-d/cpp/iak-tse-spravdi-robytsia-k.cpp
+:::code unsupervised-learning-d/py/main.py
 :::
 
 Зверни увагу: відстань беремо як **суму квадратів** різниць, без квадратного кореня. Корінь — монотонний, він не змінює, хто ближчий, зате коштує обчислень. Дрібниця, а на мільйонах точок економить помітно.
 
 **Крок оновлення: пересунути кожен центр у середину своїх точок.**
 :::tabs
-```cpp
-void update_step(const Pt *pts, int N, Pt *cent, int K, const int *assign) {
-    double sx[K], sy[K];  int cnt[K];
-    for (int c = 0; c < K; c++) { sx[c] = sy[c] = 0.0; cnt[c] = 0; }
-
-    for (int i = 0; i < N; i++) {      // зібрати суми по кожній групі
-        int c = assign[i];
-        sx[c] += pts[i].x;  sy[c] += pts[i].y;  cnt[c]++;
-    }
-    for (int c = 0; c < K; c++) {
-        if (cnt[c] > 0) {              // центр = середнє своїх точок
-            cent[c].x = sx[c] / cnt[c];
-            cent[c].y = sy[c] / cnt[c];
-        }
-        // cnt[c] == 0 — «порожній» центр: нікого не притягнув, лишаємо на місці
-    }
-}
-```
+:::code unsupervised-learning-d/cpp/iak-tse-spravdi-robytsia-k-2.cpp
 ```python
 def update_step(pts, cent, assign):
     K = len(cent)
