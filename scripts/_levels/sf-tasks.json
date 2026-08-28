@@ -1,402 +1,402 @@
 {
-  "book": "sf-tasks",
-  "kind": "eng",
-  "raters": [
-    "A",
-    "B",
-    "C"
-  ],
-  "topics": [
-    {
-      "slug": "torn-reads",
-      "title": "Розривне читання (torn read)",
-      "group": "Спільна пам'ять",
-      "chapter": "Гонки й атомарність",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2760,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "volatile-register",
-      "title": "volatile і компілятор в embedded C",
-      "group": "Спільна пам'ять",
-      "chapter": "Порядок і видимість",
-      "votes": [
-        1,
-        2,
-        1
-      ],
-      "mean": 1.33,
-      "level": 1,
-      "spread": 1,
-      "words": 2528,
-      "realLevel": 1,
-      "delta": 0
-    },
-    {
-      "slug": "data-races-locks",
-      "title": "Перегони даних і замки",
-      "group": "Замки й безблоковість",
-      "chapter": "Замки й критичні секції",
-      "votes": [
-        5,
-        5,
-        5
-      ],
-      "mean": 5,
-      "level": 5,
-      "spread": 0,
-      "words": 3061,
-      "realLevel": 2,
-      "delta": 3
-    },
-    {
-      "slug": "readers-writer-lock",
-      "title": "Багато читачів, один письменник",
-      "group": "Замки й безблоковість",
-      "chapter": "Замки й критичні секції",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2475,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "monitor-sync",
-      "title": "Монітори й умовні змінні",
-      "group": "Замки й безблоковість",
-      "chapter": "Монітори й дедлок",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2486,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "deadlock",
-      "title": "Дедлок",
-      "group": "Замки й безблоковість",
-      "chapter": "Монітори й дедлок",
-      "votes": [
-        4,
-        5,
-        5
-      ],
-      "mean": 4.67,
-      "level": 5,
-      "spread": 1,
-      "words": 2786,
-      "realLevel": 1,
-      "delta": 4
-    },
-    {
-      "slug": "thread-safety",
-      "title": "Потокова безпека",
-      "group": "Замки й безблоковість",
-      "chapter": "Потокобезпечний код",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2949,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "lock-free-basics",
-      "title": "Без замків",
-      "group": "Замки й безблоковість",
-      "chapter": "Без замків",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2669,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "producer-consumer",
-      "title": "Виробник–споживач",
-      "group": "Обмін повідомленнями",
-      "chapter": "Черги й сповіщення",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2762,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "actor-model",
-      "title": "Модель акторів",
-      "group": "Обмін повідомленнями",
-      "chapter": "Актори й канали",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 1729,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "csp-channels",
-      "title": "Канали і CSP",
-      "group": "Обмін повідомленнями",
-      "chapter": "Актори й канали",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2126,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "supervision-trees",
-      "title": "Дерева нагляду",
-      "group": "Обмін повідомленнями",
-      "chapter": "Актори й канали",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 2454,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "blocking-vs-nonblocking-io",
-      "title": "Блокуючий і неблокуючий ввід-вивід",
-      "group": "Асинхронність і навантаження",
-      "chapter": "Неблокуючий ввід-вивід",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2848,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "event-loop",
-      "title": "Цикл подій",
-      "group": "Асинхронність і навантаження",
-      "chapter": "Неблокуючий ввід-вивід",
-      "votes": [
-        5,
-        4,
-        4
-      ],
-      "mean": 4.33,
-      "level": 4,
-      "spread": 1,
-      "words": 1527,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "async-await",
-      "title": "Колбеки → проміси → async/await",
-      "group": "Асинхронність і навантаження",
-      "chapter": "Неблокуючий ввід-вивід",
-      "votes": [
-        4,
-        3,
-        3
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2558,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "thread-pool",
-      "title": "Пул потоків і його розмір",
-      "group": "Асинхронність і навантаження",
-      "chapter": "Виконавці й темп",
-      "votes": [
-        3,
-        3,
-        4
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 3188,
-      "realLevel": 2,
-      "delta": 1
-    },
-    {
-      "slug": "thread-per-core",
-      "title": "Thread-per-core / shared-nothing на ядрах",
-      "group": "Асинхронність і навантаження",
-      "chapter": "Виконавці й темп",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 2834,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "backpressure-local",
-      "title": "Backpressure",
-      "group": "Асинхронність і навантаження",
-      "chapter": "Виконавці й темп",
-      "votes": [
-        2,
-        1,
-        2
-      ],
-      "mean": 1.67,
-      "level": 2,
-      "spread": 1,
-      "words": 2004,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "backpressure",
-      "title": "Протитиск (backpressure)",
-      "group": "Асинхронність і навантаження",
-      "chapter": "Виконавці й темп",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2053,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "potoky-nastilnoi-os-proty-zadach-rtos",
-      "title": "Потоки настільної ОС проти задач RTOS",
-      "group": "Реальний час",
-      "chapter": "Задачі під RTOS",
-      "votes": [
-        3,
-        4,
-        4
-      ],
-      "mean": 3.67,
-      "level": 4,
-      "spread": 1,
-      "words": 2611,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "tyk-planuvalnyka-i-rezhym-bez-tyku-tickless",
-      "title": "Тик планувальника й режим без тику (tickless)",
-      "group": "Реальний час",
-      "chapter": "Задачі під RTOS",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2247,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "son-pid-rtos",
-      "title": "Сон під RTOS: tickless і задача, яка нічого не робить",
-      "group": "Реальний час",
-      "chapter": "Задачі під RTOS",
-      "votes": [
-        2,
-        1,
-        2
-      ],
-      "mean": 1.67,
-      "level": 2,
-      "spread": 1,
-      "words": 3289,
-      "realLevel": 2,
-      "delta": 0
-    },
-    {
-      "slug": "vyklyky-rtos-iz-pereryvannia-fromisr",
-      "title": "Виклики RTOS із переривання (FromISR)",
-      "group": "Реальний час",
-      "chapter": "Задачі під RTOS",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 1985,
-      "realLevel": 1,
-      "delta": 2
-    }
-  ]
+ "book": "sf-tasks",
+ "kind": "eng",
+ "raters": [
+  "A",
+  "B",
+  "C"
+ ],
+ "topics": [
+  {
+   "slug": "torn-reads",
+   "title": "Розривне читання (torn read)",
+   "group": "Спільна пам'ять",
+   "chapter": "Гонки й атомарність",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2751,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "volatile-register",
+   "title": "volatile і компілятор в embedded C",
+   "group": "Спільна пам'ять",
+   "chapter": "Порядок і видимість",
+   "votes": [
+    1,
+    2,
+    1
+   ],
+   "mean": 1.33,
+   "level": 1,
+   "spread": 1,
+   "words": 2521,
+   "realLevel": 1,
+   "delta": 0
+  },
+  {
+   "slug": "data-races-locks",
+   "title": "Перегони даних і замки",
+   "group": "Замки й безблоковість",
+   "chapter": "Замки й критичні секції",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 3053,
+   "realLevel": 2,
+   "delta": 3
+  },
+  {
+   "slug": "readers-writer-lock",
+   "title": "Багато читачів, один письменник",
+   "group": "Замки й безблоковість",
+   "chapter": "Замки й критичні секції",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2474,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "monitor-sync",
+   "title": "Монітори й умовні змінні",
+   "group": "Замки й безблоковість",
+   "chapter": "Монітори й дедлок",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2483,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "deadlock",
+   "title": "Дедлок",
+   "group": "Замки й безблоковість",
+   "chapter": "Монітори й дедлок",
+   "votes": [
+    4,
+    5,
+    5
+   ],
+   "mean": 4.67,
+   "level": 5,
+   "spread": 1,
+   "words": 2784,
+   "realLevel": 1,
+   "delta": 4
+  },
+  {
+   "slug": "thread-safety",
+   "title": "Потокова безпека",
+   "group": "Замки й безблоковість",
+   "chapter": "Потокобезпечний код",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2938,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "lock-free-basics",
+   "title": "Без замків",
+   "group": "Замки й безблоковість",
+   "chapter": "Без замків",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2667,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "producer-consumer",
+   "title": "Виробник–споживач",
+   "group": "Обмін повідомленнями",
+   "chapter": "Черги й сповіщення",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2758,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "actor-model",
+   "title": "Модель акторів",
+   "group": "Обмін повідомленнями",
+   "chapter": "Актори й канали",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 1728,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "csp-channels",
+   "title": "Канали і CSP",
+   "group": "Обмін повідомленнями",
+   "chapter": "Актори й канали",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2126,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "supervision-trees",
+   "title": "Дерева нагляду",
+   "group": "Обмін повідомленнями",
+   "chapter": "Актори й канали",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2453,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "blocking-vs-nonblocking-io",
+   "title": "Блокуючий і неблокуючий ввід-вивід",
+   "group": "Асинхронність і навантаження",
+   "chapter": "Неблокуючий ввід-вивід",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2844,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "event-loop",
+   "title": "Цикл подій",
+   "group": "Асинхронність і навантаження",
+   "chapter": "Неблокуючий ввід-вивід",
+   "votes": [
+    5,
+    4,
+    4
+   ],
+   "mean": 4.33,
+   "level": 4,
+   "spread": 1,
+   "words": 1526,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "async-await",
+   "title": "Колбеки → проміси → async/await",
+   "group": "Асинхронність і навантаження",
+   "chapter": "Неблокуючий ввід-вивід",
+   "votes": [
+    4,
+    3,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2558,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "thread-pool",
+   "title": "Пул потоків і його розмір",
+   "group": "Асинхронність і навантаження",
+   "chapter": "Виконавці й темп",
+   "votes": [
+    3,
+    3,
+    4
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 3188,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "thread-per-core",
+   "title": "Thread-per-core / shared-nothing на ядрах",
+   "group": "Асинхронність і навантаження",
+   "chapter": "Виконавці й темп",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2834,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "backpressure-local",
+   "title": "Backpressure",
+   "group": "Асинхронність і навантаження",
+   "chapter": "Виконавці й темп",
+   "votes": [
+    2,
+    1,
+    2
+   ],
+   "mean": 1.67,
+   "level": 2,
+   "spread": 1,
+   "words": 2003,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "backpressure",
+   "title": "Протитиск (backpressure)",
+   "group": "Асинхронність і навантаження",
+   "chapter": "Виконавці й темп",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2052,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "potoky-nastilnoi-os-proty-zadach-rtos",
+   "title": "Потоки настільної ОС проти задач RTOS",
+   "group": "Реальний час",
+   "chapter": "Задачі під RTOS",
+   "votes": [
+    3,
+    4,
+    4
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2607,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "tyk-planuvalnyka-i-rezhym-bez-tyku-tickless",
+   "title": "Тик планувальника й режим без тику (tickless)",
+   "group": "Реальний час",
+   "chapter": "Задачі під RTOS",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2246,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "son-pid-rtos",
+   "title": "Сон під RTOS: tickless і задача, яка нічого не робить",
+   "group": "Реальний час",
+   "chapter": "Задачі під RTOS",
+   "votes": [
+    2,
+    1,
+    2
+   ],
+   "mean": 1.67,
+   "level": 2,
+   "spread": 1,
+   "words": 3288,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "vyklyky-rtos-iz-pereryvannia-fromisr",
+   "title": "Виклики RTOS із переривання (FromISR)",
+   "group": "Реальний час",
+   "chapter": "Задачі під RTOS",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 1983,
+   "realLevel": 1,
+   "delta": 2
+  }
+ ]
 }

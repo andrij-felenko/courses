@@ -1,1269 +1,1269 @@
 {
-  "book": "progarch",
-  "kind": "course",
-  "raters": [
-    "A",
-    "B",
-    "C"
-  ],
-  "topics": [
-    {
-      "slug": "backfill-and-reprocess",
-      "title": "Backfill і reprocessing",
-      "group": "Дані",
-      "chapter": "Міграція живої схеми",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2298,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "rollback-as-plan",
-      "title": "Rollback міграції як план, не надія",
-      "group": "Дані",
-      "chapter": "Міграція живої схеми",
-      "votes": [
-        3,
-        3,
-        2
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2954,
-      "realLevel": 2,
-      "delta": 1
-    },
-    {
-      "slug": "cache-coherence-choice",
-      "title": "Вибір стратегії свіжості між сервісами",
-      "group": "Дані",
-      "chapter": "Кеш",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2367,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "dh-cache-hierarchy",
-      "title": "Стан дому і список пристроїв крізь яруси кешу",
-      "group": "Дані",
-      "chapter": "Кеш",
-      "votes": [
-        2,
-        3,
-        3
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2390,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "dh-change-cache-final",
-      "title": "DH: фінал тактик змін і кешування",
-      "group": "Дані",
-      "chapter": "Кеш",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2291,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "data-lifecycle-node",
-      "title": "Життєвий цикл даних як вузол",
-      "group": "Дані",
-      "chapter": "Життєвий цикл даних",
-      "votes": [
-        3,
-        3,
-        4
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2164,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "dh-data-lifecycle-final",
-      "title": "Оренда й життєвий цикл даних Digital Homes",
-      "group": "Дані",
-      "chapter": "Життєвий цикл даних",
-      "votes": [
-        3,
-        2,
-        3
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2367,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "reading-unknown-system",
-      "title": "Прийшов у чужу систему",
-      "group": "Чужий код і чужі системи",
-      "chapter": "Успадкована система",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2581,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "dedup-boundary",
-      "title": "Дедуп на межі vs у логіці",
-      "group": "Взаємодія між програмами",
-      "chapter": "Ідемпотентність",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 1765,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "outbound-idempotency",
-      "title": "Ідемпотентність вихідної розмови",
-      "group": "Взаємодія між програмами",
-      "chapter": "Ідемпотентність",
-      "votes": [
-        4,
-        3,
-        3
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2352,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "dh-notification-pipeline",
-      "title": "Конвеєр сповіщень DH: від сирої події до вчасного виклику",
-      "group": "Взаємодія між програмами",
-      "chapter": "Сповіщення назовні",
-      "votes": [
-        4,
-        4,
-        3
-      ],
-      "mean": 3.67,
-      "level": 4,
-      "spread": 1,
-      "words": 2202,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "notification-fanout-choice",
-      "title": "Вибір моделі fan-out сповіщень",
-      "group": "Взаємодія між програмами",
-      "chapter": "Сповіщення назовні",
-      "votes": [
-        3,
-        3,
-        2
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2123,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "outbound-node-recap",
-      "title": "Вихід назовні як єдиний клас вузла",
-      "group": "Взаємодія між програмами",
-      "chapter": "Сповіщення назовні",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2356,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "stale-data-honestly",
-      "title": "Показати застаріле чесно",
-      "group": "Розподілена система",
-      "chapter": "Ціна узгодженості",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2325,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "multi-region-topologies",
-      "title": "Топології мультирегіону",
-      "group": "Розподілена система",
-      "chapter": "Географія системи",
-      "votes": [
-        4,
-        4,
-        3
-      ],
-      "mean": 3.67,
-      "level": 4,
-      "spread": 1,
-      "words": 2977,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "dh-region-choice",
-      "title": "Компакт-вибір: планета DH",
-      "group": "Розподілена система",
-      "chapter": "Географія системи",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 3001,
-      "realLevel": 2,
-      "delta": 0
-    },
-    {
-      "slug": "dh-fleet-envelope",
-      "title": "Прикидка на серветці: ємність флоту DH",
-      "group": "Відмови й навантаження",
-      "chapter": "Числа й ємність",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2985,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "priority-and-shedding-choice",
-      "title": "Пріоритезація трафіку як рішення",
-      "group": "Відмови й навантаження",
-      "chapter": "Черги й зворотний тиск",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2506,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "scale-decision-recap",
-      "title": "Коли масштабувати, а коли ні",
-      "group": "Відмови й навантаження",
-      "chapter": "Зростання під навантаженням",
-      "votes": [
-        4,
-        3,
-        4
-      ],
-      "mean": 3.67,
-      "level": 4,
-      "spread": 1,
-      "words": 2489,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "compute-platform-choice",
-      "title": "Компакт-вибір: на чому виконувати",
-      "group": "Відмови й навантаження",
-      "chapter": "Зростання під навантаженням",
-      "votes": [
-        3,
-        4,
-        3
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2701,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "load-distribution-dh",
-      "title": "Розподіл навантаження DH",
-      "group": "Відмови й навантаження",
-      "chapter": "Зростання під навантаженням",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2332,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "sale-start-waiting-room",
-      "title": "Старт продажу: кімната очікування перед системою",
-      "group": "Відмови й навантаження",
-      "chapter": "Зростання під навантаженням",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 2652,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "metastable-and-scale-cases",
-      "title": "Розбори масштабу",
-      "group": "Відмови й навантаження",
-      "chapter": "Каскад відмов",
-      "votes": [
-        3,
-        3,
-        2
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2298,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "attacker-as-force",
-      "title": "Зловмисник як сила архітектури",
-      "group": "Відмови й навантаження",
-      "chapter": "Зловмисник як сила",
-      "votes": [
-        4,
-        4,
-        5
-      ],
-      "mean": 4.33,
-      "level": 4,
-      "spread": 1,
-      "words": 2954,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "dh-threat-model",
-      "title": "Модель загроз Digital Homes",
-      "group": "Відмови й навантаження",
-      "chapter": "Зловмисник як сила",
-      "votes": [
-        4,
-        3,
-        3
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2403,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "e2e-vs-serverside-choice",
-      "title": "E2E проти server-side: вибір за класифікацією даних",
-      "group": "Відмови й навантаження",
-      "chapter": "Зловмисник як сила",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2990,
-      "realLevel": 2,
-      "delta": 1
-    },
-    {
-      "slug": "authz-in-depth",
-      "title": "Авторизація вглиб",
-      "group": "Відмови й навантаження",
-      "chapter": "Хто ти і що тобі можна",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 1990,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "dh-resilience-tactics-map",
-      "title": "Тактики стійкості DH разом",
-      "group": "Відмови й навантаження",
-      "chapter": "Перевірка стійкості",
-      "votes": [
-        3,
-        4,
-        3
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2655,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "monolith-first-or-never",
-      "title": "Monolith-first проти «спершу сервіси»",
-      "group": "Архітектура системи",
-      "chapter": "Розкрій системи",
-      "votes": [
-        3,
-        4,
-        3
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2174,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "when-to-extract-service",
-      "title": "Коли виділяти сервіс: критерії та хибні приводи",
-      "group": "Архітектура системи",
-      "chapter": "Розкрій системи",
-      "votes": [
-        5,
-        5,
-        4
-      ],
-      "mean": 4.67,
-      "level": 5,
-      "spread": 1,
-      "words": 2907,
-      "realLevel": 1,
-      "delta": 4
-    },
-    {
-      "slug": "service-granularity-choice",
-      "title": "Вибір гранулярності сервісів: nano-services антипатерн",
-      "group": "Архітектура системи",
-      "chapter": "Розкрій системи",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2597,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "modular-monolith-to-services",
-      "title": "Від модульного моноліта до сервісів без розриву",
-      "group": "Архітектура системи",
-      "chapter": "Розкрій системи",
-      "votes": [
-        4,
-        3,
-        3
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2618,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "microservices-vs-monolith-real",
-      "title": "Мікросервіси проти моноліту в реальності",
-      "group": "Архітектура системи",
-      "chapter": "Сервіси й функції",
-      "votes": [
-        4,
-        3,
-        4
-      ],
-      "mean": 3.67,
-      "level": 4,
-      "spread": 1,
-      "words": 2995,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "macro-patterns-summary",
-      "title": "Зведення макро-патернів організації систем",
-      "group": "Архітектура системи",
-      "chapter": "Сервіси й функції",
-      "votes": [
-        4,
-        4,
-        5
-      ],
-      "mean": 4.33,
-      "level": 4,
-      "spread": 1,
-      "words": 2952,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "dh-services-audit",
-      "title": "Перший сервіс-аудит DH",
-      "group": "Архітектура системи",
-      "chapter": "Форма Digital Homes",
-      "votes": [
-        2,
-        3,
-        3
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2114,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "dh-macro-choice",
-      "title": "DH: макроархітектурний вибір системи Digital Homes",
-      "group": "Архітектура системи",
-      "chapter": "Форма Digital Homes",
-      "votes": [
-        3,
-        4,
-        4
-      ],
-      "mean": 3.67,
-      "level": 4,
-      "spread": 1,
-      "words": 2343,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "dh-incident-observed",
-      "title": "Інцидент очима телеметрії DH",
-      "group": "Експлуатація",
-      "chapter": "Сигнали системи",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 1674,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "slo-from-drivers",
-      "title": "SLO з якісних атрибутів",
-      "group": "Експлуатація",
-      "chapter": "Рівень служби",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2919,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "dh-canary-pipeline",
-      "title": "Конвеєр бекенда DH",
-      "group": "Експлуатація",
-      "chapter": "Конвеєр змін",
-      "votes": [
-        4,
-        4,
-        3
-      ],
-      "mean": 3.67,
-      "level": 4,
-      "spread": 1,
-      "words": 2142,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "dh-leak-day",
-      "title": "День витоку DH",
-      "group": "Експлуатація",
-      "chapter": "Середовища й прапорці",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 2445,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "canary-bluegreen-featureflags",
-      "title": "Canary, blue-green, feature-flags",
-      "group": "Експлуатація",
-      "chapter": "Викочування й відкат",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2403,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "change-coupling-choice",
-      "title": "Компакт-вибір типу зв'язку для зміни",
-      "group": "Експлуатація",
-      "chapter": "Викочування й відкат",
-      "votes": [
-        3,
-        3,
-        2
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2977,
-      "realLevel": 2,
-      "delta": 1
-    },
-    {
-      "slug": "rozbir-roblox-73h",
-      "title": "Розбір: 73 години Roblox",
-      "group": "Експлуатація",
-      "chapter": "Посмертний розбір",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 2508,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "dh-game-day",
-      "title": "Game day DH",
-      "group": "Експлуатація",
-      "chapter": "Посмертний розбір",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 2589,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "cognitive-load-as-boundary",
-      "title": "Когнітивне навантаження як критерій розкрою",
-      "group": "Ціна рішення",
-      "chapter": "Команди й межі",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2950,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "org-as-architecture",
-      "title": "Організація як архітектура",
-      "group": "Ціна рішення",
-      "chapter": "Команди й межі",
-      "votes": [
-        5,
-        5,
-        5
-      ],
-      "mean": 5,
-      "level": 5,
-      "spread": 0,
-      "words": 2504,
-      "realLevel": 1,
-      "delta": 4
-    },
-    {
-      "slug": "dh-conway-map",
-      "title": "Мапа команд DH проти мапи контекстів",
-      "group": "Ціна рішення",
-      "chapter": "Команди й межі",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2484,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "dh-team-topology-choice",
-      "title": "Топологія команд DH",
-      "group": "Ціна рішення",
-      "chapter": "Команди й межі",
-      "votes": [
-        3,
-        2,
-        3
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 1823,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "handoffs-and-ownership",
-      "title": "Передачі й володіння як джерело затримки",
-      "group": "Ціна рішення",
-      "chapter": "Володіння кодом",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 1923,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "platform-vs-premature",
-      "title": "Платформа проти передчасної платформи",
-      "group": "Ціна рішення",
-      "chapter": "Внутрішня платформа",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2412,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "overengineering",
-      "title": "Перепроєктування",
-      "group": "Ціна рішення",
-      "chapter": "Ціна системи",
-      "votes": [
-        3,
-        4,
-        4
-      ],
-      "mean": 3.67,
-      "level": 4,
-      "spread": 1,
-      "words": 2818,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "cost-as-fitness-function",
-      "title": "Вартість як fitness-функція в CI",
-      "group": "Ціна рішення",
-      "chapter": "Ціна системи",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 2492,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "economics-decision-recap",
-      "title": "Економіка рішення як рамка",
-      "group": "Ціна рішення",
-      "chapter": "Ціна системи",
-      "votes": [
-        3,
-        3,
-        4
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2922,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "dh-cost-decisions",
-      "title": "Економічні рішення DH",
-      "group": "Ціна рішення",
-      "chapter": "Ціна системи",
-      "votes": [
-        3,
-        2,
-        3
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2433,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "tenancy-variants-choice",
-      "title": "Ізоляція орендарів: варіанти мультиарендності",
-      "group": "Ціна рішення",
-      "chapter": "Орендар і гроші",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2976,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "money-truth-choice",
-      "title": "Де живе правда про гроші: фінансова цілісність",
-      "group": "Ціна рішення",
-      "chapter": "Орендар і гроші",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2148,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "rozbir-cloud-or-metal",
-      "title": "Хмара чи залізо для DH",
-      "group": "Ціна рішення",
-      "chapter": "Рахунок за хмару",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 2692,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "build-vs-buy-mature",
-      "title": "Build vs buy у зрілій оптиці",
-      "group": "Ціна рішення",
-      "chapter": "Купити чи зробити",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2389,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "exit-strategy",
-      "title": "Стратегія виходу як частина вибору",
-      "group": "Ціна рішення",
-      "chapter": "Ціна виходу",
-      "votes": [
-        2,
-        3,
-        2
-      ],
-      "mean": 2.33,
-      "level": 2,
-      "spread": 1,
-      "words": 2451,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "migration-strategy-choice",
-      "title": "Вибір стратегії зміни живої системи",
-      "group": "Система в часі",
-      "chapter": "Міграція без зупинки",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2955,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "migration-choice",
-      "title": "Вибір стратегії переходу великого",
-      "group": "Система в часі",
-      "chapter": "Великий переїзд",
-      "votes": [
-        3,
-        3,
-        2
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2975,
-      "realLevel": 2,
-      "delta": 1
-    },
-    {
-      "slug": "dh-cloud-v2",
-      "title": "DH переїздить",
-      "group": "Система в часі",
-      "chapter": "Великий переїзд",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2114,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "request-journey-final",
-      "title": "Життя одного запиту і однієї команди",
-      "group": "Система в часі",
-      "chapter": "Капстон Digital Homes",
-      "votes": [
-        3,
-        4,
-        4
-      ],
-      "mean": 3.67,
-      "level": 4,
-      "spread": 1,
-      "words": 2224,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "capstone-setup",
-      "title": "Капстон, крок 1: постановка й рамка системи",
-      "group": "Система в часі",
-      "chapter": "Капстон Digital Homes",
-      "votes": [
-        5,
-        5,
-        4
-      ],
-      "mean": 4.67,
-      "level": 5,
-      "spread": 1,
-      "words": 2244,
-      "realLevel": 1,
-      "delta": 4
-    },
-    {
-      "slug": "capstone-shape-data",
-      "title": "Капстон, крок 2: форма застосунку й топологія даних",
-      "group": "Система в часі",
-      "chapter": "Капстон Digital Homes",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 1786,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "capstone-services-nodes",
-      "title": "Капстон, крок 3: сервісні межі, платформи, вузли",
-      "group": "Система в часі",
-      "chapter": "Капстон Digital Homes",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 2560,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "capstone-scale-secure-ops",
-      "title": "Капстон, крок 4: масштаб, стійкість, безпека, викочування",
-      "group": "Система в часі",
-      "chapter": "Капстон Digital Homes",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 1913,
-      "realLevel": 1,
-      "delta": 3
-    },
-    {
-      "slug": "capstone-org-evolution",
-      "title": "Капстон, крок 5: організація й еволюція",
-      "group": "Система в часі",
-      "chapter": "Капстон Digital Homes",
-      "votes": [
-        3,
-        4,
-        3
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2973,
-      "realLevel": 2,
-      "delta": 1
-    },
-    {
-      "slug": "dh-platform-retrospective",
-      "title": "Ретроспектива Digital Homes",
-      "group": "Система в часі",
-      "chapter": "Капстон Digital Homes",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 2512,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "architect-taste",
-      "title": "Смак архітектора",
-      "group": "Система в часі",
-      "chapter": "Смак архітектора",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2522,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "architect-checklist",
-      "title": "Чеклист архітектора",
-      "group": "Система в часі",
-      "chapter": "Смак архітектора",
-      "votes": [
-        3,
-        2,
-        3
-      ],
-      "mean": 2.67,
-      "level": 3,
-      "spread": 1,
-      "words": 2378,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "decision-heuristics",
-      "title": "Евристики рішення на щодень",
-      "group": "Система в часі",
-      "chapter": "Смак архітектора",
-      "votes": [
-        2,
-        3,
-        4
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 2,
-      "words": 2405,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "where-next",
-      "title": "Куди рости після progarch",
-      "group": "Система в часі",
-      "chapter": "Смак архітектора",
-      "votes": [
-        1,
-        1,
-        1
-      ],
-      "mean": 1,
-      "level": 1,
-      "spread": 0,
-      "words": 2309,
-      "realLevel": 1,
-      "delta": 0
-    },
-    {
-      "slug": "course-farewell",
-      "title": "Прощання з курсом",
-      "group": "Система в часі",
-      "chapter": "Смак архітектора",
-      "votes": [
-        1,
-        1,
-        1
-      ],
-      "mean": 1,
-      "level": 1,
-      "spread": 0,
-      "words": 2406,
-      "realLevel": 1,
-      "delta": 0
-    }
-  ]
+ "book": "progarch",
+ "kind": "course",
+ "raters": [
+  "A",
+  "B",
+  "C"
+ ],
+ "topics": [
+  {
+   "slug": "backfill-and-reprocess",
+   "title": "Backfill і reprocessing",
+   "group": "Дані",
+   "chapter": "Міграція живої схеми",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2298,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "rollback-as-plan",
+   "title": "Rollback міграції як план, не надія",
+   "group": "Дані",
+   "chapter": "Міграція живої схеми",
+   "votes": [
+    3,
+    3,
+    2
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2954,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "cache-coherence-choice",
+   "title": "Вибір стратегії свіжості між сервісами",
+   "group": "Дані",
+   "chapter": "Кеш",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2367,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "dh-cache-hierarchy",
+   "title": "Стан дому і список пристроїв крізь яруси кешу",
+   "group": "Дані",
+   "chapter": "Кеш",
+   "votes": [
+    2,
+    3,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2389,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "dh-change-cache-final",
+   "title": "DH: фінал тактик змін і кешування",
+   "group": "Дані",
+   "chapter": "Кеш",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2290,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "data-lifecycle-node",
+   "title": "Життєвий цикл даних як вузол",
+   "group": "Дані",
+   "chapter": "Життєвий цикл даних",
+   "votes": [
+    3,
+    3,
+    4
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2163,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "dh-data-lifecycle-final",
+   "title": "Оренда й життєвий цикл даних Digital Homes",
+   "group": "Дані",
+   "chapter": "Життєвий цикл даних",
+   "votes": [
+    3,
+    2,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2367,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "reading-unknown-system",
+   "title": "Прийшов у чужу систему",
+   "group": "Чужий код і чужі системи",
+   "chapter": "Успадкована система",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2580,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "dedup-boundary",
+   "title": "Дедуп на межі vs у логіці",
+   "group": "Взаємодія між програмами",
+   "chapter": "Ідемпотентність",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 1765,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "outbound-idempotency",
+   "title": "Ідемпотентність вихідної розмови",
+   "group": "Взаємодія між програмами",
+   "chapter": "Ідемпотентність",
+   "votes": [
+    4,
+    3,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2352,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "dh-notification-pipeline",
+   "title": "Конвеєр сповіщень DH: від сирої події до вчасного виклику",
+   "group": "Взаємодія між програмами",
+   "chapter": "Сповіщення назовні",
+   "votes": [
+    4,
+    4,
+    3
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2202,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "notification-fanout-choice",
+   "title": "Вибір моделі fan-out сповіщень",
+   "group": "Взаємодія між програмами",
+   "chapter": "Сповіщення назовні",
+   "votes": [
+    3,
+    3,
+    2
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2123,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "outbound-node-recap",
+   "title": "Вихід назовні як єдиний клас вузла",
+   "group": "Взаємодія між програмами",
+   "chapter": "Сповіщення назовні",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2356,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "stale-data-honestly",
+   "title": "Показати застаріле чесно",
+   "group": "Розподілена система",
+   "chapter": "Ціна узгодженості",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2325,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "multi-region-topologies",
+   "title": "Топології мультирегіону",
+   "group": "Розподілена система",
+   "chapter": "Географія системи",
+   "votes": [
+    4,
+    4,
+    3
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2977,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "dh-region-choice",
+   "title": "Компакт-вибір: планета DH",
+   "group": "Розподілена система",
+   "chapter": "Географія системи",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 3001,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "dh-fleet-envelope",
+   "title": "Прикидка на серветці: ємність флоту DH",
+   "group": "Відмови й навантаження",
+   "chapter": "Числа й ємність",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2985,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "priority-and-shedding-choice",
+   "title": "Пріоритезація трафіку як рішення",
+   "group": "Відмови й навантаження",
+   "chapter": "Черги й зворотний тиск",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2506,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "scale-decision-recap",
+   "title": "Коли масштабувати, а коли ні",
+   "group": "Відмови й навантаження",
+   "chapter": "Зростання під навантаженням",
+   "votes": [
+    4,
+    3,
+    4
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2489,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "compute-platform-choice",
+   "title": "Компакт-вибір: на чому виконувати",
+   "group": "Відмови й навантаження",
+   "chapter": "Зростання під навантаженням",
+   "votes": [
+    3,
+    4,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2701,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "load-distribution-dh",
+   "title": "Розподіл навантаження DH",
+   "group": "Відмови й навантаження",
+   "chapter": "Зростання під навантаженням",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2332,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "sale-start-waiting-room",
+   "title": "Старт продажу: кімната очікування перед системою",
+   "group": "Відмови й навантаження",
+   "chapter": "Зростання під навантаженням",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2652,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "metastable-and-scale-cases",
+   "title": "Розбори масштабу",
+   "group": "Відмови й навантаження",
+   "chapter": "Каскад відмов",
+   "votes": [
+    3,
+    3,
+    2
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2298,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "attacker-as-force",
+   "title": "Зловмисник як сила архітектури",
+   "group": "Відмови й навантаження",
+   "chapter": "Зловмисник як сила",
+   "votes": [
+    4,
+    4,
+    5
+   ],
+   "mean": 4.33,
+   "level": 4,
+   "spread": 1,
+   "words": 2954,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "dh-threat-model",
+   "title": "Модель загроз Digital Homes",
+   "group": "Відмови й навантаження",
+   "chapter": "Зловмисник як сила",
+   "votes": [
+    4,
+    3,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2402,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "e2e-vs-serverside-choice",
+   "title": "E2E проти server-side: вибір за класифікацією даних",
+   "group": "Відмови й навантаження",
+   "chapter": "Зловмисник як сила",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2990,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "authz-in-depth",
+   "title": "Авторизація вглиб",
+   "group": "Відмови й навантаження",
+   "chapter": "Хто ти і що тобі можна",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 1990,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "dh-resilience-tactics-map",
+   "title": "Тактики стійкості DH разом",
+   "group": "Відмови й навантаження",
+   "chapter": "Перевірка стійкості",
+   "votes": [
+    3,
+    4,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2655,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "monolith-first-or-never",
+   "title": "Monolith-first проти «спершу сервіси»",
+   "group": "Архітектура системи",
+   "chapter": "Розкрій системи",
+   "votes": [
+    3,
+    4,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2174,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "when-to-extract-service",
+   "title": "Коли виділяти сервіс: критерії та хибні приводи",
+   "group": "Архітектура системи",
+   "chapter": "Розкрій системи",
+   "votes": [
+    5,
+    5,
+    4
+   ],
+   "mean": 4.67,
+   "level": 5,
+   "spread": 1,
+   "words": 2907,
+   "realLevel": 1,
+   "delta": 4
+  },
+  {
+   "slug": "service-granularity-choice",
+   "title": "Вибір гранулярності сервісів: nano-services антипатерн",
+   "group": "Архітектура системи",
+   "chapter": "Розкрій системи",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2597,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "modular-monolith-to-services",
+   "title": "Від модульного моноліта до сервісів без розриву",
+   "group": "Архітектура системи",
+   "chapter": "Розкрій системи",
+   "votes": [
+    4,
+    3,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2618,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "microservices-vs-monolith-real",
+   "title": "Мікросервіси проти моноліту в реальності",
+   "group": "Архітектура системи",
+   "chapter": "Сервіси й функції",
+   "votes": [
+    4,
+    3,
+    4
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2995,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "macro-patterns-summary",
+   "title": "Зведення макро-патернів організації систем",
+   "group": "Архітектура системи",
+   "chapter": "Сервіси й функції",
+   "votes": [
+    4,
+    4,
+    5
+   ],
+   "mean": 4.33,
+   "level": 4,
+   "spread": 1,
+   "words": 2952,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "dh-services-audit",
+   "title": "Перший сервіс-аудит DH",
+   "group": "Архітектура системи",
+   "chapter": "Форма Digital Homes",
+   "votes": [
+    2,
+    3,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2114,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "dh-macro-choice",
+   "title": "DH: макроархітектурний вибір системи Digital Homes",
+   "group": "Архітектура системи",
+   "chapter": "Форма Digital Homes",
+   "votes": [
+    3,
+    4,
+    4
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2343,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "dh-incident-observed",
+   "title": "Інцидент очима телеметрії DH",
+   "group": "Експлуатація",
+   "chapter": "Сигнали системи",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 1673,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "slo-from-drivers",
+   "title": "SLO з якісних атрибутів",
+   "group": "Експлуатація",
+   "chapter": "Рівень служби",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2919,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "dh-canary-pipeline",
+   "title": "Конвеєр бекенда DH",
+   "group": "Експлуатація",
+   "chapter": "Конвеєр змін",
+   "votes": [
+    4,
+    4,
+    3
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2141,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "dh-leak-day",
+   "title": "День витоку DH",
+   "group": "Експлуатація",
+   "chapter": "Середовища й прапорці",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2444,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "canary-bluegreen-featureflags",
+   "title": "Canary, blue-green, feature-flags",
+   "group": "Експлуатація",
+   "chapter": "Викочування й відкат",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2403,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "change-coupling-choice",
+   "title": "Компакт-вибір типу зв'язку для зміни",
+   "group": "Експлуатація",
+   "chapter": "Викочування й відкат",
+   "votes": [
+    3,
+    3,
+    2
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2977,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "rozbir-roblox-73h",
+   "title": "Розбір: 73 години Roblox",
+   "group": "Експлуатація",
+   "chapter": "Посмертний розбір",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2508,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "dh-game-day",
+   "title": "Game day DH",
+   "group": "Експлуатація",
+   "chapter": "Посмертний розбір",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2589,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "cognitive-load-as-boundary",
+   "title": "Когнітивне навантаження як критерій розкрою",
+   "group": "Ціна рішення",
+   "chapter": "Команди й межі",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2950,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "org-as-architecture",
+   "title": "Організація як архітектура",
+   "group": "Ціна рішення",
+   "chapter": "Команди й межі",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 2504,
+   "realLevel": 1,
+   "delta": 4
+  },
+  {
+   "slug": "dh-conway-map",
+   "title": "Мапа команд DH проти мапи контекстів",
+   "group": "Ціна рішення",
+   "chapter": "Команди й межі",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2483,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "dh-team-topology-choice",
+   "title": "Топологія команд DH",
+   "group": "Ціна рішення",
+   "chapter": "Команди й межі",
+   "votes": [
+    3,
+    2,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 1823,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "handoffs-and-ownership",
+   "title": "Передачі й володіння як джерело затримки",
+   "group": "Ціна рішення",
+   "chapter": "Володіння кодом",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 1922,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "platform-vs-premature",
+   "title": "Платформа проти передчасної платформи",
+   "group": "Ціна рішення",
+   "chapter": "Внутрішня платформа",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2412,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "overengineering",
+   "title": "Перепроєктування",
+   "group": "Ціна рішення",
+   "chapter": "Ціна системи",
+   "votes": [
+    3,
+    4,
+    4
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2818,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "cost-as-fitness-function",
+   "title": "Вартість як fitness-функція в CI",
+   "group": "Ціна рішення",
+   "chapter": "Ціна системи",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2492,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "economics-decision-recap",
+   "title": "Економіка рішення як рамка",
+   "group": "Ціна рішення",
+   "chapter": "Ціна системи",
+   "votes": [
+    3,
+    3,
+    4
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2922,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "dh-cost-decisions",
+   "title": "Економічні рішення DH",
+   "group": "Ціна рішення",
+   "chapter": "Ціна системи",
+   "votes": [
+    3,
+    2,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2432,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "tenancy-variants-choice",
+   "title": "Ізоляція орендарів: варіанти мультиарендності",
+   "group": "Ціна рішення",
+   "chapter": "Орендар і гроші",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2976,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "money-truth-choice",
+   "title": "Де живе правда про гроші: фінансова цілісність",
+   "group": "Ціна рішення",
+   "chapter": "Орендар і гроші",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2148,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "rozbir-cloud-or-metal",
+   "title": "Хмара чи залізо для DH",
+   "group": "Ціна рішення",
+   "chapter": "Рахунок за хмару",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2692,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "build-vs-buy-mature",
+   "title": "Build vs buy у зрілій оптиці",
+   "group": "Ціна рішення",
+   "chapter": "Купити чи зробити",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2388,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "exit-strategy",
+   "title": "Стратегія виходу як частина вибору",
+   "group": "Ціна рішення",
+   "chapter": "Ціна виходу",
+   "votes": [
+    2,
+    3,
+    2
+   ],
+   "mean": 2.33,
+   "level": 2,
+   "spread": 1,
+   "words": 2451,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "migration-strategy-choice",
+   "title": "Вибір стратегії зміни живої системи",
+   "group": "Система в часі",
+   "chapter": "Міграція без зупинки",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2955,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "migration-choice",
+   "title": "Вибір стратегії переходу великого",
+   "group": "Система в часі",
+   "chapter": "Великий переїзд",
+   "votes": [
+    3,
+    3,
+    2
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2975,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "dh-cloud-v2",
+   "title": "DH переїздить",
+   "group": "Система в часі",
+   "chapter": "Великий переїзд",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2113,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "request-journey-final",
+   "title": "Життя одного запиту і однієї команди",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    3,
+    4,
+    4
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2224,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "capstone-setup",
+   "title": "Капстон, крок 1: постановка й рамка системи",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    5,
+    5,
+    4
+   ],
+   "mean": 4.67,
+   "level": 5,
+   "spread": 1,
+   "words": 2244,
+   "realLevel": 1,
+   "delta": 4
+  },
+  {
+   "slug": "capstone-shape-data",
+   "title": "Капстон, крок 2: форма застосунку й топологія даних",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 1786,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "capstone-services-nodes",
+   "title": "Капстон, крок 3: сервісні межі, платформи, вузли",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2560,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "capstone-scale-secure-ops",
+   "title": "Капстон, крок 4: масштаб, стійкість, безпека, викочування",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 1913,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "capstone-org-evolution",
+   "title": "Капстон, крок 5: організація й еволюція",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    3,
+    4,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2973,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "dh-platform-retrospective",
+   "title": "Ретроспектива Digital Homes",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2512,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "architect-taste",
+   "title": "Смак архітектора",
+   "group": "Система в часі",
+   "chapter": "Смак архітектора",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2522,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "architect-checklist",
+   "title": "Чеклист архітектора",
+   "group": "Система в часі",
+   "chapter": "Смак архітектора",
+   "votes": [
+    3,
+    2,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2378,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "decision-heuristics",
+   "title": "Евристики рішення на щодень",
+   "group": "Система в часі",
+   "chapter": "Смак архітектора",
+   "votes": [
+    2,
+    3,
+    4
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 2,
+   "words": 2405,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "where-next",
+   "title": "Куди рости після progarch",
+   "group": "Система в часі",
+   "chapter": "Смак архітектора",
+   "votes": [
+    1,
+    1,
+    1
+   ],
+   "mean": 1,
+   "level": 1,
+   "spread": 0,
+   "words": 2309,
+   "realLevel": 1,
+   "delta": 0
+  },
+  {
+   "slug": "course-farewell",
+   "title": "Прощання з курсом",
+   "group": "Система в часі",
+   "chapter": "Смак архітектора",
+   "votes": [
+    1,
+    1,
+    1
+   ],
+   "mean": 1,
+   "level": 1,
+   "spread": 0,
+   "words": 2406,
+   "realLevel": 1,
+   "delta": 0
+  }
+ ]
 }

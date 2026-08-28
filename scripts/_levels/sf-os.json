@@ -1,164 +1,164 @@
 {
-  "book": "sf-os",
-  "kind": "eng",
-  "raters": [
-    "A",
-    "B",
-    "C"
-  ],
-  "topics": [
-    {
-      "slug": "process-vs-thread",
-      "title": "Процеси й потоки",
-      "group": "Процеси й процесорний час",
-      "chapter": "Ядро й програма",
-      "votes": [
-        5,
-        5,
-        5
-      ],
-      "mean": 5,
-      "level": 5,
-      "spread": 0,
-      "words": 2981,
-      "realLevel": 2,
-      "delta": 3
-    },
-    {
-      "slug": "buddy-allocator",
-      "title": "Алокатор двійкових близнюків (Buddy Allocator)",
-      "group": "Пам'ять",
-      "chapter": "Сторінки, кадри й таблиці",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2384,
-      "realLevel": 1,
-      "delta": 2
-    },
-    {
-      "slug": "working-set",
-      "title": "Робоча множина",
-      "group": "Пам'ять",
-      "chapter": "Локальність і робоча множина",
-      "votes": [
-        3,
-        4,
-        3
-      ],
-      "mean": 3.33,
-      "level": 3,
-      "spread": 1,
-      "words": 2972,
-      "realLevel": 2,
-      "delta": 1
-    },
-    {
-      "slug": "app-data-directories",
-      "title": "Теки застосунку: конфіг, дані, кеш",
-      "group": "Середовище виконання",
-      "chapter": "Файли застосунку",
-      "votes": [
-        2,
-        2,
-        1
-      ],
-      "mean": 1.67,
-      "level": 2,
-      "spread": 1,
-      "words": 2708,
-      "realLevel": 1,
-      "delta": 1
-    },
-    {
-      "slug": "file-timestamps",
-      "title": "Часові позначки файлів: mtime, ctime і роздільність",
-      "group": "Середовище виконання",
-      "chapter": "Файли застосунку",
-      "votes": [
-        1,
-        1,
-        2
-      ],
-      "mean": 1.33,
-      "level": 1,
-      "spread": 1,
-      "words": 2932,
-      "realLevel": 1,
-      "delta": 0
-    },
-    {
-      "slug": "containers",
-      "title": "Контейнери",
-      "group": "Середовище виконання",
-      "chapter": "Контейнери й віртуальні машини",
-      "votes": [
-        4,
-        4,
-        4
-      ],
-      "mean": 4,
-      "level": 4,
-      "spread": 0,
-      "words": 3136,
-      "realLevel": 2,
-      "delta": 2
-    },
-    {
-      "slug": "live-migration",
-      "title": "Жива міграція віртуальної машини: перенести працюючий гість без зупинки",
-      "group": "Середовище виконання",
-      "chapter": "Контейнери й віртуальні машини",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 3262,
-      "realLevel": 2,
-      "delta": 1
-    },
-    {
-      "slug": "vm-snapshot-and-clone",
-      "title": "Знімок і клон віртуальної машини: збереження стану, відкіт і роздвоєння історії",
-      "group": "Середовище виконання",
-      "chapter": "Контейнери й віртуальні машини",
-      "votes": [
-        2,
-        2,
-        2
-      ],
-      "mean": 2,
-      "level": 2,
-      "spread": 0,
-      "words": 3170,
-      "realLevel": 2,
-      "delta": 0
-    },
-    {
-      "slug": "suspend-and-resume",
-      "title": "Призупинення й пробудження: suspend, hibernate і стан пристроїв",
-      "group": "Середовище виконання",
-      "chapter": "Платформа й живлення",
-      "votes": [
-        3,
-        3,
-        3
-      ],
-      "mean": 3,
-      "level": 3,
-      "spread": 0,
-      "words": 2706,
-      "realLevel": 1,
-      "delta": 2
-    }
-  ]
+ "book": "sf-os",
+ "kind": "eng",
+ "raters": [
+  "A",
+  "B",
+  "C"
+ ],
+ "topics": [
+  {
+   "slug": "process-vs-thread",
+   "title": "Процеси й потоки",
+   "group": "Процеси й процесорний час",
+   "chapter": "Ядро й програма",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 2980,
+   "realLevel": 2,
+   "delta": 3
+  },
+  {
+   "slug": "buddy-allocator",
+   "title": "Алокатор двійкових близнюків (Buddy Allocator)",
+   "group": "Пам'ять",
+   "chapter": "Сторінки, кадри й таблиці",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2383,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "working-set",
+   "title": "Робоча множина",
+   "group": "Пам'ять",
+   "chapter": "Локальність і робоча множина",
+   "votes": [
+    3,
+    4,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2971,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "app-data-directories",
+   "title": "Теки застосунку: конфіг, дані, кеш",
+   "group": "Середовище виконання",
+   "chapter": "Файли застосунку",
+   "votes": [
+    2,
+    2,
+    1
+   ],
+   "mean": 1.67,
+   "level": 2,
+   "spread": 1,
+   "words": 2705,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "file-timestamps",
+   "title": "Часові позначки файлів: mtime, ctime і роздільність",
+   "group": "Середовище виконання",
+   "chapter": "Файли застосунку",
+   "votes": [
+    1,
+    1,
+    2
+   ],
+   "mean": 1.33,
+   "level": 1,
+   "spread": 1,
+   "words": 2931,
+   "realLevel": 1,
+   "delta": 0
+  },
+  {
+   "slug": "containers",
+   "title": "Контейнери",
+   "group": "Середовище виконання",
+   "chapter": "Контейнери й віртуальні машини",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 3136,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "live-migration",
+   "title": "Жива міграція віртуальної машини: перенести працюючий гість без зупинки",
+   "group": "Середовище виконання",
+   "chapter": "Контейнери й віртуальні машини",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3262,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "vm-snapshot-and-clone",
+   "title": "Знімок і клон віртуальної машини: збереження стану, відкіт і роздвоєння історії",
+   "group": "Середовище виконання",
+   "chapter": "Контейнери й віртуальні машини",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 3170,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "suspend-and-resume",
+   "title": "Призупинення й пробудження: suspend, hibernate і стан пристроїв",
+   "group": "Середовище виконання",
+   "chapter": "Платформа й живлення",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2706,
+   "realLevel": 1,
+   "delta": 2
+  }
+ ]
 }
