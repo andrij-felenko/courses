@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 2
           },
           "hist": [
             {
@@ -39,7 +40,8 @@
           "proj": [
             {
               "file": "proj-listen-before-talk.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -55,7 +57,8 @@
           "comp": [
             {
               "file": "comp-fdd-tdd.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -67,7 +70,8 @@
           "proj": [
             {
               "file": "proj-spectral-mask-aclr.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -95,7 +99,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -120,19 +125,24 @@
           "api": [
             {
               "file": "api-80211kvr-ie.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-roaming-hysteresis.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-roaming-manager.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -143,7 +153,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -179,7 +190,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
@@ -190,13 +202,15 @@
           "proj": [
             {
               "file": "proj-l2cap-sar.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-hci-uart.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -218,7 +232,8 @@
           "api": [
             {
               "file": "api-bluez-rfcomm.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -229,12 +244,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-command-parser.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -251,18 +268,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-adv-parser.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ad-structures.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -284,13 +304,15 @@
           "proj": [
             {
               "file": "proj-ll-fsm-sim.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ll-pdu.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -312,13 +334,16 @@
           "proj": [
             {
               "file": "proj-beacon-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-beacon-payloads.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         }
@@ -352,13 +377,15 @@
           "proj": [
             {
               "file": "proj-lorawan-mic-cipher.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-lorawan-mac-commands.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -380,7 +407,8 @@
           "proj": [
             {
               "file": "proj-openthread-node.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [

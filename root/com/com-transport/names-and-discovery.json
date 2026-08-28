@@ -28,13 +28,16 @@
           "proj": [
             {
               "file": "proj-dhcp-packet.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-dhcp-options.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -56,7 +59,8 @@
           "proj": [
             {
               "file": "proj-dns-client.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -84,13 +88,15 @@
           "proj": [
             {
               "file": "proj-happy-eyeballs.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-rfc8305-params.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -118,7 +124,8 @@
           "proj": [
             {
               "file": "proj-srv-resolver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -146,13 +153,15 @@
           "proj": [
             {
               "file": "proj-svcb-parser.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-svcb-https-params.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -163,7 +172,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -174,13 +184,15 @@
           "proj": [
             {
               "file": "proj-discovery-daemon.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-multicast-sockopts.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -197,7 +209,8 @@
           "api": [
             {
               "file": "api-dns-sd-records.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -209,7 +222,9 @@
           "proj": [
             {
               "file": "proj-mdns-responder.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -244,13 +259,17 @@
           "proj": [
             {
               "file": "proj-udp-hole-punching.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-stun-turn-headers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -278,13 +297,15 @@
           "proj": [
             {
               "file": "proj-webrtc-datachannel.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sdp-structure.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }

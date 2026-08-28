@@ -44,102 +44,8 @@ N_proc ≥ ⌈ RTT_phy / T_slot ⌉
 Нижче наведено базові C та C++ структури опису стану процесу HARQ передавача та приймача.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Версія надлишковості (Redundancy Version) */
-typedef enum {
-    HARQ_RV_0 = 0,  /* Систематичні біти + базовий паритет */
-    HARQ_RV_2 = 2,  /* Перша порція додаткового паритету */
-    HARQ_RV_3 = 3,  /* Друга порція додаткового паритету */
-    HARQ_RV_1 = 1   /* Залишкова порція паритету / високі частоти */
-} HarqRedundancyVersion;
-
-/* Стан процесу HARQ */
-typedef enum {
-    HARQ_STATE_IDLE = 0,
-    HARQ_STATE_ACTIVE_TX,
-    HARQ_STATE_WAITING_FEEDBACK,
-    HARQ_STATE_MAX_RETRIES_EXCEEDED
-} HarqProcessState;
-
-/* Результат декодування фізичного рівня */
-typedef enum {
-    HARQ_FEEDBACK_NACK = 0,
-    HARQ_FEEDBACK_ACK  = 1,
-    HARQ_FEEDBACK_DTX  = 2  /* Discontinuous Transmission: база не почула відповіді */
-} HarqFeedback;
-
-/* Дескриптор процесу HARQ передавача (TX) */
-typedef struct {
-    uint8_t process_id;             /* ID процесу: 0..15 */
-    HarqProcessState state;         /* Поточний стан автомата */
-    bool ndi;                       /* New Data Indicator (0 або 1) */
-    HarqRedundancyVersion rv;       /* Поточний індекс RV */
-    uint8_t transmission_count;     /* Лічильник спроб (1..MAX_HARQ_RETRIES) */
-    uint8_t mcs_index;              /* Індекс модуляції та кодування (0..31) */
-    uint32_t transport_block_size;  /* Розмір корисних даних у байтах (TBS) */
-    uint32_t code_bits_len;         /* Довжина кодового блоку після кодера */
-    uint8_t *payload_ptr;           /* Покажчик на корисне навантаження в пам'яті */
-} HarqTxProcessDescriptor;
-
-/* Дескриптор софт-буфера процесу HARQ приймача (RX) */
-typedef struct {
-    uint8_t process_id;             /* ID процесу: 0..15 */
-    bool last_ndi;                  /* Останній зафіксований стан NDI */
-    uint8_t combined_transmissions; /* Кількість об'єднаних копій у буфері */
-    uint32_t soft_buffer_size;      /* Кількість виділених LLR комірок */
-    int8_t *llr_buffer;             /* Масив логарифмічних відношень (8-біт квантування) */
-    bool crc_pass;                  /* Прапорець успішного проходження CRC */
-} HarqRxBufferDescriptor;
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <span>
-#include <memory>
-
-enum class HarqRedundancyVersion : uint8_t {
-    Rv0 = 0,  // Систематичні біти + базовий паритет
-    Rv2 = 2,  // Перша порція додаткового паритету
-    Rv3 = 3,  // Друга порція додаткового паритету
-    Rv1 = 1   // Залишкова порція паритету
-};
-
-enum class HarqProcessState : uint8_t {
-    Idle = 0,
-    ActiveTx,
-    WaitingFeedback,
-    MaxRetriesExceeded
-};
-
-enum class HarqFeedback : uint8_t {
-    Nack = 0,
-    Ack = 1,
-    Dtx = 2  // Discontinuous Transmission
-};
-
-struct HarqTxProcessDescriptor {
-    uint8_t process_id = 0;
-    HarqProcessState state = HarqProcessState::Idle;
-    bool ndi = false;
-    HarqRedundancyVersion rv = HarqRedundancyVersion::Rv0;
-    uint8_t transmission_count = 0;
-    uint8_t mcs_index = 0;
-    uint32_t transport_block_size = 0;
-    uint32_t code_bits_len = 0;
-    std::span<const uint8_t> payload;
-};
-
-struct HarqRxBufferDescriptor {
-    uint8_t process_id = 0;
-    bool last_ndi = false;
-    uint8_t combined_transmissions = 0;
-    std::vector<int8_t> llr_buffer;  // Квантовані значення LLR (від -127 до +127)
-    bool crc_pass = false;
-};
-```
+:::code api-harq-mac/c/struktury-danykh.c
+:::code api-harq-mac/cpp/struktury-danykh.cpp
 :::
 
 ---
@@ -225,78 +131,8 @@ N_soft_per_process = ⌊ N_soft / (K_MIMO · min(N_proc, M_limit)) ⌋
 Для інтеграції сутності HARQ з планувальником MAC (MAC Scheduler) та апаратним драйвером фізичного рівня (PHY Driver) стандартний стек реалізує такий набір функцій керування:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Коди результатів виконання функцій HARQ API */
-typedef enum {
-    HARQ_OK = 0,
-    HARQ_ERR_INVALID_PROCESS_ID,
-    HARQ_ERR_NO_FREE_PROCESS,
-    HARQ_ERR_BUFFER_OVERFLOW,
-    HARQ_ERR_OUT_OF_SYNC_NDI,
-    HARQ_ERR_MAX_RETRIES_REACHED
-} HarqResult;
-
-/* Ініціалізація сутності HARQ для конкретного користувацького термінала (UE) */
-HarqResult harq_entity_init(uint16_t rnti, uint8_t num_processes, uint32_t total_soft_buffer_bytes);
-
-/* Виділення вільного процесу HARQ для передачі нового блоку */
-HarqResult harq_tx_allocate_process(uint16_t rnti, uint8_t *allocated_pid);
-
-/* Підготовка дескриптора передачі (оновлює RV, інвертує NDI за потреби) */
-HarqResult harq_tx_prepare_pdu(uint16_t rnti, uint8_t process_id, bool is_new_data, 
-                              const uint8_t *payload, uint32_t tbs, HarqTxProcessDescriptor *out_desc);
-
-/* Обробка отриманого сигналу зворотного зв'язку ACK/NACK/DTX від приймача */
-HarqResult harq_tx_handle_feedback(uint16_t rnti, uint8_t process_id, HarqFeedback feedback);
-
-/* Виконання софт-комбінування на приймачі (PHY LLR Combining) */
-HarqResult harq_rx_combine_and_decode(uint16_t rnti, uint8_t process_id, bool received_ndi,
-                                      HarqRedundancyVersion rv, const int8_t *rx_llr, 
-                                      uint32_t llr_count, uint8_t *out_payload, bool *out_crc_pass);
-
-/* Примусове скидання та очищення буфера процесу */
-HarqResult harq_process_reset(uint16_t rnti, uint8_t process_id);
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <expected>
-#include <vector>
-
-enum class HarqError : uint8_t {
-    InvalidProcessId,
-    NoFreeProcess,
-    BufferOverflow,
-    OutOfSyncNdi,
-    MaxRetriesReached
-};
-
-class HarqEntity {
-public:
-    explicit HarqEntity(uint16_t rnti, uint8_t num_processes, uint32_t total_soft_buffer_bytes);
-
-    // Виділення вільного процесу HARQ для передачі нового блоку
-    [[nodiscard]] std::expected<uint8_t, HarqError> allocate_tx_process();
-
-    // Підготовка дескриптора передачі
-    [[nodiscard]] std::expected<HarqTxProcessDescriptor, HarqError> prepare_tx_pdu(
-        uint8_t process_id, bool is_new_data, std::span<const uint8_t> payload, uint32_t tbs);
-
-    // Обробка отриманого зворотного зв'язку від фізичного рівня
-    [[nodiscard]] std::expected<void, HarqError> handle_feedback(uint8_t process_id, HarqFeedback feedback);
-
-    // Софт-комбінування та запуск апаратного декодера
-    [[nodiscard]] std::expected<bool, HarqError> combine_and_decode(
-        uint8_t process_id, bool received_ndi, HarqRedundancyVersion rv,
-        std::span<const int8_t> rx_llr, std::span<uint8_t> out_payload);
-
-    // Скидання буфера
-    void reset_process(uint8_t process_id);
-};
-```
+:::code api-harq-mac/c/stdint.h
+:::code api-harq-mac/cpp/syhnatury-funktsii.hpp
 :::
 
 ---
@@ -412,45 +248,8 @@ Step_Up = 0.45 · (0.10 / 0.90) = 0.45 · (1/9) = 0.05 дБ
 Нижче наведено визначення структур дескрипторів Block Ack, які використовуються в ядрі Linux (підсистема `mac80211`):
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* Керуючий заголовок кадру Block Ack */
-typedef struct {
-    uint16_t ba_control;        /* Біти: [0..0] Ack Policy, [1..4] Multi-TID, [5..15] Compressed */
-    uint16_t starting_seq_ctrl; /* Біти: [0..3] Номер фрагмента (завжди 0), [4..15] Starting Seq Num */
-    uint64_t ba_bitmap;         /* 64-бітова маска підтверджень: біт k = 1 означає успішний прийом MPDU (SSN + k) */
-} __attribute__((packed)) Ieee80211BlockAckFrame;
-
-/* Запит блокового підтвердження (Block Ack Request - BAR) */
-typedef struct {
-    uint16_t bar_control;       /* Керуючі прапорці TID та політики */
-    uint16_t starting_seq_ctrl; /* Початковий номер послідовності (Starting Sequence Number - SSN) */
-} __attribute__((packed)) Ieee80211BlockAckReqFrame;
-```
-```cpp
-#include <cstdint>
-#include <bitset>
-
-struct Ieee80211BlockAckFrame {
-    uint16_t ba_control = 0;
-    uint16_t starting_seq_ctrl = 0;
-    uint64_t ba_bitmap = 0;
-
-    [[nodiscard]] uint16_t starting_sequence_number() const noexcept {
-        return (starting_seq_ctrl >> 4) & 0x0FFF;
-    }
-
-    [[nodiscard]] bool is_mpdu_acked(uint16_t seq_num) const noexcept {
-        uint16_t ssn = starting_sequence_number();
-        uint16_t diff = (seq_num - ssn) & 0x0FFF;
-        if (diff < 64) {
-            return (ba_bitmap & (1ULL << diff)) != 0;
-        }
-        return false;
-    }
-};
-```
+:::code api-harq-mac/c/struktura-kadru-block-ack.c
+:::code api-harq-mac/cpp/struktura-kadru-block-ack.cpp
 :::
 
 Семантика полів:

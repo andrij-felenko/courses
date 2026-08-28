@@ -46,27 +46,7 @@ setsockopt(fd, IPPROTO_IP, IP_MULTICAST_ALL, &off, sizeof off);  /* лише м�
 
 ### Дві структури й чому їх дві
 
-```c
-/* POSIX, є всюди — навіть у Winsock і lwIP */
-struct ip_mreq {
-    struct in_addr imr_multiaddr;   /* адреса групи */
-    struct in_addr imr_interface;   /* АДРЕСА локального інтерфейсу */
-};
-
-/* Linux 2.2+, FreeBSD, macOS */
-struct ip_mreqn {
-    struct in_addr imr_multiaddr;   /* адреса групи */
-    struct in_addr imr_address;     /* адреса інтерфейсу; можна 0.0.0.0 */
-    int            imr_ifindex;     /* ІНДЕКС інтерфейсу — має перевагу */
-};
-
-/* фільтр за джерелом; Linux 2.4.22+, BSD, Windows */
-struct ip_mreq_source {
-    struct in_addr imr_multiaddr;   /* адреса групи */
-    struct in_addr imr_interface;   /* адреса локального інтерфейсу */
-    struct in_addr imr_sourceaddr;  /* дозволене (чи заглушене) джерело */
-};
-```
+:::code api-multicast-sockopts/c/dvi-struktury-i-chomu-ikh.c
 
 Порядок полів у `ip_mreq_source` **не однаковий на всіх системах**: у заголовку XNU (macOS) джерело стоїть другим, а адреса інтерфейсу — третьою. Тому поля заповнюють за іменами, ніколи не ініціалізацією списком у фігурних дужках.
 
@@ -78,24 +58,7 @@ struct ip_mreq_source {
 
 *Історія цього API — поступова відмова називати інтерфейс його адресою: у найновішій формі адреси інтерфейсу немає взагалі.*
 
-```c
-#include <net/if.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
-/* приєднання за індексом — Linux, FreeBSD, macOS */
-struct ip_mreqn mreq;
-memset(&mreq, 0, sizeof mreq);
-inet_pton(AF_INET, "239.1.2.3", &mreq.imr_multiaddr);
-mreq.imr_ifindex = (int)if_nametoindex("eth0");     /* 0 = такого імені немає */
-setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof mreq);
-
-/* переносний запасний варіант — Winsock, lwIP, старі системи */
-struct ip_mreq old;
-inet_pton(AF_INET, "239.1.2.3", &old.imr_multiaddr);
-old.imr_interface.s_addr = inet_addr("192.168.1.7");  /* адреса ЦЬОГО інтерфейсу */
-setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, (const char *)&old, sizeof old);
-```
+:::code api-multicast-sockopts/c/if.h
 
 macOS має ще й власну опцію `IP_MULTICAST_IFINDEX` (номер 66 у заголовку XNU, аргумент — `int`), якою вихідний інтерфейс задають індексом без жодної структури.
 
@@ -111,18 +74,7 @@ macOS має ще й власну опцію `IP_MULTICAST_IFINDEX` (номер 
 
 **Про `IP_MULTICAST_LOOP` на Windows.** Документація Winsock каже це прямо: там опція керує **приймальним** боком, а в POSIX — відправним. Тобто в POSIX сокет-відправник вирішує, чи лишити копію собі та сусідам на цій же машині, а у Winsock кожен приймач вирішує, чи брати місцеві копії. Наслідок: один і той самий рядок коду на Linux і на Windows розриває зв'язок між різними парами процесів. Не покладайся на цю опцію взагалі — **відсіювати власні пакети треба за ідентифікатором усередині повідомлення**, і тоді питання «на якому боці вимикати луну» не виникає.
 
-```c
-/* один намір — три різні типи аргументу */
-#if defined(_WIN32)
-    DWORD ttl = 4, loop = 1;
-#elif defined(__linux__)
-    int ttl = 4, loop = 1;
-#else
-    unsigned char ttl = 4, loop = 1;   /* історична форма BSD */
-#endif
-setsockopt(fd, IPPROTO_IP, IP_MULTICAST_TTL,  (const char *)&ttl,  sizeof ttl);
-setsockopt(fd, IPPROTO_IP, IP_MULTICAST_LOOP, (const char *)&loop, sizeof loop);
-```
+:::code api-multicast-sockopts/c/kudy-i-na-skilky.h
 
 Числові значення самих імен теж не збігаються між стеками: у заголовках FreeBSD і macOS `IP_MULTICAST_TTL` — це `10`, у lwIP — `5`, у Linux — ще інше число. Це не дрібниця для тих, хто пише байти опцій вручну чи розбирає чужий трафік `strace`: константа значуща лише разом зі своїм заголовком.
 
@@ -166,54 +118,11 @@ setsockopt(fd, IPPROTO_IP, IP_MULTICAST_LOOP, (const char *)&loop, sizeof loop);
 
 Наявність за системами: Linux має `IP_PKTINFO`; macOS має його теж (номер 26 у заголовку XNU, `IP_RECVPKTINFO` — синонім) і додатково пару `IP_RECVDSTADDR`/`IP_RECVIF`; FreeBSD `IP_PKTINFO` не має зовсім — там лише ця пара; Windows має `IP_PKTINFO`, але читати допоміжні дані треба через `WSARecvMsg`, покажчик на яку добувають викликом `WSAIoctl` із кодом `SIO_GET_EXTENSION_FUNCTION_POINTER`. Для IPv6 різнобою немає: `IPV6_RECVPKTINFO` за RFC 3542 працює скрізь, і в lwIP `IP_PKTINFO` теж є.
 
-```c
-struct in_pktinfo {
-    unsigned int   ipi_ifindex;    /* інтерфейс, на який прийшло */
-    struct in_addr ipi_spec_dst;   /* локальна адреса маршруту */
-    struct in_addr ipi_addr;       /* адреса призначення з заголовка — ГРУПА */
-};
-
-struct in6_pktinfo {
-    struct in6_addr ipi6_addr;     /* адреса призначення */
-    unsigned int    ipi6_ifindex;  /* інтерфейс */
-};
-```
+:::code api-multicast-sockopts/c/kudy-pryishov-paket-ip.c
 
 Читання цих даних — це завжди [допоміжні дані сокета](root:sf-os/ancillary-data-cmsg): вони приходять не в буфері з корисним навантаженням, а окремим списком поруч із ним, і дістати їх можна тільки через `recvmsg`, ніколи через `recv` чи `recvfrom`.
 
-```c
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <string.h>
-
-/* прийняти датаграму і дізнатися, ЯКІЙ групі вона адресована */
-static ssize_t recv_with_dest(int fd, void *buf, size_t len,
-                              struct sockaddr_in *from,
-                              struct in_addr *dst, unsigned *ifindex)
-{
-    char control[CMSG_SPACE(sizeof(struct in_pktinfo))];
-    struct iovec iov = { .iov_base = buf, .iov_len = len };
-    struct msghdr msg = {
-        .msg_name = from,      .msg_namelen   = sizeof *from,
-        .msg_iov  = &iov,      .msg_iovlen    = 1,
-        .msg_control = control, .msg_controllen = sizeof control,
-    };
-
-    ssize_t n = recvmsg(fd, &msg, 0);
-    if (n < 0)
-        return n;
-
-    for (struct cmsghdr *c = CMSG_FIRSTHDR(&msg); c; c = CMSG_NXTHDR(&msg, c)) {
-        if (c->cmsg_level == IPPROTO_IP && c->cmsg_type == IP_PKTINFO) {
-            struct in_pktinfo pi;
-            memcpy(&pi, CMSG_DATA(c), sizeof pi);   /* копія: вирівнювання не гарантоване */
-            *dst     = pi.ipi_addr;
-            *ifindex = pi.ipi_ifindex;
-        }
-    }
-    return n;
-}
-```
+:::code api-multicast-sockopts/c/kudy-pryishov-paket-ip-2.c
 
 Буфер `control` мусить бути рівно на `CMSG_SPACE(...)` байтів, а не на `sizeof(struct in_pktinfo)`: між елементами списку є вирівнювання й заголовки. Замалий буфер не дає помилки — ядро просто ставить прапорець `MSG_CTRUNC` у `msg.msg_flags` і мовчки обрізає дані.
 
@@ -229,18 +138,7 @@ static ssize_t recv_with_dest(int fd, void *buf, size_t len,
 | `IPV6_RECVPKTINFO` | `IPPROTO_IPV6` | `int` (0/1) | 0 | вмикає `struct in6_pktinfo` у допоміжних даних |
 | `IPV6_V6ONLY` | `IPPROTO_IPV6` | `int` (0/1) | Linux — типово 0; **Windows — типово 1** | ставити **до `bind`** |
 
-```c
-struct ipv6_mreq {
-    struct in6_addr ipv6mr_multiaddr;   /* адреса групи */
-    unsigned int    ipv6mr_interface;   /* ІНДЕКС; 0 = ядро обере само */
-};
-
-struct ipv6_mreq m6;
-memset(&m6, 0, sizeof m6);
-inet_pton(AF_INET6, "ff02::fb", &m6.ipv6mr_multiaddr);   /* mDNS в IPv6 */
-m6.ipv6mr_interface = if_nametoindex("eth0");
-setsockopt(fd6, IPPROTO_IPV6, IPV6_JOIN_GROUP, &m6, sizeof m6);
-```
+:::code api-multicast-sockopts/c/ipv6-ti-sami-optsii.h
 
 Три відмінності від IPv4, які варто тримати в голові.
 
@@ -263,35 +161,11 @@ RFC 3678 прибрав дублювання «те саме, але для IPv6
 | `MCAST_BLOCK_SOURCE` | `struct group_source_req` | заглушити джерело в уже приєднаній групі |
 | `MCAST_UNBLOCK_SOURCE` | `struct group_source_req` | зняти заглушення |
 
-```c
-struct group_req {
-    uint32_t                gr_interface;   /* індекс інтерфейсу */
-    struct sockaddr_storage gr_group;       /* група: AF_INET або AF_INET6 */
-};
-
-struct group_source_req {
-    uint32_t                gsr_interface;
-    struct sockaddr_storage gsr_group;
-    struct sockaddr_storage gsr_source;
-};
-```
+:::code api-multicast-sockopts/c/nezalezhni-vid-versii.c
 
 Рівень при цьому лишається за сімейством **сокета**: для `AF_INET` — `IPPROTO_IP`, для `AF_INET6` — `IPPROTO_IPV6`. Через це один виклик обслуговує обидві версії, а розгалуження зводиться до вибору константи:
 
-```c
-/* приєднання, яке не знає й не хоче знати версію протоколу */
-static int join_any(int fd, const struct sockaddr_storage *group,
-                    socklen_t grouplen, unsigned ifindex)
-{
-    struct group_req req;
-    memset(&req, 0, sizeof req);
-    req.gr_interface = ifindex;
-    memcpy(&req.gr_group, group, grouplen);
-
-    int level = (group->ss_family == AF_INET6) ? IPPROTO_IPV6 : IPPROTO_IP;
-    return setsockopt(fd, level, MCAST_JOIN_GROUP, &req, sizeof req);
-}
-```
+:::code api-multicast-sockopts/c/nezalezhni-vid-versii-2.c
 
 Приймати адресу групи в такий код зручно просто з `getaddrinfo`: він уже повертає `sockaddr` потрібного сімейства, і жодного `inet_pton` із заздалегідь відомою версією не потрібно.
 
@@ -312,34 +186,7 @@ char        *if_indextoname(unsigned int ifindex, char *buf);  /* buf ≥ IF_NAM
 
 Коли ім'я інтерфейсу наперед невідоме — а в програмі виявлення воно невідоме майже завжди, — інтерфейси перебирають:
 
-```c
-#include <ifaddrs.h>
-#include <net/if.h>
-#include <arpa/inet.h>
-#include <stdio.h>
-
-/* усі інтерфейси, придатні для групової розсилки */
-void list_mcast_ifaces(void)
-{
-    struct ifaddrs *head;
-    if (getifaddrs(&head) != 0)
-        return;
-
-    for (struct ifaddrs *p = head; p; p = p->ifa_next) {
-        if (!p->ifa_addr || p->ifa_addr->sa_family != AF_INET) continue;
-        if (!(p->ifa_flags & IFF_UP))        continue;   /* вимкнений */
-        if (!(p->ifa_flags & IFF_MULTICAST)) continue;   /* не вміє груп */
-        if (p->ifa_flags & IFF_LOOPBACK)     continue;   /* петля — окремий випадок */
-
-        char ip[INET_ADDRSTRLEN];
-        struct sockaddr_in *sa = (struct sockaddr_in *)p->ifa_addr;
-        inet_ntop(AF_INET, &sa->sin_addr, ip, sizeof ip);
-        printf("%-10s індекс=%u  %s\n", p->ifa_name,
-               if_nametoindex(p->ifa_name), ip);
-    }
-    freeifaddrs(head);
-}
-```
+:::code api-multicast-sockopts/c/indeks-interfeisu-zvidky.c
 
 Три прапорці в цьому переборі несуть усю роботу: `IFF_UP` відсіює налаштовані, але мертві інтерфейси, `IFF_MULTICAST` — ті, що груп не вміють узагалі, `IFF_LOOPBACK` — петлю, яку в перебір беруть тільки свідомо (для обміну між процесами на одній машині). Що саме означають ці прапорці й звідки в системи береться сам список інтерфейсів — у [інтерфейсах, адресах і стані лінка](root:sys-unix/interfaces-and-addresses).
 
@@ -363,76 +210,6 @@ void list_mcast_ifaces(void)
 
 ## Мінімальний робочий виклик
 
-```c
-#include <arpa/inet.h>
-#include <net/if.h>
-#include <netinet/in.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
-/* приймач: слухати групу group:port на інтерфейсі ifname */
-int mcast_rx(const char *group, unsigned short port, const char *ifname)
-{
-    int fd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (fd < 0)
-        return -1;
-
-    int on = 1;
-    setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof on);
-#ifdef SO_REUSEPORT
-    setsockopt(fd, SOL_SOCKET, SO_REUSEPORT, &on, sizeof on);   /* потрібне на BSD */
-#endif
-
-    /* підстановна адреса — єдиний варіант, що поводиться однаково всюди */
-    struct sockaddr_in a;
-    memset(&a, 0, sizeof a);
-    a.sin_family      = AF_INET;
-    a.sin_port        = htons(port);
-    a.sin_addr.s_addr = htonl(INADDR_ANY);
-    if (bind(fd, (struct sockaddr *)&a, sizeof a) < 0)
-        goto fail;
-
-    struct ip_mreqn mreq;
-    memset(&mreq, 0, sizeof mreq);
-    if (inet_pton(AF_INET, group, &mreq.imr_multiaddr) != 1)
-        goto fail;
-    mreq.imr_ifindex = (int)if_nametoindex(ifname);
-    if (mreq.imr_ifindex == 0)                  /* немає такого інтерфейсу */
-        goto fail;
-    if (setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof mreq) < 0)
-        goto fail;
-
-#ifdef IP_MULTICAST_ALL
-    int off = 0;                                /* Linux: чужих груп не хочу */
-    setsockopt(fd, IPPROTO_IP, IP_MULTICAST_ALL, &off, sizeof off);
-#endif
-    setsockopt(fd, IPPROTO_IP, IP_PKTINFO, &on, sizeof on);
-    return fd;
-
-fail:
-    close(fd);
-    return -1;
-}
-
-/* відправник: слати в групу з того самого інтерфейсу, ttl переходів углиб */
-int mcast_tx(const char *ifname, int ttl)
-{
-    int fd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (fd < 0)
-        return -1;
-
-    struct ip_mreqn out;
-    memset(&out, 0, sizeof out);
-    out.imr_ifindex = (int)if_nametoindex(ifname);
-    if (out.imr_ifindex == 0 ||
-        setsockopt(fd, IPPROTO_IP, IP_MULTICAST_IF, &out, sizeof out) < 0) {
-        close(fd);
-        return -1;
-    }
-    setsockopt(fd, IPPROTO_IP, IP_MULTICAST_TTL, &ttl, sizeof ttl);
-    return fd;                                  /* приєднання для слання не треба */
-}
-```
+:::code api-multicast-sockopts/c/minimalnyi-robochyi-vyklyk.c
 
 Відправлення далі — звичайне `sendto` на `sockaddr_in` з адресою групи; жодного приєднання для цього не потрібно, і відправник ніколи не дізнається, чи слухав його хоч хтось. Це не вада реалізації, а сама форма контракту: [семантика датаграми](root:com-transport/udp-datagram-semantics) тут не змінюється від того, що адреса називає групу, а не машину.

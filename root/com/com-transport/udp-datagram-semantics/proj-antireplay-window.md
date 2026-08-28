@@ -49,194 +49,17 @@ static int64_t seq_ahead(uint32_t seq, uint32_t top)
 
 ## Структура і головна функція
 
-```c
-#include <stdint.h>
-#include <string.h>
-
-#define ARW_BITS 64
-
-typedef enum {
-    ARW_NEW,        /* новіша за все бачене */
-    ARW_LATE,       /* запізніла, але ще не бачена — законна */
-    ARW_DUPLICATE,  /* цей номер уже приймали */
-    ARW_TOO_OLD     /* позаду вікна — розсудити неможливо */
-} arw_verdict;
-
-typedef struct {
-    uint32_t top;        /* найбільший прийнятий номер */
-    uint32_t first;      /* найменший номер, який ми взагалі бачили */
-    uint64_t bits;       /* біт k ⇔ «номер top − k бачили»; біт 0 завжди 1 */
-    int      started;    /* чи ініціалізовано першою датаграмою */
-
-    uint64_t accepted;   /* прийнято унікальних номерів */
-    uint64_t lost;       /* підтверджені втрати */
-    uint64_t duplicate;  /* відкинуто як дублі */
-    uint64_t reordered;  /* прийнято не по порядку */
-    uint64_t too_old;    /* відкинуто як надто старі */
-} arw;
-
-void arw_init(arw *w) { memset(w, 0, sizeof *w); }
-```
+:::code proj-antireplay-window/c/struktura-i-holovna.c
 
 Лічильник одиничних бітів — єдина операція, важча за зсув. На всіх сучасних процесорах це одна інструкція, [і компілятор дістає її вбудованою функцією](root:sf-algorithms/popcount); запасний варіант потрібен лише для чужих компіляторів.
 
-```c
-static int arw_popcount64(uint64_t x)
-{
-#if defined(__GNUC__) || defined(__clang__)
-    return __builtin_popcountll(x);
-#else
-    x = x - ((x >> 1) & 0x5555555555555555ULL);
-    x = (x & 0x3333333333333333ULL) + ((x >> 2) & 0x3333333333333333ULL);
-    x = (x + (x >> 4)) & 0x0F0F0F0F0F0F0F0FULL;
-    return (int)((x * 0x0101010101010101ULL) >> 56);
-#endif
-}
-
-/* Скільки позицій вікна відповідають номерам, які справді існували.
-   Одразу після старту вікно «висить» над номерами, яких відправник ще
-   не слав, — без цієї поправки вони порахуються втраченими. */
-static unsigned arw_live(const arw *w)
-{
-    uint64_t span = (uint64_t)(uint32_t)(w->top - w->first) + 1;
-    return span < ARW_BITS ? (unsigned)span : ARW_BITS;
-}
-```
+:::code proj-antireplay-window/c/struktura-i-holovna-2.c
 
 Тепер сама перевірка. Три гілки: вперед, назад у межах вікна, назад за межі вікна.
 
 :::tabs
-```c
-arw_verdict arw_update(arw *w, uint32_t seq)
-{
-    if (!w->started) {                    /* перша датаграма задає точку відліку */
-        w->started  = 1;
-        w->top      = seq;
-        w->first    = seq;
-        w->bits     = 1;
-        w->accepted = 1;
-        return ARW_NEW;
-    }
-
-    int64_t d = seq_ahead(seq, w->top);
-
-    if (d > 0) {                          /* новіша: вікно їде вперед на d позицій */
-        unsigned live = arw_live(w);
-        if (d < ARW_BITS) {
-            unsigned stay   = ARW_BITS - (unsigned)d;   /* позицій лишається у вікні */
-            uint64_t fallen = w->bits >> stay;          /* зсув 1..63 — законний */
-            unsigned real   = live > stay ? live - stay : 0;
-            w->lost += real - (unsigned)arw_popcount64(fallen);
-            w->bits <<= (unsigned)d;                    /* зсув 1..63 — законний */
-            w->bits |= 1;
-        } else {
-            /* Стрибок ширший за вікно: старий вміст виїхав цілком, а ще
-               d − 64 номерів проскочили вікно наскрізь.
-               Зсув на 64 і більше в C — невизначена поведінка, тож не зсуваємо. */
-            w->lost += (live - (unsigned)arw_popcount64(w->bits))
-                     + ((uint64_t)d - ARW_BITS);
-            w->bits  = 1;
-        }
-        w->top = seq;
-        w->accepted++;
-        return ARW_NEW;
-    }
-
-    if (d <= -(int64_t)ARW_BITS) {        /* позаду вікна — пам'яті вже не лишилося */
-        w->too_old++;
-        return ARW_TOO_OLD;
-    }
-
-    unsigned k   = (unsigned)(-d);        /* 0..63 — відстань позаду top */
-    uint64_t bit = (uint64_t)1 << k;      /* k ≤ 63 — законний зсув */
-
-    if (w->bits & bit) {
-        w->duplicate++;
-        return ARW_DUPLICATE;
-    }
-
-    if (k >= arw_live(w))                 /* номер із-перед нашого старту */
-        w->first = seq;
-    w->bits |= bit;
-    w->accepted++;
-    w->reordered++;
-    return ARW_LATE;
-}
-```
-```rust
-const BITS: i64 = 64;
-
-#[derive(Clone, Copy, PartialEq, Debug)]
-enum Verdict { New, Late, Duplicate, TooOld }
-
-#[derive(Default)]
-struct Window {
-    top: u32, first: u32, bits: u64, started: bool,
-    accepted: u64, lost: u64, duplicate: u64, reordered: u64, too_old: u64,
-}
-
-impl Window {
-    fn live(&self) -> i64 {
-        (self.top.wrapping_sub(self.first) as i64 + 1).min(BITS)
-    }
-
-    fn update(&mut self, seq: u32) -> Verdict {
-        if !self.started {
-            self.started = true;
-            self.top = seq;
-            self.first = seq;
-            self.bits = 1;
-            self.accepted = 1;
-            return Verdict::New;
-        }
-
-        let d = seq.wrapping_sub(self.top) as i32 as i64;
-
-        if d > 0 {
-            let live = self.live();
-            // checked_shl повертає None замість зсуву на 64 і більше — те, що в C
-            // є невизначеною поведінкою, тут стає звичайною гілкою match
-            match self.bits.checked_shl(d as u32) {
-                Some(shifted) => {
-                    let stay = BITS - d;                    // позицій лишається у вікні
-                    let fallen = self.bits >> stay;         // d старших позицій
-                    let real = (live - stay).max(0);
-                    self.lost += (real - fallen.count_ones() as i64) as u64;
-                    self.bits = shifted | 1;
-                }
-                None => {
-                    self.lost += (live - self.bits.count_ones() as i64) as u64
-                               + (d - BITS) as u64;
-                    self.bits = 1;
-                }
-            }
-            self.top = seq;
-            self.accepted += 1;
-            return Verdict::New;
-        }
-
-        if d <= -BITS {
-            self.too_old += 1;
-            return Verdict::TooOld;
-        }
-
-        let k = (-d) as u32;
-        let bit = 1u64 << k;
-        if self.bits & bit != 0 {
-            self.duplicate += 1;
-            return Verdict::Duplicate;
-        }
-
-        if k as i64 >= self.live() {
-            self.first = seq;
-        }
-        self.bits |= bit;
-        self.accepted += 1;
-        self.reordered += 1;
-        Verdict::Late
-    }
-}
-```
+:::code proj-antireplay-window/c/struktura-i-holovna-3.c
+:::code proj-antireplay-window/rust/main.rs
 :::
 
 Гілки на Rust ті самі, але зсув на завелику кількість позицій там не тихе лихо, а `None` з `checked_shl` — мова робить пастку видимою в типі. У режимі зневадження звичайний `<<` на 64 просто панікує, тобто помилка виявляється на першому ж стрибку, а не через місяць у полі.
@@ -281,29 +104,7 @@ lost += 3 − 2 = 1                   → підтверджена втрата:
 
 Для даних, де кожна датаграма замінює попередню — координати, температура, положення джойстика, — правило одне: **новіше виграє**. Запізніла датаграма законна з погляду вікна й водночас непотрібна з погляду застосунку.
 
-```c
-typedef struct { float lat, lon, alt; } fix;
-
-typedef struct {
-    arw win;
-    fix cur;
-    int has_fix;
-} state_sink;
-
-void on_datagram(state_sink *s, uint32_t seq, const fix *f)
-{
-    switch (arw_update(&s->win, seq)) {
-    case ARW_NEW:                       /* свіжіше за все бачене — беремо */
-        s->cur = *f;
-        s->has_fix = 1;
-        break;
-    case ARW_LATE:                      /* законна, але вміст уже застарів */
-    case ARW_DUPLICATE:
-    case ARW_TOO_OLD:
-        break;                          /* стан не чіпаємо */
-    }
-}
-```
+:::code proj-antireplay-window/c/khto-vyhraie-polityka-dlia.c
 
 Один `case ARW_NEW` — і вся політика. Зверніть увагу, що `ARW_LATE` тут потрібен окремо від `ARW_DUPLICATE` не для рішення (обидва нічого не змінюють), а для статистики: перше означає перестановку в мережі, друге — повтор, і причини в них різні.
 
@@ -311,60 +112,9 @@ void on_datagram(state_sink *s, uint32_t seq, const fix *f)
 
 Тест має ганяти не окремі випадки, а одну послідовність, у якій усі чотири вердикти трапляються впереміш — саме так і поводиться справжня мережа. Наприкінці лишається невидана обіцянка: частина номерів досі сидить у вікні нулями. Щоб закрити рахунок, потрібна фінальна функція.
 
-```c
-/* Визнати втраченими всі номери, що досі висять у вікні нулями.
-   Викликати РІВНО ОДИН раз, коли потік завершено. */
-uint64_t arw_flush(arw *w)
-{
-    if (!w->started) return 0;
-    unsigned live = arw_live(w);
-    /* зсув на 64 — та сама невизначена поведінка, тому окрема гілка */
-    uint64_t mask = (live >= ARW_BITS) ? ~(uint64_t)0
-                                       : (((uint64_t)1 << live) - 1);
-    uint64_t pending = live - (uint64_t)arw_popcount64(w->bits & mask);
-    w->lost += pending;
-    return pending;
-}
-```
+:::code proj-antireplay-window/c/prohin-iz-vtratamy.c
 
-```c
-#include <stdio.h>
-#include <assert.h>
-
-int main(void)
-{
-    /* Відправник слав 1…200 поспіль. Мережа зробила з цього таке:
-       4 обігнала 3; 4 прилетіла двічі; 7 обігнала 6; 12 обігнала 9 і 5;
-       далі величезний стрибок на 200, а останньою — давно списана 5. */
-    static const uint32_t wire[] = {
-        1, 2, 4, 3, 4, 7, 6, 12, 9, 5, 200, 5
-    };
-
-    arw w;
-    arw_init(&w);
-    for (size_t i = 0; i < sizeof wire / sizeof wire[0]; i++)
-        arw_update(&w, wire[i]);
-    arw_flush(&w);
-
-    printf("прийнято %llu, втрачено %llu, дублів %llu, "
-           "перестановок %llu, надто старих %llu\n",
-           (unsigned long long)w.accepted,  (unsigned long long)w.lost,
-           (unsigned long long)w.duplicate, (unsigned long long)w.reordered,
-           (unsigned long long)w.too_old);
-
-    assert(w.accepted  == 10);   /* 1,2,3,4,5,6,7,9,12,200 */
-    assert(w.duplicate == 1);    /* друга четвірка */
-    assert(w.reordered == 4);    /* 3, 6, 9 і 5 прийшли після новіших */
-    assert(w.too_old   == 1);    /* остання п'ятірка — уже поза вікном */
-    assert(w.lost      == 190);
-
-    /* Головна перевірка: рахунок мусить зійтися до одиниці.
-       Від найменшого баченого номера до найбільшого — 200 номерів,
-       і кожен із них або прийнятий, або визнаний утраченим. */
-    assert(w.accepted + w.lost == 200);
-    return 0;
-}
-```
+:::code proj-antireplay-window/c/prohin-iz-vtratamy-2.c
 
 Остання перевірка — найцінніша, і саме її варто лишати в тесті назавжди. Вона не звіряє окремі числа з очікуваннями, а стверджує **інваріант**: жоден номер не може ні загубитися з обліку, ні порахуватися двічі. Будь-яка помилка в межах вікна — забутий нуль на виїзді, зайва одиниця в `real`, зсув не на ту кількість позицій — негайно ламає цю рівність, хай на скількох завгодно випадкових послідовностях.
 
@@ -384,25 +134,7 @@ int main(void)
 
 **Перезапуск відправника з нуля.** Апарат перезавантажився й почав нумерацію наново, а приймач тримає `top` = 50000. Різниця виходить близько мінус п'ятдесяти тисяч, вердикт — «надто стара», і так буде для кожної наступної датаграми: канал живий, дані йдуть, приймач мовчки викидає все й ніколи сам із цього не вийде. Чесний розв'язок — покласти в заголовок **епоху**: випадкове число, яке відправник обирає при старті й не змінює до наступного перезавантаження.
 
-```c
-typedef struct { uint32_t epoch, seq; } hdr;
-
-typedef struct {
-    state_sink sink;
-    uint32_t   epoch;
-    int        have_epoch;
-} peer;
-
-void on_packet(peer *p, const hdr *h, const fix *f)
-{
-    if (!p->have_epoch || h->epoch != p->epoch) {   /* відправник перезапустився */
-        arw_init(&p->sink.win);                     /* нумерація починається наново */
-        p->epoch = h->epoch;
-        p->have_epoch = 1;
-    }
-    on_datagram(&p->sink, h->seq, f);
-}
-```
+:::code proj-antireplay-window/c/pastky.c
 
 Якщо формат на дроті вже зафіксований і місця під епоху нема, лишається евристика: кілька десятків підряд відкинутих «надто старих», які при цьому **зростають самі між собою**, — ознака живого потоку з іншою нумерацією, а не купи старих дублів, що прилітають урозсип. Умова зростання тут обов'язкова, інакше запізніла пачка справжніх старих датаграм скине вікно на рівному місці. Ціна евристики — кілька десятків утрачених датаграм на кожен перезапуск, і це чесна ціна за відсутнє поле.
 

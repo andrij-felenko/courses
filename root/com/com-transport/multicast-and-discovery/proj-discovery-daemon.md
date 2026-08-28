@@ -72,93 +72,15 @@ p⁷ = 0.05⁷ ≈ 7.8·10⁻¹⁰
 
 Далі — цілий файл шматками. Порядок розповіді й порядок у файлі не збігаються повністю: у файлі кожна функція мусить стояти після всіх, кого вона кличе, тож дрібні помічники з кінця розповіді лежать вище за `main`. Починається все з переліку сталих — тих самих трьох чисел і адреси групи:
 
-```c
-#define _GNU_SOURCE
-#include <arpa/inet.h>
-#include <errno.h>
-#include <ifaddrs.h>
-#include <net/if.h>
-#include <netinet/in.h>
-#include <poll.h>
-#include <signal.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <time.h>
-#include <unistd.h>
-
-#define DISC_GROUP    "239.7.7.7"
-#define DISC_PORT     7711
-#define PROTO_VER     1
-#define HDR_LEN       40
-#define PKT_MAX       512
-#define REC_TTL_S     120        /* час життя запису в чужій таблиці, с */
-#define ANN_PERIOD_S  40         /* період оголошень — третина життя запису */
-#define REPLY_MIN_MS  20
-#define REPLY_MAX_MS  120
-#define RESCAN_MS     30000      /* як часто перебирати інтерфейси наново */
-#define MAX_IFS       16
-#define MAX_PEERS     256
-#define STATE_PATH    "/var/lib/discoveryd/id"
-
-enum { PKT_ANNOUNCE = 1, PKT_QUERY = 2, PKT_BYE = 3 };
-
-struct self  { uint8_t id[16]; uint32_t incarnation; uint16_t port, caps; char name[64]; };
-struct iface { unsigned index; char name[IF_NAMESIZE]; struct in_addr addr; };
-
-static struct self        me;
-static struct iface       ifs[MAX_IFS];
-static int                nifs;
-static int                sock;
-static struct sockaddr_in group;
-
-static uint64_t t_announce;    /* коли наступне оголошення */
-static uint64_t t_answer;      /* 0 = відкладеної відповіді нема */
-static uint64_t asked_ms;      /* коли надійшов запит, на який ми ще не відповіли */
-static uint64_t answered_ms;   /* коли наш повний стан востаннє був в ефірі */
-```
+:::code proj-discovery-daemon/c/format-paketa-sorok-baitiv.c
 
 Пакування й розпакування полів — шість рядків без жодної залежності від машини:
 
-```c
-static void put_u16(uint8_t *p, uint16_t v) { p[0] = (uint8_t)(v >> 8); p[1] = (uint8_t)v; }
-static void put_u32(uint8_t *p, uint32_t v)
-{
-    p[0] = (uint8_t)(v >> 24); p[1] = (uint8_t)(v >> 16);
-    p[2] = (uint8_t)(v >> 8);  p[3] = (uint8_t)v;
-}
-static uint16_t get_u16(const uint8_t *p) { return (uint16_t)((uint16_t)p[0] << 8 | p[1]); }
-static uint32_t get_u32(const uint8_t *p)
-{
-    return (uint32_t)p[0] << 24 | (uint32_t)p[1] << 16 | (uint32_t)p[2] << 8 | p[3];
-}
-```
+:::code proj-discovery-daemon/c/format-paketa-sorok-baitiv-2.c
 
 Складання пакета з цього — одна функція на всі три різновиди; різняться вони лише байтом типу й часом життя:
 
-```c
-static size_t build(uint8_t *out, uint8_t type, uint32_t ttl_s)
-{
-    size_t nl = strlen(me.name);
-    if (nl > 63) nl = 63;
-
-    memcpy(out, "DSC1", 4);
-    out[4] = PROTO_VER;
-    out[5] = type;
-    put_u16(out + 6,  0);                 /* прапорці — резерв */
-    memcpy(out + 8, me.id, 16);
-    put_u32(out + 24, me.incarnation);
-    put_u32(out + 28, ttl_s);             /* нуль тут і є прощання */
-    put_u16(out + 32, me.port);
-    put_u16(out + 34, me.caps);
-    put_u16(out + 36, (uint16_t)nl);
-    put_u16(out + 38, 0);                 /* лічильник «я вже знаю» — заповнює лише запит */
-    memcpy(out + HDR_LEN, me.name, nl);
-    return HDR_LEN + nl;
-}
-```
+:::code proj-discovery-daemon/c/format-paketa-sorok-baitiv-3.c
 
 Найбільший пакет — заголовок, ім'я до 63 байтів і до двадцяти записів «я вже знаю»: `40 + 63 + 20·20 = 503` байти. Це навмисно менше за півкілобайта: датаграма, що не влазить у кадр, розпадеться на частини, і втрата будь-якої вб'є всю датаграму цілком — а групові пакети губляться охоче.
 
@@ -168,70 +90,13 @@ static size_t build(uint8_t *out, uint8_t type, uint32_t ttl_s)
 
 Обидва числа беремо з невеликого файлу поруч зі станом служби. Перший запуск створює його, кожен наступний збільшує лічильник на одиницю:
 
-```c
-static int load_identity(const char *path)
-{
-    FILE *f = fopen(path, "r+b");
-    if (f) {
-        if (fread(me.id, 1, 16, f) == 16 &&
-            fread(&me.incarnation, 1, 4, f) == 4) {
-            me.incarnation++;                 /* новий запуск — нове втілення */
-            rewind(f);
-            fwrite(me.id, 1, 16, f);
-            fwrite(&me.incarnation, 1, 4, f);
-            fflush(f);
-            fclose(f);
-            return 0;
-        }
-        fclose(f);                            /* файл є, але зіпсутий — почнемо заново */
-    }
-    FILE *r = fopen("/dev/urandom", "rb");
-    if (!r) return -1;
-    size_t got = fread(me.id, 1, 16, r);
-    fclose(r);
-    if (got != 16) return -1;
-
-    me.incarnation = 1;
-    f = fopen(path, "wb");
-    if (!f) return -1;
-    fwrite(me.id, 1, 16, f);
-    fwrite(&me.incarnation, 1, 4, f);
-    fclose(f);
-    return 0;
-}
-```
+:::code proj-discovery-daemon/c/totozhnist-shcho.c
 
 Шістнадцять випадкових байтів беруться раз і назавжди, тому серійний номер, MAC чи `/etc/machine-id` тут не потрібні — і це навіть краще: ідентифікатор не розповідає про залізо нічого зайвого. Лічильник записується в порядку байтів цієї машини, бо файл цю машину не покидає.
 
 ## Сокет: чотири опції, кожна з причини
 
-```c
-static int open_socket(void)
-{
-    int s = socket(AF_INET, SOCK_DGRAM, 0);
-    if (s < 0) return -1;
-
-    int yes = 1;
-    setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof yes);
-#ifdef SO_REUSEPORT
-    setsockopt(s, SOL_SOCKET, SO_REUSEPORT, &yes, sizeof yes);   /* BSD, macOS */
-#endif
-    setsockopt(s, IPPROTO_IP, IP_PKTINFO, &yes, sizeof yes);     /* хочемо знати ifindex */
-
-    unsigned char ttl = 1;                    /* ставимо явно, хоч типове те саме */
-    setsockopt(s, IPPROTO_IP, IP_MULTICAST_TTL, &ttl, sizeof ttl);
-    unsigned char loop = 1;                   /* луну НЕ вимикаємо, і це навмисно */
-    setsockopt(s, IPPROTO_IP, IP_MULTICAST_LOOP, &loop, sizeof loop);
-
-    struct sockaddr_in a;
-    memset(&a, 0, sizeof a);
-    a.sin_family      = AF_INET;
-    a.sin_port        = htons(DISC_PORT);
-    a.sin_addr.s_addr = htonl(INADDR_ANY);
-    if (bind(s, (struct sockaddr *)&a, sizeof a) < 0) { close(s); return -1; }
-    return s;
-}
-```
+:::code proj-discovery-daemon/c/soket-chotyry-optsii.c
 
 `SO_REUSEADDR` тут не косметика. Порт виявлення фіксований, і претендентів на нього на одній машині зазвичай кілька: сама служба, діагностична утиліта, друга копія під час оновлення. Без цієї опції другий процес не прив'яжеться взагалі — `bind` поверне `EADDRINUSE`, і служба просто не стартує. На BSD і macOS самого `SO_REUSEADDR` мало — там ділити порт між сокетами дозволяє `SO_REUSEPORT`, тому ставимо обидві, а `#ifdef` рятує Linux старих версій, де другої немає.
 
@@ -245,45 +110,7 @@ static int open_socket(void)
 
 Група живе в сегменті, а не в машині. Ноутбук із Wi-Fi, дротовим портом, мостом Docker і тунелем VPN має чотири сегменти й чотири різні відповіді на питання «хто в групі». Один виклик `IP_ADD_MEMBERSHIP` підписує рівно на один із них.
 
-```c
-static int join_all(int s, struct iface *out, int max)
-{
-    struct ifaddrs *list, *p;
-    int n = 0;
-    if (getifaddrs(&list) < 0) return -1;
-
-    for (p = list; p && n < max; p = p->ifa_next) {
-        if (!p->ifa_addr || p->ifa_addr->sa_family != AF_INET) continue;
-        if (!(p->ifa_flags & IFF_UP))        continue;   /* інтерфейс опущено */
-        if (!(p->ifa_flags & IFF_MULTICAST)) continue;   /* груп не вміє */
-        if (p->ifa_flags & IFF_LOOPBACK)     continue;   /* сам із собою не говоримо */
-
-        unsigned idx = if_nametoindex(p->ifa_name);
-        if (idx == 0) continue;
-
-        int seen = 0;                                    /* на інтерфейсі буває кілька адрес */
-        for (int i = 0; i < n; i++) if (out[i].index == idx) seen = 1;
-        if (seen) continue;
-
-        struct ip_mreqn mreq;
-        memset(&mreq, 0, sizeof mreq);
-        inet_pton(AF_INET, DISC_GROUP, &mreq.imr_multiaddr);
-        mreq.imr_ifindex = (int)idx;                     /* ОСЬ головний рядок */
-
-        if (setsockopt(s, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof mreq) < 0
-            && errno != EADDRINUSE) {                    /* EADDRINUSE = вже в групі */
-            fprintf(stderr, "приєднання на %s: %s\n", p->ifa_name, strerror(errno));
-            continue;                                    /* один не вдався — решта живе */
-        }
-        out[n].index = idx;
-        snprintf(out[n].name, sizeof out[n].name, "%s", p->ifa_name);
-        out[n].addr = ((struct sockaddr_in *)p->ifa_addr)->sin_addr;
-        n++;
-    }
-    freeifaddrs(list);
-    return n;
-}
-```
+:::code proj-discovery-daemon/c/pryiednannia-okremo-na.c
 
 Три деталі, повз які легко пройти.
 
@@ -303,43 +130,7 @@ static int join_all(int s, struct iface *out, int max)
 
 Кращий спосіб — сказати інтерфейс у самому виклику надсилання, супровідним повідомленням:
 
-```c
-static void send_on(unsigned ifindex, const void *buf, size_t len)
-{
-    struct iovec io;
-    io.iov_base = (void *)buf;
-    io.iov_len  = len;
-
-    union {                                   /* об'єднання дає потрібне вирівнювання */
-        struct cmsghdr align;
-        char           raw[CMSG_SPACE(sizeof(struct in_pktinfo))];
-    } ctl;
-    memset(&ctl, 0, sizeof ctl);
-
-    struct msghdr m;
-    memset(&m, 0, sizeof m);
-    m.msg_name       = (void *)&group;        /* 239.7.7.7:7711 */
-    m.msg_namelen    = sizeof group;
-    m.msg_iov        = &io;
-    m.msg_iovlen     = 1;
-    m.msg_control    = ctl.raw;
-    m.msg_controllen = sizeof ctl.raw;
-
-    struct cmsghdr *c = CMSG_FIRSTHDR(&m);
-    c->cmsg_level = IPPROTO_IP;
-    c->cmsg_type  = IP_PKTINFO;
-    c->cmsg_len   = CMSG_LEN(sizeof(struct in_pktinfo));
-
-    struct in_pktinfo pi;
-    memset(&pi, 0, sizeof pi);
-    pi.ipi_ifindex = ifindex;                 /* цей пакет — саме в цей сегмент */
-    memcpy(CMSG_DATA(c), &pi, sizeof pi);
-    m.msg_controllen = CMSG_SPACE(sizeof(struct in_pktinfo));
-
-    if (sendmsg(sock, &m, 0) < 0 && errno != ENETUNREACH && errno != ENETDOWN)
-        fprintf(stderr, "надсилання на if%u: %s\n", ifindex, strerror(errno));
-}
-```
+:::code proj-discovery-daemon/c/nadsylannia-interfeis.c
 
 Документація ядра описує це прямо: якщо `IP_PKTINFO` передано в `sendmsg` і поле `ipi_ifindex` ненульове, індекс бере участь у пошуку маршруту — для групової адреси, якій у таблиці маршрутизації нічого не відповідає, це і є вибір вихідного інтерфейсу. Стан у сокеті при цьому не змінюється взагалі: два потоки можуть слати в різні сегменти одночасно.
 
@@ -360,157 +151,29 @@ static void announce(uint32_t ttl_s, uint8_t type)
 
 Прийняти замало — треба знати, **звідки**. Той самий вузол може бути видимий і через дротову мережу, і через Wi-Fi; той самий ідентифікатор, що прийшов через VPN, означає зовсім інший маршрут, ніж коли він приходить із сусіднього порту комутатора. Тому замість `recvfrom` беремо `recvmsg` і читаємо супровідні повідомлення:
 
-```c
-static void receive_one(void)
-{
-    uint8_t buf[PKT_MAX];
-    struct sockaddr_in from;
-    struct iovec io;
-    io.iov_base = buf;
-    io.iov_len  = sizeof buf;
-
-    union { struct cmsghdr align; char raw[CMSG_SPACE(sizeof(struct in_pktinfo))]; } ctl;
-
-    struct msghdr m;
-    memset(&m, 0, sizeof m);
-    m.msg_name       = &from;
-    m.msg_namelen    = sizeof from;
-    m.msg_iov        = &io;
-    m.msg_iovlen     = 1;
-    m.msg_control    = ctl.raw;
-    m.msg_controllen = sizeof ctl.raw;
-
-    ssize_t n = recvmsg(sock, &m, 0);
-    if (n < 0) return;
-    if (m.msg_flags & MSG_TRUNC) return;      /* більша за наш буфер — точно не наша */
-
-    unsigned ifindex = 0;
-    for (struct cmsghdr *c = CMSG_FIRSTHDR(&m); c; c = CMSG_NXTHDR(&m, c))
-        if (c->cmsg_level == IPPROTO_IP && c->cmsg_type == IP_PKTINFO) {
-            struct in_pktinfo pi;
-            memcpy(&pi, CMSG_DATA(c), sizeof pi);   /* саме memcpy: вирівнювання */
-            ifindex = pi.ipi_ifindex;
-        }
-    on_packet(buf, (size_t)n, &from.sin_addr, ifindex);
-}
-```
+:::code proj-discovery-daemon/c/pryimannia-na-iakyi.c
 
 Два місця, де тут спотикаються. `CMSG_DATA` повертає вказівник у байтовий буфер, і читати з нього структуру приведенням типу не можна: на архітектурах, вимогливих до вирівнювання, це рівно те місце, де програма падає в польоті, а не на столі. Через `memcpy` компілятор зробить правильно й безкоштовно. І `MSG_TRUNC` у `msg_flags` — не помилка приймання, а звіт: датаграма була довша за буфер, залишок ядро викинуло. Розбирати обрізане не варто.
 
 ## Таблиця сусідів
 
-```c
-struct peer {
-    uint8_t        id[16];
-    uint32_t       incarnation;
-    struct in_addr addr;
-    uint16_t       port;
-    uint16_t       caps;
-    char           name[64];
-    unsigned       ifindex;
-    uint64_t       ttl_ms;          /* скільки життя дав сам вузол */
-    uint64_t       expires_ms;      /* коли викинути */
-    uint64_t       probe_ms;        /* коли перепитати */
-    int            probe_step;      /* 0…3: 80 %, 85 %, 90 %, 95 % */
-};
-
-static struct peer peers[MAX_PEERS];
-static int          npeers;
-
-static struct peer *peer_find(const uint8_t id[16])
-{
-    for (int i = 0; i < npeers; i++)
-        if (memcmp(peers[i].id, id, 16) == 0) return &peers[i];
-    return NULL;
-}
-
-static void schedule_probe(struct peer *p)
-{
-    static const unsigned left[4] = { 20, 15, 10, 5 };     /* % життя, що лишилося */
-    if (p->probe_step >= 4) { p->probe_ms = p->expires_ms; return; }
-    p->probe_ms = p->expires_ms - p->ttl_ms * left[p->probe_step] / 100;
-}
-```
+:::code proj-discovery-daemon/c/tablytsia-susidiv.c
 
 Оновлення запису — місце, де лічильник запусків нарешті працює:
 
-```c
-static void peer_update(const uint8_t *id, uint32_t inc, const struct in_addr *ip,
-                        uint16_t port, uint16_t caps, const char *name, size_t nl,
-                        uint32_t ttl_s, unsigned ifindex)
-{
-    struct peer *p = peer_find(id);
-
-    if (ttl_s == 0) {                        /* прощання */
-        if (p) { printf("— пішов %s\n", p->name); *p = peers[--npeers]; }
-        return;
-    }
-    if (!p) {
-        if (npeers == MAX_PEERS) return;     /* краще не взяти нового, ніж утратити всіх */
-        p = &peers[npeers++];
-        memset(p, 0, sizeof *p);
-        memcpy(p->id, id, 16);
-    }
-    if (inc < p->incarnation) return;        /* пакет старіший за те, що ми вже знаємо */
-    if (inc > p->incarnation) p->caps = 0;   /* вузол перезапустився: накопичене недійсне */
-
-    p->incarnation = inc;
-    p->addr    = *ip;
-    p->port    = port;
-    p->caps    = caps;
-    p->ifindex = ifindex;
-    memcpy(p->name, name, nl);
-    p->name[nl] = '\0';
-
-    uint64_t t   = now_ms();
-    p->ttl_ms     = (uint64_t)ttl_s * 1000u;
-    p->expires_ms = t + p->ttl_ms;
-    p->probe_step = 0;
-    schedule_probe(p);
-}
-```
+:::code proj-discovery-daemon/c/tablytsia-susidiv-2.c
 
 Перевірка `inc < p->incarnation` відкидає пакет, що затримався в мережі й прийшов після новішого. Це не рідкість: датаграми не гарантують порядку, і без цього рядка старе оголошення воскресило б адресу, яку вузол уже змінив. [Чому в UDP так і що ще з цього випливає](root:com-transport/udp-datagram-semantics) — тема сама по собі.
 
 Викидання протухлих — три рядки, і головна хитрість у тому, що дірку в масиві затуляє останній елемент, тож пересувати нічого не треба:
 
-```c
-static void sweep(uint64_t t)
-{
-    for (int i = 0; i < npeers; ) {
-        if (peers[i].expires_ms <= t) {
-            printf("— зник %s (мовчав %llu с)\n", peers[i].name,
-                   (unsigned long long)(peers[i].ttl_ms / 1000u));
-            peers[i] = peers[--npeers];
-        } else i++;
-    }
-}
-```
+:::code proj-discovery-daemon/c/tablytsia-susidiv-3.c
 
 ## Запит: перелік того, що вже знаємо
 
 Запит потрібен у двох випадках: одразу після старту, щоб не чекати на чужі оголошення, і коли запис доживає останні відсотки строку. В обох випадках ми кладемо в запит **перелік того, що вже знаємо** — і той, хто бачить себе в переліку, мовчить. У сталій мережі, де питальник знає майже всіх, запит тоді не породжує майже жодної відповіді.
 
-```c
-static void send_query(uint64_t t)
-{
-    uint8_t buf[PKT_MAX];
-    size_t  len = build(buf, PKT_QUERY, REC_TTL_S);
-    size_t  kn  = 0;
-
-    for (int i = 0; i < npeers && len + 20 <= PKT_MAX && kn < 20; i++) {
-        if (peers[i].probe_step != 0 || peers[i].probe_ms <= t) continue;  /* цих і питаємо */
-        memcpy(buf + len, peers[i].id, 16);
-        put_u32(buf + len + 16, peers[i].incarnation);
-        len += 20;
-        kn++;
-    }
-    put_u16(buf + 38, (uint16_t)kn);
-
-    for (int i = 0; i < nifs; i++)
-        send_on(ifs[i].index, buf, len);
-}
-```
+:::code proj-discovery-daemon/c/zapyt-perelik-toho-shcho.c
 
 Умова відбору читається так: у перелік «уже знаю» потрапляють лише записи, які ще не почали доживати. Щойно ми взялися перепитувати про сусіда, ми перестаємо стверджувати, що його знаємо, — інакше він побачив би себе в переліку й змовчав, а саме від нього ми й хочемо почути.
 
@@ -518,57 +181,11 @@ static void send_query(uint64_t t)
 
 Запускає перепит одна коротка функція, яку головний цикл кличе на кожному оберті. Важливо, що запит вона шле **один на всіх**, чиї записи доживають, а не окремий на кожного:
 
-```c
-static void probe_due(uint64_t t)
-{
-    int need = 0;
-    for (int i = 0; i < npeers; i++)
-        if (peers[i].probe_step < 4 && peers[i].probe_ms <= t) { need = 1; break; }
-    if (!need) return;
-
-    send_query(t);
-    for (int i = 0; i < npeers; i++)
-        if (peers[i].probe_step < 4 && peers[i].probe_ms <= t) {
-            peers[i].probe_step++;          /* наступна спроба — на 85, 90, 95 % */
-            schedule_probe(&peers[i]);
-        }
-}
-```
+:::code proj-discovery-daemon/c/zapyt-perelik-toho-shcho-2.c
 
 ## Розбір пакета: нічого не брати на віру
 
-```c
-static void on_packet(const uint8_t *b, size_t n, const struct in_addr *from, unsigned ifindex)
-{
-    if (n < HDR_LEN || memcmp(b, "DSC1", 4) != 0 || b[4] != PROTO_VER) return;
-
-    uint8_t  type = b[5];
-    uint32_t inc  = get_u32(b + 24);
-    uint32_t ttl  = get_u32(b + 28);
-    uint16_t port = get_u16(b + 32);
-    uint16_t caps = get_u16(b + 34);
-    size_t   nl   = get_u16(b + 36);
-    size_t   kn   = get_u16(b + 38);
-
-    if (nl > 63 || n < HDR_LEN + nl + kn * 20) return;   /* обрізаний або брехливий */
-
-    if (memcmp(b + 8, me.id, 16) == 0) {                 /* пакет ПРО НАС */
-        if (type != PKT_QUERY) answered_ms = now_ms();   /* наша відповідь уже в ефірі */
-        return;
-    }
-
-    peer_update(b + 8, inc, from, port, caps, (const char *)b + HDR_LEN, nl, ttl, ifindex);
-
-    if (type == PKT_QUERY) {
-        const uint8_t *ka = b + HDR_LEN + nl;
-        for (size_t i = 0; i < kn; i++)
-            if (memcmp(ka + i * 20, me.id, 16) == 0 &&
-                get_u32(ka + i * 20 + 16) == me.incarnation)
-                return;                                  /* нас уже знають — мовчимо */
-        schedule_answer(now_ms());
-    }
-}
-```
+:::code proj-discovery-daemon/c/rozbir-paketa-nichoho-ne.c
 
 Рядок `n < HDR_LEN + nl + kn * 20` — це не педантизм. Довжини в пакеті пише **чужа сторона**, і вона не зобов'язана бути ні правдивою, ні дружньою. Без цієї перевірки цикл по переліку «я вже знаю» вийшов би за кінець буфера, а зіпсутий (або зловмисний) пакет із групи, куди пише хто завгодно, — це вхід, до якого має доступ будь-хто в сегменті.
 
@@ -605,75 +222,7 @@ if (t_answer && t >= t_answer) {
 
 Уся програма — один потік без жодного таймера операційної системи. Час до найближчої справи рахуємо самі й віддаємо його в `poll` як тайм-аут; поки в мережі тихо, процес спить і не витрачає нічого.
 
-```c
-int main(int argc, char **argv)
-{
-    if (argc < 3) { fprintf(stderr, "вжиток: %s <ім'я> <порт-послуги>\n", argv[0]); return 2; }
-    snprintf(me.name, sizeof me.name, "%s", argv[1]);
-    me.port = (uint16_t)atoi(argv[2]);
-    me.caps = 1;
-    if (load_identity(STATE_PATH) < 0) { perror("тотожність"); return 1; }
-
-    struct sigaction sa;
-    memset(&sa, 0, sizeof sa);
-    sa.sa_handler = on_signal;            /* без SA_RESTART: poll має вийти з EINTR */
-    sigaction(SIGINT,  &sa, NULL);
-    sigaction(SIGTERM, &sa, NULL);
-
-    memset(&group, 0, sizeof group);
-    group.sin_family = AF_INET;
-    group.sin_port   = htons(DISC_PORT);
-    inet_pton(AF_INET, DISC_GROUP, &group.sin_addr);
-
-    sock = open_socket();
-    if (sock < 0) { perror("сокет"); return 1; }
-    nifs = join_all(sock, ifs, MAX_IFS);
-    if (nifs <= 0) { fprintf(stderr, "жодного придатного інтерфейсу\n"); return 1; }
-
-    srand((unsigned)(now_ms() ^ (uint64_t)getpid()));
-    t_announce = now_ms();                /* оголоситися негайно, не чекаючи періоду */
-    send_query(now_ms());                 /* і одразу спитати, хто вже тут */
-    uint64_t t_rescan = now_ms() + RESCAN_MS;
-
-    while (!stop) {
-        uint64_t t = now_ms();
-        uint64_t due = t_announce;
-        if (t_answer && t_answer < due) due = t_answer;
-        if (t_rescan < due) due = t_rescan;
-        for (int i = 0; i < npeers; i++) {
-            if (peers[i].probe_ms   < due) due = peers[i].probe_ms;
-            if (peers[i].expires_ms < due) due = peers[i].expires_ms;
-        }
-        int wait = due > t ? (int)(due - t) : 0;
-
-        struct pollfd pfd;
-        pfd.fd = sock; pfd.events = POLLIN; pfd.revents = 0;
-        int r = poll(&pfd, 1, wait);
-        if (r > 0) receive_one();
-        else if (r < 0 && errno != EINTR) break;
-
-        t = now_ms();
-        if (t >= t_announce) {
-            announce(REC_TTL_S, PKT_ANNOUNCE);
-            t_announce = t + jittered(ANN_PERIOD_S);
-        }
-        if (t_answer && t >= t_answer) {
-            if (answered_ms <= asked_ms) announce(REC_TTL_S, PKT_ANNOUNCE);
-            t_answer = 0;                    /* або надіслано, або скасовано */
-        }
-        probe_due(t);
-        sweep(t);
-        if (t >= t_rescan) {                 /* інтерфейси з'являються й зникають */
-            nifs = join_all(sock, ifs, MAX_IFS);
-            t_rescan = t + RESCAN_MS;
-        }
-    }
-
-    announce(0, PKT_BYE);                    /* прощання: час життя нуль */
-    close(sock);
-    return 0;
-}
-```
+:::code proj-discovery-daemon/c/holovnyi-tsykl-odyn-soket.c
 
 ![Схема програми: перелік інтерфейсів і приєднання на кожному, один сокет UDP із чотирма опціями, цикл poll із тайм-аутом до найближчого строку, дві гілки — прийшов пакет або минув строк, і повернення в цикл](img/daemon-loop.svg)
 

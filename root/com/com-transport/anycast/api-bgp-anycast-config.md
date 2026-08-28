@@ -24,20 +24,7 @@
 
 Для запобігання колізіям Anycast VIP призначається не на фізичні інтерфейси і не на системний `lo` (де адреса може конфліктувати з локальними сокетами системи `127.0.0.1`), а на спеціальний віртуальний інтерфейс типу `dummy`.
 
-```bash
-# Завантаження модуля ядра Linux
-modprobe dummy
-
-# Створення виділеного Anycast-інтерфейсу dummy0
-ip link add dummy0 type dummy
-
-# Призначення віртуальних адрес Anycast (/32 для IPv4 та /128 для IPv6)
-ip addr add 198.51.100.1/32 dev dummy0
-ip -6 addr add 2001:db8:any::1/128 dev dummy0
-
-# Активація інтерфейсу
-ip link set dummy0 up
-```
+:::code api-bgp-anycast-config/sh/stvorennia-izolovanoho.sh
 
 ### Придушення ARP-відповідей через параметри ядра sysctl
 
@@ -166,22 +153,7 @@ protocol bgp to_leaf2 from leaf_switch {
 
 Для перевірки стану BGP-сесій та анонсованих маршрутів використовується утиліта керування `birdc`:
 
-```bash
-# Перевірка статусу BGP-сусідів
-birdc show protocols
-
-# Перевірка активних BFD-сесій та виміряної затримки
-birdc show bfd sessions
-
-# Перегляд експортованих маршрутів до конкретного комутатора
-birdc show route export to_leaf1
-
-# Детальна інформація про маршрут з усіма BGP-атрибутами
-birdc show route for 198.51.100.1/32 all
-
-# Динамічне перечитування конфігурації без переривання сесій
-birdc configure
-```
+:::code api-bgp-anycast-config/sh/korysni-komandy.sh
 
 ---
 
@@ -253,79 +225,7 @@ neighbor 10.0.1.2 {
 
 Нижче наведено повнофункціональний скрипт `/usr/local/bin/anycast-healthcheck.py`, який реалізує кінцевий автомат моніторингу, захист від брязкоту стану (*Flapping Damping*) та плавне зняття навантаження (*Graceful Shutdown*).
 
-```python
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""Агент перевірки працездатності для Anycast VIP через ExaBGP.
-Вимоги: Python 3.8+
-"""
-import sys
-import time
-import signal
-import urllib.request
-
-VIP_PREFIX = "198.51.100.1/32"
-HEALTH_URL = "http://127.0.0.1:8080/healthz"
-CHECK_INTERVAL_SEC = 1.0
-TIMEOUT_SEC = 0.5
-RISE_THRESHOLD = 3   # Кількість успіхів поспіль для переходу в UP
-FALL_THRESHOLD = 2   # Кількість помилок поспіль для переходу в DOWN
-
-class AnycastHealthchecker:
-    def __init__(self):
-        self.state = "INIT"
-        self.consecutive_successes = 0
-        self.consecutive_failures = 0
-        self.running = True
-
-        # Коректне завершення роботи при отриманні сигналів SIGTERM/SIGINT
-        signal.signal(signal.SIGTERM, self._handle_shutdown)
-        signal.signal(signal.SIGINT, self._handle_shutdown)
-
-    def _handle_shutdown(self, signum, frame):
-        self.running = False
-        self._withdraw()
-        sys.exit(0)
-
-    def _announce(self):
-        sys.stdout.write(f"announce route {VIP_PREFIX} next-hop self\n")
-        sys.stdout.flush()
-
-    def _withdraw(self):
-        sys.stdout.write(f"withdraw route {VIP_PREFIX}\n")
-        sys.stdout.flush()
-
-    def _check_service(self) -> bool:
-        try:
-            req = urllib.request.Request(HEALTH_URL, headers={"User-Agent": "Anycast-Probe/1.0"})
-            with urllib.request.urlopen(req, timeout=TIMEOUT_SEC) as resp:
-                return resp.status == 200
-        except Exception:
-            return False
-
-    def run(self):
-        while self.running:
-            is_healthy = self._check_service()
-
-            if is_healthy:
-                self.consecutive_failures = 0
-                self.consecutive_successes += 1
-                if self.consecutive_successes >= RISE_THRESHOLD and self.state != "UP":
-                    self.state = "UP"
-                    self._announce()
-            else:
-                self.consecutive_successes = 0
-                self.consecutive_failures += 1
-                if self.consecutive_failures >= FALL_THRESHOLD and self.state != "DOWN":
-                    self.state = "DOWN"
-                    self._withdraw()
-
-            time.sleep(CHECK_INTERVAL_SEC)
-
-if __name__ == "__main__":
-    checker = AnycastHealthchecker()
-    checker.run()
-```
+:::code api-bgp-anycast-config/py/main.py
 
 ### Механіка захисту від брязкоту стану (Flapping Damping)
 

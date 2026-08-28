@@ -283,39 +283,10 @@ show spanning-tree interface
 
 ### Linux (iproute2 / bridge-utils)
 
-```bash
-# Створення мосту L2
-ip link add name br0 type bridge
-
-# Додавання фізичних інтерфейсів до мосту
-ip link set dev eth0 master br0
-ip link set dev eth1 master br0
-
-# Увімкнення STP на мосту
-ip link set dev br0 type bridge stp_state 1
-
-# Встановлення пріоритету мосту (4096)
-ip link set dev br0 type bridge priority 4096
-
-# Перевірка стану STP у Linux
-bridge stp show br0
-```
+:::code api-bpdu-frame/sh/linux-iproute2-bridge.sh
 
 ---
 
 ### Open vSwitch (OVS)
 
-```bash
-# Створення віртуального комутатора
-ovs-vsctl add-br ovs-br0
-
-# Увімкнення протоколу RSTP
-ovs-vsctl set Bridge ovs-br0 rstp_enable=true
-
-# Налаштування пріоритету Bridge ID (4096 = 0x1000)
-ovs-vsctl set Bridge ovs-br0 status:rstp_priority=4096
-
-# Виведення детальної інформації про порти RSTP
-ovs-vsctl get Bridge ovs-br0 status
-ovs-appctl rstp/show ovs-br0
-```
+:::code api-bpdu-frame/sh/open-vswitch-ovs.sh

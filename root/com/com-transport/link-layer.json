@@ -18,7 +18,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "hist": [
             {
@@ -29,13 +30,16 @@
           "proj": [
             {
               "file": "proj-frame-parser.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-frame-headers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         },
@@ -47,7 +51,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           }
         },
         {
@@ -68,7 +73,8 @@
           "proj": [
             {
               "file": "proj-arp-monitor.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -103,7 +109,8 @@
           "proj": [
             {
               "file": "proj-vlan-handling.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -132,13 +139,15 @@
           "proj": [
             {
               "file": "proj-rstp-state-machine.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bpdu-frame.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -160,7 +169,8 @@
           "hist": [
             {
               "file": "hist-ethernet-origins.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -172,7 +182,8 @@
           "proj": [
             {
               "file": "proj-csma-simulation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -194,19 +205,23 @@
           "math": [
             {
               "file": "math-backoff-throughput.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-csma-simulator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-frame-control-nav.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -234,12 +249,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-stop-and-wait.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -250,7 +267,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -267,11 +285,13 @@
           "proj": [
             {
               "file": "proj-reorder-buffer.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             },
             {
               "file": "proj-multi-bearer-dedup.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -299,13 +319,16 @@
           "proj": [
             {
               "file": "proj-arq-simulator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-harq-mac.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -333,13 +356,16 @@
           "proj": [
             {
               "file": "proj-sliding-window.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-tcp-sack-fields.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },

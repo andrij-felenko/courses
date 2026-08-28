@@ -23,7 +23,8 @@
           "api": [
             {
               "file": "api-at-rat-control.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "hist": [
@@ -35,7 +36,9 @@
           "proj": [
             {
               "file": "proj-cellular-power-fsm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -47,24 +50,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-cellular-at-diagnostics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "math": [
             {
               "file": "math-handover-hysteresis.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-cell-monitor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -75,18 +83,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-at-cellular-pdp.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-milenage-aka.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         }
@@ -108,7 +119,8 @@
           "api": [
             {
               "file": "api-cellular-at-syntax.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -120,7 +132,9 @@
           "proj": [
             {
               "file": "proj-at-cellular-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -136,13 +150,16 @@
           "api": [
             {
               "file": "api-psm-edrx-at.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-modem-power-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -158,19 +175,23 @@
           "api": [
             {
               "file": "api-iridium-sbd-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-satellite-link-budget.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-satellite-sbd-transceiver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -198,7 +219,8 @@
           "proj": [
             {
               "file": "proj-enum-resolver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -232,7 +254,8 @@
           "proj": [
             {
               "file": "proj-v21-fsk-modem.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [

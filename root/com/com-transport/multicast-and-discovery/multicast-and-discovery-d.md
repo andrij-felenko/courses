@@ -62,33 +62,8 @@ sendto(sock, msg, len, 0, (struct sockaddr *)&to, sizeof(to));
 Приєднання в коді — одна опція сокета, але з двома аргументами, і другий важливіший, ніж здається:
 
 :::tabs
-```c
-int sock = socket(AF_INET, SOCK_DGRAM, 0);
-int yes = 1;
-setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));  // порт ділять кілька процесів
-
-struct sockaddr_in addr = { .sin_family = AF_INET,
-                            .sin_port   = htons(5000),
-                            .sin_addr   = { .s_addr = htonl(INADDR_ANY) } };
-bind(sock, (struct sockaddr *)&addr, sizeof(addr));
-
-struct ip_mreqn mreq = { 0 };
-inet_pton(AF_INET, "239.1.2.3", &mreq.imr_multiaddr);   // яку групу слухати
-mreq.imr_ifindex = if_nametoindex("eth0");              // НА ЯКОМУ інтерфейсі слухати
-setsockopt(sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq));
-```
-```py
-import socket, struct
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-sock.bind(("", 5000))
-
-# група + адреса локального інтерфейсу, на якому її слухати
-mreq = struct.pack("4s4s", socket.inet_aton("239.1.2.3"),
-                           socket.inet_aton("192.168.1.10"))
-sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
-```
+:::code multicast-and-discovery-d/c/main.h
+:::code multicast-and-discovery-d/py/main.py
 :::
 
 Приєднання **завжди належить конкретному інтерфейсу**, бо група живе в сегменті, а не в машині. Ноутбук із Wi-Fi, дротовим портом, мостом Docker і тунелем VPN має чотири сегменти — і чотири різні відповіді на питання «хто в групі». Один виклик `IP_ADD_MEMBERSHIP` підписує тебе рівно на один із них; щоб чути всі, роби виклик по разу на кожен інтерфейс. Пропущений другий аргумент (нуль замість індексу) віддає вибір ядру, яке візьме інтерфейс за таблицею маршрутизації, — і це найчастіша причина розмови «я все зробив за документацією, а пакетів немає».

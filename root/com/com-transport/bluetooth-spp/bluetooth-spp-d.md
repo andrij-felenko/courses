@@ -56,71 +56,9 @@ SPP — лише один із багатьох **профілів** Bluetooth. 
 Дій рівно дві на будь-якій платформі: підняти службу SPP під видимим іменем — і крутити цикл «прочитав байт, відправив байт». Різниця лише в тому, чиє радіо: ESP32 має Classic на кристалі, а МК без нього бере готовий модуль (HC-05) на звичайний UART.
 
 :::tabs
-```arduino
-#include "BluetoothSerial.h"
-BluetoothSerial SerialBT;                          // об'єкт «бездротового UART»
-
-void setup() {
-  SerialBT.begin("ESP32-robot");                   // піднімає SPP під цим іменем у списку Bluetooth
-}
-
-void loop() {
-  if (SerialBT.available()) {                       // є вхідний байт? — точно як Serial
-    char c = SerialBT.read();                       // прочитати один символ
-    SerialBT.write((uint8_t)c);                     // і відправити його назад (ехо)
-  }
-}
-```
-```esp-idf
-#include "nvs_flash.h"
-#include "esp_bt.h"
-#include "esp_bt_main.h"
-#include "esp_gap_bt_api.h"
-#include "esp_spp_api.h"
-
-static void spp_cb(esp_spp_cb_event_t ev, esp_spp_cb_param_t *p) {
-  switch (ev) {
-  case ESP_SPP_INIT_EVT:                              // стек піднявся — оголошуємо службу
-    esp_bt_gap_set_device_name("ESP32-robot");        // ім'я в списку Bluetooth
-    esp_bt_gap_set_scan_mode(ESP_BT_CONNECTABLE, ESP_BT_GENERAL_DISCOVERABLE);
-    esp_spp_start_srv(ESP_SPP_SEC_NONE, ESP_SPP_ROLE_SLAVE, 0, "SPP_SERVER");
-    break;
-  case ESP_SPP_DATA_IND_EVT:                          // прийшли байти з телефона
-    esp_spp_write(p->data_ind.handle, p->data_ind.len, p->data_ind.data);  // ехо назад
-    break;
-  default: break;
-  }
-}
-
-void app_main(void) {
-  ESP_ERROR_CHECK(nvs_flash_init());                  // ключі спарювання лежать у NVS
-  esp_bt_controller_config_t cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
-  ESP_ERROR_CHECK(esp_bt_controller_init(&cfg));
-  ESP_ERROR_CHECK(esp_bt_controller_enable(ESP_BT_MODE_CLASSIC_BT));
-  ESP_ERROR_CHECK(esp_bluedroid_init());
-  ESP_ERROR_CHECK(esp_bluedroid_enable());
-  ESP_ERROR_CHECK(esp_spp_register_callback(spp_cb));
-  ESP_ERROR_CHECK(esp_spp_init(ESP_SPP_MODE_CB));     // події замість блокуючого читання
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-UART_HandleTypeDef huart2;        // UART до модуля HC-05: TX→RX, RX→TX, спільна земля
-                                  // ім'я задається модулю один раз: AT+NAME=STM32-robot
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_USART2_UART_Init();          // 9600 8N1 — заводський режим HC-05
-
-  uint8_t c;
-  while (1) {                     // модуль уже тримає SPP; для МК це звичайний UART
-    if (HAL_UART_Receive(&huart2, &c, 1, HAL_MAX_DELAY) == HAL_OK)  // байт із радіо
-      HAL_UART_Transmit(&huart2, &c, 1, HAL_MAX_DELAY);             // і назад (ехо)
-  }
-}
-```
+:::code bluetooth-spp-d/c/arduino/main.ino
+:::code bluetooth-spp-d/c/esp-idf/main.c
+:::code bluetooth-spp-d/c/stm32/main.c
 :::
 
 Перша дія — **запустити профіль SPP і оголосити службу через SDP**: `SerialBT.begin("ESP32-robot")` в Arduino, `esp_spp_start_srv()` після ініціалізації стека в ESP-IDF; у випадку з HC-05 це вже зроблено всередині модуля, тож МК про SPP не знає нічого. Після цього пристрій видно в телефоні під його іменем, до нього можна спаритися й під'єднатися Bluetooth-терміналом. Друга дія — власне байти, і тут усе нічим не відрізняється від роботи зі звичайним [UART](root:com-devices/async-serial): `available()` каже, чи є непрочитані байти, `read()` забирає один, `write()` відправляє байт у канал (у HAL те саме роблять `HAL_UART_Receive`/`HAL_UART_Transmit`). Різниця темпераментів лише в тому, хто питає: Arduino й HAL опитують канал самі, а ESP-IDF навпаки викликає твій колбек, коли байти вже прийшли. Підключив телефон, набрав у терміналі `A` — і та сама `A` миттю повертається на екран. Це найдешевший спосіб переконатися, що зв'язок справний, перш ніж нашаровувати власний протокол команд зверху.

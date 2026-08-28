@@ -98,18 +98,7 @@ int u = socket(AF_INET, SOCK_DGRAM, 0);
 sendto(u, telemetry, tel_len, 0,
        (struct sockaddr*)&server, sizeof server);  // може загубитись — і байдуже
 ```
-```python
-import socket
-
-# надійно (TCP): потоковий сокет, кожен байт дійде по порядку
-t = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-t.connect((server_ip, 1883))
-t.sendall(command)                  # з'єднання й повтори — усередині
-
-# швидко (UDP): датаграмний сокет, шлеш і не чекаєш
-u = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-u.sendto(telemetry, (server_ip, port))   # може загубитись — і байдуже
-```
+:::code tcp-vs-udp-d/py/main.py
 :::
 
 Уся різниця характеру схована за єдиним аргументом `socket()`: `SOCK_STREAM` тягне на собі рукостискання, підтвердження й упорядкування, а `SOCK_DGRAM` лише пакує байти в датаграму й кидає в мережу. Повний набір викликів — послідовність для клієнта й сервера, підписи, типові пастки — зібрано окремо: [сокет-API TCP і UDP](root:com-transport/tcp-vs-udp/api-sockets.md). Високорівневі обгортки на кшталт `WiFiClient`/`WiFiUDP` в ESP32 (фреймворк Arduino) — це той самий вибір типу сокета, лише прибраний під зручніші імена.

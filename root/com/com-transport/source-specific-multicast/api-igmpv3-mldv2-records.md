@@ -226,21 +226,7 @@ struct ip_mreq_source {
     struct in_addr imr_interface;  /* Локальна адреса інтерфейсу (INADDR_ANY) */
 };
 ```
-```cpp
-#include <netinet/in.h>
-#include <string_view>
-
-/* Ідіоматична C++ обгортка над структурою фільтрації джерела */
-struct SsmSourceMembership {
-    in_addr group_address{};
-    in_addr source_address{};
-    in_addr interface_address{};
-
-    [[nodiscard]] ip_mreq_source to_c_struct() const noexcept {
-        return ip_mreq_source{group_address, source_address, interface_address};
-    }
-};
-```
+:::code api-igmpv3-mldv2-records/cpp/7-1-ipv4-spetsyfichni.cpp
 :::
 
 - **`IP_ADD_SOURCE_MEMBERSHIP`:** підключення до каналу `(S, G)`. Ядро переводить сокет у режим `INCLUDE` для вказаного джерела і надсилає звіт IGMPv3 `ALLOW` або `TO_IN`.
@@ -263,21 +249,7 @@ struct group_source_req {
     struct sockaddr_storage gsr_source;    /* Адреса джерела (sockaddr_in або sockaddr_in6) */
 };
 ```
-```cpp
-#include <netinet/in.h>
-#include <span>
-
-/* C++ типізоване представлення запиту фільтрації для IPv4/IPv6 */
-struct GenericGroupSourceRequest {
-    uint32_t         interface_index{0};
-    sockaddr_storage group_storage{};
-    sockaddr_storage source_storage{};
-
-    [[nodiscard]] group_source_req to_c_struct() const noexcept {
-        return group_source_req{interface_index, group_storage, source_storage};
-    }
-};
-```
+:::code api-igmpv3-mldv2-records/cpp/7-2-protokolno-nezalezhni.cpp
 :::
 
 Опції сокетів рівня `IPPROTO_IP` або `IPPROTO_IPV6`:
@@ -301,25 +273,7 @@ int setipv4sourcefilter(int s, struct in_addr interface, struct in_addr group,
 int getipv4sourcefilter(int s, struct in_addr interface, struct in_addr group,
                         uint32_t *fmode, uint32_t *numsrc, struct in_addr *slist);
 ```
-```cpp
-#include <netinet/in.h>
-#include <span>
-#include <vector>
-#include <expected>
-#include <system_error>
-
-/* Безпечна C++ обгортка з використанням std::span та std::expected */
-enum class FilterMode : uint32_t { Include = 1, Exclude = 2 };
-
-inline std::expected<void, std::error_code> apply_source_filter(
-    int socket_fd, in_addr iface, in_addr group, FilterMode mode, std::span<const in_addr> sources) noexcept {
-    if (::setipv4sourcefilter(socket_fd, iface, group, static_cast<uint32_t>(mode),
-                              static_cast<uint32_t>(sources.size()), sources.data()) < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code api-igmpv3-mldv2-records/cpp/7-3-povnorozmirni-funktsii.cpp
 :::
 
 Параметр `fmode` приймає значення `MCAST_INCLUDE` (1) або `MCAST_EXCLUDE` (2). Передача масиву `slist` дозволяє додатку замінити весь поточний список джерел без виконання десятків послідовних викликів `setsockopt()`.

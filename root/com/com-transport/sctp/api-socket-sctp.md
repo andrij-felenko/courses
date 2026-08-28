@@ -130,19 +130,7 @@ ssize_t sctp_recvmsg(int sd, void *msg, size_t len,
 
 Якщо на сокеті активовано подію `sctp_data_io_event`, ядро записує в структуру `sinfo` вичерпні атрибути прийнятого пакета:
 
-```c
-struct sctp_sndrcvinfo {
-    uint16_t     sinfo_stream;     /* Номер потоку, з якого надійшло повідомлення */
-    uint16_t     sinfo_ssn;        /* Номер послідовності всередині потоку (SSN) */
-    uint16_t     sinfo_flags;      /* Прапорці чанка (SCTP_UNORDERED тощо) */
-    uint32_t     sinfo_ppid;       /* Ідентифікатор прикладного протоколу (PPID) */
-    uint32_t     sinfo_context;    /* Контекст відправника */
-    uint32_t     sinfo_timetolive; /* Залишковий час життя */
-    uint32_t     sinfo_tsn;        /* Глобальний порядковий номер передачі (TSN) */
-    uint32_t     sinfo_cumtsn;     /* Поточний накопичувальний TSN підтвердження */
-    sctp_assoc_t sinfo_assoc_id;   /* Числовий дескриптор асоціації */
-};
-```
+:::code api-socket-sctp/c/struktura-suprovidnykh.c
 
 #### Значення вихідного прапорця `msg_flags`
 
@@ -242,18 +230,7 @@ struct sctp_setprim {
 
 За замовчуванням більшість внутрішніх повідомлень ядра прихована від прикладного процесу. Програма активує доставку необхідних сповіщень у потік читання через структуру `sctp_event_subscribe`:
 
-```c
-struct sctp_event_subscribe {
-    uint8_t sctp_data_io_event;          /* Заповнювати sctp_sndrcvinfo при читанні */
-    uint8_t sctp_association_event;      /* Сповіщення про відкриття/закриття асоціації */
-    uint8_t sctp_address_event;          /* Зміна працездатності IP-адрес піра */
-    uint8_t sctp_send_failure_event;     /* Сповіщення про неможливість доставки повідомлення */
-    uint8_t sctp_peer_error_event;       /* Отримано чанк ERROR від піра */
-    uint8_t sctp_shutdown_event;         /* Пір ініціював процедуру SHUTDOWN */
-    uint8_t sctp_partial_delivery_event; /* Переривання часткової доставки */
-    uint8_t sctp_adaptation_layer_event; /* Сповіщення про рівень адаптації */
-};
-```
+:::code api-socket-sctp/c/6-sctp-events-pidpyska-na.c
 
 ---
 
@@ -261,20 +238,7 @@ struct sctp_event_subscribe {
 
 Коли функція `sctp_recvmsg()` повертає дані з встановленим прапорцем `MSG_NOTIFICATION`, прийнятий буфер містить структуру об'єднання `union sctp_notification`:
 
-```c
-union sctp_notification {
-    struct {
-        uint16_t sn_type;   /* Тип сповіщення (SCTP_ASSOC_CHANGE, SCTP_PEER_ADDR_CHANGE) */
-        uint16_t sn_flags;
-        uint32_t sn_length;
-    } sn_header;
-    struct sctp_assoc_change   sn_assoc_change;
-    struct sctp_paddr_change   sn_paddr_change;
-    struct sctp_send_failed    sn_send_failed;
-    struct sctp_remote_error   sn_remote_error;
-    struct sctp_shutdown_event sn_shutdown_event;
-};
-```
+:::code api-socket-sctp/c/5-obrobka-systemnykh.c
 
 ### Події асоціації (`struct sctp_assoc_change`)
 
@@ -368,182 +332,6 @@ struct sctp_reset_streams {
 Нижче наведено повнофункціональний шаблон налаштування серверного сокета SCTP із прив'язкою двох IP-адрес для мультихоумінгу, конфігурацією кількості потоків та підпискою на всі події керування.
 
 :::tabs
-```c
-/* Повноцінне налаштування SCTP-сервера з мультихоумінгом мовою C */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/sctp.h>
-#include <arpa/inet.h>
-
-int init_sctp_multihome_server(const char *ip1, const char *ip2, uint16_t port) {
-    int sd = socket(AF_INET, SOCK_STREAM, IPPROTO_SCTP);
-    if (sd < 0) {
-        perror("Помилка створення сокета SCTP");
-        return -1;
-    }
-
-    /* 1. Конфігурація кількості потоків */
-    struct sctp_initmsg initmsg;
-    memset(&initmsg, 0, sizeof(initmsg));
-    initmsg.sinit_num_ostreams = 10;
-    initmsg.sinit_max_instreams = 10;
-    initmsg.sinit_max_attempts = 4;
-    initmsg.sinit_max_init_timeo = 5000;
-    if (setsockopt(sd, IPPROTO_SCTP, SCTP_INITMSG, &initmsg, sizeof(initmsg)) < 0) {
-        perror("Помилка setsockopt SCTP_INITMSG");
-        close(sd);
-        return -1;
-    }
-
-    /* 2. Підписка на події ядра */
-    struct sctp_event_subscribe events;
-    memset(&events, 0, sizeof(events));
-    events.sctp_data_io_event = 1;
-    events.sctp_association_event = 1;
-    events.sctp_address_event = 1;
-    events.sctp_shutdown_event = 1;
-    if (setsockopt(sd, IPPROTO_SCTP, SCTP_EVENTS, &events, sizeof(events)) < 0) {
-        perror("Помилка setsockopt SCTP_EVENTS");
-        close(sd);
-        return -1;
-    }
-
-    /* 3. Прив'язка двох IP-адрес через sctp_bindx */
-    struct sockaddr_in bind_addrs[2];
-    memset(bind_addrs, 0, sizeof(bind_addrs));
-
-    bind_addrs[0].sin_family = AF_INET;
-    bind_addrs[0].sin_port = htons(port);
-    if (inet_pton(AF_INET, ip1, &bind_addrs[0].sin_addr) <= 0) {
-        close(sd);
-        return -1;
-    }
-
-    bind_addrs[1].sin_family = AF_INET;
-    bind_addrs[1].sin_port = htons(port);
-    if (inet_pton(AF_INET, ip2, &bind_addrs[1].sin_addr) <= 0) {
-        close(sd);
-        return -1;
-    }
-
-    if (sctp_bindx(sd, (struct sockaddr *)bind_addrs, 2, SCTP_BINDX_ADD_ADDR) < 0) {
-        perror("Помилка sctp_bindx");
-        close(sd);
-        return -1;
-    }
-
-    if (listen(sd, 10) < 0) {
-        perror("Помилка listen");
-        close(sd);
-        return -1;
-    }
-
-    return sd;
-}
-```
-```cpp
-// Ідіоматичний еквівалент налаштування SCTP-сервера на C++20 (RAII, expected, span)
-#include <iostream>
-#include <string_view>
-#include <array>
-#include <span>
-#include <expected>
-#include <system_error>
-#include <cstring>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/sctp.h>
-#include <arpa/inet.h>
-
-class SctpServerSocket {
-public:
-    explicit SctpServerSocket(int fd) noexcept : fd_(fd) {}
-    ~SctpServerSocket() {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-    }
-
-    SctpServerSocket(const SctpServerSocket&) = delete;
-    SctpServerSocket& operator=(const SctpServerSocket&) = delete;
-
-    SctpServerSocket(SctpServerSocket&& other) noexcept : fd_(other.fd_) {
-        other.fd_ = -1;
-    }
-    SctpServerSocket& operator=(SctpServerSocket&& other) noexcept {
-        if (this != &other) {
-            if (fd_ >= 0) ::close(fd_);
-            fd_ = other.fd_;
-            other.fd_ = -1;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int native_handle() const noexcept { return fd_; }
-
-    static std::expected<SctpServerSocket, std::error_code> create(
-        std::string_view ip1, std::string_view ip2, uint16_t port) 
-    {
-        int sd = ::socket(AF_INET, SOCK_STREAM, IPPROTO_SCTP);
-        if (sd < 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-
-        SctpServerSocket server(sd);
-
-        // 1. Конфігурація кількості потоків
-        sctp_initmsg initmsg{};
-        initmsg.sinit_num_ostreams = 10;
-        initmsg.sinit_max_instreams = 10;
-        initmsg.sinit_max_attempts = 4;
-        initmsg.sinit_max_init_timeo = 5000;
-        if (::setsockopt(sd, IPPROTO_SCTP, SCTP_INITMSG, &initmsg, sizeof(initmsg)) < 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-
-        // 2. Підписка на події ядра
-        sctp_event_subscribe events{};
-        events.sctp_data_io_event = 1;
-        events.sctp_association_event = 1;
-        events.sctp_address_event = 1;
-        events.sctp_shutdown_event = 1;
-        if (::setsockopt(sd, IPPROTO_SCTP, SCTP_EVENTS, &events, sizeof(events)) < 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-
-        // 3. Прив'язка двох IP-адрес для мультихоумінгу
-        std::array<sockaddr_in, 2> addrs{};
-        addrs[0].sin_family = AF_INET;
-        addrs[0].sin_port = htons(port);
-        if (::inet_pton(AF_INET, ip1.data(), &addrs[0].sin_addr) <= 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-
-        addrs[1].sin_family = AF_INET;
-        addrs[1].sin_port = htons(port);
-        if (::inet_pton(AF_INET, ip2.data(), &addrs[1].sin_addr) <= 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-
-        if (::sctp_bindx(sd, reinterpret_cast<sockaddr*>(addrs.data()), 
-                         static_cast<int>(addrs.size()), SCTP_BINDX_ADD_ADDR) < 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-
-        if (::listen(sd, 10) < 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-
-        return server;
-    }
-
-private:
-    int fd_{-1};
-};
-```
+:::code api-socket-sctp/c/9-robochyi-shablon.c
+:::code api-socket-sctp/cpp/main.cpp
 :::

@@ -65,124 +65,15 @@ ESP-NOW зрізає майже все. Він лишає тільки найн�
 Спершу **передавач**. Зверни увагу: після `esp_now_init()` жодного `WiFi.begin`, жодного очікування IP — одразу додаємо одноліток і шлемо.
 
 :::tabs
-```cpp
-#include <WiFi.h>
-#include <esp_now.h>
-
-// MAC приймача — його друкує сам приймач у себе в консолі (WiFi.macAddress)
-uint8_t peerMac[6] = { 0x24, 0x6F, 0x28, 0x11, 0x22, 0x33 };
-const int BTN = 0;   // кнопка на GPIO0
-
-// callback: спрацьовує після КОЖНОГО відправлення й каже лише MAC-статус
-void onSent(const uint8_t* mac, esp_now_send_status_t status) {
-  // SUCCESS = радіо приймача квитнуло кадр; НЕ = «застосунок обробив»
-  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "ACK" : "нема ACK");
-}
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(BTN, INPUT_PULLUP);
-  WiFi.mode(WIFI_STA);          // радіо вмикаємо, але до мережі НЕ приєднуємось
-  esp_now_init();               // піднімаємо ESP-NOW — усе, інфраструктура не потрібна
-  esp_now_register_send_cb(onSent);
-
-  esp_now_peer_info_t peer = {};        // опис одноліток
-  memcpy(peer.peer_addr, peerMac, 6);   // кому слатимемо — за MAC
-  peer.channel = 0;                     // 0 = поточний канал радіо
-  peer.encrypt = false;                 // без шифрування (домашній стенд)
-  esp_now_add_peer(&peer);              // додати до списку пар
-}
-
-void loop() {
-  static bool prev = true;
-  bool pressed = (digitalRead(BTN) == LOW);
-  if (pressed != prev) {                // стан кнопки змінився
-    uint8_t cmd = pressed ? 1 : 0;      // один байт: 1 увімкнути, 0 вимкнути
-    esp_now_send(peerMac, &cmd, 1);     // відправити кадр саме цьому MAC
-    prev = pressed;
-  }
-  delay(20);                            // проста антидеренчна пауза
-}
-```
-```micropython
-import network, espnow
-from machine import Pin
-from time import sleep_ms
-
-# MAC приймача — його друкує сам приймач у себе в консолі (wlan.config('mac'))
-peer_mac = b'\x24\x6f\x28\x11\x22\x33'
-btn = Pin(0, Pin.IN, Pin.PULL_UP)   # кнопка на GPIO0
-
-# радіо вмикаємо, але до мережі НЕ приєднуємось
-sta = network.WLAN(network.STA_IF)
-sta.active(True)
-
-e = espnow.ESPNow()                 # піднімаємо ESP-NOW — інфраструктура не потрібна
-e.active(True)
-e.add_peer(peer_mac)                # кому слатимемо — за MAC, додати до списку пар
-
-prev = True
-while True:
-    pressed = (btn.value() == 0)
-    if pressed != prev:             # стан кнопки змінився
-        cmd = b'\x01' if pressed else b'\x00'   # один байт: 1 увімкнути, 0 вимкнути
-        # send повертає True = радіо приймача квитнуло кадр (MAC-ACK),
-        # а НЕ «застосунок обробив»
-        ok = e.send(peer_mac, cmd)
-        print("ACK" if ok else "нема ACK")
-        prev = pressed
-    sleep_ms(20)                    # проста антидеренчна пауза
-```
+:::code esp-now-d/cpp/worked-pryklad-knopka.cpp
+:::code esp-now-d/py/micropython/worked-pryklad-knopka.py
 :::
 
 Тепер **приймач**. Уся його робота — зареєструвати обробник вхідних кадрів; коли кадр приходить, стек сам гукає `onRecv`, і там ми читаємо байт та вмикаємо чи гасимо лампу.
 
 :::tabs
-```cpp
-#include <WiFi.h>
-#include <esp_now.h>
-
-const int LAMP = 2;   // лампа на GPIO2
-
-// callback: стек гукає його на КОЖЕН вхідний кадр ESP-NOW
-void onRecv(const esp_now_recv_info_t* info, const uint8_t* data, int len) {
-  if (len < 1) return;                  // порожній кадр — ігноруємо
-  digitalWrite(LAMP, data[0] ? HIGH : LOW);   // перший байт керує лампою
-}
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(LAMP, OUTPUT);
-  WiFi.mode(WIFI_STA);
-  Serial.println(WiFi.macAddress());    // ← цей MAC вписуємо в peerMac передавача
-  esp_now_init();
-  esp_now_register_recv_cb(onRecv);     // усе: тепер кадри приходять у onRecv
-}
-
-void loop() {
-  // порожньо: уся робота — у callback, коли приходить кадр
-}
-```
-```micropython
-import network, espnow
-from machine import Pin
-
-lamp = Pin(2, Pin.OUT)              # лампа на GPIO2
-
-sta = network.WLAN(network.STA_IF)
-sta.active(True)
-print(sta.config('mac'))           # ← цей MAC вписуємо в peer_mac передавача
-
-e = espnow.ESPNow()
-e.active(True)                      # усе: тепер кадри можна приймати
-
-# у MicroPython немає recv-callback — читаємо кадри циклом (uasyncio-стилю),
-# стек сам будить recv(), щойно кадр прилітає
-while True:
-    host, data = e.recv()          # блокує, доки не прийде кадр
-    if data and len(data) >= 1:    # порожній кадр — ігноруємо
-        lamp.value(1 if data[0] else 0)   # перший байт керує лампою
-```
+:::code esp-now-d/cpp/worked-pryklad-knopka-2.cpp
+:::code esp-now-d/py/micropython/worked-pryklad-knopka-2.py
 :::
 
 Розберімо ключову різницю проти Wi-Fi одним поглядом:

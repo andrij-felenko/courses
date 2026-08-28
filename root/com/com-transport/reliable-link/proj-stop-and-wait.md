@@ -25,36 +25,8 @@ Stop-and-wait зручно бачити як крихітний скінченн
 Спершу синхронний кістяк — він найясніше показує логіку (а нижче зробимо неблокуючий варіант для головного циклу прошивки):
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-struct Cmd { uint8_t op; int16_t arg; };
-
-// Шлю критичну команду stop-and-wait. true — підтверджено, false — зв'язок мертвий.
-bool sendReliable(uint8_t seq, const Cmd& cmd) {
-    for (int tries = 0; tries < MAX_TRIES; tries++) {
-        sendPacket(seq, cmd);                  // 1) передаю (чи повторно — той самий seq)
-        uint32_t t0 = millis();
-        while (millis() - t0 < ACK_TIMEOUT) {  // 2) чекаю ACK саме з цим номером
-            if (gotAckFor(seq)) return true;   //    дійшло й підтверджено
-        }
-        // 3) тиша до таймауту → наступна ітерація повторить той самий seq
-    }
-    return false;                              // 4) MAX_TRIES марно → обрив
-}
-```
-```python
-# Шлю критичну команду stop-and-wait. True — підтверджено, False — зв'язок мертвий.
-def send_reliable(seq, cmd):
-    for _ in range(MAX_TRIES):
-        send_packet(seq, cmd)                  # 1) передаю (чи повторно — той самий seq)
-        t0 = millis()
-        while millis() - t0 < ACK_TIMEOUT:     # 2) чекаю ACK саме з цим номером
-            if got_ack_for(seq):
-                return True                    #    дійшло й підтверджено
-        # 3) тиша до таймауту → наступна ітерація повторить той самий seq
-    return False                               # 4) MAX_TRIES марно → обрив
-```
+:::code proj-stop-and-wait/cpp/robochyi-kod.cpp
+:::code proj-stop-and-wait/py/robochyi-kod.py
 :::
 
 Бік приймача — дзеркальний, і саме тут живе захист від дубліката:
@@ -122,55 +94,8 @@ t=1000 мс 5 спроб марно → return false → викликаємо fa
 Синхронний `sendReliable` має одну хибу для прошивки: цикл `while` усередині **блокує** головний цикл на час очікування ACK, а він зайнятий стабілізацією й блокуватися не сміє. Тому в реальному коді stop-and-wait розгортають у той самий автомат, але **без очікування** — на перевірці часу через `millis()`, як [неблокуючий патерн](root:sf-devices/nonblocking-time):
 
 :::tabs
-```cpp
-enum LinkState { IDLE, WAIT_ACK };
-LinkState st = IDLE;
-uint8_t   curSeq;
-Cmd       curCmd;
-uint32_t  sentAt;
-int       tries;
-
-void startSend(uint8_t seq, const Cmd& cmd) {  // поставити команду в чергу
-    curSeq = seq; curCmd = cmd; tries = 0;
-    sendPacket(curSeq, curCmd); sentAt = millis(); tries = 1;
-    st = WAIT_ACK;
-}
-
-void linkTick() {                              // викликати щотакту з головного циклу
-    if (st != WAIT_ACK) return;
-    if (gotAckFor(curSeq)) { st = IDLE; return; }          // підтверджено
-    if (millis() - sentAt >= ACK_TIMEOUT) {
-        if (tries >= MAX_TRIES) { st = IDLE; failsafe(); return; }  // здаюся
-        sendPacket(curSeq, curCmd); sentAt = millis(); tries++;     // повтор
-    }
-}
-```
-```python
-IDLE, WAIT_ACK = 0, 1
-
-st = IDLE
-cur_seq = 0
-cur_cmd = None
-sent_at = 0
-tries = 0
-
-def start_send(seq, cmd):                      # поставити команду в чергу
-    global st, cur_seq, cur_cmd, sent_at, tries
-    cur_seq, cur_cmd = seq, cmd
-    send_packet(cur_seq, cur_cmd); sent_at = millis(); tries = 1
-    st = WAIT_ACK
-
-def link_tick():                               # викликати щотакту з головного циклу
-    global st, sent_at, tries
-    if st != WAIT_ACK:
-        return
-    if got_ack_for(cur_seq):                   # підтверджено
-        st = IDLE; return
-    if millis() - sent_at >= ACK_TIMEOUT:
-        if tries >= MAX_TRIES:                 # здаюся
-            st = IDLE; failsafe(); return
-        send_packet(cur_seq, cur_cmd); sent_at = millis(); tries += 1  # повтор
-```
+:::code proj-stop-and-wait/cpp/neblokuiuchyi-variant-dlia.cpp
+:::code proj-stop-and-wait/py/neblokuiuchyi-variant-dlia.py
 :::
 
 Логіка та сама — номер незмінний, повтори лічаться, стеля веде у failsafe, — але `linkTick()` повертається миттєво, лишаючи головному циклу час на все інше. Це той варіант, що справді живе в прошивці.

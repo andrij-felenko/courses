@@ -28,38 +28,8 @@
 Повертає поточне цілочисельне значення Path MTU (у байтах), кешоване ядром для даного сокета (з урахуванням останніх отриманих повідомлень `ICMP Type 3 Code 4`). Сокет мусить бути попередньо з'єднаний через виклик `connect()` або відправити хоча б один пакет на адресу призначення, інакше виклик поверне помилку `ENOTCONN`.
 
 :::tabs
-```c
-/* Отримання поточного кешованого PMTU мовою C */
-#include <stdio.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-
-int get_socket_pmtu(int sock_fd) {
-    int current_pmtu = 0;
-    socklen_t len = sizeof(current_pmtu);
-    if (getsockopt(sock_fd, IPPROTO_IP, IP_MTU, &current_pmtu, &len) < 0) {
-        perror("getsockopt IP_MTU");
-        return -1;
-    }
-    return current_pmtu;
-}
-```
-```cpp
-// Отримання поточного кешованого PMTU мовою C++
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <system_error>
-#include <expected>
-
-[[nodiscard]] std::expected<int, std::error_code> get_socket_pmtu(int sock_fd) noexcept {
-    int current_pmtu = 0;
-    socklen_t len = sizeof(current_pmtu);
-    if (::getsockopt(sock_fd, IPPROTO_IP, IP_MTU, &current_pmtu, &len) < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return current_pmtu;
-}
-```
+:::code api-ip-fragmentation/c/main.c
+:::code api-ip-fragmentation/cpp/main.cpp
 :::
 
 #### 3. Опція `IP_RECVERR` та асинхронна черга помилок (`MSG_ERRQUEUE`)

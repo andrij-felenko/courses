@@ -23,45 +23,8 @@
 Спершу структура й операції. `volatile` тут обов'язковий: він каже компілятору, що покажчики змінюються «ззовні» (з переривання), тож їх не можна кешувати в регістрі й треба щоразу перечитувати з пам'яті.
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <stdbool.h>
-
-#define RB_SIZE 256                 // степінь двійки → маска замість ділення
-#define RB_MASK (RB_SIZE - 1)
-
-typedef struct {
-    volatile uint8_t  buf[RB_SIZE];
-    volatile uint16_t head;         // пише ЛИШЕ переривання
-    volatile uint16_t tail;         // пише ЛИШЕ читач
-} RingBuf;
-
-static inline bool rb_empty(const RingBuf* r) {
-    return r->head == r->tail;
-}
-
-static inline bool rb_full(const RingBuf* r) {
-    return ((r->head + 1) & RB_MASK) == r->tail;   // наступний head упреться в tail
-}
-```
-```python
-RB_SIZE = 256                       # степінь двійки → маска замість ділення
-RB_MASK = RB_SIZE - 1
-
-
-class RingBuf:
-    def __init__(self):
-        self.buf = bytearray(RB_SIZE)
-        self.head = 0               # пише ЛИШЕ переривання
-        self.tail = 0               # пише ЛИШЕ читач
-
-    def empty(self):
-        return self.head == self.tail
-
-    def full(self):
-        # наступний head упреться в tail
-        return ((self.head + 1) & RB_MASK) == self.tail
-```
+:::code proj-ring-buffer/cpp/main.cpp
+:::code proj-ring-buffer/py/main.py
 :::
 
 Бік писача — його викликає **лише переривання**. Він рухає `head` **останнім**, уже після того, як байт ліг у комірку:

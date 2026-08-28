@@ -82,44 +82,8 @@ Wi-Fi — це не просто «радіо», а ціла **система** 
 **Умова:** під'єднати ESP32 до домашнього Wi-Fi і не рушати з місця, доки не отримано IP-адресу.
 
 :::tabs
-```cpp
-#include <WiFi.h>
-
-const char* SSID = "MyHome";
-const char* PASS = "пароль";
-
-void setup() {
-    Serial.begin(115200);
-    WiFi.mode(WIFI_STA);            // режим клієнта (station)
-    WiFi.begin(SSID, PASS);         // скан + автентифікація + асоціація
-
-    // чекаємо саме на IP: статус WL_CONNECTED настає з видачею адреси DHCP
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(250);
-        Serial.print('.');
-    }
-    Serial.print("\nIP: ");
-    Serial.println(WiFi.localIP());   // напр. 192.168.1.12 — тепер ми в мережі
-}
-```
-```micropython
-import network
-import time
-
-SSID = "MyHome"
-PASS = "пароль"
-
-wlan = network.WLAN(network.STA_IF)   # режим клієнта (station)
-wlan.active(True)
-wlan.connect(SSID, PASS)              # скан + автентифікація + асоціація
-
-# чекаємо саме на IP: isconnected() стає True з видачею адреси DHCP
-while not wlan.isconnected():
-    time.sleep_ms(250)
-    print(".", end="")
-
-print("\nIP:", wlan.ifconfig()[0])    # напр. 192.168.1.12 — тепер ми в мережі
-```
+:::code wifi-d/cpp/main.cpp
+:::code wifi-d/py/micropython/main.py
 :::
 
 Розгляньмо ключове місце — умову циклу:

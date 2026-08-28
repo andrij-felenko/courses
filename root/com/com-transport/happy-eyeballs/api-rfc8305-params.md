@@ -111,52 +111,8 @@
 У бібліотеці `libcurl` алгоритм Happy Eyeballs v2 реалізований на рівні внутрішнього рушія передачі даних і керується низкою стандартних опцій `curl_easy_setopt`.
 
 :::tabs
-```c
-#include <curl/curl.h>
-
-CURL *curl = curl_easy_init();
-if (curl) {
-    curl_easy_setopt(curl, CURLOPT_URL, "https://example.com");
-
-    /* Встановлення затримки між спробами Happy Eyeballs (за замовчуванням 200 мс) */
-    curl_easy_setopt(curl, CURLOPT_HAPPY_EYEBALLS_TIMEOUT_MS, 250L);
-
-    /* Дозволити використання обох родин адрес (CURL_IPRESOLVE_WHATEVER) */
-    curl_easy_setopt(curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_WHATEVER);
-
-    /* Загальний таймаут на встановлення TCP-з'єднання */
-    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT_MS, 10000L);
-
-    CURLcode res = curl_easy_perform(curl);
-    curl_easy_cleanup(curl);
-}
-```
-```cpp
-#include <curl/curl.h>
-#include <memory>
-#include <stdexcept>
-
-struct CurlDeleter {
-    void operator()(CURL* handle) const noexcept {
-        if (handle) curl_easy_cleanup(handle);
-    }
-};
-
-void fetch_url(const char* url) {
-    std::unique_ptr<CURL, CurlDeleter> curl(curl_easy_init());
-    if (!curl) throw std::runtime_error("Не вдалося ініціалізувати curl");
-
-    curl_easy_setopt(curl.get(), CURLOPT_URL, url);
-    curl_easy_setopt(curl.get(), CURLOPT_HAPPY_EYEBALLS_TIMEOUT_MS, 250L);
-    curl_easy_setopt(curl.get(), CURLOPT_IPRESOLVE, CURL_IPRESOLVE_WHATEVER);
-    curl_easy_setopt(curl.get(), CURLOPT_CONNECTTIMEOUT_MS, 10000L);
-
-    CURLcode res = curl_easy_perform(curl.get());
-    if (res != CURLE_OK) {
-        throw std::runtime_error(curl_easy_strerror(res));
-    }
-}
-```
+:::code api-rfc8305-params/c/main.c
+:::code api-rfc8305-params/cpp/main.cpp
 :::
 
 * `CURLOPT_HAPPY_EYEBALLS_TIMEOUT_MS`: Задає тривалість затримки перед запуском спроби для наступної адреси. Встановлення значення `0L` вимикає затримку й змушує curl запускати всі адреси одночасно.
@@ -166,38 +122,7 @@ void fetch_url(const char* url) {
 
 У стандартній бібліотеці Go структура `net.Dialer` містить внутрішній механізм паралельного змагання goroutines під час виклику `DialContext`:
 
-```go
-package main
-
-import (
-	"context"
-	"net"
-	"net/http"
-	"time"
-)
-
-func createHappyEyeballsClient() *http.Client {
-	dialer := &net.Dialer{
-		Timeout:       10 * time.Second, /* Загальний ліміт часу на підключення */
-		KeepAlive:     30 * time.Second,
-		FallbackDelay: 250 * time.Millisecond, /* Інтервал старту паралельної goroutine */
-	}
-
-	transport := &http.Transport{
-		DialContext:           dialer.DialContext,
-		ForceAttemptHTTP2:     true,
-		MaxIdleConns:          100,
-		IdleConnTimeout:       90 * time.Second,
-		TLSHandshakeTimeout:   10 * time.Second,
-		ExpectContinueTimeout: 1 * time.Second,
-	}
-
-	return &http.Client{
-		Transport: transport,
-		Timeout:   15 * time.Second,
-	}
-}
-```
+:::code api-rfc8305-params/go/main.go
 
 У середовищі Go функція `dialParallel` запускає первинне підключення в окремій goroutine. Якщо через інтервал `FallbackDelay` результат не отримано, запускається друга goroutine для резервної адреси. Результати змагання передаються через спільний канал `chan dialResult`, а контекст goroutine, що програла, скасовується через `context.CancelFunc()`, що спричиняє негайне закриття невдалого сокета.
 
@@ -205,31 +130,7 @@ func createHappyEyeballsClient() *http.Client {
 
 Операційні системи Apple мають вбудовану низькорівневу реалізацію Happy Eyeballs v2 безпосередньо в мережевому демоні ядра `networkd`. Розробникам доступний високорівневий API `Network.framework`:
 
-```swift
-import Network
-
-let parameters = NWParameters.tcp
-// Дозволити автоматичне змагання інтерфейсів та родин адрес
-parameters.multipathServiceType = .handover
-
-let endpoint = NWEndpoint.hostPort(host: "example.com", port: 443)
-let connection = NWConnection(to: endpoint, using: parameters)
-
-connection.stateUpdateHandler = { state in
-    switch state {
-    case .ready:
-        print("З'єднання встановлено через найшвидший доступний шлях")
-    case .failed(let error):
-        print("Помилка підключення: \(error)")
-    case .waiting(let error):
-        print("Очікування відновлення зв'язку: \(error)")
-    default:
-        break
-    }
-}
-
-connection.start(queue: .global())
-```
+:::code api-rfc8305-params/swift/main.swift
 
 Системний стек Apple підтримує розширену версію змагання: якщо пристрій підключений одночасно до Wi-Fi та стільникової мережі Cellular, рушій змагається не лише між родинами адрес IPv6/IPv4, але й між різними фізичними мережевими інтерфейсами, обираючи найшвидший шлях із найменшим RTT.
 

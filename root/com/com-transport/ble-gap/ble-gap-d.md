@@ -258,71 +258,8 @@ Supervision_Timeout > (1 + Peripheral_Latency) × 2 × Connection_Interval
 Нижче наведено алгоритм математичної валідації та розрахунку параметрів зв'язку для прошивки мікроконтролера:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint16_t interval_min;    /* Крок 1.25 мс (наприклад, 6 = 7.5 мс, 800 = 1000 мс) */
-    uint16_t interval_max;    /* Крок 1.25 мс */
-    uint16_t latency;         /* Кількість подій (0 .. 499) */
-    uint16_t timeout;         /* Крок 10 мс (наприклад, 100 = 1000 мс, 600 = 6000 мс) */
-} ble_gap_conn_params_t;
-
-/* Перевірка валідності параметрів згідно зі специфікацією Bluetooth Core v5.x */
-bool ble_gap_validate_conn_params(const ble_gap_conn_params_t *p) {
-    if (!p) return false;
-
-    /* Межі інтервалу: від 7.5 мс (0x0006) до 4000 мс (0x0C80) */
-    if (p->interval_min < 6 || p->interval_min > 3200) return false;
-    if (p->interval_max < p->interval_min || p->interval_max > 3200) return false;
-
-    /* Межі затримки Slave Latency */
-    if (p->latency > 499) return false;
-
-    /* Межі таймауту нагляду: від 100 мс (0x000A) до 32000 мс (0x0C80) */
-    if (p->timeout < 10 || p->timeout > 3200) return false;
-
-    /* Математична перевірка узгодженості:
-       Timeout (мс) > (1 + Latency) * 2 * Max_Interval (мс)
-       Враховуємо одиниці: Timeout * 10 мс > (1 + Latency) * 2 * (Max_Interval * 1.25 мс)
-       Спрощення: Timeout * 10 > (1 + Latency) * 2.5 * Max_Interval
-       У цілих числах: Timeout * 20 > (1 + Latency) * 5 * Max_Interval -> Timeout * 4 > (1 + Latency) * Max_Interval */
-    uint32_t max_effective_interval_units = (uint32_t)(1 + p->latency) * p->interval_max;
-    uint32_t timeout_scaled = (uint32_t)p->timeout * 4;
-
-    return (timeout_scaled > max_effective_interval_units);
-}
-```
-```cpp
-#include <cstdint>
-#include <optional>
-
-struct GapConnParams {
-    uint16_t interval_min{24};  // 30.0 мс (24 * 1.25)
-    uint16_t interval_max{40};  // 50.0 мс (40 * 1.25)
-    uint16_t latency{4};        // Пропуск 4 подій
-    uint16_t timeout{300};      // 3000 мс (300 * 10)
-
-    [[nodiscard]] constexpr bool is_valid() const noexcept {
-        if (interval_min < 6 || interval_min > 3200) return false;
-        if (interval_max < interval_min || interval_max > 3200) return false;
-        if (latency > 499) return false;
-        if (timeout < 10 || timeout > 3200) return false;
-
-        // Supervision_Timeout * 10 мс > (1 + Latency) * 2 * (Interval_Max * 1.25 мс)
-        // Timeout * 4 > (1 + Latency) * Interval_Max
-        const auto effective_units = static_cast<uint32_t>(1 + latency) * interval_max;
-        const auto timeout_scaled  = static_cast<uint32_t>(timeout) * 4;
-
-        return timeout_scaled > effective_units;
-    }
-
-    [[nodiscard]] constexpr double effective_max_latency_ms() const noexcept {
-        return (1 + latency) * (interval_max * 1.25);
-    }
-};
-```
+:::code ble-gap-d/c/main.c
+:::code ble-gap-d/cpp/main.cpp
 :::
 
 ---

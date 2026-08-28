@@ -23,19 +23,23 @@
           "hist": [
             {
               "file": "hist-classful-exhaustion.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-radix-lpm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-cidr-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -46,7 +50,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -63,7 +68,8 @@
           "proj": [
             {
               "file": "proj-vlsm-allocator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -92,7 +98,8 @@
           "proj": [
             {
               "file": "proj-conntrack-nat.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -127,7 +134,8 @@
           "proj": [
             {
               "file": "proj-distance-vector.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -139,7 +147,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           }
         },
         {
@@ -166,13 +175,15 @@
           "proj": [
             {
               "file": "proj-ospf-lab.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ospf-packets.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -183,7 +194,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -194,13 +206,15 @@
           "proj": [
             {
               "file": "proj-ndp-neighbor-probe.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ndp-icmpv6.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -222,13 +236,16 @@
           "proj": [
             {
               "file": "proj-ssm-receiver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-igmpv3-mldv2-records.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -251,13 +268,15 @@
           "proj": [
             {
               "file": "proj-bgp-best-path.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bgp-attributes.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -280,7 +299,8 @@
           "proj": [
             {
               "file": "proj-bgp-peering.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -302,19 +322,24 @@
           "hist": [
             {
               "file": "hist-root-dns-anycast.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-maglev-consistent-hash.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-bgp-anycast-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         }
@@ -343,13 +368,15 @@
           "proj": [
             {
               "file": "proj-ip-reassembly.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ip-fragmentation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -371,13 +398,15 @@
           "proj": [
             {
               "file": "proj-pmtud-probe.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-tunnel-overhead.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -399,13 +428,17 @@
           "proj": [
             {
               "file": "proj-middlebox-probe.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-middlebox-taxonomy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

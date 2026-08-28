@@ -98,54 +98,14 @@ UART дає надійну «трубу» для байтів — і на цьо
 Складімо описане в реальний кадр і розберімо його. Опишемо формат `[SYNC=0xAA][LEN][ID][дані…][CRC8]`: одна позначка старту, байт довжини (скільки байтів іде далі — ID плюс дані), байт-тип, корисні дані й один байт CRC-8 по всьому, окрім SYNC.
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#define SYNC 0xAA
-
-// CRC-8, поліном 0x07 (x⁸+x²+x+1) — без таблиці, для наочності
-uint8_t crc8(const uint8_t *p, size_t n) {
-    uint8_t crc = 0x00;
-    for (size_t i = 0; i < n; i++) {
-        crc ^= p[i];
-        for (int b = 0; b < 8; b++)
-            crc = (crc & 0x80) ? (uint8_t)((crc << 1) ^ 0x07)
-                               : (uint8_t)(crc << 1);
-    }
-    return crc;
-}
-```
-```python
-SYNC = 0xAA
-
-# CRC-8, поліном 0x07 (x⁸+x²+x+1) — без таблиці, для наочності
-def crc8(data: bytes) -> int:
-    crc = 0x00
-    for byte in data:
-        crc ^= byte
-        for _ in range(8):
-            crc = ((crc << 1) ^ 0x07) & 0xFF if crc & 0x80 else (crc << 1) & 0xFF
-    return crc
-```
+:::code packet-design-d/cpp/paket-u-kodi.cpp
+:::code packet-design-d/py/paket-u-kodi.py
 :::
 
 Збираючи кадр, рахуємо CRC по полях LEN, ID і даних — рівно по тих, які приймач зможе перерахувати в себе:
 
 :::tabs
-```cpp
-// Зібрати кадр у буфер out; повертає його повну довжину в байтах.
-size_t build(uint8_t *out, uint8_t id, const uint8_t *data, uint8_t len) {
-    out[0] = SYNC;
-    out[1] = (uint8_t)(len + 1);   // LEN = ID + дані
-    out[2] = id;
-    for (uint8_t i = 0; i < len; i++)
-        out[3 + i] = data[i];
-    out[3 + len] = crc8(&out[1], (size_t)len + 2);  // CRC по LEN..дані
-    return (size_t)len + 4;        // SYNC+LEN+ID+дані+CRC
-}
-```
+:::code packet-design-d/cpp/paket-u-kodi-2.cpp
 ```python
 # Зібрати кадр і повернути його як bytes.
 def build(id: int, data: bytes) -> bytes:
@@ -157,32 +117,8 @@ def build(id: int, data: bytes) -> bytes:
 На прийомі найважливіше — звіряти CRC **перед** тим, як повірити вмісту. Перевіряльник дістає поля з готового кадру й перераховує контрольну суму по тому самому проміжку:
 
 :::tabs
-```cpp
-// Перевірити кадр довжини n. true — цілий; виходи id/data/len дійсні лише тоді.
-bool check(const uint8_t *buf, size_t n,
-           uint8_t *id, const uint8_t **data, uint8_t *len) {
-    if (n < 4 || buf[0] != SYNC) return false;   // нема SYNC або замало байтів
-    uint8_t L = buf[1];                           // LEN = ID + дані
-    if ((size_t)L + 3 != n) return false;         // довжина не збігається з кадром
-    if (crc8(&buf[1], (size_t)L + 1) != buf[n - 1]) return false;  // CRC не зійшовся
-    *id   = buf[2];
-    *data = &buf[3];
-    *len  = (uint8_t)(L - 1);                      // самі дані, без ID
-    return true;
-}
-```
-```python
-# Перевірити кадр. Повертає (id, data) для цілого кадру або None.
-def check(buf: bytes):
-    if len(buf) < 4 or buf[0] != SYNC:            # нема SYNC або замало байтів
-        return None
-    L = buf[1]                                     # LEN = ID + дані
-    if L + 3 != len(buf):                          # довжина не збігається з кадром
-        return None
-    if crc8(buf[1:2 + L]) != buf[-1]:              # CRC не зійшовся
-        return None
-    return buf[2], buf[3:2 + L]                    # (id, самі дані без ID)
-```
+:::code packet-design-d/cpp/paket-u-kodi-3.cpp
+:::code packet-design-d/py/paket-u-kodi-2.py
 :::
 
 Розберімо живий кадр. Хай ID = `0x12`, дані — два байти `0x41 0x42` (символи 'A' і 'B'). Тоді LEN = 3 (ID + двоє даних), а CRC-8 по `03 12 41 42` дорівнює `0xC9`. У буфері опиниться:
