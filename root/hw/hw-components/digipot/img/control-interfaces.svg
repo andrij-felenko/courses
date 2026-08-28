@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 750 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="750" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтерфейси керування цифровими потенціометрами</text>
+<rect x="30.0" y="30.0" width="680.0" height="300.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.6"/>
+<text x="370.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтерфейси керування та організація пам'яті</text>
+<rect x="50.0" y="80.0" width="310.0" height="140.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="205.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Цифрові послідовні шини</text>
+<text x="70.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">• SPI (до 50 МГц):</text>
+<text x="85.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">CS, SCK, SDI, SDO (Daisy-Chain підтримка)</text>
+<text x="70.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">• I2C (100 / 400 кГц / 1 МГц):</text>
+<text x="85.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">SDA, SCL, адресні ніжки A0/A1 (до 4 чипів на шині)</text>
+<text x="205.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-style="italic">Повний контроль, зчитування значення</text>
+<rect x="380.0" y="80.0" width="310.0" height="140.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="535.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Імпульсні та автономні інтерфейси</text>
+<text x="400.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">• Up/Down (3-провідний лічильник):</text>
+<text x="415.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">CS (вибір), U/D (напрям), INC (кроковий такт)</text>
+<text x="400.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">• Push-Button (прямі кнопки):</text>
+<text x="415.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Кнопки UP / DOWN з вбудованим антибрязкотом</text>
+<text x="535.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">Працює без мікроконтролера</text>
+<rect x="50.0" y="234.0" width="640.0" height="86.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="370.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура пам'яті положення повзунка</text>
+<rect x="70.0" y="268.0" width="270.0" height="42.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="205.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Volatile (RAM)</text>
+<text x="205.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">POR → Mid-scale (0x80) або нуль</text>
+<line x1="345.0" y1="289.0" x2="385.0" y2="289.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="390.0" y="268.0" width="280.0" height="42.0" rx="4" fill="#fff3e0" stroke="#e0a32e" stroke-width="1.4"/>
+<text x="530.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e0a32e" text-anchor="middle" font-weight="700">Non-Volatile (EEPROM)</text>
+<text x="530.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Автозбереження та завантаження при старті</text>
+</svg>

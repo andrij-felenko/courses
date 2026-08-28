@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 981.28 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="981.28" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня архітектура RTC: подвійний прескалер та BCD-календар</text>
+<text x="480.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">перетворення 32768 Гц на секундний строб, калібрування, субсекундний лічильник та фіксація читання</text>
+<rect x="45.3" y="78.4" width="129.4" height="63.2" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.5"/><text x="110.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Генератор П'єрса</tspan><tspan x="110.0" dy="15.6">32 768 Гц</tspan><tspan x="110.0" dy="15.6">(LSE / XTAL)</tspan></text>
+<line x1="180.0" y1="110.0" x2="230.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="205.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">32 кГц</text>
+<rect x="245.3" y="78.4" width="129.4" height="63.2" rx="6" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.6"/><text x="310.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Асинхронний</tspan><tspan x="310.0" dy="15.6">прескалер (÷128)</tspan><tspan x="310.0" dy="15.6">PREDIV_A (7-біт)</tspan></text>
+<line x1="390.0" y1="110.0" x2="440.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="415.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">256 Гц</text>
+<rect x="444.8" y="78.4" width="170.5" height="63.2" rx="6" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.6"/><text x="530.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Синхронний прескалер</tspan><tspan x="530.0" dy="15.6">(÷256) PREDIV_S</tspan><tspan x="530.0" dy="15.6">Лічильник SSR (255..0)</tspan></text>
+<line x1="530.0" y1="145.0" x2="530.0" y2="185.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="422.8" y="185.2" width="214.4" height="59.6" rx="6" fill="#fdfefe" stroke="#2457d6" stroke-width="1.3"/><text x="530.0" y="204.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Субсекундний регістр SSR</tspan><tspan x="530.0" dy="14.3">(Частка секунди: t = SSR/256 с)</tspan><tspan x="530.0" dy="14.3">роздільність ~3.9 мс</tspan></text>
+<line x1="620.0" y1="110.0" x2="670.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="645.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1 Гц*</text>
+<rect x="664.5" y="78.4" width="191.0" height="63.2" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/><text x="760.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">Блок цифрового</tspan><tspan x="760.0" dy="15.6">калібрування (CALM/CALP)</tspan><tspan x="760.0" dy="15.6">вставка/маскування тактів</tspan></text>
+<line x1="850.0" y1="110.0" x2="890.0" y2="110.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="890.0" y1="110.0" x2="890.0" y2="300.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="890.0" y1="300.0" x2="840.0" y2="300.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="890.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Точний строб 1.000000 Гц</text>
+<rect x="40.0" y="270.0" width="810.0" height="105.0" rx="8" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+<text x="445.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ланцюжок BCD-лічильників календаря (Binary-Coded Decimal)</text>
+<rect x="22.5" y="310.0" width="95.0" height="50.0" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="70.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секунди</text>
+<text x="70.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">00..59
+(BCD: 7-біт)</text>
+<line x1="117.5" y1="335.0" x2="147.5" y2="335.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="147.5" y="310.0" width="95.0" height="50.0" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="195.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хвилини</text>
+<text x="195.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">00..59
+(BCD: 7-біт)</text>
+<line x1="242.5" y1="335.0" x2="272.5" y2="335.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="272.5" y="310.0" width="95.0" height="50.0" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="320.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Години</text>
+<text x="320.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">00..23
+(BCD: 6-біт)</text>
+<line x1="367.5" y1="335.0" x2="397.5" y2="335.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="397.5" y="310.0" width="95.0" height="50.0" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="445.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дата</text>
+<text x="445.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">01..31
+(BCD: 6-біт)</text>
+<line x1="492.5" y1="335.0" x2="522.5" y2="335.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="522.5" y="310.0" width="95.0" height="50.0" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="570.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Місяць</text>
+<text x="570.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">01..12
+(BCD: 5-біт)</text>
+<line x1="617.5" y1="335.0" x2="647.5" y2="335.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="647.5" y="310.0" width="95.0" height="50.0" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="695.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рік</text>
+<text x="695.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">00..99
+(+високосний)</text>
+<line x1="445.0" y1="375.0" x2="445.0" y2="415.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="540.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Атомарне копіювання при читанні (Time-Hold / RSF)</text>
+<rect x="55.0" y="431.2" width="780.0" height="47.6" rx="6" fill="#fdf3f2" stroke="#c0392b" stroke-width="1.5"/><text x="445.0" y="451.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">Тіньові регістри-засувки (Shadow Registers) &amp; Інтерфейс APB / I²C / SPI</tspan><tspan x="445.0" dy="15.6">Запобігання розриву даних при переході 23:59:59 → 00:00:00 під час читання процесором</tspan></text>
+</svg>

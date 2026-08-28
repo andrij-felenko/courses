@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принципова схемотехніка вузла VBAT та кварцового резонатора LSE на PCB</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Захист від зворотного струму, фільтрація завад, охоронне кільце (Guard Ring) та діагностика</text>
+<rect x="480.0" y="80.0" width="360.0" height="410.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="2.0"/>
+<text x="660.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікроконтролер (MCU / SoC)</text>
+<rect x="480.0" y="160.0" width="70.0" height="30.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="515.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">VBAT</text>
+<rect x="480.0" y="260.0" width="90.0" height="28.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="525.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">OSC32_IN</text>
+<rect x="480.0" y="330.0" width="95.0" height="28.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="527.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">OSC32_OUT</text>
+<rect x="480.0" y="430.0" width="70.0" height="30.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="515.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">VDD</text>
+<rect x="600.0" y="150.0" width="220.0" height="90.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="710.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішній міст АЦП</text>
+<text x="710.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ключ VBATEN + Дільник 1/3 (1/4)</text>
+<text x="710.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">До вхідного каналу ADC_INx</text>
+<line x1="550.0" y1="175.0" x2="600.0" y2="175.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="600.0" y="275.0" width="220.0" height="75.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.2"/>
+<text x="710.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">Pierce Inverter (LSE)</text>
+<text x="710.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Регульований gm (&lt;150 нА)</text>
+<line x1="570.0" y1="274.0" x2="600.0" y2="274.0" stroke="#0284c7" stroke-width="1.5"/>
+<line x1="575.0" y1="344.0" x2="600.0" y2="344.0" stroke="#0284c7" stroke-width="1.5"/>
+<circle cx="80.0" cy="175.0" r="24.0" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="80.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">BT1</text>
+<text x="80.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">CR2032</text>
+<text x="80.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+3.0 В</text>
+<line x1="80.0" y1="199.0" x2="80.0" y2="230.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="70.0" y1="230.0" x2="90.0" y2="230.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="74.0" y1="234.0" x2="86.0" y2="234.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="78.0" y1="238.0" x2="82.0" y2="238.0" stroke="#333333" stroke-width="1.0"/>
+<line x1="104.0" y1="175.0" x2="140.0" y2="175.0" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="143.9" y="160.1" width="62.1" height="29.9" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="172.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">R1 (1 кОм)</tspan><tspan x="175.0" dy="12.3">UL Захист</tspan></text>
+<line x1="210.0" y1="175.0" x2="380.0" y2="175.0" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="290.0" cy="175.0" r="3.0" fill="#1a1a1a" stroke="#333333" stroke-width="1.0"/>
+<line x1="290.0" y1="175.0" x2="290.0" y2="205.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="253.5" y="210.1" width="73.0" height="29.9" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="290.0" y="222.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">C1 100 нФ</tspan><tspan x="290.0" dy="12.3">Кераміка X7R</tspan></text>
+<line x1="290.0" y1="245.0" x2="290.0" y2="255.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="282.0" y1="255.0" x2="298.0" y2="255.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="286.0" y1="258.0" x2="294.0" y2="258.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="380.0" y1="175.0" x2="480.0" y2="175.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="130.0" y="275.0" width="300.0" height="125.0" rx="6" fill="#f0fdfa" stroke="#0d9488" stroke-width="1.5"/>
+<text x="280.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0d9488" text-anchor="middle" font-weight="700">Охоронне кільце (GND Guard Ring) під кварцом</text>
+<rect x="240.0" y="315.0" width="70.0" height="45.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="275.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">Y1 32.768k</text>
+<text x="275.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">CL = 6..12.5 пФ</text>
+<line x1="310.0" y1="325.0" x2="440.0" y2="325.0" stroke="#0284c7" stroke-width="1.5"/>
+<line x1="440.0" y1="325.0" x2="480.0" y2="344.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="345.0" x2="440.0" y2="345.0" stroke="#0284c7" stroke-width="1.5"/>
+<line x1="440.0" y1="345.0" x2="440.0" y2="274.0" stroke="#0284c7" stroke-width="1.5"/>
+<line x1="440.0" y1="274.0" x2="480.0" y2="274.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="325.0" x2="240.0" y2="325.0" stroke="#0284c7" stroke-width="1.5"/>
+<line x1="220.0" y1="345.0" x2="240.0" y2="345.0" stroke="#0284c7" stroke-width="1.5"/>
+<rect x="152.6" y="311.1" width="54.7" height="27.8" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/><text x="180.0" y="322.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">CL1</tspan><tspan x="180.0" dy="12.3">10..18 пФ</tspan></text>
+<rect x="152.6" y="356.1" width="54.7" height="27.8" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/><text x="180.0" y="367.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">CL2</tspan><tspan x="180.0" dy="12.3">10..18 пФ</tspan></text>
+<line x1="220.0" y1="345.0" x2="220.0" y2="370.0" stroke="#0284c7" stroke-width="1.5"/>
+<line x1="180.0" y1="340.0" x2="180.0" y2="355.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="180.0" y1="385.0" x2="180.0" y2="395.0" stroke="#333333" stroke-width="1.2"/>
+<circle cx="180.0" cy="395.0" r="2.5" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<line x1="360.0" y1="445.0" x2="480.0" y2="445.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="268.9" y="430.1" width="62.1" height="29.9" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="300.0" y="442.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">C2 100 нФ</tspan><tspan x="300.0" dy="12.3">X7R Bypass</tspan></text>
+</svg>

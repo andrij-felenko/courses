@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Безпечне підстроювання вихідної напруги DC-DC перетворювача</text>
+<rect x="30.0" y="30.0" width="335.0" height="320.0" rx="8" fill="#fbecec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="197.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">СМЕРТЕЛЬНА СХЕМА (Пряме включення)</text>
+<rect x="60.0" y="86.0" width="120.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="120.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DC-DC Buck</text>
+<text x="120.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_FB = 0.8 В</text>
+<line x1="180.0" y1="100.0" x2="310.0" y2="100.0" stroke="#c0392b" stroke-width="2.2"/>
+<circle cx="310.0" cy="100.0" r="4.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<text x="318.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Vout</text>
+<line x1="260.0" y1="100.0" x2="260.0" y2="126.0" stroke="#333333" stroke-width="1.8"/>
+<rect x="248.0" y="126.0" width="24.0" height="30.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="236.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">R_top</text>
+<line x1="260.0" y1="156.0" x2="260.0" y2="190.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="260.0" cy="190.0" r="3.5" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<line x1="260.0" y1="190.0" x2="180.0" y2="130.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="210.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">FB</text>
+<line x1="260.0" y1="190.0" x2="260.0" y2="210.0" stroke="#333333" stroke-width="1.8"/>
+<rect x="244.0" y="210.0" width="32.0" height="40.0" rx="2" fill="#fbecec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="260.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">DigiPot</text>
+<line x1="260.0" y1="250.0" x2="260.0" y2="266.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="252.0" y1="266.0" x2="268.0" y2="266.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="256.0" y1="270.0" x2="264.0" y2="270.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="45.0" y="276.0" width="305.0" height="60.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="197.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">При скиданні / обриві повзунка:</text>
+<text x="197.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">V_FB падає до 0 В → DC-DC видає V_max (24 В!)</text>
+<text x="197.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">УСЕ НАВАНТАЖЕННЯ МИТТЄВО ВИГОРАЄ</text>
+<rect x="395.0" y="30.0" width="335.0" height="320.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="562.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">БЕЗПЕЧНА СХЕМА (Паралельне підмішування)</text>
+<rect x="425.0" y="86.0" width="120.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="485.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DC-DC Buck</text>
+<text x="485.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_FB = 0.8 В</text>
+<line x1="545.0" y1="100.0" x2="680.0" y2="100.0" stroke="#c0392b" stroke-width="2.2"/>
+<circle cx="680.0" cy="100.0" r="4.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<text x="688.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Vout</text>
+<line x1="610.0" y1="100.0" x2="610.0" y2="120.0" stroke="#333333" stroke-width="1.8"/>
+<rect x="598.0" y="120.0" width="24.0" height="26.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="586.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">R1</text>
+<line x1="610.0" y1="146.0" x2="610.0" y2="180.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="610.0" cy="180.0" r="3.5" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<line x1="610.0" y1="180.0" x2="545.0" y2="130.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="568.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">FB</text>
+<line x1="610.0" y1="180.0" x2="610.0" y2="206.0" stroke="#333333" stroke-width="1.8"/>
+<rect x="598.0" y="206.0" width="24.0" height="26.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="586.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">R2</text>
+<line x1="610.0" y1="232.0" x2="610.0" y2="256.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="602.0" y1="256.0" x2="618.0" y2="256.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="610.0" y1="180.0" x2="670.0" y2="180.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="670.0" y="168.0" width="28.0" height="24.0" rx="2" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="684.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">R_s</text>
+<line x1="698.0" y1="180.0" x2="706.0" y2="180.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="706.0" y="166.0" width="18.0" height="56.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<line x1="715.0" y1="222.0" x2="715.0" y2="240.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="708.0" y1="240.0" x2="722.0" y2="240.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="410.0" y="276.0" width="305.0" height="60.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="562.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Гарантований коридор безпеки:</text>
+<text x="562.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Навіть при обриві/КЗ диджипота: 3.0 В ≤ Vout ≤ 3.6 В</text>
+<text x="562.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">R1 і R2 не дають напрузі вилетіти у небезпечну зону</text>
+</svg>

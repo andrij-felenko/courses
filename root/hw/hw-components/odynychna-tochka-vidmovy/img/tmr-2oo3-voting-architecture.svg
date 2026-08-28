@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="790.0" height="410.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура потрійного модульного резервування 2oo3 (TMR) з мажоритарним арбітром</text>
+<line x1="35.0" y1="220.0" x2="95.0" y2="220.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="95.0" y1="100.0" x2="95.0" y2="340.0" stroke="#333333" stroke-width="2.0"/>
+<text x="65.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідні дані</text>
+<line x1="95.0" y1="100.0" x2="140.0" y2="100.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="140.0" y="75.0" width="140.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="210.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Канал A (MCU 1)</tspan><tspan x="210.0" dy="14.3">Результат: 1</tspan></text>
+<line x1="95.0" y1="220.0" x2="140.0" y2="220.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="140.0" y="195.0" width="140.0" height="50.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/><text x="210.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Канал B (MCU 2)</tspan><tspan x="210.0" dy="13.0">Результат: 0 (ЗБІЙ)</tspan></text>
+<line x1="95.0" y1="340.0" x2="140.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="140.0" y="315.0" width="140.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="210.0" y="336.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Канал C (MCU 3)</tspan><tspan x="210.0" dy="14.3">Результат: 1</tspan></text>
+<line x1="280.0" y1="100.0" x2="350.0" y2="180.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="220.0" x2="350.0" y2="220.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="340.0" x2="350.0" y2="260.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="350.0" y="150.0" width="200.0" height="140.0" rx="6" fill="#e8f4fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="450.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Мажоритарний орган</text>
+<text x="450.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2-out-of-3 Voter</text>
+<text x="450.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Y = (A∧B) ∨ (B∧C) ∨ (A∧C)</text>
+<text x="450.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Голосування: 2 проти 1</text>
+<text x="450.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Маскування відмови B</text>
+<line x1="550.0" y1="220.0" x2="640.0" y2="220.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="640.0" y="195.0" width="145.0" height="50.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="712.5" y="210.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="712.5" dy="0.0">Вихідний сигнал</tspan><tspan x="712.5" dy="13.0">Істинне значення: 1</tspan><tspan x="712.5" dy="13.0">(Безпечна робота)</tspan></text>
+<line x1="450.0" y1="290.0" x2="450.0" y2="340.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="350.0" y="340.0" width="200.0" height="65.0" rx="6" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/><text x="450.0" y="356.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e65100" text-anchor="middle"><tspan x="450.0" dy="0.0">Діагностика FMECA:</tspan><tspan x="450.0" dy="13.0">Розбіжність каналу B!</tspan><tspan x="450.0" dy="13.0">— Запис у журнал відмов</tspan><tspan x="450.0" dy="13.0">— Запит техобслуговування</tspan></text>
+</svg>

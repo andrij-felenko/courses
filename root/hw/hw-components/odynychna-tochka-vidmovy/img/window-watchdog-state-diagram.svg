@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="790.0" height="350.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часові інтервали віконного сторожового таймера (Window Watchdog)</text>
+<line x1="60.0" y1="220.0" x2="760.0" y2="220.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="750.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Час (t)</text>
+<line x1="120.0" y1="120.0" x2="120.0" y2="240.0" stroke="#333333" stroke-width="1.5"/>
+<text x="120.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">t = 0
+(Скид таймера)</text>
+<line x1="320.0" y1="120.0" x2="320.0" y2="240.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="320.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">t_min
+(Рання межа)</text>
+<line x1="560.0" y1="120.0" x2="560.0" y2="240.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="560.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">t_max
+(Таймаут)</text>
+<rect x="120.0" y="130.0" width="200.0" height="70.0" rx="4" fill="#ffebee" stroke="#c0392b" stroke-width="1.0"/>
+<text x="220.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ЗАБОРОНЕНА ЗОНА</text>
+<text x="220.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Раннє годування сторожа
+(Збій / шалений цикл)</text>
+<text x="220.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">→ АПАРТНИЙ СКИД MCU</text>
+<rect x="320.0" y="130.0" width="240.0" height="70.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="440.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ДОЗВОЛЕНЕ ВІКНО</text>
+<text x="440.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Штатне скидання сторожа</text>
+<text x="440.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">t_min &lt; t_refresh &lt; t_max</text>
+<rect x="560.0" y="130.0" width="170.0" height="70.0" rx="4" fill="#ffebee" stroke="#c0392b" stroke-width="1.0"/>
+<text x="645.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ТАЙМАУТ</text>
+<text x="645.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Зависання коду / дедлок</text>
+<text x="645.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">→ АПАРАТНИЙ СКИД MCU</text>
+<line x1="440.0" y1="100.0" x2="440.0" y2="130.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Штатний імпульс WDI (Good Feed)</text>
+<rect x="60.0" y="290.0" width="700.0" height="60.0" rx="6" fill="#f8f9fa" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="310.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Перевага віконного сторожа над звичайним: якщо помилка в коді призводить до нескінченного циклу</tspan><tspan x="410.0" dy="13.0">або зациклення переривання, де команда скидання сторожа викликається занадто швидко (t &lt; t_min),</tspan><tspan x="410.0" dy="13.0">звичайний сторож не помітить зависання, а віконний сторож миттєво перезавантажить систему.</tspan></text>
+</svg>

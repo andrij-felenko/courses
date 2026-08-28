@@ -17,8 +17,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-redundancy-reliability.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "pidrobni-i-peremarkovani-komponenty",
@@ -37,8 +43,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-bearing-l10-life.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-operating-hours-tracker.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -149,6 +167,16 @@
         {
           "slug": "component-derating",
           "title": "Зниження навантаження компонентів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reliability-prediction",
+          "title": "Прогнозування надійності та розрахунок MTBF (MIL-HDBK-217)",
           "basic": {
             "status": "empty"
           },
