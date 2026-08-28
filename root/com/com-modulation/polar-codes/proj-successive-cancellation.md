@@ -61,68 +61,8 @@ g(L₁, L₂, û) = L₂ + (1 − 2û) · L₁
 Ось увесь декодер. Python — щоб алгоритм читався як псевдокод, але справжній і запускний; C — бо в реальності SC живе у DSP та ASIC базових станцій, де рахують цілочисловим min-sum. Обидва — точний переклад тих самих чотирьох кроків.
 
 :::tabs
-```py
-def f_node(a, b):                      # обережно: min-sum boxplus
-    return (1 if a >= 0 else -1) * (1 if b >= 0 else -1) * min(abs(a), abs(b))
-
-def g_node(a, b, u):                   # u — уже вирішений верхній біт
-    return b + (1 - 2 * u) * a
-
-def sc_decode(llr, frozen):
-    """llr — N довір на виходах цього вузла; frozen — маска (True = заморожено).
-    Повертає (û, x): вирішені біти й відповідне кодове слово (частинкові суми)."""
-    n = len(llr)
-    if n == 1:
-        bit = 0 if frozen[0] else (0 if llr[0] >= 0 else 1)
-        return [bit], [bit]
-    h = n // 2
-    La = [f_node(llr[i], llr[i + h]) for i in range(h)]      # f-прохід
-    u_up, x_up = sc_decode(La, frozen[:h])                   # верхня половина
-    Lb = [g_node(llr[i], llr[i + h], x_up[i]) for i in range(h)]   # g-прохід
-    u_lo, x_lo = sc_decode(Lb, frozen[h:])                   # нижня половина
-    u = u_up + u_lo
-    x = [x_up[i] ^ x_lo[i] for i in range(h)] + x_lo         # ті самі XOR, що й кодер
-    return u, x
-
-# --- запуск: N=8, заморожені позиції {0,1,2,4}, решта — дані ---
-frozen = [True, True, True, False, True, False, False, False]
-llr    = [-4, 2, 3, 1, 5, -2, 3, -6]        # м'які виходи каналу (LLR)
-u_hat, x_hat = sc_decode(llr, frozen)
-print(u_hat)      # -> [0, 0, 0, 1, 0, 0, 1, 1]
-```
-```c
-#include <math.h>
-#include <stdint.h>
-
-static int   sgn(float x)            { return x >= 0 ? 1 : -1; }
-static float f_node(float a, float b) {                 // обережно: min-sum boxplus
-    float m = fabsf(a) < fabsf(b) ? fabsf(a) : fabsf(b);
-    return (float)(sgn(a) * sgn(b)) * m;
-}
-static float g_node(float a, float b, int u) {          // u — уже вирішений верхній біт
-    return b + (float)(1 - 2 * u) * a;
-}
-
-/* llr[0..N) — довіри на виходах вузла; frozen[0..N) — маска (1 = заморожено).
-   Пише вирішені біти в u[0..N), а кодове слово (частинкові суми) — у x[0..N). */
-void sc_decode(const float *llr, const uint8_t *frozen,
-               int N, uint8_t *u, uint8_t *x) {
-    if (N == 1) {
-        u[0] = frozen[0] ? 0 : (llr[0] >= 0 ? 0 : 1);
-        x[0] = u[0];
-        return;
-    }
-    int h = N / 2;
-    float La[h], Lb[h];                 // для наочності — VLA; у продакшні статичні буфери
-    uint8_t xa[h], xb[h];
-    for (int i = 0; i < h; i++) La[i] = f_node(llr[i], llr[i + h]);   // f-прохід
-    sc_decode(La, frozen, h, u, xa);                                 // верхня половина
-    for (int i = 0; i < h; i++) Lb[i] = g_node(llr[i], llr[i + h], xa[i]); // g-прохід
-    sc_decode(Lb, frozen + h, h, u + h, xb);                         // нижня половина
-    for (int i = 0; i < h; i++) x[i]     = xa[i] ^ xb[i];            // зшити половини
-    for (int i = 0; i < h; i++) x[i + h] = xb[i];
-}
-```
+:::code proj-successive-cancellation/py/main.py
+:::code proj-successive-cancellation/c/main.c
 :::
 
 Обидва повертають `û = [0,0,0,1,0,0,1,1]`. Заморожені позиції 0,1,2,4 стоять у нулях за побудовою; дані — це біти на 3,5,6,7, тобто `[1,0,1,1]`. Тепер розберімо, звідки взялися саме ці числа.

@@ -23,43 +23,8 @@
 Уся схема — цей один рядок арифметики. Перемішати — розкласти вхід за `perm`; зворотний перемішувач кладе кожен прийнятий символ туди, звідки той прийшов. У прошивці це два вкладені цикли без жодного ділення в гарячому місці; у наочному коді — явний масив перестановки, щоб було видно саме її.
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* Блоковий перемішувач глибини D над словами довжини N.
-   Пишемо рядками (слово за словом), у канал віддаємо стовпцями. */
-#define D 5      /* глибина: скільки кодових слів у матриці (рядків) */
-#define N 8      /* довжина кодового слова в символах (стовпців)     */
-
-void block_interleave(const uint8_t src[D * N], uint8_t dst[D * N]) {
-    for (int c = 0; c < N; c++)              /* стовпець за стовпцем — так у канал */
-        for (int r = 0; r < D; r++)
-            dst[c * D + r] = src[r * N + c]; /* символ рядка r, стовпця c */
-}
-
-/* Зворотний — дзеркало: пишемо стовпцями, читаємо рядками. */
-void block_deinterleave(const uint8_t src[D * N], uint8_t dst[D * N]) {
-    for (int c = 0; c < N; c++)
-        for (int r = 0; r < D; r++)
-            dst[r * N + c] = src[c * D + r];
-}
-```
-```python
-def block_perm(D: int, N: int) -> list[int]:
-    """Позиція k в каналі -> звідки взяти символ у вхідному буфері."""
-    return [(k % D) * N + (k // D) for k in range(D * N)]
-
-
-def interleave(src: list, perm: list[int]) -> list:
-    return [src[i] for i in perm]                 # dst[k] = src[perm[k]]
-
-
-def deinterleave(chan: list, perm: list[int]) -> list:
-    out = [None] * len(chan)
-    for k, i in enumerate(perm):                  # кладемо символ назад на його місце
-        out[i] = chan[k]
-    return out
-```
+:::code proj-interleaver-code/c/blokovyi-peremishuvach-tse.c
+:::code proj-interleaver-code/py/blokovyi-peremishuvach-tse.py
 :::
 
 Оскільки це чиста перестановка, зворотність не треба ні доводити, ні тестувати окремо: `perm` — бієкція (кожна вхідна позиція трапляється рівно раз), тож `deinterleave(interleave(x)) == x` за побудовою. Це важлива дрібниця: перемішувач не має **права** втрачати чи плутати символи навіть на один — інакше він сам стає джерелом помилок, гіршим за той пакет, від якого рятує.
@@ -68,20 +33,7 @@ def deinterleave(chan: list, perm: list[int]) -> list:
 
 Тепер найцікавіше — показати, як пакет справді розлітається. Пронумеруймо символи парою `(слово, позиція)`, перемішаймо, зіпсуймо в каналі суцільну смугу підряд і подивімось, скільки похибок дісталося кожному слову після зворотного розкладання.
 
-```python
-from collections import Counter
-
-D, N = 5, 8                                       # 5 слів по 8 символів
-msg = [(w, p) for w in range(D) for p in range(N)]
-perm = block_perm(D, N)
-chan = interleave(msg, perm)
-
-burst = range(12, 22)                             # канал б'є: 10 символів поспіль
-chan = ["×" if k in burst else s for k, s in enumerate(chan)]
-
-recv = Counter(k // N for k, s in enumerate(deinterleave(chan, perm)) if s == "×")
-print(dict(sorted(recv.items())))                 # {0: 2, 1: 2, 2: 2, 3: 2, 4: 2}
-```
+:::code proj-interleaver-code/py/paket-rozsypaietsia.py
 
 Смуга з десяти зіпсованих символів каналу обернулася на **рівно по дві похибки в кожному з п'яти слів**. Якщо код лагодить бодай `t = 2` на слово — усі п'ять виживають, хоч канал і бив суцільною чергою. Загальний закон уже видно з чисел: глибина `D` ріже пакет на скибки, і в найгірше слово падає `⌈b / D⌉` символів. Поки `⌈b / D⌉ ≤ t`, тобто поки пакет не довший за `D·t`, декодер витягує все.
 
@@ -115,78 +67,8 @@ print(dict(sorted(recv.items())))                 # {0: 2, 1: 2, 2: 2, 3: 2, 4: 
 Перемішувач і зворотний — **та сама** схема з різними довжинами гілок: у перемішувача гілка `i` затримує на `i·M`, у зворотного — на `(N−1−i)·M`. Тому пишемо один рушій і заводимо його двічі.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-#define N 6                        /* число гілок (позицій комутатора)  */
-#define M 2                        /* приріст затримки на гілку          */
-#define MEM (M * N * (N - 1) / 2)  /* сумарна пам'ять = рівно 30 комірок */
-
-typedef struct {
-    uint8_t  buf[MEM];             /* плаский буфер під усі гілки        */
-    uint16_t base[N], curs[N], len[N];
-    uint8_t  br;                   /* поточна гілка (комутатор)          */
-} interleaver_t;
-
-/* delays[i] — довжина лінії затримки гілки i у комірках */
-static void il_init(interleaver_t *it, const uint16_t delays[N]) {
-    uint16_t off = 0;
-    for (int i = 0; i < N; i++) {
-        it->len[i]  = delays[i];
-        it->base[i] = off;         /* де в буфері починається кільце гілки i */
-        it->curs[i] = 0;
-        off += delays[i];
-    }
-    it->br = 0;
-    memset(it->buf, 0, sizeof it->buf);     /* прайм: перші символи — фіктивні */
-}
-
-static uint8_t il_step(interleaver_t *it, uint8_t s) {
-    uint8_t i = it->br;
-    it->br = (uint8_t)((it->br + 1) % N);    /* комутатор крутиться по колу */
-    if (it->len[i] == 0) return s;           /* гілка 0 — наскрізь          */
-    uint16_t k = (uint16_t)(it->base[i] + it->curs[i]);
-    uint8_t out = it->buf[k];                /* найстаріший символ гілки виходить */
-    it->buf[k] = s;                          /* новий стає на його місце          */
-    it->curs[i] = (uint16_t)((it->curs[i] + 1) % it->len[i]);
-    return out;
-}
-
-/* Заведення пари: перемішувач і дзеркальний зворотний.
-   interleaver_t tx, rx;
-   uint16_t fwd[N], rev[N];
-   for (int i = 0; i < N; i++) { fwd[i] = i * M; rev[i] = (N - 1 - i) * M; }
-   il_init(&tx, fwd);                        // затримки 0, M, 2M, … (N−1)M
-   il_init(&rx, rev);                        // затримки (N−1)M, … M, 0
-   uint8_t chan = il_step(&tx, symbol);      // у канал
-   uint8_t back = il_step(&rx, chan);        // з каналу, зсув M·N·(N−1) символів */
-```
-```python
-from collections import deque
-
-
-class ConvInterleaver:
-    """Перемішувач Форні: N гілок, гілка i — лінія затримки на i·M комірок."""
-    def __init__(self, N: int, M: int):
-        self.N = N
-        self.br = [deque([None] * (i * M)) for i in range(N)]   # гілки-кільця
-        self.j = 0                                              # комутатор
-
-    def push(self, s):
-        i, self.j = self.j, (self.j + 1) % self.N
-        if not self.br[i]:                     # гілка 0 порожня — наскрізь
-            return s
-        self.br[i].append(s)                   # новий у хвіст
-        return self.br[i].popleft()            # найстаріший у канал
-
-
-class ConvDeinterleaver(ConvInterleaver):
-    """Дзеркало: гілка i затримує на (N−1−i)·M — сума з перемішувачем стала."""
-    def __init__(self, N: int, M: int):
-        super().__init__(N, M)
-        self.br = [deque([None] * ((N - 1 - i) * M)) for i in range(N)]
-```
+:::code proj-interleaver-code/c/toi-samyi-pryklad-u-kodi.c
+:::code proj-interleaver-code/py/toi-samyi-pryklad-u-kodi.py
 :::
 
 У C-версії весь стан — це `MEM` байтів буфера плюс кілька лічильників; для `N = 6, M = 2` це рівно **30 байтів** на кожен кінець. Жодних `malloc`, жодного ділення на гарячому шляху (лишок за модулем малого сталого `N` компілятор часто згортає в маску чи умовне віднімання), одна операція читання-запису на символ. Саме така схильність до передбачуваної, дрібної, сталої роботи й робить згорткові перемішувачі домашніми в цифровому телебаченні, DSL та супутникових модемах.
@@ -195,18 +77,7 @@ class ConvDeinterleaver(ConvInterleaver):
 
 Спершу переконаймося, що пара нічого не ламає: після наскрізного прогону зворотний перемішувач мусить віддати геть той самий потік, лише зсунутий на затримку `M·N·(N−1)`.
 
-```python
-def run(inter, deinter, seq):
-    chan = [inter.push(s) for s in seq]
-    return chan, [deinter.push(s) for s in chan]
-
-
-N, M = 6, 2
-delay = M * N * (N - 1)                        # 60 символів наскрізної затримки
-chan, out = run(ConvInterleaver(N, M), ConvDeinterleaver(N, M), list(range(1, 121)))
-assert out[delay:] == list(range(1, 121))[:120 - delay]   # відновлено точно
-print(out[delay:delay + 8])                    # [1, 2, 3, 4, 5, 6, 7, 8]
-```
+:::code proj-interleaver-code/py/demonstratsiia-forni.py
 
 Порядок відновлено символ у символ — ціна лише в тих перших 60 фіктивних символах, що витекли, поки заповнювались лінії затримки. Тепер той самий тест на розсіювання: слова по `N` символів, суцільний пакет у каналі.
 

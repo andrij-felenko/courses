@@ -38,32 +38,7 @@ Python тут обраний не випадково. Уся винагород�
 
 Замість того щоб щоразу гнати біти крізь автомат, зробимо ефективніше: один раз згенеруємо **маску помилок** уздовж позицій ефіру — де саме канал перевернув біт. Дві ймовірності керують переходами: `p` — шанс зіскочити з доброго стану в поганий, `r` — шанс вибратися назад. У поганому стані біт псується з ймовірністю `e_bad`, у доброму — майже ніколи.
 
-```py
-import random
-
-def ge_mask(n, p=0.0003, r=0.03, e_good=0.0, e_bad=0.4, seed=7):
-    """Маска помилок каналу Гілберта–Елліота вздовж n позицій ефіру.
-    p: G→B (рідко), r: B→G (вихід із пачки), e_bad: густота помилок у поганому стані."""
-    rng = random.Random(seed)
-    bad = False
-    mask = [0] * n
-    runs = []                          # довжини поганих епізодів — для статистики
-    run = 0
-    for i in range(n):
-        e = e_bad if bad else e_good
-        if rng.random() < e:
-            mask[i] = 1                 # канал перевернув цей біт
-        if bad:
-            run += 1
-            if rng.random() < r:        # вибираємось із поганого стану
-                bad = False; runs.append(run); run = 0
-        else:
-            if rng.random() < p:        # провалюємось у поганий стан
-                bad = True
-    if run:
-        runs.append(run)
-    return mask, runs
-```
+:::code proj-burst-simulation/py/kanal-shcho-robyt-pachky.py
 
 Двох параметрів досить, щоб керувати «пачковістю». Середня довжина поганого епізоду — це очікування геометричного розподілу:
 
@@ -89,25 +64,7 @@ mean bad run: 33.4 | max bad run: 169
 
 Тепер код, що ремонтує. Візьмемо [код Геммінга](root:com-modulation/hamming-code) (7,4): чотири біти даних загортаються в семибітове слово, і код гарантовано виправляє **одну** перевернуту помилку в слові. Це і є той «бюджет одна на слово», навколо якого крутиться вся вправа: одна помилка — код мовчки лагодить; дві й більше — губиться й нерідко «виправляє» не туди, псуючи дані ще дужче.
 
-```py
-def h74_encode(d):                     # d: 4 біти даних → 7 бітів слова
-    d1, d2, d3, d4 = d
-    p1 = d1 ^ d2 ^ d4
-    p2 = d1 ^ d3 ^ d4
-    p3 = d2 ^ d3 ^ d4
-    return [p1, p2, d1, p3, d2, d3, d4]
-
-def h74_decode(c):                     # 7 бітів (можливо з помилкою) → 4 біти даних
-    p1, p2, d1, p3, d2, d3, d4 = c
-    s1 = p1 ^ d1 ^ d2 ^ d4
-    s2 = p2 ^ d1 ^ d3 ^ d4
-    s3 = p3 ^ d2 ^ d3 ^ d4
-    syn = s1 + (s2 << 1) + (s3 << 2)   # 0 — чисто; інакше синдром = позиція помилки (1..7)
-    if syn:
-        c = c[:]                       # не псуємо вхід
-        c[syn - 1] ^= 1                # перевертаємо підозрілий біт назад
-    return [c[2], c[4], c[5], c[6]]    # d1, d2, d3, d4
-```
+:::code proj-burst-simulation/py/prostyi-kod-iz-biudzhetom.py
 
 Синдром — це трибітове число, що прямо вказує позицію єдиної помилки: якщо він не нуль, перевертаємо той біт, і слово знову чисте. Проста, дешева, класична машинка з бюджетом рівно на одну помилку. Далі побачимо, як пачка легко перевищує цей бюджет — і як перемішування повертає його в гру.
 
@@ -115,30 +72,7 @@ def h74_decode(c):                     # 7 бітів (можливо з пом�
 
 Ось серце вправи. Беремо `D` кодових слів, пишемо їх у **рядки** матриці `D × W` (де `W = 7`), а в ефір відсилаємо **стовпцями**. На приймачі складаємо стовпці назад у матрицю й читаємо рядки — і кожне слово знову ціле.
 
-```py
-def interleave(words, D):
-    """Пише D слів у рядки, читає стовпцями → плаский потік бітів ефіру."""
-    W = len(words[0]); air = []
-    for base in range(0, len(words), D):
-        block = words[base:base + D]
-        for col in range(W):
-            for row in range(D):
-                air.append(block[row][col])
-    return air
-
-def deinterleave(air, D, W, nwords):
-    """Зворотна дія: складає стовпці назад у D×W і повертає слова."""
-    words = []; per = D * W
-    for base in range(0, len(air), per):
-        chunk = air[base:base + per]
-        block = [[0] * W for _ in range(D)]
-        k = 0
-        for col in range(W):
-            for row in range(D):
-                block[row][col] = chunk[k]; k += 1
-        words.extend(block)
-    return words[:nwords]
-```
+:::code proj-burst-simulation/py/blokovyi-peremishuvach.py
 
 Чому саме `D` і є та максимальна пачка, яку перемішувач знешкоджує? Погляньмо на порядок в ефірі. Сусідні позиції ефіру йдуть **вниз по рядках** одного стовпця: позиція 0 — рядок 0, позиція 1 — рядок 1, і так `D` разів, аж поки не почнеться наступний стовпець. Отже, два біти ефіру потраплять в **одне** слово (той самий рядок) лише тоді, коли їхні позиції різняться рівно на `D`. Пачка завдовжки `b ≤ D` займає `b` сусідніх позицій — усі різні рядки, по одній помилці на слово, точно в межах бюджету. А пачка `b = D + 1` вперше зачепить якийсь рядок **двічі** — і те слово мертве.
 
@@ -150,32 +84,7 @@ def deinterleave(air, D, W, nwords):
 
 Зберемо конвеєр докупи. Джерело — псевдовипадкові дані; кожне слово кодуємо, весь потік перемішуємо, накладаємо **ту саму** маску каналу, розперемішуємо, декодуємо й рахуємо, скільки бітів **даних** лишилося зіпсованими.
 
-```py
-from collections import Counter
-
-NW, W = 64000, 7
-rng = random.Random(1)
-data = [[rng.randint(0, 1) for _ in range(4)] for _ in range(NW)]
-codewords = [h74_encode(d) for d in data]
-mask, runs = ge_mask(NW * W)           # маска каналу — одна на всі глибини
-
-def run(D):
-    air = interleave(codewords, D)
-    air = [b ^ m for b, m in zip(air, mask)]     # канал псує біти
-    recv = deinterleave(air, D, W, NW)
-    bit_err = 0
-    hist = Counter()
-    for i in range(NW):
-        chan = sum(a ^ b for a, b in zip(codewords[i], recv[i]))  # помилок каналу у слові
-        hist[chan] += 1
-        dec = h74_decode(recv[i])
-        bit_err += sum(a ^ b for a, b in zip(data[i], dec))       # залишок у даних
-    return bit_err / (NW * 4), hist
-
-for D in [1, 2, 4, 8, 16, 32, 64, 128, 256]:
-    ber, _ = run(D)
-    print("D=%-4d  залишковий BER даних = %.6f" % (D, ber))
-```
+:::code proj-burst-simulation/py/krutymo-ruchku-hlybyny.py
 
 Ось що друкує прогін:
 
@@ -238,29 +147,7 @@ D=64 : {0: 62396, 1: 1503, 2: 98, 3: 3}                                 мерт
 
 Ідея така: `N` гілок, гілка `j` має чергу-затримку на `j·M` символів; комутатор по черзі кидає символи в гілки `0, 1, …, N−1` і одразу знімає з них те, що виповзло. Розперемішувач дзеркальний — гілка `j` затримує на `(N−1−j)·M`, щоб сумарна затримка кожної гілки була однакова й потік вирівнявся.
 
-```py
-def conv_interleave(stream, N, M):
-    fifos = [[0] * (j * M) for j in range(N)]      # гілка j: черга на j·M символів
-    out = []
-    for i, s in enumerate(stream):
-        j = i % N
-        if j == 0:
-            out.append(s)                          # гілка 0 без затримки — наскрізь
-        else:
-            fifos[j].append(s); out.append(fifos[j].pop(0))
-    return out
-
-def conv_deinterleave(stream, N, M):
-    fifos = [[0] * ((N - 1 - j) * M) for j in range(N)]   # дзеркальні затримки
-    out = []
-    for i, s in enumerate(stream):
-        j = i % N
-        if (N - 1 - j) * M == 0:
-            out.append(s)
-        else:
-            fifos[j].append(s); out.append(fifos[j].pop(0))
-    return out
-```
+:::code proj-burst-simulation/py/zhortkovyi-peremishuvach.py
 
 Прогін підтверджує, що це точна пара (потік відновлюється після сталої затримки), і дає формули пам'яті та латентності:
 

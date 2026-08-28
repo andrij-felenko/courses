@@ -18,21 +18,7 @@
 Обидві суми тримаємо за модулем **65521**, тобто після кожного додавання лишаємо тільки остачу від ділення на 65521. `A` стартує з **1**, `B` — з **0**. Наприкінці два числа склеюють в одне: `B` іде у старші 16 бітів, `A` — у молодші.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-#define MOD 65521
-
-uint32_t adler32(const uint8_t *data, size_t len) {
-    uint32_t a = 1, b = 0;
-    for (size_t i = 0; i < len; i++) {
-        a = (a + data[i]) % MOD;   // сума байтів
-        b = (b + a)       % MOD;   // сума значень A — зважує байт позицією
-    }
-    return (b << 16) | a;          // B у старші 16 біт, A — у молодші
-}
-```
+:::code adler-32-d/c/main.c
 ```python
 def adler32(data: bytes) -> int:
     a, b = 1, 0

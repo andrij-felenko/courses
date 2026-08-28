@@ -115,64 +115,8 @@ rem(T'(x), G(x))
 У програмній реалізації побітний алгоритм потребує 8 ітерацій циклу на кожен байт. Нижче наведено базовий побітний алгоритм для полінома CRC-32 (IEEE 802.3, поліном `0x04C11DB7`):
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-#define CRC32_POLYNOMIAL 0x04C11DB7U
-
-uint32_t crc32_bitwise(const uint8_t *data, size_t length) {
-    uint32_t crc = 0xFFFFFFFFU; // Початковий стан регістра
-
-    for (size_t i = 0; i < length; i++) {
-        uint8_t byte = data[i];
-        
-        // Змішуємо вхідний байт у старший розряд 32-бітного регістра
-        crc ^= ((uint32_t)byte << 24);
-
-        for (int bit = 0; bit < 8; bit++) {
-            if (crc & 0x80000000U) {
-                // Старший біт 1: зсув та віднімання полінома через XOR
-                crc = (crc << 1) ^ CRC32_POLYNOMIAL;
-            } else {
-                // Старший біт 0: звичайний зсув
-                crc = (crc << 1);
-            }
-        }
-    }
-
-    return crc ^ 0xFFFFFFFFU; // Фінальний XOR
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-namespace crc {
-
-inline constexpr uint32_t CRC32_POLYNOMIAL = 0x04C11DB7U;
-
-[[nodiscard]] constexpr uint32_t crc32_bitwise(std::span<const uint8_t> data) noexcept {
-    uint32_t crc = 0xFFFFFFFFU;
-
-    for (uint8_t byte : data) {
-        crc ^= (static_cast<uint32_t>(byte) << 24);
-
-        for (int bit = 0; bit < 8; ++bit) {
-            if ((crc & 0x80000000U) != 0) {
-                crc = (crc << 1) ^ CRC32_POLYNOMIAL;
-            } else {
-                crc = (crc << 1);
-            }
-        }
-    }
-
-    return crc ^ 0xFFFFFFFFU;
-}
-
-} // namespace crc
-```
+:::code crc-algorithm-d/c/pobitnyi-alhorytm-zsuvnyi.c
+:::code crc-algorithm-d/cpp/pobitnyi-alhorytm-zsuvnyi.cpp
 :::
 
 Побітний підхід вимагає від 8 до 16 інструкцій на кожен байт, а наявність умовного переходу всередині вкладеного циклу викликає часті промахи блоку передбачення переходів (Branch Mispredictions) у процесорі.
@@ -197,85 +141,8 @@ Index = (CRC >> 24) ⊕ IncomingByte
 Нижче наведено алгоритм динамічної генерації таблиці та функцію швидкого обчислення CRC-32:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-#define CRC32_POLYNOMIAL 0x04C11DB7U
-
-static uint32_t s_crc32_table[256];
-static int s_is_table_ready = 0;
-
-// Генерація таблиці залишків 256x32 біти
-void crc32_table_init(void) {
-    for (uint32_t i = 0; i < 256; i++) {
-        uint32_t remainder = i << 24;
-        for (int bit = 0; bit < 8; bit++) {
-            if (remainder & 0x80000000U) {
-                remainder = (remainder << 1) ^ CRC32_POLYNOMIAL;
-            } else {
-                remainder = (remainder << 1);
-            }
-        }
-        s_crc32_table[i] = remainder;
-    }
-    s_is_table_ready = 1;
-}
-
-uint32_t crc32_table_lookup(const uint8_t *data, size_t length) {
-    if (!s_is_table_ready) {
-        crc32_table_init();
-    }
-
-    uint32_t crc = 0xFFFFFFFFU;
-    for (size_t i = 0; i < length; i++) {
-        uint8_t table_index = (uint8_t)((crc >> 24) ^ data[i]);
-        crc = (crc << 8) ^ s_crc32_table[table_index];
-    }
-
-    return crc ^ 0xFFFFFFFFU;
-}
-```
-```cpp
-#include <array>
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-namespace crc {
-
-inline constexpr uint32_t CRC32_POLYNOMIAL = 0x04C11DB7U;
-
-// Генерація таблиці LUT під час компіляції
-constexpr auto generate_crc32_table() {
-    std::array<uint32_t, 256> table{};
-    for (uint32_t i = 0; i < 256; ++i) {
-        uint32_t remainder = i << 24;
-        for (int bit = 0; bit < 8; ++bit) {
-            if ((remainder & 0x80000000U) != 0) {
-                remainder = (remainder << 1) ^ CRC32_POLYNOMIAL;
-            } else {
-                remainder = (remainder << 1);
-            }
-        }
-        table[i] = remainder;
-    }
-    return table;
-}
-
-inline constexpr auto CRC32_LUT = generate_crc32_table();
-
-[[nodiscard]] constexpr uint32_t crc32_table_lookup(std::span<const uint8_t> data) noexcept {
-    uint32_t crc = 0xFFFFFFFFU;
-    for (uint8_t byte : data) {
-        uint8_t table_index = static_cast<uint8_t>((crc >> 24) ^ byte);
-        crc = (crc << 8) ^ CRC32_LUT[table_index];
-    }
-    return crc ^ 0xFFFFFFFFU;
-}
-
-} // namespace crc
-```
+:::code crc-algorithm-d/c/strybok-na-8-bitiv-256.c
+:::code crc-algorithm-d/cpp/strybok-na-8-bitiv-256.cpp
 :::
 
 Табличний метод замінює 8 ітерацій з умовними переходами на три прості операції: зсув, XOR та одне читання з пам'яті (таблиця займає лише `256 · 4 = 1024` байти й гарантовано утримується в L1 Data Cache). Це прискорює обчислення в 5–8 разів.

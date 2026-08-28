@@ -47,61 +47,8 @@ P(помилка) = P(n < −1),  n ~ N(0, σ²)
 Серце — симулятор однієї точки за фіксованого `Eb/N₀`. Python із `numpy` векторизує весь блок в одну операцію, і це ідіоматично для аналізу; C++ той самий крок робить у тісному циклі з пам'яттю `O(1)` — і саме він потрібен, коли `BER` западає так низько, що жоден масив у пам'ять уже не влазить. Обидві мови лягають, тож ось той самий симулятор у двох:
 
 :::tabs
-```python
-import numpy as np
-import math
-
-def simulate_ber(ebn0_db, target_errors=200, block=200_000,
-                 max_bits=10**10, rng=None):
-    """Емпірична BER для BPSK за одного Eb/N0.
-    Крутить блоки бітів, доки не збере target_errors помилок
-    (або не впреться в max_bits — щоб не зависнути на дні кривої)."""
-    rng = rng or np.random.default_rng()
-    g = 10 ** (ebn0_db / 10)           # Eb/N0 у рази
-    sigma = 1.0 / math.sqrt(2 * g)     # σ² = N0/2 = 1/(2γ),  Eb = 1
-
-    errors = total = 0
-    while errors < target_errors and total < max_bits:
-        bits = rng.integers(0, 2, block)                  # 1. джерело
-        symb = 2 * bits - 1                                # 2. BPSK: 0→−1, 1→+1
-        recv = symb + sigma * rng.standard_normal(block)   # 3. + шум AWGN
-        decided = (recv > 0).astype(np.int8)               # 4. поріг у нулі
-        errors += int(np.count_nonzero(decided != bits))   # 5. лічимо
-        total += block
-    return errors / total, errors, total
-```
-```cpp
-#include <cstdint>
-#include <cmath>
-#include <random>
-
-// Емпірична BER для BPSK за одного Eb/N0 — тісний цикл, пам'ять O(1).
-// Крутить біти по одному, доки не збере target_errors помилок.
-struct Result { double ber; uint64_t errors, total; };
-
-Result simulate_ber(double ebn0_db,
-                    uint64_t target_errors = 200,
-                    uint64_t max_bits = 100'000'000'000ULL,
-                    uint64_t seed = 2024) {
-    const double g     = std::pow(10.0, ebn0_db / 10.0);  // Eb/N0 у рази
-    const double sigma = 1.0 / std::sqrt(2.0 * g);        // σ² = N0/2 = 1/(2γ)
-
-    std::mt19937_64 gen(seed);
-    std::bernoulli_distribution src(0.5);                 // джерело бітів
-    std::normal_distribution<double> noise(0.0, sigma);   // шум AWGN
-
-    uint64_t errors = 0, total = 0;
-    while (errors < target_errors && total < max_bits) {
-        int    bit = src(gen);              // 0 або 1
-        double s   = 2 * bit - 1;           // BPSK: 0→−1, 1→+1
-        double r   = s + noise(gen);        // + шум
-        int    dec = (r > 0.0) ? 1 : 0;     // поріг у нулі
-        errors += (dec != bit);             // лічимо розбіжність
-        ++total;
-    }
-    return { double(errors) / total, errors, total };
-}
-```
+:::code proj-ber-monte-carlo/py/main.py
+:::code proj-ber-monte-carlo/cpp/main.cpp
 :::
 
 Різниця не косметична. Python тримає в пам'яті цілий блок (`200 000` чисел `float64` ≈ 1.6 МБ) і обробляє його однією векторною командою — швидко й читко для звичайних `BER`. C++ не тримає **нічого**: кожен біт живе наносекунду в регістрі й забувається. Саме це дає йому змогу дійти туди, куди Python уже фізично не може, — про що нижче.

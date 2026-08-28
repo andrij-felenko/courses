@@ -44,19 +44,7 @@ s = (s & 0xFFFF) + (s >> 16)     // доки s >> 16 не стане нулем
 Той самий цикл рахує і суму, і перевірку; різниця лише в тому, що на приймачі поле суми вже не занулене, а містить 0xB1E6, тож результат добігає до 0xFFFF. У коді це кілька рядків. Обчислення над масивом уже готових 16-бітних слів виглядає так:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-uint16_t inet_checksum(const uint16_t *words, size_t n) {
-    uint32_t sum = 0;
-    for (size_t i = 0; i < n; i++)
-        sum += words[i];                   // складаємо у 32-бітний акумулятор
-    while (sum >> 16)                       // завертаємо перенос, доки він є
-        sum = (sum & 0xFFFF) + (sum >> 16);
-    return (uint16_t)~sum;                  // інверсія — і це вже контрольна сума
-}
-```
+:::code internet-checksum-d/c/main.c
 ```python
 def inet_checksum(words: list[int]) -> int:
     s = sum(words)                          # усі 16-бітні слова

@@ -121,20 +121,7 @@
 Тут, у звичайному випадку, і формула RFC 1141 дала б **те саме** `0xB2E6` (`0xB1E6 +₁ 0x4006 +₁ 0xC0F9 = 0xB2E6`) — бо результат не нуль, і пастки нема. Помилка ±0 спить доти, доки нова сума випадково не виявиться нулем. Ось як це виглядає в коді (обернене додавання — у широкому акумуляторі, перенос завертаємо в кінці):
 
 :::tabs
-```c
-#include <stdint.h>
-
-// RFC 1624 [Eqn. 3]:  HC' = ~(~HC + ~m + m'),  де + — обернене додавання.
-// hc — стара контрольна сума з пакета; old/new — старе й нове 16-бітні поля.
-uint16_t csum_patch(uint16_t hc, uint16_t old_field, uint16_t new_field) {
-    uint32_t sum = (uint16_t)~hc;           // ~HC = C: повертаємось в область суми
-    sum += (uint16_t)~old_field;            // + ~m  — прибрати старе поле
-    sum += new_field;                       // + m'  — додати нове поле
-    while (sum >> 16)                        // загорнути перенос, доки він є
-        sum = (sum & 0xFFFF) + (sum >> 16);
-    return (uint16_t)~sum;                   // ЄДИНА фінальна інверсія: −0 → +0
-}
-```
+:::code math-incremental-update/c/main.c
 ```python
 def csum_patch(hc: int, old_field: int, new_field: int) -> int:
     # RFC 1624 [Eqn. 3]:  HC' = ~(~HC + ~m + m')

@@ -25,110 +25,8 @@
 Далі `droplet_recipe` тягне з зерна степінь, потім стільки ж **різних** індексів, а `droplet` XOR-ить ці блоки у вантаж і віддає пару «зерно + вантаж». Операція ⊕ і її властивість a ⊕ a = 0 — це [біт парності](root:com-modulation/parity-bit), доведений до цілого блоку.
 
 :::tabs
-```py
-import math, random
-
-def robust_soliton(k, c=0.05, delta=0.5):
-    p = [0.0] * (k + 1)                      # p[1..k]; p[0] не вживають
-    p[1] = 1.0 / k                           # ідеальний солітон ρ
-    for d in range(2, k + 1):
-        p[d] = 1.0 / (d * (d - 1))
-    R = c * math.log(k / delta) * math.sqrt(k)   # добавка τ і сплеск при ⌊k/R⌋
-    kr = int(k / R)
-    for d in range(1, kr):
-        p[d] += R / (d * k)
-    if kr >= 1:
-        p[kr] += R * math.log(R / delta) / k
-    beta = sum(p)
-    return [x / beta for x in p]             # нормуємо → μ
-
-def droplet_recipe(seed, k, mu):
-    """Із самого зерна — степінь і набір індексів. Спільна для кодера й декодера."""
-    rng = random.Random(seed)
-    r, acc, d = rng.random(), 0.0, k
-    for i in range(1, k + 1):               # вибір степеня за μ
-        acc += mu[i]
-        if r <= acc:
-            d = i
-            break
-    return rng.sample(range(k), d)          # d РІЗНИХ індексів блоків
-
-def xor_into(dst, src):                     # dst ^= src, побайтово
-    for i in range(len(dst)):
-        dst[i] ^= src[i]
-
-class LTEncoder:
-    def __init__(self, blocks, mu):
-        self.blocks, self.k, self.mu = blocks, len(blocks), mu
-
-    def droplet(self, seed):
-        payload = bytearray(len(self.blocks[0]))
-        for i in droplet_recipe(seed, self.k, self.mu):
-            xor_into(payload, self.blocks[i])
-        return seed, bytes(payload)         # на дроті: зерно + вантаж
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <random>
-#include <cmath>
-#include <numeric>
-using Bytes = std::vector<uint8_t>;
-
-std::vector<double> robust_soliton(int k, double c = 0.05, double delta = 0.5) {
-    std::vector<double> p(k + 1, 0.0);              // p[1..k]; p[0] не вживають
-    p[1] = 1.0 / k;                                 // ідеальний солітон ρ
-    for (int d = 2; d <= k; ++d) p[d] = 1.0 / (double(d) * (d - 1));
-    double R = c * std::log(k / delta) * std::sqrt(double(k));  // τ і сплеск при ⌊k/R⌋
-    int kr = int(k / R);
-    for (int d = 1; d < kr; ++d) p[d] += R / (double(d) * k);
-    if (kr >= 1) p[kr] += R * std::log(R / delta) / k;
-    double beta = std::accumulate(p.begin(), p.end(), 0.0);
-    for (double& x : p) x /= beta;                  // нормуємо → μ
-    return p;
-}
-
-// один double у [0,1) із 64-бітного слова — однаково на обох кінцях
-static inline double canon(std::mt19937_64& g) {
-    return (g() >> 11) * (1.0 / 9007199254740992.0);
-}
-
-// Із самого зерна — степінь і набір індексів. Спільна для кодера й декодера.
-std::vector<int> droplet_recipe(uint64_t seed, int k, const std::vector<double>& mu) {
-    std::mt19937_64 g(seed);
-    double r = canon(g), acc = 0.0;
-    int d = k;
-    for (int i = 1; i <= k; ++i) {                  // вибір степеня за μ
-        acc += mu[i];
-        if (r <= acc) { d = i; break; }
-    }
-    std::vector<int> pool(k);
-    std::iota(pool.begin(), pool.end(), 0);
-    for (int i = 0; i < d; ++i) {                   // часткове Фішера–Єйтса: d кроків
-        int j = i + int(canon(g) * (k - i));
-        std::swap(pool[i], pool[j]);
-    }
-    return {pool.begin(), pool.begin() + d};        // d РІЗНИХ індексів блоків
-}
-
-void xor_into(Bytes& dst, const Bytes& src) {       // dst ^= src, побайтово
-    for (size_t i = 0; i < dst.size(); ++i) dst[i] ^= src[i];
-}
-
-struct LTEncoder {
-    const std::vector<Bytes>& blocks;
-    int k;
-    std::vector<double> mu;
-    LTEncoder(const std::vector<Bytes>& b, std::vector<double> m)
-        : blocks(b), k(int(b.size())), mu(std::move(m)) {}
-
-    Bytes droplet(uint64_t seed) const {            // на дроті: зерно + вантаж
-        Bytes payload(blocks[0].size(), 0);
-        for (int i : droplet_recipe(seed, k, mu)) xor_into(payload, blocks[i]);
-        return payload;
-    }
-};
-```
+:::code proj-lt-codec/py/lipymo-krapliu.py
+:::code proj-lt-codec/cpp/lipymo-krapliu.cpp
 :::
 
 Чому індекси мусять бути **різні** (тому й `sample`, а не незалежні кидки)? Повторений індекс сам себе прибрав би — a ⊕ a = 0, — і крапля тихо втратила б степінь проти того, який рахує декодер. Тоді два кінці знову розійшлися б у тому, що всередині краплі.
@@ -140,112 +38,8 @@ struct LTEncoder {
 Механіка обчищення: крапля степеня 1 дорівнює рівно одному невідомому блоку — от він і відкрився. Тепер виріжмо цей блок із кожного сусіда (XOR у вантаж, викидаємо індекс із множини); будь-який сусід, що впав до степеня 1, стає в чергу — брижу готових крапель. Спорожнимо чергу; щойно зібрано всі k блоків — файл цілий.
 
 :::tabs
-```py
-class LTDecoder:
-    def __init__(self, k, mu):
-        self.k, self.mu = k, mu
-        self.blocks = [None] * k                 # відновлені блоки
-        self.recovered = 0
-        self.contains = [[] for _ in range(k)]   # блок → краплі, що його містять
-
-    def add(self, seed, payload):
-        idx = set(droplet_recipe(seed, self.k, self.mu))
-        val = bytearray(payload)
-        for i in list(idx):                      # одразу вирізаємо вже відоме
-            if self.blocks[i] is not None:
-                xor_into(val, self.blocks[i])
-                idx.discard(i)
-        if not idx:
-            return                               # надлишкова крапля — усе вже відомо
-        drop = [idx, val]
-        for i in idx:
-            self.contains[i].append(drop)
-        if len(idx) == 1:
-            self._peel(drop)
-
-    def _peel(self, drop):
-        ripple = [drop]                          # черга крапель степеня 1
-        while ripple:
-            idx, val = ripple.pop()
-            if len(idx) != 1:                    # степінь міг змінитись у черзі
-                continue
-            i = next(iter(idx))
-            if self.blocks[i] is not None:
-                continue
-            self.blocks[i] = bytes(val)          # відкрили блок i
-            self.recovered += 1
-            for nb in self.contains[i]:          # виріж i з усіх його сусідів
-                nb_idx, nb_val = nb
-                if i in nb_idx:
-                    xor_into(nb_val, self.blocks[i])
-                    nb_idx.discard(i)
-                    if len(nb_idx) == 1:
-                        ripple.append(nb)
-            self.contains[i] = []
-
-    def done(self):
-        return self.recovered == self.k
-
-    def file(self):
-        return b"".join(self.blocks)
-```
-```cpp
-#include <algorithm>
-#include <memory>
-
-struct Drop { std::vector<int> idx; Bytes val; };   // невідомі індекси + XOR-вантаж
-
-struct LTDecoder {
-    int k;
-    std::vector<double> mu;
-    std::vector<Bytes> blocks;                       // відновлені блоки
-    std::vector<bool> known;
-    int recovered = 0;
-    std::vector<std::vector<Drop*>> contains;        // блок → краплі, що його містять
-    std::vector<std::unique_ptr<Drop>> pool;         // володіння краплями
-
-    LTDecoder(int k_, std::vector<double> m)
-        : k(k_), mu(std::move(m)), blocks(k_), known(k_, false), contains(k_) {}
-
-    void add(uint64_t seed, const Bytes& payload) {
-        Bytes val = payload;
-        std::vector<int> unknown;
-        for (int i : droplet_recipe(seed, k, mu)) {
-            if (known[i]) xor_into(val, blocks[i]);   // одразу вирізаємо вже відоме
-            else unknown.push_back(i);
-        }
-        if (unknown.empty()) return;                  // надлишкова крапля
-        pool.push_back(std::make_unique<Drop>(Drop{unknown, std::move(val)}));
-        Drop* d = pool.back().get();
-        for (int i : unknown) contains[i].push_back(d);
-        if (unknown.size() == 1) peel(d);
-    }
-
-    void peel(Drop* start) {
-        std::vector<Drop*> ripple{start};             // черга крапель степеня 1
-        while (!ripple.empty()) {
-            Drop* d = ripple.back();
-            ripple.pop_back();
-            if (d->idx.size() != 1) continue;         // степінь міг змінитись у черзі
-            int i = d->idx[0];
-            if (known[i]) continue;
-            blocks[i] = d->val;                        // відкрили блок i
-            known[i] = true;
-            ++recovered;
-            for (Drop* nb : contains[i]) {             // виріж i з усіх його сусідів
-                auto it = std::find(nb->idx.begin(), nb->idx.end(), i);
-                if (it == nb->idx.end()) continue;
-                xor_into(nb->val, blocks[i]);
-                nb->idx.erase(it);
-                if (nb->idx.size() == 1) ripple.push_back(nb);
-            }
-            contains[i].clear();
-        }
-    }
-
-    bool done() const { return recovered == k; }
-};
-```
+:::code proj-lt-codec/py/rozplutuiemo.py
+:::code proj-lt-codec/cpp/rozplutuiemo.cpp
 :::
 
 Одна дрібниця в `add` економить масу роботи: щойно крапля надходить, ми вирізаємо з неї всі блоки, які вже відомі. Крапля, всі блоки якої вже зібрано, тане до порожньої множини — і ми викидаємо її задарма, навіть не заводячи в суміжність.
@@ -254,23 +48,7 @@ struct LTDecoder {
 
 Драйвер тривіальний: ріжемо файл на блоки, ллємо краплі із зростаючими зернами, доки декодер не скаже `done`. Кодек всередині кожної мови замкнений сам на себе — енкодер і декодер ділять `droplet_recipe`, тож індекси завжди сходяться.
 
-```py
-import os
-k, bs = 1000, 64
-data   = os.urandom(k * bs)
-blocks = [data[i * bs:(i + 1) * bs] for i in range(k)]
-mu  = robust_soliton(k)
-enc = LTEncoder(blocks, mu)
-dec = LTDecoder(k, mu)
-
-seed = 0
-while not dec.done():
-    dec.add(*enc.droplet(seed))
-    seed += 1
-
-assert dec.file() == data
-print(f"зібрано з {seed} крапель — надлишок {seed / k:.3f}")
-```
+:::code proj-lt-codec/py/prohaniaiemo.py
 
 **Файл із 1000 блоків, робастний солітон (c = 0.05, δ = 0.5).** Один прогін:
 

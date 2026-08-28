@@ -129,49 +129,8 @@ CVBS In ───┐
 **Умова:** Стандарт PAL (`625` рядків, `25` кадрів/с). Час активного рядка `t_{active} = 52.0 мкс`. Потрібно вивести `320` пікселів телеметрії вздовж рядка. Обчислити необхідний піксельний такт таймера/SPI та час виведення одного байта.
 
 :::tabs
-```c
-// PAL OSD Timing Calculation in C
-#include <stdio.h>
-#include <stdint.h>
-
-void calculate_osd_timing(void) {
-    const float active_time_sec = 52.0e-6f; // 52 мікросекунди
-    const uint16_t active_pixels = 320;
-    
-    // Розрахунок частоти піксельного такту (Hz)
-    float pixel_clock_hz = (float)active_pixels / active_time_sec;
-    
-    // Час одного пікселя (ns)
-    float pixel_time_ns = (1.0f / pixel_clock_hz) * 1.0e9f;
-    
-    // Час передачі 1 байта (8 пікселів) через SPI (ns)
-    float byte_time_ns = pixel_time_ns * 8.0f;
-
-    printf("Pixel Clock: %.2f MHz\n", pixel_clock_hz / 1.0e6f);
-    printf("Pixel Duration: %.1f ns\n", pixel_time_ns);
-    printf("SPI Byte Duration: %.1f ns\n", byte_time_ns);
-}
-```
-```cpp
-// PAL OSD Timing Calculation in C++
-#include <iostream>
-#include <iomanip>
-
-struct OsdTimingResult {
-    double pixel_clock_mhz;
-    double pixel_time_ns;
-    double byte_time_ns;
-};
-
-constexpr OsdTimingResult computePalOsdTiming(uint16_t active_pixels = 320) noexcept {
-    constexpr double kActiveTimeSec = 52.0e-6;
-    const double pixel_clock_hz = static_cast<double>(active_pixels) / kActiveTimeSec;
-    const double pixel_time_ns  = (1.0 / pixel_clock_hz) * 1.0e9;
-    const double byte_time_ns   = pixel_time_ns * 8.0;
-
-    return { pixel_clock_hz / 1.0e6, pixel_time_ns, byte_time_ns };
-}
-```
+:::code osd-overlay-d/c/main.c
+:::code osd-overlay-d/cpp/main.cpp
 :::
 
 ```

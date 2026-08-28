@@ -65,29 +65,7 @@ static int parity8(uint8_t x)
 
 ### Кодер: три парності й один хитрий останній біт
 
-```c
-#include <stdint.h>
-
-#define M_P1  0x55u   /* позиції 1,3,5,7 */
-#define M_P2  0x66u   /* позиції 2,3,6,7 */
-#define M_P4  0x78u   /* позиції 4,5,6,7 */
-
-/* data: чотири біти D1 D2 D3 D4 у бітах 3..0 */
-uint8_t secded_encode(uint8_t data)
-{
-    uint8_t w = (uint8_t)((((data >> 3) & 1u) << 2)    /* D1 → позиція 3 */
-                        | (((data >> 2) & 1u) << 4)    /* D2 → позиція 5 */
-                        | (((data >> 1) & 1u) << 5)    /* D3 → позиція 6 */
-                        | (((data >> 0) & 1u) << 6));  /* D4 → позиція 7 */
-
-    w |= (uint8_t)(parity8(w & M_P1) << 0);   /* P1 → позиція 1 */
-    w |= (uint8_t)(parity8(w & M_P2) << 1);   /* P2 → позиція 2 */
-    w |= (uint8_t)(parity8(w & M_P4) << 3);   /* P4 → позиція 4 */
-
-    w |= (uint8_t)(parity8(w) << 7);          /* P₀ = XOR УСІХ СЕМИ бітів слова */
-    return w;
-}
-```
+:::code proj-secded-codec/c/koder-try-parnosti-i-odyn.c
 
 Три середні рядки виглядають так, ніби в них криється помилка: ми рахуємо `parity8(w & M_P1)` і тут-таки вкладаємо результат назад у `w` — а далі рахуємо наступну парність із того самого, уже зміненого `w`. Хіба другий контроль не отруїться першим?
 
@@ -97,65 +75,7 @@ uint8_t secded_encode(uint8_t data)
 
 ### Декодер: два незалежні запитання і чесна відповідь
 
-```c
-typedef enum {
-    SECDED_NO_ERROR = 0,        /* синдром 0, парність сходиться               */
-    SECDED_CORRECTED_SINGLE,    /* один біт — знайдено й виправлено            */
-    SECDED_PARITY_BIT_ERROR,    /* перевернувся сам P₀ — дані цілі             */
-    SECDED_DETECTED_DOUBLE      /* два біти — ВИЯВЛЕНО; дані НЕ віддано        */
-} secded_status;
-
-typedef struct {
-    secded_status status;
-    uint8_t       data;      /* має сенс ⟺ status != SECDED_DETECTED_DOUBLE   */
-    uint8_t       position;  /* 1..7 — виправлена позиція; 8 — сам P₀; 0 — нема */
-    uint8_t       syndrome;  /* сирий синдром — те, що ECC-контролер пише в лог */
-} secded_result;
-
-static uint8_t data_of(uint8_t w)
-{
-    return (uint8_t)((((w >> 2) & 1u) << 3)    /* позиція 3 → D1 */
-                   | (((w >> 4) & 1u) << 2)    /* позиція 5 → D2 */
-                   | (((w >> 5) & 1u) << 1)    /* позиція 6 → D3 */
-                   | (((w >> 6) & 1u) << 0));  /* позиція 7 → D4 */
-}
-
-secded_result secded_decode(uint8_t w)
-{
-    secded_result r;
-
-    /* Запитання перше: синдром Геммінга. Значення = НОМЕР зіпсованої позиції. */
-    uint8_t s = (uint8_t)((parity8(w & M_P1) << 0)
-                        | (parity8(w & M_P2) << 1)
-                        | (parity8(w & M_P4) << 2));
-
-    /* Запитання друге, НЕЗАЛЕЖНЕ: парне чи непарне число одиниць у ВСІХ 8 бітах. */
-    int odd = parity8(w);
-
-    r.syndrome = s;
-    r.position = 0;
-
-    if (s == 0 && !odd) {
-        r.status = SECDED_NO_ERROR;
-    } else if (s == 0) {                      /* отже odd: цілий Геммінг, крива парність */
-        r.status = SECDED_PARITY_BIT_ERROR;   /* перевернувся сам P₀ — дані цілі */
-        r.position = 8;
-        w ^= 0x80u;
-    } else if (odd) {
-        r.status = SECDED_CORRECTED_SINGLE;   /* синдром = адреса, просто перевернути */
-        r.position = s;
-        w ^= (uint8_t)(1u << (s - 1));
-    } else {
-        /* Синдром кричить, а парність спокійна — незмивний підпис ДВОХ помилок. */
-        r.status = SECDED_DETECTED_DOUBLE;
-        r.data = 0;            /* дані не віддаємо: вони брехливі */
-        return r;
-    }
-
-    r.data = data_of(w);
-    return r;
-}
-```
+:::code proj-secded-codec/c/dekoder-dva-nezalezhni.c
 
 Уся вага цієї функції — в останньому `else`. Він нічого не робить: не виправляє, не гадає, не пробує «найімовірнішу» позицію. Він **відмовляється**. Спокуса дописати сюди `w ^= 1u << (s - 1)` величезна, бо адреса ж є, ось вона, лежить у `s` — але ця адреса **хибна**: дві помилки дають синдром, що вказує на третю, ні в чому не винну позицію. Перевернувши її, ми дістали б слово з трьома помилками й статусом «усе гаразд». Написати тут `return` замість виправлення — це і є вся різниця між кодом, який чесно каже «далі не гарантую», і кодом, який тихо бреше.
 
@@ -165,96 +85,7 @@ secded_result secded_decode(uint8_t w)
 
 Ось де маленький код дає те, чого великий не дасть ніколи. Восьмибітне слово має **256** можливих значень, а кодових слів усього шістнадцять. Це означає, що кодек можна не «протестувати на прикладах», а **довести перебором**: прогнати кожне кодове слово через кожен мислимий візерунок збоїв і звірити всі вироки до одного.
 
-```c
-#include <stdio.h>
-
-static const char *NAME[] = {
-    "NO_ERROR", "CORRECTED_SINGLE", "PARITY_BIT_ERROR", "DETECTED_DOUBLE"
-};
-
-static void show(uint8_t w, char *out)     /* "0110011|0" — позиції 1..7, тоді P₀ */
-{
-    int i;
-    for (i = 0; i < 7; i++) out[i] = (char)('0' + ((w >> i) & 1));
-    out[7] = '|';
-    out[8] = (char)('0' + ((w >> 7) & 1));
-    out[9] = '\0';
-}
-
-static void bits4(uint8_t d, char *out)
-{
-    int i;
-    for (i = 0; i < 4; i++) out[i] = (char)('0' + ((d >> (3 - i)) & 1));
-    out[4] = '\0';
-}
-
-int main(void)
-{
-    char buf[10], d4[5];
-    int d, i, j, k;
-    int ok_clean = 0, ok_single = 0, ok_p0 = 0, ok_double = 0;
-    int tot3 = 0, silent3 = 0;
-    secded_result r;
-
-    uint8_t w = secded_encode(0xB);                  /* дані 1011 */
-    show(w, buf);
-    printf("дані 1011  ->  слово %s   (позиції 1..7 | P0)\n", buf);
-
-    r = secded_decode(w ^ (1u << 4));                /* збій позиції 5 */
-    bits4(r.data, d4);
-    printf("  збій поз.5    : синдром=%u -> %-16s поз.%u дані=%s\n",
-           (unsigned)r.syndrome, NAME[r.status], (unsigned)r.position, d4);
-
-    r = secded_decode(w ^ (1u << 4) ^ (1u << 5));    /* збій позицій 5 і 6 */
-    printf("  збій поз.5+6  : синдром=%u -> %-16s дані НЕ віддано\n",
-           (unsigned)r.syndrome, NAME[r.status]);
-
-    r = secded_decode(w ^ 0x80u);                    /* збій самого P₀ */
-    bits4(r.data, d4);
-    printf("  збій самого P0: синдром=%u -> %-16s дані=%s\n",
-           (unsigned)r.syndrome, NAME[r.status], d4);
-
-    for (d = 0; d < 16; d++) {
-        uint8_t cw = secded_encode((uint8_t)d);
-
-        r = secded_decode(cw);
-        if (r.status == SECDED_NO_ERROR && r.data == d) ok_clean++;
-
-        for (i = 0; i < 7; i++) {                    /* збій одного біта Геммінга */
-            r = secded_decode(cw ^ (uint8_t)(1u << i));
-            if (r.status == SECDED_CORRECTED_SINGLE && r.data == d
-                && r.position == i + 1) ok_single++;
-        }
-
-        r = secded_decode(cw ^ 0x80u);               /* збій самого P₀ */
-        if (r.status == SECDED_PARITY_BIT_ERROR && r.data == d) ok_p0++;
-
-        for (i = 0; i < 8; i++)                      /* усі пари */
-            for (j = i + 1; j < 8; j++) {
-                r = secded_decode(cw ^ (uint8_t)(1u << i) ^ (uint8_t)(1u << j));
-                if (r.status == SECDED_DETECTED_DOUBLE) ok_double++;
-            }
-
-        for (i = 0; i < 8; i++)                      /* усі трійки — межа коду */
-            for (j = i + 1; j < 8; j++)
-                for (k = j + 1; k < 8; k++) {
-                    r = secded_decode(cw ^ (uint8_t)(1u << i)
-                                         ^ (uint8_t)(1u << j)
-                                         ^ (uint8_t)(1u << k));
-                    tot3++;
-                    if (r.status != SECDED_DETECTED_DOUBLE && r.data != d) silent3++;
-                }
-    }
-
-    printf("\nвичерпний перебір усіх 16 слів:\n");
-    printf("  чистих слів     :  %3d/%3d  NO_ERROR\n", ok_clean, 16);
-    printf("  одиничних збоїв :  %3d/%3d  CORRECTED_SINGLE, дані відновлено\n", ok_single, 112);
-    printf("  збоїв P0        :  %3d/%3d  PARITY_BIT_ERROR, дані цілі\n", ok_p0, 16);
-    printf("  подвійних збоїв :  %3d/%3d  DETECTED_DOUBLE, жоден не проліз\n", ok_double, 448);
-    printf("  потрійних збоїв :  %3d/%3d  тихо зіпсовано — це МЕЖА, а не діра\n", silent3, tot3);
-    return 0;
-}
-```
+:::code proj-secded-codec/c/ne-pryklad-a-vycherpnyi.c
 
 Програма друкує:
 
@@ -363,114 +194,13 @@ x₇ = p ⊕ парність(s)
 
 Навчальні чотири біти даних у пам'яті нікому не потрібні — там беруть 64 біти й 8 контрольних. Змінюється при цьому дивовижно мало: ті самі парності по масках, той самий синдром-адреса, ті самі чотири вироки. Різниця лише в тому, що масок стає сім, вони 64-бітні, і виписувати їх руками неможливо — тож їх будують із того самого правила «біт j маски = біт j номера позиції».
 
-```c
-#include <stdint.h>
-#include <string.h>
-
-#define N_DATA  64          /* біти даних                                  */
-#define N_HAM    7          /* контролі Геммінга: позиції 1,2,4,8,16,32,64 */
-#define N_POS   71          /* усі позиції слова Геммінга: 1..71           */
-
-static uint64_t MASK[N_HAM];       /* MASK[j] — які біти даних входять у контроль j */
-static int8_t   POS_OF[N_DATA];    /* POS_OF[i] — позиція i-го біта даних у слові    */
-static int8_t   SYN_TO_DATA[128];  /* синдром → індекс біта даних, або −1 / −2       */
-
-static int is_pow2(int p) { return (p & (p - 1)) == 0; }
-
-void secded72_init(void)
-{
-    int p, j, i = 0;
-
-    memset(SYN_TO_DATA, -1, sizeof SYN_TO_DATA);   /* −1: синдром не вказує НІКУДИ */
-    for (j = 0; j < N_HAM; j++) MASK[j] = 0;
-
-    for (p = 1; p <= N_POS; p++) {
-        if (is_pow2(p)) {                  /* позиція контрольного біта Геммінга */
-            SYN_TO_DATA[p] = -2;           /* −2: збій самого контролю — дані цілі */
-            continue;
-        }
-        POS_OF[i] = (int8_t)p;             /* решта позицій — дані */
-        SYN_TO_DATA[p] = (int8_t)i;
-        for (j = 0; j < N_HAM; j++)
-            if ((p >> j) & 1) MASK[j] |= (uint64_t)1 << i;
-        i++;                               /* на виході i == 64: 71 позиція − 7 контролів */
-    }
-}
-
-static int par64(uint64_t x) { return __builtin_parityll(x); }
-
-uint8_t secded72_encode(uint64_t data)
-{
-    uint8_t c = 0;
-    int j;
-    for (j = 0; j < N_HAM; j++)
-        c |= (uint8_t)(par64(data & MASK[j]) << j);
-
-    /* P₀ закриває ВСІ 71 біт слова: 64 даних + 7 щойно порахованих контролів */
-    c |= (uint8_t)((par64(data) ^ __builtin_parity(c)) << 7);
-    return c;
-}
-```
+:::code proj-secded-codec/c/masshtab-toi-samyi-kod-na.c
 
 Останній рядок кодера варто прочитати ще раз — це та сама «пастка перша», лише в дорослому вигляді: `par64(data) ^ __builtin_parity(c)` бере XOR **усього**, і даних, і контролів Геммінга. Спокуса написати просто `par64(data)` тут так само згубна й так само тиха.
 
 Декодер відрізняється від восьмибітного рівно одним: адресу з синдрому вже не можна діставати відніманням одиниці, бо позиція біта в слові Геммінга й індекс біта в `uint64_t` — різні речі. Їх зв'язує таблиця, яку побудував `secded72_init`.
 
-```c
-typedef enum {
-    SECDED72_NO_ERROR = 0,
-    SECDED72_CORRECTED_SINGLE,
-    SECDED72_PARITY_BIT_ERROR,
-    SECDED72_DETECTED_DOUBLE,
-    SECDED72_DETECTED_UNCORRECTABLE   /* синдром не вказує на жодну позицію */
-} secded72_status;
-
-typedef struct {
-    secded72_status status;
-    uint64_t        data;
-    uint8_t         syndrome;
-    int             position;      /* 1..71 — позиція; 72 — сам P₀; 0 — нема */
-} secded72_result;
-
-secded72_result secded72_decode(uint64_t data, uint8_t check)
-{
-    secded72_result r;
-    uint8_t s = 0;
-    int j, odd, idx;
-
-    /* Запитання перше: перерахувати СІМ парностей Геммінга і звірити з прийнятими. */
-    for (j = 0; j < N_HAM; j++)
-        s |= (uint8_t)((par64(data & MASK[j]) ^ ((check >> j) & 1)) << j);
-
-    /* Запитання друге, НЕЗАЛЕЖНЕ: парність усіх 72 бітів, як вони прийшли.
-       Саме тут не можна брати P₀ з перерахунку — див. пастку другу. */
-    odd = par64(data) ^ __builtin_parity(check);
-
-    r.data = data;
-    r.syndrome = s;
-    r.position = 0;
-
-    if (s == 0 && !odd) { r.status = SECDED72_NO_ERROR;         return r; }
-    if (s == 0)         { r.status = SECDED72_PARITY_BIT_ERROR;
-                          r.position = 72;                      return r; }
-    if (!odd)           { r.status = SECDED72_DETECTED_DOUBLE;  return r; }
-
-    idx = SYN_TO_DATA[s];              /* s ≤ 127, таблиця на 128 — вихід за межі неможливий */
-
-    if (idx >= 0) {                             /* синдром указав на біт даних */
-        r.data = data ^ ((uint64_t)1 << idx);
-        r.status = SECDED72_CORRECTED_SINGLE;
-        r.position = POS_OF[idx];
-    } else if (idx == -2) {                     /* збій самого контролю — дані цілі */
-        r.status = SECDED72_CORRECTED_SINGLE;
-        r.position = s;
-    } else {                                    /* idx == −1: адреси НЕМА */
-        r.status = SECDED72_DETECTED_UNCORRECTABLE;
-        r.data = 0;
-    }
-    return r;
-}
-```
+:::code proj-secded-codec/c/masshtab-toi-samyi-kod-na-2.c
 
 Перебір і тут кладе всі сумніви: усі 72 одиничні збої розібрано правильно (71 із них — CORRECTED_SINGLE із точною позицією, збій самого P₀ — PARITY_BIT_ERROR при цілих даних), а всі 2556 подвійних — це C(72,2), інших просто не буває — спіймано як DETECTED_DOUBLE.
 

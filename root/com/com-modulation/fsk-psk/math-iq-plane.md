@@ -59,36 +59,8 @@ A = √(I² + Q²)          (амплітуда — довжина вектор�
 **Порахуймо одну точку QPSK.** Хай символ має амплітуду A = 1.0 і фазу φ = 135° (один із чотирьох станів QPSK). Знайдемо його I та Q, а тоді перевіримо, що пара повертає ту саму амплітуду й фазу:
 
 :::tabs
-```c
-#include <math.h>
-
-typedef struct { float i, q; } iq_t;
-
-// (A, φ у радіанах) → (I, Q)
-iq_t to_iq(float A, float phi) {
-    iq_t s = { A * cosf(phi), A * sinf(phi) };
-    return s;                       // I = A·cos φ,  Q = A·sin φ
-}
-
-// φ = 135° = 3π/4:  cos = −0.7071, sin = +0.7071
-iq_t s = to_iq(1.0f, 3.0f * (float)M_PI / 4.0f);   // s.i ≈ −0.707, s.q ≈ +0.707
-
-float A   = sqrtf(s.i * s.i + s.q * s.q);          // → 1.000
-float phi = atan2f(s.q, s.i) * 180.0f / (float)M_PI; // → 135.0°
-```
-```python
-import cmath, math
-
-# фазор (I, Q) — це просто комплексне число: I = дійсна, Q = уявна частина
-def to_iq(A, phi):                      # (A, φ у радіанах) → I + jQ
-    return cmath.rect(A, phi)           # rect(r, φ) = r·cos φ + j·r·sin φ
-
-# φ = 135° = 3π/4:  cos = −0.7071, sin = +0.7071
-s = to_iq(1.0, 3.0 * math.pi / 4.0)     # s.real ≈ −0.707, s.imag ≈ +0.707
-
-A   = abs(s)                            # → 1.000  (√(I² + Q²))
-phi = math.degrees(cmath.phase(s))      # → 135.0° (atan2(Q, I))
-```
+:::code math-iq-plane/c/main.c
+:::code math-iq-plane/py/main.py
 :::
 
 Числа сходяться: вектор (−0.707, +0.707) має довжину рівно 1 і кут рівно 135°. Це одна з чотирьох точок QPSK; решта три — те саме коло, лише з іншими знаками I та Q.

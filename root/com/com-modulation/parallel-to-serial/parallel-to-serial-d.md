@@ -86,18 +86,7 @@ def shift_out_msb(data):
 
 **Умова: прийняти байт, читаючи ніжку DATA на кожному фронті такту, старший біт першим.**
 :::tabs
-```cpp
-uint8_t shift_in_msb(void) {
-    uint8_t v = 0;
-    for (int i = 0; i < 8; i++) {
-        v <<= 1;                     // звільняємо місце під новий біт праворуч
-        gpio_write(PIN_CLK, 1);      // фронт: передавач саме зараз тримає біт дійсним
-        v |= gpio_read(PIN_DATA) & 1; // вкладаємо прочитаний біт у наймолодшу позицію
-        gpio_write(PIN_CLK, 0);
-    }
-    return v;                        // перший прочитаний біт опинився в старшій позиції
-}
-```
+:::code parallel-to-serial-d/cpp/main.cpp
 ```python
 def shift_in_msb():
     v = 0

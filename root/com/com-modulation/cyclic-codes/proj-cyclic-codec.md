@@ -51,18 +51,7 @@ static uint16_t poly_rem(uint16_t word) {
 }
 ```
 @tab C++
-```cpp
-#include <cstdint>
-
-// остача word mod g(x): ділення XOR-зсувами.
-// word — до N бітів; g має степінь R (старший біт g стоїть у розряді R).
-constexpr std::uint16_t poly_rem(std::uint16_t word) {
-    for (int i = N - 1; i >= R; --i)      // від старшого біта вниз до розряду R
-        if (word & (1u << i))             // провідний член ще стирчить?
-            word ^= (G << (i - R));       // відняти g, вирівняний під xⁱ
-    return word & ((1u << R) - 1);        // лишилась остача степеня < R
-}
-```
+:::code proj-cyclic-codec/cpp/dilennia-shcho-vmiie-odyn.cpp
 :::
 
 Тут захована друга класична пастка — **вирівнювання степеня**. Старший біт g стоїть у розряді R; щоб його одиниця погасила біт i слова, g треба зсунути рівно на `i − R`. Зсунеш на `i` замість `i − R` — і код тихо ділитиме не на те, без жодної помилки компіляції.
@@ -103,41 +92,9 @@ constexpr std::uint16_t encode(std::uint16_t msg) { // msg — K бітів да
 
 :::tabs
 @tab C
-```c
-/* те саме кодування, але як робить залізо: R тригерів, дані —
-   старшим бітом уперед, по одному за такт (механізм зі схеми вище) */
-static uint16_t encode_lfsr(uint16_t msg) {
-    uint16_t reg  = 0;                        /* R тригерів остачі            */
-    uint16_t taps = G & ((1u << R) - 1);      /* g без старшого члена: відводи */
-    for (int i = K - 1; i >= 0; --i) {        /* біти даних, старший уперед   */
-        int in = (msg >> i) & 1;              /* вхідний біт                  */
-        int fb = in ^ ((reg >> (R - 1)) & 1); /* зворотний зв'язок = вхід ⊕ b₂ */
-        reg <<= 1;                            /* зсув b₀→b₁→b₂                */
-        if (fb) reg ^= taps;                  /* де gᵢ=1 — додати fb          */
-        reg &= (1u << R) - 1;                 /* тримати рівно R бітів        */
-    }
-    return (msg << R) | reg;                  /* дані у старших, остача — молодші */
-}
-```
+:::code proj-cyclic-codec/c/toi-samyi-podil-iak.c
 @tab C++
-```cpp
-#include <cstdint>
-
-// те саме кодування, але як робить залізо: R тригерів, дані —
-// старшим бітом уперед, по одному за такт (механізм зі схеми вище)
-constexpr std::uint16_t encode_lfsr(std::uint16_t msg) {
-    std::uint16_t reg  = 0;                   // R тригерів остачі
-    std::uint16_t taps = G & ((1u << R) - 1); // g без старшого члена: відводи
-    for (int i = K - 1; i >= 0; --i) {        // біти даних, старший уперед
-        int in = (msg >> i) & 1;              // вхідний біт
-        int fb = in ^ ((reg >> (R - 1)) & 1); // зворотний зв'язок = вхід ⊕ b₂
-        reg <<= 1;                            // зсув b₀→b₁→b₂
-        if (fb) reg ^= taps;                  // де gᵢ=1 — додати fb
-        reg &= (1u << R) - 1;                 // тримати рівно R бітів
-    }
-    return static_cast<std::uint16_t>((msg << R) | reg); // дані у старших, остача — молодші
-}
-```
+:::code proj-cyclic-codec/cpp/toi-samyi-podil-iak.cpp
 :::
 
 Обидві функції на m = `1010` повертають `1010011` — та сама остача, дві машини. Різниця в тому, що `encode_lfsr` — це буквально кілька тригерів і вентилів XOR, які ковтають по біту на повній швидкості лінії; ось чому кодування циклічного коду «коштує майже задарма», а той самий регістр, лише [зсувний](root:hw-digital/shift-register), стоїть у кожному кадрі, захищеному [CRC](root:com-modulation/crc).
@@ -150,48 +107,9 @@ constexpr std::uint16_t encode_lfsr(std::uint16_t msg) {
 
 :::tabs
 @tab C
-```c
-/* синдром прийнятого слова = word mod g(x); 0 ⇒ помилки не видно */
-static uint16_t syndrome(uint16_t word) { return poly_rem(word); }
-
-static int weight(uint16_t v) {           /* вага Геммінга: скільки одиниць */
-    int w = 0;
-    while (v) { w += v & 1; v >>= 1; }
-    return w;
-}
-
-static uint16_t rotl(uint16_t w) {        /* циклічний зсув уліво в N розрядах */
-    uint16_t top = (w >> (N - 1)) & 1;    /* біт, що зіскакує зверху, — назад у молодший */
-    return ((w << 1) | top) & ((1u << N) - 1);
-}
-static uint16_t rotr(uint16_t w) {        /* циклічний зсув управо в N розрядах */
-    uint16_t bot = w & 1;                 /* молодший біт — наверх */
-    return ((w >> 1) | (bot << (N - 1))) & ((1u << N) - 1);
-}
-```
+:::code proj-cyclic-codec/c/syndrom-chy-tsile-te-shcho.c
 @tab C++
-```cpp
-#include <bit>
-#include <cstdint>
-
-// синдром прийнятого слова = word mod g(x); 0 ⇒ помилки не видно
-constexpr std::uint16_t syndrome(std::uint16_t word) { return poly_rem(word); }
-
-// вага Геммінга через std::popcount з <bit>
-constexpr int weight(std::uint16_t v) { return std::popcount(v); }
-
-// циклічний зсув уліво в N розрядах
-constexpr std::uint16_t rotl(std::uint16_t w) {
-    uint16_t top = (w >> (N - 1)) & 1;
-    return ((w << 1) | top) & ((1u << N) - 1);
-}
-
-// циклічний зсув управо в N розрядах
-constexpr std::uint16_t rotr(std::uint16_t w) {
-    uint16_t bot = w & 1;
-    return ((w >> 1) | (bot << (N - 1))) & ((1u << N) - 1);
-}
-```
+:::code proj-cyclic-codec/cpp/syndrom-chy-tsile-te-shcho.cpp
 :::
 
 ## Пастка для помилки — error-trapping
@@ -204,57 +122,9 @@ constexpr std::uint16_t rotr(std::uint16_t w) {
 
 :::tabs
 @tab C
-```c
-/* виправлення однієї помилки методом error-trapping.
-   Повертає виправлене слово; *ok=0, якщо помилок більше, ніж код тягне. */
-static uint16_t decode(uint16_t recv, int *ok) {
-    uint16_t s = syndrome(recv);
-    if (s == 0) { *ok = 1; return recv; }         /* синдром нульовий — слово вже ціле */
-
-    uint16_t w = recv;
-    for (int j = 0; j < N; ++j) {
-        if (weight(s) <= 1) {                     /* помилка «замкнулась» у перевірних розрядах */
-            w ^= s;                               /* синдром і є той самий помилковий біт        */
-            for (int back = 0; back < j; ++back)  /* докрутити слово назад на j кроків           */
-                w = rotr(w);
-            *ok = 1;
-            return w;
-        }
-        w = rotl(w);                              /* ...крутимо слово по колу...        */
-        s <<= 1;                                  /* ...а синдром множимо на x mod g:   */
-        if (s & (1u << R)) s ^= G;                /* зайшов за степінь R — відняти g     */
-    }
-    *ok = 0;                                       /* за N обертів пастка не спрацювала — >1 помилки */
-    return recv;
-}
-```
+:::code proj-cyclic-codec/c/pastka-dlia-pomylky-error.c
 @tab C++
-```cpp
-#include <bit>
-#include <cstdint>
-#include <optional>
-
-// виправлення однієї помилки методом error-trapping.
-// Повертає std::optional з виправленим словом або std::nullopt при понад 1 помилці.
-constexpr std::optional<std::uint16_t> decode(std::uint16_t recv) {
-    std::uint16_t s = syndrome(recv);
-    if (s == 0) return recv;                      // синдром нульовий — слово ціле
-
-    std::uint16_t w = recv;
-    for (int j = 0; j < N; ++j) {
-        if (std::popcount(s) <= 1) {              // помилка у перевірних розрядах
-            w ^= s;                               // синдром і є помилковий біт
-            for (int back = 0; back < j; ++back)
-                w = rotr(w);
-            return w;
-        }
-        w = rotl(w);                              // крутимо слово по колу
-        s <<= 1;                                  // синдром * x mod g:
-        if (s & (1u << R)) s ^= G;                // відняти g при виході за R
-    }
-    return std::nullopt;                          // понад 1 помилка
-}
-```
+:::code proj-cyclic-codec/cpp/pastka-dlia-pomylky-error.cpp
 :::
 
 На нашому зіпсутому слові `1000011` (це `1010011` із перекинутим розрядом x⁴) синдром `110` має вагу два, тож пастка не спрацьовує одразу — слово починає крутитися:
@@ -268,65 +138,9 @@ constexpr std::optional<std::uint16_t> decode(std::uint16_t recv) {
 
 :::tabs
 @tab C
-```c
-/* друк n молодших бітів v старшим уперед — портативно, без %b */
-static void pbits(const char *tag, uint16_t v, int n) {
-    printf("%s", tag);
-    for (int i = n - 1; i >= 0; --i) putchar(((v >> i) & 1) ? '1' : '0');
-    putchar('\n');
-}
-
-int main(void) {
-    uint16_t msg  = 0x0Au;                 /* дані 1010                    */
-    uint16_t code = encode(msg);           /* → 1010011                    */
-    pbits("дані      m = ", msg,  K);
-    pbits("код       c = ", code, N);
-    pbits("код(LFSR) c = ", encode_lfsr(msg), N);   /* та сама остача */
-
-    uint16_t recv = code ^ (1u << 4);      /* внесемо одну помилку: розряд x⁴ */
-    pbits("прийнято  r = ", recv, N);
-    pbits("синдром   s = ", syndrome(recv), R);      /* 110 ≠ 0 */
-
-    int ok;
-    uint16_t fixed = decode(recv, &ok);
-    pbits("виправл.  c = ", fixed, N);
-    pbits("відновл.  m = ", (uint16_t)(fixed >> R), K);
-    printf("ok = %d\n", ok);
-    return 0;
-}
-```
+:::code proj-cyclic-codec/c/naskriznyi-prohin.c
 @tab C++
-```cpp
-#include <bitset>
-#include <iostream>
-#include <string_view>
-
-// друк n молодших бітів v через std::bitset
-template <std::size_t Bits>
-static void pbits(std::string_view tag, std::uint16_t v) {
-    std::cout << tag << std::bitset<Bits>(v) << '\n';
-}
-
-int main() {
-    std::uint16_t msg  = 0x0Au;                 // дані 1010
-    std::uint16_t code = encode(msg);           // → 1010011
-    pbits<K>("дані      m = ", msg);
-    pbits<N>("код       c = ", code);
-    pbits<N>("код(LFSR) c = ", encode_lfsr(msg)); // та сама остача
-
-    std::uint16_t recv = code ^ (1u << 4);      // внесемо одну помилку: розряд x⁴
-    pbits<N>("прийнято  r = ", recv);
-    pbits<R>("синдром   s = ", syndrome(recv));   // 110 ≠ 0
-
-    if (auto fixed = decode(recv)) {
-        pbits<N>("виправл.  c = ", *fixed);
-        pbits<K>("відновл.  m = ", *fixed >> R);
-        std::cout << "ok = 1\n";
-    } else {
-        std::cout << "ok = 0\n";
-    }
-}
-```
+:::code proj-cyclic-codec/cpp/naskriznyi-prohin.cpp
 :::
 
 Що друкує програма:

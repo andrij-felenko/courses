@@ -66,141 +66,9 @@ H = FFT(h, N)                # відгук каналу в частоті (до
 Складімо ці кроки в передавач `tx` і приймач `rx`. Ліворуч — ідіоматичний numpy: вбудований `fft` і векторні дії над комплексним масивом. Праворуч — те саме ядро мовою C, як воно й живе у baseband-DSP: власне ітеративне [ШПФ](root:com-signal/fft) по місцю, без жодної бібліотеки. Канал між `tx` і `rx` в обох випадках прикладають окремо — щоб потік символів пройшов крізь спільну луну.
 
 :::tabs
-```python
-import numpy as np
-N = 64                                    # піднесних = розмір FFT
-
-def qpsk_map(bits):                       # (N,2) біт → (N,) комплексних символів
-    return ((1 - 2*bits[:, 0]) + 1j*(1 - 2*bits[:, 1])) / np.sqrt(2)
-
-def qpsk_slice(s):                        # (N,) символів → (N,2) біт
-    return np.stack([s.real < 0, s.imag < 0], axis=1).astype(int)
-
-def tx(bits, L):                          # біти символу → часовий блок з префіксом
-    x = np.fft.ifft(qpsk_map(bits)) * np.sqrt(N)
-    return np.concatenate([x[N-L:], x])
-
-def rx(block, L, H):                      # блок → біти (zero-forcing за відомим H)
-    Y = np.fft.fft(block[L:L+N]) / np.sqrt(N)
-    return qpsk_slice(Y / H)
-```
-```c
-#include <complex.h>
-#include <math.h>
-#define N  64                             /* піднесних = розмір FFT */
-
-/* Ітеративне ШПФ Кулі–Тьюкі по місцю; inv != 0 — зворотне (з діленням на N). */
-static void fft(double complex *x, int inv) {
-    for (int i = 1, j = 0; i < N; i++) {          /* біт-реверсна перестановка */
-        int bit = N >> 1;
-        for (; j & bit; bit >>= 1) j ^= bit;
-        j |= bit;
-        if (i < j) { double complex t = x[i]; x[i] = x[j]; x[j] = t; }
-    }
-    for (int len = 2; len <= N; len <<= 1) {       /* стадії «метелика» */
-        double ang = (inv ? 2.0 : -2.0) * M_PI / len;
-        double complex wl = cos(ang) + I*sin(ang);
-        for (int st = 0; st < N; st += len) {
-            double complex w = 1.0;
-            for (int k = 0; k < len/2; k++) {
-                double complex u = x[st+k], v = x[st+k+len/2] * w;
-                x[st+k] = u + v;  x[st+k+len/2] = u - v;  w *= wl;
-            }
-        }
-    }
-    if (inv) for (int i = 0; i < N; i++) x[i] /= N;
-}
-
-/* Передавач: 2N біт → блок із L-відліковим циклічним префіксом (L+N відліків). */
-void tx(const int bits[2*N], int L, double complex block[]) {
-    double complex S[N];
-    for (int k = 0; k < N; k++)                            /* QPSK */
-        S[k] = ((1 - 2*bits[2*k]) + I*(1 - 2*bits[2*k+1])) / sqrt(2.0);
-    fft(S, 1);                                             /* IFFT… */
-    for (int k = 0; k < N; k++) S[k] *= sqrt((double)N);   /* …·√N */
-    for (int i = 0; i < L; i++) block[i]   = S[N-L+i];     /* хвіст → у префікс */
-    for (int i = 0; i < N; i++) block[L+i] = S[i];
-}
-
-/* Приймач: блок → 2N біт; zero-forcing за відомим H[k] = FFT(h). */
-void rx(const double complex block[], int L, const double complex H[N], int bits[2*N]) {
-    double complex Y[N];
-    for (int k = 0; k < N; k++) Y[k] = block[L+k];         /* зняти префікс */
-    fft(Y, 0);                                             /* FFT… */
-    for (int k = 0; k < N; k++) {
-        double complex Sh = (Y[k] / sqrt((double)N)) / H[k];  /* …/√N, поділ на канал */
-        bits[2*k]   = creal(Sh) < 0;                       /* зріз у біти */
-        bits[2*k+1] = cimag(Sh) < 0;
-    }
-}
-```
-```cpp
-#include <complex>
-#include <vector>
-#include <cmath>
-#include <algorithm>
-
-constexpr int N = 64;                             // піднесних = розмір FFT
-
-// ШПФ Кулі–Тьюкі над контейнером std::vector<std::complex<double>>
-static void fft_cpp(std::vector<std::complex<double>>& x, bool inv) {
-    int n = static_cast<int>(x.size());
-    for (int i = 1, j = 0; i < n; i++) {
-        int bit = n >> 1;
-        for (; j & bit; bit >>= 1) j ^= bit;
-        j |= bit;
-        if (i < j) std::swap(x[i], x[j]);
-    }
-    for (int len = 2; len <= n; len <<= 1) {
-        double ang = (inv ? 2.0 : -2.0) * M_PI / len;
-        std::complex<double> wl(std::cos(ang), std::sin(ang));
-        for (int st = 0; st < n; st += len) {
-            std::complex<double> w(1.0, 0.0);
-            for (int k = 0; k < len / 2; k++) {
-                std::complex<double> u = x[st + k], v = x[st + k + len / 2] * w;
-                x[st + k] = u + v;
-                x[st + k + len / 2] = u - v;
-                w *= wl;
-            }
-        }
-    }
-    if (inv) {
-        for (auto& v : x) v /= static_cast<double>(n);
-    }
-}
-
-// Передавач: 2N біт → вектор відліків із префіксом
-std::vector<std::complex<double>> tx_cpp(const std::vector<int>& bits, int L) {
-    std::vector<std::complex<double>> S(N);
-    for (int k = 0; k < N; k++) {
-        S[k] = std::complex<double>(1 - 2*bits[2*k], 1 - 2*bits[2*k+1]) / std::sqrt(2.0);
-    }
-    fft_cpp(S, true);                                      // IFFT
-    double scale = std::sqrt(static_cast<double>(N));
-    for (auto& v : S) v *= scale;
-
-    std::vector<std::complex<double>> block;
-    block.reserve(L + N);
-    block.insert(block.end(), S.end() - L, S.end());       // хвіст → у префікс
-    block.insert(block.end(), S.begin(), S.end());
-    return block;
-}
-
-// Приймач: вектор відліків → 2N біт (zero-forcing equalization)
-std::vector<int> rx_cpp(const std::vector<std::complex<double>>& block, int L,
-                        const std::vector<std::complex<double>>& H) {
-    std::vector<std::complex<double>> Y(block.begin() + L, block.begin() + L + N);
-    fft_cpp(Y, false);                                     // FFT
-    double scale = 1.0 / std::sqrt(static_cast<double>(N));
-    std::vector<int> bits(2 * N);
-    for (int k = 0; k < N; k++) {
-        std::complex<double> Sh = (Y[k] * scale) / H[k];
-        bits[2 * k]     = (Sh.real() < 0.0) ? 1 : 0;
-        bits[2 * k + 1] = (Sh.imag() < 0.0) ? 1 : 0;
-    }
-    return bits;
-}
-```
+:::code proj-ofdm-modem/py/modem-na-odnomu-ekrani.py
+:::code proj-ofdm-modem/c/main.c
+:::code proj-ofdm-modem/cpp/main.cpp
 :::
 
 Усі три мови кажуть одне: символ туди — це IFFT плюс приклеєний хвіст; символ назад — це FFT плюс ділення. Різниця в тому, що numpy бере `fft` готовим, C везе класичні вказівники й масиви, а C++ обгортає все в RAII-контейнери `std::vector` та ідіоматичний `std::complex`.
@@ -209,25 +77,7 @@ std::vector<int> rx_cpp(const std::vector<std::complex<double>>& block, int L,
 
 Тепер головне питання — чи справді префікс рятує. Прожену потік символів крізь один спільний багатопроменевий канал двічі: з повним префіксом і зовсім без нього, — і зміряю частку помилкових бітів (BER). Це вже не ядро модема, а числовий експеримент, тож лишаю його на numpy.
 
-```python
-rng = np.random.default_rng(1)
-h = np.array([1, 0, .7+.4j, 0, 0, .5-.3j, 0, 0, .35+.2j, 0, 0, .25], complex)
-h /= np.sqrt(np.sum(np.abs(h)**2))        # канал одиничної енергії, розкид 11 відліків
-H = np.fft.fft(h, N)                       # його частотний відгук
-
-def ber(L, snr_db, n_sym=5000):
-    bits = rng.integers(0, 2, (n_sym, N, 2))
-    stream = np.concatenate([tx(bits[i], L) for i in range(n_sym)])
-    y = np.convolve(stream, h)[:len(stream)]                          # багатопроменевість
-    s2 = 10**(-snr_db/10)                                             # шум під заданий SNR
-    y = y + np.sqrt(s2/2)*(rng.standard_normal(len(y)) + 1j*rng.standard_normal(len(y)))
-    M = L + N
-    err = sum(np.sum(rx(y[i*M:(i+1)*M], L, H) != bits[i]) for i in range(n_sym))
-    return err / (n_sym * N * 2)
-
-for snr in (0, 8, 16, 24):
-    print(f"{snr:2d} дБ   з CP=16: {ber(16, snr):.1e}   без CP: {ber(0, snr):.1e}")
-```
+:::code proj-ofdm-modem/py/doslid-prefiks-proty-luny.py
 
 Одна деталь ховає весь ефект. Коли `L = 0`, `tx` повертає блок без префікса, і хвіст попереднього символу, що його канал заносить у поточне вікно, більше нема куди подіти — він падає прямо на дані. Коли `L = 16` ≥ довжини луни, той хвіст цілком уміщається в префікс, приймач його відкидає, і згортка каналу стає точно кільцевою. Ось числа:
 

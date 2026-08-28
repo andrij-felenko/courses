@@ -72,55 +72,8 @@ sum = sum_words(шматок₂, sum)
 Спершу два наріжні камені — доливання шматка й згортання переносу:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-#define IPPROTO_TCP  6
-#define IPPROTO_UDP 17
-
-/* Долити шматок у біжучу суму; повертає НЕзгорнутий акумулятор,
-   щоб шматки можна було ланцюжити. Нулем доповнює хвіст — тож
-   непарним може бути ЛИШЕ останній шматок. */
-static uint32_t sum_words(const uint8_t *p, size_t len, uint32_t sum)
-{
-    while (len > 1) {
-        sum += (uint32_t)((p[0] << 8) | p[1]);   /* слово в мережевому порядку */
-        p   += 2;
-        len -= 2;
-    }
-    if (len)                                     /* непарний хвіст:            */
-        sum += (uint32_t)(p[0] << 8);            /* нуль СПРАВА, байт — старший */
-    return sum;
-}
-
-/* Загорнути перенос. Двох згортань досить для будь-якого uint32_t. */
-static uint16_t fold(uint32_t sum)
-{
-    sum = (sum & 0xFFFF) + (sum >> 16);
-    sum = (sum & 0xFFFF) + (sum >> 16);
-    return (uint16_t)sum;
-}
-```
-```python
-import struct
-
-IPPROTO_TCP, IPPROTO_UDP = 6, 17
-
-
-def sum_words(data: bytes, start: int = 0) -> int:
-    """Долити шматок у біжучу (незгорнуту) суму."""
-    if len(data) % 2:
-        data += b"\x00"          # нуль СПРАВА — лише для останнього шматка
-    return start + sum(struct.unpack("!%dH" % (len(data) // 2), data))
-
-
-def fold(s: int) -> int:
-    """Загорнути перенос: двох згортань досить для будь-якого 32-бітного s."""
-    s = (s & 0xFFFF) + (s >> 16)
-    s = (s & 0xFFFF) + (s >> 16)
-    return s & 0xFFFF
-```
+:::code proj-tcp-udp-checksum/c/kod.c
+:::code proj-tcp-udp-checksum/py/kod.py
 :::
 
 Зверніть увагу на `p[0] << 8 | p[1]`: байти читають **поіменно**, а не приведенням `uint8_t *` до `uint16_t *`. Це не педантизм — про це в пастках нижче.
@@ -128,30 +81,7 @@ def fold(s: int) -> int:
 Тепер псевдозаголовки. Адреси беремо як байтові масиви просто з заголовка — тоді жодних `htonl` не треба взагалі, бо `sum_words` уже читає в мережевому порядку:
 
 :::tabs
-```c
-/* IPv4: адреси по 4 байти, нульовий байт + протокол = одне слово, довжина. */
-static uint32_t pseudo_v4(const uint8_t src[4], const uint8_t dst[4],
-                          uint8_t proto, uint16_t seg_len, uint32_t sum)
-{
-    sum  = sum_words(src, 4, sum);
-    sum  = sum_words(dst, 4, sum);
-    sum += (uint32_t)proto;        /* слово «нулі|протокол»: 0x0011 для UDP */
-    sum += (uint32_t)seg_len;      /* довжина TCP/UDP: заголовок + дані     */
-    return sum;
-}
-
-/* IPv6: адреси по 16 байтів, 32-бітна довжина, три нулі + Next Header. */
-static uint32_t pseudo_v6(const uint8_t src[16], const uint8_t dst[16],
-                          uint8_t next_hdr, uint32_t ulp_len, uint32_t sum)
-{
-    sum  = sum_words(src, 16, sum);
-    sum  = sum_words(dst, 16, sum);
-    sum += (ulp_len >> 16) & 0xFFFF;   /* довжина тут 32-бітна — двома словами */
-    sum += ulp_len & 0xFFFF;
-    sum += (uint32_t)next_hdr;         /* три нульові байти + Next Header      */
-    return sum;
-}
-```
+:::code proj-tcp-udp-checksum/c/kod-2.c
 ```python
 def pseudo_v4(src: bytes, dst: bytes, proto: int, seg_len: int) -> int:
     """12 байтів: адреси, нульовий байт, протокол, довжина TCP/UDP."""
@@ -167,83 +97,8 @@ def pseudo_v6(src: bytes, dst: bytes, next_hdr: int, ulp_len: int) -> int:
 І, нарешті, самі суми. Заголовок IP — найпростіший випадок, бо ніякого псевдозаголовка тут нема, лише занулення поля:
 
 :::tabs
-```c
-/* Сума заголовка IPv4: поле суми — на зсуві 10. */
-uint16_t ip_checksum(uint8_t *hdr, size_t hdr_len)
-{
-    hdr[10] = 0;                                  /* занулити поле суми! */
-    hdr[11] = 0;
-    uint16_t c = (uint16_t)~fold(sum_words(hdr, hdr_len, 0));
-    hdr[10] = (uint8_t)(c >> 8);
-    hdr[11] = (uint8_t)(c & 0xFF);
-    return c;
-}
-
-/* Сума UDP поверх IPv4: поле — на зсуві 6. */
-uint16_t udp_checksum_v4(const uint8_t src[4], const uint8_t dst[4],
-                         uint8_t *udp, size_t udp_len)
-{
-    udp[6] = 0;                                   /* занулити поле суми! */
-    udp[7] = 0;
-    uint32_t sum = pseudo_v4(src, dst, IPPROTO_UDP, (uint16_t)udp_len, 0);
-    sum = sum_words(udp, udp_len, sum);           /* заголовок UDP + дані */
-    uint16_t c = (uint16_t)~fold(sum);
-    if (c == 0x0000)
-        c = 0xFFFF;                               /* трюк UDP: нуль шлемо як −0 */
-    udp[6] = (uint8_t)(c >> 8);
-    udp[7] = (uint8_t)(c & 0xFF);
-    return c;
-}
-
-/* Сума TCP поверх IPv4: те саме, але поле — на зсуві 16 і БЕЗ трюку з нулем. */
-uint16_t tcp_checksum_v4(const uint8_t src[4], const uint8_t dst[4],
-                         uint8_t *tcp, size_t tcp_len)
-{
-    tcp[16] = 0;
-    tcp[17] = 0;
-    uint32_t sum = pseudo_v4(src, dst, IPPROTO_TCP, (uint16_t)tcp_len, 0);
-    sum = sum_words(tcp, tcp_len, sum);
-    uint16_t c = (uint16_t)~fold(sum);            /* 0x0000 у TCP — законне значення */
-    tcp[16] = (uint8_t)(c >> 8);
-    tcp[17] = (uint8_t)(c & 0xFF);
-    return c;
-}
-
-/* Перевірка на приймачі: сумуємо ВСЕ разом із полем — мусить вийти 0xFFFF. */
-int udp_verify_v4(const uint8_t src[4], const uint8_t dst[4],
-                  const uint8_t *udp, size_t udp_len)
-{
-    if (udp[6] == 0 && udp[7] == 0)
-        return 1;                                 /* в IPv4 нуль = «суми нема» */
-    uint32_t sum = pseudo_v4(src, dst, IPPROTO_UDP, (uint16_t)udp_len, 0);
-    sum = sum_words(udp, udp_len, sum);
-    return fold(sum) == 0xFFFF;
-}
-```
-```python
-def ip_checksum(hdr: bytes) -> int:
-    hdr = hdr[:10] + b"\x00\x00" + hdr[12:]          # занулити поле суми
-    return ~fold(sum_words(hdr)) & 0xFFFF
-
-
-def udp_checksum_v4(src: bytes, dst: bytes, udp: bytes) -> int:
-    udp = udp[:6] + b"\x00\x00" + udp[8:]            # занулити поле суми
-    s = pseudo_v4(src, dst, IPPROTO_UDP, len(udp))
-    return (~fold(sum_words(udp, s)) & 0xFFFF) or 0xFFFF     # трюк UDP
-
-
-def tcp_checksum_v4(src: bytes, dst: bytes, tcp: bytes) -> int:
-    tcp = tcp[:16] + b"\x00\x00" + tcp[18:]          # поле TCP — на зсуві 16
-    s = pseudo_v4(src, dst, IPPROTO_TCP, len(tcp))
-    return ~fold(sum_words(tcp, s)) & 0xFFFF         # 0x0000 у TCP — законне
-
-
-def udp_verify_v4(src: bytes, dst: bytes, udp: bytes) -> bool:
-    if udp[6:8] == b"\x00\x00":
-        return True                                  # в IPv4 нуль = «суми нема»
-    s = pseudo_v4(src, dst, IPPROTO_UDP, len(udp))
-    return fold(sum_words(udp, s)) == 0xFFFF
-```
+:::code proj-tcp-udp-checksum/c/kod-3.c
+:::code proj-tcp-udp-checksum/py/kod-2.py
 :::
 
 Три деталі варті окремого погляду. У Python `or 0xFFFF` робить трюк UDP одним словом: нуль хибний, тож замість нього підставиться `0xFFFF`. У C поле суми **не** позначено `const` і функція править буфер на місці — саме тому, що занулити його треба **до** обчислення, а результат записати назад. І `udp_verify_v4` рахує **той самий** псевдозаголовок і **той самий** цикл, що й `udp_checksum_v4`, — різниця лише в тому, що поле суми цього разу не занулене, а несе передане число.

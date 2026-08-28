@@ -30,33 +30,7 @@
 
 Рід–Соломон рахує байтами, тож байти мусять уміти множитися й ділитися. Це дає GF(256) — поле з 256 елементів, де роль числа грає байт, додавання зводиться до XOR, а множення — до множення многочленів за модулем незвідного многочлена. Практично все зводиться до двох таблиць: пробігаємо степені породжувального елемента α = 2 і записуємо, який байт на якому кроці трапився.
 
-```python
-PRIM = 0x11D                      # x⁸+x⁴+x³+x²+1 — незвідний многочлен поля
-EXP = [0] * 512                   # EXP[i] = αⁱ (подвоєно, щоб не брати модуль)
-LOG = [0] * 256                   # LOG[αⁱ] = i
-
-x = 1
-for i in range(255):
-    EXP[i] = x
-    LOG[x] = i
-    x <<= 1                       # множення на α — це зсув…
-    if x & 0x100:
-        x ^= PRIM                 # …і згортка назад у поле, коли виліз 9-й біт
-for i in range(255, 512):
-    EXP[i] = EXP[i - 255]
-
-def mul(a, b):
-    return 0 if a == 0 or b == 0 else EXP[LOG[a] + LOG[b]]
-
-def div(a, b):
-    return 0 if a == 0 else EXP[(LOG[a] + 255 - LOG[b]) % 255]
-
-def pw(a, n):
-    return EXP[(LOG[a] * (n % 255)) % 255]
-
-def inv(a):
-    return EXP[255 - LOG[a]]
-```
+:::code proj-concatenated-pipeline/py/pole-u-iakomu-zhyvut-baity.py
 
 Множення двох байтів стає додаванням їхніх логарифмів — саме тому таблицю EXP подвоєно до 512: сума двох логарифмів не перевищить 508, і модуль брати не доводиться. Дрібниця, а прибирає ділення з найгарячішого місця коду.
 
@@ -66,123 +40,11 @@ def inv(a):
 
 Кодуємо систематично — дані лишаються собою, а контрольні байти дописуються в хвіст. Ідея: беремо многочлен даних, зсуваємо його на 8 позицій угору й ділимо на породжувальний многочлен g(x); остача і є ті вісім контрольних байтів. Тоді все слово націло ділиться на g — а це рівносильно тому, що воно занулюється в усіх коренях g.
 
-```python
-N, K = 32, 24
-NSYM = N - K                      # 8 контрольних байтів
-T = NSYM // 2                     # t = 4: стільки байтових помилок ловимо
-
-def p_mul(p, q):
-    r = [0] * (len(p) + len(q) - 1)
-    for i, a in enumerate(p):
-        if a:
-            for j, b in enumerate(q):
-                if b:
-                    r[i + j] ^= mul(a, b)
-    return r
-
-def p_eval(p, x):                 # Горнер; старший степінь — перший
-    y = 0
-    for c in p:
-        y = mul(y, x) ^ c
-    return y
-
-def rs_generator(nsym):
-    g = [1]
-    for i in range(nsym):
-        g = p_mul(g, [1, pw(2, i)])   # g(x) = ∏ (x − αⁱ), i = 0…nsym−1
-    return g
-
-def rs_encode(msg, nsym):
-    """Систематичне: дані лишаються як є, контрольні байти — остача."""
-    g = rs_generator(nsym)
-    buf = list(msg) + [0] * nsym
-    for i in range(len(msg)):
-        coef = buf[i]
-        if coef:
-            for j in range(1, len(g)):
-                buf[i + j] ^= mul(g[j], coef)
-    return list(msg) + buf[len(msg):]
-```
+:::code proj-concatenated-pipeline/py/zovnishnii-kod-rs-32-24.py
 
 Декодер робить чотири кроки, і кожен відповідає на своє питання. **Синдроми** питають «чи є взагалі біда»: підставляємо корені g у прийняте слово — чисте слово дасть самі нулі, бо воно на g ділиться. **Берлекемп–Мессі** питає «де саме»: шукає найкоротший регістр зсуву, що породжує знайдену послідовність синдромів, і цей регістр виявляється многочленом-локатором Λ(x). **Пошук Чіня** просто перебирає всі позиції й дивиться, де Λ занулюється. **Форні** питає «на скільки саме перевернуто» й видає величину поправки.
 
-```python
-def ev_low(p, x):                 # оцінка; молодший степінь — перший
-    y, xp = 0, 1
-    for c in p:
-        y ^= mul(c, xp)
-        xp = mul(xp, x)
-    return y
-
-def rs_syndromes(r, nsym):
-    """Sⱼ = r(αʲ). Чисте слово ділиться на g → усі синдроми нульові."""
-    return [p_eval(r, pw(2, j)) for j in range(nsym)]
-
-def berlekamp_massey(S, nsym):
-    """Найкоротший регістр, що породжує синдроми, — це локатор Λ(x)."""
-    C, B = [1], [1]
-    L, m, b = 0, 1, 1
-    for n in range(nsym):
-        d = S[n]
-        for i in range(1, L + 1):
-            d ^= mul(C[i], S[n - i])
-        if d == 0:
-            m += 1
-            continue
-        coef = div(d, b)
-        if len(C) < len(B) + m:
-            C = C + [0] * (len(B) + m - len(C))
-        T_ = list(C)
-        for i in range(len(B)):
-            C[i + m] ^= mul(coef, B[i])
-        if 2 * L <= n:
-            L, B, b, m = n + 1 - L, T_, d, 1
-        else:
-            m += 1
-    return C[:L + 1], L
-
-def chien(lam, n):
-    """Перебираємо позиції: де Λ(Xᵢ⁻¹) = 0, там помилка."""
-    return [p for p in range(n) if ev_low(lam, inv(pw(2, n - 1 - p))) == 0]
-
-def forney(S, lam, pos, n, nsym):
-    """Yᵢ = Xᵢ · Ω(Xᵢ⁻¹) / Λ′(Xᵢ⁻¹), де Ω = S·Λ mod x^nsym."""
-    omega = [0] * nsym
-    for i, s in enumerate(S):
-        if s:
-            for j, l in enumerate(lam):
-                if l and i + j < nsym:
-                    omega[i + j] ^= mul(s, l)
-    # формальна похідна: над GF(2ᵐ) виживають лише непарні степені
-    lam_d = [(lam[k + 1] if (k + 1) % 2 else 0) for k in range(len(lam) - 1)]
-    e = [0] * n
-    for p in pos:
-        X = pw(2, n - 1 - p)
-        den = ev_low(lam_d, inv(X))
-        if den == 0:
-            return None
-        e[p] = div(mul(X, ev_low(omega, inv(X))), den)
-    return e
-
-def rs_decode(r, nsym):
-    """(слово, к-сть виправлень) або (None, −1) — чесна відмова."""
-    S = rs_syndromes(r, nsym)
-    if max(S) == 0:
-        return list(r), 0
-    lam, L = berlekamp_massey(S, nsym)
-    if 2 * L > nsym:
-        return None, -1
-    pos = chien(lam, len(r))
-    if len(pos) != L:
-        return None, -1
-    e = forney(S, lam, pos, len(r), nsym)
-    if e is None:
-        return None, -1
-    out = [a ^ b for a, b in zip(r, e)]
-    if max(rs_syndromes(out, nsym)) != 0:
-        return None, -1
-    return out, L
-```
+:::code proj-concatenated-pipeline/py/zovnishnii-kod-rs-32-24-2.py
 
 Зверніть увагу на три перевірки, що ведуть до `None`. Вони і є та риса, якої бракує внутрішньому кодові: зовнішній декодер уміє **здатися чесно**. Якщо локатор вийшов задовгим, або Чінь знайшов не стільки коренів, скільки обіцяв ступінь Λ, або виправлене слово все одно не дає нульових синдромів — значить, помилок більше за запас, і краще сказати «не подужав», ніж видати вигадку. Прогін на випадкових словах: **500 із 500** прогонів з чотирма й менше помилками виправлено точно, а на шести помилках декодер **500 разів із 500 чесно здався** й жодного разу не збрехав мовчки.
 
@@ -190,42 +52,7 @@ def rs_decode(r, nsym):
 
 Півбайт іде в сім бітів. Позиції нумеруємо з одиниці, дані кладемо на 3, 5, 6, 7, а на степені двійки — 1, 2, 4 — контрольні біти, кожен збирає XOR тих позицій, у чиєму номері стоїть його розряд. Тоді синдром на прийомі — це просто **номер** зіпсутого біта, і виправлення зводиться до одного зсуву.
 
-```python
-def _enc4(d):
-    b3, b5, b6, b7 = (d >> 3) & 1, (d >> 2) & 1, (d >> 1) & 1, d & 1
-    b1, b2, b4 = b3 ^ b5 ^ b7, b3 ^ b6 ^ b7, b5 ^ b6 ^ b7
-    return b1 | (b2 << 1) | (b3 << 2) | (b4 << 3) | (b5 << 4) | (b6 << 5) | (b7 << 6)
-
-def _bit(w, i):
-    return (w >> (i - 1)) & 1
-
-def _dec7(w):
-    s = ((_bit(w, 1) ^ _bit(w, 3) ^ _bit(w, 5) ^ _bit(w, 7))
-         | ((_bit(w, 2) ^ _bit(w, 3) ^ _bit(w, 6) ^ _bit(w, 7)) << 1)
-         | ((_bit(w, 4) ^ _bit(w, 5) ^ _bit(w, 6) ^ _bit(w, 7)) << 2))
-    if s:
-        w ^= 1 << (s - 1)         # синдром — це просто НОМЕР зіпсутого біта
-    return (_bit(w, 3) << 3) | (_bit(w, 5) << 2) | (_bit(w, 6) << 1) | _bit(w, 7)
-
-HAM_ENC = [_enc4(d) for d in range(16)]     # 16 слів по 7 бітів
-HAM_DEC = [_dec7(w) for w in range(128)]    # будь-які 7 бітів → півбайт
-
-def inner_encode(stream):
-    bits = []
-    for byte in stream:
-        for nib in (byte >> 4, byte & 15):
-            w = HAM_ENC[nib]
-            bits.extend((w >> i) & 1 for i in range(7))
-    return bits                              # 14 бітів на байт
-
-def inner_decode(bits):
-    out = []
-    for i in range(0, len(bits), 14):
-        hi = HAM_DEC[sum(bits[i + k] << k for k in range(7))]
-        lo = HAM_DEC[sum(bits[i + 7 + k] << k for k in range(7))]
-        out.append((hi << 4) | lo)
-    return out
-```
+:::code proj-concatenated-pipeline/py/vnutrishnii-kod-hemminh-7.py
 
 Обидві таблиці рахуються один раз на старті, і далі декодування півбайта — це **один пошук у масиві зі 128 комірок**. Жодної арифметики.
 
@@ -245,25 +72,7 @@ def inner_decode(bits):
 
 Блокове перемішування — це просто матриця. Складаємо 8 слів RS рядками, а в канал віддаємо **стовпцями**: спершу нульовий байт кожного з восьми слів, тоді перший байт кожного, і так далі.
 
-```python
-DEPTH = 8                         # скільки слів RS живе в одному блоці
-
-def interleave(rows):
-    """Пишемо рядками (слово = рядок), читаємо стовпцями."""
-    return [rows[r][c] for c in range(N) for r in range(DEPTH)]
-
-def deinterleave(stream):
-    rows = [[0] * N for _ in range(DEPTH)]
-    for i, b in enumerate(stream):
-        rows[i % DEPTH][i // DEPTH] = b
-    return rows
-
-def flat(rows):                   # «без перемішування» — слово за словом
-    return [b for row in rows for b in row]
-
-def unflat(stream):
-    return [stream[r * N:(r + 1) * N] for r in range(DEPTH)]
-```
+:::code proj-concatenated-pipeline/py/peremishuvannia.py
 
 Уся сила — в одному рядку `i % DEPTH`. Сусідні в каналі байти належать **різним** словам, тож будь-яка суцільна смуга біди роздається по словах порівну, по колу. Вісім слів — і кожне дістає щонайбільше кожен восьмий побитий байт.
 
@@ -271,31 +80,7 @@ def unflat(stream):
 
 Пакет моделюємо чесно: у смузі завади приймач не так «перевертає біти», як узагалі втрачає ґрунт — кожен біт із імовірністю ½ виявляється не тим. Поза смугою канал бездоганний, щоб було видно чистий ефект пакета.
 
-```python
-def channel(bits, start, length, rng):
-    """Пакет: у смузі завади кожен біт перевертається з імовірністю ½."""
-    out = list(bits)
-    for i in range(start, min(start + length, len(out))):
-        if rng.random() < 0.5:
-            out[i] ^= 1
-    return out
-
-def pipeline(data, burst_len, burst_at, rng, use_interleaver=True):
-    rows = [rs_encode(data[r * K:(r + 1) * K], NSYM) for r in range(DEPTH)]   # зовнішній
-    stream = interleave(rows) if use_interleaver else flat(rows)              # перемішування
-    sent = inner_encode(stream)                                              # внутрішній
-    got = channel(sent, burst_at, burst_len, rng)                           # канал
-    stream2 = inner_decode(got)                                             # внутрішній⁻¹
-    rows2 = deinterleave(stream2) if use_interleaver else unflat(stream2)   # перемішування⁻¹
-    damage = [sum(a != b for a, b in zip(rows[r], rows2[r])) for r in range(DEPTH)]
-    out = []
-    for r in range(DEPTH):
-        dec, _ = rs_decode(rows2[r], NSYM)                                  # зовнішній⁻¹
-        if dec is None:
-            return None, damage
-        out.extend(dec[:K])
-    return out, damage
-```
+:::code proj-concatenated-pipeline/py/kanal-i-povnyi-konveier.py
 
 Ось увесь каскад — дев'ять рядків. Дорога туди й дорога назад **дзеркальні**: що наклали останнім, те знімають першим. Порядок тут не справа смаку, а жорсткий припис, і трохи далі побачимо ціну помилки в ньому.
 

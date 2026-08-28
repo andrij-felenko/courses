@@ -29,19 +29,22 @@
           "comp": [
             {
               "file": "comp-fec-families.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-coding-gain.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-fec-pipeline.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -52,7 +55,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -63,13 +67,15 @@
           "math": [
             {
               "file": "math-fec-overhead.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-packet-fec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -109,7 +115,8 @@
           "proj": [
             {
               "file": "proj-hamming-codec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -138,7 +145,8 @@
           "proj": [
             {
               "file": "proj-secded-codec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -160,7 +168,8 @@
           "proj": [
             {
               "file": "proj-golay-codec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -182,13 +191,16 @@
           "math": [
             {
               "file": "math-plotkin-recursion.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-majority-decoder.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -216,7 +228,8 @@
           "proj": [
             {
               "file": "proj-perfect-code-check.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -262,7 +275,8 @@
           "proj": [
             {
               "file": "proj-linear-codec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -297,7 +311,8 @@
           "proj": [
             {
               "file": "proj-cyclic-codec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -326,7 +341,8 @@
           "proj": [
             {
               "file": "proj-bch-codec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -338,7 +354,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {

@@ -14,26 +14,7 @@
 
 Опишімо кодер один раз таблицею переходів: для кожної пари (стан, вхідний біт) — куди перейдемо і який контрольний біт видамо.
 
-```python
-import math, random
-
-NS = 4                              # 2² стани: два біти пам'яті
-def rsc_step(state, u):
-    m1, m2 = (state >> 1) & 1, state & 1
-    a  = u ^ m1 ^ m2                # зворотний зв'язок 1+D+D² (7₈)
-    p  = a ^ m2                     # прямий відвід    1+D² (5₈)
-    ns = ((a << 1) | m1) & 3
-    return ns, p                    # систематичний вихід = u; контроль = p
-
-TRELLIS = [[rsc_step(s, u) for u in (0, 1)] for s in range(NS)]
-
-def rsc_encode(bits):
-    s, par = 0, []
-    for u in bits:
-        s, p = TRELLIS[s][u]
-        par.append(p)
-    return par
-```
+:::code proj-turbo-decoder/py/skladnyk-rekursyvnyi-koder.py
 
 Уся суть — у рядку `a = u ^ m1 ^ m2`. Це і є зворотний зв'язок: замість того щоб просто засунути вхідний біт у регістр, кодер спершу підмішує до нього обидва біти пам'яті. Через це навіть одна-однісінька одиниця на вході запускає **нескінченну** відповідь: раз попавши в петлю, вона гуляє регістром і псує контроль ще довго. Саме ця «злопам'ятність» рекурсивного кодера й потрібна турбокоду — вона робить погані вхідні візерунки рідкісними, а перемішувачу є що розтягувати. Контрольний біт `p = a ^ m2` знімає прямий відвід 1 + D², а зсув `(a << 1) | m1` вкидає свіже `a` у пам'ять і виштовхує найстаріший біт.
 
@@ -43,21 +24,7 @@ def rsc_encode(bits):
 
 Тепер паралельна конкатенація. Перший кодер працює з бітами як є; другий — з тими самими бітами, але переставленими [перемішувачем](root:com-modulation/interleaving). Найпростіший робочий перемішувач — випадкова перестановка з фіксованим зерном (щоб і кодер, і декодер знали ту саму розкладку). Разом із нею одразу порахуємо й **зворотну**: вона знадобиться декодеру, щоб розставляти оцінки назад.
 
-```python
-def make_interleaver(N, rng):
-    perm = list(range(N))
-    rng.shuffle(perm)
-    inv = [0]*N
-    for i, pi in enumerate(perm):
-        inv[pi] = i                # inv розставляє perm назад
-    return perm, inv
-
-def turbo_encode(u, perm):
-    p1 = rsc_encode(u)                        # контроль 1 — прямий порядок
-    up = [u[perm[i]] for i in range(len(u))]  # ті самі біти, переставлені
-    p2 = rsc_encode(up)                       # контроль 2 — на переставлених
-    return u, p1, p2                          # систематичні + два контролі → 1/3
-```
+:::code proj-turbo-decoder/py/peremishuvach-i-povnyi.py
 
 На кожен інформаційний біт у канал іде три: сам біт, контроль першого кодера й контроль другого. Ось звідки швидкість 1/3. Зверніть увагу, чого тут **немає**: ми не заводимо кодери назад у нульовий стан (не термінуємо решітку). У справжніх стандартах решітку термінують кількома хвостовими бітами, щоб декодер точно знав, де вона кінчається; ми обійдемося без цього й розплатимося дрібницею на краю кадру — до цього повернемось у пастках.
 
@@ -110,57 +77,7 @@ def maxstar(a, b):                 # якобіанів логарифм — т�
 
 Тепер сам SISO. Гілкова метрика `gamma` збирає докази на гілці: систематичний біт `u` підпирають і апріорна звістка `La`, і канальний `Ls`, а контрольний біт `p` — канальний `Lp`. Прохід уперед накопичує `alpha` («як імовірно дійти сюди»), назад — `beta` («як імовірно звідси дотягти»), а тоді для кожного біта беремо різницю двох `max*`-сум: усі гілки з `u = 1` проти всіх із `u = 0`.
 
-```python
-NEG = -1e30
-
-def siso(Ls, Lp, La):
-    N = len(Ls)
-
-    def gamma(k, s, u):                 # логарифм гілкової метрики + куди веде
-        ns, p = TRELLIS[s][u]
-        us = 1.0 if u else -1.0
-        ps = 1.0 if p else -1.0
-        return 0.5 * (us * (La[k] + Ls[k]) + ps * Lp[k]), ns
-
-    # ── уперед: alpha[k][s] — логарифм імовірності дійти до стану s у час k ──
-    alpha = [[NEG]*NS for _ in range(N+1)]
-    alpha[0][0] = 0.0                   # старт відомий: стан 0
-    for k in range(N):
-        for s in range(NS):
-            if alpha[k][s] <= NEG: continue
-            for u in (0, 1):
-                g, ns = gamma(k, s, u)
-                alpha[k+1][ns] = maxstar(alpha[k+1][ns], alpha[k][s] + g)
-        mx = max(alpha[k+1])            # нормуємо — інакше числа попливуть
-        for s in range(NS):
-            if alpha[k+1][s] > NEG: alpha[k+1][s] -= mx
-
-    # ── назад: beta[k][s] — логарифм імовірності з s дотягти до кінця ──
-    beta = [[NEG]*NS for _ in range(N+1)]
-    for s in range(NS): beta[N][s] = 0.0   # кінець невідомий → всі стани рівно
-    for k in range(N-1, -1, -1):
-        for s in range(NS):
-            for u in (0, 1):
-                g, ns = gamma(k, s, u)
-                beta[k][s] = maxstar(beta[k][s], beta[k+1][ns] + g)
-        mx = max(beta[k])
-        for s in range(NS):
-            if beta[k][s] > NEG: beta[k][s] -= mx
-
-    # ── повний LLR і зовнішня частка ──
-    Le = [0.0]*N
-    for k in range(N):
-        num = den = NEG                 # логсуми гілок з u=1 / u=0
-        for s in range(NS):
-            if alpha[k][s] <= NEG: continue
-            for u in (0, 1):
-                g, ns = gamma(k, s, u)
-                v = alpha[k][s] + g + beta[k+1][ns]
-                if u: num = maxstar(num, v)
-                else: den = maxstar(den, v)
-        Le[k] = (num - den) - Ls[k] - La[k]   # прибрати канал і апріорі
-    return Le
-```
+:::code proj-turbo-decoder/py/sertse-siso-dekoder-na.py
 
 Останній рядок — та сама тонкість, що дала турбокодам ім'я. Повний LLR біта `num − den` містить **усе**: і те, що сказав канал (`Ls`), і те, що нашептав напарник минулого оберту (`La`), і те нове, що видобув цей декодер із перевірок свого коду. Напарникові годиться віддати **лише останнє** — тож віднімаємо перші два. Те, що лишилось, `Le`, і є **зовнішня інформація**: чистий здобуток саме цього коду, без відлуння чужих слів.
 
@@ -170,21 +87,7 @@ def siso(Ls, Lp, La):
 
 Тепер з'єднаймо два SISO в турбіну. Перший працює на прямому контролі, другий — на переставленому; між ними перемішувач розкладає й зкладає оцінки. Систематичний потік другому декодеру теж потрібен переставленим — тому наперед готуємо `Lsp`. На старті апріорі немає, тож `La1` — нулі. Після кожного повного оберту знімаємо тверде рішення з повного LLR першого декодера.
 
-```python
-def turbo_decode(Ls, Lp1, Lp2, perm, inv, niters):
-    N = len(Ls)
-    Lsp = [Ls[perm[i]] for i in range(N)]     # систематичні у переставленому порядку
-    La1 = [0.0]*N                             # спершу апріорі немає
-    hist = []
-    for _ in range(niters):
-        Le1 = siso(Ls,  Lp1, La1)             # декодер 1 — прямий контроль
-        La2 = [Le1[perm[i]] for i in range(N)]      # → переставити для декодера 2
-        Le2 = siso(Lsp, Lp2, La2)             # декодер 2 — переставлений контроль
-        La1 = [Le2[inv[i]] for i in range(N)]       # ← розставити назад
-        bits = [1 if Ls[k] + La1[k] + Le1[k] > 0 else 0 for k in range(N)]
-        hist.append(bits)                     # рішення після цього оберту
-    return hist
-```
+:::code proj-turbo-decoder/py/petlia-dva-dekodery.py
 
 Ось і весь турбопринцип у восьми рядках. `Le1 → perm → La2`: перший декодер шепоче другому, але в його, переставленому порядку. `Le2 → inv → La1`: другий відповідає, розставлене назад у прямий порядок. Оцінки біжать по колу, а `hist` зберігає рішення після кожного оберту — щоб ми могли поміряти, як помилок меншає від ітерації до ітерації.
 
@@ -192,30 +95,7 @@ def turbo_decode(Ls, Lp1, Lp2, perm, inv, niters):
 
 Лишилось обгорнути все в експеримент: нагенерувати кадри, прогнати крізь кодер, канал і декодер, порахувати помилки після кожного оберту.
 
-```python
-def experiment(N, EbN0dB, nframes, niters, seed=11):
-    rng = random.Random(seed)
-    R = 1.0/3.0
-    EbN0 = 10**(EbN0dB/10.0)
-    sigma = math.sqrt(1.0/(2.0*R*EbN0))
-    Lc = 2.0/(sigma*sigma)
-    perm, inv = make_interleaver(N, rng)
-    errs = [0]*niters
-    for _ in range(nframes):
-        u = [rng.randint(0, 1) for _ in range(N)]
-        sysb, p1, p2 = turbo_encode(u, perm)
-        Ls  = bpsk_awgn(sysb, sigma, Lc, rng)
-        Lp1 = bpsk_awgn(p1,   sigma, Lc, rng)
-        Lp2 = bpsk_awgn(p2,   sigma, Lc, rng)
-        hist = turbo_decode(Ls, Lp1, Lp2, perm, inv, niters)
-        for it, bits in enumerate(hist):
-            errs[it] += sum(1 for k in range(N) if bits[k] != u[k])
-    return [e/(nframes*N) for e in errs]
-
-for snr in (0.5, 1.0):
-    ber = experiment(N=1024, EbN0dB=snr, nframes=80, niters=10)
-    print("%.1f дБ:" % snr, " ".join("%.2e" % b for b in ber))
-```
+:::code proj-turbo-decoder/py/prohin-i-vodospad-po.py
 
 І ось що друкує цей прогін (1024 біти на кадр, 80 кадрів, log-MAP):
 
@@ -254,24 +134,7 @@ def maxstar(a, b):
     m = a if a > b else b
     return m + math.log1p(math.exp(-abs(a - b)))
 ```
-```c
-// Гарячий шлях модема: поправку беремо з таблиці, без exp/log.
-// Точність log-MAP за ціну, близьку до голого max.
-static float CORR[65];                 // ln(1+e^−x) для x ∈ [0,8), крок 1/8
-
-void maxstar_init(void) {
-    for (int i = 0; i < 65; i++)
-        CORR[i] = logf(1.0f + expf(-i / 8.0f));
-}
-
-static inline float maxstar(float a, float b) {
-    float d = a - b;
-    float m = (d > 0.0f) ? a : b;
-    float x = (d > 0.0f) ? d : -d;     // |a − b|
-    if (x >= 8.0f) return m;           // поправка вже ≈ 0
-    return m + CORR[(int)(x * 8.0f)];  // один доступ до таблиці
-}
-```
+:::code proj-turbo-decoder/c/main.c
 :::
 
 Логіка та сама — максимум плюс поправка, — але C-версія міняє два трансцендентні виклики на одне порівняння й одне читання таблиці. На мільйонах викликів це різниця між «крутиться в реальному часі на кожному кадрі LTE» і «ні». Решту декодера — накопичення `alpha`/`beta` — так само розкладають на цілочисельну арифметику й розгортають під конкретну решітку; але серце оптимізації саме тут, у `max*`.

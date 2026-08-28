@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -33,24 +34,29 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-pam4-standards.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-pam4-snr-penalty.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-pam4-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -67,7 +73,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -83,7 +90,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -105,7 +113,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -128,7 +137,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         },
         {
@@ -139,30 +149,36 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-cvbs-timings.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-ntsc-color-compat.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-cvbs-spectral-interleaving.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-cvbs-dsp-synth.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -184,7 +200,8 @@
           "proj": [
             {
               "file": "proj-cvbs-generator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -201,7 +218,8 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -218,7 +236,8 @@
           "proj": [
             {
               "file": "proj-deinterlacer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -247,7 +266,8 @@
           "proj": [
             {
               "file": "proj-pal-demodulator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -258,7 +278,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -281,7 +302,8 @@
           "proj": [
             {
               "file": "proj-osd-spi-injector.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
