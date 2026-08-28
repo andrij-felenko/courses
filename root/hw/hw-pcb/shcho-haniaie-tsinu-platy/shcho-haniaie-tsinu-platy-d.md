@@ -282,77 +282,8 @@ K_util = (N_boards · Width_board · Height_board) / (Width_panel · Height_pane
 Нижче наведено фрагмент розрахункового модуля на C та C++ у форматі вкладок `:::tabs`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <math.h>
-
-typedef struct {
-    double width_mm;
-    double height_mm;
-    int layer_count;
-    double copper_oz;
-    double min_trace_mil;
-    int quantity;
-    int turnaround_hours;
-} QuickPcbSpec;
-
-double calculate_quick_estimate(const QuickPcbSpec* s) {
-    const double panel_w = 457.0 - 25.0; // 18" мінус поля
-    const double panel_h = 610.0 - 25.0; // 24" мінус поля
-
-    int nx = (int)floor((panel_w + 2.0) / (s->width_mm + 2.0));
-    int ny = (int)floor((panel_h + 2.0) / (s->height_mm + 2.0));
-    int per_panel = (nx > 0 && ny > 0) ? (nx * ny) : 1;
-
-    double layer_factor = 1.0 + 0.45 * (double)(s->layer_count > 2 ? s->layer_count - 2 : 0);
-    double cu_factor = 1.0 + 0.40 * (s->copper_oz > 1.0 ? s->copper_oz - 1.0 : 0.0);
-    double rush_factor = (s->turnaround_hours <= 48) ? 2.5 : 1.0;
-
-    double panel_base_cost = 45.0 * layer_factor * cu_factor * rush_factor;
-    double nre_base = (s->layer_count > 2 ? 150.0 : 60.0) * rush_factor;
-
-    int panels = (s->quantity + per_panel - 1) / per_panel;
-    double total = nre_base + (double)panels * panel_base_cost;
-
-    return total / (double)s->quantity;
-}
-```
-```cpp
-#include <iostream>
-#include <cmath>
-#include <algorithm>
-
-struct QuickPcbSpec {
-    double width_mm{0.0};
-    double height_mm{0.0};
-    int layer_count{2};
-    double copper_oz{1.0};
-    double min_trace_mil{6.0};
-    int quantity{100};
-    int turnaround_hours{120};
-};
-
-[[nodiscard]] constexpr double calculate_quick_estimate(const QuickPcbSpec& s) noexcept {
-    constexpr double panel_w = 457.0 - 25.0; // 18" мінус поля
-    constexpr double panel_h = 610.0 - 25.0; // 24" мінус поля
-
-    const int nx = static_cast<int>(std::floor((panel_w + 2.0) / (s.width_mm + 2.0)));
-    const int ny = static_cast<int>(std::floor((panel_h + 2.0) / (s.height_mm + 2.0)));
-    const int per_panel = std::max(1, nx * ny);
-
-    const double layer_factor = 1.0 + 0.45 * static_cast<double>(s.layer_count > 2 ? s.layer_count - 2 : 0);
-    const double cu_factor = 1.0 + 0.40 * std::max(0.0, s.copper_oz - 1.0);
-    const double rush_factor = (s.turnaround_hours <= 48) ? 2.5 : 1.0;
-
-    const double panel_base_cost = 45.0 * layer_factor * cu_factor * rush_factor;
-    const double nre_base = (s.layer_count > 2 ? 150.0 : 60.0) * rush_factor;
-
-    const int panels = (s.quantity + per_panel - 1) / per_panel;
-    const double total = nre_base + static_cast<double>(panels) * panel_base_cost;
-
-    return total / static_cast<double>(s.quantity);
-}
-```
+:::code shcho-haniaie-tsinu-platy-d/c/main.c
+:::code shcho-haniaie-tsinu-platy-d/cpp/main.hpp
 :::
 
 Повну параметричну модель із розрахунком густини дефектів за законом Пуассона, аналізом типів фінішних покриттів, вибором орієнтації розкрою та підтримкою VIPPO реалізовано в проектній вставці: [Параметричний калькулятор собівартості друкованих плат](root:hw-pcb/shcho-haniaie-tsinu-platy/proj-pcb-cost-estimator.md).

@@ -40,343 +40,44 @@
 Зберемо це в код. Тон — як у справжньому редакторі схем (це настільна програма на C++), тож структури тримають геометрію та імена, а union-find зводить усе докупи. Почнемо з типів і координатної арифметики на сітці.
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <algorithm>
-
-// Точка на аркуші — у КРОКАХ СІТКИ (цілі!), щоб «дотик» був точним ==, а не «майже».
-struct Point {
-    int32_t x, y;
-    bool operator==(const Point& o) const { return x == o.x && y == o.y; }
-};
-struct PointHash {                       // щоб Point міг бути ключем у хеш-таблиці
-    size_t operator()(const Point& p) const {
-        return (uint64_t(uint32_t(p.x)) << 32) ^ uint32_t(p.y);
-    }
-};
-
-struct Wire { Point a, b; };             // відрізок дроту: два кінці
-struct Pin  { Point at; int part, num; std::string name; };  // вивід деталі
-
-// Мітка ланцюга. scope розрізняє радіус дії: локальна діє в межах аркуша,
-// глобальна — по всьому проєкту. Тому ключ збігу — ПАРА (ім'я, область).
-enum class Scope { Local, Global };
-struct Label { Point at; std::string name; Scope scope; int sheet; };
-```
-```python
-from dataclasses import dataclass
-from enum import Enum
-
-# Точка на аркуші — у КРОКАХ СІТКИ (цілі!), щоб «дотик» був точним ==, а не «майже».
-# frozen=True робить точку незмінною й хешованою — тож вона годиться в ключ dict/set,
-# а рівність двох точок — це збіг обох координат (Python дає __eq__/__hash__ даром).
-@dataclass(frozen=True)
-class Point:
-    x: int
-    y: int
-
-@dataclass
-class Wire:                              # відрізок дроту: два кінці
-    a: Point
-    b: Point
-
-@dataclass
-class Pin:                               # вивід деталі
-    at: Point
-    part: int
-    num: int
-    name: str
-
-# Мітка ланцюга. scope розрізняє радіус дії: локальна діє в межах аркуша,
-# глобальна — по всьому проєкту. Тому ключ збігу — ПАРА (ім'я, область).
-class Scope(Enum):
-    LOCAL = 0
-    GLOBAL = 1
-
-@dataclass
-class Label:
-    at: Point
-    name: str
-    scope: Scope
-    sheet: int
-```
+:::code proj-netlist-build/cpp/roboche-iadro-vid-obiektiv.cpp
+:::code proj-netlist-build/py/roboche-iadro-vid-obiektiv.py
 :::
 
 Координати — цілі кроки сітки, бо «дотик» мусить бути рівністю, а не наближенням. Тепер геометричний предикат — серце склеювання. Кінець дроту дотикається до іншого дроту або тоді, коли збігається з його кінцем, або коли **лежить на ньому всередині** (Т-дотик). Для ортогональних (горизонтальних/вертикальних) дротів — а на схемі такі майже всі — перевірка «точка на відрізку» зводиться до простого порівняння координат.
 
 :::tabs
-```cpp
-// Чи лежить точка p на ВІДРІЗКУ дроту w (включно з кінцями)?
-// Дроти на схемі ортогональні, тож достатньо розглянути H- і V-випадки.
-static bool point_on_wire(const Point& p, const Wire& w) {
-    if (w.a.y == w.b.y) {                                  // горизонтальний
-        if (p.y != w.a.y) return false;
-        return p.x >= std::min(w.a.x, w.b.x) && p.x <= std::max(w.a.x, w.b.x);
-    }
-    if (w.a.x == w.b.x) {                                  // вертикальний
-        if (p.x != w.a.x) return false;
-        return p.y >= std::min(w.a.y, w.b.y) && p.y <= std::max(w.a.y, w.b.y);
-    }
-    // навскісний дріт — рідкість; повна перевірка колінеарності + меж:
-    int64_t cross = int64_t(p.x - w.a.x) * (w.b.y - w.a.y)
-                  - int64_t(p.y - w.a.y) * (w.b.x - w.a.x);
-    if (cross != 0) return false;
-    return p.x >= std::min(w.a.x, w.b.x) && p.x <= std::max(w.a.x, w.b.x)
-        && p.y >= std::min(w.a.y, w.b.y) && p.y <= std::max(w.a.y, w.b.y);
-}
-```
-```python
-# Чи лежить точка p на ВІДРІЗКУ дроту w (включно з кінцями)?
-# Дроти на схемі ортогональні, тож достатньо розглянути H- і V-випадки.
-def point_on_wire(p: Point, w: Wire) -> bool:
-    if w.a.y == w.b.y:                                     # горизонтальний
-        if p.y != w.a.y:
-            return False
-        return min(w.a.x, w.b.x) <= p.x <= max(w.a.x, w.b.x)
-    if w.a.x == w.b.x:                                     # вертикальний
-        if p.x != w.a.x:
-            return False
-        return min(w.a.y, w.b.y) <= p.y <= max(w.a.y, w.b.y)
-    # навскісний дріт — рідкість; повна перевірка колінеарності + меж:
-    cross = (p.x - w.a.x) * (w.b.y - w.a.y) \
-          - (p.y - w.a.y) * (w.b.x - w.a.x)
-    if cross != 0:
-        return False
-    return (min(w.a.x, w.b.x) <= p.x <= max(w.a.x, w.b.x)
-            and min(w.a.y, w.b.y) <= p.y <= max(w.a.y, w.b.y))
-```
+:::code proj-netlist-build/cpp/roboche-iadro-vid-obiektiv-2.cpp
+:::code proj-netlist-build/py/roboche-iadro-vid-obiektiv-2.py
 :::
 
 Тепер union-find. Він короткий, але саме він робить «склеювання»: спершу кожен об'єкт сам собі ланцюг, далі за кожним дотиком два ланцюги зливаються в один.
 
 :::tabs
-```cpp
-struct DSU {
-    std::vector<int> parent, rank_;
-    explicit DSU(int n) : parent(n), rank_(n, 0) {
-        for (int i = 0; i < n; ++i) parent[i] = i;   // кожен — сам собі корінь
-    }
-    int find(int x) {
-        while (parent[x] != x) x = parent[x] = parent[parent[x]];  // стиснення шляху
-        return x;
-    }
-    void unite(int a, int b) {                       // злити два ланцюги
-        a = find(a); b = find(b);
-        if (a == b) return;
-        if (rank_[a] < rank_[b]) std::swap(a, b);
-        parent[b] = a;
-        if (rank_[a] == rank_[b]) ++rank_[a];
-    }
-};
-```
-```python
-class DSU:
-    def __init__(self, n: int):
-        self.parent = list(range(n))     # кожен — сам собі корінь
-        self.rank = [0] * n
-
-    def find(self, x: int) -> int:
-        while self.parent[x] != x:
-            self.parent[x] = self.parent[self.parent[x]]  # стиснення шляху
-            x = self.parent[x]
-        return x
-
-    def unite(self, a: int, b: int) -> None:             # злити два ланцюги
-        a, b = self.find(a), self.find(b)
-        if a == b:
-            return
-        if self.rank[a] < self.rank[b]:
-            a, b = b, a
-        self.parent[b] = a
-        if self.rank[a] == self.rank[b]:
-            self.rank[a] += 1
-```
+:::code proj-netlist-build/cpp/roboche-iadro-vid-obiektiv-3.cpp
+:::code proj-netlist-build/py/roboche-iadro-vid-obiektiv-3.py
 :::
 
 Зведімо геометрію. Кожному пінові й кожному кінцю дроту дамо **вузол** — індекс у DSU. Щоб не плодити вузлів-двійників на тих самих координатах, заведемо мапу `Point → вузол`: усе, що сходиться в одну точку сітки, дістає **той самий** вузол — і цим уже автоматично злите. Лишається додати Т-дотики, яких збігом координат не зловиш.
 
 :::tabs
-```cpp
-struct NodeMap {
-    std::unordered_map<Point, int, PointHash> id;
-    std::vector<Point> pt;                    // вузол → координата (для діагностики)
-    int node_at(const Point& p) {
-        auto it = id.find(p);
-        if (it != id.end()) return it->second; // уже є вузол на цій точці
-        int n = (int)pt.size();
-        id.emplace(p, n);
-        pt.push_back(p);
-        return n;                              // новий вузол на новій точці
-    }
-};
-
-// Будуємо геометричні ланцюги: спільна координата → спільний вузол;
-// кінці кожного дроту зливаємо; Т-дотики ловимо окремим проходом.
-static DSU build_geometry(const std::vector<Wire>& wires,
-                          const std::vector<Pin>&  pins,
-                          NodeMap& nm)
-{
-    // 1) Заводимо вузли на всіх кінцях дротів і всіх пінах (збіг точок = той самий вузол).
-    for (const auto& w : wires) { nm.node_at(w.a); nm.node_at(w.b); }
-    for (const auto& p : pins)  { nm.node_at(p.at); }
-
-    DSU dsu((int)nm.pt.size());
-
-    // 2) Кінці того самого дроту — очевидно один ланцюг.
-    for (const auto& w : wires)
-        dsu.unite(nm.node_at(w.a), nm.node_at(w.b));
-
-    // 3) Т-ДОТИКИ: вузол (пін чи кінець дроту), що лежить УСЕРЕДИНІ іншого дроту.
-    //    Без цього кроку трійник «кінець у середину» загубився б.
-    for (int v = 0; v < (int)nm.pt.size(); ++v) {
-        const Point& p = nm.pt[v];
-        for (const auto& w : wires) {
-            if (p == w.a || p == w.b) continue;        // кінці вже злиті в кроці 2
-            if (point_on_wire(p, w)) {                 // p сидить на тілі дроту w
-                dsu.unite(v, nm.node_at(w.a));         // приєднати до того дроту
-            }
-        }
-    }
-    return dsu;
-}
-```
-```python
-class NodeMap:
-    def __init__(self):
-        self.id: dict[Point, int] = {}       # точка → вузол
-        self.pt: list[Point] = []            # вузол → координата (для діагностики)
-
-    def node_at(self, p: Point) -> int:
-        n = self.id.get(p)
-        if n is not None:                    # уже є вузол на цій точці
-            return n
-        n = len(self.pt)
-        self.id[p] = n
-        self.pt.append(p)
-        return n                             # новий вузол на новій точці
-
-
-# Будуємо геометричні ланцюги: спільна координата → спільний вузол;
-# кінці кожного дроту зливаємо; Т-дотики ловимо окремим проходом.
-def build_geometry(wires: list[Wire], pins: list[Pin], nm: NodeMap) -> DSU:
-    # 1) Заводимо вузли на всіх кінцях дротів і всіх пінах (збіг точок = той самий вузол).
-    for w in wires:
-        nm.node_at(w.a)
-        nm.node_at(w.b)
-    for p in pins:
-        nm.node_at(p.at)
-
-    dsu = DSU(len(nm.pt))
-
-    # 2) Кінці того самого дроту — очевидно один ланцюг.
-    for w in wires:
-        dsu.unite(nm.node_at(w.a), nm.node_at(w.b))
-
-    # 3) Т-ДОТИКИ: вузол (пін чи кінець дроту), що лежить УСЕРЕДИНІ іншого дроту.
-    #    Без цього кроку трійник «кінець у середину» загубився б.
-    for v, p in enumerate(nm.pt):
-        for w in wires:
-            if p == w.a or p == w.b:         # кінці вже злиті в кроці 2
-                continue
-            if point_on_wire(p, w):          # p сидить на тілі дроту w
-                dsu.unite(v, nm.node_at(w.a))  # приєднати до того дроту
-    return dsu
-```
+:::code proj-netlist-build/cpp/roboche-iadro-vid-obiektiv-4.cpp
+:::code proj-netlist-build/py/roboche-iadro-vid-obiektiv-4.py
 :::
 
 Геометрія склеєна. Тепер **долити імена**. Збираємо мітки в групи за ключем «ім'я + радіус дії» і всередині кожної групи зливаємо вузли точок, на яких ці мітки висять. Локальні мітки додатково розрізняємо за номером аркуша — щоб `SDA` з аркуша 1 не злився з `SDA` з аркуша 2.
 
-```cpp
-// Ключ збігу мітки: ім'я + область видимості (+ аркуш для локальних).
-static std::string label_key(const Label& L) {
-    if (L.scope == Scope::Global) return "G:" + L.name;          // на весь проєкт
-    return "L:" + std::to_string(L.sheet) + ":" + L.name;         // лише цей аркуш
-}
-
-// Зливаємо за іменами: усі точки з однаковим ключем мітки → один ланцюг.
-static void merge_by_labels(const std::vector<Label>& labels,
-                            NodeMap& nm, DSU& dsu)
-{
-    std::unordered_map<std::string, int> first_node;   // ключ → перший побачений вузол
-    for (const auto& L : labels) {
-        int v = nm.node_at(L.at);                      // вузол точки, де висить мітка
-        std::string k = label_key(L);
-        auto it = first_node.find(k);
-        if (it == first_node.end()) first_node.emplace(k, v); // перша з цим іменем
-        else dsu.unite(it->second, v);                 // решта — зливаємо з першою
-    }
-}
-```
+:::code proj-netlist-build/cpp/roboche-iadro-vid-obiektiv-5.cpp
 
 Тепер **шина**. Запис `DATA[0..7]` — це скорочення; розгорнімо його у вісім окремих імен. Розбір простий: префікс, відкрита дужка, два числа через `..`, закрита дужка. Кожне розгорнуте ім'я далі — звичайна мітка, тож шина не потребує окремого механізму злиття, лише цього розгортання.
 
-```cpp
-// Розгорнути векторну шину "DATA[0..7]" → ["DATA0","DATA1",...,"DATA7"].
-// Якщо запис не схожий на шину — повертаємо саме ім'я як єдиний член.
-static std::vector<std::string> expand_bus(const std::string& name) {
-    size_t lb = name.find('[');
-    size_t dd = name.find("..", lb == std::string::npos ? 0 : lb);
-    size_t rb = name.find(']', dd == std::string::npos ? 0 : dd);
-    if (lb == std::string::npos || dd == std::string::npos || rb == std::string::npos
-        || !(lb < dd && dd < rb)) {
-        return { name };                               // не шина — звичайна мітка
-    }
-    std::string prefix = name.substr(0, lb);
-    int lo = std::stoi(name.substr(lb + 1, dd - lb - 1));
-    int hi = std::stoi(name.substr(dd + 2, rb - dd - 2));
-    int step = (lo <= hi) ? 1 : -1;                    // діапазон може й спадати
-    std::vector<std::string> members;
-    for (int i = lo; ; i += step) {
-        members.push_back(prefix + std::to_string(i)); // DATA0, DATA1, ...
-        if (i == hi) break;
-    }
-    return members;
-}
-```
+:::code proj-netlist-build/cpp/roboche-iadro-vid-obiektiv-6.cpp
 
 Маючи розгортання, відгалуження від шини обробляємо як звичайні мітки: на кінці кожного «зриву» стоїть мітка члена (`DATA3`), і вона зливається з однойменним пином деталі через `merge_by_labels`. А мітку на самій шині (`DATA[0..7]`) розгортаємо й кожному членові ставимо точку на шині — щоб `DATA3`-член і `DATA3`-пін зустрілися за іменем.
 
 Лишається **зібрати нетлист** — згрупувати піни за коренем DSU — і **дати ланцюгам імена**. Ім'я ланцюга бере мітка, якщо вона на ньому є; інакше редактор присвоює службове на кшталт `Net-(U1-Pad3)`.
 
-```cpp
-struct Net {
-    std::string name;                 // ім'я з мітки або службове
-    std::vector<int> pins;            // індекси пінів у цьому ланцюзі
-};
-
-static std::vector<Net> build_netlist(const std::vector<Wire>&  wires,
-                                      const std::vector<Pin>&   pins,
-                                      const std::vector<Label>& labels)
-{
-    NodeMap nm;
-    DSU dsu = build_geometry(wires, pins, nm);   // 1) склеїти за дотиком
-    merge_by_labels(labels, nm, dsu);            // 2) долити за іменами (й членами шин)
-
-    // 3) Згрупувати ПІНИ за коренем ланцюга.
-    std::unordered_map<int, Net> by_root;
-    for (size_t i = 0; i < pins.size(); ++i) {
-        int root = dsu.find(nm.node_at(pins[i].at));
-        by_root[root].pins.push_back((int)i);
-    }
-    // 4) Дати ланцюгам імена з міток, що на них висять.
-    for (const auto& L : labels) {
-        int root = dsu.find(nm.node_at(L.at));
-        auto it = by_root.find(root);
-        if (it != by_root.end() && it->second.name.empty())
-            it->second.name = L.name;            // перша мітка дає ім'я ланцюгу
-    }
-    std::vector<Net> nets;
-    for (auto& kv : by_root) {
-        if (kv.second.name.empty())
-            kv.second.name = "Net-" + std::to_string(kv.first); // службове ім'я
-        nets.push_back(std::move(kv.second));
-    }
-    return nets;
-}
-```
+:::code proj-netlist-build/cpp/roboche-iadro-vid-obiektiv-7.cpp
 
 Це повний кістяк: координатний дотик (включно з Т-дотиками й крапками), злиття за іменами з урахуванням радіуса дії, розгортання шин — і збір ланцюгів із іменами. Усе разом — лінійно швидке, бо union-find із стисненням шляху працює майже за сталий час на операцію.
 
@@ -398,37 +99,7 @@ static void warn_singletons(const std::vector<Net>& nets) {
 
 Друкарська помилка — тонше. Редактор не знає, що `LED_EN` і `LED_NE` мали бути одним ланцюгом. Та він **може** запідозрити: якщо два **різні** ланцюги мають імена, що відрізняються на крихту (одна літера), і кожен при цьому «бідний» (мало пінів) — це підозра на одрук. Корисна евристика — **відстань Левенштайна** (англ. *Levenshtein distance* — мінімум вставок/вилучень/замін літер, щоб зробити один рядок іншим): імена на відстані 1 варто показати інженерові.
 
-```cpp
-// Відстань Левенштайна: скільки правок (вставити/вилучити/замінити літеру)
-// перетворюють a на b. Імена з відстанню 1 — кандидати на одрук.
-static int lev(const std::string& a, const std::string& b) {
-    std::vector<int> d(b.size() + 1);
-    for (size_t j = 0; j <= b.size(); ++j) d[j] = (int)j;
-    for (size_t i = 1; i <= a.size(); ++i) {
-        int prev = d[0]; d[0] = (int)i;
-        for (size_t j = 1; j <= b.size(); ++j) {
-            int cur = d[j];
-            d[j] = std::min({ d[j] + 1,                       // вилучити
-                              d[j - 1] + 1,                   // вставити
-                              prev + (a[i-1] != b[j-1]) });   // замінити
-            prev = cur;
-        }
-    }
-    return d[b.size()];
-}
-
-// Попередити про пари іменованих ланцюгів, чиї імена відрізняються на 1 правку.
-static void warn_typos(const std::vector<Net>& nets) {
-    for (size_t i = 0; i < nets.size(); ++i)
-        for (size_t j = i + 1; j < nets.size(); ++j) {
-            const std::string& a = nets[i].name, & b = nets[j].name;
-            if (a.rfind("Net-",0)==0 || b.rfind("Net-",0)==0) continue; // лише іменовані
-            if (a.size() == b.size() && lev(a, b) == 1)
-                printf("ПОПЕРЕДЖЕННЯ: '%s' і '%s' схожі — одрук в імені?\n",
-                       a.c_str(), b.c_str());
-        }
-}
-```
+:::code proj-netlist-build/cpp/lovlia-pomylok-prosto-na.cpp
 
 Ця евристика не безгрішна (`D0` і `D1` — теж відстань 1, а це навмисно різні ланцюги), тож вона лише **підказує**, а не забороняє. Але саме вона ловить найкаверзніший випадок із наступного розділу — кириличну літеру в латинському імені, бо для неї `VCC` і `VСС` — два рядки на відстані заміни.
 

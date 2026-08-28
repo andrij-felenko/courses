@@ -319,80 +319,8 @@ USB-UART Адаптер (TX = 3.3 В) ──► Вхід RX мікроконтр
 Нижче наведено порівняльний приклад коду базової конфігурації та опитування струмового монітора на мовах C99 та C++20.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define INA226_ADDR         0x40
-#define REG_CONFIG          0x00
-#define REG_CURRENT         0x04
-#define REG_BUS_VOLTAGE     0x02
-#define REG_CALIBRATION     0x05
-
-typedef struct {
-    uint16_t current_limit_ma;
-    uint16_t max_voltage_mv;
-    bool is_armed;
-} PowerProtection_t;
-
-bool check_power_rails(PowerProtection_t *prot, int16_t raw_current, uint16_t raw_voltage) {
-    /* 200 мкА на розряд струму, 1.25 мВ на розряд напруги */
-    int32_t current_ma = ((int32_t)raw_current * 200) / 1000;
-    uint32_t voltage_mv = ((uint32_t)raw_voltage * 1250) / 1000;
-
-    if (!prot->is_armed) {
-        return true;
-    }
-
-    if (current_ma > prot->current_limit_ma || voltage_mv > prot->max_voltage_mv) {
-        prot->is_armed = false; /* Аварійне вимкнення */
-        return false;
-    }
-
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <expected>
-
-namespace protection {
-
-struct Milliamperes { int32_t value{0}; };
-struct Millivolts { uint32_t value{0}; };
-
-enum class FaultReason : uint8_t {
-    OverCurrent,
-    OverVoltage,
-    CommunicationLoss
-};
-
-class BenchSafetyGuard {
-public:
-    constexpr BenchSafetyGuard(Milliamperes limit, Millivolts max_v) noexcept
-        : m_limit{limit}, m_max_voltage{max_v} {}
-
-    [[nodiscard]] std::expected<void, FaultReason> validate(int16_t raw_curr, uint16_t raw_volt) noexcept {
-        int32_t curr_ma = (static_cast<int32_t>(raw_curr) * 200) / 1000;
-        uint32_t volt_mv = (static_cast<uint32_t>(raw_volt) * 1250) / 1000;
-
-        if (curr_ma > m_limit.value) {
-            return std::unexpected(FaultReason::OverCurrent);
-        }
-        if (volt_mv > m_max_voltage.value) {
-            return std::unexpected(FaultReason::OverVoltage);
-        }
-
-        return {};
-    }
-
-private:
-    Milliamperes m_limit;
-    Millivolts m_max_voltage;
-};
-
-} // namespace protection
-```
+:::code pershe-vmykannia-novoi-platy-d/c/main.c
+:::code pershe-vmykannia-novoi-platy-d/cpp/main.cpp
 :::
 
 ## Зведений регламент безпечного першого вмикання

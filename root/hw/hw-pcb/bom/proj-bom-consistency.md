@@ -53,85 +53,8 @@
 Зберемо інструмент. Тон — як у справжній настільній утиліті інженера (це консольна програма на C++), тож вона читає файл, розбирає його за правилами CSV, нормалізує позначення й друкує звіт із кодами. Почнемо з найделікатнішого — розбору одного рядка CSV, що поважає лапки.
 
 :::tabs
-```cpp
-#include <cstdio>
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <unordered_set>
-#include <algorithm>
-
-// Розбити ОДИН рядок CSV на поля за правилами RFC 4180:
-//  - кома РОЗДІЛЯЄ поля ТІЛЬКИ поза лапками;
-//  - поле в лапках може містити коми (вони — частина значення);
-//  - подвоєна лапка "" усередині лапок означає одну літеральну лапку.
-static std::vector<std::string> split_csv_line(const std::string& line) {
-    std::vector<std::string> fields;
-    std::string cur;
-    bool in_quotes = false;
-    for (size_t i = 0; i < line.size(); ++i) {
-        char c = line[i];
-        if (in_quotes) {
-            if (c == '"') {
-                if (i + 1 < line.size() && line[i + 1] == '"') {  // "" → одна лапка
-                    cur.push_back('"');
-                    ++i;                                          // проковтнути другу
-                } else {
-                    in_quotes = false;                            // кінець поля в лапках
-                }
-            } else {
-                cur.push_back(c);                                 // звичайний символ усередині лапок
-            }
-        } else {
-            if (c == '"') {
-                in_quotes = true;                                 // початок поля в лапках
-            } else if (c == ',') {
-                fields.push_back(cur);                            // кома ПОЗА лапками — роздільник
-                cur.clear();
-            } else {
-                cur.push_back(c);
-            }
-        }
-    }
-    fields.push_back(cur);                                        // останнє поле
-    return fields;
-}
-```
-```python
-import sys
-
-# Розбити ОДИН рядок CSV на поля за правилами RFC 4180:
-#  - кома РОЗДІЛЯЄ поля ТІЛЬКИ поза лапками;
-#  - поле в лапках може містити коми (вони — частина значення);
-#  - подвоєна лапка "" усередині лапок означає одну літеральну лапку.
-def split_csv_line(line):
-    fields = []
-    cur = []
-    in_quotes = False
-    i = 0
-    while i < len(line):
-        c = line[i]
-        if in_quotes:
-            if c == '"':
-                if i + 1 < len(line) and line[i + 1] == '"':   # "" → одна лапка
-                    cur.append('"')
-                    i += 1                                     # проковтнути другу
-                else:
-                    in_quotes = False                          # кінець поля в лапках
-            else:
-                cur.append(c)                                  # звичайний символ усередині лапок
-        else:
-            if c == '"':
-                in_quotes = True                               # початок поля в лапках
-            elif c == ',':
-                fields.append("".join(cur))                    # кома ПОЗА лапками — роздільник
-                cur = []
-            else:
-                cur.append(c)
-        i += 1
-    fields.append("".join(cur))                                # останнє поле
-    return fields
-```
+:::code proj-bom-consistency/cpp/roboche-iadro-vid-csv.cpp
+:::code proj-bom-consistency/py/roboche-iadro-vid-csv.py
 :::
 
 Серце тут — прапорець `in_quotes`. Доки ми всередині лапок, кома — звичайний символ, і `R7, R8, R12` лишається **одним** полем. Це рятує саме той випадок, на якому ламаються наївні парсери: перелік позначень із комами.
@@ -139,24 +62,7 @@ def split_csv_line(line):
 Тепер — **нормалізація одного позначення**. Перш ніж порівнювати, треба прибрати дрібні розбіжності написання, через які `r7`, ` R7 ` і `R7` виглядали б трьома різними рядками. Дві дисципліни: відсікти пробіли з країв і звести літерний клас до одного регістру.
 
 :::tabs
-```cpp
-// Обрізати пробіли/табуляції з обох країв.
-static std::string trim(const std::string& s) {
-    size_t a = s.find_first_not_of(" \t\r\n");
-    if (a == std::string::npos) return "";
-    size_t b = s.find_last_not_of(" \t\r\n");
-    return s.substr(a, b - a + 1);
-}
-
-// Нормалізувати позначення: обрізати краї + ВЕЛИКА літерна частина.
-// R7, r7, " R7 " → усі стають "R7", тож у множині вони — один елемент.
-static std::string norm_ref(const std::string& raw) {
-    std::string s = trim(raw);
-    for (char& c : s)
-        if (c >= 'a' && c <= 'z') c -= 32;     // до верхнього регістру (ASCII)
-    return s;
-}
-```
+:::code proj-bom-consistency/cpp/roboche-iadro-vid-csv-2.cpp
 ```python
 # Обрізати пробіли/табуляції з обох країв.
 def trim(s):
@@ -174,75 +80,8 @@ def norm_ref(raw):
 Тепер — **розгортання діапазону** `R1-R4` у `R1, R2, R3, R4`. Розбір простий: знайти дефіс, переконатися, що з обох боків — позначення з **однаковою** літерною частиною й числами, та згенерувати весь проміжок.
 
 :::tabs
-```cpp
-// Розділити позначення на літерний префікс і числовий хвіст: "R12" → ("R",12).
-// Якщо хвіст не число — number = -1 (не діапазонне позначення).
-static void split_ref(const std::string& r, std::string& prefix, int& number) {
-    size_t i = 0;
-    while (i < r.size() && !(r[i] >= '0' && r[i] <= '9')) ++i;   // префікс — до першої цифри
-    prefix = r.substr(0, i);
-    if (i == r.size()) { number = -1; return; }                 // цифр немає
-    number = 0;
-    for (; i < r.size(); ++i) {
-        if (!(r[i] >= '0' && r[i] <= '9')) { number = -1; return; } // хвіст не чисто числовий
-        number = number * 10 + (r[i] - '0');
-    }
-}
-
-// Розгорнути "R1-R4" → {"R1","R2","R3","R4"}. Якщо це не діапазон — повернути сам токен.
-// Працює лише коли префікси збігаються (R..R), а хвости — числа.
-static std::vector<std::string> expand_range(const std::string& token) {
-    size_t dash = token.find('-');
-    if (dash == std::string::npos)
-        return { token };                                       // не діапазон
-
-    std::string lo_s = norm_ref(token.substr(0, dash));
-    std::string hi_s = norm_ref(token.substr(dash + 1));
-    std::string lp, hp; int ln, hn;
-    split_ref(lo_s, lp, ln);
-    split_ref(hi_s, hp, hn);
-
-    // Діапазон правомірний лише якщо обидва боки — позначення з ОДНАКОВИМ префіксом.
-    if (ln < 0 || hn < 0 || lp.empty() || lp != hp)
-        return { norm_ref(token) };                             // не схоже на діапазон — як є
-
-    std::vector<std::string> out;
-    int step = (ln <= hn) ? 1 : -1;                             // діапазон може й спадати
-    for (int n = ln; ; n += step) {
-        out.push_back(lp + std::to_string(n));                  // R1, R2, ...
-        if (n == hn) break;
-    }
-    return out;
-}
-```
-```python
-import re
-
-# Розділити позначення на літерний префікс і числовий хвіст: "R12" → ("R",12).
-# Якщо хвіст не число — number = -1 (не діапазонне позначення).
-def split_ref(r):
-    m = re.fullmatch(r"(\D*)(\d+)", r)         # префікс без цифр + числовий хвіст
-    if not m:
-        return "", -1                          # немає цифр або хвіст не чисто числовий
-    return m.group(1), int(m.group(2))
-
-# Розгорнути "R1-R4" → ["R1","R2","R3","R4"]. Якщо це не діапазон — повернути сам токен.
-# Працює лише коли префікси збігаються (R..R), а хвости — числа.
-def expand_range(token):
-    dash = token.find('-')
-    if dash < 0:
-        return [token]                         # не діапазон
-
-    lp, ln = split_ref(norm_ref(token[:dash]))
-    hp, hn = split_ref(norm_ref(token[dash + 1:]))
-
-    # Діапазон правомірний лише якщо обидва боки — позначення з ОДНАКОВИМ префіксом.
-    if ln < 0 or hn < 0 or not lp or lp != hp:
-        return [norm_ref(token)]               # не схоже на діапазон — як є
-
-    step = 1 if ln <= hn else -1               # діапазон може й спадати
-    return [lp + str(n) for n in range(ln, hn + step, step)]   # R1, R2, ...
-```
+:::code proj-bom-consistency/cpp/roboche-iadro-vid-csv-3.cpp
+:::code proj-bom-consistency/py/roboche-iadro-vid-csv-2.py
 :::
 
 Зверни увагу на захист: розгортаємо **лише** коли префікси з обох боків однакові й хвости числові. Якщо дефіс трапився десь, де це не діапазон позначень (скажімо, він заліз у поле з помилкою), ми не вигадуємо хибних `R`-ів, а повертаємо токен як є — хай далі його видно як окреме «дивне» позначення, а не тихо породжуємо сміття.
@@ -250,189 +89,22 @@ def expand_range(token):
 Маючи розбір рядка, нормалізацію й розгортання, складемо **поле позначень** одного рядка переліку в плаский список елементів. Поле може містити і коми (`R7, R8`), і діапазони (`R1-R4`), і те й те разом (`R1-R4, R7`).
 
 :::tabs
-```cpp
-// Розібрати поле позначень рядка BOM ("R1-R4, R7") у список окремих нормалізованих
-// позначень: ["R1","R2","R3","R4","R7"]. Спершу ділимо за комами, тоді кожен
-// шматок розгортаємо як можливий діапазон.
-static std::vector<std::string> parse_refdes_field(const std::string& field) {
-    std::vector<std::string> refs;
-    std::string tok;
-    // поле вже без зовнішніх лапок (їх зняв split_csv_line), тож ділимо просто за комами
-    for (size_t i = 0; i <= field.size(); ++i) {
-        if (i == field.size() || field[i] == ',') {
-            std::string t = trim(tok);
-            if (!t.empty())
-                for (auto& r : expand_range(t)) refs.push_back(r);
-            tok.clear();
-        } else {
-            tok.push_back(field[i]);
-        }
-    }
-    return refs;
-}
-```
-```python
-# Розібрати поле позначень рядка BOM ("R1-R4, R7") у список окремих нормалізованих
-# позначень: ["R1","R2","R3","R4","R7"]. Спершу ділимо за комами, тоді кожен
-# шматок розгортаємо як можливий діапазон.
-def parse_refdes_field(field):
-    refs = []
-    # поле вже без зовнішніх лапок (їх зняв split_csv_line), тож ділимо просто за комами
-    for tok in field.split(','):
-        t = trim(tok)
-        if t:
-            refs.extend(expand_range(t))
-    return refs
-```
+:::code proj-bom-consistency/cpp/roboche-iadro-vid-csv-4.cpp
+:::code proj-bom-consistency/py/roboche-iadro-vid-csv-3.py
 :::
 
 Тепер опишемо **один рядок переліку** як структуру й зчитаємо весь файл. Припустимо узгоджений порядок колонок: позначення, кількість, MPN, примітка (де живе `DNP`). У справжньому інструменті колонки шукають за іменами в шапці, та суть від цього не міняється, тож тримаємо фіксований порядок для ясності.
 
 :::tabs
-```cpp
-struct BomRow {
-    std::vector<std::string> refs;   // розгорнуті, нормалізовані позначення цього рядка
-    int    qty;                      // заявлена кількість
-    bool   has_mpn;                  // чи вказано номер деталі
-    bool   dnp;                      // чи це «не монтувати»
-    int    line_no;                  // номер рядка у файлі (для звіту)
-};
-
-// Чи містить поле примітки ознаку «не монтувати»?
-static bool is_dnp(const std::string& note) {
-    std::string n = note;
-    for (char& c : n) if (c >= 'a' && c <= 'z') c -= 32;   // до верхнього регістру
-    return n.find("DNP") != std::string::npos
-        || n.find("DNI") != std::string::npos
-        || n.find("DO NOT") != std::string::npos;
-}
-
-// Прочитати CSV переліку компонентів у вектор рядків.
-// Колонки за порядком: 0 позначення, 1 кількість, 2 MPN, 3 примітка.
-static std::vector<BomRow> read_bom(const std::string& path) {
-    std::vector<BomRow> rows;
-    FILE* fp = fopen(path.c_str(), "rb");
-    if (!fp) { printf("не відкрити %s\n", path.c_str()); return rows; }
-
-    char buf[4096];
-    int line_no = 0;
-    bool header_skipped = false;
-    while (fgets(buf, sizeof(buf), fp)) {
-        ++line_no;
-        std::string line(buf);
-        if (!line.empty() && (line.back() == '\n' || line.back() == '\r')) line.pop_back();
-        if (!line.empty() &&  line.back() == '\r') line.pop_back();   // CRLF
-        if (line.empty()) continue;                                  // порожній рядок — пропуск
-        if (!header_skipped) { header_skipped = true; continue; }    // шапка
-
-        std::vector<std::string> f = split_csv_line(line);
-        if (f.size() < 4) continue;                                  // надто короткий — ігнор
-
-        BomRow row;
-        row.refs    = parse_refdes_field(f[0]);
-        row.qty     = atoi(trim(f[1]).c_str());
-        row.has_mpn = !trim(f[2]).empty();
-        row.dnp     = is_dnp(f[3]);
-        row.line_no = line_no;
-        rows.push_back(std::move(row));
-    }
-    fclose(fp);
-    return rows;
-}
-```
-```python
-from dataclasses import dataclass
-
-@dataclass
-class BomRow:
-    refs:    list    # розгорнуті, нормалізовані позначення цього рядка
-    qty:     int     # заявлена кількість
-    has_mpn: bool    # чи вказано номер деталі
-    dnp:     bool    # чи це «не монтувати»
-    line_no: int     # номер рядка у файлі (для звіту)
-
-# Чи містить поле примітки ознаку «не монтувати»?
-def is_dnp(note):
-    n = note.upper()                           # до верхнього регістру
-    return "DNP" in n or "DNI" in n or "DO NOT" in n
-
-# Прочитати CSV переліку компонентів у список рядків.
-# Колонки за порядком: 0 позначення, 1 кількість, 2 MPN, 3 примітка.
-def read_bom(path):
-    rows = []
-    try:
-        fp = open(path, "r", newline="", encoding="utf-8")
-    except OSError:
-        print(f"не відкрити {path}")
-        return rows
-
-    with fp:
-        header_skipped = False
-        for line_no, raw in enumerate(fp, start=1):
-            line = raw.rstrip("\r\n")
-            if not line:                       # порожній рядок — пропуск
-                continue
-            if not header_skipped:             # шапка
-                header_skipped = True
-                continue
-
-            f = split_csv_line(line)
-            if len(f) < 4:                     # надто короткий — ігнор
-                continue
-
-            rows.append(BomRow(
-                refs=parse_refdes_field(f[0]),
-                qty=int(trim(f[1])) if trim(f[1]).lstrip("-").isdigit() else 0,
-                has_mpn=bool(trim(f[2])),
-                dnp=is_dnp(f[3]),
-                line_no=line_no,
-            ))
-    return rows
-```
+:::code proj-bom-consistency/cpp/roboche-iadro-vid-csv-5.cpp
+:::code proj-bom-consistency/py/roboche-iadro-vid-csv-4.py
 :::
 
 Списки зі схеми та з плати простіші — це просто переліки позначень (по одному в рядку), які редактор уже вивів. Але прочитати їх наївно **в множину** — пастка: якщо на платі випадково опинилися два однакові написи (скажімо, дублікат посадкового місця `R7` через помилку розведення), множина мовчки зіллє їх в **один** елемент, і ця реальна помилка зникне з очей ще до будь-якої перевірки. Тому читаємо не в множину, а в **мапу «позначення → скільки разів трапилось»**: лічильник появ дасть нам зловити такий дублікат — так само, як ми ловимо його в переліку компонентів. Нормалізуємо кожне позначення тим самим `norm_ref`, щоб регістр і пробіли не розвели однакові речі. До самих множин зведемо пізніше, уже після підрахунку.
 
 :::tabs
-```cpp
-// Прочитати простий список позначень (одне на рядок) у мапу «позначення → скільки
-// разів трапилось». Саме МАПА лічильників, а не множина: множина мовчки злила б
-// два однакові написи R7 на платі (дублікат майданчика — помилка розведення) в один
-// елемент і сховала б реальну проблему. Рахуючи появи, ми зможемо її зловити пізніше —
-// так само, як на боці BOM. До множини зведемо потім, після підрахунку дублікатів.
-static std::unordered_map<std::string,int> read_ref_counts(const std::string& path) {
-    std::unordered_map<std::string,int> counts;
-    FILE* fp = fopen(path.c_str(), "rb");
-    if (!fp) { printf("не відкрити %s\n", path.c_str()); return counts; }
-    char buf[256];
-    while (fgets(buf, sizeof(buf), fp)) {
-        std::string r = norm_ref(buf);
-        if (!r.empty()) ++counts[r];      // побачили ще раз — лічильник росте
-    }
-    fclose(fp);
-    return counts;
-}
-```
-```python
-# Прочитати простий список позначень (одне на рядок) у мапу «позначення → скільки
-# разів трапилось». Саме мапа лічильників, а не множина: множина мовчки злила б
-# два однакові написи R7 на платі (дублікат майданчика — помилка розведення) в один
-# елемент і сховала б реальну проблему. Рахуючи появи, ми зможемо її зловити пізніше —
-# так само, як на боці BOM. До множини зведемо потім, після підрахунку дублікатів.
-def read_ref_counts(path):
-    counts = {}
-    try:
-        fp = open(path, "r", encoding="utf-8")
-    except OSError:
-        print(f"не відкрити {path}")
-        return counts
-    with fp:
-        for line in fp:
-            r = norm_ref(line)
-            if r:
-                counts[r] = counts.get(r, 0) + 1   # побачили ще раз — лічильник росте
-    return counts
-```
+:::code proj-bom-consistency/cpp/roboche-iadro-vid-csv-6.cpp
+:::code proj-bom-consistency/py/roboche-iadro-vid-csv-5.py
 :::
 
 ### Зведення трьох множин і звіт із кодами
@@ -442,97 +114,15 @@ def read_ref_counts(path):
 Заведемо коди помилок — щоб звіт читала й людина, і машина (скрипт, що блокує відправлення, поки код не 0).
 
 :::tabs
-```cpp
-// Коди проблем — стабільні числа, на які може зважати зовнішній скрипт.
-enum BomError {
-    ERR_QTY_MISMATCH   = 1,  // К-сть ≠ кількість перелічених позначень
-    ERR_NO_MPN         = 2,  // монтуємо (не DNP), але MPN немає
-    ERR_DUP_REFDES     = 3,  // те саме позначення трапляється двічі
-    ERR_ORPHAN_BOARD   = 4,  // є на платі, нема в BOM
-    ERR_ORPHAN_BOM     = 5,  // є в BOM, нема на платі
-    ERR_BOM_NOT_SCHEM  = 6,  // є в BOM, нема в схемі
-    ERR_SCHEM_NOT_BRD  = 7,  // є в схемі, нема на платі
-};
-```
-```python
-from enum import IntEnum
-
-# Коди проблем — стабільні числа, на які може зважати зовнішній скрипт.
-class BomError(IntEnum):
-    ERR_QTY_MISMATCH  = 1   # К-сть ≠ кількість перелічених позначень
-    ERR_NO_MPN        = 2   # монтуємо (не DNP), але MPN немає
-    ERR_DUP_REFDES    = 3   # те саме позначення трапляється двічі
-    ERR_ORPHAN_BOARD  = 4   # є на платі, нема в BOM
-    ERR_ORPHAN_BOM    = 5   # є в BOM, нема на платі
-    ERR_BOM_NOT_SCHEM = 6   # є в BOM, нема в схемі
-    ERR_SCHEM_NOT_BRD = 7   # є в схемі, нема на платі
-```
+:::code proj-bom-consistency/cpp/zvedennia-trokh-mnozhyn-i.cpp
+:::code proj-bom-consistency/py/zvedennia-trokh-mnozhyn-i.py
 :::
 
 Спершу — перевірки **всередині** переліку компонентів: вони не потребують двох інших списків, бо рядок неузгоджений сам із собою.
 
 :::tabs
-```cpp
-// Перевірити кожен рядок BOM окремо + зібрати мапу «позначення → номер рядка»,
-// дорогою ловлячи дублікати. Повертає кількість знайдених проблем.
-static int check_bom_internal(const std::vector<BomRow>& rows,
-                              std::unordered_map<std::string,int>& ref_to_line)
-{
-    int problems = 0;
-    for (const auto& r : rows) {
-        // (1) Кількість мусить дорівнювати довжині переліку позначень.
-        if (r.qty != (int)r.refs.size()) {
-            printf("[E%d] рядок %d: К-сть=%d, а позначень перелічено %zu\n",
-                   ERR_QTY_MISMATCH, r.line_no, r.qty, r.refs.size());
-            ++problems;
-        }
-        // (2) Монтуємо без MPN — нічого замовити. DNP без MPN — НОРМА, не чіпаємо.
-        if (!r.dnp && !r.has_mpn) {
-            printf("[E%d] рядок %d: монтований рядок без MPN — закупити нічим\n",
-                   ERR_NO_MPN, r.line_no);
-            ++problems;
-        }
-        // (3) Дублікати позначень: те саме позначення вже зустрічалось.
-        for (const auto& ref : r.refs) {
-            auto it = ref_to_line.find(ref);
-            if (it != ref_to_line.end()) {
-                printf("[E%d] позначення %s повторюється: рядки %d і %d\n",
-                       ERR_DUP_REFDES, ref.c_str(), it->second, r.line_no);
-                ++problems;
-            } else {
-                ref_to_line.emplace(ref, r.line_no);
-            }
-        }
-    }
-    return problems;
-}
-```
-```python
-# Перевірити кожен рядок BOM окремо + зібрати мапу «позначення → номер рядка»,
-# дорогою ловлячи дублікати. Повертає кількість знайдених проблем.
-def check_bom_internal(rows, ref_to_line):
-    problems = 0
-    for r in rows:
-        # (1) Кількість мусить дорівнювати довжині переліку позначень.
-        if r.qty != len(r.refs):
-            print("[E%d] рядок %d: К-сть=%d, а позначень перелічено %d"
-                  % (BomError.ERR_QTY_MISMATCH, r.line_no, r.qty, len(r.refs)))
-            problems += 1
-        # (2) Монтуємо без MPN — нічого замовити. DNP без MPN — НОРМА, не чіпаємо.
-        if not r.dnp and not r.has_mpn:
-            print("[E%d] рядок %d: монтований рядок без MPN — закупити нічим"
-                  % (BomError.ERR_NO_MPN, r.line_no))
-            problems += 1
-        # (3) Дублікати позначень: те саме позначення вже зустрічалось.
-        for ref in r.refs:
-            if ref in ref_to_line:
-                print("[E%d] позначення %s повторюється: рядки %d і %d"
-                      % (BomError.ERR_DUP_REFDES, ref, ref_to_line[ref], r.line_no))
-                problems += 1
-            else:
-                ref_to_line[ref] = r.line_no
-    return problems
-```
+:::code proj-bom-consistency/cpp/zvedennia-trokh-mnozhyn-i-2.cpp
+:::code proj-bom-consistency/py/zvedennia-trokh-mnozhyn-i-2.py
 :::
 
 Зверни увагу: у пункті (2) перевірка на MPN **свідомо пропускає DNP-рядки**. Це той самий нюанс, що в темі-власниці названо «не забув вписати, а навмисно лишив порожнім»: рядок DNP без MPN — законний, і інструмент, який сварив би на нього, був би неправильним. Розрізнити «порожньо навмисно» й «порожньо помилково» можна лише за позначкою DNP — тому її розбір такий важливий.
@@ -540,162 +130,15 @@ def check_bom_internal(rows, ref_to_line):
 Тепер — **порівняння трьох списків**. Спершу — те, що множина сховала б: виловлюємо **дублікати на платі й у схемі**, пробігши мапи лічильників і піднявши тривогу на кожному позначенні, що трапилося більше разу. Аж тоді зводимо кожне джерело до множини позначень — `M` із переліку (ключі його мапи), `B` із плати, `S` зі схеми — і друкуємо чотири різниці.
 
 :::tabs
-```cpp
-// Надрукувати позначення з a, яких немає в b, під заданим кодом і підписом.
-static int report_diff(const std::unordered_set<std::string>& a,
-                       const std::unordered_set<std::string>& b,
-                       int code, const char* msg)
-{
-    // зробимо вивід упорядкованим, щоб звіт був стабільний між запусками
-    std::vector<std::string> missing;
-    for (const auto& x : a) if (!b.count(x)) missing.push_back(x);
-    std::sort(missing.begin(), missing.end());
-    for (const auto& x : missing)
-        printf("[E%d] %s: %s\n", code, msg, x.c_str());
-    return (int)missing.size();
-}
-
-// Надрукувати позначення, що трапилися в списку БІЛЬШЕ одного разу — дублікат на платі
-// чи у схемі, який множина сховала б. Мапа лічильників це якраз показує.
-static int report_dups(const std::unordered_map<std::string,int>& counts,
-                       const char* source)
-{
-    std::vector<std::string> dups;
-    for (const auto& kv : counts) if (kv.second > 1) dups.push_back(kv.first);
-    std::sort(dups.begin(), dups.end());
-    for (const auto& x : dups)
-        printf("[E%d] позначення %s трапляється %s більше одного разу\n",
-               ERR_DUP_REFDES, x.c_str(), source);
-    return (int)dups.size();
-}
-
-// Звести мапу лічильників до звичайної множини позначень — для різниць.
-static std::unordered_set<std::string> keys_of(
-        const std::unordered_map<std::string,int>& counts)
-{
-    std::unordered_set<std::string> s;
-    for (const auto& kv : counts) s.insert(kv.first);
-    return s;
-}
-
-// Повна перевірка: повертає 0, якщо все чисто, або кількість проблем.
-static int check_consistency(const std::vector<BomRow>& bom_rows,
-                             const std::unordered_map<std::string,int>& schem_counts,
-                             const std::unordered_map<std::string,int>& board_counts)
-{
-    int problems = 0;
-
-    // 1) внутрішні перевірки BOM + збір мапи «позначення → рядок» (ловить дублікати BOM)
-    std::unordered_map<std::string,int> bom_map;          // позначення → рядок
-    problems += check_bom_internal(bom_rows, bom_map);
-
-    // 2) дублікати НА ПЛАТІ та У СХЕМІ — те, що множина сама сховала б
-    problems += report_dups(board_counts, "на платі");
-    problems += report_dups(schem_counts, "у схемі");
-
-    // 3) зводимо кожне джерело до множини позначень
-    std::unordered_set<std::string> bom;                  // множина позначень BOM
-    for (const auto& kv : bom_map) bom.insert(kv.first);
-    std::unordered_set<std::string> schem = keys_of(schem_counts);
-    std::unordered_set<std::string> board = keys_of(board_counts);
-
-    // 4) різниці множин — кожна під своїм кодом
-    problems += report_diff(board, bom,   ERR_ORPHAN_BOARD,  "є на платі, нема в BOM");
-    problems += report_diff(bom,   board, ERR_ORPHAN_BOM,    "є в BOM, нема на платі");
-    problems += report_diff(bom,   schem, ERR_BOM_NOT_SCHEM, "є в BOM, нема в схемі");
-    problems += report_diff(schem, board, ERR_SCHEM_NOT_BRD, "є в схемі, нема на платі");
-
-    return problems;
-}
-```
-```python
-# Надрукувати позначення з a, яких немає в b, під заданим кодом і підписом.
-def report_diff(a, b, code, msg):
-    # зробимо вивід упорядкованим, щоб звіт був стабільний між запусками
-    missing = sorted(a - b)
-    for x in missing:
-        print("[E%d] %s: %s" % (code, msg, x))
-    return len(missing)
-
-# Надрукувати позначення, що трапилися в списку БІЛЬШЕ одного разу — дублікат на платі
-# чи у схемі, який множина сховала б. Мапа лічильників це якраз показує.
-def report_dups(counts, source):
-    dups = sorted(r for r, n in counts.items() if n > 1)
-    for x in dups:
-        print("[E%d] позначення %s трапляється %s більше одного разу"
-              % (BomError.ERR_DUP_REFDES, x, source))
-    return len(dups)
-
-# Повна перевірка: повертає 0, якщо все чисто, або кількість проблем.
-def check_consistency(bom_rows, schem_counts, board_counts):
-    problems = 0
-
-    # 1) внутрішні перевірки BOM + збір мапи «позначення → рядок» (ловить дублікати BOM)
-    bom_map = {}                                          # позначення → рядок
-    problems += check_bom_internal(bom_rows, bom_map)
-
-    # 2) дублікати НА ПЛАТІ та У СХЕМІ — те, що множина сама сховала б
-    problems += report_dups(board_counts, "на платі")
-    problems += report_dups(schem_counts, "у схемі")
-
-    # 3) зводимо кожне джерело до множини позначень
-    bom   = set(bom_map)                                  # множина позначень BOM
-    schem = set(schem_counts)
-    board = set(board_counts)
-
-    # 4) різниці множин — кожна під своїм кодом
-    problems += report_diff(board, bom,   BomError.ERR_ORPHAN_BOARD,  "є на платі, нема в BOM")
-    problems += report_diff(bom,   board, BomError.ERR_ORPHAN_BOM,    "є в BOM, нема на платі")
-    problems += report_diff(bom,   schem, BomError.ERR_BOM_NOT_SCHEM, "є в BOM, нема в схемі")
-    problems += report_diff(schem, board, BomError.ERR_SCHEM_NOT_BRD, "є в схемі, нема на платі")
-
-    return problems
-```
+:::code proj-bom-consistency/cpp/zvedennia-trokh-mnozhyn-i-3.cpp
+:::code proj-bom-consistency/py/zvedennia-trokh-mnozhyn-i-3.py
 :::
 
 І точка входу, що зшиває все та повертає код виходу — нуль, якщо чисто; інакше число, на яке зважає скрипт, що або пропускає відправлення на завод, або зупиняє його.
 
 :::tabs
-```cpp
-int main(int argc, char** argv) {
-    if (argc < 4) {
-        printf("вжиток: bomcheck <bom.csv> <schematic-refs.txt> <board-refs.txt>\n");
-        return 2;
-    }
-    std::vector<BomRow> bom = read_bom(argv[1]);
-    std::unordered_map<std::string,int> schem = read_ref_counts(argv[2]);
-    std::unordered_map<std::string,int> board = read_ref_counts(argv[3]);
-
-    int problems = check_consistency(bom, schem, board);
-
-    if (problems == 0) {
-        printf("OK: перелік компонентів узгоджений, можна відправляти\n");
-        return 0;
-    }
-    printf("ЗНАЙДЕНО ПРОБЛЕМ: %d — НЕ відправляти, доки не виправлено\n", problems);
-    return 1;                       // ненульовий код спиняє конвеєр відправлення
-}
-```
-```python
-def main(argv):
-    if len(argv) < 4:
-        print("вжиток: bomcheck <bom.csv> <schematic-refs.txt> <board-refs.txt>")
-        return 2
-    bom   = read_bom(argv[1])
-    schem = read_ref_counts(argv[2])
-    board = read_ref_counts(argv[3])
-
-    problems = check_consistency(bom, schem, board)
-
-    if problems == 0:
-        print("OK: перелік компонентів узгоджений, можна відправляти")
-        return 0
-    print("ЗНАЙДЕНО ПРОБЛЕМ: %d — НЕ відправляти, доки не виправлено" % problems)
-    return 1                        # ненульовий код спиняє конвеєр відправлення
-
-if __name__ == "__main__":
-    sys.exit(main(sys.argv))
-```
+:::code proj-bom-consistency/cpp/zvedennia-trokh-mnozhyn-i-4.cpp
+:::code proj-bom-consistency/py/zvedennia-trokh-mnozhyn-i-4.py
 :::
 
 Це повний робочий кістяк: CSV із лапками розбирається без поломки на комах усередині поля, позначення нормалізуються й розгортаються, три множини зводяться, а кожна розбіжність виходить кодом. Скрипт-обгортка перед відправленням просто звіряє код виходу: `0` — пускає файли на завод, будь-що інше — спиняє й показує звіт.

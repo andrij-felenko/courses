@@ -32,32 +32,9 @@
 
 :::tabs
 
-```cpp
-#include <string>
-#include <vector>
-#include <cstdio>
+:::code proj-bus-expand/cpp/krok-1-rozbir-diapazonu-v.cpp
 
-// Розібрана шина: префікс, нижня й верхня межі ЯК НАПИСАНО, і чи це вектор.
-// Увага: lo/hi тут — це ліве/праве число запису, НЕ «менше/більше».
-struct BusName {
-    std::string prefix;   // "D" для "D[7..0]"
-    int left, right;      // ліва й права межі: 7 і 0 для "D[7..0]"
-    bool is_vector;       // false для скаляра "CLK"
-};
-```
-
-```python
-from dataclasses import dataclass
-
-# Розібрана шина: префікс, ліва/права межі ЯК НАПИСАНО, і чи це вектор.
-# Увага: left/right — це ліве/праве число запису, НЕ «менше/більше».
-@dataclass
-class BusName:
-    prefix: str            # "D" для "D[7..0]"
-    left: int = 0          # ліва й права межі: 7 і 0 для "D[7..0]"
-    right: int = 0
-    is_vector: bool = False  # False для скаляра "CLK"
-```
+:::code proj-bus-expand/py/krok-1-rozbir-diapazonu-v.py
 
 :::
 
@@ -65,57 +42,9 @@ class BusName:
 
 :::tabs
 
-```cpp
-// Розібрати "D[7..0]" → BusName{"D", 7, 0, true}.
-// Запис без дужок ("CLK") — це скаляр: BusName{"CLK", 0, 0, false}.
-// Кривий запис ("D[7..]", "D[a..b]") — повертаємо false, хай редактор лається.
-static bool parse_bus(const std::string& s, BusName& out) {
-    size_t lb = s.find('[');
-    if (lb == std::string::npos) {           // дужок нема — звичайний скаляр
-        out = { s, 0, 0, false };
-        return true;
-    }
-    size_t dd = s.find("..", lb + 1);        // роздільник діапазону
-    size_t rb = s.find(']', lb + 1);         // закрита дужка
-    if (dd == std::string::npos || rb == std::string::npos || !(lb < dd && dd < rb))
-        return false;                        // нема "..", нема "]", або переплутаний порядок
+:::code proj-bus-expand/cpp/krok-1-rozbir-diapazonu-v-2.cpp
 
-    out.prefix = s.substr(0, lb);
-    std::string a = s.substr(lb + 1, dd - lb - 1);   // між '[' і '..'
-    std::string b = s.substr(dd + 2, rb - dd - 2);   // між '..' і ']'
-    try {
-        out.left  = std::stoi(a);            // кине виняток, якщо не число
-        out.right = std::stoi(b);
-    } catch (...) {
-        return false;                        // "[a..b]" — не діапазон
-    }
-    out.is_vector = true;
-    return true;
-}
-```
-
-```python
-# Розібрати "D[7..0]" → BusName("D", 7, 0, True).
-# Запис без дужок ("CLK") — це скаляр: BusName("CLK", 0, 0, False).
-# Кривий запис ("D[7..]", "D[a..b]") — повертаємо None, хай редактор лається.
-def parse_bus(s):
-    lb = s.find('[')
-    if lb == -1:                             # дужок нема — звичайний скаляр
-        return BusName(s)
-
-    dd = s.find('..', lb + 1)                # роздільник діапазону
-    rb = s.find(']', lb + 1)                 # закрита дужка
-    if dd == -1 or rb == -1 or not (lb < dd < rb):
-        return None                          # нема "..", нема "]", або переплутаний порядок
-
-    a = s[lb + 1:dd]                          # між '[' і '..'
-    b = s[dd + 2:rb]                          # між '..' і ']'
-    try:
-        left, right = int(a), int(b)         # ValueError, якщо не число
-    except ValueError:
-        return None                          # "[a..b]" — не діапазон
-    return BusName(s[:lb], left, right, True)
-```
+:::code proj-bus-expand/py/krok-1-rozbir-diapazonu-v-2.py
 
 :::
 
@@ -127,24 +56,7 @@ def parse_bus(s):
 
 :::tabs
 
-```cpp
-// Розгорнути BusName у список імен членів.
-// "D[7..0]" → {"D7","D6",...,"D0"};  "D[0..7]" → {"D0","D1",...,"D7"}.
-// Скаляр "CLK" → {"CLK"} (один член — він сам).
-static std::vector<std::string> expand(const BusName& bn) {
-    std::vector<std::string> members;
-    if (!bn.is_vector) {
-        members.push_back(bn.prefix);        // скаляр — сам собі єдиний член
-        return members;
-    }
-    int step = (bn.left <= bn.right) ? +1 : -1;   // напрям перелічення
-    for (int i = bn.left; ; i += step) {
-        members.push_back(bn.prefix + std::to_string(i));   // "D" + "7" = "D7"
-        if (i == bn.right) break;            // дійшли до другого кінця — стоп
-    }
-    return members;
-}
-```
+:::code proj-bus-expand/cpp/krok-2-heneratsiia-imen.cpp
 
 ```python
 # Розгорнути BusName у список імен членів.
@@ -196,41 +108,9 @@ def bus_width(bn):
 
 :::tabs
 
-```cpp
-#include <map>
+:::code proj-bus-expand/cpp/krok-3-mapa-imia-chlena.cpp
 
-struct Pin { std::string part; int pad; };   // напр. {"U3", 12}
-
-// Ланцюг = ім'я + усі піни, що мусять стати однією міддю.
-// Мапа ім'я→піни — це РЕАЛЬНИЙ опис плати; вектор у ній уже не фігурує.
-using Netlist = std::map<std::string, std::vector<Pin>>;
-
-// Завести шину у нетлист: розгорнути й приписати кожному членові його пін.
-// pins — піни приймача в ТОМУ Ж порядку, що й члени шини.
-static void attach_bus(Netlist& net, const BusName& bn,
-                       const std::vector<Pin>& pins) {
-    std::vector<std::string> members = expand(bn);
-    for (size_t i = 0; i < members.size() && i < pins.size(); ++i)
-        net[members[i]].push_back(pins[i]);   // D3 → {U3.pad}, D2 → {…}, …
-}
-```
-
-```python
-from collections import namedtuple, defaultdict
-
-Pin = namedtuple("Pin", "part pad")           # напр. Pin("U3", 12)
-
-# Ланцюг = ім'я + усі піни, що мусять стати однією міддю.
-# Нетлист — мапа ім'я→[піни]; це РЕАЛЬНИЙ опис плати, вектор у ній уже не фігурує.
-def new_netlist():
-    return defaultdict(list)
-
-# Завести шину у нетлист: розгорнути й приписати кожному членові його пін.
-# pins — піни приймача в ТОМУ Ж порядку, що й члени шини.
-def attach_bus(net, bn, pins):
-    for name, pin in zip(expand(bn), pins):   # zip обрізає до коротшого — як i<both
-        net[name].append(pin)                 # D3 → [U3.pad], D2 → [...], …
-```
+:::code proj-bus-expand/py/krok-3-mapa-imia-chlena.py
 
 :::
 
@@ -248,51 +128,9 @@ def attach_bus(net, bn, pins):
 
 :::tabs
 
-```cpp
-// Чи можна стикувати дві шини? Лише якщо однакова розрядність.
-static bool widths_match(const BusName& a, const BusName& b) {
-    return bus_width(a) == bus_width(b);
-}
+:::code proj-bus-expand/cpp/krok-4-zvirka-rozriadnosti.cpp
 
-// Сумарна ширина склеювання {частина, частина, ...}.
-// {CTRL, D[6..0]} → 1 + 7 = 8.
-static int concat_width(const std::vector<BusName>& parts) {
-    int total = 0;
-    for (const auto& p : parts) total += bus_width(p);
-    return total;
-}
-
-// Звірити склеювання з приймачем заданої ширини; інакше — попередити.
-static bool check_concat(const std::vector<BusName>& parts, int sink_width) {
-    int w = concat_width(parts);
-    if (w != sink_width) {
-        printf("ПОМИЛКА розрядності: склеювання дає %d ліній, приймач чекає %d\n",
-               w, sink_width);
-        return false;
-    }
-    return true;
-}
-```
-
-```python
-# Чи можна стикувати дві шини? Лише якщо однакова розрядність.
-def widths_match(a, b):
-    return bus_width(a) == bus_width(b)
-
-# Сумарна ширина склеювання [частина, частина, ...].
-# [CTRL, D[6..0]] → 1 + 7 = 8.
-def concat_width(parts):
-    return sum(bus_width(p) for p in parts)
-
-# Звірити склеювання з приймачем заданої ширини; інакше — попередити.
-def check_concat(parts, sink_width):
-    w = concat_width(parts)
-    if w != sink_width:
-        print(f"ПОМИЛКА розрядності: склеювання дає {w} ліній, "
-              f"приймач чекає {sink_width}")
-        return False
-    return True
-```
+:::code proj-bus-expand/py/krok-4-zvirka-rozriadnosti.py
 
 :::
 
@@ -307,19 +145,7 @@ def check_concat(parts, sink_width):
 
 :::tabs
 
-```cpp
-// Кожен член шини мусить мати ≥2 пінів (джерело + приймач).
-// Член з одним піном — оголошено, але нікуди не заведено: висячий.
-static void warn_dangling(const Netlist& net, const BusName& bn) {
-    for (const std::string& m : expand(bn)) {
-        auto it = net.find(m);
-        size_t n = (it == net.end()) ? 0 : it->second.size();
-        if (n < 2)
-            printf("ПОПЕРЕДЖЕННЯ: член %s шини %s[...] висить (пінів: %zu)\n",
-                   m.c_str(), bn.prefix.c_str(), n);
-    }
-}
-```
+:::code proj-bus-expand/cpp/krok-5-lovlia-vysiachykh.cpp
 
 ```python
 # Кожен член шини мусить мати ≥2 пінів (джерело + приймач).
@@ -340,40 +166,9 @@ def warn_dangling(net, bn):
 
 :::tabs
 
-```cpp
-// Повний конвеєр для однієї шини, заведеної на приймач.
-static void process_bus(Netlist& net,
-                        const std::string& bus_text,        // "D[7..0]"
-                        const std::vector<Pin>& sink_pins)  // піни приймача по порядку
-{
-    BusName bn;
-    if (!parse_bus(bus_text, bn)) {                 // 1) розбір
-        printf("ПОМИЛКА: не розібрати запис шини '%s'\n", bus_text.c_str());
-        return;
-    }
-    if (bn.is_vector && bus_width(bn) != (int)sink_pins.size())  // 2) звірка ширин
-        printf("ПОМИЛКА розрядності: шина %s — %d ліній, приймач — %zu пінів\n",
-               bus_text.c_str(), bus_width(bn), sink_pins.size());
+:::code proj-bus-expand/cpp/krok-5-lovlia-vysiachykh-2.cpp
 
-    attach_bus(net, bn, sink_pins);                 // 3) розгорнути й завести
-    warn_dangling(net, bn);                         // 4) перевірити висячі члени
-}
-```
-
-```python
-# Повний конвеєр для однієї шини, заведеної на приймач.
-def process_bus(net, bus_text, sink_pins):          # "D[7..0]", піни по порядку
-    bn = parse_bus(bus_text)                        # 1) розбір
-    if bn is None:
-        print(f"ПОМИЛКА: не розібрати запис шини '{bus_text}'")
-        return
-    if bn.is_vector and bus_width(bn) != len(sink_pins):        # 2) звірка ширин
-        print(f"ПОМИЛКА розрядності: шина {bus_text} — {bus_width(bn)} ліній, "
-              f"приймач — {len(sink_pins)} пінів")
-
-    attach_bus(net, bn, sink_pins)                  # 3) розгорнути й завести
-    warn_dangling(net, bn)                          # 4) перевірити висячі члени
-```
+:::code proj-bus-expand/py/krok-5-lovlia-vysiachykh.py
 
 :::
 
@@ -385,19 +180,7 @@ def process_bus(net, bus_text, sink_pins):          # "D[7..0]", піни по �
 
 Те, що редактор робить парсером, мікроконтролер робить **дротами кристала**: біт 7 регістра фізично припаяний до того піна, на який ви завели `D7`. Тому індекс члена зі схеми стає **номером біта** в регістрі один в один — за умови, що ви завели лінії на піни порту по порядку. Виставити всю шину — один запис; апаратура розкладе біти по пінах сама:
 
-```c
-// На STM32 порт — це структура регістрів; шину D[7..0] заведено на молодший байт.
-#define DATA_PORT   GPIOB
-
-void bus_write(uint8_t value) {
-    // Зберегти старші 8 ліній порту, замінити лише молодші 8 — нашу шину.
-    DATA_PORT->ODR = (DATA_PORT->ODR & 0xFF00) | value;   // D7..D0 за одну дію
-}
-
-uint8_t bus_read(void) {
-    return (uint8_t)(DATA_PORT->IDR & 0x00FF);            // прочитати весь вектор
-}
-```
+:::code proj-bus-expand/c/main.c
 
 А «дістати член `D[3]`» у коді — це **вибрати біт 3** маскою. Тут і видно, як зв'язка «індекс ↔ лінія» з редактора оживає в прошивці: член `D[3]` — це біт 3, тобто `1 << 3`.
 
