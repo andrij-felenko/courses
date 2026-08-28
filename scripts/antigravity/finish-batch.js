@@ -19,6 +19,8 @@
           базова на диску    → basic: recheck
           базової нема       → basic: pending → empty (лише якщо стояло pending)
           кожна вставка      → insert … recheck
+          усе, де є код      → + recode: true (код цього конвеєра чекає
+                               на переписування — див. hasCode нижче)
         Саме recheck, а не done: конвеєр свою частину скінчив, але людина тексту
         ще не бачила. Рушій показує такі статті як чернетку — вони читаються й
         лишаються на очах. У done переводить людина. Перекрити: AG_WRITTEN_STATUS.
@@ -90,6 +92,23 @@ console.log(`✓ усі ${dirs.length} тем пройшли всі 17 пере�
    ока. У "done" її переводить людина, а не батч. */
 const WRITTEN_STATUS = process.env.AG_WRITTEN_STATUS || "recheck";
 
+/* Чи несе цей .md узагалі код — у теці проєкту <тека теми>/<ім'я без .md>/<мова>/
+   або, доки тема ще не переїхала, в огорожах справжньої мови.                    */
+function hasCode(mdPath) {
+  const L = require("../checks/_lib.js");
+  const dir = path.dirname(mdPath), file = path.basename(mdPath);
+  if (L.langDirsOf(dir, file).length) return true;
+  let text = "";
+  try { text = fs.readFileSync(mdPath, "utf8"); } catch { return false; }
+  let inC = false, lang = null;
+  for (const ln of text.split(/\r?\n/)) {
+    const m = ln.match(/^\s*```(.*)$/);
+    if (m) { if (!inC) { inC = true; lang = (m[1] || "").trim().split(/\s+/)[0].toLowerCase(); } else inC = false; continue; }
+    if (inC && L.LANGS[lang]) return true;
+  }
+  return false;
+}
+
 /* ── 2. операції з диску ─────────────────────────────────────────────────────
    Тема в v7 лежить ПЛАСКО: root/<вид>/<книга>/<тема>/ — групи й розділу в шляху
    немає, вони тільки в маніфесті. Тому «секцію з теки» більше не вгадуємо: для
@@ -116,10 +135,15 @@ for (const dir of dirs) {
     continue;
   }
   const a = known.get(slug);
-  if (hasD) ops.push({ op: "status", slug, ver: "detailed", status: WRITTEN_STATUS });
-  if (hasB) ops.push({ op: "status", slug, ver: "basic", status: WRITTEN_STATUS });
+  /* recode: цей конвеєр пише прозу краще, ніж код, тож УСЕ, де код узагалі є,
+     виходить звідси з боргом на переписування. Прапорець не судить якість —
+     він каже «код тут писав не той, хто пише код найкраще», і знімає його той,
+     хто перепише проєкт. Поки він стоїть, 06-та міряє код, але дефекту не дає. */
+  const withCode = (file) => hasCode(path.join(dir, file));
+  if (hasD) ops.push({ op: "status", slug, ver: "detailed", status: WRITTEN_STATUS, recode: withCode(slug + "-d.md") });
+  if (hasB) ops.push({ op: "status", slug, ver: "basic", status: WRITTEN_STATUS, recode: withCode(slug + ".md") });
   else ops.push({ op: "status-if", slug, ver: "basic", from: "pending", to: "empty" });
-  inserts.forEach((f) => ops.push({ op: "insert", slug, type: f.split("-")[0], file: f, status: WRITTEN_STATUS }));
+  inserts.forEach((f) => ops.push({ op: "insert", slug, type: f.split("-")[0], file: f, status: WRITTEN_STATUS, recode: withCode(f) }));
   seen.push(`${slug} [${a.group}/${a.chapter}]: детальна ${hasD ? WRITTEN_STATUS : "—"} · базова ${hasB ? WRITTEN_STATUS : "empty"} · вставок ${inserts.length}`);
 }
 

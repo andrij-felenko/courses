@@ -14,7 +14,15 @@
      вище виняткової стелі                               → ДЕФЕКТ (тему треба ділити);
      у винятковій смузі (hi–max)                         → ПУНКТ НА ВИРОК (чи неподільна);
      помітно вище своєї зони                             → ПУНКТ НА ВИРОК (рівень занижено?);
-     базова > ½ детальної                                → ДЕФЕКТ (залізо §3).
+     базова > ½ детальної                                → ДЕФЕКТ (залізо §3);
+     тека проєкту є, а код ще й в огорожах                 → ДЕФЕКТ (дубль);
+     мова нижче своєї підлоги коду                        → ДЕФЕКТ (крім recode);
+     є тека c/, немає cpp/                                → ДЕФЕКТ (§5, пара мов).
+
+   Код міряється у теках <тема>/<ім'я .md>/<мова>/, а не в огорожах. Підлога залежить
+   від мови: багатослівні (C, C++, Go, Java) і щільні (Python, JS, TS) мають різні
+   драбини. Скрипти (sh, sql, cmake) і тести підлоги не мають. Прапорець recode
+   у маніфесті вимикає дефекти коду, лишаючи вимір.
 
    Чому підлога, а не орієнтир. Число, показане письменникові, стає ціллю — це заміряно
    двічі й в обидва боки (див. _lib.js). Тому число тут не спільне: рівень ставить окрема
@@ -36,6 +44,14 @@ L.head("06", `обсяг (канон × ${L.SCALE}, підлога за рівн
 const rows = T.files.filter((f) => f.kind !== "other").map((f) => {
   const lv = L.levelFor(LV, f);
   const w = L.proseWords(f.text);
+  /* Код живе у теках мов: <тема>/<ім'я .md без розширення>/<мова>/. Огорожі
+     лишаються запасним джерелом, поки тема ще не переїхала — тоді рядки беруться
+     звідти, і це видно в звіті поміткою (в огорожах).                          */
+  const dirs = L.langDirsOf(DIR, f.file).map((d) => Object.assign({}, d, L.codeLinesOfDir(d.dir)));
+  const fencedAll = L.codeLines(f.text);
+  const fenced = dirs.length ? fencedAll : 0;   /* при наявних теках огорожі — це ДУБЛЬ */
+  const code = L.NEEDS_CODE.has(f.kind) ? (dirs.length ? dirs.reduce((a, d) => a + d.lines, 0) : fencedAll) : null;
+  const recode = L.recodeOf(DIR, f.file);
   const b = L.bandOf(f.kind, lv);
   let mark = "✓", note = "";
   if (lv === undefined) { mark = "?"; note = "рівень вставки не оголошено в батч-файлі"; }
@@ -43,11 +59,11 @@ const rows = T.files.filter((f) => f.kind !== "other").map((f) => {
     mark = "▽";
     note = lv ? `нижче підлоги Р${lv} (<${b.floor})` : `нижче смуги (<${b.floor})`;
   } else if (w > b.max) { mark = "▲"; note = `понад виняткову стелю (>${b.max}) — тему треба ділити`; }
-  else if (w > b.hi) { mark = "⌇"; note = `виняток §3 (${b.hi}–${b.max}) — чи справді неподільна?`; }
+  else if (w > b.soft) { mark = "⌇"; note = `виняток §3 (${b.soft}–${b.max}) — чи справді неподільна?`; }
   else if (lv && lv < L.LEVELS && w >= b.floor + 2 * b.zone) {
     mark = "↑"; note = `на ${Math.floor((w - b.floor) / b.zone)} зони вище своєї — рівень Р${lv} занижено?`;
   }
-  return { f, w, b, lv, mark, note };
+  return { f, w, b, lv, code, dirs, fenced, recode, mark, note };
 });
 if (!rows.length) L.pass("у теці немає статей і вставок");
 
@@ -55,7 +71,15 @@ console.log("");
 if (LV && LV.topic) console.log(`  рівень теми: Р${LV.topic} — ${L.LEVEL_NAMES[LV.topic]}\n`);
 rows.forEach((r) => {
   const lab = r.lv ? `Р${r.lv} ${r.b.floor}–${r.b.hi}` : `${r.b.floor}–${r.b.hi}`;
-  console.log(`  ${r.mark} ${String(r.w).padStart(5)}w  ${r.f.file.padEnd(34)} ${r.f.label.padEnd(24)} ${lab}${r.note ? "  ← " + r.note : ""}`);
+  const cd = r.code === null ? "" : (r.dirs.length ? `  код ${String(r.code).padStart(4)}` : `  код ${String(r.code).padStart(4)} (в огорожах)`);
+  const rc = r.recode ? "  [recode]" : "";
+  console.log(`  ${r.mark} ${String(r.w).padStart(5)}w  ${r.f.file.padEnd(34)} ${r.f.label.padEnd(24)} ${lab}${cd}${rc}${r.note ? "  ← " + r.note : ""}`);
+  r.dirs.forEach((d) => {
+    const fl = L.codeFloorFor(d.tier, r.lv);
+    const t = d.tests ? `, тестів ${d.tests}` : "";
+    const verdict = !fl ? "скрипт — підлоги немає" : (d.lines >= fl ? "✓" : `✖ підлога Р${r.lv} = ${fl}`);
+    console.log(`        ${d.lang.padEnd(8)} ${String(d.lines).padStart(5)} рядків у ${d.files} файлах${t}   ${verdict}`);
+  });
 });
 
 const bad = [];
@@ -73,6 +97,44 @@ rows.filter((r) => r.mark === "▽").forEach((r) => bad.push(
   `${r.f.file} (${r.f.label}): ${r.w}w — ${r.note}; дописати до підлоги, не «водою», а тим, ` +
   `що бракує: механізм, крайові випадки, простеження, розбір`));
 rows.filter((r) => r.mark === "▲").forEach((r) => bad.push(`${r.f.file} (${r.f.label}): ${r.w}w — ${r.note}`));
+
+/* КОД у proj і api — підлога на КОЖНУ мову окремо, бо однакову роботу різні мови
+   пишуть різною кількістю рядків. Проза каже, ЩО показано; код каже, СКІЛЬКИ.
+
+   Прапорець recode вимикає дефект, але не вимикає вимір: код перенесено механічно
+   й він ще чекає на переписування як справжній проєкт. Якби гейт судив і його,
+   червоним засвітилося б 7484 файли одразу після переїзду — і перестав би щось
+   означати. Знімає прапорець той, хто перепише проєкт.                          */
+rows.filter((r) => r.code !== null && r.lv && !r.recode).forEach((r) => {
+  /* Теки проєкту немає — тема ще не пройшла recode-прохід. Це НЕ дефект: правило про
+     файли молодше за корпус (7484 файли написано до нього), і вимагати тут переїзду
+     означало б кинути тему в цикл ремонту за те, чого ніхто ще не робив. Черга таких —
+     node scripts/claude/recode-queue.js --book … --fences.                            */
+  if (!r.dirs.length) return;
+  /* А от тека Є, і код усе одно в огорожах — це дубль: те саме написано двічі. */
+  if (r.fenced) bad.push(`${r.f.file} (${r.f.label}): код ДУБЛЬОВАНО — тека проєкту є, але ` +
+    `${r.fenced} рядків лишилося ще й в огорожах. Одне з двох зайве: винеси решту у файли ` +
+    `й підключи з прози, інакше правити доведеться у двох місцях, і вони розійдуться`);
+  r.dirs.forEach((d) => {
+    const fl = L.codeFloorFor(d.tier, r.lv);
+    if (!fl || d.lines >= fl) return;
+    bad.push(`${r.f.file} (${r.f.label}), мова ${d.lang}: ${d.lines} рядків при підлозі ${fl} для Р${r.lv}. ` +
+      `Розширити саме КОД — довести приклад до робочого: обробка помилок, крайові випадки, ` +
+      `те, що справді запускається. У крайньому разі — дописати коментарі. Файли збірки й тести ` +
+      `в залік не входять, проза міряється окремо`);
+  });
+});
+
+/* Пара C↔C++ (§5) на рівні тек, а не тексту: ідіоматичний C++ розкладається інакше,
+   ніж C, тому звіряти імена файлів було б хибно — звіряємо наявність теки.        */
+rows.filter((r) => r.dirs && r.dirs.length).forEach((r) => {
+  const has = new Set(r.dirs.map((d) => d.lang));
+  if (has.has("c") && !has.has("cpp")) bad.push(`${r.f.file} (${r.f.label}): є тека c/, немає cpp/. ` +
+    `§5: приклад мовою C завжди дістає сусідній C++ — і переклад мусить бути ідіоматичним ` +
+    `(контейнер або unique_ptr замість malloc/free, RAII замість goto out, span/string_view ` +
+    `замість char*+довжина), а не C із заміненим printf. Винятки лише три: простір ядра, ` +
+    `приклад про сам C як мову, чужий заголовок як цитата`);
+});
 
 /* залізо §3: базова ≤ ½ детальної (відношення, від масштабу й рівня не залежить) */
 if (T.basic && T.detailed) {

@@ -80,14 +80,119 @@ const r50 = (x) => Math.round(x / 50) * 50;
 const CANON = {
   basic:    { lo: 500,  hi: 1200, max: 1200 },
   detailed: { lo: 1000, hi: 6500, max: 9000 },
-  /* вставки — смуга спільна (400–5000), нижній край свій: у math/proj/api
-     навіть найдотичніший випадок має показати виведення, код чи поверхню */
-  hist: { lo: 400, hi: 5000, max: 9000 },
-  comp: { lo: 400, hi: 5000, max: 9000 },
-  math: { lo: 500, hi: 5000, max: 9000 },
-  proj: { lo: 500, hi: 5000, max: 9000 },
-  api:  { lo: 450, hi: 5000, max: 9000 },
 };
+
+/* ── СМУГИ ВСТАВОК — задані ПРЯМО, без множника ────────────────────────────────
+   Раніше всі п'ять типів жили на спільній смузі 400–5000 × SCALE — спадщина
+   часів, коли їх вважали одним класом. Вони не один клас:
+
+     hist  500–4000   історія має що розповісти, але не безмежно;
+     math  600–4000   виведення довше за історію, але теж скінченне;
+     comp  600–5000   порівняння росте з числом сторін, тому стеля вища;
+     api   800–7000   неподільна поверхня чужого стандарту буває дуже великою;
+     proj  800–7000   практика з розбором — найбільший тип.
+
+   ЧИСЛА ТУТ ПРО ПРОЗУ, НЕ ПРО ФАЙЛ. proseWords не рахує нічого між огорожами
+   коду, тож код у ці смуги не входить і не може «дописати» вставку замість
+   тексту. Для proj і api код міряється ОКРЕМО (CODE_FLOOR): вставка цих двох
+   типів без коду не виконує того, заради чого її винесли, хоч би скільки прози
+   в ній було.
+
+   Виняткова стеля — півтори смуги: понад неї матеріал ділять, а не пишуть.     */
+const INSERT_BANDS = {
+  hist: { lo: 600, hi: 6000 },
+  math: { lo: 600, hi: 6500 },
+  comp: { lo: 800, hi: 7500 },
+  api:  { lo: 1100, hi: 11000 },
+  proj: { lo: 800, hi: 6000 },
+};
+
+/* ── СХОДИНКИ РІВНІВ У ВСТАВКАХ — НАРОСТАЮЧІ ──────────────────────────────────
+   У статей крок рівний: смуга ділиться на п'ять однакових зон. Для вставок так не
+   годиться. Вставка Р1 — дотична, її пишуть кількома абзацами; Р5 — те, заради чого
+   тему писали. Рівний крок робить перехід Р1→Р2 таким самим коштовним, як Р4→Р5, і
+   тим душить дешевий низ: дотичній вставці нічого сказати на пів тисячі слів понад
+   мінімум, і вона доливає води саме там, де води найпомітніше.
+
+   Тому крок росте. Р5 стоїть на ПОЛОВИНІ максимуму — верхня половина смуги лишається
+   вільним місцем для теми, яка справді того варта, — а Р1..Р5 розкладені геометрично:
+
+       підлога(вид, рівень) = lo × (Р5 / lo) ^ ((рівень − 1) / 4),   Р5 = hi / 2
+
+   Відношення між сусідніми рівнями стале (≈1.4–1.5), тобто кожен наступний рівень —
+   «у півтора раза глибший», а абсолютний крок природно росте: у proj це 300 · 450 ·
+   600 · 850 слів. Верх смуги (від Р5 до hi) — та сама однобокість, що й раніше:
+   переріс свій рівень і лишився під стелею означає, що рівень недооцінили.          */
+const insertFloor = (lo, hi, lv) => r50(lo * Math.pow((hi / 2) / lo, (lv - 1) / 4));
+
+/* ── КОД ЖИВЕ У ФАЙЛАХ, А НЕ В ОГОРОЖАХ ───────────────────────────────────────
+   Блок від EXTRACT_MIN рядків виїжджає з прози у файл. Тека названа тим .md,
+   у який код вставляють, — саме тому дві кодоносні вставки однієї теми не
+   стикаються (а таких тем 56%: proj і api поруч майже завжди):
+
+       <тема>/<ім'я .md без розширення>/<мова>/<файли>
+
+       i2c-expander/i2c-expander-d/c/main.c            детальна стаття
+       i2c-expander/proj-interrupt-driver/c/main.c     вставка
+       i2c-expander/proj-interrupt-driver/cpp/Ring.hpp
+
+   Тека мови — КОРІНЬ ПРОЄКТУ: усередині діє звичайна для мови розкладка,
+   з підтеками включно (rust/src/, go/internal/, пакет у Python). Розбивати
+   так, як розбивають у справжніх проєктах; спірно — розбивати.
+
+   Побічний виграш: .h перестав бути безрідним. У пласкій теці його не віднести
+   ні до C, ні до C++, і перевірка пари на цьому спотикалася. Тепер мову вирішує
+   тека, а спільний заголовок на дві мови став неможливим — отже, неможлива й
+   підробка «C++ версії», де той самий .h підключено з .cpp.                    */
+const EXTRACT_MIN = 10;
+
+/* Дві драбини підлог, бо однакову роботу різні мови пишуть різною кількістю
+   рядків. Обидві починаються з EXTRACT_MIN — з порога винесення: є код, значить
+   є файл, а далі рівень тягне вгору.
+
+   Числа тут САНІТАРНІ, не цільові. Повноту забезпечує не лічильник, а бриф:
+   письменникові дають прозу, preknowlist і контекст і кажуть реалізувати це
+   в коді до кінця. Підлога ловить лише огризок. Тому й порада при недоборі —
+   розширити код, у крайньому разі дописати коментарі: коментарі та порожні
+   рядки рахуються, бо коментар у коді теж пояснення.                          */
+const CODE_FLOOR = {
+  low:  [10, 60, 120, 180, 320],   /* C, C++, Go, Java, Rust, asm — багатослівні */
+  high: [10, 40,  80, 150, 250],   /* Python, JS, TS, Lua, Ruby — щільні         */
+};
+const NEEDS_CODE = new Set(["proj", "api"]);
+
+/* мітка огорожі → тека мови + смуга. tier glue — скрипти: файл дістають
+   (від EXTRACT_MIN), але підлоги не мають, бо їхній розмір нічого не каже. */
+const LANGS = {
+  c: ["c", "low"], h: ["c", "low"], "esp-idf": ["c", "low"], stm32: ["c", "low"], arduino: ["c", "low"],
+  cpp: ["cpp", "low"], "c++": ["cpp", "low"], hpp: ["cpp", "low"],
+  rust: ["rust", "low"], go: ["go", "low"], java: ["java", "low"], cs: ["cs", "low"],
+  swift: ["swift", "low"], kotlin: ["kotlin", "low"],
+  asm: ["asm", "low"], nasm: ["asm", "low"], verilog: ["verilog", "low"], vhdl: ["vhdl", "low"],
+  python: ["py", "high"], py: ["py", "high"], micropython: ["py", "high"],
+  ts: ["ts", "high"], typescript: ["ts", "high"], js: ["js", "high"], javascript: ["js", "high"],
+  ruby: ["ruby", "high"], rb: ["ruby", "high"], lua: ["lua", "high"], perl: ["perl", "high"],
+  php: ["php", "high"], r: ["r", "high"], matlab: ["matlab", "high"], dart: ["dart", "high"],
+  sh: ["sh", "glue"], bash: ["sh", "glue"], zsh: ["sh", "glue"],
+  sql: ["sql", "glue"], cmake: ["cmake", "glue"], make: ["make", "glue"], makefile: ["make", "glue"],
+};
+const DIR_TIER = (() => { const m = {}; for (const v of Object.values(LANGS)) m[v[0]] = v[1]; return m; })();
+
+/* Не код проєкту: файли збірки й обв'язки. Відбираємо за ІМЕНЕМ, а не за
+   розширенням — інакше setup.py, conanfile.py і noxfile.py пролізли б у ліміт
+   Python як звичайні модулі.                                                  */
+const BUILD_FILES = new Set([
+  "cmakelists.txt", "makefile", "gnumakefile", "meson.build", "build.ninja", "kconfig", "sdkconfig",
+  "setup.py", "setup.cfg", "conanfile.py", "noxfile.py", "fabfile.py", "tasks.py",
+  "pyproject.toml", "requirements.txt", "package.json", "package-lock.json", "tsconfig.json",
+  "cargo.toml", "cargo.lock", "go.mod", "go.sum", "dockerfile", "build.gradle", "pom.xml",
+  "platformio.ini", "readme.md", ".gitignore", ".clang-format", ".editorconfig",
+]);
+const BUILD_EXT = new Set([".cmake", ".mk", ".toml", ".json", ".yaml", ".yml", ".ini", ".cfg", ".lock", ".md", ".txt"]);
+
+/* Тести з ліміту виключено: тест не має задавати розмір проєкту. Чи покривають
+   вони заявлене — судиться змістом, а не рядками.                              */
+const TEST_RE = /(^|[\\/])(tests?|spec)([\\/]|$)|(^|[_.-])(test|spec)[_.-]|[_.-](test|spec)\.|^test_/i;
 
 /* ── РІВЕНЬ РОЗКРИТТЯ (1–5) — підлога, не ціль ────────────────────────────────
    Колонка «орієнтир» звідси прибрана двічі й обидва рази з тієї самої причини:
@@ -116,6 +221,8 @@ const CANON = {
 
    Ціна помилки в оцінці лягає на 06-ту: занижений рівень вона судить не лічильником,
    а читанням («рівень ↔ зміст»), бо це єдине місце, де заниження можна впіймати.       */
+const SPLIT_NL = new RegExp("\r?\n");
+const FENCE = new RegExp("^\s*" + "```");
 const LEVELS = 5;
 const LEVEL_NAMES = {
   1: "дотична — читач її мине без утрати",
@@ -138,16 +245,103 @@ const BASIC_GATE = { low: r50(2250 * scaleOf("detailed")), high: r50(4000 * scal
 /* Смуга виду, з підлогою, піднятою на зону рівня. Рівень не заданий (basic, або
    оцінки ще немає) — підлога лишається нижнім краєм смуги, тобто рівнем 1.       */
 function bandOf(kind, level) {
-  const c = CANON[kind] || CANON.detailed;
-  const k = scaleOf(kind);
-  const lo = r50(c.lo * k), hi = r50(c.hi * k), max = r50(c.max * k);
+  const ins = INSERT_BANDS[kind];
+  let lo, hi, max, soft, k = 1, c = null;
+  /* Вставка: hi — це вже МАКСИМУМ (понад нього тему ділять), Р5 стоїть на його
+     половині. Зона винятку («чи справді неподільна?») — верхня чверть смуги.      */
+  if (ins) { lo = ins.lo; hi = ins.hi; max = hi; soft = r50((hi / 2) * 1.5); }
+  else { c = CANON[kind] || CANON.detailed; k = scaleOf(kind);
+         lo = r50(c.lo * k); hi = r50(c.hi * k); max = r50(c.max * k); soft = hi; }
   const lv = clampLevel(level);
+  const fl = ins
+    ? (lv ? insertFloor(lo, hi, lv) : lo)
+    : (lv ? r50(lo + ((lv - 1) * (hi - lo)) / LEVELS) : lo);
   return {
-    lo, hi, max, scale: k, canon: c,
+    lo, hi, max, soft, scale: k, canon: c,
     level: lv,
-    zone: r50((hi - lo) / LEVELS),
-    floor: lv ? r50(lo + ((lv - 1) * (hi - lo)) / LEVELS) : lo,
+    /* «зона» для вироку «на N зон вище свого рівня»: у вставок крок нерівний,
+        тож беремо середній — він і так лише для грубої ознаки роздування.   */
+    zone: ins ? r50(((hi / 2) - lo) / 4) : r50((hi - lo) / LEVELS),
+    floor: fl,
+    needsCode: NEEDS_CODE.has(kind),
+    codeFloor: NEEDS_CODE.has(kind) ? CODE_FLOOR.low[(lv || 1) - 1] : 0,
   };
+}
+
+/* Рядки коду: усе між огорожами, разом із порожніми й коментарями. */
+function codeLines(md) {
+  let inCode = false, n = 0;
+  for (const line of md.split(SPLIT_NL)) {
+    if (FENCE.test(line)) { inCode = !inCode; continue; }
+    if (inCode) n++;
+  }
+  return n;
+}
+
+/* Тека проєкту конкретного .md: <тека теми>/<ім'я без .md>/ */
+function projectDir(topicDir, mdFile) { return path.join(topicDir, path.basename(mdFile, ".md")); }
+
+/* Мовні теки, що СПРАВДІ лежать на диску для цього .md. */
+function langDirsOf(topicDir, mdFile) {
+  const root = projectDir(topicDir, mdFile);
+  let ents = [];
+  try { ents = fs.readdirSync(root, { withFileTypes: true }); } catch { return []; }
+  const out = [];
+  for (const e of ents) {
+    if (!e.isDirectory()) continue;
+    const tier = DIR_TIER[e.name];
+    if (!tier) continue;
+    out.push({ lang: e.name, tier, dir: path.join(root, e.name) });
+  }
+  return out.sort((a, b) => a.lang.localeCompare(b.lang));
+}
+
+/* Рядки коду в теці мови: усе, крім файлів збірки й тестів. Порожні рядки
+   й коментарі рахуються — див. коментар при CODE_FLOOR.                  */
+function codeLinesOfDir(dir) {
+  let lines = 0, files = 0, tests = 0, build = 0;
+  const walk = (d, rel) => {
+    let ents = [];
+    try { ents = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
+    for (const e of ents) {
+      const p = path.join(d, e.name);
+      const r = rel ? rel + "/" + e.name : e.name;
+      if (e.isDirectory()) { walk(p, r); continue; }
+      const low = e.name.toLowerCase();
+      if (BUILD_FILES.has(low) || BUILD_EXT.has(path.extname(low))) { build++; continue; }
+      if (TEST_RE.test(r)) { tests++; continue; }
+      const t = read(p);
+      if (!t.trim()) continue;
+      files++;
+      lines += t.replace(/\r\n?/g, "\n").replace(/\n+$/, "").split("\n").length;
+    }
+  };
+  walk(dir, "");
+  return { lines, files, tests, build };
+}
+
+/* Підлога коду для смуги мови на рівні. Скрипти підлоги не мають. */
+function codeFloorFor(tier, level) {
+  if (tier !== "low" && tier !== "high") return 0;
+  return CODE_FLOOR[tier][(clampLevel(level) || 1) - 1];
+}
+
+/* Прапорець recode у маніфесті: код перенесено механічно і ще не переписано як
+   справжній проєкт. Поки він стоїть, розмір коду МІРЯЄТЬСЯ, але дефекту не дає —
+   інакше наступного дня після переїзду червоним засвітилося б 7484 файли, і гейт
+   перестав би щось означати. Знімає прапорець той, хто перепише проєкт.
+
+   Antigravity ставить recode ЗАВЖДИ, коли пише код: у Claude код виходить кращий,
+   тож усе, написане іншим конвеєром, за означенням чекає на переписування.       */
+function recodeOf(dir, file) {
+  const M = manifestOf(dir);
+  const t = M && M.topic;
+  if (!t) return false;
+  const slug = path.basename(path.resolve(dir));
+  if (file === slug + ".md") return !!(t.basic && t.basic.recode);
+  if (file === slug + "-d.md") return !!(t.detailed && t.detailed.recode);
+  for (const ty of INSERT_TYPES) for (const i of t[ty] || []) if (i.file === file) return !!i.recode;
+  return false;
 }
 
 /* ── звідки береться рівень ───────────────────────────────────────────────────
@@ -452,7 +646,9 @@ function adjudicate(dir, items, ask) {
 
 module.exports = {
   PASS, DEFECT, JUDGE, USAGE, ROOT, SCALE, INSERT_TYPES, KIND_LABEL, BASIC_GATE,
-  LEVELS, LEVEL_NAMES, clampLevel, readLevel, levelFor,
+  LEVELS, LEVEL_NAMES, clampLevel, readLevel, levelFor, codeLines, CODE_FLOOR, NEEDS_CODE,
+  EXTRACT_MIN, LANGS, DIR_TIER, BUILD_FILES, TEST_RE,
+  projectDir, langDirsOf, codeLinesOfDir, codeFloorFor, recodeOf,
   bandOf, classify, readTopic, read, strip, codeBlocks, proseWords, run, resolveDir, python,
   manifestOf, queuedTopics,
   head, pass, defects, adjudicate,

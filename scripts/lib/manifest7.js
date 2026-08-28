@@ -107,6 +107,7 @@ function allTopics(book) {
 function findTopic(book, slug) { return allTopics(book).find((t) => t.slug === slug) || null; }
 
 /** Слуги груп і розділів — для перевірки «чи створюємо нове». */
+const SLUG_RE = /^[a-z0-9][a-z0-9-]*$/;   /* слуг групи/розділу: ASCII, без номерів у голові */
 function groupSlugs(book) { return new Set(book ? [...book.groups.keys()] : []); }
 function chapterSlugs(book, group) {
   const g = book && book.groups.get(group);
@@ -115,6 +116,27 @@ function chapterSlugs(book, group) {
 
 /* ── запис ─────────────────────────────────────────────────────────────────── */
 const st = (v) => ({ status: v });
+
+/* ── РІВЕНЬ РОЗКРИТТЯ ПРИ СТАТУСІ `deeper` ────────────────────────────────────
+   Загалом рівень — параметр ПРОГОНУ: його дає фаза оцінки на старті батчу й кладе
+   в батч-файл. Але для `deeper` це не так. Там рівень уже виміряний і оплачений:
+   три незалежні оцінювачі дали темі 1–5, `levels-actual.js` зміряв прозу й побачив,
+   що текст на дві зони мілкіший. Якби це число не лягло в маніфест, дописувачеві
+   довелося б наймати оцінювачів наново на те, що вже пораховано, — і він щоразу
+   вигадував би СВОЮ глибину замість відомої.
+
+   Тому при `deeper` (і лише при ньому) поруч зі статусом лежить `level`:
+
+       "detailed": { "status": "deeper", "level": 4 }
+
+   Поле ТИМЧАСОВЕ: як тільки тема дописана й `finish-batch` переводить її назад у
+   `recheck`, рівень знімається — далі його місце знову в батч-файлі. Тримати його
+   вічно означало б заморозити оцінку, зроблену в один конкретний день.            */
+const LEVEL_MIN = 1, LEVEL_MAX = 5;
+const clampLevel = (v) => {
+  const n = Math.round(Number(v));
+  return Number.isFinite(n) && n >= LEVEL_MIN && n <= LEVEL_MAX ? n : null;
+};
 
 function ensureManifest(bookDir) {
   const mfPath = path.join(bookDir, "manifest.json");
@@ -162,6 +184,7 @@ function applyOps(bookDir, ops, opt) {
   const touchGroup = (g) => touched.add(g);
 
   const getGroup = (slug, title, scope) => {
+    if (!SLUG_RE.test(String(slug || ""))) throw new Error(`слуг групи «${slug}» не є слугом — групу не заведено`);
     if (book.groups.has(slug)) return book.groups.get(slug);
     const data = { schema: 7, kind: book.manifest.kind, book: book.manifest.slug, slug, title: title || slug, scope: scope || "", chapters: [] };
     const g = { path: path.join(bookDir, slug + ".json"), data, fresh: true };
@@ -171,6 +194,7 @@ function applyOps(bookDir, ops, opt) {
     return g;
   };
   const getChapter = (g, slug, title) => {
+    if (!SLUG_RE.test(String(slug || ""))) throw new Error(`слуг розділу «${slug}» не є слугом — розділу не заведено`);
     let ch = (g.data.chapters || []).find((c) => c.slug === slug);
     if (ch) return ch;
     ch = { slug, title: title || slug, topics: [] };
@@ -210,8 +234,22 @@ function applyOps(bookDir, ops, opt) {
         const cur = (t.node[o.ver] && t.node[o.ver].status) || "empty";
         if (o.op === "status-if" && cur !== o.from) { rep.skipped.push(`«${o.slug}».${o.ver} = ${cur} ≠ ${o.from}`); continue }
         const to = o.op === "status" ? o.status : o.to;
-        if (cur === to) { rep.skipped.push(`«${o.slug}».${o.ver} уже ${to}`); continue }
-        t.node[o.ver] = st(to); rep.status++; touchGroup(t.group);
+        const lvl = "level" in o ? clampLevel(o.level) : undefined;
+        const curLvl = (t.node[o.ver] && t.node[o.ver].level) || null;
+        /* recode — не статус, а борг: код у цьому файлі перенесено механічно й ще
+           не переписано як справжній проєкт. Живе поруч зі статусом, статусом не
+           стирається, знімається явно ("recode": false).                        */
+        const rc = "recode" in o ? !!o.recode : undefined;
+        const curRc = !!(t.node[o.ver] && t.node[o.ver].recode);
+        if (cur === to && (lvl === undefined || lvl === curLvl) && (rc === undefined || rc === curRc)) {
+          rep.skipped.push(`«${o.slug}».${o.ver} уже ${to}`); continue;
+        }
+        const node = st(to);
+        /* рівень лишається тільки при deeper: інші статуси його не носять */
+        const keep = lvl !== undefined ? lvl : (to === "deeper" ? curLvl : null);
+        if (to === "deeper" && keep) node.level = keep;
+        if (rc !== undefined ? rc : curRc) node.recode = true;
+        t.node[o.ver] = node; rep.status++; touchGroup(t.group);
 
       } else if (o.op === "insert") {
         const t = findTopic(book, o.slug);
@@ -219,8 +257,18 @@ function applyOps(bookDir, ops, opt) {
         if (!INSERT_TYPES.includes(o.type)) { rep.errors.push(`невідомий тип вставки «${o.type}»`); continue }
         const arr = (t.node[o.type] = t.node[o.type] || []);
         const cur = arr.find((x) => x.file === o.file);
-        if (cur) { if (cur.status === o.status) { rep.skipped.push(`вставка «${o.file}» уже ${o.status}`); continue } cur.status = o.status; }
-        else arr.push({ file: o.file, status: o.status });
+        const rc = "recode" in o ? !!o.recode : undefined;
+        if (cur) {
+          if (cur.status === o.status && (rc === undefined || !!cur.recode === rc)) {
+            rep.skipped.push(`вставка «${o.file}» уже ${o.status}`); continue;
+          }
+          cur.status = o.status;
+          if (rc === true) cur.recode = true; else if (rc === false) delete cur.recode;
+        } else {
+          const node = { file: o.file, status: o.status };
+          if (rc) node.recode = true;
+          arr.push(node);
+        }
         rep.insert++; touchGroup(t.group);
 
       } else if (o.op === "remove") {
@@ -264,7 +312,10 @@ function applyOps(bookDir, ops, opt) {
 
   rep.changed = rep.group + rep.chapter + rep.topic + rep.ref + rep.status + rep.insert + rep.removed + rep.moved + rep.retitled;
   if (!dry && rep.changed) {
-    if (touched.has("__manifest__")) write(book.mfPath, book.manifest);
+    const gs = (book.manifest.groups || []).filter((g) => SLUG_RE.test(String(g || "")));
+    const gsDirty = gs.length !== (book.manifest.groups || []).length;   /* прибрати порожні входи, коли б вони не з'явилися */
+    if (gsDirty) book.manifest.groups = gs;
+    if (gsDirty || touched.has("__manifest__")) write(book.mfPath, book.manifest);
     for (const gslug of touched) { const g = book.groups.get(gslug); if (g) write(g.path, g.data); }
   }
   return rep;
