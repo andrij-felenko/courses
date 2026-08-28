@@ -270,7 +270,8 @@
         if (!tb) return;
         (tb.modules || []).forEach(function (mo) {
           (mo.chapters || []).forEach(function (ch) {
-            if (_written(ch.status) || ch.full) written[tb.bookSlug + "/" + ch.dir] = true;
+            if (_written(ch.status) || ch.full)   // значення — ЯКІ версії є; усі рядки truthy, тож isWritten не змінився
+              written[tb.bookSlug + "/" + ch.dir] = _written(ch.status) ? (ch.full ? "both" : "basic") : "full";
           });
         });
       });
@@ -278,6 +279,18 @@
     });
 
     function refKey(s) { var pr = String(s.ref).split("/").filter(Boolean); return pr[0] + "/" + pr[pr.length - 1]; }
+    /* ЯКІ версії має крок — кольором вузла на нитці (див. CSS). Кільце каже версію,
+       осердя — що є й друга. Три стани, а не «обидві / ні»: крок лише з повною
+       інакше був би не відрізнити від кроку лише з короткою. */
+    function verOf(s, written) {
+      if (s.ref) return written[refKey(s)];
+      if (s.slug) {
+        var hb = !!(s.basic && _written(s.basic.status)), hd = !!(s.detailed && _written(s.detailed.status));
+        return hb ? (hd ? "both" : "basic") : (hd ? "full" : "");
+      }
+      return "";
+    }
+    var VER_CLASS = { both: " two-ver", basic: " v-basic", full: " v-full" };
     function isWritten(s, written) {
       if (s.ref) return !!written[refKey(s)];
       if (s.slug) return (s.basic && _written(s.basic.status)) || (s.detailed && _written(s.detailed.status));
@@ -339,16 +352,17 @@
 
       function stepHtml(s, kn) {
         var w = isWritten(s, written);
+        var tv = w ? (VER_CLASS[verOf(s, written)] || "") : "";
         if (s.ref) {
           var pr = String(s.ref).split("/").filter(Boolean), bk = pr[0], top = pr[pr.length - 1];
           var rd = READ.has(bk + "/" + top) ? " read" : "";
-          return '<li class="guide-step' + (w ? '' : ' soon') + rd + '"><a href="read.html?course=' + encodeURIComponent(b.bookSlug) + '&book=' + encodeURIComponent(bk) + '#ch=' + encodeURIComponent(top) + '">' +
+          return '<li class="guide-step' + (w ? '' : ' soon') + rd + tv + '"><a href="read.html?course=' + encodeURIComponent(b.bookSlug) + '&book=' + encodeURIComponent(bk) + '#ch=' + encodeURIComponent(top) + '">' +
             '<span class="gs-num">' + kn + '</span><span class="gs-ico">📖</span><span class="gs-ttl">' + _esc(s.title || top) + '</span>' +
             (w ? '<span class="gs-subj" data-book="' + _esc(bk) + '">' + _esc(bk) + '</span>' : '<span class="gs-soon">незабаром</span>') + '</a></li>';
         }
         if (s.slug) {
           var rdo = READ.has(b.bookSlug + "/" + s.slug) ? " read" : "";
-          return '<li class="guide-step own' + (w ? '' : ' soon') + rdo + '"><a href="read.html?book=' + encodeURIComponent(b.bookSlug) + '#ch=' + encodeURIComponent(s.slug) + '">' +
+          return '<li class="guide-step own' + (w ? '' : ' soon') + rdo + tv + '"><a href="read.html?book=' + encodeURIComponent(b.bookSlug) + '#ch=' + encodeURIComponent(s.slug) + '">' +
             '<span class="gs-num">' + kn + '</span><span class="gs-ico">📘</span><span class="gs-ttl">' + _esc(s.title || s.slug) + '</span>' +
             (w ? '<span class="gs-subj gs-own">стаття ' + _esc(KIND_OF[b.kind] || "курсу") + '</span>' : '<span class="gs-soon">незабаром</span>') + '</a></li>';
         }

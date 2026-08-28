@@ -42,6 +42,22 @@
   function chReadable(c) { return !!(c.hasBasic || c.hasDetailed); }                                  // є що читати (будь-яка версія)
   function chVisible(c) { return chReadable(c) || c.status === "pending" || c.dstatus === "pending"; } // показати (або «незабаром»)
   function menuVer(c) { return c.hasDetailed ? "d" : ""; }
+  /* ЯКІ версії має тема — не літерою й не кнопкою, а кольором риски ліворуч
+     (див. «версії кольором риски» у CSS). Бліда — коротка, насичена — повна,
+     дві барви — обидві. Саме тому три класи, а не прапорець «обидві»: інакше
+     тема лише з повною виглядала б як тема лише з короткою. */
+  function verClass(c) {
+    if (c.hasBasic && c.hasDetailed) return " two-ver";
+    if (c.hasDetailed) return " v-full";
+    if (c.hasBasic) return " v-basic";
+    return "";
+  }
+  function verHint(c) {
+    if (c.hasBasic && c.hasDetailed) return ' title="Є коротка й повна версії"';
+    if (c.hasDetailed) return ' title="Лише повна версія"';
+    if (c.hasBasic) return ' title="Лише коротка версія"';
+    return "";
+  }
   /* Написано, але людина ще не перечитала (recheck / update / deeper). Читається як усе інше —
      позначка лише каже читачеві, що текст іще можуть поправити. Прапорець c.draft рахувався
      від початку (див. індексацію), але його ніхто не малював. */
@@ -1151,7 +1167,7 @@
           h += '<div class="ch-nest"><h5 class="nest-ttl">' + escapeHtml(c.chap) + '</h5><div class="nest-body">';
         }
         if (c.slug) {   // є текст → читабельне (зі списку книги відкриваємо повну, якщо є)
-          h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row"><a class="ch-open" href="' + chHref(c.slug, null, menuVer(c)) + '">' +
+          h += '<div class="ch-item done' + readClass(c.slug) + verClass(c) + '"><div class="ch-row"><a class="ch-open"' + verHint(c) + ' href="' + chHref(c.slug, null, menuVer(c)) + '">' +
             '<span class="c-ttl">' + escapeHtml(c.title) + betaTag(c) + "</span>" +
             '<span class="c-go">→</span></a></div></div>';
         } else {
@@ -1213,8 +1229,8 @@
           var tops = entry.topics || [], specs = entry.specs || [];
           var tid = "tp-" + mr.replace(/\./g, "-");
           var btnLabel = plTopics(tops.length) + (specs.length ? " · " + specs.length + " вставок" : "");
-          h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row">' +
-            '<a class="ch-open" href="' + chHref(c.slug, null, menuVer(c)) + '"><span class="c-num">' + mr + "</span>" +
+          h += '<div class="ch-item done' + readClass(c.slug) + verClass(c) + '"><div class="ch-row">' +
+            '<a class="ch-open"' + verHint(c) + ' href="' + chHref(c.slug, null, menuVer(c)) + '"><span class="c-num">' + mr + "</span>" +
             '<span class="c-ttl">' + escapeHtml(c.title) + betaTag(c) + "</span>" +
             '<span class="c-go">→</span></a>';
           if (tops.length || specs.length) h += '<button class="ch-exp" type="button" data-exp="' + tid + '" aria-expanded="false">' + btnLabel + "</button>";
@@ -1596,6 +1612,8 @@
   function setContent(html) {
     var up = document.getElementById("up-btn");                        // innerHTML зітер би вузол разом зі старою шапкою
     if (up && up.parentNode !== document.body) document.body.appendChild(up);
+    var rc = document.getElementById("reader-controls");               // те саме й для панелі кнопок: без цього
+    if (rc && rc.parentNode !== document.body) document.body.appendChild(rc);   // шестерня зникала на кожному рендері
     $content.innerHTML = html; syncCodeTabs();
     placeUpBtn();                                                      // …і одразу назад у свіжу шапку — без блимання
   }

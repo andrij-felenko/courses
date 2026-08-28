@@ -37,6 +37,10 @@
   --shadow-lg: 0 10px 30px rgba(15,39,68,0.18);
   --sidebar-w: 288px;
   /* Смуги прокрутки — похідні від теми (див. глобальне правило нижче) */
+  /* ВЕРСІЇ. Бліда нейтральна — коротка, насичена акцентна — повна. Не нові барви,
+     а відтінки наявних: код має читатись, а не кричати. */
+  --ver-basic: color-mix(in srgb, var(--text-muted) 40%, transparent);
+  --ver-full: color-mix(in srgb, var(--accent) 70%, var(--bg));
   --sb-thumb: color-mix(in srgb, var(--text-muted) 42%, transparent);
   --sb-thumb-hover: color-mix(in srgb, var(--text-muted) 72%, transparent);
   --sb-track: transparent;
@@ -134,6 +138,10 @@ html[data-theme="night"] {
 #reader-controls.open > #controls-toggle { margin: 0; }
 #rc-backdrop { position: fixed; inset: 0; z-index: 390; background: rgba(10,16,24,0.35); opacity: 0; pointer-events: none; transition: opacity 0.18s ease; }
 #rc-backdrop.show { opacity: 1; pointer-events: auto; }
+/* Шапка — sticky z-index:80, тобто власний контекст накладання: z-index панелі
+   рахується ВСЕРЕДИНІ нього, і фон-модальність (390) накривав її разом із шапкою.
+   Поки відкрито — піднімаємо саму шапку: 395 > 390 (фон), 395 < 400 (попап мов). */
+html.rc-open .ch-header { z-index: 395; }
 
 /* ── Кнопка «мова коду» (показує топ-1) ── */
 #codelang-btn {
@@ -787,9 +795,16 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 
 /* ─── Зміст: список розділів із клікабельними темами, що розгортаються ───── */
 .ch-list { display: flex; flex-direction: column; gap: 0.3rem; }
-.ch-item { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg); }
+.ch-item { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background-color: var(--bg); }
 .ch-item.done:hover { border-color: var(--accent); }
-.ch-item.pending { background: var(--bg-alt); border-style: dashed; }
+/* Той самий код версій у виглядi-списку — риска малюється всередині межі картки. */
+.ch-item.v-basic, .ch-item.v-full, .ch-item.two-ver {
+  background-position: 0 0; background-repeat: no-repeat;
+}
+.ch-item.v-basic { background-image: linear-gradient(var(--ver-basic), var(--ver-basic)); background-size: 2px 100%; }
+.ch-item.v-full { background-image: linear-gradient(var(--ver-full), var(--ver-full)); background-size: 3px 100%; }
+.ch-item.two-ver { background-image: linear-gradient(var(--ver-basic) 0 50%, var(--ver-full) 50% 100%); background-size: 3px 100%; }
+.ch-item.pending { background-color: var(--bg-alt); border-style: dashed; }
 .ch-row { display: flex; align-items: center; gap: 0.6rem; padding: 0.32rem 0.6rem; }
 .ch-item .c-num {
   flex-shrink: 0; min-width: 2.7rem; height: 1.7rem; padding: 0 0.45rem; border-radius: 7px;
@@ -845,23 +860,43 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
    Тепер: підрозділ — окреме гніздо, гнізда течуть у 2–3 колонки за шириною екрана,
    тема бере свою висоту. Рамки навколо теми немає — її замінює коротка риска
    ліворуч: вона дає око за що зачепитись і водночас несе стан. */
-.toc.map-grid .ch-list { display: block; columns: 3 250px; column-gap: 2rem; gap: 0; }
+.toc.map-grid .ch-list { display: block; columns: 3 250px; column-gap: 2.25rem; }
 .toc.map-grid .ch-nest { break-inside: avoid; margin: 0 0 1.15rem; }
 .toc.map-grid .nest-ttl {
   margin: 0 0 0.4rem; padding-bottom: 0.25rem;
   font-size: 0.66rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--accent); border-bottom: 1px solid var(--border);
+  color: var(--accent);
+  background: linear-gradient(var(--border), var(--border)) 0 100% / calc(100% - 0.5rem) 1px no-repeat;
 }
 .toc.map-grid .ch-item {
-  border: 0; border-left: 2px solid var(--border); border-radius: 0;
-  background: none; margin: 0 0 1px; break-inside: avoid;
+  border: 0; border-radius: 0; margin: 0 0 1px; break-inside: avoid;
+  /* Риска — не межа, а фон: межа буває лише однобарвна, а їй треба нести ДВІ барви
+     (див. «версії кольором риски» нижче). Малюється в лівому відступі рядка, тож
+     положення тексту від неї не залежить. */
+  background-color: transparent;
+  background-image: linear-gradient(var(--border), var(--border));
+  background-size: 2px 100%; background-position: 0 0; background-repeat: no-repeat;
 }
-.toc.map-grid .ch-item:hover { border-left-color: var(--accent); background: var(--bg-alt); }
-.toc.map-grid .ch-item.pending { border-left-style: dotted; background: none; }
-.toc.map-grid .ch-item.done.read { border-left-color: #16a34a; }
-.toc.map-grid .ch-row { align-items: baseline; padding: 0.24rem 0 0.24rem 0.65rem; }
+.toc.map-grid .ch-item:hover { background-color: var(--bg-alt); }   /* НЕ скорочення background: воно зітерло б риску */
+.toc.map-grid .ch-item.pending {
+  background-image: repeating-linear-gradient(var(--border) 0 3px, transparent 3px 6px);   /* пунктир замість dotted-межі */
+}
+/* Зеленої риски в прочитаного НЕМА свідомо: сусідній коментар нижче вимагає для
+   прочитаного ОДИН тихий сигнал — галочку, — а це правило його ж і порушувало,
+   бо перебивало нейтральний колір своєю специфічністю. Тепер риска вільна під версії. */
+.toc.map-grid .ch-row { align-items: baseline; padding: 0.24rem 0 0.24rem calc(0.65rem + 2px); }
 .toc.map-grid .ch-item .c-num { display: none; }   /* порядку в книзі немає — номер лише шумів */
 .toc.map-grid .ch-item .c-badge { font-size: 0.58rem; opacity: 0.7; }
+
+/* ── ВЕРСІЇ КОЛЬОРОМ РИСКИ ─────────────────────────────────────────────────
+   Риска каже, ЩО в темі є: бліда — коротка, насичена — повна, обидві барви в
+   одній рисці — обидві версії. Ні літер, ні кнопок, ні окремої плашки.
+   Чому не «одна риска проти двох»: так видно лише «обидві / не обидві», а тема,
+   у якої є ЛИШЕ повна, виглядала б як тема лише з короткою. Барва показує все.
+   Товщина підсилює те саме: більше матеріалу — товща риска. */
+.toc.map-grid .ch-item.v-basic { background-image: linear-gradient(var(--ver-basic), var(--ver-basic)); }
+.toc.map-grid .ch-item.v-full { background-image: linear-gradient(var(--ver-full), var(--ver-full)); background-size: 3px 100%; }
+.toc.map-grid .ch-item.two-ver { background-image: linear-gradient(var(--ver-basic) 0 50%, var(--ver-full) 50% 100%); background-size: 3px 100%; }
 /* На вузькому — одна колонка: три по 250px там просто не стануть. */
 @media (max-width: 620px) { .toc.map-grid .ch-list { columns: 1; } }
 
@@ -877,7 +912,7 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
    факт. Коли прочитано пів книги, сторінка від цього рябіє й читати її важче, а не легше.
    Лишаємо один сигнал і тихий: галочка перед назвою, сама назва трохи відступає в тінь.
    Прочитане має ВІДХОДИТИ, щоб непрочитане виступало — це ж і є те, що читач шукає. */
-.ch-item.done.read { border-color: var(--border); background: var(--bg); }
+.ch-item.done.read { border-color: var(--border); background-color: var(--bg); }   /* НЕ скорочення: воно зітерло б риску версій */
 .ch-item.done.read .c-ttl { color: var(--text-muted); font-weight: 500; }
 .ch-item.done.read .c-ttl::before {
   content: "✓"; color: #16a34a; font-weight: 700; font-size: 0.8em;
@@ -1399,6 +1434,16 @@ html[data-libview="one"] .lib-seg { display: none; }
 }
 .guide-step.read > a::before { background: #16a34a; border-color: #16a34a; }
 .guide-step.soon > a::before, .guide-step.bridge::before { border-style: dotted; }
+/* ДВІ ВЕРСІЇ на доріжці: вузол дістає осердя — кільце, проміжок, крапка.
+   Та сама думка, що подвоєне ребро в книгах: два шари замість одного, без літер.
+   Прочитаний крок лишається зеленим — :not(.read) не чіпає його заливки. */
+/* Той самий код на доріжці: колір кільця — яка версія, осердя — що є й друга.
+   Прочитаний крок лишається зеленим (у нього вже є галочка й зелений номер),
+   але осердя показує повну й там. */
+.guide-step.v-basic:not(.read) > a::before { border-color: var(--ver-basic); }
+.guide-step.v-full:not(.read) > a::before { border-color: var(--ver-full); }
+.guide-step.two-ver:not(.read) > a::before { border-color: var(--ver-basic); }
+.guide-step.two-ver > a::before { background: var(--ver-full); box-shadow: inset 0 0 0 1.5px var(--bg); }
 .guide-step > a, .guide-step.bridge { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.4rem 0.7rem 0.4rem 1.05rem; text-decoration: none; color: var(--text); }
 .guide-step > a:hover { background: var(--bg-alt); }
 .guide-step.bridge { color: var(--text-muted); font-style: italic; }
@@ -1474,10 +1519,12 @@ html[data-libview="one"] .lib-seg { display: none; }
 /* Позначка «beta»: написано конвеєром, людина ще не перечитала (recheck/update/deeper).
    Читається як усе інше — позначка лише попереджає, що текст можуть поправити. */
 .beta-tag {
-  font-size: .68em; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
-  padding: .05em .38em; margin-left: .45em; border-radius: .5em; vertical-align: .12em;
-  color: #8a5a00; background: #ffeec2; border: 1px solid #f0d089;
-}
-@media (prefers-color-scheme: dark) {
-  .beta-tag { color: #ffd98a; background: #4a3a12; border-color: #6b5520; }
+  font-size: .58em; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  padding: 0; margin-left: .55em; vertical-align: .14em;
+  /* ВЛАСНОГО кольору не має: бере колір сусіднього тексту й гасне. Тому однаково тиха
+     і в списку (темне по світлому), і в боковій панелі (світле по темному). Колишня
+     бурштинова плашка до того ж СВІТИЛАСЬ у нічній темі: її темний варіант висів на
+     @media(prefers-color-scheme), а тему тут перемикає html[data-theme] — тобто
+     темне правило не спрацьовувало ніколи, крім збігу з темою системи. */
+  color: inherit; opacity: .45; background: none; border: 0;
 }

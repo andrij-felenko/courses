@@ -84,9 +84,14 @@
 
     /* Шапка З обгорткою (стаття): сусіди обгортки — це інструменти (перемикач версій).
        Шапка БЕЗ обгортки (лендинг курсу): усі діти — це назва, загортаємо їх. */
+    var keptRc = null;   // ⚠ вийнятий вузол ТРЕБА тримати за змінну: після removeChild
+                         //   його вже не знайти через getElementById. Панель гинула не тут,
+                         //   а від перезапису #content (див. setContent у book.js), але сам
+                         //   прийом «вийняти й шукати за id» хибний — тому й тримаємо посилання.
     [].slice.call(head.childNodes).forEach(function (n) {
       if (n === main) return;
       if (n.nodeType === 1 && (n.id === "up-btn" || n.id === "menu-btn" || n.id === "reader-controls")) {
+        if (n.id === "reader-controls") keptRc = n;
         head.removeChild(n); return;                       // свої кнопки розставимо самі
       }
       (hadMain ? tools : main).appendChild(n);
@@ -99,7 +104,7 @@
 
     nav.appendChild(menuBtn);
     nav.appendChild(upBtn);
-    var rc = el("reader-controls");
+    var rc = keptRc || el("reader-controls");
     if (rc) tools.appendChild(rc);
 
     head.appendChild(nav);

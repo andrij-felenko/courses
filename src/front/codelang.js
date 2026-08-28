@@ -121,8 +121,10 @@
     document.body.appendChild(backdrop);
     var autoT = null;
     function armAuto() { clearTimeout(autoT); autoT = setTimeout(closePanel, 10000); }   // авто-закриття за 10с бездіяльності
-    function openPanel() { h.classList.add("open"); backdrop.classList.add("show"); armAuto(); }
-    function closePanel() { clearTimeout(autoT); h.classList.remove("open"); backdrop.classList.remove("show"); closePop(); }
+    /* rc-open на <html> піднімає шапку над фоном-модальністю: панель живе всередині
+       sticky-шапки, тож без цього її z-index нічого не важить проти фону. */
+    function openPanel() { h.classList.add("open"); document.documentElement.classList.add("rc-open"); backdrop.classList.add("show"); armAuto(); }
+    function closePanel() { clearTimeout(autoT); h.classList.remove("open"); document.documentElement.classList.remove("rc-open"); backdrop.classList.remove("show"); closePop(); }
     backdrop.addEventListener("click", closePanel);
     gear.addEventListener("click", function (e) { e.stopPropagation(); if (h.classList.contains("open")) closePanel(); else openPanel(); });
 
