@@ -81,78 +81,7 @@ Q = 1/(2·0.300)                          = 1.67
 
 Наведений нижче код на Python робить це від початку до кінця. Мова тут не випадкова: обробка масиву відліків — рідна стихія `numpy`/`scipy`, де пошук піків, перетворення Фур'є й найменші квадрати вже готові й читаються майже як формули. Спершу — генератор тестового запису (щоб було на чому перевіряти й із чим порівнювати), далі — сам оцінювач.
 
-```python
-import numpy as np
-from scipy.signal import find_peaks
-
-def make_ringdown(fs=2000.0, T=4.0, f_d=45.0, zeta=0.05, A=1.0,
-                  phi=0.0, noise=0.01, seed=0):
-    """Синтез запису вільного дзвону з відомими параметрами + шум.
-    Потрібен, щоб перевіряти оцінювач: знаємо правду — бачимо похибку."""
-    rng = np.random.default_rng(seed)
-    t = np.arange(0.0, T, 1.0 / fs)
-    w_d = 2 * np.pi * f_d
-    gamma = zeta * w_d / np.sqrt(1 - zeta**2)      # γ = ζ·ω₀, ω₀ = ω_d/√(1−ζ²)
-    x = A * np.exp(-gamma * t) * np.cos(w_d * t + phi)
-    return t, x + noise * rng.standard_normal(t.size)
-
-def rough_freq(a, fs):
-    """Груба частота дзвону з піка спектра — щоб знати, як далеко стоять вершини."""
-    A = np.abs(np.fft.rfft(a - np.mean(a)))
-    f = np.fft.rfftfreq(len(a), 1.0 / fs)
-    return f[1 + np.argmax(A[1:])]                 # пропускаємо нульову (сталу) складову
-
-def refine_peak(a, i):
-    """Параболою по трьох точках уточнюємо вершину між відліками:
-    повертає (зсув у частках кроку, справжню висоту вершини)."""
-    y0, y1, y2 = a[i - 1], a[i], a[i + 1]
-    den = y0 - 2 * y1 + y2
-    if den == 0:
-        return 0.0, y1
-    d = 0.5 * (y0 - y2) / den                      # |d| < 0.5 — де насправді вершина
-    return d, y1 - 0.25 * (y0 - y2) * d
-
-def estimate_damping(t, a):
-    fs = 1.0 / (t[1] - t[0])
-    noise_rms = np.std(a[int(0.9 * len(a)):])      # хвіст запису = сам шум
-    f0 = rough_freq(a, fs)
-    dist = max(1, int(0.6 * fs / f0))              # вершини не ближче за пів періоду
-    amax = np.max(np.abs(a))
-    floor = max(0.04 * amax, 6 * noise_rms)        # довіряємо лише виразним вершинам
-    idx, _ = find_peaks(a, distance=dist, height=floor)
-    idx = idx[(idx > 0) & (idx < len(a) - 1)]
-
-    tp, ap = [], []
-    for i in idx:                                  # уточнюємо кожну вершину параболою
-        d, apk = refine_peak(a, i)
-        tp.append(t[i] + d / fs); ap.append(apk)
-    tp, ap = np.array(tp), np.array(ap)
-    if len(ap) < 3:
-        raise ValueError("замало вершин — довший запис або менший шум")
-
-    T_d = np.mean(np.diff(tp)); w_d = 2 * np.pi / T_d          # частота — з кроку вершин
-    slope, _ = np.polyfit(tp, np.log(ap), 1, w=ap)             # пряма крізь ln(вершини),
-    gamma = -slope                                             # вага ∝ висота (великим віри більше)
-
-    w0 = np.hypot(gamma, w_d)                                  # ω₀ = √(γ² + ω_d²) — без m, k!
-    zeta = gamma / w0
-    Q = w0 / (2 * gamma)
-
-    delta = np.log(ap[0] / ap[-1]) / (len(ap) - 1)             # перехресна перевірка:
-    zeta_ld = delta / np.sqrt(4 * np.pi**2 + delta**2)         # лог-декремент по краях
-
-    return dict(f_d=w_d / (2 * np.pi), gamma=gamma, w0=w0,
-                zeta=zeta, Q=Q, zeta_ld=zeta_ld, n=len(ap))
-
-t, a = make_ringdown(noise=0.01)                   # «дзвін» із ζ=0.05, f_d=45 Гц, шум 1%
-r = estimate_damping(t, a)
-print(f"частота дзвону  f_d = {r['f_d']:.2f} Гц")
-print(f"темп загасання  γ   = {r['gamma']:.2f} 1/с")
-print(f"власна частота  ω₀  = {r['w0']:.1f} рад/с")
-print(f"ζ (обвідна)         = {r['zeta']:.4f}")
-print(f"ζ (лог-декремент)   = {r['zeta_ld']:.4f}")
-print(f"добротність     Q   = {r['Q']:.1f}   (по {r['n']} вершинах)")
-```
+:::code proj-ringdown/py/robochyi-konveier-priama.py
 
 На записі із закладеними ζ = 0.05 і f_d = 45 Гц (частота дискретизації 2 кГц, шум 1 %) виходить:
 
@@ -181,39 +110,7 @@ print(f"добротність     Q   = {r['Q']:.1f}   (по {r['n']} верш�
 
 Оцінювач треба на чомусь перевіряти, а конструкторові — ще й підбирати демпфер під бажану поведінку, ще не торкаючись заліза. І те, й те дає простий чисельний інтегратор рівняння руху m·ẍ + c·ẋ + k·x = 0. Диференціальне рівняння інтегрують числом, крокуючи стан [x, v] маленькими кроками; метод Рунге–Кутти 4-го порядку на кожному кроці робить чотири проби похідної й дає точність, якої тут вистачає з головою ([числові методи розв'язку ОДУ](root:math-numeric/numerical-ode)).
 
-```python
-def simulate(m, k, c, x0=0.0, v0=0.0, T=3.0, fs=2000.0):
-    """RK4-інтегрування m·ẍ + c·ẋ + k·x = 0. Стан s = [x, v]."""
-    w0 = np.sqrt(k / m); two_zw = c / m            # c/m = 2ζω₀
-    def deriv(s):
-        x, v = s
-        return np.array([v, -w0 * w0 * x - two_zw * v])
-    dt = 1.0 / fs; n = int(T * fs); t = np.arange(n) * dt
-    s = np.array([x0, v0]); out = np.empty(n)
-    for i in range(n):
-        out[i] = s[0]
-        k1 = deriv(s); k2 = deriv(s + 0.5 * dt * k1)
-        k3 = deriv(s + 0.5 * dt * k2); k4 = deriv(s + dt * k3)
-        s = s + (dt / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4)
-    return t, out
-
-def c_for_zeta(m, k, zeta):
-    """Коефіцієнт демпфера під заданий ζ: c = 2ζ·√(m·k)."""
-    return 2.0 * zeta * np.sqrt(m * k)
-
-# Чверть кузова: m = 300 кг, k = 30000 Н/м. Який c дає бажаний ζ?
-m, k = 300.0, 30000.0
-print("c критичне (ζ=1) =", c_for_zeta(m, k, 1.0), "Н·с/м")
-print("c для ζ = 0.3    =", c_for_zeta(m, k, 0.3), "Н·с/м")
-
-# Симулюємо кузов після поштовху й «міряємо» ζ з двох перших вершин
-t, x = simulate(m, k, c_for_zeta(m, k, 0.3), x0=0.0, v0=0.5)
-idx, _ = find_peaks(x, height=0.02 * np.max(np.abs(x)))
-p1, p2 = x[idx[0]], x[idx[1]]
-delta = np.log(p1 / p2)
-zeta = delta / np.sqrt(4 * np.pi**2 + delta**2)
-print(f"дві вершини: {p1:.4f} → {p2:.4f}  →  δ={delta:.3f}, ζ={zeta:.3f}, Q={1/(2*zeta):.2f}")
-```
+:::code proj-ringdown/py/zamknuty-kolo-intehrator-i.py
 
 ```
 c критичне (ζ=1) = 6000.0 Н·с/м
@@ -227,53 +124,7 @@ c для ζ = 0.3    = 1800.0 Н·с/м
 
 Коли дзвін треба читати не на ноутбуці post factum, а прямо в приладі — у датчику вібрації, що сам стежить за станом підшипника, — картина інша. Немає ні `numpy`, ні всього запису в пам'яті: відліки течуть по одному, пам'ять і такти лічені. Тут доречна C — мова, що лягає на голе залізо без прошарків. Хитрість у тому, щоб не зберігати сигнал, а ловити вершини **на льоту**: тримати попередній відлік і прапорець «росли», і в мить, коли ріст змінюється спадом, оголошувати попередню точку вершиною. По першій і останній прийнятій вершині — той самий усереднений лог-декремент.
 
-```c
-#include <math.h>
-#include <stdint.h>
-
-#define FOUR_PI2  39.4784176f          /* 4·π² */
-
-typedef struct {
-    float    fs, floor, prev;
-    int      rising, peaks;
-    float    a_first, a_last;          /* висоти першої й останньої вершини */
-    uint32_t n_first, n_last, idx;     /* їхні номери відліків */
-} Ring;
-
-void ring_init(Ring *r, float fs, float noise_floor) {
-    r->fs = fs; r->floor = 6.0f * noise_floor;    /* довіра лише над шумом */
-    r->prev = 0.0f; r->rising = 0; r->peaks = 0;
-    r->a_first = r->a_last = 0.0f;
-    r->n_first = r->n_last = 0; r->idx = 0;
-}
-
-/* Годуємо по одному відліку; повертає 1, коли щойно прийнято нову вершину.
-   Детектор варто «зводити» після удару, коли сигнал уже піднявся над floor. */
-int ring_push(Ring *r, float x) {
-    int got = 0;
-    if (r->rising && x < r->prev && r->prev > r->floor) {
-        if (r->peaks == 0) { r->a_first = r->prev; r->n_first = r->idx - 1; }
-        r->a_last = r->prev; r->n_last = r->idx - 1;
-        r->peaks++; got = 1;
-    }
-    r->rising = (x > r->prev);
-    r->prev = x; r->idx++;
-    return got;
-}
-
-/* Коли вершин зібралося досить — витягуємо ζ, Q, f_d. 0, якщо замало. */
-int ring_result(const Ring *r, float *zeta, float *Q, float *f_d) {
-    if (r->peaks < 3) return 0;
-    int   cycles = r->peaks - 1;
-    float delta  = logf(r->a_first / r->a_last) / (float)cycles;
-    float z      = delta / sqrtf(FOUR_PI2 + delta * delta);
-    float Td     = (float)(r->n_last - r->n_first) / (r->fs * (float)cycles);
-    *zeta = z;
-    *Q    = 1.0f / (2.0f * z);
-    *f_d  = 1.0f / Td;
-    return 1;
-}
-```
+:::code proj-ringdown/c/main.c
 
 Ця жменька коду не тримає в пам'яті нічого, крім кількох чисел, і робить сталу роботу на кожен відлік — тож крутиться хоч на найдешевшому мікроконтролері в перерві між зчитуваннями акселерометра. Знадобилися лише `logf` і `sqrtf`; ні буфера сигналу, ні перетворення Фур'є, ні динамічної пам'яті. Ту саму фізику, що на ноутбуці читалася `numpy`-масивом, тут прочитано трьома змінними стану.
 

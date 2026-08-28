@@ -27,20 +27,7 @@
 
 У коді це коротко. Ось повний перехід від масиву відліків до двох масивів «частота — амплітуда»:
 
-```python
-import numpy as np
-
-def spectrum(x, fs, win=None):
-    """Спектр дійсного сигналу: частоти в герцах, амплітуди в одиницях x."""
-    N = len(x)
-    w = np.ones(N) if win is None else win(N)
-    X = np.fft.rfft(x * w)                 # лише додатні частоти: 0 … fs/2
-    amp = 2.0 * np.abs(X) / w.sum()        # переводимо в амплітуду сигналу
-    amp[0] /= 2                            # стала складова не подвоюється
-    if N % 2 == 0:
-        amp[-1] /= 2                       # бін Найквіста теж
-    return np.fft.rfftfreq(N, 1.0/fs), amp
-```
+:::code proj-fft-spectrum/py/funktsiia-shcho-povertaie.py
 
 Два місця тут неочевидні.
 
@@ -52,18 +39,7 @@ def spectrum(x, fs, win=None):
 
 Новий код перевіряють на тому, чия відповідь відома наперед. Прямокутна хвиля (меандр) для цього ідеальна: у її спектрі мають бути тільки непарні гармоніки з амплітудами, що спадають як 1/n.
 
-```python
-fs, f0, N = 48000, 100.0, 4800             # 0.1 с — рівно 10 періодів
-t = np.arange(N) / fs
-x = np.where((f0*t) % 1.0 < 0.5, 1.0, -1.0)   # півперіоду +1, півперіоду −1
-
-f, a = spectrum(x, fs)
-k0 = round(f0 / (fs/N))                    # бін основної частоти
-for n in range(1, 10):
-    k = n * k0
-    print("%2d·f0 = %5.0f Гц   амплітуда %.4f   від основної %.4f"
-          % (n, f[k], a[k], a[k]/a[k0]))
-```
+:::code proj-fft-spectrum/py/perevirka-na-meandri.py
 
 ```
  1·f0 =   100 Гц   амплітуда 1.2732   від основної 1.0000
@@ -155,19 +131,7 @@ T = 1.000 с, крок 1 Гц -> два найбільші біни: [(443.0, 1.
 
 А от **назвати** частоту однієї, окремо стоячої лінії точніше за крок сітки цілком можна. Вершина розмазаного піка симетрична, тож по трьох сусідніх бінах через неї проводять параболу й беруть її вершину:
 
-```python
-def peak_freq(f, a):
-    k = int(np.argmax(a))                                    # найвищий бін
-    d = 0.5*(a[k-1] - a[k+1]) / (a[k-1] - 2*a[k] + a[k+1])   # вершина параболи
-    return (k + d) * (f[1] - f[0])                           # (k + зсув)·Δf
-
-fs, N = 1000, 1000
-t = np.arange(N) / fs
-for ftone in (100.37, 137.83):
-    f, a = spectrum(np.sin(2*np.pi*ftone*t), fs, np.hanning)
-    print("справжня %.2f Гц -> бін %.0f Гц -> уточнено %.3f Гц"
-          % (ftone, f[int(np.argmax(a))], peak_freq(f, a)))
-```
+:::code proj-fft-spectrum/py/skilky-treba-slukhaty.py
 
 ```
 справжня 100.37 Гц -> бін 100 Гц -> уточнено 100.322 Гц
@@ -183,91 +147,8 @@ for ftone in (100.37, 137.83):
 На великій машині всю роботу зробила бібліотека. На мікроконтролері бібліотеки може й не бути, зате сама реалізація коротка. Ось класичний ітеративний радікс-2 «на місці» — без жодного виділення пам'яті, результат лягає в ті самі два масиви:
 
 :::tabs
-```c
-#include <math.h>
-#include <stddef.h>
-
-#ifndef M_PI                        /* у стандарті C його немає — підстрахуймося */
-#define M_PI 3.14159265358979323846
-#endif
-
-/* FFT «на місці»; n — степінь двійки. На вході re[] — відліки, im[] — нулі,
-   на виході re[k], im[k] — комплексний спектр.                              */
-void fft_radix2(float *re, float *im, size_t n)
-{
-    /* 1. перестановка за оберненими бітами: те, що алгоритм ділить
-          на парні й непарні, після неї лежить поруч                */
-    for (size_t i = 1, j = 0; i < n; i++) {
-        size_t bit = n >> 1;
-        for (; j & bit; bit >>= 1)
-            j ^= bit;
-        j ^= bit;
-        if (i < j) {
-            float t;
-            t = re[i]; re[i] = re[j]; re[j] = t;
-            t = im[i]; im[i] = im[j]; im[j] = t;
-        }
-    }
-    /* 2. log2(n) ярусів метеликів: пара входів -> пара виходів */
-    for (size_t len = 2; len <= n; len <<= 1) {
-        float ang = -2.0f * (float)M_PI / (float)len;
-        float sr = cosf(ang), si = sinf(ang);        /* крок повороту */
-        for (size_t i = 0; i < n; i += len) {
-            float wr = 1.0f, wi = 0.0f;              /* множник повороту */
-            for (size_t k = 0; k < len / 2; k++) {
-                size_t p = i + k, q = p + len / 2;
-                float ur = re[p], ui = im[p];
-                float vr = re[q]*wr - im[q]*wi;
-                float vi = re[q]*wi + im[q]*wr;
-                re[p] = ur + vr;  im[p] = ui + vi;
-                re[q] = ur - vr;  im[q] = ui - vi;
-                float t = wr*sr - wi*si;             /* докрутити множник */
-                wi = wr*si + wi*sr;
-                wr = t;
-            }
-        }
-    }
-}
-```
-```cpp
-#include <cmath>
-#include <complex>
-#include <numbers>
-#include <span>
-#include <utility>
-
-// FFT «на місці» над послідовністю комплексних відліків; n = data.size() (степінь двійки)
-void fft_radix2(std::span<std::complex<float>> data)
-{
-    const size_t n = data.size();
-    // 1. перестановка за оберненими бітами
-    for (size_t i = 1, j = 0; i < n; ++i) {
-        size_t bit = n >> 1;
-        for (; j & bit; bit >>= 1)
-            j ^= bit;
-        j ^= bit;
-        if (i < j)
-            std::swap(data[i], data[j]);
-    }
-    // 2. log2(n) ярусів метеликів
-    for (size_t len = 2; len <= n; len <<= 1) {
-        const float ang = -2.0f * std::numbers::pi_v<float> / static_cast<float>(len);
-        const std::complex<float> wlen(std::cos(ang), std::sin(ang));
-        for (size_t i = 0; i < n; i += len) {
-            std::complex<float> w(1.0f, 0.0f);
-            for (size_t k = 0; k < len / 2; ++k) {
-                const size_t p = i + k;
-                const size_t q = p + len / 2;
-                const auto u = data[p];
-                const auto v = data[q] * w;
-                data[p] = u + v;
-                data[q] = u - v;
-                w *= wlen;
-            }
-        }
-    }
-}
-```
+:::code proj-fft-spectrum/c/u-realnomu-chasi-radiks-2.c
+:::code proj-fft-spectrum/cpp/u-realnomu-chasi-radiks-2.cpp
 :::
 
 Три десятки рядків роблять те саме, що `np.fft.fft`. Перший цикл переставляє відліки в порядку обернених бітів: після нього ті, що алгоритм на кожному кроці розділяє на парні й непарні, стоять поруч — і далі все рахується на місці, без другого масиву. Другий цикл — log₂n ярусів; на кожному беруть пару чисел, множать друге з них на множник повороту й дають на вихід їхню суму й різницю. Таку пару звуть **метеликом** — на схемі два входи й два виходи справді сходяться в крила.
@@ -275,47 +156,8 @@ void fft_radix2(std::span<std::complex<float>> data)
 Викликають його так:
 
 :::tabs
-```c
-static float re[1024], im[1024];
-
-for (size_t i = 0; i < 1024; i++) {
-    re[i] = samples[i] * hann[i];    /* вікно — заздалегідь у таблиці */
-    im[i] = 0.0f;
-}
-fft_radix2(re, im, 1024);
-
-/* найсильніша лінія серед бінів 1 … n/2−1; w_sum — сума ваг вікна */
-size_t kmax = 1;
-for (size_t k = 2; k < 512; k++)
-    if (re[k]*re[k] + im[k]*im[k] > re[kmax]*re[kmax] + im[kmax]*im[kmax])
-        kmax = k;
-
-float amp = 2.0f * sqrtf(re[kmax]*re[kmax] + im[kmax]*im[kmax]) / w_sum;
-float hz  = kmax * (fs / 1024.0f);          /* крок сітки — fs/N */
-```
-```cpp
-#include <vector>
-
-std::vector<std::complex<float>> buf(1024);
-for (size_t i = 0; i < 1024; ++i) {
-    buf[i] = {samples[i] * hann[i], 0.0f};
-}
-
-fft_radix2(buf);
-
-// пошук найсильнішої лінії серед бінів 1 … n/2−1
-size_t kmax = 1;
-float max_pwr = std::norm(buf[1]);
-for (size_t k = 2; k < 512; ++k) {
-    if (float pwr = std::norm(buf[k]); pwr > max_pwr) {
-        max_pwr = pwr;
-        kmax = k;
-    }
-}
-
-float amp = 2.0f * std::abs(buf[kmax]) / w_sum;
-float hz  = static_cast<float>(kmax) * (fs / 1024.0f);
-```
+:::code proj-fft-spectrum/c/u-realnomu-chasi-radiks-2-2.c
+:::code proj-fft-spectrum/cpp/u-realnomu-chasi-radiks-2-2.cpp
 :::
 
 Уся пам'ять — два масиви по n float: для n = 1024 це 8 кілобайтів, і ще стільки ж, якщо тримати таблицю вікна. Часу — (n/2)·log₂n метеликів, тобто 5120 штук, у кожному з півтора десятка множень і додавань; на 100-мегагерцовому Cortex-M4 з апаратним FPU цей нехитрий варіант укладається в одиниці мілісекунд, вилизана бібліотечна реалізація — помітно швидше.

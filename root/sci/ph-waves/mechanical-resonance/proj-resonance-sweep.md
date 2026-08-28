@@ -29,31 +29,7 @@ v̇ = ( F₀·cos(ω t) − c·v − k·x ) / m
 
 Ось увесь інтегратор — природно мовою чисельних експериментів, Python із numpy:
 
-```py
-import numpy as np
-
-# Система з прикладу теми: датчик на пружному кронштейні
-m  = 0.05                     # маса, кг
-k  = 8000.0                   # жорсткість, Н/м
-Q  = 25.0                     # добротність (слабке загасання)
-w0 = np.sqrt(k / m)           # власна частота = 400 рад/с
-c  = m * w0 / Q               # загасання з Q = m·ω₀/c  →  c = 0.8 Н·с/м
-F0 = 0.5                      # амплітуда вимушувальної сили, Н
-
-def deriv(y, t, w):
-    """Права частина системи: похідні стану [x, v]."""
-    x, v = y
-    a = (F0 * np.cos(w * t) - c * v - k * x) / m
-    return np.array([v, a])
-
-def rk4_step(y, t, dt, w):
-    """Один крок RK4: чотири проби нахилу, зважене середнє."""
-    k1 = deriv(y,             t,          w)
-    k2 = deriv(y + dt/2 * k1, t + dt/2,   w)
-    k3 = deriv(y + dt/2 * k2, t + dt/2,   w)
-    k4 = deriv(y + dt   * k3, t + dt,     w)
-    return y + dt/6 * (k1 + 2*k2 + 2*k3 + k4)
-```
+:::code proj-resonance-sweep/py/krok-za-krokom-u-chasi-rk4.py
 
 Це повний, робочий кістяк — жодного псевдокоду. Далі його лише крутять по-різному: то на одній частоті, то на багатьох.
 
@@ -63,30 +39,7 @@ def rk4_step(y, t, dt, w):
 
 Щоб відтворити резонансну криву, зробимо буквально те, що робить випробувач на вібростенді: тримаємо частоту двигуна сталою, чекаємо, поки перехідний процес згасне, міряємо усталений розмах — і так на багатьох частотах поспіль.
 
-```py
-def steady_amplitude(w, n_settle=60, n_measure=20, steps=200):
-    """Амплітуда сталих коливань на частоті w (рад/с)."""
-    T  = 2*np.pi / w
-    dt = T / steps                       # steps кроків на період — з запасом для RK4
-    y  = np.array([0.0, 0.0])
-    t  = 0.0
-    for _ in range(n_settle * steps):    # дати перехідному процесу згаснути
-        y = rk4_step(y, t, dt, w); t += dt
-    xmax, xmin = -1e30, 1e30             # виміряти розмах на усталеній ділянці
-    for _ in range(n_measure * steps):
-        y = rk4_step(y, t, dt, w); t += dt
-        xmax, xmin = max(xmax, y[0]), min(xmin, y[0])
-    return (xmax - xmin) / 2
-
-ratios = np.arange(0.30, 1.70 + 1e-9, 0.01)      # ω / ω₀ від 0.3 до 1.7
-A  = np.array([steady_amplitude(r * w0) for r in ratios])
-A0 = F0 / k                                       # статичний прогин = 62.5 мкм
-
-i_peak = np.argmax(A)
-print(f"пік на ω/ω₀ = {ratios[i_peak]:.2f}   f = {ratios[i_peak]*w0/(2*np.pi):.1f} Гц")
-print(f"підсилення на піку A/A₀ = {A[i_peak]/A0:.1f}   (очікувано ≈ Q = {Q:.0f})")
-print(f"амплітуда на піку = {A[i_peak]*1e3:.2f} мм")
-```
+:::code proj-resonance-sweep/py/prohin-chastoty-kriz.py
 
 Що друкує цей прогін:
 
@@ -104,21 +57,7 @@ print(f"амплітуда на піку = {A[i_peak]*1e3:.2f} мм")
 
 Формула сталої амплітуди — це вже фініш. А цікаве коїться на старті: увімкнули двигун точно на ω₀ з нерухомого стану — і дивимось, як розгойдування росте. Той самий інтегратор, лише тепер зберігаємо весь слід у часі:
 
-```py
-def run_transient(w, n_periods=80, steps=200):
-    T  = 2*np.pi / w
-    dt = T / steps
-    y  = np.array([0.0, 0.0])
-    ts = np.empty(n_periods*steps); xs = np.empty(n_periods*steps)
-    for i in range(n_periods*steps):
-        ts[i], xs[i] = i*dt, y[0]
-        y = rk4_step(y, i*dt, dt, w)
-    return ts, xs
-
-ts, xs = run_transient(w0)                # рівно на резонансі
-tau = 2 * Q / w0                          # стала наростання, с
-print(f"стала наростання τ = 2Q/ω₀ = {tau*1e3:.0f} мс  ≈ {tau/(2*np.pi/w0):.1f} періодів")
-```
+:::code proj-resonance-sweep/py/narostannia-na-vlasnii.py
 
 ```
 стала наростання τ = 2Q/ω₀ = 125 мс  ≈ 8.0 періодів
@@ -153,22 +92,7 @@ print(f"стала наростання τ = 2Q/ω₀ = {tau*1e3:.0f} мс  ≈ 
 
 Порахуємо коефіцієнти — знову природною для розрахунку мовою, Python:
 
-```py
-def notch_coeffs(f0, fs, Q):
-    """Коефіцієнти цифрового режекторного біквада (RBJ cookbook), нормовані a0=1.
-    f0 — центр (Гц); fs — частота дискретизації (Гц); Q — гострота (ширина ≈ f0/Q)."""
-    w0    = 2*np.pi * f0 / fs
-    alpha = np.sin(w0) / (2*Q)
-    cw    = np.cos(w0)
-    a0 = 1 + alpha
-    b = np.array([1.0,      -2*cw, 1.0])      / a0   # b0, b1, b2
-    a = np.array([1 + alpha, -2*cw, 1 - alpha]) / a0 # ділимо ВЕСЬ рядок на a0 → a0 стає 1
-    return b, a
-
-b, a = notch_coeffs(f0=63.7, fs=8000.0, Q=6.0)    # гіро дрона: 8 кГц
-print("b =", b.round(5))     # [ 0.99585 -1.98921  0.99585]
-print("a =", a.round(5))     # [ 1.      -1.98921  0.9917 ]
-```
+:::code proj-resonance-sweep/py/vid-pika-do-filtra.py
 
 Коефіцієнти a₁ = −1.9892 і a₂ = 0.9917 ставлять полюси майже на одиничне коло (радіус √a₂ ≈ 0.9958) — саме тому провал такий вузький і глибокий. Перевірити фільтр на записаному сліді гіроскопа можна одним рядком: `scipy.signal.lfilter(b, a, gyro)`. Ось як виглядає його частотна характеристика:
 
@@ -188,77 +112,8 @@ s₂  = b₂·x − a₂·y
 ```
 
 :::tabs
-```c
-#include <math.h>
-
-typedef struct {
-    float b0, b1, b2, a1, a2;   /* коефіцієнти, a0 зведено до 1 */
-    float s1, s2;               /* стан: Direct Form II транспонована */
-} Biquad;
-
-/* Порахувати коефіцієнти режектора ОДИН раз при старті (RBJ notch). */
-void notch_init(Biquad *bq, float f0, float fs, float Q)
-{
-    const float PI = 3.14159265f;                 /* не покладаймося на M_PI */
-    float w0    = 2.0f * PI * f0 / fs;
-    float cw    = cosf(w0);
-    float alpha = sinf(w0) / (2.0f * Q);
-    float a0    = 1.0f + alpha;
-    bq->b0 =  1.0f          / a0;
-    bq->b1 = -2.0f * cw     / a0;
-    bq->b2 =  1.0f          / a0;
-    bq->a1 = -2.0f * cw     / a0;
-    bq->a2 = (1.0f - alpha) / a0;
-    bq->s1 = bq->s2 = 0.0f;
-}
-
-/* Гарячий шлях: один семпл гіроскопа → відфільтрований. 8000 викликів/с на вісь. */
-static inline float notch_apply(Biquad *bq, float x)
-{
-    float y = bq->b0 * x + bq->s1;
-    bq->s1  = bq->b1 * x - bq->a1 * y + bq->s2;
-    bq->s2  = bq->b2 * x - bq->a2 * y;
-    return y;
-}
-
-/* --- використання --- */
-Biquad notch_roll;                                /* по одному на кожну вісь */
-/* при ініціалізації: */
-notch_init(&notch_roll, 63.7f, 8000.0f, 6.0f);
-/* у перерві готовності гіроскопа, 8000 разів на секунду: */
-float gyro_clean = notch_apply(&notch_roll, gyro_raw);
-```
-```cpp
-#include <cmath>
-
-struct Biquad {
-    float b0, b1, b2, a1, a2;
-    float s1 = 0.f, s2 = 0.f;               // стан: Direct Form II транспонована
-
-    // Режектор RBJ: центр f0, частота дискретизації fs, гострота Q
-    static Biquad notch(float f0, float fs, float Q) {
-        constexpr float PI = 3.14159265f;
-        const float w0    = 2.f * PI * f0 / fs;
-        const float cw    = std::cos(w0);
-        const float alpha = std::sin(w0) / (2.f * Q);
-        const float a0    = 1.f + alpha;
-        return { 1.f/a0, -2.f*cw/a0, 1.f/a0, -2.f*cw/a0, (1.f-alpha)/a0 };
-    }
-
-    // Гарячий шлях: один семпл гіро → відфільтрований
-    float process(float x) {
-        const float y = b0 * x + s1;
-        s1 = b1 * x - a1 * y + s2;
-        s2 = b2 * x - a2 * y;
-        return y;
-    }
-};
-
-// --- використання ---
-Biquad notchRoll = Biquad::notch(63.7f, 8000.f, 6.f);   // по одному на вісь
-// ...8000 разів на секунду:
-float gyroClean = notchRoll.process(gyroRaw);
-```
+:::code proj-resonance-sweep/c/main.c
+:::code proj-resonance-sweep/cpp/main.cpp
 :::
 
 Дві версії роблять те саме; C++ лише згортає ініціалізацію у фабричний метод і схову стан у структуру з методом. На польотних контролерах з апаратним FPU (STM32 F4/F7/H7) обчислення в `float` майже безкоштовні — п'ять множень і чотири додавання на семпл. Де FPU немає, ту саму ланку роблять у **фіксованій комі** (Q-формат), пильнуючи переповнення й квантування коефіцієнтів. Ось де цей фільтр сидить у ланцюзі сигналу:

@@ -29,33 +29,7 @@ N = f_s · T = 48000 · 0.005 = 240 відліків
 
 Таким алгоритмом є розклад у [ланцюговий дріб](root:math-number-theory/continued-fractions). Число розкладають на цілу частину й обернену до залишку, з залишком роблять те саме, і так далі; підхідні дроби цього розкладу — доведено найкращі наближення серед усіх дробів із не більшим знаменником. Механіка розкладу — буквально [алгоритм Евкліда](root:math-number-theory/gcd-euclidean), запущений не на парі цілих, а на парі «число й одиниця».
 
-```python
-import math
-
-def rationalize(r, max_den=32):
-    """Найкращий дріб p/q ≈ r зі знаменником не більшим за max_den (r > 0).
-    Підхідні дроби: кожен наступний = a·попередній + той, що був перед ним."""
-    h_prev, h = 0, 1                  # чисельники двох останніх підхідних дробів
-    k_prev, k = 1, 0                  # їхні знаменники
-    v = r
-    for _ in range(64):
-        a = math.floor(v)
-        h_prev, h = h, a * h + h_prev
-        k_prev, k = k, a * k + k_prev
-        if k > max_den:               # знаменник переріс межу — беремо попередній дріб
-            return h_prev, k_prev
-        rem = v - a
-        if rem < 1e-12:               # розклад скінчився: дріб точний
-            return h, k
-        v = 1.0 / rem
-    return h, k
-
-
-def common_period(fx, fy, max_den=64):
-    """Час, за який замикається фігура: T = p/fx = q/fy."""
-    p, q = rationalize(fx / fy, max_den)
-    return p / fx, p, q
-```
+:::code proj-lissajous/py/lantsiuhovyi-drib-zamist.py
 
 Перевірка на відомих числах: `rationalize(1.5)` дає (3, 2), `rationalize(2/3)` — (2, 3), а `rationalize(math.pi)` — (22, 7), той самий 22/7, яким π наближають зі шкільної лави. Стандартний `Fraction(x).limit_denominator(32)` розв'язує рівно цю задачу й повертає ті самі відповіді — а в мовах без такої бібліотеки шість рядків вище заміняють її повністю.
 
@@ -66,71 +40,8 @@ def common_period(fx, fy, max_den=64):
 Тепер сам малюнок. Обидва канали рахуються з одного масиву часу, довжина береться з `common_period`, а остання точка навмисне **не** дублює першу — замикання роблять малювальні засоби.
 
 :::tabs
-```python
-import numpy as np
-
-def xy_trace(fx, fy, phase=0.0, ax=1.0, ay=1.0, fs=48_000.0, loops=1):
-    """Слід точки за loops спільних періодів. Остання точка НЕ дублює першу."""
-    T, p, q = common_period(fx, fy)
-    n = int(round(fs * T * loops))
-    t = np.arange(n) / fs
-    return (ax * np.sin(2 * np.pi * fx * t + phase),
-            ay * np.sin(2 * np.pi * fy * t))
-
-
-def write_svg(path, x, y, size=420, pad=20):
-    """XY-слід у файл SVG: масштаб по розмаху кожної осі, ламана замкнена."""
-    r = (size - 2 * pad) / 2
-    sx, sy = r / np.max(np.abs(x)), r / np.max(np.abs(y))
-    c = size / 2
-    pts = " ".join("%.2f,%.2f" % (c + sx * xi, c - sy * yi) for xi, yi in zip(x, y))
-    with open(path, "w", encoding="utf-8") as f:
-        f.write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d">'
-                '<rect width="%d" height="%d" fill="#fff"/>'
-                '<polygon points="%s" fill="none" stroke="#2457d6" stroke-width="1.6"/>'
-                '</svg>' % (size, size, size, size, pts))
-```
-```ts
-function bestRational(r: number, maxDen = 32): [number, number] {
-  let hPrev = 0, h = 1, kPrev = 1, k = 0, v = r;
-  for (let i = 0; i < 64; i++) {
-    const a = Math.floor(v);
-    [hPrev, h] = [h, a * h + hPrev];
-    [kPrev, k] = [k, a * k + kPrev];
-    if (k > maxDen) return [hPrev, kPrev];
-    const rem = v - a;
-    if (rem < 1e-12) return [h, k];
-    v = 1 / rem;
-  }
-  return [h, k];
-}
-
-/** XY-осцилограф на canvas: старий слід тане, як люмінофор на трубці. */
-function drawTrace(
-  ctx: CanvasRenderingContext2D, fx: number, fy: number,
-  { phase = 0, ax = 1, ay = 1, fs = 48_000, loops = 1 } = {},
-): void {
-  const [p] = bestRational(fx / fy, 64);
-  const n = Math.round(fs * (p / fx) * loops);   // ціле число спільних періодів
-  const { width: W, height: H } = ctx.canvas;
-  const r = Math.min(W, H) / 2 - 20;
-
-  ctx.fillStyle = "rgba(0, 0, 0, 0.10)";         // згасання попереднього кадру
-  ctx.fillRect(0, 0, W, H);
-
-  ctx.beginPath();
-  for (let i = 0; i < n; i++) {
-    const t = i / fs;
-    const px = W / 2 + r * ax * Math.sin(2 * Math.PI * fx * t + phase);
-    const py = H / 2 - r * ay * Math.sin(2 * Math.PI * fy * t);
-    if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-  }
-  ctx.closePath();                               // остання точка вертається в першу
-  ctx.strokeStyle = "#5cf08a";
-  ctx.lineWidth = 1.6;
-  ctx.stroke();
-}
-```
+:::code proj-lissajous/py/slid-u-ploshchyni.py
+:::code proj-lissajous/ts/index.ts
 :::
 
 Два різні виходи не випадкові. Python пише **файл**, бо там слід — це результат обробки, який дивляться вже потім. У браузері слід малюють **живим**, кадр за кадром, і напівпрозорий залив перед кожним кадром відтворює найкориснішу властивість трубки осцилографа: свіжий слід яскравий, старий блідне. Якщо частоти не зовсім кратні, це видно одразу — фігура тягне за собою слабку тінь свого попереднього положення.
@@ -158,38 +69,7 @@ function drawTrace(
 
 Залишається один підступ — межі вікна. Якщо просто поділити кількість перетинів на тривалість запису, відповідь буде систематично занижена: між першим і останнім перетином укладаються цілі періоди, а «хвости» вікна з обох боків не містять жодного. Тому міряти треба саме **від першого перетину до останнього**.
 
-```python
-def rising_zeros(s, hyst=0.25):
-    """Моменти (у відліках, дробові), коли сигнал іде знизу вгору через своє середнє.
-    Гістерезис: перехід зараховуємо лише після провалу нижче −thr."""
-    s = s - s.mean()
-    thr = hyst * math.sqrt(2.0) * s.std()          # частка амплітуди: A ≈ √2·σ
-    out, armed = [], False
-    for i in range(1, len(s)):
-        if s[i] < -thr:
-            armed = True
-        elif armed and s[i - 1] <= 0.0 < s[i]:
-            out.append(i - 1 + (-s[i - 1]) / (s[i] - s[i - 1]))    # уточнення моменту
-            armed = False
-    return out
-
-
-def channel_freq(s, fs, hyst=0.25):
-    """Частота каналу: цілі періоди між ПЕРШИМ і ОСТАННІМ перетином."""
-    z = rising_zeros(s, hyst)
-    if len(z) < 2:
-        return 0.0
-    return (len(z) - 1) * fs / (z[-1] - z[0])
-
-
-def freq_ratio(x, y, fs, max_den=16, tol=1e-3):
-    """Відношення частот двох каналів як нескоротний дріб p : q."""
-    fx, fy = channel_freq(x, fs), channel_freq(y, fs)
-    p, q = rationalize(fx / fy, max_den)
-    if abs(fx / fy - p / q) / (fx / fy) > tol:
-        raise ValueError("частоти не в простому відношенні")
-    return p, q, fx, fy
-```
+:::code proj-lissajous/py/vidnoshennia-chastot.py
 
 На чистому сигналі `channel_freq` віддає частоту з точністю до п'ятого знака — 400.00000 Гц там, де закладено 400. На чверті секунди запису з двовідсотковим шумом і невідомим вертикальним каналом виходить таке:
 
@@ -248,19 +128,7 @@ S = ½·Σ(xᵢ·yᵢ₊₁ − xᵢ₊₁·yᵢ) = π·A·B·sin φ
 
 Ось і другий множник: форма дала `cos φ`, площа дає **знак** `sin φ`, разом вони визначають фазу однозначно в усьому колі.
 
-```python
-def signed_area(x, y):
-    """Орієнтована площа замкненого сліду: ½·Σ(xᵢ·yᵢ₊₁ − xᵢ₊₁·yᵢ)."""
-    return 0.5 * float(np.sum(x * np.roll(y, -1) - np.roll(x, -1) * y))
-
-
-def phase_shift(x, y):
-    """Зсув фаз каналу x відносно y, радіани. Форма дає модуль, обхід — знак."""
-    x = x - x.mean()
-    y = y - y.mean()
-    c = float(x @ y) / math.sqrt(float(x @ x) * float(y @ y))
-    return math.copysign(math.acos(max(-1.0, min(1.0, c))), signed_area(x, y))
-```
+:::code proj-lissajous/py/zsuv-faz-forma-kazhe.py
 
 **Приклад (перекіс мультиплексованого АЦП).** Два канали [квадратурного](root:hw-sensing/quadrature) давача, 2 кГц, номінально рівно 90° між ними. Один АЦП обслуговує обидва входи по черзі [через мультиплексор](root:hw-analog/analog-mux), і другий канал вибирається на Δt = 2 мкс пізніше за перший.
 
@@ -313,18 +181,7 @@ cos φ = −b / (2·√(a·c))
 A = 1 / (√a · |sin φ|)        B = 1 / (√c · |sin φ|)
 ```
 
-```python
-def ellipse_fit(x, y):
-    """Підгонка a·x² + b·x·y + c·y² = 1 за МНК. Повертає (φ, A, B)."""
-    x = x - x.mean()
-    y = y - y.mean()
-    M = np.column_stack([x * x, x * y, y * y])
-    a, b, c = np.linalg.lstsq(M, np.ones(len(x)), rcond=None)[0]
-    cos_phi = max(-1.0, min(1.0, -b / (2.0 * math.sqrt(a * c))))
-    sin_phi = math.sqrt(max(1e-18, 1.0 - cos_phi * cos_phi))
-    phi = math.copysign(math.acos(cos_phi), signed_area(x, y))
-    return phi, 1.0 / (math.sqrt(a) * sin_phi), 1.0 / (math.sqrt(c) * sin_phi)
-```
+:::code proj-lissajous/py/koly-chasu-nema-pidihnaty.py
 
 На вікні 3.37 періоду підгонка дає 29.51° проти 29.32° у сирої кореляції — краще, бо неціле вікно її взагалі не обходить: точки лежать на тому самому еліпсі незалежно від того, скільки разів їх обійшли. Заразом вона віддає й амплітуди: на сліді з A = 1.4 і B = 0.62 виходить 1.4000 і 0.6200.
 
@@ -368,60 +225,7 @@ def freq_offset(x, y, fs, block_s=1.0):
 
 Лишається постійна складова. Її треба відняти **до** множень, і для потоку це робить однополюсне середнє, яке віднімають від відліку. Тонкість, яка тут рятує: такий фільтр зсуває й фазу самого сигналу — але **однаково в обох каналах**, тож у їхній різниці зсув скорочується начисто. Перевірка це підтверджує: навіть із зрізом 300 Гц на сигналі 1000 Гц вимір дає 36.999° там, де закладено 37.000°.
 
-```c
-#include <math.h>
-#include <stdint.h>
-
-/* Потоковий вимір зсуву фаз між двома каналами однакової частоти.
-   Стан — дев'ять float і лічильник, сорок байтів; на відлік O(1). */
-typedef struct {
-    float a_dc;                  /* полюс фільтра сталої складової */
-    float dc_x, dc_y;            /* повільні середні каналів */
-    float prev_x, prev_y;        /* попередні центровані відліки */
-    float sxx, syy, sxy;         /* суми квадратів і добутку */
-    float area2;                 /* подвоєна орієнтована площа */
-    uint32_t n;
-} xyphase_t;
-
-void xyphase_restart(xyphase_t *s) {          /* нове вікно; середні лишаємо */
-    s->sxx = s->syy = s->sxy = s->area2 = 0.0f;
-    s->prev_x = s->prev_y = 0.0f;
-    s->n = 0;
-}
-
-void xyphase_init(xyphase_t *s, float fs, float dc_hz) {
-    s->a_dc = expf(-6.2831853f * dc_hz / fs);  /* зріз dc_hz далеко нижче сигналу */
-    s->dc_x = s->dc_y = 0.0f;
-    xyphase_restart(s);
-}
-
-void xyphase_push(xyphase_t *s, float x, float y) {
-    s->dc_x += (1.0f - s->a_dc) * (x - s->dc_x);   /* однополюсне середнє */
-    s->dc_y += (1.0f - s->a_dc) * (y - s->dc_y);
-    const float cx = x - s->dc_x;                  /* центровані відліки */
-    const float cy = y - s->dc_y;
-
-    s->sxx += cx * cx;
-    s->syy += cy * cy;
-    s->sxy += cx * cy;
-    if (s->n)                                      /* косий добуток пари сусідів */
-        s->area2 += s->prev_x * cy - cx * s->prev_y;
-
-    s->prev_x = cx;
-    s->prev_y = cy;
-    s->n++;
-}
-
-float xyphase_read(const xyphase_t *s) {           /* зсув фаз у радіанах */
-    const float den = sqrtf(s->sxx * s->syy);
-    if (den < 1e-12f) return 0.0f;
-    float c = s->sxy / den;
-    if (c >  1.0f) c =  1.0f;
-    if (c < -1.0f) c = -1.0f;
-    const float phi = acosf(c);
-    return (s->area2 < 0.0f) ? -phi : phi;         /* обхід задає знак */
-}
-```
+:::code proj-lissajous/c/main.c
 
 Живе воно так: `xyphase_init(&s, 48000.0f, 2.0f)`, потім кілька постійних часу фільтра «на прогрів» (за зрізу 2 Гц це близько секунди), `xyphase_restart` — і далі в обробнику переривання АЦП кличеться `xyphase_push`, а раз на вікно — `xyphase_read` і знову `xyphase_restart`. Ні буфера на вікно, ні `atan2`, ні спектра: три множення, одне віднімання й один косий добуток на пару відліків.
 

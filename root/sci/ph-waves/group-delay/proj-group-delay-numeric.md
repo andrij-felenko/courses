@@ -76,61 +76,13 @@ H_(k+1)·conj(H_k) = |H_(k+1)|·|H_k| · e^(j·(φ_(k+1) − φ_k))
 Ось увесь оцінювач. Крок сітки навмисне береться попарно, а не як стала: логарифмічний прохід приладу дає нерівномірну сітку, і ділення на «середній Δf» тихо викривляє всю криву.
 
 :::tabs
-```python
-import numpy as np
-
-def group_delay(f, H):
-    """Групова затримка з виміряного відгуку.
-    f — частоти в Гц, зростаючі, крок довільний; H — комплексний відгук.
-    Повертає (f_mid, tau): затримку в секундах у серединах пар точок."""
-    f = np.asarray(f, dtype=float)
-    H = np.asarray(H, dtype=complex)
-
-    # добуток зі спряженим сусідом: модуль неважливий, аргумент — приріст фази,
-    # і np.angle сам віддає його згорнутим у (−π, π] — тобто правильним
-    dphi = np.angle(H[1:] * np.conj(H[:-1]))
-    dw = 2.0 * np.pi * np.diff(f)          # свій крок на кожну пару
-    return 0.5 * (f[1:] + f[:-1]), -dphi / dw
-```
-```cpp
-#include <complex>
-#include <vector>
-
-constexpr double PI = 3.14159265358979323846;
-
-// Групова затримка з виміряного відгуку.
-// f — частоти в Гц (зростаючі, крок довільний), H — комплексний відгук.
-// tau[k] — затримка в секундах, віднесена до середини пари (f[k], f[k+1]).
-std::vector<double> group_delay(const std::vector<double>& f,
-                               const std::vector<std::complex<double>>& H)
-{
-    std::vector<double> tau(f.size() - 1);
-    for (std::size_t k = 0; k + 1 < f.size(); ++k) {
-        // std::arg добутку зі спряженим = приріст фази, уже згорнутий у (−π, π]
-        const double dphi = std::arg(H[k + 1] * std::conj(H[k]));
-        const double dw = 2.0 * PI * (f[k + 1] - f[k]);
-        tau[k] = -dphi / dw;
-    }
-    return tau;
-}
-```
+:::code proj-group-delay-numeric/py/pryrist-fazy-berut-u.py
+:::code proj-group-delay-numeric/cpp/pryrist-fazy-berut-u.cpp
 :::
 
 Перевіряти таке треба на відповіді, яку знаєш наперед. Чиста лінія затримки `H = e^(−j·2π·f·τ)` — найкращий тест: код зобов'язаний повернути те саме τ на всіх частотах, до останнього знака.
 
-```python
-tau0 = 15.15e-9
-f = np.linspace(0, 6e9, 1601)
-H = np.exp(-2j * np.pi * f * tau0)          # ідеальна лінія затримки
-
-_, tau = group_delay(f, H)
-print(np.max(np.abs(tau - tau0)))           # ~1e-21 — машинний нуль
-
-phi = np.angle(H)                           # той самий розрахунок «в лоб»
-naive = -np.diff(phi) / (2 * np.pi * np.diff(f))
-print(np.sum(np.abs(naive - tau0) > 1e-12)) # 91 зіпсована точка
-print(naive.min())                          # −2.515e-07, тобто τ₀ − 1/Δf
-```
+:::code proj-group-delay-numeric/py/pryrist-fazy-berut-u-2.py
 
 Тут же видно й перевагу над іншим очевидним ходом — продиференціювати сам комплексний відгук. З `d(ln H)/dω = |H|′/|H| + j·φ′` виходить `τ_g = −Im(H′/H)`, і різницю `H′` теж можна взяти чисельно. Формула правильна, а от скінченна різниця в ній зміщує результат: для чистої затримки центральна різниця дає не `τ`, а `τ·sin(Δω·τ)/(Δω·τ)`. При кроці 20.5° це занижує затримку на 2.1 % — систематично, на всіх частотах, і тим гірше, чим більший крок. Аргумент добутку зі спряженим цієї хвороби не має: він точний за будь-якого кроку, поки той не перевалює за пів оберту.
 
@@ -146,18 +98,7 @@ dH/dω = Σ h[n]·(−jn)·e^(−jωn) = −j·R(ω),   де R(ω) = Σ n·h[n]�
 
 Тобто групова затримка (у відліках) — це дійсна частина відношення двох перетворень: від «нахиленої» характеристики `n·h[n]` і від самої `h[n]`. Обидва беруться двома ШПФ від масиву тієї самої довжини, результат точний у кожній частотній точці, апертури й кроку тут узагалі немає. Саме цю формулу використовують типові реалізації `grpdelay` — так її описує Джуліус Сміт (CCRMA, Стенфорд), і так її рахує `scipy.signal.group_delay`.
 
-```python
-def group_delay_fir(h, nfft=4096, fs=1.0):
-    """Точна групова затримка скінченної імпульсної характеристики."""
-    h = np.asarray(h, dtype=float)
-    n = np.arange(h.size)
-    H = np.fft.rfft(h, nfft)
-    R = np.fft.rfft(n * h, nfft)                 # «нахилена» характеристика
-    return np.fft.rfftfreq(nfft, 1 / fs), np.real(R / H) / fs
-
-h = np.zeros(41); h[17] = 1.0                    # чиста затримка на 17 відліків
-print(group_delay_fir(h)[1][:3])                 # [17. 17. 17.]
-```
+:::code proj-group-delay-numeric/py/koly-ie-impulsna.py
 
 Ціна точності — нове вразливе місце: там, де `H(ω)` обертається на нуль (нуль характеристики просто на одиничному колі), формула ділить на нуль, а справжня затримка в цій точці й справді прямує в нескінченність. Бібліотеки в такому разі попереджають і підставляють нуль — значення, якого фізично там немає. І ще одне: формула точна для **того** `h`, який їй дали. Якщо виміряну імпульсну характеристику перед цим обрізали вікном (а обрізають завжди — запис скінченний), обрізання змінює фазу, і затримка вийде затримкою обрізаного сигналу.
 
@@ -199,78 +140,8 @@ m = 11, крок 3.75 МГц (та сама апертура 37.5 МГц, що �
 Виграш у півтора раза — задарма, з тих самих даних і тієї самої апертури. Фазу для підгонки будуємо тими самими безпечними приростами: їхня сума дає розгорнуту криву, і навіть якщо один приріст десь помилиться на оберт, усі наступні точки зсунуться на **сталу** — а стала не міняє нахилу, тож зіпсуються лише ті вікна, що накрили саме те місце.
 
 :::tabs
-```python
-def group_delay_ls(f, H, m=11, floor_db=-40.0):
-    """Затримка як нахил прямої, підігнаної МНК у вікні з m точок.
-    Точки, де |H| провалюється нижче floor_db від максимуму, не беруться:
-    там фаза — самий шум. Повертає масив довжини f.size із NaN на краях."""
-    f = np.asarray(f, dtype=float)
-    H = np.asarray(H, dtype=complex)
-
-    step = np.angle(H[1:] * np.conj(H[:-1]))          # безпечні прирости
-    psi = np.concatenate(([0.0], np.cumsum(step)))    # локально розгорнута фаза
-    mag = 20.0 * np.log10(np.abs(H) / np.max(np.abs(H)))
-
-    half = m // 2
-    tau = np.full(f.size, np.nan)
-    for k in range(half, f.size - half):
-        sl = slice(k - half, k + half + 1)
-        if np.any(mag[sl] < floor_db):                # у провалі АЧХ не рахуємо
-            continue
-        w = 2.0 * np.pi * f[sl]
-        wc = w - w.mean()
-        pc = psi[sl] - psi[sl].mean()
-        tau[k] = -np.dot(wc, pc) / np.dot(wc, wc)     # нахил прямої МНК
-    return tau
-```
-```cpp
-#include <algorithm>
-#include <cmath>
-#include <complex>
-#include <limits>
-#include <vector>
-
-// Затримка як нахил прямої, підігнаної МНК у вікні з m точок.
-// PI — та сама стала, що й у першому оцінювачі.
-// Точки, де |H| нижче floor_db від максимуму, не беруться: там фаза — шум.
-// На краях (менше ніж m/2 сусідів) лишається NaN.
-std::vector<double> group_delay_ls(const std::vector<double>& f,
-                                  const std::vector<std::complex<double>>& H,
-                                  std::size_t m = 11, double floor_db = -40.0)
-{
-    const std::size_t N = f.size();
-    const double nan = std::numeric_limits<double>::quiet_NaN();
-    std::vector<double> psi(N, 0.0), mag(N, 0.0), tau(N, nan);
-
-    double peak = 0.0;
-    for (std::size_t k = 0; k < N; ++k) peak = std::max(peak, std::abs(H[k]));
-    for (std::size_t k = 0; k < N; ++k) mag[k] = 20.0 * std::log10(std::abs(H[k]) / peak);
-    for (std::size_t k = 1; k < N; ++k)               // локально розгорнута фаза
-        psi[k] = psi[k - 1] + std::arg(H[k] * std::conj(H[k - 1]));
-
-    const std::size_t half = m / 2;
-    for (std::size_t k = half; k + half < N; ++k) {
-        double sw = 0.0, sp = 0.0;
-        bool ok = true;
-        for (std::size_t i = k - half; i <= k + half; ++i) {
-            if (mag[i] < floor_db) ok = false;
-            sw += 2.0 * PI * f[i];
-            sp += psi[i];
-        }
-        if (!ok) continue;                            // у провалі АЧХ не рахуємо
-
-        const double wbar = sw / m, pbar = sp / m;
-        double num = 0.0, den = 0.0;
-        for (std::size_t i = k - half; i <= k + half; ++i) {
-            const double dw = 2.0 * PI * f[i] - wbar;
-            num += dw * (psi[i] - pbar);
-            den += dw * dw;
-        }
-        tau[k] = -num / den;                          // нахил прямої МНК
-    }
-    return tau;
-}
-```
+:::code proj-group-delay-numeric/py/druha-pastka-shum-proty.py
+:::code proj-group-delay-numeric/cpp/druha-pastka-shum-proty.cpp
 :::
 
 Обидва варіанти в лоб коштують O(N·m) — по вікну на точку. Якщо m велике, суми беруть ковзними (додав праву точку, відняв ліву) і виходить O(N); але N тут — тисячі точок, а не мільйони, і будь-який із варіантів рахується швидше, ніж прилад устигає зробити один прохід. Двоточковий оцінювач — O(N) з пам'яттю O(1) понад самі дані; шлях через імпульсну характеристику — O(N·log N) на ШПФ. Обчислення в цій задачі не коштує нічого; коштує вимірювання.

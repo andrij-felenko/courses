@@ -250,71 +250,8 @@ L_total = 10 · log₁₀( 10^(80/10) + 10^(80/10) ) [переведення р�
 Нижче показано базовий приклад перетворення напруги та розрахунку SPL на мовах C та C++:
 
 :::tabs
-```c
-#include <math.h>
-#include <stdio.h>
-
-#define P0_SPL_PA 20.0e-6
-#define V0_DBU    0.7745966692
-
-/* Розрахунок рівня звукового тиску в дБ SPL */
-double calculate_spl(double p_rms_pa) {
-    if (p_rms_pa <= 0.0) return -INFINITY;
-    return 20.0 * log10(p_rms_pa / P0_SPL_PA);
-}
-
-/* Розрахунок рівня напруги в dBu */
-double voltage_to_dbu(double v_rms) {
-    if (v_rms <= 0.0) return -INFINITY;
-    return 20.0 * log10(v_rms / V0_DBU);
-}
-
-int main(void) {
-    double p_talk = 0.02; /* 0.02 Па = 20 мПа (розмова) */
-    double v_line = 1.228; /* 1.228 В (+4 dBu) */
-
-    printf("Звуковий тиск %.3f Па = %.2f дБ SPL\n", p_talk, calculate_spl(p_talk));
-    printf("Напруга %.3f В = %.2f dBu\n", v_line, voltage_to_dbu(v_line));
-    return 0;
-}
-```
-```cpp
-#include <cmath>
-#include <iostream>
-#include <limits>
-
-namespace acoustics {
-
-inline constexpr double p0_spl_pa = 20.0e-6;
-inline constexpr double v0_dbu    = 0.7745966692;
-
-[[nodiscard]] constexpr double calculate_spl(double p_rms_pa) noexcept {
-    if (p_rms_pa <= 0.0) {
-        return -std::numeric_limits<double>::infinity();
-    }
-    return 20.0 * std::log10(p_rms_pa / p0_spl_pa);
-}
-
-[[nodiscard]] constexpr double voltage_to_dbu(double v_rms) noexcept {
-    if (v_rms <= 0.0) {
-        return -std::numeric_limits<double>::infinity();
-    }
-    return 20.0 * std::log10(v_rms / v0_dbu);
-}
-
-} // namespace acoustics
-
-int main() {
-    constexpr double p_talk = 0.02; // 0.02 Па = 20 мПа (розмова)
-    constexpr double v_line = 1.228; // 1.228 В (+4 dBu)
-
-    std::cout << "Звуковий тиск " << p_talk << " Па = " 
-              << acoustics::calculate_spl(p_talk) << " дБ SPL\n";
-    std::cout << "Напруга " << v_line << " В = " 
-              << acoustics::voltage_to_dbu(v_line) << " dBu\n";
-    return 0;
-}
-```
+:::code riven-u-detsybelakh-d/c/main.c
+:::code riven-u-detsybelakh-d/cpp/main.cpp
 :::
 
 ### 7. Інженерні підводні камені та типові помилки розрахунків

@@ -31,198 +31,29 @@ T²·u² − [2T² + a(1 − T²)]·u + (T² − 1) = 0
 
 Серце інструмента — сама формула передавання й її обернення:
 
-```python
-# -*- coding: utf-8 -*-
-"""Проєктувальник антивібраційної опори (isolator sizing).
-
-Модель — маса на пружині з в'язким загасанням, один ступінь вільності.
-Чистий stdlib, без залежностей: числовий розрахунок, не гарячий шлях.
-"""
-from __future__ import annotations
-from dataclasses import dataclass
-from math import pi, sqrt
-
-G = 9.81            # м/с², прискорення вільного падіння
-R_THRESH = sqrt(2)  # поріг ізоляції: нижче нього опора підсилює
-
-
-def transmissibility(r: float, zeta: float) -> float:
-    """T(r, ζ): яка частка розмаху проходить крізь опору."""
-    num = 1.0 + (2.0 * zeta * r) ** 2
-    den = (1.0 - r * r) ** 2 + (2.0 * zeta * r) ** 2
-    return sqrt(num / den)
-
-
-def ratio_for_target(target_T: float, zeta: float) -> float:
-    """Найменше r > √2, за якого T(r, ζ) = target_T.
-
-    Точний корінь квадратного рівняння відносно u = r²:
-        A·u² + B·u + C = 0,   A = T²,  B = −[2T² + a(1−T²)],  C = T² − 1,
-    де a = (2ζ)². Бо C < 0, корені різного знака — беремо додатний.
-    """
-    if not 0.0 < target_T < 1.0:
-        raise ValueError("target_T має бути в межах (0, 1)")
-    a = (2.0 * zeta) ** 2
-    A = target_T * target_T
-    negB = 2.0 * A + a * (1.0 - A)       # = −B, завжди додатне
-    C = A - 1.0                          # < 0
-    disc = negB * negB - 4.0 * A * C     # −4AC > 0 → disc > 0 завжди
-    u = (negB + sqrt(disc)) / (2.0 * A)  # додатний корінь = r²
-    return sqrt(u)
-```
+:::code proj-isolator-design/py/robochyi-kod.py
 
 Резонанс на розгоні заслуговує на окрему функцію — це найнебезпечніше місце всієї конструкції. Максимум кривої лежить не точно в r = 1, а трохи лівіше, і має закриту формулу; поряд наведімо й правило-прикидку 1/(2ζ), щоб число не приходило нізвідки:
 
-```python
-def resonance_peak(zeta: float) -> tuple[float, float]:
-    """(r_peak, T_peak) — де і наскільки T максимальний на розгоні.
-
-    Точний максимум кривої: r_peak = √(√(1 + 8ζ²) − 1) / (2ζ).
-    Правило-прикидка: T_peak ≈ 1/(2ζ) для слабкого загасання.
-    """
-    if zeta <= 0.0:
-        return 1.0, float("inf")
-    r_peak = sqrt(sqrt(1.0 + 8.0 * zeta * zeta) - 1.0) / (2.0 * zeta)
-    return r_peak, transmissibility(r_peak, zeta)
-```
+:::code proj-isolator-design/py/robochyi-kod-2.py
 
 Тепер головний розрахунок. Зібравши r, легко дістати решту: власна частота fₙ = f/r, кутова ωₙ = 2π·fₙ, жорсткість k = ωₙ²·m, а статичний прогин — прямо з рівноваги ваги й пружини (k·δ = m·g за [законом Гука](root:ph-condensed/elastic-deformation) дає δ = g/ωₙ², без маси). Результат складімо в один незмінний запис:
 
-```python
-@dataclass
-class Design:
-    exc_hz: float          # частота трясіння, Гц
-    mass_kg: float
-    target_T: float
-    zeta: float
-    r_work: float          # робоче відношення частот f/fₙ
-    fn_hz: float           # потрібна власна частота
-    k_total: float         # сумарна жорсткість опори, Н/м
-    defl_mm: float         # статичний прогин під вагою
-    isolation_pct: float   # 100·(1−T) на робочій частоті
-    peak_r: float          # де резонанс на розгоні
-    peak_T: float          # у скільки разів підсилює на піку
-    peak_rpm: float        # оберти, за яких проходить резонанс
-
-
-def design_mount(mass_kg, target_T, zeta, *, exc_hz=None, rpm=None, order=1.0):
-    """Підібрати опору за частотою трясіння (чи об/хв), масою, ціллю T і ζ."""
-    if exc_hz is None:
-        if rpm is None:
-            raise ValueError("задай exc_hz або rpm")
-        exc_hz = rpm / 60.0 * order
-    r = ratio_for_target(target_T, zeta)
-    fn = exc_hz / r
-    wn = 2.0 * pi * fn
-    k = wn * wn * mass_kg
-    defl_mm = 1000.0 * G / (wn * wn)         # δ = g/ωₙ²
-    pr, pt = resonance_peak(zeta)
-    peak_rpm = fn * pr * 60.0 / order         # де f = fₙ·r_peak
-    return Design(exc_hz, mass_kg, target_T, zeta, r, fn, k,
-                  defl_mm, 100.0 * (1.0 - target_T), pr, pt, peak_rpm)
-```
+:::code proj-isolator-design/py/robochyi-kod-3.py
 
 Зверни увагу на `order`: незбалансований барабан б'є раз на оберт (order = 1), але зубчаста передача чи лопаті трясуть кілька разів на оберт — тоді частота трясіння вища за оборотну в стільки ж разів. Це часте джерело помилки на самому вході.
 
 Лишається вивід, і саме тут інструмент відпрацьовує свій хліб — не просто друкує числа, а вмикає запобіжники: перевіряє головну умову r > √2, окремим рядком попереджає про резонанс на пуску й лається, якщо опора вийшла надто м'якою:
 
-```python
-def report(d: Design, mounts: int = 1) -> None:
-    print(f"── Опора під {d.mass_kg:g} кг, трясіння {d.exc_hz:.1f} Гц, "
-          f"ζ = {d.zeta:g}, ціль T = {d.target_T:g} ──")
-    print(f"  власна частота  fₙ = {d.fn_hz:6.2f} Гц")
-    print(f"  відношення      r  = {d.r_work:6.2f}   (робоча точка)")
-    print(f"  статичний прогин δ = {d.defl_mm:6.2f} мм")
-    print(f"  жорсткість      k  = {d.k_total/1000:6.1f} кН/м", end="")
-    if mounts > 1:
-        print(f"   ({d.k_total/1000/mounts:.1f} кН/м на кожну з {mounts})")
-    else:
-        print()
-    print(f"  ізоляція на робочій частоті: {d.isolation_pct:.0f} %")
-
-    # головна перевірка: чи ми справді в зоні ізоляції
-    ok = d.r_work > R_THRESH
-    mark = "OK" if ok else "!!"
-    print(f"  [{mark}] r = {d.r_work:.2f} {'>' if ok else '<'} √2 = {R_THRESH:.2f}"
-          f"  → {'зона ізоляції' if ok else 'ЗОНА ПІДСИЛЕННЯ — опора шкодить'}")
-
-    # резонанс на пуску
-    print(f"  [!!] на розгоні пройде резонанс: пік T ≈ {d.peak_T:.1f}× "
-          f"коло {d.peak_rpm:.0f} об/хв (r ≈ {d.peak_r:.2f})")
-
-    # надто м'яка опора
-    if d.fn_hz < 2.5 or d.defl_mm > 25.0:
-        print(f"  [!!] опора надто м'яка: прогин {d.defl_mm:.0f} мм / "
-              f"fₙ {d.fn_hz:.1f} Гц — плаватиме й хитатиметься")
-```
+:::code proj-isolator-design/py/robochyi-kod-4.py
 
 І два помічники, що перетворюють один розрахунок на картину: крива T(r) по всій смузі як простий ASCII-графік, і порівняння тієї самої опори за різних ζ — щоб парадокс загасання було видно числами, а не на слово:
 
-```python
-def sweep_ascii(zeta: float, rmin=0.2, rmax=10.0, cols=54, rows=15) -> None:
-    """Крива T(r) по смузі як ASCII-графік (лог-осі)."""
-    from math import log10
-    lr0, lr1 = log10(rmin), log10(rmax)
-    tvals = [transmissibility(rmin * (rmax / rmin) ** (i / (cols - 1)), zeta)
-             for i in range(cols)]
-    tmax = max(tvals + [1.0])
-    lt0, lt1 = log10(0.01), log10(max(tmax, 10.0))
-    grid = [[" "] * cols for _ in range(rows)]
-
-    def row_of(t):
-        f = (log10(max(t, 1e-3)) - lt0) / (lt1 - lt0)
-        return min(rows - 1, max(0, rows - 1 - int(round(f * (rows - 1)))))
-
-    r1_row = row_of(1.0)                 # лінія T = 1
-    for c in range(cols):
-        grid[r1_row][c] = "-"
-    c_sqrt2 = int(round((log10(R_THRESH) - lr0) / (lr1 - lr0) * (cols - 1)))
-    for rr in range(rows):               # вертикаль r = √2
-        if grid[rr][c_sqrt2] == " ":
-            grid[rr][c_sqrt2] = ":"
-    for c, t in enumerate(tvals):
-        grid[row_of(t)][c] = "*"
-
-    print(f"  T(r) для ζ = {zeta:g}   (│ вісь T лог, r лог; ─ T=1; : r=√2)")
-    for rr in range(rows):
-        print("   │" + "".join(grid[rr]))
-    print("   └" + "─" * cols)
-    print(f"    r={rmin:g}" + " " * (cols - 12) + f"r={rmax:g}")
-
-
-def compare_zeta(exc_hz: float, fn_hz: float, zetas, order=1.0) -> None:
-    """Та сама опора (fₙ фіксована) — що дає кожне ζ. Парадокс загасання."""
-    r = exc_hz / fn_hz
-    print(f"── Одна опора fₙ = {fn_hz:.1f} Гц, трясіння {exc_hz:.1f} Гц "
-          f"(r = {r:.2f}) — вплив ζ ──")
-    print(f"  {'ζ':>6} │ {'T роб.':>7} │ {'ізол.':>6} │ {'пік на пуску':>13}")
-    print("  " + "─" * 6 + "─┼─" + "─" * 7 + "─┼─" + "─" * 6 + "─┼─" + "─" * 13)
-    for z in zetas:
-        t = transmissibility(r, z)
-        _, pt = resonance_peak(z)
-        print(f"  {z:>6.3f} │ {t:>7.3f} │ {100*(1-t):>5.0f}% │ {pt:>10.1f}×")
-```
+:::code proj-isolator-design/py/robochyi-kod-5.py
 
 Проженімо все на наскрізному прикладі теми: мотор 1800 об/хв, дисбаланс б'є раз на оберт (30 Гц), маса з рамою 40 кг, чотири гумові опори з поміркованим загасанням ζ = 0.05, ціль — пропускати десяту частину:
 
-```python
-if __name__ == "__main__":
-    d = design_mount(mass_kg=40.0, target_T=0.10, zeta=0.05, rpm=1800.0, order=1.0)
-    report(d, mounts=4)
-    print()
-    sweep_ascii(zeta=d.zeta)
-    print()
-    compare_zeta(exc_hz=d.exc_hz, fn_hz=d.fn_hz,
-                 zetas=[0.02, 0.05, 0.15, 0.30, 0.70])
-    print()
-    r_naive = sqrt(1.0 + 1.0 / 0.10)          # r² = 1 + 1/T (без загасання)
-    r_exact = ratio_for_target(0.10, 0.05)
-    t_at_naive = transmissibility(r_naive, 0.05)
-    print("── Наївне сортування (без загасання) проти точного ──")
-    print(f"  без ζ:  r = {r_naive:.3f}  → але реальне T при ζ=0.05: "
-          f"{t_at_naive:.3f}  (ціль 0.100 промазана)")
-    print(f"  з ζ:    r = {r_exact:.3f}  → T точно 0.100 (опора трохи м'якша)")
-```
+:::code proj-isolator-design/py/robochyi-kod-6.py
 
 Ось що воно друкує:
 

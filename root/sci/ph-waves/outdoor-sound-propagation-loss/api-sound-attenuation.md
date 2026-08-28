@@ -48,73 +48,8 @@
 Усі вхідні та вихідні структури даних володіють фіксованим вирівнюванням у пам'яті (8 байтів) для забезпечення повної ABI-сумісності з мовами C, C++, Python (ctypes/FFI), Rust та Go.
 
 :::tabs
-```c
-/**
- * Статуси виконання акустичного розрахунку.
- */
-typedef enum {
-    ISO9613_SUCCESS               =  0,  /* Успішне обчислення */
-    ISO9613_ERR_INVALID_POINTER   = -1,  /* Передано NULL вказівник */
-    ISO9613_ERR_FREQ_OUT_OF_RANGE = -2,  /* Частота поза межами [50 Гц..1 МГц] */
-    ISO9613_ERR_TEMP_OUT_OF_RANGE = -3,  /* Температура поза межами [-20°C..+50°C] */
-    ISO9613_ERR_PRESS_OUT_OF_BOUNDS = -4, /* Тиск поза межами [10 кПа..200 кПа] */
-    ISO9613_ERR_HUMIDITY_OUT_OF_RANGE = -5/* Вологість поза межами [0%..100%] */
-} iso9613_status_t;
-
-/**
- * Структура входів навколишнього середовища.
- */
-typedef struct {
-    double temperature_c;     /**< Температура повітря, °C */
-    double pressure_kpa;      /**< Атмосферний тиск, кПа */
-    double humidity_pct;      /**< Відносна вологість, % */
-} iso9613_environment_t;
-
-/**
- * Структура результату поглинання звуку.
- */
-typedef struct {
-    double alpha_db_m;        /**< Коефіцієнт загасання, дБ/м */
-    double alpha_db_km;       /**< Коефіцієнт загасання, дБ/км */
-    double fr_oxygen_hz;      /**< Частота релаксації кисню O2, Гц */
-    double fr_nitrogen_hz;    /**< Частота релаксації азоту N2, Гц */
-    double molar_humidity;    /**< Концентрація водяної пари, % */
-    double alpha_classical;   /**< Внесок Стокса-Кірхгофа, дБ/м */
-    double alpha_oxygen;      /**< Внесок релаксації кисню, дБ/м */
-    double alpha_nitrogen;    /**< Внесок релаксації азоту, дБ/м */
-} iso9613_attenuation_result_t;
-```
-```cpp
-namespace acoustic {
-
-enum class Status : int32_t {
-    Success = 0,
-    InvalidPointer = -1,
-    FrequencyOutOfRange = -2,
-    TemperatureOutOfRange = -3,
-    PressureOutOfBounds = -4,
-    HumidityOutOfRange = -5
-};
-
-struct Environment {
-    double temperature_c{20.0};
-    double pressure_kpa{101.325};
-    double humidity_pct{50.0};
-};
-
-struct AttenuationResult {
-    double alpha_db_m{0.0};
-    double alpha_db_km{0.0};
-    double fr_oxygen_hz{0.0};
-    double fr_nitrogen_hz{0.0};
-    double molar_humidity{0.0};
-    double alpha_classical{0.0};
-    double alpha_oxygen{0.0};
-    double alpha_nitrogen{0.0};
-};
-
-} // namespace acoustic
-```
+:::code api-sound-attenuation/c/1-2-spetsyfikatsiia.c
+:::code api-sound-attenuation/cpp/1-2-spetsyfikatsiia.cpp
 :::
 
 Вирівнювання полів структури `iso9613_environment_t` та `iso9613_attenuation_result_t` відповідає стандартному вирівнюванню `alignof(double) == 8` для 64-бітних архітектур x86_64 та ARM64. Це означає, що при виклику з мов системного програмування не виникає невидимих паддінг-байтів, а масиви структур можна передавати у векторні SIMD-функції без додаткових перепакувань пам'яті.
@@ -126,34 +61,8 @@ struct AttenuationResult {
 Функція `iso9613_calculate_attenuation` виконує повний розрахунок загасання звукової хвилі для заданих умов навколишнього середовища й частоти. Вона є чистою функцією без побічних ефектів (pure function), не використовує глобальний стан і є повністю потокобезпечною (thread-safe, reentrant).
 
 :::tabs
-```c
-/**
- * @brief Обчислює атмосферне поглинання для заданої частоти та параметрів середовища.
- * 
- * @param[in]  env  Вказівник на структуру параметрів середовища.
- * @param[in]  frequency_hz  Частота акустичної хвилі у Гц.
- * @param[out] result  Вказівник на структуру для запису результатів.
- * @return iso9613_status_t Статус виконання (ISO9613_SUCCESS у разі успіху).
- */
-iso9613_status_t iso9613_calculate_attenuation(
-    const iso9613_environment_t *env,
-    double frequency_hz,
-    iso9613_attenuation_result_t *result
-);
-```
-```cpp
-namespace acoustic {
-
-/**
- * @brief C++ ідіоматична обгортка з поверненням std::expected / std::optional.
- */
-[[nodiscard]] std::optional<AttenuationResult> calculate_attenuation(
-    const Environment& env,
-    double frequency_hz
-) noexcept;
-
-} // namespace acoustic
-```
+:::code api-sound-attenuation/c/2-1-tochkovyi-rozrakhunok.c
+:::code api-sound-attenuation/cpp/2-1-tochkovyi-rozrakhunok.cpp
 :::
 
 Під час виконання точкового розрахунку алгоритм спочатку перевіряє переданий вказівник `env` на `NULL`, після чого здійснює перевірку виходу аргументів за допустимі межі. Якщо частота менша або дорівнює нулю (`frequency_hz <= 0.0`), повертається помилка `ISO9613_ERR_FREQ_OUT_OF_RANGE`. Якщо відносна вологість виходить за діапазон `[0, 100]`, викликом повертається код `ISO9613_ERR_HUMIDITY_OUT_OF_RANGE`.
@@ -163,36 +72,8 @@ namespace acoustic {
 Для підвищення продуктивності при спектральному аналізі (наприклад, обробці 1/3-октавних смуг або спектрів ШПФ) надається векторна функція `iso9613_calculate_spectrum`. Вона розраховує частоти релаксації `f_r,O` та `f_r,N` лише один раз для всього спектра, значно економлячи обчислювальні ресурси процесора.
 
 :::tabs
-```c
-/**
- * @brief Обчислює поглинання для масиву частот (спектральний аналіз).
- * 
- * @param[in]  env  Вказівник на структуру параметрів середовища.
- * @param[in]  frequencies_hz  Масив частот у Гц.
- * @param[in]  count  Кількість частот у масиві.
- * @param[out] out_alpha_db_km  Масив для збереження коефіцієнтів у дБ/км.
- * @return iso9613_status_t Статус виконання.
- */
-iso9613_status_t iso9613_calculate_spectrum(
-    const iso9613_environment_t *env,
-    const double *frequencies_hz,
-    size_t count,
-    double *out_alpha_db_km
-);
-```
-```cpp
-namespace acoustic {
-
-/**
- * @brief Безоб'єктний векторний розрахунок із використанням std::span.
- */
-[[nodiscard]] std::vector<double> calculate_spectrum(
-    const Environment& env,
-    std::span<const double> frequencies_hz
-);
-
-} // namespace acoustic
-```
+:::code api-sound-attenuation/c/2-2-vektornyi-rozrakhunok.c
+:::code api-sound-attenuation/cpp/2-2-vektornyi-rozrakhunok.cpp
 :::
 
 Векторний інтерфейс приймає масив вхідних частот `frequencies_hz` довільної довжини `count` і записує розраховані значення поглинання у вихідний буфер `out_alpha_db_km`. Виділення вихідного буфера є відповідальністю викликаючої сторони, що виключає приховані алокації у купі (heap).
@@ -202,42 +83,8 @@ namespace acoustic {
 Функція `iso9613_calculate_total_spl` поєднує геометричне розходження хвилі та атмосферне поглинання для обчислення підсумкового рівня звукового тиску на заданій відстані.
 
 :::tabs
-```c
-/**
- * @brief Обчислює підсумковий рівень звукового тиску SPL на відстані r з урахуванням розходження та поглинання.
- * 
- * @param[in] spl_ref_db  Початковий рівень SPL на опорній відстані r_ref, дБ.
- * @param[in] r_ref_m     Опорна відстань від джерела (наприклад, 1.0 м або 10.0 м).
- * @param[in] r_target_m  Цільова відстань від джерела, м.
- * @param[in] alpha_db_m  Коефіцієнт загасання середовища, дБ/м.
- * @return double Підсумковий рівень SPL у дБ на відстані r_target_m.
- */
-double iso9613_calculate_total_spl(
-    double spl_ref_db,
-    double r_ref_m,
-    double r_target_m,
-    double alpha_db_m
-);
-```
-```cpp
-namespace acoustic {
-
-[[nodiscard]] constexpr double calculate_total_spl(
-    double spl_ref_db,
-    double r_ref_m,
-    double r_target_m,
-    double alpha_db_m
-) noexcept {
-    if (r_target_m <= r_ref_m || r_ref_m <= 0.0) {
-        return spl_ref_db;
-    }
-    const double div_loss = 20.0 * std::log10(r_target_m / r_ref_m);
-    const double abs_loss = alpha_db_m * (r_target_m - r_ref_m);
-    return spl_ref_db - div_loss - abs_loss;
-}
-
-} // namespace acoustic
-```
+:::code api-sound-attenuation/c/2-3-rozrakhunok.c
+:::code api-sound-attenuation/cpp/2-3-rozrakhunok.cpp
 :::
 
 Математично розрахунок підсумкового рівня звукового тиску враховує два комбіновані чинники: сферичне геометричне розходження `20 * log10(r_target / r_ref)` та лінійне атмосферне загасання `alpha_db_m * (r_target - r_ref)`. Якщо цільова відстань `r_target_m` менша або дорівнює опорній `r_ref_m`, функція повертає вихідне значення `spl_ref_db` без змін.
@@ -247,22 +94,7 @@ namespace acoustic {
 Для низькорівневого аналізу надаються окремі допоміжні функції обчислення молярної концентрації вологи та частот релаксації кисню й азоту.
 
 :::tabs
-```c
-/**
- * @brief Обчислює молярну концентрацію водяної пари h (%).
- */
-double iso9613_calculate_molar_humidity(double temp_c, double pressure_kpa, double humidity_pct);
-
-/**
- * @brief Обчислює частоту релаксації кисню f_r,O (Гц).
- */
-double iso9613_calculate_fr_oxygen(double temp_c, double pressure_kpa, double humidity_pct);
-
-/**
- * @brief Обчислює частоту релаксації азоту f_r,N (Гц).
- */
-double iso9613_calculate_fr_nitrogen(double temp_c, double pressure_kpa, double humidity_pct);
-```
+:::code api-sound-attenuation/c/2-4-dopomizhni-funktsii.h
 ```cpp
 namespace acoustic {
 
