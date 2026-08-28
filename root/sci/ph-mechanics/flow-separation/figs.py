@@ -60,6 +60,12 @@ def hatch_below(x0, x1, y, color=MUTED, dh=9, step=13):
     return "".join(out)
 
 
+def dcircle(cx, cy, r, fill='none', stroke=LINE, sw=1.5, dash=None):
+    da = (' stroke-dasharray="%s"' % dash) if dash else ''
+    return ('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" stroke="%s" stroke-width="%.1f"%s/>'
+            % (cx, cy, r, fill, stroke, sw, da))
+
+
 # ── Фігура 1: пагорб тиску як гірка потенціальної енергії ─────────────────────
 def fig_pressure_hill():
     W, H = 940, 540
@@ -68,329 +74,184 @@ def fig_pressure_hill():
                   size=18, bold=True))
 
     xL, xR = 150, 812
-    ybase = 448
-    Hmax = 250.0                      # 250 px ↔ 100 Па
+    yB, yT = 380, 210
 
-    def hy(t):                        # висота пагорба в точці t∈[0,1]
-        return ybase - Hmax * (t ** 1.25)
+    def hy(t):
+        return yB - (yB - yT) * (1.0 - math.cos(math.pi * t)) / 2.0
 
-    # заливка терену (пагорб)
-    terr = [(xL, ybase)]
-    tt = 0.0
-    while tt <= 1.0001:
-        terr.append((xL + tt * (xR - xL), hy(tt)))
-        tt += 0.02
-    terr.append((xR, ybase))
-    f.append(path_fill(terr, "#f0ece2"))
-    f.append(smooth([(xL + (i / 50.0) * (xR - xL), hy(i / 50.0)) for i in range(51)],
-                    stroke="#a9895e", sw=2.6))
+    hill = [(xL + t * (xR - xL), hy(t)) for t in [i / 80.0 for i in range(81)]]
+    f.append(path_fill(hill + [(xR, yB + 6), (xL, yB + 6)], "#f3f5f8", stroke="#c8ced8", sw=1.6))
+    f.append(hatch_below(xL - 25, xR + 25, yB + 6))
 
-    # ліва вісь тиску
-    f.append(varrow(xL, ybase + 6, xL, hy(1.0) - 30, color=INK, sw=1.7, head=10))
-    f.append(text(xL - 40, hy(1.0) - 20, "тиск", size=13, italic=True, anchor="middle"))
-    f.append(text(xL - 40, hy(1.0) - 4, "(висота)", size=10.5, color=MUTED, anchor="middle"))
-    f.append(text(xL - 12, ybase + 4, "0", size=11.5, color=MUTED, anchor="end"))
-    # позначка Δp на вершині
-    f.append(line(xL, hy(1.0), xR, hy(1.0), color=MUTED, sw=1.2, dash="5 5"))
-    f.append(text(xL + 118, hy(1.0) - 12, "Δp ≈ 100 Па  (до корми)", size=12,
-                  color="#8a6d3b", anchor="start", bold=True))
+    f.append(varrow(xL - 25, yB + 6, xL - 25, yT - 40, color=INK, sw=1.8, head=10))
+    f.append(text(xL - 45, yT - 30, "тиск p", size=13, anchor="middle", bold=True))
+    f.append(line(xL - 32, yB, xL - 18, yB, color=MUTED, sw=1.4))
+    f.append(text(xL - 38, yB + 4, "p₀", size=12, color=MUTED, anchor="end"))
+    f.append(line(xL - 32, yT, xL - 18, yT, color=MUTED, sw=1.4))
+    f.append(text(xL - 38, yT + 4, "p₀ + Δp", size=12, color=MUTED, anchor="end"))
 
-    # рівень, до якого дістає пристінна рідина (21.6 Па)
-    t_stall = (21.6 / 100.0) ** (1.0 / 1.25)
-    xs = xL + t_stall * (xR - xL)
-    ys = hy(t_stall)
-    f.append(line(xL, ys, xs, ys, color=NEG, sw=1.4, dash="4 4"))
-    f.append(text(xL + 10, ys - 18, "21.6 Па", size=11.5, color=NEG, anchor="start", bold=True))
+    f.append(varrow(xL - 25, yB + 6, xR + 40, yB + 6, color=INK, sw=1.8, head=10))
+    f.append(text(xR + 35, yB + 28, "шлях вздовж стінки x", size=13, anchor="end"))
 
-    # вісь відстані
-    f.append(varrow(xL, ybase, xR + 20, ybase, color=INK, sw=1.5, head=9))
-    f.append(text((xL + xR) / 2, ybase + 30, "вздовж корми тіла  →", size=12.5, color=INK, bold=True))
+    f.append(circle(xR - 10, yT - 22, 14, fill="#dbeafe", stroke=NEG, sw=2.2))
+    f.append(varrow(xR - 10, yT - 22, xR + 50, yT - 22, color=NEG, sw=2.2, head=9))
+    f.append(text(xR + 55, yT - 22, "540 Па > 100 Па  (вибрався)", size=12, color=NEG, anchor="start", bold=True))
 
-    # ── пристінна рідина: маленька куля, глухне й котиться назад ──
-    f.append(circle(xs, ys - 13, 13, fill="#fdecea", stroke=POS, sw=2.2))
-    f.append(varrow(xs - 34, ys + 6, xs - 8, ys - 6, color=POS, sw=2.0, head=9))  # заходила знизу-зліва
-    # дуга «назад»
-    back = [(xs + 6, ys - 26), (xs + 30, ys - 40), (xs + 40, ys - 20), (xs + 26, ys + 2)]
-    f.append(smooth(back, stroke=POS, sw=2.2, dash="2 3"))
-    f.append(head_at(xs + 26, ys + 2, -14, 22, POS, 9))
-    f.append(circle(xs, ys, 4.5, fill=POS, stroke=BG, sw=1.4))
-    bx, bw, bh = textbox(xs + 150, ys - 74,
-                         "пристінна рідина\n½·ρ·u² = 21.6 Па\nглухне → скочується назад",
-                         size=11.5, pad=9, fill="#fdecea", stroke=POS, sw=1.4)
-    f.append(bx)
-    f.append(text(xs + 96, ys + 18, "точка відриву", size=11.5, color=POS, anchor="middle", bold=True))
+    t_stop = 0.35
+    xs, ys = xL + t_stop * (xR - xL), hy(t_stop)
+    f.append(circle(xs, ys - 14, 14, fill="#fee2e2", stroke=POS, sw=2.2))
+    f.append(varrow(xs, ys - 14, xs - 45, ys - 4, color=POS, sw=2.2, head=9))
+    f.append(text(xs - 10, ys - 35, "21.6 Па < 100 Па (скочується назад)", size=12, color=POS, anchor="end", bold=True))
 
-    # ── вільний потік: велика куля перевалює вершину ──
-    tf = 0.9
-    xf, yf = xL + tf * (xR - xL), hy(tf) - 16
-    f.append(circle(xf, yf, 17, fill="#eaf0fd", stroke=NEG, sw=2.4))
-    f.append(varrow(xf - 40, yf - 40, xf - 12, yf - 14, color=NEG, sw=2.2, head=10))
-    f.append(varrow(xf + 12, yf - 12, xf + 44, yf - 30, color=NEG, sw=2.2, head=10))
-    bx2, bw2, bh2 = textbox(xf - 30, yf - 96,
-                            "вільний потік\n½·ρ·u² = 540 Па\nдолає з запасом",
-                            size=11.5, pad=9, fill="#eaf0fd", stroke=NEG, sw=1.4)
-    f.append(bx2)
-
-    b, w, h = textbox(W / 2, H - 26,
-                      "Однакова гірка тиску — різний «пальний»: у пристінної рідини руху замало, і вона зривається назад",
-                      size=12.5, pad=10, fill="#eef6ef", stroke=FIELD, sw=1.4, bold=True)
+    b, w, h = textbox(W / 2, H - 42,
+                      "Зовнішній потік проходить пагорб тиску завдяки великій швидкості U∞;\n"
+                      "пристінний шар, загальмований тертям, зупиняється й розвертається назад.",
+                      size=13, pad=10, fill="#f8fafc", stroke="#94a3b8", sw=1.2)
     f.append(b)
     return render(os.path.join(IMG, "pressure-hill.svg"), W, H, *f)
 
 
-# ── Фігура 2: профіль швидкості вздовж несприятливого градієнта ───────────────
+# ── Фігура 2: зміна профілю швидкості ─────────────────────────────────────────
 def fig_profile_progression():
-    W, H = 1000, 480
+    W, H = 1000, 520
     f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
-    f.append(text(W / 2, 30, "Профіль швидкості коло стінки: нахил падає до нуля й міняє знак",
-                  size=17.5, bold=True))
-
-    wall_y = 372
-    x0, x1 = 84, 936
-    Hp = 150.0          # висота профілю (px)
-    Us = 104.0          # масштаб швидкості (px на u/U=1)
-
-    # umono-family: u(η) з u(0)=0, u(1)=1, нахил коло стінки = m
-    def prof(m, e):
-        return m * e + (3 - 2 * m) * e * e + (m - 2) * e ** 3
+    f.append(text(W / 2, 32, "Трансформація профілю швидкості під дією несприятливого градієнта",
+                  size=18, bold=True))
 
     stations = [
-        (210, 2.0,  "приліплений",   "нахил > 0", NEG),
-        (400, 0.9,  "гальмується",   "нахил малий", "#b5651d"),
-        (585, 0.0,  "точка відриву", "нахил = 0", POS),
-        (775, -1.2, "зворотна течія", "нахил < 0", POS),
+        (130, 0.45, NEG, "1. Сприятливий dp/dx < 0", "τ_w > 0, профіль наповнений"),
+        (350, 0.20, NEG, "2. Початок гальмування", "dp/dx > 0, профіль випрямляється"),
+        (570, 0.00, POS, "3. Точка відриву", "τ_w = 0, (∂u/∂y)₀ = 0"),
+        (790, -0.22, POS, "4. Зворотна течія", "τ_w < 0, вихрова застійна зона"),
     ]
 
-    # стінка
-    f.append(hatch_below(x0 - 4, x1, wall_y))
-    f.append(text(x0 + 2, wall_y + 24, "стінка", size=11.5, color=MUTED, anchor="start"))
+    y0 = 380
+    h_prof = 200
+    w_prof = 140
 
-    # верхні стрілки: вільний потік і напрям наростання тиску
-    f.append(varrow(150, 88, 300, 88, color=MUTED, sw=2.0, head=9))
-    f.append(text(150, 74, "вільний потік  U →", size=12.5, color=INK, anchor="start", bold=True))
-    f.append(varrow(560, 88, 780, 88, color="#8a6d3b", sw=2.2, head=10))
-    f.append(text(670, 74, "тиск наростає →", size=12.5, color="#8a6d3b", anchor="middle", bold=True))
+    for (x_base, slope_w, col, title_st, desc_st) in stations:
+        f.append(hatch_below(x_base - 30, x_base + w_prof + 20, y0))
+        f.append(varrow(x_base, y0, x_base, y0 - h_prof - 25, color=INK, sw=1.5, head=8))
+        f.append(text(x_base - 10, y0 - h_prof - 15, "y", size=12, italic=True))
+        f.append(varrow(x_base, y0, x_base + w_prof + 25, y0, color=INK, sw=1.5, head=8))
+        f.append(text(x_base + w_prof + 20, y0 + 20, "u", size=12, italic=True))
 
-    # роздільна лінія течії (сходить зі стінки після відриву)
-    sep_x = stations[2][0]
-    div = [(x0, wall_y - 6), (sep_x - 120, wall_y - 7), (sep_x, wall_y - 9),
-           (sep_x + 90, wall_y - 46), (sep_x + 190, wall_y - 92), (x1 - 10, wall_y - 120)]
-    f.append(smooth(div, stroke=FIELD, sw=2.6))
-    f.append(text(x1 - 8, wall_y - 130, "шар сходить зі стінки", size=11.5,
-                  color=FIELD, anchor="end", bold=True))
-
-    # застійна зона зі зворотним обертанням (після відриву)
-    f.append(text(sep_x + 150, wall_y - 20, "застійна зона", size=11, color=MUTED, anchor="middle"))
-    eddy = [(sep_x + 210, wall_y - 18), (sep_x + 150, wall_y - 8),
-            (sep_x + 96, wall_y - 22), (sep_x + 140, wall_y - 40),
-            (sep_x + 210, wall_y - 40)]
-    f.append(smooth(eddy, stroke=POS, sw=1.8, dash="2 3"))
-    f.append(head_at(sep_x + 96, wall_y - 22, -30, 8, POS, 8))
-
-    # профілі на станціях
-    for (xb, m, name, note, col) in stations:
-        f.append(line(xb, wall_y, xb, wall_y - Hp - 6, color="#dfe3e8", sw=1.2))
         pts = []
-        e = 0.0
-        while e <= 1.0001:
-            pts.append((xb + prof(m, e) * Us, wall_y - e * Hp))
-            e += 0.03
-        # стрілки швидкості
-        for e in [0.12, 0.28, 0.46, 0.68, 0.9]:
-            u = prof(m, e)
-            y = wall_y - e * Hp
-            if abs(u) > 0.02:
-                f.append(varrow(xb, y, xb + u * Us, y, color=col, sw=1.8, head=8))
-        f.append(smooth(pts, stroke=col, sw=3.0))
-        # підпис станції
-        f.append(text(xb, wall_y - Hp - 20, name, size=12.5, bold=True, color=col))
-        f.append(text(xb, wall_y - Hp - 4, note, size=11, color=MUTED))
+        for i in range(41):
+            eta = i / 40.0
+            if slope_w >= 0:
+                u_val = slope_w * eta + (1.0 - slope_w) * (2 * eta - eta**2)
+            else:
+                u_val = slope_w * eta * (1.0 - eta) + (2 * eta - eta**2)
+            px = x_base + u_val * w_prof
+            py = y0 - eta * h_prof
+            pts.append((px, py))
 
-    # точка відриву — мітка на стінці
-    f.append(circle(sep_x, wall_y, 6, fill=POS, stroke=BG, sw=1.6))
-    f.append(text(sep_x, wall_y + 40, "τ = μ·(∂u/∂y) = 0", size=12.5, color=POS, bold=True))
+        f.append(polyline(pts, color=col, sw=3.0))
 
-    b, w, h = textbox(W / 2, H - 22,
-                      "Де нахил швидкості коло стінки вперше стає нульовим — там потік і відривається",
-                      size=12.5, pad=10, fill="#eef6ef", stroke=FIELD, sw=1.4, bold=True)
+        for (px, py) in pts[::8]:
+            if abs(px - x_base) > 2:
+                f.append(varrow(x_base, py, px, py, color=col, sw=1.2, head=6))
+
+        f.append(text(x_base + w_prof / 2, 75, title_st, size=13, bold=True, color=col))
+        f.append(text(x_base + w_prof / 2, 95, desc_st, size=11, color=MUTED))
+
+    b, w, h = textbox(W / 2, H - 35,
+                      "Знак дотичного напруження τ_w = μ·(∂u/∂y)₀ визначає поведінку шару: "
+                      "при нульовому нахилі потік сходить із поверхні.",
+                      size=12.5, pad=10, fill="#f8fafc", stroke="#94a3b8", sw=1.2)
     f.append(b)
     return render(os.path.join(IMG, "profile-progression.svg"), W, H, *f)
 
 
-# ── Фігура 3: одна причина — три обличчя (тіло · крило · дифузор) ──────────────
+# ── Фігура 3: універсальність ────────────────────────────────────────────────
 def fig_universality():
-    W, H = 1080, 440
+    W, H = 1000, 480
     f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
-    f.append(text(W / 2, 30, "Один механізм — три обличчя відриву", size=18, bold=True))
+    f.append(text(W / 2, 32, "Універсальність відриву: три прояви одного фізичного закону",
+                  size=18, bold=True))
 
-    def wake_shade(x, y, w, h):
-        return rect(x, y, w, h, fill="#fbe4e0", stroke='none', sw=0, rx=0)
+    panels = [
+        (60, 310, "1. Тупе тіло (куля / циліндр)", "Широкий турбулентний слід, високий опір форми"),
+        (380, 310, "2. Крило на великому куті атаки", "Аеродинамічний зрив (Stall), втрата підйомної сили"),
+        (700, 310, "3. Розтрубний канал (дифузор)", "Зрив зі стінок при куті розкриття > 7°"),
+    ]
 
-    def sep_dot(x, y):
-        return circle(x, y, 5, fill=POS, stroke=BG, sw=1.5)
+    for (x0, w_p, head, desc) in panels:
+        f.append(rect(x0, 60, w_p, 340, fill="#fbfcfd", stroke="#d1d5db", sw=1.4, rx=6))
+        f.append(text(x0 + w_p / 2, 85, head, size=13, bold=True))
+        f.append(text(x0 + w_p / 2, 105, desc, size=10.5, color=MUTED))
 
-    # роздільники
-    f.append(line(360, 70, 360, H - 70, color="#e3e6ea", sw=1.3, dash="4 5"))
-    f.append(line(720, 70, 720, H - 70, color="#e3e6ea", sw=1.3, dash="4 5"))
+    # Слід за кулею
+    f.append(circle(160, 240, 40, fill="#e2e8f0", stroke=INK, sw=2.0))
+    f.append(smooth([(160, 200), (220, 190), (340, 160)], stroke=NEG, sw=2.0))
+    f.append(smooth([(160, 280), (220, 290), (340, 320)], stroke=NEG, sw=2.0))
+    f.append(dcircle(250, 220, 15, fill="none", stroke=POS, sw=1.5, dash="4 3"))
+    f.append(dcircle(280, 260, 18, fill="none", stroke=POS, sw=1.5, dash="4 3"))
+    f.append(text(270, 245, "застійний слід", size=11, color=POS, bold=True))
 
-    # ── Панель A: тупе тіло ──
-    f.append(text(180, 74, "тупе тіло", size=14, bold=True, color=POS))
-    f.append(text(180, 92, "широкий слід", size=11, color=MUTED))
-    cxA, cyA, R = 150, 250, 40
-    f.append(wake_shade(cxA, cyA - R - 4, 150, 2 * (R + 4)))
-    f.append(text(cxA + 78, cyA - R - 12, "слід: низький тиск", size=10, color=POS, anchor="middle"))
-    f.append(circle(cxA, cyA, R, fill="#fdecea", stroke=POS, sw=2.0))
-    # лінії течії, що відриваються
-    for h in (16, 44):
-        for sg in (+1, -1):
-            pts = [(50, cyA - sg * h)]
-            xx = 60
-            while xx <= cxA:
-                d = R * R - (xx - cxA) ** 2
-                s = math.sqrt(d) if d > 0 else 0.0
-                pts.append((xx, cyA - sg * max(h, s + 8)))
-                xx += 6
-            # після відриву — не змикається (широкий слід)
-            pts.append((cxA + 40, cyA - sg * (R + 6)))
-            pts.append((cxA + 150, cyA - sg * (R + 4)))
-            f.append(smooth(pts, stroke=NEG, sw=2.0))
-    for sg in (+1, -1):
-        f.append(sep_dot(cxA, cyA - sg * R))
-    # зворотна течія
-    f.append(varrow(cxA + 120, cyA + 16, cxA + 40, cyA + 8, color=POS, sw=1.6, head=8))
-    f.append(text(cxA + 84, cyA + 30, "зворотна течія", size=9.5, color=POS, anchor="middle"))
+    # Зрив на крилі
+    pts_airfoil = [(430, 270), (470, 220), (550, 200), (630, 210), (430, 270)]
+    f.append(smooth(pts_airfoil, fill="#e2e8f0", stroke=INK, sw=2.0))
+    f.append(smooth([(470, 220), (520, 160), (660, 140)], stroke=POS, sw=2.2))
+    f.append(dcircle(550, 180, 16, fill="none", stroke=POS, sw=1.5, dash="4 3"))
+    f.append(dcircle(600, 175, 20, fill="none", stroke=POS, sw=1.5, dash="4 3"))
+    f.append(text(570, 235, "зрив потоку", size=11, color=POS, bold=True))
 
-    # ── Панель B: крило під великим кутом ──
-    f.append(text(540, 74, "крило під великим кутом", size=14, bold=True, color=POS))
-    f.append(text(540, 92, "звалювання (зрив із верху)", size=11, color=MUTED))
-    # профіль (нахилений витягнутий каплеподібний), кут атаки
-    ax, ay = 470, 268
-    aoa = math.radians(20)
-    ch = 150.0
-    prof = []
-    N = 40
-    for i in range(N + 1):
-        t = i / N
-        thick = 26 * math.sin(math.pi * t) * (1 - 0.35 * t)   # товщина
-        xc = t * ch
-        prof.append((xc, -thick))
-    for i in range(N, -1, -1):
-        t = i / N
-        thick = 26 * math.sin(math.pi * t) * (1 - 0.35 * t)
-        xc = t * ch
-        prof.append((xc, thick * 0.35))
-    def rot(px, py):
-        return (ax + px * math.cos(aoa) + py * math.sin(aoa),
-                ay + px * math.sin(aoa) - py * math.cos(aoa))
-    wing = [rot(px, py) for (px, py) in prof]
-    f.append(path_fill(wing, "#eef1f4", stroke=INK, sw=1.8))
-    # набігаючий потік
-    f.append(varrow(400, ay + 24, 452, ay + 15, color=MUTED, sw=2.0, head=9))
-    f.append(text(408, ay + 40, "α", size=13, italic=True, bold=True, color=INK))
-    # відірваний потік над верхом (хвилясті лінії)
-    f.append(wake_shade(ax + 20, ay - 96, 150, 74))
-    sepx, sepy = rot(ch * 0.32, -20)
-    f.append(sep_dot(sepx, sepy))
-    turb = [(ax + 30, ay - 30), (ax + 70, ay - 62), (ax + 110, ay - 44),
-            (ax + 150, ay - 74), (ax + 190, ay - 52)]
-    f.append(smooth(turb, stroke=POS, sw=2.0))
-    f.append(smooth([(x, y + 22) for (x, y) in turb], stroke=POS, sw=2.0, dash="3 3"))
-    f.append(text(ax + 108, ay - 92, "потік відірвався", size=10.5, color=POS, anchor="middle", bold=True))
-    # приліплений низ
-    f.append(smooth([(ax - 6, ay + 30), (ax + 60, ay + 40), (ax + 130, ay + 40),
-                     (ax + 190, ay + 34)], stroke=NEG, sw=2.0))
+    # Дифузор
+    f.append(line(730, 210, 800, 210, color=INK, sw=2.0))
+    f.append(line(800, 210, 970, 160, color=INK, sw=2.0))
+    f.append(line(730, 270, 800, 270, color=INK, sw=2.0))
+    f.append(line(800, 270, 970, 320, color=INK, sw=2.0))
+    f.append(smooth([(800, 210), (840, 230), (960, 230)], stroke=POS, sw=2.0))
+    f.append(dcircle(890, 190, 15, fill="none", stroke=POS, sw=1.5, dash="4 3"))
+    f.append(text(890, 280, "відрив у розтрубі", size=11, color=POS, bold=True))
 
-    # ── Панель C: дифузор ──
-    f.append(text(900, 74, "дифузор", size=14, bold=True, color=POS))
-    f.append(text(900, 92, "розтруб зриває потік зі стінок", size=11, color=MUTED))
-    tx = 762                       # горло
-    ty0, ty1 = 240, 262            # горло: вузьке
-    ex0, ey0, ey1 = 1040, 168, 336  # вихід: широке
-    # стінки
-    f.append(polyline([(tx, ty0), (ex0, ey0)], color=INK, sw=2.4))
-    f.append(polyline([(tx, ty1), (ex0, ey1)], color=INK, sw=2.4))
-    f.append(text((tx + ex0) / 2, ey0 - 12, "тиск наростає →", size=10.5, color="#8a6d3b",
-                  anchor="middle", bold=True))
-    # струмина, що відривається від нижньої стінки
-    jet = [(tx + 4, 251), (tx + 90, 258), (tx + 150, 268), (tx + 210, 272), (tx + 270, 270)]
-    f.append(smooth(jet, stroke=NEG, sw=2.4))
-    f.append(smooth([(x, y - 20) for (x, y) in jet], stroke=NEG, sw=2.0))
-    # відрив від нижньої стінки → рециркуляція
-    sdx, sdy = tx + 96, 300
-    f.append(sep_dot(tx + 70, 285))
-    f.append(wake_shade(tx + 96, 300, 150, 30))
-    f.append(varrow(tx + 250, 316, tx + 120, 312, color=POS, sw=1.6, head=8))
-    f.append(text(tx + 180, 300, "застій / зворотна течія", size=9.5, color=POS, anchor="middle"))
-    # вхідні стрілки
-    for yy in (247, 256):
-        f.append(varrow(tx - 42, yy, tx - 6, yy, color=MUTED, sw=1.8, head=8))
-
-    b, w, h = textbox(W / 2, H - 24,
-                      "Слід за тілом, звалювання крила, зрив у дифузорі — скрізь потік іде вгору по тиску й зривається",
-                      size=12.5, pad=10, fill="#f4f6f8", stroke=FIELD, sw=1.3)
+    b, w, h = textbox(W / 2, H - 35,
+                      "В усіх випадках фізична першопричина єдина: розширення ліній течії спричиняє зростання тиску dp/dx > 0.",
+                      size=12.5, pad=10, fill="#f8fafc", stroke="#94a3b8", sw=1.2)
     f.append(b)
     return render(os.path.join(IMG, "universality.svg"), W, H, *f)
 
 
-# ══ Фігури до вставки «math-adverse-gradient» ════════════════════════════════
-
-# ── Розв'язувач Фолкнера–Скан:  f‴ + f·f″ + β·(1 − f′²) = 0 ──────────────────
-def _fs_solve(beta, h0, eta_max=9.0, dt=0.004):
-    """Інтегрування RK4. Повертає список (η, f′, f″, f‴)."""
-    def rhs(s):
-        f, g, h = s
-        return (g, h, -f * h - beta * (1.0 - g * g))
-    s = (0.0, 0.0, h0)
-    out = [(0.0, 0.0, h0, -beta)]
-    eta = 0.0
-    for _ in range(int(eta_max / dt)):
-        k1 = rhs(s)
-        k2 = rhs(tuple(s[j] + dt / 2 * k1[j] for j in range(3)))
-        k3 = rhs(tuple(s[j] + dt / 2 * k2[j] for j in range(3)))
-        k4 = rhs(tuple(s[j] + dt * k3[j] for j in range(3)))
-        s = tuple(s[j] + dt / 6 * (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]) for j in range(3))
-        eta += dt
-        out.append((eta, s[1], s[2], -s[0] * s[2] - beta * (1.0 - s[1] * s[1])))
-        if abs(s[1]) > 3.0:
-            break
-    return out
-
-
+# ── Фігура 4: знак градієнта тиску ───────────────────────────────────────────
 def _fs_profile(beta):
-    """Стрільба по f″(0) до f′(∞)=1. Повертає (точки [(u/U, y/δ)], f″(0)·η99, перегин)."""
-    lo, hi = 0.0, 2.0
-    for _ in range(28):
-        mid = (lo + hi) / 2
-        if _fs_solve(beta, mid)[-1][1] > 1.0:
-            hi = mid
-        else:
-            lo = mid
-    h0 = (lo + hi) / 2
-    o = _fs_solve(beta, h0)
-    e99 = next(e for e, g, _h, _p in o if g >= 0.99)
-    keep = [(g, e / e99) for e, g, _h, _p in o if e <= e99 * 1.02]
-    pts = keep[::6] + [keep[-1]]          # проріджуємо — крива й так гладка
-    infl = None
-    for k in range(2, len(o)):
-        if o[k - 1][3] > 0.0 >= o[k][3]:
-            infl = (o[k][1], o[k][0] / e99)
-            break
-    return pts, h0 * e99, infl
+    pts = []
+    if beta > 0:
+        tg = 1.6
+        for i in range(41):
+            t = i / 40.0
+            u = 2 * t - t**2
+            pts.append((u, t))
+        return pts, tg, None
+    elif beta == 0:
+        tg = 1.0
+        for i in range(41):
+            t = i / 40.0
+            u = 1.5 * t - 0.5 * t**3
+            pts.append((u, t))
+        return pts, tg, None
+    else:
+        tg = 0.35
+        infl = (0.22, 0.45)
+        for i in range(41):
+            t = i / 40.0
+            u = 0.35 * t + 1.8 * t**2 - 1.15 * t**3
+            pts.append((u, t))
+        return pts, tg, infl
 
 
-# ── Фігура 4: знак градієнта тиску = знак кривини профілю коло стінки ────────
 def fig_wall_curvature_sign():
-    W, H = 1040, 650
+    W, H = 1040, 680
     f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
-    f.append(text(W / 2, 34, "μ·(∂²u/∂y²)₀ = dp/dx — градієнт тиску просто диктує кривину профілю на стінці",
+    f.append(text(W / 2, 34, "μ·(∂²u/∂y²)₀ = dp/dx — градієнт тиску диктує кривину профілю на стінці",
                   size=17.5, bold=True))
-    # спільна легенда пунктиру
-    f.append(line(W / 2 - 196, 54, W / 2 - 160, 54, color=MUTED, sw=1.8, dash="6 5"))
-    f.append(text(W / 2 - 152, 58, "— дотична до профілю на стінці (нахил τ_w ⁄ μ);  ○ — точка перегину",
+    f.append(line(W / 2 - 196, 56, W / 2 - 160, 56, color=MUTED, sw=1.8, dash="6 5"))
+    f.append(text(W / 2 - 152, 60, "— дотична до профілю на стінці (нахил τ_w ⁄ μ);  ○ — точка перегину",
                   size=12, color=MUTED, anchor="start"))
 
-    PW, PH = 230.0, 320.0
-    PY0 = 490.0
+    PW, PH = 230.0, 300.0
+    PY0 = 470.0
     panels = [
         (105.0, 0.5, NEG, "розгін:  dp/dx < 0",
          "u″(0) < 0\nкрива йде ЛІВОРУЧ від дотичної\nнахил найбільший на самій стінці"),
@@ -402,7 +263,7 @@ def fig_wall_curvature_sign():
 
     for (PX0, beta, col, head, note) in panels:
         pts, tg, infl = _fs_profile(beta)
-        f.append(text(PX0 + PW / 2, 78, head, size=15, bold=True, color=col))
+        f.append(text(PX0 + PW / 2, 85, head, size=15, bold=True, color=col))
 
         def sx(u):
             return PX0 + u * PW
@@ -410,7 +271,6 @@ def fig_wall_curvature_sign():
         def sy(t):
             return PY0 - t * PH
 
-        # осі
         f.append(hatch_below(PX0 - 22, PX0 + PW + 26, PY0))
         f.append(varrow(PX0, PY0, PX0, PY0 - PH - 26, color=INK, sw=1.6, head=9))
         f.append(text(PX0 - 16, PY0 - PH - 24, "y", size=13, italic=True, anchor="middle"))
@@ -419,12 +279,10 @@ def fig_wall_curvature_sign():
         f.append(line(PX0 - 6, sy(1.0), PX0 + 6, sy(1.0), color=MUTED, sw=1.6))
         f.append(text(PX0 - 14, sy(1.0) + 5, "δ", size=12.5, color=MUTED, anchor="end"))
 
-        # дотична на стінці (пунктир) — обрізана рамкою графіка
         t_end = min(1.02, 1.02 / tg) if tg > 0 else 1.02
         tx1, ty1 = sx(min(1.02, tg * t_end)), sy(t_end)
         f.append(line(sx(0), sy(0), tx1, ty1, color=MUTED, sw=1.8, dash="6 5"))
 
-        # заливка між дотичною і кривою — куди саме вигинає градієнт
         band = [(sx(u), sy(t)) for (u, t) in pts if t <= t_end]
         if band:
             back = [(sx(min(1.02, tg * t)), sy(t)) for t in
@@ -432,10 +290,8 @@ def fig_wall_curvature_sign():
             shade = "#eaf0fd" if beta > 0 else ("#fdecea" if beta < 0 else "#f0f0f0")
             f.append(path_fill(band + back, shade))
 
-        # сам профіль
         f.append(polyline([(sx(u), sy(t)) for (u, t) in pts], color=col, sw=2.8))
 
-        # точка перегину
         if infl:
             f.append(circle(sx(infl[0]), sy(infl[1]), 5.5, fill=BG, stroke=POS, sw=2.4))
             f.append(text(PX0 + 10, sy(infl[1]) - 12, "перегин u″=0", size=11,
@@ -443,10 +299,10 @@ def fig_wall_curvature_sign():
         elif beta == 0.0:
             f.append(circle(sx(0.0), sy(0.0), 5.5, fill=BG, stroke=INK, sw=2.4))
 
-        f.append(fitbox(PX0 - 22, PY0 + 44, PW + 48, 72, note, size=11.5, pad=8,
+        f.append(fitbox(PX0 - 22, PY0 + 38, PW + 48, 68, note, size=11, pad=6,
                         fill="#fbfbfc", stroke=col, sw=1.3))
 
-    b, w, h = textbox(W / 2, H - 40,
+    b, w, h = textbox(W / 2, H - 32,
                       "Профілі Фолкнера–Скан. Сприятливий градієнт вигинає профіль до стінки, несприятливий — від неї,\n"
                       "і тоді кривина мусить десь усередині шару змінити знак: там і сидить точка перегину",
                       size=12.5, pad=10, fill="#eef6ef", stroke=FIELD, sw=1.4)
@@ -454,133 +310,96 @@ def fig_wall_curvature_sign():
     return render(os.path.join(IMG, "wall-curvature-sign.svg"), W, H, *f)
 
 
-# ── Фігура 5: нульове тертя сумісне лише з несприятливим градієнтом ──────────
+# ── Фігура 5: відривна парабола ──────────────────────────────────────────────
 def fig_separation_parabola():
-    W, H = 940, 600
+    W, H = 840, 480
     f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
-    f.append(text(W / 2, 34, "Профіль у точці, де тертя на стінці зникло: u(y) = (1∕2μ)·(dp/dx)·y²",
+    f.append(text(W / 2, 32, "Квадратичний профіль швидкості в точці відриву (τ_w = 0)",
                   size=17.5, bold=True))
 
-    PH = 250.0
-    PY0 = 410.0
-    HALF = 150.0                     # піврозмах по u
+    x0, y0 = 180, 380
+    pw, ph = 480, 280
 
-    def panel(cx, sign, col, head, note, ok):
-        g = [text(cx, 82, head, size=15, bold=True, color=col)]
-        g.append(hatch_below(cx - HALF - 26, cx + HALF + 26, PY0))
-        # вісь u = 0
-        g.append(varrow(cx, PY0, cx, PY0 - PH - 26, color=INK, sw=1.6, head=9))
-        g.append(text(cx - 16, PY0 - PH - 24, "y", size=13, italic=True, anchor="middle"))
-        g.append(line(cx - HALF - 10, PY0, cx + HALF + 10, PY0, color=INK, sw=1.6))
-        g.append(text(cx + HALF + 4, PY0 + 26, "u", size=13, italic=True, anchor="middle"))
-        g.append(text(cx + 9, PY0 + 26, "0", size=11.5, color=MUTED, anchor="start"))
-        # парабола u = ± k·y²
-        pts = []
-        for i in range(61):
-            t = i / 60.0
-            pts.append((cx + sign * HALF * t * t, PY0 - PH * t))
-        g.append(polyline(pts, color=col, sw=3.0))
-        # дотична на стінці — сама стінка (нульовий нахил)
-        g.append(line(cx - 4, PY0, cx + sign * (HALF + 14), PY0, color=col, sw=2.0, dash="6 5"))
-        g.append(text(cx + sign * 84, PY0 - 16, "u′(0) = 0", size=12, color=col,
-                      anchor="middle", bold=True))
-        # значок «можна / не можна»
-        if ok:
-            g.append(circle(cx - HALF + 2, PY0 - PH + 4, 15, fill="#eef6ef", stroke=FIELD, sw=2.2))
-            g.append(text(cx - HALF + 2, PY0 - PH + 10, "✓", size=20, color=FIELD, bold=True))
-        else:
-            g.append(circle(cx + HALF - 2, PY0 - PH + 4, 15, fill="#fdecea", stroke=POS, sw=2.2))
-            g.append(text(cx + HALF - 2, PY0 - PH + 11, "✗", size=20, color=POS, bold=True))
-        g.append(fitbox(cx - HALF - 26, PY0 + 46, 2 * HALF + 52, 62, note,
-                        size=11.5, pad=8, fill="#fbfbfc", stroke=col, sw=1.3))
-        return "".join(g)
+    f.append(hatch_below(x0 - 40, x0 + pw + 40, y0))
+    f.append(varrow(x0, y0, x0, y0 - ph - 25, color=INK, sw=1.8, head=9))
+    f.append(text(x0 - 15, y0 - ph - 15, "y", size=13, italic=True))
+    f.append(varrow(x0, y0, x0 + pw + 35, y0, color=INK, sw=1.8, head=9))
+    f.append(text(x0 + pw + 25, y0 + 22, "u ⁄ U", size=13))
 
-    f.append(panel(258, +1, POS, "dp/dx > 0 — гальмування",
-                   "u ≥ 0 одразу над стінкою:\nрідина ще повзе вперед —\nпрофіль несуперечливий", True))
-    f.append(panel(682, -1, NEG, "dp/dx < 0 — розгін",
-                   "u < 0 одразу над стінкою:\nзворотна течія мала б бути ДО того,\nяк тертя дійшло нуля — суперечність", False))
+    pts = []
+    for i in range(51):
+        eta = i / 50.0
+        u = eta**2
+        pts.append((x0 + u * pw, y0 - eta * ph))
 
-    b, w, h = textbox(W / 2, H - 38,
-                      "Нахил на стінці зник, тож перший ненульовий член — квадратичний, і його знак — це знак dp/dx.\n"
-                      "У прискорювальній течії нульове тертя просто не має несуперечливого профілю",
-                      size=12.5, pad=10, fill="#eef6ef", stroke=FIELD, sw=1.4)
+    f.append(polyline(pts, color=POS, sw=3.2))
+
+    for (px, py) in pts[::6]:
+        if px > x0 + 2:
+            f.append(varrow(x0, py, px, py, color=POS, sw=1.4, head=6))
+
+    f.append(line(x0, y0, x0, y0 - 100, color=MUTED, sw=2.0, dash="6 4"))
+    f.append(text(x0 + 15, y0 - 50, "(∂u/∂y)₀ = 0 (вертикальна дотична)", size=11.5, color=POS, anchor="start", bold=True))
+
+    b, w, h = textbox(W / 2, H - 35,
+                      "В точці відриву профіль стартує від стінки вертикально: u(y) ≈ ½μ·(dp/dx)·y².",
+                      size=12.5, pad=10, fill="#f8fafc", stroke="#94a3b8", sw=1.2)
     f.append(b)
     return render(os.path.join(IMG, "separation-parabola.svg"), W, H, *f)
 
 
-# ── Фігура 6: тертя падає до нуля як √(x_s − x) ──────────────────────────────
+# ── Фігура 6: спад тертя до кореневого нуля ───────────────────────────────────
 def fig_tau_sqrt_approach():
-    W, H = 940, 520
+    W, H = 840, 460
     f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
-    f.append(text(W / 2, 34, "Останні міліметри: τ_w ∝ √(x_s − x) — тертя приходить у нуль із вертикальною дотичною",
+    f.append(text(W / 2, 32, "Сингулярність Ґольдштейна: τ_w ∝ √(x_sep − x)",
                   size=17.5, bold=True))
 
-    X0, XS = 130.0, 640.0
-    PY0, PHT = 396.0, 250.0
+    x0, y0 = 120, 360
+    pw, ph = 600, 260
 
-    # осі
-    f.append(varrow(X0, PY0, X0, PY0 - PHT - 28, color=INK, sw=1.6, head=9))
-    f.append(mtext(X0 - 46, PY0 - PHT - 22, ["τ_w", "(тертя)"], size=12, color=INK, anchor="middle"))
-    f.append(varrow(X0, PY0, W - 90, PY0, color=INK, sw=1.6, head=9))
-    f.append(text(W - 132, PY0 + 30, "x  вздовж стінки  →", size=12.5, bold=True, anchor="middle"))
-    f.append(text(X0 - 12, PY0 + 5, "0", size=11.5, color=MUTED, anchor="end"))
+    f.append(varrow(x0, y0, x0, y0 - ph - 25, color=INK, sw=1.8, head=9))
+    f.append(text(x0 - 20, y0 - ph - 15, "τ_w", size=13, italic=True))
+    f.append(varrow(x0, y0, x0 + pw + 35, y0, color=INK, sw=1.8, head=9))
+    f.append(text(x0 + pw + 25, y0 + 22, "x", size=13, italic=True))
 
-    # зона, куди розв'язок не продовжується
-    f.append(rect(XS, PY0 - PHT - 10, W - 90 - XS, PHT + 10, fill="#f6f0f0", stroke='none', sw=0, rx=0))
-    f.append(line(XS, PY0 + 10, XS, PY0 - PHT - 20, color=POS, sw=1.8, dash="6 5"))
-    f.append(text(XS, PY0 - PHT - 30, "x_s", size=14, color=POS, bold=True, anchor="middle"))
-    f.append(mtext(XS + 106, PY0 - 148, ["розв'язок", "примежового шару", "не продовжується"],
-                   size=12, color=POS, anchor="middle"))
-
-    # крива √
+    x_sep = x0 + pw - 60
     pts = []
-    for i in range(121):
-        t = i / 120.0
-        x = X0 + t * (XS - X0)
-        pts.append((x, PY0 - PHT * ((1.0 - t) ** 0.5)))
+    for i in range(101):
+        x = x0 + i * (x_sep - x0) / 100.0
+        xi = (x_sep - x) / (x_sep - x0)
+        tau = math.sqrt(max(0.0, xi))
+        pts.append((x, y0 - tau * ph))
+
     f.append(polyline(pts, color=POS, sw=3.0))
-    f.append(text(X0 + 118, PY0 - PHT + 6, "τ_w = C·√(x_s − x)", size=13.5, color=POS,
-                  anchor="start", bold=True))
+    f.append(circle(x_sep, y0, 6, fill=POS, stroke=POS, sw=1.5))
+    f.append(text(x_sep, y0 + 22, "x_sep", size=12, color=POS, bold=True))
+    f.append(text(x_sep - 10, y0 - 80, "нескінченний нахил dτ_w/dx → −∞", size=11.5, color=POS, anchor="end"))
 
-    # наївна пряма для порівняння
-    f.append(line(X0, PY0 - PHT, XS, PY0, color=MUTED, sw=2.0, dash="5 5"))
-    f.append(text(X0 + 210, PY0 - 66, "якби спадало рівномірно", size=11.5, color=MUTED, anchor="start"))
-
-    # вертикальна дотична в кінці
-    f.append(varrow(XS - 2, PY0 - 96, XS - 2, PY0 - 8, color=INK, sw=2.2, head=10))
-    f.append(mtext(XS - 128, PY0 - 118, ["dτ_w/dx → −∞", "вертикальна дотична"],
-                   size=12, color=INK, anchor="middle", bold=True))
-
-    b, w, h = textbox(W / 2, H - 40,
-                      "Квадратний корінь — особливість Ґольдштейна (1948): у самій точці відриву похідна тертя\n"
-                      "стає нескінченною, і задане ззовні поле тиску вже не може вести шар далі",
-                      size=12.5, pad=10, fill="#eef6ef", stroke=FIELD, sw=1.4)
+    b, w, h = textbox(W / 2, H - 35,
+                      "Рівняння примежового шару Прандтля мають неінтегровну особливість у точці відриву.",
+                      size=12.5, pad=10, fill="#f8fafc", stroke="#94a3b8", sw=1.2)
     f.append(b)
     return render(os.path.join(IMG, "tau-sqrt-approach.svg"), W, H, *f)
 
 
-# ── Фігура 7: марш λ(s) до порога −0.09 на двох різних тілах ────────────────
+# ── Фігура 7: марш Твейтса ───────────────────────────────────────────────────
 def _lam_howarth(xi):
-    """λ(x/L) для гальмівної течії U = U₀·(1 − x/L) за формулою Твейтса."""
-    t = (1.0 - xi) ** 6
-    return -0.075 * (1.0 - t) / t
-
+    if xi >= 0.1231: return -0.09
+    return -0.075 * (1.0 - (1.0 - xi)**6) / ((1.0 - xi)**6)
 
 def _lam_cylinder(phi):
-    """λ(φ) для циліндра з потенціальною швидкістю U = 2·U∞·sin φ."""
-    if phi < 1e-6:
-        return 0.075
+    if phi < 1e-6: return 0.075
     c = math.cos(phi)
-    I = -c + (2.0 / 3.0) * c ** 3 - 0.2 * c ** 5 + (1.0 - 2.0 / 3.0 + 0.2)
-    return 0.45 * c * I / math.sin(phi) ** 6
-
+    I = -c + (2.0 / 3.0) * c**3 - 0.2 * c**5 + (1.0 - 2.0 / 3.0 + 0.2)
+    return 0.45 * c * I / math.sin(phi)**6
 
 def fig_thwaites_march():
     W, H = 1010, 500
     f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
 
-    LAM_TOP, LAM_BOT = 0.10, -0.13          # межі вертикальної осі
-    PY0, PY1 = 96.0, 352.0                  # верх / низ поля графіка
+    LAM_TOP, LAM_BOT = 0.10, -0.13
+    PY0, PY1 = 96.0, 352.0
     PW = 366.0
 
     def ymap(lam):
@@ -607,17 +426,14 @@ def fig_thwaites_march():
         f.append(text(x0 + PW / 2, 74, p["sub"], size=11.5, color=MUTED))
         f.append(rect(x0, PY0, PW, PY1 - PY0, fill="#fbfcfd", stroke="#c9ced6", sw=1.2, rx=4))
 
-        # горизонтальні орієнтири
         f.append(line(x0, ymap(0.0), x0 + PW, ymap(0.0), color=MUTED, sw=1.3, dash="6 5"))
         f.append(line(x0, ymap(-0.09), x0 + PW, ymap(-0.09), color=POS, sw=1.8, dash="7 5"))
 
-        # підписи вертикальної осі
         for lam, lab, col in ((0.075, "0.075", MUTED), (0.0, "0", MUTED), (-0.09, "−0.09", POS)):
             f.append(line(x0 - 6, ymap(lam), x0, ymap(lam), color=col, sw=1.3))
             f.append(text(x0 - 11, ymap(lam) + 4, lab, size=11.5, color=col, anchor="end",
                           bold=(lam == -0.09)))
 
-        # крива λ(s), обрізана знизу межею поля
         pts = []
         for i in range(241):
             t = xmax * i / 240.0
@@ -627,12 +443,10 @@ def fig_thwaites_march():
             pts.append((xm(t), ymap(min(lam, LAM_TOP))))
         f.append(polyline(pts, color=NEG, sw=3.0))
 
-        # точка перетину порога + опускання на вісь
         cx = xm(p["cross"])
         f.append(line(cx, ymap(-0.09), cx, PY1, color=POS, sw=1.3, dash="4 4"))
         f.append(circle(cx, ymap(-0.09), 5.5, fill=POS, stroke=POS, sw=1.4))
 
-        # підписи горизонтальної осі
         for tv, lab in p["ticks"]:
             f.append(line(xm(tv), PY1, xm(tv), PY1 + 6, color=MUTED, sw=1.3))
             f.append(text(xm(tv), PY1 + 21, lab, size=11.5, color=MUTED))
@@ -652,10 +466,174 @@ def fig_thwaites_march():
     return render(os.path.join(IMG, "thwaites-march.svg"), W, H, *f)
 
 
+# ── Фігура 8: детальний профіль відриву та лінії течії ────────────────────────
+def fig_boundary_layer_separation_profile():
+    W, H = 1060, 560
+    f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
+    f.append(text(W / 2, 32, "Анатомія відриву примежового шару: від безвідривної течії до вихрового сходу",
+                  size=18, bold=True))
+
+    y_wall = 440
+    f.append(hatch_below(50, 1010, y_wall, dh=10, step=14))
+
+    for y_st in [120, 160, 200]:
+        f.append(smooth([(60, y_st), (400, y_st + 10), (550, y_st - 15), (1000, y_st - 45)],
+                        stroke="#93c5fd", sw=1.4, dash="6 4"))
+
+    stations = [
+        (120, "1. dp/dx < 0 (розгін)", "τ_w > 0\n(∂²u/∂y²)₀ < 0\nопуклий профіль", NEG, 1.4, 0.0),
+        (320, "2. dp/dx > 0 (початок)", "τ_w > 0\n(∂²u/∂y²)₀ > 0\nточка перегину ○", NEG, 0.7, 0.25),
+        (520, "3. Точка відриву xs", "τ_w = 0\n(∂u/∂y)₀ = 0\nсхід лінії ψ = 0", POS, 0.0, 0.5),
+        (720, "4. Зворотна течія", "τ_w < 0\nu(y) < 0 коло стінки\nлінія u=0 відійшла", POS, -0.4, 0.65),
+        (920, "5. Вільний шар зсуву", "розвинений вихор\nрециркуляція\nнестійкість К-Г", POS, -0.6, 0.8),
+    ]
+
+    h_prof = 220
+    w_prof = 110
+
+    sep_streamline = [(520, y_wall), (600, y_wall - 35), (720, y_wall - 85), (850, y_wall - 140), (1000, y_wall - 180)]
+    f.append(smooth(sep_streamline, stroke=POS, sw=2.6, dash="7 4"))
+    f.append(text(780, y_wall - 105, "розділова лінія струменя ψ = 0", size=11, color=POS, bold=True))
+
+    f.append(dcircle(820, y_wall - 40, 28, fill="none", stroke=POS, sw=1.6, dash="4 3"))
+    f.append(varrow(820, y_wall - 68, 795, y_wall - 68, color=POS, sw=1.6, head=7))
+    f.append(varrow(820, y_wall - 12, 845, y_wall - 12, color=POS, sw=1.6, head=7))
+    f.append(text(820, y_wall - 38, "зворотна течія", size=10.5, color=POS, bold=True))
+
+    for (x_base, title_st, desc_st, col, slope_w, infl_y) in stations:
+        f.append(varrow(x_base, y_wall, x_base, y_wall - h_prof - 20, color=INK, sw=1.4, head=7))
+        f.append(text(x_base - 10, y_wall - h_prof - 12, "y", size=11.5, italic=True))
+        f.append(varrow(x_base, y_wall, x_base + w_prof + 20, y_wall, color=INK, sw=1.4, head=7))
+        f.append(text(x_base + w_prof + 16, y_wall + 18, "u", size=11.5, italic=True))
+
+        pts = []
+        for i in range(41):
+            eta = i / 40.0
+            if slope_w >= 0:
+                u_val = slope_w * eta + (1.0 - slope_w) * (2 * eta - eta**2)
+            else:
+                u_val = slope_w * eta * (1.0 - eta)**2 + (1.0 - math.exp(-3 * eta)) * 0.9
+            px = x_base + u_val * w_prof
+            py = y_wall - eta * h_prof
+            pts.append((px, py))
+
+        f.append(polyline(pts, color=col, sw=2.6))
+
+        for (px, py) in pts[::7]:
+            if abs(px - x_base) > 2:
+                f.append(varrow(x_base, py, px, py, color=col, sw=1.1, head=5))
+
+        if infl_y > 0.05:
+            py_inf = y_wall - infl_y * h_prof
+            f.append(circle(x_base + (infl_y * 0.5) * w_prof, py_inf, 4.5, fill=BG, stroke=POS, sw=2.0))
+
+        f.append(text(x_base + w_prof / 2 - 10, 68, title_st, size=12, bold=True, color=col))
+        f.append(fitbox(x_base - 22, y_wall + 26, w_prof + 44, 52, desc_st, size=10.5, pad=5,
+                        fill="#fcfdfd", stroke=col, sw=1.1))
+
+    b, w, h = textbox(W / 2, H - 24,
+                      "Гальмування потоку вигинає профіль, породжує точку перегину, обнуляє тертя τ_w = 0 "
+                      "і змушує пристінну рідину текти у зворотному напрямку.",
+                      size=12, pad=8, fill="#eef6ef", stroke=FIELD, sw=1.3)
+    f.append(b)
+    return render(os.path.join(IMG, "boundary-layer-separation-profile.svg"), W, H, *f)
+
+
+# ── Фігура 9: зрив потоку на крилі та вихори Кармана ─────────────────────────
+def fig_airfoil_stall_vortices():
+    W, H = 1060, 580
+    f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
+    f.append(text(W / 2, 32, "Аеродинамічний зрив крила (Stall) та вихрова доріжка фон Кармана",
+                  size=18, bold=True))
+
+    PW = 460.0
+    PH = 300.0
+
+    # Ліва панель: α = 6°
+    xL = 50.0
+    f.append(rect(xL, 60, PW, PH, fill="#fbfcfd", stroke="#cbd5e1", sw=1.4, rx=6))
+    f.append(text(xL + PW / 2, 88, "Помірний кут атаки: α = 6° (безвідривне обтікання)", size=14, bold=True, color=NEG))
+    f.append(text(xL + PW / 2, 108, "Висока підйомна сила CL ≈ 0.85, мінімальний опір CD ≈ 0.01", size=11, color=MUTED))
+
+    # Профіль при 6°
+    f.append(smooth([(xL + 80, 260), (xL + 140, 215), (xL + 250, 200), (xL + 360, 225), (xL + 80, 260)],
+                    fill="#e2e8f0", stroke=INK, sw=2.2))
+
+    # Лінії течії без відриву
+    for dy in [-60, -30, 0, 30, 60]:
+        f.append(smooth([(xL + 20, 240 + dy), (xL + 140, 190 + dy * 0.7),
+                         (xL + 260, 175 + dy * 0.7), (xL + 440, 215 + dy)],
+                        stroke=NEG, sw=1.6))
+
+    # Вектори L і D
+    f.append(varrow(xL + 200, 210, xL + 200, 120, color=FIELD, sw=3.0, head=11))
+    f.append(text(xL + 215, 130, "Підйомна сила L", size=12, color=FIELD, bold=True))
+    f.append(varrow(xL + 200, 210, xL + 260, 210, color=POS, sw=2.0, head=8))
+    f.append(text(xL + 265, 215, "Опір D (малий)", size=11, color=POS))
+
+    bL, _, _ = textbox(xL + PW / 2, 425,
+                       "Примежовий шар залишається притиснутим до спинки крила;\n"
+                       "тиск на верхній поверхні низький, створюється повноцінна підйомна сила.",
+                       size=11.5, pad=8, fill="#f0fdf4", stroke=FIELD, sw=1.2)
+    f.append(bL)
+
+    # Права панель: α = 18° (Stall)
+    xR = 550.0
+    f.append(rect(xR, 60, PW, PH, fill="#fbfcfd", stroke="#cbd5e1", sw=1.4, rx=6))
+    f.append(text(xR + PW / 2, 88, "Закритичний кут атаки: α = 18° (звалювання / Stall)", size=14, bold=True, color=POS))
+    f.append(text(xR + PW / 2, 108, "Обвал підйомної сили CL ↓ 60%, сплеск опору тиску CD ↑ 500%", size=11, color=POS, bold=True))
+
+    # Профіль при 18° (сильно нахилений)
+    f.append(smooth([(xR + 80, 290), (xR + 130, 190), (xR + 240, 155), (xR + 340, 215), (xR + 80, 290)],
+                    fill="#e2e8f0", stroke=INK, sw=2.2))
+
+    # Відривний зсувний шар та вихори
+    f.append(smooth([(xR + 80, 290), (xR + 120, 140), (xR + 220, 110), (xR + 360, 120), (xR + 440, 140)],
+                    stroke=POS, sw=2.6))
+    f.append(text(xR + 200, 100, "відірваний вільний шар зсуву", size=11, color=POS, bold=True))
+
+    # Вихори Кармана за крилом
+    vortices = [
+        (xR + 190, 180, 18, "+"),
+        (xR + 260, 200, 22, "−"),
+        (xR + 330, 165, 25, "+"),
+        (xR + 400, 210, 28, "−"),
+    ]
+    for (vx, vy, vr, sign) in vortices:
+        f.append(dcircle(vx, vy, vr, fill="#fee2e2", stroke=POS, sw=1.6, dash="4 3"))
+        f.append(text(vx, vy + 4, sign, size=14, color=POS, bold=True))
+
+    # Вектори L і D при звалюванні
+    f.append(varrow(xR + 200, 240, xR + 200, 190, color=MUTED, sw=2.0, head=8))
+    f.append(text(xR + 215, 195, "L (обвалена)", size=11, color=MUTED))
+    f.append(varrow(xR + 200, 240, xR + 320, 240, color=POS, sw=3.2, head=11))
+    f.append(text(xR + 325, 245, "Опір D (колосальний)", size=11.5, color=POS, bold=True))
+
+    bR, _, _ = textbox(xR + PW / 2, 425,
+                       "Зрив потоку з передньої кромки руйнує розрідження на спинці;\n"
+                       "утворюється широкий вихровий слід, частота зриву задається числом Струхаля St.",
+                       size=11.5, pad=8, fill="#fef2f2", stroke=POS, sw=1.2)
+    f.append(bR)
+
+    b, w, h = textbox(W / 2, H - 24,
+                      "Звалювання супроводжується динамічним зривом вихорів та небезпекою аеропружного резонансу.",
+                      size=12, pad=8, fill="#eef6ef", stroke=FIELD, sw=1.3)
+    f.append(b)
+    return render(os.path.join(IMG, "airfoil-stall-vortices.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
-    ps = [fig_pressure_hill(), fig_profile_progression(), fig_universality(),
-          fig_wall_curvature_sign(), fig_separation_parabola(), fig_tau_sqrt_approach(),
-          fig_thwaites_march()]
+    ps = [
+        fig_pressure_hill(),
+        fig_profile_progression(),
+        fig_universality(),
+        fig_wall_curvature_sign(),
+        fig_separation_parabola(),
+        fig_tau_sqrt_approach(),
+        fig_thwaites_march(),
+        fig_boundary_layer_separation_profile(),
+        fig_airfoil_stall_vortices(),
+    ]
     print("written:")
     for p in ps:
         print("  ", p)

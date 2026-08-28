@@ -623,6 +623,181 @@ def fig_h2_staircase():
                   title="Теплоємність водню: ступені вільності вмикаються сходинками")
 
 
+# ── Фігура 10: Просторова система координат твердого тіла (6 DoF) ──────────────
+def fig_6dof_body_coordinates():
+    W, H = 960, 520
+    f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
+    f.append(text(W / 2, 32, "Просторова система координат твердого тіла: 6 ступенів вільності",
+                  size=16, bold=True))
+
+    # Базова нерухома система {W}
+    wx, wy = 140, 390
+    f.append(line(wx, wy, wx + 110, wy, color=MUTED, sw=2))
+    f.append(head(wx + 110, wy, 1, 0, col=MUTED, s=9))
+    f.append(line(wx, wy, wx, wy - 110, color=MUTED, sw=2))
+    f.append(head(wx, wy - 110, 0, -1, col=MUTED, s=9))
+    f.append(line(wx, wy, wx - 60, wy + 45, color=MUTED, sw=2))
+    f.append(head(wx - 60, wy + 45, -60, 45, col=MUTED, s=9))
+
+    f.append(dot(wx, wy, 5, col=MUTED, fill=BG))
+    f.append(text(wx - 14, wy - 8, "O_w", size=13, bold=True, color=MUTED))
+    f.append(text(wx + 124, wy + 4, "X_w", size=12, bold=True, color=MUTED))
+    f.append(text(wx - 4, wy - 120, "Z_w", size=12, bold=True, color=MUTED))
+    f.append(text(wx - 72, wy + 55, "Y_w", size=12, bold=True, color=MUTED))
+    f.append(text(wx + 10, wy + 30, "Нерухома система {W}", size=12, color=MUTED))
+
+    # Зв'язана система координат {B} на твердому тілі
+    bx, by = 450, 230
+    # Вектор положення r(t)
+    f.append(line(wx, wy, bx, by, color=TRANS, sw=2.4, dash="5,5"))
+    f.append(head(bx, by, bx - wx, by - wy, col=TRANS, s=10))
+    f.append(text((wx + bx) / 2 - 35, (wy + by) / 2 + 18, "r(t) = (x, y, z)ᵀ", size=13, bold=True, color=TRANS))
+
+    # Тверде тіло (ізометричний блок навколо {B})
+    box_frags, _ = iso_box(bx, by, w=120, h=80, dx=40, dy=-30, fill="#edf2f7")
+    f += box_frags
+
+    # Осі зв'язаної системи координат {B}
+    # X_B (поздовжній / surge)
+    f.append(line(bx, by, bx + 135, by + 20, color=TRANS, sw=3))
+    f.append(head(bx + 135, by + 20, 135, 20, col=TRANS, s=9))
+    f.append(text(bx + 148, by + 24, "X_b", size=13, bold=True, color=TRANS))
+
+    # Y_B (поперечний / sway)
+    f.append(line(bx, by, bx - 75, by + 70, color=TRANS, sw=3))
+    f.append(head(bx - 75, by + 70, -75, 70, col=TRANS, s=9))
+    f.append(text(bx - 90, by + 80, "Y_b", size=13, bold=True, color=TRANS))
+
+    # Z_B (вертикальний / heave)
+    f.append(line(bx, by, bx + 15, by - 125, color=TRANS, sw=3))
+    f.append(head(bx + 15, by - 125, 15, -125, col=TRANS, s=9))
+    f.append(text(bx + 20, by - 135, "Z_b", size=13, bold=True, color=TRANS))
+
+    f.append(dot(bx, by, 6, col=INK, fill="#eafaf0"))
+    f.append(text(bx - 30, by - 15, "O_b", size=13, bold=True))
+
+    # Дуги обертання (кути Ейлера та кутові швидкості)
+    # Крен (Roll, φ) навколо X_B
+    f.append(arc_arrow(bx + 95, by + 14, 16, 26, -100, 140, col=ROT, sw=2.4))
+    f.append(text(bx + 105, by - 22, "Крен φ (ω_x)", size=12, bold=True, color=ROT))
+
+    # Тангаж (Pitch, θ) навколо Y_B
+    f.append(arc_arrow(bx - 48, by + 46, 24, 15, 120, 370, col=ROT, sw=2.4))
+    f.append(text(bx - 110, by + 35, "Тангаж θ (ω_y)", size=12, bold=True, color=ROT))
+
+    # Нишпорення (Yaw, ψ) навколо Z_B
+    f.append(arc_arrow(bx + 12, by - 80, 28, 14, -190, 40, col=ROT, sw=2.4))
+    f.append(text(bx + 75, by - 85, "Нишпорення ψ (ω_z)", size=12, bold=True, color=ROT))
+
+    # Інформаційна панель праворуч
+    b_panel, _, _ = textbox(775, 240, [
+        "Конфігурація тіла у просторі:",
+        "• 3 переміщення q_trans = (x, y, z)ᵀ",
+        "• 3 орієнтації q_rot = (φ, θ, ψ)ᵀ ∈ SO(3)",
+        "",
+        "Просторовий твіст швидкостей:",
+        "V = [ v ; ω ] = [ ẋ, ẏ, ż,  ω_x, ω_y, ω_z ]ᵀ ∈ ℝ⁶",
+        "",
+        "Матриця повороту R_bʷ ∈ SO(3):",
+        "Rᵀ R = I,  det(R) = +1  (ортогональність)",
+    ], size=13, pad=14, fill=FILL, stroke=LINE, sw=1.5, min_w=300)
+    f.append(b_panel)
+
+    b_bot, _, _ = textbox(W / 2, 475, [
+        "Положення твердого тіла у просторі однозначно задається шістьма незалежними узагальненими координатами: 3 для зміщення і 3 для повороту."
+    ], size=13, pad=10, fill="#eafaf0", stroke=FREE, sw=1.4, color=INK)
+    f.append(b_bot)
+
+    return render(os.path.join(IMG, "6dof-body-coordinates.svg"), W, H, *f,
+                  title="Просторова система координат твердого тіла: 6 ступенів вільності")
+
+
+# ── Фігура 11: Критерій Чебишова-Грюблера-Куцбаха ──────────────────────────────
+def fig_kutzbach_criterion_diagram():
+    W, H = 960, 520
+    f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
+    f.append(text(W / 2, 32, "Критерій Чебишова-Грюблера-Куцбаха для плоских і просторових механізмів",
+                  size=16, bold=True))
+
+    # Панель 1 (ліворуч): Плоскі механізми (λ = 3)
+    p1_x, p1_y, p1_w, p1_h = 25, 65, 290, 380
+    f.append(rect(p1_x, p1_y, p1_w, p1_h, fill="#f8fafc", stroke=LINE, sw=1.4, rx=8))
+    f.append(text(p1_x + p1_w / 2, p1_y + 26, "Плоскі механізми (λ = 3)", size=14, bold=True, color=NEG))
+    f.append(text(p1_x + p1_w / 2, p1_y + 54, "M = 3·(N − 1 − j) + ∑ fᵢ", size=13, bold=True, color=INK))
+
+    # Схема 4-ланковика
+    f.append(rect(p1_x + 35, p1_y + 75, 220, 110, fill=BG, stroke=MUTED, sw=1.2, rx=4))
+    # Стійка
+    f.append(line(p1_x + 60, p1_y + 160, p1_x + 230, p1_y + 160, color=INK, sw=3))
+    # Ланки
+    f.append(line(p1_x + 60, p1_y + 160, p1_x + 95, p1_y + 100, color=FIELD, sw=2.8))
+    f.append(line(p1_x + 95, p1_y + 100, p1_x + 195, p1_y + 90, color=FIELD, sw=2.8))
+    f.append(line(p1_x + 195, p1_y + 90, p1_x + 230, p1_y + 160, color=FIELD, sw=2.8))
+    for px, py in [(p1_x + 60, p1_y + 160), (p1_x + 95, p1_y + 100), (p1_x + 195, p1_y + 90), (p1_x + 230, p1_y + 160)]:
+        f.append(dot(px, py, 5, col=INK, fill="#eafaf0"))
+
+    f.append(text(p1_x + p1_w / 2, p1_y + 210, "Чотириланковик 4R:", size=13, bold=True))
+    f.append(text(p1_x + p1_w / 2, p1_y + 235, "• N = 4 ланки (з базою)", size=12.5))
+    f.append(text(p1_x + p1_w / 2, p1_y + 258, "• j = 4 шарніри R (fᵢ = 1)", size=12.5))
+    f.append(text(p1_x + p1_w / 2, p1_y + 290, "M = 3·(4 − 1 − 4) + 4·1 = 1", size=13, bold=True, color=FIELD))
+    f.append(text(p1_x + p1_w / 2, p1_y + 325, "1 вхідний двигун повністю", size=12, color=MUTED))
+    f.append(text(p1_x + p1_w / 2, p1_y + 345, "визначає рух усієї системи", size=12, color=MUTED))
+
+    # Панель 2 (посередині): Просторові механізми (λ = 6)
+    p2_x, p2_y, p2_w, p2_h = 330, 65, 300, 380
+    f.append(rect(p2_x, p2_y, p2_w, p2_h, fill="#f8fafc", stroke=LINE, sw=1.4, rx=8))
+    f.append(text(p2_x + p2_w / 2, p2_y + 26, "Просторові механізми (λ = 6)", size=14, bold=True, color=POS))
+    f.append(text(p2_x + p2_w / 2, p2_y + 54, "M = 6·(N − 1 − j) + ∑ fᵢ", size=13, bold=True, color=INK))
+
+    f.append(text(p2_x + p2_w / 2, p2_y + 90, "Кінематичні пари за класами:", size=13, bold=True))
+    pairs = [
+        ("V клас (f=1):", "R (оберт), P (зсув), H (гвинт)"),
+        ("IV клас (f=2):", "C (циліндр), U (кардан)"),
+        ("III клас (f=3):", "S (сфера), E (площина)"),
+    ]
+    for i, (k_cls, k_desc) in enumerate(pairs):
+        yy = p2_y + 120 + i * 36
+        f.append(text(p2_x + 18, yy, k_cls, size=12.5, bold=True, anchor="start", color=INK))
+        f.append(text(p2_x + 115, yy, k_desc, size=12, anchor="start", color=MUTED))
+
+    f.append(line(p2_x + 20, p2_y + 235, p2_x + p2_w - 20, p2_y + 235, color=MUTED, sw=1, dash="4,4"))
+    f.append(text(p2_x + p2_w / 2, p2_y + 260, "Платформа Стюарта (6-UPS):", size=13, bold=True))
+    f.append(text(p2_x + p2_w / 2, p2_y + 285, "• N = 14 тіл, 6 пар S, 6 P, 6 U", size=12.5))
+    f.append(text(p2_x + p2_w / 2, p2_y + 310, "M = 6·(14−1) − ∑(6−fᵢ) = 6", size=13, bold=True, color=FIELD))
+    f.append(text(p2_x + p2_w / 2, p2_y + 345, "Повнопривідна 6-DoF система", size=12, color=MUTED))
+
+    # Панель 3 (праворуч): Надлишкові зв'язки та парадокси
+    p3_x, p3_y, p3_w, p3_h = 645, 65, 290, 380
+    f.append(rect(p3_x, p3_y, p3_w, p3_h, fill="#fffaf5", stroke=POS, sw=1.4, rx=8))
+    f.append(text(p3_x + p3_w / 2, p3_y + 26, "Парадокси та надлишковість", size=14, bold=True, color=POS))
+    f.append(text(p3_x + p3_w / 2, p3_y + 54, "rank(G(q)) < ∑ (λ − fᵢ)", size=13, bold=True, color=POS))
+
+    f.append(text(p3_x + p3_w / 2, p3_y + 90, "Коли формула Куцбаха хибить:", size=13, bold=True))
+    f.append(text(p3_x + p3_w / 2, p3_y + 115, "Збіг геометрії осей робить", size=12))
+    f.append(text(p3_x + p3_w / 2, p3_y + 135, "градієнти в'язей лінійно залежними", size=12))
+
+    f.append(rect(p3_x + 15, p3_y + 155, p3_w - 30, 95, fill=BG, stroke=MUTED, sw=1, rx=4))
+    f.append(text(p3_x + p3_w / 2, p3_y + 175, "Механізм Саррюса (6R):", size=12.5, bold=True))
+    f.append(text(p3_x + p3_w / 2, p3_y + 198, "Куцбах: M = 6·(6−1−6) + 6 = 0", size=12, color=POS))
+    f.append(text(p3_x + p3_w / 2, p3_y + 225, "Реальна рухливість: M = 1", size=12.5, bold=True, color=FIELD))
+
+    f.append(rect(p3_x + 15, p3_y + 260, p3_w - 30, 95, fill=BG, stroke=MUTED, sw=1, rx=4))
+    f.append(text(p3_x + p3_w / 2, p3_y + 280, "Механізм Беннета (4R):", size=12.5, bold=True))
+    f.append(text(p3_x + p3_w / 2, p3_y + 303, "Куцбах: M = 6·(4−1−4) + 4 = −2", size=12, color=POS))
+    f.append(text(p3_x + p3_w / 2, p3_y + 330, "Реальна рухливість: M = 1", size=12.5, bold=True, color=FIELD))
+
+    f.append(text(p3_x + p3_w / 2, p3_y + 375, "Ранг Якобіана в'язей виявляє", size=12, color=MUTED))
+    f.append(text(p3_x + p3_w / 2, p3_y + 395, "справжній простір рухливості", size=12, color=MUTED))
+
+    b_bot, _, _ = textbox(W / 2, 480, [
+        "Формула Чебишова-Грюблера-Куцбаха пов'язує рухливість механізму з кількістю тіл та класами пар; особливі конфігурації вимагають рангового аналізу матриці Якобі."
+    ], size=13, pad=10, fill=FILL, stroke=LINE, sw=1.3)
+    f.append(b_bot)
+
+    return render(os.path.join(IMG, "kutzbach-criterion-diagram.svg"), W, H, *f,
+                  title="Критерій Чебишова-Грюблера-Куцбаха для плоских і просторових механізмів")
+
+
 if __name__ == "__main__":
     fig_freeze_price()
     fig_h2_staircase()
@@ -633,4 +808,7 @@ if __name__ == "__main__":
     fig_rod_velocity()
     fig_fifth_point()
     fig_mobility()
-    print("OK: 7 фігур у", IMG)
+    fig_6dof_body_coordinates()
+    fig_kutzbach_criterion_diagram()
+    print("OK: 11 фігур у", IMG)
+

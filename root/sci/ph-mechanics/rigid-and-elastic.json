@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -48,21 +49,27 @@
           "slug": "degrees-of-freedom",
           "title": "Ступені вільності",
           "basic": {
-            "status": "done"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "empty"
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-freezing-out.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-counting-constraints.md",
-              "status": "done"
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-multibody-dof-solver.md",
+              "status": "recheck"
             }
           ]
         },
@@ -73,7 +80,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -127,7 +135,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -155,7 +164,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -177,7 +187,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -205,7 +216,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "hist": [
             {
@@ -367,6 +379,26 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "euler-buckling",
+          "title": "Поздовжній згин та критична сила Ейлера: втрата стійкості стиснутих стрижнів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "second-moment-of-area",
+          "title": "Геометричні моменти інерції перерізу та згин балки: жорсткість і напруження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -381,7 +413,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "hist": [
             {
@@ -427,6 +460,26 @@
         {
           "slug": "linear-elastic-fracture-mechanics",
           "title": "Лінійно-пружна механіка руйнування: коефіцієнт інтенсивності напружень, тріщиностійкість та закон Періса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stress-concentration",
+          "title": "Концентрація напружень: теоретичний коефіцієнт K_t, втомний коефіцієнт K_f та чутливість до надрізу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cyclic-plasticity-and-hysteresis",
+          "title": "Циклічна пластичність і петлі гістерезису: правило Мазінга, ефект Баушингера та пам'ять матеріалу",
           "basic": {
             "status": "empty"
           },

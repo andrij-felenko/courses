@@ -13,6 +13,8 @@ WT   = "#27ae60"   # вага та її складові — зелене
 NRM  = "#1a1a1a"   # нормальна сила — темна
 PUSH = "#c0392b"   # натиск / прискорення вгору — гаряче
 COOL = "#2457d6"   # холодне (падіння, «легше»)
+ACC  = "#2457d6"   # прискорення — холодне синє
+CTR  = "#c0392b"   # центр кривини, критична точка
 
 
 def poly(pts, fill="none", stroke=LINE, sw=1.5, dash=None, close=False):
@@ -27,9 +29,9 @@ def path(d, fill="none", stroke=LINE, sw=1.5):
     return '<path d="%s" fill="%s" stroke="%s" stroke-width="%.1f"/>' % (d, fill, stroke, sw)
 
 
-def vspring(x, y1, y2, coils=5, amp=11):
+def vspring(x, y1, y2, coils=5, amp=11, stroke=NRM):
     """Вертикальна пружина-зигзаг від (x,y1) до (x,y2)."""
-    lead = 10
+    lead = 8
     ya, yb = y1 + lead, y2 - lead
     dy = (yb - ya) / (coils * 2)
     pts = [(x, y1), (x, ya)]
@@ -37,187 +39,20 @@ def vspring(x, y1, y2, coils=5, amp=11):
         xx = x - amp if i % 2 == 0 else x + amp
         pts.append((xx, ya + dy * (i + 0.5)))
     pts += [(x, yb), (x, y2)]
-    return poly(pts, stroke=NRM, sw=1.7)
+    return poly(pts, stroke=stroke, sw=1.7)
 
 
-# ── Фігура 1: нормальна сила сама підлаштовується — стіл як цупка пружина ──────
-def fig_self_adjusting():
-    W, H = 1000, 520
-    f = [text(W / 2, 32, "Опора — цупка пружина: прогинається на дещицю й відпихає рівно на mg",
-              size=16, bold=True)]
-
-    # ── ліва сцена: книжка на столі + сили ──
-    tabY = 300
-    f.append(line(100, tabY, 470, tabY, color=INK, sw=2.6))          # стільниця
-    f.append(line(140, tabY, 140, tabY + 62, color=INK, sw=2.4))     # ніжки
-    f.append(line(430, tabY, 430, tabY + 62, color=INK, sw=2.4))
-    # книжка
-    bx, by, bw, bh = 214, 250, 132, 50
-    f.append(rect(bx, by, bw, bh, fill="#eef1f4", stroke=INK, sw=2))
-    f.append(text(bx + bw / 2, by + bh / 2 + 5, "книжка", size=13, color=MUTED))
-    # нормальна сила N угору (ліва третина книжки)
-    f.append(arrow(250, tabY, 250, 172, color=NRM, sw=3.4))
-    f.append(text(250, 160, "N = mg", size=14.5, bold=True, color=NRM))
-    # вага mg униз (права третина)
-    f.append(arrow(312, 276, 312, 398, color=WT, sw=3.4))
-    f.append(text(312, 418, "вага  mg", size=14.5, bold=True, color=WT))
-    # позначка місця дотику + виноска до збільшення
-    f.append(circle(280, tabY, 6, fill="none", stroke=MUTED, sw=1.6))
-    f.append(line(286, tabY, 540, 246, color=MUTED, sw=1.3, dash="4,4"))
-
-    # ── права вставка: атоми-пружини зблизька ──
-    px, py, pw, ph = 540, 116, 400, 268
-    f.append(rect(px, py, pw, ph, fill=BG, stroke=MUTED, sw=1.5, rx=10))
-    cx = px + pw / 2
-    f.append(text(cx, py + 30, "поверхня зблизька: пружні зв'язки між атомами", size=13, bold=True))
-    xs = [px + 42 + i * 63 for i in range(6)]
-    topY, botY = py + 78, py + 196
-    for xx in xs:                                   # пружини між рядами атомів
-        f.append(vspring(xx, topY + 12, botY - 12, coils=4, amp=10))
-    for xx in xs:                                   # атоми книжки (верх) і стола (низ)
-        f.append(circle(xx, topY, 11, fill="#eef1f4", stroke=INK, sw=1.5))
-        f.append(circle(xx, botY, 11, fill="#e7ebef", stroke=INK, sw=1.5))
-    f.append(text(px + pw - 14, topY + 5, "книжка", size=11.5, color=MUTED, anchor="end"))
-    f.append(text(px + pw - 14, botY + 5, "стіл", size=11.5, color=MUTED, anchor="end"))
-    f.append(text(cx, py + ph - 18, "стиснулися на непомітну дещицю → відсіч = mg",
-                  size=12.5, color=MUTED))
-
-    # ── підсумкова рамка ──
-    box, bwd, bhd = textbox(W / 2, 476,
-                            "Нормальна сила сама набирає те значення, якого вимагає умова "
-                            "«тіло не провалюється крізь опору»",
-                            size=14, pad=12, fill="#eef7f0", stroke=WT, sw=1.6)
-    f.append(box)
-    render(os.path.join(IMG, "self-adjusting.svg"), W, H, *f)
-
-
-# ── Фігура 2: на схилі у поверхню тисне лише mg·cosθ → N = mg·cosθ ─────────────
-def fig_incline():
-    W, H = 940, 520
-    f = [text(W / 2, 32, "На схилі у поверхню вдавлює лише перпендикулярна частина ваги",
-              size=16, bold=True)]
-
-    A = (150, 402)               # вершина кута θ (низ-ліворуч)
-    B = (772, 402)
-    C = (772, 150)               # прямий кут унизу праворуч
-    f.append(poly([A, B, C], fill="#eef1f4", stroke=INK, sw=2, close=True))
-
-    dx, dy = C[0] - A[0], C[1] - A[1]
-    L = math.hypot(dx, dy)
-    ux, uy = dx / L, dy / L                       # угору по схилу
-    nx, ny = -uy, ux
-    if ny > 0:
-        nx, ny = -nx, -ny                          # нормаль дивиться назовні (вгору)
-    th = math.atan2(-dy, dx)
-
-    # брусок на схилі
-    c = (452, 268)
-    c = (c[0] + nx * 22, c[1] + ny * 22)
-    hh = 27
-    P = [(c[0] + ux * hh + nx * hh, c[1] + uy * hh + ny * hh),
-         (c[0] + ux * hh - nx * hh, c[1] + uy * hh - ny * hh),
-         (c[0] - ux * hh - nx * hh, c[1] - uy * hh - ny * hh),
-         (c[0] - ux * hh + nx * hh, c[1] - uy * hh + ny * hh)]
-    f.append(poly(P, fill="#f4f6f8", stroke=INK, sw=2, close=True))
-
-    Lw = 132
-    wtip = (c[0], c[1] + Lw)
-    comp_s = Lw * math.sin(th)                     # уздовж схилу
-    comp_n = Lw * math.cos(th)                     # упоперек схилу
-    # вага прямовисно вниз (підпис під вістрям, щоб не збігтися зі складовою mg·cosθ)
-    f.append(arrow(c[0], c[1], wtip[0], wtip[1], color=WT, sw=3.4))
-    f.append(text(wtip[0], wtip[1] + 22, "вага  mg", size=14, bold=True, color=WT))
-    # складова вздовж схилу (котить униз)
-    d1 = (c[0] - ux * comp_s, c[1] - uy * comp_s)
-    f.append(arrow(c[0], c[1], d1[0], d1[1], color=WT, sw=2.0))
-    f.append(line(d1[0], d1[1], wtip[0], wtip[1], color=MUTED, sw=1.2, dash="4,4"))
-    f.append(text(d1[0] - 12, d1[1] + 20, "mg·sinθ", size=12.5, color=WT, anchor="end"))
-    f.append(text(d1[0] - 12, d1[1] + 37, "котить униз", size=11.5, color=MUTED, anchor="end"))
-    # складова у поверхню (вдавлює) — пунктирна, всередину
-    d2 = (c[0] - nx * comp_n, c[1] - ny * comp_n)
-    f.append(arrow(c[0], c[1], d2[0], d2[1], color=WT, sw=2.0))
-    f.append(line(d2[0], d2[1], wtip[0], wtip[1], color=MUTED, sw=1.2, dash="4,4"))
-    f.append(text(d2[0] + 16, d2[1] + 16, "mg·cosθ", size=12.5, color=WT, anchor="start"))
-    f.append(text(d2[0] + 16, d2[1] + 33, "вдавлює", size=11.5, color=MUTED, anchor="start"))
-    # нормальна сила назовні = mg·cosθ
-    ntip = (c[0] + nx * comp_n, c[1] + ny * comp_n)
-    f.append(arrow(c[0], c[1], ntip[0], ntip[1], color=NRM, sw=3.0))
-    f.append(text(ntip[0] - 8, ntip[1] - 8, "N = mg·cosθ", size=13.5, bold=True, color=NRM, anchor="end"))
-
-    # дуга кута θ
-    r = 70
-    a1 = (A[0] + r, A[1])
-    a2 = (A[0] + r * math.cos(th), A[1] - r * math.sin(th))
-    f.append(path("M %.1f %.1f A %d %d 0 0 0 %.1f %.1f" % (a1[0], a1[1], r, r, a2[0], a2[1]),
-                  stroke=INK, sw=1.6))
-    f.append(text(A[0] + r + 10, A[1] - 8, "θ", size=17, bold=True))
-
-    box, bwd, bhd = textbox(W / 2, 484,
-                            "у поверхню тисне лише mg·cosθ → N = mg·cosθ, менша за вагу;\n"
-                            "чим крутіший схил, тим менша N (до нуля на прямовисній стіні)",
-                            size=13.5, pad=12, fill="#eef7f0", stroke=WT, sw=1.5)
-    f.append(box)
-    render(os.path.join(IMG, "incline.svg"), W, H, *f)
-
-
-# ── Фігура 3: ліфт — ваги показують N, а не mg ────────────────────────────────
-def fig_elevator():
-    W, H = 1050, 520
-    f = [text(W / 2, 32, "Ваги показують нормальну силу N — тому уявна вага змінюється в ліфті",
-              size=16, bold=True)]
-
-    panels = [
-        (60,  "спокій:  a = 0",        1.0, "N = mg",       "ваги: mg",        None,  MUTED),
-        (390, "розгін угору:  a",      1.5, "N = m(g + a)", "важче",           "up",  PUSH),
-        (720, "вільне падіння:  a = g", 0.0, "N = 0",        "ширяє",           "down", COOL),
-    ]
-    pw, ptop, ph = 270, 84, 300
-    scaleY = ptop + ph - 44
-    for x0, title, kN, nlab, read, adir, acol in panels:
-        cx = x0 + pw / 2
-        f.append(rect(x0, ptop, pw, ph, fill="#fbfcfd", stroke=MUTED, sw=1.6, rx=8))
-        f.append(text(cx, ptop - 12, title, size=13.5, bold=True))
-        # ваги + людина
-        f.append(rect(cx - 52, scaleY, 104, 14, fill="#e7ebef", stroke=INK, sw=1.6, rx=3))
-        lift = 16 if adir == "down" else 0          # у падінні тіло відірване від ваг
-        f.append(rect(cx - 30, scaleY - 82 - lift, 60, 78, fill="#eef1f4", stroke=INK, sw=1.8, rx=4))
-        f.append(text(cx, scaleY - 40 - lift, "m", size=20, bold=True))
-        pcy = scaleY - 42 - lift
-        # вага mg — стала в усіх панелях (зелена, праворуч)
-        f.append(arrow(cx + 62, pcy - 6, cx + 62, pcy + 74, color=WT, sw=3.0))
-        f.append(text(cx + 70, pcy + 34, "mg", size=13, bold=True, color=WT, anchor="start"))
-        # нормальна сила N — ліворуч, довжина ∝ kN
-        if kN > 0:
-            Nlen = 60 * kN
-            f.append(arrow(cx - 62, scaleY, cx - 62, scaleY - Nlen, color=NRM, sw=3.2))
-            f.append(text(cx - 70, scaleY - Nlen - 8, "N", size=14, bold=True, color=NRM, anchor="end"))
-        else:
-            f.append(text(cx - 62, scaleY - 6, "N = 0", size=12.5, bold=True, color=COOL, anchor="middle"))
-        # покажчик прискорення збоку від панелі
-        axx = x0 + pw - 16
-        if adir == "up":
-            f.append(arrow(axx, ptop + 96, axx, ptop + 40, color=acol, sw=3.4))
-            f.append(text(axx, ptop + 116, "a", size=14, bold=True, color=acol))
-        elif adir == "down":
-            f.append(arrow(axx, ptop + 40, axx, ptop + 96, color=acol, sw=3.4))
-            f.append(text(axx, ptop + 30, "a = g", size=13, bold=True, color=acol))
-        else:
-            f.append(text(axx, ptop + 44, "a = 0", size=12.5, color=MUTED))
-        # табло ваг
-        bcol = PUSH if kN > 1.01 else (COOL if kN < 0.99 else INK)
-        f.append(fitbox(cx - 78, scaleY + 26, 156, 46, nlab + "\n" + read,
-                        size=13, pad=6, fill=BG, stroke=bcol, sw=1.5, bold=True, color=bcol))
-
-    box, bwd, bhd = textbox(W / 2, 494,
-                            "У спокої N = mg; при розгоні вгору N = m(g+a) — важче; "
-                            "у вільному падінні N = 0 — тіло ширяє. Маса та сама, змінюється N",
-                            size=13, pad=11, fill="#eef7f0", stroke=WT, sw=1.5)
-    f.append(box)
-    render(os.path.join(IMG, "elevator.svg"), W, H, *f)
-
-
-ACC = "#2457d6"   # прискорення — холодне синє
-CTR = "#c0392b"   # центр кривини, критична точка
+def hspring(x1, x2, y, coils=4, amp=8, stroke=NRM):
+    """Горизонтальна пружина-зигзаг від (x1,y) до (x2,y)."""
+    lead = 6
+    xa, xb = x1 + lead, x2 - lead
+    dx = (xb - xa) / (coils * 2)
+    pts = [(x1, y), (xa, y)]
+    for i in range(coils * 2):
+        yy = y - amp if i % 2 == 0 else y + amp
+        pts.append((xa + dx * (i + 0.5), yy))
+    pts += [(xb, y), (x2, y)]
+    return poly(pts, stroke=stroke, sw=1.5)
 
 
 def arcpts(cx, cy, r, a1, a2, n=64):
@@ -238,20 +73,190 @@ def arcpts_dn(cx, cy, r, a1, a2, n=64):
     return out
 
 
+# ── Фігура 1: нормальна сила сама підлаштовується — стіл як цупка пружина ──────
+def fig_self_adjusting():
+    W, H = 1000, 520
+    f = [text(W / 2, 32, "Опора — цупка пружина: прогинається на дещицю й відпихає рівно на mg",
+              size=16, bold=True)]
+
+    tabY = 300
+    f.append(line(100, tabY, 470, tabY, color=INK, sw=2.6))
+    f.append(line(140, tabY, 140, tabY + 62, color=INK, sw=2.4))
+    f.append(line(430, tabY, 430, tabY + 62, color=INK, sw=2.4))
+
+    bx, by, bw, bh = 214, 250, 132, 50
+    f.append(rect(bx, by, bw, bh, fill="#eef1f4", stroke=INK, sw=2))
+    f.append(text(bx + bw / 2, by + bh / 2 + 5, "книжка", size=13, color=MUTED))
+
+    f.append(arrow(250, tabY, 250, 172, color=NRM, sw=3.4))
+    f.append(text(250, 160, "N = mg", size=14.5, bold=True, color=NRM))
+
+    f.append(arrow(312, 276, 312, 398, color=WT, sw=3.4))
+    f.append(text(312, 418, "вага  mg", size=14.5, bold=True, color=WT))
+
+    f.append(circle(280, tabY, 6, fill="none", stroke=MUTED, sw=1.6))
+    f.append(line(286, tabY, 540, 246, color=MUTED, sw=1.3, dash="4,4"))
+
+    px, py, pw, ph = 540, 116, 400, 268
+    f.append(rect(px, py, pw, ph, fill=BG, stroke=MUTED, sw=1.5, rx=10))
+    cx = px + pw / 2
+    f.append(text(cx, py + 30, "поверхня зблизька: пружні зв'язки між атомами", size=13, bold=True))
+    xs = [px + 42 + i * 63 for i in range(6)]
+    topY, botY = py + 78, py + 196
+    for xx in xs:
+        f.append(vspring(xx, topY + 12, botY - 12, coils=4, amp=10))
+    for xx in xs:
+        f.append(circle(xx, topY, 11, fill="#eef1f4", stroke=INK, sw=1.5))
+        f.append(circle(xx, botY, 11, fill="#e7ebef", stroke=INK, sw=1.5))
+    f.append(text(px + pw - 14, topY + 5, "книжка", size=11.5, color=MUTED, anchor="end"))
+    f.append(text(px + pw - 14, botY + 5, "стіл", size=11.5, color=MUTED, anchor="end"))
+    f.append(text(cx, py + ph - 18, "стиснулися на непомітну дещицю → відсіч = mg",
+                  size=12.5, color=MUTED))
+
+    box, bwd, bhd = textbox(W / 2, 476,
+                            "Нормальна сила сама набирає те значення, якого вимагає умова "
+                            "«тіло не провалюється крізь опору»",
+                            size=14, pad=12, fill="#eef7f0", stroke=WT, sw=1.6)
+    f.append(box)
+    render(os.path.join(IMG, "self-adjusting.svg"), W, H, *f)
+
+
+# ── Фігура 2: на схилі у поверхню тисне лише mg·cosθ → N = mg·cosθ ─────────────
+def fig_incline():
+    W, H = 940, 520
+    f = [text(W / 2, 32, "На схилі у поверхню вдавлює лише перпендикулярна частина ваги",
+              size=16, bold=True)]
+
+    A = (150, 402)
+    B = (772, 402)
+    C = (772, 150)
+    f.append(poly([A, B, C], fill="#eef1f4", stroke=INK, sw=2, close=True))
+
+    dx, dy = C[0] - A[0], C[1] - A[1]
+    L = math.hypot(dx, dy)
+    ux, uy = dx / L, dy / L
+    nx, ny = -uy, ux
+    if ny > 0:
+        nx, ny = -nx, -ny
+    th = math.atan2(-dy, dx)
+
+    c = (452, 268)
+    c = (c[0] + nx * 22, c[1] + ny * 22)
+    hh = 27
+    P = [(c[0] + ux * hh + nx * hh, c[1] + uy * hh + ny * hh),
+         (c[0] + ux * hh - nx * hh, c[1] + uy * hh - ny * hh),
+         (c[0] - ux * hh - nx * hh, c[1] - uy * hh - ny * hh),
+         (c[0] - ux * hh + nx * hh, c[1] - uy * hh - ny * hh)]
+    f.append(poly(P, fill="#f4f6f8", stroke=INK, sw=2, close=True))
+
+    Lw = 132
+    wtip = (c[0], c[1] + Lw)
+    comp_s = Lw * math.sin(th)
+    comp_n = Lw * math.cos(th)
+
+    f.append(arrow(c[0], c[1], wtip[0], wtip[1], color=WT, sw=3.4))
+    f.append(text(wtip[0], wtip[1] + 22, "вага  mg", size=14, bold=True, color=WT))
+
+    d1 = (c[0] - ux * comp_s, c[1] - uy * comp_s)
+    f.append(arrow(c[0], c[1], d1[0], d1[1], color=WT, sw=2.0))
+    f.append(line(d1[0], d1[1], wtip[0], wtip[1], color=MUTED, sw=1.2, dash="4,4"))
+    f.append(text(d1[0] - 12, d1[1] + 20, "mg·sinθ", size=12.5, color=WT, anchor="end"))
+    f.append(text(d1[0] - 12, d1[1] + 37, "котить униз", size=11.5, color=MUTED, anchor="end"))
+
+    d2 = (c[0] - nx * comp_n, c[1] - ny * comp_n)
+    f.append(arrow(c[0], c[1], d2[0], d2[1], color=WT, sw=2.0))
+    f.append(line(d2[0], d2[1], wtip[0], wtip[1], color=MUTED, sw=1.2, dash="4,4"))
+    f.append(text(d2[0] + 16, d2[1] + 16, "mg·cosθ", size=12.5, color=WT, anchor="start"))
+    f.append(text(d2[0] + 16, d2[1] + 33, "вдавлює", size=11.5, color=MUTED, anchor="start"))
+
+    ntip = (c[0] + nx * comp_n, c[1] + ny * comp_n)
+    f.append(arrow(c[0], c[1], ntip[0], ntip[1], color=NRM, sw=3.0))
+    f.append(text(ntip[0] - 8, ntip[1] - 8, "N = mg·cosθ", size=13.5, bold=True, color=NRM, anchor="end"))
+
+    r = 70
+    a1 = (A[0] + r, A[1])
+    a2 = (A[0] + r * math.cos(th), A[1] - r * math.sin(th))
+    f.append(path("M %.1f %.1f A %d %d 0 0 0 %.1f %.1f" % (a1[0], a1[1], r, r, a2[0], a2[1]),
+                  stroke=INK, sw=1.6))
+    f.append(text(A[0] + r + 10, A[1] - 8, "θ", size=17, bold=True))
+
+    box, bwd, bhd = textbox(W / 2, 484,
+                            "у поверхню тисне лише mg·cosθ → N = mg·cosθ, менша за вагу;\n"
+                            "чим крутіший схил, тим менша N (до нуля на прямовисній стіні)",
+                            size=13.5, pad=12, fill="#eef7f0", stroke=WT, sw=1.5)
+    f.append(box)
+    render(os.path.join(IMG, "incline.svg"), W, H, *f)
+
+
+# ── Фігура 3: ліфт — ваги показують N, а не mg ────────────────────────────────
+def fig_elevator():
+    W, H = 1050, 540
+    f = [text(W / 2, 32, "Ваги показують нормальну силу N — тому уявна вага змінюється в ліфті",
+              size=16, bold=True)]
+
+    panels = [
+        (60,  "спокій:  a = 0",        1.0, "N = mg",       "ваги: mg",        None,  MUTED),
+        (390, "розгін угору:  a",      1.5, "N = m(g + a)", "важче",           "up",  PUSH),
+        (720, "вільне падіння:  a = g", 0.0, "N = 0",        "ширяє",           "down", COOL),
+    ]
+    pw, ptop, ph = 270, 76, 330
+    scaleY = ptop + ph - 70
+    for x0, title, kN, nlab, read, adir, acol in panels:
+        cx = x0 + pw / 2
+        f.append(rect(x0, ptop, pw, ph, fill="#fbfcfd", stroke=MUTED, sw=1.6, rx=8))
+        f.append(text(cx, ptop + 24, title, size=13.5, bold=True))
+
+        f.append(rect(cx - 52, scaleY, 104, 14, fill="#e7ebef", stroke=INK, sw=1.6, rx=3))
+        lift = 18 if adir == "down" else 0
+        f.append(rect(cx - 30, scaleY - 82 - lift, 60, 78, fill="#eef1f4", stroke=INK, sw=1.8, rx=4))
+        f.append(text(cx, scaleY - 40 - lift, "m", size=20, bold=True))
+        pcy = scaleY - 42 - lift
+
+        f.append(arrow(cx + 62, pcy - 6, cx + 62, pcy + 74, color=WT, sw=3.0))
+        f.append(text(cx + 70, pcy + 34, "mg", size=13, bold=True, color=WT, anchor="start"))
+
+        if kN > 0:
+            Nlen = 54 * kN
+            f.append(arrow(cx - 62, scaleY, cx - 62, scaleY - Nlen, color=NRM, sw=3.2))
+            f.append(text(cx - 70, scaleY - Nlen - 8, "N", size=14, bold=True, color=NRM, anchor="end"))
+        else:
+            f.append(text(cx - 62, scaleY - 10, "N = 0", size=13, bold=True, color=COOL, anchor="middle"))
+
+        axx = x0 + pw - 20
+        if adir == "up":
+            f.append(arrow(axx, ptop + 96, axx, ptop + 46, color=acol, sw=3.4))
+            f.append(text(axx, ptop + 116, "a", size=14, bold=True, color=acol))
+        elif adir == "down":
+            f.append(arrow(axx, ptop + 46, axx, ptop + 96, color=acol, sw=3.4))
+            f.append(text(axx, ptop + 38, "a = g", size=13, bold=True, color=acol))
+        else:
+            f.append(text(axx, ptop + 54, "a = 0", size=12.5, color=MUTED))
+
+        bcol = PUSH if kN > 1.01 else (COOL if kN < 0.99 else INK)
+        f.append(fitbox(cx - 78, scaleY + 22, 156, 40, nlab + "\n" + read,
+                        size=12.5, pad=4, fill=BG, stroke=bcol, sw=1.5, bold=True, color=bcol))
+
+    box, bwd, bhd = textbox(W / 2, 494,
+                            "У спокої N = mg; при розгоні вгору N = m(g+a) — важче; "
+                            "у вільному падінні N = 0 — тіло ширяє. Маса та сама, змінюється N",
+                            size=13, pad=11, fill="#eef7f0", stroke=WT, sw=1.5)
+    f.append(box)
+    render(os.path.join(IMG, "elevator.svg"), W, H, *f)
+
+
 # ── Фігура 4: рецепт — N = m(a⊥ + g·cos β) ────────────────────────────────────
 def fig_recipe():
     W, H = 1040, 520
     f = [text(W / 2, 34, "Нормальна сила з однієї проєкції: куди дивиться нормаль і що дозволяє в'язь",
               size=16.5, bold=True)]
 
-    # ── ліворуч: геометрія нормалі й кут β ──
     f.append(text(280, 74, "геометрія: кут нормалі β", size=14.5, bold=True))
     A, B, Cv = (100, 398), (460, 398), (460, 190)
     f.append(poly([A, B, Cv], fill="#eef1f4", stroke=INK, sw=2, close=True))
 
     th = math.radians(30.0)
-    ux, uy = math.cos(th), -math.sin(th)          # угору по схилу
-    nx, ny = -math.sin(th), -math.cos(th)         # нормаль назовні (угору-ліворуч)
+    ux, uy = math.cos(th), -math.sin(th)
+    nx, ny = -math.sin(th), -math.cos(th)
     P = (280.0, 294.0)
     pc = (P[0] + nx * 26, P[1] + ny * 26)
     h = 25.0
@@ -261,7 +266,7 @@ def fig_recipe():
                    (pc[0] - ux * h + nx * h, pc[1] - uy * h + ny * h)],
                   fill="#f4f6f8", stroke=INK, sw=2, close=True))
 
-    f.append(line(pc[0], pc[1], pc[0], 156, color=MUTED, sw=1.3, dash="5,4"))   # прямовисна
+    f.append(line(pc[0], pc[1], pc[0], 156, color=MUTED, sw=1.3, dash="5,4"))
     f.append(arrow(pc[0], pc[1], pc[0] + nx * 118, pc[1] + ny * 118, color=NRM, sw=3.2))
     f.append(text(pc[0] + nx * 142, pc[1] + ny * 142 + 4, "N · n̂", size=15, bold=True, color=NRM))
     f.append(arrow(pc[0], pc[1], pc[0], pc[1] + 92, color=WT, sw=3.2))
@@ -272,7 +277,6 @@ def fig_recipe():
                   pc[1] - 96 * math.cos(math.radians(-15)) + 5, "β", size=18, bold=True))
     f.append(text(280, 432, "β — кут між нормаллю та прямовисною", size=13, color=MUTED))
 
-    # ── праворуч: що в'язь дозволяє для a⊥ ──
     f.append(text(784, 74, "яке a⊥ допускає в'язь", size=14.5, bold=True))
     f.append(fitbox(560, 92, 448, 72, "нерухома пряма опора\na⊥ = 0", size=14.5,
                     fill=BG, stroke=MUTED))
@@ -308,7 +312,7 @@ def fig_curvature_cases():
         f.append(rect(x0, 66, 320, 226, fill="#fbfcfd", stroke=MUTED, sw=1.5, rx=8))
         f.append(text(cx, 92, titles[i], size=14, bold=True))
 
-        if i == 0:                                   # опуклий горб
+        if i == 0:
             cc, R = (cx, 272), 95
             f.append(poly(arcpts(cc[0], cc[1], R, -58, 58), stroke=INK, sw=2.6))
             f.append(rect(cx - 22, 155, 44, 22, fill="#eef1f4", stroke=INK, sw=1.8, rx=3))
@@ -318,7 +322,7 @@ def fig_curvature_cases():
             f.append(arrow(cx + 42, 100, cx + 42, 148, color=ACC, sw=3.0))
             f.append(text(cx + 50, 128, "a⊥", size=14, bold=True, color=ACC, anchor="start"))
             f.append(circle(cc[0], cc[1], 4.5, fill=CTR, stroke=CTR, sw=1))
-        elif i == 1:                                 # увігнута западина
+        elif i == 1:
             cc, R = (cx, 150), 95
             f.append(poly(arcpts_dn(cc[0], cc[1], R, -58, 58), stroke=INK, sw=2.6))
             f.append(rect(cx - 22, 223, 44, 22, fill="#eef1f4", stroke=INK, sw=1.8, rx=3))
@@ -328,7 +332,7 @@ def fig_curvature_cases():
             f.append(arrow(cx + 44, 225, cx + 44, 178, color=ACC, sw=3.0))
             f.append(text(cx + 52, 200, "a⊥", size=14, bold=True, color=ACC, anchor="start"))
             f.append(circle(cc[0], cc[1], 4.5, fill=CTR, stroke=CTR, sw=1))
-        else:                                        # верх петлі: колія над тілом
+        else:
             cc, R = (cx, 268), 88
             f.append(poly(arcpts(cc[0], cc[1], R, -58, 58), stroke=INK, sw=2.6))
             f.append(rect(cx - 22, 184, 44, 22, fill="#eef1f4", stroke=INK, sw=1.8, rx=3))
@@ -353,7 +357,6 @@ def fig_concave_convex():
     f = [text(W / 2, 34, "Та сама алгебра з двома знаками: петля зсередини й купол іззовні",
               size=16.5, bold=True)]
 
-    # ── ліворуч: мертва петля на найменшій швидкості ──
     f.append(text(270, 74, "мертва петля, найменша можлива швидкість", size=14, bold=True))
     lc, R = (270.0, 310.0), 118.0
     f.append(poly(arcpts(lc[0], lc[1], R, 0, 360), stroke=INK, sw=3.0, close=True))
@@ -371,7 +374,7 @@ def fig_concave_convex():
                                      (180, 6.0, "6 mg", 270, 454, "middle")]:
         a = math.radians(ang)
         px, py = lc[0] + R * math.sin(a), lc[1] - R * math.cos(a)
-        ox, oy = math.sin(a), -math.cos(a)                    # назовні
+        ox, oy = math.sin(a), -math.cos(a)
         f.append(circle(px, py, 9, fill="#eef1f4", stroke=INK, sw=1.8))
         if k > 0:
             f.append(arrow(px, py, px - ox * 15 * k, py - oy * 15 * k, color=NRM, sw=3.0))
@@ -384,7 +387,6 @@ def fig_concave_convex():
                           bold=True, fill="#eef7f0", stroke=WT, sw=1.6)
     f.append(box)
 
-    # ── праворуч: куля з'їжджає з купола ──
     f.append(text(770, 74, "куля з'їжджає з купола, старт зі спокою", size=14, bold=True))
     dc, Rd = (770.0, 430.0), 150.0
     f.append(poly(arcpts(dc[0], dc[1], Rd, -78, 78), stroke=INK, sw=3.0))
@@ -405,10 +407,10 @@ def fig_concave_convex():
         f.append(circle(px, py, 9, fill="#eef1f4", stroke=INK, sw=1.8))
         f.append(arrow(px, py, px + ox * ln, py + oy * ln, color=NRM, sw=3.0))
         lx, ly = px + ox * (ln + 18), py + oy * (ln + 18) + 4
-        f.append(text(lx, ly, lab, size=13.5, bold=True, color=NRM, anchor=anc))
+        f.append(text(lx, ly, lab, size=13.5, bold=True, color=NRM, anchor="end" if anc == "middle" else anc))
 
     f.append(circle(px_r, py_r, 8, fill=BG, stroke=CTR, sw=2.6))
-    fly = []                                   # вільний політ після відриву
+    fly = []
     p0, p1, p2 = (px_r + 8, py_r + 8), (928.0, 352.0), (952.0, 404.0)
     for i in range(25):
         t = i / 24.0
@@ -424,20 +426,8 @@ def fig_concave_convex():
     render(os.path.join(IMG, "concave-convex.svg"), W, H, *f)
 
 
-if __name__ == "__main__":
-    fig_self_adjusting()
-    fig_incline()
-    fig_elevator()
-    fig_recipe()
-    fig_curvature_cases()
-    fig_concave_convex()
-    print("OK: figs written to", IMG)
-
-
-# ═══ Фігури до вставки «Чому тверде тіло непроникне» ═══════════════════════════
-
+# ── Фігура 7: часова смуга непроникності ───────────────────────────────────────
 def fig_solidity_timeline():
-    """Часова смуга: як питання про непроникність здобувало відповідь."""
     rows = [
         ("1687", "Ісаак Ньютон, «Начала»",
                  "непроникність оголошено первинною властивістю тіл"),
@@ -477,8 +467,8 @@ def fig_solidity_timeline():
     render(os.path.join(IMG, "solidity-timeline.svg"), W, H, *f)
 
 
+# ── Фігура 8: ціна накладання хмар ───────────────────────────────────────────
 def _hump(cx, base, amp, w, x1, x2, color, sw=2.6):
-    """Одногорба хвильова функція (без вузла) на осі base."""
     pts = []
     n = 90
     for i in range(n + 1):
@@ -489,10 +479,9 @@ def _hump(cx, base, amp, w, x1, x2, color, sw=2.6):
 
 
 def _node_wave(cx, base, amp, w, x1, x2, color, sw=2.6):
-    """Непарна хвильова функція з вузлом у cx."""
     pts = []
     n = 120
-    k = 1.6487  # нормування: пік u·exp(−u²/2) при u = 1
+    k = 1.6487
     for i in range(n + 1):
         x = x1 + (x2 - x1) * i / n
         u = (x - cx) / w
@@ -501,19 +490,17 @@ def _node_wave(cx, base, amp, w, x1, x2, color, sw=2.6):
 
 
 def fig_solidity_exclusion_cost():
-    """Чому накладання хмар коштує кінетичної енергії."""
     W, H = 1020, 566
     f = [text(W / 2, 38, "Ціна спільного простору: заборона Паулі викреслює стани",
               size=17, bold=True)]
 
-    base, ntop = 265, 368          # рівень хвильової функції та рівень ядер
+    base, ntop = 265, 368
     panels = [(40, 450, "Атоми окремо"), (530, 450, "Хмари наклалися")]
     for px, pw, ttl in panels:
         f.append(rect(px, 80, pw, 320, fill="#fbfcfd", stroke=MUTED, sw=1.4))
         f.append(text(px + pw / 2, 68, ttl, size=15, bold=True))
         f.append(line(px + 16, base, px + pw - 16, base, color=MUTED, sw=1.2, dash="4 5"))
 
-    # ── ліва панель: два далекі атоми, кожен у своєму найнижчому стані ──
     f.append(_hump(150, base, 88, 46, 60, 250, NEG))
     f.append(_hump(380, base, 88, 46, 290, 480, NEG))
     f.append(plus(150, ntop, 11))
@@ -521,7 +508,6 @@ def fig_solidity_exclusion_cost():
     f.append(text(150, 152, "атом A", size=13, color=MUTED))
     f.append(text(380, 152, "атом B", size=13, color=MUTED))
 
-    # ── права панель: спільна яма, найнижчий стан зайнятий ──
     cxm = 755
     f.append(_hump(cxm, base, 74, 88, 545, 965, NEG))
     f.append(_node_wave(cxm, base, 68, 62, 545, 965, POS))
@@ -530,7 +516,6 @@ def fig_solidity_exclusion_cost():
     f.append(line(cxm, 175, cxm, 350, color=INK, sw=1.4, dash="5 5"))
     f.append(text(cxm, 166, "вузол", size=13, bold=True))
 
-    # ── легенда правої панелі (два рядки, ліворуч угорі) ──
     lx, ly = 548, 112
     f.append(line(lx, ly - 4, lx + 34, ly - 4, color=NEG, sw=3.0))
     f.append(text(lx + 44, ly, "найнижчий стан — уже зайнятий", size=13, anchor="start"))
@@ -555,18 +540,8 @@ def fig_solidity_exclusion_cost():
     render(os.path.join(IMG, "solidity-exclusion-cost.svg"), W, H, *f)
 
 
-# Окремий блок запуску для фігур цієї вставки: головний блок вище стоїть
-# посеред файлу, а ці функції означені після нього.
-if __name__ == "__main__":
-    fig_solidity_timeline()
-    fig_solidity_exclusion_cost()
-    print("OK: solidity figs written to", IMG)
-
-# ═══ Фігури до вставки «Як рушій рахує силу контакту» ═══════════════
-
-
+# ── Фігура 9: один кадр розв'язувача ──────────────────────────────────────────
 def fig_contact_solver_frame():
-    """Один кадр розв'язувача: вільний крок → умова → поштовх → сила."""
     W, H = 1080, 560
     f = []
 
@@ -581,7 +556,6 @@ def fig_contact_solver_frame():
         f.append(rect(x, ytop, pw, 34, fill=tints[i], stroke=edges[i], sw=1.6))
         f.append(text(x + pw / 2, ytop + 23, heads[i], size=14, bold=True, color=edges[i]))
 
-    # ── панель 1: тіло вже в підлозі ──
     x = xs[0]
     fy = ytop + 128
     f.append(line(x + 22, fy, x + pw - 22, fy, color=INK, sw=2.6))
@@ -592,7 +566,6 @@ def fig_contact_solver_frame():
                    ["v ← v − g·Δt", "v*ₙ = −0.163 м/с", "тіло рухається в опору"],
                    size=13, lh=1.5))
 
-    # ── панель 2: трійця умов ──
     x = xs[1]
     f.append(mtext(x + pw / 2, ytop + 84,
                    ["vₙ′ ≥ 0", "λ ≥ 0", "λ · vₙ′ = 0"], size=17, lh=1.7, bold=True))
@@ -600,7 +573,6 @@ def fig_contact_solver_frame():
                    ["не рухатися в опору,", "опора лише штовхає,", "або дотик, або нуль"],
                    size=13, lh=1.5, color=MUTED))
 
-    # ── панель 3: поштовх ──
     x = xs[2]
     fy = ytop + 128
     f.append(line(x + 22, fy, x + pw - 22, fy, color=INK, sw=2.6))
@@ -611,7 +583,6 @@ def fig_contact_solver_frame():
                    ["λ = max(0, −mₑ·v*ₙ)", "= 6 · 0.163", "= 0.98 Н·с"],
                    size=13, lh=1.5))
 
-    # ── панель 4: сила ──
     x = xs[3]
     fy = ytop + 128
     f.append(line(x + 22, fy, x + pw - 22, fy, color=INK, sw=2.6))
@@ -624,12 +595,10 @@ def fig_contact_solver_frame():
                    ["N = λ/Δt", "= 0.98 · 60", "= 58.8 Н = mg"],
                    size=13, lh=1.5))
 
-    # ── стрілки між панелями ──
     for i in range(3):
         ax = xs[i] + pw + 2
         f.append(arrow(ax, ytop + ph / 2, ax + gap - 4, ytop + ph / 2, color=MUTED, sw=2.0))
 
-    # ── три випадки з тим самим кодом ──
     cw, cgap = 330, 25
     cx0 = (W - (3 * cw + 2 * cgap)) / 2
     cases = [("рівна підлога", "v*ₙ = −g·Δt", "N = 58.8 Н = mg"),
@@ -652,12 +621,11 @@ def fig_contact_solver_frame():
            title="Один кадр: рушій не знає mg — він гасить рух, який тіло встигло зробити в опору")
 
 
+# ── Фігура 10: стос ящиків PGS ────────────────────────────────────────────────
 def fig_pgs_stack():
-    """Стос із трьох ящиків: збіжність послідовних поштовхів і теплий старт."""
     W, H = 1080, 560
     f = []
 
-    # ── ліворуч: стос і три контакти ──
     gy = 400
     f.append(line(52, gy, 330, gy, color=INK, sw=3.0))
     for i in range(6):
@@ -678,8 +646,7 @@ def fig_pgs_stack():
     f.append(text(200, 168, "три контакти,", size=13.5, color=MUTED))
     f.append(text(200, 190, "кожен псує сусідній", size=13.5, color=MUTED))
 
-    # ── праворуч: збіжність сили під низом ──
-    gx0, gx1, gy0, gy1 = 600, 1010, 430, 130      # gy0 — нуль, gy1 — верх шкали
+    gx0, gx1, gy0, gy1 = 600, 1010, 430, 130
     NMAX = 32.0
     def sy(v):
         return gy0 - (gy0 - gy1) * v / NMAX
@@ -725,7 +692,251 @@ def fig_pgs_stack():
            title="Послідовні поштовхи: скільки проходів треба, щоб підлога дізналася вагу стосу")
 
 
+# ── Фігура 11: Мікроскопічна природа нормальної сили (кристалічна ґратка та потенціал) ──
+def fig_atomic_lattice():
+    W, H = 1040, 540
+    f = [text(W / 2, 34, "Мікроскопічна природа нормальної реакції: пружність ґратки та заборона Паулі",
+              size=16.5, bold=True)]
+
+    # Ліва панель
+    px, py, pw, ph = 40, 70, 460, 380
+    f.append(rect(px, py, pw, ph, fill="#fbfcfd", stroke=MUTED, sw=1.5, rx=8))
+    f.append(text(px + pw / 2, py + 26, "Кристалічна ґратка під навантаженням", size=14.5, bold=True))
+
+    f.append(arrow(px + pw / 2, py + 42, px + pw / 2, py + 88, color=PUSH, sw=3.2))
+    f.append(text(px + pw / 2 + 18, py + 64, "F_ext (навантаження)", size=13, bold=True, color=PUSH, anchor="start"))
+
+    cols = 4
+    rows = 3
+    dx = 86
+    dy = 68
+    grid_x0 = px + 100
+    grid_y0 = py + 126
+
+    for r in range(rows):
+        for c in range(cols):
+            cx = grid_x0 + c * dx
+            cy = grid_y0 + r * dy
+            if c < cols - 1:
+                f.append(hspring(cx + 14, cx + dx - 14, cy, coils=3, amp=6, stroke=MUTED))
+            if r < rows - 1:
+                comp_amp = 7 if r == 0 else 6
+                f.append(vspring(cx, cy + 14, cy + dy - 14, coils=3, amp=comp_amp, stroke=NRM))
+
+    for r in range(rows):
+        for c in range(cols):
+            cx = grid_x0 + c * dx
+            cy = grid_y0 + r * dy
+            f.append(circle(cx, cy, 18, fill="#eaf0fd", stroke=NEG, sw=1.2))
+            f.append(circle(cx, cy, 7, fill=POS, stroke=INK, sw=1.2))
+            f.append(text(cx, cy + 3.5, "+", size=10, bold=True, color=BG))
+
+    for c in range(cols):
+        cx = grid_x0 + c * dx
+        f.append(arrow(cx, grid_y0 + 2 * dy + 22, cx, grid_y0 + dy + 22, color=WT, sw=2.4))
+        f.append(text(cx + 8, grid_y0 + 1.6 * dy, "f_%d" % (c + 1), size=11, bold=True, color=WT, anchor="start"))
+
+    f.append(fitbox(px + 14, py + ph - 64, pw - 28, 52,
+                    "Зсув атомів Δx ~ 10⁻¹¹ м → пружні сили f_i = k_a · Δx\n"
+                    "Макроскопічна нормальна сила N = ∑ f_i",
+                    size=12.5, pad=6, fill="#eef7f0", stroke=WT, sw=1.4))
+
+    # Права панель
+    rx, ry, rw, rh = 540, 70, 460, 380
+    f.append(rect(rx, ry, rw, rh, fill="#fbfcfd", stroke=MUTED, sw=1.5, rx=8))
+    f.append(text(rx + rw / 2, ry + 26, "Міжатомний потенціал U(r) (Леннард-Джонс)", size=14.5, bold=True))
+
+    ax_x0, ax_y0 = rx + 60, ry + 200
+    ax_w, ax_h = 360, 140
+    f.append(arrow(ax_x0, ax_y0, ax_x0 + ax_w, ax_y0, color=INK, sw=1.6))
+    f.append(text(ax_x0 + ax_w - 10, ax_y0 + 20, "r (відстань)", size=13, color=INK, anchor="end"))
+    f.append(arrow(ax_x0 + 40, ax_y0 + 110, ax_x0 + 40, ry + 46, color=INK, sw=1.6))
+    f.append(text(ax_x0 + 32, ry + 56, "U(r)", size=13, bold=True, color=INK, anchor="end"))
+
+    curve_pts = []
+    r0_x = ax_x0 + 120
+    min_y = ax_y0 + 65
+    for i in range(120):
+        t = i / 119.0
+        x_pt = ax_x0 + 55 + t * 285
+        u_val = (r0_x - ax_x0) / (x_pt - ax_x0 + 1e-5)
+        if u_val > 1.4:
+            continue
+        lj = 4.0 * (u_val**12 - u_val**6)
+        y_pt = ax_y0 - lj * 65
+        if y_pt < ry + 50:
+            continue
+        if y_pt > ry + rh - 76:
+            continue
+        curve_pts.append((x_pt, y_pt))
+
+    f.append(poly(curve_pts, stroke=NEG, sw=2.6))
+
+    f.append(line(r0_x, ax_y0 - 8, r0_x, min_y, color=MUTED, sw=1.3, dash="4 4"))
+    f.append(circle(r0_x, min_y, 4.5, fill=NEG, stroke=NEG, sw=1.2))
+    f.append(text(r0_x, ax_y0 - 12, "r₀ (рівновага)", size=12, bold=True, color=NEG))
+    f.append(text(r0_x + 10, min_y + 16, "-ε", size=12, color=MUTED))
+
+    f.append(text(ax_x0 + 72, ry + 90, "Відштовхування", size=12, bold=True, color=PUSH))
+    f.append(text(ax_x0 + 72, ry + 106, "(заборона Паулі)", size=11, color=PUSH))
+    f.append(arrow(ax_x0 + 76, ry + 120, ax_x0 + 64, ry + 150, color=PUSH, sw=1.8))
+
+    f.append(text(rx + rw - 36, ax_y0 - 24, "Притягання (Ван-дер-Ваальс)", size=12, color=MUTED, anchor="end"))
+
+    f.append(fitbox(rx + 14, py + ph - 64, rw - 28, 52,
+                    "Крута стінка U(r) при r < r₀ дає надвисоку жорсткість k = d²U/dr².\n"
+                    "Будь-яке мізерне вдавлювання генерує колосальну відсіч N.",
+                    size=12.5, pad=6, fill="#fdf2e9", stroke=POS, sw=1.4))
+
+    box, bw, bh = textbox(W / 2, 494,
+                          "Нормальна сила — це електромагнітно-квантова реакція стиснутих міжатомних зв'язків,\n"
+                          "яка виникає автоматично через неможливість перекриття електронних ферміонних оболонок",
+                          size=13.5, pad=10, fill="#eef7f0", stroke=WT, sw=1.4)
+    f.append(box)
+
+    render(os.path.join(IMG, "normal-force-atomic-lattice.svg"), W, H, *f,
+           title="Мікроскопічна природа нормальної реакції опори: пружність кристалічної ґратки та потенціал міжатомної взаємодії")
+
+
+# ── Фігура 12: Розподіл тиску Герца та підповерхневі напруження ────────────────
+def fig_hertz_pressure():
+    W, H = 1060, 560
+    f = [text(W / 2, 34, "Контактна механіка Герца: напівсфероїдальний тиск та підповерхневий зсув",
+              size=16.5, bold=True)]
+
+    # Ліва панель
+    lx, ly, lw, lh = 40, 70, 470, 390
+    f.append(rect(lx, ly, lw, lh, fill="#fbfcfd", stroke=MUTED, sw=1.5, rx=8))
+    f.append(text(lx + lw / 2, ly + 26, "Пружний контакт сфери з площиною", size=14.5, bold=True))
+
+    sphere_cx, sphere_cy, sphere_R = lx + lw / 2, ly + 140, 110
+    f.append(circle(sphere_cx, sphere_cy, sphere_R, fill="#f4f6f8", stroke=INK, sw=2.0))
+    f.append(text(sphere_cx, sphere_cy - 20, "Сфера (R, E, ν)", size=13.5, bold=True, color=INK))
+
+    f.append(arrow(sphere_cx, ly + 36, sphere_cx, sphere_cy - 46, color=PUSH, sw=3.4))
+    f.append(text(sphere_cx + 18, sphere_cy - 65, "Сила N", size=14, bold=True, color=PUSH, anchor="start"))
+
+    surf_y = sphere_cy + sphere_R - 10
+    f.append(line(lx + 20, surf_y, lx + lw - 20, surf_y, color=INK, sw=2.6))
+    f.append(text(lx + 30, surf_y + 18, "Пружний напівпростір", size=12, color=MUTED))
+
+    a_len = 54
+    f.append(line(sphere_cx - a_len, surf_y, sphere_cx + a_len, surf_y, color=PUSH, sw=4.0))
+    f.append(line(sphere_cx - a_len, surf_y - 6, sphere_cx - a_len, surf_y + 6, color=PUSH, sw=2.0))
+    f.append(line(sphere_cx + a_len, surf_y - 6, sphere_cx + a_len, surf_y + 6, color=PUSH, sw=2.0))
+    f.append(text(sphere_cx, surf_y + 18, "2a (діаметр плями)", size=12.5, bold=True, color=PUSH))
+
+    press_pts = []
+    for i in range(61):
+        t = (i / 60.0) * 2.0 - 1.0
+        rx_val = t * a_len
+        p_val = math.sqrt(max(0.0, 1.0 - t * t))
+        press_pts.append((sphere_cx + rx_val, surf_y + p_val * 58))
+
+    f.append(poly(press_pts, fill="#fdecea", stroke=PUSH, sw=2.0, close=False))
+    f.append(line(sphere_cx - a_len, surf_y, sphere_cx + a_len, surf_y, color=PUSH, sw=2.0))
+    f.append(arrow(sphere_cx, surf_y, sphere_cx, surf_y + 56, color=PUSH, sw=2.2))
+    f.append(text(sphere_cx + 12, surf_y + 44, "p₀ (пік)", size=12.5, bold=True, color=PUSH, anchor="start"))
+
+    f.append(fitbox(lx + 14, ly + lh - 76, lw - 28, 64,
+                    "Радіус контакту: a = ( 3·N·R / (4·E*) )^(1/3)\n"
+                    "Піковий тиск: p₀ = 3·N / (2·π·a²) = 1.5 · p_mean\n"
+                    "Профіль тиску: p(r) = p₀ · √(1 − (r/a)²)",
+                    size=12.5, pad=6, fill="#fdf2e9", stroke=POS, sw=1.4))
+
+    # Права панель
+    rx, ry, rw, rh = 550, 70, 470, 390
+    f.append(rect(rx, ry, rw, rh, fill="#fbfcfd", stroke=MUTED, sw=1.5, rx=8))
+    f.append(text(rx + rw / 2, ry + 26, "Напруження по глибині під центром (r = 0)", size=14.5, bold=True))
+
+    gx0, gy0 = rx + 65, ry + 60
+    gw, gh = 360, 230
+
+    f.append(arrow(gx0, gy0, gx0 + gw, gy0, color=INK, sw=1.6))
+    f.append(text(gx0 + gw - 8, gy0 - 10, "Напруження / p₀", size=12.5, color=INK, anchor="end"))
+
+    f.append(arrow(gx0, gy0, gx0, gy0 + gh, color=INK, sw=1.6))
+    f.append(text(gx0 - 12, gy0 + gh - 8, "z / a (глибина)", size=12.5, color=INK, anchor="end"))
+
+    for i in range(5):
+        za_val = i * 0.5
+        y_pos = gy0 + (za_val / 2.0) * (gh - 30)
+        f.append(line(gx0 - 4, y_pos, gx0, y_pos, color=INK, sw=1.2))
+        f.append(text(gx0 - 10, y_pos + 4, "%.1f" % za_val, size=11, color=MUTED, anchor="end"))
+        f.append(line(gx0, y_pos, gx0 + gw - 20, y_pos, color="#eef1f4", sw=1.0, dash="3 3"))
+
+    pts_sz = []
+    pts_sr = []
+    pts_tau = []
+
+    nu = 0.3
+    for i in range(81):
+        za = i * (2.0 / 80.0)
+        y_pos = gy0 + (za / 2.0) * (gh - 30)
+
+        sz = 1.0 / (1.0 + za * za)
+        if za == 0:
+            sr = 0.5 * (1.0 + 2.0 * nu)
+        else:
+            sr = (1.0 + nu) * (1.0 - za * math.atan(1.0 / za)) - 0.5 / (1.0 + za * za)
+        tau = 0.5 * (sz - sr)
+
+        x_sz = gx0 + sz * (gw - 50)
+        x_sr = gx0 + sr * (gw - 50)
+        x_tau = gx0 + tau * (gw - 50) * 2.2
+
+        pts_sz.append((x_sz, y_pos))
+        pts_sr.append((x_sr, y_pos))
+        pts_tau.append((x_tau, y_pos))
+
+    f.append(poly(pts_sz, stroke=NEG, sw=2.2))
+    f.append(poly(pts_sr, stroke=MUTED, sw=1.8, dash="5 4"))
+    f.append(poly(pts_tau, stroke=POS, sw=2.6))
+
+    f.append(line(rx + 230, ry + 110, rx + 260, ry + 110, color=NEG, sw=2.2))
+    f.append(text(rx + 268, ry + 114, "σ_z (вертикальне стиснення)", size=12, color=NEG, anchor="start"))
+
+    f.append(line(rx + 230, ry + 130, rx + 260, ry + 130, color=MUTED, sw=1.8, dash="5 4"))
+    f.append(text(rx + 268, ry + 134, "σ_r (радіальне стиснення)", size=12, color=MUTED, anchor="start"))
+
+    f.append(line(rx + 230, ry + 150, rx + 260, ry + 150, color=POS, sw=2.6))
+    f.append(text(rx + 268, ry + 154, "τ_max (зсувне напруження)", size=12, bold=True, color=POS, anchor="start"))
+
+    z_crit = 0.48
+    y_crit = gy0 + (z_crit / 2.0) * (gh - 30)
+    tau_crit = 0.31
+    x_crit = gx0 + tau_crit * (gw - 50) * 2.2
+    f.append(circle(x_crit, y_crit, 5.0, fill=POS, stroke=INK, sw=1.4))
+    f.append(line(gx0, y_crit, x_crit, y_crit, color=POS, sw=1.2, dash="3 3"))
+    f.append(text(x_crit + 12, y_crit + 4, "Пік τ_max = 0.31 p₀ при z = 0.48 a", size=12, bold=True, color=POS, anchor="start"))
+
+    f.append(fitbox(rx + 14, ly + lh - 76, rw - 28, 64,
+                    "Максимум зсувного напруження τ_max виникає НЕ на поверхні,\n"
+                    "а на глибині z ≈ 0.48·a. Саме тут зароджуються мікротріщини\n"
+                    "та контактна втома металу (пітинг/викришування підшипників).",
+                    size=12, pad=6, fill="#fdecea", stroke=POS, sw=1.4))
+
+    box, bw, bh = textbox(W / 2, 496,
+                          "Контакт Герца створює напівсфероїдальний купол тиску p₀ = 1.5·p_mean;\n"
+                          "критичні зсувні напруження концентруються під поверхнею (z ≈ 0.48 a), що веде до втомного викришування",
+                          size=13.5, pad=10, fill="#eef7f0", stroke=WT, sw=1.4)
+    f.append(box)
+
+    render(os.path.join(IMG, "hertz-contact-pressure-distribution.svg"), W, H, *f,
+           title="Контактна механіка Герца: напівсфероїдальний розподіл тиску та підповерхневі зсувні напруження")
+
+
 if __name__ == "__main__":
+    fig_self_adjusting()
+    fig_incline()
+    fig_elevator()
+    fig_recipe()
+    fig_curvature_cases()
+    fig_concave_convex()
+    fig_solidity_timeline()
+    fig_solidity_exclusion_cost()
     fig_contact_solver_frame()
     fig_pgs_stack()
-    print("OK: contact-solver figs written to", IMG)
+    fig_atomic_lattice()
+    fig_hertz_pressure()
+    print("OK: all figures successfully generated in", IMG)
