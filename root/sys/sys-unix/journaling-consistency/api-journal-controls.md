@@ -98,41 +98,13 @@ e2fsck -f /dev/sda1                        # обов'язково після з
 
 **Зовнішній журнал.** Пристрій-журнал створюють окремо, і його розмір блока мусить збігатися з розміром блока файлової системи:
 
-```sh
-# 1. окремий швидкий пристрій цілком стає журналом
-mke2fs -O journal_dev -b 4096 /dev/nvme0n1p3
-
-# 2а. нова ФС одразу з ним
-mke2fs -t ext4 -b 4096 -J device=/dev/nvme0n1p3 /dev/sda1
-
-# 2б. або приєднати до наявної (журналу в ній бути не повинно)
-tune2fs -J device=/dev/nvme0n1p3 /dev/sda1
-
-# 3. якщо номер пристрою змінився після перезавантаження
-mount -o journal_path=/dev/nvme0n1p3 /dev/sda1 /mnt
-```
+:::code api-journal-controls/sh/rozmir-i-mistse-zhurnalu.sh
 
 Що тут важливо тримати в голові: зовнішній журнал стає частиною файлової системи. Втратити його — це втратити останні транзакції, а на томі з ознакою `needs_recovery` ще й позбавити `e2fsck` можливості довести їх до кінця. Виграш, заради якого це роблять, — знімання скидань кешу з того самого носія, куди йдуть дані.
 
 ## Прочитати дійсний стан: `dumpe2fs -h`
 
-```sh
-$ sudo dumpe2fs -h /dev/sda1
-Filesystem features:      has_journal ext_attr resize_inode dir_index filetype
-                          extent 64bit flex_bg sparse_super large_file huge_file
-                          dir_nlink extra_isize metadata_csum
-Filesystem state:         clean
-Journal inode:            8
-Journal backup:           inode blocks
-Journal features:         journal_incompat_revoke journal_64bit journal_checksum_v3
-Journal size:             64M
-Total journal size:       64M
-Total journal blocks:     16384
-Max transaction length:   16384
-Fast commit length:       0
-Journal sequence:         0x0000002f
-Journal start:            0
-```
+:::code api-journal-controls/sh/prochytaty-diisnyi-stan.sh
 
 | Рядок | Що з нього видно |
 |---|---|
@@ -151,21 +123,7 @@ Journal start:            0
 
 JBD2 веде власні лічильники в `/proc/fs/jbd2/<пристрій>-<inode>/info` — тека зветься за іменем пристрою й номером inode журналу, наприклад `sda1-8`.
 
-```sh
-$ cat /proc/fs/jbd2/sda1-8/info
-1284 transactions, each up to 4096 blocks
-average:
-  0ms waiting for transaction
-  0ms request delay
-  4998ms running transaction
-  0ms transaction was being locked
-  0ms flushing data (in ordered mode)
-  17ms logging transaction
-  3421us average transaction commit time
-  212 handles per transaction
-  38 blocks per transaction
-  40 logged blocks per transaction
-```
+:::code api-journal-controls/sh/skilky-roboty-naspravdi.sh
 
 Три числа звідси відповідають на практичні питання. `running transaction` близько до `commit=` (тут 5 секунд) означає, що транзакції закриваються за часом, а не через тісноту в кільці, — журнал завеликий не потрібен. `handles per transaction` показує, скільки операцій злилося в одну фіксацію: чим більше, тим менше скидань кешу припадає на одиницю роботи. Розрив між `blocks` і `logged blocks` — це блоки, які довелося записати в журнал понад ті, що змінилися.
 

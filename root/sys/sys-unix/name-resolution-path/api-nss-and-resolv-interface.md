@@ -16,18 +16,7 @@
 
 Структура `addrinfo` слугує як для передачі вхідних підказок (hints) про бажаний тип сокета й сімейство протоколів, так і для повернення результатів у вигляді динамічного однозв'язаного списку знайдених мережевих адрес.
 
-```c
-struct addrinfo {
-    int              ai_flags;      /* Прапорці поведінки (AI_PASSIVE, AI_CANONNAME тощо) */
-    int              ai_family;     /* Сімейство адрес: AF_INET, AF_INET6, AF_UNSPEC */
-    int              ai_socktype;   /* Тип сокета: SOCK_STREAM, SOCK_DGRAM */
-    int              ai_protocol;   /* Протокол: IPPROTO_TCP, IPPROTO_UDP, 0 */
-    socklen_t        ai_addrlen;    /* Довжина сокетної адреси у байтах */
-    struct sockaddr *ai_addr;       /* Вказівник на структуру sockaddr_in або sockaddr_in6 */
-    char            *ai_canonname;  /* Канонічне ім'я хоста (якщо вказано AI_CANONNAME) */
-    struct addrinfo *ai_next;       /* Вказівник на наступний елемент зв'язаного списку */
-};
-```
+:::code api-nss-and-resolv-interface/c/struct-addrinfo.c
 
 Кожне поле структури відповідає за конкретний аспект мережевого з'єднання:
 
@@ -56,28 +45,7 @@ struct addrinfo {
 
 Стандартний комплект функцій для розв'язання та звільнення адрес має такий вигляд:
 
-```c
-int getaddrinfo(
-    const char *node,
-    const char *service,
-    const struct addrinfo *hints,
-    struct addrinfo **res
-);
-
-void freeaddrinfo(struct addrinfo *res);
-
-const char *gai_strerror(int errcode);
-
-int getnameinfo(
-    const struct sockaddr *sa,
-    socklen_t salen,
-    char *host,
-    size_t hostlen,
-    char *serv,
-    size_t servlen,
-    int flags
-);
-```
+:::code api-nss-and-resolv-interface/c/syhnatury-funktsii-posix.h
 
 Функція `getaddrinfo()` повертає `0` у разі успішного виконання або один із від'ємних кодів помилок `EAI_*`:
 * **`EAI_AGAIN`**: Тимчасова помилка розв'язання імені, рекомендується повторити запит пізніше.
@@ -117,30 +85,7 @@ enum nss_status {
 
 ### Сигнатури експортованих C-функцій NSS
 
-```c
-/* Опитування за іменем хоста та сімейством адрес (IPv4/IPv6) */
-enum nss_status _nss_<module>_gethostbyname2_r(
-    const char *name,
-    int af,
-    struct hostent *result,
-    char *buffer,
-    size_t buflen,
-    int *errnop,
-    int *h_errnop
-);
-
-/* Зворотне опитування за двійковою IP-адресою (Reverse DNS) */
-enum nss_status _nss_<module>_gethostbyaddr_r(
-    const char *addr,
-    int len,
-    int type,
-    struct hostent *result,
-    char *buffer,
-    size_t buflen,
-    int *errnop,
-    int *h_errnop
-);
-```
+:::code api-nss-and-resolv-interface/c/syhnatury-eksportovanykh-c.h
 
 Параметри `errnop` та `h_errnop` призначені для повернення детальних системних помилок (наприклад, `ERANGE`, `HOST_NOT_FOUND`, `NO_DATA`, `TRY_AGAIN`).
 
@@ -260,27 +205,6 @@ SetLinkDomains(
 
 Утиліта `resolvectl` є основним інструментом командного рядка для керування та діагностики `systemd-resolved`.
 
-```bash
-# Перегляд поточного стану DNS-серверів та доменів маршрутизації для всіх інтерфейсів:
-resolvectl status
-
-# Запит розв'язання імені через D-Bus API systemd-resolved:
-resolvectl query example.com
-
-# Зворотне розв'язання IP-адреси (Reverse DNS Lookup):
-resolvectl query 1.1.1.1
-
-# Очищення системного кaшу DNS-відповідей systemd-resolved:
-resolvectl flush-caches
-
-# Перегляд статистики влучань у кеш та перевірок DNSSEC:
-resolvectl statistics
-
-# Примусове призначення DNS-серверів для конкретного інтерфейсу eth0:
-sudo resolvectl dns eth0 1.1.1.1 8.8.8.8
-
-# Налаштування домену маршрутизації (Split-DNS) для VPN-інтерфейсу wg0:
-sudo resolvectl domain wg0 "~corp.example.com"
-```
+:::code api-nss-and-resolv-interface/sh/main.sh
 
 Команда `resolvectl status` відображає підключені DNS-сервери, режим перевірки DNSSEC, протоколи mDNS/LLMNR та суфікси маршрутизації окремо для кожного мережевого інтерфейсу системи.

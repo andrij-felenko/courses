@@ -58,19 +58,7 @@
 
 Увесь цей процес відбувається автоматично. Користувач може побачити результат сканування за допомогою утиліти `lspci`:
 
-```bash
-$ lspci -vvv
-00:1f.6 Ethernet controller: Intel Corporation Ethernet Connection (2) I219-V (rev 31)
-        Subsystem: ASUSTeK Computer Inc. Device 8672
-        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
-        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-        Latency: 0
-        Interrupt: pin A routed to IRQ 125
-        Region 0: Memory at e1200000 (32-bit, non-prefetchable) [size=128K]
-        Capabilities: [c8] Power Management version 3
-        Kernel driver in use: e1000e
-        Kernel modules: e1000e
-```
+:::code pci-config-space-and-enumeration-d/sh/main.sh
 
 Тут ми бачимо BDF-адресу `00:1f.6`, ідентифікатори пристрою, призначене переривання (`IRQ 125`), виділене вікно пам'яті (`Region 0: Memory at e1200000 [size=128K]`, що відповідає BAR0) та драйвер, який обробляє цей пристрій (`e1000e`).
 
@@ -79,59 +67,7 @@ $ lspci -vvv
 
 Драйвер повинен сказати ядру, які пристрої він підтримує. Це робиться через таблицю ідентифікаторів `pci_device_id`. 
 
-```c
-#include <linux/module.h>
-#include <linux/pci.h>
-
-/* Таблиця підтримуваних пристроїв */
-static const struct pci_device_id my_pci_ids[] = {
-    { PCI_DEVICE(0x8086, 0x10d3) }, /* Конкретний Vendor ID та Device ID */
-    { 0, } /* Завершення таблиці */
-};
-MODULE_DEVICE_TABLE(pci, my_pci_ids);
-
-/* Функція, що викликається, коли ядро знаходить сумісний пристрій */
-static int my_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-{
-    int err;
-
-    /* Вмикаємо пристрій (пробуджуємо з D3hot, вмикаємо BAR) */
-    err = pci_enable_device(pdev);
-    if (err) return err;
-
-    /* Запитуємо регіони пам'яті (щоб інший драйвер їх не зайняв) */
-    err = pci_request_regions(pdev, "my_driver");
-    if (err) goto err_disable;
-
-    /* ... тут мапимо BAR у віртуальну пам'ять — pci_iomap(pdev, 0, 0) —
-       і працюємо з регістрами через ioread32()/iowrite32() ... */
-
-    pr_info("my_driver: Знайдено пристрій!\n");
-    return 0;
-
-err_disable:
-    pci_disable_device(pdev);
-    return err;
-}
-
-/* Функція відключення (видалення модуля або гаряче витягання) */
-static void my_pci_remove(struct pci_dev *pdev)
-{
-    pci_release_regions(pdev);
-    pci_disable_device(pdev);
-    pr_info("my_driver: Пристрій відключено\n");
-}
-
-static struct pci_driver my_pci_driver = {
-    .name     = "my_driver",
-    .id_table = my_pci_ids,
-    .probe    = my_pci_probe,
-    .remove   = my_pci_remove,
-};
-
-module_pci_driver(my_pci_driver);
-MODULE_LICENSE("GPL");
-```
+:::code pci-config-space-and-enumeration-d/c/main.c
 
 Коли ядро бачить, що є `pci_dev` із Vendor/Device ID, який збігається з записом у таблиці `pci_device_id` зареєстрованого `pci_driver`, воно викликає функцію `probe`. Саме в `probe` драйвер:
 1. Викликає `pci_enable_device()`, що дозволяє пристрою відповідати на запити до його BAR.

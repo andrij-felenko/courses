@@ -119,42 +119,8 @@
 Для кожного kTLS-сокета ядро виділяє структуру `struct tls_context`, яка зберігає повний стан TLS-з'єднання:
 
 :::tabs
-```c
-/* Спрощена концептуальна схема структур ядра з net/tls */
-struct tls_sw_context_tx {
-    struct crypto_aead *aead_send;  /* Хендл симетричного шифру з Crypto API */
-    struct scatterlist sg_tx_data[MAX_SKB_FRAGS]; /* SG-список незашифрованих сторінок */
-    u64 rec_seq;                    /* 64-бітний порядковий номер запису TLS TX */
-    char iv[TLS_CIPHER_AES_GCM_128_IV_SIZE];
-    char rec_seq_size;
-};
-
-struct tls_context {
-    struct sock *sk;
-    enum tls_offload_mode tx_conf;  /* TLS_SW або TLS_HW */
-    enum tls_offload_mode rx_conf;
-    void *priv_ctx_tx;              /* Вказує на struct tls_sw_context_tx */
-    void *priv_ctx_rx;
-};
-```
-```cpp
-// C++20 представлення внутрішніх структур ядра
-struct tls_sw_context_tx {
-    struct crypto_aead *aead_send;
-    struct scatterlist sg_tx_data[MAX_SKB_FRAGS];
-    uint64_t rec_seq;
-    char iv[TLS_CIPHER_AES_GCM_128_IV_SIZE];
-    char rec_seq_size;
-};
-
-struct tls_context {
-    struct sock *sk;
-    enum tls_offload_mode tx_conf;  // TLS_SW або TLS_HW
-    enum tls_offload_mode rx_conf;
-    void *priv_ctx_tx;
-    void *priv_ctx_rx;
-};
-```
+:::code ktls-hw-offload-and-enablement-d/c/kontekst-soketa-struct-tls.c
+:::code ktls-hw-offload-and-enablement-d/cpp/kontekst-soketa-struct-tls.cpp
 :::
 
 ### Взаємодія з Linux Kernel Crypto API та механіка Scatterlist
@@ -239,31 +205,8 @@ struct tls_context {
 Спочатку відкритомий і підключений TCP-сокет необхідно перевести під управління ULP-модуля `"tls"`:
 
 :::tabs
-```c
-/* Приклад на C */
-#include <sys/socket.h>
-#include <netinet/tcp.h>
-
-int sock_fd = accept(listen_fd, NULL, NULL);
-
-/* Реєструємо ULP 'tls' для TCP сокета */
-if (setsockopt(sock_fd, SOL_TCP, TCP_ULP, "tls", sizeof("tls")) < 0) {
-    perror("Помилка активації ULP tls");
-}
-```
-```cpp
-// Приклад на C++20 (із перевіркою помилок через std::error_code)
-#include <sys/socket.h>
-#include <netinet/tcp.h>
-#include <system_error>
-#include <iostream>
-
-void enable_tls_ulp(int sock_fd) {
-    if (::setsockopt(sock_fd, SOL_TCP, TCP_ULP, "tls", sizeof("tls")) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Не вдалося встановити TCP_ULP tls");
-    }
-}
-```
+:::code ktls-hw-offload-and-enablement-d/c/krok-1-perevedennia-soketa.c
+:::code ktls-hw-offload-and-enablement-d/cpp/krok-1-perevedennia-soketa.cpp
 :::
 
 ### Крок 2. Передача симетричних ключів (`TLS_TX` / `TLS_RX`)
@@ -271,54 +214,8 @@ void enable_tls_ulp(int sock_fd) {
 Після ініціалізації ULP сокет починає приймати опції рівня `SOL_TLS`. Заповнюється структура відповідного шифру (наприклад, AES-GCM 128 біт):
 
 :::tabs
-```c
-/* Приклад на C: Встановлення ключів TX */
-#include <linux/tls.h>
-#include <string.h>
-
-struct tls12_crypto_info_aes_gcm_128 crypto_info;
-memset(&crypto_info, 0, sizeof(crypto_info));
-
-crypto_info.info.version = TLS_1_2_VERSION; /* Або TLS_1_3_VERSION */
-crypto_info.info.cipher_type = TLS_CIPHER_AES_GCM_128;
-
-/* Копіюємо ключі, вилучені з OpenSSL після Handshake */
-memcpy(crypto_info.key, aes_key, TLS_CIPHER_AES_GCM_128_KEY_SIZE);
-memcpy(crypto_info.iv, gcm_iv, TLS_CIPHER_AES_GCM_128_IV_SIZE);
-memcpy(crypto_info.salt, gcm_salt, TLS_CIPHER_AES_GCM_128_SALT_SIZE);
-memcpy(crypto_info.rec_seq, seq_number, TLS_CIPHER_AES_GCM_128_REC_SEQ_SIZE);
-
-/* Активуємо шифрування вихідного потоку */
-if (setsockopt(sock_fd, SOL_TLS, TLS_TX, &crypto_info, sizeof(crypto_info)) < 0) {
-    perror("Помилка setsockopt TLS_TX");
-}
-```
-```cpp
-// Приклад на C++20 з використанням std::span
-#include <linux/tls.h>
-#include <cstring>
-#include <span>
-#include <system_error>
-
-void set_ktls_tx_keys(int sock_fd, 
-                      std::span<const uint8_t, 16> key,
-                      std::span<const uint8_t, 8> iv,
-                      std::span<const uint8_t, 4> salt,
-                      uint64_t seq_num) {
-    struct tls12_crypto_info_aes_gcm_128 info{};
-    info.info.version = TLS_1_2_VERSION;
-    info.info.cipher_type = TLS_CIPHER_AES_GCM_128;
-
-    std::memcpy(info.key, key.data(), key.size());
-    std::memcpy(info.iv, iv.data(), iv.size());
-    std::memcpy(info.salt, salt.data(), salt.size());
-    std::memcpy(info.rec_seq, &seq_num, sizeof(seq_num));
-
-    if (::setsockopt(sock_fd, SOL_TLS, TLS_TX, &info, sizeof(info)) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка передачі TLS_TX ключів");
-    }
-}
-```
+:::code ktls-hw-offload-and-enablement-d/c/krok-2-peredacha.c
+:::code ktls-hw-offload-and-enablement-d/cpp/krok-2-peredacha.cpp
 :::
 
 ### Крок 3. Обробка контрольних повідомлень через `cmsg`
@@ -328,60 +225,8 @@ void set_ktls_tx_keys(int sock_fd,
 Для цього використовується системний виклик `sendmsg()` із допоміжним блоком **`cmsg` (Control Message)**:
 
 :::tabs
-```c
-/* Приклад на C: Відправка TLS Alert (close_notify) */
-#include <sys/socket.h>
-#include <linux/tls.h>
-
-void send_tls_close_notify(int sock_fd) {
-    char alert_payload[2] = {1, 0}; /* close_notify alert */
-    struct iovec iov = { .iov_base = alert_payload, .iov_len = sizeof(alert_payload) };
-    
-    char cmsgbuf[CMSG_SPACE(sizeof(unsigned char))];
-    struct msghdr msg = {0};
-    msg.msg_iov = &iov;
-    msg.msg_iovlen = 1;
-    msg.msg_control = cmsgbuf;
-    msg.msg_controllen = sizeof(cmsgbuf);
-
-    struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-    cmsg->cmsg_level = SOL_TLS;
-    cmsg->cmsg_type = TLS_SET_RECORD_TYPE;
-    cmsg->cmsg_len = CMSG_LEN(sizeof(unsigned char));
-    *((unsigned char *)CMSG_DATA(cmsg)) = 21; /* Тип 21 = TLS Alert */
-
-    sendmsg(sock_fd, &msg, 0);
-}
-```
-```cpp
-// Приклад на C++20
-#include <sys/socket.h>
-#include <linux/tls.h>
-#include <array>
-#include <system_error>
-
-void send_tls_alert_cpp(int sock_fd, uint8_t alert_code) {
-    std::array<uint8_t, 2> payload{1, alert_code};
-    struct iovec iov{ .iov_base = payload.data(), .iov_len = payload.size() };
-
-    alignas(struct cmsghdr) std::array<char, CMSG_SPACE(sizeof(uint8_t))> cmsg_buffer{};
-    struct msghdr msg{};
-    msg.msg_iov = &iov;
-    msg.msg_iovlen = 1;
-    msg.msg_control = cmsg_buffer.data();
-    msg.msg_controllen = cmsg_buffer.size();
-
-    struct cmsghdr* cmsg = CMSG_FIRSTHDR(&msg);
-    cmsg->cmsg_level = SOL_TLS;
-    cmsg->cmsg_type = TLS_SET_RECORD_TYPE;
-    cmsg->cmsg_len = CMSG_LEN(sizeof(uint8_t));
-    *reinterpret_cast<uint8_t*>(CMSG_DATA(cmsg)) = 21; // TLS Alert record
-
-    if (::sendmsg(sock_fd, &msg, 0) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Не вдалося відправити TLS Alert cmsg");
-    }
-}
-```
+:::code ktls-hw-offload-and-enablement-d/c/krok-3-obrobka-kontrolnykh.c
+:::code ktls-hw-offload-and-enablement-d/cpp/krok-3-obrobka-kontrolnykh.cpp
 :::
 
 ---

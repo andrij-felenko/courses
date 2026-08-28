@@ -71,41 +71,7 @@ long bpf_perf_event_output(void *ctx, struct bpf_map *map, u64 flags, void *data
 
 **Приклад використання в eBPF коді (C):**
 
-```c
-#include <linux/bpf.h>
-#include <bpf/bpf_helpers.h>
-
-/* Визначення структури події */
-struct my_event_t {
-    __u32 pid;
-    __u64 timestamp;
-    char comm[16];
-};
-
-/* Оголошення PERF_EVENT_ARRAY карти */
-struct {
-    __uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
-    __uint(key_size, sizeof(__u32));
-    __uint(value_size, sizeof(__u32));
-} my_perf_map SEC(".maps");
-
-SEC("kprobe/sys_execve")
-int bpf_prog1(struct pt_regs *ctx)
-{
-    struct my_event_t event = {};
-
-    event.pid = bpf_get_current_pid_tgid() >> 32;
-    event.timestamp = bpf_ktime_get_ns();
-    bpf_get_current_comm(&event.comm, sizeof(event.comm));
-
-    /* Відправка події у userspace */
-    bpf_perf_event_output(ctx, &my_perf_map, BPF_F_CURRENT_CPU, &event, sizeof(event));
-
-    return 0;
-}
-
-char _license[] SEC("license") = "GPL";
-```
+:::code perf-event-array-setup-and-tuning-d/c/3-api-iadra-bpf-perf-event.c
 
 ### 3.1 Обмеження при записі
 Важливо пам'ятати про обмеження стеку в eBPF (лише 512 байт). Якщо ваша структура події дуже велика, ви не зможете виділити її на стеку. У таких випадках використовують **Per-CPU Array Maps** як тимчасовий "scratch buffer" (буфер-чернетку) для зберігання події перед її відправкою через `bpf_perf_event_output`.
@@ -122,59 +88,7 @@ char _license[] SEC("license") = "GPL";
 
 **Приклад обробки в userspace (C + libbpf):**
 
-```c
-#include <stdio.h>
-#include <bpf/libbpf.h>
-#include <bpf/bpf.h>
-
-/* Callback, який викликається при отриманні кожної події */
-void handle_event(void *ctx, int cpu, void *data, __u32 data_sz)
-{
-    struct my_event_t *e = data;
-    printf("CPU %d: PID %d, Comm: %s, Time: %llu\n", 
-           cpu, e->pid, e->comm, e->timestamp);
-}
-
-/* Callback для обробки втрачених подій (dropped events) */
-void handle_lost_events(void *ctx, int cpu, __u64 lost_cnt)
-{
-    fprintf(stderr, "Попередження: Втрачено %llu подій на CPU %d\n", lost_cnt, cpu);
-}
-
-int main(int argc, char **argv)
-{
-    struct bpf_object *obj;
-    struct perf_buffer *pb = NULL;
-    int map_fd, err;
-
-    /* ... Завантаження об'єкта bpf (bpf_object__open, bpf_object__load) ... */
-    
-    map_fd = bpf_object__find_map_fd_by_name(obj, "my_perf_map");
-
-    /* Налаштування perf buffer через libbpf */
-    pb = perf_buffer__new(map_fd, 8, /* 8 сторінок пам'яті на кожен CPU буфер */
-                          handle_event, handle_lost_events, NULL, NULL);
-    if (libbpf_get_error(pb)) {
-        fprintf(stderr, "Помилка ініціалізації perf buffer\n");
-        return 1;
-    }
-
-    printf("Початок трасування... Натисніть Ctrl-C для зупинки.\n");
-
-    /* Безкінечний цикл читання подій */
-    while (1) {
-        err = perf_buffer__poll(pb, 100 /* таймаут у мілісекундах */);
-        if (err < 0 && err != -EINTR) {
-            fprintf(stderr, "Помилка опитування perf buffer: %d\n", err);
-            break;
-        }
-    }
-
-    perf_buffer__free(pb);
-    /* ... Звільнення ресурсів ... */
-    return 0;
-}
-```
+:::code perf-event-array-setup-and-tuning-d/c/4-obrobka-podii-u.c
 
 У цьому прикладі `perf_buffer__new()` автоматично створює всі необхідні кільцеві буфери для кожного доступного процесора в системі і налаштовує `epoll`. Метод `perf_buffer__poll()` блокується (чекає), доки в буферах не з'являться нові події, і автоматично викликає ваш callback (`handle_event`).
 

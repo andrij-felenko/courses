@@ -32,46 +32,7 @@
 ### 1. Запис текстових рядків у інформаційний блок
 Спочатку ядро розміщує у найвищих адресах стека текстові рядки аргументів `argv`, рядки змінних середовища `envp`, абсолютний шлях до виконуваного файла для `AT_EXECFN`, рядок назви апаратної платформи для `AT_PLATFORM` та генерує 16-байтовий бінарний блок криптографічної ентропії для `AT_RANDOM`.
 
-```c
-/* Фрагмент концептуальної логіки fs/binfmt_elf.c у ядрі Linux */
-static int create_elf_tables(struct linux_binprm *bprm, const struct elfhdr *exec,
-                             unsigned long load_addr, unsigned long interp_load_addr)
-{
-    unsigned long p = bprm->p;
-    /* Копіювання 16 випадкових байтів для AT_RANDOM */
-    u8 k_rand[16];
-    get_random_bytes(k_rand, sizeof(k_rand));
-    p = copy_strings_kernel(1, &k_rand_ptr, p);
-    
-    /* Розрахунок кількості записів у допоміжному векторі */
-    struct elf_item auxv[AT_VECTOR_SIZE];
-    int ei = 0;
-
-    /* Заповнення обов'язкових векторів */
-    NEW_AUX_ENT(AT_HWCAP, ELF_HWCAP);
-    NEW_AUX_ENT(AT_PAGESZ, ELF_EXEC_PAGESIZE);
-    NEW_AUX_ENT(AT_CLKTCK, CLK_TCK);
-    NEW_AUX_ENT(AT_PHDR, load_addr + exec->e_phoff);
-    NEW_AUX_ENT(AT_PHENT, sizeof(struct elf_phdr));
-    NEW_AUX_ENT(AT_PHNUM, exec->e_phnum);
-    NEW_AUX_ENT(AT_BASE, interp_load_addr);
-    NEW_AUX_ENT(AT_FLAGS, 0);
-    NEW_AUX_ENT(AT_ENTRY, exec->e_entry);
-    NEW_AUX_ENT(AT_UID, from_kuid_munged(cred->user_ns, cred->uid));
-    NEW_AUX_ENT(AT_EUID, from_kuid_munged(cred->user_ns, cred->euid));
-    NEW_AUX_ENT(AT_GID, from_kgid_munged(cred->user_ns, cred->gid));
-    NEW_AUX_ENT(AT_EGID, from_kgid_munged(cred->user_ns, cred->egid));
-    NEW_AUX_ENT(AT_SECURE, bprm->secureexec);
-    NEW_AUX_ENT(AT_RANDOM, rand_user_addr);
-    NEW_AUX_ENT(AT_EXECFN, execfn_user_addr);
-    
-    if (vdso_enabled) {
-        NEW_AUX_ENT(AT_SYSINFO_EHDR, vdso_addr);
-    }
-
-    NEW_AUX_ENT(AT_NULL, 0); /* Термінатор вектора */
-}
-```
+:::code auxiliary-vector-d/c/binfmt_elf.c
 
 ### 2. Точний розрахунок зсуву та вирівнювання стека
 Отримавши всі вектори, ядро обчислює точний розмір усього блок-фрейму стека за формулою:
@@ -255,71 +216,8 @@ bprm->secureexec = (bprm->cred->euid != bprm->cred->uid) ||
 Системна бібліотека glibc надає стандартну функцію `getauxval()`, оголошену у заголовковому файлі `<sys/auxv.h>`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/auxv.h>
-#include <errno.h>
-
-void print_system_auxv_info(void) {
-    /* Отримання розміру сторінки віртуальної пам'яті */
-    unsigned long page_size = getauxval(AT_PAGESZ);
-    
-    /* Отримання адреси відображення vDSO */
-    unsigned long vdso_addr = getauxval(AT_SYSINFO_EHDR);
-    
-    /* Отримання вказівника на криптографічну ентропію */
-    const unsigned char *random_bytes = (const unsigned char *)getauxval(AT_RANDOM);
-
-    printf("Розмір системної сторінки: %lu байтів\n", page_size);
-    printf("Віртуальна адреса vDSO:    0x%lx\n", vdso_addr);
-
-    if (random_bytes) {
-        printf("Випадкові байти (AT_RANDOM): ");
-        for (int i = 0; i < 16; i++) {
-            printf("%02x ", random_bytes[i]);
-        }
-        printf("\n");
-    }
-}
-
-int main(void) {
-    print_system_auxv_info();
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <span>
-#include <sys/auxv.h>
-
-class AuxvInspector {
-public:
-    static void print_info() {
-        const unsigned long page_size = ::getauxval(AT_PAGESZ);
-        const unsigned long vdso_addr = ::getauxval(AT_SYSINFO_EHDR);
-        const auto* random_bytes = reinterpret_cast<const std::uint8_t*>(::getauxval(AT_RANDOM));
-
-        std::cout << "Розмір системної сторінки: " << page_size << " байтів\n"
-                  << "Віртуальна адреса vDSO:    0x" << std::hex << vdso_addr << std::dec << "\n";
-
-        if (random_bytes) {
-            std::cout << "Випадкові байти (AT_RANDOM): ";
-            for (std::size_t i = 0; i < 16; ++i) {
-                std::cout << std::hex << std::setw(2) << std::setfill('0') 
-                          << static_cast<int>(random_bytes[i]) << " ";
-            }
-            std::cout << std::dec << "\n";
-        }
-    }
-};
-
-int main() {
-    AuxvInspector::print_info();
-    return 0;
-}
-```
+:::code auxiliary-vector-d/c/1-vykorystannia-systemnoi.c
+:::code auxiliary-vector-d/cpp/main.cpp
 :::
 
 Важливо підкреслити: функція `getauxval()` **не робить жодного системного виклику**. Під час старту процесу glibc зберігає вказівник на `auxv` у власній глобальній пам'яті. Виклик `getauxval()` являє собою швидкий пошук елемента в локальному масиві пам'яті з часовою складністю `O(N)`, де `N` не перевищує 30–40 елементів.

@@ -48,59 +48,15 @@
 Так і зроблено. Виклик `userfaultfd` (від англ. *user fault file descriptor* — «дескриптор збоїв для простору користувача») створює порожній об'єкт і повертає дескриптор. Далі програма домовляється з ядром про версію протоколу й потрібні можливості, а тоді **реєструє** діапазон адрес — каже, які саме збої в яких саме адресах вона хоче забирати собі.
 
 :::tabs
-```c
-int uffd = syscall(SYS_userfaultfd, O_CLOEXEC | O_NONBLOCK);
-
-struct uffdio_api api = { .api = UFFD_API, .features = 0 };
-ioctl(uffd, UFFDIO_API, &api);        /* api.features ← що вміє це ядро */
-
-struct uffdio_register reg = {
-    .range = { .start = (unsigned long)area, .len = length },
-    .mode  = UFFDIO_REGISTER_MODE_MISSING,
-};
-ioctl(uffd, UFFDIO_REGISTER, &reg);   /* reg.ioctls ← що дозволено цій ділянці */
-```
-```cpp
-int uffd = ::syscall(SYS_userfaultfd, O_CLOEXEC | O_NONBLOCK);
-
-::uffdio_api api{.api = UFFD_API, .features = 0};
-::ioctl(uffd, UFFDIO_API, &api);        // api.features ← що вміє це ядро
-
-::uffdio_register reg{
-    .range = {.start = reinterpret_cast<std::uintptr_t>(area), .len = length},
-    .mode  = UFFDIO_REGISTER_MODE_MISSING,
-};
-::ioctl(uffd, UFFDIO_REGISTER, &reg);   // reg.ioctls ← що дозволено цій ділянці
-```
+:::code userfaultfd-d/c/zbii-iak-povidomlennia-v.c
+:::code userfaultfd-d/cpp/zbii-iak-povidomlennia-v.cpp
 :::
 
 Від цієї миті збій усередині `area` не йде звичайним шляхом. Ядро не підставляє нульову сторінку й не читає нічого з диска: воно кладе опис збою — адресу й ознаки, читання це чи запис, — у чергу дескриптора, а задачу-винуватця вкладає спати. Дескриптор стає читабельним, і потік-наглядач (у документації ядра — *manager*), що чекав на ньому, прокидається й забирає повідомлення звичайним `read`.
 
 :::tabs
-```c
-struct uffd_msg msg;
-read(uffd, &msg, sizeof msg);              /* після poll(): дескриптор читабельний */
-
-unsigned long page = msg.arg.pagefault.address & ~(pagesize - 1);
-fetch_page(page, buf);                     /* мережа, файл, генератор — байдуже ядру */
-
-struct uffdio_copy copy = {
-    .dst = page, .src = (unsigned long)buf, .len = pagesize, .mode = 0,
-};
-ioctl(uffd, UFFDIO_COPY, &copy);           /* сторінка є — винуватець прокинувся */
-```
-```cpp
-::uffd_msg msg{};
-::read(uffd, &msg, sizeof(msg));           // після poll(): дескриптор читабельний
-
-auto page = msg.arg.pagefault.address & ~(pagesize - 1);
-fetch_page(page, buf);                     // мережа, файл, генератор — байдуже ядру
-
-::uffdio_copy copy{
-    .dst = page, .src = reinterpret_cast<std::uintptr_t>(buf.data()), .len = pagesize, .mode = 0,
-};
-::ioctl(uffd, UFFDIO_COPY, &copy);           // сторінка є — винуватець прокинувся
-```
+:::code userfaultfd-d/c/zbii-iak-povidomlennia-v-2.c
+:::code userfaultfd-d/cpp/zbii-iak-povidomlennia-v-2.cpp
 :::
 
 Коло замкнулося: інструкція, спинена посеред виконання, виконується наново й цього разу знаходить те, що шукала. Повний робочий приклад — від створення ділянки до коректного завершення наглядача — розібрано окремо: [ділянка, яку заповнює сама програма](root:sys-unix/userfaultfd/proj-uffd-lazy-region.md); там же й помилки, на яких така програма звичайно ламається.

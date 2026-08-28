@@ -40,33 +40,8 @@ extern "C" int fcntl(int fd, int cmd, ...);
 - `EMFILE`: досягнуто ліміту відкритості файлів для поточного процесу (`RLIMIT_NOFILE`).
 
 :::tabs
-```c
-#include <fcntl.h>
-#include <unistd.h>
-
-/* Безпечне встановлення прапорця FD_CLOEXEC через fcntl */
-int enable_fd_cloexec(int fd) {
-    int flags = fcntl(fd, F_GETFD);
-    if (flags == -1)
-        return -1;
-    return fcntl(fd, F_SETFD, flags | FD_CLOEXEC);
-}
-```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <system_error>
-
-void enable_fd_cloexec(int fd) {
-    const int flags = ::fcntl(fd, F_GETFD);
-    if (flags == -1) {
-        throw std::system_error(errno, std::generic_category(), "fcntl(F_GETFD) failed");
-    }
-    if (::fcntl(fd, F_SETFD, flags | FD_CLOEXEC) == -1) {
-        throw std::system_error(errno, std::generic_category(), "fcntl(F_SETFD) failed");
-    }
-}
-```
+:::code api-cloexec-interfaces/c/kody-pomylok-errno.c
+:::code api-cloexec-interfaces/cpp/kody-pomylok-errno.cpp
 :::
 
 ---
@@ -90,18 +65,7 @@ int open_readonly_cloexec(const char *path) {
     return open(path, O_RDONLY | O_CLOEXEC);
 }
 ```
-```cpp
-#include <fcntl.h>
-#include <system_error>
-
-int open_readonly_cloexec(const char* path) {
-    int fd = ::open(path, O_RDONLY | O_CLOEXEC);
-    if (fd == -1) {
-        throw std::system_error(errno, std::generic_category(), "open failed");
-    }
-    return fd;
-}
-```
+:::code api-cloexec-interfaces/cpp/open-openat-openat2.cpp
 :::
 
 #### dup3
@@ -118,20 +82,7 @@ int duplicate_with_cloexec(int src_fd, int target_fd) {
     return dup3(src_fd, target_fd, O_CLOEXEC);
 }
 ```
-```cpp
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <fcntl.h>
-#include <system_error>
-
-int duplicate_with_cloexec(int src_fd, int target_fd) {
-    int res = ::dup3(src_fd, target_fd, O_CLOEXEC);
-    if (res == -1) {
-        throw std::system_error(errno, std::generic_category(), "dup3 failed");
-    }
-    return res;
-}
-```
+:::code api-cloexec-interfaces/cpp/dup3.cpp
 :::
 
 ---
@@ -152,21 +103,7 @@ int make_cloexec_pipe(int fds[2]) {
     return pipe2(fds, O_CLOEXEC | O_NONBLOCK);
 }
 ```
-```cpp
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <fcntl.h>
-#include <array>
-#include <system_error>
-
-std::array<int, 2> make_cloexec_pipe() {
-    std::array<int, 2> fds{-1, -1};
-    if (::pipe2(fds.data(), O_CLOEXEC | O_NONBLOCK) == -1) {
-        throw std::system_error(errno, std::generic_category(), "pipe2 failed");
-    }
-    return fds;
-}
-```
+:::code api-cloexec-interfaces/cpp/pipe2.cpp
 :::
 
 #### socket та socketpair
@@ -178,52 +115,8 @@ std::array<int, 2> make_cloexec_pipe() {
 - **Опис дії:** вилучає перше підключення з черги очікування слухаючого сокета `sockfd` і створює новий підключений сокет з прапорцем `FD_CLOEXEC`. Це критично важливо для уникнення витоку клієнтських сокетів у паралельні процеси під час виклику `fork`.
 
 :::tabs
-```c
-#include <sys/socket.h>
-#include <netinet/in.h>
-
-int create_bound_server_socket(int port) {
-    int fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
-    if (fd == -1)
-        return -1;
-
-    struct sockaddr_in addr = {
-        .sin_family = AF_INET,
-        .sin_port = htons(port),
-        .sin_addr.s_addr = INADDR_ANY
-    };
-
-    if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) == -1) {
-        close(fd);
-        return -1;
-    }
-    return fd;
-}
-```
-```cpp
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <system_error>
-#include <unistd.h>
-
-int create_bound_server_socket(int port) {
-    int fd = ::socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
-    if (fd == -1) {
-        throw std::system_error(errno, std::generic_category(), "socket creation failed");
-    }
-
-    sockaddr_in addr{};
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(port);
-    addr.sin_addr.s_addr = INADDR_ANY;
-
-    if (::bind(fd, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == -1) {
-        ::close(fd);
-        throw std::system_error(errno, std::generic_category(), "bind failed");
-    }
-    return fd;
-}
-```
+:::code api-cloexec-interfaces/c/accept4.c
+:::code api-cloexec-interfaces/cpp/accept4.cpp
 :::
 
 ---
@@ -242,49 +135,8 @@ int create_bound_server_socket(int port) {
 - **`pidfd_open(pid_t pid, unsigned int flags)`:** створює дескриптор відстеження життєвого циклу процесу за його PID. Дескриптор завжди створюється з прапорцем `O_CLOEXEC`. Доступний з Linux 5.3.
 
 :::tabs
-```c
-#include <sys/epoll.h>
-#include <sys/eventfd.h>
-#include <unistd.h>
-
-int init_event_subsystem(int *epoll_out, int *event_out) {
-    int epfd = epoll_create1(EPOLL_CLOEXEC);
-    if (epfd == -1)
-        return -1;
-
-    int evfd = eventfd(0, EFD_CLOEXEC | EFD_NONBLOCK);
-    if (evfd == -1) {
-        close(epfd);
-        return -1;
-    }
-
-    *epoll_out = epfd;
-    *event_out = evfd;
-    return 0;
-}
-```
-```cpp
-#include <sys/epoll.h>
-#include <sys/eventfd.h>
-#include <unistd.h>
-#include <system_error>
-#include <utility>
-
-std::pair<int, int> init_event_subsystem() {
-    int epfd = ::epoll_create1(EPOLL_CLOEXEC);
-    if (epfd == -1) {
-        throw std::system_error(errno, std::generic_category(), "epoll_create1 failed");
-    }
-
-    int evfd = ::eventfd(0, EFD_CLOEXEC | EFD_NONBLOCK);
-    if (evfd == -1) {
-        ::close(epfd);
-        throw std::system_error(errno, std::generic_category(), "eventfd failed");
-    }
-
-    return {epfd, evfd};
-}
-```
+:::code api-cloexec-interfaces/c/prymityvy-iadra-linux-dlia.c
+:::code api-cloexec-interfaces/cpp/prymityvy-iadra-linux-dlia.cpp
 :::
 
 ---
@@ -322,42 +174,8 @@ extern "C" int close_range(unsigned int first, unsigned int last, unsigned int f
 ### Практичне застосування close_range
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <linux/close_range.h>
-#include <sys/syscall.h>
-
-/* Очищення всіх зайвих дескрипторів перед викликом execve */
-int sanitize_fds_before_exec(void) {
-    /* Закриваємо все, крім stdin (0), stdout (1) та stderr (2) */
-    return syscall(SYS_close_range, 3, ~0U, 0);
-}
-
-/* Встановлення прапорця CLOEXEC на всі успадковані дескриптори */
-int mark_all_fds_cloexec(void) {
-    return syscall(SYS_close_range, 3, ~0U, CLOSE_RANGE_CLOEXEC);
-}
-```
-```cpp
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <linux/close_range.h>
-#include <sys/syscall.h>
-#include <system_error>
-
-void sanitize_fds_before_exec() {
-    if (::syscall(SYS_close_range, 3, ~0U, 0) == -1) {
-        throw std::system_error(errno, std::generic_category(), "close_range failed");
-    }
-}
-
-void mark_all_fds_cloexec() {
-    if (::syscall(SYS_close_range, 3, ~0U, CLOSE_RANGE_CLOEXEC) == -1) {
-        throw std::system_error(errno, std::generic_category(), "close_range(CLOSE_RANGE_CLOEXEC) failed");
-    }
-}
-```
+:::code api-cloexec-interfaces/c/praktychne-zastosuvannia.c
+:::code api-cloexec-interfaces/cpp/praktychne-zastosuvannia.cpp
 :::
 
 ---

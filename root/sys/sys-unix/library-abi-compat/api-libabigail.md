@@ -117,24 +117,6 @@ abipkgdiff --package1 libfoo-1.0-1.x86_64.rpm --package2 libfoo-1.1-1.x86_64.rpm
 
 Нижче наведено практичний приклад кроку CI для автоматичної перевірки збереження сумісності динамічної бібліотеки при створенні пулл-реквесту:
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# 1. Збирання поточного коду з прапорцями DWARF
-gcc -g -O2 -shared -fPIC -Wl,-soname,libtarget.so.1 -o build_new/libtarget.so src/*.c
-
-# 2. Витягування еталонного зліпку ABI з репозиторію
-ABIDIFF_SUPPR="config/abi-suppressions.suppr"
-REFERENCE_ABI="config/reference-abi-1.0.xml"
-
-# 3. Виконання перевірки abidiff
-if ! abidiff --suppressions "${ABIDIFF_SUPPR}" "${REFERENCE_ABI}" build_new/libtarget.so; then
-    echo "ERROR: ABI break detected! Please review structural changes or update SONAME version."
-    exit 1
-fi
-
-echo "SUCCESS: ABI compatibility confirmed."
-```
+:::code api-libabigail/sh/main.sh
 
 Використання XML-файлів пригнічення у поєднанні з автоматизованими скриптами CI/CD дозволяє розробникам системних бібліотек розділити критичні небажані порушення ABI від свідомих та узгоджених етапів еволюції програмного інтерфейсу.

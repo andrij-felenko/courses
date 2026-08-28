@@ -22,28 +22,7 @@ int execvp(const char *file, char *const argv[]);
 /* Розширення GNU/BSD: здійснює пошук у PATH, але передає явне середовище envp */
 int execvpe(const char *file, char *const argv[], char *const envp[]);
 ```
-```cpp
-#include <unistd.h>
-#include <vector>
-#include <string>
-#include <system_error>
-#include <cerrno>
-
-// Обгортка C++20 для безпечного виклику execvp з використанням RAII-контейнерів
-[[noreturn]] void execute_in_path(const std::string& filename, const std::vector<std::string>& args) {
-    std::vector<char*> c_argv;
-    c_argv.reserve(args.size() + 1);
-    for (const auto& arg : args) {
-        c_argv.push_back(const_cast<char*>(arg.c_str()));
-    }
-    c_argv.push_back(nullptr);
-
-    ::execvp(filename.c_str(), c_argv.data());
-
-    // Якщо execvp повернув управління, виникла помилка
-    throw std::system_error(errno, std::generic_category(), "execvp failed for " + filename);
-}
-```
+:::code api-path-lookup-and-exec/cpp/1-1-funktsii-execvp-3-ta.cpp
 :::
 
 #### Повна детективна поведінка та алгоритм обробки помилок у `execvp`
@@ -83,21 +62,7 @@ int is_executable(const char *path) {
     return faccessat(AT_FDCWD, path, X_OK, AT_EACCESS) == 0;
 }
 ```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <filesystem>
-
-// Перевірка виконання засобами C++17 std::filesystem та POSIX access
-bool is_executable(const std::filesystem::path& path) {
-    std::error_code ec;
-    auto status = std::filesystem::status(path, ec);
-    if (ec || !std::filesystem::is_regular_file(status)) {
-        return false;
-    }
-    return ::faccessat(AT_FDCWD, path.c_str(), X_OK, AT_EACCESS) == 0;
-}
-```
+:::code api-path-lookup-and-exec/cpp/1-2-perevirka-dostupnosti.cpp
 :::
 
 #### Проблема безпеки TOCTOU (Time-Of-Check to Time-Of-Use)
@@ -116,40 +81,8 @@ bool is_executable(const std::filesystem::path& path) {
 У сучасних системах Linux (починаючи з ядра 2.6.27 та glibc 2.11) доступний системний виклик `fexecve()`, який повністю усуває гонку станів TOCTOU:
 
 :::tabs
-```c
-#include <unistd.h>
-#include <fcntl.h>
-
-int execute_via_fd(const char *path, char *const argv[], char *const envp[]) {
-    // Відкриваємо файл лише для читання з прапорцем O_CLOEXEC
-    int fd = open(path, O_RDONLY | O_CLOEXEC);
-    if (fd < 0) {
-        return -1;
-    }
-    // Запускаємо файл безпосередньо через дескриптор
-    return fexecve(fd, argv, envp);
-}
-```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <filesystem>
-#include <system_error>
-
-void execute_via_fd(const std::filesystem::path& path, const std::vector<std::string>& args) {
-    int fd = ::open(path.c_str(), O_RDONLY | O_CLOEXEC);
-    if (fd < 0) {
-        throw std::system_error(errno, std::generic_category(), "open failed for " + path.string());
-    }
-    std::vector<char*> c_argv;
-    for (const auto& a : args) c_argv.push_back(const_cast<char*>(a.c_str()));
-    c_argv.push_back(nullptr);
-
-    ::fexecve(fd, c_argv.data(), environ);
-    ::close(fd);
-    throw std::system_error(errno, std::generic_category(), "fexecve failed");
-}
-```
+:::code api-path-lookup-and-exec/c/main.c
+:::code api-path-lookup-and-exec/cpp/1-3-vykonannia-failu-z.cpp
 :::
 
 Виклик `fexecve()` використовує файлову систему `procfs` (вказуючи на `/proc/self/fd/N`), що гарантує виконання саме того файлу, який було відкрито в момент виклику `open()`.
@@ -177,37 +110,7 @@ void execute_via_fd(const std::filesystem::path& path, const std::vector<std::st
 
 Для визначення того, як саме оболонка буде інтерпретувати введений рядок, використовуються наступні інструменти:
 
-```bash
-# 1. type — внутрішній аналізатор Bash (показує alias, builtin, function чи file)
-$ type ls
-ls is aliased to `ls --color=auto'
-
-$ type cd
-cd is a shell builtin
-
-$ type grep
-grep is hashed (/usr/bin/grep)
-
-# 2. type -a — виводить УСІ можливі збіги в PATH, аліасах та вбудованих елементах
-$ type -a echo
-echo is a shell builtin
-echo is /usr/bin/echo
-
-# 3. command -v — стандартний POSIX-спосіб визначення типу команди (для використання у скриптах)
-$ command -v git
-/usr/bin/git
-
-# 4. builtin — виклики команди, ігноруючи однойменні функції або псевдоніми
-$ builtin cd /tmp
-
-# 5. which — зовнішня утиліта (або builtin у zsh), яка шукає виключно у PATH
-$ which grep
-/usr/bin/grep
-
-# 6. whereis — шукає бінарники, вихідні коди та man-сторінки у системних каталогах
-$ whereis ls
-ls: /usr/bin/ls /usr/share/man/man1/ls.1.gz
-```
+:::code api-path-lookup-and-exec/sh/main.sh
 
 ---
 

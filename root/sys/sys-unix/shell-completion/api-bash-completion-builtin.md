@@ -84,30 +84,7 @@ compgen [-abcdefgjksuv] [-o comp-option] [-A action] [-G globpat]
 
 ### Практичні сценарії фільтрації compgen
 
-```bash
-# Фільтрація по списку слів за префіксом "st"
-compgen -W "start status stop restart reload" -- "st"
-# Вивід:
-# start
-# status
-# stop
-
-# Пошук активних користувачів на літеру "r"
-compgen -u -- "r"
-# Вивід:
-# root
-# rpc
-
-# Пошук змінних оточення, що починаються з "LC_"
-compgen -v -- "LC_"
-# Вивід:
-# LC_ALL
-# LC_CTYPE
-# LC_MESSAGES
-
-# Доповнення файлів з фільтрацією виключень: залишаємо лише файли C/C++
-compgen -f -X '!*.@(c|cpp|cc|h|hpp)' -- "src/m"
-```
+:::code api-bash-completion-builtin/sh/praktychni-stsenarii.sh
 
 ## 3. Команда динамічного налаштування compopt
 
@@ -126,20 +103,7 @@ compopt [-o comp-option] [+o comp-option] [-D] [-E] [-I] [name ...]
 
 Під час написання комплішена для прапорців виду `--key=value` поведінка має змінюватися залежно від того, з якого боку від знака `=` знаходиться курсор:
 
-```bash
-_custom_kv_complete() {
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-    if [[ "$cur" == *=* ]]; then
-        # Праворуч від '=': доповнюємо шляхи до файлів, блокуємо зайвий пропуск
-        compopt -o filenames -o nospace
-        COMPREPLY=( $(compgen -f -- "${cur#*=}") )
-    else
-        # Ліворуч від '=': пропонуємо назви ключів із додаванням знака '='
-        compopt -o nospace
-        COMPREPLY=( $(compgen -W "host= port= timeout= cert=" -- "$cur") )
-    fi
-}
-```
+:::code api-bash-completion-builtin/sh/pryklad-kontekstnoho.sh
 
 ## 4. Контекстні змінні середовища оболонки
 
@@ -184,23 +148,7 @@ _custom_kv_complete() {
 Ініціалізує стандартизовані змінні `cur` (поточне слово), `prev` (попереднє слово), `words` (масив слів без хибного розбиття двокрапками) та `cword` (індекс поточного слова).
 Прапорець `-n exclude_chars` вказує, які символи слід ігнорувати як роздільники слів під час формування контексту. Прапорець `-s` вмикає спрощений режим для команд із короткими однолітерними прапорцями.
 
-```bash
-_mytool() {
-    local cur prev words cword
-    _init_completion -n ":=" || return
-
-    case "$prev" in
-        --config)
-            _filedir "yaml|json"
-            return
-            ;;
-        --port)
-            COMPREPLY=( $(compgen -W "80 443 8080 8443" -- "$cur") )
-            return
-            ;;
-    esac
-}
-```
+:::code api-bash-completion-builtin/sh/init-completion-n-exclude.sh
 
 ### `_get_comp_words_by_ref [-n exclude_chars] [-c cur] [-p prev] [-w words] [-i cword]`
 
@@ -220,19 +168,6 @@ _mytool() {
 
 Для безпечного налагодження та трасування стану змінних застосовують перенаправлення діагностичних повідомлень в окремий файл або сусідній термінал TTY:
 
-```bash
-_debug_completion() {
-    local log_file="/tmp/bash_completion_debug.log"
-    {
-        echo "=== $(date) ==="
-        echo "COMP_LINE:  '$COMP_LINE'"
-        echo "COMP_POINT: $COMP_POINT"
-        echo "COMP_CWORD: $COMP_CWORD"
-        echo "COMP_WORDS: ${COMP_WORDS[*]}"
-        echo "cur:        '$cur'"
-        echo "prev:       '$prev'"
-    } >> "$log_file"
-}
-```
+:::code api-bash-completion-builtin/sh/6-nalahodzhennia-funktsii.sh
 
 Іншим ефективним методом є тимчасова інспекція зареєстрованих обробників через `complete -p <command>`, що дозволяє перевірити, чи правильний скрипт було завантажено динамічним завантажувачем.

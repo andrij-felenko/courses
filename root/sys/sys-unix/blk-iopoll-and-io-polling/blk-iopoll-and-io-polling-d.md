@@ -150,34 +150,8 @@ Hybrid Polling (Економія CPU):
 Для синхронних операцій вводу-виводу використовується системний виклик `preadv2()` з прапорцем `RWF_HIPRI` (High Priority).
 
 :::tabs
-```c
-#include <sys/uio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <linux/fs.h>   /* RWF_HIPRI */
-
-int fd = open("/dev/nvme0n1", O_RDONLY | O_DIRECT);
-struct iovec iov = { .iov_base = buf, .iov_len = 4096 };
-
-/* Системний виклик блокує потік, виконуючи spin loop у ядрі */
-ssize_t nread = preadv2(fd, &iov, 1, offset, RWF_HIPRI);
-```
-```cpp
-#include <sys/uio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <span>
-#include <system_error>
-#include <linux/fs.h>   // RWF_HIPRI
-
-int fd = ::open("/dev/nvme0n1", O_RDONLY | O_DIRECT);
-struct iovec iov { .iov_base = buf, .iov_len = 4096 };
-
-ssize_t nread = ::preadv2(fd, &iov, 1, offset, RWF_HIPRI);
-if (nread < 0) {
-    throw std::system_error(errno, std::generic_category(), "Помилка preadv2 HIPRI");
-}
-```
+:::code blk-iopoll-and-io-polling-d/c/uio.h
+:::code blk-iopoll-and-io-polling-d/cpp/1-synkhronnyi-interfeis.cpp
 :::
 
 Виклик `preadv2()` із прапорцем `RWF_HIPRI` переводить поточний системний виклик у режим внутрішнього опитування `blk_poll()`. Метод підходить для однопотокових систем із критичними вимогами до затримки поодиноких запитів, проте обмежений синхронною природою системного виклику.
@@ -187,38 +161,8 @@ if (nread < 0) {
 Найбільш потужним інтерфейсом для IO polling є `io_uring`. Під час ініціалізації кільця передається прапорець `IORING_SETUP_IOPOLL`.
 
 :::tabs
-```c
-#include <liburing.h>
-
-struct io_uring ring;
-/* Ініціалізація кільця io_uring з підтримкою IO Polling */
-int ret = io_uring_queue_init(128, &ring, IORING_SETUP_IOPOLL);
-
-struct io_uring_sqe *sqe = io_uring_get_sqe(&ring);
-io_uring_prep_read(sqe, fd, buf, 4096, offset);
-io_uring_submit(&ring);
-
-struct io_uring_cqe *cqe;
-/* При виклику enter ядро виконує polling у контексті потоку */
-io_uring_wait_cqe(&ring, &cqe);
-io_uring_cqe_seen(&ring, cqe);
-```
-```cpp
-#include <liburing.h>
-#include <stdexcept>
-
-class IoUringAsyncPoller {
-    struct io_uring ring_{};
-public:
-    explicit IoUringAsyncPoller(unsigned entries) {
-        if (int ret = io_uring_queue_init(entries, &ring_, IORING_SETUP_IOPOLL); ret < 0) {
-            throw std::runtime_error("Не вдалося ініціалізувати io_uring IOPOLL");
-        }
-    }
-    ~IoUringAsyncPoller() { io_uring_queue_exit(&ring_); }
-    struct io_uring* get() noexcept { return &ring_; }
-};
-```
+:::code blk-iopoll-and-io-polling-d/c/liburing.h
+:::code blk-iopoll-and-io-polling-d/cpp/2-asynkhronnyi-interfeis.cpp
 :::
 
 При використанні `IORING_SETUP_IOPOLL` подання запитів (submit) залишається асинхронним і не блокує потік. Активне опитування черг викликом `blk_poll()` виконується в ядрі тоді, коли застосунок запитує події завершення через системний виклик `io_uring_enter()` з прапорцем `IORING_ENTER_GETEVENTS` або через бібліотечну функцію `io_uring_wait_cqe()`.

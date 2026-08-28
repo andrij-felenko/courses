@@ -138,75 +138,15 @@
 
 Зберімо все докупи. Мова тут не вибирається: регістри, ширина доступу й бар'єри — це рівень, де живе тільки C.
 
-```c
-#define REG_ID          0x000   /* лише читання: сигнатура блока */
-#define REG_IRQ_CAUSE   0x00c   /* запис одиниці скидає біт */
-#define REG_TXDESC_LO   0x010
-#define REG_TXDESC_HI   0x014
-#define REG_TX_KICK     0x018
-
-struct myeth {
-        void __iomem *regs;
-        struct device *dev;
-};
-
-static int myeth_probe(struct platform_device *pdev)
-{
-        struct myeth *priv;
-
-        priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-        if (!priv)
-                return -ENOMEM;
-        priv->dev = &pdev->dev;
-
-        /* займає діапазон у /proc/iomem, відображає його
-           й вішає звільнення на знищення пристрою */
-        priv->regs = devm_platform_ioremap_resource(pdev, 0);
-        if (IS_ERR(priv->regs))
-                return PTR_ERR(priv->regs);
-
-        if (readl(priv->regs + REG_ID) != 0x4d594554)
-                return dev_err_probe(&pdev->dev, -ENODEV,
-                                     "за цією адресою не наш блок\n");
-
-        platform_set_drvdata(pdev, priv);
-        return 0;
-}
-```
+:::code mmio-and-ioremap-d/c/iak-tse-vyhliadaie-v.c
 
 Передача — той самий порядок «спершу дескриптор, потім дзвінок», де бар'єр не пишеться вручну, бо його вже несе перший `writel`:
 
-```c
-static void myeth_kick(struct myeth *priv, struct tx_desc *desc,
-                       dma_addr_t desc_dma, dma_addr_t buf_dma, u32 len)
-{
-        desc->addr  = cpu_to_le64(buf_dma);
-        desc->len   = cpu_to_le32(len);
-        desc->flags = cpu_to_le32(DESC_OWN);   /* прапорець власності — останнім */
-
-        writel(lower_32_bits(desc_dma), priv->regs + REG_TXDESC_LO);
-        writel(upper_32_bits(desc_dma), priv->regs + REG_TXDESC_HI);
-        writel(TX_KICK_GO, priv->regs + REG_TX_KICK);
-}
-```
+:::code mmio-and-ioremap-d/c/iak-tse-vyhliadaie-v-2.c
 
 Обробник переривання — з проштовхувальним читанням перед виходом:
 
-```c
-static irqreturn_t myeth_isr(int irq, void *data)
-{
-        struct myeth *priv = data;
-        u32 cause = readl(priv->regs + REG_IRQ_CAUSE);
-
-        if (cause == 0)
-                return IRQ_NONE;        /* не наше: лінія спільна */
-
-        writel(cause, priv->regs + REG_IRQ_CAUSE);
-        readl(priv->regs + REG_IRQ_CAUSE);      /* проштовхнути скидання */
-
-        return IRQ_HANDLED;
-}
-```
+:::code mmio-and-ioremap-d/c/iak-tse-vyhliadaie-v-3.c
 
 [Робочий модуль із цими трьома шматками](root:sys-unix/mmio-and-ioremap/proj-mmio-driver.md) — з дескрипторним кільцем, вимірюванням ціни бар'єрів і демонстрацією того, що ламається, коли їх прибрати, — окремою розробкою.
 

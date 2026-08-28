@@ -16,24 +16,7 @@
 
 ## Озброїти дескриптор, і в правильному порядку
 
-```c
-static int sig_ready;                 /* SIGRTMIN + 1, рахується в main */
-
-static void arm(int fd)
-{
-    struct f_owner_ex own = {
-        .type = F_OWNER_TID,
-        .pid  = (pid_t) syscall(SYS_gettid)
-    };
-
-    if (fcntl(fd, F_SETOWN_EX, &own) < 0) die("F_SETOWN_EX");
-    if (fcntl(fd, F_SETSIG, sig_ready) < 0) die("F_SETSIG");
-
-    int fl = fcntl(fd, F_GETFL, 0);                       /* забрати старі прапорці */
-    if (fl < 0 || fcntl(fd, F_SETFL, fl | O_ASYNC | O_NONBLOCK) < 0)
-        die("F_SETFL");
-}
-```
+:::code proj-signal-driven-echo/c/ozbroity-deskryptor-i-v.c
 
 Три виклики стоять саме в цьому порядку, і жоден не можна пересунути. `O_ASYNC` останній, бо він відмикає кран: доки прапорця немає, події не породжують сигналів, а щойно він з'явився — усе решта вже має бути на місці. Постав його першим, і подія, що трапиться до `F_SETSIG`, приїде звичайним `SIGIO` без `si_fd`, тобто без адреси.
 
@@ -43,105 +26,19 @@ static void arm(int fd)
 
 Тут ховається найприємніша риса механізму. Поле `si_band`, яке приносить реальночасовий сигнал, закодовано **тими самими бітами**, що й `revents` у [poll](root:sys-unix/select-poll-epoll): `POLLIN`, `POLLHUP`, `POLLERR`. Отже, функція, що розбирає подію, однакова для швидкого й запасного шляхів — писати вдвічі доводиться цикл очікування, а не обробку.
 
-```c
-static void handle(int fd, int band)
-{
-    if (fd == listen_fd) { if (band & POLLIN) accept_all(); return; }
-    if (!live[fd]) return;                         /* стале si_fd — вже закрили */
-
-    if (band & POLLIN) {
-        char buf[16384];
-        for (;;) {
-            ssize_t n = read(fd, buf, sizeof buf);
-            if (n > 0)             { echo(fd, buf, (size_t) n); continue; }
-            if (n == 0)            { drop(fd); return; }   /* закрив другий бік */
-            if (errno == EINTR)      continue;
-            if (errno == EAGAIN)     break;                /* буфер порожній */
-            drop(fd); return;
-        }
-    }
-    if (band & (POLLHUP | POLLERR)) drop(fd);
-}
-
-static void accept_all(void)
-{
-    for (;;) {
-        int fd = accept4(listen_fd, NULL, NULL, SOCK_NONBLOCK);
-        if (fd < 0) { if (errno == EINTR) continue; return; }   /* EAGAIN — усе */
-        if (fd >= MAXFD) { close(fd); continue; }
-
-        live[fd] = 1; nlive++;
-        arm(fd);
-        handle(fd, POLLIN);        /* дані могли прийти до озброєння */
-    }
-}
-```
+:::code proj-signal-driven-echo/c/odyn-obrobnyk-na-dva.c
 
 Цикл `read` до `EAGAIN` — не оптимізація, а умова коректности: сигнал народжується на переході, і байти, які ми не забрали зараз, не покличуть нас удруге.
 
 ## Цикл: чекати сигнал і не мати обробника
 
-```c
-int main(void)
-{
-    sig_ready = SIGRTMIN + 1;
-
-    sigset_t set;
-    sigemptyset(&set);
-    sigaddset(&set, sig_ready);
-    sigaddset(&set, SIGIO);
-    /* Блокувати в КОЖНОМУ потоці й до створення потоків: адресний сигнал
-       прийде своєму потокові, а безадресний SIGIO — процесові, тобто
-       будь-кому, хто його не заблокував. Типова дія SIGIO — завершити процес. */
-    if (pthread_sigmask(SIG_BLOCK, &set, NULL) != 0) die("pthread_sigmask");
-
-    listen_fd = make_listener(9000);
-    arm(listen_fd);
-    handle(listen_fd, POLLIN);
-
-    const struct timespec now = { 0, 0 };          /* нульовий час — опитати чергу */
-
-    for (;;) {
-        siginfo_t si;
-        if (sigwaitinfo(&set, &si) < 0) {
-            if (errno == EINTR) continue;
-            die("sigwaitinfo");
-        }
-
-        if (si.si_signo == sig_ready) {            /* швидкий шлях */
-            ev_fast++;
-            handle(si.si_fd, (int) si.si_band);
-            continue;
-        }
-
-        /* SIGIO без адреси: черга не витримала, частину подій утрачено. */
-        ev_rescan++;
-        while (sigtimedwait(&set, &si, &now) > 0)
-            ;                     /* викинути залишок черги — обхід покриє все */
-        rescan();
-    }
-}
-```
+:::code proj-signal-driven-echo/c/tsykl-chekaty-syhnal-i-ne.c
 
 Вичерпати чергу перед обходом — не дрібниця. `poll` дивиться на **стан**, а не на переходи, тож після обходу всі накопичені сигнали вже нічого не додають; лишивши їх, служба витратить наступні тисячі пробуджень на події, які щойно обробила. `sigtimedwait` із нульовим часом якраз і працює як опитування черги: віддає те, що є, і повертає `EAGAIN`, коли черга порожня.
 
 Сам обхід — звичайний `poll` по всьому, що живе:
 
-```c
-static void rescan(void)
-{
-    static struct pollfd pf[MAXFD];
-    int n = 0;
-
-    pf[n].fd = listen_fd; pf[n].events = POLLIN; n++;
-    for (int fd = 0; fd < MAXFD; fd++)
-        if (live[fd]) { pf[n].fd = fd; pf[n].events = POLLIN; n++; }
-
-    if (poll(pf, (nfds_t) n, 0) <= 0) return;
-    for (int i = 0; i < n; i++)
-        if (pf[i].revents) handle(pf[i].fd, pf[i].revents);
-}
-```
+:::code proj-signal-driven-echo/c/tsykl-chekaty-syhnal-i-ne-2.c
 
 ![Швидкий шлях циклу через адресний сигнал і запасний шлях через безадресний SIGIO з повним обходом дескрипторів](img/two-paths.svg)
 

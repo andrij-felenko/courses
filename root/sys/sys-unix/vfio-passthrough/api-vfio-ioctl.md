@@ -58,25 +58,7 @@ struct vfio_iommu_type1_dma_map {
     __u64 size;        /* Розмір ділянки пам'яті у байтах (мусить бути кратним розміру сторінки) */
 };
 ```
-```cpp
-#include <cstdint>
-#include <linux/vfio.h>
-
-// У C++20 ту саму структуру ядра заповнюють призначеними ініціалізаторами
-namespace vfio::api {
-    using DmaMapRequest = ::vfio_iommu_type1_dma_map;
-
-    constexpr DmaMapRequest make_dma_map(uint64_t hva, uint64_t iova, uint64_t size, uint32_t flags) noexcept {
-        return DmaMapRequest{
-            .argsz = sizeof(DmaMapRequest),
-            .flags = flags,
-            .vaddr = hva,
-            .iova = iova,
-            .size = size
-        };
-    }
-}
-```
+:::code api-vfio-ioctl/cpp/2-1-detalna.cpp
 :::
 
 Допустимі значення бітових прапорців `flags`:
@@ -108,21 +90,7 @@ struct vfio_group_status {
     __u32 flags;       /* Бітові прапорці стану групи */
 };
 ```
-```cpp
-#include <cstdint>
-#include <linux/vfio.h>
-
-namespace vfio::api {
-    using GroupStatus = ::vfio_group_status;
-
-    constexpr GroupStatus make_group_status() noexcept {
-        return GroupStatus{
-            .argsz = sizeof(GroupStatus),
-            .flags = 0
-        };
-    }
-}
-```
+:::code api-vfio-ioctl/cpp/3-1-struktura-vfio-group.cpp
 :::
 
 Значення бітових прапорців:
@@ -162,25 +130,7 @@ struct vfio_region_info {
     __u64 offset;      /* Зсув у файлі device_fd для виклику mmap() */
 };
 ```
-```cpp
-#include <cstdint>
-#include <linux/vfio.h>
-
-namespace vfio::api {
-    using RegionInfo = ::vfio_region_info;
-
-    constexpr RegionInfo make_region_info(uint32_t index) noexcept {
-        return RegionInfo{
-            .argsz = sizeof(RegionInfo),
-            .flags = 0,
-            .index = index,
-            .cap_offset = 0,
-            .size = 0,
-            .offset = 0
-        };
-    }
-}
-```
+:::code api-vfio-ioctl/cpp/4-1-indeksy-rehioniv-pci.cpp
 :::
 
 Якщо `flags` містить `VFIO_REGION_INFO_FLAG_MMAP`, процес може виконати `mmap()` за вказаним зсувом `offset` для отримання прямого покажчика в оперативну пам'ять хоста на MMIO-регістри пристрою.
@@ -200,24 +150,7 @@ struct vfio_irq_set {
     __u8  data[];      /* Масив файлових дескрипторів eventfd */
 };
 ```
-```cpp
-#include <cstdint>
-#include <linux/vfio.h>
-
-namespace vfio::api {
-    using IrqSet = ::vfio_irq_set;
-
-    constexpr IrqSet make_irq_set(uint32_t index, uint32_t start, uint32_t count, uint32_t flags) noexcept {
-        return IrqSet{
-            .argsz = sizeof(IrqSet) + count * sizeof(int),
-            .flags = flags,
-            .index = index,
-            .start = start,
-            .count = count
-        };
-    }
-}
-```
+:::code api-vfio-ioctl/cpp/4-2-nalashtuvannia.cpp
 :::
 
 Структура закінчується гнучким масивом `data[]`, тож у пам'яті її завжди розміщують у більшому буфері розміром `sizeof(struct vfio_irq_set) + count * sizeof(int)`: самої структури для передавання дескрипторів не досить, фабрика вище лише заповнює заголовок.

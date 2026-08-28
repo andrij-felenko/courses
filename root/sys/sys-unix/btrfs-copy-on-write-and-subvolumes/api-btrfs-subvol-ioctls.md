@@ -40,25 +40,7 @@ struct btrfs_ioctl_vol_args {
 
 Використовується викликом `BTRFS_IOC_SNAP_CREATE_V2` для атомарного задання режимів доступу та успадкування обмежень дискових квот.
 
-```c
-struct btrfs_ioctl_vol_args_v2 {
-    __s64 fd;                         // Відкритий файловий дескриптор джерельного субтому
-    __u64 transid;                    // Сюди ядро повертає номер транзакції створення
-    __u64 flags;                      // Бітова маска прапорців створення
-    union {
-        struct {
-            __u64 size;                                  // Розмір масиву qgroups у структурі
-            struct btrfs_qgroup_inherit *qgroup_inherit; // Вказівник на структуру успадкування квот
-        };
-        __u64 unused[4];
-    };
-    union {
-        char name[BTRFS_SUBVOL_NAME_MAX + 1]; // Ім'я нового субтому у батьківському каталозі
-        __u64 devid;                          // ID пристрою (операції з пристроями)
-        __u64 subvolid;                       // ID субтому для BTRFS_IOC_SNAP_DESTROY_V2
-    };
-};
-```
+:::code api-btrfs-subvol-ioctls/c/2-rozshyrena-struktura.c
 
 #### Бітові прапорці для поля `flags`:
 - `BTRFS_SUBVOL_CREATE_ASYNC` (`1ULL << 0`): Повертати керування негайно після додавання запису в пам'ять, не чекаючи фіксації транзакції на диск. Підтримку вилучено в ядрі 5.7 — від нього ioctl із цим бітом повертає `EOPNOTSUPP`.
@@ -85,20 +67,7 @@ struct btrfs_qgroup_inherit {
 
 Переключення субтому між режимами Read-Write та Read-Only виконується системними викликами читання та запису прапорців над відкритим дескриптором самого субтому:
 
-```c
-__u64 flags = 0;
-
-// Отримання поточних прапорців
-if (ioctl(subvol_fd, BTRFS_IOC_SUBVOL_GETFLAGS, &flags) < 0) {
-    perror("BTRFS_IOC_SUBVOL_GETFLAGS failed");
-}
-
-// Встановлення прапора Read-Only
-flags |= BTRFS_SUBVOL_RDONLY;
-if (ioctl(subvol_fd, BTRFS_IOC_SUBVOL_SETFLAGS, &flags) < 0) {
-    perror("BTRFS_IOC_SUBVOL_SETFLAGS failed");
-}
-```
+:::code api-btrfs-subvol-ioctls/c/4-upravlinnia-rezhymnym.c
 
 ### 5. Структура інкрементальної реплікації `btrfs_ioctl_send_args`
 

@@ -23,19 +23,7 @@
 
 ## Увімкнення
 
-```c
-struct fsverity_enable_arg {
-        __u32 version;          /* має бути 1 */
-        __u32 hash_algorithm;   /* 1 = SHA-256, 2 = SHA-512 */
-        __u32 block_size;       /* у байтах, степінь двійки */
-        __u32 salt_size;        /* 0..32 */
-        __u64 salt_ptr;         /* адреса солі в просторі користувача */
-        __u32 sig_size;         /* 0, якщо вбудованого підпису немає */
-        __u32 __reserved1;      /* нуль */
-        __u64 sig_ptr;          /* адреса підпису PKCS#7 */
-        __u64 __reserved2[11];  /* нулі */
-};                              /* 128 байтів */
-```
+:::code api-fsverity-ioctls/c/uvimknennia.c
 
 | Поле | Межі | Примітка |
 | --- | --- | --- |
@@ -47,18 +35,7 @@ struct fsverity_enable_arg {
 
 Дескриптор файлу мусить бути відкритий **тільки на читання** — і водночас процес мусить мати право запису на сам файл. Кожен зайвий дескриптор на запис, чий завгодно і навіть відображення в пам'ять, дає `ETXTBSY`.
 
-```c
-int fd = open("app.apk", O_RDONLY);          /* саме O_RDONLY */
-
-struct fsverity_enable_arg arg = {
-        .version        = 1,
-        .hash_algorithm = FS_VERITY_HASH_ALG_SHA256,
-        .block_size     = 4096,
-};                                            /* решта полів — нулі */
-
-if (ioctl(fd, FS_IOC_ENABLE_VERITY, &arg) != 0)
-        perror("FS_IOC_ENABLE_VERITY");
-```
+:::code api-fsverity-ioctls/c/uvimknennia-2.c
 
 Ініціалізація структури нулями обов'язкова: ядро перевіряє резервні поля й на ненульовому смітті з купи відповість `EINVAL`.
 

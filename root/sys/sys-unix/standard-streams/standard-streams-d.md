@@ -93,32 +93,8 @@ stdbuf -oL tail -f app.log | grep "ERROR" | my_notifier
 Розглянемо наступну ситуацію:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <unistd.h>
-
-int main(void) {
-    printf("Початок обчислень..."); // Символу \n немає!
-    
-    fork();
-
-    printf(" Завершено.\n");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <unistd.h>
-
-int main() {
-    std::cout << "Початок обчислень..."; // Без std::endl або \n
-    
-    fork();
-
-    std::cout << " Завершено.\n";
-    return 0;
-}
-```
+:::code standard-streams-d/c/pastka-1-zadublovane.c
+:::code standard-streams-d/cpp/pastka-1-zadublovane.cpp
 :::
 
 Якщо ви запустите цей код у терміналі, ви побачите очікуваний рядок:
@@ -207,21 +183,7 @@ void make_stdin_nonblocking(void) {
     }
 }
 ```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <system_error>
-
-void set_stdin_nonblocking() {
-    int flags = ::fcntl(STDIN_FILENO, F_GETFL, 0);
-    if (flags == -1) {
-        throw std::system_error(errno, std::generic_category(), "fcntl F_GETFL failed");
-    }
-    if (::fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK) == -1) {
-        throw std::system_error(errno, std::generic_category(), "fcntl F_SETFL failed");
-    }
-}
-```
+:::code standard-streams-d/cpp/neblokuiuche-vvedennia.cpp
 :::
 
 Після цього виклик `read(STDIN_FILENO, ...)` у разі відсутності готових даних не блокує процес, а негайно повертає `-1`, встановлюючи `errno = EAGAIN` (або `EWOULDBLOCK`). Для відстеження готовності даних на стандартному введенні програми використовують системні виклики мультиплексування `poll()`, `select()` або `epoll()`.
@@ -240,41 +202,8 @@ void set_stdin_nonblocking() {
 Під капотом `isatty(fd)` виконує системний виклик `ioctl()` із проханням прочитати параметри термінала (`TCGETS` у Linux або `TIOCGETA` у BSD):
 
 :::tabs
-```c
-#include <stdio.h>
-#include <unistd.h>
-#include <termios.h>
-#include <sys/ioctl.h>
-#include <errno.h>
-
-int check_if_terminal(int fd) {
-    struct termios t;
-    // Якщо ioctl успішний, дескриптор є терміналом
-    if (ioctl(fd, TCGETS, &t) == 0) {
-        return 1;
-    }
-    // Якщо повертається ENOTTY — це файл, pipe або сокет
-    if (errno == ENOTTY) {
-        return 0;
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <termios.h>
-#include <cerrno>
-
-bool is_device_terminal(int fd) noexcept {
-    ::termios t{};
-    if (::ioctl(fd, TCGETS, &t) == 0) {
-        return true;
-    }
-    return false;
-}
-```
+:::code standard-streams-d/c/perevirka-deskryptora.c
+:::code standard-streams-d/cpp/perevirka-deskryptora.cpp
 :::
 
 Якщо системний виклик `ioctl()` повертає помилку `ENOTTY` (Inappropriate ioctl for device), програма розуміє, що дескриптор `fd` підключений до звичайного файлу або анонімного каналу, і вимикає спецсимволи форматування та ANSI-кольори.
@@ -285,25 +214,7 @@ bool is_device_terminal(int fd) noexcept {
 
 Шляхи `/proc/self/fd/0`, `/proc/self/fd/1` та `/proc/self/fd/2` є спеціальними символьними посиланнями, які вказують на точні об'єкти, відкриті програмою:
 
-```bash
-# Перевірка куди вказують дескриптори в інтерактивному терміналі
-ls -l /proc/self/fd/
-# lrwx------ 0 user group -> /dev/pts/1
-# lrwx------ 1 user group -> /dev/pts/1
-# lrwx------ 2 user group -> /dev/pts/1
-
-# Перевірка дескрипторів при перенаправленні stdout у файл
-ls -l /proc/self/fd/ > fds.txt && cat fds.txt
-# lrwx------ 0 user group -> /dev/pts/1
-# l-wx------ 1 user group -> /home/user/fds.txt
-# lrwx------ 2 user group -> /dev/pts/1
-
-# Перевірка дескрипторів всередині конвеєра
-ls -l /proc/self/fd/ | cat
-# lrwx------ 0 user group -> pipe:[482910]
-# l-wx------ 1 user group -> /dev/pts/1
-# lrwx------ 2 user group -> /dev/pts/1
-```
+:::code standard-streams-d/sh/main.sh
 
 Це дозволяє програмам відкривати `/proc/self/fd/1` для повторного читання або передавати шлях до власного стандартного виведення стороннім бібліотекам, які приймають лише імена файлів.
 
@@ -322,44 +233,8 @@ ls -l /proc/self/fd/ | cat
 Коли процес перетворюється на фонового демона (Daemon) і відв'язується від термінала, він повинен закрити зв'язок із пристроєм термінала. Однак замість того щоб залишати дескриптори `0`, `1`, `2` закритими, демон відкриває псевдопристрій `/dev/null` і перенаправляє їх туди через `dup2()`:
 
 :::tabs
-```c
-#include <unistd.h>
-#include <fcntl.h>
-
-void sanitize_standard_descriptors(void) {
-    int null_fd = open("/dev/null", O_RDWR);
-    if (null_fd < 0) return;
-
-    // Перенаправляємо 0, 1, 2 на /dev/null
-    dup2(null_fd, STDIN_FILENO);
-    dup2(null_fd, STDOUT_FILENO);
-    dup2(null_fd, STDERR_FILENO);
-
-    if (null_fd > STDERR_FILENO) {
-        close(null_fd);
-    }
-}
-```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <system_error>
-
-void sanitize_descriptors_raii() {
-    int null_fd = ::open("/dev/null", O_RDWR);
-    if (null_fd < 0) {
-        throw std::system_error(errno, std::generic_category(), "Failed to open /dev/null");
-    }
-
-    ::dup2(null_fd, STDIN_FILENO);
-    ::dup2(null_fd, STDOUT_FILENO);
-    ::dup2(null_fd, STDERR_FILENO);
-
-    if (null_fd > STDERR_FILENO) {
-        ::close(null_fd);
-    }
-}
-```
+:::code standard-streams-d/c/zakhyst-u-demonakh.c
+:::code standard-streams-d/cpp/zakhyst-u-demonakh.cpp
 :::
 
 Тепер, якщо якась частина коду демона виконає `printf()`, виведення буде тихо поглинуто пристроєм `/dev/null`, не створюючи загрози для інших файлових дескрипторів програми.

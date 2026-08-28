@@ -70,18 +70,7 @@
 
 Ядро повертає трасувальнику вміст структури регістрів, яка відображає апаратний стан процесора у момент зупинки:
 
-```c
-struct user_regs_struct regs;
-ptrace(PTRACE_GETREGS, pid, NULL, &regs);
-
-/* На архітектурі x86_64:
- * regs.rip      — Instruction Pointer (адреса наступної інструкції)
- * regs.rsp      — Stack Pointer (вказівник на верхівку стека)
- * regs.orig_rax — Номер системного виклику (копія, збережена ядром)
- * regs.rax      — Код повернення виклику (на вході — заглушка -ENOSYS)
- * regs.rdi, regs.rsi, regs.rdx — Перші аргументи системного виклику
- */
-```
+:::code ptrace-and-debugging-d/c/dostup-do-rehistriv.c
 
 Зміна будь-якого поля у `regs` із наступним викликом `ptrace(PTRACE_SETREGS, pid, NULL, &regs)` змушує процесор при відновленні виконання продовжити роботу з новими значеннями регістрів. Трасувальник може примусово змінити лічильник інструкцій `rip`, підмінити аргументи системного виклику або змінити вказівник стека `rsp`.
 
@@ -103,54 +92,9 @@ ptrace(PTRACE_GETREGS, pid, NULL, &regs);
 
 :::tabs
 === C
-```c
-#define _GNU_SOURCE          /* process_vm_readv оголошено лише під цим макросом */
-#include <sys/uio.h>
-#include <unistd.h>
-#include <stdio.h>
-
-ssize_t copy_from_process(pid_t pid, void *dest, const void *src, size_t len) {
-    struct iovec local[1];
-    struct iovec remote[1];
-
-    local[0].iov_base = dest;
-    local[0].iov_len = len;
-
-    remote[0].iov_base = (void *)src;
-    remote[0].iov_len = len;
-
-    /* Копіює весь блок пам'яті за ОДИН системний виклик */
-    return process_vm_readv(pid, local, 1, remote, 1, 0);
-}
-```
+:::code ptrace-and-debugging-d/c/problema-produktyvnosti-ta.c
 === C++
-```cpp
-#include <sys/uio.h>
-#include <unistd.h>
-#include <cerrno>
-#include <span>
-#include <expected>
-#include <system_error>
-
-std::expected<size_t, std::error_code> copy_from_process(
-    pid_t pid, std::span<std::byte> local_buf, uintptr_t remote_addr) 
-{
-    struct iovec local_iov{
-        .iov_base = local_buf.data(),
-        .iov_len = local_buf.size()
-    };
-    struct iovec remote_iov{
-        .iov_base = reinterpret_cast<void*>(remote_addr),
-        .iov_len = local_buf.size()
-    };
-
-    ssize_t nread = process_vm_readv(pid, &local_iov, 1, &remote_iov, 1, 0);
-    if (nread < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return static_cast<size_t>(nread);
-}
-```
+:::code ptrace-and-debugging-d/cpp/main.cpp
 :::
 
 Виклики `process_vm_readv/writev` дозволяють зчитувати й записувати довільні обсяги пам'яті між процесами за один системний виклик, минаючи необхідність зупиняти процес і перетворювати операції на послівні виклики `ptrace`.

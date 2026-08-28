@@ -9,33 +9,9 @@
 Підсистема `io_uring` виділяє окремі константи опкодів у полі `io_uring_sqe.opcode` для ініціалізації асинхронних мережевих викликів. Кожен опкод визначає семантику виконання запиту в ядрі Linux та структуру супутніх прапорців.
 
 :::tabs
-```c
-/* c */
-enum io_uring_op {
-    IORING_OP_SEND          = 26,   /* Стандартне копіювальне відправлення */
-    IORING_OP_RECV          = 27,   /* Стандартне копіювальне отримання */
-    IORING_OP_ACCEPT        = 28,   /* Прийняття нових TCP-з'єднань */
-    IORING_OP_CONNECT       = 31,   /* Ініціалізація вихідного TCP-з'єднання */
-    IORING_OP_SEND_ZC       = 38,   /* Zero-Copy відправлення даних (Linux 6.0+) */
-    IORING_OP_RECV_ZC       = 52,   /* Zero-Copy отримання даних (Linux 6.7+) */
-    IORING_OP_URING_CMD     = 46,   /* Passthrough команди до сокетів/пристроїв */
-};
-```
+:::code api-io-uring-net/c/opkody-merezhevykh.c
 
-```cpp
-// cpp
-#include <cstdint>
-
-enum class IoUringOp : std::uint8_t {
-    Send        = 26,   // Стандартне копіювальне відправлення
-    Recv        = 27,   // Стандартне копіювальне отримання
-    Accept      = 28,   // Прийняття нових TCP-з'єднань
-    Connect     = 31,   // Ініціалізація вихідного TCP-з'єднання
-    SendZC      = 38,   // Zero-Copy відправлення даних (Linux 6.0+)
-    RecvZC      = 52,   // Zero-Copy отримання даних (Linux 6.7+)
-    UringCmd    = 46,   // Passthrough команди до сокетів/пристроїв
-};
-```
+:::code api-io-uring-net/cpp/opkody-merezhevykh.cpp
 :::
 
 ### Повний опис семантики мережевих опкодів
@@ -53,45 +29,9 @@ enum class IoUringOp : std::uint8_t {
 Структура `io_uring_sqe` розміром 64 байти заповнюється застосунком для ініціалізації мережевої операції `IORING_OP_SEND_ZC`. Кожне поле виконує чітко визначену роль при взаємодії із мережевим стеком ядра:
 
 :::tabs
-```c
-/* c */
-struct io_uring_sqe {
-    __u8   opcode;      /* IORING_OP_SEND_ZC */
-    __u8   flags;       /* IOSQE_FIXED_FILE, IOSQE_CQE_SKIP_SUCCESS тощо */
-    __u16  ioprio;      /* Прапорці відправки: IORING_RECVSEND_FIXED_BUF тощо */
-    __s32  fd;          /* Мережевий файловий дескриптор (сокет) */
-    __u64  off;         /* Не використовується або розширений зміщення */
-    __u64  addr;        /* Вказівник на буфер користувача (char*) або offset */
-    __u32  len;         /* Довжина буфера в байтах */
-    __u32  msg_flags;   /* Мережеві прапорці сокета (наприклад, MSG_DONTWAIT) */
-    __u64  user_data;   /* Ідентифікатор запиту користувача */
-    __u16  buf_index;   /* Індекс зареєстрованого буфера (якщо в іоprio є FIXED_BUF) */
-    __u16  personality; /* Права доступу / credentials */
-    __u32  file_index;  /* Індекс у таблиці зареєстрованих файлів */
-    __u64  addr3;       /* Прапорці нотифікації або розширені параметри */
-};
-```
+:::code api-io-uring-net/c/spetsyfikatsiia-struktury.c
 
-```cpp
-// cpp
-#include <cstdint>
-
-struct alignas(64) IoUringSqe {
-    std::uint8_t   opcode;      // IORING_OP_SEND_ZC
-    std::uint8_t   flags;       // IOSQE_FIXED_FILE тощо
-    std::uint16_t  ioprio;      // Прапорці відправки: IORING_RECVSEND_FIXED_BUF
-    std::int32_t   fd;          // Мережевий файловий дескриптор (сокет)
-    std::uint64_t  off;         // Зміщення у фіксованому буфері
-    std::uint64_t  addr;        // Вказівник на буфер користувача або offset
-    std::uint32_t  len;         // Довжина буфера в байтах
-    std::uint32_t  msg_flags;   // Мережеві прапорці сокета (MSG_DONTWAIT)
-    std::uint64_t  user_data;   // 64-бітний тег користувача
-    std::uint16_t  buf_index;   // Індекс фіксованого буфера у реєстрі
-    std::uint16_t  personality; // Контекст прав доступу
-    std::uint32_t  file_index;  // Індекс фіксованого сокета
-    std::uint64_t  addr3;       // Розширені прапорці сповіщення
-};
-```
+:::code api-io-uring-net/cpp/spetsyfikatsiia-struktury.cpp
 :::
 
 #### Детальний аналіз полів SQE:
@@ -175,18 +115,7 @@ struct io_uring_buf_reg {
 };
 ```
 
-```cpp
-// cpp
-#include <cstdint>
-
-struct IoUringBufReg {
-    std::uint64_t ring_addr;    // Адреса кольца io_uring_buf в ОЗП
-    std::uint32_t ring_entries; // Кількість буферів (2^N)
-    std::uint16_t bgid;         // Buffer Group ID
-    std::uint16_t flags;        // Конфігураційні прапорці
-    std::uint64_t resv[3];      // Резерв ядра
-};
-```
+:::code api-io-uring-net/cpp/interfeis-reiestratsii.cpp
 :::
 
 Один елемент буферного кільця описується структурою `io_uring_buf`:
@@ -222,50 +151,9 @@ struct IoUringBuf {
 Для повернення буфера в пул після обробки програма виконує атомарне оновлення покажчика хвоста кільця без жодних системних викликів:
 
 :::tabs
-```c
-/* c */
-void io_uring_buf_ring_add(struct io_uring_buf_ring *br, 
-                           void *addr, 
-                           unsigned int len, 
-                           unsigned short bid, 
-                           int mask, 
-                           int buf_offset) {
-    struct io_uring_buf *buf = &br->bufs[(br->tail + buf_offset) & mask];
-    buf->addr = (unsigned long)addr;
-    buf->len = len;
-    buf->bid = bid;
-}
+:::code api-io-uring-net/c/dodavannia-buferiv-u.c
 
-void io_uring_buf_ring_advance(struct io_uring_buf_ring *br, int count) {
-    /* Атомарний бар'єр пам'яті гарантує видимість записів для ядра */
-    __atomic_store_n(&br->tail, br->tail + count, __ATOMIC_RELEASE);
-}
-```
-
-```cpp
-// cpp
-#include <atomic>
-#include <cstdint>
-#include <span>
-
-struct IoUringBufRingHelper {
-    IoUringBuf* bufs;
-    std::uint16_t* tail_ptr;
-
-    void add(void* addr, std::uint32_t len, std::uint16_t bid, std::uint16_t mask, int offset) noexcept {
-        std::uint16_t current_tail = *tail_ptr;
-        auto& buf = bufs[(current_tail + offset) & mask];
-        buf.addr = reinterpret_cast<std::uint64_t>(addr);
-        buf.len = len;
-        buf.bid = bid;
-    }
-
-    void advance(std::uint16_t count) noexcept {
-        auto* atomic_tail = reinterpret_cast<std::atomic<std::uint16_t>*>(tail_ptr);
-        atomic_tail->fetch_add(count, std::memory_order_release);
-    }
-};
-```
+:::code api-io-uring-net/cpp/dodavannia-buferiv-u.hpp
 :::
 
 ## Прапорці та параметри Multishot

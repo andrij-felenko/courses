@@ -70,47 +70,8 @@ int wcswidth(const wchar_t *pwcs, std::size_t n);
 Щоб `wcwidth` підтягнув реальні таблиці Unicode з системної бібліотеки `glibc` чи `musl`, програма зобов'язана на початку виконання функції `main` ініціалізувати категорію `LC_CTYPE` зі змінних середовища користувача:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <wchar.h>
-#include <locale.h>
-
-int main(void) {
-    /* Без цього виклику wcwidth працюватиме лише з 7-бітним ASCII */
-    setlocale(LC_CTYPE, "");
-
-    wchar_t chars[] = { L'A', L'ф', L'語', 0x0301, L'🚀', 0 };
-
-    for (int i = 0; chars[i] != 0; ++i) {
-        int w = wcwidth(chars[i]);
-        printf("Символ U+%04X -> ширина: %2d комірки\n", (unsigned int)chars[i], w);
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cwchar>
-#include <clocale>
-#include <vector>
-#include <iomanip>
-
-int main() {
-    // Увімкнення системної локалі для коректної класифікації Unicode
-    std::setlocale(LC_CTYPE, "");
-
-    const std::vector<wchar_t> chars = { L'A', L'ф', L'語', 0x0301, L'🚀' };
-
-    for (wchar_t wc : chars) {
-        int w = wcwidth(wc);
-        std::cout << "Символ U+" << std::hex << std::uppercase << std::setw(4) 
-                  << std::setfill('0') << static_cast<unsigned int>(wc) 
-                  << " -> ширина: " << std::dec << std::setw(2) << std::setfill(' ') 
-                  << w << " комірки\n";
-    }
-    return 0;
-}
-```
+:::code wcwidth-and-cell-width-d/c/pastka-lokali-za.c
+:::code wcwidth-and-cell-width-d/cpp/pastka-lokali-za.cpp
 :::
 
 ## Стандарт Unicode UAX #11: властивість East Asian Width
@@ -322,81 +283,8 @@ U+1F466 (Хлопчик, 2)
 Якщо програмі критично необхідно знати, скільки саме комірок конкретний термінал виділяє під спірний символ, вона може скористатися апаратним зворотним зв'язком термінала за допомогою керуючої послідовності Device Status Report (`ESC [ 6 n`):
 
 :::tabs
-```c
-#include <stdio.h>
-#include <termios.h>
-#include <unistd.h>
-
-/* Визначення точної фізичної ширини символу шляхом опитування термінала */
-int probe_actual_terminal_width(const char *utf8_char) {
-    struct termios old_term, raw_term;
-    tcgetattr(STDIN_FILENO, &old_term);
-    raw_term = old_term;
-    raw_term.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &raw_term);
-
-    /* 1. Запитуємо початкову позицію курсора */
-    printf("\033[6n");
-    fflush(stdout);
-    int r1, c1;
-    scanf("\033[%d;%dR", &r1, &c1);
-
-    /* 2. Друкуємо досліджуваний символ */
-    printf("%s", utf8_char);
-    fflush(stdout);
-
-    /* 3. Запитуємо кінцеву позицію курсора */
-    printf("\033[6n");
-    fflush(stdout);
-    int r2, c2;
-    scanf("\033[%d;%dR", &r2, &c2);
-
-    /* Відновлюємо налаштування термінала */
-    tcsetattr(STDIN_FILENO, TCSANOW, &old_term);
-
-    /* Затираємо надрукований тестовий символ */
-    printf("\r\033[K");
-    fflush(stdout);
-
-    return c2 - c1;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <termios.h>
-#include <unistd.h>
-#include <cstdio>
-
-// Визначення фізичної ширини символу на склі термінала в стилі C++
-int probe_actual_terminal_width(std::string_view utf8_char) {
-    termios old_term{}, raw_term{};
-    tcgetattr(STDIN_FILENO, &old_term);
-    raw_term = old_term;
-    raw_term.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &raw_term);
-
-    // 1. Запит початкового стану
-    std::cout << "\033[6n" << std::flush;
-    int r1 = 0, c1 = 0;
-    std::scanf("\033[%d;%dR", &r1, &c1);
-
-    // 2. Вивід символу
-    std::cout << utf8_char << std::flush;
-
-    // 3. Запит фінального стану
-    std::cout << "\033[6n" << std::flush;
-    int r2 = 0, c2 = 0;
-    std::scanf("\033[%d;%dR", &r2, &c2);
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &old_term);
-
-    // Очищення тестового виводу
-    std::cout << "\r\033[K" << std::flush;
-
-    return c2 - c1;
-}
-```
+:::code wcwidth-and-cell-width-d/c/2-dynamichne-zonduvannia.c
+:::code wcwidth-and-cell-width-d/cpp/2-dynamichne-zonduvannia.cpp
 :::
 
 Цей метод вимагає переведення дескриптора в неблокувальний сирий режим `raw mode`, проте він дає стовідсотково точну відповідь для конкретного запущеного екземпляра емулятора, усуваючи будь-які здогадки щодо версій таблиць Unicode.
@@ -414,19 +302,7 @@ int probe_actual_terminal_width(std::string_view utf8_char) {
 
 Для швидкої перевірки власного емулятора термінала на коректність обробки ширини символів зручно використовувати короткий тестовий сценарій командного рядка:
 
-```bash
-#!/usr/bin/env bash
-# Тестова сітка перевірки ширини символів термінала
-
-printf "Колонки:  |12345678901234567890|\n"
-printf "ASCII:    |%-20s|\n" "Hello World!"
-printf "Кирилиця: |%-20s|\n" "Привіт, світе!"
-printf "CJK Wide: |%-20s|\n" "言語処理 (NLP)"
-printf "Accent:   |%-20s|\n" "е́кранний тест"
-printf "Emoji:    |%-20s|\n" "🚀 ракета"
-printf "ZWJ Емод: |%-20s|\n" "👨‍💻 розробник"
-printf "Прапор:   |%-20s|\n" "🇺🇦 Україна"
-```
+:::code wcwidth-and-cell-width-d/sh/main.sh
 
 Якщо права обмежувальна риска `|` у кожному рядку вишикувана в одну ідеальну вертикальну лінію, ваш емулятор термінала та системна бібліотека узгоджено інтерпретують ширину складних символів. Якщо ж вертикальна лінія зсувається праворуч або ліворуч — ви маєте справу з розсинхронізацією між системним `wcwidth` та графічним рушієм термінала.
 

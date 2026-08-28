@@ -54,21 +54,7 @@ printf 'X' | sudo dd of=/var/tmp/int0.img bs=1 seek="$OFF" \
 
 Те, що `grep` узагалі знайшов рядок у образі, саме собою повчальне: шар цілісності не шифрує й не переставляє дані — він лише кладе поряд чотири байти тега. Ми щойно змінили один символ під цим тегом, і ніхто про це не знає.
 
-```bash
-sudo integritysetup open /dev/loop0 int0
-sudo mount /dev/mapper/int0 /mnt/int
-sudo cat /mnt/int/probe.txt > /dev/null
-# cat: /mnt/int/probe.txt: Input/output error
-
-sudo dmesg | tail -4
-# device-mapper: integrity: dm-0: Checksum failed at sector 0x1a48
-# Buffer I/O error on dev dm-0, logical block 841, async page read
-sudo dmsetup status int0
-# 0 507904 integrity 1 507904 -
-#                              ^ позиція перерахунку («-» — не рахували)
-#                        ^ скільки секторів віддає ціль нагору
-#              ^ лічильник розбіжностей
-```
+:::code proj-integrity-by-hand/sh/zipsuvaty-bait-tak-shchob.sh
 
 Ось і весь вердикт. Шістнадцяткове число в `dmesg` — номер сектора **на пристрої цілісності**, не в образі; ім'я `dm-0` звіряється командою `ls -l /dev/mapper/int0`. Файловій системі при цьому дісталася звичайна помилка вводу-виводу, хоч ціль повернула `EILSEQ`, «неприпустима послідовність байтів»: різницю між «не зміг прочитати» й «прочитав, і це не те» ext4 нагору не проносить.
 
@@ -76,39 +62,11 @@ sudo dmsetup status int0
 
 Тепер збираємо дві такі ноги й ставимо [дзеркало md raid1](root:sys-unix/md-raid) **над** ними.
 
-```bash
-for i in 0 1; do
-  sudo truncate -s 256M /var/tmp/leg$i.img
-  L=$(sudo losetup --find --show /var/tmp/leg$i.img)
-  sudo integritysetup format --batch-mode --integrity crc32c \
-       --sector-size 4096 "$L"
-  sudo integritysetup open "$L" leg$i
-done
-
-sudo mdadm --create /dev/md/itest --level=1 --raid-devices=2 \
-     --metadata=1.2 /dev/mapper/leg0 /dev/mapper/leg1
-sudo mkfs.ext4 -q /dev/md/itest && sudo mount /dev/md/itest /mnt/int
-seq 1 4000 | sudo tee /mnt/int/probe.txt >/dev/null
-sudo sync && sudo umount /mnt/int && sudo mdadm --stop /dev/md/itest
-sudo integritysetup close leg0 && sudo integritysetup close leg1
-```
+:::code proj-integrity-by-hand/sh/te-same-pid-dzerkalom-i.sh
 
 Псуємо байт **лише в `leg0.img`**, збираємо все назад і просимо масив прочитати обидві ноги повністю:
 
-```bash
-OFF=$(grep -abo '^3999$' /var/tmp/leg0.img | head -1 | cut -d: -f1)
-printf 'X' | sudo dd of=/var/tmp/leg0.img bs=1 seek="$OFF" \
-     conv=notrunc status=none
-# …відкрити обидві цілі, зібрати масив, змонтувати…
-
-sudo sha256sum /mnt/int/probe.txt        # той самий, що й до псування
-MD=$(basename "$(readlink -f /dev/md/itest)")
-echo check | sudo tee /sys/block/$MD/md/sync_action
-cat /sys/block/$MD/md/mismatch_cnt
-sudo dmesg | grep -E 'Checksum failed|read error corrected'
-# device-mapper: integrity: dm-1: Checksum failed at sector 0x1a48
-# md/raid1:md127: read error corrected (8 sectors at 6728 on dm-1)
-```
+:::code proj-integrity-by-hand/sh/te-same-pid-dzerkalom-i-2.sh
 
 Масив дістав із однієї ноги не байти, а відмову — а з відмовою на читанні RAID уміє працювати від народження: узяти копію з іншої ноги, віддати її нагору й **записати добрі байти назад** на ту, що збрехала. Зіпсоване місце полагоджене, і лічильник розбіжностей при цьому цілком може лишитися нулем: md не порівнював два успішні читання, він отримав помилку.
 
@@ -141,27 +99,7 @@ sudo dmesg | tail -3
 
 Щоб вимір мав сенс, обидва кеші треба прибрати з дороги: `oflag=direct` — щоб `dd` не осідав у кеші блокового пристрою, `losetup --direct-io=on` — щоб `loop` не осідав у сторінковому кеші файла-образу. І файл має бути справжній, а не діркавий, інакше ми поміряємо роботу [розрідженого файла](root:sys-unix/sparse-files), а не шару. Про те, чим саме `oflag=direct` відрізняється від звичайного запису, — окремо: [буферизований і прямий ввід-вивід](root:sys-unix/buffered-and-direct-io).
 
-```bash
-run() {   # $1 — зайві прапорці формату («» або --integrity-bitmap-mode)
-  sudo integritysetup format --batch-mode --integrity crc32c \
-       --sector-size 4096 $1 /dev/loop0
-  sudo integritysetup open $1 /dev/loop0 int0
-  w0=$(awk '{print $7}' /sys/block/loop0/stat)
-  sudo dd if=/dev/zero of=/dev/mapper/int0 bs=1M count=128 \
-       oflag=direct conv=fsync
-  w1=$(awk '{print $7}' /sys/block/loop0/stat)
-  echo "на носій пішло $(( (w1-w0)/2048 )) МіБ на 128 МіБ корисних"
-  sudo integritysetup close int0
-}
-
-sudo losetup -d /dev/loop0 && sudo rm -f /var/tmp/int0.img
-sudo fallocate -l 512M /var/tmp/int0.img          # не діркавий, а справжній
-sudo losetup --direct-io=on --find --show /var/tmp/int0.img
-# /dev/loop0
-
-run ""                            # журнальний режим
-run "--integrity-bitmap-mode"     # бітова мапа
-```
+:::code proj-integrity-by-hand/sh/skilky-koshtuie-zhurnal.sh
 
 Чекайте приблизно такого: журнал — трохи більше за 256 мебібайтів на 128 корисних, бітова мапа — трохи більше за 128. Арифметика проста й перевіряється: журнал кладе кожен байт двічі — спершу в журнал разом із тегом, потім на місце, — а бітова мапа кладе один раз, і зверху в обох випадках ідуть ті самі теги — при блоці 4 КіБ вони додають близько 0.1 %. Швидкість запису йде за цим числом слідом, і саме тому вона в журнальному режимі приблизно вдвічі менша. Коли той самий вимір роблять секундоміром на реальному диску, кожен прогін повторюють тричі й беруть середній.
 

@@ -120,59 +120,15 @@ getopts optstring name [arg ...]
 
 Для забезпечення реентрабельності функція зобов'язана виконувати локалізацію та ініціалізацію індексу:
 
-```sh
-parse_helper() {
-    # Скидання індексу для коректного старту вбудованого парсера
-    OPTIND=1
-    while getopts "ab:" opt; do
-        case "$opt" in
-            a) echo "Прапорець a" ;;
-            b) echo "Значення b: $OPTARG" ;;
-        esac
-    done
-    shift "$((OPTIND - 1))"
-}
-```
+:::code api-getopts-and-positional/sh/main.sh
 
 ## 5. Порівняння системних інтерфейсів парсингу
 
 У системному програмуванні POSIX / C / C++ прямим аналогом утиліти `getopts` виступає бібліотечний інтерфейс `getopt()` та розширення GNU `getopt_long()` з заголовка `<getopt.h>`.
 
 :::tabs
-```c
-/* Оголошення інтерфейсу getopt_long у C */
-#include <getopt.h>
-
-struct option {
-    const char *name;    /* Назва довгої опції, наприклад "file" */
-    int         has_arg; /* no_argument (0), required_argument (1), optional_argument (2) */
-    int        *flag;    /* Якщо NULL, getopt_long повертає val; інакше записує val у *flag */
-    int         val;     /* Значення повернення або значення для запису в *flag */
-};
-
-extern char *optarg;
-extern int optind, opterr, optopt;
-
-int getopt_long(int argc, char *const argv[],
-                const char *optstring,
-                const struct option *longopts, int *longindex);
-```
-```cpp
-// C++ оголошення інтерфейсу getopt_long у системному просторі
-#include <cstddef>
-#include <getopt.h>
-
-namespace posix_cli {
-    using OptionStruct = ::option;
-    
-    inline int parse_options(int argc, char *const argv[],
-                             const char *optstring,
-                             const OptionStruct *longopts,
-                             int *longindex) noexcept {
-        return ::getopt_long(argc, argv, optstring, longopts, longindex);
-    }
-}
-```
+:::code api-getopts-and-positional/c/main.c
+:::code api-getopts-and-positional/cpp/main.cpp
 :::
 
 ### Зіставлення змінних оболонки та змінних бібліотеки C

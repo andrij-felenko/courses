@@ -1,0 +1,13 @@
+fio --name=io_uring_poll \
+    --filename=/dev/nvme0n1 \
+    --ioengine=io_uring \
+    --direct=1 \
+    --rw=randread \
+    --bs=4k \
+    --iodepth=1 \
+    --numjobs=1 \
+    --thread=1 \
+    --hipri=1 \
+    --runtime=30 \
+    --time_based \
+    --group_reporting

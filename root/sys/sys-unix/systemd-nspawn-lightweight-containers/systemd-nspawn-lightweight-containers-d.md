@@ -157,19 +157,7 @@ sudo systemd-nspawn -b -D /var/lib/machines/web-node1
 
 Управління зареєстрованими контейнерами здійснюється через консольну утиліту `machinectl`:
 
-```bash
-# Перелік усіх активних контейнерів та віртуальних машин
-machinectl list
-
-# Отримання детального статусу та дерева процесів контейнера
-machinectl status web-node1
-
-# Відкриття інтерактивної консолі (PTY) усередині контейнера
-machinectl shell web-node1
-
-# Примусове завершення роботи контейнера
-machinectl poweroff web-node1
-```
+:::code systemd-nspawn-lightweight-containers-d/sh/main.sh
 
 Повний опис параметрів командного рядка, синтаксису конфігураційних файлів `.nspawn` та специфікація D-Bus методів експортованих `systemd-machined` наведено у вставці [Інтерфейс та конфігурація systemd-nspawn: параметри CLI, файли .nspawn та D-Bus](root:sys-unix/systemd-nspawn-lightweight-containers/api-nspawn-cli-and-nspawn-file.md).
 

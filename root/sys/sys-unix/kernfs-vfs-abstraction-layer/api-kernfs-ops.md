@@ -11,27 +11,7 @@
 ### `struct kernfs_node`
 Фундаментальний вузол дерева `kernfs`. Представляє каталог, звичайний файл або символічне посилання в пам'яті ядра.
 
-```c
-struct kernfs_node {
-    atomic_t            count;
-    atomic_t            active;
-    struct kernfs_node  *parent;
-    const char          *name;
-    struct rb_node      rb;
-    const void          *ns;
-    unsigned int        hash;
-    union {                              /* безіменна: kn->dir, kn->attr, kn->symlink */
-        struct kernfs_elem_dir      dir;
-        struct kernfs_elem_symlink  symlink;
-        struct kernfs_elem_attr     attr;
-    };
-    void                *priv;
-    union kernfs_node_id id;
-    unsigned short      flags;
-    umode_t             mode;
-    struct kernfs_iattrs *iattr;
-};
-```
+:::code api-kernfs-ops/c/struct-kernfs-node.c
 
 #### Поля структури та їхній системний контракт:
 - **`count`**: Атомарний лічильник посилань (`atomic_t`) для керування життєвим циклом пам'яті самої структури `kernfs_node`. Пам'ять виділяється зі спеціалізованого кешу SLAB `kernfs_node_cache` і звільняється лише тоді, коли `count` досягає `0`.
@@ -68,29 +48,7 @@ struct kernfs_iattrs {
 ### `struct kernfs_ops`
 Таблиця зворотних викликів (англ. *callbacks*), які реалізує драйвер чи підсистема для обробки читання, запису та керування файлами.
 
-```c
-struct kernfs_ops {
-    int  (*open)(struct kernfs_open_file *of);
-    void (*release)(struct kernfs_open_file *of);
-
-    int   (*seq_show)(struct seq_file *sf, void *v);
-    void *(*seq_start)(struct seq_file *sf, loff_t *ppos);
-    void *(*seq_next)(struct seq_file *sf, void *v, loff_t *ppos);
-    void  (*seq_stop)(struct seq_file *sf, void *v);
-
-    ssize_t (*read)(struct kernfs_open_file *of, char *buf,
-                    size_t bytes, loff_t off);
-    size_t  atomic_write_len;
-    bool    prealloc;
-    ssize_t (*write)(struct kernfs_open_file *of, char *buf,
-                     size_t bytes, loff_t off);
-
-    int (*mmap)(struct kernfs_open_file *of, struct vm_area_struct *vma);
-#ifdef CONFIG_DEBUG_LOCK_ALLOC
-    struct lock_class_key lockdep_key;
-#endif
-};
-```
+:::code api-kernfs-ops/c/struct-kernfs-ops.h
 
 #### Сигнатури та контракт методів:
 - **`seq_show(sf, v)`**: Найпоширеніший метод для відформатованого виводу текстових даних. Використовує підсистему `seq_file`. Дозволяє безпечно записувати дані через `seq_printf(sf, fmt, ...)` без ризику переповнення буфера. Якщо визначено `seq_show`, ядро автоматично встановлює прапор `KERNFS_HAS_SEQ_SHOW`.
@@ -108,25 +66,7 @@ struct kernfs_ops {
 ### `struct kernfs_open_file`
 Контекстний об'єкт, який створюється при відкритті файла `kernfs` і передається в усі методи `kernfs_ops`.
 
-```c
-struct kernfs_open_file {
-    struct kernfs_node  *kn;
-    struct file         *file;
-    struct seq_file     *seq_file;
-    void                *priv;
-
-    struct mutex        mutex;
-    struct mutex        prealloc_mutex;
-    int                 event;
-    struct list_head    list;
-    char                *prealloc_buf;
-
-    size_t              atomic_write_len;
-    bool                mmapped:1;
-    bool                released:1;
-    const struct vm_operations_struct *vm_ops;
-};
-```
+:::code api-kernfs-ops/c/struct-kernfs-open-file.c
 
 #### Поля контексту:
 - **`kn`**: Вказівник на відповідний `kernfs_node`.
@@ -141,18 +81,7 @@ struct kernfs_open_file {
 ### `struct kernfs_syscall_ops`
 Таблиця обробників системних викликів для віртуальних файлових систем, які дозволяють користувачам створювати каталоги чи перейменовувати файли (наприклад, cgroups v2):
 
-```c
-struct kernfs_syscall_ops {
-    int (*remount_fs)(struct kernfs_root *root, int *flags, char *data);
-    int (*show_options)(struct seq_file *sf, struct kernfs_root *root);
-    int (*mkdir)(struct kernfs_node *parent, const char *name, umode_t mode);
-    int (*rmdir)(struct kernfs_node *kn);
-    int (*rename)(struct kernfs_node *kn, struct kernfs_node *new_parent,
-                  const char *new_name);
-    int (*show_path)(struct seq_file *sf, struct kernfs_node *kn,
-                     struct kernfs_root *root);
-};
-```
+:::code api-kernfs-ops/c/struct-kernfs-syscall-ops.h
 
 ---
 
@@ -222,18 +151,7 @@ kernfs_create_dir(struct kernfs_node *parent, const char *name, umode_t mode,
 ### `kernfs_create_file_ns()`
 Створює звичайний файл атрибута в дереві `kernfs`.
 
-```c
-struct kernfs_node *kernfs_create_file_ns(
-    struct kernfs_node *parent,
-    const char *name,
-    umode_t mode,
-    kuid_t uid, kgid_t gid,
-    loff_t size,
-    const struct kernfs_ops *ops,
-    void *priv,
-    const void *ns
-);
-```
+:::code api-kernfs-ops/c/kernfs-create-file-ns.c
 - **`size`**: Очікуваний розмір файла в байтах (зазвичай `0` для віртуальних файлів).
 - **`ops`**: Вказівник на реалізовану таблицю операцій `struct kernfs_ops`.
 

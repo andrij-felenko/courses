@@ -4,18 +4,7 @@
 
 ## Тип запису
 
-```c
-typedef int (*initcall_t)(void);
-
-#ifdef CONFIG_HAVE_ARCH_PREL32_RELOCATIONS
-typedef int initcall_entry_t;          /* 4 байти: знаковий зсув */
-#else
-typedef initcall_t initcall_entry_t;   /* повний покажчик */
-#endif
-
-static inline initcall_t initcall_from_entry(initcall_entry_t *entry);
-extern int do_one_initcall(initcall_t fn);
-```
+:::code api-initcall-reference/c/typ-zapysu.h
 
 Сама функція ініціалізації не приймає нічого й повертає `int` — нуль або від'ємний код помилки. У масиві лежить не вона, а **запис** про неї, і тип цього запису залежить від архітектури.
 
@@ -64,24 +53,7 @@ extern int do_one_initcall(initcall_t fn);
 
 Межі проставляє сценарій компонування, і в ньому ж видно, чому рівень `rootfs` не є повноцінним:
 
-```c
-/* include/asm-generic/vmlinux.lds.h */
-#define INIT_CALLS_LEVEL(level)                          \
-                __initcall##level##_start = .;           \
-                KEEP(*(.initcall##level##.init))         \
-                KEEP(*(.initcall##level##s.init))
-
-#define INIT_CALLS                                       \
-                __initcall_start = .;                    \
-                KEEP(*(.initcallearly.init))             \
-                INIT_CALLS_LEVEL(0)                      \
-                ...                                      \
-                INIT_CALLS_LEVEL(5)                      \
-                INIT_CALLS_LEVEL(rootfs)                 \
-                INIT_CALLS_LEVEL(6)                      \
-                INIT_CALLS_LEVEL(7)                      \
-                __initcall_end = .;
-```
+:::code api-initcall-reference/c/symvoly-mezhi.c
 
 Символи оголошені так:
 

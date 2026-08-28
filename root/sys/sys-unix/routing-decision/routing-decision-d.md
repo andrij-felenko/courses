@@ -58,18 +58,7 @@
 int ip_route_input_noref(struct sk_buff *skb, __be32 daddr, __be32 saddr,
                          u8 tos, struct net_device *dev);
 ```
-```cpp
-#include <cstdint>
-
-// Концептуальний еквівалент функції маршрутизації вхідних пакетів у C++
-namespace net::kernel_sim {
-    struct SkBuff;
-    struct NetDevice;
-
-    int ip_route_input_noref(SkBuff* skb, std::uint32_t daddr, std::uint32_t saddr,
-                             std::uint8_t tos, const NetDevice* dev) noexcept;
-}
-```
+:::code routing-decision-d/cpp/vkhidnyi-tranzytnyi-abo.cpp
 :::
 
 Функція конструює ключову структуру опису запиту `struct flowi4` (або `struct flowi6` для IPv6), заповнюючи її параметрами `daddr`, `saddr`, `tos`, `mark` та `iif`. 
@@ -228,35 +217,8 @@ LC-Trie об'єднує два потужні методи стиснення д
 У коді ядра Linux (файл `net/ipv4/fib_trie.c`) вузли дерева кодуються структурою `struct key_vector`:
 
 :::tabs
-```c
-struct key_vector {
-    t_key          key;        /* Префікс адреси */
-    unsigned char  pos;        /* Позиція аналізованого біта (0..31) */
-    unsigned char  bits;       /* Кількість біт у рівні (stride k) */
-    unsigned char  slen;       /* Максимальна довжина суфіксу */
-    union {
-        struct key_vector *tnode[0]; /* Масив дочірніх вузлів (якщо bits > 0) */
-        struct hlist_head leaf;      /* Зв'язаний список fib_alias (якщо bits == 0) */
-    };
-};
-```
-```cpp
-#include <cstdint>
-#include <variant>
-#include <vector>
-
-// Структурне представлення вузла LC-Trie мовою C++ з використанням std::variant
-namespace net::kernel_sim {
-    struct KeyVector {
-        std::uint32_t key{0};  /* Префікс адреси */
-        std::uint8_t  pos{0};  /* Позиція аналізованого біта (0..31) */
-        std::uint8_t  bits{0}; /* Кількість біт у рівні (stride k) */
-        std::uint8_t  slen{0}; /* Максимальна довжина суфіксу */
-
-        std::variant<std::vector<KeyVector*>, void*> node_data;
-    };
-}
-```
+:::code routing-decision-d/c/main.c
+:::code routing-decision-d/cpp/anatomiia-vuzliv-lc-trie-u.cpp
 :::
 
 Покроковий процес пошуку в LC-Trie за функцією `check_leaf()`:
@@ -330,19 +292,7 @@ struct sock {
     ...
 };
 ```
-```cpp
-#include <atomic>
-
-// Опис кешу маршруту в сокеті C++ з використанням атомарного вказівника std::atomic
-namespace net::kernel_sim {
-    struct DstEntry;
-
-    struct Sock {
-        // У C++ кешований маршрут зберігається як атомарний або безпечний вказівник
-        std::atomic<const DstEntry*> sk_dst_cache{nullptr};
-    };
-}
-```
+:::code routing-decision-d/cpp/socket-route-caching.cpp
 :::
 
 Коли застосунок викликає `write()` або `sendmsg()`, ядро бере готовий маршрут безпосередньо з структури сокета через функцію `dst_check()`, взагалі не звертаючись до RPDB та LC-Trie! Це дає максимальну продуктивність для локальних серверів без ризику DDoS-вразливостей.

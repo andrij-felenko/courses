@@ -139,20 +139,7 @@ max mmap bytes   =          0
 
 **`mallinfo2()`** повертає структуру з тими самими числами, але придатну для коду:
 
-```c
-struct mallinfo2 {
-    size_t arena;     /* узято в системи не через mmap, байтів */
-    size_t ordblks;   /* вільних блоків, штук                  */
-    size_t smblks;    /* вільних fastbin-блоків                */
-    size_t hblks;     /* окремих mmap-ділянок, штук            */
-    size_t hblkhd;    /* байтів у окремих mmap-ділянках        */
-    size_t usmblks;   /* не використовується, завжди 0         */
-    size_t fsmblks;   /* байтів у вільних fastbin-блоках       */
-    size_t uordblks;  /* зайнято блоками програми, байтів      */
-    size_t fordblks;  /* вільно всередині алокатора, байтів    */
-    size_t keepcost;  /* скільки можна віддати зверху, байтів  */
-};
-```
+:::code api-mallopt-tunables/c/funktsii-ohliadu-i.c
 
 Два поля тут найкорисніші. `fordblks` — це і є та сама «незвільнена» пам'ять, через яку виникають хибні діагнози витоку: вона вільна для алокатора, але записана за процесом. `keepcost` показує, скільки з неї зріже `malloc_trim(0)` у головній арені.
 
@@ -195,36 +182,7 @@ struct mallinfo2 {
 
 ## Мінімальний робочий виклик
 
-```c
-#define _GNU_SOURCE
-#include <malloc.h>
-#include <stdio.h>
-
-int main(void) {
-    /* Має сенс до того, як програма розгалузиться на потоки:
-       вже створені арени це не прибирає.                     */
-    if (!mallopt(M_ARENA_MAX, 2))
-        fprintf(stderr, "mallopt(M_ARENA_MAX) не вдався\n");
-
-    void *p = malloc(100);
-    printf("просив 100, придатних %zu\n", malloc_usable_size(p));
-
-    void **v = malloc(200000 * sizeof *v);
-    for (int i = 0; i < 200000; i++) v[i] = malloc(512);
-    for (int i = 0; i < 200000; i++) free(v[i]);
-    free(v);
-
-    struct mallinfo2 m = mallinfo2();
-    printf("узято %zu, зайнято %zu, вільно всередині %zu, можна віддати %zu\n",
-           m.arena, m.uordblks, m.fordblks, m.keepcost);
-
-    printf("malloc_trim → %d\n", malloc_trim(0));
-    malloc_stats();            /* у stderr */
-    malloc_info(0, stdout);    /* XML у stdout */
-    free(p);
-    return 0;
-}
-```
+:::code api-mallopt-tunables/c/minimalnyi-robochyi-vyklyk.c
 
 ```
 $ gcc -O2 -o probe probe.c

@@ -103,19 +103,7 @@ chmod  [ugoa…][-+=][perms…][,…]     правка окремих бітів
 
 ## Змінити режим
 
-```c
-#include <sys/stat.h>
-int chmod(const char *path, mode_t mode);
-int fchmod(int fd, mode_t mode);
-
-#include <fcntl.h>          /* AT_* */
-#include <sys/stat.h>
-int fchmodat(int dirfd, const char *path, mode_t mode, int flags);
-
-#include <sys/syscall.h>    /* обгортки в glibc немає — лише через syscall() */
-int syscall(SYS_fchmodat2, int dirfd, const char *path,
-            mode_t mode, unsigned int flags);
-```
+:::code api-mode-bits/c/stat.h
 
 `fchmodat` — з базового пакету [родини `*at`](root:sys-unix/at-family-syscalls) (Linux 2.6.16, glibc 2.4). Аргумент `flags` у нього стоїть за POSIX, але **старий системний виклик його не мав узагалі**: обгортка glibc мусила або відмовляти на `AT_SYMLINK_NOFOLLOW`, або обходити його через `/proc`. Виклик `fchmodat2` (Linux 6.6) додав справжнє поле прапорців; від glibc 2.39 звичайний `fchmodat()` кличе саме його, коли ядро вміє.
 

@@ -12,23 +12,7 @@
 
 Три сцени на одному й тому самому ядрі, з одними й тими самими системними викликами всередині — і три різні відповіді, залежно від того, що написано в `/etc/fstab`.
 
-```sh
-# 1. Копія образу віртуальної машини на 40 ГіБ
-$ cp --reflink=always vm.img clone.img
-cp: failed to clone 'clone.img' from 'vm.img': Operation not supported   # ext4
-$ cp --reflink=always vm.img clone.img                                   # XFS, Btrfs
-$                                                                        # готово, миттєво
-
-# 2. Місце нібито є
-$ df -h /srv
-/dev/sdb1       500G  372G  128G  75% /srv
-$ touch /srv/probe
-touch: cannot touch '/srv/probe': No space left on device                 # Btrfs
-
-# 3. Розділ треба зменшити
-$ resize2fs /dev/sda2 200G          # ext4: працює (на відмонтованій)
-$ # XFS: такої операції не існує взагалі — тільки зростання
-```
+:::code filesystem-families-d/sh/main.sh
 
 Дієслова однакові, бо їх тримає [VFS](root:sys-unix/vfs-layer): будь-яка програма викликає `open`, `read`, `write`, `rename` і не питає, що під ними. Отже, різниця не в інтерфейсі. Вона в тому, на які питання VFS взагалі не відповідає — а відповісти на них мусить хтось, бо носій нічого не знає ні про файли, ні про імена, ні про права. Носій уміє одне: віддати блок за номером і прийняти блок за номером.
 

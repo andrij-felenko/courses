@@ -131,31 +131,7 @@ void on_int(int signo) {
 
 Сучасний спосіб — `sigaction`: він записує осередок і водночас описує, як саме доставляти сигнал.
 
-```c
-#include <signal.h>
-#include <string.h>
-
-static volatile sig_atomic_t stop_requested = 0;
-
-static void on_term(int signo) {
-    (void)signo;
-    stop_requested = 1;          /* усе, що можна робити тут, — звести прапорець */
-}
-
-int install_term_handler(void) {
-    struct sigaction sa;
-    memset(&sa, 0, sizeof sa);   /* поля, яких не заповнюємо, мають бути нульові */
-
-    sa.sa_handler = on_term;
-    sigemptyset(&sa.sa_mask);
-    sigaddset(&sa.sa_mask, SIGINT);  /* на час обробника блокуємо ще й SIGINT */
-    sa.sa_flags = SA_RESTART;        /* перервані виклики переграти, а не віддавати EINTR */
-
-    if (sigaction(SIGTERM, &sa, NULL) == -1)
-        return -1;
-    return 0;
-}
-```
+:::code signal-disposition-d/c/main.c
 
 У glibc на Linux `signal()` давно не є системним викликом: це обгортка над `sigaction` із прапорцями BSD-семантики, тож описаної гонки тут не буває. Але це властивість конкретної бібліотеки за конкретних макросів можливостей, а не мови: той самий текст, зібраний в іншому оточенні, може дістати давню поведінку зі скиданням. Тому диспозицію пишуть через `sigaction` — не з обережності, а тому що лише він каже вголос, чого саме ви хочете.
 

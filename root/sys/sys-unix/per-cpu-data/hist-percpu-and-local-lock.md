@@ -26,18 +26,7 @@
 
 Реалізація була прямолінійна до чесності:
 
-```c
-struct percpu_data {
-    void *ptrs[NR_CPUS];
-    void *blkp;
-};
-
-#define per_cpu_ptr(ptr, cpu)                                             \
-({                                                                        \
-    struct percpu_data *__p = (struct percpu_data *)~(unsigned long)(ptr); \
-    (__typeof__(ptr))__p->ptrs[(cpu)];                                     \
-})
-```
+:::code hist-percpu-and-local-lock/c/main.c
 
 Кожній копії — окремий `kmalloc`, усі вказівники на них — у масив. Повертався назовні не сам масив, а його **побітово обернена** адреса: `~(unsigned long)pdata`. Хитрість груба й дієва — розіменувати такий вказівник напряму неможливо, машина одразу впаде, тож помилка «забув `per_cpu_ptr`» ловиться в першу ж секунду, а не через місяць на чужому стенді.
 

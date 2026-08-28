@@ -93,26 +93,7 @@ struct ublksrv_io_desc {
 
 Виглядає цей цикл у коді так (повний робочий сервер, разом із налаштуванням пристрою й обробкою помилок, розібрано окремо — [найпростіший сервер ublk власноруч](root:sys-unix/userspace-block-devices/proj-ublk-server.md)):
 
-```c
-struct io_uring_cqe *cqe;
-io_uring_wait_cqe(&ring, &cqe);                  /* прокинулися: якийсь тег готовий */
-
-unsigned tag = (unsigned)cqe->user_data;
-const struct ublksrv_io_desc *iod = &desc_area[tag];   /* спільна пам'ять, без виклику */
-
-int res = serve(iod, buf[tag]);   /* наш код: хмара, розшифрування, дедуплікація — будь-що */
-
-struct io_uring_sqe *sqe = io_uring_get_sqe(&ring);
-struct ublksrv_io_cmd *cmd = (struct ublksrv_io_cmd *)sqe->cmd;
-io_uring_prep_read(sqe, ublkc_fd, NULL, 0, 0);   /* обнуляємо поля, далі перекриваємо */
-sqe->opcode  = IORING_OP_URING_CMD;
-sqe->cmd_op  = UBLK_U_IO_COMMIT_AND_FETCH_REQ;
-cmd->q_id    = q_id;
-cmd->tag     = tag;
-cmd->result  = res;              /* < 0 — помилка, інакше кількість оброблених байтів */
-cmd->addr    = (__u64)(uintptr_t)buf[tag];
-io_uring_submit(&ring);
-```
+:::code userspace-block-devices-d/c/main.h
 
 **Дані.** Спочатку тут була одна копія: адреса буфера сервера лежить у полі `addr`, і ядро само переносить туди сторінки запису чи забирає звідти прочитане. Одна копія проти двох плюс мережевий стек — уже інша величина. Але з ядра 6.15 є справжня передача без копії: прапорець `UBLK_F_SUPPORT_ZERO_COPY` дозволяє серверові зареєструвати сторінки самого запиту як буфер io_uring під певним номером і далі видавати читання й записи «у буфер номер такий-то». Форма тут важлива — серверові не дають адреси в пам'яті ядра. Йому дають **номер, який він має право назвати** у своїх операціях, і право це живе рівно стільки, скільки живе запит. Пізніші варіанти (`UBLK_F_AUTO_BUF_REG`) роблять реєстрацію автоматичною.
 

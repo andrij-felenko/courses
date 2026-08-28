@@ -21,20 +21,7 @@ char				comm[TASK_COMM_LEN];
 
 Але напис, який показує `ps`, не завжди дорівнює вмісту `comm`. Відповідь на читання `/proc/<pid>/comm`, `stat` і `status` ядро складає на льоту, і для потоків ядра — окремою гілкою:
 
-```c
-void proc_task_name(struct seq_file *m, struct task_struct *p, bool escape)
-{
-	char tcomm[64];
-
-	if (p->flags & PF_WQ_WORKER)
-		wq_worker_comm(tcomm, sizeof(tcomm), p);
-	else if (p->flags & PF_KTHREAD)
-		get_kthread_comm(tcomm, sizeof(tcomm), p);
-	else
-		__get_task_comm(tcomm, sizeof(tcomm), p);
-	…
-}
-```
+:::code api-kthread-names/c/main.c
 
 Буфер тут на 64 байти, а не на 16. Звичайний потік ядра має поле `full_name` («щоб зберегти повну назву, коли `comm` обрізано»), і `get_kthread_comm()` віддає саме його. Робітник робочої черги (прапорець `PF_WQ_WORKER`) отримує назву ще цікавішу: `wq_worker_comm()` доклеює до неї опис роботи, яку робітник виконує зараз або виконував востаннє.
 
@@ -256,18 +243,7 @@ grep Cpus_allowed_list /proc/4711/status
 
 Для динамічного відстеження активності робочих черг за допомогою `bpftrace`:
 
-```sh
-# відстежити, які саме функції виконуються у kworker та скільки часу вони займають
-sudo bpftrace -e '
-tracepoint:workqueue:workqueue_execute_start {
-    @start[args->work] = nsecs;
-}
-tracepoint:workqueue:workqueue_execute_end {
-    $duration = (nsecs - @start[args->work]) / 1000;
-    @us[ksym(args->function)] = hist($duration);
-    delete(@start[args->work]);
-}'
-```
+:::code api-kthread-names/sh/main.sh
 
 Цей коротенький скрипт будує гістограму тривалостей (у мікросекундах) для кожної функції, що запускається у спільному наборі `kworker`, — і саме за нею видно винуватця підвищеного навантаження ядра.
 

@@ -23,48 +23,8 @@ fi
 Коли запускалася програма `/bin/[`, її точка входу аналізувала аргументи виклику. Нижче наведено історичну логіку перевірки закриваючої дужки мовою C та її сучасний еквівалент на C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main(int argc, char *argv[]) {
-    if (strcmp(argv[0], "[") == 0 || strcmp(argv[0], "/bin/[") == 0) {
-        if (argc < 2 || strcmp(argv[argc - 1], "]") != 0) {
-            fprintf(stderr, "[: missing ]\n");
-            exit(2);
-        }
-        /* Відкидаємо закриваючу дужку перед аналізом виразу */
-        argc--;
-        argv[argc] = NULL;
-    }
-    /* Подальший розбір предикатів test */
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <span>
-#include <cstdlib>
-
-int main(int argc, char* argv[]) {
-    std::span<char*> args(argv, argc);
-    if (!args.empty()) {
-        std::string_view prog_name = args.front();
-        if (prog_name == "[" || prog_name == "/bin/[" || prog_name.ends_with("/[")) {
-            if (args.size() < 2 || std::string_view(args.back()) != "]") {
-                std::cerr << "[: missing ]\n";
-                return 2;
-            }
-            /* Відкидаємо останній аргумент ']' */
-            args = args.subspan(0, args.size() - 1);
-        }
-    }
-    /* Подальший розбір предикатів test */
-    return 0;
-}
-```
+:::code hist-test-and-brackets-evolution/c/main.c
+:::code hist-test-and-brackets-evolution/cpp/main.cpp
 :::
 
 Через це пробіли довкола дужок `[ ` та ` ]` стали священним правилом Unix: `[` — це ім'я виконуваної програми, а `]` — її останній аргумент. Якщо автор скрипту писав `[foo = bar]`, оболонка намагалася запустити неіснуючу програму з іменем `[foo` або шукати файл `bar]`.

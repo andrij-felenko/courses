@@ -42,33 +42,7 @@
 
 Драйвер не реєструє профіль окремим викликом — він заповнює поля всередині обмежень черги, і ядро перевіряє їх разом з усім іншим.
 
-```c
-struct blk_integrity {
-	unsigned char			flags;
-	enum blk_integrity_checksum	csum_type;
-	unsigned char			metadata_size;   /* усіх службових байтів на інтервал */
-	unsigned char			pi_offset;       /* зсув кортежу всередині них */
-	unsigned char			interval_exp;    /* log₂ інтервалу даних */
-	unsigned char			tag_size;        /* вільних байтів для власника вище */
-	unsigned char			pi_tuple_size;   /* 8 або 16 */
-};
-
-enum blk_integrity_checksum {
-	BLK_INTEGRITY_CSUM_NONE  = 0,
-	BLK_INTEGRITY_CSUM_IP    = 1,
-	BLK_INTEGRITY_CSUM_CRC   = 2,
-	BLK_INTEGRITY_CSUM_CRC64 = 3,
-};
-
-enum blk_integrity_flags {
-	BLK_INTEGRITY_NOVERIFY       = 1 << 0,  /* ← read_verify = 0 */
-	BLK_INTEGRITY_NOGENERATE     = 1 << 1,  /* ← write_generate = 0 */
-	BLK_INTEGRITY_DEVICE_CAPABLE = 1 << 2,  /* → device_is_integrity_capable */
-	BLK_INTEGRITY_REF_TAG        = 1 << 3,  /* → TYPE1 у рядку format */
-	BLK_INTEGRITY_STACKED        = 1 << 4,  /* профіль зібрано з нижніх шарів */
-	BLK_SPLIT_INTERVAL_CAPABLE   = 1 << 5,  /* інтервал можна різати між сторінками */
-};
-```
+:::code api-integrity-interfaces/c/struktura-v-queue-limits.c
 
 Назовні видно чотири поля з семи: `csum_type` разом із прапорцем посилального тега — в `format`, `interval_exp` — у `protection_interval_bytes`, `tag_size` — сам собою. `metadata_size`, `pi_offset` і `pi_tuple_size` в sysfs не показані взагалі; саме `metadata_size` вирішує, чи є профіль (нуль — немає).
 
@@ -83,22 +57,7 @@ enum blk_integrity_flags {
 
 ## Кортежі
 
-```c
-struct t10_pi_tuple {          /* 8 байтів: SCSI DIF, NVMe з 16-бітовим вартовим */
-	__be16 guard_tag;      /* CRC-16 від байтів інтервалу */
-	__be16 app_tag;        /* власникові вище; носій не чіпає */
-	__be32 ref_tag;        /* молодші 32 біти адреси (тип 1) */
-};
-
-struct crc64_pi_tuple {        /* 16 байтів: NVMe 2.0 */
-	__be64 guard_tag;
-	__be16 app_tag;
-	__u8   ref_tag[6];     /* 48 бітів адреси і мітки зберігання */
-};
-
-#define T10_PI_APP_ESCAPE  0xffff      /* блок не перевіряти взагалі */
-#define T10_PI_REF_ESCAPE  0xffffffff  /* посилальний тег не перевіряти */
-```
+:::code api-integrity-interfaces/c/kortezhi.c
 
 Значення-втечі — не заглушки, а частина протоколу: `app_tag` = `0xffff` каже носієві пропустити перевірку цього блока (так позначають ніколи не записані блоки), `ref_tag` = `0xffffffff` вимикає звірку адреси на одному конкретному блоці.
 
@@ -195,42 +154,11 @@ $ sudo nvme format /dev/nvme0n1 --lbaf=3 --pi=1 --pil=0 --ms=0
 
 З ядра 6.14 застосунок може подати свої теги разом із самою операцією — через [io_uring](root:sys-unix/io-uring-rings-model), інтерфейс, у якому запити кладуть у кільце в пам'яті, а не передають окремим системним викликом.
 
-```c
-/* include/uapi/linux/io_uring.h */
-#define IORING_RW_ATTR_FLAG_PI	(1U << 0)
-
-struct io_uring_attr_pi {
-	__u16	flags;    /* IO_INTEGRITY_CHK_* — які саме перевірки вимагати */
-	__u16	app_tag;  /* прикладний тег */
-	__u32	len;      /* довжина буфера з тегами, байтів */
-	__u64	addr;     /* сам буфер з тегами */
-	__u64	seed;     /* посилальний тег першого блока запиту */
-	__u64	rsvd;     /* мусить бути 0 */
-};
-
-/* include/uapi/linux/fs.h */
-#define IO_INTEGRITY_CHK_GUARD	(1U << 0)
-#define IO_INTEGRITY_CHK_REFTAG	(1U << 1)
-#define IO_INTEGRITY_CHK_APPTAG	(1U << 2)
-```
+:::code api-integrity-interfaces/c/vlasni-tehy-z-io-uring.c
 
 Мінімальний виклик — читання чотирьох кілобайтів разом із їхніми тегами:
 
-```c
-struct io_uring_sqe *sqe = io_uring_get_sqe(&ring);
-io_uring_prep_read(sqe, fd, data, 4096, offset);   /* fd відкрито з O_DIRECT */
-
-struct io_uring_attr_pi pi = {
-	.flags   = IO_INTEGRITY_CHK_GUARD | IO_INTEGRITY_CHK_REFTAG,
-	.app_tag = 0,
-	.addr    = (__u64)(uintptr_t)meta,   /* nblocks × metadata_size байтів */
-	.len     = nblocks * 8,
-	.seed    = lba,                      /* очікуваний посилальний тег першого блока */
-	.rsvd    = 0,
-};
-sqe->attr_ptr       = (__u64)(uintptr_t)&pi;
-sqe->attr_type_mask = IORING_RW_ATTR_FLAG_PI;
-```
+:::code api-integrity-interfaces/c/vlasni-tehy-z-io-uring-2.c
 
 Правила, за якими це або працює, або повертає помилку:
 

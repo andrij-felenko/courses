@@ -204,18 +204,7 @@ typedef struct spinlock {
 
 Приклад виклику трасувальника `wakeup_rt` у системі:
 
-```bash
-# Налаштування трасувальника ftrace для пошуку затримок RT
-echo wakeup_rt > /sys/kernel/tracing/current_tracer
-echo 0 > /sys/kernel/tracing/tracing_max_latency   # скинути попередній максимум
-echo 1 > /sys/kernel/tracing/tracing_on
-
-# Запуск навантаження (stress-ng) та вимірювача cyclictest
-cyclictest -p 80 -m -n -i 1000 -l 100000
-
-# Перегляд зафіксованого трасування з джерелом максимальної затримки
-cat /sys/kernel/tracing/trace
-```
+:::code rt-latency-budget-and-tuning-d/sh/main.sh
 
 У журналі `trace` інженер бачить точний callgraph функцій ядра з позначками часу в наносекундах, що дозволяє миттєво локалізувати драйвер або лок, який спричинив затримку.
 

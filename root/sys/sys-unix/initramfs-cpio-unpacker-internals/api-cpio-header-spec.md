@@ -9,56 +9,8 @@
 Фіксована частина заголовка кожного кадру має розмір точно **110 байтів**. Вона передує текстовому шляху файлу та його бінарному навантаженню.
 
 :::tabs
-```c
-/* cpio_newc_header.h — Специфікація заголовка мовою C */
-#include <stdint.h>
-
-struct cpio_newc_header {
-    char c_magic[6];     /* Магічний маркер: "070701" (без CRC) або "070702" (з CRC) */
-    char c_ino[8];       /* Номер іноди джерела у hex ASCII */
-    char c_mode[8];      /* Тип файлу та права доступу у hex ASCII */
-    char c_uid[8];       /* Ідентифікатор користувача-власника (UID) у hex ASCII */
-    char c_gid[8];       /* Ідентифікатор групи-власника (GID) у hex ASCII */
-    char c_nlink[8];     /* Кількість посилань на іноду у hex ASCII */
-    char c_mtime[8];     /* Штамп часу модифікації POSIX timestamp у hex ASCII */
-    char c_filesize[8];  /* Розмір бінарних даних файлу в байтах у hex ASCII */
-    char c_maj[8];       /* Major номер пристрою носія іноди у hex ASCII */
-    char c_min[8];       /* Minor номер пристрою носія іноди у hex ASCII */
-    char c_rmaj[8];      /* Major номер спеціального пристрою у hex ASCII */
-    char c_rmin[8];      /* Minor номер спеціального пристрою у hex ASCII */
-    char c_namesize[8];  /* Довжина шляху файлу з урахуванням NUL-байта у hex ASCII */
-    char c_chksum[8];    /* Контрольна сума ("00000000" для 070701) у hex ASCII */
-};
-```
-```cpp
-// cpio_newc_header.hpp — Ідіоматична специфікація заголовка мовою C++20
-#include <array>
-#include <cstdint>
-#include <string_view>
-
-namespace cpio {
-
-struct alignas(1) Header {
-    std::array<char, 6>  magic;     // "070701" або "070702"
-    std::array<char, 8>  ino;       // Hex ASCII номер іноди
-    std::array<char, 8>  mode;      // Hex ASCII тип і права доступу
-    std::array<char, 8>  uid;       // Hex ASCII User ID
-    std::array<char, 8>  gid;       // Hex ASCII Group ID
-    std::array<char, 8>  nlink;     // Hex ASCII лічильник посилань
-    std::array<char, 8>  mtime;     // Hex ASCII час модифікації
-    std::array<char, 8>  filesize;  // Hex ASCII розмір даних у байтах
-    std::array<char, 8>  maj;       // Hex ASCII Major dev іноди
-    std::array<char, 8>  min;       // Hex ASCII Minor dev іноди
-    std::array<char, 8>  rmaj;      // Hex ASCII Major dev пристрою
-    std::array<char, 8>  rmin;      // Hex ASCII Minor dev пристрою
-    std::array<char, 8>  namesize;  // Hex ASCII довжина шляху з '\0'
-    std::array<char, 8>  chksum;    // Hex ASCII CRC32 або 0
-};
-
-static_assert(sizeof(Header) == 110, "Заголовок CPIO newc мусить бути точно 110 байтів");
-
-} // namespace cpio
-```
+:::code api-cpio-header-spec/c/main.c
+:::code api-cpio-header-spec/cpp/main.cpp
 :::
 
 ### Детальний аналіз полів заголовка

@@ -62,80 +62,8 @@
 5. **Очікування у waitpid:** Трасувальник у цей час блокується у системному виклику `waitpid()`. Отримавши сповіщення про зупинку дочірнього процесу, tracer бере контроль і починає налагодження.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/ptrace.h>
-#include <sys/wait.h>
-
-void launch_target_under_trace(const char *binary_path) {
-    pid_t pid = fork();
-    if (pid < 0) {
-        perror("fork failed");
-        exit(EXIT_FAILURE);
-    }
-
-    if (pid == 0) {
-        /* Дочірній процес: оголошуємо дозвіл на трасування */
-        if (ptrace(PTRACE_TRACEME, 0, NULL, NULL) < 0) {
-            perror("ptrace(TRACEME) failed");
-            exit(EXIT_FAILURE);
-        }
-        /* Призупиняємо виконання до того, как батько налаштує опції */
-        raise(SIGSTOP);
-        execl(binary_path, binary_path, NULL);
-        perror("execl failed");
-        exit(EXIT_FAILURE);
-    } else {
-        /* Батьківський процес (Tracer) */
-        int status;
-        waitpid(pid, &status, 0);
-        if (WIFSTOPPED(status)) {
-            printf("[Tracer] Tracee stopped successfully, signal: %d\n", WSTOPSIG(status));
-        }
-        /* Продовжуємо виконання цільової програми */
-        ptrace(PTRACE_CONT, pid, NULL, NULL);
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <unistd.h>
-#include <sys/ptrace.h>
-#include <sys/wait.h>
-
-void launch_target_under_trace_cpp(const char* binary_path) {
-    const pid_t pid = ::fork();
-    if (pid < 0) {
-        throw std::system_error(errno, std::generic_category(), "fork failed");
-    }
-
-    if (pid == 0) {
-        if (::ptrace(PTRACE_TRACEME, 0, nullptr, nullptr) < 0) {
-            std::perror("ptrace(TRACEME) failed");
-            std::_Exit(EXIT_FAILURE);
-        }
-        ::raise(SIGSTOP);
-        ::execl(binary_path, binary_path, nullptr);
-        std::perror("execl failed");
-        std::_Exit(EXIT_FAILURE);
-    }
-
-    int status = 0;
-    if (::waitpid(pid, &status, 0) < 0) {
-        throw std::system_error(errno, std::generic_category(), "waitpid failed");
-    }
-
-    if (WIFSTOPPED(status)) {
-        std::cout << "[Tracer] Tracee stopped successfully, signal: " 
-                  << WSTOPSIG(status) << "\n";
-    }
-
-    ::ptrace(PTRACE_CONT, pid, nullptr, nullptr);
-}
-```
+:::code ptrace-model-d/c/stsenarii-a-zapusk-novoho.c
+:::code ptrace-model-d/cpp/stsenarii-a-zapusk-novoho.cpp
 :::
 
 ### Сценарій B: Приєднання до працюючого процесу (PTRACE_ATTACH / PTRACE_SEIZE)
@@ -227,36 +155,8 @@ ptrace(PTRACE_SETOPTIONS, pid, NULL, (void*)PTRACE_O_TRACESYSGOOD);
 Для читання регістрів використовується запит `PTRACE_GETREGS`, а для модифікації — `PTRACE_SETREGS`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <sys/ptrace.h>
-#include <sys/user.h>
-
-void inspect_registers(pid_t pid) {
-    struct user_regs_struct regs;
-    if (ptrace(PTRACE_GETREGS, pid, NULL, &regs) == 0) {
-        printf("RIP (Instruction Pointer): 0x%llx\n", regs.rip);
-        printf("RSP (Stack Pointer):       0x%llx\n", regs.rsp);
-        printf("RAX (Syscall/Return):      0x%llx\n", regs.rax);
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <sys/ptrace.h>
-#include <sys/user.h>
-
-void inspect_registers_cpp(pid_t pid) {
-    user_regs_struct regs{};
-    if (::ptrace(PTRACE_GETREGS, pid, nullptr, &regs) < 0) {
-        throw std::system_error(errno, std::generic_category(), "PTRACE_GETREGS failed");
-    }
-    std::cout << "RIP (Instruction Pointer): 0x" << std::hex << regs.rip << "\n"
-              << "RSP (Stack Pointer):       0x" << regs.rsp << "\n"
-              << "RAX (Syscall/Return):      0x" << regs.rax << std::dec << "\n";
-}
-```
+:::code ptrace-model-d/c/chytannia-ta-zapys.c
+:::code ptrace-model-d/cpp/chytannia-ta-zapys.cpp
 :::
 
 Можливість перезаписувати значення регістрів через `PTRACE_SETREGS` дозволяє налагоджувачу змінювати напрямок виконання програми (наприклад, повертаючи `%rip` назад) або змінювати значення аргументів системних викликів на льоту.

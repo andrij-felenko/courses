@@ -39,53 +39,8 @@ KSM обробляє лише **анонімну приватну пам'ять*
 Для окремих ділянок пам'яті програма викликає `madvise` з прапорцем `MADV_MERGEABLE`. Для чужих програм у контейнерах, починаючи з ядра Linux 6.4, злиття можна ввімкнути на весь процес викликом `prctl(PR_SET_MEMORY_MERGE, 1, ...)`.
 
 :::tabs
-```c
-#include <sys/mman.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int main(void) {
-    size_t size = 100 * 1024 * 1024; // 100 МіБ
-
-    void *addr = mmap(NULL, size, PROT_READ | PROT_WRITE,
-                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (addr == MAP_FAILED) return 1;
-
-    // Дозволяємо KSM сканувати та зливати цю ділянку
-    if (madvise(addr, size, MADV_MERGEABLE) == 0) {
-        printf("KSM дозволено для ділянки %p\n", addr);
-    }
-    return 0;
-}
-```
-```cpp
-#include <sys/mman.h>
-#include <iostream>
-#include <memory>
-#include <unistd.h>
-
-int main() {
-    constexpr size_t size = 100 * 1024 * 1024; // 100 МіБ
-
-    struct MmapDeleter {
-        size_t len;
-        void operator()(void* p) const {
-            if (p && p != MAP_FAILED) munmap(p, len);
-        }
-    };
-
-    void* raw = mmap(nullptr, size, PROT_READ | PROT_WRITE,
-                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (raw == MAP_FAILED) return 1;
-
-    std::unique_ptr<void, MmapDeleter> area(raw, MmapDeleter{size});
-
-    if (madvise(area.get(), size, MADV_MERGEABLE) == 0) {
-        std::cout << "KSM дозволено для ділянки " << area.get() << "\n";
-    }
-    return 0;
-}
-```
+:::code ksm-page-merging/c/main.c
+:::code ksm-page-merging/cpp/main.cpp
 :::
 
 ## Моніторинг та безпека

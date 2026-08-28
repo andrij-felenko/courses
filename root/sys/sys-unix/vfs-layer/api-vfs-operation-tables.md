@@ -23,19 +23,7 @@
 
 Це вхід у контракт: опис типу файлової системи, який модуль віддає ядру, щоб ім'я з'явилося серед доступних для монтування.
 
-```c
-struct file_system_type {
-    const char *name;            /* ім'я для mount -t і /proc/filesystems */
-    int fs_flags;                /* ознаки FS_*, перелік нижче */
-    int (*init_fs_context)(struct fs_context *);
-    const struct fs_parameter_spec *parameters;
-    void (*kill_sb)(struct super_block *);
-    struct module *owner;        /* THIS_MODULE */
-    struct hlist_node list;      /* внутрішнє: місце в списку зареєстрованих */
-    struct hlist_head fs_supers; /* внутрішнє: живі суперблоки цього типу */
-    /* далі — ключі класів блокувань для lockdep */
-};
-```
+:::code api-vfs-operation-tables/c/reiestratsiia-struct-file.h
 
 | поле | стан | що робить |
 |---|---|---|
@@ -72,26 +60,7 @@ int unregister_filesystem(struct file_system_type *fs);
 
 Таблиця дій над змонтованим примірником і над його inode як цілим.
 
-```c
-struct super_operations {
-    struct inode *(*alloc_inode)(struct super_block *sb);
-    void (*destroy_inode)(struct inode *);
-    void (*free_inode)(struct inode *);
-    void (*dirty_inode)(struct inode *, int flags);
-    int  (*write_inode)(struct inode *, struct writeback_control *wbc);
-    int  (*drop_inode)(struct inode *);
-    void (*evict_inode)(struct inode *);
-    void (*put_super)(struct super_block *);
-    int  (*sync_fs)(struct super_block *sb, int wait);
-    int  (*freeze_fs)(struct super_block *);
-    int  (*unfreeze_fs)(struct super_block *);
-    int  (*statfs)(struct dentry *, struct kstatfs *);
-    void (*umount_begin)(struct super_block *);
-    int  (*show_options)(struct seq_file *, struct dentry *);
-    long (*nr_cached_objects)(struct super_block *, struct shrink_control *);
-    long (*free_cached_objects)(struct super_block *, struct shrink_control *);
-};
-```
+:::code api-vfs-operation-tables/c/super-operations-riven.h
 
 | поле | порожній вказівник означає |
 |---|---|
@@ -113,36 +82,7 @@ struct super_operations {
 
 Найважливіша таблиця, бо саме тут порожнє поле найчастіше перетворюється на код помилки в програмі.
 
-```c
-struct inode_operations {
-    struct dentry *(*lookup)(struct inode *, struct dentry *, unsigned int);
-    int  (*create)(struct mnt_idmap *, struct inode *, struct dentry *, umode_t, bool);
-    int  (*link)(struct dentry *, struct inode *, struct dentry *);
-    int  (*unlink)(struct inode *, struct dentry *);
-    int  (*symlink)(struct mnt_idmap *, struct inode *, struct dentry *, const char *);
-    struct dentry *(*mkdir)(struct mnt_idmap *, struct inode *, struct dentry *, umode_t);
-    int  (*rmdir)(struct inode *, struct dentry *);
-    int  (*mknod)(struct mnt_idmap *, struct inode *, struct dentry *, umode_t, dev_t);
-    int  (*rename)(struct mnt_idmap *, struct inode *, struct dentry *,
-                   struct inode *, struct dentry *, unsigned int);
-    const char *(*get_link)(struct dentry *, struct inode *, struct delayed_call *);
-    int  (*readlink)(struct dentry *, char __user *, int);
-    int  (*permission)(struct mnt_idmap *, struct inode *, int);
-    int  (*getattr)(struct mnt_idmap *, const struct path *, struct kstat *,
-                    u32 request_mask, unsigned int query_flags);
-    int  (*setattr)(struct mnt_idmap *, struct dentry *, struct iattr *);
-    ssize_t (*listxattr)(struct dentry *, char *, size_t);
-    struct posix_acl *(*get_inode_acl)(struct inode *, int, bool);
-    int  (*set_acl)(struct mnt_idmap *, struct dentry *, struct posix_acl *, int);
-    int  (*fiemap)(struct inode *, struct fiemap_extent_info *, u64 start, u64 len);
-    void (*update_time)(struct inode *, enum fs_update_time type, int flags);
-    int  (*atomic_open)(struct inode *, struct dentry *, struct file *,
-                        unsigned open_flag, umode_t create_mode);
-    int  (*tmpfile)(struct mnt_idmap *, struct inode *, struct file *, umode_t);
-    int  (*fileattr_get)(struct dentry *, struct file_kattr *);
-    int  (*fileattr_set)(struct mnt_idmap *, struct dentry *, struct file_kattr *);
-};
-```
+:::code api-vfs-operation-tables/c/inode-operations-obiekt-i.h
 
 Перший аргумент `struct mnt_idmap *` у більшості методів — не примха: через нього передають перевідображення власників того монтування, крізь яке прийшов запит, тому драйвер ніколи не порівнює ідентифікатори напряму.
 
@@ -171,20 +111,7 @@ struct inode_operations {
 
 Найкоротша з таблиць і єдина, яку більшість файлових систем лишає порожньою цілком.
 
-```c
-struct dentry_operations {
-    int  (*d_revalidate)(struct inode *, const struct qstr *, struct dentry *, unsigned int);
-    int  (*d_weak_revalidate)(struct dentry *, unsigned int);
-    int  (*d_hash)(const struct dentry *, struct qstr *);
-    int  (*d_compare)(const struct dentry *, unsigned int, const char *, const struct qstr *);
-    int  (*d_delete)(const struct dentry *);
-    void (*d_release)(struct dentry *);
-    void (*d_iput)(struct dentry *, struct inode *);
-    char *(*d_dname)(struct dentry *, char *, int);
-    struct vfsmount *(*d_automount)(struct path *);
-    int  (*d_manage)(const struct path *, bool);
-};
-```
+:::code api-vfs-operation-tables/c/dentry-operations-koly.h
 
 | поле | порожній вказівник означає |
 |---|---|
@@ -200,41 +127,7 @@ struct dentry_operations {
 
 Ту саму структуру заповнюють і файлові системи, і драйвери символьних пристроїв — це найширше вживана таблиця в ядрі.
 
-```c
-struct file_operations {
-    struct module *owner;
-    fop_flags_t fop_flags;
-    loff_t  (*llseek)(struct file *, loff_t, int);
-    ssize_t (*read)(struct file *, char __user *, size_t, loff_t *);
-    ssize_t (*write)(struct file *, const char __user *, size_t, loff_t *);
-    ssize_t (*read_iter)(struct kiocb *, struct iov_iter *);
-    ssize_t (*write_iter)(struct kiocb *, struct iov_iter *);
-    int     (*iterate_shared)(struct file *, struct dir_context *);
-    __poll_t (*poll)(struct file *, struct poll_table_struct *);
-    long    (*unlocked_ioctl)(struct file *, unsigned int, unsigned long);
-    long    (*compat_ioctl)(struct file *, unsigned int, unsigned long);
-    int     (*mmap)(struct file *, struct vm_area_struct *);
-    int     (*open)(struct inode *, struct file *);
-    int     (*flush)(struct file *, fl_owner_t id);
-    int     (*release)(struct inode *, struct file *);
-    int     (*fsync)(struct file *, loff_t start, loff_t end, int datasync);
-    int     (*fasync)(int, struct file *, int);
-    int     (*lock)(struct file *, int, struct file_lock *);
-    int     (*flock)(struct file *, int, struct file_lock *);
-    ssize_t (*splice_read)(struct file *, loff_t *, struct pipe_inode_info *,
-                           size_t, unsigned int);
-    ssize_t (*splice_write)(struct pipe_inode_info *, struct file *, loff_t *,
-                            size_t, unsigned int);
-    long    (*fallocate)(struct file *, int mode, loff_t offset, loff_t len);
-    ssize_t (*copy_file_range)(struct file *, loff_t, struct file *, loff_t,
-                               size_t, unsigned int);
-    loff_t  (*remap_file_range)(struct file *file_in, loff_t pos_in,
-                                struct file *file_out, loff_t pos_out,
-                                loff_t len, unsigned int remap_flags);
-    int     (*fadvise)(struct file *, loff_t, loff_t, int);
-    void    (*show_fdinfo)(struct seq_file *, struct file *);
-};
-```
+:::code api-vfs-operation-tables/c/file-operations-uzhe.h
 
 `fop_flags` — не вказівник, а набір бітів (`FOP_*`), який раніше жив серед `FMODE_*`: чи можна виконувати метод без блокування, чи витримує драйвер паралельні прямі записи, чи вміє великі сторінки.
 
@@ -265,29 +158,7 @@ struct file_operations {
 
 Таблиця, якою файлова система під'єднується до кеша сторінок. Одиниця тут — не сторінка, а **folio**, група суміжних сторінок, яку кеш веде як ціле.
 
-```c
-struct address_space_operations {
-    int  (*read_folio)(struct file *, struct folio *);
-    void (*readahead)(struct readahead_control *);
-    int  (*writepages)(struct address_space *, struct writeback_control *);
-    bool (*dirty_folio)(struct address_space *, struct folio *);
-    int  (*write_begin)(const struct kiocb *, struct address_space *,
-                        loff_t pos, unsigned len, struct folio **, void **fsdata);
-    int  (*write_end)(const struct kiocb *, struct address_space *,
-                      loff_t pos, unsigned len, unsigned copied,
-                      struct folio *, void *fsdata);
-    sector_t (*bmap)(struct address_space *, sector_t);
-    void (*invalidate_folio)(struct folio *, size_t start, size_t len);
-    bool (*release_folio)(struct folio *, gfp_t);
-    void (*free_folio)(struct folio *);
-    ssize_t (*direct_IO)(struct kiocb *, struct iov_iter *);
-    int  (*migrate_folio)(struct address_space *, struct folio *dst,
-                          struct folio *src, enum migrate_mode);
-    int  (*launder_folio)(struct folio *);
-    bool (*is_partially_uptodate)(struct folio *, size_t from, size_t count);
-    int  (*error_remove_folio)(struct address_space *, struct folio *);
-};
-```
+:::code api-vfs-operation-tables/c/address-space-operations.h
 
 | поле | порожній вказівник означає |
 |---|---|
@@ -327,20 +198,7 @@ struct address_space_operations {
 
 Для найпростішого випадку готові навіть цілі таблиці. Каталог, чий вміст цілком описано записами кеша імен, обходиться двома рядками:
 
-```c
-const struct inode_operations simple_dir_inode_operations = {
-    .lookup = simple_lookup,
-};
-
-const struct file_operations simple_dir_operations = {
-    .open           = dcache_dir_open,
-    .release        = dcache_dir_close,
-    .llseek         = dcache_dir_lseek,
-    .read           = generic_read_dir,
-    .iterate_shared = dcache_readdir,
-    .fsync          = noop_fsync,
-};
-```
+:::code api-vfs-operation-tables/c/hotovi-realizatsii-zamist.c
 
 А файл, що живе просто в пам'яті, — чотирма:
 

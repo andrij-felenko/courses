@@ -159,18 +159,7 @@ dialout:x:20:andrij,maria
 
 Поле `mask` — стеля, а не окремий дозвіл: чинні права іменованого запису є перетином самого запису й маски. `setfacl` типово **перераховує** маску після кожного `-m`, кладучи туди об'єднання прав групи-власника й усіх іменованих записів, — тому зазвичай вона не заважає. Заважає, коли маску задали явно:
 
-```sh
-$ setfacl -m u:andrij:rw,m::r /dev/ttyUSB0
-$ getfacl -p /dev/ttyUSB0
-# file: /dev/ttyUSB0
-# owner: root
-# group: dialout
-user::rw-
-user:andrij:rw-			#effective:r--
-group::rw-			#effective:r--
-mask::r--
-other::---
-```
+:::code api-udev-access-rules/sh/main.sh
 
 Коментар `#effective:` з'являється рівно тоді, коли маска щось ріже. Ще одна прикмета: `ls -l` дописує `+` після дев'яти символів режиму, якщо на файлі є розширені записи.
 

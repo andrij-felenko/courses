@@ -87,58 +87,8 @@ ULP дозволяє реєструвати спеціалізовані про�
 Активація kTLS та передача ключів виконуються за допомогою наступних системних викликів:
 
 :::tabs
-```c
-#include <sys/socket.h>
-#include <netinet/tcp.h>
-#include <linux/tls.h>
-#include <string.h>
-#include <stdio.h>
-
-int enable_ktls_example(int sockfd, const struct tls12_crypto_info_aes_gcm_128 *crypto_tx) {
-    /* 1. Нашарування ULP модуля kTLS поверх TCP */
-    const char *ulp_name = "tls";
-    if (setsockopt(sockfd, IPPROTO_TCP, TCP_ULP, ulp_name, strlen(ulp_name)) < 0) {
-        perror("setsockopt TCP_ULP");
-        return -1;
-    }
-
-    /* 2. Передача симетричних ключів у ядро для передачі (TX) */
-    if (setsockopt(sockfd, SOL_TLS, TLS_TX, crypto_tx, sizeof(*crypto_tx)) < 0) {
-        perror("setsockopt SOL_TLS TLS_TX");
-        return -1;
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <sys/socket.h>
-#include <netinet/tcp.h>
-#include <linux/tls.h>
-#include <string_view>
-#include <system_error>
-#include <cstring>
-
-namespace ktls_utils {
-
-[[nodiscard]] std::error_code enable_ktls(int sockfd, const struct tls12_crypto_info_aes_gcm_128& crypto_tx) noexcept {
-    constexpr std::string_view ulp_name = "tls";
-    
-    // 1. Активація ULP модуля у ядрі
-    if (::setsockopt(sockfd, IPPROTO_TCP, TCP_ULP, ulp_name.data(), ulp_name.size()) < 0) {
-        return std::error_code(errno, std::generic_category());
-    }
-
-    // 2. Встановлення ключів TX
-    if (::setsockopt(sockfd, SOL_TLS, TLS_TX, &crypto_tx, sizeof(crypto_tx)) < 0) {
-        return std::error_code(errno, std::generic_category());
-    }
-
-    return {};
-}
-
-} // namespace ktls_utils
-```
+:::code kernel-tls-record-layer-d/c/3-arkhitektura-pidsystemy.c
+:::code kernel-tls-record-layer-d/cpp/3-arkhitektura-pidsystemy.cpp
 :::
 
 ## 4. Програмний режим (SW kTLS): шифрування та розшифрування у ядрі
@@ -244,75 +194,8 @@ namespace ktls_utils {
 Для відправки керуючого запису (наприклад, TLS Alert про закриття сесії) додаток використовує системний виклик `sendmsg()` із додаванням допоміжних даних (Ancillary Data) у структуру `cmsghdr`:
 
 :::tabs
-```c
-#include <sys/socket.h>
-#include <linux/tls.h>
-#include <string.h>
-#include <stdio.h>
-
-/* Відправка керуючого запису TLS Alert (тип 21) через kTLS */
-ssize_t send_tls_alert(int sockfd, uint8_t alert_code) {
-    struct msghdr msg = {0};
-    struct iovec iov;
-    char cmsg_buf[CMSG_SPACE(sizeof(uint8_t))];
-
-    /* Корисне навантаження Alert (1 байт коду) */
-    iov.iov_base = &alert_code;
-    iov.iov_len = sizeof(alert_code);
-
-    msg.msg_iov = &iov;
-    msg.msg_iovlen = 1;
-    msg.msg_control = cmsg_buf;
-    msg.msg_controllen = sizeof(cmsg_buf);
-
-    /* Заповнення допоміжного заголовка cmsg */
-    struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-    cmsg->cmsg_level = SOL_TLS;
-    cmsg->cmsg_type = TLS_SET_RECORD_TYPE;
-    cmsg->cmsg_len = CMSG_LEN(sizeof(uint8_t));
-    
-    /* Тип запису TLS Alert = 21 (0x15) */
-    *((uint8_t *)CMSG_DATA(cmsg)) = 21;
-
-    return sendmsg(sockfd, &msg, 0);
-}
-```
-```cpp
-#include <sys/socket.h>
-#include <linux/tls.h>
-#include <cstdint>
-#include <cstring>
-#include <system_error>
-
-namespace ktls_utils {
-
-[[nodiscard]] std::error_code send_tls_alert(int sockfd, uint8_t alert_code) noexcept {
-    struct msghdr msg{};
-    struct iovec iov{};
-    alignas(struct cmsghdr) char cmsg_buf[CMSG_SPACE(sizeof(uint8_t))]{};
-
-    iov.iov_base = &alert_code;
-    iov.iov_len = sizeof(alert_code);
-
-    msg.msg_iov = &iov;
-    msg.msg_iovlen = 1;
-    msg.msg_control = cmsg_buf;
-    msg.msg_controllen = sizeof(cmsg_buf);
-
-    struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-    cmsg->cmsg_level = SOL_TLS;
-    cmsg->cmsg_type = TLS_SET_RECORD_TYPE;
-    cmsg->cmsg_len = CMSG_LEN(sizeof(uint8_t));
-    *reinterpret_cast<uint8_t*>(CMSG_DATA(cmsg)) = 21; // Alert
-
-    if (::sendmsg(sockfd, &msg, 0) < 0) {
-        return std::error_code(errno, std::generic_category());
-    }
-    return {};
-}
-
-} // namespace ktls_utils
-```
+:::code kernel-tls-record-layer-d/c/peredacha-ta-pryiom.c
+:::code kernel-tls-record-layer-d/cpp/peredacha-ta-pryiom.cpp
 :::
 
 При отриманні вхідних даних через `recvmsg()`, якщо ядро зустрічає службовий запис (Alert або Handshake message), воно поміщає отриманий тип запису в `cmsg` із типом `TLS_GET_RECORD_TYPE`. Додаток зчитує цей прапорець і передає отримані байти у бібліотеку OpenSSL для належної реакції.

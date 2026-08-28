@@ -211,19 +211,7 @@ extension .jar
 
 Тут той самий рядок ніхто не пише руками: формат описують ключами командного рядка, а програма сама складає запис і стежить, щоб два пакунки не заявили ту саму прикмету.
 
-```sh
-# чужа архітектура: прикмета, маска, зсув і постійне відкриття інтерпретатора
-update-binfmts --package qemu-user-static \
-    --install qemu-aarch64 /usr/bin/qemu-aarch64-static \
-    --magic '\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7\x00' \
-    --mask  '\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff' \
-    --offset 0 \
-    --fix-binary yes
-
-# тип E: збіг за розширенням
-update-binfmts --package jarwrapper \
-    --install jar /usr/bin/jarwrapper --extension jar
-```
+:::code api-register-format/sh/debian-i-ubuntu-update.sh
 
 Одинарні лапки тут обов'язкові: інакше оболонка з'їсть зворотні похилі риски ще до того, як їх побачить `update-binfmts`.
 
@@ -244,29 +232,6 @@ update-binfmts --package jarwrapper \
 
 ## Найкоротший повний прохід
 
-```sh
-# 1. переконатися, що таблиця змонтована
-mountpoint -q /proc/sys/fs/binfmt_misc || \
-    mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc
-
-# 2. завести формат: файли з розширенням .txt віддавати переглядачеві
-echo ':showtext:E::txt::/usr/bin/less:' > /proc/sys/fs/binfmt_misc/register
-
-# 3. перевірити, що ядро розгорнуло саме те, що малося на увазі
-cat /proc/sys/fs/binfmt_misc/showtext
-#   enabled
-#   interpreter /usr/bin/less
-#   flags:
-#   extension .txt
-
-# 4. спробувати в ділі (у теці, змонтованій без noexec)
-printf 'привіт\n' > ./nota.txt && chmod +x ./nota.txt && ./nota.txt
-
-# 5. тимчасово вимкнути, не втрачаючи запису
-echo 0 > /proc/sys/fs/binfmt_misc/showtext
-
-# 6. прибрати остаточно — файл зникне разом із записом
-echo -1 > /proc/sys/fs/binfmt_misc/showtext
-```
+:::code api-register-format/sh/naikorotshyi-povnyi.sh
 
 Кроки 2–6 вимагають права писати у файли, що належать `root`; крок 1 — ще й `CAP_SYS_ADMIN`.

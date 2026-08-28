@@ -18,53 +18,7 @@
 
 Ось уся програма. Перші шість інструкцій — обов'язкова передмова, решта — власне політика.
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <stddef.h>
-#include <unistd.h>
-#include <sys/prctl.h>
-#include <sys/syscall.h>
-#include <linux/audit.h>
-#include <linux/filter.h>
-#include <linux/seccomp.h>
-
-#define X32_BIT 0x40000000
-
-#define ALLOW(name)                                             \
-    BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_##name, 0, 1),     \
-    BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW)
-
-static struct sock_filter filter[] = {
-    /* 0 */ BPF_STMT(BPF_LD | BPF_W | BPF_ABS,
-                     offsetof(struct seccomp_data, arch)),
-    /* 1 */ BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, AUDIT_ARCH_X86_64, 1, 0),
-    /* 2 */ BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL_PROCESS),
-
-    /* 3 */ BPF_STMT(BPF_LD | BPF_W | BPF_ABS,
-                     offsetof(struct seccomp_data, nr)),
-    /* 4 */ BPF_JUMP(BPF_JMP | BPF_JGE | BPF_K, X32_BIT, 0, 1),
-    /* 5 */ BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL_PROCESS),
-
-    ALLOW(read),    ALLOW(write),   ALLOW(close),  ALLOW(lseek),
-    ALLOW(fstat),   ALLOW(mmap),    ALLOW(munmap), ALLOW(brk),
-    ALLOW(rt_sigreturn), ALLOW(exit_group),
-
-    BPF_STMT(BPF_RET | BPF_K,
-             SECCOMP_RET_ERRNO | (ENOSYS & SECCOMP_RET_DATA)),
-};
-
-static int lock_down(void)
-{
-    struct sock_fprog prog = {
-        .len    = (unsigned short)(sizeof filter / sizeof filter[0]),
-        .filter = filter,
-    };
-    if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) != 0)
-        return -1;
-    return syscall(SYS_seccomp, SECCOMP_SET_MODE_FILTER, 0, &prog);
-}
-```
+:::code proj-seccomp-filter/c/masyv-instruktsii.c
 
 Три речі в цьому коді неочевидні. По-перше, `seccomp` викликається через `syscall()`: обгортки в glibc для нього немає, і це записано просто в описі виклику. По-друге, `rt_sigreturn` і `exit_group` у списку — не прикраса: без першого процес гине від першого-ліпшого сигналу, без другого не може завершитися. По-третє, інструкція 4 порівнює **номер** із `0x40000000` — той самий біт `__X32_SYSCALL_BIT`, яким ABI x32 відрізняється від звичайного 64-бітного ([32-бітні програми на 64-бітному ядрі](root:sys-unix/compat-32-on-64) живуть у своїй таблиці номерів, і перевірка `arch` їх ловить, а от x32 подає той самий `AUDIT_ARCH_X86_64` і відрізняється лише цим бітом). Пропустивши цю інструкцію, ви лишаєте фільтр із чорним списком повністю обхідним: заборонений виклик роблять із виставленим тридцятим бітом і повз усі порівняння. У ядрах до 5.4 ця плутанина була ще гіршою — там проходили й номери діапазону 512–547 з бітом і без нього, з переплутаною семантикою.
 
@@ -89,53 +43,7 @@ BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW),
 
 Тепер та сама політика, лише без ручної арифметики. Бібліотека тримає правила як набір, а програму збирає при завантаженні.
 
-```c
-#include <errno.h>
-#include <seccomp.h>
-#include <stddef.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <sys/mman.h>
-
-static int lock_down(void)
-{
-    /* дія за замовчуванням — те, що дістанеться всьому недозволеному */
-    scmp_filter_ctx ctx = seccomp_init(SCMP_ACT_ERRNO(ENOSYS));
-    if (ctx == NULL)
-        return -1;
-
-    /* 2 — збирати дерево, а не ланцюг порівнянь */
-    seccomp_attr_set(ctx, SCMP_FLTATR_CTL_OPTIMIZE, 2);
-
-    static const int plain[] = {
-        SCMP_SYS(read),  SCMP_SYS(close),  SCMP_SYS(lseek), SCMP_SYS(fstat),
-        SCMP_SYS(munmap), SCMP_SYS(brk),
-        SCMP_SYS(rt_sigreturn), SCMP_SYS(exit_group),
-    };
-    for (size_t i = 0; i < sizeof plain / sizeof plain[0]; i++)
-        seccomp_rule_add(ctx, SCMP_ACT_ALLOW, plain[i], 0);
-
-    /* писати — лише у два вже відкриті дескриптори */
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(write), 1,
-                     SCMP_A0(SCMP_CMP_EQ, 1));
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(write), 1,
-                     SCMP_A0(SCMP_CMP_EQ, 2));
-
-    /* анонімна пам'ять — так; відображення файлу в пам'ять — ні */
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(mmap), 1,
-                     SCMP_A3(SCMP_CMP_MASKED_EQ, MAP_ANONYMOUS, MAP_ANONYMOUS));
-
-    /* з усього мультиплексора ioctl — один-єдиний запит */
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(ioctl), 1,
-                     SCMP_A1(SCMP_CMP_EQ, TIOCGWINSZ));
-
-    seccomp_export_pfc(ctx, STDOUT_FILENO);   /* подивитися, що вийшло */
-
-    int rc = seccomp_load(ctx);   /* сама виставить no_new_privs */
-    seccomp_release(ctx);
-    return rc;
-}
-```
+:::code proj-seccomp-filter/c/te-same-cherez-libseccomp.c
 
 Умова на аргумент задається трійкою «номер аргументу — операція — значення»: `SCMP_A0` то й є нульовий аргумент. Порівняння з маскою (`SCMP_CMP_MASKED_EQ`) бере два числа — маску й очікуване значення після накладання маски; саме так перевіряють окремі прапорці, не вимагаючи точної рівності всього слова. Половинки 64-бітного аргументу бібліотека розбиває сама.
 
@@ -181,31 +89,7 @@ action KILL;
 
 **Обробник `SIGSYS`.** Дія `TRAP` замість негайної смерті надсилає сигнал, і в його описі лежить усе для діагностики: номер виклику, архітектура й адреса самої інструкції, з якої зроблено виклик. Це найдешевший спосіб дізнатися, чого політиці бракує.
 
-```c
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-
-static void on_sigsys(int sig, siginfo_t *si, void *uc)
-{
-    (void)sig; (void)uc;
-    char buf[160];
-    int n = snprintf(buf, sizeof buf,
-                     "seccomp: заборонено виклик %d (arch 0x%x) з адреси %p\n",
-                     si->si_syscall, si->si_arch, si->si_call_addr);
-    write(STDERR_FILENO, buf, n > 0 ? (size_t)n : 0);
-    _exit(159);
-}
-
-static void catch_sigsys(void)
-{
-    struct sigaction sa = { 0 };
-    sa.sa_sigaction = on_sigsys;
-    sa.sa_flags = SA_SIGINFO;
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGSYS, &sa, NULL);
-}
-```
+:::code proj-seccomp-filter/c/pastky.c
 
 Тут два капкани одразу. Перший: `write` і `exit_group`, якими користується сам обробник, мусять бути дозволені фільтром — інакше обробник заборони спричиняє нову заборону. Другий: `snprintf` не входить до переліку функцій, безпечних у обробнику сигналу ([що можна робити в обробнику](root:sys-unix/async-signal-safety)); тут це терпимо, бо наступним рядком процес однаково гине, але в обробнику, який повертається, форматування треба замінити ручним складанням рядка. І якщо він таки повертається — `rt_sigreturn` у білому списку обов'язковий.
 

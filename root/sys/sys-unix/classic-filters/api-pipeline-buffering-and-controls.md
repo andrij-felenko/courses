@@ -30,20 +30,7 @@
  */
 int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 ```
-```cpp
-#include <cstdio>
-#include <iostream>
-#include <memory>
-#include <vector>
-
-// У C++ керування буферизацією потоків stdio здійснюється через std::setvbuf,
-// а для потоків iostream — через синхронізацію та прив'язку потоків.
-void configure_stream_buffering(std::FILE* stream, int mode, std::size_t size) {
-    if (std::setvbuf(stream, nullptr, mode, size) != 0) {
-        std::perror("setvbuf failed");
-    }
-}
-```
+:::code api-pipeline-buffering-and-controls/cpp/syhnatura-ta-konstanty.cpp
 :::
 
 | Режим | Числове значення (glibc) | Опис поведінки | Типове застосування |
@@ -77,37 +64,8 @@ void configure_stream_buffering(std::FILE* stream, int mode, std::size_t size) {
 ### Системний інтерфейс `fcntl(2)`
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-
-int set_pipe_capacity(int pipe_fd, int capacity_bytes) {
-    // Встановлення нового розміру кільцевого буфера ядра
-    int actual_size = fcntl(pipe_fd, F_SETPIPE_SZ, capacity_bytes);
-    if (actual_size == -1) {
-        perror("fcntl F_SETPIPE_SZ");
-        return -1;
-    }
-    return actual_size;
-}
-```
-```cpp
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <unistd.h>
-#include <system_error>
-#include <iostream>
-
-int set_pipe_capacity(int pipe_fd, int capacity_bytes) {
-    int actual_size = fcntl(pipe_fd, F_SETPIPE_SZ, capacity_bytes);
-    if (actual_size == -1) {
-        throw std::system_error(errno, std::generic_category(), "fcntl F_SETPIPE_SZ failed");
-    }
-    return actual_size;
-}
-```
+:::code api-pipeline-buffering-and-controls/c/systemnyi-interfeis-fcntl.c
+:::code api-pipeline-buffering-and-controls/cpp/systemnyi-interfeis-fcntl.cpp
 :::
 
 - **Стандартний розмір**: 16 сторінок пам'яті ядра = 65 536 байтів (64 КіБ на архітектурі x86-64).
@@ -147,53 +105,8 @@ stdbuf [ОПЦІЇ] КОМАНДА [АРГУМЕНТИ...]
 Бібліотека містить конструктор із атрибутом `__attribute__((constructor))`, який автоматично викликається динамічним лінкером під час ініціалізації процесу до передачі керування функції `main()`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-static void __attribute__((constructor)) init_stdbuf(void) {
-    const char *out_mode = getenv("_STDBUF_O");
-    if (out_mode) {
-        if (out_mode[0] == '0') {
-            setvbuf(stdout, NULL, _IONBF, 0);
-        } else if (out_mode[0] == 'L') {
-            setvbuf(stdout, NULL, _IOLBF, 0);
-        } else {
-            size_t sz = strtoul(out_mode, NULL, 10);
-            if (sz > 0) setvbuf(stdout, NULL, _IOFBF, sz);
-        }
-    }
-}
-```
-```cpp
-#include <cstdio>
-#include <cstdlib>
-#include <string_view>
-
-namespace {
-    struct StreamBufferInitializer {
-        StreamBufferInitializer() noexcept {
-            if (const char* out_mode = std::getenv("_STDBUF_O")) {
-                std::string_view mode{out_mode};
-                if (mode == "0") {
-                    std::setvbuf(stdout, nullptr, _IONBF, 0);
-                } else if (mode == "L") {
-                    std::setvbuf(stdout, nullptr, _IOLBF, 0);
-                } else {
-                    char* end = nullptr;
-                    unsigned long sz = std::strtoul(out_mode, &end, 10);
-                    if (sz > 0) {
-                        std::setvbuf(stdout, nullptr, _IOFBF, sz);
-                    }
-                }
-            }
-        }
-    };
-
-    // Статичний об'єкт ініціалізується до виклику main()
-    const StreamBufferInitializer g_stream_initializer;
-}
-```
+:::code api-pipeline-buffering-and-controls/c/vnutrishnia-realizatsiia.c
+:::code api-pipeline-buffering-and-controls/cpp/vnutrishnia-realizatsiia.cpp
 :::
 
 ### Обмеження застосування `stdbuf`

@@ -58,28 +58,7 @@
 
 Створення бінарних атрибутів у `attestation/` виконується підсистемою PCI через внутрішній ядерний виклики `sysfs_create_bin_file()`. Оскільки ланцюжок сертифікатів X.509 або бінарні маніфести цілісності RIM можуть перевищувати стандартний розмір однієї сторінки пам'яті `PAGE_SIZE` (4096 байтів), підсистема ядра реалізує спеціальні обробники читання `read()` зі складеною буферизацією:
 
-```c
-/* Приклад внутрішньої структури бінарного атрибута sysfs у drivers/pci/pcie/cma.c */
-static ssize_t spdm_cert_read(struct file *filp, struct kobject *kobj,
-                              struct bin_attribute *bin_attr,
-                              char *buf, loff_t off, size_t count)
-{
-    struct pci_dev *pdev = to_pci_dev(kobj_to_dev(kobj));
-    struct pci_spdm_state *spdm = pdev->spdm_state;
-
-    if (!spdm || !spdm->cert_chain)
-        return -ENODATA;
-
-    if (off >= spdm->cert_chain_len)
-        return 0;
-
-    if (off + count > spdm->cert_chain_len)
-        count = spdm->cert_chain_len - off;
-
-    memcpy(buf, spdm->cert_chain + off, count);
-    return count;
-}
-```
+:::code api-spdm-kernel-sysfs/c/cma.c
 
 Така організація дозволяє користувацьким інструментам зчитувати бінарні сертифікати через стандартні системні виклики `read()` або утиліти типу `cat` та `hexdump` без ризику обрізання криптографічних даних.
 
@@ -112,21 +91,7 @@ static ssize_t spdm_cert_read(struct file *filp, struct kobject *kobj,
 
 Усередині ядра Linux підсистема PCI надає розробникам низку функцій C-API для роботи з поштовими ящиками DOE та атестацією SPDM (визначаються в заголовкових файлах `<linux/pci-doe.h>` та `<linux/pci-cma.h>`):
 
-```c
-/* Структура стану поштового ящика DOE */
-struct pci_doe_mb;
-
-/* Ініціалізація та пошук поштового ящика DOE для вказаного пристрою */
-struct pci_doe_mb *pci_find_doe_mailbox(struct pci_dev *pdev, u16 vendor_id, u8 type);
-
-/* Синхронний обмін пакетами через поштовий ящик DOE */
-int pci_doe_exchange(struct pci_doe_mb *doe_mb, 
-                     const void *request, size_t req_len,
-                     void *response, size_t resp_len);
-
-/* Перевірка підтримки конкретного протоколу (наприклад, CMA / SPDM) */
-bool pci_doe_supports_prot(struct pci_doe_mb *doe_mb, u16 vendor_id, u8 type);
-```
+:::code api-spdm-kernel-sysfs/c/iadernyi-c-api-dlia.h
 
 Сценарій взаємодії ядерного драйвера з пристроєм виглядає так:
 1. Під час функції `probe()` драйвер закликає `pci_find_doe_mailbox(pdev, PCI_DVSEC_VENDOR_ID_PCA, PCI_DOE_DATA_OBJECT_TYPE_CMA)`.

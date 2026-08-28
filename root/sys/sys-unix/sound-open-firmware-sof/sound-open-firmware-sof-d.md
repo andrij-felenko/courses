@@ -124,46 +124,11 @@ DPCM дозволяє динамічно комутувати будь-який 
 
 Головною структурою даних, яка представляє екземпляр SOF-контролера в ядрі, є `struct snd_sof_dev` (визначена у `sound/soc/sof/sof-priv.h`):
 
-```c
-struct snd_sof_dev {
-    struct device *dev;
-    spinlock_t ipc_lock;
-    struct snd_sof_ipc *ipc;
-    
-    /* Опис апаратних областей MMIO */
-    void __iomem *bar[SOF_MAX_MMIO_BAR_COUNT];
-    struct snd_dma_buffer fw_state_buffer;
-    
-    enum snd_sof_fw_state fw_state;
-    struct snd_soc_component *component;
-    
-    /* Таблиця апаратно-залежних callback-функцій */
-    const struct snd_sof_dsp_ops *ops;
-    
-    /* Контекст топології та підсистеми живлення */
-    struct list_head pcm_list;
-    struct list_head kcontrol_list;
-    struct list_head widget_list;
-};
-```
+:::code sound-open-firmware-sof-d/c/3-draiver-iadra-linux-snd.c
 
 Оскільки апаратні реалізації DSP відрізняються у вендорів (Intel HDA DSP, NXP i.MX8 DSP, MediaTek DSP), ядро Linux абстрагує специфіку платформи через таблицю віртуальних функцій `struct snd_sof_dsp_ops`:
 
-```c
-struct snd_sof_dsp_ops {
-    int (*run)(struct snd_sof_dev *sdev);
-    int (*reset)(struct snd_sof_dev *sdev);
-    int (*load_firmware)(struct snd_sof_dev *sdev);
-    
-    /* Функції обслуговування поштової скриньки IPC */
-    int (*send_msg)(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg);
-    ipc_irq_handler_t irq_handler;
-    
-    /* Управління регістрами DMA та Boot */
-    int (*block_read)(struct snd_sof_dev *sdev, u32 bar, u32 offset, void *dest, size_t size);
-    int (*block_write)(struct snd_sof_dev *sdev, u32 bar, u32 offset, void *src, size_t size);
-};
-```
+:::code sound-open-firmware-sof-d/c/3-draiver-iadra-linux-snd.h
 
 Під час ініціалізації пристрою (наприклад, на шині PCIe або ACPI) відповідний платформний модуль (наприклад, `snd-sof-pci-intel-tgl` або `snd-sof-of-imx8m`) реєструє екземпляр `snd_sof_dsp_ops`. Це дозволяє ядру виконувати завантаження прошивки та ініціалізацію IPC без знання специфіки конкретного кремнію.
 

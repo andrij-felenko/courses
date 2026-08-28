@@ -6,20 +6,7 @@
 
 У ядрі 2.2.0 (січень 1999) послідовність запуску підсистем була написана буквально — рядок за рядком у функції `do_basic_setup()`:
 
-```c
-#ifdef CONFIG_PCI
-	pci_init();
-#endif
-#ifdef CONFIG_SBUS
-	sbus_init();
-#endif
-#ifdef CONFIG_MCA
-	mca_init();
-#endif
-#ifdef CONFIG_ZORRO
-	zorro_init();
-#endif
-```
+:::code hist-initcall-levels/c/stovpchyk-u-init-main-c.h
 
 Далі йшли `ecard_init()` для Acorn, `dio_init()` для HP, `sock_init()` — і на цьому все. Порядок був очевидний, бо він і був текстом: що вище в файлі, те раніше й виконається.
 
@@ -44,19 +31,7 @@
 
 У 2.5 масив розділили на смуги. У 2.6.12-rc2 це виглядає так:
 
-```c
-#define __define_initcall(level,fn) \
-	static initcall_t __initcall_##fn __attribute_used__ \
-	__attribute__((__section__(".initcall" level ".init"))) = fn
-
-#define core_initcall(fn)	__define_initcall("1",fn)
-#define postcore_initcall(fn)	__define_initcall("2",fn)
-#define arch_initcall(fn)	__define_initcall("3",fn)
-#define subsys_initcall(fn)	__define_initcall("4",fn)
-#define fs_initcall(fn)		__define_initcall("5",fn)
-#define device_initcall(fn)	__define_initcall("6",fn)
-#define late_initcall(fn)	__define_initcall("7",fn)
-```
+:::code hist-initcall-levels/c/sim-nomeriv-iaki-sortuie.c
 
 Найцікавіше тут — цифра в імені секції. Порядок рівнів не записаний у жодній таблиці й не перевіряється жодним кодом: секції `.initcall1.init … .initcall7.init` вишиковуються за абеткою, а вишиковує їх компонувальник. Ядро успадкувало впорядкування від інструмента, який про ядро нічого не знає, — і саме тому рівні дешеві (нуль коду) і саме тому їх не можна ані перевірити, ані пояснити: між «4» і «5» немає нічого, крім домовленості, що файлові системи потрібні пізніше за підсистеми.
 

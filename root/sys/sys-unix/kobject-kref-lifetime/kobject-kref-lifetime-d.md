@@ -70,22 +70,7 @@ kref_put(&kref, release) ──► refcount_dec_and_test() ──► [ref == 0?]
 
 Структура `kobject` розширює простий лічильник посилань `kref`, перетворюючи його на повноцінний вузол глобального графа об'єктів ядра. Вона забезпечує ієрархічні зв'язки, підтримку множин та інтеграцію з псевдофайловою системою `sysfs`:
 
-```c
-struct kobject {
-    const char          *name;
-    struct list_head    entry;
-    struct kobject      *parent;
-    struct kset         *kset;
-    const struct kobj_type *ktype;
-    struct kernfs_node  *sd;
-    struct kref         kref;
-    unsigned int state_initialized:1;
-    unsigned int state_in_sysfs:1;
-    unsigned int state_add_uevent_sent:1;
-    unsigned int state_remove_uevent_sent:1;
-    unsigned int uevent_suppress:1;
-};
-```
+:::code kobject-kref-lifetime-d/c/obiektna-model-struct.c
 
 Кожне поле структури відіграє чітку роль у життєвому циклі та топології:
 - **`name`**: текстовий ідентифікатор об'єкта в просторі імен sysfs (наприклад, `sda`, `eth0`, `pci0000:00`). Якщо ім'я коротше за фіксований буфер, воно зберігається безпосередньо, інакше виділяється динамічно через `kstrdup_const()`.
@@ -223,18 +208,7 @@ struct sysfs_ops {
 
 Будь-яка спроба виділити пам'ять під `kobject` статично (у глобальній змінній модуля) або локально на стеку є грубою архітектурною помилкою, яка веде до фатальних збоїв ядра.
 
-```c
-/* ❌ ГРУБА ПОМИЛКА: Статичне виділення структури з kobject */
-static struct my_device g_dev; // НЕ РОБИТИ ЦЬОГО!
-
-/* ❌ ГРУБА ПОМИЛКА: Звільнення пам'яті безпосередньо в коді вивантаження */
-static void __exit my_module_exit(void)
-{
-    kobject_del(&g_dev.kobj);
-    kobject_put(&g_dev.kobj);
-    // Якщо тут викликати kfree() або якщо g_dev статична — ядро впаде в паніку!
-}
-```
+:::code kobject-kref-lifetime-d/c/destruktory-release-ta.c
 
 ![Граф переходів станів лічильника kref / refcount_t](img/kref-lifecycle-transitions.svg)
 *Життєвий цикл лічильника посилань kref: створення, взяття та скидання посилань, безпечне проходження точки нуля та запуск деструктора release.*
@@ -263,36 +237,7 @@ kobject: 'my_device' does not have a release() function, it is broken and must b
 
 Єдиним безпечним способом є динамічне виділення структури та делегування виклику `kfree()` деструктору `release`:
 
-```c
-/* ✅ ПРАВИЛЬНО: Динамічне виділення та звільнення виключно в release() */
-static void my_device_release(struct kobject *kobj)
-{
-    struct my_device *dev = container_of(kobj, struct my_device, kobj);
-    pr_info("my_device: freeing dynamic memory at %p\n", dev);
-    kfree(dev);
-}
-
-static const struct kobj_type my_ktype = {
-    .release   = my_device_release,
-    .sysfs_ops = &my_sysfs_ops,
-};
-
-static int __init my_module_init(void)
-{
-    struct my_device *dev = kzalloc(sizeof(*dev), GFP_KERNEL);
-    if (!dev)
-        return -ENOMEM;
-
-    kobject_init_and_add(&dev->kobj, &my_ktype, NULL, "my_device");
-    return 0;
-}
-
-static void __exit my_module_exit(void)
-{
-    kobject_del(&dev->kobj);
-    kobject_put(&dev->kobj); // Фізичне звільнення відбудеться асинхронно в release
-}
-```
+:::code kobject-kref-lifetime-d/c/kanonichnyi-patern.c
 
 Практичний приклад повноцінного драйвера з обробкою багатопотокових навантажень наведено у вставці [⚙️ Практична реалізація підсистеми з kobject](root:sys-unix/kobject-kref-lifetime/proj-custom-kobject-driver.md).
 
@@ -325,24 +270,7 @@ kref_get(&dev->kref);                               list_del(&dev->entry);
 
 Для безпечного пошуку вказівник на об'єкт не повинен повертатися без попереднього збільшення лічильника посилань під тим самим блокуванням, яке захищає список:
 
-```c
-struct my_device *get_device_by_id_safe(int id)
-{
-    struct my_device *dev, *target = NULL;
-
-    spin_lock(&list_lock);
-    list_for_each_entry(dev, &device_list, entry) {
-        if (dev->dev_id == id) {
-            // Збільшуємо лічильник ПІД захистом блокування
-            kref_get(&dev->kref);
-            target = dev;
-            break;
-        }
-    }
-    spin_unlock(&list_lock);
-    return target;
-}
-```
+:::code kobject-kref-lifetime-d/c/rozviazannia-1-atomarne.c
 
 ### Розв'язання 2: Функція `kref_put_lock` та `kref_put_mutex`
 
@@ -361,23 +289,7 @@ int kref_put_lock(struct kref *kref, void (*release)(struct kref *kref), spinloc
 4. Викликається деструктор `release`, який гарантовано видаляє об'єкт зі списку `list_del()` під тим самим спінлоком, унеможливлюючи паралельний пошук іншими ядрами.
 5. Деструктор або викликає `spin_unlock(lock)`, або звільняє його після повернення.
 
-```c
-static void my_device_kref_release(struct kref *kref)
-{
-    struct my_device *dev = container_of(kref, struct my_device, kref);
-    // Спінлок list_lock ВЖЕ захоплено функцією kref_put_lock!
-    list_del(&dev->entry);
-    spin_unlock(&list_lock);
-
-    kfree(dev);
-}
-
-void put_my_device(struct my_device *dev)
-{
-    // Безпечне зменшення лічильника з автоблокуванням при нулі
-    kref_put_lock(&dev->kref, my_device_kref_release, &list_lock);
-}
-```
+:::code kobject-kref-lifetime-d/c/rozviazannia-2-funktsiia.c
 
 ![Розділення фізичного від'єднання (Unplug) та звільнення пам'яті (Release)](img/device-unplug-vs-release-timeline.svg)
 *Хронологія обробки гарячого відключення обладнання: миттєве видалення інтерфейсів з sysfs (t1), завершення активних системних викликів (t2) та фінальний виклик release() після скидання останнього посилання (t3).*
@@ -431,46 +343,11 @@ void put_my_device(struct my_device *dev)
 
 У такій схемі читачі переглядають списки взагалі без блокувань усередині критичної секції `rcu_read_lock()`:
 
-```c
-struct my_device *find_device_rcu(int id)
-{
-    struct my_device *dev;
-
-    rcu_read_lock();
-    list_for_each_entry_rcu(dev, &device_list_rcu, rcu_node) {
-        if (dev->dev_id == id) {
-            // Намагаємося збільшити лічильник ТІЛЬКИ якщо він не дорівнює нулю
-            if (refcount_inc_not_zero(&dev->kref.refcount)) {
-                rcu_read_unlock();
-                return dev; // Успішно захопили живий об'єкт
-            }
-            // Лічильник уже 0: об'єкт у процесі видалення, пропускаємо його
-            break;
-        }
-    }
-    rcu_read_unlock();
-    return NULL;
-}
-```
+:::code kobject-kref-lifetime-d/c/intehratsiia-z-rcu.c
 
 Коли останнє посилання скидається, деструктор не може викликати `kfree()` миттєво, оскільки паралельний читач на іншому ядрі може ще перебувати всередині секції `rcu_read_lock()`. Замість прямого звільнення пам'ять передається функції `kfree_rcu()` або `call_rcu()`:
 
-```c
-static void my_device_rcu_free(struct rcu_head *head)
-{
-    struct my_device *dev = container_of(head, struct my_device, rcu_head);
-    kfree(dev);
-}
-
-static void my_device_release(struct kobject *kobj)
-{
-    struct my_device *dev = container_of(kobj, struct my_device, kobj);
-    // Видаляємо зі списку з урахуванням RCU-бар'єрів
-    list_del_rcu(&dev->rcu_node);
-    // Відкладаємо фізичне звільнення до закінчення благодатного періоду (grace period)
-    call_rcu(&dev->rcu_head, my_device_rcu_free);
-}
-```
+:::code kobject-kref-lifetime-d/c/intehratsiia-z-rcu-2.c
 
 Механізм RCU гарантує, що пам'ять структури буде фізично звільнена лише після того, як усі процесорні ядра завершать активні критичні секції читання, усуваючи необхідність у глобальних спінлоках на шляху читання.
 

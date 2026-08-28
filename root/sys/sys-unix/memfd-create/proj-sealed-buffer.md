@@ -16,55 +16,7 @@
 
 Дескриптор — число, дійсне лише в межах свого процесу, тож переслати треба не число, а сам об'єкт ядра. Це вміє один-єдиний механізм — допоміжні дані `SCM_RIGHTS` на сокеті домену Unix.
 
-```c
-static int send_fd(int sock, int fd)
-{
-    char byte = 'F';                       /* хоч один байт звичайних даних */
-    struct iovec iov = { .iov_base = &byte, .iov_len = 1 };
-    union {                                /* вирівнювання під cmsghdr */
-        char buf[CMSG_SPACE(sizeof(int))];
-        struct cmsghdr align;
-    } u = { 0 };
-    struct msghdr msg = {
-        .msg_iov = &iov, .msg_iovlen = 1,
-        .msg_control = u.buf, .msg_controllen = sizeof u.buf,
-    };
-
-    struct cmsghdr *cm = CMSG_FIRSTHDR(&msg);
-    cm->cmsg_level = SOL_SOCKET;
-    cm->cmsg_type  = SCM_RIGHTS;
-    cm->cmsg_len   = CMSG_LEN(sizeof(int));
-    memcpy(CMSG_DATA(cm), &fd, sizeof fd);
-
-    return sendmsg(sock, &msg, 0) == 1 ? 0 : -1;
-}
-
-static int recv_fd(int sock)
-{
-    char byte;
-    struct iovec iov = { .iov_base = &byte, .iov_len = 1 };
-    union {
-        char buf[CMSG_SPACE(sizeof(int))];
-        struct cmsghdr align;
-    } u = { 0 };
-    struct msghdr msg = {
-        .msg_iov = &iov, .msg_iovlen = 1,
-        .msg_control = u.buf, .msg_controllen = sizeof u.buf,
-    };
-
-    if (recvmsg(sock, &msg, MSG_CMSG_CLOEXEC) != 1) return -1;
-    if (msg.msg_flags & MSG_CTRUNC) return -1;      /* не все влізло */
-
-    struct cmsghdr *cm = CMSG_FIRSTHDR(&msg);
-    if (!cm || cm->cmsg_len != CMSG_LEN(sizeof(int))
-            || cm->cmsg_level != SOL_SOCKET || cm->cmsg_type != SCM_RIGHTS)
-        return -1;                                  /* дескриптора не прислали */
-
-    int fd;
-    memcpy(&fd, CMSG_DATA(cm), sizeof fd);
-    return fd;
-}
-```
+:::code proj-sealed-buffer/c/deskryptor-poshtoiu.c
 
 Три деталі тут неочевидні. Разом із дескриптором надсилають хоч один звичайний байт: на потоковому сокеті повідомлення без даних може не піти взагалі, та й отримувачеві потрібен привід повернутися з `recvmsg` — дескриптор приїде причепом до цього байта. Буфер під допоміжні дані оголошено через об'єднання з `struct cmsghdr` не з любові до трюків: `CMSG_DATA` рахує зсуви від правильно вирівняного початку, а масив `char` сам собою такого вирівнювання не має. І `MSG_CMSG_CLOEXEC` — щоб щойно отриманий дескриптор не проліз у наступний `exec`; для дескрипторів, що приходять ззовні, це має бути звичкою.
 
@@ -72,52 +24,7 @@ static int recv_fd(int sock)
 
 ## Виробник: наповнити, прибрати руки, запломбувати
 
-```c
-#define WIDTH  640
-#define HEIGHT 360
-struct frame { uint32_t w, h; uint32_t px[]; };
-#define FRAME_BYTES (sizeof(struct frame) + (size_t)WIDTH * HEIGHT * 4)
-
-static void producer(int sock, int with_shrink)
-{
-    int fd = memfd_create("frame", MFD_CLOEXEC | MFD_ALLOW_SEALING);
-    if (fd < 0) die("memfd_create");
-    if (ftruncate(fd, FRAME_BYTES) < 0) die("ftruncate");
-
-    struct frame *f = mmap(NULL, FRAME_BYTES, PROT_READ | PROT_WRITE,
-                           MAP_SHARED, fd, 0);
-    if (f == MAP_FAILED) die("mmap");
-
-    f->w = WIDTH; f->h = HEIGHT;
-    for (size_t i = 0; i < (size_t)WIDTH * HEIGHT; i++) {
-        uint32_t g = (uint32_t)((i % WIDTH) * 255 / (WIDTH - 1));
-        f->px[i] = 0xff000000u | (g << 8);
-    }
-
-    /* пастка: пломбуємо, поки живе власне записувальне відображення */
-    if (fcntl(fd, F_ADD_SEALS, F_SEAL_WRITE) < 0)
-        printf("[виробник] F_SEAL_WRITE до munmap → %s\n", strerror(errno));
-
-    if (munmap(f, FRAME_BYTES) < 0) die("munmap");
-
-    int seals = F_SEAL_GROW | F_SEAL_WRITE | F_SEAL_SEAL;
-    if (with_shrink) seals |= F_SEAL_SHRINK;
-    if (fcntl(fd, F_ADD_SEALS, seals) < 0) die("F_ADD_SEALS");
-
-    printf("[виробник] пломби 0x%x, %zu байтів → віддаю дескриптор\n",
-           fcntl(fd, F_GET_SEALS), FRAME_BYTES);
-    if (send_fd(sock, fd) < 0) die("send_fd");
-
-    char ack;
-    if (read(sock, &ack, 1) != 1) die("read");     /* сусід уже відобразив */
-    if (ftruncate(fd, 0) == 0)
-        puts("[виробник] ftruncate(fd, 0) пройшов — файл тепер порожній");
-    else
-        printf("[виробник] ftruncate(fd, 0) → %s\n", strerror(errno));
-    if (write(sock, "T", 1) != 1) die("write");
-    close(fd);
-}
-```
+:::code proj-sealed-buffer/c/vyrobnyk-napovnyty.c
 
 Перший `fcntl` тут навмисно приречений: поки в таблицях сторінок процесу стоять записи з дозволом на запис, ядро не має як пообіцяти, що ніхто більше не пише — процесор пише в пам'ять напряму, ядра не питаючи ([відображення й таблиці сторінок](root:sys-unix/mmap-model)). Тому `F_SEAL_WRITE` за наявного спільного записувального відображення відмовляє з `EBUSY`, і `munmap` — не прибирання за собою, а обов'язковий крок протоколу.
 
@@ -125,47 +32,7 @@ static void producer(int sock, int with_shrink)
 
 ## Споживач: спершу спитати ядро
 
-```c
-static void consumer(int sock)
-{
-    const int need = F_SEAL_SHRINK | F_SEAL_WRITE;
-
-    int fd = recv_fd(sock);
-    if (fd < 0) die("recv_fd");
-
-    int seals = fcntl(fd, F_GET_SEALS);            /* ПЕРЕД усім іншим */
-    if (seals < 0) {                               /* EINVAL: файл без пломб */
-        printf("[споживач] F_GET_SEALS → %s — це не memfd\n", strerror(errno));
-        _exit(1);
-    }
-    printf("[споживач] пломби 0x%x%s\n", seals,
-           (seals & need) == need ? " — усе на місці" : " — БРАКУЄ потрібних");
-
-    if (fcntl(fd, F_ADD_SEALS, F_SEAL_FUTURE_WRITE) < 0)
-        printf("[споживач] моя спроба допломбувати → %s\n", strerror(errno));
-
-    struct stat st;
-    if (fstat(fd, &st) < 0) die("fstat");          /* лише тепер розмір — факт */
-    size_t bytes = (size_t)st.st_size;
-
-    const struct frame *f = mmap(NULL, bytes, PROT_READ, MAP_SHARED, fd, 0);
-    if (f == MAP_FAILED && errno == EPERM)         /* ядра до 6.7 */
-        f = mmap(NULL, bytes, PROT_READ, MAP_PRIVATE, fd, 0);
-    if (f == MAP_FAILED) die("mmap");
-
-    uint32_t w = f->w, h = f->h;
-    printf("[споживач] кадр %ux%u, перший піксель 0x%08x\n", w, h, f->px[0]);
-
-    char t;
-    if (write(sock, "A", 1) != 1) die("write");
-    if (read(sock, &t, 1) != 1) die("read");       /* сусід уже спробував різати */
-
-    puts("[споживач] торкаюся останнього пікселя...");
-    printf("[споживач] останній піксель 0x%08x\n", f->px[(size_t)w * h - 1]);
-    munmap((void *)f, bytes);
-    close(fd);
-}
-```
+:::code proj-sealed-buffer/c/spozhyvach-spershu-spytaty.c
 
 `F_GET_SEALS` стоїть першим не з педантизму. Він відповідає на два питання разом: чи це взагалі об'єкт із пломбами (на звичайному файлі повернеться `-1` і `EINVAL`) і які саме гарантії на ньому вже незворотні. Доти жоден інший виклик не має сенсу — зокрема `fstat`, бо `st_size` до `F_SEAL_SHRINK` є не властивістю файлу, а миттєвим знімком числа, яке сусід перепише через такт. Після пломби те саме число стає фактом, і на ньому вже можна будувати довжину відображення.
 
@@ -186,45 +53,7 @@ static void consumer(int sock)
 
 Лишилося зшити все в один файл `sealed.c`: заголовки й `die` згори, далі `send_fd`/`recv_fd`, `producer`, `consumer`, а `main` — останнім.
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/mman.h>
-#include <sys/socket.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-static void die(const char *what) { perror(what); _exit(1); }
-
-int main(int argc, char **argv)
-{
-    int with_shrink = !(argc > 1 && strcmp(argv[1], "--no-shrink") == 0);
-    setvbuf(stdout, NULL, _IOLBF, 0);          /* щоб рядки не злипалися */
-
-    int sv[2];
-    if (socketpair(AF_UNIX, SOCK_SEQPACKET | SOCK_CLOEXEC, 0, sv) < 0)
-        die("socketpair");
-
-    pid_t pid = fork();
-    if (pid < 0) die("fork");
-    if (pid == 0) { close(sv[0]); consumer(sv[1]); _exit(0); }
-
-    close(sv[1]);
-    producer(sv[0], with_shrink);
-
-    int st;
-    if (waitpid(pid, &st, 0) > 0 && WIFSIGNALED(st))
-        printf("[батько] споживач загинув від сигналу %d (%s)\n",
-               WTERMSIG(st), strsignal(WTERMSIG(st)));
-    return 0;
-}
-```
+:::code proj-sealed-buffer/c/karkas.c
 
 `memfd` створюється **після** `fork`, тож дочірній процес не успадковує його випадково — єдина його дорога до файлу лежить через сокет. Пара сокетів узята `SOCK_SEQPACKET`: межі повідомлень зберігаються, тож однобайтові підтвердження не зіллються в потік.
 

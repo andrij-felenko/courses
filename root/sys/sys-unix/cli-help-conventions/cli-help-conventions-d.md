@@ -34,21 +34,7 @@ echo is /usr/bin/echo
 
 Для миттєвого отримання синтаксису саме внутрішніх команд інтерпретатори Bash та Zsh надають вбудовану команду `help`:
 
-```bash
-$ help cd
-cd: cd [-L|[-P [-e]] [-@]] [dir]
-    Change the shell working directory.
-    
-    Change the current directory to DIR.  The default DIR is the value of the
-    HOME shell variable.
-    
-    Options:
-      -L	force symbolic links to be followed: resolve symbolic
-    		links in DIR after processing instances of `..'
-      -P	use the physical directory structure without following symbolic
-    		links: resolve symbolic links in DIR before processing instances
-    		of `..'
-```
+:::code cli-help-conventions-d/sh/main.sh
 
 Команда `help` зчитує стислий текст безпосередньо зі статичних таблиць рядків у пам'яті процесу оболонки. Вона працює миттєво (менше 1 мілісекунди) і доступна навіть у середовищах із повністю пошкодженою чи демонтованою кореневою файловою системою.
 
@@ -331,20 +317,7 @@ static const struct option long_options[] = {
     {NULL, 0, NULL, 0} /* Маркер кінця таблиці */
 };
 ```
-```cpp
-#include <getopt.h>
-#include <array>
-#include <string_view>
-
-// Типобезпечна таблиця опцій у C++20
-inline constexpr std::array<option, 5> LongOptions{{
-    {"output",  required_argument, nullptr, 'o'},
-    {"verbose", no_argument,       nullptr, 'v'},
-    {"color",   optional_argument, nullptr, 'c'},
-    {"help",    no_argument,       nullptr, 'h'},
-    {nullptr, 0, nullptr, 0}
-}};
-```
+:::code cli-help-conventions-d/cpp/main.cpp
 :::
 
 Таблиця `struct option` складається з чотирьох полів:

@@ -77,22 +77,7 @@
 
 ### Поля структур
 
-```c
-struct wait_queue_head {
-    spinlock_t        lock;   /* захищає список; беруть з вимкненням перервань */
-    struct list_head  head;   /* двозв'язний список записів */
-};
-
-struct wait_queue_entry {
-    unsigned int      flags;    /* WQ_FLAG_* */
-    void             *private;  /* зазвичай task_struct того, хто чекає */
-    wait_queue_func_t func;     /* що робити, коли чергу обходять */
-    struct list_head  entry;
-};
-
-typedef int (*wait_queue_func_t)(struct wait_queue_entry *wq_entry,
-                                 unsigned mode, int flags, void *key);
-```
+:::code api-wait-queue-interfaces/c/polia-struktur.c
 
 | прапорець | значення | хто ставить і навіщо |
 |---|---|---|
@@ -209,48 +194,7 @@ if (left == 0)
 
 ### Мінімальний робочий виклик
 
-```c
-struct mydev {
-    struct wait_queue_head readq;
-    spinlock_t             lock;
-    unsigned int           bytes_ready;
-};
-
-/* ініціалізація пристрою */
-init_waitqueue_head(&dev->readq);
-spin_lock_init(&dev->lock);
-
-/* бік того, хто чекає: read() у контексті процесу */
-static ssize_t mydev_read(struct file *f, char __user *buf, size_t n, loff_t *off)
-{
-    struct mydev *dev = f->private_data;
-    int ret;
-
-    if (f->f_flags & O_NONBLOCK) {
-        if (!READ_ONCE(dev->bytes_ready))
-            return -EAGAIN;
-    } else {
-        ret = wait_event_interruptible(dev->readq, READ_ONCE(dev->bytes_ready));
-        if (ret)
-            return ret;              /* -ERESTARTSYS нагору незміненим */
-    }
-    return copy_ready_bytes(dev, buf, n);
-}
-
-/* бік того, хто будить: обробник перервання */
-static irqreturn_t mydev_isr(int irq, void *data)
-{
-    struct mydev *dev = data;
-
-    spin_lock(&dev->lock);
-    dev->bytes_ready += drain_fifo(dev);   /* умова стала істинною */
-    spin_unlock(&dev->lock);
-
-    if (wq_has_sleeper(&dev->readq))       /* бар'єр + перевірка списку */
-        wake_up_interruptible(&dev->readq);
-    return IRQ_HANDLED;
-}
-```
+:::code api-wait-queue-interfaces/c/minimalnyi-robochyi-vyklyk.c
 
 Пара станів тут збігається дослівно: заснули через `_interruptible`, будимо через `wake_up_interruptible()`. Обробник виконується не від імені жодної задачі — про це в темі про [перервання й нижні половини](root:sys-unix/interrupts-bottom-halves).
 
@@ -282,38 +226,13 @@ static irqreturn_t mydev_isr(int irq, void *data)
 
 ### Канонічний цикл на `prepare_to_wait`
 
-```c
-DEFINE_WAIT(wait);
-int ret = 0;
-
-for (;;) {
-    prepare_to_wait(&dev->readq, &wait, TASK_INTERRUPTIBLE);
-    if (READ_ONCE(dev->bytes_ready))
-        break;
-    if (signal_pending(current)) { ret = -ERESTARTSYS; break; }
-    submit_next_request(dev);       /* власна дія перед сном */
-    schedule();
-}
-finish_wait(&dev->readq, &wait);
-return ret;
-```
+:::code api-wait-queue-interfaces/c/kanonichnyi-tsykl-na.c
 
 ### Цикл на `wait_woken`
 
 Потрібен тоді, коли перевірка умови довга й ненадійна: побудка, що прилетіла посеред неї, не губиться, бо лишає позначку `WQ_FLAG_WOKEN` у самому записі. Запис при цьому **лишається** в черзі весь час — тому додають і виймають його руками.
 
-```c
-DEFINE_WAIT_FUNC(wait, woken_wake_function);
-long timeo = msecs_to_jiffies(2000);
-
-add_wait_queue(&dev->readq, &wait);
-while (!poll_device_over_slow_bus(dev)) {   /* довга перевірка */
-    timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
-    if (!timeo || signal_pending(current))
-        break;
-}
-remove_wait_queue(&dev->readq, &wait);
-```
+:::code api-wait-queue-interfaces/c/tsykl-na-wait-woken.c
 
 ### Функції пробудження
 

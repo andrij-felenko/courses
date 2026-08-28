@@ -121,95 +121,8 @@ extern "C" {
 У цьому розділі наведено ідіоматичні приклади встановлення параметрів TCP Keepalive та `TCP_USER_TIMEOUT` для мережевого сокета. У прикладі мовою C++ застосовано механізм RAII, `std::chrono` та обробку помилок через системні винятки `std::system_error`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-
-int configure_tcp_liveness(int fd, int idle_sec, int intvl_sec, int cnt, unsigned int user_timeout_ms) {
-    int enable = 1;
-    if (setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &enable, sizeof(enable)) < 0) {
-        perror("setsockopt(SO_KEEPALIVE)");
-        return -1;
-    }
-
-    if (setsockopt(fd, IPPROTO_TCP, TCP_KEEPIDLE, &idle_sec, sizeof(idle_sec)) < 0) {
-        perror("setsockopt(TCP_KEEPIDLE)");
-        return -1;
-    }
-
-    if (setsockopt(fd, IPPROTO_TCP, TCP_KEEPINTVL, &intvl_sec, sizeof(intvl_sec)) < 0) {
-        perror("setsockopt(TCP_KEEPINTVL)");
-        return -1;
-    }
-
-    if (setsockopt(fd, IPPROTO_TCP, TCP_KEEPCNT, &cnt, sizeof(cnt)) < 0) {
-        perror("setsockopt(TCP_KEEPCNT)");
-        return -1;
-    }
-
-    if (user_timeout_ms > 0) {
-        if (setsockopt(fd, IPPROTO_TCP, TCP_USER_TIMEOUT, &user_timeout_ms, sizeof(user_timeout_ms)) < 0) {
-            perror("setsockopt(TCP_USER_TIMEOUT)");
-            return -1;
-        }
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <chrono>
-#include <cerrno>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-
-class SocketLivenessConfigurator {
-public:
-    struct Options {
-        std::chrono::seconds idle_time{60};
-        std::chrono::seconds probe_interval{10};
-        int probe_count{5};
-        std::chrono::milliseconds user_timeout{15000};
-    };
-
-    static void apply(int fd, const Options& opts) {
-        const int enable = 1;
-        if (::setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &enable, sizeof(enable)) < 0) {
-            throw std::system_error(errno, std::generic_category(), "Failed to set SO_KEEPALIVE");
-        }
-
-        const int idle_sec = static_cast<int>(opts.idle_time.count());
-        if (::setsockopt(fd, IPPROTO_TCP, TCP_KEEPIDLE, &idle_sec, sizeof(idle_sec)) < 0) {
-            throw std::system_error(errno, std::generic_category(), "Failed to set TCP_KEEPIDLE");
-        }
-
-        const int intvl_sec = static_cast<int>(opts.probe_interval.count());
-        if (::setsockopt(fd, IPPROTO_TCP, TCP_KEEPINTVL, &intvl_sec, sizeof(intvl_sec)) < 0) {
-            throw std::system_error(errno, std::generic_category(), "Failed to set TCP_KEEPINTVL");
-        }
-
-        if (::setsockopt(fd, IPPROTO_TCP, TCP_KEEPCNT, &opts.probe_count, sizeof(opts.probe_count)) < 0) {
-            throw std::system_error(errno, std::generic_category(), "Failed to set TCP_KEEPCNT");
-        }
-
-        if (opts.user_timeout.count() > 0) {
-            const auto timeout_ms = static_cast<unsigned int>(opts.user_timeout.count());
-            if (::setsockopt(fd, IPPROTO_TCP, TCP_USER_TIMEOUT, &timeout_ms, sizeof(timeout_ms)) < 0) {
-                throw std::system_error(errno, std::generic_category(), "Failed to set TCP_USER_TIMEOUT");
-            }
-        }
-    }
-};
-```
+:::code api-tcp-liveness/c/3-pryklady-konfihuratsii.c
+:::code api-tcp-liveness/cpp/3-pryklady-konfihuratsii.cpp
 :::
 
 ---
@@ -241,35 +154,8 @@ public:
 Отримати точний стан внутрішніх таймерів TCP для конкретного сокета можна за допомогою `getsockopt` з опцією `TCP_INFO`. Ця структура повертає внутрішні лічильники та метрики ядра:
 
 :::tabs
-```c
-#include <sys/socket.h>
-#include <netinet/tcp.h>
-
-struct tcp_info info;
-socklen_t len = sizeof(info);
-if (getsockopt(sockfd, IPPROTO_TCP, TCP_INFO, &info, &len) == 0) {
-    /* info.tcpi_state — поточний стан TCP (напр. TCP_ESTABLISHED) */
-    /* info.tcpi_rto — поточний очікуваний таймаут повтору (RTO) у мікросекундах */
-    /* info.tcpi_unacked — кількість непідтверджених пакетів у мережі */
-    /* info.tcpi_probes — кількість вже надісланих зондувальних пакетів */
-    /* info.tcpi_backoff — поточний ступінь експоненційного відступу RTO */
-    /* info.tcpi_retransmits — кількість виконаних повторних передач */
-}
-```
-```cpp
-#include <sys/socket.h>
-#include <netinet/tcp.h>
-#include <optional>
-
-std::optional<::tcp_info> fetch_tcp_info(int sockfd) {
-    ::tcp_info info{};
-    ::socklen_t len = sizeof(info);
-    if (::getsockopt(sockfd, IPPROTO_TCP, TCP_INFO, &info, &len) == 0) {
-        return info;
-    }
-    return std::nullopt;
-}
-```
+:::code api-tcp-liveness/c/struktura-struct-tcp-info.c
+:::code api-tcp-liveness/cpp/struktura-struct-tcp-info.cpp
 :::
 
 ### Поля структури `struct tcp_info`, пов'язані з liveness

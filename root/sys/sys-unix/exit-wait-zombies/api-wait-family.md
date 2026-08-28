@@ -4,22 +4,7 @@
 
 ## П'ять підписів
 
-```c
-#include <sys/wait.h>
-
-pid_t wait(int *_Nullable wstatus);
-pid_t waitpid(pid_t pid, int *_Nullable wstatus, int options);
-int   waitid(idtype_t idtype, id_t id, siginfo_t *infop, int options);
-
-/* для wait3/wait4 у glibc потрібен _DEFAULT_SOURCE
-   (до glibc 2.19 — _BSD_SOURCE), і додатковий заголовок */
-#include <sys/resource.h>
-
-pid_t wait3(int *_Nullable wstatus, int options,
-            struct rusage *_Nullable rusage);
-pid_t wait4(pid_t pid, int *_Nullable wstatus, int options,
-            struct rusage *_Nullable rusage);
-```
+:::code api-wait-family/c/wait.h
 
 | виклик | стандарт | кого чекає | форма відповіді | облік | повертає |
 |---|---|---|---|---|---|
@@ -77,18 +62,7 @@ wait3(&st, opts, &ru)     ≡  wait4(-1, &st, opts, &ru)
 
 Перевірка в ядрі записана буквально так:
 
-```c
-/* kernel_wait4() — маска для wait, waitpid, wait3, wait4 */
-if (options & ~(WNOHANG|WUNTRACED|WCONTINUED|__WNOTHREAD|__WCLONE|__WALL))
-        return -EINVAL;
-
-/* kernel_waitid() — маска для waitid, плюс вимога вибрати подію */
-if (options & ~(WNOHANG|WNOWAIT|WEXITED|WSTOPPED|WCONTINUED|
-                __WNOTHREAD|__WCLONE|__WALL))
-        return -EINVAL;
-if (!(options & (WEXITED|WSTOPPED|WCONTINUED)))
-        return -EINVAL;
-```
+:::code api-wait-family/c/praportsi-odne-slovo-dvi.c
 
 Звідси — усе, що варто знати про поєднання прапорців.
 
@@ -100,18 +74,7 @@ if (!(options & (WEXITED|WSTOPPED|WCONTINUED)))
 
 **`__WALL` перекриває `__WCLONE`.** Ядро перевіряє їх у такому порядку:
 
-```c
-static int eligible_child(struct wait_opts *wo, bool ptrace, struct task_struct *p)
-{
-        if (!eligible_pid(wo, p))
-                return 0;
-        if (ptrace || (wo->wo_flags & __WALL))
-                return 1;
-        if ((p->exit_signal != SIGCHLD) ^ !!(wo->wo_flags & __WCLONE))
-                return 0;
-        return 1;
-}
-```
+:::code api-wait-family/c/praportsi-odne-slovo-dvi-2.c
 
 Останній рядок і є весь зміст `__WCLONE`: без нього беруть лише дітей, що шлють при смерті саме `SIGCHLD`, з ним — лише тих, що шлють щось інше або нічого. «Щось інше» задають при створенні через `clone` ([vfork, posix_spawn і clone](root:sys-unix/spawn-alternatives)). Коли ж стоїть `__WALL`, до цієї перевірки не доходить узагалі, і `__WCLONE` нічого не звужує.
 
@@ -172,22 +135,7 @@ static int eligible_child(struct wait_opts *wo, bool ptrace, struct task_struct 
 
 ## rusage: що саме віддають wait3 і wait4
 
-```c
-struct rusage {
-    struct timeval ru_utime;  /* час у власному коді          */
-    struct timeval ru_stime;  /* час у ядрі                   */
-    long   ru_maxrss;         /* пік резидентної пам'яті, КіБ */
-    long   ru_minflt;         /* легкі промахи сторінок       */
-    long   ru_majflt;         /* важкі промахи сторінок       */
-    long   ru_inblock;        /* блокові читання              */
-    long   ru_oublock;        /* блокові записи               */
-    long   ru_nvcsw;          /* добровільні перемикання      */
-    long   ru_nivcsw;         /* примусові перемикання        */
-    /* нижче — поля, які Linux не веде: у них завжди нуль */
-    long   ru_ixrss, ru_idrss, ru_isrss, ru_nswap;
-    long   ru_msgsnd, ru_msgrcv, ru_nsignals;
-};
-```
+:::code api-wait-family/c/rusage-shcho-same-viddaiut.c
 
 Порядок полів у справжньому заголовку інший — тут вони перегруповані, щоб було видно межу між тими сімома, що завжди нульові, і рештою ([облік процесорного часу](root:sys-unix/cpu-time-accounting), [облік пам'яті](root:sys-unix/memory-accounting)).
 
@@ -222,56 +170,10 @@ long r = syscall(SYS_waitid, P_ALL, 0, &si, WEXITED, &ru);
 
 Класична форма — статус і облік одним рухом, з правильним повтором після `EINTR`:
 
-```c
-#define _DEFAULT_SOURCE        /* wait4() і WCOREDUMP() */
-#include <errno.h>
-#include <stdio.h>
-#include <sys/resource.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-int main(void) {
-    pid_t child = fork();
-    if (child < 0) { perror("fork"); return 1; }
-    if (child == 0) _exit(42);
-
-    int status;
-    struct rusage ru;
-    pid_t got;
-    do {
-        got = wait4(child, &status, 0, &ru);
-    } while (got < 0 && errno == EINTR);
-    if (got < 0) { perror("wait4"); return 1; }
-
-    if (WIFEXITED(status))
-        printf("вийшов сам, код %d\n", WEXITSTATUS(status));
-    else if (WIFSIGNALED(status))
-        printf("убито сигналом %d%s\n", WTERMSIG(status),
-               WCOREDUMP(status) ? " (дамп)" : "");
-
-    printf("user %ld.%06ld  sys %ld.%06ld  maxrss %ld КіБ\n",
-           (long)ru.ru_utime.tv_sec, (long)ru.ru_utime.tv_usec,
-           (long)ru.ru_stime.tv_sec, (long)ru.ru_stime.tv_usec,
-           ru.ru_maxrss);
-    return 0;
-}
-```
+:::code api-wait-family/c/minimalnyi-robochyi-vyklyk.c
 
 Те саме через `waitid`, у неблокувальному опитуванні — з обома перевірками, які тут інші:
 
-```c
-siginfo_t si;
-si.si_pid = 0;                 /* переносний спосіб побачити «нікого» */
-
-if (waitid(P_PID, child, &si, WEXITED | WNOHANG) < 0) {
-    perror("waitid");          /* −1: справжня помилка */
-} else if (si.si_pid == 0) {
-    /* нуль і порожній si_pid: дитина ще жива, це не помилка */
-} else if (si.si_code == CLD_EXITED) {
-    printf("код %d\n", si.si_status);
-} else {
-    printf("сигнал %d, причина %d\n", si.si_status, si.si_code);
-}
-```
+:::code api-wait-family/c/minimalnyi-robochyi-vyklyk-2.c
 
 Різниця між двома фрагментами й є коротким підсумком усього контракту: `wait4` віддає одне число, яке треба розбирати, зате разом з обліком; `waitid` віддає розібрану відповідь і точнішу ціль, зате мовчить про час і вимагає перевіряти успіх не там, де звик той, хто прийшов від `waitpid`.

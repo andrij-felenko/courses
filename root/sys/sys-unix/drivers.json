@@ -17,24 +17,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-kernel-object-model.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-custom-kobject-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-kobject-kref.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -45,7 +51,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -56,13 +63,17 @@
           "proj": [
             {
               "file": "proj-mfd-pmic-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-mfd-core-interfaces.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -73,7 +84,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -84,7 +96,8 @@
           "proj": [
             {
               "file": "proj-probe-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -106,7 +119,8 @@
           "proj": [
             {
               "file": "proj-device-link-example.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -123,7 +137,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -134,13 +149,15 @@
           "proj": [
             {
               "file": "proj-managed-resource.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-devm-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -151,24 +168,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-devres-evolution.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-custom-devres-action.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-devm-core.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -185,7 +208,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -196,13 +220,15 @@
           "proj": [
             {
               "file": "proj-cdev-bdev-userspace.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cdev-bdev-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -213,7 +239,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -224,7 +251,8 @@
           "proj": [
             {
               "file": "proj-char-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -240,19 +268,22 @@
           "hist": [
             {
               "file": "hist-number-space.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-minor-fanout.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-dev-numbers.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -263,7 +294,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -274,13 +306,15 @@
           "proj": [
             {
               "file": "proj-char-driver-ioctl.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ioctl-encoding.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -297,7 +331,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -308,13 +343,17 @@
           "proj": [
             {
               "file": "proj-interface-renamer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-net-naming-policies.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -325,7 +364,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -336,7 +376,8 @@
           "proj": [
             {
               "file": "proj-hotplug-service.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -370,7 +411,8 @@
           "proj": [
             {
               "file": "proj-i2c-sensor-overlay.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -388,24 +430,28 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-arm-churn-to-device-tree.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-fdt-userspace-parser.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-fdt-binary-layout-and-kernel-of-api.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -427,13 +473,15 @@
           "proj": [
             {
               "file": "proj-dtbo-configfs-loader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-dtbo-kernel-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -444,7 +492,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -455,13 +504,15 @@
           "proj": [
             {
               "file": "proj-platform-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-platform-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -473,7 +524,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -484,13 +536,15 @@
           "proj": [
             {
               "file": "proj-aml-parser-and-override.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-acpi-table-structures.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -512,13 +566,15 @@
           "proj": [
             {
               "file": "proj-wmi-driver-skeleton.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-wmi-kernel-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -546,13 +602,16 @@
           "proj": [
             {
               "file": "proj-msix-driver-skeleton.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-pci-irq-vectors.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -564,24 +623,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-sparse-irq-and-domains.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-gpio-irqchip-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-irq-domain-chip.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -592,7 +656,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -603,13 +668,15 @@
           "proj": [
             {
               "file": "proj-threaded-irq-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-deferred-work.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -625,13 +692,15 @@
           "proj": [
             {
               "file": "proj-ipi-latency.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-smp-call.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -648,7 +717,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -659,13 +729,15 @@
           "proj": [
             {
               "file": "proj-mmio-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-io-accessors.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -676,7 +748,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -687,13 +760,15 @@
           "proj": [
             {
               "file": "proj-ring-and-transfer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-dma-mapping.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -704,7 +779,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -715,13 +791,17 @@
           "proj": [
             {
               "file": "proj-detect-and-monitor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-swiotlb-internals.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -744,7 +824,8 @@
           "proj": [
             {
               "file": "proj-dma-driver-example.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -761,18 +842,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-zerocopy-pipeline.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-uapi-dma-heap.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -789,7 +873,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "api": [
             {
@@ -806,7 +891,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -817,13 +903,15 @@
           "proj": [
             {
               "file": "proj-pcie-sysfs-explorer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-pci-kernel-interface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -851,7 +939,8 @@
           "proj": [
             {
               "file": "proj-p2pdma-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -879,13 +968,15 @@
           "proj": [
             {
               "file": "proj-spdm-attestation-verifier.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-spdm-kernel-sysfs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -902,24 +993,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-i2c-smbus-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-i2c-sensor-userspace.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-i2c-subsystem.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -930,7 +1027,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -953,13 +1051,15 @@
           "proj": [
             {
               "file": "proj-i3c-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-i3c-subsystem.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -976,7 +1076,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -987,13 +1088,15 @@
           "proj": [
             {
               "file": "proj-libusb-claim.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-usbfs-ioctl.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1016,13 +1119,15 @@
           "proj": [
             {
               "file": "proj-urb-async-engine.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-usb-core-functions.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1061,7 +1166,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -1072,7 +1178,8 @@
           "proj": [
             {
               "file": "proj-streams-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1089,7 +1196,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1100,13 +1208,15 @@
           "proj": [
             {
               "file": "proj-ffs-function.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-configfs-gadget.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1134,13 +1244,15 @@
           "proj": [
             {
               "file": "proj-typec-role-switcher.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-typec-kernel-sysfs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1151,7 +1263,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -1162,13 +1275,17 @@
           "proj": [
             {
               "file": "proj-dynamic-usb-quirk-loader.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-usb-quirk-flags.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -1185,7 +1302,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -1196,13 +1314,17 @@
           "proj": [
             {
               "file": "proj-rapl-power-limiter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-powercap-sysfs.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -1224,13 +1346,17 @@
           "proj": [
             {
               "file": "proj-suspend-debug-trace.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-dev-pm-ops.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -1241,7 +1367,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1252,13 +1379,15 @@
           "proj": [
             {
               "file": "proj-pm-qos-benchmark.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-pm-qos-kernel.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1269,7 +1398,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1280,13 +1410,15 @@
           "proj": [
             {
               "file": "proj-runtime-pm-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-runtime-pm.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1308,13 +1440,15 @@
           "proj": [
             {
               "file": "proj-genpd-provider.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-genpd-provider.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1330,7 +1464,8 @@
           "proj": [
             {
               "file": "proj-regulator-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1364,7 +1499,8 @@
           "proj": [
             {
               "file": "proj-clk-driver-example.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1392,7 +1528,8 @@
           "api": [
             {
               "file": "api-opp-functions.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1421,7 +1558,8 @@
           "proj": [
             {
               "file": "proj-cpufreq-governor-and-qos.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1438,7 +1576,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1455,7 +1594,8 @@
           "api": [
             {
               "file": "api-cpuidle-sysfs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1466,7 +1606,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -1477,13 +1618,17 @@
           "proj": [
             {
               "file": "proj-devfreq-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-devfreq-reference.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -1500,7 +1645,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1511,13 +1657,15 @@
           "proj": [
             {
               "file": "proj-hwmon-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-hwmon-attributes.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1545,17 +1693,20 @@
           "proj": [
             {
               "file": "proj-thermal-monitor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-thermal-governor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sysfs-and-netlink.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -1572,24 +1723,28 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-legacy-gpio-to-gpiod.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-kernel-gpio-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-kernel-gpiod-functions.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1611,13 +1766,15 @@
           "proj": [
             {
               "file": "proj-v2-raw-ioctl-and-libgpiod.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-v2-structures-and-ioctls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1629,7 +1786,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         },
         {
@@ -1639,7 +1797,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -1650,13 +1809,15 @@
           "proj": [
             {
               "file": "proj-counter-event-reader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-counter-kernel-interface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1667,12 +1828,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-iio-user-reader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1695,7 +1858,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1706,13 +1870,15 @@
           "proj": [
             {
               "file": "proj-uinput-device.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-evdev-interface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1723,7 +1889,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1740,13 +1907,15 @@
           "proj": [
             {
               "file": "proj-evdev-event-loop.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-evdev-ioctl.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1758,7 +1927,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -1769,13 +1939,15 @@
           "proj": [
             {
               "file": "proj-uinput-keyboard-mapper.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-evdev-ioctls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1797,7 +1969,8 @@
           "proj": [
             {
               "file": "proj-hidraw-reader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1814,7 +1987,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -1829,19 +2003,24 @@
           "hist": [
             {
               "file": "hist-libinput-wayland-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-custom-event-dispatcher.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-libinput-core-interface.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

@@ -41,46 +41,13 @@ enum gpiod_flags {
 
 Базові функції використовуються у низькорівневому коді ядра або підсистемах, де життєвий цикл ресурсу не прив'язаний до структури `struct device`.
 
-```c
-/* Отримання однієї обов'язкової лінії */
-struct gpio_desc *gpiod_get(struct device *dev, const char *con_id, 
-                           enum gpiod_flags flags);
-
-/* Отримання опціональної лінії (повертає NULL замість -ENOENT) */
-struct gpio_desc *gpiod_get_optional(struct device *dev, const char *con_id, 
-                                     enum gpiod_flags flags);
-
-/* Отримання лінії з масиву за індексом */
-struct gpio_desc *gpiod_get_index(struct device *dev, const char *con_id, 
-                                  unsigned int idx, enum gpiod_flags flags);
-
-/* Отримання опціональної лінії за індексом */
-struct gpio_desc *gpiod_get_index_optional(struct device *dev, const char *con_id, 
-                                           unsigned int idx, enum gpiod_flags flags);
-
-/* Ручне вивільнення дескриптора лінії */
-void gpiod_put(struct gpio_desc *desc);
-```
+:::code api-kernel-gpiod-functions/c/2-1-bazovyi-api-manual.h
 
 ### 2.2. Автоматизований Devres API (Рекомендований)
 
 Префікс `devm_` означає, що виділений ресурс прив'язується до життєвого циклу пристрою `struct device`. Виклик `gpiod_put()` відбувається автоматично під час звільнення драйвера.
 
-```c
-struct gpio_desc *devm_gpiod_get(struct device *dev, const char *con_id, 
-                                 enum gpiod_flags flags);
-
-struct gpio_desc *devm_gpiod_get_optional(struct device *dev, const char *con_id, 
-                                          enum gpiod_flags flags);
-
-struct gpio_desc *devm_gpiod_get_index(struct device *dev, const char *con_id, 
-                                       unsigned int idx, enum gpiod_flags flags);
-
-struct gpio_desc *devm_gpiod_get_index_optional(struct device *dev, const char *con_id, 
-                                                unsigned int idx, enum gpiod_flags flags);
-
-void devm_gpiod_put(struct device *dev, struct gpio_desc *desc);
-```
+:::code api-kernel-gpiod-functions/c/2-2-avtomatyzovanyi-devres.h
 
 ---
 
@@ -92,22 +59,7 @@ void devm_gpiod_put(struct device *dev, struct gpio_desc *desc);
 
 Для перевірки результату виклику використовуються спеціальні макроси:
 
-```c
-struct gpio_desc *reset_gpio;
-
-reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-if (IS_ERR(reset_gpio)) {
-    int err = PTR_ERR(reset_gpio);
-    
-    if (err == -EPROBE_DEFER) {
-        /* Контролер GPIO ще не ініціалізовано, чекаємо повторної спроби */
-        return -EPROBE_DEFER;
-    }
-    
-    dev_err(dev, "Failed to get reset GPIO: %d\n", err);
-    return err;
-}
-```
+:::code api-kernel-gpiod-functions/c/3-1-koduvannia-kodu.c
 
 ### 3.2. Детальна класифікація кодів помилок
 
@@ -124,37 +76,13 @@ if (IS_ERR(reset_gpio)) {
 
 Ці функції призначені для роботи з контролерами GPIO, регістри яких відображені безпосередньо у фізичний адресний простір пам'яті процесора (MMIO). Вони гарантують миттєвий доступ і **не можуть викликати блокування чи вихід у сон**.
 
-```c
-/* Зчитування логічного стану лінії (1 = активний, 0 = неактивний) */
-int gpiod_get_value(const struct gpio_desc *desc);
-
-/* Встановлення логічного стану лінії */
-void gpiod_set_value(struct gpio_desc *desc, int value);
-
-/* Зчитування фізичного електричного рівня (ігнорує прапор ACTIVE_LOW) */
-int gpiod_get_raw_value(const struct gpio_desc *desc);
-
-/* Встановлення фізичного електричного рівня (ігнорує прапор ACTIVE_LOW) */
-void gpiod_set_raw_value(struct gpio_desc *desc, int value);
-```
+:::code api-kernel-gpiod-functions/c/4-1-atomarnyi-dostup.h
 
 ### 4.2. Контекст із можливим сном (`_cansleep`)
 
 Ці функції призначені для керування лініями на зовнішніх розширювачах портів (наприклад, PCF8574, MCP23017), підключених через шини I2C або SPI. Обмін даними вимагає надсилання послідовних пакетів та очікування завершення шинних транзакцій.
 
-```c
-/* Зчитування логічного стану лінії з можливістю сну */
-int gpiod_get_value_cansleep(const struct gpio_desc *desc);
-
-/* Встановлення логічного стану лінії з можливістю сну */
-void gpiod_set_value_cansleep(struct gpio_desc *desc, int value);
-
-/* Зчитування фізичного рівня з можливістю сну */
-int gpiod_get_raw_value_cansleep(const struct gpio_desc *desc);
-
-/* Встановлення фізичного рівня з можливістю сну */
-void gpiod_set_raw_value_cansleep(struct gpio_desc *desc, int value);
-```
+:::code api-kernel-gpiod-functions/c/4-2-kontekst-iz-mozhlyvym.h
 
 > 🛑 **Попередження:** Виклик `gpiod_set_value()` замість `gpiod_set_value_cansleep()` для зовнішнього розширювача I2C спричиняє спрацювання перевірки `WARN_ON(desc->gdev->can_sleep)` і вивід стек-трейсу у `dmesg` — незалежно від того, з якого контексту зроблено виклик.
 
@@ -164,31 +92,7 @@ void gpiod_set_raw_value_cansleep(struct gpio_desc *desc, int value);
 
 Для одночасного керування декількома лініями (наприклад, паралельною шиною даних або бітбенгінгом) підсистема `gpiolib` виділяє спеціальну структуру `struct gpio_descs` та надає групові операції.
 
-```c
-struct gpio_descs {
-    unsigned int ndescs;
-    struct gpio_desc *desc[];
-};
-
-/* Отримання групи ліній з Device Tree */
-struct gpio_descs *gpiod_get_array(struct device *dev, const char *con_id, 
-                                   enum gpiod_flags flags);
-
-struct gpio_descs *devm_gpiod_get_array(struct device *dev, const char *con_id, 
-                                        enum gpiod_flags flags);
-
-/* Одночасне встановлення значень для масиву ліній */
-void gpiod_set_array_value(unsigned int array_size, 
-                           struct gpio_desc **desc_array,
-                           struct gpio_array *array_info, 
-                           unsigned long *value_bitmap);
-
-/* Пакетне встановлення значень для розширювачів I2C/SPI з сном */
-void gpiod_set_array_value_cansleep(unsigned int array_size, 
-                                    struct gpio_desc **desc_array,
-                                    struct gpio_array *array_info, 
-                                    unsigned long *value_bitmap);
-```
+:::code api-kernel-gpiod-functions/c/5-paketni-operatsii-z.h
 
 Якщо усі лінії масиву належать одному апаратному контролеру GPIO, `gpiolib` автоматично оптимізує операцію та здійснює один єдиний запис у масовий регістр контролера (`chip->set_multiple`), що суттєво прискорює виведення даних.
 

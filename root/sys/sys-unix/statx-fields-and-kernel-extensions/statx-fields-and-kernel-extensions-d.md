@@ -56,30 +56,8 @@ int statx(int dirfd, const char *path, int flags,
 Це правило формує фундаментальний принцип безпечного системного програмування з `statx`: **ніколи не читати необов'язкове поле `struct statx` без попередньої перевірки наявності відповідного біта в `stx.stx_mask`**.
 
 :::tabs
-```c
-struct statx stx;
-if (statx(AT_FDCWD, path, AT_SYMLINK_NOFOLLOW, STATX_BASIC_STATS | STATX_BTIME, &stx) == 0) {
-    if (stx.stx_mask & STATX_BTIME) {
-        /* Поле stx_btime гарантовано містить чесний час створення */
-        process_btime(&stx.stx_btime);
-    } else {
-        /* Файлова система не підтримує btime — використовуємо фолбек на mtime або ctime */
-        fallback_time(&stx.stx_mtime);
-    }
-}
-```
-```cpp
-struct statx stx{};
-if (::statx(AT_FDCWD, path.data(), AT_SYMLINK_NOFOLLOW, STATX_BASIC_STATS | STATX_BTIME, &stx) == 0) {
-    if (stx.stx_mask & STATX_BTIME) {
-        // Поле stx_btime гарантовано містить чесний час створення
-        process_btime(stx.stx_btime);
-    } else {
-        // Файлова система не підтримує btime — використовуємо фолбек на mtime
-        fallback_time(stx.stx_mtime);
-    }
-}
-```
+:::code statx-fields-and-kernel-extensions-d/c/main.c
+:::code statx-fields-and-kernel-extensions-d/cpp/main.cpp
 :::
 
 Завдяки цьому узгодженню драйвер NFS або SMB може взагалі не робити мережевих запитів щодо блоків чи часових позначок, якщо їх не було у вхідній масці, обмежуючись даними з локального кешу.

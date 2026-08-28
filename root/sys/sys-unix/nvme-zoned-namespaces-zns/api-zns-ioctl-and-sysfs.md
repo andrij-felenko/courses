@@ -139,32 +139,8 @@ auto rep = std::unique_ptr<struct blk_zone_report, decltype(&std::free)>(
 Кожен елемент масиву `struct blk_zone` містить детальні апаратні атрибути окремої зони:
 
 :::tabs
-```c
-struct blk_zone {
-    __u64 start;        /* Початковий сектор зони (ZSLBA) */
-    __u64 len;          /* Фізичний розмір зони у секторах (Zone Size) */
-    __u64 wp;           /* Поточна позиція вказівника запису (Write Pointer) */
-    __u8  type;         /* Тип зони: 0x01 = CONVENTIONAL, 0x02 = SEQ_WRITE_REQ */
-    __u8  cond;         /* Стан зони (Zone Condition) */
-    __u8  non_seq;      /* Прапорець непослідовного запису (0 для ZNS) */
-    __u8  reset;        /* Потрібне скидання зони */
-    __u8  pad[4];       /* Вирівнювання структури до 64 байт */
-    __u64 capacity;     /* Доступна корисна ємність зони (Zone Capacity) */
-    __u8  reserved[24]; /* Резерв ядра для майбутніх розширень */
-};
-```
-```cpp
-// У C++ безпечна перевірка стану зони здійснюється через enum class
-enum class ZoneCondition : std::uint8_t {
-    Empty      = BLK_ZONE_COND_EMPTY,
-    ImpOpen    = BLK_ZONE_COND_IMP_OPEN,
-    ExpOpen    = BLK_ZONE_COND_EXP_OPEN,
-    Closed     = BLK_ZONE_COND_CLOSED,
-    Full       = BLK_ZONE_COND_FULL,
-    ReadOnly   = BLK_ZONE_COND_READONLY,
-    Offline    = BLK_ZONE_COND_OFFLINE
-};
-```
+:::code api-zns-ioctl-and-sysfs/c/struktury-danykh-linux-zbd.c
+:::code api-zns-ioctl-and-sysfs/cpp/struktury-danykh-linux-zbd.cpp
 :::
 
 Таблиця можливих значень поля `cond` (Zone Condition):
@@ -189,48 +165,8 @@ enum class ZoneCondition : std::uint8_t {
 Для виконання скидання зони або запиту звіту про зони з програмного коду використовується системний виклик `ioctl()`. Нижче наведено порівняльний приклад виконання операції `BLKRESETZONE` мовами C та ідіоматичною C++.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/blkzoned.h>
-
-int reset_single_zone(int fd, uint64_t zone_start_sector, uint64_t zone_size_sectors) {
-    struct blk_zone_range range;
-    range.sector = zone_start_sector;
-    range.nr_sectors = zone_size_sectors;
-
-    if (ioctl(fd, BLKRESETZONE, &range) < 0) {
-        perror("BLKRESETZONE failed");
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <expected>
-#include <cstdint>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/blkzoned.h>
-
-std::expected<void, std::error_code> reset_single_zone(int fd, std::uint64_t zone_start_sector, std::uint64_t zone_size_sectors) noexcept {
-    struct blk_zone_range range{
-        .sector = zone_start_sector,
-        .nr_sectors = zone_size_sectors
-    };
-
-    if (::ioctl(fd, BLKRESETZONE, &range) < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code api-zns-ioctl-and-sysfs/c/vyklyky-ioctl-dlia.c
+:::code api-zns-ioctl-and-sysfs/cpp/vyklyky-ioctl-dlia.cpp
 :::
 
 У C++ версії використовується сучасний тип `std::expected<void, std::error_code>` (доступний у C++23 чи через системні бібліотеки), що повністю виключає використання винятків на гарячому шляху виконання I/O операцій та надає зручний інтерфейс перевірки помилок через об'єкт `std::error_code`.
@@ -280,69 +216,8 @@ constexpr std::uint8_t kCmdAppend   = 0x7d;
 Нижче наведено приклад надсилання нативної команди `Zone Append` мовами C та C++.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <linux/nvme_ioctl.h>
-
-uint64_t submit_nvme_append_c(int fd, uint32_t nsid, uint64_t zslba, void *buf, size_t len) {
-    uint32_t nlb = len / 512;
-    struct nvme_passthru_cmd cmd;
-    memset(&cmd, 0, sizeof(cmd));
-
-    cmd.opcode      = 0x7d; /* Zone Append */
-    cmd.nsid        = nsid;
-    cmd.addr        = (uint64_t)(uintptr_t)buf;
-    cmd.data_len    = len;
-    cmd.cdw10       = (uint32_t)(zslba & 0xFFFFFFFF);
-    cmd.cdw11       = (uint32_t)(zslba >> 32);
-    cmd.cdw12       = nlb - 1; /* 0-based NLB */
-    cmd.timeout_ms  = 1000;
-
-    if (ioctl(fd, NVME_IOCTL_IO_CMD, &cmd) < 0) {
-        perror("NVME_IOCTL_IO_CMD append failed");
-        return (uint64_t)-1;
-    }
-    return cmd.result;
-}
-```
-```cpp
-#include <iostream>
-#include <span>
-#include <expected>
-#include <system_error>
-#include <cstdint>
-#include <cstring>
-#include <sys/ioctl.h>
-#include <linux/nvme_ioctl.h>
-
-std::expected<std::uint64_t, std::error_code> submit_nvme_append_cpp(
-    int fd, 
-    std::uint32_t nsid, 
-    std::uint64_t zslba, 
-    std::span<const std::byte> buffer
-) noexcept {
-    uint32_t nlb = static_cast<uint32_t>(buffer.size() / 512);
-    struct nvme_passthru_cmd cmd{};
-
-    cmd.opcode      = 0x7d; // Zone Append
-    cmd.nsid        = nsid;
-    cmd.addr        = reinterpret_cast<std::uint64_t>(buffer.data());
-    cmd.data_len    = static_cast<std::uint32_t>(buffer.size());
-    cmd.cdw10       = static_cast<std::uint32_t>(zslba & 0xFFFFFFFF);
-    cmd.cdw11       = static_cast<std::uint32_t>(zslba >> 32);
-    cmd.cdw12       = nlb - 1; // 0-based NLB
-    cmd.timeout_ms  = 1000;
-
-    if (::ioctl(fd, NVME_IOCTL_IO_CMD, &cmd) < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return cmd.result;
-}
-```
+:::code api-zns-ioctl-and-sysfs/c/struktura-aparatnoi.c
+:::code api-zns-ioctl-and-sysfs/cpp/struktura-aparatnoi.cpp
 :::
 
 Зауважте, що при використанні команди `Zone Append` у структурі `struct nvme_passthru_cmd` значення `cdw10` та `cdw11` приймають початковий адресований сектор всієї зони (ZSLBA), а не точну текучу позицію Write Pointer. Самостійний розрахунок Write Pointer на боці хоста не потрібен — контролер SSD виконає цей розрахунок атомарно.

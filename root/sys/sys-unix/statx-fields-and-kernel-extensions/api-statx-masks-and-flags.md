@@ -28,32 +28,8 @@ int statx(int dirfd, const char *path, int flags,
 Якщо програма компілюється на старій версії C-бібліотеки glibc (старішій за 2.28), де офіційна обгортка `statx()` ще відсутня, виклик можна виконувати напряму через системний виклик `syscall()` та заголовок `<sys/syscall.h>` з умовною перевіркою існування константи `__NR_statx`:
 
 :::tabs
-```c
-#include <sys/syscall.h>
-
-#ifndef __NR_statx
-# error "Архітектура ядра не визначає системний виклик __NR_statx"
-#endif
-
-static inline int my_statx(int dirfd, const char *path, int flags,
-                           unsigned int mask, struct statx *stx) {
-    return syscall(__NR_statx, dirfd, path, flags, mask, stx);
-}
-```
-```cpp
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <system_error>
-
-#ifndef __NR_statx
-# error "Архітектура ядра не визначає системний виклик __NR_statx"
-#endif
-
-inline int my_statx(int dirfd, const char *path, int flags,
-                     unsigned int mask, struct statx *stx) noexcept {
-    return static_cast<int>(::syscall(__NR_statx, dirfd, path, flags, mask, stx));
-}
-```
+:::code api-statx-masks-and-flags/c/main.c
+:::code api-statx-masks-and-flags/cpp/main.cpp
 :::
 
 ### Детальний опис параметрів виклику

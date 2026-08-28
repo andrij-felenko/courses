@@ -70,18 +70,7 @@ while (!quit)
 
 Це й робить `sigsuspend()`: **атомарно** ставить задану маску й засинає. Разом із блокуванням до перевірки виходить конструкція без щілин.
 
-```c
-sigset_t block, orig, empty;
-sigemptyset(&block);  sigaddset(&block, SIGTERM);
-sigemptyset(&empty);
-
-pthread_sigmask(SIG_BLOCK, &block, &orig);   /* від цієї миті TERM лише накопичується */
-
-while (!quit)
-    sigsuspend(&empty);                      /* зняти маску І заснути — однією дією */
-
-pthread_sigmask(SIG_SETMASK, &orig, NULL);
-```
+:::code signal-mask-signalfd-d/c/vikno-mizh-perevirkoiu-i.h
 
 Розберімо обидва випадки. Сигнал прийшов **до** перевірки — обробник виконатися не міг, бо маска блокує, тож `quit` ще нуль; але біт очікування стоїть. `sigsuspend` ставить порожню маску — і сигнал доправляють негайно, обробник ставить `quit`, `sigsuspend` повертається з `EINTR`, цикл перевіряє прапорець і виходить. Сигнал прийшов **після** перевірки, поки програма вже спить у `sigsuspend` з порожньою маскою, — доправлення теж негайне. Третього варіанту немає: доки маска стоїть, обробник не виконається, а зняття маски й засинання неподільні.
 
@@ -113,35 +102,7 @@ pthread_sigmask(SIG_SETMASK, &orig, NULL);
 
 *Перемикач між шляхами — маска. signalfd лише відчиняє двері до накопиченого; закрити старий шлях мусить сама програма.*
 
-```c
-sigset_t mask;
-sigemptyset(&mask);
-sigaddset(&mask, SIGINT);
-sigaddset(&mask, SIGTERM);
-sigaddset(&mask, SIGCHLD);
-
-/* 1. без цього кроку решта не має сенсу */
-pthread_sigmask(SIG_BLOCK, &mask, NULL);
-
-/* 2. дескриптор, що бачить саме ці сигнали */
-int sfd = signalfd(-1, &mask, SFD_CLOEXEC | SFD_NONBLOCK);
-if (sfd < 0) { perror("signalfd"); return 1; }
-
-/* 3. далі це звичайне джерело подій */
-struct pollfd pfd = { .fd = sfd, .events = POLLIN };
-for (;;) {
-    if (poll(&pfd, 1, -1) < 0) { if (errno == EINTR) continue; break; }
-
-    struct signalfd_siginfo si;
-    while (read(sfd, &si, sizeof si) == (ssize_t) sizeof si) {
-        if (si.ssi_signo == SIGCHLD)
-            reap_children();                  /* сам сигнал зомбі не прибирає */
-        else
-            begin_graceful_shutdown();        /* INT або TERM */
-    }
-    /* read повернув EAGAIN — очікуваних більше немає, спимо далі */
-}
-```
+:::code signal-mask-signalfd-d/c/deskryptor-shcho-pokazuie.c
 
 Три деталі коду варті окремої уваги. Перший аргумент `-1` каже «створити новий дескриптор»; передавши замість нього наявний, ви зміните його набір сигналів на льоту. `SFD_CLOEXEC` закриває дескриптор при `exec`, `SFD_NONBLOCK` рятує від застрягання на порожньому читанні — обидва прапорці додано трохи пізніше за сам виклик, у 2.6.27. І готовність тут рівнева: поки очікувані є, `poll` повертатиме готовність знову й знову, тож читання по одній структурі за прохід нічого не губить — лише змушує цикл робити зайвий оберт на кожен непрочитаний сигнал. Тому дескриптор вичерпують до `EAGAIN`; у режимі спрацювання за фронтом (`EPOLLET`) це вже не економія, а обов'язок. За один `read` можна забрати кілька структур одразу, якщо дати більший буфер.
 

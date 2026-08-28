@@ -58,42 +58,8 @@
 ### Структура struct pidfd_info
 
 :::tabs
-```c
-struct pidfd_info {
-    __u64 mask;         /* Маска запитаних та заповнених полів */
-    __u64 cgroupid;     /* 64-бітний унікальний ID cgroup v2 */
-    __u32 pid;          /* PID процесу у просторі імен викликача */
-    __u32 tgid;         /* TGID (ID групи потоків / лідер процесу) */
-    __u32 ppid;         /* PPID (PID батьківського процесу) */
-    __u32 ruid;         /* Реальний UID */
-    __u32 rgid;         /* Реальний GID */
-    __u32 euid;         /* Ефективний UID процесу */
-    __u32 egid;         /* Ефективний GID процесу */
-    __u32 suid;         /* Збережений UID */
-    __u32 sgid;         /* Збережений GID */
-    __u32 fsuid;        /* UID для доступу до файлів */
-    __u32 fsgid;        /* GID для доступу до файлів */
-    __s32 exit_code;    /* Код завершення (біт PIDFD_INFO_EXIT, Linux 6.13+) */
-};
-```
-```cpp
-struct pidfd_info {
-    std::uint64_t mask;      // Маска запитаних та заповнених полів
-    std::uint64_t cgroupid;  // 64-бітний унікальний ID cgroup v2
-    std::uint32_t pid;       // PID процесу у просторі імен викликача
-    std::uint32_t tgid;      // TGID (ID групи потоків / лідер процесу)
-    std::uint32_t ppid;      // PPID (PID батьківського процесу)
-    std::uint32_t ruid;      // Реальний UID
-    std::uint32_t rgid;      // Реальний GID
-    std::uint32_t euid;      // Ефективний UID процесу
-    std::uint32_t egid;      // Ефективний GID процесу
-    std::uint32_t suid;      // Збережений UID
-    std::uint32_t sgid;      // Збережений GID
-    std::uint32_t fsuid;     // UID для доступу до файлів
-    std::uint32_t fsgid;     // GID для доступу до файлів
-    std::int32_t  exit_code; // Код завершення (біт PIDFD_INFO_EXIT, Linux 6.13+)
-};
-```
+:::code api-pidfs-ioctls/c/main.c
+:::code api-pidfs-ioctls/cpp/main.cpp
 :::
 
 ### Прапорці маски (mask)

@@ -35,19 +35,7 @@ int sed_ioctl(struct opal_dev *dev, unsigned int cmd, void __user *ioctl_ptr);
 
 ## Ключ — атом усього інтерфейсу
 
-```c
-#define OPAL_KEY_MAX    256
-#define OPAL_MAX_LRS    9
-#define OPAL_UID_LENGTH 8
-
-struct opal_key {
-        __u8 lr;                  /* номер діапазону; 0 — глобальний */
-        __u8 key_len;             /* довжина пароля в байтах */
-        __u8 key_type;            /* OPAL_INCLUDED | OPAL_KEYRING */
-        __u8 __align[5];
-        __u8 key[OPAL_KEY_MAX];
-};
-```
+:::code api-opal-ioctls/c/kliuch-atom-usoho.c
 
 `key_type` вирішує, звідки ядро візьме пароль. `OPAL_INCLUDED` (нуль) — пароль лежить тут же, у `key[]`. `OPAL_KEYRING` — у структурі його немає, ядро прочитає його з кільця `.sed_opal` за описом `opal-boot-pin`, підставить довжину в `key_len` і перепише `key_type` на `OPAL_INCLUDED`. Порожній ключ після цього (`key_len == 0`) або невідомий `key_type` — `-EINVAL`; ключ, довший за 255 байтів, — `-ENOSPC`.
 
@@ -86,22 +74,7 @@ struct opal_session_info {
 
 ## Діапазони й замок
 
-```c
-struct opal_user_lr_setup {
-        __u64 range_start;
-        __u64 range_length;
-        __u32 RLE;                /* Read Lock Enabled  */
-        __u32 WLE;                /* Write Lock Enabled */
-        struct opal_session_info session;
-};
-
-struct opal_lock_unlock {
-        struct opal_session_info session;
-        __u32 l_state;            /* OPAL_RO = 1 | OPAL_RW = 2 | OPAL_LK = 4 */
-        __u16 flags;              /* OPAL_SAVE_FOR_LOCK = 1 */
-        __u8  __align[2];
-};
-```
+:::code api-opal-ioctls/c/diapazony-i-zamok.c
 
 | виклик | напрям | аргумент | що робить |
 | --- | --- | --- | --- |
@@ -198,42 +171,7 @@ struct opal_shadow_mbr {
 
 Відімкнути діапазон 1 і одразу озброїти відновлення після сну — це два `ioctl` на одній структурі:
 
-```c
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <linux/sed-opal.h>
-
-int main(void)
-{
-        int fd = open("/dev/nvme0n1", O_RDONLY);   /* цілий носій, не розділ */
-        struct opal_status st = {0};
-        const char *pin = "correct horse battery";
-
-        if (ioctl(fd, IOC_OPAL_GET_STATUS, &st) < 0) { perror("GET_STATUS"); return 1; }
-        printf("flags=0x%08x locked=%d mbr=%d\n", st.flags,
-               !!(st.flags & OPAL_FL_LOCKED), !!(st.flags & OPAL_FL_MBR_ENABLED));
-
-        struct opal_lock_unlock lu = {
-                .session = {
-                        .who = OPAL_ADMIN1,
-                        .sum = 0,
-                        .opal_key = { .lr = 1, .key_type = OPAL_INCLUDED },
-                },
-                .l_state = OPAL_RW,
-        };
-        lu.session.opal_key.key_len = strlen(pin);
-        memcpy(lu.session.opal_key.key, pin, lu.session.opal_key.key_len);
-
-        if (ioctl(fd, IOC_OPAL_LOCK_UNLOCK, &lu) < 0) { perror("UNLOCK"); return 1; }
-
-        lu.flags = OPAL_SAVE_FOR_LOCK;             /* дозволити замикання без пароля */
-        if (ioctl(fd, IOC_OPAL_SAVE, &lu) < 0) { perror("SAVE"); return 1; }
-
-        return 0;
-}
-```
+:::code api-opal-ioctls/c/minimalnyi-robochyi-vyklyk.c
 
 Щоб той самий код не тримав пароль у своїй пам'яті, досить поміняти два поля: `.key_type = OPAL_KEYRING` і не заповнювати `key[]` — ядро візьме `opal-boot-pin` із кільця `.sed_opal`, куди його заклав [initramfs](root:sys-unix/initramfs).
 

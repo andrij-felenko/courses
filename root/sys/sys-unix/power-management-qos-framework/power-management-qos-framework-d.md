@@ -122,19 +122,7 @@ PM QoS виступає сполучною ланкою між різними р
 #### Інтеграція з `cpuidle`
 Під час вибору стану сну для бездіяльного ядра процесора регулятор `cpuidle` (наприклад, `menu` або `teo`) викликає функцію `cpu_latency_qos_limit()`. Отримане значення (у мікросекундах) порівнюється з полем `exit_latency` кожного доступного C-state:
 
-```c
-// Спрощена логіка вибору C-state у регуляторі cpuidle
-s32 latency_req = cpu_latency_qos_limit();
-
-for (i = 0; i < drv->state_count; i++) {
-    struct cpuidle_state *s = &drv->states[i];
-    if (s->exit_latency_ns / 1000 > latency_req) {
-        // Стан надто повільний для виходу — ігноруємо його та всі глибші
-        break;
-    }
-    target_state = i;
-}
-```
+:::code power-management-qos-framework-d/c/main.c
 
 Якщо затримка виходу перевищує `latency_req`, цей і всі наступні (глибші) стани сну повністю відсікаються з розгляду.
 

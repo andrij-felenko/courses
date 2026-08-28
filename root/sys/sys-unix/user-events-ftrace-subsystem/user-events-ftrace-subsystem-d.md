@@ -214,45 +214,8 @@ app_http_request u32 status_code; u64 latency_ns; __data_loc char[] url
 3. **`iov[2]` (Динамічні payload-дані):** Буфер, що містить самі динамічні рядки чи масиви байтів.
 
 :::tabs
-```c
-#include <sys/uio.h>
-
-/* Перший елемент - ID події (4 байти) */
-struct iovec iov[3];
-iov[0].iov_base = &reg.write_index;
-iov[0].iov_len  = sizeof(reg.write_index);
-
-/* Другий елемент - фіксовані поля структури */
-iov[1].iov_base = &payload_header;
-iov[1].iov_len  = sizeof(payload_header);
-
-/* Третій елемент - динамічний рядок */
-iov[2].iov_base = (void *)dynamic_url_string;
-iov[2].iov_len  = dynamic_url_length;
-
-/* Відправка в ядро за один системний виклик */
-ssize_t bytes_written = writev(fd, iov, 3);
-```
-```cpp
-#include <sys/uio.h>
-#include <array>
-#include <string_view>
-
-std::uint32_t write_id = reg.write_index;
-std::string_view url = "/api/v1/resource";
-
-std::array<::iovec, 3> iov{};
-iov[0].iov_base = &write_id;
-iov[0].iov_len  = sizeof(write_id);
-
-iov[1].iov_base = &payload_header;
-iov[1].iov_len  = sizeof(payload_header);
-
-iov[2].iov_base = const_cast<char*>(url.data());
-iov[2].iov_len  = url.size() + 1;
-
-ssize_t bytes_written = ::writev(fd, iov.data(), iov.size());
-```
+:::code user-events-ftrace-subsystem-d/c/uio.h
+:::code user-events-ftrace-subsystem-d/cpp/main.hpp
 :::
 
 Повний працюючий приклад програми з обробкою сигналів завершення, вирівнюванням полів та практичним керівництвом з тестування наведено у матеріалі [⚙️ Практикум: створення та відправка користувацьких подій у ftrace мовами C та C++](root:sys-unix/user-events-ftrace-subsystem/proj-user-events-demo.md).

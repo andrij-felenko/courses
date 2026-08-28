@@ -25,20 +25,7 @@
 
 ## Прив'язка буфера
 
-```c
-/* <linux/videodev2.h> */
-#define V4L2_BUF_FLAG_REQUEST_FD            0x00800000
-#define V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF  0x00000200
-
-struct v4l2_buffer {
-    /* … index, type, bytesused, flags, field, timestamp, … */
-    __u32 reserved2;
-    union {
-        __s32 request_fd;   /* дійсне лише при V4L2_BUF_FLAG_REQUEST_FD */
-        __u32 reserved;
-    };
-};
-```
+:::code api-request-ioctls/c/pryviazka-bufera.c
 
 `request_fd` лежить в об'єднанні зі старим полем `reserved` — місця під нього в структурі не було, тож поле дописали поверх зарезервованого. Звідси вимога занулювати `struct v4l2_buffer` перед заповненням: незанулена приносить сміття і в `flags`, і сюди, і `QBUF` відмовить через дескриптор, якого програма не називала. Прапорець і поле ставлять разом: прапорець без поля дає `EINVAL` (нуль — теж дескриптор, і майже напевно не запит), поле без прапорця драйвер просто не подивиться.
 
@@ -48,20 +35,7 @@ struct v4l2_buffer {
 
 ## Прив'язка керувань
 
-```c
-#define V4L2_CTRL_WHICH_CUR_VAL      0
-#define V4L2_CTRL_WHICH_DEF_VAL      0x0f000000
-#define V4L2_CTRL_WHICH_REQUEST_VAL  0x0f010000
-
-struct v4l2_ext_controls {
-    union { __u32 ctrl_class; __u32 which; };
-    __u32 count;
-    __u32 error_idx;                  /* заповнює драйвер: індекс керування, що не пройшло */
-    __s32 request_fd;                 /* дійсне лише при which = REQUEST_VAL */
-    __u32 reserved[1];
-    struct v4l2_ext_control *controls;
-};
-```
+:::code api-request-ioctls/c/pryviazka-keruvan.c
 
 `which = V4L2_CTRL_WHICH_REQUEST_VAL` міняє зміст усіх трьох команд:
 
@@ -122,45 +96,6 @@ struct v4l2_ext_controls {
 
 ## Мінімальний повний виклик
 
-```c
-/* 1. чи має ця черга право приймати буфери в запитах */
-struct v4l2_requestbuffers rb = {
-    .count = 0, .type = V4L2_BUF_TYPE_VIDEO_CAPTURE, .memory = V4L2_MEMORY_MMAP,
-};
-ioctl(video_fd, VIDIOC_REQBUFS, &rb);
-if (!(rb.capabilities & V4L2_BUF_CAP_SUPPORTS_REQUESTS))
-    return -1;
-
-/* 2. запит живе на медіапристрої */
-int req_fd;
-if (ioctl(media_fd, MEDIA_IOC_REQUEST_ALLOC, &req_fd) < 0)
-    return -1;                                   /* ENOTTY */
-
-/* 3. наповнення: керування — на вузлі сенсора, буфер — на відеовузлі */
-struct v4l2_ext_control c = { .id = V4L2_CID_EXPOSURE_ABSOLUTE, .value = 120 };
-struct v4l2_ext_controls ctrls = {
-    .which = V4L2_CTRL_WHICH_REQUEST_VAL, .request_fd = req_fd,
-    .count = 1, .controls = &c,
-};
-ioctl(subdev_fd, VIDIOC_S_EXT_CTRLS, &ctrls);    /* EBUSY, якщо запит уже в черзі */
-
-struct v4l2_buffer buf = {                       /* занулення обов'язкове */
-    .type = V4L2_BUF_TYPE_VIDEO_CAPTURE, .memory = V4L2_MEMORY_MMAP, .index = 0,
-    .flags = V4L2_BUF_FLAG_REQUEST_FD, .request_fd = req_fd,
-};
-ioctl(video_fd, VIDIOC_QBUF, &buf);              /* EBADR / EINVAL / EBUSY */
-
-/* 4. пуск і очікування */
-ioctl(req_fd, MEDIA_REQUEST_IOC_QUEUE, NULL);    /* ENOENT, якщо буфера немає */
-struct pollfd p = { .fd = req_fd, .events = POLLPRI };
-poll(&p, 1, -1);
-
-/* 5. що драйвер справді застосував (до завершення — EACCES) */
-ioctl(subdev_fd, VIDIOC_G_EXT_CTRLS, &ctrls);
-ioctl(video_fd, VIDIOC_DQBUF, &buf);
-
-/* 6. той самий дескриптор — на наступний кадр */
-ioctl(req_fd, MEDIA_REQUEST_IOC_REINIT, NULL);
-```
+:::code api-request-ioctls/c/minimalnyi-povnyi-vyklyk.h
 
 Усередині наповнення порядок довільний: керування можна класти й після буфера, і в кілька заходів на різних вузлах. А от `REINIT` між кадрами пропускати не можна — вміст завершеного запиту нікуди не дівається, і повторний `QUEUE` на ньому поверне `EBUSY`.

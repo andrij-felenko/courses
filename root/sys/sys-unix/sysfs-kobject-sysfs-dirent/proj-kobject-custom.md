@@ -16,96 +16,7 @@
 
 Код написано мовою C для простору ядра (kernel space). Згідно з архітектурою ядра Linux, код модулів та драйверів виконується в привілейованому режимі без наявності стандартної бібліотеки C++ (libstdc++), підтримки винятків або механізмів RAII. Тому драйвери та модулі розробляються виключно мовою C із застосуванням специфічних макросів і ядерних API.
 
-```c
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/init.h>
-#include <linux/kobject.h>
-#include <linux/string.h>
-#include <linux/sysfs.h>
-
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Unix Reference Course");
-MODULE_DESCRIPTION("Demo Kernel Module for kobject and sysfs attributes");
-MODULE_VERSION("1.0");
-
-static struct kobject *demo_kobj;
-static int counter = 42;
-static char control_buffer[64] = "default_state";
-
-/* Обробник читання атрибута status */
-static ssize_t status_show(struct kobject *kobj, struct kobj_attribute *attr,
-                           char *buf)
-{
-    return sysfs_emit(buf, "%d\n", counter++);
-}
-
-/* Обробник читання атрибута control */
-static ssize_t control_show(struct kobject *kobj, struct kobj_attribute *attr,
-                            char *buf)
-{
-    return sysfs_emit(buf, "%s\n", control_buffer);
-}
-
-/* Обробник запису атрибута control */
-static ssize_t control_store(struct kobject *kobj, struct kobj_attribute *attr,
-                             const char *buf, size_t count)
-{
-    if (count >= sizeof(control_buffer))
-        return -EINVAL;
-
-    sscanf(buf, "%63s", control_buffer);
-    pr_info("demo_kobj: control state updated to '%s'\n", control_buffer);
-
-    return count;
-}
-
-/* Оголошення об'єктів атрибутів через макроси */
-static struct kobj_attribute status_attr = __ATTR_RO(status);
-static struct kobj_attribute control_attr = __ATTR_RW(control);
-
-/* Масив атрибутів для формування групи */
-static struct attribute *demo_attrs[] = {
-    &status_attr.attr,
-    &control_attr.attr,
-    NULL, /* Термінатор масиву */
-};
-
-static struct attribute_group demo_attr_group = {
-    .attrs = demo_attrs,
-};
-
-static int __init demo_init(void)
-{
-    int retval;
-
-    /* Створення kobject під /sys/kernel/ */
-    demo_kobj = kobject_create_and_add("demo_kobj", kernel_kobj);
-    if (!demo_kobj)
-        return -ENOMEM;
-
-    /* Реєстрація групи атрибутів у sysfs */
-    retval = sysfs_create_group(demo_kobj, &demo_attr_group);
-    if (retval) {
-        kobject_put(demo_kobj);
-        return retval;
-    }
-
-    pr_info("demo_kobj: module loaded, /sys/kernel/demo_kobj created\n");
-    return 0;
-}
-
-static void __exit demo_exit(void)
-{
-    /* Спершу видаляємо атрибути, потім зменшуємо kref */
-    sysfs_remove_group(demo_kobj, &demo_attr_group);
-    kobject_put(demo_kobj);
-    pr_info("demo_kobj: module unloaded\n");
-}
-
-module_init(demo_init);
-module_exit(demo_exit);
-```
+:::code proj-kobject-custom/c/main.c
 
 ## Інструкція зі складання та тестування
 
@@ -125,36 +36,7 @@ clean:
 
 Послідовне виконання команд складання, інтеграції та тестування у командному інтерфейсі розробника:
 
-```bash
-# 1. Збірка модуля у поточному каталозі
-make
-
-# 2. Завантаження модуля у ядро
-sudo insmod demo_kobj.ko
-
-# 3. Перевірка наявності створеного каталогу та файлів атрибутів у sysfs
-ls -la /sys/kernel/demo_kobj/
-
-# 4. Читання атрибута status (кожен новий виклик інкрементує лічильник)
-cat /sys/kernel/demo_kobj/status
-# Вивід: 42
-cat /sys/kernel/demo_kobj/status
-# Вивід: 43
-
-# 5. Перевірка читання та запису нового стану в control
-cat /sys/kernel/demo_kobj/control
-# Вивід: default_state
-
-echo "active_mode" | sudo tee /sys/kernel/demo_kobj/control
-cat /sys/kernel/demo_kobj/control
-# Вивід: active_mode
-
-# 6. Перевірка ядерних повідомлень через dmesg
-dmesg | tail -n 5
-
-# 7. Вивантаження модуля та перевірка видалення каталогу з sysfs
-sudo rmmod demo_kobj
-```
+:::code proj-kobject-custom/sh/main.sh
 
 ## Простеження виконання системних викликів
 

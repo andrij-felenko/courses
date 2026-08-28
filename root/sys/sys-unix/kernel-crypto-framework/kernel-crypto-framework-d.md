@@ -54,26 +54,7 @@ Linux Kernel Crypto API побудований на принципі сувор�
 
 Алгоритм у ядрі — це пасивний опис криптографічного методу. Він реєструється драйвером при завантаженні і описується структурою `struct crypto_alg` з заголовка `<linux/crypto.h>`:
 
-```c
-struct crypto_alg {
-    struct list_head    cra_list;
-    struct list_head    cra_users;
-    
-    u32                 cra_flags;
-    unsigned int        cra_blocksize;
-    unsigned int        cra_ctxsize;
-    unsigned int        cra_alignmask;
-    
-    int                 cra_priority;
-    refcount_t          cra_refcnt;
-    
-    char                cra_name[CRYPTO_MAX_ALG_NAME];
-    char                cra_driver_name[CRYPTO_MAX_ALG_NAME];
-    
-    const struct crypto_type *cra_type;
-    struct module       *cra_module;
-};
-```
+:::code kernel-crypto-framework-d/c/3-1-alhorytmy-struct.c
 
 Ключові поля структури:
 - **`cra_name`:** Стандартна текстова назва алгоритму чи режиму (наприклад, `"aes"` або `"cbc(aes)"`).
@@ -129,19 +110,7 @@ if (IS_ERR(tfm)) {
 
 При виклику асинхронної функції `crypto_skcipher_encrypt(req)` можливі три результати:
 
-```c
-int ret = crypto_skcipher_encrypt(req);
-if (ret == 0) {
-    /* Операція виконана миттєво (synchronous fast-path) */
-} else if (ret == -EINPROGRESS) {
-    /* Запит поставлено в чергу апаратури; чекаємо на callback */
-} else if (ret == -EBUSY) {
-    /* Чергу переповнено: із CRYPTO_TFM_REQ_MAY_BACKLOG запит став у резервну чергу,
-       без цього прапорця його відкинуто — надсилати треба повторно */
-} else {
-    /* Виникла помилка шифрування */
-}
-```
+:::code kernel-crypto-framework-d/c/4-2-asynkhronnyi-interfeis.c
 
 При поверненні `-EINPROGRESS` потік ядра не блокується, а продовжує обробку інших завдань. Коли PCIe-карта завершує обчислення, вона генерує апаратне переривання (MSI-X), і обробник переривання викликає callback `req->base.complete(&req->base, err)`. Повернення `-EBUSY` означає, що черга переповнена, а доля запиту залежить від прапорця `CRYPTO_TFM_REQ_MAY_BACKLOG`: із ним запит покладено в резервну чергу і клієнтові досить призупинити надсилання нових завдань до звільнення ресурсів (backpressure), без нього запит просто відкинуто — клієнт мусить надіслати його ще раз.
 
@@ -206,82 +175,7 @@ maxauthsize  : 16
 
 Для розробників модулів ядра реєстрація власного криптографічного алгоритму вимагає заповнення відповідної структури та виклику функції реєстрації. Нижче наведено завершений модуль ядра, який реєструє синхронний алгоритм хешування `shash`.
 
-```c
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/crypto.h>
-#include <crypto/internal/hash.h>
-#include <linux/unaligned.h>  /* до ядра 6.12 заголовок звався <asm/unaligned.h> */
-
-struct my_digest_ctx {
-    u32 state;
-    u64 count;
-};
-
-static int my_hash_init(struct shash_desc *desc)
-{
-    struct my_digest_ctx *ctx = shash_desc_ctx(desc);
-    ctx->state = 0x811c9dc5; /* FNV offset basis */
-    ctx->count = 0;
-    return 0;
-}
-
-static int my_hash_update(struct shash_desc *desc, const u8 *data, unsigned int len)
-{
-    struct my_digest_ctx *ctx = shash_desc_ctx(desc);
-    unsigned int i;
-    for (i = 0; i < len; i++) {
-        ctx->state ^= data[i];
-        ctx->state *= 0x01000193; /* FNV prime */
-        ctx->count++;
-    }
-    return 0;
-}
-
-static int my_hash_final(struct shash_desc *desc, u8 *out)
-{
-    struct my_digest_ctx *ctx = shash_desc_ctx(desc);
-    put_unaligned_le32(ctx->state, out);
-    return 0;
-}
-
-static struct shash_alg my_shash_alg = {
-    .digestsize = 4,
-    .descsize   = sizeof(struct my_digest_ctx),
-    .init       = my_hash_init,
-    .update     = my_hash_update,
-    .final      = my_hash_final,
-    .base       = {
-        .cra_name        = "myfnv1a",
-        .cra_driver_name = "myfnv1a-generic",
-        .cra_priority    = 100,
-        .cra_blocksize   = 1,
-        .cra_module      = THIS_MODULE,
-    }
-};
-
-static int __init my_crypto_provider_init(void)
-{
-    int err = crypto_register_shash(&my_shash_alg);
-    if (err)
-        pr_err("Помилка реєстрації myfnv1a: %d\n", err);
-    else
-        pr_info("Криптопровайдер myfnv1a успішно зареєстровано\n");
-    return err;
-}
-
-static void __exit my_crypto_provider_exit(void)
-{
-    crypto_unregister_shash(&my_shash_alg);
-    pr_info("Криптопровайдер myfnv1a вивантажено\n");
-}
-
-module_init(my_crypto_provider_init);
-module_exit(my_crypto_provider_exit);
-
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Приклад власного криптографічного провайдера для Kernel Crypto API");
-```
+:::code kernel-crypto-framework-d/c/7-rozrobka-ta.c
 
 ---
 

@@ -28,61 +28,13 @@
 
 ## Лічильники: гарячий шлях
 
-```c
-/* pcstat.c — статистика per-CPU: лічильники, запас, гак на вимикання ядра */
-#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-
-#include <linux/module.h>
-#include <linux/init.h>
-#include <linux/percpu.h>
-#include <linux/local_lock.h>
-#include <linux/list.h>
-#include <linux/slab.h>
-#include <linux/timer.h>
-#include <linux/jiffies.h>
-#include <linux/debugfs.h>
-#include <linux/seq_file.h>
-#include <linux/kstrtox.h>
-#include <linux/cpu.h>
-#include <linux/cpuhotplug.h>
-#include <linux/spinlock.h>
-
-struct pcstat_counters {
-    u64 events;      /* скільки разів спрацював гарячий шлях      */
-    u64 bytes;       /* скільки байтів він при цьому «обробив»    */
-    u64 misses;      /* скільки разів запас виявився порожнім     */
-    u64 refills;     /* скільки об'єктів довелося виділити наново */
-};
-
-static DEFINE_PER_CPU(struct pcstat_counters, pcstat_cnt);
-```
+:::code proj-percpu-stats/c/pcstat.c
 
 Чотири числа в одній структурі, а не чотири окремі змінні — і це не косметика. Змінні per-CPU одного ядра процесора лежать поруч у його копії блоку, тож зібрані в структуру вони майже напевно опиняться в одному рядку кеша. Гарячий шлях, який чіпає два-три з них поспіль, платить за один промах, а не за три.
 
 Роль гарячого шляху грає звичайний таймер. Його зворотний виклик виконується в контексті softirq: спати не можна, витіснення заборонене, а [переривання](root:sys-unix/interrupts-bottom-halves) — навпаки, дозволені.
 
-```c
-static struct timer_list pcstat_timer;
-static unsigned int period_ms = 10;
-
-static void pcstat_tick(struct timer_list *t)
-{
-    struct pcstat_obj *o;
-
-    this_cpu_inc(pcstat_cnt.events);
-
-    o = depot_pop();                 /* спати не можна — беремо лише те, що вже є */
-    if (o) {
-        o->payload = (u32)jiffies;
-        this_cpu_add(pcstat_cnt.bytes, sizeof(*o));
-        depot_push(o);
-    } else {
-        this_cpu_inc(pcstat_cnt.misses);
-    }
-
-    mod_timer(t, jiffies + msecs_to_jiffies(READ_ONCE(period_ms)));
-}
-```
+:::code proj-percpu-stats/c/lichylnyky-hariachyi.c
 
 (Далі код іде в порядку розповіді, а не в порядку файлу: `struct pcstat_obj`, `depot_pop`, `depot_push` і смітник у `pcstat.c` стоять вище за таймер, інакше компілятор про них не знав би.)
 
@@ -92,25 +44,7 @@ static void pcstat_tick(struct timer_list *t)
 
 ## Запас об'єктів: чому саме `local_lock_irqsave`
 
-```c
-struct pcstat_obj {
-    struct list_head node;
-    u32              payload;
-};
-
-struct pcstat_depot {
-    local_lock_t     lock;
-    struct list_head free;
-    unsigned int     count;
-};
-
-static DEFINE_PER_CPU(struct pcstat_depot, pcstat_depot) = {
-    .lock = INIT_LOCAL_LOCK(lock),
-};
-
-#define DEPOT_HIGH  16      /* більше не тримаємо — віддаємо розподілювачу */
-#define DEPOT_WARM   4      /* стільки кладемо ядру процесора при вмиканні */
-```
+:::code proj-percpu-stats/c/zapas-obiektiv-chomu-same.c
 
 Замок лежить **усередині** структури per-CPU, а не поруч із нею. Це важливо: макрос дістає свою копію сам, тож у коді ви пишете шлях до поля в кресленні — `&pcstat_depot.lock`, — і кожне ядро процесора візьме свій примірник.
 
@@ -120,45 +54,7 @@ static DEFINE_PER_CPU(struct pcstat_depot, pcstat_depot) = {
 
 Тепер дві дії з запасом:
 
-```c
-static struct pcstat_obj *depot_pop(void)
-{
-    struct pcstat_depot *d;
-    struct pcstat_obj *o = NULL;
-    unsigned long flags;
-
-    local_lock_irqsave(&pcstat_depot.lock, flags);
-    d = this_cpu_ptr(&pcstat_depot);        /* вказівник беремо ВСЕРЕДИНІ ділянки */
-    if (d->count) {
-        o = list_first_entry(&d->free, struct pcstat_obj, node);
-        list_del(&o->node);
-        d->count--;
-    }
-    local_unlock_irqrestore(&pcstat_depot.lock, flags);
-
-    return o;
-}
-
-static void depot_push(struct pcstat_obj *o)
-{
-    struct pcstat_depot *d;
-    bool overflow = false;
-    unsigned long flags;
-
-    local_lock_irqsave(&pcstat_depot.lock, flags);
-    d = this_cpu_ptr(&pcstat_depot);
-    if (d->count < DEPOT_HIGH) {
-        list_add(&o->node, &d->free);
-        d->count++;
-    } else {
-        overflow = true;
-    }
-    local_unlock_irqrestore(&pcstat_depot.lock, flags);
-
-    if (overflow)
-        kfree(o);            /* звільняємо ПІСЛЯ виходу з ділянки */
-}
-```
+:::code proj-percpu-stats/c/zapas-obiektiv-chomu-same-2.c
 
 Чому `local_lock_irqsave`, а не дешевший `local_lock`? Тому що список чіпають і з контексту задачі, і з таймера, тобто з softirq. А `local_lock` на звичайному ядрі — це рівно `preempt_disable()`, і softirq цим не спиняється: на виході з переривання ядро питає `in_interrupt()`, а звичайне витіснення в цю маску не входить. Отже, softirq може влізти всередину ділянки, узятої `local_lock`, і застати список наполовину перебудованим.
 
@@ -174,91 +70,17 @@ static void depot_push(struct pcstat_obj *o)
 
 Поповнення запасу — єдине місце, де можна спати, і воно навмисно винесене з гарячого шляху:
 
-```c
-static int depot_refill(void)
-{
-    struct pcstat_obj *o = kmalloc(sizeof(*o), GFP_KERNEL);   /* може заснути */
-
-    if (!o)
-        return -ENOMEM;
-
-    o->payload = 0;
-    depot_push(o);                    /* а вже тут — під замком, без сну */
-    this_cpu_inc(pcstat_cnt.refills);
-    return 0;
-}
-```
+:::code proj-percpu-stats/c/zapas-obiektiv-chomu-same-3.c
 
 Порядок тут — уся суть. Пам'ять виділяємо **до** входу в ділянку, а не всередині. Побічний наслідок: `kmalloc` міг заснути, задачу могли перенести, тож `depot_push` покладе об'єкт, можливо, вже іншому ядру процесора. Для запасу це байдуже — об'єкт нічий, і `this_cpu_inc` теж не помиляється, бо він неподільний щодо того ядра, на якому виконується цієї миті, хай яке воно.
 
 Кликати поповнення ззовні дозволяє найкоротший можливий файл у `debugfs`:
 
-```c
-/* запис числа в /sys/kernel/debug/pcstat/refill — «поклади N об'єктів у запас» */
-static ssize_t pcstat_refill_write(struct file *f, const char __user *ubuf,
-                                   size_t len, loff_t *ppos)
-{
-    unsigned int n, i;
-    int err;
-
-    err = kstrtouint_from_user(ubuf, len, 10, &n);
-    if (err)
-        return err;
-
-    for (i = 0; i < min(n, 4096u); i++) {
-        err = depot_refill();
-        if (err)
-            return err;
-    }
-    return len;
-}
-
-static const struct file_operations pcstat_refill_fops = {
-    .owner  = THIS_MODULE,
-    .write  = pcstat_refill_write,
-    .llseek = noop_llseek,
-};
-```
+:::code proj-percpu-stats/c/zapas-obiektiv-chomu-same-4.c
 
 ## Читання: сума по `possible`
 
-```c
-static int pcstat_stats_show(struct seq_file *m, void *v)
-{
-    struct pcstat_counters total = { };
-    unsigned int stashed = 0;
-    int cpu;
-
-    seq_puts(m, "cpu      events        bytes    misses   refills  depot\n");
-
-    for_each_possible_cpu(cpu) {
-        struct pcstat_counters *c = per_cpu_ptr(&pcstat_cnt, cpu);
-        struct pcstat_depot *d = per_cpu_ptr(&pcstat_depot, cpu);
-        u64 ev = READ_ONCE(c->events);
-        unsigned int n = READ_ONCE(d->count);
-
-        total.events  += ev;
-        total.bytes   += READ_ONCE(c->bytes);
-        total.misses  += READ_ONCE(c->misses);
-        total.refills += READ_ONCE(c->refills);
-        stashed       += n;
-
-        if (cpu_online(cpu) || ev)
-            seq_printf(m, "%-4d %10llu %12llu %9llu %9llu %6u%s\n",
-                       cpu, ev, READ_ONCE(c->bytes), READ_ONCE(c->misses),
-                       READ_ONCE(c->refills), n,
-                       cpu_online(cpu) ? "" : "  (вимкнене)");
-    }
-
-    seq_printf(m, "разом %9llu %12llu %9llu %9llu %6u\n",
-               total.events, total.bytes, total.misses, total.refills, stashed);
-    seq_printf(m, "у смітнику: %u\n", READ_ONCE(pcstat_attic_count));
-    seq_printf(m, "possible: %u  online: %u\n",
-               num_possible_cpus(), num_online_cpus());
-    return 0;
-}
-DEFINE_SHOW_ATTRIBUTE(pcstat_stats);
-```
+:::code proj-percpu-stats/c/chytannia-suma-po-possible.c
 
 `for_each_possible_cpu`, а не `online`. Копії блоку виділяють на всі ядра процесора, які **можуть** з'явитися, і не звільняють, коли ядро гасять; його лічильники доживають до вивантаження модуля з останніми значеннями. Обхід лише ввімкнених мовчки загубив би їх — і саме таку помилку найважче помітити, бо на машині, де ядра ніколи не вимикають, вона не виявляється взагалі.
 
@@ -272,50 +94,7 @@ DEFINE_SHOW_ATTRIBUTE(pcstat_stats);
 
 Лічильники вимкнене ядро процесора зберігає, а запас — ні: об'єкти в його списку опиняться замкненими в копії, до якої більше ніхто не зайде. Тому запас треба здати.
 
-```c
-/* Смітник для об'єктів із вимкнених ядер: тут суперник справжній,
-   з інших процесорів, — тому й замок справжній. */
-static DEFINE_SPINLOCK(pcstat_attic_lock);
-static LIST_HEAD(pcstat_attic);
-static unsigned int pcstat_attic_count;
-
-static int pcstat_cpu_online(unsigned int cpu)
-{
-    int i;
-
-    /* Гак ONLINE-секції виконується в потоці cpuhp/N на самому ядрі,
-       витіснення й переривання дозволені — тобто ТУТ спати можна. */
-    for (i = 0; i < DEPOT_WARM; i++)
-        if (depot_refill())
-            break;           /* нема пам'яті — гріємо як вийде, вмикання не зриваємо */
-    return 0;
-}
-
-static int pcstat_cpu_offline(unsigned int cpu)
-{
-    struct pcstat_depot *d;
-    LIST_HEAD(drained);
-    unsigned long flags;
-    unsigned int n;
-
-    /* cpu == smp_processor_id(): гак біжить на тому ядрі, що йде геть.
-       Воно ще онлайн, таймери й переривання на ньому ще працюють. */
-    local_lock_irqsave(&pcstat_depot.lock, flags);
-    d = this_cpu_ptr(&pcstat_depot);
-    list_splice_init(&d->free, &drained);
-    n = d->count;
-    d->count = 0;
-    local_unlock_irqrestore(&pcstat_depot.lock, flags);
-
-    spin_lock(&pcstat_attic_lock);
-    list_splice_init(&drained, &pcstat_attic);
-    pcstat_attic_count += n;
-    spin_unlock(&pcstat_attic_lock);
-
-    pr_info("ядро %u гасне: здано об'єктів — %u\n", cpu, n);
-    return 0;
-}
-```
+:::code proj-percpu-stats/c/iadro-protsesora-hasne.c
 
 Два рішення тут не очевидні, і обидва випливають із того, **де саме** біжить гак.
 
@@ -327,74 +106,7 @@ static int pcstat_cpu_offline(unsigned int cpu)
 
 ## Збирання докупи
 
-```c
-static struct dentry *pcstat_dir;
-static int pcstat_hp_state = -1;
-
-static int __init pcstat_init(void)
-{
-    int cpu, ret;
-
-    for_each_possible_cpu(cpu) {
-        struct pcstat_depot *d = per_cpu_ptr(&pcstat_depot, cpu);
-
-        INIT_LIST_HEAD(&d->free);   /* статично цього зробити НЕ можна — пастка 4 */
-        d->count = 0;
-    }
-
-    pcstat_dir = debugfs_create_dir("pcstat", NULL);
-    debugfs_create_file("stats",  0444, pcstat_dir, NULL, &pcstat_stats_fops);
-    debugfs_create_file("refill", 0200, pcstat_dir, NULL, &pcstat_refill_fops);
-    debugfs_create_file("bench",  0200, pcstat_dir, NULL, &pcstat_bench_fops);
-    debugfs_create_u32("period_ms", 0644, pcstat_dir, &period_ms);
-
-    ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "pcstat:online",
-                            pcstat_cpu_online, pcstat_cpu_offline);
-    if (ret < 0) {
-        debugfs_remove_recursive(pcstat_dir);
-        return ret;
-    }
-    pcstat_hp_state = ret;
-
-    timer_setup(&pcstat_timer, pcstat_tick, 0);
-    mod_timer(&pcstat_timer, jiffies + msecs_to_jiffies(period_ms));
-
-    pr_info("завантажено; possible=%u online=%u\n",
-            num_possible_cpus(), num_online_cpus());
-    return 0;
-}
-
-static void __exit pcstat_exit(void)
-{
-    struct pcstat_obj *o, *tmp;
-    int cpu;
-
-    timer_shutdown_sync(&pcstat_timer);    /* 1. більше не вистрелить і не переозброїться */
-    debugfs_remove_recursive(pcstat_dir);  /* 2. зовнішній вхід зачинено                  */
-    cpuhp_remove_state(pcstat_hp_state);   /* 3. кличе гак на КОЖНОМУ ввімкненому ядрі    */
-
-    /* 4. тепер не біжить ніхто — замки вже не потрібні */
-    for_each_possible_cpu(cpu) {
-        struct pcstat_depot *d = per_cpu_ptr(&pcstat_depot, cpu);
-
-        list_for_each_entry_safe(o, tmp, &d->free, node) {
-            list_del(&o->node);
-            kfree(o);
-        }
-    }
-    list_for_each_entry_safe(o, tmp, &pcstat_attic, node) {
-        list_del(&o->node);
-        kfree(o);
-    }
-    pr_info("вивантажено\n");
-}
-
-module_init(pcstat_init);
-module_exit(pcstat_exit);
-
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Статистика per-CPU: this_cpu_*, local_lock, гак cpuhp");
-```
+:::code proj-percpu-stats/c/zbyrannia-dokupy.c
 
 Чотири кроки вивантаження стоять саме в цьому порядку, і кожен закриває одного з тих, хто ще може прийти. `timer_shutdown_sync` — не просто зупинка: він ще й запобігає переозброєнню, тобто гарантує, що зворотний виклик, який зараз доживає, не поставить таймер знову (стара назва `del_timer_sync` такої гарантії не дає й у свіжих ядрах уже не існує). `cpuhp_remove_state` — на відміну від версії з суфіксом `_nocalls` — виконує гак вимикання на всіх ввімкнених ядрах, тобто зливає їхні запаси у смітник; лишається обійти `possible` про всяк випадок і звільнити все.
 
@@ -446,131 +158,11 @@ possible: 32  online: 31
 
 Тепер друга частина модуля — той самий підрахунок двома способами. Щоб міряти чесно, треба щоб усі ядра процесора били одночасно, тож на кожне ввімкнене ядро заводимо прибитий до нього [потік ядра](root:sys-unix/kernel-threads) і стартуємо їх за спільною командою. До заголовків додаються `<linux/kthread.h>`, `<linux/ktime.h>` і `<linux/math64.h>`.
 
-```c
-static atomic64_t bench_shared = ATOMIC64_INIT(0);
-static DEFINE_PER_CPU(u64, bench_own);
-static DEFINE_PER_CPU(u64, bench_ops);
-
-static unsigned int bench_ms = 200;
-static bool bench_atomic;
-
-#define BENCH_CHUNK 4096
-
-struct bench_ctl { atomic_t ready, go; };
-
-static int bench_worker(void *arg)
-{
-    struct bench_ctl *c = arg;
-    u64 t0, now, deadline, ops = 0;
-    int i;
-
-    atomic_inc(&c->ready);
-    while (!atomic_read(&c->go))
-        cpu_relax();
-
-    t0 = ktime_get_ns();
-    deadline = t0 + (u64)bench_ms * NSEC_PER_MSEC;
-    do {
-        if (bench_atomic)
-            for (i = 0; i < BENCH_CHUNK; i++)
-                atomic64_inc(&bench_shared);
-        else
-            for (i = 0; i < BENCH_CHUNK; i++)
-                this_cpu_inc(bench_own);
-        ops += BENCH_CHUNK;
-        now = ktime_get_ns();
-        cond_resched();
-    } while (now < deadline);
-
-    this_cpu_write(bench_ops, ops);
-
-    /* Самі не виходимо: на нас чекатиме kthread_stop() */
-    while (!kthread_should_stop()) {
-        set_current_state(TASK_IDLE);
-        if (kthread_should_stop())
-            break;
-        schedule();
-    }
-    __set_current_state(TASK_RUNNING);
-    return 0;
-}
-
-static u64 bench_run(bool use_atomic, unsigned int *nr_out)
-{
-    struct bench_ctl c = { .ready = ATOMIC_INIT(0), .go = ATOMIC_INIT(0) };
-    struct task_struct **t;
-    unsigned int n, i = 0;
-    u64 total = 0;
-    int cpu;
-
-    cpus_read_lock();                     /* поки міряємо, ядра нікуди не дінуться */
-    n = num_online_cpus();
-    t = kcalloc(n, sizeof(*t), GFP_KERNEL);
-    if (!t) {
-        cpus_read_unlock();
-        return 0;
-    }
-
-    bench_atomic = use_atomic;
-    for_each_online_cpu(cpu) {
-        per_cpu(bench_ops, cpu) = 0;
-        t[i] = kthread_create(bench_worker, &c, "pcbench/%d", cpu);
-        if (IS_ERR(t[i]))
-            break;
-        kthread_bind(t[i], cpu);          /* лише доки задача ще не бігала */
-        wake_up_process(t[i]);
-        i++;
-    }
-    n = i;
-
-    while (atomic_read(&c.ready) < n)
-        schedule_timeout_uninterruptible(1);
-    atomic_set(&c.go, 1);
-
-    for (i = 0; i < n; i++)
-        kthread_stop(t[i]);               /* чекає, доки потік договорить */
-
-    for_each_online_cpu(cpu)
-        total += per_cpu(bench_ops, cpu);
-
-    kfree(t);
-    cpus_read_unlock();
-    *nr_out = n;
-    return total;
-}
-```
+:::code proj-percpu-stats/c/zamir-atomic64-t-proty.c
 
 Друкує результат той самий спосіб — запис у файл:
 
-```c
-static ssize_t pcstat_bench_write(struct file *f, const char __user *ubuf,
-                                  size_t len, loff_t *ppos)
-{
-    unsigned int n = 0;
-    u64 ops_a, ops_p, ns;
-
-    ops_a = bench_run(true,  &n);
-    ops_p = bench_run(false, &n);
-    if (!n || !ops_a || !ops_p)
-        return -EAGAIN;
-
-    ns = (u64)bench_ms * NSEC_PER_MSEC;          /* тривалість одного проходу */
-
-    pr_info("замір: ядер %u, по %u мс на прохід\n", n, bench_ms);
-    pr_info("atomic64_inc: %12llu приростів, %8llu тис/с, %8llu пс на приріст\n",
-            ops_a, div64_u64(ops_a, bench_ms), div64_u64(ns * n * 1000, ops_a));
-    pr_info("this_cpu_inc: %12llu приростів, %8llu тис/с, %8llu пс на приріст\n",
-            ops_p, div64_u64(ops_p, bench_ms), div64_u64(ns * n * 1000, ops_p));
-    pr_info("перевага this_cpu_inc — у %llu разів\n", div64_u64(ops_p, ops_a));
-    return len;
-}
-
-static const struct file_operations pcstat_bench_fops = {
-    .owner  = THIS_MODULE,
-    .write  = pcstat_bench_write,
-    .llseek = noop_llseek,
-};
-```
+:::code proj-percpu-stats/c/zamir-atomic64-t-proty-2.c
 
 Обидва ділення — через `div64_u64` з `<linux/math64.h>`, а не звичайним знаком: ділити 64-бітні числа безпосередньо на 32-бітній машині ядро не вміє, і компонувальник скаже про це аж наприкінці збірки незрозумілим `undefined reference to __udivdi3`.
 

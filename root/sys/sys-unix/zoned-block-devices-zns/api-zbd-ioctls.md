@@ -40,33 +40,8 @@ $ cat /sys/block/nvme1n2/queue/max_open_zones
 Взаємодія з пристроєм через системний виклик `ioctl(fd, cmd, arg)` базується на константах, оголошених у системному заголовку `<linux/blkzoned.h>`.
 
 :::tabs
-```c
-#include <linux/blkzoned.h>
-#include <sys/ioctl.h>
-
-// Основні управляючі командні коди ioctl підсистеми ZBD:
-// BLKREPORTZONES — заповнення масиву описувачів зон для вказаного діапазону LBA
-// BLKRESETZONE   — апаратне скидання вказівника запису (Write Pointer) у 0
-// BLKOPENZONE    — явний перехід зони в стан Explicitly Opened
-// BLKCLOSEZONE   — явний перехід зони в стан Closed (звільнення ресурсів кешу)
-// BLKFINISHZONE  — дострокове переведення частково записаної зони у стан Full
-// BLKGETZONESZ   — швидке отримання розміру зони в 512-байтових секторах
-// BLKGETNRZONES  — швидке отримання загальної кількості зон пристрою
-```
-```cpp
-#include <linux/blkzoned.h>
-#include <sys/ioctl.h>
-#include <cstdint>
-
-// Основні управляючі командні коди ioctl підсистеми ZBD (C++ UAPI):
-// BLKREPORTZONES — заповнення масиву описувачів зон для вказаного діапазону LBA
-// BLKRESETZONE   — апаратне скидання вказівника запису (Write Pointer) у 0
-// BLKOPENZONE    — явний перехід зони в стан Explicitly Opened
-// BLKCLOSEZONE   — явний перехід зони в стан Closed (звільнення ресурсів кешу)
-// BLKFINISHZONE  — дострокове переведення частково записаної зони у стан Full
-// BLKGETZONESZ   — швидке отримання розміру зони в 512-байтових секторах
-// BLKGETNRZONES  — швидке отримання загальної кількості зон пристрою
-```
+:::code api-zbd-ioctls/c/2-zaholovok-ta-komandni.c
+:::code api-zbd-ioctls/cpp/2-zaholovok-ta-komandni.cpp
 :::
 
 Виклики `BLKGETZONESZ` та `BLKGETNRZONES` є найшвидшим способом дізнатися про параметри пристрою без зчитування інформації з `sysfs`. Вони приймають вказівник на змінну типу `unsigned int` або `uint32_t` і повертають значення безпосередньо з кешу ядра.
@@ -78,49 +53,8 @@ $ cat /sys/block/nvme1n2/queue/max_open_zones
 Для отримання топології зон додаток виділяє пам'ять під структуру `struct blk_zone_report`, за якою безпосередньо слідує буфер для масиву елементів `struct blk_zone`.
 
 :::tabs
-```c
-struct blk_zone_report {
-    __u64 sector;       // Початковий сектор (LBA), з якого починати звіт
-    __u32 nr_zones;     // Вхід: розмір масиву; Вихід: кількість повернутих зон
-    __u32 flags;        // Прапорці фільтрації звіту (наприклад, 0)
-    struct blk_zone zones[0]; // Гнучкий масив результатів звіту
-};
-
-struct blk_zone {
-    __u64 start;        // Початковий сектор зони (у 512-байтових одиницях)
-    __u64 len;          // Загальний фізичний розмір зони у секторах (Zone Size)
-    __u64 wp;           // Поточна позиція вказівника запису Write Pointer (сектор)
-    __u8  type;         // Тип зони (Conventional або SeqWrite)
-    __u8  cond;         // Поточний стан зони (Empty, Open, Full тощо)
-    __u8  non_seq;      // Прапорець непослідовного запису (для Host-Aware)
-    __u8  reset;        // Прапорець вимоги скидання зони
-    __u8  resv[4];      // Резервні байти для вирівнювання
-    __u64 capacity;     // Дійсний обсяг доступних для запису секторів (Zone Capacity)
-    __u8  reserved[24]; // Падінг структури до 64 байтів
-};
-```
-```cpp
-// У C++ вирівнювання та масив зон обробляються через динамічний буфер або std::vector
-struct blk_zone_report {
-    std::uint64_t sector;   // Початковий сектор (LBA), з якого починати звіт
-    std::uint32_t nr_zones; // Вхід: розмір масиву; Вихід: повернуто зон
-    std::uint32_t flags;    // Прапорці фільтрації звіту
-    struct blk_zone zones[0]; // Динамічний контент зон
-};
-
-struct blk_zone {
-    std::uint64_t start;    // Початковий сектор зони (у 512-байтових одиницях)
-    std::uint64_t len;      // Фізичний розмір зони у секторах (Zone Size)
-    std::uint64_t wp;       // Поточна позиція вказівника запису Write Pointer
-    std::uint8_t  type;     // Тип зони (Conventional або SeqWrite)
-    std::uint8_t  cond;     // Поточний стан зони (Empty, Open, Full тощо)
-    std::uint8_t  non_seq;  // Прапорець непослідовного запису
-    std::uint8_t  reset;    // Прапорець вимоги скидання зони
-    std::uint8_t  resv[4];  // Резервні байти вирівнювання
-    std::uint64_t capacity; // Дійсна ємність зони у секторах (Zone Capacity)
-    std::uint8_t  reserved[24]; // Фіксований падінг структури
-};
-```
+:::code api-zbd-ioctls/c/3-struktury-opytuvannia-ta.c
+:::code api-zbd-ioctls/cpp/3-struktury-opytuvannia-ta.cpp
 :::
 
 ### Деталізація типів та станів зон
@@ -213,36 +147,7 @@ struct blk_zone_range {
 // zbd_reset_zones() — скидання вказаного діапазону зон
 // zbd_finish_zones() — примусова фіналізація зон
 ```
-```cpp
-#include <libzbd/zbd.h>
-#include <fcntl.h>
-#include <cerrno>
-#include <cstdint>
-#include <memory>
-#include <system_error>
-
-// C++ Обгортка для роботи з libzbd
-class ZbdDevice {
-private:
-    int m_fd{-1};
-    struct zbd_info m_info{};
-
-public:
-    explicit ZbdDevice(const char* filename) {
-        m_fd = zbd_open(filename, O_RDWR, &m_info);
-        if (m_fd < 0) {
-            throw std::system_error(errno, std::generic_category(), "Не вдалося відкрити ZBD пристрій через libzbd");
-        }
-    }
-
-    ~ZbdDevice() {
-        if (m_fd >= 0) zbd_close(m_fd);
-    }
-
-    [[nodiscard]] uint32_t zone_size() const noexcept { return m_info.zone_size; }
-    [[nodiscard]] uint32_t nr_zones() const noexcept { return m_info.nr_zones; }
-};
-```
+:::code api-zbd-ioctls/cpp/7-biblioteka-vyshchoho.cpp
 :::
 
 Використання `libzbd` рекомендується для складних проектів (таких як ZenFS для RocksDB), оскільки вона автоматично обробляє відмінності між версіями ядер Linux та надає сумісність із різними типами інтерфейсів (SCSI ZBC, ATA ZAC та NVMe ZNS).
@@ -254,47 +159,6 @@ public:
 Нижче наведено фрагменти коду для виконання виклику `BLKRESETZONE` безпосередньо над файловим дескриптором пристрою.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <inttypes.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/blkzoned.h>
-
-int reset_single_zone(int dev_fd, uint64_t zone_start_sector, uint64_t zone_size_sectors) {
-    struct blk_zone_range range;
-    range.sector = zone_start_sector;
-    range.nr_sectors = zone_size_sectors;
-
-    if (ioctl(dev_fd, BLKRESETZONE, &range) < 0) {
-        perror("Помилка виконання ioctl(BLKRESETZONE)");
-        return -1;
-    }
-
-    printf("Зону за сектором %" PRIu64 " успішно скинуто в Empty\n", zone_start_sector);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/blkzoned.h>
-
-void reset_single_zone_cpp(int dev_fd, std::uint64_t zone_start_sector, std::uint64_t zone_size_sectors) {
-    struct blk_zone_range range{};
-    range.sector = zone_start_sector;
-    range.nr_sectors = zone_size_sectors;
-
-    if (::ioctl(dev_fd, BLKRESETZONE, &range) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка виконання ioctl BLKRESETZONE");
-    }
-
-    std::cout << "Зону за сектором " << zone_start_sector << " успішно скинуто у C++\n";
-}
-```
+:::code api-zbd-ioctls/c/8-pryklad-priamoho.c
+:::code api-zbd-ioctls/cpp/8-pryklad-priamoho.cpp
 :::

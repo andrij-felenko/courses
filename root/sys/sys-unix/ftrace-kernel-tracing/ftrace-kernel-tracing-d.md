@@ -108,27 +108,7 @@ Tracepoint — це статичний маркер, вбудований роз
 
 Для створення нової трасувальної точки розробники ядра використовують розширюваний макрос `TRACE_EVENT`. Розглянемо його структуру на прикладі події перемикання контексту процесів `sched_switch`:
 
-```c
-TRACE_EVENT(sched_switch,
-    TP_PROTO(bool preempt, struct task_struct *prev, struct task_struct *next),
-    TP_ARGS(preempt, prev, next),
-
-    TP_STRUCT__entry(
-        __array( char, prev_comm, TASK_COMM_LEN )
-        __field( pid_t, prev_pid )
-        __field( pid_t, next_pid )
-    ),
-
-    TP_fast_assign(
-        memcpy(__entry->prev_comm, prev->comm, TASK_COMM_LEN);
-        __entry->prev_pid = prev->pid;
-        __entry->next_pid = next->pid;
-    ),
-
-    TP_printk("prev_comm=%s prev_pid=%d ==> next_pid=%d",
-        __entry->prev_comm, __entry->prev_pid, __entry->next_pid)
-);
-```
+:::code ftrace-kernel-tracing-d/c/main.h
 
 Під час компіляції макрос `TRACE_EVENT` розгортається у серію кодових конструкцій:
 - Оголошення виклику функції `trace_sched_switch(...)`.
@@ -219,25 +199,7 @@ ftrace містить низку спеціалізованих плагінів
 
 Приклад швидкої діагностики функцій відкриття файлів через командний рядок:
 
-```bash
-# 1. Перейти у каталог tracefs
-cd /sys/kernel/tracing
-
-# 2. Вимкнути запис на час налаштування
-echo 0 > tracing_on
-
-# 3. Обрати трасер функцій
-echo function > current_tracer
-
-# 4. Встановити фільтр лише на функції відкриття файлів
-echo "do_sys_open*" > set_ftrace_filter
-
-# 5. Увімкнути запис
-echo 1 > tracing_on
-
-# 6. Переглянути результати трасування
-cat trace_pipe
-```
+:::code ftrace-kernel-tracing-d/sh/6-praktychna-vzaiemodiia.sh
 
 Для програмної взаємодії з ftrace з власних системних утиліт C та C++ використовують читання й запис файлів `tracefs`. Повний приклад продуктової утиліти мовами C та C++ з підтримкою RAII та обробки сигналів наведено у вставці [⚙️ Програма зчитування подій ftrace через tracefs](root:sys-unix/ftrace-kernel-tracing/proj-ftrace-user-reader.md).
 
@@ -253,19 +215,7 @@ cat trace_pipe
 
 Основні сценарії використання `trace-cmd`:
 
-```bash
-# 1. Запис подій перемикання контексту та блокового вводу-виводу під час виконання команди 'ls -la'
-sudo trace-cmd record -e sched:sched_switch -e block:block_rq_issue ls -la /
-
-# 2. Збір траси за допомогою function_graph для конкретного PID протягом 5 секунд
-sudo trace-cmd record -p function_graph -g sys_openat2 -P 1234 sleep 5
-
-# 3. Декодування та відображення збереженого файлу trace.dat
-trace-cmd report
-
-# 4. Моніторинг подій у реальному часі без збереження у файл (аналог trace_pipe)
-sudo trace-cmd stream -e syscalls:sys_enter_read
-```
+:::code ftrace-kernel-tracing-d/sh/7-1-komandy-utylity-trace.sh
 
 ### 7.2 Графічний аналіз у `KernelShark`
 

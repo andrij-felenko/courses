@@ -79,29 +79,7 @@ typedef u64 compat_u64;
 
 ## Час: чому тут не `compat_`, а `old_*32`
 
-```c
-typedef s32 old_time32_t;
-
-struct old_timespec32 {
-	old_time32_t	tv_sec;
-	s32		tv_nsec;
-};
-
-struct old_timeval32 {
-	old_time32_t	tv_sec;
-	s32		tv_usec;
-};
-
-struct old_itimerspec32 {
-	struct old_timespec32 it_interval;
-	struct old_timespec32 it_value;
-};
-
-struct old_utimbuf32 {
-	old_time32_t	actime;
-	old_time32_t	modtime;
-};
-```
+:::code api-compat-contract/c/chas-chomu-tut-ne-compat-a.c
 
 `struct old_timespec32` — вісім байтів із вирівнюванням на чотири, тоді як рідна `struct timespec64` займає шістнадцять і вирівнюється на вісім. Перекладають їх готовими функціями, і всі вони повертають `0` або `-EFAULT`:
 
@@ -294,37 +272,7 @@ long compat_ptr_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 
 Найкоротший робочий приклад — структура, драйвер і підключення:
 
-```c
-/* uapi-заголовок драйвера */
-struct widget_cfg {
-	__u32		channel;
-	__u32		_pad;		/* явна набивка до межі 8 */
-	__aligned_u64	window_ns;	/* вирівнювання 8 в ОБОХ ABI */
-};
-
-#define WIDGET_SET_CFG _IOW('W', 1, struct widget_cfg)
-
-/* драйвер */
-static long widget_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
-{
-	struct widget_cfg cfg;
-
-	if (cmd != WIDGET_SET_CFG)
-		return -ENOTTY;
-	if (copy_from_user(&cfg, (void __user *)arg, sizeof(cfg)))
-		return -EFAULT;
-	if (cfg._pad)			/* набивка мусить бути нульова */
-		return -EINVAL;
-
-	return widget_apply(&cfg);
-}
-
-static const struct file_operations widget_fops = {
-	.owner		= THIS_MODULE,
-	.unlocked_ioctl	= widget_ioctl,
-	.compat_ioctl	= compat_ptr_ioctl,
-};
-```
+:::code api-compat-contract/c/draiver-pole-compat-ioctl.c
 
 Без `_pad` і `__aligned_u64` те саме поле `window_ns` стало б на зсув 4 у 32-бітній збірці й на зсув 8 у 64-бітній: розмір структури 12 проти 16, і драйвер читав би сміття, зміщене на чотири байти.
 
@@ -351,23 +299,7 @@ static const struct file_operations widget_fops = {
 
 ## Фільтр: `struct seccomp_data` і `AUDIT_ARCH_*`
 
-```c
-/**
- * struct seccomp_data - the format the BPF program executes over.
- * @nr: the system call number
- * @arch: indicates system call convention as an AUDIT_ARCH_* value
- *        as defined in <linux/audit.h>.
- * @instruction_pointer: at the time of the system call.
- * @args: up to 6 system call arguments always stored as 64-bit values
- *        regardless of the architecture.
- */
-struct seccomp_data {
-	int nr;
-	__u32 arch;
-	__u64 instruction_pointer;
-	__u64 args[6];
-};
-```
+:::code api-compat-contract/c/filtr-struct-seccomp-data.c
 
 Програма-фільтр читає це не за іменами полів, а за зсувами, тож зсуви теж є частиною контракту:
 
@@ -401,22 +333,7 @@ __AUDIT_ARCH_CONVENTION_MIPS64_N32   0x20000000
 
 Звідси й форма правильного початку [фільтра системних викликів](root:sys-unix/seccomp-filter-mechanism): дві перевірки, обидві перед будь-яким номером.
 
-```c
-struct sock_filter filter[] = {
-	/* 0 */ BPF_STMT(BPF_LD | BPF_W | BPF_ABS,
-			 offsetof(struct seccomp_data, arch)),
-	/* 1 */ BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, AUDIT_ARCH_X86_64, 1, 0),
-	/* 2 */ BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL_PROCESS),
-
-	/* 3 */ BPF_STMT(BPF_LD | BPF_W | BPF_ABS,
-			 offsetof(struct seccomp_data, nr)),
-	/* 4 */ BPF_JUMP(BPF_JMP | BPF_JGE | BPF_K, __X32_SYSCALL_BIT, 0, 1),
-	/* 5 */ BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL_PROCESS),
-
-	/* 6 */ /* лише тут можна порівнювати самі номери викликів */
-	        BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW),
-};
-```
+:::code api-compat-contract/c/filtr-struct-seccomp-data-2.c
 
 Числа `1, 0` та `0, 1` у переходах — це «скільки інструкцій пропустити, якщо так» і «скільки, якщо ні». Інструкція 1 пропускає повернення-вбивство, коли ABI очікуваний; інструкція 4 навпаки: номер, не менший за `0x40000000`, веде на вбивство.
 

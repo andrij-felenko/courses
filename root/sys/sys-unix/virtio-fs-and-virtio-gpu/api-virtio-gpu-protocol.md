@@ -59,22 +59,7 @@ struct virtio_gpu_ctrl_hdr {
 
 Команда `VIRTIO_GPU_CMD_RESOURCE_CREATE_2D` (`0x0101`) виділяє графічний буфер у пам'яті хоста.
 
-```c
-struct virtio_gpu_rect {
-    uint32_t x;
-    uint32_t y;
-    uint32_t width;
-    uint32_t height;
-};
-
-struct virtio_gpu_resource_create_2d {
-    struct virtio_gpu_ctrl_hdr hdr;
-    uint32_t resource_id; /* Унікальний ідентифікатор ресурсу, призначений гостем */
-    uint32_t format;      /* Формат пікселів (наприклад, VIRTIO_GPU_FORMAT_B8G8R8A8_UNORM) */
-    uint32_t width;       /* Ширина у пікселях */
-    uint32_t height;      /* Висота у пікселях */
-};
-```
+:::code api-virtio-gpu-protocol/c/2-1-stvorennia-2d-resursu.c
 
 Пояснення полів:
 * **`resource_id`**: Це унікальне 32-бітне число, яке генерується гостьовим драйвером DRM. Воно слугує дескриптором для всіх наступних операцій з цим кадровим буфером (передача пікселів, прив'язка пам'яті, відображення на монітор).
@@ -86,20 +71,7 @@ struct virtio_gpu_resource_create_2d {
 
 Після створення ресурсу на хості, гостьовий драйвер повинен надати гіпервізору список фізичних сторінок своєї RAM (Scatter-Gather List), де фізично розташовані піксельні дані кадрового буфера. Для цього використовується команда `VIRTIO_GPU_CMD_RESOURCE_ATTACH_BACKING` (`0x0106`).
 
-```c
-struct virtio_gpu_mem_entry {
-    uint64_t addr;   /* Фізична адреса сторінки в RAM гостя (Guest Physical Address, GPA) */
-    uint32_t length; /* Довжина безперервного блоку в байтах */
-    uint32_t padding;
-};
-
-struct virtio_gpu_resource_attach_backing {
-    struct virtio_gpu_ctrl_hdr hdr;
-    uint32_t resource_id; /* ID ресурсу, до якого додаються сторінки */
-    uint32_t nr_entries;  /* Кількість елементів у масиві mem_entry */
-    /* Далі в пам'яті слідує масив struct virtio_gpu_mem_entry entries[nr_entries] */
-};
-```
+:::code api-virtio-gpu-protocol/c/2-2-pryviazka-pamiati.c
 
 Механізм роботи:
 1. Ядро гостя виділяє сторінки пам'яті через `alloc_pages()` або `kmalloc()`.
@@ -152,29 +124,7 @@ struct virtio_fs_config {
 
 Для прямого відображення сторінок сторінкового кешу хоста у Shared Memory Region ВМ використовуються спеціальні FUSE-команди:
 
-```c
-#define FUSE_SETUPMAPPING    48
-#define FUSE_REMOVEMAPPING 49
-
-struct fuse_setupmapping_in {
-    uint64_t fh;             /* Хендл відкритого файла, виданий у відповіді на FUSE_OPEN */
-    uint64_t foffset;        /* Зсув усередині файла на хості */
-    uint64_t len;            /* Довжина ділянки відображення в байтах */
-    uint64_t flags;          /* Прапорці доступу (FUSE_SETUPMAPPING_FLAG_READ / WRITE) */
-    uint64_t moffset;        /* Зсув усередині Shared Memory Region ВМ */
-};
-
-struct fuse_removemapping_in {
-    uint32_t count;          /* Кількість елементів для видалення */
-    uint32_t pad;
-    /* Далі слідує масив struct fuse_removemapping_one[count] */
-};
-
-struct fuse_removemapping_one {
-    uint64_t moffset;        /* Зсув усередині Shared Memory Region ВМ */
-    uint64_t len;            /* Довжина ділянки для звільнення */
-};
-```
+:::code api-virtio-gpu-protocol/c/3-2-keruvannia-mapinhom.c
 
 Послідовність виконання мапінгу DAX:
 1. Гостьова ОС отримує сторінкове переривання (Page Fault) при доступі до адреси у своєму Shared Memory Region.
@@ -188,31 +138,7 @@ struct fuse_removemapping_one {
 
 Під час монтування файлової системи `virtiofs` ядро гостя надсилає перше повідомлення `FUSE_INIT`. Воно містить структури узгодження версій та capabilities:
 
-```c
-struct fuse_init_in {
-    uint32_t major;        /* Мажорна версія FUSE протоколу (7) */
-    uint32_t minor;        /* Мінорна версія FUSE протоколу (наприклад, 38) */
-    uint32_t max_readahead;/* Максимальний розмір попереднього читання в байтах */
-    uint32_t flags;        /* Бітова маска прапорців capabilities гостя */
-    uint32_t flags2;       /* Розширені прапорці capabilities */
-    uint32_t unused[11];
-};
-
-struct fuse_init_out {
-    uint32_t major;
-    uint32_t minor;
-    uint32_t max_readahead;
-    uint32_t flags;
-    uint16_t max_background;
-    uint16_t congestion_threshold;
-    uint32_t max_write;    /* Максимальний розмір блоку запису */
-    uint32_t time_gran;    /* Точність позначок часу (в наносекундах) */
-    uint16_t max_pages;    /* Максимальна кількість сторінок у виклику */
-    uint16_t map_alignment;/* Вирівнювання для DAX мапінгів (log2 від розміру сторінки) */
-    uint32_t flags2;       /* Розширені прапорці capabilities */
-    uint32_t unused[7];    /* Зарезервовано; частину вже зайняли новіші версії протоколу */
-};
-```
+:::code api-virtio-gpu-protocol/c/3-3-initsializatsiia-ta.c
 
 Ключові прапорці capabilities для `virtio-fs`:
 * `FUSE_CAP_MAP_ALIGNMENT` (`1 << 26`): Прапорець іде у зворотний бік — це демон `virtiofsd` у відповіді `fuse_init_out` повідомляє ядро гостя, що зсуви `foffset` і `moffset` мають бути вирівняні, а поле `map_alignment` каже, наскільки саме (log2 від потрібного розміру).

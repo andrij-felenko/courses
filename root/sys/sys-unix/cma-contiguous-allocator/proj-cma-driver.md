@@ -52,181 +52,19 @@ vdec: video-decoder@ff900000 {
 
 Тепер [модуль](root:sys-unix/kernel-modules). Стан драйвера маленький, бо буфер у ньому рівно один:
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/dma-mapping.h>
-#include <linux/miscdevice.h>
-#include <linux/mm.h>
-#include <linux/module.h>
-#include <linux/mutex.h>
-#include <linux/of.h>
-#include <linux/of_reserved_mem.h>
-#include <linux/platform_device.h>
-
-#define VDEC_BUF_SIZE  (24u << 20)             /* 8 кадрів 1920×1088 NV12 */
-#define VDEC_ATTRS     DMA_ATTR_FORCE_CONTIGUOUS
-
-struct vdec {
-        struct device     *dev;
-        struct miscdevice  misc;
-
-        struct mutex       lock;                /* захищає все нижче */
-        unsigned int       refs;                /* відкриття + живі відображення */
-        void              *cpu;                 /* адреса буфера в ядрі */
-        dma_addr_t         dma;                 /* та сама пам'ять очима пристрою */
-};
-
-static const struct file_operations vdec_fops;  /* тіло — наприкінці файла */
-```
+:::code proj-cma-driver/c/kod.c
 
 Під'єднання пристрою — це два рядки, які легко проґавити, і жоден із них не про буфер:
 
-```c
-static int vdec_probe(struct platform_device *pdev)
-{
-        struct device *dev = &pdev->dev;
-        struct vdec *v;
-        int ret;
-
-        v = devm_kzalloc(dev, sizeof(*v), GFP_KERNEL);
-        if (!v)
-                return -ENOMEM;
-        v->dev = dev;
-        mutex_init(&v->lock);
-
-        /* Без цього рядка dev->cma_area лишиться порожнім, і виділення
-           піде в загальну область — тихо й успішно, доки не почне падати. */
-        ret = of_reserved_mem_device_init(dev);
-        if (ret && ret != -ENODEV)              /* -ENODEV: memory-region у дереві немає */
-                return dev_err_probe(dev, ret, "не вдалося взяти memory-region\n");
-
-        /* Досяжність оголошують до першого виділення: розподільник
-           мусить знати, у які фізичні адреси пристрій уміє дотягтися. */
-        ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-        if (ret)
-                return ret;
-
-        v->misc.minor  = MISC_DYNAMIC_MINOR;
-        v->misc.name   = "vdec";
-        v->misc.fops   = &vdec_fops;
-        v->misc.parent = dev;
-        platform_set_drvdata(pdev, v);
-        return misc_register(&v->misc);
-}
-```
+:::code proj-cma-driver/c/kod-2.c
 
 Серце прикладу — відкриття. Це єдине місце в драйвері, де взагалі згадано виділення:
 
-```c
-static int vdec_open(struct inode *ino, struct file *f)
-{
-        /* Ядро вже поклало сюди вказівник на miscdevice — від нього
-           дістаємося свого стану, а далі підмінюємо на нього ж. */
-        struct vdec *v = container_of(f->private_data, struct vdec, misc);
-        int ret = 0;
-
-        mutex_lock(&v->lock);
-        if (!v->refs) {
-                /* GFP_KERNEL тут обов'язковий: перенос мешканців області
-                   спить, і без права спати CMA навіть не пробують.       */
-                v->cpu = dma_alloc_attrs(v->dev, VDEC_BUF_SIZE, &v->dma,
-                                         GFP_KERNEL, VDEC_ATTRS);
-                if (!v->cpu) {
-                        dev_warn(v->dev,
-                                 "немає суцільних %u КіБ; подивіться maxchunk у /sys/kernel/debug/cma/\n",
-                                 VDEC_BUF_SIZE >> 10);
-                        ret = -ENOMEM;
-                        goto out;
-                }
-        }
-        v->refs++;
-        f->private_data = v;
-out:
-        mutex_unlock(&v->lock);
-        return ret;
-}
-
-static void vdec_put(struct vdec *v)
-{
-        mutex_lock(&v->lock);
-        if (!--v->refs) {
-                dma_free_attrs(v->dev, VDEC_BUF_SIZE, v->cpu, v->dma, VDEC_ATTRS);
-                v->cpu = NULL;
-        }
-        mutex_unlock(&v->lock);
-}
-```
+:::code proj-cma-driver/c/kod-3.c
 
 Віддача буфера в процес — один виклик, але з умовою: `dma_mmap_attrs()` треба годувати рівно тим, чим годували `dma_alloc_attrs()`, включно з набором ознак. Межі він звірить сам і поверне `-ENXIO`, якщо процес просить більше, ніж виділено:
 
-```c
-static void vdec_vm_open(struct vm_area_struct *vma)
-{
-        struct vdec *v = vma->vm_private_data;
-
-        mutex_lock(&v->lock);
-        v->refs++;                              /* відображення пережило fork */
-        mutex_unlock(&v->lock);
-}
-
-static void vdec_vm_close(struct vm_area_struct *vma) { vdec_put(vma->vm_private_data); }
-
-static const struct vm_operations_struct vdec_vm_ops = {
-        .open  = vdec_vm_open,
-        .close = vdec_vm_close,
-};
-
-static int vdec_mmap(struct file *f, struct vm_area_struct *vma)
-{
-        struct vdec *v = f->private_data;
-        int ret;
-
-        mutex_lock(&v->lock);
-        ret = dma_mmap_attrs(v->dev, vma, v->cpu, v->dma, VDEC_BUF_SIZE, VDEC_ATTRS);
-        if (!ret) {
-                v->refs++;                      /* відображення тримає буфер нарівні з fd */
-                vma->vm_private_data = v;
-                vma->vm_ops = &vdec_vm_ops;
-        }
-        mutex_unlock(&v->lock);
-        return ret;
-}
-
-static int vdec_release(struct inode *ino, struct file *f)
-{
-        vdec_put(f->private_data);
-        return 0;
-}
-
-static const struct file_operations vdec_fops = {
-        .owner   = THIS_MODULE,
-        .open    = vdec_open,
-        .release = vdec_release,
-        .mmap    = vdec_mmap,
-};
-
-static void vdec_remove(struct platform_device *pdev)
-{
-        struct vdec *v = platform_get_drvdata(pdev);
-
-        misc_deregister(&v->misc);
-        of_reserved_mem_device_release(&pdev->dev);
-}
-
-static const struct of_device_id vdec_of_match[] = {
-        { .compatible = "acme,vdec" },
-        { }
-};
-MODULE_DEVICE_TABLE(of, vdec_of_match);
-
-static struct platform_driver vdec_driver = {
-        .driver = { .name = "vdec", .of_match_table = vdec_of_match },
-        .probe  = vdec_probe,
-        .remove = vdec_remove,
-};
-module_platform_driver(vdec_driver);
-MODULE_LICENSE("GPL");
-```
+:::code proj-cma-driver/c/kod-4.c
 
 ## Пастки
 

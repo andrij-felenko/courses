@@ -12,94 +12,7 @@
 
 Обидві родини йдуть в одній програмі й в однакових умовах, тож різницю не спишеш на випадковість прогону.
 
-```c
-/* coalesce.c — скільки з N надісланих сигналів справді доправлено.
- * gcc -O2 -Wall -o coalesce coalesce.c      запуск: ./coalesce 1000
- */
-#define _POSIX_C_SOURCE 199309L
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
-
-#define OK(call) do { if ((call) != 0) { perror(#call); return 1; } } while (0)
-#define MAXLOG 4096
-
-static volatile sig_atomic_t plain_hits = 0;   /* запусків обробника SIGUSR1     */
-static volatile sig_atomic_t rt_hits    = 0;   /* запусків обробника SIGRTMIN+1  */
-static volatile sig_atomic_t rt_log[MAXLOG];   /* значення в порядку надходження */
-
-static void on_plain(int sig)
-{
-    (void) sig;
-    plain_hits++;                    /* нічого більше: обробник — не місце для printf */
-}
-
-static void on_rt(int sig, siginfo_t *si, void *ctx)
-{
-    (void) sig; (void) ctx;
-    int i = rt_hits;                 /* сам себе цей обробник не перериває:       */
-    if (i < MAXLOG)                  /* на час його роботи ядро блокує його сигнал */
-        rt_log[i] = si->si_value.sival_int;
-    rt_hits = i + 1;
-}
-
-int main(int argc, char **argv)
-{
-    int n = (argc > 1) ? atoi(argv[1]) : 1000;
-    const int RT = SIGRTMIN + 1;     /* SIGRTMIN — виклик функції, не стала */
-    struct sigaction sa;
-    sigset_t block, old, pend;
-
-    memset(&sa, 0, sizeof sa);
-    sa.sa_handler = on_plain;
-    sigemptyset(&sa.sa_mask);
-    OK(sigaction(SIGUSR1, &sa, NULL));
-
-    memset(&sa, 0, sizeof sa);
-    sa.sa_sigaction = on_rt;
-    sa.sa_flags = SA_SIGINFO;        /* без цього обробник не побачить si_value */
-    sigemptyset(&sa.sa_mask);
-    OK(sigaction(RT, &sa, NULL));
-
-    sigemptyset(&block);
-    sigaddset(&block, SIGUSR1);
-    sigaddset(&block, RT);
-    OK(sigprocmask(SIG_BLOCK, &block, &old));   /* ворота зачинено */
-
-    for (int i = 1; i <= n; i++)
-        raise(SIGUSR1);
-
-    int queued = 0;
-    for (int i = 1; i <= n; i++) {
-        union sigval v = { .sival_int = i };    /* вантаж: порядковий номер */
-        if (sigqueue(getpid(), RT, v) == 0) { queued++; continue; }
-        if (errno == EAGAIN) {
-            printf("черга сповнилася на %d-му записі (EAGAIN)\n", i);
-            break;
-        }
-        perror("sigqueue");
-        return 1;
-    }
-
-    OK(sigpending(&pend));                      /* що ядро тримає просто зараз */
-    printf("до розблокування: біт SIGUSR1=%d, біт SIGRTMIN+1=%d\n",
-           sigismember(&pend, SIGUSR1), sigismember(&pend, RT));
-
-    OK(sigprocmask(SIG_SETMASK, &old, NULL));   /* тут усе й доправиться */
-
-    printf("SIGUSR1:     надіслано %d, доправлено %d\n", n, (int) plain_hits);
-    printf("SIGRTMIN+1:  у черзі %d, доправлено %d\n", queued, (int) rt_hits);
-
-    int ordered = 1;
-    for (int i = 0; i < (int) rt_hits && i < MAXLOG; i++)
-        if (rt_log[i] != i + 1) { ordered = 0; break; }
-    printf("порядок значень: %s\n", ordered ? "рівно 1,2,3,…" : "порушено");
-    return 0;
-}
-```
+:::code proj-signal-race/c/coalesce.c
 
 Прогін дає таке:
 
@@ -138,38 +51,7 @@ SigBlk: 0000000400000200     ← заблоковані обидва
 
 Черга записів — це виділена пам'ять, а виділення можна вичерпати. Стелю ставить `RLIMIT_SIGPENDING`, і коли вона досягнута, `sigqueue()` чесно каже `EAGAIN` замість того, щоб мовчки загубити подію ([обмеження ресурсів процесу](root:sys-unix/resource-limits)). Чекати на природне вичерпання не треба: м'який ліміт процес вільно міняє собі сам у межах жорсткого, тож дно можна підняти під самі ноги.
 
-```c
-/* floor.c — намацати дно черги. gcc -O2 -Wall -o floor floor.c */
-#define _GNU_SOURCE                  /* RLIMIT_SIGPENDING — розширення Linux */
-#include <signal.h>
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <unistd.h>
-#include <sys/resource.h>
-
-int main(void)
-{
-    struct rlimit rl;
-    getrlimit(RLIMIT_SIGPENDING, &rl);
-    printf("успадкований м'який ліміт: %ld\n", (long) rl.rlim_cur);
-    rl.rlim_cur = 16;                          /* жорсткий не чіпаємо */
-    if (setrlimit(RLIMIT_SIGPENDING, &rl) != 0) { perror("setrlimit"); return 1; }
-
-    sigset_t all;
-    sigfillset(&all);
-    sigprocmask(SIG_BLOCK, &all, NULL);        /* нічого не доправляється — черга росте */
-
-    for (int i = 1; ; i++) {
-        union sigval v = { .sival_int = i };
-        if (sigqueue(getpid(), SIGRTMIN + 1, v) == 0) continue;
-        printf("EAGAIN на %d-му записі: %s\n", i, strerror(errno));
-        break;
-    }
-    printf("а kill(SIGUSR1) при повній черзі: %d\n", kill(getpid(), SIGUSR1));
-    return 0;
-}
-```
+:::code proj-signal-race/c/floor.c
 
 Останній рядок і є мораллю. `kill()` повертає нуль навіть тоді, коли `sigqueue()` уже відмовляє: ліміт стереже саме чергу, а звичайному сигналу черга не потрібна — його один біт уже виділено в структурі процесу назавжди. Тому запис у чергу може не вміститися, а біт не може не вміститися ніколи.
 
@@ -181,83 +63,7 @@ int main(void)
 
 **Ідея.** «Майже одночасно» треба влаштувати навмисне, бо інакше нащадки помиратимуть урозсип і злипання не станеться. Найпростіші ворота — канал: усі нащадки застигають у читанні, батько закриває свій кінець, читання в усіх воднораз повертає кінець даних, і сорок процесів виходять у ту саму мить.
 
-```c
-/* zombies.c — один waitpid проти циклу.
- * gcc -O2 -Wall -o zombies zombies.c     запуск: ./zombies 40 one   або   ./zombies 40 loop
- */
-#define _POSIX_C_SOURCE 200809L
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/wait.h>
-
-static volatile sig_atomic_t deliveries = 0;   /* запусків обробника */
-static volatile sig_atomic_t reaped     = 0;   /* прибраних нащадків */
-
-static void chld_one(int sig)                  /* ✗ одне доправлення — один wait */
-{
-    int saved = errno;
-    deliveries++;
-    if (waitpid(-1, NULL, WNOHANG) > 0) reaped++;
-    errno = saved;
-}
-
-static void chld_loop(int sig)                 /* ✓ прийшло «подивись» — вигрібай геть усе */
-{
-    int saved = errno;
-    deliveries++;
-    while (waitpid(-1, NULL, WNOHANG) > 0) reaped++;
-    errno = saved;
-}
-
-int main(int argc, char **argv)
-{
-    int n    = (argc > 1) ? atoi(argv[1]) : 40;
-    int loop = (argc > 2 && strcmp(argv[2], "loop") == 0);
-    int gate[2];
-    struct sigaction sa;
-    sigset_t chld;
-
-    memset(&sa, 0, sizeof sa);
-    sa.sa_handler = loop ? chld_loop : chld_one;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART;
-    sigaction(SIGCHLD, &sa, NULL);
-
-    if (pipe(gate) != 0) { perror("pipe"); return 1; }
-
-    for (int i = 0; i < n; i++) {
-        pid_t p = fork();
-        if (p < 0) { perror("fork"); return 1; }
-        if (p == 0) {
-            char c;
-            close(gate[1]);
-            while (read(gate[0], &c, 1) < 0 && errno == EINTR)
-                ;
-            _exit(0);
-        }
-    }
-    close(gate[0]);
-    close(gate[1]);                    /* ворота відчинено для всіх воднораз */
-
-    for (unsigned rest = 1; (rest = sleep(rest)) > 0; )
-        ;                              /* кожен SIGCHLD уриває sleep — досипаємо решту */
-
-    sigemptyset(&chld);
-    sigaddset(&chld, SIGCHLD);
-    sigprocmask(SIG_BLOCK, &chld, NULL);   /* спиняємо обробник, щоб порахувати чесно */
-
-    int left = 0;
-    while (waitpid(-1, NULL, WNOHANG) > 0) left++;
-
-    printf("%s: нащадків %d, доправлень SIGCHLD %d, прибрано обробником %d, лишалося %d\n",
-           loop ? "цикл  " : "один  ", n, (int) deliveries, (int) reaped, left);
-    return 0;
-}
-```
+:::code proj-signal-race/c/zombies.c
 
 Числа гуляють від прогону до прогону (це й є суть явища), але картина стала:
 

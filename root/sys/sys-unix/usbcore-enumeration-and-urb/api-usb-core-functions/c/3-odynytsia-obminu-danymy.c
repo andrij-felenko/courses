@@ -1,0 +1,32 @@
+struct urb {
+    struct kref kref;
+    void *hcpriv;
+    atomic_t use_count;
+    atomic_t reject;
+    int unlinked;
+
+    struct list_head urb_list;
+    struct list_head anchor_list;
+    struct usb_anchor *anchor;
+    struct usb_device *dev;
+    struct usb_host_endpoint *ep;
+    unsigned int pipe;
+    unsigned int stream_id;
+    int status;
+    unsigned int transfer_flags;
+    void *transfer_buffer;
+    dma_addr_t transfer_dma;
+    struct scatterlist *sg;
+    int num_sgs;
+    u32 transfer_buffer_length;
+    u32 actual_length;
+    unsigned char *setup_packet;
+    dma_addr_t setup_dma;
+    int start_frame;
+    int number_of_packets;
+    int interval;
+    int error_count;
+    void *context;
+    usb_complete_t complete;
+    struct usb_iso_packet_descriptor iso_frame_desc[];
+};

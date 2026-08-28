@@ -160,26 +160,7 @@ this_cpu_inc:
 
 Тут неподільною має бути не одна дія, а кілька поспіль: зняти елемент зі списку, зменшити лічильник, поправити вказівник. Одна інструкція такого не вміє. Класична відповідь ядра виглядала так:
 
-```c
-static DEFINE_PER_CPU(struct depot, depot);
-
-static struct obj *depot_pop(void)
-{
-    unsigned long flags;
-    struct depot *d;
-    struct obj *o = NULL;
-
-    local_irq_save(flags);          /* заборонити переривання на цьому ядрі процесора */
-    d = this_cpu_ptr(&depot);
-    if (d->count) {
-        o = list_first_entry(&d->free, struct obj, node);
-        list_del(&o->node);
-        d->count--;
-    }
-    local_irq_restore(flags);
-    return o;
-}
-```
+:::code per-cpu-data-d/c/koly-odniieiu.c
 
 Працює бездоганно. Заборона переривань на цьому ядрі процесора попутно забороняє й витіснення, тож обидва вороги закриті одним рухом. І саме в цьому «попутно» — проблема.
 
@@ -197,33 +178,7 @@ static struct obj *depot_pop(void)
 
 ## local_lock: назвати те, що вже робилося
 
-```c
-struct depot {
-    local_lock_t     lock;
-    struct list_head free;
-    unsigned int     count;
-};
-
-static DEFINE_PER_CPU(struct depot, depot) = {
-    .lock = INIT_LOCAL_LOCK(lock),
-};
-
-static struct obj *depot_pop(void)
-{
-    struct depot *d;
-    struct obj *o = NULL;
-
-    local_lock(&depot.lock);        /* саме ця структура, саме цей захист */
-    d = this_cpu_ptr(&depot);
-    if (d->count) {
-        o = list_first_entry(&d->free, struct obj, node);
-        list_del(&o->node);
-        d->count--;
-    }
-    local_unlock(&depot.lock);
-    return o;
-}
-```
+:::code per-cpu-data-d/c/local-lock-nazvaty-te.c
 
 Зверніть увагу на форму: замок лежить **усередині** структури per-CPU, і в макрос передають шлях до поля в кресленні — свою копію він знайде сам.
 

@@ -8,32 +8,7 @@
 
 Структура `struct i2c_adapter` інкапсулює окремий фізичний контролер шини I²C/SMBus (апаратний блок SoC, PCI-хост або програмний GPIO bit-banging):
 
-```c
-struct i2c_adapter {
-	struct module *owner;
-	unsigned int class;
-	const struct i2c_algorithm *algo;
-	void *algo_data;
-
-	const struct i2c_lock_operations *lock_ops;
-	struct rt_mutex bus_lock;
-	struct rt_mutex mux_lock;
-
-	int timeout;
-	int retries;
-	struct device dev;
-
-	int nr;
-	char name[48];
-	struct completion dev_released;
-
-	struct mutex userspace_clients_lock;
-	struct list_head userspace_clients;
-
-	struct i2c_bus_recovery_info *bus_recovery_info;
-	const struct i2c_adapter_quirks *quirks;
-};
-```
+:::code api-i2c-subsystem/c/1-1-struct-i2c-adapter.c
 
 Призначення ключових полів:
 - `algo` — вказівник на таблицю операцій низькорівневої передачі даних між процесором та шиною.
@@ -48,23 +23,7 @@ struct i2c_adapter {
 
 Визначає механізми фізичної передачі бітів лініями шини:
 
-```c
-struct i2c_algorithm {
-	int (*master_xfer)(struct i2c_adapter *adap, struct i2c_msg *msgs,
-			   int num);
-	int (*master_xfer_atomic)(struct i2c_adapter *adap,
-				  struct i2c_msg *msgs, int num);
-	int (*smbus_xfer)(struct i2c_adapter *adap, u16 addr,
-			  unsigned short flags, char read_write,
-			  u8 command, int size, union i2c_smbus_data *data);
-	int (*smbus_xfer_atomic)(struct i2c_adapter *adap, u16 addr,
-				 unsigned short flags, char read_write,
-				 u8 command, int size, union i2c_smbus_data *data);
-	u32 (*functionality)(struct i2c_adapter *adap);
-	int (*reg_slave)(struct i2c_client *client);
-	int (*unreg_slave)(struct i2c_client *client);
-};
-```
+:::code api-i2c-subsystem/c/1-2-struct-i2c-algorithm.h
 
 Опис методів:
 - `master_xfer` — передача масиву сирих транзакцій I²C `struct i2c_msg`. Повертає кількість успішно переданих повідомлень або від'ємний код помилки (`-EIO`, `-ENXIO`, `-ETIMEDOUT`).
@@ -77,18 +36,7 @@ struct i2c_algorithm {
 
 Представляє конкретну мікросхему, підключену до шини:
 
-```c
-struct i2c_client {
-	unsigned short flags;
-	unsigned short addr;
-	char name[I2C_NAME_SIZE];
-	struct i2c_adapter *adapter;
-	struct device dev;
-	int init_irq;
-	int irq;
-	struct list_head detected;
-};
-```
+:::code api-i2c-subsystem/c/1-3-struct-i2c-client-opys.c
 
 Ключові поля:
 - `addr` — 7-бітна (або 10-бітна) адреса пристрою на шині без урахування біта R/W (наприклад, `0x68` для годинника RTC, `0x76` для датчика тиску).
@@ -101,23 +49,7 @@ struct i2c_client {
 
 Визначає програмну логіку керування пристроєм:
 
-```c
-struct i2c_driver {
-	unsigned int class;
-	int (*probe)(struct i2c_client *client);
-	void (*remove)(struct i2c_client *client);
-	void (*shutdown)(struct i2c_client *client);
-	void (*alert)(struct i2c_client *client, enum i2c_alert_protocol protocol,
-		      unsigned int data);
-
-	int (*detect)(struct i2c_client *client, struct i2c_board_info *info);
-	const unsigned short *address_list;
-	struct list_head clients;
-
-	struct device_driver driver;
-	const struct i2c_device_id *id_table;
-};
-```
+:::code api-i2c-subsystem/c/1-4-struct-i2c-driver.h
 
 Опис елементів:
 - `probe` — вызывается ядром під час успішного збігу пристрою та драйвера для налаштування регістрів та реєстрації в спеціалізованих підсистемах (`hwmon`, `iio`, `input`, `rtc`).
@@ -131,21 +63,7 @@ struct i2c_driver {
 
 Описує механізм виведення шини зі стану аварійного блокування:
 
-```c
-struct i2c_bus_recovery_info {
-	int (*recover_bus)(struct i2c_adapter *adap);
-	int (*get_scl)(struct i2c_adapter *adap);
-	void (*set_scl)(struct i2c_adapter *adap, int val);
-	int (*get_sda)(struct i2c_adapter *adap);
-	void (*set_sda)(struct i2c_adapter *adap, int val);
-	int (*get_bus_free)(struct i2c_adapter *adap);
-	void (*prepare_recovery)(struct i2c_adapter *adap);
-	void (*unprepare_recovery)(struct i2c_adapter *adap);
-	struct pinctrl *pinctrl;
-	struct pinctrl_state *pins_default;
-	struct pinctrl_state *pins_gpio;
-};
-```
+:::code api-i2c-subsystem/c/1-5-struct-i2c-bus.h
 
 - `prepare_recovery` — перемикає функціональні виводи SoC з апаратного контролера I²C у режим GPIO через підсистему `pinctrl`.
 - `set_scl` / `get_sda` — функції маніпуляції лініями для надсилання 9 тактів SCL з метою вивільнення застряглого біта SDA.
@@ -226,35 +144,7 @@ struct i2c_bus_recovery_info {
 
 ### 4.2. Прапорці можливостей шини (`I2C_FUNC_*`)
 
-```c
-#define I2C_FUNC_I2C                    0x00000001 /* Підтримка сирих i2c_msg */
-#define I2C_FUNC_10BIT_ADDR             0x00000002 /* 10-бітна адресація */
-#define I2C_FUNC_PROTOCOL_MANGLING      0x00000004 /* Підтримка прапорців модифікації протоколу */
-#define I2C_FUNC_SMBUS_PEC              0x00000008 /* Апаратна генерація та перевірка PEC CRC-8 */
-#define I2C_FUNC_NOSTART                0x00000010 /* Підтримка прапорця I2C_M_NOSTART */
-#define I2C_FUNC_SLAVE                  0x00000020 /* Підтримка режиму веденого пристрою */
-#define I2C_FUNC_SMBUS_QUICK            0x00010000 /* Quick Command (0 байтів даних) */
-#define I2C_FUNC_SMBUS_READ_BYTE        0x00020000 /* Receive Byte */
-#define I2C_FUNC_SMBUS_WRITE_BYTE       0x00040000 /* Send Byte */
-#define I2C_FUNC_SMBUS_READ_BYTE_DATA   0x00080000 /* Read Byte Data */
-#define I2C_FUNC_SMBUS_WRITE_BYTE_DATA  0x00100000 /* Write Byte Data */
-#define I2C_FUNC_SMBUS_READ_WORD_DATA   0x00200000 /* Read Word Data */
-#define I2C_FUNC_SMBUS_WRITE_WORD_DATA  0x00400000 /* Write Word Data */
-#define I2C_FUNC_SMBUS_PROC_CALL        0x00800000 /* Process Call */
-#define I2C_FUNC_SMBUS_READ_BLOCK_DATA  0x01000000 /* Block Read з лічильником */
-#define I2C_FUNC_SMBUS_WRITE_BLOCK_DATA 0x02000000 /* Block Write з лічильником */
-#define I2C_FUNC_SMBUS_READ_I2C_BLOCK   0x04000000 /* I2C Block Read */
-#define I2C_FUNC_SMBUS_WRITE_I2C_BLOCK  0x08000000 /* I2C Block Write */
-
-#define I2C_FUNC_SMBUS_EMUL             (I2C_FUNC_SMBUS_QUICK | \
-					 I2C_FUNC_SMBUS_BYTE | \
-					 I2C_FUNC_SMBUS_BYTE_DATA | \
-					 I2C_FUNC_SMBUS_WORD_DATA | \
-					 I2C_FUNC_SMBUS_PROC_CALL | \
-					 I2C_FUNC_SMBUS_WRITE_BLOCK_DATA | \
-					 I2C_FUNC_SMBUS_I2C_BLOCK | \
-					 I2C_FUNC_SMBUS_PEC)
-```
+:::code api-i2c-subsystem/c/4-2-praportsi-mozhlyvostei.c
 
 ---
 

@@ -94,27 +94,7 @@ struct fragment {
 ### 3.2. Структура `struct of_changeset`
 Структура `struct of_changeset` реалізує паттерн "Транзакційний журнал". Усі операції з додавання нових вузлів, модифікації існуючих властивостей або видалення елементів не застосовуються до `of_root` напряму. Замість цього вони записуються у список записів `struct of_changeset_entry`.
 
-```c
-enum of_reconfig_change_action {
-    OF_RECONFIG_ATTACH_NODE,    /* Приєднання нового вузла до дерева */
-    OF_RECONFIG_DETACH_NODE,    /* Від'єднання вузла від дерева */
-    OF_RECONFIG_ADD_PROPERTY,   /* Додавання нової властивості */
-    OF_RECONFIG_REMOVE_PROPERTY,/* Видалення властивості */
-    OF_RECONFIG_UPDATE_PROPERTY /* Оновлення вмісту властивості */
-};
-
-struct of_changeset_entry {
-    struct list_head node;
-    enum of_reconfig_change_action action;
-    struct device_node *np;
-    struct property *prop;
-    struct property *old_prop;
-};
-
-struct of_changeset {
-    struct list_head entries;   /* Двобічно зв'язаний список журнальованих дій */
-};
-```
+:::code api-dtbo-kernel-interfaces/c/main.c
 
 Під час виконання `of_changeset_apply()` ядро послідовно проходить по списку `entries`, виконуючи необхідні маніпуляції з покажчиками структур `device_node` та `property`. Для демонтування оверлею функція `of_changeset_revert()` проходить по цьому ж списку у зворотному порядку, повністю відновлюючи початковий стан live-дерева.
 

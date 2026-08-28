@@ -10,28 +10,7 @@
 
 Окреме застереження стосується самих номерів команд. Літери напряму в макросах usbfs історично **не збігаються** з тим, куди насправді течуть дані: `USBDEVFS_SUBMITURB` оголошено як `_IOR`, хоча ядро з цієї структури читає, а `USBDEVFS_REAPURB` — як `_IOW`, хоча воно туди пише. Номери зафіксовані назавжди й міняти їх не можна, тож напрям з макроса не виводять — його беруть із таблиці нижче.
 
-```c
-#define USBDEVFS_CONTROL           _IOWR('U',  0, struct usbdevfs_ctrltransfer)
-#define USBDEVFS_BULK              _IOWR('U',  2, struct usbdevfs_bulktransfer)
-#define USBDEVFS_RESETEP           _IOR ('U',  3, unsigned int)
-#define USBDEVFS_SETINTERFACE      _IOR ('U',  4, struct usbdevfs_setinterface)
-#define USBDEVFS_SETCONFIGURATION  _IOR ('U',  5, unsigned int)
-#define USBDEVFS_GETDRIVER         _IOW ('U',  8, struct usbdevfs_getdriver)
-#define USBDEVFS_SUBMITURB         _IOR ('U', 10, struct usbdevfs_urb)
-#define USBDEVFS_DISCARDURB        _IO  ('U', 11)
-#define USBDEVFS_REAPURB           _IOW ('U', 12, void *)
-#define USBDEVFS_REAPURBNDELAY     _IOW ('U', 13, void *)
-#define USBDEVFS_CLAIMINTERFACE    _IOR ('U', 15, unsigned int)
-#define USBDEVFS_RELEASEINTERFACE  _IOR ('U', 16, unsigned int)
-#define USBDEVFS_CONNECTINFO       _IOW ('U', 17, struct usbdevfs_connectinfo)
-#define USBDEVFS_IOCTL             _IOWR('U', 18, struct usbdevfs_ioctl)
-#define USBDEVFS_RESET             _IO  ('U', 20)
-#define USBDEVFS_CLEAR_HALT        _IOR ('U', 21, unsigned int)
-#define USBDEVFS_DISCONNECT        _IO  ('U', 22)   /* лише всередині USBDEVFS_IOCTL */
-#define USBDEVFS_CONNECT           _IO  ('U', 23)   /* лише всередині USBDEVFS_IOCTL */
-#define USBDEVFS_GET_CAPABILITIES  _IOR ('U', 26, __u32)
-#define USBDEVFS_DISCONNECT_CLAIM  _IOR ('U', 27, struct usbdevfs_disconnect_claim)
-```
+:::code api-usbfs-ioctl/c/shcho-vzahali-mozhna.c
 
 ## Володіння інтерфейсом і стан пристрою
 
@@ -54,24 +33,7 @@
 
 ## Синхронні передачі
 
-```c
-struct usbdevfs_ctrltransfer {
-	__u8  bRequestType;   /* напрям + тип + отримувач, як у SETUP-пакеті */
-	__u8  bRequest;
-	__u16 wValue;
-	__u16 wIndex;
-	__u16 wLength;        /* скільки байтів у data */
-	__u32 timeout;        /* мілісекунди; 0 — чекати вічно */
-	void *data;           /* буфер у просторі користувача */
-};
-
-struct usbdevfs_bulktransfer {
-	unsigned int ep;      /* адреса кінцевої точки з бітом напряму */
-	unsigned int len;
-	unsigned int timeout; /* мілісекунди; 0 — чекати вічно */
-	void *data;
-};
-```
+:::code api-usbfs-ioctl/c/synkhronni-peredachi.c
 
 Перші п'ять полів `ctrltransfer` — це просто 8 байтів [SETUP-пакета](root:com-devices/usb-protocol-layer), як їх описує стандарт. Ядро зазирає в них рівно настільки, щоб зрозуміти, якого інтерфейсу стосується запит і чи має право процес його слати; далі кладе на дріт майже незмінними. Напрям передачі береться з верхнього біта `bRequestType`, а для bulk — з верхнього біта `ep`.
 
@@ -83,32 +45,7 @@ struct usbdevfs_bulktransfer {
 
 ## Асинхронна дорога: URB
 
-```c
-struct usbdevfs_iso_packet_desc {
-	unsigned int length;         /* заповнює програма: скільки просимо */
-	unsigned int actual_length;  /* заповнює ядро: скільки прийшло */
-	unsigned int status;         /* заповнює ядро: код для цього пакета */
-};
-
-struct usbdevfs_urb {
-	unsigned char type;          /* USBDEVFS_URB_TYPE_* */
-	unsigned char endpoint;      /* адреса з бітом напряму */
-	int           status;        /* ← ядро: результат */
-	unsigned int  flags;         /* USBDEVFS_URB_* */
-	void         *buffer;
-	int           buffer_length;
-	int           actual_length; /* ← ядро: скільки байтів реально пройшло */
-	int           start_frame;   /* iso: номер кадру */
-	union {
-		int          number_of_packets;  /* лише iso */
-		unsigned int stream_id;          /* лише bulk streams */
-	};
-	int           error_count;   /* ← ядро: скільки iso-пакетів провалилося */
-	unsigned int  signr;         /* сигнал по завершенні; 0 — не слати */
-	void         *usercontext;   /* ядро не чіпає — це поле програми */
-	struct usbdevfs_iso_packet_desc iso_frame_desc[];
-};
-```
+:::code api-usbfs-ioctl/c/asynkhronna-doroha-urb.c
 
 | константа | значення | де вживається |
 | --- | --- | --- |
@@ -161,26 +98,7 @@ struct usbdevfs_ioctl {
 
 Пара «відчепити → закріпити» має вікно, у яке між двома викликами може встигнути втрутитися хтось третій. Хто цього боїться — вживає `USBDEVFS_DISCONNECT_CLAIM`: та сама робота однією неподільною командою, ще й із прапорцем «відчіплюй, тільки якщо там саме цей драйвер».
 
-```c
-struct usbdevfs_setinterface {
-	unsigned int interface;
-	unsigned int altsetting;
-};
-
-struct usbdevfs_getdriver {
-	unsigned int interface;
-	char driver[256];      /* ← ядро вписує ім'я, наприклад "uvcvideo" */
-};
-
-struct usbdevfs_disconnect_claim {
-	unsigned int interface;
-	unsigned int flags;    /* 0 — відчіплюй будь-кого */
-	char driver[256];      /* ім'я для порівняння, якщо flags не 0 */
-};
-
-#define USBDEVFS_DISCONNECT_CLAIM_IF_DRIVER      0x01  /* лише якщо драйвер — саме driver */
-#define USBDEVFS_DISCONNECT_CLAIM_EXCEPT_DRIVER  0x02  /* лише якщо драйвер — НЕ driver */
-```
+:::code api-usbfs-ioctl/c/obhortka-dlia-komand.c
 
 ## Що вміє це конкретне ядро
 
@@ -230,57 +148,7 @@ struct usbdevfs_disconnect_claim {
 
 ## Мінімальний робочий виклик
 
-```c
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <linux/usbdevice_fs.h>
-#include <linux/usb/ch9.h>
-
-int main(void)
-{
-	int fd = open("/dev/bus/usb/001/007", O_RDWR);   /* саме RDWR */
-	if (fd < 0) { perror("open"); return 1; }        /* EACCES → правило udev */
-
-	__u32 caps = 0;
-	ioctl(fd, USBDEVFS_GET_CAPABILITIES, &caps);
-
-	unsigned int ifnum = 0;
-	if (ioctl(fd, USBDEVFS_CLAIMINTERFACE, &ifnum) < 0 && errno == EBUSY) {
-		struct usbdevfs_ioctl cmd = {
-			.ifno       = ifnum,
-			.ioctl_code = USBDEVFS_DISCONNECT,
-			.data       = NULL,
-		};
-		ioctl(fd, USBDEVFS_IOCTL, &cmd);             /* відчепити драйвер ядра */
-		ioctl(fd, USBDEVFS_CLAIMINTERFACE, &ifnum);  /* і взяти ще раз */
-	}
-
-	unsigned char buf[18];
-	struct usbdevfs_ctrltransfer ctrl = {
-		.bRequestType = USB_DIR_IN | USB_TYPE_STANDARD | USB_RECIP_DEVICE,
-		.bRequest     = USB_REQ_GET_DESCRIPTOR,
-		.wValue       = (USB_DT_DEVICE << 8) | 0,
-		.wIndex       = 0,
-		.wLength      = 18,          /* дескриптор пристрою — рівно 18 байтів */
-		.timeout      = 1000,        /* мілісекунди, і ніколи не 0 */
-		.data         = buf,
-	};
-
-	int n = ioctl(fd, USBDEVFS_CONTROL, &ctrl);      /* n — скільки байтів прийшло */
-	if (n < 0)
-		perror("USBDEVFS_CONTROL");
-	else
-		printf("VID:PID = %04x:%04x, отримано %d байтів\n",
-		       buf[8] | (buf[9] << 8), buf[10] | (buf[11] << 8), n);
-
-	ioctl(fd, USBDEVFS_RELEASEINTERFACE, &ifnum);
-	close(fd);
-	return 0;
-}
-```
+:::code api-usbfs-ioctl/c/minimalnyi-robochyi-vyklyk.c
 
 ## Чим пристрій упізнають: атрибути sysfs
 

@@ -34,20 +34,7 @@
 
 Усі чотири живуть у таблиці послуг виконання, тобто доступні й після того, як прошивка звузилася до жменьки функцій усередині ядра.
 
-```c
-EFI_STATUS GetVariable(CHAR16 *VariableName, EFI_GUID *VendorGuid,
-                       UINT32 *Attributes OPTIONAL, UINTN *DataSize, VOID *Data);
-
-EFI_STATUS GetNextVariableName(UINTN *VariableNameSize, CHAR16 *VariableName,
-                               EFI_GUID *VendorGuid);
-
-EFI_STATUS SetVariable(CHAR16 *VariableName, EFI_GUID *VendorGuid,
-                       UINT32 Attributes, UINTN DataSize, VOID *Data);
-
-EFI_STATUS QueryVariableInfo(UINT32 Attributes, UINT64 *MaximumVariableStorageSize,
-                             UINT64 *RemainingVariableStorageSize,
-                             UINT64 *MaximumVariableSize);
-```
+:::code api-efi-variables/c/main.h
 
 `DataSize` у `GetVariable` — двобічний: на вході розмір вашого буфера, на виході справжній розмір даних. Звідси звичка викликати двічі:
 

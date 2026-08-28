@@ -57,37 +57,7 @@ long ptrace(enum __ptrace_request request, pid_t pid, void *addr, void *data);
 
 При використанні `PTRACE_GETREGS` та `PTRACE_SETREGS` дані передаються через структуру `struct user_regs_struct`, оголошену в заголовковому файлі `<sys/user.h>`:
 
-```c
-struct user_regs_struct {
-    unsigned long r15;
-    unsigned long r14;
-    unsigned long r13;
-    unsigned long r12;
-    unsigned long rbp;
-    unsigned long rbx;
-    unsigned long r11;
-    unsigned long r10;
-    unsigned long r8;
-    unsigned long r9;
-    unsigned long rax;
-    unsigned long rcx;
-    unsigned long rdx;
-    unsigned long rsi;
-    unsigned long rdi;
-    unsigned long orig_rax; /* Початковий номер системного виклику */
-    unsigned long rip;      /* Вказівник на поточну інструкцію (IP) */
-    unsigned long cs;
-    unsigned long eflags;   /* Прапорці процесора (rflags) */
-    unsigned long rsp;      /* Вказівник на вершину стека (SP) */
-    unsigned long ss;
-    unsigned long fs_base;
-    unsigned long gs_base;
-    unsigned long ds;
-    unsigned long es;
-    unsigned long fs;
-    unsigned long gs;
-};
-```
+:::code api-ptrace-and-seccomp/c/struktury-rehistriv.c
 
 Поле `orig_rax` відіграє критичну роль при трасуванні системних викликів:
 - На точці `sys_enter`: `orig_rax` містить апаратний номер системного виклику. Поле `rax` також містить цей номер.
@@ -98,18 +68,7 @@ struct user_regs_struct {
 
 Виклик `ptrace(PTRACE_SETOPTIONS, pid, 0, options)` дозволяє налаштувати додаткові розширення ядра:
 
-```c
-#define PTRACE_O_TRACESYSGOOD   0x00000001
-#define PTRACE_O_TRACEFORK      0x00000002
-#define PTRACE_O_TRACEVFORK     0x00000004
-#define PTRACE_O_TRACECLONE     0x00000008
-#define PTRACE_O_TRACEEXEC      0x00000010
-#define PTRACE_O_TRACEVFORKDONE 0x00000020
-#define PTRACE_O_TRACEEXIT      0x00000040
-#define PTRACE_O_TRACESECCOMP   0x00000080
-#define PTRACE_O_EXITKILL       0x00001000
-#define PTRACE_O_SUSPEND_SECCOMP 0x00002000
-```
+:::code api-ptrace-and-seccomp/c/dodatkovi-optsii-ptrace.c
 
 #### Детальний опис дій прапорців опцій:
 
@@ -126,29 +85,7 @@ struct user_regs_struct {
 
 Для усунення залежності від архітектурно-специфічного розташування регістрів у `struct user_regs_struct` ядро Linux 5.3 ввело уніфікований виклик `ptrace(PTRACE_GET_SYSCALL_INFO, pid, sizeof(info), &info)`:
 
-```c
-struct ptrace_syscall_info {
-    __u8 op;                    /* Тип події: ENTRY, EXIT або SECCOMP */
-    __u32 arch;                 /* Архітектура процесора (AUDIT_ARCH_*) */
-    __u64 instruction_pointer;  /* Значення rip / pc */
-    __u64 stack_pointer;        /* Значення rsp / sp */
-    union {
-        struct {
-            __u64 nr;           /* Апаратний номер системного виклику */
-            __u64 args[6];      /* Масив із 6 чисельних аргументів */
-        } entry;
-        struct {
-            __s64 rval;         /* Повернене значення (код успіху або -errno) */
-            __u8 is_error;      /* 1 якщо rval є кодом помилки, 0 якщо успіх */
-        } exit;
-        struct {
-            __u64 nr;           /* Номер системного виклику */
-            __u64 args[6];      /* Аргументи виклику */
-            __u32 ret_data;     /* 16-бітні дані з BPF розрахунку */
-        } seccomp;
-    };
-};
-```
+:::code api-ptrace-and-seccomp/c/struktura-ptrace-syscall.c
 
 Значення поля `op`:
 - `PTRACE_SYSCALL_INFO_ENTRY` (`1`): Зупинка на вході `sys_enter`. Заповнено структуру `entry`.
@@ -182,19 +119,7 @@ int seccomp(unsigned int operation, unsigned int flags, void *args);
 
 Фільтр Seccomp складається з масиву інструкцій `struct sock_filter`:
 
-```c
-struct sock_filter {
-    __u16 code; /* Код операції (BPF_LD, BPF_JMP, BPF_RET тощо) */
-    __u8  jt;   /* Зміщення переходу, якщо умова ІСТИННА (jump true) */
-    __u8  jf;   /* Зміщення переходу, якщо умова ХИБНА (jump false) */
-    __u32 k;    /* Константа або зміщення у структурі seccomp_data */
-};
-
-struct sock_fprog {
-    unsigned short len;       /* Кількість інструкцій у масиві */
-    struct sock_filter *filter; /* Масив інструкцій */
-};
-```
+:::code api-ptrace-and-seccomp/c/format-klasychnoho-bpf.c
 
 При вході у Seccomp ядро подає на вхід BPF-програми структуру `struct seccomp_data`:
 

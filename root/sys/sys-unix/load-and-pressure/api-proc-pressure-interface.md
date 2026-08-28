@@ -136,42 +136,13 @@ enum psi_states {
 
 Ядро зберігає стан голодування окремо для кожного логічного процесора (per-CPU storage) для усунення блокувань на гарячих шляхах планувальника:
 
-```c
-struct psi_group_cpu {
-    /* Кількість потоків у кожному стані на цьому CPU */
-    unsigned int tasks[NR_PSI_TASK_COUNTS];
-
-    /* Бітова маска активних станів тиску */
-    u32 state_mask;
-
-    /* Часові мітки та накопичений час у мікросекундах */
-    u64 state_start;
-    u64 times[NR_PSI_STATES];
-};
-```
+:::code api-proc-pressure-interface/c/4-2-poprotsesorna.c
 
 ### 4.3. Агрегуюча структура групи (struct psi_group)
 
 Глобальний стан та стан cgroup описуються структурою `struct psi_group`:
 
-```c
-struct psi_group {
-    /* Попроцесорні масиви лічильників */
-    struct psi_group_cpu __percpu *pcpu;
-
-    /* Фоновий таймер обчислення згладжених метрик */
-    struct timer_list poll_timer;
-    u64 poll_min_update;
-
-    /* Збережені згладжені значення avg10, avg60, avg300 */
-    unsigned long avg[NR_PSI_STATES][3];
-    u64 total[NR_PSI_STATES];
-
-    /* Список зареєстрованих користувацьких тригерів */
-    struct list_head triggers;
-    u32 trigger_mask;
-};
-```
+:::code api-proc-pressure-interface/c/4-3-ahrehuiucha-struktura.c
 
 ## 5. Системний тюнінг та конфігурація ядра
 

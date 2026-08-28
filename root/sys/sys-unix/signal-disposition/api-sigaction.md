@@ -53,20 +53,7 @@ struct sigaction {
 
 ## Що приходить в обробник із `SA_SIGINFO`
 
-```c
-siginfo_t {
-    int          si_signo;   /* номер сигналу — той самий, що в першому аргументі */
-    int          si_errno;   /* errno події, якщо ядро його дає; здебільшого 0     */
-    int          si_code;    /* ХТО або ЩО породило сигнал                          */
-    pid_t        si_pid;     /* pid відправника   (SI_USER, SI_QUEUE, SI_TKILL, SIGCHLD) */
-    uid_t        si_uid;     /* реальний uid відправника                            */
-    int          si_status;  /* код виходу або номер сигналу нащадка      (SIGCHLD) */
-    void        *si_addr;    /* адреса збою  (SIGSEGV, SIGBUS, SIGILL, SIGFPE, SIGTRAP) */
-    union sigval si_value;   /* значення від sigqueue(3): .sival_int / .sival_ptr   */
-    long         si_band;    /* яка саме подія вводу-виводу      (SIGIO / SIGPOLL)  */
-    int          si_fd;      /* дескриптор                       (SIGIO / SIGPOLL)  */
-}
-```
+:::code api-sigaction/c/shcho-prykhodyt-v-obrobnyk.c
 
 У справжньому оголошенні це велике об'єднання; наведено поля, які читають найчастіше. Значущі з них лише ті, що відповідають конкретному `si_code`, — решта містить довільні байти. Тому `si_pid` заслуговує довіри тільки за кодів `SI_USER`, `SI_QUEUE`, `SI_TKILL` і для `SIGCHLD`, а `si_addr` — лише для апаратних винятків.
 
@@ -93,22 +80,7 @@ siginfo_t {
 
 ## Виклики, помилки, мінімальний зразок
 
-```c
-int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
-int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);      /* однопотокова програма */
-int pthread_sigmask(int how, const sigset_t *set, sigset_t *oldset);  /* багатопотокова        */
-
-int sigemptyset(sigset_t *set);        /* набір ОБОВ'ЯЗКОВО спорожнити або заповнити */
-int sigfillset(sigset_t *set);         /* перед першим sigaddset                     */
-int sigaddset(sigset_t *set, int signum);
-int sigdelset(sigset_t *set, int signum);
-int sigismember(const sigset_t *set, int signum);   /* 1 — є, 0 — нема, -1 — помилка */
-
-/* how для (pthread_)sigprocmask: SIG_BLOCK | SIG_UNBLOCK | SIG_SETMASK */
-
-int sigaltstack(const stack_t *ss, stack_t *old_ss);       /* стек для SA_ONSTACK */
-int sigqueue(pid_t pid, int sig, const union sigval value); /* сигнал зі значенням */
-```
+:::code api-sigaction/c/vyklyky-pomylky-minimalnyi.h
 
 Два виклики з цього списку самі по собі диспозиції не міняють, але без них частина контракту не працює. `sigaltstack` заводить окремий стек (`ss.ss_sp`, `ss.ss_size` не менше за `MINSIGSTKSZ`, `ss.ss_flags = 0`) — і лише після цього `SA_ONSTACK` має куди перемкнути обробник; без нього прапорець мовчки нічого не робить, а `SIGSEGV` від переповнення стека спіймати не вдасться, бо обробникові ніде виконуватися. `sigqueue` шле сигнал разом зі значенням, яке доїде в `si_value` при `si_code == SI_QUEUE`; черга таких сигналів обмежена лімітом `RLIMIT_SIGPENDING`, а при його вичерпанні виклик повертає `EAGAIN`.
 
@@ -127,36 +99,7 @@ int sigqueue(pid_t pid, int sig, const union sigval value); /* сигнал зі
 
 Виклик із `act == NULL` нічого не змінює, а лише читає поточну диспозицію — саме так перевіряють успадковане `SIG_IGN`, перш ніж ставити своє:
 
-```c
-#define _POSIX_C_SOURCE 200809L
-#include <signal.h>
-#include <string.h>
-
-static volatile sig_atomic_t last_sender = 0;
-
-static void on_usr1(int signo, siginfo_t *si, void *uctx) {
-    (void)signo; (void)uctx;
-    last_sender = (si->si_code == SI_USER || si->si_code == SI_QUEUE)
-                ? (sig_atomic_t)si->si_pid    /* si_pid значущий лише за цих кодів */
-                : -1;
-}
-
-int arm_usr1(void) {
-    struct sigaction sa, old;
-
-    if (sigaction(SIGUSR1, NULL, &old) == -1)   /* act == NULL — тільки прочитати */
-        return -1;
-    if (old.sa_handler == SIG_IGN)              /* хтось згори вже сказав «ігнорувати» */
-        return 0;                               /* — не перебиваємо його рішення      */
-
-    memset(&sa, 0, sizeof sa);
-    sa.sa_sigaction = on_usr1;                  /* НЕ sa_handler: поля в об'єднанні */
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_SIGINFO | SA_RESTART;
-
-    return sigaction(SIGUSR1, &sa, NULL);       /* 0 або -1 з errno */
-}
-```
+:::code api-sigaction/c/vyklyky-pomylky-minimalnyi.c
 
 Порівняння `old.sa_handler == SIG_IGN` тут дозволене попри об'єднання: `SIG_IGN` несумісне з `SA_SIGINFO`, тож у цьому полі лежить саме воно. Обробник же обмежений тим, що в ньому взагалі можна викликати ([безпека в обробнику](root:sys-unix/async-signal-safety) — чому туди годяться лише асинхронно-сигнально-безпечні виклики, а `printf` і `malloc` — ні).
 

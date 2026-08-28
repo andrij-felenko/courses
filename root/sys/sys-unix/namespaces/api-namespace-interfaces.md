@@ -33,25 +33,7 @@
 
 ### `clone3()` — народити дитину вже всередині
 
-```c
-/* визначення з <linux/sched.h> */
-struct clone_args {
-    __aligned_u64 flags;        /* CLONE_NEW* через «або» */
-    __aligned_u64 pidfd;        /* куди покласти дескриптор дитини */
-    __aligned_u64 child_tid;
-    __aligned_u64 parent_tid;
-    __aligned_u64 exit_signal;  /* окреме поле — тому CSIGNAL тут не заважає */
-    __aligned_u64 stack;
-    __aligned_u64 stack_size;
-    __aligned_u64 tls;
-    __aligned_u64 set_tid;      /* замовити конкретні номери по рівнях */
-    __aligned_u64 set_tid_size;
-    __aligned_u64 cgroup;
-};
-
-/* обгортки в glibc немає — виклик роблять напряму */
-long res = syscall(SYS_clone3, &args, sizeof args);
-```
+:::code api-namespace-interfaces/c/clone3-narodyty-dytynu.c
 
 `clone3()` доступний з ядра 5.3. Поле `exit_signal` винесено окремо від `flags` — саме тому тут поміщається повний набір прапорців разом із `CLONE_NEWTIME`.
 
@@ -240,31 +222,7 @@ max_cgroup_namespaces   max_time_namespaces     (останній — з 5.7)
 
 Для простору користувачів `NS_GET_USERNS` і `NS_GET_PARENT` дають те саме: предком простору користувачів і є той простір, що ним володіє.
 
-```c
-#include <fcntl.h>
-#include <linux/nsfs.h>
-#include <stdio.h>
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-int main(void) {
-    int ns = open("/proc/self/ns/net", O_RDONLY);
-    int owner = ioctl(ns, NS_GET_USERNS);       /* повертає дескриптор */
-
-    uid_t uid;
-    ioctl(owner, NS_GET_OWNER_UID, &uid);       /* повертає 0 або -1 */
-
-    struct stat sb;
-    fstat(owner, &sb);
-    printf("мережевий простір належить user:[%lu], власник UID %u\n",
-           (unsigned long)sb.st_ino, uid);
-
-    close(owner);
-    close(ns);
-    return 0;
-}
-```
+:::code api-namespace-interfaces/c/opytaty-prostir-iz-kodu.c
 
 Прохід угору `NS_GET_PARENT` рано чи пізно впирається в початковий простір і дає `EPERM` — це і є ознака кореня, а не помилка виклику.
 
@@ -272,63 +230,7 @@ int main(void) {
 
 Непривілейований користувач будує собі простір користувачів, простір номерів і власне дерево монтувань — і запускає всередині `ps`, який бачить у системі один процес, себе самого:
 
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <sched.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/mount.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-static void put(const char *path, const char *s) {
-    int fd = open(path, O_WRONLY);
-    if (fd < 0 || write(fd, s, strlen(s)) < 0) { perror(path); exit(1); }
-    close(fd);
-}
-
-int main(void) {
-    char buf[64];
-    uid_t uid = getuid();
-    gid_t gid = getgid();
-
-    /* 1. Три простори одним викликом. CAP_SYS_ADMIN не потрібен:
-          простір користувачів створюється першим і дає права на решту. */
-    if (unshare(CLONE_NEWUSER | CLONE_NEWPID | CLONE_NEWNS) < 0) {
-        perror("unshare"); return 1;
-    }
-
-    /* 2. Мапа: нуль усередині — це наш звичайний ідентифікатор зовні.
-          setgroups мусить бути заборонено ДО запису gid_map. */
-    put("/proc/self/setgroups", "deny");
-    snprintf(buf, sizeof buf, "0 %u 1\n", uid);  put("/proc/self/uid_map", buf);
-    snprintf(buf, sizeof buf, "0 %u 1\n", gid);  put("/proc/self/gid_map", buf);
-
-    /* 3. Свіжа копія дерева монтувань усе ще ділиться подіями з системою —
-          відв'язуємо, інакше наш /proc вилізе назовні. */
-    if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) < 0) {
-        perror("make-rprivate"); return 1;
-    }
-
-    /* 4. Ми самі лишилися в старому просторі номерів; новий дістане дитина,
-          і саме вона буде там процесом номер 1. */
-    pid_t child = fork();
-    if (child < 0) { perror("fork"); return 1; }
-
-    if (child == 0) {
-        if (mount("proc", "/proc", "proc", 0, NULL) < 0) {
-            perror("mount /proc"); _exit(1);
-        }
-        execlp("ps", "ps", "-ef", (char *)NULL);
-        _exit(127);
-    }
-
-    waitpid(child, NULL, 0);
-    return 0;
-}
-```
+:::code api-namespace-interfaces/c/minimalnyi-robochyi-vyklyk.c
 
 Виведення від звичайного користувача:
 

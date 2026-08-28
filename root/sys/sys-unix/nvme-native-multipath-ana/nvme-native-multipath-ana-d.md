@@ -95,31 +95,7 @@
 
 Коли верхній шар ядра (файлова система або додаток через Direct I/O) надсилає запит `struct bio` на пристрій `/dev/nvme0n1`, керування передається функції драйвера `nvme_ns_head_submit_bio()`:
 
-```c
-/* Спрощена логіка швидкого шляху маршрутизації у ядрі Linux */
-blk_qc_t nvme_ns_head_submit_bio(struct bio *bio)
-{
-    struct nvme_ns_head *head = bio->bi_bdev->bd_disk->private_data;
-    struct nvme_ns *ns;
-    
-    /* 1. Критична секція RCU: пошук працездатного шляху без блокувань */
-    rcu_read_lock();
-    ns = nvme_find_path(head);
-    if (likely(ns)) {
-        /* 2. Підміна цільового пристрою безпосередньо у вхідному bio */
-        bio_set_dev(bio, ns->disk->part0);
-        bio->bi_opf |= REQ_NVME_MPATH;
-        rcu_read_unlock();
-        
-        /* 3. Пряме передавання запиту в апаратну чергу вибраного контролера */
-        return submit_bio_noacache(bio);
-    }
-    rcu_read_unlock();
-    
-    /* 4. Якщо всі шляхи недоступні — запит ставиться у чергу повтору */
-    return nvme_mpath_requeue_bio(head, bio);
-}
-```
+:::code nvme-native-multipath-ana-d/c/alhorytm-funktsii-nvme-ns.c
 
 Послідовність операцій на швидкому шляху:
 1. **Безблокувальний вибір шляху (Lockless RCU):** функція відкриває секцію `rcu_read_lock()`. Пошук активного контролера у функції `nvme_find_path()` переглядає вказівники на `struct nvme_ns` без захоплення м'ютексів чи спінлоків, гарантуючи нульову конкуренцію між процесорними ядрами.
@@ -131,26 +107,7 @@ blk_qc_t nvme_ns_head_submit_bio(struct bio *bio)
 
 Функція `nvme_find_path()` не просто зчитує вказівник зі списку, а виконує багаторівневу валідацію стану фізичного контролера через допоміжну функцію `nvme_path_is_disabled()`:
 
-```c
-/* Критерії виключення шляху з активної маршрутизації */
-static bool nvme_path_is_disabled(struct nvme_ns *ns)
-{
-    /* 1. Контролер має перебувати у стані LIVE */
-    if (ns->ctrl->state != NVME_CTRL_LIVE)
-        return true;
-        
-    /* 2. Стан ANA не повинен бути Inaccessible або Persistent Loss */
-    if (ns->ana_state == NVME_ANA_INACCESSIBLE ||
-        ns->ana_state == NVME_ANA_PERSISTENT_LOSS)
-        return true;
-        
-    /* 3. Перевірка, чи не заморожено чергу введення-виведення */
-    if (test_bit(NVME_NS_REMOVING, &ns->flags))
-        return true;
-        
-    return false;
-}
-```
+:::code nvme-native-multipath-ana-d/c/lohika-perevirky.c
 
 Якщо для певного контролера `nvme_path_is_disabled()` повертає `true`, драйвер негайно виключає його з циклу вибору, не намагаючись надіслати `bio`, що усуває затримки на очікування тайм-аутів апаратного рівня.
 

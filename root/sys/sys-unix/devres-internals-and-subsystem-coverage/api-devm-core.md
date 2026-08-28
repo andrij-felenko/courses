@@ -18,21 +18,7 @@ typedef int (*dr_match_t)(struct device *dev, void *res, void *match_data);
 
 ### Керування окремими ресурсами
 
-```c
-void *devres_alloc(dr_release_t release, size_t size, gfp_t gfp);
-void devres_add(struct device *dev, void *res);
-void devres_free(void *res);
-int devres_destroy(struct device *dev, dr_release_t release,
-                   dr_match_t match, void *match_data);
-int devres_release(struct device *dev, dr_release_t release,
-                   dr_match_t match, void *match_data);
-void *devres_find(struct device *dev, dr_release_t release,
-                  dr_match_t match, void *match_data);
-void *devres_get(struct device *dev, void *new_res,
-                 dr_match_t match, void *match_data);
-void *devres_remove(struct device *dev, dr_release_t release,
-                    dr_match_t match, void *match_data);
-```
+:::code api-devm-core/c/keruvannia-okremymy.h
 
 - `devres_alloc(release, size, gfp)`: виділяє пам'ять у SLAB під заголовок `struct devres_node` разом із корисним навантаженням розміром `size`. Ініціалізує поле `release`. Повертає вказівник на корисне навантаження `data[]` або `NULL` при вичерпанні пам'яті. Ресурс ще не прив'язаний до жодного пристрою.
 - `devres_add(dev, res)`: додає попередньо виділений ресурс `res` до голови списку `dev->devres_head` під захистом спін-блокування `dev->devres_lock`. Передає володіння ресурсом пристрою. Виклик цієї функції після `devres_alloc()` є обов'язковим для взяття об'єкта під контроль ядра.
@@ -109,18 +95,7 @@ void __iomem *devm_platform_ioremap_resource_byname(struct platform_device *pdev
 
 ### Лінії переривань (`<linux/interrupt.h>`)
 
-```c
-int devm_request_irq(struct device *dev, unsigned int irq,
-                     irq_handler_t handler, unsigned long irqflags,
-                     const char *devname, void *dev_id);
-
-int devm_request_threaded_irq(struct device *dev, unsigned int irq,
-                              irq_handler_t handler, irq_handler_t thread_fn,
-                              unsigned long irqflags, const char *devname,
-                              void *dev_id);
-
-void devm_free_irq(struct device *dev, unsigned int irq, void *dev_id);
-```
+:::code api-devm-core/c/linii-pereryvan-linux.h
 
 - `devm_request_threaded_irq()`: реєструє первинний обробник (top-half) та потоковий обробник (bottom-half). Під час вивантаження викликає `free_irq(irq, dev_id)`, гарантуючи синхронізацію та завершення всіх активних обробників до звільнення структур драйвера. Повертає `0` при успіху або від'ємний код помилки (`-EBUSY`, `-EINVAL`).
 - `devm_free_irq()`: дострокове звільнення лінії переривання, якщо драйверу необхідно відключити лінію до завершення роботи пристрою.

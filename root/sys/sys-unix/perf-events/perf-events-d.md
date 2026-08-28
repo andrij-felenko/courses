@@ -96,37 +96,8 @@ Uncore PMU дозволяє вимірювати:
 У перших версіях Linux кожен інструмент моніторингу мав власний драйвер ядра та власну файлову систему. У Linux 2.6.31 розробник Інго Мольнар впровадив уніфікований підхід: єдиний системний виклик `perf_event_open()`, який перетворює будь-яке джерело подій у стандартний файловий дескриптор.
 
 :::tabs
-```c
-#include <linux/perf_event.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-long perf_event_open(struct perf_event_attr *attr,
-                     pid_t pid,
-                     int cpu,
-                     int group_fd,
-                     unsigned long flags) {
-    return syscall(__NR_perf_event_open, attr, pid, cpu, group_fd, flags);
-}
-```
-```cpp
-#include <linux/perf_event.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-
-namespace sys {
-    inline std::expected<int, std::error_code> open_perf_event(
-        struct perf_event_attr* attr, pid_t pid, int cpu, int group_fd, unsigned long flags) {
-        long res = ::syscall(__NR_perf_event_open, attr, pid, cpu, group_fd, flags);
-        if (res == -1) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-        return static_cast<int>(res);
-    }
-}
-```
+:::code perf-events-d/c/2-universalna-model-iadra.c
+:::code perf-events-d/cpp/2-universalna-model-iadra.cpp
 :::
 
 Підсистема `perf` усередині ядра абстрагує абсолютно різні за своєю природою джерела вимірювань під єдиний двійковий інтерфейс:
@@ -209,42 +180,8 @@ Raw_Count_Scaled = Raw_Count · (time_enabled / time_running)
 Оскільки ядро записує дані в контексті NMI-обробника (де заборонені будь-які м'ютекси чи spinlock-и), між ядром та користувацьким процесом застосовується lock-free кільцевий буфер із захистом бар'єрами пам'яті:
 
 :::tabs
-```c
-// Схема зчитування вибірок у user-space (C):
-uint64_t head = atomic_load_explicit((_Atomic uint64_t *)&hdr->data_head, memory_order_acquire);
-uint64_t tail = hdr->data_tail;
-
-while (tail < head) {
-    uint64_t offset = tail % data_size;
-    struct perf_event_header *phead = (void *)(data_boundary + offset);
-    
-    // Обробка запису phead...
-    tail += phead->size;
-}
-
-atomic_store_explicit((_Atomic uint64_t *)&hdr->data_tail, tail, memory_order_release);
-```
-```cpp
-// Схема зчитування вибірок у user-space (C++20):
-std::uint64_t head = std::atomic_load_explicit(
-    reinterpret_cast<const std::atomic<std::uint64_t>*>(&hdr->data_head),
-    std::memory_order_acquire
-);
-std::uint64_t tail = hdr->data_tail;
-
-while (tail < head) {
-    std::uint64_t offset = tail % data_size;
-    auto* phead = reinterpret_cast<const struct perf_event_header*>(data_boundary + offset);
-    
-    // Обробка запису phead...
-    tail += phead->size;
-}
-
-std::atomic_store_explicit(
-    reinterpret_cast<std::atomic<std::uint64_t>*>(&hdr->data_tail),
-    tail, std::memory_order_release
-);
-```
+:::code perf-events-d/c/synkhronizatsiia-data-head.c
+:::code perf-events-d/cpp/synkhronizatsiia-data-head.cpp
 :::
 
 ### Автоматичне регулювання частоти саплінгу (Throttle & Unthrottle)

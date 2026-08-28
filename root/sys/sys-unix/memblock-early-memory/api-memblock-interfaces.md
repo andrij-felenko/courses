@@ -4,31 +4,7 @@
 
 ## Структури
 
-```c
-struct memblock_region {
-        phys_addr_t base;             /* початок діапазону */
-        phys_addr_t size;             /* довжина в байтах */
-        enum memblock_flags flags;    /* властивості діапазону */
-#ifdef CONFIG_NUMA
-        int nid;                      /* вузол NUMA */
-#endif
-};
-
-struct memblock_type {
-        unsigned long cnt;            /* скільки записів зайнято */
-        unsigned long max;            /* скільки вміщає масив зараз */
-        phys_addr_t total_size;       /* сума size усіх записів */
-        struct memblock_region *regions;
-        char *name;                   /* "memory" | "reserved" | "physmem" */
-};
-
-struct memblock {
-        bool bottom_up;               /* напрям пошуку вільного вікна */
-        phys_addr_t current_limit;    /* стеля адрес для виділень */
-        struct memblock_type memory;  /* що взагалі існує */
-        struct memblock_type reserved;/* що вже комусь належить */
-};
-```
+:::code api-memblock-interfaces/c/struktury.c
 
 Глобальний примірник `struct memblock memblock` стартує з `.bottom_up = false` і `.current_limit = MEMBLOCK_ALLOC_ANYWHERE`; обидва масиви показують на статичні `memblock_memory_init_regions` і `memblock_reserved_init_regions` розміром `INIT_MEMBLOCK_REGIONS` — це 128, і архітектура має право перевизначити окремо `INIT_MEMBLOCK_MEMORY_REGIONS` та `INIT_MEMBLOCK_RESERVED_REGIONS`.
 
@@ -100,18 +76,7 @@ struct memblock {
 
 ## Ітератори
 
-```c
-u64 i;
-phys_addr_t start, end;
-
-/* усе придатне, крім від'єднуваного та знайденого драйверами */
-for_each_mem_range(i, &start, &end)
-        pr_info("RAM %pa..%pa\n", &start, &end);
-
-/* вільне = memory мінус reserved, з фільтром за вузлом і прапорцями */
-for_each_free_mem_range(i, NUMA_NO_NODE, MEMBLOCK_NONE, &start, &end, NULL)
-        pr_info("free %pa..%pa\n", &start, &end);
-```
+:::code api-memblock-interfaces/c/iteratory.h
 
 Обидва — обгортки над `__for_each_mem_range()`, який крутить `__next_mem_range()`: нижні 32 біти лічильника `i` індексують перший масив, верхні — проміжки між записами другого. Кінець діапазону виключний, тобто вікно це `start ≤ x < end`. Зворотні напрями — `for_each_mem_range_rev()` і `for_each_free_mem_range_reverse()`; обхід по номерах кадрів на кожен вузол — `for_each_mem_pfn_range(i, nid, &spfn, &epfn, &out_nid)`.
 
@@ -148,27 +113,7 @@ for_each_free_mem_range(i, NUMA_NO_NODE, MEMBLOCK_NONE, &start, &end, NULL)
 
 ## Мінімальний хід архітектурного коду
 
-```c
-/* 1. перекласти карту прошивки в memory */
-for (i = 0; i < e820_table->nr_entries; i++) {
-        struct e820_entry *e = &e820_table->entries[i];
-
-        if (e->type == E820_TYPE_RAM)
-                memblock_add(e->addr, e->size);
-}
-
-/* 2. назвати вголос усе зайняте */
-memblock_reserve(__pa_symbol(_text), __pa_symbol(_end) - __pa_symbol(_text));
-
-/* 3. підняти стелю до реально відображеної пам'яті й дозволити ріст масивів */
-memblock_set_current_limit(max_pfn_mapped << PAGE_SHIFT);
-memblock_allow_resize();
-
-/* 4. виділяти */
-u32 *tbl = memblock_alloc(nr * sizeof(*tbl), SMP_CACHE_BYTES);
-if (!tbl)
-        panic("немає ранньої пам'яті під таблицю\n");
-```
+:::code api-memblock-interfaces/c/minimalnyi-khid.c
 
 Порядок тут не косметичний: `memblock_allow_resize()` до підняття стелі означає, що подвоєному масивові нікуди лягти, а виділення до `memblock_reserve()` образу ядра просто віддасть пам'ять, у якій це ядро лежить.
 

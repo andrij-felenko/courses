@@ -27,18 +27,7 @@
 
 У коді ядра структура запиту `struct req` має такий вигляд:
 
-```c
-static struct req {
-    struct req *next;
-    struct completion done;
-    int err;
-    const char *name;
-    umode_t mode;   /* 0 => delete */
-    kuid_t uid;
-    kgid_t gid;
-    struct device *dev;
-} *requests;
-```
+:::code devtmpfs-kernel-device-node-management-d/c/main.c
 
 Кожен запит описує точне ім'я вузла (наприклад, `bus/usb/001/002`), режим доступу `mode`, власників `uid`/`gid` та вказівник на об'єкт пристрою `dev`. Нульове `mode` — це домовлений маркер вилучення вузла, окремого поля «операція» структура не має. Сама `struct req` живе на стеку викликача — під запит нічого не виділяється, — а `kdevtmpfs` кладе результат назад у поле `err` тієї самої структури.
 

@@ -57,18 +57,7 @@ void net_drop_packet(struct net_device *dev) {
 
 Макрос `ASSERT_EXCLUSIVE_BITS(var, mask)` захищає окремі біти у прапорцевому масиві `var`, задані маскою `mask`. Це дозволяє перевірити, що поки один потік змінює конкретний прапорець пристрою, жоден інший потік не намагається паралельно модифікувати ті самі біти.
 
-```c
-// Приклад захисту стану об'єкта під час утримання spinlock
-void update_device_flags(struct my_device *dev, unsigned long new_flags) {
-    spin_lock(&dev->lock);
-    
-    /* Перевіряємо, що поки ми під замком, ніхто не намагається писати в dev->flags */
-    ASSERT_EXCLUSIVE_WRITER(dev->flags);
-    dev->flags = new_flags;
-    
-    spin_unlock(&dev->lock);
-}
-```
+:::code api-kcsan-annotations/c/2-2-tverdzhennia.c
 
 ---
 
@@ -76,23 +65,7 @@ void update_device_flags(struct my_device *dev, unsigned long new_flags) {
 
 Розробники підсистем ядра можуть вручну керувати моніторингом KCSAN за допомогою безпосередніх викликів C-функцій API:
 
-```c
-#include <linux/kcsan-checks.h>
-
-/* Явна перевірка діапазону пам'яті на читання або запис */
-void kcsan_check_read(const volatile void *ptr, size_t size);
-void kcsan_check_write(const volatile void *ptr, size_t size);
-
-/* Тимчасово вимикає перевірки KCSAN для поточного потоку/контексту */
-void kcsan_disable_current(void);
-
-/* Відновлює перевірки KCSAN для поточного потоку/контексту */
-void kcsan_enable_current(void);
-
-/* Початок та кінець атомарної зони для вкладених операцій */
-void kcsan_nestable_atomic_begin(void);
-void kcsan_nestable_atomic_end(void);
-```
+:::code api-kcsan-annotations/c/kcsan-checks.h
 
 Функції `kcsan_disable_current()` та `kcsan_enable_current()` є критично важливими при розробці низькорівневих обробників переривань NMI або зон перемикання контексту MMU. Якщо потік входить у зону, де виконання інструментованих викликів `__tsan_read*` може спричинити рекурсивне завісання або порушення стек-фрейму, викликають `kcsan_disable_current()`. Лічильник вимкнення зберігається у контексті поточного CPU (`kcsan_ctx.disable_count`), що підтримує безпечну вкладеність викликів.
 

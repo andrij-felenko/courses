@@ -210,38 +210,12 @@ struct socket {
 ### `struct sock` (`include/net/sock.h`)
 Головна мережева структура транспортного та мережевого рівнів.
 
-```c
-struct sock {
-    struct sock_common    __sk_common;  /* Мережевий ідентифікатор: IP-адреси, порти, протокол, хеш-ключі */
-    unsigned char         sk_shutdown;  /* Прапорці припинення передачі (RCV_SHUTDOWN, SEND_SHUTDOWN) */
-    unsigned short        sk_type;      /* Тип сокета */
-    int                   sk_rcvbuf;    /* Поточний розмір буфера прийому у байтах */
-    int                   sk_sndbuf;    /* Поточний розмір буфера передачі у байтах */
-    struct sk_buff_head   sk_receive_queue; /* Двобічний список накопичених мережевих буферів sk_buff */
-    struct sk_buff_head   sk_write_queue;   /* Двобічний список вихідних буферів sk_buff */
-    struct socket        *sk_socket;    /* Зворотний вказівник на верхній шар struct socket */
-    struct proto         *sk_prot;      /* Таблиця протокольних функцій (tcp_prot, udp_prot) */
-    void                (*sk_data_ready)(struct sock *sk); /* Зворотний виклик розбудження процесів при надходженні даних */
-};
-```
+:::code api-socket-syscalls-and-structures/c/struct-sock-include-net.c
 
 ### `struct tcp_sock` (`include/linux/tcp.h`)
 Повна структура стану для протоколу TCP.
 
-```c
-struct tcp_sock {
-    struct inet_connection_sock inet_conn; /* Базова структура з'єднань із підтримкою LISTEN-черг */
-    u32    rcv_nxt;   /* Порядковий номер (Sequence Number) наступного очікуваного байта */
-    u32    snd_nxt;   /* Порядковий номер наступного байта для відправки */
-    u32    snd_una;   /* Порядковий номер найпершого непідтвердженого байта у мережі */
-    u32    snd_wnd;   /* Поточний розмір вікна відправки, оголошений віддаленою стороною */
-    u32    rcv_wnd;   /* Поточний розмір вікна прийому, оголошений нашим ядром */
-    u32    srtt_us;   /* Згладжений час обігу пакета (Smoothed RTT): мікросекунди, зсунуті на 3 біти вліво */
-    u32    mss_cache; /* Поточний діючий MSS для вихідних сегментів */
-    /* Алгоритм керування перевантаженням лежить рівнем нижче — у вкладеній
-       inet_conn: const struct tcp_congestion_ops *icsk_ca_ops */
-};
-```
+:::code api-socket-syscalls-and-structures/c/struct-tcp-sock-include.c
 
 ---
 

@@ -129,27 +129,7 @@ r[MAXACTIVE][:[GRP/][EVENT]] [MOD:]SYM[+0] [FETCHARGS]  # Повернення �
 
 #### Покроковий приклад створення та вилучення kprobe у терміналі:
 
-```bash
-# 1. Переконатися, що символ узагалі є в цьому ядрі (інакше запис поверне EINVAL)
-$ sudo grep ' do_sys_open$' /proc/kallsyms
-
-# 2. Створення kprobe на функцію do_sys_open із витягуванням першого аргументу (dfd)
-#    %di — регістр першого аргументу x86_64; форма +0(%di) розіменувала б його як вказівник
-$ echo 'p:my_open_probe do_sys_open dfd=%di:s32' | sudo tee /sys/kernel/tracing/kprobe_events
-
-# 3. Перевірка створення події в ієрархії events
-$ ls -l /sys/kernel/tracing/events/kprobes/my_open_probe/
-
-# 4. Увімкнення створеного динамічного зонду
-$ echo 1 | sudo tee /sys/kernel/tracing/events/kprobes/my_open_probe/enable
-
-# 5. Перегляд згенерованих подій
-$ sudo cat /sys/kernel/tracing/trace_pipe
-
-# 6. Вимкнення та вилучення створеного зонду
-$ echo 0 | sudo tee /sys/kernel/tracing/events/kprobes/my_open_probe/enable
-$ echo '-:kprobes/my_open_probe' | sudo tee /sys/kernel/tracing/kprobe_events
-```
+:::code api-debugfs-tracefs-control/sh/pokrokovyi-pryklad.sh
 
 ### Специфікація динамічних зондів uprobe_events
 
@@ -166,15 +146,4 @@ r[:[GRP/][EVENT]] PATH:OFFSET [FETCHARGS]  # Повернення з функц�
 
 #### Приклад створення uprobe для моніторингу викликів malloc у бінарному файлі libc:
 
-```bash
-# 1. Знаходження зміщення функції malloc у системній бібліотеці libc.
-#    Значення залежить від конкретної збірки glibc — беріть своє, а не з прикладу
-$ nm -D /lib/x86_64-linux-gnu/libc.so.6 | grep ' malloc$'
-00000000000982d0 T malloc
-
-# 2. Встановлення зонду на знайдене зміщення із витягуванням першого аргументу (%di)
-$ echo 'p:user_malloc /lib/x86_64-linux-gnu/libc.so.6:0x982d0 bytes=%di:u64' | sudo tee /sys/kernel/tracing/uprobe_events
-
-# 3. Увімкнення uprobe зонду
-$ echo 1 | sudo tee /sys/kernel/tracing/events/uprobes/user_malloc/enable
-```
+:::code api-debugfs-tracefs-control/sh/pryklad-stvorennia-uprobe.sh

@@ -41,31 +41,7 @@
 
 Погляньмо на ключові поля цієї структури, розділені за їхнім функціональним призначенням:
 
-```c
-struct dentry {
-    unsigned int d_flags;               /* Прапорці стану (DCACHE_*) */
-    seqcount_spinlock_t d_seq;          /* Лічильник версій seqlock для RCU-walk */
-    struct hlist_bl_node d_hash;        /* Вузол у глобальній dentry_hashtable */
-    struct dentry *d_parent;            /* Покажчик на батьківський dentry */
-    struct qstr d_name;                 /* Ім'я: hashlen (довжина + хеш) + *name */
-    struct inode *d_inode;              /* Покажчик на inode (NULL = негативний dentry) */
-    unsigned char d_iname[32];          /* Вбудований буфер коротких імен */
-
-    struct lockref d_lockref;           /* Об'єднані d_lock (spinlock) + d_count */
-    const struct dentry_operations *d_op;/* Спеціалізовані операції ФС */
-    struct super_block *d_sb;           /* Суперблок файлової системи */
-    unsigned long d_time;               /* Часова мітка чинності (для NFS/CIFS) */
-    void *d_fsdata;                     /* Приватні дані драйвера ФС */
-
-    union {
-        struct list_head d_lru;         /* Вузол у черзі витіснення LRU */
-        struct callback_head d_rcu;     /* Захист вивільнення через RCU */
-    };
-    struct list_head d_subdirs;         /* Голова списку дочірніх dentry */
-    struct list_head d_child;           /* Вузол у списку d_subdirs батька */
-    struct hlist_node d_alias;          /* Список аліасів одного inode */
-} __randomize_layout;
-```
+:::code dentry-cache-d/c/anatomiia-struct-dentry.c
 
 ![Анатомія struct dentry: поля та вказівники зв'язків](img/dentry-structure.svg)
 *Анатомія структури dentry: внутрішні поля керування, ієрархічні зв'язки та інтеграція з хеш-таблицею, списками LRU та inode.*
@@ -277,25 +253,7 @@ RCU-walk не може вирішити всі ситуації самостій
 
 Коли виникає будь-яка з цих подій, ядро викликає процедуру `unlazy_walk()`:
 
-```c
-/* Спроба перевести шлях з RCU-walk у звичайне володіння посиланнями */
-static int unlazy_walk(struct nameidata *nd, struct dentry *dentry, unsigned seq)
-{
-    struct mount *mnt = nd->path.mnt;
-
-    /* 1. Атомарно збільшуємо лічильники посилань mnt та dentry */
-    if (!legitimize_path(nd, &nd->path, seq))
-        goto out_drop;
-
-    /* 2. Виходимо з критичної секції RCU */
-    rcu_read_unlock();
-    return 0;
-
-out_drop:
-    rcu_read_unlock();
-    return -ECHILD; /* Збій: перезапустити весь обхід у Ref-walk від самого початку */
-}
-```
+:::code dentry-cache-d/c/2-tochky-vidkatu-unlazy.c
 
 Функція `legitimize_path()` використовує атомарну інструкцію `lockref_get_not_dead()` для інкременту `d_count`. Якщо запис не встигли знищити, RCU-walk плавно перетворюється на Ref-walk для залишку шляху. Якщо ж `legitimize_path()` зазнала невдачі, ядро повністю перезапускає обхід рядка шляху від початкової точки в режимі Ref-walk.
 

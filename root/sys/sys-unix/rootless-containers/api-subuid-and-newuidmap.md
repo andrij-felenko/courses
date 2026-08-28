@@ -180,18 +180,7 @@ newuidmap 14205 0 1000 1 1 100000 65536
 // Створення нового user namespace у поточному потоці C
 int res = unshare(CLONE_NEWUSER);
 ```
-```cpp
-#include <sched.h>
-#include <system_error>
-#include <unistd.h>
-
-// Системний виклик unshare з обробкою помилок C++
-void create_user_namespace() {
-    if (::unshare(CLONE_NEWUSER) == -1) {
-        throw std::system_error(errno, std::generic_category(), "unshare(CLONE_NEWUSER) failed");
-    }
-}
-```
+:::code api-subuid-and-newuidmap/cpp/systemnyi-vyklyk-unshare-2.cpp
 :::
 
 Сучасний системний виклик `clone3(2)` у ядрі Linux 5.3+ використовує структуру `struct clone_args` для передачі розширеного набору прапорців:
@@ -208,24 +197,7 @@ struct clone_args cl_args = {
 };
 long pid = syscall(SYS_clone3, &cl_args, sizeof(cl_args));
 ```
-```cpp
-#include <linux/sched.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <system_error>
-
-pid_t invoke_clone3_user_ns() {
-    struct clone_args cl_args{};
-    cl_args.flags = CLONE_NEWUSER | CLONE_NEWNS | CLONE_NEWNET;
-    cl_args.exit_signal = SIGCHLD;
-    
-    long pid = ::syscall(SYS_clone3, &cl_args, sizeof(cl_args));
-    if (pid == -1) {
-        throw std::system_error(errno, std::generic_category(), "clone3 failed");
-    }
-    return static_cast<pid_t>(pid);
-}
-```
+:::code api-subuid-and-newuidmap/cpp/systemnyi-vyklyk-unshare-2-2.cpp
 :::
 
 Після успішного виконання виклику `unshare(CLONE_NEWUSER)` поточний процес отримує новий простір імен користувачів, а його ефективний UID та GID тимчасово змінюються на `65534` (`nobody` / `overflowuid`), поки не буде завершено конфігурацію файлів `uid_map` та `gid_map`.
@@ -245,18 +217,7 @@ int fd = open("/proc/14205/ns/user", O_RDONLY);
 int res = setns(fd, CLONE_NEWUSER);
 close(fd);
 ```
-```cpp
-#include <sched.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <system_error>
-
-void join_user_namespace(int fd) {
-    if (::setns(fd, CLONE_NEWUSER) == -1) {
-        throw std::system_error(errno, std::generic_category(), "setns(CLONE_NEWUSER) failed");
-    }
-}
-```
+:::code api-subuid-and-newuidmap/cpp/systemnyi-vyklyk-setns-2.cpp
 :::
 
 Файловий дескриптор `fd` відкривається з процедурного файлу `/proc/[PID]/ns/user`. Для успішного переходу процес повинен мати capability `CAP_SYS_ADMIN` у цільовому user namespace.

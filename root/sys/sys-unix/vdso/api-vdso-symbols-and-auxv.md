@@ -74,58 +74,8 @@
 Нижче наведено розбір полів вихідної структури `struct vdso_data` з вихідного коду ядра Linux (`include/vdso/datapage.h`):
 
 :::tabs
-```c
-/* Вихідна структура з заголовка ядра Linux include/vdso/datapage.h */
-struct vdso_timestamp {
-    uint64_t sec;       /* Секунди поточного часу */
-    uint64_t nsec;      /* Наносекунди поточного часу */
-};
-
-struct vdso_data {
-    uint32_t seq;       /* 32-бітний лічильник послідовності Seqlock */
-    int32_t  clock_mode;/* Апаратний режим годинника (VDSO_CLOCKMODE_*) */
-    uint64_t cycle_last;/* Значення TSC/таймера під час останнього тику ядра */
-    uint64_t mask;      /* Битмаска розрядності апаратного лічильника */
-    uint32_t mult;      /* Множник для переведення тактів у наносекунди */
-    uint32_t shift;     /* Зсув праворуч для нормування множення */
-    
-    struct vdso_timestamp basetime[CS_BASES]; /* Масив базового часу для різних годинників */
-    
-    int32_t  tz_minuteswest; /* Зсув часового поясу у хвилинах на захід від Гринвіча */
-    int32_t  tz_dsttime;     /* Прапорець літнього часу (DST) */
-    
-    uint32_t hrtimer_res;    /* Роздільна здатність системного таймера високої точності */
-    uint32_t __unused;       /* Поле вирівнювання структури у пам'яті */
-};
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-// C++20 еквівалент структури vdso_data з вирівнюванням
-struct VdsoTimestamp {
-    std::uint64_t sec;   // Секунди поточного часу
-    std::uint64_t nsec;  // Наносекунди поточного часу
-};
-
-struct VdsoData {
-    std::uint32_t seq;        // Лічильник послідовності Seqlock
-    std::int32_t  clock_mode; // Режим апаратного таймера (VDSO_CLOCKMODE_*)
-    std::uint64_t cycle_last; // Значення TSC під час тику ядра
-    std::uint64_t mask;       // Маска розрядності лічильника
-    std::uint32_t mult;       // Множник конвертації у наносекунди
-    std::uint32_t shift;      // Зсув нормування
-    
-    static constexpr std::size_t kClockBases = 4;
-    std::array<VdsoTimestamp, kClockBases> basetime; // Базовий час годинників
-    
-    std::int32_t  tz_minuteswest;
-    std::int32_t  tz_dsttime;
-    
-    std::uint32_t hrtimer_res;
-    std::uint32_t unused;
-};
-```
+:::code api-vdso-symbols-and-auxv/c/main.c
+:::code api-vdso-symbols-and-auxv/cpp/main.cpp
 :::
 
 ### Деталізація режимів апаратного годинника (`clock_mode`)

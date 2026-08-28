@@ -61,24 +61,7 @@
 
 ## Прапорці дескрипторів і кілець
 
-```c
-/* include/uapi/linux/virtio_ring.h — розділена черга */
-#define VRING_DESC_F_NEXT             1   /* маска: ланцюг триває, номер у полі next  */
-#define VRING_DESC_F_WRITE            2   /* маска: у цей буфер пише пристрій         */
-#define VRING_DESC_F_INDIRECT         4   /* маска: буфер сам є таблицею дескрипторів */
-
-#define VRING_USED_F_NO_NOTIFY        1   /* пристрій → драйверові: не кікай          */
-#define VRING_AVAIL_F_NO_INTERRUPT    1   /* драйвер → пристроєві: не переривай       */
-
-/* упакована черга */
-#define VRING_PACKED_DESC_F_AVAIL     7   /* НОМЕР БІТА, не маска: 1 << 7  = 0x0080   */
-#define VRING_PACKED_DESC_F_USED     15   /* НОМЕР БІТА, не маска: 1 << 15 = 0x8000   */
-#define VRING_PACKED_EVENT_F_WRAP_CTR 15  /* НОМЕР БІТА в структурі придушення подій  */
-
-#define VRING_PACKED_EVENT_FLAG_ENABLE  0x0  /* не маски, а ЗНАЧЕННЯ поля desc_event_flags */
-#define VRING_PACKED_EVENT_FLAG_DISABLE 0x1
-#define VRING_PACKED_EVENT_FLAG_DESC    0x2  /* будити на конкретній позиції; потребує EVENT_IDX */
-```
+:::code api-virtio-transports/c/praportsi-deskryptoriv-i.c
 
 У межах одного заголовка вжито три різні угоди — маска, номер біта й значення поля, — і всі три записано однаково, маленьким числом без жодної позначки. Тому `flags & VRING_PACKED_DESC_F_AVAIL` збирається без попереджень, а перевіряє три молодші біти замість сьомого; правильно тут `flags & (1 << VRING_PACKED_DESC_F_AVAIL)`.
 
@@ -96,25 +79,7 @@
 
 Де саме лежать регістри, пристрій оголошує ланцюжком записів у просторі конфігурації PCI; самі структури живуть у вікнах BAR ([PCIe](root:com-devices/pcie) — простір конфігурації малий і повільний, а вікна BAR відображаються в пам'ять і читаються з нормальною швидкістю).
 
-```c
-/* include/uapi/linux/virtio_pci.h */
-struct virtio_pci_cap {
-        __u8   cap_vndr;    /* 0x09 — PCI_CAP_ID_VNDR, запис виробника */
-        __u8   cap_next;
-        __u8   cap_len;
-        __u8   cfg_type;    /* яка саме структура — таблиця нижче      */
-        __u8   bar;         /* у якому вікні BAR вона лежить, 0–5      */
-        __u8   id;          /* коли таких структур кілька              */
-        __u8   padding[2];
-        __le32 offset;      /* зсув усередині вікна                    */
-        __le32 length;
-};
-
-struct virtio_pci_notify_cap {
-        struct virtio_pci_cap cap;
-        __le32 notify_off_multiplier;
-};
-```
+:::code api-virtio-transports/c/virtio-pci.c
 
 | `cfg_type` | Ім'я | Що всередині |
 |---|---|---|
@@ -126,26 +91,7 @@ struct virtio_pci_notify_cap {
 | 8 | `VIRTIO_PCI_CAP_SHARED_MEMORY_CFG` | ділянка спільної пам'яті (`virtiofs` з прямим доступом, графіка) |
 | 9 | `VIRTIO_PCI_CAP_VENDOR_CFG` | ділянка, зміст якої визначає виробник |
 
-```c
-struct virtio_pci_common_cfg {
-        __le32 device_feature_select;  /* RW: яку половину маски пристрою читаємо  */
-        __le32 device_feature;         /* RO                                       */
-        __le32 guest_feature_select;   /* RW: яку половину маски драйвера пишемо   */
-        __le32 guest_feature;          /* RW                                       */
-        __le16 msix_config;            /* RW: вектор MSI-X для змін конфігурації   */
-        __le16 num_queues;             /* RO                                       */
-        __u8   device_status;          /* RW: байт статусу                         */
-        __u8   config_generation;      /* RO                                       */
-        __le16 queue_select;           /* RW: далі йдеться про ЦЮ чергу            */
-        __le16 queue_size;             /* RW: степінь двійки                       */
-        __le16 queue_msix_vector;      /* RW                                       */
-        __le16 queue_enable;           /* RW: 1 — черга ввімкнена                  */
-        __le16 queue_notify_off;       /* RO: позиція черги в області сповіщень    */
-        __le32 queue_desc_lo,   queue_desc_hi;   /* RW: адреса таблиці ланок       */
-        __le32 queue_avail_lo,  queue_avail_hi;  /* RW: адреса доступного кільця   */
-        __le32 queue_used_lo,   queue_used_hi;   /* RW: адреса ужитого кільця      */
-};
-```
+:::code api-virtio-transports/c/virtio-pci-2.c
 
 Половина полів має сенс лише після запису в `queue_select` — це не набір регістрів на кожну чергу, а одне вікно, яке щоразу націлюють. Адресу, куди кікати конкретну чергу, складають так:
 
@@ -213,32 +159,7 @@ virtio_mmio.device=0x100@0x100b0000:48
 
 Уся різниця між трьома транспортами лежить за одним набором операцій. Драйвер конкретного пристрою його не бачить.
 
-```c
-/* include/linux/virtio_config.h — це реалізує транспорт */
-struct virtio_config_ops {
-        void (*get)(struct virtio_device *vdev, unsigned offset,
-                    void *buf, unsigned len);
-        void (*set)(struct virtio_device *vdev, unsigned offset,
-                    const void *buf, unsigned len);
-        u32  (*generation)(struct virtio_device *vdev);
-        u8   (*get_status)(struct virtio_device *vdev);
-        void (*set_status)(struct virtio_device *vdev, u8 status);
-        void (*reset)(struct virtio_device *vdev);
-        int  (*find_vqs)(struct virtio_device *vdev, unsigned int nvqs,
-                         struct virtqueue *vqs[],
-                         struct virtqueue_info vqs_info[],
-                         struct irq_affinity *desc);
-        void (*del_vqs)(struct virtio_device *vdev);
-        u64  (*get_features)(struct virtio_device *vdev);
-        int  (*finalize_features)(struct virtio_device *vdev);
-        int  (*set_vq_affinity)(struct virtqueue *vq,
-                                const struct cpumask *cpu_mask);
-        /* … synchronize_cbs, get_vq_affinity, get_shm_region,
-             disable_vq_and_reset, enable_vq_after_reset;
-             у свіжих ядрах поруч є get_extended_features —
-             маска можливостей переросла 64 біти                */
-};
-```
+:::code api-virtio-transports/c/virtio_config.h
 
 Черги драйвер отримує одним викликом; сигнатура змінилася в ядрі 6.11, і код, скопійований зі старшого драйвера, просто не збереться.
 
@@ -256,48 +177,11 @@ int err = virtio_find_vqs(vdev, 2, vqs, vqs_info, NULL);
 
 Далі — сама робота з чергою:
 
-```c
-int   virtqueue_add_sgs(struct virtqueue *vq, struct scatterlist *sgs[],
-                        unsigned int out_sgs, unsigned int in_sgs,
-                        void *data, gfp_t gfp);
-int   virtqueue_add_outbuf(struct virtqueue *vq, struct scatterlist sg[],
-                           unsigned int num, void *data, gfp_t gfp);
-int   virtqueue_add_inbuf(struct virtqueue *vq, struct scatterlist sg[],
-                          unsigned int num, void *data, gfp_t gfp);
-bool  virtqueue_kick(struct virtqueue *vq);
-void *virtqueue_get_buf(struct virtqueue *vq, unsigned int *len);
-void  virtqueue_disable_cb(struct virtqueue *vq);
-bool  virtqueue_enable_cb(struct virtqueue *vq);
-bool  virtqueue_enable_cb_delayed(struct virtqueue *vq);
-```
+:::code api-virtio-transports/c/iadernyi-bik-chym-draiver.h
 
 Порядок аргументів `add_sgs` не довільний: спершу йдуть `out_sgs` списків, які пристрій читає, потім `in_sgs`, у які він пише, — межа проходить по цілих [списках розкиданих шматків](root:hw-arch/scatter-gather) (`scatterlist` описує запит як послідовність пар «сторінка, довжина», бо суцільним шматком пам'яті він не буває), тож один список розділити навпіл за напрямком не можна. Указівник `data` — це мітка запиту: рівно її поверне `virtqueue_get_buf()`, коли робота скінчиться.
 
-```c
-/* один запит: заголовок пристрій читає, сторінку — заповнює */
-struct scatterlist hdr_sg, data_sg, *sgs[2];
-
-sg_init_one(&hdr_sg,  &req->hdr, sizeof(req->hdr));
-sg_init_one(&data_sg,  req->buf, PAGE_SIZE);
-sgs[0] = &hdr_sg;    /* out */
-sgs[1] = &data_sg;   /* in  */
-
-if (virtqueue_add_sgs(vq, sgs, 1, 1, req, GFP_ATOMIC) == 0)
-        virtqueue_kick(vq);
-
-/* зворотний виклик черги — саме таким циклом, не інакше */
-static void cb_recv(struct virtqueue *vq)
-{
-        struct my_req *req;
-        unsigned int len;
-
-        virtqueue_disable_cb(vq);
-        do {
-                while ((req = virtqueue_get_buf(vq, &len)) != NULL)
-                        finish(req, len);
-        } while (!virtqueue_enable_cb(vq));   /* false — поки гребли, приїхало ще */
-}
-```
+:::code api-virtio-transports/c/iadernyi-bik-chym-draiver.c
 
 Найчастіші промахи саме тут:
 

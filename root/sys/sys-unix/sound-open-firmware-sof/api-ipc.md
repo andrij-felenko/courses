@@ -18,22 +18,7 @@ struct sof_ipc_cmd_hdr {
     uint32_t cmd;       /* Бітова маска: [31:28] Категорія | [27:16] Команда | [15:0] Підтип */
 } __attribute__((packed));
 ```
-```cpp
-// C++ representation for IPC v3 Header
-#include <cstdint>
-
-struct alignas(4) IpcCmdHeader {
-    std::uint32_t size{sizeof(IpcCmdHeader)};
-    std::uint32_t cmd{0};
-
-    [[nodiscard]] constexpr std::uint32_t getCategory() const noexcept {
-        return (cmd >> 28) & 0x0F;
-    }
-    [[nodiscard]] constexpr std::uint32_t getCommand() const noexcept {
-        return (cmd >> 16) & 0x0FFF;
-    }
-};
-```
+:::code api-ipc/cpp/1-protokol-ipc-v3.cpp
 :::
 
 ### Команди створення та налаштування PCM потоків (`SOF_IPC_STREAM_...`)
@@ -43,40 +28,8 @@ struct alignas(4) IpcCmdHeader {
 Поле `comp_id` посилається на унікальний ідентифікатор Host-компонента в графі обробки, створеному під час зчитування топології. Поле `buffer_size` вказує точний розмір кільцевого DRAM-буфера, виділеного ядрам Linux через `dma_alloc_coherent()`.
 
 :::tabs
-```c
-/* C structure for Stream Parameters configuration */
-struct sof_ipc_stream_params {
-    struct sof_ipc_cmd_hdr hdr;
-    uint32_t comp_id;          /* ID Host-компонента в графу DSP */
-    uint32_t buffer_fmt;       /* Формат буфера (interleaved / non-interleaved) */
-    uint32_t frame_fmt;        /* Формат семплів (S16_LE, S24_LE, S32_LE) */
-    uint32_t rate;             /* Частота дискретизації у Гц (наприклад, 48000) */
-    uint32_t channels;         /* Кількість каналів (1, 2, 4, 8) */
-    uint32_t buffer_size;      /* Загальний розмір ring-буфера в Host DRAM (байти) */
-    uint32_t period_size;      /* Розмір одного періоду переривання (байти) */
-    uint32_t sample_container_bytes; /* Розмір контейнера семпла у пам'яті (зазвичай 4 байти) */
-    uint32_t host_period_bytes;/* Інтервал генерації Host DMA переривань */
-    uint16_t reserved[4];      /* Резервні поля вирівнювання */
-} __attribute__((packed));
-```
-```cpp
-// C++ representation for Stream Parameters configuration
-#include <cstdint>
-
-struct alignas(4) StreamParamsConfig {
-    IpcCmdHeader hdr;
-    std::uint32_t compId{0};
-    std::uint32_t bufferFmt{0};
-    std::uint32_t frameFmt{0};
-    std::uint32_t rate{48000};
-    std::uint32_t channels{2};
-    std::uint32_t bufferSize{16384};
-    std::uint32_t periodSize{4096};
-    std::uint32_t sampleContainerBytes{4};
-    std::uint32_t hostPeriodBytes{4096};
-    std::uint16_t reserved[4]{0};
-};
-```
+:::code api-ipc/c/main.c
+:::code api-ipc/cpp/komandy-stvorennia-ta.cpp
 :::
 
 У відповідь на команду `SOF_IPC_STREAM_PCM_PARAMS` прошивка SOF заповнює та повертає структуру `sof_ipc_pcm_params_reply`, у якій вказує виділені адреси буферів SRAM у локальному просторі DSP та апаратні параметри зсуву DMA.
@@ -96,23 +49,7 @@ struct sof_ipc_stream_trigger {
     uint32_t trigger;          /* Команда тригера: START / STOP / PAUSE */
 } __attribute__((packed));
 ```
-```cpp
-// C++ representation for Stream Trigger control
-#include <cstdint>
-
-enum class StreamTriggerOp : std::uint32_t {
-    Start   = 0,
-    Stop    = 1,
-    Pause   = 2,
-    Release = 3
-};
-
-struct alignas(4) StreamTriggerCmd {
-    IpcCmdHeader hdr;
-    std::uint32_t compId{0};
-    StreamTriggerOp trigger{StreamTriggerOp::Start};
-};
-```
+:::code api-ipc/cpp/upravlinnia-stanom-potoku.cpp
 :::
 
 ## 2. Протокол IPC v4 (Модульна архітектура Intel / SOF v4)

@@ -31,48 +31,11 @@
 3. **`struct net_bridge_fdb_entry`** — описує запис у таблиці комутації FDB (Forwarding Database).
 4. **`struct net_bridge_vlan_group`** — містить інформацію про конфігурацію VLAN на рівні моста або окремого порту.
 
-```c
-struct net_bridge {
-    spinlock_t              lock;
-    spinlock_t              hash_lock;
-    struct list_head        port_list;          /* Список підключених портів */
-    struct net_device       *dev;               /* Власний net_device моста */
-    struct rhashtable       fdb_hash_tbl;       /* Таблиця комутації FDB */
-    
-    /* Параметри STP (Spanning Tree Protocol) */
-    bridge_id               bridge_id;          /* Пріоритет + MAC-адреса */
-    unsigned long           ageing_time;        /* Час застарівання FDB (jiffies) */
-    u8                      stp_enabled;        /* 0=OFF, 1=KERNEL, 2=USER */
-    
-    /* Фільтрація VLAN */
-    u8                      vlan_filtering;     /* Прапорець vlan_filtering (0 або 1) */
-    u16                     default_pvid;       /* PVID за замовчуванням (зазвичай 1) */
-    struct net_bridge_vlan_group __rcu *vlgrp;  /* База конфігурацій VLAN */
-    
-    /* Багатоадресна розсилка (Multicast Snooping) */
-    struct net_bridge_mdb_htable __rcu *mdb;    /* База даних Multicast (MDB) */
-    u8                      multicast_snooping; /* 1 = увімкнено IGMP snooping */
-};
-```
+:::code linux-bridge-d/c/kliuchovi-struktury-danykh.c
 
 Кожен порт, підключений до моста, описується структурою `net_bridge_port`:
 
-```c
-struct net_bridge_port {
-    struct net_bridge       *br;                /* Вказівник на батьківський міст */
-    struct net_device       *dev;               /* Підпорядкований інтерфейс (eth0, veth0) */
-    struct list_head        list;               /* Елемент списку br->port_list */
-    
-    u8                      state;              /* Стан порту STP (BR_STATE_*) */
-    u8                      priority;           /* Пріоритет порту STP */
-    u32                     path_cost;          /* Вартість шляху STP */
-    u16                     port_no;            /* Внутрішній індекс порту в мості */
-    u32                     flags;              /* Прапорці (BR_LEARNING, BR_FLOOD, BR_ISOLATED) */
-    
-    struct net_bridge_vlan_group __rcu *vlgrp;  /* VLAN-конфігурація порту */
-    struct rcu_head         rcu;
-};
-```
+:::code linux-bridge-d/c/kliuchovi-struktury-danykh-2.c
 
 ### Контекст пакета та структура `br_input_skb_cb`
 
@@ -165,24 +128,7 @@ echo 0x4000 > /sys/class/net/br0/bridge/group_fwd_mask
 3. **Гілка 3: Розсилка (Flooding)**  
    Якщо MAC-адреса є широкомовною (`FF:FF:FF:FF:FF:FF`), багатоадресною (Multicast) або невідомою для FDB (Unknown Unicast), комутатор змушений виконати лавинну розсилку через функцію `br_flood()`. Пакет клонується за допомогою `skb_clone()` і реплікується на всі активні порти моста у стані `FORWARDING`, які належать до того самого VLAN, за винятком вхідного порту.
 
-```c
-/* Спрощена схема вибору маршруту в br_handle_frame_finish */
-if (is_multicast_ether_addr(dest)) {
-    if (is_broadcast_ether_addr(dest)) {
-        br_flood(br, skb, BR_PKT_BROADCAST, false);
-    } else {
-        /* Обробка через IGMP snooping / MDB або загальний multicast flood */
-        br_multicast_forward(br, skb, false);
-    }
-} else if ((dst = br_fdb_find_rcu(br, dest, vid)) != NULL) {
-    if (dst->is_local)
-        return br_pass_frame_up(skb);
-    br_forward(dst->dst, skb, false, true);
-} else {
-    /* Невідомий Unicast: розсилка на всі порти */
-    br_flood(br, skb, BR_PKT_UNICAST, false);
-}
-```
+:::code linux-bridge-d/c/krok-3-pryiniattia.c
 
 ---
 
@@ -192,21 +138,7 @@ if (is_multicast_ether_addr(dest)) {
 
 ### Структура запису FDB
 
-```c
-struct net_bridge_fdb_entry {
-    struct rhash_head       rhlist;
-    struct net_bridge_port  *dst;           /* Порт виходу */
-    struct net_bridge_fdb_key key;          /* Ключ: { MAC-адреса, VLAN ID } */
-    struct rcu_head         rcu;
-    unsigned long           updated;        /* Час останньої активності (jiffies) */
-    unsigned long           used;
-    u16                     flags;          /* BR_FDB_LOCAL, BR_FDB_STATIC */
-    u8                      is_local:1,     /* 1 = MAC належить самому хосту */
-                            is_static:1,    /* 1 = статично заданий адміністратором */
-                            is_dynamic:1,   /* 1 = вивчений автоматично */
-                            added_by_user:1;
-};
-```
+:::code linux-bridge-d/c/struktura-zapysu-fdb.c
 
 ### Хешування та пошук у FDB
 
@@ -355,20 +287,7 @@ bridge link show dev eth0
 
 Таблиця FDB при увімкненому VLAN filtering стає двовимірною: пошук порту призначення здійснюється не просто за MAC-адресою, а за парою `{MAC, VLAN ID}`. Це забезпечує повну ізоляцію: якщо хост A (VLAN 10) і хост B (VLAN 20) мають однакові MAC-адреси або надсилають широкомовні ARP-запити, вони ніколи не побачать трафік один одного всередині моста.
 
-```bash
-# Увімкнення VLAN Filtering на мості br0
-sudo ip link set dev br0 type bridge vlan_filtering 1
-
-# Налаштування порту eth1 як Access Port у VLAN 10 (PVID 10, вихід без тегу)
-sudo bridge vlan del dev eth1 vid 1
-sudo bridge vlan add dev eth1 vid 10 pvid untagged
-
-# Налаштування порту eth2 як Trunk Port (пропускає теговані VLAN 10, 20 та 30)
-sudo bridge vlan del dev eth2 vid 1
-sudo bridge vlan add dev eth2 vid 10
-sudo bridge vlan add dev eth2 vid 20
-sudo bridge vlan add dev eth2 vid 30
-```
+:::code linux-bridge-d/sh/main.sh
 
 ---
 

@@ -106,71 +106,8 @@
 Розглянемо практичну реалізацію перевірки існування користувача та атомарного читання системної бази даних:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <pwd.h>
-#include <shadow.h>
-#include <errno.h>
-
-/* Перевірка стану системного користувача за допомогою стандартного C API */
-int check_system_user(const char *username, uid_t *out_uid) {
-    struct passwd *pw = getpwnam(username);
-    if (pw == NULL) {
-        if (errno == 0) {
-            /* Користувача не знайдено */
-            return 0;
-        }
-        perror("Помилка при виклику getpwnam");
-        return -1;
-    }
-    
-    if (out_uid != NULL) {
-        *out_uid = pw->pw_uid;
-    }
-    return 1;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <optional>
-#include <system_error>
-#include <cerrno>
-#include <pwd.h>
-
-// Ідіоматична C++ обгортка над системним викликом POSIX getpwnam
-class UserDatabaseReader {
-public:
-    struct UserInfo {
-        std::string name;
-        uid_t uid;
-        gid_t gid;
-        std::string home;
-        std::string shell;
-    };
-
-    static std::optional<UserInfo> find_user(const std::string& username) {
-        errno = 0;
-        struct passwd* pw = ::getpwnam(username.c_str());
-        if (pw == nullptr) {
-            if (errno != 0) {
-                throw std::system_error(errno, std::generic_category(), "Помилка getpwnam для " + username);
-            }
-            return std::nullopt;
-        }
-
-        return UserInfo{
-            .name = pw->pw_name,
-            .uid = pw->pw_uid,
-            .gid = pw->pw_gid,
-            .home = pw->pw_dir,
-            .shell = pw->pw_shell
-        };
-    }
-};
-```
+:::code sysusers-declarative-accounts-d/c/main.c
+:::code sysusers-declarative-accounts-d/cpp/main.cpp
 :::
 
 ## Інтеграція з пакетними менеджерами та генерацією образів

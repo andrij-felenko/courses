@@ -154,19 +154,7 @@ $ cc -std=gnu17 -dM -E -x c /dev/null | grep -c __STRICT_ANSI__
 
 Канонічний шаблон коду охоплює всі чотири стани:
 
-```c
-#include <unistd.h>
-
-static int have_spawn(void) {
-#if !defined(_POSIX_SPAWN) || _POSIX_SPAWN == -1
-    return 0;                          /* немає й не буде */
-#elif _POSIX_SPAWN == 0
-    return sysconf(_SC_SPAWN) > 0;     /* вирішиться на місці */
-#else
-    return 1;                          /* є завжди */
-#endif
-}
-```
+:::code api-conformance-query/c/vidpovid-systemy-1-makros.c
 
 `#if !defined(X) || X == -1` — не надмірність: у препроцесорі невизначене ім'я перетворюється на `0`, тож без `defined` стан «не визначено» неможливо відрізнити від стану «нуль».
 
@@ -336,101 +324,13 @@ getconf -a                              # розширення glibc, у ста�
 
 **Умова: Debian 12, glibc 2.36, x86-64.**
 
-```sh
-$ getconf _POSIX_VERSION
-200809
-$ getconf PATH
-/bin:/usr/bin
-$ getconf ARG_MAX
-2097152
-$ getconf PAGESIZE
-4096
-$ getconf NAME_MAX /home
-255
-$ getconf PATH_MAX /home
-4096
-$ getconf _POSIX_TRACE
-undefined
-$ getconf LFS_CFLAGS
-
-$ echo $?
-0
-```
+:::code api-conformance-query/sh/main.sh
 
 Порожній рядок після `LFS_CFLAGS` — правильна відповідь: на 64-бітній системі великі файли працюють без жодних додаткових ключів, тож додавати нема чого. На 32-бітній та сама команда видала б `-D_FILE_OFFSET_BITS=64`. Ключ `-a` виводить усі відомі системі змінні одразу — зручно, щоб побачити повний перелік конкретної машини, але покладатися на нього в переносному скрипті не можна: стандарт такої форми не має.
 
 ## Мінімальна робоча програма
 
-```c
-/* conf.c — усі чотири способи спитати систему.
-   збірка: cc -std=c17 -D_POSIX_C_SOURCE=200809L -o conf conf.c */
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-/* 1. Час компіляції: що обіцяли заголовки */
-static void compile_time(void) {
-#ifdef _POSIX_VERSION
-    printf("_POSIX_VERSION  = %ldL\n", (long)_POSIX_VERSION);
-#else
-    printf("_POSIX_VERSION  не визначено\n");
-#endif
-#if !defined(_POSIX_SPAWN) || _POSIX_SPAWN == -1
-    printf("posix_spawn     : немає\n");
-#elif _POSIX_SPAWN == 0
-    printf("posix_spawn     : питати на виконанні\n");
-#else
-    printf("posix_spawn     : є завжди (%ldL)\n", (long)_POSIX_SPAWN);
-#endif
-}
-
-/* 2. Час виконання: система */
-static void ask_sys(int name, const char *label) {
-    errno = 0;
-    long v = sysconf(name);
-    if (v != -1)          printf("%-16s: %ld\n", label, v);
-    else if (errno == 0)  printf("%-16s: межі немає\n", label);
-    else                  printf("%-16s: %s\n", label, strerror(errno));
-}
-
-/* 3. Час виконання: конкретний шлях */
-static void ask_path(const char *path, int name, const char *label) {
-    errno = 0;
-    long v = pathconf(path, name);
-    if (v != -1)          printf("%-16s(%s): %ld\n", label, path, v);
-    else if (errno == 0)  printf("%-16s(%s): межі немає\n", label, path);
-    else                  printf("%-16s(%s): %s\n", label, path, strerror(errno));
-}
-
-/* 4. Час виконання: рядкові значення */
-static void ask_str(int name, const char *label) {
-    errno = 0;
-    size_t n = confstr(name, NULL, 0);
-    if (n == 0) {
-        printf("%-16s: %s\n", label, errno ? "невідома назва" : "значення немає");
-        return;
-    }
-    char *buf = malloc(n);
-    if (buf == NULL) { perror("malloc"); return; }
-    confstr(name, buf, n);
-    printf("%-16s: %s\n", label, buf);
-    free(buf);
-}
-
-int main(void) {
-    compile_time();
-    ask_sys(_SC_VERSION,  "_SC_VERSION");
-    ask_sys(_SC_PAGESIZE, "_SC_PAGESIZE");
-    ask_sys(_SC_OPEN_MAX, "_SC_OPEN_MAX");
-    ask_sys(_SC_THREADS,  "_SC_THREADS");
-    ask_path("/", _PC_NAME_MAX, "_PC_NAME_MAX");
-    ask_path("/", _PC_PIPE_BUF, "_PC_PIPE_BUF");
-    ask_str(_CS_PATH, "_CS_PATH");
-    return 0;
-}
-```
+:::code api-conformance-query/c/conf.c
 
 **Умова: та сама машина — Debian 12, glibc 2.36, x86-64.**
 

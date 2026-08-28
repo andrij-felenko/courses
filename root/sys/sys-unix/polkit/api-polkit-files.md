@@ -113,19 +113,7 @@ string   polkit.spawn(string[] argv);
 
 **Час.** Скрипт, що виконується довше за 15 секунд, вбивають без винятку. `polkit.spawn()` чекає на помічника не довше за 10 секунд, повертає його стандартний вивід рядком і кидає виняток, якщо той завершився не нулем.
 
-```js
-polkit.addRule(function (action, subject) {
-    if (action.id.indexOf("org.freedesktop.udisks2.") === 0 &&
-        action.lookup("drive.removable") === "true" &&
-        subject.isInGroup("storage") && subject.local && subject.active) {
-        polkit.log("udisks дозволено для " + subject.user);
-        return polkit.Result.YES;
-    }
-});
-polkit.addAdminRule(function (action, subject) {
-    return ["unix-group:wheel"];
-});
-```
+:::code api-polkit-files/js/index.js
 
 ## Шина: `CheckAuthorization`
 

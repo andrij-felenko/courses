@@ -41,70 +41,7 @@ Fedora:           sudo dnf install glibc-devel.i686 libgcc.i686
 
 Тут одразу трапляється перша пастка, і вона показова. Максимум **не можна** шукати через `max + 1` або через зсув у самому `time_t`: знакове переповнення в C — це [невизначена поведінка](root:sf-lang/undefined-behavior), і компілятор має повне право побудувати код у припущенні, що його не буває. Усі граничні обчислення робимо в беззнаковому типі.
 
-```c
-/* y2038-probe.c — ширина типу часу й межа його шкали */
-#define _GNU_SOURCE
-#include <limits.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <time.h>
-
-/* Максимум time_t, обчислений без жодного переповнення. */
-static time_t time_t_max(void)
-{
-    if ((time_t)-1 > 0)                 /* тип виявився беззнаковим */
-        return (time_t)-1;
-
-    const unsigned bits = (unsigned)sizeof(time_t) * CHAR_BIT;
-    return (time_t)(((uintmax_t)1 << (bits - 1)) - 1);
-}
-
-static void show(const char *what, time_t t)
-{
-    struct tm tm;
-    char buf[64];
-
-    /* gmtime_r віддає NULL, коли рік не влазить у int tm_year. */
-    if (gmtime_r(&t, &tm) == NULL) {
-        printf("%-14s %21jd   (у struct tm не вміщається)\n",
-               what, (intmax_t)t);
-        return;
-    }
-    strftime(buf, sizeof buf, "%Y-%m-%d %H:%M:%S UTC", &tm);
-    printf("%-14s %21jd   %s\n", what, (intmax_t)t, buf);
-}
-
-int main(void)
-{
-    struct timespec now;
-    time_t tmax = time_t_max();
-
-    printf("sizeof(time_t)           = %zu\n", sizeof(time_t));
-    printf("sizeof(struct timespec)  = %zu\n", sizeof(struct timespec));
-    printf("sizeof(off_t)            = %zu\n", sizeof(off_t));
-    printf("sizeof(st_mtim.tv_sec)   = %zu\n",
-           sizeof(((struct stat *)0)->st_mtim.tv_sec));
-    printf("sizeof(long)             = %zu\n", sizeof(long));
-#ifdef __TIMESIZE
-    printf("__TIMESIZE               = %d\n", __TIMESIZE);
-#endif
-#ifdef __USE_TIME_BITS64
-    printf("64-бітний час            = увімкнено\n");
-#endif
-    putchar('\n');
-
-    clock_gettime(CLOCK_REALTIME, &now);
-    show("зараз", now.tv_sec);
-    show("максимум", tmax);
-    /* Перетворення завеликого беззнакового значення в знаковий тип стандарт
-       лишає на розсуд реалізації — і GCC з Clang визначають його як
-       загортання. Саме тому цей рядок писати можна, а «tmax + 1» — ні. */
-    show("максимум + 1", (time_t)((uintmax_t)tmax + 1));
-    return 0;
-}
-```
+:::code proj-y2038-audit/c/y2038-probe.c
 
 Той самий файл збираємо двічі — і саме порівняння двох стовпчиків є результатом проби:
 
@@ -154,46 +91,7 @@ $ nm -D --undefined-only ./probe64 | grep 64
 
 Найпрямішу відповідь дає [системний виклик, зроблений в обхід бібліотеки](root:sys-unix/syscall-mechanics), із розкладкою, яку ядро чекає незалежно від того, що думає libc:
 
-```c
-/* y2038-kernel.c — чи є в ядра 64-бітна пара до clock_gettime */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/syscall.h>
-#include <time.h>
-#include <unistd.h>
-
-/* Саме так виглядає struct __kernel_timespec: секунди — рівно 64 біти,
-   що б про time_t не думала бібліотека C. */
-struct kernel_timespec64 {
-    long long tv_sec;
-    long long tv_nsec;
-};
-
-int main(void)
-{
-#ifdef __NR_clock_gettime64
-    struct kernel_timespec64 ts = { 0, 0 };
-
-    if (syscall(__NR_clock_gettime64, CLOCK_REALTIME, &ts) == 0) {
-        printf("clock_gettime64 (№%ld) працює, tv_sec = %lld\n",
-               (long)__NR_clock_gettime64, ts.tv_sec);
-        return 0;
-    }
-    if (errno == ENOSYS) {
-        puts("clock_gettime64 відсутній: ядро старше за 5.1 (травень 2019)");
-        return 1;
-    }
-    printf("clock_gettime64 повернув помилку: %s\n", strerror(errno));
-    return 1;
-#else
-    puts("номера clock_gettime64 немає в заголовках: або архітектура 64-бітна "
-         "(там звичайний clock_gettime уже 64-бітний), або заголовки застарілі");
-    return 0;
-#endif
-}
-```
+:::code proj-y2038-audit/c/y2038-kernel.c
 
 Два «ні» тут означають зовсім різне, і плутати їх не варто. Умова `#ifdef` не спрацювала — заголовки ядра, з якими зібрано систему, старіші за появу цих номерів; це проблема складання, а не машини. `ENOSYS` — виклик є в заголовках, але немає в ядрі, яке зараз працює; це вже проблема машини, і лікується вона тільки оновленням ядра.
 
@@ -205,62 +103,7 @@ int main(void)
 
 Ідея проби спирається на дуже вдалу властивість ядра. Коли позначку часу неможливо записати точно, ядро **не повертає помилки** — воно, за формулюванням стандарту, кладе найбільше значення, яке файлова система здатна вмістити й яке не перевищує заданого. Тобто підрізає. А підрізане значення можна прочитати назад і порівняти:
 
-```c
-/* y2038-fs.c — чи витримує ця файлова система дату за 2038 роком.
-   Збирати ОБОВ'ЯЗКОВО з -D_FILE_OFFSET_BITS=64 -D_TIME_BITS=64.  */
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <time.h>
-#include <unistd.h>
-
-#define BEYOND 2177452800LL          /* 2039-01-01 00:00:00 UTC */
-#define WALL   2147483647LL          /* 2038-01-19 03:14:07 UTC */
-
-int main(int argc, char **argv)
-{
-    const char *dir = (argc > 1) ? argv[1] : ".";
-    char path[4096];
-    struct timespec times[2];
-    struct stat st;
-    long long got;
-    int fd;
-
-    if (sizeof(times[0].tv_sec) < 8) {
-        fprintf(stderr, "tv_sec тут має %zu байти — перезберіть програму\n",
-                sizeof(times[0].tv_sec));
-        return 2;
-    }
-
-    snprintf(path, sizeof path, "%s/y2038probe.XXXXXX", dir);
-    if ((fd = mkstemp(path)) < 0) { perror("mkstemp"); return 1; }
-
-    times[0].tv_sec  = (time_t)BEYOND;    /* atime */
-    times[0].tv_nsec = 123456789;
-    times[1] = times[0];                  /* mtime */
-
-    if (utimensat(AT_FDCWD, path, times, 0) != 0) { perror("utimensat"); goto out; }
-    if (stat(path, &st) != 0)                     { perror("stat");      goto out; }
-
-    got = (long long)st.st_mtim.tv_sec;
-    printf("записано : %lld.%09ld\n", BEYOND, 123456789L);
-    printf("прочитано: %lld.%09ld\n", got, (long)st.st_mtim.tv_nsec);
-
-    if (got == BEYOND)
-        puts("вердикт  : поле часу тут ширше за 32 біти");
-    else if (got == WALL)
-        puts("вердикт  : значення підрізано рівно до межі — поле 32-бітне");
-    else
-        printf("вердикт  : значення змінилося на %lld — розберіться окремо\n", got);
-
-out:
-    close(fd);
-    unlink(path);
-    return 0;
-}
-```
+:::code proj-y2038-audit/c/y2038-fs.c
 
 Наносекунди в цій пробі несуть окрему звістку. Класичний inode [ext4](root:sys-unix/filesystem-families) на 128 байтів не має ані додаткових бітів секунд, ані частки секунди взагалі — і прочитані `tv_nsec` виявляться нулем, ще до того, як щось скажуть секунди. Нуль у наносекундах на нібито сучасній файловій системі — сам собою привід перевірити розмір inode.
 

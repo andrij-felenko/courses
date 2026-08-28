@@ -29,131 +29,8 @@
 Нижче наведено робочий приклад програми у двох ідіоматичних варіантах — мовою C та C++. Варіант на C++ використовує семантику RAII (Resource Acquisition Is Initialization) для автоматичного очищення та скасування вимоги при виході з області видимості.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-
-#define PM_QOS_DEV "/dev/cpu_dma_latency"
-
-// Відкриває пристрій PM QoS і записує бажане обмеження затримки у мікросекундах
-int set_cpu_latency_target(int32_t latency_us) {
-    int fd = open(PM_QOS_DEV, O_WRONLY);
-    if (fd < 0) {
-        perror("Помилка відкриття " PM_QOS_DEV " (перевірте права root)");
-        return -1;
-    }
-
-    if (write(fd, &latency_us, sizeof(latency_us)) != sizeof(latency_us)) {
-        perror("Помилка запису цільового значення у " PM_QOS_DEV);
-        close(fd);
-        return -1;
-    }
-
-    return fd;
-}
-
-int main(void) {
-    int32_t target_latency = 0; // 0 мкс: повна заборона станів сну C1..C10
-
-    printf("[C] Запитуємо обмеження затримки CPU у %d мкс...\n", target_latency);
-    int qos_fd = set_cpu_latency_target(target_latency);
-    if (qos_fd < 0) {
-        return EXIT_FAILURE;
-    }
-
-    printf("[C] Обмеження PM QoS активовано. Виконуємо критичну секцію обчислень...\n");
-    
-    // Імітація інтенсивної обробки даних
-    usleep(500000); // 500 мс
-
-    printf("[C] Критичну секцію завершено. Закриваємо дескриптор для зняття обмеження.\n");
-    close(qos_fd); // Ядро автоматично вилучає запит зі списку агрегації
-
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <system_error>
-#include <string_view>
-#include <cstdint>
-#include <cstdlib>
-#include <cerrno>
-#include <unistd.h>
-#include <fcntl.h>
-
-namespace pm_qos {
-
-// RAII обгортка для безпечного керування дескриптором CPU Latency QoS
-class CpuLatencyLock {
-public:
-    explicit CpuLatencyLock(std::int32_t target_latency_us) {
-        fd_ = ::open(device_path_.data(), O_WRONLY);
-        if (fd_ < 0) {
-            throw std::system_error(errno, std::generic_category(),
-                                    "Failed to open " + std::string(device_path_));
-        }
-
-        if (::write(fd_, &target_latency_us, sizeof(target_latency_us)) != sizeof(target_latency_us)) {
-            ::close(fd_);
-            throw std::system_error(errno, std::generic_category(),
-                                    "Failed to write target latency to " + std::string(device_path_));
-        }
-    }
-
-    ~CpuLatencyLock() {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-    }
-
-    // Заборона копіювання для запобігання подвійному закриттю дескриптора
-    CpuLatencyLock(const CpuLatencyLock&) = delete;
-    CpuLatencyLock& operator=(const CpuLatencyLock&) = delete;
-
-    // Дозвіл переміщення ресурсу
-    CpuLatencyLock(CpuLatencyLock&& other) noexcept : fd_(other.fd_) {
-        other.fd_ = -1;
-    }
-
-    CpuLatencyLock& operator=(CpuLatencyLock&& other) noexcept {
-        if (this != &other) {
-            if (fd_ >= 0) ::close(fd_);
-            fd_ = other.fd_;
-            other.fd_ = -1;
-        }
-        return *this;
-    }
-
-private:
-    static constexpr std::string_view device_path_ = "/dev/cpu_dma_latency";
-    int fd_{-1};
-};
-
-} // namespace pm_qos
-
-int main() {
-    try {
-        std::cout << "[C++] Створюємо RAII-замок затримки (0 мкс)...\n";
-        pm_qos::CpuLatencyLock latency_lock(0);
-
-        std::cout << "[C++] PM QoS замок активний. Виконуємо обчислення без затримок пробудження...\n";
-        ::usleep(500000); // 500 мс
-
-        std::cout << "[C++] Завершено. Вихід із області видимості знищить замок RAII.\n";
-    } catch (const std::exception& ex) {
-        std::cerr << "[C++] Помилка: " << ex.what() << '\n';
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
-}
-```
+:::code proj-pm-qos-benchmark/c/dvomovnyi-pryklad-kodu-u.c
+:::code proj-pm-qos-benchmark/cpp/main.cpp
 :::
 
 ---
@@ -167,72 +44,12 @@ int main() {
 
 Нижче наведено приклад коду ядра Linux (мовою C):
 
-```c
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/init.h>
-#include <linux/pm_qos.h>
-#include <linux/slab.h>
-
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("PM QoS Example Author");
-MODULE_DESCRIPTION("Приклад драйвера з підключенням CPU Latency QoS");
-
-static struct pm_qos_request my_driver_qos_req;
-
-static int __init my_driver_init(void) {
-    pr_info("my_driver: Реєстрація вимоги CPU Latency QoS (20 мкс)\n");
-
-    // Додаємо запит на максимальну затримку пробудження CPU у 20 мкс
-    cpu_latency_qos_add_request(&my_driver_qos_req, 20);
-
-    return 0;
-}
-
-// Викликається при старті інтенсивного DMA-обміну даними
-void my_driver_start_heavy_io(void) {
-    pr_info("my_driver: Знижуємо межу затримки до 0 мкс (заборона сну)\n");
-    // Робимо вимогу найжорсткішою: допустима затримка пробудження — нуль
-    cpu_latency_qos_update_request(&my_driver_qos_req, 0);
-}
-
-// Викликається після завершення інтенсивного DMA-обміну даними
-void my_driver_stop_heavy_io(void) {
-    pr_info("my_driver: Повернення затримки до 20 мкс\n");
-    // Повертаємо початкову вимогу
-    cpu_latency_qos_update_request(&my_driver_qos_req, 20);
-}
-
-static void __exit my_driver_exit(void) {
-    pr_info("my_driver: Видалення вимоги CPU Latency QoS\n");
-
-    // Видаляємо запит з глобального списку агрегації
-    cpu_latency_qos_remove_request(&my_driver_qos_req);
-}
-
-module_init(my_driver_init);
-module_exit(my_driver_exit);
-```
+:::code proj-pm-qos-benchmark/c/vykorystannia-cpu-latency.c
 
 #### Використання Frequency QoS у драйвері
 Якщо драйверу необхідно форсувати підвищення мінімальної частоти процесора (наприклад, для прискорення обробки пакетного сплеску), він використовує фреймворк `Frequency QoS`:
 
-```c
-#include <linux/cpufreq.h>
-#include <linux/pm_qos.h>
-
-static struct freq_qos_request my_freq_req;
-
-void my_driver_boost_frequency(struct cpufreq_policy *policy, u32 min_freq_khz) {
-    // Додаємо вимогу мінімальної частоти у кГц для політики cpufreq
-    freq_qos_add_request(&policy->constraints, &my_freq_req, FREQ_QOS_MIN, min_freq_khz);
-}
-
-void my_driver_unboost_frequency(void) {
-    // Видаляємо вимогу мінімальної частоти
-    freq_qos_remove_request(&my_freq_req);
-}
-```
+:::code proj-pm-qos-benchmark/c/vykorystannia-frequency.c
 
 ---
 
@@ -243,18 +60,7 @@ void my_driver_unboost_frequency(void) {
 #### Активація трасування PM QoS
 Щоб увімкнути та переглянути події додавання, зміни й видалення вимог PM QoS у реальному часі, виконуються такі команди від імені користувача root:
 
-```bash
-# 1. Перехід у каталог трасувальника ftrace
-cd /sys/kernel/tracing
-
-# 2. Активація подій трасування підсистеми PM QoS
-echo 1 > events/power/pm_qos_add_request/enable
-echo 1 > events/power/pm_qos_update_request/enable
-echo 1 > events/power/pm_qos_remove_request/enable
-
-# 3. Перегляд потокового виводу подій трасування
-cat trace_pipe
-```
+:::code proj-pm-qos-benchmark/sh/main.sh
 
 Приклад виводу трасування у консолі під час роботи програми простору користувача:
 

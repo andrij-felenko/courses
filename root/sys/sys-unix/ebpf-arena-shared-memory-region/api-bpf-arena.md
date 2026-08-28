@@ -165,40 +165,6 @@ str x1, [x0]          ; Збереження значення регістра x
 
 При збірці проекту, що використовує BPF Arena, заголовочні файли зі структурами даних повинні бути сумісними як з C-компілятором Clang для цілі BPF, так і з C++17/C++20 компілятором простору користувача.
 
-```cpp
-#ifndef SHARED_ARENA_TYPES_H
-#define SHARED_ARENA_TYPES_H
-
-#include <stdint.h>
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
-#if defined(__BPF__)
-  #define BPF_ARENA_PTR(type) type __attribute__((address_space(1))) *
-#else
-  #define BPF_ARENA_PTR(type) type *
-#endif
-
-struct arena_header {
-    uint32_t magic;
-    uint32_t version;
-    uint64_t total_pages;
-    uint64_t allocated_bytes;
-};
-
-struct arena_node {
-    uint64_t id;
-    uint64_t payload;
-    BPF_ARENA_PTR(struct arena_node) next;
-};
-
-#if defined(__cplusplus)
-}
-#endif
-
-#endif /* SHARED_ARENA_TYPES_H */
-```
+:::code api-bpf-arena/cpp/main.hpp
 
 Такий підхід забезпечує абсолютну бінарну сумісність C-структур даних без розсунення полів через розбіжності кваліфікаторів адресного простору між компілятором ядра та простору користувача.

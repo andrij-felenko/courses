@@ -164,19 +164,7 @@ fatal: bad ownership or modes for chroot directory "/var/sftp/user"
 
 Для організації завантаження адміністратор створює окремий вкладений каталог:
 
-```bash
-# 1. Створення користувача без права входу в командну оболонку
-useradd -m -g sftponly -s /usr/sbin/nologin sftpuser
-
-# 2. Налаштування кореня chroot (тільки root!)
-chown root:root /var/sftp/sftpuser
-chmod 0755 /var/sftp/sftpuser
-
-# 3. Створення каталогу для файлів із правами користувача
-mkdir -p /var/sftp/sftpuser/uploads
-chown sftpuser:sftponly /var/sftp/sftpuser/uploads
-chmod 0775 /var/sftp/sftpuser/uploads
-```
+:::code file-transfer-over-ssh-d/sh/main.sh
 
 Користувач після підключення бачить каталог `/var/sftp/sftpuser` як корінь `/`, не може вийти вище нього, не має доступу до утиліт оболонки і може записувати дані в каталог `/uploads`.
 

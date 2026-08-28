@@ -250,21 +250,7 @@ int gpiod_get_value_cansleep(const struct gpio_desc *desc);
 
 У багатьох пристроях лінії GPIO використовуються як джерела апаратних переривань (наприклад, пін готовності даних датчика `DRDY` або кнопка). Щоб зареєструвати обробник переривання для дескриптора `struct gpio_desc *`, використовується функція трансляції:
 
-```c
-int irq_num;
-
-/* Отримання номера системного переривання */
-irq_num = gpiod_to_irq(priv->irq_gpio);
-if (irq_num < 0) {
-    dev_err(dev, "Failed to map GPIO to IRQ: %d\n", irq_num);
-    return irq_num;
-}
-
-/* Реєстрація обробника через Devres */
-ret = devm_request_threaded_irq(dev, irq_num, NULL, sensor_irq_handler,
-                                IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-                                "sensor_irq", priv);
-```
+:::code gpiod-kernel-consumer-api-d/c/5-1-zviazuvannia.c
 
 Функція `gpiod_to_irq()` звертається до домену переривань (`irq_domain`) відповідного контролера GPIO і повертає глобальний номер IRQ у ядрі. Якщо контролер лінії не реалізує метод `to_irq()` — тобто пін апаратно не підтримує режим генерації переривань, — функція повертає негативний код помилки `-ENXIO`.
 
@@ -274,20 +260,7 @@ ret = devm_request_threaded_irq(dev, irq_num, NULL, sensor_irq_handler,
 
 Для оптимізації підсистема надає функції масивного керування:
 
-```c
-struct gpio_descs *bus_gpios;
-
-/* Отримання групи ліній з Device Tree (data-gpios = <&gpio1 0 ...>, <&gpio1 1 ...>) */
-bus_gpios = devm_gpiod_get_array(dev, "data", GPIOD_OUT_LOW);
-if (IS_ERR(bus_gpios))
-    return PTR_ERR(bus_gpios);
-
-/* Одночасне встановлення значень для всього масиву */
-DECLARE_BITMAP(values, 8);
-values[0] = 0xAB; /* 8-бітне значення для шини */
-
-gpiod_set_array_value(bus_gpios->ndescs, bus_gpios->desc, NULL, values);
-```
+:::code gpiod-kernel-consumer-api-d/c/5-2-paketni-operatsii-nad.h
 
 Якщо всі лінії масиву належать одному апаратному контролеру GPIO, `gpiolib` об'єднує маніпуляцію і здійснює один єдиний запис через груповий метод контролера (`chip->set_multiple`), що значно прискорює програмну емуляцію шинних протоколів (bitbanging).
 

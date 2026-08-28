@@ -62,19 +62,7 @@
 
 Масив вагових коефіцієнтів `sched_prio_to_weight` у коді ядра сформовано так, щоб кожен крок `nice` змінював виділену частку CPU приблизно на 10% (геометрична прогресія зі множником 1.25):
 
-```c
-/* Масив ваги для nice від -20 до +19 у kernel/sched/core.c */
-const int sched_prio_to_weight[40] = {
- /* -20 */ 88761,  71755,  56483,  46273,  36291,
- /* -15 */ 29154,  23254,  18705,  14949,  11916,
- /* -10 */  9548,   7620,   6100,   4904,   3906,
- /*  -5 */  3121,   2501,   1991,   1586,   1277,
- /*   0 */  1024,    820,    655,    526,    423,
- /*   5 */   335,    272,    215,    172,    137,
- /*  10 */   110,     87,     70,     56,     45,
- /*  15 */    36,     29,     23,     18,     15,
-};
-```
+:::code sched-idle-and-sched-batch-d/c/core.c
 
 Процеси в черзі виконання `cfs_rq` впорядковуються у червоно-чорному дереві за зростанням `vruntime`. Ядро завжди обирає для виконання найлівішу сутність (з найменшим `vruntime`).
 
@@ -258,101 +246,8 @@ int sched_getscheduler(pid_t pid);
 Нижче наведено практичний приклад переведення поточного процесу в класи `SCHED_BATCH` та `SCHED_IDLE`:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <sched.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-
-int set_batch_policy(void) {
-    struct sched_param param;
-    memset(&param, 0, sizeof(param));
-    param.sched_priority = 0; /* Обов'язково 0 для SCHED_BATCH */
-
-    if (sched_setscheduler(0, SCHED_BATCH, &param) == -1) {
-        perror("Помилка sched_setscheduler(SCHED_BATCH)");
-        return -1;
-    }
-    return 0;
-}
-
-int set_idle_policy(void) {
-    struct sched_param param;
-    memset(&param, 0, sizeof(param));
-    param.sched_priority = 0; /* Обов'язково 0 для SCHED_IDLE */
-
-    if (sched_setscheduler(0, SCHED_IDLE, &param) == -1) {
-        perror("Помилка sched_setscheduler(SCHED_IDLE)");
-        return -1;
-    }
-    return 0;
-}
-
-int main(void) {
-    printf("Поточний PID: %d. Встановлення SCHED_BATCH...\n", getpid());
-    if (set_batch_policy() == 0) {
-        printf("Успішно переведено в SCHED_BATCH.\n");
-    }
-
-    /* Інтенсивні пакетні обчислення */
-    volatile double val = 1.0;
-    for (long i = 0; i < 500000000L; ++i) {
-        val += i * 0.0000001;
-    }
-
-    printf("Зміна політики на SCHED_IDLE...\n");
-    if (set_idle_policy() == 0) {
-        printf("Успішно переведено в SCHED_IDLE.\n");
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <cerrno>
-#include <sched.h>
-#include <unistd.h>
-
-class ThreadScheduler {
-public:
-    static void set_current_policy(int policy) {
-        sched_param param{};
-        param.sched_priority = 0; // Для не-RT класів пріоритет завжди 0
-
-        if (::sched_setscheduler(0, policy, &param) != 0) {
-            throw std::system_error(errno, std::generic_category(),
-                                    "Не вдалося змінити політику планування");
-        }
-    }
-};
-
-int main() {
-    try {
-        std::cout << "Поточний PID: " << ::getpid() << ". Перехід у SCHED_BATCH...\n";
-        ThreadScheduler::set_current_policy(SCHED_BATCH);
-        std::cout << "Успішно встановлено SCHED_BATCH.\n";
-
-        volatile double val = 1.0;
-        for (long i = 0; i < 500000000L; ++i) {
-            val += i * 0.0000001;
-        }
-
-        std::cout << "Перехід у SCHED_IDLE...\n";
-        ThreadScheduler::set_current_policy(SCHED_IDLE);
-        std::cout << "Успішно встановлено SCHED_IDLE.\n";
-    } catch (const std::system_error& e) {
-        std::cerr << "Помилка планувальника: " << e.what() << '\n';
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code sched-idle-and-sched-batch-d/c/4-2-vykorystannia-sched.c
+:::code sched-idle-and-sched-batch-d/cpp/main.cpp
 :::
 
 ## 5. Права доступу, привілеї та CAP_SYS_NICE

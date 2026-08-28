@@ -18,24 +18,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-tracepoints-origins.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-custom-tracepoint.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-tracefs-events.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -47,7 +53,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -58,13 +65,15 @@
           "proj": [
             {
               "file": "proj-ftrace-user-reader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-tracefs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -86,13 +95,15 @@
           "proj": [
             {
               "file": "proj-kernel-debugfs-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-debugfs-tracefs-control.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -104,7 +115,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -115,13 +127,15 @@
           "proj": [
             {
               "file": "proj-uprobe-latency-tracker.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-kprobes-uprobes.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -132,7 +146,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -143,13 +158,15 @@
           "proj": [
             {
               "file": "proj-user-events-demo.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-user-events.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -160,7 +177,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -171,13 +189,15 @@
           "proj": [
             {
               "file": "proj-fentry-tracing-benchmark.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bpf-trampoline-and-fprobe.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -199,7 +219,8 @@
           "proj": [
             {
               "file": "proj-usdt-and-tracing.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -234,13 +255,15 @@
           "proj": [
             {
               "file": "proj-ebpf-execve-monitor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bpf-syscall-and-maps.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -257,19 +280,24 @@
           "hist": [
             {
               "file": "hist-ebpf-vm-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-ebpf-latency-tracker.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-bpf-maps.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -286,7 +314,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -297,13 +326,15 @@
           "proj": [
             {
               "file": "proj-perf-event-array.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-perf-event-array.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -314,7 +345,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -325,13 +357,15 @@
           "proj": [
             {
               "file": "proj-bpf-ringbuf-benchmark.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ringbuf-vs-perfbuf.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -342,7 +376,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -353,13 +388,15 @@
           "proj": [
             {
               "file": "proj-bpf-iter-and-user-ringbuf.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bpf-iter-and-user-ringbuf.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -375,13 +412,15 @@
           "proj": [
             {
               "file": "proj-arena-shared-tree.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bpf-arena.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -399,7 +438,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -410,13 +450,15 @@
           "proj": [
             {
               "file": "proj-tracer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ptrace.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -428,7 +470,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -439,13 +482,15 @@
           "proj": [
             {
               "file": "proj-syscall-interceptor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ptrace-and-seccomp.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -463,7 +508,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -474,13 +520,15 @@
           "proj": [
             {
               "file": "proj-ring-buffer-reader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-perf-event-open.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -502,7 +550,8 @@
           "proj": [
             {
               "file": "proj-latency-harness.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -520,24 +569,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-debuginfod-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "hist": [
             {
               "file": "hist-debuginfo-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-build-id-extractor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -565,13 +620,15 @@
           "proj": [
             {
               "file": "proj-kasan-uaf-demo.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-kasan-config.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -582,7 +639,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -593,13 +651,15 @@
           "proj": [
             {
               "file": "proj-kcsan-kernel-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-kcsan-annotations.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -610,7 +670,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -621,7 +682,8 @@
           "proj": [
             {
               "file": "proj-kmemleak-driver-audit.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -649,7 +711,8 @@
           "proj": [
             {
               "file": "proj-lockdep-validation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -666,7 +729,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -677,7 +741,8 @@
           "proj": [
             {
               "file": "proj-kunit-test-suite.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -701,7 +766,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -712,7 +778,8 @@
           "proj": [
             {
               "file": "proj-oops-trigger-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -730,7 +797,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -741,7 +809,8 @@
           "proj": [
             {
               "file": "proj-gdb-core-analysis.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -758,24 +827,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-watchdog-evolution.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-sim-lockups.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-watchdog-sysctl.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -786,7 +861,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -809,7 +885,8 @@
           "proj": [
             {
               "file": "proj-watchdog-daemon.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -826,7 +903,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -864,7 +942,8 @@
           "proj": [
             {
               "file": "proj-kmsg-watcher.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -892,13 +971,15 @@
           "proj": [
             {
               "file": "proj-syslog-socket-parser.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-syslog-c-library.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -910,7 +991,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -921,13 +1003,15 @@
           "proj": [
             {
               "file": "proj-journal-reader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-journal-protocol.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -956,13 +1040,15 @@
           "proj": [
             {
               "file": "proj-journalctl-emulator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sd-journal.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -973,7 +1059,8 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 2
           }
         }
       ]
@@ -1001,13 +1088,15 @@
           "proj": [
             {
               "file": "proj-psi-monitor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-proc-pressure-interface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1029,13 +1118,15 @@
           "proj": [
             {
               "file": "proj-psi-daemon.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-proc-pressure-interface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -1053,12 +1144,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-proc-stat-and-tools.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -1070,7 +1163,9 @@
           "proj": [
             {
               "file": "proj-proc-inspect-and-deleted.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -1081,18 +1176,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-tcpdump-bpf-primitives.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-raw-socket-traceroute.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

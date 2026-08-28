@@ -66,40 +66,8 @@
 Кожен проміжний апаратний блок у цьому графі виноситься в простір користувача як символьний пристрій субпристрою V4L2: `/dev/v4l-subdev0`, `/dev/v4l-subdev1` тощо. Налаштування форматів пікселів і кадрування на проміжних етапах виконується за допомогою pad-level викликів ioctl:
 
 :::tabs
-```c
-/* Налаштування формату на вихідному контакті сенсора через субпристрій V4L2 */
-struct v4l2_subdev_format fmt;
-memset(&fmt, 0, sizeof(fmt));
-fmt.pad = 0; /* Вихідний Pad 0 сенсора */
-fmt.which = V4L2_SUBDEV_FORMAT_ACTIVE;
-fmt.format.width = 1920;
-fmt.format.height = 1080;
-fmt.format.code = MEDIA_BUS_FMT_SRGGB10_1X10; /* RAW10 Bayer */
-
-if (ioctl(subdev_fd, VIDIOC_SUBDEV_S_FMT, &fmt) < 0) {
-    perror("VIDIOC_SUBDEV_S_FMT failed");
-}
-```
-```cpp
-// Ідіоматичний еквівалент на C++ для налаштування формату субпристрою
-#include <linux/v4l2-subdev.h>
-#include <sys/ioctl.h>
-#include <system_error>
-#include <cstring>
-
-void configureSubdevFormat(int subdevFd, uint32_t pad, uint32_t width, uint32_t height, uint32_t mbusCode) {
-    v4l2_subdev_format fmt{};
-    fmt.pad = pad;
-    fmt.which = V4L2_SUBDEV_FORMAT_ACTIVE;
-    fmt.format.width = width;
-    fmt.format.height = height;
-    fmt.format.code = mbusCode;
-
-    if (::ioctl(subdevFd, VIDIOC_SUBDEV_S_FMT, &fmt) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка VIDIOC_SUBDEV_S_FMT");
-    }
-}
-```
+:::code libcamera-stack-d/c/main.c
+:::code libcamera-stack-d/cpp/main.cpp
 :::
 
 ### Проблема синхронізації параметрів та закритих алгоритмів

@@ -22,43 +22,8 @@
 У Zsh функція `_arguments` дозволяє описати повний контракт команди єдиним декларативним виразом:
 
 :::tabs
-```bash
-# Bash: ручна перевірка контексту через індексацію слів
-_mycmd_bash() {
-    local cur prev
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-
-    case "$prev" in
-        -o|--output)
-            COMPREPLY=( $(compgen -f -- "$cur") )
-            return 0
-            ;;
-        -l|--level)
-            COMPREPLY=( $(compgen -W "debug info warn error" -- "$cur") )
-            return 0
-            ;;
-    esac
-
-    if [[ "$cur" == -* ]]; then
-        COMPREPLY=( $(compgen -W "-o --output -l --level -h --help" -- "$cur") )
-    fi
-}
-complete -F _mycmd_bash mycmd
-```
-```zsh
-# Zsh: декларативний опис синтаксису через _arguments
-#compdef mycmd
-
-_mycmd_zsh() {
-    _arguments -s -S \
-        '(-h --help)'{-h,--help}'[Показати довідку]' \
-        '(-o --output)'{-o,--output}'[Шлях до файлу звіту]:файл виводу:_files' \
-        '(-l --level)'{-l,--level}'[Рівень логування]:рівень:(debug info warn error)' \
-        '*:вхідні файли:_files -g "*.log"'
-}
-_mycmd_zsh "$@"
-```
+:::code comp-bash-vs-zsh-completion/sh/2-imperatyvnyi-rozbir.sh
+:::code comp-bash-vs-zsh-completion/sh/2-imperatyvnyi-rozbir-2.sh
 :::
 
 Специфікація `_arguments` у Zsh одночасно визначає:

@@ -53,30 +53,7 @@
 
 Ось як наш контролер виглядає в коді плати — у тій формі, з якої платформні пристрої починалися:
 
-```c
-static struct resource myuart_resources[] = {
-        {
-                .start = 0xe0001000,
-                .end   = 0xe0001fff,
-                .flags = IORESOURCE_MEM,
-        },
-        {
-                .start = 59,
-                .end   = 59,
-                .flags = IORESOURCE_IRQ,
-        },
-};
-
-static struct platform_device myuart_device = {
-        .name          = "myuart",
-        .id            = 0,
-        .resource      = myuart_resources,
-        .num_resources = ARRAY_SIZE(myuart_resources),
-};
-
-/* десь у коді ініціалізації плати */
-platform_device_register(&myuart_device);
-```
+:::code platform-bus-d/c/prystrii-iakyi-ie-zapysom.c
 
 Тут видно головне, і воно важливіше за синтаксис. **Платформний пристрій — це запис, а не знахідка.** Жодне з цих чисел ядро не здобуло: усі вони прийшли ззовні, від людини з документацією. Шина їх не перевіряє, бо перевірити нема як — спитати нема кого. Помилитися в адресі на одну цифру можна безкарно: пристрій зареєструється, з'явиться в `/sys/bus/platform/devices`, драйвер до нього прив'яжеться — і читатиме сміття або зависне на зверненні за адресою, за якою на внутрішній шині нікого нема.
 
@@ -147,49 +124,7 @@ uart0: serial@e0001000 {
 
 І драйвер до нього:
 
-```c
-static int myuart_probe(struct platform_device *pdev)
-{
-        struct myuart *up;
-        int ret;
-
-        up = devm_kzalloc(&pdev->dev, sizeof(*up), GFP_KERNEL);
-        if (!up)
-                return -ENOMEM;
-
-        up->regs = devm_platform_ioremap_resource(pdev, 0);
-        if (IS_ERR(up->regs))
-                return PTR_ERR(up->regs);
-
-        up->irq = platform_get_irq(pdev, 0);
-        if (up->irq < 0)
-                return up->irq;              /* сюди приходить і -EPROBE_DEFER */
-
-        ret = devm_request_irq(&pdev->dev, up->irq, myuart_isr, 0,
-                               dev_name(&pdev->dev), up);
-        if (ret)
-                return ret;
-
-        platform_set_drvdata(pdev, up);
-        dev_info(&pdev->dev, "порт готовий, лінія переривання %d\n", up->irq);
-        return 0;
-}
-
-static const struct of_device_id myuart_of_match[] = {
-        { .compatible = "acme,myuart-r1p2" },
-        { }
-};
-MODULE_DEVICE_TABLE(of, myuart_of_match);
-
-static struct platform_driver myuart_driver = {
-        .probe  = myuart_probe,
-        .driver = {
-                .name           = "myuart",
-                .of_match_table = myuart_of_match,
-        },
-};
-module_platform_driver(myuart_driver);
-```
+:::code platform-bus-d/c/shcho-draiver-bere-v-probe.c
 
 Два виклики тут заслуговують окремої уваги.
 

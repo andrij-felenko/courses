@@ -16,18 +16,7 @@ int syscall(SYS_capset, cap_user_header_t hdrp, const cap_user_data_t datap);
 
 Обгорток у glibc немає навмисно: [бібліотека С](root:sys-unix/libc-as-gateway) — звичайний посередник між програмою й ядром, і саме ці два виклики вона лишила без прикриття, бо їхній контракт версіонований. Тож звертатися доводиться або через `syscall()`, або через libcap.
 
-```c
-typedef struct __user_cap_header_struct {
-    __u32 version;      /* яку версію структури даних вживаємо */
-    int   pid;          /* 0 = сам потік */
-} *cap_user_header_t;
-
-typedef struct __user_cap_data_struct {
-    __u32 effective;
-    __u32 permitted;
-    __u32 inheritable;
-} *cap_user_data_t;
-```
+:::code api-capability-interfaces/c/iadro-capget-i-capset.c
 
 Кожне поле — тридцять два біти, а можливостей більше. Звідси й три версії контракту: у другій і третій `datap` показує не на одну структуру, а на **масив із двох** — елемент `[0]` несе можливості 0–31, елемент `[1]` — від 32 і вище.
 
@@ -129,27 +118,7 @@ syscall(SYS_capget, &hdr, NULL);      /* поверне -1, errno = EINVAL */
 
 Прапор — це `CAP_EFFECTIVE`, `CAP_PERMITTED` або `CAP_INHERITABLE`; значення — `CAP_SET` або `CAP_CLEAR`. Найменша робоча програма (збирається як `cc prog.c -lcap`):
 
-```c
-#include <sys/capability.h>
-#include <stdio.h>
-
-int main(void) {
-    cap_value_t want[] = { CAP_NET_RAW };
-    cap_t caps = cap_get_proc();                          /* знімок із ядра */
-    if (!caps) return 1;
-
-    cap_set_flag(caps, CAP_EFFECTIVE, 1, want, CAP_SET);  /* лише копія */
-    if (cap_set_proc(caps) != 0) {                        /* ось тут capset */
-        perror("cap_set_proc");   /* EPERM: назви немає в дозволених */
-        return 1;
-    }
-    char *txt = cap_to_text(caps, NULL);
-    printf("%s\n", txt);                                  /* cap_net_raw=ep */
-    cap_free(txt);
-    cap_free(caps);
-    return 0;
-}
-```
+:::code api-capability-interfaces/c/libcap-robocha-kopiia-i.c
 
 Текстовий запис, який розбирає `cap_from_text` і приймає `setcap`, будується з речень «список назв — дії». Дія — це оператор і літери наборів: `p` дозволені, `e` діючі, `i` успадковувані. Оператор `=` спершу **гасить** названі можливості в усіх трьох наборах, а тоді підіймає в тих, чиї літери стоять після нього; `+` і `-` вимагають явного списку й хоча б однієї літери. Слово `all` означає всі назви, а порожній список перед `=` — теж усі. Назви нечутливі до регістру, замість імені можна писати номер.
 

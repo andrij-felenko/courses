@@ -14,73 +14,7 @@
 
 Ядро вміє працювати лише з кадрами, у яких є `struct page`. Щоб такі описувачі з'явилися на пам'ять плати, треба зайняти шматок **фізичного простору адрес** — не оперативної пам'яті, а саме простору номерів — і сказати, що на ньому тепер живе [модель фізичної пам'яті](root:sys-unix/sparsemem-and-vmemmap) з особливою позначкою.
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/hmm.h>
-#include <linux/ioport.h>
-#include <linux/memremap.h>
-#include <linux/migrate.h>
-#include <linux/mm.h>
-#include <linux/module.h>
-
-struct pereselnyk {
-	struct dev_pagemap  pagemap;
-	struct resource    *res;
-	spinlock_t          lock;
-	struct page        *free_list;   /* однозв'язний список вільних кадрів */
-	unsigned long       nfree;
-};
-
-static void pereselnyk_page_free(struct page *pg);
-static vm_fault_t pereselnyk_migrate_to_ram(struct vm_fault *vmf);
-
-static const struct dev_pagemap_ops pereselnyk_pagemap_ops = {
-	.page_free	= pereselnyk_page_free,
-	.migrate_to_ram	= pereselnyk_migrate_to_ram,
-};
-
-static int pereselnyk_reserve(struct pereselnyk *p, unsigned long size)
-{
-	unsigned long pfn, first, last;
-	void *addr;
-
-	/* Просимо ДІРУ у фізичному просторі адрес: місце, де немає ні
-	   оперативної пам'яті, ні вікон інших пристроїв. Байтів нам звідти
-	   не треба — треба номери, на які ядро заведе описувачі.          */
-	p->res = request_free_mem_region(&iomem_resource, size, "pereselnyk");
-	if (IS_ERR(p->res))
-		return PTR_ERR(p->res);
-
-	p->pagemap.type        = MEMORY_DEVICE_PRIVATE;
-	p->pagemap.range.start = p->res->start;
-	p->pagemap.range.end   = p->res->end;
-	p->pagemap.nr_range    = 1;
-	p->pagemap.ops         = &pereselnyk_pagemap_ops;
-	p->pagemap.owner       = p;   /* «ці кадри мої» — на цьому полі тримається
-					 половина правильної поведінки, див. нижче */
-
-	addr = memremap_pages(&p->pagemap, numa_node_id());
-	if (IS_ERR(addr)) {
-		release_mem_region(p->res->start, resource_size(p->res));
-		return PTR_ERR(addr);
-	}
-
-	/* Описувачі вже є, і всі — з НУЛЬОВИМ лічильником посилань.
-	   Складаємо їх у свій вільний список: розподільник цієї пам'яті — ми. */
-	first = PHYS_PFN(p->res->start);
-	last  = PHYS_PFN(p->res->end);
-	spin_lock(&p->lock);
-	for (pfn = first; pfn <= last; pfn++) {
-		struct page *pg = pfn_to_page(pfn);
-
-		pg->zone_device_data = p->free_list;
-		p->free_list = pg;
-		p->nfree++;
-	}
-	spin_unlock(&p->lock);
-	return 0;
-}
-```
+:::code proj-migrate-to-device/c/reiestratsiia-poprosyty.c
 
 Варто спинитися на тому, що ці фізичні номери — несправжні. Вони не ведуть ні в яке вікно на шині, і читати за ними ніхто ніколи не буде: процесор до цієї пам'яті все одно не дотягнеться, а плата адресує свою пам'ять по-своєму. Номер кадру тут — лише спосіб дати ядру за що вхопитися, а перерахунок «описувач → адреса в пам'яті плати» драйвер робить сам, звичайним відніманням початку діапазону (це і є `local_offset_of()` нижче). Саме тому просити треба **вільний** шматок простору адрес: якби він накладався на щось справжнє, два різні описувачі описували б одні байти.
 
@@ -90,42 +24,7 @@ static int pereselnyk_reserve(struct pereselnyk *p, unsigned long size)
 
 Кадр плати не береться зі [сторінкового розподільника](root:sys-unix/physical-page-allocator) — його роздаємо ми. Але лічильник посилань на описувачі веде ядро, і повернути кадр у пул можна рівно одним способом: дочекатися, поки ядро само покличе `page_free`.
 
-```c
-static struct page *devpage_alloc(struct pereselnyk *p)
-{
-	struct page *pg;
-
-	spin_lock(&p->lock);
-	pg = p->free_list;
-	if (pg) {
-		p->free_list = pg->zone_device_data;
-		p->nfree--;
-	}
-	spin_unlock(&p->lock);
-	if (!pg)
-		return NULL;
-
-	/* Оце — і є «взяти кадр»: лічильник з нуля стає одиницею, сторінка
-	   ЗАМИКАЄТЬСЯ, а pagemap дістає посилання, яке потім не дасть
-	   згортанню пройти повз живий кадр.                              */
-	zone_device_page_init(pg);
-	return pg;
-}
-
-/* Ядро кличе це, коли лічильник кадру впав до нуля. Спати не можна:
-   останнє посилання цілком може віддати хтось із контексту, де сон
-   заборонений, — звідси spinlock, а не мутекс.                      */
-static void pereselnyk_page_free(struct page *pg)
-{
-	struct pereselnyk *p = pg->pgmap->owner;
-
-	spin_lock(&p->lock);
-	pg->zone_device_data = p->free_list;
-	p->free_list = pg;
-	p->nfree++;
-	spin_unlock(&p->lock);
-}
-```
+:::code proj-migrate-to-device/c/svii-rozpodilnyk-zone.c
 
 Виходить замкнене коло, у якому лічильник посилань міняється всього двічі — і обидва рази не там, де очікуєш. Взяти кадр значить поставити одиницю; віддати його — не «покласти назад», а дозволити одиниці впасти в нуль.
 
@@ -137,119 +36,11 @@ static void pereselnyk_page_free(struct page *pg)
 
 Робота драйвера між першим і другим тактом виглядає як цикл копіювання, але половина його рядків — про сторінки, які **не** поїдуть.
 
-```c
-static void copy_to_device(struct migrate_vma *args, struct pereselnyk *p)
-{
-	unsigned long i;
-
-	for (i = 0; i < args->npages; i++) {
-		struct page *spage = migrate_pfn_to_page(args->src[i]);
-		struct page *dpage;
-		int ret;
-
-		/* Ядро вже вирішило, що цю сторінку рухати не можна. Єдина
-		   правильна відповідь — лишити dst нулем і не чіпати нічого. */
-		if (!(args->src[i] & MIGRATE_PFN_MIGRATE))
-			continue;
-
-		dpage = devpage_alloc(p);
-		if (!dpage)
-			continue;          /* кадри скінчилися — теж просто пропуск */
-
-		/* spage == NULL при виставленій позначці — не помилка, а дірка:
-		   сторінки ще не існує, бо процес її не торкався. Переселяємо
-		   порожнечу, і перший дотик станеться вже на платі.           */
-		if (spage)
-			ret = dma_copy_to_device(p, dpage, spage);
-		else
-			ret = dma_zero_device_page(p, dpage);
-
-		if (ret) {
-			/* Кадр наш і лише наш: у dst його не буде, отже ядро про
-			   нього не дізнається. Розмикаємо самі — це нас замкнув
-			   zone_device_page_init().                              */
-			unlock_page(dpage);
-			put_page(dpage);
-			continue;
-		}
-
-		args->dst[i] = migrate_pfn(page_to_pfn(dpage));
-		if ((args->src[i] & MIGRATE_PFN_WRITE) ||
-		    (!spage && (args->vma->vm_flags & VM_WRITE)))
-			args->dst[i] |= MIGRATE_PFN_WRITE;
-	}
-}
-```
+:::code proj-migrate-to-device/c/pereselennia-shcho.c
 
 Тепер самі такти. Найважливіше в цьому шматку — цикл **після** другого такту: він виглядає надлишковим і саме тому його найчастіше не пишуть.
 
-```c
-static int migrate_range_to_device(struct pereselnyk *p, struct mm_struct *mm,
-				   unsigned long start, unsigned long len)
-{
-	unsigned long npages = len >> PAGE_SHIFT, i;
-	unsigned long *src, *dst;
-	struct migrate_vma args;
-	struct vm_area_struct *vma;
-	int ret;
-
-	src = kvcalloc(npages, sizeof(*src), GFP_KERNEL);
-	dst = kvcalloc(npages, sizeof(*dst), GFP_KERNEL);
-	if (!src || !dst) {
-		ret = -ENOMEM;
-		goto out;
-	}
-
-	mmap_read_lock(mm);
-	vma = vma_lookup(mm, start);
-	if (!vma || start + len > vma->vm_end) {
-		ret = -EINVAL;
-		goto out_unlock;
-	}
-
-	args = (struct migrate_vma){
-		.vma		= vma,
-		.start		= start,
-		.end		= start + len,
-		.src		= src,
-		.dst		= dst,
-		.flags		= MIGRATE_VMA_SELECT_SYSTEM,
-		.pgmap_owner	= p,   /* щоб скасування від ЦЬОГО переселення
-					  наш власний сповіщувач упізнав і
-					  не викидав свої ж таблиці            */
-	};
-
-	ret = migrate_vma_setup(&args);
-	if (ret)
-		goto out_unlock;
-
-	copy_to_device(&args, p);      /* довга частина: рушій прямого доступу */
-	migrate_vma_pages(&args);
-
-	/* Другий такт міг не вдатися ПОСТОРІНКОВО: комусь із сусідів
-	   пощастило торкнутися адреси раніше, і позначку погашено вже тут.
-	   Такий кадр у таблицю процесу не потрапив — вписати його в
-	   апаратуру означало б дати платі писати в нічию пам'ять.
-	   Прибирати його самим НЕ треба: третій такт розімкне й віддасть
-	   посилання за нас, а зайвий put_page() віддав би в пул кадр,
-	   який ще комусь належить.                                        */
-	for (i = 0; i < npages; i++) {
-		struct page *dpage = migrate_pfn_to_page(dst[i]);
-
-		if (dpage && (src[i] & MIGRATE_PFN_MIGRATE))
-			device_pt_install(p, start + (i << PAGE_SHIFT), dpage);
-	}
-
-	migrate_vma_finalize(&args);
-	ret = 0;
-out_unlock:
-	mmap_read_unlock(mm);
-out:
-	kvfree(src);
-	kvfree(dst);
-	return ret;
-}
-```
+:::code proj-migrate-to-device/c/pereselennia-shcho-2.c
 
 Асиметрія тут навмисна й вона плутає найбільше: **кадр, який ядро взяло в роботу, прибирає ядро; кадр, про який ядро не дізналося, прибираємо ми.** Межа проходить рівно по масиву `dst`: поклали туди номер — і кадр більше не ваш.
 
@@ -257,56 +48,7 @@ out:
 
 Обробник дотику — це те саме переселення, тільки в інший бік, на одну сторінку й із двома додатковими полями.
 
-```c
-static vm_fault_t pereselnyk_migrate_to_ram(struct vm_fault *vmf)
-{
-	struct pereselnyk *p = vmf->page->pgmap->owner;
-	unsigned long addr = vmf->address & PAGE_MASK;
-	unsigned long src_pfn = 0, dst_pfn = 0;
-	struct page *spage, *dpage;
-	struct migrate_vma args = {
-		.vma		= vmf->vma,
-		.start		= addr,
-		.end		= addr + PAGE_SIZE,
-		.src		= &src_pfn,
-		.dst		= &dst_pfn,
-		.flags		= MIGRATE_VMA_SELECT_DEVICE_PRIVATE,
-		.pgmap_owner	= p,
-		/* Сторінка, на якій стався збій, УЖЕ замкнена й УЖЕ має зайве
-		   посилання — від збою. Без цього поля перевірка «чи ніхто її
-		   не тримає» побачила б це посилання й відмовилася рухати
-		   сторінку, а збій повторювався б вічно.                    */
-		.fault_page	= vmf->page,
-	};
-
-	if (migrate_vma_setup(&args))
-		return VM_FAULT_SIGBUS;
-	if (!args.cpages)
-		return 0;   /* хтось випередив: сторінка вже в пам'яті, збій повторять */
-
-	spage = migrate_pfn_to_page(src_pfn);
-	dpage = alloc_page_vma(GFP_HIGHUSER, vmf->vma, addr);
-	if (!dpage)
-		goto fail;
-	lock_page(dpage);
-	if (dma_copy_to_host(p, dpage, spage)) {
-		unlock_page(dpage);
-		put_page(dpage);
-		goto fail;
-	}
-	dst_pfn = migrate_pfn(page_to_pfn(dpage));
-
-	migrate_vma_pages(&args);
-	device_pt_drop(p, addr);       /* плата сюди більше не ходить */
-	migrate_vma_finalize(&args);
-	return 0;
-
-fail:
-	/* dst порожній: третій такт просто поверне на місце те, що було. */
-	migrate_vma_finalize(&args);
-	return VM_FAULT_SIGBUS;
-}
-```
+:::code proj-migrate-to-device/c/doroha-nazad.c
 
 > 🔧 **Навіщо це.** Тут закінчується вся ілюзія прозорості: `SIGBUS` із цього обробника — не діагностика для розробника драйвера, а сигнал, який отримає програма, що просто читала свою пам'ять. Тому в дорозі назад немає жодного шляху, де можна відповісти «спробуйте пізніше»: або сторінка приїхала, або процесові кінець. Звідси й `__GFP_NOFAIL` у згортанні нижче.
 
@@ -316,46 +58,7 @@ fail:
 
 Причина в тому самому лічильнику: кожен виданий кадр тримає посилання на `pagemap`, і `memunmap_pages()` гасить це посилання й **чекає**, доки останній кадр не повернеться. Кадри ж повернуться лише тоді, коли процеси доторкнуться своїх сторінок, а вони можуть не доторкнутися ніколи. Отже, виселяти мусимо ми — і не по одному процесу, а по номерах кадрів, бо власників у нашої пам'яті може бути багато.
 
-```c
-static void pereselnyk_evict_all(struct pereselnyk *p)
-{
-	unsigned long npages = PHYS_PFN(resource_size(p->res));
-	unsigned long start  = PHYS_PFN(p->res->start);
-	unsigned long *src, *dst, i;
-
-	src = kvcalloc(npages, sizeof(*src), GFP_KERNEL | __GFP_NOFAIL);
-	dst = kvcalloc(npages, sizeof(*dst), GFP_KERNEL | __GFP_NOFAIL);
-
-	/* Ті самі такти, але без vma: сторінки перебираємо за номерами. */
-	migrate_device_range(src, start, npages);
-
-	for (i = 0; i < npages; i++) {
-		struct page *spage = migrate_pfn_to_page(src[i]);
-		struct page *dpage;
-
-		if (!spage || !(src[i] & MIGRATE_PFN_MIGRATE))
-			continue;
-
-		/* Відступати нікуди: дані з плати мусять доїхати. */
-		dpage = alloc_page(GFP_HIGHUSER | __GFP_NOFAIL);
-		lock_page(dpage);
-		dma_copy_to_host(p, dpage, spage);
-		dst[i] = migrate_pfn(page_to_pfn(dpage));
-	}
-
-	migrate_device_pages(src, dst, npages);
-	migrate_device_finalize(src, dst, npages);
-	kvfree(src);
-	kvfree(dst);
-}
-
-static void pereselnyk_shutdown(struct pereselnyk *p)
-{
-	pereselnyk_evict_all(p);
-	memunmap_pages(&p->pagemap);      /* аж тепер він не повисне */
-	release_mem_region(p->res->start, resource_size(p->res));
-}
-```
+:::code proj-migrate-to-device/c/zhortannia-iake-pidvysaie.c
 
 ## Дзеркалення того, що не переїхало
 

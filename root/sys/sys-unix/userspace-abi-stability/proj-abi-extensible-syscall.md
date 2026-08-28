@@ -34,43 +34,7 @@
 
 ## Заголовок інтерфейсу
 
-```c
-/* uapi/linux/pacer.h — цей файл більше ніколи не можна змінювати,
-   можна тільки дописувати в кінець структур і в кінець списку бітів */
-
-#include <linux/types.h>
-
-struct pacer_policy {
-        __u32          size;         /*  0.. 3  довжина структури від відправника */
-        __u32          __reserved0;  /*  4.. 7  мусить бути 0 */
-        __aligned_u64  flags;        /*  8..15 */
-        __aligned_u64  rate;         /* 16..23  операцій за секунду; 0 = без межі */
-        __u32          burst;        /* 24..27  дозволений сплеск; 0 = без сплеску */
-        __u32          __reserved1;  /* 28..31  мусить бути 0 */
-        /* ─────────── PACER_POLICY_SIZE_VER0 == 32 ─────────── */
-        __aligned_u64  deadline_ns;  /* 32..39  0 = без дедлайну */
-        /* ─────────── PACER_POLICY_SIZE_VER1 == 40 ─────────── */
-        __s32          cgroup_fd;    /* 40..43  чинне лише з PACER_CGROUP */
-        __u32          __reserved2;  /* 44..47  мусить бути 0 */
-        /* ─────────── PACER_POLICY_SIZE_VER2 == 48 ─────────── */
-        __aligned_u64  attrs;        /* 48..55  (uintptr_t) на хвіст атрибутів */
-        __u32          attrs_len;    /* 56..59  0 = хвоста немає */
-        __u32          __reserved3;  /* 60..63  мусить бути 0 */
-        /* ─────────── PACER_POLICY_SIZE_VER3 == 64 ─────────── */
-};
-
-#define PACER_POLICY_SIZE_VER0  32
-#define PACER_POLICY_SIZE_VER1  40
-#define PACER_POLICY_SIZE_VER2  48
-#define PACER_POLICY_SIZE_VER3  64
-
-#define PACER_STRICT  (1ULL << 0)   /* з версії 0 */
-#define PACER_NOTIFY  (1ULL << 1)   /* з версії 1 */
-#define PACER_CGROUP  (1ULL << 2)   /* з версії 2: поле cgroup_fd має сенс */
-
-#define PACER_ARM   _IO('P', 1)     /* поставити політику */
-#define PACER_INFO  _IO('P', 0)     /* спитати, що це ядро вміє */
-```
+:::code proj-abi-extensible-syscall/c/zaholovok-interfeisu.c
 
 У цьому заголовку кожен рядок — рішення, за яким стоїть конкретна поломка.
 
@@ -93,36 +57,7 @@ static_assert(sizeof(struct pacer_policy)                   == PACER_POLICY_SIZE
 
 ## Бік ядра: узгодити довжину
 
-```c
-static int pacer_fetch_policy(struct pacer_policy *dst, const void __user *uarg)
-{
-        u32 usize;
-        int err;
-
-        /* довжина лежить першою — читаємо її, ще нічого не знаючи про решту */
-        if (get_user(usize, (const u32 __user *)uarg))
-                return -EFAULT;
-
-        if (usize < PACER_POLICY_SIZE_VER0)
-                return -EINVAL;   /* коротше за найпершу версію — це не наша структура */
-        if (usize > PAGE_SIZE)
-                return -E2BIG;    /* стеля проти безглуздих чисел */
-
-        /* три випадки одним викликом: збіг, добивання нулями, перевірка хвоста */
-        err = copy_struct_from_user(dst, sizeof(*dst), uarg, usize);
-        if (err)
-                return err;       /* -E2BIG, якщо в хвості не самі нулі */
-
-        if (dst->flags & ~(PACER_STRICT | PACER_NOTIFY | PACER_CGROUP))
-                return -EINVAL;   /* біт, якого ми не знаємо */
-        if (dst->__reserved0 | dst->__reserved1 | dst->__reserved2 | dst->__reserved3)
-                return -EINVAL;   /* заповнювач мусить бути чистим */
-        if (!(dst->flags & PACER_CGROUP) && dst->cgroup_fd)
-                return -EINVAL;   /* поле без свого біта — теж прохання, якого ми не розуміємо */
-
-        return 0;
-}
-```
+:::code proj-abi-extensible-syscall/c/bik-iadra-uzhodyty.c
 
 Уся розширюваність тримається на одному помічнику. `copy_struct_from_user(dst, ksize, src, usize)` з'явився в ядрі 5.4 (осінь 2019, автор — Алекса Сарай, Aleksa Sarai) саме тому, що цей шматок логіки в кожному виклику писали трохи по-різному й трохи неповно. Він робить три речі залежно від співвідношення довжин: за рівних копіює як є; коли довжина від програми менша — копіює скільки є й добиває решту нулями; коли більша — перевіряє зайвий хвіст і повертає `-E2BIG`, якщо там знайшовся хоч один ненульовий байт. Ті самі три випадки описує й довідка `openat2`: за нульового хвоста ядро спокійно ігнорує невідомі йому поля, за ненульового відмовляє.
 
@@ -136,119 +71,19 @@ static int pacer_fetch_policy(struct pacer_policy *dst, const void __user *uarg)
 
 Тому в контракт із самого початку закладається команда-запит, яка нічого не робить, а лише розповідає про можливості:
 
-```c
-struct pacer_info {
-        __u32          size;             /* вхід: sizeof у програми; вихід: sizeof у ядра */
-        __u32          __reserved0;
-        __aligned_u64  flags_supported;  /* які біти прапорців розуміє це ядро */
-        __aligned_u64  attrs_supported;  /* бітова мапа відомих типів атрибутів */
-        __u32          policy_size;      /* sizeof(struct pacer_policy) у ядрі */
-        __u32          __reserved1;
-};
-
-#define PACER_INFO_SIZE_VER0  32
-```
+:::code proj-abi-extensible-syscall/c/bik-prohramy-spytaty-odyn.c
 
 Тут напрям зворотний, і в ньому є своя тонкість: ядро мусить не лише обрізати відповідь до довжини, яку програма спроможна прийняти, а й **сказати їй, що обрізало**. Тому в поле `size` ядро вписує власний `sizeof`: побачивши там число, більше за своє, програма знає, що на цьому ядрі є можливості, про які їй нема як спитати. Той самий прийом уже живе в ядрі: коли `perf_event_open` відмовляє з `E2BIG`, він перед тим переписує поле `size` у структурі програми на розмір, якого чекав сам, — помилка заразом стає відповіддю.
 
-```c
-static void pacer_fill_info(struct pacer_info *ki)
-{
-        memset(ki, 0, sizeof(*ki));
-        ki->size            = sizeof(*ki);
-        ki->flags_supported = PACER_STRICT | PACER_NOTIFY | PACER_CGROUP;
-        ki->attrs_supported = PACER_ATTRS_KNOWN;  /* мапа типів, які ми розбираємо */
-        ki->policy_size     = sizeof(struct pacer_policy);
-}
-
-static int pacer_put_info(void __user *uarg)
-{
-        struct pacer_info ki;
-        u32 usize;
-
-        if (get_user(usize, (const u32 __user *)uarg))
-                return -EFAULT;
-        if (usize < PACER_INFO_SIZE_VER0)
-                return -EINVAL;
-
-        pacer_fill_info(&ki);
-
-        /* віддаємо стільки, скільки програма здатна прийняти, але size — наш */
-        if (copy_to_user(uarg, &ki, min_t(u32, usize, sizeof(ki))))
-                return -EFAULT;
-        if (usize > sizeof(ki) &&
-            clear_user((char __user *)uarg + sizeof(ki), usize - sizeof(ki)))
-                return -EFAULT;   /* хвіст, якого ми не заповнили, мусить бути чистим */
-
-        return 0;
-}
-```
+:::code proj-abi-extensible-syscall/c/bik-prohramy-spytaty-odyn-2.c
 
 На боці програми з цього виходить одноразове узгодження на старті:
 
-```c
-struct pacer_caps {
-        __u32 policy_size;
-        __u64 flags;
-        __u64 attrs;
-};
-
-/* чи є в ядрі поле з такою назвою — питання про довжину, а не про версію */
-#define PACER_HAS(caps, field)                                          \
-        ((caps)->policy_size >= offsetof(struct pacer_policy, field) +  \
-                                sizeof(((struct pacer_policy *)0)->field))
-
-static int pacer_caps_get(int fd, struct pacer_caps *out)
-{
-        struct pacer_info info = { .size = sizeof(info) };
-
-        if (ioctl(fd, PACER_INFO, &info) == 0) {
-                out->policy_size = info.policy_size;
-                out->flags       = info.flags_supported;
-                out->attrs       = info.attrs_supported;
-                return 0;
-        }
-
-        /* драйвер не знає навіть самої команди-запиту — отже, він
-           давніший за неї, а такою була рівно одна версія */
-        if (errno == ENOTTY) {
-                out->policy_size = PACER_POLICY_SIZE_VER0;
-                out->flags       = PACER_STRICT;
-                out->attrs       = 0;
-                return 0;
-        }
-        return -1;
-}
-```
+:::code proj-abi-extensible-syscall/c/bik-prohramy-spytaty-odyn-3.c
 
 Далі виклик стає нудним, а це і є ознака вдалого інтерфейсу: усе, чого це ядро не вміє, відсіяно **до** нього, у власній логіці програми, а не в розборі `errno`.
 
-```c
-int pacer_arm(int fd, const struct pacer_caps *caps,
-              __u64 rate, __u32 burst, __u64 deadline_ns, int cgroup_fd)
-{
-        struct pacer_policy p = { 0 };   /* обнулити ВСЮ структуру — обов'язково */
-
-        if (deadline_ns && !PACER_HAS(caps, deadline_ns))
-                return -1;               /* дедлайну тут не буде — вирішує програма */
-        if (cgroup_fd >= 0 && !(caps->flags & PACER_CGROUP))
-                return -1;
-
-        p.size  = sizeof(p);
-        p.flags = PACER_STRICT;
-        p.rate  = rate;
-        p.burst = burst;
-        p.deadline_ns = deadline_ns;
-        if (cgroup_fd >= 0) {
-                p.flags     |= PACER_CGROUP;
-                p.cgroup_fd  = cgroup_fd;
-        }
-
-        /* сюди ми входимо, лише знаючи, що ядро це вміє; E2BIG чи EINVAL
-           звідси — не «старе ядро», а помилка в нашому власному коді */
-        return ioctl(fd, PACER_ARM, &p);
-}
-```
+:::code proj-abi-extensible-syscall/c/bik-prohramy-spytaty-odyn-4.c
 
 Рядок `struct pacer_policy p = { 0 }` — не косметика. Ми надсилаємо повний `sizeof(p)`, навіть коли ядро старе; це безпечно рівно доти, доки хвіст справді нульовий. Одне невитерте поле — і замість роботи ми дістанемо `E2BIG` там, де нічого зайвого не просили.
 
@@ -260,26 +95,7 @@ int pacer_arm(int fd, const struct pacer_caps *caps,
 
 Тут працює інша форма того самого принципу «невідоме можна пропустити, якщо воно позначене довжиною»: ланцюг записів «довжина–тип–дані». Кожен запис починається з власної довжини, тож одержувач уміє переступити через нього, навіть не здогадуючись, що всередині. Саме так побудовані атрибути [netlink](root:sys-unix/netlink-protocol), і саме звідти варто брати деталі — включно з вирівнюванням, про яке легко забути.
 
-```c
-struct pacer_attr {
-        __u16 len;    /* довжина РАЗОМ із цим заголовком, без заповнювача */
-        __u16 type;
-};
-
-#define PACER_ATTR_ALIGNTO   4
-#define PACER_ATTR_ALIGN(n)  (((n) + PACER_ATTR_ALIGNTO - 1) & ~(PACER_ATTR_ALIGNTO - 1))
-#define PACER_ATTR_HDRLEN    PACER_ATTR_ALIGN(sizeof(struct pacer_attr))
-
-enum {
-        PACER_A_UNSPEC = 0,
-        PACER_A_EXEMPT_PATH,   /* рядок */
-        PACER_A_EXEMPT_INO,    /* __u64 */
-        __PACER_A_MAX,
-};
-#define PACER_ATTR_MAX      (__PACER_A_MAX - 1)
-#define PACER_ATTRS_KNOWN   (BIT_ULL(PACER_A_EXEMPT_PATH) | BIT_ULL(PACER_A_EXEMPT_INO))
-#define PACER_ATTRS_MAX_LEN 4096   /* стеля на весь хвіст */
-```
+:::code proj-abi-extensible-syscall/c/koly-skaliariv-ne.c
 
 Довжина в заголовку не враховує заповнювача, а крок до наступного запису — враховує. Різниця між `len` і `ALIGN(len)` і є той самий заповнювач, який відправник **зобов'язаний обнулити**: інакше в хвості кожного повідомлення поїде сміття зі стека, і одного дня, коли комусь знадобиться ще один прапорець у цих байтах, виявиться, що вони давно зайняті випадковими даними.
 
@@ -289,54 +105,9 @@ enum {
 
 Хвіст лежить не в структурі, а за вказівником `attrs`, і ядро забирає його окремо — уже знаючи довжину, тож стеля перевіряється до будь-якого виділення пам'яті:
 
-```c
-        const struct pacer_attr *tab[PACER_ATTR_MAX + 1];
-        void *tail = NULL;
+:::code proj-abi-extensible-syscall/c/koly-skaliariv-ne-2.c
 
-        if (pol.attrs_len) {
-                if (pol.attrs_len > PACER_ATTRS_MAX_LEN)
-                        return -E2BIG;
-                tail = memdup_user(u64_to_user_ptr(pol.attrs), pol.attrs_len);
-                if (IS_ERR(tail))
-                        return PTR_ERR(tail);
-                err = pacer_parse(tail, pol.attrs_len, tab, PACER_ATTR_MAX);
-        }
-```
-
-```c
-/* Розбір хвоста. Повертає 0 або від'ємний код помилки; заповнює
-   таблицю вказівників на знайдені атрибути. */
-static int pacer_parse(const void *buf, size_t len,
-                       const struct pacer_attr *tab[], u16 maxtype)
-{
-        size_t off = 0;
-
-        memset(tab, 0, (maxtype + 1) * sizeof(tab[0]));
-
-        while (off < len) {
-                const struct pacer_attr *a;
-                size_t alen, step;
-
-                if (len - off < PACER_ATTR_HDRLEN)
-                        return -EINVAL;        /* обрізаний заголовок */
-
-                a    = (const struct pacer_attr *)((const char *)buf + off);
-                alen = a->len;
-                step = PACER_ATTR_ALIGN(alen);
-
-                if (alen < PACER_ATTR_HDRLEN || step > len - off)
-                        return -EINVAL;        /* довжині не можна вірити */
-                if (a->type > maxtype)
-                        return -EOPNOTSUPP;    /* прохання, якого ми не розуміємо */
-                if (tab[a->type])
-                        return -EINVAL;        /* той самий атрибут двічі */
-
-                tab[a->type] = a;
-                off += step;
-        }
-        return 0;
-}
-```
+:::code proj-abi-extensible-syscall/c/koly-skaliariv-ne-3.c
 
 Чотири перевірки в тілі циклу закривають чотири різні способи зіпсувати розбір, і жодну не можна прибрати.
 
@@ -376,32 +147,6 @@ static int pacer_parse(const void *buf, size_t len,
 
 Останнє, що відрізняє задум від працездатного контракту, — можливість переконатися, що ви не помилилися, **не чекаючи десять років**. Майбутнє тут імітується тривіально: беремо буфер, більший за нашу структуру, і надсилаємо його.
 
-```c
-static void test_forward_compat(int fd)
-{
-        /* об'єднання, а не масив char: інакше буфер може виявитися
-           невирівняним, і структура ляже не на ту адресу */
-        union {
-                struct pacer_policy p;
-                char                raw[sizeof(struct pacer_policy) + 16];
-        } u = { 0 };
-        const size_t tail = sizeof(struct pacer_policy);   /* перший байт «майбутнього» */
-
-        u.p.size = sizeof(u.raw);   /* «я з майбутнього, у мене структура довша» */
-        u.p.rate = 1000;
-
-        /* хвіст нульовий — драйвер мусить спокійно спрацювати */
-        assert(ioctl(fd, PACER_ARM, &u.p) == 0);
-
-        /* у хвості щось є — драйвер мусить відмовити, і саме з E2BIG */
-        u.raw[tail] = 1;
-        assert(ioctl(fd, PACER_ARM, &u.p) == -1 && errno == E2BIG);
-
-        /* біт, якого не існує, — EINVAL, а не тиха згода */
-        u.raw[tail] = 0;
-        u.p.flags   = 1ULL << 63;
-        assert(ioctl(fd, PACER_ARM, &u.p) == -1 && errno == EINVAL);
-}
-```
+:::code proj-abi-extensible-syscall/c/perevirka-nadislaty.c
 
 Ці двадцять рядків — єдиний спосіб дізнатися сьогодні, чи витримає інтерфейс завтрашню версію. Вони перевіряють не поведінку драйвера, а його **здатність постаріти**: що він пропустить чужий нульовий хвіст, що не змовчить у відповідь на прохання, якого не розуміє, і що скаже про це кодом, який програма зуміє розрізнити. Драйвер, який усі три перевірки проходить із першого дня, можна розширювати десятиліттями. Драйвер, який хоч одну провалює, доведеться дублювати цілком — і ця копія теж лишиться назавжди.

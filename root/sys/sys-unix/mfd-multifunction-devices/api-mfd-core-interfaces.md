@@ -8,30 +8,7 @@
 
 Визначена у заголовковому файлі `include/linux/mfd/core.h`. Вона описує логічну функціональну одиницю (комірку) мікросхеми, для якої ядро створює платформений пристрій (`struct platform_device`).
 
-```c
-struct mfd_cell {
-	const char *name;
-	int id;
-	int (*enable)(struct platform_device *dev);
-	int (*disable)(struct platform_device *dev);
-	int (*suspend)(struct platform_device *dev);
-	int (*resume)(struct platform_device *dev);
-	void *platform_data;
-	size_t pdata_size;
-	const char * const *parent_supplies;
-	int num_parent_supplies;
-	int num_resources;
-	const struct resource *resources;
-	bool ignore_resource_conflicts;
-	bool pm_runtime_no_callbacks;
-	bool allow_claim_mfd_has_no_parent;
-	bool use_parent;
-	const char *of_compatible;
-	const struct mfd_cell_acpi_match *acpi_match;
-	const struct mfd_cell_match *matches;
-	int num_matches;
-};
-```
+:::code api-mfd-core-interfaces/c/1-1-struktura-struct-mfd.h
 
 #### Детальний опис полів:
 
@@ -83,31 +60,7 @@ struct regmap_irq {
 
 Описує загальну конфігурацію вбудованого контролера переривань мікросхеми.
 
-```c
-struct regmap_irq_chip {
-	const char *name;
-	unsigned int status_base;
-	unsigned int mask_base;
-	unsigned int unmask_base;
-	unsigned int ack_base;
-	unsigned int wake_base;
-	unsigned int type_base;
-	bool mask_writeonly;
-	bool mask_invert;
-	bool clear_on_unmask;
-	bool ack_invert;
-	bool runtime_pm;
-	int num_regs;
-	const struct regmap_irq *irqs;
-	int num_irqs;
-	int num_type_reg;
-	int (*handle_pre_irq)(void *irq_drv_data);
-	int (*handle_post_irq)(void *irq_drv_data);
-	int (*set_type_config)(unsigned int **buf, unsigned int type,
-			       const struct regmap_irq *irq_data, int idx,
-			       void *irq_drv_data);
-};
-```
+:::code api-mfd-core-interfaces/c/1-3-struktura-struct.h
 
 #### Детальний опис полів:
 - `name`: Рядкове ім'я контролера переривань для відображення у `/proc/interrupts`.

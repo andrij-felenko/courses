@@ -78,19 +78,7 @@ struct fanotify_event_metadata {
     int32_t  pid;            /* PID викликача */
 };
 ```
-```cpp
-#include <cstdint>
-
-struct fanotify_event_metadata {
-    std::uint32_t event_len;      // Загальний розмір запису
-    std::uint8_t  vers;           // Версія метаданих
-    std::uint8_t  reserved;       
-    std::uint16_t metadata_len;   
-    std::uint64_t mask;           // Маска події (FAN_OPEN_PERM)
-    std::int32_t  fd;             // Дескриптор файлу від ядра
-    std::int32_t  pid;            // PID викликача
-};
-```
+:::code fanotify-fsnotify-permission-events-d/cpp/main.cpp
 :::
 
 Після перевірки вмісту демон надсилає ядру структуру відповіді:

@@ -48,69 +48,9 @@
 
 :::tabs
 @tab C
-```c
-#define _POSIX_C_SOURCE 200809L
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-
-static volatile sig_atomic_t g_signal_pending = 0;
-
-static void sig_handler(int sig) {
-    g_signal_pending = sig;
-    // Всередині C-обробника дозволені лише Async-Signal-Safe системні виклики
-    const char msg[] = "Сигнал перехоплено, планується завершення...\n";
-    write(STDERR_FILENO, msg, sizeof(msg) - 1);
-}
-
-void setup_signal_handlers(void) {
-    struct sigaction sa;
-    memset(&sa, 0, sizeof(sa));
-    sa.sa_handler = sig_handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-
-    sigaction(SIGINT, &sa, NULL);
-    sigaction(SIGTERM, &sa, NULL);
-}
-```
+:::code trap-and-cleanup-d/c/vbudovana-komanda-trap.c
 @tab C++
-```cpp
-#include <csignal>
-#include <unistd.h>
-#include <atomic>
-#include <string_view>
-#include <memory>
-#include <iostream>
-
-namespace {
-    std::atomic<int> g_signal_pending{0};
-
-    extern "C" void signal_dispatcher(int sig) noexcept {
-        g_signal_pending.store(sig, std::memory_order_relaxed);
-        constexpr std::string_view msg = "Сигнал перехоплено, планується завершення...\n";
-        [[maybe_unused]] auto _ = write(STDERR_FILENO, msg.data(), msg.size());
-    }
-}
-
-class SignalManager {
-public:
-    SignalManager() {
-        struct sigaction sa{};
-        sa.sa_handler = signal_dispatcher;
-        sigemptyset(&sa.sa_mask);
-        sa.sa_flags = 0;
-
-        sigaction(SIGINT, &sa, nullptr);
-        sigaction(SIGTERM, &sa, nullptr);
-    }
-
-    [[nodiscard]] static int get_pending_signal() noexcept {
-        return g_signal_pending.load(std::memory_order_relaxed);
-    }
-};
-```
+:::code trap-and-cleanup-d/cpp/vbudovana-komanda-trap.cpp
 :::
 
 В інтерпретаторі оболонки виклик `trap 'command' SIGNAL` встановлює обробник, який виконується синхронно в основному просторі виконання інтерпретатора, як тільки завершується поточна атомарна команда або коли переривається системний виклик очікування `waitpid(2)`.
@@ -126,20 +66,7 @@ public:
 3. **Аварійне переривання через `set -e`:** Будь-яка команда в конвеєрі повернула ненульовий статус при увімкненому режимі зупинки на помилках (ERREXIT).
 4. **Смерть від перехопленого сигналу:** Процес отримав сигнал `SIGINT`, `SIGTERM` або `SIGHUP`, для якого встановлено обробник, що завершує роботу оболонки.
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# Оголошення централізованої функції прибирання
-cleanup() {
-    local exit_code=$?
-    echo "Виконується фінальне прибирання (код завершення: ${exit_code})..."
-    # Звільнення ресурсів...
-}
-
-# Реєстрація пастки на будь-який вихід з процесу
-trap cleanup EXIT
-```
+:::code trap-and-cleanup-d/sh/psevdosyhnal-exit-syhnal-0.sh
 
 Пастка `EXIT` зберігає код завершення `$?` команди, що спричинила вихід, якщо всередині самого обробника явно не виконати інший `exit`. Це забезпечує ідеальний аналог ідіоми RAII (Resource Acquisition Is Initialization) або блоків `finally` у високорівневих мовах програмування.
 
@@ -226,24 +153,7 @@ trap 'cleanup; exit 1' INT TERM
 
 Щоб забезпечити коректне очищення ресурсів і водночас повідомити ядру про смерть від сигналу, застосовується канонічна ідіома ретрансляції:
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# 1. Створення ресурсів
-WORK_DIR=$(mktemp -d)
-
-# 2. Функція очищення прив'язується ВИКЛЮЧНО до псевдосигналу EXIT
-cleanup() {
-    rm -rf "${WORK_DIR}"
-}
-trap cleanup EXIT
-
-# 3. Обробники сигналів: скидають пастку та відправляють сигнал собі
-trap 'trap - INT; kill -s INT "$$"' INT
-trap 'trap - TERM; kill -s TERM "$$"' TERM
-trap 'trap - HUP; kill -s HUP "$$"' HUP
-```
+:::code trap-and-cleanup-d/sh/realizatsiia-proper-signal.sh
 
 ### Покроковий простежений сценарій роботи
 
@@ -257,49 +167,9 @@ trap 'trap - HUP; kill -s HUP "$$"' HUP
 
 :::tabs
 @tab C
-```c
-#define _POSIX_C_SOURCE 200809L
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-static void reraise_signal_handler(int sig) {
-    // 1. Виконання термінового прибирання
-    // (використовуючи async-signal-safe операції)
-    
-    // 2. Скидання диспозиції на дефолтну
-    struct sigaction sa;
-    sa.sa_handler = SIG_DFL;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(sig, &sa, NULL);
-
-    // 3. Ретрансляція сигналу власному процесу
-    raise(sig);
-}
-```
+:::code trap-and-cleanup-d/c/pokrokovyi-prostezhenyi.c
 @tab C++
-```cpp
-#include <csignal>
-#include <unistd.h>
-#include <cstdlib>
-
-namespace {
-    extern "C" void reraise_dispatcher(int sig) noexcept {
-        // 1. Звільнення ресурсів
-        
-        // 2. Скидання диспозиції на стан за замовчуванням
-        struct sigaction sa{};
-        sa.sa_handler = SIG_DFL;
-        sigemptyset(&sa.sa_mask);
-        sa.sa_flags = 0;
-        sigaction(sig, &sa, nullptr);
-
-        // 3. Повторна генерація сигналу для встановлення WIFSIGNALED
-        std::raise(sig);
-    }
-}
-```
+:::code trap-and-cleanup-d/cpp/pokrokovyi-prostezhenyi.hpp
 :::
 
 ---
@@ -314,52 +184,13 @@ namespace {
 
 Для надійного завершення всього піддерева процесів використовують надсилання сигналу групі процесів (Process Group ID, PGID). Якщо сценарій має власний PGID (наприклад, запущений з увімкненим керуванням завданнями `set -m` або в окремій сесії), сигнал відправляється з від'ємним значенням PID:
 
-```bash
-# Запуск фонового процесу зі збереженням PID
-start_background_collector() {
-    python3 -u metric_daemon.py &
-    DAEMON_PID=$!
-}
-
-cleanup_processes() {
-    if [[ -n "${DAEMON_PID:-}" ]] && kill -0 "${DAEMON_PID}" 2>/dev/null; then
-        # Спочатку ввічливий запит на коректне завершення
-        kill -TERM "${DAEMON_PID}" 2>/dev/null || true
-        # Очікування завершення протягом 2 секунд
-        local count=0
-        while kill -0 "${DAEMON_PID}" 2>/dev/null && (( count < 20 )); do
-            sleep 0.1
-            (( count++ ))
-        done
-        # Якщо процес завис — примусове знищення
-        kill -KILL "${DAEMON_PID}" 2>/dev/null || true
-        wait "${DAEMON_PID}" 2>/dev/null || true
-    fi
-}
-```
+:::code trap-and-cleanup-d/sh/1-kaskadne-znyshchennia.sh
 
 ### 2. Коректне звільнення файлових блокувань `flock`
 
 Утиліта `flock(1)` створює консультативне блокування на рівні відкритого файлового дескриптора ядра. Найбезпечніший спосіб утримання замка в shell-скриптах — відкриття виділеного дескриптора через перевизначення потоку:
 
-```bash
-LOCK_FILE="/var/lock/my_service.lock"
-
-# Відкриття дескриптора 200 на запис до файлу замка
-exec 200>"${LOCK_FILE}"
-
-# Спроба захоплення ексклюзивного неблокуючого блокування
-if ! flock -n 200; then
-    echo "Помилка: інший екземпляр сценарію вже виконується" >&2
-    exit 1
-fi
-
-# КРИТИЧНО: НЕ викликайте 'rm -f ${LOCK_FILE}' під час прибирання!
-# Для звільнення замка достатньо просто закрити файловий дескриптор:
-cleanup_lock() {
-    exec 200>&-
-}
-```
+:::code trap-and-cleanup-d/sh/2-korektne-zvilnennia.sh
 
 Чому видалення файлу замка через `rm` є дефектом: якщо процес `A` тримає замок на файлі, а процес `B` чекає в черзі на виклику `open()`, виконання `rm` процесом `A` видаляє запис з каталогу, але не закриває інод. Процес `B` відкриє **новий** файл з новим номером інода за тим самим шляхом і успішно захопить замок, унаслідок чого два процеси виконуватимуться паралельно, порушуючи умову взаємного виключення (Race Condition). Закриття дескриптора `exec 200>&-` або природне закриття дескрипторів ядром під час виходу позбавлене цього недоліку.
 
@@ -395,18 +226,7 @@ cleanup_mounts() {
 1. **Інкапсуляція у зворотному порядку (LIFO):** Реєстр зберігає команди у вигляді стека (масив Bash). Під час виходу команди виконуються від останньої доданої до першої. Це автоматично вирішує проблему залежностей: спочатку зупиняється демон, який пише в каталог, потім розмонтовується диск, на якому лежить каталог, і лише в кінці видаляється точка монтування.
 2. **Абсолютна локальність коду:** Програміст описує логіку вивільнення поруч із виділенням, що знижує когнітивне навантаження та унеможливлює ситуацію, коли ресурс виділено, але забуто додати до глобального очищення:
 
-```bash
-# Приклад використання реєстру defer:
-TEMP_DIR=$(mktemp -d)
-defer "rm -rf '${TEMP_DIR}'"
-
-exec 200>/var/lock/app.lock
-flock -n 200
-defer "exec 200>&-"
-
-mount /dev/nvme0n1p1 /mnt/stage
-defer "umount -l /mnt/stage"
-```
+:::code trap-and-cleanup-d/sh/kliuchovi-invarianty.sh
 
 ---
 

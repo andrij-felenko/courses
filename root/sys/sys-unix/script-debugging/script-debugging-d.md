@@ -90,19 +90,7 @@ bash -n deploy_cluster.sh
 
 Розглянемо демонстраційний фрагмент обробки конфігураційних файлів:
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-backup_dir="/var/backups/cluster"
-service_name="auth-api"
-archive_name="${service_name}_$(date +%Y%m%d).tar.gz"
-
-set -x  # Вмикаємо трасування для критичної секції
-mkdir -p "${backup_dir}"
-tar -czf "${backup_dir}/${archive_name}" -C "/etc/${service_name}" conf.d
-set +x  # Вимикаємо трасування
-```
+:::code script-debugging-d/sh/dynamichne-trasuvannia.sh
 
 Під час виконання блоку між `set -x` та `set +x` у стандартний потік помилок надходить вичерпний протокол з реальними значеннями параметрів:
 
@@ -119,22 +107,7 @@ set +x  # Вимикаємо трасування
 
 У великих сценаріях увімкнення `set -x` на рівні всього файлу призводить до генерації сотень мегабайтів логів, у яких розробник тоне під час аналізу циклів на тисячі ітерацій. Патерн локального трасування вирішує цю проблему:
 
-```bash
-process_records() {
-    local record_id="$1"
-    
-    # Трасуємо лише специфічний проблемний запис
-    if [[ "${record_id}" -eq 404 ]]; then
-        set -x
-    fi
-
-    perform_complex_calculation "${record_id}"
-
-    if [[ "${record_id}" -eq 404 ]]; then
-        set +x
-    fi
-}
-```
+:::code script-debugging-d/sh/lokalizatsiia-trasuvannia.sh
 
 ### Захист чутливих даних у логах неперервної інтеграції
 
@@ -142,20 +115,7 @@ process_records() {
 
 Для запобігання витоку застосовують тимчасове відключення трасування або перенаправлення діагностичного потоку:
 
-```bash
-# Безпечний патерн виконання операції з секретом
-{
-    # Тимчасово вимикаємо трасування, якщо воно було активне
-    { set +x; } 2>/dev/null
-    
-    # Виконуємо операцію з секретом у закритому режимі
-    curl -sSf -H "Authorization: Bearer ${VAULT_SECRET_TOKEN}" \
-         "https://vault.internal.net/v1/secret/data/db" > /tmp/db_creds.json
-         
-    # Відновлюємо трасування, якщо необхідно
-    set -x
-}
-```
+:::code script-debugging-d/sh/zakhyst-chutlyvykh-danykh.sh
 
 ### Ізоляція потоку трасування через `BASH_XTRACEFD`
 
@@ -163,19 +123,7 @@ process_records() {
 
 Починаючи з версії 4.1, Bash надає спеціальну змінну `BASH_XTRACEFD`. Якщо цій змінній присвоїти номер відкритого файлового дескриптора, інтерпретатор автоматично спрямовуватиме всі службові повідомлення `set -x` виключно в цей дескриптор:
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# Відкриваємо дескриптор 19 для запису у виділений файл трасування
-exec 19> "/tmp/deployment_trace_$$.log"
-export BASH_XTRACEFD=19
-
-set -x
-echo "Цей рядок іде у стандартний вивід"
-ls /etc/hosts
-# Усі службові рядки '+' опиняються у файлі /tmp/deployment_trace_$$.log
-```
+:::code script-debugging-d/sh/izoliatsiia-potoku.sh
 
 ---
 
@@ -223,20 +171,7 @@ export PS4='+ [${EPOCHREALTIME}] [pid:${BASHPID}|sub:${BASH_SUBSHELL}] [${BASH_S
 
 Наявність `${EPOCHREALTIME}` у `PS4` дозволяє не лише читати послідовність викликів, а й аналізувати продуктивність сценарію за допомогою простих потокових фільтрів `awk`. Зберігши вивід `xtrace` у файл, можна автоматично обчислити дельту часу між кожними двома послідовними рядками та відсортувати команди за спаданням тривалості:
 
-```bash
-# Пошук найповільніших інструкцій у журналі трасування
-awk -F'[\\[\\]]' '/^\+/ {
-    t = $2;
-    if (prev_t > 0) {
-        delta = t - prev_t;
-        if (delta > 0.05) {  # Відбираємо команди, що тривали понад 50 мс
-            printf "%8.4f c | %s\n", delta, prev_cmd;
-        }
-    }
-    prev_t = t;
-    prev_cmd = $0;
-}' /tmp/trace.log | sort -rn | head -n 10
-```
+:::code script-debugging-d/sh/profiliuvannia-tryvalosti.sh
 
 Цей метод дозволяє миттєво локалізувати неочікувані блокування введення-виведення, мережеві таймаути чи важкі обчислення без залучення зовнішніх профілювальників.
 
@@ -260,24 +195,7 @@ Bash підтримує внутрішні масиви викликів, які
 
 За замовчуванням функції не успадковують обробник `DEBUG`. Щоб пастка діяла всередині підпрограм, необхідно встановити прапорець функціонального трасування `set -T` (або `set -o functrace`).
 
-```bash
-#!/usr/bin/env bash
-set -T
-
-# Простий лічильник команд та протоколювання інструкцій
-__trace_instruction() {
-    local cmd="${BASH_COMMAND}"
-    local line="${BASH_LINENO[0]}"
-    local src="${BASH_SOURCE[1]}"
-    echo ">> [DEBUG] Виконується: '${cmd}' на рядку ${src}:${line}" >&2
-}
-
-trap '__trace_instruction' DEBUG
-
-x=10
-y=20
-z=$(( x + y ))
-```
+:::code script-debugging-d/sh/perekhoplennia-podii-debug.sh
 
 Якщо увімкнути режим `shopt -s extdebug`, обробник `DEBUG` отримує суперсилу: якщо функція-обробник повертає числовий код `2`, Bash **пропускає виконання поточної команди** і переходить до наступної, що дозволяє створювати мок-середовища та перехоплювати небезпечні операції.
 
@@ -287,36 +205,7 @@ z=$(( x + y ))
 
 Для того щоб пастка `ERR` надійно перехоплювала збої всередині функцій і підоболонок, сценарій повинен увімкнути прапорець трасування помилок `set -E` (або `set -o errtrace`).
 
-```bash
-#!/usr/bin/env bash
-set -Eeuo pipefail
-
-on_error_backtrace() {
-    local exit_code="$1"
-    local failed_cmd="$2"
-    local failed_line="$3"
-    local failed_file="$4"
-
-    # Вимикаємо ERR-пастку для запобігання рекурсивним збоям усередині обробника
-    trap '' ERR
-
-    echo -e "\n[АВАРІЙНИЙ СТЕК-ТРЕЙС] Код помилки: ${exit_code}" >&2
-    echo "  Збій команди: '${failed_cmd}'" >&2
-    echo "  Локація:      ${failed_file}:${failed_line}" >&2
-    echo "  Стек викликів:" >&2
-
-    local depth=${#FUNCNAME[@]}
-    for (( i=1; i<depth; i++ )); do
-        local fn="${FUNCNAME[$i]}"
-        local file="${BASH_SOURCE[$i]}"
-        local line="${BASH_LINENO[$((i-1))]}"
-        echo "    #$((i-1)) ${fn}() у ${file}:${line}" >&2
-    done
-    exit "${exit_code}"
-}
-
-trap 'on_error_backtrace "$?" "${BASH_COMMAND}" "${LINENO}" "${BASH_SOURCE[0]}"' ERR
-```
+:::code script-debugging-d/sh/perekhoplennia-zboiv.sh
 
 Повний робочий код інтерактивного крокового налагоджувача та автономного модуля бектрейсу реалізовано у вставці [модуль автоматичного бектрейсу та покроковий відлагоджувач](root:sys-unix/script-debugging/proj-bash-stacktrace-and-step-debugger.md). Історію появи змінної `PS4`, масивів інтроспекції та пасток викликів описано у вставці [історія еволюції засобів діагностики оболонки](root:sys-unix/script-debugging/hist-shell-debugging-evolution.md).
 
@@ -367,20 +256,7 @@ done < <(find /tmp/uploads -type f -print0)
 
 Ця пастка регулярно призводить до катастрофічних збоїв у сценаріях, захищених прапорцем `set -e`.
 
-```bash
-# Дефектний код:
-fetch_metrics() {
-    local metrics_data=$(curl -sSf "https://metrics.service.internal/api")
-    echo "Дані отримано: ${metrics_data}"
-}
-
-# Безпечний еквівалент:
-fetch_metrics() {
-    local metrics_data
-    metrics_data=$(curl -sSf "https://metrics.service.internal/api")
-    echo "Дані отримано: ${metrics_data}"
-}
-```
+:::code script-debugging-d/sh/sc2155-maskuvannia-kodu.sh
 
 **Механізм пастки:** інструкція `local` — це самостійна вбудована команда оболонки (builtin). Коли оголошення та присвоєння об'єднані в один рядок `local var=$(cmd)`, оболонка спочатку виконує команду `cmd` (яка, наприклад, падає з кодом `22`), а потім передає результат вбудованій команді `local`. Команда `local` успішно створює локальну змінну і завершується з кодом **`0`**. 
 
@@ -405,18 +281,7 @@ local config_file="/etc/app.conf"
 
 Правило **SC2181** виявляє антипатерн перевірки результату команди через проміжне звернення до `$?`:
 
-```bash
-# Антипатерн (SC2181):
-run_backup
-if [ $? -ne 0 ]; then
-    echo "Збій!"
-fi
-
-# Ідіоматична перевірка:
-if ! run_backup; then
-    echo "Збій!"
-fi
-```
+:::code script-debugging-d/sh/sc2034-ta-sc2181.sh
 
 Пряма перевірка команди в умові `if ! run_backup` є надійною, оскільки виключає випадкове затирання `$?` проміжними інструкціями (наприклад, фоновими викликами або командами логування).
 
@@ -483,48 +348,6 @@ gcc ${COMPILER_FLAGS} -o output main.c
 
 Об'єднаємо розглянуті інструменти в єдиний стандартизований шаблон для написання стійких до збоїв сценаріїв:
 
-```bash
-#!/usr/bin/env bash
-# ==============================================================================
-# Промисловий шаблон системного сценарію з повною діагностикою
-# ==============================================================================
-set -Eeuo pipefail
-shopt -s inherit_errexit 2>/dev/null || true
-
-# 1. Налаштування детального префіксу трасування
-export PS4='+ [${EPOCHREALTIME:-0}] [pid:${BASHPID}] [${BASH_SOURCE[0]##*/}:${LINENO}] ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-
-# 2. Обробник аварійного стек-трейсу
-__emergency_backtrace() {
-    local err_code="$1"
-    local cmd="$2"
-    local line="$3"
-    local src="$4"
-    trap '' ERR
-
-    echo -e "\n\033[1;31m[CRITICAL FAILURE]\033[0m Сценарій завершився з кодом ${err_code}" >&2
-    echo "  Невдала інструкція: '${cmd}'" >&2
-    echo "  Файл та рядок:      ${src}:${line}" >&2
-    echo "  Стек викликів:" >&2
-
-    local depth=${#FUNCNAME[@]}
-    for (( i=1; i<depth; i++ )); do
-        echo "    #$((i-1)) ${FUNCNAME[$i]}() у ${BASH_SOURCE[$i]}:${BASH_LINENO[$((i-1))]}" >&2
-    done
-    exit "${err_code}"
-}
-
-# 3. Реєстрація пастки
-trap '__emergency_backtrace "$?" "${BASH_COMMAND}" "${LINENO}" "${BASH_SOURCE[0]}"' ERR
-
-# 4. Основна логіка сценарію
-main() {
-    local target_env="${1:-production}"
-    echo "Запуск сценарію для середовища: ${target_env}"
-    # Бізнес-логіка...
-}
-
-main "$@"
-```
+:::code script-debugging-d/sh/promyslovyi-shablon.sh
 
 Завдяки поєднанню попередньої статичної валідації ShellCheck, вичерпного динамічного трасування через розширений `PS4` та автоматичної інтроспекції через пастки `ERR`, сценарії оболонки трансформуються з непередбачуваних чорних скриньок на прозорі, керовані та надійні компоненти операційної системи.

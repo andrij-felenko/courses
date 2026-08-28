@@ -127,83 +127,19 @@ char *devm_hwmon_sanitize_name(struct device *dev, const char *name);
 
 Драйвер не створює файлів і не бачить їхніх імен. Він оголошує канали переліком типів і бітовими масками ознак, а розбір імені на трійку «тип, ознака, канал» бере на себе ядро.
 
-```c
-enum hwmon_sensor_types {
-        hwmon_chip,        /* атрибути всієї мікросхеми, не каналу */
-        hwmon_temp,        /* HWMON_T_*                            */
-        hwmon_in,          /* HWMON_I_*                            */
-        hwmon_curr,        /* HWMON_C_*                            */
-        hwmon_power,       /* HWMON_P_*                            */
-        hwmon_energy,      /* HWMON_E_*                            */
-        hwmon_humidity,    /* HWMON_H_*                            */
-        hwmon_fan,         /* HWMON_F_*                            */
-        hwmon_pwm,         /* HWMON_PWM_*                          */
-        hwmon_intrusion,   /* HWMON_INTRUSION_*                    */
-        hwmon_max,
-};
-```
+:::code api-hwmon-attributes/c/toi-samyi-kontrakt-iz-boku.c
 
 У свіжому mainline поруч із `hwmon_energy` стоїть ще `hwmon_energy64` — той самий лічильник енергії, але з 64-бітним значенням, бо мікроджоулі в 32 біти перестали влазити.
 
 Кожен біт ознаки — це `BIT()` від відповідного члена свого переліку, тож набір імен дзеркалить набір суфіксів у sysfs:
 
-```c
-/* temp — найповніший набір */
-HWMON_T_ENABLE   HWMON_T_INPUT    HWMON_T_TYPE     HWMON_T_LABEL
-HWMON_T_MIN      HWMON_T_MAX      HWMON_T_LCRIT    HWMON_T_CRIT    HWMON_T_EMERGENCY
-HWMON_T_MIN_HYST HWMON_T_MAX_HYST HWMON_T_LCRIT_HYST HWMON_T_CRIT_HYST HWMON_T_EMERGENCY_HYST
-HWMON_T_ALARM    HWMON_T_MIN_ALARM HWMON_T_MAX_ALARM HWMON_T_LCRIT_ALARM
-HWMON_T_CRIT_ALARM HWMON_T_EMERGENCY_ALARM
-HWMON_T_FAULT    HWMON_T_OFFSET   HWMON_T_LOWEST   HWMON_T_HIGHEST
-HWMON_T_RESET_HISTORY  HWMON_T_RATED_MIN  HWMON_T_RATED_MAX  HWMON_T_BEEP
-
-/* fan — свої ознаки замість меж із гістерезисом */
-HWMON_F_ENABLE HWMON_F_INPUT HWMON_F_LABEL HWMON_F_MIN HWMON_F_MAX
-HWMON_F_DIV    HWMON_F_PULSES HWMON_F_TARGET
-HWMON_F_ALARM  HWMON_F_MIN_ALARM HWMON_F_MAX_ALARM HWMON_F_FAULT HWMON_F_BEEP
-
-/* curr */
-HWMON_C_ENABLE HWMON_C_INPUT HWMON_C_LABEL HWMON_C_MIN HWMON_C_MAX
-HWMON_C_LCRIT  HWMON_C_CRIT  HWMON_C_AVERAGE HWMON_C_LOWEST HWMON_C_HIGHEST
-HWMON_C_RESET_HISTORY HWMON_C_ALARM HWMON_C_MIN_ALARM HWMON_C_MAX_ALARM
-HWMON_C_LCRIT_ALARM HWMON_C_CRIT_ALARM HWMON_C_RATED_MIN HWMON_C_RATED_MAX HWMON_C_BEEP
-```
+:::code api-hwmon-attributes/c/toi-samyi-kontrakt-iz-boku-2.c
 
 Тут є справжня незручність заголовка: префікс `HWMON_C_` носить і `curr`, і `chip`. Збігу імен немає — атрибути мікросхеми звуться `HWMON_C_REGISTER_TZ` (зареєструвати канал як джерело для теплового каркаса), `HWMON_C_UPDATE_INTERVAL`, `HWMON_C_ALARMS`, `HWMON_C_BEEP_ENABLE`, `HWMON_C_TEMP_RESET_HISTORY` і подібні, — але око плутає їх зі струмом легко, а компілятор мовчить, бо це просто число.
 
 Оголошення й реєстрація:
 
-```c
-static const struct hwmon_channel_info * const lm_info[] = {
-        HWMON_CHANNEL_INFO(chip, HWMON_C_UPDATE_INTERVAL | HWMON_C_REGISTER_TZ),
-        HWMON_CHANNEL_INFO(temp,                     /* канал 0 */
-                           HWMON_T_INPUT | HWMON_T_MAX | HWMON_T_MAX_ALARM,
-                           HWMON_T_INPUT | HWMON_T_LABEL),   /* канал 1 */
-        NULL
-};
-
-static const struct hwmon_ops lm_ops = {
-        .is_visible  = lm_is_visible,
-        .read        = lm_read,
-        .read_string = lm_read_string,
-        .write       = lm_write,
-};
-
-static const struct hwmon_chip_info lm_chip = {
-        .ops  = &lm_ops,
-        .info = lm_info,
-};
-
-struct device *hwmon;
-
-hwmon = devm_hwmon_device_register_with_info(dev,        /* батьківський пристрій */
-                                             "lm75",     /* name; ядро перевірить */
-                                             data,       /* приватні дані драйвера */
-                                             &lm_chip,
-                                             NULL);      /* додаткові групи атрибутів */
-if (IS_ERR(hwmon))
-        return PTR_ERR(hwmon);
-```
+:::code api-hwmon-attributes/c/toi-samyi-kontrakt-iz-boku-3.c
 
 `HWMON_CHANNEL_INFO(temp, …)` приймає змінну кількість масок — по одній на канал, за порядком номерів. Варіант без `devm_` зветься `hwmon_device_register_with_info` і має ту саму сигнатуру, але знімати пристрій доводиться руками через `hwmon_device_unregister`.
 

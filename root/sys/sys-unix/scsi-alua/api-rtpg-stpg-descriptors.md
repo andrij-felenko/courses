@@ -180,19 +180,7 @@
 
 Приклад читання та перевірки параметрів у терміналі:
 
-```sh
-# Зчитування поточного стану доступу
-$ cat /sys/class/scsi_disk/2:0:0:0/device/alua_access_state
-optimized
-
-# Перевірка ідентифікатора групи портів
-$ cat /sys/class/scsi_disk/2:0:0:0/device/alua_tpg_id
-1
-
-# Перевірка ознаки бажаного контролера (Preferred)
-$ cat /sys/class/scsi_disk/2:0:0:0/device/alua_pref
-1
-```
+:::code api-rtpg-stpg-descriptors/sh/6-interfeis-iadra-linux.sh
 
 Користувач може вручну змінити тайм-аут переходу через `sysfs`, записавши нове значення в секундах: `echo 120 > /sys/class/scsi_disk/2:0:0:0/device/alua_transition_tmo`. Це дозволяє уникнути передчасного скидання шляхів під час тривалого скидання кешу масивів надвеликої ємності.
 
@@ -202,22 +190,7 @@ $ cat /sys/class/scsi_disk/2:0:0:0/device/alua_pref
 
 Під час створення власного програмного дискового масиву за допомогою підсистеми ядра Linux LIO Target (`targetcli` / `configfs`), групи ALUA налаштовуються у дереві `/sys/kernel/config/target/core/`:
 
-```sh
-# Створення групи портів цілі TPG 1 для бекенду iblock
-mkdir -p /sys/kernel/config/target/core/iblock_0/lun_0/alua/tpg_1
-
-# Встановлення типу доступу: Active/Optimized (значення 0)
-echo 0 > /sys/kernel/config/target/core/iblock_0/lun_0/alua/tpg_1/alua_access_state
-
-# Встановлення біта Preferred
-echo 1 > /sys/kernel/config/target/core/iblock_0/lun_0/alua/tpg_1/alua_pref
-
-# Встановлення штучної затримки для стану Non-Optimized (у мілісекундах)
-echo 100 > /sys/kernel/config/target/core/iblock_0/lun_0/alua/tpg_1/nonop_delay_msecs
-
-# Встановлення затримки переходу стану Transitioning (у мілісекундах)
-echo 500 > /sys/kernel/config/target/core/iblock_0/lun_0/alua/tpg_1/trans_delay_msecs
-```
+:::code api-rtpg-stpg-descriptors/sh/7-nalashtuvannia-alua-u.sh
 
 Ці параметри дозволяють емулювати поведінку комерційного асиметричного сховища безпосередньо у тестових стендах та віртуальних лабораторіях.
 

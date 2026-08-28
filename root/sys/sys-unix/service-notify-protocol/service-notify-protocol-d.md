@@ -205,83 +205,8 @@ WantedBy=multi-user.target
 Офіційна бібліотека `libsystemd` надає функцію `sd_notify()`. Вона автоматично перевіряє наявність `NOTIFY_SOCKET`, створює сокет та надсилає датаграму.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <systemd/sd-daemon.h>
-
-int main(void) {
-    printf("Starting worker initialization...\n");
-
-    // Імітація тривалої підготовки (завантаження даних, прив'язка до портів)
-    sleep(2);
-
-    // Сповіщаємо systemd про готовність та передаємо початковий статус
-    int res = sd_notify(0, "READY=1\nSTATUS=Worker initialized, awaiting jobs.");
-    if (res < 0) {
-        fprintf(stderr, "Failed to send notification: %d\n", res);
-    } else if (res == 0) {
-        printf("NOTIFY_SOCKET is not set. Running standalone.\n");
-    } else {
-        printf("Notification successfully sent to systemd.\n");
-    }
-
-    // Головний цикл програми
-    for (int i = 0; i < 5; ++i) {
-        sleep(1);
-        sd_notify(0, "WATCHDOG=1");
-    }
-
-    sd_notify(0, "STOPPING=1\nSTATUS=Shutting down gracefully.");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <chrono>
-#include <thread>
-#include <systemd/sd-daemon.h>
-
-class SystemdNotifier {
-public:
-    static bool notify(std::string_view message) noexcept {
-        int res = sd_notify(0, message.data());
-        return res > 0;
-    }
-
-    static bool notify_ready(std::string_view status = "") noexcept {
-        if (status.empty()) {
-            return notify("READY=1");
-        }
-        std::string payload = "READY=1\nSTATUS=";
-        payload.append(status);
-        return notify(payload);
-    }
-
-    static bool watchdog_ping() noexcept {
-        return notify("WATCHDOG=1");
-    }
-};
-
-int main() {
-    std::cout << "[C++] Starting service setup...\n";
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-
-    if (SystemdNotifier::notify_ready("C++ Service ready and serving traffic.")) {
-        std::cout << "[C++] Systemd readiness acknowledged.\n";
-    }
-
-    for (int i = 0; i < 5; ++i) {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        SystemdNotifier::watchdog_ping();
-    }
-
-    SystemdNotifier::notify("STOPPING=1\nSTATUS=Terminating process.");
-    return 0;
-}
-```
+:::code service-notify-protocol-d/c/1-vykorystannia-systemnoi.c
+:::code service-notify-protocol-d/cpp/1-vykorystannia-systemnoi.cpp
 :::
 
 ### 2. Реалізація автономного протоколу без зовнішніх залежностей
@@ -289,153 +214,15 @@ int main() {
 У статично скомпільованих програмах або мінімальних контейнерах лінкування `libsystemd` небажане. Оскільки протокол є відкритим специфікованим стандартом UNIX-сокетів, його можна реалізувати з нуля.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <sys/un.h>
-
-int custom_sd_notify(const char *state) {
-    if (!state) return -1;
-
-    const char *socket_path = getenv("NOTIFY_SOCKET");
-    if (!socket_path) return 0; // NOTIFY_SOCKET не задано
-
-    int fd = socket(AF_UNIX, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-    if (fd < 0) return -1;
-
-    struct sockaddr_un addr;
-    memset(&addr, 0, sizeof(addr));
-    addr.sun_family = AF_UNIX;
-
-    size_t path_len = strlen(socket_path);
-    if (socket_path[0] == '@') {
-        // Абстрактний простір імен: перший байт \0
-        addr.sun_path[0] = '\0';
-        if (path_len >= sizeof(addr.sun_path)) path_len = sizeof(addr.sun_path) - 1;
-        memcpy(addr.sun_path + 1, socket_path + 1, path_len - 1);
-    } else {
-        if (path_len >= sizeof(addr.sun_path)) path_len = sizeof(addr.sun_path) - 1;
-        memcpy(addr.sun_path, socket_path, path_len);
-    }
-
-    socklen_t addr_len = sizeof(sa_family_t) + path_len;
-    ssize_t sent = sendto(fd, state, strlen(state), MSG_NOSIGNAL,
-                          (struct sockaddr *)&addr, addr_len);
-
-    close(fd);
-    return (sent > 0) ? 1 : -1;
-}
-
-int main(void) {
-    sleep(1);
-    custom_sd_notify("READY=1\nSTATUS=Zero-dependency C notifier online.");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <optional>
-#include <system_error>
-#include <cstdlib>
-#include <cstring>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <sys/un.h>
-
-class CustomNotifier {
-public:
-    static std::optional<std::error_code> notify(std::string_view state) noexcept {
-        const char* socket_path = std::getenv("NOTIFY_SOCKET");
-        if (!socket_path || *socket_path == '\0') {
-            return std::nullopt; // Сокет не налаштовано
-        }
-
-        int fd = ::socket(AF_UNIX, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-        if (fd < 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-
-        // RAII обгортка для автоматичного закриття дескриптора сокета
-        struct SocketCloser {
-            int sock_fd;
-            ~SocketCloser() { if (sock_fd >= 0) ::close(sock_fd); }
-        } guard{fd};
-
-        struct sockaddr_un addr{};
-        addr.sun_family = AF_UNIX;
-
-        size_t path_len = std::strlen(socket_path);
-        if (socket_path[0] == '@') {
-            addr.sun_path[0] = '\0';
-            if (path_len >= sizeof(addr.sun_path)) path_len = sizeof(addr.sun_path) - 1;
-            std::memcpy(addr.sun_path + 1, socket_path + 1, path_len - 1);
-        } else {
-            if (path_len >= sizeof(addr.sun_path)) path_len = sizeof(addr.sun_path) - 1;
-            std::memcpy(addr.sun_path, socket_path, path_len);
-        }
-
-        socklen_t addr_len = static_cast<socklen_t>(sizeof(sa_family_t) + path_len);
-        ssize_t bytes_sent = ::sendto(fd, state.data(), state.size(), MSG_NOSIGNAL,
-                                      reinterpret_cast<struct sockaddr*>(&addr), addr_len);
-
-        if (bytes_sent < 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-
-        return std::nullopt;
-    }
-};
-
-int main() {
-    auto err = CustomNotifier::notify("READY=1\nSTATUS=Idiomatic C++20 Zero-dep notifier.");
-    if (err) {
-        std::cerr << "Notification error: " << err->message() << "\n";
-    } else {
-        std::cout << "Notification sent successfully.\n";
-    }
-    return 0;
-}
-```
+:::code service-notify-protocol-d/c/2-realizatsiia-avtonomnoho.c
+:::code service-notify-protocol-d/cpp/2-realizatsiia-avtonomnoho.cpp
 :::
 
 ### 3. Сповіщення зі сценаріїв Bash
 
 Для скриптів командної оболонки `systemd` надає утиліту `systemd-notify`. Вона зчитує `NOTIFY_SOCKET` з оточення і формує необхідні датаграми.
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-echo "Executing heavy shell initialization..."
-sleep 3
-
-# Сповіщаємо systemd через стандартну утиліту
-if command -v systemd-notify &>/dev/null; then
-    systemd-notify --ready --status="Shell script initialized successfully."
-else
-    # Резервний варіант через socat, якщо systemd-notify відсутній
-    if [ -n "${NOTIFY_SOCKET:-}" ]; then
-        if [[ "$NOTIFY_SOCKET" == @* ]]; then
-            TARGET="abstract-sendto:${NOTIFY_SOCKET:1}"
-        else
-            TARGET="unix-sendto:$NOTIFY_SOCKET"
-        fi
-        echo -e "READY=1\nSTATUS=Socat fallback ready." | socat -u STDIN "$TARGET"
-    fi
-fi
-
-# Головний цикл скрипта з надсиланням watchdog
-while true; do
-    sleep 10
-    if command -v systemd-notify &>/dev/null; then
-        systemd-notify --watchdog
-    fi
-done
-```
+:::code service-notify-protocol-d/sh/main.sh
 
 ## 10. Діагностика та трасування протоколу у живій системі
 

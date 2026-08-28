@@ -38,29 +38,7 @@ pid_t pid = fork();
 
 Звідси випливає форма, у якій `fork` пишуть завжди:
 
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-int main(void) {
-    printf("до розгалуження: pid=%d\n", getpid());
-
-    pid_t pid = fork();
-    if (pid < 0) {
-        perror("fork");
-        return 1;
-    }
-    if (pid == 0) {
-        printf("дитина:  pid=%d, батько=%d\n", getpid(), getppid());
-        _exit(0);
-    }
-    printf("батько:  pid=%d, дитина=%d\n", getpid(), pid);
-    wait(NULL);
-    return 0;
-}
-```
+:::code fork-semantics-d/c/odyn-vyklyk-dva.c
 
 Дві гілки `if` — це не дві дороги для одного потоку виконання, а **два процеси, кожен зі своєю гілкою**. Обидва бачать однаковий текст програми, однакові локальні змінні, однаковий стек — і розходяться лише тому, що змінна `pid` у них має різне значення.
 
@@ -158,32 +136,7 @@ if (pid == 0) {
 
 Тепер уяви, що котрийсь із зниклих потоків тримав у ту мить м'ютекс. У дитині м'ютекс лишився **захопленим**, а той, хто мав його відпустити, у дитині не існує. Перший, хто спробує його взяти, чекатиме вічно:
 
-```c
-static pthread_mutex_t log_lock = PTHREAD_MUTEX_INITIALIZER;
-
-static void *writer(void *unused) {
-    (void)unused;
-    for (;;) {
-        pthread_mutex_lock(&log_lock);
-        write_line_to_journal();
-        pthread_mutex_unlock(&log_lock);
-    }
-}
-
-int main(void) {
-    pthread_t t;
-    pthread_create(&t, NULL, writer, NULL);
-
-    pid_t pid = fork();
-    if (pid == 0) {
-        pthread_mutex_lock(&log_lock);   /* якщо writer тримав замок — не повернеться НІКОЛИ */
-        write_line_to_journal();
-        pthread_mutex_unlock(&log_lock);
-        _exit(0);
-    }
-    wait(NULL);
-}
-```
+:::code fork-semantics-d/c/potoky-u-dytyni.c
 
 Найнеприємніше, що потрапити в цю пастку можна, **не написавши жодного м'ютекса власноруч**. Внутрішній замок має розподільник пам'яті. Внутрішні замки мають бібліотека журналювання, кеш перетворення імен, будь-яка бібліотека з ледачою ініціалізацією. Виклик `malloc`, `printf`, `dlopen` чи `getaddrinfo` у дитині — це виклик у код із замками, стан яких зафіксовано в довільній точці.
 

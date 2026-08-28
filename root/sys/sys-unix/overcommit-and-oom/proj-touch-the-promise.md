@@ -26,160 +26,17 @@ $ systemd-run --user --scope -p MemoryMax=1G -p MemorySwapMax=0 ./promise wall -
 
 Пари підібрані навмисно. `VmSize` і `Committed_AS` рухаються на роздачі адрес; `VmRSS` і `MemAvailable` — на дотику до сторінок. Якщо тримати їх в одному рядку, різницю між обіцянкою і платежем видно без жодних пояснень.
 
-```c
-/* promise.c — лабораторія overcommit: обіцянка, дотик, стіна.
-   Збірка:  cc -O2 -std=gnu11 -o promise promise.c
-   Запуск:  ./promise <режим> [опції]
-
-   режими   reserve   узяти обіцянку й спинитися
-            touch     торкатися шматками з паузою
-            wall      торкатися без пауз — до кінця
-
-   опції    --size G      розмір обіцянки, ГіБ      (типово 8)
-            --step M      крок торкання, МіБ        (типово 256)
-            --pause MS    пауза між кроками, мс     (типово 0)
-            --noreserve   mmap із MAP_NORESERVE замість malloc
-            --calloc      calloc замість malloc
-            --read        читати замість писати
-            --release     після кожного кроку віддавати щойно взяте
-            --limit-as G  RLIMIT_AS перед обіцянкою, ГіБ
-            --adj N       записати N у /proc/self/oom_score_adj          */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/resource.h>
-
-#define MIB (1024UL * 1024)
-#define GIB (1024UL * MIB)
-
-static size_t pgsz;               /* справжній розмір сторінки цієї машини */
-
-/* Значення рядка «Ключ:  ЧИСЛО kB» у /proc-файлі; -1, якщо ключа нема. */
-static long field_kb(const char *path, const char *key)
-{
-    FILE *f = fopen(path, "re");           /* 'e' — O_CLOEXEC, розширення glibc */
-    if (!f) return -1;
-    const size_t klen = strlen(key);
-    char line[256];
-    long val = -1;
-    while (fgets(line, sizeof line, f))
-        if (!strncmp(line, key, klen) && line[klen] == ':') {
-            val = strtol(line + klen + 1, NULL, 10);   /* пробіли strtol з'їсть сам */
-            break;
-        }
-    fclose(f);
-    return val;
-}
-```
+:::code proj-touch-the-promise/c/promise.c
 
 Окремо — три числа групи, якщо ми в ній і стеля скінченна. Свій шлях у ієрархії процес знаходить сам: у `/proc/self/cgroup` для другої версії стоїть єдиний рядок вигляду `0::/шлях`, і цей шлях достатньо приклеїти до точки монтування.
 
-```c
-static char cgdir[512];                    /* порожньо — стелі групи нема */
-
-static void cg_find(void)
-{
-    FILE *f = fopen("/proc/self/cgroup", "re");
-    if (!f) return;
-    char line[448];
-    while (fgets(line, sizeof line, f))
-        if (!strncmp(line, "0::", 3)) {                 /* «0::» — це cgroup v2 */
-            line[strcspn(line, "\n")] = '\0';
-            snprintf(cgdir, sizeof cgdir, "/sys/fs/cgroup%s", line + 3);
-            break;
-        }
-    fclose(f);
-}
-
-/* Перше число з файла групи. -1, якщо файла нема або там слово «max». */
-static long cg_num(const char *file)
-{
-    if (!cgdir[0]) return -1;
-    char path[640];
-    snprintf(path, sizeof path, "%s/%s", cgdir, file);
-    FILE *f = fopen(path, "re");
-    if (!f) return -1;
-    long v;
-    if (fscanf(f, "%ld", &v) != 1) v = -1;
-    fclose(f);
-    return v;
-}
-
-/* Лічильник із memory.events — рядки вигляду «ключ ЧИСЛО».
-   Пробіл після ключа обов'язковий: інакше «oom» злапає «oom_kill». */
-static long cg_event(const char *key)
-{
-    if (!cgdir[0]) return -1;
-    char path[640], line[128];
-    snprintf(path, sizeof path, "%s/memory.events", cgdir);
-    FILE *f = fopen(path, "re");
-    if (!f) return -1;
-    const size_t klen = strlen(key);
-    long v = -1;
-    while (fgets(line, sizeof line, f))
-        if (!strncmp(line, key, klen) && line[klen] == ' ') {
-            v = strtol(line + klen + 1, NULL, 10);
-            break;
-        }
-    fclose(f);
-    return v;
-}
-
-static void cg_show(void)
-{
-    long max = cg_num("memory.max");       /* слово «max» → -1: стелі нема */
-    if (max < 0) return;
-    printf("  ||%8.1f/%.0f МіБ  впер=%ld oom=%ld",
-           cg_num("memory.current") / (double) MIB, max / (double) MIB,
-           cg_event("max"), cg_event("oom"));
-}
-
-/* Один рядок стану. Підпис стоїть ОСТАННІМ навмисно: printf рівняє поля
-   за байтами, а не за знаками, і кирилиця в «%-16s» зсунула б колонки. */
-static void snap(const char *tag)
-{
-    printf("%9.1f %9.1f %9.1f  ||%11.1f %11.1f",
-           field_kb("/proc/self/status", "VmSize")     / 1024.0,
-           field_kb("/proc/self/status", "VmRSS")      / 1024.0,
-           field_kb("/proc/self/status", "VmSwap")     / 1024.0,
-           field_kb("/proc/meminfo",     "Committed_AS") / 1024.0,
-           field_kb("/proc/meminfo",     "MemAvailable") / 1024.0);
-    cg_show();
-    printf("   %s\n", tag);
-}
-```
+:::code proj-touch-the-promise/c/piat-chysel-z-iakykh-use.c
 
 ## Крок перший: обіцянка
 
 Тепер сама обіцянка. Вісім гігабайтів `malloc` у glibc бере не з купи, а прямим `mmap` — усе, що більше за поріг `M_MMAP_THRESHOLD`, іде в ядро окремим відображенням ([звідки алокатор бере пам'ять](root:sys-unix/allocator-and-kernel)). Тому різниця між нашими режимами `--noreserve` і звичайним `malloc` зводиться рівно до одного прапорця.
 
-```c
-enum how { H_MALLOC, H_CALLOC, H_NORESERVE };
-
-static void *promise(size_t bytes, enum how how)
-{
-    void *p;
-    if (how == H_NORESERVE)
-        p = mmap(NULL, bytes, PROT_READ | PROT_WRITE,
-                 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-    else
-        p = (how == H_CALLOC) ? calloc(1, bytes) : malloc(bytes);
-
-    if (!p || p == MAP_FAILED) {
-        printf("обіцянка НЕ вдалася: %s\n", strerror(errno));
-        return NULL;
-    }
-    printf("обіцянка = %p\n", p);
-    return p;
-}
-```
+:::code proj-touch-the-promise/c/krok-pershyi-obitsianka.c
 
 Прогін на віртуалці з 4 ГіБ пам'яті, без свопу, з типовим `vm.overcommit_memory=0`:
 
@@ -202,60 +59,11 @@ $ ./promise reserve --size 8
 
 Тепер платимо. Обходимо буфер шматками по 256 МіБ, записуючи по одному байту в кожну сторінку, і після кожного шматка знімаємо ті самі п'ять чисел.
 
-```c
-static unsigned long sink;        /* щоб читання не виглядало марним */
-
-static void touch(void *base, size_t bytes, size_t step, unsigned pause_ms,
-                  int read_only, int release)
-{
-    volatile unsigned char *p = base;      /* без volatile запис можуть викинути */
-    unsigned long acc = 0;
-    char tag[48];
-
-    for (size_t off = 0; off < bytes; off += step) {
-        size_t end = off + step < bytes ? off + step : bytes;
-
-        printf("%s @%.2f ГіБ …\n", read_only ? "читаю" : "пишу", off / (double) GIB);
-
-        for (size_t i = off; i < end; i += pgsz)
-            if (read_only) acc += p[i];    /* читання сторінки НЕ народить */
-            else           p[i] = 0xA5;    /* запис — ось тут народить      */
-
-        snprintf(tag, sizeof tag, "+%.2f ГіБ", end / (double) GIB);
-        snap(tag);
-
-        if (release) {                     /* madvise хоче адресу, вирівняну */
-            uintptr_t a = ((uintptr_t) base + off + pgsz - 1) & ~(uintptr_t)(pgsz - 1);
-            uintptr_t b = ((uintptr_t) base + end)            & ~(uintptr_t)(pgsz - 1);
-            if (b > a) madvise((void *) a, b - a, MADV_DONTNEED);
-        }
-        if (pause_ms) {
-            struct timespec ts = { pause_ms / 1000,
-                                   (long)(pause_ms % 1000) * 1000000L };
-            nanosleep(&ts, NULL);
-        }
-    }
-    sink = acc;
-}
-```
+:::code proj-touch-the-promise/c/krok-druhyi-dotyk.c
 
 Рядок «пишу @… ГіБ …» друкується **перед** дотиком навмисно — саме він стане останнім свідком, коли прогін урветься.
 
-```sh
-$ ./promise touch --size 8 --step 256 --pause 300
-   VmSize     VmRSS    VmSwap  ||  Committed    MemAvail   подія
-      4.6       1.2       0.0  ||     1454.3      3390.2   до обіцянки
-обіцянка = 0x7f13aa000010
-   8196.6       1.2       0.0  ||     9646.3      3390.1   після обіцянки
-пишу @0.00 ГіБ …
-   8196.6     257.4       0.0  ||     9646.3      3134.0   +0.25 ГіБ
-пишу @0.25 ГіБ …
-   8196.6     513.5       0.0  ||     9646.3      2878.2   +0.50 ГіБ
-пишу @0.50 ГіБ …
-   8196.6     769.6       0.0  ||     9646.3      2622.3   +0.75 ГіБ
-пишу @0.75 ГіБ …
-   8196.6    1025.7       0.0  ||     9646.3      2366.1   +1.00 ГіБ
-```
+:::code proj-touch-the-promise/sh/krok-druhyi-dotyk.sh
 
 Дивимося, що рухається. `VmRSS` росте рівно на крок. `MemAvailable` падає рівно на стільки ж. А `Committed_AS` **стоїть як укопаний** — і це головне спостереження всього досліду.
 
@@ -351,18 +159,7 @@ $ ./promise wall  --size 8 --step 256                           # великий
 
 Гине маленький, хоч тримає він утричі менше. Поправка задана в проміле від усієї пам'яті машини, тож `+1000` додає до бала цілу машину — жоден чесний розмір цього не переважить. Запис у файл робиться так:
 
-```c
-/* Підняти значення може будь-хто; ЗНИЗИТИ — лише з CAP_SYS_RESOURCE. */
-static void set_adj(int adj)
-{
-    char buf[16];
-    int n = snprintf(buf, sizeof buf, "%d\n", adj);
-    int fd = open("/proc/self/oom_score_adj", O_WRONLY | O_CLOEXEC);
-    if (fd < 0) { perror("open oom_score_adj"); return; }
-    if (write(fd, buf, (size_t) n) != n) perror("write oom_score_adj");
-    close(fd);
-}
-```
+:::code proj-touch-the-promise/c/ruchky-shcho-zminiuiut.c
 
 Асиметрія прав тут не примха: піднімати власну вбиванність безпечно завжди, а знижувати — це просити систему пожертвувати кимось замість тебе.
 
@@ -383,19 +180,7 @@ Killed
 
 Після прогону лічильники лишаються в групі — але scope від `systemd-run` зникає разом із процесом, тож для розтину зручніша власноруч зроблена група:
 
-```sh
-$ sudo mkdir /sys/fs/cgroup/lab
-$ echo 1G | sudo tee /sys/fs/cgroup/lab/memory.max
-$ echo 0  | sudo tee /sys/fs/cgroup/lab/memory.swap.max
-$ sudo sh -c 'echo $$ > /sys/fs/cgroup/lab/cgroup.procs; exec ./promise wall --size 8'
-Killed
-$ cat /sys/fs/cgroup/lab/memory.events
-low 0
-high 0
-max 47
-oom 1
-oom_kill 1
-```
+:::code proj-touch-the-promise/sh/ruchky-shcho-zminiuiut.sh
 
 `oom` — скільки разів група дійшла до стану, коли виділення мало провалитися; `oom_kill` — скільки задач у ній убито. Числа різні тому, що одна подія може вбити не одну задачу: з увімкненим `memory.oom.group` гине вся група разом.
 
@@ -430,60 +215,7 @@ setvbuf(stdout, NULL, _IOLBF, 0);   /* рядковий буфер: кожен '
 
 Лишилася обв'язка: розбір ключів і порядок дій.
 
-```c
-int main(int argc, char **argv)
-{
-    setvbuf(stdout, NULL, _IOLBF, 0);
-    pgsz = (size_t) sysconf(_SC_PAGESIZE);
-
-    if (argc < 2) { fprintf(stderr, "режим: reserve | touch | wall\n"); return 2; }
-    const char *mode = argv[1];
-
-    size_t size = 8 * GIB, step = 256 * MIB, limit_as = 0;
-    unsigned pause_ms = 0;
-    enum how how = H_MALLOC;
-    int read_only = 0, release = 0, adj = 0, has_adj = 0;
-
-    for (int i = 2; i < argc; i++) {
-        const char *a = argv[i];
-        int more = i + 1 < argc;
-        if      (!strcmp(a, "--size")     && more) size     = (size_t)(atof(argv[++i]) * GIB);
-        else if (!strcmp(a, "--step")     && more) step     = (size_t)(atof(argv[++i]) * MIB);
-        else if (!strcmp(a, "--pause")    && more) pause_ms = (unsigned) atoi(argv[++i]);
-        else if (!strcmp(a, "--limit-as") && more) limit_as = (size_t)(atof(argv[++i]) * GIB);
-        else if (!strcmp(a, "--adj")      && more) { adj = atoi(argv[++i]); has_adj = 1; }
-        else if (!strcmp(a, "--noreserve")) how = H_NORESERVE;
-        else if (!strcmp(a, "--calloc"))    how = H_CALLOC;
-        else if (!strcmp(a, "--read"))      read_only = 1;
-        else if (!strcmp(a, "--release"))   release   = 1;
-        else { fprintf(stderr, "не знаю опції %s\n", a); return 2; }
-    }
-    if (step < pgsz) step = pgsz;
-
-    cg_find();
-    if (has_adj)  set_adj(adj);
-    if (limit_as) set_limit_as(limit_as);   /* ліміт — ДО обіцянки, інакше марно */
-
-    printf("сторінка %zu Б, обіцянка %.2f ГіБ, крок %.2f МіБ\n",
-           pgsz, size / (double) GIB, step / (double) MIB);
-    printf("%9s %9s %9s  ||%11s %11s   %s\n",
-           "VmSize", "VmRSS", "VmSwap", "Committed", "MemAvail", "подія");
-    snap("до обіцянки");
-
-    void *p = promise(size, how);
-    if (!p) return 1;
-    snap("після обіцянки");
-
-    if (!strcmp(mode, "reserve")) return 0;
-    if (strcmp(mode, "touch") && strcmp(mode, "wall")) {
-        fprintf(stderr, "невідомий режим %s\n", mode);
-        return 2;
-    }
-    touch(p, size, step, strcmp(mode, "wall") ? pause_ms : 0, read_only, release);
-    snap("кінець");
-    return 0;
-}
-```
+:::code proj-touch-the-promise/c/skladannia-vsoho-dokupy.c
 
 Порядок у `main` має одну обов'язкову умову: `setrlimit` мусить відпрацювати **до** `promise`, бо ліміт перевіряють на роздачі адрес, і виставлений після вже нічого не змінить. Усе інше в цій програмі можна переставляти вільно.
 

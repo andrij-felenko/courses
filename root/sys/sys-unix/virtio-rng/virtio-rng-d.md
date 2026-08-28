@@ -96,18 +96,7 @@ entropy    = rc · quality · 8 + entropy_credit
 
 Якщо потік читає в циклі, чому господар не бачить, як гість вичерпує його джерело? Відповідь — в останньому аргументі виклику, тому самому `true`:
 
-```c
-/* drivers/char/random.c */
-void add_hwgenerator_randomness(const void *buf, size_t len, size_t entropy,
-				bool sleep_after)
-{
-	mix_pool_bytes(buf, len);
-	credit_init_bits(entropy);
-
-	if (sleep_after && !kthread_should_stop() && (crng_ready() || !entropy))
-		schedule_timeout_interruptible(crng_reseed_interval());
-}
-```
+:::code virtio-rng-d/c/random.c
 
 Умова паузи читається без зусиль: спати, **якщо ядро вже готове** (або якщо цей буфер нічого не додав до заліку). Поки готовності немає, паузи немає теж — потік качає буфер за буфером так швидко, як дозволяє пристрій. Щойно поріг узято, ритм міняється на протилежний: `crng_reseed_interval()` у перші дві хвилини роботи наростає від секунди, а далі стає рівно хвилиною.
 

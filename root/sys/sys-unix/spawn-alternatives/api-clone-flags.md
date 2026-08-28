@@ -4,21 +4,7 @@
 
 ## Три підписи, які роблять різні речі
 
-```c
-/* 1. Обгортка glibc — це не системний виклик, а функція поверх нього */
-#define _GNU_SOURCE
-#include <sched.h>
-int clone(int (*fn)(void *), void *stack, int flags, void *arg,
-          ... /* pid_t *parent_tid, void *tls, pid_t *child_tid */ );
-
-/* 2. Сирий clone — порядок аргументів залежить від архітектури (нижче x86-64) */
-#include <sys/syscall.h>
-long syscall(SYS_clone, unsigned long flags, void *stack,
-             int *parent_tid, int *child_tid, unsigned long tls);
-
-/* 3. clone3 — обгортки в glibc немає взагалі, лише сирий виклик */
-long syscall(SYS_clone3, struct clone_args *cl_args, size_t size);
-```
+:::code api-clone-flags/c/sched.h
 
 | | обгортка `clone()` | сирий `SYS_clone` | `SYS_clone3` |
 |---|---|---|---|
@@ -148,21 +134,7 @@ long syscall(SYS_clone3, struct clone_args *cl_args, size_t size);
 
 *Структура росте лише в хвіст, і кожен приріст має власний розмір; аргумент `size` — це і є те, чим версії домовляються між собою.*
 
-```c
-struct clone_args {
-    __aligned_u64 flags;
-    __aligned_u64 pidfd;
-    __aligned_u64 child_tid;      /* увага: спершу child, потім parent —    */
-    __aligned_u64 parent_tid;     /* у сирому clone порядок саме зворотний  */
-    __aligned_u64 exit_signal;
-    __aligned_u64 stack;          /* найнижчий байт, а не верхівка          */
-    __aligned_u64 stack_size;
-    __aligned_u64 tls;
-    __aligned_u64 set_tid;        /* з 5.5 */
-    __aligned_u64 set_tid_size;   /* з 5.5 */
-    __aligned_u64 cgroup;         /* з 5.7 */
-};
-```
+:::code api-clone-flags/c/struct-clone-args-polia.c
 
 Три речі тут ловлять навіть уважних.
 
@@ -204,137 +176,8 @@ size > того, що знає ядро     → хвіст мусить бути
 ## Мінімальний виклик, що працює і на старому ядрі
 
 :::tabs
-```c
-/* spawn3.c — clone3 з відступом на clone, коли ядро надто старе.
- *   gcc -O2 -Wall -o spawn3 spawn3.c && ./spawn3
- * Підключаємо саме <linux/sched.h>: прапорці визначені і в ньому,
- * і в glibc-івському <sched.h>, тож обидва разом брати не варто.
- * P_PIDFD у waitid — це ядро 5.4, а в glibc константа з'явилася аж у 2.36.
- */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <linux/sched.h>
-#include <linux/types.h>
-#include <signal.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <sys/syscall.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-static long spawn_task(int *pidfd_out)
-{
-    struct clone_args args = {
-        .flags       = CLONE_PIDFD | CLONE_CLEAR_SIGHAND,
-        .pidfd       = (__u64)(uintptr_t)pidfd_out,
-        .exit_signal = SIGCHLD,
-    };
-    long pid = syscall(SYS_clone3, &args, sizeof args);
-    if (pid >= 0 || (errno != ENOSYS && errno != EINVAL && errno != E2BIG))
-        return pid;                 /* або вийшло, або зламалося по суті */
-
-    /* ENOSYS — ядро старіше за 5.3; EINVAL — воно не знає CLONE_CLEAR_SIGHAND;
-       E2BIG — заголовок новіший за ядро. Відступаємо на старий виклик:
-       CLONE_PIDFD там є з 5.2, але дескриптор віддається через parent_tid. */
-    return syscall(SYS_clone, (unsigned long)(CLONE_PIDFD | SIGCHLD),
-                   NULL, pidfd_out, NULL, 0UL);      /* порядок для x86-64 */
-}
-
-int main(void)
-{
-    int pidfd = -1;
-    long pid = spawn_task(&pidfd);
-    if (pid < 0) { perror("clone"); return 1; }
-
-    if (pid == 0) {                 /* сирий виклик повертається двічі */
-        execlp("id", "id", (char *)NULL);
-        _exit(127);
-    }
-
-    siginfo_t info;
-    if (waitid(P_PIDFD, (id_t)pidfd, &info, WEXITED) == 0)
-        printf("дитина %d вийшла з кодом %d\n", info.si_pid, info.si_status);
-    close(pidfd);
-    return 0;
-}
-```
-```cpp
-#define _GNU_SOURCE
-#include <errno.h>
-#include <linux/sched.h>
-#include <linux/types.h>
-#include <signal.h>
-#include <stdint.h>
-#include <sys/syscall.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <iostream>
-#include <system_error>
-
-class UniquePidFd {
-    int fd_{-1};
-public:
-    constexpr UniquePidFd() noexcept = default;
-    explicit UniquePidFd(int fd) noexcept : fd_(fd) {}
-    ~UniquePidFd() { reset(); }
-
-    UniquePidFd(const UniquePidFd&) = delete;
-    UniquePidFd& operator=(const UniquePidFd&) = delete;
-
-    UniquePidFd(UniquePidFd&& other) noexcept : fd_(other.release()) {}
-    UniquePidFd& operator=(UniquePidFd&& other) noexcept {
-        if (this != &other) reset(other.release());
-        return *this;
-    }
-
-    void reset(int new_fd = -1) noexcept {
-        if (fd_ >= 0) ::close(fd_);
-        fd_ = new_fd;
-    }
-    [[nodiscard]] int release() noexcept {
-        int old = fd_;
-        fd_ = -1;
-        return old;
-    }
-    [[nodiscard]] int get() const noexcept { return fd_; }
-    [[nodiscard]] int* ptr() noexcept { return &fd_; }
-};
-
-static long spawn_task(int *pidfd_out) {
-    struct clone_args args{};
-    args.flags = CLONE_PIDFD | CLONE_CLEAR_SIGHAND;
-    args.pidfd = static_cast<__u64>(reinterpret_cast<uintptr_t>(pidfd_out));
-    args.exit_signal = SIGCHLD;
-
-    long pid = ::syscall(SYS_clone3, &args, sizeof(args));
-    if (pid >= 0 || (errno != ENOSYS && errno != EINVAL && errno != E2BIG)) {
-        return pid;
-    }
-
-    return ::syscall(SYS_clone, static_cast<unsigned long>(CLONE_PIDFD | SIGCHLD),
-                     nullptr, pidfd_out, nullptr, 0UL);
-}
-
-int main() {
-    UniquePidFd pidfd;
-    long pid = spawn_task(pidfd.ptr());
-    if (pid < 0) {
-        std::cerr << "clone помилка: " << std::generic_category().message(errno) << '\n';
-        return 1;
-    }
-
-    if (pid == 0) {
-        ::execlp("id", "id", static_cast<char*>(nullptr));
-        ::_exit(127);
-    }
-
-    siginfo_t info{};
-    if (::waitid(P_PIDFD, static_cast<id_t>(pidfd.get()), &info, WEXITED) == 0) {
-        std::cout << "дитина " << info.si_pid << " вийшла з кодом " << info.si_status << '\n';
-    }
-    return 0;
-}
-```
+:::code api-clone-flags/c/spawn3.c
+:::code api-clone-flags/cpp/main.cpp
 :::
 
 Дві деталі в цьому коді неочевидні. По-перше, стек не виділяється зовсім: `stack` лишається нулем, `CLONE_VM` не піднято — отже дитина продовжується на дублі стека батька, як після `fork`. По-друге, `CLONE_CLEAR_SIGHAND` тут навмисний: сам по собі він зайвий, бо `execlp` і так скине обробники, — але він існує лише в `clone3`, тому саме на ньому й видно, як має виглядати відступ на старий виклик. У бойовому коді умову відступу треба звужувати до тих прапорців, які ти справді просиш: `EINVAL` від `clone3` означає не тільки «ядро старе», а й «ти передав заборонене сполучення», і відступати на `clone` у другому випадку — значить сховати власну помилку.

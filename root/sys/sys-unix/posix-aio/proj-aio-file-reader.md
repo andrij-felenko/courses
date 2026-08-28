@@ -8,55 +8,7 @@
 
 `aio_read` повертається, щойно запит став у чергу, а копіювання відбудеться колись потім і чужими руками. Отже, і `struct aiocb`, і буфер під дані мусять пережити функцію, яка їх подала. Тому обидва — з купи, і живуть вони до `aio_return`, ні хвилиною менше.
 
-```c
-/* aioread.c — пачка читань через POSIX AIO і два заміри до неї
- * cc -O2 -o aioread aioread.c -lrt -pthread
- */
-#define _GNU_SOURCE
-#include <aio.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <time.h>
-#include <unistd.h>
-
-#define BLK    4096          /* і розмір запиту, і вирівнювання під O_DIRECT */
-#define NREQ    256
-#define MAXFD    64
-
-struct batch {
-    struct aiocb **cb;       /* масив ПОКАЖЧИКІВ — саме його хоче lio_listio */
-    char         **buf;
-    int            n;
-};
-
-static struct batch *batch_make(const int *fd, int nfd, int n, off_t nblocks)
-{
-    struct batch *b = malloc(sizeof *b);
-    b->n   = n;
-    b->cb  = calloc(n, sizeof *b->cb);
-    b->buf = calloc(n, sizeof *b->buf);
-
-    for (int i = 0; i < n; i++) {
-        struct aiocb *c = calloc(1, sizeof *c);          /* купа, не стек */
-        if (posix_memalign((void **)&b->buf[i], BLK, BLK) != 0)
-            { perror("posix_memalign"); exit(1); }
-
-        c->aio_fildes     = fd[i % nfd];                  /* розкладка по чергах */
-        c->aio_offset     = (off_t)(((long)i * 9973) % nblocks) * BLK;
-        c->aio_buf        = b->buf[i];
-        c->aio_nbytes     = BLK;
-        c->aio_lio_opcode = LIO_READ;
-        c->aio_sigevent.sigev_notify = SIGEV_NONE;        /* питатимемо самі */
-        b->cb[i] = c;
-    }
-    return b;
-}
-```
+:::code proj-aio-file-reader/c/aioread.c
 
 Три дрібниці в цьому коді неочевидні. Зміщення розкидані простим кроком у 9973 блоки, щоб сусідні запити не лягали поряд: інакше випереджальне читання пристрою перетворить вимір затримки на вимір послідовної смуги. Буфери вирівняні на чотири кілобайти, бо файл відкриватиметься з `O_DIRECT` — без нього читання прилітало б із кешу сторінок за одиниці мікросекунд і жодної черги ми б не побачили ([буферизований і прямий ввід-вивід](root:sys-unix/buffered-and-direct-io) — читання через кеш сторінок і повз нього, з вимогами до вирівнювання). А `aio_lio_opcode` заповнено тому, що подавати будемо пачкою: одиничний `aio_read` це поле не дивиться, `lio_listio` — лише його.
 
@@ -66,21 +18,7 @@ static struct batch *batch_make(const int *fd, int nfd, int n, off_t nblocks)
 
 Подання пачкою — це не економія рядків, а економія переходів у ядро; заради того `lio_listio` і робився.
 
-```c
-static void submit(struct batch *b)
-{
-    long max = sysconf(_SC_AIO_LISTIO_MAX);       /* -1 — межі не оголошено */
-    int chunk = (max > 0 && max < b->n) ? (int)max : b->n;
-
-    for (int i = 0; i < b->n; i += chunk) {
-        int k = (b->n - i < chunk) ? b->n - i : chunk;
-        if (lio_listio(LIO_NOWAIT, &b->cb[i], k, NULL) == -1) {
-            perror("lio_listio");       /* EAGAIN — уперлися в AIO_MAX */
-            exit(1);
-        }
-    }
-}
-```
+:::code proj-aio-file-reader/c/odna-mezha-zamist-dvokhsot.c
 
 Розбиття на шматки тут не перестраховка: стандарт дозволяє системі оголосити `AIO_LISTIO_MAX`, і надто довгий список законно відбивається помилкою `EINVAL`. Число питаємо в системи, а не зашиваємо. Нуль від `lio_listio` у режимі `LIO_NOWAIT` означає тільки «усі стали в чергу» — доля кожного окремого запиту з'ясовується потім і поодинці.
 
@@ -88,44 +26,7 @@ static void submit(struct batch *b)
 
 Далі найтонше місце програми. `aio_suspend` чекає на **список** і прокидається, щойно завершився **хоча б один** із нього — отже, список треба перескладати щоразу, лишаючи в ньому тільки тих, хто ще в польоті. Інакше виклик щоразу прокидатиметься на вже забраному запиті й цикл закрутиться вхолосту.
 
-```c
-static size_t drain(struct batch *b)
-{
-    const struct aiocb *pend[NREQ];
-    size_t got = 0;
-    int left = b->n;
-
-    while (left > 0) {
-        int k = 0;
-        for (int i = 0; i < b->n; i++)
-            if (b->cb[i]) pend[k++] = b->cb[i];      /* лише ті, що в польоті */
-
-        if (aio_suspend(pend, k, NULL) == -1) {
-            if (errno == EINTR) continue;            /* сигнал — не біда */
-            perror("aio_suspend");
-            exit(1);
-        }
-
-        for (int i = 0; i < b->n; i++) {
-            if (!b->cb[i]) continue;
-            int e = aio_error(b->cb[i]);
-            if (e == EINPROGRESS) continue;          /* цей ще працює */
-
-            ssize_t r = aio_return(b->cb[i]);        /* рівно один раз на запит */
-            if (e == 0) {
-                got += (size_t)r;
-                if (r != BLK) fprintf(stderr, "коротке читання: %zd\n", r);
-            } else {
-                fprintf(stderr, "запит %d: %s\n", i, strerror(e));
-            }
-            free(b->cb[i]);                          /* аж тепер aiocb нічий */
-            b->cb[i] = NULL;
-            left--;
-        }
-    }
-    return got;
-}
-```
+:::code proj-aio-file-reader/c/zabyrannia-try-funktsii.c
 
 `continue` на `EINTR` — не оздоба. Сплячий `aio_suspend` уриває будь-який доставлений сигнал, і повертається він як помилка, хоч нічого поганого не сталося; програма, що не перевіряє цього, тихо кидає всі запити напризволяще ([EINTR і перезапуск](root:sys-unix/eintr-and-restart) — перерваний сигналом виклик повертає помилку замість результату, і відновлювати його мусить сама програма).
 
@@ -137,82 +38,7 @@ static size_t drain(struct batch *b)
 
 Тепер вимір. Кількість потоків процесу лежить у рядку `Threads:` файлу `/proc/self/status`, і читати її можна зсередини самої програми ([/proc: процеси як файли](root:sys-unix/proc-reading-process-and-kernel-state) — стан ядра, поданий текстовими файлами, які процес читає про себе звичайним `open`). Пул glibc живе недовго, тож зняти число після роботи вже пізно — потрібен наглядач, що дивиться під час.
 
-```c
-static volatile sig_atomic_t watching;
-static int peak;
-
-static int threads_now(void)
-{
-    int n = 0;
-    char line[128];
-    FILE *f = fopen("/proc/self/status", "r");
-    if (!f) return 0;
-    while (fgets(line, sizeof line, f))
-        if (sscanf(line, "Threads: %d", &n) == 1) break;
-    fclose(f);
-    return n;
-}
-
-static void *watcher(void *arg)
-{
-    (void)arg;
-    while (watching) {
-        int t = threads_now();
-        if (t > peak) peak = t;
-        nanosleep(&(struct timespec){ 0, 200000 }, NULL);   /* 0.2 мс */
-    }
-    return NULL;
-}
-
-static void run(const char *path, int nfd)
-{
-    int fd[MAXFD];
-    struct stat st;
-    pthread_t w;
-    struct timespec t0, t1;
-
-    sleep(2);          /* дати вмерти робітникам минулого заміру:
-                          aio_idle_time за замовчуванням — 1 секунда */
-
-    for (int i = 0; i < nfd; i++)
-        if ((fd[i] = open(path, O_RDONLY | O_DIRECT)) < 0)
-            { perror("open O_DIRECT"); exit(1); }
-    fstat(fd[0], &st);
-
-    struct batch *b = batch_make(fd, nfd, NREQ, st.st_size / BLK);
-
-    peak = 0;
-    watching = 1;
-    pthread_create(&w, NULL, watcher, NULL);
-    int base = threads_now();          /* ми самі: головний потік і наглядач */
-
-    clock_gettime(CLOCK_MONOTONIC, &t0);
-    submit(b);
-    size_t got = drain(b);
-    clock_gettime(CLOCK_MONOTONIC, &t1);
-
-    watching = 0;
-    pthread_join(w, NULL);
-
-    double ms = (t1.tv_sec - t0.tv_sec) * 1e3 + (t1.tv_nsec - t0.tv_nsec) / 1e6;
-    printf("%3d дескрипторів  %3d робітників  %7.2f мс  %6.1f мкс/запит  %zu Б\n",
-           nfd, peak - base, ms, ms * 1000 / NREQ, got);
-
-    for (int i = 0; i < NREQ; i++) free(b->buf[i]);
-    free(b->buf); free(b->cb); free(b);
-    for (int i = 0; i < nfd; i++) close(fd[i]);   /* усі запити вже забрані */
-}
-
-int main(int argc, char **argv)
-{
-    const char *path = argc > 1 ? argv[1] : "/var/tmp/aio.bin";  /* ≥ 1 ГіБ, ext4 чи XFS */
-
-    run(path,  1);      /* усі 256 запитів в одну чергу     */
-    run(path, 16);      /* ті самі 256 — на 16 черг         */
-    run(path, 32);      /* черг більше, ніж дозволяє пул    */
-    return 0;
-}
-```
+:::code proj-aio-file-reader/c/skilky-potokiv-tse.c
 
 Дві дрібниці роблять заміри чесними. `sleep(2)` між прогонами потрібен тому, що glibc тримає робітника, що простоює, ще секунду (`aio_idle_time` у `struct aioinit`, типове значення — 1) — без паузи другий прогін успадкував би потоки першого. А час беремо `CLOCK_MONOTONIC`, бо це єдиний годинник, який не стрибне назад посеред виміру ([час у ядрі](root:sys-unix/kernel-timekeeping) — монотонний годинник проти настінного і чому для тривалостей годиться лише перший).
 

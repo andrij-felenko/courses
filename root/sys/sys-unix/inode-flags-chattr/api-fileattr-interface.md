@@ -54,19 +54,7 @@ ioctl(fd, FS_IOC_SETFLAGS, &fl);          /* записали поле цілк�
 
 ## Гілка XFS: FS_IOC_FSGETXATTR / FS_IOC_FSSETXATTR
 
-```c
-struct fsxattr {
-        __u32         fsx_xflags;      /* набір FS_XFLAG_* */
-        __u32         fsx_extsize;     /* підказка розміру екстента, байти */
-        __u32         fsx_nextents;    /* скільки екстентів — лише читання */
-        __u32         fsx_projid;      /* проєкт для квот */
-        __u32         fsx_cowextsize;  /* підказка розміру для копії-при-записі */
-        unsigned char fsx_pad[8];      /* мусить бути нулями */
-};
-
-ioctl(fd, FS_IOC_FSGETXATTR, &fa);   /* struct fsxattr * */
-ioctl(fd, FS_IOC_FSSETXATTR, &fa);
-```
+:::code api-fileattr-interface/c/main.c
 
 Прапорці тут інші за номерами й ширші за змістом: `FS_XFLAG_IMMUTABLE` = `0x08`, `FS_XFLAG_APPEND` = `0x10`, `FS_XFLAG_SYNC` = `0x20`, `FS_XFLAG_NOATIME` = `0x40`, `FS_XFLAG_NODUMP` = `0x80`, `FS_XFLAG_PROJINHERIT` = `0x200`, `FS_XFLAG_DAX` = `0x8000`. Поруч живе те, чого в старій гілці немає взагалі: `REALTIME`, `PREALLOC`, `EXTSIZE`, `NODEFRAG`, `FILESTREAM`, `COWEXTSIZE`, `HASATTR`. Аліаси `XFS_IOC_FSGETXATTR`/`XFS_IOC_FSSETXATTR` — та сама пара під давнішим ім'ям.
 

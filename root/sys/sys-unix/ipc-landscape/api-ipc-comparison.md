@@ -113,51 +113,7 @@ SCM_MAX_FD              253   дескрипторів на одне SCM_RIGHTS 
 
 Нижче не цілий файл, а вісім самостійних фрагментів: щоб зібрати будь-який із них, тіло треба покласти в `main()`. Перевірку повернень на `-1` теж прибрано заради стислости — у справжньому коді вона обов'язкова на кожному рядку. Збирається все звичайним `cc`, крім черг і спільної пам'яті POSIX, яким у glibc до 2.34 потрібен ще `-lrt`.
 
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <mqueue.h>
-#include <sys/eventfd.h>
-#include <sys/ipc.h>
-#include <sys/mman.h>
-#include <sys/msg.h>
-#include <sys/socket.h>
-#include <sys/stat.h>
-#include <stdint.h>
-#include <unistd.h>
-
-/* 1. канал: створити ДО fork; dup2 у дитині зніме FD_CLOEXEC із копії */
-int p[2];  pipe2(p, O_CLOEXEC);
-
-/* 2. пара сокетів: двобічна, зі збереженими межами повідомлень */
-int sv[2]; socketpair(AF_UNIX, SOCK_SEQPACKET | SOCK_CLOEXEC, 0, sv);
-
-/* 3. іменований канал: спершу вузол у ФС, потім звичайний open */
-mkfifo("/run/app/events", 0660);
-int fifo = open("/run/app/events", O_RDONLY | O_CLOEXEC);
-
-/* 4. черга POSIX: ім'я з початковою скісною, атрибути — лише при створенні */
-struct mq_attr attr = { .mq_maxmsg = 10, .mq_msgsize = 8192 };
-mqd_t q = mq_open("/app-cmd", O_CREAT | O_RDWR, 0600, &attr);
-mq_send(q, "reload", 6, /* пріоритет */ 5);
-
-/* 5. черга System V: ключ обидві сторони мусять порахувати однаково */
-int mq = msgget(ftok("/run/app", 'q'), IPC_CREAT | 0600);
-
-/* 6. спільна пам'ять POSIX: ім'я, розмір, відображення — три окремі кроки */
-int shm = shm_open("/app-frames", O_CREAT | O_RDWR, 0600);
-ftruncate(shm, 6220800);
-void *frame = mmap(NULL, 6220800, PROT_READ | PROT_WRITE, MAP_SHARED, shm, 0);
-
-/* 7. memfd: та сама пам'ять без імени — і замкнена від зміни розміру */
-int mem = memfd_create("frames", MFD_CLOEXEC | MFD_ALLOW_SEALING);
-ftruncate(mem, 6220800);
-fcntl(mem, F_ADD_SEALS, F_SEAL_SHRINK | F_SEAL_GROW);
-
-/* 8. сповіщення над спільною пам'яттю: лічильник, який чекають у epoll */
-int ev = eventfd(0, EFD_CLOEXEC | EFD_NONBLOCK);
-uint64_t one = 1;  write(ev, &one, sizeof one);   /* «кадр готовий» */
-```
+:::code api-ipc-comparison/c/fcntl.h
 
 Рядки 6 і 7 показують ту саму пам'ять із різним способом зустрічі: `shm_open` кладе ім'я в `/dev/shm`, куди може зазирнути будь-хто з правами, `memfd_create` не кладе нікуди, і дістати ділянку можна лише з рук того, хто передасть дескриптор ([спільна пам'ять POSIX](root:sys-unix/posix-shared-memory) — об'єкт у `tmpfs`, чиї сторінки `mmap` кладе в адресний простір процесу). Печатки `F_SEAL_*` при цьому дають те, чого не має жоден інший засіб: приймач може перевірити, що віддавач уже позбувся права міняти розмір чи вміст, і після цього довіряти прочитаному.
 

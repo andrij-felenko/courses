@@ -140,47 +140,7 @@ hosts:      files resolve dns
 
 Але важливіша не буферна морока, а **розрізнення трьох результатів**, яке в цій функції зроблено неочевидно.
 
-```c
-#define _GNU_SOURCE
-#include <pwd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-
-/* 1 — знайшли, 0 — такого користувача нема, -1 — спитати не вдалося. */
-int lookup_user(const char *name, uid_t *out_uid)
-{
-    size_t len = 1024;                  /* стартовий розмір буфера */
-    char *buf = NULL;
-
-    for (;;) {
-        char *nb = realloc(buf, len);
-        if (!nb) { free(buf); return -1; }
-        buf = nb;
-
-        struct passwd pw;
-        struct passwd *res = NULL;
-        int rc = getpwnam_r(name, &pw, buf, len, &res);
-
-        if (rc == ERANGE) {             /* буфер малий — подвоїти й повторити */
-            len *= 2;
-            continue;
-        }
-        if (rc != 0) {                  /* джерело не змогло відповісти */
-            free(buf);
-            errno = rc;
-            return -1;
-        }
-        if (res == NULL) {              /* відповідь є: такого запису нема */
-            free(buf);
-            return 0;
-        }
-        *out_uid = res->pw_uid;         /* поля дійсні, доки живий buf */
-        free(buf);
-        return 1;
-    }
-}
-```
+:::code user-database-nss-d/c/main.c
 
 Ключове — рядки з `rc` і `res`. Функція **не вживає `errno`** і повертає код помилки прямо: нуль плюс порожній `res` означає «джерело відповіло, і відповідь — такого нема»; ненульовий код означає «відповіді немає взагалі». Дуже поширена помилка — перевірити тільки `res` і вважати `NULL` відсутністю користувача. Це той самий злиплий випадок, від якого рятує розрізнення статусів у перемикачі, — тільки повернений на рівень вашого коду.
 

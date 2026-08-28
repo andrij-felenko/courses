@@ -233,50 +233,9 @@ if (abi < 0) {
 
 :::tabs
 @tab C
-```c
-struct landlock_ruleset_attr attr;
-memset(&attr, 0, sizeof(attr));
-
-/* ABI v1: базові файлові операції */
-attr.handled_access_fs = LANDLOCK_ACCESS_FS_READ_FILE | 
-                         LANDLOCK_ACCESS_FS_READ_DIR | 
-                         LANDLOCK_ACCESS_FS_EXECUTE;
-
-/* ABI v5: додаємо контроль ioctl пристроїв */
-if (abi >= 5) {
-    attr.handled_access_fs |= LANDLOCK_ACCESS_FS_IOCTL_DEV;
-}
-
-/* ABI v4: додаємо мережевий контроль */
-if (abi >= 4) {
-    attr.handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP | 
-                              LANDLOCK_ACCESS_NET_CONNECT_TCP;
-}
-
-int ruleset_fd = landlock_create_ruleset(&attr, sizeof(attr), 0);
-```
+:::code landlock-abi-v4-v5-features-d/c/main.c
 @tab C++
-```cpp
-landlock_ruleset_attr attr{};
-
-// ABI v1: базові файлові операції
-attr.handled_access_fs = LANDLOCK_ACCESS_FS_READ_FILE | 
-                         LANDLOCK_ACCESS_FS_READ_DIR | 
-                         LANDLOCK_ACCESS_FS_EXECUTE;
-
-// ABI v5: додаємо контроль ioctl пристроїв
-if (abi >= 5) {
-    attr.handled_access_fs |= LANDLOCK_ACCESS_FS_IOCTL_DEV;
-}
-
-// ABI v4: додаємо мережевий контроль
-if (abi >= 4) {
-    attr.handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP | 
-                              LANDLOCK_ACCESS_NET_CONNECT_TCP;
-}
-
-int ruleset_fd = landlock_create_ruleset(&attr, sizeof(attr), 0);
-```
+:::code landlock-abi-v4-v5-features-d/cpp/main.cpp
 :::
 
 Якщо спробувати передати у `landlock_create_ruleset()` маску `handled_access_net` на ядрі з ABI v3 (Linux 6.2), виклик поверне помилку `-EOPNOTSUPP` або `-EINVAL`. Тому динамічна перевірка версії є обов'язковою у виробничому коді.
@@ -340,18 +299,7 @@ bind(4, {sa_family=AF_INET, sin_port=htons(9090), sin_addr=inet_addr("0.0.0.0")}
 
 Для глибокого моніторингу подій безпеки у виробничому середовищі можна використовувати інструмент `bpftrace`, підключившись до LSM-хуків ядра:
 
-```bash
-sudo bpftrace -e '
-kprobe:landlock_add_rule {
-    printf("Landlock rule added by PID %d (%s)\n", pid, comm);
-}
-kretprobe:security_socket_bind {
-    if (retval == -13) {
-        printf("Landlock blocked BIND socket for PID %d (%s)\n", pid, comm);
-    }
-}
-'
-```
+:::code landlock-abi-v4-v5-features-d/sh/main.sh
 
 Оцінка продуктивності перевірки правил Landlock показує, що для мережевих портів витрати часу становлять менше `O(1)`, оскільки перевірка зводиться до швидкого пошуку порту у локальному дереві правил активного домену.
 

@@ -10,33 +10,7 @@
 
 Структура конфігурації розташована у відповідній зоні BAR пристрою virtio (little-endian порядок байтів). Гіпервізор оновлює значення полів у цій зоні й надсилає переривання конфігурації гостю, коли змінюються умови виділення ресурсів:
 
-```c
-/* include/uapi/linux/virtio_mem.h */
-
-struct virtio_mem_config {
-    /* Гранулярність суб-блоку в байтах (наприклад, 2097152 = 2 МБ) */
-    __le64 block_size;
-
-    /* Ідентифікатор NUMA-вузла, до якого прив'язане вікно */
-    __le16 node_id;
-    __u8   padding[6];
-
-    /* Початкова фізична адреса вікна в просторі адрес гостя (GPA) */
-    __le64 addr;
-
-    /* Загальний розмір зарезервованого вікна адрес (у байтах) */
-    __le64 region_size;
-
-    /* Розмір адресної зони, яку гість може використовувати на даний момент */
-    __le64 usable_region_size;
-
-    /* Поточний реально підключений обсяг пам'яті в гості (у байтах) */
-    __le64 plugged_size;
-
-    /* Бажаний обсяг онлайн-пам'яті, вказаний гіпервізором (у байтах) */
-    __le64 requested_size;
-};
-```
+:::code api-virtio-mem-spec/c/konfihuratsiinyi-prostir.c
 
 Детальний аналіз значень полів конфігурації:
 * **`block_size`**: Задає розмір елементарного суб-блоку пам'яті. Усі операції додавання та вилучення відбуваються кратно цьому значенню. Зазвичай становить 2 МБ (2 097 152 байти) на архітектурі x86_64 для збігу з межею Transparent Huge Pages (THP).
@@ -57,54 +31,7 @@ struct virtio_mem_config {
 
 Обмін командами між драйвером гостя та гіпервізором відбувається через єдину віртчергу запитів (request virtqueue). Драйвер формує запит `struct virtio_mem_req` у доступному кільці (avail ring), а хост повертає відповідь `struct virtio_mem_resp` в ужитому кільці (used ring).
 
-```c
-/* Типи запитів (virtio_mem_req.type) */
-#define VIRTIO_MEM_REQ_PLUG           0  /* Підключити діапазон суб-блоків */
-#define VIRTIO_MEM_REQ_UNPLUG         1  /* Відключити діапазон суб-блоків */
-#define VIRTIO_MEM_REQ_UNPLUG_ALL     2  /* Відключити всі блоки (при скиданні) */
-#define VIRTIO_MEM_REQ_STATE          3  /* Запитати стан діапазону блоків */
-
-/* Запит від драйвера гостя */
-struct virtio_mem_req {
-    __le16 type;        /* VIRTIO_MEM_REQ_* */
-    __le16 padding[3];  /* Вирівнювання до 8 байтів */
-    union {
-        struct {
-            __le64 addr;      /* Початкова адреса в просторі GPA */
-            __le16 nb_blocks; /* Кількість послідовних суб-блоків */
-            __le16 padding[3];
-        } state;
-        struct {
-            __le64 addr;
-            __le16 nb_blocks;
-            __le16 padding[3];
-        } plug;
-        struct {
-            __le64 addr;
-            __le16 nb_blocks;
-            __le16 padding[3];
-        } unplug;
-    } u;
-};
-
-/* Статуси відповідей (virtio_mem_resp.type) */
-#define VIRTIO_MEM_RESP_ACK           0  /* Операція успішна */
-#define VIRTIO_MEM_RESP_NACK          1  /* Відмова (немає ресурсів / помилка) */
-#define VIRTIO_MEM_RESP_BUSY          2  /* Пристрій зайнятий, повторити пізніше */
-#define VIRTIO_MEM_RESP_ERROR         3  /* Критична помилка виконання */
-
-/* Відповідь від гіпервізора */
-struct virtio_mem_resp {
-    __le16 type;        /* VIRTIO_MEM_RESP_* */
-    __le16 padding[3];
-    union {
-        struct {
-            /* 0 = PLUGGED, 1 = UNPLUGGED, 2 = MIXED (діапазон підключений частково) */
-            __le16 state;
-        } state;
-    } u;
-};
-```
+:::code api-virtio-mem-spec/c/format-zapytu-ta-vidpovidi.c
 
 Семантика команд:
 * **`VIRTIO_MEM_REQ_PLUG`**: Драйвер просить хост виділити фізичну RAM під `nb_blocks` суб-блоків, починаючи з фізичної адреси `addr`. Поле `nb_blocks` 16-бітове, тож один запит покриває щонайбільше 65535 суб-блоків, і велику зміну розміру драйвер надсилає низкою запитів. При отриманні `ACK` драйвер реєструє цей діапазон у Buddy Allocator.
@@ -136,19 +63,7 @@ struct virtio_pmem_config {
 
 Оскільки читання та запис відбуваються напряму через відображені сторінки регіону (DAX), віртчерга використовується виключно для гарантії стійкості збереження на носії хоста:
 
-```c
-#define VIRTIO_PMEM_REQ_TYPE_FLUSH   0  /* Скинути кеші файлу / накопичувача хоста */
-
-/* Структура запиту у віртчерзі */
-struct virtio_pmem_req {
-    __le32 type;        /* VIRTIO_PMEM_REQ_TYPE_FLUSH */
-};
-
-/* Структура відповіді від хоста */
-struct virtio_pmem_resp {
-    __le32 ret;         /* 0 = успіх; будь-яке інше значення драйвер віддає гостю як -EIO */
-};
-```
+:::code api-virtio-mem-spec/c/format-flash-zapytu-virtio.c
 
 При отриманні запиту `VIRTIO_PMEM_REQ_TYPE_FLUSH` гіпервізор викликає `fdatasync()` або `msync()` на бекенд-файлі хоста. Лише після підтвердження від контролера диска хоста у віртчергу відправляється статус `0`.
 
@@ -170,19 +85,7 @@ struct virtio_pmem_resp {
 
 Драйвер `virtio-mem` створює системні блоки пам'яті Linux `memoryX`. Кожен такий блок охоплює один або кілька суб-блоків пристрою:
 
-```bash
-# Перевірка стану блоків пам'яті, створених virtio-mem
-$ cat /sys/devices/system/memory/memory42/state
-online
-
-# Які зони допустимі для цього блоку
-$ cat /sys/devices/system/memory/memory42/valid_zones
-Normal Movable
-
-# Чи вважає ядро, що блок можна перевести в offline
-$ cat /sys/devices/system/memory/memory42/removable
-1
-```
+:::code api-virtio-mem-spec/sh/main.sh
 
 Якщо системний адміністратор намагається вручну перевести блок у стан offline (`echo offline > state`), ядро кличе підсистему `virtio-mem` для вилучення відповідних суб-блоків.
 

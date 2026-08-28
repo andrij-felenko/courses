@@ -18,28 +18,7 @@
 
 Щоб ядро Linux могло працювати на конкретній платі, розробники створювали у вихідному коді ядра спеціальні файл-описи — **board-файли** (наприклад, `arch/arm/mach-omap2/board-rx51.c` для смартфона Nokia N900 або `arch/arm/mach-s3c24xx/board-smdk2410.c`). Ці файли описували апаратуру «в лоб» через статичні масиви C-структур `struct platform_device`:
 
-```c
-/* Типовий C-код з епохи board-файлів ядра Linux 2.6 (до 2011 року) */
-static struct resource i2c_resources[] = {
-    [0] = {
-        .start = 0x48070000,
-        .end   = 0x48070000 + 0x75,
-        .flags = IORESOURCE_MEM,
-    },
-    [1] = {
-        .start = 56, /* IRQ number */
-        .end   = 56,
-        .flags = IORESOURCE_IRQ,
-    },
-};
-
-static struct platform_device omap_i2c_device1 = {
-    .name          = "omap_i2c",
-    .id            = 1,
-    .num_resources = ARRAY_SIZE(i2c_resources),
-    .resource      = i2c_resources,
-};
-```
+:::code hist-arm-churn-to-device-tree/c/main.c
 
 Кожна зміна ревізії друкованої плати, заміна номера виводу GPIO для світлодіода або підключення нового датчика температури на шину I2C вимагали внесення змін безпосередньо у C-файл усередині дерева вихідного коду ядра Linux та перекомпіляції бінарного образу ядра `zImage`.
 

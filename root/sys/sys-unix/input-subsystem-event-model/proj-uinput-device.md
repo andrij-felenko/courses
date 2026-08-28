@@ -10,69 +10,7 @@
 
 Звідси й будова програми: спершу оголошення, потім паспорт, потім народження, і аж потім — події.
 
-```c
-/* capsesc.c — Caps Lock працює як Escape для всієї системи.
- * збірка: cc -O2 -Wall -o capsesc capsesc.c
- * запуск: sudo ./capsesc /dev/input/by-id/…-event-kbd
- */
-#define _GNU_SOURCE
-#include <dirent.h>
-#include <fcntl.h>
-#include <linux/input.h>
-#include <linux/uinput.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-
-#define LBITS         (8 * sizeof(unsigned long))
-#define NLONGS(n)     (((n) + LBITS - 1) / LBITS)
-#define TESTBIT(a, n) (((a)[(n) / LBITS] >> ((n) % LBITS)) & 1UL)
-#define SETBIT(a, n)  ((a)[(n) / LBITS] |= 1UL << ((n) % LBITS))
-#define CLRBIT(a, n)  ((a)[(n) / LBITS] &= ~(1UL << ((n) % LBITS)))
-#define KEYWORDS      NLONGS(KEY_MAX + 1)
-
-static __u16 remap(__u16 code)
-{
-        return code == KEY_CAPSLOCK ? KEY_ESC : code;
-}
-
-/* Час лишаємо нулями: нуль ядро дійсною позначкою не вважає й ставить свою.
-   Чужу воно бере лише в новіших ядрах — і лише не з майбутнього й не старшу за 10 с. */
-static int emit(int ui, __u16 type, __u16 code, __s32 value)
-{
-        struct input_event ev = { .type = type, .code = code, .value = value };
-        return write(ui, &ev, sizeof ev) == (ssize_t)sizeof ev ? 0 : -1;
-}
-
-static int build_device(int ui, int src)
-{
-        unsigned long keys[KEYWORDS] = { 0 };
-        struct uinput_setup us = {
-                .id = { .bustype = BUS_VIRTUAL, .vendor = 0x1d6b,
-                        .product = 0x0001,       .version = 1 },
-        };
-
-        /* 1. Типи подій. EV_REP тут навмисно немає — див. нижче про автоповтор. */
-        if (ioctl(ui, UI_SET_EVBIT, EV_KEY) < 0) return -1;
-        if (ioctl(ui, UI_SET_EVBIT, EV_SYN) < 0) return -1;
-
-        /* 2. Клавіші. Беремо маску джерела — але оголошуємо ПІДМІНЕНІ коди:
-              з нашого пристрою вилітає KEY_ESC, а KEY_CAPSLOCK — ніколи. */
-        if (ioctl(src, EVIOCGBIT(EV_KEY, sizeof keys), keys) < 0) return -1;
-        for (unsigned c = 0; c <= KEY_MAX; c++)
-                if (TESTBIT(keys, c) && ioctl(ui, UI_SET_KEYBIT, remap(c)) < 0)
-                        return -1;
-
-        /* 3. Паспорт: шина, виробник, модель, назва.
-              -EINVAL тут означає ядро, старше за 4.5, — там лише старий шлях. */
-        snprintf(us.name, sizeof us.name, "capsesc virtual keyboard");
-        if (ioctl(ui, UI_DEV_SETUP, &us) < 0) return -1;
-
-        /* 4. Аж тепер пристрій народжується. */
-        return ioctl(ui, UI_DEV_CREATE);
-}
-```
+:::code proj-uinput-device/c/capsesc.c
 
 Другий крок вартий погляду: у циклі стоїть `remap(c)`, а не `c`. Оголошувати треба не те, що вміє джерело, а те, що справді вилетить із нашого пристрою. Інакше вийде безглуздя — пристрій, який обіцяє Caps Lock і не обіцяє Escape, тимчасом як видає рівно навпаки.
 
@@ -90,31 +28,7 @@ static int build_device(int ui, int src)
 
 Половину проміжку закрити можна. Запит `UI_GET_SYSNAME` віддає ім'я нашого пристрою в [sysfs](root:sys-unix/sysfs-device-model) — рядок виду `input27`; серед дітей `/sys/class/input/input27/` є єдиний `eventM`, і це наш вузол. Отже, чекати навмання не треба: чекаємо саме на нього.
 
-```c
-static void wait_for_node(int ui)
-{
-        char sysname[32] = { 0 }, path[64], node[64] = { 0 };
-        struct dirent *e;
-        DIR *d;
-
-        if (ioctl(ui, UI_GET_SYSNAME(sizeof sysname), sysname) < 0)
-                return;                       /* старе ядро — лишиться сама пауза */
-
-        snprintf(path, sizeof path, "/sys/class/input/%s", sysname);
-        if ((d = opendir(path))) {
-                while ((e = readdir(d)))
-                        if (!strncmp(e->d_name, "event", 5)) {
-                                snprintf(node, sizeof node, "/dev/input/%s", e->d_name);
-                                break;
-                        }
-                closedir(d);
-        }
-        for (int i = 0; i < 300 && node[0]; i++) {      /* до 3 с на udev */
-                if (access(node, F_OK) == 0) break;
-                usleep(10 * 1000);
-        }
-}
-```
+:::code proj-uinput-device/c/vikno-u-iakomu-vas-nikhto.c
 
 А другу половину закрити нічим: жодне ядро не скаже вам, чи вже відкрив ваш вузол композитор. Тому пауза лишається — і в прикладі з документації ядра вона теж є, звичайним `sleep(1)`. Чесна відповідь не в тому, щоб паузи позбутися, а в тому, щоб не ставити її замість перевірки: спершу дочекатися вузла, потім витримати паузу на читачів. Програма, якій треба надійніше, слухає розсилку udev через `libudev` і чекає, поки пристрій позначать як опрацьований, — але пауза на відкриття лишається й там.
 
@@ -122,55 +36,7 @@ static void wait_for_node(int ui)
 
 ## Цикл
 
-```c
-static void resync(int ui, int src, unsigned long *held)
-{
-        unsigned long now[KEYWORDS] = { 0 };
-
-        if (ioctl(src, EVIOCGKEY(sizeof now), now) < 0) return;
-        for (unsigned c = 0; c <= KEY_MAX; c++)
-                if (TESTBIT(held, c) != TESTBIT(now, c))
-                        emit(ui, EV_KEY, remap(c), TESTBIT(now, c) ? 1 : 0);
-        memcpy(held, now, sizeof now);
-        emit(ui, EV_SYN, SYN_REPORT, 0);
-}
-
-int main(int argc, char **argv)
-{
-        unsigned long held[KEYWORDS] = { 0 };
-        struct input_event ev;
-        int src, ui;
-
-        if (argc != 2) {
-                fprintf(stderr, "потрібен шлях: %s /dev/input/eventN\n", argv[0]);
-                return 2;
-        }
-        if ((src = open(argv[1], O_RDONLY)) < 0)      { perror(argv[1]);      return 1; }
-        if ((ui = open("/dev/uinput", O_WRONLY)) < 0) { perror("/dev/uinput"); return 1; }
-        if (build_device(ui, src) < 0)                { perror("створення");   return 1; }
-
-        wait_for_node(ui);
-        usleep(400 * 1000);      /* читачам на відкриття: спитати про це нікого не можна */
-
-        if (ioctl(src, EVIOCGRAB, 1) < 0) { perror("EVIOCGRAB"); return 1; }
-
-        while (read(src, &ev, sizeof ev) == (ssize_t)sizeof ev) {
-                if (ev.type == EV_SYN && ev.code == SYN_DROPPED) {
-                        resync(ui, src, held);        /* наша копія стану — брехня */
-                        continue;
-                }
-                if (ev.type == EV_KEY) {
-                        if (ev.value == 1)      SETBIT(held, ev.code);
-                        else if (ev.value == 0) CLRBIT(held, ev.code);
-                        ev.code = remap(ev.code);
-                }
-                if (write(ui, &ev, sizeof ev) != (ssize_t)sizeof ev) break;
-        }
-
-        ioctl(ui, UI_DEV_DESTROY);
-        return 0;
-}
-```
+:::code proj-uinput-device/c/tsykl.c
 
 Подію передаємо цілою — з типом, значенням і чужою позначкою часу. Позначку джерела новіші ядра приймають — вона не з майбутнього й молодша за десять секунд, — і подвійне клацання нижче за течією рахується за справжніми інтервалами, а не за нашими; старіші ядра ставлять власну, на кілька мілісекунд пізнішу. `SYN_REPORT` іде тим самим шляхом і закриває наш кадр рівно там, де його закрило джерело.
 

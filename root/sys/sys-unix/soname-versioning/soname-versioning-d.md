@@ -171,42 +171,8 @@ LIBFOO_2.0 {
 У вихідному коді C або C++ розробник пов'язує конкретні C-функції з відповідними версіями у таблиці ELF за допомогою директиви `.symver`:
 
 :::tabs
-```c
-// foo.c — реалізація двох версій однієї функції у C
-#include <stdio.h>
-
-// Стара реалізація для сумісності зі старими бінарниками
-int foo_process_v1(int x) {
-    return x * 10;
-}
-__asm__(".symver foo_process_v1, foo_process@LIBFOO_1.0");
-
-// Нова реалізація за замовчуванням (@@) для нових збірок
-int foo_process_v2(int x, int flags) {
-    return x * 10 + flags;
-}
-__asm__(".symver foo_process_v2, foo_process@@LIBFOO_2.0");
-```
-```cpp
-// foo.cpp — реалізація двох версій однієї функції у C++
-#include <iostream>
-
-extern "C" {
-
-// Стара реалізація для сумісності зі старими бінарниками
-int foo_process_v1(int x) {
-    return x * 10;
-}
-__asm__(".symver foo_process_v1, foo_process@LIBFOO_1.0");
-
-// Нова реалізація за замовчуванням (@@) для нових збірок
-int foo_process_v2(int x, int flags) {
-    return x * 10 + flags;
-}
-__asm__(".symver foo_process_v2, foo_process@@LIBFOO_2.0");
-
-}
-```
+:::code soname-versioning-d/c/foo.c
+:::code soname-versioning-d/cpp/foo.cpp
 :::
 
 Для детального ознайомлення з усіма ключами інспектування бінарних файлів та синтаксисом скриптів зверніться до матеріалу [довідник синтаксису версійних скриптів та CLI-утиліт](root:sys-unix/soname-versioning/api-symbol-versioning.md). А наочний покроковий приклад створення бібліотеки з підтримкою сумісності доступний у матеріалі [практична реалізація зворотної сумісності ABI](root:sys-unix/soname-versioning/proj-abi-compatibility-wrapper.md).
@@ -233,57 +199,8 @@ __asm__(".symver foo_process_v2, foo_process@@LIBFOO_2.0");
 Якщо програма бажає явно попросити конкретну версію символу (наприклад, стару версію для сумісності), використовується функція `dlvsym()`:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <dlfcn.h>
-
-void execute_plugin(void) {
-    void* handle = dlopen("libfoo.so.1", RTLD_LAZY);
-    if (!handle) return;
-
-    // Отримання конкретної версії символу через dlvsym
-    typedef int (*func_v1_t)(int);
-    func_v1_t func = (func_v1_t)dlvsym(handle, "foo_process", "LIBFOO_1.0");
-    if (func) {
-        int res = func(42);
-        printf("Результат виклику v1: %d\n", res);
-    }
-
-    dlclose(handle);
-}
-```
-```cpp
-#define _GNU_SOURCE
-#include <iostream>
-#include <string_view>
-#include <dlfcn.h>
-
-class PluginLoader {
-    void* handle_{nullptr};
-public:
-    explicit PluginLoader(std::string_view path) 
-        : handle_(dlopen(path.data(), RTLD_LAZY)) {}
-
-    ~PluginLoader() {
-        if (handle_) dlclose(handle_);
-    }
-
-    template<typename FuncPtr>
-    FuncPtr get_symbol(std::string_view name, std::string_view version) const {
-        return reinterpret_cast<FuncPtr>(dlvsym(handle_, name.data(), version.data()));
-    }
-};
-
-void execute_plugin() {
-    PluginLoader plugin("libfoo.so.1");
-    using func_v1_t = int(*)(int);
-    
-    if (auto func = plugin.get_symbol<func_v1_t>("foo_process", "LIBFOO_1.0")) {
-        std::cout << "Результат виклику v1: " << func(42) << "\n";
-    }
-}
-```
+:::code soname-versioning-d/c/iavnyi-dynamichnyi.c
+:::code soname-versioning-d/cpp/iavnyi-dynamichnyi.cpp
 :::
 
 ## 8. Діагностика, типові помилки та ціна версіонування

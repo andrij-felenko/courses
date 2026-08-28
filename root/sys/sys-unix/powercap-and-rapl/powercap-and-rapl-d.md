@@ -198,31 +198,8 @@ double power_watts = delta_joules / (time_t2 - time_t1);
 Структури ядра у файлі `include/linux/powercap.h`:
 
 :::tabs
-```c
-struct powercap_zone {
-    struct device dev;
-    struct powercap_zone *parent;
-    const struct powercap_zone_ops *ops;
-    const struct powercap_zone_constraint_ops *const_ops;
-    int nr_constraints;
-    struct powercap_control_type *control_type;
-    void *allocated_zone_name;
-    void *drv_data;
-};
-```
-```cpp
-// Концептуальне представлення структури powercap_zone для C++ підсистем
-struct PowercapZone {
-    struct device dev;
-    PowercapZone* parent;
-    const struct powercap_zone_ops* ops;
-    const struct powercap_zone_constraint_ops* const_ops;
-    int nr_constraints;
-    struct powercap_control_type* control_type;
-    void* allocated_zone_name;
-    void* drv_data;
-};
-```
+:::code powercap-and-rapl-d/c/main.c
+:::code powercap-and-rapl-d/cpp/main.cpp
 :::
 
 ### 4.2. Драйвери бекенду
@@ -296,23 +273,7 @@ Package Core    CPU     Bzy_MHz PkgWatt CorWatt RAMWatt Pkg%
 Пакет `powercap-utils` надає дві високорівневі утиліти для адміністрування:
 
 * **`powercap-info`**: Сканує файлову систему sysfs і виводить повне дерево зон, поточні ліміти та накопичені лічильники мікроджоулів:
-  ```bash
-  $ sudo powercap-info -p intel-rapl
-  intel-rapl
-    intel-rapl:0
-      name = package-0
-      enabled = 1
-      max_energy_range_uj = 262143328850
-      energy_uj = 145023940120
-      constraint_0
-        name = long_term
-        power_limit_uw = 65000000
-        time_window_us = 27983872
-      constraint_1
-        name = short_term
-        power_limit_uw = 90000000
-        time_window_us = 2441
-  ```
+  :::code powercap-and-rapl-d/sh/main.sh
 * **`powercap-set`**: Дозволяє модифікувати параметри обмежень без ручної роботи з файлами:
   ```bash
   # Встановлення довготривалого ліміту PL1 = 45 Вт на сокет 0

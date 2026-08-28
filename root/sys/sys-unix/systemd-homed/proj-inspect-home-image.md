@@ -41,33 +41,7 @@ $ sudo sfdisk --part-type /dev/loop7 1
 
 ## Заголовок LUKS2: маркер видно, вміст — ні
 
-```bash
-$ sudo cryptsetup luksDump /dev/loop7p1
-LUKS header information
-Version:       	2
-UUID:          	7c0a2f5e-1d84-4b1a-9f3c-2ae6d0b47f11
-Label:         	andrij
-Subsystem:     	(no subsystem)
-
-Data segments:
-  0: crypt
-	offset: 16777216 [bytes]
-	length: (whole device)
-	cipher: aes-xts-plain64
-	sector: 512 [bytes]
-
-Keyslots:
-  0: luks2
-	Key:        512 bits
-	PBKDF:      argon2id
-	Time cost:  4
-	Memory:     1048576
-	Threads:    4
-Tokens:
-  0: systemd-homed
-Digests:
-  0: pbkdf2
-```
+:::code proj-inspect-home-image/sh/zaholovok-luks2-marker.sh
 
 `luksDump` називає тип маркера й на цьому спиняється: вмісту чужих маркерів він не показує, бо не знає, що з ним робити. Сам вміст лежить у ділянці метаданих у вигляді JSON, і його дістають окремим ключем:
 
@@ -109,18 +83,7 @@ jq: error (at /tmp/record.bin:0): Invalid numeric literal at line 1, column 2
 
 ## Пароль — і той самий запис читається
 
-```bash
-$ sudo cryptsetup open /dev/loop7p1 peek
-Enter passphrase for /dev/loop7p1:
-$ sudo mount -o ro /dev/mapper/peek /mnt
-$ ls /mnt
-andrij
-$ sudo jq -r '.userName, .realName, .disposition, .lastChangeUSec' /mnt/andrij/.identity
-andrij
-Andrij Felenko
-regular
-1754470920045391
-```
+:::code proj-inspect-home-image/sh/parol-i-toi-samyi-zapys.sh
 
 Ім'я `peek` вигадали ми; служба про цей пристрій не знає нічого — ми тут сторонні, які знають пароль, і цього досить. А `~/.identity` — це той самий запис, що не читався із заголовка. Звіримо його з тим, що видає машина:
 

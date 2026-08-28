@@ -4,20 +4,7 @@
 
 ## Сім викликів
 
-```c
-#include <linux/fscrypt.h>   /* окремий uapi-заголовок — з ядра 5.4 */
-
-#define FS_IOC_SET_ENCRYPTION_POLICY     _IOR('f', 19, struct fscrypt_policy_v1)
-#define FS_IOC_GET_ENCRYPTION_PWSALT     _IOW('f', 20, __u8[16])
-#define FS_IOC_GET_ENCRYPTION_POLICY     _IOW('f', 21, struct fscrypt_policy_v1)
-#define FS_IOC_GET_ENCRYPTION_POLICY_EX  _IOWR('f', 22, __u8[9])
-#define FS_IOC_ADD_ENCRYPTION_KEY        _IOWR('f', 23, struct fscrypt_add_key_arg)
-#define FS_IOC_REMOVE_ENCRYPTION_KEY     _IOWR('f', 24, struct fscrypt_remove_key_arg)
-#define FS_IOC_REMOVE_ENCRYPTION_KEY_ALL_USERS \
-                                         _IOWR('f', 25, struct fscrypt_remove_key_arg)
-#define FS_IOC_GET_ENCRYPTION_KEY_STATUS _IOWR('f', 26, struct fscrypt_get_key_status_arg)
-#define FS_IOC_GET_ENCRYPTION_NONCE      _IOR('f', 27, __u8[16])
-```
+:::code api-fscrypt-ioctls/c/sim-vyklykiv.c
 
 | Виклик | На чому викликають | Аргумент | З ядра |
 | --- | --- | --- | --- |
@@ -35,20 +22,7 @@
 
 ## Політика
 
-```c
-#define FSCRYPT_POLICY_V1  0            /* так, нуль */
-#define FSCRYPT_POLICY_V2  2
-
-struct fscrypt_policy_v2 {
-        __u8 version;                   /* 2 */
-        __u8 contents_encryption_mode;
-        __u8 filenames_encryption_mode;
-        __u8 flags;
-        __u8 log2_data_unit_size;       /* 0 — блок файлової системи */
-        __u8 __reserved[3];             /* нулі */
-        __u8 master_key_identifier[16]; /* FSCRYPT_KEY_IDENTIFIER_SIZE */
-};
-```
+:::code api-fscrypt-ioctls/c/polityka.c
 
 | Поле | Межі | Примітка |
 | --- | --- | --- |
@@ -105,26 +79,7 @@ struct fscrypt_policy_v2 {
 
 ## Ключ
 
-```c
-struct fscrypt_key_specifier {
-        __u32 type;             /* 1 = DESCRIPTOR (v1), 2 = IDENTIFIER (v2) */
-        __u32 __reserved;
-        union {
-                __u8 __reserved[32];
-                __u8 descriptor[8];     /* FSCRYPT_KEY_DESCRIPTOR_SIZE */
-                __u8 identifier[16];    /* FSCRYPT_KEY_IDENTIFIER_SIZE */
-        } u;
-};
-
-struct fscrypt_add_key_arg {
-        struct fscrypt_key_specifier key_spec;  /* вхід; для v2 identifier — ВИХІД */
-        __u32 raw_size;                         /* 16..64, або 0 при key_id != 0 */
-        __u32 key_id;                           /* 0 або ключ зі зв'язки ядра */
-        __u32 flags;                            /* 0x1 = FSCRYPT_ADD_KEY_FLAG_HW_WRAPPED */
-        __u32 __reserved[7];                    /* нулі */
-        __u8  raw[];                            /* сам секрет */
-};
-```
+:::code api-fscrypt-ioctls/c/kliuch.c
 
 `key_spec.u.identifier` для політик v2 — поле **вихідне**: його лишають нулями, а ядро вписує туди криптографічний геш поданого ключа. Саме ці шістнадцять байтів потім кладуть у політику.
 
@@ -137,22 +92,7 @@ struct fscrypt_add_key_arg {
 
 ## Вилучення й статус
 
-```c
-struct fscrypt_remove_key_arg {
-        struct fscrypt_key_specifier key_spec;
-        __u32 removal_status_flags;   /* вихід */
-        __u32 __reserved[5];
-};
-
-struct fscrypt_get_key_status_arg {
-        struct fscrypt_key_specifier key_spec;   /* вхід */
-        __u32 __reserved[6];
-        __u32 status;                            /* вихід: 1 / 2 / 3 */
-        __u32 status_flags;                      /* 0x1 = ADDED_BY_SELF */
-        __u32 user_count;                        /* скільки заявок на ключ */
-        __u32 __out_reserved[13];
-};
-```
+:::code api-fscrypt-ioctls/c/vyluchennia-i-status.c
 
 | Прапорець `removal_status_flags` | Значення | Коли ставиться |
 | --- | --- | --- |
@@ -167,33 +107,7 @@ struct fscrypt_get_key_status_arg {
 
 ## Мінімальний робочий виклик
 
-```c
-struct {
-        struct fscrypt_add_key_arg arg;
-        __u8 raw[32];
-} k = { 0 };                       /* обнулення обов'язкове: є резервні поля */
-
-k.arg.key_spec.type = FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER;
-k.arg.raw_size      = 32;
-memcpy(k.raw, master_key, 32);     /* 32 байти з /dev/urandom */
-
-int mnt = open("/data", O_RDONLY | O_DIRECTORY);
-if (ioctl(mnt, FS_IOC_ADD_ENCRYPTION_KEY, &k.arg) != 0)
-        perror("FS_IOC_ADD_ENCRYPTION_KEY");
-/* ядро вписало 16 байтів у k.arg.key_spec.u.identifier */
-
-struct fscrypt_policy_v2 pol = {
-        .version                   = FSCRYPT_POLICY_V2,
-        .contents_encryption_mode  = FSCRYPT_MODE_AES_256_XTS,
-        .filenames_encryption_mode = FSCRYPT_MODE_AES_256_CTS,
-        .flags                     = FSCRYPT_POLICY_FLAGS_PAD_32,
-};
-memcpy(pol.master_key_identifier, k.arg.key_spec.u.identifier, 16);
-
-int dir = open("/data/oksana", O_RDONLY | O_DIRECTORY);   /* каталог порожній */
-if (ioctl(dir, FS_IOC_SET_ENCRYPTION_POLICY, &pol) != 0)
-        perror("FS_IOC_SET_ENCRYPTION_POLICY");
-```
+:::code api-fscrypt-ioctls/c/minimalnyi-robochyi-vyklyk.h
 
 Порядок нежорсткий лише на позір: політику v2 з незнайомим ідентифікатором ядро прийме тільки від процесу з `CAP_FOWNER`, а звичайному користувачеві відповість `ENOKEY`. Тому ключ додають першим.
 

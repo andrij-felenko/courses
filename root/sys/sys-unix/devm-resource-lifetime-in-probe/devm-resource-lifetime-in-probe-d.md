@@ -14,72 +14,7 @@
 
 Ось як це виглядає, коли писати чесно й руками:
 
-```c
-static int acme_probe(struct platform_device *pdev)
-{
-	struct resource *res;
-	struct acme *a;
-	int ret;
-
-	a = kzalloc(sizeof(*a), GFP_KERNEL);
-	if (!a)
-		return -ENOMEM;
-
-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-	if (!res) {
-		ret = -EINVAL;
-		goto err_free;
-	}
-
-	a->regs = ioremap(res->start, resource_size(res));
-	if (!a->regs) {
-		ret = -ENOMEM;
-		goto err_free;
-	}
-
-	a->clk = clk_get(&pdev->dev, NULL);
-	if (IS_ERR(a->clk)) {
-		ret = PTR_ERR(a->clk);
-		goto err_unmap;
-	}
-
-	ret = clk_prepare_enable(a->clk);
-	if (ret)
-		goto err_put_clk;
-
-	a->irq = platform_get_irq(pdev, 0);
-	if (a->irq < 0) {
-		ret = a->irq;
-		goto err_disable_clk;
-	}
-
-	ret = request_irq(a->irq, acme_isr, 0, "acme", a);
-	if (ret)
-		goto err_disable_clk;
-
-	a->hwmon = hwmon_device_register_with_info(&pdev->dev, "acme", a,
-						   &acme_chip_info, NULL);
-	if (IS_ERR(a->hwmon)) {
-		ret = PTR_ERR(a->hwmon);
-		goto err_free_irq;
-	}
-
-	platform_set_drvdata(pdev, a);
-	return 0;
-
-err_free_irq:
-	free_irq(a->irq, a);
-err_disable_clk:
-	clk_disable_unprepare(a->clk);
-err_put_clk:
-	clk_put(a->clk);
-err_unmap:
-	iounmap(a->regs);
-err_free:
-	kfree(a);
-	return ret;
-}
-```
+:::code devm-resource-lifetime-in-probe-d/c/part.c
 
 Половина функції — не робота з пристроєм, а сходинки для відступу. Причому цю саму драбину доводиться написати ще раз, у зворотному вигляді, у `remove()`: коли драйвер відв'язують від справного пристрою, скасувати треба все те саме, тільки без розгалужень. Дві копії одного порядку в різних місцях файла — і кожна правка мусить бути внесена в обидві. Варто додати в середину `probe()` ще одне захоплення й забути вставити мітку — і з'явиться витік, який ніяк себе не виявить: пристрій просто перестане з'являтися після кількох перепідключень, бо діапазон регістрів так і лишився зайнятим.
 
@@ -103,20 +38,7 @@ err_free:
 
 Кожне «кероване» захоплення додає в цей список **вузол**. Вузол — це шматок пам'яті, у якого спереду службова шапка, а за нею корисні дані:
 
-```c
-typedef void (*dr_release_t)(struct device *dev, void *res);
-
-struct devres_node {
-	struct list_head	entry;      /* місце в списку пристрою */
-	dr_release_t		release;    /* чим це звільняти */
-	/* під CONFIG_DEBUG_DEVRES тут ще ім'я й розмір */
-};
-
-struct devres {
-	struct devres_node	node;
-	u8			data[];     /* корисне навантаження */
-};
-```
+:::code devm-resource-lifetime-in-probe-d/c/spysok-shcho-roste-razom.c
 
 Уся конструкція тримається на полі `release`. Вузол не знає, що саме в ньому лежить, — він знає лише, кого покликати, щоб це віддати. Дані ж — рівно те, що потрібне функції звільнення: для відображених регістрів це вказівник, який треба подати в `iounmap()`; для переривання — номер лінії й `dev_id`, потрібні для `free_irq()`; для такту — вказівник на `struct clk`.
 
@@ -187,39 +109,7 @@ static void acme_remove(struct platform_device *pdev)
 
 З усім цим на руках початкова функція стискається до послідовності захоплень, у якій кожна помилка — просто вихід:
 
-```c
-static int acme_probe(struct platform_device *pdev)
-{
-	struct device *dev = &pdev->dev;
-	struct device *hwmon;
-	struct acme *a;
-	int ret;
-
-	a = devm_kzalloc(dev, sizeof(*a), GFP_KERNEL);
-	if (!a)
-		return -ENOMEM;
-
-	a->regs = devm_platform_ioremap_resource(pdev, 0);
-	if (IS_ERR(a->regs))
-		return PTR_ERR(a->regs);
-
-	a->clk = devm_clk_get_enabled(dev, NULL);
-	if (IS_ERR(a->clk))
-		return PTR_ERR(a->clk);
-
-	a->irq = platform_get_irq(pdev, 0);
-	if (a->irq < 0)
-		return a->irq;
-
-	ret = devm_request_irq(dev, a->irq, acme_isr, 0, "acme", a);
-	if (ret)
-		return ret;
-
-	hwmon = devm_hwmon_device_register_with_info(dev, "acme", a,
-						     &acme_chip_info, NULL);
-	return PTR_ERR_OR_ZERO(hwmon);
-}
-```
+:::code devm-resource-lifetime-in-probe-d/c/toi-samyi-probe-bez.c
 
 Функції `acme_remove()` тут немає взагалі — нічого скасовувати. Зникли обидві копії порядку скасування, зникли мітки, зникла можливість забути мітку.
 
@@ -231,21 +121,7 @@ static int acme_probe(struct platform_device *pdev)
 
 Для цього є універсальний гачок — `devm_add_action()`. Він створює вузол, у якому корисними даними є ваш вказівник, а функцією звільнення — ваш зворотний виклик:
 
-```c
-static void acme_engine_stop(void *data)
-{
-	struct acme *a = data;
-
-	writel(0, a->regs + ACME_CTRL);
-}
-
-	/* ... у probe(), після відображення регістрів ... */
-	writel(ACME_CTRL_RUN, a->regs + ACME_CTRL);
-
-	ret = devm_add_action_or_reset(dev, acme_engine_stop, a);
-	if (ret)
-		return ret;
-```
+:::code devm-resource-lifetime-in-probe-d/c/koly-hotovoi-obhortky.c
 
 Тут важливий саме варіант із хвостиком `_or_reset`, і причина в дрібній асиметрії. Реєстрація дії сама може провалитися — це виділення пам'яті під вузол. Якщо це станеться після того, як двигун уже запущено, звичайний `devm_add_action()` поверне помилку, а двигун лишиться крутитися: скасовувати його нікому, бо вузла немає. Варіант `_or_reset` у такому разі кличе вашу функцію негайно, сам, і аж тоді повертає помилку. Тому запис вигляду «зробити необоротну дію → одразу зареєструвати її скасування через `_or_reset`» безпечний у будь-якому місці `probe()`.
 

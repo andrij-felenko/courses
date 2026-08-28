@@ -48,143 +48,25 @@ p = *(uintptr_t *)p;
 
 ## Пам'ять, узята трьома способами
 
-```c
-/* tlbwalk.c — ціна перекладу адрес на трьох видах сторінок.
-   Збірка:  cc -O2 -std=gnu11 -o tlbwalk tlbwalk.c
-   Запуск:  ./tlbwalk all 16 20        # режим · ГіБ · мільйонів кроків     */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <sys/mman.h>
-
-#define PAGE  4096UL
-#define HUGE  (2UL << 20)
-#define LINE  64UL
-
-#ifndef MAP_HUGE_SHIFT
-#define MAP_HUGE_SHIFT 26
-#endif
-#ifndef MADV_COLLAPSE
-#define MADV_COLLAPSE 25                 /* з'явилося в Linux 6.1 */
-#endif
-```
+:::code proj-huge-page-benchmark/c/pamiat-uziata-troma.h
 
 Вирівнювання — перше, з чого починається робочий код. Велика сторінка існує тільки на межі, кратній двом мегабайтам, тож ділянка, віддана `mmap` за довільною адресою, майже напевно перетинає таку межу навпіл, і крайні блоки великими не стануть ніколи. Просимо на `align` більше й відрізаємо зайве з обох боків — обидва хвости повертаються системі окремими `munmap`, тож нічого не марнується.
 
-```c
-/* Ділянка, початок якої вирівняний на align (степінь двійки, кратна PAGE). */
-static char *mmap_aligned(size_t len, size_t align)
-{
-        size_t total = len + align;
-        char *raw = mmap(NULL, total, PROT_READ | PROT_WRITE,
-                         MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-        if (raw == MAP_FAILED)
-                return MAP_FAILED;
-
-        uintptr_t start = ((uintptr_t)raw + align - 1) & ~(uintptr_t)(align - 1);
-        size_t head = start - (uintptr_t)raw;
-        if (head)
-                munmap(raw, head);
-        if (total - head - len)
-                munmap((char *)start + len, total - head - len);
-        return (char *)start;
-}
-```
+:::code proj-huge-page-benchmark/c/pamiat-uziata-troma.c
 
 Тепер самі три способи. Контрольний режим потребує окремої обережності: на машині з `enabled=always` система підсуне великі сторінки й туди, і «дрібний» вимір буде не дрібним. Тому в ньому стоїть явна заборона.
 
-```c
-enum mode { M_SMALL, M_THP, M_HUGETLB };
-
-static char *take(enum mode m, size_t len, int huge_log2)
-{
-        char *p;
-
-        switch (m) {
-        case M_SMALL:
-                p = mmap(NULL, len, PROT_READ | PROT_WRITE,
-                         MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-                if (p != MAP_FAILED)
-                        madvise(p, len, MADV_NOHUGEPAGE);   /* інакше не контроль */
-                return p;
-
-        case M_THP:
-                p = mmap_aligned(len, HUGE);
-                if (p == MAP_FAILED)
-                        return p;
-                /* ПОРАДА МУСИТЬ ЛЯГТИ ДО ПЕРШОГО ДОТИКУ: після нього
-                   сторінки вже дрібні, і лишається тільки згортання. */
-                if (madvise(p, len, MADV_HUGEPAGE) != 0) {
-                        perror("madvise(MADV_HUGEPAGE)");
-                        munmap(p, len);
-                        return MAP_FAILED;
-                }
-                return p;
-
-        case M_HUGETLB:
-                /* ENOMEM тут означає порожній пул, а не брак пам'яті. */
-                return mmap(NULL, len, PROT_READ | PROT_WRITE,
-                            MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB |
-                            (huge_log2 << MAP_HUGE_SHIFT), -1, 0);
-        }
-        return MAP_FAILED;
-}
-```
+:::code proj-huge-page-benchmark/c/pamiat-uziata-troma-2.c
 
 ## Один цикл на весь буфер
 
 Вузол кладемо по одному на сторінку — так кожне звернення чесно платить за окремий переклад. Але покласти їх усі на нульове зміщення сторінки не можна: тоді молодші біти адреси в усіх однакові, усі вузли лягають в один і той самий набір кеша й ви поміряєте конфлікти в кеші замість перекладу. Зсуваємо позицію всередині сторінки на один рядок кеша щоразу:
 
-```c
-/* Вузол k: своя сторінка, але позиція в ній повзе по 64 байти. */
-static inline size_t node_off(size_t k)
-{
-        return k * PAGE + (k & 63u) * LINE;
-}
-
-static inline uintptr_t *slot(char *buf, size_t k)
-{
-        return (uintptr_t *)(buf + node_off(k));
-}
-```
+:::code proj-huge-page-benchmark/c/odyn-tsykl-na-ves-bufer.c
 
 Ланцюг мусить бути **одним** циклом на всі `n` вузлів. Якби перестановка розпалася на кілька коротких циклів, обхід крутився б в одному з них і насправді ходив би по крихітній підмножині буфера — а вивід виглядав би цілком правдоподібно. Гарантію дає перемішування Саттоло: від звичного перемішування Фішера — Єйтса воно відрізняється однією межею (`j < i`, а не `j ≤ i`), і саме ця межа робить результат [перестановкою](root:math-combinatorics/permutations) рівно з одним циклом довжини `n`. Опублікувала його Сандра Саттоло в *Information Processing Letters* 1986 року — це доведений результат, а не емпіричне спостереження.
 
-```c
-static uint64_t rng = 0x2545F4914F6CDD1DULL;
-
-static inline uint64_t rnd64(void)          /* splitmix64 */
-{
-        uint64_t z = (rng += 0x9E3779B97F4A7C15ULL);
-        z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9ULL;
-        z = (z ^ (z >> 27)) * 0x94D049BB133111EBULL;
-        return z ^ (z >> 31);
-}
-
-/* Один цикл довжини n, побудований ПРЯМО В БУФЕРІ: масив, який
-   перемішують, і є ланцюгом, тому зайвої пам'яті не треба. */
-static void build_cycle(char *buf, size_t n)
-{
-        for (size_t k = 0; k < n; k++)              /* тотожність */
-                *slot(buf, k) = k;
-
-        for (size_t i = n - 1; i > 0; i--) {        /* Саттоло: 0 ≤ j < i */
-                size_t j = (size_t)(rnd64() % (uint64_t)i);
-                uintptr_t t = *slot(buf, i);
-                *slot(buf, i) = *slot(buf, j);
-                *slot(buf, j) = t;
-        }
-
-        for (size_t k = 0; k < n; k++) {            /* індекс → адреса */
-                size_t nxt = (size_t)*slot(buf, k);
-                *slot(buf, k) = (uintptr_t)(buf + node_off(nxt));
-        }
-}
-```
+:::code proj-huge-page-benchmark/c/odyn-tsykl-na-ves-bufer-2.c
 
 Ця функція заразом робить прогрів: перший прохід торкається кожної сторінки по порядку, тобто саме там і народжуються великі сторінки, якщо ділянка вирівняна й порада вже стоїть.
 
@@ -192,135 +74,17 @@ static void build_cycle(char *buf, size_t n)
 
 Сам вимір — п'ять рядків. Єдина тонкість: результат ланцюга треба комусь віддати, інакше [оптимізатор](root:sf-release/microbenchmarking) має повне право викинути весь цикл, бо той нічого не змінює.
 
-```c
-static void *volatile sink;
-
-static double chase(char *buf, size_t steps)
-{
-        uintptr_t p = (uintptr_t)(buf + node_off(0));
-        struct timespec a, b;
-
-        clock_gettime(CLOCK_MONOTONIC, &a);
-        for (size_t i = 0; i < steps; i++)
-                p = *(uintptr_t *)p;
-        clock_gettime(CLOCK_MONOTONIC, &b);
-
-        sink = (void *)p;               /* без цього рядка циклу не буде */
-        return ((b.tv_sec - a.tv_sec) * 1e9 + (b.tv_nsec - a.tv_nsec))
-               / (double)steps;
-}
-```
+:::code proj-huge-page-benchmark/c/vymiriuvalnyi-tsykl-i.c
 
 Далі — дві перевірки, без яких увесь дослід не вартий нічого. Числа завжди якісь виходять; питання в тому, чи ви справді дістали те, що просили. Ділянка процесу описана в `/proc/self/smaps`, і в кожної є два потрібні рядки: `AnonHugePages` показує роботу прозорих сторінок, `KernelPageSize` — розмір сторінки для ділянок із пулу.
 
-```c
-/* Знаходимо ділянку, що містить addr, і беремо з неї два числа. */
-static void vma_pages(const void *addr, long *anon_kb, long *page_kb)
-{
-        FILE *f = fopen("/proc/self/smaps", "r");
-        char line[512], perms[8];
-        unsigned long lo, hi;
-        int inside = 0;
-
-        *anon_kb = *page_kb = -1;
-        if (!f)
-                return;
-        while (fgets(line, sizeof line, f)) {
-                if (sscanf(line, "%lx-%lx %7s", &lo, &hi, perms) == 3) {
-                        inside = ((uintptr_t)addr >= lo && (uintptr_t)addr < hi);
-                        continue;               /* заголовок ділянки */
-                }
-                if (!inside)
-                        continue;
-                if (!strncmp(line, "AnonHugePages:", 14))
-                        sscanf(line + 14, "%ld", anon_kb);
-                else if (!strncmp(line, "KernelPageSize:", 15))
-                        sscanf(line + 15, "%ld", page_kb);
-        }
-        fclose(f);
-}
-
-/* Скільки разів ядро хотіло велику сторінку й не знайшло суцільного блоку. */
-static unsigned long vmstat(const char *key)
-{
-        FILE *f = fopen("/proc/vmstat", "r");
-        char name[64];
-        unsigned long v, out = 0;
-
-        if (!f)
-                return 0;
-        while (fscanf(f, "%63s %lu", name, &v) == 2)
-                if (!strcmp(name, key)) { out = v; break; }
-        fclose(f);
-        return out;
-}
-```
+:::code proj-huge-page-benchmark/c/vymiriuvalnyi-tsykl-i-2.c
 
 Розбір `smaps` має підступність, через яку легко помилитися: рядок заголовка ділянки й рядок значення розрізняють не за номером, а за формою. `sscanf` із трьома полями `%lx-%lx %7s` збігається тільки на заголовку — на рядку `AnonHugePages: 0 kB` він читає `A` як шістнадцяткове число, не знаходить дефіса й повертає одиницю.
 
 Тепер усе разом. Прогрів окремим коротким прогоном, три вимірювальні кола, беремо найкраще — найменше число найчистіше, бо всі перешкоди тільки додають час.
 
-```c
-static void run(enum mode m, const char *label, size_t len,
-                int huge_log2, size_t steps)
-{
-        unsigned long fb0, fb1;
-        long anon_kb, page_kb;
-        double best = 1e18;
-        char *buf = take(m, len, huge_log2);
-
-        if (buf == MAP_FAILED) {
-                printf("%-13s пропущено: %s\n", label, strerror(errno));
-                return;
-        }
-
-        fb0 = vmstat("thp_fault_fallback");
-        build_cycle(buf, len / PAGE);           /* заразом населює ділянку */
-        fb1 = vmstat("thp_fault_fallback");
-
-        vma_pages(buf, &anon_kb, &page_kb);
-        if (m == M_THP && anon_kb >= 0 &&
-            (size_t)anon_kb * 1024 < len - len / 10) {
-                /* дали менше дев'яти десятих — просимо згорнути решту негайно */
-                if (madvise(buf, len, MADV_COLLAPSE) != 0)
-                        perror("madvise(MADV_COLLAPSE)");
-                vma_pages(buf, &anon_kb, &page_kb);
-        }
-
-        chase(buf, 2000000);                    /* прогрів */
-        for (int r = 0; r < 3; r++) {
-                double ns = chase(buf, steps);
-                if (ns < best)
-                        best = ns;
-        }
-
-        printf("%-13s %6.1f нс   AnonHugePages %9ld кБ з %zu   "
-               "KernelPageSize %7ld кБ   thp_fault_fallback +%lu\n",
-               label, best, anon_kb, len / 1024, page_kb, fb1 - fb0);
-        munmap(buf, len);
-}
-
-int main(int argc, char **argv)
-{
-        const char *what = argc > 1 ? argv[1] : "all";
-        size_t gib     = argc > 2 ? strtoul(argv[2], NULL, 10) : 16;
-        size_t steps   = (argc > 3 ? strtoul(argv[3], NULL, 10) : 20) * 1000000;
-        size_t len     = gib << 30;
-
-        printf("буфер %zu ГіБ, %zu вузлів, %zu кроків у колі\n\n",
-               gib, len / PAGE, steps);
-
-        if (!strcmp(what, "small")   || !strcmp(what, "all"))
-                run(M_SMALL,   "4KiB",         len,  0, steps);
-        if (!strcmp(what, "thp")     || !strcmp(what, "all"))
-                run(M_THP,     "THP-2MiB",     len,  0, steps);
-        if (!strcmp(what, "hugetlb") || !strcmp(what, "all"))
-                run(M_HUGETLB, "HUGETLB-2MiB", len, 21, steps);
-        if (!strcmp(what, "hugetlb1g"))
-                run(M_HUGETLB, "HUGETLB-1GiB", len, 30, steps);
-        return 0;
-}
-```
+:::code proj-huge-page-benchmark/c/vymiriuvalnyi-tsykl-i-3.c
 
 Розмір задається цілим числом гігабайтів навмисно: тоді довжина кратна і двом мегабайтам, і гігабайту, а `munmap` для ділянки з пулу вимагає саме кратності розміру сторінки.
 

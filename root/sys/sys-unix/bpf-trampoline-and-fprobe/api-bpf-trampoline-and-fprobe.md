@@ -34,19 +34,7 @@
 
 Внутрішня механіка макросу `BPF_PROG` базується на компіляторних розширеннях `typeof` та варіативних аргументах препроцесора. Це дозволяє генерувати статичні вбудовані (always_inline) функції, які розпаковують масив `ctx` без додаткових накладних витрат під час виконання:
 
-```c
-/* Внутрішня реалізація макросу BPF_PROG у заголовочному файлі bpf_tracing.h */
-#define BPF_PROG(name, args...) \
-name(unsigned long long *ctx); \
-static __attribute__((always_inline)) typeof(name(0)) \
-____##name(unsigned long long *ctx, ##args); \
-typeof(name(0)) name(unsigned long long *ctx) \
-{ \
-    return ____##name(ctx, ##args_unpack); \
-} \
-static __attribute__((always_inline)) typeof(name(0)) \
-____##name(unsigned long long *ctx, ##args)
-```
+:::code api-bpf-trampoline-and-fprobe/c/2-systemni-makrosy.c
 
 Завдяки цьому макросу BPF-програма виглядає як звичайна функція ядра C, де всі типи аргументів контролюються верифікатором ядра під час збірки та завантаження.
 
@@ -54,43 +42,7 @@ ____##name(unsigned long long *ctx, ##args)
 
 Нижче наведено практичні приклади застосування макросів розгортання для зондів входу, виходу та модифікації поведінки ядра.
 
-```c
-/* 
- * 1. fentry: Назва функції у SEC та макросі має точно відповідати BTF vmlinux.h.
- * Аргументи (dfd, filename, flags, mode) розпаковуються автоматично з ctx[0..3].
- */
-SEC("fentry/do_sys_open")
-int BPF_PROG(trace_do_sys_open, int dfd, const char *filename, int flags, umode_t mode)
-{
-    /* Аргументи доступні безпосередньо як C-змінні */
-    return 0;
-}
-
-/* 
- * 2. fexit: Останнім аргументом у списку BPF_PROG ОБОВ'ЯЗКОВО додається ret / retval.
- * Він розпаковується з елемента ctx[n], де n — кількість вхідних аргументів.
- */
-SEC("fexit/do_sys_open")
-int BPF_PROG(trace_do_sys_open_exit, int dfd, const char *filename, int flags, umode_t mode, int ret)
-{
-    if (ret < 0) {
-        /* Обробка помилки системного виклику (код повернення ret < 0) */
-    }
-    return 0;
-}
-
-/* 
- * 3. fmod_ret: Дозволяє змінити результат повернення функції ядра.
- * Якщо BPF-програма повертає ненульове значення (наприклад, -EPERM), 
- * BPF Trampoline пропускає виконання оригінальної функції ядра і повертає це значення.
- */
-SEC("fmod_ret/security_file_open")
-int BPF_PROG(prevent_file_open, struct file *file, int ret)
-{
-    /* Заборона відкриття файла: повертаємо -EPERM (-13) */
-    return -13; 
-}
-```
+:::code api-bpf-trampoline-and-fprobe/c/pryklady-syntaksysu.c
 
 ---
 
@@ -104,31 +56,7 @@ int BPF_PROG(prevent_file_open, struct file *file, int ret)
 
 Поле `image` містить вказівник на сторінку виділеної виконуваної пам'яті JIT (`bpf_jit_alloc_exec`), у яку записуються асемблерні інструкції мосту. Поле `fops` містить структуру конфігурації для реєстрації трампліна у глобальному списку підсистеми ftrace.
 
-```c
-struct bpf_trampoline {
-    /* Хеш-вузол для швидкого пошуку в глобальній таблиці tramp_table */
-    struct hlist_node hlist;
-    
-    /* Ключ хешування (комбінація ID модуля ядра та адреси IP цільової функції) */
-    u64 key;
-    
-    /* Лічильник активних посилань приєднаних BPF програм */
-    int refcnt;
-    
-    /* Списки приєднаних програм за типами (fentry, fexit, fmod_ret) */
-    struct hlist_head progs_hlist[BPF_TRAMP_MAX];
-    
-    /* Згенерований машинний код трампліна у виконуваній пам'яті JIT */
-    void *image;
-    u32 image_size;
-    
-    /* Прапорці стану (наприклад, BPF_TRAMP_F_ORIG_STACK) */
-    u32 flags;
-    
-    /* Структура реєстрації в підсистемі ftrace */
-    struct ftrace_ops fops;
-};
-```
+:::code api-bpf-trampoline-and-fprobe/c/3-1-struktura-bpf.c
 
 ### 3.2. Структура fprobe (`struct fprobe`) та колбеки
 
@@ -136,32 +64,7 @@ struct bpf_trampoline {
 
 Він містить масив назв символів `syms`, лічильник пропущених подій `nmissed` та вказівник на об'єкт `rethook`, який відповідає за безпечне перехоплення виходу з функцій без використання важких спінлоків.
 
-```c
-struct fprobe {
-    /* Вказівник на масив назв символів або адрес у пам'яті ядра */
-    const char **syms;
-    size_t nsyms;
-    
-    /* Колбеки ядра, що викликаються на вході та виході з функції */
-    fprobe_entry_cb entry_handler;
-    fprobe_exit_cb  exit_handler;
-    
-    /* Інтеграція з підсистемами ftrace та rethook */
-    struct ftrace_ops ops;
-    struct rethook   *rethook;
-    
-    /* Лічильник пропущених подій через вичерпання ресурсів */
-    unsigned long nmissed;
-};
-
-/* Сигнатури колбеків fprobe у ядрі */
-typedef int (*fprobe_entry_cb)(struct fprobe *fp, unsigned long entry_ip,
-                               struct pt_regs *regs, void *entry_data);
-
-typedef void (*fprobe_exit_cb)(struct fprobe *fp, unsigned long entry_ip,
-                               unsigned long ret_ip, struct pt_regs *regs,
-                               void *entry_data);
-```
+:::code api-bpf-trampoline-and-fprobe/c/3-2-struktura-fprobe.h
 
 ---
 
@@ -171,28 +74,7 @@ typedef void (*fprobe_exit_cb)(struct fprobe *fp, unsigned long entry_ip,
 
 Параметр `opts` дозволяє передавати масиви назв символів (`syms`), масиви точних адрес пам'яті (`addrs`) або спеціальні 64-бітні ідентифікатори `cookies`. Значення `cookie` передається у BPF-програму під час її виконання через хелпер `bpf_get_attach_cookie()`, що дозволяє одній BPF-програмі розрізняти, яка саме з 10 000 функцій її викликала.
 
-```c
-struct bpf_kprobe_multi_opts {
-    /* Розмір структури для гарантії зворотної сумісності ABI */
-    size_t sz;
-    /* Масив назв символів (наприклад, ["vfs_read", "vfs_write"]) */
-    const char **syms;
-    /* Масив абсолютних адрес функцій у пам'яті ядра */
-    const unsigned long long *addrs;
-    /* Опціональний масив 64-бітних cookies для ідентифікації подій у BPF */
-    const unsigned long long *cookies;
-    /* Кількість елементів у масивах */
-    size_t cnt;
-    /* Прапорці: BPF_TRACE_MULTI_RETPROBE для виходу з функції */
-    u32 flags;
-};
-
-/* Головна функція приєднання в libbpf */
-struct bpf_link *
-bpf_program__attach_kprobe_multi_opts(const struct bpf_program *prog,
-                                       const char *pattern,
-                                       const struct bpf_kprobe_multi_opts *opts);
-```
+:::code api-bpf-trampoline-and-fprobe/c/4-systemnyi-api.c
 
 ---
 

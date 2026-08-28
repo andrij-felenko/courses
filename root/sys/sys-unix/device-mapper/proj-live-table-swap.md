@@ -8,25 +8,7 @@
 
 Файли беремо [розріджені](root:sys-unix/sparse-files): `truncate` створює файл заявленої довжини, під яким спочатку немає жодного блока, і місце на диску витрачається лише під те, що справді запишуть.
 
-```sh
-#!/bin/sh
-set -eu
-
-WORK=/var/tmp/dmlab          # тут живуть файли-«носії»
-MNT=$WORK/mnt                # сюди монтуємо
-NAME=lab                     # → /dev/mapper/lab
-BYTES=$((128 * 1024 * 1024)) # по 128 МіБ на файл
-
-mkdir -p "$WORK" "$MNT"
-truncate -s "$BYTES" "$WORK/a.img"
-truncate -s "$BYTES" "$WORK/b.img"
-
-LOOP_A=$(losetup -f --show "$WORK/a.img")
-LOOP_B=$(losetup -f --show "$WORK/b.img")
-SZ_A=$(blockdev --getsz "$LOOP_A")     # довжина В СЕКТОРАХ
-SZ_B=$(blockdev --getsz "$LOOP_B")
-echo "$LOOP_A: $SZ_A   $LOOP_B: $SZ_B"   # /dev/loop0: 262144   /dev/loop1: 262144
-```
+:::code proj-live-table-swap/sh/stend.sh
 
 `blockdev --getsz` віддає розмір саме в тих одиницях, якими оперує таблиця device mapper, — [секторах](root:sys-unix/block-device-model) по 512 байтів, незалежно від того, якими блоками оперує саме залізо. Тому це число можна класти в таблицю без жодного перерахунку, і саме цим користуються всі сценарії, що будують таблиці програмно.
 
@@ -88,23 +70,7 @@ dmsetup resume "$NAME"
 
 Перевіряємо, що вціліло:
 
-```sh
-dmsetup table "$NAME"
-#   0 262144 linear 7:0 0
-#   262144 262144 linear 7:1 0
-blockdev --getsz /dev/mapper/"$NAME"      # 524288 — удвічі більше
-findmnt -n -o SOURCE,TARGET "$MNT"        # /dev/mapper/lab /var/tmp/dmlab/mnt
-
-cat <&9 > "$WORK/tail.part"               # дочитуємо ТИМ САМИМ дескриптором
-exec 9<&-
-if [ "$SUM" = "$(cat "$WORK/head.part" "$WORK/tail.part" |
-                 sha256sum | cut -d' ' -f1)" ]; then
-    echo "дескриптор доніс той самий файл"
-else
-    echo "СУМИ РОЗІЙШЛИСЯ" >&2
-    exit 1
-fi
-```
+:::code proj-live-table-swap/sh/pidmina.sh
 
 Склеєні шматки дають ту саму суму — отже, дескриптор пережив підміну разом зі своїм зсувом, а не був мовчки скинутий на початок. Монтування на місці, пара номерів пристрою не змінилася, помилок не отримав ніхто.
 

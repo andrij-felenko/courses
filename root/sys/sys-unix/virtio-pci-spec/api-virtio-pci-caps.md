@@ -6,19 +6,7 @@
 
 Кожна capability Virtio у конфігураційному просторі пристрою починається з базового заголовка специфікації PCI Express, за яким слідують специфічні поля стандарту Virtio.
 
-```c
-struct virtio_pci_cap {
-    uint8_t  cap_vndr;    /* 0x09: PCI_CAP_ID_VNDR */
-    uint8_t  cap_next;    /* Зсув наступної capability у PCI config space */
-    uint8_t  cap_len;     /* Загальна довжина цієї capability у байтах */
-    uint8_t  cfg_type;    /* Тип структури Virtio (VIRTIO_PCI_CAP_*) */
-    uint8_t  bar;         /* Індекс BAR (0..5), у якому розташовані регістри */
-    uint8_t  id;          /* Ідентифікатор пристрою (для групування) */
-    uint8_t  padding[2];  /* Зарезервовано для вирівнювання на 32-бітний кордон */
-    uint32_t offset;      /* Зсув у байтах від початку вказаного BAR */
-    uint32_t length;      /* Довжина регіону конфігурації у байтах */
-};
-```
+:::code api-virtio-pci-caps/c/1-zahalna-struktura-pci.c
 
 Поле `cap_vndr` зафіксоване специфікацією PCI і завжди дорівнює `0x09` (Vendor-Specific Capability). Поле `cap_next` вказує зсув у конфігураційному просторі, за яким знаходиться наступний заголовок capability (або `0`, якщо це останній елемент списку). Драйвер ядра Linux сканує цей список під час виконання процедури `virtio_pci_probe()`.
 
@@ -39,33 +27,7 @@ struct virtio_pci_cap {
 
 Регіон `virtio_pci_common_cfg` є центральним вузлом управління пристроєм. Зсуви регістрів у цьому блоці зафіксовані специфікацією Virtio v1.2:
 
-```c
-struct virtio_pci_common_cfg {
-    /* Конфігурація Feature Bits */
-    uint32_t device_feature_select; /* Читання/Запис: вибір селектора 32-біт слова фіч пристрою (0 або 1) */
-    uint32_t device_feature;        /* Читання: 32-бітне слово маски фіч пристрою */
-    uint32_t driver_feature_select; /* Запис: вибір селектора фіч драйвера */
-    uint32_t driver_feature;        /* Запис: 32-бітне слово узгоджених фіч драйвера */
-
-    /* Конфігурація MSI-X та статусу */
-    uint16_t config_msix_vector;    /* Вектор MSI-X для сповіщень про зміну конфігурації */
-    uint16_t num_queues;            /* Читання: максимальна кількість доступних черг */
-    uint8_t  device_status;         /* Байт статусу пристрою (Device Status Field) */
-    uint8_t  config_generation;     /* Лічильник змін конфігураційного простору */
-
-    /* Селектор та параметри віртуальної черги (Virtqueue) */
-    uint16_t queue_select;          /* Запис: вибір індексу черги (0..num_queues-1) */
-    uint16_t queue_size;            /* Читання/Запис: розмір вибраної черги (N) */
-    uint16_t queue_msix_vector;     /* Запис: вектор MSI-X для цієї черги */
-    uint16_t queue_enable;          /* Запис: 1 для активації черги */
-    uint16_t queue_notify_off;      /* Читання: зсув дверного дзвоника у NOTIFY_CFG */
-    uint64_t queue_desc;            /* Запис: 64-бітна фізична адреса Descriptor Table */
-    uint64_t queue_driver;          /* Запис: 64-бітна фізична адреса Available Ring */
-    uint64_t queue_device;          /* Запис: 64-бітна фізична адреса Used Ring */
-    uint16_t queue_notif_config_data;/* Дані для надсилання дверного дзвоника (v1.2) */
-    uint16_t queue_reset;           /* Скидання конкретної черги (v1.2) */
-};
-```
+:::code api-virtio-pci-caps/c/2-zahalna-konfihuratsiia.c
 
 ### 2.1. Пояснення роботи з масками фіч (Feature Bits)
 

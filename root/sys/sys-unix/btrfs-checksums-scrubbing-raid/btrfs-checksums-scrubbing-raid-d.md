@@ -106,72 +106,8 @@ struct btrfs_csum_item {
 Найбільша потужність контрольних сум виявляється у поєднанні з дубльованим або паритетним сховищем Btrfs.
 
 :::tabs
-```c
-// Спрощена контурна логіка самовідновлення в ядрі Linux (fs/btrfs/extent_io.c)
-int btrfs_read_repair_system(struct inode *inode, struct bio *failed_bio, int mirror_num)
-{
-    // 1. Формуємо запит читання з наступного альтернативного дзеркала RAID
-    struct bio *repair_bio = btrfs_alloc_mirror_bio(failed_bio, mirror_num + 1);
-    
-    if (btrfs_submit_bio_wait(repair_bio) == 0) {
-        // 2. Зчитуємо альтернативний блок та перевіряємо його хеш із CSUM Tree
-        if (btrfs_verify_checksum(repair_bio) == 0) {
-            // 3. Копіюємо валідні дані користувачеві
-            btrfs_copy_bio_pages(failed_bio, repair_bio);
-            
-            // 4. АСИНХРОННО перезаписуємо пошкоджений сектор на першому диску правильними даними!
-            btrfs_repair_io_failure(inode, failed_bio->bi_iter.bi_sector, repair_bio);
-            return 0; // Успішно відновлено!
-        }
-    }
-    return -EIO; // Усі дзеркала пошкоджені
-}
-```
-```cpp
-// Концептуальний C++ RAII-аналог алгоритму Self-Healing для емулятора Btrfs
-#include <vector>
-#include <cstdint>
-#include <span>
-#include <optional>
-#include <iostream>
-#include <cstring>
-
-struct DiskMirror {
-    std::uint32_t device_id;
-    std::vector<std::uint8_t> data;
-};
-
-class SelfHealingEngine {
-public:
-    template <typename CsumCalcFunc>
-    static std::optional<std::vector<std::uint8_t>> 
-    readAndRepair(std::span<const DiskMirror> mirrors, 
-                  std::uint32_t expected_csum,
-                  CsumCalcFunc csum_calculator) 
-    {
-        int failed_mirror_index = -1;
-
-        // 1. Пробуємо зчитати з першого накопичувача
-        for (std::size_t i = 0; i < mirrors.size(); ++i) {
-            std::uint32_t actual_csum = csum_calculator(mirrors[i].data);
-            if (actual_csum == expected_csum) {
-                // Якщо перше дзеркало було пошкоджене, але ми знайшли валідне друге - ремонтуємо перше!
-                if (failed_mirror_index >= 0) {
-                    std::cout << "[Self-Healing] Відновлення пошкодженого сектора на devid=" 
-                              << mirrors[failed_mirror_index].device_id << "...\n";
-                }
-                return mirrors[i].data;
-            }
-            
-            if (failed_mirror_index == -1) {
-                failed_mirror_index = static_cast<int>(i);
-                std::cout << "[WARN] Помилка хешу на devid=" << mirrors[i].device_id << "!\n";
-            }
-        }
-        return std::nullopt; // Усі дзеркала деградували
-    }
-};
-```
+:::code btrfs-checksums-scrubbing-raid-d/c/extent_io.c
+:::code btrfs-checksums-scrubbing-raid-d/cpp/pidsystema.cpp
 :::
 
 Послідовність самовідновлення під час читання зображено на схемі:
@@ -231,39 +167,8 @@ Btrfs об'єднує всі фізичні диски у єдиний логі�
 - `key.offset = logical_stripe_bytenr`.
 
 :::tabs
-```c
-// Запис у Chunk Tree ядра Linux (fs/btrfs/volumes.h)
-struct btrfs_chunk {
-    u64 length;            // Розмір чанка у байтах (1073741824 = 1 ГіБ)
-    u64 owner;             // Ідентифікатор дерева-власника
-    u64 stripe_len;        // Розмір страйпа (64 КіБ)
-    u64 type;              // Профіль: BTRFS_BLOCK_GROUP_RAID1, RAID5, DUP тощо
-    u16 num_stripes;       // Кількість фізичних страйпів (дисків) у цьому чанку
-    u16 sub_stripes;
-    struct btrfs_stripe stripes[]; // Масив посилань (devid, physical_offset)
-} __attribute__ ((packed));
-```
-```cpp
-// C++ аналог структури опису чанка
-#include <cstdint>
-#include <vector>
-
-struct btrfs_stripe_cpp {
-    std::uint64_t devid;
-    std::uint64_t offset;
-    std::uint8_t dev_uuid[16];
-};
-
-struct btrfs_chunk_cpp {
-    std::uint64_t length;
-    std::uint64_t owner;
-    std::uint64_t stripe_len;
-    std::uint64_t type;
-    std::uint16_t num_stripes;
-    std::uint16_t sub_stripes;
-    std::vector<btrfs_stripe_cpp> stripes;
-};
-```
+:::code btrfs-checksums-scrubbing-raid-d/c/lohichnyi-prostir-ta-chunk.c
+:::code btrfs-checksums-scrubbing-raid-d/cpp/lohichnyi-prostir-ta-chunk.cpp
 :::
 
 Завдяки такій архітектурі кожен чанк у Btrfs може мати власний профіль RAID незалежно від інших чанків. Наприклад, метадані можуть зберігатися у профілі `RAID1c3` (3 копії), а звичайні дані — у профілі `RAID1` (2 копії). 

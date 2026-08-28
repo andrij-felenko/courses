@@ -52,53 +52,7 @@ pdev = platform_device_register_simple("myuart", 0, fake_res, ARRAY_SIZE(fake_re
 
 Нам, однак, потрібна ще й властивість — щоб драйверу було що прочитати. Для властивостей є повніша форма з тими самими полями плюс `properties`:
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/module.h>
-#include <linux/platform_device.h>
-#include <linux/property.h>
-#include <linux/err.h>
-
-#define FAKE_BASE 0x40000000UL
-#define FAKE_SIZE 0x100
-#define FAKE_IRQ  11
-
-static struct platform_device *fake;
-
-static const struct resource fake_res[] = {
-        DEFINE_RES_MEM(FAKE_BASE, FAKE_SIZE),
-        DEFINE_RES_IRQ(FAKE_IRQ),
-};
-
-static const struct property_entry fake_props[] = {
-        PROPERTY_ENTRY_U32("clock-frequency", 24000000),
-        { }
-};
-
-static int __init fake_init(void)
-{
-        struct platform_device_info info = {
-                .name       = "myuart",
-                .id         = 0,
-                .res        = fake_res,
-                .num_res    = ARRAY_SIZE(fake_res),
-                .properties = fake_props,
-        };
-
-        fake = platform_device_register_full(&info);
-        return PTR_ERR_OR_ZERO(fake);
-}
-
-static void __exit fake_exit(void)
-{
-        platform_device_unregister(fake);
-}
-
-module_init(fake_init);
-module_exit(fake_exit);
-MODULE_DESCRIPTION("Підроблений платформний пристрій для дослідів");
-MODULE_LICENSE("GPL");
-```
+:::code proj-platform-driver/c/modul-shcho-stvoriuie.c
 
 Ім'я `"myuart"` тут не декоративне. Ні `compatible`, ні таблиці імен у цього запису нема, тож збіг відбудеться аж на останньому щаблі — порівнянням цього рядка з полем `driver.name` драйвера.
 
@@ -106,71 +60,7 @@ MODULE_LICENSE("GPL");
 
 ## Драйвер
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/module.h>
-#include <linux/platform_device.h>
-#include <linux/property.h>
-#include <linux/io.h>
-
-struct myuart {
-        void __iomem *regs;
-        int           irq;
-        u32           rate;
-};
-
-static int myuart_probe(struct platform_device *pdev)
-{
-        struct device *dev = &pdev->dev;
-        struct myuart *up;
-
-        up = devm_kzalloc(dev, sizeof(*up), GFP_KERNEL);
-        if (!up)
-                return -ENOMEM;
-
-        up->regs = devm_platform_ioremap_resource(pdev, 0);
-        if (IS_ERR(up->regs))
-                return PTR_ERR(up->regs);
-
-        up->irq = platform_get_irq(pdev, 0);
-        if (up->irq < 0)
-                return up->irq;              /* сюди приходить і -EPROBE_DEFER */
-
-        if (device_property_read_u32(dev, "clock-frequency", &up->rate))
-                up->rate = 50000000;         /* властивості нема — усталене */
-
-        platform_set_drvdata(pdev, up);
-        dev_info(dev, "прив'язано: лінія %d, такт %u Гц, перше слово 0x%08x\n",
-                 up->irq, up->rate, readl(up->regs));
-        return 0;
-}
-
-static void myuart_remove(struct platform_device *pdev)
-{
-        struct myuart *up = platform_get_drvdata(pdev);
-
-        dev_info(&pdev->dev, "від'єднано, такт був %u Гц\n", up->rate);
-}
-
-static const struct of_device_id myuart_of_match[] = {
-        { .compatible = "acme,myuart-r1p2" },
-        { }
-};
-MODULE_DEVICE_TABLE(of, myuart_of_match);
-
-static struct platform_driver myuart_driver = {
-        .probe  = myuart_probe,
-        .remove = myuart_remove,
-        .driver = {
-                .name           = "myuart",
-                .of_match_table = myuart_of_match,
-        },
-};
-module_platform_driver(myuart_driver);
-
-MODULE_DESCRIPTION("Навчальний платформний драйвер");
-MODULE_LICENSE("GPL");
-```
+:::code proj-platform-driver/c/draiver.c
 
 Три речі варті уваги. Функція `remove` повертає `void` починаючи з ядра 6.11; на 6.10 і старіших вона мусить повертати `int`, а для варіанта без значення там окреме поле `.remove_new` — воно з'явилося в 6.7 і зникло в 6.15, коли перехід завершили. *Статус доказовості: підписи звірено в заголовку `platform_device.h` версій 6.6, 6.11, 6.12 і 6.15.*
 

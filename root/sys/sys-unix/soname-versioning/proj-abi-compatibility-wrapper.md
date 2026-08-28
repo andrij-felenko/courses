@@ -11,53 +11,8 @@
 Розглянемо вихідний код бібліотеки для мов C та C++:
 
 :::tabs
-```c
-// calc_v1_v2.c — Вихідний код бібліотеки libcalc з підтримкою двох ABI у C
-#include <stdio.h>
-
-// 1. Історична реалізація для ABI v1.0
-// Ця функція обробляє виклики від бінарних файлів, скомпільованих під LIBCALC_1.0
-int calc_metric_v1(int items) {
-    printf("[libcalc v1.0] Запущено історичний ABI: items = %d (дефолтний scale = 1.0)\n", items);
-    return items * 100;
-}
-// Прив'язуємо внутрішнє ім'я calc_metric_v1 до символу calc_metric@LIBCALC_1.0 (один собачка)
-__asm__(".symver calc_metric_v1, calc_metric@LIBCALC_1.0");
-
-// 2. Сучасна реалізація для ABI v2.0
-// Ця функція приймає додатковий параметр з плаваючою крапкою
-int calc_metric_v2(int items, double scale) {
-    printf("[libcalc v2.0] Запущено новий ABI: items = %d, scale = %.2f\n", items, scale);
-    return (int)(items * 100 * scale);
-}
-// Прив'язуємо внутрішнє ім'я calc_metric_v2 до дефолтного символу calc_metric@@LIBCALC_2.0 (два собачки)
-__asm__(".symver calc_metric_v2, calc_metric@@LIBCALC_2.0");
-```
-```cpp
-// calc_v1_v2.cpp — Вихідний код бібліотеки libcalc з підтримкою двох ABI у C++
-#include <iostream>
-#include <iomanip>
-
-extern "C" {
-
-// 1. Історична реалізація для ABI v1.0
-int calc_metric_v1(int items) {
-    std::cout << "[libcalc v1.0] Запущено історичний ABI: items = " << items 
-              << " (дефолтний scale = 1.0)\n";
-    return items * 100;
-}
-__asm__(".symver calc_metric_v1, calc_metric@LIBCALC_1.0");
-
-// 2. Сучасна реалізація для ABI v2.0
-int calc_metric_v2(int items, double scale) {
-    std::cout << "[libcalc v2.0] Запущено новий ABI: items = " << items 
-              << ", scale = " << std::fixed << std::setprecision(2) << scale << "\n";
-    return static_cast<int>(items * 100 * scale);
-}
-__asm__(".symver calc_metric_v2, calc_metric@@LIBCALC_2.0");
-
-}
-```
+:::code proj-abi-compatibility-wrapper/c/calc_v1_v2.c
+:::code proj-abi-compatibility-wrapper/cpp/calc_v1_v2.cpp
 :::
 
 У коді вище директива `__asm__(".symver calc_metric_v1, calc_metric@LIBCALC_1.0")` інструктує компілятор записати у таблицю динамічних символів `.dynsym` запис про функцію `calc_metric` із версійною позначкою `LIBCALC_1.0`. Один собачка `@` означає, що символ є прихованим і не буде використовуватися новими етапами компонування. Подвійний собачка `@@` у директиві `calc_metric@@LIBCALC_2.0` робить цей символ дефолтним для усіх нових компіляцій.
@@ -104,33 +59,8 @@ ln -sf libcalc.so.1 libcalc.so
 Тепер скомпілюємо клієнтську програму `client_v1.c`, яка використовує першу версію API:
 
 :::tabs
-```c
-// client_v1.c — Застарілий клієнт C (ABI v1.0)
-#include <stdio.h>
-
-// Оголошення першої сигнатури функції
-extern int calc_metric(int items);
-
-int main(void) {
-    printf("[app_legacy] Викликаємо calc_metric(5)...\n");
-    int result = calc_metric(5);
-    printf("[app_legacy] Отримано результат: %d\n", result);
-    return 0;
-}
-```
-```cpp
-// client_v1.cpp — Застарілий клієнт C++ (ABI v1.0)
-#include <iostream>
-
-extern "C" int calc_metric(int items);
-
-int main() {
-    std::cout << "[app_legacy] Викликаємо calc_metric(5)...\n";
-    int result = calc_metric(5);
-    std::cout << "[app_legacy] Отримано результат: " << result << "\n";
-    return 0;
-}
-```
+:::code proj-abi-compatibility-wrapper/c/client_v1.c
+:::code proj-abi-compatibility-wrapper/cpp/client_v1.cpp
 :::
 
 Компілюємо додаток і перевіряємо записані у нього версійні вимоги:
@@ -176,33 +106,8 @@ $ objdump -T libcalc.so.1.2.0 | grep calc_metric
 Скомпілюємо новий клієнтський додаток `client_v2.c`, який розрахований на новий API v2.0:
 
 :::tabs
-```c
-// client_v2.c — Сучасний клієнт C (ABI v2.0)
-#include <stdio.h>
-
-// Оголошення оновленої сигнатури функції
-extern int calc_metric(int items, double scale);
-
-int main(void) {
-    printf("[app_modern] Викликаємо calc_metric(5, 1.5)...\n");
-    int result = calc_metric(5, 1.5);
-    printf("[app_modern] Отримано результат: %d\n", result);
-    return 0;
-}
-```
-```cpp
-// client_v2.cpp — Сучасний клієнт C++ (ABI v2.0)
-#include <iostream>
-
-extern "C" int calc_metric(int items, double scale);
-
-int main() {
-    std::cout << "[app_modern] Викликаємо calc_metric(5, 1.5)...\n";
-    int result = calc_metric(5, 1.5);
-    std::cout << "[app_modern] Отримано результат: " << result << "\n";
-    return 0;
-}
-```
+:::code proj-abi-compatibility-wrapper/c/client_v2.c
+:::code proj-abi-compatibility-wrapper/cpp/client_v2.cpp
 :::
 
 ```bash

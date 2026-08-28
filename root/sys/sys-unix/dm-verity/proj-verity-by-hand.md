@@ -19,38 +19,13 @@
 
 Мегабайта досить із запасом, а замалий файл `veritysetup format` просто відкине.
 
-```sh
-#!/bin/sh
-set -eu
-
-WORK=/var/tmp/veritylab
-MNT=$WORK/mnt
-mkdir -p "$WORK" "$MNT"
-
-truncate -s 64M "$WORK/data.img"
-truncate -s  1M "$WORK/hash.img"
-
-LOOP_D=$(losetup -f --show "$WORK/data.img")
-LOOP_H=$(losetup -f --show "$WORK/hash.img")
-echo "$LOOP_D $LOOP_H"            # /dev/loop0 /dev/loop1
-```
+:::code proj-verity-by-hand/sh/stend-dva-faily-zamist.sh
 
 Файли [розріджені](root:sys-unix/sparse-files): `truncate` оголошує довжину, а блоки під нею з'являться лише там, де справді щось запишуть, — тож 65 МіБ на диску стенд не займе.
 
 Далі — файлова система з трьома файлами:
 
-```sh
-mkfs.ext4 -q -b 4096 -L vlab "$LOOP_D"
-mount "$LOOP_D" "$MNT"
-
-head -c 40960 /dev/urandom > "$MNT/one.bin"
-head -c 40960 /dev/urandom > "$MNT/two.bin"
-head -c 40960 /dev/urandom > "$MNT/three.bin"
-printf 'MARKER-ONE' | dd of="$MNT/one.bin" bs=1 seek=12288 conv=notrunc status=none
-
-umount "$MNT"
-sync
-```
+:::code proj-verity-by-hand/sh/stend-dva-faily-zamist-2.sh
 
 `-b 4096` — не примха. Для тому на 64 МіБ `mkfs.ext4` за замовчуванням узяв би блок на кілобайт, і тоді один блок verity накривав би чотири блоки файлової системи. З однаковим розміром нумерація в обох збігається, і в журналі ядра ми впізнаємо саме те число, яке порахуємо самі.
 

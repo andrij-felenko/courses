@@ -21,19 +21,7 @@ struct winsize {
     unsigned short ws_ypixel; /* вертикальний розмір вікна у пікселях */
 };
 ```
-```cpp
-#include <sys/ioctl.h>
-#include <cstdint>
-
-// У C++ структура struct winsize доступна через заголовок <sys/ioctl.h>
-// Її двійкове представлення повністю відповідає стандарту POSIX та Linux ABI
-struct TerminalWindowSize {
-    std::uint16_t ws_row{0};
-    std::uint16_t ws_col{0};
-    std::uint16_t ws_xpixel{0};
-    std::uint16_t ws_ypixel{0};
-};
-```
+:::code api-screen-modes-reference/cpp/main.cpp
 :::
 
 Поля структури мають чітко розмежоване функціональне призначення:

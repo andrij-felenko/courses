@@ -26,31 +26,7 @@
 
 Кожен файл, каталог або символічне посилання в межах `/proc` описується всередині ядра структурою `proc_dir_entry`. Ця структура містить метадані про права доступу, ідентифікатори власника (UID/GID), ім'я вузла, вказівники на батьківські та дочірні вузли у Червоно-Чорному дереві (`struct rb_root subdir`), а також вказівники на обробники операцій файлу та іноду.
 
-```c
-// Декларація структури з ядра Linux (fs/proc/internal.h)
-struct proc_dir_entry {
-    atomic_t in_use;
-    refcount_t refcnt;
-    struct list_head pde_openers;
-    spinlock_t pde_unload_lock;
-    struct completion *pde_unload_completion;
-    const struct inode_operations *proc_iops;
-    const struct file_operations *proc_fops;
-    union {
-        const struct seq_operations *seq_ops;
-        int (*single_show)(struct seq_file *, void *);
-    };
-    void *data;
-    unsigned int low_ino;
-    nlink_t nlink;
-    kuid_t uid;
-    kgid_t gid;
-    loff_t size;
-    struct proc_dir_entry *parent;
-    struct rb_root subdir;
-    char name[];
-};
-```
+:::code proc-reading-process-and-kernel-state-d/c/vnutrishni-struktury-iadra.c
 
 Коли користувацький процес викликає системний виклик `open("/proc/meminfo", O_RDONLY)`, шар VFS перехоплює це звернення і здійснює пошук відповідного вузла у дереві `proc_dir_entry`. Для знайденого об'єкта ядро динамічно створює інстанс структури `inode` у RAM за допомогою функції `proc_get_inode()`, присвоює йому динамічний номер і пов'язує його з операціями файлу `proc_fops`.
 
@@ -258,56 +234,8 @@ lrwx------ 1 user user 64 Aug 14 12:00 4 -> 'socket:[54321]'
 Для читання та запису системних змінних можна використовувати як C, так і C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-bool set_ip_forwarding(bool enable) {
-    FILE *fp = fopen("/proc/sys/net/ipv4/ip_forward", "w");
-    if (!fp) {
-        perror("Помилка відкриття sysctl ip_forward");
-        return false;
-    }
-    fprintf(fp, "%d\n", enable ? 1 : 0);
-    fclose(fp);
-    return true;
-}
-
-int main(void) {
-    if (set_ip_forwarding(true)) {
-        printf("IP forwarding успішно увімкнено.\n");
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <filesystem>
-#include <system_error>
-
-class SysctlManager {
-public:
-    static bool setIpForwarding(bool enable) {
-        const std::filesystem::path path{"/proc/sys/net/ipv4/ip_forward"};
-        std::ofstream file(path);
-        if (!file.is_open()) {
-            std::cerr << "Помилка доступу до " << path << "\n";
-            return false;
-        }
-        file << (enable ? 1 : 0) << "\n";
-        return file.good();
-    }
-};
-
-int main() {
-    if (SysctlManager::setIpForwarding(true)) {
-        std::cout << "IP forwarding успішно увімкнено.\n";
-    }
-    return 0;
-}
-```
+:::code proc-reading-process-and-kernel-state-d/c/pryklad-vzaiemodii-z-proc.c
+:::code proc-reading-process-and-kernel-state-d/cpp/main.cpp
 :::
 
 ---

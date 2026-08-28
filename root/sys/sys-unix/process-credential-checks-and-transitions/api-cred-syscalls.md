@@ -22,19 +22,7 @@ void print_basic_uids(void) {
     gid_t egid = getegid();  // Повертає Effective GID
 }
 ```
-```cpp
-#include <unistd.h>
-#include <sys/types.h>
-#include <iostream>
-
-void print_basic_uids() {
-    const uid_t ruid = ::getuid();   // Повертає Real UID
-    const uid_t euid = ::geteuid();  // Повертає Effective UID
-    const gid_t rgid = ::getgid();   // Повертає Real GID
-    const gid_t egid = ::getegid();  // Повертає Effective GID
-    std::cout << "RUID: " << ruid << ", EUID: " << euid << '\n';
-}
-```
+:::code api-cred-syscalls/cpp/getuid-geteuid-getgid.cpp
 :::
 
 - **Опис**: Повертають відповідний ідентифікатор викликаючого процесу.
@@ -52,26 +40,7 @@ int read_all_uids(uid_t *ruid, uid_t *euid, uid_t *suid) {
     return getresuid(ruid, euid, suid);
 }
 ```
-```cpp
-#include <unistd.h>
-#include <expected>
-#include <system_error>
-#include <cerrno>
-
-struct UserIDs {
-    uid_t ruid;
-    uid_t euid;
-    uid_t suid;
-};
-
-std::expected<UserIDs, std::error_code> read_all_uids() noexcept {
-    UserIDs ids{};
-    if (::getresuid(&ids.ruid, &ids.euid, &ids.suid) != 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-    return ids;
-}
-```
+:::code api-cred-syscalls/cpp/getresuid-getresgid.cpp
 :::
 
 - **Опис**: Записує за наданими вказівниками всі три ідентифікатори (Real, Effective, Saved). Це розширення Linux та BSD.
@@ -95,19 +64,7 @@ int apply_setuid(uid_t uid) {
     return setuid(uid);
 }
 ```
-```cpp
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-#include <cerrno>
-
-std::expected<void, std::error_code> apply_setuid(uid_t uid) noexcept {
-    if (::setuid(uid) != 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-    return {};
-}
-```
+:::code api-cred-syscalls/cpp/setuid.cpp
 :::
 
 - **Привілейований процес (`CAP_SETUID` або `euid == 0`)**: Встановлює **всі три** ідентифікатори (`ruid`, `euid`, `suid`) та `fsuid` у значення `uid`. Це незворотна операція скидання привілеїв.
@@ -127,19 +84,7 @@ int apply_seteuid(uid_t euid) {
     return seteuid(euid);
 }
 ```
-```cpp
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-#include <cerrno>
-
-std::expected<void, std::error_code> apply_seteuid(uid_t euid) noexcept {
-    if (::seteuid(euid) != 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-    return {};
-}
-```
+:::code api-cred-syscalls/cpp/seteuid.cpp
 :::
 
 - **Опис**: Модифікує **виключно** Effective UID процесу (а також `fsuid`).
@@ -159,19 +104,7 @@ int apply_setreuid(uid_t ruid, uid_t euid) {
     return setreuid(ruid, euid);
 }
 ```
-```cpp
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-#include <cerrno>
-
-std::expected<void, std::error_code> apply_setreuid(uid_t ruid, uid_t euid) noexcept {
-    if (::setreuid(ruid, euid) != 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-    return {};
-}
-```
+:::code api-cred-syscalls/cpp/setreuid.cpp
 :::
 
 - **Опис**: Атомарно встановлює Real UID та Effective UID. Якщо аргумент дорівнює `-1`, відповідний ідентифікатор залишається без змін.
@@ -189,19 +122,7 @@ int apply_setresuid(uid_t ruid, uid_t euid, uid_t suid) {
     return setresuid(ruid, euid, suid);
 }
 ```
-```cpp
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-#include <cerrno>
-
-std::expected<void, std::error_code> apply_setresuid(uid_t ruid, uid_t euid, uid_t suid) noexcept {
-    if (::setresuid(ruid, euid, suid) != 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-    return {};
-}
-```
+:::code api-cred-syscalls/cpp/setresuid-rekomendovanyi.cpp
 :::
 
 - **Опис**: Явно і атомарно встановлює Real UID, Effective UID та Saved Set-UID. Значення `-1` означає «залишити без змін».
@@ -227,19 +148,7 @@ int apply_group_credentials(gid_t rgid, gid_t egid, gid_t sgid) {
     return setresgid(rgid, egid, sgid);
 }
 ```
-```cpp
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-#include <cerrno>
-
-std::expected<void, std::error_code> apply_group_credentials(gid_t rgid, gid_t egid, gid_t sgid) noexcept {
-    if (::setresgid(rgid, egid, sgid) != 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-    return {};
-}
-```
+:::code api-cred-syscalls/cpp/setgid-setegid-setregid.cpp
 :::
 
 - **Помилки**:
@@ -256,20 +165,7 @@ int clear_supplementary_groups(void) {
     return setgroups(0, NULL);
 }
 ```
-```cpp
-#include <unistd.h>
-#include <grp.h>
-#include <system_error>
-#include <expected>
-#include <cerrno>
-
-std::expected<void, std::error_code> clear_supplementary_groups() noexcept {
-    if (::setgroups(0, nullptr) != 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-    return {};
-}
-```
+:::code api-cred-syscalls/cpp/getgroups-setgroups.cpp
 :::
 
 - **getgroups**: Записує додаткові групи у масив `list`. Якщо `size == 0`, повертає кількість додаткових груп без модифікації масиву.

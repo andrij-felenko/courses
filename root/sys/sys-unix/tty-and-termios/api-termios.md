@@ -4,22 +4,7 @@
 
 ## Сама структура
 
-```c
-#include <termios.h>
-
-/* glibc, Linux; наведено для довідки — оголошено в заголовку */
-#define NCCS 32
-struct termios {
-    tcflag_t c_iflag;    /* що робити з тим, що прийшло  */
-    tcflag_t c_oflag;    /* що робити з тим, що йде       */
-    tcflag_t c_cflag;    /* сам канал: кадр, лінії, швидкість */
-    tcflag_t c_lflag;    /* робота лінійної дисципліни    */
-    cc_t     c_line;     /* номер лінійної дисципліни (не POSIX) */
-    cc_t     c_cc[NCCS]; /* особливі символи              */
-    speed_t  c_ispeed;   /* швидкість прийому  (glibc ≥ 2.42) */
-    speed_t  c_ospeed;   /* швидкість передачі (glibc ≥ 2.42) */
-};
-```
+:::code api-termios/c/sama-struktura.c
 
 Типи прості: `tcflag_t` і `speed_t` — `unsigned int`, `cc_t` — `unsigned char`. Розмір масиву різний по два боки від межі виклику: у glibc `NCCS` дорівнює 32, у ядра — 19, і бібліотека перекладає масив на кожному виклику. Поле `c_line` ядро зберігає, але дисципліну ним не перемикає — для цього є окремий `ioctl`.
 
@@ -191,21 +176,7 @@ int tcsetattr(int fd, int optional_actions, const struct termios *t);
 
 Найважливіше в цій парі — угода про повернення. **`tcsetattr` повертає успіх, якщо застосував бодай частину запитаного.** Це не хиба реалізації, а вимога POSIX, і стандарт прямо радить після зміни швидкости прочитати стан назад і подивитися, що з нього вийшло.
 
-```c
-struct termios want, got;
-if (tcgetattr(fd, &want) < 0) return -1;
-/* … правимо потрібні біти в want … */
-if (tcsetattr(fd, TCSAFLUSH, &want) < 0) return -1;
-
-if (tcgetattr(fd, &got) < 0) return -1;
-if ((got.c_cflag & (CSIZE | PARENB | CSTOPB | CRTSCTS))
-        != (want.c_cflag & (CSIZE | PARENB | CSTOPB | CRTSCTS))
-    || cfgetospeed(&got) != cfgetospeed(&want)
-    || got.c_lflag != want.c_lflag) {
-    errno = EINVAL;              /* драйвер узяв не все */
-    return -1;
-}
-```
+:::code api-termios/c/prochytaty-zminyty.c
 
 Звіряють саме поля, а не всю структуру байт у байт. Драйвер має право чесно повернути не те, що ви клали, і при цьому виконати наказ: скажімо, коли обидві швидкості однакові, поле `CIBAUD` вичищають — так робить і сама бібліотека перед викликом `ioctl`. Порівняння через `memcmp` спіткнеться на такій дрібниці й відкине цілком робоче налаштування.
 

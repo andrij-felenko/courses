@@ -124,23 +124,7 @@
 - Якщо обрати той самий CPU (`prev_cpu`), на якому процес працював до засинання, гарячі дані залишаться в кешах L1 та L2 CPU.
 - Якщо `prev_cpu` зайнятий, краще обрати сусіднє ядро, яке ділить з ним спільний L3-кеш, аніж мігрувати потік на інший сокет NUMA.
 
-```c
-s32 BPF_STRUCT_OPS(my_select_cpu, struct task_struct *p, s32 prev_cpu, u64 wake_flags)
-{
-    bool is_idle = false;
-    s32 cpu;
-
-    // Викликаємо стандартний хелпер ядра для пошуку вільного ядра
-    cpu = scx_bpf_select_cpu_dfl(p, prev_cpu, wake_flags, &is_idle);
-
-    if (is_idle) {
-        // Якщо знайдено вільне ядро, відразу відправляємо завдання на нього
-        scx_bpf_dispatch(p, SCX_DSQ_LOCAL, SCX_SLICE_DFL, 0);
-    }
-
-    return cpu;
-}
-```
+:::code sched-ext-ebpf-scheduler-d/c/main.c
 
 Якщо BPF-програма повертає цільовий CPU і одночасно викликає `scx_bpf_dispatch()` усередині `select_cpu`, завдання оминає чергу `ops.enqueue` і потрапляє напряму в локальну чергу процесора (Direct Dispatch). Це знижує затримку пробудження (wakeup latency) до мінімуму.
 
@@ -335,18 +319,7 @@ scx_bpf_dispatch(p, SCX_DSQ_LOCAL_ON(target_cpu), SCX_SLICE_DFL, enq_flags);
 
 Стан підсистеми `sched_ext` експортується через директорію `/sys/kernel/sched_ext/`:
 
-```bash
-# Перевірка поточного стану планувальника
-cat /sys/kernel/sched_ext/state
-# Можливі значення: disabled, enabling, enabled, disabling
-
-# Перевірка назви активного BPF-планувальника
-cat /sys/kernel/sched_ext/root/ops
-# Вивід: simple_fifo_demo
-
-# Скільки завдань ядро відхилило під час вмикання планувальника
-cat /sys/kernel/sched_ext/nr_rejected
-```
+:::code sched-ext-ebpf-scheduler-d/sh/main.sh
 
 ### 8.2. Трасування через tracepoints та bpftool
 

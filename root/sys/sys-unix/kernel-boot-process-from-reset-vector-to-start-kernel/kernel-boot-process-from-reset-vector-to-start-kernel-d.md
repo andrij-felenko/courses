@@ -92,28 +92,7 @@ Physical Address
 
 Після налаштування стек переноситься у тимчасовий буфер, і виконується виклик C-функції `extract_kernel()` з файла `arch/x86/boot/compressed/misc.c`:
 
-```c
-asmlinkage __visible void *extract_kernel(void *rmode, unsigned char *heap,
-                                  unsigned char *input_data,
-                                  unsigned long input_len,
-                                  unsigned long output,
-                                  unsigned long output_len)
-{
-    /* 1. Налаштувати рання консоль друку (earlyprintk / serial) */
-    sanitize_boot_params(rmode);
-    
-    /* 2. Знайти випадкове місце для KASLR */
-    choose_random_location((unsigned long)input_data, input_len,
-                           &output, output_len, &virt_addr);
-
-    /* 3. Розпакувати стиснутий payload (piggy.o) у фізичну пам'ять */
-    __decompress(input_data, input_len, NULL, NULL, output, output_len,
-                 NULL, error);
-
-    /* 4. Повернути фізичну адресу розпакованого коду vmlinux */
-    return (void *)output;
-}
-```
+:::code kernel-boot-process-from-reset-vector-to-start-kernel-d/c/3-robota-avtonomnoho.c
 
 Під час виконання `__decompress()` викликається вибрана під час конфігурації ядра функція розпакування (ZSTD, LZ4, XZ або GZIP). Декомпресор зчитує вхідні байти з `piggy.o` та записує розпаковані секції ядра безпосередньо у фізичну пам'ять за адресою `output` (зазвичай `0x01000000` / 16 Мегабайтів або KASLR-зсувом).
 
@@ -173,22 +152,7 @@ jmp *%rax
 
 Після налаштування стека та віртуальної пам'яті ассемблерний код `head_64.S` викликає першу C-функцію архітектурної ініціалізації `x86_64_start_kernel()`:
 
-```c
-asmlinkage __visible void __init x86_64_start_kernel(char *realmode_data)
-{
-    /* 1. Очистити секцію BSS (Uninitialized Data) */
-    memset(__bss_start, 0, __bss_stop - __bss_start);
-
-    /* 2. Скопіювати boot_params із низької пам'яті у безпечну область ядра */
-    copy_bootdata((char *)realmode_data);
-
-    /* 3. Налаштувати ранню глобальну таблицю дескрипторів (GDT) та IDT */
-    switch_to_new_gdt(0);
-
-    /* 4. Передати керування в архітектурно-незалежну функцію start_kernel() */
-    start_kernel();
-}
-```
+:::code kernel-boot-process-from-reset-vector-to-start-kernel-d/c/5-finalnyi-krok-peredacha.c
 
 Коли керування входить у функцію `start_kernel()` у файлі `init/main.c`, стан системи характеризується наступними апаратними та програмними факторами:
 

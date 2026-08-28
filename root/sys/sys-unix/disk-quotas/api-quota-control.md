@@ -51,19 +51,7 @@ int quotactl_fd(int fd, int cmd, int id, void *addr);   /* ядро 5.14+, glibc
 
 ## struct dqblk і одиниці
 
-```c
-struct dqblk {                 /* у <linux/quota.h> та сама розкладка зветься if_dqblk */
-    uint64_t dqb_bhardlimit;   /* блоки по 1024 байти */
-    uint64_t dqb_bsoftlimit;   /* блоки по 1024 байти */
-    uint64_t dqb_curspace;     /* БАЙТИ */
-    uint64_t dqb_ihardlimit;   /* штук inode */
-    uint64_t dqb_isoftlimit;   /* штук inode */
-    uint64_t dqb_curinodes;    /* штук inode */
-    uint64_t dqb_btime;        /* момент, коли спливе пільговий строк за блоками */
-    uint64_t dqb_itime;        /* те саме за inode */
-    uint32_t dqb_valid;        /* маска QIF_* */
-};
-```
+:::code api-quota-control/c/struct-dqblk-i-odynytsi.c
 
 Пастка тут одна, зате чіпка: **межі задані в блоках по 1024 байти, а зайняте місце — просто в байтах**. Порівнювати їх напряму не можна:
 
@@ -151,29 +139,7 @@ XFS ніколи не жила за схемою «файл квот у коре
 
 Прочитати власний рахунок і показати, скільки лишилося, — єдина дія, для якої не потрібно жодних повноважень:
 
-```c
-#define _GNU_SOURCE
-#include <sys/quota.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int main(void)
-{
-    struct dqblk d;
-
-    if (quotactl(QCMD(Q_GETQUOTA, USRQUOTA), "/dev/sda1",
-                 getuid(), (caddr_t)&d) < 0) {
-        perror("quotactl");          /* ESRCH — квоти тут не ввімкнені */
-        return 1;
-    }
-
-    printf("ужито %llu КіБ, м'яка межа %llu КіБ, жорстка %llu КіБ\n",
-           (unsigned long long)(d.dqb_curspace / 1024),   /* байти → КіБ */
-           (unsigned long long)d.dqb_bsoftlimit,          /* уже в КіБ */
-           (unsigned long long)d.dqb_bhardlimit);
-    return 0;
-}
-```
+:::code api-quota-control/c/minimalnyi-robochyi-vyklyk.c
 
 А ось запис: важить не лише нове число, а й маска — без неї виклик перепише ще й лічильник ужитку нулями зі свіжозаведеної структури.
 

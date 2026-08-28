@@ -20,145 +20,7 @@
 
 Нижче наведено повний вихідний код модуля `my_netdev_notifier.c` з детальними коментарями до кожного рядка:
 
-```c
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/init.h>
-#include <linux/netdevice.h>
-#include <linux/notifier.h>
-#include <linux/rtnetlink.h>
-
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Kernel Systems Engineer");
-MODULE_DESCRIPTION("Модуль перехоплення подій мережевих інтерфейсів через netdev_chain");
-MODULE_VERSION("1.0");
-
-/*
- * Функція зворотного виклику, що спрацьовує при зміні стану
- * будь-якого мережевого адаптера в операційній системі.
- */
-static int my_netdev_event_handler(struct notifier_block *nb,
-                                   unsigned long action,
-                                   void *data)
-{
-    /*
-     * У ланцюжку netdev_chain параметр data вказує на struct netdev_notifier_info.
-     * Спеціальний макрос netdev_notifier_info_to_dev безпечно дістає з нього
-     * вказівник на цільовий мережевий пристрій struct net_device.
-     */
-    struct net_device *dev = netdev_notifier_info_to_dev(data);
-
-    /* Захист від некоректних або порожніх подій */
-    if (!dev)
-        return NOTIFY_DONE;
-
-    /*
-     * Фільтруємо події за типом дії (action).
-     * Якщо подія нас цікавить — виводимо інформацію в системний журнал ядра.
-     */
-    switch (action) {
-    case NETDEV_REGISTER:
-        pr_info("[netdev_probe] Зареєстровано новий пристрій: %s (тип: %u)\n",
-                dev->name, dev->type);
-        break;
-
-    case NETDEV_UP:
-        pr_info("[netdev_probe] Інтерфейс %s ПІДНЯТО (UP), поточний MTU: %u, MAC: %pM\n",
-                dev->name, dev->mtu, dev->dev_addr);
-        break;
-
-    case NETDEV_GOING_DOWN:
-        pr_info("[netdev_probe] Інтерфейс %s ПОЧИНАЄ ВИМИКАННЯ (GOING_DOWN)\n",
-                dev->name);
-        break;
-
-    case NETDEV_DOWN:
-        pr_info("[netdev_probe] Інтерфейс %s ОПУЩЕНО (DOWN)\n",
-                dev->name);
-        break;
-
-    case NETDEV_CHANGEMTU:
-        pr_info("[netdev_probe] Інтерфейс %s ЗМІНИВ MTU: нове значення %u (мін: %u, макс: %u)\n",
-                dev->name, dev->mtu, dev->min_mtu, dev->max_mtu);
-        break;
-
-    case NETDEV_CHANGENAME:
-        pr_info("[netdev_probe] Інтерфейс ПЕРЕЙМЕНОВАНО на: %s\n",
-                dev->name);
-        break;
-
-    case NETDEV_UNREGISTER:
-        pr_info("[netdev_probe] Дереєстрація та видалення інтерфейсу: %s\n",
-                dev->name);
-        break;
-
-    default:
-        /*
-         * Невідома або нецікава для нас подія (наприклад, зміна черг tx).
-         * Повертаємо NOTIFY_DONE, що дозволяє ядру безперешкодно продовжити обхід.
-         */
-        return NOTIFY_DONE;
-    }
-
-    /* Сповіщення успішно оброблено */
-    return NOTIFY_OK;
-}
-
-/*
- * Статичне оголошення блоку сповіщення.
- * priority = 0 означає стандартний нейтральний пріоритет.
- */
-static struct notifier_block my_netdev_nb = {
-    .notifier_call = my_netdev_event_handler,
-    .priority = 0,
-};
-
-/*
- * Функція ініціалізації модуля.
- * Виконується при завантаженні через insmod / modprobe.
- */
-static int __init my_notifier_init(void)
-{
-    int ret;
-
-    pr_info("[netdev_probe] Завантаження модуля: підписка на netdev_chain...\n");
-
-    /*
-     * Реєструємо наш блок у глобальному ланцюжку сповіщень.
-     * Функція автоматично додасть my_netdev_nb у список ядра.
-     */
-    ret = register_netdevice_notifier(&my_netdev_nb);
-    if (ret) {
-        pr_err("[netdev_probe] Помилка реєстрації обробника: %d\n", ret);
-        return ret;
-    }
-
-    pr_info("[netdev_probe] Успішно зареєстровано в netdev_chain (priority: %d)\n",
-            my_netdev_nb.priority);
-    return 0;
-}
-
-/*
- * Функція очищення модуля.
- * Виконується при вивантаженні через rmmod.
- */
-static void __exit my_notifier_exit(void)
-{
-    pr_info("[netdev_probe] Вивантаження модуля: відписка від netdev_chain...\n");
-
-    /*
-     * КРИТИЧНО ВАЖЛИВО: видаляємо блок зі списку ядра!
-     * unregister_netdevice_notifier очікує завершення всіх активних обробників (SRCU sync),
-     * перш ніж повернути керування.
-     */
-    unregister_netdevice_notifier(&my_netdev_nb);
-
-    pr_info("[netdev_probe] Модуль успішно вивантажено з ядра\n");
-}
-
-module_init(my_notifier_init);
-module_exit(my_notifier_exit);
-```
+:::code proj-kernel-notifier-module/c/vykhidnyi-kod-modulia.c
 
 ---
 
@@ -170,39 +32,7 @@ module_exit(my_notifier_exit);
 
 Розглянемо реалізацію власного блокуючого ланцюжка:
 
-```c
-/* Оголошуємо та ініціалізуємо блокуючий ланцюжок для нашого драйвера */
-static BLOCKING_NOTIFIER_HEAD(sensor_event_chain);
-
-/* Коди подій нашого датчика */
-#define SENSOR_EVENT_TEMP_HIGH    0x0001
-#define SENSOR_EVENT_BATTERY_LOW  0x0002
-#define SENSOR_EVENT_DISCONNECTED 0x0003
-
-/* Експортуємо функцію реєстрації для інших модулів */
-int register_sensor_notifier(struct notifier_block *nb)
-{
-    return blocking_notifier_chain_register(&sensor_event_chain, nb);
-}
-EXPORT_SYMBOL_GPL(register_sensor_notifier);
-
-/* Експортуємо функцію відписки */
-int unregister_sensor_notifier(struct notifier_block *nb)
-{
-    return blocking_notifier_chain_unregister(&sensor_event_chain, nb);
-}
-EXPORT_SYMBOL_GPL(unregister_sensor_notifier);
-
-/* Внутрішня функція драйвера, яка генерує сповіщення при спрацьовуванні сенсора */
-void notify_sensor_event(unsigned long event_type, void *sensor_data)
-{
-    pr_info("[sensor_core] Генерація події 0x%lx для зареєстрованих передплатників...\n",
-            event_type);
-
-    /* Викликаємо всіх передплатників у контексті процесу під захистом rwsem */
-    blocking_notifier_call_chain(&sensor_event_chain, event_type, sensor_data);
-}
-```
+:::code proj-kernel-notifier-module/c/stvorennia-vlasnoho.c
 
 Такий підхід забезпечує ідеальну модульність: сторонній драйвер охолодження вентилятора може підписатися на `register_sensor_notifier` і вмикати додаткове охолодження при отриманні `SENSOR_EVENT_TEMP_HIGH`, не маючи прямої компіляційної залежності від внутрішньої реалізації сенсорного чіпа.
 
@@ -222,34 +52,7 @@ void notify_sensor_event(unsigned long event_type, void *sensor_data)
 
 Щоб обробник сповіщення міг отримати доступ до полів свого пристрою, використовується фундаментальний макрос ядра `container_of()`:
 
-```c
-struct my_device_priv {
-    int device_id;
-    void __iomem *io_base;
-    struct mutex lock;
-    struct notifier_block reboot_nb;    /* Вбудований блок сповіщення */
-};
-
-static int my_reboot_callback(struct notifier_block *nb,
-                              unsigned long action,
-                              void *data)
-{
-    /*
-     * Отримуємо вказівник на структуру пристрою за адресою її внутрішнього поля reboot_nb.
-     * Макрос обчислює зміщення поля reboot_nb відносно початку struct my_device_priv
-     * і повертає коректну базову адресу об'єкта.
-     */
-    struct my_device_priv *priv = container_of(nb, struct my_device_priv, reboot_nb);
-
-    pr_info("[my_device_%d] Зупинка пристрою перед вимкненням системи...\n",
-            priv->device_id);
-
-    /* Виконуємо операції з апаратурою */
-    iowrite32(0, priv->io_base + 0x04);
-
-    return NOTIFY_OK;
-}
-```
+:::code proj-kernel-notifier-module/c/vidnovlennia-kontekstu.c
 
 ---
 
@@ -257,19 +60,7 @@ static int my_reboot_callback(struct notifier_block *nb,
 
 Для компіляції модуля під поточне запущене ядро використовується стандартний файл `Makefile`, який звертається до складальної інфраструктури заголовків ядра:
 
-```makefile
-obj-m += my_netdev_notifier.o
-
-# Шлях до каталогів заголовків і конфігурації поточного ядра
-KDIR := /lib/modules/$(shell uname -r)/build
-PWD  := $(shell pwd)
-
-all:
-	$(MAKE) -C $(KDIR) M=$(PWD) modules
-
-clean:
-	$(MAKE) -C $(KDIR) M=$(PWD) clean
-```
+:::code proj-kernel-notifier-module/make/Makefile
 
 ---
 
@@ -279,31 +70,7 @@ clean:
 
 Послідовність команд для перевірки:
 
-```bash
-# 1. Компільовано модуль ядра
-make
-
-# 2. Завантажуємо зібраний бінарний файл .ko у ядро
-sudo insmod my_netdev_notifier.ko
-
-# 3. Створюємо новий віртуальний мережевий адаптер test_dummy0
-sudo ip link add name test_dummy0 type dummy
-
-# 4. Змінюємо розмір MTU інтерфейсу
-sudo ip link set test_dummy0 mtu 1400
-
-# 5. Піднімаємо інтерфейс (генерує NETDEV_UP)
-sudo ip link set test_dummy0 up
-
-# 6. Опускаємо інтерфейс (генерує NETDEV_GOING_DOWN та NETDEV_DOWN)
-sudo ip link set test_dummy0 down
-
-# 7. Видаляємо віртуальний інтерфейс із системи
-sudo ip link delete test_dummy0
-
-# 8. Вивантажуємо модуль сповіщень
-sudo rmmod my_netdev_notifier
-```
+:::code proj-kernel-notifier-module/sh/main.sh
 
 Після виконання цих операцій перевіримо журнал буфера повідомлень ядра командою `dmesg -T` або `journalctl -k`:
 

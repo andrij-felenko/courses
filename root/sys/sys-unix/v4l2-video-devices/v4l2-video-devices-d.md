@@ -117,19 +117,7 @@ N = 4 → запас 3 · 33.3 ≈ 100 мс  → та сама затримка 
 
 V4L2 обрав виправляти. `VIDIOC_S_FMT` приймає структуру з побажаннями і **повертає в ній же** те, що драйвер насправді поставив. Виклик успішний навіть тоді, коли жодне поле не збіглося з проханням; помилку дає лише зовсім неможливе.
 
-```c
-struct v4l2_format fmt = { .type = V4L2_BUF_TYPE_VIDEO_CAPTURE };
-fmt.fmt.pix.width       = 1366;
-fmt.fmt.pix.height      = 768;
-fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_NV12;
-fmt.fmt.pix.field       = V4L2_FIELD_NONE;
-ioctl(fd, VIDIOC_S_FMT, &fmt);
-
-/* читаємо, що вийшло насправді */
-printf("%ux%u, крок рядка %u Б, кадр %u Б\n",
-       fmt.fmt.pix.width, fmt.fmt.pix.height,
-       fmt.fmt.pix.bytesperline, fmt.fmt.pix.sizeimage);
-```
+:::code v4l2-video-devices-d/c/main.h
 
 Найчастіша несподіванка ховається в `bytesperline` — кроці рядка. Якщо апаратура вирівнює початок кожного рядка на 64 байти, ширина 1366 дає не 1366 байтів на рядок, а більше:
 

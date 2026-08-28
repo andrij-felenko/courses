@@ -66,19 +66,7 @@ struct mptcp_pm_addr_entry {
     struct rcu_head     rcu;
 };
 ```
-```cpp
-// C++ Idiomatic abstraction of MPTCP endpoint entry
-#include <cstdint>
-#include <netinet/in.h>
-
-namespace mptcp {
-    struct EndpointEntry {
-        sockaddr_storage addr{};
-        std::uint8_t flags{0};
-        std::uint8_t if_index{0};
-    };
-}
-```
+:::code mptcp-path-managers-d/cpp/vnutrishni-struktury.cpp
 :::
 
 Поле `addr` містить IP-адресу (IPv4 або IPv6), порт та `Address ID`, а поле `flags` визначає дію, яку ядро має автоматично виконати при встановленні нового MPTCP-з'єднання.
@@ -142,19 +130,7 @@ namespace mptcp {
 
 Розглянемо сценарій налаштування шлюзу з двома провайдерами: `eth0` (основний, IP `192.168.1.100`) та `wlan0` (резервний, IP `10.0.0.15`):
 
-```bash
-# 1. Переконатися, що увімкнено In-Kernel Path Manager
-sysctl -w net.mptcp.pm_type=0
-
-# 2. Встановити глобальні ліміти: до 3 підпотоків та 2 оголошень
-ip mptcp limits set subflows 3 add_addr_accepted 2
-
-# 3. Додати eth0 як локальну кінцеву точку для оголошення адреси
-ip mptcp endpoint add 192.168.1.100 dev eth0 id 1 signal
-
-# 4. Додати wlan0 як активний резервний підпотік
-ip mptcp endpoint add 10.0.0.15 dev wlan0 id 2 subflow backup
-```
+:::code mptcp-path-managers-d/sh/main.sh
 
 Перевірити поточний стан бази даних ядра можна за допомогою команд:
 
@@ -232,33 +208,8 @@ sysctl -w net.mptcp.pm_type=1
 Кожен плагін реєструє таблицю функцій-обробників (callbacks) у структурі `mptcpd_plugin_ops`:
 
 :::tabs
-```c
-/* Header C: struct mptcpd_plugin_ops */
-struct mptcpd_plugin_ops {
-    void (*new_connection)(struct mptcpd_pm *pm, uint32_t token, ...);
-    void (*connection_established)(struct mptcpd_pm *pm, uint32_t token, ...);
-    void (*connection_closed)(struct mptcpd_pm *pm, uint32_t token, ...);
-    void (*new_address)(struct mptcpd_pm *pm, uint32_t token, mptcpd_aid_t id, ...);
-    void (*address_removed)(struct mptcpd_pm *pm, uint32_t token, mptcpd_aid_t id, ...);
-    void (*new_subflow)(struct mptcpd_pm *pm, uint32_t token, ...);
-    void (*subflow_closed)(struct mptcpd_pm *pm, uint32_t token, ...);
-};
-```
-```cpp
-// C++ Interface Abstraction
-#include <cstdint>
-#include <sys/socket.h>
-
-namespace mptcpd {
-    class IPathPlugin {
-    public:
-        virtual ~IPathPlugin() = default;
-        virtual void on_new_connection(uint32_t token) = 0;
-        virtual void on_new_address(uint32_t token, uint8_t id, sockaddr const* addr) = 0;
-        virtual void on_subflow_closed(uint32_t token) = 0;
-    };
-}
-```
+:::code mptcp-path-managers-d/c/main.h
+:::code mptcp-path-managers-d/cpp/interfeis-rozrobky.cpp
 :::
 
 #### Стандартний плагін SSPI (Single Subflow Per Interface)

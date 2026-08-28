@@ -26,135 +26,17 @@
 
 ## Каркас: труба, дві розвилки, три ролі
 
-```c
-/* daemonize.c — повний обряд.
-   cc -std=c11 -D_GNU_SOURCE -Wall -Wextra -c daemonize.c            */
-
-#define _GNU_SOURCE
-#include <dirent.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <poll.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/file.h>
-#include <sys/stat.h>
-#include <sys/syscall.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-static int close_inherited_fds(int keep);   /* тіла — нижче, порядок викладу */
-static int attach_dev_null(void);
-static int reset_signals(void);
-static int claim_pidfile(const char *path);
-
-/* Повідомлення пускачеві. Обидва кінці — той самий бінарник,
-   тож питання вирівнювання полів тут не виникає.               */
-struct ready_msg {
-    char tag;         /* 'R' — піднялися, 'E' — не змогли */
-    int  err;         /* errno, коли tag == 'E'            */
-    char stage[24];   /* назва кроку, що не вдався         */
-};
-
-static int ready_fd  = -1;   /* кінець запису; живе до сигналу готовності */
-static int pidfile_fd = -1;  /* НЕ закривати: замок тримається дескриптором */
-
-/* Єдине місце, звідки говорять у трубу. Після відповіді кінець
-   закривається: пускач має побачити або повідомлення, або кінець файлу. */
-static void report(char tag, int err, const char *stage)
-{
-    if (ready_fd < 0) return;
-
-    struct ready_msg m;
-    memset(&m, 0, sizeof m);
-    m.tag = tag;
-    m.err = err;
-    snprintf(m.stage, sizeof m.stage, "%s", stage ? stage : "");
-
-    (void)!write(ready_fd, &m, sizeof m);   /* ≤ PIPE_BUF — запис атомарний */
-    close(ready_fd);
-    ready_fd = -1;
-}
-
-void daemon_ready(void)              { report('R', 0, ""); }
-void daemon_fail(const char *stage)  { report('E', errno, stage); }
-```
+:::code proj-daemonize/c/daemonize.c
 
 Роль A — чекати. Уся цінність труби в тому, що `read` на ній розрізняє три різні події одним викликом: прийшло повідомлення (служба сказала своє слово), прийшов нуль байтів (усі кінці запису зникли, тобто останній їх власник помер), або ми ще чекаємо.
 
-```c
-static void parent_wait_and_exit(int rfd, pid_t mid)
-{
-    struct ready_msg m;
-    ssize_t n;
-
-    do {
-        n = read(rfd, &m, sizeof m);
-    } while (n < 0 && errno == EINTR);     /* сигнал не має ламати очікування */
-
-    int st = 0;
-    (void)waitpid(mid, &st, 0);            /* B — ще наша дитина, заберемо код */
-
-    if (n == (ssize_t)sizeof m && m.tag == 'R')
-        _exit(0);                          /* єдиний шлях до нуля */
-
-    if (n == (ssize_t)sizeof m && m.tag == 'E')
-        fprintf(stderr, "служба не піднялася на кроці «%s»: %s\n",
-                m.stage, strerror(m.err));
-    else if (n == 0)
-        fprintf(stderr, "служба померла на старті, нічого не сказавши\n");
-    else
-        fprintf(stderr, "невиразна відповідь від служби\n");
-
-    fflush(stderr);
-    _exit(1);
-}
-```
+:::code proj-daemonize/c/karkas-truba-dvi-rozvylky.c
 
 Цикл навколо `read` тут не перестрахування: будь-який сигнал із обробником перерве блокуючий виклик, і без повтору пускач вирішить, що служба мовчить ([EINTR: перервані виклики й перезапуск](root:sys-unix/eintr-and-restart)). А `waitpid` забирає код проміжного процесу B, який на цей момент уже точно вийшов, — щоб після нас не лишилося зомбі.
 
 Тепер сам обряд:
 
-```c
-int daemonize(const char *pidpath)
-{
-    int p[2];
-    if (pipe(p) < 0) return -1;            /* ДО першого розділення */
-
-    pid_t pid = fork();
-    if (pid < 0) { int e = errno; close(p[0]); close(p[1]); errno = e; return -1; }
-
-    if (pid > 0) {                         /* A: пускач */
-        close(p[1]);                       /* ← без цього рядка він чекатиме вічно */
-        parent_wait_and_exit(p[0], pid);   /* не повертається */
-    }
-
-    /* B: майбутній лідер сеансу */
-    close(p[0]);
-    ready_fd = p[1];
-    fcntl(ready_fd, F_SETFD, FD_CLOEXEC);  /* щоб не протік у чужий образ */
-
-    if (setsid() < 0)  { report('E', errno, "setsid"); _exit(1); }
-
-    pid = fork();                          /* друге розділення */
-    if (pid < 0)       { report('E', errno, "fork2");  _exit(1); }
-    if (pid > 0) _exit(0);                 /* B іде; його копію труби закриє ядро */
-
-    /* C: власне демон */
-    if (chdir("/") < 0) { report('E', errno, "chdir"); _exit(1); }
-    umask(0027);                           /* обрано, а не успадковано */
-
-    if (close_inherited_fds(ready_fd) < 0) { report('E', errno, "close-fds"); _exit(1); }
-    if (attach_dev_null() < 0)             { report('E', errno, "dev-null");  _exit(1); }
-    if (reset_signals() < 0)               { report('E', errno, "signals");   _exit(1); }
-
-    if (pidpath && claim_pidfile(pidpath) < 0) { report('E', errno, "pidfile"); _exit(1); }
-
-    return 0;                              /* далі — справжня ініціалізація */
-}
-```
+:::code proj-daemonize/c/karkas-truba-dvi-rozvylky-2.c
 
 Зверніть увагу на `_exit(0)` у B. Це не примха стилю: `exit()` пройшов би по зареєстрованих обробниках завершення й злив буфери stdio — ті самі буфери, копію яких має C. Ті самі байти вийшли б двічі, а обробники — прибрати тимчасовий файл, закрити з'єднання — виконалися б у процесі, який нічого з цим не робив ([буферизація stdio і чому вона переживає fork](root:sys-unix/stdio-buffering)).
 
@@ -164,98 +46,17 @@ int daemonize(const char *pidpath)
 
 Дескриптори — найтонше місце, і воно ж єдине, де потрібен запасний шлях: `close_range` з'явився в ядрі Linux 5.9 (обгортка в glibc — з версії 2.34), і на старіших системах його просто немає. Щоб не залежати від версії бібліотеки, кличемо системний виклик напряму:
 
-```c
-#if defined(__linux__) && defined(SYS_close_range)
-static int try_close_range(unsigned lo, unsigned hi)
-{
-    return (int)syscall(SYS_close_range, lo, hi, 0u);
-}
-#else
-static int try_close_range(unsigned lo, unsigned hi)
-{ (void)lo; (void)hi; errno = ENOSYS; return -1; }
-#endif
-
-/* Обхід /proc/self/fd — точний список, без вгадування стелі. */
-static void close_fds_via_proc(int lo, int keep)
-{
-    DIR *d = opendir("/proc/self/fd");
-    if (!d) {                                  /* немає /proc — лишається вгадувати */
-        long max = sysconf(_SC_OPEN_MAX);
-        if (max < 0 || max > 65536) max = 65536;
-        for (int fd = lo; fd < (int)max; fd++)
-            if (fd != keep) (void)close(fd);
-        return;
-    }
-    int dfd = dirfd(d);                         /* його закривати не можна: ще читаємо */
-    struct dirent *e;
-    while ((e = readdir(d)) != NULL) {
-        char *end;
-        long fd = strtol(e->d_name, &end, 10);
-        if (*end != '\0') continue;             /* «.» і «..» */
-        if (fd < lo || fd == dfd || fd == keep) continue;
-        (void)close((int)fd);
-    }
-    closedir(d);
-}
-
-/* Дірка на keep — інакше ми закриємо власну трубу готовності. */
-static int close_inherited_fds(int keep)
-{
-    if (keep < 3) { errno = EINVAL; return -1; }
-
-    if (keep > 3 && try_close_range(3u, (unsigned)keep - 1) < 0) goto fallback;
-    if (try_close_range((unsigned)keep + 1, ~0u) < 0)            goto fallback;
-    return 0;
-
-fallback:
-    if (errno != ENOSYS && errno != EPERM && errno != EINVAL) return -1;
-    close_fds_via_proc(3, keep);
-    return 0;
-}
-```
+:::code proj-daemonize/c/prybyrannia-spadku.c
 
 Обхід `/proc/self/fd` кращий за наївний цикл до `sysconf(_SC_OPEN_MAX)` з простої причини: він перелічує **справді відкриті** номери, а не пробує закрити мільйон неіснуючих. Різниця помітна, коли ліміт на дескриптори підняли до сотень тисяч — цикл тоді робить сотні тисяч марних викликів у ядро.
 
 Далі — три стандартні номери. Тут є нюанс, який рятує від цілого класу помилок: номери 0–2 ми **не закриваємо**. Прибирання почалося з трійки, тож термінал на них ще висить, і перший же `open` дістане номер 3 або 4 — а не нуль. Дірки, у яку могли б провалитися стандартні потоки, не існує ані на мить.
 
-```c
-static int attach_dev_null(void)
-{
-    int fd = open("/dev/null", O_RDWR);
-    if (fd < 0) return -1;
-
-    if (dup2(fd, STDIN_FILENO)  < 0) return -1;
-    if (dup2(fd, STDOUT_FILENO) < 0) return -1;
-    if (dup2(fd, STDERR_FILENO) < 0) return -1;   /* dup2 сам закриє старе */
-
-    if (fd > STDERR_FILENO) close(fd);
-    return 0;
-}
-```
+:::code proj-daemonize/c/prybyrannia-spadku-2.c
 
 Сигнали приводимо до типового стану — і одразу ставимо своє:
 
-```c
-static int reset_signals(void)
-{
-    struct sigaction sa;
-    memset(&sa, 0, sizeof sa);
-    sa.sa_handler = SIG_DFL;
-    sigemptyset(&sa.sa_mask);
-
-    for (int s = 1; s < NSIG; s++)
-        (void)sigaction(s, &sa, NULL);   /* SIGKILL і SIGSTOP відмовлять — це нормально */
-
-    sigset_t empty;
-    sigemptyset(&empty);
-    if (sigprocmask(SIG_SETMASK, &empty, NULL) < 0) return -1;
-
-    sa.sa_handler = SIG_IGN;             /* обірваний співрозмовник — не привід умирати */
-    if (sigaction(SIGPIPE, &sa, NULL) < 0) return -1;
-
-    return 0;
-}
-```
+:::code proj-daemonize/c/prybyrannia-spadku-3.c
 
 Цикл від 1 до `NSIG` навмисно не перевіряє кодів повернення: на двох сигналах він мусить дістати `EINVAL`, і це очікувано. Скидати треба **і диспозиції, і маску**: ігнорування та заблоковані сигнали переживають розділення, а `SIG_IGN` переживає ще й заміну образу — тобто чужий скрипт, який колись заблокував `SIGTERM`, здатний зробити вашу службу нечутливою до команди зупинки ([диспозиція сигналу: обробник, ігнорування, типова дія](root:sys-unix/signal-disposition)).
 
@@ -263,31 +64,7 @@ static int reset_signals(void)
 
 Звичайний PID-файл — це рядок із числом, і всі його біди від того, що число не пов'язане з процесом нічим, крім домовленості. Замок пов'язаний: його тримає ядро, і воно ж його відпускає.
 
-```c
-static int claim_pidfile(const char *path)
-{
-    int fd = open(path, O_RDWR | O_CREAT | O_CLOEXEC, 0644);
-    if (fd < 0) return -1;
-
-    /* Ось тут і вирішується, чи ми єдиний примірник. */
-    if (flock(fd, LOCK_EX | LOCK_NB) < 0) {      /* EWOULDBLOCK — хтось уже живий */
-        int e = errno; close(fd); errno = e; return -1;
-    }
-
-    if (ftruncate(fd, 0) < 0) goto fail;         /* старе число могло бути довшим */
-
-    char buf[32];
-    int n = snprintf(buf, sizeof buf, "%ld\n", (long)getpid());
-    if (write(fd, buf, (size_t)n) != n) goto fail;
-
-    pidfile_fd = fd;      /* ⚠️ дескриптор лишається відкритим НАЗАВЖДИ */
-    return 0;
-
-fail: {
-    int e = errno; close(fd); errno = e; return -1;
-    }
-}
-```
+:::code proj-daemonize/c/pid-fail-iakyi-spravdi.c
 
 Три деталі, кожна з наслідком.
 
@@ -299,40 +76,7 @@ fail: {
 
 ## Складання докупи
 
-```c
-/* main.c — служба, яка вміє обидва режими.
-   cc -std=c11 -D_GNU_SOURCE -o echod main.c daemonize.c              */
-
-#include <syslog.h>
-
-int daemonize(const char *pidpath);
-void daemon_ready(void);
-void daemon_fail(const char *stage);
-
-int main(int argc, char **argv)
-{
-    int background = !(argc > 1 && strcmp(argv[1], "--foreground") == 0);
-
-    if (background && daemonize("/run/echod.pid") < 0) {
-        perror("daemonize");
-        return 1;
-    }
-
-    int lsock = listen_on(9000);          /* СПРАВЖНЯ ініціалізація */
-    if (lsock < 0) {
-        daemon_fail("listen");            /* помилка їде в трубу, до термінала */
-        return 1;
-    }
-
-    openlog("echod", LOG_PID, LOG_DAEMON);
-    syslog(LOG_INFO, "піднялися, слухаємо 9000");
-
-    daemon_ready();                       /* аж ТЕПЕР пускач виходить із нулем */
-
-    serve_forever(lsock);                 /* головний цикл */
-    return 0;
-}
-```
+:::code proj-daemonize/c/main.c
 
 Ключ `--foreground` тут не для зручності налагодження, а тому, що з ним ту саму програму можна запхати під менеджер служб без `Type=forking`. Практично кожен пакувальник шукає в чужому демоні саме такий ключ — варто його мати.
 
@@ -342,44 +86,7 @@ int main(int argc, char **argv)
 
 А тепер те, заради чого варто було все це прочитати, — той самий бінарник, написаний під менеджер служб.
 
-```c
-/* echod.c — жодного розділення.
-   cc -std=c11 -o echod echod.c $(pkg-config --libs libsystemd)       */
-
-#include <systemd/sd-daemon.h>
-
-static volatile sig_atomic_t stop_flag = 0;
-
-static void on_term(int sig) { (void)sig; stop_flag = 1; }
-
-int main(void)
-{
-    struct sigaction sa;
-    memset(&sa, 0, sizeof sa);
-    sa.sa_handler = on_term;
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGTERM, &sa, NULL);        /* БЕЗ SA_RESTART — свідомо */
-
-    sa.sa_handler = SIG_IGN;
-    sigaction(SIGPIPE, &sa, NULL);
-
-    int lsock = listen_on(9000);
-    if (lsock < 0) {
-        fprintf(stderr, "listen: %s\n", strerror(errno));   /* stderr → журнал */
-        return 1;
-    }
-    fprintf(stderr, "піднялися, слухаємо 9000\n");
-
-    sd_notify(0, "READY=1");              /* те саме, що байт у трубу */
-
-    while (!stop_flag)
-        serve_once(lsock);                /* accept() поверне EINTR при SIGTERM */
-
-    sd_notify(0, "STOPPING=1");
-    close(lsock);
-    return 0;
-}
-```
+:::code proj-daemonize/c/echod.c
 
 Обробник поставлено **без** `SA_RESTART` навмисно: інакше ядро саме перезапустило б перерваний `accept()`, прапорець ніхто б не перевірив, і служба стояла б у чеканні до примусового `SIGKILL` за таймаутом. Це рівно та деталь, через яку служби «не зупиняються по-хорошому».
 

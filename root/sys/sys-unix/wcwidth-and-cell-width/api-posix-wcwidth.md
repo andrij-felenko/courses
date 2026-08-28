@@ -82,43 +82,8 @@ int wcswidth(const wchar_t *pwcs, std::size_t n);
 ### Процесний рівень: `setlocale`
 
 :::tabs
-```c
-#include <stdio.h>
-#include <locale.h>
-#include <wchar.h>
-
-int main(void) {
-    /* 1. Ініціалізація локалі процесу зі змінних оточення (LC_ALL / LC_CTYPE / LANG) */
-    char *current_locale = setlocale(LC_CTYPE, "");
-    if (!current_locale) {
-        fprintf(stderr, "Попередження: не вдалося завантажити системну локаль\n");
-    }
-
-    /* 2. Тепер wcwidth коректно розпізнає символи UTF-8 */
-    wchar_t cjk_char = L'語';
-    printf("Ширина символу: %d комірки\n", wcwidth(cjk_char));
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <clocale>
-#include <cwchar>
-
-int main() {
-    // Ініціалізація локалі процесу
-    const char* current_locale = std::setlocale(LC_CTYPE, "");
-    if (!current_locale) {
-        std::cerr << "Попередження: не вдалося завантажити системну локаль\n";
-    }
-
-    wchar_t cjk_char = L'語';
-    std::cout << "Ширина символу: " << wcwidth(cjk_char) << " комірки\n";
-
-    return 0;
-}
-```
+:::code api-posix-wcwidth/c/protsesnyi-riven-setlocale.c
+:::code api-posix-wcwidth/cpp/protsesnyi-riven-setlocale.cpp
 :::
 
 ### Потоковий рівень: POSIX.1-2008 `newlocale` та `uselocale`
@@ -126,72 +91,8 @@ int main() {
 Виклик `setlocale` не є безпечним для багатопотокових бібліотек, оскільки змінює глобальний стан усього процесу. Якщо бібліотека розрахунку термінальної ширини виконується у фоновому потоці або всередині плагіна, вона повинна використовувати об'єкти локалі `locale_t`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <locale.h>
-#include <wchar.h>
-
-/* Безпечний багатопотоковий розрахунок ширини символу */
-int thread_safe_wcwidth(wchar_t wc) {
-    /* Створюємо або перевикористовуємо об'єкт локалі UTF-8 */
-    locale_t utf8_loc = newlocale(LC_CTYPE_MASK, "C.UTF-8", (locale_t)0);
-    if (!utf8_loc) {
-        /* Запасний варіант: пробуємо загальну локаль за замовчуванням */
-        utf8_loc = newlocale(LC_CTYPE_MASK, "", (locale_t)0);
-    }
-
-    if (!utf8_loc) {
-        return wcwidth(wc);
-    }
-
-    /* Прив'язуємо локаль виключно до поточного потоку */
-    locale_t old_loc = uselocale(utf8_loc);
-
-    int width = wcwidth(wc);
-
-    /* Відновлюємо попередню локаль потоку та вивільняємо ресурс */
-    uselocale(old_loc);
-    freelocale(utf8_loc);
-
-    return width;
-}
-```
-```cpp
-#include <iostream>
-#include <clocale>
-#include <cwchar>
-#include <locale.h>
-
-// RAII-обгортка для безпечного перемикання потокової локалі в C++
-class ThreadLocaleGuard {
-public:
-    explicit ThreadLocaleGuard(const char* locale_name) {
-        loc_ = newlocale(LC_CTYPE_MASK, locale_name, nullptr);
-        if (loc_) {
-            old_loc_ = uselocale(loc_);
-        }
-    }
-
-    ~ThreadLocaleGuard() {
-        if (loc_) {
-            uselocale(old_loc_);
-            freelocale(loc_);
-        }
-    }
-
-    ThreadLocaleGuard(const ThreadLocaleGuard&) = delete;
-    ThreadLocaleGuard& operator=(const ThreadLocaleGuard&) = delete;
-
-private:
-    locale_t loc_{nullptr};
-    locale_t old_loc_{nullptr};
-};
-
-int calculate_width_safe(wchar_t wc) {
-    ThreadLocaleGuard guard("C.UTF-8");
-    return wcwidth(wc);
-}
-```
+:::code api-posix-wcwidth/c/potokovyi-riven-posix-1.c
+:::code api-posix-wcwidth/cpp/potokovyi-riven-posix-1.cpp
 :::
 
 ## Повний конвеєр: перетворення UTF-8 у широкі символи з контролем стану
@@ -199,142 +100,8 @@ int calculate_width_safe(wchar_t wc) {
 У реальних програмах вхідні дані надходять у вигляді байтового потоку кодування UTF-8. Перед викликом `wcwidth` рядок необхідно перетворити на послідовність широких символів за допомогою стандартизованої функції `mbrtowc` (Multi-Byte Reentrant to Wide Character), яка підтримує структуру зсуву стану `mbstate_t`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <wchar.h>
-#include <locale.h>
-
-/* Обчислення сумарної ширини рядка UTF-8 з обробкою багатобайтних послідовностей */
-int calculate_utf8_display_width(const char *utf8_text) {
-    if (!utf8_text) return 0;
-
-    mbstate_t state;
-    memset(&state, 0, sizeof(state));
-
-    const char *current = utf8_text;
-    size_t remaining = strlen(utf8_text);
-    int total_width = 0;
-
-    while (remaining > 0) {
-        wchar_t wc;
-        size_t consumed = mbrtowc(&wc, current, remaining, &state);
-
-        if (consumed == 0) {
-            break; /* Зустріли кінцевий нуль-термінатор */
-        }
-        if (consumed == (size_t)-1) {
-            /* Помилка EILSEQ: неприпустима байтова послідовність UTF-8 */
-            return -1;
-        }
-        if (consumed == (size_t)-2) {
-            /* Неповна багатобайтова послідовність на кінці буфера */
-            return -1;
-        }
-
-        int w = wcwidth(wc);
-        if (w < 0) {
-            /* Зустріли недрукований або керівний символ */
-            return -1;
-        }
-
-        total_width += w;
-        current += consumed;
-        remaining -= consumed;
-    }
-
-    return total_width;
-}
-
-int main(void) {
-    setlocale(LC_CTYPE, "");
-
-    const char *test_lines[] = {
-        "Команда: status",
-        "Статус: [OK]",
-        "Символи CJK: 言語",
-        "Діакритика: е\u0301кран",
-        NULL
-    };
-
-    for (int i = 0; test_lines[i] != NULL; ++i) {
-        int w = calculate_utf8_display_width(test_lines[i]);
-        printf("Текст: %-24s -> Ширина: %d комірок\n", test_lines[i], w);
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <vector>
-#include <cwchar>
-#include <clocale>
-#include <cstring>
-#include <expected>
-
-enum class StringWidthError {
-    InvalidUtf8Sequence,
-    IncompleteSequence,
-    NonPrintableCharacter
-};
-
-// Розрахунок термінальної ширини рядка UTF-8 у стилі C++23 з std::expected
-std::expected<int, StringWidthError> calculate_utf8_display_width(std::string_view utf8_text) {
-    std::mbstate_t state{};
-    const char* current = utf8_text.data();
-    std::size_t remaining = utf8_text.size();
-    int total_width = 0;
-
-    while (remaining > 0) {
-        wchar_t wc = 0;
-        std::size_t consumed = std::mbrtowc(&wc, current, remaining, &state);
-
-        if (consumed == 0) {
-            break;
-        }
-        if (consumed == static_cast<std::size_t>(-1)) {
-            return std::unexpected(StringWidthError::InvalidUtf8Sequence);
-        }
-        if (consumed == static_cast<std::size_t>(-2)) {
-            return std::unexpected(StringWidthError::IncompleteSequence);
-        }
-
-        int w = wcwidth(wc);
-        if (w < 0) {
-            return std::unexpected(StringWidthError::NonPrintableCharacter);
-        }
-
-        total_width += w;
-        current += consumed;
-        remaining -= consumed;
-    }
-
-    return total_width;
-}
-
-int main() {
-    std::setlocale(LC_CTYPE, "");
-
-    const std::vector<std::string_view> test_lines = {
-        "Команда: status",
-        "Статус: [OK]",
-        "Символи CJK: 言語",
-        "Діакритика: е\u0301кран"
-    };
-
-    for (const auto& line : test_lines) {
-        auto width_result = calculate_utf8_display_width(line);
-        if (width_result.has_value()) {
-            std::cout << "Текст: " << line << " -> Ширина: " << *width_result << " комірок\n";
-        } else {
-            std::cerr << "Помилка розрахунку ширини для рядка: " << line << "\n";
-        }
-    }
-    return 0;
-}
-```
+:::code api-posix-wcwidth/c/povnyi-konveier.c
+:::code api-posix-wcwidth/cpp/povnyi-konveier.cpp
 :::
 
 ## Зведена таблиця помилок та крайових випадків

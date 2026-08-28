@@ -72,19 +72,7 @@
 
 Команда `isolate` здійснює транзакційну зміну поточного операційного стану системи:
 
-```bash
-# Переключення у багатокористувацький консольний режим
-systemctl isolate multi-user.target
-
-# Переключення у повноцінний графічний режим
-systemctl isolate graphical.target
-
-# Переключення у режим однокористувацького відновлення
-systemctl isolate rescue.target
-
-# Екстрене виклики режимів аварійного відновлення
-systemctl isolate emergency.target
-```
+:::code api-target-unit-spec/sh/1-upravlinnia.sh
 
 ### 2. Управління таргетом за замовчуванням (Default Target)
 
@@ -105,19 +93,7 @@ systemctl set-default multi-user.target
 
 Для налагодження та аналізу складних графів залежностей використовуються наступні команди:
 
-```bash
-# Перелік усіх активних цільових юнітів у пам'яті PID 1
-systemctl list-units --type=target
-
-# Перелік усіх встановлених таргетів (включаючи неактивні)
-systemctl list-unit-files --type=target
-
-# Відображення прямого дерева залежностей для вказаного таргета
-systemctl list-dependencies multi-user.target
-
-# Відображення зворотного дерева залежностей (хто залежить від цього таргета)
-systemctl list-dependencies --reverse network.target
-```
+:::code api-target-unit-spec/sh/3-analiz-zalezhnostei-ta.sh
 
 ---
 

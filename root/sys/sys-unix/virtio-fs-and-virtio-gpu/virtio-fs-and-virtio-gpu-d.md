@@ -173,21 +173,7 @@ DAX початково розроблявся для енергонезалеж�
 
 Для конфігурування `virtio-fs` на хості спочатку запускається демон `virtiofsd`, а потім гіпервізор QEMU підключається до нього через Unix-сокет `vhost-user`:
 
-```bash
-# 1. Запуск демона virtiofsd на хості
-virtiofsd --socket-path=/tmp/vfs.sock \
-          --shared-dir=/home/user/project \
-          --sandbox=namespace
-
-# 2. Запуск QEMU: пам'ять ВМ обов'язково спільна (share=on),
-#    інакше демон не зможе звертатися до неї напряму
-qemu-system-x86_64 \
-    -enable-kvm -m 4G \
-    -object memory-backend-file,id=mem,size=4G,mem-path=/dev/shm,share=on \
-    -numa node,memdev=mem \
-    -chardev socket,id=char0,path=/tmp/vfs.sock \
-    -device vhost-user-fs-pci,queue-size=1024,chardev=char0,tag=my_shared_dir
-```
+:::code virtio-fs-and-virtio-gpu-d/sh/main.sh
 
 Вікно DAX цей рядок не вмикає: його розмір задає окрема властивість пристрою (`cache-size`), і підтримка DAX у `virtio-fs` довго жила поза основною гілкою QEMU — перед використанням перевіряйте свою версію гіпервізора й демона.
 
@@ -224,54 +210,8 @@ glxinfo | grep -i "OpenGL renderer"
 Системний адміністратор або розробник може перевірити роботу пристроїв Virtio безпосередньо у файловій системі `sysfs` гостя.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-/* Перевірка стану пристрою virtio_gpu через sysfs */
-void check_virtio_gpu_sysfs(void) {
-    int fd = open("/sys/class/drm/card0/device/vendor", O_RDONLY);
-    if (fd < 0) {
-        perror("Не вдалося відкрити sysfs картку DRM");
-        return;
-    }
-    char buf[32] = {0};
-    ssize_t n = read(fd, buf, sizeof(buf) - 1);
-    close(fd);
-    if (n <= 0) {
-        fprintf(stderr, "Порожнє або нечитне значення vendor\n");
-        return;
-    }
-
-    printf("Virtio GPU Vendor ID: %s", buf);
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <filesystem>
-
-// Перевірка активності точок монтування virtiofs у procfs
-void check_virtiofs_mounts() {
-    std::ifstream mounts("/proc/mounts");
-    std::string line;
-    bool found = false;
-
-    while (std::getline(mounts, line)) {
-        if (line.find("virtiofs") != std::string::npos) {
-            std::cout << "Знайдено точку монтування Virtio-FS: " << line << '\n';
-            found = true;
-        }
-    }
-
-    if (!found) {
-        std::cout << "Точок монтування virtiofs не виявлено.\n";
-    }
-}
-```
+:::code virtio-fs-and-virtio-gpu-d/c/main.c
+:::code virtio-fs-and-virtio-gpu-d/cpp/main.cpp
 :::
 
 Програмне формування команд для керування пристроєм `virtio-gpu` вимагає від драйвера точного дотримання розмітки структур пам'яті. Практичний приклад створення та надсилання команд подано у вставці [Приклад формування та надсилання команд Virtio GPU](root:sys-unix/virtio-fs-and-virtio-gpu/proj-virtio-gpu-cmd.md).

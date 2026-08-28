@@ -54,28 +54,7 @@ struct cdev {
 
 Процес реєстрації символьного пристрою складається з двох етапів: виділення номерів пристроїв та активація об'єкта `cdev`.
 
-```c
-// Динамічне виділення діапазону номерів пристроїв (ядро сама обирає вільний Major)
-int alloc_chrdev_region(dev_t *dev, unsigned baseminor, unsigned count, const char *name);
-
-// Статична реєстрація заздалегідь відомого діапазону номерів
-int register_chrdev_region(dev_t from, unsigned count, const char *name);
-
-// Звільнення раніше виділеного діапазону номерів пристроїв
-void unregister_chrdev_region(dev_t from, unsigned count);
-
-// Ініціалізація структури cdev та зв'язування з file_operations
-void cdev_init(struct cdev *cdev, const struct file_operations *fops);
-
-// Виділення пам'яті під cdev на купі ядра (динамічний спосіб)
-struct cdev *cdev_alloc(void);
-
-// Додавання cdev до системи (робить пристрій активним для системних викликів VFS)
-int cdev_add(struct cdev *p, dev_t dev, unsigned count);
-
-// Видалення cdev із системи (деактивація перед деініціалізацією драйвера)
-void cdev_del(struct cdev *p);
-```
+:::code api-cdev-bdev-interfaces/c/upravlinnia-zhyttievym.h
 
 Функція `alloc_chrdev_region()` повертає `0` у разі успіху або від'ємний код помилки (наприклад, `-EBUSY`, якщо діапазон зайнятий). Виклик `cdev_add()` мусить здійснюватися в останню чергу, оскільки одразу після його виконання пристрій стає видимим для користувачів і може отримувати паралельні виклики `read()` та `write()`.
 
@@ -83,20 +62,7 @@ void cdev_del(struct cdev *p);
 
 Таблиця `file_operations` описує контракт між VFS та символьним драйвером. Усі поля є опціональними вказівниками на функції.
 
-```c
-struct file_operations {
-    struct module *owner;
-    loff_t (*llseek) (struct file *, loff_t, int);
-    ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
-    ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
-    __poll_t (*poll) (struct file *, struct poll_table_struct *);
-    long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
-    int (*mmap) (struct file *, struct vm_area_struct *);
-    int (*open) (struct inode *, struct file *);
-    int (*release) (struct inode *, struct file *);
-    int (*fsync) (struct file *, loff_t, loff_t, int datasync);
-};
-```
+:::code api-cdev-bdev-interfaces/c/tablytsia-failovykh.h
 
 Опис ключових методів `file_operations`:
 - `.open`: Викликається при відкритті файла пристрою. Використовується для ініціалізації приватних даних у `file->private_data`.
@@ -114,19 +80,7 @@ struct file_operations {
 
 Опис абстракції диска у ядрі містить метадані пристрою, розміри розділів та вказівник на операції диска.
 
-```c
-struct gendisk {
-    int major;                        // Старший номер пристрою
-    int first_minor;                  // Перший молодший номер
-    int minors;                       // Максимальна кількість розділів (наприклад, 16)
-    char disk_name[DISK_NAME_LEN];    // Назва диска у /dev (наприклад, "sda")
-    
-    const struct block_device_operations *fops; // Таблиця операцій диска
-    struct request_queue *queue;      // Черга запитів I/O (blk-mq)
-    void *private_data;               // Вказівник на приватні дані драйвера
-    unsigned long state;              // Бітові прапорці стану диска (GD_NEED_PART_SCAN тощо)
-};
-```
+:::code api-cdev-bdev-interfaces/c/struktura-struct-gendisk.c
 
 Детальний опис полів `gendisk`:
 - `major` та `first_minor`: Задають діапазон номерів `dev_t` для самого диска та його розділів. Якщо `minors = 16`, то `/dev/sda` має minor 0, `/dev/sda1` має minor 1, і так до `/dev/sda15`.
@@ -157,21 +111,7 @@ struct block_device_operations {
 
 ### Функції управління lifecycle `gendisk`
 
-```c
-// Виділення структури gendisk із вказаною кількістю мінорних номерів.
-// До ядра 5.15 — саме так; від 5.15 диск створюють разом із чергою
-// виклики blk_alloc_disk() / blk_mq_alloc_disk().
-struct gendisk *alloc_gendisk(int minors);
-
-// Додавання диска в систему (робить диск видимим у sysfs та /dev)
-int add_disk(struct gendisk *disk);
-
-// Видалення диска із системи (деактивація розділів та черг)
-void del_gendisk(struct gendisk *gp);
-
-// Зменшення лічильника посилань на gendisk та звільнення пам'яті
-void put_disk(struct gendisk *disk);
-```
+:::code api-cdev-bdev-interfaces/c/funktsii-upravlinnia.h
 
 Виклик `add_disk()` реєструє диск у підсистемі `sysfs` і викликає сканування таблиці розділів (MBR або GPT). З цього моменту ядро автоматично створює вузли розділів (наприклад, `/dev/sda1`).
 
@@ -183,22 +123,7 @@ void put_disk(struct gendisk *disk);
 
 Об'єкт `bio` репрезентує один дискретний запит I/O, що перебуває в обробці. Він об'єднує списки фізичних сторінок RAM та номери цільових секторів диска.
 
-```c
-struct bio {
-    struct bio          *bi_next;     // Наступний bio у списку черги
-    struct block_device *bi_bdev;     // Цільовий блочний пристрій
-    blk_status_t         bi_status;   // Статус виконання (BLK_STS_OK = 0, BLK_STS_IOERR тощо)
-    unsigned int         bi_opf;      // Прапорці операції (REQ_OP_READ, REQ_OP_WRITE, REQ_RAHEAD)
-    
-    struct bvec_iter     bi_iter;     // Поточний стан ітерації (bi_sector, bi_size)
-    
-    bio_end_io_t        *bi_end_io;   // Callback-функція завершення I/O
-    void                *bi_private;  // Приватний контекст запитувача
-    
-    unsigned short       bi_vcnt;     // Кількість елементів у масиві bi_io_vec
-    struct bio_vec      *bi_io_vec;   // Вектор сторінок пам'яті (page, len, offset)
-};
-```
+:::code api-cdev-bdev-interfaces/c/struktura-struct-bio.c
 
 Розбір полів `struct bio`:
 - `bi_bdev`: Вказівник на об'єкт блочного пристрою, до якого адресовано запит.

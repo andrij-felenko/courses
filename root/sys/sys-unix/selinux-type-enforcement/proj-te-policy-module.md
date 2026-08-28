@@ -159,87 +159,8 @@ allow mydaemon_t mydaemon_port_t : tcp_socket name_bind;
 При виконанні у домені `mydaemon_t` перша дія завершується успішно, а друга викликає відмову `EACCES` під дією SELinux Type Enforcement.
 
 :::tabs
-```c
-/* C: Тестовий демон для перевірки обмежень SELinux Type Enforcement */
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
-
-int main(void) {
-    printf("=== Запуск перевірки доступу демона mydaemon ===\n");
-
-    /* 1. Спроба запису у власний лог-файл (Дозволено правилом allow у mydaemon.te) */
-    const char *log_path = "/var/log/mydaemon.log";
-    int log_fd = open(log_path, O_WRONLY | O_CREAT | O_APPEND, 0640);
-    if (log_fd < 0) {
-        fprintf(stderr, "[ПОМИЛКА] Запис у лог %s відхилено: %s\n", log_path, strerror(errno));
-    } else {
-        const char *msg = "Демон успішно стартував і записав лог під доменом mydaemon_t.\n";
-        write(log_fd, msg, strlen(msg));
-        close(log_fd);
-        printf("[ОК] Запис у власний лог-файл пройшов успішно.\n");
-    }
-
-    /* 2. Спроба читання чужого файла /etc/shadow (Заборонено політики SELinux TE) */
-    const char *shadow_path = "/etc/shadow";
-    int shadow_fd = open(shadow_path, O_RDONLY);
-    if (shadow_fd < 0) {
-        printf("[ОК] Спробу читання %s заблоковано SELinux! Причина: %s (errno=%d)\n", 
-               shadow_path, strerror(errno), errno);
-    } else {
-        fprintf(stderr, "[УВАГА] Порушення безпеки: демон зміг прочитати %s!\n", shadow_path);
-        close(shadow_fd);
-    }
-
-    return 0;
-}
-```
-```cpp
-// C++: Ідіоматична реалізація тестового демона з RAII та обробкою помилок через std::system_error
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <system_error>
-#include <cerrno>
-
-class daemon_tester {
-public:
-    static void test_log_access(const std::string& log_path) {
-        std::ofstream log_stream(log_path, std::ios::app);
-        if (!log_stream.is_open()) {
-            std::cerr << "[ПОМИЛКА] Не вдалося відкрити лог " << log_path << ": "
-                      << std::system_error(errno, std::generic_category()).what() << "\n";
-            return;
-        }
-        log_stream << "C++ Демон успішно записав рядок у лог під доменом mydaemon_t.\n";
-        std::cout << "[ОК] Запис у власний лог-файл пройшов успішно.\n";
-    }
-
-    static void test_unauthorized_access(const std::string& secret_path) {
-        std::ifstream secret_stream(secret_path);
-        if (!secret_stream.is_open()) {
-            std::cout << "[ОК] Спробу читання " << secret_path 
-                      << " заблоковано SELinux! Причина: "
-                      << std::system_error(errno, std::generic_category()).what() 
-                      << " (errno=" << errno << ")\n";
-        } else {
-            std::cerr << "[УВАГА] Помилка безпеки: відкрити " << secret_path << " вдалося!\n";
-        }
-    }
-};
-
-int main() {
-    std::cout << "=== Запуск C++ перевірки доступу демона mydaemon ===\n";
-
-    daemon_tester::test_log_access("/var/log/mydaemon.log");
-    daemon_tester::test_unauthorized_access("/etc/shadow");
-
-    return 0;
-}
-```
+:::code proj-te-policy-module/c/main.c
+:::code proj-te-policy-module/cpp/main.cpp
 :::
 
 Простежимо, що саме відбувається всередині ядра при виклику `open("/etc/shadow", O_RDONLY)` з точки зору перевірки прав:

@@ -163,22 +163,7 @@ iscsi/                                        ← після modprobe iscsi_targ
 
 Найкоротший повний шлях від порожнього дерева до диска, який видно ініціаторові, — вісім команд; зверніть увагу на потрійний крок для LUN.
 
-```sh
-T=/sys/kernel/config/target
-IQN=iqn.2026-08.org.example:store
-CLI=iqn.2026-08.org.example:client
-
-mkdir -p $T/core/fileio_0/disk1
-echo "fd_dev_name=/srv/disk1.img,fd_dev_size=1073741824" > $T/core/fileio_0/disk1/control
-echo 1 > $T/core/fileio_0/disk1/enable
-
-mkdir -p $T/iscsi/$IQN/tpgt_1/np/0.0.0.0:3260
-cd $T/iscsi/$IQN/tpgt_1
-
-mkdir lun/lun_0 &&        ln -s $T/core/fileio_0/disk1 lun/lun_0/backing
-mkdir -p acls/$CLI/lun_0 && ln -s $PWD/lun/lun_0      acls/$CLI/lun_0/mapped
-echo 1 > enable
-```
+:::code api-configfs-target/sh/main.sh
 
 Розбирають це рівно у зворотному порядку, і порядок тут не ввічливість, а вимога ядра: `rmdir` пристрою відмовить, доки `export_count` більший за нуль, тобто доки на нього дивиться бодай одне посилання. Спершу `echo 0 > enable` на групі портів — сеанси розриваються, нові логіни не приймаються. Далі знімаються посилання й теки в порядку, зворотному до створення: спочатку зіставлений LUN усередині ACL, потім сам ACL, потім LUN групи портів, портал, група, ціль. І аж наостанок `rmdir` пристрою й контейнера HBA — тепер, коли на пристрій ніхто не посилається, він звільняється.
 

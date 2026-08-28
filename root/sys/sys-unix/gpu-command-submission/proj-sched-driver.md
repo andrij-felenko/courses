@@ -14,42 +14,7 @@
 
 ## Ініціалізація
 
-```c
-#include <drm/gpu_scheduler.h>
-
-struct mygpu_job {
-    struct drm_sched_job base;      /* спільна частина — далі container_of */
-    struct mygpu_ctx    *ctx;
-    struct dma_fence    *hw_fence;  /* та сама, що поверне run_job */
-    u64 batch_addr;                 /* адреса пакета в просторі контексту */
-    u32 batch_size;
-};
-#define to_mygpu_job(j) container_of((j), struct mygpu_job, base)
-
-static const struct drm_sched_backend_ops mygpu_sched_ops = {
-    .prepare_job  = mygpu_prepare_job,
-    .run_job      = mygpu_run_job,
-    .timedout_job = mygpu_timedout_job,
-    .free_job     = mygpu_free_job,
-    .cancel_job   = mygpu_cancel_job,
-};
-
-int mygpu_engine_init(struct mygpu_engine *eng)
-{
-    const struct drm_sched_init_args args = {
-        .ops          = &mygpu_sched_ops,
-        .credit_limit = MYGPU_RING_SLOTS - 4,  /* менше, ніж уміщає кільце */
-        .hang_limit   = 0,                     /* завинив раз — і по всьому */
-        .timeout      = msecs_to_jiffies(500),
-        .timeout_wq   = eng->dev->reset_wq,    /* окрема черга робіт під скидання */
-        .score        = NULL,
-        .name         = "mygpu-gfx",
-        .dev          = eng->dev->drm.dev,
-    };
-
-    return drm_sched_init(&eng->sched, &args);
-}
-```
+:::code proj-sched-driver/c/initsializatsiia.c
 
 `credit_limit` — це не кількість завдань, а сума їхніх ваг: кожне завдання оголошує свій «кредит», і драйвер сам обирає одиницю (найчастіше — скільки слів завдання займе в кільці). Ліміт свідомо ставлять нижчим за фізичну місткість: усе, що вже подзвонило в дзвінок, планувальникові непідвладне, тож надто повне кільце перетворює будь-який пріоритет на побажання.
 
@@ -59,24 +24,7 @@ int mygpu_engine_init(struct mygpu_engine *eng)
 
 ## Сутність — це контекст
 
-```c
-int mygpu_ctx_init(struct mygpu_ctx *ctx, struct mygpu_device *dev)
-{
-    struct drm_gpu_scheduler *sched_list[] = {
-        &dev->gfx[0].sched, &dev->gfx[1].sched,   /* однакові рушії */
-    };
-
-    return drm_sched_entity_init(&ctx->entity, DRM_SCHED_PRIORITY_NORMAL,
-                                 sched_list, ARRAY_SIZE(sched_list),
-                                 &ctx->guilty);
-}
-
-void mygpu_ctx_fini(struct mygpu_ctx *ctx)
-{
-    drm_sched_entity_destroy(&ctx->entity);  /* flush, а потім fini */
-    mygpu_vm_put(ctx->vm);                   /* аж тепер можна віддавати решту */
-}
-```
+:::code proj-sched-driver/c/sutnist-tse-kontekst.c
 
 Сутність — це вся присутність контексту в планувальнику: послідовна черга, чий порядок гарантовано збігається з порядком подання. Пріоритетів чотири — `KERNEL`, `HIGH`, `NORMAL`, `LOW`; найвищий призначений для внутрішньої роботи самого драйвера, а не для охочих із простору користувача, і роздавати його за проханням не можна.
 
@@ -86,64 +34,7 @@ void mygpu_ctx_fini(struct mygpu_ctx *ctx)
 
 ## Життєвий цикл завдання
 
-```c
-int mygpu_submit_ioctl(struct drm_device *drm, void *data, struct drm_file *file)
-{
-    struct drm_mygpu_submit *args = data;
-    struct mygpu_ctx *ctx = mygpu_ctx_lookup(file, args->ctx_id);
-    struct mygpu_job *job;
-    struct dma_fence *out_fence;
-    unsigned int i;
-    int ret;
-
-    if (atomic_read(&ctx->guilty))
-        return -ECANCELED;                 /* контекст утрачено, беруть новий */
-
-    job = kzalloc(sizeof(*job), GFP_KERNEL);
-    if (!job)
-        return -ENOMEM;
-    job->ctx = ctx;
-
-    ret = drm_sched_job_init(&job->base, &ctx->entity,
-                             mygpu_credits(args), file->driver_priv,
-                             file->client_id);
-    if (ret)
-        goto err_free;
-
-    for (i = 0; i < args->num_in_fences; i++) {
-        struct dma_fence *in = mygpu_in_fence_get(file, args, i);
-
-        if (IS_ERR(in)) { ret = PTR_ERR(in); goto err_cleanup; }
-
-        /* Забирає посилання назавжди — і коли вдалося, і коли ні. */
-        ret = drm_sched_job_add_dependency(&job->base, in);
-        if (ret)
-            goto err_cleanup;
-    }
-
-    job->batch_addr = args->batch_addr;
-    job->batch_size = args->batch_size;
-    ret = mygpu_reserve_ring_slot(ctx->ring, job);   /* усе, що знадобиться потім */
-    if (ret)
-        goto err_cleanup;
-
-    mutex_lock(&ctx->lock);
-    drm_sched_job_arm(&job->base);                   /* точка неповернення */
-    out_fence = dma_fence_get(&job->base.s_fence->finished);
-    drm_sched_entity_push_job(&job->base);
-    mutex_unlock(&ctx->lock);
-
-    ret = mygpu_out_fence_export(file, args, out_fence);
-    dma_fence_put(out_fence);
-    return ret;
-
-err_cleanup:
-    drm_sched_job_cleanup(&job->base);
-err_free:
-    kfree(job);
-    return ret;
-}
-```
+:::code proj-sched-driver/c/zhyttievyi-tsykl-zavdannia.c
 
 Три речі в цьому коді неочевидні.
 
@@ -155,66 +46,7 @@ err_free:
 
 ## Чотири зворотні виклики
 
-```c
-/* 1. Останнє «ще чогось чекаємо?». NULL означає «можна пускати». */
-static struct dma_fence *mygpu_prepare_job(struct drm_sched_job *sched_job,
-                                           struct drm_sched_entity *entity)
-{
-    struct mygpu_job *job = to_mygpu_job(sched_job);
-
-    return mygpu_vm_pending_fence(job->ctx->vm);  /* сторінкові таблиці ще пишуться */
-}
-
-/* 2. Покласти в кільце й віддати апаратну огорожу. */
-static struct dma_fence *mygpu_run_job(struct drm_sched_job *sched_job)
-{
-    struct mygpu_job *job = to_mygpu_job(sched_job);
-    struct dma_fence *hw;
-
-    if (sched_job->s_fence->finished.error || atomic_read(&job->ctx->guilty))
-        return NULL;                 /* після скидання нічого не пускаємо */
-
-    hw = mygpu_ring_emit(job->ctx->ring, job->batch_addr, job->batch_size);
-    if (IS_ERR(hw))
-        return hw;                   /* завдання спрацює з цією помилкою */
-
-    job->hw_fence = hw;              /* наше посилання — до free_job */
-    return dma_fence_get(hw);        /* друге — планувальникові, він його поверне */
-}
-
-/* 3. Строк вийшов. */
-static enum drm_gpu_sched_stat mygpu_timedout_job(struct drm_sched_job *sched_job)
-{
-    struct mygpu_job *job = to_mygpu_job(sched_job);
-    struct drm_gpu_scheduler *sched = sched_job->sched;
-
-    /* Може, воно не зависло, а лише повільне: лічильник рушія посувається. */
-    if (mygpu_ring_progressing(job->ctx->ring))
-        return DRM_GPU_SCHED_STAT_NO_HANG;
-
-    drm_sched_stop(sched, sched_job);          /* спинити подання на цьому рушії */
-    atomic_set(&job->ctx->guilty, 1);          /* контекст утрачено назавжди */
-
-    if (mygpu_reset_context(job->ctx) < 0 &&   /* спершу пробуємо вузьке скидання */
-        mygpu_reset_engine(job->ctx->ring) < 0) {
-        drm_sched_start(sched, -ENODEV);
-        return DRM_GPU_SCHED_STAT_ENODEV;      /* залізо не піднялося */
-    }
-
-    drm_sched_start(sched, -ECANCELED);        /* зняті завдання падають з помилкою */
-    return DRM_GPU_SCHED_STAT_RESET;
-}
-
-/* 4. Прибрати за завданням. */
-static void mygpu_free_job(struct drm_sched_job *sched_job)
-{
-    struct mygpu_job *job = to_mygpu_job(sched_job);
-
-    dma_fence_put(job->hw_fence);
-    drm_sched_job_cleanup(sched_job);   /* огорожі, масив залежностей */
-    kfree(job);
-}
-```
+:::code proj-sched-driver/c/chotyry-zvorotni-vyklyky.c
 
 Посилання на огорожу з `run_job` рахуються окремо: одне забирає планувальник і сам віддає, друге лишається драйверові до `free_job`. Взяти одне на двох — і огорожа зникне з-під ніг у того, хто ще на неї дивиться; про механіку таких лічильників — [окрема тема](root:sf-lang/reference-counting).
 

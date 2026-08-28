@@ -8,53 +8,7 @@
 
 Число, яке драйвер просить, — це побажання. Кожен із трьох учасників має право його вкоротити: контролер хоста обмежений розміром первинного масиву, який він уміє витягти; пристрій оголошує свою стелю в дескрипторі-компаньйоні SuperSpeed (молодші п'ять бітів `bmAttributes` — це двійковий логарифм, тож `(bmAttributes & 0x1f) == 5` означає 32 стрими); драйвер задає свою власну. `usb_alloc_streams()` повертає те, що вціліло після всіх трьох, і саме з цим числом драйверові жити.
 
-```c
-#define MAX_TAGS 32                       /* стеля цього драйвера */
-
-struct dev_state {
-        struct usb_device    *udev;
-        struct usb_interface *intf;
-        unsigned int cmd_pipe, status_pipe, data_in_pipe, data_out_pipe;
-
-        bool         use_streams;
-        unsigned int n_tags;              /* скільки тегів дозволено вживати */
-        bool         quiescing;
-
-        spinlock_t   lock;
-        DECLARE_BITMAP(tag_map, MAX_TAGS);
-        struct cmd  *cmds[MAX_TAGS];
-        struct urb  *status_urb[MAX_TAGS];
-        struct work_struct halt_work;
-};
-
-static void setup_streams(struct dev_state *d,
-                          struct usb_host_endpoint *status_ep,
-                          struct usb_host_endpoint *in_ep,
-                          struct usb_host_endpoint *out_ep)
-{
-        struct usb_host_endpoint *eps[3] = { status_ep, in_ep, out_ep };
-        int n;
-
-        /* на USB 2 номер стриму нікуди записати: у заголовку немає поля */
-        if (d->udev->speed < USB_SPEED_SUPER)
-                goto no_streams;
-
-        n = usb_alloc_streams(d->intf, eps, ARRAY_SIZE(eps), MAX_TAGS, GFP_NOIO);
-        if (n < 2) {
-                /* XHCI_BROKEN_STREAMS, дешевий міст, брак пам'яті — усе сюди */
-                dev_info(&d->intf->dev, "стримів немає (%d), одна команда за раз\n", n);
-                goto no_streams;
-        }
-
-        d->use_streams = true;
-        d->n_tags = n;            /* менше, ніж просили, — норма; більше не буває */
-        return;
-
-no_streams:
-        d->use_streams = false;
-        d->n_tags = 1;            /* це НЕ помилка probe: драйвер працює далі */
-}
-```
+:::code proj-streams-driver/c/skilky-strymiv-dadut.c
 
 Три речі в цьому коді варті окремого слова.
 
@@ -68,52 +22,7 @@ no_streams:
 
 Тег беруть з бітової мапи, і разом із ним команда дістає своє місце в таблиці драйвера. Зверніть увагу на зсув на одиницю: номер стриму 0 зарезервовано, тож теги 0…n−1 відповідають номерам 1…n.
 
-```c
-struct cmd {
-        struct dev_state *d;
-        unsigned int      tag;         /* індекс у cmds[] і в бітовій мапі */
-        unsigned int      stream_id;   /* tag + 1: нуль зарезервовано */
-        struct urb       *data_urb;
-        atomic_t          parts;       /* скільки відповідей ще чекаємо */
-};
-
-static struct cmd *tag_get(struct dev_state *d)
-{
-        unsigned long flags;
-        struct cmd *c;
-        unsigned int t;
-
-        c = kzalloc(sizeof(*c), GFP_ATOMIC);
-        if (!c)
-                return NULL;
-
-        spin_lock_irqsave(&d->lock, flags);
-        t = find_first_zero_bit(d->tag_map, d->n_tags);
-        if (t >= d->n_tags) {                     /* усі теги зайняті */
-                spin_unlock_irqrestore(&d->lock, flags);
-                kfree(c);
-                return NULL;                      /* верхній шар почекає */
-        }
-        __set_bit(t, d->tag_map);
-        c->d = d;
-        c->tag = t;
-        c->stream_id = t + 1;
-        d->cmds[t] = c;
-        spin_unlock_irqrestore(&d->lock, flags);
-        return c;
-}
-
-static void tag_put(struct dev_state *d, struct cmd *c)
-{
-        unsigned long flags;
-
-        spin_lock_irqsave(&d->lock, flags);
-        d->cmds[c->tag] = NULL;
-        __clear_bit(c->tag, d->tag_map);
-        spin_unlock_irqrestore(&d->lock, flags);
-        kfree(c);
-}
-```
+:::code proj-streams-driver/c/teh-iakyi-zhyve-v-trokh.c
 
 Далі це число розходиться на три боки — у корисні дані команди, у заявку на дані й у заявку на статус:
 
@@ -137,46 +46,7 @@ static void tag_put(struct dev_state *d, struct cmd *c)
 
 Для заявки на дані так і є — її подав драйвер під конкретну команду. А от точка статусів улаштована інакше. Щоб узагалі почути відповідь, заявка мусить **уже лежати** в кільці, а хто відповість першим, наперед не знає ніхто — у цьому й уся суть стримів. Тому драйвер тримає на цій точці пул заявок, по одній на номер, і їхній контекст — не команда, а сам пристрій. Що завершилася саме ця заявка, а не сусідня, і є відповіддю на питання «чия розмова зрушила».
 
-```c
-static void status_done(struct urb *urb)
-{
-        struct dev_state *d = urb->context;   /* заявка належить кільцю, не команді */
-        unsigned long flags;
-        struct cmd *c;
-        unsigned int t;
-
-        switch (urb->status) {
-        case 0:
-                break;
-        case -ENOENT:            /* usb_kill_urb */
-        case -ECONNRESET:        /* usb_unlink_urb */
-        case -ESHUTDOWN:         /* точка вимкнена або пристрій зник */
-                return;          /* прибирає той, хто скасовував */
-        case -EPIPE:             /* STALL: стала вся точка, не один стрим */
-                schedule_work(&d->halt_work);
-                return;
-        default:
-                goto requeue;
-        }
-
-        t = urb->stream_id - 1;
-        spin_lock_irqsave(&d->lock, flags);
-        c = (t < d->n_tags && test_bit(t, d->tag_map)) ? d->cmds[t] : NULL;
-        spin_unlock_irqrestore(&d->lock, flags);
-
-        if (!c) {
-                dev_warn(&d->intf->dev, "статус на чужому стримі %u\n", urb->stream_id);
-                goto requeue;
-        }
-
-        if (atomic_dec_and_test(&c->parts))
-                finish_cmd(c);   /* дані й статус прийшли обоє */
-
-requeue:
-        if (!READ_ONCE(d->quiescing))
-                usb_submit_urb(urb, GFP_ATOMIC);   /* кільце знову слухає */
-}
-```
+:::code proj-streams-driver/c/obrobnyk-zavershennia.c
 
 Перевірка `c == NULL` — не параноя. Мікропрограма, яка не забула тег скасованої команди, назве в `ERDY` номер, під яким уже нікого немає; порожній слот ловить це на боці драйвера ще до того, як воно перетвориться на звертання за сміттєвим вказівником.
 
@@ -202,25 +72,7 @@ static void abort_cmd(struct dev_state *d, struct cmd *c)
 
 `STALL` віддається заявці як `-EPIPE`. Ключове: зупинилася не одна розмова, а вся кінцева точка — доки пристрій не почує `CLEAR_FEATURE(ENDPOINT_HALT)`, жоден її стрим не зрушить. Тож відновлення — це вивести з польоту всіх, зняти зупинку й запустити наново.
 
-```c
-static void halt_work_fn(struct work_struct *w)
-{
-        struct dev_state *d = container_of(w, struct dev_state, halt_work);
-        unsigned int i;
-
-        for (i = 0; i < d->n_tags; i++)
-                usb_kill_urb(d->status_urb[i]);
-
-        if (usb_clear_halt(d->udev, d->status_pipe)) {
-                usb_queue_reset_device(d->intf);   /* глухо: скидаємо пристрій */
-                return;
-        }
-
-        for (i = 0; i < d->n_tags; i++)
-                usb_submit_urb(d->status_urb[i], GFP_KERNEL);
-        requeue_pending(d);
-}
-```
+:::code proj-streams-driver/c/koly-tochka-stala.c
 
 `usb_clear_halt()` — синхронна керуюча передача, і в її документації прямо написано, що з контексту переривання її вживати не можна. Тому вона тут, у робочій черзі, а не в обробнику.
 
@@ -228,30 +80,7 @@ static void halt_work_fn(struct work_struct *w)
 
 ## Від'єднання: порядок, який не можна переставити
 
-```c
-static void my_disconnect(struct usb_interface *intf)
-{
-        struct dev_state *d = usb_get_intfdata(intf);
-        struct usb_host_endpoint *eps[3] = {
-                usb_pipe_endpoint(d->udev, d->status_pipe),
-                usb_pipe_endpoint(d->udev, d->data_in_pipe),
-                usb_pipe_endpoint(d->udev, d->data_out_pipe),
-        };
-        unsigned int i;
-
-        WRITE_ONCE(d->quiescing, true);      /* 1. закрити вхід */
-        cancel_work_sync(&d->halt_work);     /* 2. дочекатися відкладеного */
-
-        for (i = 0; i < d->n_tags; i++) {    /* 3. вигнати всіх із польоту */
-                usb_kill_urb(d->status_urb[i]);
-                if (d->cmds[i])
-                        usb_kill_urb(d->cmds[i]->data_urb);
-        }
-
-        if (d->use_streams)                  /* 4. і лише тепер звільняти */
-                usb_free_streams(intf, eps, ARRAY_SIZE(eps), GFP_NOIO);
-}
-```
+:::code proj-streams-driver/c/vidiednannia-poriadok.c
 
 Кроки один і три не переставляються місцями. Обробник завершення сам подає заявку назад у кільце; якщо не закрити вхід прапорцем, `usb_kill_urb()` уб'є заявку, обробник тут-таки покладе її знову — і цикл не матиме кінця. Крок чотири стоїть останнім із тієї самої причини, що й виділення стримів у `probe`: звільнення перебудовує контекст точки, а жива заявка цього не переживе.
 

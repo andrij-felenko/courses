@@ -62,22 +62,7 @@
 
 Переглянути вміст заголовка ELF у реальній системі можна за допомогою утиліти `readelf -h`:
 
-```bash
-$ readelf -h /bin/ls
-ELF Header:
-  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
-  Class:                             ELF64
-  Data:                              2's complement, little endian
-  Version:                           1 (current)
-  OS/ABI:                            UNIX - System V
-  Type:                              DYN (Position-Independent Executable file)
-  Machine:                           Advanced Micro Devices X86-64
-  Entry point address:               0x68b0
-  Start of program headers:          64 (bytes into file)
-  Start of section headers:          143288 (bytes into file)
-  Number of program headers:         13
-  Number of section headers:         31
-```
+:::code elf-structure-d/sh/2-anatomiia-zaholovka-elf.sh
 
 ---
 
@@ -162,26 +147,7 @@ p_vaddr % PAGE_SIZE == p_offset % PAGE_SIZE
 
 Для перегляду сегментів використовують утиліту `readelf -l`:
 
-```bash
-$ readelf -l /bin/ls
-
-Program Headers:
-  Type           Offset             VirtAddr           PhysAddr
-                 FileSiz            MemSiz              Flags  Align
-  PHDR           0x0000000000000040 0x0000000000000040 0x0000000000000040
-                 0x00000000000002d5 0x00000000000002d5  R      0x8
-  INTERP         0x0000000000000318 0x0000000000000318 0x0000000000000318
-                 0x000000000000001c 0x000000000000001c  R      0x1
-      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
-  LOAD           0x0000000000000000 0x0000000000000000 0x0000000000000000
-                 0x000000000003c20 0x000000000003c20  R      0x1000
-  LOAD           0x000000000004000 0x000000000004000 0x000000000004000
-                 0x0000000000160d5 0x0000000000160d5  R E    0x1000
-  LOAD           0x00000000001b000 0x00000000001b000 0x00000000001b000
-                 0x000000000009b00 0x000000000009b00  R      0x1000
-  LOAD           0x0000000000251e0 0x0000000000261e0 0x0000000000261e0
-                 0x0000000000018f8 0x0000000000026e8  RW     0x1000
-```
+:::code elf-structure-d/sh/matematychne.sh
 
 Зверніть увагу на останній сегмент `PT_LOAD`: розмір у файлі `FileSiz = 0x18f8`, а розмір у пам'яті `MemSiz = 0x26e8`. Різниця у `0xdf0` байтів (3568 байтів) — це і є незаініціалізована пам'ять секцій `.bss`, яку ядро обнулить при завантаженні.
 
@@ -237,22 +203,7 @@ Program Headers:
 
 Розглянемо дизасембльований код точки входу `_start` у 64-бітному бінарному файлі:
 
-```bash
-$ objdump -d /bin/ls | grep -A 15 "<_start>:"
-00000000000068b0 <_start>:
-    68b0:   31 ed                   xor    %ebp,%ebp
-    68b2:   49 89 d1                mov    %rdx,%r9        # auxv / ld.so cleanup
-    68b5:   5e                      pop    %rsi            # rsi = argc
-    68b6:   48 89 e2                mov    %rsp,%rdx       # rdx = argv
-    68b9:   48 83 e4 f0             and    $0xfffffffffffffff0,%rsp # 16-byte alignment
-    68bd:   50                      push   %rax
-    68be:   54                      push   %rsp
-    68bf:   4c 8d 05 ...            lea    ...(%rip),%r8   # __libc_csu_fini
-    68c6:   48 8d 0d ...            lea    ...(%rip),%rcx  # __libc_csu_init
-    68cd:   48 8d 3d ...            lea    ...(%rip),%rdi  # main
-    68d4:   ff 15 ...               callq  *...(%rip)      # __libc_start_main
-    68da:   f4                      hlt    
-```
+:::code elf-structure-d/sh/asemblernyi-rozbir-start.sh
 
 Крок за кроком `_start` виконує підготовку середовища:
 

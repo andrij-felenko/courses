@@ -60,28 +60,7 @@
 
 ### Практичні BPF-шаблони для діагностики аномалій TCP
 
-```bash
-# 1. Захоплення виключно пакетів ініціалізації з'єднання (SYN без ACK)
-tcpdump -nn "tcp[tcpflags] & (tcp-syn) != 0 and tcp[tcpflags] & (tcp-ack) == 0"
-
-# 2. Відповіді сервера на запити підключення (SYN-ACK)
-tcpdump -nn "tcp[tcpflags] & (tcp-syn|tcp-ack) == (tcp-syn|tcp-ack)"
-
-# 3. Виявлення всіх пакетів скидання зв'язку (RST)
-tcpdump -nn "tcp[tcpflags] & (tcp-rst) != 0"
-
-# 4. Виявлення пакетів закриття з'єднань (FIN)
-tcpdump -nn "tcp[tcpflags] & (tcp-fin) != 0"
-
-# 5. Детекція NULL-сканування портів (усі прапорці дорівнюють нулю)
-tcpdump -nn "tcp[tcpflags] == 0"
-
-# 6. Детекція XMAS-сканування (активні прапорці FIN, PSH та URG одночасно)
-tcpdump -nn "tcp[tcpflags] & (tcp-fin|tcp-push|tcp-urg) == (tcp-fin|tcp-push|tcp-urg)"
-
-# 7. Детекція SYN-RST аномалій (некоректна комбінація SYN та RST)
-tcpdump -nn "tcp[tcpflags] & (tcp-syn|tcp-rst) == (tcp-syn|tcp-rst)"
-```
+:::code api-tcpdump-bpf-primitives/sh/praktychni-bpf-shablony.sh
 
 ---
 
@@ -146,19 +125,7 @@ tcpdump -nn "tcp[tcpflags] & (tcp-syn|tcp-rst) == (tcp-syn|tcp-rst)"
 
 ### Зрізи заголовків UDP та ICMP
 
-```bash
-# UDP: довжина дейтаграми перевищує 512 байтів (DNS over UDP ретрансляція)
-tcpdump -nn "udp and udp[4:2] > 512"
-
-# ICMP: перехоплення повідомлень Destination Unreachable (Тип 3)
-tcpdump -nn "icmp and icmp[0] == 3"
-
-# ICMP: перехоплення повідомлень Time-to-Live Exceeded (Тип 11, Код 0)
-tcpdump -nn "icmp and icmp[0] == 11 and icmp[1] == 0"
-
-# ICMP: перехоплення луна-запитів Echo Request (Тип 8)
-tcpdump -nn "icmp and icmp[0] == 8"
-```
+:::code api-tcpdump-bpf-primitives/sh/zrizy-zaholovkiv-udp-ta.sh
 
 ---
 
@@ -167,56 +134,8 @@ tcpdump -nn "icmp and icmp[0] == 8"
 Класичний BPF (cBPF) є 32-бітною гарвардською регістровою віртуальною машиною. Кожна інструкція компілюється в 8-байтову структуру `struct sock_filter`.
 
 :::tabs
-```c
-#include <linux/types.h>
-#include <linux/filter.h>
-
-/* Структура інструкції віртуальної машини BPF (8 байтів) */
-struct sock_filter {
-    __u16 code; /* Код операції (Opcode), клас та режим адресації */
-    __u8  jt;   /* Зміщення переходу при істинній умові (Jump True) */
-    __u8  jf;   /* Зміщення переходу при хибній умові (Jump False) */
-    __u32 k;    /* Універсальний аргумент: константа, зміщення або довжина */
-};
-
-/* Контейнер програми BPF для системного виклику setsockopt */
-struct sock_fprog {
-    unsigned short      len;    /* Кількість інструкцій у масиві */
-    struct sock_filter *filter; /* Покажчик на масив інструкцій */
-};
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <vector>
-#include <linux/types.h>
-#include <linux/filter.h>
-
-namespace bpf {
-
-// Ідіоматична C++ обгортка над програмою фільтрації cBPF
-class BpfProgram {
-public:
-    explicit BpfProgram(std::vector<sock_filter> instructions)
-        : instructions_{std::move(instructions)} {}
-
-    [[nodiscard]] sock_fprog get_fprog() noexcept {
-        return sock_fprog{
-            .len = static_cast<unsigned short>(instructions_.size()),
-            .filter = instructions_.data()
-        };
-    }
-
-    [[nodiscard]] std::span<const sock_filter> instructions() const noexcept {
-        return instructions_;
-    }
-
-private:
-    std::vector<sock_filter> instructions_;
-};
-
-} // namespace bpf
-```
+:::code api-tcpdump-bpf-primitives/c/main.c
+:::code api-tcpdump-bpf-primitives/cpp/main.cpp
 :::
 
 ### Регістрова модель cBPF
@@ -263,19 +182,4 @@ private:
 
 ## Рецепти діагностичних фільтрів для розслідування інцидентів
 
-```bash
-# 1. Пошук TCP-з'єднань з нульовим розміром вікна прийому (Zero Window Freeze)
-tcpdump -i eth0 -nn "tcp and tcp[14:2] == 0"
-
-# 2. Виявлення переповнення MTU та спроб фрагментації (пакети більше 1500 байтів)
-tcpdump -i eth0 -nn "ip and ip[2:2] > 1500"
-
-# 3. Виявлення повторних передач SYN (SYN retransmissions при недоступності сервісу)
-tcpdump -i eth0 -nn "tcp[tcpflags] & (tcp-syn) != 0 and tcp[tcpflags] & (tcp-ack) == 0"
-
-# 4. Виявлення штормів RST-пакетів від локального сервера
-tcpdump -i eth0 -nn "src host 192.168.1.50 and tcp[tcpflags] & (tcp-rst) != 0"
-
-# 5. Моніторинг відповідей DNS із прапорцем помилки Server Failure (SERVFAIL / NXDOMAIN)
-tcpdump -i eth0 -nn "udp src port 53 and (udp[11] & 0x0f != 0)"
-```
+:::code api-tcpdump-bpf-primitives/sh/retsepty-diahnostychnykh.sh

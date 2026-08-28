@@ -63,18 +63,7 @@
 
 Через історичний спадок об'єднання кодових баз System V та BSD у пакеті `procps-ng` синтаксис `ps` підтримує три взаємовиключні моделі введення команд:
 
-```bash
-# 1. Стандарт POSIX / System V: опції ПОЧИНАЮТЬСЯ з одного дефісу
-$ ps -ef
-$ ps -u root -l
-
-# 2. Стандарт BSD: опції записуються БЕЗ ДЕФІСУ
-$ ps aux
-$ ps axms
-
-# 3. Довгі опції GNU: починаються з двох дефісів
-$ ps --forest --User root
-```
+:::code live-system-tools-d/sh/podviinist-syntaksysu.sh
 
 Якщо користувач помилково вводить команду `ps -aux` (з дефісом), синтаксичний парсер `ps` інтерпретує її за стандартом POSIX: прапорець `-a` (всі процеси з TTY), прапорець `-u` з наступним обов'язковим аргументом-користувачем `x`. Якщо користувача з іменем `x` у системі не існує, утиліта видає попередження `warning: bad ps syntax, perhaps a bogus '-'?` і застосовує аварійні евристики сумісності.
 
@@ -243,24 +232,7 @@ Load(t) = Load(t - 1) * exp(-5 / (60 * m)) + Active_Tasks * (1 - exp(-5 / (60 * 
 
 ### Практичні діагностичні сценарії lsof
 
-```bash
-# 1. Пошук процесу, який блокує порт (помилка "Address already in use")
-$ lsof -i :8080
-# COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
-# node     4812 app     21u  IPv4  48291      0t0  TCP *:8080 (LISTEN)
-
-# 2. Швидкий пошук мережевих сокетів без затримок DNS-резолвінгу (-n) та без перекладу портів (-P)
-$ lsof -n -P -i TCP:443
-
-# 3. Повний аудит усіх відкритих дескрипторів конкретного процесу
-$ lsof -p 4812
-
-# 4. Пошук процесів, які утримують відкриті файли у точці монтування перед umount
-$ lsof +f -- /mnt/backup
-
-# 5. Рекурсивний пошук процесів, що працюють із файлами всередині каталогу
-$ lsof +D /var/log
-```
+:::code live-system-tools-d/sh/praktychni-diahnostychni.sh
 
 ### Діагностика витоків дескрипторів
 
@@ -343,161 +315,6 @@ $ truncate -s 0 /proc/4821/fd/3
 Нижче наведено порівняльний приклад розрахунку відсотка використання процесора за фіксований часовий інтервал мовами C та C++ у вкладках `:::tabs`.
 
 :::tabs
-```c
-/* C Implementation: Direct /proc/stat CPU Utilization Calculator */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-
-typedef struct {
-    unsigned long long user;
-    unsigned long long nice;
-    unsigned long long system;
-    unsigned long long idle;
-    unsigned long long iowait;
-    unsigned long long irq;
-    unsigned long long softirq;
-    unsigned long long steal;
-} CpuSnap;
-
-int read_cpu_snapshot(CpuSnap *snap) {
-    FILE *f = fopen("/proc/stat", "r");
-    if (!f) return -1;
-
-    char buffer[1024];
-    if (!fgets(buffer, sizeof(buffer), f)) {
-        fclose(f);
-        return -1;
-    }
-    fclose(f);
-
-    int items = sscanf(buffer, "cpu %llu %llu %llu %llu %llu %llu %llu %llu",
-                       &snap->user, &snap->nice, &snap->system, &snap->idle,
-                       &snap->iowait, &snap->irq, &snap->softirq, &snap->steal);
-
-    return (items >= 8) ? 0 : -1;
-}
-
-int main(void) {
-    CpuSnap s1, s2;
-    if (read_cpu_snapshot(&s1) != 0) {
-        perror("Failed to read initial /proc/stat");
-        return 1;
-    }
-
-    /* Інтервал заміру 1 секунда */
-    sleep(1);
-
-    if (read_cpu_snapshot(&s2) != 0) {
-        perror("Failed to read second /proc/stat");
-        return 1;
-    }
-
-    unsigned long long delta_user = (s2.user + s2.nice) - (s1.user + s1.nice);
-    unsigned long long delta_system = s2.system - s1.system;
-    unsigned long long delta_idle = s2.idle - s1.idle;
-    unsigned long long delta_iowait = s2.iowait - s1.iowait;
-    unsigned long long delta_irq = (s2.irq + s2.softirq) - (s1.irq + s1.softirq);
-    unsigned long long delta_steal = s2.steal - s1.steal;
-
-    unsigned long long delta_total = delta_user + delta_system + delta_idle +
-                                    delta_iowait + delta_irq + delta_steal;
-
-    if (delta_total == 0) delta_total = 1;
-
-    double pct_user = (double)delta_user * 100.0 / delta_total;
-    double pct_system = (double)delta_system * 100.0 / delta_total;
-    double pct_idle = (double)delta_idle * 100.0 / delta_total;
-    double pct_iowait = (double)delta_iowait * 100.0 / delta_total;
-
-    printf("=== CPU UTILIZATION REPORT ===\n");
-    printf("User Space:   %6.2f%%\n", pct_user);
-    printf("Kernel Space: %6.2f%%\n", pct_system);
-    printf("IO Wait:      %6.2f%%\n", pct_iowait);
-    printf("Idle:         %6.2f%%\n", pct_idle);
-
-    return 0;
-}
-```
-```cpp
-// C++ Implementation: RAII /proc/stat CPU Utilization Calculator using C++20
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <chrono>
-#include <thread>
-#include <optional>
-#include <format>
-
-struct CpuSnapshot {
-    std::uint64_t user{0};
-    std::uint64_t nice{0};
-    std::uint64_t system{0};
-    std::uint64_t idle{0};
-    std::uint64_t iowait{0};
-    std::uint64_t irq{0};
-    std::uint64_t softirq{0};
-    std::uint64_t steal{0};
-
-    [[nodiscard]] std::uint64_t total() const noexcept {
-        return user + nice + system + idle + iowait + irq + softirq + steal;
-    }
-};
-
-class CpuMonitor {
-public:
-    static std::optional<CpuSnapshot> capture() {
-        std::ifstream statFile("/proc/stat");
-        if (!statFile.is_open()) {
-            return std::nullopt;
-        }
-
-        std::string cpuLabel;
-        CpuSnapshot s{};
-        if (!(statFile >> cpuLabel >> s.user >> s.nice >> s.system >> s.idle
-                        >> s.iowait >> s.irq >> s.softirq >> s.steal)) {
-            return std::nullopt;
-        }
-
-        return (cpuLabel == "cpu") ? std::optional{s} : std::nullopt;
-    }
-};
-
-int main() {
-    const auto snap1 = CpuMonitor::capture();
-    if (!snap1) {
-        std::cerr << "Failed to capture initial CPU snapshot from /proc/stat\n";
-        return 1;
-    }
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-
-    const auto snap2 = CpuMonitor::capture();
-    if (!snap2) {
-        std::cerr << "Failed to capture second CPU snapshot from /proc/stat\n";
-        return 1;
-    }
-
-    const auto dUser = (snap2->user + snap2->nice) - (snap1->user + snap1->nice);
-    const auto dSystem = snap2->system - snap1->system;
-    const auto dIdle = snap2->idle - snap1->idle;
-    const auto dIowait = snap2->iowait - snap1->iowait;
-    const auto dTotal = std::max<std::uint64_t>(1, snap2->total() - snap1->total());
-
-    const double pctUser = static_cast<double>(dUser) * 100.0 / dTotal;
-    const double pctSystem = static_cast<double>(dSystem) * 100.0 / dTotal;
-    const double pctIowait = static_cast<double>(dIowait) * 100.0 / dTotal;
-    const double pctIdle = static_cast<double>(dIdle) * 100.0 / dTotal;
-
-    std::cout << "=== CPU UTILIZATION REPORT (C++) ===\n";
-    std::cout << "User Space:   " << pctUser << "%\n";
-    std::cout << "Kernel Space: " << pctSystem << "%\n";
-    std::cout << "IO Wait:      " << pctIowait << "%\n";
-    std::cout << "Idle:         " << pctIdle << "%\n";
-
-    return 0;
-}
-```
+:::code live-system-tools-d/c/main.c
+:::code live-system-tools-d/cpp/main.cpp
 :::

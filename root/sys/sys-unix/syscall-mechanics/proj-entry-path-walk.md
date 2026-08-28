@@ -103,18 +103,7 @@ SYSCALL_DEFINE3(write, unsigned int, fd, const char __user *, buf,
 
 Далі — найцікавіше місце, бо воно змінилося:
 
-```c
-/* arch/x86/entry/syscall_64.c */
-#define __SYSCALL(nr, sym) case nr: return __x64_##sym(regs);
-
-long x64_sys_call(const struct pt_regs *regs, unsigned int nr)
-{
-        switch (nr) {
-        #include <asm/syscalls_64.h>
-        default: return __x64_sys_ni_syscall(regs);
-        }
-}
-```
+:::code proj-entry-path-walk/c/syscall_64.c
 
 Це той самий трюк, що й з іменами, тільки навиворіт: `#include` стоїть **усередині** `switch`, а підключений файл — довгий список рядків виду `__SYSCALL(1, sys_write)`. Кожен такий рядок макрос перетворює на `case 1: return __x64_sys_write(regs);`. Самого файлу в дереві сирців немає — його породжує під час збірки скрипт `scripts/syscalltbl.sh` із тієї ж `.tbl`, і лежить він у `arch/x86/include/generated/asm/syscalls_64.h`.
 

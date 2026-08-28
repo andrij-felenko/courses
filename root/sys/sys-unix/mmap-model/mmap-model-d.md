@@ -59,30 +59,7 @@ void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
 
 Найкоротший спосіб у цьому переконатися — відобразити файл, більший за всю пам'ять машини:
 
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-int main(void)
-{
-    int fd = open("/var/data/huge.bin", O_RDONLY);   /* файл на 40 ГіБ */
-    struct stat st;
-    fstat(fd, &st);
-
-    unsigned char *p = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-    if (p == MAP_FAILED) { perror("mmap"); return 1; }
-    close(fd);                       /* дескриптор більше не потрібен */
-
-    printf("%u\n", p[3000000000ULL]);    /* ось тут станеться перший збій */
-
-    munmap(p, st.st_size);
-    return 0;
-}
-```
+:::code mmap-model-d/c/main.c
 
 На машині з вісьмома гігабайтами пам'яті ця програма працює й закінчується миттю. Виклик `mmap` повернувся так само швидко, як повернувся б для файлу на кілобайт: він лише дописав рядок у список ділянок. У `ps` віртуальний розмір процесу (VSZ) підскочив на сорок гігабайтів, а резидентний (RSS) не зрушив — бо VSZ рахує адреси, які процес має право назвати, а RSS рахує фізичні сторінки, які йому справді дали ([як міряти пам'ять процесу](root:sys-unix/memory-accounting)).
 

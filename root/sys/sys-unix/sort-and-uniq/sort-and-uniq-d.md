@@ -276,57 +276,10 @@ du -h /var/log/* | sort -h -k1,1 -r | head -n 10
 :::tabs
 
 @tab C (POSIX / C11)
-```c
-#define _POSIX_C_SOURCE 200809L
-#include <stdio.h>
-#include <string.h>
-#include <locale.h>
-
-int main(void) {
-    const char *s1 = "abc-1";
-    const char *s2 = "abc1";
-
-    // 1. Стандартна UTF-8 локаль
-    setlocale(LC_ALL, "en_US.UTF-8");
-    printf("en_US.UTF-8 strcoll: %d\n", strcoll(s1, s2)); // Дефіс ігнорується на первинному рівні
-
-    // 2. Стандартна C-локаль
-    setlocale(LC_ALL, "C");
-    printf("C locale strcmp:     %d\n", strcmp(s1, s2));  // Побайтове порівняння ASCII ('-' < '1')
-
-    return 0;
-}
-```
+:::code sort-and-uniq-d/c/main.c
 
 @tab C++ (C++20)
-```cpp
-#include <iostream>
-#include <string_view>
-#include <locale>
-#include <cstring>
-
-int main() {
-    std::string_view s1 = "abc-1";
-    std::string_view s2 = "abc1";
-
-    // 1. Стандартна UTF-8 локаль через std::locale
-    try {
-        std::locale utf8_loc("en_US.UTF-8");
-        const auto& coll = std::use_facet<std::collate<char>>(utf8_loc);
-        int res_utf8 = coll.compare(s1.data(), s1.data() + s1.size(),
-                                    s2.data(), s2.data() + s2.size());
-        std::cout << "en_US.UTF-8 collate: " << res_utf8 << '\n';
-    } catch (const std::exception& e) {
-        std::cerr << "Помилка завантаження локалі: " << e.what() << '\n';
-    }
-
-    // 2. Побайтове ASCII порівняння
-    int res_c = std::strcmp(s1.data(), s2.data());
-    std::cout << "C locale strcmp:     " << res_c << '\n';
-
-    return 0;
-}
-```
+:::code sort-and-uniq-d/cpp/main.cpp
 
 :::
 

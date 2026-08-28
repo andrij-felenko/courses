@@ -156,32 +156,8 @@ gcc libhelper.a main.o -o app
 - Усі виклики `__real_malloc` у коді перенаправляються на оригінальний `malloc` з `libc.so`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-void *__real_malloc(size_t size);
-
-/* Перехоплювач на етапі компонування */
-void *__wrap_malloc(size_t size) {
-    printf("[link-time wrap] malloc(%zu)\n", size);
-    return __real_malloc(size);
-}
-```
-```cpp
-#include <iostream>
-#include <cstdlib>
-
-extern "C" {
-    void* __real_malloc(std::size_t size);
-    
-    /* Перехоплювач на етапі компонування у C++ */
-    void* __wrap_malloc(std::size_t size) noexcept {
-        std::cerr << "[link-time wrap] malloc(" << size << ")\n";
-        return __real_malloc(size);
-    }
-}
-```
+:::code symbol-resolution-d/c/5-2-link-time.c
+:::code symbol-resolution-d/cpp/5-2-link-time.hpp
 :::
 
 ### 5.3 Run-time Hooking (dlsym та RTLD_NEXT)
@@ -195,34 +171,8 @@ extern "C" {
 Макрос `RTLD_NEXT` вказує лінкеру шукати символ `malloc`, починаючи з об'єкта, що лежить у списку завантаження **після** поточного DSO:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <dlfcn.h>
-
-void *malloc(size_t size) {
-    static void *(*real_malloc)(size_t) = NULL;
-    if (!real_malloc) {
-        real_malloc = dlsym(RTLD_NEXT, "malloc");
-    }
-    /* Виклик оригінальної функції з libc */
-    return real_malloc(size);
-}
-```
-```cpp
-#define _GNU_SOURCE
-#include <iostream>
-#include <dlfcn.h>
-#include <cstddef>
-
-extern "C" void* malloc(std::size_t size) noexcept {
-    using MallocFn = void* (*)(std::size_t);
-    static MallocFn real_malloc = reinterpret_cast<MallocFn>(dlsym(RTLD_NEXT, "malloc"));
-    
-    /* Виклик оригінальної функції з libc */
-    return real_malloc(size);
-}
-```
+:::code symbol-resolution-d/c/5-3-run-time-hooking-dlsym.c
+:::code symbol-resolution-d/cpp/5-3-run-time-hooking-dlsym.hpp
 :::
 
 Повний довідник з прапорів компонувальника, констант `RTLD_*` та атрибутів видимості міститься у матеріалі [📋 Довідник прапорів та атрибутів динамічного лінкера](root:sys-unix/symbol-resolution/api-dynamic-linker-flags.md).

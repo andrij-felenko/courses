@@ -4,23 +4,7 @@
 
 ## Об'єкт у ядрі: `struct dma_fence`
 
-```c
-/* include/linux/dma-fence.h — під цим іменем з v4.10 (доти struct fence) */
-struct dma_fence {
-    spinlock_t                 *lock;   /* спільний із чергою, що сигналізує */
-    const struct dma_fence_ops *ops;
-    union {                             /* три стадії життя, ніколи разом    */
-        struct list_head cb_list;       /* доки не спрацювала: спостерігачі  */
-        ktime_t          timestamp;     /* після падіння: мить сигналу       */
-        struct rcu_head  rcu;           /* після звільнення                  */
-    };
-    u64            context;   /* ідентифікатор апаратної черги */
-    u64            seqno;     /* місце в цій черзі             */
-    unsigned long  flags;
-    struct kref    refcount;
-    int            error;     /* 0 або від'ємний errno */
-};
-```
+:::code api-fence-interfaces/c/obiekt-u-iadri-struct-dma.c
 
 Об'єднання (`union`) — не економія на дрібницях, а твердження: доки огорожа не спрацювала, часу сигналу ще немає, а доки на неї хтось дивиться, звільняти нічого. Три поля не можуть знадобитися одночасно.
 
@@ -203,19 +187,6 @@ struct drm_syncobj_timeline_array { __u64 handles; __u64 points;
 
 `RESET` спорожняє комірки, `SIGNAL` кладе в них уже спрацьовану огорожу — обидва рятують, коли робота так і не була подана, а чекачі вже є. `QUERY` віддає поточну позначку кожної шкали, `TRANSFER` переносить огорожу з однієї комірки або позначки в іншу, не чекаючи на неї.
 
-```c
-struct drm_syncobj_timeline_wait {   /* v5.2 */
-    __u64 handles;        /* масив дескрипторів об'єктів */
-    __u64 points;         /* по позначці шкали на кожен  */
-    __s64 timeout_nsec;   /* абсолютний час за CLOCK_MONOTONIC */
-    __u32 count_handles, flags, first_signaled, pad;
-    __u64 deadline_nsec;  /* v6.8 */
-};
-
-#define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL        (1 << 0)  /* v4.14 */
-#define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT (1 << 1)  /* v4.14 */
-#define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE  (1 << 2)  /* v5.2  */
-#define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE   (1 << 3)  /* v6.8  */
-```
+:::code api-fence-interfaces/c/drm-syncobj-komirka-iaku.c
 
 `WAIT_FOR_SUBMIT` — саме той прапорець, задля якого шкали й заводили: без нього очікування на порожню комірку одразу дає `-EINVAL`, з ним очікувач засинає й прокидається, коли роботу подадуть пізніше. `WAIT_AVAILABLE` зупиняє чекача не на завершенні, а на появі огорожі в комірці. `WAIT_DEADLINE` перетворює `deadline_nsec` на підказку тому, хто сигналізуватиме, — те саме, що `SYNC_IOC_SET_DEADLINE` робить для окремого дескриптора, і не випадково обидва прийшли одним випуском.

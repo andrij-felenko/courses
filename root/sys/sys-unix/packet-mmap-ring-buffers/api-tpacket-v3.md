@@ -59,28 +59,7 @@ struct tpacket_req3 {
 
 Кожен блок у змонтованому масиві починається з бінарного заголовка `struct tpacket_block_desc`. Внутрішньо цей заголовок містить версійну структуру `struct tpacket_hdr_v1`, яка описує поточний стан та вміст блоку.
 
-```c
-struct tpacket_bd_ts {
-    unsigned int ts_sec;  /* Секунди Epoch */
-    unsigned int ts_usec; /* Мікросекунди */
-};
-
-struct tpacket_hdr_v1 {
-    uint32_t block_status;              /* Прапорець володіння та стану блоку */
-    uint32_t num_pkts;                  /* Кількість пакетів, упакованих у цей блок */
-    uint32_t offset_to_first_pkt;       /* Зсув у байтах від початку блоку до першого пакета */
-    uint32_t blk_len;                   /* Загальний розмір записаних даних у блоці у байтах */
-    uint64_t seq_num;                   /* Порядковий номер блоку (монотонний лічильник ядра) */
-    struct tpacket_bd_ts ts_first_pkt;  /* Часова мітка першого пакета у блоці */
-    struct tpacket_bd_ts ts_last_pkt;   /* Часова мітка останнього пакета у блоці */
-};
-
-struct tpacket_block_desc {
-    uint32_t version;                   /* Версія заголовка блоку (TPACKET_V3) */
-    uint32_t offset_to_priv;            /* Зсув до приватної області користувача */
-    struct tpacket_hdr_v1 h1;           /* Внутрішній заголовок інформації про блок */
-};
-```
+:::code api-tpacket-v3/c/2-2-opys-zaholovkiv-bloku.c
 
 Пояснення полів структури заголовка блоку:
 
@@ -97,22 +76,7 @@ struct tpacket_block_desc {
 
 Усередині блоку кожен пакет передується заголовком `struct tpacket3_hdr`, який містить повний набір метаданих та зсувів.
 
-```c
-struct tpacket3_hdr {
-    uint32_t tp_next_offset; /* Зсув у байтах до наступного tpacket3_hdr у блоці (0 = кінець) */
-    uint32_t tp_sec;         /* Секунди часової мітки надходження пакета */
-    uint32_t tp_nsec;        /* Наносекунди часової мітки */
-    uint32_t tp_snaplen;     /* Довжина збереженої частини пакета у буфері */
-    uint32_t tp_len;         /* Повна оригінальна довжина пакета у мережевому дріті */
-    uint32_t tp_status;      /* Індивідуальні прапорці статусу пакета (VLAN, CSUM) */
-    uint16_t tp_mac;         /* Зсув від початку tpacket3_hdr до заголовка канального рівня (L2) */
-    uint16_t tp_net;         /* Зсув від початку tpacket3_hdr до заголовка мережевого рівня (L3) */
-    union {
-        struct tpacket_hdr_variant1 hv1;
-    };
-    uint8_t  tp_padding[8];  /* Додаткове вирівнювання структури під 64-бітні кордони */
-};
-```
+:::code api-tpacket-v3/c/2-3-zaholovok.c
 
 Деталізація полів `struct tpacket3_hdr`:
 

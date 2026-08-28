@@ -81,32 +81,7 @@ ssize_t readlinkat(int dirfd, const char *restrict path,
 
 Розмір буфера підказує `lstat`: для символьного посилання `st_size` — це довжина збереженого рядка. Але на магічних посиланнях `/proc` (`/proc/self/exe`, `/proc/self/fd/N`) `st_size` дорівнює нулю, бо цілі там немає на диску. Тому надійний код не питає розміру, а росте, доки не переконається, що не зрізав:
 
-```c
-#include <stdlib.h>
-#include <unistd.h>
-
-/* Повертає шлях, завершений нулем; звільняє викликач. NULL — помилка. */
-char *read_link(const char *path)
-{
-    size_t size = 256;
-    for (;;) {
-        char *buf = malloc(size);
-        if (!buf)
-            return NULL;
-        ssize_t n = readlink(path, buf, size);
-        if (n < 0) {            /* errno вже виставлено */
-            free(buf);
-            return NULL;
-        }
-        if ((size_t)n < size) { /* влізло з запасом — зрізати не могло */
-            buf[n] = '\0';
-            return buf;
-        }
-        free(buf);              /* n == size: могло зрізати, беремо більший */
-        size *= 2;
-    }
-}
-```
+:::code api-link-syscalls/c/prochytaty-posylannia.c
 
 Із Linux 2.6.39 `readlinkat` приймає порожній шлях: `readlinkat(fd, "", buf, n)`, де `fd` здобуто через `open(path, O_PATH | O_NOFOLLOW)`, читає саме те посилання, на яке цей дескриптор і вказує, — без повторного розбору шляху, а отже без вікна для підміни.
 
@@ -190,55 +165,13 @@ int renameat2(int olddirfd, const char *oldpath,
 
 Двох речей тут легко не помітити. По-перше, підтримка прапорця залежить не лише від ядра, а й від **конкретної** файлової системи, і брак підтримки видно як `EINVAL` або `EOPNOTSUPP` — не як «зроблено без прапорця». По-друге, обгортка в glibc з'явилася лише у версії 2.28, тож переносний код кличе виклик номером. Разом це означає, що `RENAME_NOREPLACE` завжди пишуть із запасним шляхом:
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-
-/* У glibc до 2.28 константи немає в жодному з цих заголовків. */
-#ifndef RENAME_NOREPLACE
-#define RENAME_NOREPLACE (1 << 0)
-#endif
-
-/* Перейменувати, НЕ витісняючи ціль. 0 — успіх, -1 і errno — ні. */
-int rename_noreplace(const char *old, const char *new)
-{
-#ifdef SYS_renameat2
-    if (syscall(SYS_renameat2, AT_FDCWD, old, AT_FDCWD, new,
-                RENAME_NOREPLACE) == 0)
-        return 0;
-    if (errno != ENOSYS && errno != EINVAL && errno != EOPNOTSUPP)
-        return -1;              /* справжня помилка, не брак підтримки */
-#endif
-    /* Запасний шлях без renameat2: жорстке посилання не витісняє ніколи,
-       тож EEXIST від link() дає рівно ту саму відмову. Не атомарно
-       як ціле — між link і unlink файл видно під двома іменами, —
-       але цілі під іменем new не підміняє. */
-    if (link(old, new) < 0)
-        return -1;              /* EEXIST, якщо ім'я зайняте */
-    return unlink(old);
-}
-```
+:::code api-link-syscalls/c/perenesty-imia.c
 
 ## Файл, якому ім'я дають наприкінці
 
 `O_TMPFILE` (Linux 3.11) створює inode **з нульовим лічильником імен**: файл є, місце під нього виділяється, а в жодному каталозі на нього нема рядка. Шлях в `open` називає не файл, а каталог — точніше, лише вказує, у якій файловій системі народитися новому inode.
 
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int fd = open("/var/lib/app", O_TMPFILE | O_RDWR, 0600);
-/* … пишемо в fd скільки треба; файл ніде не видно … */
-
-char proc[64];
-snprintf(proc, sizeof proc, "/proc/self/fd/%d", fd);
-linkat(AT_FDCWD, proc, AT_FDCWD, "/var/lib/app/data.bin", AT_SYMLINK_FOLLOW);
-```
+:::code api-link-syscalls/c/fcntl.h
 
 Чому саме так. `/proc/self/fd/N` — магічне посилання ([псевдо-ФС](root:sys-unix/pseudo-filesystems)), і `linkat` типово за посиланнями не йде, тож без `AT_SYMLINK_FOLLOW` виклик спробував би зв'язати саме посилання й нічого доброго не вийшло б. Привілейований процес може обійтися без `/proc` зовсім: `linkat(fd, "", AT_FDCWD, шлях, AT_EMPTY_PATH)` — але це вимагає `CAP_DAC_READ_SEARCH`. І окремо: `O_EXCL` разом з `O_TMPFILE` має **протилежне звичному** значення — він назавжди забороняє давати цьому файлові ім'я.
 

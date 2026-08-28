@@ -8,74 +8,7 @@
 
 Перший дослід міряє те, заради чого буфер узагалі існує, — ціну одного походу в ядро. Той самий мегабайт іде в `/dev/null` п'ятьма способами, щоб на виході було не одне число, а розклад, з чого воно складається.
 
-```c
-/* bench.c — ціна перетину межі: посимвольний write проти буфера stdio */
-#define _POSIX_C_SOURCE 200809L
-#include <fcntl.h>
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
-
-enum { N = 1 << 20, BLK = 4096 };          /* рівно 1 МіБ */
-
-static double now(void)
-{
-    struct timespec t;
-    clock_gettime(CLOCK_MONOTONIC, &t);
-    return t.tv_sec + t.tv_nsec * 1e-9;
-}
-
-static void row(const char *name, double sec, long calls)
-{
-    fprintf(stderr, "%s\n    %8.2f мс   %8.1f нс на виклик\n",
-            name, sec * 1e3, sec * 1e9 / calls);
-}
-
-int main(void)
-{
-    static char block[BLK];
-    double t;
-
-    for (int i = 0; i < BLK; i++) block[i] = 'x';
-
-    int fd = open("/dev/null", O_WRONLY);
-    FILE *f = fopen("/dev/null", "w");
-    if (fd < 0 || !f) { perror("/dev/null"); return 1; }
-    setvbuf(f, NULL, _IOFBF, 0);           /* до першої операції — так можна */
-
-    t = now();
-    for (long i = 0; i < N; i++)
-        if (write(fd, block, 1) < 0) { perror("write"); return 1; }
-    row("А  write по одному байту", now() - t, N);
-
-    t = now();
-    for (long i = 0; i < N / BLK; i++)
-        if (write(fd, block, BLK) < 0) { perror("write"); return 1; }
-    row("Б  write по 4096 байтів", now() - t, N / BLK);
-
-    t = now();
-    for (long i = 0; i < N; i++) putc('x', f);
-    fflush(f);
-    row("В  putc крізь буфер stdio", now() - t, N);
-
-    t = now();
-    flockfile(f);
-    for (long i = 0; i < N; i++) putc_unlocked('x', f);
-    funlockfile(f);
-    fflush(f);
-    row("Г  putc_unlocked під одним flockfile", now() - t, N);
-
-    t = now();
-    for (long i = 0; i < N / BLK; i++)
-        if (fwrite(block, 1, BLK, f) != BLK) { perror("fwrite"); return 1; }
-    fflush(f);
-    row("Д  fwrite блоками по 4096", now() - t, N / BLK);
-
-    fclose(f);
-    close(fd);
-    return 0;
-}
-```
+:::code proj-buffering-lab/c/bench.c
 
 Годинник тут не спотворює результату: `clock_gettime(CLOCK_MONOTONIC, …)` у Linux зазвичай узагалі не доходить до ядра — [vDSO](root:sys-unix/vdso) (ядро підсовує кожному процесові крихітну бібліотеку зі своїм кодом, і читання годинника коштує наносекунди замість повноцінного перетину межі). Тому вимірювальний код не додає до підсумку власних системних викликів.
 
@@ -89,19 +22,7 @@ int main(void)
 
 Тепер найголовніше твердження статей про stdio: режим — не властивість програми. Перевіряється це однією двійкою, запущеною двічі.
 
-```c
-/* modes.c — куди веде дескриптор 1, такий і режим */
-#include <stdio.h>
-#include <unistd.h>
-
-int main(void)
-{
-    fprintf(stderr, "isatty(1) = %d\n", isatty(STDOUT_FILENO));
-    for (int i = 1; i <= 400; i++)
-        printf("progress %3d of 400\n", i);
-    return 0;
-}
-```
+:::code proj-buffering-lab/c/modes.c
 
 Кожен рядок тут — рівно 20 байтів (`%3d` завжди займає три позиції), тож усі числа далі можна порахувати наперед.
 
@@ -119,31 +40,7 @@ $ wc -l tty.txt pipe.txt
 
 Буфер stdio живе в пам'яті процесу, а `fork` копіює пам'ять цілком ([fork: розмноження процесу](root:sys-unix/fork-semantics) — дитина дістає власну копію всього адресного простору батька). Отже, недописане подвоюється разом із рештою.
 
-```c
-/* twice.c — ./twice зламано, ./twice fix полагоджено */
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-int main(int argc, char **argv)
-{
-    int fix = (argc > 1 && strcmp(argv[1], "fix") == 0);
-
-    printf("count: %d\n", 42);
-    if (fix)
-        fflush(stdout);          /* буфер порожній — копіювати нема чого */
-
-    pid_t pid = fork();
-    if (pid < 0) { perror("fork"); return 1; }
-    if (pid == 0) {
-        if (fix) _exit(0);       /* дитина не зливає чужого недописаного */
-        return 0;                /* а так — зливає свою копію буфера */
-    }
-    wait(NULL);
-    return 0;
-}
-```
+:::code proj-buffering-lab/c/twice.c
 
 ```bash
 $ ./twice                 # термінал: один рядок
@@ -158,28 +55,7 @@ $ strace -f -e trace=write -o fork.txt ./twice > /dev/null && cat fork.txt
 
 Правило відоме — `setvbuf` можна кликати тільки до першої операції над потоком. Цікаве починається, коли його порушити: стандарт каже «невизначена поведінка», а машина показує щось конкретне.
 
-```c
-/* late.c — запуск: strace -e trace=write -o late.txt ./late > /dev/null */
-#include <stdio.h>
-
-static char mine[64];            /* статичний: мусить пережити потік */
-
-int main(void)
-{
-    printf("A: already in the buffer\n");
-
-    int r = setvbuf(stdout, NULL, _IOLBF, 64);
-    fprintf(stderr, "setvbuf -> %d\n", r);
-
-    printf("B: goes out on the newline\n");
-
-    setvbuf(stdout, mine, _IOFBF, sizeof mine);
-    for (int i = 0; i < 8; i++)
-        printf("filler line %d\n", i);
-
-    return 0;
-}
-```
+:::code proj-buffering-lab/c/late.c
 
 На glibc `setvbuf` поверне нуль, а в трасі перший `write` буде на 52 байти — обидва рядки разом. Читається це так. Прапорець режиму таки перемкнувся: рядок «B» вийшов на своєму переході рядка, а не в кінці програми. Але рядок «A» сам виклик `setvbuf` нікуди не випхнув — він так і чекав у буфері до найближчого приводу. І головне: **числа 64 бібліотека не побачила взагалі**. Довідка формулює це прямо — коли `buf` дорівнює `NULL`, зачеплено лише режим, а буфер буде виділено при наступній операції; у нашому випадку він уже виділений, і його розмір лишається тим, що бібліотека обрала на старті.
 

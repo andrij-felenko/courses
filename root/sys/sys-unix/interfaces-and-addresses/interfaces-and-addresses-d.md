@@ -130,20 +130,7 @@
 
 Поле `dev->ip_ptr` вказує на структуру `struct in_device`. У цій структурі поле `ifa_list` містить однозв'язний список об'єктів `struct in_ifaddr`:
 
-```c
-struct in_ifaddr {
-    struct in_ifaddr   *ifa_next;      /* Вказівник на наступну адресу в списку */
-    struct in_device   *ifa_dev;       /* Зворотний вказівник на пристрій */
-    __be32             ifa_local;      /* Локальна IP-адреса хоста (Big-Endian) */
-    __be32             ifa_address;    /* IP-адреса призначення (для P-t-P) */
-    __be32             ifa_mask;       /* Маска підмережі у форматі Big-Endian */
-    __be32             ifa_broadcast;  /* Wide-area широкомовна адреса */
-    unsigned char      ifa_prefixlen;  /* Довжина CIDR-префікса (0..32) */
-    unsigned char      ifa_flags;      /* Прапорці адреси (IFA_F_SECONDARY тощо) */
-    unsigned char      ifa_scope;      /* Область видимості адреси */
-    char               ifa_label[IFNAMSIZ]; /* Назва адреси чи псевдоніма */
-};
-```
+:::code interfaces-and-addresses-d/c/main.c
 
 Перша адреса в списку `ifa_list` вважається **головною (Primary IP)**. Усі наступні адреси, додані в ту саму підмережу, отримують прапорець `IFA_F_SECONDARY`. Це має важливе значення при виборі джерела адреси (Source Address Selection): коли процес надсилає пакет через інтерфейс без явного виклику `bind()`, ядро бере виключно Первинну адресу.
 

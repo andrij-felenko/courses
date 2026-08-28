@@ -45,20 +45,7 @@
 
 Структура `struct vhost_memory` описує повний набір фізичних регіонів пам'яті віртуальної машини:
 
-```c
-struct vhost_memory_region {
-    uint64_t guest_phys_addr; /* Початкова фізична адреса у гості (GPA) */
-    uint64_t memory_size;     /* Розмір сегмента пам'яті в байтах */
-    uint64_t userspace_addr;  /* Початкова віртуальна адреса в гіпервізорі (HVA) */
-    uint64_t flags_padding;   /* Допоміжні прапори та вирівнювання */
-};
-
-struct vhost_memory {
-    uint32_t nregions;        /* Кількість сегментів пам'яті */
-    uint32_t padding;         /* Вирівнювання структури */
-    struct vhost_memory_region regions[0]; /* Гнучкий масив сегментів */
-};
-```
+:::code api-vhost-net-ioctl/c/1-karta-pamiati-struct.c
 
 #### Детальний механізм трансляції GPA в HVA
 
@@ -147,19 +134,7 @@ struct vring_avail {
 
 ### Кільце оброблених буферів: struct vring_used
 
-```c
-struct vring_used_elem {
-    uint32_t id;   /* Індекс головного дескриптора ланцюжка з Descriptor Table */
-    uint32_t len;  /* Кількість записаних у буфер байтів */
-};
-
-struct vring_used {
-    uint16_t flags;                /* VRING_USED_F_NO_NOTIFY (1 = пригнічення kick) */
-    uint16_t idx;                  /* Індекс наступного елемента, який запише vhost */
-    struct vring_used_elem ring[N];/* Масив результатів обробки */
-    uint16_t avail_event;          /* Вказувач порогу сповіщення */
-};
-```
+:::code api-vhost-net-ioctl/c/kiltse-obroblenykh-buferiv.c
 
 ## Механізм логування брудних сторінок для Live Migration
 

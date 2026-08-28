@@ -21,34 +21,7 @@ struct nft_regs {
 
 Заголовочний файл `include/uapi/linux/netfilter/nf_tables.h` визначає публічну адресувальну схему регістрів віртуальної машини, що використовується при серіалізації правил у простір користувача:
 
-```c
-enum nft_registers {
-	NFT_REG_VERDICT		= 0,
-	NFT_REG_1		= 1,
-	NFT_REG_2		= 2,
-	NFT_REG_3		= 3,
-	NFT_REG_4		= 4,
-	__NFT_REG_MAX,
-
-	/* 32-бітні регістри (впроваджені у ядрі 4.9) */
-	NFT_REG32_00		= 8,
-	NFT_REG32_01		= 9,
-	NFT_REG32_02		= 10,
-	NFT_REG32_03		= 11,
-	NFT_REG32_04		= 12,
-	NFT_REG32_05		= 13,
-	NFT_REG32_06		= 14,
-	NFT_REG32_07		= 15,
-	NFT_REG32_08		= 16,
-	NFT_REG32_09		= 17,
-	NFT_REG32_10		= 18,
-	NFT_REG32_11		= 19,
-	NFT_REG32_12		= 20,
-	NFT_REG32_13		= 21,
-	NFT_REG32_14		= 22,
-	NFT_REG32_15		= 23,
-};
-```
+:::code api-nftables-expressions/c/1-1-perelik-rehistriv-ta.c
 
 Детальний функціональний розподіл регістрів пам'яті виглядає наступним чином:
 
@@ -110,31 +83,7 @@ struct nft_expr {
 
 Властивості та логіка виконання виразу задаються через таблицю вказівників на функції `struct nft_expr_ops`:
 
-```c
-struct nft_expr_ops {
-	void				(*eval)(const struct nft_expr *expr,
-						struct nft_regs *regs,
-						const struct nft_pktinfo *pkt);
-	int				(*size);
-	int				(*init)(const struct nft_ctx *ctx,
-						const struct nft_expr *expr,
-						const struct nlattr * const tb[]);
-	void				(*activate)(const struct nft_ctx *ctx,
-						   const struct nft_expr *expr);
-	void				(*deactivate)(const struct nft_ctx *ctx,
-						     const struct nft_expr *expr,
-						     enum nft_trans_phase phase);
-	void				(*destroy)(const struct nft_ctx *ctx,
-						  const struct nft_expr *expr);
-	int				(*dump)(struct sk_buff *skb,
-						const struct nft_expr *expr,
-						bool reset);
-	int				(*validate)(const struct nft_ctx *ctx,
-						   const struct nft_expr *expr,
-						   const struct nft_data **data);
-	const struct nft_expr_type	*type;
-};
-```
+:::code api-nftables-expressions/c/2-1-opys-vyrazu-struct-nft.h
 
 Покроковий аналіз ключових функціональних методів:
 
@@ -276,21 +225,7 @@ struct nft_set_type {
 
 Коже повідомлення містить стандартний заголовок `struct nlmsghdr` та заголовок підсистеми Netfilter `struct nfgenmsg`:
 
-```c
-struct nlmsghdr {
-	u32	nlmsg_len;   /* Загальна довжина повідомлення у байтах */
-	u16	nlmsg_type;  /* Тип повідомлення (наприклад, NFT_MSG_NEWRULE) */
-	u16	nlmsg_flags; /* Прапорці (NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE) */
-	u32	nlmsg_seq;   /* Порядковий номер транзакції */
-	u32	nlmsg_pid;   /* Порт/PID відправника */
-};
-
-struct nfgenmsg {
-	u8	nfgen_family; /* Сімейство протоколів (AF_INET, AF_INET6, NFPROTO_UNSPEC) */
-	u8	version;      /* Версія підсистеми (NFNETLINK_V0) */
-	be16	res_id;       /* Зарезервовано */
-};
-```
+:::code api-nftables-expressions/c/5-1-zaholovok.c
 
 ### 5.2. Структура пакетного повідомлення транзакції (Netlink Batch Transaction)
 

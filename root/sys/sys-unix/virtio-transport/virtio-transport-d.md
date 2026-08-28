@@ -57,29 +57,7 @@
 
 Складімо все разом — вийде розділена віртчерга (англ. *split virtqueue*), розкладка, з якою virtio жив від народження:
 
-```c
-/* include/uapi/linux/virtio_ring.h */
-struct vring_desc {          /* таблиця дескрипторів: 16 байтів на ланку */
-        __virtio64 addr;     /* фізична адреса буфера в пам'яті гостя     */
-        __virtio32 len;
-        __virtio16 flags;    /* NEXT (ланцюг триває) · WRITE · INDIRECT   */
-        __virtio16 next;     /* номер наступної ланки ланцюга             */
-};
-
-struct vring_avail {         /* доступне кільце: пише лише драйвер        */
-        __virtio16 flags;
-        __virtio16 idx;      /* вільно росте, обертається на 2¹⁶          */
-        __virtio16 ring[];   /* номери голів ланцюгів                     */
-};
-
-struct vring_used_elem { __virtio32 id; __virtio32 len; };
-
-struct vring_used {          /* ужите кільце: пише лише пристрій          */
-        __virtio16 flags;
-        __virtio16 idx;
-        struct vring_used_elem ring[];
-};
-```
+:::code virtio-transport-d/c/main.c
 
 ![Три області віртчерги: доступне кільце з індексом, таблиця дескрипторів із ланцюгом трьох ланок і ужите кільце з парами id-len; збоку пояснення, хто в яку область пише](img/split-virtqueue.svg)
 *Таблиця дескрипторів — спільний склад ланок; кільця — дві односторонні дошки оголошень, кожна з одним письменником.*

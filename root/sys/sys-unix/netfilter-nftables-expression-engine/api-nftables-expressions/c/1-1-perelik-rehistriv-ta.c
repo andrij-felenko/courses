@@ -1,0 +1,26 @@
+enum nft_registers {
+	NFT_REG_VERDICT		= 0,
+	NFT_REG_1		= 1,
+	NFT_REG_2		= 2,
+	NFT_REG_3		= 3,
+	NFT_REG_4		= 4,
+	__NFT_REG_MAX,
+
+	/* 32-бітні регістри (впроваджені у ядрі 4.9) */
+	NFT_REG32_00		= 8,
+	NFT_REG32_01		= 9,
+	NFT_REG32_02		= 10,
+	NFT_REG32_03		= 11,
+	NFT_REG32_04		= 12,
+	NFT_REG32_05		= 13,
+	NFT_REG32_06		= 14,
+	NFT_REG32_07		= 15,
+	NFT_REG32_08		= 16,
+	NFT_REG32_09		= 17,
+	NFT_REG32_10		= 18,
+	NFT_REG32_11		= 19,
+	NFT_REG32_12		= 20,
+	NFT_REG32_13		= 21,
+	NFT_REG32_14		= 22,
+	NFT_REG32_15		= 23,
+};

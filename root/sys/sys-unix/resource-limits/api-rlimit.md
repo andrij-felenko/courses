@@ -253,89 +253,13 @@ prlimit --cpu=10 sort -u величезний.txt   # запустити про�
 
 Прочитати всі шістнадцять меж будь-якого процесу — те саме, що показує `/proc/<pid>/limits`, але через інтерфейс і в тих одиницях, у яких їх зберігає ядро:
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/resource.h>
-
-static const struct { int res; const char *name; const char *unit; } LIMITS[] = {
-    { RLIMIT_CPU,        "RLIMIT_CPU",        "с"       },
-    { RLIMIT_FSIZE,      "RLIMIT_FSIZE",      "Б"       },
-    { RLIMIT_DATA,       "RLIMIT_DATA",       "Б"       },
-    { RLIMIT_STACK,      "RLIMIT_STACK",      "Б"       },
-    { RLIMIT_CORE,       "RLIMIT_CORE",       "Б"       },
-    { RLIMIT_RSS,        "RLIMIT_RSS",        "(мертвий)"},
-    { RLIMIT_NPROC,      "RLIMIT_NPROC",      "задач"   },
-    { RLIMIT_NOFILE,     "RLIMIT_NOFILE",     "шт."     },
-    { RLIMIT_MEMLOCK,    "RLIMIT_MEMLOCK",    "Б"       },
-    { RLIMIT_AS,         "RLIMIT_AS",         "Б"       },
-    { RLIMIT_LOCKS,      "RLIMIT_LOCKS",      "(мертвий)"},
-    { RLIMIT_SIGPENDING, "RLIMIT_SIGPENDING", "шт."     },
-    { RLIMIT_MSGQUEUE,   "RLIMIT_MSGQUEUE",   "Б"       },
-    { RLIMIT_NICE,       "RLIMIT_NICE",       "20−nice" },
-    { RLIMIT_RTPRIO,     "RLIMIT_RTPRIO",     "пріор."  },
-    { RLIMIT_RTTIME,     "RLIMIT_RTTIME",     "мкс"     },
-};
-
-static void fmt(rlim_t v, char *buf, size_t n)
-{
-    if (v == RLIM_INFINITY)             /* НЕ порівнювати з -1 чи ~0 */
-        snprintf(buf, n, "unlimited");
-    else
-        snprintf(buf, n, "%llu", (unsigned long long)v);
-}
-
-int main(int argc, char **argv)
-{
-    pid_t pid = (argc > 1) ? (pid_t)atoi(argv[1]) : 0;   /* 0 — я сам */
-
-    for (size_t i = 0; i < sizeof LIMITS / sizeof *LIMITS; i++) {
-        struct rlimit rl;
-        char soft[32], hard[32];
-
-        if (prlimit(pid, LIMITS[i].res, NULL, &rl) != 0) {
-            printf("%-18s  %s\n", LIMITS[i].name, strerror(errno));
-            continue;
-        }
-        fmt(rl.rlim_cur, soft, sizeof soft);
-        fmt(rl.rlim_max, hard, sizeof hard);
-        printf("%-18s %12s %12s  %s\n",
-               LIMITS[i].name, soft, hard, LIMITS[i].unit);
-    }
-    return 0;
-}
-```
+:::code api-rlimit/c/minimalnyi-robochyi-vyklyk.c
 
 `prlimit(pid, res, NULL, &rl)` з нульовим `new_limit` — це чистий «прочитати», причому для чужого процесу теж; `prlimit(0, …)` без `--pid` в утиліті й без аргументу тут означає «сам себе».
 
 Другий типовий виклик — підняти собі м'яку межу під потребу програми, не намагаючись зачепити жорстку (на що прав немає) і не падаючи, якщо стеля виявиться нижчою за бажане:
 
-```c
-/* Довести м'який ліміт щонайменше до `want`, не вище виданої стелі.
-   Повертає 0, якщо після виклику межа не менша за want, 1 — якщо стеля нижча. */
-static int raise_soft(int resource, rlim_t want)
-{
-    struct rlimit rl;
-
-    if (prlimit(0, resource, NULL, &rl) != 0)
-        return -1;
-    if (rl.rlim_cur == RLIM_INFINITY || rl.rlim_cur >= want)
-        return 0;                       /* уже досить, нічого не робимо */
-
-    int capped = 0;
-    if (rl.rlim_max != RLIM_INFINITY && rl.rlim_max < want) {
-        want = rl.rlim_max;             /* вище жорсткого не стрибнемо */
-        capped = 1;
-    }
-    rl.rlim_cur = want;
-    if (prlimit(0, resource, &rl, NULL) != 0)
-        return -1;
-    return capped;
-}
-```
+:::code api-rlimit/c/minimalnyi-robochyi-vyklyk-2.c
 
 Тут немає жодної спроби підняти `rlim_max`, і саме тому виклик не потребує ніяких прав: рух м'якої межі всередині жорсткої дозволено всім. Розрізняти три результати варто окремо — «дали скільки просив», «дали скільки було» і «зламалося»: друге зазвичай не привід зупинятися, а привід написати в журнал справжнє число, з яким програма далі житиме.
 

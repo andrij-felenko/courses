@@ -6,28 +6,7 @@
 
 ## Сигнатури
 
-```c
-typedef void (*smp_call_func_t)(void *info);
-typedef bool (*smp_cond_func_t)(int cpu, void *info);
-
-int  smp_call_function_single(int cpu, smp_call_func_t func, void *info, int wait);
-int  smp_call_function_any(const struct cpumask *mask, smp_call_func_t func,
-                           void *info, int wait);
-void smp_call_function_many(const struct cpumask *mask, smp_call_func_t func,
-                            void *info, bool wait);
-void smp_call_function(smp_call_func_t func, void *info, int wait);
-
-void on_each_cpu(smp_call_func_t func, void *info, int wait);
-void on_each_cpu_mask(const struct cpumask *mask, smp_call_func_t func,
-                      void *info, bool wait);
-void on_each_cpu_cond(smp_cond_func_t cond_func, smp_call_func_t func,
-                      void *info, bool wait);
-void on_each_cpu_cond_mask(smp_cond_func_t cond_func, smp_call_func_t func,
-                           void *info, bool wait, const struct cpumask *mask);
-
-int  smp_call_function_single_async(int cpu, call_single_data_t *csd);
-bool irq_work_queue_on(struct irq_work *work, int cpu);
-```
+:::code api-smp-call/c/syhnatury.h
 
 Три верхні `on_each_cpu*` — тонкі обгортки над `on_each_cpu_cond_mask()`: `NULL` замість умови означає «без відсіву», а невказана маска — `cpu_online_mask`.
 
@@ -62,25 +41,7 @@ bool irq_work_queue_on(struct irq_work *work, int cpu);
 
 ## Описувач і його прапорець
 
-```c
-struct __call_single_node {
-        struct llist_node llist;      /* вузол черги цілі             */
-        union { unsigned int u_flags; atomic_t a_flags; };
-        u16 src, dst;                 /* лише на 64-бітних            */
-};
-
-struct __call_single_data {
-        struct __call_single_node node;
-        smp_call_func_t           func;
-        void                     *info;
-};
-typedef struct __call_single_data call_single_data_t
-        __aligned(sizeof(struct __call_single_data));
-
-#define CSD_INIT(_func, _info) \
-        (struct __call_single_data){ .func = (_func), .info = (_info), }
-#define INIT_CSD(_csd, _func, _info)  do { *(_csd) = CSD_INIT((_func), (_info)); } while (0)
-```
+:::code api-smp-call/c/opysuvach-i-ioho-praporets.c
 
 Одне слово прапорців тримає і зайнятість, і різновид запису — саме за різновидом ціль розуміє, як тлумачити решту структури:
 
@@ -122,23 +83,7 @@ typedef struct __call_single_data call_single_data_t
 
 ## irq_work: коли на цілі потрібен саме жорсткий контекст
 
-```c
-struct irq_work {
-        struct __call_single_node node;
-        void (*func)(struct irq_work *);   /* аргумент — сам описувач */
-        struct rcuwait irqwait;
-};
-
-#define IRQ_WORK_INIT(_func)        /* звичайна робота                    */
-#define IRQ_WORK_INIT_LAZY(_func)   /* без переривання, до найближчого тику */
-#define IRQ_WORK_INIT_HARD(_func)   /* жорсткий контекст навіть на PREEMPT_RT */
-#define DEFINE_IRQ_WORK(name, _f)
-
-void init_irq_work(struct irq_work *work, void (*func)(struct irq_work *));
-bool irq_work_queue(struct irq_work *work);           /* своє ядро; NMI-безпечно */
-bool irq_work_queue_on(struct irq_work *work, int cpu);
-void irq_work_sync(struct irq_work *work);            /* спить: лише контекст задачі */
-```
+:::code api-smp-call/c/irq-work-koly-na-tsili.h
 
 | біт у `node.a_flags` | значення |
 |---|---|
@@ -161,49 +106,11 @@ void irq_work_sync(struct irq_work *work);            /* спить: лише к
 
 ## Мінімальний виклик
 
-```c
-#include <linux/smp.h>
-
-static void say_where(void *info)
-{
-        pr_info("виконано на ядрі %d, аргумент %lu\n",
-                smp_processor_id(), (unsigned long)info);
-}
-
-static void poke_cpu3(void)
-{
-        /* синхронно: повернеться, коли say_where() уже відпрацювала на ядрі 3 */
-        int err = smp_call_function_single(3, say_where, (void *)42UL, 1);
-
-        if (err)
-                pr_warn("ядро 3 недосяжне: %d\n", err);
-}
-```
+:::code api-smp-call/c/minimalnyi-vyklyk.c
 
 Асинхронний варіант потребує описувача, прив'язаного до цілі, — звичайно це [змінна свого ядра процесора](root:sys-unix/per-cpu-data):
 
-```c
-static DEFINE_PER_CPU(call_single_data_t, poke_csd);
-
-static int __init poke_init(void)
-{
-        int cpu;
-
-        for_each_possible_cpu(cpu)
-                INIT_CSD(per_cpu_ptr(&poke_csd, cpu), say_where, NULL);
-        return 0;
-}
-
-/* кличеться звідки завгодно, зокрема з вимкненими перериваннями */
-static void poke_async(int cpu)
-{
-        int err = smp_call_function_single_async(cpu, per_cpu_ptr(&poke_csd, cpu));
-
-        /* -EBUSY: дзвінок уже в дорозі, другий зайвий; -ENXIO: ядра немає */
-        if (err && err != -EBUSY)
-                pr_warn("ядро %d недосяжне: %d\n", cpu, err);
-}
-```
+:::code api-smp-call/c/minimalnyi-vyklyk-2.c
 
 ## Коли ціль мовчить
 

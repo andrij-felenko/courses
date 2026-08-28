@@ -37,43 +37,7 @@ noinline RET bpf_lsm_##NAME(__VA_ARGS__)	\
 
 Мова тут одна — C: код компілюють у байт-код BPF і виконують усередині ядра. `vmlinux.h` дає типи ядра з BTF, решта — [eBPF](root:sys-unix/ebpf-programming-model-and-toolchain) як він є.
 
-```c
-/* deny-net.bpf.c */
-#include "vmlinux.h"
-#include <bpf/bpf_helpers.h>
-#include <bpf/bpf_tracing.h>
-
-#define AF_UNIX 1        /* у vmlinux.h нема сталих простору користувача */
-#define EPERM   1
-
-char LICENSE[] SEC("license") = "GPL";
-
-struct {
-	__uint(type, BPF_MAP_TYPE_HASH);
-	__uint(max_entries, 64);
-	__type(key, __u64);              /* ідентифікатор cgroup */
-	__type(value, __u8);
-} caged SEC(".maps");
-
-SEC("lsm/socket_create")
-int BPF_PROG(deny_net, int family, int type, int protocol, int kern, int ret)
-{
-	__u64 cg;
-
-	if (ret != 0)
-		return ret;              /* до нас уже відмовили — не сперечаємось */
-	if (kern)
-		return 0;                /* сокет заводить саме ядро, не процес */
-	if (family == AF_UNIX)
-		return 0;
-
-	cg = bpf_get_current_cgroup_id();
-	if (!bpf_map_lookup_elem(&caged, &cg))
-		return 0;
-
-	return -EPERM;
-}
-```
+:::code proj-bpf-lsm/c/deny-net.bpf.c
 
 Чотири дрібниці, у яких і сидить уся правильність.
 
@@ -97,116 +61,15 @@ $ bpftool gen skeleton deny-net.bpf.o > deny-net.skel.h
 Завантажувач робить рівно три речі: кладе в мапу ідентифікатор потрібної cgroup, віддає програму ядру на перевірку й чіпляє її до гачка. Сам ідентифікатор cgroup ніде не надрукований, але дістати його просто: на 64-бітних системах номер іноду теки в `cgroup2` і **є** цим ідентифікатором, тож досить `stat`.
 
 :::tabs
-```c
-/* deny-net.c — завантажувач мовою C, libbpf */
-#include <sys/stat.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <bpf/libbpf.h>
-#include "deny-net.skel.h"
-
-int main(int argc, char **argv)
-{
-	struct deny_net_bpf *skel;
-	struct stat st;
-	__u64 cg;
-	__u8 one = 1;
-
-	if (argc != 2 || stat(argv[1], &st)) {
-		fprintf(stderr, "вжиток: %s /sys/fs/cgroup/<тека>\n", argv[0]);
-		return 1;
-	}
-	cg = st.st_ino;
-
-	skel = deny_net_bpf__open_and_load();
-	if (!skel) {
-		fprintf(stderr, "перевіряльник не пропустив\n");
-		return 1;
-	}
-
-	if (bpf_map__update_elem(skel->maps.caged, &cg, sizeof(cg),
-				 &one, sizeof(one), BPF_ANY) ||
-	    deny_net_bpf__attach(skel)) {
-		fprintf(stderr, "не причепилось\n");
-		deny_net_bpf__destroy(skel);
-		return 1;
-	}
-
-	printf("правило діє для cgroup %llu; Ctrl-C знімає\n",
-	       (unsigned long long)cg);
-	pause();
-
-	deny_net_bpf__destroy(skel);
-	return 0;
-}
-```
-```go
-// main.go — той самий завантажувач мовою Go, github.com/cilium/ebpf
-package main
-
-import (
-	"log"
-	"os"
-	"os/signal"
-
-	"github.com/cilium/ebpf/link"
-	"golang.org/x/sys/unix"
-)
-
-//go:generate go run github.com/cilium/ebpf/cmd/bpf2go denyNet deny-net.bpf.c
-
-func main() {
-	var st unix.Stat_t
-	if err := unix.Stat(os.Args[1], &st); err != nil {
-		log.Fatalf("тека cgroup: %v", err)
-	}
-
-	var objs denyNetObjects
-	if err := loadDenyNetObjects(&objs, nil); err != nil {
-		log.Fatalf("перевіряльник не пропустив: %v", err)
-	}
-	defer objs.Close()
-
-	if err := objs.Caged.Put(st.Ino, uint8(1)); err != nil {
-		log.Fatalf("мапа: %v", err)
-	}
-
-	l, err := link.AttachLSM(link.LSMOptions{Program: objs.DenyNet})
-	if err != nil {
-		log.Fatalf("не причепилось: %v", err)
-	}
-	defer l.Close()
-
-	log.Printf("правило діє для cgroup %d", st.Ino)
-	sig := make(chan os.Signal, 1)
-	signal.Notify(sig, os.Interrupt)
-	<-sig
-}
-```
+:::code proj-bpf-lsm/c/deny-net.c
+:::code proj-bpf-lsm/go/main.go
 :::
 
 Обидва варіанти повертають одне й те саме — дескриптор зв'язку (`link`). Поки він відкритий, заглушка має нове тіло; щойно процес завершиться й дескриптор закриється, гачок повернеться до `return 0`. Ніякого прибирання за собою: правило живе рівно стільки, скільки живе його власник.
 
 ## Перевірка
 
-```bash
-$ cat /sys/kernel/security/lsm
-capability,landlock,lockdown,yama,apparmor,bpf
-
-$ sudo mkdir /sys/fs/cgroup/caged
-$ sudo ./deny-net /sys/fs/cgroup/caged &
-правило діє для cgroup 5342; Ctrl-C знімає
-
-$ echo $$ | sudo tee /sys/fs/cgroup/caged/cgroup.procs > /dev/null
-$ python3 -c 'import socket; socket.socket()'
-Traceback (most recent call last):
-  ...
-PermissionError: [Errno 1] Operation not permitted
-
-$ python3 -c 'import socket; socket.socket(socket.AF_UNIX)'
-$ cat /etc/hostname
-lab
-```
+:::code proj-bpf-lsm/sh/main.sh
 
 Мережевий сокет не відкривається, локальний відкривається, файли працюють як працювали. Перший рядок тут не для краси: якщо в живому списку модулів нема `bpf`, програма причепиться, але ядро її ніколи не покличе — гнізда просто нема в черзі.
 

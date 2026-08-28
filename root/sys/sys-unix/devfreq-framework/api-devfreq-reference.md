@@ -9,19 +9,7 @@
 #### Структура `struct devfreq_dev_profile`
 Визначає апаратні характеристики та функції зворотного виклику конкретного драйвера пристрою:
 
-```c
-struct devfreq_dev_profile {
-    unsigned long initial_freq;
-    unsigned int polling_ms;
-    int (*target)(struct device *dev, unsigned long *freq, u32 flags);
-    int (*get_dev_status)(struct device *dev, struct devfreq_dev_status *stat);
-    int (*get_cur_freq)(struct device *dev, unsigned long *freq);
-    void (*exit)(struct device *dev);
-    unsigned long *freq_table;
-    unsigned int max_state;
-    bool is_cooling;
-};
-```
+:::code api-devfreq-reference/c/struktura-struct-devfreq.h
 
 * `initial_freq`: Початкова тактова частота пристрою в герцах (Гц), яка встановлюється під час завантаження ядра або ініціалізації драйвера.
 * `polling_ms`: Базовий період опитування лічильників навантаження в мілісекундах. Якщо значення дорівнює нулю, ядро devfreq вважає, що пристрій використовує подієво-орієнтовану модель (наприклад, через переривання) і не запускає періодичний таймер моніторингу.
@@ -130,82 +118,6 @@ struct devfreq_dev_status {
 Програма для простору користувача відкриває каталог пристрою в `sysfs`, зчитує поточну тактову частоту, вираховує її значення в мегагерцах та виводить детальний звіт матриці переходів:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-int main(int argc, char *argv[]) {
-    const char *dev_name = (argc > 1) ? argv[1] : "10040000.bus-controller";
-    char path[256];
-    char buffer[512];
-    FILE *f;
-
-    snprintf(path, sizeof(path), "/sys/class/devfreq/%s/cur_freq", dev_name);
-    f = fopen(path, "r");
-    if (!f) {
-        perror("Не вдалося відкрити cur_freq");
-        return 1;
-    }
-
-    if (fgets(buffer, sizeof(buffer), f)) {
-        unsigned long long freq = strtoull(buffer, NULL, 10);
-        printf("Пристрій: %s\nПоточна частота: %.2f МГц\n", dev_name, (double)freq / 1e6);
-    }
-    fclose(f);
-
-    snprintf(path, sizeof(path), "/sys/class/devfreq/%s/trans_stat", dev_name);
-    f = fopen(path, "r");
-    if (f) {
-        printf("\n--- Статистика переходів частот ---\n");
-        while (fgets(buffer, sizeof(buffer), f)) {
-            printf("%s", buffer);
-        }
-        fclose(f);
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <filesystem>
-#include <iomanip>
-
-namespace fs = std::filesystem;
-
-int main(int argc, char* argv[]) {
-    std::string dev_name = (argc > 1) ? argv[1] : "10040000.bus-controller";
-    fs::path base_path = fs::path("/sys/class/devfreq") / dev_name;
-
-    fs::path cur_freq_file = base_path / "cur_freq";
-    std::ifstream cur_file(cur_freq_file);
-    if (!cur_file.is_open()) {
-        std::cerr << "Помилка відкриття " << cur_freq_file << std::endl;
-        return 1;
-    }
-
-    unsigned long long freq = 0;
-    if (cur_file >> freq) {
-        std::cout << "Пристрій: " << dev_name << "\n"
-                  << "Поточна частота: " << std::fixed << std::setprecision(2)
-                  << (static_cast<double>(freq) / 1e6) << " МГц\n";
-    }
-
-    fs::path trans_stat_file = base_path / "trans_stat";
-    std::ifstream trans_file(trans_stat_file);
-    if (trans_file.is_open()) {
-        std::cout << "\n--- Статистика переходів частот ---\n";
-        std::string line;
-        while (std::getline(trans_file, line)) {
-            std::cout << line << "\n";
-        }
-    }
-
-    return 0;
-}
-```
+:::code api-devfreq-reference/c/4-praktychnyi-pryklad.c
+:::code api-devfreq-reference/cpp/main.cpp
 :::

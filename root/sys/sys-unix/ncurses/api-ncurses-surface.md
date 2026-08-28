@@ -201,20 +201,7 @@ int  keypad(WINDOW *win, bool bf);
 
 Широка частина бібліотеки не додається до вузької, а **замінює** її: комірка описана структурою, а не числом, тому міняється й розкладка `WINDOW`. Це несумісність двійкового інтерфейсу, і саме тому широкий варіант зібрано окремим файлом `libncursesw.so.6` з окремою текою заголовків ([SONAME і версіонування](root:sys-unix/soname-versioning) — чому інша розкладка структури вимагає іншого імені бібліотеки).
 
-```c
-typedef struct {
-    attr_t  attr;                  /* ознаки й номер пари */
-    wchar_t chars[CCHARW_MAX];     /* CCHARW_MAX = 5: основний знак + комбінаційні */
-    int     ext_color;             /* номер пари понад 255 */
-} cchar_t;
-
-int setcchar(cchar_t *wch, const wchar_t *wc, attr_t attrs, short pair, const void *opts);
-int getcchar(const cchar_t *wch, wchar_t *wc, attr_t *attrs, short *pair, void *opts);
-
-int wadd_wch(WINDOW *, const cchar_t *wch);          /* один складений знак */
-int waddnwstr(WINDOW *, const wchar_t *wstr, int n); /* рядок широких символів */
-int wget_wch(WINDOW *, wint_t *wch);                 /* див. нижче: три різні відповіді */
-```
+:::code api-ncurses-surface/c/shyroki-symvoly.h
 
 `setcchar` і `getcchar` повертають `OK` або `ERR`; `getcchar` із порожнім `wc` натомість віддає кількість знаків у комірці — так дізнаються потрібний розмір буфера.
 
@@ -232,55 +219,6 @@ cc -D_XOPEN_SOURCE_EXTENDED $(pkg-config --cflags ncursesw) prog.c $(pkg-config 
 
 Усе разом — вікно з рамкою, похідне вікно всередині, пара кольорів, широкий символ і одне оновлення на обидва вікна:
 
-```c
-#define _XOPEN_SOURCE_EXTENDED
-#include <locale.h>
-#include <ncursesw/curses.h>
-
-int main(void)
-{
-    setlocale(LC_ALL, "");                        /* ДО initscr, інакше широкі символи мовчать */
-    initscr();
-    cbreak();
-    noecho();
-    curs_set(0);
-
-    if (has_colors()) {
-        start_color();
-        init_pair(1, COLOR_YELLOW, COLOR_BLUE);
-    }
-
-    WINDOW *frame = newwin(7, 40, 2, 4);          /* координати ЕКРАННІ */
-    WINDOW *inner = derwin(frame, 5, 38, 1, 1);   /* координати відносно frame */
-    keypad(inner, TRUE);
-
-    box(frame, 0, 0);                             /* 0 = типовий знак рамки */
-    wattr_set(inner, A_BOLD, 1, NULL);
-    mvwaddnstr(inner, 0, 0, "пара 1, жирний", -1);
-
-    cchar_t cell;
-    wchar_t glyph[2] = { L'█', L'\0' };
-    setcchar(&cell, glyph, A_NORMAL, 1, NULL);
-    mvwadd_wch(inner, 2, 0, &cell);
-
-    wnoutrefresh(frame);                          /* обидва — лише в newscr */
-    wnoutrefresh(inner);
-    doupdate();                                   /* один прохід оптимізатора, один сплеск байтів */
-
-    int ch;
-    while ((ch = wgetch(inner)) != 'q') {
-        if (ch == KEY_RESIZE) {                   /* LINES і COLS уже нові */
-            touchwin(frame);                      /* батько не знає про малювання в inner */
-            wnoutrefresh(frame);
-            doupdate();
-        }
-    }
-
-    delwin(inner);                                /* спершу похідне, потім батьківське */
-    delwin(frame);
-    endwin();
-    return 0;
-}
-```
+:::code api-ncurses-surface/c/naikorotsha-povna-prohrama.c
 
 Чотири рядки тут виправляють помилки, які інакше довелося б шукати наосліп: `setlocale` перед `initscr`, `touchwin` на батька після малювання в похідному, один `doupdate` на два `wnoutrefresh` і порядок вилучення вікон, за якого `delwin` не поверне `ERR`.

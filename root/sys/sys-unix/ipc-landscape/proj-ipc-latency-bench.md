@@ -24,316 +24,33 @@
 
 ## Каркас
 
-```c
-/* ipcbench.c — ціна оберту через канал, сокет і спільну пам'ять.
-   Збірка: cc -O2 -std=gnu11 -o ipcbench ipcbench.c
-   Запуск: ./ipcbench <pipe|seqpacket|shm|spin> <байтів> <обертів> <ядро A> <ядро B> */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <linux/futex.h>
-#include <sched.h>
-#include <stdatomic.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/mman.h>
-#include <sys/socket.h>
-#include <sys/syscall.h>
-#include <sys/wait.h>
-#include <time.h>
-#include <unistd.h>
-
-#define CLINE 64u
-
-#if defined(__x86_64__) || defined(__i386__)
-#define RELAX() __builtin_ia32_pause()
-#elif defined(__aarch64__)
-#define RELAX() __asm__ __volatile__("yield" ::: "memory")
-#else
-#define RELAX() ((void)0)
-#endif
-
-static uint64_t now_ns(void)
-{
-        struct timespec t;
-        clock_gettime(CLOCK_MONOTONIC, &t);
-        return (uint64_t)t.tv_sec * 1000000000ull + (uint64_t)t.tv_nsec;
-}
-
-static void pin(int cpu)
-{
-        cpu_set_t set;
-        CPU_ZERO(&set);
-        CPU_SET(cpu, &set);
-        if (sched_setaffinity(0, sizeof set, &set) != 0)
-                perror("sched_setaffinity");
-}
-```
+:::code proj-ipc-latency-bench/c/ipcbench.c
 
 Далі — дотик до даних, і тут захована чесність усього порівняння. Якби вимірювальна сторона просто передавала байти й не дивилася на них, спільна пам'ять «виграла» б тим, що взагалі не торкнулася сторінок: копії немає, дотику немає, лишилося саме сповіщення. Це був би вимір неіснуючої задачі. Тому обидві сторони обов'язково пишуть у буфер перед відправленням і читають його після отримання — по одному байту на рядок кеша, чого досить, щоб витягти всі рядки насправді.
 
-```c
-static volatile uint64_t sink;          /* щоб оптимізатор не викинув читання */
-
-static void fill(volatile unsigned char *p, size_t n, uint64_t seq)
-{
-        for (size_t i = 0; i < n; i += CLINE)
-                p[i] = (unsigned char)(seq + i);
-        p[n - 1] = (unsigned char)seq;
-}
-
-static uint64_t sum(const volatile unsigned char *p, size_t n)
-{
-        uint64_t s = 0;
-        for (size_t i = 0; i < n; i += CLINE)
-                s += p[i];
-        return s + p[n - 1];
-}
-```
+:::code proj-ipc-latency-bench/c/karkas.c
 
 ## Три способи за одним інтерфейсом
 
 Канал і сокет дають однакову пару дескрипторів «куди писати» й «звідки читати», тож обидва обслуговує один і той самий цикл вводу-виводу. Цикл потрібен через канал: він віддає потік байтів без меж повідомлень, і `read` має повне право повернути менше, ніж просили ([канали й іменовані канали](root:sys-unix/pipe-and-fifo) — кільце сторінок у ядрі, де прочитаний байт зникає назавжди).
 
-```c
-struct duplex { int tx, rx; };
-
-static int xfer_send(int fd, const void *buf, size_t n)
-{
-        const char *p = buf;
-        while (n) {
-                ssize_t k = write(fd, p, n);
-                if (k < 0) { if (errno == EINTR) continue; return -1; }
-                p += k; n -= (size_t)k;
-        }
-        return 0;
-}
-
-static int xfer_recv(int fd, void *buf, size_t n)
-{
-        char *p = buf;
-        while (n) {
-                ssize_t k = read(fd, p, n);
-                if (k <= 0) { if (k < 0 && errno == EINTR) continue; return -1; }
-                p += k; n -= (size_t)k;
-        }
-        return 0;
-}
-```
+:::code proj-ipc-latency-bench/c/try-sposoby-za-odnym.c
 
 Створення обох різниться лише розмірами буферів — і саме ці розміри дають найбільше несподіванок у результатах.
 
-```c
-static int open_pipe_pair(struct duplex *a, struct duplex *b, size_t n)
-{
-        int ab[2], ba[2];                       /* ab: A→B, ba: B→A */
-        if (pipe(ab) != 0 || pipe(ba) != 0)
-                return -1;
-        /* Ємність каналу за замовчуванням — 16 сторінок, тобто 65536 Б
-           (так від Linux 2.6.11).  Повідомлення більше за неї передається
-           шматками, і КОЖЕН шматок — це засинання записувача.  Стеля
-           прохання: /proc/sys/fs/pipe-max-size. */
-        if (n > 65536) {
-                fcntl(ab[1], F_SETPIPE_SZ, (int)n);
-                fcntl(ba[1], F_SETPIPE_SZ, (int)n);
-        }
-        a->tx = ab[1]; a->rx = ba[0];
-        b->tx = ba[1]; b->rx = ab[0];
-        return 0;
-}
-
-static int open_socket_pair(struct duplex *a, struct duplex *b, size_t n)
-{
-        int s[2], want = (int)n;
-        if (socketpair(AF_UNIX, SOCK_SEQPACKET, 0, s) != 0)
-                return -1;
-        /* SEQPACKET зберігає межі повідомлення — отже, воно мусить УМІСТИТИСЯ
-           в буфер відправника цілком, інакше send дає EMSGSIZE.  Ядро вважає
-           стелею подвоєне прохане мінус 32 Б, тож просимо рівно n — це вдвічі
-           з запасом.  Саме прохання обмежене sysctl net.core.wmem_max, і на
-           мегабайтовому повідомленні його доводиться піднімати.
-           SO_RCVBUF для AF_UNIX не робить нічого — обмежує лише відправник. */
-        for (int i = 0; i < 2; i++)
-                if (setsockopt(s[i], SOL_SOCKET, SO_SNDBUF, &want, sizeof want) != 0)
-                        perror("SO_SNDBUF");
-        a->tx = a->rx = s[0];
-        b->tx = b->rx = s[1];
-        return 0;
-}
-```
+:::code proj-ipc-latency-bench/c/try-sposoby-za-odnym-2.c
 
 Спільна ділянка — це два futex-слова й дані. Слова стоять у різних рядках кеша навмисно: інакше запис однієї сторони в своє слово щоразу відбирав би рядок у другої, і ви поміряли б хибне спільне використання ([когерентність кешів](root:hw-arch/cache-coherence) — чому два ядра, що пишуть у сусідні байти, платять так само, як за спільну змінну).
 
-```c
-struct chan {
-        _Atomic uint32_t to_b;
-        unsigned char    pad0[60];
-        _Atomic uint32_t to_a;
-        unsigned char    pad1[60];
-        unsigned char    data[];
-};
-
-static int MODE;
-enum { M_PIPE, M_SEQ, M_SHM, M_SPIN };
-
-/* Обгортки futex() у glibc немає — тільки через syscall().  FUTEX_PRIVATE_FLAG
-   тут ставити НЕ можна: слово лежить у спільному відображенні, і чергу
-   очікування ядро мусить шукати за фізичною сторінкою, а не за адресою. */
-static long fwait(_Atomic uint32_t *w, uint32_t expect)
-{
-        return syscall(SYS_futex, (uint32_t *)w, FUTEX_WAIT, expect, NULL, NULL, 0);
-}
-
-static void publish(_Atomic uint32_t *w, uint32_t v)
-{
-        /* Спершу дані, потім слово — і саме release не дає переставити
-           їх місцями ні компілятору, ні процесору. */
-        atomic_store_explicit(w, v, memory_order_release);
-        if (MODE != M_SPIN)
-                syscall(SYS_futex, (uint32_t *)w, FUTEX_WAKE, 1, NULL, NULL, 0);
-}
-
-static void await_val(_Atomic uint32_t *w, uint32_t v)
-{
-        uint32_t cur;
-        if (MODE == M_SPIN) {
-                while (atomic_load_explicit(w, memory_order_acquire) != v)
-                        RELAX();
-                return;
-        }
-        /* Цикл обов'язковий: FUTEX_WAIT прокидається й без причини, а якщо
-           слово змінилося між читанням і викликом — повертає EAGAIN. */
-        while ((cur = atomic_load_explicit(w, memory_order_acquire)) != v)
-                fwait(w, cur);
-}
-```
+:::code proj-ipc-latency-bench/c/try-sposoby-za-odnym-3.c
 
 ## Дві сторони й вимір
 
-```c
-static size_t N;
-static struct duplex ME;
-static struct chan  *CH;
-static uint64_t     *SAMP;
-
-static void echo_side(unsigned char *buf, uint64_t rounds)
-{
-        for (uint64_t i = 1; i <= rounds; i++) {
-                if (CH) {
-                        await_val(&CH->to_b, (uint32_t)i);
-                        sink += sum(CH->data, N);
-                        fill(CH->data, N, i);
-                        publish(&CH->to_a, (uint32_t)i);
-                } else {
-                        if (xfer_recv(ME.rx, buf, N)) return;
-                        sink += sum(buf, N);
-                        fill(buf, N, i);
-                        if (xfer_send(ME.tx, buf, N)) return;
-                }
-        }
-}
-
-static void bench_side(unsigned char *buf, uint64_t warm, uint64_t iters)
-{
-        for (uint64_t i = 1; i <= warm + iters; i++) {
-                uint64_t t0 = now_ns();
-
-                if (CH) {
-                        fill(CH->data, N, i);
-                        publish(&CH->to_b, (uint32_t)i);
-                        await_val(&CH->to_a, (uint32_t)i);
-                        sink += sum(CH->data, N);
-                } else {
-                        fill(buf, N, i);
-                        if (xfer_send(ME.tx, buf, N)) return;
-                        if (xfer_recv(ME.rx, buf, N)) return;
-                        sink += sum(buf, N);
-                }
-
-                if (i > warm)
-                        SAMP[i - warm - 1] = now_ns() - t0;
-        }
-}
-```
+:::code proj-ipc-latency-bench/c/dvi-storony-i-vymir.c
 
 Одна спільна ділянка на обидва напрямки безпечна саме тому, що обмін строго почерговий: поки A не побачив своє слово, він не чіпає буфер. У справжній програмі місце цієї домовленості посідає кільцевий буфер.
 
-```c
-static int cmp_u64(const void *a, const void *b)
-{
-        uint64_t x = *(const uint64_t *)a, y = *(const uint64_t *)b;
-        return (x > y) - (x < y);
-}
-
-static double at(uint64_t *v, size_t n, double p)       /* нс → мкс */
-{
-        return v[(size_t)(p * (double)(n - 1) + 0.5)] / 1000.0;
-}
-
-static void drop(struct duplex d)
-{
-        close(d.tx);
-        if (d.rx != d.tx) close(d.rx);
-}
-
-int main(int argc, char **argv)
-{
-        const char *what = argc > 1 ? argv[1] : "pipe";
-        uint64_t iters   = argc > 3 ? strtoull(argv[3], NULL, 10) : 200000;
-        int cpu_a = argc > 4 ? atoi(argv[4]) : 2;
-        int cpu_b = argc > 5 ? atoi(argv[5]) : 4;
-        uint64_t warm = iters / 10 < 1000 ? 1000 : iters / 10;
-        struct duplex A, B;
-        unsigned char *buf = NULL;
-        pid_t kid;
-
-        N = argc > 2 ? strtoul(argv[2], NULL, 10) : 64;
-        MODE = !strcmp(what, "seqpacket") ? M_SEQ :
-               !strcmp(what, "shm")       ? M_SHM :
-               !strcmp(what, "spin")      ? M_SPIN : M_PIPE;
-
-        SAMP = malloc(iters * sizeof *SAMP);
-        if (MODE == M_SHM || MODE == M_SPIN) {
-                /* MAP_SHARED|MAP_ANONYMOUS переживає fork; для чужих
-                   процесів те саме дає shm_open плюс mmap. */
-                CH = mmap(NULL, sizeof *CH + N, PROT_READ | PROT_WRITE,
-                          MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-                if (CH == MAP_FAILED) { perror("mmap"); return 1; }
-        } else {
-                int rc = (MODE == M_SEQ) ? open_socket_pair(&A, &B, N)
-                                         : open_pipe_pair(&A, &B, N);
-                if (rc != 0) { perror("канал або сокет"); return 1; }
-                buf = malloc(N);
-        }
-
-        kid = fork();
-        if (kid == 0) {
-                pin(cpu_b);
-                if (!CH) { drop(A); ME = B; }
-                echo_side(buf, warm + iters);
-                _exit(0);
-        }
-        pin(cpu_a);
-        if (!CH) { drop(B); ME = A; }
-
-        bench_side(buf, warm, iters);
-        waitpid(kid, NULL, 0);
-
-        qsort(SAMP, iters, sizeof *SAMP, cmp_u64);
-
-        /* Пропускну здатність рахуємо теж із медіани, а не з середнього:
-           хвости зсувають середнє й описували б не обмін, а витіснення. */
-        double med = at(SAMP, iters, 0.5);              /* мкс на оберт */
-        printf("%-10s %8zu Б   медіана %8.2f   p99 %8.2f   p99.9 %8.2f   "
-               "мін %7.2f мкс   %6.2f ГБ/с\n",
-               what, N, med, at(SAMP, iters, 0.99),
-               at(SAMP, iters, 0.999), at(SAMP, iters, 0.0),
-               2.0 * (double)N / (med * 1000.0));
-        return 0;
-}
-```
+:::code proj-ipc-latency-bench/c/dvi-storony-i-vymir-2.c
 
 ## Що виходить
 

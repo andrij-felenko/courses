@@ -20,18 +20,7 @@
 
 int clone(int (*fn)(void *), void *child_stack, int flags, void *arg, ...);
 ```
-```cpp
-#include <sched.h>
-#include <system_error>
-
-pid_t safe_clone(int (*fn)(void*), void* stack, int flags, void* arg) {
-    pid_t pid = ::clone(fn, stack, flags, arg);
-    if (pid < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка системного виклику clone()");
-    }
-    return pid;
-}
-```
+:::code api-netns-syscalls/cpp/1-1-systemnyi-vyklyk-clone.cpp
 :::
 
 Під час виконання `clone()` з прапорцем `CLONE_NEWNET` ядро викликає внутрішню функцію `copy_namespaces()`. Вона перевіряє наявність прапорця та ініціює виклики створення нових підсистем.
@@ -149,19 +138,7 @@ mount --bind /proc/self/ns/net /var/run/netns/demo_ns
 int user_ns_fd = ioctl(netns_fd, NS_GET_USERNS);
 int ns_type = ioctl(netns_fd, NS_GET_NSTYPE);   /* поверне CLONE_NEWNET */
 ```
-```cpp
-#include <sys/ioctl.h>
-#include <linux/nsfs.h>
-#include <system_error>
-
-int safe_nsfs_ioctl(int netns_fd, unsigned long request) {
-    int res = ::ioctl(netns_fd, request);
-    if (res < 0) {
-        throw std::system_error(errno, std::generic_category(), "nsfs ioctl failed");
-    }
-    return res;
-}
-```
+:::code api-netns-syscalls/cpp/2-3-komandy-ioctl-2-na.cpp
 :::
 
 * **`NS_GET_USERNS` (`0xb701`):** Повертає новий файловий дескриптор User Namespace, якому належить даний мережевий простір імен. Це дозволяє перевірити, який саме простір користувачів має права керування даним мережевим стеком.
@@ -376,19 +353,4 @@ std::cout << "Прийнято байтів: " << stats->rx_bytes
 
 Команди користувацької утиліти `ip netns` з пакета `iproute2` прозоро транслюються у розглянуті системні виклики ядра:
 
-```bash
-# 1. Створення простору (unshare(CLONE_NEWNET) + mount(MS_BIND) у /var/run/netns/red)
-ip netns add red
-
-# 2. Сканування каталогів /var/run/netns/ для виводу списку активних просторів
-ip netns list
-
-# 3. Переміщення veth1 у простір (сокет AF_NETLINK, RTM_NEWLINK з атрибутом IFLA_NET_NS_FD)
-ip link set veth1 netns red
-
-# 4. Виконання команди (open(/var/run/netns/red) + setns(fd, CLONE_NEWNET) + execvp())
-ip netns exec red ip link set lo up
-
-# 5. Видалення простору (umount(/var/run/netns/red) && unlink(/var/run/netns/red))
-ip netns del red
-```
+:::code api-netns-syscalls/sh/main.sh

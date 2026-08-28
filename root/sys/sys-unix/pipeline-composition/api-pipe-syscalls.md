@@ -20,21 +20,7 @@ int pipe(int pipefd[2]);
 // Розширений системний виклик Linux з прапорцями атомарного налаштування
 int pipe2(int pipefd[2], int flags);
 ```
-```cpp
-#include <array>
-#include <system_error>
-#include <unistd.h>
-#include <fcntl.h>
-
-// Ідіоматична C++ обгортка над системними викликами pipe/pipe2
-std::array<int, 2> create_pipe_pair(int flags = O_CLOEXEC) {
-    std::array<int, 2> pipefd{-1, -1};
-    if (::pipe2(pipefd.data(), flags) == -1) {
-        throw std::system_error(errno, std::generic_category(), "pipe2 failed");
-    }
-    return pipefd;
-}
-```
+:::code api-pipe-syscalls/cpp/syhnatury-ta-rozshyrenyi.cpp
 :::
 
 Виклики заповнюють масив `pipefd` двома новими файловими дескрипторами:
@@ -67,37 +53,8 @@ std::array<int, 2> create_pipe_pair(int flags = O_CLOEXEC) {
 ### Сигнатури та C/C++ обгортки
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <fcntl.h>
-
-// Дублювання в найменший вільний дескриптор
-int dup(int oldfd);
-
-// Атомарне дублювання newfd = oldfd з безпечним закриттям старого newfd
-int dup2(int oldfd, int newfd);
-
-// Розширене дублювання з атомарним прапорцем O_CLOEXEC
-int dup3(int oldfd, int newfd, int flags);
-```
-```cpp
-#include <system_error>
-#include <unistd.h>
-#include <fcntl.h>
-
-void safe_dup2(int oldfd, int newfd) {
-    if (::dup2(oldfd, newfd) == -1) {
-        throw std::system_error(errno, std::generic_category(), "dup2 failed");
-    }
-}
-
-void safe_dup3(int oldfd, int newfd, int flags = O_CLOEXEC) {
-    if (::dup3(oldfd, newfd, flags) == -1) {
-        throw std::system_error(errno, std::generic_category(), "dup3 failed");
-    }
-}
-```
+:::code api-pipe-syscalls/c/unistd.h
+:::code api-pipe-syscalls/cpp/syhnatury-ta-c-c-obhortky.cpp
 :::
 
 ### Порівняльний аналіз поведінки функцій дублювання
@@ -122,43 +79,8 @@ void safe_dup3(int oldfd, int newfd, int flags = O_CLOEXEC) {
 ### Команди `fcntl` для каналів
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-
-long get_pipe_capacity(int fd) {
-    // Повертає поточний розмір буфера каналу в байтах
-    return fcntl(fd, F_GETPIPE_SZ);
-}
-
-long set_pipe_capacity(int fd, long new_size) {
-    // Встановлює новий розмір буфера каналу (буде округлено до PAGE_SIZE)
-    return fcntl(fd, F_SETPIPE_SZ, new_size);
-}
-```
-```cpp
-#include <system_error>
-#include <fcntl.h>
-#include <unistd.h>
-
-std::size_t get_cpp_pipe_capacity(int fd) {
-    long sz = ::fcntl(fd, F_GETPIPE_SZ);
-    if (sz == -1) {
-        throw std::system_error(errno, std::generic_category(), "F_GETPIPE_SZ failed");
-    }
-    return static_cast<std::size_t>(sz);
-}
-
-std::size_t set_cpp_pipe_capacity(int fd, std::size_t new_size) {
-    long sz = ::fcntl(fd, F_SETPIPE_SZ, static_cast<long>(new_size));
-    if (sz == -1) {
-        throw std::system_error(errno, std::generic_category(), "F_SETPIPE_SZ failed");
-    }
-    return static_cast<std::size_t>(sz);
-}
-```
+:::code api-pipe-syscalls/c/komandy-fcntl-dlia-kanaliv.c
+:::code api-pipe-syscalls/cpp/komandy-fcntl-dlia-kanaliv.cpp
 :::
 
 ### Системні параметри та обмеження буферів у `/proc/sys/fs/`
@@ -181,33 +103,8 @@ std::size_t set_cpp_pipe_capacity(int fd, std::size_t new_size) {
 ### Сигнатури викликів zero-copy
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <unistd.h>
-
-// Переміщує байти між файловим дескриптором та каналом без копіювання
-ssize_t splice(int fd_in, loff_t *off_in, int fd_out, loff_t *off_out, size_t len, unsigned int flags);
-
-// Дублює байти з одного каналу у інший без їхнього видалення з першого
-ssize_t tee(int fd_in, int fd_out, size_t len, unsigned int flags);
-
-// Мапить сторінки пам'яті користувача безпосередньо у буфер каналу
-ssize_t vmsplice(int fd, const struct iovec *iov, unsigned long nr_segs, unsigned int flags);
-```
-```cpp
-#include <system_error>
-#include <fcntl.h>
-#include <unistd.h>
-
-std::size_t splice_data(int fd_in, int fd_out, std::size_t len) {
-    ssize_t bytes = ::splice(fd_in, nullptr, fd_out, nullptr, len, SPLICE_F_MOVE | SPLICE_F_MORE);
-    if (bytes == -1) {
-        throw std::system_error(errno, std::generic_category(), "splice failed");
-    }
-    return static_cast<std::size_t>(bytes);
-}
-```
+:::code api-pipe-syscalls/c/fcntl.h
+:::code api-pipe-syscalls/cpp/syhnatury-vyklykiv-zero.cpp
 :::
 
 ### Прапорці керування zero-copy операціями
@@ -275,73 +172,6 @@ strace -f -e trace=pipe,pipe2,dup2,close,execve ./my_pipeline
 ## 7. Повний приклад налаштування неблокуючого каналу з розширеним буфером
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-
-int create_nonblocking_custom_pipe(int fds[2], long target_size) {
-    // 1. Атомарно створюємо неблокуючий канал із прапором close-on-exec
-    if (pipe2(fds, O_CLOEXEC | O_NONBLOCK) == -1) {
-        perror("pipe2 failed");
-        return -1;
-    }
-
-    // 2. Спробуємо збільшити розмір буфера
-    long actual_size = fcntl(fds[1], F_SETPIPE_SZ, target_size);
-    if (actual_size == -1) {
-        perror("F_SETPIPE_SZ failed (continuing with default size)");
-    } else {
-        printf("Pipe capacity successfully changed to %ld bytes\n", actual_size);
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <array>
-#include <system_error>
-#include <unistd.h>
-#include <fcntl.h>
-
-class CustomPipe {
-public:
-    explicit CustomPipe(std::size_t initial_buffer_size = 131072) {
-        if (::pipe2(fds_.data(), O_CLOEXEC | O_NONBLOCK) == -1) {
-            throw std::system_error(errno, std::generic_category(), "pipe2 failed");
-        }
-
-        long res = ::fcntl(fds_[1], F_SETPIPE_SZ, static_cast<long>(initial_buffer_size));
-        if (res != -1) {
-            capacity_ = static_cast<std::size_t>(res);
-        } else {
-            capacity_ = 65536; // За замовчуванням 64KB
-        }
-    }
-
-    ~CustomPipe() {
-        if (fds_[0] != -1) ::close(fds_[0]);
-        if (fds_[1] != -1) ::close(fds_[1]);
-    }
-
-    CustomPipe(const CustomPipe&) = delete;
-    CustomPipe& operator=(const CustomPipe&) = delete;
-
-    CustomPipe(CustomPipe&& other) noexcept : fds_(other.fds_), capacity_(other.capacity_) {
-        other.fds_ = {-1, -1};
-    }
-
-    int read_fd() const noexcept { return fds_[0]; }
-    int write_fd() const noexcept { return fds_[1]; }
-    std::size_t capacity() const noexcept { return capacity_; }
-
-private:
-    std::array<int, 2> fds_{-1, -1};
-    std::size_t capacity_{0};
-};
-```
+:::code api-pipe-syscalls/c/7-povnyi-pryklad.c
+:::code api-pipe-syscalls/cpp/7-povnyi-pryklad.cpp
 :::

@@ -80,18 +80,7 @@
 
 ### Як зробити зміну сталою
 
-```sh
-# разово, до перезавантаження
-sudo sysctl -w kernel.randomize_va_space=2
-
-# назавжди
-echo 'kernel.randomize_va_space = 2' | sudo tee /etc/sysctl.d/60-aslr.conf
-sudo sysctl --system
-
-# перевірити чинне (mmap_rnd_bits читається лише з-під root)
-cat /proc/sys/kernel/randomize_va_space
-sudo cat /proc/sys/vm/mmap_rnd_bits
-```
+:::code api-randomization-controls/sh/main.sh
 
 ## personality(2): вимикач на один процес
 
@@ -120,74 +109,8 @@ int personality(unsigned long persona);
 Читати чинне значення треба **окремим викликом** з аргументом `0xffffffff` — ядро розпізнає його як «не міняти». Далі новий стан складається з прочитаного, а не пишеться поверх: інакше ви заразом зітрете домен у молодшому байті й чужі прапорці.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <sys/personality.h>
-#include <unistd.h>
-
-int main(int argc, char *argv[])
-{
-    if (argc < 2) {
-        fprintf(stderr, "usage: %s program [args...]\n", argv[0]);
-        return 2;
-    }
-
-    /* 1. Прочитати чинну особистість, нічого не змінюючи. */
-    int cur = personality(0xffffffff);
-    if (cur == -1) {
-        perror("personality (read)");
-        return 1;
-    }
-
-    /* 2. Додати один біт, зберігши все інше — і домен у молодшому байті. */
-    if (personality((unsigned long)cur | ADDR_NO_RANDOMIZE) == -1) {
-        perror("personality (set)");
-        return 1;
-    }
-
-    /* 3. Карту будує саме execve — і тепер він будуватиме її без жереба. */
-    execvp(argv[1], &argv[1]);
-    perror("execvp");
-    return 1;
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <cerrno>
-#include <sys/personality.h>
-#include <unistd.h>
-
-int main(int argc, char *argv[])
-{
-    if (argc < 2) {
-        std::cerr << "usage: " << argv[0] << " program [args...]\n";
-        return 2;
-    }
-
-    // 1. Прочитати чинну особистість, нічого не змінюючи.
-    const int cur = personality(0xffffffff);
-    if (cur == -1) {
-        std::cerr << "personality (read): " 
-                  << std::system_error(errno, std::generic_category()).what() << '\n';
-        return 1;
-    }
-
-    // 2. Додати один біт, зберігши все інше — і домен у молодшому байті.
-    if (personality(static_cast<unsigned long>(cur) | ADDR_NO_RANDOMIZE) == -1) {
-        std::cerr << "personality (set): " 
-                  << std::system_error(errno, std::generic_category()).what() << '\n';
-        return 1;
-    }
-
-    // 3. Карту будує саме execve — і тепер він будуватиме її без жереба.
-    execvp(argv[1], &argv[1]);
-    std::cerr << "execvp: " 
-              << std::system_error(errno, std::generic_category()).what() << '\n';
-    return 1;
-}
-```
+:::code api-randomization-controls/c/main.c
+:::code api-randomization-controls/cpp/main.cpp
 :::
 
 ```sh

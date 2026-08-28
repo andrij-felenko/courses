@@ -33,153 +33,19 @@
 
 ### Заголовки, сталі, попередні оголошення
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-/* tinyfs — найменша файлова система, яку можна змонтувати */
-
-#include <linux/module.h>
-#include <linux/fs.h>
-#include <linux/fs_context.h>
-#include <linux/pagemap.h>
-#include <linux/slab.h>
-#include <linux/string.h>
-#include <linux/timekeeping.h>
-
-#define TINY_MAGIC	0x54494E59UL	/* "TINY" у ASCII */
-#define TINY_NAME	"status"
-#define TINY_BUFSZ	256
-
-#define TINY_INO_ROOT	1
-#define TINY_INO_FILE	2
-
-static const struct inode_operations tiny_dir_inode_ops;
-static const struct file_operations  tiny_dir_ops;
-static const struct file_operations  tiny_file_ops;
-
-static atomic_t tiny_opens = ATOMIC_INIT(0);
-```
+:::code proj-minimal-filesystem-module/c/zaholovky-stali-poperedni.c
 
 Магічне число — довільне: воно потрапить у поле `f_type` відповіді `statfs()`, і за ним програми впізнають тип файлової системи. Числа справжніх файлових систем зібрано в одному заголовку ядра, наше там не зареєстроване, і `stat -f` покаже `UNKNOWN` — це нормально для навчального модуля й неприйнятно для того, що йде в дерево ядра.
 
 ### Єдиний файл: вміст, якого ніде немає
 
-```c
-/* Знімок робимо на відкритті, а не на читанні: між двома read() текст
- * не мусить мінятися, інакше другий виклик дістане обрізаний хвіст. */
-static int tiny_open(struct inode *inode, struct file *file)
-{
-	char *buf;
-
-	buf = kmalloc(TINY_BUFSZ, GFP_KERNEL);
-	if (!buf)
-		return -ENOMEM;
-
-	scnprintf(buf, TINY_BUFSZ,
-		  "uptime  %lld s\n"
-		  "opens   %d\n"
-		  "magic   0x%lx\n",
-		  ktime_get_boottime_seconds(),
-		  atomic_inc_return(&tiny_opens),
-		  inode->i_sb->s_magic);
-
-	file->private_data = buf;
-	return 0;
-}
-
-static ssize_t tiny_read(struct file *file, char __user *to,
-			 size_t count, loff_t *ppos)
-{
-	const char *buf = file->private_data;
-
-	return simple_read_from_buffer(to, count, ppos, buf, strlen(buf));
-}
-
-static int tiny_release(struct inode *inode, struct file *file)
-{
-	kfree(file->private_data);
-	return 0;
-}
-
-static const struct file_operations tiny_file_ops = {
-	.owner		= THIS_MODULE,
-	.open		= tiny_open,
-	.read		= tiny_read,
-	.release	= tiny_release,
-	.llseek		= default_llseek,
-};
-```
+:::code proj-minimal-filesystem-module/c/iedynyi-fail-vmist-iakoho.c
 
 `simple_read_from_buffer()` робить усе нудне: обрізає запит по довжині буфера, копіює в простір користувача, посуває позицію й повертає нуль на кінці. Модуль не торкається ані `copy_to_user`, ані арифметики зміщень — саме тому одна функція `tiny_read` уміщається в один рядок.
 
 ### Кореневий каталог: одне ім'я і його пошук
 
-```c
-static struct inode *tiny_make_inode(struct super_block *sb, umode_t mode)
-{
-	struct inode *inode = new_inode(sb);
-
-	if (!inode)
-		return NULL;
-
-	/* Власника ніде не записано — беремо того, хто звертається саме зараз:
-	 * inode_init_owner() ставить current_fsuid()/current_fsgid(). */
-	inode_init_owner(&nop_mnt_idmap, inode, NULL, mode);
-	simple_inode_init_ts(inode);
-
-	if (S_ISDIR(mode)) {
-		inode->i_ino  = TINY_INO_ROOT;
-		inode->i_op   = &tiny_dir_inode_ops;
-		inode->i_fop  = &tiny_dir_ops;
-		inc_nlink(inode);	/* каталог має щонайменше два імені: "." і своє */
-	} else {
-		inode->i_ino  = TINY_INO_FILE;
-		inode->i_fop  = &tiny_file_ops;
-		inode->i_size = 0;	/* справжнього розміру до генерації не знаємо */
-	}
-	return inode;
-}
-
-static int tiny_iterate(struct file *file, struct dir_context *ctx)
-{
-	if (!dir_emit_dots(file, ctx))
-		return 0;
-
-	if (ctx->pos == 2) {
-		if (!dir_emit(ctx, TINY_NAME, sizeof(TINY_NAME) - 1,
-			      TINY_INO_FILE, DT_REG))
-			return 0;
-		ctx->pos = 3;
-	}
-	return 0;
-}
-
-static struct dentry *tiny_lookup(struct inode *dir, struct dentry *dentry,
-				  unsigned int flags)
-{
-	struct inode *inode = NULL;
-
-	if (dentry->d_name.len == sizeof(TINY_NAME) - 1 &&
-	    !memcmp(dentry->d_name.name, TINY_NAME, sizeof(TINY_NAME) - 1)) {
-		inode = tiny_make_inode(dir->i_sb, S_IFREG | 0444);
-		if (!inode)
-			return ERR_PTR(-ENOMEM);
-	}
-
-	/* inode == NULL — це не помилка, а від'ємний запис: «імені тут немає». */
-	return d_splice_alias(inode, dentry);
-}
-
-static const struct inode_operations tiny_dir_inode_ops = {
-	.lookup		= tiny_lookup,
-};
-
-static const struct file_operations tiny_dir_ops = {
-	.owner		= THIS_MODULE,
-	.iterate_shared	= tiny_iterate,
-	.read		= generic_read_dir,
-	.llseek		= generic_file_llseek,
-};
-```
+:::code proj-minimal-filesystem-module/c/korenevyi-kataloh-odne.c
 
 Тут варто спинитися на трьох речах.
 
@@ -191,57 +57,7 @@ static const struct file_operations tiny_dir_ops = {
 
 ### Примірник: суперблок і монтування
 
-```c
-static const struct super_operations tiny_super_ops = {
-	.statfs		= simple_statfs,
-};
-
-static int tiny_fill_super(struct super_block *sb, struct fs_context *fc)
-{
-	struct inode *root;
-
-	sb->s_magic		= TINY_MAGIC;
-	sb->s_op		= &tiny_super_ops;
-	sb->s_blocksize		= PAGE_SIZE;
-	sb->s_blocksize_bits	= PAGE_SHIFT;
-	sb->s_maxbytes		= MAX_LFS_FILESIZE;
-	sb->s_time_gran		= 1;
-
-	root = tiny_make_inode(sb, S_IFDIR | 0555);
-	if (!root)
-		return -ENOMEM;
-
-	/* d_make_root сама зробить iput() на невдачі — другий раз не звільняємо. */
-	sb->s_root = d_make_root(root);
-	if (!sb->s_root)
-		return -ENOMEM;
-
-	return 0;
-}
-
-static int tiny_get_tree(struct fs_context *fc)
-{
-	return get_tree_nodev(fc, tiny_fill_super);
-}
-
-static const struct fs_context_operations tiny_context_ops = {
-	.get_tree	= tiny_get_tree,
-};
-
-static int tiny_init_fs_context(struct fs_context *fc)
-{
-	fc->ops = &tiny_context_ops;
-	return 0;
-}
-
-static struct file_system_type tiny_fs_type = {
-	.owner			= THIS_MODULE,
-	.name			= "tinyfs",
-	.init_fs_context	= tiny_init_fs_context,
-	.kill_sb		= kill_anon_super,
-};
-MODULE_ALIAS_FS("tinyfs");
-```
+:::code proj-minimal-filesystem-module/c/prymirnyk-superblok-i.c
 
 `get_tree_nodev()` — це коротка обгортка над `sget_fc()` без функції порівняння: кожне монтування дістає **новий** суперблок і власний анонімний номер пристрою, тож два монтування `tinyfs` будуть двома незалежними файловими системами з різними лічильниками. Її сусідка `get_tree_single()` відрізняється рівно однією річчю — функцією порівняння, що завжди каже «збіг», через що всі монтування ділять один суперблок. Вибір між ними — це вибір семантики [монтування](root:sys-unix/mount-model), а не оптимізація.
 
@@ -249,24 +65,7 @@ MODULE_ALIAS_FS("tinyfs");
 
 ### Реєстрація
 
-```c
-static int __init tiny_init(void)
-{
-	return register_filesystem(&tiny_fs_type);
-}
-
-static void __exit tiny_exit(void)
-{
-	unregister_filesystem(&tiny_fs_type);
-}
-
-module_init(tiny_init);
-module_exit(tiny_exit);
-
-MODULE_DESCRIPTION("tinyfs: a minimal mountable filesystem");
-MODULE_AUTHOR("nobody");
-MODULE_LICENSE("GPL");
-```
+:::code proj-minimal-filesystem-module/c/reiestratsiia.c
 
 `MODULE_LICENSE` — не формальність, а умова складання: без нього перевірка модуля обривається помилкою, а з ліцензією, не сумісною з GPL, модуль не дістане доступу до символів, позначених `EXPORT_SYMBOL_GPL`, і їх у сучасному ядрі дедалі більше. Того ж `MODULE_DESCRIPTION` вимагає й та сама перевірка, але вже лише попередженням.
 
@@ -288,36 +87,7 @@ clean:
 
 `-C $(KDIR)` перемикає роботу в каталог [зібраного ядра](root:sys-unix/kernel-config-and-build), а `M=$(CURDIR)` каже: правила бери свої, а джерела — з мого каталогу. Прапорці компілятора, версію заголовків і формат `.ko` при цьому цілком диктує ядро; спроба зібрати модуль «своїм» `gcc` зі своїми ключами дасть у кращому разі файл, який ядро відмовиться завантажити. Потрібен пакунок заголовків саме тієї версії, що зараз працює (`linux-headers-$(uname -r)` або `kernel-devel`).
 
-```sh
-$ make
-$ sudo insmod tinyfs.ko
-$ grep tinyfs /proc/filesystems
-nodev	tinyfs
-
-$ sudo mkdir -p /mnt/tiny
-$ sudo mount -t tinyfs none /mnt/tiny
-$ ls -la /mnt/tiny
-total 0
-dr-xr-xr-x 2 root root   0 сер  7 10:12 .
-drwxr-xr-x 4 root root  80 сер  7 10:11 ..
--r--r--r-- 1 user user   0 сер  7 10:12 status
-
-$ cat /mnt/tiny/status
-uptime  91274 s
-opens   1
-magic   0x54494e59
-
-$ cat /mnt/tiny/nope
-cat: /mnt/tiny/nope: No such file or directory
-$ touch /mnt/tiny/x
-touch: cannot touch '/mnt/tiny/x': Permission denied
-
-$ stat -f -c 'тип=%T довжина_імені=%l блок=%s' /mnt/tiny
-тип=UNKNOWN довжина_імені=255 блок=4096
-
-$ sudo umount /mnt/tiny
-$ sudo rmmod tinyfs
-```
+:::code proj-minimal-filesystem-module/sh/main.sh
 
 Одразу впадає в око розбіжність у власниках: каталог `.` належить `root`, а файл `status` — звичайному користувачеві. Це не помилка виводу, а точний портрет того, звідки беруться синтезовані поля. Inode кореня створено під час `mount`, який ішов через `sudo`; inode файлу створив `tiny_lookup()` уже під час цього самого `ls -la`, який запущено без `sudo`. `inode_init_owner()` в обох випадках узяв **того, хто звертався в ту мить**, а не того, хто монтував. Справжні файлові системи без власників на носії роблять інакше: vfat запам'ятовує `uid`/`gid` монтувальника (або з параметрів `uid=`/`gid=`) у даних суперблока й далі роздає всім inode те саме — саме тому на флешці з FAT усі файли належать одному господареві.
 

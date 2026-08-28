@@ -40,27 +40,7 @@
 
 Ось як виглядає перевірка доступу до inode — функція, крізь яку проходить кожен складник кожного шляху:
 
-```c
-/* fs/namei.c, скорочено до суті */
-int inode_permission(struct mnt_idmap *idmap, struct inode *inode, int mask)
-{
-    int retval;
-
-    retval = sb_permission(inode->i_sb, inode, mask);   /* монтування лише для читання? */
-    if (retval)
-        return retval;
-
-    retval = do_inode_permission(idmap, inode, mask);   /* дев'ять бітів, ACL, мандати */
-    if (retval)
-        return retval;
-
-    retval = devcgroup_inode_permission(inode, mask);   /* обмеження на пристрої */
-    if (retval)
-        return retval;
-
-    return security_inode_permission(inode, mask);      /* гачок LSM */
-}
-```
+:::code mac-selinux-apparmor-d/c/namei.c
 
 Подивіться на форму цього коду уважніше, бо в ній лежить головна властивість усієї конструкції. Кожен етап уміє рівно одне: обірвати перевірку з помилкою. Жоден не вміє перетворити чужу помилку на дозвіл. Тому обов'язковий контроль **структурно** не здатний нічого дозволити — не тому, що так вирішили автори політики, а тому, що на це немає коду. Якщо дев'ять бітів сказали «ні», модуль безпеки навіть не спитають.
 

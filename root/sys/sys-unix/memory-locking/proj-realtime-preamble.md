@@ -20,87 +20,7 @@
 
 Порядок дій усередині має значення: прибивання йде першим, щоб усе, що розігрів створить після нього, потрапляло під `MCL_FUTURE` уже прибитим.
 
-```c
-#define _GNU_SOURCE
-#include <sys/mman.h>
-#include <sys/resource.h>
-#include <malloc.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-
-static void die(const char *what) { perror(what); exit(1); }
-
-/* Скільки байтів прибив саме цей процес: рядок VmLck, у кілобайтах. */
-static long vmlck_kib(void)
-{
-    FILE *f = fopen("/proc/self/status", "r");
-    if (!f) return -1;
-    char line[256];
-    long kib = -1;
-    while (fgets(line, sizeof line, f))
-        if (sscanf(line, "VmLck: %ld kB", &kib) == 1) break;
-    fclose(f);
-    return kib;
-}
-
-static void lock_everything(void)
-{
-    if (mlockall(MCL_CURRENT | MCL_FUTURE) == 0)
-        return;
-
-    int err = errno;                  /* getrlimit нижче має право його затерти */
-    struct rlimit rl = { 0, 0 };
-    getrlimit(RLIMIT_MEMLOCK, &rl);
-
-    if (err == ENOMEM)
-        fprintf(stderr, "mlockall: уперлися в межу прибитої пам'яті; "
-                        "м'яка %llu Б, жорстка %llu Б, уже прибито %ld КіБ\n",
-                (unsigned long long) rl.rlim_cur,
-                (unsigned long long) rl.rlim_max, vmlck_kib());
-    else if (err == EPERM)
-        fprintf(stderr, "mlockall: межа нульова, а CAP_IPC_LOCK немає\n");
-
-    errno = err;
-    die("mlockall");
-}
-
-#define STACK_WARM (64 * 1024)        /* із запасом на найглибший ланцюг викликів */
-
-static void warm_stack(void)
-{
-    unsigned char buf[STACK_WARM];
-    memset(buf, 0, sizeof buf);       /* саме ЗАПИС — чому, див. пастки нижче */
-    __asm__ __volatile__("" :: "r"(buf) : "memory");   /* щоб memset не викинули */
-}
-
-static void warm_heap(size_t bytes)
-{
-    if (!mallopt(M_TRIM_THRESHOLD, -1)   /* free() більше не зсуває верх купи вниз */
-     || !mallopt(M_MMAP_MAX, 0)          /* великі шматки теж із купи, не окремим mmap */
-     || !mallopt(M_ARENA_MAX, 1)) {      /* усі потоки — через одну, розігріту купу */
-        fprintf(stderr, "mallopt: розподільник не прийняв налаштування\n");
-        exit(1);
-    }
-
-    size_t page = (size_t) sysconf(_SC_PAGESIZE);
-    unsigned char *p = malloc(bytes);
-    if (!p) die("malloc");
-    for (size_t i = 0; i < bytes; i += page)
-        p[i] = 1;                        /* по одному запису на сторінку */
-    free(p);                             /* пам'ять лишається за процесом */
-}
-
-static void preamble(size_t working_set)
-{
-    lock_everything();
-    warm_stack();
-    warm_heap(working_set);
-    fprintf(stderr, "готово: прибито %ld КіБ\n", vmlck_kib());
-}
-```
+:::code proj-realtime-preamble/c/kistiak.c
 
 Три виклики `mallopt` варті окремого слова. Перший забороняє [розподільникові](root:sys-unix/allocator-and-kernel) віддавати ядру верх купи, коли програма щось звільнила; без нього кожен сплеск і спад робочого обсягу коштує сторінок, за які потім платять збоєм наново. Другий вимикає видачу великих шматків окремим відображенням — інакше кожне таке відображення живе рівно стільки, скільки шматок, і зникає разом із ним. Третій тримає всі потоки в одній купі, і саме він робить одноразовий розігрів корисним не тільки для головного потоку.
 
@@ -142,65 +62,7 @@ static void *map_sparse(int fd, size_t bytes)
 
 Замір складається з проходу по сторінках і гістограми за степенями двійки: смуга `k` збирає звертання, що вклалися в `[2ᵏ, 2ᵏ⁺¹)` наносекунд. Логарифмічні смуги тут доречніші за середні, бо цікавий діапазон розтягнуто на п'ять порядків.
 
-```c
-#include <stdint.h>
-#include <time.h>
-#include <fcntl.h>
-
-static inline uint64_t now_ns(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (uint64_t) ts.tv_sec * 1000000000ull + ts.tv_nsec;
-}
-
-static volatile unsigned char sink;
-
-static void probe(const unsigned char *area, size_t bytes, unsigned long hist[64])
-{
-    size_t page = (size_t) sysconf(_SC_PAGESIZE);
-    for (size_t off = 0; off < bytes; off += page) {
-        uint64_t t0 = now_ns();
-        sink = area[off];
-        uint64_t dt = now_ns() - t0;
-        unsigned k = 0;
-        while (dt >>= 1) k++;
-        hist[k]++;
-    }
-}
-
-static void report(const char *tag, const unsigned long hist[64])
-{
-    int hi = 63;
-    while (hi > 0 && hist[hi] == 0) hi--;
-    printf("%s — найгірше звертання у смузі %llu нс\n", tag, 1ull << hi);
-    for (int k = 0; k <= hi; k++)
-        if (hist[k])
-            printf("  %10llu нс  %lu\n", 1ull << k, hist[k]);
-}
-
-int main(int argc, char **argv)
-{
-    if (argc < 2) { fprintf(stderr, "вжиток: %s <файл> [--locked]\n", argv[0]); return 2; }
-    int locked = (argc > 2 && strcmp(argv[2], "--locked") == 0);
-    size_t bytes = 256u << 20;
-
-    int fd = open(argv[1], O_RDONLY);
-    if (fd < 0) die("open");
-    unsigned char *area = mmap(NULL, bytes, PROT_READ, MAP_PRIVATE, fd, 0);
-    if (area == MAP_FAILED) die("mmap");
-
-    if (locked)
-        preamble(64u << 20);        /* mlockall накриє і щойно відображений файл */
-
-    static unsigned long hist[64];
-    probe(area, bytes, hist);       /* холостий прохід: сторінки мають бути населені */
-    memset(hist, 0, sizeof hist);
-    probe(area, bytes, hist);       /* власне замір */
-    report(locked ? "прибито" : "як є", hist);
-    return 0;
-}
-```
+:::code proj-realtime-preamble/c/vymiriuvalna-chastyna.c
 
 Підлога заміру — самі виклики `clock_gettime`: пара звертань до `CLOCK_MONOTONIC` коштує кілька десятків наносекунд і не входить у ядро взагалі, бо годинник читають через [спільну сторінку коду vdso](root:sys-unix/vdso). Це той самий порядок, що й саме звертання до пам'яті, тож нижні смуги гістограми показують радше вартість годинника, ніж вартість доступу; змістовний тут хвіст, який відстає від підлоги на три-чотири порядки.
 

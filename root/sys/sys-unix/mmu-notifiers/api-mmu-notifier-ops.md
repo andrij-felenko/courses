@@ -4,30 +4,7 @@
 
 ## `struct mmu_notifier_ops` — підписка на весь адресний простір
 
-```c
-struct mmu_notifier_ops {
-        void (*release)(struct mmu_notifier *subscription, struct mm_struct *mm);
-
-        int  (*clear_flush_young)(struct mmu_notifier *subscription, struct mm_struct *mm,
-                                  unsigned long start, unsigned long end);
-        int  (*clear_young)(struct mmu_notifier *subscription, struct mm_struct *mm,
-                            unsigned long start, unsigned long end);
-        int  (*test_young)(struct mmu_notifier *subscription, struct mm_struct *mm,
-                           unsigned long address);
-
-        int  (*invalidate_range_start)(struct mmu_notifier *subscription,
-                                       const struct mmu_notifier_range *range);
-        void (*invalidate_range_end)(struct mmu_notifier *subscription,
-                                     const struct mmu_notifier_range *range);
-
-        void (*arch_invalidate_secondary_tlbs)(struct mmu_notifier *subscription,
-                                               struct mm_struct *mm,
-                                               unsigned long start, unsigned long end);
-
-        struct mmu_notifier *(*alloc_notifier)(struct mm_struct *mm);
-        void (*free_notifier)(struct mmu_notifier *subscription);
-};
-```
+:::code api-mmu-notifier-ops/c/struct-mmu-notifier-ops.h
 
 Жодне поле не обов'язкове: ядро перевіряє покажчик перед викликом, тож набір беруть за потребою.
 
@@ -53,23 +30,7 @@ struct mmu_notifier_ops {
 
 ## `struct mmu_notifier_range` — опис зміни
 
-```c
-struct mmu_notifier_range {
-        struct mm_struct        *mm;
-        unsigned long            start;
-        unsigned long            end;
-        unsigned                 flags;
-        enum mmu_notifier_event  event;
-        void                    *owner;
-};
-
-#define MMU_NOTIFIER_RANGE_BLOCKABLE (1 << 0)
-
-static inline bool mmu_notifier_range_blockable(const struct mmu_notifier_range *range)
-{
-        return (range->flags & MMU_NOTIFIER_RANGE_BLOCKABLE);
-}
-```
+:::code api-mmu-notifier-ops/c/struct-mmu-notifier-range.c
 
 | поле | вміст |
 |---|---|
@@ -122,25 +83,7 @@ void mmu_notifier_synchronize(void);
 
 ## Інтервальний інтерфейс
 
-```c
-struct mmu_interval_notifier_ops {
-        bool (*invalidate)(struct mmu_interval_notifier *interval_sub,
-                           const struct mmu_notifier_range *range,
-                           unsigned long cur_seq);
-};
-
-int  mmu_interval_notifier_insert(struct mmu_interval_notifier *interval_sub,
-                                  struct mm_struct *mm, unsigned long start,
-                                  unsigned long length,
-                                  const struct mmu_interval_notifier_ops *ops);
-int  mmu_interval_notifier_insert_locked(/* те саме */);
-void mmu_interval_notifier_remove(struct mmu_interval_notifier *interval_sub);
-
-unsigned long mmu_interval_read_begin(struct mmu_interval_notifier *interval_sub);
-bool mmu_interval_read_retry(struct mmu_interval_notifier *interval_sub, unsigned long seq);
-bool mmu_interval_check_retry(struct mmu_interval_notifier *interval_sub, unsigned long seq);
-void mmu_interval_set_seq(struct mmu_interval_notifier *interval_sub, unsigned long cur_seq);
-```
+:::code api-mmu-notifier-ops/c/intervalnyi-interfeis.h
 
 | виклик | умови |
 |---|---|

@@ -6,34 +6,7 @@
 
 Сімей дві — за наміром: `get_user_pages*` бере звичайне посилання, `pin_user_pages*` ставить закріплення. Усередині кожної — чотири форми, що різняться лише тим, у чиєму адресному просторі працюють і хто тримає `mmap_lock`. Аргументи в дзеркальних форм збігаються посимвольно.
 
-```c
-long get_user_pages(unsigned long start, unsigned long nr_pages,
-                    unsigned int gup_flags, struct page **pages);
-long pin_user_pages(unsigned long start, unsigned long nr_pages,
-                    unsigned int gup_flags, struct page **pages);
-
-long get_user_pages_remote(struct mm_struct *mm,
-                           unsigned long start, unsigned long nr_pages,
-                           unsigned int gup_flags, struct page **pages,
-                           int *locked);
-long pin_user_pages_remote(struct mm_struct *mm,
-                           unsigned long start, unsigned long nr_pages,
-                           unsigned int gup_flags, struct page **pages,
-                           int *locked);
-
-long get_user_pages_unlocked(unsigned long start, unsigned long nr_pages,
-                             struct page **pages, unsigned int gup_flags);
-long pin_user_pages_unlocked(unsigned long start, unsigned long nr_pages,
-                             struct page **pages, unsigned int gup_flags);
-
-int  get_user_pages_fast(unsigned long start, int nr_pages,
-                         unsigned int gup_flags, struct page **pages);
-int  pin_user_pages_fast(unsigned long start, int nr_pages,
-                         unsigned int gup_flags, struct page **pages);
-
-int  get_user_pages_fast_only(unsigned long start, int nr_pages,
-                              unsigned int gup_flags, struct page **pages);
-```
+:::code api-gup-family/c/dvi-simi-chotyry-formy.h
 
 Дві дрібниці в цих рядках варті окремого погляду. У `_unlocked` масив `pages` стоїть **третім**, а прапорці четвертими — порядок протилежний до решти сім'ї; тут компілятор урятує, бо переплутати покажчик із цілим не дасть, але переносити виклик з форми у форму наосліп не вийде. А `_fast` міряє кількість сторінок знаковим `int` і повертає `int`, тоді як решта працює з `unsigned long` і `long` — на діапазонах у мільйони сторінок звуження мовчазне й наслідки в нього неприємні.
 
@@ -187,39 +160,7 @@ int account_locked_vm(struct mm_struct *mm, unsigned long pages, bool inc);
 
 ## Мінімальний виклик
 
-```c
-int pin_buffer(unsigned long start, int nr_pages, struct page ***out)
-{
-	struct page **pages;
-	int pinned, ret;
-
-	pages = kvmalloc_array(nr_pages, sizeof(*pages), GFP_KERNEL);
-	if (!pages)
-		return -ENOMEM;
-
-	ret = account_locked_vm(current->mm, nr_pages, true);
-	if (ret)
-		goto free_pages;
-
-	/* FOLL_LONGTERM: пристрій триматиме буфер, доки живе реєстрація */
-	pinned = pin_user_pages_fast(start, nr_pages,
-				     FOLL_WRITE | FOLL_LONGTERM, pages);
-	if (pinned <= 0) {
-		ret = pinned ? pinned : -EFAULT;
-		goto unaccount;
-	}
-
-	/* часткова вдача — норма: далі працюємо з pinned, а не з nr_pages */
-	*out = pages;
-	return pinned;
-
-unaccount:
-	account_locked_vm(current->mm, nr_pages, false);
-free_pages:
-	kvfree(pages);
-	return ret;
-}
-```
+:::code api-gup-family/c/minimalnyi-vyklyk.c
 
 Звільнення дзеркальне й мусить назвати те саме число, яке повернуло закріплення:
 

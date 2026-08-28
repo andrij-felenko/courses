@@ -110,20 +110,7 @@ static void on_sigchld(int sig) {
 
 **Розбір статусу, який покриває всі три випадки.**
 
-```c
-int status;
-pid_t pid = waitpid(child, &status, WUNTRACED);
-if (pid < 0) { perror("waitpid"); return 1; }
-
-if (WIFEXITED(status)) {
-    printf("вийшов сам, код %d\n", WEXITSTATUS(status));
-} else if (WIFSIGNALED(status)) {
-    printf("убито сигналом %d%s\n", WTERMSIG(status),
-           WCOREDUMP(status) ? " (з дампом)" : "");
-} else if (WIFSTOPPED(status)) {
-    printf("зупинено сигналом %d\n", WSTOPSIG(status));
-}
-```
+:::code exit-wait-zombies-d/c/main.c
 
 Ті самі три випадки в числах, без макросів:
 

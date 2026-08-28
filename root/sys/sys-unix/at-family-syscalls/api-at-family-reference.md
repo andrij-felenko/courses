@@ -143,22 +143,7 @@ struct xattr_args {
 
 ## `openat2`: розбір шляху під керуванням
 
-```c
-#define _GNU_SOURCE
-#include <linux/openat2.h>   /* struct open_how, RESOLVE_* */
-#include <sys/syscall.h>
-#include <unistd.h>
-
-/* оголошено в заголовку, наведено для довідки */
-struct open_how {
-    __u64 flags;     /* усе, що приймає open(): O_RDONLY, O_CREAT, O_CLOEXEC … */
-    __u64 mode;      /* права нового файлу; поза O_CREAT/O_TMPFILE мусить бути 0 */
-    __u64 resolve;   /* RESOLVE_* — керує самим обходом */
-};
-
-long syscall(SYS_openat2, int dirfd, const char *path,
-             struct open_how *how, size_t size);
-```
+:::code api-at-family-reference/c/openat2-rozbir-shliakhu.c
 
 Форма з `syscall()` наведена саме тому, що працює всюди: обгортка glibc є не на кожній системі, а номер виклику є завжди.
 
@@ -183,47 +168,11 @@ long syscall(SYS_openat2, int dirfd, const char *path,
 
 Перевірка підтримки робиться один раз на процес і саме викликом, а не оглядом заголовків: пробуємо потрібний набір `RESOLVE_*` на завідомо доступному каталозі й дивимося, чи ядро погодилося.
 
-```c
-/* 1 — виклик є і цей набір RESOLVE_* ядру відомий; 0 — ні */
-static int openat2_supports(unsigned long long resolve)
-{
-    struct open_how how;
-    memset(&how, 0, sizeof how);              /* усі байти нулі — обов'язково */
-    how.flags   = O_RDONLY | O_CLOEXEC | O_DIRECTORY;
-    how.resolve = resolve;
-
-    long fd = syscall(SYS_openat2, AT_FDCWD, ".", &how, sizeof how);
-    if (fd < 0)
-        return 0;                             /* ENOSYS — ядро старше за 5.6;
-                                                 EINVAL — прапорця не знає */
-    close((int)fd);
-    return 1;
-}
-```
+:::code api-at-family-reference/c/openat2-rozbir-shliakhu-2.c
 
 Сам виклик відрізняється від цієї проби лише тим, що мусить розрізняти два види відмови: «ядро не вміє» — привід перейти на повільніший запасний варіант, «шлях виводить назовні» — привід відмовити тому, хто цей шлях подав.
 
-```c
-/* дескриптор, або -1 з причиною в errno */
-static int open_beneath(int dirfd, const char *path)
-{
-    struct open_how how;
-    memset(&how, 0, sizeof how);
-    how.flags   = O_RDONLY | O_CLOEXEC;
-    how.resolve = RESOLVE_BENEATH | RESOLVE_NO_SYMLINKS;
-
-    for (int tries = 0; tries < 8; tries++) {
-        long fd = syscall(SYS_openat2, dirfd, path, &how, sizeof how);
-        if (fd >= 0)
-            return (int)fd;
-        if (errno != EAGAIN)                  /* EXDEV чи ELOOP — шлях назовні,
-                                                 ENOSYS чи EINVAL — ядро старе */
-            return -1;
-    }
-    errno = EAGAIN;                           /* дерево не вгамувалося */
-    return -1;
-}
-```
+:::code api-at-family-reference/c/openat2-rozbir-shliakhu-3.c
 
 Межа на повтори тут не косметична: `EAGAIN` приходить рівно тоді, коли хтось активно рухає дерево під нами, — а безмежний цикл крутитиметься рівно доти, доки той рухає.
 

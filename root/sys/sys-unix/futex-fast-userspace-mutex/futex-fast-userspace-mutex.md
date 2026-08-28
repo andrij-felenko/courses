@@ -54,32 +54,6 @@ Futex (Fast Userspace Mutex) — це фундаментальний механ�
 Можливість векторного очікування стала критично важливою для шарів сумісності (зокрема Wine та Valve Proton), дозволяючи ефективно емулювати Windows API виклик `WaitForMultipleObjects` під час запуску багатопотокових ігор на Linux.
 
 :::tabs
-```c
-#include <linux/futex.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <stdatomic.h>
-
-int futex_wait(int *uaddr, int val) {
-    return syscall(SYS_futex, uaddr, FUTEX_WAIT_PRIVATE, val, NULL, NULL, 0);
-}
-
-int futex_wake(int *uaddr, int count) {
-    return syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, count, NULL, NULL, 0);
-}
-```
-```cpp
-#include <atomic>
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <linux/futex.h>
-
-int futex_wait(std::atomic<int>* uaddr, int val) {
-    return ::syscall(SYS_futex, uaddr, FUTEX_WAIT_PRIVATE, val, nullptr, nullptr, 0);
-}
-
-int futex_wake(std::atomic<int>* uaddr, int count) {
-    return ::syscall(SYS_futex, uaddr, FUTEX_WAKE_PRIVATE, count, nullptr, nullptr, 0);
-}
-```
+:::code futex-fast-userspace-mutex/c/main.c
+:::code futex-fast-userspace-mutex/cpp/main.cpp
 :::

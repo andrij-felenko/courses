@@ -26,18 +26,7 @@
 
 ## Підписи
 
-```c
-#include <unistd.h>
-
-int execl (const char *pathname, const char *arg, ... /*, (char *) NULL */);
-int execlp(const char *file,     const char *arg, ... /*, (char *) NULL */);
-int execle(const char *pathname, const char *arg, ...
-                                 /*, (char *) NULL, char *const envp[] */);
-
-int execv (const char *pathname, char *const argv[]);
-int execvp(const char *file,     char *const argv[]);
-int execve(const char *pathname, char *const argv[], char *const envp[]);
-```
+:::code api-exec-family/c/unistd.h
 
 ```c
 #define _GNU_SOURCE
@@ -197,67 +186,7 @@ execle("/bin/sh", "sh", "-c", "env", (char *)NULL, (char *[]){ NULL });
 
 Заміна образу відбувається вже в дитині, тож батько бачить лише код виходу `127` і не знає, чому саме не запустилося ([код виходу як інтерфейс програми](root:sys-unix/exit-status) — одне число, яким процес звітує про долю). Канонічний спосіб донести справжній `errno` — труба, помічена на закриття при заміні: якщо заміна вдалася, ядро закриє її саме, і батько прочитає нуль байтів; якщо ні — дитина встигне записати туди число ([канали](root:sys-unix/pipe-and-fifo) — однобічний потік байтів між спорідненими процесами).
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-/* Повертає 0 і номер дитини в *out, або errno невдалого запуску. */
-static int spawn(char *const argv[], pid_t *out)
-{
-    int pfd[2];
-    if (pipe2(pfd, O_CLOEXEC) == -1)      /* обидва кінці закриються при exec */
-        return errno;
-
-    pid_t pid = fork();
-    if (pid == -1) {
-        int e = errno;
-        close(pfd[0]);
-        close(pfd[1]);
-        return e;
-    }
-
-    if (pid == 0) {                       /* дитина */
-        close(pfd[0]);
-        execvp(argv[0], argv);            /* далі — лише гілка відмови */
-        int e = errno;
-        write(pfd[1], &e, sizeof e);      /* труба ще жива: заміни не сталося */
-        _exit(127);
-    }
-
-    close(pfd[1]);                        /* кінець на запис лишається в дитини */
-
-    int e = 0;
-    ssize_t n = read(pfd[0], &e, sizeof e);
-    close(pfd[0]);
-
-    if (n == (ssize_t)sizeof e) {         /* дитина встигла поскаржитися */
-        waitpid(pid, NULL, 0);
-        return e;
-    }
-    *out = pid;                           /* n == 0: труба закрилася на exec */
-    return 0;
-}
-
-int main(void)
-{
-    pid_t pid;
-    int err = spawn((char *[]){ "gzip", "-9", "data.bin", NULL }, &pid);
-    if (err != 0) {
-        fprintf(stderr, "запуск не вдався: %s\n", strerror(err));
-        return 1;
-    }
-
-    int status;
-    waitpid(pid, &status, 0);
-    printf("pid=%d exit=%d\n", pid, WIFEXITED(status) ? WEXITSTATUS(status) : -1);
-    return 0;
-}
-```
+:::code api-exec-family/c/minimalnyi-robochyi-vyklyk.c
 
 Два місця тут неочевидні. `pipe2` з `O_CLOEXEC` стоїть замість пари `pipe` + `fcntl` не з любові до коротших рядків: між створенням труби й виставленням прапорця інший потік міг би зробити свою заміну образу й успадкувати кінець на запис — і тоді батько не дочекався б нуля байтів ніколи, бо труба лишалася б відкритою в сторонній програмі. А `execvp` тут ужито свідомо: у прикладі один потік, тож обмеження щодо форм із `p` не діє; у багатопотоковій програмі на цьому місці має стояти `execv` з уже знайденим шляхом.
 

@@ -65,25 +65,7 @@ struct incfs_log_record {
 
 Цитата UAPI-структури із заголовочного файлу ядра `<linux/incrementalfs.h>`:
 
-```c
-/* Заголовок ядра <linux/incrementalfs.h> — Команда створення файлу */
-#define INCFS_IOC_CREATE_FILE _IOW(INCFS_IOCTL_BASE, 1, struct incfs_new_file_args)
-
-struct incfs_new_file_args {
-    __u64 file_id_low;         /* Нижні 64 біти UUID */
-    __u64 file_id_high;        /* Верхні 64 біти UUID */
-    __u64 size;                /* Повний номінальний розмір файлу у байтах */
-    __u16 mode;                /* Права доступу POSIX (наприклад, 0644) */
-    __u16 directory_path_len;  /* Довжина шляху до каталогу призначення */
-    __u16 file_name_len;       /* Довжина імені файлу */
-    __u16 metadata_len;        /* Довжина довільних метаданих */
-    __u64 directory_path;      /* Вказівник на рядок шляху (const char*) */
-    __u64 file_name;           /* Вказівник на рядок імені (const char*) */
-    __u64 metadata;            /* Вказівник на метадані */
-    __u64 signature_path;      /* Вказівник на файл підпису fs-verity */
-    __u64 signature_size;      /* Розмір підпису */
-};
-```
+:::code api-incfs-ctl/c/1-incfs-ioc-create-file.c
 
 ### 2. `INCFS_IOC_FILL_BLOCKS`
 
@@ -91,24 +73,7 @@ struct incfs_new_file_args {
 
 Цитата UAPI-структури із заголовочного файлу ядра `<linux/incrementalfs.h>`:
 
-```c
-/* Заголовок ядра <linux/incrementalfs.h> — Елемент та контейнер заповнення блоків */
-#define INCFS_IOC_FILL_BLOCKS _IOW(INCFS_IOCTL_BASE, 2, struct incfs_fill_blocks)
-
-struct incfs_fill_block {
-    __u32 block_index;   /* Номер 4KB блоку у файлі (починаючи з 0) */
-    __u32 data_len;      /* Розмір даних блоку (зазвичай 4096) */
-    __u64 data;          /* Вказівник у користувацькому просторі на буфер даних */
-    __u8  compression;   /* 0: Без стиснення, 1: LZ4, 2: ZSTD */
-    __u8  flags;         /* Додаткові прапори */
-    __u16 reserved;
-};
-
-struct incfs_fill_blocks {
-    __u64 count;         /* Кількість блоків у масиві fill_blocks */
-    __u64 fill_blocks;   /* Вказівник на масив struct incfs_fill_block */
-};
-```
+:::code api-incfs-ctl/c/2-incfs-ioc-fill-blocks.c
 
 При успішному виконанні `INCFS_IOC_FILL_BLOCKS` відбуваються наступні атомні кроки в ядрі:
 
@@ -122,25 +87,7 @@ struct incfs_fill_blocks {
 
 Цитата UAPI-структури із заголовочного файлу ядра `<linux/incrementalfs.h>`:
 
-```c
-/* Заголовок ядра <linux/incrementalfs.h> — Запит діапазонів заповнених блоків */
-#define INCFS_IOC_GET_FILLED_BLOCKS _IOWR(INCFS_IOCTL_BASE, 3, struct incfs_get_filled_blocks_args)
-
-struct incfs_filled_range {
-    __u32 start_block_index;  /* Початковий блок діапазону */
-    __u32 end_block_index;    /* Кінцевий блок діапазону (включно) */
-};
-
-struct incfs_get_filled_blocks_args {
-    __u64 range_buffer;          /* Вказівник на масив struct incfs_filled_range */
-    __u32 range_buffer_size;     /* Розмір виділеного буфера у байтах */
-    __u32 start_index;           /* З якого блоку починати перегляд */
-    __u32 end_index;             /* На якому блоці зупинитися */
-    __u32 total_blocks_out;      /* Скільки всього блоків у файлі */
-    __u32 range_buffer_size_out; /* Скільки байтів записано в буфер */
-    __u32 index_out;             /* Блок, на якому перегляд зупинився */
-};
-```
+:::code api-incfs-ctl/c/3-incfs-ioc-get-filled.c
 
 Файл, стан якого інспектують, задає сам дескриптор, на якому виконано `ioctl` — File ID у структурі не передають.
 

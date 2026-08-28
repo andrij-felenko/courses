@@ -93,31 +93,8 @@ extern "C" char *nl_langinfo(nl_item item);
 - `YESEXPR` / `NOEXPR`: Регулярні вирази для стверджувальної чи заперечної відповіді в терміналі.
 
 :::tabs
-```c
-/* C приклад отримання кодування через nl_langinfo */
-#include <stdio.h>
-#include <locale.h>
-#include <langinfo.h>
-
-void print_current_codeset(void) {
-    setlocale(LC_ALL, "");
-    const char *cs = nl_langinfo(CODESET);
-    printf("Активне кодування термінала: %s\n", cs);
-}
-```
-```cpp
-// C++17 приклад витягування кодування через std::locale
-#include <iostream>
-#include <locale>
-#include <clocale>
-#include <langinfo.h>
-
-void print_current_codeset_cpp() {
-    std::setlocale(LC_ALL, "");
-    const char *cs = nl_langinfo(CODESET);
-    std::cout << "Активне кодування термінала (C++): " << cs << "\n";
-}
-```
+:::code api-locale-libc/c/funktsiia-nl-langinfo.c
+:::code api-locale-libc/cpp/funktsiia-nl-langinfo.cpp
 :::
 
 ---
@@ -267,18 +244,7 @@ size_t wcsxfrm(wchar_t *dest, const wchar_t *src, size_t n);
 int wcscoll_l(const wchar_t *ws1, const wchar_t *ws2, locale_t loc);
 size_t wcsxfrm_l(wchar_t *dest, const wchar_t *src, size_t n, locale_t loc);
 ```
-```cpp
-#include <cwchar>
-#include <clocale>
-
-int std::wcscoll(const wchar_t *ws1, const wchar_t *ws2);
-std::size_t std::wcsxfrm(wchar_t *dest, const wchar_t *src, std::size_t n);
-
-extern "C" {
-int wcscoll_l(const wchar_t *ws1, const wchar_t *ws2, locale_t loc);
-size_t wcsxfrm_l(wchar_t *dest, const wchar_t *src, size_t n, locale_t loc);
-}
-```
+:::code api-locale-libc/cpp/4-shyrokosymvolni.hpp
 :::
 
 ---
@@ -317,106 +283,8 @@ int catclose(nl_catd catd);
 Нижче наведено порівняльний приклад розробки безпечного модуля сортування рядків у C та C++ з використанням потікобезпечного POSIX API та стандартних контейнерів C++.
 
 :::tabs
-```c
-/* C11 + POSIX.1-2008: Потікобезпечне сортування через strxfrm_l */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <locale.h>
-
-typedef struct {
-    char *original;
-    char *key;
-} StringEntry;
-
-int compare_entries(const void *a, const void *b) {
-    const StringEntry *e1 = (const StringEntry *)a;
-    const StringEntry *e2 = (const StringEntry *)b;
-    return strcmp(e1->key, e2->key);
-}
-
-void sort_strings_posix(char **array, size_t count, const char *locale_name) {
-    locale_t loc = newlocale(LC_ALL_MASK, locale_name, NULL);
-    if (!loc) {
-        perror("newlocale failed");
-        return;
-    }
-
-    StringEntry *entries = malloc(count * sizeof(StringEntry));
-    if (!entries) {
-        freelocale(loc);
-        return;
-    }
-
-    for (size_t i = 0; i < count; ++i) {
-        entries[i].original = array[i];
-        
-        // Визначення необхідного розміру ключа
-        size_t len = strxfrm_l(NULL, array[i], 0, loc) + 1;
-        entries[i].key = malloc(len);
-        if (entries[i].key) {
-            strxfrm_l(entries[i].key, array[i], len, loc);
-        }
-    }
-
-    qsort(entries, count, sizeof(StringEntry), compare_entries);
-
-    for (size_t i = 0; i < count; ++i) {
-        array[i] = entries[i].original;
-        free(entries[i].key);
-    }
-
-    free(entries);
-    freelocale(loc);
-}
-```
-```cpp
-// C++17: Ідіоматичний підхід через std::locale, std::collate та RAII
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <locale>
-#include <stdexcept>
-
-class ThreadSafeCollator {
-private:
-    std::locale loc_;
-
-public:
-    explicit ThreadSafeCollator(const std::string& locale_name) 
-        : loc_(locale_name) {}
-
-    void sort_strings(std::vector<std::string>& strings) const {
-        // Отримання фасету зіставлення std::collate з об'єкта локалі
-        const auto& coll = std::use_facet<std::collate<char>>(loc_);
-
-        // Кешування трансформаційних ключів через std::collate::transform
-        struct KeyEntry {
-            std::string original;
-            std::string key;
-        };
-
-        std::vector<KeyEntry> entries;
-        entries.reserve(strings.size());
-
-        for (const auto& str : strings) {
-            std::string key = coll.transform(str.data(), str.data() + str.size());
-            entries.push_back({str, std::move(key)});
-        }
-
-        // Швидке порівняння преображених ключів
-        std::sort(entries.begin(), entries.end(), 
-            [](const KeyEntry& a, const KeyEntry& b) {
-                return a.key < b.key;
-            });
-
-        for (size_t i = 0; i < strings.size(); ++i) {
-            strings[i] = std::move(entries[i].original);
-        }
-    }
-};
-```
+:::code api-locale-libc/c/6-idiomatychni-c-ta-c.c
+:::code api-locale-libc/cpp/6-idiomatychni-c-ta-c.cpp
 :::
 
 ### Пояснення відмінностей C та C++ ідіом:

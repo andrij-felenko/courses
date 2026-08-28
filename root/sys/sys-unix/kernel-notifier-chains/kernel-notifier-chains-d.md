@@ -144,22 +144,7 @@ struct srcu_notifier_head {
 
 Функція додавання елемента в базовий однозв'язний список ядра отримує подвійний вказівник на початок списку (`struct notifier_block **nl`) та новий вузол `n`:
 
-```c
-static int notifier_chain_register(struct notifier_block **nl,
-                                  struct notifier_block *n)
-{
-    while ((*nl) != NULL) {
-        if (unlikely((*nl) == n))
-            return -EEXIST;
-        if (n->priority > (*nl)->priority)
-            break;
-        nl = &((*nl)->next);
-    }
-    n->next = *nl;
-    rcu_assign_pointer(*nl, n);
-    return 0;
-}
-```
+:::code kernel-notifier-chains-d/c/vporiadkovana-vstavka.c
 
 Алгоритм виконує послідовний прохід:
 1. Перевіряє, чи не намагається той самий вузол зареєструватися двічі (захист від зациклення списку, повертає помилку `-EEXIST`).
@@ -171,32 +156,7 @@ static int notifier_chain_register(struct notifier_block **nl,
 
 Коли джерело генерує подію, керування передається загальній функції обходу:
 
-```c
-int notifier_call_chain(struct notifier_block **nl,
-                        unsigned long val, void *v,
-                        int nr_to_call, int *nr_calls)
-{
-    int ret = NOTIFY_DONE;
-    struct notifier_block *nb, *next_nb;
-
-    nb = rcu_dereference_raw(*nl);
-    while (nb && nr_to_call) {
-        next_nb = rcu_dereference_raw(nb->next);
-
-        ret = nb->notifier_call(nb, val, v);
-
-        if (nr_calls)
-            (*nr_calls)++;
-
-        if (ret & NOTIFY_STOP_MASK)
-            break;
-
-        nb = next_nb;
-        nr_to_call--;
-    }
-    return ret;
-}
-```
+:::code kernel-notifier-chains-d/c/dvyhun-obkhodu-notifier.c
 
 Обхід виконується з урахуванням трьох ключових інваріантів:
 1. **Збереження вказівника на наступний вузол:** перед викликом `notifier_call` ядро заздалегідь зчитує `next_nb` через `rcu_dereference_raw()`. Це захищає від збою пам'яті, якщо поточний обробник у процесі своєї роботи вирішить дереєструвати сам себе зі списку.
@@ -307,18 +267,7 @@ atomic_notifier_call_chain(&panic_notifier_list, 0, (void *)buf);
 
 Найчастіша помилка розробника драйверів — використання блокуючих викликів усередині обробника атомарного ланцюжка.
 
-```c
-/* КАТАСТРОФІЧНА ПОМИЛКА в атомарному ланцюжку (наприклад, die_chain або panic_notifier) */
-static int faulty_atomic_handler(struct notifier_block *nb, unsigned long action, void *data)
-{
-    /* Спроба взяти м'ютекс або виділити пам'ять із GFP_KERNEL */
-    mutex_lock(&my_mutex);                      /* BUG: scheduling while atomic! */
-    void *buf = kmalloc(1024, GFP_KERNEL);      /* BUG: might_sleep() check fails */
-    msleep(10);                                 /* Крах ядра */
-    mutex_unlock(&my_mutex);
-    return NOTIFY_OK;
-}
-```
+:::code kernel-notifier-chains-d/c/pastka-1-son-v-atomarnomu.c
 
 Під час виконання в контексті переривання функція `might_sleep()` у ядрі миттєво виявить спробу заснути і викине фатальний OOPS із повідомленням `BUG: scheduling while atomic`.
 

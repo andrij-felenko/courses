@@ -144,20 +144,7 @@ echo 5162001 > functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id
 
 `rm -rf` на configfs не працює. Порядок жорсткий, і кожен його крок — окрема команда:
 
-```sh
-cd /sys/kernel/config/usb_gadget/g1
-
-echo "" > UDC                       # 1. відв'язати від контролера
-rm os_desc/c.1                      # 2. зняти посилання: спершу на конфігурацію…
-rm configs/c.1/acm.usb0             #    …далі на функції
-rm configs/c.1/ecm.usb0
-rmdir configs/c.1/strings/0x409     # 3. рядки конфігурацій
-rmdir configs/c.1                   # 4. самі конфігурації
-rmdir functions/acm.usb0            # 5. функції
-rmdir functions/ecm.usb0
-rmdir strings/0x409                 # 6. рядки гаджета
-cd .. && rmdir g1                   # 7. гаджет
-```
+:::code api-configfs-gadget/sh/main.sh
 
 Порядок не примхливий — він випливає з двох правил configfs, і обидва дають свою помилку. Об'єкт, на який вказує чиєсь символьне посилання, видалити не можна: `EBUSY`. Групу, у якій лишилися створені вами підкаталоги, видалити не можна: `ENOTEMPTY`. Отже, дерево розбирають знизу вгору, і те, на що посилаються, — після того, що посилається.
 

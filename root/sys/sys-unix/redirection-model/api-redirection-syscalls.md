@@ -200,57 +200,7 @@ int newfd = ::fcntl(fd, F_DUPFD_CLOEXEC, 10);
 
 Цитата вихідного коду структур даних ядра Linux:
 
-```c
-/* kernel/include/linux/fdtable.h */
-struct fdtable {
-    unsigned int max_fds;
-    struct file **fd;      /* Масив вказівників на відкриті файли ядра */
-    unsigned long *close_on_exec;
-    unsigned long *open_fds;
-    struct rcu_head rcu;
-};
-
-struct files_struct {
-    atomic_t count;
-    bool resize_in_progress;
-    wait_queue_head_t resize_wait;
-    struct fdtable __rcu *fdt;
-    struct fdtable fdtab;
-    /* Початковий статичний масив для швидкого доступу без динамічної пам'яті */
-    struct file * fd_array[NR_OPEN_DEFAULT];
-};
-
-/* kernel/include/linux/fs.h */
-struct file {
-    union {
-        struct llist_node   fu_llist;
-        struct rcu_head     fu_rcuhead;
-    } f_u;
-    struct path             f_path;
-    struct inode           *f_inode;     /* Вказівник на іноду VFS */
-    const struct file_operations *f_op;  /* Таблиця системних операцій файлу */
-    spinlock_t              f_lock;
-    atomic_long_t           f_count;     /* Лічильник посилань на відкритий файл */
-    unsigned int            f_flags;     /* Прапорці відкриття (O_RDWR, O_APPEND...) */
-    fmode_t                 f_mode;
-    loff_t                  f_pos;       /* Поточна позиція зміщення у файлі */
-    struct fown_struct      f_owner;
-};
-
-struct file_operations {
-    struct module *owner;
-    loff_t (*llseek) (struct file *, loff_t, int);
-    ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
-    ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
-    __poll_t (*poll) (struct file *, struct poll_table_struct *);
-    long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
-    int (*mmap) (struct file *, struct vm_area_struct *);
-    int (*open) (struct inode *, struct file *);
-    int (*flush) (struct file *, fl_owner_t id);
-    int (*release) (struct inode *, struct file *);
-    int (*fsync) (struct file *, loff_t, loff_t, int datasync);
-};
-```
+:::code api-redirection-syscalls/c/fdtable.h
 
 ### 4.2 Пояснення внутрішніх механізмів ядра
 
@@ -279,106 +229,13 @@ struct file_operations {
 ### 6.1 Атомарне перенаправлення з використанням `dup3`
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-
-int redirect_stdout_safe(const char *filename) {
-    int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0644);
-    if (fd < 0) {
-        perror("open failed");
-        return -1;
-    }
-
-    /* Атомарно замінюємо STDOUT_FILENO (FD 1) і ставимо O_CLOEXEC на випадок exec */
-    if (dup3(fd, STDOUT_FILENO, O_CLOEXEC) < 0) {
-        perror("dup3 failed");
-        close(fd);
-        return -1;
-    }
-
-    /* Закриваємо тимчасовий дескриптор, бо FD 1 вже вказує на файл */
-    close(fd);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <system_error>
-#include <unistd.h>
-#include <fcntl.h>
-
-class SafeRedirector {
-public:
-    static std::error_code redirect_stdout(std::string_view filename) {
-        int fd = ::open(filename.data(), O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0644);
-        if (fd < 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-
-        if (::dup3(fd, STDOUT_FILENO, O_CLOEXEC) < 0) {
-            int err = errno;
-            ::close(fd);
-            return std::error_code(err, std::generic_category());
-        }
-
-        ::close(fd);
-        return {};
-    }
-};
-```
+:::code api-redirection-syscalls/c/6-1-atomarne.c
+:::code api-redirection-syscalls/cpp/6-1-atomarne.cpp
 :::
 
 ### 6.2 Створення та зв'язування анонімного каналу `pipe2`
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-int create_bound_pipe(int *read_fd, int *write_fd) {
-    int pipefds[2];
-    if (pipe2(pipefds, O_CLOEXEC) < 0) {
-        perror("pipe2 failed");
-        return -1;
-    }
-
-    *read_fd = pipefds[0];
-    *write_fd = pipefds[1];
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <utility>
-#include <system_error>
-#include <unistd.h>
-#include <fcntl.h>
-
-struct PipePair {
-    int read_fd{-1};
-    int write_fd{-1};
-
-    ~PipePair() {
-        if (read_fd >= 0) ::close(read_fd);
-        if (write_fd >= 0) ::close(write_fd);
-    }
-};
-
-std::pair<PipePair, std::error_code> create_safe_pipe() {
-    int fds[2];
-    if (::pipe2(fds, O_CLOEXEC) < 0) {
-        return {{}, std::error_code(errno, std::generic_category())};
-    }
-    return {PipePair{fds[0], fds[1]}, {}};
-}
-```
+:::code api-redirection-syscalls/c/6-2-stvorennia-ta.c
+:::code api-redirection-syscalls/cpp/6-2-stvorennia-ta.cpp
 :::

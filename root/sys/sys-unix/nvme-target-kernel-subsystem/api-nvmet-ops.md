@@ -8,37 +8,7 @@
 
 Об'єкт `struct nvmet_req` представляє одну I/O або Admin команду NVMe, що перебуває в процесі виконання цільовою системою. Ця структура не виділяється на льоту: транспорт заздалегідь резервує масив команд на кожну чергу (у `nvmet-tcp` це `struct nvmet_tcp_cmd`, усередині якої `nvmet_req` лежить полем), тож на гарячому шляху лишається взяти вільний елемент. `nvmet_req` супроводжує команду від моменту вилучення з мережевого сокета до відправки підтвердження (CQE).
 
-```c
-/* Спрощений витяг із drivers/nvme/target/nvmet.h: поля згруповано за
-   призначенням, частину (метадані, p2pdma, резервування) опущено.
-   Імена й типи лишених полів — точно як у ядрі. */
-struct nvmet_req {
-    struct nvme_command    *cmd;          /* Вказівник на сиру 64-байтову NVMe-команду з капсули */
-    struct nvme_completion *cqe;          /* Елемент черги завершення (CQE), що повертається */
-    struct nvmet_sq        *sq;           /* Submission Queue, з якої прийшла команда */
-    struct nvmet_cq        *cq;           /* Completion Queue для відправки відповіді */
-    struct nvmet_ns        *ns;           /* NVMe Namespace, до якого адресована команда */
-    struct nvmet_port      *port;         /* Фізичний або логічний порт прийому */
-
-    struct scatterlist     *sg;           /* SGL-список сторінок пам'яті для даних */
-    int                    sg_cnt;        /* Кількість елементів у SGL-списку */
-    size_t                 transfer_len;  /* Довжина даних, узята з SGL-дескриптора */
-    size_t                 metadata_len;  /* Розмір метаданих (якщо підтримуються) */
-
-    void (*execute)(struct nvmet_req *req);  /* Функція виконання команди бекендом */
-    const struct nvmet_fabrics_ops *ops;     /* Таблиця транспорту, який прийняв команду */
-
-    /* Вбудований вектор + вбудований bio: fast-path без kmalloc.
-       У ядрі inline_bio лежить в анонімному об'єднанні, окремим
-       полем для кожного бекенду — .b.inline_bio, .p.inline_bio,
-       .z.inline_bio; файловий бекенд натомість тримає там kiocb. */
-    struct bio_vec         inline_bvec[NVMET_MAX_INLINE_BIOVEC];
-    struct bio             inline_bio;
-
-    u16                    error_loc;     /* Зсув поля команди, що спричинило помилку */
-    u64                    error_slba;    /* LBA, на якому впала операція */
-};
-```
+:::code api-nvmet-ops/c/1-holovna-kontekstna.c
 
 ### Детальний аналіз полів та життєвого циклу
 
@@ -52,26 +22,7 @@ struct nvmet_req {
 
 Кожен мережевий транспорт (`nvmet-tcp`, `nvmet-rdma`, `nvmet-fc`, `nvmet-loop`) реєструється у центральному ядрі за допомогою структури `struct nvmet_fabrics_ops`. Ця структура визначає спосіб взаємодії ядра NVMe Target з конкретним мережевим стеком.
 
-```c
-/* Витяг із вихідного коду ядра Linux: drivers/nvme/target/nvmet.h */
-struct nvmet_fabrics_ops {
-    struct module   *owner;
-    unsigned int    type;    /* Тип транспорту: NVMF_TRTYPE_TCP, NVMF_TRTYPE_RDMA тощо */
-    unsigned int    msdbd;   /* Maximum SGL Data Block Descriptors у капсулі */
-    unsigned int    flags;   /* NVMF_KEYED_SGLS | NVMF_METADATA_SUPPORTED */
-
-    void (*queue_response)(struct nvmet_req *req);
-    int  (*add_port)(struct nvmet_port *port);
-    void (*remove_port)(struct nvmet_port *port);
-    void (*delete_ctrl)(struct nvmet_ctrl *ctrl);
-    void (*disc_traddr)(struct nvmet_req *req,
-                        struct nvmet_port *port, char *traddr);
-    u16  (*install_queue)(struct nvmet_sq *nvme_sq);
-    void (*discovery_chg)(struct nvmet_port *port);
-    u8   (*get_mdts)(const struct nvmet_ctrl *ctrl);
-    u16  (*get_max_queue_size)(const struct nvmet_ctrl *ctrl);
-};
-```
+:::code api-nvmet-ops/c/nvmet.h
 
 ### Семантика зворотних викликів транспортного рівня
 
@@ -85,27 +36,7 @@ struct nvmet_fabrics_ops {
 
 Тут будова навмисно інша, ніж у транспортів: таблиці зворотних викликів для бекендів немає взагалі. Бекенд не реєструється — він обирається один раз, коли простір імен вмикають, і далі про нього говорить лише поле `req->execute`, яке ставить розбирач команд. Ціна такого рішення — закритий набір бекендів (`bdev`, `file`, `passthru`, `zbd`): свій додати не можна, не правлячи розбирач. Виграш — жодного зайвого непрямого виклику на гарячому шляху.
 
-```c
-/* Витяг із вихідного коду ядра Linux: drivers/nvme/target/nvmet.h */
-
-/* Увімкнення/вимкнення простору імен: який бекенд обслуговує цей ns */
-int  nvmet_bdev_ns_enable(struct nvmet_ns *ns);
-void nvmet_bdev_ns_disable(struct nvmet_ns *ns);
-int  nvmet_file_ns_enable(struct nvmet_ns *ns);
-void nvmet_file_ns_disable(struct nvmet_ns *ns);
-bool nvmet_bdev_zns_enable(struct nvmet_ns *ns);
-
-/* Розбір I/O-команди: ставить req->execute відповідного бекенду */
-u16 nvmet_bdev_parse_io_cmd(struct nvmet_req *req);
-u16 nvmet_file_parse_io_cmd(struct nvmet_req *req);
-u16 nvmet_bdev_zns_parse_io_cmd(struct nvmet_req *req);
-u16 nvmet_parse_passthru_io_cmd(struct nvmet_req *req);
-u16 nvmet_parse_passthru_admin_cmd(struct nvmet_req *req);
-
-/* Синхронізація носія */
-u16 nvmet_bdev_flush(struct nvmet_req *req);
-u16 nvmet_file_flush(struct nvmet_req *req);
-```
+:::code api-nvmet-ops/c/nvmet-2.h
 
 ### Як це працює
 
@@ -134,21 +65,7 @@ u16 nvmet_file_flush(struct nvmet_req *req);
 
 Коли мережевий транспортний модуль отримує кадр з NVMe-капсулою, ядро виконує таку послідовність викликів внутрішньоядерних функцій:
 
-```c
-/* Витяг із вихідного коду ядра Linux: drivers/nvme/target/nvmet.h */
-
-/* 1. Ініціалізація структури запиту з перевіркою валідності */
-bool nvmet_req_init(struct nvmet_req *req, struct nvmet_cq *cq,
-                    struct nvmet_sq *sq, const struct nvmet_fabrics_ops *ops);
-
-/* 2. Диспетчеризація команд встановлення сесії та авторизації.
-      Обидва виконавці Connect — статичні у drivers/nvme/target/fabrics-cmd.c,
-      назовні видно лише розбирач. */
-u16 nvmet_parse_connect_cmd(struct nvmet_req *req);
-
-/* 3. Асинхронне завершення запиту після виконання I/O */
-void nvmet_req_complete(struct nvmet_req *req, u16 status);
-```
+:::code api-nvmet-ops/c/nvmet-3.h
 
 Послідовність роботи ядра:
 1. `nvmet_req_init()` розбирає заголовок прибулої капсули, звіряє ID простору імен `nsid` і призначає відповідні процедури обробки.

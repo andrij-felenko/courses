@@ -80,30 +80,7 @@ void handler(int sig, siginfo_t *info, void *ucontext);
 | 4 | — | вибірка інструкції |
 | 5 | — | спрацював [ключ захисту пам'яті](root:sys-unix/memory-protection-keys) |
 
-```c
-#define _GNU_SOURCE
-#include <signal.h>
-#include <ucontext.h>
-#include <stdint.h>
-
-static void recover(void);                  /* куди піти замість збою */
-
-static volatile sig_atomic_t was_write;
-static void *fault_at;
-static void *fault_pc;
-
-static void on_segv(int sig, siginfo_t *info, void *uc_raw)
-{
-    ucontext_t *uc = uc_raw;
-    greg_t     *r  = uc->uc_mcontext.gregs;
-
-    fault_at  = info->si_addr;               /* == (void *)r[REG_CR2] */
-    fault_pc  = (void *)r[REG_RIP];          /* інструкція, що впала  */
-    was_write = (r[REG_ERR] & 2) != 0;       /* біт 1 — це був запис  */
-
-    r[REG_RIP] = (greg_t)(uintptr_t)recover; /* повернутися не сюди   */
-}
-```
+:::code api-signal-frame-layout/c/rehistr-za-imenem-indeksy.c
 
 Присвоєння в останньому рядку — не гра з копією: після `rt_sigreturn` виконання піде саме за новою адресою. Друкувати щось із обробника при цьому не можна — `printf` не належить до [функцій, безпечних в обробнику](root:sys-unix/async-signal-safety); значення виносять у змінні й розбирають назовні.
 
@@ -124,37 +101,7 @@ static void on_segv(int sig, siginfo_t *info, void *uc_raw)
 
 Перевірка складається з трьох кроків, і пропускати їх не варто: набір компонентів залежить від процесора й від того, які [розширення стану](root:hw-arch/xsave-extended-state) процес узагалі попросив увімкнути.
 
-```c
-#include <stdint.h>
-#include <string.h>
-
-#define FPX_SW_OFFSET      464
-#define FP_XSTATE_MAGIC1   0x46505853U
-#define FP_XSTATE_MAGIC2   0x46505845U
-
-struct fpx_sw { uint32_t magic1, extended_size;
-                uint64_t xfeatures;
-                uint32_t xstate_size, padding[7]; };
-
-static size_t xstate_bytes(ucontext_t *uc)
-{
-    if (!(uc->uc_flags & UC_FP_XSTATE))          /* крок 1: ядро каже, що є  */
-        return 0;
-
-    unsigned char *fp = (unsigned char *)uc->uc_mcontext.fpregs;
-    struct fpx_sw *sw = (struct fpx_sw *)(fp + FPX_SW_OFFSET);
-
-    if (sw->magic1 != FP_XSTATE_MAGIC1)          /* крок 2: мітка на початку */
-        return 0;
-
-    uint32_t tail;                               /* крок 3: мітка в кінці    */
-    memcpy(&tail, fp + sw->extended_size - 4, 4);
-    if (tail != FP_XSTATE_MAGIC2)
-        return 0;
-
-    return sw->xstate_size;                      /* заголовок XSAVE — з fp+512 */
-}
-```
+:::code api-signal-frame-layout/c/rozshyrenyi-stan-iak-ioho.c
 
 Мітка в кінці існує рівно для того, щоб зловити помилку у власних обчисленнях: якщо `extended_size` прочитано правильно, в останньому 32-бітовому слові області лежатиме `0x46505845`. Не збіглося — далі йти не можна, бо ви дивитеся не туди.
 
@@ -280,24 +227,6 @@ typedef struct {
 
 Мінімальний робочий виклик — рівно чотири дії, і жодного числа в коді:
 
-```c
-#define _GNU_SOURCE
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-static void install_altstack(void)
-{
-    size_t   sz = (size_t)sysconf(_SC_SIGSTKSZ);
-    stack_t  ss = { .ss_sp = malloc(sz), .ss_flags = 0, .ss_size = sz };
-    sigaltstack(&ss, NULL);
-
-    struct sigaction sa = { 0 };
-    sa.sa_sigaction = on_segv;
-    sa.sa_flags     = SA_SIGINFO | SA_ONSTACK;
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGSEGV, &sa, NULL);
-}
-```
+:::code api-signal-frame-layout/c/skilky-mistsia-treba-pid.c
 
 Площадку заводять **на кожен потік окремо**: `sigaltstack` — властивість потоку, а не процесу, і потік без власної площадки при переповненні свого стека помре мовчки, хоч би скільки їх було в решти.

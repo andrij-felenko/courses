@@ -37,31 +37,8 @@
 Необхідним став механізм, за якого звернення за ім'ям змінної (наприклад, `my_config`) під час виконання асемблерної інструкції прозоро адресовало б різну фізичну пам'ять залежно від того, який саме потік виконує цю інструкцію.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <pthread.h>
-
-/* Глобальна потоко-локальна змінна мовою C */
-__thread int thread_counter = 0;
-
-void increment_counter(void) {
-    thread_counter++;
-    printf("Thread %lu: counter = %d\n", (unsigned long)pthread_self(), thread_counter);
-}
-```
-```cpp
-#include <iostream>
-#include <thread>
-
-// Глобальна потоко-локальна змінна у C++11
-thread_local int thread_counter = 0;
-
-void increment_counter() {
-    thread_counter++;
-    std::cout << "Thread " << std::this_thread::get_id() 
-              << ": counter = " << thread_counter << '\n';
-}
-```
+:::code elf-tls-d/c/main.c
+:::code elf-tls-d/cpp/main.cpp
 :::
 
 ## 2. Компонування шаблонів пам'яті: Секції .tdata, .tbss та сегмент PT_TLS

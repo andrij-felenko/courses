@@ -148,18 +148,7 @@ $ echo 1 > /proc/sys/net/ipv4/tcp_syncookies
 2. **Шинний вимір (`/sys/bus/`)**: каталоги відомих ядру шин (`pci`, `usb`, `i2c`, `platform`, `spi`). Кожна шина містить два підкаталоги: `devices/` (посилання на пристрої у `/sys/devices/`) та `drivers/` (драйвери, прив'язані до цієї шини);
 3. **Функціональні класи (`/sys/class/`)**: класифікація пристроїв за їхньою прикладною роллю незалежно від апаратного типу підключення. Наприклад, мережеві карти знаходяться у `/sys/class/net/`, диски — у `/sys/class/block/`, графічні карти — у `/sys/class/drm/`, термінали — у `/sys/class/tty/`.
 
-```sh
-# Перевірка фізичної швидкості лінку мережевого адаптера eth0
-$ cat /sys/class/net/eth0/speed
-1000
-
-# Перевірка статусу підключення кабелю
-$ cat /sys/class/net/eth0/operstate
-up
-
-# Зміна алгоритму планувальника I/O для накопичувача nvme0n1
-$ echo mq-deadline > /sys/block/nvme0n1/queue/scheduler
-```
+:::code finding-answers-in-the-system-d/sh/main.sh
 
 Зв'язок між фізичною топологією та функціональними класами реалізовано через масивне використання символьних посилань: `/sys/class/net/eth0` насправді є посиланням на вузол `/sys/devices/pci0000:00/0000:00:1f.6/net/eth0`.
 
@@ -289,54 +278,8 @@ $ journalctl _SYSTEMD_UNIT=nginx.service _PID=4512 --since "2026-08-25 11:00:00"
 Повний приклад робочої програми збирання багатошарового стану на мовах C та ідіоматичному C++ наведено у практичному проєкті: [інспекція багатошарового стану системи](root:sys-unix/finding-answers-in-the-system/proj-inspect-system-state.md).
 
 :::tabs
-```c
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-
-/* Читання поточного значення ліміту відкритих файлів ядра */
-int get_kernel_max_files(long long *out_val) {
-    int fd = open("/proc/sys/fs/file-max", O_RDONLY);
-    if (fd < 0) {
-        return -1;
-    }
-
-    char buf[64];
-    ssize_t n = read(fd, buf, sizeof(buf) - 1);
-    close(fd);
-
-    if (n <= 0) {
-        return -1;
-    }
-
-    buf[n] = '\0';
-    if (sscanf(buf, "%lld", out_val) != 1) {
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <optional>
-
-// Читання поточного значення ліміту відкритих файлів ядра через C++ RAII
-std::optional<long long> getKernelMaxFiles() {
-    std::ifstream file("/proc/sys/fs/file-max");
-    if (!file.is_open()) {
-        return std::nullopt;
-    }
-
-    long long max_files = 0;
-    if (file >> max_files) {
-        return max_files;
-    }
-    return std::nullopt;
-}
-```
+:::code finding-answers-in-the-system-d/c/main.c
+:::code finding-answers-in-the-system-d/cpp/main.cpp
 :::
 
 ## Межі довіри: коли система приховує стан або каже неправду

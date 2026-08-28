@@ -35,26 +35,7 @@
 
 Створення проходить у три кроки, і кожен потрібен.
 
-```c
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-struct region {
-    _Atomic unsigned long seq;   /* лічильник версій кадру */
-    unsigned char frame[6220800];
-};
-
-struct region *r;
-int fd = shm_open("/telemetry", O_CREAT | O_RDWR, 0600);
-if (fd < 0) exit(1);
-if (ftruncate(fd, sizeof *r) < 0) exit(1);          /* задати розмір */
-r = mmap(NULL, sizeof *r, PROT_READ | PROT_WRITE,
-         MAP_SHARED, fd, 0);
-if (r == MAP_FAILED) exit(1);
-close(fd);                                           /* більше не потрібен */
-```
+:::code posix-shared-memory-d/c/fcntl.h
 
 Ім'я починається зі скісної риски й далі не містить рисок узагалі — це вимога стандарту, бо ім'я має однаково лягати на різні реалізації; довжина обмежена так само, як у файлового імені, — 255 символів. Права `0600` означають рівно те саме, що для файлу: доступ до сегмента контролюють звичайні права Unix, і чужий користувач у вашу пам'ять не потрапить. Як і для файлу, ці біти ще й обрізає `umask` процесу.
 

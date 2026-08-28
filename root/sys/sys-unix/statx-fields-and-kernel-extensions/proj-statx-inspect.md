@@ -21,262 +21,8 @@
 Нижче наведено паралельні реалізації утиліти мовами C та C++. Реалізація C++ використовує концепцію RAII, обгортку типів, безпечне представлення рядків `std::string_view`, строгу обробку помилок через `std::system_error` та форматування потоків виводу.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <errno.h>
-#include <stdint.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-
-/* Форматування часової позначки struct statx_timestamp */
-static void print_time(const char *label, const struct statx_timestamp *ts) {
-    time_t sec = (time_t)ts->tv_sec;
-    struct tm tm_buf;
-    char time_str[64];
-    
-    if (localtime_r(&sec, &tm_buf) != NULL) {
-        strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", &tm_buf);
-        printf("  %-16s: %s.%09u нс\n", label, time_str, ts->tv_nsec);
-    } else {
-        printf("  %-16s: %lld с, %u нс\n", label, (long long)ts->tv_sec, ts->tv_nsec);
-    }
-}
-
-int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        fprintf(stderr, "Використання: %s <шлях_до_файлу>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
-
-    const char *path = argv[1];
-    struct statx stx;
-    memset(&stx, 0, sizeof(stx));
-
-    /* Сформувати маску запиту розширених полів */
-    unsigned int request_mask = STATX_BASIC_STATS | STATX_BTIME;
-#ifdef STATX_DIOALIGN
-    request_mask |= STATX_DIOALIGN;
-#endif
-
-    /* Викликати statx з прапорцем невимогливої синхронізації кешу */
-    int res = statx(AT_FDCWD, path, AT_SYMLINK_NOFOLLOW | AT_STATX_SYNC_AS_STAT,
-                    request_mask, &stx);
-
-    if (res != 0) {
-        if (errno == ENOSYS || errno == EOPNOTSUPP) {
-            fprintf(stderr, "Помилка: системний виклик statx не підтримується ядром.\n");
-        } else {
-            perror("Помилка виконання statx");
-        }
-        return EXIT_FAILURE;
-    }
-
-    printf("=== Інспектування файлу: %s ===\n", path);
-    printf("Розмір файлу        : %llu байтів\n", (unsigned long long)stx.stx_size);
-    printf("Номер Inode         : %llu\n", (unsigned long long)stx.stx_ino);
-    printf("Кількість посилань  : %u\n", stx.stx_nlink);
-    printf("Права (stx_mode)    : 0%o\n", stx.stx_mode & 07777);
-
-    /* Перевірка наявності часу створення (btime) у повернутій масці */
-    printf("\n--- Часові позначки ---\n");
-    if (stx.stx_mask & STATX_ATIME) print_time("Доступ (atime)", &stx.stx_atime);
-    if (stx.stx_mask & STATX_MTIME) print_time("Модифікація (mtime)", &stx.stx_mtime);
-    if (stx.stx_mask & STATX_CTIME) print_time("Зміна inode (ctime)", &stx.stx_ctime);
-
-    if (stx.stx_mask & STATX_BTIME) {
-        print_time("Створення (btime)", &stx.stx_btime);
-    } else {
-        printf("  Створення (btime): [НЕ ПІДТРИМУЄТЬСЯ ФАЙЛОВОЮ СИСТЕМОЮ]\n");
-    }
-
-    /* Перевірка прапорців атрибутів файлу */
-    printf("\n--- Розширені атрибути (stx_attributes) ---\n");
-    uint64_t mask_attr = stx.stx_attributes_mask;
-    uint64_t val_attr = stx.stx_attributes;
-
-    if (mask_attr & STATX_ATTR_IMMUTABLE) {
-        printf("  Immutable (+i)   : %s\n", (val_attr & STATX_ATTR_IMMUTABLE) ? "ТАК" : "НІ");
-    }
-    if (mask_attr & STATX_ATTR_APPEND) {
-        printf("  Append-only (+a) : %s\n", (val_attr & STATX_ATTR_APPEND) ? "ТАК" : "НІ");
-    }
-    if (mask_attr & STATX_ATTR_COMPRESSED) {
-        printf("  Compressed       : %s\n", (val_attr & STATX_ATTR_COMPRESSED) ? "ТАК" : "НІ");
-    }
-    if (mask_attr & STATX_ATTR_ENCRYPTED) {
-        printf("  Encrypted        : %s\n", (val_attr & STATX_ATTR_ENCRYPTED) ? "ТАК" : "НІ");
-    }
-#ifdef STATX_ATTR_VERITY
-    if (mask_attr & STATX_ATTR_VERITY) {
-        printf("  fs-verity        : %s\n", (val_attr & STATX_ATTR_VERITY) ? "ТАК" : "НІ");
-    }
-#endif
-#ifdef STATX_ATTR_DAX
-    if (mask_attr & STATX_ATTR_DAX) {
-        printf("  DAX (Direct Acc) : %s\n", (val_attr & STATX_ATTR_DAX) ? "ТАК" : "НІ");
-    }
-#endif
-
-    /* Перевірка параметрів вирівнювання O_DIRECT */
-#ifdef STATX_DIOALIGN
-    printf("\n--- Параметри вирівнювання O_DIRECT (STATX_DIOALIGN) ---\n");
-    if (stx.stx_mask & STATX_DIOALIGN) {
-        printf("  Вирівнювання буфера пам'яті : %u байтів\n", stx.stx_dio_mem_align);
-        printf("  Вирівнювання зсуву у файлі  : %u байтів\n", stx.stx_dio_offset_align);
-    } else {
-        printf("  Вирівнювання O_DIRECT       : [НЕ ПІДТРИМУЄТЬСЯ ЯДРОМ ТА ФС]\n");
-    }
-#endif
-
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#define _GNU_SOURCE
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <system_error>
-#include <chrono>
-#include <iomanip>
-#include <ctime>
-#include <cstdint>
-#include <cstring>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-
-namespace fs_inspect {
-
-/* Клас-обгортка над struct statx для ідіоматичного C++ доступу */
-class StatxInfo {
-public:
-    static StatxInfo fetch(const std::string& path, unsigned int extra_mask = 0) {
-        StatxInfo info{};
-        unsigned int request_mask = STATX_BASIC_STATS | STATX_BTIME | extra_mask;
-        
-        int res = ::statx(AT_FDCWD, path.c_str(), AT_SYMLINK_NOFOLLOW | AT_STATX_SYNC_AS_STAT,
-                          request_mask, &info.stx_);
-        if (res != 0) {
-            throw std::system_error(errno, std::generic_category(), 
-                                    "Не вдалося виконати statx для: " + path);
-        }
-        return info;
-    }
-
-    [[nodiscard]] uint64_t size() const noexcept { return stx_.stx_size; }
-    [[nodiscard]] uint64_t inode() const noexcept { return stx_.stx_ino; }
-    [[nodiscard]] uint32_t nlink() const noexcept { return stx_.stx_nlink; }
-    [[nodiscard]] uint16_t permissions() const noexcept { return stx_.stx_mode & 07777; }
-#ifdef STATX_DIOALIGN
-    [[nodiscard]] uint32_t dio_mem_align() const noexcept { return stx_.stx_dio_mem_align; }
-#endif
-
-    [[nodiscard]] bool has_field(uint32_t flag) const noexcept {
-        return (stx_.stx_mask & flag) != 0;
-    }
-
-    [[nodiscard]] bool has_attribute_support(uint64_t attr_flag) const noexcept {
-        return (stx_.stx_attributes_mask & attr_flag) != 0;
-    }
-
-    [[nodiscard]] bool attribute_value(uint64_t attr_flag) const noexcept {
-        return (stx_.stx_attributes & attr_flag) != 0;
-    }
-
-    void print_timestamp(std::string_view label, const struct statx_timestamp& ts) const {
-        std::time_t sec = static_cast<std::time_t>(ts.tv_sec);
-        std::tm tm_buf{};
-        if (::localtime_r(&sec, &tm_buf) != nullptr) {
-            std::cout << "  " << std::left << std::setw(18) << label << ": "
-                      << std::put_time(&tm_buf, "%Y-%m-%d %H:%M:%S") << "."
-                      << std::setfill('0') << std::setw(9) << ts.tv_nsec << " нс\n"
-                      << std::setfill(' ');
-        } else {
-            std::cout << "  " << label << ": " << ts.tv_sec << " с\n";
-        }
-    }
-
-    void print_all() const {
-        std::cout << "Розмір файлу        : " << size() << " байтів\n";
-        std::cout << "Номер Inode         : " << inode() << "\n";
-        std::cout << "Кількість посилань  : " << nlink() << "\n";
-        std::cout << "Права доступу       : 0" << std::oct << permissions() << std::dec << "\n\n";
-
-        std::cout << "--- Часові позначки ---\n";
-        if (has_field(STATX_ATIME)) print_timestamp("Доступ (atime)", stx_.stx_atime);
-        if (has_field(STATX_MTIME)) print_timestamp("Модифікація (mtime)", stx_.stx_mtime);
-        if (has_field(STATX_CTIME)) print_timestamp("Зміна inode (ctime)", stx_.stx_ctime);
-
-        if (has_field(STATX_BTIME)) {
-            print_timestamp("Створення (btime)", stx_.stx_btime);
-        } else {
-            std::cout << "  Створення (btime): [НЕ ПІДТРИМУЄТЬСЯ ФАЙЛОВОЮ СИСТЕМОЮ]\n";
-        }
-
-        std::cout << "\n--- Розширені атрибути (stx_attributes) ---\n";
-        check_and_print_attr("Immutable (+i)", STATX_ATTR_IMMUTABLE);
-        check_and_print_attr("Append-only (+a)", STATX_ATTR_APPEND);
-        check_and_print_attr("Compressed", STATX_ATTR_COMPRESSED);
-        check_and_print_attr("Encrypted", STATX_ATTR_ENCRYPTED);
-#ifdef STATX_ATTR_VERITY
-        check_and_print_attr("fs-verity", STATX_ATTR_VERITY);
-#endif
-#ifdef STATX_ATTR_DAX
-        check_and_print_attr("DAX (Direct Acc)", STATX_ATTR_DAX);
-#endif
-
-#ifdef STATX_DIOALIGN
-        std::cout << "\n--- Параметри вирівнювання O_DIRECT (STATX_DIOALIGN) ---\n";
-        if (has_field(STATX_DIOALIGN)) {
-            std::cout << "  Вирівнювання буфера пам'яті : " << stx_.stx_dio_mem_align << " байтів\n";
-            std::cout << "  Вирівнювання зсуву у файлі  : " << stx_.stx_dio_offset_align << " байтів\n";
-        } else {
-            std::cout << "  Вирівнювання O_DIRECT       : [НЕ ПІДТРИМУЄТЬСЯ ЯДРОМ ТА ФС]\n";
-        }
-#endif
-    }
-
-private:
-    struct statx stx_{};
-
-    void check_and_print_attr(std::string_view name, uint64_t flag) const {
-        if (has_attribute_support(flag)) {
-            std::cout << "  " << std::left << std::setw(18) << name << ": "
-                      << (attribute_value(flag) ? "ТАК" : "НІ") << "\n";
-        }
-    }
-};
-
-} // namespace fs_inspect
-
-int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        std::cerr << "Використання: " << argv[0] << " <шлях_до_файлу>\n";
-        return EXIT_FAILURE;
-    }
-
-    try {
-        unsigned int extra_mask = 0;
-#ifdef STATX_DIOALIGN
-        extra_mask |= STATX_DIOALIGN;
-#endif
-        auto info = fs_inspect::StatxInfo::fetch(argv[1], extra_mask);
-        std::cout << "=== Інспектування файлу (C++): " << argv[1] << " ===\n";
-        info.print_all();
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << "\n";
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
-}
-```
+:::code proj-statx-inspect/c/realizatsiia-utylity.c
+:::code proj-statx-inspect/cpp/realizatsiia-utylity.cpp
 :::
 
 ---
@@ -330,42 +76,8 @@ strace -e statx ./statx_inspect_c /etc/passwd
 Отримані значення `stx_dio_mem_align` та `stx_dio_offset_align` дозволяють високопродуктивним програмам правильно налаштувати вирівнювання пам'яті:
 
 :::tabs
-```c
-void *buffer = NULL;
-size_t mem_align = stx.stx_dio_mem_align;
-size_t buffer_bytes = 65536; /* 64 КБ */
-
-/* Якщо ядро не надало вирівнювання, беремо стандартний розмір сторінки */
-if ((stx.stx_mask & STATX_DIOALIGN) == 0 || mem_align == 0) {
-    mem_align = sysconf(_SC_PAGESIZE);
-}
-
-/* Виділення пам'яті з точним вирівнюванням під апаратний сектор диска */
-if (posix_memalign(&buffer, mem_align, buffer_bytes) != 0) {
-    perror("Помилка виділення вирівняної пам'яті через posix_memalign");
-    return;
-}
-
-/* Пряме читання з файлу з гарантією відсутності помилки EINVAL */
-ssize_t bytes_read = pread(fd, buffer, buffer_bytes, aligned_offset);
-```
-```cpp
-size_t mem_align = stx.stx_dio_mem_align;
-const size_t buffer_bytes = 65536; // 64 КБ
-
-if ((stx.stx_mask & STATX_DIOALIGN) == 0 || mem_align == 0) {
-    mem_align = static_cast<size_t>(::sysconf(_SC_PAGESIZE));
-}
-
-// У C++17/C++20 використовується std::aligned_alloc або posix_memalign
-void* raw_ptr = nullptr;
-if (::posix_memalign(&raw_ptr, mem_align, buffer_bytes) != 0) {
-    throw std::bad_alloc();
-}
-std::unique_ptr<char, decltype(&::free)> buffer(static_cast<char*>(raw_ptr), &::free);
-
-ssize_t bytes_read = ::pread(fd, buffer.get(), buffer_bytes, aligned_offset);
-```
+:::code proj-statx-inspect/c/vykorystannia-danykh-o.c
+:::code proj-statx-inspect/cpp/vykorystannia-danykh-o.cpp
 :::
 
 Якщо програма виділить буфер через звичайний `malloc()`, адреса буфера може не відповідати вимозі `stx_dio_mem_align`, що при виконанні прямого запису через `write(fd, buffer, bytes)` поверне помилку `EINVAL`. Опитування `statx` робить виділення пам'яті повністю адаптивним під будь-який дисковий носій.
@@ -424,21 +136,7 @@ bpftrace -e 'tracepoint:syscalls:sys_enter_statx { @start[tid] = nsecs; }
 
 У системах автоматизованого тестування (CI/CD) утиліти перевірки вирівнювання дискового вводу/виводу будуються як тести GTest/Catch2:
 
-```cpp
-#include <gtest/gtest.h>
-
-TEST(StatxTest, DirectIOAlignmentCheck) {
-    auto info = fs_inspect::StatxInfo::fetch("/tmp/test_file.bin", STATX_DIOALIGN);
-    if (info.has_field(STATX_DIOALIGN)) {
-        uint32_t align = info.dio_mem_align();
-        // Нуль означає, що файл узагалі не підтримує O_DIRECT;
-        // інакше вирівнювання зобов'язане бути степенем двійки
-        if (align != 0) {
-            EXPECT_TRUE((align & (align - 1)) == 0);
-        }
-    }
-}
-```
+:::code proj-statx-inspect/cpp/avtomatyzovane-testuvannia.cpp
 
 Такий модуль тестування гарантує, що розробники не припустяться помилок вирівнювання буферів пам'яті при портуванні системного ПЗ на нові апаратні носії NVMe або обчислювальні вузли у хмарних середовищах AWS/GCP.
 
@@ -458,28 +156,7 @@ TEST(StatxTest, DirectIOAlignmentCheck) {
 
 Сучасний C++20/C++23 дозволяє проєктувати типобезпечні інтерфейси для `statx` з компіляційною перевіркою масок та відсутністю винятків (exception-free error handling):
 
-```cpp
-#include <concepts>
-#include <system_error>
-
-template <typename T>
-concept StatxFieldFetcher = requires(T a, std::string_view path) {
-    { a.fetch_field(path) } -> std::same_as<void>;
-};
-
-// Приклад типобезпечного обгортання маскового запиту
-enum class StatxMaskBit : uint32_t {
-    Basic = STATX_BASIC_STATS,
-    BirthTime = STATX_BTIME,
-#ifdef STATX_DIOALIGN
-    DirectIO = STATX_DIOALIGN,
-#endif
-};
-
-constexpr inline StatxMaskBit operator|(StatxMaskBit a, StatxMaskBit b) noexcept {
-    return static_cast<StatxMaskBit>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
-}
-```
+:::code proj-statx-inspect/cpp/arkhitektura-rozshyrennia.cpp
 
 Застосування строгих типізованих перелічувальних типів (`enum class`) та концептів C++20 виключає випадкову передачу некоректних цілочисельних прапорців у маску системного виклику `statx` на етапі компіляції.
 
@@ -502,28 +179,7 @@ constexpr inline StatxMaskBit operator|(StatxMaskBit a, StatxMaskBit b) noexcept
 
 У сучасних C++20 проєктах розширені атрибути файлу зручно огортати у `std::optional` або тип `std::expected` (C++23) для запобігання помилкам доступу до непідтримуваних полів:
 
-```cpp
-#include <optional>
-
-template <typename T>
-class CheckedField {
-public:
-    CheckedField(bool valid, T value) : valid_(valid), value_(value) {}
-
-    [[nodiscard]] bool is_valid() const noexcept { return valid_; }
-    [[nodiscard]] T value_or(T fallback) const noexcept {
-        return valid_ ? value_ : fallback;
-    }
-    [[nodiscard]] std::optional<T> to_optional() const noexcept {
-        if (valid_) return value_;
-        return std::nullopt;
-    }
-
-private:
-    bool valid_;
-    T value_;
-};
-```
+:::code proj-statx-inspect/cpp/shablonni-paterny-c-dlia.cpp
 
 Такий патерн дозволяє проєктувати інтерфейси бібліотек системного програмування, де відсутність підтримки поля файловою системою виражається типом `std::nullopt`, підштовхуючи розробника до обробки альтернативного сценарію.
 
@@ -538,75 +194,8 @@ private:
 Приклад ідіоматичного фолбеку на `fstatat()`:
 
 :::tabs
-```c
-static int safe_statx_with_fallback(int dirfd, const char *path, int flags,
-                                    unsigned int mask, struct statx *stx) {
-    int res = statx(dirfd, path, flags, mask, stx);
-    if (res == 0) {
-        return 0; /* Виклик statx успішно виконано */
-    }
-
-    /* Якщо ядро або seccomp блокують statx, робимо фолбек на fstatat */
-    if (errno == ENOSYS || errno == EPERM || errno == EACCES) {
-        struct stat st;
-        int stat_flags = 0;
-        if (flags & AT_SYMLINK_NOFOLLOW) stat_flags |= AT_SYMLINK_NOFOLLOW;
-        if (flags & AT_EMPTY_PATH) stat_flags |= AT_EMPTY_PATH;
-
-        if (fstatat(dirfd, path, &st, stat_flags) == 0) {
-            memset(stx, 0, sizeof(*stx));
-            stx->stx_mask = STATX_BASIC_STATS;
-            stx->stx_size = st.st_size;
-            stx->stx_mode = st.st_mode;
-            stx->stx_ino = st.st_ino;
-            stx->stx_nlink = st.st_nlink;
-            stx->stx_uid = st.st_uid;
-            stx->stx_gid = st.st_gid;
-            stx->stx_blocks = st.st_blocks;
-            stx->stx_blksize = st.st_blksize;
-            stx->stx_atime.tv_sec = st.st_atime;
-            stx->stx_mtime.tv_sec = st.st_mtime;
-            stx->stx_ctime.tv_sec = st.st_ctime;
-            return 0;
-        }
-    }
-    return -1;
-}
-```
-```cpp
-inline std::expected<struct statx, std::error_code> 
-safe_statx_with_fallback(int dirfd, const std::string& path, int flags, unsigned int mask) {
-    struct statx stx{};
-    int res = ::statx(dirfd, path.c_str(), flags, mask, &stx);
-    if (res == 0) {
-        return stx;
-    }
-
-    if (errno == ENOSYS || errno == EPERM || errno == EACCES) {
-        struct stat st{};
-        int stat_flags = 0;
-        if (flags & AT_SYMLINK_NOFOLLOW) stat_flags |= AT_SYMLINK_NOFOLLOW;
-        if (flags & AT_EMPTY_PATH) stat_flags |= AT_EMPTY_PATH;
-
-        if (::fstatat(dirfd, path.c_str(), &st, stat_flags) == 0) {
-            stx.stx_mask = STATX_BASIC_STATS;
-            stx.stx_size = static_cast<uint64_t>(st.st_size);
-            stx.stx_mode = static_cast<uint16_t>(st.st_mode);
-            stx.stx_ino = static_cast<uint64_t>(st.st_ino);
-            stx.stx_nlink = static_cast<uint32_t>(st.st_nlink);
-            stx.stx_uid = static_cast<uint32_t>(st.st_uid);
-            stx.stx_gid = static_cast<uint32_t>(st.st_gid);
-            stx.stx_blocks = static_cast<uint64_t>(st.st_blocks);
-            stx.stx_blksize = static_cast<uint32_t>(st.st_blksize);
-            stx.stx_atime.tv_sec = st.st_atime;
-            stx.stx_mtime.tv_sec = st.st_mtime;
-            stx.stx_ctime.tv_sec = st.st_ctime;
-            return stx;
-        }
-    }
-    return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-}
-```
+:::code proj-statx-inspect/c/folbek-na-starykh-iadrakh.c
+:::code proj-statx-inspect/cpp/folbek-na-starykh-iadrakh.cpp
 :::
 
 ---

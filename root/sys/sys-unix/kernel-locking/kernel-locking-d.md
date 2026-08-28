@@ -18,22 +18,7 @@
 
 У драйвері є список подій. Його вичитує `read()` із простору користувача, а поповнюють двоє: обробник переривання від пристрою і шлях `write()`, яким програма вкидає власні позначки. Спільна структура, кілька охочих — очевидно, потрібен замок:
 
-```c
-static LIST_HEAD(events);
-static DEFINE_MUTEX(events_lock);
-
-static void push_event(u32 code)
-{
-    struct event *e = kmalloc(sizeof(*e), GFP_KERNEL);
-    if (!e)
-        return;
-    e->code = code;
-
-    mutex_lock(&events_lock);
-    list_add_tail(&e->node, &events);
-    mutex_unlock(&events_lock);
-}
-```
+:::code kernel-locking-d/c/dva-vyklyky-toho-samoho.c
 
 Викликана зі шляху `write()` — тобто з контексту задачі, — ця функція працює бездоганно. Викликана з обробника переривання — ламає систему, а ядро, складене з перевірками, лишає в журналі:
 
@@ -190,33 +175,7 @@ void mutex_lock(struct mutex *lock)
 
 А потреба «одна сторона чекає, інша сповіщає» цілком реальна: задача чекає, доки пристрій закінчить операцію, а сповістити її мусить саме обробник переривання. Для цього в ядрі є окремий примітив — **завершення** (`struct completion`): задача кличе `wait_for_completion()` і засинає, обробник кличе `complete()` і будить її. Це працює саме тому, що завершення — не замок і не має власника; його «звільнення» — просто сповіщення, а сповіщати можна й з обробника переривання.
 
-```c
-/* драйвер: задача чекає на завершення обміну, будить її переривання */
-struct my_dev {
-    struct completion done;
-    u32 result;
-};
-
-static ssize_t dev_read(struct file *f, char __user *buf, size_t n, loff_t *off)
-{
-    struct my_dev *d = f->private_data;
-
-    start_transfer(d);                              /* смикнули пристрій */
-    if (wait_for_completion_interruptible(&d->done)) /* заснули: ми задача, нам можна */
-        return -ERESTARTSYS;
-
-    return copy_result(d, buf, n);
-}
-
-static irqreturn_t dev_irq(int irq, void *arg)
-{
-    struct my_dev *d = arg;
-
-    d->result = read_status(d);
-    complete(&d->done);       /* будити з переривання можна: це не взяття замка */
-    return IRQ_HANDLED;
-}
-```
+:::code kernel-locking-d/c/chy-maiu-ia-pravo-zasnuty.c
 
 Зверніть увагу, що з цього коду зникло питання про замок узагалі. Так і виглядає найкраща відповідь на «який замок брати»: перебудувати обмін так, щоб спільної структури, за яку треба змагатися, не стало.
 

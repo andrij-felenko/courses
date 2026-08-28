@@ -62,329 +62,35 @@
 
 ### Цеглини
 
-```c
-/* kvlog.c — сховище «ключ→значення» з власним журналом.
- * Збірка:  cc -O2 -Wall -Wextra -o kvlog kvlog.c
- */
-#define _POSIX_C_SOURCE 200809L
-#include <errno.h>
-#include <fcntl.h>
-#include <libgen.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-#define MAGIC     0x314C564Bu
-#define SEAL      0x214C4145u
-#define HDR       16
-#define TRL       8
-#define MAX_BODY  (1u << 20)
-#define OP_PUT    1
-#define OP_DEL    2
-
-static void put_u32(uint8_t *p, uint32_t v) {
-    p[0] = (uint8_t)v;         p[1] = (uint8_t)(v >> 8);
-    p[2] = (uint8_t)(v >> 16); p[3] = (uint8_t)(v >> 24);
-}
-static uint32_t get_u32(const uint8_t *p) {
-    return (uint32_t)p[0]        | ((uint32_t)p[1] << 8)
-         | ((uint32_t)p[2] << 16) | ((uint32_t)p[3] << 24);
-}
-static void put_u64(uint8_t *p, uint64_t v) {
-    put_u32(p, (uint32_t)v);  put_u32(p + 4, (uint32_t)(v >> 32));
-}
-static uint64_t get_u64(const uint8_t *p) {
-    return (uint64_t)get_u32(p) | ((uint64_t)get_u32(p + 4) << 32);
-}
-
-/* CRC-32 (той самий поліном, що в zip, gzip і ext4) — побітово, без таблиці:
-   для нашого обсягу швидкості вистачає, а читати коротше. */
-static uint32_t crc32(const uint8_t *buf, size_t n) {
-    uint32_t c = 0xFFFFFFFFu;
-    for (size_t i = 0; i < n; i++) {
-        c ^= buf[i];
-        for (int k = 0; k < 8; k++)
-            c = (c >> 1) ^ (0xEDB88320u & (uint32_t)(-(int32_t)(c & 1)));
-    }
-    return c ^ 0xFFFFFFFFu;
-}
-```
+:::code proj-journal-replay/c/kvlog.c
 
 Два виклики, які майже завжди пишуть неправильно, — `write` і `read`. Обидва мають право зробити менше, ніж просили, і обидва мають право перерватися сигналом. Тому в коді їх немає жодного разу без обгортки:
 
-```c
-static int write_full(int fd, const uint8_t *buf, size_t n) {
-    size_t done = 0;
-    while (done < n) {
-        ssize_t k = write(fd, buf + done, n - done);
-        if (k < 0) { if (errno == EINTR) continue; return -1; }
-        done += (size_t)k;
-    }
-    return 0;
-}
-
-/* повертає, скільки байтів реально прочитано (менше n — кінець файлу) */
-static ssize_t read_full(int fd, uint8_t *buf, size_t n) {
-    size_t done = 0;
-    while (done < n) {
-        ssize_t k = read(fd, buf + done, n - done);
-        if (k < 0) { if (errno == EINTR) continue; return -1; }
-        if (k == 0) break;
-        done += (size_t)k;
-    }
-    return (ssize_t)done;
-}
-```
+:::code proj-journal-replay/c/tsehlyny.c
 
 ### Стан у пам'яті
 
 Сховище тримає поточний стан у пам'яті, а на диску лежить лише журнал. Індекс тут навмисно найдурніший — масив із лінійним пошуком: у цій вправі цікаве дописування й відтворення, а не структура даних, і чесніше сказати це прямо, ніж плутати читача хеш-таблицею.
 
-```c
-typedef struct { uint8_t *key; uint32_t klen; uint8_t *val; uint32_t vlen; } Entry;
-
-typedef struct {
-    int      fd;
-    int      durable;    /* 1 — fsync на кожен put */
-    uint64_t next_seq;
-    off_t    end;        /* зсув після останнього справного запису */
-    Entry   *tab;
-    size_t   n, cap;
-} KV;
-
-static Entry *find(KV *kv, const uint8_t *key, uint32_t klen) {
-    for (size_t i = 0; i < kv->n; i++)
-        if (kv->tab[i].klen == klen && memcmp(kv->tab[i].key, key, klen) == 0)
-            return &kv->tab[i];
-    return NULL;
-}
-
-static int apply(KV *kv, uint8_t op, const uint8_t *key, uint32_t klen,
-                 const uint8_t *val, uint32_t vlen) {
-    Entry *e = find(kv, key, klen);
-
-    if (op == OP_DEL) {
-        if (e) { free(e->key); free(e->val); *e = kv->tab[--kv->n]; }
-        return 0;
-    }
-    if (!e) {
-        if (kv->n == kv->cap) {
-            size_t cap = kv->cap ? kv->cap * 2 : 64;
-            Entry *t = realloc(kv->tab, cap * sizeof *t);
-            if (!t) return -1;
-            kv->tab = t; kv->cap = cap;
-        }
-        uint8_t *k = malloc(klen ? klen : 1);
-        if (!k) return -1;
-        if (klen) memcpy(k, key, klen);
-        e = &kv->tab[kv->n++];
-        e->key = k; e->klen = klen; e->val = NULL; e->vlen = 0;
-    }
-    uint8_t *v = malloc(vlen ? vlen : 1);
-    if (!v) return -1;
-    if (vlen) memcpy(v, val, vlen);
-    free(e->val);
-    e->val = v; e->vlen = vlen;
-    return 0;
-}
-```
+:::code proj-journal-replay/c/stan-u-pamiati.c
 
 Зверніть увагу: `apply` не знає нічого про диск. Це та сама функція, яку викликає й дописування, і відтворення, — і саме тому «стан після відтворення» за побудовою дорівнює «станові, що був до обриву».
 
 ### Дописування з підтвердженням
 
-```c
-static int kv_put(KV *kv, uint8_t op, const uint8_t *key, uint32_t klen,
-                  const uint8_t *val, uint32_t vlen) {
-    uint32_t len = 5 + klen + vlen;
-    if (len > MAX_BODY) { errno = EMSGSIZE; return -1; }
-
-    size_t total = HDR + len + TRL;
-    uint8_t *rec = malloc(total);
-    if (!rec) return -1;
-
-    put_u32(rec,      MAGIC);
-    put_u32(rec + 4,  len);
-    put_u64(rec + 8,  kv->next_seq);
-    rec[HDR] = op;
-    put_u32(rec + HDR + 1, klen);
-    if (klen) memcpy(rec + HDR + 5,        key, klen);
-    if (vlen) memcpy(rec + HDR + 5 + klen, val, vlen);
-    put_u32(rec + HDR + len,     crc32(rec, HDR + len));
-    put_u32(rec + HDR + len + 4, SEAL);
-
-    if (write_full(kv->fd, rec, total) < 0) {
-        /* Огризок треба прибрати ЗАРАЗ: якщо лишити його й дописати
-           наступний запис за ним, відтворення спиниться на смітті
-           й не дійде до всього, що після нього. */
-        int e = errno;
-        (void)ftruncate(kv->fd, kv->end);
-        (void)lseek(kv->fd, kv->end, SEEK_SET);
-        free(rec);
-        errno = e;
-        return -1;
-    }
-    free(rec);
-
-    if (kv->durable && fdatasync(kv->fd) < 0) {
-        /* Помилку fsync не можна ні проковтнути, ні «перепитати»: ядро
-           повідомляє про неї один раз, і повторний виклик поверне успіх,
-           хоча дані так і не лягли. Єдина чесна відповідь — упасти. */
-        perror("fdatasync");
-        _exit(70);
-    }
-    /* лише тут запис вважається підтвердженим */
-
-    if (apply(kv, op, key, klen, val, vlen) < 0) { perror("apply"); _exit(70); }
-    kv->next_seq++;
-    kv->end += (off_t)total;
-    return 0;
-}
-```
+:::code proj-journal-replay/c/dopysuvannia-z.c
 
 Тут `fdatasync`, а не `fsync`, і це не заощадження на дрібницях. `fdatasync` не скидає ті метадані, без яких дані однаково можна прочитати, — насамперед час зміни. Але **нову довжину файлу він скидає**, бо без неї дописані байти не прочитаєш. Тобто рівно те, що нам треба, і на один запис метаданих менше. Так і сказано в описі виклику: `fdatasync` не скидає змінених метаданих, «якщо тільки ці метадані не потрібні, щоб подальше читання даних відпрацювало правильно».
 
 ### Відтворення при відкритті
 
-```c
-static int replay(KV *kv) {
-    uint8_t *rec = malloc(HDR + MAX_BODY);
-    uint8_t trl[TRL];
-    off_t good = 0;
-    uint64_t expect = 1;
-    int rc = -1;
-
-    if (!rec) return -1;
-    if (lseek(kv->fd, 0, SEEK_SET) < 0) goto out;
-
-    for (;;) {
-        ssize_t got = read_full(kv->fd, rec, HDR);
-        if (got < 0) goto out;
-        if (got < (ssize_t)HDR) break;               /* заголовок обірвано */
-
-        uint32_t len = get_u32(rec + 4);
-        uint64_t seq = get_u64(rec + 8);
-        if (get_u32(rec) != MAGIC) break;            /* це не наш запис    */
-        if (len < 5 || len > MAX_BODY) break;        /* довжина-сміття     */
-        if (seq != expect) break;                    /* дірка в нумерації  */
-
-        got = read_full(kv->fd, rec + HDR, len);
-        if (got < 0) goto out;
-        if (got < (ssize_t)len) break;               /* тіло не дописалося */
-
-        got = read_full(kv->fd, trl, TRL);
-        if (got < 0) goto out;
-        if (got < (ssize_t)TRL) break;               /* печатки немає      */
-        if (get_u32(trl + 4) != SEAL) break;         /* печатка не та      */
-        if (get_u32(trl) != crc32(rec, HDR + len)) break;   /* сума не та  */
-
-        uint8_t  op   = rec[HDR];
-        uint32_t klen = get_u32(rec + HDR + 1);
-        if ((op != OP_PUT && op != OP_DEL) || klen > len - 5) break;
-
-        const uint8_t *key = rec + HDR + 5;
-        if (apply(kv, op, key, klen, key + klen, len - 5 - klen) < 0) goto out;
-
-        good = lseek(kv->fd, 0, SEEK_CUR);           /* кінець цього запису */
-        if (good < 0) goto out;
-        expect = seq + 1;
-    }
-
-    /* усе після останнього справного запису — незапечатаний хвіст */
-    if (ftruncate(kv->fd, good) < 0) goto out;
-    if (lseek(kv->fd, good, SEEK_SET) < 0) goto out;
-    kv->end = good;
-    kv->next_seq = expect;
-    rc = 0;
-out:
-    free(rec);
-    return rc;
-}
-
-static int fsync_dir_of(const char *path) {
-    char *copy = strdup(path);          /* dirname має право зіпсувати аргумент */
-    if (!copy) return -1;
-    int fd = open(dirname(copy), O_RDONLY | O_DIRECTORY);
-    free(copy);
-    if (fd < 0) return -1;
-    int rc = fsync(fd);
-    if (close(fd) < 0) rc = -1;
-    return rc;
-}
-
-static int kv_open(KV *kv, const char *path, int durable) {
-    memset(kv, 0, sizeof *kv);
-    kv->durable = durable;
-    kv->fd = open(path, O_RDWR | O_CREAT, 0644);
-    if (kv->fd < 0) return -1;
-    /* Файл щойно могли створити. Його власний fsync не робить тривким ІМ'Я:
-       запис у каталозі — окремі метадані, і без цього після обриву
-       можна отримати цілий журнал, на який ніщо не вказує. */
-    if (durable && fsync_dir_of(path) < 0) { close(kv->fd); return -1; }
-    if (replay(kv) < 0) { close(kv->fd); return -1; }
-    return 0;
-}
-
-static void kv_close(KV *kv) {
-    for (size_t i = 0; i < kv->n; i++) { free(kv->tab[i].key); free(kv->tab[i].val); }
-    free(kv->tab);
-    close(kv->fd);
-}
-```
+:::code proj-journal-replay/c/vidtvorennia-pry-vidkrytti.c
 
 Одна дрібниця в `replay` варта окремого речення: обрізання хвоста **не потребує власного `fsync`**. Якщо машина згасне посеред відновлення, наступне відкриття просто пройде журнал знову й обріже те саме місце. Відтворення ідемпотентне — його можна повторювати скільки завгодно разів із тим самим результатом, і саме тому воно само по собі не потребує захисту. Це та сама властивість, заради якої ext4 кладе в журнал готові образи блоків, а не опис дії: переписати образ удруге — те саме, що переписати вперше.
 
 ### Обгортка
 
-```c
-int main(int argc, char **argv) {
-    const char *path = getenv("KVLOG_FILE") ? getenv("KVLOG_FILE") : "store.log";
-    int durable = (getenv("KVLOG_NOSYNC") == NULL);
-    KV kv;
-
-    if (argc < 2) {
-        fprintf(stderr, "використання: kvlog put КЛЮЧ ЗНАЧЕННЯ | del КЛЮЧ"
-                        " | get КЛЮЧ | list | fill N\n");
-        return 2;
-    }
-    if (kv_open(&kv, path, durable) < 0) { perror("kv_open"); return 1; }
-
-    int rc = 0;
-    if (!strcmp(argv[1], "put") && argc == 4) {
-        if (kv_put(&kv, OP_PUT, (uint8_t *)argv[2], (uint32_t)strlen(argv[2]),
-                   (uint8_t *)argv[3], (uint32_t)strlen(argv[3])) < 0) { perror("put"); rc = 1; }
-    } else if (!strcmp(argv[1], "del") && argc == 3) {
-        if (kv_put(&kv, OP_DEL, (uint8_t *)argv[2], (uint32_t)strlen(argv[2]),
-                   (uint8_t *)"", 0) < 0) { perror("del"); rc = 1; }
-    } else if (!strcmp(argv[1], "get") && argc == 3) {
-        Entry *e = find(&kv, (uint8_t *)argv[2], (uint32_t)strlen(argv[2]));
-        if (e) printf("%.*s\n", (int)e->vlen, (char *)e->val);
-        else   printf("(немає)\n");
-    } else if (!strcmp(argv[1], "list")) {
-        printf("записів: %zu, журнал: %lld Б, наступний номер: %llu\n",
-               kv.n, (long long)kv.end, (unsigned long long)kv.next_seq);
-    } else if (!strcmp(argv[1], "fill") && argc == 3) {
-        long n = atol(argv[2]);
-        char k[32], v[64];
-        for (long i = 1; i <= n; i++) {
-            snprintf(k, sizeof k, "key%06ld", i);
-            snprintf(v, sizeof v, "значення №%ld", i);
-            if (kv_put(&kv, OP_PUT, (uint8_t *)k, (uint32_t)strlen(k),
-                       (uint8_t *)v, (uint32_t)strlen(v)) < 0) { perror("put"); rc = 1; break; }
-            printf("%ld\n", i);
-            fflush(stdout);      /* без цього «підтверджено» помре разом із процесом */
-        }
-    } else {
-        fprintf(stderr, "невідома команда\n");
-        rc = 2;
-    }
-
-    kv_close(&kv);
-    return rc;
-}
-```
+:::code proj-journal-replay/c/obhortka.c
 
 Той `fflush` — не охайність, а частина досліду. Коли вивід перенаправлено у файл, бібліотека мови робить його поблоковим і тримає рядки у **своєму** буфері, всередині процесу. Без `fflush` `kill -9` забере ці рядки з собою, і ми не знатимемо, які саме записи вважалися підтвердженими. Дописані ж у сховище байти той самий `kill -9` не забере — вони вже в ядрі. Ця асиметрія і є перший урок, тож зробимо її дослідом.
 
@@ -476,18 +182,7 @@ $ KVLOG_NOSYNC=1 ./kvlog list
 
 Обірваний запис можна зробити руками, не чекаючи катастрофи:
 
-```sh
-$ ./kvlog put місто Львів
-$ ./kvlog put ріка Полтва
-$ ls -l store.log
--rw-r--r-- 1 user user 98 ... store.log
-
-$ head -c 40 /dev/urandom >> store.log     # «обрив» посеред третього запису
-$ ./kvlog list
-записів: 2, журнал: 98 Б, наступний номер: 3
-$ ls -l store.log
--rw-r--r-- 1 user user 98 ... store.log
-```
+:::code proj-journal-replay/sh/main.sh
 
 Сорок байтів сміття зникли: відтворення не знайшло ні печатки, ні сходимої суми — і відрізало хвіст. Ті самі два записи на місці.
 

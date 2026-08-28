@@ -131,32 +131,7 @@ nvmet-tcp                   nvmet-rdma                  nvmet-fc
 ### 5.2. Створення цілі напряму через configfs
 Утиліта `nvmetcli` автоматизує ці самі кроки й уміє зберігати їх у JSON, але за нею стоїть звичайне дерево директорій. Нижче — те, що вона робить, у чистому вигляді: підсистема з одним простором імен і відкритий TCP-порт.
 
-```bash
-# 1. Створення підсистеми
-mkdir /sys/kernel/config/nvmet/subsystems/nqn.2026-08.com.example:nvme-pool1
-cd /sys/kernel/config/nvmet/subsystems/nqn.2026-08.com.example:nvme-pool1
-
-# Дозвіл підключення будь-якому хосту
-echo 1 > attr_allow_any_host
-
-# 2. Створення простору імен Namespace 1 на базі LVM-тому
-mkdir namespaces/1
-cd namespaces/1
-echo -n "/dev/vg_nvme/lv_storage" > device_path
-echo 1 > enable
-
-# 3. Створення мережевого порту TCP на порту 4420
-mkdir /sys/kernel/config/nvmet/ports/1
-cd /sys/kernel/config/nvmet/ports/1
-echo "tcp" > addr_trtype
-echo "192.168.1.100" > addr_traddr
-echo "4420" > addr_trsvcid
-echo "ipv4" > addr_adrfam
-
-# 4. Прив'язка підсистеми до порту через symlink
-ln -s /sys/kernel/config/nvmet/subsystems/nqn.2026-08.com.example:nvme-pool1 \
-      /sys/kernel/config/nvmet/ports/1/subsystems/nqn.2026-08.com.example:nvme-pool1
-```
+:::code nvme-target-kernel-subsystem-d/sh/5-2-stvorennia-tsili.sh
 
 Після створення символічного посилання ядро відкриє TCP-сокет на IP `192.168.1.100:4420` і розпочне обробку вхідних з'єднань.
 
@@ -201,20 +176,7 @@ ln -s /sys/kernel/config/nvmet/hosts/nqn.2026-08.com.example:initiator-node1 \
 
 Для моніторингу затримок виконання команд у реальному часі використовується утиліта `bpftrace`:
 
-```bash
-# Вимірювання затримки виконання команд у мікросекундах через eBPF.
-# Обидві точки трасування віддають ctrl_id, qid і cid — цієї трійки досить,
-# щоб звести початок і завершення однієї й тієї самої команди.
-bpftrace -e '
-tracepoint:nvmet:nvmet_req_init {
-    @start[args->ctrl_id, args->qid, args->cid] = nsecs;
-}
-tracepoint:nvmet:nvmet_req_complete /@start[args->ctrl_id, args->qid, args->cid]/ {
-    $lat = (nsecs - @start[args->ctrl_id, args->qid, args->cid]) / 1000;
-    @us = hist($lat);
-    delete(@start[args->ctrl_id, args->qid, args->cid]);
-}'
-```
+:::code nvme-target-kernel-subsystem-d/sh/7-2-trasuvannia-za.sh
 
 Цей скрипт дозволяє виявити аномальні затримки у бекендах дискової підсистеми або транспортному мережевому шарі, не чинячи помітного впливу на швидкодію робочого сервера.
 

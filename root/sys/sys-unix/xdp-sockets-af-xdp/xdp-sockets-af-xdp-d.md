@@ -145,19 +145,7 @@ Headroom дозволяє eBPF-програмам або додаткам дод
 
 Процес маршрутизації кадру в eBPF:
 
-```c
-SEC("xdp")
-int xdp_redirect_to_xsk(struct xdp_md *ctx) {
-    int rx_queue_index = ctx->rx_queue_index;
-
-    // Перевіряємо, чи підключено сокет AF_XDP до цієї черги
-    if (bpf_map_lookup_elem(&xsks_map, &rx_queue_index)) {
-        return bpf_redirect_map(&xsks_map, rx_queue_index, 0);
-    }
-
-    return XDP_PASS; // Передаємо решту трафіку звичайному ядру
-}
-```
+:::code xdp-sockets-af-xdp-d/c/main.c
 
 Коли програма викликає `bpf_redirect_map(&xsks_map, rx_queue_index, 0)`, ядро перевіряє чи є вільний кадр у Fill Ring для цієї черги. Якщо кадр є, DMA-контролер NIC записує туди дані кадру, а ядро проштовхує дескриптор кадру в RX Ring відповідного AF_XDP сокета. Якщо у Fill Ring немає вільних кадрів, пакет відкидається (Drop), а в лічильниках драйвера фіксується помилка пропуску кадрів (rx_dropped).
 

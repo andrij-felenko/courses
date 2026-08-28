@@ -9,18 +9,7 @@
 
 Розглянемо типовий сценарій обробки системних логів, з яким стикається кожен системний інженер. Скрипт повинен підрахувати кількість записів із помилками, прочитавши файл через конвеєр:
 
-```sh
-#!/bin/sh
-error_count=0
-
-cat /var/log/nginx/error.log | while read -r line; do
-    case "$line" in
-        *"[error]"*) error_count=$((error_count + 1)) ;;
-    esac
-done
-
-echo "Total errors found: $error_count"
-```
+:::code functions-and-subshells-d/sh/part.sh
 
 Скрипт успішно обробляє гігабайтний файл, цикл чесно виконує мільйон ітерацій, але фінальний рядок незмінно друкує: `Total errors found: 0`. Жодної синтаксичної помилки в коді немає, арифметика працює бездоганно, проте змінна `$error_count` після завершення циклу виявляється незайманою.
 
@@ -42,24 +31,7 @@ fname() compound_command [redirection]
 
 Найчастіше як `compound_command` використовують блок у фігурних дужках `{ ...; }`, проте стандарт дозволяє будь-яку складену команду:
 
-```sh
-# Стандартна POSIX-форма
-calculate_total() {
-    local_sum=$(( $1 + $2 ))
-    echo "$local_sum"
-}
-
-# Допустима форма: тіло функції як підоболонка в круглих дужках
-isolated_work() (
-    cd /tmp || exit 1
-    rm -f *.cache
-)
-
-# Функція з постійним перенаправленням потоку виводу
-log_notice() {
-    printf "[%s] %s\n" "$(date +%T)" "$*"
-} >> /var/log/service.log 2>&1
-```
+:::code functions-and-subshells-d/sh/syntaksys-oholoshennia-ta.sh
 
 У Bash та KornShell існує альтернативний синтаксис із ключовим словом `function`: `function fname { ... }` або `function fname() { ... }`. Повна історія того, як виникали ці синтаксичні гілки та чому вони призвели до розколу моделей видимості, розглянута у матеріалі [📜 Відсутність функцій у V7 sh до розколу між лексичною та динамічною видимістю в ksh93 та Bash](root:sys-unix/functions-and-subshells/hist-subshell-and-scoping-evolution.md).
 
@@ -79,18 +51,7 @@ log_notice() {
 - Спеціальний масив `"$@"` містить список аргументів поточної функції.
 - Змінна `$0` **не змінюється**: вона продовжує вказувати на ім'я самого скрипту або назву поточної оболонки.
 
-```sh
-demonstrate_args() {
-    echo "Function \$0 is: $0"
-    echo "Function \$# is: $#"
-    echo "Function \$1 is: $1"
-    shift
-    echo "After shift, \$1 is: $1"
-}
-
-# Виклик:
-demonstrate_args "alpha" "beta" "gamma"
-```
+:::code functions-and-subshells-d/sh/stek-pozytsiinykh.sh
 
 Коли інтерпретатор заходить у тіло функції, він зберігає попередній масив аргументів скрипту у внутрішньому стеку. Команда `shift` всередині функції зсуває виключно аргументи поточної функції. Щойно функція завершує роботу, оболонка відновлює попередній масив аргументів викликача.
 
@@ -120,20 +81,7 @@ validate_user() {
 
 Найнебезпечніша пастка під час написання функцій у командних оболонках — це глобальна область видимості за замовчуванням.
 
-```sh
-process_files() {
-    for i in /tmp/*.dat; do
-        format_file "$i"
-    done
-}
-
-format_file() {
-    # Помилка: 'i' не оголошено локальною!
-    for i in 1 2 3; do
-        printf "."
-    done
-}
-```
+:::code functions-and-subshells-d/sh/oblast-vydymosti-zminnykh.sh
 
 У цьому прикладі виклик `format_file` всередині першої ж ітерації `process_files` перезапише змінну `i` значенням `3`. Зовнішній цикл `for i in /tmp/*.dat` отримає спотворений лічильник і передчасно завершить обробку.
 
@@ -141,18 +89,7 @@ format_file() {
 
 Для ізоляції змінних у функціях використовується команда `local` (або `declare` / `typeset` у Bash):
 
-```sh
-safe_format_file() {
-    local i
-    local filename="$1"
-    local timestamp
-    timestamp=$(date +%s)
-    
-    for i in 1 2 3; do
-        printf "."
-    done
-}
-```
+:::code functions-and-subshells-d/sh/kliuchove-slovo-local-ta.sh
 
 Проте область видимості у Bash, Dash та Almquist shell є не статичною (лексичною), а **динамічною (dynamic scoping)**. 
 
@@ -163,23 +100,7 @@ safe_format_file() {
 
 Якщо функція `outer()` оголошує `local token="secret"`, а потім викликає функцію `inner()`, то функція `inner()` **бачить і може змінювати** змінну `$token`, навіть якщо сама її не оголошувала!
 
-```sh
-inner_func() {
-    # 'token' не оголошено тут як local
-    echo "inner_func reads token: $token"
-    token="modified_by_inner" # Змінює локальну змінну outer_func!
-}
-
-outer_func() {
-    local token="secret_auth_key"
-    inner_func
-    echo "outer_func token is now: $token"
-}
-
-token="global_default"
-outer_func
-echo "global token is: $token"
-```
+:::code functions-and-subshells-d/sh/kliuchove-slovo-local-ta-2.sh
 
 Результат виконання цього скрипту:
 ```text
@@ -196,19 +117,7 @@ global token is: global_default
 
 Оскільки позиційні параметри `$1..$N` передаються виключно як плаский список рядків, передача масивів у функції у ранніх версіях оболонок вимагала небезпечного розгортання через `eval` або передачі через змінні оточення. Починаючи з Bash 4.3 з'явився механізм **посилань за іменем (namerefs)**:
 
-```sh
-# Передача масиву за посиланням
-append_timestamp() {
-    local -n target_array="$1" # target_array стає аліасом змінної, переданої першим аргументом
-    target_array+=("$(date +%T)")
-}
-
-my_log_entries=("Server started" "Port 8080 open")
-append_timestamp my_log_entries
-
-# Масив my_log_entries містить три елементи!
-printf "Entry: %s\n" "${my_log_entries[@]}"
-```
+:::code functions-and-subshells-d/sh/peredacha-masyviv-ta.sh
 
 Проте динамічна видимість створює небезпечну пастку колізії імен при використанні `declare -n`: якщо ім'я локальної змінної-посилання збігається з ім'ям змінної, що передається ззовні (наприклад, функція оголошує `local -n var="$1"`, а користувач викликає `func var`), виникає **циклічне посилання (circular reference)**. Bash виявляє таку помилку під час виконання і завершує вираз із повідомленням `warning: var: circular name reference`. Для запобігання цій проблемі в бібліотечних функціях імена посилань префіксують унікальними назвами (наприклад, `__lib_ref_target`).
 
@@ -257,20 +166,7 @@ bash -c 'my_utility'
 - **`${BASH_SOURCE[@]}`**: шляхи до файлів, у яких було викликано відповідні функції.
 - **`${BASH_LINENO[@]}`**: номери рядків у вихідних файлах, де здійснено кожен виклик.
 
-```sh
-print_stack_trace() {
-    local frame=0
-    echo "=== Stack Traceback (most recent call first) ==="
-    while [ $frame -lt ${#FUNCNAME[@]} ]; do
-        local func="${FUNCNAME[$frame]}"
-        local file="${BASH_SOURCE[$frame+1]}"
-        local line="${BASH_LINENO[$frame]}"
-        [ -z "$file" ] && file="${BASH_SOURCE[$frame]}"
-        printf "  [%d] %s() at %s:%d\n" "$frame" "$func" "$file" "$line"
-        frame=$((frame + 1))
-    done
-}
-```
+:::code functions-and-subshells-d/sh/inspektsiia-steka-vyklykiv.sh
 
 Цей механізм дозволяє реалізувати повноцінний фреймворк журналювання помилок, який при спрацюванні `trap 'print_stack_trace' ERR` показує точне місце аварійного виходу скрипту.
 
@@ -338,22 +234,7 @@ done
 
 Хоча адресні простори пам'яті ізольовані, файлові дескриптори дочірнього процесу посилаються на ті самі структури відкритих файлів (`struct file`) у просторі ядра. Це означає, що **файловий покажчик зміщення (offset) є спільним**:
 
-```sh
-# Батько відкриває файл на читання
-exec 3< /tmp/data.txt
-
-# Підоболонка читає перший рядок через дескриптор 3
-(
-    read -r line_child <&3
-    echo "Child read: $line_child"
-)
-
-# Батько читає наступний рядок
-read -r line_parent <&3
-echo "Parent read: $line_parent"
-
-exec 3<&-
-```
+:::code functions-and-subshells-d/sh/pastka-spilnykh-failovykh.sh
 
 Оскільки підоболонка зсунула покажчик читання у спільній структурі ядра, батьківський процес прочитає саме **другий** рядок файлу, а не перший!
 
@@ -415,18 +296,7 @@ echo "Parent PID: $$"
 
 Фігурні дужки дозволяють атомарно перенаправити ввід-вивід для десятка команд за один системний виклик, не викликаючи `fork()`:
 
-```sh
-generate_report() {
-    {
-        printf "=== SYSTEM STATUS REPORT ===\n"
-        printf "Generated: %s\n" "$(date)"
-        printf "Disk Usage:\n"
-        df -h /
-        printf "Memory Usage:\n"
-        free -m
-    } > /var/log/system_report.log 2>&1
-}
-```
+:::code functions-and-subshells-d/sh/hrupove-perenapravlennia.sh
 
 Усі команди всередині блоку записують свій вивід у файл `/var/log/system_report.log`, але сам блок виконується безпосередньо в основному процесі оболонки.
 
@@ -443,18 +313,7 @@ generate_report() {
 
 Замість передачі даних через `cat file | while`, файл перенаправляють безпосередньо у цикл за допомогою оператора `<`:
 
-```sh
-#!/bin/sh
-error_count=0
-
-while read -r line; do
-    case "$line" in
-        *"[error]"*) error_count=$((error_count + 1)) ;;
-    esac
-done < /var/log/nginx/error.log
-
-echo "Total errors found: $error_count" # Працює на 100% у будь-якому sh!
-```
+:::code functions-and-subshells-d/sh/variant-1-perenapravlennia.sh
 
 Оскільки цикл `while` не стоїть у конвеєрі, він виконується в поточному процесі оболонки, і змінна `$error_count` зберігає своє фінальне значення.
 
@@ -479,20 +338,7 @@ echo "Total storage consumed: $total_bytes bytes"
 
 У GNU Bash версії 4.2 та новіших з'явилася можливість увімкнути виконання останнього елемента конвеєра в поточному процесі за допомогою опції `lastpipe`:
 
-```sh
-#!/bin/bash
-# Важливо: lastpipe працює лише при вимкненому Job Control (за замовчуванням у скриптах)
-shopt -s lastpipe
-
-error_count=0
-cat /var/log/nginx/error.log | while read -r line; do
-    case "$line" in
-        *"[error]"*) error_count=$((error_count + 1)) ;;
-    esac
-done
-
-echo "Total errors: $error_count" # Змінна збережена!
-```
+:::code functions-and-subshells-d/sh/variant-3-optymizatsiia.sh
 
 Ця опція перетворює поведінку Bash на поведінку KornShell та Zsh, де остання команда конвеєра за замовчуванням виконується in-process.
 
@@ -525,20 +371,7 @@ echo "Total errors: $error_count" # Змінна збережена!
 
 Якщо зовнішній утиліті потрібні специфічні локалі, права доступу чи обмеження пам'яті, їх встановлюють усередині підоболонки:
 
-```sh
-generate_csv_data() {
-    (
-        # Локаль LC_ALL=C гарантує використання крапки як десяткового роздільника
-        export LC_ALL=C
-        # Встановлюємо жорстке обмеження віртуальної пам'яті 512MB
-        ulimit -v 524288
-        # Встановлюємо сувору маску створення файлів
-        umask 077
-        
-        python3 process_financial_records.py > /tmp/export.csv
-    )
-}
-```
+:::code functions-and-subshells-d/sh/2-tymchasova-modyfikatsiia.sh
 
 Жодна зі змін (`LC_ALL`, ліміт `ulimit`, маска `umask`) не виходить за межі дужок і не спотворює середовище батьківського скрипту.
 

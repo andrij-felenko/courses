@@ -135,28 +135,7 @@ mount -t debugfs none /sys/kernel/debug
 
 Коли користувач виконує системний виклик `read()`, відбувається наступне:
 
-```c
-/* Спрощена концептуальна схема захисту у debugfs */
-ssize_t debugfs_file_read(struct file *file, char __user *buf, 
-                          size_t val, loff_t *ppos)
-{
-    struct dentry *dentry = file->f_path.dentry;
-    int idx;
-    ssize_t ret;
-
-    /* 1. Захоплюємо SRCU read lock для перевірки життєздатності dentry */
-    if (debugfs_file_get(dentry, &idx))
-        return -EIO; /* Файл вже видаляється модулем! */
-
-    /* 2. Безпечно викликаємо реальний fops драйвера */
-    ret = real_fops->read(file, buf, val, ppos);
-
-    /* 3. Звільняємо SRCU read lock */
-    debugfs_file_put(dentry, idx);
-
-    return ret;
-}
-```
+:::code debugfs-kernel-debug-vfs-d/c/suchasne-rozviazannia.c
 
 Коли модуль викликає `debugfs_remove()` або `debugfs_remove_recursive()`:
 1. debugfs атомарно встановлює прапорець `DEAD` на відповідному об'єкті `dentry`. Усі нові виклики `debugfs_file_get()` починають негайно повертати помилку `-EIO`.
@@ -210,49 +189,13 @@ void debugfs_create_atomic_t(const char *name, umode_t mode, struct dentry *pare
 
 Для цього використовується інтерфейс **`seq_file`**. Зв'язка `seq_file` з debugfs є стандартом де-факто для виведення текстових дампів:
 
-```c
-static int my_dump_show(struct seq_file *s, void *data)
-{
-    /* seq_printf автоматично розширює буфер за потреби */
-    seq_printf(s, "Driver status: %s\n", "ACTIVE");
-    seq_printf(s, "Internal counter: %lu\n", jiffies);
-    return 0;
-}
-
-static int my_dump_open(struct inode *inode, struct file *file)
-{
-    return single_open(file, my_dump_show, inode->i_private);
-}
-
-static const struct file_operations my_dump_fops = {
-    .owner   = THIS_MODULE,
-    .open    = my_dump_open,
-    .read    = seq_read,
-    .llseek  = seq_lseek,
-    .release = single_release,
-};
-```
+:::code debugfs-kernel-debug-vfs-d/c/heneratsiia-skladnoho.c
 
 ### Автоматизовані дампи регістрів: `debugfs_regset32`
 
 Для розробників апаратних драйверів debugfs пропонує спеціальний механізм для автоматичного дампу масивів 32-бітних регістрів вводжувально-вивідних пристроїв (MMIO):
 
-```c
-struct debugfs_reg32 my_registers[] = {
-    { .name = "CTRL_REG",  .offset = 0x00 },
-    { .name = "STATUS_REG",.offset = 0x04 },
-    { .name = "DATA_REG",  .offset = 0x08 },
-};
-
-struct debugfs_regset32 my_regset = {
-    .regs  = my_registers,
-    .nregs = ARRAY_SIZE(my_registers),
-    .base  = io_memory_base_address,
-};
-
-/* Створення файлу regset у debugfs */
-debugfs_create_regset32("regdump", 0444, dir_dentry, &my_regset);
-```
+:::code debugfs-kernel-debug-vfs-d/c/avtomatyzovani-dampy.c
 
 При зчитуванні файла `regdump` ядро самостійно виконає безпечні зчитування `ioread32()` для кожного offset і виведе сформований списочний дамп назв та їхніх шістнадцяткових значень.
 

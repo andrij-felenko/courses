@@ -46,49 +46,8 @@
 Група задач — це і є те, що ззовні зветься процесом. У неї є номер — **TGID** (англ. *thread group identifier*, ідентифікатор групи задач). Саме його повертає `getpid()`, і саме він однаковий у всіх потоків; власний номер задачі видає `gettid()` (системний виклик існує з ядра 2.4.11, а обгортку в glibc додали аж у версії 2.30 — до того його викликали через `syscall()` вручну). У `/proc/<pid>/status` обидва номери стоять поруч: рядок `Tgid` — номер групи, рядок `Pid` — номер цієї задачі, рядок `Threads` — скільки їх у групі.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <pthread.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-
-static void *worker(void *arg)
-{
-    (void)arg;
-    printf("потік:   getpid()=%d  gettid()=%ld\n",
-           getpid(), (long)syscall(SYS_gettid));
-    return NULL;
-}
-
-int main(void)
-{
-    pthread_t t;
-    printf("головний: getpid()=%d  gettid()=%ld\n",
-           getpid(), (long)syscall(SYS_gettid));
-    pthread_create(&t, NULL, worker, NULL);
-    pthread_join(t, NULL);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <thread>
-#include <unistd.h>
-#include <sys/syscall.h>
-
-int main()
-{
-    auto print_ids = [](const char *label) {
-        std::cout << label << ": getpid()=" << getpid()
-                  << "  gettid()=" << syscall(SYS_gettid) << '\n';
-    };
-
-    print_ids("головний");
-    std::thread t([print_ids] { print_ids("потік"); });
-    t.join();
-}
-```
+:::code threads-as-tasks-d/c/main.c
+:::code threads-as-tasks-d/cpp/main.cpp
 :::
 
 ```

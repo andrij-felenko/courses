@@ -148,65 +148,13 @@ ASLR рандомізує базові адреси завантаження с�
 ### Код бібліотеки та програми
 
 :::tabs
-```c
-/* my_math.h — Заголовочний файл C */
-#ifndef MY_MATH_H
-#define MY_MATH_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-int add(int a, int b);
-int square(int x);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
-```
-```cpp
-// my_math.hpp — Заголовочний файл C++
-#ifndef MY_MATH_HPP
-#define MY_MATH_HPP
-
-namespace math {
-    int add(int a, int b) noexcept;
-    int square(int x) noexcept;
-}
-
-#endif
-```
+:::code static-and-dynamic-linking-d/c/my_math.h
+:::code static-and-dynamic-linking-d/cpp/my_math.hpp
 :::
 
 :::tabs
-```c
-/* my_math.c — Реалізація мовою C */
-#include "my_math.h"
-
-int add(int a, int b) {
-    return a + b;
-}
-
-int square(int x) {
-    return x * x;
-}
-```
-```cpp
-// my_math.cpp — Реалізація мовою C++
-#include "my_math.hpp"
-
-namespace math {
-    int add(int a, int b) noexcept {
-        return a + b;
-    }
-
-    int square(int x) noexcept {
-        return x * x;
-    }
-}
-```
+:::code static-and-dynamic-linking-d/c/my_math.c
+:::code static-and-dynamic-linking-d/cpp/my_math.cpp
 :::
 
 :::tabs
@@ -237,62 +185,8 @@ int main() {
 ### Збірка та лінкування
 
 :::tabs
-```c
-/* Команди збірки для C (GCC / Clang) */
-
-/* === 1. СТА ТИЧНЕ ЛІНКУВАННЯ === */
-/* Компіляція об'єктного файла бібліотеки */
-gcc -c my_math.c -o my_math.o
-
-/* Створення статичного архіву .a за допомогою ar */
-ar rcs libmy_math.a my_math.o
-
-/* Компіляція програми та статичне лінкування */
-gcc app.c -L. -lmy_math -static -o app_static
-
-
-/* === 2. ДИНАМІЧНЕ ЛІНКУВАННЯ === */
-/* Компіляція об'єктного файла з прапорцем -fPIC (Position Independent Code) */
-gcc -fPIC -c my_math.c -o my_math_pic.o
-
-/* Створення спільновживаного об'єкта .so */
-gcc -shared my_math_pic.o -o libmy_math.so
-
-/* Компіляція програми з динамічним лінкуванням */
-gcc app.c -L. -lmy_math -Wl,-rpath,'.' -o app_dynamic
-```
-```cpp
-// Збірка та робота з динамічним завантаженням через C++ RAII
-#include <iostream>
-#include <memory>
-#include <dlfcn.h>
-
-// Оголошення сигнатури функції
-using SquareFn = int(*)(int);
-
-struct DlCloser {
-    void operator()(void* h) const { if (h) dlclose(h); }
-};
-
-int main() {
-    // Явне динамічне завантаження бібліотеки під час виконання
-    std::unique_ptr<void, DlCloser> handle(dlopen("./libmy_math.so", RTLD_LAZY));
-    if (!handle) {
-        std::cerr << "Помилка відкриття .so: " << dlerror() << '\n';
-        return 1;
-    }
-
-    // Отримання вказівника на функцію
-    auto square_func = reinterpret_cast<SquareFn>(dlsym(handle.get(), "square"));
-    if (!square_func) {
-        std::cerr << "Помилка dlsym: " << dlerror() << '\n';
-        return 1;
-    }
-
-    std::cout << "Динамічний виклик square(5): " << square_func(5) << '\n';
-    return 0;
-}
-```
+:::code static-and-dynamic-linking-d/c/zbirka-ta-linkuvannia.c
+:::code static-and-dynamic-linking-d/cpp/zbirka-ta-linkuvannia.cpp
 :::
 
 Реалізацію власної системи плагінів та механізм перехоплення системних викликів за допомогою `LD_PRELOAD` детально розібрано у вставці [⚙️ Практика: перехоплення викликів та динамічне завантаження коду](root:sys-unix/static-and-dynamic-linking/proj-custom-dynamic-loader-hooks.md).

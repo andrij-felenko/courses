@@ -36,23 +36,7 @@ int fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_XFRM);
 
 Структура `struct xfrm_usersa_info` передається як основний шар даних у повідомленнях `XFRM_MSG_NEWSA` та повертається ядром при запитах `XFRM_MSG_GETSA`. Вона містить усі параметри, необхідні для шифрування та автентифікації трафіку:
 
-```c
-struct xfrm_usersa_info {
-    struct xfrm_selector sel;           /* Селектор трафіку для прив'язки SA */
-    struct xfrm_id       id;            /* Ідентифікатор SA: daddr, spi, proto */
-    xfrm_address_t       saddr;         /* IP-адреса джерела тунелю */
-    struct xfrm_lifetime_cfg lft;       /* Межі часу життя (байтів, пакетів, секунд) */
-    struct xfrm_lifetime_cur curlft;    /* Поточна статистика використання */
-    __u64                stats_packets; /* Лічильник успішно оброблених пакетів */
-    __u64                stats_bytes;   /* Лічильник успішно оброблених байтів */
-    __u32                seq;           /* Поточний серійний номер пакета */
-    __u32                reqid;         /* Ідентифікатор запиту (зв'язок із політикам SPD) */
-    __u16                family;        /* Родина адрес: AF_INET (IPv4) або AF_INET6 (IPv6) */
-    __u8                 mode;          /* Режим: XFRM_MODE_TRANSPORT або XFRM_MODE_TUNNEL */
-    __u8                 replay_window; /* Розмір вікна захисту від повторів (Anti-Replay) */
-    __u8                 flags;         /* Бітові прапорці конфігурації стану */
-};
-```
+:::code api-netlink-xfrm/c/1-struktura-stanu-struct.c
 
 Деталізація внутрішніх полів `struct xfrm_usersa_info`:
 - **Поле `id` (`struct xfrm_id`)**: Потрійний ключ ідентифікації SA в ядрі. Містить `daddr` (IP-адресу призначення), `spi` (Security Parameter Index у мережевому порядку байтів big-endian) та `proto` (`IPPROTO_ESP` = 50 або `IPPROTO_AH` = 51).
@@ -72,19 +56,7 @@ struct xfrm_usersa_info {
 
 Структура `struct xfrm_userpolicy_info` визначає правило фільтрації та дії у базі SPD:
 
-```c
-struct xfrm_userpolicy_info {
-    struct xfrm_selector sel;        /* Селектор трафіку (IP, порти, протокол) */
-    struct xfrm_lifetime_cfg lft;    /* Обмеження часу життя політики */
-    struct xfrm_lifetime_cur curlft; /* Поточний стан використання політики */
-    __u32                priority;   /* Пріоритет (менше значення = вища перевага) */
-    __u32                index;      /* Унікальний системний індекс політики */
-    __u8                 dir;        /* Напрямок: XFRM_POLICY_IN, OUT, FWD */
-    __u8                 action;     /* Дія: XFRM_POLICY_ALLOW або XFRM_POLICY_BLOCK */
-    __u8                 flags;      /* Додаткові прапорці політики */
-    __u8                 share;      /* Рівень спільного використання (XFRM_SHARE_ANY) */
-};
-```
+:::code api-netlink-xfrm/c/2-struktura-polityky.c
 
 Значення напрямку `dir`:
 - `XFRM_POLICY_IN` (0): Вхідний трафік. Перевіряє, щоб вхідні зашифровані пакети після дешифрації відповідали дозволеним селекторам.
@@ -99,39 +71,13 @@ struct xfrm_userpolicy_info {
 
 Визначає точні межі трафіку, до якого застосовується SA або SP:
 
-```c
-struct xfrm_selector {
-    xfrm_address_t daddr;       /* IP-адреса призначення */
-    xfrm_address_t saddr;       /* IP-адреса джерела */
-    __be16         dport;       /* Порт призначення у network byte order */
-    __be16         dport_mask;  /* Бітова маска порту призначення */
-    __be16         sport;       /* Порт джерела у network byte order */
-    __be16         sport_mask;  /* Бітова маска порту джерела */
-    __u16          family;      /* AF_INET / AF_INET6 */
-    __u8           prefixlen_d; /* Довжина маски призначення (CIDR, наприклад 24) */
-    __u8           prefixlen_s; /* Довжина маски джерела (CIDR, наприклад 24) */
-    __u8           proto;       /* Протокол транспортного рівня (IPPROTO_TCP, UDP, ICMP або 0) */
-    int            ifindex;     /* Індекс причіпленого мережевого інтерфейсу */
-    __kernel_uid32_t user;      /* UID процесу-власника сокету */
-};
-```
+:::code api-netlink-xfrm/c/3-selektor-trafiku-struct.c
 
 ### 4. Час життя та ліміти `struct xfrm_lifetime_cfg`
 
 Структура `struct xfrm_lifetime_cfg` дозволяє встановити жорсткі (*hard*) та м'які (*soft*) ліміти використання ключів:
 
-```c
-struct xfrm_lifetime_cfg {
-    __u64 soft_byte_limit;   /* М'який ліміт оброблених байтів */
-    __u64 hard_byte_limit;   /* Жорсткий ліміт оброблених байтів */
-    __u64 soft_packet_limit; /* М'який ліміт оброблених пакетів */
-    __u64 hard_packet_limit; /* Жорсткий ліміт оброблених пакетів */
-    __u64 soft_add_expires_seconds;  /* М'який ліміт часу від моменту створення */
-    __u64 hard_add_expires_seconds;  /* Жорсткий ліміт часу від моменту створення */
-    __u64 soft_use_expires_seconds;  /* М'який ліміт часу від першого використання */
-    __u64 hard_use_expires_seconds;  /* Жорсткий ліміт часу від першого використання */
-};
-```
+:::code api-netlink-xfrm/c/4-chas-zhyttia-ta-limity.c
 
 Коли досягається **м'який ліміт** (*soft limit*), ядро не перериває шифрування трафіку, але генерує асинхронне Netlink-повідомлення `XFRM_MSG_POLEVENT` або `XFRM_MSG_NEWAE` до демона IKE. Це дає демону час узгодити нові ключі у фоновому режимі без втрати жодного пакета. Якщо ж досягається **жорсткий ліміт** (*hard limit*), ядро негайно знищує запис SA/SP, і весь наступний трафік блокується до встановлення нових ключів.
 
@@ -188,20 +134,7 @@ struct xfrm_algo_aead {
 
 Під час додавання політики `XFRM_MSG_NEWPOLICY` до атрибута `XFRMA_TMPL` додається масив шаблонів `struct xfrm_user_tmpl`. Шаблон вказує ядра, які саме стані SA мають бути знайдені у SAD під час обробки трафіку:
 
-```c
-struct xfrm_user_tmpl {
-    struct xfrm_id id;        /* Dst IP, SPI та протокол (IPPROTO_ESP/AH) */
-    __u16          family;    /* AF_INET / AF_INET6 */
-    xfrm_address_t saddr;     /* IP-адреса джерела тунелю */
-    __u32          reqid;     /* reqid для зв'язування з SA */
-    __u8           mode;      /* XFRM_MODE_TRANSPORT або XFRM_MODE_TUNNEL */
-    __u8           share;     /* Спосіб поділу (XFRM_SHARE_ANY) */
-    __u8           optional;  /* 0 = суворе використання IPsec, 1 = необов'язкове */
-    __u32          aalgos;    /* Бітова маска дозволених алгоритмів аутентифікації */
-    __u32          ealgos;    /* Бітова маска дозволених шифрів */
-    __u32          calgos;    /* Бітова маска алгоритмів компресії */
-};
-```
+:::code api-netlink-xfrm/c/2-shablony-polityk-struct.c
 
 ### 3. UDP-інкапсуляція для обходу NAT (`XFRMA_ENCAP`)
 

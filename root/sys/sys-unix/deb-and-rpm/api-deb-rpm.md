@@ -158,37 +158,8 @@
 Блок Lead займає перші 96 байтів файлу. У сучасних версіях RPM більшість його полів ігноруються на користь тегованого Header, однак значення magic-байтів обов'язково перевіряються для швидкої ідентифікації типу файлу утилітами ОС.
 
 :::tabs
-```c
-#include <stdint.h>
-
-struct rpmlead {
-    unsigned char magic[4];      /* 0xED, 0xAB, 0xEE, 0xDB */
-    unsigned char major;         /* Версія формату (наразі 3 або 4) */
-    unsigned char minor;         /* Підверсія формату */
-    uint16_t type;               /* 0 = Binary, 1 = Source */
-    uint16_t archtag;            /* Ідентифікатор архітектури (1 = x86) */
-    char name[66];               /* Назва пакунка (доповнена нульовими байтами) */
-    uint16_t osnum;              /* Ідентифікатор ОС (1 = Linux) */
-    uint16_t signature_type;     /* Тип заголовку підпису (зазвичай 5 = Header-style) */
-    char reserved[16];           /* Зарезервоване поле (нульові байти) */
-};
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-struct RpmLead {
-    std::array<uint8_t, 4> magic; /* 0xED, 0xAB, 0xEE, 0xDB */
-    uint8_t major;                /* Версія формату (3 або 4) */
-    uint8_t minor;                /* Підверсія формату */
-    uint16_t type;                /* 0 = Binary, 1 = Source */
-    uint16_t archtag;             /* Ідентифікатор архітектури */
-    std::array<char, 66> name;    /* Назва пакунка */
-    uint16_t osnum;               /* Ідентифікатор ОС */
-    uint16_t signature_type;      /* Тип підпису */
-    std::array<char, 16> reserved;/* Зарезервовано */
-};
-```
+:::code api-deb-rpm/c/main.c
+:::code api-deb-rpm/cpp/main.cpp
 :::
 
 ### 2.2. Специфікація Header (Тегована структура даних)

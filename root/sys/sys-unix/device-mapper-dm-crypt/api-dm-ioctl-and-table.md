@@ -22,87 +22,15 @@
 Буфер, що передається у системний виклик `ioctl`, починається із загального заголовка `struct dm_ioctl`.
 
 :::tabs
-```c
-#include <linux/dm-ioctl.h>
-#include <stdint.h>
-
-/* Заголовок виклику ioctl для /dev/mapper/control у C
-   (розкладка полів — як у struct dm_ioctl з <linux/dm-ioctl.h>) */
-struct dm_ioctl_reference {
-    uint32_t version[3];   /* Версія API: {DM_VERSION_MAJOR, DM_VERSION_MINOR, DM_VERSION_PATCH} */
-    uint32_t data_size;    /* Загальний розмір буфера в байтах, включаючи структуру та параметри */
-    uint32_t data_start;   /* Зсув у буфері до початку корисного навантаження (sizeof(struct dm_ioctl)) */
-
-    uint32_t target_count; /* Скільки записів dm_target_spec іде за заголовком */
-    int32_t  open_count;   /* Скільки відкритих дескрипторів має пристрій (заповнює ядро) */
-    uint32_t flags;        /* Прапорці стану пристрою: DM_SUSPEND_FLAG, DM_READONLY_FLAG тощо */
-
-    uint32_t event_nr;     /* Номер події або udev-cookie */
-    uint32_t padding;      /* Не використовується */
-
-    uint64_t dev;          /* Номер пристрою dev_t (major/minor), якщо пристрій існує */
-
-    char name[128];        /* DM_NAME_LEN: ім'я пристрою в /dev/mapper/ (наприклад "vg0-lv_root") */
-    char uuid[129];        /* DM_UUID_LEN: унікальний UUID пристрою для LVM або LUKS */
-    char data[7];          /* Вирівнювання або початок даних */
-};
-```
-```cpp
-#include <linux/dm-ioctl.h>
-#include <cstdint>
-#include <cstddef>
-
-// Обгортка структури dm_ioctl у C++ з підтримкою вирівнювання пам'яті
-struct alignas(8) DmIoctlHeader {
-    std::uint32_t version[3];   // Версія API: {MAJOR, MINOR, PATCH}
-    std::uint32_t data_size;    // Повний розмір виділеного буфера
-    std::uint32_t data_start;   // Зсув до таблиць dm_target_spec
-
-    std::uint32_t target_count; // Кількість записів dm_target_spec у буфері
-    std::int32_t  open_count;   // Кількість активних відкриттів пристрою (з ядра)
-    std::uint32_t flags;        // Статусні прапорці Device Mapper
-
-    std::uint32_t event_nr;     // Номер події / udev-cookie
-    std::uint32_t padding;      // Не використовується
-
-    std::uint64_t dev;          // Ідентифікатор пристрою (dev_t)
-
-    char name[128];             // DM_NAME_LEN
-    char uuid[129];             // DM_UUID_LEN
-    char data[7];               // Вирівнювання або початок даних
-};
-```
+:::code api-dm-ioctl-and-table/c/struktury-danykh-iadra-c-c.c
+:::code api-dm-ioctl-and-table/cpp/struktury-danykh-iadra-c-c.cpp
 :::
 
 Одразу після заголовка `struct dm_ioctl` у буфері послідовно розміщується один або декілька записів `struct dm_target_spec`, кожен із яких визначає свій діапазон секторів та назву target-драйвера:
 
 :::tabs
-```c
-#include <linux/dm-ioctl.h>
-#include <stdint.h>
-
-/* Описувач одного діапазону секторів у C */
-struct dm_target_spec_reference {
-    uint64_t sector_start; /* Початковий сектор на віртуальному пристрої */
-    uint64_t length;       /* Кількість секторів у цьому відрізку (1 сектор = 512 байт) */
-    int32_t status;        /* Код помилки або повернений статус операції */
-    uint32_t next;         /* Зсув у байтах від початку цього запису до наступного dm_target_spec */
-    char target_type[16];  /* DM_MAX_TYPE_NAME: назва target-драйвера — "linear", "crypt", "striped" */
-};
-```
-```cpp
-#include <linux/dm-ioctl.h>
-#include <cstdint>
-
-// Описувач запису таблиці секторів у C++
-struct DmTargetSpecHeader {
-    std::uint64_t sector_start; /* Початковий сектор віртуального тома */
-    std::uint64_t length;       /* Довжина відрізка в секторах */
-    std::int32_t status;        /* Повернений код статусу */
-    std::uint32_t next;         // Зсув у буфері до наступного сегмента
-    char target_type[16];       // DM_MAX_TYPE_NAME: "linear", "crypt", ...
-};
-```
+:::code api-dm-ioctl-and-table/c/struktury-danykh-iadra-c-c-2.c
+:::code api-dm-ioctl-and-table/cpp/struktury-danykh-iadra-c-c-2.cpp
 :::
 
 Поле `next` містить точний зсув від початку поточного запису `struct dm_target_spec` до початку наступного запису. Завдяки цьому в одному виклику `DM_TABLE_LOAD` можна передати довільну кількість сегментів для побудови складної геометрії диска.

@@ -26,114 +26,7 @@ dentry            1081640 1092000    192   21    1 : tunables    0    0    0 : s
 
 Шість перших чисел — усе, що треба. Помноживши `num_slabs` на `pagesperslab` і на розмір сторінки, дістаємо, скільки пам'яті під цим кешем узагалі. Помноживши `objperslab` на `objsize`, дістаємо, скільки з одного слаба справді під об'єктами; різниця — хвіст. А `num_objs − active_objs` — це нарізані, але вільні слоти.
 
-```c
-/* slabwatch.c — дослід із кешами ядра
-   зібрати:  cc -O2 -Wall -Wextra -o slabwatch slabwatch.c -lm            */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/resource.h>
-#include <sys/stat.h>
-
-#define MAXC 1024
-
-struct cache {
-    char name[48];
-    unsigned long active_objs, num_objs;
-    unsigned long objsize, objperslab, pagesperslab;
-    unsigned long active_slabs, num_slabs;
-    unsigned long bytes;   /* усе, що під цим кешем                       */
-    unsigned long tail;    /* хвости слабів — це не вживеться ніколи      */
-    unsigned long idle;    /* нарізані, але порожні слоти                 */
-};
-
-static struct cache C[MAXC];
-static int NC;
-static unsigned long PAGE;
-
-static double mib(unsigned long b) { return b / 1048576.0; }
-static unsigned long sub(unsigned long a, unsigned long b) { return a > b ? a - b : 0; }
-
-static int read_slabinfo(void)
-{
-    FILE *f = fopen("/proc/slabinfo", "r");
-    if (!f) {
-        fprintf(stderr, "/proc/slabinfo: %s (файл читає лише root)\n", strerror(errno));
-        return -1;
-    }
-    char ln[512];
-    NC = 0;
-    while (fgets(ln, sizeof ln, f) && NC < MAXC) {
-        struct cache c;
-        memset(&c, 0, sizeof c);
-        int n = sscanf(ln, "%47s %lu %lu %lu %lu %lu : tunables %*u %*u %*u"
-                           " : slabdata %lu %lu",
-                       c.name, &c.active_objs, &c.num_objs, &c.objsize,
-                       &c.objperslab, &c.pagesperslab,
-                       &c.active_slabs, &c.num_slabs);
-        if (n != 8 || !c.objsize || !c.objperslab || !c.pagesperslab)
-            continue;                    /* шапка й рядок із назвами полів */
-        unsigned long slab = c.pagesperslab * PAGE;
-        unsigned long used = c.objperslab * c.objsize;
-        c.bytes = c.num_slabs * slab;
-        c.tail  = c.num_slabs * sub(slab, used);
-        c.idle  = sub(c.num_objs, c.active_objs) * c.objsize;
-        C[NC++] = c;
-    }
-    fclose(f);
-    return NC;
-}
-
-static unsigned long meminfo_kb(const char *key)     /* значення в кілобайтах */
-{
-    FILE *f = fopen("/proc/meminfo", "r");
-    if (!f) return 0;
-    char ln[256];
-    size_t kl = strlen(key);
-    unsigned long v = 0;
-    while (fgets(ln, sizeof ln, f))
-        if (!strncmp(ln, key, kl) && ln[kl] == ':') {
-            v = strtoul(ln + kl + 1, NULL, 10);
-            break;
-        }
-    fclose(f);
-    return v;
-}
-
-static const struct cache *find_cache(const char *name)
-{
-    for (int i = 0; i < NC; i++)
-        if (!strcmp(C[i].name, name)) return &C[i];
-    return NULL;
-}
-
-/* один знімок стану названого кеша з підписом */
-static struct cache snapshot(const char *tag, const char *cname)
-{
-    struct cache z;
-    memset(&z, 0, sizeof z);
-    if (read_slabinfo() < 0) exit(1);
-    const struct cache *c = find_cache(cname);
-    if (!c) {
-        printf("%s: кеша «%s» у slabinfo немає (злився з іншим?)\n", tag, cname);
-        return z;
-    }
-    z = *c;
-    printf("%s: %s %lu об'єктів, %lu слабів (%.1f МіБ)"
-           " | SReclaimable %.0f МіБ, Slab %.0f МіБ\n",
-           tag, cname, z.active_objs, z.num_slabs,
-           mib(z.num_slabs * z.pagesperslab * PAGE),
-           meminfo_kb("SReclaimable") / 1024.0, meminfo_kb("Slab") / 1024.0);
-    return z;
-}
-```
+:::code proj-slab-watch/c/slabwatch.c
 
 Читання `/proc` тут навмисно найпростіше, яке працює: числа беруться зі свіжого відкриття файлу щоразу, бо `/proc` — не файл на диску, а [згенерований на вимогу зріз стану ядра](root:sys-unix/proc-reading-process-and-kernel-state), і кешувати його вміст безглуздо.
 
@@ -141,44 +34,7 @@ static struct cache snapshot(const char *tag, const char *cname)
 
 Тепер найпростіший звіт — усі кеші, посортовані за абсолютною втратою.
 
-```c
-static int by_waste(const void *a, const void *b)
-{
-    const struct cache *x = a, *y = b;
-    unsigned long wx = x->tail + x->idle, wy = y->tail + y->idle;
-    return (wy > wx) - (wy < wx);
-}
-
-static int cmd_report(int top)
-{
-    if (read_slabinfo() < 0) return 1;
-    unsigned long all = 0, alltail = 0, allidle = 0;
-    for (int i = 0; i < NC; i++) {
-        all += C[i].bytes; alltail += C[i].tail; allidle += C[i].idle;
-    }
-    qsort(C, NC, sizeof C[0], by_waste);
-
-    /* шапку пишемо вручну: printf рахує ширину поля в БАЙТАХ,
-       а кирилична літера в UTF-8 займає два — колонки б поїхали */
-    puts("кеш                     об'єктів  розмір /слаб   слабів     усього"
-         "    хвіст   простій   марно");
-    for (int i = 0; i < NC && i < top; i++) {
-        const struct cache *c = &C[i];
-        printf("%-22s %10lu %7lu %5lu %8lu %10.1f %8.1f %9.1f %6.1f%%\n",
-               c->name, c->active_objs, c->objsize, c->objperslab, c->num_slabs,
-               mib(c->bytes), mib(c->tail), mib(c->idle),
-               c->bytes ? 100.0 * (c->tail + c->idle) / c->bytes : 0.0);
-    }
-    printf("\nусього в slabinfo: %.0f МіБ, з них хвости %.0f МіБ,"
-           " порожні слоти %.0f МіБ (%.1f %% марно)\n",
-           mib(all), mib(alltail), mib(allidle),
-           all ? 100.0 * (alltail + allidle) / all : 0.0);
-    printf("meminfo: Slab %.0f МіБ = SReclaimable %.0f + SUnreclaim %.0f\n",
-           meminfo_kb("Slab") / 1024.0, meminfo_kb("SReclaimable") / 1024.0,
-           meminfo_kb("SUnreclaim") / 1024.0);
-    return 0;
-}
-```
+:::code proj-slab-watch/c/krok-pershyi-khto-skilky.c
 
 **Умова.** Робоча станція з 32 ГіБ пам'яті, ядро 6.8, сторінка 4096 байтів, після кількох годин збірок і одного обходу дерева файлів.
 
@@ -210,42 +66,7 @@ meminfo: Slab 1310 МіБ = SReclaimable 941 + SUnreclaim 369
 
 Коли [розбір шляху](root:sys-unix/path-resolution) не знаходить імені, ядро запам'ятовує й це: у кеші з'являється **негативний запис** — «такого імені в цьому каталозі немає». Запис коштує рівно стільки ж, скільки звичайний, а число імен, яких немає, нічим не обмежене. Спроби завести межу на кількість негативних записів пропонують іще з 2017 року — і, за оглядом LWN 2020 року, жодна з них у ядро не ввійшла.
 
-```c
-static int cmd_grow(const char *dir, unsigned long n)
-{
-    int dfd = open(dir, O_RDONLY | O_DIRECTORY);
-    if (dfd < 0) { fprintf(stderr, "%s: %s\n", dir, strerror(errno)); return 1; }
-
-    struct cache a = snapshot("до", "dentry");
-
-    char nm[64];
-    struct stat st;
-    unsigned long miss = 0;
-    struct timespec t0, t1;
-    clock_gettime(CLOCK_MONOTONIC, &t0);
-    for (unsigned long i = 0; i < n; i++) {
-        snprintf(nm, sizeof nm, "nx-%ld-%lu", (long)getpid(), i);
-        if (fstatat(dfd, nm, &st, AT_SYMLINK_NOFOLLOW) < 0 && errno == ENOENT)
-            miss++;
-    }
-    clock_gettime(CLOCK_MONOTONIC, &t1);
-    double dt = (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec) / 1e9;
-    printf("%lu невдалих пошуків за %.2f с (%.0f тис./с)\n",
-           miss, dt, miss / dt / 1000.0);
-
-    struct cache b = snapshot("після", "dentry");
-    close(dfd);
-
-    unsigned long dobj = sub(b.active_objs, a.active_objs);
-    unsigned long dpg  = sub(b.num_slabs * b.pagesperslab,
-                             a.num_slabs * a.pagesperslab);
-    printf("\nприріст: об'єктів +%lu, сторінок +%lu = %.1f МіБ\n",
-           dobj, dpg, mib(dpg * PAGE));
-    printf("на один запис вийшло %.1f Б при розмірі об'єкта %lu Б\n",
-           dobj ? (double)dpg * PAGE / dobj : 0.0, b.objsize);
-    return 0;
-}
-```
+:::code proj-slab-watch/c/krok-druhyi-vyrostyty-kesh.c
 
 Два рішення в цьому циклі варті пояснення. По-перше, пошук іде через `fstatat` від дескриптора каталогу, а не через `stat` від повного шляху: [сімейство викликів «від каталогу»](root:sys-unix/at-family-syscalls) дозволяє відкрити каталог один раз і далі шукати в ньому по одному компоненту, замість того щоб щоразу проходити весь шлях від кореня. Так вимірюється саме те, що нас цікавить, а не робота обходу шляху. По-друге, у назву входить номер процесу — тому кожен запуск б'є в нові імена, а не в записи, які вже лежать у кеші після попереднього разу.
 
@@ -275,63 +96,7 @@ $ sudo ./slabwatch grow ~/slablab 1000000
 
 Тепер порівняємо два способи повернути цю пам'ять: чесний тиск і примусове скидання.
 
-```c
-static int drop_slab(void)          /* 2 — лише слабові кеші, без сторінкового */
-{
-    int fd = open("/proc/sys/vm/drop_caches", O_WRONLY);
-    if (fd < 0) {
-        fprintf(stderr, "drop_caches: %s (треба root)\n", strerror(errno));
-        return -1;
-    }
-    sync();
-    ssize_t w = write(fd, "2\n", 2);
-    close(fd);
-    if (w < 0) { perror("drop_caches"); return -1; }
-    sleep(1);                       /* зменшувачам треба мить доробити */
-    return 0;
-}
-
-static int cmd_squeeze(unsigned long want_mib)
-{
-    const size_t chunk = 512ul << 20;
-    size_t n = (size_t)((want_mib + 511) / 512), got = 0;
-    void **blk = calloc(n, sizeof *blk);
-    if (!blk) return 1;
-
-    unsigned long floor_kb = meminfo_kb("MemTotal") / 20;   /* 5 % — далі стоп */
-    if (floor_kb < 256u * 1024) floor_kb = 256u * 1024;
-
-    puts(" узято MemAvailable       dentry     слабів SReclaimable");
-    for (size_t i = 0; i < n; i++) {
-        void *m = mmap(NULL, chunk, PROT_READ | PROT_WRITE,
-                       MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-        if (m == MAP_FAILED) {
-            fprintf(stderr, "mmap відмовив на %zu МіБ: %s\n",
-                    got * 512, strerror(errno));
-            break;
-        }
-        blk[got++] = m;
-        for (size_t o = 0; o < chunk; o += PAGE)
-            ((volatile char *)m)[o] = 1;     /* без запису сторінки не з'являться */
-
-        if (read_slabinfo() < 0) break;
-        const struct cache *d = find_cache("dentry");
-        unsigned long avail = meminfo_kb("MemAvailable");
-        printf("%6zu %12.0f %12lu %10lu %12.0f\n",
-               got * 512, avail / 1024.0,
-               d ? d->active_objs : 0, d ? d->num_slabs : 0,
-               meminfo_kb("SReclaimable") / 1024.0);
-        if (avail < floor_kb) {
-            printf("вільного лишилося менш як %.0f МіБ — зупиняємось\n",
-                   floor_kb / 1024.0);
-            break;
-        }
-    }
-    for (size_t k = 0; k < got; k++) munmap(blk[k], chunk);
-    free(blk);
-    return 0;
-}
-```
+:::code proj-slab-watch/c/krok-tretii-poprosyty.c
 
 Цикл бере пам'ять шматками по 512 МіБ і **торкається кожної сторінки**: без запису відображення лишилося б обіцянкою, і жодного тиску не було б. Після кожного шматка знімається стан кеша — так видно не підсумок, а форму кривої.
 
@@ -381,89 +146,7 @@ $ sudo ./slabwatch drop
 
 Менш ніж один відсоток об'єктів має втримати понад п'ятнадцять відсотків сторінок. Перевіряємо.
 
-```c
-static unsigned long raise_nofile(void)     /* м'яку межу піднімаємо до жорсткої */
-{
-    struct rlimit rl;
-    if (getrlimit(RLIMIT_NOFILE, &rl) != 0) return 1024;
-    rl.rlim_cur = rl.rlim_max;
-    setrlimit(RLIMIT_NOFILE, &rl);
-    if (getrlimit(RLIMIT_NOFILE, &rl) != 0) return 1024;
-    if (rl.rlim_cur == RLIM_INFINITY || rl.rlim_cur > 262144) return 262144;
-    return (unsigned long)rl.rlim_cur;
-}
-
-static int cmd_scatter(const char *dir, unsigned long neg, unsigned long pins)
-{
-    int dfd = open(dir, O_RDONLY | O_DIRECTORY);
-    if (dfd < 0) { fprintf(stderr, "%s: %s\n", dir, strerror(errno)); return 1; }
-
-    unsigned long cap = raise_nofile();
-    if (pins + 64 > cap) pins = cap > 64 ? cap - 64 : 0;
-    if (!pins || !neg) { fprintf(stderr, "обидва числа мають бути > 0\n"); return 1; }
-
-    int *fds = calloc(pins, sizeof *fds);
-    if (!fds) return 1;
-
-    struct cache a = snapshot("до", "dentry");
-
-    unsigned long step = neg / pins ? neg / pins : 1;   /* через скільки промахів */
-    unsigned long got = 0;
-    char nm[64];
-    struct stat st;
-    for (unsigned long i = 0; i < neg; i++) {
-        snprintf(nm, sizeof nm, "nx-%ld-%lu", (long)getpid(), i);
-        (void)fstatat(dfd, nm, &st, AT_SYMLINK_NOFOLLOW);      /* завжди ENOENT */
-        if (i % step == 0 && got < pins) {
-            snprintf(nm, sizeof nm, "pin-%ld-%lu", (long)getpid(), got);
-            int fd = openat(dfd, nm, O_CREAT | O_RDONLY, 0600);
-            if (fd >= 0) fds[got++] = fd;
-            else pins = got;              /* дескрипторів більше не дадуть */
-        }
-    }
-
-    struct cache b = snapshot("виросло", "dentry");
-    unsigned long dobj  = sub(b.active_objs, a.active_objs);
-    unsigned long dslab = sub(b.num_slabs, a.num_slabs);
-    printf("\nстворено: %lu негативних записів + %lu відкритих файлів"
-           " (закріп кожен %lu-й)\n", neg, got, step);
-    printf("приріст dentry: об'єктів +%lu, слабів +%lu = %.1f МіБ\n",
-           dobj, dslab, mib(dslab * b.pagesperslab * PAGE));
-
-    if (drop_slab() == 0) {
-        struct cache c = snapshot("після скидання", "dentry");
-        unsigned long robj  = sub(c.active_objs, a.active_objs);
-        unsigned long rslab = sub(c.num_slabs, a.num_slabs);
-        printf("лишилось: об'єктів +%lu, слабів +%lu = %.1f МіБ\n",
-               robj, rslab, mib(rslab * c.pagesperslab * PAGE));
-
-        double pf = dobj ? (double)got / dobj : 0.0;
-        double expect = dslab * (1.0 - pow(1.0 - pf, (double)b.objperslab));
-        unsigned long ideal = (got + b.objperslab - 1) / b.objperslab;
-        printf("\nочікувано за розсіянням: %.0f слабів"
-               " (частка закріплених %.4f, слотів у слабі %lu)\n",
-               expect, pf, b.objperslab);
-        printf("щільно ті самі об'єкти зайняли б слабів: %lu"
-               " — розсіяння коштує %.1f×\n",
-               ideal, ideal ? (double)rslab / ideal : 0.0);
-    }
-
-    for (unsigned long k = 0; k < got; k++) close(fds[k]);
-    for (unsigned long k = 0; k < got; k++) {
-        snprintf(nm, sizeof nm, "pin-%ld-%lu", (long)getpid(), k);
-        unlinkat(dfd, nm, 0);
-    }
-    free(fds);
-    if (drop_slab() == 0) {
-        struct cache d = snapshot("після прибирання", "dentry");
-        printf("лишилось: об'єктів +%lu, слабів +%lu = %.1f МіБ\n",
-               sub(d.active_objs, a.active_objs), sub(d.num_slabs, a.num_slabs),
-               mib(sub(d.num_slabs, a.num_slabs) * d.pagesperslab * PAGE));
-    }
-    close(dfd);
-    return 0;
-}
-```
+:::code proj-slab-watch/c/krok-chetvertyi.c
 
 Підняття межі на кількість відкритих файлів обов'язкове: типова м'яка межа в тисячу дескрипторів не дасть закріпити вісім тисяч записів. Піднімати можна тільки до жорсткої — це звичайна поведінка [лімітів ресурсів](root:sys-unix/resource-limits), і саме тому програма спершу пробує, а потім перечитує, скільки їй справді дозволили.
 
@@ -497,40 +180,7 @@ $ sudo ./slabwatch scatter ~/slablab 1000000 8000
 
 ## Головна функція
 
-```c
-static void usage(void)
-{
-    fputs("вжиток:\n"
-          "  slabwatch report [скільки рядків]\n"
-          "  slabwatch grow <тека> <скільки пошуків>\n"
-          "  slabwatch squeeze <МіБ>\n"
-          "  slabwatch drop\n"
-          "  slabwatch scatter <тека> <негативних> <закріпити>\n", stderr);
-}
-
-int main(int argc, char **argv)
-{
-    PAGE = (unsigned long)sysconf(_SC_PAGESIZE);
-    if (argc < 2) { usage(); return 2; }
-    if (!strcmp(argv[1], "report"))
-        return cmd_report(argc > 2 ? atoi(argv[2]) : 12);
-    if (!strcmp(argv[1], "grow") && argc > 3)
-        return cmd_grow(argv[2], strtoul(argv[3], NULL, 10));
-    if (!strcmp(argv[1], "squeeze") && argc > 2)
-        return cmd_squeeze(strtoul(argv[2], NULL, 10));
-    if (!strcmp(argv[1], "drop")) {
-        snapshot("до", "dentry");
-        if (drop_slab() != 0) return 1;
-        snapshot("після", "dentry");
-        return 0;
-    }
-    if (!strcmp(argv[1], "scatter") && argc > 4)
-        return cmd_scatter(argv[2], strtoul(argv[3], NULL, 10),
-                           strtoul(argv[4], NULL, 10));
-    usage();
-    return 2;
-}
-```
+:::code proj-slab-watch/c/holovna-funktsiia.c
 
 ## Що заважає повторити
 

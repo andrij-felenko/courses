@@ -224,113 +224,8 @@ $ cat data.txt | my_tool
 Правильне очищення вимагає відкриття `/dev/null` та заміни дескрипторів через `dup2(2)`:
 
 :::tabs
-```c
-/* Приклад класичної демонізації на мові C */
-#include <fcntl.h>
-#include <signal.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-int daemonize_traditional(void) {
-    /* 1. Перший fork */
-    pid_t pid = fork();
-    if (pid < 0) return -1;
-    if (pid > 0) _exit(0); /* Батько завершується */
-
-    /* 2. Створення нового сеансу */
-    if (setsid() < 0) return -1;
-
-    /* Ігноруємо сигнал SIGHUP при завершенні лідера сеансу */
-    signal(SIGHUP, SIG_IGN);
-
-    /* 3. Другий fork */
-    pid = fork();
-    if (pid < 0) return -1;
-    if (pid > 0) _exit(0); /* Лідер сеансу завершується */
-
-    /* 4. Очищення umask і каталогу */
-    umask(0);
-    if (chdir("/") < 0) return -1;
-
-    /* 5. Перенаправлення дескрипторів 0, 1, 2 на /dev/null */
-    int null_fd = open("/dev/null", O_RDWR);
-    if (null_fd < 0) return -1;
-
-    dup2(null_fd, STDIN_FILENO);
-    dup2(null_fd, STDOUT_FILENO);
-    dup2(null_fd, STDERR_FILENO);
-
-    if (null_fd > STDERR_FILENO) {
-        close(null_fd);
-    }
-
-    return 0;
-}
-```
-```cpp
-// Приклад традиційної демонізації на C++20 з RAII та expected
-#include <cerrno>
-#include <csignal>
-#include <expected>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <system_error>
-#include <unistd.h>
-
-namespace sys {
-
-[[nodiscard]] std::expected<void, std::error_code> daemonize_traditional() noexcept {
-    // 1. Перший fork
-    pid_t pid = ::fork();
-    if (pid < 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-    if (pid > 0) {
-        ::_exit(0);
-    }
-
-    // 2. Створення нового сеансу
-    if (::setsid() < 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-
-    ::signal(SIGHUP, SIG_IGN);
-
-    // 3. Другий fork
-    pid = ::fork();
-    if (pid < 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-    if (pid > 0) {
-        ::_exit(0);
-    }
-
-    // 4. Скидання umask та зміна каталогу
-    ::umask(0);
-    if (::chdir("/") < 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-
-    // 5. Перенаправлення 0, 1, 2 на /dev/null
-    int null_fd = ::open("/dev/null", O_RDWR);
-    if (null_fd < 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-    }
-
-    ::dup2(null_fd, STDIN_FILENO);
-    ::dup2(null_fd, STDOUT_FILENO);
-    ::dup2(null_fd, STDERR_FILENO);
-
-    if (null_fd > STDERR_FILENO) {
-        ::close(null_fd);
-    }
-
-    return {};
-}
-
-} // namespace sys
-```
+:::code no-controlling-terminal-d/c/5-perenapravlennia.c
+:::code no-controlling-terminal-d/cpp/5-perenapravlennia.cpp
 :::
 
 ## Сучасна парадигма systemd: відмова від самодемонізації
@@ -369,49 +264,8 @@ WantedBy=multi-user.target
 - **`Type=notify`:** Золотий стандарт надійності. Служба запускається на передньому плані, виконує всю складну ініціалізацію (зчитує конфігурацію, створює пули пам'яті, підключається до бази даних) і лише після повної готовності надсилає повідомлення `READY=1` через UNIX-сокет дейтаграм, вказаний у змінній оточення `$NOTIFY_SOCKET`:
 
 :::tabs
-```c
-#include <systemd/sd-daemon.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int main(void) {
-    /* Налаштовуємо буферизацію */
-    setvbuf(stdout, NULL, _IOLBF, 0);
-
-    printf("Ініціалізація компонентів...\n");
-    sleep(1); /* Емуляція завантаження */
-
-    /* Повідомляємо systemd про повну готовність */
-    sd_notify(0, "READY=1\nSTATUS=Обробка клієнтських запитів");
-
-    /* Головний цикл обробки */
-    while (1) {
-        sleep(10);
-    }
-    return 0;
-}
-```
-```cpp
-#include <systemd/sd-daemon.h>
-#include <chrono>
-#include <iostream>
-#include <thread>
-
-int main() {
-    std::setvbuf(stdout, nullptr, _IOLBF, 0);
-
-    std::cout << "Ініціалізація компонентів C++...\n";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-
-    // Сповіщаємо супервізор про готовність
-    ::sd_notify(0, "READY=1\nSTATUS=Обробка клієнтських запитів (C++20)");
-
-    while (true) {
-        std::this_thread::sleep_for(std::chrono::seconds(10));
-    }
-    return 0;
-}
-```
+:::code no-controlling-terminal-d/c/paradyhmy-type-simple-ta.c
+:::code no-controlling-terminal-d/cpp/paradyhmy-type-simple-ta.cpp
 :::
 
 Завдяки механізму `sd_notify` залежні служби чекають реальної готовності сервісу без будь-яких станів гонки та без необхідності самостійно скидати керівний термінал.

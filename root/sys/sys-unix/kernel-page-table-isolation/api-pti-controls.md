@@ -188,21 +188,7 @@ pti
 
 Мітки ядро роздає за простою формулою. Внутрішній номер простору (ASID) — маленьке число; ядерна мітка дорівнює `ASID + 1`, користувацька — тій самій із піднятим одинадцятим бітом:
 
-```c
-static inline u16 kern_pcid(u16 asid)
-{
-	return asid + 1;
-}
-
-static inline u16 user_pcid(u16 asid)
-{
-	u16 ret = kern_pcid(asid);
-#ifdef CONFIG_MITIGATION_PAGE_TABLE_ISOLATION
-	ret |= 1 << X86_CR3_PTI_PCID_USER_BIT;
-#endif
-	return ret;
-}
-```
+:::code api-pti-controls/c/main.c
 
 Одиниця в `kern_pcid` не забаганка: мітка нуль лишається за кодом, який про мітки нічого не знає, — так помилка «зберегли `CR3`, завантажили щось із нульовою міткою, відновили `CR3`» не псує чужих записів у TLB. Одинадцятий біт мусить лишатися вільним, тому динамічних номерів ядро тримає всього шість (`TLB_NR_DYN_ASIDS`), а сама ізоляція **звужує поле мітки з дванадцяти бітів до одинадцяти** — один біт вона забирає собі назавжди.
 
@@ -226,46 +212,13 @@ static inline u16 user_pcid(u16 asid)
 
 Саме це й роблять два макроси коду входу, дослівно:
 
-```asm
-.macro ADJUST_KERNEL_CR3 reg:req
-	ALTERNATIVE "", "SET_NOFLUSH_BIT \reg", X86_FEATURE_PCID
-	andq    $(~PTI_USER_PGTABLE_AND_PCID_MASK), \reg
-.endm
-
-.macro SWITCH_TO_KERNEL_CR3 scratch_reg:req
-	ALTERNATIVE "jmp .Lend_\@", "", X86_FEATURE_PTI
-	mov	%cr3, \scratch_reg
-	ADJUST_KERNEL_CR3 \scratch_reg
-	mov	\scratch_reg, %cr3
-.Lend_\@:
-.endm
-```
+:::code api-pti-controls/asm/rozkladka-bitiv-u.s
 
 Дві директиви `ALTERNATIVE` тут — не оздоба, а спосіб не платити за перевірки на найгарячішому шляху системи. Кожна з них означає «постав перший варіант коду, а якщо в процесора є названа можливість — перепиши це місце другим». Переписування відбувається один раз, при завантаженні. Тому на машині без ізоляції на місці всього макроса стоїть безумовний стрибок через нього, а на машині з ізоляцією й мітками — три інструкції без жодного розгалуження.
 
 Зворотний макрос трохи довший, бо мусить вирішити, чи можна не скидати мітку:
 
-```asm
-.macro SWITCH_TO_USER_CR3 scratch_reg:req scratch_reg2:req
-	mov	%cr3, \scratch_reg
-	ALTERNATIVE "jmp .Lwrcr3_\@", "", X86_FEATURE_PCID
-	movq	\scratch_reg, \scratch_reg2
-	andq	$(0x7FF), \scratch_reg
-	bt	\scratch_reg, THIS_CPU_user_pcid_flush_mask
-	jnc	.Lnoflush_\@
-	btr	\scratch_reg, THIS_CPU_user_pcid_flush_mask
-	movq	\scratch_reg2, \scratch_reg
-	jmp	.Lwrcr3_pcid_\@
-.Lnoflush_\@:
-	movq	\scratch_reg2, \scratch_reg
-	SET_NOFLUSH_BIT \scratch_reg
-.Lwrcr3_pcid_\@:
-	orq	$(PTI_USER_PCID_MASK), \scratch_reg
-.Lwrcr3_\@:
-	orq     $(PTI_USER_PGTABLE_MASK), \scratch_reg
-	mov	\scratch_reg, %cr3
-.endm
-```
+:::code api-pti-controls/asm/rozkladka-bitiv-u-2.s
 
 Маска `0x7FF` тут — це рівно одинадцять бітів мітки без дванадцятого: із чинного значення дістають **ядерну** мітку й за нею шукають біт у побітовій мапі `user_pcid_flush_mask`. Мапа веде облік того, для яких користувацьких міток на цьому процесорному ядрі накопичилися застарілі переклади. Біт стоїть — переклади треба викинути, тож у `CR3` пишуть без ознаки `NOFLUSH`, а біт гасять. Біта немає — ставлять `NOFLUSH` і не платять нічого.
 
@@ -296,32 +249,6 @@ $ sudo rdmsr -f 0:0 0x10a     # з пакета msr-tools; 1 означає RDCL
 
 Найкоротший спосіб зібрати всі чотири джерела в одну відповідь:
 
-```sh
-#!/bin/sh
-# Стан ізоляції таблиць сторінок ядра на цій машині.
-
-vuln=/sys/devices/system/cpu/vulnerabilities/meltdown
-
-if [ -r "$vuln" ]; then
-    printf 'sysfs   : %s\n' "$(cat "$vuln")"
-else
-    printf 'sysfs   : файлу немає — ядро старше за 4.15\n'
-fi
-
-if grep -qw pti /proc/cpuinfo; then
-    printf 'cpuinfo : прапорець pti є\n'
-else
-    printf 'cpuinfo : прапорця pti немає\n'
-fi
-grep -qw pcid /proc/cpuinfo && printf 'cpuinfo : pcid є — перемикання дешеве\n'
-
-printf 'збірка  : %s\n' "$(zgrep -h -E '^CONFIG_(MITIGATION_)?PAGE_TABLE_ISOLATION=|^CONFIG_UNMAP_KERNEL_AT_EL0=' \
-        /proc/config.gz "/boot/config-$(uname -r)" 2>/dev/null | head -1)"
-printf 'cmdline : %s\n' "$(cat /proc/cmdline)"
-
-printf 'журнал  :\n'
-{ dmesg 2>/dev/null || journalctl -k -o cat 2>/dev/null; } |
-    grep -i -e 'page tables isolation' -e 'page table isolation'
-```
+:::code api-pti-controls/sh/main.sh
 
 Читати вивід треба в тому самому порядку пріоритетів, з якого починалася ця довідка: якщо рядка `CONFIG_…=y` немає, решта нічого не важить; якщо він є, дивіться на командний рядок; і лише коли там нічого про це не сказано — на вердикт sysfs, у якому відбилася апаратура.

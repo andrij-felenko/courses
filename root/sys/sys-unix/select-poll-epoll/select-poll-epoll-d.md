@@ -40,54 +40,9 @@
 
 :::tabs
 == C (системний виклик POSIX)
-```c
-fd_set rfds;
-struct timeval tv;
-
-for (;;) {
-    FD_ZERO(&rfds);                     /* мапу доводиться будувати щоразу заново */
-    int maxfd = 0;
-    for (int i = 0; i < nconn; i++) {
-        FD_SET(conn[i].fd, &rfds);
-        if (conn[i].fd > maxfd) maxfd = conn[i].fd;
-    }
-    tv.tv_sec = 1; tv.tv_usec = 0;      /* Linux змінює tv — теж щоразу наново */
-
-    int n = select(maxfd + 1, &rfds, NULL, NULL, &tv);
-    if (n < 0) { if (errno == EINTR) continue; die("select"); }
-
-    for (int i = 0; i < nconn; i++)     /* хто саме готовий — знову шукаємо перебором */
-        if (FD_ISSET(conn[i].fd, &rfds))
-            handle(&conn[i]);
-}
-```
+:::code select-poll-epoll-d/c/select-try-bitovi-masky.c
 == C++ (стандартна функція std::max та контейнер)
-```cpp
-fd_set rfds;
-struct timeval tv;
-
-for (;;) {
-    FD_ZERO(&rfds);
-    int maxfd = 0;
-    for (const auto& c : conn) {
-        FD_SET(c.fd, &rfds);
-        maxfd = std::max(maxfd, c.fd);
-    }
-    tv.tv_sec = 1; tv.tv_usec = 0;
-
-    int n = select(maxfd + 1, &rfds, nullptr, nullptr, &tv);
-    if (n < 0) {
-        if (errno == EINTR) continue;
-        throw std::system_error(errno, std::generic_category(), "select");
-    }
-
-    for (auto& c : conn) {
-        if (FD_ISSET(c.fd, &rfds)) {
-            handle(c);
-        }
-    }
-}
-```
+:::code select-poll-epoll-d/cpp/select-try-bitovi-masky.cpp
 :::
 
 Три рядки цього коду варті окремої уваги, бо кожен — наслідок форми аргументів.
@@ -116,46 +71,9 @@ struct pollfd {
 
 :::tabs
 == C (системний виклик POSIX)
-```c
-struct pollfd *pfd = calloc(nconn, sizeof *pfd);
-for (int i = 0; i < nconn; i++) {
-    pfd[i].fd = conn[i].fd;
-    pfd[i].events = POLLIN;             /* масив живий між обертами циклу */
-}
-
-for (;;) {
-    int n = poll(pfd, nconn, 1000);
-    if (n < 0) { if (errno == EINTR) continue; die("poll"); }
-
-    for (int i = 0; i < nconn && n > 0; i++) {
-        if (!pfd[i].revents) continue;
-        n--;
-        handle(&conn[i], pfd[i].revents);
-    }
-}
-```
+:::code select-poll-epoll-d/c/poll-masyv-zamist-masok.c
 == C++ (стандартний контейнер std::vector)
-```cpp
-std::vector<struct pollfd> pfd;
-pfd.reserve(conn.size());
-for (const auto& c : conn) {
-    pfd.push_back({.fd = c.fd, .events = POLLIN, .revents = 0});
-}
-
-for (;;) {
-    int n = poll(pfd.data(), static_cast<nfds_t>(pfd.size()), 1000);
-    if (n < 0) {
-        if (errno == EINTR) continue;
-        throw std::system_error(errno, std::generic_category(), "poll");
-    }
-
-    for (size_t i = 0; i < pfd.size() && n > 0; ++i) {
-        if (!pfd[i].revents) continue;
-        --n;
-        handle(conn[i], pfd[i].revents);
-    }
-}
-```
+:::code select-poll-epoll-d/cpp/poll-masyv-zamist-masok.cpp
 :::
 
 Разом із зручністю зникла й стеля: кількість записів обмежена хіба що лімітом на відкриті файли, а номер дескриптора більше нічого не важить — робота залежить від довжини масиву, а не від значень усередині. Набір станів теж став точнішим: `POLLHUP` (інший бік закрив), `POLLERR` (помилка на об'єкті), `POLLNVAL` (у полі `fd` не дескриптор) розрізняються між собою, тоді як `select` перші два подавав однаково — просто «готовий до читання», — а на закритому дескрипторі валив увесь виклик помилкою `EBADF`, не кажучи, який саме з тисячі номерів зіпсовано.
@@ -211,37 +129,7 @@ struct epoll_event out[64];
 int n = epoll_wait(ep, out, 64, 1000);          /* чекати; повертає лише готові */
 ```
 == C++ (клас-обгортка та масив std::array)
-```cpp
-class Epoll {
-    int epfd_;
-public:
-    Epoll() : epfd_(epoll_create1(EPOLL_CLOEXEC)) {
-        if (epfd_ < 0) throw std::system_error(errno, std::generic_category(), "epoll_create1");
-    }
-    ~Epoll() { if (epfd_ >= 0) ::close(epfd_); }
-
-    void add(int fd, uint32_t events, void* ptr) {
-        struct epoll_event ev{};
-        ev.events = events;
-        ev.data.ptr = ptr;
-        if (epoll_ctl(epfd_, EPOLL_CTL_ADD, fd, &ev) < 0) {
-            throw std::system_error(errno, std::generic_category(), "epoll_ctl");
-        }
-    }
-
-    int wait(std::span<struct epoll_event> events, int timeout_ms) {
-        int n = epoll_wait(epfd_, events.data(), static_cast<int>(events.size()), timeout_ms);
-        if (n < 0 && errno != EINTR) throw std::system_error(errno, std::generic_category(), "epoll_wait");
-        return n;
-    }
-};
-
-Epoll ep;
-ep.add(conn[i].fd, EPOLLIN, &conn[i]);
-
-std::array<struct epoll_event, 64> out;
-int n = ep.wait(out, 1000);
-```
+:::code select-poll-epoll-d/cpp/spysok-maizhe-ne.cpp
 :::
 
 Дрібниця з великими наслідками: `epoll_create1` повертає **звичайний дескриптор**. Набір спостереження — такий самий об'єкт ядра, як сокет чи канал, і його можна закрити, успадкувати, передати іншому процесові, а головне — вкласти в інший `epoll`. Бібліотеки цим користуються: кожна тримає власний набір і віддає застосункові один дескриптор, який той укладає у свій цикл подій.
@@ -299,23 +187,7 @@ for (;;) {
 }
 ```
 == C++ (обгортка буфера std::span)
-```cpp
-std::array<char, 4096> buf;
-for (;;) {
-    ssize_t k = read(fd, buf.data(), buf.size());
-    if (k > 0) {
-        consume(std::span<const char>(buf.data(), static_cast<size_t>(k)));
-        continue;
-    }
-    if (k == 0) {
-        peer_closed(fd);
-        break;
-    }
-    if (errno == EINTR) continue;
-    if (errno == EAGAIN || errno == EWOULDBLOCK) break; /* єдиний вихід із циклу */
-    throw std::system_error(errno, std::generic_category(), "read");
-}
-```
+:::code select-poll-epoll-d/cpp/riven-i-front.cpp
 :::
 
 Навіщо тоді фронт, якщо він дорожчий у супроводі? Заради двох речей. По-перше, за рівнем ядро на кожному `epoll_wait` перевіряє повернуті записи ще раз, щоб вирішити, чи лишати їх у списку готових; за фронтом цієї перевірки немає — на завантаженому сервері різниця помітна. По-друге й важливіше, за рівнем один і той самий дескриптор віддається всім, хто чекає: у пулі потоків на спільному наборі це означає, що на одну подію прокидаються кілька потоків, і всі, крім одного, дістають `EAGAIN` ([громовий табун](root:sf-distributed/thundering-herd) — юрба, розбуджена однією подією, з якої корисно спрацьовує лише хтось один). Фронт цю юрбу прибирає природно, бо перехід один.

@@ -92,22 +92,7 @@ struct nft_expr {
 
 Серцем виразу є функція `eval()`, яка входить до складу структури `struct nft_expr_ops`:
 
-```c
-struct nft_expr_ops {
-	void				(*eval)(const struct nft_expr *expr,
-						struct nft_regs *regs,
-						const struct nft_pktinfo *pkt);
-	int				(*init)(const struct nft_ctx *ctx,
-						const struct nft_expr *expr,
-						const struct nlattr * const tb[]);
-	void				(*destroy)(const struct nft_ctx *ctx,
-						  const struct nft_expr *expr);
-	int				(*dump)(struct sk_buff *skb,
-						const struct nft_expr *expr,
-						bool reset);
-	const struct nft_expr_type	*type;
-};
-```
+:::code netfilter-nftables-expression-engine-d/c/3-1-iaderna-struktura.h
 
 Коли віртуальна машина виконує вираз, вона викликає метод `ops->eval(expr, regs, pkt)`. Функція зчитує дані з пакета `pkt`, виконує обчислення та змінює стан регістрів `regs`.
 
@@ -128,22 +113,7 @@ struct nft_regs {
 
 До версії ядра Linux 4.9 використовувалося чотири 128-бітні регістри. Починаючи з ядра 4.9 (комміти Пабло Нейра Аюсо), простір регістрів було оптимізовано і розбито на 16 окремих 32-бітних регістрів загального призначення (`NFT_REG32_00` .. `NFT_REG32_15`), що суттєво зменшило витрати пам'яті на стеку ядра.
 
-```c
-enum nft_registers {
-	NFT_REG_VERDICT		= 0,  /* Регістр керування виконанням */
-	NFT_REG_1		= 1,  /* Сумісність зі старими 128-бітними регістрами */
-	NFT_REG_2		= 2,
-	NFT_REG_3		= 3,
-	NFT_REG_4		= 4,
-	__NFT_REG_MAX,
-
-	NFT_REG32_00		= 8,  /* 32-бітний регістр 0 */
-	NFT_REG32_01		= 9,  /* 32-бітний регістр 1 */
-	NFT_REG32_02		= 10,
-	...
-	NFT_REG32_15		= 23, /* 32-бітний регістр 15 */
-};
-```
+:::code netfilter-nftables-expression-engine-d/c/3-2-rehistrova-model-enum.c
 
 Запис у регістри 32-бітних значень (наприклад, IPv4-адреси чи TCP-порту) здійснюється в один елемент масиву. Якщо необхідно зберегти 128-бітне значення (наприклад, IPv6-адресу), ВМ записує дані у чотири послідовні 32-бітні регістри (наприклад, `NFT_REG32_00` .. `NFT_REG32_03`).
 

@@ -82,26 +82,7 @@ chattr +C /var/lib/pg_data
 
 Усі субтоми реєструються як окремі записи у глобальному корінному дереві `ROOT_TREE` (яке має фіксований ідентифікатор об'єкта `BTRFS_ROOT_TREE_OBJECTID = 1`). Корінь кожного субтому описується внутрішньоядерною структурою `struct btrfs_root_item`:
 
-```c
-// Заголовок кореня субтому в ядрі Linux (fs/btrfs/ctree.h / uapi/linux/btrfs_tree.h)
-struct btrfs_root_item {
-    struct btrfs_inode_item inode; // Метадані самого кореня субтому
-    __le64 generation;             // Генерація останнього commit субтому
-    __le64 root_dirid;             // Inode номер кореневої директорії (зазвичай 256)
-    __le64 bytenr;                 // Логічна адреса кореневого вузла B-дерева
-    __le64 byte_limit;             // Ліміт простору (якщо задано qgroups)
-    __le64 bytes_used;             // Кількість задіяних байтів
-    __le64 last_snapshot;          // Генерація останнього зробленого знімка
-    __le64 flags;                  // Прапорці (наприклад, BTRFS_ROOT_SUBVOL_RDONLY)
-    u8 uuid[BTRFS_UUID_SIZE];      // Унікальний UUID субтому
-    u8 parent_uuid[BTRFS_UUID_SIZE];   // UUID батьківського субтому (якщо це snapshot)
-    u8 received_uuid[BTRFS_UUID_SIZE]; // UUID вихідного субтому (для btrfs receive)
-    __le64 ctransid;               // Генерація створення
-    __le64 otransid;               // Генерація походження
-    __le64 stransid;               // Генерація відправки (send)
-    __le64 rtransid;               // Генерація отримання (receive)
-} __attribute__ ((packed));
-```
+:::code btrfs-copy-on-write-and-subvolumes-d/c/main.c
 
 Субтом з ID 5 є спеціальним **кореневим субтомом верхнього рівня (Root Subvolume)**. Коли ви форматуєте диск командою `mkfs.btrfs /dev/sda1` і монтуєте його без додаткових опцій, ядро Linux монтує саме субтом ID 5. 
 
@@ -212,19 +193,7 @@ File B (Inode 258) ───► EXTENT_DATA ───┘     (refs = 2 в EXTENT
 
 Btrfs виконує передачу даних на рівні порівняння B-дерев двох Read-Only знімків:
 
-```bash
-# 1. Створення базового Read-Only знімка
-btrfs subvolume snapshot -r /home /backup/home_base
-
-# 2. Передача базового знімка на зовнішній накопичувач або по мережі
-btrfs send /backup/home_base | btrfs receive /mnt/remote_backup/
-
-# 3. Через добу: створення нового знімка
-btrfs subvolume snapshot -r /home /backup/home_2026_08_12
-
-# 4. Інкрементальна передача ЛИШЕ РІЗНИЦІ між home_base та home_2026_08_12
-btrfs send -p /backup/home_base /backup/home_2026_08_12 | btrfs receive /mnt/remote_backup/
-```
+:::code btrfs-copy-on-write-and-subvolumes-d/sh/main.sh
 
 ### Внутрішній механізм `btrfs send`:
 

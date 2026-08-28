@@ -159,37 +159,8 @@ MACsec опирається на симетричний криптографіч
 Коли адміністратор вмикає розвантаження (`ip link add ... type macsec offload mac`), ядро викликає функцію драйвера мережевого адаптера через спеціальний інтерфейс `struct macsec_ops`, зареєстрований у `struct net_device`:
 
 :::tabs
-```c
-/* Інтерфейс апаратного розвантаження MACsec у ядрі Linux (<net/macsec.h>) */
-struct macsec_ops {
-    int (*mdo_dev_open)(struct macsec_context *ctx);
-    int (*mdo_dev_stop)(struct macsec_context *ctx);
-    int (*mdo_add_secy)(struct macsec_context *ctx);
-    int (*mdo_upd_secy)(struct macsec_context *ctx);
-    int (*mdo_del_secy)(struct macsec_context *ctx);
-    int (*mdo_add_rxsc)(struct macsec_context *ctx);
-    int (*mdo_upd_rxsc)(struct macsec_context *ctx);
-    int (*mdo_del_rxsc)(struct macsec_context *ctx);
-    int (*mdo_add_rxsa)(struct macsec_context *ctx);
-    int (*mdo_upd_rxsa)(struct macsec_context *ctx);
-    int (*mdo_del_rxsa)(struct macsec_context *ctx);
-    int (*mdo_add_txsa)(struct macsec_context *ctx);
-    int (*mdo_upd_txsa)(struct macsec_context *ctx);
-    int (*mdo_del_txsa)(struct macsec_context *ctx);
-};
-```
-```cpp
-// C++-інтерфейс обгортки драйвера апаратного розвантаження (Offload Interface)
-struct IMacsecOffloadOps {
-    virtual ~IMacsecOffloadOps() = default;
-    virtual int dev_open(void* ctx) = 0;
-    virtual int dev_stop(void* ctx) = 0;
-    virtual int add_rx_sc(void* ctx) = 0;
-    virtual int add_rx_sa(void* ctx) = 0;
-    virtual int add_tx_sa(void* ctx) = 0;
-    virtual int del_tx_sa(void* ctx) = 0;
-};
-```
+:::code macsec-ieee-802-1ae-d/c/macsec.h
+:::code macsec-ieee-802-1ae-d/cpp/main.cpp
 :::
 
 При підключенні розвантаження ядро Linux передає ключі `SAK`, значення `SCI` та параметри `PN` безпосередньо в апаратні таблиці адаптера (Hardware Security Tables). Після цього підсистема ядра переходить у транзитний режим: вихідні пакети передаються на `eth0` без програмного шифрування, а мережева карта "на льоту" під час видачі кадрів у фізичний канал вставляє SecTAG, шифрує корисне навантаження і розраховує ICV в кремнії ASIC зі швидкістю лінії (Line-rate 100G+).

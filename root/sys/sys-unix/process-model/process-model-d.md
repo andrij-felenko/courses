@@ -68,36 +68,7 @@ task_struct  →  mm_struct       відображення пам'яті
 
 Оскільки кожна група ресурсів окрема, ядру не потрібно два різні системні виклики «створити процес» і «створити потік». Потрібен один — з набором прапорців, де кожен прапорець каже про одну групу: спільна чи своя. Цей виклик зветься `clone()` (є й ширша його форма `clone3()` зі структурою параметрів). Ось той самий код, що створює то окремий процес, то задачу зі спільною пам'яттю — різниця в одному біті:
 
-```c
-#define _GNU_SOURCE
-#include <sched.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-static int shared = 0;          /* глобальна змінна батька */
-
-static int child(void *arg)
-{
-    (void)arg;
-    shared = 42;                /* пишемо за тією самою адресою */
-    _exit(0);
-}
-
-int main(int argc, char **argv)
-{
-    int vm = (argc > 1 && argv[1][0] == 'v') ? CLONE_VM : 0;
-    char *stack = malloc(64 * 1024);
-
-    pid_t pid = clone(child, stack + 64 * 1024, vm | SIGCHLD, NULL);
-    waitpid(pid, NULL, 0);
-
-    printf("shared = %d\n", shared);
-    free(stack);
-    return 0;
-}
-```
+:::code process-model-d/c/main.c
 
 ```
 $ ./clone-demo        →  shared = 0     (CLONE_VM немає: своя mm_struct,

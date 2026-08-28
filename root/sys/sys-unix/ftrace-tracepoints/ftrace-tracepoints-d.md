@@ -99,24 +99,7 @@ struct jump_entry {
 
 Кожна точка трасування в ядрі Linux представлена екземпляром структури `struct tracepoint`, визначеної в `include/linux/tracepoint.h`:
 
-```c
-struct tracepoint_func {
-    void *func;    /* Покажчик на функцію зворотного виклику */
-    void *data;    /* Довільний контекст підписника (ftrace, perf, bpf) */
-    int prio;      /* Пріоритет виклику обробника */
-};
-
-struct tracepoint {
-    const char *name;                      /* Ім'я точки трасування (наприклад, "sched_switch") */
-    struct static_key_false key;           /* Керуючий Static Key */
-    struct static_call_key *static_call_key;
-    void *static_call_tramp;
-    void *iterator;
-    int (*regfunc)(void);                  /* Опціональний хук при першій реєстрації підписника */
-    void (*unregfunc)(void);               /* Опціональний хук при видаленні останнього підписника */
-    struct tracepoint_func __rcu *funcs;   /* Масив зареєстрованих обробників під захистом RCU */
-};
-```
+:::code ftrace-tracepoints-d/c/2-anatomiia-struktury.c
 
 До однієї точки трасування можуть одночасно підключатися незалежні споживачі: підсистема ftrace записує дані у власний кільцевий буфер, підсистема `perf` збирає лічильники, а програма `eBPF` фільтрує події у просторі ядра. Масив `funcs` містить список усіх активних підписників і завершується елементом із нульовим покажчиком `func == NULL`.
 
@@ -124,30 +107,7 @@ struct tracepoint {
 
 Виклик точки трасування в коді ядра здійснюється макросом `trace_<name>(args...)`. Внутрішньо він розгортається у виклик диспетчера `__DO_TRACE`:
 
-```c
-#define __DO_TRACE(tp, proto, args, cond, rcuidle)                     \
-    do {                                                               \
-        struct tracepoint_func *it_func_ptr;                           \
-        void *it_func;                                                 \
-        void *__data;                                                  \
-                                                                       \
-        if (!(cond))                                                   \
-            return;                                                    \
-                                                                       \
-        /* Вхід у критичну секцію RCU-читача */                        \
-        rcu_read_lock_sched();                                         \
-        it_func_ptr = rcu_dereference_raw((tp)->funcs);                \
-                                                                       \
-        if (it_func_ptr) {                                             \
-            do {                                                       \
-                it_func = (it_func_ptr)->func;                         \
-                __data = (it_func_ptr)->data;                          \
-                ((void(*)(proto))(it_func))(__data, args);             \
-            } while ((++it_func_ptr)->func);                           \
-        }                                                              \
-        rcu_read_unlock_sched();                                       \
-    } while (0)
-```
+:::code ftrace-tracepoints-d/c/vykonannia-tochky.c
 
 Принципи безпеки виконання диспетчера:
 * **Відсутність блокувань:** Обхід списку `funcs` не використовує жодних блокувань (ні м'ютексів, ні спінлоків). Це дозволяє викликати точки трасування в контексті обробників апаратних переривань (HardIRQ), планувальника та немаскованих переривань (NMI).
@@ -159,34 +119,7 @@ struct tracepoint {
 
 Для вирішення цієї задачі Стівен Ростедт розробив макрос `TRACE_EVENT`. Розробник описує точку трасування один раз у заголовковому файлі підсистеми ядра:
 
-```c
-TRACE_EVENT(sched_switch,
-    TP_PROTO(bool preempt, struct task_struct *prev, struct task_struct *next, unsigned int prev_state),
-    TP_ARGS(preempt, prev, next, prev_state),
-    TP_STRUCT__entry(
-        __array(char, prev_comm, TASK_COMM_LEN)
-        __field(pid_t, prev_pid)
-        __field(int, prev_prio)
-        __field(long, prev_state)
-        __array(char, next_comm, TASK_COMM_LEN)
-        __field(pid_t, next_pid)
-        __field(int, next_prio)
-    ),
-    TP_fast_assign(
-        memcpy(__entry->prev_comm, prev->comm, TASK_COMM_LEN);
-        __entry->prev_pid = prev->pid;
-        __entry->prev_prio = prev->prio;
-        __entry->prev_state = prev_state;
-        memcpy(__entry->next_comm, next->comm, TASK_COMM_LEN);
-        __entry->next_pid = next->pid;
-        __entry->next_prio = next->prio;
-    ),
-    TP_printk("prev_comm=%s prev_pid=%d prev_prio=%d prev_state=%s ==> next_comm=%s next_pid=%d next_prio=%d",
-              __entry->prev_comm, __entry->prev_pid, __entry->prev_prio,
-              __trace_sched_switch_state(__entry->prev_state),
-              __entry->next_comm, __entry->next_pid, __entry->next_prio)
-);
-```
+:::code ftrace-tracepoints-d/c/3-bahatofazna.h
 
 Магія реалізації полягає у техніці **багатофазного включення файлів** (Multi-Pass Header Inclusion). Файл `include/trace/define_trace.h` включає допоміжний файл `include/trace/trace_events.h` тричі, щоразу перевизначаючи внутрішні макроси з абсолютно різною метою.
 
@@ -196,19 +129,7 @@ TRACE_EVENT(sched_switch,
 ### Фаза 1: Оголошення C-структури двійкового запису
 На першому проході макрос `__field(type, item)` розгортається у звичайне поле структури: `type item;`. Компілятор формує бінарний макет запису, який розміщуватиметься у кільцевому буфері:
 
-```c
-struct trace_event_raw_sched_switch {
-    struct trace_entry ent;        /* Загальний заголовок події ftrace (4 байти) */
-    char prev_comm[16];
-    pid_t prev_pid;
-    int prev_prio;
-    long prev_state;
-    char next_comm[16];
-    pid_t next_pid;
-    int next_prio;
-    char __data[];                 /* Область для динамічних рядків змінної довжини */
-};
-```
+:::code ftrace-tracepoints-d/c/faza-1-oholoshennia-c.c
 
 ### Фаза 2: Генерація функції запису у кільцевий буфер
 На другому проході генерується функція-обробник `trace_event_raw_event_sched_switch()`. Вона:
@@ -375,201 +296,8 @@ echo 'hist:keys=lat.log2:sort=lat.log2' > /sys/kernel/tracing/events/synthetic/w
 Нижче наведено приклад утиліти простору користувача, яка програмно налаштовує предикатний фільтр події, активує точку трасування системного виклику `sys_enter_openat` та здійснює потокове зчитування подій через дескриптор `/sys/kernel/tracing/trace_pipe`.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <errno.h>
-
-static volatile sig_atomic_t g_stop = 0;
-
-static void sig_handler(int sig) {
-    (void)sig;
-    g_stop = 1;
-}
-
-static int write_file(const char *path, const char *val) {
-    int fd = open(path, O_WRONLY);
-    if (fd < 0) {
-        fprintf(stderr, "Помилка відкриття %s: %s\n", path, strerror(errno));
-        return -1;
-    }
-    ssize_t len = write(fd, val, strlen(val));
-    close(fd);
-    return (len == (ssize_t)strlen(val)) ? 0 : -1;
-}
-
-int main(void) {
-    const char *enable_path = "/sys/kernel/tracing/events/syscalls/sys_enter_openat/enable";
-    const char *filter_path = "/sys/kernel/tracing/events/syscalls/sys_enter_openat/filter";
-    const char *pipe_path   = "/sys/kernel/tracing/trace_pipe";
-
-    signal(SIGINT, sig_handler);
-    signal(SIGTERM, sig_handler);
-
-    printf("Ініціалізація трасування точки syscalls:sys_enter_openat...\n");
-
-    /* 1. Фільтруємо системні виклики лише для сторонніх процесів */
-    char filter_buf[128];
-    snprintf(filter_buf, sizeof(filter_buf), "common_pid != %d", getpid());
-    if (write_file(filter_path, filter_buf) != 0) {
-        fprintf(stderr, "Перевірте права доступу (потрібен root) та наявність debugfs/tracefs\n");
-        return 1;
-    }
-
-    /* 2. Активація точки трасування */
-    if (write_file(enable_path, "1") != 0) {
-        return 1;
-    }
-
-    /* 3. Відкриття потокового інтерфейсу */
-    int pipe_fd = open(pipe_path, O_RDONLY);
-    if (pipe_fd < 0) {
-        perror("Помилка відкриття trace_pipe");
-        write_file(enable_path, "0");
-        return 1;
-    }
-
-    printf("Збір подій розпочато. Натисніть Ctrl+C для зупинки.\n");
-    char line_buf[1024];
-
-    while (!g_stop) {
-        ssize_t bytes = read(pipe_fd, line_buf, sizeof(line_buf) - 1);
-        if (bytes > 0) {
-            line_buf[bytes] = '\0';
-            printf("%s", line_buf);
-        } else if (bytes < 0 && errno != EINTR) {
-            perror("Помилка читання з trace_pipe");
-            break;
-        }
-    }
-
-    /* 4. Відновлення вихідного стану системи */
-    printf("\nДеактивація трасування та очищення фільтрів...\n");
-    close(pipe_fd);
-    write_file(enable_path, "0");
-    write_file(filter_path, "0");
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <string_view>
-#include <filesystem>
-#include <csignal>
-#include <atomic>
-#include <system_error>
-#include <unistd.h>
-
-namespace fs = std::filesystem;
-
-class ScopedTracepoint {
-public:
-    ScopedTracepoint(std::string_view subsystem, std::string_view eventName)
-        : basePath_("/sys/kernel/tracing/events/" + std::string(subsystem) + "/" + std::string(eventName)) {
-        disable();
-        clearFilter();
-    }
-
-    ~ScopedTracepoint() {
-        try {
-            disable();
-            clearFilter();
-        } catch (...) {
-            // Запобігаємо виходу винятків з деструктора
-        }
-    }
-
-    ScopedTracepoint(const ScopedTracepoint&) = delete;
-    ScopedTracepoint& operator=(const ScopedTracepoint&) = delete;
-
-    void setFilter(std::string_view filterExpr) const {
-        writeControlFile(basePath_ / "filter", filterExpr);
-    }
-
-    void enable() const {
-        writeControlFile(basePath_ / "enable", "1");
-    }
-
-    void disable() const noexcept {
-        std::error_code ec;
-        writeControlFileNoExcept(basePath_ / "enable", "0", ec);
-    }
-
-    void clearFilter() const noexcept {
-        std::error_code ec;
-        writeControlFileNoExcept(basePath_ / "filter", "0", ec);
-    }
-
-private:
-    fs::path basePath_;
-
-    static void writeControlFile(const fs::path& path, std::string_view content) {
-        std::ofstream stream(path);
-        if (!stream.is_open()) {
-            throw std::runtime_error("Не вдалося відкрити для запису: " + path.string());
-        }
-        stream << content;
-        if (!stream.good()) {
-            throw std::runtime_error("Помилка запису у файл: " + path.string());
-        }
-    }
-
-    static void writeControlFileNoExcept(const fs::path& path, std::string_view content, std::error_code& ec) noexcept {
-        std::ofstream stream(path);
-        if (stream.is_open()) {
-            stream << content;
-        }
-    }
-};
-
-static std::atomic<bool> g_terminated{false};
-
-void signalHandler(int) {
-    g_terminated = true;
-}
-
-int main() {
-    std::signal(SIGINT, signalHandler);
-    std::signal(SIGTERM, signalHandler);
-
-    try {
-        std::cout << "Ініціалізація C++ RAII трасера точки syscalls:sys_enter_openat...\n";
-        ScopedTracepoint tp("syscalls", "sys_enter_openat");
-
-        std::string filter = "common_pid != " + std::to_string(getpid());
-        tp.setFilter(filter);
-        tp.enable();
-
-        std::ifstream pipeStream("/sys/kernel/tracing/trace_pipe");
-        if (!pipeStream.is_open()) {
-            std::cerr << "Помилка відкриття /sys/kernel/tracing/trace_pipe (потрібен root).\n";
-            return 1;
-        }
-
-        std::cout << "Слухання подій у реальному часі (Ctrl+C для виходу)...\n";
-        std::string line;
-
-        while (!g_terminated && std::getline(pipeStream, line)) {
-            std::cout << line << '\n';
-        }
-
-        std::cout << "\nЗавершення роботи. Автоматичне скидання налаштувань tracefs...\n";
-    } catch (const std::exception& ex) {
-        std::cerr << "Виникла виняткова ситуація: " << ex.what() << '\n';
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code ftrace-tracepoints-d/c/8-prohramne-keruvannia.c
+:::code ftrace-tracepoints-d/cpp/main.cpp
 :::
 
 ## 9. Безпека виконання, рекурсія та системні обмеження

@@ -14,36 +14,7 @@
 
 ## Код, який стане ядром
 
-```c
-/* hello.c — найменший модуль, який ще має сенс */
-#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-
-#include <linux/init.h>
-#include <linux/module.h>
-#include <linux/moduleparam.h>
-
-static char *whom = "світе";
-module_param(whom, charp, 0644);
-MODULE_PARM_DESC(whom, "кого вітати");
-
-static int __init hello_init(void)
-{
-	pr_info("привіт, %s! мене щойно прилінкували в ядро\n", whom);
-	return 0;
-}
-
-static void __exit hello_exit(void)
-{
-	pr_info("бувай, %s\n", whom);
-}
-
-module_init(hello_init);
-module_exit(hello_exit);
-
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Найкоротший робочий модуль");
-MODULE_VERSION("0.1");
-```
+:::code proj-hello-module/c/hello.c
 
 Тут майже кожен рядок означає більше, ніж здається.
 
@@ -211,27 +182,7 @@ EXPORT_SYMBOL(hello_ping);
 
 І напишіть другий модуль, який її кличе:
 
-```c
-/* hello_user.c */
-#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-
-#include <linux/init.h>
-#include <linux/module.h>
-
-extern int hello_ping(void);   /* у справжньому коді — спільний заголовок */
-
-static int __init user_init(void)
-{
-	pr_info("hello_ping() повернув %d\n", hello_ping());
-	return 0;
-}
-
-static void __exit user_exit(void) { }
-
-module_init(user_init);
-module_exit(user_exit);
-MODULE_LICENSE("GPL");
-```
+:::code proj-hello-module/c/hello_user.c
 
 Найпростіше зібрати обидва в одній теці — рядок у `Makefile` набуває вигляду `obj-m += hello.o hello_user.o`, і тоді `modpost` бачить обидва об'єктні файли за один прогін, тож про `hello_ping` знає. Якщо ж збирати їх окремо, другий модуль доведеться навчити, де шукати чужі експорти:
 

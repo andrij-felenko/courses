@@ -44,42 +44,7 @@
 
 При обході об'єктів ядро Linux застосовує безблокувальний механізм RCU (Read-Copy-Update). Це гарантує, що виконання BPF-ітератора не блокує пишучі потоки (writer threads), які створюють або знищують процеси чи сокети у цей самий момент. Під час обходу списку `task_struct` (функції ядра `next_task()`) ядро утримує читацьку секцію `rcu_read_lock()`. Якщо паралельний потік завершує процес викликом `do_exit()`, сам об'єкт `task_struct` не вивільняється фізично з оперативної пам'яті доки не завершиться поточний крок RCU-ітератора. Це ліквідує небезпеку звернення до звільненої пам'яті (use-after-free) без використання важких мутексів.
 
-```c
-/* Приклад BPF-ітератора процесів (Kernel Space, C) */
-#include "vmlinux.h"
-#include <bpf/bpf_helpers.h>
-#include <bpf/bpf_tracing.h>
-
-SEC("iter/task")
-int count_high_memory_tasks(struct bpf_iter__task *ctx)
-{
-    struct seq_file *seq = ctx->meta->seq;
-    struct task_struct *task = ctx->task;
-
-    /* task == NULL означає завершення ітерації */
-    if (!task)
-        return 0;
-
-    struct mm_struct *mm = task->mm;
-    if (!mm)
-        return 0;
-
-    unsigned long total_vm = 0;
-    bpf_probe_read_kernel(&total_vm, sizeof(total_vm), &mm->total_vm);
-
-    /* Фільтрація в ядрі: пропускаємо процеси, що споживають менше 256 МБ */
-    if (total_vm < 65536)
-        return 0;
-
-    /* Форматуємо лише відібрані об'єкти */
-    bpf_seq_printf(seq, "TGID:%d PID:%d COMM:%s PAGES:%lu\n",
-                   task->tgid, task->pid, task->comm, total_vm);
-
-    return 0;
-}
-
-char _license[] SEC("license") = "GPL";
-```
+:::code bpf-iterators-and-user-ringbuf-d/c/1-2-bezblokuvalnyi-obkhid.c
 
 ### 1.3 Специфікація режимів виводу: bpf_seq_printf проти bpf_seq_write
 
@@ -108,54 +73,8 @@ BPF-ітератори надають розробнику два канали �
 Для читання результатів ітератора з користувацького простору використовується закріплення (pinning) об'єкта `bpf_link` у `bpffs`.
 
 :::tabs
-```c
-/* Зчитування BPF-ітератора з користувацького простору (Userspace C) */
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-int main(void)
-{
-    int fd = open("/sys/fs/bpf/my_task_iter", O_RDONLY);
-    if (fd < 0) {
-        perror("Помилка відкриття BPF-ітератора");
-        return 1;
-    }
-
-    char buffer[1024];
-    ssize_t n;
-    while ((n = read(fd, buffer, sizeof(buffer) - 1)) > 0) {
-        buffer[n] = '\0';
-        printf("%s", buffer);
-    }
-
-    close(fd);
-    return 0;
-}
-```
-```cpp
-// Зчитування BPF-ітератора з користувацького простору (Userspace C++20)
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <system_error>
-
-int main()
-{
-    std::ifstream iter_stream("/sys/fs/bpf/my_task_iter");
-    if (!iter_stream.is_open()) {
-        std::cerr << "Не вдалося відкрити закріплений BPF-ітератор\n";
-        return 1;
-    }
-
-    std::string line;
-    while (std::getline(iter_stream, line)) {
-        std::cout << "[Kernel Iter] " << line << '\n';
-    }
-
-    return 0;
-}
-```
+:::code bpf-iterators-and-user-ringbuf-d/c/1-5-spektr-typiv-bpf.c
+:::code bpf-iterators-and-user-ringbuf-d/cpp/1-5-spektr-typiv-bpf.cpp
 :::
 
 Детальніше про історичні передумови створення цих інтерфейсів можна прочитати у вставці [Історична еволюція інтерфейсів спостережливості ядра Linux](root:sys-unix/bpf-iterators-and-user-ringbuf/hist-bpf-iter-and-user-ringbuf.md).
@@ -206,163 +125,13 @@ int main()
 
 Оскільки розмір подій у буфері може бути змінним, верифікатор BPF не може статично перевірити межі пам'яті під час завантаження програми. Для забезпечення безпеки ядро загортає кожне повідомлення у структуру **Dynamic Pointer (`struct bpf_dynptr`)**. 
 
-```c
-/* Обробка команд із User Ring Buffer у ядрі (Kernel Space, C) */
-#include "vmlinux.h"
-#include <bpf/bpf_helpers.h>
-
-struct ip_policy {
-    __u32 ip_address;
-    __u8  action; /* 1 = DROP, 0 = PASS */
-};
-
-struct {
-    __uint(type, BPF_MAP_TYPE_USER_RINGBUF);
-    __uint(max_entries, 512 * 1024);
-} user_ringbuf SEC(".maps");
-
-struct {
-    __uint(type, BPF_MAP_TYPE_HASH);
-    __uint(max_entries, 10000);
-    __type(key, __u32);
-    __type(value, __u8);
-} drop_list SEC(".maps");
-
-/* Callback для кожної події з User Ringbuf */
-static long handle_policy_update(struct bpf_dynptr *dynptr, void *context)
-{
-    struct ip_policy policy;
-
-    /* Безпечне зчитування з dynptr з перевіркою меж у runtime */
-    if (bpf_dynptr_read(&policy, sizeof(policy), dynptr, 0, 0) < 0)
-        return 0;
-
-    if (policy.action == 1) {
-        __u8 flag = 1;
-        bpf_map_update_elem(&drop_list, &policy.ip_address, &flag, BPF_ANY);
-    } else {
-        bpf_map_delete_elem(&drop_list, &policy.ip_address);
-    }
-
-    return 0;
-}
-
-SEC("xdp")
-int xdp_firewall(struct xdp_md *ctx)
-{
-    /* Вичищаємо буфер подій без пробудження userspace */
-    bpf_user_ringbuf_drain(&user_ringbuf, handle_policy_update, NULL, BPF_RB_NO_WAKEUP);
-
-    /* Далі виконується звичайна логіка XDP фільтрації */
-    return XDP_PASS;
-}
-
-char _license[] SEC("license") = "GPL";
-```
+:::code bpf-iterators-and-user-ringbuf-d/c/2-4-zchytuvannia-v-iadri.c
 
 Для керування роботою буфера з користувацького простору бібліотека `libbpf` надає високорівневий API (`user_ring_buffer__new`, `user_ring_buffer__reserve`, `user_ring_buffer__submit`).
 
 :::tabs
-```c
-/* Передача подій у ядро без системних викликів (Userspace C) */
-#include <stdio.h>
-#include <bpf/libbpf.h>
-#include <bpf/bpf.h>
-
-struct ip_policy {
-    uint32_t ip_address;
-    uint8_t  action;
-};
-
-int main(void)
-{
-    int map_fd = bpf_obj_get("/sys/fs/bpf/user_ringbuf_map");
-    if (map_fd < 0) {
-        perror("Не вдалося відкрити мапу User Ringbuf");
-        return 1;
-    }
-
-    struct user_ring_buffer *urb = user_ring_buffer__new(map_fd, NULL);
-    if (!urb) {
-        fprintf(stderr, "Помилка створення user_ring_buffer\n");
-        return 1;
-    }
-
-    /* Запис 100 000 команд у ядро БЕЗ ЖОДНОГО SYSCALL */
-    for (uint32_t i = 0; i < 100000; i++) {
-        struct ip_policy *policy = user_ring_buffer__reserve(urb, sizeof(*policy));
-        if (policy) {
-            policy->ip_address = 0x0A000001 + i; /* 10.0.0.1 + i */
-            policy->action = 1;                  /* DROP */
-            user_ring_buffer__submit(urb, policy);
-        }
-    }
-
-    printf("100,000 політик надіслано в ядро без системних викликів!\n");
-    user_ring_buffer__free(urb);
-    return 0;
-}
-```
-```cpp
-// Передача подій у ядро без системних викликів (Userspace C++20)
-#include <iostream>
-#include <memory>
-#include <system_error>
-#include <bpf/libbpf.h>
-#include <bpf/bpf.h>
-
-struct IpPolicy {
-    std::uint32_t ip_address;
-    std::uint8_t  action;
-};
-
-class UserRingBufferWrapper {
-    struct user_ring_buffer* rb_{nullptr};
-public:
-    explicit UserRingBufferWrapper(int map_fd) {
-        rb_ = user_ring_buffer__new(map_fd, nullptr);
-        if (!rb_) throw std::runtime_error("Помилка ініціалізації user_ring_buffer");
-    }
-    ~UserRingBufferWrapper() {
-        if (rb_) user_ring_buffer__free(rb_);
-    }
-
-    template <typename T>
-    bool submit(const T& data) {
-        auto* slot = static_cast<T*>(user_ring_buffer__reserve(rb_, sizeof(T)));
-        if (!slot) return false;
-        *slot = data;
-        user_ring_buffer__submit(rb_, slot);
-        return true;
-    }
-};
-
-int main()
-{
-    int map_fd = bpf_obj_get("/sys/fs/bpf/user_ringbuf_map");
-    if (map_fd < 0) {
-        std::cerr << "Не вдалося відкрити мапу User Ringbuf\n";
-        return 1;
-    }
-
-    try {
-        UserRingBufferWrapper ringbuf(map_fd);
-        for (std::uint32_t i = 0; i < 100000; ++i) {
-            IpPolicy policy{.ip_address = 0x0A000001 + i, .action = 1};
-            if (!ringbuf.submit(policy)) {
-                std::cerr << "Буфер переповнено на ітерації " << i << '\n';
-                break;
-            }
-        }
-        std::cout << "Успішно передано 100 000 політик у ядро за нуль системних викликів!\n";
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << '\n';
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code bpf-iterators-and-user-ringbuf-d/c/2-4-zchytuvannia-v-iadri-2.c
+:::code bpf-iterators-and-user-ringbuf-d/cpp/2-4-zchytuvannia-v-iadri.cpp
 :::
 
 Повний довідник по всіх структурах даних та прапорцях доступний у вставці [Довідник API BPF Iterators та User Ring Buffer](root:sys-unix/bpf-iterators-and-user-ringbuf/api-bpf-iter-and-user-ringbuf.md).

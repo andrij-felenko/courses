@@ -20,30 +20,7 @@ int seccomp(unsigned int operation, unsigned int flags, void *args);
 // Приклад виклику через прямий glibc syscall wrapper
 int result = syscall(SYS_seccomp, SECCOMP_SET_MODE_FILTER, flags, &prog);
 ```
-```cpp
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <linux/seccomp.h>
-#include <system_error>
-#include <expected>
-
-namespace sys {
-
-// Ідіоматична C++23 обгортка для системного виклику seccomp
-inline std::expected<void, std::error_code> seccomp_call(
-    unsigned int operation, 
-    unsigned int flags, 
-    void* args) noexcept 
-{
-    long rc = ::syscall(SYS_seccomp, operation, flags, args);
-    if (rc < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-
-} // namespace sys
-```
+:::code api-seccomp-syscall/cpp/1-syhnatura-ta-parametry.cpp
 :::
 
 Перелічимо детальні характеристики кожного з трьох параметрів виклику:
@@ -78,26 +55,7 @@ struct seccomp_data {
     __u64 args[6];              /* Аргументи системного виклику (значення) */
 };
 ```
-```cpp
-#include <linux/seccomp.h>
-#include <cstdint>
-#include <span>
-
-namespace sys {
-
-// Структурне представлення аргументів виклику для безпечного обходу у C++
-struct SeccompDataView {
-    int32_t nr;
-    uint32_t arch;
-    uint64_t ip;
-    std::span<const uint64_t, 6> args;
-
-    explicit SeccompDataView(const ::seccomp_data& raw) noexcept
-        : nr(raw.nr), arch(raw.arch), ip(raw.instruction_pointer), args(raw.args) {}
-};
-
-} // namespace sys
-```
+:::code api-seccomp-syscall/cpp/2-format-i-rozkladka.cpp
 :::
 
 Поле `nr` містить номер системного виклику. Важливо враховувати, що цей номер є відносним для кожної системної архітектури. Поле `arch` зберігає константу архітектури, визначену в `<linux/audit.h>` (наприклад, `AUDIT_ARCH_X86_64` = `0xc000003e`, `AUDIT_ARCH_I386` = `0x40000003`, `AUDIT_ARCH_AARCH64` = `0xc00000b7`). 
@@ -109,45 +67,8 @@ struct SeccompDataView {
 Фільтрація у seccomp реалізована через інтерфейс інструкцій Classic BPF.
 
 :::tabs
-```c
-#include <linux/filter.h>
-
-struct sock_filter {
-    __u16 code;  /* Код інструкції (наприклад, BPF_LD | BPF_W | BPF_ABS) */
-    __u8  jt;    /* Зміщення переходу при істинності умови (Jump True) */
-    __u8  jf;    /* Зміщення переходу при хибності умови (Jump False) */
-    __u32 k;     /* Багатофункціональне поле операнда / зміщення / константи */
-};
-
-struct sock_fprog {
-    unsigned short len;         /* Кількість інструкцій BPF у масиві */
-    struct sock_filter *filter; /* Вказівник на масив інструкцій */
-};
-```
-```cpp
-#include <linux/filter.h>
-#include <vector>
-#include <span>
-
-namespace sys {
-
-// C++ контейнерний тип для безпечного керування пам'яттю BPF програм
-class BpfProgram {
-    std::vector<::sock_filter> instructions_;
-public:
-    explicit BpfProgram(std::vector<::sock_filter> instrs) 
-        : instructions_(std::move(instrs)) {}
-
-    [[nodiscard]] ::sock_fprog get_fprog() const noexcept {
-        return ::sock_fprog{
-            .len = static_cast<unsigned short>(instructions_.size()),
-            .filter = const_cast<::sock_filter*>(instructions_.data())
-        };
-    }
-};
-
-} // namespace sys
-```
+:::code api-seccomp-syscall/c/3-struktury-bpf.c
+:::code api-seccomp-syscall/cpp/3-struktury-bpf.cpp
 :::
 
 Структура `sock_filter` описує одну 8-байтну інструкцію віртуальної машини. Поле `code` складається з коду операції, класу інструкції та режиму адресації. Поля `jt` та `jf` визначають відносні зміщення в інструкціях для переходів за результатами порівняння. Поле `k` виступає константою операнда або зміщенням у байтах від початку структури `seccomp_data`.
@@ -157,53 +78,8 @@ public:
 Дія `SECCOMP_RET_USER_NOTIF` дозволяє передавати обробку перехопленого виклику зовнішньому процесу-супервізору. При поверненні цієї дії фільтром ядро створює сповіщення і блокує потік користувача.
 
 :::tabs
-```c
-#include <linux/seccomp.h>
-
-struct seccomp_notif {
-    __u64 id;                   /* Унікальний 64-бітний ідентифікатор запиту */
-    __u32 pid;                  /* PID процесу, що зробив системний виклик */
-    __u32 flags;                /* Прапорці сповіщення */
-    struct seccomp_data data;   /* Повний пакет даних системного виклику */
-};
-
-struct seccomp_notif_resp {
-    __u64 id;                   /* Ідентифікатор запиту (мусить збігатися з seccomp_notif.id) */
-    __s64 val;                  /* Значення, яке поверне системний виклик (при успіху) */
-    __s32 error;                /* Код помилки (від'ємне значення errno, наприклад -EPERM) */
-    __u32 flags;                /* Прапорці відповіді (SECCOMP_USER_NOTIF_FLAG_CONTINUE) */
-};
-```
-```cpp
-#include <linux/seccomp.h>
-#include <sys/ioctl.h>
-#include <expected>
-#include <system_error>
-
-namespace sys {
-
-struct UserNotificationHandler {
-    static std::expected<::seccomp_notif, std::error_code> receive_notif(int listener_fd) noexcept {
-        ::seccomp_notif req{};
-        if (::ioctl(listener_fd, SECCOMP_IOCTL_NOTIF_RECV, &req) < 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-        return req;
-    }
-
-    static std::expected<void, std::error_code> send_response(
-        int listener_fd, 
-        const ::seccomp_notif_resp& resp) noexcept 
-    {
-        if (::ioctl(listener_fd, SECCOMP_IOCTL_NOTIF_SEND, &resp) < 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-        return {};
-    }
-};
-
-} // namespace sys
-```
+:::code api-seccomp-syscall/c/4-kontrakt-interfeisu.c
+:::code api-seccomp-syscall/cpp/4-kontrakt-interfeisu.cpp
 :::
 
 Для обміну повідомленнями супервізор використовує виклики `ioctl(2)` на дескрипторі `seccomp_unotify`:

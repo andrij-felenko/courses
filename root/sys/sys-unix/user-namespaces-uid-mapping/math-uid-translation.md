@@ -89,33 +89,8 @@ f_total(uid_child) = (f_2 ∘ f_1)(uid_child) = f_2( f_1(uid_child) )
 У коді ядра Linux відображення описується структурою `struct uid_gid_map`. Для забезпечення високої швидкодії гарячих шляхів VFS ядро використовує гібридну структуру даних залежно від кількості екстентів `K`.
 
 :::tabs
-```c
-struct uid_gid_map {
-    u32 nr_extents;
-    union {
-        struct uid_gid_extent extent[UID_GID_MAP_MAX_BASE_EXTENTS];
-        struct {
-            struct uid_gid_extent *forward;
-            struct uid_gid_extent *reverse;
-        };
-    };
-};
-```
-```cpp
-struct UidGidExtent {
-    uid_t first_ns;
-    uid_t first_host;
-    uid_t count;
-};
-
-struct UidGidMap {
-    std::uint32_t nr_extents;
-    std::variant<
-        std::array<UidGidExtent, 5>,
-        std::pair<std::vector<UidGidExtent>, std::vector<UidGidExtent>>
-    > extents;
-};
-```
+:::code math-uid-translation/c/main.c
+:::code math-uid-translation/cpp/main.cpp
 :::
 
 ### Внутрішні типи ядра (`kuid_t` та `kgid_t`)

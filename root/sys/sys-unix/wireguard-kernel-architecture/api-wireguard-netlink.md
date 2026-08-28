@@ -14,22 +14,7 @@
 
 Головний контейнер пристрою, який розширює стандартний `struct net_device` ядра.
 
-```c
-struct wg_device {
-    struct net_device *dev;
-    struct crypt_queue encrypt_queue;
-    struct crypt_queue decrypt_queue;
-    struct sock __rcu *sock4;
-    struct sock __rcu *sock6;
-    struct noise_static_identity static_identity;
-    struct allowedips allowedips;
-    struct mutex device_update_lock;
-    struct list_head peer_list;
-    atomic_t device_update_gen;
-    u32 incoming_port;
-    u32 fwmark;
-};
-```
+:::code api-wireguard-netlink/c/1-1-prystrii-struct-wg.c
 
 Поля структури `struct wg_device` мають наступне призначення:
 
@@ -49,22 +34,7 @@ struct wg_device {
 
 Описує віддалений вузол тунелю, його ефемерні ключі, лічильники та статус.
 
-```c
-struct wg_peer {
-    struct wg_device *wg;
-    struct noise_handshake handshake;
-    struct noise_keypair __rcu *keypairs;
-    struct endpoint endpoint;
-    struct allowedips_node node;
-    u64 rx_bytes, tx_bytes;
-    struct timer_list timer_rekey_retry;
-    struct timer_list timer_new_handshake;
-    struct timer_list timer_zero_keymaterial;
-    struct timer_list timer_persistent_keepalive;
-    u16 persistent_keepalive_interval;
-    bool timer_need_another_keepalive;
-};
-```
+:::code api-wireguard-netlink/c/1-2-vuzol-pir-struct-wg.c
 
 Поля структури `struct wg_peer`:
 
@@ -83,21 +53,7 @@ struct wg_peer {
 
 Структури префіксного дерева, що реалізують алгоритм Longest Prefix Match (LPM) для прив'язки підмереж IP до відповідного `struct wg_peer`.
 
-```c
-struct allowedips_node {
-    struct wg_peer __rcu *peer;
-    struct allowedips_node __rcu *bit[2];
-    u8 cidr;
-    u8 bit_at;
-    u8 ip[16];
-};
-
-struct allowedips {
-    struct allowedips_node __rcu *root4;
-    struct allowedips_node __rcu *root6;
-    struct mutex mutex;
-};
-```
+:::code api-wireguard-netlink/c/1-3-prefiksne-derevo.c
 
 Детальний функціонал полів:
 
@@ -111,22 +67,7 @@ struct allowedips {
 
 Зберігає проміжні ключі та контексний стан під час виконання рукостискання Noise IK:
 
-```c
-struct noise_handshake {
-    struct noise_static_identity *static_identity;
-    u8 prk[NOISE_HASH_LEN];
-    u8 hash[NOISE_HASH_LEN];
-    u8 chaining_key[NOISE_HASH_LEN];
-    u8 remote_static[NOISE_PUBLIC_KEY_LEN];
-    u8 remote_ephemeral[NOISE_PUBLIC_KEY_LEN];
-    u8 ephemeral_private[NOISE_PUBLIC_KEY_LEN];
-    u8 remote_preshared_key[NOISE_SYMMETRIC_KEY_LEN];
-    enum handshake_state state;
-    u32 local_index;
-    u32 remote_index;
-    u64 last_sent_handshake;
-};
-```
+:::code api-wireguard-netlink/c/1-4-kryptohrafichnyi-stan.c
 
 ---
 

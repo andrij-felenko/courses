@@ -122,37 +122,8 @@ struct UserRecord {
 Для порівняння, аналогічний код на мові C++ з використанням ідіоматичних контейнерів виглядає так:
 
 :::tabs
-```c
-// C-версія: зміна структури ламає зсуви у бінарнику
-#include <stdint.h>
-
-typedef struct {
-    uint32_t id;
-    uint32_t flags; // Вставка зміщує name з offset 4 на offset 8
-    char name[64];
-} UserRecord;
-
-void process_user(const UserRecord* user);
-```
-```cpp
-// C++ версія: ідіоматичний підхід з прихованням даних за допомогою Pimpl
-#include <string_view>
-#include <cstdint>
-#include <memory>
-
-class UserRecord {
-public:
-    UserRecord(uint32_t id, std::string_view name);
-    ~UserRecord();
-
-    [[nodiscard]] uint32_t id() const noexcept;
-    [[nodiscard]] std::string_view name() const noexcept;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> impl_; // Фіксований розмір 8 B — ABI повністю захищено
-};
-```
+:::code library-abi-compat-d/c/shcho-same-lamaie-c-abi-u.c
+:::code library-abi-compat-d/cpp/shcho-same-lamaie-c-abi-u.hpp
 :::
 
 ### Пастки з упаковкою структур та бітовими полями (Bitfields)
@@ -198,23 +169,7 @@ private:
 - У новій бібліотеці за індексом `0` опинилася нова функція `audit()`, а `draw()` змістилася на індекс `1`.
 - При виклику `obj->draw()` програма виконає код `audit()`, що призведе до виконання невірного коду та аварії.
 
-```cpp
-// ==================== Ламання vtable у C++ ====================
-// ВЕРСІЯ 1
-class Widget {
-public:
-    virtual void draw();   // vtable[0]
-    virtual void resize(); // vtable[1]
-};
-
-// ВЕРСІЯ 2 (ЗЛАМАНО ABI!)
-class Widget {
-public:
-    virtual void audit();  // vtable[0] — НОВИЙ МЕТОД ЗМІСТИВ ІНДЕКСИ!
-    virtual void draw();   // vtable[1] (старий код викликає тут audit!)
-    virtual void resize(); // vtable[2]
-};
-```
+:::code library-abi-compat-d/cpp/tablytsi-virtualnykh.cpp
 
 ### Множинне спадкування, EBCO та таблиці винятків (.eh_frame)
 
@@ -279,18 +234,7 @@ struct HardwareConfig {
     uint8_t reserved[10]; // Резервні байти для майбутніх полів
 };
 ```
-```cpp
-// C++ альтернатива: резервний масив з фіксованим розміром
-#include <cstdint>
-#include <array>
-
-struct HardwareConfig {
-    uint32_t baud_rate;
-    uint8_t parity;
-    uint8_t stop_bits;
-    std::array<uint8_t, 10> reserved{}; // Захист загального розміру
-};
-```
+:::code library-abi-compat-d/cpp/rezervni-polia-reserved.cpp
 :::
 
 Коли у версії 2 виникає потреба додати нове поле `uint8_t flow_control`, його розміщують за рахунок зменшення масиву `reserved` до `9` байтів. Загальний розмір `sizeof(struct HardwareConfig)` та зсуви решти полів залишаються незмінними.
@@ -355,33 +299,8 @@ MYLIB_2.0 {
 У сирцевому коді бібліотеки розробник прив'язує реалізації функцій до відповідних версій символів за допомогою директив препроцесора:
 
 :::tabs
-```c
-// Реалізація для старих бінарників версії 1.0 (C)
-int data_process_v1(int id) {
-    return id * 10;
-}
-__asm__(".symver data_process_v1, data_process@MYLIB_1.0");
-
-// Реалізація для нових бінарників версії 2.0 (C)
-int data_process_v2(int id, int flags) {
-    return (id + flags) * 10;
-}
-__asm__(".symver data_process_v2, data_process@@MYLIB_2.0");
-```
-```cpp
-// C++ реалізація з символами різної версії у GNU C++
-extern "C" {
-    int data_process_v1(int id) {
-        return id * 10;
-    }
-    __asm__(".symver data_process_v1, data_process@MYLIB_1.0");
-
-    int data_process_v2(int id, int flags) {
-        return (id + flags) * 10;
-    }
-    __asm__(".symver data_process_v2, data_process@@MYLIB_2.0");
-}
-```
+:::code library-abi-compat-d/c/versionuvannia-symvoliv-u.c
+:::code library-abi-compat-d/cpp/versionuvannia-symvoliv-u.cpp
 :::
 
 Символ з двома собачками `@@MYLIB_2.0` є версією за замовчуванням: з нею лінкуються всі нові програми під час компіляції. Старі вже скомпільовані програми під час запуску продовжують звертатися до `@MYLIB_1.0`.

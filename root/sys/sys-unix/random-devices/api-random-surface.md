@@ -51,21 +51,7 @@ ssize_t getrandom(void *buf, size_t buflen, unsigned int flags);
 
 Найкоротший коректний виклик, що дає ключ на 32 байти:
 
-```c
-#include <sys/random.h>
-#include <errno.h>
-#include <stdint.h>
-
-uint8_t key[32];
-ssize_t n;
-
-do {
-	n = getrandom(key, sizeof key, 0);   /* 0 — почекати готовності, далі не чекати */
-} while (n < 0 && errno == EINTR);
-
-if (n != (ssize_t)sizeof key)
-	fatal();   /* лишилися тільки ENOSYS (ядро < 3.17) і EFAULT — обидві невиправні */
-```
+:::code api-random-surface/c/obhortky-libc.c
 
 Порівняння `n` із повною довжиною тут не перестраховка, а перевірка контракту: для 32 байтів коротша видача неможлива, тож будь-яке інше число означає, що припущення про систему не справдилося.
 
@@ -120,25 +106,7 @@ struct rand_pool_info {
 
 Різні одиниці в сусідніх полях — класична пастка цього інтерфейсу. Так виглядає подача 32 байтів від апаратного джерела із заявою на повні 256 бітів (саме це в циклі робить служба `rngd`):
 
-```c
-#include <linux/random.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-#include <string.h>
-
-struct {
-	struct rand_pool_info hdr;
-	unsigned char data[32];
-} req;
-
-memcpy(req.data, from_hwrng, sizeof req.data);
-req.hdr.entropy_count = 8 * sizeof req.data;   /* 256 бітів */
-req.hdr.buf_size      = sizeof req.data;       /* 32 байти  */
-
-int fd = open("/dev/urandom", O_WRONLY);
-if (ioctl(fd, RNDADDENTROPY, &req) < 0)
-	perror("RNDADDENTROPY");                   /* EPERM — немає CAP_SYS_ADMIN */
-```
+:::code api-random-surface/c/random.h
 
 Прибрати звідси `ioctl` і лишити самий `write(fd, req.data, sizeof req.data)` — і байти так само потраплять до накопичувача, просто без заліку. Уся відмінність саме в цьому слові.
 

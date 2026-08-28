@@ -41,23 +41,7 @@
 
 Критично важливим є розмежування самої підстановки параметра та подальшої обробки отриманого результату:
 
-```bash
-var="file with spaces.txt"
-
-# Варіант без лапок:
-cat $var
-# 1. Розгортання параметра: "cat file with spaces.txt"
-# 2. Фаза Word Splitting розбиває рядок за IFS (пробіли) на 3 аргументи:
-#    argv[1]="file", argv[2]="with", argv[3]="spaces.txt"
-# 3. Виклик execve("cat", ["cat", "file", "with", "spaces.txt"]) -> ПОМИЛКА: файл "file" не знайдено.
-
-# Варіант у подвійних лапках:
-cat "$var"
-# 1. Розгортання параметра відбувається всередині лапок: "cat file with spaces.txt"
-# 2. Подвійні лапки блокують фази Word Splitting та Filename Expansion.
-# 3. Фаза Quote Removal видаляє лапки.
-# 4. Виклик execve("cat", ["cat", "file with spaces.txt"]) -> УСПІХ.
-```
+:::code parameter-expansion-d/sh/vzaiemodiia-z-lapkamy.sh
 
 Операції підстановки параметра всередині `${...}` обчислюються абсолютно однаково як у лапках, так і без них. Проте подвійні лапки `"${var#pattern}"` гарантують, що згенерований рядок залишиться єдиним неподільним аргументом у векторі `argv[]`.
 
@@ -83,19 +67,7 @@ cat "$var"
 
 Оператор повертає значення за замовчуванням, якщо умова не виконується. Сама змінна `var` у середовищі оболонки **не змінюється**.
 
-```bash
-# Сценарій: конфігурація мережевого порту
-unset PORT
-echo "${PORT:-8080}"    # PORT unset -> підставляється "8080", PORT лишається unset
-echo "$PORT"            # Вивід: порожньо
-
-PORT=""
-echo "${PORT-8080}"     # Форма без ":" -> PORT встановлено (хоч і порожньо), вивід: ""
-echo "${PORT:-8080}"    # Форма з ":" -> PORT порожньо, вивід: "8080"
-
-PORT="9000"
-echo "${PORT:-8080}"    # PORT непорожнє -> вивід: "9000"
-```
+:::code parameter-expansion-d/sh/1-vykorystannia-defoltnoho.sh
 
 ### 2. Присвоєння дефолтного значення: `${var=default}` та `${var:=default}`
 
@@ -131,19 +103,7 @@ rm -rf "${DEPLOY_ROOT}/cache"
 
 Цей механізм є ідеальним для динамічного формування необов'язкових прапорців у викликах команд:
 
-```bash
-# Формування аргументів компілятора або утиліти:
-VERBOSE="1"
-DEBUG_FLAG="${VERBOSE:+--verbose}"
-# Результат: DEBUG_FLAG набуває значення "--verbose"
-
-unset VERBOSE
-DEBUG_FLAG="${VERBOSE:+--verbose}"
-# Результат: DEBUG_FLAG набуває значення ""
-
-# Використання у виклику програми без утворення порожніх аргументів:
-curl ${AUTH_TOKEN:+-H "Authorization: Bearer $AUTH_TOKEN"} "https://api.internal/data"
-```
+:::code parameter-expansion-d/sh/4-pidstanovka.sh
 
 Повний довідник синтаксичних форм, правил та граматики наведено у вставці [Повний довідник синтаксису розкриття параметрів](root:sys-unix/parameter-expansion/api-parameter-expansion-syntax.md).
 
@@ -155,18 +115,7 @@ curl ${AUTH_TOKEN:+-H "Authorization: Bearer $AUTH_TOKEN"} "https://api.internal
 
 У сучасних POSIX-системах поведінка оболонки регулюється поточною категорією локалі `LC_CTYPE`. Якщо встановлено локаль UTF-8 (наприклад, `uk_UA.UTF-8` або `en_US.UTF-8`), оболонка використовує бібліотечну функцію `mbrtowc(3)` для декодування багатобайтових UTF-8 послідовностей у широкі символи `wchar_t`:
 
-```bash
-TEXT="Київ"
-
-# У середовищі з UTF-8 локаллю:
-echo "${#TEXT}"
-# Вивід: 4 (чотири літери)
-
-# Якщо тимчасово примусово встановити байтову локаль C:
-LC_ALL=C
-echo "${#TEXT}"
-# Вивід: 8 (кожна кирилична літера в UTF-8 займає 2 байти: 4 * 2 = 8 байтів)
-```
+:::code parameter-expansion-d/sh/3-pidrakhunok-dovzhyny-var.sh
 
 ### Підрахунок кількості аргументів та елементів масивів
 
@@ -290,21 +239,7 @@ echo "$CLEAN"             # Вивід: "CRITICAL_ALERT_MESSAGE"
 
 Оператори `${var/pattern/replacement}` виконують пошук входжень glob-маски в рядку та їхню заміну на вказаний текст.
 
-```bash
-DATA="root:x:0:0:root:/root:/bin/bash"
-
-# 1. Заміна першого входження:
-echo "${DATA/:/,}"
-# Вивід: "root,x:0:0:root:/root:/bin/bash"
-
-# 2. Глобальна заміна всіх входжень (подвійний слеш //):
-echo "${DATA//:/,}"
-# Вивід: "root,x,0,0,root,/root,/bin/bash"
-
-# 3. Видалення входжень (replacement опущено):
-echo "${DATA//:}"
-# Вивід: "rootx00root/root/bin/bash"
-```
+:::code parameter-expansion-d/sh/6-poshuk-i-zamina-za.sh
 
 ### Якоріння шаблону на початку та в кінці рядка
 
@@ -384,18 +319,7 @@ echo "${HEX^^[a-f]}"
 
 Якщо першим символом всередині фігурних дужок є знак оклику `!`, оболонка бере значення змінної `var_name` як рядок, шукає в таблиці символів змінну з таким ім'ям і повертає її значення:
 
-```bash
-ENV="PRODUCTION"
-DB_HOST_DEVELOPMENT="127.0.0.1"
-DB_HOST_PRODUCTION="10.0.100.5"
-
-# Формуємо динамічне ім'я цільової змінної:
-TARGET_VAR="DB_HOST_${ENV}"
-
-# Отримуємо значення через непряме розгортання:
-echo "${!TARGET_VAR}"
-# Вивід: "10.0.100.5"
-```
+:::code parameter-expansion-d/sh/1-nepriame-rozhortannia.sh
 
 > **Безпека проти команди `eval`:** Непряма підстановка `${!TARGET_VAR}` є абсолютно безпечною, оскільки вона лише зчитує значення з пам'яті. Використання застарілого `eval echo "\$$TARGET_VAR"` створює критичну вразливість довільного виконання коду (Shell Injection), якщо значення `TARGET_VAR` містить метасимволи на кшталт `; rm -rf /`.
 
@@ -442,120 +366,9 @@ echo "$ROUTER_IP"        # Вивід: "192.168.1.1"
 
 :::tabs
 === "C"
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-
-/* Емуляція оператора ${var:-default} */
-const char* expand_default(const char *val, const char *def) {
-    if (val == NULL || val[0] == '\0') {
-        return def;
-    }
-    return val;
-}
-
-/* Емуляція оператора ${path##*/} (basename) через адресну арифметику */
-const char* trim_longest_prefix_slash(const char *path) {
-    if (path == NULL) return "";
-    const char *last_slash = strrchr(path, '/');
-    if (last_slash != NULL) {
-        return last_slash + 1; /* Повертаємо покажчик на символ після '/' без алокацій */
-    }
-    return path;
-}
-
-/* Емуляція оператора ${path%/*} (dirname) у виділений буфер */
-char* trim_shortest_suffix_slash(const char *path) {
-    if (path == NULL || path[0] == '\0') {
-        return strdup(".");
-    }
-    const char *last_slash = strrchr(path, '/');
-    if (last_slash == NULL) {
-        return strdup(".");
-    }
-    if (last_slash == path) {
-        return strdup("/"); /* Кореневий каталог */
-    }
-    size_t len = (size_t)(last_slash - path);
-    char *result = (char*)malloc(len + 1);
-    if (!result) return NULL;
-    memcpy(result, path, len);
-    result[len] = '\0';
-    return result;
-}
-
-int main(void) {
-    const char *env_port = NULL;
-    printf("PORT: %s\n", expand_default(env_port, "8080"));
-
-    const char *file_path = "/var/log/nginx/access.log";
-    printf("Basename: %s\n", trim_longest_prefix_slash(file_path));
-
-    char *dir = trim_shortest_suffix_slash(file_path);
-    if (dir) {
-        printf("Dirname: %s\n", dir);
-        free(dir);
-    }
-    return 0;
-}
-```
+:::code parameter-expansion-d/c/main.c
 === "C++"
-```cpp
-#include <iostream>
-#include <string_view>
-#include <string>
-#include <optional>
-
-namespace sys_shell {
-
-/* Ідіоматична C++ емуляція ${var:-default} з нульовими алокаціями */
-constexpr std::string_view expand_default(std::optional<std::string_view> val, 
-                                          std::string_view def) noexcept {
-    if (!val.has_value() || val->empty()) {
-        return def;
-    }
-    return *val;
-}
-
-/* Емуляція ${path##*/} (basename) повертає легкий string_view зріз */
-constexpr std::string_view trim_longest_prefix_slash(std::string_view path) noexcept {
-    const auto pos = path.rfind('/');
-    if (pos != std::string_view::npos) {
-        return path.substr(pos + 1);
-    }
-    return path;
-}
-
-/* Емуляція ${path%/*} (dirname) */
-constexpr std::string_view trim_shortest_suffix_slash(std::string_view path) noexcept {
-    if (path.empty()) {
-        return ".";
-    }
-    const auto pos = path.rfind('/');
-    if (pos == std::string_view::npos) {
-        return ".";
-    }
-    if (pos == 0) {
-        return "/"; /* Корінь файлової системи */
-    }
-    return path.substr(0, pos);
-}
-
-} // namespace sys_shell
-
-int main() {
-    std::optional<std::string_view> env_port = std::nullopt;
-    std::cout << "PORT: " << sys_shell::expand_default(env_port, "8080") << '\n';
-
-    constexpr std::string_view file_path = "/var/log/nginx/access.log";
-    std::cout << "Basename: " << sys_shell::trim_longest_prefix_slash(file_path) << '\n';
-    std::cout << "Dirname:  " << sys_shell::trim_shortest_suffix_slash(file_path) << '\n';
-
-    return 0;
-}
-```
+:::code parameter-expansion-d/cpp/main.cpp
 :::
 
 У наведеній реалізації видно, що виділення підрядків або префіксів не потребує створення нових структур ядра або контекстних перемикань. Інтерпретатор оболонки маніпулює виключно покажчиками на внутрішні масиви символів у RAM.

@@ -14,19 +14,7 @@
 
 Звідси головна практична дія — звірити, чи два дескриптори вказують на той самий процес:
 
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <sys/stat.h>
-
-static int same_process(int a, int b, int *same) {
-    struct statx sa, sb;
-    if (statx(a, "", AT_EMPTY_PATH, STATX_INO, &sa) < 0) return -1;
-    if (statx(b, "", AT_EMPTY_PATH, STATX_INO, &sb) < 0) return -1;
-    *same = (sa.stx_ino == sb.stx_ino);
-    return 0;
-}
-```
+:::code api-pidfd-info/c/deskryptor-iak-vuzol.c
 
 `AT_EMPTY_PATH` з порожнім шляхом означає «сам цей дескриптор» ([statx](root:sys-unix/statx-mask-and-unknown-values) — розширений запит атрибутів, у якому просять лише потрібні поля). Номер видає `pidfs` і не перевикористовує його до перезавантаження — на відміну від номера процесу, який обертається по кільцю ([inode](root:sys-unix/inode-model) — вузол як справжня тотожність файлу, окрема від його імені).
 
@@ -38,21 +26,7 @@ static int same_process(int a, int b, int *same) {
 
 ## Розпитати дескриптор: `PIDFD_GET_INFO` (6.13)
 
-```c
-#include <linux/pidfd.h>
-#include <sys/ioctl.h>
-
-struct pidfd_info {
-    __u64 mask;      /* на вході — що просимо; на виході — що справді заповнено */
-    __u64 cgroupid;
-    __u32 pid, tgid, ppid;
-    __u32 ruid, rgid, euid, egid, suid, sgid, fsuid, fsgid;
-    __s32 exit_code;
-    /* далі — поля, додані пізнішими ядрами */
-};
-
-int ioctl(int pidfd, PIDFD_GET_INFO, struct pidfd_info *info);
-```
+:::code api-pidfd-info/c/rozpytaty-deskryptor-pidfd.c
 
 Номери приходять у просторі імен процесів того, хто питає, права — у його просторі імен користувачів. На дескрипторі з `PIDFD_THREAD` поля `pid` і `tgid` розходяться: перше називає потік, друге — його групу.
 

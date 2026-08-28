@@ -27,57 +27,7 @@
 
 Уся лабораторія тримається на одному питанні до системи: «у якому стані зараз ця задача?» Відповідь лежить у `/proc/<pid>/stat` третім полем ([/proc: процеси як файли](root:sys-unix/proc-reading-process-and-kernel-state) — каталог на кожен процес, у якому файли не лежать на диску, а формуються ядром у мить читання).
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/resource.h>
-#include <sys/wait.h>
-#include <time.h>
-#include <unistd.h>
-
-/* Прочитати невеликий файл цілком. Повертає кількість байтів або −1. */
-static ssize_t slurp(const char *path, char *buf, size_t cap)
-{
-    int fd = open(path, O_RDONLY | O_CLOEXEC);
-    if (fd < 0) return -1;
-    ssize_t n = read(fd, buf, cap - 1);
-    close(fd);
-    if (n < 0) return -1;
-    buf[n] = '\0';
-    return n;
-}
-
-/* Стан задачі: 'R', 'S', 'Z'… або 0, якщо запису в /proc уже немає. */
-static char proc_state(pid_t pid)
-{
-    char path[64], buf[512];
-    snprintf(path, sizeof path, "/proc/%d/stat", (int)pid);
-    if (slurp(path, buf, sizeof buf) < 0) return 0;
-
-    char *p = strrchr(buf, ')');   /* ім'я команди може містити і пробіли, і дужки */
-    if (!p) return 0;
-    return p[2];                   /* "…) Z 51233 …" — за дужкою пробіл, далі стан */
-}
-
-static void sleep_ms(long ms)
-{
-    struct timespec ts = { ms / 1000, (ms % 1000) * 1000000L };
-    nanosleep(&ts, NULL);           /* може обірватися сигналом — тут це не шкодить */
-}
-
-/* Чекати, доки дитина не стане зомбі. Безпечно рівно тому, що ми — її батько
-   і ще не кликали wait: номер нікуди не подінеться. */
-static void wait_until_zombie(pid_t pid)
-{
-    while (proc_state(pid) != 'Z')
-        sleep_ms(1);
-}
-```
+:::code proj-zombie-lab/c/pomichnyky-chytaty-proc-i.c
 
 Рядок із `strrchr` — не примха. Перше поле `stat` — номер, друге — ім'я команди **в дужках**, і ядро друкує його як є: якщо програма називається `my prog (test)`, у файлі опиниться `1234 (my prog (test)) Z 1200 …`. Розбір пробілами по порядку на такому рядку зсувається й дає сміття, тому єдиний правильний спосіб — знайти **останню** дужку й читати від неї. Ця пастка коштувала помилок не одному моніторингові.
 
@@ -85,35 +35,7 @@ static void wait_until_zombie(pid_t pid)
 
 ## Крок 1. Зробити зомбі й вистрілити в нього
 
-```c
-static void proc_report(pid_t pid);   /* тіло — нижче */
-
-static int lab_one(void)
-{
-    pid_t child = fork();
-    if (child < 0) { perror("fork"); return 1; }
-    if (child == 0)
-        _exit(3);            /* саме _exit: буфери stdio успадковані, вони батькові */
-
-    wait_until_zombie(child);
-    printf("дитина %d: стан %c\n", (int)child, proc_state(child));
-
-    if (kill(child, SIGKILL) == 0)
-        printf("kill(SIGKILL) повернув 0 — стан лишився %c\n", proc_state(child));
-    if (kill(child, 0) == 0)
-        printf("kill(pid, 0) повернув 0 — номер зайнятий, права є\n");
-
-    proc_report(child);
-
-    int status = 0;
-    pid_t got = waitpid(child, &status, 0);
-    printf("waitpid → %d, вийшла сама: %d, код %d\n",
-           (int)got, WIFEXITED(status), WEXITSTATUS(status));
-    printf("після wait: запис у /proc %s\n",
-           proc_state(child) ? "ще є" : "зник");
-    return 0;
-}
-```
+:::code proj-zombie-lab/c/krok-1-zrobyty-zombi-i.c
 
 Дитина робить `_exit(3)` і більше нічого. Цього досить: зомбі народжується не від складності, а від самого факту виходу.
 
@@ -123,47 +45,7 @@ static int lab_one(void)
 
 ## Крок 2. Що лишилося в `/proc`
 
-```c
-static void proc_report(pid_t pid)
-{
-    char path[64], buf[8192];
-    ssize_t n;
-
-    snprintf(path, sizeof path, "/proc/%d/cmdline", (int)pid);
-    n = slurp(path, buf, sizeof buf);
-    printf("cmdline: %zd байтів\n", n);          /* 0 — тому ps і пише <defunct> */
-
-    snprintf(path, sizeof path, "/proc/%d/maps", (int)pid);
-    n = slurp(path, buf, sizeof buf);
-    printf("maps:    %zd байтів\n", n);          /* 0 — відображень немає */
-
-    snprintf(path, sizeof path, "/proc/%d/statm", (int)pid);
-    slurp(path, buf, sizeof buf);
-    printf("statm:   %s", buf);                  /* 0 0 0 0 0 0 0 */
-
-    int vm_lines = 0;
-    snprintf(path, sizeof path, "/proc/%d/status", (int)pid);
-    slurp(path, buf, sizeof buf);
-    for (char *l = strtok(buf, "\n"); l; l = strtok(NULL, "\n")) {
-        if (!strncmp(l, "Vm", 2)) { vm_lines++; continue; }
-        if (!strncmp(l, "State:", 6) || !strncmp(l, "PPid:", 5) ||
-            !strncmp(l, "Threads:", 8))
-            printf("status:  %s\n", l);
-    }
-    printf("status:  рядків Vm*: %d\n", vm_lines);
-
-    /* поля stat після дужки: state ppid pgrp session tty tpgid flags
-       minflt cminflt majflt cmajflt utime stime … */
-    snprintf(path, sizeof path, "/proc/%d/stat", (int)pid);
-    slurp(path, buf, sizeof buf);
-    char *p = strrchr(buf, ')');
-    char st; long ppid; unsigned long ut = 0, kt = 0;
-    if (p && sscanf(p + 2, "%c %ld %*d %*d %*d %*d %*u %*lu %*lu %*lu %*lu %lu %lu",
-                    &st, &ppid, &ut, &kt) == 4)
-        printf("stat:    стан %c, батько %ld, utime %lu, stime %lu (тиків по 1/%ld с)\n",
-               st, ppid, ut, kt, sysconf(_SC_CLK_TCK));
-}
-```
+:::code proj-zombie-lab/c/krok-2-shcho-lyshylosia-v.c
 
 Виведення цієї функції — найкоротший опис того, чим зомбі є насправді.
 
@@ -207,62 +89,7 @@ waitpid → 51234, вийшла сама: 1, код 3
 
 Поряд у той самий дослід вставлено контрольний зразок: кожна дитина перед смертю ще й надсилає батькові сигнал реального часу `SIGRTMIN`. Умови однакові до останньої мілісекунди, механізм зберігання — різний, і саме це зробить видимою причину, а не лише наслідок.
 
-```c
-static volatile sig_atomic_t chld_hits;
-static volatile sig_atomic_t rt_hits;
-
-static void on_chld(int sig) { (void)sig; chld_hits++; }
-static void on_rt(int sig)   { (void)sig; rt_hits++;   }
-
-static int lab_burst(int n)
-{
-    if (n < 1 || n > 64) n = 5;
-
-    struct sigaction sa;
-    memset(&sa, 0, sizeof sa);
-    sigemptyset(&sa.sa_mask);
-    sa.sa_handler = on_chld;  sigaction(SIGCHLD,  &sa, NULL);
-    sa.sa_handler = on_rt;    sigaction(SIGRTMIN, &sa, NULL);
-
-    sigset_t block, old;
-    sigemptyset(&block);
-    sigaddset(&block, SIGCHLD);
-    sigaddset(&block, SIGRTMIN);
-    sigprocmask(SIG_BLOCK, &block, &old);          /* двері зачинено */
-
-    pid_t kids[64];
-    for (int i = 0; i < n; i++) {
-        kids[i] = fork();
-        if (kids[i] < 0) { perror("fork"); return 1; }
-        if (kids[i] == 0) {
-            union sigval v; v.sival_int = i;
-            sigqueue(getppid(), SIGRTMIN, v);      /* контрольний зразок */
-            _exit(0);
-        }
-    }
-    for (int i = 0; i < n; i++)
-        wait_until_zombie(kids[i]);                /* усі n мертві, сигнали за дверима */
-
-    sigset_t pend;
-    sigpending(&pend);
-    printf("померло дітей: %d\n", n);
-    printf("SIGCHLD відкладено: %s\n",
-           sigismember(&pend, SIGCHLD) ? "так — один-єдиний біт" : "ні");
-
-    sigprocmask(SIG_SETMASK, &old, NULL);          /* двері відчинено */
-    for (int i = 0; i < 200 && rt_hits < n; i++)
-        sleep_ms(1);                               /* доганяємо чергу RT-сигналів */
-
-    printf("обробник SIGCHLD спрацював разів:  %d\n", (int)chld_hits);
-    printf("обробник SIGRTMIN спрацював разів: %d\n", (int)rt_hits);
-
-    int reaped = 0, status;
-    while (waitpid(-1, &status, WNOHANG) > 0)
-        reaped++;
-    printf("прибрано одним циклом WNOHANG: %d\n", reaped);
-    return 0;
-}
-```
+:::code proj-zombie-lab/c/krok-4-piat-smertei-odyn.c
 
 Виведення на п'ятьох дітях:
 
@@ -286,40 +113,7 @@ SIGCHLD відкладено: так — один-єдиний біт
 
 Останній дослід відповідає на питання «чим шкідливі зомбі, якщо вони не їдять ні пам'яті, ні процесора». Робити його наосліп не можна: якщо просто плодити зомбі, доки не перестане, ти впираєшся в ліміт **користувача**, а під тим самим користувачем працює і твоя оболонка, і редактор, і браузер. Тому лабораторія спершу ставить огорожу собі.
 
-```c
-static int lab_flood(long fence)
-{
-    struct rlimit rl;
-    getrlimit(RLIMIT_NPROC, &rl);
-    printf("було: RLIMIT_NPROC м'який %ld, жорсткий %ld\n",
-           (long)rl.rlim_cur, (long)rl.rlim_max);
-
-    rl.rlim_cur = fence;                  /* власна огорожа, нижча за системну */
-    if (setrlimit(RLIMIT_NPROC, &rl) < 0) { perror("setrlimit"); return 1; }
-    printf("поставили собі: %ld\n", fence);
-
-    int made = 0;
-    for (;;) {
-        pid_t p = fork();
-        if (p == 0) _exit(0);
-        if (p < 0) {
-            int e = errno;
-            printf("fork зупинився на %d зомбі: %s\n", made, strerror(e));
-            break;
-        }
-        made++;
-        wait_until_zombie(p);
-    }
-    if (made == 0)
-        printf("огорожа нижча за поточне число процесів користувача — підніми її\n");
-
-    int reaped = 0, status;
-    while (waitpid(-1, &status, 0) > 0)
-        reaped++;
-    printf("прибрано: %d\n", reaped);
-    return 0;
-}
-```
+:::code proj-zombie-lab/c/krok-5-skilky-ikh-vlize-i.c
 
 Типове виведення на робочій машині:
 

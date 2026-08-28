@@ -71,22 +71,7 @@ struct mm_struct {
     /* ... */
 };
 ```
-```cpp
-// Концептуальне відображення меж середовища у просторі пам'яті процесу
-#include <cstdint>
-#include <span>
-
-struct ProcessMemoryBounds {
-    std::uintptr_t arg_start{0};
-    std::uintptr_t arg_end{0};
-    std::uintptr_t env_start{0};
-    std::uintptr_t env_end{0};
-
-    [[nodiscard]] std::size_t environment_size() const noexcept {
-        return (env_end >= env_start) ? (env_end - env_start) : 0;
-    }
-};
-```
+:::code secrets-in-environment-d/cpp/vektor-1-psevdofailova.cpp
 :::
 
 Коли будь-який процес виконує системний виклик `read()` для файлу `/proc/$PID/environ`, ядро викликає внутрішню функцію `environ_read()` (`fs/proc/base.c`). Ядро перевіряє права доступу за допомогою функції `ptrace_may_access()` з прапорцем `PTRACE_MODE_READ_FSCREDS`.
@@ -98,64 +83,8 @@ struct ProcessMemoryBounds {
 Це означає, що якщо на сервері або всередині одного контейнера під одним обліковим записом користувача (наприклад, `www-data`, `app` або `node`) працюють кілька процесів, будь-який із них може безперешкодно зчитати секрети всіх інших процесів:
 
 :::tabs
-```c
-/* Читання чужого середовища через /proc/$PID/environ мовою C */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-void dump_process_environ(pid_t target_pid) {
-    char path[64];
-    snprintf(path, sizeof(path), "/proc/%d/environ", target_pid);
-
-    int fd = open(path, O_RDONLY);
-    if (fd < 0) {
-        perror("open /proc/$PID/environ");
-        return;
-    }
-
-    char buf[4096];
-    ssize_t bytes_read;
-    while ((bytes_read = read(fd, buf, sizeof(buf))) > 0) {
-        for (ssize_t i = 0; i < bytes_read; ++i) {
-            if (buf[i] == '\0') {
-                putchar('\n');
-            } else {
-                putchar(buf[i]);
-            }
-        }
-    }
-    close(fd);
-}
-```
-```cpp
-// Ідіоматичне читання середовища процесу через std::filesystem та std::string мовою C++
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <filesystem>
-#include <system_error>
-
-void dump_process_environ(int target_pid) {
-    const std::filesystem::path proc_path = "/proc/" + std::to_string(target_pid) + "/environ";
-    
-    std::ifstream file(proc_path, std::ios::binary);
-    if (!file.is_open()) {
-        std::cerr << "Не вдалося відкрити " << proc_path << '\n';
-        return;
-    }
-
-    std::string entry;
-    while (std::getline(file, entry, '\0')) {
-        if (!entry.empty()) {
-            std::cout << "[ENV] " << entry << '\n';
-        }
-    }
-}
-```
+:::code secrets-in-environment-d/c/vektor-1-psevdofailova.c
+:::code secrets-in-environment-d/cpp/vektor-1-psevdofailova-2.cpp
 :::
 
 #### Пастка unsetenv() та динамічної купи
@@ -237,21 +166,7 @@ int execvp(const char *file, char *const argv[]) {
     return execve(file, argv, environ); /* Усі секрети передаються нащадку! */
 }
 ```
-```cpp
-// Концептуальне представлення неконтрольованої передачі оточення
-#include <unistd.h>
-#include <span>
-#include <string_view>
-
-extern char **environ;
-
-namespace posix_wrapper {
-    int execute_utility(std::string_view file, char *const argv[]) noexcept {
-        // execve неявно отримує глобальний environ батьківського процесу
-        return ::execve(file.data(), argv, environ);
-    }
-}
-```
+:::code secrets-in-environment-d/cpp/3-nekontrolovane.cpp
 :::
 
 ### Сценарій витоку через сторонні утиліти
@@ -292,40 +207,8 @@ subprocess.run(["convert", "user_input.jpg", "-resize", "128x128", "thumb.jpg"])
 Для запобігання цій атаці ядро Linux під час виконання системного виклику `execve()` перевіряє, чи змінюються привілеї процесу. У файлі `fs/binfmt_elf.c` ядро оцінює зміну ідентифікаторів користувача та прапорців capabilities:
 
 :::tabs
-```c
-/* Логіка визначення прапорця безпеки в ядрі Linux (fs/binfmt_elf.c) */
-static int evaluate_secure_exec(struct linux_binprm *bprm) {
-    if (bprm->cred->euid != current_euid() ||
-        bprm->cred->egid != current_egid() ||
-        !uid_eq(bprm->cred->uid, current_uid()) ||
-        !gid_eq(bprm->cred->gid, current_gid()) ||
-        !cap_issubset(bprm->cred->cap_permitted, current_cap_permitted())) {
-            bprm->secureexec = 1;
-    }
-    return bprm->secureexec;
-}
-```
-```cpp
-// Концептуальна логіка верифікації зміни облікових даних процесу
-#include <cstdint>
-#include <concepts>
-
-struct Credentials {
-    std::uint32_t uid{0};
-    std::uint32_t gid{0};
-    std::uint32_t euid{0};
-    std::uint32_t egid{0};
-    std::uint64_t capabilities{0};
-};
-
-[[nodiscard]] constexpr bool is_privilege_transition(const Credentials& current, const Credentials& target) noexcept {
-    return (target.euid != current.euid) ||
-           (target.egid != current.egid) ||
-           (target.uid  != current.uid)  ||
-           (target.gid  != current.gid)  ||
-           ((target.capabilities & ~current.capabilities) != 0);
-}
-```
+:::code secrets-in-environment-d/c/binfmt_elf.c
+:::code secrets-in-environment-d/cpp/mekhanizm-at-secure-u.cpp
 :::
 
 Якщо виявлено підвищення привілеїв, ядро передає динамічному лінкеру у складі Допоміжного вектора (Auxiliary Vector, `auxv`) спеціальний запис з типом `AT_SECURE`:
@@ -344,46 +227,8 @@ Elf64_auxv_t {
 2. **Активація secure_getenv()**: Бібліотека glibc надає функцію `secure_getenv()` (у системах BSD та macOS її аналогом є перевірка `issetugid()`):
 
 :::tabs
-```c
-/* Використання secure_getenv у системному програмуванні на C */
-#define _GNU_SOURCE
-#include <stdlib.h>
-#include <stdio.h>
-
-void read_configuration(void) {
-    /* secure_getenv повертає NULL, якщо процес виконується в захищеному режимі (AT_SECURE = 1) */
-    const char *custom_path = secure_getenv("APP_PLUGIN_DIR");
-    if (custom_path == NULL) {
-        /* Безпечне значення за замовчуванням */
-        custom_path = "/usr/lib/app/plugins";
-    }
-    printf("Шлях до плагінів: %s\n", custom_path);
-}
-```
-```cpp
-// Ідіоматична обгортка над secure_getenv у C++
-#define _GNU_SOURCE
-#include <cstdlib>
-#include <string_view>
-#include <optional>
-#include <iostream>
-
-namespace sys {
-    [[nodiscard]] std::optional<std::string_view> get_secure_env(std::string_view name) noexcept {
-        const char *val = ::secure_getenv(name.data());
-        if (val == nullptr) {
-            return std::nullopt;
-        }
-        return std::string_view(val);
-    }
-}
-
-void read_configuration() {
-    constexpr std::string_view default_path = "/usr/lib/app/plugins";
-    const auto plugin_dir = sys::get_secure_env("APP_PLUGIN_DIR").value_or(default_path);
-    std::cout << "Шлях до плагінів: " << plugin_dir << '\n';
-}
-```
+:::code secrets-in-environment-d/c/reaktsiia-glibc-ta.c
+:::code secrets-in-environment-d/cpp/reaktsiia-glibc-ta.cpp
 :::
 
 ### Чому secure_getenv() не рятує користувацькі сервіси
@@ -415,187 +260,8 @@ void read_configuration() {
 Нижче наведено робочий приклад реалізації безпечної передачі секрету через анонімний пайп:
 
 :::tabs
-```c
-/* Безпечна передача секрету нащадку через анонімний пайп мовою C */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <fcntl.h>
-#include <sys/wait.h>
-
-#define SECRET_FD 3
-
-void run_child_secure(int read_fd) {
-    /* Перенаправляємо read_fd на фіксований SECRET_FD (3) */
-    if (read_fd != SECRET_FD) {
-        if (dup2(read_fd, SECRET_FD) < 0) {
-            perror("dup2");
-            exit(EXIT_FAILURE);
-        }
-        close(read_fd);
-    }
-
-    /* Знімаємо O_CLOEXEC з SECRET_FD, щоб він зберігся після execve */
-    int flags = fcntl(SECRET_FD, F_GETFD);
-    fcntl(SECRET_FD, F_SETFD, flags & ~FD_CLOEXEC);
-
-    /* Очищене середовище: жодних паролів у envp */
-    char *const clean_env[] = {
-        "PATH=/usr/bin:/bin",
-        "LANG=C.UTF-8",
-        NULL
-    };
-
-    char *const child_args[] = {
-        "/usr/local/bin/worker",
-        "--secret-fd=3",
-        NULL
-    };
-
-    execve(child_args[0], child_args, clean_env);
-    perror("execve");
-    exit(EXIT_FAILURE);
-}
-
-int main(void) {
-    int fds[2];
-    if (pipe2(fds, O_CLOEXEC) < 0) {
-        perror("pipe2");
-        return EXIT_FAILURE;
-    }
-
-    pid_t pid = fork();
-    if (pid < 0) {
-        perror("fork");
-        return EXIT_FAILURE;
-    }
-
-    if (pid == 0) {
-        /* Дочірній процес: закриваємо записуючий кінець */
-        close(fds[1]);
-        run_child_secure(fds[0]);
-    } else {
-        /* Батьківський процес: закриваємо читаючий кінець */
-        close(fds[0]);
-
-        const char secret_data[] = "SuperSecret_Database_Token_2026";
-        ssize_t written = write(fds[1], secret_data, sizeof(secret_data));
-        (void)written;
-
-        /* Закриття fds[1] надсилає EOF дочірньому процесу */
-        close(fds[1]);
-
-        waitpid(pid, NULL, 0);
-    }
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-// Безпечна передача секрету нащадку через RAII та пайпи мовою C++
-#include <iostream>
-#include <vector>
-#include <string_view>
-#include <system_error>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/wait.h>
-
-class UniqueFd {
-    int fd_{-1};
-public:
-    explicit UniqueFd(int fd = -1) noexcept : fd_(fd) {}
-    ~UniqueFd() { reset(); }
-
-    UniqueFd(const UniqueFd&) = delete;
-    UniqueFd& operator=(const UniqueFd&) = delete;
-
-    UniqueFd(UniqueFd&& other) noexcept : fd_(other.release()) {}
-    UniqueFd& operator=(UniqueFd&& other) noexcept {
-        if (this != &other) {
-            reset(other.release());
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int get() const noexcept { return fd_; }
-    [[nodiscard]] bool is_valid() const noexcept { return fd_ >= 0; }
-
-    int release() noexcept {
-        int old = fd_;
-        fd_ = -1;
-        return old;
-    }
-
-    void reset(int new_fd = -1) noexcept {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-        fd_ = new_fd;
-    }
-};
-
-void run_child(UniqueFd read_end) {
-    constexpr int target_fd = 3;
-    if (read_end.get() != target_fd) {
-        if (::dup2(read_end.get(), target_fd) < 0) {
-            std::exit(EXIT_FAILURE);
-        }
-        read_end.reset();
-    }
-
-    // Знімаємо прапорець FD_CLOEXEC з дескриптора target_fd
-    int flags = ::fcntl(target_fd, F_GETFD);
-    ::fcntl(target_fd, F_SETFD, flags & ~FD_CLOEXEC);
-
-    char *const clean_env[] = {
-        const_cast<char*>("PATH=/usr/bin:/bin"),
-        const_cast<char*>("LANG=C.UTF-8"),
-        nullptr
-    };
-
-    char *const child_argv[] = {
-        const_cast<char*>("/usr/local/bin/worker"),
-        const_cast<char*>("--secret-fd=3"),
-        nullptr
-    };
-
-    ::execve(child_argv[0], child_argv, clean_env);
-    std::exit(EXIT_FAILURE);
-}
-
-int main() {
-    int raw_fds[2];
-    if (::pipe2(raw_fds, O_CLOEXEC) < 0) {
-        std::cerr << "Помилка pipe2\n";
-        return EXIT_FAILURE;
-    }
-
-    UniqueFd read_pipe(raw_fds[0]);
-    UniqueFd write_pipe(raw_fds[1]);
-
-    pid_t pid = ::fork();
-    if (pid < 0) {
-        std::cerr << "Помилка fork\n";
-        return EXIT_FAILURE;
-    }
-
-    if (pid == 0) {
-        write_pipe.reset(); // Закриваємо записуючий дескриптор
-        run_child(std::move(read_pipe));
-    } else {
-        read_pipe.reset();  // Закриваємо читаючий дескриптор
-        
-        constexpr std::string_view secret = "SuperSecret_Database_Token_2026";
-        ::write(write_pipe.get(), secret.data(), secret.size());
-        write_pipe.reset(); // Закриття викликає EOF у дочірньому процесі
-
-        ::waitpid(pid, nullptr, 0);
-    }
-    return EXIT_SUCCESS;
-}
-```
+:::code secrets-in-environment-d/c/model-1-peredacha-cherez.c
+:::code secrets-in-environment-d/cpp/model-1-peredacha-cherez.cpp
 :::
 
 ### Модель 2: Тимчасові захищені файлові системи (tmpfs) та Secret Mounts
@@ -615,110 +281,8 @@ int main() {
 `memfd_create()` створює анонімний файл у пам'яті ядра (`shmem`), який повертається процесу у вигляді звичайного файлового дескриптора. Головною особливістю `memfd` є підтримка механізму пломбування (File Sealing):
 
 :::tabs
-```c
-/* Створення запечатаного секретного буфера через memfd_create мовою C */
-#define _GNU_SOURCE
-#include <sys/mman.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <stdio.h>
-
-int create_sealed_secret_fd(const char *secret, size_t len) {
-    /* Створюємо анонімний дескриптор пам'яті з дозволом пломбування */
-    int fd = memfd_create("secure_secret_blob", MFD_CLOEXEC | MFD_ALLOW_SEALING);
-    if (fd < 0) {
-        perror("memfd_create");
-        return -1;
-    }
-
-    /* Виділяємо необхідний розмір та записуємо секрет */
-    if (ftruncate(fd, (off_t)len) < 0) {
-        perror("ftruncate");
-        close(fd);
-        return -1;
-    }
-
-    if (write(fd, secret, len) != (ssize_t)len) {
-        perror("write");
-        close(fd);
-        return -1;
-    }
-
-    /* Накладаємо незворотні пломби: заборона запису, стиснення, розширення та зміни пломб */
-    if (fcntl(fd, F_ADD_SEALS, F_SEAL_WRITE | F_SEAL_SHRINK | F_SEAL_GROW | F_SEAL_SEAL) < 0) {
-        perror("fcntl F_ADD_SEALS");
-        close(fd);
-        return -1;
-    }
-
-    /* Повертаємо покажчик читання на початок */
-    lseek(fd, 0, SEEK_SET);
-    return fd;
-}
-```
-```cpp
-// Створення запечатаного буфера memfd мовою C++ з використанням std::span
-#define _GNU_SOURCE
-#include <sys/mman.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string_view>
-#include <span>
-#include <optional>
-#include <iostream>
-
-class SealedSecretBuffer {
-    int fd_{-1};
-public:
-    explicit SealedSecretBuffer(int fd) noexcept : fd_(fd) {}
-    ~SealedSecretBuffer() {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-    }
-
-    SealedSecretBuffer(const SealedSecretBuffer&) = delete;
-    SealedSecretBuffer& operator=(const SealedSecretBuffer&) = delete;
-
-    SealedSecretBuffer(SealedSecretBuffer&& o) noexcept : fd_(o.fd_) { o.fd_ = -1; }
-    SealedSecretBuffer& operator=(SealedSecretBuffer&& o) noexcept {
-        if (this != &o) {
-            if (fd_ >= 0) ::close(fd_);
-            fd_ = o.fd_;
-            o.fd_ = -1;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int descriptor() const noexcept { return fd_; }
-
-    static std::optional<SealedSecretBuffer> create(std::string_view secret_data) noexcept {
-        int fd = ::memfd_create("cpp_sealed_secret", MFD_CLOEXEC | MFD_ALLOW_SEALING);
-        if (fd < 0) return std::nullopt;
-
-        if (::ftruncate(fd, static_cast<off_t>(secret_data.size())) < 0) {
-            ::close(fd);
-            return std::nullopt;
-        }
-
-        if (::write(fd, secret_data.data(), secret_data.size()) != static_cast<ssize_t>(secret_data.size())) {
-            ::close(fd);
-            return std::nullopt;
-        }
-
-        // Встановлюємо пломби
-        constexpr int seals = F_SEAL_WRITE | F_SEAL_SHRINK | F_SEAL_GROW | F_SEAL_SEAL;
-        if (::fcntl(fd, F_ADD_SEALS, seals) < 0) {
-            ::close(fd);
-            return std::nullopt;
-        }
-
-        ::lseek(fd, 0, SEEK_SET);
-        return SealedSecretBuffer(fd);
-    }
-};
-```
+:::code secrets-in-environment-d/c/model-3-anonimni-obiekty.c
+:::code secrets-in-environment-d/cpp/model-3-anonimni-obiekty.cpp
 :::
 
 Дескриптор `memfd` може бути переданий будь-якому іншому локальному процесу через сокет домену Unix (Unix Domain Socket) за допомогою керуючого повідомлення `SCM_RIGHTS`. Процес-отримувач отримує доступ до незмінного буфера в оперативній пам'яті без створення записів у файловій системі.
@@ -740,142 +304,8 @@ public:
 Робота з ключами через системні виклики ядра:
 
 :::tabs
-```c
-/* Додавання та читання секрету з Process Keyring мовою C */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <linux/keyctl.h>
-
-/* Обертки для системних викликів керування ключами */
-static inline key_serial_t sys_add_key(const char *type, const char *description,
-                                       const void *payload, size_t plen,
-                                       key_serial_t ringid) {
-    return (key_serial_t)syscall(__NR_add_key, type, description, payload, plen, ringid);
-}
-
-static inline long sys_keyctl(int operation, unsigned long arg2, unsigned long arg3,
-                              unsigned long arg4, unsigned long arg5) {
-    return syscall(__NR_keyctl, operation, arg2, arg3, arg4, arg5);
-}
-
-int main(void) {
-    const char secret_value[] = "MasterKey_Crypto_2026";
-    
-    /* Зберігаємо секрет у зв'язці процесу (Process Keyring) */
-    key_serial_t key = sys_add_key("user", "db_master_pass",
-                                   secret_value, sizeof(secret_value),
-                                   KEY_SPEC_PROCESS_KEYRING);
-    if (key < 0) {
-        perror("add_key");
-        return EXIT_FAILURE;
-    }
-    printf("Ключ збережено в ядрі з дескриптором ID: %d\n", key);
-
-    /* Встановлюємо таймаут життя ключа: 300 секунд (5 хвилин) */
-    if (sys_keyctl(KEYCTL_SET_TIMEOUT, key, 300, 0, 0) < 0) {
-        perror("keyctl SET_TIMEOUT");
-    }
-
-    /* Читання секрету з ядра */
-    char buffer[128];
-    long len = sys_keyctl(KEYCTL_READ, key, (unsigned long)buffer, sizeof(buffer), 0);
-    if (len > 0) {
-        printf("Зчитано секрет із ядра: %.*s\n", (int)len, buffer);
-        /* Безпечне занулення буфера користувача */
-        explicit_bzero(buffer, sizeof(buffer));
-    }
-
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-// Ідіоматична обгортка для Linux Kernel Keyring у C++
-#define _GNU_SOURCE
-#include <iostream>
-#include <string_view>
-#include <vector>
-#include <optional>
-#include <system_error>
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <linux/keyctl.h>
-
-class KernelKeyringSecret {
-    int32_t key_id_{-1};
-public:
-    explicit KernelKeyringSecret(int32_t key_id) noexcept : key_id_(key_id) {}
-    ~KernelKeyringSecret() {
-        if (key_id_ > 0) {
-            // Відкликаємо ключ при знищенні об'єкта
-            ::syscall(__NR_keyctl, KEYCTL_REVOKE, key_id_, 0, 0, 0);
-        }
-    }
-
-    KernelKeyringSecret(const KernelKeyringSecret&) = delete;
-    KernelKeyringSecret& operator=(const KernelKeyringSecret&) = delete;
-
-    KernelKeyringSecret(KernelKeyringSecret&& o) noexcept : key_id_(o.key_id_) {
-        o.key_id_ = -1;
-    }
-    KernelKeyringSecret& operator=(KernelKeyringSecret&& o) noexcept {
-        if (this != &o) {
-            if (key_id_ > 0) ::syscall(__NR_keyctl, KEYCTL_REVOKE, key_id_, 0, 0, 0);
-            key_id_ = o.key_id_;
-            o.key_id_ = -1;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int32_t id() const noexcept { return key_id_; }
-
-    static std::optional<KernelKeyringSecret> store(std::string_view name, std::string_view payload, unsigned int timeout_sec = 300) noexcept {
-        auto res = ::syscall(__NR_add_key, "user", name.data(), payload.data(), payload.size(), KEY_SPEC_PROCESS_KEYRING);
-        if (res < 0) return std::nullopt;
-
-        const auto key_id = static_cast<int32_t>(res);
-        if (timeout_sec > 0) {
-            ::syscall(__NR_keyctl, KEYCTL_SET_TIMEOUT, key_id, timeout_sec, 0, 0);
-        }
-        return KernelKeyringSecret(key_id);
-    }
-
-    [[nodiscard]] std::optional<std::vector<char>> read() const noexcept {
-        if (key_id_ <= 0) return std::nullopt;
-
-        auto len = ::syscall(__NR_keyctl, KEYCTL_READ, key_id_, nullptr, 0, 0);
-        if (len <= 0) return std::nullopt;
-
-        std::vector<char> buffer(static_cast<std::size_t>(len));
-        auto read_len = ::syscall(__NR_keyctl, KEYCTL_READ, key_id_, buffer.data(), buffer.size(), 0);
-        if (read_len != len) return std::nullopt;
-
-        return buffer;
-    }
-};
-
-int main() {
-    auto secret = KernelKeyringSecret::store("jwt_signing_key", "SuperSecretPayload2026", 600);
-    if (!secret) {
-        std::cerr << "Не вдалося зберегти ключ у Kernel Keyring\n";
-        return EXIT_FAILURE;
-    }
-
-    std::cout << "Ключ успішно зареєстровано в ядрі, Key ID: " << secret->id() << '\n';
-
-    auto retrieved = secret->read();
-    if (retrieved) {
-        std::cout << "Успішно зчитано ключ довжиною " << retrieved->size() << " байтів\n";
-        // Занулення пам'яті після використання
-        ::explicit_bzero(retrieved->data(), retrieved->size());
-    }
-
-    return EXIT_SUCCESS;
-}
-```
+:::code secrets-in-environment-d/c/model-4-zviazky-kliuchiv.c
+:::code secrets-in-environment-d/cpp/model-4-zviazky-kliuchiv.cpp
 :::
 
 ## 6. Безпечне поводження з секретами в пам'яті процесу
@@ -891,130 +321,8 @@ int main() {
 Нижче наведено повний зразок захищеного буфера пам'яті для зберігання секретів у просторі користувача:
 
 :::tabs
-```c
-/* Захищений буфер для роботи з секретами в оперативній пам'яті мовою C */
-#define _GNU_SOURCE
-#include <sys/mman.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
-typedef struct {
-    void *data;
-    size_t size;
-} SecureBuffer;
-
-SecureBuffer* secure_buffer_alloc(size_t size) {
-    long page_size = sysconf(_SC_PAGESIZE);
-    size_t aligned_size = (size + (size_t)page_size - 1) & ~((size_t)page_size - 1);
-
-    void *ptr = mmap(NULL, aligned_size, PROT_READ | PROT_WRITE,
-                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (ptr == MAP_FAILED) {
-        perror("mmap");
-        return NULL;
-    }
-
-    /* 1. Блокуємо сторінку від вивантаження у swap */
-    if (mlock(ptr, aligned_size) < 0) {
-        perror("mlock");
-    }
-
-    /* 2. Забороняємо включення сторінки у coredump */
-    if (madvise(ptr, aligned_size, MADV_DONTDUMP) < 0) {
-        perror("madvise MADV_DONTDUMP");
-    }
-
-    SecureBuffer *buf = malloc(sizeof(SecureBuffer));
-    if (!buf) {
-        munlock(ptr, aligned_size);
-        munmap(ptr, aligned_size);
-        return NULL;
-    }
-    buf->data = ptr;
-    buf->size = aligned_size;
-    return buf;
-}
-
-void secure_buffer_free(SecureBuffer *buf) {
-    if (!buf) return;
-    if (buf->data) {
-        /* 3. Гарантоване занулення перед звільненням */
-        explicit_bzero(buf->data, buf->size);
-        munlock(buf->data, buf->size);
-        munmap(buf->data, buf->size);
-    }
-    free(buf);
-}
-```
-```cpp
-// Захищений RAII-буфер пам'яті для секретів мовою C++
-#define _GNU_SOURCE
-#include <sys/mman.h>
-#include <unistd.h>
-#include <cstring>
-#include <span>
-#include <memory>
-#include <iostream>
-#include <stdexcept>
-
-class SecureMemory {
-    void* ptr_{nullptr};
-    std::size_t size_{0};
-
-    static std::size_t align_to_page(std::size_t req_size) noexcept {
-        const auto page_sz = static_cast<std::size_t>(::sysconf(_SC_PAGESIZE));
-        return (req_size + page_sz - 1) & ~(page_sz - 1);
-    }
-public:
-    explicit SecureMemory(std::size_t size) : size_(align_to_page(size)) {
-        ptr_ = ::mmap(nullptr, size_, PROT_READ | PROT_WRITE,
-                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-        if (ptr_ == MAP_FAILED) {
-            throw std::runtime_error("mmap failed");
-        }
-
-        // 1. Блокування сторінки від вивантаження у swap
-        ::mlock(ptr_, size_);
-
-        // 2. Виключення пам'яті з coredump дампів
-        ::madvise(ptr_, size_, MADV_DONTDUMP);
-    }
-
-    ~SecureMemory() {
-        if (ptr_ && ptr_ != MAP_FAILED) {
-            // 3. Гарантоване занулення байтів у пам'яті
-            ::explicit_bzero(ptr_, size_);
-            ::munlock(ptr_, size_);
-            ::munmap(ptr_, size_);
-        }
-    }
-
-    SecureMemory(const SecureMemory&) = delete;
-    SecureMemory& operator=(const SecureMemory&) = delete;
-
-    SecureMemory(SecureMemory&& other) noexcept : ptr_(other.ptr_), size_(other.size_) {
-        other.ptr_ = nullptr;
-        other.size_ = 0;
-    }
-
-    SecureMemory& operator=(SecureMemory&& other) noexcept {
-        if (this != &other) {
-            this->~SecureMemory();
-            ptr_ = other.ptr_;
-            size_ = other.size_;
-            other.ptr_ = nullptr;
-            other.size_ = 0;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] std::span<std::byte> bytes() noexcept {
-        return {static_cast<std::byte*>(ptr_), size_};
-    }
-};
-```
+:::code secrets-in-environment-d/c/6-bezpechne-povodzhennia-z.c
+:::code secrets-in-environment-d/cpp/6-bezpechne-povodzhennia-z.cpp
 :::
 
 ## 7. Порівняльна характеристика моделей зберігання секретів

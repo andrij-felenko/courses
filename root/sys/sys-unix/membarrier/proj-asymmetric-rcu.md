@@ -18,39 +18,7 @@
 
 ## Гарячий бік
 
-```c
-#define NEST_MASK  0x7fUL              /* сім молодших бітів — глибина */
-#define GEN_STEP   0x80UL              /* крок покоління — перший біт над нею */
-
-struct reader {
-    _Alignas(64) unsigned long ctr;    /* покоління | глибина */
-    struct reader *next;
-};
-
-static unsigned long gp;               /* покоління; піднімає лише письменник */
-static struct reader *registry;
-static __thread struct reader *self;
-
-static inline void rcu_read_lock(void)
-{
-    unsigned long v = self->ctr;                       /* слово своє — гонок нема */
-    if ((v & NEST_MASK) == 0)
-        v = __atomic_load_n(&gp, __ATOMIC_RELAXED) | 1;  /* зовнішній вхід */
-    else
-        v = v + 1;                                     /* вкладений — лише глибина */
-    __atomic_store_n(&self->ctr, v, __ATOMIC_RELAXED);
-    __atomic_signal_fence(__ATOMIC_SEQ_CST);           /* бар'єр компілятора */
-}
-
-static inline void rcu_read_unlock(void)
-{
-    unsigned long v = __atomic_load_n(&self->ctr, __ATOMIC_RELAXED);
-    __atomic_signal_fence(__ATOMIC_SEQ_CST);
-    __atomic_store_n(&self->ctr, v - 1, __ATOMIC_RELAXED);
-}
-
-#define rcu_dereference(p) __atomic_load_n(&(p), __ATOMIC_RELAXED)
-```
+:::code proj-asymmetric-rcu/c/hariachyi-bik.c
 
 У згенерованому машинному коді від `__atomic_signal_fence` не лишається жодної інструкції: це бар'єр між потоком і його ж обробником сигналу, тобто рівно заборона оптимізаторові переставляти доступи через цю точку. Дармовий — і водночас незамінний, бо це найтонше місце всієї схеми. Компілятор бачить три незалежні об'єкти (`gp`, `self->ctr`, `table`) і має цілковите право прочитати `table` до запису в `ctr`, а в циклі — ще й підняти читання `table` у регістр над усім циклом. Тоді читач мільйон ітерацій поспіль працюватиме зі вказівником, який давно звільнено, і жоден бар'єр у чужому потоці цього не виправить: потрібної інструкції просто немає в програмі. Апаратне переставляння письменник вибиває щоразу заново, а переставляння компілятора вкарбоване в код назавжди.
 
@@ -58,36 +26,7 @@ static inline void rcu_read_unlock(void)
 
 ## Рідкісний бік
 
-```c
-static void barrier_all(void);         /* membarrier або запасний шлях */
-
-static void synchronize_rcu(void)      /* викликається під замком письменників */
-{
-    struct reader *r;
-    unsigned long now;
-
-    barrier_all();                     /* (1) публікацію бачать усі читачі */
-    now = __atomic_add_fetch(&gp, GEN_STEP, __ATOMIC_RELAXED);
-    barrier_all();                     /* (2) нове покоління видиме; чужі слова читабельні */
-
-    for (r = registry; r; r = r->next)
-        for (;;) {
-            unsigned long v = __atomic_load_n(&r->ctr, __ATOMIC_RELAXED);
-            if ((v & NEST_MASK) == 0)          /* не в секції */
-                break;
-            if ((v & ~NEST_MASK) == (now & ~NEST_MASK))
-                break;                         /* зайшов уже після (2) */
-            usleep(20);
-        }
-}
-
-void update_table(struct route *fresh)
-{
-    struct route *old = __atomic_exchange_n(&table, fresh, __ATOMIC_RELEASE);
-    synchronize_rcu();
-    free_table(old);
-}
-```
+:::code proj-asymmetric-rcu/c/ridkisnyi-bik.c
 
 Викликів `membarrier` тут два, і кожен закриває свою діру. Другий очевидний: без нього письменник читав би чужі слова стану, які ще сидять у буферах записів своїх ядер, — і міг би не побачити читача, що вже зайшов у секцію.
 
@@ -99,43 +38,7 @@ void update_table(struct route *fresh)
 
 ## Реєстрація і старе ядро
 
-```c
-static int mode;                        /* 1 — експедований, 2 — глобальний, 0 — трюк */
-static char *helper;
-
-static int membarrier(int cmd, unsigned int flags, int cpu)
-{ return syscall(__NR_membarrier, cmd, flags, cpu); }
-
-int rcu_init(void)
-{
-    int mask = membarrier(MEMBARRIER_CMD_QUERY, 0, 0);
-
-    if (mask > 0 && (mask & MEMBARRIER_CMD_PRIVATE_EXPEDITED) &&
-        membarrier(MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED, 0, 0) == 0)
-        return mode = 1;                /* одиниці-десятки мікросекунд */
-    if (mask > 0 && (mask & MEMBARRIER_CMD_GLOBAL))
-        return mode = 2;                /* десятки мілісекунд, зате без реєстрації */
-
-    helper = mmap(NULL, 4096, PROT_READ | PROT_WRITE,
-                  MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (helper == MAP_FAILED) return -1;
-    *helper = 0;
-    mlock(helper, 4096);                /* сторінка мусить лишатися присутньою */
-    return mode = 0;
-}
-
-static void barrier_all(void)
-{
-    switch (mode) {
-    case 1: membarrier(MEMBARRIER_CMD_PRIVATE_EXPEDITED, 0, 0); break;
-    case 2: membarrier(MEMBARRIER_CMD_GLOBAL, 0, 0);            break;
-    default:
-        mprotect(helper, 4096, PROT_READ | PROT_WRITE);
-        *(volatile char *)helper = 0;
-        mprotect(helper, 4096, PROT_NONE);   /* звуження прав тягне розсилку IPI */
-    }
-}
-```
+:::code proj-asymmetric-rcu/c/reiestratsiia-i-stare.c
 
 Опитування через `MEMBARRIER_CMD_QUERY` повертає бітову маску підтриманих команд; на ядрі, старішому за 4.3, самого виклику немає, і повернеться `-1` з `ENOSYS`. Тоді лишається трюк, яким довго жило середовище виконання .NET: звуження прав на присутню сторінку змушує ядро [розіслати скидання TLB](root:sys-unix/tlb-shootdown), а це переривання на кожне ядро, що виконує наш адресний простір, — і кожне таке переривання дає бар'єр. Сторінку тримають замкненою в пам'яті саме тому, що вивантажена між двома викликами `mprotect` сторінка переривань не породить. Це побічний ефект чужого механізму, а не обіцянка: розробники .NET самі відзначали, що припущення взяте з поведінки x86, і сумнівалися в ньому для ARM64. `membarrier` існує зокрема для того, щоб такі трюки стали непотрібні.
 
@@ -155,24 +58,6 @@ static void barrier_all(void)
 
 Перевірити варто рівно те, заради чого все затівалося, — ціну входу в секцію.
 
-```c
-static double loop(int fenced)
-{
-    struct timespec a, b;
-    const long N = 50L * 1000 * 1000;
-    volatile unsigned long sink = 0;
-
-    clock_gettime(CLOCK_MONOTONIC, &a);
-    for (long i = 0; i < N; i++) {
-        rcu_read_lock();
-        if (fenced)
-            __atomic_thread_fence(__ATOMIC_SEQ_CST);   /* те, що ми прибрали */
-        sink += rcu_dereference(table) != NULL;
-        rcu_read_unlock();
-    }
-    clock_gettime(CLOCK_MONOTONIC, &b);
-    return ((b.tv_sec - a.tv_sec) * 1e9 + (b.tv_nsec - a.tv_nsec)) / (double)N;
-}
-```
+:::code proj-asymmetric-rcu/c/mikrobenchmark.c
 
 Обидва прогони роблять в одному процесі, по черзі й кілька разів, а потік прив'язують до ядра — інакше половину різниці з'їсть [прив'язка до процесора](root:sys-unix/cpu-affinity) з міграціями. Порядок величин, який має вийти на будь-якому сучасному x86: без бар'єра одиниці наносекунд на ітерацію, з бар'єром — вдесятеро більше. Цифру на своїй машині варто отримати самому: вона й буде тим множником, на який множиться десять мільйонів читань за секунду.

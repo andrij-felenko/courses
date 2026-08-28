@@ -28,26 +28,7 @@ int     removexattr(const char *path, const char *name);
 
 Родина `*at` прийшла в ядрі 6.13 і, на відміну від решти [викликів із дескриптором каталогу](root:sys-unix/at-family-syscalls), з'явилася не заради гонок у розборі шляху. Мотив — права: вона дає працювати з атрибутами через дескриптор, відкритий **без** права читання, і не потребує змонтованого `/proc`. Саме це потрібне утиліті `setfiles(8)`, коли та розставляє мітки [SELinux](root:sys-unix/mac-selinux-apparmor) по щойно розпакованому дереву.
 
-```c
-#include <linux/xattr.h>     /* struct xattr_args */
-#include <sys/syscall.h>
-
-struct xattr_args {
-    __aligned_u64 value;     /* вказівник на значення */
-    __u32 size;              /* довжина значення */
-    __u32 flags;             /* XATTR_CREATE / XATTR_REPLACE */
-};
-
-/* обгорток у glibc ще немає — кличуть через syscall() */
-long syscall(SYS_setxattrat,    int dfd, const char *path, unsigned int at_flags,
-                                const char *name, struct xattr_args *args, size_t size);
-long syscall(SYS_getxattrat,    int dfd, const char *path, unsigned int at_flags,
-                                const char *name, struct xattr_args *args, size_t size);
-long syscall(SYS_listxattrat,   int dfd, const char *path, unsigned int at_flags,
-                                char *list, size_t size);
-long syscall(SYS_removexattrat, int dfd, const char *path, unsigned int at_flags,
-                                const char *name);
-```
+:::code api-xattr-and-acl/c/xattr.h
 
 Значення, його довжину й команду винесено в окрему структуру з двох причин відразу: шість аргументів системного виклику — стеля, а біти `AT_*` і `XATTR_*` не можна змішувати в одному слові. З `at_flags` ядро приймає рівно два біти — `AT_SYMLINK_NOFOLLOW` і `AT_EMPTY_PATH`; будь-який інший дає `EINVAL`, а не мовчазне ігнорування.
 
@@ -113,32 +94,7 @@ system.posix_acl_default    шаблон для майбутніх нащадк�
 
 Читання розміру наперед — окремий контракт: із `size == 0` виклики `getxattr` і `listxattr` нічого не пишуть у буфер, а повертають потрібну довжину. Проміжок між заміром і читанням не захищений нічим, тож повтор на `ERANGE` обов'язковий.
 
-```c
-/* значення атрибута в щойно виділеній пам'яті; NULL і errno при відмові */
-static void *xattr_dup(const char *path, const char *name, ssize_t *out_len)
-{
-    for (int tries = 0; tries < 8; tries++) {
-        ssize_t need = getxattr(path, name, NULL, 0);   /* лише розмір */
-        if (need < 0)
-            return NULL;                                /* ENODATA, ENOTSUP … */
-
-        char *buf = malloc((size_t)need ? (size_t)need : 1);
-        if (!buf)
-            return NULL;
-
-        ssize_t got = getxattr(path, name, buf, (size_t)need);
-        if (got >= 0) {
-            *out_len = got;
-            return buf;
-        }
-        free(buf);
-        if (errno != ERANGE)                            /* не гонка — здаємося */
-            return NULL;
-    }                                                   /* хтось активно пише — пробуємо ще */
-    errno = ERANGE;
-    return NULL;
-}
-```
+:::code api-xattr-and-acl/c/kody-pomylok.c
 
 Перелік імен від `listxattr` приходить одним шматком: рядки з нульовим байтом після кожного, без роздільників і без лічильника. Імена, до яких процес доступу не має, у переліку просто відсутні.
 
@@ -162,28 +118,7 @@ static void *xattr_dup(const char *path, const char *name, ssize_t *out_len)
 
 `acl_valid` вимагає рівно по одному записові `user::`, `group::` й `other::`, неповторних ідентифікаторів серед іменованих і — обов'язково — маски, щойно з'явився хоч один іменований запис. Звідси єдиний правильний порядок дій: спершу маска, потім перевірка.
 
-```c
-#include <sys/types.h>
-#include <sys/acl.h>          /* збирати з -lacl */
-
-static int set_acl_text(const char *path, const char *spec)
-{
-    acl_t acl = acl_from_text(spec);
-    if (!acl)                       /* EINVAL — рядок не розібрався */
-        return -1;
-
-    int rc = -1;
-    if (acl_calc_mask(&acl) == 0    /* без цього наступний рядок відмовить */
-        && acl_valid(acl) == 0      /* EINVAL — бракує базових записів */
-        && acl_set_file(path, ACL_TYPE_ACCESS, acl) == 0)
-        rc = 0;
-
-    acl_free(acl);                  /* errno зберігається */
-    return rc;
-}
-
-/* set_acl_text(path, "u::rw-,u:hanna:rw-,g::r--,o::---"); */
-```
+:::code api-xattr-and-acl/c/bibliotechnyi-shar.c
 
 ## Командний рівень
 

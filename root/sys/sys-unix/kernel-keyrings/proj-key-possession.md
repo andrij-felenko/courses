@@ -17,95 +17,7 @@ cc -Wall -O2 keydemo.c -o keydemo -lkeyutils
 
 ## Програма
 
-```c
-/* keydemo.c — cc -Wall -O2 keydemo.c -o keydemo -lkeyutils */
-#include <keyutils.h>
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-static void die(const char *what) { perror(what); exit(1); }
-
-/* 1. Кладемо секрет своїми руками. */
-static key_serial_t step_add(void)
-{
-    static const char secret[] = "s3cr3t-token";
-
-    key_serial_t k = add_key("user", "demo:token",
-                             secret, sizeof secret - 1,
-                             KEY_SPEC_SESSION_KEYRING);
-    if (k == -1) die("add_key");
-
-    char *d = NULL;
-    if (keyctl_describe_alloc(k, &d) < 0) die("describe");
-    printf("[1] створено %d  %s\n", k, d);
-    free(d);
-
-    void *buf = NULL;
-    long n = keyctl_read_alloc(k, &buf);
-    if (n < 0) die("read");
-    printf("[1] прочитано %ld Б: %.*s\n", n, (int)n, (char *)buf);
-    free(buf);
-    return k;
-}
-
-/* 2. Ключа немає — хай ядро сходить по нього назовні. */
-static void step_request(void)
-{
-    key_serial_t k = request_key("user", "demo:remote",
-                                 "who=demo", KEY_SPEC_SESSION_KEYRING);
-    if (k == -1) die("request_key");
-
-    void *buf = NULL;
-    long n = keyctl_read_alloc(k, &buf);
-    if (n < 0) die("read");
-    printf("[2] помічник дав %d, %ld Б: %.*s\n", k, n, (int)n, (char *)buf);
-    free(buf);
-
-    /* удруге — уже з кільця; callout_info == NULL забороняє виклик назовні */
-    printf("[2] удруге: %d\n",
-           request_key("user", "demo:remote", NULL, KEY_SPEC_SESSION_KEYRING));
-
-    /* опис, на який помічник відповідає відмовою */
-    if (request_key("user", "demo:forbidden", "who=demo",
-                    KEY_SPEC_SESSION_KEYRING) == -1)
-        printf("[2] demo:forbidden -> %s\n", strerror(errno));
-}
-
-/* 3. Той самий UID, той самий номер — інші права. */
-static void step_lose(key_serial_t k)
-{
-    /* без цього посилання ключ помре разом зі старим кільцем сеансу */
-    if (keyctl_link(k, KEY_SPEC_USER_KEYRING) < 0) die("link");
-
-    key_serial_t ses = keyctl_join_session_keyring(NULL);
-    if (ses == -1) die("join_session_keyring");
-    printf("[3] новий сеанс %d, uid лишився %d\n", ses, (int)getuid());
-
-    char *d = NULL;
-    if (keyctl_describe_alloc(k, &d) < 0)
-        printf("[3] describe -> %s\n", strerror(errno));
-    else { printf("[3] describe -> %s\n", d); free(d); }
-
-    void *buf = NULL;
-    if (keyctl_read_alloc(k, &buf) < 0)
-        printf("[3] read     -> %s\n", strerror(errno));
-    else free(buf);
-
-    if (keyctl_search(KEY_SPEC_SESSION_KEYRING, "user", "demo:token", 0) == -1)
-        printf("[3] search   -> %s\n", strerror(errno));
-}
-
-int main(void)
-{
-    key_serial_t k = step_add();
-    step_request();
-    step_lose(k);
-    return 0;
-}
-```
+:::code proj-key-possession/c/keydemo.c
 
 Два місця тут неочевидні. Перше — `keyctl_link` на початку третього кроку: він не для краси. Ключ живе, доки на нього веде хоч одне посилання, а ми зараз покинемо єдине кільце, яке його тримає; без посилання на кільце користувача ключ став би нічийним і третій крок показав би нудне «немає такого» замість цікавої відмови. Друге — `callout_info == NULL` у повторному `request_key`: із таким аргументом виклик назовні заборонено, тож якщо ключ знайдено, то знайдено на кільці, а не добуто вдруге.
 
@@ -120,41 +32,7 @@ create user demo:* * /usr/local/sbin/demo-handler %k %d %c %S
 
 Колонки: операція · тип ключа · шаблон опису · шаблон даних виклику · програма й аргументи. Підстановки `%k`, `%d`, `%c`, `%S` — номер незаповненого ключа, його опис, дані виклику від того, хто просив, і кільце сеансу замовника.
 
-```c
-/* demo-handler.c — cc -Wall -O2 demo-handler.c -o demo-handler -lkeyutils
-   кладеться в /usr/local/sbin; запускає його request-key від імені root */
-#include <keyutils.h>
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main(int argc, char *argv[])
-{
-    if (argc != 5) {
-        fprintf(stderr, "usage: %s <key> <desc> <callout> <ring>\n", argv[0]);
-        return 2;
-    }
-    key_serial_t key  = (key_serial_t)strtol(argv[1], NULL, 10);
-    const char  *desc = argv[2];
-    key_serial_t ring = (key_serial_t)strtol(argv[4], NULL, 10);
-
-    /* повноваження рівно на цей один ключ; без них ядро відповість EPERM */
-    if (keyctl_assume_authority(key) < 0) { perror("assume_authority"); return 1; }
-
-    if (strstr(desc, "forbidden")) {           /* добувати нема чого */
-        keyctl_reject(key, 60, ENOKEY, ring);  /* від'ємне наповнення на 60 с */
-        return 0;
-    }
-
-    char payload[128];
-    int n = snprintf(payload, sizeof payload, "material:%s", desc);
-    if (n < 0 || n >= (int)sizeof payload) return 1;
-
-    if (keyctl_instantiate(key, payload, n, ring) < 0) { perror("instantiate"); return 1; }
-    return 0;
-}
-```
+:::code proj-key-possession/c/demo-handler.c
 
 У справжньому помічнику на місці `snprintf` була б розмова з мережею, читання конфігурації, криптографія — усе те, чого в ядрі бути не повинно. Форма ж лишається та сама: спершу взяти повноваження, потім або наповнити, або чесно відмовити.
 

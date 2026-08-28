@@ -19,18 +19,7 @@
 
 ## System V
 
-```c
-#include <sys/types.h>
-#include <sys/ipc.h>
-#include <sys/msg.h>
-
-int     msgget(key_t key, int msgflg);
-int     msgsnd(int msqid, const void *msgp, size_t msgsz, int msgflg);
-ssize_t msgrcv(int msqid, void *msgp, size_t msgsz, long msgtyp, int msgflg);
-int     msgctl(int msqid, int op, struct msqid_ds *buf);
-
-key_t   ftok(const char *path, int proj_id);
-```
+:::code api-message-queues/c/types.h
 
 ### Ключ і створення
 
@@ -94,29 +83,7 @@ struct msgbuf {
 
 ### Керування
 
-```c
-struct msqid_ds {
-    struct ipc_perm msg_perm;   /* власник і права */
-    time_t          msg_stime;  /* час останнього msgsnd */
-    time_t          msg_rtime;  /* час останнього msgrcv */
-    time_t          msg_ctime;  /* створення або останньої зміни */
-    unsigned long   msg_cbytes; /* байтів у черзі зараз */
-    msgqnum_t       msg_qnum;   /* повідомлень у черзі зараз */
-    msglen_t        msg_qbytes; /* стеля черги в байтах */
-    pid_t           msg_lspid;  /* PID останнього msgsnd */
-    pid_t           msg_lrpid;  /* PID останнього msgrcv */
-};
-
-struct ipc_perm {
-    key_t          __key;  /* ключ, переданий у msgget */
-    uid_t          uid;    /* власник (змінюваний) */
-    gid_t          gid;    /* група власника (змінювана) */
-    uid_t          cuid;   /* творець */
-    gid_t          cgid;   /* група творця */
-    unsigned short mode;   /* права (змінювані) */
-    unsigned short __seq;  /* лічильник поколінь ідентифікатора */
-};
-```
+:::code api-message-queues/c/keruvannia.c
 
 | `op` | Дія |
 |---|---|
@@ -143,25 +110,7 @@ ipcrm -Q 0x0102abcd    # знищити за ключем
 
 ## POSIX
 
-```c
-#include <fcntl.h>      /* сталі O_* */
-#include <sys/stat.h>   /* сталі режиму */
-#include <mqueue.h>
-
-mqd_t   mq_open(const char *name, int oflag);
-mqd_t   mq_open(const char *name, int oflag, mode_t mode, struct mq_attr *attr);
-int     mq_send(mqd_t mqdes, const char *msg_ptr, size_t msg_len, unsigned msg_prio);
-ssize_t mq_receive(mqd_t mqdes, char *msg_ptr, size_t msg_len, unsigned *msg_prio);
-int     mq_timedsend(mqd_t mqdes, const char *msg_ptr, size_t msg_len,
-                     unsigned msg_prio, const struct timespec *abs_timeout);
-ssize_t mq_timedreceive(mqd_t mqdes, char *msg_ptr, size_t msg_len,
-                        unsigned *msg_prio, const struct timespec *abs_timeout);
-int     mq_getattr(mqd_t mqdes, struct mq_attr *attr);
-int     mq_setattr(mqd_t mqdes, const struct mq_attr *newattr, struct mq_attr *oldattr);
-int     mq_notify(mqd_t mqdes, const struct sigevent *sevp);
-int     mq_close(mqd_t mqdes);
-int     mq_unlink(const char *name);
-```
+:::code api-message-queues/c/fcntl.h
 
 ### Ім'я й відкриття
 

@@ -91,24 +91,7 @@
 
 У системних заголовках ядра `include/linux/nvme.h` та `drivers/nvme/host/nvme.h` структури журналу ANA визначені відповідно до специфікації:
 
-```c
-/* Дескриптор окремої групи ANA */
-struct nvme_ana_group_desc {
-    __le32  grpid;      /* Ідентифікатор групи ANAGRPID (1..N) */
-    __le32  nnsids;     /* Кількість ідентифікаторів NSID у масиві */
-    __le64  chgcnt;     /* Локальний лічильник змін групи */
-    __u8    state;      /* Стан: 0x01 (AO), 0x02 (ANO), 0x03 (AI), 0x04 (PL), 0x0F (Change) */
-    __u8    rsvd17[15]; /* Зарезервовано */
-    __le32  nsids[];    /* Гнучкий масив ідентифікаторів NSID */
-};
-
-/* Повний заголовок журналу ANA Log Page */
-struct nvme_ana_log {
-    __le64  chgcnt;     /* Глобальний лічильник змін підсистеми */
-    __le16  ngrps;      /* Загальна кількість дескрипторів груп */
-    __u8    rsvd10[6];  /* Зарезервовано */
-};
-```
+:::code api-ana-log-and-sysfs/c/5-struktury-iadra-linux-c.c
 
 ### Алгоритм ітерування дескрипторів змінної довжини
 
@@ -179,20 +162,7 @@ nvme_ana_next_desc(struct nvme_ana_group_desc *desc)
 
 У середовищі ядра Linux на боці програмного дискового масиву цільовий драйвер `nvmet` дозволяє вручну створювати групи ANA та керувати їхніми станами через віртуальну файлову систему `configfs`:
 
-```bash
-# 1. Створення групи ANA з ідентифікатором 1 для мережевого порту 1
-mkdir -p /sys/kernel/config/nvmet/ports/1/ana_groups/1
-
-# 2. Призначення стану Optimized для цієї групи на порту 1
-echo "optimized" > /sys/kernel/config/nvmet/ports/1/ana_groups/1/state
-
-# 3. Створення тієї самої групи ANA 1 на резервному мережевому порту 2 зі станом Non-Optimized
-mkdir -p /sys/kernel/config/nvmet/ports/2/ana_groups/1
-echo "non-optimized" > /sys/kernel/config/nvmet/ports/2/ana_groups/1/state
-
-# 4. Прив'язка простору назв 1 цільової підсистеми до створеної групи ANA 1
-echo 1 > /sys/kernel/config/nvmet/subsystems/nvme-subsys-test/namespaces/1/ana_grpid
-```
+:::code api-ana-log-and-sysfs/sh/main.sh
 
 ---
 
@@ -202,28 +172,7 @@ echo 1 > /sys/kernel/config/nvmet/subsystems/nvme-subsys-test/namespaces/1/ana_g
 
 Структура команди керування `struct nvme_passthru_cmd` (або `struct nvme_admin_cmd`) визначена у системному заголовку `linux/nvme_ioctl.h`:
 
-```c
-struct nvme_passthru_cmd {
-    __u8    opcode;       /* Код операції: 0x02 (Get Log Page) */
-    __u8    flags;        /* Прапорці команди */
-    __u16   rsvd1;        /* Зарезервовано */
-    __u32   nsid;         /* Ідентифікатор простору назв (0xFFFFFFFF для загального журналу) */
-    __u32   cdw2;         /* Командне слово 2 */
-    __u32   cdw3;         /* Командне слово 3 */
-    __u64   metadata;     /* Вказівник на буфер метаданих (якщо підтримується) */
-    __u64   addr;         /* Вказівник користувача на буфер даних (uintptr_t) */
-    __u32   metadata_len; /* Довжина буфера метаданих */
-    __u32   data_len;     /* Довжина буфера даних у байтах */
-    __u32   cdw10;        /* Командне слово 10: молодші 8 бітів — LID (0x0C), біти 31:16 — NUMDL */
-    __u32   cdw11;        /* Командне слово 11: біти 15:0 — NUMDU (старша частина довжини) */
-    __u32   cdw12;        /* Командне слово 12: зміщення в журналі (Log Page Offset Low) */
-    __u32   cdw13;        /* Командне слово 13: зміщення в журналі (Log Page Offset High) */
-    __u32   cdw14;        /* Командне слово 14 */
-    __u32   cdw15;        /* Командне слово 15 */
-    __u32   timeout_ms;   /* Тайм-аут виконання команди у мілісекундах */
-    __u32   result;       /* Результат виконання (Dword 0 відповіді контролера) */
-};
-```
+:::code api-ana-log-and-sysfs/c/8-interfeis-systemnykh.c
 
 ### Обчислення розміру та зчитування фрагментованих журналів
 

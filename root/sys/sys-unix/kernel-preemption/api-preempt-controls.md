@@ -112,19 +112,7 @@ $ uname -v
 
 Окремого слова для лінивої моделі не додають узагалі: вона обирає ту саму збірку `PREEMPT_BUILD`, тож у рядку версії стоїть просто `PREEMPT`. Отже, `uname` відповідає лише на питання «що вкомпільовано». Далі беруть файл або конфігурацію:
 
-```bash
-# 1. чинна модель — якщо ядро динамічне
-cat /sys/kernel/debug/sched/preempt
-
-# 2. з чим складено — з ядра, якщо ввімкнено CONFIG_IKCONFIG_PROC
-zcat /proc/config.gz | grep -E '^CONFIG_(PREEMPT|DEBUG_PREEMPT|DEBUG_ATOMIC_SLEEP)'
-
-# 3. те саме з файлу дистрибутива, якщо /proc/config.gz немає
-grep -E '^CONFIG_PREEMPT' /boot/config-$(uname -r)
-
-# 4. чи потокові обробники переривань узагалі є
-ps -eo pid,cls,rtprio,comm | grep -c 'irq/'
-```
+:::code api-preempt-controls/sh/main.sh
 
 Порядок тут не випадковий: перший рядок дає відповідь про **зараз**, другий і третій — про **можливості**, четвертий — про те, що з цих можливостей насправді ввімкнено.
 
@@ -212,42 +200,7 @@ PREEMPT_NEED_RESCHED:  0x80000000   /* прапорець «пора», у пе�
 
 Мінімальний правильний зразок обох ідей:
 
-```c
-#include <linux/list.h>
-#include <linux/local_lock.h>
-#include <linux/slab.h>
-#include <linux/spinlock.h>
-
-/* 1. Виділення пам'яті — ЗА межами замка, а не під ним. */
-struct entry { struct list_head node; int value; };
-
-static DEFINE_SPINLOCK(list_lock);
-static LIST_HEAD(entries);
-
-int add_entry(int value)
-{
-    struct entry *e = kmalloc(sizeof(*e), GFP_KERNEL);   /* має право заснути */
-    if (!e)
-        return -ENOMEM;
-    e->value = value;
-
-    spin_lock(&list_lock);           /* звичайне ядро: тут витіснення вимкнене */
-    list_add(&e->node, &entries);    /* під замком — тільки коротке зв'язування */
-    spin_unlock(&list_lock);
-    return 0;
-}
-
-/* 2. Дані свого ядра процесора: замок замість голої заборони витіснення. */
-static DEFINE_PER_CPU(local_lock_t, cnt_lock) = INIT_LOCAL_LOCK(cnt_lock);
-static DEFINE_PER_CPU(unsigned long, hits);
-
-void count_hit(void)
-{
-    local_lock(&cnt_lock);           /* звичайне ядро — preempt_disable()    */
-    this_cpu_inc(hits);              /* PREEMPT_RT — спін-замок цього ядра   */
-    local_unlock(&cnt_lock);
-}
-```
+:::code api-preempt-controls/c/main.c
 
 Перевіряють такий код не читанням, а складанням із `CONFIG_DEBUG_ATOMIC_SLEEP=y` і `CONFIG_DEBUG_PREEMPT=y`: перший ловить сон у забороненому контексті ще до того, як система зависне, другий — неправильне поводження з лічильником і з номером свого ядра процесора.
 

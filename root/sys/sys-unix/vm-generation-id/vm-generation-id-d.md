@@ -109,19 +109,7 @@ static void setup_vmgenid_state(struct vmgenid_state *state, void *virt_addr)
 
 `next_id` — покажчик у пам'ять гіпервізора, `this_id` — те, що там бачили востаннє. Порівняння цих двох і є весь механізм виявлення:
 
-```c
-static void vmgenid_notify(struct device *device)
-{
-	struct vmgenid_state *state = device->driver_data;
-	u8 old_id[VMGENID_SIZE];
-
-	memcpy(old_id, state->this_id, sizeof(old_id));
-	memcpy(state->this_id, state->next_id, sizeof(state->this_id));
-	if (!memcmp(old_id, state->this_id, sizeof(old_id)))
-		return;
-	add_vmfork_randomness(state->this_id, sizeof(state->this_id));
-}
-```
+:::code vm-generation-id-d/c/shcho-robyt-iz-tsym-linux.c
 
 Звіряння, а не довіра до самого факту сповіщення, тут не зайва обережність: сповіщення могло прийти з іншої причини, а обробник переривання в дереві пристроїв узагалі оголошений спільним для лінії. Ознакою вважається тільки різниця значень.
 
@@ -129,18 +117,7 @@ static void vmgenid_notify(struct device *device)
 
 Далі керує підсистема випадковості:
 
-```c
-/* drivers/char/random.c */
-void __cold add_vmfork_randomness(const void *unique_vm_id, size_t len)
-{
-	add_device_randomness(unique_vm_id, len);
-	if (crng_ready()) {
-		crng_reseed(NULL);
-		pr_notice("crng reseeded due to virtual machine fork\n");
-	}
-	blocking_notifier_call_chain(&vmfork_chain, 0, NULL);
-}
-```
+:::code vm-generation-id-d/c/random.c
 
 Зверніть увагу, чого тут немає: ядро не зараховує жодного біта невідомості. Коментар над функцією каже прямо — число унікальне, але не таємне. Ядро не має права рахувати публічне значення як ентропію: хто завгодно з боку господаря може його прочитати.
 

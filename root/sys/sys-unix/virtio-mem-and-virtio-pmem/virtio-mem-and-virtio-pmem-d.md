@@ -169,20 +169,7 @@ virtio_cread_le(vdev, struct virtio_mem_config, block_size, &block_size);
 
 Окремих файлів із геометрією пристрою (`block_size`, `requested_size`, `plugged_size`) драйвер у `sysfs` не заводить: ці поля живуть у конфігураційному просторі пристрою, і читає їх драйвер, а не адміністратор. Ззовні ті самі числа дає хост — командою QMP `query-memory-devices`. Гість бачить наслідок:
 
-```bash
-# Скільки пам'яті гість має зараз (базові 4 ГБ + 4 ГБ підключених)
-$ grep MemTotal /proc/meminfo
-MemTotal:        8388608 kB
-
-# Системні блоки пам'яті, через які драйвер завів суб-блоки
-$ lsmem --output RANGE,SIZE,STATE,ZONES
-RANGE                                  SIZE  STATE   ZONES
-0x0000000100000000-0x00000001ffffffff    4G  online  Movable
-
-# Стан окремого блоку
-$ cat /sys/devices/system/memory/memory42/state
-online
-```
+:::code virtio-mem-and-virtio-pmem-d/sh/main.sh
 
 Власних точок трасування підсистема `virtio_mem` не має. Хід підключення та вилучення видно з журналу ядра, а причину невдалого вилучення — з готових tracepoint-ів менеджера пам'яті:
 

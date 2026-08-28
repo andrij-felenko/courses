@@ -125,42 +125,9 @@ current->rcu_read_lock_nesting++;
 
 :::tabs
 == C
-```c
-/* читач: жодного спільного запису на всьому шляху */
-rcu_read_lock();
-list_for_each_entry_rcu(d, &dev_list, node) {
-    if (d->ifindex == idx) {
-        found = d;
-        break;
-    }
-}
-/* усе, що робимо з found, робимо ТУТ, до розблокування */
-rcu_read_unlock();
-
-/* письменник: між письменниками — звичайний замок */
-mutex_lock(&dev_mutex);
-list_del_rcu(&d->node);
-mutex_unlock(&dev_mutex);
-call_rcu(&d->rcu, dev_free);   /* звільнити після періоду відстрочки */
-```
+:::code rcu-read-copy-update-d/c/main.c
 == Rust
-```rust
-// У Rust читання під RCU оформлюється через RCU Guard.
-// Межі RCU (lock/unlock) прив'язані до часу життя Guard.
-let rcu_guard = kernel::sync::rcu::read_lock();
-
-// Пошук у колекції, захищеній RCU. Без Guard компілятор не дасть доступ до елементів.
-if let Some(dev) = dev_list.iter(&rcu_guard).find(|d| d.ifindex == idx) {
-    // Працюємо з dev...
-}
-// Guard автоматично звільняється при виході з області видимості, викликаючи rcu_read_unlock() під капотом.
-drop(rcu_guard);
-
-// Письменник
-let mut list = dev_list.lock(); // Захист письменників (аналог mutex_lock)
-let old_node = list.remove(idx); // Вилучення
-// Звільнення буде автоматично відкладене завдяки Drop + RCU, або можна явно викликати call_rcu
-```
+:::code rcu-read-copy-update-d/rust/main.rs
 :::
 
 `list_del_rcu()` відрізняється від звичайного `list_del()` однією дрібницею з великими наслідками: він отруює лише вказівник `prev` вилученого вузла, а `next` лишає цілим. Саме це дозволяє читачеві, що стоїть на вилученому вузлі, вийти назад у живий список замість того, щоб упасти на отруєній адресі.

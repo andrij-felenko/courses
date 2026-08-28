@@ -36,23 +36,7 @@
 
 При виконанні системного виклику `read()` для файлу `/proc/kallsyms` шар VFS викликає внутрішню функцію `kallsyms_show_value()`, яка аналізує мандати поточного процесу `current_cred()`:
 
-```c
-/* Концептуальна логіка перевірки kptr_restrict у ядрі Linux */
-static bool kallsyms_show_value(const struct cred *cred)
-{
-    switch (kptr_restrict) {
-    case 0:
-        return true;
-    case 1:
-        if (has_ns_capability(cred, &init_user_ns, CAP_SYSLOG))
-            return true;
-        fallthrough;
-    case 2:
-    default:
-        return false;
-    }
-}
-```
+:::code api-kallsyms-kernel-surface/c/main.c
 
 Якщо функція `kallsyms_show_value()` повертає `false`, генератор рядків `seq_printf()` замінює дійсне значення віртуальної адреси символу на 64-бітний нульовий заповнювач `0000000000000000`.
 

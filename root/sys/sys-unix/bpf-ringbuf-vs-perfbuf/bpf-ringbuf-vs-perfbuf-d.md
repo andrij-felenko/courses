@@ -126,21 +126,7 @@
 
 У коді підсистеми `perfbuf` передача події виглядає так:
 
-```c
-// BPF-код для perfbuf (копіювання зі стека)
-SEC("tracepoint/syscalls/sys_enter_openat")
-int trace_openat_perfbuf(void *ctx) {
-    struct event_t event = {}; // Виділення структури на стеку BPF!
-    
-    // Заповнення полів...
-    event.timestamp = bpf_ktime_get_ns();
-    event.pid = bpf_get_current_pid_tgid() >> 32;
-
-    // Копіювання 288 байтів зі стека у буфер perf
-    bpf_perf_event_output(ctx, &pb_map, BPF_F_CURRENT_CPU, &event, sizeof(event));
-    return 0;
-}
-```
+:::code bpf-ringbuf-vs-perfbuf-d/c/4-1-obmezhennia-bpf-steka.c
 
 Стек BPF-програми жорстко обмежений **512 байтами**. Якщо структура події містить шлях до файла (`char path[4096]`) або мережевий пакет, вона не поміститься на стеку. Розробникам доводилося створювати додаткові карти типу `BPF_MAP_TYPE_PERCPU_ARRAY` як тимчасові скретчпади, що сповільнювало виконання й ускладнювало код.
 
@@ -150,26 +136,7 @@ int trace_openat_perfbuf(void *ctx) {
 
 З `ringbuf` BPF-програма резервує місце безпосередньо у кільцевому буфері:
 
-```c
-// BPF-код для ringbuf (Zero-Copy)
-SEC("tracepoint/syscalls/sys_enter_openat")
-int trace_openat_ringbuf(void *ctx) {
-    struct event_t *event;
-
-    // 1. Резервування пам'яті безпосередньо в буфері ядра
-    event = bpf_ringbuf_reserve(&rb_map, sizeof(*event), 0);
-    if (!event)
-        return 0; // Буфер переповнено
-
-    // 2. Прямий запис за адресою буфера (без стека BPF!)
-    event->timestamp = bpf_ktime_get_ns();
-    event->pid = bpf_get_current_pid_tgid() >> 32;
-
-    // 3. Публікація події
-    bpf_ringbuf_submit(event, 0);
-    return 0;
-}
-```
+:::code bpf-ringbuf-vs-perfbuf-d/c/4-2-model-zero-copy-u-bpf.c
 
 Оскільки виклик `bpf_ringbuf_reserve` повертає прямий вказівник у пам'ять буфера, BPF-програма записує дані за місцем (in-place). Це усуває навантаження на стек BPF і позбавляє ядро від необхідності повторного копіювання пам'яті.
 
@@ -227,81 +194,8 @@ cat /proc/meminfo | grep BpfMem
 Зауважте, що код ядра eBPF завжди пишеться мовою C (відповідно до винятку §5 AUTHORING для простору ядра Linux). Простір користувача демонструє обробку мовами C та C++ у вкладках `:::tabs`.
 
 :::tabs
-```c
-// C Implementation (libbpf)
-#include <stdio.h>
-#include <bpf/libbpf.h>
-
-static int handle_ringbuf_event(void *ctx, void *data, size_t size) {
-    const char *msg = (const char *)data;
-    printf("Отримано подію в хронологічному порядку: %s\n", msg);
-    return 0;
-}
-
-int run_c_consumer(int map_fd) {
-    struct ring_buffer *rb = ring_buffer__new(map_fd, handle_ringbuf_event, NULL, NULL);
-    if (!rb) return -1;
-
-    while (1) {
-        // Поллінг подій з адаптивним спинням
-        int err = ring_buffer__poll(rb, 100 /* ms */);
-        if (err < 0) break;
-    }
-
-    ring_buffer__free(rb);
-    return 0;
-}
-```
-```cpp
-// C++20 Idiomatic Implementation (RAII, std::span, std::expected)
-#include <iostream>
-#include <memory>
-#include <span>
-#include <string_view>
-#include <expected>
-#include <bpf/libbpf.h>
-
-class RingBufferConsumer {
-public:
-    static std::expected<RingBufferConsumer, std::string> create(int map_fd) {
-        auto raw_cb = [](void *ctx, void *data, size_t size) -> int {
-            auto *self = static_cast<RingBufferConsumer*>(ctx);
-            auto bytes = std::span<const std::byte>(
-                reinterpret_cast<const std::byte*>(data), size
-            );
-            self->process_event(bytes);
-            return 0;
-        };
-
-        ring_buffer *rb = ring_buffer__new(map_fd, raw_cb, nullptr, nullptr);
-        if (!rb) {
-            return std::unexpected("Failed to allocate libbpf ring_buffer");
-        }
-        return RingBufferConsumer(rb);
-    }
-
-    ~RingBufferConsumer() {
-        if (rb_) ring_buffer__free(rb_);
-    }
-
-    RingBufferConsumer(RingBufferConsumer&& other) noexcept 
-        : rb_(std::exchange(other.rb_, nullptr)) {}
-
-    void poll(int timeout_ms) {
-        ring_buffer__poll(rb_, timeout_ms);
-    }
-
-private:
-    explicit RingBufferConsumer(ring_buffer *rb) : rb_(rb) {}
-    
-    void process_event(std::span<const std::byte> data) const {
-        std::string_view msg(reinterpret_cast<const char*>(data.data()), data.size());
-        std::cout << "[C++ RAII Consumer] Event received: " << msg << '\n';
-    }
-
-    ring_buffer *rb_{nullptr};
-};
-```
+:::code bpf-ringbuf-vs-perfbuf-d/c/6-praktychna-realizatsiia.c
+:::code bpf-ringbuf-vs-perfbuf-d/cpp/main.cpp
 :::
 
 ---

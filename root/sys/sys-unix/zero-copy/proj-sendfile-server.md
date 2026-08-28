@@ -12,28 +12,7 @@
 
 ## Стан з'єднання
 
-```c
-#define _GNU_SOURCE
-#include <sys/sendfile.h>
-#include <sys/epoll.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-
-#define CHUNK (1 << 20)          /* стеля однієї порції, 1 МіБ */
-
-struct conn {
-    int    sock;                 /* неблокуючий, у epoll */
-    int    file;                 /* відкритий звичайний файл */
-    off_t  off;                  /* скільки вже віддано */
-    off_t  end;                  /* розмір файлу зі stat */
-    int    raw;                  /* sendfile відмовив — ідемо копією */
-    int    pipe[2];              /* тільки для splice-варіанта */
-    size_t in_pipe;              /* скільки байтів висить у каналі */
-};
-
-static int pump_copy(struct conn *c);
-```
+:::code proj-sendfile-server/c/stan-ziednannia.c
 
 Двох полів — `off` і `end` — вистачає, щоб описати будь-який момент віддачі. Решта коду лише посуває `off`.
 
@@ -41,36 +20,7 @@ static int pump_copy(struct conn *c);
 
 Одна функція, яку кличуть на кожен `EPOLLOUT`. Повертає `1` — усе віддано, `0` — черга повна, чекаємо наступної події, `−1` — з'єднання мертве.
 
-```c
-static int pump(struct conn *c)
-{
-    if (c->raw)
-        return pump_copy(c);
-
-    while (c->off < c->end) {
-        size_t want = (size_t)(c->end - c->off);
-        if (want > CHUNK)
-            want = CHUNK;
-
-        ssize_t n = sendfile(c->sock, c->file, &c->off, want);
-
-        if (n > 0)
-            continue;                     /* ядро вже посунуло c->off */
-        if (n == 0)
-            return -1;                    /* файл зрізали під нами */
-        if (errno == EINTR)
-            continue;
-        if (errno == EAGAIN)
-            return 0;                     /* черга повна — вихід, не сон */
-        if (errno == EINVAL || errno == ENOSYS) {
-            c->raw = 1;
-            return pump_copy(c);
-        }
-        return -1;                        /* EPIPE, ECONNRESET, EIO… */
-    }
-    return 1;
-}
-```
+:::code proj-sendfile-server/c/pompa.c
 
 Цикл усередині потрібен тому, що `sendfile` віддає не все замовлене: він набиває чергу сокета й повертається з тим, що влізло. Коли клієнт швидкий, за один прохід циклу відбудеться кілька викликів поспіль, і кожен віддасть чергову порцію; коли повільний — перший же виклик упреться в `EAGAIN`. Обидва випадки той самий код опрацьовує однаково.
 
@@ -100,31 +50,7 @@ if (n > 0)
 
 `EINVAL` від `sendfile` — не завжди фатальна помилка. Він приходить, коли `in_fd` не вміє віддавати сторінки (канал, сокет, деякі псевдофайлові системи), коли на `out_fd` стоїть `O_APPEND`, або коли файлова система не підтримує потрібної операції. Для сервера, який роздає що завгодно, це нормальна ситуація, а не привід рвати з'єднання.
 
-```c
-static int pump_copy(struct conn *c)
-{
-    static char buf[64 * 1024];          /* спільний, стану не тримає */
-
-    while (c->off < c->end) {
-        ssize_t r = pread(c->file, buf, sizeof buf, c->off);
-        if (r < 0) { if (errno == EINTR) continue; return -1; }
-        if (r == 0) return -1;
-
-        ssize_t sent = 0;
-        while (sent < r) {
-            ssize_t w = write(c->sock, buf + sent, r - sent);
-            if (w < 0) {
-                if (errno == EINTR) continue;
-                if (errno == EAGAIN) { c->off += sent; return 0; }
-                return -1;
-            }
-            sent += w;
-        }
-        c->off += r;
-    }
-    return 1;
-}
-```
+:::code proj-sendfile-server/c/koly-iadro-vidmovliaie.c
 
 Тут `pread` не випадковий: він читає із заданого місця, не чіпаючи позиції дескриптора — рівно так, як поводився `sendfile`. Завдяки цьому обидва шляхи бачать однаковий стан, і перемкнутися між ними можна посеред файлу.
 
@@ -136,36 +62,7 @@ static int pump_copy(struct conn *c)
 
 Переписати помпу на `splice` — це додати канал і рахувати не один показник, а два: скільки віддано з файлу і скільки байтів зараз висить у каналі.
 
-```c
-static int pump_splice(struct conn *c)
-{
-    for (;;) {
-        if (c->in_pipe == 0 && c->off < c->end) {
-            size_t want = (size_t)(c->end - c->off);
-            if (want > 64 << 10)
-                want = 64 << 10;                  /* місткість каналу */
-
-            ssize_t n = splice(c->file, &c->off, c->pipe[1], NULL,
-                               want, SPLICE_F_MORE);
-            if (n < 0) { if (errno == EINTR) continue; return -1; }
-            if (n == 0) return -1;
-            c->in_pipe += (size_t)n;
-        }
-
-        if (c->in_pipe == 0)
-            return 1;                             /* усе віддано */
-
-        ssize_t m = splice(c->pipe[0], NULL, c->sock, NULL, c->in_pipe,
-                           SPLICE_F_MORE | SPLICE_F_NONBLOCK);
-        if (m < 0) {
-            if (errno == EINTR) continue;
-            if (errno == EAGAIN) return 0;
-            return -1;
-        }
-        c->in_pipe -= (size_t)m;
-    }
-}
-```
+:::code proj-sendfile-server/c/toi-samyi-tsykl-na-splice.c
 
 Порядок гілок тут важить більше за самі виклики. Наповнювати канал можна лише тоді, коли він порожній, а виходити з функції — лише коли він порожній **і** файл вичерпано. Порушите друге — і хвіст даних лишиться в каналі назавжди: клієнт чекатиме на кінець відповіді, якого ніхто не надішле, бо з погляду сервера все вже віддано.
 
@@ -185,30 +82,6 @@ static int pump_splice(struct conn *c)
 
 **`EPOLLOUT` треба вмикати й вимикати.** Сокет із порожньою чергою готовий до запису **завжди**. Залишите передплату ввімкненою після того, як файл віддано, — і `epoll_wait` повертатиметься негайно, знову й знову, з'їдаючи ядро процесора на порожньому місці ([select, poll, epoll](root:sys-unix/select-poll-epoll) — очікування готовності багатьох дескрипторів одним викликом; рівневий режим повідомляє про готовність доти, доки вона є). Тому передплату тримають увімкненою рівно тоді, коли є що віддавати, — і весь драйвер помпи зводиться до цього правила:
 
-```c
-static void arm(int ep, struct conn *c, int want_out)
-{
-    struct epoll_event ev = {
-        .events   = EPOLLIN | EPOLLRDHUP | (want_out ? EPOLLOUT : 0),
-        .data.ptr = c,
-    };
-    epoll_ctl(ep, EPOLL_CTL_MOD, c->sock, &ev);
-}
-
-for (;;) {
-    int k = epoll_wait(ep, evs, MAXEV, -1);
-    for (int i = 0; i < k; i++) {
-        struct conn *c = evs[i].data.ptr;
-
-        int r = pump(c);
-        if (r == 0)
-            arm(ep, c, 1);       /* черга повна — чекаємо місця */
-        else if (r == 1)
-            finish(c);           /* arm(ep, c, 0) або закриття */
-        else
-            drop(c);
-    }
-}
-```
+:::code proj-sendfile-server/c/dvi-rechi-iaki-lamaiut.c
 
 Помпа не знає ні про `epoll`, ні про решту з'єднань; драйвер не знає ні про `sendfile`, ні про канали. Уся передача без копіювання сховалася в трьох значеннях, які повертає одна функція, — і саме тому запасний шлях через `read`/`write` вставляється в цей сервер, не міняючи в ньому більше нічого.

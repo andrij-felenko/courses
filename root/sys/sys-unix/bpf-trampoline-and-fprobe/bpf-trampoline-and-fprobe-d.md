@@ -24,32 +24,7 @@
 
 Управління передається від звичайного потоку ядра до обробника виключень trap handler. Обробник переривань зупиняє виконання поточного процесу, переключає кадр стеку і виконує повне збереження вмісту всіх регістрів процесора загального призначення у структуру `pt_regs`:
 
-```c
-/* Контекст, що примусово формується при кожному виклику kprobe */
-struct pt_regs {
-    unsigned long r15;
-    unsigned long r14;
-    unsigned long r13;
-    unsigned long r12;
-    unsigned long bp;
-    unsigned long bx;
-    unsigned long r11;
-    unsigned long r10;
-    unsigned long r9;
-    unsigned long r8;
-    unsigned long ax;
-    unsigned long cx;
-    unsigned long dx;
-    unsigned long si;
-    unsigned long di;
-    unsigned long orig_ax;
-    unsigned long ip;
-    unsigned long cs;
-    unsigned long flags;
-    unsigned long sp;
-    unsigned long ss;
-};
-```
+:::code bpf-trampoline-and-fprobe-d/c/main.c
 
 Диспетчер `kprobes` шукає відповідний колбек у хеш-таблиці та передає йому вказівник на створену структуру `pt_regs`. BPF-програма змушена зчитувати вхідні аргументи функції з полів цієї структури через системні хелпери `bpf_probe_read_kernel()`, оскільки верифікатор не має інформації про типи аргументів і не дозволяє пряме розіменування вказівників.
 
@@ -194,44 +169,7 @@ stp x2, x3, [sp, #32]    // Збереження аргументів x2 та x3
 
 Для глибшого розуміння розглянемо машинний код x86_64, який згенеровано підсистемою BPF JIT для функції з 2 аргументами:
 
-```asm
-# ====================================================================
-# ЗГЕНЕРОВАНИЙ JIT-КОД BPF TRAMPOLINE ДЛЯ X86_64
-# ====================================================================
-
-# 1. Пролог: створення кадру стеку
-push   rbp
-mov    rbp, rsp
-sub    rsp, 0x30                  # Виділення 48 байтів на стеку
-
-# 2. Збереження вхідних аргументів у масив args[] на стеку
-mov    QWORD PTR [rbp-0x18], rdi  # args[0] = перший аргумент (RDI)
-mov    QWORD PTR [rbp-0x10], rsi  # args[1] = другий аргумент (RSI)
-
-# 3. Виклик BPF-програми fentry
-lea    rdi, [rbp-0x18]            # RDI = адреса масиву args[] (контекст ctx)
-mov    rax, 0xffffffffc03a1050    # RAX = адреса JIT-коду BPF fentry програми
-call   rax                        # Прямий виклик BPF-програми
-
-# 4. Виклик оригінальної функції ядра
-mov    rdi, QWORD PTR [rbp-0x18]  # Відновлення RDI з args[0]
-mov    rsi, QWORD PTR [rbp-0x10]  # Відновлення RSI з args[1]
-mov    rax, 0xffffffff81234567    # RAX = адреса оригінальної функції ядра
-call   rax                        # Виконання оригінальної функції
-
-# 5. Збереження значення повернення
-mov    QWORD PTR [rbp-0x8], rax   # args[2] = retval (результат з RAX)
-
-# 6. Виклик BPF-програми fexit
-lea    rdi, [rbp-0x18]            # RDI = адреса args[] (включаючи retval)
-mov    rax, 0xffffffffc03a1100    # RAX = адреса JIT-коду BPF fexit програми
-call   rax                        # Прямий виклик BPF fexit програми
-
-# 7. Епілог: відновлення стану та повернення
-mov    rax, QWORD PTR [rbp-0x8]   # RAX = оригінальний retval
-leave                             # mov rsp, rbp; pop rbp
-ret                               # Повернення викликаючому коду
-```
+:::code bpf-trampoline-and-fprobe-d/asm/main.s
 
 У цьому згенерованому коді повністю відсутні переривання, скидання конвеєра CPU та зайве збереження регістрів. Виконання є повністю лінійним і максимальним за швидкодією.
 

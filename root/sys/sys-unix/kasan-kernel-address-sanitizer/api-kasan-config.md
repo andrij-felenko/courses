@@ -101,24 +101,7 @@
 
 Для Generic KASAN використовуються функції прямого керування байтами тіньової пам'яті:
 
-```c
-#include <linux/kasan.h>
-
-/*
- * kasan_poison_shadow - позначає регіон пам'яті як недоступний (poisoned).
- * @addr: початкова віртуальна адреса (мусить бути вирівняна)
- * @size: розмір регіону в байтах
- * @value: код отруєння (наприклад, KASAN_SLAB_FREE або власний тег)
- */
-void kasan_poison_shadow(const void *addr, size_t size, u8 value);
-
-/*
- * kasan_unpoison_shadow - позначає регіон пам'яті як доступний (valid).
- * @addr: початкова віртуальна адреса
- * @size: розмір регіону в байтах
- */
-void kasan_unpoison_shadow(const void *addr, size_t size);
-```
+:::code api-kasan-config/c/kasan.h
 
 **Приклад використання у власному кільцевому буфері:**
 При виділенні елемента буфера розробник робить `kasan_unpoison_shadow(elem_ptr, elem_size)`, а при поверненні елемента до пулу — `kasan_poison_shadow(elem_ptr, elem_size, KASAN_SLAB_FREE)`.
@@ -127,23 +110,7 @@ void kasan_unpoison_shadow(const void *addr, size_t size);
 
 У режимах SW/HW Tag-Based KASAN операції зі старшим байтом вказівника виконуються за допомогою спеціальних макросів та функцій:
 
-```c
-/*
- * kasan_reset_tag - скидає тег вказівника (встановлює старший байт у 0xFF)
- * Повертає чисту канонічну віртуальну адресу ядра.
- */
-void *kasan_reset_tag(const void *addr);
-
-/*
- * kasan_random_tag - генерує новий випадковий тег для об'єкта
- */
-u8 kasan_random_tag(void);
-
-/*
- * kasan_init_object_tags - призначає тег об'єкту та записує його в тіньову пам'ять/MTE
- */
-void kasan_init_object_tags(struct kmem_cache *cache, void *object);
-```
+:::code api-kasan-config/c/3-2-heneratsiia-ta.h
 
 ### 3.3 Хуки алокаторів пам meті
 

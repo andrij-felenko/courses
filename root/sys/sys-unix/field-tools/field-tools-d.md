@@ -109,20 +109,7 @@ find . -maxdepth 2 -type f -printf "%u\t%p\0" | cut -z -f2 | xargs -0 ls -l
 
 Щоб примусити `cut` ігнорувати рядки без роздільника, застосовують прапорець `-s` (`--only-delimited`):
 
-```bash
-# Без -s: заголовок пройде на вихід
-printf "USER:ID\n# Коментар без двокрапок\nroot:0\n" | cut -d: -f1
-# Вивід:
-# USER
-# # Коментар без двокрапок
-# root
-
-# З прапорцем -s: рядок без роздільника відкидається
-printf "USER:ID\n# Коментар без двокрапок\nroot:0\n" | cut -d: -s -f1
-# Вивід:
-# USER
-# root
-```
+:::code field-tools-d/sh/praporets-s-ta-pastka.sh
 
 ### Фундаментальні обмеження `cut`
 
@@ -150,18 +137,7 @@ ps aux | tr -s ' ' | cut -d' ' -f2,11
 
 За замовчуванням `paste` відкриває всі передані файли одночасно, вичитує по одному рядку з кожного файлу і записує їх у вихідний потік через символ табуляції `\t`:
 
-```bash
-# Створення тестових файлів
-printf "host1\nhost2\nhost3\n" > hosts.txt
-printf "192.168.1.10\n192.168.1.11\n192.168.1.12\n" > ips.txt
-
-# Горизонтальне склеювання через кому
-paste -d, hosts.txt ips.txt
-# Вивід:
-# host1,192.168.1.10
-# host2,192.168.1.11
-# host3,192.168.1.12
-```
+:::code field-tools-d/sh/paralelne-zlyttia-failiv.sh
 
 Якщо один із файлів коротший за інший, `paste` продовжує читати довший файл, підставляючи порожні поля для вичерпаного джерела, доки не дійдуть кінця всі файли.
 
@@ -201,22 +177,7 @@ printf "'alpha'\n'beta'\n'gamma'\n" | paste -sd, -
 3. Читає третій рядок із **того самого** `stdin` для третьої колонки (третій дефіс).
 4. Виводить рядок `кол1\tкол2\tкол3\n` і повторює цикл.
 
-```bash
-# Перетворення лінійного списку значень у таблицю з 3 колонок:
-seq 1 9 | paste - - -
-# Вивід:
-# 1	2	3
-# 4	5	6
-# 7	8	9
-
-# Перетворення пар «ключ - значення» у двоколонковий CSV:
-# Вхід: рядок 1 - назва метрики, рядок 2 - значення
-printf "cpu_usage\n45.2\nmem_free\n1024\nload_avg\n1.15\n" | paste -d: - -
-# Вивід:
-# cpu_usage:45.2
-# mem_free:1024
-# load_avg:1.15
-```
+:::code field-tools-d/sh/triuk-iz-kilkoma-defisamy.sh
 
 Ця операція виконується за один лінійний прохід без накопичення даних у проміжних масивах і без циклів оболонки `while read`, забезпечуючи максимальну швидкість групування.
 
@@ -268,23 +229,7 @@ join -t, -1 1 -2 1 users.sorted.csv orders.sorted.csv
 
 Якщо виконується зовнішнє з'єднання (`-a 1`), у рядках, які не мали пари у файлі 2, поля другого файлу будуть відсутні. Щоб результат залишався валідною таблицею однакової ширини, використовують прапорець `-e STRING` (заміна відсутніх полів на заданий рядок) разом із явною специфікацією колонок через `-o`:
 
-```bash
-# users.txt (ID, Ім'я)
-# 101 John
-# 102 Alice
-# 103 Bob
-
-# departments.txt (ID, Відділ)
-# 101 Engineering
-# 103 Marketing
-
-# Left Join із заміною відсутніх відділів на 'NONE':
-join -1 1 -2 1 -a 1 -e 'NONE' -o 1.1,1.2,2.2 users.txt departments.txt
-# Вивід:
-# 101 John Engineering
-# 102 Alice NONE
-# 103 Bob Marketing
-```
+:::code field-tools-d/sh/keruvannia-formatom-vyvodu.sh
 
 Формат специфікатора `-o`: `ФАЙЛ.ПОЛЕ` через кому (наприклад, `1.1` — перше поле першого файлу, `2.2` — друге поле другого файлу). Ключове слово `-o auto` в GNU coreutils автоматично розширює кількість колонок до максимальної для даного рядка.
 
@@ -368,52 +313,8 @@ map[0xFF] = 0xFF
 Після ініціалізації таблиці гарячий цикл обробки даних являє собою безрозгалужену пряму підстановку з вхідного буфера у вихідний:
 
 :::tabs
-```c
-/* Гарячий цикл табличної трансляції байтів на C */
-#include <unistd.h>
-#include <stddef.h>
-
-#define BUF_SIZE 65536
-
-void fast_tr_loop(const unsigned char map[256]) {
-    unsigned char in_buf[BUF_SIZE];
-    unsigned char out_buf[BUF_SIZE];
-    ssize_t n_read;
-
-    while ((n_read = read(0, in_buf, BUF_SIZE)) > 0) {
-        for (ssize_t i = 0; i < n_read; ++i) {
-            out_buf[i] = map[in_buf[i]];
-        }
-        write(1, out_buf, (size_t)n_read);
-    }
-}
-```
-```cpp
-// Гарячий цикл табличної трансляції байтів на C++20
-#include <array>
-#include <vector>
-#include <iostream>
-#include <span>
-#include <unistd.h>
-
-constexpr size_t BUF_SIZE = 65536;
-
-void fast_tr_loop_cpp(const std::array<unsigned char, 256>& map) {
-    std::vector<unsigned char> in_buf(BUF_SIZE);
-    std::vector<unsigned char> out_buf(BUF_SIZE);
-    ssize_t n_read = 0;
-
-    while ((n_read = ::read(0, in_buf.data(), in_buf.size())) > 0) {
-        std::span<const unsigned char> in_span(in_buf.data(), static_cast<size_t>(n_read));
-        std::span<unsigned char> out_span(out_buf.data(), static_cast<size_t>(n_read));
-
-        for (size_t i = 0; i < in_span.size(); ++i) {
-            out_span[i] = map[in_span[i]];
-        }
-        ::write(1, out_span.data(), out_span.size());
-    }
-}
-```
+:::code field-tools-d/c/vnutrishnii-mekhanizm.c
+:::code field-tools-d/cpp/vnutrishnii-mekhanizm.cpp
 :::
 
 Оскільки тут відсутні розгалуження `if` або `switch` у розрахунку на окремий байт, процесорний конвеєр інструкцій працює без зривів передбачення переходів (*branch mispredictions*), забезпечуючи швидкість обробки на рівні кількох гігабайтів за секунду.
@@ -480,154 +381,8 @@ void fast_tr_loop_cpp(const std::array<unsigned char, 256>& map) {
 Обидві реалізації демонструють принцип нульового повторного сканування: дані зчитуються блоками через буферизовані потоки, порівнюються на льоту та записуються у вихідний потік без побудови індексів і без завантаження файлів у пам'ять.
 
 :::tabs
-```c
-/* fast_stream_join.c — Потокове реляційне з'єднання двох відсортованих списків */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define DELIM '\t'
-
-int main(int argc, char *argv[]) {
-    if (argc < 3) {
-        fprintf(stderr, "Використання: %s file1.tsv file2.tsv\n", argv[0]);
-        return EXIT_FAILURE;
-    }
-
-    FILE *f1 = fopen(argv[1], "re");
-    FILE *f2 = fopen(argv[2], "re");
-    if (!f1 || !f2) {
-        perror("Помилка відкриття файлів");
-        if (f1) fclose(f1);
-        if (f2) fclose(f2);
-        return EXIT_FAILURE;
-    }
-
-    char *line1 = NULL, *line2 = NULL;
-    size_t cap1 = 0, cap2 = 0;
-    ssize_t len1 = 0, len2 = 0;
-
-    /* Зчитування перших рядків */
-    len1 = getline(&line1, &cap1, f1);
-    len2 = getline(&line2, &cap2, f2);
-
-    /* Двовказівниковий марш O(N + M) */
-    while (len1 > 0 && len2 > 0) {
-        /* Прибираємо символ переносу рядка */
-        if (line1[len1 - 1] == '\n') line1[--len1] = '\0';
-        if (line2[len2 - 1] == '\n') line2[--len2] = '\0';
-
-        /* Копії рядків для виділення ключів без пошкодження вихідного тексту */
-        char key1_buf[256], key2_buf[256];
-        char *d1 = memchr(line1, DELIM, len1);
-        char *d2 = memchr(line2, DELIM, len2);
-
-        size_t k1_len = d1 ? (size_t)(d1 - line1) : (size_t)len1;
-        size_t k2_len = d2 ? (size_t)(d2 - line2) : (size_t)len2;
-
-        snprintf(key1_buf, sizeof(key1_buf), "%.*s", (int)k1_len, line1);
-        snprintf(key2_buf, sizeof(key2_buf), "%.*s", (int)k2_len, line2);
-
-        int cmp = strcmp(key1_buf, key2_buf);
-        if (cmp == 0) {
-            /* Спільний ключ: виводимо ключ, залишок файлу 1, залишок файлу 2 */
-            const char *val1 = d1 ? d1 + 1 : "";
-            const char *val2 = d2 ? d2 + 1 : "";
-            printf("%s\t%s\t%s\n", key1_buf, val1, val2);
-
-            len1 = getline(&line1, &cap1, f1);
-            len2 = getline(&line2, &cap2, f2);
-        } else if (cmp < 0) {
-            /* Ключ 1 менший — просуваємо файл 1 */
-            len1 = getline(&line1, &cap1, f1);
-        } else {
-            /* Ключ 2 менший — просуваємо файл 2 */
-            len2 = getline(&line2, &cap2, f2);
-        }
-    }
-
-    free(line1);
-    free(line2);
-    fclose(f1);
-    fclose(f2);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-// fast_stream_join.cpp — Ідіоматичне реляційне з'єднання на C++20
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <string_view>
-#include <memory>
-#include <system_error>
-
-constexpr char DELIM = '\t';
-
-struct Record {
-    std::string line;
-    std::string_view key;
-    std::string_view value;
-
-    static Record parse(std::string raw_line) {
-        Record rec;
-        rec.line = std::move(raw_line);
-        std::string_view sv(rec.line);
-        
-        auto pos = sv.find(DELIM);
-        if (pos == std::string_view::npos) {
-            rec.key = sv;
-            rec.value = {};
-        } else {
-            rec.key = sv.substr(0, pos);
-            rec.value = sv.substr(pos + 1);
-        }
-        return rec;
-    }
-};
-
-int main(int argc, char *argv[]) {
-    if (argc < 3) {
-        std::cerr << "Використання: " << argv[0] << " file1.tsv file2.tsv\n";
-        return 1;
-    }
-
-    // Прискорення стандартного I/O потоків C++
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-
-    std::ifstream stream1(argv[1]);
-    std::ifstream stream2(argv[2]);
-
-    if (!stream1 || !stream2) {
-        std::cerr << "Помилка відкриття файлів для зчитування\n";
-        return 1;
-    }
-
-    std::string raw1, raw2;
-    bool has1 = static_cast<bool>(std::getline(stream1, raw1));
-    bool has2 = static_cast<bool>(std::getline(stream2, raw2));
-
-    while (has1 && has2) {
-        auto rec1 = Record::parse(raw1);
-        auto rec2 = Record::parse(raw2);
-
-        if (rec1.key == rec2.key) {
-            // Ключі збіглися: прямий запис у stdout без проміжних алокацій
-            std::cout << rec1.key << DELIM << rec1.value << DELIM << rec2.value << '\n';
-            has1 = static_cast<bool>(std::getline(stream1, raw1));
-            has2 = static_cast<bool>(std::getline(stream2, raw2));
-        } else if (rec1.key < rec2.key) {
-            has1 = static_cast<bool>(std::getline(stream1, raw1));
-        } else {
-            has2 = static_cast<bool>(std::getline(stream2, raw2));
-        }
-    }
-
-    return 0;
-}
-```
+:::code field-tools-d/c/fast_stream_join.c
+:::code field-tools-d/cpp/fast_stream_join.cpp
 :::
 
 ---
@@ -671,31 +426,7 @@ echo "привіт" | tr 'а-я' 'А-Я'
 
 Комплексний конвеєр, що поєднує всі розглянуті утиліти, виглядає так:
 
-```bash
-#!/bin/sh
-export LC_ALL=C
-
-# 1. Витягуємо IP-адреси з журналу, рахуємо кількість запитів і сортуємо за IP:
-# tr -s ' ' стискає пробіли -> cut бере першу колонку (IP) -> sort | uniq -c рахує частоту
-cut -d' ' -f1 access.log | LC_ALL=C sort | uniq -c | tr -s ' ' | sed 's/^ //' | cut -d' ' -f1,2 > ip_counts.txt
-# Формат ip_counts.txt: КІЛЬКІСТЬ IP
-
-# 2. Формуємо файл IP -> КІЛЬКІСТЬ, відсортований за IP:
-cut -d' ' -f2,1 --output-delimiter=',' ip_counts.txt | LC_ALL=C sort -t, -k1,1 > ip_by_key.csv
-
-# 3. З'єднуємо з таблицею країн geoip.csv (IP,COUNTRY) через join:
-# Результат: IP,КІЛЬКІСТЬ,COUNTRY
-join -t, -1 1 -2 1 -o 1.1,1.2,2.2 ip_by_key.csv <(LC_ALL=C sort -t, -k1,1 geoip.csv) > ip_with_geo.csv
-
-# 4. Знаходимо всі IP, яких НЕМАЄ в білому списку whitelist.txt, за допомогою comm:
-# comm -23 вибирає елементи, присутні тільки в першому файлі
-comm -23 <(cut -d, -f1 ip_with_geo.csv | LC_ALL=C sort) \
-         <(LC_ALL=C sort whitelist.txt) > suspicious_ips.txt
-
-# 5. Серіалізуємо список підозрілих IP в один рядок для виклику блокування iptables:
-BLOCKED_LIST=$(paste -sd, suspicious_ips.txt)
-echo "Підозрілі адреси для блокування: ${BLOCKED_LIST}"
-```
+:::code field-tools-d/sh/4-naskriznyi-pryklad.sh
 
 ### 5. Зведена матриця вибору інструментів
 

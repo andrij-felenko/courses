@@ -8,30 +8,7 @@
 
 Контекст сеансу `struct v4l2_m2m_ctx` створюється динамічно при кожному відкритті файлового вузла `/dev/videoX` і знищується при закритті дескриптора. Контекст інкапсулює стан взаємодії з конкретним процесом, включно з двома чергами `vb2_queue` та локальними параметрами формату.
 
-```c
-#include <media/v4l2-mem2mem.h>
-
-struct v4l2_m2m_ops {
-    void (*device_run)(void *priv);
-    int  (*job_ready)(void *priv);
-    void (*job_abort)(void *priv);
-};
-
-/* Ініціалізація глобального диспетчера завдань пристрою M2M */
-struct v4l2_m2m_dev *v4l2_m2m_init(const struct v4l2_m2m_ops *m2m_ops);
-
-/* Звільнення ресурсів диспетчера під час вивантаження драйвера */
-void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev);
-
-/* Створення контексту для відкритого файлового дескриптора */
-struct v4l2_m2m_ctx *v4l2_m2m_ctx_init(
-    struct v4l2_m2m_dev *m2m_dev,
-    void *drv_priv,
-    int (*queue_init)(void *priv, struct vb2_queue *src_vq, struct vb2_queue *dst_vq));
-
-/* Знищення контексту при закритті дескриптора файлу */
-void v4l2_m2m_ctx_release(struct v4l2_m2m_ctx *m2m_ctx);
-```
+:::code api-v4l2-m2m-framework/c/v4l2-mem2mem.h
 
 ### Таблиця операцій `struct v4l2_m2m_ops`
 
@@ -45,38 +22,7 @@ void v4l2_m2m_ctx_release(struct v4l2_m2m_ctx *m2m_ctx);
 
 Функція зворотного виклику `queue_init` налаштовує обидві черги `videobuf2` під час створення контексту. Драйвер конфігурує типи підтримуваної пам'яті, операції пам'яті (DMA contig для фізично суцільної пам'яті або DMA SG для розсіяної пам'яті через IOMMU) та блокування.
 
-```c
-static int queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *dst_vq) {
-    struct my_ctx *ctx = priv;
-    int ret;
-
-    /* 1. Налаштування вхідної черги (OUTPUT) */
-    src_vq->type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
-    src_vq->io_modes = VB2_MMAP | VB2_DMABUF;
-    src_vq->drv_priv = ctx;
-    src_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
-    src_vq->ops = &my_qops;
-    src_vq->mem_ops = &vb2_dma_contig_memops;
-    src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
-    src_vq->lock = &ctx->q_lock;
-    src_vq->dev = ctx->dev->dev;
-    ret = vb2_queue_init(src_vq);
-    if (ret)
-        return ret;
-
-    /* 2. Налаштування вихідної черги (CAPTURE) */
-    dst_vq->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-    dst_vq->io_modes = VB2_MMAP | VB2_DMABUF;
-    dst_vq->drv_priv = ctx;
-    dst_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
-    dst_vq->ops = &my_qops;
-    dst_vq->mem_ops = &vb2_dma_contig_memops;
-    dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
-    dst_vq->lock = &ctx->q_lock;
-    dst_vq->dev = ctx->dev->dev;
-    return vb2_queue_init(dst_vq);
-}
-```
+:::code api-v4l2-m2m-framework/c/initsializatsiia-cherh-vb2.c
 
 Прапорець `V4L2_BUF_FLAG_TIMESTAMP_COPY` вмикає автоматичне копіювання часових міток із вхідного буфера у вихідний силами підсистеми `videobuf2`.
 
@@ -95,26 +41,7 @@ static int queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *ds
 
 Під час роботи `device_run` та обробника апаратного переривання драйвер використовує спеціальні допоміжні підпрограми для навігації чергами та фіксації результатів:
 
-```c
-/* Отримання покажчика на наступний готовий буфер у черзі */
-struct vb2_v4l2_buffer *v4l2_m2m_next_src_buf(struct v4l2_m2m_ctx *m2m_ctx);
-struct vb2_v4l2_buffer *v4l2_m2m_next_dst_buf(struct v4l2_m2m_ctx *m2m_ctx);
-
-/* Вилучення буфера зі списку очікування (перехід у стан обробки апаратурою) */
-struct vb2_v4l2_buffer *v4l2_m2m_src_buf_remove(struct v4l2_m2m_ctx *m2m_ctx);
-struct vb2_v4l2_buffer *v4l2_m2m_dst_buf_remove(struct v4l2_m2m_ctx *m2m_ctx);
-
-/* Перенесення метаданих (часова мітка, flags, timecode) між буферами */
-void v4l2_m2m_buf_copy_metadata(const struct vb2_v4l2_buffer *out_vb,
-                                struct vb2_v4l2_buffer *cap_vb,
-                                bool copy_frame_types);
-
-/* Завершення обробки буфера в ISR/Tasklet */
-void v4l2_m2m_buf_done(struct vb2_v4l2_buffer *vbuf, enum vb2_buffer_state state);
-
-/* Фіналізація поточного завдання та запуск наступного */
-void v4l2_m2m_job_finish(struct v4l2_m2m_dev *m2m_dev, struct v4l2_m2m_ctx *m2m_ctx);
-```
+:::code api-v4l2-m2m-framework/c/dopomizhni-funktsii.h
 
 ### Стани буфера `enum vb2_buffer_state`
 
@@ -143,20 +70,7 @@ void v4l2_m2m_job_finish(struct v4l2_m2m_dev *m2m_dev, struct v4l2_m2m_ctx *m2m_
 
 Для багатоплощинного API використовується структура `struct v4l2_pix_format_mplane`, де кожна площина описується окремим записом у масиві `plane_fmt`:
 
-```c
-struct v4l2_format fmt = {
-    .type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-    .fmt.pix_mp = {
-        .width = 1920,
-        .height = 1080,
-        .pixelformat = V4L2_PIX_FMT_NV12M,
-        .num_planes = 2,
-        .plane_fmt[0] = { .sizeimage = 1920 * 1080, .bytesperline = 1920 },
-        .plane_fmt[1] = { .sizeimage = 1920 * 540,  .bytesperline = 1920 },
-    },
-};
-ioctl(fd, VIDIOC_S_FMT, &fmt);
-```
+:::code api-v4l2-m2m-framework/c/korystuvatskyi-prostir.c
 
 ## Узгодження форматів: `VIDIOC_TRY_FMT` проти `VIDIOC_S_FMT`
 
@@ -184,25 +98,7 @@ ioctl(fd, VIDIOC_S_FMT, &fmt);
 
 Для асинхронного керування кодеками V4L2 визначає команди скидання конвеєра та механізм підписки на події:
 
-```c
-/* Команда завершення потоку (Drain / EOS) */
-#define VIDIOC_DECODER_CMD               _IOWR('V', 96, struct v4l2_decoder_cmd)
-#define V4L2_DEC_CMD_STOP                1
-#define V4L2_DEC_CMD_START               2
-#define V4L2_DEC_CMD_PAUSE               3
-#define V4L2_DEC_CMD_RESUME              4
-#define V4L2_DEC_CMD_FLUSH               5
-
-/* Подія зміни роздільності потоку (DRC) */
-#define V4L2_EVENT_SOURCE_CHANGE         5
-#define V4L2_EVENT_SRC_CH_RESOLUTION     (1 << 0)
-
-/* Підписка на подію */
-struct v4l2_event_subscription sub = {
-    .type = V4L2_EVENT_SOURCE_CHANGE,
-};
-ioctl(fd, VIDIOC_SUBSCRIBE_EVENT, &sub);
-```
+:::code api-v4l2-m2m-framework/c/podii-ta-komandy.c
 
 Коли настає подія зміни роздільності або вичерпання потоку, дескриптор сигналізує подію `POLLPRI`. Додаток зчитує детальну інформацію через `VIDIOC_DQEVENT`.
 

@@ -16,71 +16,7 @@
 
 Створення кільця голими викликами — це `io_uring_setup`, потім два або три `mmap`, потім обчислення адрес кожного лічильника як «початок відображення плюс зміщення з `io_uring_params`», і аж тоді перший запис. `liburing` стискає все це в один рядок і, головне, бере на себе бар'єри: публікацію хвоста записом-звільненням і читання хвоста завершень читанням-захопленням. Забути бар'єр у власному коді легко, а наслідок — ядро бачить новий індекс раніше за вміст запису й виконує операцію зі сміттям у полях.
 
-```c
-/* echo.c — ехо-сервер на io_uring
- * cc -O2 -o echo echo.c -luring        liburing ≥ 2.4, ядро ≥ 5.19
- */
-#define _GNU_SOURCE
-#include <liburing.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-#define PORT        9000
-#define QD           256          /* глибина кільця подань        */
-#define BUF_COUNT   1024          /* мусить бути степенем двійки  */
-#define BUF_SIZE    2048
-#define BGID           1          /* номер групи наданих буферів  */
-#define MAX_CONN   16384          /* ≥ RLIMIT_NOFILE: індексуємо дескриптором */
-
-enum { OP_ACCEPT, OP_RECV, OP_SEND };
-
-/* user_data: верхній байт — що це було, молодші 32 біти — дескриптор */
-#define UD(op, fd)  (((__u64)(op) << 56) | (__u32)(fd))
-#define UD_OP(u)    ((int)((u) >> 56))
-#define UD_FD(u)    ((int)(__u32)(u))
-
-struct conn { int bid; unsigned off, left; };
-
-static struct io_uring            ring;
-static struct io_uring_buf_ring  *br;
-static char                      *bufs;
-static struct conn                conns[MAX_CONN];
-static int    starved[MAX_CONN], n_starved;   /* кому забракло буфера */
-
-static char *buf_at(int bid) { return bufs + (size_t)bid * BUF_SIZE; }
-
-static void ring_setup(void)
-{
-    struct io_uring_params p;
-    memset(&p, 0, sizeof p);
-    p.flags = IORING_SETUP_SINGLE_ISSUER | IORING_SETUP_DEFER_TASKRUN;
-
-    int ret = io_uring_queue_init_params(QD, &ring, &p);
-    if (ret == -EINVAL) {                  /* ядро старше за 6.1 — без цих прапорців */
-        memset(&p, 0, sizeof p);
-        ret = io_uring_queue_init_params(QD, &ring, &p);
-    }
-    if (ret < 0) { fprintf(stderr, "queue_init: %s\n", strerror(-ret)); exit(1); }
-
-    bufs = malloc((size_t)BUF_COUNT * BUF_SIZE);
-    if (!bufs) { perror("malloc"); exit(1); }
-
-    int err;
-    br = io_uring_setup_buf_ring(&ring, BUF_COUNT, BGID, 0, &err);
-    if (!br) { fprintf(stderr, "buf_ring: %s\n", strerror(-err)); exit(1); }
-
-    int mask = io_uring_buf_ring_mask(BUF_COUNT);
-    for (int i = 0; i < BUF_COUNT; i++)
-        io_uring_buf_ring_add(br, buf_at(i), BUF_SIZE, i, mask, i);
-    io_uring_buf_ring_advance(br, BUF_COUNT);   /* аж тепер ядро їх бачить */
-}
-```
+:::code proj-uring-echo/c/echo.c
 
 Перевірка на `-EINVAL` — не паранойя, а єдиний чесний спосіб питати ядро про вік. `IORING_SETUP_SINGLE_ISSUER` (обіцянка, що подає рівно одна задача) і `IORING_SETUP_DEFER_TASKRUN` (не смикати задачу заради завершень) з'явилися в ядрах 6.0 і 6.1; на старішому ядрі створення просто відмовить, і сервер має піднятися без них.
 
@@ -92,52 +28,7 @@ static void ring_setup(void)
 
 ## Один accept на весь час життя сервера
 
-```c
-static struct io_uring_sqe *sqe_get(void)
-{
-    struct io_uring_sqe *sqe = io_uring_get_sqe(&ring);
-    if (!sqe) {                       /* кільце подань заповнене */
-        io_uring_submit(&ring);       /* єдиний спосіб звільнити місце */
-        sqe = io_uring_get_sqe(&ring);
-        if (!sqe) { fprintf(stderr, "SQ не звільнилася\n"); exit(1); }
-    }
-    return sqe;
-}
-
-static void arm_accept(int lfd)
-{
-    struct io_uring_sqe *sqe = sqe_get();
-    io_uring_prep_multishot_accept(sqe, lfd, NULL, NULL, 0);
-    io_uring_sqe_set_data64(sqe, UD(OP_ACCEPT, lfd));
-}
-
-static void arm_recv(int fd)
-{
-    struct io_uring_sqe *sqe = sqe_get();
-    io_uring_prep_recv(sqe, fd, NULL, BUF_SIZE, 0);   /* буфер обере ядро */
-    io_uring_sqe_set_flags(sqe, IOSQE_BUFFER_SELECT);
-    sqe->buf_group = BGID;
-    io_uring_sqe_set_data64(sqe, UD(OP_RECV, fd));
-}
-
-static void arm_send(int fd)
-{
-    struct conn *c = &conns[fd];
-    struct io_uring_sqe *sqe = sqe_get();
-    io_uring_prep_send(sqe, fd, buf_at(c->bid) + c->off, c->left,
-                       MSG_WAITALL | MSG_NOSIGNAL);
-    io_uring_sqe_set_data64(sqe, UD(OP_SEND, fd));
-}
-
-static void buf_give_back(int bid)
-{
-    io_uring_buf_ring_add(br, buf_at(bid), BUF_SIZE, bid,
-                          io_uring_buf_ring_mask(BUF_COUNT), 0);
-    io_uring_buf_ring_advance(br, 1);
-    if (n_starved)                    /* буфер звільнився — розбудити чекальника */
-        arm_recv(starved[--n_starved]);
-}
-```
+:::code proj-uring-echo/c/odyn-accept-na-ves-chas.c
 
 `io_uring_prep_multishot_accept` подають один раз на весь час життя сервера: ядро 5.19 і новіші віддають кожне нове з'єднання окремим завершенням із того самого запису. Адресу клієнта тут навмисно не просимо — для багаторазового `accept` вона писалася б в одну й ту саму пам'ять, тож наступне з'єднання затирало б попереднє ще до того, як програма встигла подивитися.
 
@@ -145,86 +36,7 @@ static void buf_give_back(int bid)
 
 ## Цикл подій
 
-```c
-int main(void)
-{
-    ring_setup();
-
-    int lfd = socket(AF_INET, SOCK_STREAM, 0), one = 1;
-    setsockopt(lfd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof one);
-    struct sockaddr_in a = { .sin_family = AF_INET, .sin_port = htons(PORT),
-                             .sin_addr  = { htonl(INADDR_ANY) } };
-    if (bind(lfd, (struct sockaddr *)&a, sizeof a) || listen(lfd, 512))
-        { perror("bind/listen"); return 1; }
-
-    arm_accept(lfd);
-
-    for (;;) {
-        int ret = io_uring_submit_and_wait(&ring, 1);   /* один перехід межі на прохід */
-        if (ret < 0 && ret != -EINTR)
-            { fprintf(stderr, "submit: %s\n", strerror(-ret)); return 1; }
-
-        unsigned head, seen = 0;
-        struct io_uring_cqe *cqe;
-
-        io_uring_for_each_cqe(&ring, head, cqe) {
-            __u64 u  = cqe->user_data;
-            int   fd = UD_FD(u);
-            seen++;
-
-            switch (UD_OP(u)) {
-            case OP_ACCEPT:
-                if (cqe->res >= 0 && cqe->res < MAX_CONN) {
-                    conns[cqe->res] = (struct conn){ .bid = -1 };
-                    arm_recv(cqe->res);
-                } else if (cqe->res >= 0) {
-                    close(cqe->res);                  /* дескриптор поза таблицею */
-                }
-                if (!(cqe->flags & IORING_CQE_F_MORE))
-                    arm_accept(fd);                   /* багаторазовий accept помер */
-                break;
-
-            case OP_RECV:
-                if (cqe->res == -ENOBUFS) {           /* вільних буферів немає */
-                    starved[n_starved++] = fd;        /* чекаємо на чужий повернений */
-                    break;
-                }
-                if (cqe->res <= 0) {                  /* 0 — інший бік закрив */
-                    if (cqe->flags & IORING_CQE_F_BUFFER)
-                        buf_give_back(cqe->flags >> IORING_CQE_BUFFER_SHIFT);
-                    close(fd);
-                    break;
-                }
-                conns[fd] = (struct conn){
-                    .bid  = cqe->flags >> IORING_CQE_BUFFER_SHIFT,
-                    .off  = 0,
-                    .left = (unsigned)cqe->res,
-                };
-                arm_send(fd);
-                break;
-
-            case OP_SEND: {
-                struct conn *c = &conns[fd];
-                if (cqe->res <= 0) {                  /* з'єднання обірвалося */
-                    buf_give_back(c->bid);
-                    close(fd);
-                    break;
-                }
-                c->off  += (unsigned)cqe->res;
-                c->left -= (unsigned)cqe->res;
-                if (c->left) { arm_send(fd); break; } /* частковий запис */
-
-                buf_give_back(c->bid);                /* аж тепер буфер вільний */
-                c->bid = -1;
-                arm_recv(fd);
-                break;
-            }
-            }
-        }
-        io_uring_cq_advance(&ring, seen);
-    }
-}
-```
+:::code proj-uring-echo/c/tsykl-podii.c
 
 Слухацький сокет робимо звичайними викликами ([інтерфейс сокетів](root:sys-unix/socket-api-linux) — `socket`, `bind`, `listen`, `accept` і те, як адреса лягає в `struct sockaddr`), бо це один раз на старті; у гарячому шляху їх немає. Кільце вміє й `IORING_OP_SOCKET`, і `IORING_OP_CLOSE`, але виграшу тут нуль.
 

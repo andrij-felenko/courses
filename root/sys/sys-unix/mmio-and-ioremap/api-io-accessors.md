@@ -18,28 +18,7 @@
 
 ## Виклики відображення
 
-```c
-void __iomem *ioremap(phys_addr_t offset, size_t size);
-void          iounmap(volatile void __iomem *addr);
-
-void __iomem *devm_ioremap(struct device *dev, resource_size_t offset,
-                           resource_size_t size);
-void __iomem *devm_ioremap_resource(struct device *dev,
-                                    const struct resource *res);
-void __iomem *devm_platform_ioremap_resource(struct platform_device *pdev,
-                                             unsigned int index);
-void __iomem *devm_platform_ioremap_resource_byname(struct platform_device *pdev,
-                                                    const char *name);
-void __iomem *devm_platform_get_and_ioremap_resource(struct platform_device *pdev,
-                                                     unsigned int index,
-                                                     struct resource **res);
-void __iomem *devm_of_iomap(struct device *dev, struct device_node *node,
-                            int index, resource_size_t *size);
-void __iomem *of_iomap(struct device_node *np, int index);
-
-void __iomem *pci_iomap(struct pci_dev *dev, int bar, unsigned long max);
-void          pci_iounmap(struct pci_dev *dev, void __iomem *addr);
-```
+:::code api-io-accessors/c/vyklyky-vidobrazhennia.h
 
 | Виклик | Звідки бере діапазон | Записує себе в облік | Прибирає за собою | Невдача |
 | --- | --- | --- | --- | --- |
@@ -80,23 +59,7 @@ void          pci_iounmap(struct pci_dev *dev, void __iomem *addr);
 
 Кожен доступник — три дії, і родини різняться саме тим, скільки з них лишається. Це видно просто з тіла:
 
-```c
-static inline u32 readl(const volatile void __iomem *addr)
-{
-        u32 val;
-        __io_br();                                          /* бар'єр до доступу */
-        val = __le32_to_cpu((__le32 __force)__raw_readl(addr));
-        __io_ar(val);                                       /* бар'єр після доступу */
-        return val;
-}
-
-static inline void writel(u32 value, volatile void __iomem *addr)
-{
-        __io_bw();                                          /* бар'єр до доступу */
-        __raw_writel((u32 __force)__cpu_to_le32(value), addr);
-        __io_aw();
-}
-```
+:::code api-io-accessors/c/dostupnyky.c
 
 Розстановка бар'єрів несиметрична, і саме так і треба. На arm64 `__io_bw()` — це `dma_wmb()`: усе, що вже записано у звичайну пам'ять, лягає туди раніше, ніж пристрій дістане команду. `__io_ar(v)` — це `dma_rmb()` плюс штучна залежність за даними від прочитаного значення, щоб наступний `udelay()` не поїхав уперед. А `__io_br()` та `__io_aw()` там порожні: перед читанням і після запису впорядковувати нема чого.
 
@@ -170,20 +133,6 @@ e0001000-e0001fff : e0001000.ethernet
 
 ## Мінімальний повний виклик
 
-```c
-/* один раз, при прив'язці: займає діапазон, відображає, чіпляє звільнення */
-priv->regs = devm_platform_ioremap_resource(pdev, 0);
-if (IS_ERR(priv->regs))
-        return PTR_ERR(priv->regs);
-
-/* дескриптор у звичайній пам'яті — і команда пристроєві;
-   бар'єр між ними несе сам writel, писати його вручну не треба */
-desc->flags = cpu_to_le32(DESC_OWN);
-writel(TX_KICK_GO, priv->regs + REG_TX_KICK);
-
-/* скидання причини переривання — і зустрічне читання, щоб запис дійшов */
-writel(cause, priv->regs + REG_IRQ_CAUSE);
-readl(priv->regs + REG_IRQ_CAUSE);
-```
+:::code api-io-accessors/c/minimalnyi-povnyi-vyklyk.h
 
 Ні `request_mem_region`, ні `iounmap`, ні `release_mem_region` тут нема — і це не скорочення заради прикладу, а поточний вигляд правильного драйвера.

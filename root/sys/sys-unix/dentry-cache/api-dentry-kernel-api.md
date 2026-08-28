@@ -8,18 +8,7 @@
 
 Для мінімізації накладних витрат на регулярне обчислення довжини рядків та їхнє багаторазове хешування шар VFS використовує структуру `struct qstr` (від англ. *quick string*), оголошену в заголовному файлі `<linux/dcache.h>`. Її головне призначення — упакувати метадані рядка так, щоб їх можна було порівнювати без звернення до самого рядка символів у пам'яті:
 
-```c
-struct qstr {
-    union {
-        struct {
-            u32 hash;
-            u32 len;
-        };
-        u64 hashlen;
-    };
-    const unsigned char *name;
-};
-```
+:::code api-dentry-kernel-api/c/shvydkyi-riadok-struct.c
 
 Поле `hashlen` об'єднує 32-бітне значення хешу рядка та його 32-бітну довжину в єдине 64-бітне беззнакове слово. Це дає змогу ядру перевіряти збіг довжини та хешу двох імен за одну атомарну 64-бітну процесорну інструкцію порівняння. Якщо числові значення `hashlen` не збігаються, ядро навіть не починає побайтове порівняння рядків через покажчик `name`, що суттєво заощаджує пропускну здатність шини пам'яті процесора.
 
@@ -27,61 +16,7 @@ struct qstr {
 
 Об'єкт `struct dentry` представляє одиничний компонент шляху в пам'яті ядра. Його внутрішня розкладка ретельно скомпонована розробниками ядра для вирівнювання за межами кеш-ліній процесора (зазвичай займає рівно 192 байти на 64-бітних архітектурах x86_64 та AArch64):
 
-```c
-struct dentry {
-    /* Прапорці стану запису (DCACHE_*) */
-    unsigned int d_flags;
-
-    /* Лічильник послідовності seqlock для перевірок в RCU-walk */
-    seqcount_spinlock_t d_seq;
-
-    /* Вузол у глобальній хеш-таблиці dentry_hashtable */
-    struct hlist_bl_node d_hash;
-
-    /* Вказівник на батьківський каталог */
-    struct dentry *d_parent;
-
-    /* Ім'я запису каталогу */
-    struct qstr d_name;
-
-    /* Вказівник на пов'язаний inode (NULL для негативних dentry) */
-    struct inode *d_inode;
-
-    /* Вбудований буфер для коротких імен (уникає зайвого kmalloc) */
-    unsigned char d_iname[DNAME_INLINE_LEN];
-
-    /* Об'єднаний спінлок d_lock та лічильник посилань d_count */
-    struct lockref d_lockref;
-
-    /* Таблиця спеціалізованих операцій файлової системи */
-    const struct dentry_operations *d_op;
-
-    /* Вказівник на суперблок файлової системи */
-    struct super_block *d_sb;
-
-    /* Часова мітка чинності (використовується NFS/CIFS) */
-    unsigned long d_time;
-
-    /* Приватні дані файлової системи */
-    void *d_fsdata;
-
-    union {
-        /* Список витіснення з пам'яті LRU */
-        struct list_head d_lru;
-        /* Захист відкладеного вивільнення пам'яті через RCU */
-        struct callback_head d_rcu;
-    };
-
-    /* Список дочірніх dentry поточного каталогу */
-    struct list_head d_subdirs;
-
-    /* Вузол у списку d_subdirs батьківського каталогу */
-    struct list_head d_child;
-
-    /* Список псевдонімів (жорстких посилань) одного inode */
-    struct hlist_node d_alias;
-} __randomize_layout;
-```
+:::code api-dentry-kernel-api/c/struktura-zapysu-katalohu.c
 
 Кожне поле структури виконує строго визначену функцію в життєвому циклі VFS:
 
@@ -120,28 +55,7 @@ struct dentry {
 
 Ядро Linux надає суворий набір функцій для відстеження використання записів dentry. Помилки у виклику цих функцій призводять або до витоків пам'яті (запис назавжди зависає в пам'яті з ненульовим лічильником), або до передчасного вивільнення пам'яті з подальшим збоєм ядра (use-after-free).
 
-```c
-/* Збільшити лічильник посилань dentry (перехід у стан Active) */
-struct dentry *dget(struct dentry *dentry);
-
-/* Безпечно отримати посилання на батьківський каталог із захистом від паралельного переміщення */
-struct dentry *dget_parent(struct dentry *dentry);
-
-/* Зменшити лічильник посилань. Якщо d_count стає 0, запис переміщується до списку LRU */
-void dput(struct dentry *dentry);
-
-/* Зменшити лічильник і перенести dentry у вказаний тимчасовий список для пакетного вивільнення */
-void dput_to_list(struct dentry *dentry, struct list_head *list);
-
-/* Примусово вилучити dentry з глобальної хеш-таблиці (позначити як unhashed/застарілий) */
-void d_drop(struct dentry *dentry);
-
-/* Позначити dentry як видалений та ініціювати його вивільнення або перетворення на негативний */
-void d_delete(struct dentry *dentry);
-
-/* Зробити недійсним dentry та всі його дочірні записи, примусово очищаючи піддерево */
-void d_invalidate(struct dentry *dentry);
-```
+:::code api-dentry-kernel-api/c/keruvannia-lichylnykom.h
 
 Функція `dget()` виконує атомарний інкремент лічильника посилань і повертає покажчик на той самий об'єкт, що зручно для ланцюжкових викликів. Функція `dput()` є значно складнішою: якщо лічильник посилань падає до нуля, вона перевіряє стан прапорців та викликає метод `d_delete()`. Якщо dentry все ще пов'язаний із inode і є чинним, він поміщається в кінець черги `list_lru` відповідного суперблоку, залишаючись у глобальній хеш-таблиці `dentry_hashtable` як кандидат на майбутнє повторне використання. Якщо ж dentry визнано недійсним або від'єднаним (`d_unhashed`), `dput()` викликає внутрішню процедуру `dentry_kill()`, яка розриває зв'язки з батьківським каталогом, декрементує лічильник посилань inode через `iput()` і планує вивільнення пам'яті через `call_rcu()`.
 
@@ -149,25 +63,7 @@ void d_invalidate(struct dentry *dentry);
 
 Під час промаху в кеші файлова система створює новий dentry та зв'язує його з прочитаним із диска inode за допомогою таких інтерфейсів:
 
-```c
-/* Виділити новий dentry в slab-кеші dentry_cache як нащадка parent із заданим іменем name */
-struct dentry *d_alloc(struct dentry *parent, const struct qstr *name);
-
-/* Виділити анонімний dentry, не прив'язаний до батьківського каталогу (для кореня або сокетів) */
-struct dentry *d_alloc_anon(struct super_block *sb);
-
-/* Зв'язати новий dentry з існуючим inode (створити позитивний запис) */
-void d_instantiate(struct dentry *dentry, struct inode *inode);
-
-/* Додати новий dentry в хеш-таблицю dentry_hashtable та прив'язати до inode (або NULL) */
-void d_add(struct dentry *dentry, struct inode *inode);
-
-/* Спеціалізоване додавання для файлових систем без урахування регістру (case-insensitive) */
-struct dentry *d_add_ci(struct dentry *dentry, struct inode *inode, struct qstr *name);
-
-/* Прив'язати або підмінити аліас каталогу (критично для NFS та переміщень каталогів) */
-struct dentry *d_splice_alias(struct inode *inode, struct dentry *dentry);
-```
+:::code api-dentry-kernel-api/c/vydilennia-pamiati-ta.h
 
 Функція `d_alloc()` виділяє структуру з кешу пам'яті `dentry_cache`, ініціалізує лічильник посилань значенням 1, копіює рядок імені у буфер `d_iname` (або виділяє окремий буфер через `kmalloc`), встановлює зв'язок `d_parent` та додає новий елемент до списку нащадків батьківського каталогу `d_subdirs`. Функція `d_instantiate()` зв'язує цей dentry з відповідним `struct inode`, додаючи dentry до списку аліасів `i_dentry` цього inode. Якщо у виклику `d_add()` замість покажчика на inode передається `NULL`, VFS реєструє **негативний dentry**, що фіксує відсутність файлу з таким ім'ям.
 
@@ -175,19 +71,7 @@ struct dentry *d_splice_alias(struct inode *inode, struct dentry *dentry);
 
 Пошук у dcache є головною операцією на гарячому шляху системних викликів `open()`, `stat()`, `execve()`:
 
-```c
-/* Знайти дочірній dentry за іменем name у каталозі parent через dentry_hashtable */
-struct dentry *d_lookup(const struct dentry *parent, const struct qstr *name);
-
-/* Обчислити хеш рядка та виконати швидкий пошук dentry в каталозі parent */
-struct dentry *d_hash_and_lookup(struct dentry *parent, struct qstr *name);
-
-/* Знайти або створити dentry для рядка заданої довжини (вимагає захоплення блокування каталогу) */
-struct dentry *lookup_one_len(const char *name, struct dentry *base, int len);
-
-/* Знайти або створити dentry для рядка заданої довжини без блокування батьківського каталогу */
-struct dentry *lookup_one_len_unlocked(const char *name, struct dentry *base, int len);
-```
+:::code api-dentry-kernel-api/c/poshuk-u-keshi-zapysiv.h
 
 Функція `d_lookup()` обчислює слот у хеш-таблиці `dentry_hashtable` за комбінацією покажчика `parent` та хешу імені, після чого проходить по ланцюжку кошика. Якщо запис знайдено, перевіряється збіг довжини, хешу та символів імені. При успішному збігу функція інкрементує лічильник посилань `dget()` і повертає знайдений `struct dentry`. Якщо запис відсутній, повертається `NULL`.
 
@@ -195,22 +79,7 @@ struct dentry *lookup_one_len_unlocked(const char *name, struct dentry *base, in
 
 Для швидкого з'ясування властивостей запису каталогу ядро використовує набір швидких inline-функцій:
 
-```c
-/* Чи є dentry негативним (d_inode == NULL, файл гарантовано відсутній) */
-static inline bool d_is_negative(const struct dentry *dentry);
-
-/* Чи є dentry позитивним (d_inode != NULL, файл існує) */
-static inline bool d_is_positive(const struct dentry *dentry);
-
-/* Чи представляє dentry каталог (перевіряє прапорець DCACHE_DIRECTORY_TYPE) */
-static inline bool d_is_dir(const struct dentry *dentry);
-
-/* Чи представляє dentry символьне посилання (DCACHE_SYMLINK_TYPE) */
-static inline bool d_is_symlink(const struct dentry *dentry);
-
-/* Чи вилучено dentry з глобальної хеш-таблиці dentry_hashtable */
-static inline int d_unhashed(const struct dentry *dentry);
-```
+:::code api-dentry-kernel-api/c/perevirka-stanu-zapysu.h
 
 Ці предикати дозволяють спільним алгоритмам VFS приймати рішення про подальший хід обходу шляху без прямого звернення до полів `struct inode`, що зменшує кількість промахів у кеші процесора.
 

@@ -52,21 +52,7 @@ $ hexdump -C /sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098
 
 Вміст `PK`, `KEK`, `db`, `dbx` і `MokList` — та сама структура: послідовність списків, у кожному однорідні записи однакового розміру.
 
-```c
-typedef struct {
-    EFI_GUID  SignatureType;        // 16 Б — що саме тут лежить
-    UINT32    SignatureListSize;    // увесь список разом із цим заголовком
-    UINT32    SignatureHeaderSize;  // 0 для всіх чинних типів
-    UINT32    SignatureSize;        // розмір ОДНОГО запису
- // UINT8     SignatureHeader[SignatureHeaderSize];
- // EFI_SIGNATURE_DATA Signatures[];
-} EFI_SIGNATURE_LIST;
-
-typedef struct {
-    EFI_GUID  SignatureOwner;       // 16 Б — хто вніс цей запис
-    UINT8     SignatureData[];      // сертифікат DER або хеш
-} EFI_SIGNATURE_DATA;
-```
+:::code api-secure-boot-variables/c/main.c
 
 ![Розкладка бази db у файлі efivarfs: чотири байти атрибутів, далі послідовність EFI_SIGNATURE_LIST, усередині заголовок і записи EFI_SIGNATURE_DATA](img/siglist-layout.svg)
 

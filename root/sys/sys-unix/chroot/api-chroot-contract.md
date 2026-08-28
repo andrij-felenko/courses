@@ -180,20 +180,7 @@ umount2(".", MNT_DETACH);            /* знімаємо верхній шар �
 
 Ядро 5.6 (`RESOLVE_CACHED` — з 5.12). Розв'язує симетричну задачу: програма живе **зовні** й мусить розібрати шлях, що стосується чужого дерева, — не замикаючи себе й не маючи жодних привілеїв ([сімейство *at](root:sys-unix/at-family-syscalls)).
 
-```c
-#include <linux/openat2.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-struct open_how {
-    __u64 flags;      /* ті самі O_*, що в openat(2) */
-    __u64 mode;       /* лише біти 07777 */
-    __u64 resolve;    /* маска RESOLVE_* */
-};
-
-long syscall(SYS_openat2, int dirfd, const char *pathname,
-             struct open_how *how, size_t size);
-```
+:::code api-chroot-contract/c/main.c
 
 Останній аргумент — `sizeof(struct open_how)`: структура розширювана, і розмір каже ядру, яку саме її редакцію знає програма. Ще одна відмінність від `openat`: невідомі або суперечливі біти тут **не ігноруються мовчки**, а дають помилку — тож перевірити підтримку прапорця можна просто спробувавши його.
 

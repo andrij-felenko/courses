@@ -145,29 +145,7 @@ if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) == -1)
 
 Дізнатися про завершення можна лише одним способом: дочекатися **готовности до запису** й спитати відкладену помилку сокета.
 
-```c
-int rc = connect(fd, (struct sockaddr *)&addr, sizeof addr);
-if (rc == 0) {
-    connected(fd);                       /* устигло за один виклик */
-} else if (errno != EINPROGRESS) {
-    fail(fd, errno);                     /* миттєва відмова */
-} else {
-    /* чекаємо EPOLLOUT; на невдачі ядро додасть EPOLLERR */
-    struct epoll_event ev = { .events = EPOLLOUT, .data.fd = fd };
-    epoll_ctl(ep, EPOLL_CTL_ADD, fd, &ev);
-}
-
-/* ...коли epoll_wait віддав подію на цьому fd: */
-int       err = 0;
-socklen_t len = sizeof err;
-if (getsockopt(fd, SOL_SOCKET, SO_ERROR, &err, &len) == -1)
-    err = errno;                         /* про запас: є системи, де відкладену
-                                            помилку віддають саме так */
-if (err == 0)
-    connected(fd);
-else
-    fail(fd, err);                       /* ECONNREFUSED, ETIMEDOUT, EHOSTUNREACH… */
-```
+:::code api-nonblock-contract/c/connect-einprogress-i.c
 
 Чотири речі, які тут легко зробити неправильно.
 
@@ -199,41 +177,6 @@ else
 
 Усе разом на найкоротшому корисному шматку: створити сокет уже неблокуючим, запустити з'єднання, дочитати до кінця.
 
-```c
-/* 1. Сокет народжується неблокуючим — жодного fcntl. */
-int fd = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK | SOCK_CLOEXEC, 0);
-if (fd == -1)
-    return -1;
-
-/* 2. Запуск з'єднання. Успіх — це 0 АБО EINPROGRESS. */
-if (connect(fd, (struct sockaddr *)&addr, sizeof addr) == -1 && errno != EINPROGRESS) {
-    close(fd);
-    return -1;
-}
-
-/* 3. ...після події готовности — перевірка відкладеної помилки (див. вище). */
-
-/* 4. Читання: вибирати, доки не скаже EAGAIN. */
-for (;;) {
-    char    buf[16384];
-    ssize_t n = recv(fd, buf, sizeof buf, 0);
-
-    if (n > 0) {
-        consume(buf, (size_t)n);
-        continue;                          /* може бути ще — питаємо знову */
-    }
-    if (n == 0) {
-        peer_closed(fd);                   /* упорядковане закриття */
-        break;
-    }
-    if (errno == EINTR)
-        continue;                          /* сигнал — просто повторити */
-    if (errno == EAGAIN || errno == EWOULDBLOCK)
-        break;                             /* усе вибрано — назад у цикл подій */
-
-    fail(fd, errno);                       /* оце вже справжня помилка */
-    break;
-}
-```
+:::code api-nonblock-contract/c/minimalnyi-robochyi-vyklyk.c
 
 Цикл із пункту 4 — не оптимізація, а вимога. Поки `recv` не сказав `EAGAIN`, ви не знаєте, що буфер прийому порожній, — а сповіщення про **зміну стану** (edge-triggered epoll) вдруге не прийде, бо стан не змінювався: дані як лежали, так і лежать. Служба, яка читає по одному разу на подію, поводиться так, ніби половина повідомлень губиться; насправді вони чекають у буфері, про який більше ніхто не нагадає.

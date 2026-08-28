@@ -18,63 +18,7 @@
 
 У традиційній моделі програмування ядра на мові C розробник змушений вручну вибудовувати зворотний ланцюжок міток `goto` в кінці кожної функції ініціалізації:
 
-```c
-static int acme_probe_legacy(struct platform_device *pdev)
-{
-	struct acme_chip *chip;
-	struct resource *res;
-	int ret;
-
-	chip = kzalloc(sizeof(*chip), GFP_KERNEL);
-	if (!chip)
-		return -ENOMEM;
-
-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-	if (!res) {
-		ret = -EINVAL;
-		goto err_free_mem;
-	}
-
-	chip->regs = ioremap(res->start, resource_size(res));
-	if (!chip->regs) {
-		ret = -ENOMEM;
-		goto err_free_mem;
-	}
-
-	chip->clk = clk_get(&pdev->dev, "core");
-	if (IS_ERR(chip->clk)) {
-		ret = PTR_ERR(chip->clk);
-		goto err_unmap;
-	}
-
-	ret = clk_prepare_enable(chip->clk);
-	if (ret)
-		goto err_put_clk;
-
-	chip->irq = platform_get_irq(pdev, 0);
-	if (chip->irq < 0) {
-		ret = chip->irq;
-		goto err_disable_clk;
-	}
-
-	ret = request_threaded_irq(chip->irq, NULL, acme_irq_thread,
-	                           IRQF_ONESHOT, "acme", chip);
-	if (ret)
-		goto err_disable_clk;
-
-	return 0;
-
-err_disable_clk:
-	clk_disable_unprepare(chip->clk);
-err_put_clk:
-	clk_put(chip->clk);
-err_unmap:
-	iounmap(chip->regs);
-err_free_mem:
-	kfree(chip);
-	return ret;
-}
-```
+:::code devres-internals-and-subsystem-coverage-d/c/anatomiia-problemy-chomu.c
 
 Такий шаблон коду приховує в собі систематичну вразливість. Кожна нова точка відмови збільшує довжину «хвоста» очищення. Якщо під час подальшої модернізації драйвера інженер додає між налаштуванням тактування та запитом переривання отримання регулятора живлення `regulator_get()`, він повинен:
 1. Додати нову мітку аварійного переходу.
@@ -125,20 +69,7 @@ struct device {
 
 Цей блок складається зі службового заголовка `struct devres_node` та розташованого безпосередньо за ним у пам'яті буфера корисного навантаження:
 
-```c
-struct devres_node {
-	struct list_head		entry;
-	dr_release_t			release;
-	const char			*name;
-	size_t				size;
-};
-
-struct devres {
-	struct devres_node		node;
-	/* гнучкий масив або вирівняне корисне навантаження */
-	u8				data[];
-};
-```
+:::code devres-internals-and-subsystem-coverage-d/c/anatomiia-vuzla-devres-u.c
 
 Поле `release` — це вказівник на специфічну функцію зворотного виклику типу `typedef void (*dr_release_t)(struct device *dev, void *res)`. Для виділення пам'яті через `devm_kzalloc` цією функцією є `devm_kzalloc_release`, для відображення MMIO — `devm_ioremap_release`, для переривань — `devm_irq_release`.
 
@@ -234,23 +165,7 @@ if (IS_ERR(regs))
 
 Сучасні SoC-платформи (ARM, RISC-V) вимагають обов'язкового керування тактовими генераторами та стабілізаторами напруги:
 
-```c
-/* Отримання та автоматична активація тактового сигналу */
-chip->clk = devm_clk_get_enabled(&pdev->dev, "bus_clk");
-if (IS_ERR(chip->clk))
-	return dev_err_probe(&pdev->dev, PTR_ERR(chip->clk),
-	                      "Не вдалося активувати тактування\n");
-
-/* Отримання та ввімкнення лінії живлення */
-ret = devm_regulator_get_enable(&pdev->dev, "vdd");
-if (ret)
-	return dev_err_probe(&pdev->dev, ret, "Помилка живлення VDD\n");
-
-/* Отримання дескриптора скидання GPIO */
-chip->reset_gpio = devm_gpiod_get_optional(&pdev->dev, "reset", GPIOD_OUT_LOW);
-if (IS_ERR(chip->reset_gpio))
-	return PTR_ERR(chip->reset_gpio);
-```
+:::code devres-internals-and-subsystem-coverage-d/c/3-taktovi-syhnaly.h
 
 Функція `devm_clk_get_enabled()` не лише отримує дескриптор `struct clk`, але й викликає `clk_prepare_enable()`. При вивантаженні пристрою деструктор автоматично викличе `clk_disable_unprepare()` та `clk_put()`.
 
@@ -339,30 +254,7 @@ void devm_release_action(struct device *dev, devm_action_t action, void *data);
 
 Розглянемо типовий шаблон:
 
-```c
-static void acme_disable_hardware_action(void *data)
-{
-	struct acme_chip *chip = data;
-
-	/* Апаратне вимкнення вимірювань */
-	writel(0, chip->regs + ACME_REG_ENABLE);
-}
-
-static int acme_probe(struct platform_device *pdev)
-{
-	/* ... ініціалізація пам'яті, MMIO та тактів ... */
-
-	/* Вмикаємо залізо */
-	writel(ACME_ENABLE_BIT, chip->regs + ACME_REG_ENABLE);
-
-	/* Реєструємо автоматичне вимкнення заліза під час демонтажу */
-	ret = devm_add_action_or_reset(&pdev->dev, acme_disable_hardware_action, chip);
-	if (ret)
-		return ret;
-
-	return 0;
-}
-```
+:::code devres-internals-and-subsystem-coverage-d/c/korystuvatski-dii-devm-add.c
 
 ### Чому слід завжди обирати devm_add_action_or_reset
 
@@ -387,32 +279,7 @@ static int acme_probe(struct platform_device *pdev)
 
 Група ресурсів — це спеціальний вузол-маркер `struct devres_group`, що вставляється у загальний список `devres_head`:
 
-```c
-void *group_id;
-
-/* Відкриваємо ізольовану групу ресурсів */
-group_id = devres_open_group(&pdev->dev, NULL, GFP_KERNEL);
-if (!group_id)
-	return -ENOMEM;
-
-/* Усі виклики devm_* нижче додаються всередину цієї групи */
-temp_buf = devm_kmalloc(&pdev->dev, 4096, GFP_KERNEL);
-if (!temp_buf) {
-	/* Відкочуємо виключно ресурси цієї групи */
-	devres_release_group(&pdev->dev, group_id);
-	return -ENOMEM;
-}
-
-ret = acme_run_calibration(&pdev->dev, temp_buf);
-if (ret) {
-	/* Помилка калібрування: звільняємо лише тимчасовий буфер */
-	devres_release_group(&pdev->dev, group_id);
-	return ret;
-}
-
-/* Калібрування успішне: закриваємо групу (ресурси лишаються активними) */
-devres_close_group(&pdev->dev, group_id);
-```
+:::code devres-internals-and-subsystem-coverage-d/c/hrupy-resursiv-devres-open.c
 
 Функція `devres_release_group()` знаходить маркер групи і послідовно виконує деструктори всіх об'єктів, створених після відкриття групи, залишаючи всі раніше зареєстровані базові ресурси драйвера недоторканими.
 

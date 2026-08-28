@@ -115,69 +115,18 @@ void scx_bpf_error(const char *fmt, ...);
 
 `scx_utils` дає три макроси, що ховають рутину роботи зі скелетом BPF-об'єкта й дорогою перевіркою сумісності з чинним ядром: `scx_ops_open!`, `scx_ops_load!` та `scx_ops_attach!`. Останній повертає `libbpf_rs::Link`; коли демон завершується — штатно чи через падіння, — `Link` руйнується, і ядро знімає `struct_ops` з планування.
 
-```rust
-use scx_utils::{scx_ops_attach, scx_ops_load, scx_ops_open};
-use std::mem::MaybeUninit;
-
-fn start() -> anyhow::Result<()> {
-    let builder = BpfSkelBuilder::default();       // згенерований скелет
-    let mut open_object = MaybeUninit::uninit();
-
-    let open_skel = scx_ops_open!(builder, &mut open_object, my_ops)?;
-    let mut skel = scx_ops_load!(open_skel, my_ops, uei)?;
-    let _link = scx_ops_attach!(skel, my_ops)?;    // планувальник активний
-
-    Ok(())
-}
-```
+:::code api-scx-rust-framework/rust/4-1-makrosy-vidkryttia.rs
 
 ### 4.2. Причина вивантаження `UserExitInfo`
 
 Ядро не просто знімає збійний планувальник — воно лишає в BPF-програмі структуру `uei` з кодом і текстом причини (відмова верифікатора, виклик `scx_bpf_error()`, спрацювання watchdog, звичайний `SIGINT`). Демон читає її макросом `uei_read!` уже після того, як `struct_ops` від'єднано, і сам вирішує, вийти чи перезапуститися.
 
-```rust
-use scx_utils::{uei_exited, uei_read};
-
-fn wait_and_report(skel: &BpfSkel) -> anyhow::Result<()> {
-    // Прапорець виставляє ядро в момент вивантаження планувальника
-    while !uei_exited!(&skel, uei) {
-        std::thread::sleep(std::time::Duration::from_millis(100));
-    }
-
-    let uei = uei_read!(&skel, uei)?;
-    if uei.should_restart() {
-        println!("Ядро попросило перезапустити планувальник");
-    }
-    Ok(())
-}
-```
+:::code api-scx-rust-framework/rust/4-2-prychyna.rs
 
 ### 4.3. Вичитування подій із BPF Ring Buffer
 
 Кільцевий буфер обслуговує не `scx_utils`, а сам `libbpf-rs`: `RingBufferBuilder` реєструє замикання-обробник на конкретну карту, а `poll()` віддає керування ядру до появи подій або до вичерпання тайм-ауту. Копіювання немає — обробник дістає зріз пам'яті самого буфера.
 
-```rust
-use libbpf_rs::RingBufferBuilder;
-use std::time::Duration;
-
-fn poll_events(map: &libbpf_rs::Map) -> anyhow::Result<()> {
-    let mut builder = RingBufferBuilder::new();
-
-    builder.add(map, |data: &[u8]| {
-        // Безпечна інтерпретація сирих байтів у структуру події
-        if data.len() >= std::mem::size_of::<SchedEvent>() {
-            let event = unsafe { &*(data.as_ptr() as *const SchedEvent) };
-            println!("Отримано подію для PID: {}", event.pid);
-        }
-        0
-    })?;
-    let ringbuf = builder.build()?;
-
-    loop {
-        // Опитування буфера з тайм-аутом 10 мілісекунд
-        ringbuf.poll(Duration::from_millis(10))?;
-    }
-}
-```
+:::code api-scx-rust-framework/rust/4-3-vychytuvannia-podii-iz.rs
 
 Цей інтерфейс забезпечує повний контроль над життєвим циклом BPF-планувальника як зі сторони ядра на C, так і зі сторони простору користувача на Rust чи C++.

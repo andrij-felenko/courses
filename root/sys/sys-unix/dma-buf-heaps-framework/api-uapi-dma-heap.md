@@ -84,19 +84,7 @@ if (ptr == MAP_FAILED) {
 
 Якщо простір користувача звертається до даних у виділеному буфері через відображення `mmap()`, для збереження когерентності між CPU та DMA-контролерами апаратури необхідно виконувати виклик `ioctl(DMA_BUF_IOCTL_SYNC)` з відповідною структурою `struct dma_buf_sync`:
 
-```c
-#include <linux/dma-buf.h>
-
-struct dma_buf_sync sync = {
-    .flags = DMA_BUF_SYNC_START | DMA_BUF_SYNC_RW
-};
-ioctl(dma_buf_fd, DMA_BUF_IOCTL_SYNC, &sync);
-
-/* читання або запис даних у mmap-вказівник */
-
-sync.flags = DMA_BUF_SYNC_END | DMA_BUF_SYNC_RW;
-ioctl(dma_buf_fd, DMA_BUF_IOCTL_SYNC, &sync);
-```
+:::code api-uapi-dma-heap/c/dma-buf.h
 
 ### Специфікація прапорців `dma_buf_sync`
 
@@ -110,28 +98,7 @@ ioctl(dma_buf_fd, DMA_BUF_IOCTL_SYNC, &sync);
 
 Файловий дескриптор `dma-buf` можна передавати між незалежними процесами у системі без копіювання самого вмісту пам'яті. Для цього застосовується механізм `SCM_RIGHTS` UNIX domain сокетів:
 
-```c
-struct msghdr msg = {0};
-struct cmsghdr *cmsg;
-char buf[CMSG_SPACE(sizeof(int))];
-char payload = 'F';
-struct iovec iov = { .iov_base = &payload, .iov_len = 1 };
-
-/* хоча б один байт корисних даних: без нього дескриптор не передасться */
-msg.msg_iov = &iov;
-msg.msg_iovlen = 1;
-msg.msg_control = buf;
-msg.msg_controllen = sizeof(buf);
-
-cmsg = CMSG_FIRSTHDR(&msg);
-cmsg->cmsg_level = SOL_SOCKET;
-cmsg->cmsg_type = SCM_RIGHTS;
-cmsg->cmsg_len = CMSG_LEN(sizeof(int));
-
-*((int *) CMSG_DATA(cmsg)) = dmabuf_fd;
-
-sendmsg(socket_fd, &msg, 0);
-```
+:::code api-uapi-dma-heap/c/peredacha-failovoho.h
 
 Приймаючий процес отримує власний файловий дескриптор у своїй таблиці відкритих файлів, який посилається на той самий об'єкт `dma-buf` у ядрі.
 
@@ -140,100 +107,6 @@ sendmsg(socket_fd, &msg, 0);
 Нижче наведено робочий приклад виділення буфера пам'яті через інтерфейс dma-buf heaps мовами C та C++.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/dma-heap.h>
-#include <errno.h>
-
-int allocate_dma_buffer(const char *heap_path, size_t size) {
-    int heap_fd = open(heap_path, O_RDONLY | O_CLOEXEC);
-    if (heap_fd < 0) {
-        perror("open dma_heap device failed");
-        return -1;
-    }
-
-    struct dma_heap_allocation_data alloc_data = {
-        .len = size,
-        .fd = 0,
-        .fd_flags = O_RDWR | O_CLOEXEC,
-        .heap_flags = 0
-    };
-
-    if (ioctl(heap_fd, DMA_HEAP_IOC_ALLOC, &alloc_data) < 0) {
-        perror("DMA_HEAP_IOC_ALLOC ioctl failed");
-        close(heap_fd);
-        return -1;
-    }
-
-    close(heap_fd);
-    return alloc_data.fd;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <expected>
-#include <system_error>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/dma-heap.h>
-
-class UniqueFd {
-    int fd_ = -1;
-public:
-    constexpr UniqueFd() noexcept = default;
-    explicit UniqueFd(int fd) noexcept : fd_(fd) {}
-    ~UniqueFd() { reset(); }
-
-    UniqueFd(const UniqueFd&) = delete;
-    UniqueFd& operator=(const UniqueFd&) = delete;
-
-    UniqueFd(UniqueFd&& other) noexcept : fd_(other.release()) {}
-    UniqueFd& operator=(UniqueFd&& other) noexcept {
-        if (this != &other) {
-            reset(other.release());
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int get() const noexcept { return fd_; }
-    [[nodiscard]] bool valid() const noexcept { return fd_ >= 0; }
-
-    int release() noexcept {
-        int temp = fd_;
-        fd_ = -1;
-        return temp;
-    }
-
-    void reset(int new_fd = -1) noexcept {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-        fd_ = new_fd;
-    }
-};
-
-std::expected<UniqueFd, std::error_code> allocate_dma_buffer(const std::string& heap_path, std::size_t size) {
-    UniqueFd heap_fd(::open(heap_path.c_str(), O_RDONLY | O_CLOEXEC));
-    if (!heap_fd.valid()) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    dma_heap_allocation_data alloc_data{};
-    alloc_data.len = size;
-    alloc_data.fd_flags = O_RDWR | O_CLOEXEC;
-    alloc_data.heap_flags = 0;
-
-    if (::ioctl(heap_fd.get(), DMA_HEAP_IOC_ALLOC, &alloc_data) < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    return UniqueFd(static_cast<int>(alloc_data.fd));
-}
-```
+:::code api-uapi-dma-heap/c/pryklad-vyklyku-api-u.c
+:::code api-uapi-dma-heap/cpp/main.cpp
 :::

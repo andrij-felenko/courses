@@ -46,22 +46,7 @@
 
 Отримавши базові ідентифікатори виробника та моделі, ядро негайно викликає функцію `usb_detect_quirks()`:
 
-```c
-// drivers/usb/core/quirks.c
-void usb_detect_quirks(struct usb_device *udev)
-{
-    udev->quirks = usb_detect_static_quirks(udev, usb_quirk_list);
-    udev->quirks |= usb_detect_dynamic_quirks(udev);
-
-    if (udev->quirks)
-        dev_dbg(&udev->dev, "USB quirks for this device: %x\n",
-                udev->quirks);
-
-    // Додаткові дії за наявності специфічних прапорців
-    if (udev->quirks & USB_QUIRK_NO_AUTOSUSPEND)
-        udev->autosuspend_disabled = 1;
-}
-```
+:::code usb-device-quirks-d/c/quirks.c
 
 Поле `udev->quirks` являє собою 32-бітну бітову маску (`u32`), де кожен біт активує певну зміну в логіці ядра. Ця маска зберігається в структурі `struct usb_device` і супроводжує об'єкт пристрою протягом усього його життєвого циклу.
 
@@ -71,21 +56,7 @@ void usb_detect_quirks(struct usb_device *udev)
 
 Статична таблиця `usb_quirk_list[]` містить масив структур `struct usb_device_id`, що зіставляють конкретні значення `idVendor`, `idProduct` або діапазони ревізій прошивок `bcdDevice` із набором прапорців `USB_QUIRK_*`:
 
-```c
-static const struct usb_device_id usb_quirk_list[] = {
-    // Вебкамера Logitech QuickCam Pro 4000
-    { USB_DEVICE(0x046d, 0x08b2), .driver_info = USB_QUIRK_RESET_RESUME },
-
-    // Зовнішній звуковий контролер C-Media
-    { USB_DEVICE(0x0d8c, 0x000c), .driver_info = USB_QUIRK_NO_SET_INTF },
-
-    // Кардридер Alcor Micro
-    { USB_DEVICE(0x058f, 0x6366), .driver_info = USB_QUIRK_NO_LPM },
-
-    // Маркер кінця списку
-    { }
-};
-```
+:::code usb-device-quirks-d/c/protsedura-numeratsii-v.c
 
 Коли будь-яка підсистема ядра (керування живленням, налаштування кінцевих точок, запит рядків, відправка URB) збирається виконати стандартну дію, вона перевіряє відповідний біт у `udev->quirks`. Якщо біт встановлено, стандартна операція замінюється безпечним обхідним маневром.
 

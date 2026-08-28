@@ -134,57 +134,8 @@ T_total
 Для увімкнення та швидкого налаштування зондування на сокеті використовується наступний підхід мовами C та C++:
 
 :::tabs
-```c
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-
-int enable_keepalive(int fd) {
-    int optval = 1;
-    int idle = 30;   /* Почати зондування після 30с простою */
-    int intvl = 5;   /* Повторювати зонди кожні 5с */
-    int cnt = 3;     /* 3 невдалі спроби -> розрив */
-
-    if (setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &optval, sizeof(optval)) < 0)
-        return -1;
-    if (setsockopt(fd, IPPROTO_TCP, TCP_KEEPIDLE, &idle, sizeof(idle)) < 0)
-        return -1;
-    if (setsockopt(fd, IPPROTO_TCP, TCP_KEEPINTVL, &intvl, sizeof(intvl)) < 0)
-        return -1;
-    if (setsockopt(fd, IPPROTO_TCP, TCP_KEEPCNT, &cnt, sizeof(cnt)) < 0)
-        return -1;
-
-    return 0;
-}
-```
-```cpp
-#include <system_error>
-#include <chrono>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-
-void setup_tcp_keepalive(int fd, std::chrono::seconds idle, std::chrono::seconds intvl, int cnt) {
-    int optval = 1;
-    if (::setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &optval, sizeof(optval)) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Failed to enable SO_KEEPALIVE");
-    }
-
-    int idle_sec = static_cast<int>(idle.count());
-    if (::setsockopt(fd, IPPROTO_TCP, TCP_KEEPIDLE, &idle_sec, sizeof(idle_sec)) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Failed to set TCP_KEEPIDLE");
-    }
-
-    int intvl_sec = static_cast<int>(intvl.count());
-    if (::setsockopt(fd, IPPROTO_TCP, TCP_KEEPINTVL, &intvl_sec, sizeof(intvl_sec)) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Failed to set TCP_KEEPINTVL");
-    }
-
-    if (::setsockopt(fd, IPPROTO_TCP, TCP_KEEPCNT, &cnt, sizeof(cnt)) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Failed to set TCP_KEEPCNT");
-    }
-}
-```
+:::code tcp-connection-liveness-d/c/main.c
+:::code tcp-connection-liveness-d/cpp/main.cpp
 :::
 
 З параметрами `idle = 30`, `intvl = 5`, `cnt = 3` мертве з'єднання буде виявлено за `30 + (3 · 5) = 45` секунд. Після цього ядро знищить сокет, а заблокований виклик `read()` або `epoll_wait()` миттєво поверне помилку `ETIMEDOUT` або `ECONNRESET`.

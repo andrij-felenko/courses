@@ -121,115 +121,12 @@
 Драйвери периферійних пристроїв та апаратні бекенди керування живленням використовують структури ядра для реєстрації нових зон та передачі зворотних викликів:
 
 :::tabs
-```c
-#include <linux/powercap.h>
-
-/* Таблиця операцій зони керування */
-struct powercap_zone_ops {
-    int (*get_energy_uj)(struct powercap_zone *zone, u64 *energy_uj);
-    int (*reset_energy_uj)(struct powercap_zone *zone);
-    int (*get_max_energy_range_uj)(struct powercap_zone *zone, u64 *max_uj);
-    int (*get_power_uw)(struct powercap_zone *zone, u64 *power_uw);
-    int (*set_enable)(struct powercap_zone *zone, bool mode);
-    int (*get_enable)(struct powercap_zone *zone, bool *mode);
-    int (*release)(struct powercap_zone *zone);
-};
-
-/* Таблиця операцій конкретного обмеження */
-struct powercap_zone_constraint_ops {
-    int (*set_power_limit_uw)(struct powercap_zone *zone, int cid, u64 power_uw);
-    int (*get_power_limit_uw)(struct powercap_zone *zone, int cid, u64 *power_uw);
-    int (*set_time_window_us)(struct powercap_zone *zone, int cid, u64 time_us);
-    int (*get_time_window_us)(struct powercap_zone *zone, int cid, u64 *time_us);
-    int (*get_max_power_uw)(struct powercap_zone *zone, int cid, u64 *power_uw);
-    int (*get_min_power_uw)(struct powercap_zone *zone, int cid, u64 *power_uw);
-    int (*get_max_time_window_us)(struct powercap_zone *zone, int cid, u64 *time_us);
-    int (*get_min_time_window_us)(struct powercap_zone *zone, int cid, u64 *time_us);
-    const char *(*get_name)(struct powercap_zone *zone, int cid);
-};
-
-/* Реєстрація зони контролю в підсистемі powercap */
-struct powercap_zone *powercap_register_zone(
-    struct powercap_zone *parent,
-    struct powercap_control_type *control_type,
-    const char *name,
-    const struct powercap_zone_ops *ops,
-    int nr_constraints,
-    const struct powercap_zone_constraint_ops *const_ops
-);
-
-/* Скасування реєстрації та видалення зони */
-int powercap_unregister_zone(
-    struct powercap_control_type *control_type,
-    struct powercap_zone *zone
-);
-```
-```cpp
-#include <linux/powercap.h>
-
-// Концептуальні C++ сигнатури для розробки обгорток ядра та тестових модулів
-
-extern "C" {
-
-struct powercap_zone_ops {
-    int (*get_energy_uj)(struct powercap_zone *zone, u64 *energy_uj);
-    int (*reset_energy_uj)(struct powercap_zone *zone);
-    int (*get_max_energy_range_uj)(struct powercap_zone *zone, u64 *max_uj);
-    int (*get_power_uw)(struct powercap_zone *zone, u64 *power_uw);
-    int (*set_enable)(struct powercap_zone *zone, bool mode);
-    int (*get_enable)(struct powercap_zone *zone, bool *mode);
-    int (*release)(struct powercap_zone *zone);
-};
-
-struct powercap_zone_constraint_ops {
-    int (*set_power_limit_uw)(struct powercap_zone *zone, int cid, u64 power_uw);
-    int (*get_power_limit_uw)(struct powercap_zone *zone, int cid, u64 *power_uw);
-    int (*set_time_window_us)(struct powercap_zone *zone, int cid, u64 time_us);
-    int (*get_time_window_us)(struct powercap_zone *zone, int cid, u64 *time_us);
-    int (*get_max_power_uw)(struct powercap_zone *zone, int cid, u64 *power_uw);
-    int (*get_min_power_uw)(struct powercap_zone *zone, int cid, u64 *power_uw);
-    int (*get_max_time_window_us)(struct powercap_zone *zone, int cid, u64 *time_us);
-    int (*get_min_time_window_us)(struct powercap_zone *zone, int cid, u64 *time_us);
-    const char *(*get_name)(struct powercap_zone *zone, int cid);
-};
-
-struct powercap_zone *powercap_register_zone(
-    struct powercap_zone *parent,
-    struct powercap_control_type *control_type,
-    const char *name,
-    const struct powercap_zone_ops *ops,
-    int nr_constraints,
-    const struct powercap_zone_constraint_ops *const_ops
-);
-
-int powercap_unregister_zone(
-    struct powercap_control_type *control_type,
-    struct powercap_zone *zone
-);
-
-}
-```
+:::code api-powercap-sysfs/c/powercap.h
+:::code api-powercap-sysfs/cpp/main.hpp
 :::
 
 ## 7. Приклад налаштування лімітів через командний рядок
 
 Для обмеження максимального енергоспоживання сокета до 65 Вт (`65 000 000 uW`) із тривалістю часового вікна 15 секунд (`15 000 000 us`):
 
-```bash
-# 1. Перевірка ідентифікатора зони сокета
-cat /sys/class/powercap/intel-rapl/intel-rapl:0/name
-# Очікуване значення: package-0
-
-# 2. Встановлення ліміту довготривалої потужності PL1
-echo 65000000 | sudo tee /sys/class/powercap/intel-rapl/intel-rapl:0/constraint_0_power_limit_uw
-
-# 3. Встановлення часового вікна для ліміту PL1
-echo 15000000 | sudo tee /sys/class/powercap/intel-rapl/intel-rapl:0/constraint_0_time_window_us
-
-# 4. Активація контролю зони
-echo 1 | sudo tee /sys/class/powercap/intel-rapl/intel-rapl:0/enabled
-
-# 5. Перевірка фактично встановлених параметрів
-cat /sys/class/powercap/intel-rapl/intel-rapl:0/constraint_0_power_limit_uw
-cat /sys/class/powercap/intel-rapl/intel-rapl:0/constraint_0_time_window_us
-```
+:::code api-powercap-sysfs/sh/main.sh

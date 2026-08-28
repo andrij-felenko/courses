@@ -18,91 +18,7 @@
 
 **Самі лічильники мають бути дешеві.** `sbrk(0)` — це навіть не системний виклик у сучасній glibc для читання: бібліотека тримає поточне значення межі в себе. А `/proc/self/status` — це [файл, якого немає на диску](root:sys-unix/proc-reading-process-and-kernel-state): ядро складає його текст у момент читання, тож кожен наш замір коштує одного `read` і розбору кількох сотень байтів.
 
-```c
-/* heapprobe.c — дослід над власною купою */
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <malloc.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <unistd.h>
-
-#define KiB 1024UL
-#define MiB (1024UL * KiB)
-
-static char out_buf[8 * 1024];        /* власний буфер stdout: щоб stdio не кликав malloc */
-
-static long proc_status_kib(const char *key)
-{
-    static char buf[4096];
-    ssize_t n;
-    char *p;
-    int fd = open("/proc/self/status", O_RDONLY);
-
-    if (fd < 0) return -1;
-    n = read(fd, buf, sizeof buf - 1);
-    close(fd);
-    if (n <= 0) return -1;
-    buf[n] = '\0';
-    p = strstr(buf, key);
-    return p ? strtol(p + strlen(key), NULL, 10) : -1;
-}
-
-static long rss_kib(void)   { return proc_status_kib("VmRSS:"); }
-static long vsize_kib(void) { return proc_status_kib("VmSize:"); }
-
-static void *brk_now(void) { return sbrk(0); }
-
-/* надрукувати рядок /proc/self/maps, що містить задану адресу */
-static void show_map_of(const void *addr)
-{
-    static char buf[128 * 1024];
-    unsigned long want = (unsigned long) addr;
-    size_t len = 0;
-    ssize_t n;
-    char *line;
-    int fd = open("/proc/self/maps", O_RDONLY);
-
-    if (fd < 0) return;
-    while (len + 1 < sizeof buf && (n = read(fd, buf + len, sizeof buf - 1 - len)) > 0)
-        len += (size_t) n;
-    close(fd);
-    buf[len] = '\0';
-
-    for (line = buf; line && *line; ) {
-        char *end = strchr(line, '\n');
-        unsigned long lo = 0, hi = 0;
-
-        if (end) *end = '\0';
-        if (sscanf(line, "%lx-%lx", &lo, &hi) == 2 && want >= lo && want < hi)
-            printf("        %s   (%lu КіБ)\n", line, (hi - lo) / KiB);
-        line = end ? end + 1 : NULL;
-    }
-}
-
-static void *xmalloc(size_t n)
-{
-    void *p = malloc(n);
-    if (!p) { fprintf(stderr, "malloc(%zu) не вдався\n", n); exit(1); }
-    return p;
-}
-
-/* сховати покажчик від оптимізатора (навіщо — у пастках наприкінці) */
-static void *opaque(void *p)
-{
-    __asm__ volatile ("" : "+r"(p) : : "memory");
-    return p;
-}
-
-static double now_s(void)
-{
-    struct timespec t;
-    clock_gettime(CLOCK_MONOTONIC, &t);
-    return (double) t.tv_sec + (double) t.tv_nsec / 1e9;
-}
-```
+:::code proj-heap-probe/c/heapprobe.c
 
 `CLOCK_MONOTONIC`, а не `CLOCK_REALTIME`, — бо нас цікавить тривалість, а настінний годинник має право стрибнути назад посеред заміру ([монотонний час проти настінного](root:sf-apps/monotonic-vs-wall-time)).
 
@@ -110,31 +26,7 @@ static double now_s(void)
 
 Сім виділень підряд — одне крихітне й шість по 100 КіБ, усі під порогом `mmap`. Після кожного читаємо межу.
 
-```c
-static void probe_ladder(void)
-{
-    static const size_t sizes[7] = { 32, 102400, 102400, 102400, 102400, 102400, 102400 };
-    void *keep[7];
-    void *prev = brk_now();
-    int i;
-
-    printf("[1] драбинка брейка\n");
-    printf("      старт: брейк = %p\n", prev);
-
-    for (i = 0; i < 7; i++) {
-        void *b;
-        keep[i] = xmalloc(sizes[i]);
-        memset(keep[i], 0, sizes[i]);
-        b = brk_now();
-        printf("      malloc(%6zu) = %p   брейк = %p  %+5ld КіБ\n",
-               sizes[i], keep[i], b, ((char *) b - (char *) prev) / (long) KiB);
-        prev = b;
-    }
-    for (i = 0; i < 7; i++)
-        free(keep[i]);
-    printf("      після free() усіх сімох: брейк = %p\n", brk_now());
-}
-```
+:::code proj-heap-probe/c/doslid-1-drabynka-breika.c
 
 ```
 [1] драбинка брейка
@@ -188,28 +80,7 @@ static void probe_ladder(void)
 
 Два виділення — 64 КіБ і 1 МіБ — і рядки `/proc/self/maps`, у яких вони опинилися.
 
-```c
-static void probe_two_doors(void)
-{
-    void *small, *big, *b;
-
-    printf("[2] під порогом і над порогом\n");
-    small = xmalloc(64 * KiB);
-    big   = xmalloc(1 * MiB);
-    memset(small, 0, 64 * KiB);
-    memset(big, 0, 1 * MiB);
-    b = brk_now();
-
-    printf("      64 КіБ → %p   (брейк = %p)\n", small, b);
-    show_map_of(small);
-    printf("      1 МіБ  → %p   вище за брейк на %ld ГіБ\n",
-           big, ((char *) big - (char *) b) / (long) (1024 * MiB));
-    show_map_of(big);
-
-    free(small);
-    free(big);
-}
-```
+:::code proj-heap-probe/c/doslid-2-pid-porohom-i-nad.c
 
 ```
 [2] під порогом і над порогом
@@ -238,26 +109,7 @@ static void probe_two_doors(void)
 
 Чотири ітерації по 200 КіБ із негайним звільненням — той самий візерунок, на якому сталий поріг ламався б.
 
-```c
-static void probe_moving_threshold(void)
-{
-    int i;
-
-    printf("[3] поріг, який навчається\n");
-    for (i = 0; i < 4; i++) {
-        void *b0 = brk_now();
-        void *p = xmalloc(200 * KiB);
-        void *b1;
-
-        memset(p, 0, 200 * KiB);
-        b1 = brk_now();
-        printf("      ітерація %d: %p   брейк %+5ld КіБ   %s\n",
-               i, p, ((char *) b1 - (char *) b0) / (long) KiB,
-               (char *) p < (char *) b1 ? "з купи" : "окремий mmap");
-        free(p);
-    }
-}
-```
+:::code proj-heap-probe/c/doslid-3-porih-iakyi.c
 
 ```
 [3] поріг, який навчається
@@ -287,43 +139,7 @@ free() ділянки         → поріг mmap  = 208896
 
 Головний дослід. Виділяємо 512000 блоків по 1 КіБ, торкаємося кожного, звільняємо всі, крім останнього — того, що лежить найвище, під самим брейком.
 
-```c
-#define BLOCKS 512000
-
-static void snapshot(const char *tag)
-{
-    printf("      VmRSS = %8ld КіБ   VmSize = %8ld КіБ   брейк = %p   %s\n",
-           rss_kib(), vsize_kib(), brk_now(), tag);
-}
-
-static void probe_trapped(void)
-{
-    void **v;
-    size_t i;
-
-    printf("[4] півмільйона блоків, звільнено всі, крім верхнього\n");
-    snapshot("старт");
-
-    v = xmalloc(BLOCKS * sizeof *v);
-    for (i = 0; i < BLOCKS; i++) {
-        v[i] = xmalloc(1 * KiB);
-        memset(v[i], 0x5a, 1 * KiB);      /* доторкнутися: без цього сторінок не буде */
-    }
-    snapshot("512000 блоків по 1 КіБ виділено й заповнено");
-
-    for (i = 0; i + 1 < BLOCKS; i++)
-        free(v[i]);
-    snapshot("free() усіх, крім верхнього");
-
-    malloc_trim(0);
-    snapshot("після malloc_trim(0)");
-
-    free(v[BLOCKS - 1]);
-    snapshot("після free() верхнього");
-
-    free(v);
-}
-```
+:::code proj-heap-probe/c/doslid-4-pivmiliona-blokiv.c
 
 ```
 [4] півмільйона блоків, звільнено всі, крім верхнього
@@ -365,48 +181,7 @@ static void probe_trapped(void)
 
 Два способи дістати гігабайт нулів. Різниця — у тисячі разів.
 
-```c
-static void probe_calloc(void)
-{
-    const size_t SZ = 1024 * MiB;
-    volatile unsigned long sink = 0;
-    unsigned char *a, *b;
-    long r0, r1, r2, r3;
-    double t0, t1, t2, t3, t4, t5;
-    size_t i;
-
-    printf("[5] calloc проти malloc+memset на 1 ГіБ\n");
-    r0 = rss_kib();
-
-    t0 = now_s();
-    a = calloc(1, SZ);
-    t1 = now_s();
-    r1 = rss_kib();
-    if (!a) { printf("      calloc не вдався\n"); return; }
-    printf("      calloc(1, 1 ГіБ)          %9.3f мс   VmRSS %+8ld КіБ\n",
-           (t1 - t0) * 1e3, r1 - r0);
-
-    t2 = now_s();
-    for (i = 0; i < SZ; i += 4096)
-        sink += a[i];
-    t3 = now_s();
-    r2 = rss_kib();
-    printf("      прочитати всі сторінки    %9.3f мс   VmRSS %+8ld КіБ   (сума = %lu)\n",
-           (t3 - t2) * 1e3, r2 - r1, sink);
-
-    t4 = now_s();
-    b = opaque(malloc(SZ));
-    if (!b) { printf("      malloc не вдався\n"); free(a); return; }
-    memset(b, 0, SZ);
-    t5 = now_s();
-    r3 = rss_kib();
-    printf("      malloc + memset(1 ГіБ)    %9.3f мс   VmRSS %+8ld КіБ\n",
-           (t5 - t4) * 1e3, r3 - r2);
-
-    free(a);
-    free(b);
-}
-```
+:::code proj-heap-probe/c/doslid-5-calloc-proty.c
 
 ```
 [5] calloc проти malloc+memset на 1 ГіБ
@@ -432,21 +207,7 @@ malloc + memset        = 262144 збоїв, 262144 кадрів, ≈ 2 ГіБ з
 
 ## Складання й запуск
 
-```c
-int main(int argc, char **argv)
-{
-    int only = (argc > 1) ? atoi(argv[1]) : 0;
-
-    setvbuf(stdout, out_buf, _IOFBF, sizeof out_buf);
-
-    if (!only || only == 1) probe_ladder();
-    if (!only || only == 2) probe_two_doors();
-    if (!only || only == 3) probe_moving_threshold();
-    if (!only || only == 4) probe_trapped();
-    if (!only || only == 5) probe_calloc();
-    return 0;
-}
-```
+:::code proj-heap-probe/c/skladannia-i-zapusk.c
 
 ```
 $ gcc -O2 -Wall -o heapprobe heapprobe.c

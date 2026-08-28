@@ -25,20 +25,7 @@ iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
 
 Коли драйвер мережевого адаптера (наприклад, `e1000e` або `r8169`) виявляє підтримуваний контролер на шині PCI Express, він виділяє структуру мережевого пристрою за допомогою функції `alloc_etherdev_mqs()` і реєструє її у внутрішній таблиці мережевої підсистеми викликом `register_netdevice()`.
 
-```c
-/* Фрагмент логіки ядра: net/core/dev.c */
-int dev_alloc_name(struct net_device *dev, const char *name)
-{
-    char buf[IFNAMSIZ];
-    struct net *net = dev_net(dev);
-    int ret;
-
-    ret = __dev_alloc_name(net, name, buf);
-    if (ret >= 0)
-        strscpy(dev->name, buf, IFNAMSIZ);
-    return ret;
-}
-```
+:::code predictable-network-interface-names-d/c/dev.c
 
 Функція `__dev_alloc_name()` отримує від драйвера шаблон форматування `eth%d`. Вона сканує наявні в поточному мережевому просторі імен (`struct net`) пристрої та знаходить найменше вільне ціле число, починаючи від `0`.
 
@@ -122,24 +109,7 @@ LABEL="net_setup_link_end"
 
 Функція аналізує топологію в такому порядку:
 
-```c
-/* Логіка обчислення кандидатів імен у systemd */
-int dev_to_net_names(sd_device *dev, NetNames *names) {
-    /* 1. Пошук вбудованих індексів прошивки (ACPI / SMBIOS Type 41) */
-    names_onboard(dev, names);
-
-    /* 2. Пошук слотів гарячої заміни PCI Express (PCI Hotplug) */
-    names_slot(dev, names);
-
-    /* 3. Обчислення топологічного шляху шини (PCI / USB / CCW) */
-    names_path(dev, names);
-
-    /* 4. Отримання глобально адміністрованої MAC-адреси */
-    names_mac(dev, names);
-
-    return 0;
-}
-```
+:::code predictable-network-interface-names-d/c/2-henerator-imen-udev.c
 
 Усі успішно згенеровані варіанти експортуються як змінні події udev:
 - `ID_NET_NAME_ONBOARD`
@@ -466,37 +436,13 @@ $ sudo ln -s /dev/null /etc/systemd/network/99-default.link
 
 Команда `test-builtin net_id` запускає внутрішній рушій безпосередньо над текою пристрою в sysfs і виводить усі розраховані параметри:
 
-```sh
-$ udevadm test-builtin net_id /sys/class/net/enp3s0
-=== Режим емуляції net_id ===
-Parsed configuration file "/usr/lib/systemd/network/99-default.link"
-Using default naming scheme: v252
-ID_NET_NAMING_SCHEME=v252
-ID_NET_NAME_MAC=enx78e7d1ea46da
-ID_NET_NAME_PATH=enp3s0
-ID_NET_NAME_SLOT=ens1
-ID_NET_NAME_ONBOARD=eno1
-ID_NET_NAME=eno1
-```
+:::code predictable-network-interface-names-d/sh/pokrokova-emuliatsiia.sh
 
 ### Перегляд дерева батьківських пристроїв
 
 Команда `udevadm info` з ключем `--attribute-walk` дозволяє дослідити повний ланцюг контролерів від фізичного роз'єму до кореневого моста процесора:
 
-```sh
-$ udevadm info --attribute-walk --path=/sys/class/net/enp3s0
-  looking at device '/devices/pci0000:00/0000:00:1c.4/0000:03:00.0/net/enp3s0':
-    KERNEL=="enp3s0"
-    SUBSYSTEM=="net"
-    ATTR{address}=="78:e7:d1:ea:46:da"
-    ATTR{type}=="1"
-
-  looking at parent device '/devices/pci0000:00/0000:00:1c.4/0000:03:00.0':
-    KERNELS=="0000:03:00.0"
-    SUBSYSTEMS=="pci"
-    ATTRS{vendor}=="0x8086"
-    ATTRS{device}=="0x1539"
-```
+:::code predictable-network-interface-names-d/sh/perehliad-dereva.sh
 
 Ці дані дозволяють точно скласти фільтр для секції `[Match]` у разі написання власних правил автоматизації мережі.
 

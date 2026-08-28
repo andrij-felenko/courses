@@ -9,88 +9,8 @@
 Розглянемо вихідний код системної утиліти `sysmon`, яка записує статус роботи у системний журнал `syslog`. Демон обробляє POSIX-сигнали `SIGINT` та `SIGTERM` для коректного завершення роботи без залишення пошкоджених тимчасових ресурсів чи заблокованих дескрипторів файлів.
 
 :::tabs
-```c
-/* sysmon.c — Системний демон фонового моніторингу на C */
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <syslog.h>
-#include <signal.h>
-
-static volatile int keep_running = 1;
-
-void handle_signal(int sig) {
-    if (sig == SIGINT || sig == SIGTERM) {
-        keep_running = 0;
-    }
-}
-
-int main(void) {
-    openlog("sysmon", LOG_PID | LOG_CONS, LOG_DAEMON);
-    syslog(LOG_INFO, "Демон sysmon успішно запущено.");
-
-    struct sigaction sa;
-    sa.sa_handler = handle_signal;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGINT, &sa, NULL);
-    sigaction(SIGTERM, &sa, NULL);
-
-    while (keep_running) {
-        syslog(LOG_INFO, "sysmon: системний статус OK");
-        sleep(5);
-    }
-
-    syslog(LOG_INFO, "Демон sysmon зупинено за сигналом.");
-    closelog();
-    return 0;
-}
-```
-```cpp
-// sysmon.cpp — Системний демон фонового моніторингу на C++
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include <atomic>
-#include <csignal>
-#include <syslog.h>
-
-namespace {
-    std::atomic<bool> g_keep_running{true};
-}
-
-void signal_handler(int signal) {
-    if (signal == SIGINT || signal == SIGTERM) {
-        g_keep_running = false;
-    }
-}
-
-class SyslogGuard {
-public:
-    explicit SyslogGuard(const char* ident) {
-        openlog(ident, LOG_PID | LOG_CONS, LOG_DAEMON);
-    }
-    ~SyslogGuard() {
-        syslog(LOG_INFO, "Демон sysmon зупинено за сигналом (RAII).");
-        closelog();
-    }
-};
-
-int main() {
-    SyslogGuard log_guard("sysmon");
-    syslog(LOG_INFO, "Демон sysmon (C++) успішно запущено.");
-
-    std::signal(SIGINT, signal_handler);
-    std::signal(SIGTERM, signal_handler);
-
-    while (g_keep_running) {
-        syslog(LOG_INFO, "sysmon: системний статус OK");
-        std::this_thread::sleep_for(std::chrono::seconds(5));
-    }
-
-    return 0;
-}
-```
+:::code proj-building/c/sysmon.c
+:::code proj-building/cpp/sysmon.cpp
 :::
 
 ### 1.1. Складальний файл `Makefile`
@@ -99,38 +19,7 @@ int main() {
 
 Під час збірки пакетний менеджер передає свій каталог тимчасового монтування (наприклад, `debian/sysmon/` або `BUILDROOT/`), куди `make install` копіює бінарні файли та юніти `systemd`. Використання команд `install -d` та `install -m` гарантує точне дотримання прав доступу (POSIX mode `0755` для бінарних файлів та `0644` для службових конфігурацій).
 
-```makefile
-PREFIX ?= /usr
-BINDIR ?= $(PREFIX)/bin
-MANDIR ?= $(PREFIX)/share/man/man1
-SYSTEMDDIR ?= /lib/systemd/system
-
-CC ?= gcc
-CXX ?= g++
-CFLAGS += -Wall -Wextra -O2
-CXXFLAGS += -Wall -Wextra -O2 -std=c++17
-
-TARGET = sysmon
-
-all: $(TARGET)
-
-$(TARGET): sysmon.c
-	$(CC) $(CFLAGS) $< -o $@
-
-cpp-build: sysmon.cpp
-	$(CXX) $(CXXFLAGS) $< -o $(TARGET)
-
-install: $(TARGET)
-	install -d $(DESTDIR)$(BINDIR)
-	install -m 0755 $(TARGET) $(DESTDIR)$(BINDIR)/$(TARGET)
-	install -d $(DESTDIR)$(SYSTEMDDIR)
-	install -m 0644 sysmon.service $(DESTDIR)$(SYSTEMDDIR)/sysmon.service
-
-clean:
-	rm -f $(TARGET)
-
-.PHONY: all cpp-build install clean
-```
+:::code proj-building/make/Makefile
 
 ---
 

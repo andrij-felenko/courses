@@ -65,43 +65,13 @@
 
 Низькорівневий драйвер обладнання (наприклад, `iTCO_wdt.c` для чипсетів Intel або `bcm2835_wdt.c` для SoC Broadcom) створює екземпляр структури `watchdog_device` та заповнює таблицю операцій `watchdog_ops`:
 
-```c
-struct watchdog_ops {
-    struct module *owner;
-    /* Обов'язкові операції драйвера */
-    int (*start)(struct watchdog_device *);
-    int (*stop)(struct watchdog_device *);
-    /* Необов'язкові розширені операції */
-    int (*ping)(struct watchdog_device *);
-    unsigned int (*status)(struct watchdog_device *);
-    int (*set_timeout)(struct watchdog_device *, unsigned int);
-    int (*set_pretimeout)(struct watchdog_device *, unsigned int);
-    unsigned int (*get_timeleft)(struct watchdog_device *);
-    long (*ioctl)(struct watchdog_device *, unsigned int, unsigned long);
-};
-```
+:::code watchdog-timer-subsystem-d/c/struktury-watchdog-device.h
 
 Поле `start` відповідає за подачу живлення або увімкнення апаратного зворотного відліку. Поле `ping` викликається при кожному Heartbeat; якщо низькорівневий драйвер не надає власного методу `ping`, ядро повторно викликає операцію `start`.
 
 Структура `watchdog_device` зберігає повний стан пристрою:
 
-```c
-struct watchdog_device {
-    int id;                         /* Унікальний номер у системі */
-    struct device *parent;          /* Базовий пристрій шини (platform/PCI) */
-    const struct watchdog_info *info; /* Метадані UAPI */
-    const struct watchdog_ops *ops;  /* Таблиця callback-функцій */
-    const struct watchdog_gov *gov;  /* Поточний Pretimeout Governor */
-    unsigned int bootstatus;        /* Причина останнього скидання */
-    unsigned int timeout;           /* Поточний таймаут у секундах */
-    unsigned int pretimeout;        /* Поточний інтервал Pretimeout */
-    unsigned int min_timeout;       /* Мінімальний апаратний таймаут */
-    unsigned int max_timeout;       /* Максимальний апаратний таймаут */
-    unsigned long status;           /* Прапорці стану драйвера (WDOG_*) */
-    unsigned int max_hw_heartbeat_ms; /* Максимальний апаратний інтервал між пінгами */
-    struct watchdog_core_data *wd_data; /* Внутрішній контекст ядра: hrtimer, черга, м'ютекс */
-};
-```
+:::code watchdog-timer-subsystem-d/c/struktury-watchdog-device.c
 
 Драйвер реєструє створений об'єкт викликом `watchdog_register_device(&wdd)`. Підсистема автоматично створює символьні пристрої: аліас `/dev/watchdog` реєструється як misc-пристрій (мажорний номер 10, молодший 130), а нумеровані `/dev/watchdogN` — через власну область символьних пристроїв, мажорний номер якої ядро виділяє динамічно.
 

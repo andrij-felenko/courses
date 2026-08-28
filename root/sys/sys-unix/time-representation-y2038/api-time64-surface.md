@@ -20,40 +20,7 @@
 
 Базові структури живуть в одному файлі:
 
-```c
-/* include/uapi/linux/time_types.h — форми, у яких час перетинає межу */
-
-struct __kernel_timespec {
-	__kernel_time64_t	tv_sec;		/* секунди — завжди 64 біти */
-	long long		tv_nsec;
-};
-
-struct __kernel_itimerspec {
-	struct __kernel_timespec it_interval;
-	struct __kernel_timespec it_value;
-};
-
-struct __kernel_old_timespec {
-	__kernel_old_time_t	tv_sec;		/* вузька форма */
-	long			tv_nsec;
-};
-
-struct __kernel_old_timeval {
-	__kernel_long_t		tv_sec;		/* лишили лише там, де це ТРИВАЛІСТЬ;
-						   нових користувачів не заводять */
-	__kernel_long_t		tv_usec;
-};
-
-struct __kernel_old_itimerval {
-	struct __kernel_old_timeval it_interval;
-	struct __kernel_old_timeval it_value;
-};
-
-struct __kernel_sock_timeval {
-	__s64 tv_sec;				/* окрема широка форма для сокетів */
-	__s64 tv_usec;
-};
-```
+:::code api-time64-surface/c/slovnyk-typiv.c
 
 Зверніть увагу на `__kernel_old_timeval`: він не є помилкою, яку забули виправити. Його свідомо лишили вузьким там, де поле несе **проміжок**, а не позначку на осі часу, — і в самому заголовку стоїть застереження не заводити нових користувачів.
 
@@ -86,25 +53,7 @@ struct __kernel_sock_timeval {
 
 **Спосіб другий — розширення на місці.** Структури керування [міжпроцесовими об'єктами](root:sys-unix/ipc-landscape) мали в собі невживані поля-набивки, і саме туди поклали старші половини:
 
-```c
-/* include/uapi/asm-generic/sembuf.h */
-
-struct semid64_ds {
-	struct ipc64_perm sem_perm;
-#if __BITS_PER_LONG == 64
-	long		sem_otime;	/* last semop time */
-	long		sem_ctime;	/* last change time */
-#else
-	unsigned long	sem_otime;	/* молодші 32 біти */
-	unsigned long	sem_otime_high;	/* колишнє __unused1 */
-	unsigned long	sem_ctime;
-	unsigned long	sem_ctime_high;	/* колишнє __unused2 */
-#endif
-	unsigned long	sem_nsems;
-	unsigned long	__unused3;
-	unsigned long	__unused4;
-};
-```
+:::code api-time64-surface/c/try-sposoby-iakymy-tse.c
 
 ![Чотири поля struct semid64_ds у пам'яті: sem_otime і sem_otime_high тримають молодші й старші половини однієї 64-бітної позначки, так само sem_ctime і sem_ctime_high](img/ipc-time-split.svg)
 
@@ -170,20 +119,7 @@ struct semid64_ds {
 
 Вибір між номерами робить сам заголовок, і робить його за шириною типу:
 
-```c
-/* include/uapi/asm-generic/socket.h */
-
-#if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
-/* на 64-бітних і на x32 обходимося без ?: */
-#define SO_TIMESTAMP		SO_TIMESTAMP_OLD
-#define SO_RCVTIMEO		SO_RCVTIMEO_OLD
-#else
-#define SO_TIMESTAMP	(sizeof(time_t) == sizeof(__kernel_long_t) ? \
-			 SO_TIMESTAMP_OLD : SO_TIMESTAMP_NEW)
-#define SO_RCVTIMEO	(sizeof(time_t) == sizeof(__kernel_long_t) ? \
-			 SO_RCVTIMEO_OLD : SO_RCVTIMEO_NEW)
-#endif
-```
+:::code api-time64-surface/c/sokety-optsii-z-sufiksom.c
 
 Правило для програми з цього випливає одне: **писати `SO_TIMESTAMP`, ніколи не `SO_TIMESTAMP_NEW` і тим паче не число 29**. Ім'я без суфікса саме перетвориться на потрібний номер; ім'я з суфіксом жорстко прив'язує вас до однієї ширини й розійдеться з тим, що очікує ваша libc.
 
@@ -191,22 +127,7 @@ struct semid64_ds {
 
 Тим самим переходом ідуть два `ioctl` для читання позначки останнього пакета:
 
-```c
-/* include/uapi/asm-generic/sockios.h — старі, лишилися незмінними */
-#define SIOCGSTAMP_OLD		0x8906		/* struct timeval  */
-#define SIOCGSTAMPNS_OLD	0x8907		/* struct timespec */
-
-/* include/uapi/linux/sockios.h — нові */
-#define SIOCGSTAMP_NEW		_IOR(SOCK_IOC_TYPE, 0x06, long long[2])
-#define SIOCGSTAMPNS_NEW	_IOR(SOCK_IOC_TYPE, 0x07, long long[2])
-
-#if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
-#define SIOCGSTAMP	SIOCGSTAMP_OLD
-#else
-#define SIOCGSTAMP	((sizeof(struct timeval)) == 8 ? \
-			 SIOCGSTAMP_OLD : SIOCGSTAMP_NEW)
-#endif
-```
+:::code api-time64-surface/c/sokety-optsii-z-sufiksom-2.c
 
 ## `ioctl`: чому номер команди міняється сам
 
@@ -222,26 +143,7 @@ struct semid64_ds {
 
 Останній рядок вартий коду, бо він показує третій, найскромніший різновид виправлення — коли інтерфейс не полагодили, а лише **не дали прочитати його неправильно**:
 
-```c
-/* include/uapi/linux/input.h, спрощено (окрему гілку для sparc64 прибрано).
- * __USE_TIME_BITS64 визначає libc, коли програма попросила широкий час.
- */
-struct input_event {
-#if (__BITS_PER_LONG != 32 || !defined(__USE_TIME_BITS64)) && !defined(__KERNEL__)
-	struct timeval time;
-#define input_event_sec  time.tv_sec
-#define input_event_usec time.tv_usec
-#else
-	__kernel_ulong_t __sec;
-	__kernel_ulong_t __usec;
-#define input_event_sec  __sec
-#define input_event_usec __usec
-#endif
-	__u16 type;
-	__u16 code;
-	__s32 value;
-};
-```
+:::code api-time64-surface/c/ioctl-chomu-nomer-komandy.c
 
 Умова стежить рівно за одним: щоб програма з широким `time_t` не наклала на потік подій свою `struct timeval`, яка тепер має інший розмір. Самі поля лишаються по 32 біти — 32-бітне ядро й далі пише туди вузьку позначку. Практичний вихід для драйверів вводу інший: увімкнути `EVIOCSCLOCKID` із `CLOCK_MONOTONIC` і не мати справи з настінною датою взагалі.
 
@@ -271,29 +173,7 @@ struct input_event {
 
 Найкоротша перевірка, яка ловить усі три пастки одразу:
 
-```c
-/* width.c — макроси СТОЯТЬ ПЕРЕД усіма заголовками */
-#define _FILE_OFFSET_BITS 64
-#define _TIME_BITS 64
-
-#include <stdio.h>
-#include <time.h>
-
-int main(void)
-{
-	struct timespec ts;
-
-	printf("sizeof(time_t) = %zu\n", sizeof(time_t));
-	printf("за межею 2038:   %lld\n", (long long)(time_t)2147483648LL);
-
-	if (clock_gettime(CLOCK_REALTIME, &ts) != 0) {
-		perror("clock_gettime");
-		return 1;
-	}
-	printf("зараз:           %lld\n", (long long)ts.tv_sec);
-	return 0;
-}
-```
+:::code api-time64-surface/c/width.c
 
 ```
 cc -D_FILE_OFFSET_BITS=64 -D_TIME_BITS=64 width.c -o width && ./width
@@ -314,26 +194,7 @@ cc -D_FILE_OFFSET_BITS=64 -D_TIME_BITS=64 width.c -o width && ./width
 
 Ось як виглядає перший рядок у джерелі — вузька обгортка glibc над широким викликом:
 
-```c
-/* sysdeps/unix/sysv/linux/clock_gettime.c, спрощено */
-int
-__clock_gettime (clockid_t clock_id, struct timespec *tp)
-{
-  struct __timespec64 tp64;
-  int ret = __clock_gettime64 (clock_id, &tp64);
-
-  if (ret == 0)
-    {
-      if (! in_time_t_range (tp64.tv_sec))
-        {
-          __set_errno (EOVERFLOW);
-          return -1;
-        }
-      *tp = valid_timespec64_to_timespec (tp64);
-    }
-  return ret;
-}
-```
+:::code api-time64-surface/c/clock_gettime.c
 
 > 🔧 **Навіщо це.** `EOVERFLOW` тут не є вадою — це найкраще з того, що можна зробити. Бібліотека вже має правильне число з ядра й бачить, що воно не влазить у тип, який просить програма. Вибір у неї рівно два: віддати обрізане значення, тобто дату 1901 року з виглядом справжньої, або відмовитися. Відмова гучна: `clock_gettime` повертає `−1`, і код, який хоч якось перевіряє результат, спиниться на місці помилки, а не через три шари вище, коли неправильна дата вже потрапила в базу. Тому програма, що ігнорує код повернення `clock_gettime` як «цей виклик не падає», сама себе позбавляє єдиного сигналу, який отримає в 2038 році.
 

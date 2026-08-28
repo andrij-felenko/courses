@@ -219,32 +219,6 @@ sigmask:	0000000000014003
 
 ## Найменший робочий виклик
 
-```c
-#define _GNU_SOURCE
-#include <sys/signalfd.h>
-#include <signal.h>
-#include <unistd.h>
-#include <stdio.h>
-
-int main(void) {
-    sigset_t mask;
-    sigemptyset(&mask);
-    sigaddset(&mask, SIGINT);
-
-    if (pthread_sigmask(SIG_BLOCK, &mask, NULL) != 0)  /* повертає errno числом */
-        return 1;
-
-    int sfd = signalfd(-1, &mask, SFD_CLOEXEC);
-    if (sfd < 0) { perror("signalfd"); return 1; }
-
-    struct signalfd_siginfo si;
-    if (read(sfd, &si, sizeof si) != (ssize_t) sizeof si) { perror("read"); return 1; }
-
-    printf("signo=%u code=%d pid=%u uid=%u\n",
-           si.ssi_signo, si.ssi_code, si.ssi_pid, si.ssi_uid);
-    close(sfd);
-    return 0;
-}
-```
+:::code api-signal-mask-and-signalfd/c/main.c
 
 Збирати з `-pthread`. Порядок двох перших кроків обов'язковий: без блокування `SIGINT` дійде до типової дії й уб'є процес раніше, ніж програма встигне дійти до читання. Перевірка `!= sizeof si` — не формальність, а єдиний спосіб відрізнити коротке читання від помилки: часткових структур цей дескриптор не віддає, тож будь-яке інше число означає, що щось пішло не так.

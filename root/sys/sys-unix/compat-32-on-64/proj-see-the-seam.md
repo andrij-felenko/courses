@@ -62,31 +62,7 @@ ls: cannot access '/lib/ld-linux.so.2': No such file or directory
 
 Найпростіше вимірювання. Програма нічого не робить, крім того, що розповідає про власні типи.
 
-```c
-/* layout.c — що ця збірка думає про ширину чисел і розкладку структур */
-#include <stdio.h>
-#include <stddef.h>
-#include <sys/types.h>
-#include <time.h>
-
-struct sample {
-    int       code;    /* 4 байти в обох домовленостях */
-    long long stamp;   /* 8 байтів в обох домовленостях */
-};
-
-int main(void)
-{
-    printf("ширини        : int=%zu long=%zu покажчик=%zu\n",
-           sizeof(int), sizeof(long), sizeof(void *));
-    printf("типи межі     : size_t=%zu off_t=%zu time_t=%zu\n",
-           sizeof(size_t), sizeof(off_t), sizeof(time_t));
-    printf("struct sample : розмір=%zu зсув(code)=%zu зсув(stamp)=%zu\n",
-           sizeof(struct sample),
-           offsetof(struct sample, code),
-           offsetof(struct sample, stamp));
-    return 0;
-}
-```
+:::code proj-see-the-seam/c/layout.c
 
 Дві збірки з одного файлу:
 
@@ -127,51 +103,7 @@ $ ./layout32-t64
 
 Тепер спустімося до самої межі й обійдімо бібліотеку C. Дія одна: записати рядок у дескриптор 1. Дверей — двоє, і за ними різні таблиці.
 
-```c
-/* two-doors.c — той самий write двома входами, повз бібліотеку C */
-#include <stdio.h>
-
-static char msg_int80[]   = "door: int 0x80\n";
-static char msg_syscall[] = "door: syscall\n";
-
-/* Домовленість i386: номер у EAX, аргументи в EBX, ECX, EDX. */
-static long write_int80(int fd, const void *buf, unsigned long len)
-{
-    long ret;
-    __asm__ volatile ("int $0x80"
-                      : "=a" (ret)
-                      : "a" (4),        /* write у 32-бітній таблиці */
-                        "b" (fd), "c" (buf), "d" (len)
-                      : "memory");
-    return ret;
-}
-
-#ifdef __x86_64__
-/* Домовленість x86-64: номер у RAX, аргументи в RDI, RSI, RDX. */
-static long write_syscall(int fd, const void *buf, unsigned long len)
-{
-    long ret;
-    __asm__ volatile ("syscall"
-                      : "=a" (ret)
-                      : "a" (1),        /* write у 64-бітній таблиці */
-                        "D" (fd), "S" (buf), "d" (len)
-                      : "rcx", "r11", "memory");
-    return ret;
-}
-#endif
-
-int main(void)
-{
-    long r1 = write_int80(1, msg_int80, sizeof msg_int80 - 1);
-    fprintf(stderr, "int 0x80 -> %ld\n", r1);
-
-#ifdef __x86_64__
-    long r2 = write_syscall(1, msg_syscall, sizeof msg_syscall - 1);
-    fprintf(stderr, "syscall  -> %ld\n", r2);
-#endif
-    return 0;
-}
-```
+:::code proj-see-the-seam/c/two-doors.c
 
 Кілька слів про самі вставки. Літери в лапках — це [обмеження на розміщення операндів](root:sf-lang/inline-assembly): `"a"` означає «поклади це значення в акумулятор», `"b"`, `"c"`, `"d"` — у відповідні реєстри, `"D"` і `"S"` — у реєстри-покажчики призначення й джерела. Компілятор сам добере інструкції, щоб доставити туди потрібні числа; ми лише називаємо, куди саме. Список після другої двокрапки — те, що інструкція псує: `syscall` затирає `rcx` і `r11` апаратно, тому їх треба оголосити, інакше компілятор вважатиме, що там і далі лежить те, що він туди поклав.
 
@@ -254,28 +186,7 @@ write(2, "int 0x80 -> 15\n", 15)        = 15
 
 Третє вимірювання не потребує ні вставок, ні хитрощів — досить прочитати те, що ядро й так розповідає про процес.
 
-```c
-/* maps.c — програма друкує власну карту пам'яті */
-#include <stdio.h>
-#include <stdint.h>
-
-int main(void)
-{
-    char line[512];
-    FILE *f = fopen("/proc/self/maps", "r");
-    if (!f) { perror("/proc/self/maps"); return 1; }
-    while (fgets(line, sizeof line, f))
-        fputs(line, stdout);
-    fclose(f);
-
-    int local = 0;
-    printf("--\n");
-    printf("покажчик, байтів : %zu\n", sizeof(void *));
-    printf("локальна змінна  : %p\n", (void *) &local);
-    printf("код main         : %p\n", (void *) (uintptr_t) main);
-    return 0;
-}
-```
+:::code proj-see-the-seam/c/maps.c
 
 Файл `/proc/self/maps` — один із тих, що [не існують на диску, а складаються ядром на момент читання](root:sys-unix/proc-reading-process-and-kernel-state); слово `self` у шляху ядро замінює на номер того процесу, який читає. Тобто програма запитує саме про себе, і ніякого способу помилитися процесом тут немає.
 

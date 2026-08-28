@@ -69,19 +69,7 @@ echo '{"items": [{"id": 1}, {"id": 2}, {"id": 3}]}' | jq '.items[].id'
 
 Для зміни схеми даних утиліта дозволяє створювати нові об'єкти безпосередньо у виразі за допомогою літералів `{}`:
 
-```bash
-# Фільтрація помилок сервера та створення нового об'єкта
-curl -s https://api.example.com/events | jq '
-  .events[]
-  | select(.status >= 500 and .latency_ms > 1000)
-  | {
-      timestamp: .ts,
-      endpoint: .path,
-      error_code: .status,
-      duration_sec: (.latency_ms / 1000)
-    }
-'
-```
+:::code structured-text-in-pipelines-d/sh/filtratsiia-predykatamy-ta.sh
 
 ![Функціональна модель виконання jq: генератор потоку від одного входу до 0..N виходів](/root/sys/sys-unix/structured-text-in-pipelines/img/jq-execution-model.svg)
 
@@ -385,19 +373,7 @@ curl -sN "https://stream.example.com/events" \
 
 Для гарантування надійності у сценаріях завжди активують прапорець `set -o pipefail` та аналізують масив `${PIPESTATUS[@]}`:
 
-```bash
-set -o pipefail
-
-curl -s "https://api.example.com/data.json" \
-  | jq -e '.data[] | select(.valid == true)' \
-  | gzip -c > output.gz
-
-PIPE_STATUS=("${PIPESTATUS[@]}")
-if [ "${PIPE_STATUS[0]}" -ne 0 ] || [ "${PIPE_STATUS[1]}" -ne 0 ]; then
-  echo "[CRITICAL] Помилка завантаження або фільтрації JSON" >&2
-  exit 1
-fi
-```
+:::code structured-text-in-pipelines-d/sh/3-kontrol-statusiv.sh
 
 ---
 
@@ -405,31 +381,6 @@ fi
 
 Об'єднання розглянутих інструментів дозволяє побудувати надійний, високопродуктивний конвеєр моніторингу та агрегації в середовищі Linux:
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# Конвеєр аналізу журналів доступу API в режимі реального часу:
-# 1. curl отримує потік подій у форматі ndjson;
-# 2. jq виконує безпечну параметризовану фільтрацію та проєкцію;
-# 3. yq перетворює критичні інциденти у формат YAML для систем сповіщення.
-
-LOG_ENDPOINT="https://logs.internal.net/stream"
-MIN_LATENCY=1500
-
-curl -sN "${LOG_ENDPOINT}" \
-  | jq -c --unbuffered --argjson min_lat "${MIN_LATENCY}" '
-      select(.status >= 500 or .latency_ms > $min_lat)
-      | {
-          alert: "CRITICAL_LATENCY",
-          service: .service_name,
-          endpoint: .path,
-          status: .status,
-          latency: .latency_ms,
-          timestamp: .ts
-        }
-    ' \
-  | yq -p=json -o=yaml -
-```
+:::code structured-text-in-pipelines-d/sh/syntez-etalonnyi.sh
 
 У цій архітектурі кожен компонент виконує свою роль: ядро забезпечує блокування та зворотний тиск буферів через системний канал, `jq` гарантує ізоляцію та типізацію даних без витоку пам'яті, а кінцевий вивід формується у стандартизованому, безпечному для читання форматі.

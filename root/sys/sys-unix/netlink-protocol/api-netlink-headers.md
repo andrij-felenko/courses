@@ -16,20 +16,7 @@ struct nlmsghdr {
     __u32 nlmsg_pid;   /* Порт-ідентифікатор відправника (Port ID, зазвичай PID) */
 };
 ```
-```cpp
-#include <linux/netlink.h>
-#include <cstdint>
-
-// Ідіоматична ініціалізація заголовка nlmsghdr у C++20
-constexpr uint32_t req_seq = 1001;
-nlmsghdr nlh{
-    .nlmsg_len = NLMSG_LENGTH(0),
-    .nlmsg_type = RTM_GETLINK,
-    .nlmsg_flags = NLM_F_REQUEST | NLM_F_DUMP,
-    .nlmsg_seq = req_seq,
-    .nlmsg_pid = 0
-};
-```
+:::code api-netlink-headers/cpp/zahalnyi-zaholovok.cpp
 :::
 
 ### Двійкова розкладка пам'яті заголовка `nlmsghdr`
@@ -57,40 +44,8 @@ NLMSG_ALIGN(len) = (((len) + 3) & ~3)
 Системні макроси файлу `<linux/netlink.h>` визначаються так:
 
 :::tabs
-```c
-#define NLMSG_ALIGNTO   4U
-#define NLMSG_ALIGN(len) (((len)+NLMSG_ALIGNTO-1) & ~(NLMSG_ALIGNTO-1))
-#define NLMSG_HDRLEN     ((int) NLMSG_ALIGN(sizeof(struct nlmsghdr)))
-#define NLMSG_LENGTH(len) ((len) + NLMSG_HDRLEN)
-#define NLMSG_SPACE(len) NLMSG_ALIGN(NLMSG_LENGTH(len))
-#define NLMSG_DATA(nlh)  ((void*)(((char*)nlh) + NLMSG_LENGTH(0)))
-#define NLMSG_NEXT(nlh,len) ((len) -= NLMSG_ALIGN((nlh)->nlmsg_len), \
-                            (struct nlmsghdr*)(((char*)(nlh)) + NLMSG_ALIGN((nlh)->nlmsg_len)))
-#define NLMSG_OK(nlh,len) ((len) >= (int)sizeof(struct nlmsghdr) && \
-                           (nlh)->nlmsg_len >= sizeof(struct nlmsghdr) && \
-                           (nlh)->nlmsg_len <= (len))
-#define NLMSG_PAYLOAD(nlh,len) ((nlh)->nlmsg_len - NLMSG_SPACE((len)))
-```
-```cpp
-#include <linux/netlink.h>
-#include <span>
-#include <cstdint>
-
-// C++20 обгортки та constexpr-функції замість макросів препроцесора
-namespace netlink {
-    constexpr size_t AlignTo = 4;
-
-    [[nodiscard]] constexpr size_t align(size_t len) noexcept {
-        return (len + AlignTo - 1) & ~(AlignTo - 1);
-    }
-
-    [[nodiscard]] inline std::span<const uint8_t> payload(const nlmsghdr* nlh) noexcept {
-        auto data_ptr = reinterpret_cast<const uint8_t*>(nlh) + NLMSG_HDRLEN;
-        size_t data_len = nlh->nlmsg_len > NLMSG_HDRLEN ? nlh->nlmsg_len - NLMSG_HDRLEN : 0;
-        return {data_ptr, data_len};
-    }
-}
-```
+:::code api-netlink-headers/c/bazovi-makrosy.c
+:::code api-netlink-headers/cpp/bazovi-makrosy.cpp
 :::
 
 ### Детальна семантика макросів обходу:
@@ -123,21 +78,7 @@ struct nlmsgerr {
     struct nlmsghdr msg;      /* Копія заголовка запиту, що спричинив помилку або підтвердження */
 };
 ```
-```cpp
-#include <linux/netlink.h>
-#include <system_error>
-#include <iostream>
-
-// Обробка nlmsgerr у C++ за допомогою std::error_code
-void process_ack(const nlmsgerr& err) {
-    if (err.error == 0) {
-        std::cout << "Запит успішно підтверджено ядром (ACK)\n";
-    } else {
-        std::error_code ec(-err.error, std::generic_category());
-        std::cerr << "Помилка виконання запиту: " << ec.message() << "\n";
-    }
-}
-```
+:::code api-netlink-headers/cpp/struktura-pomylky-ta.cpp
 :::
 
 У сучасних ядрах Linux (версії 4.12+) при встановленні прапорця `NLM_F_ACK_TLVS` до структури `struct nlmsgerr` додаються розширені TLV-атрибути помилки (Extended ACK):
@@ -201,34 +142,8 @@ nlattr nla{
 ### Системні макроси NLA_* для `struct nlattr`:
 
 :::tabs
-```c
-#define NLA_ALIGNTO     4
-#define NLA_ALIGN(len)  (((len) + NLA_ALIGNTO - 1) & ~(NLA_ALIGNTO - 1))
-#define NLA_HDRLEN      ((int) NLA_ALIGN(sizeof(struct nlattr)))
-#define NLA_DATA(nla)   ((void *)((char *)(nla) + NLA_HDRLEN))
-#define NLA_PAYLOAD(nla) ((int)((nla)->nla_len - NLA_HDRLEN))
-#define NLA_NEXT(nla,len) ((len) -= NLA_ALIGN((nla)->nla_len), \
-                          (struct nlattr *)(((char *)(nla) + NLA_ALIGN((nla)->nla_len))))
-#define NLA_OK(nla,len) ((len) >= (int)sizeof(struct nlattr) && \
-                         (nla)->nla_len >= sizeof(struct nlattr) && \
-                         (nla)->nla_len <= (len))
-```
-```cpp
-#include <linux/netlink.h>
-#include <string_view>
-#include <span>
-#include <cstdint>
-
-// Безпечний парсинг NLA-атрибутів у C++20 через std::string_view та std::span
-namespace netlink {
-    [[nodiscard]] inline std::string_view get_string_attr(const nlattr* nla) noexcept {
-        auto data = reinterpret_cast<const char*>(nla) + NLA_HDRLEN;
-        auto len = static_cast<size_t>(NLA_PAYLOAD(nla));
-        if (len > 0 && data[len - 1] == '\0') --len; // відкидаємо термінатор null
-        return {data, len};
-    }
-}
-```
+:::code api-netlink-headers/c/systemni-makrosy-nla-dlia.c
+:::code api-netlink-headers/cpp/systemni-makrosy-nla-dlia.cpp
 :::
 
 ### Типи даних даних атрибутів у полі `nla_type`
@@ -284,19 +199,7 @@ struct ifinfomsg {
     unsigned int   ifi_change; /* Маска змін прапорців (зарезервовано для запитів модифікації) */
 };
 ```
-```cpp
-#include <linux/rtnetlink.h>
-#include <net/if.h>
-
-// Створення ifinfomsg для модифікації стану каналу у C++20
-ifinfomsg ifi{
-    .ifi_family = AF_UNSPEC,
-    .ifi_type = ARPHRD_ETHER,
-    .ifi_index = 2,
-    .ifi_flags = IFF_UP,
-    .ifi_change = IFF_UP
-};
-```
+:::code api-netlink-headers/cpp/1-informatsiia-pro.cpp
 :::
 
 Повний список ключових атрибутів `IFLA_*` після `ifinfomsg`:
@@ -322,19 +225,7 @@ struct ifaddrmsg {
     unsigned int  ifa_index;     /* Числовий індекс мережевого інтерфейсу ifindex */
 };
 ```
-```cpp
-#include <linux/rtnetlink.h>
-#include <sys/socket.h>
-
-// Ініціалізація ifaddrmsg у C++20
-ifaddrmsg ifa{
-    .ifa_family = AF_INET6,
-    .ifa_prefixlen = 64,
-    .ifa_flags = IFA_F_PERMANENT,
-    .ifa_scope = RT_SCOPE_UNIVERSE,
-    .ifa_index = 3
-};
-```
+:::code api-netlink-headers/cpp/2-informatsiia-pro-ip.cpp
 :::
 
 Основні атрибути `IFA_*` після `ifaddrmsg`:
@@ -349,36 +240,8 @@ ifaddrmsg ifa{
 Використовується для команд `RTM_NEWROUTE`, `RTM_DELROUTE`, `RTM_GETROUTE`:
 
 :::tabs
-```c
-struct rtmsg {
-    unsigned char rtm_family;   /* AF_INET або AF_INET6 */
-    unsigned char rtm_dst_len;  /* Довжина маски призначення в бітах (CIDR) */
-    unsigned char rtm_src_len;  /* Довжина маски джерела в бітах */
-    unsigned char rtm_tos;      /* Тип обслуговування (Type of Service) */
-    unsigned char rtm_table;    /* ID таблиці маршрутизації (RT_TABLE_MAIN, RT_TABLE_LOCAL, RT_TABLE_DEFAULT) */
-    unsigned char rtm_protocol; /* Джерело маршруту (RTPROT_BOOT, RTPROT_STATIC, RTPROT_BGP, RTPROT_KERNEL) */
-    unsigned char rtm_scope;    /* Область видимості маршруту (RT_SCOPE_UNIVERSE, RT_SCOPE_LINK, RT_SCOPE_NOWHERE) */
-    unsigned char rtm_type;     /* Тип маршруту (RTN_UNICAST, RTN_LOCAL, RTN_BROADCAST, RTN_BLACKHOLE) */
-    unsigned int  rtm_flags;    /* Прапорці маршрутизації RTM_F_* */
-};
-```
-```cpp
-#include <linux/rtnetlink.h>
-#include <sys/socket.h>
-
-// Створення заповненої структури rtmsg у C++20
-rtmsg rtm{
-    .rtm_family = AF_INET,
-    .rtm_dst_len = 24,
-    .rtm_src_len = 0,
-    .rtm_tos = 0,
-    .rtm_table = RT_TABLE_MAIN,
-    .rtm_protocol = RTPROT_STATIC,
-    .rtm_scope = RT_SCOPE_LINK,
-    .rtm_type = RTN_UNICAST,
-    .rtm_flags = 0
-};
-```
+:::code api-netlink-headers/c/3-informatsiia-pro.c
+:::code api-netlink-headers/cpp/3-informatsiia-pro.cpp
 :::
 
 Основні атрибути `RTA_*` після `rtmsg`:
@@ -404,19 +267,7 @@ struct ndmsg {
     __u8          ndm_type;     /* Тип сусіда (RTN_UNICAST) */
 };
 ```
-```cpp
-#include <linux/rtnetlink.h>
-#include <sys/socket.h>
-
-// Ініціалізація структури ndmsg для запиту ARP/NDP у C++20
-ndmsg ndm{
-    .ndm_family = AF_INET,
-    .ndm_ifindex = 1,
-    .ndm_state = NUD_REACHABLE,
-    .ndm_flags = NTF_PROXY,
-    .ndm_type = RTN_UNICAST
-};
-```
+:::code api-netlink-headers/cpp/4-informatsiia-pro-susidni.cpp
 :::
 
 Основні атрибути `NDA_*`: `NDA_DST` (IP-адреса сусіда), `NDA_LLADDR` (аппартна MAC-адреса сусіда), `NDA_CACHEINFO` (статистика часу життя запису кешу ARP).
@@ -433,18 +284,7 @@ struct genlmsghdr {
     __u16 reserved;/* Зарезервовано для вирівнювання */
 };
 ```
-```cpp
-#include <linux/genetlink.h>
-#include <cstdint>
-
-// Ініціалізація заголовка Generic Netlink genlmsghdr у C++20
-constexpr uint8_t ctrl_ver = 2;
-genlmsghdr gnl{
-    .cmd = CTRL_CMD_GETFAMILY,
-    .version = ctrl_ver,
-    .reserved = 0
-};
-```
+:::code api-netlink-headers/cpp/zaholovok-generic-netlink.cpp
 :::
 
 ### Атрибути контролера Generic Netlink (`nlctrl`)

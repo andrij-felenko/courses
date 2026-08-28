@@ -41,94 +41,15 @@ dup2 у кожній дитині додає    + 2 = 8 копій
 
 Спершу помічник, який ставить дескриптор на місце стандартного потоку. Він довший, ніж можна було б очікувати, і рівно через один випадок — коли дескриптор уже має потрібний номер:
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-/* Поставити fd на місце стандартного потоку slot і прибрати зайву копію.
-   Випадок fd == slot окремий: dup2 тоді НЕ РОБИТЬ НІЧОГО і повертає slot,
-   отже й прапорець FD_CLOEXEC лишається таким, як був. Знімаємо його руками,
-   інакше exec закриє потік і програма прокинеться без stdout. */
-static int move_to(int fd, int slot)
-{
-    if (fd == slot) {
-        int fl = fcntl(fd, F_GETFD);
-        return (fl < 0) ? -1 : fcntl(fd, F_SETFD, fl & ~FD_CLOEXEC);
-    }
-    if (dup2(fd, slot) < 0)     /* у копії під номером slot FD_CLOEXEC завжди знято */
-        return -1;
-    return close(fd);           /* close №1 і №2 з наших шести */
-}
-```
+:::code proj-pipeline-by-hand/c/kod.c
 
 Далі — народження однієї ланки. Дитина дістає номер свого кінця каналу й номер чужого, який їй треба просто викинути:
 
-```c
-static pid_t spawn(char **argv, int in_fd, int out_fd, int foreign_fd)
-{
-    pid_t pid = fork();
-    if (pid != 0)
-        return pid;                              /* батько; −1 розбере той, хто кликав */
-
-    /* Далі тільки дитина. Виходимо через _exit, а не exit: exit злив би буфери
-       stdio, успадковані від батька, і той самий текст надрукувався б удруге. */
-    close(foreign_fd);                           /* close №3 і №4 */
-    if (in_fd  >= 0 && move_to(in_fd,  STDIN_FILENO)  < 0) _exit(126);
-    if (out_fd >= 0 && move_to(out_fd, STDOUT_FILENO) < 0) _exit(126);
-
-    execvp(argv[0], argv);
-    dprintf(STDERR_FILENO, "mypipe: %s: %s\n", argv[0], strerror(errno));
-    _exit(127);   /* коди за угодою оболонок: 126 — не вдалося виконати,
-                     127 — не вдалося знайти чи запустити команду взагалі */
-}
-```
+:::code proj-pipeline-by-hand/c/kod-2.c
 
 І головна частина, де видно всі шість `close` на своїх місцях:
 
-```c
-int main(int argc, char **argv)
-{
-    int sep = 0;
-    for (int i = 1; i < argc; i++)
-        if (strcmp(argv[i], ":") == 0) { sep = i; break; }
-    if (sep < 2 || sep == argc - 1) {
-        dprintf(STDERR_FILENO, "вжиток: %s ланка [арг…] : ланка [арг…]\n", argv[0]);
-        return 2;
-    }
-    argv[sep] = NULL;                            /* два окремі масиви argv в одному */
-    char **left = &argv[1], **right = &argv[sep + 1];
-
-    int pfd[2];
-    if (pipe2(pfd, O_CLOEXEC) < 0) { perror("pipe2"); return 1; }
-
-    pid_t p1 = spawn(left,  -1, pfd[1], pfd[0]);   /* пише в канал */
-    if (p1 < 0) { perror("fork"); return 1; }
-    pid_t p2 = spawn(right, pfd[0], -1, pfd[1]);   /* читає з каналу */
-    if (p2 < 0) { perror("fork"); return 1; }
-
-    /* Найважливіші два рядки в усій програмі: close №5 і №6.
-       Без другого з них лічильник кінців на запис ніколи не дійде до нуля. */
-    close(pfd[0]);
-    close(pfd[1]);
-
-    int status = 0, last = 0;
-    for (int alive = 2; alive > 0; ) {
-        pid_t done = waitpid(-1, &status, 0);
-        if (done < 0) { if (errno == EINTR) continue; perror("waitpid"); return 1; }
-        if (done == p2) last = status;           /* код виходу — від ОСТАННЬОЇ ланки */
-        alive--;
-    }
-
-    if (WIFEXITED(last))   return WEXITSTATUS(last);
-    if (WIFSIGNALED(last)) return 128 + WTERMSIG(last);
-    return 1;
-}
-```
+:::code proj-pipeline-by-hand/c/kod-3.c
 
 Збираємо й перевіряємо всі чотири вимоги одразу:
 

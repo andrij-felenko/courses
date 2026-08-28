@@ -28,22 +28,7 @@ struct kref {
 
 Центральний атом об'єктної моделі ядра. Призначений для вбудовування у структури вищого рівня (`struct device`, `struct module`, `struct cdev` тощо) для надання їм імені, батьківського зв'язку, лічильника посилань та каталогу в sysfs.
 
-```c
-struct kobject {
-    const char          *name;
-    struct list_head    entry;
-    struct kobject      *parent;
-    struct kset         *kset;
-    const struct kobj_type *ktype;
-    struct kernfs_node  *sd;
-    struct kref         kref;
-    unsigned int state_initialized:1;
-    unsigned int state_in_sysfs:1;
-    unsigned int state_add_uevent_sent:1;
-    unsigned int state_remove_uevent_sent:1;
-    unsigned int uevent_suppress:1;
-};
-```
+:::code api-kobject-kref/c/struct-kobject-linux.c
 
 | Поле | Тип | Опис та інваріанти |
 | :--- | :--- | :--- |
@@ -109,22 +94,7 @@ struct sysfs_ops {
 
 Дескриптори файлів-атрибутів, які драйвер експортує у каталог об'єкта в sysfs.
 
-```c
-struct attribute {
-    const char *name;
-    umode_t mode;
-};
-
-struct bin_attribute {
-    struct attribute attr;
-    size_t size;
-    void *private;
-    struct address_space *(*f_mapping)(void);
-    ssize_t (*read)(struct file *, struct kobject *, struct bin_attribute *, char *, loff_t, size_t);
-    ssize_t (*write)(struct file *, struct kobject *, struct bin_attribute *, char *, loff_t, size_t);
-    int (*mmap)(struct file *, struct kobject *, struct bin_attribute *attr, struct vm_area_struct *vma);
-};
-```
+:::code api-kobject-kref/c/struct-attribute-ta-struct.h
 
 - `struct attribute`: базовий текстовий атрибут. Поле `mode` визначає права доступу у восьмеричному форматі POSIX (наприклад, `0644` для читання всіма і запису власником, `0444` для тільки-читання).
 - `struct bin_attribute`: двійковий атрибут для передачі неструктурованих потоків даних (дампи EEPROM, прошивки мікроконтролерів, доступ до регістрів PCI MMIO). Підтримує операції довільного позиціонування (`loff_t`) та пряме відображення пам'яті (`mmap`).

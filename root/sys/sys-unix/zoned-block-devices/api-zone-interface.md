@@ -18,20 +18,7 @@
 
 Розміру зони в байтах тут немає навмисно: `chunk_sectors` рахується в 512-байтових секторах незалежно від логічного блока пристрою, і множити доводиться самому. Останню зону носія ця величина може й не описувати — вона буває коротшою за решту. `zone_write_granularity` на черепичному диску дорівнює логічному блоку, а на твердотільному носії буває більшим за нього — запис, не вирівняний на це число, пристрій відхилить, хоча за розміром сектора він законний. Решту чисел черги зібрано [окремою таблицею](root:sys-unix/block-device-model/api-queue-attributes.md).
 
-```sh
-$ d=/sys/block/nullb0/queue
-$ for f in zoned chunk_sectors nr_zones max_open_zones max_active_zones \
-           zone_append_max_bytes zone_write_granularity; do
-      printf '%-24s %s\n' "$f" "$(cat $d/$f)"
-  done
-zoned                    host-managed
-chunk_sectors            524288
-nr_zones                 32
-max_open_zones           14
-max_active_zones         14
-zone_append_max_bytes    2097152
-zone_write_granularity   4096
-```
+:::code api-zone-interface/sh/main.sh
 
 Нуль у `max_open_zones` читається не як «жодної відкритої зони не можна», а як «пристрій межі не оголосив».
 
@@ -58,33 +45,7 @@ zone_write_granularity   4096
 
 ## Структури
 
-```c
-struct blk_zone_range {
-        __u64 sector;         /* початок діапазону, 512-Б сектори */
-        __u64 nr_sectors;     /* довжина діапазону */
-};
-
-struct blk_zone_report {
-        __u64 sector;         /* вхід: звідки почати обхід */
-        __u32 nr_zones;       /* вхід: скільки описів уміщає буфер,
-                                 вихід: скільки ядро туди поклало */
-        __u32 flags;          /* вихід: BLK_ZONE_REP_CAPACITY (з 5.9) */
-        struct blk_zone zones[];
-};
-
-struct blk_zone {
-        __u64 start;          /* перший сектор зони */
-        __u64 len;            /* розмір зони, степінь двійки */
-        __u64 wp;             /* вказівник запису */
-        __u8  type;           /* enum blk_zone_type */
-        __u8  cond;           /* enum blk_zone_cond */
-        __u8  non_seq;        /* у зоні є непослідовно записане */
-        __u8  reset;          /* пристрій радить скинути зону */
-        __u8  resv[4];
-        __u64 capacity;       /* придатне до запису, з 5.9 */
-        __u8  reserved[24];
-};
-```
+:::code api-zone-interface/c/struktury.c
 
 Опис зони має рівно 64 байти в кожній версії ядра: до 5.9 хвіст був суцільним `reserved[32]`, потім із нього вирізали `capacity`. Тому старий двійковий код читає нові ядра без перекомпіляції, а новий на старому ядрі побачить у `capacity` нуль. Саме для цього й потрібен прапорець — `capacity` можна брати лише тоді, коли ядро підняло `BLK_ZONE_REP_CAPACITY` у `flags` звіту; інакше придатною треба вважати всю `len`. Сучасні ядра ставлять прапорець завжди, зокрема й для черепичних дисків, де ємність дорівнює розмірові.
 
@@ -114,44 +75,7 @@ struct blk_zone {
 
 ## Мінімальний виклик
 
-```c
-#include <linux/blkzoned.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int fd = open("/dev/nullb0", O_RDWR);      /* керуючі запити вимагають запису */
-
-__u32 zone_sectors, zone_count;
-ioctl(fd, BLKGETZONESZ,  &zone_sectors);
-ioctl(fd, BLKGETNRZONES, &zone_count);
-
-/* буфер = шапка плюс стільки описів, скільки хочемо дістати за раз */
-const __u32 want = 8;
-struct blk_zone_report *rep = malloc(sizeof(*rep) + want * sizeof(struct blk_zone));
-
-rep->sector   = 0;                         /* обхід від початку пристрою */
-rep->nr_zones = want;
-rep->flags    = 0;
-
-if (ioctl(fd, BLKREPORTZONE, rep) == 0) {
-        int cap_ok = rep->flags & BLK_ZONE_REP_CAPACITY;
-
-        for (__u32 i = 0; i < rep->nr_zones; i++) {      /* уже СКІЛЬКИ віддали */
-                struct blk_zone *z = &rep->zones[i];
-
-                printf("%llu: тип=%#x стан=%#x зайнято=%llu придатно=%llu\n",
-                       z->start, z->type, z->cond,
-                       z->wp - z->start,
-                       cap_ok ? z->capacity : z->len);
-        }
-}
-
-/* скинути другу зону */
-struct blk_zone_range r = { .sector = zone_sectors, .nr_sectors = zone_sectors };
-ioctl(fd, BLKRESETZONE, &r);
-```
+:::code api-zone-interface/c/minimalnyi-vyklyk.c
 
 Три речі, на яких спотикаються найчастіше. Діапазон у `blk_zone_range` задають **у секторах і рівно по межах зон**: `sector` мусить бути початком зони, `nr_sectors` — кратним її розмірові, інакше `EINVAL`. Скидання від сектора 0 на всю місткість пристрою ядро само перетворює на одну команду «скинути все» замість тисяч окремих. І `nr_zones` у звіті — поле подвійного призначення: на вході це місткість буфера, на виході — скільки описів ядро туди справді поклало, і воно буває меншим за просте.
 

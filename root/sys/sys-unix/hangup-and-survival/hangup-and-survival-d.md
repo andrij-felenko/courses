@@ -177,18 +177,7 @@ if (null_fd >= 0) {
     close(null_fd);
 }
 ```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <system_error>
-
-int null_fd = ::open("/dev/null", O_RDONLY);
-if (null_fd < 0) {
-    throw std::system_error(errno, std::generic_category(), "open /dev/null failed");
-}
-::dup2(null_fd, STDIN_FILENO);
-::close(null_fd);
-```
+:::code hangup-and-survival-d/cpp/iak-pratsiuie-nohup.cpp
 :::
 
    Це гарантує, що фоновий процес не заблокується на спробі зчитати дані з термінала.
@@ -197,32 +186,8 @@ if (null_fd < 0) {
    Якщо дескриптори `1` або `2` підключені до термінала, `nohup` створює файл `nohup.out` у поточному робочому каталозі (або в `$HOME/nohup.out`, якщо поточний каталог доступний лише для читання) з правами доступу `0600` і перенаправляє потоки туди:
 
 :::tabs
-```c
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-
-int out_fd = open("nohup.out", O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-if (out_fd >= 0) {
-    dup2(out_fd, STDOUT_FILENO);
-    dup2(out_fd, STDERR_FILENO);
-    close(out_fd);
-}
-```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <system_error>
-
-int out_fd = ::open("nohup.out", O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-if (out_fd < 0) {
-    throw std::system_error(errno, std::generic_category(), "open nohup.out failed");
-}
-::dup2(out_fd, STDOUT_FILENO);
-::dup2(out_fd, STDERR_FILENO);
-::close(out_fd);
-```
+:::code hangup-and-survival-d/c/main.c
+:::code hangup-and-survival-d/cpp/iak-pratsiuie-nohup-2.cpp
 :::
 
 ![Пастка дескрипторів мертвого термінала](/root/sys/sys-unix/hangup-and-survival/img/dead-tty-io-trap.svg)
@@ -295,18 +260,7 @@ while (std::cin.get(ch)) {
 3. **`disown -a`**: застосувати дію до всіх завдань у таблиці.
 4. **`disown -r`**: застосувати дію лише до тих завдань, що перебувають у стані активного виконання (Running).
 
-```bash
-# Приклад порятунку вже запущеного фонового процесу:
-$ ./data_sync.sh &
-[1] 34910
-
-# Робимо процес нечутливим до закриття поточної оболонки
-$ disown -h %1
-
-# Перевіряємо статус у таблиці завдань
-$ jobs -l
-[1]+ 34910 Running                 ./data_sync.sh &
-```
+:::code hangup-and-survival-d/sh/data_sync.sh
 
 ### Поведінка опції `huponexit` у Bash
 

@@ -82,34 +82,8 @@ namespace macsec::ciphers {
 Всередині контейнера `IFLA_MACSEC_SA_CONFIG` передається перелік атрибутів конкретного слота вихідної асоціації:
 
 :::tabs
-```c
-/* Перелічення атрибутів SA в <linux/if_macsec.h> */
-enum enum_macsec_sa_attrs {
-    MACSEC_SA_ATTR_UNSPEC,
-    MACSEC_SA_ATTR_AN,        /* u8: Номер асоціації (Association Number: 0..3) */
-    MACSEC_SA_ATTR_ACTIVE,    /* u8: 1 = SA активна для шифрування, 0 = неактивна */
-    MACSEC_SA_ATTR_PN,        /* u32 або u64 (для XPN): Початковий/поточний номер пакета */
-    MACSEC_SA_ATTR_KEYID,     /* 16 байт: Ідентифікатор ключа (Key ID / CKN) */
-    MACSEC_SA_ATTR_KEY,       /* 16/32 байти: Секретний ключ SAK (AES-128 або AES-256) */
-    MACSEC_SA_ATTR_STATS,     /* Вкладений атрибут статистики цієї конкретної SA */
-    MACSEC_SA_ATTR_PAD,
-    __MACSEC_SA_ATTR_END,
-};
-```
-```cpp
-// Strong-typed enum class у C++20 для безпечної роботи з атрибутами Netlink
-#include <cstdint>
-
-enum class MacsecSaAttr : std::uint16_t {
-    Unspec = 0,
-    AssociationNumber, // MACSEC_SA_ATTR_AN (u8: 0..3)
-    Active,            // MACSEC_SA_ATTR_ACTIVE (u8: 0 або 1)
-    PacketNumber,      // MACSEC_SA_ATTR_PN (u32/u64)
-    KeyId,             // MACSEC_SA_ATTR_KEYID (16B)
-    KeyMaterial,       // MACSEC_SA_ATTR_KEY (16B/32B)
-    Stats              // MACSEC_SA_ATTR_STATS
-};
-```
+:::code api-rtnetlink-macsec/c/struktura-konfihuratsii-tx.c
+:::code api-rtnetlink-macsec/cpp/struktura-konfihuratsii-tx.cpp
 :::
 
 ### Конфігурація прийому RX SC та масиву RX SA (`MACSEC_RXSC_ATTR_*`)
@@ -127,48 +101,8 @@ enum class MacsecSaAttr : std::uint16_t {
 Отримання інформації про стан та лічильники оброблених пакетів здійснюється шляхом надсилання Netlink-повідомлення `RTM_GETLINK`. Ядро повертає бінарні структури статистики, визначені у `<linux/if_macsec.h>`.
 
 :::tabs
-```c
-/* Структури статистики ядра Linux у C */
-struct macsec_dev_stats {
-    __u64 OutPktsUntagged;  /* Пакетів відправлено без SecTAG (коли encrypt off) */
-    __u64 InPktsUntagged;   /* Вхідних кадрів без SecTAG при validate strict */
-    __u64 InPktsBadTag;     /* Вхідних кадрів із пошкодженим/невалідним заголовком SecTAG */
-    __u64 InPktsUnknownSCI; /* Вхідних кадрів із невідомим SCI (немає відповідного RX SC) */
-    __u64 InPktsNoSCI;      /* Вхідних кадрів без SCI, коли SCI вимагається */
-    __u64 InPktsOverrun;    /* Кадрів відкинуто через перевищення апаратних лімітів */
-};
-
-struct macsec_rx_sc_stats {
-    __u64 InPktsOK;         /* Успішно дешифрованих та автентифікованих кадрів */
-    __u64 InPktsUnchecked;  /* Кадрів пропущено в режимі validate disabled */
-    __u64 InPktsDelayed;    /* Кадрів отримано із запізненням, але в межах вікна Replay Window */
-    __u64 InPktsLate;       /* Кадрів відкинуто через старий PN (поза межами Replay Window) */
-    __u64 InPktsInvalid;    /* Кадрів відкинуто через помилку підпису ICV */
-    __u64 InPktsNotValid;   /* Кадрів із невалідним ICV у режимі validate check */
-};
-```
-```cpp
-// Об'єктно-орієнтовані структури статистики в C++20
-#include <cstdint>
-
-struct MacsecDevStats {
-    std::uint64_t out_pkts_untagged{0};
-    std::uint64_t in_pkts_untagged{0};
-    std::uint64_t in_pkts_bad_tag{0};
-    std::uint64_t in_pkts_unknown_sci{0};
-    std::uint64_t in_pkts_no_sci{0};
-    std::uint64_t in_pkts_overrun{0};
-};
-
-struct MacsecRxScStats {
-    std::uint64_t in_pkts_ok{0};
-    std::uint64_t in_pkts_unchecked{0};
-    std::uint64_t in_pkts_delayed{0};
-    std::uint64_t in_pkts_late{0};
-    std::uint64_t in_pkts_invalid{0};
-    std::uint64_t in_pkts_not_valid{0};
-};
-```
+:::code api-rtnetlink-macsec/c/3-statystyka-ta-lichylnyky.c
+:::code api-rtnetlink-macsec/cpp/3-statystyka-ta-lichylnyky.cpp
 :::
 
 ---

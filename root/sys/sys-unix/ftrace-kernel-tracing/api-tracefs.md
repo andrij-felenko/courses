@@ -69,19 +69,7 @@
 
 ### Приклади побудови виразів фільтрації
 
-```bash
-# 1. Фільтрувати події перемикання контексту: лише коли наступний процес має PID 1234
-echo "next_pid == 1234" > /sys/kernel/tracing/events/sched/sched_switch/filter
-
-# 2. Фільтрувати системний виклик openat: лише коли прапорці містять O_CREAT (0x40) і назва починається не з /tmp
-echo "(flags & 0x40) && filename !~ \"/tmp/*\"" > /sys/kernel/tracing/events/syscalls/sys_enter_openat/filter
-
-# 3. Фільтрувати події виділення сторінок пам'яті: лише для викликів з обсягом більше 8 сторінок
-echo "order > 3" > /sys/kernel/tracing/events/kmem/mm_page_alloc/filter
-
-# 4. Повне скасування фільтра
-echo 0 > /sys/kernel/tracing/events/sched/sched_switch/filter
-```
+:::code api-tracefs/sh/pryklady-pobudovy-vyraziv.sh
 
 ## 3. Тригери подій (Event Triggers Syntax)
 
@@ -134,20 +122,7 @@ echo 0 > /sys/kernel/tracing/events/sched/sched_switch/filter
 - `r`: kretprobe (перехоплення виходу та значення, що повертається)
 - `АРГУМЕНТИ`: `назва=%регістр`, `*адреса`, `+зсув(%регістр):тип`
 
-```bash
-# 1. Трасувати вхід у функцію do_sys_openat2, витягуючи аргумент dfd з регістру %di та шлях до файлу з %si
-echo 'p:my_open do_sys_openat2 dfd=%di filename=+0(%si):string' >> /sys/kernel/tracing/kprobe_events
-
-# 2. Трасувати значення, що повертає функція do_sys_openat2 (регістр %ax)
-echo 'r:my_open_ret do_sys_openat2 ret=$retval' >> /sys/kernel/tracing/kprobe_events
-
-# 3. Активація створеної динамічної події
-echo 1 > /sys/kernel/tracing/events/kprobes/my_open/enable
-
-# 4. Видалення динамічної точки трасування
-echo 0 > /sys/kernel/tracing/events/kprobes/my_open/enable
-echo '-:kprobes/my_open' >> /sys/kernel/tracing/kprobe_events
-```
+:::code api-tracefs/sh/syntaksys-kprobe-events.sh
 
 ### Синтаксис `uprobe_events` (`/sys/kernel/tracing/uprobe_events`)
 Формат запису:

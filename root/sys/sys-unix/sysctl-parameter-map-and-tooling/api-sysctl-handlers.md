@@ -8,18 +8,7 @@
 
 Головним будівельним блоком підсистеми sysctl є структура `ctl_table`, визначена у заголовковому файлі ядра `<linux/sysctl.h>`:
 
-```c
-struct ctl_table {
-    const char *procname;         /* Ім'я файлу або каталогу в /proc/sys */
-    void *data;                   /* Вказівник на змінну в пам'яті ядра */
-    int maxlen;                   /* Максимальний розмір даних у байтах */
-    umode_t mode;                 /* Права доступу VFS (наприклад, 0644 або 0444) */
-    proc_handler *proc_handler;   /* Обробник читання/запису */
-    struct ctl_table_poll *poll;  /* Опціональна підтримка poll/epoll */
-    void *extra1;                 /* Додатковий параметр (наприклад, мінімальне значення) */
-    void *extra2;                 /* Додатковий параметр (наприклад, максимальне значення) */
-};
-```
+:::code api-sysctl-handlers/c/osnovni-struktury-danykh.c
 
 Детальний аналіз полів структури `ctl_table`:
 
@@ -94,22 +83,7 @@ typedef int proc_handler(const struct ctl_table *table, int write,
 
 Приклад визначення меж у коді ядра:
 
-```c
-static int val_min = 0;
-static int val_max = 100;
-
-static struct ctl_table example_table[] = {
-    {
-        .procname     = "percent_limit",
-        .data         = &my_percentage,
-        .maxlen       = sizeof(int),
-        .mode         = 0644,
-        .proc_handler = proc_dointvec_minmax,
-        .extra1       = &val_min,
-        .extra2       = &val_max,
-    },
-};
-```
+:::code api-sysctl-handlers/c/povedinka-obrobnyka-proc.c
 
 Якщо користувач намагається записати значення `-5` або `150`, функція `proc_dointvec_minmax` повертає помилку `-EINVAL`, і змінна `my_percentage` залишається незмінною.
 
@@ -117,66 +91,7 @@ static struct ctl_table example_table[] = {
 
 Нижче наведено робочий приклад модуля ядра Linux, який реєструє власне піддерево у `/proc/sys/kernel/custom_tuning`. Приклад написано під ядра від 6.6 — саме тому масив `custom_sysctl_table[]` не має термінального `{ }`; для старіших ядер цей елемент довелося б повернути.
 
-```c
-#include <linux/init.h>
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/sysctl.h>
-
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("sysctl demo");
-MODULE_DESCRIPTION("Приклад реєстрації параметрів sysctl");
-
-static int custom_debug_level = 0;
-static int min_debug = 0;
-static int max_debug = 5;
-
-static char custom_node_name[64] = "linux-node-01";
-
-static struct ctl_table custom_sysctl_table[] = {
-    {
-        .procname     = "debug_level",
-        .data         = &custom_debug_level,
-        .maxlen       = sizeof(int),
-        .mode         = 0644,
-        .proc_handler = proc_dointvec_minmax,
-        .extra1       = &min_debug,
-        .extra2       = &max_debug,
-    },
-    {
-        .procname     = "node_name",
-        .data         = custom_node_name,
-        .maxlen       = sizeof(custom_node_name),
-        .mode         = 0644,
-        .proc_handler = proc_dostring,
-    },
-};
-
-static struct ctl_table_header *custom_header;
-
-static int __init custom_sysctl_init(void)
-{
-    /* Реєструємо параметри за шляхом /proc/sys/kernel/custom_tuning */
-    custom_header = register_sysctl("kernel/custom_tuning", custom_sysctl_table);
-    if (!custom_header) {
-        pr_err("sysctl_demo: не вдалося зареєструвати таблицю sysctl\n");
-        return -ENOMEM;
-    }
-    pr_info("sysctl_demo: параметри у /proc/sys/kernel/custom_tuning успішно створено\n");
-    return 0;
-}
-
-static void __exit custom_sysctl_exit(void)
-{
-    if (custom_header) {
-        unregister_sysctl_table(custom_header);
-        pr_info("sysctl_demo: таблицю sysctl видалено\n");
-    }
-}
-
-module_init(custom_sysctl_init);
-module_exit(custom_sysctl_exit);
-```
+:::code api-sysctl-handlers/c/povnyi-pryklad.c
 
 ## Написання власного обробника з побічними ефектами (*Side-Effects*)
 
@@ -188,34 +103,7 @@ module_exit(custom_sysctl_exit);
 2. Перевірити, що це операція запису (`write != 0`) і що стандартний обробник не повернув помилку (`ret == 0`).
 3. Виконати додаткову валідацію або запустити побічний ефект у коді ядра.
 
-```c
-static int custom_cache_trigger = 0;
-
-static int custom_trigger_handler(const struct ctl_table *table, int write,
-                                  void *buffer, size_t *lenp, loff_t *ppos)
-{
-    int old_val = custom_cache_trigger;
-    int ret;
-
-    /* 1. Делегуємо базову обробку цілого числа стандартній функції */
-    ret = proc_dointvec(table, write, buffer, lenp, ppos);
-    if (ret || !write)
-        return ret;
-
-    /* 2. Виконуємо реакцію на зміну значення */
-    if (custom_cache_trigger != old_val) {
-        pr_info("sysctl_demo: значення змінилося з %d на %d\n", old_val, custom_cache_trigger);
-        
-        if (custom_cache_trigger == 1) {
-            pr_info("sysctl_demo: тригер активовано, виконуємо скидання внутрішнього кешу...\n");
-            /* Код очищення ресурсів ядра */
-            custom_cache_trigger = 0; /* Автоматично скидаємо прапорець */
-        }
-    }
-
-    return 0;
-}
-```
+:::code api-sysctl-handlers/c/napysannia-vlasnoho.c
 
 ## Внутрішній механізм захисту пам'яті та синхронізації
 

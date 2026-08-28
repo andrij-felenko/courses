@@ -65,18 +65,7 @@ KillSignal=SIGINT
 2. Ядро через інтерфейс ACPI (Advanced Configuration and Power Interface) надсилає материнській платі команду перейти в стан `S5` (Soft Off). 
 3. Материнська плата фізично вимикає лінії живлення ATX (відключає сигнал PS_ON), і вентилятори зупиняються. Комп'ютер вимкнено.
 
-```c
-#include <unistd.h>
-#include <sys/reboot.h>
-
-int main() {
-    // В ідеальному світі це єдине, що робить система наприкінці
-    // Для виклику потрібні root-права (CAP_SYS_BOOT)
-    sync(); // Скинути кеші
-    reboot(RB_POWER_OFF); // Апаратне вимкнення
-    return 0; // Сюди виконання ніколи не дійде
-}
-```
+:::code orderly-shutdown-d/c/main.c
 
 ## Висновок
 

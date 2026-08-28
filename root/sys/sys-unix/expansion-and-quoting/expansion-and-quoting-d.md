@@ -426,79 +426,8 @@ eval "ls -l $USER_INPUT"
 Нижче показано, як виконати розгортання рядка у користувацькій програмі без ризику командної ін'єкції завдяки прапору `WRDE_NOCMD`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <wordexp.h>
-
-void safe_expand_example(const char *input_pattern) {
-    wordexp_t result;
-    /* WRDE_NOCMD блокує виклик $(cmd) та `cmd` для безпеки */
-    int status = wordexp(input_pattern, &result, WRDE_NOCMD);
-    
-    if (status == 0) {
-        for (size_t i = 0; i < result.we_wordc; i++) {
-            printf("argv[%zu] = %s\n", i, result.we_wordv[i]);
-        }
-        wordfree(&result);
-    } else if (status == WRDE_CMDSUB) {
-        fprintf(stderr, "Помилка безпеки: спроба виконання команди всередині рядка!\n");
-    } else {
-        fprintf(stderr, "Помилка розгортання: %d\n", status);
-    }
-}
-
-int main(void) {
-    safe_expand_example("$HOME/documents/*.txt \"проект 2026\"");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <vector>
-#include <stdexcept>
-#include <wordexp.h>
-
-class SafeWordExpander {
-public:
-    explicit SafeWordExpander(std::string_view pattern) {
-        std::string null_terminated(pattern);
-        int status = wordexp(null_terminated.c_str(), &p_, WRDE_NOCMD);
-        if (status != 0) {
-            if (status == WRDE_CMDSUB) {
-                throw std::runtime_error("Спроба ін'єкції команд заборонена");
-            }
-            throw std::runtime_error("Помилка розгортання рядка");
-        }
-    }
-
-    ~SafeWordExpander() noexcept {
-        wordfree(&p_);
-    }
-
-    SafeWordExpander(const SafeWordExpander&) = delete;
-    SafeWordExpander& operator=(const SafeWordExpander&) = delete;
-
-    [[nodiscard]] std::size_t size() const noexcept { return p_.we_wordc; }
-    [[nodiscard]] const char* operator[](std::size_t i) const noexcept { return p_.we_wordv[i]; }
-
-private:
-    wordexp_t p_{};
-};
-
-int main() {
-    try {
-        SafeWordExpander expander("$HOME/documents/*.txt \"проект 2026\"");
-        for (std::size_t i = 0; i < expander.size(); ++i) {
-            std::cout << "argv[" << i << "] = " << expander[i] << '\n';
-        }
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << '\n';
-    }
-    return 0;
-}
-```
+:::code expansion-and-quoting-d/c/main.c
+:::code expansion-and-quoting-d/cpp/main.cpp
 :::
 
 ## Простеження та налагодження розгортання
@@ -511,18 +440,7 @@ int main() {
 
 Спеціальна змінна `PS4` визначає префікс рядка трасування. Якщо задати `PS4='+ [$BYTES] '`, можна чітко бачити межі згенерованих аргументів:
 
-```bash
-$ set -x
-$ FILE="my document.txt"
-$ ls -l $FILE
-+ ls -l my document.txt
-ls: cannot access 'my': No such file or directory
-ls: cannot access 'document.txt': No such file or directory
-
-$ ls -l "$FILE"
-+ ls -l 'my document.txt'
--rw-r--r-- 1 user user 4096 Aug 14 10:00 'my document.txt'
-```
+:::code expansion-and-quoting-d/sh/main.sh
 
 Зверніть увагу: у трасуванні `+ ls -l 'my document.txt'` оболонка Bash сама додає одинарні лапки навколо аргументів у виводі `xtrace`, щоб показати вам, що `my document.txt` передається як один цілісний елемент вектора `argv[]`.
 

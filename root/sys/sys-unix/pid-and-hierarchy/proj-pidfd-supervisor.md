@@ -19,18 +19,7 @@
 
 Ось як це виглядає в переважній більшості скриптів запуску та в чималій кількості демонів:
 
-```sh
-# запуск
-worker &
-echo $! > /run/worker.pid
-
-# зупинка, можливо через години й уже з іншого процесу
-pid=$(cat /run/worker.pid)
-kill -0 "$pid" 2>/dev/null || exit 0   # «перевірили, що живий»
-kill -TERM "$pid"
-sleep 5
-kill -KILL "$pid" 2>/dev/null          # добиваємо
-```
+:::code proj-pidfd-supervisor/sh/main.sh
 
 Виглядає обережно: є перевірка, є пільговий час, є придушені помилки. Насправді кожен крок цієї зупинки має власну ваду, і найгірша — в останньому рядку.
 
@@ -82,77 +71,11 @@ N = 4096 − 300 ≈ 3800
 
 Обгорток для цих викликів glibc не дає — їх кличуть напряму через `syscall()`:
 
-```c
-#define _GNU_SOURCE
-#include <linux/sched.h>      /* struct clone_args */
-#include <sched.h>            /* CLONE_PIDFD */
-#include <sys/syscall.h>
-
-#include <errno.h>
-#include <signal.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/epoll.h>
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <sys/wait.h>
-#include <time.h>
-#include <unistd.h>
-
-static long sys_clone3(struct clone_args *a, size_t sz)
-{ return syscall(SYS_clone3, a, sz); }
-
-static int sys_pidfd_open(pid_t pid, unsigned int flags)
-{ return (int)syscall(SYS_pidfd_open, pid, flags); }
-
-static int sys_pidfd_kill(int fd, int sig, unsigned int flags)
-{ return (int)syscall(SYS_pidfd_send_signal, fd, sig, (siginfo_t *)NULL, flags); }
-
-static long now_ms(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
-}
-```
+:::code proj-pidfd-supervisor/c/narodzhennia-dytyny-razom.c
 
 Сам запуск:
 
-```c
-/* Повертає pidfd. Номер потрібен тільки для журналу — діяти ним ми не будемо. */
-static int spawn(char *const argv[], pid_t *pid_out)
-{
-    int pidfd = -1;
-    struct clone_args a;
-    memset(&a, 0, sizeof a);
-    a.flags       = CLONE_PIDFD;
-    a.pidfd       = (uint64_t)(uintptr_t)&pidfd;
-    a.exit_signal = SIGCHLD;      /* інакше waitid() вимагав би __WALL */
-
-    long rc = sys_clone3(&a, sizeof a);
-    if (rc == 0) {                       /* ми — дитина */
-        signal(SIGPIPE, SIG_DFL);        /* SIG_IGN переживає exec, скидаємо */
-        setpgid(0, 0);                   /* власна група процесів */
-        execvp(argv[0], argv);
-        _exit(127);
-    }
-    if (rc > 0) { *pid_out = (pid_t)rc; return pidfd; }
-    if (errno != ENOSYS) return -1;      /* справжня біда, а не старе ядро */
-
-    /* Запасний шлях для ядер до 5.3: спершу народити, потім узяти посилання. */
-    pid_t p = fork();
-    if (p == 0) {
-        signal(SIGPIPE, SIG_DFL);
-        setpgid(0, 0);
-        execvp(argv[0], argv);
-        _exit(127);
-    }
-    if (p < 0) return -1;
-    *pid_out = p;
-    return sys_pidfd_open(p, 0);
-}
-```
+:::code proj-pidfd-supervisor/c/narodzhennia-dytyny-razom-2.c
 
 Три рішення в цих трьох десятках рядків варті окремого слова.
 
@@ -166,84 +89,11 @@ static int spawn(char *const argv[], pid_t *pid_out)
 
 Керівний сокет — датаграмний, щоб не заводити окремий шлях для приймання з'єднань:
 
-```c
-static int control_socket(const char *path)
-{
-    int s = socket(AF_UNIX, SOCK_DGRAM | SOCK_CLOEXEC | SOCK_NONBLOCK, 0);
-    if (s < 0) return -1;
-
-    struct sockaddr_un sa;
-    memset(&sa, 0, sizeof sa);
-    sa.sun_family = AF_UNIX;
-    strncpy(sa.sun_path, path, sizeof sa.sun_path - 1);
-    unlink(path);
-    if (bind(s, (struct sockaddr *)&sa, sizeof sa) < 0) { close(s); return -1; }
-    return s;
-}
-```
+:::code proj-pidfd-supervisor/c/odyn-tsykl-na-komandy-i-na.c
 
 Далі — сам цикл. Стан наглядача — чотири значення й один дедлайн:
 
-```c
-enum { ST_RUN, ST_TERM, ST_KILL, ST_DONE };
-
-/* Тіла — нижче; у файлі вони стоять перед main(). */
-static void on_command(int sock, int pidfd, int *state, long *deadline);
-static void on_child_exit(int ep, int *pidfd, int *state);
-static void escalate(int pidfd, int *state, long *deadline);
-
-int main(int argc, char **argv)
-{
-    if (argc < 3) { fprintf(stderr, "usage: sup <sock> <cmd> [args…]\n"); return 2; }
-    signal(SIGPIPE, SIG_IGN);
-
-    pid_t pid = -1;
-    int pidfd = spawn(&argv[2], &pid);
-    if (pidfd < 0) { perror("spawn"); return 1; }
-
-    int sock = control_socket(argv[1]);
-    if (sock < 0) { perror("control_socket"); return 1; }
-
-    int ep = epoll_create1(EPOLL_CLOEXEC);
-    struct epoll_event ev;
-    ev.events = EPOLLIN;
-    ev.data.fd = sock;
-    epoll_ctl(ep, EPOLL_CTL_ADD, sock, &ev);
-    ev.data.fd = pidfd;
-    epoll_ctl(ep, EPOLL_CTL_ADD, pidfd, &ev);
-
-    int  state = ST_RUN;
-    long deadline = 0;
-    fprintf(stderr, "запущено: pid=%d pidfd=%d\n", pid, pidfd);
-
-    while (state != ST_DONE) {
-        int timeout = -1;                       /* ЖИВЕ: чекаємо скільки треба */
-        if (state != ST_RUN) {
-            long left = deadline - now_ms();
-            timeout = left > 0 ? (int)left : 0;
-        }
-
-        struct epoll_event evs[4];
-        int n = epoll_wait(ep, evs, 4, timeout);
-        if (n < 0) {
-            if (errno == EINTR) continue;
-            perror("epoll_wait");
-            break;
-        }
-        if (n == 0) { escalate(pidfd, &state, &deadline); continue; }
-
-        for (int i = 0; i < n; i++) {
-            if (evs[i].data.fd == sock)
-                on_command(sock, pidfd, &state, &deadline);
-            else if (evs[i].data.fd == pidfd)
-                on_child_exit(ep, &pidfd, &state);
-        }
-    }
-
-    unlink(argv[1]);
-    return 0;
-}
-```
+:::code proj-pidfd-supervisor/c/odyn-tsykl-na-komandy-i-na-2.c
 
 Дедлайн живе не окремим таймером, а **аргументом `epoll_wait`**: скільки лишилося до нього, стільки й дозволено спати. Повернення нуля означає рівно одне — дедлайн настав раніше за будь-яку подію. Окремий `timerfd` тут був би зайвим ускладненням: дедлайн у наглядача завжди один.
 
@@ -251,28 +101,7 @@ int main(int argc, char **argv)
 
 ## Забрати результат і не закрутитися
 
-```c
-static void on_child_exit(int ep, int *pidfd, int *state)
-{
-    siginfo_t info;
-    memset(&info, 0, sizeof info);
-
-    int rc = waitid(P_PIDFD, (id_t)*pidfd, &info, WEXITED | WNOHANG);
-    if (rc < 0)
-        perror("waitid");                          /* ECHILD: прибрали без нас */
-    else if (info.si_pid == 0)
-        fprintf(stderr, "подія без зміни стану\n"); /* сюди ми потрапити не мали */
-    else if (info.si_code == CLD_EXITED)
-        fprintf(stderr, "вийшла сама, код %d\n", info.si_status);
-    else
-        fprintf(stderr, "убита сигналом %d\n", info.si_status);
-
-    epoll_ctl(ep, EPOLL_CTL_DEL, *pidfd, NULL);   /* саме до close() */
-    close(*pidfd);
-    *pidfd = -1;
-    *state = ST_DONE;
-}
-```
+:::code proj-pidfd-supervisor/c/zabraty-rezultat-i-ne.c
 
 Рядок із `EPOLL_CTL_DEL` — не прибирання за собою, а умова працездатності. `epoll` тут рівневий: він повідомляє про **стан**, а не про перехід. А смерть — це стан, і він назавжди: дескриптор лишається читабельним, скільки б разів ви його не опитали, а після `waitid()` до `EPOLLIN` додається ще й `EPOLLHUP`, бо запису про задачу більше немає. Лишивши такий дескриптор у наборі, ви дістанете `epoll_wait`, який повертається миттєво й нескінченно, тобто цикл на сто відсотків процесора.
 
@@ -280,36 +109,7 @@ static void on_child_exit(int ep, int *pidfd, int *state)
 
 ## Зупинка щаблями
 
-```c
-static void on_command(int sock, int pidfd, int *state, long *deadline)
-{
-    char buf[64];
-    ssize_t k = recv(sock, buf, sizeof buf - 1, 0);
-    if (k <= 0) return;
-    buf[k] = '\0';
-
-    if (strncmp(buf, "stop", 4) == 0 && *state == ST_RUN) {
-        if (sys_pidfd_kill(pidfd, SIGTERM, 0) < 0 && errno == ESRCH)
-            fprintf(stderr, "уже мертва — сигнал нікуди не пішов\n");
-        *state = ST_TERM;
-        *deadline = now_ms() + 5000;
-        fprintf(stderr, "SIGTERM надіслано, пільга 5 с\n");
-    }
-}
-
-static void escalate(int pidfd, int *state, long *deadline)
-{
-    if (*state == ST_TERM) {
-        fprintf(stderr, "пільга вичерпана — SIGKILL\n");
-        sys_pidfd_kill(pidfd, SIGKILL, 0);
-        *state = ST_KILL;
-        *deadline = now_ms() + 2000;
-    } else {
-        fprintf(stderr, "SIGKILL не подіяв: дитина, найпевніше, у стані D\n");
-        *deadline = now_ms() + 2000;
-    }
-}
-```
+:::code proj-pidfd-supervisor/c/zupynka-shchabliamy.c
 
 ![Чотири стани: ЖИВЕ, ЗУПИНЯЄМО з дедлайном 5 с, ДОБИВАЄМО з дедлайном 2 с, ПРИБРАНО; обхідна стрілка від ЗУПИНЯЄМО просто до ПРИБРАНО](img/pidfd-stop-escalation.svg)
 
@@ -376,18 +176,7 @@ if (sys_pidfd_kill(pidfd, SIGTERM, PIDFD_SIGNAL_PROCESS_GROUP) < 0 && errno == E
 
 Останній варіант вартий точності, бо його досі багато де видно. Дескриптор, відкритий на каталозі `/proc/<pid>`, тримає посилання на ту саму внутрішню структуру процесу, що й pidfd ([/proc: процеси як файли](root:sys-unix/proc-reading-process-and-kernel-state) — каталоги-вікна у структури ядра). Тому він **ніколи** не почне вказувати на нового власника того самого числа: коли процес прибрано, звернення крізь цей дескриптор просто провалюються — `ENOENT` на відкритті файлу всередині або `ESRCH` на читанні, залежно від того, де саме ядро помітить смерть.
 
-```c
-#include <fcntl.h>          /* O_PATH вимагає _GNU_SOURCE */
-
-int dir = open("/proc/4242", O_PATH | O_DIRECTORY | O_CLOEXEC);
-/* …через якийсь час, перед самим пострілом: */
-int st = openat(dir, "stat", O_RDONLY | O_CLOEXEC);
-if (st < 0) {
-    /* та сама задача вже мертва — стріляти нікуди */
-} else {
-    /* жива; звіряємо ще й час старту (поле 22) — і одразу kill(pid, SIGTERM) */
-}
-```
+:::code proj-pidfd-supervisor/c/iakshcho-iadro-starishe.c
 
 Це прибирає **застарілість** — головну причину пострілів у сусіда — і лишає тільки мікровікно між перевіркою й `kill()`. Підставмо в ту саму формулу `w` завдовжки в п'ятдесят мікросекунд:
 

@@ -195,118 +195,8 @@ awk '/ERROR/ { count[$4]++ } END { for (k in count) print count[k], k }' log.txt
 Щоб наочно побачити різницю між конвеєрною декомпозицією через дескриптори та внутрішньопроцесною агрегацією, порівняємо дві моделі обробки потоку.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-// Модель внутрішньопроцесної агрегації на C (аналог поведінки AWK)
-typedef struct HashEntry {
-    char key[64];
-    long count;
-    struct HashEntry *next;
-} HashEntry;
-
-#define HASH_BUCKETS 65536
-static HashEntry* buckets[HASH_BUCKETS];
-
-static unsigned int hash_key(const char *s) {
-    unsigned int h = 5381;
-    while (*s) h = ((h << 5) + h) + (unsigned char)(*s++);
-    return h % HASH_BUCKETS;
-}
-
-void process_stream_in_process(FILE *stream) {
-    char *line = NULL;
-    size_t cap = 0;
-    ssize_t len;
-
-    while ((len = getline(&line, &cap, stream)) != -1) {
-        if (strstr(line, "ERROR") == NULL) continue; // Етап grep
-
-        // Етап cut: виділення 4-го стовпця за пробілом
-        char *saveptr;
-        char *token = strtok_r(line, " \t\n", &saveptr);
-        for (int i = 1; i < 4 && token; ++i) {
-            token = strtok_r(NULL, " \t\n", &saveptr);
-        }
-        if (!token) continue;
-
-        // Етап uniq -c: оновлення лічильника в хеш-таблиці
-        unsigned int idx = hash_key(token);
-        HashEntry *entry = buckets[idx];
-        while (entry && strcmp(entry->key, token) != 0) entry = entry->next;
-
-        if (entry) {
-            entry->count++;
-        } else {
-            HashEntry *new_entry = (HashEntry*)malloc(sizeof(HashEntry));
-            strncpy(new_entry->key, token, sizeof(new_entry->key) - 1);
-            new_entry->key[sizeof(new_entry->key) - 1] = '\0';
-            new_entry->count = 1;
-            new_entry->next = buckets[idx];
-            buckets[idx] = new_entry;
-        }
-    }
-    free(line);
-
-    // Вивід результатів
-    for (int i = 0; i < HASH_BUCKETS; ++i) {
-        for (HashEntry *e = buckets[i]; e; e = e->next) {
-            printf("%7ld %s\n", e->count, e->key);
-        }
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <unordered_map>
-#include <vector>
-#include <sstream>
-
-// Ідіоматична C++ реалізація з використанням string_view та unordered_map
-void process_stream_in_process_cpp(std::istream& input) {
-    std::unordered_map<std::string, long> counts;
-    std::string line;
-
-    while (std::getline(input, line)) {
-        std::string_view sv(line);
-        if (sv.find("ERROR") == std::string_view::npos) {
-            continue; // Етап grep
-        }
-
-        // Етап cut: виділення 4-го стовпця
-        std::size_t start = 0;
-        int col = 1;
-        std::string_view col4;
-
-        while (start < sv.size()) {
-            std::size_t end = sv.find_first_of(" \t", start);
-            if (end == std::string_view::npos) end = sv.size();
-            
-            if (end > start) {
-                if (col == 4) {
-                    col4 = sv.substr(start, end - start);
-                    break;
-                }
-                col++;
-            }
-            start = end + 1;
-        }
-
-        if (!col4.empty()) {
-            counts[std::string(col4)]++; // Етап uniq -c
-        }
-    }
-
-    for (const auto& [key, count] : counts) {
-        std::cout << count << " " << key << "\n";
-    }
-}
-```
+:::code classic-filters-d/c/main.c
+:::code classic-filters-d/cpp/main.cpp
 :::
 
 Детальне експериментальне вимірювання витрат часу та пам'яті на масивах у 10 мільйонів рядків наведено в інженерному проєкті [⚙️ Порівняльний аналіз швидкодії: багатопроцесний конвеєр проти монолітного awk і C++](root:sys-unix/classic-filters/proj-log-pipeline-bench.md).
@@ -430,36 +320,7 @@ LC_ALL=C awk -f analyze_5xx.awk /var/log/nginx/access.log
 
 Для обчислення точних перцентилів потік чисел необхідно відсортувати. Для масивів, що не вміщуються в пам'ять, використовується зв'язка `awk | sort -n | awk`:
 
-```bash
-#!/usr/bin/env bash
-# latency_percentiles.sh: Розрахунок P50, P90, P95, P99 часу відповіді
-export LC_ALL=C
-
-# 1. Витягуємо лише валідні числові значення часу відповіді ($11)
-# 2. Швидко сортуємо числа в числовому порядку
-# 3. Обчислюємо перцентилі за індексами за один прохід
-awk '$11 ~ /^[0-9]+(\.[0-9]+)?$/ { print $11 }' /var/log/nginx/access.log \
-  | sort -n \
-  | awk '
-    {
-        count++
-        values[count] = $1
-    }
-    END {
-        if (count == 0) { print "Дані відсутні"; exit }
-        p50_idx = int(count * 0.50) + 1
-        p90_idx = int(count * 0.90) + 1
-        p95_idx = int(count * 0.95) + 1
-        p99_idx = int(count * 0.99) + 1
-
-        printf "Вибірка: %d запитів\n", count
-        printf "P50 (Медіана): %.3f c\n", values[p50_idx]
-        printf "P90:          %.3f c\n", values[p90_idx]
-        printf "P95:          %.3f c\n", values[p95_idx]
-        printf "P99:          %.3f c\n", values[p99_idx]
-    }
-'
-```
+:::code classic-filters-d/sh/latency_percentiles.sh
 
 ### Шаблон 3: Злиття кількох синхронних логів за міткою часу (`sort -m`)
 
@@ -480,26 +341,7 @@ LC_ALL=C sort -m -t' ' -k4,4 \
 
 Виявлення аномальних сплесків трафіку за 1-секундними інтервалами з логу в реальному часі:
 
-```bash
-# Стеження за кількістю запитів за секунду (RPS)
-tail -f /var/log/nginx/access.log \
-  | stdbuf -oL cut -d' ' -f4 \
-  | tr -d '[' \
-  | stdbuf -oL awk '
-    {
-        sec = $1
-        if (sec != current_sec) {
-            if (current_sec != "") {
-                printf "%s -> %5d RPS\n", current_sec, rps
-            }
-            current_sec = sec
-            rps = 1
-        } else {
-            rps++
-        }
-    }
-'
-```
+:::code classic-filters-d/sh/shablon-4-kovzne-vikno.sh
 
 ### Шаблон 5: Безпечна обробка бінарних потоків та спеціальних символів (`-z`, `-0`)
 

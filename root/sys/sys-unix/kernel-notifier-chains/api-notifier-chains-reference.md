@@ -35,31 +35,7 @@ struct notifier_block {
 
 Заголовна структура визначає модель синхронізації та контекст, у якому дозволено викликати й обробляти сповіщення.
 
-```c
-/* 1. Атомарний ланцюжок (захист через spinlock) */
-struct atomic_notifier_head {
-    spinlock_t lock;
-    struct notifier_block *head;
-};
-
-/* 2. Блокуючий ланцюжок (захист через семафор читачів/письменників) */
-struct blocking_notifier_head {
-    struct rw_semaphore rwsem;
-    struct notifier_block *head;
-};
-
-/* 3. Сирий ланцюжок (без внутрішніх блокувань) */
-struct raw_notifier_head {
-    struct notifier_block *head;
-};
-
-/* 4. SRCU-ланцюжок (Sleepable RCU) */
-struct srcu_notifier_head {
-    struct mutex mutex;
-    struct srcu_struct srcu;
-    struct notifier_block *head;
-};
-```
+:::code api-notifier-chains-reference/c/2-zaholovni-struktury.c
 
 Особливості внутрішнього устрою заголовків:
 
@@ -74,19 +50,7 @@ struct srcu_notifier_head {
 
 Ланцюжки сповіщень можуть бути оголошені статично під час компіляції ядра або ініціалізовані динамічно під час завантаження модуля.
 
-```c
-/* Статичне оголошення та ініціалізація глобальних ланцюжків */
-#define ATOMIC_NOTIFIER_HEAD(name)
-#define BLOCKING_NOTIFIER_HEAD(name)
-#define RAW_NOTIFIER_HEAD(name)
-
-/* Динамічна ініціалізація структур у купі або всередині об'єктів пристроїв */
-void atomic_notifier_chain_init(struct atomic_notifier_head *nh);
-void blocking_notifier_chain_init(struct blocking_notifier_head *nh);
-void raw_notifier_chain_init(struct raw_notifier_head *nh);
-int  srcu_init_notifier_head(struct srcu_notifier_head *nh);
-void srcu_cleanup_notifier_head(struct srcu_notifier_head *nh);
-```
+:::code api-notifier-chains-reference/c/makrosy-initsializatsii-ta.h
 
 Важливе зауваження щодо SRCU: функція `srcu_init_notifier_head()` динамічно виділяє пам'ять під системні структури відстеження RCU-поколінь, тому вона може повернути помилку `-ENOMEM`. Якщо динамічний SRCU-ланцюжок більше не потрібен, обов'язково слід викликати `srcu_cleanup_notifier_head()` для звільнення внутрішніх таблиць SRCU.
 
@@ -115,19 +79,7 @@ void srcu_cleanup_notifier_head(struct srcu_notifier_head *nh);
 
 Джерело події сповіщає зареєстрованих отримувачів за допомогою відповідної функції виклику:
 
-```c
-int atomic_notifier_call_chain(struct atomic_notifier_head *nh,
-                               unsigned long val, void *v);
-
-int blocking_notifier_call_chain(struct blocking_notifier_head *nh,
-                                 unsigned long val, void *v);
-
-int raw_notifier_call_chain(struct raw_notifier_head *nh,
-                            unsigned long val, void *v);
-
-int srcu_notifier_call_chain(struct srcu_notifier_head *nh,
-                             unsigned long val, void *v);
-```
+:::code api-notifier-chains-reference/c/funktsii-heneratsii-podii.h
 
 Кожна з цих обгорток захоплює відповідний примітив синхронізації та передає керування внутрішньому універсальному диспетчеру:
 

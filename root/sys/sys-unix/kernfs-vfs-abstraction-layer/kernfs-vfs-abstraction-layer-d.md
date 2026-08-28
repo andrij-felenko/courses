@@ -63,27 +63,7 @@ struct kernfs_root {
 
 Кожен вузол системи описується структурою `struct kernfs_node`:
 
-```c
-struct kernfs_node {
-    atomic_t            count;
-    atomic_t            active;
-    struct kernfs_node  *parent;
-    const char          *name;
-    struct rb_node      rb;
-    const void          *ns;
-    unsigned int        hash;
-    union {                              /* безіменна: kn->dir, kn->attr, kn->symlink */
-        struct kernfs_elem_dir      dir;
-        struct kernfs_elem_symlink  symlink;
-        struct kernfs_elem_attr     attr;
-    };
-    void                *priv;
-    union kernfs_node_id id;
-    unsigned short      flags;
-    umode_t             mode;
-    struct kernfs_iattrs *iattr;
-};
-```
+:::code kernfs-vfs-abstraction-layer-d/c/vnutrishnia-anatomiia.c
 
 Розглянемо ключові інженерні оптимізації, закладені у цю структуру:
 
@@ -171,21 +151,7 @@ kn->id.generation = root->next_generation;
 ### Фаза 1: Отримання активного посилання (`kernfs_get_active`)
 Кожну операцію над файлом (`read`, `write`, `mmap`, `poll`) шар `kernfs` огортає парою `kernfs_get_active(kn)` / `kernfs_put_active(kn)` — і без успішного першого виклику до коду драйвера справа не доходить узагалі:
 
-```c
-struct kernfs_node *kernfs_get_active(struct kernfs_node *kn)
-{
-    if (unlikely(!kn))
-        return NULL;
-
-    if (!atomic_inc_unless_negative(&kn->active))
-        return NULL;
-
-    if (kernfs_lockdep(kn))
-        rwsem_acquire_read(&kn->dep_map, 0, 1, _RET_IP_);
-
-    return kn;
-}
-```
+:::code kernfs-vfs-abstraction-layer-d/c/faza-1-otrymannia.c
 
 Уся перевірка тримається на знаку лічильника: `atomic_inc_unless_negative()` збільшує `active` на 1 лише тоді, коли значення невід'ємне. Якщо вузол активний, метод драйвера виконується безпечно, а після завершення виклику спрацьовує парна функція `kernfs_put_active(kn)`, яка зменшує `active`.
 
@@ -209,28 +175,7 @@ struct kernfs_node *kernfs_get_active(struct kernfs_node *kn)
 
 Традиційне опитування (англ. *polling*) віртуальних файлів у циклі через `cat` створює колосальне навантаження на процесор. У `kernfs` впроваджено високоефективний асинхронний механізм `kernfs_notify(kn)`. Ось перша його половина — та, що будить `poll`:
 
-```c
-void kernfs_notify(struct kernfs_node *kn)
-{
-    struct kernfs_open_node *on;
-    unsigned long flags;
-
-    if (WARN_ON(kernfs_type(kn) != KERNFS_FILE))
-        return;
-
-    /* негайно копнути poll */
-    spin_lock_irqsave(&kernfs_open_node_lock, flags);
-    on = kn->attr.open;
-    if (on) {
-        atomic_inc(&on->event);
-        wake_up_interruptible(&on->poll);
-    }
-    spin_unlock_irqrestore(&kernfs_open_node_lock, flags);
-
-    /* далі — друга половина: вузол стає у список kernfs_notify_list
-       і schedule_work() відкладає підняття fsnotify/inotify */
-}
-```
+:::code kernfs-vfs-abstraction-layer-d/c/asynkhronne-spovishchennia.c
 
 Розділення на дві половини не косметичне: `kernfs_notify()` викликають і з атомарного контексту, а `fsnotify` спати може, тож `inotify`-подія приходить не миттєво, а окремою роботою з черги. Читачі на `poll()`/`epoll_wait()` прокидаються одразу.
 
@@ -274,18 +219,7 @@ void kernfs_notify(struct kernfs_node *kn)
 
 Коли процес простору користувача викликає `read()` над відкритим файловим дескриптором, виклик перехоплюється загальним методом `kernfs_fop_read()`. Сам він робить рівно одне — розводить потік на дві гілки за прапорцем, виставленим при створенні файла:
 
-```c
-static ssize_t kernfs_fop_read(struct file *file, char __user *user_buf,
-                               size_t count, loff_t *ppos)
-{
-    struct kernfs_open_file *of = kernfs_of(file);
-
-    if (of->kn->flags & KERNFS_HAS_SEQ_SHOW)
-        return seq_read(file, user_buf, count, ppos);
-    else
-        return kernfs_file_direct_read(of, user_buf, count, ppos);
-}
-```
+:::code kernfs-vfs-abstraction-layer-d/c/peredacha-failovykh.c
 
 Зверніть увагу:
 1. Активного посилання диспетчер **не бере** — його бере кожна гілка окремо, і саме там, де вже захоплено `of->mutex`. У гілці `seq_file` це робить `kernfs_seq_start()` (а `kernfs_seq_stop()` віддає), у прямій гілці — сама `kernfs_file_direct_read()`. Обидві на невдачі `kernfs_get_active()` віддають `-ENODEV`.
@@ -302,19 +236,7 @@ static ssize_t kernfs_fop_read(struct file *file, char __user *user_buf,
 
 Найпоказовіший символ — експортований `kernfs_remove()`: саме він усередині блокується на `kernfs_drain()`, тож проміжок між входом і виходом і є часом очікування активних операцій:
 
-```bash
-# Скільки часу kernfs_remove() чекає на спорожнення вузла
-sudo bpftrace -e '
-kprobe:kernfs_remove {
-    @start[tid] = nsecs;
-    printf("DRAIN INITIATED: kn=%p\n", arg0);
-}
-kretprobe:kernfs_remove /@start[tid]/ {
-    printf("DRAIN COMPLETED: %d us\n", (nsecs - @start[tid]) / 1000);
-    delete(@start[tid]);
-}
-'
-```
+:::code kernfs-vfs-abstraction-layer-d/sh/main.sh
 
 Така діагностика дозволяє виявляти застряглі фонові файлові операції у просторі користувача, які блокують розвантаження модулів ядра або зупиняють процеси вилучення контейнерів у Kubernetes.
 

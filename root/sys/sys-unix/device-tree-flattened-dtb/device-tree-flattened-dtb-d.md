@@ -233,55 +233,13 @@ struct device_node {
 
 Код драйвера оголошує масив підтримуваних пристроїв:
 
-```c
-static const struct of_device_id pl011_dt_ids[] = {
-    { .compatible = "arm,pl011", },
-    { .compatible = "arm,primecell", },
-    { /* sentinel */ }
-};
-MODULE_DEVICE_TABLE(of, pl011_dt_ids);
-
-static struct platform_driver pl011_driver = {
-    .probe  = pl011_probe,
-    .remove = pl011_remove,
-    .driver = {
-        .name = "uart-pl011",
-        .of_match_table = pl011_dt_ids,
-    },
-};
-```
+:::code device-tree-flattened-dtb-d/c/5-3-reiestratsiia.c
 
 > ⚠️ **Виняток C++ підсистеми ядра (§5 Канону):** Код драйверів Linux працює виключно у просторі ядра (kernel space). Тут відсутні стандартна бібліотека C++, підсистема винятків та unwind-таблиці. Тому приклади підсистеми ядра (`of_match_table` та `.probe()`) наводяться мовою C як єдиний можливий технічний стандарт.
 
 Коли підсистема ядра знаходить збіг рядка `compatible` у `pl011_dt_ids`, вона викликає функцію `.probe()` драйвера. Усередині `.probe()` розробник використовує API `of_*` для вилучення ресурсів:
 
-```c
-static int pl011_probe(struct platform_device *pdev)
-{
-    struct device_node *np = pdev->dev.of_node;
-    struct resource res;
-    u32 bus_width;
-    int irq;
-
-    /* Вилучення фізичних адрес MMIO з властивості reg */
-    if (of_address_to_resource(np, 0, &res)) {
-        dev_err(&pdev->dev, "Failed to get MMIO resource\n");
-        return -EINVAL;
-    }
-
-    /* Вилучення системного номера переривання з interrupts */
-    irq = irq_of_parse_and_map(np, 0);
-
-    /* Зчитування опціональної числової властивості */
-    if (of_property_read_u32(np, "reg-io-width", &bus_width))
-        bus_width = 1; /* значення за замовчуванням */
-
-    /* Відображення MMIO регістрів у віртуальний простір ядра */
-    void __iomap *base = devm_ioremap_resource(&pdev->dev, &res);
-
-    return 0;
-}
-```
+:::code device-tree-flattened-dtb-d/c/5-3-reiestratsiia-2.c
 
 Для аналізу бінарного DTB у користувацькому просторі без допомоги ядра дивіться проєктну вставку [⚙️ Парсер бінарного DTB у користувацькому просторі](root:sys-unix/device-tree-flattened-dtb/proj-fdt-userspace-parser.md).
 

@@ -18,18 +18,7 @@
 
 ## Атрибути м'ютекса
 
-```c
-#include <pthread.h>          /* збірка: cc … -pthread */
-
-int pthread_mutexattr_init   (pthread_mutexattr_t *attr);
-int pthread_mutexattr_destroy(pthread_mutexattr_t *attr);
-
-int pthread_mutexattr_setpshared    (pthread_mutexattr_t *attr, int pshared);
-int pthread_mutexattr_setrobust     (pthread_mutexattr_t *attr, int robustness);
-int pthread_mutexattr_setprotocol   (pthread_mutexattr_t *attr, int protocol);
-int pthread_mutexattr_settype       (pthread_mutexattr_t *attr, int type);
-int pthread_mutexattr_setprioceiling(pthread_mutexattr_t *attr, int ceiling);
-```
+:::code api-process-shared-sync/c/pthread.h
 
 Кожен `set` має двійника `get` із покажчиком на вихід замість значення. Усі `set` повертають `0` або `EINVAL` на нерозпізнане значення; `pthread_mutexattr_init` може ще й не дістати пам'яті — `ENOMEM`.
 
@@ -97,24 +86,7 @@ int pthread_mutex_consistent(pthread_mutex_t *mutex);
 
 ## Умовна змінна
 
-```c
-int pthread_condattr_setpshared(pthread_condattr_t *attr, int pshared);
-int pthread_condattr_setclock  (pthread_condattr_t *attr, clockid_t clock_id);
-
-int pthread_cond_init     (pthread_cond_t *restrict cond,
-                           const pthread_condattr_t *restrict attr);
-int pthread_cond_destroy  (pthread_cond_t *cond);
-int pthread_cond_wait     (pthread_cond_t *restrict cond,
-                           pthread_mutex_t *restrict mutex);
-int pthread_cond_timedwait(pthread_cond_t *restrict cond,
-                           pthread_mutex_t *restrict mutex,
-                           const struct timespec *restrict abstime);
-int pthread_cond_clockwait(pthread_cond_t *restrict cond,
-                           pthread_mutex_t *restrict mutex, clockid_t clockid,
-                           const struct timespec *restrict abstime);
-int pthread_cond_signal   (pthread_cond_t *cond);
-int pthread_cond_broadcast(pthread_cond_t *cond);
-```
+:::code api-process-shared-sync/c/umovna-zminna.h
 
 `pshared` бере ті самі два значення, що й у м'ютекса, і його треба ставити окремо: спільний м'ютекс зі звичайною умовною змінною — та сама поломка, лише в другій половині пари.
 
@@ -137,25 +109,7 @@ int pthread_cond_broadcast(pthread_cond_t *cond);
 
 ## Семафори
 
-```c
-#include <semaphore.h>
-
-int    sem_init     (sem_t *sem, int pshared, unsigned int value);
-int    sem_destroy  (sem_t *sem);
-sem_t *sem_open     (const char *name, int oflag,
-                     ... /* mode_t mode, unsigned int value */);
-int    sem_close    (sem_t *sem);
-int    sem_unlink   (const char *name);
-
-int    sem_wait     (sem_t *sem);
-int    sem_trywait  (sem_t *sem);
-int    sem_timedwait(sem_t *restrict sem,
-                     const struct timespec *restrict abs_timeout);
-int    sem_clockwait(sem_t *restrict sem, clockid_t clockid,
-                     const struct timespec *restrict abs_timeout);
-int    sem_post     (sem_t *sem);
-int    sem_getvalue (sem_t *restrict sem, int *restrict sval);
-```
+:::code api-process-shared-sync/c/semaphore.h
 
 `pshared` у `sem_init` — не пара іменованих сталих, а просто «нуль чи ні»: ненульове означає «між процесами», і тоді сама структура `sem_t` мусить лежати у спільному відображенні ([спільна пам'ять POSIX](root:sys-unix/posix-shared-memory)). Ініціалізувати вже ініціалізований семафор — невизначена поведінка, тож правило «ініціалізує творець сегмента» тут таке саме, як для м'ютекса.
 
@@ -226,78 +180,10 @@ int    sem_getvalue (sem_t *restrict sem, int *restrict sval);
 
 Обгортка нижче містить рівно ті три місця, де контракт живучого спільного м'ютекса порушують найчастіше: розбір **поверненого** значення замість `errno`, `EOWNERDEAD` як успіх і свідоме рішення в разі невдалого лагодження.
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <pthread.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-
-struct hdr { pthread_mutex_t lock; /* … далі дані, які захищає замок … */ };
-
-int  repair(struct hdr *h);        /* привести стан до ладу; 0 — вдалося */
-void work  (struct hdr *h);
-
-/* 0 — усередині, стан цілий;  1 — усередині, стан треба лагодити;
-  -1 — не ввійшли, причина в *err. */
-static int robust_lock(pthread_mutex_t *m, long ms, int *err)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);           /* монотонний: перевід годинника не страшний */
-    ts.tv_nsec += (ms % 1000) * 1000000L;
-    ts.tv_sec  += ms / 1000 + ts.tv_nsec / 1000000000L;
-    ts.tv_nsec %= 1000000000L;
-
-    int r = pthread_mutex_clocklock(m, CLOCK_MONOTONIC, &ts);
-    if (r == 0)          return 0;
-    if (r == EOWNERDEAD) return 1;                 /* замок наш, дані під сумнівом */
-    *err = r;            return -1;                /* ETIMEDOUT / ENOTRECOVERABLE / EINVAL */
-}
-
-int use_segment(struct hdr *h)
-{
-    int err = 0;
-    int st  = robust_lock(&h->lock, 200, &err);
-
-    if (st < 0) {
-        fprintf(stderr, "не ввійшли: %s\n", strerror(err));  /* НЕ perror */
-        return -1;
-    }
-    if (st == 1) {
-        if (repair(h) != 0) {                  /* полагодити не вдалося */
-            pthread_mutex_unlock(&h->lock);    /* далі всім — ENOTRECOVERABLE */
-            return -1;
-        }
-        pthread_mutex_consistent(&h->lock);    /* знімаємо тавро */
-    }
-
-    work(h);
-    pthread_mutex_unlock(&h->lock);
-    return 0;
-}
-```
+:::code api-process-shared-sync/c/minimalnyi-robochyi-vyklyk.c
 
 Семафорний бік має іншу форму саме через другу угоду про відмову — цикл навколо `EINTR`:
 
-```c
-#include <fcntl.h>          /* O_CREAT */
-#include <semaphore.h>
-#include <sys/stat.h>       /* права 0666 */
-
-sem_t *s = sem_open("/frames", O_CREAT, 0666, 0);
-if (s == SEM_FAILED) { perror("sem_open"); return 1; }   /* тут perror доречний */
-
-struct timespec ts;
-clock_gettime(CLOCK_MONOTONIC, &ts);
-ts.tv_sec += 2;                                /* абсолютний строк, не тривалість */
-
-int r;
-while ((r = sem_clockwait(s, CLOCK_MONOTONIC, &ts)) == -1 && errno == EINTR)
-    ;                                          /* строк той самий — цикл не подовжує чекання */
-
-if (r == -1 && errno == ETIMEDOUT)
-    fputs("порція роботи так і не з'явилася\n", stderr);
-```
+:::code api-process-shared-sync/c/minimalnyi-robochyi-vyklyk-2.c
 
 Строк обчислюють **до** циклу й не перераховують усередині: інакше кожен сигнал відсуватиме межу, і тайм-аут перестане бути тайм-аутом.

@@ -18,164 +18,17 @@
 
 ## Спільний заголовок
 
-```c
-/* pc.h — включають обидві програми, розкладка мусить збігатися байт у байт */
-#ifndef PC_H
-#define PC_H
-
-#include <semaphore.h>
-#include <stdatomic.h>
-
-#define SHM_NAME "/pc.ring"
-#define SLOTS    8u
-#define MSGLEN   64u
-#define READY    0x50432D31u        /* «PC-1»: область повністю налаштована */
-
-struct ring {
-    _Atomic unsigned ready;         /* ставиться ОСТАННІМ і читається ПЕРШИМ */
-    sem_t    free_slots;            /* скільки місць вільно */
-    sem_t    filled;                /* скільки записів готово */
-    sem_t    mutex;                 /* хто зараз чіпає індекси */
-    unsigned head, tail;
-    char     slot[SLOTS][MSGLEN];
-};
-
-#endif
-```
+:::code proj-producer-consumer/c/pc.h
 
 Структури `sem_t` лежать **усередині** області, а не поруч із нею: семафор — це кілька байтів у пам'яті, і спільним його робить не прапорець `pshared`, а те, що обидва процеси дивляться на ті самі фізичні сторінки.
 
 ## Виробник — той, хто створює область
 
-```c
-/* producer.c:  cc -std=c11 -O2 producer.c -o producer -lrt -pthread */
-#define _POSIX_C_SOURCE 200809L
-#include "pc.h"
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/mman.h>
-#include <unistd.h>
-
-static void wait_retry(sem_t *s)
-{
-    while (sem_wait(s) == -1) {
-        if (errno == EINTR) continue;        /* сигнал обірвав очікування — чекаємо далі */
-        perror("sem_wait");
-        _exit(1);
-    }
-}
-
-static void put(struct ring *r, const char *msg)
-{
-    wait_retry(&r->free_slots);              /* 1: чи є куди класти */
-    wait_retry(&r->mutex);                   /* 2: індекси мої */
-    memcpy(r->slot[r->tail], msg, MSGLEN);
-    r->tail = (r->tail + 1) % SLOTS;
-    sem_post(&r->mutex);
-    sem_post(&r->filled);                    /* аж тепер запис видно споживачеві */
-}
-
-int main(void)
-{
-    shm_unlink(SHM_NAME);                    /* залишок попереднього запуску — геть */
-    int fd = shm_open(SHM_NAME, O_CREAT | O_EXCL | O_RDWR, 0600);
-    if (fd == -1) { perror("shm_open"); return 1; }
-    if (ftruncate(fd, sizeof(struct ring)) == -1) { perror("ftruncate"); return 1; }
-
-    struct ring *r = mmap(NULL, sizeof *r, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    close(fd);
-    if (r == MAP_FAILED) { perror("mmap"); return 1; }
-
-    sem_init(&r->free_slots, 1, SLOTS);      /* 1 — «семафором користуються різні процеси» */
-    sem_init(&r->filled,     1, 0);
-    sem_init(&r->mutex,      1, 1);
-    r->head = r->tail = 0;
-    atomic_store_explicit(&r->ready, READY, memory_order_release);
-
-    char msg[MSGLEN];
-    for (unsigned i = 0; i < 1000; i++) {
-        snprintf(msg, sizeof msg, "кадр %u", i);
-        put(r, msg);
-    }
-
-    memset(msg, 0, sizeof msg);
-    put(r, msg);                             /* порожній запис — знак «більше не буде» */
-
-    for (unsigned i = 0; i < SLOTS; i++)     /* усі слоти знову вільні ⇒ споживач уже нічого не чекає */
-        wait_retry(&r->free_slots);
-
-    sem_destroy(&r->free_slots);
-    sem_destroy(&r->filled);
-    sem_destroy(&r->mutex);
-    munmap(r, sizeof *r);
-    shm_unlink(SHM_NAME);
-    return 0;
-}
-```
+:::code proj-producer-consumer/c/producer.c
 
 ## Споживач — той, хто приєднується до готового
 
-```c
-/* consumer.c:  cc -std=c11 -O2 consumer.c -o consumer -lrt -pthread */
-#define _POSIX_C_SOURCE 200809L
-#include "pc.h"
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <time.h>
-#include <unistd.h>
-
-static void nap(void) { struct timespec t = { 0, 1000000 }; nanosleep(&t, NULL); }
-
-static void wait_retry(sem_t *s)
-{
-    while (sem_wait(s) == -1) {
-        if (errno == EINTR) continue;
-        perror("sem_wait");
-        _exit(1);
-    }
-}
-
-int main(void)
-{
-    int fd;
-    while ((fd = shm_open(SHM_NAME, O_RDWR, 0)) == -1 && errno == ENOENT)
-        nap();                               /* області ще нема — виробник не стартував */
-    if (fd == -1) { perror("shm_open"); return 1; }
-
-    struct stat st;                          /* доки ftruncate не дав розміру, сторінок за файлом нема */
-    while (fstat(fd, &st) == 0 && (size_t) st.st_size < sizeof(struct ring))
-        nap();
-
-    struct ring *r = mmap(NULL, sizeof *r, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    close(fd);
-    if (r == MAP_FAILED) { perror("mmap"); return 1; }
-
-    while (atomic_load_explicit(&r->ready, memory_order_acquire) != READY)
-        nap();                               /* доки sem_init не завершено — семафорів ще нема */
-
-    for (;;) {
-        char msg[MSGLEN];
-        wait_retry(&r->filled);              /* 1: чи є що брати */
-        wait_retry(&r->mutex);               /* 2: індекси мої */
-        memcpy(msg, r->slot[r->head], MSGLEN);
-        r->head = (r->head + 1) % SLOTS;
-        sem_post(&r->mutex);
-        sem_post(&r->free_slots);            /* слот повернуто в обіг */
-
-        if (msg[0] == '\0') break;
-        puts(msg);
-    }
-
-    munmap(r, sizeof *r);
-    return 0;
-}
-```
+:::code proj-producer-consumer/c/consumer.c
 
 Копіювання відбувається **всередині** критичної ділянки, і це не перестрахування. Якби кожен виносив `memcpy` за м'ютекс, лишивши під ним самий індекс, то з двома виробниками сталося б таке: перший зайняв слот 0, другий — слот 1, другий скопіював швидше й зробив `sem_post(&filled)`, споживач прокинувся й узяв слот за своїм `head`, тобто нульовий — той, у який ще досі пишуть.
 

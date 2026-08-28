@@ -45,20 +45,7 @@ $ awk '
 
 Другий погляд на ті самі дані — не хто найдовший, а куди пішов час за рівнями:
 
-```sh
-$ sudo dmesg -t | awk '
-     /^entering initcall level:/ { lvl = $4
-         if (!(lvl in total)) { order[++k] = lvl; total[lvl] = 0 }
-         next }
-     $1 == "initcall" && $NF == "usecs" { n[lvl]++; total[lvl] += $(NF-1) }
-     END { for (i = 1; i <= k; i++) { l = order[i]
-             printf "%-9s %4d викликів %9.1f мс\n", l, n[l], total[l] / 1000 } }'
-early        14 викликів       3.1 мс
-core         96 викликів      41.7 мс
-...
-device      612 викликів    1284.9 мс
-late         88 викликів     102.4 мс
-```
+:::code proj-initcall-lab/sh/main.sh
 
 Розподіл майже завжди однаковий за формою: рівні до `device` коштують десятки мілісекунд, а майже весь час завантаження ядра сидить у кількох викликах рівня `device`, які чекають на залізо.
 
@@ -94,74 +81,7 @@ ffffffff82d5eb68 D __initcall6_start
 
 Скрипт робить те саме масово: витягує секцію `.init.data` окремим файлом, розбирає її, а імена бере з тієї самої `System.map`:
 
-```python
-#!/usr/bin/env python3
-"""Таблиця initcall зібраного ядра: рівень, номер у рівні, ім'я функції.
-   ./initcalls.py vmlinux System.map [ширина-запису: 4 (зсув) або 8 (покажчик)]"""
-import bisect, os, subprocess, sys, tempfile
-
-LEVELS = ["pure", "core", "postcore", "arch", "subsys", "fs", "device", "late"]
-
-
-def symbols(path):
-    """System.map → адреси й імена, відсортовані для пошуку «хто тут живе»."""
-    rows = []
-    with open(path, encoding="utf-8", errors="replace") as f:
-        for line in f:
-            parts = line.split(None, 2)
-            if len(parts) == 3:
-                rows.append((int(parts[0], 16), parts[2].strip()))
-    rows.sort()
-    return [a for a, _ in rows], [n for _, n in rows]
-
-
-def section_vma(vmlinux, name):
-    """Початкова адреса секції — щоб перевести адресу запису в зсув у файлі."""
-    out = subprocess.run(["objdump", "-h", vmlinux],
-                         capture_output=True, text=True, check=True).stdout
-    for line in out.splitlines():
-        f = line.split()
-        if len(f) >= 4 and f[1] == name:
-            return int(f[3], 16)
-    raise SystemExit("у файлі немає секції " + name)
-
-
-def main(vmlinux, sysmap, width):
-    addrs, names = symbols(sysmap)
-    mark = dict(zip(names, addrs))          # межі мають унікальні імена
-    vma = section_vma(vmlinux, ".init.data")
-
-    tmp = tempfile.NamedTemporaryFile(suffix=".bin", delete=False)
-    tmp.close()
-    subprocess.run(["objcopy", "-O", "binary", "--only-section=.init.data",
-                    vmlinux, tmp.name], check=True)
-    with open(tmp.name, "rb") as f:
-        blob = f.read()
-    os.unlink(tmp.name)
-
-    ranges = [("early", mark["__initcall_start"], mark["__initcall0_start"])]
-    for i, level in enumerate(LEVELS):
-        stop = "__initcall_end" if i == 7 else "__initcall%d_start" % (i + 1)
-        ranges.append((level, mark["__initcall%d_start" % i], mark[stop]))
-    rootfs = mark.get("__initcallrootfs_start")
-
-    for level, start, stop in ranges:
-        for k, at in enumerate(range(start, stop, width)):
-            raw = blob[at - vma: at - vma + width]
-            target = (at + int.from_bytes(raw, "little", signed=True)
-                      if width == 4 else int.from_bytes(raw, "little"))
-            i = bisect.bisect_right(addrs, target) - 1
-            # Запис мусить указувати РІВНО на початок функції; інакше ширина не та.
-            note = "" if addrs[i] == target else "   ← не на межі символу"
-            tag = level + ("/rootfs" if rootfs and level == "fs"
-                           and at >= rootfs else "")
-            print("%-12s %3d  %s%s" % (tag, k, names[i], note))
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2],
-         int(sys.argv[3]) if len(sys.argv) > 3 else 4)
-```
+:::code proj-initcall-lab/py/initcalls.py
 
 Позначка «не на межі символу» — це вбудована перевірка здорового глузду: якщо ширина запису вгадана неправильно, кожен рядок сяде посеред чужої функції, і помилку видно одразу, а не через годину.
 
@@ -178,27 +98,7 @@ $ grep -rn 'subsys_initcall(ІМ_Я_ФУНКЦІЇ)' drivers/ kernel/ fs/
 
 Тепер додамо код, за яким можна стежити. Файл `drivers/misc/initlab.c` (ця тека компілюється завжди — `drivers/Makefile` заходить у неї беззастережно):
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/errno.h>
-#include <linux/init.h>
-#include <linux/jiffies.h>
-#include <linux/printk.h>
-
-static int __init lab_core(void)
-{
-	pr_info("initlab: core, jiffies=%lu\n", jiffies);
-	return 0;
-}
-core_initcall(lab_core);
-
-static int __init lab_late(void)
-{
-	pr_info("initlab: late, jiffies=%lu\n", jiffies);
-	return -EIO;   /* навмисна помилка — подивимося, чи вона щось спинить */
-}
-late_initcall(lab_late);
-```
+:::code proj-initcall-lab/c/krok-3-svoi-dva-vyklyky-i.c
 
 Один рядок у `drivers/misc/Makefile` — `obj-y += initlab.o` — і після збірки скрипт із кроку 2 покаже обидва записи: один у рівні `core`, другий у `late`, з тисячами чужих між ними. У журналі між двома нашими повідомленнями лежить майже все завантаження ядра — це і є та відстань, яку купує вибір макроса.
 
@@ -206,26 +106,7 @@ late_initcall(lab_late);
 
 Тепер той самий код, зібраний модулем. Окрема тека, `lab.c`:
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/init.h>
-#include <linux/module.h>
-
-static int __init lab_init(void)
-{
-	pr_info("lab: модуль стартував\n");
-	return 0;
-}
-
-static void __exit lab_exit(void)
-{
-	pr_info("lab: модуль пішов\n");
-}
-
-module_init(lab_init);
-module_exit(lab_exit);
-MODULE_LICENSE("GPL");
-```
+:::code proj-initcall-lab/c/krok-3-svoi-dva-vyklyky-i-2.c
 
 ```makefile
 obj-m += lab.o

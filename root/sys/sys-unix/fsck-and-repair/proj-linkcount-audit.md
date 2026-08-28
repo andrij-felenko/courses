@@ -20,23 +20,7 @@
 
 Таблиця `find()` тут та сама, що й у повній програмі нижче: номер inode → запис із лічильником.
 
-```c
-static int visit(const char *path, const struct stat *st, int flag, struct FTW *f)
-{
-    (void)path; (void)f;
-    if (flag == FTW_NS)              /* stat не вдався — судити нема про що */
-        return 0;
-
-    struct rec *r = find(st->st_ino);
-    r->seen++;                        /* нас відвідали під одним іменем */
-    r->nlink = st->st_nlink;
-    r->known = 1;
-    return 0;
-}
-
-/* 64 — скільки каталогів дозволено тримати відкритими водночас */
-nftw(root, visit, 64, FTW_PHYS | FTW_MOUNT);
-```
+:::code proj-linkcount-audit/c/spokusa-skorotyty-shliakh.c
 
 Для звичайних файлів це працює точно. `nftw` іде **іменами**, а не файлами: два жорсткі посилання на один inode — це два окремі відвідування, і лічильник `seen` набирає рівно стільки, скільки імен трапилося.
 
@@ -86,79 +70,7 @@ $ sudo umount /mnt/audit
 
 Вільну комірку позначаємо номером нуль. Це не хитрість, а факт про формат: у родині ext номери inode починаються з одиниці, а нуль зарезервовано під «немає такого».
 
-```c
-/* linkcount-audit.c — мініатюра четвертого проходу e2fsck.
- *
- * Обходить піддерево, рахує, скільки записів каталогів указують
- * на кожен номер inode, і звіряє пораховане з полем st_nlink.
- *
- *   cc -O2 -Wall -Wextra -o linkcount-audit linkcount-audit.c
- */
-#define _GNU_SOURCE
-#include <dirent.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-struct rec {
-    ino_t    ino;    /* 0 — комірка вільна: inode з номером 0 не буває */
-    uint64_t seen;   /* скільки записів каталогів указали сюди */
-    nlink_t  nlink;  /* що каже поле в самому inode */
-    mode_t   mode;   /* тип: каталог чи ні */
-    int      known;  /* чи знято stat хоч раз */
-};
-
-static struct rec *tab;
-static size_t cap;   /* завжди степінь двійки */
-static size_t used;
-
-/* Номери inode йдуть майже поспіль, тож молодші біти самі по собі
-   лягли б у сусідні комірки й дали довгі ланцюги проб. Перемішувач
-   splitmix64 розкидає їх по всій таблиці. */
-static uint64_t mix64(uint64_t x)
-{
-    x ^= x >> 33;  x *= 0xff51afd7ed558ccdULL;
-    x ^= x >> 33;  x *= 0xc4ceb9fe1a85ec53ULL;
-    x ^= x >> 33;
-    return x;
-}
-
-static struct rec *slot_of(struct rec *t, size_t c, ino_t ino)
-{
-    size_t i = (size_t)(mix64((uint64_t)ino) & (uint64_t)(c - 1));
-    while (t[i].ino != 0 && t[i].ino != ino)
-        i = (i + 1) & (c - 1);
-    return &t[i];
-}
-
-static void grow(void)
-{
-    size_t ncap = cap ? cap * 2 : 4096;
-    struct rec *nt = calloc(ncap, sizeof *nt);
-    if (!nt) { perror("calloc"); exit(8); }
-    for (size_t i = 0; i < cap; i++)
-        if (tab[i].ino != 0)
-            *slot_of(nt, ncap, tab[i].ino) = tab[i];
-    free(tab);
-    tab = nt;
-    cap = ncap;
-}
-
-static struct rec *find(ino_t ino)
-{
-    if (ino == 0) return NULL;
-    if (used * 10 >= cap * 7) grow();     /* тримаємо заповнення нижче 70 % */
-    struct rec *r = slot_of(tab, cap, ino);
-    if (r->ino == 0) { r->ino = ino; used++; }
-    return r;
-}
-```
+:::code proj-linkcount-audit/c/linkcount-audit.c
 
 Розширення на подвоєння з перехешуванням дає амортизовану сталу вартість вставки, а поріг 70 % не дає ланцюгам проб виродитися.
 
@@ -168,95 +80,7 @@ static struct rec *find(ino_t ino)
 
 Виграш тут не в економії. Шлях `/mnt/audit/a/b/c/name` ядро розбирає щоразу заново, від кореня; поки воно це робить, будь-який відрізок шляху може змінити значення — і `fstatat` описав би одне, а `openat` відкрив би вже інше. Прив'язавшись до дескриптора, ми фіксуємо каталог як об'єкт, а не як рядок, і від [перерозв'язання шляху](root:sys-unix/path-resolution) лишається один останній сегмент.
 
-```c
-#define MAX_DEPTH 256
-
-struct ctx {
-    dev_t         dev;      /* пристрій кореня: за його межі не виходимо */
-    unsigned long dirs, entries, crossed, deep, errors;
-};
-
-/* dfd переходить у власність walk(): його закриє closedir(). */
-static void walk(int dfd, const char *path, unsigned depth, struct ctx *c)
-{
-    DIR *d = fdopendir(dfd);
-    if (!d) {
-        fprintf(stderr, "%s: fdopendir: %s\n", path, strerror(errno));
-        close(dfd);
-        c->errors++;
-        return;
-    }
-    c->dirs++;
-
-    for (;;) {
-        errno = 0;
-        struct dirent *e = readdir(d);
-        if (!e) {
-            /* readdir повертає NULL і на кінці, і на помилці; розрізняє
-               їх лише errno, тому його обнуляють перед викликом. */
-            if (errno) {
-                fprintf(stderr, "%s: readdir: %s\n", path, strerror(errno));
-                c->errors++;
-            }
-            break;
-        }
-
-        /* Запис каталогу — це і є одна згадка номера. Рахуємо ВСІ,
-           разом із «.» та «..»: саме вони дають каталогам ті дві
-           одиниці, яких у файлів немає. */
-        c->entries++;
-        struct rec *r = find((ino_t)e->d_ino);
-        if (!r) { c->errors++; continue; }   /* нульовий номер — запис нечитний */
-        r->seen++;
-
-        if (!strcmp(e->d_name, ".") || !strcmp(e->d_name, ".."))
-            continue;                        /* полічили — і досить */
-
-        struct stat st;
-        if (fstatat(dirfd(d), e->d_name, &st, AT_SYMLINK_NOFOLLOW) != 0) {
-            fprintf(stderr, "%s/%s: fstatat: %s\n", path, e->d_name,
-                    strerror(errno));
-            c->errors++;
-            continue;
-        }
-
-        /* Межа монтування. Назва і inode, який вона називає, опинилися
-           на різних томах: у каталозі записано номер накритої теки,
-           а stat повертає корінь змонтованої системи. Дві нумерації
-           зшити нічим — далі не йдемо й нічого не судимо. */
-        if (st.st_dev != c->dev || (ino_t)e->d_ino != st.st_ino) {
-            c->crossed++;
-            continue;
-        }
-
-        r->nlink = st.st_nlink;
-        r->mode  = st.st_mode;
-        r->known = 1;
-
-        if (!S_ISDIR(st.st_mode))
-            continue;
-        if (depth + 1 >= MAX_DEPTH) { c->deep++; continue; }
-
-        /* O_NOFOLLOW тут не зайвий: між fstatat і openat назву могли
-           підмінити символьним посиланням. */
-        int fd = openat(dirfd(d), e->d_name,
-                        O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
-        if (fd < 0) {
-            fprintf(stderr, "%s/%s: openat: %s\n", path, e->d_name,
-                    strerror(errno));
-            c->errors++;
-            continue;
-        }
-
-        char *sub;
-        if (asprintf(&sub, "%s/%s", path, e->d_name) < 0) sub = NULL;
-        walk(fd, sub ? sub : e->d_name, depth + 1, c);
-        free(sub);
-    }
-
-    closedir(d);
-}
-```
+:::code proj-linkcount-audit/c/obkhid.c
 
 Три рішення в цьому коді варті окремого слова.
 
@@ -272,68 +96,7 @@ static void walk(int dfd, const char *path, unsigned depth, struct ctx *c)
 
 Виняток — коли корінь обходу є коренем самої файлової системи. Тоді назви в нього немає взагалі: `..` у ньому вказує на нього ж, і це не поправка, а буквально те, що записано в блоці каталогу.
 
-```c
-int main(int argc, char **argv)
-{
-    const char *root = (argc > 1) ? argv[1] : ".";
-
-    /* Корінь обходу назвав користувач — за ним іти можна. Усередині
-       дерева іменам уже не довіряємо: там O_NOFOLLOW. */
-    int rfd = open(root, O_RDONLY | O_DIRECTORY | O_CLOEXEC);
-    if (rfd < 0) { perror(root); return 8; }
-
-    struct stat rst;
-    if (fstat(rfd, &rst) != 0) { perror("fstat"); return 8; }
-
-    struct ctx c = { .dev = rst.st_dev };
-
-    /* Чи має корінь обходу запис у батьківському каталозі, якого ми
-       НЕ прочитаємо? Ні, коли він сам є коренем файлової системи:
-       тоді «..» указує на нього ж, а якщо систему змонтовано в чуже
-       дерево, шлях «..» виводить уже на інший том. */
-    struct stat up;
-    int fsroot = (fstatat(rfd, "..", &up, 0) != 0)
-                 || (up.st_dev != rst.st_dev)
-                 || (up.st_ino == rst.st_ino);
-
-    struct rec *r = find(rst.st_ino);
-    r->seen  = fsroot ? 0 : 1;
-    r->nlink = rst.st_nlink;
-    r->mode  = rst.st_mode;
-    r->known = 1;
-
-    walk(rfd, root, 0, &c);
-
-    unsigned long judged = 0, bad = 0;
-    for (size_t i = 0; i < cap; i++) {
-        struct rec *v = &tab[i];
-
-        if (v->ino == 0 || !v->known)
-            continue;               /* про цей inode ми знаємо замало */
-        if (S_ISDIR(v->mode) && v->nlink == 1)
-            continue;               /* «кількість невідома» — див. нижче */
-
-        judged++;
-        if ((uint64_t)v->nlink == v->seen)
-            continue;
-
-        printf("inode %10ju  %c  st_nlink=%-4ju  записів=%-4ju  різниця %+jd\n",
-               (uintmax_t)v->ino,
-               S_ISDIR(v->mode) ? 'd' : '-',
-               (uintmax_t)v->nlink, (uintmax_t)v->seen,
-               (intmax_t)v->seen - (intmax_t)v->nlink);
-        bad++;
-    }
-
-    fprintf(stderr, "\nкаталогів %lu, записів %lu, різних inode %zu, "
-                    "меж монтування %lu, задалеко %lu, помилок %lu\n",
-            c.dirs, c.entries, used, c.crossed, c.deep, c.errors);
-    fprintf(stderr, "звірено inode %lu, розбіжностей %lu\n", judged, bad);
-
-    free(tab);
-    return bad ? 4 : (c.errors ? 8 : 0);
-}
-```
+:::code proj-linkcount-audit/c/korin-obkhodu-i-zvirka.c
 
 Умова `!v->known` викидає зі звіту тих, кого ми полічили, але не роздивилися: батьківський каталог кореня обходу (його `..` ми зустріли, а сам його ніколи не бачили) і накриті монтуванням теки. Судити їх було б нечесно — не тому, що ми обережні, а тому, що даних для присуду в нас немає.
 

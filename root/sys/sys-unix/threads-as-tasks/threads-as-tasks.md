@@ -29,49 +29,8 @@
 Усі задачі групи мають спільний номер — **TGID** (англ. *thread group identifier*). Саме цей номер повертає системний виклик `getpid()`, і саме його бачить користувач як номер процесу. Власний номер задачі повертає `gettid()` (англ. *thread ID*). У першої задачі групи — **лідера групи** — номери `TGID` і `TID` збігаються, тому для однопотокових програм класичний `getpid()` працює без змін.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <pthread.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-
-static void *worker(void *arg)
-{
-    (void)arg;
-    printf("потік:   getpid()=%d  gettid()=%ld\n",
-           getpid(), (long)syscall(SYS_gettid));
-    return NULL;
-}
-
-int main(void)
-{
-    pthread_t t;
-    printf("головний: getpid()=%d  gettid()=%ld\n",
-           getpid(), (long)syscall(SYS_gettid));
-    pthread_create(&t, NULL, worker, NULL);
-    pthread_join(t, NULL);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <thread>
-#include <unistd.h>
-#include <sys/syscall.h>
-
-int main()
-{
-    auto print_ids = [](const char *label) {
-        std::cout << label << ": getpid()=" << getpid()
-                  << "  gettid()=" << syscall(SYS_gettid) << '\n';
-    };
-
-    print_ids("головний");
-    std::thread t([print_ids] { print_ids("потік"); });
-    t.join();
-}
-```
+:::code threads-as-tasks/c/main.c
+:::code threads-as-tasks/cpp/main.cpp
 :::
 
 Прапорець `CLONE_THREAD` зв'язаний жорстким ланцюгом вимог ядра: `CLONE_THREAD` потребує `CLONE_SIGHAND` (спільна таблиця обробників сигналів), а той вимагає `CLONE_VM` (спільна пам'ять). Обробники сигналів є адресами функцій у пам'яті, тому спільно обробляти сигнали можна лише в єдиному адресному просторі.

@@ -150,22 +150,7 @@ $ cat /sys/devices/system/cpu/hotplug/states
 
 **Умова: ядро системи з `CONFIG_CPU_HOTPLUG_STATE_CONTROL=y`; перевіряємо відкат власного колбека на ядрі процесора 4.**
 
-```sh
-# 1. знайти свій стан за НАЗВОЮ
-grep percpu_cnt /sys/devices/system/cpu/hotplug/states
-# 140: lib/percpu_cnt:online
-
-# 2. опустити ядро процесора рівно до нього й підняти назад
-echo 140 > /sys/devices/system/cpu/cpu4/hotplug/target
-cat /sys/devices/system/cpu/cpu4/hotplug/state     # 140
-echo 169 > /sys/devices/system/cpu/cpu4/hotplug/target
-
-# 3. зламати перехід саме в цій точці
-echo 140 > /sys/devices/system/cpu/cpu4/hotplug/fail
-echo 0 > /sys/devices/system/cpu/cpu4/online
-# -bash: echo: write error: Resource temporarily unavailable
-cat /sys/devices/system/cpu/cpu4/hotplug/fail      # -1: спрацювало й скинулося
-```
+:::code api-hotplug-sysfs/sh/main.sh
 
 Що саме виконувалося й з якими кодами повернення, видно через точки трасування `cpuhp` — `cpuhp_enter`, `cpuhp_exit`, `cpuhp_multi_enter` ([ftrace і точки трасування](root:sys-unix/ftrace-kernel-tracing) — вбудовані в ядро системи місця, у яких можна ввімкнути запис подій без перезбирання).
 
@@ -207,91 +192,7 @@ int get_nprocs_conf(void);        /* те саме, що _SC_NPROCESSORS_CONF */
 
 Програма нижче друкує всі відповіді поруч, щоб було видно, де саме вони розходяться. Розбирач списку тут не для краси: він робить те саме, що робить усередині glibc, і навмисне переживає порожній файл.
 
-```c
-#define _GNU_SOURCE
-#include <sched.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/sysinfo.h>
-#include <unistd.h>
-
-/* Порахувати номери в списку виду "0-5,7,9-15". Порожній рядок — це нуль. */
-static long count_cpu_list(const char *s)
-{
-    long total = 0;
-
-    while (*s) {
-        char *end;
-        long lo = strtol(s, &end, 10);
-        if (end == s)                  /* не число — далі читати нічого */
-            break;
-        long hi = lo;
-        s = end;
-
-        if (*s == '-') {               /* відрізок */
-            hi = strtol(s + 1, &end, 10);
-            if (end == s + 1)
-                break;
-            s = end;
-        }
-        if (hi >= lo)
-            total += hi - lo + 1;
-
-        if (*s != ',')                 /* кінець рядка */
-            break;
-        s++;
-    }
-    return total;
-}
-
-static long read_cpu_list(const char *path)
-{
-    char buf[4096];
-    FILE *f = fopen(path, "r");
-    if (f == NULL)
-        return -1;
-
-    long n = fgets(buf, sizeof buf, f) ? count_cpu_list(buf) : 0;
-    fclose(f);
-    return n;
-}
-
-int main(void)
-{
-    long possible = read_cpu_list("/sys/devices/system/cpu/possible");
-    long present  = read_cpu_list("/sys/devices/system/cpu/present");
-    long online   = read_cpu_list("/sys/devices/system/cpu/online");
-    long offline  = read_cpu_list("/sys/devices/system/cpu/offline");
-
-    printf("possible %ld  present %ld  online %ld  offline %ld\n",
-           possible, present, online, offline);
-    printf("_SC_NPROCESSORS_CONF %ld  _SC_NPROCESSORS_ONLN %ld\n",
-           sysconf(_SC_NPROCESSORS_CONF), sysconf(_SC_NPROCESSORS_ONLN));
-
-    /* Набір рівно тієї ширини, яку обіцяє possible: номери 0 … possible-1. */
-    if (possible < 1)
-        possible = CPU_SETSIZE;
-
-    size_t size = CPU_ALLOC_SIZE(possible);
-    cpu_set_t *set = CPU_ALLOC(possible);
-    if (set == NULL) {
-        perror("CPU_ALLOC");
-        return 1;
-    }
-    CPU_ZERO_S(size, set);
-
-    if (sched_getaffinity(0, size, set) != 0) {
-        perror("sched_getaffinity");   /* EINVAL тут = буфер замалий */
-        return 1;
-    }
-
-    printf("дозволено нам %d, зараз біжимо на %d\n",
-           CPU_COUNT_S(size, set), sched_getcpu());
-
-    CPU_FREE(set);
-    return 0;
-}
-```
+:::code api-hotplug-sysfs/c/main.c
 
 На машині з шістнадцятьма ядрами процесора, одним вимкненим і прив'язкою до чотирьох це друкує:
 

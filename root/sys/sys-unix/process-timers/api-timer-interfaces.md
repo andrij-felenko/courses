@@ -38,23 +38,7 @@ unsigned int alarm(unsigned int seconds);
 
 ## getitimer і setitimer
 
-```c
-#include <sys/time.h>
-
-int getitimer(int which, struct itimerval *curr_value);
-int setitimer(int which, const struct itimerval *restrict new_value,
-                               struct itimerval *restrict old_value);
-
-struct itimerval {
-    struct timeval it_interval;  /* період переозброєння; нулі — одноразовий */
-    struct timeval it_value;     /* до першого спрацювання; нулі — роззброїти */
-};
-
-struct timeval {
-    time_t      tv_sec;          /* секунди */
-    suseconds_t tv_usec;         /* мікросекунди, 0…999999 */
-};
-```
+:::code api-timer-interfaces/c/time.h
 
 | `which` | Що рахує | Сигнал |
 |---|---|---|
@@ -66,49 +50,13 @@ struct timeval {
 
 ## POSIX-таймери
 
-```c
-#include <signal.h>
-#include <time.h>
-
-int timer_create(clockid_t clockid, struct sigevent *restrict sevp,
-                 timer_t *restrict timerid);
-int timer_settime(timer_t timerid, int flags,
-                  const struct itimerspec *restrict new_value,
-                        struct itimerspec *restrict old_value);
-int timer_gettime(timer_t timerid, struct itimerspec *curr_value);
-int timer_getoverrun(timer_t timerid);
-int timer_delete(timer_t timerid);
-
-struct itimerspec {
-    struct timespec it_interval;  /* період */
-    struct timespec it_value;     /* до першого спрацювання */
-};
-
-struct timespec {
-    time_t tv_sec;                /* секунди */
-    long   tv_nsec;               /* наносекунди, 0…999999999 */
-};
-```
+:::code api-timer-interfaces/c/signal.h
 
 `flags` у `timer_settime` — або `0` (в `it_value` лежить тривалість «через скільки»), або `TIMER_ABSTIME` (в `it_value` лежить абсолютна мить на годиннику цього таймера). На 32-бітних системах `tv_sec` — це `time_t`, тож абсолютні строки далеко в майбутньому впираються в те саме, у що впирається весь календарний час ([подання часу й 2038 рік](root:sys-unix/time-representation-y2038) — чому 32-бітний лічильник секунд закінчується і як системи переходять на 64-бітний).
 
 ### Як описують сповіщення
 
-```c
-struct sigevent {
-    int             sigev_notify;               /* SIGEV_* — спосіб сповістити */
-    int             sigev_signo;                /* номер сигналу */
-    union sigval    sigev_value;                /* прийде в si_value чи в аргументі функції */
-    void          (*sigev_notify_function)(union sigval);
-    pthread_attr_t *sigev_notify_attributes;
-    pid_t           sigev_notify_thread_id;     /* лише Linux */
-};
-
-union sigval {
-    int   sival_int;
-    void *sival_ptr;
-};
-```
+:::code api-timer-interfaces/c/iak-opysuiut.c
 
 | `sigev_notify` | Що робить система |
 |---|---|
@@ -227,34 +175,4 @@ int timerfd_gettime(int fd, struct itimerspec *curr_value);
 
 Повна програма: перший строк через секунду, далі чотири рази на секунду, вісім спрацювань — і вихід.
 
-```c
-/* cc -o tick tick.c   (для POSIX-таймерів у glibc до 2.34 знадобився б ще -lrt) */
-#include <stdio.h>
-#include <stdint.h>
-#include <unistd.h>
-#include <time.h>
-#include <sys/timerfd.h>
-
-int main(void)
-{
-    int fd = timerfd_create(CLOCK_MONOTONIC, TFD_CLOEXEC);
-    if (fd < 0) { perror("timerfd_create"); return 1; }
-
-    struct itimerspec its = {
-        .it_value    = { .tv_sec = 1, .tv_nsec = 0 },          /* перший строк */
-        .it_interval = { .tv_sec = 0, .tv_nsec = 250000000 },  /* далі щочверть секунди */
-    };
-    if (timerfd_settime(fd, 0, &its, NULL) < 0) { perror("timerfd_settime"); return 1; }
-
-    for (int i = 0; i < 8; i++) {
-        uint64_t ticks;
-        if (read(fd, &ticks, sizeof ticks) != (ssize_t)sizeof ticks) {
-            perror("read");                       /* тут же ловиться ECANCELED */
-            return 1;
-        }
-        printf("спрацювань від минулого читання: %llu\n", (unsigned long long)ticks);
-    }
-    close(fd);
-    return 0;
-}
-```
+:::code api-timer-interfaces/c/tick.c

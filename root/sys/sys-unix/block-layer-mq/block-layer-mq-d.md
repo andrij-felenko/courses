@@ -26,24 +26,7 @@
 
 Оскільки віртуальна пам'ять ядра працює зі сторінками (`struct page`), які в фізичній оперативній пам'яті можуть бути фрагментовані та розташовані в довільних місцях, одна структура `bio` використовує векторний ввід-вивід (scatter-gather I/O). Всі фізичні шматки пам'яті описуються масивом векторів `struct bio_vec`.
 
-```c
-struct bio_vec {
-    struct page *bv_page;   /* Вказівник на фізичну сторінку пам'яті */
-    unsigned int bv_len;    /* Довжина сегмента у байтах */
-    unsigned int bv_offset; /* Зміщення даних від початку сторінки */
-};
-
-struct bio {
-    struct bio          *bi_next;    /* Вказівник на наступний bio у списку */
-    struct block_device *bi_bdev;    /* Цільовий блоковий пристрій */
-    blk_opf_t           bi_opf;      /* Операція (REQ_OP_READ/WRITE) та прапорці */
-    unsigned short      bi_vcnt;     /* Кількість векторів у bi_io_vec */
-    struct bvec_iter    bi_iter;     /* Поточний стан ітерації (сектор, розмір) */
-    struct bio_vec      *bi_io_vec;  /* Масив векторів пам'яті */
-    bio_end_io_t        *bi_end_io;  /* Зворотний виклик (callback) після завершення */
-    void                *bi_private; /* Приватний контекст ініціатора */
-};
-```
+:::code block-layer-mq-d/c/2-anatomiia-struct-bio-ta.c
 
 Кожен вектор `bio_vec` вказує на конкретну сторінку пам'яті, зміщення всередині неї та розмір даних. Завдяки цьому VFS може сформувати запит на читання 64 Кілобайт даних в один `bio`, навіть якщо цей буфер зібрано з 16 неспланованих фізичних сторінок у RAM.
 
@@ -215,136 +198,15 @@ VFS / Page Cache
 
 *(Зверніть увагу: код драйверів ядра написаний мовою C, оскільки простір ядра Linux не підтримує середовище виконання C++).*
 
-```c
-/* Фрагмент реєстрації драйвера блокового пристрою blk-mq у ядрі Linux */
-#include <linux/module.h>
-#include <linux/blk-mq.h>
-
-static blk_status_t my_queue_rq(struct blk_mq_hw_ctx *hctx,
-                                const struct blk_mq_queue_data *bd)
-{
-    struct request *rq = bd->rq;
-    
-    /* Отримання тегу, виділеного під даний запит */
-    unsigned int tag = rq->tag;
-    
-    /* Драйвер починає обробку запиту на hardware hctx */
-    blk_mq_start_request(rq);
-    
-    /* ... Програмування регістрів контролера або DMA ... */
-    
-    /* Завершення запиту у разі успіху */
-    blk_mq_end_request(rq, BLK_STS_OK);
-    return BLK_STS_OK;
-}
-
-static struct blk_mq_ops my_mq_ops = {
-    .queue_rq = my_queue_rq,
-};
-
-/* Ініціалізація набору тегів при завантаженні драйвера */
-static int init_my_tag_set(struct blk_mq_tag_set *tag_set)
-{
-    tag_set->ops = &my_mq_ops;
-    tag_set->nr_hw_queues = num_online_cpus(); /* 1:1 mapping */
-    tag_set->queue_depth = 128;                /* Глибина апаратної черги */
-    tag_set->numa_node = NUMA_NO_NODE;
-    tag_set->flags = BLK_MQ_F_SHOULD_MERGE;
-    
-    return blk_mq_alloc_tag_set(tag_set);
-}
-```
+:::code block-layer-mq-d/c/iadernyi-frahment.c
 
 ### Прикладний рівень: Зчитування параметрів черг blk-mq (C / C++)
 
 У користувальницькому просторі інспектувати конфігурацію `blk-mq` можна шляхом опитування псевдофайлової системи `sysfs`.
 
 :::tabs
-```c
-/* inspect_mq.c — Зчитування конфігурації blk-mq з sysfs на C */
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-
-void print_sysfs_attr(const char *dev, const char *attr) {
-    char path[256];
-    snprintf(path, sizeof(path), "/sys/block/%s/mq/%s", dev, attr);
-    
-    int fd = open(path, O_RDONLY);
-    if (fd < 0) {
-        snprintf(path, sizeof(path), "/sys/block/%s/queue/%s", dev, attr);
-        fd = open(path, O_RDONLY);
-    }
-    
-    if (fd >= 0) {
-        char buf[128];
-        ssize_t n = read(fd, buf, sizeof(buf) - 1);
-        if (n > 0) {
-            buf[n] = '\0';
-            /* Видалення символу нового рядка */
-            char *newline = strchr(buf, '\n');
-            if (newline) *newline = '\0';
-            printf("  %-20s: %s\n", attr, buf);
-        }
-        close(fd);
-    } else {
-        printf("  %-20s: [недоступно]\n", attr);
-    }
-}
-
-int main(int argc, char *argv[]) {
-    const char *dev_name = (argc > 1) ? argv[1] : "nvme0n1";
-    printf("Інспектування blk-mq для пристрою /dev/%s:\n", dev_name);
-    
-    print_sysfs_attr(dev_name, "nr_hw_queues");
-    print_sysfs_attr(dev_name, "scheduler");
-    print_sysfs_attr(dev_name, "nr_requests");
-    print_sysfs_attr(dev_name, "io_poll");
-    
-    return 0;
-}
-```
-```cpp
-// inspect_mq.cpp — Зчитування конфігурації blk-mq на C++20
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <filesystem>
-#include <format>
-
-namespace fs = std::filesystem;
-
-void print_mq_attribute(const std::string& dev, const std::string& attr) {
-    fs::path sysfs_path = fs::path("/sys/block") / dev / "mq" / attr;
-    if (!fs::exists(sysfs_path)) {
-        sysfs_path = fs::path("/sys/block") / dev / "queue" / attr;
-    }
-
-    if (fs::exists(sysfs_path)) {
-        std::ifstream file(sysfs_path);
-        std::string value;
-        if (std::getline(file, value)) {
-            std::cout << std::format("  {:20s}: {}\n", attr, value);
-            return;
-        }
-    }
-    std::cout << std::format("  {:20s}: [недоступно]\n", attr);
-}
-
-int main(int argc, char* argv[]) {
-    std::string dev_name = (argc > 1) ? argv[1] : "nvme0n1";
-    std::cout << std::format("Інспектування blk-mq для пристрою /dev/{}:\n", dev_name);
-
-    print_mq_attribute(dev_name, "nr_hw_queues");
-    print_mq_attribute(dev_name, "scheduler");
-    print_mq_attribute(dev_name, "nr_requests");
-    print_mq_attribute(dev_name, "io_poll");
-
-    return 0;
-}
-```
+:::code block-layer-mq-d/c/inspect_mq.c
+:::code block-layer-mq-d/cpp/inspect_mq.cpp
 :::
 
 ## 12. Вартість, компроміси та крайні випадки

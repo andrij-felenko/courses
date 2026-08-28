@@ -179,24 +179,7 @@ int move_mount(int from_dirfd, const char *from_path,
 
 Обгортки в glibc з'явилися лише у версії 2.36, тож переносний код кличе виклики номером:
 
-```c
-#define _GNU_SOURCE
-#include <linux/mount.h>      /* FSOPEN_*, FSCONFIG_*, MOVE_MOUNT_*, MOUNT_ATTR_* */
-#include <sys/syscall.h>
-#include <unistd.h>
-
-static int sys_fsopen(const char *fs, unsigned f)
-{ return syscall(SYS_fsopen, fs, f); }
-
-static int sys_fsconfig(int fd, unsigned cmd, const char *k, const void *v, int aux)
-{ return syscall(SYS_fsconfig, fd, cmd, k, v, aux); }
-
-static int sys_fsmount(int fd, unsigned f, unsigned attr)
-{ return syscall(SYS_fsmount, fd, f, attr); }
-
-static int sys_move_mount(int ffd, const char *fp, int tfd, const char *tp, unsigned f)
-{ return syscall(SYS_move_mount, ffd, fp, tfd, tp, f); }
-```
+:::code api-mount-syscalls/c/nabir-5-2-montuvannia-iak.c
 
 ### `fsopen` і `fsconfig`: параметри по одному
 
@@ -218,20 +201,7 @@ static int sys_move_mount(int ffd, const char *fp, int tfd, const char *tp, unsi
 
 Головна перевага набору — не в порядку кроків, а в тому, що **помилку тепер можна прочитати словами**. Контекст веде чергу повідомлень, і `read(2)` на його дескрипторі віддає їх по одному, кожне з однобуквеним префіксом: `e` — помилка, `w` — попередження, `i` — довідка.
 
-```c
-static void drain_messages(int fd)
-{
-    char buf[4096];
-    ssize_t n;
-    while ((n = read(fd, buf, sizeof buf - 1)) > 0) {
-        buf[n] = '\0';
-        /* приклад справжнього рядка: "einvalid option 'nosuchopt'" */
-        fprintf(stderr, "%s: %s\n",
-                buf[0] == 'e' ? "помилка" :
-                buf[0] == 'w' ? "увага"   : "довідка", buf + 1);
-    }
-}
-```
+:::code api-mount-syscalls/c/fsopen-i-fsconfig.c
 
 Це і є та відповідь, якої `mount(2)` дати не міг: замість голої `EINVAL` — назва опції, що не підійшла.
 
@@ -284,27 +254,7 @@ int move_mount(int from_dirfd, const char *from_path,
 
 **Повний ланцюг: змонтувати tmpfs новим набором.**
 
-```c
-int fsfd = sys_fsopen("tmpfs", FSOPEN_CLOEXEC);
-if (fsfd < 0) return -1;
-
-sys_fsconfig(fsfd, FSCONFIG_SET_STRING, "size", "64m", 0);
-sys_fsconfig(fsfd, FSCONFIG_SET_STRING, "mode", "0700", 0);
-
-if (sys_fsconfig(fsfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0) < 0) {
-    drain_messages(fsfd);           /* тут скажуть, яка саме опція погана */
-    return -1;
-}
-
-int mfd = sys_fsmount(fsfd, FSMOUNT_CLOEXEC,
-                      MOUNT_ATTR_NOSUID | MOUNT_ATTR_NODEV);
-close(fsfd);                        /* контекст більше не потрібен */
-
-/* до цієї миті монтування існує, але шляху до нього немає */
-sys_move_mount(mfd, "", AT_FDCWD, "/mnt/scratch",
-               MOVE_MOUNT_F_EMPTY_PATH);
-close(mfd);
-```
+:::code api-mount-syscalls/c/move-mount-prychepyty-abo.c
 
 ### `fspick`: перенастроїти вже змонтоване
 
@@ -312,19 +262,7 @@ close(mfd);
 
 ## `mount_setattr(2)`: атрибути цілого піддерева атомарно
 
-```c
-#include <linux/mount.h>
-
-struct mount_attr {
-    __u64 attr_set;      /* що ввімкнути */
-    __u64 attr_clr;      /* що вимкнути  */
-    __u64 propagation;   /* MS_SHARED/PRIVATE/SLAVE/UNBINDABLE; 0 — не чіпати */
-    __u64 userns_fd;     /* лише для MOUNT_ATTR_IDMAP */
-};
-
-int mount_setattr(int dirfd, const char *path, unsigned int flags,
-                  struct mount_attr *attr, size_t size);
-```
+:::code api-mount-syscalls/c/mount-setattr-2-atrybuty.c
 
 З'явився в 5.12 (glibc 2.36). Дві його переваги над `MS_REMOUNT|MS_BIND` вирішальні: він міняє прапорці **вибірково** (`attr_set` і `attr_clr` окремо, а не «скинути все й вписати наново») і робить це **атомарно на всьому піддереві** з `AT_RECURSIVE` — або вдається все, або не міняється нічого.
 
@@ -370,22 +308,7 @@ move_mount(fd, "", AT_FDCWD, "/containers/c1/data", MOVE_MOUNT_F_EMPTY_PATH);
 
 З ядра 6.8 склад дерева можна питати напряму, не читаючи й не розбираючи `/proc`. Обгорток у glibc немає — лише через `syscall(2)`.
 
-```c
-struct mnt_id_req {
-    __u32 size;             /* sizeof(struct mnt_id_req) — так ядро знає версію */
-    union {
-        __u32 mnt_ns_fd;    /* дескриптор чужого простору імен монтувань */
-        __u32 mnt_fd;       /* або дескриптор на саме монтування */
-    };
-    __u64 mnt_id;      /* чиїх дітей питаємо; LSMT_ROOT — корінь простору */
-    __u64 param;       /* listmount: з якого ID продовжити; statmount: маска STATMOUNT_* */
-    __u64 mnt_ns_id;   /* з 6.11: чужий простір імен за його ідентифікатором */
-};
-
-/* скільки монтувань покладено в mnt_ids; 0 — більше немає */
-syscall(SYS_listmount, &req, mnt_ids, nr_mnt_ids, flags);
-syscall(SYS_statmount, &req, smbuf, bufsize, flags);
-```
+:::code api-mount-syscalls/c/listmount-2-i-statmount-2.h
 
 `LSMT_ROOT` (`0xffffffffffffffff`) означає кореневе монтування поточного простору імен. Список віддають порціями: `param` наступного виклику ставлять рівним останньому отриманому ідентифікатору. `listmount` повертає **кількість покладених записів**, а не помилку — нуль означає, що дітей більше немає.
 

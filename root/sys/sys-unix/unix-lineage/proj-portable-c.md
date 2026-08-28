@@ -19,20 +19,7 @@
 
 Ось перша версія — така, яку пише кожен:
 
-```c
-#include <stdio.h>
-
-struct rec {
-    char  kind;   /* 'I' — інформація, 'W' — попередження, 'E' — помилка */
-    int   id;     /* наскрізний номер події */
-    long  ts;     /* unix-час */
-    short len;    /* довжина тексту, що йде далі у файлі */
-};
-
-void write_rec(FILE *f, const struct rec *r) {
-    fwrite(r, sizeof *r, 1, f);          /* «просто скидаємо структуру» */
-}
-```
+:::code proj-portable-c/c/zadacha.c
 
 Цей код збирається всіма чотирма компіляторами без єдиного попередження. І пише три різні формати — причому 64-бітна Windows випадково збігається з 32-бітним ARM, бо `long` там теж чотирибайтовий. Такі випадкові збіги — окрема біда: вони переконують, що формат таки переносний.
 
@@ -220,60 +207,7 @@ printf("%" PRIu64 "\n", (uint64_t)v);   /* макрос сам підстави�
 
 Зберемо кодек, який не робить жодного з шести припущень. Формат оголошений явно: 15 байтів, big-endian, без доповнення. Структура в пам'яті лишається такою, як зручно компілятору, — вона більше не є форматом.
 
-```c
-#include <stdint.h>
-#include <string.h>
-#include <limits.h>
-
-#define REC_WIRE_SIZE 15          /* 1 + 4 + 8 + 2 — рахуємо ми, не компілятор */
-
-struct rec {                      /* у пам'яті — як зручно платформі */
-    uint8_t  kind;
-    uint32_t id;
-    int64_t  ts;
-    uint16_t len;
-};
-
-/* ── запис у формат ─────────────────────────────────────────────── */
-static void put_u16(uint8_t *p, uint16_t v) {
-    p[0] = (uint8_t)(v >> 8);
-    p[1] = (uint8_t)v;
-}
-static void put_u32(uint8_t *p, uint32_t v) {
-    p[0] = (uint8_t)(v >> 24); p[1] = (uint8_t)(v >> 16);
-    p[2] = (uint8_t)(v >>  8); p[3] = (uint8_t)v;
-}
-static void put_u64(uint8_t *p, uint64_t v) {
-    put_u32(p,     (uint32_t)(v >> 32));
-    put_u32(p + 4, (uint32_t)v);
-}
-
-void rec_encode(uint8_t buf[REC_WIRE_SIZE], const struct rec *r) {
-    buf[0] = r->kind;
-    put_u32(buf + 1,  r->id);
-    put_u64(buf + 5,  (uint64_t)r->ts);   /* від'ємний час → доповняльний код */
-    put_u16(buf + 13, r->len);
-}
-
-/* ── читання з формату ──────────────────────────────────────────── */
-static uint16_t get_u16(const uint8_t *p) {
-    return (uint16_t)(((uint32_t)p[0] << 8) | p[1]);
-}
-static uint32_t get_u32(const uint8_t *p) {
-    return ((uint32_t)p[0] << 24) | ((uint32_t)p[1] << 16)
-         | ((uint32_t)p[2] <<  8) |  (uint32_t)p[3];
-}
-static uint64_t get_u64(const uint8_t *p) {
-    return ((uint64_t)get_u32(p) << 32) | get_u32(p + 4);
-}
-
-void rec_decode(struct rec *r, const uint8_t buf[REC_WIRE_SIZE]) {
-    r->kind = buf[0];
-    r->id   = get_u32(buf + 1);
-    r->ts   = (int64_t)get_u64(buf + 5);
-    r->len  = get_u16(buf + 13);
-}
-```
+:::code proj-portable-c/c/robochyi-kod.c
 
 Дві деталі в цьому тексті виглядають зайвими, але не є.
 
@@ -317,20 +251,7 @@ rec_decode(&b, w);
 
 Найпростіший вимірювач — крихітна програма, яку збирають і запускають просто під час налаштування:
 
-```bash
-cat > _probe.c <<'EOF'
-int main(void) {
-    unsigned long v = 1;
-    return (*(char *)&v) ? 0 : 1;   /* перший байт одиниця → little-endian */
-}
-EOF
-if ${CC:-cc} -o _probe _probe.c 2>/dev/null && ./_probe; then
-    echo '#define WORDS_BIGENDIAN 0' >> config.h
-else
-    echo '#define WORDS_BIGENDIAN 1' >> config.h
-fi
-rm -f _probe _probe.c
-```
+:::code proj-portable-c/sh/main.sh
 
 Кільканадцять таких перевірок, зшитих в один скрипт, — і є `./configure`. Обряд має точну дату народження: у червні 1991-го Девід Маккензі супроводжував десятки утиліт GNU для Free Software Foundation, і кількість ключів `-D`, які користувач мусив вибирати руками в `Makefile`, дійшла до двох десятків. Він написав невеликий скрипт, що вгадує їх сам, і випустив його разом із `fileutils` 2.0; наступного місяця переніс той самий скрипт руками на кілька інших пакетів. Генератор таких скриптів він хотів назвати Autoconfig — але з дописаним номером версії ім'я не влазило в обмеження старих файлових систем, тож скоротив до Autoconf.
 

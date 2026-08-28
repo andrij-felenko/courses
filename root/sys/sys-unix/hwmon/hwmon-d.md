@@ -155,26 +155,7 @@ static const struct hwmon_channel_info * const chip_info[] = {
 
 Читання й запис драйвер віддає трьома зворотними викликами. `is_visible` вирішує, чи взагалі показувати цей атрибут і з якими правами — повертає `0` (файла не буде), `0444` (лише читання) або `0644`. `read` дістає значення й зобов'язаний повернути його **в одиниці свого типу**; `write` приймає записане.
 
-```c
-static int chip_read(struct device *dev, enum hwmon_sensor_types type,
-                     u32 attr, int channel, long *val)
-{
-        struct chip_data *data = dev_get_drvdata(dev);
-        u16 reg;
-        int err;
-
-        switch (type) {
-        case hwmon_temp:
-                err = chip_read_temp_reg(data, channel, attr, &reg);
-                if (err)
-                        return err;
-                *val = ((s16)reg >> 7) * 500;   /* мілі°C */
-                return 0;
-        default:
-                return -EOPNOTSUPP;
-        }
-}
-```
+:::code hwmon-d/c/main.c
 
 Форма виклику тут промовиста: ядро питає не «прочитай файл temp1_input», а «дай значення типу `hwmon_temp`, ознака `input`, канал 0». Розбір імені файла лишився в ядрі, і драйвер більше не має жодної можливості назвати свій атрибут `temp1_celsius` або віддати градуси замість мілі-градусів у файлі, який ядро вже позначило як температурний.
 

@@ -166,19 +166,7 @@ $ echo "/var/coredumps/core.%e.%p.%t" > /proc/sys/kernel/core_pattern
 
 Для роботи з накопиченими дампами використовується утиліта командного рядка **`coredumpctl`**:
 
-```bash
-# Переглянути список усіх аварій у системі
-$ coredumpctl list
-
-# Переглянути детальну інформацію про останній крах конкретного сервісу
-$ coredumpctl info my_service
-
-# Витягнути та розпакувати файл дампа для конкретного PID
-$ coredumpctl dump 14230 -o /tmp/core.14230
-
-# Автоматично розпакувати дамп і відкрити його в інтерактивній сесії GDB
-$ coredumpctl debug my_service
-```
+:::code core-dump-d/sh/main.sh
 
 Завдяки `coredumpctl debug` розробникові більше не потрібно вручну шукати відповідальний виконуваний бінарник та витягати стиснені `.zst` файли з системних каталогів.
 
@@ -190,46 +178,9 @@ $ coredumpctl debug my_service
 
 :::tabs
 == C++
-```cpp
-#include <iostream>
-
-struct DatabaseConfig {
-    std::string host;
-    uint16_t port;
-};
-
-void connect_to_database(DatabaseConfig* config) {
-    // Якщо config дорівнює nullptr, спроба прочитати config->host викликає SIGSEGV
-    std::cout << "Connecting to host: " << config->host << std::endl;
-}
-
-int main() {
-    DatabaseConfig* cfg = nullptr;
-    connect_to_database(cfg);
-    return 0;
-}
-```
+:::code core-dump-d/cpp/praktychnyi-rozbir.cpp
 == C
-```c
-#include <stdio.h>
-#include <stdint.h>
-
-typedef struct {
-    char host[64];
-    uint16_t port;
-} database_config_t;
-
-void connect_to_database(database_config_t* config) {
-    // Якщо config дорівнює NULL, спроба прочитати config->host викликає SIGSEGV
-    printf("Connecting to host: %s\n", config->host);
-}
-
-int main(void) {
-    database_config_t* cfg = NULL;
-    connect_to_database(cfg);
-    return 0;
-}
-```
+:::code core-dump-d/c/praktychnyi-rozbir.c
 :::
 
 Після компіляції (`g++ -g db_app.cpp -o db_app`) та запуску програма завершується з помилкою `Segmentation fault (core dumped)`.
@@ -296,48 +247,9 @@ $1 = (DatabaseConfig *) 0x0
 
 :::tabs
 == C++
-```cpp
-#include <sys/mman.h>
-#include <iostream>
-#include <vector>
-
-void protect_sensitive_memory() {
-    size_t size = 4096; // 1 сторінка пам'яті
-    void* secret_buffer = mmap(nullptr, size, PROT_READ | PROT_WRITE, 
-                               MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    
-    if (secret_buffer != MAP_FAILED) {
-        // Вказуємо ядру НЕ включати цю область у core dump
-        madvise(secret_buffer, size, MADV_DONTDUMP);
-        
-        // Записуємо чутливі дані (наприклад, приватний ключ)
-        // ...
-        
-        munmap(secret_buffer, size);
-    }
-}
-```
+:::code core-dump-d/cpp/2-bezpeka-danykh-ta-vytik.cpp
 == C
-```c
-#include <sys/mman.h>
-#include <stdio.h>
-
-void protect_sensitive_memory(void) {
-    size_t size = 4096; // 1 сторінка пам'яті
-    void* secret_buffer = mmap(NULL, size, PROT_READ | PROT_WRITE, 
-                               MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    
-    if (secret_buffer != MAP_FAILED) {
-        // Вказуємо ядру НЕ включати цю область у core dump
-        madvise(secret_buffer, size, MADV_DONTDUMP);
-        
-        // Записуємо чутливі дані (наприклад, приватний ключ)
-        // ...
-        
-        munmap(secret_buffer, size);
-    }
-}
-```
+:::code core-dump-d/c/2-bezpeka-danykh-ta-vytik.c
 :::
 
 2. **Обмеження прав доступу**: Встановлення суворих прав доступу (`0600`) на файли дампів та обмеження прав доступу до каталогу `/var/lib/systemd/coredump/` лише для групи `systemd-journal` та користувача `root`.

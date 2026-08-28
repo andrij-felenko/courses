@@ -78,18 +78,7 @@ dmsetup create home --table '0        2097152  linear /dev/sdb 0
 
 Ціль може **лише переписати адресу** й повернути `DM_MAPIO_REMAPPED` — «я нічого не робила з даними, надішли цей запит далі сама». Так працює `linear`. Ось її серце, майже дослівно з ядра (опущено обробку зонованих носіїв):
 
-```c
-static int linear_map(struct dm_target *ti, struct bio *bio)
-{
-        struct linear_c *lc = ti->private;
-
-        bio_set_dev(bio, lc->dev->bdev);
-        bio->bi_iter.bi_sector =
-                lc->start + dm_target_offset(ti, bio->bi_iter.bi_sector);
-
-        return DM_MAPIO_REMAPPED;
-}
-```
+:::code device-mapper-d/c/main.c
 
 `dm_target_offset` віднімає початок відрізка, тобто переводить номер із координат віртуального пристрою у власні координати відрізка; `lc->start` додає зсув на носії. Ані байта не скопійовано, ані сторінки не виділено: до заліза доходить **той самий** `bio`, у якого змінилися два поля. Ціна такого шару — одне додавання й один пошук у дереві.
 

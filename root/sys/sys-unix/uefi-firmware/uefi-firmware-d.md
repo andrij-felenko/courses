@@ -44,24 +44,7 @@ EFI_STATUS EFIAPI efi_main(EFI_HANDLE image, EFI_SYSTEM_TABLE *st);
 
 У таблиці лежать три речі. Перша — консоль: поля `ConIn` і `ConOut` дають готові об'єкти для читання клавіатури й виводу тексту, тож `st->ConOut->OutputString(st->ConOut, L"hello")` працює без жодного драйвера. Друга — два набори послуг, про які далі. Третя — масив **таблиць налаштувань**: пари «унікальне ім'я — адреса», якими прошивка віддає структури даних, а не функції; саме тут ядро потім знайде опис заліза.
 
-```c
-EFI_STATUS EFIAPI efi_main(EFI_HANDLE image, EFI_SYSTEM_TABLE *st)
-{
-        EFI_GUID gop_guid = EFI_GRAPHICS_OUTPUT_PROTOCOL_GUID;
-        EFI_GRAPHICS_OUTPUT_PROTOCOL *gop;
-
-        st->ConOut->OutputString(st->ConOut, L"жива\r\n");
-
-        /* прошивка завела сторожовий таймер на 5 хвилин, перш ніж нас запустити:
-           не вимкнеш — довге читання з повільного диска обірветься перезавантаженням */
-        st->BootServices->SetWatchdogTimer(0, 0, 0, NULL);
-
-        if (st->BootServices->LocateProtocol(&gop_guid, NULL, (void **)&gop) == EFI_SUCCESS)
-                st->ConOut->OutputString(st->ConOut, L"кадровий буфер є\r\n");
-
-        return EFI_SUCCESS;     /* повернення = вихід із програми */
-}
-```
+:::code uefi-firmware-d/c/tochka-vkhodu-i-korin.c
 
 Сторожовий таймер тут не дрібниця, а точний портрет усього середовища: прошивка запускає програму так, як операційна система запускає процес, — з обмеженням часу й правом убити. Тільки процесів тут немає, і вбити означає перезавантажити машину.
 
@@ -118,40 +101,7 @@ EfiMemoryMappedIO         0xFED00000     0x000010   не пам'ять узаг�
 
 Звідси й обов'язковий вигляд цього місця в будь-якому завантажувачі: цикл, у якому після невдачі карту перечитують, і між читанням та виходом не роблять **нічого**.
 
-```c
-static EFI_STATUS take_over(EFI_HANDLE image, EFI_SYSTEM_TABLE *st)
-{
-        EFI_BOOT_SERVICES *bs = st->BootServices;
-        EFI_MEMORY_DESCRIPTOR *map = NULL;
-        UINTN size = 0, key = 0, dsz = 0;
-        UINT32 dver;
-        EFI_STATUS rc;
-
-        for (;;) {
-                rc = bs->GetMemoryMap(&size, map, &key, &dsz, &dver);
-                if (rc == EFI_BUFFER_TOO_SMALL) {
-                        if (map)
-                                bs->FreePool(map);
-                        /* запас на описи, які додасть саме це виділення */
-                        size += 4 * dsz;
-                        rc = bs->AllocatePool(EfiLoaderData, size, (void **)&map);
-                        if (rc != EFI_SUCCESS)
-                                return rc;
-                        continue;
-                }
-                if (rc != EFI_SUCCESS)
-                        return rc;
-
-                rc = bs->ExitBootServices(image, key);
-                if (rc == EFI_SUCCESS)
-                        return EFI_SUCCESS;             /* машина наша */
-                if (rc != EFI_INVALID_PARAMETER)
-                        return rc;
-                /* ключ застарів: карта змінилася. Нічого не друкуємо
-                   й нічого не виділяємо — просто перечитуємо її. */
-        }
-}
-```
+:::code uefi-firmware-d/c/vykhid-rukostyskannia-iake.c
 
 Після вдалого виклику машина міняється миттєво. Таймерні події більше не спрацьовують. Усі покажчики на послуги завантаження стають недійсними — включно з `ConOut`, тож найпоширеніша помилка тут виглядає як чорний екран без жодного слова: програма спробувала повідомити про свій успіх уже після того, як забрала в себе вивід. Сторожовий таймер вимкнено. Пам'ять типів `EfiBootServices*` і `EfiLoader*` вільна.
 

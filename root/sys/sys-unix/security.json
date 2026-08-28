@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -28,13 +29,15 @@
           "proj": [
             {
               "file": "proj-drop-privileges.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-credential-syscalls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -45,7 +48,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -56,13 +60,15 @@
           "proj": [
             {
               "file": "proj-privilege-drop.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cred-syscalls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -84,7 +90,8 @@
           "proj": [
             {
               "file": "proj-setuid-helper.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -112,13 +119,15 @@
           "proj": [
             {
               "file": "proj-keep-capability.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-capability-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -150,7 +159,8 @@
           "proj": [
             {
               "file": "proj-privsep-helper.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -161,7 +171,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -172,7 +183,8 @@
           "proj": [
             {
               "file": "proj-probe-lockdown.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -206,7 +218,8 @@
           "proj": [
             {
               "file": "proj-sudo-wrapper.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -223,7 +236,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -234,13 +248,15 @@
           "proj": [
             {
               "file": "proj-minimal-su.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-su-invocation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -262,13 +278,15 @@
           "proj": [
             {
               "file": "proj-polkit-mechanism.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-polkit-files.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -285,7 +303,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -324,13 +343,15 @@
           "proj": [
             {
               "file": "proj-te-policy-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-selinuxfs-interface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -352,7 +373,8 @@
           "proj": [
             {
               "file": "proj-apparmor-securityfs-interface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -369,7 +391,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -386,7 +409,8 @@
           "proj": [
             {
               "file": "proj-apparmor-policy-instantiation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -414,7 +438,8 @@
           "proj": [
             {
               "file": "proj-tomoyo-policy-editor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -431,7 +456,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -442,7 +468,8 @@
           "proj": [
             {
               "file": "proj-smack-policy-loader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -470,13 +497,17 @@
           "proj": [
             {
               "file": "proj-netlabel-mls-socket.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-netlabelctl-and-kernel-types.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -493,7 +524,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -504,13 +536,15 @@
           "proj": [
             {
               "file": "proj-bpf-lsm.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-lsm-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -521,7 +555,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -532,13 +567,15 @@
           "proj": [
             {
               "file": "proj-lsm-blob-offset.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-lsm-kernel-interface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -549,7 +586,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -560,7 +598,8 @@
           "proj": [
             {
               "file": "proj-bpf-lsm-loader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -588,13 +627,15 @@
           "proj": [
             {
               "file": "proj-bpf-lsm-override.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bpf-lsm-helpers.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -605,7 +646,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -616,7 +658,8 @@
           "proj": [
             {
               "file": "proj-ebpf-exec-monitor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -650,13 +693,15 @@
           "proj": [
             {
               "file": "proj-seccomp-filter.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-seccomp.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -667,7 +712,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -678,13 +724,15 @@
           "proj": [
             {
               "file": "proj-custom-seccomp.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-seccomp-syscall.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -695,7 +743,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -706,13 +755,15 @@
           "proj": [
             {
               "file": "proj-sandbox-exec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-landlock-syscalls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -723,7 +774,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -733,7 +785,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -750,13 +803,15 @@
           "proj": [
             {
               "file": "proj-landlock-network-ioctl-sandbox.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-landlock-v4-v5-structs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -784,13 +839,15 @@
           "proj": [
             {
               "file": "proj-key-possession.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-keyctl-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -801,12 +858,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "api": [
             {
               "file": "api-key-retention-structures.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -823,7 +882,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -834,13 +894,15 @@
           "proj": [
             {
               "file": "proj-tfm-in-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-crypto-transforms.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -851,7 +913,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -862,13 +925,15 @@
           "proj": [
             {
               "file": "proj-af-alg-crypto.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-af-alg.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -890,13 +955,17 @@
           "proj": [
             {
               "file": "proj-fips-status-and-kat.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-fips-sysfs-and-crypto.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -918,13 +987,15 @@
           "proj": [
             {
               "file": "proj-getting-random-bytes.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-random-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -946,13 +1017,15 @@
           "proj": [
             {
               "file": "proj-entropy-feeder.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-hwrng-framework.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

@@ -10,45 +10,7 @@
 
 Головною структурою даних, яка описує один зонд у ядрі, є `struct kprobe`. Вона містить як конфігураційні параметри, вказані розробником, так і службові поля ядра для керування списком зондів та збереження оригінального машинного коду:
 
-```c
-struct kprobe {
-    /* Хеш-вузол внутрішньої таблиці зондів ядра */
-    struct hlist_node hlist;
-
-    /* Список зондів, якщо на одну адресу встановлено кілька зондів */
-    struct list_node list;
-
-    /* Оптимізований зонд (якщо використовується Optprobe) */
-    struct kprobe_optins optins;
-
-    /* Назва символу в ядрі (наприклад, "do_sys_openat2") */
-    const char *symbol_name;
-
-    /* Точна віртуальна адреса зонду (якщо symbol_name == NULL) */
-    kprobe_opcode_t *addr;
-
-    /* Зміщення від початку символу в байтах */
-    unsigned int offset;
-
-    /* Обробник, що викликається БЕРЕД виконанням оригінальної інструкції */
-    kprobe_pre_handler_t pre_handler;
-
-    /* Обробник, що викликається ПІСЛЯ виконання оригінальної інструкції */
-    kprobe_post_handler_t post_handler;
-
-    /* Обробник помилок адресації або сторінкових збоїв (faults) */
-    kprobe_fault_handler_t fault_handler;
-
-    /* Збережений оригінальний машинний код інструкції */
-    kprobe_opcode_t opcode;
-
-    /* Буфер для Out-Of-Line (OOL) виконання інструкції */
-    struct arch_specific_insn ainsn;
-
-    /* Прапорці стану зонду (KPROBE_FLAG_DISABLED тощо) */
-    u32 flags;
-};
-```
+:::code api-kprobes-uprobes/c/vnutrishnia-struktura.c
 
 Поле `symbol_name` дозволяє вказувати функцію за її експортованим ім'ям у ядрі. Якщо назва вказана, ядро під час реєстрації самостійно виконує пошук віртуальної адреси через підсистему `kallsyms`. Якщо розробник знає точну адресу в пам'яті, вона передається через поле `addr`, а `symbol_name` залишається `NULL`. Поле `offset` використовується для вставки зонда не на початок функції, а на конкретну інструкцію всередині її тіла.
 
@@ -92,31 +54,7 @@ void unregister_kprobes(struct kprobe **kps, int num);
 
 Для перехоплення значень, що повертаються з функцій ядра, використовується розширена структура `struct kretprobe`:
 
-```c
-struct kretprobe {
-    /* Базовий kprobe, який встановлюється на вхід у функцію */
-    struct kprobe kp;
-
-    /* Обробник, який викликається в момент завершення функції */
-    kretprobe_handler_t handler;
-
-    /* Обробник, який викликається на вході для підготовки даних */
-    kretprobe_holder_t entry_handler;
-
-    /* Максимальна кількість одночасно активних викликів цієї функції */
-    int maxactive;
-
-    /* Лічильник пропущених спрацьовувань через вичерпання maxactive */
-    int nmissed;
-
-    /* Розмір користувацьких даних (data_size), що передаються між entry та exit */
-    size_t data_size;
-
-    /* Захищений список примірників активних викликів */
-    struct hlist_head free_instances;
-    raw_spinlock_t lock;
-};
-```
+:::code api-kprobes-uprobes/c/struktura-struct-kretprobe.c
 
 Поле `maxactive` визначає, скільки примірників виклику функції може трасуватися одночасно в багатопотоковому середовищі. Якщо параметр `maxactive` встановлено у 0, ядро автоматично вибирає значення на основі кількості ядер процесора (`NR_CPUS`). Якщо кількість одночасних викликів перевищує `maxactive`, додаткові виклики ігноруються, а лічильник `nmissed` збільшується.
 
@@ -152,23 +90,7 @@ r[MAXACTIVE][:[GRP/]EVENT] [MOD:]SYM[+OFF] [FETCHARGS] - Встановленн�
 
 Приклади послідовного керування зондами з консолі bash:
 
-```bash
-# 1. Встановити kprobe на вхід у функцію sys_openat2 та витягнути ім'я файлу (RSI)
-echo 'p:my_open do_sys_openat2 filename=+0(%si):string' >> /sys/kernel/tracing/kprobe_events
-
-# 2. Встановити kretprobe на вихід з sys_openat2 та зчитати результат повернення ($retval / RAX)
-echo 'r:my_open_ret do_sys_openat2 ret=$retval:s32' >> /sys/kernel/tracing/kprobe_events
-
-# 3. Активувати створений зонд
-echo 1 > /sys/kernel/tracing/events/kprobes/my_open/enable
-
-# 4. Читати потік подій трасування
-cat /sys/kernel/tracing/trace_pipe
-
-# 5. Деактивувати та видалити зонд
-echo 0 > /sys/kernel/tracing/events/kprobes/my_open/enable
-echo '-:kprobes/my_open' >> /sys/kernel/tracing/kprobe_events
-```
+:::code api-kprobes-uprobes/sh/syntaksys-keruvannia.sh
 
 ### Синтаксис керування uprobe_events
 
@@ -183,19 +105,7 @@ r[:[GRP/]EVENT] PATH:OFFSET [FETCHARGS]   - Встановлення uretprobe
 
 Приклади команд налаштування uprobes у bash:
 
-```bash
-# 1. Знайти зміщення функції malloc у бібліотеці libc
-OFFSET=$(nm -D /lib/x86_64-linux-gnu/libc.so.6 | grep 'W malloc$' | awk '{print "0x"$1}')
-
-# 2. Зареєструвати uprobe на функцію malloc
-echo "p:libc_malloc /lib/x86_64-linux-gnu/libc.so.6:$OFFSET size=%di:u64" >> /sys/kernel/tracing/uprobe_events
-
-# 3. Зареєструвати uretprobe на повернення з malloc (отримання вказівника на пам'ять)
-echo "r:libc_malloc_ret /lib/x86_64-linux-gnu/libc.so.6:$OFFSET ptr=\$retval:u64" >> /sys/kernel/tracing/uprobe_events
-
-# 4. Увімкнути зонди
-echo 1 > /sys/kernel/tracing/events/uprobes/libc_malloc/enable
-```
+:::code api-kprobes-uprobes/sh/syntaksys-keruvannia-2.sh
 
 Після створення події у `uprobe_events` ядро створює унікальний ідентифікатор події у файлі `/sys/kernel/tracing/events/uprobes/libc_malloc/id`. Цей ID використовується низькорівневими системними викликами `perf_event_open()` для прив'язки eBPF-програм до створення трасувального контексту.
 
@@ -222,25 +132,7 @@ echo 1 > /sys/kernel/tracing/events/uprobes/libc_malloc/enable
 
 Оскільки BPF-програма виконується в ізольованому середовищі ядра, вона не може напряму роздереференсити довільний вказівник. Для безпечного читання пам'яті застосовуються спеціальні функції BPF helper API:
 
-```c
-/* Читання пам'яті ядра у буфер BPF-програми */
-long bpf_probe_read_kernel(void *dst, u32 size, const void *unsafe_ptr);
-
-/* Читання рядка з пам'яті ядра */
-long bpf_probe_read_kernel_str(void *dst, u32 size, const void *unsafe_ptr);
-
-/* Читання пам'яті простору користувача (Ring 3) */
-long bpf_probe_read_user(void *dst, u32 size, const void *unsafe_ptr);
-
-/* Читання рядка з простору користувача */
-long bpf_probe_read_user_str(void *dst, u32 size, const void *unsafe_ptr);
-
-/* Отримання поточного ідентифікатора процесу (PID у старших 32 бітах, TGID у молодших) */
-u64 bpf_get_current_pid_tgid(void);
-
-/* Отримання назви поточного процесу (comm) */
-long bpf_get_current_comm(void *buf, u32 size_of_buf);
-```
+:::code api-kprobes-uprobes/c/dopomizhni-bpf-funktsii.h
 
 Функція `bpf_probe_read_user_str` автоматично перевіряє межі віртуальних сторінок простору користувача, запобігає сторінковим збоям (page faults) та повертає кількість зчитаних байтів.
 
@@ -248,21 +140,7 @@ long bpf_get_current_comm(void *buf, u32 size_of_buf);
 
 Для вилучення аргументів за назвами типів замість ручного зчитування з `struct pt_regs` `libbpf` пропонує макроси автоматичного декодування:
 
-```c
-/* Автоматичне розпакування аргументів функції ядра */
-SEC("kprobe/do_sys_openat2")
-int BPF_KPROBE(trace_openat2, int dfd, const char *filename, struct open_how *how) {
-    /* Доступ до аргументів dfd, filename, how здійснюється як у звичайній C-функції */
-    return 0;
-}
-
-/* Отримання результату повернення з kretprobe */
-SEC("kretprobe/do_sys_openat2")
-int BPF_KRETPROBE(trace_openat2_ret, int ret) {
-    /* ret містить значення RAX / retval */
-    return 0;
-}
-```
+:::code api-kprobes-uprobes/c/spetsializovani-makrosy.c
 
 Для користувацьких програм прикріплення зондів виконується з боку завантажувача користувача за допомогою функції `bpf_program__attach_uprobe_opts()`. Завантажувач вказує PID цільового процесу (або -1 для трасування всіх процесів у системі), шлях до об'єктного ELF-файлу та назву символу.
 

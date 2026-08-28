@@ -8,35 +8,7 @@
 
 ## Виділити
 
-```c
-/* базові */
-void *vmalloc(unsigned long size);
-void *vzalloc(unsigned long size);                      /* + занулення */
-void *vmalloc_node(unsigned long size, int node);
-void *vzalloc_node(unsigned long size, int node);
-
-/* масиви — з перевіркою переповнення добутку n · size */
-void *vmalloc_array(size_t n, size_t size);
-void *vcalloc(size_t n, size_t size);                   /* те саме + занулення */
-
-/* особливі призначення */
-void *vmalloc_user(unsigned long size);                 /* під віддачу в простір користувача */
-void *vmalloc_32(unsigned long size);                   /* кадри, адресовані 32 бітами */
-void *vmalloc_32_user(unsigned long size);
-
-/* зі своїми прапорцями й параметрами */
-void *__vmalloc(unsigned long size, gfp_t gfp_mask);
-void *vmalloc_huge_node(unsigned long size, gfp_t gfp_mask, int node);  /* від 6.16 */
-void *__vmalloc_node_range(unsigned long size, unsigned long align,
-                           unsigned long start, unsigned long end,
-                           gfp_t gfp_mask, pgprot_t prot,
-                           unsigned long vm_flags, int node, const void *caller);
-
-/* змінити розмір, зберігши вміст (від 6.12) */
-void *vrealloc(const void *p, size_t size, gfp_t flags);
-
-void vfree(const void *addr);
-```
+:::code api-vmalloc-interfaces/c/vydilyty.h
 
 | Виклик | Що додає понад `vmalloc` | Позначка ділянки |
 | --- | --- | --- |
@@ -152,22 +124,7 @@ void  kvfree(const void *addr);
 
 ## Спитати про адресу
 
-```c
-static inline bool is_vmalloc_addr(const void *x);     /* просте порівняння меж */
-int   is_vmalloc_or_module_addr(const void *x);
-struct page   *vmalloc_to_page(const void *addr);      /* обхід таблиць */
-unsigned long  vmalloc_to_pfn(const void *addr);
-
-struct vm_struct *get_vm_area(unsigned long size, unsigned long flags);
-struct vm_struct *find_vm_area(const void *addr);
-struct vm_struct *remove_vm_area(const void *addr);
-
-/* лише для ділянок із VM_SPARSE, від 6.9 */
-int  vm_area_map_pages(struct vm_struct *area, unsigned long start,
-                       unsigned long end, struct page **pages);
-void vm_area_unmap_pages(struct vm_struct *area, unsigned long start,
-                         unsigned long end);
-```
+:::code api-vmalloc-interfaces/c/spytaty-pro-adresu.h
 
 `is_vmalloc_addr` — це буквально `addr >= VMALLOC_START && addr < VMALLOC_END`. Звідси три речі, яких він **не** каже: чи адреса взагалі відображена, чи ділянка прийшла з `vmalloc`, а не з `ioremap` або з-під стека задачі, і чи вона ще жива. Він відповідає лише на питання «чи можна тут застосовувати арифметику прямого відображення» — і відповідь завжди «ні».
 
@@ -200,19 +157,7 @@ int   remap_vmalloc_range_partial(struct vm_area_struct *vma, unsigned long uadd
 
 Це шлях для драйвера, який хоче віддати свій буфер процесові через [`mmap`](root:sys-unix/mmap-model). Дві умови зв'язані між собою: `remap_vmalloc_range` вимагає, щоб на ділянці стояв `VM_USERMAP`, а ставить його саме `vmalloc_user`. Ділянка з-під звичайного `vmalloc` дасть `-EINVAL`. Друга послуга `vmalloc_user` — занулення: без нього процес прочитав би те, що лежало в кадрах до нього.
 
-```c
-static int demo_mmap(struct file *f, struct vm_area_struct *vma)
-{
-    struct demo *d = f->private_data;    /* d->buf узято через vmalloc_user() */
-
-    if (vma->vm_pgoff)                   /* зсув усередині буфера не підтримуємо */
-        return -EINVAL;
-    if (vma->vm_end - vma->vm_start > d->size)
-        return -EINVAL;
-
-    return remap_vmalloc_range(vma, d->buf, 0);
-}
-```
+:::code api-vmalloc-interfaces/c/viddaty-v-prostir.c
 
 ## Прапорці ділянки: VM_*
 
@@ -240,24 +185,7 @@ static int demo_mmap(struct file *f, struct vm_area_struct *vma)
 
 Ці виклики теж кладуть записи в область vmalloc, але за ними немає жодного кадра — там [самі регістри контролера](root:hw-arch/memory-mapped-io).
 
-```c
-void __iomem *ioremap(phys_addr_t offset, size_t size);
-void __iomem *ioremap_wc(phys_addr_t offset, size_t size);
-void __iomem *ioremap_wt(phys_addr_t offset, size_t size);
-void __iomem *ioremap_np(phys_addr_t offset, size_t size);
-void __iomem *ioremap_uc(phys_addr_t offset, size_t size);
-void          iounmap(volatile void __iomem *addr);
-
-void *memremap(resource_size_t offset, size_t size, unsigned long flags);
-void  memunmap(void *addr);
-
-/* з прив'язкою до життя пристрою — знімаються самі */
-void __iomem *devm_ioremap(struct device *dev, resource_size_t offset,
-                           resource_size_t size);
-void __iomem *devm_ioremap_resource(struct device *dev, const struct resource *res);
-void __iomem *devm_platform_ioremap_resource(struct platform_device *pdev,
-                                             unsigned int index);
-```
+:::code api-vmalloc-interfaces/c/rehistry-prystroiv-ioremap.h
 
 | Виклик | Як процесор поводиться з цією областю |
 | --- | --- |

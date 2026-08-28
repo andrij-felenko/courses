@@ -47,18 +47,7 @@
 
 Коли розробник ядра пише драйвер режимів для NPU (Kernel Mode Driver, KMD), він оголошує структуру `drm_driver` і вказує прапорець `DRIVER_COMPUTE_ACCEL`:
 
-```c
-static const struct drm_driver my_npu_drm_driver = {
-    .driver_features = DRIVER_COMPUTE_ACCEL | DRIVER_GEM,
-    .name = "intel_vpu",
-    .desc = "Intel Versatile Processing Unit / NPU",
-    .major = 1,
-    .minor = 0,
-    .fops = &accel_driver_fops,
-    .ioctls = npu_private_ioctls,
-    .num_ioctls = ARRAY_SIZE(npu_private_ioctls),
-};
-```
+:::code drm-accel-compute-subsystem-d/c/main.c
 
 При реєстрації такого драйвера ядро Linux виконує наступний послідовний алгоритм викликів:
 

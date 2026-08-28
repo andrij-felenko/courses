@@ -48,24 +48,7 @@
 
 Обидві черги конфігуруються абсолютно незалежно одна від одної. Кожна черга має власний формат пікселів, власну геометрію та власний тип виділення пам'яті:
 
-```c
-/* Налаштування формату вхідного потоку (OUTPUT): сирий YUYV 1920×1080 */
-struct v4l2_format fmt_src = {
-    .type = V4L2_BUF_TYPE_VIDEO_OUTPUT,
-    .fmt.pix.width = 1920,
-    .fmt.pix.height = 1080,
-    .fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV,
-};
-ioctl(fd, VIDIOC_S_FMT, &fmt_src);
-
-/* Налаштування формату вихідного потоку (CAPTURE): стиснений H.264 */
-struct v4l2_format fmt_dst = {
-    .type = V4L2_BUF_TYPE_VIDEO_CAPTURE,
-    .fmt.pix.pixelformat = V4L2_PIX_FMT_H264,
-    .fmt.pix.sizeimage = 2 * 1024 * 1024, /* 2 МБ буфер під бітстрім */
-};
-ioctl(fd, VIDIOC_S_FMT, &fmt_dst);
-```
+:::code v4l2-mem2mem-devices-d/c/dvi-cherhy-na-odnomu-vuzli.h
 
 Якщо пристрій підтримує зміну розміру або обтинання зображення (Cropping / Composing), використовується V4L2 Selection API:
 * `VIDIOC_S_SELECTION` з типом `V4L2_BUF_TYPE_VIDEO_OUTPUT` та мішенню `V4L2_SEL_TGT_CROP` визначає прямокутник вирізання з вхідного кадру.
@@ -274,26 +257,7 @@ ioctl(media_fd, MEDIA_IOC_REQUEST_ALLOC, &req_fd);
 
 Далі всі структури метаданих (V4L2 Controls) і буфер даних у черзі `OUTPUT` прив'язуються до цього конкретного `req_fd`:
 
-```c
-/* Прив'язка елементів керування до запиту */
-struct v4l2_ext_controls ctrls = {
-    .which = V4L2_CTRL_WHICH_REQUEST_VAL,
-    .request_fd = req_fd,
-    /* список структур SPS, PPS, Slice Params */
-};
-ioctl(video_fd, VIDIOC_S_EXT_CTRLS, &ctrls);
-
-/* Прив'язка буфера даних слайса до того самого запиту */
-struct v4l2_buffer buf = {
-    .type = V4L2_BUF_TYPE_VIDEO_OUTPUT,
-    .flags = V4L2_BUF_FLAG_REQUEST_FD,
-    .request_fd = req_fd,
-};
-ioctl(video_fd, VIDIOC_QBUF, &buf);
-
-/* Атомарна постановка запиту в чергу виконання */
-ioctl(req_fd, MEDIA_REQUEST_IOC_QUEUE, NULL);
-```
+:::code v4l2-mem2mem-devices-d/c/stateless-dekodery-ta-v4l2.h
 
 Ядро гарантує, що апаратний блок Stateless-декодера отримає метадані та байти слайса як єдине неподільне ціле. Після завершення декодування дескриптор `req_fd` стає читним (`POLLPRI`), сигналізуючи про готовність результату.
 

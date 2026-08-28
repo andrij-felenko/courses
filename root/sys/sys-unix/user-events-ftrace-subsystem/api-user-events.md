@@ -34,46 +34,8 @@
 Під час виконання керуючого виклику `DIAG_IOCSREG` прикладний застосунок заповнює і передає за вказівником структуру `struct user_reg`. Ядро перевіряє передані параметри, створює відповідні внутрішні об'єкти `tracepoint` і повертає заповнену структуру з розрахованими індексами.
 
 :::tabs
-```c
-#include <linux/types.h>
-#include <linux/ioctl.h>
-
-#ifndef DIAG_IOCSREG
-#define DIAG_IOC_MAGIC 0x82
-#define DIAG_IOCSREG _IOWR(DIAG_IOC_MAGIC, 0, struct user_reg)
-#define DIAG_IOCSDEL _IOW(DIAG_IOC_MAGIC, 1, char*)
-#endif
-
-struct user_reg {
-    __u32 size;            /* [IN]  Розмір структури в байтах: sizeof(struct user_reg) */
-    __u8  enable_bit;      /* [OUT] Порядковий номер біта у байті статусу (зазвичай 0) */
-    __u8  enable_size;     /* [OUT] Розмір поля статусу в байтах (1, 2 або 4) */
-    __u16 flags;           /* [IN]  Прапорці конфігурації реєстрації (за замовчуванням 0) */
-    __u64 name_args;       /* [IN]  Вказівник на нуль-термінований C-рядок специфікації */
-    __u32 status_index;    /* [OUT] Зсув у байтах у mmap-сторінці статусу */
-    __u32 write_index;     /* [OUT] 32-бітний ID події для перших 4 байтів writev() */
-};
-```
-```cpp
-#include <cstdint>
-#include <sys/ioctl.h>
-
-#ifndef DIAG_IOCSREG
-#define DIAG_IOC_MAGIC 0x82
-#define DIAG_IOCSREG _IOWR(DIAG_IOC_MAGIC, 0, struct user_reg)
-#define DIAG_IOCSDEL _IOW(DIAG_IOC_MAGIC, 1, char*)
-#endif
-
-struct user_reg {
-    std::uint32_t size;            // [IN]  Розмір структури sizeof(user_reg)
-    std::uint8_t  enable_bit;      // [OUT] Номер біта в байті статусу
-    std::uint8_t  enable_size;     // [OUT] Розмір поля статусу в байтах
-    std::uint16_t flags;           // [IN]  Прапорці конфігурації реєстрації
-    std::uint64_t name_args;       // [IN]  Вказівник на рядок специфікації події
-    std::uint32_t status_index;    // [OUT] Зсув у байтах у mmap-масиві статусу
-    std::uint32_t write_index;     // [OUT] 32-бітний ID події для заголовка writev()
-};
-```
+:::code api-user-events/c/struktura-reiestratsii.c
+:::code api-user-events/cpp/struktura-reiestratsii.cpp
 :::
 
 ### Детальний аналіз полів structures `user_reg`
@@ -147,58 +109,8 @@ constexpr std::uint32_t user_event_loc(std::uint16_t offset, std::uint16_t len) 
 Для забезпечення перевірки стану активності події з нульовими витратами процесорного часу прикладний застосунок виконує системний виклик `mmap()` безпосередньо на відкритий файловий дескриптор `/sys/kernel/tracing/user_events_data`.
 
 :::tabs
-```c
-#include <sys/mman.h>
-#include <unistd.h>
-#include <stdio.h>
-
-/* Отримання точного розміру системної сторінки пам'яті */
-size_t page_size = (size_t)sysconf(_SC_PAGESIZE);
-
-/* Отображення сторінки статусу у режим PROT_READ */
-char *status_map = (char *)mmap(NULL, page_size, PROT_READ, MAP_SHARED, fd, 0);
-
-if (status_map == MAP_FAILED) {
-    perror("Помилка виконання mmap на user_events_data");
-    /* Обробка помилки */
-}
-
-/* Інлайн-функція для перевірки стану в гарячому циклі */
-static inline int is_user_event_enabled(const char *map, uint32_t index) {
-    return map[index] != 0;
-}
-```
-```cpp
-#include <sys/mman.h>
-#include <unistd.h>
-#include <system_error>
-#include <cstdint>
-
-class UserEventsMemoryMap {
-    char* status_map_{static_cast<char*>(MAP_FAILED)};
-    std::size_t page_size_{0};
-
-public:
-    explicit UserEventsMemoryMap(int fd) {
-        page_size_ = static_cast<std::size_t>(::sysconf(_SC_PAGESIZE));
-        void* ptr = ::mmap(nullptr, page_size_, PROT_READ, MAP_SHARED, fd, 0);
-        if (ptr == MAP_FAILED) {
-            throw std::system_error(errno, std::generic_category(), "Не вдалося виконати mmap статусу");
-        }
-        status_map_ = static_cast<char*>(ptr);
-    }
-
-    ~UserEventsMemoryMap() noexcept {
-        if (status_map_ != MAP_FAILED) {
-            ::munmap(status_map_, page_size_);
-        }
-    }
-
-    [[nodiscard]] inline bool is_enabled(std::uint32_t status_index) const noexcept {
-        return status_map_[status_index] != 0;
-    }
-};
-```
+:::code api-user-events/c/4-spilna-pamiat-statusu.c
+:::code api-user-events/cpp/4-spilna-pamiat-statusu.cpp
 :::
 
 Коли трасування події вимкнено у ftrace, відповідний байт `status_map[status_index]` містить `0`. Оскільки пам'ять відображена у простір процесу, зчитування значення виконується з кешу L1 без виконання системних викликів.

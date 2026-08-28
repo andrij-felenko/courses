@@ -55,25 +55,7 @@ int posix_fallocate(int fd, off_t offset, off_t len);
 
 ### Мінімальний виклик
 
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <errno.h>
-
-enum reserve_result { RESERVE_OK, RESERVE_UNSUPPORTED, RESERVE_FAILED };
-
-/* Закріпити місце під файл наперед — без тихого запису нулів. */
-enum reserve_result reserve_space(int fd, off_t bytes)
-{
-    if (fallocate(fd, 0, 0, bytes) == 0)
-        return RESERVE_OK;
-
-    if (errno == EOPNOTSUPP || errno == ENOSYS)
-        return RESERVE_UNSUPPORTED;  /* ФС або ядро не вміють */
-
-    return RESERVE_FAILED;           /* ENOSPC, EFBIG, EIO — справжня відмова */
-}
-```
+:::code api-allocation-controls/c/minimalnyi-vyklyk.c
 
 Розрізняти «не вміє» і «не змогло» тут обов'язково, і саме тому відповідей три, а не дві: `RESERVE_UNSUPPORTED` означає, що гарантії немає й `ENOSPC` прилетить пізніше, під час запису; `RESERVE_FAILED` — що місця немає вже зараз і писати нема куди.
 
@@ -96,21 +78,7 @@ enum reserve_result reserve_space(int fd, off_t bytes)
 
 XFS дозволяє прямо сказати розподільнику, якими порціями різати файл, — це **підказка розміру екстента** (extent size hint). Ставиться вона тим самим `ioctl`, що й прапорці inode; назва історична й оманлива — до розширених атрибутів із `getfattr` це не має стосунку.
 
-```c
-#include <linux/fs.h>
-
-struct fsxattr {
-    __u32         fsx_xflags;      /* прапорці FS_XFLAG_* */
-    __u32         fsx_extsize;     /* підказка довжини, БАЙТИ */
-    __u32         fsx_nextents;    /* лише читання: скільки екстентів зараз */
-    __u32         fsx_projid;
-    __u32         fsx_cowextsize;  /* те саме для копіювання під час запису */
-    unsigned char fsx_pad[8];
-};
-
-ioctl(fd, FS_IOC_FSGETXATTR, &fsx);   /* прочитати */
-ioctl(fd, FS_IOC_FSSETXATTR, &fsx);   /* записати */
-```
+:::code api-allocation-controls/c/xfs-pidkazka-dovzhyny-i.c
 
 | прапорець у `fsx_xflags` | значення |
 |---|---|

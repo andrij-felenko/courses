@@ -90,22 +90,7 @@ struct seq_operations {
 
 Розглянемо ключові поля `struct seq_file` (`fs/seq_file.c`):
 
-```c
-struct seq_file {
-	char *buf;
-	size_t size;
-	size_t from;
-	size_t count;
-	size_t pad_until;
-	loff_t index;
-	loff_t read_pos;
-	struct mutex lock;
-	const struct seq_operations *op;
-	int poll_event;
-	const struct file *file;
-	void *private;
-};
-```
+:::code seq-file-iterator-d/c/vnutrishnii-ustrii.c
 
 Поле `buf` вказує на лінійний буфер у пам'яті ядра, виділений через `kvmalloc()` (початково розміром `size = PAGE_SIZE` — 4096 байтів). Поле `count` фіксує кількість байтів корисного тексту, уже записаних функціями `show()`, а `from` позначає зміщення всередині `buf`, з якого дані мають копіюватися у буфер процесу під час наступного виклику `copy_to_user()`.
 
@@ -202,21 +187,7 @@ ID     Name             Status     Temp(C)  BusErrors
    }
    ```
 2. У методі `show()`:
-   ```c
-   static int my_seq_show(struct seq_file *m, void *v)
-   {
-       if (v == SEQ_START_TOKEN) {
-           seq_puts(m, "ID     Name             Status     Temp(C)  BusErrors\n");
-           seq_puts(m, "-----------------------------------------------------\n");
-           return 0;
-       }
-
-       struct my_node *node = v;
-       seq_printf(m, "%-6d %-16s %-10s %-8d %lu\n",
-                  node->id, node->name, node->status, node->temp, node->errs);
-       return 0;
-   }
-   ```
+   :::code seq-file-iterator-d/c/patern-seq-start-token.c
 3. У методі `next()`:
    ```c
    static void *my_seq_next(struct seq_file *m, void *v, loff_t *pos)
@@ -245,18 +216,7 @@ ID     Name             Status     Temp(C)  BusErrors
 
 Для стандартних списків `struct list_head` ядро пропонує функції `seq_list_start()`, `seq_list_start_rcu()`, `seq_list_next()` та `seq_list_next_rcu()`:
 
-```c
-static void *dev_seq_start(struct seq_file *m, loff_t *pos)
-{
-    rcu_read_lock();
-    return seq_list_start_rcu(&device_list_head, *pos);
-}
-
-static void *dev_seq_next(struct seq_file *m, void *v, loff_t *pos)
-{
-    return seq_list_next_rcu(v, &device_list_head, pos);
-}
-```
+:::code seq-file-iterator-d/c/1-zviazni-spysky-struct.c
 
 Функція `seq_list_start_rcu` самостійно проходить кільцевий список до позиції `*pos`, коректно опрацьовуючи випадок порожнього списку.
 
@@ -307,28 +267,7 @@ static void *dev_seq_next(struct seq_file *m, void *v, loff_t *pos)
 
 Найбільш ідіоматичним та масштабованим способом організації ітератора в сучасному ядрі Linux є використання механізму **RCU** (*Read-Copy-Update*):
 
-```c
-static void *dev_seq_start(struct seq_file *m, loff_t *pos)
-{
-    /* 1. Входимо в критичну секцію читача RCU */
-    rcu_read_lock();
-
-    /* 2. Шукаємо вузол за логічним індексом */
-    return seq_list_start_rcu(&device_list_head, *pos);
-}
-
-static void *dev_seq_next(struct seq_file *m, void *v, loff_t *pos)
-{
-    /* 3. Переходимо до наступного елемента списку */
-    return seq_list_next_rcu(v, &device_list_head, pos);
-}
-
-static void dev_seq_stop(struct seq_file *m, void *v)
-{
-    /* 4. Завжди виходимо з критичної секції RCU */
-    rcu_read_unlock();
-}
-```
+:::code seq-file-iterator-d/c/iteratsiia-spyskiv-pid.c
 
 Чому ця схема бездоганна:
 - Читання відбувається **без будь-яких блокуючих очікувань**. Навіть якщо 64 процесори одночасно вичитують файл `/proc/device_inventory`, вони не блокують один одного.

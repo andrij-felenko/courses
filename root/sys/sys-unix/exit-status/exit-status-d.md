@@ -95,42 +95,8 @@ Actual Exit Status = status & 0xFF
 Для розбору значення `wstatus` заборонено писати прямі порівняння зі сталими числами, оскільки бітове кодування залежить від архітектури процесора та версії OS. Стандарт POSIX визначає набір обов'язкових макросів у заголовку `<sys/wait.h>`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <sys/wait.h>
-
-void inspect_c(int wstatus) {
-    if (WIFEXITED(wstatus)) {
-        int exit_code = WEXITSTATUS(wstatus);
-        printf("Нормальний вихід з кодом: %d\n", exit_code);
-    } else if (WIFSIGNALED(wstatus)) {
-        int sig_num = WTERMSIG(wstatus);
-        printf("Вбито сигналом: %d\n", sig_num);
-        if (WCOREDUMP(wstatus)) {
-            printf("Записано core dump.\n");
-        }
-    } else if (WIFSTOPPED(wstatus)) {
-        printf("Зупинено сигналом: %d\n", WSTOPSIG(wstatus));
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <sys/wait.h>
-
-void inspect_cpp(int wstatus) {
-    if (WIFEXITED(wstatus)) {
-        std::cout << "Нормальний вихід з кодом: " << WEXITSTATUS(wstatus) << "\n";
-    } else if (WIFSIGNALED(wstatus)) {
-        std::cout << "Вбито сигналом: " << WTERMSIG(wstatus) << "\n";
-        if (WCOREDUMP(wstatus)) {
-            std::cout << "Записано core dump.\n";
-        }
-    } else if (WIFSTOPPED(wstatus)) {
-        std::cout << "Зупинено сигналом: " << WSTOPSIG(wstatus) << "\n";
-    }
-}
-```
+:::code exit-status-d/c/rozpakuvannia-makrosamy.c
+:::code exit-status-d/cpp/rozpakuvannia-makrosamy.cpp
 :::
 
 ### Фізичне розкладання бітів у ядрі Linux
@@ -298,19 +264,7 @@ rm -rf *
 
 Для виконання очищення тимчасових ресурсів при виході зі скрипту (незалежно від того, чи відбувся вихід успішно, чи через збій) використовується системний обробник `trap`:
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-TMPFILE=$(mktemp)
-
-# Зареєструвати обробник видалення тимчасового файлу при виході з процесів
-trap 'rm -f "$TMPFILE"' EXIT
-trap 'echo "Аварійне зупинення через помилку на рядку $LINENO!"' ERR
-
-# Основна логіка
-echo "Обробка даних..." > "$TMPFILE"
-```
+:::code exit-status-d/sh/main.sh
 
 ---
 
@@ -403,110 +357,8 @@ sudo perf trace -e sched:sched_process_exit
 Нижче наведено практичний код запуску дочірнього процесу, очікування його завершення та безпечного розбору `wstatus`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-int run_and_inspect(char *const argv[]) {
-    pid_t pid = fork();
-    if (pid < 0) {
-        perror("fork");
-        return -1;
-    }
-
-    if (pid == 0) {
-        // Дочірній процес: заміна образу програми
-        execvp(argv[0], argv);
-        perror("execvp");
-        _exit(127); // Помилка запуску програми
-    }
-
-    // Батьківський процес: очікування завершення
-    int wstatus;
-    if (waitpid(pid, &wstatus, 0) < 0) {
-        perror("waitpid");
-        return -1;
-    }
-
-    if (WIFEXITED(wstatus)) {
-        int code = WEXITSTATUS(wstatus);
-        printf("[C] Процес PID %d завершився з кодом: %d\n", pid, code);
-        return code;
-    } else if (WIFSIGNALED(wstatus)) {
-        int sig = WTERMSIG(wstatus);
-        printf("[C] Процес PID %d вбито сигналом: %d\n", pid, sig);
-        return 128 + sig;
-    }
-
-    return -1;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <variant>
-#include <expected>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-struct ProcessSuccess {
-    int exit_code;
-};
-
-struct ProcessKilled {
-    int signal_number;
-    bool core_dumped;
-};
-
-using ProcessExitStatus = std::variant<ProcessSuccess, ProcessKilled>;
-
-class ProcessRunner {
-public:
-    static std::expected<ProcessExitStatus, std::string> 
-    execute(const std::vector<std::string>& args) {
-        if (args.empty()) {
-            return std::unexpected("Порожній список аргументів");
-        }
-
-        pid_t pid = ::fork();
-        if (pid < 0) {
-            return std::unexpected("Системна помилка fork()");
-        }
-
-        if (pid == 0) {
-            std::vector<char*> c_args;
-            for (const auto& arg : args) {
-                c_args.push_back(const_cast<char*>(arg.c_str()));
-            }
-            c_args.push_back(nullptr);
-
-            ::execvp(c_args[0], c_args.data());
-            ::_exit(127);
-        }
-
-        int wstatus = 0;
-        if (::waitpid(pid, &wstatus, 0) < 0) {
-            return std::unexpected("Системна помилка waitpid()");
-        }
-
-        if (WIFEXITED(wstatus)) {
-            return ProcessSuccess{WEXITSTATUS(wstatus)};
-        } else if (WIFSIGNALED(wstatus)) {
-            return ProcessKilled{
-                WTERMSIG(wstatus), 
-                static_cast<bool>(WCOREDUMP(wstatus))
-            };
-        }
-
-        return std::unexpected("Невідомий стан процесa");
-    }
-};
-```
+:::code exit-status-d/c/8-rozrobka-movamy-c-ta-c.c
+:::code exit-status-d/cpp/8-rozrobka-movamy-c-ta-c.cpp
 :::
 
 ---

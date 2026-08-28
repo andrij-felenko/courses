@@ -26,70 +26,7 @@ CONFIG_HAVE_RELIABLE_STACKTRACE=y
 
 Латка — це звичайний [модуль ядра](root:sys-unix/kernel-modules) з новим тілом функції та невеличкою таблицею, що каже, кого воно заступає. Одразу закладемо в неї другий об'єкт — він знадобиться, коли ми навмисно застрягатимемо.
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/livepatch.h>
-#include <linux/seq_file.h>
-#include <linux/kthread.h>
-#include <linux/sched.h>
-
-/* Нове тіло cmdline_proc_show(). Підпис має збігатися ДО КРАПКИ:
- * компілятор його не звірить — .new_func оголошений як void *.
- */
-static int livepatch_cmdline_proc_show(struct seq_file *m, void *v)
-{
-        seq_printf(m, "%s\n", "цю машину залатано наживо");
-        return 0;
-}
-
-/* Нове тіло victim_loop() з модуля klp_victim (див. нижче). */
-static void livepatch_victim_loop(void)
-{
-        pr_info("нова версія циклу\n");
-        while (!kthread_should_stop())
-                schedule_timeout_interruptible(HZ);
-}
-
-static struct klp_func vmlinux_funcs[] = {
-        { .old_name = "cmdline_proc_show",
-          .new_func = livepatch_cmdline_proc_show }, { }
-};
-
-static struct klp_func victim_funcs[] = {
-        { .old_name = "victim_loop",
-          .new_func = livepatch_victim_loop }, { }
-};
-
-static struct klp_object objs[] = {
-        { /* .name = NULL — саме ядро */
-          .funcs = vmlinux_funcs },
-        { .name  = "klp_victim",       /* ім'я модуля, як у /proc/modules */
-          .funcs = victim_funcs },
-        { }
-};
-
-static struct klp_patch patch = {
-        .mod  = THIS_MODULE,
-        .objs = objs,
-};
-
-static int livepatch_demo_init(void)
-{
-        return klp_enable_patch(&patch);
-}
-
-static void livepatch_demo_exit(void) { }
-
-module_init(livepatch_demo_init);
-module_exit(livepatch_demo_exit);
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Латка навчальна");
-MODULE_INFO(livepatch, "Y");
-```
+:::code proj-livepatch-module/c/modul.c
 
 Три речі тут варті окремої уваги.
 
@@ -150,47 +87,7 @@ $ sudo cat /proc/1/patch_state
 
 Щоб перехід завис, потрібна задача, яка не виходить із латаної функції. Найпростіше зробити її самим — [потоком ядра](root:sys-unix/kernel-threads), увесь життєвий цикл якого проходить усередині одного виклику:
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/module.h>
-#include <linux/kthread.h>
-#include <linux/sched.h>
-
-static struct task_struct *victim_thread;
-
-void victim_loop(void);
-
-/* noinline і не static — щоб функція лишилася окремим символом.
- * Уся робота потоку відбувається ВСЕРЕДИНІ неї, тож її кадр лежить
- * на стеку потоку від першої до останньої миті.
- */
-noinline void victim_loop(void)
-{
-        while (!kthread_should_stop())
-                schedule_timeout_interruptible(HZ);
-}
-
-static int victim_fn(void *unused)
-{
-        victim_loop();
-        return 0;
-}
-
-static int __init victim_init(void)
-{
-        victim_thread = kthread_run(victim_fn, NULL, "klp_victim");
-        return PTR_ERR_OR_ZERO(victim_thread);
-}
-
-static void __exit victim_exit(void)
-{
-        kthread_stop(victim_thread);
-}
-
-module_init(victim_init);
-module_exit(victim_exit);
-MODULE_LICENSE("GPL");
-```
+:::code proj-livepatch-module/c/teper-zastriahnemo.c
 
 Порядок важливий: жертва має бути в пам'яті **до** ввімкнення латки. Знімаємо латку (спершу `enabled`, лише потім `rmmod` — вивантажити ввімкнену не можна), і починаємо заново:
 

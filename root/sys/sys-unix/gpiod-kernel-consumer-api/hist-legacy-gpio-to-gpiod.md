@@ -31,19 +31,7 @@ void gpio_set_value(unsigned gpio, int value);
 
 До впровадження Дерева пристроїв (Device Tree) описи апаратних платформ зберігалися у вихідних файлах ядра C у теці `arch/arm/mach-*/board-*.c`. У цих файлах розробники жорстко прописували цілі числа:
 
-```c
-/* Старий board file для ARM-платформи */
-static struct platform_device my_sensor_device = {
-    .name = "acme-sensor",
-    .id = -1,
-    .dev = {
-        .platform_data = &(struct my_sensor_platform_data) {
-            .reset_gpio = 42,   /* Жорстко прив'язаний номер */
-            .irq_gpio   = 43,
-        },
-    },
-};
-```
+:::code hist-legacy-gpio-to-gpiod/c/main.c
 
 Драйвер периферійного пристрою був вимушений витягувати ці числа з `platform_data` та передавати їх у `gpio_request()`. Якщо один і той самий датчик підключали до іншого виводу на іншій ревізії плати, доводилося перекомпілювати все ядро. Драйвер не мав жодної абстракції від фізичної топології платформи.
 

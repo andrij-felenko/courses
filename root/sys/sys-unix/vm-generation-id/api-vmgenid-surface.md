@@ -78,18 +78,7 @@ qemu-system-x86_64 … -device vmgenid,guid=324e6eaf-d1d1-4bf6-bf41-b9bb6c91fb87
 
 Драйвер `drivers/virt/vmgenid.c` з'явився у 5.18 як суто ACPI-шний, а у 6.10 його переробили на платформний — з двома таблицями впізнавання:
 
-```c
-static const struct of_device_id vmgenid_of_ids[] = {
-	{ .compatible = "microsoft,vmgenid", },
-	{ },
-};
-
-static const struct acpi_device_id vmgenid_acpi_ids[] = {
-	{ "VMGENCTR", 0 },
-	{ "VM_GEN_COUNTER", 0 },
-	{ }
-};
-```
+:::code api-vmgenid-surface/c/main.c
 
 Два ACPI-рядки тут не з недбалості: `_CID` із початкової специфікації Microsoft довший, ніж дозволяє сам стандарт ACPI, тож Hyper-V додав другий, який у норму вкладається, — `VMGENCTR`, — а старий залишив заради сумісності з гостями Windows. Зверніть увагу й на регістр: у специфікації та в QEMU рядок записано як `VM_Gen_Counter`, а в таблиці ядра — самими великими літерами. Коли драйвер не прив'язується, звіряйте те, що справді віддала прошивка, — у `/sys/bus/acpi/devices/*/modalias`.
 

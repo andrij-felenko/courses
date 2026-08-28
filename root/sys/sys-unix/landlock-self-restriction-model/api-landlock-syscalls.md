@@ -4,20 +4,7 @@
 
 ## Три виклики
 
-```c
-#include <linux/landlock.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-/* обгорток у glibc немає — лише через syscall(2) */
-int syscall(SYS_landlock_create_ruleset,          /* 444 */
-            const struct landlock_ruleset_attr *attr, size_t size, __u32 flags);
-int syscall(SYS_landlock_add_rule,                /* 445 */
-            int ruleset_fd, enum landlock_rule_type rule_type,
-            const void *rule_attr, __u32 flags);
-int syscall(SYS_landlock_restrict_self,           /* 446 */
-            int ruleset_fd, __u32 flags);
-```
+:::code api-landlock-syscalls/c/landlock.h
 
 Номери 444–446 з'явилися в 5.13 разом із самим механізмом. Обгорток немає й досі, тож звертатися доводиться [номером виклику](root:sys-unix/syscall-mechanics) через `syscall(2)`. Перший виклик при успіху повертає **дескриптор набору правил**, два інші — нуль; при невдачі всі троє повертають `-1`.
 
@@ -103,22 +90,7 @@ int fixed = syscall(SYS_landlock_create_ruleset, NULL, 0,
 
 ## Одне правило
 
-```c
-enum landlock_rule_type {
-    LANDLOCK_RULE_PATH_BENEATH = 1,
-    LANDLOCK_RULE_NET_PORT     = 2,   /* ABI 4 */
-};
-
-struct landlock_path_beneath_attr {
-    __u64 allowed_access;
-    __s32 parent_fd;                  /* зазвичай open(path, O_PATH | O_CLOEXEC) */
-} __attribute__((packed));            /* рівно 12 байтів, без вирівнювання */
-
-struct landlock_net_port_attr {
-    __u64 allowed_access;
-    __u64 port;                       /* порядок байтів вузла, 0…65535 */
-};
-```
+:::code api-landlock-syscalls/c/odne-pravylo.c
 
 `packed` тут не косметика: структура має рівно дванадцять байтів, а не шістнадцять, тож власноруч обчислені зсуви й `memcpy` в буфер розміром `sizeof` без цього атрибута дадуть ядру сміття в полі дескриптора.
 
@@ -170,64 +142,7 @@ struct landlock_net_port_attr {
 
 ## Мінімальний робочий виклик
 
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <linux/landlock.h>
-#include <stdio.h>
-#include <sys/prctl.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-/* права, яких давніші ядра не знають, за версією ABI */
-static const struct { int abi; __u64 bits; } fs_since[] = {
-    { 2, LANDLOCK_ACCESS_FS_REFER },
-    { 3, LANDLOCK_ACCESS_FS_TRUNCATE },
-    { 5, LANDLOCK_ACCESS_FS_IOCTL_DEV },
-};
-
-int main(void)
-{
-    struct landlock_ruleset_attr rs = {
-        .handled_access_fs = LANDLOCK_ACCESS_FS_READ_FILE |
-                             LANDLOCK_ACCESS_FS_WRITE_FILE |
-                             LANDLOCK_ACCESS_FS_TRUNCATE |
-                             LANDLOCK_ACCESS_FS_REFER,
-    };
-    struct landlock_path_beneath_attr rule = {
-        .allowed_access = LANDLOCK_ACCESS_FS_READ_FILE,
-    };
-    int abi, fd;
-
-    abi = syscall(SYS_landlock_create_ruleset, NULL, 0,
-                  LANDLOCK_CREATE_RULESET_VERSION);
-    if (abi < 1)
-        return perror("landlock"), 1;              /* ENOSYS або EOPNOTSUPP */
-    for (unsigned i = 0; i < sizeof fs_since / sizeof *fs_since; i++)
-        if (abi < fs_since[i].abi)
-            rs.handled_access_fs &= ~fs_since[i].bits;
-
-    fd = syscall(SYS_landlock_create_ruleset, &rs, sizeof rs, 0);
-    if (fd < 0)
-        return perror("create_ruleset"), 1;
-
-    rule.parent_fd = open("/usr/share", O_PATH | O_CLOEXEC);
-    if (rule.parent_fd < 0)
-        return perror("/usr/share"), 1;
-    if (syscall(SYS_landlock_add_rule, fd, LANDLOCK_RULE_PATH_BENEATH, &rule, 0))
-        return perror("add_rule"), 1;
-    close(rule.parent_fd);
-
-    prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);        /* обов'язково ДО restrict_self */
-    if (syscall(SYS_landlock_restrict_self, fd, 0))
-        return perror("restrict_self"), 1;
-    close(fd);
-
-    if (open("/etc/passwd", O_RDONLY) < 0)
-        perror("/etc/passwd");                     /* → Permission denied */
-    return 0;
-}
-```
+:::code api-landlock-syscalls/c/minimalnyi-robochyi-vyklyk.c
 
 Півсотні рядків показують увесь контракт у зборі. Спершу питають версію й вимикають із наміру те, чого це ядро не знає, — без цього циклу `create_ruleset` на ядрі 5.13 відповів би `EINVAL` через саму лише згадку про `REFER`. Далі `sizeof rs` віддають ядру як є: зайві поля структури заповнені нулями, тому старе ядро мовчки їх пропустить, а нове прочитає. Каталог відкривають із `O_PATH` — це відкриває сам об'єкт, не питаючи права читати його. І `no_new_privs` виставляють **до** накладення, інакше замість пісочниці буде `EPERM`.
 

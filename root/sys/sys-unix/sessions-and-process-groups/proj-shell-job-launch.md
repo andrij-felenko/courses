@@ -39,278 +39,35 @@ mysh$ find / -name core | grep -v proc | less
 
 Стан оболонки — це збережений режим термінала й одне завдання. Списку завдань тут немає свідомо: другий і третій запис нічого не додають до механіки.
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <termios.h>
-#include <unistd.h>
-
-#define MAXP 8
-
-struct job {
-    pid_t pgid;                 /* ім'я групи = номер першої ланки */
-    int   n;
-    pid_t pid[MAXP];
-    char  st[MAXP];             /* 'r' — живий · 's' — зупинений · 'x' — помер */
-    struct termios tmodes;      /* режим термінала, знятий у мить зупинення */
-    char  cmd[128];
-};
-
-static int   tty;               /* дескриптор керівного термінала */
-static pid_t shell_pgid;
-static struct termios shell_tmodes;
-```
+:::code proj-shell-job-launch/c/kod.c
 
 Обидва передавання термінала — окремі функції, і кожна починається з блокування `SIGTTOU`:
 
-```c
-/* Віддати термінал групі pgid і, якщо треба, поставити її режим термінала.
-   Блокуємо на ВЕСЬ виклик: щойно tcsetpgrp переведе покажчик на іншу групу,
-   ми вже фонові — і наступний же tcsetattr зупинив би нас самих. */
-static void give_terminal(pid_t pgid, const struct termios *modes)
-{
-    sigset_t block, old;
-    sigemptyset(&block);
-    sigaddset(&block, SIGTTOU);
-    sigprocmask(SIG_BLOCK, &block, &old);
-
-    if (tcsetpgrp(tty, pgid) < 0)
-        perror("tcsetpgrp");
-    if (modes)
-        tcsetattr(tty, TCSADRAIN, modes);
-
-    sigprocmask(SIG_SETMASK, &old, NULL);
-}
-
-/* Забрати термінал собі. Тут оболонка фонова ВЖЕ на першому рядку. */
-static void take_terminal(struct job *j, int save_modes)
-{
-    sigset_t block, old;
-    sigemptyset(&block);
-    sigaddset(&block, SIGTTOU);
-    sigprocmask(SIG_BLOCK, &block, &old);
-
-    if (save_modes)
-        tcgetattr(tty, &j->tmodes);       /* завдання ще житиме — зберігаємо його режим */
-    tcsetpgrp(tty, shell_pgid);
-    tcsetattr(tty, TCSADRAIN, &shell_tmodes);
-
-    sigprocmask(SIG_SETMASK, &old, NULL);
-}
-```
+:::code proj-shell-job-launch/c/kod-2.c
 
 Запуск самої оболонки складається з двох частин, і порядок між ними важить:
 
-```c
-static void shell_init(void)
-{
-    tty = STDIN_FILENO;
-    if (!isatty(tty)) {
-        fputs("mysh: вхід — не термінал\n", stderr);
-        exit(1);
-    }
-
-    /* Нас могли запустити у фоні. Доки термінал не наш, зупиняємо себе самі —
-       і цей цикл мусить стояти ДО того, як ми почнемо нехтувати SIGTTIN,
-       інакше він крутитиметься вічно. */
-    while (tcgetpgrp(tty) != (shell_pgid = getpgrp()))
-        kill(-shell_pgid, SIGTTIN);
-
-    signal(SIGINT,  SIG_IGN);   /* Ctrl+C на промпті не має вбивати оболонку */
-    signal(SIGQUIT, SIG_IGN);
-    signal(SIGTSTP, SIG_IGN);   /* і Ctrl+Z не має її зупиняти */
-    signal(SIGTTIN, SIG_IGN);
-
-    shell_pgid = getpid();
-    setpgid(shell_pgid, shell_pgid);   /* оболонка — сама собі завдання */
-    give_terminal(shell_pgid, NULL);   /* після setpgid ми вже фонові: блокування потрібне */
-    tcgetattr(tty, &shell_tmodes);     /* еталон, до якого повертатимемо термінал */
-}
-```
+:::code proj-shell-job-launch/c/kod-3.c
 
 Дитина між `fork` і `exec` робить три речі, і жодну з них не можна перекласти на батька:
 
-```c
-static void child_prepare(pid_t pgid)
-{
-    setpgid(0, pgid);           /* pgid == 0 → «стань лідером власної групи» */
-
-    /* Знехтуваний сигнал ЛИШАЄТЬСЯ знехтуваним після exec. Не скинемо —
-       і запущена програма не відреагує ні на Ctrl+C, ні на Ctrl+Z. */
-    signal(SIGINT,  SIG_DFL);
-    signal(SIGQUIT, SIG_DFL);
-    signal(SIGTSTP, SIG_DFL);
-    signal(SIGTTIN, SIG_DFL);
-    signal(SIGTTOU, SIG_DFL);
-
-    sigset_t empty;             /* маска теж переживає exec */
-    sigemptyset(&empty);
-    sigprocmask(SIG_SETMASK, &empty, NULL);
-}
-```
+:::code proj-shell-job-launch/c/kod-4.c
 
 Чекання винесене окремо, бо вся його суть — в одному прапорці:
 
-```c
-static int job_stopped(const struct job *j)
-{
-    for (int i = 0; i < j->n; i++)
-        if (j->st[i] == 's')
-            return 1;
-    return 0;
-}
-
-/* Чекаємо, доки в завданні лишиться бодай один живий процес.
-   WUNTRACED — це «повідом і про зупинення, не тільки про смерть».
-   Без нього waitpid просто спатиме далі, а завдання вже нікуди не рухається. */
-static int wait_job(struct job *j)
-{
-    for (;;) {
-        int running = 0;
-        for (int i = 0; i < j->n; i++)
-            if (j->st[i] == 'r')
-                running++;
-        if (running == 0)
-            break;
-
-        int status;
-        pid_t p = waitpid(-j->pgid, &status, WUNTRACED);
-        if (p < 0) {
-            if (errno == EINTR)
-                continue;
-            break;                        /* ECHILD: забирати вже нікого */
-        }
-        for (int i = 0; i < j->n; i++)
-            if (j->pid[i] == p)
-                j->st[i] = WIFSTOPPED(status) ? 's' : 'x';
-    }
-    return job_stopped(j);
-}
-```
+:::code proj-shell-job-launch/c/kod-5.c
 
 Запуск завдання. Групу створюють двічі — і в дитині, і в батькові:
 
-```c
-static void launch_job(struct job *j, char **cmd[], int n, int foreground)
-{
-    int in = STDIN_FILENO;
-
-    for (int i = 0; i < n; i++) {
-        int pfd[2] = { -1, -1 };
-        if (i + 1 < n && pipe(pfd) < 0) { perror("pipe"); return; }
-
-        pid_t pid = fork();
-        if (pid == 0) {
-            child_prepare(j->pgid);
-            if (in != STDIN_FILENO)  { dup2(in, STDIN_FILENO);      close(in);     }
-            if (pfd[1] >= 0)         { dup2(pfd[1], STDOUT_FILENO); close(pfd[1]); }
-            if (pfd[0] >= 0)           close(pfd[0]);
-            execvp(cmd[i][0], cmd[i]);
-            dprintf(STDERR_FILENO, "mysh: %s: %s\n", cmd[i][0], strerror(errno));
-            _exit(127);
-        }
-        if (pid < 0) { perror("fork"); return; }
-
-        if (j->pgid == 0)
-            j->pgid = pid;      /* перша ланка дає групі ім'я */
-        setpgid(pid, j->pgid);  /* те саме ВДРУГЕ, з боку батька; помилку ігноруємо свідомо */
-        j->pid[j->n] = pid;
-        j->st[j->n++] = 'r';
-
-        if (in != STDIN_FILENO) close(in);
-        if (pfd[1] >= 0)        close(pfd[1]);
-        in = pfd[0];
-    }
-
-    if (!foreground) {
-        printf("[1] %d\n", (int)j->pgid);
-        return;
-    }
-
-    give_terminal(j->pgid, NULL);          /* режиму термінала в завдання ще немає */
-    int stopped = wait_job(j);
-    take_terminal(j, stopped);
-    if (stopped)
-        printf("\n[1]+ Зупинено   %s\n", j->cmd);
-}
-```
+:::code proj-shell-job-launch/c/kod-6.c
 
 Відновлення — дві короткі функції, у яких видно всю різницю між `fg` і `bg`:
 
-```c
-static void do_fg(struct job *j)
-{
-    for (int i = 0; i < j->n; i++)
-        if (j->st[i] == 's') j->st[i] = 'r';
-
-    give_terminal(j->pgid, &j->tmodes);    /* спершу режим термінала, який був до Ctrl+Z */
-    kill(-j->pgid, SIGCONT);               /* і аж тоді будимо — ВСЮ групу, не лідера */
-    take_terminal(j, wait_job(j));
-}
-
-static void do_bg(struct job *j)
-{
-    for (int i = 0; i < j->n; i++)
-        if (j->st[i] == 's') j->st[i] = 'r';
-
-    kill(-j->pgid, SIGCONT);               /* термінала не даємо — хай працює у фоні */
-    printf("[1]+ %s &\n", j->cmd);
-}
-```
+:::code proj-shell-job-launch/c/kod-7.c
 
 Головний цикл нецікавий рівно настільки, наскільки цікаве все попереднє:
 
-```c
-int main(void)
-{
-    char line[512], shown[512];
-    static char *slot[MAXP][16];
-    struct job cur;
-    memset(&cur, 0, sizeof cur);
-
-    shell_init();
-    for (;;) {
-        printf("mysh$ ");
-        fflush(stdout);
-        if (!fgets(line, sizeof line, stdin)) break;
-        line[strcspn(line, "\n")] = '\0';
-        if (!*line)              continue;
-        if (!strcmp(line, "exit")) break;
-        if (!strcmp(line, "fg")) { if (job_stopped(&cur)) do_fg(&cur); continue; }
-        if (!strcmp(line, "bg")) { if (job_stopped(&cur)) do_bg(&cur); continue; }
-
-        snprintf(shown, sizeof shown, "%s", line);
-        int background = 0;
-        size_t len = strlen(line);
-        if (len && line[len - 1] == '&') { background = 1; line[len - 1] = '\0'; }
-
-        char *part[MAXP];
-        int n = 0;
-        for (char *s = strtok(line, "|"); s && n < MAXP; s = strtok(NULL, "|"))
-            part[n++] = s;
-
-        char **argvv[MAXP];
-        for (int i = 0; i < n; i++) {
-            int k = 0;
-            for (char *w = strtok(part[i], " \t"); w && k < 15; w = strtok(NULL, " \t"))
-                slot[i][k++] = w;
-            slot[i][k] = NULL;
-            argvv[i] = slot[i];
-        }
-        if (n == 0 || argvv[0][0] == NULL) continue;
-
-        memset(&cur, 0, sizeof cur);
-        snprintf(cur.cmd, sizeof cur.cmd, "%s", shown);
-        launch_job(&cur, argvv, n, !background);
-    }
-    return 0;
-}
-```
+:::code proj-shell-job-launch/c/kod-8.c
 
 ## Перевірка
 

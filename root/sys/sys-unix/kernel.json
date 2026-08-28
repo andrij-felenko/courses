@@ -17,7 +17,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -28,7 +29,8 @@
           "proj": [
             {
               "file": "proj-hello-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -39,7 +41,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -50,13 +53,17 @@
           "proj": [
             {
               "file": "proj-kernel-notifier-module.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-notifier-chains-reference.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -67,7 +74,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -78,13 +86,15 @@
           "math": [
             {
               "file": "math-cycles-to-nanoseconds.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-clock-lab.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -112,7 +122,8 @@
           "api": [
             {
               "file": "api-module-tooling.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -134,13 +145,15 @@
           "proj": [
             {
               "file": "proj-verify-ko-signature.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-signature-trailer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -151,7 +164,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         }
       ]
@@ -168,7 +182,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -185,7 +200,8 @@
           "proj": [
             {
               "file": "proj-parse-vmlinuz-header.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -208,19 +224,22 @@
           "hist": [
             {
               "file": "hist-initcall-levels.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-initcall-lab.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-initcall-reference.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -231,12 +250,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-custom-init-section.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -259,24 +280,28 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-from-daemonize-to-kworkers.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-kthread-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-kthread-names.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -287,24 +312,28 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-sleep-and-wakeup.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-waitqueue-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-wait-queue-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -321,24 +350,28 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "math": [
             {
               "file": "math-lock-scaling.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-lockdep-lab.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-locking-primitives.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -349,24 +382,28 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-percpu-and-local-lock.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-percpu-stats.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-percpu.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -377,7 +414,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -388,7 +426,8 @@
           "proj": [
             {
               "file": "proj-freeze-cost.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -402,10 +441,12 @@
           "slug": "rcu-read-copy-update",
           "title": "RCU: читання без замків і відкладене звільнення",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -416,13 +457,15 @@
           "proj": [
             {
               "file": "proj-rcu-list-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-rcu-primitives.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -433,8 +476,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "api": [
+            {
+              "file": "api-kernel-seqlocks.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-userspace-seqlock.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "rseq",
@@ -443,7 +501,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -454,13 +513,15 @@
           "proj": [
             {
               "file": "proj-percpu-counter.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-rseq.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -471,7 +532,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -482,13 +544,15 @@
           "proj": [
             {
               "file": "proj-asymmetric-rcu.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-membarrier.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -505,7 +569,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -522,7 +587,8 @@
           "proj": [
             {
               "file": "proj-share-experiment.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -550,13 +616,15 @@
           "proj": [
             {
               "file": "proj-realtime-thread.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sched-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -573,7 +641,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -583,12 +652,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "api": [
             {
               "file": "api-sched-attr.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -599,7 +670,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -616,13 +688,15 @@
           "proj": [
             {
               "file": "proj-eas-trace-analyzer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-energy-model-sysfs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -630,10 +704,12 @@
           "slug": "uclamp-utilization-clamping",
           "title": "Обмеження утилізації CPU: uclamp (sched_setattr uclamp_min/uclamp_max)",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -644,7 +720,8 @@
           "proj": [
             {
               "file": "proj-uclamp-manager.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -661,7 +738,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -672,7 +750,8 @@
           "proj": [
             {
               "file": "proj-scx-simple-fifo.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -689,7 +768,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -700,17 +780,20 @@
           "proj": [
             {
               "file": "proj-scx-lavd-deadline.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-scx-rustland-architecture.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-scx-rust-framework.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -727,18 +810,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-isolated-core.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-affinity-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -777,8 +863,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "api": [
+            {
+              "file": "api-nohz-sysfs.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cpu-isolation.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "cpu-hotplug",
@@ -787,24 +888,28 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-notifier-to-state-machine.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-cpuhp-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-hotplug-sysfs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -821,7 +926,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -832,13 +938,15 @@
           "proj": [
             {
               "file": "proj-measure-latency.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-preempt-controls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -860,7 +968,8 @@
           "proj": [
             {
               "file": "proj-rt-application.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -877,8 +986,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "api": [
+            {
+              "file": "api-rt-scheduling.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-latency-tester.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "high-resolution-timers",
@@ -887,8 +1011,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "api": [
+            {
+              "file": "api-hrtimer-kernel-surface.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-highres-timerfd-benchmark.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -914,7 +1053,8 @@
           "proj": [
             {
               "file": "proj-own-sysctl.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -931,7 +1071,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -942,13 +1083,15 @@
           "proj": [
             {
               "file": "proj-sysctl-tool.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sysctl-handlers.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -959,7 +1102,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -970,13 +1114,15 @@
           "proj": [
             {
               "file": "proj-kobject-custom.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sysfs-kobject.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -987,7 +1133,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -998,13 +1145,15 @@
           "proj": [
             {
               "file": "proj-kernfs-custom-fs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-kernfs-ops.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1015,7 +1164,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1026,7 +1176,8 @@
           "proj": [
             {
               "file": "proj-devtmpfs-node-inspector.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1054,13 +1205,15 @@
           "proj": [
             {
               "file": "proj-configfs-kernel-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-configfs-structures.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1082,13 +1235,15 @@
           "proj": [
             {
               "file": "proj-pinned-map-sharing.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bpffs-syscall-and-ops.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -1105,7 +1260,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -1116,13 +1272,17 @@
           "proj": [
             {
               "file": "proj-seq-proc-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-seq-file-ops.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -1133,7 +1293,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1144,7 +1305,8 @@
           "proj": [
             {
               "file": "proj-procfs-pid-inspector.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1172,7 +1334,8 @@
           "proj": [
             {
               "file": "proj-procfs-inspector.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1190,7 +1353,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "hist": [
             {
@@ -1201,7 +1365,8 @@
           "proj": [
             {
               "file": "proj-proc-parser.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1229,7 +1394,8 @@
           "proj": [
             {
               "file": "proj-sysfs-attribute-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1246,7 +1412,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -1257,13 +1424,15 @@
           "proj": [
             {
               "file": "proj-debugfs-custom-file.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-debugfs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1285,13 +1454,15 @@
           "proj": [
             {
               "file": "proj-kallsyms-symbol-resolver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-kallsyms-kernel-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -1308,7 +1479,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1319,7 +1491,8 @@
           "proj": [
             {
               "file": "proj-static-key-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1330,7 +1503,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1341,13 +1515,15 @@
           "proj": [
             {
               "file": "proj-livepatch-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-livepatch-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1369,7 +1545,8 @@
           "proj": [
             {
               "file": "proj-taint-lab.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1403,7 +1580,8 @@
           "proj": [
             {
               "file": "proj-where-is-my-fix.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1459,13 +1637,15 @@
           "proj": [
             {
               "file": "proj-cve-triage.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cve-record.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1476,7 +1656,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1487,7 +1668,8 @@
           "proj": [
             {
               "file": "proj-check-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [

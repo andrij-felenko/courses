@@ -4,18 +4,7 @@
 
 ## Чого хочемо
 
-```sh
-$ systemctl list-units --type=device 'dev-ttyUSB*'
-UNIT               LOAD   ACTIVE SUB     DESCRIPTION
-dev-ttyUSB0.device loaded active plugged FT232 USB-Serial
-
-$ systemctl is-active laser-agent@ttyUSB0.service
-active
-
-# висмикнули шнур
-$ systemctl is-active laser-agent@ttyUSB0.service
-inactive
-```
+:::code proj-hotplug-service/sh/main.sh
 
 Агент — звичайна програма: відкриває послідовний порт, налаштовує швидкість, читає рядки від верстата й пише їх у журнал. Уся складність не в ній, а в тому, **хто нею володіє**.
 
@@ -91,140 +80,9 @@ SupplementaryGroups=dialout
 
 :::tabs
 
-```python
-#!/usr/bin/env python3
-"""Агент послідовного пристрою: живе рівно стільки, скільки живе пристрій."""
-import errno, os, select, signal, sys, termios
+:::code proj-hotplug-service/py/main.py
 
-SPEED = termios.B115200
-
-
-def open_port(path):
-    # O_NOCTTY — не робити цей термінал керівним для процесу.
-    # O_NONBLOCK — не зависнути в open, чекаючи на сигнал носія.
-    fd = os.open(path, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)
-    iflag, oflag, cflag, lflag, _, _, cc = termios.tcgetattr(fd)
-    iflag = 0                        # без перекладів CR/LF і без XON/XOFF
-    oflag = 0
-    lflag = 0                        # сирий режим: без рядків і без відлуння
-    cflag = termios.CS8 | termios.CREAD | termios.CLOCAL
-    cc = list(cc)
-    cc[termios.VMIN] = 1
-    cc[termios.VTIME] = 0
-    termios.tcsetattr(fd, termios.TCSANOW,
-                      [iflag, oflag, cflag, lflag, SPEED, SPEED, cc])
-    termios.tcflush(fd, termios.TCIFLUSH)
-    return fd
-
-
-def main(path):
-    # Самопіпа: обробник сигналу лише будить select, рішення ухвалює цикл.
-    wake_r, wake_w = os.pipe()
-    os.set_blocking(wake_w, False)
-    signal.set_wakeup_fd(wake_w)
-    for sig in (signal.SIGTERM, signal.SIGINT):
-        signal.signal(sig, lambda *_: None)   # без обробника fd не збудять
-
-    fd, tail = open_port(path), b""
-    print(f"агент {path}: почали", flush=True)
-
-    while True:
-        ready, _, _ = select.select([fd, wake_r], [], [])
-        if wake_r in ready:
-            print("SIGTERM: закриваємо порт", flush=True)
-            break
-        try:
-            chunk = os.read(fd, 4096)
-        except OSError as e:
-            if e.errno == errno.EAGAIN:
-                continue
-            if e.errno in (errno.EIO, errno.ENXIO, errno.ENODEV):
-                print("пристрій зник", flush=True)
-                break                         # НЕ помилка, інакше перезапустять
-            raise
-        if not chunk:                         # POLLHUP: шнур висмикнули
-            print("порт закрито з того боку", flush=True)
-            break
-        tail += chunk
-        *lines, tail = tail.split(b"\n")
-        for ln in lines:
-            print("верстат:", ln.rstrip(b"\r").decode("ascii", "replace"),
-                  flush=True)                 # stdout забирає journald
-
-    os.close(fd)
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main(sys.argv[1]))
-```
-
-```go
-// go get golang.org/x/sys/unix
-package main
-
-import (
-	"bufio"
-	"errors"
-	"fmt"
-	"io"
-	"os"
-	"os/signal"
-
-	"golang.org/x/sys/unix"
-)
-
-func openPort(path string) (*os.File, error) {
-	fd, err := unix.Open(path, unix.O_RDWR|unix.O_NOCTTY|unix.O_NONBLOCK, 0)
-	if err != nil {
-		return nil, fmt.Errorf("open %s: %w", path, err)
-	}
-	// На Linux швидкість живе в бітах CBAUD усередині c_cflag —
-	// полів Ispeed/Ospeed ядро при TCSETS не читає.
-	t := unix.Termios{Cflag: unix.CS8 | unix.CREAD | unix.CLOCAL | unix.B115200}
-	t.Cc[unix.VMIN], t.Cc[unix.VTIME] = 1, 0
-	if err := unix.IoctlSetTermios(fd, unix.TCSETS, &t); err != nil {
-		unix.Close(fd)
-		return nil, fmt.Errorf("termios: %w", err)
-	}
-	// Дескриптор лишається неблокувальним — так os.File потрапляє під
-	// опитувач середовища виконання, і Close розбудить чужий Read.
-	return os.NewFile(uintptr(fd), path), nil
-}
-
-func main() {
-	port, err := openPort(os.Args[1])
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-	fmt.Printf("агент %s: почали\n", port.Name())
-
-	sigc := make(chan os.Signal, 1)
-	signal.Notify(sigc, unix.SIGTERM, unix.SIGINT)
-	go func() {
-		<-sigc
-		fmt.Println("SIGTERM: закриваємо порт")
-		port.Close() // розблокує Read у головній горутині
-	}()
-
-	sc := bufio.NewScanner(port)
-	for sc.Scan() {
-		fmt.Println("верстат:", sc.Text()) // stdout забирає journald
-	}
-
-	switch err := sc.Err(); {
-	case err == nil, errors.Is(err, io.EOF), errors.Is(err, os.ErrClosed):
-		// нас закрили за сигналом або шнур висмикнули
-	case errors.Is(err, unix.EIO), errors.Is(err, unix.ENODEV),
-		errors.Is(err, unix.ENXIO):
-		fmt.Println("пристрій зник") // теж не збій: виходимо нулем
-	default:
-		fmt.Fprintln(os.Stderr, "читання:", err)
-		os.Exit(1)
-	}
-}
-```
+:::code proj-hotplug-service/go/main.go
 
 :::
 

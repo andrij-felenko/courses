@@ -15,20 +15,7 @@
 int pipe(int pipefd[2]);
 int pipe2(int pipefd[2], int flags);
 ```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <array>
-#include <system_error>
-
-std::array<int, 2> create_pipe(int flags = 0) {
-    std::array<int, 2> fds{-1, -1};
-    if (::pipe2(fds.data(), flags) < 0) {
-        throw std::system_error(errno, std::generic_category(), "pipe2 failed");
-    }
-    return fds;
-}
-```
+:::code api-pipe-fifo-surface/cpp/systemni-vyklyky.cpp
 :::
 
 ### Параметри системного виклику
@@ -65,19 +52,7 @@ int mkfifo(const char *pathname, mode_t mode);
 int mkfifoat(int dirfd, const char *pathname, mode_t mode);
 int mknod(const char *pathname, mode_t mode, dev_t dev);
 ```
-```cpp
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string_view>
-#include <system_error>
-
-void create_named_fifo(std::string_view path, mode_t mode = 0666) {
-    if (::mkfifo(path.data(), mode) < 0 && errno != EEXIST) {
-        throw std::system_error(errno, std::generic_category(), "mkfifo failed");
-    }
-}
-```
+:::code api-pipe-fifo-surface/cpp/stvorennia-imenovanykh.cpp
 :::
 
 ### Деталізація параметрів створення:
@@ -99,22 +74,7 @@ void create_named_fifo(std::string_view path, mode_t mode = 0666) {
 
 int fcntl(int fd, int cmd, ... /* int arg */);
 ```
-```cpp
-#include <fcntl.h>
-#include <system_error>
-
-int get_pipe_capacity(int fd) {
-    int sz = ::fcntl(fd, F_GETPIPE_SZ);
-    if (sz < 0) throw std::system_error(errno, std::generic_category(), "F_GETPIPE_SZ");
-    return sz;
-}
-
-int set_pipe_capacity(int fd, int new_capacity) {
-    int sz = ::fcntl(fd, F_SETPIPE_SZ, new_capacity);
-    if (sz < 0) throw std::system_error(errno, std::generic_category(), "F_SETPIPE_SZ");
-    return sz;
-}
-```
+:::code api-pipe-fifo-surface/cpp/keruvannia-mistkistiu.cpp
 :::
 
 ### Правила функціонування `F_SETPIPE_SZ`:

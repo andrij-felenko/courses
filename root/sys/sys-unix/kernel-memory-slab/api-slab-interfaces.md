@@ -6,27 +6,7 @@
 
 ## Точки входу
 
-```c
-/* безтипові запити за розміром */
-void  *kmalloc(size_t size, gfp_t flags);
-void  *kzalloc(size_t size, gfp_t flags);                    /* + __GFP_ZERO */
-void  *kmalloc_array(size_t n, size_t size, gfp_t flags);    /* ловить переповнення n·size */
-void  *kcalloc(size_t n, size_t size, gfp_t flags);          /* те саме + нуль */
-void  *krealloc(const void *p, size_t new_size, gfp_t flags);
-void   kfree(const void *object);
-void   kfree_sensitive(const void *object);                  /* затерти нулями, тоді звільнити */
-size_t kmalloc_size_roundup(size_t size);                    /* скільки насправді дадуть */
-
-/* запити з іменованого кеша */
-void  *kmem_cache_alloc(struct kmem_cache *s, gfp_t flags);
-void  *kmem_cache_zalloc(struct kmem_cache *s, gfp_t flags);
-void   kmem_cache_free(struct kmem_cache *s, void *x);
-
-/* «дай як вийде»: спершу суцільно, при невдачі — розрізнено */
-void  *kvmalloc(size_t size, gfp_t flags);
-void  *kvmalloc_node(size_t size, gfp_t flags, int node);
-void   kvfree(const void *addr);
-```
+:::code api-slab-interfaces/c/tochky-vkhodu.h
 
 | Виклик | Що дає | Фізично суцільне | Стеля | Контекст |
 | --- | --- | --- | --- | --- |
@@ -50,23 +30,7 @@ KMALLOC_MAX_SIZE       = 1 << (MAX_PAGE_ORDER + PAGE_SHIFT) = 4 МіБ (MAX_PAGE
 
 ## Власний кеш об'єктів
 
-```c
-/* єдина форма до 6.12 — працює й далі */
-struct kmem_cache *kmem_cache_create(const char *name, unsigned int size,
-                                     unsigned int align, slab_flags_t flags,
-                                     void (*ctor)(void *));
-
-/* від 6.12 kmem_cache_create() — макрос із _Generic, тож приймає ще й таке */
-struct kmem_cache *kmem_cache_create(const char *name, unsigned int object_size,
-                                     struct kmem_cache_args *args,
-                                     slab_flags_t flags);
-
-void         kmem_cache_destroy(struct kmem_cache *s);
-int          kmem_cache_shrink(struct kmem_cache *s);
-unsigned int kmem_cache_size(struct kmem_cache *s);
-
-#define KMEM_CACHE(__struct, __flags)   /* ім'я, розмір і вирівнювання — з типу */
-```
+:::code api-slab-interfaces/c/vlasnyi-kesh-obiektiv.h
 
 | Аргумент | Що задає |
 | --- | --- |
@@ -87,39 +51,7 @@ unsigned int kmem_cache_size(struct kmem_cache *s);
 
 Мінімальний робочий модуль:
 
-```c
-struct conn_state {
-    struct list_head node;
-    spinlock_t       lock;
-    u64              id;
-    u8               payload[96];
-};
-
-static struct kmem_cache *conn_cache;
-
-static int __init conn_init(void)
-{
-    conn_cache = kmem_cache_create("conn_state", sizeof(struct conn_state),
-                                   0, SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT, NULL);
-    return conn_cache ? 0 : -ENOMEM;
-}
-
-static void __exit conn_exit(void)
-{
-    kmem_cache_destroy(conn_cache);   /* усі об'єкти мають бути вже звільнені */
-}
-
-struct conn_state *conn_get(void)
-{
-    struct conn_state *c = kmem_cache_alloc(conn_cache, GFP_KERNEL | __GFP_ZERO);
-
-    if (!c)
-        return NULL;
-    INIT_LIST_HEAD(&c->node);
-    spin_lock_init(&c->lock);
-    return c;
-}
-```
+:::code api-slab-interfaces/c/vlasnyi-kesh-obiektiv.c
 
 `kmem_cache_destroy` із живими об'єктами не мовчить: ядро друкує попередження й **не звільняє** кеш — сторінки лишаються зайнятими до перезавантаження. Це найчастіший спосіб перетворити помилку в [модулі](root:sys-unix/kernel-modules) на постійний витік.
 
@@ -287,70 +219,7 @@ void             shrinker_free(struct shrinker *shrinker);
 
 Робочий кістяк:
 
-```c
-static struct list_lru  conn_lru;
-static struct shrinker *conn_shrinker;
-
-static unsigned long conn_count(struct shrinker *sh, struct shrink_control *sc)
-{
-    unsigned long n = list_lru_shrink_count(&conn_lru, sc);
-
-    return n ? n : SHRINK_EMPTY;
-}
-
-static enum lru_status conn_isolate(struct list_head *item,
-                                    struct list_lru_one *lru,
-                                    spinlock_t *lock, void *arg)
-{
-    struct conn_state *c = container_of(item, struct conn_state, node);
-    struct list_head *freeable = arg;
-
-    if (!spin_trylock(&c->lock))
-        return LRU_SKIP;               /* зайнято — не чекаємо, беремо наступний */
-    list_lru_isolate_move(lru, item, freeable);
-    spin_unlock(&c->lock);
-    return LRU_REMOVED;
-}
-
-static unsigned long conn_scan(struct shrinker *sh, struct shrink_control *sc)
-{
-    struct conn_state *c, *tmp;
-    LIST_HEAD(freeable);
-    unsigned long freed;
-
-    if (!(sc->gfp_mask & __GFP_FS))
-        return SHRINK_STOP;            /* нас покликала сама файлова система */
-
-    freed = list_lru_shrink_walk(&conn_lru, sc, conn_isolate, &freeable);
-
-    list_for_each_entry_safe(c, tmp, &freeable, node) {
-        list_del(&c->node);
-        kmem_cache_free(conn_cache, c);
-    }
-    return freed;
-}
-
-static int conn_shrinker_init(void)
-{
-    conn_shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE | SHRINKER_MEMCG_AWARE,
-                                   "conn-state");
-    if (!conn_shrinker)
-        return -ENOMEM;
-
-    if (list_lru_init_memcg(&conn_lru, conn_shrinker)) {
-        shrinker_free(conn_shrinker);  /* до реєстрації — просто звільнити */
-        return -ENOMEM;
-    }
-
-    conn_shrinker->count_objects = conn_count;
-    conn_shrinker->scan_objects  = conn_scan;
-    conn_shrinker->seeks         = DEFAULT_SEEKS;
-    conn_shrinker->private_data  = &conn_lru;
-
-    shrinker_register(conn_shrinker);
-    return 0;
-}
-```
+:::code api-slab-interfaces/c/reiestratsiia-zmenshuvacha.c
 
 Порядок тут не декоративний: `list_lru_init_memcg` потребує вже виділеного зменшувача, бо бере з нього ідентифікатор, а `shrinker_register` має бути **після** того, як заповнено зворотні виклики — інакше відбір покличе порожні вказівники. Знімають реєстрацію тим самим `shrinker_free`.
 
@@ -360,24 +229,7 @@ static int conn_shrinker_init(void)
 
 Просте `struct list_head` для зменшувача не годиться: відбір питає «скільки в тебе на **цьому вузлі** й у **цій групі**», а плаский список такого не знає. `list_lru` — це двовимірна сітка списків, окремий на кожну пару «вузол × група», прихована за звичайним інтерфейсом. Причина, чому вузли рахують окремо, — у [нерівномірному доступі до пам'яті](root:hw-arch/numa): звільнене на чужому вузлі не допомагає тому, кому бракує.
 
-```c
-#define list_lru_init(lru)                 __list_lru_init((lru), false, NULL, NULL)
-#define list_lru_init_memcg(lru, shrinker) __list_lru_init((lru), true,  NULL, shrinker)
-void list_lru_destroy(struct list_lru *lru);
-
-bool list_lru_add_obj(struct list_lru *lru, struct list_head *item);
-bool list_lru_del_obj(struct list_lru *lru, struct list_head *item);
-
-unsigned long list_lru_count_one(struct list_lru *lru, int nid, struct mem_cgroup *memcg);
-unsigned long list_lru_count_node(struct list_lru *lru, int nid);
-unsigned long list_lru_shrink_count(struct list_lru *lru, struct shrink_control *sc);
-unsigned long list_lru_shrink_walk(struct list_lru *lru, struct shrink_control *sc,
-                                   list_lru_walk_cb isolate, void *cb_arg);
-
-typedef enum lru_status (*list_lru_walk_cb)(struct list_head *item,
-                                            struct list_lru_one *list,
-                                            spinlock_t *lock, void *cb_arg);
-```
+:::code api-slab-interfaces/c/list-lru-spysky-po-vuzlakh.h
 
 Пари `list_lru_shrink_count` / `list_lru_shrink_walk` вистачає на весь звичайний зменшувач: вони самі дістають `nid` і `memcg` зі `shrink_control`.
 

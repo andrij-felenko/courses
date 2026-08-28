@@ -255,19 +255,7 @@ struct kimage {
 
 Кожен CPU у первинній системі перед панічним переходом зберігає свій стан у структуру `struct elf_prstatus` у нотатці `PT_NOTE`:
 
-```c
-struct elf_prstatus {
-    struct elf_siginfo pr_info;    // Інформація про сигнал аварії
-    short pr_cursig;               // Поточний сигнал
-    unsigned long pr_sigpend;      // Зависші сигнали
-    unsigned long pr_sighold;      // Заблоковані сигнали
-    pid_t pr_pid;                  // PID процесу, що виконувався на цьому CPU
-    pid_t pr_ppid;                 // PPID батьківського процесу
-    pid_t pr_pgrp;                 // Група процесів
-    pid_t pr_sid;                  // Сесія
-    struct user_regs_struct pr_reg;// Збережені апаратні регістри CPU (RAX, RBX, RIP, RSP, RFLAGS)
-};
-```
+:::code api-kexec-interface/c/5-2-detalizatsiia.c
 
 ---
 
@@ -324,71 +312,10 @@ CRASHTIME=1723620000
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-int check_kexec_status(void) {
-    int fd = open("/sys/kernel/kexec_loaded", O_RDONLY);
-    if (fd < 0) {
-        perror("Не вдалося відкрити /sys/kernel/kexec_loaded");
-        return -1;
-    }
-
-    char buf[8] = {0};
-    ssize_t bytes_read = read(fd, buf, sizeof(buf) - 1);
-    close(fd);
-
-    if (bytes_read > 0) {
-        int loaded = atoi(buf);
-        printf("Статус завантаження kexec: %d\n", loaded);
-        return loaded;
-    }
-
-    return -1;
-}
-
-int main(void) {
-    check_kexec_status();
-    return 0;
-}
-```
+:::code api-kexec-interface/c/6-1-perevirka-statusu.c
 
 @tab C++
-```cpp
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <system_error>
-
-bool is_kexec_loaded() {
-    std::ifstream status_file("/sys/kernel/kexec_loaded");
-    if (!status_file.is_open()) {
-        throw std::system_error(errno, std::generic_category(), 
-                                "Не вдалося відкрити /sys/kernel/kexec_loaded");
-    }
-
-    int value = 0;
-    if (status_file >> value) {
-        return value == 1;
-    }
-    
-    return false;
-}
-
-int main() {
-    try {
-        bool loaded = is_kexec_loaded();
-        std::cout << "Статус завантаження kexec: " << (loaded ? "Завантажено" : "Не завантажено") << "\n";
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << "\n";
-        return 1;
-    }
-    return 0;
-}
-```
+:::code api-kexec-interface/cpp/6-1-perevirka-statusu.cpp
 :::
 
 ---
@@ -397,109 +324,8 @@ int main() {
 
 :::tabs
 @tab C
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <errno.h>
-
-#ifndef SYS_kexec_file_load
-#define SYS_kexec_file_load 320
-#endif
-
-int load_kernel_image(const char *kernel_path, const char *initrd_path, const char *cmdline) {
-    int kfd = open(kernel_path, O_RDONLY);
-    if (kfd < 0) {
-        perror("Помилка відкриття файлу ядра");
-        return -1;
-    }
-
-    int ifd = -1;
-    if (initrd_path != NULL) {
-        ifd = open(initrd_path, O_RDONLY);
-        if (ifd < 0) {
-            perror("Помилка відкриття файлу initrd");
-            close(kfd);
-            return -1;
-        }
-    }
-
-    unsigned long cmdline_len = cmdline ? strlen(cmdline) + 1 : 0;
-    long res = syscall(SYS_kexec_file_load, kfd, ifd, cmdline_len, cmdline, 0);
-
-    if (ifd >= 0) close(ifd);
-    close(kfd);
-
-    if (res < 0) {
-        perror("Помилка виконання kexec_file_load");
-        return -1;
-    }
-
-    printf("Ядро успішно завантажено в пам'ять через kexec_file_load\n");
-    return 0;
-}
-```
+:::code api-kexec-interface/c/6-2-prohramnyi-vyklyk.c
 
 @tab C++
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <system_error>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-
-#ifndef SYS_kexec_file_load
-#define SYS_kexec_file_load 320
-#endif
-
-class ScopedFd {
-    int fd_{-1};
-public:
-    explicit ScopedFd(int fd) : fd_(fd) {}
-    ~ScopedFd() { if (fd_ >= 0) ::close(fd_); }
-    ScopedFd(const ScopedFd&) = delete;
-    ScopedFd& operator=(const ScopedFd&) = delete;
-    ScopedFd(ScopedFd&& o) noexcept : fd_(o.fd_) { o.fd_ = -1; }
-    ScopedFd& operator=(ScopedFd&& o) noexcept {
-        if (this != &o) {
-            if (fd_ >= 0) ::close(fd_);
-            fd_ = o.fd_;
-            o.fd_ = -1;
-        }
-        return *this;
-    }
-    [[nodiscard]] int get() const noexcept { return fd_; }
-    [[nodiscard]] bool valid() const noexcept { return fd_ >= 0; }
-};
-
-void load_kernel(std::string_view kernel_path, std::string_view initrd_path, std::string_view cmdline) {
-    ScopedFd kfd(::open(kernel_path.data(), O_RDONLY));
-    if (!kfd.valid()) {
-        throw std::system_error(errno, std::generic_category(), "Не вдалося відкрити ядро");
-    }
-
-    ScopedFd ifd(-1);
-    if (!initrd_path.empty()) {
-        ifd = ScopedFd(::open(initrd_path.data(), O_RDONLY));
-        if (!ifd.valid()) {
-            throw std::system_error(errno, std::generic_category(), "Не вдалося відкрити initrd");
-        }
-    }
-
-    const unsigned long cmdlen = cmdline.empty() ? 0 : cmdline.size() + 1;
-    const long ret = ::syscall(SYS_kexec_file_load, kfd.get(), ifd.get(), cmdlen, cmdline.data(), 0);
-
-    if (ret < 0) {
-        throw std::system_error(errno, std::generic_category(), "kexec_file_load завершився помилкою");
-    }
-
-    std::cout << "Ядро успішно завантажено у пам'ять через kexec_file_load\n";
-}
-```
+:::code api-kexec-interface/cpp/6-2-prohramnyi-vyklyk.cpp
 :::

@@ -77,29 +77,7 @@
 
 *Робоча нитка не будить цикл подій напряму — вона пише в eventfd, і цикл дізнається про це там само, де дізнається про мережеві дані.*
 
-```c
-#include <sys/eventfd.h>
-#include <sys/epoll.h>
-#include <unistd.h>
-#include <stdint.h>
-
-int efd = eventfd(0, EFD_CLOEXEC | EFD_NONBLOCK);
-
-/* робоча нитка, коли дорахувала: */
-uint64_t one = 1;
-write(efd, &one, sizeof one);              /* лічильник += 1 */
-
-/* цикл подій, разово: */
-struct epoll_event ev = { .events = EPOLLIN, .data.fd = efd };
-epoll_ctl(ep, EPOLL_CTL_ADD, efd, &ev);
-
-/* цикл подій, на кожній ітерації: */
-if (fired.data.fd == efd) {
-    uint64_t n;
-    if (read(efd, &n, sizeof n) == (ssize_t)sizeof n)
-        collect_results(n);                /* n — скільки разів нас смикнули */
-}
-```
+:::code eventfd-and-futex-d/c/main.c
 
 `EFD_NONBLOCK` тут не оптимізація, а умова коректності: цикл подій не має права заснути всередині `read`, бо тоді він перестане обслуговувати решту дескрипторів. `EFD_CLOEXEC` закриває дескриптор на `exec`, щоб він не протік у дочірню програму.
 

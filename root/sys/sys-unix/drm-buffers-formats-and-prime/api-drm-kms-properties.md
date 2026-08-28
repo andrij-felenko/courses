@@ -87,41 +87,8 @@ CRTC відповідає за об'єднання площин, формува�
 Атомарна транзакція збирається у спеціальному об'єкті `drmModeAtomicReqPtr`, який представляє проміжний буфер запиту у просторі користувача:
 
 :::tabs
-```c
-/* C: Ручне створення та звільнення об'єкта запиту */
-#include <xf86drm.h>
-#include <xf86drmMode.h>
-
-drmModeAtomicReqPtr req = drmModeAtomicAlloc();
-if (!req) {
-    /* Помилка виділення пам'яті */
-}
-
-/* Використання запиту... */
-
-drmModeAtomicFree(req);
-```
-```cpp
-// C++: Управління ресурсом через std::unique_ptr та custom deleter
-#include <memory>
-#include <stdexcept>
-#include <xf86drm.h>
-#include <xf86drmMode.h>
-
-struct AtomicReqDeleter {
-    void operator()(drmModeAtomicReqPtr req) const noexcept {
-        if (req) ::drmModeAtomicFree(req);
-    }
-};
-
-using AtomicReqPtr = std::unique_ptr<drmModeAtomicReq, AtomicReqDeleter>;
-
-AtomicReqPtr create_atomic_request() {
-    AtomicReqPtr req(::drmModeAtomicAlloc());
-    if (!req) throw std::bad_alloc();
-    return req;
-}
-```
+:::code api-drm-kms-properties/c/main.c
+:::code api-drm-kms-properties/cpp/3-1-initsializatsiia-ta.cpp
 :::
 
 ---
@@ -138,20 +105,7 @@ if (ret < 0) {
     /* Помилка накопичення запиту */
 }
 ```
-```cpp
-// C++: Безпечний обгортковий метод класу AtomicTransaction
-class AtomicTransaction {
-    AtomicReqPtr req_;
-public:
-    AtomicTransaction() : req_(create_atomic_request()) {}
-
-    void add_property(uint32_t obj_id, uint32_t prop_id, uint64_t val) {
-        if (::drmModeAtomicAddProperty(req_.get(), obj_id, prop_id, val) < 0) {
-            throw std::runtime_error("Не вдалося додати властивість у атомарний запит");
-        }
-    }
-};
-```
+:::code api-drm-kms-properties/cpp/3-2-napovnennia-zapytu.cpp
 :::
 
 ---
@@ -203,24 +157,7 @@ if (drmModeCreatePropertyBlob(fd, &mode_info, sizeof(mode_info), &blob_id) == 0)
     drmModeDestroyPropertyBlob(fd, blob_id);
 }
 ```
-```cpp
-// C++: RAII обгортка для двійкового блоку пам'яті ядра
-template <typename T>
-class PropertyBlob {
-    int fd_;
-    uint32_t id_{0};
-public:
-    PropertyBlob(int fd, const T& data) : fd_(fd) {
-        if (::drmModeCreatePropertyBlob(fd_, &data, sizeof(T), &id_) != 0) {
-            throw std::runtime_error("Не вдалося створити DRM Property Blob у ядрі");
-        }
-    }
-    ~PropertyBlob() {
-        if (id_) ::drmModeDestroyPropertyBlob(fd_, id_);
-    }
-    [[nodiscard]] uint32_t id() const noexcept { return id_; }
-};
-```
+:::code api-drm-kms-properties/cpp/4-stvorennia-ta-zhyttievyi.cpp
 :::
 
 ---

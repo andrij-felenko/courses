@@ -39,91 +39,7 @@ $ docker run --rm -it --platform linux/386 debian:bookworm
 
 Тепер сама програма-щуп:
 
-```c
-/* offsetprobe.c — що означає off_t у цій збірці й де стоїть стеля.
- *
- *   cc -m32                        offsetprobe.c -o probe-narrow
- *   cc -m32 -D_FILE_OFFSET_BITS=64 offsetprobe.c -o probe-wide
- *
- * _GNU_SOURCE тут лише щоб побачити константу O_LARGEFILE: у glibc вона
- * схована за _LARGEFILE64_SOURCE. На ширину off_t _GNU_SOURCE НЕ впливає.
- */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <limits.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-
-#define SIGNED_MAX(T) \
-    ((T)(((((uintmax_t)1 << (sizeof(T) * CHAR_BIT - 2)) - 1) * 2) + 1))
-
-static void report_build(void)
-{
-    printf("ширина типів у цій збірці\n");
-    printf("  sizeof(off_t)          = %zu\n", sizeof(off_t));
-    printf("  sizeof(struct stat)    = %zu\n", sizeof(struct stat));
-    printf("  offsetof(stat,st_size) = %zu\n", offsetof(struct stat, st_size));
-    printf("  найбільший зсув        = %jd\n", (intmax_t)SIGNED_MAX(off_t));
-#ifdef _FILE_OFFSET_BITS
-    printf("  _FILE_OFFSET_BITS      = %d\n", _FILE_OFFSET_BITS);
-#else
-    printf("  _FILE_OFFSET_BITS      не визначено\n");
-#endif
-    printf("  O_LARGEFILE            = %d\n", O_LARGEFILE);
-}
-
-static void probe_file(const char *path)
-{
-    printf("\nфайл: %s\n", path);
-
-    int fd = open(path, O_RDONLY);
-    if (fd < 0) {
-        printf("  open → %s (errno=%d)\n", strerror(errno), errno);
-        if (errno == EOVERFLOW)
-            printf("  ← відмовило ЯДРО: розмір не вміщається в st_size цієї збірки\n");
-        return;
-    }
-    printf("  open → успіх, fd=%d\n", fd);
-
-    struct stat st;
-    if (fstat(fd, &st) == 0) {
-        printf("  st_size          = %jd\n", (intmax_t)st.st_size);
-        printf("  st_blocks · 512  = %jd (справді зайнято на носії)\n",
-               (intmax_t)st.st_blocks * 512);
-    } else {
-        printf("  fstat → %s\n", strerror(errno));
-    }
-
-    /* Ціль — перший байт за межею 2³¹. Рахуємо в intmax_t, щоб перевірити,
-       чи взагалі можна назвати цю ціль типом off_t — ДО системного виклику. */
-    intmax_t want = INTMAX_C(1) << 31;
-    if (want > (intmax_t)SIGNED_MAX(off_t)) {
-        printf("  lseek(%jd) навіть не буде викликано\n", want);
-        printf("  ← стеля в САМІЙ ПРОГРАМІ: такого числа off_t не тримає\n");
-    } else {
-        off_t got = lseek(fd, (off_t)want, SEEK_SET);
-        if (got == (off_t)-1)
-            printf("  lseek(%jd) → -1, %s\n", want, strerror(errno));
-        else
-            printf("  lseek(%jd) → %jd\n", want, (intmax_t)got);
-    }
-    close(fd);
-}
-
-int main(int argc, char **argv)
-{
-    report_build();
-    for (int i = 1; i < argc; i++)
-        probe_file(argv[i]);
-    return 0;
-}
-```
+:::code proj-offset-audit/c/offsetprobe.c
 
 ### Великий файл, який не займає місця
 
@@ -140,43 +56,7 @@ $ du -h --apparent-size /var/tmp/big.bin ; du -h /var/tmp/big.bin
 
 Те саме мовою C варте окремого погляду, бо в ньому ховається кільцева пастка: `ftruncate` теж приймає `off_t`, отже **програма, яка створює великий файл, сама мусить бути зібрана з широким зсувом** — інакше вона не назве потрібний розмір:
 
-```c
-/* makebig.c — дешевий великий файл: діра плюс один справжній байт наприкінці.
-   cc -m32 $(getconf LFS_CFLAGS) makebig.c -o makebig */
-#define _FILE_OFFSET_BITS 64   /* ЛИШЕ для самодостатності прикладу; у справжньому
-                                  проєкті цей макрос належить прапорцям збирання */
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-#define SIGNED_MAX(T) \
-    ((T)(((((uintmax_t)1 << (sizeof(T) * CHAR_BIT - 2)) - 1) * 2) + 1))
-
-int main(int argc, char **argv)
-{
-    if (argc != 3) { fprintf(stderr, "makebig <файл> <ГіБ>\n"); return 2; }
-
-    long gib = strtol(argv[2], NULL, 10);
-    if (gib <= 0 || gib > (long)(SIGNED_MAX(off_t) >> 30)) {
-        fprintf(stderr, "%ld ГіБ не назвати типом off_t завширшки %zu байтів\n",
-                gib, sizeof(off_t));
-        return 2;
-    }
-    off_t size = (off_t)gib << 30;
-
-    int fd = open(argv[1], O_RDWR | O_CREAT | O_TRUNC, 0644);
-    if (fd < 0) { perror("open"); return 1; }
-    if (ftruncate(fd, size) < 0) { perror("ftruncate"); return 1; }
-    if (pwrite(fd, "!", 1, size - 1) != 1) { perror("pwrite"); return 1; }
-    close(fd);
-
-    printf("створено %s: %jd байтів\n", argv[1], (intmax_t)size);
-    return 0;
-}
-```
+:::code proj-offset-audit/c/makebig.c
 
 Перевірка перед зсувом — не формальність. Без неї `(off_t)3 << 30` у вузькій збірці є переповненням знакового типу, тобто невизначеною поведінкою: компілятор має право згорнути вираз у будь-що. Із перевіркою програма чесно каже, що такого числа в неї немає.
 
@@ -230,36 +110,7 @@ int main(int argc, char **argv)
 
 **Відмова при роботі з уже відкритим файлом.** Ось тут ховається неочевидне: перевірка при `open` — це **знімок стану на мить відкриття**, а не гарантія на весь час життя дескриптора. Файл, відкритий вузькою збіркою, поки він був малий, може вирости під нею — і всі наступні дії почнуть спотикатися:
 
-```c
-/* growprobe.c — перевірка при open() є знімком, а не гарантією.
-   cc -m32 growprobe.c -o growprobe        (навмисно ВУЗЬКА збірка) */
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-int main(int argc, char **argv)
-{
-    if (argc != 2) { fprintf(stderr, "growprobe <файл>\n"); return 2; }
-
-    int fd = open(argv[1], O_RDONLY);
-    if (fd < 0) { perror("open"); return 1; }
-    printf("відкрито; кінець файлу на %jd\n", (intmax_t)lseek(fd, 0, SEEK_END));
-
-    printf("тепер розширте файл ЗЗОВНІ (truncate -s 3G %s) і тисніть Enter…\n",
-           argv[1]);
-    (void)getchar();
-
-    off_t end = lseek(fd, 0, SEEK_END);
-    if (end == (off_t)-1)
-        printf("lseek(SEEK_END) → -1, %s\n", strerror(errno));
-    else
-        printf("lseek(SEEK_END) → %jd\n", (intmax_t)end);
-    return 0;
-}
-```
+:::code proj-offset-audit/c/growprobe.c
 
 ```
 $ : > /var/tmp/grow.bin
@@ -276,73 +127,11 @@ lseek(SEEK_END) → -1, Value too large for defined data type
 
 Тепер найнеприємніше — розбіжність усередині власного коду. Потрібні три файли: спільний заголовок і два `.c`, які будуть зібрані **по-різному**.
 
-```c
-/* audit.h — спільний заголовок обох одиниць трансляції */
-#ifndef AUDIT_H
-#define AUDIT_H
-#include <sys/types.h>
+:::code proj-offset-audit/c/audit.h
 
-struct span {
-    off_t start;       /* ширина ЗАЛЕЖИТЬ від прапорців збирання */
-    long  records;
-    int   truncated;
-};
+:::code proj-offset-audit/c/audit.c
 
-off_t tail_offset(off_t size, off_t back);
-void  fill_span(struct span *out);
-
-#endif
-```
-
-```c
-/* audit.c — «бібліотека»: чиста арифметика, жодного вводу-виводу,
-   щоб неправильні числа походили ЛИШЕ з двійкової угоди */
-#include "audit.h"
-#include <stdio.h>
-#include <stdint.h>
-
-off_t tail_offset(off_t size, off_t back)
-{
-    fprintf(stderr, "  [audit.c] sizeof(off_t)=%zu  size=%jd  back=%jd\n",
-            sizeof(off_t), (intmax_t)size, (intmax_t)back);
-    return size - back;
-}
-
-void fill_span(struct span *out)
-{
-    fprintf(stderr, "  [audit.c] sizeof(struct span)=%zu\n", sizeof(struct span));
-    out->start     = 4096;
-    out->records   = 7;
-    out->truncated = 1;
-}
-```
-
-```c
-/* main.c — «застосунок» */
-#include "audit.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdint.h>
-
-int main(void)
-{
-    printf("[main.c] sizeof(off_t)=%zu  sizeof(struct span)=%zu\n",
-           sizeof(off_t), sizeof(struct span));
-
-    off_t size = 1000000, back = 4096;
-    off_t got = tail_offset(size, back);
-    printf("  tail_offset(%jd, %jd) → %jd   (мало бути %jd)\n",
-           (intmax_t)size, (intmax_t)back, (intmax_t)got,
-           (intmax_t)(size - back));
-
-    struct span s;
-    memset(&s, 0, sizeof s);
-    fill_span(&s);
-    printf("  span: start=%jd  records=%ld  truncated=%d   (мало бути 4096/7/1)\n",
-           (intmax_t)s.start, s.records, s.truncated);
-    return 0;
-}
-```
+:::code proj-offset-audit/c/main.c
 
 Дві збірки, що відрізняються лише тим, **на який файл потрапив прапорець**:
 

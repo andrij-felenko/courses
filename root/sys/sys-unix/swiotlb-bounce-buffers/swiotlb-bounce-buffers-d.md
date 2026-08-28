@@ -205,20 +205,7 @@ if (!dma_capable(dev, paddr, len)) {
 
 Якщо напрямок передачі визначено як `DMA_TO_DEVICE` або `DMA_BIDIRECTIONAL`, ядро негайно викликає функцію `swiotlb_bounce()`:
 
-```c
-static void swiotlb_bounce(struct device *dev, phys_addr_t orig_addr,
-                           phys_addr_t tlb_addr, size_t size,
-                           enum dma_data_direction dir)
-{
-    void *vorg = phys_to_virt(orig_addr);
-    void *vtlb = phys_to_virt(tlb_addr);
-
-    if (dir == DMA_TO_DEVICE || dir == DMA_BIDIRECTIONAL)
-        memcpy(vtlb, vorg, size);
-    else
-        memcpy(vorg, vtlb, size);
-}
-```
+:::code swiotlb-bounce-buffers-d/c/main.c
 
 Процесор копіює корисні байти з пам'яті програми у виділений низький слот. Після цього фізична адреса слота повертається драйверу як `dma_addr_t`.
 
@@ -378,19 +365,7 @@ dma_direct_map_page: swiotlb buffer is full (sz: 65536 bytes, total: 32768, used
 
 Якщо файлову систему debugfs змонтовано, стан пулу доступний у каталозі `/sys/kernel/debug/swiotlb/`:
 
-```bash
-# Перегляд загальної кількості слотів
-cat /sys/kernel/debug/swiotlb/io_tlb_nslabs
-
-# Перегляд кількості зайнятих слотів прямо зараз
-cat /sys/kernel/debug/swiotlb/io_tlb_used
-
-# Перегляд пікового значення використання
-cat /sys/kernel/debug/swiotlb/io_tlb_used_highwater
-
-# Перевірка кількості переповнень пулу
-cat /sys/kernel/debug/swiotlb/io_tlb_overflow
-```
+:::code swiotlb-bounce-buffers-d/sh/main.sh
 
 Аналіз цих метрик дозволяє точно розрахувати необхідний розмір пулу:
 

@@ -14,18 +14,7 @@
 
 ## Керуюча команда
 
-```c
-struct ublksrv_ctrl_cmd {
-        __u32   dev_id;         /* номер пристрою; -1 в ADD_DEV — «вибери сам» */
-        __u16   queue_id;       /* -1, якщо команда не про чергу */
-        __u16   len;            /* довжина буфера за addr */
-        __u64   addr;           /* буфер команди: IN або OUT */
-        __u64   data[1];        /* вбудоване число: pid, номер черги */
-        __u16   dev_path_len;   /* лише для UBLK_F_UNPRIVILEGED_DEV, із нульовим байтом */
-        __u16   pad;
-        __u32   reserved;
-};
-```
+:::code api-ublk-protocol/c/keruiucha-komanda.c
 
 Тридцять два байти цієї структури кладуть у поле `cmd` подання io_uring, а туди без `IORING_SETUP_SQE128` уміщається лише шістнадцять — тому керуюче кільце створюють саме з цим прапорцем.
 
@@ -50,49 +39,13 @@ struct ublksrv_ctrl_cmd {
 
 ## Опис пристрою
 
-```c
-struct ublksrv_ctrl_dev_info {
-        __u16   nr_hw_queues;      /* ≤ UBLK_MAX_NR_QUEUES        */
-        __u16   queue_depth;       /* ≤ UBLK_MAX_QUEUE_DEPTH = 4096 */
-        __u16   state;             /* ← ядро: DEAD 0, LIVE 1, QUIESCED 2, FAIL_IO 3 */
-        __u16   pad0;
-        __u32   max_io_buf_bytes;  /* стеля одного запиту в байтах */
-        __u32   dev_id;            /* ↔ на вході -1, на виході — виданий номер */
-        __s32   ublksrv_pid;       /* ← ядро: pid демона з START_DEV */
-        __u32   pad1;
-        __u64   flags;             /* UBLK_F_*                     */
-        __u64   ublksrv_flags;     /* ядро не читає: приватне поле сервера */
-        __u32   owner_uid;         /* ← ядро, для UBLK_F_UNPRIVILEGED_DEV */
-        __u32   owner_gid;
-        __u64   reserved1, reserved2;
-};
-```
+:::code api-ublk-protocol/c/opys-prystroiu.c
 
 ## Параметри пристрою
 
 `SET_PARAMS` бере одну структуру, у якій `types` — бітова маска того, які з укладених усередину частин заповнено, а `len` — розмір самої структури (так ядро розуміє, з якого заголовка зібрано програму).
 
-```c
-struct ublk_params {
-        __u32   len, types;              /* UBLK_PARAM_TYPE_* */
-        struct ublk_param_basic    basic;
-        struct ublk_param_discard  discard;
-        struct ublk_param_devt     devt;     /* ← ядро віддає major/minor обох вузлів */
-        struct ublk_param_zoned    zoned;    /* з 6.6 */
-        /* далі — dma_align, segment, integrity */
-};
-
-struct ublk_param_basic {
-        __u32   attrs;                   /* UBLK_ATTR_*            */
-        __u8    logical_bs_shift;        /* 9 → 512 Б, 12 → 4 КіБ  */
-        __u8    physical_bs_shift;
-        __u8    io_opt_shift, io_min_shift;
-        __u32   max_sectors;             /* стеля запиту в секторах по 512 Б */
-        __u32   chunk_sectors;
-        __u64   dev_sectors;             /* розмір пристрою, сектори по 512 Б */
-        __u64   virt_boundary_mask;
-};
-```
+:::code api-ublk-protocol/c/parametry-prystroiu.c
 
 Розміри блоків задаються **показником степеня двійки**, а не числом байтів, і саме звідси беруться `logical_block_size` та `physical_block_size` у sysfs. Довжини всюди — у секторах по 512 байтів, незалежно від того, який логічний блок оголошено.
 
@@ -201,36 +154,6 @@ struct ublksrv_io_cmd {
 
 ## Найменший робочий виклик
 
-```c
-struct io_uring ctrl;
-io_uring_queue_init(2, &ctrl, IORING_SETUP_SQE128);   /* 32 байти не влізуть у звичайний SQE */
-int cfd = open("/dev/ublk-control", O_RDWR);
-
-struct ublksrv_ctrl_dev_info info = {
-        .nr_hw_queues     = 1,
-        .queue_depth      = 128,
-        .max_io_buf_bytes = 512 * 1024,
-        .dev_id           = (__u32)-1,        /* хай ядро вибере номер */
-        .flags            = UBLK_F_CMD_IOCTL_ENCODE,
-};
-
-struct io_uring_sqe *sqe = io_uring_get_sqe(&ctrl);
-io_uring_prep_read(sqe, cfd, NULL, 0, 0);             /* обнуляємо поля, далі перекриваємо */
-sqe->opcode = IORING_OP_URING_CMD;
-sqe->cmd_op = UBLK_U_CMD_ADD_DEV;
-
-struct ublksrv_ctrl_cmd *c = (struct ublksrv_ctrl_cmd *)sqe->cmd;
-c->dev_id   = (__u32)-1;
-c->queue_id = (__u16)-1;                              /* команда не про чергу */
-c->addr     = (__u64)(uintptr_t)&info;
-c->len      = sizeof(info);
-
-io_uring_submit(&ctrl);
-
-struct io_uring_cqe *cqe;
-io_uring_wait_cqe(&ctrl, &cqe);
-if (cqe->res == 0)
-        printf("з'явився /dev/ublkc%u\n", info.dev_id);   /* номер уписало ядро */
-```
+:::code api-ublk-protocol/c/naimenshyi-robochyi-vyklyk.h
 
 Далі порядок незмінний: `SET_PARAMS` із розміром і геометрією, відображення описів і по `FETCH_REQ` на кожен тег — і аж тоді `START_DEV` із `data[0] = getpid()`, після якого в системі з'явиться `/dev/ublkb<N>`.

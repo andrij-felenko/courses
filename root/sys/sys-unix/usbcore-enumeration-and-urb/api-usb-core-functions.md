@@ -10,22 +10,7 @@
 
 Головна структура для опису драйвера USB-інтерфейсу (визначена у `<linux/usb.h>`). Драйвер описує свої можливості, функції реєстрації та обробники подій живлення:
 
-```c
-struct usb_driver {
-    const char *name;
-    int (*probe) (struct usb_interface *intf, const struct usb_device_id *id);
-    void (*disconnect) (struct usb_interface *intf);
-    int (*unlocked_ioctl) (struct usb_interface *intf, unsigned int code, void *buf);
-    int (*suspend) (struct usb_interface *intf, pm_message_t message);
-    int (*resume) (struct usb_interface *intf);
-    int (*reset_resume) (struct usb_interface *intf);
-    const struct usb_device_id *id_table;
-    struct usb_dynids dynids;
-    struct device_driver driver;
-    unsigned int supports_autosuspend:1;
-    unsigned int disable_hub_initiated_lpm:1;
-};
-```
+:::code api-usb-core-functions/c/1-opys-draivera-prystroiu.h
 
 #### Семантика полів та функцій зворотного виклику
 
@@ -46,23 +31,7 @@ struct usb_driver {
 
 Структура описує правило зіставлення (Matching Rule) між пристроєм на шині та драйвером:
 
-```c
-struct usb_device_id {
-    __u16 match_flags;
-    __u16 idVendor;
-    __u16 idProduct;
-    __u16 bcdDevice_lo;
-    __u16 bcdDevice_hi;
-    __u8  bDeviceClass;
-    __u8  bDeviceSubClass;
-    __u8  bDeviceProtocol;
-    __u8  bInterfaceClass;
-    __u8  bInterfaceSubClass;
-    __u8  bInterfaceProtocol;
-    __u8  bInterfaceNumber;
-    kernel_ulong_t driver_info;
-};
-```
+:::code api-usb-core-functions/c/2-tablytsia-vidpovidnosti.c
 
 #### Допоміжні макроси заповнення
 
@@ -79,40 +48,7 @@ struct usb_device_id {
 
 Центральна структура даних для виконання будь-яких транзакцій на шині USB:
 
-```c
-struct urb {
-    struct kref kref;
-    void *hcpriv;
-    atomic_t use_count;
-    atomic_t reject;
-    int unlinked;
-
-    struct list_head urb_list;
-    struct list_head anchor_list;
-    struct usb_anchor *anchor;
-    struct usb_device *dev;
-    struct usb_host_endpoint *ep;
-    unsigned int pipe;
-    unsigned int stream_id;
-    int status;
-    unsigned int transfer_flags;
-    void *transfer_buffer;
-    dma_addr_t transfer_dma;
-    struct scatterlist *sg;
-    int num_sgs;
-    u32 transfer_buffer_length;
-    u32 actual_length;
-    unsigned char *setup_packet;
-    dma_addr_t setup_dma;
-    int start_frame;
-    int number_of_packets;
-    int interval;
-    int error_count;
-    void *context;
-    usb_complete_t complete;
-    struct usb_iso_packet_descriptor iso_frame_desc[];
-};
-```
+:::code api-usb-core-functions/c/3-odynytsia-obminu-danymy.c
 
 #### Важливі поля структури `struct urb`
 
@@ -176,39 +112,7 @@ struct urb *usb_get_urb(struct urb *urb);
 
 Перед відправленням URB у ядро його поля слід правильно заповнити. Для цього використовуються статичні inline-функції:
 
-```c
-static inline void usb_fill_control_urb(
-    struct urb *urb,
-    struct usb_device *dev,
-    unsigned int pipe,
-    unsigned char *setup_packet,
-    void *transfer_buffer,
-    int buffer_length,
-    usb_complete_t complete_fn,
-    void *context
-);
-
-static inline void usb_fill_bulk_urb(
-    struct urb *urb,
-    struct usb_device *dev,
-    unsigned int pipe,
-    void *transfer_buffer,
-    int buffer_length,
-    usb_complete_t complete_fn,
-    void *context
-);
-
-static inline void usb_fill_int_urb(
-    struct urb *urb,
-    struct usb_device *dev,
-    unsigned int pipe,
-    void *transfer_buffer,
-    int buffer_length,
-    usb_complete_t complete_fn,
-    void *context,
-    int interval
-);
-```
+:::code api-usb-core-functions/c/funktsii-initsializatsii.h
 
 - `interval`: Інтервал опитування для Interrupt-передач. Задається у кадрах (1 мс для Low/Full Speed) або в мікрокадрах: реальний період дорівнює 2^(interval−1) × 125 мкс для High/SuperSpeed.
 
@@ -266,37 +170,7 @@ int usb_wait_anchor_empty_timeout(struct usb_anchor *anchor, unsigned int timeou
 
 Для простих ініціалізаційних операцій `usbcore` надає виклики, які занурюють потік у сон до завершення обміну:
 
-```c
-int usb_control_msg(
-    struct usb_device *dev,
-    unsigned int pipe,
-    __u8 request,
-    __u8 requesttype,
-    __u16 value,
-    __u16 index,
-    void *data,
-    __u16 size,
-    int timeout
-);
-
-int usb_bulk_msg(
-    struct usb_device *dev,
-    unsigned int pipe,
-    void *data,
-    int len,
-    int *actual_length,
-    int timeout
-);
-
-int usb_interrupt_msg(
-    struct usb_device *dev,
-    unsigned int pipe,
-    void *data,
-    int len,
-    int *actual_length,
-    int timeout
-);
-```
+:::code api-usb-core-functions/c/synkhronni-blokuiuchi.h
 
 - `timeout`: Максимальний час очікування у мілісекундах (передайте `0` для нескінченного очікування).
 - Повертають `0` або кількість переданих байтів при успіху, або від'ємний код помилки (наприклад, `-ETIMEDOUT`).

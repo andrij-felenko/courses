@@ -35,18 +35,7 @@ enum macvlan_mode {
     MACVLAN_MODE_SOURCE      = 16 /* Фільтрація вхідних пакетів за списком джерел */
 };
 ```
-```cpp
-// Ідіоматичне C++20 представлення режимів Macvlan
-#include <cstdint>
-
-enum class MacvlanMode : std::uint32_t {
-    Private     = 1,  // Повна ізоляція між віртуальними інтерфейсами
-    Vepa        = 2,  // Виштовхування трафіку на зовнішній комутатор (802.1Qbg)
-    Bridge      = 4,  // Внутрішня комутація L2 між сусідніми інтерфейсами
-    Passthrough = 8,  // Ексклюзивне володіння батьківським NIC (1:1)
-    Source      = 16  // Фільтрація вхідних пакетів за списком джерел
-};
-```
+:::code api-macvlan-netlink-sysfs/cpp/binarnyi-kontrakt-rezhymiv.cpp
 :::
 
 ### Додаткові бітові прапорці `MACVLAN_FLAG_*`
@@ -118,19 +107,7 @@ struct virtio_net_hdr {
     uint16_t csum_offset;/* Зміщення поля для запису контрольної суми */
 };
 ```
-```cpp
-// Ідіоматичне C++20 представлення VirtioNetHdr
-#include <cstdint>
-
-struct VirtioNetHdr {
-    std::uint8_t  flags{0};        // Прапорці апаратного розвантаження
-    std::uint8_t  gso_type{0};     // Тип сегментації (TSO4, TSO6, UDP GSO)
-    std::uint16_t hdr_len{0};      // Загальна довжина заголовків L2/L3/L4
-    std::uint16_t gso_size{0};     // Максимальний розмір сегмента MSS
-    std::uint16_t csum_start{0};   // Зміщення для обчислення CRC
-    std::uint16_t csum_offset{0};  // Зміщення поля запису CRC
-};
-```
+:::code api-macvlan-netlink-sysfs/cpp/zaholovok-kadry-virtio.cpp
 :::
 
 Детальний розбір полів заголовка `virtio_net_hdr`:

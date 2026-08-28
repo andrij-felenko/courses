@@ -14,22 +14,7 @@
 
 Структура `kobject` (від англ. *kernel object*) є фундаментальним будівельним блоком моделі пристроїв Linux. Вона рідко використовується як самостійна автономна змінна; замість цього її вбудовують (англ. *embed*) всередину більших структур підсистем — `struct device`, `struct module`, `struct bus_type` або `struct device_driver`.
 
-```c
-struct kobject {
-    const char          *name;
-    struct list_head    entry;
-    struct kobject      *parent;
-    struct kset         *kset;
-    const struct kobj_type *ktype;
-    struct kernfs_node  *sd;
-    struct kref         kref;
-    unsigned int state_initialized:1;
-    unsigned int state_in_sysfs:1;
-    unsigned int state_add_uevent_sent:1;
-    unsigned int state_remove_uevent_sent:1;
-    unsigned int uevent_suppress:1;
-};
-```
+:::code sysfs-kobject-sysfs-dirent-d/c/bazovyi-atom-iadra-struct.c
 
 Кожне поле структури `kobject` виконує строго визначену функцію у побудові графа та керуванні пам'яттю:
 - **`name`**: текстовий ідентифікатор об'єкта, який стає ім'ям відповідного каталогу у файловій системі sysfs.
@@ -228,104 +213,8 @@ struct attribute_group {
 Програма у просторі користувача може зчитувати події uevent безпосередньо через сокет Netlink.
 
 :::tabs
-```c
-/* Зчитування подій uevent через Netlink сокет у C */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <linux/netlink.h>
-
-int main(void) {
-    int fd = socket(PF_NETLINK, SOCK_RAW, NETLINK_KOBJECT_UEVENT);
-    if (fd < 0) return 1;
-
-    struct sockaddr_nl nls;
-    memset(&nls, 0, sizeof(nls));
-    nls.nl_family = AF_NETLINK;
-    nls.nl_pid = getpid();
-    nls.nl_groups = -1; /* Слухати всі групи uevent */
-
-    if (bind(fd, (struct sockaddr *)&nls, sizeof(nls)) < 0) {
-        close(fd);
-        return 1;
-    }
-
-    char buf[4096];
-    while (1) {
-        ssize_t len = recv(fd, buf, sizeof(buf) - 1, 0);
-        if (len > 0) {
-            buf[len] = '\0';
-            printf("Uevent: %s\n", buf);
-        }
-    }
-
-    close(fd);
-    return 0;
-}
-```
-```cpp
-// Зчитування подій uevent через Netlink сокет у C++ (RAII, виняток замість -1)
-#include <iostream>
-#include <vector>
-#include <string_view>
-#include <system_error>
-#include <cerrno>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <linux/netlink.h>
-
-class UeventSocket {
-    int fd_ = -1;
-public:
-    UeventSocket() {
-        fd_ = socket(PF_NETLINK, SOCK_RAW, NETLINK_KOBJECT_UEVENT);
-        if (fd_ < 0) throw std::system_error(errno, std::generic_category());
-
-        sockaddr_nl nls{};
-        nls.nl_family = AF_NETLINK;
-        nls.nl_pid = getpid();
-        nls.nl_groups = -1;
-
-        if (bind(fd_, reinterpret_cast<sockaddr*>(&nls), sizeof(nls)) < 0) {
-            int err = errno;
-            close(fd_);
-            fd_ = -1;
-            throw std::system_error(err, std::generic_category());
-        }
-    }
-
-    UeventSocket(const UeventSocket&) = delete;
-    UeventSocket& operator=(const UeventSocket&) = delete;
-
-    ~UeventSocket() {
-        if (fd_ >= 0) close(fd_);
-    }
-
-    void listen_events() {
-        std::vector<char> buffer(4096);
-        while (true) {
-            ssize_t len = recv(fd_, buffer.data(), buffer.size(), 0);
-            if (len > 0) {
-                std::cout << "Uevent: "
-                          << std::string_view(buffer.data(), static_cast<size_t>(len)) << "\n";
-            }
-        }
-    }
-};
-
-int main() {
-    try {
-        UeventSocket uevent;
-        uevent.listen_events();
-    } catch (const std::exception& e) {
-        std::cerr << "Помилка uevent сокета: " << e.what() << "\n";
-        return 1;
-    }
-    return 0;
-}
-```
+:::code sysfs-kobject-sysfs-dirent-d/c/podii-hariachoho.c
+:::code sysfs-kobject-sysfs-dirent-d/cpp/main.cpp
 :::
 
 > 🔧 **Навіщо це.**

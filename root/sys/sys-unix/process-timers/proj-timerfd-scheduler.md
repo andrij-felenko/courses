@@ -20,62 +20,7 @@
 
 Найпростіший обрис: кожна задача дістає свій timerfd із власним `it_interval`, і всі вони лежать в одному наборі [epoll](root:sys-unix/select-poll-epoll) — механізму, що присипляє потік одразу на багатьох дескрипторах і будить, щойно готовий бодай один, — поряд зі звичайними сокетами.
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/epoll.h>
-#include <sys/timerfd.h>
-
-enum policy { SKIP, CATCH_UP };
-
-typedef struct {
-    const char *name;
-    int64_t     period_ns;
-    enum policy policy;
-    void      (*run)(void);
-
-    int             fd;
-    struct timespec origin;        /* спільний нуль фази */
-    uint64_t        fired;         /* скільки спрацювань уже зараховано */
-    uint64_t        skipped;
-    int64_t         worst_late_ns;
-} task;
-
-static struct timespec ts_add_ns(struct timespec t, int64_t ns)
-{
-    int64_t x = t.tv_nsec + ns;
-    t.tv_sec  += x / 1000000000LL;
-    t.tv_nsec  = x % 1000000000LL;
-    if (t.tv_nsec < 0) { t.tv_nsec += 1000000000LL; t.tv_sec -= 1; }
-    return t;
-}
-
-static int64_t ts_sub_ns(struct timespec a, struct timespec b)   /* a − b */
-{
-    return (int64_t)(a.tv_sec - b.tv_sec) * 1000000000LL + (a.tv_nsec - b.tv_nsec);
-}
-
-static int task_arm(task *t, struct timespec origin, int epfd)
-{
-    t->fd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
-    if (t->fd < 0) return -1;
-    t->origin = origin;
-
-    struct itimerspec its = {
-        .it_value    = ts_add_ns(origin, t->period_ns),        /* АБСОЛЮТНИЙ перший строк */
-        .it_interval = { .tv_sec  = t->period_ns / 1000000000LL,
-                         .tv_nsec = t->period_ns % 1000000000LL },
-    };
-    if (timerfd_settime(t->fd, TFD_TIMER_ABSTIME, &its, NULL) < 0) return -1;
-
-    struct epoll_event ev = { .events = EPOLLIN, .data.ptr = t };
-    return epoll_ctl(epfd, EPOLL_CTL_ADD, t->fd, &ev);
-}
-```
+:::code proj-timerfd-scheduler/c/a-okremyi-deskryptor-na.c
 
 Тут працюють дві різні речі, і плутати їх не варто. Фазу періоду веде `it_interval` — ядро щоразу додає період до попереднього **дедлайну**, а не до миті доправлення, тож відставання нема де накопичуватися. А `TFD_TIMER_ABSTIME` стосується лише першого строку: він каже, що в `it_value` лежить не «через скільки», а точний момент на монотонному годиннику.
 
@@ -83,56 +28,7 @@ static int task_arm(task *t, struct timespec origin, int epfd)
 
 Тепер саме спрацювання:
 
-```c
-static void task_ready(task *t)
-{
-    uint64_t ticks;
-    if (read(t->fd, &ticks, sizeof ticks) != (ssize_t)sizeof ticks) {
-        if (errno == EAGAIN) return;          /* хибне пробудження — не помилка */
-        perror("read(timerfd)");
-        return;
-    }
-
-    struct timespec now;
-    clock_gettime(CLOCK_MONOTONIC, &now);
-
-    uint64_t n = t->fired + ticks;            /* номер останнього строку, що настав */
-    struct timespec nominal = ts_add_ns(t->origin, (int64_t)n * t->period_ns);
-    int64_t late = ts_sub_ns(now, nominal);
-    if (late > t->worst_late_ns) t->worst_late_ns = late;
-
-    if (t->policy == CATCH_UP)
-        for (uint64_t k = 0; k < ticks; k++) t->run();
-    else {
-        t->skipped += ticks - 1;
-        t->run();
-    }
-    t->fired = n;
-}
-
-int main(void)
-{
-    static task tasks[] = {
-        { .name = "датчик",     .period_ns =   20000000LL, .policy = SKIP,     .run = poll_sensor },
-        { .name = "телеметрія", .period_ns =  200000000LL, .policy = SKIP,     .run = send_telemetry },
-        { .name = "журнал",     .period_ns = 5000000000LL, .policy = CATCH_UP, .run = rotate_log },
-    };
-    int epfd = epoll_create1(EPOLL_CLOEXEC);
-
-    struct timespec origin;
-    clock_gettime(CLOCK_MONOTONIC, &origin);        /* спільний нуль фази для всіх задач */
-    for (size_t i = 0; i < sizeof tasks / sizeof *tasks; i++)
-        task_arm(&tasks[i], origin, epfd);
-
-    for (;;) {
-        struct epoll_event ev[16];
-        int n = epoll_wait(epfd, ev, 16, -1);
-        if (n < 0) { if (errno == EINTR) continue; break; }
-        for (int i = 0; i < n; i++)
-            task_ready(ev[i].data.ptr);             /* у справжній службі в data лежить */
-    }                                               /* мічена структура: тут таймер, там сокет */
-}
-```
+:::code proj-timerfd-scheduler/c/a-okremyi-deskryptor-na-2.c
 
 Номінал тут не зберігають — його **обчислюють**: `origin + n·period`. Тому запізнення міряється відносно ідеального розкладу, а не відносно попереднього спрацювання, і одна затримка не робить наступний вимір «своєчасним». `TFD_NONBLOCK` робить дескриптор [неблокуючим](root:sys-unix/blocking-and-nonblocking) — виклик, якому нема чого віддати, повертає `EAGAIN` замість того, щоб приспати потік, і цикл подій не завмирає через чуже пробудження.
 
@@ -144,74 +40,7 @@ int main(void)
 
 Тоді розклад тримають у програмі, а ядро просить розбудити рівно один раз — на **найближчий** дедлайн. Потрібна структура, що за O(log N) вставляє строк і миттєво показує найменший: [купа (черга з пріоритетом)](root:sf-algorithms/priority-queue-adt) — двійкове дерево в масиві, де кожен батько не пізніший за своїх дітей.
 
-```c
-typedef struct {
-    const char     *name;
-    int64_t         period_ns;
-    struct timespec due;           /* АБСОЛЮТНИЙ наступний строк, CLOCK_MONOTONIC */
-    void          (*run)(void);
-} job;
-
-static job    *heap[4096];
-static size_t  hn;
-
-static int ts_before(struct timespec a, struct timespec b)
-{
-    return a.tv_sec != b.tv_sec ? a.tv_sec < b.tv_sec : a.tv_nsec < b.tv_nsec;
-}
-
-static void sift_up(size_t i)
-{
-    while (i && ts_before(heap[i]->due, heap[(i - 1) / 2]->due)) {
-        job *t = heap[i]; heap[i] = heap[(i - 1) / 2]; heap[(i - 1) / 2] = t;
-        i = (i - 1) / 2;
-    }
-}
-
-static void sift_down(size_t i)
-{
-    for (;;) {
-        size_t l = 2 * i + 1, r = l + 1, m = i;
-        if (l < hn && ts_before(heap[l]->due, heap[m]->due)) m = l;
-        if (r < hn && ts_before(heap[r]->due, heap[m]->due)) m = r;
-        if (m == i) return;
-        job *t = heap[i]; heap[i] = heap[m]; heap[m] = t;
-        i = m;
-    }
-}
-
-static void heap_push(job *j) { heap[hn] = j; hn++; sift_up(hn - 1); }
-
-static void arm_head(int tfd)
-{
-    struct itimerspec its = {0};                  /* it_interval = 0 → строк одноразовий */
-    if (hn == 0) { timerfd_settime(tfd, 0, &its, NULL); return; }   /* {0,0} роззброює */
-
-    its.it_value = heap[0]->due;
-    if (its.it_value.tv_sec == 0 && its.it_value.tv_nsec == 0)
-        its.it_value.tv_nsec = 1;                 /* рівний нуль означав би «роззброїти» */
-    timerfd_settime(tfd, TFD_TIMER_ABSTIME, &its, NULL);
-}
-
-static void timer_ready(int tfd)
-{
-    uint64_t ticks;
-    if (read(tfd, &ticks, sizeof ticks) != (ssize_t)sizeof ticks && errno != EAGAIN)
-        perror("read(timerfd)");
-
-    struct timespec now;
-    clock_gettime(CLOCK_MONOTONIC, &now);
-
-    while (hn && !ts_before(now, heap[0]->due)) {          /* поки корінь уже дозрів */
-        job *j = heap[0];
-        j->run();
-        do  j->due = ts_add_ns(j->due, j->period_ns);      /* фаза — від НОМІНАЛУ */
-        while (!ts_before(now, j->due));                   /* політика «пропустити» */
-        sift_down(0);
-    }
-    arm_head(tfd);
-}
-```
+:::code proj-timerfd-scheduler/c/b-odyn-taimer-i-kupa.c
 
 Цикл `while` знімає **все**, чому час уже настав, — одного пробудження досить на скільки завгодно задач, що дозріли разом. Внутрішній `do…while` і є політикою пропуску: він проштовхує строк у майбутнє одним ривком. Прибравши його — лишивши просте `j->due = ts_add_ns(j->due, j->period_ns)`, — ви дістанете «надолужити» задарма: строк, що й далі в минулому, зовнішній цикл підбере ще раз, і задача виконається стільки разів, скільки пропустила.
 
@@ -247,31 +76,6 @@ B · один timerfd + купа
 
 **`ECANCELED` і календарні задачі.** Усе вище стоїть на `CLOCK_MONOTONIC`, який не стрибає ніколи, — і саме тому не годиться для «щодня о 03:00». Календарний строк живе на `CLOCK_REALTIME`, а той годинник адміністратор чи NTP можуть посунути. Ліки — прапорець `TFD_TIMER_CANCEL_ON_SET`, який діє тільки в парі з абсолютним строком на `CLOCK_REALTIME` (або `CLOCK_REALTIME_ALARM`): після розривної зміни годинника дескриптор стає готовим, а `read()` один раз повертає `ECANCELED` — «під тобою переставили час, перерахуй строк».
 
-```c
-/* дескриптор створено як timerfd_create(CLOCK_REALTIME, TFD_NONBLOCK | TFD_CLOEXEC) */
-static void cal_arm(int fd)
-{
-    time_t now = time(NULL);
-    struct tm t;
-    localtime_r(&now, &t);
-    t.tm_hour = 3; t.tm_min = 0; t.tm_sec = 0;
-    t.tm_isdst = -1;                       /* перехід на літній час хай визначає mktime */
-    time_t at = mktime(&t);
-    if (at <= now) { t.tm_mday += 1; t.tm_isdst = -1; at = mktime(&t); }
-
-    struct itimerspec its = { .it_value = { .tv_sec = at } };
-    timerfd_settime(fd, TFD_TIMER_ABSTIME | TFD_TIMER_CANCEL_ON_SET, &its, NULL);
-}
-
-static void cal_ready(int fd)
-{
-    uint64_t ticks;
-    if (read(fd, &ticks, sizeof ticks) == (ssize_t)sizeof ticks)
-        rotate_daily();
-    else if (errno == EAGAIN)
-        return;                            /* нічого не сталося — і переозброювати нічого */
-    cal_arm(fd);                           /* і після роботи, і після ECANCELED */
-}
-```
+:::code proj-timerfd-scheduler/c/pastky.c
 
 Звідси й підсумкова форма планувальника, що має обидва види задач: **два дескриптори на дві часові площини**. Періоди — на монотонному годиннику, де немає ні стрибків, ні `ECANCELED`; календарні події — на реальному, з `TFD_TIMER_CANCEL_ON_SET` і перерахунком дати після кожного зсуву. Змішувати їх в одному таймері не можна: годинник у timerfd обирається один раз, при створенні.

@@ -87,80 +87,8 @@ TUN/TAP змінює джерело та приймач даних. Для пі�
 Створення віртуального інтерфейсу з коду програмування вимагає взаємодії з викликом `ioctl(TUNSETIFF)`. Нижче наведено порівняльні приклади створення та конфігурації пристрою TUN мовами C та C++.
 
 :::tabs
-```c
-/* Приклад C: Створення TUN-інтерфейсу */
-#include <fcntl.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/if.h>
-#include <linux/if_tun.h>
-#include <stdio.h>
-
-int create_tun(char *dev_name) {
-    struct ifreq ifr;
-    int fd = open("/dev/net/tun", O_RDWR);
-    if (fd < 0) return -1;
-
-    memset(&ifr, 0, sizeof(ifr));
-    ifr.ifr_flags = IFF_TUN | IFF_NO_PI; /* L3 пристрій без додаткового заголовка */
-    if (dev_name && *dev_name) {
-        strncpy(ifr.ifr_name, dev_name, IFNAMSIZ - 1);
-    }
-
-    if (ioctl(fd, TUNSETIFF, (void *)&ifr) < 0) {
-        close(fd);
-        return -1;
-    }
-    strcpy(dev_name, ifr.ifr_name);
-    return fd;
-}
-```
-```cpp
-// Приклад C++: RAII-клас керування TUN-пристроєм
-#include <string>
-#include <string_view>
-#include <system_error>
-#include <cstring>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/if.h>
-#include <linux/if_tun.h>
-
-class ScopedTun {
-private:
-    int fd_{-1};
-    std::string name_;
-
-public:
-    explicit ScopedTun(std::string_view requested_name) {
-        fd_ = ::open("/dev/net/tun", O_RDWR);
-        if (fd_ < 0) {
-            throw std::system_error(errno, std::generic_category(), "Cannot open /dev/net/tun");
-        }
-
-        struct ifreq ifr{};
-        ifr.ifr_flags = IFF_TUN | IFF_NO_PI;
-        if (!requested_name.empty()) {
-            std::strncpy(ifr.ifr_name, requested_name.data(), IFNAMSIZ - 1);
-        }
-
-        if (::ioctl(fd_, TUNSETIFF, reinterpret_cast<void*>(&ifr)) < 0) {
-            ::close(fd_);
-            throw std::system_error(errno, std::generic_category(), "ioctl(TUNSETIFF) failed");
-        }
-        name_ = ifr.ifr_name;
-    }
-
-    ~ScopedTun() noexcept {
-        if (fd_ >= 0) ::close(fd_);
-    }
-
-    [[nodiscard]] int get_fd() const noexcept { return fd_; }
-    [[nodiscard]] const std::string& get_name() const noexcept { return name_; }
-};
-```
+:::code tun-tap-d/c/main.c
+:::code tun-tap-d/cpp/main.cpp
 :::
 
 Повноцінну реалізацію неблокуючого тунельного маршрутизатора з обробкою ICMP-пакетів та описом запуску наведено у практичній вставці [⚙️ Реалізація користувацького мережевого інтерфейсу та тунелю](root:sys-unix/tun-tap/proj-user-space-router.md).

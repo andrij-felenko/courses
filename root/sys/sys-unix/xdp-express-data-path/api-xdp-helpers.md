@@ -42,18 +42,7 @@ struct xdp_md {
 
 Визначена у заголовочному файлі ядра `<linux/filter.h>`. Використовується драйверами мережевих карт для ініціалізації контексту XDP до створення `sk_buff`:
 
-```c
-struct xdp_buff {
-    void *data;             /* Початок пакету */
-    void *data_end;         /* Кінець пакету */
-    void *data_meta;        /* Початок метаданих */
-    void *data_hard_start;  /* Фізичний початок allocated сторінки пам'яті */
-    struct xdp_rxq_info *rxq;/* Метадані про RX-чергу та драйвер */
-    struct xdp_mem_info mem;/* Інформація про модель управління пам'яттю (PAGE_POOL) */
-    enum xdp_mem_type type; /* Тип пам'яті (MEM_TYPE_PAGE_POOL, MEM_TYPE_PAGE_SHARED) */
-    u32 flags;              /* Прапорці (наприклад, XDP_FLAGS_MB для multi-buffer) */
-};
-```
+:::code api-xdp-helpers/c/main.c
 
 Поле `data_hard_start` указує на абсолютний початок сторінки пам'яті в RAM, виділеної драйвером під DMA. Відстань між `data_hard_start` та `data` називається Headroom. Початково ядро резервує там не менше 256 байт для забезпечення можливості додавання заголовків без перевиділення пам'яті.
 

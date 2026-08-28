@@ -13,42 +13,8 @@
 Нижче наведено вихідні файли бібліотеки мовами C та C++:
 
 :::tabs
-```c
-/* mylib.c — C-версія розділюваної бібліотеки */
-#include <stdio.h>
-
-int global_counter = 42;
-
-void internal_func(void) {
-    global_counter++;
-}
-
-void exported_func(const char* msg) {
-    internal_func();
-    printf("[mylib] %s (лічильник: %d)\n", msg, global_counter);
-}
-```
-```cpp
-// mylib.cpp — C++-версія розділюваної бібліотеки з RAII та шаблонами
-#include <iostream>
-#include <string_view>
-#include <memory>
-
-extern "C" {
-    int global_counter = 42;
-
-    void internal_func() {
-        global_counter++;
-    }
-
-    void exported_func(const char* msg) {
-        internal_func();
-        std::string_view message{msg};
-        std::cout << "[mylib cpp] " << message 
-                  << " (лічильник: " << global_counter << ")\n";
-    }
-}
-```
+:::code proj-pic-pie-demo/c/mylib.c
+:::code proj-pic-pie-demo/cpp/mylib.cpp
 :::
 
 У C++ версії ми використовуємо обгортку `extern "C"`, щоб зберегти сумісність імен функцій на рівні ABI без спотворення імен (Name Mangling). Це дозволяє лінкувальнику обробляти символи `global_counter` та `exported_func` точно так само, як у C-версії.
@@ -56,36 +22,8 @@ extern "C" {
 Тепер створимо вихідний код головного виконуваного файлу програми:
 
 :::tabs
-```c
-/* main.c — C-версія головного виконуваного файлу */
-#include <stdio.h>
-
-extern int global_counter;
-extern void exported_func(const char* msg);
-
-int main(void) {
-    printf("[main] Початкове значення лічильника: %d\n", global_counter);
-    exported_func("Виклик з main");
-    printf("[main] Кінцеве значення лічильника: %d\n", global_counter);
-    return 0;
-}
-```
-```cpp
-// main.cpp — C++-версія головного виконуваного файлу
-#include <iostream>
-
-extern "C" {
-    extern int global_counter;
-    extern void exported_func(const char* msg);
-}
-
-int main() {
-    std::cout << "[main cpp] Початкове значення: " << global_counter << "\n";
-    exported_func("Виклик з C++ main");
-    std::cout << "[main cpp] Кінцеве значення: " << global_counter << "\n";
-    return 0;
-}
-```
+:::code proj-pic-pie-demo/c/main.c
+:::code proj-pic-pie-demo/cpp/main.cpp
 :::
 
 ---
@@ -283,56 +221,8 @@ gdb ./demo_app
 Нижче наведено вихідний код бенчмарку на C та C++:
 
 :::tabs
-```c
-/* bench.c — Вимірювання часу викликів на C */
-#include <stdio.h>
-#include <time.h>
-
-static inline void local_func(long* val) {
-    (*val)++;
-}
-
-void external_dummy(long* val); // Зовнішня функція з бібліотеки
-
-int main(void) {
-    long count = 0;
-    clock_t start, end;
-
-    start = clock();
-    for (long i = 0; i < 100000000L; i++) {
-        local_func(&count);
-    }
-    end = clock();
-    printf("Локальний виклик (inlined/direct): %.4f сек\n", 
-           (double)(end - start) / CLOCKS_PER_SEC);
-
-    return 0;
-}
-```
-```cpp
-// bench.cpp — C++ вимірювання часу викликів
-#include <iostream>
-#include <chrono>
-
-static inline void local_func(long long& val) {
-    val++;
-}
-
-int main() {
-    long long count = 0;
-    auto start = std::chrono::high_resolution_clock::now();
-    
-    for (long long i = 0; i < 100000000LL; i++) {
-        local_func(count);
-    }
-    
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end - start;
-    
-    std::cout << "Локальний виклик C++: " << diff.count() << " сек\n";
-    return 0;
-}
-```
+:::code proj-pic-pie-demo/c/bench.c
+:::code proj-pic-pie-demo/cpp/bench.cpp
 :::
 
 ### Результати та аналіз вимірювань:

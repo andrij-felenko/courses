@@ -7,37 +7,8 @@
 Системний виклик `perf_event_open()` відсутній у стандартній заголовочній бібліотеці C (`libc`) і викликається у користувацьких програмах через низькорівневий мостик системних викликів `syscall()`:
 
 :::tabs
-```c
-#include <linux/perf_event.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-long perf_event_open(struct perf_event_attr *attr,
-                     pid_t pid,
-                     int cpu,
-                     int group_fd,
-                     unsigned long flags) {
-    return syscall(__NR_perf_event_open, attr, pid, cpu, group_fd, flags);
-}
-```
-```cpp
-#include <linux/perf_event.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-
-namespace sys::abi {
-    inline std::expected<int, std::error_code> perf_event_open(
-        struct perf_event_attr* attr, pid_t pid, int cpu, int group_fd, unsigned long flags) noexcept {
-        long res = ::syscall(__NR_perf_event_open, attr, pid, cpu, group_fd, flags);
-        if (res == -1) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-        return static_cast<int>(res);
-    }
-}
-```
+:::code api-perf-event-open/c/1-syhnatura-ta-matrytsia.c
+:::code api-perf-event-open/cpp/1-syhnatura-ta-matrytsia.cpp
 :::
 
 ### Детальний опис параметрів виклику
@@ -76,115 +47,8 @@ namespace sys::abi {
 Структура `struct perf_event_attr` визначає всі параметри налаштування події. Вона вирівняна за 64-бітним кордоном і має фіксований розмір `size`, що забезпечує зворотну сумісність між версіями ядра Linux.
 
 :::tabs
-```c
-/* Структура конфігурації perf_event у C UAPI header <linux/perf_event.h> */
-struct perf_event_attr {
-    __u32 type;                 /* Тип події (PERF_TYPE_*) */
-    __u32 size;                 /* Розмір структури sizeof(struct perf_event_attr) */
-    __u64 config;               /* Конфігурація конкретної події */
-
-    union {
-        __u64 sample_period;    /* Період вибірки (кількість подій на NMI) */
-        __u64 sample_freq;      /* Динамічна частота вибірки у Гц */
-    };
-
-    __u64 sample_type;          /* Бітова маска полів, що записуються у вибірку */
-    __u64 read_format;          /* Формат даних при виклику read() */
-
-    __u64 disabled       : 1,   /* Подія створюється у вимкненому стані */
-          inherit        : 1,   /* Успадковувати подію дочірніми потоками (fork) */
-          pinned         : 1,   /* Подія має залишатися на HW PMC (лише для лідерів) */
-          exclusive      : 1,   /* Захоплює HW PMC монопольно */
-          exclude_user   : 1,   /* Не рахувати події у user-space (ring 3) */
-          exclude_kernel : 1,   /* Не рахувати події у kernel-space (ring 0) */
-          exclude_hv     : 1,   /* Не рахувати події у гіпервізорі (KVM/Xen) */
-          exclude_idle   : 1,   /* Не рахувати події коли CPU перебуває в idle */
-          mmap           : 1,   /* Відстежувати виклики mmap (PERF_RECORD_MMAP) */
-          comm           : 1,   /* Відстежувати зміни імені процесу (PERF_RECORD_COMM) */
-          freq           : 1,   /* Використовувати sample_freq замість sample_period */
-          inherit_stat   : 1,   /* Збирати статистику для дочірніх процесів */
-          enable_on_exec : 1,   /* Автоматично вмикати подію при execve() */
-          task           : 1,   /* Генерувати події fork/exit (PERF_RECORD_FORK/EXIT) */
-          watermark      : 1,   /* Сигналізувати wakeup_watermark байтів у буфері */
-          precise_ip     : 2,   /* Рівень точності RIP (0..3, PEBS/IBS) */
-          mmap_data      : 1,   /* Відстежувати mmap для даних (non-executable) */
-          sample_id_all  : 1,   /* Додавати TID/TIME до усіх типів PERF_RECORD_* */
-          exclude_host   : 1,   /* Не рахувати події хоста у віртуалізації */
-          exclude_guest  : 1,   /* Не рахувати події гостя у віртуалізації */
-          exclude_callchain_kernel : 1, /* Виключити стек ядра з callchain */
-          exclude_callchain_user   : 1, /* Виключити стек користувача з callchain */
-          mmap2          : 1,   /* Розширені події mmap (PERF_RECORD_MMAP2) */
-          comm_exec      : 1,   /* Помічати зміни COMM зумовлені саме execve() */
-          use_clockid    : 1,   /* Використовувати специфічний clockid */
-          context_switch : 1,   /* Записувати перемикання контексту */
-          write_backward : 1,   /* Кільцевий буфер записується у зворотному напрямку */
-          namespaces     : 1,   /* Записувати події зміни namespaces */
-          ksymbol        : 1,   /* Записувати події завантаження kallsyms */
-          bpf_event      : 1,   /* Записувати події завантаження/видалення BPF-програм */
-          aux_output     : 1,   /* Перенаправляти вихід у AUX-буфер (Intel PT) */
-          cgroup         : 1,   /* Записувати ідентифікатори cgroup */
-          text_poke      : 1,   /* Записувати зміни коду ядра (kprobes/ftrace) */
-          build_id       : 1,   /* Додавати Build-ID до подій MMAP2 */
-          inherit_thread : 1,   /* Успадковувати лише потоками (не новими процесами) */
-          remove_on_exec : 1,   /* Видаляти подію при виконанні execve() */
-          sigtrap        : 1,   /* Надсилати SIGTRAP при переповненні замість NMI */
-          __reserved_1   : 26;
-
-    union {
-        __u32 wakeup_events;    /* Кількість вибірок до генерування POLL_IN */
-        __u32 wakeup_watermark; /* Кількість байтів у буфері до POLL_IN */
-    };
-
-    __u32 bp_type;              /* Тип HW Точки зупинки (HW_BREAKPOINT_R/W/X) */
-
-    union {
-        __u64 bp_addr;          /* Віртуальна адреса точки зупинки */
-        __u64 kprobe_func;      /* Адреса або ім'я функції для kprobe */
-        __u64 uprobe_path;      /* Шлях до ELF-файлу для uprobe */
-        __u64 config1;          /* Додаткові параметри розширеного PMU */
-    };
-
-    union {
-        __u64 bp_len;           /* Довжина маски точки зупинки (1, 2, 4, 8 байтів) */
-        __u64 kprobe_addr;      /* Зсув всередині функції kprobe */
-        __u64 probe_offset;     /* Зсув у файлі для uprobe */
-        __u64 config2;          /* Додаткові параметри raw PMU */
-    };
-
-    __u64 branch_sample_type;   /* Бітова маска фільтрації подій LBR */
-    __u64 sample_regs_user;     /* Маска CPU-регістрів користувача у вибірці */
-    __u32 sample_stack_user;    /* Розмір сирого стеку користувача у вибірці */
-    __s32 clockid;              /* Ідентифікатор годинника (CLOCK_MONOTONIC тощо) */
-    __u64 sample_regs_intr;     /* Маска регістрів переривання у вибірці */
-    __u32 aux_watermark;        /* Поріг водяного знака для AUX буфера */
-    __u16 sample_max_stack;     /* Максимальна глибина кадру callchain */
-    __u16 __reserved_2;
-    __u32 aux_sample_size;      /* Розмір вибірки AUX даних */
-    __u32 __reserved_3;
-    __u64 sigtrap_data;         /* Пори користувача для SIGTRAP */
-};
-```
-```cpp
-// Обгортка створення конфігурації perf_event_attr у C++20
-#include <linux/perf_event.h>
-#include <cstdint>
-#include <cstring>
-
-namespace sys {
-    inline perf_event_attr make_hardware_attr(std::uint64_t config, std::uint64_t sample_period) noexcept {
-        perf_event_attr attr{};
-        attr.type = PERF_TYPE_HARDWARE;
-        attr.size = sizeof(perf_event_attr);
-        attr.config = config;
-        attr.sample_period = sample_period;
-        attr.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_TIME;
-        attr.disabled = 1;
-        attr.exclude_kernel = 1;
-        attr.exclude_hv = 1;
-        return attr;
-    }
-}
-```
+:::code api-perf-event-open/c/2-spetsyfikatsiia.c
+:::code api-perf-event-open/cpp/2-spetsyfikatsiia.cpp
 :::
 
 ### Детальні значення прапорців точного саплінгу (`precise_ip`)
@@ -257,59 +121,8 @@ namespace sys {
 При виклику `mmap()` на файловому дескрипторі `perf` перша сторінка пам'яті (Page 0, розміром 4096 байтів) відводиться під заголовочну структуру управління `struct perf_event_mmap_page`.
 
 :::tabs
-```c
-/* Заголовочна сторінка mmap буфера у C UAPI header <linux/perf_event.h> */
-struct perf_event_mmap_page {
-    __u32 version;              /* Версія структури ядра */
-    __u32 compat_version;       /* Найменша сумісна версія */
-    __u32 lock;                 /* Атомарний замок оновлення */
-    __u32 index;                /* Апаратний індекс PMC регістру */
-    __s64 offset;               /* Зсув для обчислення значення без syscall */
-    __u64 time_enabled;         /* Загальний час активності події (наносекунди) */
-    __u64 time_running;         /* Час фактичного виконання події на HW PMC */
-    union {
-        __u64 capabilities;
-        struct {
-            __u64 cap_bit0 : 1,
-                  cap_user_rdpmc : 1, /* Дозволено пряме читання RDPMC з user-space */
-                  cap_user_time  : 1, /* Дозволено пряме читання TSC з user-space */
-                  cap_user_time_zero : 1,
-                  cap_user_time_short: 1,
-                  cap_cap_user_time_zero: 1,
-                  cap_architectural_bits: 58;
-        };
-    };
-    __u16 pmc_width;            /* Бітова ширина апаратного лічильника (наприклад, 48 біт) */
-    __u16 time_shift;           /* Коефіцієнт зсуву для конвертації TSC у наносекунди */
-    __u32 time_mult;            /* Множник для конвертації TSC у наносекунди */
-    __u64 time_zero;            /* Базовий час для конвертації TSC */
-    __u32 size;                 /* Розмір структури perf_event_mmap_page */
-
-    __u64 data_head;            /* Курсор запису ядра (monotonically increasing) */
-    __u64 data_tail;            /* Курсор читання користувача (підтримується user-space) */
-    __u64 data_offset;          /* Зсув початку буфера даних (4096 байтів) */
-    __u64 data_size;            /* Розмір буфера даних у байтах (2^N сторінок) */
-    __u64 aux_head;             /* Курсор запису AUX буфера */
-    __u64 aux_tail;             /* Курсор читання AUX буфера */
-    __u64 aux_offset;           /* Зсув AUX буфера */
-    __u64 aux_size;             /* Розмір AUX буфера */
-};
-```
-```cpp
-// Зчитування data_head у C++20 з використанням std::atomic_load_explicit
-#include <linux/perf_event.h>
-#include <atomic>
-#include <cstdint>
-
-namespace sys {
-    inline std::uint64_t read_ring_buffer_head(const perf_event_mmap_page* page) noexcept {
-        return std::atomic_load_explicit(
-            reinterpret_cast<const std::atomic<std::uint64_t>*>(&page->data_head),
-            std::memory_order_acquire
-        );
-    }
-}
-```
+:::code api-perf-event-open/c/4-struktura-rozdiliuvanoi.c
+:::code api-perf-event-open/cpp/4-struktura-rozdiliuvanoi.cpp
 :::
 
 ### Формула обчислення наносекунд з інструкції RDTSC у user-space
@@ -328,19 +141,7 @@ uint64_t calculate_ns(uint64_t time_zero, uint32_t time_mult, uint16_t time_shif
     return time_zero + quot * time_mult + ((rem * time_mult) >> time_shift);
 }
 ```
-```cpp
-#include <x86intrin.h>
-#include <cstdint>
-
-namespace sys {
-    inline std::uint64_t calculate_ns(std::uint64_t time_zero, std::uint32_t time_mult, std::uint16_t time_shift) noexcept {
-        std::uint64_t tsc = __rdtsc();
-        std::uint64_t quot = tsc >> time_shift;
-        std::uint64_t rem  = tsc & ((1ULL << time_shift) - 1);
-        return time_zero + quot * time_mult + ((rem * time_mult) >> time_shift);
-    }
-}
-```
+:::code api-perf-event-open/cpp/formula-obchyslennia.hpp
 :::
 
 ---
@@ -394,21 +195,7 @@ struct sample_event {
     __u64 ips[1];               /* Масив вказівників інструкцій стеку викликів */
 };
 ```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <span>
-
-namespace sys {
-    struct ParsedSampleEvent {
-        std::uint64_t ip;
-        std::uint32_t pid;
-        std::uint32_t tid;
-        std::uint64_t time;
-        std::vector<std::uint64_t> callchain;
-    };
-}
-```
+:::code api-perf-event-open/cpp/5-2-struktura-perf-record.cpp
 :::
 
 ---

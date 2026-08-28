@@ -106,21 +106,7 @@ struct security_hook_list {
 
 У спрощеному вигляді внутрішній обробник `security_file_open()` у ядрі реалізовано так:
 
-```c
-/* security/security.c */
-int security_file_open(struct file *file)
-{
-	struct security_hook_list *hp;
-	int rc;
-
-	hlist_for_each_entry(hp, &security_hook_heads.file_open, list) {
-		rc = hp->hook.file_open(file);
-		if (rc)
-			return rc; /* Short-circuit: відмова одного модуля зупиняє ланцюг */
-	}
-	return 0; /* Усі модулі в стеку дозволили операцію */
-}
-```
+:::code lsm-stacking-multiple-modules-d/c/security.c
 
 Такий підхід забезпечує максимальний рівень захисту: для успішного виконання системного виклику потрібна згода **кожного** активованого модуля безпеки. Якщо Landlock дозволяє відкрити файл, SELinux також дозволяє, але BPF-LSM повертає `-EACCES`, підсумковим результатом для користувацького процесу буде відмова у доступі (`-EACCES`), а решта ланцюга навіть не викликатиметься, економлячи такти процесора. Важливо, що в ланцюгу конкретного гачка стоять лише ті модулі, які саме цей гачок зареєстрували: Yama, наприклад, чіпляється до операцій над процесами (`ptrace`) і в ланцюгу `file_open` не з'являється взагалі.
 
@@ -234,96 +220,8 @@ CONFIG_LSM="landlock,lockdown,yama,loadpin,safesetid,integrity,selinux,smack,tom
 Нижче наведено приклад програми користувацького простору, яка запитує перелік активних модулів LSM у системі з використанням вкладки **C** та ідіоматичної вкладки **C++**:
 
 :::tabs
-```c
-/* inspect_lsm.c */
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdint.h>
-#include <errno.h>
-
-#ifndef __NR_lsm_list_modules
-#define __NR_lsm_list_modules 461
-#endif
-
-int main(void)
-{
-	uint64_t ids[16];
-	uint32_t size = sizeof(ids);
-
-	/* Запитуємо у ядра масив ідентифікаторів активованих модулів LSM */
-	long count = syscall(__NR_lsm_list_modules, ids, &size, 0);
-
-	if (count < 0) {
-		if (errno == ENOSYS) {
-			printf("Системний виклик lsm_list_modules відсутній (потрібне ядро >= 6.8)\n");
-		} else {
-			perror("Помилка виконання lsm_list_modules");
-		}
-		return 1;
-	}
-
-	printf("Кількість активних модулів LSM у стеку: %ld\n", count);
-	for (long i = 0; i < count; i++) {
-		printf("  [%ld] Module LSM ID: 0x%lx\n", i, (unsigned long)ids[i]);
-	}
-
-	return 0;
-}
-```
-```cpp
-// inspect_lsm.cpp
-#include <iostream>
-#include <vector>
-#include <cstdint>
-#include <cerrno>
-#include <cstring>
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <expected>
-
-#ifndef __NR_lsm_list_modules
-#define __NR_lsm_list_modules 461
-#endif
-
-namespace sys::lsm {
-
-// Запит активних модулів безпеки через новий системний виклик Linux 6.8+
-std::expected<std::vector<std::uint64_t>, std::string> get_active_lsm_ids() {
-    std::vector<std::uint64_t> ids(16);
-    std::uint32_t size = static_cast<std::uint32_t>(ids.size() * sizeof(std::uint64_t));
-
-    const long count = ::syscall(__NR_lsm_list_modules, ids.data(), &size, 0);
-    if (count < 0) {
-        if (errno == ENOSYS) {
-            return std::unexpected("Системний виклик lsm_list_modules не підтримується цим ядром (< 6.8)");
-        }
-        return std::unexpected(std::string("Помилка lsm_list_modules: ") + std::strerror(errno));
-    }
-
-    ids.resize(static_cast<std::size_t>(count));
-    return ids;
-}
-
-} // namespace sys::lsm
-
-int main() {
-    auto lsm_ids = sys::lsm::get_active_lsm_ids();
-    if (!lsm_ids) {
-        std::cerr << "Помилка: " << lsm_ids.error() << "\n";
-        return 1;
-    }
-
-    std::cout << "Кількість активних модулів LSM у стеку: " << lsm_ids->size() << "\n";
-    std::size_t idx = 0;
-    for (const auto id : *lsm_ids) {
-        std::cout << "  [" << idx++ << "] Module LSM ID: 0x" << std::hex << id << std::dec << "\n";
-    }
-
-    return 0;
-}
-```
+:::code lsm-stacking-multiple-modules-d/c/inspect_lsm.c
+:::code lsm-stacking-multiple-modules-d/cpp/inspect_lsm.cpp
 :::
 
 Детальний приклад створення власних модулів ядра та використання висувних блоків пам'яті наведено у вставці [Реєстрація модуля LSM та робота зі зміщеннями контексту](root:sys-unix/lsm-stacking-multiple-modules/proj-lsm-blob-offset.md).

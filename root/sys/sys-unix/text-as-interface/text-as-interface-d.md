@@ -103,21 +103,7 @@ int format_mount_entry(char *buf, size_t buf_size, int id, int parent_id,
                     id, parent_id, major, minor, mountpoint, root, fstype);
 }
 ```
-```cpp
-#include <string>
-#include <string_view>
-#include <format>
-
-// Безпечна генерація форматованого рядкового запису (C++20)
-std::string format_mount_entry_cpp(int id, int parent_id,
-                                   unsigned int major, unsigned int minor,
-                                   std::string_view mountpoint,
-                                   std::string_view root,
-                                   std::string_view fstype) {
-    return std::format("{} {} {}:{} {} {} {}\n",
-                        id, parent_id, major, minor, mountpoint, root, fstype);
-}
-```
+:::code text-as-interface-d/cpp/heneratsiia-tekstu-v-iadri.cpp
 :::
 
 Підсистема `seq_file` автоматично управляє виділенням сторінок пам'яті ядра, зміщенням покажчика читання `loff_t *pos` та фрагментацією потоку. Ядро гарантує, що кожен системний об'єкт перетворюється на атомарний текстовий рядок, розділений `\n`, який стандартні утиліти простору користувача можуть зчитувати за допомогою стандартних викликів `read()` та фільтрувати через конвеєри.
@@ -133,136 +119,8 @@ std::string format_mount_entry_cpp(int id, int parent_id,
 У сучасному C++ для запобігання зайвим алокаціям пам'яті на купі застосовується неволодіючий інтерфейс `std::string_view` у поєднанні з функцією безалокаційного парсингу чисел `std::from_chars`.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-// Структура облікового запису /etc/passwd
-typedef struct {
-    char *username;
-    unsigned int uid;
-    unsigned int gid;
-    char *homedir;
-    char *shell;
-} UserRecord;
-
-// Порядковий потоковий парсер формату з роздільником ':'
-int parse_passwd_stream(FILE *stream) {
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read_bytes;
-
-    while ((read_bytes = getline(&line, &len, stream)) != -1) {
-        // Видалення завершального переносу рядка \n
-        if (read_bytes > 0 && line[read_bytes - 1] == '\n') {
-            line[read_bytes - 1] = '\0';
-        }
-
-        // Пропуск коментарів та порожніх рядків
-        if (line[0] == '#' || line[0] == '\0') {
-            continue;
-        }
-
-        char *cursor = line;
-        char *username = strsep(&cursor, ":");
-        char *password = strsep(&cursor, ":"); // Пропуск хешу пароля
-        char *uid_str  = strsep(&cursor, ":");
-        char *gid_str  = strsep(&cursor, ":");
-        char *gecos    = strsep(&cursor, ":"); // Пропуск коментаря
-        char *homedir  = strsep(&cursor, ":");
-        char *shell    = strsep(&cursor, ":");
-
-        if (username && uid_str && gid_str && homedir && shell) {
-            unsigned int uid = (unsigned int)strtoul(uid_str, NULL, 10);
-            unsigned int gid = (unsigned int)strtoul(gid_str, NULL, 10);
-
-            // Фільтрація користувачів з UID >= 1000
-            if (uid >= 1000) {
-                printf("Користувач: %-15s UID: %-5u Home: %-20s Shell: %s\n",
-                       username, uid, homedir, shell);
-            }
-        }
-        (void)password;
-        (void)gecos;
-    }
-
-    free(line);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <string_view>
-#include <charconv>
-#include <vector>
-#include <optional>
-
-struct UserRecord {
-    std::string username;
-    unsigned int uid{0};
-    unsigned int gid{0};
-    std::string homedir;
-    std::string shell;
-};
-
-// Безпечний безалокаційний синтаксичний розбір рядка за роздільником
-std::optional<UserRecord> parse_passwd_line(std::string_view line) {
-    if (line.empty() || line.starts_with('#')) {
-        return std::nullopt;
-    }
-
-    std::vector<std::string_view> fields;
-    size_t start = 0;
-    while (start <= line.size()) {
-        const size_t end = line.find(':', start);
-        if (end == std::string_view::npos) {
-            fields.push_back(line.substr(start));
-            break;
-        }
-        fields.push_back(line.substr(start, end - start));
-        start = end + 1;
-    }
-
-    if (fields.size() < 7) {
-        return std::nullopt;
-    }
-
-    unsigned int uid = 0;
-    unsigned int gid = 0;
-    auto [p1, ec1] = std::from_chars(fields[2].data(), fields[2].data() + fields[2].size(), uid);
-    auto [p2, ec2] = std::from_chars(fields[3].data(), fields[3].data() + fields[3].size(), gid);
-
-    if (ec1 != std::errc{} || ec2 != std::errc{}) {
-        return std::nullopt;
-    }
-
-    return UserRecord{
-        .username = std::string(fields[0]),
-        .uid = uid,
-        .gid = gid,
-        .homedir = std::string(fields[5]),
-        .shell = std::string(fields[6])
-    };
-}
-
-void parse_passwd_file(std::istream& input) {
-    std::string line;
-    while (std::getline(input, line)) {
-        if (const auto record = parse_passwd_line(line)) {
-            if (record->uid >= 1000) {
-                std::cout << "Користувач: " << record->username 
-                          << ", UID: " << record->uid 
-                          << ", Home: " << record->homedir 
-                          << ", Shell: " << record->shell << '\n';
-            }
-        }
-    }
-}
-```
+:::code text-as-interface-d/c/main.c
+:::code text-as-interface-d/cpp/prohramnyi-syntaksychnyi.cpp
 :::
 
 Завдяки тому, що текстовий потік зберігається у лінійному масиві пам'яті, сучасні компілятори та бібліотеки мови C (`glibc`) оптимізують пошук символів-роздільників (`\n`, `:`) за допомогою інструкцій векторного прискорення SIMD (AVX2, AVX-512, ARM NEON). Функції типу `memchr()` сканують по 32 або 64 байти за один такт процесора, забезпечуючи швидкість розбору текстових потоків на рівні кількох гігабайтів на секунду.

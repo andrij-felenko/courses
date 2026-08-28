@@ -58,54 +58,8 @@ struct rtc_time {
 Отримання значень цих годинників демонструє приклад коду мовами C та C++:
 
 :::tabs
-```c
-#define _POSIX_C_SOURCE 200809L
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-
-static void print_clock(clockid_t clk_id, const char *name) {
-    struct timespec ts;
-    if (clock_gettime(clk_id, &ts) == 0) {
-        printf("%-20s: %ld.%09ld с\n", name, (long)ts.tv_sec, ts.tv_nsec);
-    } else {
-        perror(name);
-    }
-}
-
-int main(void) {
-    print_clock(CLOCK_REALTIME, "CLOCK_REALTIME");
-    print_clock(CLOCK_MONOTONIC, "CLOCK_MONOTONIC");
-    print_clock(CLOCK_BOOTTIME, "CLOCK_BOOTTIME");
-    print_clock(CLOCK_TAI, "CLOCK_TAI");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <chrono>
-#include <iomanip>
-#include <ctime>
-
-void print_clock_cpp(clockid_t clk_id, const char* name) {
-    struct timespec ts{};
-    if (clock_gettime(clk_id, &ts) == 0) {
-        std::cout << std::left << std::setw(20) << name << ": "
-                  << ts.tv_sec << "." << std::setw(9) << std::setfill('0')
-                  << ts.tv_nsec << " с\n";
-    } else {
-        std::cerr << "Помилка читання годинника: " << name << '\n';
-    }
-}
-
-int main() {
-    print_clock_cpp(CLOCK_REALTIME, "CLOCK_REALTIME");
-    print_clock_cpp(CLOCK_MONOTONIC, "CLOCK_MONOTONIC");
-    print_clock_cpp(CLOCK_BOOTTIME, "CLOCK_BOOTTIME");
-    print_clock_cpp(CLOCK_TAI, "CLOCK_TAI");
-    return 0;
-}
-```
+:::code wall-clock-and-timezones-d/c/podviinist-chasu-aparatnyi.c
+:::code wall-clock-and-timezones-d/cpp/podviinist-chasu-aparatnyi.cpp
 :::
 
 > 🔧 **Навіщо це.** `CLOCK_REALTIME` потрібен виключно тоді, коли значення показують людині, зберігають у полі `mtime` файлу або відправляють у зовнішній лог. Вимірювати тривалість операції чи задавати таймаут мережевого сокета за `CLOCK_REALTIME` суворо заборонено: якщо в цей момент демон NTP переведе системний годинник на 5 секунд назад, різниця двох викликів виявиться від'ємною, а таймаут або зависне назавжди, або спрацює миттєво. Для таймерів та інтервалів стандартом є `CLOCK_MONOTONIC`, а для фонових задач, які мають прокидатися навіть після глибокого сну ноутбука — `CLOCK_BOOTTIME`.
@@ -308,51 +262,8 @@ struct tm {
 Суфікс `_r` означає **реєнтерабельність** (англ. *reentrant* / thread-safe). Застарілі функції без суфікса `_r` (`gmtime()` та `localtime()`) повертають вказівник на єдину статичну структуру всередині бібліотеки C: якщо два потоки одночасно викличуть `localtime()`, один потік перезапише результати іншого, створивши важковловимий стан гонитви.
 
 :::tabs
-```c
-#define _POSIX_C_SOURCE 200809L
-#include <stdio.h>
-#include <time.h>
-
-int main(void) {
-    time_t now = time(NULL);
-    struct tm tm_utc, tm_local;
-
-    gmtime_r(&now, &tm_utc);
-    localtime_r(&now, &tm_local);
-
-    char buf_utc[64], buf_local[64];
-    strftime(buf_utc, sizeof(buf_utc), "%Y-%m-%d %H:%M:%S %Z", &tm_utc);
-    strftime(buf_local, sizeof(buf_local), "%Y-%m-%d %H:%M:%S %Z (UTC%z)", &tm_local);
-
-    printf("time_t          : %ld\n", (long)now);
-    printf("UTC час         : %s\n", buf_utc);
-    printf("Локальний час   : %s\n", buf_local);
-    printf("Літній час (DST): %s\n", tm_local.tm_isdst > 0 ? "ТАК" : "НІ");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <chrono>
-#include <ctime>
-#include <iomanip>
-
-int main() {
-    const auto now = std::chrono::system_clock::now();
-    const std::time_t now_c = std::chrono::system_clock::to_time_t(now);
-
-    std::tm tm_utc{}, tm_local{};
-    gmtime_r(&now_c, &tm_utc);
-    localtime_r(&now_c, &tm_local);
-
-    std::cout << "time_t          : " << now_c << '\n';
-    std::cout << "UTC час         : " << std::put_time(&tm_utc, "%Y-%m-%d %H:%M:%S %Z") << '\n';
-    std::cout << "Локальний час   : " << std::put_time(&tm_local, "%Y-%m-%d %H:%M:%S %Z (UTC%z)") << '\n';
-    std::cout << "Літній час (DST): " << (tm_local.tm_isdst > 0 ? "ТАК" : "НІ") << '\n';
-
-    return 0;
-}
-```
+:::code wall-clock-and-timezones-d/c/peretvorennia-chasu-gmtime.c
+:::code wall-clock-and-timezones-d/cpp/peretvorennia-chasu-gmtime.cpp
 :::
 
 ### Високосні секунди в базі tzdata: posix проти right
@@ -395,22 +306,7 @@ System clock synchronized: yes
 
 Основні адміністративні операції виконуються спеціалізованими підкомандами:
 
-```bash
-# Переглянути список усіх доступних часових поясів з бази IANA
-timedatectl list-timezones | grep -i kyiv
-
-# Встановити часовий пояс (systemd-timedated атомарно оновлює /etc/localtime)
-timedatectl set-timezone Europe/Kyiv
-
-# Встановити системний час вручну (лише при вимкненому NTP)
-timedatectl set-time "2026-08-25 20:00:00"
-
-# Переконатися, що RTC працює в режимі UTC (значення 0 = UTC, значення 1 = Local Time)
-timedatectl set-local-rtc 0
-
-# Увімкнути або вимкнути службу автоматичної синхронізації NTP
-timedatectl set-ntp true
-```
+:::code wall-clock-and-timezones-d/sh/main.sh
 
 Якщо адміністратор помилково виконує `timedatectl set-local-rtc 1`, утиліта виводить детальне системне попередження про те, що режим локального часу в RTC не підтримується стандартами, викликає збої при переході на літній час і порушує роботу дистрибутива.
 

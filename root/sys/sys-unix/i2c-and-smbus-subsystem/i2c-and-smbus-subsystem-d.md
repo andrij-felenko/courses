@@ -110,32 +110,7 @@ SCL ────────────────┴────────�
 
 Кожен зареєстрований у системі контролер шини I²C/SMBus описується в ядрі екземпляром структури `struct i2c_adapter`:
 
-```c
-struct i2c_adapter {
-	struct module *owner;
-	unsigned int class;
-	const struct i2c_algorithm *algo;
-	void *algo_data;
-
-	const struct i2c_lock_operations *lock_ops;
-	struct rt_mutex bus_lock;
-	struct rt_mutex mux_lock;
-
-	int timeout;
-	int retries;
-	struct device dev;
-
-	int nr;
-	char name[48];
-	struct completion dev_released;
-
-	struct mutex userspace_clients_lock;
-	struct list_head userspace_clients;
-
-	struct i2c_bus_recovery_info *bus_recovery_info;
-	const struct i2c_adapter_quirks *quirks;
-};
-```
+:::code i2c-and-smbus-subsystem-d/c/3-1-struct-i2c-adapter.c
 
 Поле `nr` містить унікальний цілочисельний номер шини (наприклад, `0` для `/dev/i2c-0`). Вбудований об'єкт `dev` зв'язує адаптер із деревом пристроїв ядра: у файловій системі sysfs адаптер з'являється за шляхом `/sys/bus/i2c/devices/i2c-N/` або `/sys/devices/.../i2c-N/`.
 
@@ -145,23 +120,7 @@ struct i2c_adapter {
 
 Адаптер шини не містить апаратного коду напряму — він делегує виконання фізичних операцій таблиці методів `struct i2c_algorithm`:
 
-```c
-struct i2c_algorithm {
-	int (*master_xfer)(struct i2c_adapter *adap, struct i2c_msg *msgs,
-			   int num);
-	int (*master_xfer_atomic)(struct i2c_adapter *adap,
-				  struct i2c_msg *msgs, int num);
-	int (*smbus_xfer)(struct i2c_adapter *adap, u16 addr,
-			  unsigned short flags, char read_write,
-			  u8 command, int size, union i2c_smbus_data *data);
-	int (*smbus_xfer_atomic)(struct i2c_adapter *adap, u16 addr,
-				 unsigned short flags, char read_write,
-				 u8 command, int size, union i2c_smbus_data *data);
-	u32 (*functionality)(struct i2c_adapter *adap);
-	int (*reg_slave)(struct i2c_client *client);
-	int (*unreg_slave)(struct i2c_client *client);
-};
-```
+:::code i2c-and-smbus-subsystem-d/c/3-2-struct-i2c-algorithm.h
 
 Контролери шини поділяються на два класи:
 1. **Повнофункціональні контролери I²C (SoC, bit-banging):** вони реалізують метод `master_xfer()`, який приймає масив сирих повідомлень `struct i2c_msg` довільної довжини. Метод `smbus_xfer` у таких драйверах зазвичай залишається `NULL`, оскільки команди SMBus автоматично транслюються ядром у виклики `master_xfer`.
@@ -173,18 +132,7 @@ struct i2c_algorithm {
 
 Кожен ведений пристрій на шині представляється структурою `struct i2c_client`:
 
-```c
-struct i2c_client {
-	unsigned short flags;
-	unsigned short addr;
-	char name[I2C_NAME_SIZE];
-	struct i2c_adapter *adapter;
-	struct device dev;
-	int init_irq;
-	int irq;
-	struct list_head detected;
-};
-```
+:::code i2c-and-smbus-subsystem-d/c/3-3-struct-i2c-client-opys.c
 
 Поле `addr` містить 7-бітну апаратну адресу (без зсуву та без біта R/W, наприклад `0x48` або `0x76`). Поле `adapter` вказує на батьківський шинний контролер. Поле `irq` містить номер лінії переривання процесора, якщо вивід тривоги або готовності мікросхеми підключено до лінії GPIO. Вбудована структура `dev` реєструє клієнт у sysfs за адресою вида `/sys/bus/i2c/devices/1-0048/` (де `1` — номер шинного адаптера, а `0048` — шістнадцяткова адреса мікросхеми).
 
@@ -192,23 +140,7 @@ struct i2c_client {
 
 Драйвер конкретного чипа реалізує структуру `struct i2c_driver`:
 
-```c
-struct i2c_driver {
-	unsigned int class;
-	int (*probe)(struct i2c_client *client);
-	void (*remove)(struct i2c_client *client);
-	void (*shutdown)(struct i2c_client *client);
-	void (*alert)(struct i2c_client *client, enum i2c_alert_protocol protocol,
-		      unsigned int data);
-
-	int (*detect)(struct i2c_client *client, struct i2c_board_info *info);
-	const unsigned short *address_list;
-	struct list_head clients;
-
-	struct device_driver driver;
-	const struct i2c_device_id *id_table;
-};
-```
+:::code i2c-and-smbus-subsystem-d/c/3-4-struct-i2c-driver.h
 
 Коли підсистема виявляє збіг між зареєстрованим клієнтом `i2c_client` та драйвером, вона викликає функцію `probe(client)`. Всередині `probe()` драйвер ініціалізує внутрішні регістри чипа, виділяє пам'ять екземпляра та реєструє пристрій у відповідній функціональній підсистемі ядра (`hwmon` для датчиків температури, `iio` для акселерометрів і барометрів, `rtc` для годинників, `regulator` для PMIC).
 
@@ -284,23 +216,7 @@ int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num);
 
 Зіставлення з драйвером виконується за таблицею `driver.of_match_table`:
 
-```c
-static const struct of_device_id tmp102_of_match[] = {
-	{ .compatible = "ti,tmp102" },
-	{ }
-};
-MODULE_DEVICE_TABLE(of, tmp102_of_match);
-
-static struct i2c_driver tmp102_driver = {
-	.driver = {
-		.name = "tmp102",
-		.of_match_table = tmp102_of_match,
-	},
-	.probe = tmp102_probe,
-	.remove = tmp102_remove,
-};
-module_i2c_driver(tmp102_driver);
-```
+:::code i2c-and-smbus-subsystem-d/c/5-1-derevo-prystroiv.h
 
 ### 5.2. Таблиці ACPI — платформи x86 та сервери
 
@@ -375,34 +291,7 @@ echo 0x48 > /sys/bus/i2c/devices/i2c-1/delete_device
 
 Підсистема `regmap-i2c` надає конструктор `devm_regmap_init_i2c()`, який обгортає виклики I²C у стандартні операції читання та запису регістрів `regmap_read()` / `regmap_write()` / `regmap_update_bits()`:
 
-```c
-static const struct regmap_config bmp280_regmap_config = {
-	.reg_bits = 8,
-	.val_bits = 8,
-	.max_register = 0xFF,
-	.cache_type = REGCACHE_RBTREE,
-};
-
-static int bmp280_i2c_probe(struct i2c_client *client)
-{
-	struct regmap *regmap;
-	unsigned int chip_id;
-	int ret;
-
-	regmap = devm_regmap_init_i2c(client, &bmp280_regmap_config);
-	if (IS_ERR(regmap))
-		return PTR_ERR(regmap);
-
-	ret = regmap_read(regmap, 0xD0, &chip_id);
-	if (ret < 0)
-		return ret;
-
-	if (chip_id != 0x58)
-		return -ENODEV;
-
-	return bmp280_common_probe(&client->dev, regmap);
-}
-```
+:::code i2c-and-smbus-subsystem-d/c/6-reiestratsiia-rehistriv.c
 
 Переваги використання Regmap в I²C драйверах:
 1. **Прозоре кешування (Regcache):** Незмінні конфігураційні регістри кешуються в оперативній пам'яті, що усуває зайві фізичні транзакції на повільній шині I²C.

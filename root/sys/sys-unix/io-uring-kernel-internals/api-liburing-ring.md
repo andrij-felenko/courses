@@ -10,54 +10,7 @@
 
 Кожен елемент черги подання (Submission Queue Entry) вирівняний по межі 64 байтів (розмір кеш-лінії більшості сучасних процесорів, що запобігає ефекту false sharing).
 
-```c
-struct io_uring_sqe {
-    __u8    opcode;       /* Код операції (IORING_OP_*) */
-    __u8    flags;        /* Прапорці поведінки запиту (IOSQE_*) */
-    __u16   ioprio;       /* Пріоритет I/O (IOPRIO_CLASS_*) */
-    __s32   fd;           /* Файловий дескриптор або індекс у масиві */
-    union {
-        __u64   off;      /* Зміщення у файлі */
-        __u64   addr2;    /* Друга адреса для операцій splice/cmd */
-    };
-    union {
-        __u64   addr;     /* Вказівник на буфер користувача або iovec */
-        __u64   splice_off_in;
-    };
-    __u32   len;          /* Довжина буфера або кількість iovec */
-    union {
-        __kernel_rwf_t  rw_flags; /* Прапорці read/write (RWF_HIPRI, RWF_NOWAIT) */
-        __u32           fsync_flags;
-        __u16           poll_events;
-        __u32           sync_range_flags;
-        __u32           msg_flags;
-        __u32           timeout_flags;
-        __u32           accept_flags;
-        __u32           cancel_flags;
-        __u32           open_flags;
-        __u32           statx_flags;
-        __u32           fadvise_advise;
-        __u32           splice_flags;
-        __u32           rename_flags;
-        __u32           unlink_flags;
-        __u32           hardlink_flags;
-        __u32           xattr_flags;
-        __u32           msg_ring_flags;
-        __u32           uring_cmd_flags;
-    };
-    __u64   user_data;    /* 64-бітне значення для ідентифікації запиту розробником */
-    union {
-        __u16   buf_index;  /* Індекс у масиві зареєстрованих буферів */
-        __u16   buf_group;  /* Група наданих буферів (provided buffers) */
-    } __attribute__((packed));
-    __u16   personality;  /* Ідентифікатор прав (credentials) */
-    union {
-        __s32   splice_fd_in;
-        __u32   file_index; /* Індекс для прямого файлового дескриптора */
-    };
-    __u64   __pad2[2];    /* Резерв для майбутніх розширень */
-};
-```
+:::code api-liburing-ring/c/zapyt-struct-io-uring-sqe.c
 
 #### Прапорці SQE (поле `flags`)
 
@@ -92,31 +45,7 @@ struct io_uring_cqe {
 
 При системному виклику `io_uring_setup()` ядро заповнює структуру `io_uring_params` із вказівками зміщень (offsets) для мапінгу пам'яті спільного використання.
 
-```c
-struct io_sqring_offsets {
-    __u32 head;        /* Зміщення вказівника голови SQ */
-    __u32 tail;        /* Зміщення вказівника хвоста SQ */
-    __u32 ring_mask;   /* Маска розміру буфера (entries - 1) */
-    __u32 ring_entries;/* Кількість елементів у SQ */
-    __u32 flags;       /* Прапорці стану SQ (наприклад, IORING_SQ_NEED_WAKEUP) */
-    __u32 dropped;     /* Лічильник відкинутих SQE (коли SQ переповнена) */
-    __u32 array;       /* Зміщення масиву індексів SQE */
-    __u32 resv1;
-    __u64 resv2;
-};
-
-struct io_cqring_offsets {
-    __u32 head;        /* Зміщення вказівника голови CQ */
-    __u32 tail;        /* Зміщення вказівника хвоста CQ */
-    __u32 ring_mask;   /* Маска розміру буфера CQ */
-    __u32 ring_entries;/* Кількість елементів у CQ */
-    __u32 overflow;    /* Лічильник втрачених CQE через переповнення черги */
-    __u32 cqes;        /* Зміщення масиву структур io_uring_cqe */
-    __u32 flags;
-    __u32 resv1;
-    __u64 resv2;
-};
-```
+:::code api-liburing-ring/c/zmishchennia-pamiati-dlia.c
 
 Мапінг вимагає двох або трьох окремих викликів `mmap()`:
 1. `mmap(NULL, sq_sz, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, ring_fd, IORING_OFF_SQ_RING)` — мапінг структур керування чергами.

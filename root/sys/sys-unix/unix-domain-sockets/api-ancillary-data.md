@@ -117,67 +117,11 @@ struct ucred {
 
 Відправлення одного дескриптора разом з одним байтом даних:
 
-```c
-int             fd;                       /* що передаємо */
-char            byte = 'x';
-struct iovec    iov  = { .iov_base = &byte, .iov_len = 1 };
-union {                                   /* union дає буферу правильне вирівнювання */
-    char           buf[CMSG_SPACE(sizeof(int))];
-    struct cmsghdr align;
-} u = { 0 };
-struct msghdr   msg  = { 0 };
-
-msg.msg_iov        = &iov;
-msg.msg_iovlen     = 1;
-msg.msg_control    = u.buf;
-msg.msg_controllen = sizeof u.buf;        /* поки що — щоб CMSG_FIRSTHDR побачив місце */
-
-struct cmsghdr *c = CMSG_FIRSTHDR(&msg);
-c->cmsg_level = SOL_SOCKET;
-c->cmsg_type  = SCM_RIGHTS;
-c->cmsg_len   = CMSG_LEN(sizeof(int));
-memcpy(CMSG_DATA(c), &fd, sizeof(int));
-msg.msg_controllen = c->cmsg_len;         /* ← тепер сума заповненого, не розмір буфера */
-
-if (sendmsg(sock, &msg, 0) < 0)
-    perror("sendmsg");
-```
+:::code api-ancillary-data/c/minimalnyi-vyklyk.h
 
 Прийом із негайним закриттям при `exec` і перевіркою вкорочення:
 
-```c
-char            byte;
-struct iovec    iov = { .iov_base = &byte, .iov_len = 1 };
-union {
-    char           buf[CMSG_SPACE(8 * sizeof(int))];   /* максимум, який ми згодні взяти */
-    struct cmsghdr align;
-} u;
-struct msghdr   msg = { 0 };
-
-msg.msg_iov        = &iov;
-msg.msg_iovlen     = 1;
-msg.msg_control    = u.buf;
-msg.msg_controllen = sizeof u.buf;
-
-if (recvmsg(sock, &msg, MSG_CMSG_CLOEXEC) <= 0)
-    return -1;
-
-/* Спершу забираємо ВСЕ, що влізло, і лише потім дивимось на MSG_CTRUNC:
-   ядро закрило само тільки той надлишок, який не вмістився, а те, що
-   вмістилося, вже лежить у нашій таблиці й нікому, крім нас, не відоме. */
-for (struct cmsghdr *c = CMSG_FIRSTHDR(&msg); c != NULL; c = CMSG_NXTHDR(&msg, c)) {
-    if (c->cmsg_level != SOL_SOCKET || c->cmsg_type != SCM_RIGHTS)
-        continue;
-    int n = (c->cmsg_len - CMSG_LEN(0)) / sizeof(int);
-    for (int i = 0; i < n; i++) {
-        int got;
-        memcpy(&got, CMSG_DATA(c) + i * sizeof(int), sizeof(int));
-        /* … got належить нам, і закрити його теж нам */
-    }
-}
-if (msg.msg_flags & MSG_CTRUNC)
-    return -1;                            /* зібране вище закриваємо перед виходом */
-```
+:::code api-ancillary-data/c/minimalnyi-vyklyk.c
 
 ## Помилки
 

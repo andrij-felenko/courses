@@ -41,41 +41,8 @@
 Така поведінка була обрана авторами раннього Unix свідомо. Саме вона забезпечує роботу конвеєрів та перенаправлення стандартних потоків вводу-виводу командної оболонки:
 
 :::tabs
-```c
-#include <unistd.h>
-#include <fcntl.h>
-
-/* Оболонка готує перенаправлення stdout у файл */
-int fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-if (fd >= 0) {
-    dup2(fd, STDOUT_FILENO); /* тепер дескриптор 1 веде в output.txt */
-    close(fd);
-    char *argv[] = { "ls", "-la", NULL };
-    execve("/bin/ls", argv, NULL); /* ls нічого не знає про файл, але пише в 1 */
-}
-```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <array>
-#include <system_error>
-
-void redirect_and_exec() {
-    int fd = ::open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd < 0) {
-        throw std::system_error(errno, std::generic_category(), "open failed");
-    }
-
-    if (::dup2(fd, STDOUT_FILENO) < 0) {
-        ::close(fd);
-        throw std::system_error(errno, std::generic_category(), "dup2 failed");
-    }
-    ::close(fd);
-
-    std::array<char*, 3> args = { const_cast<char*>("ls"), const_cast<char*>("-la"), nullptr };
-    ::execve("/bin/ls", args.data(), nullptr);
-}
-```
+:::code close-on-exec-d/c/uspadkuvannia-deskryptoriv.c
+:::code close-on-exec-d/cpp/uspadkuvannia-deskryptoriv.cpp
 :::
 
 Утиліта `ls` не містить спеціального коду для відкриття файлу `output.txt`: вона просто пише байти у стандартний дескриптор 1. Оболонка підготувала цей дескриптор через `dup2()`, і завдяки тому, що дескрипторна таблиця пережила `execve()`, утиліта відразу спрямовує вивід у потрібне місце.
@@ -93,39 +60,8 @@ void redirect_and_exec() {
 Поглянемо на внутрішню структуру ядра Linux (`include/linux/fdtable.h`):
 
 :::tabs
-```c
-/* Структури ядра Linux (простір ядра) */
-struct files_struct {
-    atomic_t count;
-    struct fdtable __rcu *fdt;
-    struct fdtable fdtab;
-    spinlock_t file_lock;
-    /* ... */
-};
-
-struct fdtable {
-    unsigned int max_fds;
-    struct file __rcu **fd;      /* Масив вказівників на структури struct file */
-    unsigned long *close_on_exec; /* Бітова маска прапорців FD_CLOEXEC */
-    unsigned long *open_fds;      /* Бітова маска зайнятих індексів fd */
-    struct rcu_head rcu;
-};
-```
-```cpp
-/* Концептуальна модель дескрипторної таблиці ядра у C++ */
-#include <vector>
-#include <memory>
-#include <atomic>
-
-struct FileDescription; // Представлення системного struct file
-
-struct ProcessFdTable {
-    unsigned int max_fds{64};
-    std::vector<FileDescription*> open_files;
-    std::vector<bool> close_on_exec_mask;
-    std::vector<bool> allocated_mask;
-};
-```
+:::code close-on-exec-d/c/praporets-fd-cloexec-u.c
+:::code close-on-exec-d/cpp/praporets-fd-cloexec-u.cpp
 :::
 
 Таблиця `struct fdtable` розбита на три паралельні масиви:
@@ -144,53 +80,8 @@ struct ProcessFdTable {
 Коли процес викликає `execve()`, ядро проходить через ланцюжок внутрішніх викликів: `do_execveat_common()` → `bprm_execve()` → `begin_new_exec()` → `flush_old_files()`. Останній викликає підпрограму `do_close_on_exec()`:
 
 :::tabs
-```c
-/* Внутрішня функція ядра Linux (простір ядра) */
-static void do_close_on_exec(struct files_struct *files)
-{
-    unsigned int j;
-    struct fdtable *fdt = files_fdtable(files);
-
-    /* Ітерація по машинних словах бітової маски */
-    for (j = 0; j < fdt->max_fds; j += BITS_PER_LONG) {
-        unsigned long set = fdt->close_on_exec[j / BITS_PER_LONG];
-        if (!set)
-            continue;
-        fdt->close_on_exec[j / BITS_PER_LONG] = 0;
-        for (unsigned int fd = j; set; fd++, set >>= 1) {
-            if (set & 1) {
-                struct file *file = fdt->fd[fd];
-                if (file) {
-                    rcu_assign_pointer(fdt->fd[fd], NULL);
-                    __clear_open_fd(fd, fdt);
-                    filp_close(file, files);
-                }
-            }
-        }
-    }
-}
-```
-```cpp
-/* Алгоритм закриття дескрипторів ядра, виражений на C++ */
-#include <vector>
-
-struct SimulatedKernelFile {
-    int refcount{1};
-    void close() { /* вивільнення ресурсу */ }
-};
-
-void simulate_do_close_on_exec(std::vector<SimulatedKernelFile*>& fds, 
-                               std::vector<bool>& cloexec_mask) {
-    for (size_t fd = 0; fd < fds.size(); ++fd) {
-        if (cloexec_mask[fd] && fds[fd] != nullptr) {
-            cloexec_mask[fd] = false;
-            SimulatedKernelFile* file = fds[fd];
-            fds[fd] = nullptr;
-            file->close();
-        }
-    }
-}
-```
+:::code close-on-exec-d/c/praporets-fd-cloexec-u-2.c
+:::code close-on-exec-d/cpp/praporets-fd-cloexec-u-2.cpp
 :::
 
 Ядро перевіряє бітову маску цілими машинними словами (`unsigned long`). Якщо слово містить хоча б один встановлений біт, ядро послідовно вилучає відповідні вказівники `struct file*`, очищає біт у `open_fds` і викликає `filp_close()`.
@@ -202,34 +93,8 @@ void simulate_do_close_on_exec(std::vector<SimulatedKernelFile*>& fds,
 В оригінальному стандарті POSIX.1-1988 єдиним методом налаштування прапорця `FD_CLOEXEC` був системний виклик `fcntl()` (англ. *file control*):
 
 :::tabs
-```c
-#include <fcntl.h>
-#include <unistd.h>
-
-int set_cloexec(int fd) {
-    int flags = fcntl(fd, F_GETFD);
-    if (flags == -1)
-        return -1;
-    
-    return fcntl(fd, F_SETFD, flags | FD_CLOEXEC);
-}
-```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <system_error>
-
-void set_cloexec(int fd) {
-    const int flags = ::fcntl(fd, F_GETFD);
-    if (flags == -1) {
-        throw std::system_error(errno, std::generic_category(), "fcntl(F_GETFD) failed");
-    }
-    
-    if (::fcntl(fd, F_SETFD, flags | FD_CLOEXEC) == -1) {
-        throw std::system_error(errno, std::generic_category(), "fcntl(F_SETFD) failed");
-    }
-}
-```
+:::code close-on-exec-d/c/klasychnyi-interfeis-fcntl.c
+:::code close-on-exec-d/cpp/klasychnyi-interfeis-fcntl.cpp
 :::
 
 Зверніть увагу на канонічний трикроковий підхід:
@@ -281,19 +146,7 @@ if (pid == 0) {
     execve("/usr/bin/logger", args, NULL);
 }
 ```
-```cpp
-pid_t pid = ::fork();
-if (pid == 0) {
-    std::array<char*, 5> args = { 
-        const_cast<char*>("logger"), 
-        const_cast<char*>("-t"), 
-        const_cast<char*>("backup"), 
-        const_cast<char*>("OK"), 
-        nullptr 
-    };
-    ::execve("/usr/bin/logger", args.data(), nullptr);
-}
-```
+:::code close-on-exec-d/cpp/bahatopotokovist-i.cpp
 :::
 
 Четвертий крок: Під час виконання `fork()` дочірній процес клонує таблицю дескрипторів батька, в якій дескриптор 7 має `close_on_exec == 0`. Дочірній процес викликає `execve()`. Ядро сканує бітову маску, бачить нуль і **залишає дескриптор 7 відкритим** у новому процесі `/usr/bin/logger`.
@@ -327,21 +180,7 @@ if (pid == 0) {
     _exit(1);
 }
 ```
-```cpp
-/* Демонстрація небезпеки ручного close після vfork у C++ */
-#include <unistd.h>
-#include <array>
-
-void broken_vfork_cleanup(int secret_fd) {
-    pid_t pid = ::vfork();
-    if (pid == 0) {
-        ::close(secret_fd); // Пошкоджує стан дескриптора у батьківському процесі!
-        std::array<char*, 2> argv = { const_cast<char*>("app"), nullptr };
-        ::execve("/bin/app", argv.data(), nullptr);
-        ::_exit(1);
-    }
-}
-```
+:::code close-on-exec-d/cpp/vzaiemodiia-z-vfork-ta.cpp
 :::
 
 Виклик `close(secret_fd)` у дочірньому процесі після `vfork()` негайно знищить дескриптор і для батька, оскільки вони мають спільну таблицю файлів. Коли батько прокинеться після завершення дочірнього `execve()`, його дескриптор виявиться недійсним (`EBADF`).
@@ -373,31 +212,7 @@ if (fd == -1) {
     /* обробка помилки */
 }
 ```
-```cpp
-#include <fcntl.h>
-#include <system_error>
-#include <memory>
-#include <unistd.h>
-
-struct FileDescriptorDeleter {
-    void operator()(int* fd) const noexcept {
-        if (fd && *fd >= 0) {
-            ::close(*fd);
-            delete fd;
-        }
-    }
-};
-
-using SafeFileDescriptor = std::unique_ptr<int, FileDescriptorDeleter>;
-
-SafeFileDescriptor open_secure_certificate(const char* path) {
-    int raw_fd = ::open(path, O_RDONLY | O_CLOEXEC);
-    if (raw_fd == -1) {
-        throw std::system_error(errno, std::generic_category(), "open failed");
-    }
-    return SafeFileDescriptor(new int(raw_fd));
-}
-```
+:::code close-on-exec-d/cpp/vidkryttia-failiv-o.cpp
 :::
 
 ### Канали міжпроцесної взаємодії: pipe2()
@@ -415,20 +230,7 @@ if (pipe2(pipefds, O_CLOEXEC | O_NONBLOCK) == -1) {
     /* обробка помилки */
 }
 ```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <array>
-#include <system_error>
-
-std::array<int, 2> create_safe_ipc_pipe() {
-    std::array<int, 2> fds{-1, -1};
-    if (::pipe2(fds.data(), O_CLOEXEC | O_NONBLOCK) == -1) {
-        throw std::system_error(errno, std::generic_category(), "pipe2 failed");
-    }
-    return fds;
-}
-```
+:::code close-on-exec-d/cpp/kanaly-mizhprotsesnoi.cpp
 :::
 
 ### Мережеві сокети: socket(), socketpair() та accept4()
@@ -446,27 +248,7 @@ int listen_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
 /* Прийняття нового клієнтського підключення з прапорцем SOCK_CLOEXEC */
 int client_fd = accept4(listen_fd, NULL, NULL, SOCK_CLOEXEC);
 ```
-```cpp
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <system_error>
-
-int create_listening_socket() {
-    int fd = ::socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
-    if (fd == -1) {
-        throw std::system_error(errno, std::generic_category(), "socket failed");
-    }
-    return fd;
-}
-
-int accept_client_connection(int listen_fd) {
-    int client_fd = ::accept4(listen_fd, nullptr, nullptr, SOCK_CLOEXEC);
-    if (client_fd == -1) {
-        throw std::system_error(errno, std::generic_category(), "accept4 failed");
-    }
-    return client_fd;
-}
-```
+:::code close-on-exec-d/cpp/merezhevi-sokety-socket.cpp
 :::
 
 Виклик `accept4()` усунув одну з найдавніших проблем системного програмування: раніше кожен прийнятий TCP-сокет створювався відкритим і вимагав окремого наступного виклику `fcntl()`, що відкривало вікно витоку під час кожного з'єднання.
@@ -629,19 +411,7 @@ void close_all_inherited_fds(void) {
     syscall(SYS_close_range, 3, ~0U, 0);
 }
 ```
-```cpp
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <linux/close_range.h>
-#include <sys/syscall.h>
-#include <system_error>
-
-void close_all_inherited_fds() {
-    if (::syscall(SYS_close_range, 3, ~0U, 0) == -1) {
-        throw std::system_error(errno, std::generic_category(), "close_range failed");
-    }
-}
-```
+:::code close-on-exec-d/cpp/stsenarii-1-nehaine.cpp
 :::
 
 #### Сценарій 2: Встановлення прапорця CLOSE_RANGE_CLOEXEC (Linux 5.11+)
@@ -659,19 +429,7 @@ void mark_fds_close_on_exec(void) {
     syscall(SYS_close_range, 3, ~0U, CLOSE_RANGE_CLOEXEC);
 }
 ```
-```cpp
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <linux/close_range.h>
-#include <sys/syscall.h>
-#include <system_error>
-
-void mark_fds_close_on_exec() {
-    if (::syscall(SYS_close_range, 3, ~0U, CLOSE_RANGE_CLOEXEC) == -1) {
-        throw std::system_error(errno, std::generic_category(), "close_range(CLOSE_RANGE_CLOEXEC) failed");
-    }
-}
-```
+:::code close-on-exec-d/cpp/stsenarii-2-vstanovlennia.cpp
 :::
 
 Ядро проходить по масці `close_on_exec` і виставляє всі біти за одну операцію. Файли залишаються відкритими й доступними для поточної програми, але жоден із них не потрапить у дочірній процес.
@@ -681,55 +439,8 @@ void mark_fds_close_on_exec() {
 Сучасні стандарти системного програмування рекомендують використовувати інтерфейс `posix_spawn()` замість прямої комбінації `fork()` + `execve()`:
 
 :::tabs
-```c
-#include <spawn.h>
-#include <unistd.h>
-
-int spawn_clean_process(const char *path, char *const argv[], char *const envp[]) {
-    posix_spawn_file_actions_t actions;
-    posix_spawn_file_actions_init(&actions);
-
-    /* Закриваємо конкретні дескриптори або налаштовуємо перенаправлення */
-    posix_spawn_file_actions_addclose(&actions, 3);
-    posix_spawn_file_actions_addclose(&actions, 4);
-
-    pid_t pid;
-    int status = posix_spawn(&pid, path, &actions, NULL, argv, envp);
-    posix_spawn_file_actions_destroy(&actions);
-
-    return status == 0 ? (int)pid : -1;
-}
-```
-```cpp
-#include <spawn.h>
-#include <unistd.h>
-#include <vector>
-#include <system_error>
-
-class SpawnFileActions {
-public:
-    SpawnFileActions() {
-        if (::posix_spawn_file_actions_init(&m_actions) != 0) {
-            throw std::system_error(errno, std::generic_category(), "init actions failed");
-        }
-    }
-    
-    ~SpawnFileActions() {
-        ::posix_spawn_file_actions_destroy(&m_actions);
-    }
-    
-    void add_close(int fd) {
-        if (::posix_spawn_file_actions_addclose(&m_actions, fd) != 0) {
-            throw std::system_error(errno, std::generic_category(), "addclose failed");
-        }
-    }
-    
-    posix_spawn_file_actions_t* get() noexcept { return &m_actions; }
-
-private:
-    posix_spawn_file_actions_t m_actions;
-};
-```
+:::code close-on-exec-d/c/suchasna-alternatyva-posix.c
+:::code close-on-exec-d/cpp/suchasna-alternatyva-posix.cpp
 :::
 
 У Linux системний виклик `posix_spawn()` реалізовано на базі виклику `clone(CLONE_VM | CLONE_VFORK)`, що виключає копіювання таблиць сторінок пам'яті та усуває простір для станів гонитви.

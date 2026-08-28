@@ -29,27 +29,7 @@
 
 Історичний процес формування цього розділення від версії 4.2BSD до сучасних версій ядра детально розкрито у матеріалі [📜 Від BSD Sockets 4.2BSD до мережевого стеку Linux](root:sys-unix/socket-api-linux/hist-bsd-sockets-to-linux.md).
 
-```c
-/* Концептуальна схема зв'язку об'єктів сокета у ядрі */
-struct file {
-    const struct file_operations *f_op; /* Вказує на socket_file_ops */
-    void *private_data;                  /* Вказує на struct socket */
-};
-
-struct socket {
-    socket_state state;                 /* SS_UNCONNECTED, SS_CONNECTED */
-    struct file *file;                  /* Зворотний вказівник на struct file */
-    struct sock *sk;                    /* Вказівник на мережевий struct sock */
-    const struct proto_ops *ops;        /* inet_stream_ops / inet_dgram_ops */
-};
-
-struct sock {
-    struct sock_common __sk_common;     /* Адреси, порти, протокол */
-    struct socket *sk_socket;           /* Зворотний вказівник на struct socket */
-    struct sk_buff_head sk_receive_queue;/* Черга вхідних кадрів */
-    struct sk_buff_head sk_write_queue;  /* Черга вихідних кадрів */
-};
-```
+:::code socket-api-linux-d/c/main.c
 
 Зв'язок між цими об'єктами двосторонній: `file->private_data` вказує на `struct socket`, `socket->sk` вказує на `struct sock`, а `sock->sk_socket` вказує назад на `struct socket`. Коли мережеве переривання приносить новий пакет від мережевої карти, підсистема NAPI та softirq обробляє його на рівні `struct sock` і через зворотний виклик `sk_data_ready` будить процеси, що очікують на черзі `socket->wq`.
 

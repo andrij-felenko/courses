@@ -182,42 +182,8 @@ IncFS формує структуру запиту `struct incfs_pending_read_in
 Отримавши 4096 байт даних, демон викликає `ioctl()` з командою `INCFS_IOC_FILL_BLOCKS` над дескриптором **самого інкрементального файлу**: структура заповнення не містить File ID, тож файл визначає саме дескриптор — демон відкриває його за ідентифікатором у каталозі `.index`.
 
 :::tabs
-```c
-/* Виклик ioctl заповнення блоку мовою C */
-struct incfs_fill_block block_data = {
-    .block_index = 1,
-    .data_len = 4096,
-    .data = (uint64_t)(uintptr_t)user_buffer,
-    .compression = 0
-};
-
-struct incfs_fill_blocks fill_args = {
-    .count = 1,
-    .fill_blocks = (uint64_t)(uintptr_t)&block_data
-};
-
-if (ioctl(incfs_file_fd, INCFS_IOC_FILL_BLOCKS, &fill_args) < 0) {
-    perror("Помилка виконання INCFS_IOC_FILL_BLOCKS");
-}
-```
-```cpp
-// Виклик ioctl заповнення блоку мовою C++20
-IncfsFillBlock block_data{
-    .block_index = 1,
-    .data_len = 4096,
-    .data = reinterpret_cast<uint64_t>(user_buffer.data())
-};
-
-IncfsFillBlocks fill_args{
-    .count = 1,
-    .fill_blocks = reinterpret_cast<uint64_t>(&block_data)
-};
-
-if (::ioctl(incfs_file_fd, INCFS_IOC_FILL_BLOCKS, &fill_args) < 0) {
-    std::cerr << "Помилка виконання INCFS_IOC_FILL_BLOCKS: " 
-              << std::generic_category().message(errno) << '\n';
-}
-```
+:::code incfs-incremental-filesystem-d/c/main.c
+:::code incfs-incremental-filesystem-d/cpp/main.cpp
 :::
 
 ### Крок 6: Оновлення стану та розблокування

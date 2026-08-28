@@ -202,30 +202,7 @@ PartitionEntryArrayCRC32   довжина = NumberOfPartitionEntries · SizeOfPa
 
 Звідси й порядок запису: спершу масив, потім `PartitionEntryArrayCRC32` у заголовку, і аж тоді `HeaderCRC32`. Змінити один байт у назві розділу означає перерахувати обидві суми, бо друга накриває поле з першою. Перевірка читанням — навпаки, зверху вниз:
 
-```python
-import struct, zlib
-
-SEC = 512                          # логічний блок; на 4Kn-диску тут 4096
-
-with open("/dev/sda", "rb") as dev:
-    dev.seek(1 * SEC)
-    hdr = dev.read(SEC)
-
-    sig, rev, hsize, hcrc = struct.unpack_from("<8s I I I", hdr, 0)
-    if sig != b"EFI PART" or rev != 0x00010000:
-        raise SystemExit("не GPT")
-    if not 92 <= hsize <= SEC:
-        raise SystemExit("HeaderSize поза межами")
-
-    zeroed = hdr[:16] + b"\x00" * 4 + hdr[20:hsize]
-    if zlib.crc32(zeroed) != hcrc:
-        raise SystemExit("заголовок побито")
-
-    entry_lba, count, esize, acrc = struct.unpack_from("<Q I I I", hdr, 72)
-    dev.seek(entry_lba * SEC)
-    if zlib.crc32(dev.read(count * esize)) != acrc:
-        raise SystemExit("масив записів побито")
-```
+:::code api-gpt-layout/py/main.py
 
 > 🔧 **Навіщо це.** Ядро перевіряє більше, ніж вимагає формат, і саме на цій різниці спотикаються таблиці, зроблені сторонніми інструментами. `SizeOfPartitionEntry` специфікація дозволяє будь-який, аби кратний восьми й не менший за 128, — а `efi.c` порівнює його з числом 128 і при розбіжності мовчки відмовляється. `HeaderSize`, більший за логічний блок пристрою, теж відкидається без розмов. `MyLBA` мусить дорівнювати тому секторові, з якого заголовок прочитали, — інакше копія, перенесена на нове місце дослівно, вважається чужою. І окремо: коли головна копія не сходиться, а резервна ціла, ядро візьме резервну й напише про це в журнал; повідомлення `GPT:Primary header thinks Alt. header is not at the end of the disk` після клонування на більший носій означає рівно те, що написано, — і жодного попередження більше не буде, поки перша копія жива.
 

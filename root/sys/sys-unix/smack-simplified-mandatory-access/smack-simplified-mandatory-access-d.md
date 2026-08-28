@@ -103,18 +103,7 @@ WebBrowser        AudioHardware     r
 Усередині вихідного коду ядра Linux (файл `security/smack/smack.h`) кожна мітка представлена структурою `struct smack_known`. Ця структура містить текстовий рядок мітки, її унікальний числовий ідентифікатор secid, мережевий атрибут NetLabel (через нього мітка потрапляє в опції CIPSO) та власний список правил, де ця мітка стоїть суб'єктом.
 
 :::tabs
-```c
-/* Структура вузла інтернованої мітки у ядрі Linux (security/smack/smack.h) */
-struct smack_known {
-    struct list_head    list;
-    struct hlist_node   smk_hashed;
-    char               *smk_known;
-    u32                 smk_secid;
-    struct netlbl_lsm_secattr smk_netlabel;
-    struct list_head    smk_rules;
-    struct mutex        smk_rules_lock;
-};
-```
+:::code smack-simplified-mandatory-access-d/c/main.c
 ```cpp
 // Концептуальне еквівалентне представлення вузла мітки SMACK у C++ API
 struct SmackKnownNode {

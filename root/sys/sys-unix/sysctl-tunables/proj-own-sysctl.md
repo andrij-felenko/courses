@@ -20,52 +20,7 @@
 
 Далі йде повний текст `knobdemo.c`, шматками — у тому самому порядку, у якому вони лежать у файлі.
 
-```c
-// knobdemo.c — власний вузол у /proc/sys/kernel/knobdemo
-#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-
-#include <linux/module.h>
-#include <linux/sysctl.h>
-#include <linux/slab.h>
-#include <linux/mutex.h>
-#include <linux/rcupdate.h>
-#include <linux/workqueue.h>
-#include <linux/random.h>
-#include <linux/overflow.h>
-
-/* Крутилка 1: період відліку. Звичайна змінна — свого коду не треба. */
-static int interval_ms = 200;
-static int interval_min = 10;
-static int interval_max = 60000;
-
-/* Крутилка 2: скільки комірок. Самого числа замало — треба масив. */
-static int slots = 16;
-static int slots_min = 1;
-static int slots_max = 4096;
-
-/* Скільки разів гістограму перебудовували — видно в журналі ядра. */
-static int rebuilds;
-
-/* Довжина живе всередині знімка, а не поруч із ним. */
-struct bins {
-	struct rcu_head rcu;
-	int n;
-	atomic_t hit[];
-};
-
-static struct bins __rcu *cur_bins;
-static DEFINE_MUTEX(bins_lock);		/* серіалізує перебудову */
-static struct delayed_work tick_work;
-
-static struct bins *bins_alloc(int n)
-{
-	struct bins *b = kvzalloc(struct_size(b, hit, n), GFP_KERNEL);
-
-	if (b)
-		b->n = n;
-	return b;
-}
-```
+:::code proj-own-sysctl/c/knobdemo.c
 
 Найважливіше рішення прийнято тут, у структурі. Довжина `n` лежить *усередині* тієї самої структури, що й масив, — не окремим глобальним числом поруч. Причина проста: два глобали неможливо змінити одним рухом, а от підмінити один вказівник — можна.
 
@@ -73,20 +28,7 @@ static struct bins *bins_alloc(int n)
 
 ## Відлік — той, хто читає обидва числа
 
-```c
-static void tick_fn(struct work_struct *w)
-{
-	struct bins *b;
-
-	rcu_read_lock();
-	b = rcu_dereference(cur_bins);
-	atomic_inc(&b->hit[get_random_u32() % b->n]);
-	rcu_read_unlock();
-
-	schedule_delayed_work(&tick_work,
-			      msecs_to_jiffies(READ_ONCE(interval_ms)));
-}
-```
+:::code proj-own-sysctl/c/vidlik-toi-khto-chytaie.c
 
 Це той код, задля якого крутилки взагалі існують, — і одразу видно, як він поводиться з кожною з них. Довжину `b->n` і масив `b->hit` він бере з одного знімка, тож вони не можуть розійтися, навіть якщо перебудова станеться просто зараз: старий знімок лишиться цілим доти, доки цей `rcu_read_lock()` не закриється. Механіка «читати без замків, а звільняти відкладено» — окрема тема: [RCU: читання без замків і відкладене звільнення](root:sys-unix/rcu-read-copy-update), тут досить знати, що всередині такої дужки знімок, який ви взяли, ніхто не звільнить.
 
@@ -98,38 +40,7 @@ static void tick_fn(struct work_struct *w)
 
 ## Обробник, що робить більше, ніж присвоєння
 
-```c
-static int slots_handler(const struct ctl_table *table, int write,
-			 void *buffer, size_t *lenp, loff_t *ppos)
-{
-	struct bins *old, *new;
-	int prev, ret;
-
-	mutex_lock(&bins_lock);
-
-	prev = slots;
-	ret = proc_dointvec_minmax(table, write, buffer, lenp, ppos);
-	if (ret || !write || slots == prev)
-		goto out;			/* читання або те саме число */
-
-	new = bins_alloc(slots);
-	if (!new) {
-		WRITE_ONCE(slots, prev);	/* не показувати того, чого не зробили */
-		ret = -ENOMEM;
-		goto out;
-	}
-
-	old = rcu_dereference_protected(cur_bins, lockdep_is_held(&bins_lock));
-	rcu_assign_pointer(cur_bins, new);
-	WRITE_ONCE(rebuilds, rebuilds + 1);
-	kvfree_rcu(old, rcu);
-
-	pr_info("slots %d -> %d (rebuild %d)\n", prev, new->n, rebuilds);
-out:
-	mutex_unlock(&bins_lock);
-	return ret;
-}
-```
+:::code proj-own-sysctl/c/obrobnyk-shcho-robyt.c
 
 Обробник не робить розбору тексту сам: перший же рядок передає роботу `proc_dointvec_minmax`, який прочитає число, звірить його з `extra1`…`extra2` і, якщо все гаразд, покладе в `slots`. Цей прийом — «викликати стандартний обробник, а тоді дописати своє» — і є звичайним способом заводити побічну дію; писати розбір тексту вручну немає ані потреби, ані сенсу.
 
@@ -151,27 +62,7 @@ out:
 
 ## Обробник, що рахує відповідь на місці
 
-```c
-static int hits_handler(const struct ctl_table *table, int write,
-			void *buffer, size_t *lenp, loff_t *ppos)
-{
-	struct ctl_table tmp = *table;
-	struct bins *b;
-	int sum = 0, i;
-
-	if (write)
-		return -EACCES;
-
-	rcu_read_lock();
-	b = rcu_dereference(cur_bins);
-	for (i = 0; i < b->n; i++)
-		sum += atomic_read(&b->hit[i]);
-	rcu_read_unlock();
-
-	tmp.data = &sum;
-	return proc_dointvec(&tmp, 0, buffer, lenp, ppos);
-}
-```
+:::code proj-own-sysctl/c/obrobnyk-shcho-rakhuie.c
 
 Тут видно, що опис параметра — не постійна прив'язка імені до адреси, а просто аргумент виклику. Ми копіюємо опис у локальну змінну, наводимо його `data` на щойно обчислене число й віддаємо стандартному обробникові форматувати. Цей прийом уживають скрізь у ядрі, де значення треба перерахувати або перевести в інші одиниці перед показом.
 
@@ -179,67 +70,7 @@ static int hits_handler(const struct ctl_table *table, int write,
 
 ## Опис і реєстрація
 
-```c
-static struct ctl_table knobdemo_table[] = {
-	{
-		.procname	= "interval_ms",
-		.data		= &interval_ms,
-		.maxlen		= sizeof(int),
-		.mode		= 0644,
-		.proc_handler	= proc_dointvec_minmax,
-		.extra1		= &interval_min,
-		.extra2		= &interval_max,
-	},
-	{
-		.procname	= "slots",
-		.data		= &slots,
-		.maxlen		= sizeof(int),
-		.mode		= 0644,
-		.proc_handler	= slots_handler,
-		.extra1		= &slots_min,
-		.extra2		= &slots_max,
-	},
-	{
-		.procname	= "hits",
-		.maxlen		= sizeof(int),
-		.mode		= 0444,
-		.proc_handler	= hits_handler,
-	},
-};
-
-static struct ctl_table_header *knobdemo_hdr;
-
-static int __init knobdemo_init(void)
-{
-	struct bins *b = bins_alloc(slots);
-
-	if (!b)
-		return -ENOMEM;
-	rcu_assign_pointer(cur_bins, b);
-
-	knobdemo_hdr = register_sysctl("kernel/knobdemo", knobdemo_table);
-	if (!knobdemo_hdr) {
-		kvfree(b);
-		return -ENOMEM;
-	}
-
-	INIT_DELAYED_WORK(&tick_work, tick_fn);
-	schedule_delayed_work(&tick_work, msecs_to_jiffies(interval_ms));
-	return 0;
-}
-
-static void __exit knobdemo_exit(void)
-{
-	unregister_sysctl_table(knobdemo_hdr);	/* чекає на обробники в роботі */
-	cancel_delayed_work_sync(&tick_work);	/* і на відлік у роботі теж */
-	kvfree(rcu_dereference_protected(cur_bins, true));
-}
-
-module_init(knobdemo_init);
-module_exit(knobdemo_exit);
-MODULE_DESCRIPTION("Демонстраційні параметри в /proc/sys/kernel/knobdemo");
-MODULE_LICENSE("GPL");
-```
+:::code proj-own-sysctl/c/opys-i-reiestratsiia.c
 
 Кілька речей у цьому шматку варті окремого погляду.
 

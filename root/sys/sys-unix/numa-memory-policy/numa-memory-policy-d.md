@@ -76,28 +76,7 @@ node   0   1   2   3
 
 Коли ядро збирається з опцією `CONFIG_NUMA`, замість єдиного глобального масиву сторінок створюється масив покажчиків `NODE_DATA(node_id)`, де кожен елемент веде до власного дескриптора `pg_data_t`.
 
-```c
-typedef struct pglist_data {
-    struct zone node_zones[MAX_NR_ZONES];
-    struct zonelist node_zonelists[MAX_ZONELISTS];
-    int nr_zones;
-
-    unsigned long node_start_pfn;
-    unsigned long node_present_pages;
-    unsigned long node_spanned_pages;
-    int node_id;
-
-    wait_queue_head_t kswapd_wait;
-    struct task_struct *kswapd;
-    
-    /* Списки LRU для активних/неактивних сторінок вузла */
-    struct lruvec __lruvec;
-    
-    /* Поля статистики та фонового вивільнення */
-    unsigned long flags;
-    struct per_cpu_nodestat __percpu *per_cpu_nodestats;
-} pg_data_t;
-```
+:::code numa-memory-policy-d/c/main.c
 
 Кожен вузол є повноцінною автономною одиницею обліку пам'яті:
 - Він містить власний набір зон (`ZONE_DMA32`, `ZONE_NORMAL`, `ZONE_MOVABLE`, `ZONE_DEVICE`). Зазвичай зона `ZONE_DMA32` існує лише на Вузлі 0 (який охоплює перші 4 ГіБ фізичних адрес), тоді як інші вузли містять суто `ZONE_NORMAL` та `ZONE_MOVABLE`.
@@ -319,19 +298,7 @@ other_node               2808220         3910711
 
 Утиліта `numactl` дозволяє запустити будь-яку готову бінарну програму з фіксованою прив'язкою пам'яті та процесорів:
 
-```bash
-# 1. Запуск застосунку суворо на Вузлі 0 (і ядра, і пам'ять)
-numactl --cpunodebind=0 --membind=0 ./my_database_server
-
-# 2. Запуск із рівномірним чергуванням пам'яті по всіх вузлах
-numactl --interleave=all ./scientific_simulation
-
-# 3. Виділення пам'яті на швидкому вузлі з можливістю виходу за його межі
-numactl --preferred=0 ./web_backend
-
-# 4. Перевірка апаратної топології системи
-numactl --hardware
-```
+:::code numa-memory-policy-d/sh/main.sh
 
 Для глибшого аналізу практичних пасток розміщення пам'яті, вимірювання затримок обходу покажчиків і написання власного NUMA-орієнтованого алокатора на C та C++ зверніться до проекту [практичний проект вимірювання затримок локальної та віддаленої пам'яті й побудови NUMA-алокатора](root:sys-unix/numa-memory-policy/proj-numa-allocator.md).
 

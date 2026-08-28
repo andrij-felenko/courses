@@ -120,29 +120,7 @@ struct virtio_balloon_stat {
 
 Ключові структури драйвера зосереджені навколо керуючого дескриптора `struct virtio_balloon`:
 
-```c
-/* drivers/virtio/virtio_balloon.c */
-struct virtio_balloon {
-    struct virtio_device *vdev;
-    struct virtqueue *inflate_vq, *deflate_vq, *stats_vq, *free_page_vq;
-
-    /* Список захоплених сторінок, захищений спін-блокуванням */
-    struct list_head pages;
-    struct balloon_dev_info vb_dev_info;
-
-    /* Робоча черга для виконання операцій надування/здування у фоні */
-    struct work_struct update_balloon_size_work;
-    struct work_struct update_balloon_stats_work;
-
-    /* Лічильники сторінок */
-    size_t num_pages;       /* Цільова кількість сторінок від хоста */
-    size_t num_pfns;        /* Поточна кількість елементів у буфері */
-    __virtio32 pfns[256];   /* Масив номерів кадрів для передачі */
-
-    /* Механізм зворотного вивільнення при браку пам'яті в гості */
-    struct shrinker *shrinker;
-};
-```
+:::code virtio-balloon-d/c/virtio_balloon.c
 
 ### Механізм виділення сторінок у balloon_inflate()
 
@@ -150,37 +128,7 @@ struct virtio_balloon {
 
 Ядро виконує посторінкове надування через функцію `balloon_page_alloc()`:
 
-```c
-/* Витяг із логіки drivers/virtio/virtio_balloon.c */
-static unsigned int fill_balloon(struct virtio_balloon *vb, size_t num)
-{
-    unsigned int num_allocated_pages = 0;
-
-    while (num_allocated_pages < num) {
-        /* Прапорці виділення: не спати довго, не шуміти в dmesg, не панікувати */
-        struct page *page = alloc_pages(GFP_HIGHUSER | __GFP_NOWARN | 
-                                        __GFP_NORETRY | __GFP_NOMEMALLOC, 0);
-        if (!page) {
-            /* Пам'ять гостя вичерпано — зупиняємо надування */
-            break;
-        }
-
-        /* Ізолюємо сторінку від механізму компактизації ядра */
-        balloon_page_enqueue(&vb->vb_dev_info, page);
-        vb->pfns[vb->num_pfns++] = page_to_pfn(page);
-        num_allocated_pages++;
-
-        /* Буфер заповнено (256 сторінок = 1 МіБ) — скидаємо у віртчергу */
-        if (vb->num_pfns == VIRTIO_BALLOON_ARRAY_PFNS_SIZE)
-            tell_host(vb, vb->inflate_vq);
-    }
-
-    if (vb->num_pfns > 0)
-        tell_host(vb, vb->inflate_vq);
-
-    return num_allocated_pages;
-}
-```
+:::code virtio-balloon-d/c/virtio_balloon-2.c
 
 Зверніть увагу на прапорці виділення пам'яті:
 * `GFP_HIGHUSER` — дозволяє виділяти сторінки із зони `ZONE_HIGHMEM` або `ZONE_NORMAL`, які доступні для програм користувача;
@@ -212,38 +160,7 @@ struct balloon_dev_info {
 
 Обробник у файлі `hw/virtio/virtio-balloon.c` (вихідний код QEMU) виконує трансляцію гостьових фізичних адрес у віртуальний адресний простір процесу QEMU:
 
-```c
-/* Спрощена логіка hw/virtio/virtio-balloon.c у QEMU */
-static void virtio_balloon_handle_inflate(VirtIODevice *vdev, VirtQueue *vq)
-{
-    VirtQueueElement *elem;
-
-    while ((elem = virtqueue_pop(vq, sizeof(VirtQueueElement)))) {
-        size_t pfn_count = elem->out_sg[0].iov_len / sizeof(uint32_t);
-        uint32_t *pfns = (uint32_t *)elem->out_sg[0].iov_base;
-
-        for (size_t i = 0; i < pfn_count; i++) {
-            /* 1. Обчислюємо гостьову фізичну адресу (GPA) */
-            hwaddr gpa = (hwaddr)virtio_ldl_p(vdev, &pfns[i]) << VIRTIO_BALLOON_PFN_SHIFT;
-
-            /* 2. Знаходимо MemoryRegionSection хоста за адресою GPA */
-            MemoryRegionSection section = memory_region_find(get_system_memory(), gpa, 4096);
-            if (!section.mr) continue;
-
-            /* 3. Отримуємо віртуальну адресу хоста (HVA) всередині процесу QEMU */
-            void *hva = qemu_map_ram_ptr(section.mr->ram_block, 
-                                         section.offset_within_region);
-
-            /* 4. Скидаємо фізичну пам'ять ядра хоста */
-            qemu_madvise(hva, 4096, QEMU_MADV_DONTNEED);
-
-            memory_region_unref(section.mr);
-        }
-        virtqueue_push(vq, elem, 0);
-        virtio_notify(vdev, vq);
-    }
-}
-```
+:::code virtio-balloon-d/c/virtio-balloon.c
 
 ### Що насправді робить MADV_DONTNEED?
 
@@ -291,30 +208,7 @@ static void virtio_balloon_handle_inflate(VirtIODevice *vdev, VirtQueue *vq)
 
 Під час завантаження драйвер реєструє зворотні виклики (callbacks) у підсистемі керування пам'яттю ядра гостя:
 
-```c
-/* drivers/virtio/virtio_balloon.c */
-static unsigned long virtio_balloon_shrinker_scan(struct shrinker *shrinker,
-                                                 struct shrink_control *sc)
-{
-    struct virtio_balloon *vb = shrinker->private_data;
-
-    /* Ядро вимагає вивільнити sc->nr_to_scan сторінок для порятунку від OOM */
-    unsigned long freed = leak_balloon(vb, sc->nr_to_scan);
-
-    /* Оновлюємо лічильники й сповіщаємо хост */
-    update_balloon_size(vb);
-    return freed ? freed : SHRINK_STOP;
-}
-
-static unsigned long virtio_balloon_shrinker_count(struct shrinker *shrinker,
-                                                  struct shrink_control *sc)
-{
-    struct virtio_balloon *vb = shrinker->private_data;
-
-    /* Повідомляємо підсистемі MM, скільки сторінок утримує балон */
-    return vb->num_pages;
-}
-```
+:::code virtio-balloon-d/c/virtio_balloon-3.c
 
 Коли рівень вільної пам'яті гостя падає нижче критичного водяного знака `wmark_low`, потік вивільнення ядра `kswapd` або процес безпосереднього виділення (англ. *direct reclaim*) опитує всі зареєстровані shrinker-обробники системи.
 
@@ -482,20 +376,7 @@ bpftrace -e 'kprobe:do_madvise /comm == "qemu-system-x86"/ { @start[tid] = nsecs
 
 Утиліта `virsh` дозволяє керувати розміром пам'яті ВМ «на льоту» без перезавантаження:
 
-```bash
-# Перевірка поточного розміру пам'яті та лімітів балона
-virsh dominfo vm-database | grep -E "(Max memory|Used memory)"
-
-# Зміна фактично виділеної пам'яті (надування або здування балона)
-# Зменшуємо пам'ять гостя vm-database до 8 ГБ (8388608 КіБ)
-virsh setmem vm-database 8388608 --live
-
-# Увімкнення періодичного збору статистики statsq (кожні 3 секунди)
-virsh dommemstat vm-database --period 3
-
-# Перегляд детальної телеметрії пам'яті гостя
-virsh dommemstat vm-database
-```
+:::code virtio-balloon-d/sh/main.sh
 
 Приклад виводу `virsh dommemstat`:
 ```text

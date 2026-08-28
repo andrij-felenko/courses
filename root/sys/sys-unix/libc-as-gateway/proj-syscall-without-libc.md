@@ -8,20 +8,7 @@
 
 Компілятор мови C не вміє видавати інструкцію `syscall` сам, зате вміє вставити в потік свого коду чужий текст асемблера й погодити його з рештою — через [вбудований асемблер](root:sf-lang/inline-assembly). Домовитися треба про три речі: у яких регістрах будуть входи, у якому регістрі забирати вихід і що інструкція псує.
 
-```c
-#include <stddef.h>
-
-static long raw_syscall3(long n, long a1, long a2, long a3)
-{
-    long ret;
-    __asm__ volatile (
-        "syscall"
-        : "=a" (ret)                                   /* вихід — rax */
-        : "a" (n), "D" (a1), "S" (a2), "d" (a3)        /* rax, rdi, rsi, rdx */
-        : "rcx", "r11", "memory");                     /* що псує інструкція */
-    return ret;
-}
-```
+:::code proj-syscall-without-libc/c/riven-1-pastka-prosto-v.c
 
 Літери в обмеженнях — це імена регістрів, а не абревіатури слів: `a` — `rax`, `D` — `rdi`, `S` — `rsi`, `d` — `rdx`. Ядро чекає номер виклику в `rax`, а перші три аргументи там само, де їх лишає звичайний виклик функції.
 
@@ -52,35 +39,13 @@ long bad = raw_syscall3(1, -1, (long)msg, sizeof msg - 1);
 
 Ядро повернуло **одне** число, у якому змішані результат і причина невдачі. Перетворити його на звичну для мови C форму — робота, яку ми щойно забрали в бібліотеки, тож робимо її самі:
 
-```c
-#include <errno.h>
-
-static long finish(long r)
-{
-    if ((unsigned long)r >= (unsigned long)-4095) {   /* тобто −4095 … −1 */
-        errno = (int)(-r);
-        return -1;
-    }
-    return r;
-}
-```
+:::code proj-syscall-without-libc/c/riven-1-pastka-prosto-v-2.c
 
 Порівняння тут **беззнакове**, і це не примха. Ядро вважає помилкою рівно 4095 найбільших значень беззнакового діапазону — саме так записана перевірка `IS_ERR_VALUE` у самому ядрі, де межа задана як `MAX_ERRNO`, рівна 4095. Знакова перевірка `r < 0` дала б той самий результат для `write`, але зламалася б на `mmap`: адресу, у якої стоїть старший біт, вона оголосила б помилкою, хоча це цілком законна пам'ять.
 
 Четвертий аргумент вимагає ще одного трюку, бо `rcx` уже зайнято під адресу повернення й ядро чекає його в `r10` — регістрі, для якого в GCC немає окремої літери-обмеження. Виручає прив'язка змінної до конкретного регістра:
 
-```c
-static long raw_syscall4(long n, long a1, long a2, long a3, long a4)
-{
-    long ret;
-    register long r10 __asm__("r10") = a4;
-    __asm__ volatile ("syscall"
-        : "=a" (ret)
-        : "a" (n), "D" (a1), "S" (a2), "d" (a3), "r" (r10)
-        : "rcx", "r11", "memory");
-    return ret;
-}
-```
+:::code proj-syscall-without-libc/c/riven-1-pastka-prosto-v-3.c
 
 Це той самий текст, що лежить у musl в `arch/x86_64/syscall_arch.h`, — приємно бачити, що «власноруч» тут збігається зі «як у справжній бібліотеці».
 
@@ -90,22 +55,7 @@ static long raw_syscall4(long n, long a1, long a2, long a3, long a4)
 
 Той самий виклик можна зробити, не пишучи ані рядка асемблера. У libc є функція, яка приймає номер і аргументи й сама розкладає їх за правилами поточної архітектури:
 
-```c
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <errno.h>
-#include <stdio.h>
-
-int main(void)
-{
-    static const char msg[] = "Привіт із загальних дверей\n";
-
-    long r = syscall(SYS_write, 1, msg, sizeof msg - 1);
-    if (r == -1)
-        fprintf(stderr, "не вийшло: errno=%d\n", errno);
-    return 0;
-}
-```
+:::code proj-syscall-without-libc/c/riven-2-syscall.c
 
 Прототип у неї нехитрий — `long syscall(long number, ...)`, — а от що вона робить, варто прочитати уважно: зберігає регістри, робить виклик, відновлює регістри й **записує помилку в `errno`**. Тобто це не «виклик в обхід libc». Це libc, просто загальні двері замість іменних: замість `write()` ви кажете `syscall(SYS_write, …)`, а весь клопіт із регістрами й `errno` бібліотека бере на себе. Той самий код зібрався б і працював би на AArch64, де номер `write` — 64, а пастка зветься `svc #0`.
 
@@ -137,77 +87,7 @@ int main(void)
 
 Робочий спосіб — написати точку входу асемблером на верхньому рівні файлу й одразу передати керування у звичайну функцію мовою C:
 
-```c
-/* nolibc.c — програма без бібліотеки: своя точка входу, свій вихід */
-
-#define SYS_write       1
-#define SYS_exit_group  231
-
-static long syscall3(long n, long a1, long a2, long a3)
-{
-    long ret;
-    __asm__ volatile ("syscall"
-        : "=a" (ret)
-        : "a" (n), "D" (a1), "S" (a2), "d" (a3)
-        : "rcx", "r11", "memory");
-    return ret;
-}
-
-/* strlen теж нема кому надати */
-static unsigned long slen(const char *s)
-{
-    const char *p = s;
-    while (*p) p++;
-    return (unsigned long)(p - s);
-}
-
-static void put(const char *s)
-{
-    syscall3(SYS_write, 1, (long)s, (long)slen(s));
-}
-
-/* ані printf, ані snprintf: десяткове число теж наша робота */
-static void put_ulong(unsigned long v)
-{
-    char buf[21];                       /* 20 цифр максимум плюс перевід рядка */
-    char *p = buf + sizeof buf;
-    *--p = '\n';
-    if (v == 0) *--p = '0';
-    while (v) { *--p = (char)('0' + v % 10); v /= 10; }
-    syscall3(SYS_write, 1, (long)p, (long)(buf + sizeof buf - p));
-}
-
-/* Сюди _start передає вершину стека такою, якою її лишило ядро */
-void c_start(long *sp)
-{
-    long argc   = sp[0];
-    char **argv = (char **)(sp + 1);
-    char **envp = argv + argc + 1;      /* одразу за NULL-завершувачем argv */
-
-    put("аргументів: ");
-    put_ulong((unsigned long)argc);
-    for (long i = 0; i < argc; i++) {
-        put("  ");
-        put(argv[i]);
-        put("\n");
-    }
-    put("перша змінна оточення: ");
-    put(envp[0] ? envp[0] : "(немає)");
-    put("\n");
-
-    syscall3(SYS_exit_group, 0, 0, 0);
-    __builtin_unreachable();            /* повертатися нікуди */
-}
-
-__asm__(
-    ".globl _start           \n"
-    "_start:                 \n"
-    "    xor  %ebp, %ebp     \n"   /* найзовнішній кадр: розкрутка стека спиниться тут */
-    "    mov  %rsp, %rdi     \n"   /* перший аргумент c_start — сам покажчик стека */
-    "    and  $-16, %rsp     \n"   /* угода про виклик вимагає вирівняного стека */
-    "    call c_start        \n"
-);
-```
+:::code proj-syscall-without-libc/c/nolibc.c
 
 Три рядки асемблера роблять рівно те, що потрібно, і нічого понад. `xor %ebp, %ebp` позначає найзовнішній кадр — так налагоджувач знає, де спинити розкрутку. `mov %rsp, %rdi` віддає вершину стека першим аргументом, поки її ніхто не зачепив. `and $-16, %rsp` вирівнює стек: [угода про виклик](root:hw-arch/calling-convention) на x86-64 вимагає, щоб перед `call` покажчик був кратний шістнадцяти, інакше перша ж інструкція SSE, яку вставить оптимізатор, впаде на невирівняному доступі.
 

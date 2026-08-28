@@ -37,19 +37,7 @@ struct libinput_interface {
 
 Бібліотека не створює власних фонових потоків виконання (threads) і не є потокобезпечною. Вся робота з контекстом має відбуватися в одному потоці — головному циклі подій композитора. Для взаємодії з механізмами мультиплексування [epoll або poll](root:sys-unix/select-poll-epoll) бібліотека надає єдиний внутрішній файловий дескриптор.
 
-```c
-/* Отримання дескриптора сповіщень для реєстрації в epoll/poll з прапорцем EPOLLIN */
-int libinput_get_fd(struct libinput *libinput);
-
-/* Зчитування накопичених сирих даних ядра та переведення внутрішніх автоматів станів */
-int libinput_dispatch(struct libinput *libinput);
-
-/* Витягування наступної високорівневої події з внутрішньої черги (повертає NULL, якщо черга порожня) */
-struct libinput_event *libinput_get_event(struct libinput *libinput);
-
-/* Звільнення пам'яті обробленої події */
-void libinput_event_destroy(struct libinput_event *event);
-```
+:::code api-libinput-core-interface/c/2-intehratsiia-v-holovnyi.h
 
 ### Порядок роботи в циклі обробки
 
@@ -63,52 +51,7 @@ void libinput_event_destroy(struct libinput_event *event);
 
 Усі події в бібліотеці представляються непрозорим базовим типом `struct libinput_event`. Базовий тип перевіряється функцією `libinput_event_get_type()` і приводиться до одного зі спеціалізованих підтипів:
 
-```c
-enum libinput_event_type {
-    LIBINPUT_EVENT_NONE = 0,
-    LIBINPUT_EVENT_DEVICE_NOTIFY,           /* Підключено новий пристрій або вилучено наявний */
-    
-    /* Клавіатурні події */
-    LIBINPUT_EVENT_KEYBOARD_KEY = 300,      /* Натискання або відпускання клавіші */
-    
-    /* Відносний рух вказівника (миша, трекбол) */
-    LIBINPUT_EVENT_POINTER_MOTION = 400,    /* Прискорене відносне переміщення курсора */
-    LIBINPUT_EVENT_POINTER_MOTION_ABSOLUTE, /* Абсолютне переміщення вказівника */
-    LIBINPUT_EVENT_POINTER_BUTTON,          /* Натискання або відпускання фізичної кнопки миші */
-    LIBINPUT_EVENT_POINTER_SCROLL_WHEEL,    /* Прокрутка дискретним коліщатком миші */
-    LIBINPUT_EVENT_POINTER_SCROLL_FINGER,   /* Прокрутка пальцями по тачпаду */
-    LIBINPUT_EVENT_POINTER_SCROLL_CONTINUOUS,/* Неперервна високоточна прокрутка */
-    
-    /* Прямий сенсорний ввід (тачскрини) */
-    LIBINPUT_EVENT_TOUCH_DOWN = 500,        /* Торкання сенсорного скла пальцем у новому слоті */
-    LIBINPUT_EVENT_TOUCH_UP,                /* Відривання пальця від поверхні */
-    LIBINPUT_EVENT_TOUCH_MOTION,            /* Переміщення контакту по поверхні */
-    LIBINPUT_EVENT_TOUCH_CANCEL,            /* Анулювання контакту (перехоплення жестом або долонею) */
-    LIBINPUT_EVENT_TOUCH_FRAME,             /* Межа синхронізації одночасних подій мультитачу */
-    
-    /* Багатопальцеві жести тачпада */
-    LIBINPUT_EVENT_GESTURE_SWIPE_BEGIN = 600,/* Початок синхронного свайпу кількома пальцями */
-    LIBINPUT_EVENT_GESTURE_SWIPE_UPDATE,    /* Зміна вектора свайпу */
-    LIBINPUT_EVENT_GESTURE_SWIPE_END,      /* Завершення свайпу */
-    LIBINPUT_EVENT_GESTURE_PINCH_BEGIN,     /* Початок жесту щипка чи обертання */
-    LIBINPUT_EVENT_GESTURE_PINCH_UPDATE,    /* Оновлення масштабу та кута щипка */
-    LIBINPUT_EVENT_GESTURE_PINCH_END,       /* Завершення щипка */
-    LIBINPUT_EVENT_GESTURE_HOLD_BEGIN,      /* Утримання нерухомих пальців на поверхні */
-    LIBINPUT_EVENT_GESTURE_HOLD_END,        /* Завершення утримання */
-    
-    /* Професійні графічні планшети та стилуси */
-    LIBINPUT_EVENT_TABLET_TOOL_AXIS = 700,  /* Оновлення координат, тиску чи нахилу пера */
-    LIBINPUT_EVENT_TABLET_TOOL_PROXIMITY,   /* Вхід або вихід пера із зони безконтактного зависання */
-    LIBINPUT_EVENT_TABLET_TOOL_TIP,         /* Фізичний дотик наконечника пера до планшета */
-    LIBINPUT_EVENT_TABLET_TOOL_BUTTON,      /* Натискання клавіш на корпусі самого стилуса */
-    LIBINPUT_EVENT_TABLET_PAD_BUTTON = 800, /* Натискання апаратних кнопок на корпусі планшета */
-    LIBINPUT_EVENT_TABLET_PAD_RING,         /* Поворот сенсорного кільця на планшеті */
-    LIBINPUT_EVENT_TABLET_PAD_STRIP,        /* Рух по лінійній сенсорній смузі планшета */
-
-    /* Апаратні апаратні перемикачі (кришка ноутбука, режим планшета) */
-    LIBINPUT_EVENT_SWITCH_TOGGLE = 900,
-};
-```
+:::code api-libinput-core-interface/c/3-iierarkhiia-typiv-podii.c
 
 ---
 
@@ -118,70 +61,19 @@ enum libinput_event_type {
 
 Для подій типу `LIBINPUT_EVENT_POINTER_*` базовий об'єкт перетворюється на покажчик `struct libinput_event_pointer *` за допомогою функції `libinput_event_get_pointer_event()`.
 
-```c
-struct libinput_event_pointer *libinput_event_get_pointer_event(struct libinput_event *event);
-
-/* Прискорені балістичні дельти переміщення в пікселях робочого столу */
-double libinput_event_pointer_get_dx(struct libinput_event_pointer *event);
-double libinput_event_pointer_get_dy(struct libinput_event_pointer *event);
-
-/* Фізичні неприскорені зміщення (у міліметрах) для шутерів від першої особи та САПР */
-double libinput_event_pointer_get_dx_unaccelerated(struct libinput_event_pointer *event);
-double libinput_event_pointer_get_dy_unaccelerated(struct libinput_event_pointer *event);
-
-/* Номер кнопки за стандартом Linux (BTN_LEFT = 272, BTN_RIGHT = 273, BTN_MIDDLE = 274) */
-uint32_t libinput_event_pointer_get_button(struct libinput_event_pointer *event);
-enum libinput_button_state libinput_event_pointer_get_button_state(struct libinput_event_pointer *event);
-
-/* Значення прокрутки по осях LIBINPUT_POINTER_AXIS_SCROLL_VERTICAL або HORIZONTAL */
-double libinput_event_pointer_get_scroll_value(struct libinput_event_pointer *event,
-                                               enum libinput_pointer_axis axis);
-/* Значення прокрутки під стандартом v120 (120 одиниць = 1 дискретний клік звичайного колеса) */
-double libinput_event_pointer_get_scroll_value_v120(struct libinput_event_pointer *event,
-                                                    enum libinput_pointer_axis axis);
-```
+:::code api-libinput-core-interface/c/podii-vkazivnyka-pointer.h
 
 ### Події жестів тачпада (Gesture Events)
 
 Події жестів транслюють оброблені вектори руху цілої групи пальців.
 
-```c
-struct libinput_event_gesture *libinput_event_get_gesture_event(struct libinput_event *event);
-
-/* Кількість одночасно задіяних пальців у поточному жесті (3 або 4 для свайпу; 2, 3 або 4 для щипка) */
-int libinput_event_gesture_get_finger_count(struct libinput_event_gesture *event);
-
-/* Зміщення центру мас групи пальців відносно попереднього кадру події */
-double libinput_event_gesture_get_dx(struct libinput_event_gesture *event);
-double libinput_event_gesture_get_dy(struct libinput_event_gesture *event);
-
-/* Масштабний множник: 1.0 — початковий стан, >1.0 — розведення пальців, <1.0 — стискання */
-double libinput_event_gesture_get_scale(struct libinput_event_gesture *event);
-
-/* Кутова дельта повороту лінії між пальцями (у градусах, позитивне значення — за годинниковою стрілкою) */
-double libinput_event_gesture_get_angle_delta(struct libinput_event_gesture *event);
-```
+:::code api-libinput-core-interface/c/podii-zhestiv-tachpada.h
 
 ### Події графічного планшета (Tablet Tool Events)
 
 Планшетні події несуть повну фізичну інформацію про положення бездротового стилуса у тривимірному просторі над сенсорною поверхнею.
 
-```c
-struct libinput_event_tablet_tool *libinput_event_get_tablet_tool_event(struct libinput_event *event);
-
-/* Нормалізована сила притискання наконечника до скла планшета в діапазоні [0.0, 1.0] */
-double libinput_event_tablet_tool_get_pressure(struct libinput_event_tablet_tool *event);
-
-/* Кути просторового нахилу пера у градусах відносно площини сенсора (зазвичай [-60.0, +60.0]) */
-double libinput_event_tablet_tool_get_tilt_x(struct libinput_event_tablet_tool *event);
-double libinput_event_tablet_tool_get_tilt_y(struct libinput_event_tablet_tool *event);
-
-/* Висота безконтактного зависання пера над поверхнею планшета у діапазоні [0.0, 1.0] */
-double libinput_event_tablet_tool_get_distance(struct libinput_event_tablet_tool *event);
-
-/* Кут обертання пера довкола своєї поздовжньої осі (для симуляції каліграфічних плоских пензлів [0.0, 360.0]) */
-double libinput_event_tablet_tool_get_rotation(struct libinput_event_tablet_tool *event);
-```
+:::code api-libinput-core-interface/c/podii-hrafichnoho.h
 
 ---
 

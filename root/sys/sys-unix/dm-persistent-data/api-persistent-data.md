@@ -49,22 +49,7 @@ struct dm_block_validator {
 
 Інтерфейс `struct dm_space_map` абстрагує операції обліку зайнятих блоків та відстеження 32-бітних лічильників спільних посилань (`refcount`). Для блоків даних використовується реалізація `dm-space-map-disk`, а для самих блоків метаданих — `dm-space-map-metadata`.
 
-```c
-struct dm_space_map {
-    void (*destroy)(struct dm_space_map *sm);
-    int (*extend)(struct dm_space_map *sm, dm_block_t extra_blocks);
-    int (*get_nr_blocks)(struct dm_space_map *sm, dm_block_t *count);
-    int (*get_nr_free)(struct dm_space_map *sm, dm_block_t *count);
-    int (*get_count)(struct dm_space_map *sm, dm_block_t b, uint32_t *result);
-    int (*set_count)(struct dm_space_map *sm, dm_block_t b, uint32_t count);
-    int (*commit)(struct dm_space_map *sm);
-    int (*inc_block)(struct dm_space_map *sm, dm_block_t b);
-    int (*dec_block)(struct dm_space_map *sm, dm_block_t b);
-    int (*new_block)(struct dm_space_map *sm, dm_block_t *b);
-    int (*root_size)(struct dm_space_map *sm, size_t *result);
-    int (*copy_root)(struct dm_space_map *sm, void *copy_to_here_le, size_t len);
-};
-```
+:::code api-persistent-data/c/2-menedzher-prostoru-space.h
 
 ### Поведінка та семантика викликів Space Map
 
@@ -80,21 +65,7 @@ B-дерева бібліотеки `dm-persistent-data` оптимізован�
 
 ### Конфігурація дерева `struct dm_btree_info`
 
-```c
-struct dm_btree_value_type {
-    void *context;
-    size_t size;
-    void (*inc)(void *context, const void *value);
-    void (*dec)(void *context, const void *value);
-    int (*equal)(void *context, const void *value1, const void *value2);
-};
-
-struct dm_btree_info {
-    struct dm_transaction_manager *tm;
-    unsigned levels;
-    struct dm_btree_value_type value_type;
-};
-```
+:::code api-persistent-data/c/konfihuratsiia-dereva.h
 
 Поле `levels` визначає кількість вимірів ключа. Для одновимірного B-дерева (наприклад, відображення блоків у кеші `dm-cache`) значення `levels = 1`, а ключем є `uint64_t`. Для дворівневих ієрархій `dm-thin` значення `levels = 2`, де перший рівень адресується ідентифікатором віртуального пристрою `dev_id`, а другий — логічним номером блоку `logical_block`.
 
@@ -117,32 +88,7 @@ struct dm_btree_info {
 
 Менеджер транзакцій (`struct dm_transaction_manager`) координує спільну роботу менеджера блоків, карти простору метаданих та B-дерев, забезпечуючи сувору двофазну фіксацію змін.
 
-```c
-int dm_tm_create_with_sm(struct dm_block_manager *bm,
-                         dm_block_t sb_location,
-                         struct dm_transaction_manager **tm,
-                         struct dm_space_map **sm);
-
-int dm_tm_open_with_sm(struct dm_block_manager *bm,
-                       dm_block_t sb_location,
-                       void *root_sm,
-                       size_t root_sm_size,
-                       struct dm_transaction_manager **tm,
-                       struct dm_space_map **sm);
-
-int dm_tm_shadow_block(struct dm_transaction_manager *tm,
-                       dm_block_t orig,
-                       struct dm_block_validator *v,
-                       struct dm_block **result,
-                       int *inc_children);
-
-int dm_tm_new_block(struct dm_transaction_manager *tm,
-                    struct dm_block_validator *v,
-                    struct dm_block **result);
-
-int dm_tm_commit(struct dm_transaction_manager *tm,
-                 struct dm_block *root_block);
-```
+:::code api-persistent-data/c/4-tranzaktsiinyi-menedzher.h
 
 ### Семантика транзакційних методів
 
@@ -154,26 +100,7 @@ int dm_tm_commit(struct dm_transaction_manager *tm,
 
 Суперблок займає перші 4096 байтів пристрою метаданих (фізичний блок 0) і має таку структуру:
 
-```c
-struct thin_disk_superblock {
-    __le32 csum;                  /* CRC32c сума від байта 4 до кінця блоку */
-    __le32 flags;                 /* Прапорці стану пулу (наприклад, NEEDS_CHECK = 1) */
-    __le64 blocknr;               /* Фізичний номер блоку (завжди 0) */
-    __u8   uuid[16];              /* Унікальний ідентифікатор пулу LVM */
-    __le64 magic;                 /* Магічне число: 0xf0051002 (THIN_SUPERBLOCK_MAGIC) */
-    __le32 version;               /* Версія формату метаданих */
-    __le32 time;                  /* Глобальна часова мітка останнього знімка */
-
-    __le64 trans_id;              /* Монотонний 64-бітний лічильник поколінь транзакцій */
-    __le64 metadata_free_blocks;  /* Кількість доступних вільних блоків метаданих */
-    __le64 data_mapping_root;     /* Фізичний блок кореня B-дерева відображень */
-    __le64 device_details_root;   /* Фізичний блок кореня B-дерева параметрів пристроїв */
-    __le64 data_block_size;       /* Розмір блоку даних у 512-байтних секторах */
-
-    __u8   metadata_space_map_root[128]; /* Корінь карти простору метаданих */
-    __u8   data_space_map_root[128];     /* Корінь карти простору блоків даних */
-} __packed;
-```
+:::code api-persistent-data/c/5-format-superbloku-dm.c
 
 Якщо поле `flags` містить біт `THIN_FEATURE_NEEDS_CHECK` (числове значення 1), ядро відмовляється відкривати пул у режимі читання-запису доти, доки утиліта `thin_check` не підтвердить валідність усіх структур даних і не очистить цей прапорець.
 

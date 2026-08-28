@@ -22,129 +22,17 @@ TCP не передає повідомлень. Він передає потік
 
 Почнімо з двох помічників, і перший із них — уже урок. Блокуючий `read` **не зобов'язаний** повернути стільки, скільки просили: він повертає стільки, скільки є прямо зараз, аби хоч один байт. Тому «прочитати рівно чотири байти» — це цикл, а не виклик:
 
-```c
-/* echo_blocking.c — потік на з'єднання, усі виклики блокуючі.
- * gcc -O2 -Wall -Wextra -pthread -o echo_blocking echo_blocking.c
- */
-#define _GNU_SOURCE
-#include <arpa/inet.h>
-#include <errno.h>
-#include <netinet/in.h>
-#include <pthread.h>
-#include <signal.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
-#define PORT      9000
-#define MAX_BODY  (64u * 1024u)
-
-/* Читає рівно n байтів. 1 — прочитано, 0 — інший бік закрив, -1 — помилка. */
-static int read_full(int fd, void *buf, size_t n)
-{
-    char *p = buf;
-    while (n > 0) {
-        ssize_t k = read(fd, p, n);
-        if (k == 0) return 0;
-        if (k < 0) {
-            if (errno == EINTR) continue;
-            return -1;
-        }
-        p += k;
-        n -= (size_t)k;
-    }
-    return 1;
-}
-
-/* Пише рівно n байтів. 1 — записано, -1 — помилка. */
-static int write_full(int fd, const void *buf, size_t n)
-{
-    const char *p = buf;
-    while (n > 0) {
-        ssize_t k = write(fd, p, n);
-        if (k < 0) {
-            if (errno == EINTR) continue;
-            return -1;
-        }
-        p += k;
-        n -= (size_t)k;
-    }
-    return 1;
-}
-```
+:::code proj-echo-two-ways/c/echo_blocking.c
 
 Перевірка на `EINTR` тут не декорація: сигнал, що прийшов посеред очікування, вибиває виклик із поверненням −1 і саме цим кодом ([сигнал](root:sys-unix/signal-model) — асинхронне сповіщення, яке ядро доставляє задачі й яке пробуджує її з перериванного сну; без прапорця `SA_RESTART` перерваний виклик доводиться повторювати руками).
 
 А ось власне обробник — уся розмова з клієнтом:
 
-```c
-static void *serve(void *arg)
-{
-    int fd = (int)(intptr_t)arg;
-    char *body = malloc(MAX_BODY);
-
-    if (body != NULL) {
-        for (;;) {
-            uint32_t hdr;
-            if (read_full(fd, &hdr, 4) != 1) break;
-
-            uint32_t len = ntohl(hdr);
-            if (len > MAX_BODY) break;
-
-            if (read_full(fd, body, len) != 1) break;
-            if (write_full(fd, &hdr, 4) != 1) break;
-            if (write_full(fd, body, len) != 1) break;
-        }
-    }
-
-    free(body);
-    close(fd);
-    return NULL;
-}
-```
+:::code proj-echo-two-ways/c/versiia-persha-potik-na.c
 
 Дев'ять значущих рядків, і вони читаються так само, як протокол розповідають уголос: прочитали заголовок, дізналися довжину, прочитали тіло, відповіли, повторили. Приймальня не складніша:
 
-```c
-int main(void)
-{
-    signal(SIGPIPE, SIG_IGN);     /* інакше запис у закритий сокет уб'є процес */
-
-    int ls = socket(AF_INET, SOCK_STREAM, 0);
-    if (ls < 0) { perror("socket"); return 1; }
-
-    int one = 1;
-    setsockopt(ls, SOL_SOCKET, SO_REUSEADDR, &one, sizeof one);
-
-    struct sockaddr_in a;
-    memset(&a, 0, sizeof a);
-    a.sin_family      = AF_INET;
-    a.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-    a.sin_port        = htons(PORT);
-
-    if (bind(ls, (struct sockaddr *)&a, sizeof a) < 0) { perror("bind");   return 1; }
-    if (listen(ls, 128) < 0)                           { perror("listen"); return 1; }
-
-    for (;;) {
-        int fd = accept(ls, NULL, NULL);       /* тут потік спить, поки нема клієнта */
-        if (fd < 0) {
-            if (errno == EINTR) continue;
-            perror("accept");
-            break;
-        }
-        pthread_t t;
-        if (pthread_create(&t, NULL, serve, (void *)(intptr_t)fd) != 0) {
-            close(fd);                          /* потоки скінчилися — відмовляємо */
-            continue;
-        }
-        pthread_detach(t);
-    }
-    return 0;
-}
-```
+:::code proj-echo-two-ways/c/versiia-persha-potik-na-2.c
 
 Тепер найважливіше запитання до цього коду: **де тут стан незавершеної розмови?** Формально — ніде: жодної структури «з'єднання» ми не оголошували. Насправді він розкиданий по чотирьох місцях, і всі вони — кадри стека цього потоку.
 
@@ -172,217 +60,29 @@ int main(void)
 
 Таблиця вище фактично й є оголошенням структури. Випишімо її:
 
-```c
-/* echo_epoll.c — той самий протокол: один потік, epoll і O_NONBLOCK.
- * gcc -O2 -Wall -Wextra -o echo_epoll echo_epoll.c
- */
-#define _GNU_SOURCE
-#include <arpa/inet.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <netinet/in.h>
-#include <signal.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/epoll.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
-#define PORT      9000
-#define MAX_BODY  (64u * 1024u)
-#define MAX_OUT   (1u << 20)      /* стеля вихідної черги: 1 МіБ на з'єднання */
-#define MAX_EV    64
-
-enum phase { PH_HEADER, PH_BODY };
-
-struct conn {
-    int        fd;
-    enum phase phase;         /* колишня адреса повернення в serve()        */
-
-    char       hdr[4];        /* колишня локальна hdr                       */
-    size_t     hdr_got;       /* колишні p/n усередині read_full(заголовок) */
-
-    char      *body;          /* колишній malloc у кадрі serve()            */
-    size_t     body_len;      /* колишня локальна len                       */
-    size_t     body_got;      /* колишні p/n усередині read_full(тіло)      */
-
-    char      *out;           /* вихідна черга — у блокуючій версії не існувала */
-    size_t     out_cap;
-    size_t     out_len;
-    size_t     out_off;       /* колишні p/n усередині write_full           */
-
-    int        want_write;    /* чи стоїть EPOLLOUT у масці просто зараз    */
-};
-```
+:::code proj-echo-two-ways/c/echo_epoll.c
 
 Дванадцять полів проти нуля — це і є ціна, виражена в тексті. Народження й смерть з'єднання теж стали нашим клопотом:
 
-```c
-static struct conn *conn_new(int fd)
-{
-    struct conn *c = calloc(1, sizeof *c);
-    if (c != NULL) {
-        c->fd = fd;
-        c->phase = PH_HEADER;
-    }
-    return c;
-}
-
-static void conn_close(int ep, struct conn *c)
-{
-    epoll_ctl(ep, EPOLL_CTL_DEL, c->fd, NULL);   /* NULL дозволено з Linux 2.6.9 */
-    close(c->fd);
-    free(c->body);
-    free(c->out);
-    free(c);
-}
-```
+:::code proj-echo-two-ways/c/versiia-druha-avtomat.c
 
 ### Маска подій — одне місце на всю програму
 
 Далі найтонша функція в усій програмі. Вона відповідає рівно на одне запитання: чи цікавить нас зараз готовність до запису? І відповідь у неї коротка — цікавить рівно тоді, коли є недописаний хвіст.
 
-```c
-/* Маска = EPOLLIN плюс EPOLLOUT рівно тоді, коли є недописаний хвіст.
-   epoll_ctl кличемо, лише якщо відповідь змінилася від минулого разу. */
-static int arm(int ep, struct conn *c)
-{
-    int want = (c->out_off < c->out_len);
-    if (want == c->want_write)
-        return 0;
-
-    struct epoll_event ev;
-    memset(&ev, 0, sizeof ev);
-    ev.events   = EPOLLIN | (want ? EPOLLOUT : 0);
-    ev.data.ptr = c;
-
-    if (epoll_ctl(ep, EPOLL_CTL_MOD, c->fd, &ev) < 0)
-        return -1;
-
-    c->want_write = want;
-    return 0;
-}
-```
+:::code proj-echo-two-ways/c/maska-podii-odne-mistse-na.c
 
 Порівняння `want == c->want_write` — не мікрооптимізація. Без нього кожна подія на кожному з'єднанні тягла б за собою `epoll_ctl`, тобто зайвий системний виклик на кожен прочитаний заголовок; з десятьма тисячами клієнтів це помітна стаття витрат нізащо.
 
 ### Вихідна черга
 
-```c
-/* Додає дані у вихідну чергу. -1 — черга переросла стелю або скінчилася пам'ять. */
-static int out_push(struct conn *c, const void *data, size_t n)
-{
-    if (n == 0)
-        return 0;
-
-    if (c->out_off > 0) {          /* викидаємо з початку те, що вже пішло */
-        memmove(c->out, c->out + c->out_off, c->out_len - c->out_off);
-        c->out_len -= c->out_off;
-        c->out_off = 0;
-    }
-    if (c->out_len + n > MAX_OUT)
-        return -1;
-
-    if (c->out_len + n > c->out_cap) {
-        size_t cap = c->out_cap ? c->out_cap : 4096;
-        while (cap < c->out_len + n)
-            cap *= 2;
-        char *p = realloc(c->out, cap);
-        if (p == NULL)
-            return -1;
-        c->out = p;
-        c->out_cap = cap;
-    }
-    memcpy(c->out + c->out_len, data, n);
-    c->out_len += n;
-    return 0;
-}
-
-/* Пише, скільки візьмуть. 0 — гаразд (хвіст міг лишитись), -1 — з'єднання мертве. */
-static int out_flush(struct conn *c)
-{
-    while (c->out_off < c->out_len) {
-        ssize_t k = write(c->fd, c->out + c->out_off, c->out_len - c->out_off);
-        if (k > 0) {
-            c->out_off += (size_t)k;
-            continue;
-        }
-        if (k < 0 && errno == EINTR)
-            continue;
-        if (k < 0 && (errno == EAGAIN || errno == EWOULDBLOCK))
-            return 0;               /* буфер передачі повний — чекаємо на EPOLLOUT */
-        return -1;
-    }
-    c->out_off = 0;
-    c->out_len = 0;
-    return 0;
-}
-```
+:::code proj-echo-two-ways/c/vykhidna-cherha.c
 
 Зверніть увагу на `return 0` при `EAGAIN`. Це **не помилка** й навіть не рідкісний випадок: це нормальна відповідь ядра «у буфері передачі більше немає місця». Уся різниця з блокуючою версією зосереджена в цьому рядку: там на цьому місці була б пауза всередині `write`, тут — вихід із функції з наміром повернутися пізніше.
 
 ### Автомат
 
-```c
-/* Автомат станів одного з'єднання. 0 — живемо далі, -1 — закриваємо. */
-static int on_readable(struct conn *c)
-{
-    for (;;) {
-        if (c->phase == PH_HEADER) {
-            ssize_t k = read(c->fd, c->hdr + c->hdr_got, sizeof c->hdr - c->hdr_got);
-            if (k == 0) return -1;                    /* інший бік закрив */
-            if (k < 0) {
-                if (errno == EINTR) continue;
-                if (errno == EAGAIN || errno == EWOULDBLOCK) return 0;
-                return -1;
-            }
-            c->hdr_got += (size_t)k;
-            if (c->hdr_got < sizeof c->hdr)
-                continue;                             /* заголовок ще не цілий */
-
-            uint32_t len;
-            memcpy(&len, c->hdr, sizeof len);
-            len = ntohl(len);
-            if (len > MAX_BODY) return -1;
-
-            c->body_len = len;
-            c->body_got = 0;
-            if (len > 0) {
-                c->body = malloc(len);
-                if (c->body == NULL) return -1;
-            }
-            c->phase = PH_BODY;
-            continue;              /* ← без цього рядка з'єднання зависає, див. пастку 1 */
-        }
-
-        while (c->body_got < c->body_len) {
-            ssize_t k = read(c->fd, c->body + c->body_got, c->body_len - c->body_got);
-            if (k == 0) return -1;
-            if (k < 0) {
-                if (errno == EINTR) continue;
-                if (errno == EAGAIN || errno == EWOULDBLOCK) return 0;
-                return -1;
-            }
-            c->body_got += (size_t)k;
-        }
-
-        /* повідомлення ціле — відповідь у чергу й одразу пробуємо відправити */
-        uint32_t be = htonl((uint32_t)c->body_len);
-        if (out_push(c, &be, sizeof be) < 0)       return -1;
-        if (out_push(c, c->body, c->body_len) < 0) return -1;
-        if (out_flush(c) < 0)                      return -1;
-
-        free(c->body);
-        c->body     = NULL;
-        c->body_len = 0;
-        c->body_got = 0;
-        c->hdr_got  = 0;
-        c->phase    = PH_HEADER;
-    }
-}
-```
+:::code proj-echo-two-ways/c/avtomat.c
 
 ![Дві фази розбирача, переходи між ними й місця, де читання чи запис не завершилися повністю](img/phase-machine.svg)
 
@@ -392,89 +92,7 @@ static int on_readable(struct conn *c)
 
 ### Цикл подій
 
-```c
-static void accept_all(int ep, int ls)
-{
-    for (;;) {
-        int fd = accept4(ls, NULL, NULL, SOCK_NONBLOCK);   /* з Linux 2.6.28 */
-        if (fd < 0) {
-            if (errno == EINTR) continue;
-            return;      /* EAGAIN — черга порожня; EMFILE — скінчилися дескриптори */
-        }
-        struct conn *c = conn_new(fd);
-        if (c == NULL) { close(fd); continue; }
-
-        struct epoll_event ev;
-        memset(&ev, 0, sizeof ev);
-        ev.events   = EPOLLIN;
-        ev.data.ptr = c;
-        if (epoll_ctl(ep, EPOLL_CTL_ADD, fd, &ev) < 0) {
-            close(fd);
-            free(c);
-        }
-    }
-}
-
-int main(void)
-{
-    signal(SIGPIPE, SIG_IGN);
-
-    int ls = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);  /* з Linux 2.6.27 */
-    if (ls < 0) { perror("socket"); return 1; }
-
-    int one = 1;
-    setsockopt(ls, SOL_SOCKET, SO_REUSEADDR, &one, sizeof one);
-
-    struct sockaddr_in a;
-    memset(&a, 0, sizeof a);
-    a.sin_family      = AF_INET;
-    a.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-    a.sin_port        = htons(PORT);
-
-    if (bind(ls, (struct sockaddr *)&a, sizeof a) < 0) { perror("bind");   return 1; }
-    if (listen(ls, 128) < 0)                           { perror("listen"); return 1; }
-
-    int ep = epoll_create1(0);
-    if (ep < 0) { perror("epoll_create1"); return 1; }
-
-    struct epoll_event ev;
-    memset(&ev, 0, sizeof ev);
-    ev.events   = EPOLLIN;
-    ev.data.ptr = NULL;                       /* NULL — позначка слухаючого сокета */
-    if (epoll_ctl(ep, EPOLL_CTL_ADD, ls, &ev) < 0) { perror("epoll_ctl"); return 1; }
-
-    struct epoll_event evs[MAX_EV];
-    for (;;) {
-        int n = epoll_wait(ep, evs, MAX_EV, -1);   /* єдине місце, де потік спить */
-        if (n < 0) {
-            if (errno == EINTR) continue;
-            perror("epoll_wait");
-            break;
-        }
-        for (int i = 0; i < n; i++) {
-            if (evs[i].data.ptr == NULL) {
-                accept_all(ep, ls);
-                continue;
-            }
-            struct conn *c = evs[i].data.ptr;
-            int dead = 0;
-
-            if (evs[i].events & (EPOLLHUP | EPOLLERR))
-                dead = 1;
-            if (!dead && (evs[i].events & EPOLLOUT))
-                dead = (out_flush(c) < 0);      /* спершу звільняємо місце */
-            if (!dead && (evs[i].events & EPOLLIN))
-                dead = (on_readable(c) < 0);
-            if (!dead)
-                dead = (arm(ep, c) < 0);        /* єдине місце, де міняється маска */
-
-            if (dead)
-                conn_close(ep, c);
-        }
-    }
-    return 0;
-}
-```
+:::code proj-echo-two-ways/c/tsykl-podii.c
 
 Порядок обробки всередині події не випадковий. Спершу `EPOLLOUT`, потім `EPOLLIN`: якщо цим обертом звільнилося місце у вихідній черзі, наступне прочитане повідомлення матиме куди покласти відповідь. І `arm` — рівно один виклик наприкінці, після всіх обробників: маска перераховується один раз за фактом того, що з чергою сталося, а не в трьох різних місцях за припущеннями.
 
@@ -506,31 +124,7 @@ int main(void)
 
 Стеля `MAX_OUT` рятує пам'ять, але грубо: розриває з'єднання, зокрема й чесно повільному клієнтові. М'якший спосіб — перестати читати, поки черга роздута. Тоді буфер прийому в ядрі заповниться, вікно TCP закриється, і клієнт загальмує сам:
 
-```c
-#define OUT_HIGH  (256u * 1024u)
-
-/* замість want_write зберігаємо всю маску */
-static int arm(int ep, struct conn *c)
-{
-    size_t tail = c->out_len - c->out_off;
-    int m = 0;
-    if (tail < OUT_HIGH) m |= EPOLLIN;    /* поки черга не роздулась — читаємо */
-    if (tail > 0)        m |= EPOLLOUT;   /* є хвіст — чекаємо на місце        */
-
-    if (m == c->mask)
-        return 0;
-
-    struct epoll_event ev;
-    memset(&ev, 0, sizeof ev);
-    ev.events   = (uint32_t)m;
-    ev.data.ptr = c;
-    if (epoll_ctl(ep, EPOLL_CTL_MOD, c->fd, &ev) < 0)
-        return -1;
-
-    c->mask = m;
-    return 0;
-}
-```
+:::code proj-echo-two-ways/c/novi-pastky.c
 
 Маска ніколи не стає порожньою: щойно `tail` дорівнює чи більший за `OUT_HIGH`, він точно більший за нуль, отже `EPOLLOUT` на місці й з'єднання розбудять. `conn_new` при цьому має записати `c->mask = EPOLLIN`, щоб збігтися з тим, із чим його додали в `epoll`. Це і є протитиск у найдешевшому вигляді ([протитиск](root:sf-tasks/backpressure-local) — передавати сигнал перевантаження назад до джерела замість того, щоб буферувати без кінця).
 

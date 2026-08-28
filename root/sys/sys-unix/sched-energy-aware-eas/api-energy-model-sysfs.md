@@ -6,21 +6,7 @@
 
 Підсистема Energy Model описує апаратні профілі енергоспоживання за допомогою двох основних структур даних: стани продуктивності `struct em_perf_state` та домени продуктивності `struct em_perf_domain`.
 
-```c
-struct em_perf_state {
-    unsigned long frequency;   /* Робоча частота домену в кілогерцах (кГц) */
-    unsigned long power;       /* Споживана потужність у міліватах (мВт) або мікроватах */
-    unsigned long cost;        /* Обчислена вартість виконання = (power / performance) * 1024 */
-    unsigned long flags;       /* Внутрішні прапорці стану (наприклад, EM_PERF_STATE_INEFFICIENT) */
-};
-
-struct em_perf_domain {
-    struct em_perf_state *table; /* Масив станів OPP, відсортований за зростанням частоти */
-    int nr_perf_states;          /* Кількість доступних станів OPP у масиві table */
-    int flags;                   /* Прапорці домену (наприклад, EM_PERF_DOMAIN_MICROWATTS) */
-    unsigned long cpus[1];       /* Бітова маска CPU, що входять до даного домену */
-};
-```
+:::code api-energy-model-sysfs/c/main.c
 
 Поле `frequency` описує робочу частоту ядра в кілогерцах. Поле `power` містить споживану потужність кластера на цій частоті. Якщо прапорець `EM_PERF_DOMAIN_MICROWATTS` увімкнено, значення потужності подається в мікроватах (мкВт), інакше — у відносних абстрактних одиницях. 
 

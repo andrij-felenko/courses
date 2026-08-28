@@ -20,117 +20,19 @@
 
 Спершу домовленість із програмою і власна структура.
 
-```c
-/* uapi: те саме визначення включає і модуль, і програма */
-struct mirror_range {
-        __u64 start;
-        __u64 length;
-};
-#define MIRROR_IOC_ATTACH _IOW('M', 1, struct mirror_range)
-#define MIRROR_IOC_FAULT  _IOW('M', 2, struct mirror_range)
-
-#define MIRROR_MAX_PAGES 1024
-
-struct mirror {
-        struct mmu_interval_notifier notifier;  /* вузол в інтервальному дереві */
-        struct mm_struct *mm;                   /* утримано mmgrab() */
-        bool attached;
-
-        struct mutex setup;   /* впорядковує ioctl між собою */
-        struct mutex lock;    /* ЗАМОК ОНОВЛЕННЯ: збій ↔ скасування */
-
-        unsigned long start;
-        unsigned long npages;
-        unsigned long *dev_pte;  /* «таблиця пристрою»: номери кадрів або 0 */
-        unsigned long *pfns;     /* буфер відповіді hmm_range_fault */
-};
-```
+:::code proj-mirror-a-range/c/kod.c
 
 Замків два, і плутати їх не можна. `lock` бере зворотний виклик, який приходить із-під замків ядра, тож усе, що під ним робиться, має бути коротким. `setup` живе тільки на верхньому рівні `ioctl` і не з'являється в зворотному виклику взагалі — саме тому під ним можна спокійно спати.
 
 Далі зворотний виклик скасування.
 
-```c
-static bool mirror_invalidate(struct mmu_interval_notifier *mni,
-                              const struct mmu_notifier_range *range,
-                              unsigned long cur_seq)
-{
-        struct mirror *m = container_of(mni, struct mirror, notifier);
-        unsigned long first, last, addr;
-
-        if (mmu_notifier_range_blockable(range))
-                mutex_lock(&m->lock);
-        else if (!mutex_trylock(&m->lock))
-                return false;   /* тому, хто кликав, піде -EAGAIN */
-
-        mmu_interval_set_seq(mni, cur_seq);
-
-        first = max(range->start, m->start);
-        last  = min(range->end, m->start + (m->npages << PAGE_SHIFT));
-        for (addr = first; addr < last; addr += PAGE_SIZE)
-                m->dev_pte[(addr - m->start) >> PAGE_SHIFT] = 0;
-
-        mutex_unlock(&m->lock);
-        return true;
-}
-
-static const struct mmu_interval_notifier_ops mirror_ops = {
-        .invalidate = mirror_invalidate,
-};
-```
+:::code proj-mirror-a-range/c/kod-2.c
 
 `mmu_notifier_range_blockable` відповідає на питання «чи вільно тут спати». Коли вільно — беремо замок звичайно. Коли ні, спроба взяти його без сну або вдається, або ми чесно повертаємо `false`: ядро сприйме це як «не зараз», віддасть нагору `-EAGAIN` і спробує пізніше. Багато справжніх драйверів у неблокуючому режимі навіть не пробують і відступають одразу — це теж законно, просто дещо песимістичніше.
 
 Тепер обробник збою: єдине місце, де записи з'являються.
 
-```c
-static int mirror_fault(struct mirror *m, unsigned long start, unsigned long len)
-{
-        unsigned long n = len >> PAGE_SHIFT;
-        unsigned long base = (start - m->start) >> PAGE_SHIFT;
-        struct hmm_range range = {
-                .notifier      = &m->notifier,
-                .start         = start,
-                .end           = start + len,
-                .hmm_pfns      = m->pfns,
-                .default_flags = HMM_PFN_REQ_FAULT,
-        };
-        unsigned long i;
-        int ret;
-
-        if (!mmget_not_zero(m->mm))
-                return -EFAULT;         /* адресного простору вже немає */
-
-        for (;;) {
-                range.notifier_seq = mmu_interval_read_begin(&m->notifier);
-
-                mmap_read_lock(m->mm);
-                ret = hmm_range_fault(&range);
-                mmap_read_unlock(m->mm);
-                if (ret) {
-                        if (ret == -EBUSY)
-                                continue;       /* зміна саме триває */
-                        break;
-                }
-
-                mutex_lock(&m->lock);
-                if (mmu_interval_read_retry(&m->notifier, range.notifier_seq)) {
-                        mutex_unlock(&m->lock);
-                        continue;               /* усе спочатку */
-                }
-
-                for (i = 0; i < n; i++)
-                        m->dev_pte[base + i] = (m->pfns[i] & HMM_PFN_VALID) ?
-                                page_to_pfn(hmm_pfn_to_page(m->pfns[i])) : 0;
-
-                mutex_unlock(&m->lock);
-                break;
-        }
-
-        mmput(m->mm);
-        return ret;
-}
-```
+:::code proj-mirror-a-range/c/kod-3.c
 
 Читає таблиці процесу не сам модуль, а [підсистема дзеркалення `hmm_range_fault`](root:sys-unix/hmm-address-space-mirroring) — вона обходить таблиці, за потреби викликає сторінковий збій і повертає масив номерів кадрів із прапорцями. Вона ж уміє помітити, що посеред її роботи прийшло скасування, і повернути `-EBUSY`; це не помилка, а «спробуй іще раз». Заведений у `range` вузол потрібен саме для цього.
 
@@ -138,64 +40,7 @@ static int mirror_fault(struct mirror *m, unsigned long start, unsigned long len
 
 Реєстрація й зняття.
 
-```c
-static long mirror_attach(struct mirror *m, unsigned long start, unsigned long len)
-{
-        struct mm_struct *mm = current->mm;
-        int ret;
-
-        if (m->attached)
-                return -EBUSY;
-        if (!len || !IS_ALIGNED(start, PAGE_SIZE) || !IS_ALIGNED(len, PAGE_SIZE) ||
-            (len >> PAGE_SHIFT) > MIRROR_MAX_PAGES)
-                return -EINVAL;
-
-        m->npages = len >> PAGE_SHIFT;
-        m->start = start;
-        m->dev_pte = kvcalloc(m->npages, sizeof(*m->dev_pte), GFP_KERNEL);
-        m->pfns = kvcalloc(m->npages, sizeof(*m->pfns), GFP_KERNEL);
-        if (!m->dev_pte || !m->pfns) {
-                ret = -ENOMEM;
-                goto err_free;
-        }
-
-        mmgrab(mm);             /* тримаємо СТРУКТУРУ, а не адресний простір */
-        m->mm = mm;
-
-        /* ⚠️ жодного m->lock тут: insert бере mmap_lock на запис */
-        ret = mmu_interval_notifier_insert(&m->notifier, mm, start, len,
-                                           &mirror_ops);
-        if (ret)
-                goto err_drop;
-
-        m->attached = true;
-        return 0;
-
-err_drop:
-        mmdrop(mm);
-        m->mm = NULL;
-err_free:
-        kvfree(m->dev_pte);
-        kvfree(m->pfns);
-        m->dev_pte = m->pfns = NULL;
-        return ret;
-}
-
-static int mirror_release(struct inode *inode, struct file *file)
-{
-        struct mirror *m = file->private_data;
-
-        if (m->attached) {
-                mmu_interval_notifier_remove(&m->notifier);
-                /* після повернення зворотних викликів немає й не буде */
-                mmdrop(m->mm);
-        }
-        kvfree(m->dev_pte);
-        kvfree(m->pfns);
-        kfree(m);
-        return 0;
-}
-```
+:::code proj-mirror-a-range/c/kod-4.c
 
 ![Структура mm, адресний простір і підписка живуть різні відрізки часу: mmgrab тримає структуру до close(fd), mmget_not_zero перевіряє, чи живий іще простір](img/mirror-lifetime.svg)
 
@@ -207,66 +52,7 @@ static int mirror_release(struct inode *inode, struct file *file)
 
 Решта — звичайна обв'язка [модуля ядра](root:sys-unix/kernel-modules).
 
-```c
-static int mirror_open(struct inode *inode, struct file *file)
-{
-        struct mirror *m = kzalloc(sizeof(*m), GFP_KERNEL);
-
-        if (!m)
-                return -ENOMEM;
-        mutex_init(&m->setup);
-        mutex_init(&m->lock);
-        file->private_data = m;
-        return 0;
-}
-
-static long mirror_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-{
-        struct mirror *m = file->private_data;
-        struct mirror_range r;
-        long ret;
-
-        if (copy_from_user(&r, (void __user *)arg, sizeof(r)))
-                return -EFAULT;
-
-        mutex_lock(&m->setup);
-        switch (cmd) {
-        case MIRROR_IOC_ATTACH:
-                ret = mirror_attach(m, r.start, r.length);
-                break;
-        case MIRROR_IOC_FAULT:
-                if (!m->attached || !r.length ||
-                    !IS_ALIGNED(r.start, PAGE_SIZE) || !IS_ALIGNED(r.length, PAGE_SIZE) ||
-                    r.start < m->start || r.length > (m->npages << PAGE_SHIFT) ||
-                    r.start + r.length > m->start + (m->npages << PAGE_SHIFT))
-                        ret = -EINVAL;
-                else
-                        ret = mirror_fault(m, r.start, r.length);
-                break;
-        default:
-                ret = -ENOTTY;
-        }
-        mutex_unlock(&m->setup);
-        return ret;
-}
-
-static const struct file_operations mirror_fops = {
-        .owner          = THIS_MODULE,
-        .open           = mirror_open,
-        .release        = mirror_release,
-        .unlocked_ioctl = mirror_ioctl,
-        .compat_ioctl   = compat_ptr_ioctl,
-        .llseek         = noop_llseek,
-};
-
-static struct miscdevice mirror_dev = {
-        .minor = MISC_DYNAMIC_MINOR,
-        .name  = "mirror",
-        .fops  = &mirror_fops,
-};
-module_misc_device(mirror_dev);
-MODULE_LICENSE("GPL");
-```
+:::code proj-mirror-a-range/c/kod-5.c
 
 Збирається це лише там, де ввімкнено дзеркалення адресного простору, тож у `Kconfig` модуля потрібен `depends on HMM_MIRROR`.
 

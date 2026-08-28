@@ -6,22 +6,7 @@
 
 Для опису фізичного порту та його апаратних можливостей низькорівневий драйвер контролера заповнює структуру `struct typec_capability`. Ця структура передається підсистемі ядра під час ініціалізації порту:
 
-```c
-/* Скорочено за заголовком ядра include/linux/usb/typec.h */
-struct typec_capability {
-    enum typec_port_type    type;           /* TYPEC_PORT_SRC, TYPEC_PORT_SNK, TYPEC_PORT_DRP */
-    enum typec_port_data    data;           /* TYPEC_PORT_DFP, TYPEC_PORT_UFP, TYPEC_PORT_DRD */
-    u16                     revision;       /* Версія специфікації Type-C у BCD: 0x0130 = 1.3 */
-    u16                     pd_revision;    /* Версія специфікації USB PD у BCD: 0x0300 = 3.0 */
-
-    const struct typec_operations *ops;     /* Покажчик на функції зворотного виклику (callback ops) */
-    
-    struct fwnode_handle   *fwnode;         /* Зв'язок із вузлом Device Tree або ACPI */
-    void                   *driver_data;    /* Приватні дані драйвера контролера */
-
-    int                     prefer_role;    /* Бажана роль при підключенні: Try.SRC / Try.SNK */
-};
-```
+:::code api-typec-kernel-sysfs/c/main.c
 
 Детальне призначення полів структури `struct typec_capability`:
 - `type`: Визначає базовий електричний режим живлення порту. Значення `TYPEC_PORT_SRC` вказує, що порт може виступати лише джерелом живлення; `TYPEC_PORT_SNK` — лише споживачем; `TYPEC_PORT_DRP` — дворольовий порт (Dual-Role Power), здатний динамічно змінювати роль.

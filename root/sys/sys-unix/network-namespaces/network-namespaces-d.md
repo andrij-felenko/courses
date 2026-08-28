@@ -229,37 +229,7 @@ Linux Bridge (`br0`) працює як віртуальний Ethernet-світ�
 
 Створимо простір `blue` поруч із `red` та об'єднаємо їх через міст `br0`:
 
-```bash
-# 1. Створення моста на хості
-ip link add br0 type bridge
-ip link set br0 up
-ip addr add 10.0.0.254/24 dev br0
-
-# 2. Створення просторів red та blue
-ip netns add red
-ip netns add blue
-
-# 3. Створення veth-пар для кожного простору
-ip link add veth-red type veth peer name veth-red-br
-ip link add veth-blue type veth peer name veth-blue-br
-
-# 4. Приєднання хостових кінців до моста br0
-ip link set veth-red-br master br0
-ip link set veth-blue-br master br0
-ip link set veth-red-br up
-ip link set veth-blue-br up
-
-# 5. Переміщення кінців у простори та конфігурація IP
-ip link set veth-red netns red
-ip netns exec red ip addr add 10.0.0.1/24 dev veth-red
-ip netns exec red ip link set veth-red up
-ip netns exec red ip link set lo up
-
-ip link set veth-blue netns blue
-ip netns exec blue ip addr add 10.0.0.2/24 dev veth-blue
-ip netns exec blue ip link set veth-blue up
-ip netns exec blue ip link set lo up
-```
+:::code network-namespaces-d/sh/4-1-topolohiia-l2.sh
 
 Тепер простори `red` (`10.0.0.1`) та `blue` (`10.0.0.2`) перебувають у єдиному L2 broadcast-домені. Вони можуть спілкуватися між собою напряму через міст `br0`.
 
@@ -309,21 +279,7 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 Замість об'єднання кінців у міст, хостові кінці `veth`-пар залишаються в глобальному просторі як точкові інтерфейси. На кожен контейнер виділяється маска `/32`:
 
-```bash
-# На хості
-ip link add veth-c1 type veth peer name veth-guest
-ip link set veth-guest netns guest
-
-# Всередині контейнера guest
-ip netns exec guest ip addr add 10.1.1.2/32 dev veth-guest
-ip netns exec guest ip link set veth-guest up
-ip netns exec guest ip route add 169.254.1.1 dev veth-guest
-ip netns exec guest ip route add default via 169.254.1.1
-
-# На хості
-ip link set veth-c1 up
-ip route add 10.1.1.2 dev veth-c1
-```
+:::code network-namespaces-d/sh/4-4-topolohiia-l3-routed.sh
 
 **Переваги L3-маршрутизованого підходу:**
 1. Відсутність широкомовного L2-трафіку (ARP broadcasts не штормлять мережу).

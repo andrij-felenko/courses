@@ -26,104 +26,8 @@
 - `task_finish`: фіксує завершення обробки з аргументами `task_id`, `worker_id` та статусним кодом помилки `status`.
 
 :::tabs
-```c
-/* main.c — Реалізація мовою C */
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
-#include <sys/sdt.h>
-
-void process_task(int task_id, int worker_id) {
-    /* Маркер початку завдання: передаємо task_id та worker_id */
-    STAP_PROBE2(workpool, task_start, task_id, worker_id);
-
-    /* Імітація роботи з випадковою затримкою від 10 до 100 мікросекунд */
-    struct timespec ts;
-    ts.tv_sec = 0;
-    ts.tv_nsec = (10 + rand() % 90) * 1000;
-    nanosleep(&ts, NULL);
-
-    int status = (rand() % 100 == 0) ? -1 : 0; /* 1% помилок */
-
-    /* Маркер завершення завдання: передаємо task_id, worker_id та status */
-    STAP_PROBE3(workpool, task_finish, task_id, worker_id, status);
-}
-
-int main(void) {
-    srand((unsigned int)time(NULL));
-    printf("Сервіс обробки завдань запущену [PID: %d]. Натисніть Ctrl+C для зупинки...\n", getpid());
-
-    int task_counter = 0;
-    while (1) {
-        int worker_id = rand() % 4;
-        process_task(++task_counter, worker_id);
-        usleep(5000); /* Пауза 5 мс між завданнями */
-    }
-
-    return 0;
-}
-```
-```cpp
-// main.cpp — Ідіоматична реалізація мовою C++
-#include <iostream>
-#include <random>
-#include <thread>
-#include <chrono>
-#include <memory>
-#include <string_view>
-#include <sys/sdt.h>
-
-class TaskWorker {
-public:
-    explicit TaskWorker(int worker_id) : worker_id_(worker_id) {}
-
-    void execute_task(int task_id) {
-        // RAII-обгортка для автоматичного виклику USDT-маркерів початку та виходу
-        struct ScopedTaskProbe {
-            int task_id;
-            int worker_id;
-            int status{0};
-
-            ScopedTaskProbe(int t_id, int w_id) : task_id(t_id), worker_id(w_id) {
-                STAP_PROBE2(workpool, task_start, task_id, worker_id);
-            }
-
-            ~ScopedTaskProbe() {
-                STAP_PROBE3(workpool, task_finish, task_id, worker_id, status);
-            }
-        } probe{task_id, worker_id_};
-
-        // Імітація обробки завдання з використанням C++11 random та chrono
-        static thread_local std::mt19937 gen{std::random_device{}()};
-        std::uniform_int_distribution<int> dist_us(10, 100);
-        std::uniform_int_distribution<int> dist_err(1, 100);
-
-        std::this_thread::sleep_for(std::chrono::microseconds(dist_us(gen)));
-
-        if (dist_err(gen) == 1) {
-            probe.status = -1; // 1% статус помилки
-        }
-    }
-
-private:
-    int worker_id_;
-};
-
-int main() {
-    std::cout << "C++ TaskWorker Engine запущену [PID: " << getpid() << "]\n";
-
-    auto worker = std::make_unique<TaskWorker>(1);
-    int task_counter = 0;
-
-    while (true) {
-        worker->execute_task(++task_counter);
-        std::this_thread::sleep_for(std::chrono::milliseconds(5));
-    }
-
-    return 0;
-}
-```
+:::code proj-usdt-and-tracing/c/main.c
+:::code proj-usdt-and-tracing/cpp/main.cpp
 :::
 
 ## Збирання та перевірка ELF-секції `.note.stapsdt`
@@ -306,38 +210,8 @@ sudo stap trace_workpool.stp
 Для вирішення цієї проблеми USDT підтримує **семафори**. У коді оголошується спеціальний лічильник:
 
 :::tabs
-```c
-/* Оптимізована підготовка аргументів мовою C */
-#include <sys/sdt.h>
-#include <stdlib.h>
-
-unsigned short workpool_task_start_semaphore __attribute__ ((unused)) = 0;
-
-void process_complex_task(int task_id) {
-    if (STAP_PROBE_INPUT_ENABLED(workpool, task_start)) {
-        /* Обчислюємо дорогі аргументи лише якщо проба активована */
-        char *payload = generate_expensive_diagnostics();
-        STAP_PROBE1(workpool, task_start, payload);
-        free(payload);
-    }
-}
-```
-```cpp
-// Ідіоматична реалізація мовою C++ з RAII та std::string
-#include <sys/sdt.h>
-#include <string>
-#include <memory>
-
-unsigned short workpool_task_start_semaphore __attribute__ ((unused)) = 0;
-
-void process_complex_task(int task_id) {
-    if (STAP_PROBE_INPUT_ENABLED(workpool, task_start)) {
-        // Замість ручного malloc/free використовуємо std::string та RAII
-        std::string payload = generate_expensive_diagnostics_cpp();
-        STAP_PROBE1(workpool, task_start, payload.c_str());
-    }
-}
-```
+:::code proj-usdt-and-tracing/c/3-optymizatsiia.c
+:::code proj-usdt-and-tracing/cpp/3-optymizatsiia.cpp
 :::
 
 У неактивному стані `workpool_task_start_semaphore` дорівнює `0`, і блок `if` пропускається за один такт. Коли `bpftrace` або `SystemTap` приєднується до проби, ядро автоматично інкрементує значення семафора у пам'яті процесу на `1`, що активує виконання блоку підготовки аргументів. При від'єднанні трасувальника ядро зменшує семафор до `0`.

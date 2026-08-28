@@ -21,24 +21,7 @@
 
 У внутрішній архітектурі ядра Linux (`kernel/sched` та `fs/proc`) групи процесів та сеанси описуються зв'язаними структурами даних. Кожен процес описується структурою `struct task_struct`, яка містить вказівники на структури ідентифікаторів:
 
-```c
-struct task_struct {
-    /* ... */
-    pid_t pid;
-    struct pid *thread_pid;
-    struct signal_struct *signal;
-    struct task_struct *group_leader;
-    /* ... */
-};
-
-struct signal_struct {
-    /* ... */
-    struct pid *pgrp;       /* Вказівник на PID-структуру групи процесів */
-    struct pid *session;    /* Вказівник на PID-структуру сеансу */
-    int tty_old_pgrp;       /* Збережений PGID після від'єднання TTY */
-    /* ... */
-};
-```
+:::code job-control-d/c/1-anatomiia-zavdannia-ta.c
 
 Ядро зберігає ідентифікатори процесів у хеш-таблицях `struct pid`. Це дозволяє ядру за викликом `find_get_pid(pgid)` миттєво знаходити абстракцію групи та ітеруватися по всіх процесах, що до неї належать, за допомогою виклику `pid_task()`. Кожен об'єкт `struct pid` містить списки списків завдань `tasks[PIDTYPE_PGID]`, що дозволяє ядру Linux виконувати операції розсилки сигналів усередині групи за константний або лінійний від кількості членів групи час, без повного сканування глобальної таблиці процесів.
 
@@ -136,26 +119,7 @@ tcsetpgrp(shell_terminal_fd, job_pgid);
 
 Ключовий момент полягає у **механіці адресації сигналу**. Драйвер термінала не надсилає сигнал конкретному процесу, який створив TTY, і не надсилає його лідеру сеансу. Драйвер виконує в ядрі системну функцію `kill_pgrp()`:
 
-```c
-/* Спрощена концептуальна схема в ядрі n_tty.c */
-if (L_ISIG(tty)) {
-    if (c == INTR_CHAR(tty)) {
-        isig(SIGINT, tty);
-        return;
-    }
-    if (c == SUSP_CHAR(tty)) {
-        isig(SIGTSTP, tty);
-        return;
-    }
-}
-
-static void isig(int sig, struct tty_struct *tty) {
-    struct pid *pgrp = tty->pgrp;
-    if (pgrp) {
-        kill_pgrp(pgrp, sig, 1);
-    }
-}
-```
+:::code job-control-d/c/n_tty.c
 
 Функція `kill_pgrp` розсилає сигнал **усім процесам, що входять до групи `tty->pgrp`** (тобто поточній foreground групі).
 

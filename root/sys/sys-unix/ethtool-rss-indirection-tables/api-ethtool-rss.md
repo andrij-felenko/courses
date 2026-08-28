@@ -32,18 +32,7 @@ struct ethtool_rxfh_indir {
 
 Починаючи з ядра Linux 3.14, утиліта ethtool використовує розширену структуру `struct ethtool_rxfh`. Вона дозволяє одночасно читати та змінювати таблицю RETA, секретний хеш-ключ, вибирати алгоритм хешування та вказувати ідентифікатор RSS-контексту.
 
-```c
-struct ethtool_rxfh {
-    __u32   cmd;            /* ETHTOOL_GRXFHINDIR ВАМ / ETHTOOL_SRXFHINDIR */
-    __u32   rss_context;    /* Ідентифікатор RSS-контексту (0 = дефолтний) */
-    __u32   indir_size;     /* Кількість елементів u32 у таблиці RETA */
-    __u32   key_size;       /* Розмір секретного хеш-ключа у байтах */
-    __u8    hfunc;          /* Бітова маска вибору хеш-функції */
-    __u8    rsvd8[3];       /* Резервні байти для вирівнювання структури */
-    __u32   rsvd32;         /* Резервне поле для майбутніх розширень */
-    __u32   rss_config[0];  /* Суміщений бінарний буфер RETA та HKEY */
-};
-```
+:::code api-ethtool-rss/c/struktura-struct-ethtool.c
 
 #### Деталі буфера `rss_config`:
 Пам'ять під `rss_config` виділяється одним суцільним блоком у просторі користувача:
@@ -97,18 +86,7 @@ struct ethtool_rxnfc {
 
 ### Дерево атрибутів Netlink (`ETHTOOL_A_RSS_*`):
 
-```c
-enum {
-    ETHTOOL_A_RSS_UNSPEC,
-    ETHTOOL_A_RSS_HEADER,       /* Вкладений заголовок (ETHTOOL_A_HEADER_*) */
-    ETHTOOL_A_RSS_CONTEXT,      /* u32: Ідентифікатор RSS-контексту */
-    ETHTOOL_A_RSS_HFUNC,        /* u32: Хеш-функція (ETH_RSS_HASH_*) */
-    ETHTOOL_A_RSS_INDIR,        /* Binary/Array: Масив u32 комірок RETA */
-    ETHTOOL_A_RSS_HKEY,         /* Binary: Байтовий масив секретного ключа */
-    __ETHTOOL_A_RSS_CNT,
-    ETHTOOL_A_RSS_MAX = (__ETHTOOL_A_RSS_CNT - 1)
-};
-```
+:::code api-ethtool-rss/c/derevo-atrybutiv-netlink.c
 
 ---
 
@@ -150,25 +128,4 @@ enum {
 
 Нижче наведено основні команди системного адміністрування для перегляду та керування параметрами RSS, RETA та Flow Hashing з консолі:
 
-```bash
-# 1. Перегляд поточної конфігурації апаратних черг (Channels)
-ethtool -l eth0
-
-# 2. Зміна кількості комбінованих черг прийому/передачі (Combined Rx/Tx)
-sudo ethtool -L eth0 combined 8
-
-# 3. Перегляд таблиці RETA, секретного ключа RSS та активної хеш-функції
-ethtool -x eth0
-
-# 4. Встановлення рівномірного розподілу комірок RETA між 8 чергами
-sudo ethtool -X eth0 equal 8
-
-# 5. Встановлення зваженого розподілу ваг RETA (Черга 0 вимкнена, Черга 1: 50%, Черги 2 і 3: по 25%)
-sudo ethtool -X eth0 weight 0 2 1 1
-
-# 6. Перегляд полів хешування (n-tuple) для протоколу TCP v4
-ethtool -n eth0 rx-flow-hash tcp4
-
-# 7. Увімкнення повного 4-tuple хешування для UDP v4 (Src IP, Dst IP, Src Port, Dst Port)
-sudo ethtool -N eth0 rx-flow-hash udp4 sdfn
-```
+:::code api-ethtool-rss/sh/main.sh

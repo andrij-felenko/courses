@@ -63,33 +63,8 @@ input_register_device(struct input_dev *dev)
 Кожен виклик `read()` з файлового дескриптора `/dev/input/eventX` повертає один або кілька екземплярів двійкової структури `input_event`, визначеної у заголовному файлі `<linux/input.h>`:
 
 :::tabs
-```c
-struct input_event {
-#if (__BITS_PER_LONG == 32)
-    __kernel_ulong_t input_event_sec;
-    __kernel_ulong_t input_event_usec;
-#else
-    struct timeval time;
-#endif
-    __u16 type;
-    __u16 code;
-    __s32 value;
-};
-```
-```cpp
-// Подання структури події подібне у C++ заголовку <linux/input.h>
-struct input_event {
-#if (__BITS_PER_LONG == 32)
-    std::uint32_t input_event_sec;
-    std::uint32_t input_event_usec;
-#else
-    struct timeval time;
-#endif
-    std::uint16_t type;
-    std::uint16_t code;
-    std::int32_t  value;
-};
-```
+:::code evdev-userspace-interface-d/c/3-anatomiia-podii-struct.c
+:::code evdev-userspace-interface-d/cpp/3-anatomiia-podii-struct.cpp
 :::
 
 Розмір структури становить 24 байти на 64-бітних архітектурах (8 байтів секунди + 8 байтів мікросекунди + 2 байти тип + 2 байти код + 4 байти значення) і 16 байтів на старіших 32-бітних ABI.
@@ -201,139 +176,8 @@ type = EV_SYN, code = SYN_DROPPED, value = 0
 Приклад нижче показує відкриття файлу пристрою `/dev/input/eventX`, перевірку розміру структури та читання подій у циклі.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-#include <linux/input.h>
-
-int main(int argc, char *argv[]) {
-    const char *dev_path = (argc > 1) ? argv[1] : "/dev/input/event0";
-    int fd = open(dev_path, O_RDONLY);
-    if (fd < 0) {
-        perror("Не вдалося відкрити пристрій введення");
-        return 1;
-    }
-
-    printf("Відкрито %s. Читання подій (натисніть Ctrl+C для виходу)...\n", dev_path);
-
-    struct input_event ev;
-    while (1) {
-        ssize_t bytes_read = read(fd, &ev, sizeof(ev));
-        if (bytes_read < 0) {
-            if (errno == EINTR) continue;
-            perror("Помилка читання з evdev");
-            break;
-        }
-
-        if (bytes_read != sizeof(ev)) {
-            fprintf(stderr, "Прочитано некоректну кількість байтів: %zd\n", bytes_read);
-            continue;
-        }
-
-        if (ev.type == EV_KEY) {
-            printf("[KEY] Код: %3d, Значення: %d (%s)\n",
-                   ev.code, ev.value,
-                   ev.value == 1 ? "Натиснуто" : ev.value == 0 ? "Відпущено" : "Автоповтор");
-        } else if (ev.type == EV_REL) {
-            printf("[REL] Осi: %3d, Зсув: %d\n", ev.code, ev.value);
-        } else if (ev.type == EV_ABS) {
-            printf("[ABS] Осi: %3d, Значення: %d\n", ev.code, ev.value);
-        } else if (ev.type == EV_SYN) {
-            if (ev.code == SYN_REPORT) {
-                printf("--- SYN_REPORT (Кінець фрейму) ---\n");
-            } else if (ev.code == SYN_DROPPED) {
-                printf("⚠️ УВАГА: SYN_DROPPED! Буфер переповнено.\n");
-            }
-        }
-    }
-
-    close(fd);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <system_error>
-#include <array>
-#include <fcntl.h>
-#include <unistd.h>
-#include <linux/input.h>
-
-class EvdevReader {
-    int fd_{-1};
-public:
-    explicit EvdevReader(std::string_view path) {
-        fd_ = ::open(path.data(), O_RDONLY);
-        if (fd_ < 0) {
-            throw std::system_error(errno, std::generic_category(), "Failed to open evdev device");
-        }
-    }
-
-    ~EvdevReader() {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-    }
-
-    EvdevReader(const EvdevReader&) = delete;
-    EvdevReader& operator=(const EvdevReader&) = delete;
-
-    void run_loop() {
-        struct input_event ev{};
-        while (true) {
-            ssize_t bytes_read = ::read(fd_, &ev, sizeof(ev));
-            if (bytes_read < 0) {
-                if (errno == EINTR) continue;
-                throw std::system_error(errno, std::generic_category(), "Read error from evdev");
-            }
-
-            if (bytes_read != sizeof(ev)) {
-                std::cerr << "Incomplete input_event struct read\n";
-                continue;
-            }
-
-            switch (ev.type) {
-                case EV_KEY:
-                    std::cout << "[KEY] Code: " << ev.code << ", Value: " << ev.value
-                              << " (" << (ev.value == 1 ? "Pressed" : ev.value == 0 ? "Released" : "Repeat") << ")\n";
-                    break;
-                case EV_REL:
-                    std::cout << "[REL] Axis: " << ev.code << ", Delta: " << ev.value << '\n';
-                    break;
-                case EV_ABS:
-                    std::cout << "[ABS] Axis: " << ev.code << ", Value: " << ev.value << '\n';
-                    break;
-                case EV_SYN:
-                    if (ev.code == SYN_REPORT) {
-                        std::cout << "--- SYN_REPORT ---\n";
-                    } else if (ev.code == SYN_DROPPED) {
-                        std::cout << "⚠️ WARNING: SYN_DROPPED detected!\n";
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-};
-
-int main(int argc, char* argv[]) {
-    const char* path = (argc > 1) ? argv[1] : "/dev/input/event0";
-    try {
-        std::cout << "Opening " << path << "...\n";
-        EvdevReader reader(path);
-        reader.run_loop();
-    } catch (const std::exception& ex) {
-        std::cerr << "Error: " << ex.what() << '\n';
-        return 1;
-    }
-    return 0;
-}
-```
+:::code evdev-userspace-interface-d/c/7-zchytuvannia-ta-obrobka.c
+:::code evdev-userspace-interface-d/cpp/7-zchytuvannia-ta-obrobka.cpp
 :::
 
 ---
@@ -349,47 +193,8 @@ int main(int argc, char* argv[]) {
 За допомогою `EVIOCGNAME` програма отримує зрозуміле людям ім'я пристрою, а `EVIOCGID` повертає структуру `input_id` із кодами виробника та продукту.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/input.h>
-
-void print_device_info(int fd) {
-    struct input_id id;
-    char name[256] = "Unknown";
-
-    if (ioctl(fd, EVIOCGNAME(sizeof(name)), name) >= 0 &&
-        ioctl(fd, EVIOCGID, &id) >= 0) {
-        printf("Пристрій: %s (Bus: 0x%04x, Vendor: 0x%04x, Product: 0x%04x)\n",
-               name, id.bustype, id.vendor, id.product);
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <array>
-#include <system_error>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/input.h>
-
-void print_device_info(int fd) {
-    struct input_id id{};
-    std::array<char, 256> name_buf{};
-    name_buf.fill(0);
-
-    if (::ioctl(fd, EVIOCGNAME(name_buf.size()), name_buf.data()) >= 0 &&
-        ::ioctl(fd, EVIOCGID, &id) >= 0) {
-        std::cout << "Device: " << name_buf.data()
-                  << " (Bus: 0x" << std::hex << id.bustype
-                  << ", Vendor: 0x" << id.vendor
-                  << ", Product: 0x" << id.product << std::dec << ")\n";
-    }
-}
-```
+:::code evdev-userspace-interface-d/c/8-1-zapyt-nazvy-ta.c
+:::code evdev-userspace-interface-d/cpp/8-1-zapyt-nazvy-ta.cpp
 :::
 
 ### 8.2. Опитування можливостей через бітові маски (`EVIOCGBIT`)
@@ -407,34 +212,8 @@ void print_device_info(int fd) {
 Для сенсорних екранів та планшетів програма повинна знати фізичні межі координат для правильного масштабування подій на роздільну здатність монітора.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <sys/ioctl.h>
-#include <linux/input.h>
-
-void print_abs_x_info(int fd) {
-    struct input_absinfo abs_x;
-    if (ioctl(fd, EVIOCGABS(ABS_X), &abs_x) == 0) {
-        printf("Вісь X: Мін = %d, Макс = %d, Похибка = %d, Роздільна здатність = %d units/mm\n",
-               abs_x.minimum, abs_x.maximum, abs_x.fuzz, abs_x.resolution);
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <sys/ioctl.h>
-#include <linux/input.h>
-
-void print_abs_x_info(int fd) {
-    struct input_absinfo abs_x{};
-    if (::ioctl(fd, EVIOCGABS(ABS_X), &abs_x) == 0) {
-        std::cout << "Axis X: Min = " << abs_x.minimum
-                  << ", Max = " << abs_x.maximum
-                  << ", Fuzz = " << abs_x.fuzz
-                  << ", Resolution = " << abs_x.resolution << " units/mm\n";
-    }
-}
-```
+:::code evdev-userspace-interface-d/c/8-3-zapyt-diapazoniv.c
+:::code evdev-userspace-interface-d/cpp/8-3-zapyt-diapazoniv.cpp
 :::
 
 ### 8.4. Монопольне захоплення пристрою (`EVIOCGRAB`)
@@ -442,31 +221,8 @@ void print_abs_x_info(int fd) {
 Виклик `ioctl(fd, EVIOCGRAB, 1)` встановлює монопольний режим доступу:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <sys/ioctl.h>
-#include <linux/input.h>
-
-int grab_device(int fd, int enable) {
-    if (ioctl(fd, EVIOCGRAB, enable ? 1 : 0) < 0) {
-        perror("Помилка виконання EVIOCGRAB");
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <sys/ioctl.h>
-#include <linux/input.h>
-
-void set_device_grab(int fd, bool enable) {
-    if (::ioctl(fd, EVIOCGRAB, enable ? 1 : 0) < 0) {
-        throw std::system_error(errno, std::generic_category(), "EVIOCGRAB failed");
-    }
-}
-```
+:::code evdev-userspace-interface-d/c/8-4-monopolne-zakhoplennia.c
+:::code evdev-userspace-interface-d/cpp/8-4-monopolne-zakhoplennia.cpp
 :::
 
 Сценарії застосування `EVIOCGRAB`:

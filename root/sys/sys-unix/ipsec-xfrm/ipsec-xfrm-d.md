@@ -104,23 +104,7 @@ SA є односпрямованим (*unidirectional*) криптографіч
 
 Об'єкт політики зберігається у зв'язаних списках та хеш-таблицях бази SPD, розділених за напрямками (`XFRM_POLICY_IN`, `XFRM_POLICY_OUT`, `XFRM_POLICY_FWD`):
 
-```c
-struct xfrm_policy {
-    struct sibling_node     bydst;      /* Вузол хеш-таблиці за адресою призначення */
-    struct hlist_node       byidx;      /* Пошуковий вузол за унікальним індексом */
-    const struct net       *net;        /* Мережевий простір імен (netns) */
-    u32                     index;      /* Індекс політики */
-    u8                      type;       /* Тип політики (XFRM_POLICY_TYPE_MAIN) */
-    u8                      action;     /* XFRM_POLICY_ALLOW / BLOCK */
-    u16                     flags;      /* Прапорці конфігурації */
-    u32                     priority;   /* Пріоритет (числове значення) */
-    struct xfrm_selector    selector;   /* Селектор фільтрації трафіку */
-    struct xfrm_lifetime_cfg lft;       /* Межі часу життя */
-    struct xfrm_lifetime_cur curlft;    /* Поточна статистика */
-    u16                     xfrm_nr;    /* Кількість шаблонів у ланцюжку */
-    struct xfrm_tmpl        xfrm_vec[XFRM_MAX_DEPTH]; /* Шаблони необхідних SA */
-};
-```
+:::code ipsec-xfrm-d/c/struktura-struct-xfrm.c
 
 Коли політика відповідає вихідному пакету, масив шаблонів `xfrm_vec` вказує ядра, які саме типи SA (наприклад, спершу IPComp для стиснення, потім ESP для шифрування) мають бути застосовані.
 
@@ -128,51 +112,13 @@ struct xfrm_policy {
 
 Об'єкти станів зберігаються у хеш-таблицях SAD, індексованих за адресою призначення, SPI та протоколом:
 
-```c
-struct xfrm_state {
-    possible_net_t          xs_net;
-    union {
-        struct hlist_node   gstate_node;
-        struct hlist_node   state_hlist;
-    };
-    struct xfrm_id          id;         /* Dst IP, SPI, Proto */
-    struct xfrm_selector    sel;        /* Селектор прив'язки */
-    xfrm_address_t          saddr;      /* Src IP */
-    
-    struct xfrm_lifetime_cfg lft;
-    struct xfrm_lifetime_cur curlft;
-    struct xfrm_stats       stats;
-
-    /* Криптографічні трансформатори Crypto API */
-    struct crypto_aead     *aead;       /* Алгоритм AEAD (наприклад, AES-GCM) */
-    struct crypto_ahash    *aalg;       /* Алгоритм HMAC */
-    struct crypto_skcipher *ealg;       /* Алгоритм блочного шифрування */
-
-    const struct xfrm_mode *inner_mode; /* Внутрішній режим обробки */
-    const struct xfrm_mode *outer_mode; /* Зовнішній режим обробки */
-
-    u32                     reqid;      /* Ідентифікатор зв'язку з SP */
-    u32                     seq;        /* Лічильник послідовності пакета */
-    struct xfrm_replay_state replay;    /* Стан захисту від повторів */
-};
-```
+:::code ipsec-xfrm-d/c/struktura-struct-xfrm-2.c
 
 ### Розширення кєшу маршрутизації: `struct xfrm_dst`
 
 Щоб уникнути повторного пошуку політик безпеки для кожного вихідного пакета, ядро Linux розширює стандартну структуру кєшу маршрутизації `struct dst_entry` спеціальною обгорткою `struct xfrm_dst`:
 
-```c
-struct xfrm_dst {
-    union {
-        struct dst_entry    dst;
-        struct xfrm_dst    *next;
-    };
-    struct dst_entry       *route;      /* Реальний вихідний маршрут фізичного пристрою */
-    struct xfrm_policy     *policy;     /* Відповідна політика XFRM */
-    struct xfrm_state      *xfrm_genid;
-    u32                     xfrm_nr;    /* Кількість вкладених перетворень */
-};
-```
+:::code ipsec-xfrm-d/c/rozshyrennia-kieshu.c
 
 Поле `dst.output` у структурі `xfrm_dst` перевстановлюється на спеціальну функцію ядра `xfrm_output()`. Завдяки цьому підсистема маршрутизації викликає шифрування XFRM атомарно під час ззвичайного відправлення пакета, без додаткових викликів netfilter чи перемикання контексту.
 

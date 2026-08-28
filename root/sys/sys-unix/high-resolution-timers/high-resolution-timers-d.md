@@ -46,18 +46,7 @@
 
 Кожен таймер описується структурою `struct hrtimer`:
 
-```c
-struct hrtimer {
-    struct timerqueue_node  node;
-    ktime_t                 _softexpires;
-    enum hrtimer_restart    (*function)(struct hrtimer *);
-    struct hrtimer_clock_base *base;
-    u8                      state;
-    u8                      is_rel;
-    u8                      is_soft;
-    u8                      is_hard;
-};
-```
+:::code high-resolution-timers-d/c/arkhitekturnyi-podil-timer.c
 
 Таймери зберігаються не у масивах кошиків, а в сортованому червоно-чорному дереві (структура `timerqueue_node`, що загортає `struct rb_node`). Ключем сортування є поле `node.expires` — абсолютний **найпізніший** припустимий час спрацьовування; поле `_softexpires` тримає найраніший бажаний момент. Коли таймер заведено без люфту, обидва значення збігаються; звідки береться різниця між ними, розібрано нижче, у розділі про timer slack.
 
@@ -156,62 +145,7 @@ struct hrtimer {
 
 Нижче наведено приклад модуля ядра Linux, який створює періодичний високоточний таймер із інтервалом 250 мікросекунд (4000 Гц):
 
-```c
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/hrtimer.h>
-#include <linux/ktime.h>
-
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Unix-Linux Reference");
-MODULE_DESCRIPTION("High-Resolution Timer Kernel Module Example");
-
-static struct hrtimer my_hrtimer;
-static ktime_t period_ns;
-static u64 fire_count = 0;
-
-static enum hrtimer_restart hrtimer_callback(struct hrtimer *timer) {
-    ktime_t now = ktime_get();
-    fire_count++;
-
-    /* Оновлюємо час наступного спрацьовування, уникаючи накопичення похибки */
-    hrtimer_forward(timer, now, period_ns);
-
-    if (fire_count % 4000 == 0) {
-        pr_info("hrtimer_example: 4000 спрацьовувань зафіксовано\n");
-    }
-
-    /* Вказуємо підсистемі перезапустити таймер у дереві */
-    return HRTIMER_RESTART;
-}
-
-static int __init hrtimer_example_init(void) {
-    /* 250 мікросекунд = 250 000 наносекунд */
-    period_ns = ktime_set(0, 250000);
-
-    /* Ініціалізуємо hrtimer для монотонного годинника у відносному режимі.
-       hrtimer_setup() доступний з ядра 6.14 і від 6.15 є єдиним способом:
-       давню пару hrtimer_init(&my_hrtimer, CLOCK_MONOTONIC, HRTIMER_MODE_REL)
-       з окремим присвоєнням my_hrtimer.function = hrtimer_callback у 6.15 прибрано. */
-    hrtimer_setup(&my_hrtimer, hrtimer_callback, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-
-    pr_info("hrtimer_example: запуск hrtimer з періодом 250 мкс\n");
-    hrtimer_start(&my_hrtimer, period_ns, HRTIMER_MODE_REL);
-
-    return 0;
-}
-
-static void __exit hrtimer_example_exit(void) {
-    int ret = hrtimer_cancel(&my_hrtimer);
-    if (ret) {
-        pr_info("hrtimer_example: активний таймер скасовано при вивантаженні\n");
-    }
-    pr_info("hrtimer_example: модуль вивантажено, всього спрацьовувань: %llu\n", fire_count);
-}
-
-module_init(hrtimer_example_init);
-module_exit(hrtimer_example_exit);
-```
+:::code high-resolution-timers-d/c/pryklad-stvorennia.c
 
 Повний контракт системного та ядерного API з описом усіх режимів, прапорців та повернених кодів зібрано у [Довідник системного та ядерного API hrtimers](root:sys-unix/high-resolution-timers/api-hrtimer-kernel-surface.md).
 
@@ -288,157 +222,8 @@ node.expires = _softexpires + timer_slack
 Нижче наведено приклад періодичного таймера з інтервалом 1 мілісекунда, інтегрованого у цикл `epoll`.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <unistd.h>
-#include <sys/timerfd.h>
-#include <sys/epoll.h>
-#include <time.h>
-
-int main(void) {
-    int tfd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
-    if (tfd == -1) {
-        perror("timerfd_create");
-        return EXIT_FAILURE;
-    }
-
-    struct itimerspec new_value = {0};
-    /* Період 1 мілісекунда = 1 000 000 наносекунд */
-    new_value.it_interval.tv_sec = 0;
-    new_value.it_interval.tv_nsec = 1000000;
-    new_value.it_value.tv_sec = 0;
-    new_value.it_value.tv_nsec = 1000000;
-
-    if (timerfd_settime(tfd, 0, &new_value, NULL) == -1) {
-        perror("timerfd_settime");
-        close(tfd);
-        return EXIT_FAILURE;
-    }
-
-    int epfd = epoll_create1(EPOLL_CLOEXEC);
-    if (epfd == -1) {
-        perror("epoll_create1");
-        close(tfd);
-        return EXIT_FAILURE;
-    }
-
-    struct epoll_event ev;
-    ev.events = EPOLLIN;
-    ev.data.fd = tfd;
-    if (epoll_ctl(epfd, EPOLL_CTL_ADD, tfd, &ev) == -1) {
-        perror("epoll_ctl");
-        close(epfd);
-        close(tfd);
-        return EXIT_FAILURE;
-    }
-
-    printf("Чекаємо 5 спрацьовувань timerfd...\n");
-    for (int i = 0; i < 5; i++) {
-        struct epoll_event events[1];
-        int nfds = epoll_wait(epfd, events, 1, -1);
-        if (nfds > 0) {
-            uint64_t overruns = 0;
-            ssize_t s = read(tfd, &overruns, sizeof(overruns));
-            if (s == sizeof(overruns)) {
-                printf("Тик %d: спрацьовувань за інтервал = %llu\n", i + 1, (unsigned long long)overruns);
-            }
-        }
-    }
-
-    close(epfd);
-    close(tfd);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <chrono>
-#include <system_error>
-#include <cstdint>
-#include <cstdlib>
-#include <cerrno>
-#include <unistd.h>
-#include <sys/timerfd.h>
-#include <sys/epoll.h>
-
-class HighResTimer {
-    int m_tfd{-1};
-public:
-    explicit HighResTimer(std::chrono::nanoseconds period) {
-        m_tfd = ::timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
-        if (m_tfd == -1) {
-            throw std::system_error(errno, std::generic_category(), "timerfd_create failed");
-        }
-
-        struct itimerspec new_val{};
-        auto secs = std::chrono::duration_cast<std::chrono::seconds>(period);
-        auto nsecs = period - secs;
-
-        new_val.it_interval.tv_sec = secs.count();
-        new_val.it_interval.tv_nsec = nsecs.count();
-        new_val.it_value = new_val.it_interval;
-
-        if (::timerfd_settime(m_tfd, 0, &new_val, nullptr) == -1) {
-            ::close(m_tfd);
-            throw std::system_error(errno, std::generic_category(), "timerfd_settime failed");
-        }
-    }
-
-    ~HighResTimer() {
-        if (m_tfd != -1) {
-            ::close(m_tfd);
-        }
-    }
-
-    int fd() const noexcept { return m_tfd; }
-
-    std::uint64_t read_overruns() {
-        std::uint64_t overruns{0};
-        ssize_t s = ::read(m_tfd, &overruns, sizeof(overruns));
-        if (s != sizeof(overruns)) {
-            throw std::system_error(errno, std::generic_category(), "read failed");
-        }
-        return overruns;
-    }
-};
-
-int main() {
-    try {
-        using namespace std::chrono_literals;
-        HighResTimer timer(1ms);
-
-        int epfd = ::epoll_create1(EPOLL_CLOEXEC);
-        if (epfd == -1) {
-            throw std::system_error(errno, std::generic_category(), "epoll_create1 failed");
-        }
-
-        struct epoll_event ev{};
-        ev.events = EPOLLIN;
-        ev.data.fd = timer.fd();
-        ::epoll_ctl(epfd, EPOLL_CTL_ADD, timer.fd(), &ev);
-
-        std::cout << "Чекаємо 5 спрацьовувань C++ timerfd...\n";
-        for (int i = 0; i < 5; ++i) {
-            struct epoll_event events[1];
-            int nfds = ::epoll_wait(epfd, events, 1, -1);
-            if (nfds > 0) {
-                auto count = timer.read_overruns();
-                std::cout << "C++ Тик " << (i + 1) << ": спрацьовувань = " << count << '\n';
-            }
-        }
-
-        ::close(epfd);
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << '\n';
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
-}
-```
+:::code high-resolution-timers-d/c/pryklad-vykorystannia.c
+:::code high-resolution-timers-d/cpp/main.cpp
 :::
 
 Практичний вимір реального системного джиттера та оцінку затримок за різних класів планування наведено у [Вимірювання точності та джиттера timerfd у просторі користувача](root:sys-unix/high-resolution-timers/proj-highres-timerfd-benchmark.md).

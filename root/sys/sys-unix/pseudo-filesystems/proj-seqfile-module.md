@@ -39,60 +39,7 @@ struct proc_ops {
 
 Для демонстрації роботи ітератора `seq_file` реалізуємо модуль `heartbeat.c`, який створює псевдо-файл у `/proc` і формує його вміст на льоту під час кожного читання:
 
-```c
-/* heartbeat.c — файл у /proc, вміст якого народжується під час читання */
-#include <linux/atomic.h>
-#include <linux/init.h>
-#include <linux/jiffies.h>
-#include <linux/module.h>
-#include <linux/proc_fs.h>
-#include <linux/sched.h>
-#include <linux/seq_file.h>
-
-#define PROC_NAME "heartbeat"
-
-static struct proc_dir_entry *entry;
-static atomic_t shows = ATOMIC_INIT(0);   /* скільки разів кликали show() */
-
-static int hb_show(struct seq_file *m, void *v)
-{
-    seq_printf(m, "uptime_ms   %u\n", jiffies_to_msecs(jiffies - INITIAL_JIFFIES));
-    seq_printf(m, "reader_pid  %d\n", current->pid);
-    seq_printf(m, "reader_comm %s\n", current->comm);
-    seq_printf(m, "shows       %d\n", atomic_inc_return(&shows));
-    return 0;
-}
-
-static int hb_open(struct inode *inode, struct file *file)
-{
-    return single_open(file, hb_show, NULL);
-}
-
-static const struct proc_ops hb_ops = {
-    .proc_open    = hb_open,
-    .proc_read    = seq_read,
-    .proc_lseek   = seq_lseek,
-    .proc_release = single_release,
-};
-
-static int __init hb_init(void)
-{
-    entry = proc_create(PROC_NAME, 0444, NULL, &hb_ops);
-    if (!entry)
-        return -ENOMEM;
-    return 0;
-}
-
-static void __exit hb_exit(void)
-{
-    proc_remove(entry);
-}
-
-module_init(hb_init);
-module_exit(hb_exit);
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Файл у /proc, вміст якого не існує між читаннями");
-```
+:::code proj-seqfile-module/c/heartbeat.c
 
 Тут варто затриматися на `current->pid` і `current->comm`. `current` — це процес, у контексті якого зараз виконується ядро. Оскільки `read` є синхронним викликом, ядро обробляє його **на тому самому потоці**, що зробив виклик. Отже, `hb_show()` побачить не якийсь службовий потік, а того самого `cat`, який щойно набрали в оболонці. Ця дрібниця й буде найкоротшим доказом, що функція біжить у мить читання.
 
@@ -114,22 +61,7 @@ clean:
 
 `obj-m := heartbeat.o` — єдиний рядок, який стосується вашого коду: «зібрати `heartbeat` як окремий модуль». Решта — переадресація виклику в дерево ядра. `KDIR` вказує на заголовки поточного ядра (пакет зветься `linux-headers-$(uname -r)` або `kernel-devel`), `M=$(CURDIR)` каже, де лежить чужий модуль. Про те, звідки береться це дерево і чому версія має збігатися до символів, — [збирання й конфігурація ядра](root:sys-unix/kernel-config-and-build).
 
-```sh
-$ make
-$ sudo insmod heartbeat.ko
-$ ls -l /proc/heartbeat
--r--r--r-- 1 root root 0 сер  7 12:31 /proc/heartbeat
-$ cat /proc/heartbeat
-uptime_ms   1842517
-reader_pid  9317
-reader_comm cat
-shows       1
-$ cat /proc/heartbeat
-uptime_ms   1846093
-reader_pid  9319
-reader_comm cat
-shows       2
-```
+:::code proj-seqfile-module/sh/zbirka.sh
 
 Два `cat` поспіль дали різні числа, різні `pid` і лічильник, що виріс. Між ними в системі не було жодного байта цього файлу.
 
@@ -157,67 +89,8 @@ $ wc -c < /proc/heartbeat
 Щоб це побачити, треба розсунути `open` і `read` у часі — `cat` робить їх упритул. Ось невелика програма, яка тримає **один** дескриптор і читає з нього двічі:
 
 :::tabs
-```c
-/* reader.c — коли саме ядро складає текст? */
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-
-static void dump(const char *tag, int fd)
-{
-    char buf[8192];
-    lseek(fd, 0, SEEK_SET);                  /* почати вміст спочатку */
-    ssize_t n = read(fd, buf, sizeof buf);
-    if (n <= 0)
-        return;                              /* помилка або порожньо — друкувати нічого */
-    printf("--- %s ---\n%.*s", tag, (int)n, buf);
-}
-
-int main(void)
-{
-    int fd = open("/proc/heartbeat", O_RDONLY);
-    dump("одразу після open", fd);
-    sleep(3);
-    dump("через три секунди, той самий дескриптор", fd);
-    close(fd);
-    return 0;
-}
-```
-```cpp
-// reader.cpp — той самий приклад з ідіоматичним RAII у C++
-#include <fcntl.h>
-#include <unistd.h>
-#include <iostream>
-#include <string_view>
-
-class UniqueFd {
-    int fd_ = -1;
-public:
-    explicit UniqueFd(const char* path, int flags) : fd_(::open(path, flags)) {}
-    ~UniqueFd() { if (fd_ >= 0) ::close(fd_); }
-    int get() const { return fd_; }
-    explicit operator bool() const { return fd_ >= 0; }
-};
-
-static void dump(std::string_view tag, int fd) {
-    char buf[8192];
-    ::lseek(fd, 0, SEEK_SET);                  // почати вміст спочатку
-    ssize_t n = ::read(fd, buf, sizeof(buf));
-    if (n > 0) {
-        std::cout << "--- " << tag << " ---\n";
-        std::cout.write(buf, static_cast<std::streamsize>(n));
-    }
-}
-
-int main() {
-    UniqueFd fd("/proc/heartbeat", O_RDONLY);
-    if (!fd) return 1;
-    dump("одразу після open", fd.get());
-    ::sleep(3);
-    dump("через три секунди, той самий дескриптор", fd.get());
-    return 0;
-}
-```
+:::code proj-seqfile-module/c/reader.c
+:::code proj-seqfile-module/cpp/reader.cpp
 :::
 
 ```
@@ -255,55 +128,7 @@ close(3)                                = 0
 
 Тепер друга зв'язка. Замінімо `single_open` на повний ітератор, який друкує список записів — стільки, щоб він не влазив у сторінку.
 
-```c
-/* доповнення до heartbeat.c: список замість одного знімка */
-#include <linux/mutex.h>
-
-static unsigned int rows = 200;
-module_param(rows, uint, 0444);
-MODULE_PARM_DESC(rows, "скільки рядків друкувати");
-
-static DEFINE_MUTEX(hb_lock);
-static atomic_t generation = ATOMIC_INIT(1);
-
-static void *hb_start(struct seq_file *m, loff_t *pos)
-{
-    mutex_lock(&hb_lock);            /* замок беремо тут… */
-    if (*pos >= rows)
-        return NULL;
-    return pos;                      /* курсор — сам лічильник позиції */
-}
-
-static void *hb_next(struct seq_file *m, void *v, loff_t *pos)
-{
-    ++*pos;
-    return (*pos >= rows) ? NULL : pos;
-}
-
-static void hb_stop(struct seq_file *m, void *v)
-{
-    mutex_unlock(&hb_lock);          /* …і віддаємо тут */
-}
-
-static int hb_row(struct seq_file *m, void *v)
-{
-    seq_printf(m, "row %4lld  generation %d\n",
-               *(loff_t *)v, atomic_read(&generation));
-    return 0;
-}
-
-static const struct seq_operations hb_seq_ops = {
-    .start = hb_start,
-    .next  = hb_next,
-    .stop  = hb_stop,
-    .show  = hb_row,
-};
-
-static int hb_open(struct inode *inode, struct file *file)
-{
-    return seq_open(file, &hb_seq_ops);      /* замість single_open */
-}
-```
+:::code proj-seqfile-module/c/heartbeat-2.c
 
 У `proc_ops` тепер `.proc_release = seq_release`. Рядок має сталу довжину, тож можна порахувати наперед, де саме розірветься читання:
 
@@ -342,21 +167,7 @@ read(3, "", 8192)                       = 0
 
 Перевірмо. Додамо обробник запису, що збільшує `generation`, і прочитаємо файл з паузою між порціями:
 
-```sh
-# термінал 1: читач, що робить паузу між read()
-$ ./reader-slow
-row    0  generation 1
-row    1  generation 1
-…
-row  177  generation 1
-row  178  generation 2      ← межа порції
-row  179  generation 2
-…
-row  199  generation 2
-
-# термінал 2, у паузі між першим і другим read()
-$ echo bump > /proc/heartbeat
-```
+:::code proj-seqfile-module/sh/rozirvane-chytannia-na.sh
 
 Ось воно, слово в слово те, про що попереджають щодо `/proc/<pid>/maps`: **жоден рядок не пошкоджений** — кожен був правдою у свою мить. Неправдою є їхня сукупність: у зібраному тексті немає жодного моменту часу, у який система виглядала б саме так.
 
@@ -366,32 +177,7 @@ $ echo bump > /proc/heartbeat
 
 Щоб команда `echo bump` вище справді доходила до модуля, треба ще дві правки: додати в `hb_ops` поле `.proc_write = hb_write` і послабити права у `proc_create()` з `0444` на `0644`. Права тут — звичайні [біти дозволів](root:sys-unix/permission-bits) на вузлі, і ядро перевіряє їх ще до того, як загляне у ваш набір функцій.
 
-```c
-#include <linux/string.h>    /* strim */
-#include <linux/uaccess.h>   /* copy_from_user */
-
-static ssize_t hb_write(struct file *file, const char __user *ubuf,
-                        size_t count, loff_t *ppos)
-{
-    char cmd[16], *p;
-
-    if (count == 0 || count >= sizeof cmd)
-        return -EINVAL;              /* не влізло — це помилка, а не «запишемо частину» */
-    if (copy_from_user(cmd, ubuf, count))
-        return -EFAULT;
-    cmd[count] = '\0';
-    p = strim(cmd);                  /* прибрати \n, який додає echo */
-
-    if (!strcmp(p, "bump"))
-        atomic_inc(&generation);
-    else if (!strcmp(p, "reset"))
-        atomic_set(&generation, 1);
-    else
-        return -EINVAL;
-
-    return count;                    /* спожито все */
-}
-```
+:::code proj-seqfile-module/c/zapys-odna-tsilisna.c
 
 Три рішення в цих рядках варті пояснення, бо кожне суперечить звичкам, узятим зі звичайних файлів.
 

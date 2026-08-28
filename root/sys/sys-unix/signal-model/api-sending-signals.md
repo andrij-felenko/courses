@@ -4,28 +4,7 @@
 
 ## Підписи
 
-```c
-#include <signal.h>
-
-int kill(pid_t pid, int sig);                  /* процес або група процесів  */
-int killpg(int pgrp, int sig);                 /* тотожне kill(-pgrp, sig)   */
-int raise(int sig);                            /* собі                       */
-int sigqueue(pid_t pid, int sig, const union sigval value);  /* зі значенням */
-int tgkill(pid_t tgid, pid_t tid, int sig);    /* обгортка з glibc 2.30      */
-
-#include <pthread.h>
-int pthread_kill(pthread_t thread, int sig);   /* потоку свого процесу       */
-
-/* Обгорток у glibc немає — лише через syscall(2): */
-int syscall(SYS_tkill, pid_t tid, int sig);
-int syscall(SYS_pidfd_send_signal, int pidfd, int sig,
-            siginfo_t *info, unsigned int flags);
-
-union sigval {              /* вантаж, який несе sigqueue() */
-    int   sival_int;
-    void *sival_ptr;
-};
-```
+:::code api-sending-signals/c/signal.h
 
 Усі, крім `pthread_kill()`, повертають 0 або −1 і ставлять `errno`. **`pthread_kill()` не чіпає `errno`**: він повертає номер помилки як власне значення, тож звична перевірка `if (pthread_kill(...) < 0)` не спрацює ніколи — треба порівнювати результат із нулем.
 
@@ -143,32 +122,6 @@ union sigval {              /* вантаж, який несе sigqueue() */
 
 ## Мінімальний виклик без гонки
 
-```c
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <signal.h>
-#include <stdio.h>
-
-/* Надіслати SIGTERM саме тому процесові, якого ми мали на увазі.
-   pidfd_open — Linux 5.3, pidfd_send_signal — Linux 5.1;
-   обгорток у glibc немає ні для того, ні для того. */
-int term_exactly(pid_t pid)
-{
-    int pidfd = syscall(SYS_pidfd_open, pid, 0);
-    if (pidfd < 0) {
-        perror("pidfd_open");            /* процес уже помер — і це видно тут */
-        return -1;
-    }
-
-    /* info == NULL → поводиться як kill(): одержувач побачить SI_USER.
-       flags == 0 → обсяг береться з самого pidfd (процес, не потік).      */
-    int rc = syscall(SYS_pidfd_send_signal, pidfd, SIGTERM, NULL, 0);
-    if (rc < 0)
-        perror("pidfd_send_signal");     /* ESRCH тут означає саме смерть   */
-
-    close(pidfd);
-    return rc;
-}
-```
+:::code api-sending-signals/c/minimalnyi-vyklyk-bez.c
 
 Ключове в цьому коді — не економія рядків, а те, що між двома викликами PID уже нічого не важить. Дескриптор, відкритий на живий процес, після його смерті не «перевзувається» на новий процес із тим самим номером, а віддає `ESRCH`. З Linux 6.9 обсяг можна ще й уточнити прапорцями: `PIDFD_SIGNAL_THREAD` цілить у той самий потік, на який відкрито дескриптор, `PIDFD_SIGNAL_THREAD_GROUP` — у всю групу потоків, `PIDFD_SIGNAL_PROCESS_GROUP` — у групу процесів.

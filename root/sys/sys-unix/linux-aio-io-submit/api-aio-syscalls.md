@@ -34,19 +34,7 @@ return ret;
 
 Так виглядають системні виклики з боку ядра. Саме ці прототипи треба відтворити, кличучи їх через `syscall()`.
 
-```c
-typedef __kernel_ulong_t aio_context_t;
-
-int io_setup(unsigned nr_events, aio_context_t *ctx_idp);
-int io_submit(aio_context_t ctx_id, long nr, struct iocb **iocbpp);
-int io_getevents(aio_context_t ctx_id, long min_nr, long nr,
-                 struct io_event *events, struct timespec *timeout);
-int io_pgetevents(aio_context_t ctx_id, long min_nr, long nr,   /* ядро 4.18 */
-                  struct io_event *events, struct timespec *timeout,
-                  const struct __aio_sigset *usig);
-int io_cancel(aio_context_t ctx_id, struct iocb *iocb, struct io_event *result);
-int io_destroy(aio_context_t ctx_id);
-```
+:::code api-aio-syscalls/c/prototypy.h
 
 | виклик | що повертає при успіху |
 |---|---|
@@ -125,24 +113,7 @@ IOCB_CMD_PWRITEV = 8    векторний запис
 
 ## Звіт і кільце
 
-```c
-struct io_event {
-    __u64 data;   /* мітка з aio_data */
-    __u64 obj;    /* адреса поданого iocb */
-    __s64 res;    /* передані байти або від'ємний код помилки */
-    __s64 res2;   /* другорядний результат; на всіх сучасних шляхах нуль */
-};
-
-#define AIO_RING_MAGIC             0xa10a10a1
-#define AIO_RING_COMPAT_FEATURES   1
-#define AIO_RING_INCOMPAT_FEATURES 0
-
-struct aio_ring {
-    unsigned id, nr, head, tail;
-    unsigned magic, compat_features, incompat_features, header_length;
-    struct io_event io_events[];
-};
-```
+:::code api-aio-syscalls/c/zvit-i-kiltse.c
 
 `struct aio_ring` — окремий випадок: її немає в жодному заголовку `uapi`, вона живе у `fs/aio.c`, і програми, які читають кільце напряму, переписують оголошення руками. Тому порядок дій жорсткий: спершу переконатися, що `magic` дорівнює `0xa10a10a1`, і лише тоді довіряти решті полів; початок масиву брати з `header_length`, а не з `sizeof` власної копії структури. Поле `nr` показує **ядерну** кількість комірок, а вона більша за замовлену.
 
@@ -223,18 +194,7 @@ aio_nbytes  — довжина
 
 Число `nr_events`, яке ви дали в `io_setup()`, ядро перетворює по-своєму, і корисно знати, як саме:
 
-```c
-unsigned int max_reqs = nr_events;              /* саме це піде в глобальний лічильник */
-nr_events = max(nr_events, num_possible_cpus() * 4);
-nr_events *= 2;
-
-if (nr_events > (0x10000000U / sizeof(struct io_event)))   /* > 8 388 608 комірок */
-        return -EINVAL;
-if (!nr_events || (unsigned long)max_reqs > aio_max_nr)
-        return -EAGAIN;
-
-nr_events += 2;   /* у aio_setup_ring: компенсація за комірку перекриття head/tail */
-```
+:::code api-aio-syscalls/c/skilky-tsoho-dozvoleno.c
 
 Отже проти `fs.aio-max-nr` рахують **початкове** число, а комірок у кільці виділяють помітно більше: піднятий мінімум, подвоєння й ще дві згори. Замовили 32 на машині з 16 ядрами — глобальний лічильник виріс на 32, а кільце вийшло на 130 комірок.
 
@@ -242,46 +202,6 @@ nr_events += 2;   /* у aio_setup_ring: компенсація за комірк
 
 Усе разом, без бібліотек — одне читання через сирі системні виклики:
 
-```c
-#define _GNU_SOURCE
-#include <linux/aio_abi.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <stdio.h>
-
-int main(void)
-{
-    aio_context_t ctx = 0;                    /* обов'язково нуль */
-    if (syscall(SYS_io_setup, 8, &ctx) < 0) { perror("io_setup"); return 1; }
-
-    int fd = open("/etc/hostname", O_RDONLY);
-    char buf[4096];
-
-    struct iocb cb;
-    memset(&cb, 0, sizeof cb);                /* резервні поля мусять бути нулем */
-    cb.aio_lio_opcode = IOCB_CMD_PREAD;
-    cb.aio_fildes     = fd;
-    cb.aio_buf        = (unsigned long long) buf;
-    cb.aio_nbytes     = sizeof buf;
-    cb.aio_offset     = 0;
-    cb.aio_data       = 0xC0FFEE;             /* мітка, повернеться незміненою */
-
-    struct iocb *list[1] = { &cb };
-    if (syscall(SYS_io_submit, ctx, 1L, list) != 1) { perror("io_submit"); return 1; }
-
-    struct io_event ev;
-    if (syscall(SYS_io_getevents, ctx, 1L, 1L, &ev, NULL) != 1) {
-        perror("io_getevents"); return 1;
-    }
-    printf("мітка %llx, res %lld\n",
-           (unsigned long long) ev.data, (long long) ev.res);
-
-    syscall(SYS_io_destroy, ctx);
-    close(fd);
-    return 0;
-}
-```
+:::code api-aio-syscalls/c/minimalnyi-robochyi-vyklyk.c
 
 `cb` тут живе до кінця `main()` — і це не випадковість: структуру не можна ні звільнити, ні перевикористати, доки не прийшов її звіт, бо ядро тримає на неї посилання. Так само не можна чіпати `buf`: це пам'ять, у яку ядро ще пише.

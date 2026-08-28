@@ -136,20 +136,7 @@ Committed_AS:   11982336 kB
 
 Лічильник рухають не самі лише `mmap` і `munmap`: `brk`, `mremap` і `mprotect` теж. Останній дає найнесподіванішу помилку в системі — `mprotect(addr, len, PROT_READ|PROT_WRITE)` на ділянці, яка була тільки для читання, робить її обліковою і **може повернути `ENOMEM`**, хоч зовні це просто зміна прав.
 
-```c
-#define _GNU_SOURCE
-#include <sys/mman.h>
-
-/* терабайт адрес під розріджений індекс: у режимах 0 і 1 стелі обліку не займає */
-void *sparse = mmap(NULL, 1UL << 40, PROT_READ | PROT_WRITE,
-                    MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-
-/* заплатити зараз, а не при першому запису: сторінки підставляють одразу */
-void *hot = mmap(NULL, 64UL << 20, PROT_READ | PROT_WRITE,
-                 MAP_PRIVATE | MAP_ANONYMOUS | MAP_POPULATE, -1, 0);
-
-if (sparse == MAP_FAILED || hot == MAP_FAILED) { /* errno == ENOMEM */ }
-```
+:::code api-oom-knobs/c/main.c
 
 `MAP_POPULATE` лише заповнює таблиці сторінок наперед і **не є гарантією**: якщо заповнити не вдалося, `mmap` усе одно не провалюється. Тверду гарантію дає `mlockall(MCL_CURRENT|MCL_FUTURE)` — заборона витіснення, яка змушує ядро тримати сторінки резидентними. Повний перелік прапорців і їхніх поєднань — [довідка по mmap](root:sys-unix/mmap-model/api-mmap-flags.md).
 
@@ -322,21 +309,6 @@ $ sudo systemctl set-property build.service MemoryMax=4G ManagedOOMMemoryPressur
 
 ## Мінімальна перевірка стану
 
-```sh
-#!/bin/sh
-# усе, що визначає поведінку overcommit і OOM на цій машині
-sysctl vm.overcommit_memory vm.overcommit_ratio vm.overcommit_kbytes \
-       vm.admin_reserve_kbytes vm.user_reserve_kbytes vm.min_free_kbytes \
-       vm.panic_on_oom vm.oom_kill_allocating_task vm.oom_dump_tasks
-
-grep -E '^(MemTotal|SwapTotal|CommitLimit|Committed_AS)' /proc/meminfo
-
-# десятка найімовірніших жертв просто зараз
-for p in /proc/[0-9]*; do
-    [ -r "$p/oom_score" ] || continue
-    printf '%s\t%s\t%s\n' "$(cat "$p/oom_score")" "${p#/proc/}" \
-                          "$(tr -d '\0' < "$p/comm")"
-done | sort -rn | head
-```
+:::code api-oom-knobs/sh/main.sh
 
 Перший блок каже, скільки система готова пообіцяти; другий — скільки вже пообіцяла; третій — кого вона вб'є першим, якщо обіцянки почнуть забирати всі й одразу.

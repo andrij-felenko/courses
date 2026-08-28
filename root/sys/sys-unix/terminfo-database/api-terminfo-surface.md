@@ -140,22 +140,7 @@
 
 ## Функції ncurses
 
-```c
-#include <curses.h>
-#include <term.h>
-
-int        setupterm(const char *term, int filedes, int *errret);
-int        tigetflag(const char *cap);
-int        tigetnum(const char *cap);
-char      *tigetstr(const char *cap);
-char      *tparm(const char *str, long p1 /* … */, long p9);
-char      *tiparm(const char *str, ...);
-int        tputs(const char *str, int affcnt, int (*putc)(int));
-int        putp(const char *str);
-TERMINAL  *set_curterm(TERMINAL *nterm);
-int        del_curterm(TERMINAL *oterm);
-int        restartterm(const char *term, int filedes, int *errret);
-```
+:::code api-terminfo-surface/c/curses.h
 
 `setupterm(NULL, …)` бере ім'я з `TERM`; `filedes` — дескриптор термінала, з якого бібліотека, зокрема, дізнається розміри екрана. Повертає `OK` або `ERR`, а в `errret` кладе стан — і читати ці два значення треба **разом**: `OK` разом зі станом `1` означає «все гаразд», а якщо повернуто `ERR`, то стан пояснює, що саме сталося.
 
@@ -189,36 +174,7 @@ if (s == NULL || s == (char *)-1)
 
 ### Мінімальний робочий виклик
 
-```c
-#include <curses.h>
-#include <term.h>
-#include <stdio.h>
-
-int main(void)
-{
-    int err;
-    if (setupterm(NULL, 1, &err) == ERR) {          /* NULL → узяти з TERM */
-        fprintf(stderr, "terminfo: стан %d\n", err);
-        return 1;
-    }
-
-    char *cup = tigetstr("cup");
-    if (cup == NULL || cup == (char *)-1) {
-        fprintf(stderr, "термінал не вміє ставити курсор\n");
-        return 1;
-    }
-
-    char *s = tparm(cup, 9L, 2L);                   /* рядок 9, стовпець 2, від нуля */
-    if (s == NULL)                                  /* рецепт хотів інших параметрів */
-        return 1;
-    tputs(s, 1, putchar);                           /* тут-таки домішається заповнення */
-
-    printf("кольорів: %d\n", tigetnum("colors"));   /* -1 — нема, -2 — не числова */
-
-    del_curterm(cur_term);
-    return 0;
-}
-```
+:::code api-terminfo-surface/c/minimalnyi-robochyi-vyklyk.c
 
 Збирають це `cc … -lncurses`; у дистрибутивах, де роботу з базою винесено в окрему бібліотеку, вистачить `-ltinfo`. Вказівник від `tparm` належить бібліотеці — надсилайте його одразу або копіюйте байти, а не розраховуйте потримати два результати водночас.
 

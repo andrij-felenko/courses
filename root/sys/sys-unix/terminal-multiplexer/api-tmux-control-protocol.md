@@ -147,18 +147,7 @@ $ tmux display-message -p 'Панель #{pane_id} (TTY: #{pane_tty}, PID: #{pan
 
 Якщо потрібно організувати спільний доступ до сеансу для кількох системних користувачів (наприклад, для командного аудиту чи парного програмування на спільному сервері), застосовують явне вказування сокета з правами групи:
 
-```sh
-# Створення спільного каталогу з правами групи
-mkdir -p /var/tmux-shared
-chgrp devteam /var/tmux-shared
-chmod 2775 /var/tmux-shared
-
-# Запуск сервера на спільному сокеті
-tmux -S /var/tmux-shared/pairing-socket new-session -s shared-dev
-
-# Підключення іншого користувача з групи devteam:
-tmux -S /var/tmux-shared/pairing-socket attach-session -t shared-dev
-```
+:::code api-tmux-control-protocol/sh/main.sh
 
 ## Система гачків (Hooks) та перехоплення подій
 

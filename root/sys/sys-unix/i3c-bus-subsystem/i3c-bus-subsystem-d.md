@@ -62,28 +62,7 @@ struct i3c_master_controller {
 
 Драйвер апаратного контролера (наприклад, Cadence або Synopsys DesignWare) реєструє контролер у ядрі, передаючи таблицю операцій `struct i3c_master_controller_ops`:
 
-```c
-struct i3c_master_controller_ops {
-	int (*bus_init)(struct i3c_master_controller *master);
-	void (*bus_cleanup)(struct i3c_master_controller *master);
-	int (*attach_i3c_dev)(struct i3c_dev_desc *dev);
-	int (*reattach_i3c_dev)(struct i3c_dev_desc *dev, u8 old_dyn_addr);
-	void (*detach_i3c_dev)(struct i3c_dev_desc *dev);
-	int (*do_daa)(struct i3c_master_controller *master);
-	int (*send_ccc_cmd)(struct i3c_master_controller *master,
-			    struct i3c_ccc_cmd *cmd);
-	int (*priv_xfers)(struct i3c_dev_desc *dev,
-			  struct i3c_priv_xfer *xfers,
-			  int nxfers);
-	int (*i2c_xfers)(struct i2c_dev_desc *dev,
-			 const struct i2c_msg *xfers, int nxfers);
-	int (*request_ibi)(struct i3c_dev_desc *dev,
-			   const struct i3c_ibi_setup *req);
-	void (*free_ibi)(struct i3c_dev_desc *dev);
-	int (*enable_ibi)(struct i3c_dev_desc *dev);
-	int (*disable_ibi)(struct i3c_dev_desc *dev);
-};
-```
+:::code i3c-bus-subsystem-d/c/2-1-kliuchovi-struktury.h
 
 Повний довідник по всіх полях даних, параметрах функцій та прапорцях станів містить [структурний довідник API підсистеми](root:sys-unix/i3c-bus-subsystem/api-i3c-subsystem.md).
 
@@ -171,46 +150,13 @@ Hot-Join дозволяє пристроям, які були знеструмл
 
 Драйвер реєструє таблицю `struct i3c_device_id`, де вказує 48-бітний Provisional ID або комбінацію MIPI Manufacturer ID та Part ID:
 
-```c
-static const struct i3c_device_id my_sensor_ids[] = {
-	I3C_DEVICE(0x01B0, 0x0042, NULL),
-	{ }
-};
-MODULE_DEVICE_TABLE(i3c, my_sensor_ids);
-
-static struct i3c_driver my_sensor_driver = {
-	.driver = {
-		.name = "my_sensor",
-	},
-	.probe = my_sensor_probe,
-	.remove = my_sensor_remove,
-	.id_table = my_sensor_ids,
-};
-module_i3c_driver(my_sensor_driver);
-```
+:::code i3c-bus-subsystem-d/c/4-1-deklaratsiia-draivera.h
 
 ### 4.2. Приватні транзакції читання та запису
 
 Передача даних між драйвером та пристроєм виконується через масив структур `struct i3c_priv_xfer` за допомогою функції `i3c_device_do_priv_xfers()`:
 
-```c
-static int my_sensor_read_reg(struct i3c_device *i3cdev, u8 reg, void *val, int len)
-{
-	struct i3c_priv_xfer xfers[2];
-
-	/* Передача адреси регістра (Write) */
-	xfers[0].rnw = false;
-	xfers[0].len = 1;
-	xfers[0].data.out = &reg;
-
-	/* Прийом даних з регістра (Read) */
-	xfers[1].rnw = true;
-	xfers[1].len = len;
-	xfers[1].data.in = val;
-
-	return i3c_device_do_priv_xfers(i3cdev, xfers, 2);
-}
-```
+:::code i3c-bus-subsystem-d/c/4-2-pryvatni-tranzaktsii.c
 
 ## 5. Інспекція, діагностика та sysfs-структура
 

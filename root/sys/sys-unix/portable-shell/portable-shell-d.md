@@ -80,18 +80,7 @@ fi
 
 Якщо потрібна перевірка відповідності рядка шаблону або регулярному виразу (аналог `=~`), у POSIX sh використовують конструкцію `case ... in`:
 
-```sh
-# Заміна regex перевірки [[ "$input" =~ ^[0-9]+$ ]]
-case "$input" in
-    ''|*[!0-9]*)
-        echo "Помилка: $input не є числом" >&2
-        return 1
-        ;;
-    *)
-        echo "Коректне число: $input"
-        ;;
-esac
-```
+:::code portable-shell-d/sh/1-perevirka-umov-proty-ta.sh
 
 Зверніть увагу: у шаблоні `case` заперечення символьного класу записується знаком оклику `[!0-9]`, а не дашком `[^0-9]`.
 
@@ -198,22 +187,7 @@ my_func() {
 
 У строгому переносному коді оголошення та присвоєння завжди розділяють, або ізолюють функцію у субшелі:
 
-```sh
-# Варіант 1: Роздільне оголошення (якщо local підтримується системним sh)
-my_func() {
-    local data
-    data=$(faulty_command) || return 1
-    process "$data"
-}
-
-# Варіант 2: Повна ізоляція через субшел (100% POSIX)
-# Круглі дужки замість фігурних виконують тіло у форкнутому субшелі
-my_isolated_func() (
-    data=$(faulty_command) || exit 1
-    # Усі змінні автоматично знищаться при виході з субшела
-    process "$data"
-)
-```
+:::code portable-shell-d/sh/4-oholoshennia-funktsii-ta.sh
 
 ### 5. Масиви проти позиційних параметрів
 
@@ -223,22 +197,7 @@ my_isolated_func() (
 
 Будь-який список елементів з пробілами у переносному коді зберігається у позиційних параметрах через команду `set --`:
 
-```sh
-# Замість башизму: files=( "звіт за травень.txt" "дані 2026.csv" )
-# POSIX sh еквівалент:
-set -- "звіт за травень.txt" "дані 2026.csv"
-
-# Додавання елемента до списку:
-set -- "$@" "новий файл.log"
-
-# Кількість елементів:
-echo "Всього елементів: $#"
-
-# Поелементна ітерація з гарантованим збереженням пробілів:
-for file in "$@"; do
-    printf 'Обробка: %s\n' "$file"
-done
-```
+:::code portable-shell-d/sh/5-masyvy-proty.sh
 
 Специфікатор `"$@"` (обов'язково в подвійних лапках) розгортається інтерпретатором у точний список окремих аргументів `"$1"` `"$2"` ..., не розбиваючи пробіли всередині елементів.
 
@@ -485,24 +444,7 @@ possible bashism in deploy.sh line 42 (type):
 
 `shellcheck` — це повноцінний компіляторний лінтер, який будує абстрактне синтаксичне дерево (AST) скрипта. Щоб увімкнути суворий режим перевірки на відповідність стандарту POSIX sh, передають прапорець `-s sh`:
 
-```sh
-$ shellcheck -s sh deploy.sh
-
-In deploy.sh line 12:
-    [[ -d "$target_dir" ]] || mkdir -p "$target_dir"
-    ^--------------------^
-SC3010 (warning): In POSIX sh, [[ ]] is undefined.
-
-In deploy.sh line 19:
-    local status="running"
-    ^----------^
-SC3043 (warning): In POSIX sh, 'local' is undefined.
-
-In deploy.sh line 34:
-    diff <(generate_old) <(generate_new)
-         ^-------------^
-SC3001 (warning): In POSIX sh, process substitution is undefined.
-```
+:::code portable-shell-d/sh/deploy.sh
 
 `shellcheck` кодує всі зауваження переносності діапазоном кодів `SC3000–SC3060`. У конвеєрах неперервної інтеграції (CI) перевірку оформлюють як обов'язковий гейт:
 
@@ -569,41 +511,13 @@ export LC_COLLATE=C
 
 Вивід діагностики та повідомлень про помилки організовують через допоміжні функції, які пишуть строго у дескриптор stderr (`>&2`):
 
-```sh
-log_info() {
-    printf '[INFO] %s\n' "$*" >&2
-}
-
-log_warn() {
-    printf '[WARN] %s\n' "$*" >&2
-}
-
-die() {
-    printf '[FATAL] %s\n' "$*" >&2
-    exit 1
-}
-```
+:::code portable-shell-d/sh/2-strukturovane-lohuvannia.sh
 
 ### 3. Атомарне блокування без `flock`
 
 Утиліта `flock` є специфічною для пакету `util-linux` і відсутня на BSD/macOS. Єдиний переносний спосіб атомарного взаємного виключення (mutex) у POSIX — використання системного виклику `mkdir`. Створення каталогу виконується ядром атомарно на рівні VFS:
 
-```sh
-LOCKDIR="${TMPDIR:-/tmp}/my_script.lock"
-
-acquire_lock() {
-    if mkdir "$LOCKDIR" 2>/dev/null; then
-        return 0
-    else
-        log_warn "Скрипт уже виконується (каталог блокування $LOCKDIR зайнятий)"
-        return 1
-    fi
-}
-
-release_lock() {
-    rmdir "$LOCKDIR" 2>/dev/null || true
-}
-```
+:::code portable-shell-d/sh/3-atomarne-blokuvannia-bez.sh
 
 ### 4. Обробка опцій командного рядка через `getopts`
 
@@ -611,33 +525,7 @@ release_lock() {
 
 Стандартний переносний спосіб парсингу ключів — вбудована команда `getopts`:
 
-```sh
-VERBOSE=0
-OUTPUT_FILE=""
-
-while getopts ":hvf:o:" opt; do
-    case "$opt" in
-        h)
-            show_help
-            exit 0
-            ;;
-        v)
-            VERBOSE=$((VERBOSE + 1))
-            ;;
-        f|o)
-            OUTPUT_FILE="$OPTARG"
-            ;;
-        :)
-            die "Опція -$OPTARG вимагає аргументу."
-            ;;
-        \?)
-            die "Невідома опція -$OPTARG."
-            ;;
-    esac
-done
-# Зсув оброблених опцій: далі у $@ залишаються тільки позиційні аргументи
-shift "$((OPTIND - 1))"
-```
+:::code portable-shell-d/sh/4-obrobka-optsii.sh
 
 Символ двокрапки на початку рядка опцій (`":hvf:o:"`) вмикає так званий тихий режим (silent mode), дозволяючи скрипту самостійно перехоплювати відсутні аргументи (`:`) та невідомі прапорці (`\?`).
 
@@ -645,103 +533,15 @@ shift "$((OPTIND - 1))"
 
 Надійне прибирання ресурсів реєструється через `trap`:
 
-```sh
-TMPDIR="${TMPDIR:-/tmp}"
-# Переносне створення захищеного тимчасового каталогу
-WORKDIR=$(mktemp -d "${TMPDIR}/app.XXXXXX" 2>/dev/null || mktemp -d -t 'app')
-
-cleanup() {
-    exit_code=$?
-    release_lock
-    rm -rf "$WORKDIR"
-    exit "$exit_code"
-}
-# Реєстрація сигналів за стандартними символьними іменами (без префіксу SIG)
-trap cleanup EXIT INT TERM HUP
-```
+:::code portable-shell-d/sh/5-stvorennia-tymchasovykh.sh
 
 ### 6. Порівняльний приклад реалізації задачі
 
 Порівняємо типовий сценарій збору діагностики двома мовами: з використанням башизмів та у строгому переносному стилі POSIX sh.
 
 :::tabs
-```bash
-#!/usr/bin/env bash
-# Непереносний варіант: використовує розширення GNU Bash
-set -euo pipefail
-
-declare -A SERVICES=( [nginx]="/var/log/nginx" [db]="/var/log/postgresql" )
-declare -a LOG_FILES=()
-
-read_logs() {
-    local svc=$1
-    local dir=${SERVICES[$svc]}
-    
-    [[ -d "$dir" ]] || { echo "Пропуск $svc: нема каталогу"; return 0; }
-    
-    while IFS= read -r -d '' file; do
-        LOG_FILES+=("$file")
-    done < <(find "$dir" -maxdepth 1 -name "*.log" -print0)
-}
-
-for s in "${!SERVICES[@]}"; do
-    read_logs "$s"
-done
-
-echo -n "Знайдено файлів: ${#LOG_FILES[@]} ... "
-grep -P '^\d{4}-\d{2}-\d{2}.*(ERROR|FATAL)' "${LOG_FILES[@]}" \
-    | sed -i 's/token=[^ ]+/token=***/g' report.txt
-echo "Завершено."
-```
-```sh
-#!/bin/sh
-# Гарантовано переносний варіант: працює на dash, ash, FreeBSD sh, macOS
-set -eu
-export LC_ALL=C
-export LC_COLLATE=C
-(set -o pipefail 2>/dev/null) && set -o pipefail || true
-
-# Замість масиву: позиційні параметри пари "служба:шлях"
-set -- "nginx:/var/log/nginx" "db:/var/log/postgresql"
-
-TMP_LIST=$(mktemp "${TMPDIR:-/tmp}/logs.XXXXXX")
-TMP_REPORT=$(mktemp "${TMPDIR:-/tmp}/rep.XXXXXX")
-
-cleanup() {
-    status=$?
-    rm -f "$TMP_LIST" "$TMP_REPORT"
-    exit "$status"
-}
-trap cleanup EXIT INT TERM HUP
-
-# Обхід пар без використання асоціативних масивів
-for pair in "$@"; do
-    svc="${pair%%:*}"
-    dir="${pair#*:}"
-    
-    if [ -d "$dir" ]; then
-        # Переносне обмеження глибини каталогу без -maxdepth
-        find "$dir" -path "$dir/*/*" -prune -o -type f -name "*.log" -print >> "$TMP_LIST"
-    else
-        printf 'Пропуск %s: нема каталогу %s\n' "$svc" "$dir" >&2
-    fi
-done
-
-file_count=0
-if [ -s "$TMP_LIST" ]; then
-    file_count=$(wc -l < "$TMP_LIST" | tr -d '[:space:]')
-fi
-printf 'Знайдено файлів: %s ... ' "$file_count"
-
-if [ "$file_count" -gt 0 ]; then
-    # Переносний ERE regex замість Perl -P
-    xargs grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*(ERROR|FATAL)' < "$TMP_LIST" \
-        | sed 's/token=[^ ]*/token=***/g' > "$TMP_REPORT"
-    mv -f "$TMP_REPORT" report.txt
-fi
-
-printf 'Завершено.\n'
-```
+:::code portable-shell-d/sh/6-porivnialnyi-pryklad.sh
+:::code portable-shell-d/sh/6-porivnialnyi-pryklad-2.sh
 :::
 
 Переносний варіант повністю позбавлений залежностей від версії інтерпретатора, не спирається на наявність GNU Coreutils і гарантує детерміноване виконання у будь-якому оточенні POSIX-сумісної операційної системи.

@@ -206,30 +206,8 @@ LOG_LEVEL=debug ./my_application
 Для розв'язання цієї проблеми ядро формує на стеку **допоміжний вектор (Auxiliary Vector, `auxv`)**. Він складається зі структур `Elf64_auxv_t`:
 
 :::tabs
-```c
-/* Структура допоміжного вектора C */
-#include <stdint.h>
-
-typedef struct {
-    uint64_t a_type; /* Тип запису (константа AT_*) */
-    union {
-        uint64_t a_val; /* Цілочисельне значення */
-        void *a_ptr;    /* Вказівник на пам'ять */
-    } a_un;
-} Elf64_auxv_t;
-```
-```cpp
-// C++ структура допоміжного вектора (з підтримкою std::cstdint)
-#include <cstdint>
-
-typedef struct {
-    uint64_t a_type;
-    union {
-        uint64_t a_val;
-        void *a_ptr;
-    } a_un;
-} Elf64_auxv_t;
-```
+:::code argv-and-environment-d/c/main.c
+:::code argv-and-environment-d/cpp/main.cpp
 :::
 
 ### Ключові записи допоміжного вектора

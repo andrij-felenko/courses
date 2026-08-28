@@ -73,35 +73,11 @@ struct lsm_id {
 
 Для вирішення проблеми конфліктів за єдиний покажчик `void *security` у внутрішніх об'єктах ядра, кожен модуль безпеки реєструє кількість байт, які йому необхідні всередині конкретних структур.
 
-```c
-struct lsm_blob_sizes {
-	int lbs_cred;
-	int lbs_file;
-	int lbs_inode;
-	int lbs_ipc;
-	int lbs_msg_msg;
-	int lbs_task;
-	int lbs_xattr_count;
-	int lbs_key;
-	int lbs_sock;
-	int lbs_superblock;
-};
-```
+:::code api-lsm-kernel-interface/c/4-reiestratsiia-rozmiriv.c
 
 Окремих глобальних змінних зі зміщеннями ядро не заводить. Під час ініціалізації воно проходить модулі по порядку й **переписує поля цієї самої структури на місці**: те, що модуль заповнив як «мені потрібно стільки байт», після `security_init()` містить «твоє зміщення у спільному блоці». Спрощено це виглядає так:
 
-```c
-static void __init lsm_set_blob_size(int *need, int *lbs)
-{
-	int offset;
-
-	if (*need <= 0)
-		return;
-	offset = ALIGN(*lbs, sizeof(void *));	/* вирівнювання під покажчик */
-	*lbs = offset + *need;			/* нова сума розмірів */
-	*need = offset;				/* модулю лишається зміщення */
-}
-```
+:::code api-lsm-kernel-interface/c/4-reiestratsiia-rozmiriv-2.c
 
 Тому до свого контексту модуль звертається через власну структуру розмірів:
 

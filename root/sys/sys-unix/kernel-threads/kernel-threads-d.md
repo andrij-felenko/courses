@@ -109,28 +109,7 @@
 
 Функція потоку ядра має характерну форму: це цикл, який спить, доки роботи немає, і на кожному колі питає, чи не час завершитися.
 
-```c
-static int flusher(void *data)
-{
-    struct my_dev *dev = data;
-
-    while (!kthread_should_stop()) {
-        wait_event_interruptible(dev->waitq,
-                                 dev->has_work || kthread_should_stop());
-        if (kthread_should_stop())
-            break;
-
-        flush_pending(dev);
-    }
-    return 0;
-}
-
-/* запуск: ім'я задачі задають одразу, воно й буде видно в ps */
-dev->task = kthread_run(flusher, dev, "myflush/%d", dev->id);
-
-/* зупинка з боку того, хто створив */
-kthread_stop(dev->task);
-```
+:::code kernel-threads-d/c/main.c
 
 `kthread_stop()` виставляє позначку «час зупинитися», будить задачу й чекає, доки її функція **сама повернеться**; повернене значення й буде результатом виклику. Звідси й пастка, яку видно в прикладі: умова засинання мусить перевіряти позначку зупинки теж — інакше потік засне, робота ніколи не з'явиться, ніхто його не розбудить, і `kthread_stop()` зависне разом із тим, хто його викликав. Робочий модуль із таким потоком, збіркою й розбором помилок — в [окремій вставці](root:sys-unix/kernel-threads/proj-kthread-module.md).
 

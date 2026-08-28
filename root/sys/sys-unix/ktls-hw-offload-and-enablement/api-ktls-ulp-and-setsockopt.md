@@ -209,35 +209,8 @@ struct tls12_crypto_info_chacha20_poly1305 {
 При формуванні виклику `sendmsg()` додаток додає до структури `struct msghdr` контрольний буфер із заголовком `struct cmsghdr`:
 
 :::tabs
-```c
-/* Приклад встановлення cmsg для TLS Alert */
-struct cmsghdr *cmsg;
-char cmsgbuf[CMSG_SPACE(sizeof(unsigned char))];
-
-msg.msg_control = cmsgbuf;
-msg.msg_controllen = sizeof(cmsgbuf);
-
-cmsg = CMSG_FIRSTHDR(&msg);
-cmsg->cmsg_level = SOL_TLS;
-cmsg->cmsg_type = TLS_SET_RECORD_TYPE;
-cmsg->cmsg_len = CMSG_LEN(sizeof(unsigned char));
-
-/* Вказуємо тип запису у корисній частині cmsg */
-*((unsigned char *)CMSG_DATA(cmsg)) = TLS_RECORD_TYPE_ALERT;
-```
-```cpp
-// C++20 аналог встановлення cmsg для TLS Alert
-alignas(struct cmsghdr) std::array<char, CMSG_SPACE(sizeof(uint8_t))> cmsgbuf{};
-msg.msg_control = cmsgbuf.data();
-msg.msg_controllen = cmsgbuf.size();
-
-struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-cmsg->cmsg_level = SOL_TLS;
-cmsg->cmsg_type = TLS_SET_RECORD_TYPE;
-cmsg->cmsg_len = CMSG_LEN(sizeof(uint8_t));
-
-*reinterpret_cast<uint8_t*>(CMSG_DATA(cmsg)) = TLS_RECORD_TYPE_ALERT;
-```
+:::code api-ktls-ulp-and-setsockopt/c/main.h
+:::code api-ktls-ulp-and-setsockopt/cpp/main.hpp
 :::
 
 Значення полів `cmsghdr`:

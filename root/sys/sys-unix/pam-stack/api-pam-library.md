@@ -115,23 +115,7 @@ char **pam_getenvlist(pam_handle_t *pamh);
 
 Розмовника застосунок передає у `pam_start()` для надання модулям можливості запитувати інтерактивне введення у користувача через GUI чи CLI.
 
-```c
-struct pam_message {
-    int msg_style;
-    const char *msg;
-};
-
-struct pam_response {
-    char *resp;
-    int resp_retcode;
-};
-
-struct pam_conv {
-    int (*conv)(int num_msg, const struct pam_message **msg,
-                struct pam_response **resp, void *appdata_ptr);
-    void *appdata_ptr;
-};
-```
+:::code api-pam-library/c/rozmovnyk-struktury-iakymy.c
 
 ### Хто виділяє й хто звільняє пам'ять розмови
 1. Модуль формує масив вказівників на `struct pam_message` розміром `num_msg` і передає його у функцію `conv()`.
@@ -150,125 +134,8 @@ struct pam_conv {
 У разі роботи з PAM у мові C++ виклики функцій `pam_start()` та `pam_end()` огортаються в RAII-контейнер для гарантованого звільнення ресурсів при виникненні винятків.
 
 :::tabs
-```c
-/* Приклад автентифікації консольної програми мовою C */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <security/pam_appl.h>
-
-static int sample_conv(int num_msg, const struct pam_message **msg,
-                       struct pam_response **resp, void *appdata_ptr) {
-    if (num_msg <= 0 || num_msg > PAM_MAX_NUM_MSG) return PAM_CONV_ERR;
-    
-    struct pam_response *reply = calloc(num_msg, sizeof(struct pam_response));
-    if (!reply) return PAM_BUF_ERR;
-
-    for (int i = 0; i < num_msg; ++i) {
-        if (msg[i]->msg_style == PAM_PROMPT_ECHO_OFF) {
-            printf("%s", msg[i]->msg);
-            char buffer[256];
-            if (fgets(buffer, sizeof(buffer), stdin)) {
-                buffer[strcspn(buffer, "\n")] = '\0';
-                reply[i].resp = strdup(buffer);
-            }
-        }
-    }
-    *resp = reply;
-    return PAM_SUCCESS;
-}
-
-int authenticate_user(const char *username) {
-    pam_handle_t *pamh = NULL;
-    struct pam_conv conv = { sample_conv, NULL };
-
-    int retval = pam_start("check_service", username, &conv, &pamh);
-    if (retval != PAM_SUCCESS) return retval;
-
-    retval = pam_authenticate(pamh, 0);
-    if (retval == PAM_SUCCESS) {
-        retval = pam_acct_mgmt(pamh, 0);
-    }
-
-    pam_end(pamh, retval);
-    return retval;
-}
-```
-```cpp
-// Ідіоматичний RAII-обгортка PAM мовою C++20
-#include <iostream>
-#include <memory>
-#include <string>
-#include <cstring>
-#include <expected>
-#include <vector>
-#include <utility>
-#include <security/pam_appl.h>
-
-class PamSession {
-public:
-    static std::expected<PamSession, int> create(const std::string& service, const std::string& user, const struct pam_conv* conv) {
-        pam_handle_t* handle = nullptr;
-        int rc = pam_start(service.c_str(), user.c_str(), conv, &handle);
-        if (rc != PAM_SUCCESS) return std::unexpected(rc);
-        return PamSession(handle);
-    }
-
-    ~PamSession() {
-        if (handle_) {
-            pam_end(handle_, last_status_);
-        }
-    }
-
-    PamSession(const PamSession&) = delete;
-    PamSession& operator=(const PamSession&) = delete;
-    PamSession(PamSession&& other) noexcept : handle_(std::exchange(other.handle_, nullptr)), last_status_(other.last_status_) {}
-
-    int authenticate(int flags = 0) {
-        last_status_ = pam_authenticate(handle_, flags);
-        return last_status_;
-    }
-
-    int check_account(int flags = 0) {
-        last_status_ = pam_acct_mgmt(handle_, flags);
-        return last_status_;
-    }
-
-private:
-    explicit PamSession(pam_handle_t* handle) : handle_(handle), last_status_(PAM_SUCCESS) {}
-    pam_handle_t* handle_{nullptr};
-    int last_status_{PAM_SUCCESS};
-};
-
-static int cpp_conv(int num_msg, const struct pam_message **msg,
-                    struct pam_response **resp, void *appdata_ptr) {
-    if (num_msg <= 0) return PAM_CONV_ERR;
-    auto* reply = static_cast<struct pam_response*>(calloc(num_msg, sizeof(struct pam_response)));
-    if (!reply) return PAM_BUF_ERR;
-
-    for (int i = 0; i < num_msg; ++i) {
-        if (msg[i]->msg_style == PAM_PROMPT_ECHO_OFF) {
-            std::cout << msg[i]->msg;
-            std::string pass;
-            std::cin >> pass;
-            reply[i].resp = strdup(pass.c_str());
-        }
-    }
-    *resp = reply;
-    return PAM_SUCCESS;
-}
-
-std::expected<void, int> verify_credentials(const std::string& username) {
-    struct pam_conv conv = { cpp_conv, nullptr };
-    auto session = PamSession::create("check_service", username, &conv);
-    if (!session) return std::unexpected(session.error());
-
-    if (int rc = session->authenticate(); rc != PAM_SUCCESS) return std::unexpected(rc);
-    if (int rc = session->check_account(); rc != PAM_SUCCESS) return std::unexpected(rc);
-
-    return {};
-}
-```
+:::code api-pam-library/c/pryklad-vyklyku-api-pam-c.c
+:::code api-pam-library/cpp/main.cpp
 :::
 
 ## Таблиця стандартних кодів повернення PAM

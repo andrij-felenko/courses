@@ -10,51 +10,7 @@
 
 Нижче наведено її визначення, скорочене до полів, які заповнює або читає драйвер (суто внутрішні поля ядра — лічильники, RCU-захист, кеш спільних тегів — опущено):
 
-```c
-struct blk_mq_tag_set {
-    /* Таблиця функцій зворотного виклику низькорівневого драйвера */
-    const struct blk_mq_ops *ops;
-
-    /* Загальна кількість апаратних диспетчерських черг (hctx) */
-    unsigned int            nr_hw_queues;
-
-    /* Кількість тегів НА ОДНУ апаратну чергу, разом із резервованими */
-    unsigned int            queue_depth;
-
-    /* Кількість тегів, резервованих для високопріоритетних/системних запитів */
-    unsigned int            reserved_tags;
-
-    /* Розмір приватних даних драйвера (в байтах), що додаються до кожної struct request */
-    unsigned int            cmd_size;
-
-    /* Ідентифікатор NUMA-вузла для оптимального виділення пам'яті під структури */
-    int                     numa_node;
-
-    /* Таймаут виконання операцій вводу-виводу у системних тиках (jiffies) */
-    unsigned int            timeout;
-
-    /* Бітові прапори конфігурації поведінки черги (BLK_MQ_F_*) */
-    unsigned int            flags;
-
-    /* Нетипізований вказівник на приватну контекстну структуру драйвера */
-    void                   *driver_data;
-
-    /* Масив пулів тегів: рівно один елемент на кожну апаратну чергу */
-    struct blk_mq_tags    **tags;
-
-    /* Масиви відображення процесорних ядер на апаратні черги (для різних типів I/O) */
-    struct blk_mq_queue_map map[HCTX_MAX_TYPES];
-
-    /* Кількість активних типів черг у масиві map (Default, Read, Poll) */
-    unsigned int            nr_maps;
-
-    /* Зв'язаний список усіх блокових черг (request_queue), які ділять цей tag_set */
-    struct list_head        tag_list;
-
-    /* М'ютекс для синхронізації змін у списку tag_list */
-    struct mutex            tag_list_lock;
-};
-```
+:::code api-blk-mq-tag-set-surface/c/1-holovna-konfihuratsiina.c
 
 ### Деталізація полів `blk_mq_tag_set`
 
@@ -86,38 +42,7 @@ struct blk_mq_tag_set {
 
 Драйвер блокового пристрою реєструє свій функціонал через систему зворотних викликів `struct blk_mq_ops`:
 
-```c
-struct blk_mq_ops {
-    /* Обов'язковий метод: передача запиту безпосередньо у контролер пристрою */
-    blk_status_t (*queue_rq)(struct blk_mq_hw_ctx *hctx,
-                             const struct blk_mq_queue_data *bd);
-
-    /* Необов'язковий метод: сповіщення про завершення пакетної відправки (batch) */
-    void (*commit_rqs)(struct blk_mq_hw_ctx *hctx);
-
-    /* Необов'язковий метод: обробка завершення запиту на вищому рівні */
-    void (*complete)(struct request *rq);
-
-    /* Метод обробки таймауту операції (коли пристрій не відповів вчасно) */
-    enum blk_eh_timer_return (*timeout)(struct request *rq);
-
-    /* Конструктор та деструктор апаратного контексту hctx */
-    int (*init_hctx)(struct blk_mq_hw_ctx *hctx, void *data, unsigned int idx);
-    void (*exit_hctx)(struct blk_mq_hw_ctx *hctx, unsigned int idx);
-
-    /* Конструктор та деструктор приватних даних у структурі request */
-    int (*init_request)(struct blk_mq_tag_set *set, struct request *rq,
-                        unsigned int hctx_idx, unsigned int numa_node);
-    void (*exit_request)(struct blk_mq_tag_set *set, struct request *rq,
-                         unsigned int hctx_idx);
-
-    /* Колбек для побудови топології мапінгу CPU -> hctx (нічого не повертає) */
-    void (*map_queues)(struct blk_mq_tag_set *set);
-
-    /* Метод опитування стану пристрою (для черг HCTX_TYPE_POLL) */
-    int (*poll)(struct blk_mq_hw_ctx *hctx, struct io_comp_batch *iob);
-};
-```
+:::code api-blk-mq-tag-set-surface/c/3-tablytsia-operatsii.h
 
 ### Структура `struct blk_mq_queue_data`
 
@@ -148,42 +73,7 @@ struct blk_mq_queue_data {
 
 Кожна апаратна диспетчерська черга представлена в ядрі структурою `struct blk_mq_hw_ctx` (скорочено `hctx`). Вона утримує стан диспетчеризації для групи прив'язаних CPU:
 
-```c
-struct blk_mq_hw_ctx {
-    /* Спінлок, що захищає локальний список диспетчеризації */
-    spinlock_t              lock;
-
-    /* Список запитів, готових до передачі драйверу (dispatch list) */
-    struct list_head        dispatch;
-
-    /* Ковзне середнє «зайнятості» відправки: росте на BLK_STS_RESOURCE */
-    unsigned int            dispatch_busy;
-
-    /* Маска логічних CPU, які прив'язані до цієї hctx */
-    cpumask_var_t           cpumask;
-
-    /* Вказівник на пул тегів, що використовується цією hctx */
-    struct blk_mq_tags     *tags;
-
-    /* Окремий пул тегів планувальника (коли планувальник підключено) */
-    struct blk_mq_tags     *sched_tags;
-
-    /* Приватні дані I/O планувальника: тип знає лише сам планувальник */
-    void                   *sched_data;
-
-    /* Вказівник на батьківську чергу пристрою request_queue */
-    struct request_queue   *queue;
-
-    /* Індекс цієї hctx у загальному масиві пристрою (від 0 до nr_hw_queues-1) */
-    unsigned int            queue_num;
-
-    /* Прапорці стану черги BLK_MQ_S_* (наприклад, BLK_MQ_S_STOPPED) */
-    unsigned long           state;
-
-    /* Відкладена робота kworker для фонової відправки запитів */
-    struct delayed_work     run_work;
-};
-```
+:::code api-blk-mq-tag-set-surface/c/4-kontekst-aparatnoi.c
 
 ---
 
@@ -191,34 +81,7 @@ struct blk_mq_hw_ctx {
 
 Драйвер блокового пристрою використовує такий базовий набір функцій ядра для реєстрації об'єкта `blk_mq_tag_set` та керування ним:
 
-```c
-/* 1. Виділення та ініціалізація внутрішніх бітових карт sbitmap і масивів tags */
-int blk_mq_alloc_tag_set(struct blk_mq_tag_set *set);
-
-/* 2. Звільнення всіх виділених ресурсів та таблиць мапінгу */
-void blk_mq_free_tag_set(struct blk_mq_tag_set *set);
-
-/* 3. Створення та прив'язка черги request_queue на основі готового tag_set.
- *    Донедавна вона звалася blk_mq_init_queue(set); у сучасних ядрах приймає
- *    ще й обмеження пристрою та приватний вказівник драйвера. */
-struct request_queue *blk_mq_alloc_queue(struct blk_mq_tag_set *set,
-                                         struct queue_limits *lim,
-                                         void *queuedata);
-
-/* 4. Динамічна зміна кількості апаратних черг (наприклад, при зміні векторів MSI-X) */
-void blk_mq_update_nr_hw_queues(struct blk_mq_tag_set *set, int nr_hw_queues);
-
-/* 5. Зміна глибини СПІЛЬНОГО пулу тегів (для tag_set із BLK_MQ_F_TAG_QUEUE_SHARED) */
-void blk_mq_tag_resize_shared_tags(struct blk_mq_tag_set *set, unsigned int size);
-
-/* 6. Заморожування та розморожування черги при зміні конфігурації */
-void blk_mq_freeze_queue(struct request_queue *q);
-void blk_mq_unfreeze_queue(struct request_queue *q);
-
-/* 7. Зупинка та відновлення диспетчеризації апаратних черг */
-void blk_mq_stop_hw_queues(struct request_queue *q);
-void blk_mq_start_hw_queues(struct request_queue *q);
-```
+:::code api-blk-mq-tag-set-surface/c/5-funktsii-keruvannia.h
 
 Функція `blk_mq_freeze_queue()` призупиняє надходження нових `bio`, чекає на завершення всіх команд у польоті (*in-flight*) та гарантує, що жоден потік не використовує теги під час перебудови мапінгу ядра.
 

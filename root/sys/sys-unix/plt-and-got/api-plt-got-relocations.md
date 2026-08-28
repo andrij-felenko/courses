@@ -36,60 +36,10 @@
 :::tabs
 
 @tab C
-```c
-#include <stdint.h>
-
-// 64-бітна структура релокації з доданком (Rela)
-typedef struct {
-    uint64_t r_offset; // Віртуальна адреса (або зсув у GOT), куди записується результат
-    uint64_t r_info;   // Індекс символу у .dynsym (верхні 32 біти) + тип релокації (нижні 32 біти)
-    int64_t  r_addend; // Фіксований доданок (addend), що додається до обчисленого значення
-} Elf64_Rela;
-
-// 64-бітна структура релокації без доданка (Rel)
-typedef struct {
-    uint64_t r_offset; // Віртуальна адреса запису у GOT
-    uint64_t r_info;   // Індекс символу та тип релокації
-} Elf64_Rel;
-
-// 64-бітний запис символу у таблиці .dynsym
-typedef struct {
-    uint32_t st_name;  // Зсув у таблиці рядків .dynstr до імені символу
-    uint8_t  st_info;  // Тип символу (STT_FUNC, STT_OBJECT) та зв'язування (STB_GLOBAL)
-    uint8_t  st_other; // Видимість символу (STV_DEFAULT, STV_HIDDEN)
-    uint16_t st_shndx; // Індекс секції, де визначено символ (SHN_UNDEF для імпортованих)
-    uint64_t st_value; // Віртуальна адреса символу або 0
-    uint64_t st_size;  // Розмір об'єкта в байтах
-} Elf64_Sym;
-```
+:::code api-plt-got-relocations/c/2-struktury-danykh.c
 
 @tab C++
-```cpp
-#include <cstdint>
-
-// 64-бітна структура релокації з доданком (Rela)
-struct Elf64_Rela {
-    std::uint64_t r_offset; // Віртуальна адреса (або зсув у GOT), куди записується результат
-    std::uint64_t r_info;   // Індекс символу у .dynsym (верхні 32 біти) + тип релокації (нижні 32 біти)
-    std::int64_t  r_addend; // Фіксований доданок (addend), що додається до обчисленого значення
-};
-
-// 64-бітна структура релокації без доданка (Rel)
-struct Elf64_Rel {
-    std::uint64_t r_offset; // Віртуальна адреса запису у GOT
-    std::uint64_t r_info;   // Індекс символу та тип релокації
-};
-
-// 64-бітний запис символу у таблиці .dynsym
-struct Elf64_Sym {
-    std::uint32_t st_name;  // Зсув у таблиці рядків .dynstr до імені символу
-    std::uint8_t  st_info;  // Тип символу (STT_FUNC, STT_OBJECT) та зв'язування (STB_GLOBAL)
-    std::uint8_t  st_other; // Видимість символу (STV_DEFAULT, STV_HIDDEN)
-    std::uint16_t st_shndx; // Індекс секції, де визначено символ (SHN_UNDEF для імпортованих)
-    std::uint64_t st_value; // Віртуальна адреса символу або 0
-    std::uint64_t st_size;  // Розмір об'єкта в байтах
-};
-```
+:::code api-plt-got-relocations/cpp/2-struktury-danykh.cpp
 
 :::
 
@@ -108,36 +58,10 @@ struct Elf64_Sym {
 :::tabs
 
 @tab C
-```c
-#include <stdint.h>
-
-// Отримання індексу символу з поля r_info
-#define ELF64_R_SYM(i)    ((uint32_t)((i) >> 32))
-
-// Отримання типу релокації з поля r_info
-#define ELF64_R_TYPE(i)   ((uint32_t)((i) & 0xffffffffL))
-
-// Утворення значення r_info з індексу символу s та типу t
-#define ELF64_R_INFO(s,t) ((((uint64_t)(s)) << 32) + ((uint32_t)(t)))
-```
+:::code api-plt-got-relocations/c/makrosy-manipuliatsii.c
 
 @tab C++
-```cpp
-#include <cstdint>
-
-// Ідіоматичні inline-функції C++ для маніпуляцій r_info
-constexpr std::uint32_t get_elf64_r_sym(std::uint64_t info) noexcept {
-    return static_cast<std::uint32_t>(info >> 32);
-}
-
-constexpr std::uint32_t get_elf64_r_type(std::uint64_t info) noexcept {
-    return static_cast<std::uint32_t>(info & 0xffffffffL);
-}
-
-constexpr std::uint64_t make_elf64_r_info(std::uint32_t sym, std::uint32_t type) noexcept {
-    return (static_cast<std::uint64_t>(sym) << 32) + type;
-}
-```
+:::code api-plt-got-relocations/cpp/makrosy-manipuliatsii.hpp
 
 :::
 

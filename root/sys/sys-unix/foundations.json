@@ -28,13 +28,15 @@
           "proj": [
             {
               "file": "proj-pipeline-by-hand.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-filter-contract.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -45,18 +47,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-one-namespace.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-uniform-copy.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -82,7 +87,8 @@
           "proj": [
             {
               "file": "proj-portable-c.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -93,7 +99,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -104,13 +111,15 @@
           "proj": [
             {
               "file": "proj-portable-shell.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-conformance-query.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -155,7 +164,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -166,7 +176,8 @@
           "proj": [
             {
               "file": "proj-min-userland.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -188,7 +199,8 @@
           "proj": [
             {
               "file": "proj-minimal-userland.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -217,7 +229,8 @@
           "proj": [
             {
               "file": "proj-fhs-traverser-and-mount-checker.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -245,7 +258,8 @@
           "proj": [
             {
               "file": "proj-multiarch-probe.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -268,7 +282,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -279,7 +294,8 @@
           "proj": [
             {
               "file": "proj-border-probe.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -295,7 +311,8 @@
           "proj": [
             {
               "file": "proj-entry-path-walk.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -306,7 +323,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -317,7 +335,8 @@
           "proj": [
             {
               "file": "proj-syscall-without-libc.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -345,13 +364,15 @@
           "proj": [
             {
               "file": "proj-abi-extensible-syscall.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-abi-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -362,7 +383,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -373,7 +395,8 @@
           "proj": [
             {
               "file": "proj-feature-probe.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -395,13 +418,15 @@
           "proj": [
             {
               "file": "proj-see-the-seam.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-compat-contract.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -424,13 +449,15 @@
           "proj": [
             {
               "file": "proj-vdso-dump-and-symbol-resolution.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-vdso-symbols-and-auxv.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -448,24 +475,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-truth-sources.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-procfs-and-sysfs.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-inspect-system-state.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -477,18 +509,21 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-man-sections-and-synopsis.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-roff-and-man.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -499,12 +534,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-cli-option-grammar.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -516,7 +553,9 @@
           "proj": [
             {
               "file": "proj-cli-parser-getopt.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

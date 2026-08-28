@@ -100,19 +100,7 @@ ivsize       : 16
 
 ### Глобальні змінні та функції керування
 
-```c
-#ifdef CONFIG_CRYPTO_FIPS
-extern int fips_enabled;
-extern struct atomic_t fips_fail;
-
-void fips_fail_notify(void);
-int fips_post_failed(void);
-#else
-#define fips_enabled 0
-static inline void fips_fail_notify(void) {}
-static inline int fips_post_failed(void) { return 0; }
-#endif
-```
+:::code api-fips-sysfs-and-crypto/c/hlobalni-zminni-ta.c
 
 - `fips_enabled` — глобальна змінна типу `int`. Доступна для перевірки в будь-якому модулі ядра через `#include <crypto/fips.h>`.
 - `fips_fail_notify()` — внутрішня функція, що викликається з `testmgr.c` при падінні Known Answer Test. Вона інформує підсистему безпеки ядра та, залежно від налаштувань ядра, може викликати аварійну паніку `panic("FIPS self-test failure\n")`.
@@ -132,39 +120,7 @@ static inline int fips_post_failed(void) { return 0; }
 
 Усі еталонні значення жорстко скомпільовані в заголовочному файлі `crypto/testmgr.h` у вигляді статичних масивів структур.
 
-```c
-struct cipher_testvec {
-    const char *key;      /* Байт-масив ключа */
-    const char *p;        /* Відкритий текст (Plaintext) */
-    const char *c;        /* Очікуваний шифротекст (Ciphertext) */
-    const char *iv;       /* Вектор ініціалізації (IV) */
-    unsigned char klen;   /* Довжина ключа в байтах */
-    unsigned short plen;  /* Довжина відкритого тексту */
-    unsigned short clen;  /* Довжина шифротексту */
-    bool fail;            /* Ознака негативного тесту (має відхилятися) */
-    unsigned char wk;     /* Прапорець слабкого ключа (weak key) */
-};
-
-struct hash_testvec {
-    const char *key;      /* Ключ для HMAC (NULL для чистого гешу) */
-    const char *plaintext;/* Вхідні дані для гешування */
-    const char *digest;   /* Очікуваний дайджест */
-    unsigned short psize; /* Довжина вхідних даних */
-    unsigned char ksize;  /* Довжина ключа HMAC */
-};
-
-struct drbg_state {
-    spinlock_t lock;
-    unsigned char *v;               /* Внутрішній вектор стану DRBG V */
-    unsigned char *c;               /* Константа C (для Hash_DRBG) */
-    void *priv_data;                /* Дані контексту шифру чи гешу */
-    size_t reseed_threshold;        /* Поріг ресідінгу (максимум операцій до оновлення) */
-    size_t reseed_ctr;              /* Лічильник згенерованих блоків від останнього ресіду */
-    const struct drbg_core *core;   /* Вказівник на специфікацію рушія */
-    bool seeded;                    /* Ознака успішної ініціалізації ентропією */
-    bool pr;                        /* Прапорець Prediction Resistance */
-};
-```
+:::code api-fips-sysfs-and-crypto/c/struktury-testovykh.c
 
 ## Структури інтерфейсу `AF_ALG` у просторі користувача
 

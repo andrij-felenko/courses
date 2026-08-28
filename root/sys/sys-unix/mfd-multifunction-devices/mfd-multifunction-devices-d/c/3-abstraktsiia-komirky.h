@@ -1,0 +1,22 @@
+struct mfd_cell {
+	const char *name;
+	int id;
+	int (*enable)(struct platform_device *dev);
+	int (*disable)(struct platform_device *dev);
+	int (*suspend)(struct platform_device *dev);
+	int (*resume)(struct platform_device *dev);
+	void *platform_data;
+	size_t pdata_size;
+	const char * const *parent_supplies;
+	int num_parent_supplies;
+	int num_resources;
+	const struct resource *resources;
+	bool ignore_resource_conflicts;
+	bool pm_runtime_no_callbacks;
+	bool allow_claim_mfd_has_no_parent;
+	bool use_parent;
+	const char *of_compatible;
+	const struct mfd_cell_acpi_match *acpi_match;
+	const struct mfd_cell_match *matches;
+	int num_matches;
+};

@@ -31,21 +31,7 @@
 
 Розглянемо типовий приклад використання макроса в коді драйвера:
 
-```c
-#include <linux/init.h>
-#include <linux/module.h>
-
-/* Функція налаштування, яка потрібна лише раз */
-static int __init my_custom_hardware_init(void)
-{
-    printk(KERN_INFO "Початок ініціалізації мого апаратного забезпечення...\n");
-    
-    // Код налаштування портів вводу/виводу,
-    // реєстрація переривань, виділення початкових буферів
-    
-    return 0;
-}
-```
+:::code init-sections-d/c/2-1-makros-init-dlia.c
 
 У цьому прикладі машинний код функції `my_custom_hardware_init` розміщується у секції `.init.text`. Після того, як пристрій буде ініціалізовано на етапі завантаження, пам'ять, яку займає цей код, буде безповоротно звільнена. 
 
@@ -57,25 +43,7 @@ static int __init my_custom_hardware_init(void)
 
 Приклад використання для тимчасових структур:
 
-```c
-#include <linux/init.h>
-
-/* Великий масив конфігурації, який потрібен лише при старті */
-static int initial_port_configuration[1024] __initdata = { 
-    [0 ... 1023] = -1 
-};
-
-static int __init my_network_driver_init(void)
-{
-    int i;
-    for (i = 0; i < 1024; i++) {
-        if (initial_port_configuration[i] != -1) {
-            setup_port(i, initial_port_configuration[i]);
-        }
-    }
-    return 0;
-}
-```
+:::code init-sections-d/c/2-2-makros-initdata-dlia.c
 
 У цьому випадку масив `initial_port_configuration` займає 4 кілобайти пам'яті (1024 цілих числа по 4 байти). Оскільки він позначений як `__initdata`, він розміщується у секції `.init.data` і знищується та звільняється з оперативної пам'яті разом із кодом ініціалізації.
 
@@ -172,28 +140,7 @@ extern char __init_begin[], __init_end[];
 
 Спрощений вигляд реалізації `free_initmem` для x86_64:
 
-```c
-void free_initmem(void)
-{
-    /* Отримуємо числові значення фізичних адрес із глобальних символів лінкера */
-    unsigned long start = (unsigned long)(&__init_begin);
-    unsigned long end = (unsigned long)(&__init_end);
-
-    /* 
-     * Архітектурно-специфічний захист пам'яті: 
-     * Переконуємося, що сторінки доступні для запису та читання (RW)
-     * перед тим як віддати їх процесам користувача.
-     */
-    set_memory_rw(start, (end - start) >> PAGE_SHIFT);
-
-    /* Викликаємо загальносистемну функцію звільнення зарезервованої пам'яті */
-    free_initmem_default(POISON_FREE_INITMEM);
-
-    /* Виводимо інформаційне повідомлення в лог ядра (dmesg) */
-    printk(KERN_INFO "Freeing unused kernel image (initmem) memory: %luk freed\n",
-           (end - start) >> 10);
-}
-```
+:::code init-sections-d/c/5-1-realizatsiia-dlia.c
 
 Платформо-незалежна функція `free_initmem_default()` викликає базовий механізм `free_reserved_area()`:
 
@@ -209,33 +156,7 @@ void free_initmem_default(int poison)
 
 Функція `free_reserved_area()` (`mm/page_alloc.c`) переводить фізичні сторінки пам'яті зі стану "зарезервовано для ядра" в стан "вільна пам'ять".
 
-```c
-unsigned long free_reserved_area(void *start, void *end, int poison, const char *s)
-{
-    void *pos;
-    unsigned long pages = 0;
-
-    /* Безпечне вирівнювання адрес до меж сторінок */
-    start = (void *)PAGE_ALIGN((unsigned long)start);
-    end = (void *)((unsigned long)end & PAGE_MASK);
-
-    /* Цикл проходить по кожній фізичній сторінці в діапазоні */
-    for (pos = start; pos < end; pos += PAGE_SIZE, pages++) {
-        
-        /* Крок 1: Отруєння пам'яті (за наявності прапорця) */
-        if (poison)
-            memset(pos, POISON_FREE_INITMEM, PAGE_SIZE);
-
-        /* Крок 2: Фізичне звільнення сторінки */
-        free_reserved_page(virt_to_page(pos));
-    }
-
-    if (pages && s)
-        pr_info("Freeing %s: %ldK\n", s, pages << (PAGE_SHIFT - 10));
-
-    return pages;
-}
-```
+:::code init-sections-d/c/5-2-anatomiia-funktsii.c
 
 Ключові кроки цього алгоритму:
 

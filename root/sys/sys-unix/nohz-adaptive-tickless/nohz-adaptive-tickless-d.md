@@ -78,38 +78,8 @@
 У внутрішній архітектурі ядра стан системного таймера для кожного CPU описується структурою `struct tick_sched`, що оголошена у `kernel/time/tick-sched.h`:
 
 :::tabs
-```c
-struct tick_sched {
-    struct hrtimer          sched_timer;
-    enum tick_nohz_mode     nohz_mode;
-    ktime_t                 last_tick;
-    ktime_t                 next_tick;
-    unsigned int            inidle      : 1;
-    unsigned int            tick_stopped: 1;
-    unsigned long           idle_jiffies;
-    unsigned long           idle_calls;
-    unsigned long           idle_sleeps;
-    ktime_t                 idle_entrytime;
-    atomic_t                tick_dep_mask;
-    unsigned long           check_clocks;
-};
-```
-```cpp
-struct tick_sched {
-    hrtimer                 sched_timer;
-    tick_nohz_mode          nohz_mode;
-    ktime_t                 last_tick;
-    ktime_t                 next_tick;
-    unsigned int            inidle      : 1;
-    unsigned int            tick_stopped: 1;
-    unsigned long           idle_jiffies;
-    unsigned long           idle_calls;
-    unsigned long           idle_sleeps;
-    ktime_t                 idle_entrytime;
-    std::atomic<int>        tick_dep_mask;
-    unsigned long           check_clocks;
-};
-```
+:::code nohz-adaptive-tickless-d/c/main.c
+:::code nohz-adaptive-tickless-d/cpp/main.cpp
 :::
 
 Перелік полів тут скорочено до тих, що згадуються в цій статті; склад структури та назви полів помітно дрейфують від релізу до релізу (зокрема поле режиму `nohz_mode` у новіших ядрах поступилося набору бітових прапорців), тож звіряйте з `kernel/time/tick-sched.h` саме свого дерева.

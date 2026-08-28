@@ -6,33 +6,7 @@
 
 Ось `collect-logs.sh` — збирач журналів, який хтось написав на своєму Ubuntu й туди ж і поклав. Він проходить перелік служб, вибирає з їхніх журналів рядки про помилки, затирає токени й пакує все в архів:
 
-```sh
-#!/bin/bash
-set -e
-source ./collect.conf          # SERVICES=(nginx postgres), OUT_DIR=…
-
-collect() {
-    local svc=$1
-    local dir=/var/log/$svc
-    [[ -d $dir ]] || { echo "нема каталогу $dir"; return 1; }
-
-    local files=()
-    for f in "$dir"/*.log; do
-        [[ -f $f ]] && files+=("$f")
-    done
-
-    echo -n "· $svc: ${#files[@]} файлів … "
-    grep -P '^\d{4}-\d{2}-\d{2}.*\b(ERROR|FATAL)\b' "${files[@]}" \
-        | sed -E 's/(token=)[^ ]+/\1***/g' \
-        | sort > "$OUT_DIR/$svc.txt"
-    echo "готово"
-}
-
-which zstd >/dev/null || { echo "нема zstd"; exit 1; }
-OUT_DIR=$(readlink -f "$OUT_DIR")
-for svc in "${SERVICES[@]}"; do collect "$svc"; done
-tar cf - -C "$OUT_DIR" . | zstd -q -o "report-$(date +%Y-%m-%d).tar.zst"
-```
+:::code proj-portable-shell/sh/skrypt-iakyi-pratsiuie.sh
 
 Скрипт справний. Він падає рівно тоді, коли його кладуть кудись іще: у контейнер на Alpine, у складальник на FreeBSD, у initramfs рятувального образу, у зібраний із `busybox` образ, де вся оболонка — один аплет усередині єдиного двійкового файлу.
 
@@ -275,63 +249,7 @@ tr '[:lower:]' '[:upper:]'     # ✓
 
 ## Що вийшло
 
-```sh
-#!/bin/sh
-set -eu
-export LC_ALL=C
-
-. ./collect.conf                 # SERVICES='nginx postgres', OUT_DIR=…
-
-die()  { printf '%s\n' "$*" >&2; exit 1; }
-need() { command -v "$1" >/dev/null 2>&1 || die "нема команди: $1"; }
-
-abspath() (
-    d=$(dirname -- "$1")
-    b=$(basename -- "$1")
-    cd -- "$d" || exit 1
-    printf '%s/%s\n' "$(pwd -P)" "$b"
-)
-
-collect() (                      # тіло в дужках: змінні нікуди не витікають
-    svc=$1
-    case $svc in
-        ''|*[!a-z0-9_-]*) die "недобра назва служби: $svc" ;;
-    esac
-    dir=/var/log/$svc
-    [ -d "$dir" ] || die "нема каталогу $dir"
-
-    set --                       # у функції позиційні параметри свої
-    for f in "$dir"/*.log; do
-        [ -f "$f" ] || continue  # шаблон без збігів лишається собою
-        set -- "$@" "$f"
-    done
-    [ "$#" -gt 0 ] || die "$svc: жодного .log"
-
-    printf '· %s: %d файлів … ' "$svc" "$#"
-
-    tmp=$OUT_DIR/.$svc.$$
-    (set -C; : > "$tmp") || die "тимчасовий файл уже існує"
-    trap 'rm -f "$tmp"' EXIT INT TERM
-
-    grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*(ERROR|FATAL)' -- "$@" \
-        | sed 's/\(token=\)[^ ][^ ]*/\1***/g' \
-        | sort > "$tmp"
-    mv -- "$tmp" "$OUT_DIR/$svc.txt"
-
-    printf 'готово\n'
-)
-
-need zstd
-need tar
-OUT_DIR=$(abspath "$OUT_DIR")
-[ -d "$OUT_DIR" ] || die "нема каталогу $OUT_DIR"
-
-for svc in $SERVICES; do         # без лапок свідомо: імена служб без пробілів
-    collect "$svc" || exit 1     # exit у підоболонці нас не зупинить — перевіряємо
-done
-
-tar cf - -C "$OUT_DIR" . | zstd -q -o "report-$(date +%Y-%m-%d).tar.zst"
-```
+:::code proj-portable-shell/sh/shcho-vyishlo.sh
 
 Одна втрата залишилася чесною: `SERVICES` тепер звичайний рядок, тож пробіл в імені служби зламає цикл. Якщо він там потрібен, конфігурація може сама виконати `set -- nginx "my service"`, а скрипт — узяти `"$@"`, попередньо зберігши власні аргументи. Прийом працює, але його треба свідомо задокументувати в конфігурації — інакше наступний читач не зрозуміє, звідки в скрипті взялися позиційні параметри.
 

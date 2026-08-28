@@ -53,22 +53,7 @@ struct seq_operations {
 
 Структура `struct seq_file` створюється під час відкриття псевдофайлу і прив'язується до поля `file->private_data` структури `struct file` у VFS. Вона зберігає динамічний буфер ядра та поточний стан розбору.
 
-```c
-struct seq_file {
-	char *buf;
-	size_t size;
-	size_t from;
-	size_t count;
-	size_t pad_until;
-	loff_t index;
-	loff_t read_pos;
-	struct mutex lock;
-	const struct seq_operations *op;
-	int poll_event;
-	const struct file *file;
-	void *private;
-};
-```
+:::code api-seq-file-ops/c/2-deskryptor-sesii-struct.c
 
 Поле `buf` вказує на лінійний буфер у пам'яті ядра, виділений за допомогою `kvmalloc()` (спочатку через `kmalloc()`, а для великих обсягів — через `vmalloc()`). Початковий розмір `size` дорівнює одній сторінці пам'яті (`PAGE_SIZE`), але за потреби динамічно подвоюється. Поле `count` фіксує кількість уже згенерованих байтів у буфері, тоді як `from` позначає позицію, починаючи з якої дані копіюються в буфер процесу користувача через `copy_to_user()`.
 
@@ -80,18 +65,7 @@ struct seq_file {
 
 Для наповнення проміжного буфера підсистема надає спеціальний набір функцій виводу. Їхньою головною властивістю є автоматичний контроль переповнення: вони ніколи не записують байти за межі `m->size`.
 
-```c
-void seq_printf(struct seq_file *m, const char *fmt, ...);
-void seq_puts(struct seq_file *m, const char *s);
-void seq_putc(struct seq_file *m, char c);
-void seq_write(struct seq_file *m, const void *data, size_t len);
-void seq_pad(struct seq_file *m, char c);
-int  seq_escape(struct seq_file *m, const char *s, const char *esc);
-void seq_hex_dump(struct seq_file *m, const char *prefix_str, int prefix_type,
-                  int rowsize, int groupsize, const void *buf, size_t len,
-                  bool ascii);
-bool seq_has_overflowed(struct seq_file *m);
-```
+:::code api-seq-file-ops/c/3-funktsii-formatuvannia.h
 
 - **`seq_printf`** — основна робоча конячка виводу. Приймає рядок формату та змінний список аргументів (аналогічно до `vsnprintf`). Якщо відформатований рядок перевищує залишок вільного місця в `m->buf`, функція не затирає пам'ять, а встановлює `m->count = m->size`, що переводить структуру в стан переповнення.
 - **`seq_puts`** та **`seq_putc`** — оптимізовані варіанти для запису статичних рядків і поодиноких символів (наприклад, символу нового рядка `\n` чи роздільника `\t`). Вони уникають накладних витрат на парсинг рядка формату.
@@ -156,25 +130,6 @@ struct proc_dir_entry *proc_create_seq_data(const char *name, umode_t mode,
 
 Для таких задач ядро надає механізм одиничного виводу `single_open`:
 
-```c
-int single_open(struct file *file,
-                int (*show)(struct seq_file *m, void *v),
-                void *data);
-
-int single_open_size(struct file *file,
-                     int (*show)(struct seq_file *m, void *v),
-                     void *data, size_t size);
-
-int single_release(struct inode *inode, struct file *file);
-
-struct proc_dir_entry *proc_create_single(const char *name, umode_t mode,
-                                          struct proc_dir_entry *parent,
-                                          int (*show)(struct seq_file *, void *));
-
-struct proc_dir_entry *proc_create_single_data(const char *name, umode_t mode,
-                                               struct proc_dir_entry *parent,
-                                               int (*show)(struct seq_file *, void *),
-                                               void *data);
-```
+:::code api-seq-file-ops/c/7-interfeis-dlia.h
 
 Механізм `single_open()` автоматично створює під капотом мінімальну таблицю `seq_operations`, де метод `start()` повертає переданий покажчик `data` лише один раз (при `*pos == 0`), `next()` повертає `NULL`, а метод `show()` викликає призначену користувацьку функцію. Якщо згенерований текст перевищує початковий розмір буфера, `single_open` автоматично повторить виклик `show()` із подвоєним буфером, забезпечуючи абсолютну безпеку виводу будь-якого розміру без написання коду ітератора.

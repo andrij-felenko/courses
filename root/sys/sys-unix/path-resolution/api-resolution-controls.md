@@ -96,29 +96,7 @@
 
 Разом із `O_PATH` це дає єдиний спосіб опитати саме посилання, тримаючи його в руках дескриптором:
 
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <limits.h>
-
-void describe_link(void)
-{
-    /* Дескриптор на САМЕ посилання, а не на його ціль. */
-    int fd = open("/var/log/app", O_PATH | O_NOFOLLOW | O_CLOEXEC);
-
-    struct statx sx;
-    statx(fd, "", AT_EMPTY_PATH, STATX_BASIC_STATS, &sx);
-    /* S_ISLNK(sx.stx_mode) істинне: це посилання, а не каталог /srv/logs */
-
-    char buf[PATH_MAX];
-    ssize_t n = readlinkat(fd, "", buf, sizeof buf - 1);  /* без AT_EMPTY_PATH */
-    if (n > 0) buf[n] = '\0';                             /* нуля ядро не додає */
-
-    close(fd);
-}
-```
+:::code api-resolution-controls/c/at-empty-path-diia-nad.c
 
 Рядок із `readlinkat()` — виняток, який варто запам'ятати: цей виклик приймає порожній шлях **без** прапорця, від ядра 2.6.39. Виклик `statx()` тут узятий не випадково — саме він дає повний набір полів і сам вирішує, чого питати в файлової системи ([розширений stat](root:sys-unix/statx-mask-and-unknown-values)).
 
@@ -177,35 +155,7 @@ struct open_how {
 
 Обгортки в бібліотеці немає — виклик роблять напряму:
 
-```c
-#define _GNU_SOURCE
-#include <linux/openat2.h>    /* struct open_how, RESOLVE_* */
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <errno.h>
-
-#ifndef __NR_openat2
-#define __NR_openat2 437      /* номер на x86-64, arm64 та решті поширених */
-#endif
-
-/* Відкрити шлях, отриманий іззовні, не випустивши обхід за межі root. */
-int open_in_root(int root, const char *user_path)
-{
-    struct open_how how;
-    memset(&how, 0, sizeof how);          /* нулі обов'язкові */
-    how.flags   = O_RDONLY | O_CLOEXEC;
-    how.resolve = RESOLVE_IN_ROOT | RESOLVE_NO_MAGICLINKS;
-
-    int fd;
-    do {
-        fd = (int)syscall(__NR_openat2, root, user_path,
-                          &how, sizeof how);
-    } while (fd < 0 && errno == EAGAIN);   /* EAGAIN тут тимчасовий */
-    return fd;
-}
-```
+:::code api-resolution-controls/c/openat2-obmezhennia-samoho.c
 
 Цикл навколо `EAGAIN` — не перестраховка. Коли стоїть `RESOLVE_IN_ROOT` або `RESOLVE_BENEATH`, ядро повертає `EAGAIN` і в тому разі, коли не змогло **впевнитися**, що `..` не вивів назовні, — а не змогти воно може через звичайне перейменування, яке трапилося поруч у ту саму мить. Правильна відповідь на такий `EAGAIN` — повторити виклик. Окремий випадок — `RESOLVE_CACHED`: там `EAGAIN` означає «даних у кеші нема», і повторювати треба вже **без** цього прапорця.
 

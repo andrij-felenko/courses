@@ -30,52 +30,8 @@
 Активація режиму виконувалася за допомогою виклику `prctl`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/prctl.h>
-#include <linux/seccomp.h>
-
-int main(void) {
-    // Вмикаємо строгий режим Seccomp
-    if (prctl(PR_SET_SECCOMP, SECCOMP_MODE_STRICT) == -1) {
-        perror("prctl(PR_SET_SECCOMP)");
-        return 1;
-    }
-
-    // Запис у stdout дозволений (fd 1)
-    write(STDOUT_FILENO, "Strict Mode активний\n", 29);
-
-    // Спроба викликати getpid() призведе до SIGKILL від ядра
-    getpid();
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <unistd.h>
-#include <sys/prctl.h>
-#include <linux/seccomp.h>
-#include <system_error>
-#include <string_view>
-
-int main() {
-    if (prctl(PR_SET_SECCOMP, SECCOMP_MODE_STRICT) == -1) {
-        std::cerr << "Не вдалося увімкнути SECCOMP_MODE_STRICT: "
-                  << std::generic_category().message(errno) << '\n';
-        return 1;
-    }
-
-    constexpr std::string_view msg = "Strict Mode активний\n";
-    write(STDOUT_FILENO, msg.data(), msg.size());
-
-    // getpid() призводить до завершення SIGKILL
-    ::getpid();
-
-    return 0;
-}
-```
+:::code seccomp-profiles-and-tooling-d/c/2-1-seccomp-mode-strict.c
+:::code seccomp-profiles-and-tooling-d/cpp/2-1-seccomp-mode-strict.cpp
 :::
 
 Хоча strict mode гарантував абсолютну ізоляцію, він виявився непридатним для більшості реальних програм, оскільки навіть банальне виділення пам'яті (`brk`/`mmap`) або створення нових потоків було заблоковано.
@@ -163,138 +119,14 @@ struct sock_filter {
     __u32 k;     /* Операнд / Константа / Зміщення в структурі */
 };
 ```
-```cpp
-#include <linux/filter.h>
-#include <cstdint>
-
-namespace sys {
-
-// Представлення BPF інструкції для C++20
-struct BpfInstruction {
-    uint16_t code;
-    uint8_t  jt;
-    uint8_t  jf;
-    uint32_t k;
-
-    constexpr explicit operator ::sock_filter() const noexcept {
-        return ::sock_filter{ code, jt, jf, k };
-    }
-};
-
-} // namespace sys
-```
+:::code seccomp-profiles-and-tooling-d/cpp/4-klasychnyi-bpf-cbpf-ta.cpp
 :::
 
 Для створення програм використовуються макроси `BPF_STMT` (проста інструкція) та `BPF_JUMP` (умовний перехід):
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <unistd.h>
-#include <sys/prctl.h>
-#include <sys/syscall.h>
-#include <linux/audit.h>
-#include <linux/filter.h>
-#include <linux/seccomp.h>
-
-#define syscall_nr (offsetof(struct seccomp_data, nr))
-#define arch_nr (offsetof(struct seccomp_data, arch))
-
-int install_minimal_cbpf_filter(void) {
-    // 1. Встановлюємо NO_NEW_PRIVS
-    if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) == -1) {
-        perror("prctl(PR_SET_NO_NEW_PRIVS)");
-        return -1;
-    }
-
-    // 2. Формуємо масив BPF інструкцій
-    struct sock_filter filter[] = {
-        // [0] A = seccomp_data.arch
-        BPF_STMT(BPF_LD | BPF_W | BPF_ABS, arch_nr),
-
-        // [1] якщо arch == AUDIT_ARCH_X86_64, перейти до [2] (jt=0), інакше до [8] (jf=6 -> KILL)
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, AUDIT_ARCH_X86_64, 0, 6),
-
-        // [2] A = seccomp_data.nr
-        BPF_STMT(BPF_LD | BPF_W | BPF_ABS, syscall_nr),
-
-        // Перевірка білого списку викликів
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_read, 3, 0),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_write, 2, 0),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_exit_group, 1, 0),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_exit, 0, 1),
-
-        // [7] Дозволити системний виклик
-        BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW),
-
-        // [8] Заблокувати та вбити процес
-        BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL_PROCESS)
-    };
-
-    struct sock_fprog prog = {
-        .len = (unsigned short)(sizeof(filter) / sizeof(filter[0])),
-        .filter = filter,
-    };
-
-    // 3. Завантажуємо фільтр
-    if (prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, &prog) == -1) {
-        perror("prctl(SECCOMP_MODE_FILTER)");
-        return -1;
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <cstddef>
-#include <system_error>
-#include <unistd.h>
-#include <sys/prctl.h>
-#include <sys/syscall.h>
-#include <linux/audit.h>
-#include <linux/filter.h>
-#include <linux/seccomp.h>
-
-#define syscall_nr (offsetof(struct seccomp_data, nr))
-#define arch_nr (offsetof(struct seccomp_data, arch))
-
-bool install_minimal_cbpf_filter_cpp() {
-    if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) == -1) {
-        std::cerr << "Не вдалося встановити PR_SET_NO_NEW_PRIVS\n";
-        return false;
-    }
-
-    const std::vector<sock_filter> filter = {
-        BPF_STMT(BPF_LD | BPF_W | BPF_ABS, arch_nr),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, AUDIT_ARCH_X86_64, 0, 6),
-
-        BPF_STMT(BPF_LD | BPF_W | BPF_ABS, syscall_nr),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_read, 3, 0),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_write, 2, 0),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_exit_group, 1, 0),
-        BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_exit, 0, 1),
-
-        BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW),
-        BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL_PROCESS)
-    };
-
-    const sock_fprog prog = {
-        .len = static_cast<unsigned short>(filter.size()),
-        .filter = const_cast<sock_filter*>(filter.data()),
-    };
-
-    if (prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, &prog) == -1) {
-        std::cerr << "Не вдалося завантажити SECCOMP_MODE_FILTER\n";
-        return false;
-    }
-
-    return true;
-}
-```
+:::code seccomp-profiles-and-tooling-d/c/4-klasychnyi-bpf-cbpf-ta.c
+:::code seccomp-profiles-and-tooling-d/cpp/4-klasychnyi-bpf-cbpf-ta-2.cpp
 :::
 
 ## 5. Семантика дій повернення (Return Values) та правила пріоритету
@@ -340,66 +172,8 @@ bool install_minimal_cbpf_filter_cpp() {
 Приклад використання `libseccomp` для побудови безпечного контексту:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <seccomp.h>
-#include <unistd.h>
-
-int apply_libseccomp_policy(void) {
-    // 1. Створюємо контекст з дією за замовчуванням KILL_PROCESS.
-    // Увага: SCMP_ACT_KILL у libseccomp — синонім SCMP_ACT_KILL_THREAD, він убив би лише потік
-    scmp_filter_ctx ctx = seccomp_init(SCMP_ACT_KILL_PROCESS);
-    if (!ctx) return -1;
-
-    // 2. Додаємо виклики у білий список
-    if (seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(read), 0) < 0) goto err;
-    if (seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(write), 0) < 0) goto err;
-    if (seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(exit_group), 0) < 0) goto err;
-
-    // 3. Завантажуємо фільтр у ядро
-    if (seccomp_load(ctx) < 0) goto err;
-
-    seccomp_release(ctx);
-    return 0;
-
-err:
-    seccomp_release(ctx);
-    return -1;
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <seccomp.h>
-#include <unistd.h>
-
-namespace sandbox {
-
-struct SeccompDeleter {
-    void operator()(scmp_filter_ctx ctx) const noexcept {
-        if (ctx) seccomp_release(ctx);
-    }
-};
-
-using ScmpContext = std::unique_ptr<void, SeccompDeleter>;
-
-bool apply_libseccomp_policy_cpp() {
-    ScmpContext ctx(seccomp_init(SCMP_ACT_KILL_PROCESS));
-    if (!ctx) return false;
-
-    const int allowed[] = { SCMP_SYS(read), SCMP_SYS(write), SCMP_SYS(exit_group) };
-    for (int sys_nr : allowed) {
-        if (seccomp_rule_add(ctx.get(), SCMP_ACT_ALLOW, sys_nr, 0) < 0) {
-            return false;
-        }
-    }
-
-    return seccomp_load(ctx.get()) >= 0;
-}
-
-} // namespace sandbox
-```
+:::code seccomp-profiles-and-tooling-d/c/7-biblioteka-libseccomp-ta.c
+:::code seccomp-profiles-and-tooling-d/cpp/7-biblioteka-libseccomp-ta.cpp
 :::
 
 Повний приклад практичного проекту із розгортанням пісочниці та RAII-обгортками наведено у [практичному проекті інкапсуляції Seccomp](root:sys-unix/seccomp-profiles-and-tooling/proj-custom-seccomp.md).

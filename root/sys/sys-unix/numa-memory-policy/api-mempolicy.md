@@ -7,69 +7,8 @@
 ## Системні виклики ядра (UAPI)
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <numaif.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-
-/* Встановлення політики за замовчуванням для поточного потоку */
-long set_mempolicy(int mode, const unsigned long *nodemask, unsigned long maxnode);
-
-/* Прив'язка політики пам'яті до конкретного віртуального діапазону [addr, addr + len) */
-long mbind(void *addr, unsigned long len, int mode,
-           const unsigned long *nodemask, unsigned long maxnode, unsigned int flags);
-
-/* Отримання поточної політики процесу або інформації про вузол конкретної адреси */
-long get_mempolicy(int *mode, unsigned long *nodemask, unsigned long maxnode,
-                  void *addr, unsigned long flags);
-
-/* Пакетна міграція сторінок процесу з одного набору вузлів на інший */
-long migrate_pages(int pid, unsigned long maxnode,
-                   const unsigned long *old_nodes, const unsigned long *new_nodes);
-
-/* Встановлення «домашнього вузла» для діапазону пам'яті (Linux 5.17+) */
-long set_mempolicy_home_node(unsigned long start, unsigned long len,
-                            unsigned long home_node, unsigned long flags);
-```
-```cpp
-#include <numaif.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <cstdint>
-#include <span>
-#include <expected>
-#include <system_error>
-
-namespace numa {
-
-enum class Mode : int {
-    Default       = 0,
-    Bind          = 1,
-    Interleave    = 2,
-    Preferred     = 3,
-    Local         = 4,
-    PreferredMany = 5
-};
-
-/* Безпечна C++ обгортка для встановлення політики пам'яті діапазону */
-[[nodiscard]] inline std::expected<void, std::error_code> bind_range(
-    std::span<std::byte> buffer,
-    Mode mode,
-    const unsigned long* nodemask,
-    unsigned long maxnode,
-    unsigned int flags) noexcept
-{
-    long ret = ::mbind(buffer.data(), buffer.size(),
-                       static_cast<int>(mode), nodemask, maxnode, flags);
-    if (ret != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-
-} // namespace numa
-```
+:::code api-mempolicy/c/numaif.h
+:::code api-mempolicy/cpp/systemni-vyklyky-iadra.cpp
 :::
 
 ## Внутрішній життєвий цикл політик пам'яті в ядрі
@@ -154,21 +93,7 @@ enum class MoveFlags : unsigned int {
 long set_mempolicy_home_node(unsigned long start, unsigned long len,
                             unsigned long home_node, unsigned long flags);
 ```
-```cpp
-[[nodiscard]] inline std::expected<void, std::error_code> set_home_node(
-    std::span<std::byte> buffer,
-    unsigned long home_node,
-    unsigned long flags = 0) noexcept
-{
-    long ret = ::set_mempolicy_home_node(
-        reinterpret_cast<unsigned long>(buffer.data()),
-        buffer.size(), home_node, flags);
-    if (ret != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code api-mempolicy/cpp/systemnyi-vyklyk-set.cpp
 :::
 
 Цей виклик дозволяє вказати «домашній вузол» (`home_node`) для діапазону VMA, для якого вже встановлено політику `MPOL_BIND` або `MPOL_PREFERRED_MANY`. 
@@ -198,53 +123,8 @@ long set_mempolicy_home_node(unsigned long start, unsigned long len,
 У просторі користувача бібліотека `libnuma` надає зручну структуру `struct bitmask` та допоміжні функції для маніпуляцій:
 
 :::tabs
-```c
-#include <numa.h>
-#include <stdio.h>
-
-void setup_node_mask(void) {
-    /* Виділення маски потрібного розміру для поточної системи */
-    struct bitmask *nodes = numa_allocate_nodemask();
-
-    /* Встановлення бітів вузлів 0 та 1 */
-    numa_bitmask_setbit(nodes, 0);
-    numa_bitmask_setbit(nodes, 1);
-
-    /* Перевірка біта */
-    if (numa_bitmask_isbitset(nodes, 0)) {
-        printf("Node 0 active in mask\n");
-    }
-
-    /* Звільнення структури */
-    numa_free_nodemask(nodes);
-}
-```
-```cpp
-#include <numa.h>
-#include <memory>
-#include <iostream>
-
-struct BitmaskDeleter {
-    void operator()(struct bitmask* bm) const noexcept {
-        if (bm) {
-            numa_free_nodemask(bm);
-        }
-    }
-};
-
-using UniqueBitmask = std::unique_ptr<struct bitmask, BitmaskDeleter>;
-
-inline UniqueBitmask make_node_mask(std::initializer_list<unsigned int> node_ids) {
-    UniqueBitmask mask(numa_allocate_nodemask());
-    if (!mask) {
-        throw std::bad_alloc();
-    }
-    for (unsigned int node : node_ids) {
-        numa_bitmask_setbit(mask.get(), node);
-    }
-    return mask;
-}
-```
+:::code api-mempolicy/c/struktura-bitovoi-masky.c
+:::code api-mempolicy/cpp/struktura-bitovoi-masky.cpp
 :::
 
 ## Високорівневі функції `libnuma`

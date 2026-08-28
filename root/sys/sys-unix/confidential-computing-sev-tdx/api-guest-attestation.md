@@ -21,59 +21,8 @@
 Взаємодія з пристроєм виконується через керуючу структуру `snp_guest_request_ioctl`, яка загортає запит та відповідь:
 
 :::tabs
-```c
-struct snp_guest_request_ioctl {
-    /* Версія протоколу повідомлення (зазвичай 1) */
-    __u8 msg_version;
-    
-    /* Указівник на структуру запиту користувача в пам'яті (struct snp_report_req*) */
-    __u64 req_data;
-    
-    /* Указівник на буфер відповіді в пам'яті (struct snp_report_resp*) */
-    __u64 resp_data;
-    
-    /* Код помилки, повернутий прошивкою AMD ASP у разі апаратного збою */
-    __u64 fw_error;
-};
-
-struct snp_report_req {
-    /* 64 байти випадкових користувацьких даних (nonce або хеш публічного ключа TLS) */
-    __u8 user_data[64];
-    
-    /* Рівень привілеїв ВМ, для якого запитується звіт (VMPL 0..3) */
-    __u32 vmpl;
-    
-    /* Зарезервовані байти для майбутніх розширень (заповнюються нулями) */
-    __u8 rsvd[28];
-};
-
-struct snp_report_resp {
-    /* Сирий буфер підписаного звіту атестації (1184 байти корисного навантаження) */
-    __u8 data[4000];
-};
-```
-```cpp
-namespace sev {
-
-struct alignas(8) snp_guest_request_ioctl {
-    uint8_t msg_version{1};
-    uint64_t req_data{0};
-    uint64_t resp_data{0};
-    uint64_t fw_error{0};
-};
-
-struct snp_report_req {
-    std::array<uint8_t, 64> user_data{};
-    uint32_t vmpl{0};
-    std::array<uint8_t, 28> rsvd{};
-};
-
-struct snp_report_resp {
-    std::array<uint8_t, 4000> data{};
-};
-
-} // namespace sev
-```
+:::code api-guest-attestation/c/main.c
+:::code api-guest-attestation/cpp/main.cpp
 :::
 
 ### Детальна розкладка полів звіту `snp_attestation_report` (1184 байти)

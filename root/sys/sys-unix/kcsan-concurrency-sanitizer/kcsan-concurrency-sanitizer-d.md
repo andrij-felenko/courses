@@ -119,46 +119,13 @@ void increment_counter(u32 *counter_ptr) {
 
 Після проходження фази інструментування компілятором генерований машинний код концептуально перетворюється на наступну послідовність:
 
-```c
-/* Трансформований код після інструментування KCSAN */
-void increment_counter(u32 *counter_ptr) {
-    u32 val;
-
-    /* 1. Інструментування читання */
-    __tsan_read4(counter_ptr);
-    val = *counter_ptr;
-
-    val += 1;
-
-    /* 2. Інструментування запису */
-    __tsan_write4(counter_ptr);
-    *counter_ptr = val;
-}
-```
+:::code kcsan-concurrency-sanitizer-d/c/3-instrumentuvannia.c
 
 ### Набір базових функцій ABI KCSAN:
 
 Компілятор підтримує різну ширину доступу до пам'яті, викликаючи відповідні функції:
 
-```c
-/* Функції перехоплення звичайного читання */
-void __tsan_read1(void *ptr);
-void __tsan_read2(void *ptr);
-void __tsan_read4(void *ptr);
-void __tsan_read8(void *ptr);
-void __tsan_read16(void *ptr);
-
-/* Функції перехоплення звичайного запису */
-void __tsan_write1(void *ptr);
-void __tsan_write2(void *ptr);
-void __tsan_write4(void *ptr);
-void __tsan_write8(void *ptr);
-void __tsan_write16(void *ptr);
-
-/* Обробники невирівняного або довільного за довжиною доступу */
-void __tsan_read_range(void *ptr, size_t size);
-void __tsan_write_range(void *ptr, size_t size);
-```
+:::code kcsan-concurrency-sanitizer-d/c/nabir-bazovykh-funktsii.h
 
 ### Оптимізація швидкого шляху (Fast-path):
 
@@ -166,27 +133,7 @@ void __tsan_write_range(void *ptr, size_t size);
 
 Початкова перевірка здійснюється через інлайн-атомарний лічильник:
 
-```c
-/* Концептуальний вигляд швидкого шляху KCSAN */
-static __always_inline void kcsan_check_access(const volatile void *ptr, size_t size, int type)
-{
-    /* 1. Якщо KCSAN глобально вимкнено для поточного потоку — негайне повернення */
-    if (this_cpu_read(kcsan_ctx.disable_count))
-        return;
-
-    /* 2. Перевірка лічильника семплювання */
-    if (unlikely(!kcsan_sample_counter_decrement())) {
-        /* Лише 1 із N доступів потрапляє у повільний шлях встановлення watchpoint */
-        kcsan_setup_watchpoint(ptr, size, type);
-        return;
-    }
-
-    /* 3. Швидка перевірка: чи не встановлено watchpoint НА ЦЮ АДРЕСУ іншим потоком */
-    if (unlikely(kcsan_is_watchpoint_active(ptr, size))) {
-        kcsan_report_race(ptr, size, type);
-    }
-}
-```
+:::code kcsan-concurrency-sanitizer-d/c/optymizatsiia-shvydkoho.c
 
 Завдяки тому, що абсолютна більшість доступів відсікається першою ж перевіркою замаскованого лічильника, загальні накладні витрати KCSAN на сповільнення ядра не перевищують декількох відсотків.
 

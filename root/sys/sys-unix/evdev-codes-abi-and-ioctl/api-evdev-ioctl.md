@@ -50,21 +50,7 @@ struct input_id {
 #### Перевірка бітових масок у просторі користувача
 Для роботи з бітовими масками, поверненими викликом `EVIOCGBIT`, у просторі користувача застосовується набір макросів, які розраховують індекс елемента масиву та зсув біта:
 
-```c
-#define BITS_PER_LONG (sizeof(unsigned long) * 8)
-#define NBITS(x) ((((x) - 1) / BITS_PER_LONG) + 1)
-#define OFF(x)  ((x) % BITS_PER_LONG)
-#define BIT(x)  (1UL << OFF(x))
-#define LONG(x) ((x) / BITS_PER_LONG)
-#define test_bit(bit, array) ((array[LONG(bit)] >> OFF(bit)) & 1)
-
-unsigned long keybit[NBITS(KEY_MAX)] = {0};
-ioctl(fd, EVIOCGBIT(EV_KEY, sizeof(keybit)), keybit);
-
-if (test_bit(KEY_ENTER, keybit)) {
-    /* Пристрій підтримує клавішу ENTER */
-}
-```
+:::code api-evdev-ioctl/c/main.c
 
 #### Додаткові властивості пристрою (`EVIOCGPROP`)
 Виклик `EVIOCGPROP(len, unsigned long *propbit)` повертає бітову маску високорівневих властивостей пристрою (`INPUT_PROP_*`), які описують характер використання периферії:

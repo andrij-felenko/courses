@@ -18,45 +18,7 @@
 
 ## Старт: підготувати запасний шлях
 
-```c
-#define _GNU_SOURCE
-#include <sys/random.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-#include <stdint.h>
-
-static int urandom_fd = -1;
-
-/* Викликати РІВНО один раз, найпершою дією в main() — до chroot,
-   до зниження прав, до створення потоків. 0 — запасний шлях готовий. */
-int random_init(void)
-{
-    int fd = open("/dev/urandom", O_RDONLY | O_CLOEXEC | O_NOCTTY);
-    if (fd < 0)
-        return -1;
-
-    struct stat st;
-    if (fstat(fd, &st) < 0) {
-        close(fd);
-        return -1;
-    }
-
-    /* Мусить бути символьний пристрій 1:9, а не підкладений файл. */
-    if (!S_ISCHR(st.st_mode) ||
-        major(st.st_rdev) != 1 || minor(st.st_rdev) != 9) {
-        close(fd);
-        errno = ENODEV;
-        return -1;
-    }
-
-    urandom_fd = fd;
-    return 0;
-}
-```
+:::code proj-getting-random-bytes/c/start-pidhotuvaty-zapasnyi.c
 
 Тепер про кожне рішення в цих двадцяти рядках, бо жодне з них не косметичне.
 
@@ -70,42 +32,7 @@ int random_init(void)
 
 ## Робота: цикл із запасним шляхом
 
-```c
-int get_secure_bytes(void *buf, size_t n)
-{
-    uint8_t *p = buf;
-    size_t got = 0;
-
-    while (got < n) {
-        ssize_t r = getrandom(p + got, n - got, 0);
-        if (r > 0)  { got += (size_t)r; continue; }
-        if (r == 0) { errno = EIO; goto fail; }   /* не буває, але цикл мусить кінчатися */
-        if (errno == EINTR)  continue;            /* сигнал під час очікування */
-        if (errno == ENOSYS || errno == EPERM) break;  /* виклику немає — далі запасним */
-        goto fail;                                /* EFAULT і подібне — помилка в нас */
-    }
-    if (got == n)
-        return 0;
-
-    if (urandom_fd < 0) { errno = ENOSYS; goto fail; }
-
-    while (got < n) {
-        ssize_t r = read(urandom_fd, p + got, n - got);
-        if (r > 0)  { got += (size_t)r; continue; }
-        if (r == 0) { errno = EIO; goto fail; }   /* кінця в /dev/urandom не буває */
-        if (errno == EINTR) continue;
-        goto fail;
-    }
-    return 0;
-
-fail: {
-        int saved = errno;
-        explicit_bzero(buf, n);   /* напівзаповнений буфер не сміє піти в діло */
-        errno = saved;
-        return -1;
-    }
-}
-```
+:::code proj-getting-random-bytes/c/robota-tsykl-iz-zapasnym.c
 
 Прапорців у виклику немає — і це найважливіше рішення в усій функції. Порожній набір означає «зачекай, поки генератор буде готовий, а після того не чекай ніколи»: рівно те, чого хоче програма, якій потрібен ключ. На системі, що працює хоч секунду, цей виклик не спить взагалі.
 
@@ -142,42 +69,7 @@ getrandom(b, sizeof b, GRND_INSECURE);
 
 Різницю видно тим самим кодом, якщо порівняти дві форми виклику:
 
-```c
-#include <sys/syscall.h>
-#include <sys/random.h>
-#include <unistd.h>
-#include <time.h>
-#include <stdio.h>
-#include <stdint.h>
-
-static double now_ns(void)
-{
-    struct timespec t;
-    clock_gettime(CLOCK_MONOTONIC, &t);
-    return t.tv_sec * 1e9 + t.tv_nsec;
-}
-
-static ssize_t raw_getrandom(void *b, size_t n, unsigned f)
-{
-    return syscall(SYS_getrandom, b, n, f);   /* завжди справжній виклик */
-}
-
-int main(void)
-{
-    enum { N = 1000000 };
-    uint8_t key[32];
-
-    double t0 = now_ns();
-    for (long i = 0; i < N; i++) getrandom(key, sizeof key, 0);
-    double t1 = now_ns();
-    for (long i = 0; i < N; i++) raw_getrandom(key, sizeof key, 0);
-    double t2 = now_ns();
-
-    printf("libc: %.1f нс   виклик: %.1f нс\n",
-           (t1 - t0) / N, (t2 - t1) / N);
-    return 0;
-}
-```
+:::code proj-getting-random-bytes/c/skilky-tse-koshtuie-i.c
 
 Що саме ви поміряєте, залежить від пари «ядро + libc». Швидкий шлях вмикається, коли ядро не старіше за 6.11, а бібліотека вміє його знайти — у glibc це вміння з'явилося у версії 2.41. Не збіглося щось одне — обидва рядки покажуть однакове число, і це вже корисна відповідь.
 

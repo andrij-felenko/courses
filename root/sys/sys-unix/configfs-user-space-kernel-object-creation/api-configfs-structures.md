@@ -6,18 +6,7 @@
 
 Структура `struct config_item` є фундаментальним абстрактним елементом у `configfs`. Вона відображається у файловій системі як каталог або контейнер атрибутів і зазвичай вбудовується всередину специфічної структури даних драйвера.
 
-```c
-struct config_item {
-    char                    *ci_name;
-    char                    ci_namebuf[CONFIGFS_ITEM_NAME_LEN];
-    struct kref             ci_kref;
-    struct list_head        ci_entry;
-    struct config_item      *ci_parent;
-    struct config_group     *ci_group;
-    const struct config_item_type *ci_type;
-    struct dentry           *ci_dentry;
-};
-```
+:::code api-configfs-structures/c/main.c
 
 Поля структури `config_item`:
 - **`ci_name`**: текстове ім'я елемента, яке стає назвою каталогу у файловій системі `/sys/kernel/config/`. Ім'я, коротше за `CONFIGFS_ITEM_NAME_LEN` (20), лягає у вбудований масив `ci_namebuf`; від двадцяти символів `config_item_set_name()` виділяє окремий буфер у купі, і `ci_name` показує вже на нього.

@@ -89,20 +89,7 @@
 
 Назовні профіль видно в sysfs, окремою текою під пристроєм.
 
-```sh
-$ cat /sys/block/sda/integrity/format
-T10-DIF-TYPE1-CRC
-$ cat /sys/block/sda/integrity/protection_interval_bytes
-512
-$ cat /sys/block/sda/integrity/tag_size
-2
-$ cat /sys/block/sda/integrity/device_is_integrity_capable
-1
-$ cat /sys/block/sda/integrity/write_generate
-1
-$ cat /sys/block/sda/integrity/read_verify
-1
-```
+:::code block-integrity-profile-d/sh/main.sh
 
 Читається це так: носій відформатований під захист типу 1 із CRC, один кортеж накриває 512 байтів даних, два байти прикладного тега віддано власникові вище, а блоковий шар сам генерує теги при записі й сам звіряє їх при читанні. Для типу 3 у цьому рядку стояло б 6: посилальний тег там не перевіряють, тож його чотири байти теж лишаються вільними. Якщо теки `integrity` немає взагалі — профілю немає, і далі шукати нема чого. Повний перелік того, що тут показують і як цим керувати з командного рядка, зібрано окремо: [інтерфейси профілю цілісності](root:sys-unix/block-integrity-profile/api-integrity-interfaces.md).
 

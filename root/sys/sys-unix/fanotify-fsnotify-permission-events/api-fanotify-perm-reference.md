@@ -96,33 +96,8 @@ extern "C" int fanotify_mark(int fanotify_fd, unsigned int flags,
 При виклику `read()` з файлового дескриптора fanotify ядро повертає один або кілька послідовних бінарних блоків такої структури. Буфер у користувацькому просторі повинен бути вирівняний по межі `struct fanotify_event_metadata`:
 
 :::tabs
-```c
-#include <sys/fanotify.h>
-
-struct fanotify_event_metadata {
-    uint32_t event_len;      /* Загальна довжина даного запису в байтах */
-    uint8_t  vers;           /* Версія структури (поточна FANOTIFY_METADATA_VERSION) */
-    uint8_t  reserved;       /* Зарезервовано, ядро завжди подає 0 */
-    uint16_t metadata_len;   /* Довжина фіксованої частини метаданих */
-    uint64_t mask;           /* Бітова маска події (наприклад, FAN_OPEN_PERM) */
-    int32_t  fd;             /* Відкритий анонімний дескриптор файлу АБО FAN_NOFD */
-    int32_t  pid;            /* PID процесу, який викликав операцію VFS */
-};
-```
-```cpp
-#include <sys/fanotify.h>
-#include <cstdint>
-
-struct fanotify_event_metadata {
-    std::uint32_t event_len;      // Загальна довжина запису в байтах
-    std::uint8_t  vers;           // Версія структури
-    std::uint8_t  reserved;       // Зарезервовано ядром
-    std::uint16_t metadata_len;   // Довжина фіксованої частини метаданих
-    std::uint64_t mask;           // Бітова маска події (FAN_OPEN_PERM)
-    std::int32_t  fd;             // Відкритий анонімний дескриптор файлу або FAN_NOFD
-    std::int32_t  pid;            // PID процесу, який викликав операцію VFS
-};
-```
+:::code api-fanotify-perm-reference/c/main.c
+:::code api-fanotify-perm-reference/cpp/main.cpp
 :::
 
 Кожна подія дозволу повертає відкритий файловий дескриптор `fd`. Цей дескриптор надає демону доступ до сканування вмісту заблокованого файлу. Демон безпеки зобов'язаний закрити цей `fd` за допомогою виклику `close()` одразу після надсилання відповіді ядру, інакше у системі виникне витік файлових дескрипторів.

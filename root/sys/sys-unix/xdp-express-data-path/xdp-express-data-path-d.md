@@ -207,18 +207,7 @@ data_end = (void *)(long)ctx->data_end;
 
 Перед **будь-яким** зверненням до полів заголовка eBPF-програма зобов'язана доказати верифікатору, що адреса пам'яті не виходить за межі `ctx->data_end`.
 
-```c
-/* ❌ НЕКОРЕКТНО (Верифікатор відхилить програму під час завантаження) */
-struct iphdr *iph = (void *)(eth + 1);
-if (iph->protocol == IPPROTO_TCP) { ... }
-
-/* ✅ КОРЕКТНО (Bounds Check перед розімкнутим вказівника) */
-struct iphdr *iph = (void *)(eth + 1);
-if ((void *)(iph + 1) > data_end) {
-    return XDP_PASS; /* Пакет занадто короткий */
-}
-if (iph->protocol == IPPROTO_TCP) { ... }
-```
+:::code xdp-express-data-path-d/c/main.c
 
 Правило інвалідації вказівників: Після будь-якого виклику хелперів змінення розміру (`bpf_xdp_adjust_head`, `bpf_xdp_adjust_tail`) верифікатор **анулює** всі раніше перевірені вказівники. Програміст зобов'язаний заново перечитати `ctx->data` та `ctx->data_end` й повторити `bounds check`.
 

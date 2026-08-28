@@ -74,40 +74,8 @@ struct file_clone_range {
 ### Мінімальний виклик
 
 :::tabs
-```c
-#include <sys/ioctl.h>
-#include <linux/fs.h>
-#include <errno.h>
-
-/* 1 — блоки поділено, 0 — тут так не вміють, -1 — справжня помилка. */
-int try_clone(int dest_fd, int src_fd)
-{
-    if (ioctl(dest_fd, FICLONE, src_fd) == 0)
-        return 1;
-    if (errno == EOPNOTSUPP || errno == EINVAL || errno == EXDEV)
-        return 0;
-    return -1;
-}
-```
-```cpp
-#include <sys/ioctl.h>
-#include <linux/fs.h>
-#include <cerrno>
-#include <system_error>
-
-// Повертає true, якщо блоки поділено; false — якщо ФС не підтримує reflink.
-// При справжній помилці кидає std::system_error.
-bool try_clone(int dest_fd, int src_fd)
-{
-    if (::ioctl(dest_fd, FICLONE, src_fd) == 0) {
-        return true;
-    }
-    if (errno == EOPNOTSUPP || errno == EINVAL || errno == EXDEV) {
-        return false;
-    }
-    throw std::system_error(errno, std::generic_category(), "FICLONE ioctl failed");
-}
-```
+:::code api-clone-and-copy/c/minimalnyi-vyklyk.c
+:::code api-clone-and-copy/cpp/minimalnyi-vyklyk.cpp
 :::
 
 Три помилки в другій умові — не перестрахування. Яку саме з них поверне ядро, коли файлова система не вміє поділу, залежить від того, на якій перевірці все спинилося, і ця межа між версіями зсувалася. Переносний код мусить приймати всі три як одну відповідь «тут не вийде».
@@ -146,24 +114,7 @@ int ioctl(int src_fd, FIDEDUPERANGE, struct file_dedupe_range *arg);
 
 Тут напрямок виклику **обернений**: `ioctl` роблять на джерелі, а всі призначення перелічують усередині структури. Одним викликом можна злити ту саму ділянку джерела одразу з багатьма файлами, тому аргумент має змінну довжину — заголовок і масив записів за ним.
 
-```c
-struct file_dedupe_range {
-    __u64 src_offset;
-    __u64 src_length;
-    __u16 dest_count;
-    __u16 reserved1;
-    __u32 reserved2;
-    struct file_dedupe_range_info info[];
-};
-
-struct file_dedupe_range_info {
-    __s64 dest_fd;
-    __u64 dest_offset;
-    __u64 bytes_deduped;
-    __s32 status;
-    __u32 reserved;
-};
-```
+:::code api-clone-and-copy/c/fideduperange-zlyty-te.c
 
 ![Ліворуч розкладка запиту в пам'яті згори вниз: заголовок struct file_dedupe_range на 24 байти з полями src_offset вісім байтів, src_length вісім байтів, dest_count два байти і шість байтів зарезервованого; далі запис info нуль на 32 байти з полями dest_fd вісім байтів, dest_offset вісім байтів, bytes_deduped вісім байтів, status і reserved разом вісім байтів; нижче рамка, що позначає решту записів масиву по 32 байти кожен. Поля пофарбовано за тим, хто їх заповнює: сині заповнює програма перед викликом, зелені заповнює ядро на поверненні, сірі мають бути нулями. Праворуч чотири рамки: виклик роблять на дескрипторі джерела; арифметика стелі — 24 плюс 32 помножити на dest_count не більше за 4096, звідки dest_count не більше за 127; примітка про мовчазне обрізання src_length до 16 мебібайтів; попередження, що ioctl повертає нуль навіть коли жодного байта не злито; перелік двох значень status](img/dedupe-layout.svg)
 
@@ -207,86 +158,8 @@ sizeof(struct file_dedupe_range_info) = 8 + 8 + 8 + 4 + 4 = 32 Б
 ### Мінімальний виклик
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdlib.h>
-#include <sys/ioctl.h>
-#include <linux/fs.h>
-
-/* Скільки призначень справді збіглося й дістало спільні блоки; -1 — помилка. */
-int dedupe_range(int src_fd, uint64_t off, uint64_t len,
-                 const int *dst_fd, const uint64_t *dst_off, unsigned n)
-{
-    size_t sz = sizeof(struct file_dedupe_range)
-              + (size_t)n * sizeof(struct file_dedupe_range_info);
-
-    /* calloc, а не malloc: усі reserved мусять бути нулями. */
-    struct file_dedupe_range *arg = calloc(1, sz);
-    if (!arg)
-        return -1;
-
-    arg->src_offset = off;
-    arg->src_length = len;
-    arg->dest_count = n;
-    for (unsigned i = 0; i < n; i++) {
-        arg->info[i].dest_fd = dst_fd[i];
-        arg->info[i].dest_offset = dst_off[i];
-    }
-
-    int same = -1;
-    if (ioctl(src_fd, FIDEDUPERANGE, arg) == 0) {
-        same = 0;
-        for (unsigned i = 0; i < n; i++)
-            if (arg->info[i].status == FILE_DEDUPE_RANGE_SAME
-                && arg->info[i].bytes_deduped > 0)
-                same++;
-    }
-    free(arg);
-    return same;
-}
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <cstddef>
-#include <sys/ioctl.h>
-#include <linux/fs.h>
-#include <system_error>
-
-// Зливає один діапазон джерела з декількома призначеннями.
-// Повертає кількість призначень, де байти дійсно збіглися й були злиті.
-int dedupe_range(int src_fd, std::uint64_t off, std::uint64_t len,
-                 const std::vector<int>& dst_fds,
-                 const std::vector<std::uint64_t>& dst_offs)
-{
-    const std::size_t n = dst_fds.size();
-    const std::size_t sz = sizeof(file_dedupe_range)
-                         + n * sizeof(file_dedupe_range_info);
-
-    std::vector<std::byte> buf(sz, std::byte{0});
-    auto* arg = reinterpret_cast<file_dedupe_range*>(buf.data());
-
-    arg->src_offset = off;
-    arg->src_length = len;
-    arg->dest_count = static_cast<std::uint16_t>(n);
-    for (std::size_t i = 0; i < n; ++i) {
-        arg->info[i].dest_fd = dst_fds[i];
-        arg->info[i].dest_offset = dst_offs[i];
-    }
-
-    if (::ioctl(src_fd, FIDEDUPERANGE, arg) != 0) {
-        throw std::system_error(errno, std::generic_category(), "FIDEDUPERANGE ioctl failed");
-    }
-
-    int same = 0;
-    for (std::size_t i = 0; i < n; ++i) {
-        if (arg->info[i].status == FILE_DEDUPE_RANGE_SAME && arg->info[i].bytes_deduped > 0) {
-            ++same;
-        }
-    }
-    return same;
-}
-```
+:::code api-clone-and-copy/c/minimalnyi-vyklyk-2.c
+:::code api-clone-and-copy/cpp/minimalnyi-vyklyk-2.cpp
 :::
 
 ---
@@ -319,58 +192,8 @@ ssize_t copy_file_range(int fd_in, off_t *off_in,
 **Повернене число — це не «зробив чи ні».** Виклик повертає кількість скопійованих байтів, і вона законно буває меншою за замовлену: ядро вільне спинитися на межі екстента, на межі того, що вміє файлова система, на межі внутрішнього буфера. Нуль означає, що джерело скінчилося. Тому єдина правильна форма вживання — цикл:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#define _FILE_OFFSET_BITS 64
-#include <unistd.h>
-#include <errno.h>
-
-/* Копіює len байтів від початку fd_in у початок fd_out. 0 або -1 з errno. */
-int copy_all(int fd_in, int fd_out, off_t len)
-{
-    off_t in_off = 0, out_off = 0;
-
-    while (len > 0) {
-        ssize_t n = copy_file_range(fd_in, &in_off, fd_out, &out_off,
-                                    (size_t)len, 0);
-        if (n < 0)
-            return -1;              /* errno вже виставлено */
-        if (n == 0) {               /* джерело скінчилося раніше, ніж чекали */
-            errno = EIO;
-            return -1;
-        }
-        len -= n;                   /* in_off і out_off ядро посунуло само */
-    }
-    return 0;
-}
-```
-```cpp
-#define _GNU_SOURCE
-#define _FILE_OFFSET_BITS 64
-#include <unistd.h>
-#include <cerrno>
-#include <cstddef>
-#include <system_error>
-
-// Копіює len байтів від початку fd_in у початок fd_out за допомогою copy_file_range.
-void copy_all(int fd_in, int fd_out, off_t len)
-{
-    off_t in_off = 0, out_off = 0;
-
-    while (len > 0) {
-        ssize_t n = ::copy_file_range(fd_in, &in_off, fd_out, &out_off,
-                                       static_cast<std::size_t>(len), 0);
-        if (n < 0) {
-            if (errno == EINTR) continue;
-            throw std::system_error(errno, std::generic_category(), "copy_file_range failed");
-        }
-        if (n == 0) {
-            throw std::system_error(EIO, std::generic_category(), "unexpected EOF during copy_file_range");
-        }
-        len -= n;
-    }
-}
-```
+:::code api-clone-and-copy/c/copy-file-range.c
+:::code api-clone-and-copy/cpp/copy-file-range.cpp
 :::
 
 Дві обмовки про те, чого виклик **не** обіцяє. Він не обіцяє поділу блоків: поділ — лише найдешевший із варіантів, які ядро перебирає, а не частина контракту. І він не обіцяє зберегти [діри розрідженого файлу](root:sys-unix/sparse-files): порожнечу дозволено розкрити в справжні нулі, витративши місце там, де його витрачено не було. Кому потрібна саме карта дір, той обходить файл через `SEEK_DATA`/`SEEK_HOLE` і копіює шматками.

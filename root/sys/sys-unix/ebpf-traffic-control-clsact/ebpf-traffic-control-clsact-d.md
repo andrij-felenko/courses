@@ -163,19 +163,7 @@ long bpf_skb_store_bytes(struct __sk_buff *skb, u32 offset,
 
 Для інкрементального оновлення чексум без перерахунку всього пакета використовуються спеціалізовані хепери:
 
-```c
-// Оновлення IP (L3) контрольної суми при зміні IP-адреси
-__be32 old_ip = ip->saddr;
-__be32 new_ip = bpf_htonl(0x0A000001);
-
-ip->saddr = new_ip;
-
-bpf_l3_csum_replace(skb, offsetof(struct iphdr, check), old_ip, new_ip, sizeof(new_ip));
-
-// Оновлення TCP (L4) контрольної суми
-bpf_l4_csum_replace(skb, offsetof(struct tcphdr, check) + ETH_HLEN + sizeof(struct iphdr),
-                    old_ip, new_ip, sizeof(new_ip) | BPF_F_PSEUDO_HDR);
-```
+:::code ebpf-traffic-control-clsact-d/c/koryhuvannia-kontrolnykh.h
 
 Прапорець `BPF_F_PSEUDO_HDR` інформує ядро про те, що зміна IP-адреси впливає на псевдозаголовок TCP/UDP, гарантуючи точну відповідність математичного алгоритму RFC 1071.
 
@@ -227,31 +215,7 @@ return bpf_redirect(target_ifindex, BPF_F_INGRESS);
 2. Ядро потрапляє у головну функцію обробки вхідного трафіку `__netif_receive_skb_core()`.
 3. Усередині цієї функції, перед будь-якими перевірками протоколів, розміщено виклик **`sch_handle_ingress()`**:
 
-```c
-static inline struct sk_buff *sch_handle_ingress(struct sk_buff *skb,
-                                                 struct packet_type **pt_prev,
-                                                 int *ret, struct net_device *orig_dev) {
-    struct mini_Qdisc *miniq = rcu_dereference_bh(skb->dev->miniq_ingress);
-    struct tcf_result res;
-
-    if (!miniq)
-        return skb;
-
-    // Виклик класифікаторів TC (включаючи cls_bpf) у режимі RCU
-    switch (tcf_classify(skb, miniq->block, miniq->filter_list, &res, false)) {
-    case TC_ACT_OK:
-    case TC_ACT_RECLASSIFY:
-        break;
-    case TC_ACT_SHOT:
-        kfree_skb(skb);
-        return NULL;
-    case TC_ACT_REDIRECT:
-        skb_do_redirect(skb);
-        return NULL;
-    }
-    return skb;
-}
-```
+:::code ebpf-traffic-control-clsact-d/c/poslidovnist-systemnykh.c
 
 Як видно з коду ядра, `sch_handle_ingress()` зчитує вказівник `miniq_ingress` через `rcu_dereference_bh()`. Це означає, що програма eBPF виконується у паралельних контекстах NAPI без захоплення жодних спін-блокувань.
 
@@ -265,23 +229,7 @@ static inline struct sk_buff *sch_handle_ingress(struct sk_buff *skb,
 
 Для читання та формування тунельних заголовків програма TC eBPF використовує спеціалізовані helper-функції ядра, як показано у наступному прикладі коду:
 
-```c
-// Витягування тунельного ключа (VNI) на вхідному шляху
-struct bpf_tunnel_key key = {};
-int err = bpf_skb_get_tunnel_key(skb, &key, sizeof(key), 0);
-if (!err) {
-    // key.tunnel_id містить VNI (Virtual Network Identifier)
-    // key.remote_ipv4 містить зовнішню IP-адресу хоста-відправника
-}
-
-// Налаштування інкапсуляції для вихідного пакета
-struct bpf_tunnel_key out_key = {};
-out_key.tunnel_id = 100;                // VXLAN VNI 100
-out_key.remote_ipv4 = bpf_htonl(0x0A010101); // 10.1.1.1
-out_key.tunnel_ttl = 64;
-
-bpf_skb_set_tunnel_key(skb, &out_key, sizeof(out_key), BPF_F_ZERO_CSUM_TX);
-```
+:::code ebpf-traffic-control-clsact-d/c/znimannia-ta-vstavka.c
 
 Коли програма викликає `bpf_skb_set_tunnel_key()`, ядро не конструює зовнішній IP/UDP заголовок вручну у байт-коді BPF. Вона записує тунельні метадані у сокетний буфер, і коли пакет передається віртуальному пристрою `vxlan0`, драйвер тунелю автоматично інкапсулює пакет на апаратному рівні.
 
@@ -309,19 +257,7 @@ bpf_skb_set_tunnel_key(skb, &out_key, sizeof(out_key), BPF_F_ZERO_CSUM_TX);
 
 Утиліта `bpftool` є основним інструментом інспекції завантажених eBPF-програм та зв'язаних із ними BPF-карт, надаючи такі базові команди для діагностики:
 
-```bash
-# 1. Перегляд усіх прикріплених TC програм на мережевих інтерфейсах
-bpftool net show
-
-# 2. Зняття розпарсеного байт-коду BPF (xlated) після перевіряльника BPF Verifier
-bpftool prog dump xlated id <PROG_ID>
-
-# 3. Зняття реальних машинного коду x86_64 після JIT-компіляції
-bpftool prog dump jited id <PROG_ID>
-
-# 4. Дамп вмісту конкретної BPF карти
-bpftool map dump id <MAP_ID>
-```
+:::code ebpf-traffic-control-clsact-d/sh/main.sh
 
 ### Моніторинг системного логу ядра (`trace_pipe`):
 Якщо у коді eBPF використати допоміжну функцію `bpf_trace_printk("Packet len: %d\n", skb->len)`, вивід логу буде доступний у файловій системі tracefs:
@@ -339,34 +275,7 @@ sudo cat /sys/kernel/debug/tracing/trace_pipe
 
 Для безпечного обходу розширених заголовків програма використовує цикли з обчисленою межею (Bounded Loops), які підтримуються ядром Linux 5.3+:
 
-```c
-#include <linux/ipv6.h>
-
-struct ipv6hdr *ip6 = (void *)(eth + 1);
-if ((void *)(ip6 + 1) > data_end) {
-    return TC_ACT_OK;
-}
-
-__u8 next_hdr = ip6->nexthdr;
-void *hdr_ptr = (void *)(ip6 + 1);
-
-// Цикл із фіксованою кількістю ітерацій для верифікатора
-#pragma unroll
-for (int i = 0; i < 4; i++) {
-    if (next_hdr == IPPROTO_TCP) {
-        break; // Знайшли TCP заголовок
-    }
-    
-    struct ipv6_opt_hdr *ext_hdr = hdr_ptr;
-    if ((void *)(ext_hdr + 1) > data_end) {
-        return TC_ACT_OK;
-    }
-    
-    // Переходимо до наступного розширеного заголовка
-    hdr_ptr += (ext_hdr->hdrlen + 1) * 8;
-    next_hdr = ext_hdr->nexthdr;
-}
-```
+:::code ebpf-traffic-control-clsact-d/c/osoblyvosti-analizu-ipv6-u.c
 
 Директива `#pragma unroll` розгортає цикл на етапі компіляції Clang, що дає змогу BPF Verifier статично перевірити межі доступу до пам'яті для кожної ітерації.
 
@@ -376,32 +285,7 @@ for (int i = 0; i < 4; i++) {
 
 Підсистема TC eBPF пропонує революційний механізм за допомогою поєднання двох хеперів: **`bpf_skc_lookup_tcp()`** та **`bpf_sk_assign()`**.
 
-```c
-SEC("classifier")
-int tc_tproxy(struct __sk_buff *skb) {
-    // ... розпарсування L2-L4 ...
-
-    struct bpf_sock_tuple tuple = {};
-    tuple.ipv4.saddr = ip->saddr;
-    tuple.ipv4.daddr = ip->daddr;
-    tuple.ipv4.sport = tcp->source;
-    tuple.ipv4.dport = tcp->dest;
-
-    // 1. Пошук локального listening-сокета Envoy у сокетній таблиці ядра
-    struct bpf_sock *sk = bpf_skc_lookup_tcp(skb, &tuple, sizeof(tuple.ipv4), BPF_F_CURRENT_NETNS, 0);
-    if (sk) {
-        if (sk->state == BPF_TCP_LISTEN) {
-            // 2. Пряме призначення сокета сокетному буферу skb
-            if (bpf_sk_assign(skb, sk, 0) == 0) {
-                bpf_sk_release(sk);
-                return TC_ACT_OK; // Пакет іде прямо у сокет Envoy без routing!
-            }
-        }
-        bpf_sk_release(sk);
-    }
-    return TC_ACT_OK;
-}
-```
+:::code ebpf-traffic-control-clsact-d/c/12-prozore-proksiiuvannia.c
 
 Виклики `bpf_skc_lookup_tcp()` та `bpf_sk_assign()` дозволяють eBPF програмі знайти відкритий listening сокет користувацького процесу і прив'язати його безпосередньо до `skb->sk`. В результаті ядро передає пакет сокету процесів без проходження таблиць маршрутизації та підсистеми conntrack.
 

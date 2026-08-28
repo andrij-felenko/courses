@@ -88,24 +88,7 @@ struct wmi_block {
 
 Коли на шині WMI з'являється новий пристрій або реєструється новий драйвер, підсистема ядра викликає функцію зіставлення `wmi_bus_match(struct device *dev, struct device_driver *drv)`:
 
-```c
-static int wmi_bus_match(struct device *dev, struct device_driver *drv)
-{
-    struct wmi_driver *wdrv = to_wmi_driver(drv);
-    struct wmi_device *wdev = to_wmi_device(dev);
-    const struct wmi_device_id *id;
-
-    id = wdrv->id_table;
-    if (!id) return 0;
-
-    while (id->guid_string[0]) {
-        if (sysfs_streq(id->guid_string, wdev->guid_string))
-            return 1;
-        id++;
-    }
-    return 0;
-}
-```
+:::code api-wmi-kernel-surface/c/alhorytm-zistavlennia-na.c
 
 Алгоритм обходить масив `id_table` драйвера до порожнього елемента `{}`. Функція `sysfs_streq()` порівнює текстовий рядок `id->guid_string` із рядком `wdev->guid_string` пристрою. Порівняння виконується без урахування регістру символів (case-insensitive) і пропускає символи переведення рядка. Якщо виявлено збіг, шина вважає пристрій та драйвер сумісними і переходить до етапу прив'язки (binding).
 
@@ -113,23 +96,7 @@ static int wmi_bus_match(struct device *dev, struct device_driver *drv)
 
 Після успішного зіставлення шина викликає обробник `probe` драйвера:
 
-```c
-static int my_wmi_probe(struct wmi_device *wdev, const void *context)
-{
-    struct my_driver_priv *priv;
-
-    priv = devm_kzalloc(&wdev->dev, sizeof(*priv), GFP_KERNEL);
-    if (!priv)
-        return -ENOMEM;
-
-    dev_set_drvdata(&wdev->dev, priv);
-    priv->wdev = wdev;
-
-    /* Ініціалізація дочірніх підсистем: input, hwmon, sysfs-групи */
-
-    return 0;
-}
-```
+:::code api-wmi-kernel-surface/c/zhyttievyi-tsykl-prystroiu.c
 
 Під час виконання `.probe()` драйвер повинен виконати такі дії:
 
@@ -177,40 +144,7 @@ void (*notify)(struct wmi_device *wdev, union acpi_object *data);
 
 Об'єкт `union acpi_object` містить поле `type`, яке визначає формат отриманих даних. Перед читанням даних драйвер зобов'язаний виконати перевірку типу:
 
-```c
-static void my_wmi_notify(struct wmi_device *wdev, union acpi_object *data)
-{
-    struct my_driver_priv *priv = dev_get_drvdata(&wdev->dev);
-
-    if (!data) {
-        dev_warn(&wdev->dev, "Отримано порожнє сповіщення WMI\n");
-        return;
-    }
-
-    switch (data->type) {
-    case ACPI_TYPE_INTEGER:
-        dev_dbg(&wdev->dev, "Отримано цілочисельну подію WMI: 0x%llx\n",
-                data->integer.value);
-        my_handle_scancode(priv, (u32)data->integer.value);
-        break;
-
-    case ACPI_TYPE_BUFFER:
-        dev_dbg(&wdev->dev, "Отримано буфер події WMI довжиною %u байт\n",
-                data->buffer.length);
-        my_parse_event_buffer(priv, data->buffer.pointer, data->buffer.length);
-        break;
-
-    case ACPI_TYPE_PACKAGE:
-        dev_dbg(&wdev->dev, "Отримано пакет подій WMI з %u елементів\n",
-                data->package.count);
-        break;
-
-    default:
-        dev_err(&wdev->dev, "Непідтримуваний тип об'єкта події: %u\n", data->type);
-        break;
-    }
-}
-```
+:::code api-wmi-kernel-surface/c/analiz-obiekta-union-acpi.c
 
 Нехтування перевіркою `data->type` є поширеною помилкою, яка призводить к збоям ядра (Kernel Null Pointer Dereference) при отриманні нестандартних даних від некоректних версій BIOS.
 
@@ -226,23 +160,7 @@ static void my_wmi_notify(struct wmi_device *wdev, union acpi_object *data)
 
 Події `notify` найчастіше використовуються для обробки натискань Fn-клавіш. Для їхньої трансляції драйвери ядра застосовують підсистему `sparse-keymap`:
 
-```c
-#include <linux/input/sparse-keymap.h>
-
-static const struct key_entry my_wmi_keymap[] = {
-    { KE_KEY, 0x85, { KEY_BRIGHTNESSUP } },
-    { KE_KEY, 0x86, { KEY_BRIGHTNESSDOWN } },
-    { KE_KEY, 0x87, { KEY_WLAN } },
-    { KE_END, 0 }
-};
-
-/* У функції .probe(): */
-int ret = sparse_keymap_setup(priv->input_dev, my_wmi_keymap, NULL);
-
-/* У функції .notify(): */
-if (data && data->type == ACPI_TYPE_INTEGER)
-    sparse_keymap_report_event(priv->input_dev, (u32)data->integer.value, 1, true);
-```
+:::code api-wmi-kernel-surface/c/sparse-keymap.h
 
 Функція `sparse_keymap_report_event()` автоматично знаходить скан-код у таблиці маппінгу, генерує події `input_report_key()` та `input_sync()`, транслюючи їх до системного пристрою `/dev/input/eventX`.
 
@@ -277,27 +195,7 @@ if (data && data->type == ACPI_TYPE_INTEGER)
 
 Для роботи з WMI GUID у ядрі призначено тип `guid_t` та відповідні маніпуляційні функції:
 
-```c
-#include <linux/uuid.h>
-
-/* Оголошення та ініціалізація бінарного GUID з рядка */
-guid_t my_guid;
-int ret = guid_parse("9DBB5994-A997-11DA-B012-B622A1EF5492", &my_guid);
-
-/* Порівняння двох бінарних GUID */
-if (guid_equal(&guid1, &guid2)) {
-    /* GUID збігаються */
-}
-
-/* Перевірка на порожній (нульовий) GUID */
-if (guid_is_null(&my_guid)) {
-    /* GUID складається з усіх нулів */
-}
-
-/* Експорт бінарного GUID у буфер */
-u8 buffer[16];
-export_guid(buffer, &my_guid);
-```
+:::code api-wmi-kernel-surface/c/dopomizhni-funktsii-ta.c
 
 Використання бінарного порівняння `guid_equal()` всередині критичних до продуктивності ділянок коду є набагато ефективнішим за порівняння рядків через `strcmp()`.
 
@@ -386,23 +284,7 @@ acpi_status wmidev_block_set(struct wmi_device *wdev,
 
 Якщо встановлено прапорець `ACPI_WMI_STRING` (`0x04`), повернений буфер містить текстовий рядок. Однак прошивки BIOS часто повертають рядки у форматі UTF-16LE (UCS-2) із двобайтовим префіксом довжини:
 
-```c
-struct acpi_buffer out = { ACPI_ALLOCATE_BUFFER, NULL };
-acpi_status status = wmidev_block_query(wdev, 0, &out);
-
-if (ACPI_SUCCESS(status) && out.pointer) {
-    union acpi_object *obj = out.pointer;
-    if (obj->type == ACPI_TYPE_BUFFER) {
-        u16 *utf16_str = (u16 *)obj->buffer.pointer;
-        char utf8_buf[256];
-
-        /* Конвертація UTF-16LE у UTF-8 для використання в Linux */
-        utf16s_to_utf8s(utf16_str, obj->buffer.length / 2,
-                        UTF16_LITTLE_ENDIAN, utf8_buf, sizeof(utf8_buf) - 1);
-    }
-    kfree(out.pointer);
-}
-```
+:::code api-wmi-kernel-surface/c/4-tekstovi-bloky-danykh.c
 
 Використання функції ядра `utf16s_to_utf8s()` є обов'язаним для коректного відображення текстових системних атрибутів у Linux.
 
@@ -410,23 +292,7 @@ if (ACPI_SUCCESS(status) && out.pointer) {
 
 При переході системи в стан сну (S3/S0ix) Embedded Controller може скинути внутрішні конфігураційні регістри. Драйвер WMI зобов'язаний реалізувати збереження та відновлення стану через PM callback:
 
-```c
-static int my_wmi_suspend(struct device *dev)
-{
-    struct my_driver_priv *priv = dev_get_drvdata(dev);
-    /* Збереження поточних налаштувань вентиляторів/підсвічування */
-    return 0;
-}
-
-static int my_wmi_resume(struct device *dev)
-{
-    struct my_driver_priv *priv = dev_get_drvdata(dev);
-    /* Повторне виконання WMI-методів для відновлення стану EC */
-    return my_restore_hardware_state(priv);
-}
-
-static DEFINE_SIMPLE_DEV_PM_OPS(my_wmi_pm_ops, my_wmi_suspend, my_wmi_resume);
-```
+:::code api-wmi-kernel-surface/c/5-dynamika-staniv.c
 
 ---
 
@@ -450,25 +316,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(my_wmi_pm_ops, my_wmi_suspend, my_wmi_resume);
 
 Функції ядра Linux у підсистемах sysfs та VFS вимагають повернення стандартних від'ємних кодів помилок POSIX (наприклад `-EINVAL`, `-ENODEV`). Для маппінгу `acpi_status` використовується така стратегія:
 
-```c
-int acpi_status_to_errno(acpi_status status)
-{
-    switch (status) {
-    case AE_OK:
-        return 0;
-    case AE_NOT_FOUND:
-        return -ENODEV;
-    case AE_BAD_PARAMETER:
-        return -EINVAL;
-    case AE_NO_MEMORY:
-        return -ENOMEM;
-    case AE_TIME:
-        return -ETIMEDOUT;
-    default:
-        return -EIO;
-    }
-}
-```
+:::code api-wmi-kernel-surface/c/konvertatsiia-statusiv-u.c
 
 Використання `acpi_status_to_errno()` гарантує, що системні виклики простору користувача (`read()`, `write()`) отримають зрозумілі коди помилок (`ENODEV`, `ETIMEDOUT`).
 

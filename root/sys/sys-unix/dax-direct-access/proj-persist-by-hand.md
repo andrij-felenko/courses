@@ -24,120 +24,19 @@
 
 Спершу формат і контрольна сума. Сума потрібна не задля надійності носія, а щоб ловити наслідки власних помилок у порядку записів — обірваний запис має розпізнаватися, а не братися на віру ([Контрольна сума CRC](root:com-protocol/crc-in-firmware) — коротке число, пораховане з блоку так, що зміна будь-якого біта майже напевно змінить і його).
 
-```c
-/* pmlog.c — кільцевий журнал на файлі з прямим звертанням.
-   збірка:  cc -O2 -mclwb -o pmlog pmlog.c                          */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <immintrin.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/mman.h>
-#include <unistd.h>
-
-#define LINE   64u          /* рядок кешу */
-#define SLOT   4096u        /* слот = сторінка */
-#define SLOTS  1024u        /* 4 МіБ журналу */
-
-struct slot {
-    uint64_t commit;        /* 0 — порожньо; інакше номер запису + 1 */
-    uint32_t len;
-    uint32_t crc;
-    uint8_t  body[SLOT - 16];
-};
-_Static_assert(sizeof(struct slot) == SLOT, "слот мусить дорівнювати сторінці");
-_Static_assert(offsetof(struct slot, commit) % 8 == 0, "ознака мусить бути вирівняна");
-
-static uint32_t crc32_bitwise(const void *buf, uint32_t n)
-{
-    const uint8_t *b = buf;
-    uint32_t c = 0xffffffffu;
-    for (uint32_t i = 0; i < n; i++) {
-        c ^= b[i];
-        for (int k = 0; k < 8; k++)
-            c = (c >> 1) ^ (0xedb88320u & (uint32_t)-(int32_t)(c & 1));
-    }
-    return ~c;
-}
-```
+:::code proj-persist-by-hand/c/pmlog.c
 
 Тепер відображення. Прапорець `MAP_SYNC` вимагає нового типу відображення `MAP_SHARED_VALIDATE`, і саме на цій парі програма дізнається правду про файл: невдача — єдиний надійний спосіб виявити, що DAX під нею немає. Два коди помилки розрізняються за змістом: `EOPNOTSUPP` каже «ядро прапорці зрозуміло, але цей файл їх не тягне», `EINVAL` — «ядро не знає такого типу відображення взагалі», бо `MAP_SHARED_VALIDATE` і `MAP_SYNC` з'явилися разом у ядрі 4.15.
 
-```c
-static struct slot *map_log(const char *path, int *fd_out)
-{
-    int fd = open(path, O_RDWR);
-    if (fd < 0) { perror("open"); return NULL; }
-
-    void *base = mmap(NULL, (size_t)SLOT * SLOTS, PROT_READ | PROT_WRITE,
-                      MAP_SHARED_VALIDATE | MAP_SYNC, fd, 0);
-    if (base != MAP_FAILED) { *fd_out = fd; return base; }
-
-    switch (errno) {
-    case EOPNOTSUPP:
-        fprintf(stderr, "файл не тягне MAP_SYNC: прямого звертання для нього немає\n");
-        break;
-    case EINVAL:
-        fprintf(stderr, "ядро не знає MAP_SHARED_VALIDATE — старіше за 4.15\n");
-        break;
-    default:
-        perror("mmap");
-    }
-    close(fd);
-    return NULL;              /* продовжити без гарантій — гірше, ніж не запуститися */
-}
-```
+:::code proj-persist-by-hand/c/kod.c
 
 Далі — дві дії, з яких складається довговічність. `CLWB` відсилає копію рядка кешу вниз, лишаючи сам рядок на місці (`CLFLUSHOPT` робить те саме, але рядок викидає — на даних, які зараз-таки читатимуть, це зайва втрата). Обидві інструкції асинхронні, тому потрібен `SFENCE`. І потрібен ще один бар'єр, невидимий: компілятор має право переставити звичайні стори між собою, тож заборону треба видати і йому ([Упорядкованість пам'яті та бар'єри](root:sf-tasks/memory-ordering-barriers) — правила, за якими процесор і компілятор можуть міняти порядок звертань до пам'яті, і засоби, що цей порядок відновлюють).
 
-```c
-static void flush(const void *addr, size_t len)
-{
-    const char *p   = (const char *)((uintptr_t)addr & ~(uintptr_t)(LINE - 1));
-    const char *end = (const char *)addr + len;
-    for (; p < end; p += LINE)
-        _mm_clwb((void *)p);
-}
-
-static void fence(void)
-{
-    __atomic_signal_fence(__ATOMIC_SEQ_CST);   /* компіляторові: нічого не переставляй */
-    _mm_sfence();                              /* процесорові: дочекайся виштовхувань */
-}
-```
+:::code proj-persist-by-hand/c/kod-2.c
 
 Саме додавання запису повторює шість кроків із фігури — плюс нульовий, потрібний лише на другому колі кільця.
 
-```c
-static uint64_t seq;                /* номер наступного запису; ставить recover() */
-
-static int append(struct slot *ring, const void *rec, uint32_t n)
-{
-    struct slot *s = &ring[seq % SLOTS];
-    if (n > sizeof s->body) { errno = EMSGSIZE; return -1; }
-
-    if (s->commit != 0) {                       /* слот іде на друге коло: */
-        __atomic_store_n(&s->commit, (uint64_t)0, __ATOMIC_RELAXED);
-        flush(&s->commit, 8); fence();          /* спершу зняти стару ознаку */
-    }
-
-    memcpy(s->body, rec, n);                    /* 1 */
-    s->len = n;
-    s->crc = crc32_bitwise(rec, n);
-    flush(&s->len, 8 + n);                      /* 2 */
-    fence();                                    /* 3 */
-
-    __atomic_store_n(&s->commit, seq + 1, __ATOMIC_RELAXED);   /* 4 */
-    flush(&s->commit, 8);                       /* 5 */
-    fence();                                    /* 6 */
-
-    seq++;
-    return 0;
-}
-```
+:::code proj-persist-by-hand/c/kod-3.c
 
 Нульовий крок легко проґавити. Слот на другому колі приходить із ненульовою ознакою від давнього запису; якщо просто почати писати нове тіло, то аварія посеред копіювання лишить чинну на вигляд ознаку над сумішшю старих і нових байтів. Знімаємо ознаку — і вікно зникає.
 
@@ -145,47 +44,7 @@ static int append(struct slot *ring, const void *rec, uint32_t n)
 
 Відновлення — повний обхід кільця з переліком того, що прийнято й що відкинуто. Це і є перевірка цілісності після аварійного перезапуску; вона ж повертає номер, з якого писати далі.
 
-```c
-static uint64_t recover(struct slot *ring)
-{
-    uint64_t newest = 0, good = 0, broken = 0;
-
-    for (uint32_t i = 0; i < SLOTS; i++) {
-        struct slot *s = &ring[i];
-        uint64_t c = s->commit;
-        if (c == 0) continue;                       /* слот ніколи не фіксували */
-        if ((c - 1) % SLOTS != i || s->len > sizeof s->body ||
-            crc32_bitwise(s->body, s->len) != s->crc) {
-            broken++;                               /* сюди падає обірваний запис */
-            continue;
-        }
-        good++;
-        if (c > newest) newest = c;
-    }
-    printf("цілих: %llu, відкинутих: %llu, наступний номер: %llu\n",
-           (unsigned long long)good, (unsigned long long)broken,
-           (unsigned long long)newest);
-    return newest;
-}
-
-int main(int argc, char **argv)
-{
-    int fd;
-    struct slot *ring = map_log(argc > 1 ? argv[1] : "/mnt/pmem/log", &fd);
-    if (!ring) return 1;
-
-    seq = recover(ring);
-
-    char line[256];
-    while (fgets(line, sizeof line, stdin))
-        if (append(ring, line, (uint32_t)strlen(line)) < 0)
-            perror("append");
-
-    munmap(ring, (size_t)SLOT * SLOTS);
-    close(fd);
-    return 0;
-}
-```
+:::code proj-persist-by-hand/c/kod-4.c
 
 Файл готується один раз і назавжди — після цього гарячий шлях метаданих не торкається:
 
@@ -198,21 +57,7 @@ int main(int argc, char **argv)
 
 Бібліотека `libpmem` із набору PMDK робить те саме, але не зашиває вибір інструкцій:
 
-```c
-#include <libpmem.h>
-
-size_t mapped; int is_pmem;
-void *base = pmem_map_file(path, 0, 0, 0, &mapped, &is_pmem);  /* сама спробує MAP_SYNC */
-if (!base) { perror("pmem_map_file"); return 1; }
-if (!is_pmem) { fprintf(stderr, "це не постійна пам'ять\n"); return 1; }
-
-pmem_memcpy_persist(s->body, rec, n);      /* копіювання + доведення до довговічності */
-s->len = n; s->crc = crc32_bitwise(rec, n);
-pmem_persist(&s->len, 8);                  /* виштовхування + очікування */
-
-__atomic_store_n(&s->commit, seq + 1, __ATOMIC_RELAXED);
-pmem_persist(&s->commit, 8);
-```
+:::code proj-persist-by-hand/c/toi-samyi-zhurnal-cherez.c
 
 `pmem_persist` — це рівно наші `flush` і `fence`, злиті в одну назву: бібліотека сама вирішує, чи вживати `CLWB`, `CLFLUSHOPT` чи старий `CLFLUSH`, і чи взагалі щось виштовхувати. Останнє й пояснює, навіщо потрібна ця обгортка. Окрема функція `pmem_has_auto_flush()` питає платформу, чи кожен модуль у системі накритий механізмом, який доведе вміст кешів до комірок після зникнення живлення. Якщо накритий, межа довговічності проходить вище за кеші — і будь-яке виштовхування стає марною роботою. Зашитий у програму `CLWB` на такій машині просто палить такти; його відсутність на машині без цього механізму мовчки втрачає дані. Одне джерело правди тут — платформа, а не автор коду.
 

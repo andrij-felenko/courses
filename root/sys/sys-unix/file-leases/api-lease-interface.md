@@ -132,20 +132,7 @@ i_writecount = 0   self_wcount = 0
 
 **Мінімальний контракт цілком.**
 
-```c
-int fd = open("doc", O_RDONLY);
-
-struct sigaction sa = { 0 };
-sa.sa_sigaction = on_break;              /* void on_break(int, siginfo_t *, void *) */
-sa.sa_flags = SA_SIGINFO;
-sigaction(SIGRTMIN, &sa, NULL);
-
-fcntl(fd, F_SETSIG, SIGRTMIN);           /* черга й si_fd замість голого SIGIO */
-
-if (fcntl(fd, F_SETLEASE, F_WRLCK) == -1)
-    perror("F_SETLEASE");                /* F_SETOWN не потрібен: ядро вже */
-                                         /* призначило власником нашу групу потоків */
-```
+:::code api-lease-interface/c/main.h
 
 `F_SETSIG` ставлять **до** `F_SETLEASE`, а не після: у зворотному порядку між двома викликами вміщується чуже відкриття, і перше ж сповіщення прийде голим `SIGIO` — без номера дескриптора.
 

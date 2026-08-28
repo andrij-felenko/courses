@@ -47,250 +47,19 @@ cc -Wall -Wextra -O2 -o pmsafe pmsafe.c
 
 Почнімо з обробника й безпечної точки.
 
-```c
-/* pmsafe.c — читати файл на постійній пам'яті й пережити збійну комірку. */
-#define _GNU_SOURCE          /* BUS_MCEERR_*, si_addr_lsb, FALLOC_FL_PUNCH_HOLE */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <setjmp.h>
-#include <signal.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
-#include <sys/sysmacros.h>
-#include <linux/fs.h>
-#include <linux/fiemap.h>
-
-/* Безпечна точка — своя на кожен потік: сигнал від апаратного збою приходить
-   саме тому потокові, який торкнувся комірки, і стрибати він мусить у свій
-   кадр, а не в чужий. */
-static __thread sigjmp_buf safe_point;
-static __thread volatile sig_atomic_t guarded;  /* вікно відкрите */
-static __thread volatile sig_atomic_t f_code;   /* si_code */
-static __thread volatile sig_atomic_t f_lsb;    /* si_addr_lsb */
-static __thread void *volatile        f_addr;   /* si_addr */
-
-static void on_sigbus(int sig, siginfo_t *si, void *uc)
-{
-    (void)sig; (void)uc;
-
-    if (!guarded) {
-        /* Збій поза охоронюваним вікном: стрибати нікуди, а повертатися не
-           можна. write і _exit — з переліку дозволеного в обробнику. */
-        static const char m[] = "pmsafe: SIGBUS поза вікном\n";
-        ssize_t r = write(2, m, sizeof m - 1);
-        (void)r;
-        _exit(135);                       /* 128 + SIGBUS */
-    }
-
-    /* Звичайні присвоєння тут безпечні не тому, що вони атомарні, а тому, що
-       перерваний код більше не виконуватиметься: читати ці поля будуть уже
-       після стрибка, у звичайному контексті того самого потоку. */
-    f_addr = si->si_addr;
-    f_code = si->si_code;
-    f_lsb  = si->si_addr_lsb ? si->si_addr_lsb : 12;
-    guarded = 0;
-    siglongjmp(safe_point, 1);
-}
-
-static int arm_sigbus(void)
-{
-    struct sigaction sa;
-    memset(&sa, 0, sizeof sa);
-    sa.sa_sigaction = on_sigbus;
-    sa.sa_flags = SA_SIGINFO;   /* без нього не буде ні si_addr, ні si_code */
-    sigemptyset(&sa.sa_mask);
-    return sigaction(SIGBUS, &sa, NULL);
-}
-
-/* Копія з відображення під охороною: 0 — прочитано, -1 — збій, і тоді в f_*
-   лежить усе, що приніс сигнал.
-
-   Те, що sigsetjmp стоїть у крихітній окремій функції, — не косметика.
-   Локальні змінні функції, яка кликала sigsetjmp, після стрибка мають
-   невизначені значення, якщо їх міняли й не позначили volatile. Тут міняти
-   нічого: стрибок веде в кадр pm_copy, а той одразу повертає -1 звичайним
-   поверненням — і цикл нагорі бачить просто невдалий виклик. */
-static int pm_copy(void *dst, const void *src, size_t n)
-{
-    guarded = 1;
-    if (sigsetjmp(safe_point, 1) != 0)  /* 1 — маску сигналів теж відновити */
-        return -1;
-    memcpy(dst, src, n);
-    guarded = 0;
-    return 0;
-}
-```
+:::code proj-survive-a-bad-cell/c/pmsafe.c
 
 Далі — переклад адреси збою в координати, у яких ведеться список збійних ділянок. Тут ховається головне непорозуміння теми: `badblocks` рахує сектори від початку **блокового пристрою**, а не від початку файлу й навіть не від початку файлової системи.
 
-```c
-/* Зсув у файлі → фізичний зсув на блоковому пристрої. Відповідає файлова
-   система: вона одна знає, якими екстентами розкладено файл. */
-static int file_off_to_phys(int fd, off_t off, uint64_t *phys)
-{
-    struct { struct fiemap m; struct fiemap_extent e; } q;
-
-    memset(&q, 0, sizeof q);
-    q.m.fm_start        = (uint64_t)off;
-    q.m.fm_length       = 4096;
-    q.m.fm_flags        = FIEMAP_FLAG_SYNC;  /* спершу висадити на носій */
-    q.m.fm_extent_count = 1;
-
-    if (ioctl(fd, FS_IOC_FIEMAP, &q.m) < 0) return -1;
-    if (q.m.fm_mapped_extents != 1) { errno = ENOENT; return -1; }  /* діра */
-
-    *phys = q.e.fe_physical + ((uint64_t)off - q.e.fe_logical);
-    return 0;
-}
-
-/* Де шукати список і на скільки секторів зсунуто розділ від початку пристрою.
-   Файл «start» є лише в розділу; список badblocks — завжди в цілого. */
-static int find_device(int fd, char *bb, size_t sz, unsigned long long *part)
-{
-    struct stat st;
-    char dir[96], p[160], buf[64];
-    int f;
-
-    if (fstat(fd, &st) < 0) return -1;
-    snprintf(dir, sizeof dir, "/sys/dev/block/%u:%u",
-             major(st.st_dev), minor(st.st_dev));
-
-    *part = 0;
-    snprintf(p, sizeof p, "%s/start", dir);
-    f = open(p, O_RDONLY);
-    if (f >= 0) {
-        ssize_t k = read(f, buf, sizeof buf - 1);
-        close(f);
-        if (k > 0) { buf[k] = '\0'; *part = strtoull(buf, NULL, 10); }
-        snprintf(bb, sz, "%s/../badblocks", dir);
-    } else {
-        snprintf(bb, sz, "%s/badblocks", dir);
-    }
-    return 0;
-}
-
-/* Рядок списку — «початок довжина» у 512-байтових секторах. */
-static int in_badblocks(const char *path, unsigned long long sector,
-                        unsigned long long *s0, unsigned long long *len)
-{
-    unsigned long long s, n;
-    int hit = 0;
-    FILE *f = fopen(path, "r");
-
-    if (!f) return -1;
-    while (fscanf(f, "%llu %llu", &s, &n) == 2)
-        if (sector >= s && sector < s + n) { *s0 = s; *len = n; hit = 1; break; }
-    fclose(f);
-    return hit;
-}
-```
+:::code proj-survive-a-bad-cell/c/kod.c
 
 Тепер розчищення — і воно навмисно не робить того, що першим спадає на думку.
 
-```c
-/* Вирізати дірку й перезаписати. Обидва рухи йдуть ЧЕРЕЗ ДРАЙВЕР — і лише
-   тому носій дізнається, що ділянку час прибрати зі списку. */
-static int repair(int fd, off_t off, size_t len)
-{
-    void *zeros;
-    int rc;
-
-    if (fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
-                  off, (off_t)len) < 0)
-        return -1;
-
-    zeros = calloc(1, len);
-    if (!zeros) return -1;
-
-    /* Виділяючи блоки під цей запис, файлова система зануляє їх через
-       драйвер, а драйвер, побачивши в діапазоні биту ділянку, замовляє
-       прошивці планки очищення й викидає ділянку зі списку. */
-    rc = (pwrite(fd, zeros, len, off) == (ssize_t)len) ? 0 : -1;
-    free(zeros);
-    return rc ? rc : fsync(fd);
-}
-```
+:::code proj-survive-a-bad-cell/c/kod-2.c
 
 І збірка докупи: прохід по файлу вікнами, а на збої — розбір, розчищення й рівно одна повторна спроба.
 
-```c
-int main(int argc, char **argv)
-{
-    char bb[192], *map, *buf;
-    unsigned long long part = 0;
-    struct stat st;
-    off_t off, bad_off, aligned;
-    size_t gran, win = 4096;
-    long long good = 0, healed = 0, lost = 0;
-    int fd, rc = 0;
-
-    if (argc != 2) { fprintf(stderr, "вжиток: %s файл\n", argv[0]); return 2; }
-    if (arm_sigbus() < 0) { perror("sigaction"); return 1; }
-
-    fd = open(argv[1], O_RDWR);
-    if (fd < 0) { perror(argv[1]); return 1; }
-    if (fstat(fd, &st) < 0) { perror("fstat"); return 1; }
-    if (find_device(fd, bb, sizeof bb, &part) < 0) { perror("sysfs"); return 1; }
-
-    map = mmap(NULL, (size_t)st.st_size, PROT_READ, MAP_SHARED, fd, 0);
-    if (map == MAP_FAILED) { perror("mmap"); return 1; }
-    buf = malloc(win);
-    if (!buf) { fprintf(stderr, "бракує пам'яті\n"); return 1; }
-
-    for (off = 0; off < st.st_size; off += (off_t)win) {
-        size_t n = win;
-        if ((off_t)n > st.st_size - off) n = (size_t)(st.st_size - off);
-
-        if (pm_copy(buf, map + off, n) == 0) { good += (long long)n; continue; }
-
-        /* Сюди керування приходить лише стрибком з обробника. */
-        bad_off = (off_t)((char *)f_addr - map);
-        gran    = (size_t)1 << f_lsb;
-        aligned = bad_off & ~(off_t)(gran - 1);
-
-        fprintf(stderr, "збій: адреса %p, зсув у файлі %lld, ділянка %zu Б, %s\n",
-                f_addr, (long long)bad_off, gran,
-                f_code == BUS_MCEERR_AR ? "BUS_MCEERR_AR (спожито)" :
-                f_code == BUS_MCEERR_AO ? "BUS_MCEERR_AO (виявлено фоном)" :
-                                          "BUS_ADRERR (ядро до 6.5 або інша причина)");
-
-        uint64_t phys;
-        if (file_off_to_phys(fd, aligned, &phys) == 0) {
-            unsigned long long sec = phys / 512 + part, s0, len;
-            int hit = in_badblocks(bb, sec, &s0, &len);
-            fprintf(stderr, "  сектор пристрою %llu — %s\n", sec,
-                    hit == 1 ? "у списку badblocks" :
-                    hit == 0 ? "у списку немає (свіжа помилка чи інший носій)"
-                             : "список недоступний");
-            if (hit == 1)
-                fprintf(stderr, "  запис списку: %llu %llu\n", s0, len);
-        }
-
-        if (repair(fd, aligned, gran) < 0) {
-            perror("  розчищення"); rc = 1;
-        } else if (pm_copy(buf, map + off, n) == 0) {
-            healed++; lost += (long long)gran;
-        } else {
-            fprintf(stderr, "  ділянка не піддалася\n"); rc = 1;
-        }
-    }
-
-    printf("прочитано без збоїв %lld Б\n", good);
-    printf("розчищено ділянок   %lld (втрачено %lld Б — брати з копії)\n",
-           healed, lost);
-    free(buf);
-    munmap(map, (size_t)st.st_size);
-    close(fd);
-    return rc;
-}
-```
+:::code proj-survive-a-bad-cell/c/kod-3.c
 
 ## Чому запис у відображення не лікує комірку
 
@@ -322,22 +91,7 @@ memcpy 8 Б             ≈ 12 нс
 
 Битої комірки чекати не треба — прошивка вміє її вигадати:
 
-```sh
-$ sudo ndctl inject-error --block=20480 --count=1 namespace0.0
-$ sudo ndctl start-scrub && sudo ndctl wait-scrub
-$ cat /sys/block/pmem0/badblocks
-16384 1
-
-$ sudo ./pmsafe /mnt/pmem/data.bin
-збій: адреса 0x7f3a12c04000, зсув у файлі 4194304, ділянка 4096 Б, BUS_MCEERR_AR (спожито)
-  сектор пристрою 16384 — у списку badblocks
-  запис списку: 16384 1
-прочитано без збоїв 268431360 Б
-розчищено ділянок   1 (втрачено 4096 Б — брати з копії)
-
-$ cat /sys/block/pmem0/badblocks
-$
-```
+:::code proj-survive-a-bad-cell/sh/main.sh
 
 Числа розходяться навмисно, і це ще одна пастка координат: `--block` рахує 512-байтові блоки від початку **простору імен**, а список — від початку **блокового пристрою**. Між ними лежать службовий блок і масив описувачів сторінок, які при `--map=dev` з'їдають перші два мебібайти; різниця 20480 − 16384 = 4096 секторів — це рівно вони.
 

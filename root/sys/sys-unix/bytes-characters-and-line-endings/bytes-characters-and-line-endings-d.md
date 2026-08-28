@@ -336,58 +336,8 @@ argv[3] = NULL
 У системних програмах читання NUL-розділеного потоку з дескриптора файлу або каналу реалізується за допомогою функції `getdelim()` (POSIX.1-2008) або потокових ітераторів C++.
 
 :::tabs
-```c
-/* read_nul_stream.c — Безпечне читання NUL-розділеного потоку через getdelim().
- * Збірка: cc -std=c99 -Wall -Wextra -O2 read_nul_stream.c -o read_nul_stream
- */
-
-#define _POSIX_C_SOURCE 200809L
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main(void) {
-    char *entry = NULL;
-    size_t cap = 0;
-    ssize_t len;
-    size_t count = 0;
-
-    /* Читання потоку stdin з роздільником NUL (байт 0x00) */
-    while ((len = getdelim(&entry, &cap, '\0', stdin)) != -1) {
-        count++;
-        printf("[%zu] Запис (%zd байтів): %s\n", count, len, entry);
-    }
-
-    free(entry);
-    return 0;
-}
-```
-```cpp
-// read_nul_stream.cpp — Безпечне читання NUL-потоку в C++20.
-// Збірка: g++ -std=c++20 -Wall -Wextra -O2 read_nul_stream.cpp -o read_nul_stream
-
-#include <iostream>
-#include <string>
-#include <vector>
-
-int main() {
-    // Вимикаємо синхронізацію з stdio для максимальної швидкості
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-
-    std::string entry;
-    size_t count = 0;
-
-    // Читаємо стандартний ввід до кожного знайденого нульового байта '\0'
-    while (std::getline(std::cin, entry, '\0')) {
-        ++count;
-        std::cout << '[' << count << "] Запис (" << entry.size() << " байтів): " 
-                  << entry << '\n';
-    }
-
-    return 0;
-}
-```
+:::code bytes-characters-and-line-endings-d/c/read_nul_stream.c
+:::code bytes-characters-and-line-endings-d/cpp/read_nul_stream.cpp
 :::
 
 ## 6. Інженерний підсумок: залізна дисципліна текстових інтерфейсів

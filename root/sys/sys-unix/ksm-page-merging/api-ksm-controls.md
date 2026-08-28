@@ -187,113 +187,12 @@ awk '/^[0-9a-f]+-[0-9a-f]+ /{hdr=$0; ksm=0}
 Приклад підключення ділянки та процесу показано двома мовами — C та ідіоматичним C++ з RAII-обгорткою пам'яті.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/prctl.h>
-
-#ifndef PR_SET_MEMORY_MERGE
-#define PR_SET_MEMORY_MERGE 67
-#define PR_GET_MEMORY_MERGE 68
-#endif
-
-int main(void)
-{
-    const size_t len = 64u << 20;   /* 64 МіБ */
-
-    /* Анонімна приватна ділянка — єдиний тип, який KSM бере. */
-    void *p = mmap(NULL, len, PROT_READ | PROT_WRITE,
-                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (p == MAP_FAILED) { perror("mmap"); return 1; }
-    memset(p, 0xA5, len);           /* однаковий вміст у всіх сторінках */
-
-    /* Дозвіл на цю ділянку. Нуль НЕ означає «взято в роботу». */
-    if (madvise(p, len, MADV_MERGEABLE) != 0) { perror("madvise"); return 1; }
-
-    /* Або дозвіл на весь процес одразу (ядро 6.4+), зі спадкуванням. */
-    if (prctl(PR_SET_MEMORY_MERGE, 1, 0, 0, 0) != 0)
-        perror("prctl");            /* не смертельно: старе ядро або без CONFIG_KSM */
-
-    printf("pid=%d addr=%p\n", getpid(), p);
-    pause();                        /* тримаємо пам'ять, щоб було що сканувати */
-    return 0;
-}
-```
-```cpp
-#define _GNU_SOURCE
-#include <iostream>
-#include <cstring>
-#include <memory>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/prctl.h>
-
-#ifndef PR_SET_MEMORY_MERGE
-#define PR_SET_MEMORY_MERGE 67
-#define PR_GET_MEMORY_MERGE 68
-#endif
-
-class MmapRegion {
-    void *addr_{MAP_FAILED};
-    size_t len_{0};
-public:
-    explicit MmapRegion(size_t len) : len_(len) {
-        addr_ = mmap(nullptr, len_, PROT_READ | PROT_WRITE,
-                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    }
-    ~MmapRegion() {
-        if (addr_ != MAP_FAILED) munmap(addr_, len_);
-    }
-    MmapRegion(const MmapRegion&) = delete;
-    MmapRegion& operator=(const MmapRegion&) = delete;
-
-    void* get() const { return addr_; }
-    size_t size() const { return len_; }
-    bool valid() const { return addr_ != MAP_FAILED; }
-};
-
-int main() {
-    constexpr size_t len = 64u << 20;   // 64 МіБ
-    MmapRegion region(len);
-    if (!region.valid()) {
-        std::perror("mmap");
-        return 1;
-    }
-
-    std::memset(region.get(), 0xA5, region.size());
-
-    if (madvise(region.get(), region.size(), MADV_MERGEABLE) != 0) {
-        std::perror("madvise");
-        return 1;
-    }
-
-    if (prctl(PR_SET_MEMORY_MERGE, 1, 0, 0, 0) != 0) {
-        std::perror("prctl");
-    }
-
-    std::cout << "pid=" << getpid() << " addr=" << region.get() << std::endl;
-    pause();
-    return 0;
-}
-```
+:::code api-ksm-controls/c/main.c
+:::code api-ksm-controls/cpp/main.cpp
 :::
 
 Далі з другого термінала — увімкнути демон і подивитися, чи щось із цього вийшло:
 
-```bash
-echo 1 | sudo tee /sys/kernel/mm/ksm/run
-
-# рушило чи ні: full_scans мусить рости, pages_sharing — теж
-grep -H '' /sys/kernel/mm/ksm/{run,full_scans,pages_shared,pages_sharing,general_profit}
-
-# що дісталося саме нашому процесу
-cat /proc/$PID/ksm_stat
-
-# і чи справді ядро взяло ділянку — позначка mg
-grep -A24 "^$(printf %x $ADDR)" /proc/$PID/smaps | grep -E '^(KSM|VmFlags):'
-```
+:::code api-ksm-controls/sh/main.sh
 
 Судити про результат раніше, ніж `full_scans` збільшиться хоча б на одиницю, немає сенсу: до першого повного проходу лічильники показують не стан пам'яті, а те, докуди демон устиг дійти. Утиліти автоматизації та моніторингу зазвичай відстежують динаміку `pages_sharing` разом із CPU-навантаженням потоку `ksmd`, щоб оцінювати доцільність підтримання дедуплікації на конфігурації системи.

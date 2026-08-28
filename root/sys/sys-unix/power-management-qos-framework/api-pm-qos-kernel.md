@@ -10,27 +10,7 @@
 
 Центральною структурою агрегації є `struct pm_qos_constraints`. Вона тримає сортований список усіх висунутих вимог клієнтів та керує ланцюжком сповіщень:
 
-```c
-enum pm_qos_type {
-    PM_QOS_UNITLESS,
-    PM_QOS_MAX,   /* агрегат — найбільше зі значень */
-    PM_QOS_MIN,   /* агрегат — найменше зі значень */
-};
-
-struct pm_qos_constraints {
-    struct plist_head list;
-    s32 target_value;
-    s32 default_value;
-    s32 no_constraint_value;
-    enum pm_qos_type type;
-    struct blocking_notifier_head *notifiers;
-};
-
-struct pm_qos_request {
-    struct plist_node node;
-    struct pm_qos_constraints *qos;
-};
-```
+:::code api-pm-qos-kernel/c/struktury-ahrehatsii-ta.c
 
 Поля структури `struct pm_qos_constraints` мають такі значення та призначення:
 * `list`: пріоритетний список `struct plist_head`, у якому запити клієнтів автоматично впорядковані за зростанням або спаданням їх пріоритетного значення.
@@ -46,32 +26,7 @@ struct pm_qos_request {
 
 Кожен екземпляр пристрою `struct device` містить вказувальник `power.qos` на об'єкт `struct dev_pm_qos`, який тримає локальні вимоги до затримки відновлення, допуску затримки, частоти та станів живлення:
 
-```c
-enum dev_pm_qos_req_type {
-    DEV_PM_QOS_RESUME_LATENCY = 1,
-    DEV_PM_QOS_LATENCY_TOLERANCE,
-    DEV_PM_QOS_FLAGS,
-};
-
-struct dev_pm_qos_request {
-    enum dev_pm_qos_req_type type;
-    union {
-        struct plist_node pnode;
-        struct pm_qos_flags_request flr;
-    } data;
-    struct device *dev;
-};
-
-struct dev_pm_qos {
-    struct pm_qos_constraints resume_latency;
-    struct pm_qos_constraints latency_tolerance;
-    struct freq_constraints freq;
-    struct pm_qos_flags flags;
-    struct dev_pm_qos_request *resume_latency_req;
-    struct dev_pm_qos_request *latency_tolerance_req;
-    struct dev_pm_qos_request *flags_req;
-};
-```
+:::code api-pm-qos-kernel/c/struktury-pm-qos-dlia.c
 
 Поля структури `struct dev_pm_qos`:
 * `resume_latency`: об'єкт обмежень затримки відновлення робочого стану пристрою D0 (у мкс).
@@ -86,23 +41,7 @@ struct dev_pm_qos {
 
 Для керування робочими частотами процесорів у `cpufreq` та шин у `devfreq` використовується об'єкт `struct freq_constraints`:
 
-```c
-enum freq_qos_req_type {
-    FREQ_QOS_MIN = 1,
-    FREQ_QOS_MAX,
-};
-
-struct freq_constraints {
-    struct pm_qos_constraints min_freq;
-    struct pm_qos_constraints max_freq;
-};
-
-struct freq_qos_request {
-    enum freq_qos_req_type type;
-    struct plist_node pnode;
-    struct freq_constraints *qos;
-};
-```
+:::code api-pm-qos-kernel/c/struktury-harantii.c
 
 Структура `freq_constraints` містить два паралельні об'єкти агрегації:
 * `min_freq`: список запитів мінімальної частоти (тип агрегації `PM_QOS_MAX`, щоб обрати найвищу із запитаних мінімальних частот).

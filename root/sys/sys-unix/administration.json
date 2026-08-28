@@ -18,7 +18,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -29,7 +30,8 @@
           "proj": [
             {
               "file": "proj-atomic-pkg-installer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -58,13 +60,15 @@
           "proj": [
             {
               "file": "proj-building.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-deb-rpm.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -76,7 +80,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -87,7 +92,8 @@
           "proj": [
             {
               "file": "proj-gpg-verification-tool.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -116,13 +122,15 @@
           "proj": [
             {
               "file": "proj-sat-solver-engine.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-libsolv-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -144,7 +152,8 @@
           "proj": [
             {
               "file": "proj-minimal-bundle-launcher.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -161,7 +170,8 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -172,13 +182,15 @@
           "proj": [
             {
               "file": "proj-chroot-overlay-runner.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-container-vs-pkg-manifests.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -196,12 +208,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-ssh-escape-and-session-channel.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -217,19 +231,23 @@
           "api": [
             {
               "file": "api-authorized-keys-and-ssh-keygen.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-dsa-and-nist-curves.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-ssh-ca-authority.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -246,13 +264,16 @@
           "api": [
             {
               "file": "api-ssh-config-and-agent.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-ssh-agent-signer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -269,7 +290,8 @@
           "api": [
             {
               "file": "api-ssh-forwarding-options.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -281,7 +303,9 @@
           "proj": [
             {
               "file": "proj-ssh-tunnel-supervisor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -298,13 +322,16 @@
           "api": [
             {
               "file": "api-sshd-directives.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-ssh-hardening.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -315,12 +342,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-sftp-subsystem-and-rsync.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -332,7 +361,9 @@
           "proj": [
             {
               "file": "proj-rolling-checksum-sync.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -349,7 +380,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -360,7 +392,8 @@
           "proj": [
             {
               "file": "proj-nss-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -388,7 +421,8 @@
           "proj": [
             {
               "file": "proj-ldap-login-check.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -416,7 +450,8 @@
           "proj": [
             {
               "file": "proj-measure-cache.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -444,7 +479,8 @@
           "proj": [
             {
               "file": "proj-userdb-service.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -472,7 +508,8 @@
           "proj": [
             {
               "file": "proj-inspect-home-image.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -506,7 +543,8 @@
           "proj": [
             {
               "file": "proj-pam-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -516,7 +554,8 @@
             },
             {
               "file": "api-pam-library.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -533,13 +572,16 @@
           "api": [
             {
               "file": "api-account-tools-and-configs.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-ptmp-atomic-lock.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -561,13 +603,15 @@
           "proj": [
             {
               "file": "proj-session-device-handover.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-login1-dbus.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -590,7 +634,8 @@
           "api": [
             {
               "file": "api-crontab-and-anacrontab.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "hist": [
@@ -602,7 +647,9 @@
           "proj": [
             {
               "file": "proj-minicron.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -613,12 +660,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-tzfile-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }

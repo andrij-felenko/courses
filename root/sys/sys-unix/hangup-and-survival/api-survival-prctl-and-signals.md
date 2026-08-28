@@ -15,21 +15,7 @@
 
 pid_t setsid(void);
 ```
-```cpp
-#include <unistd.h>
-#include <sys/types.h>
-#include <system_error>
-
-namespace process_control {
-    inline pid_t create_session() {
-        pid_t sid = ::setsid();
-        if (sid < 0) {
-            throw std::system_error(errno, std::generic_category(), "setsid failed");
-        }
-        return sid;
-    }
-}
-```
+:::code api-survival-prctl-and-signals/cpp/setsid-stvorennia-novoho.cpp
 :::
 
 - **Призначення**: Створює новий сеанс ядра та нову групу процесів, якщо викликаючий процес не є лідером своєї поточної групи процесів (`PID != PGID`).
@@ -55,21 +41,7 @@ namespace process_control {
 
 pid_t getsid(pid_t pid);
 ```
-```cpp
-#include <unistd.h>
-#include <sys/types.h>
-#include <system_error>
-
-namespace process_control {
-    inline pid_t get_session_id(pid_t pid = 0) {
-        pid_t sid = ::getsid(pid);
-        if (sid < 0) {
-            throw std::system_error(errno, std::generic_category(), "getsid failed");
-        }
-        return sid;
-    }
-}
-```
+:::code api-survival-prctl-and-signals/cpp/getsid-otrymannia.cpp
 :::
 
 - **Призначення**: Повертає ідентифікатор сеансу `SID` процесу з ідентифікатором `pid`. Якщо аргумент `pid` дорівнює `0`, повертає `SID` поточного процесу.
@@ -91,21 +63,7 @@ namespace process_control {
 
 pid_t tcgetsid(int fd);
 ```
-```cpp
-#include <termios.h>
-#include <unistd.h>
-#include <system_error>
-
-namespace terminal_control {
-    inline pid_t get_terminal_session(int fd) {
-        pid_t sid = ::tcgetsid(fd);
-        if (sid < 0) {
-            throw std::system_error(errno, std::generic_category(), "tcgetsid failed");
-        }
-        return sid;
-    }
-}
-```
+:::code api-survival-prctl-and-signals/cpp/tcgetsid-otrymannia-sid.cpp
 :::
 
 - **Призначення**: Отримує ідентифікатор сеансу, асоційованого з відкритим термінальним пристроєм за файловим дескриптором `fd`.
@@ -126,22 +84,7 @@ namespace terminal_control {
 
 int ioctl(int fd, unsigned long request, ...);
 ```
-```cpp
-#include <sys/ioctl.h>
-#include <termios.h>
-#include <system_error>
-
-namespace terminal_control {
-    template <typename... Args>
-    inline int terminal_ioctl(int fd, unsigned long request, Args... args) {
-        int res = ::ioctl(fd, request, args...);
-        if (res < 0) {
-            throw std::system_error(errno, std::generic_category(), "ioctl terminal request failed");
-        }
-        return res;
-    }
-}
-```
+:::code api-survival-prctl-and-signals/cpp/2-keruvannia-zviazkom-iz.cpp
 :::
 
 | Запит `request` | Опис та сигнатура | Призначення та поведінка |
@@ -164,18 +107,7 @@ namespace terminal_control {
 int killpg(pid_t pgrp, int sig);
 int kill(pid_t pid, int sig);
 ```
-```cpp
-#include <csignal>
-#include <system_error>
-
-namespace signal_control {
-    inline void send_group_signal(pid_t pgrp, int sig) {
-        if (::killpg(pgrp, sig) < 0) {
-            throw std::system_error(errno, std::generic_category(), "killpg failed");
-        }
-    }
-}
-```
+:::code api-survival-prctl-and-signals/cpp/3-hrupova-syhnalna.cpp
 :::
 
 - **Семантика виклику `killpg(pgrp, sig)`**: розсилає сигнал `sig` кожному процесу, чий `PGID == pgrp`. Якщо `pgrp == 0`, сигнал надсилається поточній групі викликаючого процесу.
@@ -192,45 +124,8 @@ namespace signal_control {
 У деяких архітектурах супервізорів, мікросервісів та контейнерних середовищ потрібна поведінка, протилежна до `nohup`: якщо батьківський процес раптово гине (наприклад, по `SIGKILL`), дочірній процес повинен негайно завершитися, не переходячи у стан осиротілого демона під опіку PID 1. Для цього ядро Linux надає прапорець `PR_SET_PDEATHSIG`.
 
 :::tabs
-```c
-#include <sys/prctl.h>
-#include <signal.h>
-#include <unistd.h>
-#include <stdio.h>
-
-int enable_parent_death_signal(int signum) {
-    /* Надіслати signum дочірньому процесу, коли його батько завершується */
-    if (prctl(PR_SET_PDEATHSIG, signum) < 0) {
-        return -1;
-    }
-    /* Перевіряємо race condition: чи не помер батько до виклику prctl */
-    if (getppid() == 1) {
-        /* Батько вже загинув до реєстрації сигналу */
-        kill(getpid(), signum);
-    }
-    return 0;
-}
-```
-```cpp
-#include <sys/prctl.h>
-#include <csignal>
-#include <unistd.h>
-#include <system_error>
-
-namespace process_safety {
-
-void enable_parent_death_signal(int signum) {
-    if (::prctl(PR_SET_PDEATHSIG, signum) < 0) {
-        throw std::system_error(errno, std::generic_category(), "prctl PR_SET_PDEATHSIG failed");
-    }
-    // Захист від стану гонитви (race condition), якщо батьківський процес помер до prctl
-    if (::getppid() == 1) {
-        ::kill(::getpid(), signum);
-    }
-}
-
-} // namespace process_safety
-```
+:::code api-survival-prctl-and-signals/c/main.c
+:::code api-survival-prctl-and-signals/cpp/4-zvorotnyi-kontrakt.cpp
 :::
 
 **Особливості та обмеження `PR_SET_PDEATHSIG`**:
@@ -341,18 +236,7 @@ shopt -u huponexit
 
 int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
 ```
-```cpp
-#include <csignal>
-#include <system_error>
-
-namespace signal_control {
-    inline void set_signal_action(int signum, const struct sigaction& act, struct sigaction* oldact = nullptr) {
-        if (::sigaction(signum, &act, oldact) < 0) {
-            throw std::system_error(errno, std::generic_category(), "sigaction failed");
-        }
-    }
-}
-```
+:::code api-survival-prctl-and-signals/cpp/8-semantyka-dyspozytsii.cpp
 :::
 
 | Диспозиція | Семантика обробки | Спадкування через `fork()` | Спадкування через `execve()` |

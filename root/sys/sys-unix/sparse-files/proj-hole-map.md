@@ -66,276 +66,29 @@ cc -Wall -Wextra -O2 -o sparsecp sparsecp.c
 
 Почнімо з переносу — маленької частини, від якої залежить, чи копія взагалі буде повною.
 
-```c
-/* sparsecp.c — копія файлу, що зберігає діри. */
-#define _GNU_SOURCE          /* SEEK_DATA і SEEK_HOLE оголошено під ним */
-#define _FILE_OFFSET_BITS 64 /* off_t на 64 біти навіть у 32-бітній збірці */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-
-/* pread/pwrite, а не read/write: lseek, яким ми питаємо карту, пересуває
-   позицію в описі відкритого файлу — ту саму, від якої відлічував би read.
-   Виклики зі своїм зсувом позиції не чіпають, і два заняття перестають
-   заважати одне одному. */
-
-static ssize_t pread_full(int fd, void *buf, size_t n, off_t off)
-{
-    size_t done = 0;
-    while (done < n) {
-        ssize_t k = pread(fd, (char *)buf + done, n - done, off + (off_t)done);
-        if (k < 0) {
-            if (errno == EINTR) continue;       /* сигнал — не збій */
-            return -1;
-        }
-        if (k == 0) break;                      /* файл кінчився раніше, ніж просили */
-        done += (size_t)k;
-    }
-    return (ssize_t)done;
-}
-
-static int pwrite_full(int fd, const void *buf, size_t n, off_t off)
-{
-    size_t done = 0;
-    while (done < n) {
-        ssize_t k = pwrite(fd, (const char *)buf + done, n - done, off + (off_t)done);
-        if (k < 0) {
-            if (errno == EINTR) continue;
-            return -1;                          /* сюди прилітає ENOSPC */
-        }
-        if (k == 0) { errno = EIO; return -1; } /* нуля без помилки не буває — але страхуємось */
-        done += (size_t)k;
-    }
-    return 0;
-}
-
-/* Чи все вікно — нулі. Побайтово перевіряти мегабайт — марна робота
-   для процесора, тож ідемо машинними словами, вирівнявшись на початку. */
-static int all_zero(const void *p, size_t n)
-{
-    const unsigned char *b = (const unsigned char *)p;
-    size_t i = 0;
-    while (i < n && ((uintptr_t)(b + i) % sizeof(unsigned long)) != 0)
-        if (b[i++] != 0) return 0;
-    for (; i + sizeof(unsigned long) <= n; i += sizeof(unsigned long))
-        if (*(const unsigned long *)(const void *)(b + i) != 0) return 0;
-    for (; i < n; i++)
-        if (b[i] != 0) return 0;
-    return 1;
-}
-```
+:::code proj-hole-map/c/sparsecp.c
 
 Тепер обхід за картою. Він короткий саме тому, що правило руху сформульоване заздалегідь: `SEEK_DATA` дає початок острова, `SEEK_HOLE` від цього початку — його кінець, і наступне питання ставиться від кінця.
 
-```c
-enum { WALK_OK = 0, WALK_NO_MAP = 1, WALK_ERROR = -1 };
-
-static int copy_by_map(int sfd, int dfd, off_t size, char *buf, size_t bufsz,
-                       off_t *moved, long *islands)
-{
-    off_t pos = 0;
-    while (pos < size) {
-        off_t data = lseek(sfd, pos, SEEK_DATA);
-        if (data < 0) {
-            if (errno == ENXIO) break;          /* далі до кінця сама діра */
-            if (errno == EINVAL || errno == EOPNOTSUPP)
-                return WALK_NO_MAP;             /* цих питань тут не розуміють */
-            return WALK_ERROR;
-        }
-        off_t end = lseek(sfd, data, SEEK_HOLE);
-        if (end < 0) return WALK_ERROR;         /* не станеться: кінець файлу — теж діра */
-        if (end > size) end = size;             /* файл міг вирости під нами */
-        if (end <= data) break;                 /* карта не рухається — виходимо */
-
-        (*islands)++;
-        for (off_t off = data; off < end; ) {
-            size_t want = bufsz;
-            if ((off_t)want > end - off) want = (size_t)(end - off);
-            ssize_t got = pread_full(sfd, buf, want, off);
-            if (got < 0) return WALK_ERROR;
-            if (got == 0) { end = off; break; } /* джерело вкоротили під нами */
-            if (pwrite_full(dfd, buf, (size_t)got, off) < 0) return WALK_ERROR;
-            *moved += got;
-            off += got;
-        }
-        pos = end;
-    }
-    return WALK_OK;
-}
-```
+:::code proj-hole-map/c/kod.c
 
 Запасний шлях — той самий цикл, тільки прямий, з одним вимикачем: пропускати нульові вікна чи писати все підряд.
 
-```c
-static int copy_scanning(int sfd, int dfd, off_t size, char *buf, size_t bufsz,
-                         int punch, off_t *moved, off_t *skipped)
-{
-    for (off_t off = 0; off < size; ) {
-        size_t want = bufsz;
-        if ((off_t)want > size - off) want = (size_t)(size - off);
-        ssize_t got = pread_full(sfd, buf, want, off);
-        if (got < 0) return -1;
-        if (got == 0) break;
-        if (punch && all_zero(buf, (size_t)got)) {
-            *skipped += got;                    /* нічого не пишемо — тут буде діра */
-        } else {
-            if (pwrite_full(dfd, buf, (size_t)got, off) < 0) return -1;
-            *moved += got;
-        }
-        off += got;
-    }
-    return 0;
-}
-```
+:::code proj-hole-map/c/kod-2.c
 
 Лишилося зібрати це докупи — і саме тут стоять рішення, які легше пропустити, ніж потім знайти: чому приймач відкривається з `O_EXCL`, звідки береться розмір вікна й чому `ftruncate` наприкінці, а не на початку.
 
-```c
-int main(int argc, char **argv)
-{
-    enum { M_AUTO, M_ALWAYS, M_NEVER } mode = M_AUTO;
-    int opt;
-
-    while ((opt = getopt(argc, argv, "zn")) != -1) {
-        switch (opt) {
-        case 'z': mode = M_ALWAYS; break;
-        case 'n': mode = M_NEVER;  break;
-        default:  fprintf(stderr, "вжиток: %s [-z|-n] джерело копія\n", argv[0]);
-                  return 2;
-        }
-    }
-    if (argc - optind != 2) {
-        fprintf(stderr, "вжиток: %s [-z|-n] джерело копія\n", argv[0]);
-        return 2;
-    }
-    const char *src = argv[optind], *dst = argv[optind + 1];
-
-    int sfd = open(src, O_RDONLY);
-    if (sfd < 0) { perror(src); return 1; }
-
-    struct stat ss;
-    if (fstat(sfd, &ss) < 0) { perror("fstat джерела"); close(sfd); return 1; }
-    if (!S_ISREG(ss.st_mode)) {
-        fprintf(stderr, "%s: не звичайний файл — карти дір у нього немає\n", src);
-        close(sfd); return 1;
-    }
-
-    /* Карта описує стан метаданих ЗАРАЗ. Скидаємо джерело на носій, щоб
-       питати про рішення файлової системи, а не про її намір. */
-    if (fsync(sfd) < 0)
-        fprintf(stderr, "попередження: fsync джерела: %s\n", strerror(errno));
-
-    /* O_EXCL, а не O_TRUNC: у наявному файлі під «дірою» лишився б його
-       старий вміст — ми ж туди нічого не пишемо. Приймач мусить бути новим. */
-    int dfd = open(dst, O_WRONLY | O_CREAT | O_EXCL, ss.st_mode & 07777);
-    if (dfd < 0) { perror(dst); close(sfd); return 1; }
-
-    struct stat ds;
-    if (fstat(dfd, &ds) < 0) { perror("fstat копії"); close(sfd); close(dfd); return 1; }
-
-    /* Вікно кратне блокові ПРИЙМАЧА: діру там можна лишити лише цілими блоками. */
-    size_t unit = ds.st_blksize > 0 ? (size_t)ds.st_blksize : 4096u;
-    size_t bufsz = unit < (1u << 20) ? (((1u << 20) + unit - 1) / unit) * unit : unit;
-    char *buf = malloc(bufsz);
-    if (!buf) { fprintf(stderr, "бракує пам'яті на %zu Б\n", bufsz);
-                close(sfd); close(dfd); return 1; }
-
-    off_t moved = 0, skipped = 0;
-    long islands = 0;
-    const char *how = NULL;
-    int rc = 0;
-
-    if (mode == M_AUTO) {
-        int r = copy_by_map(sfd, dfd, ss.st_size, buf, bufsz, &moved, &islands);
-        if (r == WALK_OK)         how = "карта SEEK_DATA/SEEK_HOLE";
-        else if (r == WALK_ERROR) { perror("копіювання за картою"); rc = 1; }
-        /* WALK_NO_MAP — мовчки на запасний шлях */
-    }
-
-    if (!rc && how == NULL) {
-        int punch;
-        if      (mode == M_ALWAYS) punch = 1;
-        else if (mode == M_NEVER)  punch = 0;
-        else /* карти немає — груба ознака: місця віддано менше, ніж обіцяно
-                розміром. Одиниця st_blocks — 512 Б і з блоком ФС не пов'язана. */
-            punch = (long long)ss.st_blocks * 512 < (long long)ss.st_size;
-
-        if (copy_scanning(sfd, dfd, ss.st_size, buf, bufsz, punch, &moved, &skipped) < 0) {
-            perror("копіювання"); rc = 1;
-        } else {
-            how = punch ? "пошук нульових вікон" : "суцільне копіювання";
-        }
-    }
-
-    /* Розмір ставимо в кінці: якщо файл кінчається дірою, останній write
-       стався раніше за кінець, і без цього копія вийшла б коротшою. */
-    if (!rc && ftruncate(dfd, ss.st_size) < 0) { perror("ftruncate"); rc = 1; }
-    /* Поки дані не осіли, st_blocks копії — ще не рішення, а намір. */
-    if (!rc && fsync(dfd) < 0)                 { perror("fsync копії");  rc = 1; }
-
-    struct stat fin;
-    if (!rc && fstat(dfd, &fin) == 0) {
-        long long src_used = (long long)ss.st_blocks  * 512;
-        long long dst_used = (long long)fin.st_blocks * 512;
-        printf("спосіб            %s\n", how);
-        if (islands) printf("островів даних    %ld\n", islands);
-        printf("перенесено        %lld Б\n", (long long)moved);
-        if (skipped) printf("пропущено нулів   %lld Б\n", (long long)skipped);
-        printf("джерело           st_size %lld, зайнято %lld Б\n",
-               (long long)ss.st_size, src_used);
-        printf("копія             st_size %lld, зайнято %lld Б\n",
-               (long long)fin.st_size, dst_used);
-        if (src_used < ss.st_size && dst_used >= ss.st_size)
-            fprintf(stderr, "увага: у джерелі були діри, у копії їх немає — "
-                            "приймач розрідженості не тримає\n");
-    }
-
-    free(buf);
-    close(sfd);
-    if (close(dfd) < 0 && !rc) { perror("close копії"); rc = 1; }
-    return rc;
-}
-```
+:::code proj-hole-map/c/kod-3.c
 
 ## Перевірка: stat і du
 
 **Умова.** Терабайтний образ із двома острівцями даних: десять блоків по 4 КіБ на початку й двадцять сім блоків на зсуві 512 ГіБ.
 
-```sh
-$ truncate -s 1T src.img
-$ dd if=/dev/urandom of=src.img bs=4096 count=10 conv=notrunc status=none
-$ dd if=/dev/urandom of=src.img bs=4096 count=27 seek=134217728 conv=notrunc status=none
-$ sync
-
-$ ./sparsecp src.img copy.img
-спосіб            карта SEEK_DATA/SEEK_HOLE
-островів даних    2
-перенесено        151552 Б
-джерело           st_size 1099511627776, зайнято 151552 Б
-копія             st_size 1099511627776, зайнято 151552 Б
-```
+:::code proj-hole-map/sh/perevirka-stat-i-du.sh
 
 Двох чисел зі `stat` вистачає, щоб побачити обидві половини відповіді — і те, що копія однакова завдовжки, і те, що вона однакова завважки:
 
-```sh
-$ stat -c '%n  size=%s  blocks=%b по %B Б' src.img copy.img
-src.img   size=1099511627776  blocks=296 по 512 Б
-copy.img  size=1099511627776  blocks=296 по 512 Б
-
-$ du -h --apparent-size src.img copy.img
-1.0T    src.img
-1.0T    copy.img
-
-$ du -h src.img copy.img
-148K    src.img
-148K    copy.img
-```
+:::code proj-hole-map/sh/perevirka-stat-i-du-2.sh
 
 Тобто `du` без ключа й `du --apparent-size` дають ті самі два числа, що `stat` в `%b` і `%s`, лише в зручному вигляді. Розбіжність між ними — і є вся розрідженість.
 
@@ -370,29 +123,7 @@ $ cmp src.img copy.img && echo "байт у байт"
 
 І тут же видно, чим середній щабель драбини відрізняється від верхнього. Візьмімо файл із шістдесяти чотирьох мебібайтів справжніх записаних нулів — жодної діри в ньому немає:
 
-```sh
-$ dd if=/dev/zero of=zeros.bin bs=1M count=64 status=none
-$ du -h zeros.bin
-64M     zeros.bin
-
-$ ./sparsecp zeros.bin a.img        # карта: у джерелі дір немає — і в копії не буде
-спосіб            карта SEEK_DATA/SEEK_HOLE
-островів даних    1
-перенесено        67108864 Б
-джерело           st_size 67108864, зайнято 67108864 Б
-копія             st_size 67108864, зайнято 67108864 Б
-$ du -h a.img
-64M     a.img
-
-$ ./sparsecp -z zeros.bin b.img     # пошук нулів: діру вигадано на порожньому місці
-спосіб            пошук нульових вікон
-перенесено        0 Б
-пропущено нулів   67108864 Б
-джерело           st_size 67108864, зайнято 67108864 Б
-копія             st_size 67108864, зайнято 0 Б
-$ du -h b.img
-0       b.img
-```
+:::code proj-hole-map/sh/perevirka-stat-i-du-3.sh
 
 Обидві копії читаються однаково й обидві збігаються з оригіналом побайтово. Різниця тільки в тому, що `b.img` тепер може не влізти в місце, яке в нього нібито вже є.
 

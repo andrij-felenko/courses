@@ -16,59 +16,7 @@
 
 Друге — **не повертатися**. Ядро запускає `/init` як [перший процес](root:sys-unix/init-and-pid1), а вихід першого процесу для нього фатальний: у `kernel/exit.c` на цей випадок стоїть `panic("Attempted to kill init! exitcode=0x%08x\n", …)`. Тому головний цикл програми — нескінченний, і заразом він ховає сиріт: усі осиротілі процеси дістаються саме PID 1, і поховати їх більше нікому.
 
-```c
-/* init.c — найменший PID 1: підняти псевдо-ФС, показатися й не завершитися. */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/mount.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-
-static void mount_one(const char *src, const char *dst,
-                      const char *type, unsigned long flags)
-{
-    if (mkdir(dst, 0755) != 0 && errno != EEXIST)
-        printf("[init] mkdir %s: %s\n", dst, strerror(errno));
-    if (mount(src, dst, type, flags, NULL) != 0)
-        printf("[init] mount %s (%s): %s\n", dst, type, strerror(errno));
-    else
-        printf("[init] %-8s -> %s\n", type, dst);
-}
-
-static void show(const char *path)      /* доказ, що ядро вже відповідає */
-{
-    char buf[512];
-    int fd = open(path, O_RDONLY);
-    if (fd < 0) { printf("[init] %s: %s\n", path, strerror(errno)); return; }
-    ssize_t n = read(fd, buf, sizeof buf - 1);
-    close(fd);
-    if (n > 0) { buf[n] = '\0'; printf("[init] %s: %s", path, buf); }
-}
-
-int main(void)
-{
-    /* Друкувати одразу: якщо машина стане в паніку, скидати буфер буде нікому. */
-    setvbuf(stdout, NULL, _IONBF, 0);
-    printf("\n[init] PID %d, uid %d — простір користувача живий\n",
-           getpid(), getuid());
-
-    mount_one("proc",     "/proc", "proc",     MS_NOSUID | MS_NOEXEC | MS_NODEV);
-    mount_one("sysfs",    "/sys",  "sysfs",    MS_NOSUID | MS_NOEXEC | MS_NODEV);
-    mount_one("devtmpfs", "/dev",  "devtmpfs", MS_NOSUID);
-
-    show("/proc/cmdline");
-
-    for (;;) {                 /* виходу немає — PID 1 живе до кінця машини */
-        int st;
-        if (wait(&st) < 0 && errno == ECHILD)
-            pause();           /* дітей немає: спимо до наступного сигналу */
-    }
-}
-```
+:::code proj-tiny-initramfs/c/init.c
 
 `mkdir` усередині `mount_one` не зайвий: rootfs записуваний, тож теку під монтування можна створити просто на місці, і образ не мусить її нести. `devtmpfs` тут — не примха: ядро **не** монтує його саме, коли завантаження йде через initramfs, і без цього рядка `/dev` лишиться порожнім ([псевдо-ФС: procfs, sysfs, tmpfs, devtmpfs](root:sys-unix/pseudo-filesystems)).
 
@@ -159,66 +107,7 @@ sudo umount mnt
 
 Диск підключаємо до QEMU як `-drive file=rootdisk.img,format=raw,if=virtio` — усередині це буде `/dev/vda`. Тепер `/init` доростає до переходу.
 
-```c
-#include <dirent.h>
-
-static void die(const char *what)       /* PID 1 не має права вийти навіть з горя */
-{
-    printf("[init] %s: %s\n", what, strerror(errno));
-    for (;;) pause();                   /* спиняємось, щоб напис лишився на екрані */
-}
-
-/* Вичистити старий корінь, НЕ переходячи меж монтувань: у чужого монтування
-   інший st_dev — саме на ньому й спиняємось. */
-static void wipe(int dirfd)
-{
-    DIR *d = fdopendir(dirfd);          /* dirfd тепер належить d */
-    if (!d) { close(dirfd); return; }
-    struct stat here;
-    if (fstat(dirfd, &here) != 0) { closedir(d); return; }
-
-    struct dirent *e;
-    while ((e = readdir(d))) {
-        if (!strcmp(e->d_name, ".") || !strcmp(e->d_name, "..")) continue;
-        struct stat st;
-        if (fstatat(dirfd, e->d_name, &st, AT_SYMLINK_NOFOLLOW) != 0) continue;
-        int isdir = S_ISDIR(st.st_mode);
-        if (isdir) {
-            if (st.st_dev != here.st_dev) continue;   /* межа монтування */
-            int sub = openat(dirfd, e->d_name, O_RDONLY | O_DIRECTORY);
-            if (sub >= 0) wipe(sub);
-        }
-        unlinkat(dirfd, e->d_name, isdir ? AT_REMOVEDIR : 0);
-    }
-    closedir(d);
-}
-
-static void switch_root(const char *newroot, const char *init)
-{
-    /* 1. перенести вже підняті монтування — піднімати їх удруге марна робота */
-    static const char *keep[] = { "/dev", "/proc", "/sys" };
-    for (int i = 0; i < 3; i++) {
-        char dst[256];
-        snprintf(dst, sizeof dst, "%s%s", newroot, keep[i]);
-        if (mount(keep[i], dst, NULL, MS_MOVE, NULL) != 0) die(dst);
-    }
-
-    /* 2. стати в новий корінь і вичистити старий — саме це повертає пам'ять */
-    if (chdir(newroot) != 0) die("chdir newroot");
-    int oldroot = open("/", O_RDONLY | O_DIRECTORY);
-    if (oldroot < 0) die("open /");
-    wipe(oldroot);                      /* зникає й файл, що зараз виконується */
-
-    /* 3. новий корінь — спершу в дереві монтувань, потім у самому процесі */
-    if (mount(".", "/", NULL, MS_MOVE, NULL) != 0) die("mount --move . /");
-    if (chroot(".") != 0) die("chroot");
-    if (chdir("/")  != 0) die("chdir /");
-
-    /* 4. той самий процес міняє образ — PID 1 не переривається ні на мить */
-    execl(init, init, NULL);
-    die(init);                          /* сюди потрапляємо лише при невдачі */
-}
-```
+:::code proj-tiny-initramfs/c/krok-2-viddaty-korin.c
 
 Виклик у `main`, замість нескінченного циклу:
 

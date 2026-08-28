@@ -105,20 +105,7 @@ int str2sig(const char *restrict str, int *restrict pnum);
 
 Тут стандарт формулює не список, а умову: усі функції з `<stdatomic.h>`, окрім `atomic_init`, безпечні **за умови, що атомарні аргументи лок-фрі**; сама ж `atomic_is_lock_free` безпечна завжди.
 
-```c
-#include <stdatomic.h>
-
-static _Atomic unsigned long long dropped;
-
-/* перевірка на етапі складання: 2 — лок-фрі завжди, 1 — інколи, 0 — ніколи */
-_Static_assert(ATOMIC_LLONG_LOCK_FREE == 2, "лічильник не лок-фрі на цій платформі");
-
-static void on_signal(int signo)
-{
-    (void) signo;
-    atomic_fetch_add_explicit(&dropped, 1, memory_order_relaxed);   /* можна з обробника */
-}
-```
+:::code api-safe-functions/c/lok-fri-atomiky.c
 
 Умова істотна: атомарний об'єкт, для якого в процесора немає відповідної інструкції, компілятор реалізує через прихований замок — і всі попередні міркування про замок повертаються слово в слово ([лок-фрі структури](root:sf-tasks/lock-free-basics) — алгоритми, що обходяться атомарними інструкціями замість замків).
 
@@ -156,56 +143,7 @@ static void on_signal(int signo)
 
 Оскільки форматування недоступне цілком, число доводиться перекладати в цифри руками. Прийом простий: остача від ділення на десять дає молодшу цифру, тож буфер заповнюють справа наліво, а потім віддають одним `write`.
 
-```c
-#include <errno.h>
-#include <signal.h>
-#include <string.h>
-#include <unistd.h>
-
-/* Цифри лягають з кінця буфера. Повертає вказівник на першу з них,
-   довжину кладе в *len. Найдовше беззнакове 64-бітне число —
-   18446744073709551615 — це рівно 20 цифр, тож буфер такий і беруть. */
-static char *dec(unsigned long long v, char *end, size_t *len)
-{
-    char *p = end;
-    do {
-        *--p = (char) ('0' + v % 10);
-        v /= 10;
-    } while (v != 0);
-
-    *len = (size_t) (end - p);
-    return p;
-}
-
-static volatile sig_atomic_t hits;
-
-static void on_signal(int signo)
-{
-    int saved = errno;                 /* чужий errno — під захист */
-    char name[SIG2STR_MAX];
-    char digits[20];
-    char msg[3 + SIG2STR_MAX + 2 + 20 + 1];   /* "SIG" + ім'я + " #" + цифри + '\n' */
-    size_t n = 0, dlen, nlen;
-    char *d;
-
-    hits++;
-    d = dec((unsigned long long) hits, digits + sizeof digits, &dlen);
-
-    if (sig2str(signo, name) != 0)
-        strcpy(name, "?");
-    nlen = strlen(name);
-
-    memcpy(msg + n, "SIG", 3);  n += 3;
-    memcpy(msg + n, name, nlen);  n += nlen;
-    memcpy(msg + n, " #", 2);   n += 2;
-    memcpy(msg + n, d, dlen);   n += dlen;
-    msg[n++] = '\n';
-
-    (void) write(STDERR_FILENO, msg, n);   /* один виклик, без буферів */
-
-    errno = saved;
-}
-```
+:::code api-safe-functions/c/iak-nadrukuvaty-chyslo-bez.c
 
 Кожен виклик тут зі списку: `sig2str`, `strcpy`, `strlen`, `memcpy`, `write`. А розмір `msg` виписаний доданками навмисно: без `snprintf` спитати про потрібну довжину нема в кого й безпечно обрізати рядок теж нема чим, тож найгіршу довжину рахують на етапі письма й закладають у тип.
 

@@ -183,37 +183,8 @@
 Атомарне оновлення реалізується через поєднання трьох системних викликів POSIX:
 
 :::tabs
-```c
-/* 1. Створення тимчасового файла в тому ж каталозі */
-int fd = open("/usr/bin/nginx.dpkg-new", O_WRONLY | O_CREAT | O_TRUNC | O_NOFOLLOW, 0755);
-
-/* 2. Запис даних та примусовий скид кешу сторінок на фізичний диск */
-write(fd, payload_buffer, payload_len);
-fsync(fd);
-close(fd);
-
-/* 3. Атомарна заміна оригінального файла */
-rename("/usr/bin/nginx.dpkg-new", "/usr/bin/nginx");
-```
-```cpp
-// 1. Створення тимчасового файла та запис у C++20 через std::filesystem
-std::filesystem::path temp_path = "/usr/bin/nginx.dpkg-new";
-std::filesystem::path target_path = "/usr/bin/nginx";
-
-{
-    std::ofstream out(temp_path, std::ios::binary);
-    out.write(payload_buffer, payload_len);
-    out.flush();
-}
-
-// 2. Примусовий скид буферів (fsync) та атомарне перейменування
-int fd = ::open(temp_path.c_str(), O_RDWR);
-if (fd >= 0) {
-    ::fsync(fd);
-    ::close(fd);
-}
-std::filesystem::rename(temp_path, target_path);
-```
+:::code package-manager-model-d/c/main.h
+:::code package-manager-model-d/cpp/main.cpp
 :::
 
 ### Низькорівнева поведінка VFS та кешу сторінок (Page Cache & Writeback)

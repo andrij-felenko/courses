@@ -26,50 +26,7 @@
 
 Третя, найпростіша: бюджет треба ставити на те, що ви обіцяли, — на повну довжину зупинки, а не на її хвіст.
 
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <time.h>
-#include <signal.h>
-#include <sys/ioctl.h>
-#include <sys/wait.h>
-#include <linux/fs.h>          /* FIFREEZE, FITHAW */
-
-static double now_ms(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);      /* монотонний час: не стрибне від NTP */
-    return ts.tv_sec * 1000.0 + ts.tv_nsec / 1e6;
-}
-
-/* Сторож. Власний дескриптор відкрито ДО fork і ДО заморожування. */
-static pid_t spawn_watchdog(const char *mountpoint, unsigned deadline_ms)
-{
-    int wfd = open(mountpoint, O_RDONLY | O_DIRECTORY);
-    if (wfd < 0) { perror("сторож: open"); return -1; }
-
-    pid_t pid = fork();
-    if (pid < 0)  { perror("fork"); close(wfd); return -1; }
-    if (pid > 0)  { close(wfd); return pid; }   /* батько сторожевим fd не користується */
-
-    /* --- далі код сторожа: жодного відкриття файлів, жодного stdio --- */
-    struct timespec req = { deadline_ms / 1000,
-                            (long)(deadline_ms % 1000) * 1000000L }, rem;
-    while (nanosleep(&req, &rem) == -1 && errno == EINTR)
-        req = rem;                              /* добираємо залишок сну */
-
-    ioctl(wfd, FITHAW, 0);                      /* СПЕРШУ відтаємо… */
-    static const char m[] = "СТОРОЖ: дедлайн — файлову систему відтанули\n";
-    (void)!write(2, m, sizeof m - 1);           /* …і лише потім говоримо */
-    _exit(0);
-}
-```
+:::code proj-freeze-window/c/storozh-chomu-taimer.c
 
 Порядок двох останніх дій у сторожа не косметичний. Якщо повідомлення піде першим, а стандартний потік помилок перенаправлено у файл на тій самій файловій системі, сторож застрягне на власному звіті — усередині вікна, яке він мав закрити. Такий сторож гірший за жодного: він створює враження, що вихід є.
 
@@ -85,107 +42,13 @@ static pid_t spawn_watchdog(const char *mountpoint, unsigned deadline_ms)
 
 Друга половина програми — вимірювальна. Писар пише в циклі невеликими порціями й тримає найдовшу тривалість одного запису. Поза вікном це десяті частки мілісекунди, у вікні — уся його довжина.
 
-```c
-static volatile sig_atomic_t stop_writer = 0;
-static void on_term(int sig) { (void)sig; stop_writer = 1; }
-
-/* Писар. Файл створено ДО заморожування: O_CREAT усередині вікна застряг би. */
-static pid_t spawn_writer(const char *path)
-{
-    int wr = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (wr < 0) { perror("писар: open"); return -1; }
-
-    pid_t pid = fork();
-    if (pid < 0) { perror("fork"); close(wr); return -1; }
-    if (pid > 0) { close(wr); return pid; }
-
-    struct sigaction sa = { .sa_handler = on_term };   /* без SA_RESTART */
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGTERM, &sa, NULL);
-
-    char buf[4096];
-    memset(buf, 'x', sizeof buf);
-    double worst = 0.0;
-    unsigned long long ops = 0;
-
-    while (!stop_writer) {
-        off_t off = (off_t)(ops % 256) * sizeof buf;   /* файл лишається ~1 МіБ */
-        double a = now_ms();
-        ssize_t n = pwrite(wr, buf, sizeof buf, off);  /* тут і буде стан D */
-        double d = now_ms() - a;
-        if (n < 0 && errno != EINTR) break;
-        if (d > worst) worst = d;
-        ops++;
-        struct timespec pause = { 0, 1000000L };       /* 1 мс між записами */
-        nanosleep(&pause, NULL);
-    }
-    fprintf(stderr, "ПИСАР: записів %llu, найдовший pwrite() = %.1f мс\n", ops, worst);
-    _exit(0);
-}
-```
+:::code proj-freeze-window/c/pysar-skilky-koshtuie.c
 
 Звіт друкується не в обробнику сигналу, а в основному циклі: обробник лише ставить прапорець. Це та сама дисципліна, що й у сторожа, тільки з іншої причини — `fprintf` у переліку безпечних для обробника функцій теж немає.
 
 ## Головна частина
 
-```c
-int main(int argc, char **argv)
-{
-    if (argc < 3) {
-        fprintf(stderr, "вжиток: %s <точка-монтування> <вікно-мс> [--sync]\n", argv[0]);
-        return 2;
-    }
-    const char *mp = argv[1];
-    unsigned window_ms = (unsigned)strtoul(argv[2], NULL, 10);
-    int presync = (argc > 3 && strcmp(argv[3], "--sync") == 0);
-
-    char probe[PATH_MAX];
-    snprintf(probe, sizeof probe, "%s/freeze-probe.tmp", mp);
-
-    int fd = open(mp, O_RDONLY | O_DIRECTORY);   /* дескриптор ТОЧКИ МОНТУВАННЯ */
-    if (fd < 0) { perror("open точки монтування"); return 1; }
-
-    pid_t writer = spawn_writer(probe);
-    if (writer < 0) return 1;
-    pid_t dog = spawn_watchdog(mp, window_ms + 5000);   /* СТОРОЖ — ДО заморожування */
-    if (dog < 0) { kill(writer, SIGKILL); waitpid(writer, NULL, 0); return 1; }
-
-    struct timespec warmup = { 0, 200000000L };
-    nanosleep(&warmup, NULL);                    /* дати писареві розігнатися */
-
-    if (presync) syncfs(fd);                     /* виносимо масу брудних сторінок ЗА вікно */
-
-    double t0 = now_ms();
-    if (ioctl(fd, FIFREEZE, 0) < 0) {
-        fprintf(stderr, "FIFREEZE: %s\n", strerror(errno));
-        kill(dog, SIGKILL); kill(writer, SIGKILL);
-        return 1;
-    }
-    double t1 = now_ms();
-
-    /* ═══ ВІКНО. Сюди підставляють знімок. Писати в цю ФС не можна нічого. ═══ */
-    struct timespec hold = { window_ms / 1000,
-                             (long)(window_ms % 1000) * 1000000L };
-    nanosleep(&hold, NULL);
-
-    double t2 = now_ms();
-    int thawed = (ioctl(fd, FITHAW, 0) == 0);
-    double t3 = now_ms();
-    if (!thawed) fprintf(stderr, "FITHAW: %s\n", strerror(errno));
-
-    if (thawed) kill(dog, SIGKILL);   /* сторожа знімаємо ЛИШЕ після успішного відтавання */
-
-    fprintf(stderr, "FIFREEZE %.1f мс | утримання %.1f мс | FITHAW %.1f мс | вікно %.1f мс\n",
-            t1 - t0, t2 - t1, t3 - t2, t3 - t0);
-
-    kill(writer, SIGTERM);
-    waitpid(writer, NULL, 0);
-    waitpid(dog, NULL, 0);
-    unlink(probe);
-    close(fd);
-    return 0;
-}
-```
+:::code proj-freeze-window/c/holovna-chastyna.c
 
 Збирається без ключів: `cc -O2 -o freezewin freezewin.c`. Запускається від root на **окремому** томі — `./freezewin /mnt/test 1000`.
 

@@ -16,34 +16,8 @@
 - **`f`** (descriptor): Запуск виконуваного файлу здійснюється через відкритий файловий дескриптор, а не через шлях у файловій системі.
 
 :::tabs
-```c
-/* POSIX Сигнатури C */
-#include <unistd.h>
-
-int execve(const char *pathname, char *const argv[], char *const envp[]);
-int execv(const char *pathname, char *const argv[]);
-int execvp(const char *file, char *const argv[]);
-int execvpe(const char *file, char *const argv[], char *const envp[]);
-int execl(const char *pathname, const char *arg0, ... /*, (char *)0 */);
-int execlp(const char *file, const char *arg0, ... /*, (char *)0 */);
-int execle(const char *pathname, const char *arg0, ... /*, (char *)0, char *const envp[] */);
-int fexecve(int fd, char *const argv[], char *const envp[]);
-```
-```cpp
-// C++ POSIX Сигнатури у просторі імен extern "C"
-#include <unistd.h>
-
-extern "C" {
-int execve(const char *pathname, char *const argv[], char *const envp[]);
-int execv(const char *pathname, char *const argv[]);
-int execvp(const char *file, char *const argv[]);
-int execvpe(const char *file, char *const argv[], char *const envp[]);
-int execl(const char *pathname, const char *arg0, ...);
-int execlp(const char *file, const char *arg0, ...);
-int execle(const char *pathname, const char *arg0, ...);
-int fexecve(int fd, char *const argv[], char *const envp[]);
-}
-```
+:::code api-exec-and-environment/c/unistd.h
+:::code api-exec-and-environment/cpp/1-1-klasyfikatsiia-ta.hpp
 :::
 
 ### 1.2. Механіка fexecve() та системний виклик execveat()
@@ -109,32 +83,8 @@ int execveat(int dirfd, const char *pathname,
 ### 2.1. Сигнатури функцій POSIX
 
 :::tabs
-```c
-/* C POSIX Інтерфейс середовища */
-#include <stdlib.h>
-
-extern char **environ;
-
-char *getenv(const char *name);
-int setenv(const char *name, const char *value, int overwrite);
-int unsetenv(const char *name);
-int putenv(char *string);
-int clearenv(void);
-```
-```cpp
-// C++ Інтерфейс середовища stdlib.h / cstdlib
-#include <cstdlib>
-
-extern "C" {
-extern char **environ;
-
-char *getenv(const char *name);
-int setenv(const char *name, const char *value, int overwrite);
-int unsetenv(const char *name);
-int putenv(char *string);
-int clearenv(void);
-}
-```
+:::code api-exec-and-environment/c/stdlib.h
+:::code api-exec-and-environment/cpp/2-1-syhnatury-funktsii.hpp
 :::
 
 ### 2.2. Правила роботи та багатопоточна безпека
@@ -208,124 +158,6 @@ unsigned long getauxval(unsigned long type);
 Наведені нижче приклади демонструють створення ізольованого середовища виконання та інспектування системних атрибутів процесу.
 
 :::tabs
-```c
-/* Приклад на мові C: Ізольований запуск процесу з перевіркою помилок execve */
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
-#include <sys/auxv.h>
-
-void print_system_auxv(void) {
-    unsigned long page_size = getauxval(AT_PAGESZ);
-    unsigned long entry_addr = getauxval(AT_ENTRY);
-    unsigned long is_secure = getauxval(AT_SECURE);
-    const char *platform = (const char *)getauxval(AT_PLATFORM);
-
-    printf("=== System Auxiliary Vector Info ===\n");
-    printf("Page Size   : %lu bytes\n", page_size);
-    printf("Entry Point : 0x%lx\n", entry_addr);
-    printf("Secure Mode : %lu\n", is_secure);
-    printf("Platform    : %s\n\n", platform ? platform : "unknown");
-}
-
-int main(void) {
-    print_system_auxv();
-
-    /* Формування чітко контрольованого середовища */
-    char *custom_env[] = {
-        "PATH=/usr/bin:/bin",
-        "LANG=C.UTF-8",
-        "SECURE_TOKEN=xyz12345",
-        NULL
-    };
-
-    /* Аргументи запуску команди /usr/bin/env */
-    char *custom_argv[] = {
-        "env",
-        NULL
-    };
-
-    printf("Launching /usr/bin/env with controlled environment...\n");
-    fflush(stdout);
-
-    execve("/usr/bin/env", custom_argv, custom_env);
-
-    /* Код після execve виконується ТІЛЬКИ в разі помилки */
-    int err = errno;
-    fprintf(stderr, "Failed to execute execve: %s (errno: %d)\n", strerror(err), err);
-
-    if (err == ENOENT) {
-        fprintf(stderr, "Error: Binary /usr/bin/env not found.\n");
-    } else if (err == E2BIG) {
-        fprintf(stderr, "Error: Environment or argument list too large.\n");
-    }
-
-    return EXIT_FAILURE;
-}
-```
-```cpp
-// Приклад на мові C++20: RAII-обгортка для формування середовища та запуску
-#include <iostream>
-#include <vector>
-#include <string>
-#include <string_view>
-#include <span >
-#include <system_error>
-#include <unistd.h>
-#include <sys/auxv.h>
-
-class EnvironmentContainer {
-public:
-    void add_variable(std::string_view key, std::string_view value) {
-        std::string entry;
-        entry.reserve(key.size() + 1 + value.size());
-        entry.append(key).append("=").append(value);
-        storage_.push_back(std::move(entry));
-    }
-
-    [[nodiscard]] std::vector<char*> get_c_pointers() {
-        std::vector<char*> pointers;
-        pointers.reserve(storage_.size() + 1);
-        for (auto& str : storage_) {
-            pointers.push_back(str.data());
-        }
-        pointers.push_back(nullptr);
-        return pointers;
-    }
-
-private:
-    std::vector<std::string> storage_;
-};
-
-int main() {
-    // Зчитування auxv через C++ API
-    auto page_size = getauxval(AT_PAGESZ);
-    auto secure_mode = getauxval(AT_SECURE);
-
-    std::cout << "=== C++ Process Bootstrap Info ===\n";
-    std::cout << "Page Size: " << page_size << " bytes\n";
-    std::cout << "AT_SECURE: " << secure_mode << "\n\n";
-
-    EnvironmentContainer env_box;
-    env_box.add_variable("PATH", "/usr/bin:/bin");
-    env_box.add_variable("APP_MODE", "PRODUCTION");
-    env_box.add_variable("CPP_VERSION", "202002L");
-
-    auto envp = env_box.get_c_pointers();
-
-    std::vector<std::string> arg_strings = {"env"};
-    std::vector<char*> argv = {arg_strings[0].data(), nullptr};
-
-    ::execve("/usr/bin/env", argv.data(), envp.data());
-
-    // Обробка помилок
-    int error_code = errno;
-    std::system_error sys_err(error_code, std::generic_category());
-    std::cerr << "Execution failed: " << sys_err.what() << '\n';
-
-    return EXIT_FAILURE;
-}
-```
+:::code api-exec-and-environment/c/4-pryklady-vykorystannia.c
+:::code api-exec-and-environment/cpp/4-pryklady-vykorystannia.cpp
 :::

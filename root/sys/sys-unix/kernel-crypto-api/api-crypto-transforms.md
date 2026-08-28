@@ -47,53 +47,11 @@
 
 Типи з запитом мають однакову послідовність: виділити запит, прив'язати колбек, описати дані, викликати роботу.
 
-```c
-/* skcipher */
-req = skcipher_request_alloc(tfm, GFP_KERNEL);
-skcipher_request_set_callback(req, flags, compl, data);
-skcipher_request_set_crypt(req, src_sg, dst_sg, cryptlen, iv);
-err = crypto_skcipher_encrypt(req);          /* або crypto_skcipher_decrypt */
-
-/* ahash: або одним махом, або init → update… → final */
-ahash_request_set_crypt(req, src_sg, result, nbytes);
-err = crypto_ahash_digest(req);              /* finup = update + final */
-
-/* aead: асоційовані дані й корисне навантаження — в одному списку */
-aead_request_set_ad(req, assoclen);
-aead_request_set_crypt(req, src_sg, dst_sg, cryptlen, iv);
-err = crypto_aead_encrypt(req);
-
-/* akcipher */
-akcipher_request_set_crypt(req, src_sg, dst_sg, src_len, dst_len);
-err = crypto_akcipher_encrypt(req);
-
-/* kpp: вхід і вихід задають окремо */
-kpp_request_set_input(req, in_sg, in_len);
-kpp_request_set_output(req, out_sg, out_len);
-err = crypto_kpp_generate_public_key(req);   /* потім _compute_shared_secret */
-
-/* acomp */
-acomp_request_set_params(req, src_sg, dst_sg, slen, dlen);
-err = crypto_acomp_compress(req);            /* або crypto_acomp_decompress */
-```
+:::code api-crypto-transforms/c/odna-operatsiia.h
 
 Типи без запиту синхронні за побудовою — там нема чого чекати:
 
-```c
-SHASH_DESC_ON_STACK(desc, tfm);
-desc->tfm = tfm;
-crypto_shash_init(desc);
-crypto_shash_update(desc, data, len);
-crypto_shash_final(desc, out);
-crypto_shash_tfm_digest(tfm, data, len, out);      /* те саме одним викликом */
-
-crypto_lskcipher_encrypt(tfm, src, dst, len, siv); /* суцільні буфери, siv — вектор */
-crypto_cipher_encrypt_one(tfm, dst, src);          /* рівно blocksize байтів */
-
-crypto_sig_sign(tfm, src, slen, dst, dlen);
-crypto_sig_verify(tfm, src, slen, digest, dlen);   /* ненуль = підпис не збігся */
-crypto_rng_get_bytes(tfm, out, len);
-```
+:::code api-crypto-transforms/c/odna-operatsiia-2.h
 
 Розкладка даних для `aead` — єдина, де легко помилитися. Список джерела містить `assoclen` байтів асоційованих даних, а одразу за ними — текст; при шифруванні в приймачі має бути місце ще й на тег (`cryptlen + authsize`), при розшифруванні `cryptlen` **уже включає тег**. Про сам режим, у якому частину даних лише автентифікують, є стаття [автентифіковане шифрування](root:sf-security/authenticated-encryption) — там про те, чому тег рахують і від відкритого заголовка, і від шифротексту.
 
@@ -178,18 +136,7 @@ crypto_rng_get_bytes(tfm, out, len);
 
 Пастка тут одна, і вона в колбеку: запит, який поклали в чергу очікування, отримує **два** виклики колбека — спершу з `-EINPROGRESS` у мить, коли він вийшов з черги й пішов у роботу, і потім із власне результатом. Готовий колбек `crypto_req_done` це враховує, і саме тому його тіло починається з перевірки:
 
-```c
-void crypto_req_done(void *data, int err)
-{
-        struct crypto_wait *wait = data;
-
-        if (err == -EINPROGRESS)
-                return;
-
-        wait->err = err;
-        complete(&wait->completion);
-}
-```
+:::code api-crypto-transforms/c/praportsi-zapytu-i-kody.c
 
 Власний колбек, який цієї перевірки не має, розбудить того, хто чекає, зарано — і буфер розберуть посеред роботи.
 
@@ -240,42 +187,7 @@ void crypto_req_done(void *data, int err)
 
 ## Найкоротший робочий виклик
 
-```c
-struct crypto_aead *tfm;
-struct aead_request *req;
-DECLARE_CRYPTO_WAIT(wait);
-struct scatterlist sg[3];
-int err;
-
-tfm = crypto_alloc_aead("gcm(aes)", 0, 0);
-if (IS_ERR(tfm))
-        return PTR_ERR(tfm);
-
-err = crypto_aead_setkey(tfm, key, 32);            /* AES-256 */
-if (!err)
-        err = crypto_aead_setauthsize(tfm, 16);    /* тег 16 байтів */
-if (err)
-        goto out_free_tfm;
-
-req = aead_request_alloc(tfm, GFP_KERNEL);
-if (!req) {
-        err = -ENOMEM;
-        goto out_free_tfm;
-}
-
-sg_init_table(sg, 3);
-sg_set_buf(&sg[0], ad,   ad_len);     /* лише автентифікується */
-sg_set_buf(&sg[1], data, data_len);   /* шифрується на місці */
-sg_set_buf(&sg[2], tag,  16);         /* сюди ляже тег */
-
-aead_request_set_callback(req,
-        CRYPTO_TFM_REQ_MAY_BACKLOG | CRYPTO_TFM_REQ_MAY_SLEEP,
-        crypto_req_done, &wait);
-aead_request_set_ad(req, ad_len);
-aead_request_set_crypt(req, sg, sg, data_len, iv);
-
-err = crypto_wait_req(crypto_aead_encrypt(req), &wait);
-```
+:::code api-crypto-transforms/c/naikorotshyi-robochyi.c
 
 Розшифрування відрізняється трьома дрібницями: тег має вже лежати в списку джерела, `cryptlen` дорівнює `data_len + 16`, а `-EBADMSG` означає, що дані підроблені й вихідний буфер треба викинути цілком, не дивлячись у нього.
 

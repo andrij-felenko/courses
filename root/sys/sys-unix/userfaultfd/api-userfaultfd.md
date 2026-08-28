@@ -147,38 +147,8 @@ if (::ioctl(uffd, UFFDIO_API, &api2) == -1) return -1; // вмикаємо ли�
 ## Реєстрація діапазону
 
 :::tabs
-```c
-struct uffdio_range {
-    __u64 start;      /* кратна розміру сторінки */
-    __u64 len;        /* кратна розміру сторінки, не нуль */
-};
-
-struct uffdio_register {
-    struct uffdio_range range;
-    __u64 mode;       /* вхід:  MISSING | WP | MINOR                       */
-    __u64 ioctls;     /* вихід: які операції дозволено саме цьому діапазону */
-};
-
-#define UFFDIO_REGISTER_MODE_MISSING  (1<<0)
-#define UFFDIO_REGISTER_MODE_WP       (1<<1)
-#define UFFDIO_REGISTER_MODE_MINOR    (1<<2)
-```
-```cpp
-struct uffdio_range {
-    __u64 start;      // кратна розміру сторінки
-    __u64 len;        // кратна розміру сторінки, не нуль
-};
-
-struct uffdio_register {
-    struct uffdio_range range;
-    __u64 mode;       // вхід:  MISSING | WP | MINOR
-    __u64 ioctls;     // вихід: які операції дозволено саме цьому діапазону
-};
-
-#define UFFDIO_REGISTER_MODE_MISSING  (1<<0)
-#define UFFDIO_REGISTER_MODE_WP       (1<<1)
-#define UFFDIO_REGISTER_MODE_MINOR    (1<<2)
-```
+:::code api-userfaultfd/c/reiestratsiia-diapazonu.c
+:::code api-userfaultfd/cpp/reiestratsiia-diapazonu.cpp
 :::
 
 Режими можна поєднувати в одному виклику — `MISSING | WP` над анонімною ділянкою є звичайною справою: спершу сторінку приносять, потім стежать за записами в неї. Порожній `mode` — помилка.
@@ -242,84 +212,8 @@ ioctl(uffd, UFFDIO_UNREGISTER, &r);
 | `UFFDIO_WAKE` | — | `uffdio_range` | будить тих, кого лишили спати прапорцем `DONTWAKE` |
 
 :::tabs
-```c
-struct uffdio_copy {
-    __u64 dst;        /* адреса в зареєстрованому діапазоні, кратна сторінці */
-    __u64 src;        /* буфер наглядача — обов'язково ПОЗА діапазоном       */
-    __u64 len;
-    __u64 mode;       /* UFFDIO_COPY_MODE_DONTWAKE (1<<0) | _MODE_WP (1<<1)  */
-    __s64 copy;       /* вихід: скільки байтів лягло, або −errno             */
-};
-
-struct uffdio_zeropage {
-    struct uffdio_range range;
-    __u64 mode;       /* UFFDIO_ZEROPAGE_MODE_DONTWAKE (1<<0)                */
-    __s64 zeropage;   /* вихід: скільки байтів, або −errno                   */
-};
-
-struct uffdio_continue {
-    struct uffdio_range range;
-    __u64 mode;       /* _MODE_DONTWAKE (1<<0) | _MODE_WP (1<<1)             */
-    __s64 mapped;     /* вихід: скільки байтів відображено, або −errno       */
-};
-
-struct uffdio_writeprotect {
-    struct uffdio_range range;
-    __u64 mode;       /* _MODE_WP (1<<0) — поставити; без нього — зняти
-                         _MODE_DONTWAKE (1<<1)                               */
-};
-
-struct uffdio_poison {
-    struct uffdio_range range;
-    __u64 mode;       /* _MODE_DONTWAKE (1<<0)                               */
-    __s64 updated;    /* вихід: скільки байтів отруєно, або −errno           */
-};
-
-struct uffdio_move {
-    __u64 dst, src, len;
-    __u64 mode;       /* _MODE_DONTWAKE (1<<0) | _MODE_ALLOW_SRC_HOLES (1<<1) */
-    __s64 move;       /* вихід: скільки байтів перенесено, або −errno         */
-};
-```
-```cpp
-struct uffdio_copy {
-    __u64 dst;        // адреса в зареєстрованому діапазоні, кратна сторінці
-    __u64 src;        // буфер наглядача — обов'язково ПОЗА діапазоном
-    __u64 len;
-    __u64 mode;       // UFFDIO_COPY_MODE_DONTWAKE (1<<0) | _MODE_WP (1<<1)
-    __s64 copy;       // вихід: скільки байтів лягло, або −errno
-};
-
-struct uffdio_zeropage {
-    struct uffdio_range range;
-    __u64 mode;       // UFFDIO_ZEROPAGE_MODE_DONTWAKE (1<<0)
-    __s64 zeropage;   // вихід: скільки байтів, або −errno
-};
-
-struct uffdio_continue {
-    struct uffdio_range range;
-    __u64 mode;       // _MODE_DONTWAKE (1<<0) | _MODE_WP (1<<1)
-    __s64 mapped;     // вихід: скільки байтів відображено, або −errno
-};
-
-struct uffdio_writeprotect {
-    struct uffdio_range range;
-    __u64 mode;       // _MODE_WP (1<<0) — поставити; без нього — зняти
-                      // _MODE_DONTWAKE (1<<1)
-};
-
-struct uffdio_poison {
-    struct uffdio_range range;
-    __u64 mode;       // _MODE_DONTWAKE (1<<0)
-    __s64 updated;    // вихід: скільки байтів отруєно, або −errno
-};
-
-struct uffdio_move {
-    __u64 dst, src, len;
-    __u64 mode;       // _MODE_DONTWAKE (1<<0) | _MODE_ALLOW_SRC_HOLES (1<<1)
-    __s64 move;       // вихід: скільки байтів перенесено, або −errno
-};
-```
+:::code api-userfaultfd/c/sim-operatsii-nad.c
+:::code api-userfaultfd/cpp/sim-operatsii-nad.cpp
 :::
 
 Три речі варто прочитати з цих структур уважно.
@@ -376,38 +270,8 @@ while (::ioctl(uffd, UFFDIO_COPY, &c) == -1) {
 ## Повідомлення: struct uffd_msg
 
 :::tabs
-```c
-struct uffd_msg {
-    __u8  event;
-    __u8  reserved1;
-    __u16 reserved2;
-    __u32 reserved3;
-    union {
-        struct { __u64 flags; __u64 address;
-                 union { __u32 ptid; } feat; } pagefault;
-        struct { __u32 ufd; }                  fork;
-        struct { __u64 from, to, len; }        remap;
-        struct { __u64 start, end; }           remove;
-        struct { __u64 reserved1, reserved2, reserved3; } reserved;
-    } arg;                 /* саме reserved тримає об'єднання на 24 байтах */
-} __packed;
-```
-```cpp
-struct uffd_msg {
-    __u8  event;
-    __u8  reserved1;
-    __u16 reserved2;
-    __u32 reserved3;
-    union {
-        struct { __u64 flags; __u64 address;
-                 union { __u32 ptid; } feat; } pagefault;
-        struct { __u32 ufd; }                  fork;
-        struct { __u64 from, to, len; }        remap;
-        struct { __u64 start, end; }           remove;
-        struct { __u64 reserved1, reserved2, reserved3; } reserved;
-    } arg;                 // саме reserved тримає об'єднання на 24 байтах
-} __packed;
-```
+:::code api-userfaultfd/c/povidomlennia-struct-uffd.c
+:::code api-userfaultfd/cpp/povidomlennia-struct-uffd.cpp
 :::
 
 ![Побайтова розкладка повідомлення: спільний восьмибайтовий заголовок і об'єднання на 24 байти, яке читають по-різному залежно від поля event](img/uffd-msg-layout.svg)
@@ -433,32 +297,8 @@ struct uffd_msg {
 Ці три біти й вирішують, якою операцією збій закривати, тому розбір повідомлення починають саме з них, а не з адреси:
 
 :::tabs
-```c
-struct uffd_msg m;
-ssize_t n = read(uffd, &m, sizeof m);   /* після poll(POLLIN) на uffd */
-
-if (m.event == UFFD_EVENT_PAGEFAULT) {
-    if (m.arg.pagefault.flags & UFFD_PAGEFAULT_FLAG_WP)
-        clear_write_protect(m.arg.pagefault.address);      /* UFFDIO_WRITEPROTECT */
-    else if (m.arg.pagefault.flags & UFFD_PAGEFAULT_FLAG_MINOR)
-        map_existing(m.arg.pagefault.address);             /* UFFDIO_CONTINUE     */
-    else
-        fill_missing(m.arg.pagefault.address);             /* UFFDIO_COPY         */
-}
-```
-```cpp
-::uffd_msg m{};
-ssize_t n = ::read(uffd, &m, sizeof(m));  // після poll(POLLIN) на uffd
-
-if (m.event == UFFD_EVENT_PAGEFAULT) {
-    if (m.arg.pagefault.flags & UFFD_PAGEFAULT_FLAG_WP)
-        clear_write_protect(m.arg.pagefault.address);      // UFFDIO_WRITEPROTECT
-    else if (m.arg.pagefault.flags & UFFD_PAGEFAULT_FLAG_MINOR)
-        map_existing(m.arg.pagefault.address);             // UFFDIO_CONTINUE
-    else
-        fill_missing(m.arg.pagefault.address);             // UFFDIO_COPY
-}
-```
+:::code api-userfaultfd/c/povidomlennia-struct-uffd-2.c
+:::code api-userfaultfd/cpp/povidomlennia-struct-uffd-2.cpp
 :::
 
 Про `read` треба знати три речі. Буфер, менший за `sizeof(struct uffd_msg)`, дає `EINVAL` — прочитати «заголовок, а потім решту» не можна, повідомлення віддають лише цілим. Більший буфер вигідний: ядро віддасть **цілу кількість повідомлень** за один виклик, і на щільному потоці збоїв це помітно дешевше, ніж системний виклик на кожен. А на дескрипторі з `O_NONBLOCK` порожня черга дає `EAGAIN` — тобто нормальна форма петлі наглядача це [`poll` чи `epoll`](root:sys-unix/select-poll-epoll) на `uffd` разом із рештою джерел подій, а потім читання доти, доки не прийде `EAGAIN`.
@@ -470,66 +310,8 @@ if (m.event == UFFD_EVENT_PAGEFAULT) {
 ## Найкоротша працездатна послідовність
 
 :::tabs
-```c
-int uffd = syscall(SYS_userfaultfd, O_CLOEXEC | O_NONBLOCK);
-
-struct uffdio_api api = { .api = UFFD_API, .features = 0 };
-ioctl(uffd, UFFDIO_API, &api);
-
-void *area = mmap(NULL, len, PROT_READ | PROT_WRITE,
-                  MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-
-struct uffdio_register reg = {
-    .range = { .start = (unsigned long)area, .len = len },
-    .mode  = UFFDIO_REGISTER_MODE_MISSING,
-};
-ioctl(uffd, UFFDIO_REGISTER, &reg);
-/* перевірити: reg.ioctls & ((__u64)1 << _UFFDIO_COPY) */
-
-/* у потоці-наглядачі: */
-struct pollfd pf = { .fd = uffd, .events = POLLIN };
-poll(&pf, 1, -1);
-
-struct uffd_msg m;
-read(uffd, &m, sizeof m);
-
-unsigned long page = m.arg.pagefault.address & ~(pagesize - 1);
-fetch(page, buf);                                  /* буфер ПОЗА area */
-
-struct uffdio_copy c = { .dst = page, .src = (unsigned long)buf,
-                         .len = pagesize, .mode = 0 };
-ioctl(uffd, UFFDIO_COPY, &c);
-```
-```cpp
-int uffd = ::syscall(SYS_userfaultfd, O_CLOEXEC | O_NONBLOCK);
-
-::uffdio_api api{.api = UFFD_API, .features = 0};
-::ioctl(uffd, UFFDIO_API, &api);
-
-void* area = ::mmap(nullptr, len, PROT_READ | PROT_WRITE,
-                    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-
-::uffdio_register reg{
-    .range = {.start = reinterpret_cast<std::uintptr_t>(area), .len = len},
-    .mode  = UFFDIO_REGISTER_MODE_MISSING,
-};
-::ioctl(uffd, UFFDIO_REGISTER, &reg);
-// перевірити: reg.ioctls & ((__u64)1 << _UFFDIO_COPY)
-
-// у потоці-наглядачі:
-::pollfd pf{.fd = uffd, .events = POLLIN};
-::poll(&pf, 1, -1);
-
-::uffd_msg m{};
-::read(uffd, &m, sizeof(m));
-
-auto page = m.arg.pagefault.address & ~(pagesize - 1);
-fetch(page, buf);                                  // буфер ПОЗА area
-
-::uffdio_copy c{.dst = page, .src = reinterpret_cast<std::uintptr_t>(buf),
-                .len = pagesize, .mode = 0};
-::ioctl(uffd, UFFDIO_COPY, &c);
-```
+:::code api-userfaultfd/c/naikorotsha-pratsezdatna.h
+:::code api-userfaultfd/cpp/naikorotsha-pratsezdatna.hpp
 :::
 
 Одна межа версій, без якої ця послідовність не оживе на сучасній системі: від 5.11 типове значення `vm.unprivileged_userfaultfd` — нуль, тож непривілейований процес мусить додати до прапорців `UFFD_USER_MODE_ONLY`, інакше дістане `EPERM`. На ядрах до 5.11 той самий прапорець дає `EINVAL`, бо ядро його не знає, — тому переносний код пробує спершу з ним, а на `EINVAL` повторює без нього.

@@ -65,34 +65,8 @@ LIBFOO_2.0 {
 Розглянемо прив'язку двох версій у мовах C та C++:
 
 :::tabs
-```c
-// foo_ver.c — Застосування .symver у C
-int foo_process_v1(int arg) {
-    return arg * 2;
-}
-__asm__(".symver foo_process_v1, foo_process@LIBFOO_1.0");
-
-int foo_process_v2(int arg, int flags) {
-    return arg * flags;
-}
-__asm__(".symver foo_process_v2, foo_process@@LIBFOO_2.0");
-```
-```cpp
-// foo_ver.cpp — Застосування .symver у C++ з обгорткою extern "C"
-extern "C" {
-
-int foo_process_v1(int arg) {
-    return arg * 2;
-}
-__asm__(".symver foo_process_v1, foo_process@LIBFOO_1.0");
-
-int foo_process_v2(int arg, int flags) {
-    return arg * flags;
-}
-__asm__(".symver foo_process_v2, foo_process@@LIBFOO_2.0");
-
-}
-```
+:::code api-symbol-versioning/c/foo_ver.c
+:::code api-symbol-versioning/cpp/foo_ver.cpp
 :::
 
 - **Один собачка `@`:** застаріла/прихована версія символу `foo_process@LIBFOO_1.0`. Використовується лише вже скомпільованими бінарними файлами.
@@ -103,34 +77,8 @@ __asm__(".symver foo_process_v2, foo_process@@LIBFOO_2.0");
 Для того щоб уникнути прямих асемблерних вставок, які можуть викликати проблеми при декоруванні імен у C++ (C++ Name Mangling), сучасні компілятори ввели спеціальний атрибут `symver`:
 
 :::tabs
-```c
-// foo_attr.c — Застосування атрибута symver у C
-__attribute__((symver("foo_process@LIBFOO_1.0")))
-int foo_process_v1(int arg) {
-    return arg * 2;
-}
-
-__attribute__((symver("foo_process@@LIBFOO_2.0")))
-int foo_process_v2(int arg, int flags) {
-    return arg * flags;
-}
-```
-```cpp
-// foo_attr.cpp — Застосування атрибута symver у C++
-extern "C" {
-
-__attribute__((symver("foo_process@LIBFOO_1.0")))
-int foo_process_v1(int arg) {
-    return arg * 2;
-}
-
-__attribute__((symver("foo_process@@LIBFOO_2.0")))
-int foo_process_v2(int arg, int flags) {
-    return arg * flags;
-}
-
-}
-```
+:::code api-symbol-versioning/c/foo_attr.c
+:::code api-symbol-versioning/cpp/foo_attr.cpp
 :::
 
 У мові C++ при використанні версіонування символів для функцій з перевантаженням чи у просторах імен (`namespaces`) обов'язково використовується блок `extern "C"`, щоб уникнути викривлення імені компонувальником, або використовується опис C++ декорованого імені у скрипті версій через блочну інструкцію `extern "C++"`.
@@ -231,116 +179,8 @@ $ nm -D libfoo.so.1.2.0 | grep foo_process
 У наведених прикладах показано безпечне динамічне завантаження бібліотеки, явне отримання покажчиків на дві різні версії однієї функції та обробку помилок.
 
 :::tabs
-```c
-// main.c — Явне завантаження версіонованих символів у C
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <dlfcn.h>
-
-// Оголошення типів покажчиків на функції для двох версій ABI
-typedef int (*foo_v1_fn)(int);
-typedef int (*foo_v2_fn)(int, int);
-
-void run_dynamic_test(void) {
-    // 1. Відкриваємо спільну бібліотеку за допомогою dlopen
-    void* handle = dlopen("libfoo.so.1", RTLD_LAZY);
-    if (!handle) {
-        fprintf(stderr, "Помилка завантаження бібліотеки: %s\n", dlerror());
-        return;
-    }
-
-    // Очищаємо попередні помилки dlfcn
-    dlerror();
-
-    // 2. Отримуємо покажчик на старий ABI v1.0 через dlvsym
-    foo_v1_fn func_v1 = (foo_v1_fn)dlvsym(handle, "foo_process", "LIBFOO_1.0");
-    char* error = dlerror();
-    if (error != NULL) {
-        fprintf(stderr, "Помилка отримання символу v1.0: %s\n", error);
-    } else {
-        int res1 = func_v1(42);
-        printf("[C Client] Виклик foo_process@LIBFOO_1.0(42) повернув: %d\n", res1);
-    }
-
-    // 3. Отримуємо покажчик на новий ABI v2.0 через dlvsym
-    foo_v2_fn func_v2 = (foo_v2_fn)dlvsym(handle, "foo_process", "LIBFOO_2.0");
-    error = dlerror();
-    if (error != NULL) {
-        fprintf(stderr, "Помилка отримання символу v2.0: %s\n", error);
-    } else {
-        int res2 = func_v2(42, 100);
-        printf("[C Client] Виклик foo_process@@LIBFOO_2.0(42, 100) повернув: %d\n", res2);
-    }
-
-    // 4. Закриваємо дескриптор бібліотеки
-    dlclose(handle);
-}
-```
-```cpp
-// main.cpp — Ідіоматична обгортка RAII для dlvsym у C++
-#define _GNU_SOURCE
-#include <iostream>
-#include <memory>
-#include <string_view>
-#include <stdexcept>
-#include <dlfcn.h>
-
-// RAII обгортка для безпечного керування ресурсами dlopen/dlclose
-class SharedLibrary {
-    void* handle_{nullptr};
-public:
-    explicit SharedLibrary(std::string_view filepath) {
-        handle_ = dlopen(filepath.data(), RTLD_LAZY);
-        if (!handle_) {
-            throw std::runtime_error(std::string("Не вдалося відкрити бібліотеку: ") + dlerror());
-        }
-    }
-
-    ~SharedLibrary() {
-        if (handle_) {
-            dlclose(handle_);
-        }
-    }
-
-    // Забороняємо копіювання для запобігання подвійному закриттю дескриптора
-    SharedLibrary(const SharedLibrary&) = delete;
-    SharedLibrary& operator=(const SharedLibrary&) = delete;
-
-    // Шаблонний метод для безпечного отримання версіонованого покажчика
-    template<typename FuncSignature>
-    FuncSignature get_versioned_symbol(std::string_view symbol, std::string_view version) const {
-        dlerror(); // Скидаємо попередній стан помилки
-        void* ptr = dlvsym(handle_, symbol.data(), version.data());
-        const char* err = dlerror();
-        if (err) {
-            throw std::runtime_error(std::string("Символ ") + symbol.data() + 
-                                     "@" + version.data() + " не знайдено: " + err);
-        }
-        return reinterpret_cast<FuncSignature>(ptr);
-    }
-};
-
-void run_dynamic_test() {
-    try {
-        SharedLibrary lib("libfoo.so.1");
-
-        using func_v1_t = int(*)(int);
-        using func_v2_t = int(*)(int, int);
-
-        auto func_v1 = lib.get_versioned_symbol<func_v1_t>("foo_process", "LIBFOO_1.0");
-        std::cout << "[C++ Client] Виклик foo_process@LIBFOO_1.0(42) повернув: " 
-                  << func_v1(42) << "\n";
-
-        auto func_v2 = lib.get_versioned_symbol<func_v2_t>("foo_process", "LIBFOO_2.0");
-        std::cout << "[C++ Client] Виклик foo_process@@LIBFOO_2.0(42, 100) повернув: " 
-                  << func_v2(42, 100) << "\n";
-
-    } catch (const std::exception& ex) {
-        std::cerr << "[C++ Error] " << ex.what() << "\n";
-    }
-}
-```
+:::code api-symbol-versioning/c/main.c
+:::code api-symbol-versioning/cpp/main.cpp
 :::
 
 Використання `dlvsym()` гарантує точне управління завантаженням реалізацій у складних мультиверсійних середовищах, захищаючи додатки від непередбачуваної поведінки завантажувача.

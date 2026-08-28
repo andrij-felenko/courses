@@ -36,43 +36,8 @@ int sched_setscheduler(pid_t pid, int policy, const struct sched_param *param) n
 Для роботи з алгоритмом Earliest Deadline First (EDF) у класі `SCHED_DEADLINE` використовується розширений системний виклик `sched_setattr()`, що приймає структуру `struct sched_attr`. Цей клас планування гарантує процесу отримання `Q` наносекунд процесорного часу (`sched_runtime`) протягом кожного періоду `P` (`sched_period`) з інтервалом дедлайну `D` (`sched_deadline`).
 
 :::tabs
-```c
-#include <sched.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-struct sched_attr {
-    uint32_t size;              // Розмір структури (sizeof(struct sched_attr))
-    uint32_t sched_policy;      // SCHED_DEADLINE (6)
-    uint64_t sched_flags;       // Додаткові прапорці (SCHED_FLAG_RESET_ON_FORK)
-    int32_t  sched_nice;        // Використовується для SCHED_OTHER (-20..19)
-    uint32_t sched_priority;    // Використовується для SCHED_FIFO/RR (1..99)
-    
-    /* Параметри реального часу для SCHED_DEADLINE (у наносекундах) */
-    uint64_t sched_runtime;     // Гарантований час виконання на період
-    uint64_t sched_deadline;    // Відносний дедлайн
-    uint64_t sched_period;      // Період повторення завдання
-};
-```
-```cpp
-#include <sched.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <cstdint>
-
-struct sched_attr {
-    std::uint32_t size;           // Розмір структури (sizeof(struct sched_attr))
-    std::uint32_t sched_policy;   // SCHED_DEADLINE (6)
-    std::uint64_t sched_flags;    // Додаткові прапорці (SCHED_FLAG_RESET_ON_FORK)
-    std::int32_t  sched_nice;     // Використовується для SCHED_OTHER (-20..19)
-    std::uint32_t sched_priority; // Використовується для SCHED_FIFO/RR (1..99)
-    
-    /* Параметри реального часу для SCHED_DEADLINE (у наносекундах) */
-    std::uint64_t sched_runtime;  // Гарантований час виконання на період
-    std::uint64_t sched_deadline; // Відносний дедлайн
-    std::uint64_t sched_period;   // Період повторення завдання
-};
-```
+:::code api-rt-scheduling/c/suchasnyi-vyklyk-sched.c
+:::code api-rt-scheduling/cpp/suchasnyi-vyklyk-sched.cpp
 :::
 
 Поле `size` робить структуру розширюваною: програма передає `sizeof(struct sched_attr)` свого заголовка, а ядро визначає за цим числом, скільки полів воно розуміє. Тому склад структури залежить від версії — приміром, у ядрах від 5.3 у її хвості з'явилися ще `sched_util_min` і `sched_util_max` (підказки утилізації для регулятора частоти), і код, зібраний зі старішим заголовком, працює далі без змін.
@@ -111,64 +76,8 @@ int pthread_setaffinity_np(pthread_t thread, std::size_t cpusetsize, const cpu_s
 ### Приклад встановлення RT-пріоритету та прив'язки потоку C / C++
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <pthread.h>
-#include <sched.h>
-#include <stdio.h>
-#include <string.h>
-
-int configure_thread_rt_and_affinity(pthread_t thread, int priority, int cpu_id) {
-    struct sched_param param;
-    cpu_set_t cpuset;
-
-    /* 1. Встановлення RT-пріоритету SCHED_FIFO.
-       Функції pthread_* повертають код помилки й НЕ встановлюють errno,
-       тому тут strerror(ret), а не perror(). */
-    param.sched_priority = priority;
-    int ret = pthread_setschedparam(thread, SCHED_FIFO, &param);
-    if (ret != 0) {
-        fprintf(stderr, "pthread_setschedparam failed: %s\n", strerror(ret));
-        return ret;
-    }
-
-    /* 2. Прив'язка до конкретного ядра CPU */
-    CPU_ZERO(&cpuset);
-    CPU_SET(cpu_id, &cpuset);
-    ret = pthread_setaffinity_np(thread, sizeof(cpu_set_t), &cpuset);
-    if (ret != 0) {
-        fprintf(stderr, "pthread_setaffinity_np failed: %s\n", strerror(ret));
-        return ret;
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <pthread.h>
-#include <sched.h>
-#include <system_error>
-#include <expected>
-
-std::expected<void, std::error_code> configure_thread_rt_and_affinity(pthread_t thread, int priority, int cpu_id) noexcept {
-    // 1. Встановлення RT-пріоритету SCHED_FIFO
-    struct sched_param param{};
-    param.sched_priority = priority;
-    if (int res = pthread_setschedparam(thread, SCHED_FIFO, &param); res != 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(res)));
-    }
-
-    // 2. Прив'язка до конкретного ядра CPU
-    cpu_set_t cpuset{};
-    CPU_ZERO(&cpuset);
-    CPU_SET(cpu_id, &cpuset);
-    if (int res = pthread_setaffinity_np(thread, sizeof(cpu_set_t), &cpuset); res != 0) {
-        return std::unexpected(std::make_error_code(static_cast<std::errc>(res)));
-    }
-
-    return {};
-}
-```
+:::code api-rt-scheduling/c/pryklad-vstanovlennia-rt.c
+:::code api-rt-scheduling/cpp/pryklad-vstanovlennia-rt.cpp
 :::
 
 ## 3. Блокування віртуальної пам'яті: mlockall та mlock

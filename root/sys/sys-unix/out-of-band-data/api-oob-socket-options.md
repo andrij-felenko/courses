@@ -92,32 +92,8 @@ int getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optl
 ### 3.2. Вплив на роботу VFS read() та recv()
 
 :::tabs
-```c
-#include <sys/socket.h>
-#include <stdio.h>
-#include <errno.h>
-
-int set_oob_inline(int sockfd, int enable) {
-    int optval = enable ? 1 : 0;
-    if (setsockopt(sockfd, SOL_SOCKET, SO_OOBINLINE, &optval, sizeof(optval)) < 0) {
-        perror("setsockopt SO_OOBINLINE");
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <sys/socket.h>
-#include <system_error>
-#include <iostream>
-
-void set_oob_inline(int sockfd, bool enable) {
-    int optval = enable ? 1 : 0;
-    if (::setsockopt(sockfd, SOL_SOCKET, SO_OOBINLINE, &optval, sizeof(optval)) < 0) {
-        throw std::system_error(errno, std::generic_category(), "setsockopt SO_OOBINLINE failed");
-    }
-}
-```
+:::code api-oob-socket-options/c/3-2-vplyv-na-robotu-vfs.c
+:::code api-oob-socket-options/cpp/3-2-vplyv-na-robotu-vfs.cpp
 :::
 
 - При `SO_OOBINLINE = 0` терміновий байт пропускається звичайними викликами `read()` або `recv(..., 0)`. Потік даних подається додатку так, ніби цього байта в ньому взагалі не було.
@@ -154,31 +130,8 @@ int tcp_atmark(const struct tcp_sock *tp)
 ```
 
 :::tabs
-```c
-#include <sys/ioctl.h>
-#include <stdio.h>
-
-int is_socket_at_mark(int sockfd) {
-    int mark = 0;
-    if (ioctl(sockfd, SIOCATMARK, &mark) < 0) {
-        perror("ioctl SIOCATMARK");
-        return -1;
-    }
-    return mark; // 1 — на маркері, 0 — ні
-}
-```
-```cpp
-#include <sys/ioctl.h>
-#include <system_error>
-
-bool is_socket_at_mark(int sockfd) {
-    int mark = 0;
-    if (::ioctl(sockfd, SIOCATMARK, &mark) < 0) {
-        throw std::system_error(errno, std::generic_category(), "ioctl SIOCATMARK failed");
-    }
-    return mark != 0;
-}
-```
+:::code api-oob-socket-options/c/4-2-alhorytm-roboty-v.c
+:::code api-oob-socket-options/cpp/4-2-alhorytm-roboty-v.cpp
 :::
 
 ---
@@ -199,19 +152,7 @@ int fcntl(int fd, int cmd, int arg);
 - `arg`: PID процесу (позитивне значення) або PGID групи процесів (від'ємне значення).
 
 :::tabs
-```c
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-
-int register_socket_owner(int sockfd) {
-    if (fcntl(sockfd, F_SETOWN, getpid()) < 0) {
-        perror("fcntl F_SETOWN");
-        return -1;
-    }
-    return 0;
-}
-```
+:::code api-oob-socket-options/c/5-1-vykorystannia-f-setown.c
 ```cpp
 #include <fcntl.h>
 #include <unistd.h>

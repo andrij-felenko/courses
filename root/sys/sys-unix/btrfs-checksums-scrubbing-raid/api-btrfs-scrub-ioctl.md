@@ -32,61 +32,14 @@ struct btrfs_ioctl_scrub_args {
     __u64 unused[(1024 - 32 - sizeof(struct btrfs_scrub_progress)) / 8]; // добивка структури до 1 КіБ
 };
 ```
-```cpp
-// C++ аналог структури аргументів з ініціалізацією за замовчуванням
-#include <cstdint>
-#include <linux/btrfs.h>
-
-namespace btrfs::api {
-
-struct ScrubArgs {
-    std::uint64_t devid{0};
-    std::uint64_t start{0};
-    std::uint64_t end{static_cast<std::uint64_t>(-1)};
-    std::uint64_t flags{0};
-    btrfs_scrub_progress progress{};
-};
-
-} // namespace btrfs::api
-```
+:::code api-btrfs-scrub-ioctl/cpp/opys-struktur-btrfs-ioctl.cpp
 :::
 
 Деталізована статистика сканування повертається у вкладеній структурі `btrfs_scrub_progress`:
 
 :::tabs
-```c
-// Структура лічильників статистики scrub у ядрі Linux (наведено головні поля; у справжньому
-// оголошенні між verify_errors та uncorrectable_errors стоять ще no_csum, csum_discards,
-// super_errors і malloc_errors)
-struct btrfs_scrub_progress {
-    __u64 data_extents_scrubbed;  // Кількість просканованих екстентів даних
-    __u64 tree_extents_scrubbed;  // Кількість просканованих вузлів B-дерев метаданих
-    __u64 data_bytes_scrubbed;    // Загальний обсяг просканованих байтів даних
-    __u64 tree_bytes_scrubbed;    // Загальний обсяг просканованих байтів метаданих
-    __u64 read_errors;            // Апаратні помилки зчитування з диска (I/O Errors)
-    __u64 csum_errors;            // Помилки незбігу контрольних сум CRC32c / xxHash / SHA256
-    __u64 verify_errors;          // Помилки валідації заголовків метаданих (bad generation/owner)
-    __u64 uncorrectable_errors;   // Фатальні помилки, які не вдалося відновити з RAID-копій!
-    __u64 corrected_errors;       // Успішно відновлені спотворення завдяки самовідновленню з RAID-дзеркала
-    __u64 last_physical;          // Останній фізичний сектор, оброблений на пристрої
-    __u64 unverified_errors;      // Непідтверджені збої читання
-};
-```
-```cpp
-// C++ форматування підсумкової статистики scrub
-#include <iostream>
-#include <linux/btrfs.h>
-
-inline void printScrubProgress(const btrfs_scrub_progress& p) {
-    std::cout << "--- Статистика цілісності Btrfs Scrub ---\n"
-              << "Проскановано даних: " << (p.data_bytes_scrubbed / (1024 * 1024)) << " МіБ\n"
-              << "Проскановано метаданих: " << (p.tree_bytes_scrubbed / (1024 * 1024)) << " МіБ\n"
-              << "Апаратних помилок читання: " << p.read_errors << "\n"
-              << "Помилок хешу CRC32c: " << p.csum_errors << "\n"
-              << "Виправлено з RAID: " << p.corrected_errors << "\n"
-              << "НЕВІДНОВЛЮВАНИХ помилок: " << p.uncorrectable_errors << std::endl;
-}
-```
+:::code api-btrfs-scrub-ioctl/c/opys-struktur-btrfs-ioctl.c
+:::code api-btrfs-scrub-ioctl/cpp/opys-struktur-btrfs-ioctl-2.cpp
 :::
 
 ### Помилки та інтерпретація лічильників
@@ -140,138 +93,6 @@ inline void printScrubProgress(const btrfs_scrub_progress& p) {
 Наведені нижче приклади демонструють відкриття точки монтування Btrfs, ініціалізацію процедури `scrub` через `ioctl` та виведення статистики відновлених і фатальних помилок.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <string.h>
-#include <errno.h>
-#include <stdint.h>
-#include <inttypes.h>
-#include <linux/btrfs.h>
-
-int main(int argc, char *argv[])
-{
-    if (argc < 3) {
-        fprintf(stderr, "Використання: %s <точка_монтування> <devid>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
-
-    const char *mount_point = argv[1];
-    uint64_t devid = strtoull(argv[2], NULL, 10);
-
-    int fd = open(mount_point, O_RDONLY | O_DIRECTORY);
-    if (fd < 0) {
-        perror("Не вдалося відкрити точку монтування Btrfs");
-        return EXIT_FAILURE;
-    }
-
-    struct btrfs_ioctl_scrub_args args;
-    memset(&args, 0, sizeof(args));
-    args.devid = devid;
-    args.start = 0;
-    args.end = (uint64_t)-1; // Весь простір диска
-    args.flags = 0;          // 0 - дозволити автоматичне самовідновлення (Self-Healing)
-
-    printf("Запуск btrfs scrub для пристрою devid=%" PRIu64 " на %s...\n", devid, mount_point);
-
-    if (ioctl(fd, BTRFS_IOC_SCRUB, &args) < 0) {
-        fprintf(stderr, "Помилка ioctl BTRFS_IOC_SCRUB: %s\n", strerror(errno));
-        close(fd);
-        return EXIT_FAILURE;
-    }
-
-    printf("Scrub успішно завершено!\n");
-    printf("Проскановано даних: %llu МіБ\n", (unsigned long long)(args.progress.data_bytes_scrubbed / (1024 * 1024)));
-    printf("Проскановано метаданих: %llu МіБ\n", (unsigned long long)(args.progress.tree_bytes_scrubbed / (1024 * 1024)));
-    printf("Помилок контрольних сум (CSUM): %llu\n", (unsigned long long)args.progress.csum_errors);
-    printf("Успішно відновлено з RAID: %llu\n", (unsigned long long)args.progress.corrected_errors);
-    printf("НЕВІДНОВЛЮВАНИХ помилок: %llu\n", (unsigned long long)args.progress.uncorrectable_errors);
-
-    close(fd);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <system_error>
-#include <cstring>
-#include <cstdint>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/btrfs.h>
-
-class BtrfsScrubController {
-private:
-    int fd_ = -1;
-
-public:
-    explicit BtrfsScrubController(const std::string& mount_point) {
-        fd_ = ::open(mount_point.c_str(), O_RDONLY | O_DIRECTORY);
-        if (fd_ < 0) {
-            throw std::system_error(errno, std::generic_category(), 
-                                   "Не вдалося відкрити точку монтування Btrfs: " + mount_point);
-        }
-    }
-
-    ~BtrfsScrubController() {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-    }
-
-    // RAII керування дескриптором
-    BtrfsScrubController(const BtrfsScrubController&) = delete;
-    BtrfsScrubController& operator=(const BtrfsScrubController&) = delete;
-
-    [[nodiscard]] btrfs_scrub_progress startScrub(std::uint64_t devid, bool read_only = false) {
-        btrfs_ioctl_scrub_args args{};
-        args.devid = devid;
-        args.start = 0;
-        args.end = static_cast<std::uint64_t>(-1);
-        args.flags = read_only ? BTRFS_SCRUB_READONLY : 0;
-
-        if (::ioctl(fd_, BTRFS_IOC_SCRUB, &args) < 0) {
-            throw std::system_error(errno, std::generic_category(), 
-                                   "Помилка виконання ioctl BTRFS_IOC_SCRUB");
-        }
-
-        return args.progress;
-    }
-};
-
-int main(int argc, char* argv[]) {
-    if (argc < 3) {
-        std::cerr << "Використання: " << argv[0] << " <точка_монтування> <devid>\n";
-        return EXIT_FAILURE;
-    }
-
-    try {
-        std::string mount_point = argv[1];
-        std::uint64_t devid = std::stoull(argv[2]);
-
-        BtrfsScrubController controller(mount_point);
-        std::cout << "Запуск Btrfs Scrub (C++ RAII) для devid=" << devid << "...\n";
-
-        auto progress = controller.startScrub(devid);
-
-        std::cout << "Scrub завершено успішно!\n"
-                  << "Даних оброблено: " << (progress.data_bytes_scrubbed / (1024 * 1024)) << " МіБ\n"
-                  << "Метаданих оброблено: " << (progress.tree_bytes_scrubbed / (1024 * 1024)) << " МіБ\n"
-                  << "Виявлено помилок CRC32c: " << progress.csum_errors << "\n"
-                  << "Виправлено з дзеркала RAID: " << progress.corrected_errors << "\n"
-                  << "Невідновлюваних збоїв: " << progress.uncorrectable_errors << std::endl;
-
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << std::endl;
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
-}
-```
+:::code api-btrfs-scrub-ioctl/c/prohramni-pryklady-zapusku.c
+:::code api-btrfs-scrub-ioctl/cpp/prohramni-pryklady-zapusku.cpp
 :::

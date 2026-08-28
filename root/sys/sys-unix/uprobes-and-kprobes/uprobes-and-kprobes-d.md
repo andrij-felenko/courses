@@ -182,75 +182,9 @@ eBPF розв'язує обидві ці проблеми завдяки без�
 Приклад використання інструментів `bpftrace` та `libbpf` на C і C++ для відстеження системних викликів та функцій користувача:
 
 :::tabs
-```bash
-# bpftrace - Однорядковий скрипт динамічного трасування
-
-# 1. Kprobe: перехоплення входу у функцію ядра do_sys_openat2
-bpftrace -e 'kprobe:do_sys_openat2 { printf("PID %d (%s) відкриває: %s\n", pid, comm, str(arg1)); }'
-
-# 2. Uprobe: перехоплення виклику readline у бінарнику /bin/bash
-bpftrace -e 'uprobe:/bin/bash:readline { printf("Bash (PID %d) очікує ввід\n", pid); }'
-
-# 3. Uretprobe: перехоплення результату повернення з readline (команда користувача)
-bpftrace -e 'uretprobe:/bin/bash:readline { printf("Введено команду: %s\n", str(retval)); }'
-```
-```c
-// bpf_tracer.c - Програма BPF на мові C (libbpf)
-#include "vmlinux.h"
-#include <bpf/bpf_helpers.h>
-#include <bpf/bpf_tracing.h>
-
-SEC("kprobe/do_sys_openat2")
-int BPF_KPROBE(trace_openat2, int dfd, const char *filename) {
-    char buf[256];
-    bpf_probe_read_user_str(buf, sizeof(buf), filename);
-    bpf_printk("Kprobe openat2: %s\n", buf);
-    return 0;
-}
-
-SEC("uprobe/bash_readline")
-int BPF_UPROBE(trace_readline) {
-    bpf_printk("Uprobe readline entered\n");
-    return 0;
-}
-
-SEC("uretprobe/bash_readline")
-int BPF_URETPROBE(trace_readline_ret, const char *ret_str) {
-    char buf[256];
-    bpf_probe_read_user_str(buf, sizeof(buf), ret_str);
-    bpf_printk("Uretprobe readline result: %s\n", buf);
-    return 0;
-}
-
-char _license[] SEC("license") = "GPL";
-```
-```cpp
-// user_loader.cpp - Завантажувач спостереження на C++ (libbpf)
-#include <iostream>
-#include <memory>
-#include <string_view>
-#include <bpf/libbpf.h>
-
-// RAII обгортка для BPF об'єкта
-struct BpfObjectDeleter {
-    void operator()(bpf_object* obj) const {
-        if (obj) bpf_object__close(obj);
-    }
-};
-using UniqueBpfObject = std::unique_ptr<bpf_object, BpfObjectDeleter>;
-
-int main() {
-    std::cout << "Завантаження BPF програми трасування на C++...\n";
-    // Відкриття та завантаження BPF-об'єкта
-    UniqueBpfObject obj{bpf_object__open_file("bpf_tracer.bpf.o", nullptr)};
-    if (!obj || bpf_object__load(obj.get())) {
-        std::cerr << "Помилка завантаження BPF-об'єкта\n";
-        return 1;
-    }
-    std::cout << "BPF-програму успішно завантажено та прикріплено до зондів kprobes/uprobes.\n";
-    return 0;
-}
-```
+:::code uprobes-and-kprobes-d/sh/main.sh
+:::code uprobes-and-kprobes-d/c/bpf_tracer.c
+:::code uprobes-and-kprobes-d/cpp/user_loader.cpp
 :::
 
 Практичну реалізацію утиліти вимірювання затримок коду розведено у [практичний проект відстеження затримки функцій](root:sys-unix/uprobes-and-kprobes/proj-uprobe-latency-tracker.md).

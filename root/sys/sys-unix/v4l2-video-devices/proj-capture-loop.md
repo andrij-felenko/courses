@@ -23,19 +23,7 @@ static int xioctl(int fd, unsigned long req, void *arg)
 
 ## Відкрити і спитати, чим воно є
 
-```c
-int fd = open("/dev/video0", O_RDWR | O_NONBLOCK);
-if (fd == -1) FAIL("open /dev/video0");
-
-struct v4l2_capability cap;
-if (xioctl(fd, VIDIOC_QUERYCAP, &cap) == -1) FAIL("VIDIOC_QUERYCAP");
-
-unsigned caps = (cap.capabilities & V4L2_CAP_DEVICE_CAPS)
-              ? cap.device_caps : cap.capabilities;
-
-if (!(caps & V4L2_CAP_VIDEO_CAPTURE)) { fputs("вузол не знімає відео\n",  stderr); return 1; }
-if (!(caps & V4L2_CAP_STREAMING))     { fputs("немає черги буферів\n",    stderr); return 1; }
-```
+:::code proj-capture-loop/c/vidkryty-i-spytaty-chym.c
 
 Три дрібниці, кожна з яких коштувала комусь вечора. Перша: `O_RDWR`, а не `O_RDONLY`, хоч ми лише знімаємо, — структури налаштувань ідуть у драйвер, а частина драйверів вузол, відкритий лише на читання, просто не приймає. Друга: `O_NONBLOCK` тут не про швидкість, а про те, щоб жоден виклик не завис назавжди, коли камеру висмикнули з роз'єму; готовність ми питатимемо окремо.
 
@@ -43,20 +31,7 @@ if (!(caps & V4L2_CAP_STREAMING))     { fputs("немає черги буфер�
 
 ## Формат: попросити й перечитати
 
-```c
-struct v4l2_format fmt;
-memset(&fmt, 0, sizeof fmt);                 /* нулі обов'язкові: ядро судить резервні поля */
-fmt.type                = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-fmt.fmt.pix.width       = 1366;
-fmt.fmt.pix.height      = 768;
-fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
-fmt.fmt.pix.field       = V4L2_FIELD_NONE;
-if (xioctl(fd, VIDIOC_S_FMT, &fmt) == -1) FAIL("VIDIOC_S_FMT");
-
-const unsigned H      = fmt.fmt.pix.height;         /* могло змінитися */
-const unsigned STRIDE = fmt.fmt.pix.bytesperline;   /* крок рядка в пам'яті */
-const unsigned ROW    = fmt.fmt.pix.width * 2;      /* корисних байтів у рядку, YUYV */
-```
+:::code proj-capture-loop/c/format-poprosyty-i.c
 
 `memset` тут не гігієна, а вимога: невиставлені поля структури мають бути нулями, інакше драйвер має право відхилити виклик через сміття в резервних полях — а сміття в автоматичній змінній буде обов'язково.
 
@@ -78,52 +53,11 @@ sizeimage                 = 2752 · 768          = 2 113 536 Б
 
 Правило коротке: після `S_FMT` ходити по пам'яті лише кроком `bytesperline`, а розмір кадру брати з `sizeimage`. Скільки байтів у рядку **корисні** — окреме знання, воно залежить від кодування пікселів, і для YUYV це рівно два байти на піксель; для планарних кодувань кроків стільки, скільки площин ([формати пікселів і буферів зображення](root:sf-visual/pixel-formats)). Обидва числа зустрічаються в тій самій петлі — одне визначає, звідки читати, друге, скільки взяти:
 
-```c
-/* Кладе кадр на диск без дірок вирівнювання. */
-static void save_raw(const char *path, const unsigned char *base,
-                     unsigned stride, unsigned row, unsigned height)
-{
-    FILE *f = fopen(path, "wb");
-    if (!f) FAIL("fopen");
-    for (unsigned y = 0; y < height; y++)
-        fwrite(base + (size_t) y * stride, 1, row, f);   /* крок stride, корисних row */
-    fclose(f);
-}
-```
+:::code proj-capture-loop/c/format-poprosyty-i-2.c
 
 ## Пул буферів і відображення
 
-```c
-enum { WANT = 4, MAXBUF = 8, SKIP = 10 };
-
-struct v4l2_requestbuffers req;
-memset(&req, 0, sizeof req);
-req.count  = WANT;
-req.type   = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-req.memory = V4L2_MEMORY_MMAP;
-if (xioctl(fd, VIDIOC_REQBUFS, &req) == -1) FAIL("VIDIOC_REQBUFS");
-
-if (req.count < 2 || req.count > MAXBUF) {
-    fprintf(stderr, "драйвер дав %u буферів — не наш випадок\n", req.count);
-    return 1;
-}
-
-struct { void *start; size_t len; } bufs[MAXBUF];
-
-for (unsigned i = 0; i < req.count; i++) {
-    struct v4l2_buffer b;
-    memset(&b, 0, sizeof b);
-    b.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-    b.memory = V4L2_MEMORY_MMAP;
-    b.index  = i;
-    if (xioctl(fd, VIDIOC_QUERYBUF, &b) == -1) FAIL("VIDIOC_QUERYBUF");
-
-    bufs[i].len   = b.length;
-    bufs[i].start = mmap(NULL, b.length, PROT_READ | PROT_WRITE,
-                         MAP_SHARED, fd, b.m.offset);
-    if (bufs[i].start == MAP_FAILED) FAIL("mmap");
-}
-```
+:::code proj-capture-loop/c/pul-buferiv-i.c
 
 Цикл ходить не до `WANT`, а до `req.count`, і це не перестрахування. Драйвер виділяє не звичайні сторінки, а пам'ять, придатну для запису самим пристроєм: на платі без блоку трансляції адрес шини кадр має лежати суцільним фізичним шматком, а запас таких шматків на живій системі скінченний, і пам'ять із часом фрагментується ([DMA і відображення буферів](root:sys-unix/dma-and-buffers)). Чотири буфери по два мегабайти — це вісім мегабайтів суцільної пам'яті, і драйвер цілком може віддати два. Зустрічний випадок теж передбачений інтерфейсом: драйвер має право видати **більше**, ніж просили, якщо його конвеєр інакше не працює. Тому перевіряють обидві межі, а цикли ходять по поверненому числу.
 
@@ -131,44 +65,7 @@ for (unsigned i = 0; i < req.count; i++) {
 
 ## Черга, потік і цикл
 
-```c
-for (unsigned i = 0; i < req.count; i++) {           /* УСІ буфери — драйверові */
-    struct v4l2_buffer b;
-    memset(&b, 0, sizeof b);
-    b.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-    b.memory = V4L2_MEMORY_MMAP;
-    b.index  = i;
-    if (xioctl(fd, VIDIOC_QBUF, &b) == -1) FAIL("VIDIOC_QBUF");
-}
-
-enum v4l2_buf_type type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-if (xioctl(fd, VIDIOC_STREAMON, &type) == -1) FAIL("VIDIOC_STREAMON");
-
-unsigned seen = 0;
-while (seen < SKIP + 1) {
-    struct pollfd pfd = { .fd = fd, .events = POLLIN };
-
-    int pr = poll(&pfd, 1, 2000);
-    if (pr == -1) { if (errno == EINTR) continue; FAIL("poll"); }
-    if (pr ==  0) { fputs("дві секунди без кадру\n", stderr); break; }
-
-    struct v4l2_buffer b;
-    memset(&b, 0, sizeof b);
-    b.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-    b.memory = V4L2_MEMORY_MMAP;
-    if (xioctl(fd, VIDIOC_DQBUF, &b) == -1) {
-        if (errno == EAGAIN) continue;               /* готовність збрехала */
-        FAIL("VIDIOC_DQBUF");
-    }
-
-    if (b.flags & V4L2_BUF_FLAG_ERROR)
-        fputs("кадр пошкоджений, пропускаємо\n", stderr);
-    else if (++seen > SKIP)
-        save_raw("frame.raw", bufs[b.index].start, STRIDE, ROW, H);
-
-    if (xioctl(fd, VIDIOC_QBUF, &b) == -1) FAIL("VIDIOC_QBUF");  /* назад — завжди */
-}
-```
+:::code proj-capture-loop/c/cherha-potik-i-tsykl.c
 
 `STREAMON` вмикає сенсор назавжди, а не на один кадр, тож усі буфери мають бути в черзі **до** нього: у порожню чергу перші кадри падають безслідно.
 

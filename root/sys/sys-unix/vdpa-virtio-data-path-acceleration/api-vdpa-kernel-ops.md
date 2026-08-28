@@ -8,45 +8,7 @@
 
 Низькорівнева таблиця колбеків ядра оперує наступними основними блоками функцій:
 
-```c
-struct vdpa_config_ops {
-    /* Налаштування зв'язку з IOMMU та апаратними ASID */
-    int (*set_map)(struct vdpa_device *vdev, u32 asid, struct vhost_iotlb *iotlb);
-    int (*dma_map)(struct vdpa_device *vdev, u32 asid, u64 iova, u64 size, u64 pa, u32 perm);
-    int (*dma_unmap)(struct vdpa_device *vdev, u32 asid, u64 iova, u64 size);
-
-    /* Опитування та зміна стану virtqueue (потрібно для Live Migration) */
-    int (*get_vq_state)(struct vdpa_device *vdev, u16 idx, struct vdpa_vq_state *state);
-    int (*set_vq_state)(struct vdpa_device *vdev, u16 idx, const struct vdpa_vq_state *state);
-
-    /* Ініціалізація структур ring адресації */
-    void (*set_vq_address)(struct vdpa_device *vdev, u16 idx,
-                           u64 desc_area, u64 driver_area, u64 device_area);
-    void (*set_vq_num)(struct vdpa_device *vdev, u16 idx, u32 num);
-    void (*kick_vq)(struct vdpa_device *vdev, u16 idx);
-    void (*set_vq_cb)(struct vdpa_device *vdev, u16 idx, struct vdpa_callback *cb);
-    void (*set_vq_ready)(struct vdpa_device *vdev, u16 idx, bool ready);
-    bool (*get_vq_ready)(struct vdpa_device *vdev, u16 idx);
-
-    /* Узгодження прапорів virtio та байтів статусу */
-    u64 (*get_device_features)(struct vdpa_device *vdev);
-    int (*set_driver_features)(struct vdpa_device *vdev, u64 features);
-    u8 (*get_status)(struct vdpa_device *vdev);
-    void (*set_status)(struct vdpa_device *vdev, u8 status);
-    void (*reset)(struct vdpa_device *vdev);
-
-    /* Робота з простором конфігурації пристрою (MAC, MTU, Links) */
-    size_t (*get_config_size)(struct vdpa_device *vdev);
-    void (*get_config)(struct vdpa_device *vdev, unsigned int offset,
-                       void *buf, unsigned int len);
-    void (*set_config)(struct vdpa_device *vdev, unsigned int offset,
-                       const void *buf, unsigned int len);
-
-    /* Прив'язка групи черг до індексу ASID */
-    u32 (*get_vq_group)(struct vdpa_device *vdev, u16 idx);
-    int (*set_group_asid)(struct vdpa_device *vdev, u32 group, u32 asid);
-};
-```
+:::code api-vdpa-kernel-ops/c/1-vnutrishnoiadernyi.h
 
 ### Подетальний розбір груп методів ядра:
 
@@ -59,25 +21,7 @@ struct vdpa_config_ops {
 
 Для підтримки як розділених (split), так і упакованих (packed) віртчерг ядро визначає об'єднану структуру стану:
 
-```c
-struct vdpa_vq_state_split {
-    u16 avail_index; /* Поточний індекс доступних дескрипторів */
-};
-
-struct vdpa_vq_state_packed {
-    u16 last_avail_idx; /* Індекс доступного дескриптора у кільці */
-    u16 last_used_idx;  /* Індекс використаного дескриптора */
-    u8  avail_counter;  /* Однобітовий прапор фази доступності */
-    u8  used_counter;   /* Однобітовий прапор фази використання */
-};
-
-struct vdpa_vq_state {
-    union {
-        struct vdpa_vq_state_split split;
-        struct vdpa_vq_state_packed packed;
-    };
-};
-```
+:::code api-vdpa-kernel-ops/c/1-1-detalna.c
 
 Цей об'єкт дозволяє драйверу `vhost-vdpa` прозоро заморожувати та відновлювати стан черги будь-якого типу під час живої міграції віртуальної машини.
 
@@ -139,18 +83,6 @@ struct vhost_vdpa_config {
 
 Для забезпечення апаратної ізоляції vDPA підтримує концепцію груп черг та просторів адрес ASID.
 
-```c
-/* Обидві команди — GET_VRING_GROUP і SET_GROUP_ASID — передають той самий
-   загальний об'єкт vhost, а зміст полів залежить від команди: */
-struct vhost_vring_state {
-    unsigned int index; /* GET_VRING_GROUP: індекс черги; SET_GROUP_ASID: індекс групи */
-    unsigned int num;   /* GET_VRING_GROUP: номер групи (заповнює ядро); SET_GROUP_ASID: ASID */
-};
-
-struct vhost_vdpa_iova_range {
-    __u64 first; /* Перша допустима віртуальна адреса I/O */
-    __u64 last;  /* Остання допустима віртуальна адреса I/O */
-};
-```
+:::code api-vdpa-kernel-ops/c/4-orhanizatsiia-hrup-iommu.c
 
 За допомогою `VHOST_VDPA_GET_VRING_GROUP` QEMU запитує, до якої апаратної групи належить черга `index`. Після цього команда `VHOST_VDPA_SET_GROUP_ASID` зв'язує цю групу з окремою таблицею мапінгу IOMMU. Це дозволяє ізолювати керуючу чергу Control Virtqueue (CVQ) від основних черг передачі даних (Rx/Tx queues), забезпечуючи найвищий рівень захисту від некоректних DMA-транзакцій.

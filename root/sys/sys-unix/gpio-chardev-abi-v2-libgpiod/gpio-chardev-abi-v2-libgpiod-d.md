@@ -125,42 +125,8 @@ sensor_node: sensor@48 {
 Для низькорівневих розробників драйверів контролерів підсистема `gpiolib` надає інтерфейс реєстрації апаратних чипів через структуру `struct gpio_chip`:
 
 :::tabs
-```c
-struct gpio_chip {
-    const char *label;
-    struct device *parent;
-    int base;               /* Негативне значення для динамічної нумерації */
-    u16 ngpio;              /* Кількість ліній на контролері */
-    int (*request)(struct gpio_chip *gc, unsigned int offset);
-    void (*free)(struct gpio_chip *gc, unsigned int offset);
-    int (*get_direction)(struct gpio_chip *gc, unsigned int offset);
-    int (*direction_input)(struct gpio_chip *gc, unsigned int offset);
-    int (*direction_output)(struct gpio_chip *gc, unsigned int offset, int value);
-    int (*get)(struct gpio_chip *gc, unsigned int offset);
-    void (*set)(struct gpio_chip *gc, unsigned int offset, int value);
-    void (*set_multiple)(struct gpio_chip *gc, unsigned long *mask, unsigned long *bits);
-    int (*to_irq)(struct gpio_chip *gc, unsigned int offset);
-    bool can_sleep;
-};
-```
-```cpp
-#include <cstdint>
-
-// Концептуальна C++ абстракція для драйверів контролерів у змішаних середовищах
-class GpioControllerBase {
-public:
-    virtual ~GpioControllerBase() = default;
-
-    virtual int direction_input(unsigned int offset) = 0;
-    virtual int direction_output(unsigned int offset, int value) = 0;
-    virtual int get_value(unsigned int offset) const = 0;
-    virtual void set_value(unsigned int offset, int value) = 0;
-    virtual void set_multiple(unsigned long mask, unsigned long bits) = 0;
-
-    [[nodiscard]] virtual bool can_sleep() const noexcept { return false; }
-    [[nodiscard]] virtual std::uint16_t num_lines() const noexcept = 0;
-};
-```
+:::code gpio-chardev-abi-v2-libgpiod-d/c/3-2-reiestratsiia.h
+:::code gpio-chardev-abi-v2-libgpiod-d/cpp/3-2-reiestratsiia.cpp
 :::
 
 Драйвер апаратного контролера заповнює вказівники на функції читання та запису низькорівневих регістрів `.get` і `.set`, після чого викликає `devm_gpiochip_add_data(dev, chip, data)`. З цього моменту підсистема `gpiolib` бере на себе всю рутину перевірки прав доступу, логічної інверсії та генерації символьних пристроїв у просторі користувача.
@@ -170,46 +136,8 @@ public:
 Для периферійних пристроїв, що вимагають одночасної паралельної шини ліній (наприклад, паралельний LCD-дисплей чи шина даних SRAM), ядро надає спеціальний API масивів `struct gpio_descs`:
 
 :::tabs
-```c
-struct gpio_descs *data_bus;
-
-/* Отримання масиву ліній "data-gpios" з Device Tree */
-data_bus = devm_gpiod_get_array(dev, "data", GPIOD_OUT_LOW);
-if (IS_ERR(data_bus))
-    return PTR_ERR(data_bus);
-
-/* Кількість отриманих ліній зберігається у data_bus->ndescs */
-unsigned long values = 0xA5; // Бінарне 10100101
-
-/* Атомарне встановлення значення всього масиву за один виклик */
-gpiod_set_array_value(data_bus->ndescs, data_bus->desc, data_bus->info, &values);
-```
-```cpp
-#include <linux/gpio/consumer.h>
-#include <cstdint>
-
-// C++ RAII-обгортка над масивом дескрипторів GPIO у ядрі
-class KernelGpioBus {
-public:
-    KernelGpioBus(struct device* dev, const char* name) {
-        descs_ = devm_gpiod_get_array(dev, name, GPIOD_OUT_LOW);
-    }
-
-    [[nodiscard]] bool valid() const noexcept {
-        return descs_ && !IS_ERR(descs_);
-    }
-
-    void write_mask(std::uint64_t value) noexcept {
-        if (valid()) {
-            unsigned long val = value;
-            gpiod_set_array_value(descs_->ndescs, descs_->desc, descs_->info, &val);
-        }
-    }
-
-private:
-    struct gpio_descs* descs_{nullptr};
-};
-```
+:::code gpio-chardev-abi-v2-libgpiod-d/c/3-3-masyvy-deskryptoriv-u.h
+:::code gpio-chardev-abi-v2-libgpiod-d/cpp/3-3-masyvy-deskryptoriv-u.cpp
 :::
 
 Функція `gpiod_set_array_value()` оптимізована на рівні ядра: якщо всі лінії належать одному апаратному контролеру, ядро викликає метод `.set_multiple()` драйвера `gpio_chip`, що виконує прямий маскований запит у регістр виводу SoC без циклічного опитування кожного піна окремо.
@@ -219,93 +147,8 @@ private:
 У сучасних драйверах ядра стандартним способом отримання ліній є сімейство функцій `devm_gpiod_get()`:
 
 :::tabs
-```c
-#include <linux/module.h>
-#include <linux/init.h>
-#include <linux/platform_device.h>
-#include <linux/gpio/consumer.h>
-
-struct my_driver_priv {
-    struct gpio_desc *reset_gpio;
-    struct gpio_desc *status_led;
-};
-
-static int my_driver_probe(struct platform_device *pdev)
-{
-    struct device *dev = &pdev->dev;
-    struct my_driver_priv *priv;
-
-    priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-    if (!priv)
-        return -ENOMEM;
-
-    /*
-     * Отримання лінії "reset", описаної в Device Tree як "reset-gpios".
-     * Прапорець GPIOD_OUT_LOW атомарно конфігурує напрямок на вихід
-     * і встановлює ЛОГІЧНИЙ НУЛЬ ще під час ініціалізації.
-     */
-    priv->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-    if (IS_ERR(priv->reset_gpio)) {
-        dev_err(dev, "Помилка отримання GPIO reset: %ld\n", PTR_ERR(priv->reset_gpio));
-        return PTR_ERR(priv->reset_gpio);
-    }
-
-    /* Атомарне встановлення логічної одиниці (активація) */
-    gpiod_set_value(priv->reset_gpio, 1);
-
-    platform_set_drvdata(pdev, priv);
-    return 0;
-}
-```
-```cpp
-#include <linux/gpio/consumer.h>
-#include <utility>
-
-// Ідіоматична C++ RAII-обгортка навколо ядерного дескриптора gpio_desc
-// Для використання у вбудованих системах та підсистемах ядра з C++ фреймворками
-class KernelGpioDescriptor {
-public:
-    explicit KernelGpioDescriptor(struct gpio_desc* desc = nullptr) noexcept
-        : desc_(desc) {}
-
-    ~KernelGpioDescriptor() {
-        if (desc_) {
-            gpiod_put(desc_);
-        }
-    }
-
-    KernelGpioDescriptor(const KernelGpioDescriptor&) = delete;
-    KernelGpioDescriptor& operator=(const KernelGpioDescriptor&) = delete;
-
-    KernelGpioDescriptor(KernelGpioDescriptor&& other) noexcept
-        : desc_(std::exchange(other.desc_, nullptr)) {}
-
-    KernelGpioDescriptor& operator=(KernelGpioDescriptor&& other) noexcept {
-        if (this != &other) {
-            if (desc_) gpiod_put(desc_);
-            desc_ = std::exchange(other.desc_, nullptr);
-        }
-        return *this;
-    }
-
-    void set_value(int value) noexcept {
-        if (desc_) {
-            gpiod_set_value(desc_, value);
-        }
-    }
-
-    [[nodiscard]] int get_value() const noexcept {
-        return desc_ ? gpiod_get_value(desc_) : -1;
-    }
-
-    [[nodiscard]] bool valid() const noexcept {
-        return desc_ && !IS_ERR(desc_);
-    }
-
-private:
-    struct gpio_desc* desc_{nullptr};
-};
-```
+:::code gpio-chardev-abi-v2-libgpiod-d/c/3-4-zapyt-deskryptora-ta.c
+:::code gpio-chardev-abi-v2-libgpiod-d/cpp/3-4-zapyt-deskryptora-ta.cpp
 :::
 
 Перефікс `devm_` (Device Managed) прив'язує виділений ресурс `gpio_desc` до структури `struct device`. Якщо процедура `probe()` завершиться помилкою або драйвер буде вивантажено з ядра, підсистема автоматом викличе `gpiod_put()`, гарантуючи відсутність витоків ресурсів без напису рутинного коду очищення.
@@ -402,57 +245,8 @@ SUBSYSTEM=="gpio", KERNEL=="gpiochip*", GROUP="gpio", MODE="0660"
 Запит ліній формується через структуру `struct gpio_v2_line_request`. Якщо окремі лінії у масиві потребують різної конфігурації (наприклад, пін 0 — вихід, а пін 1 — вхід із підтяжкою), структура `struct gpio_v2_line_config` містить масив атрибутів `struct gpio_v2_line_config_attribute`, що дозволяє гнучко налаштовувати кожен пін індивідуально у межах єдиної атомарної транзакції `ioctl()`:
 
 :::tabs
-```c
-#include <linux/gpio.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
-
-struct gpio_v2_line_request req;
-memset(&req, 0, sizeof(req));
-
-/* Вибір офсетів ліній на чипі */
-req.offsets[0] = 4;  /* Пін D0 */
-req.offsets[1] = 5;  /* Пін D1 */
-req.offsets[2] = 6;  /* Пін D2 */
-req.num_lines = 3;
-strcpy(req.consumer, "lcd_data_bus");
-
-/* Конфігурація: напрямок на вихід */
-req.config.flags = GPIO_V2_LINE_FLAG_OUTPUT;
-
-/* Атомарне отримання дескриптора володіння */
-int ret = ioctl(chip_fd, GPIO_V2_GET_LINE_IOCTL, &req);
-int req_fd = req.fd;
-```
-```cpp
-#include <linux/gpio.h>
-#include <sys/ioctl.h>
-#include <span>
-#include <string_view>
-#include <system_error>
-
-// Низькорівнева обгортка ioctl v2 у стилі C++20
-struct ChardevLineRequest {
-    int request_fd{-1};
-
-    static ChardevLineRequest create(int chip_fd, std::span<const std::uint32_t> offsets, std::string_view consumer) {
-        struct gpio_v2_line_request req{};
-        req.num_lines = static_cast<std::uint32_t>(offsets.size());
-        for (std::size_t i = 0; i < offsets.size(); ++i) {
-            req.offsets[i] = offsets[i];
-        }
-        consumer.copy(req.consumer, sizeof(req.consumer) - 1);
-        req.config.flags = GPIO_V2_LINE_FLAG_OUTPUT;
-
-        if (ioctl(chip_fd, GPIO_V2_GET_LINE_IOCTL, &req) < 0) {
-            throw std::system_error(errno, std::generic_category(), "GPIO_V2_GET_LINE_IOCTL failed");
-        }
-        return ChardevLineRequest{req.fd};
-    }
-};
-```
+:::code gpio-chardev-abi-v2-libgpiod-d/c/gpio.h
+:::code gpio-chardev-abi-v2-libgpiod-d/cpp/4-3-atomarnist-ta.cpp
 :::
 
 Після отримання `req_fd` процес може змінити значення всіх трьох ліній за один системний виклик `ioctl()`:
@@ -467,22 +261,7 @@ vals.bits = 0x5;   /* Значення: D0=1, D1=0, D2=1 (бінарне 101) */
 
 ioctl(req_fd, GPIO_V2_LINE_SET_VALUES_IOCTL, &vals);
 ```
-```cpp
-#include <linux/gpio.h>
-#include <sys/ioctl.h>
-#include <cstdint>
-#include <system_error>
-
-void set_line_values_v2(int req_fd, std::uint64_t mask, std::uint64_t bits) {
-    struct gpio_v2_line_values vals{};
-    vals.mask = mask;
-    vals.bits = bits;
-
-    if (ioctl(req_fd, GPIO_V2_LINE_SET_VALUES_IOCTL, &vals) < 0) {
-        throw std::system_error(errno, std::generic_category(), "GPIO_V2_LINE_SET_VALUES_IOCTL failed");
-    }
-}
-```
+:::code gpio-chardev-abi-v2-libgpiod-d/cpp/4-3-atomarnist-ta-2.cpp
 :::
 
 Операція `GPIO_V2_LINE_SET_VALUES_IOCTL` гарантує, що значення шини установлюються ядром атомарно. Жодні контекстні перемикання не можу розірвати процес запису між окремими виводами шини.
@@ -512,22 +291,7 @@ void set_line_values_v2(int req_fd, std::uint64_t mask, std::uint64_t bits) {
 
 Для повсякденної діагностики та роботи у командному інтерфейсі libgpiod надає набір швидких консольних утиліт:
 
-```bash
-# Перегляд списку всіх контролерів та їх ліній у системі
-gpioinfo
-
-# Зчитування значення лінії з офсетом 12 на контролері gpiochip1
-gpioget /dev/gpiochip1 12
-
-# Атомарне встановлення значення 1 на лінії 16 із затримкою утримування стану
-gpioset --hold-period=5s /dev/gpiochip1 16=1
-
-# Моніторинг фронтів сигналів на лінії 7 у реальному часі
-gpiomon /dev/gpiochip1 7
-
-# Моніторинг подій змінення конфігурації чи загарбання ліній іншими процесів
-gpionotify /dev/gpiochip1 7
-```
+:::code gpio-chardev-abi-v2-libgpiod-d/sh/main.sh
 
 Опція `--hold-period` або утримання процесу у фоні є принциповими для `gpioset`. Оскільки завершення команди закриває файловий дескриптор, утримання гарантує, що ядро не скине лінію у дефолтний стан відразу після виконання команди. Утиліта `gpionotify` відстежує запити до ліній з боку інших процесів системи, спрощуючи налагодження конфліктів доступу.
 
@@ -536,132 +300,8 @@ gpionotify /dev/gpiochip1 7
 Нижче наведено практичний приклад зчитування стану кнопки з апаратним фільтром дребезгу та керування світлодіодом мовами C та C++ (за стандартами `libgpiod v2`).
 
 :::tabs
-```c
-#include <gpiod.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void)
-{
-    struct gpiod_chip *chip;
-    struct gpiod_line_config *line_cfg;
-    struct gpiod_line_settings *settings_in, *settings_out;
-    struct gpiod_request_config *req_cfg;
-    struct gpiod_line_request *request;
-    enum gpiod_line_value val;
-
-    /* Відкриття контролера GPIO */
-    chip = gpiod_chip_open("/dev/gpiochip1");
-    if (!chip) {
-        perror("Не вдалося відкрити /dev/gpiochip1");
-        return EXIT_FAILURE;
-    }
-
-    /* Створення об'єктів конфігурації */
-    line_cfg = gpiod_line_config_new();
-    req_cfg = gpiod_request_config_new();
-    settings_in = gpiod_line_settings_new();
-    settings_out = gpiod_line_settings_new();
-
-    if (!line_cfg || !req_cfg || !settings_in || !settings_out) {
-        fprintf(stderr, "Помилка виділення пам'яті під конфігурацію\n");
-        goto out_free;
-    }
-
-    /* Налаштування вхідної лінії (Кнопка, offset 12) з PULL_UP та Debounce */
-    gpiod_line_settings_set_direction(settings_in, GPIOD_LINE_DIRECTION_INPUT);
-    gpiod_line_settings_set_bias(settings_in, GPIOD_LINE_BIAS_PULL_UP);
-    gpiod_line_settings_set_debounce_period_us(settings_in, 15000); // 15 мс
-
-    /* Налаштування вихідної лінії (Світлодіод, offset 16) */
-    gpiod_line_settings_set_direction(settings_out, GPIOD_LINE_DIRECTION_OUTPUT);
-    gpiod_line_settings_set_output_value(settings_out, GPIOD_LINE_VALUE_INACTIVE);
-
-    /* Додавання налаштувань у конфігуратор ліній */
-    gpiod_line_config_add_line_settings(line_cfg, (const unsigned int[]){12}, 1, settings_in);
-    gpiod_line_config_add_line_settings(line_cfg, (const unsigned int[]){16}, 1, settings_out);
-
-    gpiod_request_config_set_consumer(req_cfg, "button_led_app");
-
-    /* Атомарний запит ліній у ядра */
-    request = gpiod_chip_request_lines(chip, req_cfg, line_cfg);
-    if (!request) {
-        perror("Не вдалося отримати доступ до ліній GPIO");
-        goto out_free;
-    }
-
-    /* Читання значення кнопки */
-    val = gpiod_line_request_get_value(request, 12);
-    printf("Стан кнопки (офсет 12): %s\n",
-           val == GPIOD_LINE_VALUE_ACTIVE ? "НАТИСНУТО (ACTIVE)" : "ВІДПУЩЕНО");
-
-    /* Перемикання світлодіода у стан ACTIVE */
-    gpiod_line_request_set_value(request, 16, GPIOD_LINE_VALUE_ACTIVE);
-
-    /* Звільнення запиту */
-    gpiod_line_request_release(request);
-
-out_free:
-    gpiod_line_settings_free(settings_in);
-    gpiod_line_settings_free(settings_out);
-    gpiod_line_config_free(line_cfg);
-    gpiod_request_config_free(req_cfg);
-    gpiod_chip_close(chip);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <gpiod.hpp>
-#include <iostream>
-#include <exception>
-
-int main()
-{
-    try {
-        // Відкриття чипа (RAII: автоматичне закриття у деструкторі)
-        ::gpiod::chip chip("/dev/gpiochip1");
-
-        // Налаштування для кнопки (Input, Pull-Up, 15 мс Debounce)
-        ::gpiod::line_settings button_settings;
-        button_settings.set_direction(::gpiod::line::direction::INPUT);
-        button_settings.set_bias(::gpiod::line::bias::PULL_UP);
-        button_settings.set_debounce_period(std::chrono::milliseconds(15));
-
-        // Налаштування для світлодіода (Output, Inactive)
-        ::gpiod::line_settings led_settings;
-        led_settings.set_direction(::gpiod::line::direction::OUTPUT);
-        led_settings.set_output_value(::gpiod::line::value::INACTIVE);
-
-        // Конфігурація ліній
-        ::gpiod::line_config line_cfg;
-        line_cfg.add_line_settings(::gpiod::line::offset(12), button_settings);
-        line_cfg.add_line_settings(::gpiod::line::offset(16), led_settings);
-
-        ::gpiod::request_config req_cfg;
-        req_cfg.set_consumer("button_led_cpp_app");
-
-        // Виконання запиту (RAII handle)
-        auto request = chip.request_lines(req_cfg, line_cfg);
-
-        // Читання кнопки
-        auto btn_val = request.get_value(::gpiod::line::offset(12));
-        std::cout << "Стан кнопки (офсет 12): "
-                  << (btn_val == ::gpiod::line::value::ACTIVE ? "НАТИСНУТО" : "ВІДПУЩЕНО")
-                  << std::endl;
-
-        // Перемикання світлодіода у логічний ACTIVE
-        request.set_value(::gpiod::line::offset(16), ::gpiod::line::value::ACTIVE);
-
-        // Запит та відкриті чипи звільняються автоматично при виході з скоупу
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Критична помилка GPIO: " << e.what() << std::endl;
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code gpio-chardev-abi-v2-libgpiod-d/c/5-3-bazove-zchytuvannia-ta.c
+:::code gpio-chardev-abi-v2-libgpiod-d/cpp/5-3-bazove-zchytuvannia-ta.cpp
 :::
 
 Використання C++ біндингу `libgpiod` демонструє переваги патерну RAII: відсутній ризик витоків об'єктів пам'яті чи застряглих файлових дескрипторів, а обробка помилок виконується через стандартні винятки `std::exception`.
@@ -671,118 +311,8 @@ int main()
 Один із найпотужніших сценаріїв користувацького API — це підписка на події змін стану (Edge Events) без постійного опитування у циклі (polling). Файловий дескриптор `request_fd` інтегрується із системними викликами `poll()`, `select()` та `epoll()`, дозволяючи вбудовувати обробку фронтів сигналів у звичайні асинхронні подійні цикли (Event Loops):
 
 :::tabs
-```c
-#include <gpiod.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/epoll.h>
-#include <unistd.h>
-
-int main(void)
-{
-    struct gpiod_chip *chip;
-    struct gpiod_line_settings *settings;
-    struct gpiod_line_config *line_cfg;
-    struct gpiod_request_config *req_cfg;
-    struct gpiod_line_request *request;
-    struct epoll_event ev, events[1];
-    int epoll_fd, req_fd;
-
-    chip = gpiod_chip_open("/dev/gpiochip1");
-    if (!chip) return EXIT_FAILURE;
-
-    settings = gpiod_line_settings_new();
-    gpiod_line_settings_set_direction(settings, GPIOD_LINE_DIRECTION_INPUT);
-    gpiod_line_settings_set_edge_detection(settings, GPIOD_LINE_EDGE_BOTH);
-
-    line_cfg = gpiod_line_config_new();
-    gpiod_line_config_add_line_settings(line_cfg, (const unsigned int[]){7}, 1, settings);
-
-    req_cfg = gpiod_request_config_new();
-    gpiod_request_config_set_consumer(req_cfg, "async_gpio_monitor");
-
-    request = gpiod_chip_request_lines(chip, req_cfg, line_cfg);
-    if (!request) return EXIT_FAILURE;
-
-    req_fd = gpiod_line_request_get_fd(request);
-
-    epoll_fd = epoll_create1(0);
-    ev.events = EPOLLIN;
-    ev.data.fd = req_fd;
-    epoll_ctl(epoll_fd, EPOLL_CTL_ADD, req_fd, &ev);
-
-    printf("Очікування фронтів сигналів на офсеті 7...\n");
-    int nfds = epoll_wait(epoll_fd, events, 1, 5000); // 5 сек таймаут
-
-    if (nfds > 0) {
-        struct gpiod_edge_event_buffer *buffer = gpiod_edge_event_buffer_new(1);
-        int ret = gpiod_line_request_read_edge_events(request, buffer, 1);
-        if (ret > 0) {
-            struct gpiod_edge_event *event = gpiod_edge_event_buffer_get_event(buffer, 0);
-            enum gpiod_edge_event_type type = gpiod_edge_event_get_event_type(event);
-            unsigned long long ts = gpiod_edge_event_get_timestamp_ns(event);
-            printf("Отримано фронт: %s, Timestamp: %llu нс\n",
-                   type == GPIOD_EDGE_EVENT_RISING_EDGE ? "RISING (Зростання)" : "FALLING (Спад)", ts);
-        }
-        gpiod_edge_event_buffer_free(buffer);
-    }
-
-    close(epoll_fd);
-    gpiod_line_request_release(request);
-    gpiod_line_settings_free(settings);
-    gpiod_line_config_free(line_cfg);
-    gpiod_request_config_free(req_cfg);
-    gpiod_chip_close(chip);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <gpiod.hpp>
-#include <iostream>
-#include <chrono>
-
-int main()
-{
-    try {
-        ::gpiod::chip chip("/dev/gpiochip1");
-
-        ::gpiod::line_settings settings;
-        settings.set_direction(::gpiod::line::direction::INPUT);
-        settings.set_edge_detection(::gpiod::line::edge::BOTH);
-
-        ::gpiod::line_config line_cfg;
-        line_cfg.add_line_settings(::gpiod::line::offset(7), settings);
-
-        ::gpiod::request_config req_cfg;
-        req_cfg.set_consumer("async_cpp_gpio_monitor");
-
-        auto request = chip.request_lines(req_cfg, line_cfg);
-
-        std::cout << "Очікування фронтів сигналів на офсеті 7 (C++)..." << std::endl;
-
-        // Блокуюче очікування події з таймаутом 5 секунд
-        bool has_event = request.wait_edge_events(std::chrono::seconds(5));
-
-        if (has_event) {
-            ::gpiod::edge_event_buffer buffer(1);
-            int count = request.read_edge_events(buffer);
-            if (count > 0) {
-                const auto& event = buffer.get_event(0);
-                std::cout << "Отримано фронт C++: "
-                          << (event.type() == ::gpiod::edge_event::event_type::RISING_EDGE ? "RISING" : "FALLING")
-                          << ", Timestamp: " << event.timestamp_ns() << " нс"
-                          << std::endl;
-            }
-        }
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Помилка очікування події: " << e.what() << std::endl;
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code gpio-chardev-abi-v2-libgpiod-d/c/5-4-asynkhronnyi.c
+:::code gpio-chardev-abi-v2-libgpiod-d/cpp/5-4-asynkhronnyi.cpp
 :::
 
 ## 6. Апаратні крайові випадки, режими каскаду та Power Management

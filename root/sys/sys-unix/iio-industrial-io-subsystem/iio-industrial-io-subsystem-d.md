@@ -41,26 +41,7 @@
 
 Драйвер ядра не створює `struct iio_dev` вручну на стеку чи через прямий виклик `kmalloc()`. Замість цього використовується функція керованого виділення ресурсів `devm_iio_device_alloc()`:
 
-```c
-struct my_adc_priv {
-    struct spi_device *spi;
-    struct regmap *regmap;
-    struct mutex lock;
-    uint16_t buffer[8];
-};
-
-struct iio_dev *indio_dev;
-struct my_adc_priv *priv;
-
-// Виділення єдиного блоку пам'яті для iio_dev та приватного контексту
-indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(*priv));
-if (!indio_dev)
-    return -ENOMEM;
-
-priv = iio_priv(indio_dev);
-priv->spi = spi;
-mutex_init(&priv->lock);
-```
+:::code iio-industrial-io-subsystem-d/c/struktura-iio-dev-ta.h
 
 Функція `devm_iio_device_alloc()` виділяє єдиний неперервний блок пам'яті, який містить як саму структуру `iio_dev`, так і приватний контекст драйвера (`priv`), доступ до якого здійснюється через вказівник `iio_priv(indio_dev)`. Концепція `devm_` автоматично звільняє виділену пам'ять при відвантаженні драйвера або вилученні пристрою з шини.
 
@@ -97,35 +78,7 @@ static const struct iio_info my_adc_info = {
 
 Головною функцією обслуговування sysfs є `read_raw()`. Вона викликається ядром, коли простір користувача читає файл виду `in_voltage0_raw` або `in_voltage0_scale`:
 
-```c
-static int my_adc_read_raw(struct iio_dev *indio_dev,
-                           struct iio_chan_spec const *chan,
-                           int *val, int *val2, long mask)
-{
-    struct my_adc_priv *priv = iio_priv(indio_dev);
-
-    switch (mask) {
-    case IIO_CHAN_INFO_RAW:
-        mutex_lock(&priv->lock);
-        *val = my_adc_hardware_read(priv, chan->channel);
-        mutex_unlock(&priv->lock);
-        return IIO_VAL_INT;
-
-    case IIO_CHAN_INFO_SCALE:
-        // Масштаб 0.805664 мВ (для 12-біт АЦП при 3.3 В опорної напруги)
-        *val = 0;
-        *val2 = 805664;
-        return IIO_VAL_INT_PLUS_MICRO;
-
-    case IIO_CHAN_INFO_OFFSET:
-        *val = -100; // Апаратний зсув нуля
-        return IIO_VAL_INT;
-
-    default:
-        return -EINVAL;
-    }
-}
-```
+:::code iio-industrial-io-subsystem-d/c/tablytsia-kolbekiv-struct.c
 
 Параметр `mask` вказує, який саме атрибут запитується простором користувача. Тип повернення функції повідомляє ядру, як інтерпретувати значення у змінних `val` та `val2`:
 - `IIO_VAL_INT`: значення повертається як одне ціле число у змінній `*val`.
@@ -139,39 +92,7 @@ static int my_adc_read_raw(struct iio_dev *indio_dev,
 
 Кожен аналоговий канал пристрою (напруга, струм, вісь прискорення, температура) описується структурою `struct iio_chan_spec`:
 
-```c
-static const struct iio_chan_spec my_adc_channels[] = {
-    {
-        .type = IIO_VOLTAGE,
-        .indexed = 1,
-        .channel = 0,
-        .info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE) | BIT(IIO_CHAN_INFO_OFFSET),
-        .scan_index = 0,
-        .scan_type = {
-            .sign = 'u',
-            .realbits = 12,
-            .storagebits = 16,
-            .shift = 0,
-            .endianness = IIO_LE,
-        },
-    },
-    {
-        .type = IIO_VOLTAGE,
-        .indexed = 1,
-        .channel = 1,
-        .info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE) | BIT(IIO_CHAN_INFO_OFFSET),
-        .scan_index = 1,
-        .scan_type = {
-            .sign = 'u',
-            .realbits = 12,
-            .storagebits = 16,
-            .shift = 0,
-            .endianness = IIO_LE,
-        },
-    },
-    IIO_CHAN_SOFT_TIMESTAMP(2),
-};
-```
+:::code iio-industrial-io-subsystem-d/c/opys-analohovykh-kanaliv.c
 
 Поля масок `info_mask_separate`, `info_mask_shared_by_type` та `info_mask_shared_by_dir` визначають, які саме файли sysfs генеруються ядром автоматично:
 - `info_mask_separate`: маска атрибутів, індивідуальних для кожного каналу (`in_voltage0_raw`, `in_voltage1_raw`).
@@ -321,151 +242,8 @@ Physical_Value = (RAW + OFFSET) * SCALE
 Програма конфігурує буфер sysfs, вмикає канали напруги та таймстампа, після чого виконує читання бінарних кадрів.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdint.h>
-#include <sys/poll.h>
-
-#define DEV_NODE "/dev/iio:device0"
-
-// Бінарна структура кадру, що відповідає scan_type драйвера
-struct __attribute__((packed)) iio_adc_frame {
-    uint16_t raw_val;
-    uint16_t pad[3];    // Паддінг для вирівнювання 64-бітного таймстампа
-    int64_t timestamp;  // Таймстамп ядра у наносекундах
-};
-
-int main(void) {
-    int fd = open(DEV_NODE, O_RDONLY);
-    if (fd < 0) {
-        perror("Не вдалося відкрити " DEV_NODE);
-        return EXIT_FAILURE;
-    }
-
-    struct pollfd pfd = { .fd = fd, .events = POLLIN };
-    struct iio_adc_frame frame;
-
-    printf("Очікування потокових даних від IIO...\n");
-    for (int i = 0; i < 5; ++i) {
-        int ret = poll(&pfd, 1, 3000);
-        if (ret > 0 && (pfd.revents & POLLIN)) {
-            ssize_t len = read(fd, &frame, sizeof(frame));
-            if (len == sizeof(frame)) {
-                printf("Семпл [%d]: RAW = %5u | Time = %lld ns\n",
-                       i, frame.raw_val, (long long)frame.timestamp);
-            }
-        }
-    }
-
-    close(fd);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <filesystem>
-#include <chrono>
-#include <expected>
-#include <system_error>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/poll.h>
-
-namespace fs = std::filesystem;
-
-class IIOBufferReader {
-private:
-    int dev_fd_ = -1;
-    fs::path sysfs_dev_;
-    fs::path dev_node_;
-
-    std::expected<void, std::error_code> sysfs_write(const std::string& subpath, const std::string& value) {
-        std::ofstream ofs(sysfs_dev_ / subpath);
-        if (!ofs.is_open()) {
-            return std::unexpected(std::make_error_code(std::errc::no_such_file_or_directory));
-        }
-        ofs << value << std::endl;
-        return ofs.good() ? std::expected<void, std::error_code>{} 
-                          : std::unexpected(std::make_error_code(std::errc::io_error));
-    }
-
-public:
-    struct alignas(8) Frame {
-        uint16_t raw_value;
-        uint16_t padding[3];
-        int64_t timestamp_ns;
-    };
-
-    explicit IIOBufferReader(std::string_view dev_name = "iio:device0")
-        : sysfs_dev_("/sys/bus/iio/devices" / fs::path(dev_name)),
-          dev_node_("/dev" / fs::path(dev_name)) {}
-
-    ~IIOBufferReader() {
-        stop();
-        if (dev_fd_ >= 0) ::close(dev_fd_);
-    }
-
-    std::expected<void, std::error_code> start(std::size_t buffer_depth = 128) {
-        (void)sysfs_write("buffer/enable", "0");
-        if (auto r = sysfs_write("scan_elements/in_voltage0_en", "1"); !r) return r;
-        if (auto r = sysfs_write("scan_elements/in_timestamp_en", "1"); !r) return r;
-        if (auto r = sysfs_write("buffer/length", std::to_string(buffer_depth)); !r) return r;
-        if (auto r = sysfs_write("buffer/enable", "1"); !r) return r;
-
-        dev_fd_ = ::open(dev_node_.c_str(), O_RDONLY);
-        if (dev_fd_ < 0) {
-            return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-        }
-        return {};
-    }
-
-    void stop() noexcept {
-        (void)sysfs_write("buffer/enable", "0");
-    }
-
-    std::expected<Frame, std::error_code> read_frame(int timeout_ms = 2000) {
-        if (dev_fd_ < 0) return std::unexpected(std::make_error_code(std::errc::bad_file_descriptor));
-
-        ::pollfd pfd{ .fd = dev_fd_, .events = POLLIN, .revents = 0 };
-        int ret = ::poll(&pfd, 1, timeout_ms);
-        if (ret == 0) return std::unexpected(std::make_error_code(std::errc::timed_out));
-        if (ret < 0)  return std::unexpected(std::make_error_code(static_cast<std::errc>(errno)));
-
-        Frame frame{};
-        ssize_t bytes = ::read(dev_fd_, &frame, sizeof(frame));
-        if (bytes != sizeof(frame)) {
-            return std::unexpected(std::make_error_code(std::errc::io_error));
-        }
-        return frame;
-    }
-};
-
-int main() {
-    IIOBufferReader reader("iio:device0");
-
-    if (auto res = reader.start(128); !res) {
-        std::cerr << "Не вдалося ініціалізувати буфер IIO\n";
-        return 1;
-    }
-
-    std::cout << "Читання 5 семплів у С++23...\n";
-    for (int i = 0; i < 5; ++i) {
-        auto frame_res = reader.read_frame();
-        if (frame_res) {
-            const auto& f = frame_res.value();
-            std::cout << "Семпл [" << i << "]: RAW = " << f.raw_value 
-                      << " | Time = " << f.timestamp_ns << " ns\n";
-        }
-    }
-    return 0;
-}
-```
+:::code iio-industrial-io-subsystem-d/c/6-pryklady-kodu.c
+:::code iio-industrial-io-subsystem-d/cpp/main.cpp
 :::
 
 Повний практичний проект із детальною інструкцією збірки знаходиться у вставці `[Практичний проект: зчитування даних IIO у просторі користувача](root:sys-unix/iio-industrial-io-subsystem/proj-iio-user-reader.md)`.

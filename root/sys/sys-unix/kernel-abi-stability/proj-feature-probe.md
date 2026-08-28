@@ -37,28 +37,7 @@
 
 Проба коштує системного виклику, тож у гарячому місці її не роблять двічі. Але кеш проби має дві неочевидні вимоги.
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <sys/statfs.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-/* Клітинка стану: 0 — ще не питали, 1 — є, -1 — немає. */
-static int probe_once(int *slot, int (*probe)(void))
-{
-    int v = __atomic_load_n(slot, __ATOMIC_ACQUIRE);
-    if (v == 0) {
-        int saved = errno;          /* проба не має права псувати чужий errno */
-        v = probe() ? 1 : -1;
-        errno = saved;
-        __atomic_store_n(slot, v, __ATOMIC_RELEASE);
-    }
-    return v > 0;
-}
-```
+:::code proj-feature-probe/c/karkas-spytaty-odyn-raz-i.c
 
 Перша вимога — **не чіпати `errno`**. Проба ховається всередині вашої бібліотеки й може спрацювати будь-де, зокрема між чужим невдалим викликом і чужим `perror`. Виклик, який мовчки затирає `errno`, перетворює далеке налагодження на вгадування.
 
@@ -68,54 +47,13 @@ static int probe_once(int *slot, int (*probe)(void))
 
 **Покоління перше: виклику може взагалі не бути.** Тут відповідь дає `ENOSYS`, а завдання проби — дістатися диспетчера викликів і не зробити при цьому нічого.
 
-```c
-/* Заголовки старої системи можуть не знати номера. Номер СВІЙ на кожній
-   архітектурі: на mips до нього ще додається 4000 (o32), 5000 (n64)
-   або 6000 (n32) — звіряйтеся з таблицею своєї, не переписуйте наосліп. */
-#ifndef __NR_openat2
-#  if defined(__x86_64__) || defined(__i386__) || \
-      defined(__aarch64__) || defined(__riscv)
-#    define __NR_openat2 437
-#  endif
-#endif
-
-static int probe_openat2(void)
-{
-#ifdef __NR_openat2
-    /* Дескриптора -1 не існує, а розмір 0 менший за будь-яку відому версію
-       struct open_how — ядро, яке знає виклик, відкине це з EINVAL, ще
-       нічого не прочитавши з нашої пам'яті й нічого не відкривши. */
-    long r = syscall(__NR_openat2, -1, "", (void *) 0, (size_t) 0);
-    return !(r == -1 && errno == ENOSYS);
-#else
-    return 0;
-#endif
-}
-
-static int slot_openat2;
-int have_openat2(void) { return probe_once(&slot_openat2, probe_openat2); }
-```
+:::code proj-feature-probe/c/try-proby-po-odnii-na.c
 
 `openat2` тут не випадковий: у glibc для нього досі немає обгортки, тож `syscall()` — не хитрість, а єдиний спосіб. І зверніть увагу на порядок перевірок усередині ядра: розмір структури воно звіряє **першим**, до `copy_struct_from_user`, тому нульовий вказівник у третьому аргументі безпечний.
 
 **Покоління друге: виклик є, а біт прапорців новий.** Відповідь дає `EINVAL`, і проба тут значно підступніша, бо `EINVAL` — найзагальніший код у Linux. Треба знайти набір аргументів, за яких усі інші причини для `EINVAL` виключені.
 
-```c
-#ifndef MFD_HUGETLB
-#  define MFD_HUGETLB 0x0004U       /* з'явився в ядрі 4.14 */
-#endif
-
-static int probe_memfd_hugetlb(void)
-{
-    /* memfd_create перевіряє прапорці ДО того, як читати ім'я, тож нульовий
-       вказівник гарантує: файлового об'єкта не виникне за жодних обставин. */
-    int fd = memfd_create(NULL, MFD_CLOEXEC | MFD_HUGETLB);
-    if (fd >= 0) { close(fd); return 1; }   /* не станеться, але хай буде */
-    if (errno == ENOSYS)
-        return 0;                  /* виклику немає взагалі — прапорця й поготів */
-    return errno != EINVAL;        /* EINVAL = біта не знають; решта = знають */
-}
-```
+:::code proj-feature-probe/c/try-proby-po-odnii-na-2.c
 
 Два рядки тут варті окремої уваги. Перший — перевірка на `ENOSYS`: проба прапорця мовчки припускає, що виклик існує, і на ядрі, старшому за сам `memfd_create` (до 3.17), формулювання «усе, крім `EINVAL`» відповіло б «біт є». Перевірка покоління завжди передує перевірці прапорця.
 
@@ -123,19 +61,7 @@ static int probe_memfd_hugetlb(void)
 
 **Покоління третє: можливість — це файл.** Тут проба взагалі не системний виклик у звичному сенсі, а погляд у [псевдофайлову систему](root:sys-unix/pseudo-filesystems).
 
-```c
-#ifndef CGROUP2_SUPER_MAGIC
-#  define CGROUP2_SUPER_MAGIC 0x63677270   /* байти "cgrp" */
-#endif
-
-static int probe_cgroup2(void)
-{
-    struct statfs sf;
-    if (statfs("/sys/fs/cgroup", &sf) != 0)
-        return 0;                  /* точки монтування немає — відповіді немає */
-    return sf.f_type == CGROUP2_SUPER_MAGIC;
-}
-```
+:::code proj-feature-probe/c/try-proby-po-odnii-na-3.c
 
 Так з'ясовують, що [cgroups](root:sys-unix/cgroups-resource-model) працюють у другій версії, — і так само роблять справжні системні служби. Пастка тут своя: у змішаній конфігурації друга версія висить збоку, у `/sys/fs/cgroup/unified`, а всередині контейнера дерево може бути підмінене зовсім. Проба-файл питає не ядро, а те, що змонтовано в цьому [просторі імен](root:sys-unix/namespaces), і плутати ці два питання не варто.
 
@@ -143,50 +69,7 @@ static int probe_cgroup2(void)
 
 Три проби вище дають відповіді, справедливі для всього процесу. Але є цілий клас можливостей, де сама постановка «чи вміє ядро» безглузда, бо відповідь залежить від конкретних файлів. Класичний випадок — `copy_file_range`: він з'явився в 4.5, копії між різними файловими системами навчився робити в 5.3, а в 5.19 умови знову звузили — тепер це вдається, лише коли обидві системи одного типу й самі це підтримують.
 
-```c
-static ssize_t copy_plain(int in, int out, size_t len)
-{
-    char buf[32768];
-    size_t done = 0;
-    while (done < len) {
-        size_t want = len - done;
-        if (want > sizeof buf) want = sizeof buf;
-        ssize_t got = read(in, buf, want);
-        if (got < 0) { if (errno == EINTR) continue; return -1; }
-        if (got == 0) break;                        /* кінець файлу */
-        for (ssize_t off = 0; off < got; ) {
-            ssize_t put = write(out, buf + off, (size_t) (got - off));
-            if (put < 0) { if (errno == EINTR) continue; return -1; }
-            off += put;
-        }
-        done += (size_t) got;
-    }
-    return (ssize_t) done;
-}
-
-static ssize_t copy_chunk(int in, int out, size_t len)
-{
-    static int worth_trying = 1;    /* кешуємо ЛИШЕ «виклик є в цьому ядрі» */
-
-    if (__atomic_load_n(&worth_trying, __ATOMIC_RELAXED)) {
-        ssize_t n = copy_file_range(in, NULL, out, NULL, len, 0);
-        if (n >= 0)
-            return n;
-        switch (errno) {
-        case ENOSYS:                /* цього ядра виклик не має — назавжди */
-            __atomic_store_n(&worth_trying, 0, __ATOMIC_RELAXED);
-            break;
-        case EXDEV:                 /* різні файлові системи */
-        case EOPNOTSUPP:            /* саме ця система так не вміє */
-        case EINVAL:                /* напр. вихідний дескриптор із O_APPEND */
-            break;                  /* ця пара не вміє — наступна може вміти */
-        default:
-            return -1;              /* справжня помилка: ховати її не можна */
-        }
-    }
-    return copy_plain(in, out, len);
-}
-```
+:::code proj-feature-probe/c/te-shcho-keshuvaty-ne.c
 
 Тут відкат на `read`/`write` правомірний, і важливо розуміти чому. Він дає той самий результат — байт у байт таку саму копію; різниця лише в ціні: `copy_file_range` міг би обійтися посиланням усередині файлової системи або перекласти копіювання на сервер, а ручний цикл справді тягне дані через простір користувача. Відкат, який зберігає обіцянку й програє тільки в швидкості, — нормальна інженерія. Відкат, який тихо дає **інший** результат, відкатом не є, і в такому разі чесніше відмовитися з помилкою.
 

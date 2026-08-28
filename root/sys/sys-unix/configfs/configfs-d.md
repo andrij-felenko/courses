@@ -89,23 +89,7 @@ $ echo fe980000.usb > UDC           # ім'я контролера з /sys/class
 
 Тип — `struct config_item_type` — і є вся поведінка. У ньому три поля, які варто знати: `ct_attrs` — масив описів атрибутів (це з нього постануть файли), `ct_item_ops` — дії над самим об'єктом, `ct_group_ops` — дії над його дітьми. У `ct_group_ops` живе функція `make_item()` (або `make_group()`, якщо дитина сама матиме дітей); саме її кличе configfs, коли на цьому каталозі зробили `mkdir`:
 
-```c
-struct my_target {
-	struct config_item item;
-	unsigned int limit;
-};
-
-static struct config_item *my_make_item(struct config_group *group,
-					const char *name)
-{
-	struct my_target *t = kzalloc(sizeof(*t), GFP_KERNEL);
-
-	if (!t)
-		return ERR_PTR(-ENOMEM);
-	config_item_init_type_name(&t->item, name, &my_item_type);
-	return &t->item;
-}
-```
+:::code configfs-d/c/shcho-robyt-iadro-poky-vy.c
 
 Тут видно всю угоду. Модуль сам виділяє пам'ять і сам вирішує, що в ній лежить, — configfs про `struct my_target` нічого не знає, він бачить лише вкладений `config_item`. Модуль може відмовити: повернений `ERR_PTR(-ENOMEM)` чи `ERR_PTR(-EINVAL)` доїде до оболонки як помилка `mkdir`, і каталог не з'явиться. Отже, перевірку імені й будь-яку іншу перевірку доречно робити саме тут: неправильне ім'я функції гаджета не створює зіпсованого об'єкта, воно просто не створює нічого.
 
@@ -113,27 +97,7 @@ static struct config_item *my_make_item(struct config_group *group,
 
 Атрибут описують парою функцій і одним макросом:
 
-```c
-static ssize_t my_limit_show(struct config_item *item, char *page)
-{
-	return sysfs_emit(page, "%u\n", to_my_target(item)->limit);
-}
-
-static ssize_t my_limit_store(struct config_item *item,
-			      const char *page, size_t count)
-{
-	unsigned int v;
-	int ret = kstrtouint(page, 0, &v);
-
-	if (ret)
-		return ret;
-	if (v > 1024)
-		return -ERANGE;
-	to_my_target(item)->limit = v;
-	return count;
-}
-CONFIGFS_ATTR(my_, limit);
-```
+:::code configfs-d/c/shcho-robyt-iadro-poky-vy-2.c
 
 Макрос збирає з двох функцій `struct configfs_attribute` з іменем файлу `limit` і правами «читати всім, писати власникові». Є ще `CONFIGFS_ATTR_RO` і `CONFIGFS_ATTR_WO`, коли одна з половин зайва, — саме звідси беруться права, що їх показує `ls`. Ціле складання такого модуля, з реєстрацією піддерева й перевіркою в оболонці, розібрано в [маленькому модулі з власним піддеревом](root:sys-unix/configfs/proj-configfs-module.md).
 

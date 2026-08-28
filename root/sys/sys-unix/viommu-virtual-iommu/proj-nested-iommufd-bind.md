@@ -69,52 +69,8 @@ struct IommuHardwareInfo {
 Для налаштування Стадії 2 гіпервізор L0 заповнює простір IOAS за допомогою системного виклику `IOMMU_IOAS_MAP`. Цей виклик зв'язує гостьові фізичні адреси (L1 GPA) з віртуальними адресами процесу QEMU (HVA):
 
 :::tabs
-```c
-/* Створення мапінгу IOAS у C */
-int map_ioas_region_c(int iommufd_fd, uint32_t ioas_id, uint64_t hva_address,
-                     uint64_t l1_gpa_address, uint64_t memory_region_size)
-{
-    struct iommu_ioas_map map_cmd;
-    memset(&map_cmd, 0, sizeof(map_cmd));
-    map_cmd.size = sizeof(map_cmd);
-    map_cmd.ioas_id = ioas_id;
-    map_cmd.flags = IOMMU_IOAS_MAP_READABLE | IOMMU_IOAS_MAP_WRITEABLE |
-                    IOMMU_IOAS_MAP_FIXED_IOVA; /* IOVA задає викликач, а не ядро */
-    map_cmd.user_va = hva_address;
-    map_cmd.iova = l1_gpa_address;
-    map_cmd.length = memory_region_size;
-
-    if (ioctl(iommufd_fd, IOMMU_IOAS_MAP, &map_cmd) < 0) {
-        perror("Помилка створення мапінгу IOAS");
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-/* Ідіоматична реалізація створення мапінгу IOAS у C++20 */
-[[nodiscard]] std::expected<void, std::error_code> map_ioas_region_cpp(
-    int iommufd_fd,
-    std::uint32_t ioas_id,
-    std::uint64_t hva_address,
-    std::uint64_t l1_gpa_address,
-    std::uint64_t memory_region_size) noexcept
-{
-    iommu_ioas_map map_cmd{};
-    map_cmd.size = sizeof(map_cmd);
-    map_cmd.ioas_id = ioas_id;
-    map_cmd.flags = IOMMU_IOAS_MAP_READABLE | IOMMU_IOAS_MAP_WRITEABLE |
-                    IOMMU_IOAS_MAP_FIXED_IOVA; // IOVA задає викликач, а не ядро
-    map_cmd.user_va = hva_address;
-    map_cmd.iova = l1_gpa_address;
-    map_cmd.length = memory_region_size;
-
-    if (::ioctl(iommufd_fd, IOMMU_IOAS_MAP, &map_cmd) < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code proj-nested-iommufd-bind/c/stvorennia-mapinhiv.c
+:::code proj-nested-iommufd-bind/cpp/stvorennia-mapinhiv.cpp
 :::
 
 Використання великих сторінок пам'яті (HugePages 2 МБ або 1 ГБ) у системі L0 значно спрощує структуру Стадії 2. Апаратний IOMMU покриває регіон HugePage одним великим записом на рівні каталогу замість сотень дрібних, що мінімізує кількість промахів у внутрішньому кеші IOTLB хоста під час тривалих операцій DMA.
@@ -128,138 +84,8 @@ int map_ioas_region_c(int iommufd_fd, uint32_t ioas_id, uint64_t hva_address,
 Нижче наведено робочий приклад конфігурації вкладеної HWPT Стадії 1 для архітектури Intel VT-d (Scalable Mode) мовами C та C++.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/iommufd.h>
-
-/* Структура конфігурації Intel VT-d Stage 1 для передачі в ядро */
-struct iommu_hwpt_vtd_s1_config {
-    __u64 flags;
-    __u64 pgtbl_pptr; /* Фізичний покажчик на корінь таблиці сторінок L1 */
-    __u32 addr_width; /* Ширина адреси (48 або 57 біт для 4/5-рівневого пейджингу) */
-    __u32 pad;
-};
-
-/* Створення вкладеної HWPT Стадії 1 у C */
-int create_nested_stage1_hwpt_c(int iommufd_fd, uint32_t dev_id, 
-                                uint32_t stage2_hwpt_id, 
-                                uint64_t l1_pgtbl_root,
-                                uint32_t *out_nested_hwpt_id) 
-{
-    if (iommufd_fd < 0 || !out_nested_hwpt_id) {
-        errno = EINVAL;
-        return -1;
-    }
-
-    struct iommu_hwpt_vtd_s1_config vtd_s1_cfg;
-    memset(&vtd_s1_cfg, 0, sizeof(vtd_s1_cfg));
-    vtd_s1_cfg.flags = 0;
-    vtd_s1_cfg.pgtbl_pptr = l1_pgtbl_root;
-    vtd_s1_cfg.addr_width = 48; /* Стандартний 4-рівневий пейджинг x86_64 */
-
-    struct iommu_hwpt_alloc alloc_cmd;
-    memset(&alloc_cmd, 0, sizeof(alloc_cmd));
-    alloc_cmd.size = sizeof(alloc_cmd);
-    alloc_cmd.flags = 0; /* вкладеність задає не прапорець, а батьківський pt_id */
-    alloc_cmd.dev_id = dev_id;
-    alloc_cmd.pt_id = stage2_hwpt_id; /* Базовий батьківський HWPT Стадії 2 */
-    alloc_cmd.data_type = IOMMU_HWPT_DATA_VTD_S1; /* Режим Intel VT-d Stage 1 */
-    alloc_cmd.data_len = sizeof(vtd_s1_cfg);
-    alloc_cmd.data_uptr = (uint64_t)(uintptr_t)&vtd_s1_cfg;
-
-    if (ioctl(iommufd_fd, IOMMU_HWPT_ALLOC, &alloc_cmd) < 0) {
-        perror("[C-API] Помилка виконання ioctl(IOMMU_HWPT_ALLOC)");
-        return -1;
-    }
-
-    *out_nested_hwpt_id = alloc_cmd.out_hwpt_id;
-    printf("[C-API] Успішно створено вкладений HWPT Stage 1 ID: %u\n", alloc_cmd.out_hwpt_id);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <expected>
-#include <system_error>
-#include <cstdint>
-#include <cstring>
-#include <utility>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/iommufd.h>
-
-/* RAII-обгортка для управління файловим дескриптором IOMMUFD */
-class UniqueFd {
-    int fd_ = -1;
-public:
-    explicit UniqueFd(int fd = -1) noexcept : fd_(fd) {}
-    ~UniqueFd() { if (fd_ >= 0) ::close(fd_); }
-
-    UniqueFd(const UniqueFd&) = delete;
-    UniqueFd& operator=(const UniqueFd&) = delete;
-
-    UniqueFd(UniqueFd&& other) noexcept : fd_(std::exchange(other.fd_, -1)) {}
-    UniqueFd& operator=(UniqueFd&& other) noexcept {
-        if (this != &other) {
-            if (fd_ >= 0) ::close(fd_);
-            fd_ = std::exchange(other.fd_, -1);
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int get() const noexcept { return fd_; }
-    [[nodiscard]] bool is_valid() const noexcept { return fd_ >= 0; }
-};
-
-/* Специфічна конфігурація Intel VT-d Stage 1 */
-struct VtdStage1Config {
-    std::uint64_t flags{0};
-    std::uint64_t pgtbl_pptr{0};
-    std::uint32_t addr_width{48};
-    std::uint32_t pad{0};
-};
-
-/* Ідіоматична реалізація створення вкладеної HWPT Стадії 1 у C++20 */
-[[nodiscard]] std::expected<std::uint32_t, std::error_code> create_nested_stage1_hwpt_cpp(
-    int iommufd,
-    std::uint32_t dev_id,
-    std::uint32_t stage2_hwpt_id,
-    std::uint64_t l1_page_table_root) noexcept
-{
-    if (iommufd < 0) {
-        return std::unexpected(std::make_error_code(std::errc::bad_file_descriptor));
-    }
-
-    VtdStage1Config vtd_cfg{
-        .flags = 0,
-        .pgtbl_pptr = l1_page_table_root,
-        .addr_width = 48,
-        .pad = 0
-    };
-
-    iommu_hwpt_alloc alloc_cmd{};
-    alloc_cmd.size = sizeof(alloc_cmd);
-    alloc_cmd.flags = 0; // вкладеність задає не прапорець, а батьківський pt_id
-    alloc_cmd.dev_id = dev_id;
-    alloc_cmd.pt_id = stage2_hwpt_id;
-    alloc_cmd.data_type = IOMMU_HWPT_DATA_VTD_S1;
-    alloc_cmd.data_len = sizeof(vtd_cfg);
-    alloc_cmd.data_uptr = reinterpret_cast<std::uint64_t>(&vtd_cfg);
-
-    if (::ioctl(iommufd, IOMMU_HWPT_ALLOC, &alloc_cmd) < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    return alloc_cmd.out_hwpt_id;
-}
-```
+:::code proj-nested-iommufd-bind/c/praktychna-realizatsiia.c
+:::code proj-nested-iommufd-bind/cpp/praktychna-realizatsiia.cpp
 :::
 
 ## Інвалідація кешу IOTLB з простору користувача
@@ -271,65 +97,8 @@ struct VtdStage1Config {
 Нижче подано порівняльну реалізацію виклику інвалідації IOTLB мовами C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/iommufd.h>
-
-/* Інвалідація IOTLB у C */
-int invalidate_stage1_iotlb_c(int iommufd_fd, uint32_t nested_hwpt_id,
-                              uint64_t *inv_entries_array, uint32_t num_entries)
-{
-    struct iommu_hwpt_invalidate inv_cmd;
-    memset(&inv_cmd, 0, sizeof(inv_cmd));
-    inv_cmd.size = sizeof(inv_cmd);
-    inv_cmd.hwpt_id = nested_hwpt_id;
-    inv_cmd.data_type = IOMMU_HWPT_INVALIDATE_DATA_VTD_S1;
-    inv_cmd.entry_len = sizeof(struct iommu_hwpt_vtd_s1_invalidate);
-    inv_cmd.entry_num = num_entries;
-    inv_cmd.inv_data_uptr = (uint64_t)(uintptr_t)inv_entries_array;
-
-    if (ioctl(iommufd_fd, IOMMU_HWPT_INVALIDATE, &inv_cmd) < 0) {
-        perror("[C] Помилка інвалідації IOTLB для вкладеного HWPT");
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <expected>
-#include <system_error>
-#include <cstdint>
-#include <span>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/iommufd.h>
-
-/* Інвалідація IOTLB у C++20 з використанням std::span */
-[[nodiscard]] std::expected<void, std::error_code> invalidate_stage1_iotlb_cpp(
-    int iommufd_fd, 
-    std::uint32_t nested_hwpt_id,
-    std::span<const iommu_hwpt_vtd_s1_invalidate> entries) noexcept
-{
-    iommu_hwpt_invalidate inv_cmd{};
-    inv_cmd.size = sizeof(inv_cmd);
-    inv_cmd.hwpt_id = nested_hwpt_id;
-    inv_cmd.data_type = IOMMU_HWPT_INVALIDATE_DATA_VTD_S1;
-    inv_cmd.entry_len = sizeof(iommu_hwpt_vtd_s1_invalidate);
-    inv_cmd.entry_num = static_cast<std::uint32_t>(entries.size());
-    inv_cmd.inv_data_uptr = reinterpret_cast<std::uint64_t>(entries.data());
-
-    if (::ioctl(iommufd_fd, IOMMU_HWPT_INVALIDATE, &inv_cmd) < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code proj-nested-iommufd-bind/c/invalidatsiia-keshu-iotlb.c
+:::code proj-nested-iommufd-bind/cpp/invalidatsiia-keshu-iotlb.cpp
 :::
 
 ## Опис структур даних інвалідації Intel VT-d

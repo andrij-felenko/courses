@@ -66,40 +66,11 @@ Unix малювався як система, де машиною хтось во
 
 Отже, є два набори причин відмови, і другий містить перший. Це відношення «вкладеності» реалізували напрочуд ощадно: причини склали в **упорядкований перелік**, де спершу йдуть усі причини запису, потім межа, потім усі причини читання.
 
-```c
-/* include/linux/security.h — порядок значень тут і є політикою */
-enum lockdown_reason {
-	LOCKDOWN_NONE,
-	LOCKDOWN_MODULE_SIGNATURE,
-	LOCKDOWN_DEV_MEM,
-	LOCKDOWN_KEXEC,
-	LOCKDOWN_HIBERNATION,
-	/* … ще півтора десятка причин запису … */
-	LOCKDOWN_INTEGRITY_MAX,
-	LOCKDOWN_KCORE,
-	LOCKDOWN_KPROBES,
-	LOCKDOWN_PERF,
-	LOCKDOWN_TRACEFS,
-	/* … */
-	LOCKDOWN_CONFIDENTIALITY_MAX,
-};
-```
+:::code kernel-lockdown-d/c/iak-riven-staie-odnym.c
 
 Поточний рівень системи — це теж значення з цього переліку: `LOCKDOWN_NONE`, `LOCKDOWN_INTEGRITY_MAX` або `LOCKDOWN_CONFIDENTIALITY_MAX`. І все рішення політики вміщається в одне порівняння:
 
-```c
-/* security/lockdown/lockdown.c */
-static int lockdown_is_locked_down(enum lockdown_reason what)
-{
-	if (kernel_locked_down >= what) {
-		if (lockdown_reasons[what])
-			pr_notice_ratelimited("Lockdown: %s: %s is restricted; see man kernel_lockdown.7\n",
-				  current->comm, lockdown_reasons[what]);
-		return -EPERM;
-	}
-	return 0;
-}
-```
+:::code kernel-lockdown-d/c/lockdown.c
 
 **Приклад: система на рівні `integrity`, програма відкриває `/dev/mem`.**
 
@@ -121,21 +92,7 @@ what               = LOCKDOWN_KCORE             (22)
 
 Питання ставлять у самих інтерфейсах, поруч зі звичайною перевіркою прав:
 
-```c
-/* drivers/char/mem.c — відкриття /dev/mem та /dev/port */
-static int open_port(struct inode *inode, struct file *filp)
-{
-	int rc;
-
-	if (!capable(CAP_SYS_RAWIO))
-		return -EPERM;
-
-	rc = security_locked_down(LOCKDOWN_DEV_MEM);
-	if (rc)
-		return rc;
-	/* … */
-}
-```
+:::code kernel-lockdown-d/c/mem.c
 
 Спершу класична перевірка мандата, потім — окреме питання «а чи взагалі можна таке в цій системі». Друге питання не про того, хто просить: `CAP_SYS_RAWIO` у процесу є, і це не рятує. Блокування судить **операцію**, а не прохача.
 

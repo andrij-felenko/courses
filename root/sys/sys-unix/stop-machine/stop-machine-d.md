@@ -60,57 +60,13 @@
 
 Реалізовано це маленькою машиною станів. Стан один на всю операцію, а поруч із ним — лічильник підтверджень:
 
-```c
-enum multi_stop_state {
-        MULTI_STOP_NONE,
-        MULTI_STOP_PREPARE,      /* усі прокинулися й крутяться в циклі */
-        MULTI_STOP_DISABLE_IRQ,  /* усі вимкнули собі переривання */
-        MULTI_STOP_RUN,          /* активні виконують fn */
-        MULTI_STOP_EXIT,         /* можна розходитися */
-};
-
-static void set_state(struct multi_stop_data *msdata,
-                      enum multi_stop_state newstate)
-{
-        atomic_set(&msdata->thread_ack, msdata->num_threads);
-        smp_wmb();
-        WRITE_ONCE(msdata->state, newstate);
-}
-
-/* хто підтвердив останнім — той і переводить у наступний стан */
-static void ack_state(struct multi_stop_data *msdata)
-{
-        if (atomic_dec_and_test(&msdata->thread_ack))
-                set_state(msdata, msdata->state + 1);
-}
-```
+:::code stop-machine-d/c/randevu-bez-rozmov.c
 
 Лічильник спершу дорівнює кількості учасників. Кожен, хто виконав належне для поточного стану, зменшує його на одиницю; той, у кого вийшов нуль, знає, що він останній, — і сам переводить усіх у наступний стан, наперед перезарядивши лічильник. Бар'єр `smp_wmb()` між перезарядкою і записом стану потрібен, щоб ніхто не побачив новий стан зі старим, ще не оновленим лічильником: інакше учасник підтвердив би новий стан підрахунком від попереднього кола.
 
 Сам зупинник крутиться в циклі й реагує лише на зміну стану:
 
-```c
-do {
-        stop_machine_yield(cpumask);          /* здебільшого це cpu_relax() */
-        newstate = READ_ONCE(msdata->state);
-        if (newstate != curstate) {
-                curstate = newstate;
-                switch (curstate) {
-                case MULTI_STOP_DISABLE_IRQ:
-                        local_irq_disable();
-                        hard_irq_disable();
-                        break;
-                case MULTI_STOP_RUN:
-                        if (is_active)
-                                err = msdata->fn(msdata->data);
-                        break;
-                default:
-                        break;
-                }
-                ack_state(msdata);
-        }
-} while (curstate != MULTI_STOP_EXIT);
-```
+:::code stop-machine-d/c/randevu-bez-rozmov-2.c
 
 Тепер видно, навіщо станів саме стільки. Чому не вимикати переривання відразу після прокидання? Бо ядра процесора приходять до циклу різного часу: одному досить перепланування, інше саме обслуговує довгий обробник, третє щойно вийшло з глибокого сну. Якби кожен вимикав переривання щойно прийшов, найшвидший сидів би з вимкненими перериваннями всю ту невизначену вічність, поки доплететься найповільніший. Стан `PREPARE` служить рівно цьому: **вікно тиші починається тоді, коли всі вже на місці**, і триває стільки, скільки триває сама робота, а не стільки, скільки триває збирання.
 

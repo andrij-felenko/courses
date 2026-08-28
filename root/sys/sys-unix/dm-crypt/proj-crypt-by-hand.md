@@ -8,24 +8,7 @@
 
 Одну штучність додамо навмисно: віддамо перші 2048 секторів образу «під заголовок», а шифровані дані почнемо відразу за ними. Самого заголовка там не буде, лишаться нулі, — але цей зсув відтворює головну пастку всієї роботи.
 
-```sh
-#!/bin/sh
-set -eu
-
-WORK=/var/tmp/cryptlab
-IMG=$WORK/disk.img
-NAME=byhand                  # → /dev/mapper/byhand
-HDR=2048                     # секторів образу, відданих «під заголовок»
-SECTORS=8192                 # довжина шифрованого пристрою, у секторах
-
-mkdir -p "$WORK"
-truncate -s $(( (HDR + SECTORS) * 512 )) "$IMG"
-LOOP=$(losetup -f --show "$IMG")
-
-( umask 077; dd if=/dev/urandom of="$WORK/key.bin" bs=64 count=1 status=none )
-KEY=$(od -An -tx1 -v "$WORK/key.bin" | tr -d ' \n')
-[ ${#KEY} -eq 128 ] || { echo "ключ мусить дати 128 шістнадцяткових цифр" >&2; exit 1; }
-```
+:::code proj-crypt-by-hand/sh/stend.sh
 
 Шістдесят чотири байти — не забаганка. [XTS](root:sf-security/aes-xts) бере **два** ключі: одним шифрує дані, другим — номер сектора, тож на AES-256 треба 2 × 32 байти. З 32-байтовим ключем той самий рядок теж запрацює, мовчки й без попереджень, тільки це буде вже AES-128-XTS. Байти беремо з `/dev/urandom` — [джерела, яке ядро наповнює придатною для криптографії випадковістю](root:sys-unix/random-devices) і віддає без очікування.
 
@@ -95,85 +78,9 @@ dd if="$IMG" bs=512 skip=$(( HDR + SECT )) count=1 status=none | xxd | head -2
 
 :::tabs
 
-```python
-#!/usr/bin/env python3
-"""Розшифрувати один сектор образу тим самим способом, що й ядро."""
-import sys
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+:::code proj-crypt-by-hand/py/main.py
 
-SECTOR = 512
-
-
-def xts_sector(key: bytes, sector: int, data: bytes) -> bytes:
-    if len(key) not in (32, 64):
-        raise SystemExit('XTS бере два ключі: разом 32 байти або 64')
-    # plain64: номер сектора — 64-бітове число молодшим байтом уперед,
-    # решта IV — нулі. Для 16-байтового IV це те саме, що 16 байтів
-    # того самого числа в тому самому порядку.
-    tweak = sector.to_bytes(16, 'little')
-    dec = Cipher(algorithms.AES(key), modes.XTS(tweak)).decryptor()
-    return dec.update(data) + dec.finalize()
-
-
-def main(image, keyfile, hdr, sector):
-    with open(keyfile, 'rb') as f:
-        key = f.read()
-    with open(image, 'rb') as f:
-        f.seek((hdr + sector) * SECTOR)      # МІСЦЕ: зсув заголовка враховано
-        ct = f.read(SECTOR)
-    sys.stdout.buffer.write(xts_sector(key, sector, ct))   # ЗМІНА: без зсуву
-
-
-if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], int(sys.argv[3]), int(sys.argv[4]))
-```
-
-```c
-/* gcc -O2 -o xtsdec xtsdec.c -lcrypto
-   ужиток: ./xtsdec disk.img key.bin 2048 100 > back.bin                     */
-#define _FILE_OFFSET_BITS 64
-#include <openssl/evp.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#define SECTOR 512
-
-int main(int argc, char **argv)
-{
-    unsigned char key[64], iv[16] = {0}, ct[SECTOR], pt[SECTOR];
-    unsigned long long hdr, sect;
-    EVP_CIPHER_CTX *ctx;
-    FILE *f;
-    int n, i;
-
-    if (argc != 5)
-        return fprintf(stderr, "ужиток: %s образ ключ hdr сектор\n", argv[0]), 2;
-    hdr  = strtoull(argv[3], NULL, 10);
-    sect = strtoull(argv[4], NULL, 10);
-
-    if (!(f = fopen(argv[2], "rb")) || fread(key, 1, sizeof key, f) != sizeof key)
-        return perror("ключ"), 1;
-    fclose(f);
-
-    f = fopen(argv[1], "rb");                              /* МІСЦЕ */
-    if (!f || fseeko(f, (off_t)((hdr + sect) * SECTOR), SEEK_SET) != 0
-           || fread(ct, 1, SECTOR, f) != SECTOR)
-        return perror("образ"), 1;
-    fclose(f);
-
-    for (i = 0; i < 8; i++)                                /* ЗМІНА: plain64 */
-        iv[i] = (unsigned char)(sect >> (8 * i));
-
-    ctx = EVP_CIPHER_CTX_new();
-    if (EVP_DecryptInit_ex(ctx, EVP_aes_256_xts(), NULL, key, iv) != 1
-        || EVP_DecryptUpdate(ctx, pt, &n, ct, SECTOR) != 1)  /* увесь сектор за раз */
-        return fprintf(stderr, "EVP відмовив\n"), 1;
-    EVP_CIPHER_CTX_free(ctx);
-
-    fwrite(pt, 1, (size_t)n, stdout);
-    return 0;
-}
-```
+:::code proj-crypt-by-hand/c/xtsdec.c
 
 :::
 
@@ -197,23 +104,7 @@ python3 decrypt-sector.py "$IMG" "$WORK/key.bin" 0 $(( HDR + SECT )) | xxd | hea
 
 Лишилося два записи, і кожен показує одну з двох протилежних властивостей шару.
 
-```sh
-ct_of() {
-    dd if="$IMG" bs=512 skip=$(( HDR + $1 )) count=1 status=none |
-        sha256sum | cut -c1-16
-}
-
-# той самий текст — в ІНШИЙ сектор
-dd if="$WORK/plain.bin" of=/dev/mapper/"$NAME" bs=512 seek=200 count=1 \
-   oflag=direct status=none && sync
-echo "сектор 100: $(ct_of 100)"     # 4e0b9a13c7f6d2a8
-echo "сектор 200: $(ct_of 200)"     # b71c05ee4a930f62   ← інші байти
-
-# той самий текст — У ТОЙ САМИЙ сектор, удруге
-dd if="$WORK/plain.bin" of=/dev/mapper/"$NAME" bs=512 seek=100 count=1 \
-   oflag=direct status=none && sync
-echo "сектор 100: $(ct_of 100)"     # 4e0b9a13c7f6d2a8   ← ті самі байти
-```
+:::code proj-crypt-by-hand/sh/shcho-vydno-z-boku-nosiia.sh
 
 Перший рядок — це та причина, через яку номер сектора взагалі затягли в шифр: однаковий вміст у різних місцях виглядає по-різному, і підготовлений візерунок повторів у шифротексті не проступає. Другий рядок — ціна цієї економії: свіжого випадкового значення нікуди покласти, тож перезапис того самого вмісту в те саме місце дає побайтово те саме. Хто має дві копії диска, зроблені в різний час, точно бачить, які сектори змінилися. Це не вада нашого саморобного стенда — `cryptsetup` дає рівно те саме.
 

@@ -55,18 +55,7 @@ mapping & 0x3                 =  0x1        → лише PAGE_MAPPING_ANON
 
 ## struct anon_vma: спільна точка збору
 
-```c
-/* include/linux/rmap.h */
-struct anon_vma {
-        struct anon_vma        *root;             /* корінь дерева; у корені — сам на себе */
-        struct rw_semaphore     rwsem;            /* справжній замок — тільки в корені */
-        atomic_t                refcount;
-        unsigned long           num_children;
-        unsigned long           num_active_vmas;
-        struct anon_vma        *parent;
-        struct rb_root_cached   rb_root;          /* дерево інтервалів ребер */
-};
-```
+:::code api-rmap-interfaces/c/struct-anon-vma-spilna.c
 
 | Поле | Що означає | Хто його береже |
 | --- | --- | --- |
@@ -86,18 +75,7 @@ struct anon_vma {
 
 ## struct anon_vma_chain: ребро, вписане у два індекси
 
-```c
-struct anon_vma_chain {
-        struct vm_area_struct  *vma;
-        struct anon_vma        *anon_vma;
-        struct list_head        same_vma;         /* ланка в списку ділянки */
-        struct rb_node          rb;               /* вузол у дереві об'єкта */
-        unsigned long           rb_subtree_last;  /* доповнення дерева інтервалів */
-#ifdef CONFIG_DEBUG_VM_RB
-        unsigned long           cached_vma_start, cached_vma_last;
-#endif
-};
-```
+:::code api-rmap-interfaces/c/struct-anon-vma-chain.c
 
 Уся сіль структури в тому, що одне ребро «ділянка ↔ об'єкт» стоїть одночасно у двох різних індексах і відповідає на два протилежні питання.
 
@@ -125,22 +103,7 @@ static inline unsigned long vma_address(struct vm_area_struct *vma,
 
 ## struct rmap_walk_control і сам обхід
 
-```c
-struct rmap_walk_control {
-        void *arg;
-        bool  try_lock;
-        bool  contended;
-        bool (*rmap_one)(struct folio *folio, struct vm_area_struct *vma,
-                         unsigned long addr, void *arg);
-        int  (*done)(struct folio *folio);
-        struct anon_vma *(*anon_lock)(struct folio *folio,
-                                      struct rmap_walk_control *rwc);
-        bool (*invalid_vma)(struct vm_area_struct *vma, void *arg);
-};
-
-void rmap_walk(struct folio *folio, struct rmap_walk_control *rwc);
-void rmap_walk_locked(struct folio *folio, struct rmap_walk_control *rwc);
-```
+:::code api-rmap-interfaces/c/struct-rmap-walk-control-i.h
 
 | Поле | Обов'язкове | Зміст |
 | --- | --- | --- |
@@ -166,42 +129,7 @@ void rmap_walk_locked(struct folio *folio, struct rmap_walk_control *rwc);
 
 Мінімальний робочий обхід — порахувати, у скількох ділянках folio видно, і надрукувати адресу в кожній:
 
-```c
-struct mapper_scan {
-        unsigned int count;
-};
-
-static bool report_one(struct folio *folio, struct vm_area_struct *vma,
-                       unsigned long addr, void *arg)
-{
-        struct mapper_scan *s = arg;
-
-        s->count++;
-        pr_info("rmap: mm=%p addr=%#lx %s\n",
-                vma->vm_mm, addr, vma->vm_file ? "file" : "anon");
-        return true;                     /* далі, до кінця дерева */
-}
-
-static void who_maps(struct folio *folio)
-{
-        struct mapper_scan scan = { .count = 0 };
-        struct rmap_walk_control rwc = {
-                .arg       = &scan,
-                .rmap_one  = report_one,
-                .anon_lock = folio_lock_anon_vma_read,
-                .try_lock  = true,       /* під тиском краще відступити */
-        };
-
-        folio_lock(folio);               /* обов'язково для файлових і злитих */
-        rmap_walk(folio, &rwc);
-        folio_unlock(folio);
-
-        if (rwc.contended)
-                pr_info("rmap: lock contended, list incomplete\n");
-        else
-                pr_info("rmap: %u mappings total\n", scan.count);
-}
-```
+:::code api-rmap-interfaces/c/struct-rmap-walk-control-i.c
 
 Цей код збирається **лише всередині дерева ядра**. `rmap_walk` не експортований: у `mm/rmap.c` з усього переліку назовні відкрито тільки `folio_mkclean` і `make_device_exclusive_range`, обидва через `EXPORT_SYMBOL_GPL`. Із [завантажуваного модуля](root:sys-unix/kernel-modules) обхід не покличеш — і це свідоме рішення, а не недогляд.
 
@@ -209,31 +137,7 @@ static void who_maps(struct folio *folio)
 
 Функції обліку не ходять деревами — вони правлять лічильники й прапорці folio в мить, коли запис таблиці сторінок з'являється або зникає. Ім'я кожної складене за одним шаблоном: `folio_<дія>_<вид>_rmap_<рівень>`.
 
-```c
-void folio_add_new_anon_rmap(struct folio *, struct vm_area_struct *,
-                             unsigned long address, rmap_t flags);
-void folio_add_anon_rmap_ptes(struct folio *, struct page *, int nr_pages,
-                              struct vm_area_struct *, unsigned long address,
-                              rmap_t flags);
-void folio_add_anon_rmap_pmd(struct folio *, struct page *,
-                             struct vm_area_struct *, unsigned long address,
-                             rmap_t flags);
-void folio_add_file_rmap_ptes(struct folio *, struct page *, int nr_pages,
-                              struct vm_area_struct *);
-void folio_add_file_rmap_pmd(struct folio *, struct page *,
-                             struct vm_area_struct *);
-void folio_remove_rmap_ptes(struct folio *, struct page *, int nr_pages,
-                            struct vm_area_struct *);
-void folio_remove_rmap_pmd(struct folio *, struct page *,
-                           struct vm_area_struct *);
-void folio_move_anon_rmap(struct folio *, struct vm_area_struct *);
-
-/* однослівні форми — макроси-обгортки з nr_pages = 1 */
-#define folio_add_anon_rmap_pte(folio, page, vma, address, flags)  \
-        folio_add_anon_rmap_ptes(folio, page, 1, vma, address, flags)
-#define folio_add_file_rmap_pte(folio, page, vma)   folio_add_file_rmap_ptes(folio, page, 1, vma)
-#define folio_remove_rmap_pte(folio, page, vma)     folio_remove_rmap_ptes(folio, page, 1, vma)
-```
+:::code api-rmap-interfaces/c/oblik-vidobrazhen-khto.h
 
 | Функція | Коли кличуть | Особливість |
 | --- | --- | --- |

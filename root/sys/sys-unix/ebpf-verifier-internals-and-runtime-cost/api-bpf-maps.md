@@ -42,22 +42,7 @@ int syscall(__NR_bpf, int cmd, union bpf_attr *attr, unsigned int size);
 
 ### Створення карти (`BPF_MAP_CREATE`)
 
-```c
-struct {
-    __u32 map_type;           /* Тип карти з переліку enum bpf_map_type */
-    __u32 key_size;           /* Розмір ключа в байтах */
-    __u32 value_size;         /* Розмір значення в байтах */
-    __u32 max_entries;        /* Максимальна місткість карти (кількість елементів) */
-    __u32 map_flags;          /* Прапорці налаштування виділення пам'яті (BPF_F_*) */
-    __u32 inner_map_fd;       /* FD внутрішньої карти для map-in-map */
-    __u32 numa_node;          /* Ідентифікатор вузла NUMA для оптимізації пам'яті */
-    char  map_name[16];       /* Текстова назва карти для діагностики у bpftool */
-    __u32 map_ifindex;        /* Індекс мережевого інтерфейсу для апаратного розвантаження */
-    __u32 btf_fd;             /* FD завантаженого об'єкта BTF для типізації */
-    __u32 btf_key_type_id;    /* ID типу ключа у метаданих BTF */
-    __u32 btf_value_type_id;  /* ID типу значення у метаданих BTF */
-};
-```
+:::code api-bpf-maps/c/stvorennia-karty-bpf-map.c
 
 ### Операції з елементами карти (`LOOKUP`, `UPDATE`, `DELETE`)
 
@@ -75,18 +60,7 @@ struct {
 
 ### Пакетні операції (`*_BATCH`)
 
-```c
-struct {
-    __aligned_u64 in_batch;   /* Вхідний токен ітерації (або NULL для старту) */
-    __aligned_u64 out_batch;  /* Вихідний токен для продовження ітерації */
-    __aligned_u64 keys;       /* Вказівник на масив ключів у просторі користувача */
-    __aligned_u64 values;     /* Вказівник на масив значень у просторі користувача */
-    __u32 count;              /* Кількість елементів для обробки (вхід/вихід) */
-    __u32 map_fd;             /* Файловий дескриптор карти */
-    __u64 elem_flags;         /* Прапорці елементів (BPF_EXIST, BPF_NOEXIST) */
-    __u64 flags;              /* Прапорці пакетної операції */
-};
-```
+:::code api-bpf-maps/c/paketni-operatsii-batch.c
 
 ---
 
@@ -139,28 +113,7 @@ struct {
 
 Програми eBPF всередині ядра звертаються до карт за допомогою строго типізованих функцій-хелперів:
 
-```c
-/* Пошук вказівника на значення за адресою ключа. Повертає NULL якщо ключ відсутній */
-void *bpf_map_lookup_elem(struct bpf_map *map, const void *key);
-
-/* Вставка або оновлення значення. Повертає 0 у разі успіху або від'ємний код помилки */
-long bpf_map_update_elem(struct bpf_map *map, const void *key, const void *value, __u64 flags);
-
-/* Видалення ключа з карти. Повертає 0 або від'ємний код помилки */
-long bpf_map_delete_elem(struct bpf_map *map, const void *key);
-
-/* Пряме копіювання події в кільцевий буфер Ring Buffer */
-long bpf_ringbuf_output(void *ringbuf, void *data, __u64 size, __u64 flags);
-
-/* Резервування слоту пам'яті в Ring Buffer з нульовим копіюванням */
-void *bpf_ringbuf_reserve(void *ringbuf, __u64 size, __u64 flags);
-
-/* Публікація зарезервованого запису для зчитування процесом простору користувача */
-void bpf_ringbuf_submit(void *data, __u64 flags);
-
-/* Скасування зарезервованого запису у разі виникнення помилки */
-void bpf_ringbuf_discard(void *data, __u64 flags);
-```
+:::code api-bpf-maps/c/5-dopomizhni-funktsii.h
 
 ---
 
@@ -169,118 +122,8 @@ void bpf_ringbuf_discard(void *data, __u64 flags);
 Приклад створення хеш-карти через бібліотеку `libbpf`, додавання елемента та зчитування результату:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <errno.h>
-#include <string.h>
-#include <unistd.h>
-#include <bpf/bpf.h>
-#include <bpf/libbpf.h>
-
-int main(void)
-{
-    /* 1. Створення хеш-карти: ключ = uint32_t (PID), значення = uint64_t (лічильник) */
-    int map_fd = bpf_map_create(BPF_MAP_TYPE_HASH, "proc_stats",
-                                sizeof(uint32_t), sizeof(uint64_t),
-                                1024, NULL);
-    if (map_fd < 0) {
-        fprintf(stderr, "Помилка створення карти: %s\n", strerror(errno));
-        return 1;
-    }
-
-    uint32_t key = 1337;
-    uint64_t initial_val = 1;
-
-    /* 2. Запис значення з прапорцем BPF_ANY */
-    if (bpf_map_update_elem(map_fd, &key, &initial_val, BPF_ANY) != 0) {
-        fprintf(stderr, "Помилка оновлення елемента: %s\n", strerror(errno));
-        close(map_fd);
-        return 1;
-    }
-
-    /* 3. Зчитування збереженого значення */
-    uint64_t lookup_val = 0;
-    if (bpf_map_lookup_elem(map_fd, &key, &lookup_val) == 0) {
-        printf("Знайдено значення для PID %u: %lu\n", key, lookup_val);
-    }
-
-    close(map_fd);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstdint>
-#include <cstring>
-#include <system_error>
-#include <unistd.h>
-#include <bpf/bpf.h>
-#include <bpf/libbpf.h>
-
-class BpfMapHandle {
-public:
-    explicit BpfMapHandle(int fd) : fd_(fd) {
-        if (fd_ < 0) {
-            throw std::system_error(errno, std::generic_category(), "bpf_map_create failed");
-        }
-    }
-
-    ~BpfMapHandle() noexcept {
-        if (fd_ >= 0) {
-            close(fd_);
-        }
-    }
-
-    BpfMapHandle(const BpfMapHandle&) = delete;
-    BpfMapHandle& operator=(const BpfMapHandle&) = delete;
-
-    BpfMapHandle(BpfMapHandle&& other) noexcept : fd_(other.fd_) {
-        other.fd_ = -1;
-    }
-
-    BpfMapHandle& operator=(BpfMapHandle&& other) noexcept {
-        if (this != &other) {
-            if (fd_ >= 0) close(fd_);
-            fd_ = other.fd_;
-            other.fd_ = -1;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int get() const noexcept { return fd_; }
-
-private:
-    int fd_{-1};
-};
-
-int main()
-{
-    try {
-        BpfMapHandle map{bpf_map_create(BPF_MAP_TYPE_HASH, "proc_stats",
-                                        sizeof(uint32_t), sizeof(uint64_t),
-                                        1024, nullptr)};
-
-        const uint32_t key = 1337;
-        const uint64_t initial_val = 1;
-
-        if (bpf_map_update_elem(map.get(), &key, &initial_val, BPF_ANY) != 0) {
-            throw std::system_error(errno, std::generic_category(), "bpf_map_update_elem failed");
-        }
-
-        uint64_t lookup_val = 0;
-        if (bpf_map_lookup_elem(map.get(), &key, &lookup_val) == 0) {
-            std::cout << "Знайдено значення для PID " << key << ": " << lookup_val << "\n";
-        }
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << "\n";
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code api-bpf-maps/c/6-pryklad-roboty-z-kartamy.c
+:::code api-bpf-maps/cpp/main.cpp
 :::
 
 ---

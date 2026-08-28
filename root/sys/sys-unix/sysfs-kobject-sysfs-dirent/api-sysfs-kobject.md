@@ -7,22 +7,7 @@
 ### `struct kobject` (`<linux/kobject.h>`)
 Основна атомна структура графа об'єктів ядра. Вона не використовується як самостійний динамічний об'єкт, а вбудовується всередину більших структур драйверів (`struct device`, `struct module`).
 
-```c
-struct kobject {
-    const char          *name;        /* Ім'я вузла у sysfs */
-    struct list_head    entry;       /* Елемент списку в kset */
-    struct kobject      *parent;     /* Вказівник на батьківський kobject */
-    struct kset         *kset;       /* Вказівник на набір-власник */
-    const struct kobj_type *ktype;   /* Таблиця операцій та тип об'єкта */
-    struct kernfs_node  *sd;          /* Легковаговий вузол у kernfs/sysfs */
-    struct kref         kref;        /* Лічильник посилань */
-    unsigned int state_initialized:1;
-    unsigned int state_in_sysfs:1;
-    unsigned int state_add_uevent_sent:1;
-    unsigned int state_remove_uevent_sent:1;
-    unsigned int uevent_suppress:1;
-};
-```
+:::code api-sysfs-kobject/c/struct-kobject-linux.c
 - **Контекст і правила**: Поле `kref` ініціалізується значенням `1` під час первинного створення. Зміна лічильника посилань здійснюється атомарно. Поле `sd` вказує на внутрішній вузол `kernfs_node`, який створюється при реєстрації об'єкта у sysfs. Прапори стану керують повторним надсиланням подій uevent та захищають від подвійного вилучення з деревоподібної ієрархії.
 
 ### `struct kobj_type` (`<linux/kobject.h>`)
@@ -53,18 +38,7 @@ struct sysfs_ops {
 ### `struct attribute` та `struct kobj_attribute` (`<linux/sysfs.h>`)
 Базовий та розширений файловий атрибут.
 
-```c
-struct attribute {
-    const char *name; /* Ім'я файла в sysfs */
-    umode_t     mode; /* Права доступу, наприклад 0644 або 0444 */
-};
-
-struct kobj_attribute {
-    struct attribute attr;
-    ssize_t (*show)(struct kobject *kobj, struct kobj_attribute *attr, char *buf);
-    ssize_t (*store)(struct kobject *kobj, struct kobj_attribute *attr, const char *buf, size_t count);
-};
-```
+:::code api-sysfs-kobject/c/struct-attribute-ta-struct.h
 - **Контекст і правила**: Поле `mode` містить стандартні POSIX-прапори доступу (`S_IRUGO`, `S_IWUSR`). Драйвери не повинні надавати атрибутам sysfs права на виконання (`S_IXUGO`) або загальні права на запис для всіх користувачів (`0666`).
 
 ## Функції керування життям `kobject`

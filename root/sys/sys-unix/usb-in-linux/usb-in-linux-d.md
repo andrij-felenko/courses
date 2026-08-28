@@ -72,21 +72,7 @@ usb:v1D6Bp0002d0612dc09dsc00dp01ic09isc00ip00in00
 
 З іншого боку цієї механіки стоїть драйвер. У своєму коді він оголошує таблицю того, що згоден обслуговувати:
 
-```c
-static const struct usb_device_id id_table[] = {
-	/* будь-який інтерфейс класу Video, підклас 1 (Video Control) */
-	{ USB_INTERFACE_INFO(USB_CLASS_VIDEO, 1, 0) },
-	{ }   /* порожній запис — обмежувач таблиці */
-};
-MODULE_DEVICE_TABLE(usb, id_table);
-
-static struct usb_driver uvc_driver = {
-	.name       = "uvcvideo",
-	.id_table   = id_table,
-	.probe      = uvc_probe,
-	.disconnect = uvc_disconnect,
-};
-```
+:::code usb-in-linux-d/c/main.c
 
 Макрос `MODULE_DEVICE_TABLE` не робить нічого під час роботи. Він кладе таблицю в окрему секцію модуля, звідки її при встановленні модулів у систему вичитує `depmod` і виписує у файл `modules.alias` шаблони на кшталт `usb:v*p*d*dc*dsc*dp*ic0Eisc01ip00in*`. Тобто відповідність «пристрій → модуль» обчислена заздалегідь і лежить звичайним текстовим списком.
 

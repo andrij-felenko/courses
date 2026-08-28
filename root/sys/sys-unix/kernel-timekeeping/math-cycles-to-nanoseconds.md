@@ -181,18 +181,7 @@ q = 0.05 / 0.179 = 0.28
 
 Того самого підходу ядро тримається й нижче, на рівні порції накопичення. Проміжок між згортаннями задано в наносекундах (`10⁹/HZ`), а накопичувати треба такти, тож переклад знову дає залишок — і залишок не викидають, а записують:
 
-```c
-tmp = NTP_INTERVAL_LENGTH;          /* 10⁹/HZ наносекунд */
-tmp <<= clock->shift;
-ntpinterval = tmp;
-tmp += clock->mult / 2;
-do_div(tmp, clock->mult);
-interval = tmp;
-
-tk->cycle_interval   = interval;
-tk->xtime_interval   = interval * clock->mult;
-tk->xtime_remainder  = ntpinterval - tk->xtime_interval;
-```
+:::code math-cycles-to-nanoseconds/c/main.c
 
 Для TSC на 3 ГГц при `HZ = 250` це дає ось що:
 

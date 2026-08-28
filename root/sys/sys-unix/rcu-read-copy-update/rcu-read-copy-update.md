@@ -35,43 +35,9 @@ RCU (Read-Copy Update) вирішує цю проблему радикально
 
 :::tabs
 == C
-```c
-/* Читач: лише позначає межі, жодних блокувань */
-rcu_read_lock();
-list_for_each_entry_rcu(d, &dev_list, node) {
-    if (d->ifindex == idx) {
-        found = d;
-        break;
-    }
-}
-/* Робота з found має завершитися до unlock */
-rcu_read_unlock();
-
-/* Письменник (вилучення) */
-mutex_lock(&dev_mutex); /* RCU не захищає письменників один від одного */
-list_del_rcu(&d->node);
-mutex_unlock(&dev_mutex);
-
-/* Асинхронне звільнення після Grace Period */
-call_rcu(&d->rcu, dev_free);
-```
+:::code rcu-read-copy-update/c/main.c
 == Rust
-```rust
-// У Rust читання під RCU оформлюється через RCU Guard
-let rcu_guard = kernel::sync::rcu::read_lock();
-
-// Пошук у колекції, захищеній RCU
-if let Some(dev) = dev_list.iter(&rcu_guard).find(|d| d.ifindex == idx) {
-    // Працюємо з dev...
-}
-// Guard автоматично звільняється при виході з області видимості
-drop(rcu_guard);
-
-// Письменник
-let mut list = dev_list.lock(); // Захист письменників
-let old_node = list.remove(idx);
-// Звільнення буде автоматично відкладене завдяки Drop + RCU
-```
+:::code rcu-read-copy-update/rust/main.rs
 :::
 
 ## Підсумок

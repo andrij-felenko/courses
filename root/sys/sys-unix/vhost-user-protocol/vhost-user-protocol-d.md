@@ -76,22 +76,7 @@ if (backend_hva_base == MAP_FAILED) {
     return -1;
 }
 ```
-```cpp
-#include <sys/mman.h>
-#include <system_error>
-#include <cstddef>
-
-/* Ідіоматичне відображення регіону пам'яті в C++ з контролем помилок через винятки */
-void* map_guest_region(std::size_t size, std::size_t offset, int fd) {
-    void* addr = ::mmap(nullptr, size + offset,
-                        PROT_READ | PROT_WRITE, MAP_SHARED,
-                        fd, 0);
-    if (addr == MAP_FAILED) {
-        throw std::system_error(errno, std::generic_category(), "Помилка mmap регіону");
-    }
-    return addr;
-}
-```
+:::code vhost-user-protocol-d/cpp/main.cpp
 :::
 
 Тепер одна й та сама фізична пам'ять одночасно відображена в три адресні простори:
@@ -304,23 +289,7 @@ inline void log_dirty_page(std::atomic<uint8_t>* log_base, uint64_t page_nr) noe
 
 Запуск віртуальної машини з підтримкою vhost-user вимагає узгодженого налаштування пам'яті HugePages та сокета Unix:
 
-```bash
-# 1. Виділення пулу великих сторінок (1024 сторінки по 2 МБ = 2 ГБ)
-echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
-
-# 2. Запуск сервера SPDK з бекендом vhost-user-blk
-spdk_tgt &
-rpc.py bdev_nvme_attach_controller -b Nvme0 -t PCIe -a 0000:01:00.0
-rpc.py vhost_create_blk_controller --cpumask 0x2 vhost.blk0 Nvme0n1
-
-# 3. Запуск QEMU з підключенням до vhost-user сокета
-qemu-system-x86_64 \
-    -enable-kvm -m 2048 -smp 2 \
-    -object memory-backend-file,id=mem,size=2048M,mem-path=/dev/hugepages,share=on \
-    -numa node,memdev=mem \
-    -chardev socket,id=spdk_vhost,path=/var/tmp/vhost.blk0 \
-    -device vhost-user-blk-pci,chardev=spdk_vhost,id=blk0,num-queues=2
-```
+:::code vhost-user-protocol-d/sh/main.sh
 
 Для досягнення мінімальних та детермінованих затримок необхідно забезпечити суворе вирівнювання NUMA-топології: оперативна пам'ять віртуальної машини (вузол NUMA у файловій системі `/dev/hugepages`), віртуальні процесори vCPU у QEMU та робочі потоки сервера (PMD у DPDK/SPDK) мають бути жорстко прив'язані до одного й того самого фізичного процесорного сокета (NUMA node pinning). Якщо потік сервера виконує опитування пам'яті через шину QPI/UPI з іншого сокета, затримка доступу зростає на 40–60%, а пропускна здатність падає через конкуренцію на міжсокетних лінках.
 

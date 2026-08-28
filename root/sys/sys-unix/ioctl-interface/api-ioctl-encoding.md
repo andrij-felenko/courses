@@ -13,21 +13,7 @@
 
 Самі константи живуть в `include/uapi/asm-generic/ioctl.h` і виражені одна через одну, тож зсуви не задані числами, а обчислені:
 
-```c
-#define _IOC_NRBITS      8
-#define _IOC_TYPEBITS    8
-#define _IOC_SIZEBITS   14
-#define _IOC_DIRBITS     2
-
-#define _IOC_NRSHIFT     0
-#define _IOC_TYPESHIFT   (_IOC_NRSHIFT   + _IOC_NRBITS)     /*  8 */
-#define _IOC_SIZESHIFT   (_IOC_TYPESHIFT + _IOC_TYPEBITS)   /* 16 */
-#define _IOC_DIRSHIFT    (_IOC_SIZESHIFT + _IOC_SIZEBITS)   /* 30 */
-
-#define _IOC_NONE        0U
-#define _IOC_WRITE       1U
-#define _IOC_READ        2U
-```
+:::code api-ioctl-encoding/c/chotyry-polia-v-odnomu.c
 
 Напрям читається **з боку програми**, а не з боку ядра — це найчастіше джерело плутанини:
 
@@ -141,38 +127,11 @@ if (error == -ENOIOCTLCMD)
 - **Доповнення виписується явно.** Усі поля мають лежати на своєму природному вирівнюванні, а дірки між ними — бути названими полями. Неявне доповнення — це неініціалізовані байти ядра, що їдуть у простір користувача, і різна розкладка на різних ABI. Перевірити готову структуру можна `pahole`.
 - **Стеля розміру.** Структура мусить уміститися в поле розміру: 16383 байти там, де воно чотирнадцятибітне, і 8191 на архітектурах зі списку вище. Портативна межа, яку називає документація ядра, — саме **8191 байт**. Більший обсяг передається не самою структурою, а адресою й довжиною **всередині** неї.
 
-```c
-/* так не можна: розкладка залежить від розрядності */
-struct bad_cfg {
-        int     n;
-        void   *buf;
-        long    len;
-};
-
-/* так треба: однаково для 32- і 64-бітних програм */
-struct good_cfg {
-        __u32   n;
-        __u32   flags;
-        __u64   buf;      /* адреса як число, не покажчик */
-        __u64   len;
-        __u64   __pad;    /* запас на майбутнє, мусить бути 0 */
-};
-```
+:::code api-ioctl-encoding/c/struktura-arhument.c
 
 Бік ядра зобов'язаний перевірити все сам — жодної загальної перевірки під ним немає:
 
-```c
-struct good_cfg c;
-
-if (copy_from_user(&c, (void __user *)arg, sizeof(c)))
-        return -EFAULT;
-if (c.__pad || (c.flags & ~CFG_KNOWN_FLAGS))
-        return -EINVAL;                 /* незнайомого не пропускаємо */
-if (c.len == 0 || c.len > CFG_MAX_LEN)
-        return -EINVAL;
-if (copy_from_user(kbuf, u64_to_user_ptr(c.buf), c.len))
-        return -EFAULT;
-```
+:::code api-ioctl-encoding/c/struktura-arhument-2.c
 
 Поле-заповнювач і перевірка невідомих прапорців тут не формальність, а єдиний спосіб пізніше розширити команду. Номер [заморожений назавжди](root:sys-unix/userspace-abi-stability), доростити структуру не можна — новий `sizeof` дасть новий номер. Зате новий біт у `flags` старе ядро відхилить із `-EINVAL`, і програма з цього дізнається, що можливості немає, замість мовчки отримати не той результат.
 

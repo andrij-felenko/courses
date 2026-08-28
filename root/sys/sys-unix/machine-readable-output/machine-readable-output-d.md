@@ -59,49 +59,8 @@
 У ядрі Linux немає окремого однойменного системного виклику `sys_isatty`. Бібліотека `libc` реалізує функцію `isatty(fd)` як спробу виконати запит отримання параметрів термінала через системний виклик керування пристроями `ioctl`:
 
 :::tabs
-```c
-/* Системна перевірка дескриптора на належність до термінала мовою C */
-#include <unistd.h>
-#include <termios.h>
-#include <sys/ioctl.h>
-#include <errno.h>
-
-int check_descriptor_is_tty(int fd) {
-    struct termios t;
-    if (ioctl(fd, TCGETS, &t) == 0) {
-        return 1; /* Дескриптор вказує на активний TTY */
-    }
-    if (errno == ENOTTY) {
-        return 0; /* Дескриптор вказує на pipe, регулярний файл або сокет */
-    }
-    return -1; /* Помилка EBADF (недійсний дескриптор) */
-}
-```
-```cpp
-// C++20 еквівалент перевірки дескриптора через POSIX ioctl
-#include <unistd.h>
-#include <termios.h>
-#include <sys/ioctl.h>
-#include <cerrno>
-#include <expected>
-
-enum class DescriptorType {
-    Terminal,
-    NonTerminalStream,
-    Invalid
-};
-
-[[nodiscard]] std::expected<DescriptorType, int> check_descriptor_is_tty(int fd) noexcept {
-    struct termios t{};
-    if (ioctl(fd, TCGETS, &t) == 0) {
-        return DescriptorType::Terminal;
-    }
-    if (errno == ENOTTY) {
-        return DescriptorType::NonTerminalStream;
-    }
-    return std::unexpected(errno);
-}
-```
+:::code machine-readable-output-d/c/main.c
+:::code machine-readable-output-d/cpp/main.cpp
 :::
 
 Послідовність виконання операції всередині операційної системи розгортається наступним чином:
@@ -236,30 +195,7 @@ ip -j address show dev eth0 | jq -r '.[0].addr_info[] | select(.family == "inet"
 
 ### 3. Дискова підсистема: `lsblk -J`
 Замість парсингу складної псевдографіки утиліта `lsblk -J -b` повертає повне дерево блокових пристроїв, де розділи диска представлені як вкладений масив `children`, а розміри — як точні 64-бітні числа:
-```bash
-$ lsblk -J -b -o NAME,SIZE,MOUNTPOINT
-{
-   "blockdevices": [
-      {
-         "name": "sda",
-         "size": 2000398934016,
-         "mountpoint": null,
-         "children": [
-            {
-               "name": "sda1",
-               "size": 536870912,
-               "mountpoint": "/boot/efi"
-            },
-            {
-               "name": "sda2",
-               "size": 1999860498432,
-               "mountpoint": "/"
-            }
-         ]
-      }
-   ]
-}
-```
+:::code machine-readable-output-d/sh/main.sh
 
 ### 4. Хмарні інструменти: Шаблонізація виводу
 Утиліти оркестрації та контейнеризації (`docker`, `podman`, `kubectl`) спочатку проєктувалися з урахуванням потреби машинного виклику, реалізуючи прапорці форматування на основі Go-шаблонів та JSONPath:

@@ -159,21 +159,7 @@ netlabelctl map add domain:mls_trusted_t protocol:cipsov4,1 address:10.20.0.0/16
 
 Структура `struct netlbl_lsm_secattr` виступає уніфікованим проміжним представленням мітки безпеки між драйверами пакетів, підсистемою NetLabel та модулями безпеки ядра:
 
-```c
-struct netlbl_lsm_secattr_mls {
-    u32 lvl;                       /* числовий рівень чутливості (sensitivity) */
-    struct netlbl_lsm_catmap *cat; /* динамічний бітмап категорій (categories) */
-};
-
-struct netlbl_lsm_secattr {
-    u32 flags;                     /* бітова маска валідності полів */
-    u32 type;                      /* джерело мітки: CIPSO, CALIPSO, UNLBL */
-    char *domain;                  /* назва LSM-домену (якщо задана) */
-    u32 secid;                     /* числовий Security ID ядра */
-    struct netlbl_lsm_secattr_mls mls; /* параметри MLS */
-    struct netlbl_lsm_cache *cache;    /* вказівник на кеш швидкого шляху */
-};
-```
+:::code api-netlabelctl-and-kernel-types/c/3-1-universalna-struktura.c
 
 Прапорці бітової маски `flags`:
 - `NETLBL_SECATTR_NONE` (`0x00000000`): структура не містить ініціалізованих даних;
@@ -190,18 +176,7 @@ struct netlbl_lsm_secattr {
 
 Оскільки кількість категорій у SELinux та інших MLS-системах може досягати кількох тисяч, ядро не використовує статичні фіксовані масиви великого розміру. Категорії зберігаються у вигляді однозв'язного списку 256-бітних вузлів:
 
-```c
-#define NETLBL_CATMAP_MAPTYPE      unsigned long
-#define NETLBL_CATMAP_MAPBITS      (sizeof(NETLBL_CATMAP_MAPTYPE) * 8)
-#define NETLBL_CATMAP_MAPCNT       4
-#define NETLBL_CATMAP_SIZE         (NETLBL_CATMAP_MAPBITS * NETLBL_CATMAP_MAPCNT)
-
-struct netlbl_lsm_catmap {
-    u32 startbit;                  /* початковий бітовий індекс вузла (кратний 256) */
-    NETLBL_CATMAP_MAPTYPE bitmap[NETLBL_CATMAP_MAPCNT]; /* бітова маска 256 бітів */
-    struct netlbl_lsm_catmap *next;/* вказівник на наступний вузол категорій */
-};
-```
+:::code api-netlabelctl-and-kernel-types/c/3-2-dynamichnyi-bitmap.c
 
 ---
 

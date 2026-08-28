@@ -32,20 +32,7 @@ struct sockaddr_nl {
     __u32        nl_groups; /* Бітова маска мультикаст-груп для підписки */
 };
 ```
-```cpp
-#include <linux/netlink.h>
-#include <sys/socket.h>
-#include <cstdint>
-
-// У C++20 структура sockaddr_nl ініціалізується через designated initializers
-constexpr uint32_t multicast_groups = RTMGRP_LINK | RTMGRP_IPV4_IFADDR;
-sockaddr_nl sa{
-    .nl_family = AF_NETLINK,
-    .nl_pad = 0,
-    .nl_pid = 0, // 0 дозволяє ядру призначити Port ID
-    .nl_groups = multicast_groups
-};
-```
+:::code netlink-protocol-d/cpp/arkhitektura-pidsystemy-ta.cpp
 :::
 
 Адресна схема Netlink має дві ключові особливості:
@@ -89,20 +76,7 @@ struct nlmsghdr {
     __u32 nlmsg_pid;   /* Порт-ідентифікатор (Port ID відправника) */
 };
 ```
-```cpp
-#include <linux/netlink.h>
-#include <cstdint>
-
-// Ідіоматичне створення та заповнення заголовка Netlink у C++20
-constexpr uint32_t payload_size = 1024;
-nlmsghdr header{
-    .nlmsg_len = NLMSG_LENGTH(payload_size),
-    .nlmsg_type = RTM_GETLINK,
-    .nlmsg_flags = NLM_F_REQUEST | NLM_F_DUMP,
-    .nlmsg_seq = 1,
-    .nlmsg_pid = 0
-};
-```
+:::code netlink-protocol-d/cpp/anatomiia-zaholovka-struct.cpp
 :::
 
 Поля заголовка відіграють чітко визначену роль:
@@ -188,19 +162,7 @@ struct nlmsgerr {
     struct nlmsghdr msg; /* Копія заголовка запиту, що спричинив помилку */
 };
 ```
-```cpp
-#include <linux/netlink.h>
-#include <system_error>
-#include <iostream>
-
-// Обробка структури помилки nlmsgerr у C++ із використанням std::error_code
-void handle_netlink_error(const nlmsgerr& err) {
-    if (err.error != 0) {
-        std::error_code ec(-err.error, std::generic_category());
-        std::cerr << "Netlink помилка: " << ec.message() << " (код " << err.error << ")\n";
-    }
-}
-```
+:::code netlink-protocol-d/cpp/2-kvytuvannia-ta-obrobka.cpp
 :::
 
 Якщо простір користувача надіслав запит з прапорцем `NLM_F_ACK`, ядро після успішного виконання операції також надішле пакет `NLMSG_ERROR`, але поле `error` у ньому дорівнюватиме `0` (що означає успішне квитування ACK).
@@ -231,19 +193,7 @@ struct ifinfomsg {
     unsigned int   ifi_change; /* Маска змін прапорців */
 };
 ```
-```cpp
-#include <linux/rtnetlink.h>
-#include <net/if.h>
-
-// Ініціалізація ifinfomsg для запиту стану інтерфейсу в C++20
-ifinfomsg ifi{
-    .ifi_family = AF_UNSPEC,
-    .ifi_type = ARPHRD_ETHER,
-    .ifi_index = 0, // 0 означає запит для всіх інтерфейсів
-    .ifi_flags = IFF_UP,
-    .ifi_change = 0xFFFFFFFF
-};
-```
+:::code netlink-protocol-d/cpp/1-merezhevi-interfeisy.cpp
 :::
 
 За цією структурою ідуть атрибути `IFLA_*`: `IFLA_IFNAME` (назва, наприклад `"eth0"`), `IFLA_ADDRESS` (MAC-адреса), `IFLA_MTU`, `IFLA_OPERSTATE` (стан каналу), `IFLA_LINKINFO` (налаштування віртуальних пристроїв VLAN/veth/Bridge).
@@ -262,19 +212,7 @@ struct ifaddrmsg {
     unsigned int  ifa_index;     /* Індекс інтерфейсу ifindex */
 };
 ```
-```cpp
-#include <linux/rtnetlink.h>
-#include <sys/socket.h>
-
-// Формування запиту ifaddrmsg для IPv4/IPv6 у C++20
-ifaddrmsg ifa{
-    .ifa_family = AF_INET,
-    .ifa_prefixlen = 24,
-    .ifa_flags = IFA_F_PERMANENT,
-    .ifa_scope = RT_SCOPE_UNIVERSE,
-    .ifa_index = 1
-};
-```
+:::code netlink-protocol-d/cpp/2-ip-adresy-address.cpp
 :::
 
 Основні атрибути: `IFA_ADDRESS` (IP-адреса мережі), `IFA_LOCAL` (локальна адреса), `IFA_LABEL` (мітка інтерфейсу).
@@ -284,36 +222,8 @@ ifaddrmsg ifa{
 Команди `RTM_NEWROUTE`, `RTM_DELROUTE`, `RTM_GETROUTE` керують правилами маршрутизації IPv4/IPv6. Навантаження починається зі структури `struct rtmsg`:
 
 :::tabs
-```c
-struct rtmsg {
-    unsigned char rtm_family;   /* AF_INET або AF_INET6 */
-    unsigned char rtm_dst_len;  /* Довжина маски призначення (CIDR) */
-    unsigned char rtm_src_len;  /* Довжина маски джерела */
-    unsigned char rtm_tos;      /* Тип обслуговування */
-    unsigned char rtm_table;    /* Таблиця маршрутизації (RT_TABLE_MAIN, RT_TABLE_LOCAL) */
-    unsigned char rtm_protocol; /* Джерело маршруту (RTPROT_STATIC, RTPROT_BOOT, RTPROT_BGP) */
-    unsigned char rtm_scope;    /* Область видимості маршруту (RT_SCOPE_UNIVERSE, RT_SCOPE_LINK) */
-    unsigned char rtm_type;     /* Тип (RTN_UNICAST, RTN_LOCAL, RTN_BROADCAST) */
-    unsigned int  rtm_flags;    /* Прапорці RTM_F_* */
-};
-```
-```cpp
-#include <linux/rtnetlink.h>
-#include <sys/socket.h>
-
-// Формування запиту rtmsg для маршрутизації в C++20
-rtmsg rtm{
-    .rtm_family = AF_INET,
-    .rtm_dst_len = 32,
-    .rtm_src_len = 0,
-    .rtm_tos = 0,
-    .rtm_table = RT_TABLE_MAIN,
-    .rtm_protocol = RTPROT_STATIC,
-    .rtm_scope = RT_SCOPE_UNIVERSE,
-    .rtm_type = RTN_UNICAST,
-    .rtm_flags = 0
-};
-```
+:::code netlink-protocol-d/c/main.c
+:::code netlink-protocol-d/cpp/3-tablytsia.cpp
 :::
 
 Основні атрибути: `RTA_DST` (IP-адреса призначення), `RTA_GATEWAY` (шлюз Next Hop), `RTA_OIF` (індекс вихідного інтерфейсу `ifindex`), `RTA_PRIORITY` (метрика маршруту).
@@ -387,18 +297,7 @@ struct genlmsghdr {
     __u16 reserved;/* Зарезервовано для вирівнювання */
 };
 ```
-```cpp
-#include <linux/genetlink.h>
-#include <cstdint>
-
-// Заповнення заголовка Generic Netlink у C++20
-constexpr uint8_t genl_version = 1;
-genlmsghdr gnl{
-    .cmd = CTRL_CMD_GETFAMILY,
-    .version = genl_version,
-    .reserved = 0
-};
-```
+:::code netlink-protocol-d/cpp/generic-netlink-genl.cpp
 :::
 
 ### Алгоритм роботи з Generic Netlink:

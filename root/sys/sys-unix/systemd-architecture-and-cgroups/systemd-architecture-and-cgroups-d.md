@@ -203,23 +203,7 @@ PSI дає змогу виміряти відсоток часу, який пр�
 
 Для діагностики та налаштування ресурсної топології cgroups в операційних системах під управлінням `systemd` розроблено цілий комплекс утиліт простору користувача.
 
-```bash
-# 1. Перегляд рекурсивного дерева cgroups та прикріплених процесів
-systemd-cgls
-
-# 2. Моніторинг використання CPU, Memory та IO у реальному часі (аналог top)
-systemd-cgtop
-
-# 3. Динамічне встановлення ліміту пам'яті для запущеної служби на льоту
-systemctl set-property nginx.service MemoryMax=2G CPUWeight=300
-
-# 4. Перевірка приналежності конкретного PID до cgroup у vfs
-cat /proc/1420/cgroup
-
-# 5. Інспекція згенерованих файлів обмежень cgroups v2 у /sys/fs
-cat /sys/fs/cgroup/system.slice/nginx.service/memory.max
-cat /sys/fs/cgroup/system.slice/nginx.service/cpu.weight
-```
+:::code systemd-architecture-and-cgroups-d/sh/main.sh
 
 Утиліта `systemd-cgls` формує наочне дерево усіх зрізів, служб та областей, показуючи точний мапінг PID на файлову систему cgroups. Це дозволяє миттєво знайти процеси, які відв'язалися від головного подвійним розгалуженням: у дереві вони все одно лежать у теці своєї служби.
 
@@ -288,132 +272,8 @@ systemd-run --scope \
   -p Description="Isolated Heavy Build Task" \
   make -j4
 ```
-```c
-// Створення тимчасового Scope через C API (libsystemd sd-bus)
-#include <systemd/sd-bus.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdint.h>
-
-int create_scoped_cgroup(const char *scope_name, uint64_t mem_bytes) {
-    sd_bus *bus = NULL;
-    sd_bus_message *m = NULL;
-    sd_bus_error error = SD_BUS_ERROR_NULL;
-    int r;
-
-    r = sd_bus_open_system(&bus);
-    if (r < 0) return r;
-
-    r = sd_bus_message_new_method_call(bus, &m,
-        "org.freedesktop.systemd1",
-        "/org/freedesktop/systemd1",
-        "org.freedesktop.systemd1.Manager",
-        "StartTransientUnit");
-    if (r < 0) goto cleanup;
-
-    r = sd_bus_message_append(m, "ss", scope_name, "fail");
-    if (r < 0) goto cleanup;
-
-    // Відкриваємо масив properties a(sv)
-    r = sd_bus_message_open_container(m, 'a', "(sv)");
-    if (r < 0) goto cleanup;
-
-    // PIDs
-    sd_bus_message_open_container(m, 'r', "sv");
-    sd_bus_message_append(m, "s", "PIDs");
-    sd_bus_message_open_container(m, 'v', "au");
-    uint32_t pid = (uint32_t)getpid();
-    sd_bus_message_append_array(m, 'u', &pid, sizeof(pid));
-    sd_bus_message_close_container(m);
-    sd_bus_message_close_container(m);
-
-    // MemoryMax
-    sd_bus_message_open_container(m, 'r', "sv");
-    sd_bus_message_append(m, "s", "MemoryMax");
-    sd_bus_message_open_container(m, 'v', "t");
-    sd_bus_message_append(m, "t", mem_bytes);
-    sd_bus_message_close_container(m);
-    sd_bus_message_close_container(m);
-
-    sd_bus_message_close_container(m); // close a(sv)
-
-    r = sd_bus_message_append(m, "a(sa(sv))", 0); // aux units
-    if (r < 0) goto cleanup;
-
-    r = sd_bus_call(bus, m, 0, &error, NULL);
-
-cleanup:
-    sd_bus_error_free(&error);
-    sd_bus_message_unref(m);
-    sd_bus_unref(bus);
-    return r;
-}
-```
-```cpp
-// Ідіоматична C++ RAII реалізація створення transient scope
-#include <systemd/sd-bus.h>
-#include <memory>
-#include <system_error>
-#include <string>
-#include <string_view>
-#include <unistd.h>
-#include <cstdint>
-
-struct BusDeleter { void operator()(sd_bus* b) const { if (b) sd_bus_unref(b); } };
-struct MsgDeleter { void operator()(sd_bus_message* m) const { if (m) sd_bus_message_unref(m); } };
-
-class CgroupScopeBuilder {
-public:
-    static void launch_in_scope(std::string_view name, uint64_t memory_limit_bytes) {
-        sd_bus* raw_bus = nullptr;
-        if (int r = sd_bus_open_system(&raw_bus); r < 0) {
-            throw std::system_error(-r, std::generic_category(), "DBus connect failed");
-        }
-        std::unique_ptr<sd_bus, BusDeleter> bus(raw_bus);
-
-        sd_bus_message* raw_msg = nullptr;
-        if (int r = sd_bus_message_new_method_call(bus.get(), &raw_msg,
-                "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
-                "org.freedesktop.systemd1.Manager", "StartTransientUnit"); r < 0) {
-            throw std::system_error(-r, std::generic_category(), "Message init failed");
-        }
-        std::unique_ptr<sd_bus_message, MsgDeleter> msg(raw_msg);
-
-        // string_view не гарантує нульового байта в кінці, а sd-bus чекає рядок C
-        const std::string name_z{name};
-        sd_bus_message_append(msg.get(), "ss", name_z.c_str(), "fail");
-        sd_bus_message_open_container(msg.get(), 'a', "(sv)");
-
-        // Append PIDs property
-        sd_bus_message_open_container(msg.get(), 'r', "sv");
-        sd_bus_message_append(msg.get(), "s", "PIDs");
-        sd_bus_message_open_container(msg.get(), 'v', "au");
-        uint32_t current_pid = static_cast<uint32_t>(getpid());
-        sd_bus_message_append_array(msg.get(), 'u', &current_pid, sizeof(current_pid));
-        sd_bus_message_close_container(msg.get());
-        sd_bus_message_close_container(msg.get());
-
-        // Append MemoryMax property
-        sd_bus_message_open_container(msg.get(), 'r', "sv");
-        sd_bus_message_append(msg.get(), "s", "MemoryMax");
-        sd_bus_message_open_container(msg.get(), 'v', "t");
-        sd_bus_message_append(msg.get(), "t", memory_limit_bytes);
-        sd_bus_message_close_container(msg.get());
-        sd_bus_message_close_container(msg.get());
-
-        sd_bus_message_close_container(msg.get());
-        sd_bus_message_append(msg.get(), "a(sa(sv))", 0);
-
-        sd_bus_error error = SD_BUS_ERROR_NULL;
-        if (int r = sd_bus_call(bus.get(), msg.get(), 0, &error, nullptr); r < 0) {
-            std::string msg_str = error.message ? error.message : "DBus call failed";
-            sd_bus_error_free(&error);
-            throw std::runtime_error(msg_str);
-        }
-    }
-};
-```
+:::code systemd-architecture-and-cgroups-d/c/main.c
+:::code systemd-architecture-and-cgroups-d/cpp/main.cpp
 :::
 
 ## 9. Порівняльний синтез підходів та підсумок

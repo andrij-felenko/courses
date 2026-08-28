@@ -14,24 +14,7 @@
 ```c
 int fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
 ```
-```cpp
-// Ідіоматична C++ RAII-обгортка із генерацією виключення std::system_error
-namespace net {
-    class NetlinkSocket {
-    public:
-        NetlinkSocket() {
-            fd_ = ::socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
-            if (fd_ < 0) {
-                throw std::system_error(errno, std::generic_category(), "Не вдалося створити сокет Netlink");
-            }
-        }
-        ~NetlinkSocket() { if (fd_ >= 0) ::close(fd_); }
-        [[nodiscard]] int native_handle() const noexcept { return fd_; }
-    private:
-        int fd_{-1};
-    };
-}
-```
+:::code api-fib-and-rtnetlink/cpp/1-protokol-rtnetlink.cpp
 :::
 
 Кожен пакет, який надсилається або отримується через цей сокет, починається зі стандартного заголовка `struct nlmsghdr`. За цим заголовком слідує специфічний для маршрутизації заголовок `struct rtmsg`, після якого розміщується довільна кількість вкладених атрибутів `struct rtattr`.
@@ -66,40 +49,8 @@ namespace net {
 Кожне повідомлення типу `RTM_*ROUTE` містить заголовок `struct rtmsg` одразу після стандартного заголовка Netlink `struct nlmsghdr`:
 
 :::tabs
-```c
-#include <linux/rtnetlink.h>
-
-struct rtmsg {
-    unsigned char rtm_family;   /* Сімейство адрес: AF_INET (IPv4) або AF_INET6 (IPv6) */
-    unsigned char rtm_dst_len;  /* Довжина маски префіксу призначення (0..32 для IPv4) */
-    unsigned char rtm_src_len;  /* Довжина маски префіксу джерела (зазвичай 0) */
-    unsigned char rtm_tos;      /* Type of Service (ToS) / DSCP */
-    unsigned char rtm_table;    /* ID таблиці маршрутизації (RT_TABLE_MAIN, RT_TABLE_LOCAL тощо) */
-    unsigned char rtm_protocol; /* Протокол, що створив маршрут (RTPROT_STATIC, BGP тощо) */
-    unsigned char rtm_scope;    /* Область видимості маршруту (RT_SCOPE_UNIVERSE тощо) */
-    unsigned char rtm_type;     /* Тип маршруту (RTN_UNICAST, RTN_LOCAL тощо) */
-    unsigned unsigned rtm_flags;/* Допоміжні прапорці (RTM_F_CLONED, RTM_F_FIB_MATCH) */
-};
-```
-```cpp
-#include <linux/rtnetlink.h>
-#include <cstdint>
-
-// Обгортка заголовка rtmsg з ініціалізацією полів у C++20
-namespace net {
-    struct RtMsg {
-        std::uint8_t family{AF_INET};    /* Сімейство адрес (AF_INET або AF_INET6) */
-        std::uint8_t dst_len{0};         /* Довжина маски префіксу призначення */
-        std::uint8_t src_len{0};         /* Довжина маски префіксу джерела */
-        std::uint8_t tos{0};             /* Type of Service (ToS) / DSCP */
-        std::uint8_t table{RT_TABLE_MAIN};/* ID таблиці маршрутизації */
-        std::uint8_t protocol{RTPROT_STATIC};/* Протокол джерела (BGP, Static) */
-        std::uint8_t scope{RT_SCOPE_UNIVERSE};/* Область видимості */
-        std::uint8_t type{RTN_UNICAST};  /* Тип маршруту (RTN_UNICAST тощо) */
-        std::uint32_t flags{0};          /* Допоміжні прапорці */
-    };
-}
-```
+:::code api-fib-and-rtnetlink/c/zaholovok-povidomlennia.c
+:::code api-fib-and-rtnetlink/cpp/zaholovok-povidomlennia.cpp
 :::
 
 Поле `rtm_family` визначає мережевий протокол. Для IPv4 це значення дорівнює `AF_INET` (2), для IPv6 — `AF_INET6` (10).
@@ -206,19 +157,7 @@ struct rtnexthop {
     int            rtnh_ifindex; /* Індекс вихідного інтерфейсу */
 };
 ```
-```cpp
-#include <cstdint>
-
-// Елемент ECMP next-hop у C++ з ініціалізацією членів
-namespace net {
-    struct RtNextHop {
-        std::uint16_t len{0};     /* Довжина структури разом із під-атрибутами */
-        std::uint8_t  flags{0};   /* Прапорці (RTNH_F_DEAD, RTNH_F_LINKDOWN) */
-        std::uint8_t  hops{0};    /* Вага маршруту для балансування трафіку */
-        std::int32_t  ifindex{0}; /* Індекс вихідного інтерфейсу */
-    };
-}
-```
+:::code api-fib-and-rtnetlink/cpp/struktura.cpp
 :::
 
 Одразу після структури `struct rtnexthop` у пам'яті можуть іти вкладені атрибути `struct rtattr`, такі як `RTA_GATEWAY` саме для цього конкретного шлюзу.
@@ -250,18 +189,7 @@ struct fib_table {
     unsigned long     tb_data[0];      /* Вказівник на дерево LC-Trie (struct trie) */
 };
 ```
-```cpp
-#include <cstdint>
-
-// Моделювання таблиці FIB у C++ з використанням C++17/20 типів
-namespace net::kernel_sim {
-    struct FibTable {
-        std::uint32_t id{254};         /* Numeric Table ID (254 = MAIN, 255 = LOCAL) */
-        std::int32_t  num_default{0};  /* Кількість дефолтних маршрутів у таблиці */
-        uintptr_t     trie_ptr{0};     /* Вказівник на корінь дерева LC-Trie */
-    };
-}
-```
+:::code api-fib-and-rtnetlink/cpp/1-struct-fib-table.cpp
 :::
 
 Таблиця реалізує інтерфейс віртуальних функцій через методи `tb_lookup()`, `tb_insert()`, `tb_delete()`, які в сучасних ядрах вказують безпосередньо на реалізацію LC-Trie у файлі `net/ipv4/fib_trie.c`.
@@ -270,36 +198,8 @@ namespace net::kernel_sim {
 У реалізації LC-Trie ядра Linux вузли розгалуження (Branch) та листки (Leaf) об'єднані у єдину компактну структуру `struct key_vector`:
 
 :::tabs
-```c
-struct key_vector {
-    t_key          key;        /* 32-бітне значення префіксу адреси */
-    unsigned char  pos;        /* Позиція аналізованого біта (0..31 від старшого біта) */
-    unsigned char  bits;       /* Кількість біт у даному рівні (stride size, k = 1..8) */
-    unsigned char  slen;       /* Максимальна довжина суфіксу в піддереві */
-    union {
-        struct key_vector *tnode[0]; /* Масив з 2^bits вказівників на дочірні вузли (Branch) */
-        struct hlist_head leaf;      /* Зв'язаний список об'єктів fib_alias (Leaf) */
-    };
-};
-```
-```cpp
-#include <cstdint>
-#include <variant>
-#include <vector>
-
-// Представлення вузла LC-Trie у C++ з використанням std::variant та std::vector
-namespace net::kernel_sim {
-    struct KeyVector {
-        std::uint32_t key{0};     /* 32-бітне значення префіксу адреси */
-        std::uint8_t  pos{0};     /* Позиція аналізованого біта (0..31) */
-        std::uint8_t  bits{0};    /* Кількість біт у рівні (stride size, k = 1..8) */
-        std::uint8_t  slen{0};    /* Максимальна довжина суфіксу піддерева */
-        
-        // Вузол розгалуження містить вектор дочірніх вузлів, а листок — списки маршрутів
-        std::variant<std::vector<KeyVector*>, void*> node_data;
-    };
-}
-```
+:::code api-fib-and-rtnetlink/c/2-struct-key-vector-vuzol.c
+:::code api-fib-and-rtnetlink/cpp/2-struct-key-vector-vuzol.cpp
 :::
 
 Поле `bits` виступає маркером типу вузла. Якщо `bits > 0`, це внутрішній вузол розгалуження (Internal Branch Node), який містить масив `tnode` розміром `2^bits` вказівників. Якщо `bits == 0`, це листок (Leaf Node), а поле `leaf` містить головний вузол зв'язаного списку `struct fib_alias`.
@@ -319,22 +219,7 @@ struct fib_alias {
     struct rcu_head   rcu;
 };
 ```
-```cpp
-#include <cstdint>
-
-// Запис fib_alias у C++ з підтримкою зв'язку з FibInfo
-namespace net::kernel_sim {
-    struct FibInfo; // Випереджувальне оголошення
-
-    struct FibAlias {
-        const FibInfo* info{nullptr}; /* Незмінні дані про next-hop */
-        std::uint8_t   tos{0};        /* Type of Service */
-        std::uint8_t   type{0};       /* Тип маршруту (RTN_UNICAST тощо) */
-        std::uint8_t   state{0};      /* Внутрішній стан */
-        std::uint8_t   slen{0};       /* Довжина маски префіксу (32 - prefix_length) */
-    };
-}
-```
+:::code api-fib-and-rtnetlink/cpp/3-struct-fib-alias.cpp
 :::
 
 Список `fa_list` відсортовано за спаданням довжини маски та пріоритету, що дозволяє ядру миттєво знаходити наиболее специфічний збіг під час обходу листка.
@@ -345,40 +230,8 @@ namespace net::kernel_sim {
 Деталізація структури:
 
 :::tabs
-```c
-struct fib_info {
-    struct hlist_node   fib_hash;
-    struct hlist_node   fib_lhash;
-    atomic_t            fib_treeref;  /* Лічильник посилань від дерев маршрутизації */
-    atomic_t            fib_clntref;  /* Лічильник посилань від сокетів/клієнтів */
-    u32                 fib_metrics;  /* Метрики (MTU, rtt, window) */
-    u32                 fib_priority; /* Метрика/пріоритет (RTA_PRIORITY) */
-    u32                 fib_prefsrc;  /* Preferred Source IP */
-    u32                 fib_flags;    /* Прапорці (RTNH_F_DEAD тощо) */
-    unsigned char       fib_protocol; /* Протокол джерела (RTPROT_BGP тощо) */
-    unsigned char       fib_nhs;      /* Кількість nexthops (для ECMP) */
-    struct fib_nh_common fib_nh[0];   /* Масив структур наступного хопу */
-};
-```
-```cpp
-#include <cstdint>
-#include <atomic>
-#include <vector>
-
-// Запис fib_info у C++ з використанням std::atomic та std::vector для next-hop структур
-namespace net::kernel_sim {
-    struct FibInfo {
-        std::atomic<std::int32_t> treeref{0};  /* Атомарний лічильник посилань від дерев */
-        std::atomic<std::int32_t> clntref{0};  /* Атомарний лічильник посилань від сокетів */
-        std::uint32_t             metrics{0};  /* Метрики (MTU, rtt, window) */
-        std::uint32_t             priority{0}; /* Метрика/пріоритет (RTA_PRIORITY) */
-        std::uint32_t             prefsrc{0};  /* Preferred Source IP */
-        std::uint32_t             flags{0};    /* Прапорці */
-        std::uint8_t              protocol{0}; /* Протокол джерела */
-        std::vector<std::uint32_t> nexthops;   /* Масив індексів nexthop */
-    };
-}
-```
+:::code api-fib-and-rtnetlink/c/4-struct-fib-info.c
+:::code api-fib-and-rtnetlink/cpp/4-struct-fib-info.cpp
 :::
 
 Ядро Linux застосовує дедуплікацію `struct fib_info`. Якщо 50 000 різних префіксів BGP мають один і той самий next-hop шлюз (`192.168.1.1 dev eth0`), ядро створює **лише один екземпляр `struct fib_info`** у пам'яті. Усі 50 000 об'єктів `struct fib_alias` містять вказівник на цю єдину структуру, а лічильник `fib_treeref` дорівнює 50 000. Це економить десятки мегабайтів оперативної пам'яті на магістральних маршрутизаторах.
@@ -387,38 +240,8 @@ namespace net::kernel_sim {
 Результат виконання функції `fib_lookup()` повертається у структурі `struct fib_result`. Вона виступає легковаговим контекстом рішення про маршрутизацію:
 
 :::tabs
-```c
-struct fib_result {
-    __be32          prefix;       /* Префікс адреси */
-    unsigned char   prefixlen;    /* Довжина маски префіксу */
-    unsigned char   nh_sel;       /* Обраний індекс next-hop у масиві ECMP */
-    unsigned char   type;         /* Тип маршруту (RTN_UNICAST тощо) */
-    unsigned char   scope;        /* Область видимості */
-    u32             tclassid;     /* Клас трафіку для QOS */
-    struct fib_info *fi;          /* Знайдена структура fib_info */
-    struct fib_table *table;      /* Знайдена таблиця маршрутизації */
-};
-```
-```cpp
-#include <cstdint>
-
-// Результат fib_lookup у C++ з явними типами та nullptr за замовчуванням
-namespace net::kernel_sim {
-    struct FibInfo;
-    struct FibTable;
-
-    struct FibResult {
-        std::uint32_t   prefix{0};      /* Префікс адреси */
-        std::uint8_t    prefixlen{0};   /* Довжина маски префіксу */
-        std::uint8_t    nh_sel{0};      /* Обраний індекс next-hop у масиві ECMP */
-        std::uint8_t    type{0};        /* Тип маршруту (RTN_UNICAST тощо) */
-        std::uint8_t    scope{0};       /* Область видимості */
-        std::uint32_t   tclassid{0};    /* Клас трафіку для QoS */
-        const FibInfo*  fi{nullptr};    /* Знайдена структура FibInfo */
-        const FibTable* table{nullptr}; /* Знайдена таблиця маршрутизації */
-    };
-}
-```
+:::code api-fib-and-rtnetlink/c/5-struct-fib-result.c
+:::code api-fib-and-rtnetlink/cpp/5-struct-fib-result.cpp
 :::
 
 Макроси ядра для витягування параметрів з `struct fib_result`:

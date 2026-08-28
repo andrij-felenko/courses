@@ -4,23 +4,7 @@
 
 ## Подія в пам'яті
 
-```c
-struct input_event {
-#if (__BITS_PER_LONG != 32 || !defined(__USE_TIME_BITS64)) && !defined(__KERNEL__)
-	struct timeval time;
-#define input_event_sec  time.tv_sec
-#define input_event_usec time.tv_usec
-#else
-	__kernel_ulong_t __sec;
-	__kernel_ulong_t __usec;
-#define input_event_sec  __sec
-#define input_event_usec __usec
-#endif
-	__u16 type;
-	__u16 code;
-	__s32 value;
-};
-```
+:::code api-evdev-interface/c/podiia-v-pamiati.c
 
 Гілка препроцесора тут не примха: на 32-бітній системі бібліотека може зібрати `struct timeval` із 64-бітними секундами, і структура перестала б збігатися з тим, що кладе ядро. Тому в такому разі заголовок бере власне поле того самого розміру, що й раніше, і читає його **без знака** — це відсуває вичерпання лічильника з 2038 на 2106 рік ([межа `time_t`](root:sys-unix/time-representation-y2038) від цього нікуди не дівається, лише конкретно тут її обійшли). Наслідок для коду простий: до полів часу звертаються **лише** через `input_event_sec` і `input_event_usec`, бо `ev.time.tv_sec` компілюється не на кожній платформі.
 
@@ -152,46 +136,6 @@ struct input_absinfo {
 
 ## Мінімальний робочий виклик
 
-```c
-#include <fcntl.h>
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/input.h>
-
-#define NLONGS(n)     (((n) + 8 * sizeof(long) - 1) / (8 * sizeof(long)))
-#define TESTBIT(a, b) ((a)[(b) / (8 * sizeof(long))] >> ((b) % (8 * sizeof(long))) & 1)
-
-int main(void)
-{
-    int fd = open("/dev/input/event0", O_RDONLY | O_NONBLOCK);
-    if (fd < 0) { perror("open"); return 1; }
-
-    int clk = CLOCK_MONOTONIC;
-    ioctl(fd, EVIOCSCLOCKID, &clk);          /* доки черга ще порожня */
-
-    char name[256] = "";
-    ioctl(fd, EVIOCGNAME(sizeof name - 1), name);
-
-    unsigned long types[NLONGS(EV_CNT)] = {0};
-    ioctl(fd, EVIOCGBIT(0, sizeof types), types);
-
-    printf("%s:%s%s%s\n", name,
-           TESTBIT(types, EV_KEY) ? " клавіші"   : "",
-           TESTBIT(types, EV_REL) ? " відносні"  : "",
-           TESTBIT(types, EV_ABS) ? " абсолютні" : "");
-
-    if (TESTBIT(types, EV_ABS)) {
-        struct input_absinfo abs;
-        if (ioctl(fd, EVIOCGABS(ABS_X), &abs) == 0)
-            printf("ABS_X: %d..%d, шум %d, %d одиниць на мм\n",
-                   abs.minimum, abs.maximum, abs.fuzz, abs.resolution);
-    }
-
-    close(fd);
-    return 0;
-}
-```
+:::code api-evdev-interface/c/minimalnyi-robochyi-vyklyk.c
 
 `EVIOCGNAME` повертає довжину разом із завершальним нулем, але задовге ім'я обрізає **без** нуля — тому в прикладі буфер оголошено на байт більший за прохане, і останній байт лишається нулем за будь-якого результату.

@@ -94,20 +94,7 @@ CPU#K Timeline:
    
    Його єдина функція — у нескінченному циклі викликати функцію `touch_softlockup_watchdog()`, яка оновлює per-CPU змінну `watchdog_touch_ts` поточним системним часом:
    
-   ```c
-   /* Спрощена логіка роботи ядерного потоку watchdog */
-   static void watchdog_enable(unsigned int cpu)
-   {
-       struct hrtimer *hrtimer = &__raw_get_cpu_var(watchdog_hrtimer);
-       
-       /* Оновлюємо мітку часу поточним монотонним часом */
-       __touch_watchdog();
-       
-       /* Запускаємо високоточний таймер */
-       hrtimer_start(hrtimer, ns_to_ktime(sample_period),
-                     HRTIMER_MODE_REL_PINNED_HARD);
-   }
-   ```
+   :::code lockup-detectors-d/c/struktura-ta-zhyttievyi.c
 
 2. **Високоточний таймер `watchdog_hrtimer`:**
    Таймер прив'язується до конкретного CPU (`HRTIMER_MODE_PINNED`) і налаштовується на регулярне спрацьовування з періодом `sample_period`:
@@ -195,33 +182,7 @@ touch_nmi_watchdog();
 
 3. **Перевірка всередині NMI-обробника:**
    Коли апаратний лічильник PMU переповнюється, процесор примусово викликає функцію `watchdog_overflow_callback()` у контексті NMI:
-   ```c
-   static void watchdog_overflow_callback(struct perf_event *event,
-                                          struct perf_sample_data *data,
-                                          struct pt_regs *regs)
-   {
-       /* Перевіряємо, чи змінився лічильник звичайних переривань таймера */
-       if (__this_cpu_read(hrtimer_interrupts) == __this_cpu_read(hrtimer_interrupts_saved)) {
-           if (__this_cpu_read(hard_watchdog_warn))
-               return;
-
-           pr_emerg("Watchdog detected hard LOCKUP on cpu %d\n", smp_processor_id());
-           print_modules();
-           print_ip_sym(regs->ip);
-           show_regs(regs);
-           
-           if (sysctl_hardlockup_panic)
-               panic("Hard LOCKUP");
-           
-           __this_cpu_write(hard_watchdog_warn, true);
-           return;
-       }
-       
-       /* Оновлюємо збережене значення лічильника для наступного циклу */
-       __this_cpu_write(hrtimer_interrupts_saved, __this_cpu_read(hrtimer_interrupts));
-       __this_cpu_write(hard_watchdog_warn, false);
-   }
-   ```
+   :::code lockup-detectors-d/c/mekhanizm-aparatnoho.c
 
 Якщо за час між двома NMI-перериваннями (10 секунд) значення `hrtimer_interrupts` не змінилося, це неспростовний доказ того, що звичайні масковані переривання на цьому CPU не викликалися протягом усього цього часу. Процесор застряг у стані **Hard Lockup**.
 

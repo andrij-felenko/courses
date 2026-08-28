@@ -19,117 +19,8 @@
 Для досягнення бінарної сумісності публічний заголовок експортує лише вказівник фіксованого розміру на структуру реалізації, повне визначення якої знаходить лише у внутрішньому вихідному файлі бібліотеки (`.c` або `.cpp`). 
 
 :::tabs
-```c
-// ==================== C ABI (Opaque Pointer) ====================
-// engine.h (Публічний API заголовка)
-#ifndef ENGINE_H
-#define ENGINE_H
-
-#include <stddef.h>
-
-// Непрозорий тип: клієнт бачить лише ім'я структури
-typedef struct NetworkEngine NetworkEngine;
-
-NetworkEngine* network_engine_create(const char* host, int port);
-void network_engine_destroy(NetworkEngine* engine);
-int network_engine_send(NetworkEngine* engine, const void* data, size_t len);
-
-#endif // ENGINE_H
-
-// engine.c (Файл реалізації всередині бібліотеки)
-#include "engine.h"
-#include <stdlib.h>
-#include <string.h>
-
-struct NetworkEngine {
-    char host[128];
-    int port;
-    // Нові поля версії 2.0 додаються сюди абсолютно безпечно!
-    int timeout_ms;
-    unsigned long packets_sent;
-};
-
-NetworkEngine* network_engine_create(const char* host, int port) {
-    NetworkEngine* engine = (NetworkEngine*)malloc(sizeof(NetworkEngine));
-    if (!engine) return NULL;
-    strncpy(engine->host, host, sizeof(engine->host) - 1);
-    engine->port = port;
-    engine->timeout_ms = 5000;
-    engine->packets_sent = 0;
-    return engine;
-}
-
-void network_engine_destroy(NetworkEngine* engine) {
-    free(engine);
-}
-
-int network_engine_send(NetworkEngine* engine, const void* data, size_t len) {
-    if (!engine) return -1;
-    engine->packets_sent++;
-    return 0; // Імітація успішної відправки
-}
-```
-```cpp
-// ==================== C++ ABI (Pimpl з std::unique_ptr) ====================
-// engine.hpp (Публічний API заголовка)
-#ifndef ENGINE_HPP
-#define ENGINE_HPP
-
-#include <memory>
-#include <string_view>
-#include <span>
-
-class NetworkEngine {
-public:
-    NetworkEngine(std::string_view host, int port);
-    ~NetworkEngine(); // Оголошено в заголовку, визначено у .cpp!
-
-    // Операції переміщення
-    NetworkEngine(NetworkEngine&&) noexcept;
-    NetworkEngine& operator=(NetworkEngine&&) noexcept;
-
-    // Забороняємо копіювання для збереження єдиного володіння
-    NetworkEngine(const NetworkEngine&) = delete;
-    NetworkEngine& operator=(const NetworkEngine&) = delete;
-
-    bool send(std::span<const std::byte> data);
-
-private:
-    struct Impl; // Випереджувальне оголошення (forward declaration)
-    std::unique_ptr<Impl> impl_; // Фіксований розмір об'єкта (8 байтів)
-};
-
-#endif // ENGINE_HPP
-
-// engine.cpp (Файл реалізації всередині бібліотеки)
-#include "engine.hpp"
-#include <string>
-#include <iostream>
-
-struct NetworkEngine::Impl {
-    std::string host;
-    int port;
-    // Нові поля версії 2.0 додаються у цей struct без зміни розміру NetworkEngine!
-    int timeout_ms{5000};
-    uint64_t packets_sent{0};
-};
-
-NetworkEngine::NetworkEngine(std::string_view host, int port)
-    : impl_(std::make_unique<Impl>(std::string(host), port)) {}
-
-// Деструктор обов'язково визначено у .cpp, де тип Impl є повністю відомим для std::default_delete!
-NetworkEngine::~NetworkEngine() = default;
-
-NetworkEngine::NetworkEngine(NetworkEngine&&) noexcept = default;
-NetworkEngine& NetworkEngine::operator=(NetworkEngine&&) noexcept = default;
-
-bool NetworkEngine::send(std::span<const std::byte> data) {
-    if (!impl_) return false;
-    impl_->packets_sent++;
-    std::cout << "Sent " << data.size() << " bytes to " << impl_->host << ":" << impl_->port << "\n";
-    return true;
-}
-```
+:::code proj-abi-safe-pimpl/c/engine.h
+:::code proj-abi-safe-pimpl/cpp/engine.hpp
 :::
 
 ## Аналіз механізму збереження ABI
@@ -170,26 +61,7 @@ NetworkEngine::~NetworkEngine() = default; // Точка виклику std::def
 
 У цьому разі розробник оголошує конструктор копіювання у заголовку, а у `.cpp` файлі виконує глибоку дублікацію об'єкта `Impl`:
 
-```cpp
-// У заголовку engine.hpp
-NetworkEngine(const NetworkEngine& other);
-NetworkEngine& operator=(const NetworkEngine& other);
-
-// У файлі реалізації engine.cpp
-NetworkEngine::NetworkEngine(const NetworkEngine& other)
-    : impl_(other.impl_ ? std::make_unique<Impl>(*other.impl_) : nullptr) {}
-
-NetworkEngine& NetworkEngine::operator=(const NetworkEngine& other) {
-    if (this != &other) {
-        if (other.impl_) {
-            impl_ = std::make_unique<Impl>(*other.impl_);
-        } else {
-            impl_.reset();
-        }
-    }
-    return *this;
-}
-```
+:::code proj-abi-safe-pimpl/cpp/hlyboke-kopiiuvannia-deep.cpp
 
 ## Оцінка продуктивності та оптимізація Fast Pimpl
 

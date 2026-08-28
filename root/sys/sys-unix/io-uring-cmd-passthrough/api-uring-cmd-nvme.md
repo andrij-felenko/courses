@@ -10,42 +10,7 @@
 
 Нижче наведено бінарну структуру елемента черги подачі `struct io_uring_sqe` (із заголовочного файла `linux/io_uring.h` ядра Linux):
 
-```c
-struct io_uring_sqe {
-    __u8   opcode;     /* IORING_OP_URING_CMD = 46 */
-    __u8   flags;      /* IOSQE_FIXED_FILE, IOSQE_ASYNC, IOSQE_CQE_SKIP_SUCCESS */
-    __u16  ioprio;     /* Пріоритет виконання I/O (ioprio_set) */
-    __s32  fd;         /* Файловий дескриптор символьного пристрою /dev/ngXnY */
-    union {
-        __u64  off;
-        __u64  addr2;
-        struct {           /* саме тут лежить cmd_op при IORING_OP_URING_CMD */
-            __u32  cmd_op; /* код підкоманди драйвера (NVME_URING_CMD_*) */
-            __u32  __pad1;
-        };
-    };
-    union {
-        __u64  addr;
-        __u64  splice_off_in;
-    };
-    __u32  len;
-    __u32  op_flags;   /* Прапорці конкретної операції; для URING_CMD не вживається */
-    __u64  user_data;  /* Користувацький ідентифікатор запиту (повертається в CQE) */
-    __u16  buf_index;  /* Індекс зареєстрованого буфера (при IORING_URING_CMD_FIXED) */
-    __u16  personality;/* Контекст ідентичності (credentials) */
-    union {
-        __s32  splice_fd_in;
-        __u32  file_index;
-    };
-    union {            /* усі варіанти починаються зі зсуву 48 байт */
-        struct {
-            __u64  addr3;
-            __u64  __pad2[1];
-        };
-        __u8   cmd[0]; /* 16 байт у звичайному SQE, 80 байт при SQE128 */
-    };
-};
-```
+:::code api-uring-cmd-nvme/c/struktura-sqe-pry-ioring.c
 
 Поле `cmd_op` є ключовим перемикачем у драйвері NVMe. Воно визначає, який саме клас NVMe-команд передається у навантаженні `cmd`:
 - `NVME_URING_CMD_IO` (`_IOWR('N', 0x80, struct nvme_uring_cmd)`) — підготовка звичайної I/O-команди читання, запису або скидання кешу (Read, Write, Flush, Dataset Management).
@@ -58,28 +23,7 @@ struct io_uring_sqe {
 
 Уміст масиву `sqe->cmd` драйвер NVMe інтерпретує як бінарну структуру `struct nvme_uring_cmd` (визначена у заголовочному файлі `linux/nvme_ioctl.h`). Перелічені нижче поля дають рівно 72 байти — саме тому команда й потребує 128-байтового SQE. Кожне поле відповідає за точну конфігурацію апаратної командної структури пристрою:
 
-```c
-struct nvme_uring_cmd {
-    __u8   opcode;       /* Опкод команди NVMe (наприклад, 0x02 = Read, 0x01 = Write) */
-    __u8   flags;        /* Прапорці NVMe команди (NVME_CMD_SGL_METABUF тощо) */
-    __u16  rsvd1;        /* Зарезервовано для вирівнювання */
-    __u32  nsid;         /* Ідентифікатор простору імен (Namespace ID) */
-    __u32  cdw2;         /* Command Dword 2 (опціональне розширення) */
-    __u32  cdw3;         /* Command Dword 3 (опціональне розширення) */
-    __u64  metadata;     /* Указник на буфер метаданих простору користувача */
-    __u64  addr;         /* Указник на буфер даних простору користувача */
-    __u32  metadata_len; /* Довжина метаданих у байтах */
-    __u32  data_len;     /* Довжина буфера даних у байтах */
-    __u32  cdw10;        /* Command Dword 10 (нижні 32 біти Starting LBA) */
-    __u32  cdw11;        /* Command Dword 11 (верхні 32 біти Starting LBA) */
-    __u32  cdw12;        /* Command Dword 12 (кількість блоків LBA мінус 1) */
-    __u32  cdw13;        /* Command Dword 13 (прапорці DSM, частота доступу) */
-    __u32  cdw14;        /* Command Dword 14 (специфічні апаратні параметри) */
-    __u32  cdw15;        /* Command Dword 15 (параметри перевірки цілісності) */
-    __u32  timeout_ms;   /* Таймаут виконання операції пристроєм у мілісекундах */
-    __u32  rsvd2;        /* Зарезервовано */
-};
-```
+:::code api-uring-cmd-nvme/c/detalnyi-rozbir-struktury.c
 
 Пояснення ключових командних слів (Command Dwords):
 - `cdw10` та `cdw11` утворюють 64-бітне значення Starting LBA (адреса першого логічного блоку на диску, з якого починається читання або запис).

@@ -46,60 +46,19 @@ struct drm_amdgpu_cs_chunk { __u32 chunk_id; __u32 length_dw; __u64 chunk_data; 
 | `AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL` `0x09` | те саме | зарядити позначку шкали |
 | `AMDGPU_CHUNK_ID_CP_GFX_SHADOW` `0x0a` | `drm_amdgpu_cs_chunk_cp_gfx_shadow` | буфери під збереження стану рушія |
 
-```c
-struct drm_amdgpu_cs_chunk_ib {
-    __u32 _pad, flags;      /* AMDGPU_IB_FLAG_*                      */
-    __u64 va_start;         /* адреса пакета у просторі контексту    */
-    __u32 ib_bytes;         /* довжина в БАЙТАХ (на відміну від length_dw) */
-    __u32 ip_type;          /* AMDGPU_HW_IP_GFX 0, COMPUTE 1, DMA 2,
-                               UVD 3, VCE 4, UVD_ENC 5, VCN_DEC 6,
-                               VCN_ENC 7, VCN_JPEG 8, VPE 9          */
-    __u32 ip_instance, ring;
-};
-
-struct drm_amdgpu_cs_chunk_dep    { __u32 ip_type, ip_instance, ring, ctx_id; __u64 handle; };
-struct drm_amdgpu_cs_chunk_syncobj{ __u32 handle, flags; __u64 point; };
-```
+:::code api-submit-ioctls/c/amdgpu-masyv-shmatkiv.c
 
 Із прапорців IB на практиці видно два: `AMDGPU_IB_FLAG_PREEMPT` (`1<<2`) дозволяє витіснити цей пакет, `AMDGPU_IB_FLAGS_SECURE` (`1<<5`) позначає захищений вміст; решта (`CE`, `PREAMBLE`, `TC_WB_NOT_INVALIDATE`, `RESET_GDS_MAX_WAVE_ID`, `EMIT_MEM_SYNC`) — тонкощі, які ставить драйвер простору користувача.
 
 **Мінімальний виклик** — пакет уже лежить у пам'яті й прив'язаний до простору контексту через `DRM_IOCTL_AMDGPU_GEM_VA`:
 
-```c
-struct drm_amdgpu_cs_chunk_ib      ib  = { .va_start = va, .ib_bytes = pkt_bytes,
-                                           .ip_type  = AMDGPU_HW_IP_GFX };
-struct drm_amdgpu_cs_chunk_syncobj sig = { .handle = out_syncobj };
-
-struct drm_amdgpu_cs_chunk chunks[2] = {
-    { AMDGPU_CHUNK_ID_IB,          sizeof(ib)  / 4, (uintptr_t)&ib  },
-    { AMDGPU_CHUNK_ID_SYNCOBJ_OUT, sizeof(sig) / 4, (uintptr_t)&sig },
-};
-uint64_t ptrs[2] = { (uintptr_t)&chunks[0], (uintptr_t)&chunks[1] };
-
-union drm_amdgpu_cs cs = { .in = { .ctx_id = ctx_id, .num_chunks = 2,
-                                   .chunks = (uintptr_t)ptrs } };
-
-int r = drmIoctl(fd, DRM_IOCTL_AMDGPU_CS, &cs);
-/* r == 0 → cs.out.handle — номер завдання; огорожа сама лягла в out_syncobj */
-```
+:::code api-submit-ioctls/c/amdgpu-masyv-shmatkiv-2.c
 
 ## i915: EXECBUFFER2 і поля, що змінили значення
 
 Тут структура одна й незмінна з 2010 року, тому кожне нове поняття доводилося вкладати в наявні поля. Читати цю структуру треба, тримаючи в голові, що половина назв бреше.
 
-```c
-struct drm_i915_gem_execbuffer2 {
-    __u64 buffers_ptr;         /* масив drm_i915_gem_exec_object2 */
-    __u32 buffer_count, batch_start_offset, batch_len;
-    __u32 DR1, DR4;            /* мертві з часів DRI1 */
-    __u32 num_cliprects;       /* ← довжина масиву огорож при FENCE_ARRAY */
-    __u64 cliprects_ptr;       /* ← масив drm_i915_gem_exec_fence або розширення */
-    __u64 flags;               /* I915_EXEC_* */
-    __u64 rsvd1;               /* ← номер контексту */
-    __u64 rsvd2;               /* ← молодші 32 біти: вхідний sync_file fd
-                                     старші 32 біти: вихідний sync_file fd */
-};
-```
+:::code api-submit-ioctls/c/i915-execbuffer2-i-polia.c
 
 Пакет команд i915 не має власного поля: ним служить **останній** об'єкт у масиві `buffers_ptr` — або перший, якщо стоїть `I915_EXEC_BATCH_FIRST` (`1<<18`).
 
@@ -146,20 +105,7 @@ struct drm_i915_gem_exec_fence { __u32 handle; __u32 flags; };
 
 ## msm: усе прапорцями
 
-```c
-struct drm_msm_gem_submit {          /* DRM_MSM_GEM_SUBMIT = 0x06 */
-    __u32 flags;                     /* MSM_PIPE_* | MSM_SUBMIT_* */
-    __u32 fence;                     /* out: номер у черзі        */
-    __u32 nr_bos, nr_cmds;
-    __u64 bos, cmds;
-    __s32 fence_fd;                  /* in/out sync_file          */
-    __u32 queueid;
-    __u64 in_syncobjs, out_syncobjs;
-    __u32 nr_in_syncobjs, nr_out_syncobjs, syncobj_stride, pad;
-};
-
-struct drm_msm_syncobj { __u32 handle, flags; __u64 point; };  /* MSM_SYNCOBJ_RESET 0x1 */
-```
+:::code api-submit-ioctls/c/msm-use-praportsiamy.c
 
 | прапорець | значення | зміст |
 |---|---|---|
@@ -172,23 +118,7 @@ struct drm_msm_syncobj { __u32 handle, flags; __u64 point; };  /* MSM_SYNCOBJ_RE
 
 ## Xe: прив'язка окремо, подання окремо
 
-```c
-struct drm_xe_exec {                  /* DRM_XE_EXEC = 0x09, DRM_IOW  */
-    __u64 extensions;
-    __u32 exec_queue_id, num_syncs;   /* черга виконання й довжина syncs */
-    __u64 syncs;                      /* масив drm_xe_sync            */
-    __u64 address;                    /* адреса пакета у просторі VM  */
-    __u16 num_batch_buffer; __u16 pad[3]; __u64 reserved[2];
-};
-
-struct drm_xe_sync {
-    __u64 extensions;
-    __u32 type;    /* SYNCOBJ 0x0, TIMELINE_SYNCOBJ 0x1, USER_FENCE 0x2 */
-    __u32 flags;   /* DRM_XE_SYNC_FLAG_SIGNAL (1<<0): заряджаємо, а не чекаємо */
-    union { __u32 handle; __u64 addr; };
-    __u64 timeline_value;  __u64 reserved[2];
-};
-```
+:::code api-submit-ioctls/c/xe-pryviazka-okremo.c
 
 Один масив замість трьох різних полів: напрям задає біт `SIGNAL`, а вид — поле `type`. Третій вид, `USER_FENCE`, огорожею DRM не є взагалі — це просто адреса в пам'яті, куди залізо запише число; чекають на неї окремим викликом `DRM_IOCTL_XE_WAIT_USER_FENCE`, не заходячи в підсистему огорож.
 

@@ -19,56 +19,8 @@
 2. **`extended_checksum` (байт 32):** Контрольна сума всіх 36 байтів структури (версія ACPI 2.0+).
 
 :::tabs
-```c
-/* C Definition (Linux Kernel uapi style) */
-#include <stdint.h>
-
-#pragma pack(push, 1)
-
-struct rsdp_descriptor_v1 {
-    char     signature[8];     /* "RSD PTR " */
-    uint8_t  checksum;         /* Сума перших 20 байтів = 0 */
-    char     oem_id[6];        /* Ідентифікатор виробника OEM */
-    uint8_t  revision;         /* 0 = ACPI 1.0, 2 = ACPI 2.0+ */
-    uint32_t rsdt_physical_address; /* 32-бітна адреса RSDT */
-};
-
-struct rsdp_descriptor_v2 {
-    struct rsdp_descriptor_v1 v1;
-    uint32_t length;           /* Загальний розмір структури (36 байтів) */
-    uint64_t xsdt_physical_address; /* 64-бітна адреса XSDT */
-    uint8_t  extended_checksum;/* Сума всіх 36 байтів = 0 */
-    uint8_t  reserved[3];      /* Зарезервовані байти */
-};
-
-#pragma pack(pop)
-```
-```cpp
-// C++ Idiomatic Definition (C++20 layout)
-#include <cstdint>
-#include <array>
-#include <span>
-
-#pragma pack(push, 1)
-
-struct alignas(1) RsdpDescriptorV1 {
-    std::array<char, 8> signature;     // "RSD PTR "
-    std::uint8_t        checksum;      // Checksum of first 20 bytes
-    std::array<char, 6> oem_id;        // OEM String
-    std::uint8_t        revision;      // 0 for v1.0, 2 for v2.0+
-    std::uint32_t       rsdt_address;  // 32-bit physical address
-};
-
-struct alignas(1) RsdpDescriptorV2 {
-    RsdpDescriptorV1  v1;
-    std::uint32_t     length;          // 36 bytes
-    std::uint64_t     xsdt_address;    // 64-bit physical address
-    std::uint8_t      extended_checksum; // Checksum of entire 36 bytes
-    std::array<std::uint8_t, 3> reserved;
-};
-
-#pragma pack(pop)
-```
+:::code api-acpi-table-structures/c/syhnatura-vyrivniuvannia.c
+:::code api-acpi-table-structures/cpp/syhnatura-vyrivniuvannia.cpp
 :::
 
 Поле `revision` визначає версію стандарту: значення `0` відповідає ACPI 1.0, а значення `2` відповідає специфікаціям ACPI від 2.0 до 6.5. Поле `oem_id` містить 6-символьний рядок у форматі ASCII із назвою розробника прошивки (наприклад, `"DELL  "`, `"INTEL "`, `"ALASKA"`).
@@ -90,47 +42,8 @@ struct alignas(1) RsdpDescriptorV2 {
 9. **`asl_compiler_revision` (4 байти):** Номер версії компілятора ASL.
 
 :::tabs
-```c
-/* C Definition */
-#include <stdint.h>
-
-#pragma pack(push, 1)
-
-struct acpi_table_header {
-    char     signature[4];     /* Наприклад "FACP", "APIC", "DSDT" */
-    uint32_t length;           /* Довжина всієї таблиці включно із заголовком */
-    uint8_t  revision;         /* Версія специфікації цієї таблиці */
-    uint8_t  checksum;         /* Сума всіх байтів таблиці = 0 */
-    char     oem_id[6];        /* OEM ID */
-    char     oem_table_id[8];  /* Table ID виробника */
-    uint32_t oem_revision;     /* Версія таблиці OEM */
-    char     asl_compiler_id[4]; /* Сигнатура компілятора iASL */
-    uint32_t asl_compiler_revision; /* Версія компілятора */
-};
-
-#pragma pack(pop)
-```
-```cpp
-// C++ Idiomatic Definition
-#include <cstdint>
-#include <array>
-
-#pragma pack(push, 1)
-
-struct alignas(1) AcpiTableHeader {
-    std::array<char, 4> signature;     // 4-char signature
-    std::uint32_t       length;        // Total table size in bytes
-    std::uint8_t        revision;      // Table revision
-    std::uint8_t        checksum;      // Entire table checksum (sum % 256 == 0)
-    std::array<char, 6> oem_id;        // OEM ID
-    std::array<char, 8> oem_table_id;  // OEM Table ID
-    std::uint32_t       oem_revision;  // OEM Revision number
-    std::array<char, 4> asl_compiler_id; // Compiler ID (e.g. "INTL")
-    std::uint32_t       asl_compiler_revision;
-};
-
-#pragma pack(pop)
-```
+:::code api-acpi-table-structures/c/detalizatsiia-poliv.c
+:::code api-acpi-table-structures/cpp/detalizatsiia-poliv.cpp
 :::
 
 ## 3. Generic Address Structure (GAS)
@@ -158,51 +71,8 @@ struct alignas(1) AcpiTableHeader {
 * **`address` (8 байтів):** 64-бітна фізична адреса або номер I/O порта/PCI адреса.
 
 :::tabs
-```c
-/* C Definition */
-#include <stdint.h>
-
-#pragma pack(push, 1)
-
-struct acpi_generic_address {
-    uint8_t  space_id;    /* 0=SystemMemory, 1=SystemIO, 2=PCI_Config, 3=EC */
-    uint8_t  bit_width;   /* Розмір регістра у бітах (8, 16, 32, 64) */
-    uint8_t  bit_offset;  /* Зсув першого біта */
-    uint8_t  access_width;/* Розмір доступу: 0=Undefined, 1=Byte, 2=Word, 3=DWord, 4=QWord */
-    uint64_t address;     /* 64-бітна фізична адреса або I/O порт */
-};
-
-#pragma pack(pop)
-```
-```cpp
-// C++ Idiomatic Definition
-#include <cstdint>
-
-#pragma pack(push, 1)
-
-enum class AcpiAddressSpace : std::uint8_t {
-    SystemMemory     = 0,
-    SystemIO         = 1,
-    PciConfig        = 2,
-    EmbeddedControl  = 3,
-    SmBus            = 4,
-    SystemCmos       = 5,
-    PciBarTarget     = 6,
-    IPMI             = 7,
-    GeneralPurposeIo = 8,
-    GenericSerialBus = 9
-};
-
-struct alignas(1) AcpiGenericAddress {
-    AcpiAddressSpace space_id;
-    std::uint8_t     bit_width;
-    std::uint8_t     bit_offset;
-    std::uint8_t     access_width;
-    std::uint64_t    address;
-};
-
-#pragma pack(pop)
-```
+:::code api-acpi-table-structures/c/anatomiia-struktury-gas.c
+:::code api-acpi-table-structures/cpp/anatomiia-struktury-gas.cpp
 :::
 
 ## 4. Fixed ACPI Description Table (FADT / FACP)
@@ -246,64 +116,8 @@ struct alignas(1) AcpiGenericAddress {
 3. **Type 2 (Interrupt Source Override):** Описує мапінг між класичними носіями IRQ ISA (0–15) та новими номерами GSI у системі APIC.
 
 :::tabs
-```c
-/* C Subtable Header Definition */
-#include <stdint.h>
-
-#pragma pack(push, 1)
-
-struct acpi_madt_subtable_header {
-    uint8_t type;
-    uint8_t length;
-};
-
-/* Type 0: Processor Local APIC */
-struct acpi_madt_local_apic {
-    struct acpi_madt_subtable_header header;
-    uint8_t  processor_id; /* ACPI Processor ID */
-    uint8_t  id;           /* Local APIC ID */
-    uint32_t lapic_flags;  /* Bit 0 = Enabled, Bit 1 = Online Capable */
-};
-
-/* Type 1: I/O APIC */
-struct acpi_madt_io_apic {
-    struct acpi_madt_subtable_header header;
-    uint8_t  id;           /* I/O APIC ID */
-    uint8_t  reserved;
-    uint32_t address;      /* Фізична адреса MMIO I/O APIC */
-    uint32_t global_irq_base; /* Базовий номер GSI */
-};
-
-#pragma pack(pop)
-```
-```cpp
-// C++ Subtable Definition
-#include <cstdint>
-
-#pragma pack(push, 1)
-
-struct alignas(1) AcpiMadtSubtableHeader {
-    std::uint8_t type;
-    std::uint8_t length;
-};
-
-struct alignas(1) AcpiMadtLocalApic {
-    AcpiMadtSubtableHeader header;
-    std::uint8_t  processor_id;
-    std::uint8_t  apic_id;
-    std::uint32_t flags; // Bit 0: Enabled
-};
-
-struct alignas(1) AcpiMadtIoApic {
-    AcpiMadtSubtableHeader header;
-    std::uint8_t  io_apic_id;
-    std::uint8_t  reserved;
-    std::uint32_t io_apic_address;
-    std::uint32_t global_system_interrupt_base;
-};
-
-#pragma pack(pop)
-```
+:::code api-acpi-table-structures/c/kliuchovi-typy-pidtablyts.c
+:::code api-acpi-table-structures/cpp/kliuchovi-typy-pidtablyts.cpp
 :::
 
 ## 6. Валідація та перевірка контрольної суми (Checksum)

@@ -34,18 +34,7 @@
 
 ## `struct aiocb` — поле за полем
 
-```c
-struct aiocb {
-    int             aio_fildes;     /* дескриптор */
-    off_t           aio_offset;     /* абсолютне зміщення у файлі */
-    volatile void  *aio_buf;        /* буфер */
-    size_t          aio_nbytes;     /* скільки байтів */
-    int             aio_reqprio;    /* наскільки ЗНИЗИТИ пріоритет запиту */
-    struct sigevent aio_sigevent;   /* як сповістити про завершення */
-    int             aio_lio_opcode; /* LIO_READ / LIO_WRITE / LIO_NOP */
-    /* далі — внутрішні поля реалізації */
-};
-```
+:::code api-aio-calls/c/struct-aiocb-pole-za-polem.c
 
 Порядок полів реалізацією не гарантований, тож ініціалізація списком через кому непортативна. Заповнюють поіменно, попередньо обнуливши структуру.
 
@@ -69,21 +58,7 @@ struct aiocb {
 
 ## `struct sigevent` — як просити сповіщення
 
-```c
-union sigval {
-    int   sival_int;
-    void *sival_ptr;
-};
-
-struct sigevent {
-    int              sigev_notify;              /* SIGEV_NONE / SIGNAL / THREAD */
-    int              sigev_signo;               /* який сигнал                  */
-    union sigval     sigev_value;               /* довільне значення програми   */
-    void           (*sigev_notify_function)(union sigval);
-    pthread_attr_t  *sigev_notify_attributes;   /* NULL — типові атрибути       */
-    pid_t            sigev_notify_thread_id;    /* лише POSIX-таймери           */
-};
-```
+:::code api-aio-calls/c/struct-sigevent-iak.c
 
 | `sigev_notify` | Що робить | Які поля читає |
 |---|---|---|
@@ -183,23 +158,7 @@ struct sigevent {
 
 Оскільки в Linux набір реалізовано пулом потоків у просторі користувача, glibc дає позастандартний важіль до цього пулу:
 
-```c
-#define _GNU_SOURCE
-#include <aio.h>
-
-void aio_init(const struct aioinit *init);
-
-struct aioinit {
-    int aio_threads;    /* стеля робочих потоків;      усталено 20, мінімум 1  */
-    int aio_num;        /* очікуваних одночасних запитів; усталено 64, мін. 32 */
-    int aio_locks;      /* не вживається */
-    int aio_usedba;     /* не вживається */
-    int aio_debug;      /* не вживається */
-    int aio_numusers;   /* не вживається */
-    int aio_idle_time;  /* секунд простою до смерті потоку; усталено 1         */
-    int aio_reserved;
-};
-```
+:::code api-aio-calls/c/aio-init-rozshyrennia.c
 
 Викликати треба **до** першої функції набору — пізніше воно не подіє. Менше за 32 в `aio_num` округлюється вгору; `aio_idle_time` з'явилося в glibc 2.4. Функції немає ні в POSIX, ні в BSD, тож її ховають за `#ifdef __GLIBC__`.
 
@@ -207,59 +166,7 @@ struct aioinit {
 
 Нижче — повний цикл із коректним часом життя блоків, перезапуском після сигналу й забиранням кожного результату рівно один раз.
 
-```c
-#include <aio.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <signal.h>      /* SIGEV_*: glibc віддає їх і через <aio.h>, POSIX — звідси */
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-
-#define N   4
-#define BLK 4096
-
-int main(void)
-{
-    int fd = open("data.bin", O_RDONLY);
-    if (fd < 0) { perror("open"); return 1; }
-
-    /* блоки й буфери мусять пережити виклик, тому не в кадрі, що зникне */
-    static struct aiocb cb[N];
-    static char         buf[N][BLK];
-    const struct aiocb *list[N];
-
-    for (int i = 0; i < N; i++) {
-        memset(&cb[i], 0, sizeof cb[i]);          /* обнулення — умова контракту */
-        cb[i].aio_fildes = fd;
-        cb[i].aio_buf    = buf[i];
-        cb[i].aio_nbytes = BLK;
-        cb[i].aio_offset = (off_t)i * BLK;        /* абсолютне зміщення */
-        cb[i].aio_sigevent.sigev_notify = SIGEV_NONE;
-        list[i] = &cb[i];
-        if (aio_read(&cb[i]) == -1) { perror("aio_read"); return 1; }
-    }
-
-    for (int left = N; left > 0; ) {
-        if (aio_suspend(list, N, NULL) == -1 && errno != EINTR) {
-            perror("aio_suspend");                /* EAGAIN не буває: timeout = NULL */
-            return 1;
-        }
-        for (int i = 0; i < N; i++) {
-            if (list[i] == NULL) continue;        /* результат уже забрано */
-            int e = aio_error(&cb[i]);
-            if (e == EINPROGRESS) continue;
-            ssize_t n = aio_return(&cb[i]);       /* рівно один раз на запит */
-            if (n == -1) fprintf(stderr, "запит %d: %s\n", i, strerror(e));
-            else         printf("запит %d: %zd байтів\n", i, n);
-            list[i] = NULL;                       /* NULL у списку дозволено */
-            left--;
-        }
-    }
-    close(fd);                                    /* лише коли забрано все */
-    return 0;
-}
-```
+:::code api-aio-calls/c/minimalnyi-robochyi-vyklyk.c
 
 ```
 $ cc -o r r.c -lrt && ./r

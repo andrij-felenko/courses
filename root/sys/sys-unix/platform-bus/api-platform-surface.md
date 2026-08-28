@@ -53,19 +53,7 @@ struct resource {
 
 ## `struct platform_driver`
 
-```c
-struct platform_driver {
-        int  (*probe)(struct platform_device *);
-        void (*remove)(struct platform_device *);
-        void (*shutdown)(struct platform_device *);
-        int  (*suspend)(struct platform_device *, pm_message_t state);
-        int  (*resume)(struct platform_device *);
-        struct device_driver driver;
-        const struct platform_device_id *id_table;
-        bool prevent_deferred_probe;
-        bool driver_managed_dma;
-};
-```
+:::code api-platform-surface/c/struct-platform-driver.h
 
 `remove` повертає `void` починаючи з ядра 6.11. Доти він повертав `int`, який ядро однаково відкидало: від'єднання пристрою вже не скасувати, тож відмовляти нема від чого. Заради переходу поруч якийсь час стояв другий покажчик `remove_new` із правильним типом; у 6.11 обидва імені звели в `union`, а згодом лишилося одне.
 
@@ -100,33 +88,7 @@ struct platform_driver {
 
 **Мінімальний повний виклик** — драйвер, що бере іменовані ресурси:
 
-```c
-static int acme_probe(struct platform_device *pdev)
-{
-        struct acme *a;
-        int irq, ret;
-
-        a = devm_kzalloc(&pdev->dev, sizeof(*a), GFP_KERNEL);
-        if (!a)
-                return -ENOMEM;
-
-        a->regs = devm_platform_ioremap_resource_byname(pdev, "cfg");
-        if (IS_ERR(a->regs))
-                return PTR_ERR(a->regs);
-
-        irq = platform_get_irq_byname(pdev, "rx");
-        if (irq < 0)
-                return irq;
-
-        ret = devm_request_irq(&pdev->dev, irq, acme_isr, 0,
-                               dev_name(&pdev->dev), a);
-        if (ret)
-                return ret;
-
-        platform_set_drvdata(pdev, a);
-        return 0;
-}
-```
+:::code api-platform-surface/c/pomichnyky-dostupu.c
 
 Жодного шляху виходу зі звільненням тут нема, бо все взято з префіксом `devm_` — такі захоплення [ядро скасовує саме](root:sys-unix/devm-resource-lifetime-in-probe), коли пристрій зникає.
 

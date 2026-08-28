@@ -11,34 +11,8 @@
 Головним критерієм вибору між людським та машинним режимом є перевірка того, чи підключений файловий дескриптор до пристрою термінала. У стандарті POSIX.1-2008 та ядрі Linux цей механізм реалізовано через сімейство викликів керування терміналом.
 
 :::tabs
-```c
-/* Сигнатури інтерфейсів термінала мовою C */
-#include <unistd.h>
-#include <termios.h>
-#include <sys/ioctl.h>
-
-int isatty(int fd);
-char *ttyname(int fd);
-int ttyname_r(int fd, char *buf, size_t buflen);
-int tcgetattr(int fd, struct termios *termios_p);
-int tcsetattr(int fd, int optional_actions, const struct termios *termios_p);
-int ioctl(int fd, unsigned long request, ...);
-```
-```cpp
-// C++ оголошення інтерфейсів термінала у просторі імен POSIX
-#include <unistd.h>
-#include <termios.h>
-#include <sys/ioctl.h>
-
-extern "C" {
-int isatty(int fd);
-char *ttyname(int fd);
-int ttyname_r(int fd, char *buf, size_t buflen);
-int tcgetattr(int fd, struct termios *termios_p);
-int tcsetattr(int fd, int optional_actions, const struct termios *termios_p);
-int ioctl(int fd, unsigned long request, ...);
-}
-```
+:::code api-isatty-and-terminal-detection/c/unistd.h
+:::code api-isatty-and-terminal-detection/cpp/1-systemni-vyklyky-ta.hpp
 :::
 
 ### Детальна специфікація функцій
@@ -205,72 +179,8 @@ struct winsize {
 ### Еталонна функція визначення активності кольорів
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-int should_enable_color(int fd) {
-    /* 1. Стандарт NO_COLOR: найвищий пріоритет */
-    const char *no_color = getenv("NO_COLOR");
-    if (no_color != NULL && no_color[0] != '\0') {
-        return 0;
-    }
-
-    /* 2. Примусове увімкнення кольорів для CI/CD логів */
-    const char *clicolor_force = getenv("CLICOLOR_FORCE");
-    if (clicolor_force != NULL && strcmp(clicolor_force, "0") != 0) {
-        return 1;
-    }
-
-    /* 3. Перевірка примітивного термінала dumb */
-    const char *term = getenv("TERM");
-    if (term != NULL && strcmp(term, "dumb") == 0) {
-        return 0;
-    }
-
-    /* 4. Заборона через CLICOLOR=0 */
-    const char *clicolor = getenv("CLICOLOR");
-    if (clicolor != NULL && strcmp(clicolor, "0") == 0) {
-        return 0;
-    }
-
-    /* 5. Автоматичне визначення TTY */
-    return isatty(fd);
-}
-```
-```cpp
-#include <cstdlib>
-#include <cstring>
-#include <string_view>
-#include <unistd.h>
-
-[[nodiscard]] bool should_enable_color(int fd) noexcept {
-    // 1. Стандарт NO_COLOR: найвищий пріоритет
-    if (const char *no_color = std::getenv("NO_COLOR"); no_color != nullptr && no_color[0] != '\0') {
-        return false;
-    }
-
-    // 2. Примусове увімкнення кольорів для CI/CD логів
-    if (const char *force = std::getenv("CLICOLOR_FORCE"); force != nullptr && std::string_view(force) != "0") {
-        return true;
-    }
-
-    // 3. Перевірка примітивного термінала dumb
-    if (const char *term = std::getenv("TERM"); term != nullptr && std::string_view(term) == "dumb") {
-        return false;
-    }
-
-    // 4. Заборона через CLICOLOR=0
-    if (const char *clicolor = std::getenv("CLICOLOR"); clicolor != nullptr && std::string_view(clicolor) == "0") {
-        return false;
-    }
-
-    // 5. Автоматичне визначення TTY
-    return isatty(fd) == 1;
-}
-```
+:::code api-isatty-and-terminal-detection/c/etalonna-funktsiia.c
+:::code api-isatty-and-terminal-detection/cpp/etalonna-funktsiia.cpp
 :::
 
 ---

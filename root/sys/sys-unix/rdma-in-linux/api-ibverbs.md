@@ -17,51 +17,8 @@
 Домен безпеки (Protection Domain) слугує ізоляційним контейнером. Він пов'язує між собою об'єкти `ibv_mr` (Memory Region), `ibv_qp` (Queue Pair), `ibv_ah` (Address Handle) та `ibv_srq` (Shared Receive Queue). Апаратна частина HCA відхиляє будь-яку спробу виконати операцію над буфером MR через QP, якщо вони були створені у різних Protection Domain.
 
 :::tabs
-```c
-// Створення та звільнення PD у C
-struct ibv_device **dev_list = ibv_get_device_list(NULL);
-struct ibv_context *ctx = ibv_open_device(dev_list[0]);
-ibv_free_device_list(dev_list);
-
-struct ibv_pd *pd = ibv_alloc_pd(ctx);
-if (!pd) {
-    perror("ibv_alloc_pd failed");
-    return -1;
-}
-
-// ... використання ...
-ibv_dealloc_pd(pd);
-ibv_close_device(ctx);
-```
-```cpp
-// Ідіоматична RAII-обгортка для PD у C++20
-#include <infiniband/verbs.h>
-#include <memory>
-#include <stdexcept>
-
-struct IbvContextDeleter {
-    void operator()(ibv_context* ctx) const noexcept {
-        if (ctx) ibv_close_device(ctx);
-    }
-};
-
-struct IbvPdDeleter {
-    void operator()(ibv_pd* pd) const noexcept {
-        if (pd) ibv_dealloc_pd(pd);
-    }
-};
-
-using UniqueContext = std::unique_ptr<ibv_context, IbvContextDeleter>;
-using UniquePd      = std::unique_ptr<ibv_pd, IbvPdDeleter>;
-
-UniquePd make_protection_domain(ibv_context* ctx) {
-    ibv_pd* pd = ibv_alloc_pd(ctx);
-    if (!pd) {
-        throw std::runtime_error("Не вдалося виділити Protection Domain");
-    }
-    return UniquePd(pd);
-}
-```
+:::code api-ibverbs/c/1-2-struct-ibv-pd.c
+:::code api-ibverbs/cpp/1-2-struct-ibv-pd.cpp
 :::
 
 ### 1.3 `struct ibv_mr` (Memory Region) та права доступу
@@ -81,62 +38,8 @@ UniquePd make_protection_domain(ibv_context* ctx) {
 - `IBV_ACCESS_MW_BIND`: Дозволяє зв'язувати з цим регіоном динамічні вікна пам'яті (Memory Windows).
 
 :::tabs
-```c
-// Реєстрація пам'яті у C
-char *buffer = (char *)malloc(4096);
-struct ibv_mr *mr = ibv_reg_mr(pd, buffer, 4096,
-                               IBV_ACCESS_LOCAL_WRITE |
-                               IBV_ACCESS_REMOTE_WRITE |
-                               IBV_ACCESS_REMOTE_READ);
-if (!mr) {
-    perror("ibv_reg_mr failed");
-}
-// ...
-ibv_dereg_mr(mr);
-free(buffer);
-```
-```cpp
-// Ідіоматична RAII-обгортка для буфера та MR у C++20
-#include <infiniband/verbs.h>
-#include <memory>
-#include <span>
-#include <vector>
-#include <stdexcept>
-
-class RegisteredBuffer {
-public:
-    RegisteredBuffer(ibv_pd* pd, size_t size, int access_flags)
-        : data_(size) {
-        mr_ = ibv_reg_mr(pd, data_.data(), data_.size(), access_flags);
-        if (!mr_) throw std::runtime_error("Помилка реєстрації пам'яті ibv_reg_mr");
-    }
-
-    ~RegisteredBuffer() noexcept {
-        if (mr_) ibv_dereg_mr(mr_);
-    }
-
-    RegisteredBuffer(const RegisteredBuffer&) = delete;
-    RegisteredBuffer& operator=(const RegisteredBuffer&) = delete;
-
-    RegisteredBuffer(RegisteredBuffer&& o) noexcept
-        : data_(std::move(o.data_)), mr_(o.mr_) {
-        o.mr_ = nullptr;
-    }
-
-    [[nodiscard]] uint32_t lkey() const noexcept { return mr_->lkey; }
-    [[nodiscard]] uint32_t rkey() const noexcept { return mr_->rkey; }
-    [[nodiscard]] uint64_t remote_ptr() const noexcept {
-        return reinterpret_cast<uint64_t>(data_.data());
-    }
-    [[nodiscard]] std::span<std::byte> bytes() noexcept {
-        return std::span(reinterpret_cast<std::byte*>(data_.data()), data_.size());
-    }
-
-private:
-    std::vector<char> data_;
-    ibv_mr* mr_{nullptr};
-};
-```
+:::code api-ibverbs/c/1-3-struct-ibv-mr-memory.c
+:::code api-ibverbs/cpp/1-3-struct-ibv-mr-memory.cpp
 :::
 
 ### 1.4 `struct ibv_mw` (Memory Window)
@@ -182,66 +85,8 @@ private:
 Запит на відправку, який публікується у Send Queue за допомогою виклику `ibv_post_send()`.
 
 :::tabs
-```c
-// Формування та публікація RDMA Write у C
-struct ibv_sge sge = {
-    .addr = (uint64_t)local_buffer,
-    .length = 1024,
-    .lkey = mr->lkey
-};
-
-struct ibv_send_wr wr = {
-    .wr_id = 1001,
-    .next = NULL,
-    .sg_list = &sge,
-    .num_sge = 1,
-    .opcode = IBV_WR_RDMA_WRITE,
-    .send_flags = IBV_SEND_SIGNALED | IBV_SEND_INLINE,
-    .wr.rdma = {
-        .remote_addr = remote_target_addr,
-        .rkey = remote_rkey
-    }
-};
-
-struct ibv_send_wr *bad_wr = NULL;
-int ret = ibv_post_send(qp, &wr, &bad_wr);
-if (ret != 0) {
-    fprintf(stderr, "Помилка ibv_post_send: %d\n", ret);
-}
-```
-```cpp
-// Опублікування RDMA Write у C++20 з безпечною перевіркою типом
-#include <infiniband/verbs.h>
-#include <expected>
-#include <cstdint>
-
-std::expected<void, int> post_rdma_write_cpp(ibv_qp* qp, uint64_t wr_id,
-                                             uint64_t local_addr, uint32_t len, uint32_t lkey,
-                                             uint64_t remote_addr, uint32_t rkey) {
-    ibv_sge sge{
-        .addr = local_addr,
-        .length = len,
-        .lkey = lkey
-    };
-
-    ibv_send_wr wr{};
-    wr.wr_id = wr_id;
-    wr.next = nullptr;
-    wr.sg_list = &sge;
-    wr.num_sge = 1;
-    wr.opcode = IBV_WR_RDMA_WRITE;
-    wr.send_flags = IBV_SEND_SIGNALED;
-    wr.wr.rdma.remote_addr = remote_addr;
-    wr.wr.rdma.rkey = rkey;
-
-    ibv_send_wr* bad_wr{nullptr};
-    int err = ibv_post_send(qp, &wr, &bad_wr);
-    if (err != 0) {
-        return std::unexpected(err);
-    }
-    return {};
-}
-```
+:::code api-ibverbs/c/3-2-struct-ibv-send-wr.c
+:::code api-ibverbs/cpp/3-2-struct-ibv-send-wr.cpp
 :::
 
 Прапорці `send_flags`:

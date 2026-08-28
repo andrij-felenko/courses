@@ -15,18 +15,7 @@
 #### Структура `struct hrtimer`
 Являє собою базову одиницю обліку високоточного таймера у ядрі:
 
-```c
-struct hrtimer {
-    struct timerqueue_node  node;
-    ktime_t                 _softexpires;
-    enum hrtimer_restart    (*function)(struct hrtimer *);
-    struct hrtimer_clock_base *base;
-    u8                      state;
-    u8                      is_rel;
-    u8                      is_soft;
-    u8                      is_hard;
-};
-```
+:::code api-hrtimer-kernel-surface/c/struktura-struct-hrtimer.c
 
 Детальний опис функціонального призначення кожного поля:
 
@@ -44,18 +33,7 @@ struct hrtimer {
 #### Структура `struct hrtimer_clock_base`
 Описує базу часу для конкретної часової системи на одному процесорному ядрі:
 
-```c
-struct hrtimer_clock_base {
-    struct hrtimer_cpu_base *cpu_base;
-    unsigned int            index;
-    clockid_t               clockid;
-    seqcount_raw_spinlock_t seq;
-    struct hrtimer          *running;
-    struct timerqueue_head  active;
-    ktime_t                 (*get_time)(void);
-    ktime_t                 offset;
-};
-```
+:::code api-hrtimer-kernel-surface/c/struktura-struct-hrtimer-2.c
 
 Поля структури забезпечують роботу сортованого дерева:
 

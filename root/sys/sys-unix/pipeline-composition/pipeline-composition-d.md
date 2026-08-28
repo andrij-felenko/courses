@@ -55,42 +55,8 @@
 Для створення нового каналу програма звертається до ядра за допомогою системного виклику `pipe()` або його розширеної версії `pipe2()`.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-int create_basic_pipe(void) {
-    int fds[2];
-    
-    // Створюємо канал: fds[0] - читання, fds[1] - запис
-    if (pipe(fds) == -1) {
-        perror("pipe failed");
-        return -1;
-    }
-    
-    printf("Read FD: %d, Write FD: %d\n", fds[0], fds[1]);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <array>
-#include <system_error>
-#include <unistd.h>
-#include <fcntl.h>
-
-std::array<int, 2> create_cpp_pipe() {
-    std::array<int, 2> fds{-1, -1};
-    if (::pipe2(fds.data(), O_CLOEXEC) == -1) {
-        throw std::system_error(errno, std::generic_category(), "pipe2 failed");
-    }
-    std::cout << "Read FD: " << fds[0] << ", Write FD: " << fds[1] << "\n";
-    return fds;
-}
-```
+:::code pipeline-composition-d/c/systemnyi-vyklyk-pipe-ta.c
+:::code pipeline-composition-d/cpp/systemnyi-vyklyk-pipe-ta.cpp
 :::
 
 У разі успіху ядро створює новий об'єкт `struct pipe_inode_info`, виділяє для нього сторінки пам'яті і додає два нових записи до таблиці файлових дескрипторів поточного процесу:
@@ -234,47 +200,8 @@ yes | head -n 5
 За замовчуванням дія сигналу `SIGPIPE` полягає у **негайному завершенні процесу**. Завдяки цьому програма `yes` припиняє своє виконання і не витрачає процесорний час на генерацію даних, які більше нікому читати.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <errno.h>
-
-void handle_sigpipe_gracefully(int write_fd) {
-    // Ігноруємо SIGPIPE, щоб write() повернув EPIPE замість падіння процесу
-    signal(SIGPIPE, SIG_IGN);
-
-    const char *msg = "Data packet\n";
-    if (write(write_fd, msg, 12) == -1) {
-        if (errno == EPIPE) {
-            fprintf(stderr, "Reader closed the pipe! Stop writing.\n");
-        }
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <csignal>
-#include <cerrno>
-#include <system_error>
-#include <unistd.h>
-
-void handle_cpp_sigpipe(int write_fd) {
-    // Ігноруємо SIGPIPE на рівні процесу
-    std::signal(SIGPIPE, SIG_IGN);
-
-    std::string data = "Data packet\n";
-    ssize_t res = ::write(write_fd, data.data(), data.size());
-    if (res == -1) {
-        if (errno == EPIPE) {
-            std::cerr << "Reader closed the pipe! EPIPE detected.\n";
-        } else {
-            throw std::system_error(errno, std::generic_category(), "write failed");
-        }
-    }
-}
-```
+:::code pipeline-composition-d/c/obrobka-syhnaliv-ta.c
+:::code pipeline-composition-d/cpp/obrobka-syhnaliv-ta.cpp
 :::
 
 ---
@@ -356,61 +283,8 @@ struct file (fd) ──► struct file_operations (pipefifo_fops)
 Щоб не опитувати неблокуючі канали у безкінечному циклі (що завантажило б процесор на 100%), процес реєструє дескриптори каналів у системі мультиплексування `epoll` або `poll`.
 
 :::tabs
-```c
-#include <sys/epoll.h>
-#include <stdio.h>
-#include <unistd.h>
-
-void monitor_pipe_events(int read_fd) {
-    int epoll_fd = epoll_create1(0);
-    struct epoll_event ev, events[1];
-
-    ev.events = EPOLLIN | EPOLLET; // Читання + Edge-Triggered режим
-    ev.data.fd = read_fd;
-    epoll_ctl(epoll_fd, EPOLL_CTL_ADD, read_fd, &ev);
-
-    printf("Waiting for data on pipe...\n");
-    int nfds = epoll_wait(epoll_fd, events, 1, 5000); // 5 секунд таймаут
-    if (nfds > 0) {
-        printf("Data is ready to be read from pipe!\n");
-    } else {
-        printf("Timeout or no data.\n");
-    }
-
-    close(epoll_fd);
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <system_error>
-#include <sys/epoll.h>
-#include <unistd.h>
-
-void monitor_cpp_pipe(int read_fd) {
-    int ep_fd = ::epoll_create1(0);
-    if (ep_fd == -1) {
-        throw std::system_error(errno, std::generic_category(), "epoll_create1 failed");
-    }
-
-    epoll_event ev{};
-    ev.events = EPOLLIN | EPOLLET;
-    ev.data.fd = read_fd;
-
-    if (::epoll_ctl(ep_fd, EPOLL_CTL_ADD, read_fd, &ev) == -1) {
-        ::close(ep_fd);
-        throw std::system_error(errno, std::generic_category(), "epoll_ctl failed");
-    }
-
-    std::vector<epoll_event> events(1);
-    int nfds = ::epoll_wait(ep_fd, events.data(), 1, 5000);
-    if (nfds > 0) {
-        std::cout << "Data ready on read_fd: " << events[0].data.fd << "\n";
-    }
-
-    ::close(ep_fd);
-}
-```
+:::code pipeline-composition-d/c/multypleksuvannia-i-o-za.c
+:::code pipeline-composition-d/cpp/multypleksuvannia-i-o-za.cpp
 :::
 
 ---

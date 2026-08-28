@@ -14,30 +14,7 @@
 
 Автор заповнює лише перші поля кожної структури; решту веде ядро й читати їх зсередини латки не треба. Масиви `funcs` і `objs` закінчуються **порожнім елементом** `{ }` — довжини ніде не передають.
 
-```c
-struct klp_func {
-        const char *old_name;      /* заповнює автор */
-        void *new_func;            /* заповнює автор */
-        unsigned long old_sympos;  /* заповнює автор, необов'язково */
-        /* далі — службові: old_func, kobj, node, stack_node,
-           old_size, new_size, nop, patched, transition */
-};
-
-struct klp_object {
-        const char *name;
-        struct klp_func *funcs;
-        struct klp_callbacks callbacks;
-        /* службові: kobj, func_list, node, mod, dynamic, patched */
-};
-
-struct klp_patch {
-        struct module *mod;
-        struct klp_object *objs;
-        struct klp_state *states;
-        bool replace;
-        /* службові: list, kobj, obj_list, enabled, forced, free_work, finish */
-};
-```
+:::code api-livepatch-surface/c/try-struktury-opysu.c
 
 | Поле `klp_func` | Тип | Значення |
 | --- | --- | --- |
@@ -147,36 +124,11 @@ struct klp_callbacks {
 
 Уся спостережна частина контракту читається кількома рядками — окремої утиліти для цього немає й не потрібно:
 
-```sh
-# які латки стоять і в якому вони стані
-for p in /sys/kernel/livepatch/*/; do
-        printf '%s enabled=%s transition=%s\n' \
-                "$(basename "$p")" "$(cat "$p/enabled")" "$(cat "$p/transition")"
-done
-
-# що саме залатано у верхній латці
-find /sys/kernel/livepatch/<латка> -mindepth 2 -maxdepth 2 -type d
-
-# хто ще не перемкнувся, з іменами
-for f in $(grep -l '^0$' /proc/[0-9]*/patch_state); do
-        pid=${f%/patch_state}; printf '%s %s\n' "${pid#/proc/}" "$(cat "$pid/comm")"
-done
-```
+:::code api-livepatch-surface/sh/main.sh
 
 ## Тіньові змінні
 
-```c
-typedef int  (*klp_shadow_ctor_t)(void *obj, void *shadow_data, void *ctor_data);
-typedef void (*klp_shadow_dtor_t)(void *obj, void *shadow_data);
-
-void *klp_shadow_alloc(void *obj, unsigned long id, size_t size, gfp_t gfp_flags,
-                       klp_shadow_ctor_t ctor, void *ctor_data);
-void *klp_shadow_get_or_alloc(void *obj, unsigned long id, size_t size, gfp_t gfp_flags,
-                              klp_shadow_ctor_t ctor, void *ctor_data);
-void *klp_shadow_get(void *obj, unsigned long id);
-void  klp_shadow_free(void *obj, unsigned long id, klp_shadow_dtor_t dtor);
-void  klp_shadow_free_all(unsigned long id, klp_shadow_dtor_t dtor);
-```
+:::code api-livepatch-surface/c/tinovi-zminni.h
 
 Ключ — пара `<obj, id>`. `obj` — адреса батьківської структури; ядро її не розіменовує й нічого про неї не знає, це просто число, за яким хешують. `id` — число, яким автор латки розрізняє свої власні додаткові поля: одному об'єктові можна причепити скільки завгодно тіньових змінних із різними `id`.
 
@@ -194,41 +146,7 @@ void  klp_shadow_free_all(unsigned long id, klp_shadow_dtor_t dtor);
 
 ## Вимоги до модуля-латки
 
-```c
-#include <linux/module.h>
-#include <linux/seq_file.h>
-#include <linux/livepatch.h>
-
-static int lp_cmdline_proc_show(struct seq_file *m, void *v)
-{
-        seq_printf(m, "%s\n", "залатано");
-        return 0;
-}
-
-static void lp_post_patch(struct klp_object *obj) { /* ремонт стану */ }
-
-static struct klp_func funcs[] = {
-        { .old_name = "cmdline_proc_show", .new_func = lp_cmdline_proc_show },
-        { }
-};
-
-static struct klp_object objs[] = {
-        { .funcs = funcs, .callbacks = { .post_patch = lp_post_patch } },
-        { }
-};
-
-static struct klp_patch patch = {
-        .mod = THIS_MODULE, .objs = objs, .replace = true,
-};
-
-static int __init lp_init(void) { return klp_enable_patch(&patch); }
-static void __exit lp_exit(void) { }
-
-module_init(lp_init);
-module_exit(lp_exit);
-MODULE_LICENSE("GPL");
-MODULE_INFO(livepatch, "Y");
-```
+:::code api-livepatch-surface/c/vymohy-do-modulia-latky.c
 
 Обов'язкове тут — три рядки в кінці й `module_exit`, що нічого не робить: усе прибирання ядро вже зробило само, коли доводило латку до вимкненого стану.
 

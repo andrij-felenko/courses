@@ -100,36 +100,8 @@
 Механізм `io_uring passthrough` дозволяє усунути ці накладні витрати за допомогою попередньої реєстрації буферів та файлів:
 
 :::tabs
-```c
-/* Приклад на C: Попередня реєстрація буферів у io_uring */
-struct iovec iov;
-iov.iov_base = dma_buffer;
-iov.iov_len = 4096 * 1024;
-
-/* Реєструємо масив буферів у ядрі один раз при старті програми */
-int ret = io_uring_register_buffers(&ring, &iov, 1);
-if (ret < 0) {
-    perror("Помилка io_uring_register_buffers");
-}
-```
-```cpp
-// Приклад на C++: Ідіоматична реєстрація буфера з перевіркою помилок
-#include <span>
-#include <system_error>
-#include <liburing.h>
-
-std::error_code register_fixed_buffer(struct io_uring& ring, std::span<std::byte> buffer) {
-    struct iovec iov{
-        .iov_base = buffer.data(),
-        .iov_len = buffer.size()
-    };
-    int ret = ::io_uring_register_buffers(&ring, &iov, 1);
-    if (ret < 0) {
-        return std::error_code(-ret, std::generic_category());
-    }
-    return {};
-}
-```
+:::code io-uring-cmd-passthrough-d/c/main.c
+:::code io-uring-cmd-passthrough-d/cpp/main.cpp
 :::
 
 При використанні зареєстрованих буферів (`IORING_URING_CMD_FIXED`) ядро один раз закріплює (pin) фізичні сторінки пам'яті користувача й тримає готовий перелік цих сторінок. Під час подачі `IORING_OP_URING_CMD` драйвер NVMe більше не викликає `get_user_pages()` для кожного запиту: він бере вже закріплені сторінки й будує з них апаратний дескриптор NVMe. Це забезпечує повноцінне **Zero-Copy**: дані переходять із NAND-флешу контролера прямо в буфер програми через PCIe DMA без жодного проміжного копіювання в оперативній пам'яті.

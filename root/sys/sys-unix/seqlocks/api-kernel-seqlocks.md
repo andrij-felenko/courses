@@ -51,25 +51,7 @@ typedef struct {
 
 Ініціалізація послідовних замків може здійснюватися як статично (на етапі компіляції), так і динамічно (під час виділення пам'яті в списку або структурі).
 
-```c
-/* Статичне оголошення та ініціалізація автономного seqlock_t */
-DEFINE_SEQLOCK(my_seqlock);
-
-/* Статичне оголошення та ініціалізація голого seqcount_t */
-seqcount_t my_seqcount = SEQCNT_ZERO(my_seqcount);
-
-/* Динамічна ініціалізація seqlock_t у виділеній пам'яті */
-void seqlock_init(seqlock_t *sl);
-
-/* Динамічна ініціалізація голого seqcount_t */
-void seqcount_init(seqcount_t *s);
-
-/* Явна динамічна прив'язка seqcount до зовнішнього спін-замка для Lockdep */
-void seqcount_spinlock_init(seqcount_spinlock_t *s, spinlock_t *lock);
-
-/* Динамічна прив'язка seqcount до зовнішнього м'ютекса */
-void seqcount_mutex_init(seqcount_mutex_t *s, struct mutex *lock);
-```
+:::code api-kernel-seqlocks/c/2-makrosy-ta-funktsii.h
 
 Під час динамічної ініціалізації макрос `seqlock_init()` автоматично реєструє внутрішній спін-замок у мапі Lockdep та присвоює йому унікальний клас блокування (lock class).
 
@@ -81,23 +63,7 @@ void seqcount_mutex_init(seqcount_mutex_t *s, struct mutex *lock);
 
 ### Сигнатури та вибір контексту для `seqlock_t`
 
-```c
-/* Стандартне блокування у контексті процесу (без вимкнення переривань) */
-void write_seqlock(seqlock_t *sl);
-void write_sequnlock(seqlock_t *sl);
-
-/* Блокування зі збереженням прапорців переривань (IRQ-safe) */
-void write_seqlock_irqsave(seqlock_t *sl, unsigned long flags);
-void write_sequnlock_irqrestore(seqlock_t *sl, unsigned long flags);
-
-/* Блокування з вимкненням нижніх половин (SoftIRQ-safe) */
-void write_seqlock_bh(seqlock_t *sl);
-void write_sequnlock_bh(seqlock_t *sl);
-
-/* Блокування з вимкненням апаратних переривань на поточному ядрі */
-void write_seqlock_irq(seqlock_t *sl);
-void write_sequnlock_irq(seqlock_t *sl);
-```
+:::code api-kernel-seqlocks/c/syhnatury-ta-vybir.h
 
 Правило суворого вибору варіанта для письменника:
 - Якщо читач може викликатися з обробника апаратного переривання (`hardirq`), письменник зобов'язаний використовувати **`write_seqlock_irqsave()`**, щоб не припуститися взаємного блокування на одному процесорному ядрі.
@@ -108,20 +74,7 @@ void write_sequnlock_irq(seqlock_t *sl);
 
 Якщо письменник захищений зовнішнім м'ютексом або спін-замком, він викликає безпосередні операції зміни лічильника:
 
-```c
-/* Початок запису: перевірка Lockdep + seq++ (стає непарним) + smp_wmb() */
-void write_seqcount_begin(seqcount_t *s);
-
-/* Завершення запису: smp_wmb() + seq++ (стає парним) */
-void write_seqcount_end(seqcount_t *s);
-
-/* Сирий варіант без перевірок Lockdep (використовується рідко у критичних місцях) */
-void raw_write_seqcount_begin(seqcount_t *s);
-void raw_write_seqcount_end(seqcount_t *s);
-
-/* Примусова інвалідація лічильника без виконання модифікації полів */
-void write_seqcount_invalidate(seqcount_t *s);
-```
+:::code api-kernel-seqlocks/c/syhnatury-dlia-seqcount-t.h
 
 Макрос `write_seqcount_invalidate()` збільшує `sequence` одразу на 2 (з парного в парне значення через крок), змушуючи всіх активних читачів перезапустити свій цикл `read_seqretry`, не входячи у непарний стан.
 
@@ -131,44 +84,13 @@ void write_seqcount_invalidate(seqcount_t *s);
 
 Операції читача є повністю пасивними: вони не захоплюють замків, не модифікують пам'ять і не вимикають переривань.
 
-```c
-/* Початок спроби читання. 
-   Повертає поточне значення лічильника seq.
-   Виконує smp_rmb(). Якщо seq непарне — спінить до парного. */
-unsigned read_seqbegin(const seqlock_t *sl);
-
-/* Перевірка цілісності після прочитання даних.
-   Виконує smp_rmb().
-   Повертає true (1), якщо запис відбувся, вимагаючи повтору циклу. */
-unsigned read_seqretry(const seqlock_t *sl, unsigned start_seq);
-
-/* Аналогічні операції для голого seqcount_t */
-unsigned read_seqcount_begin(const seqcount_t *s);
-unsigned read_seqcount_retry(const seqcount_t *s, unsigned start_seq);
-```
+:::code api-kernel-seqlocks/c/4-interfeisy-chytacha.h
 
 ### Гібридний варіант `read_seqbegin_or_lock()`
 
 Для уникнення голодування читачів при високій частоті записів застосовується гібридний макрос. Вибір режиму робиться за парністю змінної `seq`, яку веде сам читач: парне значення — оптимістична спроба без замка, непарне — читач заходить під виключний спін-замок. Тому після невдалої спроби цикл повторюють, виставивши `seq = 1` вручну:
 
-```c
-int seq = 0;
-again:
-    /* seq парне — seqlock; seq непарне — захоплення спін-замка */
-    read_seqbegin_or_lock(&my_seqlock, &seq);
-
-    /* Зчитування полів даних */
-    local_val1 = global_data.val1;
-    local_val2 = global_data.val2;
-
-    if (need_seqretry(&my_seqlock, seq)) {
-        seq = 1;                        /* друга спроба — під замком */
-        goto again;
-    }
-
-/* Завершення читання та звільнення замка (якщо він брався) */
-done_seqretry(&my_seqlock, seq);
-```
+:::code api-kernel-seqlocks/c/hibrydnyi-variant-read.c
 
 ---
 
@@ -176,60 +98,7 @@ done_seqretry(&my_seqlock, seq);
 
 Нижче наведено реалізацію захисту статистики мережевого пристрою в драйвері ядра Linux:
 
-```c
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/seqlock.h>
-#include <linux/netdevice.h>
-
-struct net_device_stats_cpu {
-    seqlock_t lock;
-    u64 rx_packets;
-    u64 rx_bytes;
-    u64 tx_packets;
-    u64 tx_bytes;
-};
-
-static struct net_device_stats_cpu my_stats;
-
-/* Ініціалізація при завантаженні модуля */
-static int __init my_module_init(void)
-{
-    seqlock_init(&my_stats.lock);
-    my_stats.rx_packets = 0;
-    my_stats.rx_bytes = 0;
-    return 0;
-}
-
-/* Оновлення статистики. Викликається з обробника переривання мережевої карти,
-   а той самий лічильник скидають з контексту процесу (ethtool). */
-void my_net_rx_handler(u32 pkt_len)
-{
-    unsigned long flags;
-
-    /* irqsave потрібен заради виклику з контексту процесу: інакше переривання
-       вклинилося б у вже початий запис і навічно застрягло на spin_lock того
-       самого замка. У самому обробнику вони й так вимкнені — там irqsave
-       лише збереже та відновить прапорці. */
-    write_seqlock_irqsave(&my_stats.lock, flags);
-    my_stats.rx_packets++;
-    my_stats.rx_bytes += pkt_len;
-    write_sequnlock_irqrestore(&my_stats.lock, flags);
-}
-
-/* Читання статистики у контексті системного виклику (User Context / sysfs) */
-void my_get_stats(u64 *packets, u64 *bytes)
-{
-    unsigned seq;
-
-    /* Оптимістичний цикл читання — не вимикає переривань і не блокує NAPI */
-    do {
-        seq = read_seqbegin(&my_stats.lock);
-        *packets = my_stats.rx_packets;
-        *bytes = my_stats.rx_bytes;
-    } while (read_seqretry(&my_stats.lock, seq));
-}
-```
+:::code api-kernel-seqlocks/c/5-povnyi-praktychnyi.c
 
 У цій схемі обробник переривання мережевої карти `my_net_rx_handler` ніколи не чекає читача з `sysfs`. Якщо у момент читання статистики через файлову систему приходить мережевий пакет, читач просто фіксує колізію `read_seqretry` і робить другу ітерацію, отримуючи вже оновлені значення пакетів та байтів.
 

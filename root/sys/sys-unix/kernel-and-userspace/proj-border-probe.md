@@ -18,58 +18,7 @@
 
 **Ідея.** Роботи тут насправді немає. Писати будемо у `/dev/null`, а цей пристрій влаштовано так, що його обробник запису не читає буфера взагалі: він повертає задану кількість байтів і на цьому все. Отже, все, що ми поміряємо, — це чистий перетин межі без жодного корисного змісту. Загальний обсяг лишається сталим, а міняється розмір шматка на один `write` — тобто **кількість перетинів**. Якщо межа має ціну, `sys`-час має виявитися просто добутком цієї ціни на кількість переходів.
 
-```c
-/* border1.c — та сама робота, різна кількість перетинів межі.
- * gcc -O2 -o border1 border1.c     запуск: ./border1 <розмір шматка в байтах>
- */
-#define _GNU_SOURCE                 /* getrusage і RUSAGE_* без сюрпризів */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/resource.h>
-
-static double tv(const struct timeval *t) { return t->tv_sec + t->tv_usec / 1e6; }
-
-int main(int argc, char **argv)
-{
-    const size_t TOTAL = 64u << 20;                  /* 64 МіБ у кожному прогоні */
-    size_t chunk = (argc > 1) ? strtoul(argv[1], NULL, 0) : 1;
-    if (chunk == 0 || TOTAL % chunk) {
-        fprintf(stderr, "розмір шматка має націло ділити 64 МіБ\n");
-        return 1;
-    }
-
-    char *buf = malloc(chunk);
-    memset(buf, 'x', chunk);         /* торкаємося сторінок ЗАЗДАЛЕГІДЬ, поза виміром */
-
-    int fd = open("/dev/null", O_WRONLY);
-    if (fd < 0) { perror("/dev/null"); return 1; }
-
-    struct rusage r0, r1;
-    struct timespec w0, w1;
-    getrusage(RUSAGE_SELF, &r0);
-    clock_gettime(CLOCK_MONOTONIC, &w0);
-
-    for (size_t done = 0; done < TOTAL; done += chunk)
-        if (write(fd, buf, chunk) != (ssize_t) chunk) { perror("write"); return 1; }
-
-    clock_gettime(CLOCK_MONOTONIC, &w1);
-    getrusage(RUSAGE_SELF, &r1);
-
-    double wall = (w1.tv_sec - w0.tv_sec) + (w1.tv_nsec - w0.tv_nsec) / 1e9;
-    unsigned long calls = TOTAL / chunk;
-
-    printf("шматок %-6zu перетинів %9lu  user %.3f  sys %7.3f  wall %8.4f  %5.0f нс/перетин\n",
-           chunk, calls,
-           tv(&r1.ru_utime) - tv(&r0.ru_utime),
-           tv(&r1.ru_stime) - tv(&r0.ru_stime),
-           wall, wall * 1e9 / calls);
-    return 0;
-}
-```
+:::code proj-border-probe/c/border1.c
 
 Що виходить на одній конкретній машині — сучасний x86-64 із увімкненими пом'якшеннями апаратних вразливостей:
 
@@ -123,46 +72,7 @@ $ strace -c -e trace=write ./border1-fwrite 1
 
 **Ідея.** Ядро отримує вказівник від недовіреної сторони й тому ставиться до нього як до звичайного аргументу, що підлягає перевірці. Перевірок насправді дві, і вони різні за природою — саме тому в досліді чотири рядки, а не один. Спершу дешева перевірка діапазону: чи лежить адреса взагалі по боці користувача. Потім — саме копіювання, яке ядро виконує особливою процедурою, для команд якої заздалегідь зареєстровано адресу відкату. Якщо сторінки немає, апаратура здійме сторінковий збій, обробник побачить, що збій стався на команді з відкатом, і замість убивати когось поверне «стільки байтів скопіювати не вдалося». Це число й перетворюється на `EFAULT`.
 
-```c
-/* border2.c — одна погана адреса з трьох боків.  gcc -O2 -o border2 border2.c */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-static void probe(const char *what, int fd, const void *p, size_t n)
-{
-    errno = 0;
-    ssize_t r = write(fd, p, n);
-    /* мітку друкуємо ОСТАННЬОЮ: ширина поля рахує байти, а кирилиця в UTF-8
-       займає по два — вирівняти можна лише те, що ліворуч від неї */
-    printf("r=%4zd  errno=%2d %-11s  %s\n",
-           r, errno, r < 0 ? strerror(errno) : "-", what);
-}
-
-int main(void)
-{
-    char *nopage  = (char *) 0x10L;       /* адреса з діапазону користувача, сторінки немає */
-    char *notours = (char *) -4096L;      /* адреса взагалі не з нашого боку межі          */
-
-    int null = open("/dev/null", O_WRONLY);
-    int file = open("border2.out", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (null < 0 || file < 0) { perror("open"); return 1; }
-
-    probe("нема сторінки -> /dev/null, 16 Б", null, nopage,  16);
-    probe("нема сторінки -> файл, 16 Б",      file, nopage,  16);
-    probe("нема сторінки -> файл, 0 Б",       file, nopage,   0);
-    probe("не наш бік -> /dev/null, 16 Б",    null, notours, 16);
-
-    fflush(stdout);                       /* ← приберіть цей рядок і перечитайте пастки */
-
-    volatile char *self = (volatile char *) nopage;
-    printf("а тепер розіменуємо самі: %d\n", (int) *self);
-    return 0;
-}
-```
+:::code proj-border-probe/c/border2.c
 
 ```
 $ ./border2 ; echo "код виходу: $?"
@@ -217,18 +127,7 @@ border2[24817]: segfault at 10 ip 000055f0c1e0a1b9 sp 00007ffd3c2f5a10 error 4 i
 
 **Ідея.** Трасувальник системних викликів працює не «спостереженням за програмою». Він через [ptrace](root:sys-unix/ptrace-model) просить ядро спиняти процес рівно на вході в ядро й на виході з нього. Тому його вивід — це буквально протокол межі: усе, що всередині програми, для нього невидиме за побудовою, а все, що перетнуло межу, потрапляє в протокол обов'язково. Це робить його ідеальним інструментом для нашого питання й геть непридатним для деяких інших.
 
-```c
-/* border3.c — три секунди роботи й жодного перетину.  gcc -O2 -o border3 border3.c */
-#include <stdio.h>
-
-int main(void)
-{
-    volatile long s = 0;                  /* volatile, інакше -O2 викине цикл цілком */
-    for (long i = 0; i < 1000000000L; i++) s += i;
-    printf("%ld\n", s);
-    return 0;
-}
-```
+:::code proj-border-probe/c/border3.c
 
 ```
 $ time ./border3
@@ -305,30 +204,7 @@ $ time strace -o /dev/null ./border1 4096   real 0m0.212s
 
 Останній дослід виправляє картинку, яку три перші могли залишити: ніби перетнути межу можна тільки навмисно, системним викликом. Найчастіший перетин у житті програми — сторінковий збій, і жодного рядка коду про нього ви не пишете.
 
-```c
-/* border4.c — 65 536 перетинів межі, яких strace не покаже.  gcc -O2 -o border4 border4.c */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <sys/mman.h>
-#include <sys/resource.h>
-
-int main(void)
-{
-    size_t len = 256u << 20;                              /* 256 МіБ */
-    char *p = mmap(NULL, len, PROT_READ | PROT_WRITE,
-                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);   /* один системний виклик */
-    if (p == MAP_FAILED) { perror("mmap"); return 1; }
-
-    struct rusage r0, r1;
-    getrusage(RUSAGE_SELF, &r0);
-    for (size_t i = 0; i < len; i += 4096) p[i] = 1;      /* торкаємося кожної сторінки */
-    getrusage(RUSAGE_SELF, &r1);
-
-    printf("дрібних збоїв %ld, великих %ld\n",
-           r1.ru_minflt - r0.ru_minflt, r1.ru_majflt - r0.ru_majflt);
-    return 0;
-}
-```
+:::code proj-border-probe/c/border4.c
 
 ```
 $ ./border4

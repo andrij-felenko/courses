@@ -209,19 +209,7 @@ struct nvme_tcp_icreq_pdu {
     uint8_t  reserved[112];      /* Зарезервоване поле для майбутніх розширень */
 };
 ```
-```cpp
-#include <cstdint>
-#include <array>
-
-struct nvme_tcp_icreq_pdu {
-    nvme_tcp_hdr  hdr;          // Заголовок PDU (type = 0x00, hlen = 128)
-    std::uint16_t pfv;          // Protocol Format Version (0x0000)
-    std::uint8_t  hpda;         // Host PDU Data Alignment (0 = без вирівнювання)
-    std::uint8_t  digest_flags; // Біт 0: Header Digest Enable, Біт 1: Data Digest Enable
-    std::uint32_t maxh2cdata;   // Максимальний розмір H2CData PDU від хоста (байтів)
-    std::array<std::uint8_t, 112> reserved;
-};
-```
+:::code api-nvmeof-pdu-structures/cpp/struktura-kadriv.cpp
 :::
 
 Відповідь **ICResp** підтверджує або зменшує запропоновані значення:
@@ -237,19 +225,7 @@ struct nvme_tcp_icresp_pdu {
     uint8_t  reserved[112];
 };
 ```
-```cpp
-#include <cstdint>
-#include <array>
-
-struct nvme_tcp_icresp_pdu {
-    nvme_tcp_hdr  hdr;          // Заголовок PDU (type = 0x01, hlen = 128)
-    std::uint16_t pfv;          // Підтверджена версія протоколу (0x0000)
-    std::uint8_t  cpda;         // Controller PDU Data Alignment
-    std::uint8_t  digest_flags; // Підтверджені прапорці цілісності digests
-    std::uint32_t maxh2cdata;   // Узгоджена межа розміру кадру H2CData
-    std::array<std::uint8_t, 112> reserved;
-};
-```
+:::code api-nvmeof-pdu-structures/cpp/struktura-kadriv-2.cpp
 :::
 
 ### Прапорці PDU (Header Flags):
@@ -264,43 +240,8 @@ struct nvme_tcp_icresp_pdu {
 Служба виявлення (Discovery Controller) повертає сторінку журналу із масивом записів `struct nvmf_disc_rsp_page_entry` розміром по **1024 байти** кожен:
 
 :::tabs
-```c
-struct nvmf_disc_rsp_page_entry {
-    uint8_t  trtype;             /* Тип транспорту: 1 = RDMA, 3 = TCP, 4 = FC */
-    uint8_t  adrfam;             /* Родина адрес: 1 = IPv4, 2 = IPv6, 3 = IB, 4 = FC */
-    uint8_t  subtype;            /* Тип підсистеми: 1 = Discovery, 2 = NVM Subsystem */
-    uint8_t  treq;               /* Запити транспорту: Secure channel support */
-    uint16_t portid;             /* Номер порту таргета */
-    uint16_t cntlid;             /* Ідентифікатор контролера */
-    uint16_t asqsz;              /* Максимальний розмір адміністративної черги SQ */
-    uint8_t  resv10[22];
-    char     trsvcid[32];        /* Рядок сервісного порту, наприклад "4420" */
-    uint8_t  resv64[192];
-    char     subnqn[256];        /* NQN підсистеми зберігання */
-    char     traddr[256];        /* Мережева адреса (наприклад "192.168.1.100") */
-    char     tsas[256];          /* Transport Specific Address Subsystem */
-};
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-struct nvmf_disc_rsp_page_entry {
-    std::uint8_t  trtype;        // Тип транспорту: 1 = RDMA, 3 = TCP, 4 = FC
-    std::uint8_t  adrfam;        // Родина адрес: 1 = IPv4, 2 = IPv6, 3 = IB, 4 = FC
-    std::uint8_t  subtype;       // Тип підсистеми: 1 = Discovery, 2 = NVM Subsystem
-    std::uint8_t  treq;          // Запити транспорту: Secure channel support
-    std::uint16_t portid;        // Номер порту таргета
-    std::uint16_t cntlid;        // Ідентифікатор контролера
-    std::uint16_t asqsz;         // Максимальний розмір адміністративної черги SQ
-    std::array<std::uint8_t, 22> resv10;
-    std::array<char, 32>  trsvcid;// Рядок сервісного порту, наприклад "4420"
-    std::array<std::uint8_t, 192> resv64;
-    std::array<char, 256> subnqn; // NQN підсистеми зберігання
-    std::array<char, 256> traddr; // Мережева адреса (наприклад "192.168.1.100")
-    std::array<char, 256> tsas;   // Transport Specific Address Subsystem
-};
-```
+:::code api-nvmeof-pdu-structures/c/main.c
+:::code api-nvmeof-pdu-structures/cpp/5-format-vidpovidei.cpp
 :::
 
 Пояснення параметрів запису сторінки виявлення:

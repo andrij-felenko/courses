@@ -126,20 +126,7 @@ NIC розбирає заголовки вхідних пакетів і вил�
 
 ### Перевірка кількості черг (Channels)
 
-```bash
-$ ethtool -l eth0
-Channel parameters for eth0:
-Pre-set maximums:
-RX:             0
-TX:             0
-Other:          1
-Combined:       64
-Current hardware settings:
-RX:             0
-TX:             0
-Other:          1
-Combined:       8
-```
+:::code ethtool-rss-indirection-tables-d/sh/perevirka-kilkosti-cherh.sh
 
 Параметр `Combined` показує кількість комбінованих черг прийому/передачі (Rx/Tx pair), які обробляються одним вектором переривань. 
 
@@ -150,21 +137,7 @@ $ sudo ethtool -L eth0 combined 16
 
 ### Перегляд RETA та секретного ключа (`ethtool -x`)
 
-```bash
-$ ethtool -x eth0
-RX flow hash indirection table for eth0 with 8 RX ring(s):
-    0:      0     1     2     3     4     5     6     7
-    8:      0     1     2     3     4     5     6     7
-   16:      0     1     2     3     4     5     6     7
-...
-  120:      0     1     2     3     4     5     6     7
-RSS hash key:
-a2:c4:5b:6c:7d:8e:9f:0a:b1:c2:d3:e4:f5:1a:2b:3c:4d:5e:6f:70:81:92:a3:b4:c5:d6:e7:f8:09:1a:2b:3c:4d:5e:6f:70:81:92:a3:b4
-RSS hash function:
-    toeplitz: on
-    xor: off
-    crc32: off
-```
+:::code ethtool-rss-indirection-tables-d/sh/perehliad-reta-ta.sh
 
 ### Модифікація RETA та ваг черг (`ethtool -X`)
 

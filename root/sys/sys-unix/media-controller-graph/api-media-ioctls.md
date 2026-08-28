@@ -31,57 +31,7 @@
 
 ## Структури: сутність, пад, зв'язок
 
-```c
-struct media_device_info {
-        char  driver[16];        /* ім'я драйвера, ASCII з нулем */
-        char  model[32];         /* модель, UTF-8 */
-        char  serial[40];        /* серійний номер або порожньо */
-        char  bus_info[32];      /* розташування: "platform:…", "usb-…" */
-        __u32 media_version;     /* версія API, KERNEL_VERSION(a,b,c) */
-        __u32 hw_revision;       /* ревізія заліза, формат довільний */
-        __u32 driver_version;    /* версія драйвера, KERNEL_VERSION(a,b,c) */
-        __u32 reserved[31];
-};
-
-struct media_entity_desc {
-        __u32 id;                /* задає програма; | MEDIA_ENT_ID_FLAG_NEXT */
-        char  name[32];
-        __u32 type;              /* насправді функція, MEDIA_ENT_F_* */
-        __u32 revision;          /* завжди 0, поле застаріле */
-        __u32 flags;             /* MEDIA_ENT_FL_* */
-        __u32 group_id;          /* завжди 0, поле застаріле */
-        __u16 pads;              /* скільки падів */
-        __u16 links;             /* скільки вихідних зв'язків */
-        __u32 reserved[4];
-        union {
-                struct { __u32 major, minor; } dev;   /* номери вузла в /dev */
-                __u8 raw[184];
-        };
-};
-
-struct media_pad_desc {
-        __u32 entity;            /* чий це пад */
-        __u16 index;             /* номер пада всередині сутности, з 0 */
-        __u32 flags;             /* MEDIA_PAD_FL_* */
-        __u32 reserved[2];
-};
-
-struct media_link_desc {
-        struct media_pad_desc source;
-        struct media_pad_desc sink;
-        __u32 flags;             /* MEDIA_LNK_FL_* */
-        __u32 reserved[2];
-};
-
-struct media_links_enum {
-        __u32 entity;
-        struct media_pad_desc  __user *pads;    /* NULL — не заповнювати */
-        struct media_link_desc __user *links;
-        __u32 reserved[4];
-};
-
-#define MEDIA_ENT_ID_FLAG_NEXT   (1U << 31)
-```
+:::code api-media-ioctls/c/struktury-sutnist-pad.c
 
 Перелік сутностей роблять так: беруть `id = MEDIA_ENT_ID_FLAG_NEXT` (тобто «перша, чий номер більший за нуль»), ядро прапорець знімає й повертає першу сутність; далі щоразу підставляють `desc.id | MEDIA_ENT_ID_FLAG_NEXT`, доки не прийде `EINVAL`. Ідентифікатори не щільні й не сталі між увімкненнями — на них не можна покладатися як на іменування.
 
@@ -91,67 +41,13 @@ struct media_links_enum {
 
 ## Увесь граф одним викликом: G_TOPOLOGY
 
-```c
-struct media_v2_entity {
-        __u32 id; char name[64]; __u32 function; __u32 flags; __u32 reserved[5];
-} __attribute__ ((packed));
-
-struct media_v2_interface {
-        __u32 id; __u32 intf_type; __u32 flags; __u32 reserved[9];
-        union {
-                struct { __u32 major, minor; } devnode;   /* вузол у /dev */
-                __u32 raw[16];
-        };
-} __attribute__ ((packed));
-
-struct media_v2_pad {
-        __u32 id; __u32 entity_id; __u32 flags; __u32 index; __u32 reserved[4];
-} __attribute__ ((packed));
-
-struct media_v2_link {
-        __u32 id; __u32 source_id; __u32 sink_id; __u32 flags; __u32 reserved[6];
-} __attribute__ ((packed));
-
-struct media_v2_topology {
-        __u64 topology_version;
-        __u32 num_entities;   __u32 reserved1;  __u64 ptr_entities;
-        __u32 num_interfaces; __u32 reserved2;  __u64 ptr_interfaces;
-        __u32 num_pads;       __u32 reserved3;  __u64 ptr_pads;
-        __u32 num_links;      __u32 reserved4;  __u64 ptr_links;
-} __attribute__ ((packed));
-```
+:::code api-media-ioctls/c/uves-hraf-odnym-vyklykom-g.h
 
 Тут `id` — наскрізний для всього графа: пад, сутність та інтерфейс не можуть мати однакового номера, тому в `media_v2_link` два поля `source_id`/`sink_id` описують і зв'язок пад→пад, і прив'язку інтерфейсу до сутности — розрізняють їх за типом у `flags`. Вказівники подано як `__u64` навмисно: так структура однакова для 32- і 64-бітних програм.
 
 Виклик двопрохідний. Нульова структура повертає лічильники, другий прохід — самі дані:
 
-```c
-struct media_v2_topology topo;
-struct media_v2_entity *ents; struct media_v2_interface *intfs;
-struct media_v2_pad *pads;    struct media_v2_link *links;
-
-retry:
-        memset(&topo, 0, sizeof(topo));
-        if (ioctl(fd, MEDIA_IOC_G_TOPOLOGY, &topo) < 0)   /* лише лічильники */
-                return -1;
-
-        ents  = calloc(topo.num_entities,   sizeof(*ents));
-        intfs = calloc(topo.num_interfaces, sizeof(*intfs));
-        pads  = calloc(topo.num_pads,       sizeof(*pads));
-        links = calloc(topo.num_links,      sizeof(*links));
-
-        topo.ptr_entities   = (__u64)(uintptr_t)ents;
-        topo.ptr_interfaces = (__u64)(uintptr_t)intfs;
-        topo.ptr_pads       = (__u64)(uintptr_t)pads;
-        topo.ptr_links      = (__u64)(uintptr_t)links;
-
-        if (ioctl(fd, MEDIA_IOC_G_TOPOLOGY, &topo) < 0) {
-                free(ents); free(intfs); free(pads); free(links);
-                if (errno == ENOSPC)      /* граф змінився між проходами */
-                        goto retry;
-                return -1;
-        }
-```
+:::code api-media-ioctls/c/uves-hraf-odnym-vyklykom-g.c
 
 `topology_version` росте щоразу, коли сутність або зв'язок з'являється чи зникає. Саме він робить `ENOSPC` між двома проходами законним станом, а не збоєм: гаряче під'єднаний субпристрій — звичайна річ, і програма зобов'язана перечитати лічильники, а не здаватися.
 
@@ -193,23 +89,7 @@ retry:
 | `MEDIA_ENT_F_TS_DEMUX` | `BASE + 0x00002` | демультиплексор транспортного потоку |
 | `MEDIA_ENT_F_AUDIO_CAPTURE` | `BASE + 0x03001` | звуковий вхід тієї самої плати |
 
-```c
-#define MEDIA_ENT_FL_DEFAULT       (1U << 0)   /* типова сутність своєї функції */
-#define MEDIA_ENT_FL_CONNECTOR     (1U << 1)   /* не блок, а рознім на платі */
-
-#define MEDIA_PAD_FL_SINK          (1U << 0)   /* вхід: пад приймає дані */
-#define MEDIA_PAD_FL_SOURCE        (1U << 1)   /* вихід: пад віддає дані */
-#define MEDIA_PAD_FL_MUST_CONNECT  (1U << 2)   /* без увімкненого зв'язку не запуститься */
-
-#define MEDIA_LNK_FL_ENABLED       (1U << 0)   /* дані течуть; єдине, що можна міняти */
-#define MEDIA_LNK_FL_IMMUTABLE     (1U << 1)   /* розведено в кремнії, завжди ввімкнено */
-#define MEDIA_LNK_FL_DYNAMIC       (1U << 2)   /* можна перемикати під час знімання */
-
-#define MEDIA_LNK_FL_LINK_TYPE     (0xf << 28)          /* маска типу зв'язку */
-#  define MEDIA_LNK_FL_DATA_LINK      (0U << 28)        /* пад → пад */
-#  define MEDIA_LNK_FL_INTERFACE_LINK (1U << 28)        /* інтерфейс → сутність */
-#  define MEDIA_LNK_FL_ANCILLARY_LINK (2U << 28)        /* фізичний зв'язок, 6.1 */
-```
+:::code api-media-ioctls/c/tablytsi-konstant.c
 
 Пад завжди рівно одного напрямку: `SINK` і `SOURCE` разом — помилка драйвера. `IMMUTABLE` без `ENABLED` теж беззмістовний і забороняється при реєстрації.
 
@@ -221,46 +101,7 @@ retry:
 
 Ці команди йдуть на `/dev/v4l-subdevN` і в кожній є поле `pad` — бо вузол один, а падів у сутности кілька.
 
-```c
-#define VIDIOC_SUBDEV_ENUM_MBUS_CODE  _IOWR('V',  2, struct v4l2_subdev_mbus_code_enum)
-#define VIDIOC_SUBDEV_G_FMT           _IOWR('V',  4, struct v4l2_subdev_format)
-#define VIDIOC_SUBDEV_S_FMT           _IOWR('V',  5, struct v4l2_subdev_format)
-#define VIDIOC_SUBDEV_G_SELECTION     _IOWR('V', 61, struct v4l2_subdev_selection)
-#define VIDIOC_SUBDEV_S_SELECTION     _IOWR('V', 62, struct v4l2_subdev_selection)
-#define VIDIOC_SUBDEV_ENUM_FRAME_SIZE _IOWR('V', 74, struct v4l2_subdev_frame_size_enum)
-
-struct v4l2_subdev_format {
-        __u32 which;                       /* TRY або ACTIVE */
-        __u32 pad;
-        struct v4l2_mbus_framefmt format;  /* width, height, code, field,
-                                              colorspace, ycbcr_enc,
-                                              quantization, xfer_func */
-        __u32 stream;                      /* 6.3: номер потоку в паді */
-        __u32 reserved[7];
-};
-
-struct v4l2_subdev_selection {
-        __u32 which; __u32 pad; __u32 target; __u32 flags;
-        struct v4l2_rect r;                /* left, top, width, height */
-        __u32 stream; __u32 reserved[7];
-};
-
-struct v4l2_subdev_mbus_code_enum {
-        __u32 pad; __u32 index; __u32 code; __u32 which;
-        __u32 flags; __u32 stream; __u32 reserved[6];
-};
-
-struct v4l2_subdev_frame_size_enum {
-        __u32 index; __u32 pad; __u32 code;
-        __u32 min_width, max_width, min_height, max_height;
-        __u32 which; __u32 stream; __u32 reserved[7];
-};
-
-enum v4l2_subdev_format_whence {
-        V4L2_SUBDEV_FORMAT_TRY    = 0,
-        V4L2_SUBDEV_FORMAT_ACTIVE = 1,
-};
-```
+:::code api-media-ioctls/c/vyklyky-na-padi.c
 
 `TRY` не чіпає залізо: драйвер підправляє поданий формат під свої обмеження й повертає, що вийшло б. Стан цих спроб живе **у відкритому дескрипторі**, а не в пристрої, — тож два процеси не заважають одне одному й після `close()` від спроб не лишається сліду.
 
@@ -268,23 +109,7 @@ enum v4l2_subdev_format_whence {
 
 Промацування можливостей пада — два вкладені переліки, обидва закінчуються `EINVAL`:
 
-```c
-struct v4l2_subdev_mbus_code_enum mc = {
-        .pad = 0, .index = 0, .which = V4L2_SUBDEV_FORMAT_ACTIVE,
-};
-while (ioctl(sd, VIDIOC_SUBDEV_ENUM_MBUS_CODE, &mc) == 0) {
-        struct v4l2_subdev_frame_size_enum fs = {
-                .pad = 0, .index = 0, .code = mc.code,
-                .which = V4L2_SUBDEV_FORMAT_ACTIVE,
-        };
-        while (ioctl(sd, VIDIOC_SUBDEV_ENUM_FRAME_SIZE, &fs) == 0) {
-                printf("0x%04x  %ux%u … %ux%u\n", mc.code,
-                       fs.min_width, fs.min_height, fs.max_width, fs.max_height);
-                fs.index++;
-        }
-        mc.index++;
-}
-```
+:::code api-media-ioctls/c/vyklyky-na-padi-2.c
 
 ## Коди шини MEDIA_BUS_FMT_*
 

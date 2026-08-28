@@ -10,60 +10,7 @@ cc -std=c11 -Wall -Wextra -o lab lab.c
 
 ## Спільна основа
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <signal.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/prctl.h>
-#include <sys/wait.h>
-
-static void msleep(long ms)
-{
-    struct timespec ts;
-    ts.tv_sec  = ms / 1000;
-    ts.tv_nsec = (ms % 1000) * 1000000L;
-    while (nanosleep(&ts, &ts) == -1 && errno == EINTR)
-        continue;                  /* ts містить залишок — досипляємо його */
-}
-
-/* Ім'я процесу за номером: /proc/<pid>/comm — один рядок без шляху. */
-static const char *comm_of(pid_t pid, char *buf, size_t n)
-{
-    char path[64];
-    FILE *f;
-    size_t len;
-
-    snprintf(path, sizeof path, "/proc/%d/comm", (int) pid);
-    f = fopen(path, "r");
-    if (f == NULL || fgets(buf, (int) n, f) == NULL)
-        snprintf(buf, n, "?");
-    if (f != NULL)
-        fclose(f);
-    len = strlen(buf);
-    if (len > 0 && buf[len - 1] == '\n')
-        buf[len - 1] = '\0';
-    return buf;
-}
-
-/* Ядро нікого не будить, коли переписує PPID. Побачити зміну без сигналу
-   можна лише одним способом — питати, доки відповідь не стане іншою. */
-static pid_t await_reparent(pid_t old, long limit_ms)
-{
-    pid_t now = getppid();
-    long waited = 0;
-
-    while (now == old && waited < limit_ms) {
-        msleep(5);
-        waited += 5;
-        now = getppid();
-    }
-    return now;
-}
-```
+:::code proj-reparenting-lab/c/spilna-osnova.c
 
 Три дрібниці тут не декоративні, і кожна колись коштувала комусь вечора.
 
@@ -79,56 +26,7 @@ static pid_t await_reparent(pid_t old, long limit_ms)
 
 Надійний спосіб є, і він не потребує ані сигналів, ані опитувань: **труба**. Батько тримає писальний кінець, дитина читає з читального; коли батько завершується, ядро закриває його дескриптори, останній писальний кінець зникає — і `read` у дитини повертає нуль, тобто EOF ([труби](root:sys-unix/pipe-and-fifo) — однонапрямний потік байтів, у якого читання дає нуль рівно тоді, коли закрито всі писальні кінці). Друга труба, у зворотний бік, тримає батька, доки дитина не надрукує «до».
 
-```c
-static int lab_reparent(void)
-{
-    int printed[2], gate[2];
-    pid_t me = getpid(), kid;
-    char c, name[64];
-
-    if (pipe(printed) == -1 || pipe(gate) == -1) {
-        perror("pipe");
-        return 1;
-    }
-
-    kid = fork();
-    if (kid == -1) {
-        perror("fork");
-        return 1;
-    }
-
-    if (kid == 0) {
-        pid_t now;
-
-        close(printed[0]);
-        close(gate[1]);            /* писати в gate має ЛИШЕ батько */
-
-        printf("[дитина %d] до: PPID = %d\n", (int) getpid(), (int) getppid());
-        if (write(printed[1], "1", 1) != 1)
-            _exit(1);
-
-        while (read(gate[0], &c, 1) == -1 && errno == EINTR)
-            continue;              /* 0 == EOF: батько закрив свій кінець */
-
-        printf("[дитина %d] EOF уже є, а PPID = %d\n",
-               (int) getpid(), (int) getppid());
-
-        now = await_reparent(me, 1000);
-        printf("[дитина %d] після: PPID = %d (%s)\n",
-               (int) getpid(), (int) now, comm_of(now, name, sizeof name));
-        _exit(0);
-    }
-
-    close(printed[1]);
-    close(gate[0]);
-    while (read(printed[0], &c, 1) == -1 && errno == EINTR)
-        continue;
-
-    printf("[батько %d] дитина %d надрукувала «до»; виходжу\n",
-           (int) me, (int) kid);
-    _exit(0);                      /* gate[1] закриється разом із процесом */
-}
-```
+:::code proj-reparenting-lab/c/doslid-1-ppid-do-i-pislia.c
 
 Змінна `me` — номер батька, знятий **до** розділення; у дитини вона зберігає саме його, і саме з ним порівнює `await_reparent`. Це та сама техніка, що й у перевірці навколо `PR_SET_PDEATHSIG`: не питати, «чи живий батько», а порівняти з тим, ким він був.
 
@@ -152,72 +50,7 @@ $ [дитина 51544] EOF уже є, а PPID = 51543
 
 Тепер програма оголошує себе проміжним прибирачем, створює рівно один процес — а забирає коди виходу двох. Другий вона ніколи не створювала.
 
-```c
-static int lab_subreaper(void)
-{
-    pid_t me, mid;
-    int isset = -1;
-
-    if (prctl(PR_SET_CHILD_SUBREAPER, 1UL, 0UL, 0UL, 0UL) == -1) {
-        perror("PR_SET_CHILD_SUBREAPER");
-        return 1;
-    }
-    prctl(PR_GET_CHILD_SUBREAPER, (unsigned long) &isset, 0UL, 0UL, 0UL);
-    me = getpid();
-    printf("[lab %d] я прибирач (child_subreaper = %d)\n", (int) me, isset);
-
-    mid = fork();
-    if (mid == -1) {
-        perror("fork");
-        return 1;
-    }
-
-    if (mid == 0) {                          /* середній: подвійна вилка */
-        pid_t self = getpid();
-        pid_t grand = fork();
-        int inherited = -1;
-
-        if (grand == -1)
-            _exit(127);
-        if (grand > 0) {
-            prctl(PR_GET_CHILD_SUBREAPER, (unsigned long) &inherited,
-                  0UL, 0UL, 0UL);
-            printf("[середній %d] мій child_subreaper = %d; онук %d\n",
-                   (int) self, inherited, (int) grand);
-            msleep(50);                      /* дати онукові надрукувати «до» */
-            _exit(3);
-        }
-
-        printf("[онук %d] поки що батько = %d\n",
-               (int) getpid(), (int) getppid());
-        printf("[онук %d] новий батько = %d\n",
-               (int) getpid(), (int) await_reparent(self, 1000));
-        msleep(200);
-        _exit(42);
-    }
-
-    printf("[lab %d] я створив рівно один процес: %d\n", (int) me, (int) mid);
-
-    for (;;) {
-        int st;
-        pid_t got = waitpid(-1, &st, 0);
-
-        if (got == -1) {
-            if (errno == EINTR)
-                continue;
-            if (errno == ECHILD)
-                break;
-            perror("waitpid");
-            return 1;
-        }
-        printf("[lab %d] wait: %d, код %d — %s\n", (int) me, (int) got,
-               WIFEXITED(st) ? WEXITSTATUS(st) : -1,
-               got == mid ? "мій" : "ЧУЖИЙ, я його не створював");
-    }
-    printf("[lab %d] дітей більше нема (ECHILD)\n", (int) me);
-    return 0;
-}
-```
+:::code proj-reparenting-lab/c/doslid-2-chuzhyi-onuk-u.c
 
 ```
 $ ./lab subreaper
@@ -249,73 +82,7 @@ $ ./lab subreaper
 
 Прохання про сигнал ставиться в дитині **після** `fork` — інакше й бути не може, бо `fork` скидає це поле. Отже, між народженням дитини й рядком `prctl` є проміжок, у якому дитина ще не озброєна. Якщо батько встигне померти саме там, перепідпорядкування вже сталося, а прохання надіслати сигнал прийшло після нього — і не спрацює ніколи.
 
-```c
-static volatile sig_atomic_t death_signal_seen = 0;
-
-static void on_parent_death(int sig)
-{
-    static const char msg[] = "  ← прилетів сигнал про смерть батька\n";
-    ssize_t n;
-
-    (void) sig;
-    death_signal_seen = 1;
-    n = write(STDOUT_FILENO, msg, sizeof msg - 1);   /* лише безпечні виклики */
-    (void) n;
-}
-
-enum { PD_NORMAL, PD_RACE, PD_GUARD };
-
-static int lab_pdeathsig(int mode)
-{
-    struct sigaction sa;
-    pid_t parent = getpid(), kid;
-    int i;
-
-    memset(&sa, 0, sizeof sa);
-    sa.sa_handler = on_parent_death;
-    sigemptyset(&sa.sa_mask);
-    if (sigaction(SIGTERM, &sa, NULL) == -1) {
-        perror("sigaction");
-        return 1;
-    }
-
-    kid = fork();
-    if (kid == -1) {
-        perror("fork");
-        return 1;
-    }
-
-    if (kid == 0) {
-        if (mode != PD_NORMAL)
-            msleep(200);                     /* розчиняємо вікно навстіж */
-
-        if (prctl(PR_SET_PDEATHSIG, (unsigned long) SIGTERM,
-                  0UL, 0UL, 0UL) == -1) {
-            perror("PR_SET_PDEATHSIG");
-            _exit(1);
-        }
-        if (mode != PD_RACE && getppid() != parent) {
-            printf("[робітник %d] батько зник до prctl — сигналу не буде\n",
-                   (int) getpid());
-            _exit(0);
-        }
-
-        for (i = 0; i < 5 && !death_signal_seen; i++) {
-            printf("[робітник %d] працюю, PPID = %d\n",
-                   (int) getpid(), (int) getppid());
-            msleep(300);
-        }
-        printf("[робітник %d] кінець; сигнал %s\n", (int) getpid(),
-               death_signal_seen ? "був" : "НЕ приходив");
-        _exit(0);
-    }
-
-    if (mode == PD_NORMAL)
-        msleep(100);                         /* даємо робітникові озброїтися */
-    printf("[батько %d] виходжу\n", (int) parent);
-    _exit(0);
-}
-```
+:::code proj-reparenting-lab/c/doslid-3-honka-navkolo-pr.c
 
 Три підкоманди відрізняються лише двома прапорцями: чи спить дитина перед `prctl` і чи звіряє потім номер батька.
 
@@ -366,27 +133,7 @@ $ [робітник 51756] батько зник до prctl — сигналу �
 
 **Буферизація псує саме той вивід, заради якого все затівалося.** Виклики `printf` у термінал буферизуються по рядку, а в трубу чи файл — блоками по кілька кілобайтів. Оскільки всі процеси лабораторії завершуються через `_exit()`, який навмисне **не** зливає буфери мови C, вивід у `./lab reparent | cat` просто зник би. А ще гірше: `fork` копіює непорожній буфер, і той самий текст виводиться двічі — по разу з кожного процесу. Один рядок у `main` знімає обидві біди ([буферизація stdio](root:sys-unix/stdio-buffering) — рівень буферів бібліотеки, який живе окремо від дескрипторів і не зникає сам):
 
-```c
-int main(int argc, char **argv)
-{
-    setvbuf(stdout, NULL, _IOLBF, 0);   /* рядок — і одразу у вивід */
-
-    if (argc >= 2 && strcmp(argv[1], "reparent") == 0)
-        return lab_reparent();
-    if (argc >= 2 && strcmp(argv[1], "subreaper") == 0)
-        return lab_subreaper();
-    if (argc >= 2 && strcmp(argv[1], "pdeathsig") == 0)
-        return lab_pdeathsig(PD_NORMAL);
-    if (argc >= 2 && strcmp(argv[1], "pdeathsig-race") == 0)
-        return lab_pdeathsig(PD_RACE);
-    if (argc >= 2 && strcmp(argv[1], "pdeathsig-guard") == 0)
-        return lab_pdeathsig(PD_GUARD);
-
-    fprintf(stderr, "вжиток: %s reparent|subreaper|pdeathsig"
-                    "|pdeathsig-race|pdeathsig-guard\n", argv[0]);
-    return 2;
-}
-```
+:::code proj-reparenting-lab/c/de-tse-lamaietsia.c
 
 **В обробнику сигналу дозволено дуже мало.** У `on_parent_death` стоїть `write` і присвоєння змінної типу `volatile sig_atomic_t` — і нічого більше. Спокуса написати там `printf` велика й закінчується зависанням: сигнал може прийти всередині іншого `printf`, коли захоплено внутрішній замок потоку, і повторний вхід стане самоблокуванням ([безпека в обробнику сигналу](root:sys-unix/async-signal-safety) — перелік викликів, які можна викликати з обробника, короткий і закритий).
 

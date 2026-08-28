@@ -136,18 +136,7 @@ $3 = "delta"
 
 Якщо змінну `IFS` змінено, форма `"$*"` адаптує свій роздільник:
 
-```sh
-join_by_comma() {
-    old_ifs="$IFS"
-    IFS=","
-    result="$*"
-    IFS="$old_ifs"
-    printf "%s\n" "$result"
-}
-
-# Виклик: join_by_comma "Київ" "Львів" "Одеса"
-# Виведе: Київ,Львів,Одеса
-```
+:::code script-arguments-d/sh/skleienyi-riadok.sh
 
 Якщо змінну `IFS` повністю очищено (`IFS=""`), `"$*"` склеїть аргументи взагалі без проміжних знаків: `"alphabetagammadelta"`.
 
@@ -301,37 +290,7 @@ getopts optstring variable_name [arguments...]
 
 Професійні сценарії майже завжди використовують **тихий режим** (провідна двокрапка `:o:vh`), оскільки він дозволяє реалізувати власний уніфікований формат діагностики помилок:
 
-```sh
-# Тихий режим: на початку optstring стоїть двокрапка ':'
-while getopts ":f:o:vh" opt; do
-    case "$opt" in
-        f)
-            FORCE_FILE="$OPTARG"
-            ;;
-        o)
-            OUTPUT_FILE="$OPTARG"
-            ;;
-        v)
-            VERBOSE=1
-            ;;
-        h)
-            show_help
-            exit 0
-            ;;
-        :)
-            # Опція вимагала аргумент, але користувач його не вказав
-            printf "Помилка: опція '-%s' вимагає значення аргументу.\n" "$OPTARG" >&2
-            exit 1
-            ;;
-        \?|*)
-            # Вказано невідомий прапорець
-            printf "Помилка: невідома опція '-%s'.\n" "$OPTARG" >&2
-            printf "Використовуйте -h для перегляду списку опцій.\n" >&2
-            exit 1
-            ;;
-    esac
-done
-```
+:::code script-arguments-d/sh/bahatoslivnyi-proty.sh
 
 ### Фінальне очищення: зсув операндів
 
@@ -369,55 +328,7 @@ done
 
 Найбільш надійним, швидким і на 100% переносним способом підтримки як коротких, так і довгих опцій у чистому POSIX `sh` є комбінований цикл `while [ $# -gt 0 ]` у поєднанні з конструкцією `case "$1" in`:
 
-```sh
-#!/bin/sh
-set -eu
-
-OUTPUT_PATH=""
-DRY_RUN=0
-
-while [ $# -gt 0 ]; do
-    case "$1" in
-        -h|--help)
-            printf "Використання: %s [ОПЦІЇ] [ФАЙЛИ...]\n" "$0"
-            exit 0
-            ;;
-        -n|--dry-run)
-            DRY_RUN=1
-            shift
-            ;;
-        -o|--output)
-            # Обробка формату з роздільним значенням: --output /tmp/file
-            if [ $# -lt 2 ]; then
-                printf "Помилка: опція '%s' вимагає аргументу.\n" "$1" >&2
-                exit 1
-            fi
-            OUTPUT_PATH="$2"
-            shift 2
-            ;;
-        --output=*)
-            # Обробка формату зі знаком рівності: --output=/tmp/file
-            OUTPUT_PATH="${1#*=}"
-            shift
-            ;;
-        --)
-            # Явний маркер кінця опцій
-            shift
-            break
-            ;;
-        -*)
-            printf "Помилка: невідома опція '%s'\n" "$1" >&2
-            exit 1
-            ;;
-        *)
-            # Перший не-опціональний аргумент
-            break
-            ;;
-    esac
-done
-
-# Усі залишки в "$@" тепер є суто позиційними операндами
-```
+:::code script-arguments-d/sh/kanonichnyi-patern.sh
 
 Цей патерн елегантно обробляє обидва формати довгих опцій:
 - Запис `--output path` перехоплюється гілкою `-o|--output`, де значення зчитується з `$2`, а стек зсувається на 2 позиції через `shift 2`.
@@ -432,107 +343,8 @@ done
 Для порівняння архітектури нижче наведено реалізацію розбору тих самих параметрів мовами C та сучасним C++:
 
 :::tabs
-```c
-/* Розбір аргументів мовою C за допомогою POSIX getopt_long */
-#include <stdio.h>
-#include <stdlib.h>
-#include <getopt.h>
-
-int main(int argc, char *argv[]) {
-    int opt;
-    const char *output = NULL;
-    int verbose = 0;
-
-    static struct option long_options[] = {
-        {"help",    no_argument,       NULL, 'h'},
-        {"verbose", no_argument,       NULL, 'v'},
-        {"output",  required_argument, NULL, 'o'},
-        {NULL,      0,                 NULL, 0}
-    };
-
-    while ((opt = getopt_long(argc, argv, ":hvo:", long_options, NULL)) != -1) {
-        switch (opt) {
-        case 'h':
-            printf("Використання: %s [-v] [-o FILE] [OPERANDS...]\n", argv[0]);
-            return 0;
-        case 'v':
-            verbose = 1;
-            break;
-        case 'o':
-            output = optarg;
-            break;
-        case ':':
-            fprintf(stderr, "%s: опція '-%c' вимагає значення\n", argv[0], optopt);
-            return 1;
-        case '?':
-            fprintf(stderr, "%s: невідома опція\n", argv[0]);
-            return 1;
-        default:
-            return 1;
-        }
-    }
-
-    /* Обробка залишкових операндів */
-    for (int i = optind; i < argc; ++i) {
-        printf("Позиційний операнд: %s\n", argv[i]);
-    }
-    return 0;
-}
-```
-```cpp
-// Ідіоматичний розбір аргументів мовою C++20 із застосуванням std::string_view
-#include <iostream>
-#include <string_view>
-#include <vector>
-#include <optional>
-#include <getopt.h>
-
-struct ProgramOptions {
-    bool verbose{false};
-    std::optional<std::string_view> output;
-    std::vector<std::string_view> operands;
-};
-
-int main(int argc, char *argv[]) {
-    static const struct option long_opts[] = {
-        {"help",    no_argument,       nullptr, 'h'},
-        {"verbose", no_argument,       nullptr, 'v'},
-        {"output",  required_argument, nullptr, 'o'},
-        {nullptr,   0,                 nullptr, 0}
-    };
-
-    ProgramOptions config;
-    int opt;
-
-    while ((opt = ::getopt_long(argc, argv, ":hvo:", long_opts, nullptr)) != -1) {
-        switch (opt) {
-        case 'h':
-            std::cout << "Використання: " << argv[0] << " [-v] [-o FILE] [OPERANDS...]\n";
-            return 0;
-        case 'v':
-            config.verbose = true;
-            break;
-        case 'o':
-            config.output = std::string_view(optarg);
-            break;
-        case ':':
-            std::cerr << argv[0] << ": опція вимагає значення аргументу\n";
-            return 1;
-        case '?':
-            std::cerr << argv[0] << ": виявлено невідому опцію\n";
-            return 1;
-        default:
-            return 1;
-        }
-    }
-
-    for (int i = optind; i < argc; ++i) {
-        config.operands.emplace_back(argv[i]);
-    }
-
-    return 0;
-}
-```
+:::code script-arguments-d/c/main.c
+:::code script-arguments-d/cpp/main.cpp
 :::
 
 ## 7. Діагностика та інспектування аргументів у налагодженні

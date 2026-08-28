@@ -85,50 +85,7 @@ typedef struct _G_fpos_t {
 
 Ключове правило, яке пояснює всю таблицю: **під `_FILE_OFFSET_BITS=64` звичайне ім'я і його `*64`-двійник — це один і той самий символ**. Без макроса — два різні. Тобто суфікс `64` не дає нічого понад те, що дає макрос; він лише дозволяє вжити широкий інтерфейс точково, не міняючи типів усього файлу.
 
-```c
-/* <fcntl.h> */
-int      open64(const char *path, int flags, ... /* mode_t mode */);
-int      openat64(int dirfd, const char *path, int flags, ... /* mode_t mode */);
-int      creat64(const char *path, mode_t mode);
-int      fcntl64(int fd, int cmd, ...);
-int      posix_fadvise64(int fd, off64_t offset, off64_t len, int advice);
-int      posix_fallocate64(int fd, off64_t offset, off64_t len);
-
-/* <unistd.h> */
-off64_t  lseek64(int fd, off64_t offset, int whence);
-ssize_t  pread64(int fd, void *buf, size_t n, off64_t offset);
-ssize_t  pwrite64(int fd, const void *buf, size_t n, off64_t offset);
-int      truncate64(const char *path, off64_t length);
-int      ftruncate64(int fd, off64_t length);
-int      lockf64(int fd, int cmd, off64_t len);
-
-/* <sys/stat.h> */
-int      stat64(const char *path, struct stat64 *buf);
-int      fstat64(int fd, struct stat64 *buf);
-int      lstat64(const char *path, struct stat64 *buf);
-int      fstatat64(int dirfd, const char *path, struct stat64 *buf, int flags);
-
-/* <stdio.h> */
-FILE    *fopen64(const char *path, const char *mode);
-FILE    *freopen64(const char *path, const char *mode, FILE *stream);
-FILE    *tmpfile64(void);
-int      fseeko64(FILE *stream, off64_t off, int whence);
-off64_t  ftello64(FILE *stream);
-int      fgetpos64(FILE *stream, fpos64_t *pos);
-int      fsetpos64(FILE *stream, const fpos64_t *pos);
-
-/* <dirent.h> */
-struct dirent64 *readdir64(DIR *dirp);
-int      scandir64(const char *dir, struct dirent64 ***namelist,
-                   int (*sel)(const struct dirent64 *),
-                   int (*cmp)(const struct dirent64 **, const struct dirent64 **));
-int      scandirat64(int dfd, const char *dir, struct dirent64 ***namelist,
-                     int (*sel)(const struct dirent64 *),
-                     int (*cmp)(const struct dirent64 **, const struct dirent64 **));
-int      alphasort64(const struct dirent64 **a, const struct dirent64 **b);
-int      versionsort64(const struct dirent64 **a, const struct dirent64 **b);
-ssize_t  getdirentries64(int fd, char *buf, size_t nbytes, off64_t *basep);
-```
+:::code api-lfs-surface/c/fcntl.h
 
 Решта родин — тим самим правилом, без окремих підписів: `<sys/mman.h>` — `mmap64`; `<sys/sendfile.h>` — `sendfile64`; `<sys/resource.h>` — `getrlimit64`, `setrlimit64`; `<sys/statvfs.h>` — `statvfs64`, `fstatvfs64`; `<sys/statfs.h>` — `statfs64`, `fstatfs64`; `<ftw.h>` — `ftw64`, `nftw64`; `<glob.h>` — `glob64`, `globfree64`; `<stdlib.h>` — `mkstemp64`, `mkostemp64`, `mkstemps64`, `mkostemps64`; `<aio.h>` — `aio_read64`, `aio_write64`, `lio_listio64` і решта родини на `struct aiocb64`.
 
@@ -146,25 +103,7 @@ extern off64_t lseek (int __fd, off64_t __offset, int __whence)
 
 У тексті програми лишається `lseek`, у об'єктному файлі з'являється звертання до `lseek64`. Звідси й найдешевша перевірка, що саме зібралося — подивитися на невизначені символи об'єктного файлу (у `.o` вони ще без версійних міток, тому читаються чисто):
 
-```sh
-$ cc -m32 -c checksum.c -o narrow.o
-$ nm -u narrow.o
-                 U lseek
-                 U open
-                 U stat
-
-$ cc -m32 -D_FILE_OFFSET_BITS=64 -c checksum.c -o wide.o
-$ nm -u wide.o
-                 U lseek64
-                 U open64
-                 U stat64
-
-$ cc -m32 -D_FILE_OFFSET_BITS=64 -D_TIME_BITS=64 -c checksum.c -o wide64.o
-$ nm -u wide64.o
-                 U lseek64
-                 U open64
-                 U __stat64_time64
-```
+:::code api-lfs-surface/sh/iak-same-vidbuvaietsia.sh
 
 Третя збірка показує, що `_TIME_BITS=64` кладе **свій** шар перейменування поверх першого — і робить це лише там, де структура несе час. Ще одне попередження щодо читання цього виводу: у старіших випусках glibc `stat` узагалі не був окремим символом, бо заголовок розгортав його у виклик `__xstat` із номером версії структури. Там у переліку невизначених треба шукати `__xstat64`, а `stat64` не з'явиться взагалі.
 
@@ -311,19 +250,7 @@ POSIX описує ширину зсуву не макросами, а поня�
 
 Питати систему можна двома способами: чи середовище взагалі підтримується — через `sysconf` зі сталими `_SC_V7_ILP32_OFF32`, `_SC_V7_ILP32_OFFBIG`, `_SC_V7_LP64_OFF64`, `_SC_V7_LPBIG_OFFBIG`; і які саме прапорці — через `confstr` зі сталими виду `_CS_POSIX_V7_ILP32_OFFBIG_CFLAGS`. З командного рядка обидва — через `getconf`:
 
-```sh
-# коротка форма: що додати до CFLAGS, щоб зсуви стали широкими
-$ getconf LFS_CFLAGS
--D_FILE_OFFSET_BITS=64
-
-# чи підтримується середовище з широким зсувом при 32-бітних вказівниках
-$ getconf _POSIX_V7_ILP32_OFFBIG
-1
-
-# прапорці конкретного середовища — прапорець -v обирає середовище
-$ getconf -v POSIX_V7_ILP32_OFFBIG POSIX_V7_ILP32_OFFBIG_CFLAGS
--D_FILE_OFFSET_BITS=64
-```
+:::code api-lfs-surface/sh/7-getconf-praportsi-i.sh
 
 На 64-бітній системі `getconf LFS_CFLAGS` не виводить нічого, а `getconf _POSIX_V7_ILP32_OFF32` зазвичай дає `undefined` або `-1`: вузького середовища там просто немає.
 
@@ -357,54 +284,10 @@ $ getconf -v POSIX_V7_ILP32_OFFBIG POSIX_V7_ILP32_OFFBIG_CFLAGS
 
 Програма нижче за одне виконання показує все, що з цієї довідки треба знати про конкретну збірку: справжню ширину типу, реальний розмір файлу й точний код помилки, якщо ширини забракло.
 
-```c
-#include <stdio.h>
-#include <inttypes.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-
-int main(int argc, char **argv)
-{
-    printf("sizeof(off_t) = %zu\n", sizeof(off_t));
-
-    if (argc < 2)
-        return 0;
-
-    int fd = open(argv[1], O_RDONLY);
-    if (fd < 0) {
-        fprintf(stderr, "open: %s (errno %d)\n", strerror(errno), errno);
-        return 1;                     /* тут і буде EOVERFLOW = 75 */
-    }
-
-    off_t end = lseek(fd, 0, SEEK_END);
-    if (end == (off_t)-1) {
-        fprintf(stderr, "lseek: %s (errno %d)\n", strerror(errno), errno);
-        close(fd);
-        return 1;
-    }
-
-    /* у власний вивід — явна ширина, а не off_t */
-    printf("розмір у байтах = %" PRId64 "\n", (int64_t)end);
-    close(fd);
-    return 0;
-}
-```
+:::code api-lfs-surface/c/10-minimalna-perevirka.c
 
 Зберіть її двічі й проженіть на файлі, більшому за два гігабайти:
 
-```sh
-$ cc -m32 probe.c -o narrow
-$ cc -m32 $(getconf LFS_CFLAGS) probe.c -o wide
-
-$ ./narrow big.iso
-sizeof(off_t) = 4
-open: Value too large for defined data type (errno 75)
-
-$ ./wide big.iso
-sizeof(off_t) = 8
-розмір у байтах = 4700372992
-```
+:::code api-lfs-surface/sh/10-minimalna-perevirka.sh
 
 Зверніть увагу на рядок виводу розміру. Назовні — у повідомлення, у власний формат файлу, у мережевий пакет — зсув їде як `int64_t` із `<inttypes.h>`, а не як `off_t`. Ширина `off_t` є властивістю збірки, і покласти її в щось довговічне означає зробити довговічну річ залежною від чужого прапорця.

@@ -14,7 +14,8 @@
           "slug": "physical-page-allocator",
           "title": "Фізичні сторінки в ядрі: зони, блоки за порядками й ущільнення",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
@@ -34,7 +35,8 @@
           "proj": [
             {
               "file": "proj-buddyinfo-reader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -62,13 +64,15 @@
           "proj": [
             {
               "file": "proj-slab-watch.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-slab-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -90,13 +94,15 @@
           "proj": [
             {
               "file": "proj-read-memblock.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-memblock-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -118,13 +124,15 @@
           "proj": [
             {
               "file": "proj-vmallocinfo-reader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-vmalloc-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -152,13 +160,15 @@
           "proj": [
             {
               "file": "proj-shootdown-cost.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-tlb-flush-controls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -169,7 +179,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -180,13 +191,15 @@
           "proj": [
             {
               "file": "proj-kpti-cost.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-pti-controls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -202,19 +215,24 @@
           "hist": [
             {
               "file": "hist-mtrr-to-pat.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-wc-buffer-benchmark.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-kernel-memory-types.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -242,13 +260,15 @@
           "proj": [
             {
               "file": "proj-vmemmap-walk.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sparsemem-controls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -269,7 +289,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
@@ -308,13 +329,15 @@
           "proj": [
             {
               "file": "proj-who-maps-this-page.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-rmap-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -338,7 +361,8 @@
           "slug": "ksm-page-merging",
           "title": "KSM: злиття однакових сторінок",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
@@ -352,13 +376,15 @@
           "proj": [
             {
               "file": "proj-ksm-lab.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-ksm-controls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -392,7 +418,8 @@
           "proj": [
             {
               "file": "proj-observe-reclaim.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -420,13 +447,15 @@
           "proj": [
             {
               "file": "proj-touch-the-promise.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-oom-knobs.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -438,7 +467,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-reclaim-monitor.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -453,7 +489,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -464,13 +501,17 @@
           "proj": [
             {
               "file": "proj-numa-allocator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-mempolicy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -492,13 +533,16 @@
           "proj": [
             {
               "file": "proj-cxl-tiering-monitor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-sysfs-memory-tiers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         }
@@ -526,7 +570,8 @@
           "proj": [
             {
               "file": "proj-survive-a-bad-cell.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -543,7 +588,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
@@ -582,7 +628,8 @@
           "proj": [
             {
               "file": "proj-cxl-numa-alloc.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -616,13 +663,15 @@
           "proj": [
             {
               "file": "proj-cma-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cma-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -644,13 +693,15 @@
           "proj": [
             {
               "file": "proj-pin-user-buffer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-gup-family.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -661,7 +712,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -672,13 +724,15 @@
           "proj": [
             {
               "file": "proj-mirror-a-range.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-mmu-notifier-ops.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -689,7 +743,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -700,7 +755,8 @@
           "proj": [
             {
               "file": "proj-migrate-to-device.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

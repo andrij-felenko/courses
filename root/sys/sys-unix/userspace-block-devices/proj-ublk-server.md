@@ -20,97 +20,13 @@
 
 ## Керуюча команда
 
-```c
-/* ublk-file.c — блоковий пристрій, за яким стоїть звичайний файл.
- *   cc -O2 -o ublk-file ublk-file.c -luring
- *   sudo modprobe ublk_drv && sudo ./ublk-file /srv/backing.img          */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <linux/ublk_cmd.h>
-#include <liburing.h>
-
-#define QDEPTH     64                /* тегів у черзі — стільки запитів у польоті */
-#define IO_BUF_SZ  (256u * 1024)     /* стеля одного запиту */
-#define LOG_BS     4096u             /* логічний блок пристрою */
-
-static struct io_uring ctrl_ring, io_ring;
-static struct ublksrv_ctrl_dev_info info;
-static const struct ublksrv_io_desc *desc;      /* спільна ділянка описів */
-static char *buf[QDEPTH];                       /* по буферу на кожен тег */
-static int ctrl_fd, cdev_fd, backing_fd;
-static volatile sig_atomic_t stopping;
-
-/* Одна керуюча команда: заповнити структуру, подати, дочекатися відповіді. */
-static int ctrl_cmd(__u32 cmd_op, void *payload, __u16 len, __u64 data0)
-{
-        struct io_uring_sqe *sqe = io_uring_get_sqe(&ctrl_ring);
-        struct ublksrv_ctrl_cmd *c;
-        struct io_uring_cqe *cqe;
-        int ret;
-
-        memset(sqe, 0, 128);                    /* елемент тут 128-байтовий */
-        sqe->opcode = IORING_OP_URING_CMD;
-        sqe->fd     = ctrl_fd;
-        sqe->cmd_op = cmd_op;
-
-        c = (struct ublksrv_ctrl_cmd *)sqe->cmd;
-        c->dev_id   = info.dev_id;
-        c->queue_id = (__u16)-1;                /* команда не про окрему чергу */
-        c->addr     = (__u64)(uintptr_t)payload;
-        c->len      = len;
-        c->data[0]  = data0;
-
-        if (io_uring_submit(&ctrl_ring) < 0 ||
-            io_uring_wait_cqe(&ctrl_ring, &cqe) < 0)
-                return -EIO;
-        ret = cqe->res;                         /* від'ємне — це −errno драйвера */
-        io_uring_cqe_seen(&ctrl_ring, cqe);
-        return ret;
-}
-```
+:::code proj-ublk-server/c/ublk-file.c
 
 Команди тут ходять у так званому ioctl-кодованому вигляді (`UBLK_U_CMD_*`, `UBLK_U_IO_*`): номер команди упакований разом із розміром і напрямком її структури, як у звичайному `ioctl`. Старіші ядра знали лише голі номери; чи вміє ядро нову форму, питають командою `UBLK_U_CMD_GET_FEATURES`.
 
 ## Створення пристрою й геометрія
 
-```c
-/* Пристрій існує як символьний вузол, геометрія оголошена. */
-static int setup_device(__u64 bytes)
-{
-        struct ublk_params p;
-        int ret;
-
-        info.nr_hw_queues     = 1;
-        info.queue_depth      = QDEPTH;
-        info.max_io_buf_bytes = IO_BUF_SZ;
-        info.dev_id           = (__u32)-1;      /* номер хай вибере ядро */
-
-        ret = ctrl_cmd(UBLK_U_CMD_ADD_DEV, &info, sizeof(info), 0);
-        if (ret < 0)
-                return ret;                     /* тепер info.dev_id — справжній */
-
-        memset(&p, 0, sizeof(p));
-        p.len   = sizeof(p);
-        p.types = UBLK_PARAM_TYPE_BASIC;
-        p.basic.attrs             = UBLK_ATTR_VOLATILE_CACHE | UBLK_ATTR_FUA;
-        p.basic.logical_bs_shift  = 12;         /* 4 КіБ — під вирівнювання O_DIRECT */
-        p.basic.physical_bs_shift = 12;
-        p.basic.io_min_shift      = 12;
-        p.basic.io_opt_shift      = 12;
-        p.basic.max_sectors       = IO_BUF_SZ / 512;
-        p.basic.dev_sectors       = (bytes / LOG_BS) * (LOG_BS / 512);
-
-        return ctrl_cmd(UBLK_U_CMD_SET_PARAMS, &p, sizeof(p), 0);
-}
-```
+:::code proj-ublk-server/c/stvorennia-prystroiu-i.c
 
 `ADD_DEV` — команда «туди й назад»: ядро вписує виданий номер у ту саму структуру, і всі подальші імена будуються з нього.
 
@@ -118,35 +34,7 @@ static int setup_device(__u64 bytes)
 
 ## Канал
 
-```c
-/* Описи — у спільній пам'яті; буфери — наші й на весь час життя пристрою. */
-static int open_channel(void)
-{
-        const long   page   = sysconf(_SC_PAGESIZE);
-        /* крок між чергами — МАКСИМАЛЬНА глибина, а не наша: 4096 × 24 Б = 96 КіБ */
-        const size_t stride = UBLK_MAX_QUEUE_DEPTH * sizeof(struct ublksrv_io_desc);
-        size_t len = QDEPTH * sizeof(struct ublksrv_io_desc);
-        char path[64];
-        unsigned t;
-
-        len = (len + page - 1) & ~(size_t)(page - 1);
-        snprintf(path, sizeof(path), "/dev/ublkc%u", info.dev_id);
-        if ((cdev_fd = open(path, O_RDWR)) < 0)
-                return -errno;
-
-        desc = mmap(NULL, len, PROT_READ, MAP_SHARED | MAP_POPULATE,
-                    cdev_fd, UBLKSRV_CMD_BUF_OFFSET + 0 * stride);   /* черга 0 */
-        if (desc == MAP_FAILED)
-                return -errno;
-
-        for (t = 0; t < QDEPTH; t++) {
-                if (posix_memalign((void **)&buf[t], page, IO_BUF_SZ))
-                        return -ENOMEM;
-                mlock(buf[t], IO_BUF_SZ);
-        }
-        return io_uring_queue_init(QDEPTH, &io_ring, 0);
-}
-```
+:::code proj-ublk-server/c/kanal.c
 
 Рядок зі `stride` вартий години налагодження, якщо його не помітити. Драйвер вираховує номер черги зі зсуву в `mmap` діленням саме на максимальний розмір ділянки описів — а не на той, що відповідає вашій глибині. Порахуєте від своєї шістдесят четвірки — і черга 1 відобразиться туди, де черги немає. Ділянку беремо лише на читання: описи заповнює ядро, серверові там нічого міняти.
 
@@ -163,123 +51,11 @@ static int open_channel(void)
 
 ## Обслуговування
 
-```c
-/* Одна команда на тег: озброїти вперше або віддати вердикт і озброїти знову. */
-static void arm(unsigned tag, __u32 cmd_op, int result)
-{
-        struct io_uring_sqe *sqe = io_uring_get_sqe(&io_ring);
-        struct ublksrv_io_cmd *c;
-
-        io_uring_prep_rw(IORING_OP_URING_CMD, sqe, cdev_fd, NULL, 0, 0);
-        sqe->cmd_op = cmd_op;           /* лежить там само, де off, — тому ПІСЛЯ prep */
-
-        c = (struct ublksrv_io_cmd *)sqe->cmd;
-        c->q_id   = 0;
-        c->tag    = (__u16)tag;
-        c->result = result;
-        c->addr   = (__u64)(uintptr_t)buf[tag];
-        io_uring_sqe_set_data64(sqe, tag);
-}
-
-/* Тут і тільки тут живе «що це за сховище». Решта файлу — обв'язка. */
-static int serve(const struct ublksrv_io_desc *iod, char *b)
-{
-        __u32  op  = iod->op_flags & 0xff;
-        off_t  off = (off_t)iod->start_sector * 512;
-        size_t len = (size_t)iod->nr_sectors * 512;
-        ssize_t n;
-
-        switch (op) {
-        case UBLK_IO_OP_READ:
-                n = pread(backing_fd, b, len, off);
-                return n < 0 ? -errno : (int)n;
-
-        case UBLK_IO_OP_WRITE:
-                n = pwrite(backing_fd, b, len, off);
-                if (n < 0)
-                        return -errno;
-                if (iod->op_flags & UBLK_IO_F_FUA)       /* «на носій — до відповіді» */
-                        if (fdatasync(backing_fd) < 0)
-                                return -errno;
-                return (int)n;
-
-        case UBLK_IO_OP_FLUSH:                           /* хтось нагорі покликав fsync */
-                return fdatasync(backing_fd) < 0 ? -errno : 0;
-
-        default:
-                return -EOPNOTSUPP;
-        }
-}
-```
+:::code proj-ublk-server/c/obsluhovuvannia.c
 
 ## Головний цикл
 
-```c
-static void on_signal(int sig) { (void)sig; stopping = 1; }
-
-int main(int argc, char **argv)
-{
-        struct io_uring_params cp = { .flags = IORING_SETUP_SQE128 };
-        struct sigaction sa = { .sa_handler = on_signal };  /* без SA_RESTART: */
-        struct stat st;                                     /* щоб очікування урвалося */
-        unsigned t;
-        int ret;
-
-        if (argc != 2)
-                return fprintf(stderr, "вжиток: %s <файл-підкладка>\n", argv[0]), 2;
-
-        /* O_DIRECT: наші читання й записи не залежать від кешу сторінок */
-        backing_fd = open(argv[1], O_RDWR | O_DIRECT);
-        if (backing_fd < 0 || fstat(backing_fd, &st) < 0)
-                return perror("підкладка"), 1;
-        if ((ctrl_fd = open("/dev/ublk-control", O_RDWR)) < 0)
-                return perror("/dev/ublk-control"), 1;
-        io_uring_queue_init_params(32, &ctrl_ring, &cp);
-
-        if ((ret = setup_device(st.st_size)) < 0)
-                return fprintf(stderr, "створення: %s\n", strerror(-ret)), 1;
-        if ((ret = open_channel()) < 0) {
-                fprintf(stderr, "канал: %s\n", strerror(-ret));
-                goto del;
-        }
-
-        for (t = 0; t < QDEPTH; t++)
-                arm(t, UBLK_U_IO_FETCH_REQ, 0);
-        io_uring_submit(&io_ring);              /* усі теги озброєні */
-
-        sigaction(SIGINT, &sa, NULL);
-        sigaction(SIGTERM, &sa, NULL);
-
-        if ((ret = ctrl_cmd(UBLK_U_CMD_START_DEV, NULL, 0, (__u64)getpid())) < 0) {
-                fprintf(stderr, "запуск: %s\n", strerror(-ret));
-                goto del;
-        }
-        printf("/dev/ublkb%u живий; Ctrl-C — зупинити\n", info.dev_id);
-
-        while (!stopping) {
-                struct io_uring_cqe *cqe;
-                unsigned tag;
-                int res;
-
-                if (io_uring_wait_cqe(&io_ring, &cqe) < 0)
-                        break;                  /* сигнал урвав очікування */
-                tag = (unsigned)io_uring_cqe_get_data64(cqe);
-                res = cqe->res;
-                io_uring_cqe_seen(&io_ring, cqe);
-
-                if (res < 0)                    /* −ENODEV: пристрій зупиняють */
-                        break;
-
-                arm(tag, UBLK_U_IO_COMMIT_AND_FETCH_REQ, serve(&desc[tag], buf[tag]));
-                io_uring_submit(&io_ring);
-        }
-
-        ctrl_cmd(UBLK_U_CMD_STOP_DEV, NULL, 0, 0);   /* блоковий вузол зникає */
-del:
-        ctrl_cmd(UBLK_U_CMD_DEL_DEV, NULL, 0, 0);    /* номер вивільняється */
-        return 0;
-}
-```
+:::code proj-ublk-server/c/holovnyi-tsykl.c
 
 Цикл читається як одне речення: прокинулися, взяли тег, глянули в комірку, зробили роботу, віддали вердикт і тим самим рухом стали в чергу знову. Ані `read`, ані `write` на каналі немає — усе перенесення робить пара «команда в кільці плюс спільна ділянка». Поле `c->addr` в `arm` при цьому стосується не того запиту, який щойно закінчили, а наступного: підтвердження й озброєння — одна операція, тож адресу буфера ми називаємо наперед.
 

@@ -96,19 +96,7 @@ typedef struct {
 
 Поведінка `strip` регулюється прапорцями командного рядка:
 
-```bash
-# 1. Повне очищення (за замовчуванням): видаляє .symtab, .strtab та всі .debug_*
-strip /usr/bin/app
-
-# 2. Видалення виключно секцій DWARF зі збереженням локальних символів .symtab
-strip --strip-debug /usr/bin/app
-
-# 3. Видалення символів, не потрібних для обробки релокацій (стандарт збірки дистрибутивів)
-strip --strip-unneeded /usr/lib/libcustom.so
-
-# 4. Видалення специфічних секцій метаданих
-strip -R .comment -R .note.ABI-tag /usr/bin/app
-```
+:::code debug-symbols-and-build-id-d/sh/rezhymy-ochyshchennia.sh
 
 > 🔧 **Навіщо це.**
 > Режим `strip --strip-debug` часто застосовується на проміжних серверах тестування: видалення секцій DWARF скорочує розмір файлу на 80%, проте збережена таблиця `.symtab` дозволяє системним утилітам `perf top` або `trace-cmd` будувати людиночитні профілі виконання функцій без потреби у важких зовнішніх пакетах.
@@ -317,22 +305,7 @@ perf record -F 99 -p $(pgrep my_service) -g -- sleep 10
 
 Для швидкого аналізу символьної структури бінарників у терміналі Linux використовують стандартні утиліти:
 
-```bash
-# Перевірка наявності та типу Build ID
-readelf -n /usr/bin/app | grep "Build ID"
-
-# Перегляд усіх секцій бінарника (пошук .symtab та .debug_*)
-readelf -S /usr/bin/app
-
-# Перевірка статусу бінарника (stripped / not stripped)
-file /usr/bin/app
-
-# Ручне завантаження DWARF-файлу за відомим Build ID через debuginfod
-debuginfod-find debuginfo 7a9f1b2c4d8e3f015a6b7c8d9e0f1a2b3c4d5e6f
-
-# Перевірка зв'язку між очищеним бінарником і його символами
-eu-unstrip -n -e /usr/bin/app
-```
+:::code debug-symbols-and-build-id-d/sh/8-praktychnyi.sh
 
 ### Крайові випадки та пастки
 

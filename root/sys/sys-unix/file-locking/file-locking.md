@@ -40,22 +40,7 @@ flock(fd, LOCK_EX);
 /* Зняти замок */
 flock(fd, LOCK_UN);
 ```
-```cpp
-#include <sys/file.h>
-#include <system_error>
-
-/* Взяти виключний замок у C++ */
-void lock_exclusive(int fd) {
-    while (flock(fd, LOCK_EX) != 0) {
-        if (errno == EINTR) continue;
-        throw std::system_error(errno, std::generic_category(), "flock LOCK_EX failed");
-    }
-}
-
-void unlock(int fd) {
-    flock(fd, LOCK_UN);
-}
-```
+:::code file-locking/cpp/1-flock-zamok-na-opys.cpp
 :::
 
 Оскільки власником є опис відкритого файлу, замок має такі принципові властивості:
@@ -82,40 +67,8 @@ void unlock(int fd) {
 Додані в Linux 3.15 (і включені до POSIX.1-2024). Вони поєднують найкраще від двох попередніх підходів: працюють із діапазонами байтів, як POSIX-замки, але власником є **опис відкритого файлу**, як у `flock`.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-
-struct flock fl = {
-    .l_type   = F_WRLCK,
-    .l_whence = SEEK_SET,
-    .l_start  = 0,
-    .l_len    = 0,       /* 0 — до кінця файлу */
-    .l_pid    = 0        /* Обов'язково 0 для OFD */
-};
-
-/* Взяти OFD-замок */
-fcntl(fd, F_OFD_SETLKW, &fl);
-```
-```cpp
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <system_error>
-
-void lock_ofd_range(int fd, off_t start, off_t len, short type) {
-    struct flock fl{};
-    fl.l_type = type;
-    fl.l_whence = SEEK_SET;
-    fl.l_start = start;
-    fl.l_len = len;
-    fl.l_pid = 0;
-
-    while (fcntl(fd, F_OFD_SETLKW, &fl) == -1) {
-        if (errno == EINTR) continue;
-        throw std::system_error(errno, std::generic_category(), "F_OFD_SETLKW failed");
-    }
-}
-```
+:::code file-locking/c/main.c
+:::code file-locking/cpp/3-ofd-zamky-open-file.cpp
 :::
 
 OFD-замки не зникають при випадковому закритті сусіднього дескриптора й дозволяють потокам одного процесу виключати одне одного, якщо кожен потік відкрив файл окремим викликом `open()`.

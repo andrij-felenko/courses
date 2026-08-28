@@ -83,61 +83,7 @@ struct kvm_userspace_memory_region {
 
 Структура `struct kvm_run` відображається в пам'ять користувацького простору через виклик `mmap()` на файловому дескрипторі `vcpu_fd`. Вона містить поточний стан виконання vCPU та детальні параметри події `VMExit`:
 
-```c
-struct kvm_run {
-    /* Вхідні прапори користувацького простору */
-    __u8 request_interrupt_window; // 1 = вийти з KVM_RUN, щойно гість буде готовий прийняти переривання
-    __u8 immediate_exit;           // 1 = негайно перервати KVM_RUN
-    __u8 padding1[6];
-
-    /* Вихідні дані ядра */
-    __u32 exit_reason;             // Код причини виходу з гостьового режиму
-    __u8 ready_for_interrupt_injection;
-    __u8 if_flag;                  // Стан прапора IF гостя
-    __u16 flags;
-    __u64 cr8;
-    __u64 apic_base;
-
-    /* Об'єднання (union) параметрів залежно від exit_reason */
-    union {
-        /* KVM_EXIT_IO: Емуляція портів введення-виведення (IN / OUT) */
-        struct {
-            __u8 direction;    // KVM_EXIT_IO_IN (0) або KVM_EXIT_IO_OUT (1)
-            __u8 size;         // Розмір операції в байтах (1, 2, 4)
-            __u16 port;        // Номер порту I/O (наприклад, 0x3F8)
-            __u32 count;       // Кількість елементів для рядкових інструкцій (INS/OUTS)
-            __u64 data_offset; // Зсув в байтах від початку структури kvm_run до буфера даних
-        } io;
-
-        /* KVM_EXIT_MMIO: Емуляція пам'яті пристроїв */
-        struct {
-            __u64 phys_addr;   // GPA адреса, до якої звернувся гість
-            __u8  data[8];     // Буфер для прочитаних або записаних байтів
-            __u32 len;         // Довжина операції (1..8 байтів)
-            __u8  is_write;    // 1 = запис у пристрій, 0 = читання з пристрою
-        } mmio;
-
-        /* KVM_EXIT_FAIL_ENTRY: Апаратний збій інструкції VMLAUNCH/VMRESUME */
-        struct {
-            __u64 hardware_entry_failure_reason; // Апаратний код помилки Intel/AMD
-            __u32 cpu;
-        } fail_entry;
-
-        /* KVM_EXIT_INTERNAL_ERROR: Внутрішній збій ядра KVM */
-        struct {
-            __u32 suberror;
-            __u32 ndata;
-            __u64 data[16];
-        } internal;
-
-        /* KVM_EXIT_SYSTEM_EVENT: Запит на перезавантаження або вимкнення */
-        struct {
-            __u32 type;        // KVM_SYSTEM_EVENT_SHUTDOWN, RESET, CRASH
-            __u64 flags;
-        } system_event;
-    };
-};
-```
+:::code api-kvm-ioctl/c/bufer-zviazku-struct-kvm.c
 
 Це скорочений зріз: справжнє об'єднання має кілька десятків варіантів, по одному на клас причин виходу. Одна межа версій варта згадки окремо: до ядра 5.18 `system_event` виглядав саме так, як вище, а від 5.18 поле `flags` увійшло до об'єднання з масивом `data[16]`, і поруч з'явилося `ndata` з кількістю дійсних елементів. Старе ім'я `flags` лишили заради сумісності, тож код, який читає тільки його, працює й далі.
 
@@ -167,32 +113,6 @@ struct kvm_regs {
 
 Структура `struct kvm_sregs` описує системний стан процесора, зокрема перемикачі режимів (Real Mode, Protected Mode, Long Mode):
 
-```c
-struct kvm_segment {
-    __u64 base;        // Базова адреса сегмента
-    __u32 limit;       // Межа сегмента
-    __u16 selector;    // Селектор сегмента
-    __u8  type;        // Тип сегмента (Code, Data, System)
-    __u8  present;     // Прапор наявності (P)
-    __u8  dpl;         // Рівень привілеїв (Descriptor Privilege Level, 0..3)
-    __u8  db;          // Default size (0 = 16-bit, 1 = 32-bit)
-    __u8  s;           // Descriptor type (0 = system, 1 = code/data)
-    __u8  l;           // Long mode прапор (1 = 64-bit code)
-    __u8  g;           // Granularity (0 = byte, 1 = сторінка 4 КіБ)
-    __u8  avl;
-    __u8  unusable;
-    __u8  padding;
-};
-
-struct kvm_sregs {
-    struct kvm_segment cs, ds, es, fs, gs, ss;
-    struct kvm_segment tr, ldt;
-    struct kvm_dtable gdt, idt;
-    __u64 cr0, cr2, cr3, cr4, cr8;
-    __u64 efer;        // Extended Feature Enable Register (вмикає Long Mode)
-    __u64 apic_base;   // Фізична адреса Local APIC
-    __u64 interrupt_bitmap[(KVM_NR_INTERRUPTS + 63) / 64];
-};
-```
+:::code api-kvm-ioctl/c/4-stan-rehistriv.c
 
 Правильне заповнення полів `cs`, `rip`, `cr0` та `efer` дозволяє користувацькому простору точно визначити стартовий стан віртуального процесора — від 16-бітного режиму Real Mode при симуляції старту BIOS до прямого стрибка у 64-бітний Long Mode у схемах прямого завантаження ядра на кшталт PVH чи машини `microvm`.

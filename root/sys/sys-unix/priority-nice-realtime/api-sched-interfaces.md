@@ -58,20 +58,7 @@ if (ni == -1 && errno != 0)
 
 ## Клас і пріоритет: `sched_setscheduler(2)` і рідня
 
-```c
-#include <sched.h>
-
-struct sched_param { int sched_priority; };   /* у чинній реалізації — одне поле */
-
-int sched_setscheduler(pid_t pid, int policy, const struct sched_param *param);
-int sched_getscheduler(pid_t pid);            /* повертає політику, ≥ 0 */
-int sched_setparam(pid_t pid, const struct sched_param *param);
-int sched_getparam(pid_t pid, struct sched_param *param);
-
-int sched_get_priority_min(int policy);
-int sched_get_priority_max(int policy);
-int sched_rr_get_interval(pid_t pid, struct timespec *tp);
-```
+:::code api-sched-interfaces/c/sched.h
 
 | політика | число | `sched_priority` | чим важливість задається всередині класу |
 |---|---|---|---|
@@ -128,20 +115,7 @@ int syscall(SYS_sched_getattr, pid_t pid, struct sched_attr *attr,
 
 Обгорток у glibc немає — ці два виклики роблять напряму через `syscall()` ([libc як шлюз до ядра](root:sys-unix/libc-as-gateway) — бібліотека прикриває більшість системних викликів обгортками, але не всі, і тоді номер виклику подають самі). Заголовок `<linux/sched/types.h>` зі структурою є не в кожному дистрибутиві, тому її часто оголошують у себе:
 
-```c
-struct sched_attr {
-    __u32 size;              /* sizeof(struct sched_attr) — заповнити обов'язково */
-    __u32 sched_policy;      /* SCHED_*                                            */
-    __u64 sched_flags;       /* SCHED_FLAG_*                                       */
-    __s32 sched_nice;        /* −20 … 19                                           */
-    __u32 sched_priority;    /* 1 … 99                                             */
-    __u64 sched_runtime;     /* нс                                                 */
-    __u64 sched_deadline;    /* нс                                                 */
-    __u64 sched_period;      /* нс                                                 */
-    __u32 sched_util_min;    /* 0 … 1024 — підказка про завантаження               */
-    __u32 sched_util_max;
-};
-```
+:::code api-sched-interfaces/c/use-odnym-vyklykom-sched.c
 
 | поле | `OTHER` / `BATCH` | `IDLE` | `FIFO` / `RR` | `DEADLINE` |
 |---|---|---|---|---|
@@ -206,128 +180,9 @@ sched_period == 0  →  береться рівним sched_deadline
 Увійти в `SCHED_DEADLINE`, розрізнити всі три типові відмови й відпрацювати перший десяток періодів:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <sched.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/syscall.h>
-#include <time.h>
-#include <unistd.h>
+:::code api-sched-interfaces/c/minimalnyi-robochyi-vyklyk.c
 
-#ifndef SCHED_DEADLINE
-#define SCHED_DEADLINE 6
-#endif
-#ifndef SCHED_FLAG_DL_OVERRUN
-#define SCHED_FLAG_DL_OVERRUN 0x04
-#endif
-
-struct sched_attr {
-    uint32_t size, sched_policy;
-    uint64_t sched_flags;
-    int32_t  sched_nice;
-    uint32_t sched_priority;
-    uint64_t sched_runtime, sched_deadline, sched_period;
-};
-
-static void do_one_job(void)              /* робота, що вкладається в бюджет */
-{
-    struct timespec t0, t;
-    clock_gettime(CLOCK_MONOTONIC, &t0);
-    do {
-        clock_gettime(CLOCK_MONOTONIC, &t);
-    } while ((t.tv_sec - t0.tv_sec) * 1000000000LL
-             + (t.tv_nsec - t0.tv_nsec) < 800000LL);      /* 800 мкс */
-}
-
-int main(void)
-{
-    struct sched_attr a;
-    memset(&a, 0, sizeof a);              /* сміття в полях = EINVAL */
-    a.size           = sizeof a;
-    a.sched_policy   = SCHED_DEADLINE;
-    a.sched_flags    = SCHED_FLAG_DL_OVERRUN;   /* SIGXCPU, якщо не вклалися */
-    a.sched_runtime  = 1200 * 1000;             /* 1.2 мс */
-    a.sched_deadline = 2500 * 1000;             /* 2.5 мс */
-    a.sched_period   = 5000 * 1000;             /* 5.0 мс */
-
-    if (syscall(SYS_sched_setattr, 0, &a, 0u) != 0) {
-        switch (errno) {
-        case EPERM:  fprintf(stderr, "немає CAP_SYS_NICE або звужена маска ядер\n"); break;
-        case EBUSY:  fprintf(stderr, "смуга вичерпана: сума часток не влазить\n");   break;
-        case EINVAL: fprintf(stderr, "порушено runtime ≤ deadline ≤ period\n");      break;
-        default:     perror("sched_setattr");
-        }
-        return 1;
-    }
-
-    for (int i = 0; i < 10; i++) {
-        do_one_job();
-        sched_yield();          /* «на цей період усе» — чекаємо наступного */
-    }
-    return 0;
-}
-```
-
-```cpp
-#define _GNU_SOURCE
-#include <cerrno>
-#include <chrono>
-#include <cstdint>
-#include <cstdio>
-#include <iostream>
-#include <sched.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-#ifndef SCHED_DEADLINE
-#define SCHED_DEADLINE 6
-#endif
-#ifndef SCHED_FLAG_DL_OVERRUN
-#define SCHED_FLAG_DL_OVERRUN 0x04
-#endif
-
-struct sched_attr {
-    uint32_t size{}, sched_policy{};
-    uint64_t sched_flags{};
-    int32_t  sched_nice{};
-    uint32_t sched_priority{};
-    uint64_t sched_runtime{}, sched_deadline{}, sched_period{};
-};
-
-static void do_one_job() {
-    auto start = std::chrono::steady_clock::now();
-    while (std::chrono::steady_clock::now() - start < std::chrono::microseconds(800)) {}
-}
-
-int main() {
-    sched_attr a{};
-    a.size           = sizeof(a);
-    a.sched_policy   = SCHED_DEADLINE;
-    a.sched_flags    = SCHED_FLAG_DL_OVERRUN;
-    a.sched_runtime  = 1200 * 1000;
-    a.sched_deadline = 2500 * 1000;
-    a.sched_period   = 5000 * 1000;
-
-    if (syscall(SYS_sched_setattr, 0, &a, 0u) != 0) {
-        switch (errno) {
-        case EPERM:  std::cerr << "немає CAP_SYS_NICE або звужена маска ядер\n"; break;
-        case EBUSY:  std::cerr << "смуга вичерпана: сума часток не влазить\n";   break;
-        case EINVAL: std::cerr << "порушено runtime ≤ deadline ≤ period\n";      break;
-        default:     std::perror("sched_setattr");
-        }
-        return 1;
-    }
-
-    for (int i = 0; i < 10; ++i) {
-        do_one_job();
-        sched_yield();
-    }
-    return 0;
-}
-```
+:::code api-sched-interfaces/cpp/main.cpp
 :::
 
 Два місця тут неочевидні. `memset` не косметичний: ненульове сміття в полях, які ядро вважає зайвими, дає `E2BIG`, а в полях, які воно читає, — `EINVAL`. І `sched_yield()` у дедлайновому класі означає не «поступлюся рівним», а «свою роботу на цей період я закінчив» — задача засинає до початку наступного періоду, не витрачаючи решти бюджету. Ще одне: `SCHED_FLAG_DL_OVERRUN` шле `SIGXCPU`, типова дія якого — аварійне завершення з дампом, тож прапорець без обробника перетворює перевитрату на падіння.

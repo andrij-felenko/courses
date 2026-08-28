@@ -17,39 +17,7 @@
 
 Таблиця не з документації — вона просто списана з двох `switch` у коді ядра, які тільки цим і займаються (`arch/x86/kernel/signal.c`, гілка 6.x):
 
-```c
-/* handle_signal() — обробник таки запускається */
-switch (syscall_get_error(current, regs)) {
-case -ERESTART_RESTARTBLOCK:
-case -ERESTARTNOHAND:
-    regs->ax = -EINTR;
-    break;
-case -ERESTARTSYS:
-    if (!(ksig->ka.sa.sa_flags & SA_RESTART)) {
-        regs->ax = -EINTR;
-        break;
-    }
-    fallthrough;
-case -ERESTARTNOINTR:
-    regs->ax = regs->orig_ax;   /* номер виклику назад у rax */
-    regs->ip -= 2;              /* лічильник на довжину `syscall` назад */
-    break;
-}
-
-/* arch_do_signal_or_restart() — обробника немає */
-switch (syscall_get_error(current, regs)) {
-case -ERESTARTNOHAND:
-case -ERESTARTSYS:
-case -ERESTARTNOINTR:
-    regs->ax = regs->orig_ax;
-    regs->ip -= 2;
-    break;
-case -ERESTART_RESTARTBLOCK:
-    regs->ax = get_nr_restart_syscall(regs);   /* підміна номера */
-    regs->ip -= 2;
-    break;
-}
-```
+:::code api-restart-matrix/c/rozvylka-chotyry.c
 
 Звідси головне правило, яке порушують найчастіше: **`SA_RESTART` береться з диспозиції того сигналу, чий обробник щойно відпрацював**, а не з властивостей виклику й не з налаштувань того, хто викликав ([диспозиція сигналу](root:sys-unix/signal-disposition) — набір «обробник, маска, прапорці», який процес призначив кожному номеру сигналу окремо). Стороння бібліотека, що поставила свій обробник `SIGCHLD` без цього прапорця, зробить `EINTR` можливим у вашому `read`, хоч ви його там і не чекали.
 
@@ -137,20 +105,7 @@ case -ERESTART_RESTARTBLOCK:
 
 ## Контракт `sigaction` і застарілий `siginterrupt`
 
-```c
-#include <signal.h>
-
-struct sigaction {
-    void     (*sa_handler)(int);
-    void     (*sa_sigaction)(int, siginfo_t *, void *);
-    sigset_t   sa_mask;      /* що блокувати на час роботи обробника */
-    int        sa_flags;     /* сюди йде SA_RESTART */
-    void     (*sa_restorer)(void);   /* службове, програма не заповнює */
-};
-
-int sigaction(int signum, const struct sigaction *act,
-              struct sigaction *oldact);   /* 0 або -1 з errno */
-```
+:::code api-restart-matrix/c/signal.h
 
 `SA_RESTART` діє рівно на один внутрішній код — `ERESTARTSYS`. На решту трьох він не впливає ніяк, тому переконання «поставив прапорець — `EINTR` зник» хибне навіть у межах власного коду.
 
@@ -193,20 +148,7 @@ if (sigaction(SIGCHLD, NULL, &old) == 0)          /* act = NULL — лише п�
 
 ## `TEMP_FAILURE_RETRY`
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <unistd.h>
-
-/* так це визначено в glibc: */
-#define TEMP_FAILURE_RETRY(expression)                     \
-    (__extension__ ({ long int __result;                   \
-       do __result = (long int) (expression);              \
-       while (__result == -1L && errno == EINTR);          \
-       __result; }))
-
-ssize_t n = TEMP_FAILURE_RETRY(read(fd, buf, len));
-```
+:::code api-restart-matrix/c/temp-failure-retry.c
 
 Три межі, за якими макрос перестає бути корисним:
 
@@ -260,46 +202,7 @@ int close(int fd);   /* 0 або -1 з errno */
 
 Програма ставить обробник із `SA_RESTART`, заводить таймер на 200 мс і по черзі входить у виклик групи 1 та групи 2:
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <poll.h>
-#include <signal.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/time.h>
-#include <unistd.h>
-
-static volatile sig_atomic_t ticks;
-static void on_alarm(int sig) { (void) sig; ticks++; }
-
-static void report(const char *what, long r)
-{
-    if (r < 0) printf("%-5s = %ld, errno = %d (%s), тиків = %d\n",
-                      what, r, errno, strerror(errno), (int) ticks);
-    else       printf("%-5s = %ld, помилки немає, тиків = %d\n",
-                      what, r, (int) ticks);
-}
-
-int main(void)
-{
-    struct sigaction sa;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_handler = on_alarm;
-    sa.sa_flags   = SA_RESTART;      /* приберіть — і read теж дасть EINTR */
-    if (sigaction(SIGALRM, &sa, NULL) == -1) { perror("sigaction"); return 1; }
-
-    struct itimerval it = { { 0, 200000 }, { 0, 200000 } };   /* що 200 мс */
-    setitimer(ITIMER_REAL, &it, NULL);
-
-    char buf[64];
-    report("read", read(STDIN_FILENO, buf, sizeof buf));       /* група 1 */
-
-    struct pollfd pfd = { STDIN_FILENO, POLLIN, 0 };
-    report("poll", poll(&pfd, 1, 5000));                       /* група 2 */
-    return 0;
-}
-```
+:::code api-restart-matrix/c/minimalnyi-robochyi-vyklyk.c
 
 **Запуск: чекаємо секунду, тиснемо `Enter`.**
 

@@ -34,64 +34,8 @@ typedef struct _hist_entry {
 У бібліотеці GNU History цей буфер організовано як динамічний вектор `the_history` із лічильником записів та покажчиком поточної позиції навігації.
 
 :::tabs
-```c
-/* Взаємодія з буфером libhistory мовою C */
-#include <stdio.h>
-#include <readline/history.h>
-
-void record_command(const char *cmd_text) {
-    using_history();
-    /* Додавання рядка до кільцевого масиву пам'яті */
-    add_history(cmd_text);
-    
-    /* Збереження вмісту пам'яті у постійний файл */
-    if (write_history("/home/user/.bash_history") != 0) {
-        perror("write_history failed");
-    }
-}
-```
-```cpp
-// Ідіоматична обгортка історії команд на C++20
-#include <string>
-#include <string_view>
-#include <vector>
-#include <chrono>
-#include <fstream>
-#include <stdexcept>
-#include <iostream>
-
-class CommandHistory {
-public:
-    struct Entry {
-        std::string command;
-        std::chrono::system_clock::time_point timestamp;
-    };
-
-    void add_entry(std::string_view cmd) {
-        if (cmd.empty()) return;
-        entries_.push_back(Entry{
-            std::string(cmd),
-            std::chrono::system_clock::now()
-        });
-    }
-
-    void save_to_file(const std::string &path) const {
-        std::ofstream out(path, std::ios::out | std::ios::trunc);
-        if (!out.is_open()) {
-            throw std::runtime_error("Failed to open history file for writing: " + path);
-        }
-        for (const auto &entry : entries_) {
-            auto epoch = std::chrono::duration_cast<std::chrono::seconds>(
-                entry.timestamp.time_since_epoch()
-            ).count();
-            out << '#' << epoch << '\n' << entry.command << '\n';
-        }
-    }
-
-private:
-    std::vector<Entry> entries_;
-};
-```
+:::code command-history-d/c/main.c
+:::code command-history-d/cpp/main.cpp
 :::
 
 ### Розрахунок накладних витрат пам'яті

@@ -232,20 +232,7 @@ P_collision = 1000 · (20·10⁻⁹ + 5·10⁻⁹)
 
 Це найпоширеніша пастка для розробників драйверів. Розгляньмо такий небезпечний код:
 
-```c
-/* НЕБЕЗПЕЧНО! Заборонено використовувати seqlock з вказівниками! */
-struct network_config {
-    struct route_table *routes;
-};
-
-/* Читач у драйвері */
-do {
-    seq = read_seqbegin(&cfg_lock);
-    ptr = global_cfg.routes;
-    /* ЯКЩО ПИСЬМЕННИК В ЦЕЙ МОМЕНТ ЗВІЛЬНИТЬ ПАМ'ЯТЬ (kfree(ptr)): */
-    val = ptr->default_gateway; /* звернення до звільненої пам'яті: Oops / Kernel Panic! */
-} while (read_seqretry(&cfg_lock, seq));
-```
+:::code seqlocks-d/c/1-zaborona-rozirvanykh.h
 
 Оскільки читач не блокує письменника, письменник може оновити вказівник `routes` і миттєво звільнити стару пам'ять функцією `kfree()`. Якщо читач спробує розіменувати вказівник `ptr->default_gateway` у проміжку між `read_seqbegin` та `read_seqretry`, він звернеться до звільненої пам'яті (Use-After-Free). Повідомлення про колізію `read_seqretry` прийде надто пізно — процес уже впаде.
 
@@ -267,20 +254,7 @@ do {
 
 Для захисту від голодування у сучасному ядрі Linux реалізовано трійку `read_seqbegin_or_lock()` / `need_seqretry()` / `done_seqretry()`. Рішення ухвалюється за парністю власної змінної читача `seq`: парне значення означає оптимістичну спробу, непарне — перехід на виключне блокування. Тому канонічний зразок із `fs/dcache.c` після першої ж невдалої спроби виставляє `seq = 1` і повторює цикл уже із захопленим спін-замком:
 
-```c
-int seq = 0;
-again:
-    /* seq парне — оптимістичне читання; seq непарне — захоплення spinlock */
-    read_seqbegin_or_lock(&sl, &seq);
-
-    local_data = global_data;
-
-    if (need_seqretry(&sl, seq)) {
-        seq = 1;                 /* друга спроба — вже під виключним замком */
-        goto again;
-    }
-    done_seqretry(&sl, seq);     /* звільняє замок, якщо він брався */
-```
+:::code seqlocks-d/c/3-holoduvannia-chytachiv.c
 
 ---
 

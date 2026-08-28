@@ -76,21 +76,7 @@ other::---             решта
 
 **Умова.** Файл `report.csv` належить `bohdan` і групі `staff`. Ганні окремо видали право запису.
 
-```sh
-$ setfacl -m u:hanna:rw report.csv
-$ getfacl report.csv
-# file: report.csv
-# owner: bohdan
-# group: staff
-user::rw-
-user:hanna:rw-
-group::r--
-mask::rw-
-other::---
-
-$ ls -l report.csv
--rw-rw----+ 1 bohdan staff 8192 report.csv
-```
+:::code acl-and-xattr-d/sh/main.sh
 
 Середня трійка `rw-` у виводі `ls` — це не права групи `staff`: у них стоїть `r--`. Це маска, і вона `rw-` тому, що комусь у класі групи запис таки дали. Знак `+` наприкінці режиму — єдине, чим `ls` повідомляє про існування списку взагалі.
 

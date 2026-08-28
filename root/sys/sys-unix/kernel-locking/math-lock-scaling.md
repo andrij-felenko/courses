@@ -89,21 +89,7 @@ static void ttas_lock(int *lock)
 
 ## Покоління друге: квиток
 
-```c
-struct ticket_lock { u16 next, owner; };
-
-static void ticket_lock(struct ticket_lock *l)
-{
-    u16 t = xadd(&l->next, 1);          /* атомарно взяти номерок */
-    while (READ_ONCE(l->owner) != t)
-        cpu_relax();                    /* далі — самі читання */
-}
-
-static void ticket_unlock(struct ticket_lock *l)
-{
-    WRITE_ONCE(l->owner, l->owner + 1); /* викликати наступний номер */
-}
-```
+:::code math-lock-scaling/c/pokolinnia-druhe-kvytok.c
 
 **Справедливість тут доводиться, а не сподівається.** Три кроки.
 
@@ -125,32 +111,7 @@ N_квит(n) ≈ n          (одне анулювання + n−1 перечи
 
 Ідея належить Джонові Меллору-Краммі та Майклові Скоттові (ACM Transactions on Computer Systems, лютий 1991; за цю роботу вони отримали премію Дейкстри 2006 року — статус: встановлений факт). Претендент більше не дивиться на спільне слово: він стає у зв'язаний список і крутиться на **власній комірці**, до якої більше ніхто не звертається.
 
-```c
-struct mcs_node { struct mcs_node *next; int locked; };
-
-static void mcs_lock(struct mcs_node **tail, struct mcs_node *me)
-{
-    me->next = NULL;
-    me->locked = 1;
-    struct mcs_node *prev = xchg(tail, me);   /* стати в хвіст: 1 перенесення */
-    if (!prev)
-        return;                               /* черга була порожня — замок наш */
-    WRITE_ONCE(prev->next, me);
-    while (READ_ONCE(me->locked))             /* крутимось на СВОЄМУ рядку */
-        cpu_relax();
-}
-
-static void mcs_unlock(struct mcs_node **tail, struct mcs_node *me)
-{
-    if (!READ_ONCE(me->next)) {
-        if (cmpxchg(tail, me, NULL) == me)
-            return;                           /* наступника немає */
-        while (!READ_ONCE(me->next))
-            cpu_relax();                      /* наступник уже в хвості, ще не дописався */
-    }
-    WRITE_ONCE(me->next->locked, 0);          /* одне слово в комірку наступника */
-}
-```
+:::code math-lock-scaling/c/pokolinnia-tretie-cherha.c
 
 Рахуємо перенесення на одну передачу замка. Власник пише в `locked` наступника — рядок цієї комірки лежить у кеші наступника, тож його треба забрати: **одне** перенесення. Наступник бачить зміну й перечитує: **друге**. Усе.
 

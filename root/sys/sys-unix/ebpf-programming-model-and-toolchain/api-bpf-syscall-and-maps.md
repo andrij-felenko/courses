@@ -63,23 +63,7 @@ int bpf(int cmd, union bpf_attr *attr, unsigned int size);
 
 При команді `BPF_MAP_CREATE` ядро інтерпретує першу структуру об'єднання:
 
-```c
-union bpf_attr {
-    struct {
-        __u32   map_type;        // Тип мапи (enum bpf_map_type)
-        __u32   key_size;        // Розмір ключа у байтах (наприклад, sizeof(u32))
-        __u32   value_size;      // Розмір значення у байтах (наприклад, sizeof(struct event))
-        __u32   max_entries;     // Максимальна кількість елементів мапи
-        __u32   map_flags;       // Прапорці створення (BPF_F_NO_PREALLOC, BPF_F_NUMA_NODE)
-        __u32   inner_map_fd;    // fd шаблону внутрішньої мапи (для BPF_MAP_TYPE_ARRAY_OF_MAPS)
-        __u32   numa_node;       // Ідентифікатор NUMA-вузла при BPF_F_NUMA_NODE
-        char    map_name[16];    // Символьна назва мапи для ідентифікації у bpftool
-        __u32   btf_fd;          // fd метаданих BTF
-        __u32   btf_key_type_id; // BTF type ID для типу ключа
-        __u32   btf_value_type_id;// BTF type ID для типу значення
-    };
-};
-```
+:::code api-bpf-syscall-and-maps/c/3-1-struktura-dlia-komandy.c
 
 Деталізація прапорців `map_flags`:
 - `BPF_F_NO_PREALLOC`: Забороняє попереднє виділення всієї пам'яті мапи при створенні. Пам'ять для нових елементів буде виділятися динамічно через `kmalloc()`. Це економить оперативну пам'ять, але додає затримки при перших вставках.
@@ -91,24 +75,7 @@ union bpf_attr {
 
 При команді `BPF_PROG_LOAD` задіяне таке розташування полів:
 
-```c
-union bpf_attr {
-    struct {
-        __u32   prog_type;       // Тип програми (BPF_PROG_TYPE_KPROBE, BPF_PROG_TYPE_SCHED_CLS тощо)
-        __u32   insn_cnt;        // Кількість 64-бітних інструкцій у байт-коді
-        __aligned_u64 insns;     // Вказівник у просторі користувача (const struct bpf_insn *)
-        __aligned_u64 license;   // Вказівник на рядок ліцензії (const char *), наприклад "GPL"
-        __u32   log_level;       // Рівень деталей верифікатора: 0 (вимкнено), 1 (лог), 2 (детальний log)
-        __u32   log_size;        // Розмір буфера для логу у байтах
-        __aligned_u64 log_buf;   // Вказівник на буфер пам'яті (char *), куди ядро запише текстовий лог
-        __u32   kern_version;    // Версія ядра (потрібна для старих kprobe у ядрах < 4.18)
-        __u32   prog_flags;      // Прапорці (наприклад, BPF_F_STRICT_ALIGNMENT)
-        char    prog_name[16];   // Символьна назва функції eBPF
-        __u32   prog_btf_fd;     // fd завантаженого об'єкта BTF
-        __u32   expected_attach_type; // Очікуваний тип прикріплення для Tracing/LSM
-    };
-};
-```
+:::code api-bpf-syscall-and-maps/c/3-2-struktura-dlia-komandy.c
 
 ---
 

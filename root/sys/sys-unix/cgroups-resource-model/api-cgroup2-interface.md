@@ -88,18 +88,7 @@ cat /proc/self/cgroup                  # 0::/user.slice/user-1000.slice/session-
 
 Механізмом керують два файли. `cgroup.controllers` — лише читання: що доступно **тут**. `cgroup.subtree_control` — запис: що цей вузол роздає **дітям**.
 
-```sh
-echo "+cpu +memory" > /sys/fs/cgroup/cgroup.subtree_control
-mkdir /sys/fs/cgroup/build
-
-cat /sys/fs/cgroup/build/cgroup.controllers
-# cpu memory
-
-ls /sys/fs/cgroup/build/ | grep -E '^(cpu|memory|io)\.'
-# cpu.idle cpu.max cpu.max.burst cpu.pressure cpu.stat cpu.weight cpu.weight.nice
-# memory.current memory.events memory.high memory.low memory.max memory.min …
-# io.pressure                    ← лише файл тиску: контролер io ніхто не роздавав
-```
+:::code api-cgroup2-interface/sh/zvidky-berutsia-reshta.sh
 
 Звідси два наслідки, які регулярно дивують. Перший: `memory.max` своєї групи ставите ви, але створив цей файл батько — не ввімкнув він у себе `+memory`, і ставити нема куди. Другий: у самого кореня `/sys/fs/cgroup` файлів обмежень немає взагалі й не буде, бо над коренем нема кому їх увімкнути.
 
@@ -195,18 +184,7 @@ throttled_usec  42000000
 | `io.cost.qos`, `io.cost.model` | rw, лише корінь | вкладений ключований | — | параметри моделі вартості пристрою |
 | `io.pressure` | r | вкладений ключований | — | тиск, див. нижче |
 
-```sh
-lsblk -o NAME,MAJ:MIN                 # nvme0n1 259:0
-
-# сто мегабайтів на читання, п'ятдесят на запис
-echo "259:0 rbps=104857600 wbps=52428800" > /sys/fs/cgroup/build/io.max
-
-# зняти стелю: у ключованому файлі пишемо лише те, що міняємо
-echo "259:0 rbps=max wbps=max" > /sys/fs/cgroup/build/io.max
-
-# вимога з іншого боку: база даних не мусить чекати довше за 2 мс
-echo "259:0 target=2000" > /sys/fs/cgroup/db/io.latency
-```
+:::code api-cgroup2-interface/sh/kontroler-vvodu-vyvodu.sh
 
 Вагу тут дає не планувальник, а контролер вартості (`iocost`) — тому поруч і лежать `io.cost.model` та `io.cost.qos`, якими описують, скільки насправді коштує запит на цьому пристрої. Планувальник BFQ виставляє власний файл `io.bfq.weight`, і це інша вага, а не та сама під двома іменами.
 
@@ -250,40 +228,7 @@ full avg10=0.00 avg60=0.51 avg300=0.29 total=31204551
 
 Ці файли ще й приймають запис, і це єдиний спосіб дізнатися про біду не опитуванням, а сповіщенням. Формат тригера — `<some|full> <простій у мкс> <вікно в мкс>`; вікно ядро приймає від 500000 до 10000000 мікросекунд. Тригер живе, поки відкритий дескриптор, у який його записали, а чекають на ньому `poll` із подією `POLLPRI`.
 
-```c
-#include <errno.h>
-#include <fcntl.h>
-#include <poll.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-
-int main(void)
-{
-    /* «розбуди мене, якщо за будь-яку секунду група простояла
-       через брак пам'яті понад 150 мс» */
-    int fd = open("/sys/fs/cgroup/build/memory.pressure", O_RDWR | O_NONBLOCK);
-    if (fd < 0) { perror("open"); return 1; }
-
-    const char *trigger = "some 150000 1000000";
-    if (write(fd, trigger, strlen(trigger)) < 0) { perror("write"); return 1; }
-
-    struct pollfd pfd = { .fd = fd, .events = POLLPRI };
-    for (;;) {
-        if (poll(&pfd, 1, -1) < 0) {
-            if (errno == EINTR) continue;      /* сигнал — просто повторити */
-            perror("poll"); return 1;
-        }
-        if (pfd.revents & POLLERR) break;      /* групу видалили */
-
-        char buf[256];
-        ssize_t n = pread(fd, buf, sizeof buf - 1, 0);
-        if (n > 0) { buf[n] = '\0'; fputs(buf, stdout); }
-    }
-    close(fd);
-    return 0;
-}
-```
+:::code api-cgroup2-interface/c/main.c
 
 Дескриптор тут відкритий на читання й запис не випадково: у той самий файл ми пишемо умову й з нього ж читаємо поточні числа, коли ядро нас розбудило.
 

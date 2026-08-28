@@ -34,32 +34,7 @@ typedef int  (*dr_match_t)(struct device *dev, void *res, void *match_data);
 
 Власний керований ресурс — це три рядки: виділити вузол із потрібною функцією звільнення, заповнити дані, додати в список.
 
-```c
-struct acme_gate {
-	void __iomem	*ctrl;
-};
-
-static void acme_gate_release(struct device *dev, void *res)
-{
-	struct acme_gate *g = res;
-
-	writel(0, g->ctrl);
-}
-
-static int acme_gate_open(struct device *dev, void __iomem *ctrl)
-{
-	struct acme_gate *g;
-
-	g = devres_alloc(acme_gate_release, sizeof(*g), GFP_KERNEL);
-	if (!g)
-		return -ENOMEM;
-
-	g->ctrl = ctrl;
-	writel(ACME_GATE_ON, ctrl);
-	devres_add(dev, g);	/* з цієї миті звільнення гарантоване */
-	return 0;
-}
-```
+:::code api-devm-surface/c/main.c
 
 Проміжок між `devres_alloc()` і `devres_add()` — єдине місце, де вузол не належить нікому. Якщо на ньому щось піде не так, звільняти треба саме через `devres_free()`, а не `kfree()`: у шапці лежить службовий заголовок, і `kfree()` за вказівником на `data` цілить не туди.
 

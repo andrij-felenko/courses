@@ -124,27 +124,7 @@ grep -c nr_tlb_ /proc/vmstat     # 0 → ядро зібране без цієї
 
 Керують точкою через [ftrace і трасувальні точки](root:sys-unix/ftrace-kernel-tracing) — вбудовані місця зачеплення в коді ядра, які вмикають і фільтрують записом у файли:
 
-```sh
-cd /sys/kernel/tracing            # на старих системах /sys/kernel/debug/tracing
-
-# 1. Увімкнути точку й подивитися потік
-echo 1 > events/tlb/tlb_flush/enable
-cat trace_pipe
-#  munmap-4821  [017] .... 91231.442: tlb_flush: pages:33 reason:remote IPI send (4)
-#  <idle>-0     [042] d.h. 91231.442: tlb_flush: pages:33 reason:remote shootdown (1)
-
-# 2. Лише розсилання (обидва боки), решту відсіяти
-echo 'reason == 1 || reason == 4' > events/tlb/tlb_flush/filter
-
-# 3. Гістограма розмірів діапазону — ось звідки видно, чи впирається він у стелю
-echo 'hist:key=pages.log2:val=hitcount' > events/tlb/tlb_flush/trigger
-cat events/tlb/tlb_flush/hist
-
-# 4. Прибрати за собою
-echo 0 > events/tlb/tlb_flush/enable
-echo '!hist:key=pages.log2' > events/tlb/tlb_flush/trigger
-echo 0 > events/tlb/tlb_flush/filter
-```
+:::code api-tlb-flush-controls/sh/main.sh
 
 Те саме через [підсистему perf](root:sys-unix/perf-events), яка вміє рахувати ті самі події й зшивати їх зі стеками:
 
@@ -286,53 +266,7 @@ PV-скидання вмикається ⟺ є KVM_FEATURE_PV_TLB_FLUSH
 
 Перевірка з гостя, без покладання на назви властивостей гіпервізора:
 
-```c
-/* Чи оголосив гіпервізор паравіртуальне скидання TLB.
-   Збірка: cc -O2 -o pvtlb pvtlb.c    Запуск: усередині гостя, прав не потрібно. */
-#include <cpuid.h>
-#include <stdio.h>
-#include <string.h>
-
-#define KVM_FEATURE_STEAL_TIME    5
-#define KVM_FEATURE_PV_TLB_FLUSH  9
-#define KVM_HINTS_REALTIME        0
-
-int main(void)
-{
-    unsigned int eax, ebx, ecx, edx;
-    char sig[13] = { 0 };
-
-    /* Біт «виконуюся під гіпервізором» — листок 1, ECX біт 31. Без нього
-       листків 0x4000_xxxx не існує, і прочитане з них буде сміттям. */
-    __cpuid(1, eax, ebx, ecx, edx);
-    if (!(ecx & (1u << 31))) {
-        printf("гіпервізора немає — машина фізична\n");
-        return 1;
-    }
-
-    /* 0x40000000 — корінь гіпервізорного простору листків: підпис і межа. */
-    __cpuid(0x40000000, eax, ebx, ecx, edx);
-    memcpy(sig + 0, &ebx, 4);
-    memcpy(sig + 4, &ecx, 4);
-    memcpy(sig + 8, &edx, 4);
-
-    if (strcmp(sig, "KVMKVMKVM") != 0) {
-        printf("не KVM (підпис «%s») — питання не має сенсу\n", sig);
-        return 1;
-    }
-    if (eax < 0x40000001) {
-        printf("гіпервізор не віддає листка можливостей\n");
-        return 1;
-    }
-
-    __cpuid(0x40000001, eax, ebx, ecx, edx);
-    printf("PV_TLB_FLUSH   : %s\n", (eax >> KVM_FEATURE_PV_TLB_FLUSH) & 1 ? "є" : "нема");
-    printf("STEAL_TIME     : %s\n", (eax >> KVM_FEATURE_STEAL_TIME)   & 1 ? "є" : "нема");
-    printf("HINTS_REALTIME : %s\n", (edx >> KVM_HINTS_REALTIME)       & 1
-                                    ? "є — PV-скидання буде вимкнено" : "нема");
-    return 0;
-}
-```
+:::code api-tlb-flush-controls/c/pvtlb.c
 
 ```sh
 dmesg | grep -i 'pv remote TLB'        # ядро гостя сказало це один раз на старті

@@ -105,22 +105,7 @@
 
 Найпростіший випадок — просто повторити виклик. У glibc для цього є макрос `TEMP_FAILURE_RETRY`, але писати цикл руками не важче, і в ньому одразу видно, що саме робиться:
 
-```c
-ssize_t write_all(int fd, const void *buf, size_t len) {
-    const char *p = buf;
-    size_t left = len;
-    while (left > 0) {
-        ssize_t n = write(fd, p, left);
-        if (n < 0) {
-            if (errno == EINTR) continue;   /* перервали — просто ще раз */
-            return -1;                      /* справжня помилка */
-        }
-        p += n;                             /* віддали менше, ніж просили */
-        left -= (size_t) n;
-    }
-    return (ssize_t) len;
-}
-```
+:::code eintr-and-restart-d/c/main.c
 
 Тут в одному циклі закрито обидва випадки: `EINTR` веде на новий оберт без зсуву покажчика, а короткий результат — на новий оберт зі зсувом. Розгорнутий набір таких обгорток — разом із циклом подій, що переживає `EINTR`, і з тайм-аутом на сигналі — зібрано окремо ([правильні обгортки навколо перерваних викликів](root:sys-unix/eintr-and-restart/proj-retry-right.md) — `read_all`/`write_all`, стійкий до `EINTR` цикл на `epoll_wait`, тайм-аут через `SIGALRM` і перевірка всього цього під штучним потоком сигналів).
 

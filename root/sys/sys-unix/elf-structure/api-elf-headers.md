@@ -27,43 +27,8 @@
 Заголовок ELF розташований на самому початку файлу (зсув `0`) і має фіксований розмір рівно 64 байти для 64-бітних об'єктів. Він містить глобальний паспорт файлу та вказує точні файлові зсуви на таблиці програмних заголовків та заголовків секцій.
 
 :::tabs
-```c
-typedef struct {
-    unsigned char e_ident[16]; /* Магічні байти та ідентифікатори архітектури */
-    Elf64_Half    e_type;      /* Тип бінарного ELF-файлу */
-    Elf64_Half    e_machine;   /* Апаратна архітектура цільового процесора */
-    Elf64_Word    e_version;   /* Версія формату (завжди EV_CURRENT = 1) */
-    Elf64_Addr    e_entry;     /* Віртуальна адреса початкової точки входу */
-    Elf64_Off     e_phoff;     /* Зсув таблиці програмних заголовків у файлі */
-    Elf64_Off     e_shoff;     /* Зсув таблиці заголовків секцій у файлі */
-    Elf64_Word    e_flags;     /* Прапорці, специфічні для конкретної архітектури */
-    Elf64_Half    e_ehsize;    /* Розмір цього заголовка ELF (64 байти) */
-    Elf64_Half    e_phentsize; /* Розмір одного елемента в таблиці PHT (56 байтів) */
-    Elf64_Half    e_phnum;     /* Кількість елементів у таблиці PHT */
-    Elf64_Half    e_shentsize; /* Розмір одного елемента в таблиці SHT (64 байти) */
-    Elf64_Half    e_shnum;     /* Кількість елементів у таблиці SHT */
-    Elf64_Half    e_shstrndx;  /* Індекс секції, яка містить таблицю рядків імен секцій */
-} Elf64_Ehdr;
-```
-```cpp
-// Ідіоматичне C++20 представлення заголовка ELF
-struct Elf64_Ehdr {
-    std::array<unsigned char, 16> e_ident; // Магічні байти та ідентифікатори
-    Elf64_Half    e_type;      // Тип об'єкта (ET_EXEC, ET_DYN)
-    Elf64_Half    e_machine;   // Архітектура (EM_X86_64, EM_AARCH64)
-    Elf64_Word    e_version;   // Версія специфікації
-    Elf64_Addr    e_entry;     // Точка входу
-    Elf64_Off     e_phoff;     // Зсув PHT
-    Elf64_Off     e_shoff;     // Зсув SHT
-    Elf64_Word    e_flags;     // Прапорці архітектури
-    Elf64_Half    e_ehsize;    // Розмір заголовка
-    Elf64_Half    e_phentsize; // Розмір запису PHT
-    Elf64_Half    e_phnum;     // Кількість записів PHT
-    Elf64_Half    e_shentsize; // Розмір запису SHT
-    Elf64_Half    e_shnum;     // Кількість записів SHT
-    Elf64_Half    e_shstrndx;  // Індекс таблиці імен секцій
-};
-```
+:::code api-elf-headers/c/2-zaholovok-elf-struktura.c
+:::code api-elf-headers/cpp/2-zaholovok-elf-struktura.cpp
 :::
 
 ### Масив ідентифікації `e_ident` та його константи
@@ -123,31 +88,8 @@ struct Elf64_Ehdr {
 Програмні заголовки описують сегменти бінарного файлу. Вони використовуються ядром операційної системи та динамічним завантажувачем під час створення віртуального адресного простору процесу.
 
 :::tabs
-```c
-typedef struct {
-    Elf64_Word  p_type;   /* Тип сегмента */
-    Elf64_Word  p_flags;  /* Прапорці прав доступу до сегмента (PF_R, PF_W, PF_X) */
-    Elf64_Off   p_offset; /* Зсув початку сегмента від початку файлу у байтах */
-    Elf64_Addr  p_vaddr;  /* Віртуальна адреса сегмента в пам'яті процесу */
-    Elf64_Addr  p_paddr;  /* Фізична адреса (у сучасних OS з вик. VMM не використовується) */
-    Elf64_Xword p_filesz; /* Розмір даних сегмента, що знаходяться у файлі (у байтах) */
-    Elf64_Xword p_memsz;  /* Загальний розмір сегмента в оперативній пам'яті (у байтах) */
-    Elf64_Xword p_align;  /* Вимоги до сторінкового вирівнювання (степінь двійки) */
-} Elf64_Phdr;
-```
-```cpp
-// Ідіоматична C++ структура елемента PHT
-struct Elf64_Phdr {
-    Elf64_Word  p_type;   // Тип сегмента (PT_LOAD, PT_INTERP, etc.)
-    Elf64_Word  p_flags;  // Прапорці доступу (PF_R | PF_W | PF_X)
-    Elf64_Off   p_offset; // Зсув у файлі
-    Elf64_Addr  p_vaddr;  // Віртуальна адреса
-    Elf64_Addr  p_paddr;  // Фізична адреса
-    Elf64_Xword p_filesz; // Розмір у файлі
-    Elf64_Xword p_memsz;  // Розмір у пам'яті
-    Elf64_Xword p_align;  // Вирівнювання
-};
-```
+:::code api-elf-headers/c/3-tablytsia-prohramnykh.c
+:::code api-elf-headers/cpp/3-tablytsia-prohramnykh.cpp
 :::
 
 ### Константи типів сегментів `p_type`
@@ -177,35 +119,8 @@ struct Elf64_Phdr {
 Таблиця заголовків секцій описує секції файлу, які використовуються статичним компонувальником для об'єднання об'єктних файлів, зв'язування символів та релокації.
 
 :::tabs
-```c
-typedef struct {
-    Elf64_Word  sh_name;      /* Зсув імені секції в таблиці рядків .shstrtab */
-    Elf64_Word  sh_type;      /* Тип вмісту та внутрішня семантика секції */
-    Elf64_Xword sh_flags;     /* Атрибути та прапорці доступу під час виконання */
-    Elf64_Addr  sh_addr;      /* Віртуальна адреса секції під час виконання */
-    Elf64_Off   sh_offset;    /* Зсув секції від початку файлу у байтах */
-    Elf64_Xword sh_size;      /* Загальний розмір секції у байтах */
-    Elf64_Word  sh_link;      /* Індекс пов'язаної секції в SHT */
-    Elf64_Word  sh_info;      /* Додаткова системна інформація */
-    Elf64_Xword sh_addralign; /* Вимоги до вирівнювання адреси секції */
-    Elf64_Xword sh_entsize;   /* Розмір одного запису, якщо секція містить таблицю */
-} Elf64_Shdr;
-```
-```cpp
-// Ідіоматична C++ структура елемента SHT
-struct Elf64_Shdr {
-    Elf64_Word  sh_name;      // Зсув імені в .shstrtab
-    Elf64_Word  sh_type;      // Тип секції (SHT_PROGBITS, SHT_NOBITS)
-    Elf64_Xword sh_flags;     // Прапорці атрибутів (SHF_WRITE | SHF_ALLOC)
-    Elf64_Addr  sh_addr;      // Віртуальна адреса
-    Elf64_Off   sh_offset;    // Зсув у файлі
-    Elf64_Xword sh_size;      // Розмір секції
-    Elf64_Word  sh_link;      // Пов'язана секція
-    Elf64_Word  sh_info;      // Додаткова інформація
-    Elf64_Xword sh_addralign; // Вирівнювання
-    Elf64_Xword sh_entsize;   // Розмір запису
-};
-```
+:::code api-elf-headers/c/4-tablytsia-zaholovkiv.c
+:::code api-elf-headers/cpp/4-tablytsia-zaholovkiv.cpp
 :::
 
 ### Константи типів секцій `sh_type`
@@ -330,31 +245,8 @@ struct Elf64_Dyn {
 Записи релокації описують, як саме компонувальник або динамічний завантажувач модифікують вміст коду та даних під час налаштування адрес.
 
 :::tabs
-```c
-typedef struct {
-    Elf64_Addr   r_offset; /* Віртуальна адреса або зсув, що підлягає модифікації */
-    Elf64_Xword  r_info;   /* Індекс символу у таблиці та тип релокації */
-    Elf64_Sxword r_addend; /* Явний доданок (Explicit Addend) */
-} Elf64_Rela;
-
-typedef struct {
-    Elf64_Addr  r_offset;  /* Віртуальна адреса або зсув, що підлягає модифікації */
-    Elf64_Xword r_info;    /* Індекс символу у таблиці та тип релокації */
-} Elf64_Rel;
-```
-```cpp
-// Ідіоматична C++ структура запису релокацій з явним доданком
-struct Elf64_Rela {
-    Elf64_Addr   r_offset; // Адреса модифікації
-    Elf64_Xword  r_info;   // Індекс символу та тип релокації
-    Elf64_Sxword r_addend; // Явний доданок
-};
-
-struct Elf64_Rel {
-    Elf64_Addr  r_offset;  // Адреса модифікації
-    Elf64_Xword r_info;    // Індекс символу та тип релокації
-};
-```
+:::code api-elf-headers/c/7-struktury-relokatsii.c
+:::code api-elf-headers/cpp/7-struktury-relokatsii.cpp
 :::
 
 Для маніпуляцій із полем `r_info` використовуються макроси:

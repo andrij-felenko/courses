@@ -12,20 +12,7 @@
 
 Нижній шар має бути справді доступним лише для читання — інакше нема чого доводити. `workdir` мусить лежати на тій самій файловій системі, що й `upperdir`: окремий образ це гарантує, а сусідня tmpfs дає нам чужу файлову систему для навмисної відмови. Шари на **різних** файлових системах — це нормальний випадок (образ контейнера внизу, диск вузла вгорі), і саме в ньому видно, що накладення робить із парою `st_dev`/`st_ino`. І нарешті, окремий образ можна розмонтувати — а з ним із кешу вилітають рівно його сторінки, не чіпаючи решту машини.
 
-```sh
-# нижній шар — свій образ, змонтований лише для читання
-truncate -s 1G /var/tmp/ovl-lower.img
-mkfs.ext4 -q /var/tmp/ovl-lower.img
-mkdir -p /mnt/lower
-mount -o loop /var/tmp/ovl-lower.img /mnt/lower
-
-# верхній шар, робочий каталог і точка збірки — другий образ
-truncate -s 2G /var/tmp/ovl-upper.img
-mkfs.ext4 -q /var/tmp/ovl-upper.img
-mkdir -p /mnt/lab
-mount -o loop /var/tmp/ovl-upper.img /mnt/lab
-mkdir /mnt/lab/upper /mnt/lab/work /mnt/lab/merged
-```
+:::code proj-overlay-lab/sh/main.sh
 
 Обидва образи стають файловими системами через петльовий пристрій — файл, який ядро подає нагору як [блоковий пристрій](root:sys-unix/block-device-model). Для накладення ця подробиця байдужа: воно однаково не знає, звідки взялися його каталоги.
 
@@ -115,55 +102,7 @@ grep . /sys/module/overlay/parameters/*
 
 Напишемо помічник. Він міг би стояти на `stat`, але [`statx`](root:sys-unix/statx-mask-and-unknown-values) зручніший саме тут: він одразу віддає старший і молодший номери окремими полями — і для файлової системи, і для файлу пристрою, а нам далі знадобиться саме друге.
 
-```c
-/* ovlstat.c — тотожність файлу: чия файлова система, який inode, скільки імен */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/stat.h>
-
-static const char *kind(unsigned mode)
-{
-    switch (mode & S_IFMT) {
-    case S_IFREG: return "файл";
-    case S_IFDIR: return "каталог";
-    case S_IFCHR: return "симв.пристрій";
-    case S_IFBLK: return "блок.пристрій";
-    case S_IFLNK: return "символьне посилання";
-    default:      return "інше";
-    }
-}
-
-int main(int argc, char **argv)
-{
-    for (int i = 1; i < argc; i++) {
-        struct statx sx;
-
-        if (statx(AT_FDCWD, argv[i],
-                  AT_SYMLINK_NOFOLLOW | AT_STATX_SYNC_AS_STAT,
-                  STATX_TYPE | STATX_MODE | STATX_NLINK |
-                  STATX_INO | STATX_SIZE, &sx) < 0) {
-            printf("%-22s — %s\n", argv[i], strerror(errno));
-            continue;
-        }
-
-        printf("%-22s fs=%u:%-3u ino=%-9llu nlink=%-2u %s",
-               argv[i], sx.stx_dev_major, sx.stx_dev_minor,
-               (unsigned long long)sx.stx_ino, sx.stx_nlink,
-               kind(sx.stx_mode));
-
-        if (S_ISCHR(sx.stx_mode) || S_ISBLK(sx.stx_mode))
-            printf(" %u/%u", sx.stx_rdev_major, sx.stx_rdev_minor);
-        else if (S_ISREG(sx.stx_mode))
-            printf(" %llu Б", (unsigned long long)sx.stx_size);
-
-        printf("\n");
-    }
-    return 0;
-}
-```
+:::code proj-overlay-lab/c/ovlstat.c
 
 ```sh
 cc -O2 -o ovlstat ovlstat.c
@@ -292,48 +231,7 @@ trusted.overlay.opaque="y"
 
 Найтонше спостереження всієї лабораторії робить коротка програма, яка нічого не пише. Вона лише **відкриває файл на запис** і засікає, скільки це коштувало:
 
-```c
-/* firstwrite.c — скільки коштує намір писати у файл нижнього шару */
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <time.h>
-#include <unistd.h>
-
-static double now(void)
-{
-    struct timespec t;
-    clock_gettime(CLOCK_MONOTONIC, &t);
-    return t.tv_sec + t.tv_nsec / 1e9;
-}
-
-int main(int argc, char **argv)
-{
-    if (argc < 2) { fprintf(stderr, "вжиток: firstwrite <шлях> [trunc]\n"); return 2; }
-
-    int flags = O_WRONLY;
-    if (argc > 2 && strcmp(argv[2], "trunc") == 0) flags |= O_TRUNC;
-
-    struct stat st;
-    if (stat(argv[1], &st) < 0) { perror("stat"); return 1; }
-
-    double t0 = now();
-    int fd = open(argv[1], flags);       /* жодного байта не записано */
-    double t1 = now();
-    if (fd < 0) { perror("open"); return 1; }
-    close(fd);
-
-    double mib = st.st_size / 1048576.0, dt = t1 - t0;
-    printf("open(%s%s): %.6f с при розмірі %.1f МіБ",
-           argv[1], (flags & O_TRUNC) ? ", O_TRUNC" : "", dt, mib);
-    /* швидкість має сенс лише там, де копіювання справді сталося */
-    if (mib >= 1.0 && dt > 0.01) printf("  (%.0f МіБ/с)", mib / dt);
-    printf("\n");
-    return 0;
-}
-```
+:::code proj-overlay-lab/c/firstwrite.c
 
 `CLOCK_MONOTONIC` тут не випадковий: це [годинник](root:sys-unix/kernel-timekeeping), який ніхто не переводить назад, тож різниця двох його відліків завжди має сенс.
 
@@ -472,22 +370,7 @@ getfattr -n trusted.overlay.nlink $U/h1
 
 Остання відмова — найчесніша з усіх. Її теж треба побачити на рівні виклику, а не команди, бо `mv` її від вас сховає:
 
-```c
-/* tryrename.c — що саме повертає rename(), а не що з цього робить mv */
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-
-int main(int argc, char **argv)
-{
-    if (argc != 3) { fprintf(stderr, "вжиток: tryrename <з> <на>\n"); return 2; }
-
-    if (rename(argv[1], argv[2]) == 0) { puts("rename() успішний"); return 0; }
-
-    printf("rename() відмовив: %s (errno=%d)\n", strerror(errno), errno);
-    return 1;
-}
-```
+:::code proj-overlay-lab/c/tryrename.c
 
 ```sh
 cc -O2 -o tryrename tryrename.c

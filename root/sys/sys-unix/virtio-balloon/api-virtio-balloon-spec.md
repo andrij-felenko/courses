@@ -29,25 +29,7 @@
 
 Конфігураційний простір пристрою відображається через регістри BAR (PCIe) або MMIO і доступний драйверу ядра через структуру `struct virtio_balloon_config`. Усі числові поля передаються у порядку байтів little-endian.
 
-```c
-/* include/uapi/linux/virtio_balloon.h */
-struct virtio_balloon_config {
-    /* Кількість 4 КіБ сторінок, яку гіпервізор вимагає утримувати в балоні */
-    __virtio32 num_pages;
-
-    /* Фактична кількість 4 КіБ сторінок, захоплених драйвером гостя на цей момент */
-    __virtio32 actual;
-
-    /* Ідентифікатор команди для узгодження Free Page Hinting або значення отруєння */
-    union {
-        __virtio32 free_page_hint_cmd_id;
-        __virtio32 poison_val;
-    };
-
-    /* Запасне поле розширення для майбутніх стандартів */
-    __virtio32 free_page_hint_cmd_id_padding;
-};
-```
+:::code api-virtio-balloon-spec/c/konfihuratsiinyi-prostir.c
 
 Поле `num_pages` записується гіпервізором. Коли хост вимагає змінити обсяг пам'яті, він записує нове числове значення й надсилає гостю переривання конфігурації (Configuration Change Interrupt). Драйвер гостя читає `num_pages`, порівнює його з поточним значенням `actual` і запускає процедуру надування (якщо `num_pages > actual`) або здування (якщо `num_pages < actual`).
 
@@ -86,26 +68,7 @@ PFN = Гостьова_Фізична_Адреса / 4096
 
 Черга статистики `statsq` передає набір тегованих 64-бітних лічильників. Хост надсилає порожній буфер, а драйвер гостя заповнює його масивом структур `struct virtio_balloon_stat`:
 
-```c
-/* include/uapi/linux/virtio_balloon.h */
-struct virtio_balloon_stat {
-    __virtio16 tag;   /* Ідентифікатор метрики */
-    __virtio64 val;   /* Значення лічильника в байтах або кількості подій */
-} __attribute__((packed));
-
-/* Теги метрик пам'яті */
-#define VIRTIO_BALLOON_S_SWAP_IN       0   /* Кількість байтів, прочитаних зі свопу */
-#define VIRTIO_BALLOON_S_SWAP_OUT      1   /* Кількість байтів, записаних у своп */
-#define VIRTIO_BALLOON_S_MAJFLT        2   /* Кількість важких помилок сторінки (Major Faults) */
-#define VIRTIO_BALLOON_S_MINFLT        3   /* Кількість легких помилок сторінки (Minor Faults) */
-#define VIRTIO_BALLOON_S_MEMFREE       4   /* Повністю вільна пам'ять (MemFree у байтах) */
-#define VIRTIO_BALLOON_S_MEMTOT        5   /* Загальний обсяг фізичної пам'яті гостя (MemTotal) */
-#define VIRTIO_BALLOON_S_AVAIL         6   /* Доступна пам'ять без виклику свопу (MemAvailable) */
-#define VIRTIO_BALLOON_S_CACHES        7   /* Дисковий кеш і буфери сторінок (Cached + Buffers) */
-#define VIRTIO_BALLOON_S_HTLB_ALLOC    8   /* Кількість успішно виділених HugePages */
-#define VIRTIO_BALLOON_S_HTLB_FAIL     9   /* Кількість невдалих спроб виділити HugePages */
-#define VIRTIO_BALLOON_S_OOM_KILL     10   /* Лічильник спрацьовувань гостьового OOM Killer */
-```
+:::code api-virtio-balloon-spec/c/format-telemetrii-pamiati.c
 
 ### Джерела числових значень у ядрі Linux
 

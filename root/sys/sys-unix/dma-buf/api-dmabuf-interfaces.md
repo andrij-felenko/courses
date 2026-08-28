@@ -6,25 +6,7 @@
 
 ## Що реалізує експортер
 
-```c
-struct dma_buf_ops {
-        bool cache_sgt_mapping;
-        int  (*attach)(struct dma_buf *, struct dma_buf_attachment *);
-        void (*detach)(struct dma_buf *, struct dma_buf_attachment *);
-        int  (*pin)(struct dma_buf_attachment *attach);
-        void (*unpin)(struct dma_buf_attachment *attach);
-        struct sg_table *(*map_dma_buf)(struct dma_buf_attachment *,
-                                        enum dma_data_direction);
-        void (*unmap_dma_buf)(struct dma_buf_attachment *, struct sg_table *,
-                              enum dma_data_direction);
-        void (*release)(struct dma_buf *);
-        int  (*begin_cpu_access)(struct dma_buf *, enum dma_data_direction);
-        int  (*end_cpu_access)(struct dma_buf *, enum dma_data_direction);
-        int  (*mmap)(struct dma_buf *, struct vm_area_struct *vma);
-        int  (*vmap)(struct dma_buf *dmabuf, struct iosys_map *map);
-        void (*vunmap)(struct dma_buf *dmabuf, struct iosys_map *map);
-};
-```
+:::code api-dmabuf-interfaces/c/shcho-realizuie-eksporter.h
 
 | Операція | Обов'язкова | Блокування `resv` | Що зобов'язана зробити |
 | --- | --- | --- | --- |
@@ -44,84 +26,17 @@ struct dma_buf_ops {
 
 ## Створення буфера й дескриптора
 
-```c
-struct dma_buf_export_info {
-        const char *exp_name;            /* ім'я для debugfs і fdinfo */
-        struct module *owner;            /* тримає модуль, доки живий буфер */
-        const struct dma_buf_ops *ops;
-        size_t size;
-        int flags;                       /* режим файла: типово O_RDWR */
-        struct dma_resv *resv;           /* NULL — ядро заведе власний */
-        void *priv;                      /* контекст експортера */
-};
-
-#define DEFINE_DMA_BUF_EXPORT_INFO(name)                                \
-        struct dma_buf_export_info name = { .exp_name = KBUILD_MODNAME, \
-                                         .owner = THIS_MODULE }
-
-struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info);
-int             dma_buf_fd(struct dma_buf *dmabuf, int flags);
-```
+:::code api-dmabuf-interfaces/c/stvorennia-bufera-i.h
 
 `dma_buf_export()` повертає `ERR_PTR(-EINVAL)` — з `WARN_ON` у журналі — якщо не заповнено `priv`, `ops` або бодай одну з трьох обов'язкових операцій, а також якщо `pin` є без `unpin` чи навпаки. Перевірка навмисно гучна: це помилка програміста, не робочий стан.
 
-```c
-DEFINE_DMA_BUF_EXPORT_INFO(info);
-info.ops   = &my_ops;
-info.size  = len;
-info.flags = O_RDWR;
-info.priv  = buf;
-
-struct dma_buf *dmabuf = dma_buf_export(&info);
-if (IS_ERR(dmabuf))
-        return PTR_ERR(dmabuf);
-
-int fd = dma_buf_fd(dmabuf, O_CLOEXEC);
-if (fd < 0) {
-        dma_buf_put(dmabuf);      /* лише на цій гілці */
-        return fd;
-}
-return fd;                        /* далі посилання належить дескрипторові */
-```
+:::code api-dmabuf-interfaces/c/stvorennia-bufera-i.c
 
 Асиметрія в кінці — головна пастка експорту. Успішний `dma_buf_fd()` передає посилання дескрипторові, і `dma_buf_put()` після нього звільнить буфер з-під живого користувача; невдалий не передає нічого, і без `put` буфер лишиться назавжди.
 
 ## Виклики імпортера
 
-```c
-struct dma_buf *dma_buf_get(int fd);
-void            dma_buf_put(struct dma_buf *dmabuf);
-
-struct dma_buf_attachment *dma_buf_attach(struct dma_buf *dmabuf,
-                                          struct device *dev);
-struct dma_buf_attachment *dma_buf_dynamic_attach(struct dma_buf *dmabuf,
-                                          struct device *dev,
-                                          const struct dma_buf_attach_ops *importer_ops,
-                                          void *importer_priv);
-void dma_buf_detach(struct dma_buf *dmabuf, struct dma_buf_attachment *attach);
-
-int  dma_buf_pin(struct dma_buf_attachment *attach);
-void dma_buf_unpin(struct dma_buf_attachment *attach);
-
-struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
-                                        enum dma_data_direction);
-void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
-                              enum dma_data_direction);
-struct sg_table *dma_buf_map_attachment_unlocked(struct dma_buf_attachment *,
-                                        enum dma_data_direction);
-void dma_buf_unmap_attachment_unlocked(struct dma_buf_attachment *,
-                                       struct sg_table *,
-                                       enum dma_data_direction);
-
-int  dma_buf_begin_cpu_access(struct dma_buf *, enum dma_data_direction dir);
-int  dma_buf_end_cpu_access(struct dma_buf *, enum dma_data_direction dir);
-int  dma_buf_mmap(struct dma_buf *, struct vm_area_struct *, unsigned long pgoff);
-
-int  dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map);
-void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map);
-int  dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
-void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
-```
+:::code api-dmabuf-interfaces/c/vyklyky-importera.h
 
 `dma_buf_get()` повертає `ERR_PTR(-EBADF)` на закритий дескриптор і `ERR_PTR(-EINVAL)` на чинний дескриптор, за яким не dma-buf, — саме так перевіряють, що [дескриптор](root:sys-unix/file-descriptor), прийнятий сокетом чи з `ioctl`, справді той, на що схожий. Напрямок у `map_attachment` — та сама трійка `DMA_TO_DEVICE` / `DMA_FROM_DEVICE` / `DMA_BIDIRECTIONAL` з тим самим значенням для кешів, що й у звичайному [DMA API](root:sys-unix/dma-and-buffers/api-dma-mapping.md); `DMA_NONE` тут беззмістовний.
 
@@ -172,19 +87,7 @@ struct dma_buf_attach_ops {
 
 Обрамлення доступу процесора — `DMA_BUF_IOCTL_SYNC`, один [ioctl](root:sys-unix/ioctl-interface) із однією структурою.
 
-```c
-struct dma_buf_sync { __u64 flags; };
-
-#define DMA_BUF_SYNC_READ   (1 << 0)
-#define DMA_BUF_SYNC_WRITE  (2 << 0)
-#define DMA_BUF_SYNC_RW     (DMA_BUF_SYNC_READ | DMA_BUF_SYNC_WRITE)
-#define DMA_BUF_SYNC_START  (0 << 2)      /* нуль — не прапорець, а його відсутність */
-#define DMA_BUF_SYNC_END    (1 << 2)
-#define DMA_BUF_SYNC_VALID_FLAGS_MASK  (DMA_BUF_SYNC_RW | DMA_BUF_SYNC_END)
-
-#define DMA_BUF_BASE        'b'
-#define DMA_BUF_IOCTL_SYNC  _IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
-```
+:::code api-dmabuf-interfaces/c/shcho-bachyt-prohrama-na.c
 
 `DMA_BUF_SYNC_START` дорівнює нулю: початок доступу — це просто виклик без `END`. Писати його все одно варто, бо парність `START`/`END` у коді видно очима, а її відсутність — ні.
 
@@ -230,44 +133,11 @@ struct dma_buf_import_sync_file { __u32 flags; __s32 fd; };
 
 ## Виділення з купи
 
-```c
-struct dma_heap_allocation_data {
-        __u64 len;
-        __u32 fd;                 /* заповнює ядро */
-        __u32 fd_flags;
-        __u64 heap_flags;
-};
-
-#define DMA_HEAP_VALID_FD_FLAGS    (O_CLOEXEC | O_ACCMODE)
-#define DMA_HEAP_VALID_HEAP_FLAGS  (0ULL)
-#define DMA_HEAP_IOC_MAGIC         'H'
-#define DMA_HEAP_IOCTL_ALLOC       _IOWR(DMA_HEAP_IOC_MAGIC, 0x0, \
-                                         struct dma_heap_allocation_data)
-```
+:::code api-dmabuf-interfaces/c/vydilennia-z-kupy.c
 
 Купи (від 5.6) — символьні пристрої в `/dev/dma_heap/`; типово там є `system` і, якщо ядро зібрано з резервованою ділянкою, `cma`. `heap_flags` мусить бути нулем: поле заведено на майбутнє й перевіряється строго. Повний виклик, від виділення до безпечного доступу процесором:
 
-```c
-int heap = open("/dev/dma_heap/system", O_RDONLY | O_CLOEXEC);
-struct dma_heap_allocation_data a = {
-        .len        = 4 << 20,
-        .fd_flags   = O_RDWR | O_CLOEXEC,
-        .heap_flags = 0,
-};
-if (ioctl(heap, DMA_HEAP_IOCTL_ALLOC, &a) < 0)
-        return -1;
-close(heap);                      /* буфер живе своїм дескриптором a.fd */
-
-void *p = mmap(NULL, a.len, PROT_READ | PROT_WRITE, MAP_SHARED, a.fd, 0);
-
-struct dma_buf_sync s = { .flags = DMA_BUF_SYNC_START | DMA_BUF_SYNC_WRITE };
-while (ioctl(a.fd, DMA_BUF_IOCTL_SYNC, &s) < 0 && (errno == EINTR || errno == EAGAIN))
-        ;
-memset(p, 0, a.len);
-s.flags = DMA_BUF_SYNC_END | DMA_BUF_SYNC_WRITE;
-while (ioctl(a.fd, DMA_BUF_IOCTL_SYNC, &s) < 0 && (errno == EINTR || errno == EAGAIN))
-        ;
-```
+:::code api-dmabuf-interfaces/c/vydilennia-z-kupy.h
 
 Дескриптор `a.fd` уже придатний до всього: віддати драйверові, надіслати іншому процесові [сокетом домену Unix](root:sys-unix/unix-domain-sockets), закрити.
 

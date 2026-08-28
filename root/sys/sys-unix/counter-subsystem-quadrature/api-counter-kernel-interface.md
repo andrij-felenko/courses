@@ -27,33 +27,7 @@
 
 Таблиця `struct counter_ops` об'єднує колбеки, які ядерна підсистема викликає у контексті процесу для виконання читання чи запису апаратних регістрів.
 
-```c
-struct counter_ops {
-    int (*signal_read)(struct counter_device *counter,
-                       struct counter_signal *signal,
-                       enum counter_signal_level *level);
-    int (*count_read)(struct counter_device *counter,
-                      struct counter_count *count,
-                      u64 *val);
-    int (*count_write)(struct counter_device *counter,
-                       struct counter_count *count,
-                       u64 val);
-    int (*function_read)(struct counter_device *counter,
-                         struct counter_count *count,
-                         enum counter_function *function);
-    int (*function_write)(struct counter_device *counter,
-                          struct counter_count *count,
-                          enum counter_function function);
-    int (*action_read)(struct counter_device *counter,
-                       struct counter_count *count,
-                       struct counter_synapse *synapse,
-                       enum counter_synapse_action *action);
-    int (*action_write)(struct counter_device *counter,
-                        struct counter_count *count,
-                        struct counter_synapse *synapse,
-                        enum counter_synapse_action action);
-};
-```
+:::code api-counter-kernel-interface/c/tablytsia-operatsii-struct.h
 
 Колбек `count_read` обов'язково повертає 64-бітне беззнакове значення `u64`. Якщо апаратний лічильник є 16-бітним або 32-бітним, драйвер відповідає за правильне розширення знаку або додавання програмного оверфлоу-лічильника перед поверненням значення.
 
@@ -102,21 +76,7 @@ struct counter_ops {
 
 Для уникнення розбіжностей ABI між 32-бітними та 64-бітними системами (наприклад, 32-бітний юзерспейс на 64-бітному ядрі ARM64/x86_64) структура `struct counter_event` має суворо вирівняний розмір 24 байти з явними падінг-полями (`pad[6]`).
 
-```c
-struct counter_watch {
-    struct counter_component component;
-    __u32 event;
-    __u8 channel;
-};
-
-struct counter_event {
-    __u64 timestamp;  /* Час виникнення події u64 (CLOCK_MONOTONIC, нс) */
-    __u64 value;      /* 64-бітне значення лічильника на момент події */
-    __u8 watch_id;    /* Унікальний ID спостерігача, призначений ядром */
-    __u8 channel;     /* Номер апаратного каналу */
-    __u8 pad[6];      /* Явне вирівнювання структури до 24 байтів */
-};
-```
+:::code api-counter-kernel-interface/c/struktury-binarnoho-abi.c
 
 Прийоми системного виклику `read()` повертають один або кілька цілісних екземплярів `struct counter_event`. Якщо буфер ядра переповнився до того, як програма прочитала дані, ядро повертає помилку `-EOVERFLOW`.
 

@@ -6,38 +6,7 @@
 
 Усі об'єкти ключів у ядрі представляються структурою `struct key`. Вона тримає метадані ключа, маску прав, ліміти ресурсів та вказівники на тип і корисне навантаження. Кожен екземпляр розміщується у виділеному кеші ядра slab (`key_jar`) і керується за допомогою підрахунку посилань `refcount_t`.
 
-```c
-struct key {
-	refcount_t		usage;		/* Лічильник посилань на об'єкт (RCU/atomic) */
-	key_serial_t		serial;		/* 32-бітний унікальний додатний ідентифікатор */
-	union {
-		struct list_head graveyard_link;
-		struct rb_node serial_node;
-	};
-	struct key_type		*type;		/* Вказівник на таблицю методів типу ключа */
-	struct rw_semaphore	sem;		/* Семафор блокування читання/запису */
-	struct key_user		*user;		/* Структура обліку квот пам'яті за UID */
-	void			*security;	/* Вказівник на контекст безпеки LSM (SELinux/AppArmor) */
-	
-	time64_t		expiry;		/* Абсолютний час закінчення дії (0 = безлімітно) */
-	time64_t		last_used_at;	/* Час останнього звернення до ключа */
-	
-	kuid_t			uid;		/* UID користувача-власника */
-	kgid_t			gid;		/* GID групи-власника */
-	key_perm_t		perm;		/* 32-бітна маска прав доступу */
-	unsigned short		quotalen;	/* Розмір об'єкта в квотах кількості */
-	unsigned short		datalen;	/* Довжина корисного навантаження в байтах */
-	
-	unsigned long		flags;		/* Прапорці стану (KEY_FLAG_REVOKED, KEY_FLAG_DEAD) */
-	
-	char			*description;	/* Пошуковий текстовий опис (тег) ключа */
-	
-	union {
-		union key_payload payload;	/* Симетричний/асиметричний секретний payload */
-		struct assoc_array keys;	/* Дерево посилань на інші ключі (для keyring) */
-	};
-};
-```
+:::code api-key-retention-structures/c/1-vnutrishni-struktury.c
 
 Лічильник `usage` дає змогу втримати знайдений ключ живим під час RCU-пошуку (Read-Copy-Update) у в'язках, який іде без захоплення локів на читання: пошук бере ключ на облік, а структура звільняється лише тоді, коли лічильник падає до нуля. Поле `sem` застосовується лише під час операцій оновлення (`update`) чи анулювання (`revoke`), запобігаючи перегонам даних (data races) між паралельними потоками простору користувача.
 
@@ -59,24 +28,7 @@ struct key_user {
 
 Поведінка окремих типів ключів описується структурою `struct key_type`. Кожен новий тип ключів у ядрі реєструється через функцію `register_key_type()` під час ініціалізації відповідного драйвера:
 
-```c
-struct key_type {
-	const char *name;			/* Унікальна назва типу ("user", "logon", "keyring") */
-	size_t def_datalen;			/* Розмір payload за замовчуванням */
-
-	/* Методи життєвого циклу */
-	int (*preparse)(struct key_preparsed_payload *prep);
-	void (*free_preparse)(struct key_preparsed_payload *prep);
-	int (*instantiate)(struct key *key, struct key_preparsed_payload *prep);
-	int (*update)(struct key *key, struct key_preparsed_payload *prep);
-	void (*revoke)(struct key *key);
-	void (*destroy)(struct key *key);
-
-	/* Методи пошуку, відображення та зчитання */
-	void (*describe)(const struct key *key, struct seq_file *m);
-	long (*read)(const struct key *key, char *buffer, size_t buflen);
-};
-```
+:::code api-key-retention-structures/c/1-vnutrishni-struktury.h
 
 Метод `preparse()` перевіряє коректність бінарного формату даних перед виділенням структури `struct key`. Якщо формат хибний, ядро скасовує алокацію без зміни квот користувача. Метод `read()` визначає, чи підтримує даний тип зчитування payload у користувацький буфер (наприклад, у `key_type_logon` цей вказівник дорівнює `NULL`, що унеможливлює витік секрету у user-space).
 
@@ -95,43 +47,7 @@ struct key_type {
 
 Розбиття системних бітових констант ядра (`include/linux/key.h`):
 
-```c
-/* Права володільця (Possessor) */
-#define KEY_POS_VIEW	0x01000000	/* Перегляд метаданих та опису */
-#define KEY_POS_READ	0x02000000	/* Зчитання корисного навантаження */
-#define KEY_POS_WRITE	0x04000000	/* Оновлення або зміна вмісту */
-#define KEY_POS_SEARCH	0x08000000	/* Пошук та прохід крізь в'язку */
-#define KEY_POS_LINK	0x10000000	/* Прив'язка до іншої в'язки */
-#define KEY_POS_SETATTR	0x20000000	/* Зміна UID/GID, маски прав та expiry */
-#define KEY_POS_ALL	0x3f000000	/* Усі маски володільця */
-
-/* Права власника (UID) */
-#define KEY_USR_VIEW	0x00010000
-#define KEY_USR_READ	0x00020000
-#define KEY_USR_WRITE	0x00040000
-#define KEY_USR_SEARCH	0x00080000
-#define KEY_USR_LINK	0x00100000
-#define KEY_USR_SETATTR	0x00200000
-#define KEY_USR_ALL	0x003f0000
-
-/* Права групи (GID) */
-#define KEY_GRP_VIEW	0x00000100
-#define KEY_GRP_READ	0x00000200
-#define KEY_GRP_WRITE	0x00000400
-#define KEY_GRP_SEARCH	0x00000800
-#define KEY_GRP_LINK	0x00001000
-#define KEY_GRP_SETATTR	0x00002000
-#define KEY_GRP_ALL	0x00003f00
-
-/* Права інших процесів (Other) */
-#define KEY_OTH_VIEW	0x00000001
-#define KEY_OTH_READ	0x00000002
-#define KEY_OTH_WRITE	0x00000004
-#define KEY_OTH_SEARCH	0x00000008
-#define KEY_OTH_LINK	0x00000010
-#define KEY_OTH_SETATTR	0x00000020
-#define KEY_OTH_ALL	0x0000003f
-```
+:::code api-key-retention-structures/c/2-maska-prav-dostupu-key.c
 
 Під час розрахунку дозволів функція `key_task_permission()` перевіряє статус володіння. Якщо ключ досяжний з кілець нитки, процесу чи сесії, привілеї `KEY_POS_*` поєднуються за допомогою побітового АБО (`|`) з відповідними правами категорій `KEY_USR_*`, `KEY_GRP_*` або `KEY_OTH_*`. Перевірка DAC успішна лише тоді, коли побітове І (`&`) зібраних дозволів із запрошеною маскою дає саму запрошену маску: бракує хоча б одного біта — виклик повертає `-EACCES`.
 
@@ -203,28 +119,7 @@ long keyctl(int operation, ...);
 
 Список стандартних констант операцій `operation` (`include/uapi/linux/keyctl.h`):
 
-```c
-#define KEYCTL_GET_KEYRING_ID		0	/* Повернути ID спеціальної в'язки */
-#define KEYCTL_JOIN_SESSION_KEYRING	1	/* Створити або приєднатися до сесійної в'язки */
-#define KEYCTL_UPDATE			2	/* Оновити payload ключа */
-#define KEYCTL_REVOKE			3	/* Анулювати ключ */
-#define KEYCTL_CHOWN			4	/* Змінити власника UID/GID */
-#define KEYCTL_SETPERM			5	/* Змінити маску key_perm_t */
-#define KEYCTL_DESCRIBE			6	/* Зчитати текстовий опис ключа */
-#define KEYCTL_CLEAR			7	/* Очистити вміст в'язки */
-#define KEYCTL_LINK			8	/* Прив'язати ключ до в'язки */
-#define KEYCTL_UNLINK			9	/* Видалити посилання з в'язки */
-#define KEYCTL_SEARCH			10	/* Пошук ключа у в'язках */
-#define KEYCTL_READ			11	/* Зчитати payload у буфер */
-#define KEYCTL_INSTANTIATE		12	/* Ініціалізувати ключ під час upcall */
-#define KEYCTL_NEGATE			13	/* Відхилити створення ключа в upcall */
-#define KEYCTL_SET_REQKEY_KEYRING	14	/* Типова в'язка для ключів, створених через upcall */
-#define KEYCTL_SET_TIMEOUT		15	/* Встановити таймер згасання (TTL у секундах) */
-#define KEYCTL_ASSUME_AUTHORITY		16	/* Взяти повноваження на ініціалізацію ключа в upcall */
-#define KEYCTL_GET_SECURITY		17	/* Отримати текстову мітку LSM */
-#define KEYCTL_INVALIDATE		21	/* Негайно знищити ключ з пам'яті */
-#define KEYCTL_RESTRICT_KEYRING		29	/* Встановити обмеження на додавання ключів до в'язки */
-```
+:::code api-key-retention-structures/c/keyctl.c
 
 ---
 

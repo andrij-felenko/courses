@@ -76,18 +76,7 @@ off_t lseek(int fd, off_t offset, int whence);
 
 ### Мінімальний виклик
 
-```c
-#include <errno.h>
-
-/* Де починаються дані після зсуву pos? Повертає -1, якщо далі їх немає. */
-off_t next_data(int fd, off_t pos)
-{
-    off_t d = lseek(fd, pos, SEEK_DATA);
-    if (d < 0 && errno == ENXIO) return -1;   /* далі до кінця сама діра */
-    if (d < 0 && errno == EINVAL) return pos; /* ядро/ФС не вміє — вважаємо все даними */
-    return d;
-}
-```
+:::code api-sparse-syscalls/c/minimalnyi-vyklyk.c
 
 ---
 
@@ -182,20 +171,7 @@ int fallocate(int fd, int mode, off_t offset, off_t len);
 
 ### Мінімальні виклики
 
-```c
-/* Пробити діру: 1 МіБ, починаючи зі зсуву 4096. */
-if (fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, 4096, 1 << 20) < 0) {
-    if (errno == EOPNOTSUPP) {
-        /* ФС не вміє: або лишаємо як є, або чесно пишемо нулі */
-    } else {
-        perror("punch");
-    }
-}
-
-/* Зарезервувати 4 ГіБ під файл, щоб запис у них уже не впав з ENOSPC. */
-if (fallocate(fd, 0, 0, 4ULL << 30) < 0)
-    perror("preallocate");
-```
+:::code api-sparse-syscalls/c/minimalni-vyklyky.c
 
 ### `posix_fallocate(3)` — і пастка в ньому
 
@@ -212,29 +188,7 @@ int posix_fallocate(int fd, off_t offset, off_t len);
 
 Коли двох питань `lseek` замало — потрібні не лише межі, а й ознаки кожної ділянки, — карту віддає [керувальний виклик](root:sys-unix/ioctl-interface) FIEMAP, який з'явився в Linux 2.6.28.
 
-```c
-#include <linux/fiemap.h>
-#include <linux/fs.h>    /* FS_IOC_FIEMAP _IOWR('f', 11, struct fiemap) */
-
-struct fiemap_extent {
-    __u64 fe_logical;    /* зсув у файлі, байти */
-    __u64 fe_physical;   /* зсув на носії, байти */
-    __u64 fe_length;     /* довжина, байти */
-    __u64 fe_reserved64[2];
-    __u32 fe_flags;
-    __u32 fe_reserved[3];
-};
-
-struct fiemap {
-    __u64 fm_start;              /* від якого зсуву питаємо */
-    __u64 fm_length;             /* яку довжину покрити; FIEMAP_MAX_OFFSET = ~0ULL */
-    __u32 fm_flags;              /* вхід: прапорці запиту */
-    __u32 fm_mapped_extents;     /* вихід: скільки екстентів заповнено */
-    __u32 fm_extent_count;       /* вхід: скільки місця у буфері */
-    __u32 fm_reserved;
-    struct fiemap_extent fm_extents[];
-};
-```
+:::code api-sparse-syscalls/c/ioctl-fs-ioc-fiemap-povna.c
 
 **Головне про формат відповіді: дір у ній немає.** Ядро повертає лише екстенти з блоками; діра — це проміжок між кінцем одного екстента й початком наступного, і викликач мусить вирахувати її сам. Це протилежність `SEEK_HOLE`, який про діру каже прямо.
 

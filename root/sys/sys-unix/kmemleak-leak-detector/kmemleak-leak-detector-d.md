@@ -43,18 +43,7 @@
 
 При кожній алокації Kmemleak створює внутрішню структуру метаданих `struct kmemleak_object`. Вона описує межі блоку та стан його досяжності:
 
-```c
-struct kmemleak_object {
-    raw_spinlock_t lock;
-    unsigned int flags;        /* Прапорці стану: KMEMLEAK_GREY, KMEMLEAK_NO_SCAN */
-    struct rb_node rb_node;    /* Вузол для включення у червоно-чорне дерево */
-    unsigned long pointer;     /* Початкова віртуальна адреса виділеної пам'яті */
-    size_t size;               /* Розмір виділеного блоку у байтах */
-    int min_count;             /* Поріг досяжності (за замовчуванням 1) */
-    int count;                 /* Поточний лічильник знайдених посилань */
-    unsigned long trace[16];   /* Стек викликів на момент алокації */
-};
-```
+:::code kmemleak-leak-detector-d/c/main.c
 
 ### Пошукова індексна структура (`object_tree`)
 
@@ -128,22 +117,7 @@ CONFIG_DEBUG_KMEMLEAK_AUTO_SCAN=y
 
 Розробник відправляє команди у Kmemleak за допомогою звичайного запису рядків у файл:
 
-```bash
-# Примусово запустити синхронне сканування пам'яті
-echo scan > /sys/kernel/debug/kmemleak
-
-# Очистити список поточних знайдених витоків (скинути базлайн)
-echo clear > /sys/kernel/debug/kmemleak
-
-# Змінити інтервал фонового сканування на 300 секунд
-echo scan=300 > /sys/kernel/debug/kmemleak
-
-# Вимкнути фонове автоматичне сканування
-echo scan=off > /sys/kernel/debug/kmemleak
-
-# Повністю вимкнути Kmemleak у працюючій системі
-echo off > /sys/kernel/debug/kmemleak
-```
+:::code kmemleak-leak-detector-d/sh/main.sh
 
 Повний довідник програмного C API (`<linux/kmemleak.h>`), внутрішніх прапорців об'єктів та всіх команд керування `debugfs` наведено у матеріалі [📋 Інтерфейс та API детектора Kmemleak](root:sys-unix/kmemleak-leak-detector/api-kmemleak-interface.md).
 

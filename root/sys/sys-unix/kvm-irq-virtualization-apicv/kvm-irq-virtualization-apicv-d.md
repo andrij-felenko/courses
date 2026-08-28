@@ -252,23 +252,7 @@ mov eax, [0xFEE00080]  (Читання TPR)
 
 В основі технології лежить 64-байтна структура даних в оперативній пам'яті хоста, вирівняна по 64-байтовій межі (розмір кеш-лінії ЦП) — **Posted-Interrupt Descriptor (`struct pi_desc`)**:
 
-```c
-struct pi_desc {
-    __u32 pir[8];        /* PIR[255:0]: 256-бітний бітмап очікуваних переривань */
-    union {
-        struct {
-            __u32 on : 1;      /* Bit 256: Outstanding Notification (є нові IRQ) */
-            __u32 sn : 1;      /* Bit 257: Suppress Notification (придушити IPI) */
-            __u32 rsvd_1 : 14;
-            __u32 nv : 8;      /* Bits 271:264: Notification Vector (наприклад 0xF2) */
-            __u32 rsvd_2 : 8;
-            __u32 ndst;        /* Bits 319:288: Notification Destination (Physical APIC ID) */
-        };
-        __u64 control;
-    };
-    __u32 rsvd[6];
-} __aligned(64);
-```
+:::code kvm-irq-virtualization-apicv-d/c/struktura-deskryptora.c
 
 Поля дескриптора виконують такі функції:
 * **`PIR[255:0]` (Posted Interrupt Request):** 256-бітова маска векторів переривань. Коли для гостя надходить переривання з вектором `V`, відповідний біт `PIR[V]` встановлюється в `1`.
@@ -345,44 +329,14 @@ struct pi_desc {
 ### Структура `struct kvm_lapic`
 Кожен екземпляр vCPU містить структуру локального контролера переривань:
 
-```c
-struct kvm_lapic {
-    unsigned long base_address;
-    struct kvm_io_device dev;
-    struct kvm_timer lapic_timer;
-    u32 divide_count;
-    struct kvm_vcpu *vcpu;
-    bool sw_enabled;
-    bool irr_pending;
-    /* Вказівник на сторінку Virtual-APIC Page */
-    void *regs;
-    gfn_t vapic_gfn;
-    struct page *vapic_page;
-    /* Тіньові копії для швидкого доступу */
-    u32 highest_isr_cache;
-    void (*deliver)(struct kvm_lapic *apic, int delivery_mode, int trig_mode, int vector);
-};
-```
+:::code kvm-irq-virtualization-apicv-d/c/struktura-struct-kvm-lapic.c
 
 Поле `regs` вказує на виділену сторінку фізичної пам'яті розміром 4096 байтів, яка напряму монтується у VMCS як Virtual-APIC Page.
 
 ### Оновлення маршрутизації в IOMMU (`kvm_pi_update_irte`)
 Коли драйвер VFIO налаштовує або змінює прив'язку фізичного переривання MSI-X до гостьового vCPU, KVM взаємодіє з підсистемою ядра `irq_bypass` (`virt/lib/irq_bypass.c`):
 
-```c
-int kvm_irq_delivery_to_apic(struct kvm *kvm, struct kvm_lapic *src,
-                             struct kvm_lapic_irq *irq,
-                             struct dest_map *dest_map)
-{
-    /* Перевірка можливості доставки через Posted Interrupts */
-    if (kvm_x86_ops.deliver_posted_interrupt &&
-        kvm_x86_ops.deliver_posted_interrupt(vcpu, irq->vector))
-        return 1;
-
-    /* Резервний шлях через програмне виставлення біта vIRR */
-    return kvm_apic_set_irq(vcpu, irq, dest_map);
-}
-```
+:::code kvm-irq-virtualization-apicv-d/c/onovlennia-marshrutyzatsii.c
 
 Підсистема `irq_bypass` реєструє виробника подій (драйвер `vfio-pci` зі структурою `struct irq_bypass_producer`) та споживача подій (модуль KVM зі структурою `struct irq_bypass_consumer`). Щойно KVM підтверджує готовність дескриптора `struct pi_desc`, функція `kvm_arch_irq_bypass_add_producer()` викликає драйвер контролера Intel IOMMU. Контролер IOMMU переналаштовує відповідний запис IRTE у таблицях перепризначення переривань, переводячи його з переривального формату в прямий формат Posted Interrupt.
 

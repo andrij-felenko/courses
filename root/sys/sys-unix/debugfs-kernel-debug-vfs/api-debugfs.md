@@ -149,19 +149,7 @@ void debugfs_create_u32_array(const char *name, umode_t mode,
 
 Експорт динамічних текстових рядків та сирих блоків оперативної пам'яті ядра.
 
-```c
-void debugfs_create_str(const char *name, umode_t mode,
-                        struct dentry *parent, char **str);
-
-struct debugfs_blob_wrapper {
-    void *data;
-    unsigned long size;
-};
-
-void debugfs_create_blob(const char *name, umode_t mode,
-                         struct dentry *parent,
-                         struct debugfs_blob_wrapper *blob);
-```
+:::code api-debugfs/c/debugfs-create-str-ta.h
 
 Механіка роботи:
 - **`debugfs_create_str`**: зв'язується з вказівником на рядок `char **str`. Дозволяє не лише читати поточний рядок, але й безпечно перезаписувати його з простору користувача. При записі ядро автоматично виділяє новий буфер пам'яті через `kstrdup()` і звільняє старий.
@@ -173,23 +161,7 @@ void debugfs_create_blob(const char *name, umode_t mode,
 
 Для спрощення діагностики апаратних контролерів, чиї регістри відображені в адресний простір пам'яті (Memory-Mapped I/O, MMIO), debugfs містить готовий інфраструктурний хелпер.
 
-```c
-struct debugfs_reg32 {
-    char *name;
-    unsigned long offset;
-};
-
-struct debugfs_regset32 {
-    const struct debugfs_reg32 *regs;
-    int nregs;
-    void __iomem *base;
-    struct device *dev;
-};
-
-void debugfs_create_regset32(const char *name, umode_t mode,
-                            struct dentry *parent,
-                            struct debugfs_regset32 *regset);
-```
+:::code api-debugfs/c/6-interfeis-dampiv.c
 
 Опис механізму:
 1. Розробник створює масив системних регістрів `struct debugfs_reg32`, вказуючи текстове ім'я кожного регістру та його байтовий зсув (`offset`) відносно базової адреси.

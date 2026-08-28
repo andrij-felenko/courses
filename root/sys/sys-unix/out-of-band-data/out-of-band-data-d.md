@@ -121,20 +121,7 @@ sysctl net.ipv4.tcp_stdurg=1
 
 У вихідному коді ядра Linux (`net/ipv4/tcp_input.c`) обчислення зміщення виглядає наступним чином:
 
-```c
-/* Обчислення urg_seq у ядрі Linux */
-static void tcp_urg(struct sock *sk, struct sk_buff *skb, const struct tcphdr *th)
-{
-    struct tcp_sock *tp = tcp_sk(sk);
-    u32 ptr = ntohs(th->urg_ptr);
-
-    if (ptr && !sock_net(sk)->ipv4.sysctl_tcp_stdurg)
-        ptr--; // Зсув на 1 байт для режиму BSD (tcp_stdurg=0)
-
-    tp->urg_seq = TCP_SKB_CB(skb)->seq + ptr;
-    tp->urg_data = TCP_URG_VALID;
-}
-```
+:::code out-of-band-data-d/c/systemne-nalashtuvannia.c
 
 ---
 
@@ -222,19 +209,7 @@ if (n > 0) {
     }
 }
 ```
-```cpp
-#include <sys/socket.h>
-#include <system_error>
-#include <iostream>
-
-char oob_byte = 0;
-ssize_t n = ::recv(sockfd, &oob_byte, 1, MSG_OOB);
-if (n > 0) {
-    std::cout << "Отримано терміновий байт: " << oob_byte << "\n";
-} else if (n < 0 && (errno != EAGAIN && errno != EWOULDBLOCK)) {
-    throw std::system_error(errno, std::generic_category(), "recv MSG_OOB failed");
-}
-```
+:::code out-of-band-data-d/cpp/5-1-vidpravlennia-ta.cpp
 :::
 
 ### 5.2. Режим SO_OOBINLINE
@@ -271,19 +246,7 @@ if (ioctl(sockfd, SIOCATMARK, &atmark) == 0) {
     }
 }
 ```
-```cpp
-#include <sys/ioctl.h>
-#include <system_error>
-#include <iostream>
-
-int atmark = 0;
-if (::ioctl(sockfd, SIOCATMARK, &atmark) < 0) {
-    throw std::system_error(errno, std::generic_category(), "ioctl SIOCATMARK failed");
-}
-if (atmark != 0) {
-    std::cout << "Наступний байт є терміновим маркером OOB!\n";
-}
-```
+:::code out-of-band-data-d/cpp/5-3-perevirka-pozytsii.cpp
 :::
 
 З повним довідником системних викликів, опцій сокета та повернених помилок можна ознайомитися у матеріалі [📋 Довідник системних викликів, опцій сокета та прапорців OOB](root:sys-unix/out-of-band-data/api-oob-socket-options.md).
@@ -363,46 +326,8 @@ void sk_send_sigurg(struct sock *sk)
 Використання `poll()` дозволяє обробляти як звичайні дані (`POLLIN`), так і термінові байти (`POLLPRI`) в єдиному циклі подій event-loop:
 
 :::tabs
-```c
-#include <poll.h>
-
-struct pollfd fds[1];
-fds[0].fd = sockfd;
-fds[0].events = POLLIN | POLLPRI;
-
-int ret = poll(fds, 1, -1);
-if (ret > 0) {
-    if (fds[0].revents & POLLPRI) {
-        char oob_byte;
-        recv(sockfd, &oob_byte, 1, MSG_OOB);
-        printf("Отримано OOB через poll(POLLPRI): %c\n", oob_byte);
-    }
-    if (fds[0].revents & POLLIN) {
-        // Читання звичайних даних
-    }
-}
-```
-```cpp
-#include <poll.h>
-#include <array>
-#include <iostream>
-
-std::array<pollfd, 1> fds{};
-fds[0].fd = sockfd;
-fds[0].events = POLLIN | POLLPRI;
-
-int ret = ::poll(fds.data(), fds.size(), -1);
-if (ret > 0) {
-    if (fds[0].revents & POLLPRI) {
-        char oob_byte = 0;
-        ::recv(sockfd, &oob_byte, 1, MSG_OOB);
-        std::cout << "Отримано OOB через poll(POLLPRI): " << oob_byte << "\n";
-    }
-    if (fds[0].revents & POLLIN) {
-        // Читання звичайних даних
-    }
-}
-```
+:::code out-of-band-data-d/c/7-multypleksuvannia.c
+:::code out-of-band-data-d/cpp/7-multypleksuvannia.cpp
 :::
 
 Повний приклад обробки OOB-даних у реальному TCP-сервері та клієнті розібрано у практичному матеріалі [⚙️ Практикум: обробка OOB даних за допомогою SIGURG та poll()](root:sys-unix/out-of-band-data/proj-oob-handling.md).

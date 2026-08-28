@@ -234,132 +234,15 @@ clang -g -O2 -target bpf -D__TARGET_ARCH_x86 -I. -c scx_custom.bpf.c -o scx_cust
 
 Нижче наведено практичний мінімальний приклад BPF-планувальника `scx_simple`, відкомпільованого для ядра Linux:
 
-```c
-// eBPF програма ядра (scx_simple.bpf.c)
-#include <scx/common.bpf.h>
-
-char _license[] SEC("license") = "GPL";
-
-// Вибір CPU при пробудженні задачі
-s32 BPF_STRUCT_OPS(simple_select_cpu, struct task_struct *p, s32 prev_cpu, u64 wake_flags)
-{
-    bool is_idle = false;
-    s32 cpu;
-
-    // Стандартна ядрова евристика; is_idle каже, чи обране ядро простоює
-    cpu = scx_bpf_select_cpu_dfl(p, prev_cpu, wake_flags, &is_idle);
-
-    // Ядро вільне — кладемо задачу просто в його локальну DSQ,
-    // тоді ядро навіть не викличе enqueue для цієї задачі
-    if (is_idle)
-        scx_bpf_dispatch(p, SCX_DSQ_LOCAL, SCX_SLICE_DFL, 0);
-
-    return cpu;
-}
-
-// Додавання задачі в чергу готовності
-void BPF_STRUCT_OPS(simple_enqueue, struct task_struct *p, u64 enq_flags)
-{
-    // Відправляємо задачу в глобальну чергу SCX_DSQ_GLOBAL із дефолтним квантом часу
-    scx_bpf_dispatch(p, SCX_DSQ_GLOBAL, SCX_SLICE_DFL, enq_flags);
-}
-
-// Диспетчеризація задачі на вільний CPU
-void BPF_STRUCT_OPS(simple_dispatch, s32 cpu, struct task_struct *prev)
-{
-    // Автоматично витягуємо задачу з глобальної черги ядра
-    scx_bpf_consume(SCX_DSQ_GLOBAL);
-}
-
-SEC(".struct_ops.link")
-struct sched_ext_ops simple_ops = {
-    .select_cpu = (void *)simple_select_cpu,
-    .enqueue    = (void *)simple_enqueue,
-    .dispatch   = (void *)simple_dispatch,
-    .name       = "simple",
-};
-```
+:::code sched-ext-custom-schedulers-d/c/scx_simple.bpf.c
 
 ### 11.2. Інтерфейс завантаження та управління простором користувача
 
 Для відкриття, завантаження BPF-скелета та активації `struct_ops` у просторі користувача застосовується розробка на C++ або Rust.
 
 :::tabs
-```cpp
-// C++ Реалізація завантажувача BPF-планувальника (User Space Loader)
-#include <iostream>
-#include <memory>
-#include <csignal>
-#include <thread>
-#include <chrono>
-#include <bpf/libbpf.h>
-
-// Автоматичне очищення ресурсів BPF через RAII
-class BpfSchedulerLoader {
-private:
-    struct bpf_link* link_{nullptr};
-    bool is_attached_{false};
-
-public:
-    BpfSchedulerLoader() = default;
-    
-    ~BpfSchedulerLoader() {
-        detach();
-    }
-
-    bool attach() {
-        std::cout << "[Loader C++] Завантаження та активація sched_ext планувальника...\n";
-        // Тут виконується bpf_map__attach_struct_ops()
-        is_attached_ = true;
-        return true;
-    }
-
-    void detach() {
-        if (is_attached_ && link_) {
-            std::cout << "[Loader C++] Безпечне вивантаження BPF-планувальника.\n";
-            bpf_link__destroy(link_);
-            link_ = nullptr;
-            is_attached_ = false;
-        }
-    }
-};
-
-int main() {
-    BpfSchedulerLoader loader;
-    if (loader.attach()) {
-        std::cout << "[Loader C++] Планувальник активний. Натисніть Ctrl+C для зупинки.\n";
-        std::this_thread::sleep_for(std::chrono::seconds(2));
-    }
-    return 0;
-}
-```
-```rust
-// Rust Реалізація завантажувача з використанням фреймворку scx_utils
-use anyhow::Result;
-use scx_utils::{scx_ops_attach, scx_ops_load, scx_ops_open, uei_read};
-use std::mem::MaybeUninit;
-use std::thread;
-use std::time::Duration;
-
-fn main() -> Result<()> {
-    let builder = BpfSkelBuilder::default();        // згенерований скелет scx_simple
-    let mut open_object = MaybeUninit::uninit();
-
-    // Відкриття, завантаження та підключення struct_ops до ядра
-    let open_skel = scx_ops_open!(builder, &mut open_object, simple_ops)?;
-    let mut skel = scx_ops_load!(open_skel, simple_ops, uei)?;
-    let link = scx_ops_attach!(skel, simple_ops)?;  // планувальник активний
-
-    println!("[Loader Rust] BPF-планувальник успішно підключено до ядра.");
-    thread::sleep(Duration::from_secs(2));
-
-    // Знімаємо struct_ops і читаємо причину, з якої ядро зупинило планувальник
-    drop(link);
-    let uei = uei_read!(&skel, uei)?;
-    println!("[Loader Rust] Завершення демона; перезапуск потрібен: {}", uei.should_restart());
-    Ok(())
-}
-```
+:::code sched-ext-custom-schedulers-d/cpp/main.cpp
+:::code sched-ext-custom-schedulers-d/rust/main.rs
 :::
 
 ---

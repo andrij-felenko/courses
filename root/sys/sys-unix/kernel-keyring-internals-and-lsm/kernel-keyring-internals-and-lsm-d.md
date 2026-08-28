@@ -180,77 +180,8 @@ key (read, write) type=logon label=ext4:*,
 Виклик `add_key()` створює новий ключ або оновлює наявний у вказаній в'язці.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-#include <keyutils.h>
-
-/* Збереження logon-ключа для fscrypt / dm-crypt у сесійній в'язці */
-key_serial_t store_logon_secret(const char *key_desc, const void *raw_key, size_t key_len) {
-    /* add_key(type, description, payload, plen, keyring) */
-    key_serial_t key_id = add_key("logon", key_desc, raw_key, key_len, KEY_SPEC_SESSION_KEYRING);
-    
-    if (key_id == -1) {
-        perror("add_key failed");
-        return -1;
-    }
-    
-    printf("Ключ успішно додано. Serial ID: %d\n", key_id);
-    return key_id;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <span>
-#include <system_error>
-#include <expected>
-#include <cstddef>
-#include <keyutils.h>
-
-/* Обгортка C++ RAII для управління ключем ядра */
-class KernelKey {
-public:
-    explicit KernelKey(key_serial_t id) : id_(id) {}
-    ~KernelKey() {
-        if (id_ > 0) {
-            /* Автоматичне анулювання ключа при виході з області видимості */
-            keyctl(KEYCTL_REVOKE, id_);
-        }
-    }
-
-    KernelKey(const KernelKey&) = delete;
-    KernelKey& operator=(const KernelKey&) = delete;
-    KernelKey(KernelKey&& other) noexcept : id_(other.id_) { other.id_ = 0; }
-
-    [[nodiscard]] key_serial_t id() const noexcept { return id_; }
-
-private:
-    key_serial_t id_{0};
-};
-
-/* Створення logon ключа з використанням std::span та std::expected */
-std::expected<KernelKey, std::error_code> store_logon_secret_cpp(
-    const std::string& description,
-    std::span<const std::byte> payload
-) {
-    key_serial_t key_id = add_key(
-        "logon",
-        description.c_str(),   /* add_key чекає C-рядок із нулем на кінці */
-        payload.data(),
-        payload.size(),
-        KEY_SPEC_SESSION_KEYRING
-    );
-
-    if (key_id == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    return KernelKey{key_id};
-}
-```
+:::code kernel-keyring-internals-and-lsm-d/c/4-1-stvorennia-kliucha-ta.c
+:::code kernel-keyring-internals-and-lsm-d/cpp/4-1-stvorennia-kliucha-ta.cpp
 :::
 
 ### 4.2. Алгоритм пошуку ключів та механізм Upcall (`request_key`)
@@ -289,82 +220,8 @@ std::expected<KernelKey, std::error_code> store_logon_secret_cpp(
 5. Системний виклик `request_key()`, який був заблокований в очікуванні, прокидається і отримує новий `key_id`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <keyutils.h>
-
-/* Зчитування секрету з ядра з використанням request_key та keyctl_read */
-int fetch_and_read_user_key(const char *description) {
-    key_serial_t key_id = request_key("user", description, NULL, 0);
-    if (key_id == -1) {
-        perror("request_key: ключ не знайдено");
-        return -1;
-    }
-
-    /* Визначаємо необхідний розмір буфера */
-    long len = keyctl(KEYCTL_READ, key_id, NULL, 0);
-    if (len < 0) {
-        perror("keyctl_read size check failed");
-        return -1;
-    }
-
-    char *buffer = malloc(len + 1);
-    if (!buffer) return -1;
-
-    if (keyctl(KEYCTL_READ, key_id, buffer, len) < 0) {
-        perror("keyctl_read failed");
-        free(buffer);
-        return -1;
-    }
-
-    buffer[len] = '\0';
-    printf("Зчитано payload ключа: %s\n", buffer);
-
-    free(buffer);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <system_error>
-#include <expected>
-#include <cstddef>
-#include <keyutils.h>
-
-/* Безпечне зчитування ключа в C++ з поверненням вектору байтів */
-std::expected<std::vector<std::byte>, std::error_code> fetch_user_key_bytes(
-    const std::string& description
-) {
-    key_serial_t key_id = request_key("user", description.c_str(), nullptr, 0);
-    if (key_id == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    long len = keyctl(KEYCTL_READ, key_id, nullptr, 0);
-    if (len < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    std::vector<std::byte> buffer(static_cast<size_t>(len));
-    long bytes_read = keyctl(KEYCTL_READ, key_id, buffer.data(), buffer.size());
-    if (bytes_read < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    /* KEYCTL_READ повертає ПОВНУ довжину payload, навіть коли буфер менший:
-       якщо ключ оновили між двома викликами, дані обрізано. */
-    if (static_cast<size_t>(bytes_read) > buffer.size()) {
-        return std::unexpected(std::make_error_code(std::errc::message_size));
-    }
-
-    buffer.resize(static_cast<size_t>(bytes_read));
-    return buffer;
-}
-```
+:::code kernel-keyring-internals-and-lsm-d/c/4-2-alhorytm-poshuku.c
+:::code kernel-keyring-internals-and-lsm-d/cpp/4-2-alhorytm-poshuku.cpp
 :::
 
 ---

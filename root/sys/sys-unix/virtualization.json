@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -28,13 +29,15 @@
           "proj": [
             {
               "file": "proj-mini-container.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-namespace-interfaces.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -45,7 +48,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -56,13 +60,15 @@
           "math": [
             {
               "file": "math-uid-translation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-uid-mapping-helper.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -90,13 +96,15 @@
           "proj": [
             {
               "file": "proj-rootless-ns-setup.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-subuid-and-newuidmap.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -113,7 +121,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -124,13 +133,15 @@
           "proj": [
             {
               "file": "proj-cgroup-by-hand.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cgroup2-interface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -142,7 +153,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-cgroupv2-manager.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "cgroup-v2-controllers",
@@ -151,7 +169,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -166,7 +185,8 @@
           "proj": [
             {
               "file": "proj-cgroup-memory-monitor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -194,13 +214,15 @@
           "proj": [
             {
               "file": "proj-whose-write-is-it.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cgwb-contract.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -222,7 +244,8 @@
           "proj": [
             {
               "file": "proj-cgroupv2-manager.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -239,8 +262,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-transient-unit-dbus.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -255,7 +286,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -266,7 +298,8 @@
           "proj": [
             {
               "file": "proj-nspawn-custom-container.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -294,13 +327,15 @@
           "proj": [
             {
               "file": "proj-kvm-mini-hypervisor.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-kvm-ioctl.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -317,24 +352,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-evolution-of-virtual-interrupts.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-irqfd-kvm-setup.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-kvm-irq-ioctls.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -350,25 +391,31 @@
           "hist": [
             {
               "file": "hist-shadow-to-ept.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-2d-walk-cost.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-ept-walk-tracer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-kvm-mmu-controls.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -379,7 +426,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -390,13 +438,15 @@
           "proj": [
             {
               "file": "proj-catch-the-fork.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-vmgenid-surface.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -418,13 +468,15 @@
           "proj": [
             {
               "file": "proj-grant-table-io.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-xenstore-gnttab.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -446,7 +498,8 @@
           "proj": [
             {
               "file": "proj-kvm-nested-control-and-ioctl.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -463,7 +516,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -480,13 +534,15 @@
           "proj": [
             {
               "file": "proj-guest-report-fetch.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-guest-attestation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -503,7 +559,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -514,13 +571,15 @@
           "proj": [
             {
               "file": "proj-ring-walk.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-virtio-transports.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -531,7 +590,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -548,13 +608,15 @@
           "proj": [
             {
               "file": "proj-vring-user-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-virtio-pci-caps.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -593,7 +655,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -604,13 +667,17 @@
           "proj": [
             {
               "file": "proj-socket-handshake.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-protocol-messages.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         },
@@ -632,13 +699,15 @@
           "proj": [
             {
               "file": "proj-vdpa-ioctl-query.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-vdpa-kernel-ops.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -655,24 +724,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-ballooning-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-qmp-autoballoon.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-virtio-balloon-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -683,7 +758,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -700,13 +776,15 @@
           "proj": [
             {
               "file": "proj-virtio-mem-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-virtio-mem-spec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -717,7 +795,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -728,7 +807,8 @@
           "proj": [
             {
               "file": "proj-minimal-rng-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -745,18 +825,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-virtio-gpu-cmd.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-virtio-gpu-protocol.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -778,19 +861,24 @@
           "hist": [
             {
               "file": "hist-vfio-type1-to-iommufd.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-iommufd-device-bind.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-iommufd-ioctl.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -801,7 +889,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -812,13 +901,15 @@
           "proj": [
             {
               "file": "proj-userspace-pci-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-vfio-ioctl.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -846,7 +937,8 @@
           "proj": [
             {
               "file": "proj-sriov-manager.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -868,7 +960,8 @@
           "proj": [
             {
               "file": "proj-nested-iommufd-bind.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

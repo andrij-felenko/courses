@@ -104,40 +104,11 @@ struct lsm_info {
 
 Апетит оголошують однією структурою, по полю на рід об'єкта:
 
-```c
-struct lsm_blob_sizes {
-	int lbs_cred;		/* struct cred — облікові дані */
-	int lbs_file;		/* struct file — відкритий опис файлу */
-	int lbs_ib;		/* об'єкти InfiniBand */
-	int lbs_inode;		/* struct inode */
-	int lbs_sock;		/* struct sock — сокет із боку ядра */
-	int lbs_superblock;	/* змонтована файлова система */
-	int lbs_ipc;		/* об'єкт System V IPC */
-	int lbs_key;		/* ключ у зв'язці ядра */
-	int lbs_msg_msg;	/* окреме повідомлення черги */
-	int lbs_perf_event;	/* подія perf */
-	int lbs_task;		/* struct task_struct */
-	int lbs_xattr_count;	/* НЕ байти — кількість комірок під xattr */
-	int lbs_tun_dev;	/* пристрій TUN/TAP */
-	int lbs_bdev;		/* блоковий пристрій */
-};
-```
+:::code api-lsm-module/c/skilky-prosyty-pamiati-i.c
 
 Найважливіше в цій структурі — не поля, а те, що каркас робить із ними на завантаженні:
 
-```c
-static void __init lsm_set_blob_size(int *need, int *lbs)
-{
-	int offset;
-
-	if (*need <= 0)
-		return;
-
-	offset = ALIGN(*lbs, sizeof(void *));
-	*lbs = offset + *need;
-	*need = offset;
-}
-```
+:::code api-lsm-module/c/skilky-prosyty-pamiati-i-2.c
 
 Останній рядок і є весь контракт: **поле, куди ви записали потрібний розмір, каркас перезаписує вашим зсувом**. До ініціалізації там байти, після неї — адреса всередині спільного шматка. Тому доступ до своїх даних завжди має один вигляд:
 
@@ -177,52 +148,7 @@ landlock,lockdown,yama,loadpin,safesetid,selinux,smack,tomoyo,apparmor,ipe,bpf
 
 Три файли в `security/demolsm/`. Спершу сам код — один обмежувальний гачок, який забороняє непривілейованим процесам вихідні з'єднання:
 
-```c
-// security/demolsm/demolsm.c
-// SPDX-License-Identifier: GPL-2.0
-#define pr_fmt(fmt) "demolsm: " fmt
-
-#include <linux/cred.h>
-#include <linux/lsm_hooks.h>
-#include <linux/net.h>
-#include <linux/sched.h>
-#include <linux/socket.h>
-#include <uapi/linux/lsm.h>
-
-static int demolsm_socket_connect(struct socket *sock,
-				  struct sockaddr *address, int addrlen)
-{
-	if (address->sa_family != AF_INET && address->sa_family != AF_INET6)
-		return 0;
-	if (uid_eq(current_euid(), GLOBAL_ROOT_UID))
-		return 0;
-
-	pr_info("connect заборонено, pid %d\n", current->pid);
-	return -EPERM;
-}
-
-static struct security_hook_list demolsm_hooks[] __ro_after_init = {
-	LSM_HOOK_INIT(socket_connect, demolsm_socket_connect),
-};
-
-static const struct lsm_id demolsm_lsmid = {
-	.name = "demolsm",
-	.id   = LSM_ID_UNDEF,	/* свій номер дають лише при вливанні в дерево */
-};
-
-static int __init demolsm_init(void)
-{
-	security_add_hooks(demolsm_hooks, ARRAY_SIZE(demolsm_hooks),
-			   &demolsm_lsmid);
-	pr_info("піднято\n");
-	return 0;
-}
-
-DEFINE_LSM(demolsm) = {
-	.name = "demolsm",
-	.init = demolsm_init,
-};
-```
+:::code api-lsm-module/c/demolsm.c
 
 ```makefile
 # security/demolsm/Makefile

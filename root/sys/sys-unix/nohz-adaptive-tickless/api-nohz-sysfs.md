@@ -71,32 +71,7 @@
 
 Для детального аналізу причин виникнення jitter на ізольованому CPU 1 виконується наступний покроковий bash-скрипт від імені користувача `root`:
 
-```bash
-# 1. Зупиняємо поточне трасування та очищаємо буфер
-echo 0 > /sys/kernel/tracing/tracing_on
-echo > /sys/kernel/tracing/trace
-
-# 2. Встановлюємо маску відстеження лише для CPU 1 (бітова маска: 2^1 = 2)
-echo 2 > /sys/kernel/tracing/tracing_cpumask
-
-# 3. Активуємо ключові точкові події
-echo 1 > /sys/kernel/tracing/events/irq_vectors/local_timer_entry/enable
-echo 1 > /sys/kernel/tracing/events/sched/sched_switch/enable
-echo 1 > /sys/kernel/tracing/events/raw_syscalls/sys_enter/enable
-echo 1 > /sys/kernel/tracing/events/workqueue/workqueue_execute_start/enable
-
-# 4. Вмикаємо кільцевий буфер трасування
-echo 1 > /sys/kernel/tracing/tracing_on
-
-# 5. Виконуємо досліджуваний низькозатримковий додаток на CPU 1
-taskset -c 1 ./low_latency_app
-
-# 6. Зупиняємо трасування
-echo 0 > /sys/kernel/tracing/tracing_on
-
-# 7. Переглядаємо перші 40 подій трасування
-cat /sys/kernel/tracing/trace | head -n 40
-```
+:::code api-nohz-sysfs/sh/main.sh
 
 Якщо у виводі фіксуються події `local_timer_entry`, сусідні з ними за часовою міткою `sys_enter`, `sched_switch` чи `workqueue_execute_start` називають винуватця: конкретний системний виклик, чужий потік, що прокинувся на ядрі, або фонового воркера. До рядка коду в самому застосунку ці події не ведуть — для цього потрібен стек викликів, який знімає `perf` (розділ 4).
 

@@ -26,46 +26,8 @@
 У мові C структура оголошується напряму з системного заголовка, тоді як в ідіоматичному C++ навколо неї створюється RAII-обгортка, яка автоматично контролює життєвий цикл блокування та виділення буфера LVB:
 
 :::tabs
-```c
-#include <libdlm.h>
-#include <stdint.h>
-
-/* Системна структура LKSB з бібліотеки libdlm */
-struct dlm_lksb {
-    int      sb_status;  /* Результат операції (0 — успіх, або стандартний errno) */
-    uint32_t sb_lkid;    /* Унікальний числовий ідентифікатор блокування (Lock ID) */
-    char     sb_flags;   /* Прапорці зворотного зв'язку від ядра */
-    char    *sb_lvbptr;  /* Покажчик на 32-байтовий або 64-байтовий буфер LVB */
-};
-```
-```cpp
-#include <libdlm.h>
-#include <cstdint>
-#include <vector>
-#include <span>
-#include <string_view>
-
-/* Ідіоматична C++ обгортка над структурою dlm_lksb */
-class DlmLockStatusBlock {
-public:
-    explicit DlmLockStatusBlock(size_t lvb_size = 64) 
-        : lvb_buffer_(lvb_size, 0) {
-        lksb_.sb_status = 0;
-        lksb_.sb_lkid = 0;
-        lksb_.sb_flags = 0;
-        lksb_.sb_lvbptr = lvb_buffer_.empty() ? nullptr : lvb_buffer_.data();
-    }
-
-    [[nodiscard]] int status() const noexcept { return lksb_.sb_status; }
-    [[nodiscard]] uint32_t lock_id() const noexcept { return lksb_.sb_lkid; }
-    [[nodiscard]] dlm_lksb* raw_lksb() noexcept { return &lksb_; }
-    [[nodiscard]] std::span<char> lvb() noexcept { return lvb_buffer_; }
-
-private:
-    dlm_lksb lksb_{};
-    std::vector<char> lvb_buffer_;
-};
-```
+:::code api-dlm-lockspaces-and-glocks/c/struktura-bloku-stanu.c
+:::code api-dlm-lockspaces-and-glocks/cpp/struktura-bloku-stanu.cpp
 :::
 
 ### Основні функції dlm_lock() та dlm_unlock()
@@ -73,63 +35,8 @@ private:
 Функція `dlm_ls_lock()` є головною точкою входу для створення або конверсії блокування. Вона приймає покажчики на дві функції зворотного виклику: `astaddr` (викликається, коли операція блокування завершена) та `bastaddr` (викликається, коли інший вузол вимагає несумісного режиму і власнику потрібно понизити свій рівень доступу).
 
 :::tabs
-```c
-#include <libdlm.h>
-#include <stdio.h>
-#include <string.h>
-
-/* Базовий приклад підключення до простору блокувань та виклику dlm_ls_lock у C */
-int acquire_cluster_lock(dlm_lshandle_t ls, const char *res_name, uint32_t mode,
-                         struct dlm_lksb *lksb, void (*ast)(void *), void (*bast)(void *, int)) {
-    int status = dlm_ls_lock(ls,
-                             mode,
-                             lksb,
-                             DLM_LKF_NOQUEUE,
-                             res_name,
-                             strlen(res_name),
-                             0,            /* parent lock id */
-                             ast,
-                             lksb,         /* ast argument */
-                             bast,
-                             lksb);        /* bast argument */
-    return status;
-}
-```
-```cpp
-#include <libdlm.h>
-#include <string_view>
-#include <functional>
-#include <stdexcept>
-#include <system_error>
-
-/* C++ клас керування простором блокувань та RAII-блокуваннями */
-class DlmLockspace {
-public:
-    explicit DlmLockspace(std::string_view name) {
-        handle_ = dlm_open_lockspace(name.data());
-        if (!handle_) {
-            handle_ = dlm_create_lockspace(name.data(), 0660);
-        }
-        if (!handle_) {
-            throw std::system_error(errno, std::generic_category(), "Failed to open or create DLM lockspace");
-        }
-    }
-
-    ~DlmLockspace() {
-        if (handle_) {
-            dlm_release_lockspace(handle_);
-        }
-    }
-
-    DlmLockspace(const DlmLockspace&) = delete;
-    DlmLockspace& operator=(const DlmLockspace&) = delete;
-
-    [[nodiscard]] dlm_lshandle_t native_handle() const noexcept { return handle_; }
-
-private:
-    dlm_lshandle_t handle_{nullptr};
-};
-```
+:::code api-dlm-lockspaces-and-glocks/c/osnovni-funktsii-dlm-lock.c
+:::code api-dlm-lockspaces-and-glocks/cpp/osnovni-funktsii-dlm-lock.cpp
 :::
 
 #### Прапорці виклику (Lock Flags)

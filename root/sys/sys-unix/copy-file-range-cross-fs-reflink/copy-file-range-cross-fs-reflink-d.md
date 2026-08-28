@@ -25,28 +25,7 @@
 
 На рівні внутрішнього коду драйвера XFS (`fs/xfs/xfs_reflink.c`) функція `xfs_reflink_remap_prep()` виконує перевірку сумісності екземплярів суперблока і при найменшій розбіжності відхиляє виконання операції:
 
-```c
-// Перевірка сумісності суперблоків у ядрі Linux (fs/xfs/xfs_reflink.c)
-int xfs_reflink_remap_prep(struct file *file_in, loff_t pos_in,
-                           struct file *file_out, loff_t pos_out,
-                           loff_t *len, unsigned int remap_flags)
-{
-    struct inode *inode_in = file_inode(file_in);
-    struct inode *inode_out = file_inode(file_out);
-
-    // Строга перевірка належності до одного екземпляра super_block
-    if (inode_in->i_sb != inode_out->i_sb) {
-        return -EXDEV; // Повернення помилки при перетині меж ФС
-    }
-
-    // Перевірка прав доступу та режимів блокування
-    if (IS_DAX(inode_in) || IS_DAX(inode_out)) {
-        return -EOPNOTSUPP;
-    }
-
-    return generic_remap_checks(file_in, pos_in, file_out, pos_out, len, remap_flags);
-}
-```
+:::code copy-file-range-cross-fs-reflink-d/c/xfs_reflink.c
 
 У драйвері Btrfs (`fs/btrfs/reflink.c`) реалізовано аналогічний перевірочний механізм: функція `btrfs_remap_file_range_prep()` зіставляє вказівники на `root->fs_info`. Якщо два субтоми належать різним масивам або різним віртуальним пристроям, ядро перериває виконання з кодом `EXDEV`.
 
@@ -99,37 +78,7 @@ int xfs_reflink_remap_prep(struct file *file_in, loff_t pos_in,
 
 Внутрішня функція ядра `vfs_copy_file_range()` послідовно виконує наступну перевірку:
 
-```c
-// Спрощений алгоритм маршрутизації у ядрі Linux (fs/read_write.c)
-ssize_t vfs_copy_file_range(struct file *file_in, loff_t pos_in,
-                            struct file *file_out, loff_t pos_out,
-                            size_t len, unsigned int flags)
-{
-    // 1. Перевірка прапорців та прав доступу VFS
-    if (flags != 0) return -EINVAL;
-    if (!(file_in->f_mode & FMODE_READ) || !(file_out->f_mode & FMODE_WRITE))
-        return -EBADF;
-
-    // 2. Спроба виконання Reflink (якщо ФС підтримує CoW і sb_in == sb_out)
-    if (file_inode(file_in)->i_sb == file_inode(file_out)->i_sb) {
-        if (file_out->f_op->remap_file_range) {
-            loff_t remap_len = file_out->f_op->remap_file_range(
-                file_in, pos_in, file_out, pos_out, len, REMAP_FILE_CAN_SHORTEN);
-            if (remap_len > 0) return remap_len;
-        }
-    }
-
-    // 3. Спроба виклику драйвера файлової системи (NFS SSC, SMB3 CopyChunk)
-    if (file_out->f_op->copy_file_range) {
-        ssize_t ret = file_out->f_op->copy_file_range(
-            file_in, pos_in, file_out, pos_out, len, flags);
-        if (ret != -EOPNOTSUPP && ret != -EXDEV) return ret;
-    }
-
-    // 4. Універсальний VFS-фолбек через Kernel Page Cache та splice
-    return generic_copy_file_range(file_in, pos_in, file_out, pos_out, len, flags);
-}
-```
+:::code copy-file-range-cross-fs-reflink-d/c/read_write.c
 
 Перш ніж передати запит системного виклику у внутрішню функцію, VFS викликає функцію `generic_copy_file_checks()`. Ця функція валідує відповідність діапазонів типів `loff_t` та `size_t`, перевіряє сумісність прапорців доступу та переконується, що джерело і ціль не вказують на той самий файл із перекриттям діапазонів (Overlapping Ranges), яке могло б спричинити псування даних.
 
@@ -278,91 +227,8 @@ cp-40921 [004] .... 18920.104218: sys_exit_copy_file_range: 0x40000000
 Для побудови надійного та максимально швидкого копіювального механізму у системному ПЗ (на C або C++) рекомендується застосовувати чотирирівневий каскадний алгоритм з обробкою помилок `EXDEV`, `EINVAL` та `EOPNOTSUPP`:
 
 :::tabs
-```c
-// Стратегія надійного клонування файлів мовою C
-bool copy_file_cascading(int fd_in, int fd_out, size_t file_size) {
-    // 1. Спроба Reflink (FICLONE)
-    if (ioctl(fd_out, FICLONE, fd_in) == 0) {
-        return true; // Миттєво, 0 байт I/O
-    }
-
-    // 2. Спроба copy_file_range (Offload / Cross-FS)
-    loff_t off_in = 0, off_out = 0;
-    size_t remaining = file_size;
-
-    while (remaining > 0) {
-        ssize_t ret = copy_file_range(fd_in, &off_in, fd_out, &off_out, remaining, 0);
-        if (ret > 0) {
-            remaining -= (size_t)ret;
-            continue;
-        }
-        if (ret == 0) break; // EOF
-        if (errno == EINTR) continue;
-
-        // При EXDEV, EOPNOTSUPP або EINVAL каскадно переходимо на splice або read/write
-        if (errno == EXDEV || errno == EOPNOTSUPP || errno == ENOSYS || errno == EINVAL) {
-            break;
-        }
-        return false; // Непоправна помилка
-    }
-
-    if (remaining == 0) return true;
-
-    // 3. Фолбек на послідовний POSIX read/write або splice
-    // (Повна реалізація наведена у проєктній вставці)
-    // Зміщення передаємо явно: частину файлу могло вже перенести copy_file_range
-    return fallback_read_write_loop(fd_in, &off_in, fd_out, &off_out, remaining);
-}
-```
-```cpp
-// Ідіоматичний підхід C++ із використання RAII та std::expected
-#include <expected>
-#include <system_error>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/fs.h>
-
-#ifndef FICLONE
-#define FICLONE _IOW(0x94, 9, int)
-#endif
-
-namespace fs_utils {
-
-[[nodiscard]] std::expected<void, std::error_code> copy_file_cascading(
-    int fd_in, int fd_out, size_t file_size) noexcept 
-{
-    // 1. Спроба Reflink (FICLONE)
-    if (::ioctl(fd_out, FICLONE, fd_in) == 0) {
-        return {}; // Миттєве CoW клонування метаданих
-    }
-
-    // 2. Спроба copy_file_range (Cross-FS offload)
-    loff_t off_in = 0, off_out = 0;
-    size_t remaining = file_size;
-
-    while (remaining > 0) {
-        ssize_t ret = ::copy_file_range(fd_in, &off_in, fd_out, &off_out, remaining, 0);
-        if (ret > 0) {
-            remaining -= static_cast<size_t>(ret);
-            continue;
-        }
-        if (ret == 0) break; // EOF
-        if (errno == EINTR) continue;
-
-        if (errno == EXDEV || errno == EOPNOTSUPP || errno == ENOSYS || errno == EINVAL) {
-            break; // Перехід до POSIX fallback
-        }
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    if (remaining == 0) return {};
-
-    // 3. Завершальний фолбек — продовжуємо з досягнутих зміщень
-    return fallback_read_write_loop(fd_in, &off_in, fd_out, &off_out, remaining);
-}
-
-} // namespace fs_utils
-```
+:::code copy-file-range-cross-fs-reflink-d/c/praktychnyi-alhorytm.c
+:::code copy-file-range-cross-fs-reflink-d/cpp/main.cpp
 :::
 
 Повну виробничу реалізацію бібліотечного модуля клонування файлів із підтримкою zero-copy `splice`, обробкою анонімних каналів `pipe` та автоматичною валідацією вирівнювання дискових блоків наведено у проєктній вставці [proj-cross-fs-cloner.md](root:sys-unix/copy-file-range-cross-fs-reflink/proj-cross-fs-cloner.md).

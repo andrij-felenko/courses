@@ -54,32 +54,7 @@ int ioctl(int fd, unsigned long request, ...);
 
 Бік драйвера виглядає буквально як розгалуження за числом:
 
-```c
-static long uart_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
-{
-        struct uart_dev *dev = f->private_data;
-        struct uart_cfg cfg;
-
-        switch (cmd) {
-        case UART_SET_BAUD:
-                if (copy_from_user(&cfg, (void __user *)arg, sizeof(cfg)))
-                        return -EFAULT;
-                if (cfg.baud == 0 || cfg.baud > 4000000)
-                        return -EINVAL;
-                return uart_apply_baud(dev, cfg.baud);
-
-        case UART_GET_BAUD:
-                memset(&cfg, 0, sizeof(cfg));
-                cfg.baud = dev->baud;
-                if (copy_to_user((void __user *)arg, &cfg, sizeof(cfg)))
-                        return -EFAULT;
-                return 0;
-
-        default:
-                return -ENOTTY;
-        }
-}
-```
+:::code ioctl-interface-d/c/main.c
 
 Гілка `default` — це вся відповідь системи на «такої операції тут немає». Код `ENOTTY` у ранніх системах друкувався як «Not a typewriter», бо колись єдиним, до кого зверталися з такими командами, був термінал; від 4.4BSD його друкують як «Inappropriate ioctl for device», але номер помилки лишився той самий. Це не курйоз, а корисна властивість: спробувати команду й подивитися, чи прийшло `ENOTTY`, — єдиний загальний спосіб дізнатися, чи вміє цей файл те, що ви питаєте.
 

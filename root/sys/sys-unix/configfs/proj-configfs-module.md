@@ -24,45 +24,7 @@
 
 `configfs` не знає, що саме ви зберігаєте, — він бачить лише вкладений `config_item` (або `config_group`, якщо об'єкт має дітей). Тому все, що модуль хоче тримати, він кладе поруч у власну структуру й виділяє її [сам](root:sys-unix/kernel-memory-slab).
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/configfs.h>
-#include <linux/module.h>
-#include <linux/slab.h>
-#include <linux/string.h>
-#include <linux/sysfs.h>
-
-#define DEMO_LABEL_LEN 64
-#define DEMO_LIMIT_MAX 1024
-
-struct demo_target {
-	struct config_group	group;		/* каталог t1/          */
-	struct config_group	slots;		/* каталог t1/slots/    */
-	unsigned int		limit;
-	unsigned int		nr_links;
-	char			label[DEMO_LABEL_LEN];
-};
-
-struct demo_slot {
-	struct config_item	item;		/* каталог s0/          */
-	unsigned int		weight;
-};
-
-static inline struct demo_target *to_demo_target(struct config_item *item)
-{
-	return container_of(to_config_group(item), struct demo_target, group);
-}
-
-static inline struct demo_target *slots_to_target(struct config_item *item)
-{
-	return container_of(to_config_group(item), struct demo_target, slots);
-}
-
-static inline struct demo_slot *to_demo_slot(struct config_item *item)
-{
-	return container_of(item, struct demo_slot, item);
-}
-```
+:::code proj-configfs-module/c/dvi-struktury-i-odna.c
 
 Найважливіше тут — два `config_group` в одній структурі. Каталог `t1/` і каталог `t1/slots/` — це два різні вузли дерева, але одна-єдина ділянка, виділена одним викликом. Звідси випливає все подальше: `slots` не має власного звільнення, бо не має власної пам'яті, і зникає рівно тоді, коли зникає `t1`. А `demo_slot` виділяють окремо, бо його створює окремий `mkdir`.
 
@@ -74,64 +36,7 @@ static inline struct demo_slot *to_demo_slot(struct config_item *item)
 
 Атрибут — пара «показати» й «записати», яку макрос перетворює на `struct configfs_attribute` з готовим іменем файлу й правами.
 
-```c
-static ssize_t demo_target_limit_show(struct config_item *item, char *page)
-{
-	return sysfs_emit(page, "%u\n", to_demo_target(item)->limit);
-}
-
-static ssize_t demo_target_limit_store(struct config_item *item,
-				       const char *page, size_t count)
-{
-	unsigned int v;
-	int ret;
-
-	ret = kstrtouint(page, 0, &v);	/* "abc" → -EINVAL, завелике → -ERANGE */
-	if (ret)
-		return ret;
-	if (v > DEMO_LIMIT_MAX)
-		return -ERANGE;
-
-	to_demo_target(item)->limit = v;
-	return count;			/* саме count, не 0 і не менше */
-}
-CONFIGFS_ATTR(demo_target_, limit);
-
-static ssize_t demo_target_label_show(struct config_item *item, char *page)
-{
-	return sysfs_emit(page, "%s\n", to_demo_target(item)->label);
-}
-
-static ssize_t demo_target_label_store(struct config_item *item,
-				       const char *page, size_t count)
-{
-	struct demo_target *t = to_demo_target(item);
-	size_t len = count;
-
-	while (len && (page[len - 1] == '\n' || page[len - 1] == '\r'))
-		len--;			/* echo додає переведення рядка */
-	if (len >= sizeof(t->label))
-		return -ENAMETOOLONG;
-
-	memcpy(t->label, page, len);
-	t->label[len] = '\0';
-	return count;
-}
-CONFIGFS_ATTR(demo_target_, label);
-
-static ssize_t demo_target_nr_links_show(struct config_item *item, char *page)
-{
-	return sysfs_emit(page, "%u\n", to_demo_target(item)->nr_links);
-}
-CONFIGFS_ATTR_RO(demo_target_, nr_links);
-
-static struct configfs_attribute *demo_target_attrs[] = {
-	&demo_target_attr_limit,
-	&demo_target_attr_label,
-	&demo_target_attr_nr_links,
-	NULL,
-};
-```
+:::code proj-configfs-module/c/try-faily-z-dvokh-funktsii.c
 
 Буфер, що приїздить у `store()`, завжди завершений нулем — саме тому `kstrtouint()` спокійно читає його як рядок. Але `count` рахує й переведення рядка, яке додав `echo`; числові перетворювачі його терплять, а рядковий атрибут довелося б записати з «хвостом», тож у `label` ми зрізаємо його вручну.
 
@@ -141,120 +46,7 @@ static struct configfs_attribute *demo_target_attrs[] = {
 
 Тепер тип самого об'єкта й тип типової групи всередині нього.
 
-```c
-static void demo_target_release(struct config_item *item)
-{
-	kfree(to_demo_target(item));	/* єдине місце, де звільняють */
-}
-
-static const struct configfs_item_operations demo_target_item_ops = {
-	.release = demo_target_release,
-};
-
-static const struct config_item_type demo_target_type = {
-	.ct_item_ops	= &demo_target_item_ops,
-	.ct_attrs	= demo_target_attrs,
-	.ct_owner	= THIS_MODULE,
-};
-
-/* ── підоб'єкт t1/slots/s0 ─────────────────────────────────────────── */
-
-static ssize_t demo_slot_weight_show(struct config_item *item, char *page)
-{
-	return sysfs_emit(page, "%u\n", to_demo_slot(item)->weight);
-}
-
-static ssize_t demo_slot_weight_store(struct config_item *item,
-				      const char *page, size_t count)
-{
-	int ret = kstrtouint(page, 0, &to_demo_slot(item)->weight);
-
-	return ret ? ret : count;
-}
-CONFIGFS_ATTR(demo_slot_, weight);
-
-static struct configfs_attribute *demo_slot_attrs[] = {
-	&demo_slot_attr_weight,
-	NULL,
-};
-
-static void demo_slot_release(struct config_item *item)
-{
-	kfree(to_demo_slot(item));
-}
-
-static const struct configfs_item_operations demo_slot_item_ops = {
-	.release = demo_slot_release,
-};
-
-static const struct config_item_type demo_slot_type = {
-	.ct_item_ops	= &demo_slot_item_ops,
-	.ct_attrs	= demo_slot_attrs,
-	.ct_owner	= THIS_MODULE,
-};
-
-/* ── типова група t1/slots/ ────────────────────────────────────────── */
-
-static struct config_item *demo_slots_make_item(struct config_group *group,
-						const char *name)
-{
-	struct demo_slot *slot;
-
-	if (strlen(name) > 8)
-		return ERR_PTR(-ENAMETOOLONG);	/* NULL тут став би -ENOMEM */
-
-	slot = kzalloc(sizeof(*slot), GFP_KERNEL);
-	if (!slot)
-		return ERR_PTR(-ENOMEM);
-
-	config_item_init_type_name(&slot->item, name, &demo_slot_type);
-	return &slot->item;
-}
-
-static void demo_slots_drop_item(struct config_group *group,
-				 struct config_item *item)
-{
-	config_item_put(item);		/* не kfree: звільнить release() */
-}
-
-static int demo_slots_allow_link(struct config_item *src,
-				 struct config_item *target)
-{
-	struct demo_target *self = slots_to_target(src);
-
-	if (target->ci_type != &demo_target_type)
-		return -EINVAL;		/* посилатися можна лише на об'єкт demo/ */
-	if (target == &self->group.cg_item)
-		return -ELOOP;		/* сам на себе — ні */
-	if (self->nr_links >= 4)
-		return -ENOSPC;
-
-	self->nr_links++;
-	return 0;
-}
-
-static void demo_slots_drop_link(struct config_item *src,
-				 struct config_item *target)
-{
-	slots_to_target(src)->nr_links--;
-}
-
-static const struct configfs_item_operations demo_slots_item_ops = {
-	.allow_link	= demo_slots_allow_link,
-	.drop_link	= demo_slots_drop_link,
-};
-
-static const struct configfs_group_operations demo_slots_group_ops = {
-	.make_item	= demo_slots_make_item,
-	.drop_item	= demo_slots_drop_item,
-};
-
-static const struct config_item_type demo_slots_type = {
-	.ct_item_ops	= &demo_slots_item_ops,
-	.ct_group_ops	= &demo_slots_group_ops,
-	.ct_owner	= THIS_MODULE,
-};
-```
+:::code proj-configfs-module/c/khto-narodzhuie-i-khto.c
 
 `demo_slots_type` навмисно не має `release()` — і це не забудькуватість. Пам'ять групи `slots` належить структурі `demo_target`, тож звільнити її окремо означало б звільнити чужий шматок посеред живої ділянки.
 
@@ -264,75 +56,7 @@ static const struct config_item_type demo_slots_type = {
 
 Лишилося те, що створює самі об'єкти, і те, що вішає гілку `demo/` у дерево.
 
-```c
-static struct config_group *demo_make_group(struct config_group *group,
-					    const char *name)
-{
-	struct demo_target *t;
-
-	t = kzalloc(sizeof(*t), GFP_KERNEL);
-	if (!t)
-		return ERR_PTR(-ENOMEM);
-
-	t->limit = 1;
-	strscpy(t->label, "unnamed", sizeof(t->label));
-
-	config_group_init_type_name(&t->group, name, &demo_target_type);
-	config_group_init_type_name(&t->slots, "slots", &demo_slots_type);
-	configfs_add_default_group(&t->slots, &t->group);
-
-	return &t->group;
-}
-
-static void demo_drop_item(struct config_group *group,
-			   struct config_item *item)
-{
-	config_item_put(item);
-}
-
-static const struct configfs_group_operations demo_root_group_ops = {
-	.make_group	= demo_make_group,
-	.drop_item	= demo_drop_item,
-};
-
-static const struct config_item_type demo_root_type = {
-	.ct_group_ops	= &demo_root_group_ops,
-	.ct_owner	= THIS_MODULE,
-};
-
-static struct configfs_subsystem demo_subsys = {
-	.su_group = {
-		.cg_item = {
-			.ci_namebuf	= "demo",
-			.ci_type	= &demo_root_type,
-		},
-	},
-};
-
-static int __init demo_init(void)
-{
-	int ret;
-
-	config_group_init(&demo_subsys.su_group);
-	mutex_init(&demo_subsys.su_mutex);
-
-	ret = configfs_register_subsystem(&demo_subsys);
-	if (ret)
-		pr_err("configfs_demo: реєстрація не вдалася: %d\n", ret);
-
-	return ret;
-}
-
-static void __exit demo_exit(void)
-{
-	configfs_unregister_subsystem(&demo_subsys);
-}
-
-module_init(demo_init);
-module_exit(demo_exit);
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Мінімальне піддерево configfs");
-```
+:::code proj-configfs-module/c/korin-piddereva.c
 
 Тут `make_group()`, а не `make_item()`, і вибору немає: типові групи живуть у списку всередині `config_group`, тож об'єкт, який їх має, мусить бути групою. Для об'єкта без дітей — як `demo_slot` — беруть `make_item()` і `config_item_init_type_name()`; це рівно та сама робота на один рівень простіша. `configfs_add_default_group()` нічого не повертає: це один рядок, що вкладає групу в список власника, і виконати його треба до того, як об'єкт поїде назад у `configfs`.
 

@@ -10,33 +10,7 @@
 
 Ключове слово — спільний. Номер команди й розкладка структури мусять збігтися по обидва боки межі до біта. Якщо заголовок продублювати «щоб не морочитися з установленням», розбіжність з'явиться в перший же тиждень і виявиться не помилкою складання, а мовчазним `−ENOTTY`. Тому файл один: у дереві ядра він живе в `include/uapi/`, у нашій вправі — просто поруч із двома іншими.
 
-```c
-/* pulsegen.h — цей файл читають обидві сторони */
-#ifndef _UAPI_PULSEGEN_H
-#define _UAPI_PULSEGEN_H
-
-#include <linux/types.h>
-#include <linux/ioctl.h>
-
-struct pulse_cfg {
-        __u32 period_us;      /* період імпульсу, мкс: 10 … 1000000 */
-        __u32 duty_permille;  /* заповнення, ‰: 1 … 999          */
-};
-
-struct pulse_burst {
-        __u32 want;           /* → скільки імпульсів замовляємо        */
-        __u32 __pad;          /*   мусить бути 0                       */
-        __u64 issued;         /* ← усього видано від завантаження      */
-};
-
-#define PULSE_IOC_TYPE 'B'
-
-#define PULSE_SET_CFG  _IOW(PULSE_IOC_TYPE, 0x01, struct pulse_cfg)
-#define PULSE_GET_CFG  _IOR(PULSE_IOC_TYPE, 0x02, struct pulse_cfg)
-#define PULSE_BURST   _IOWR(PULSE_IOC_TYPE, 0x03, struct pulse_burst)
-
-#endif
-```
+:::code proj-char-driver-ioctl/c/pulsegen.h
 
 Три речі тут неочевидні, і всі три — наслідки того, що ядро про зміст аргументу не знає нічого.
 
@@ -48,153 +22,13 @@ struct pulse_burst {
 
 ## Модуль
 
-```c
-/* pulsegen.c — модуль ядра */
-#include <linux/module.h>
-#include <linux/miscdevice.h>
-#include <linux/fs.h>
-#include <linux/mutex.h>
-#include <linux/string.h>
-#include <linux/uaccess.h>
-#include <linux/overflow.h>
-#include "pulsegen.h"
-
-#define PULSE_MAX_BURST    4096u
-#define PULSE_MAX_SPAN_US  10000000u   /* стеля тривалості пачки: 10 с */
-
-static DEFINE_MUTEX(pulse_lock);       /* накриває обидві змінні нижче */
-static struct pulse_cfg cur_cfg = { .period_us = 1000, .duty_permille = 500 };
-static u64 issued_total;
-
-static long do_set_cfg(void __user *uarg)
-{
-        struct pulse_cfg c;
-
-        if (copy_from_user(&c, uarg, sizeof(c)))
-                return -EFAULT;
-        if (c.period_us < 10 || c.period_us > 1000000)
-                return -EINVAL;
-        if (c.duty_permille == 0 || c.duty_permille > 999)
-                return -EINVAL;
-
-        mutex_lock(&pulse_lock);
-        cur_cfg = c;
-        mutex_unlock(&pulse_lock);
-        return 0;
-}
-
-static long do_get_cfg(void __user *uarg)
-{
-        struct pulse_cfg c;
-
-        memset(&c, 0, sizeof(c));          /* спершу нулі, потім поля */
-        mutex_lock(&pulse_lock);
-        c.period_us     = cur_cfg.period_us;
-        c.duty_permille = cur_cfg.duty_permille;
-        mutex_unlock(&pulse_lock);
-
-        return copy_to_user(uarg, &c, sizeof(c)) ? -EFAULT : 0;
-}
-
-static long do_burst(void __user *uarg)
-{
-        struct pulse_burst b;
-        u32 want, span_us;
-        u64 total;
-
-        if (copy_from_user(&b, uarg, sizeof(b)))
-                return -EFAULT;
-        if (b.__pad != 0 || b.issued != 0)  /* поля ядра мусять прийти нулями */
-                return -EINVAL;
-
-        want = b.want;
-        if (want == 0 || want > PULSE_MAX_BURST)
-                return -EINVAL;
-
-        mutex_lock(&pulse_lock);
-        if (check_mul_overflow(want, cur_cfg.period_us, &span_us) ||
-            span_us > PULSE_MAX_SPAN_US) {
-                mutex_unlock(&pulse_lock);
-                return -EINVAL;
-        }
-        issued_total += want;              /* читання-зміна-запис під замком */
-        total = issued_total;
-        mutex_unlock(&pulse_lock);
-
-        memset(&b, 0, sizeof(b));          /* доповнення теж піде нулем */
-        b.want   = want;
-        b.issued = total;
-
-        return copy_to_user(uarg, &b, sizeof(b)) ? -EFAULT : 0;
-}
-
-static long pulse_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
-{
-        void __user *uarg = (void __user *)arg;
-
-        switch (cmd) {
-        case PULSE_SET_CFG: return do_set_cfg(uarg);
-        case PULSE_GET_CFG: return do_get_cfg(uarg);
-        case PULSE_BURST:   return do_burst(uarg);
-        default:            return -ENOTTY;
-        }
-}
-
-static const struct file_operations pulse_fops = {
-        .owner          = THIS_MODULE,
-        .unlocked_ioctl = pulse_ioctl,
-        .compat_ioctl   = compat_ptr_ioctl,
-};
-
-static struct miscdevice pulse_misc = {
-        .minor = MISC_DYNAMIC_MINOR,
-        .name  = "pulsegen",
-        .fops  = &pulse_fops,
-        .mode  = 0600,
-};
-module_misc_device(pulse_misc);
-
-MODULE_DESCRIPTION("Навчальний генератор імпульсів із керуванням через ioctl");
-MODULE_LICENSE("GPL");
-```
+:::code proj-char-driver-ioctl/c/pulsegen.c
 
 Символьний пристрій тут заведено найдешевшим способом, який дає ядро. Замість того щоб просити власний старший номер і самому створювати вузол, [модуль](root:sys-unix/kernel-modules) реєструється в підсистемі *misc*: вона роздає молодші номери під своїм спільним старшим — десятим, — а вузол `/dev/pulsegen` udev створює сам за іменем із структури. Макрос `module_misc_device()` розгортається у звичайну пару `misc_register()` під час завантаження і `misc_deregister()` під час вивантаження. Для драйвера, у якого один пристрій і жодних претензій на [власний старший номер](root:sys-unix/major-minor-numbers), більшого й не треба.
 
 ## Програма
 
-```c
-/* pulsectl.c — простір користувача */
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include "pulsegen.h"
-
-int main(void)
-{
-        int fd = open("/dev/pulsegen", O_RDWR);
-        if (fd < 0) { perror("open /dev/pulsegen"); return 1; }
-
-        struct pulse_cfg c = { .period_us = 2500, .duty_permille = 300 };
-        if (ioctl(fd, PULSE_SET_CFG, &c) < 0) { perror("SET_CFG"); return 1; }
-
-        memset(&c, 0, sizeof(c));
-        if (ioctl(fd, PULSE_GET_CFG, &c) < 0) { perror("GET_CFG"); return 1; }
-        printf("період %u мкс, заповнення %u‰\n", c.period_us, c.duty_permille);
-
-        struct pulse_burst b = { .want = 64 };   /* решта полів — нулі */
-        if (ioctl(fd, PULSE_BURST, &b) < 0) { perror("BURST"); return 1; }
-        printf("видано %u, усього %llu\n", b.want, (unsigned long long)b.issued);
-
-        if (ioctl(fd, _IO('Z', 0), 0) < 0)       /* команда чужої підсистеми */
-                printf("чужа команда: %s\n", strerror(errno));
-
-        close(fd);
-        return 0;
-}
-```
+:::code proj-char-driver-ioctl/c/pulsectl.c
 
 Складання й запуск:
 

@@ -51,30 +51,7 @@
 
 Одиницею опису внутрішнього функціонального блоку в підсистемі MFD є **комірка** (cell), представлена структурою `struct mfd_cell`, визначеною в `include/linux/mfd/core.h`.
 
-```c
-struct mfd_cell {
-	const char *name;
-	int id;
-	int (*enable)(struct platform_device *dev);
-	int (*disable)(struct platform_device *dev);
-	int (*suspend)(struct platform_device *dev);
-	int (*resume)(struct platform_device *dev);
-	void *platform_data;
-	size_t pdata_size;
-	const char * const *parent_supplies;
-	int num_parent_supplies;
-	int num_resources;
-	const struct resource *resources;
-	bool ignore_resource_conflicts;
-	bool pm_runtime_no_callbacks;
-	bool allow_claim_mfd_has_no_parent;
-	bool use_parent;
-	const char *of_compatible;
-	const struct mfd_cell_acpi_match *acpi_match;
-	const struct mfd_cell_match *matches;
-	int num_matches;
-};
-```
+:::code mfd-multifunction-devices-d/c/3-abstraktsiia-komirky.h
 
 Кожне поле структури виконує строго визначену функцію під час конструювання дочірнього пристрою:
 - `name`: Рядковий ідентифікатор пристрою (наприклад, `"bd71837-pmic"` або `"axp20x-gpio"`). За цим рядком підсистема Platform Driver Matching зіставляє пристрій із драйвером, якщо не використовується Device Tree.
@@ -188,25 +165,7 @@ if (!regmap)
 
 Батьківський MFD драйвер описує внутрішню карту переривань чипа у вигляді статичних таблиць `struct regmap_irq` та `struct regmap_irq_chip`:
 
-```c
-static const struct regmap_irq pmic_irqs[] = {
-	[PMIC_IRQ_BUCK1_OC]  = { .mask = BIT(0), .reg_offset = 0 },
-	[PMIC_IRQ_BAT_LOW]   = { .mask = BIT(1), .reg_offset = 0 },
-	[PMIC_IRQ_PWRKEY]    = { .mask = BIT(2), .reg_offset = 0 },
-	[PMIC_IRQ_RTC_ALARM] = { .mask = BIT(0), .reg_offset = 1 },
-	[PMIC_IRQ_TEMP_WARN] = { .mask = BIT(1), .reg_offset = 1 },
-};
-
-static const struct regmap_irq_chip pmic_irq_chip = {
-	.name        = "pmic-irq-chip",
-	.status_base = PMIC_REG_INT_STATUS1,
-	.mask_base   = PMIC_REG_INT_MASK1,
-	.ack_base    = PMIC_REG_INT_STATUS1, /* Write-1-to-Clear */
-	.num_regs    = 2,
-	.irqs        = pmic_irqs,
-	.num_irqs    = ARRAY_SIZE(pmic_irqs),
-};
-```
+:::code mfd-multifunction-devices-d/c/5-1-dyspetcher-struct.c
 
 Ініціалізація виконується викликом `devm_regmap_add_irq_chip()`:
 

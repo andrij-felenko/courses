@@ -22,36 +22,7 @@
 
 ## Крок 1. Init на тридцять рядків
 
-```c
-/* init.c — увесь простір користувача цієї машини.
-   Збірка: gcc -static -Os -o init init.c && strip init */
-#include <sys/mount.h>
-#include <unistd.h>
-#include <stdio.h>
-
-int main(void)
-{
-    /* службові файлові системи: без них програми сліпі */
-    mount("proc",     "/proc", "proc",     0, NULL);
-    mount("sysfs",    "/sys",  "sysfs",    0, NULL);
-    mount("devtmpfs", "/dev",  "devtmpfs", 0, NULL);
-
-    printf("init: я PID %d, і я тут сам\n", (int)getpid());
-
-    FILE *v = fopen("/proc/version", "r");
-    char line[256];
-    if (v && fgets(line, sizeof line, v))
-        printf("init: ядро каже — %s", line);
-    else
-        printf("init: /proc не змонтувався, ядро мовчить\n");
-
-    execl("/bin/sh", "sh", (char *)NULL);
-    perror("init: /bin/sh");   /* сюди потрапляємо ЛИШЕ при невдачі */
-
-    for (;;)
-        pause();               /* вийти звідси не можна */
-}
-```
+:::code proj-minimal-userland/c/init.c
 
 Кожен рядок тут стоїть із примусу, а не для повноти.
 
@@ -178,57 +149,7 @@ ln -s busybox root/bin/sh   # єдине посилання, яке треба �
 
 Друга редакція init підіймає оболонку по-справжньому:
 
-```c
-/* init.c, друга редакція: підіймає оболонку й не дає системі померти */
-#include <sys/mount.h>
-#include <sys/wait.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-static void run_wait(char *const argv[])
-{
-    pid_t p = fork();
-    if (p == 0) {
-        execv(argv[0], argv);
-        _exit(127);
-    }
-    if (p > 0)
-        waitpid(p, NULL, 0);
-}
-
-int main(void)
-{
-    mount("proc",     "/proc", "proc",     0, NULL);
-    mount("sysfs",    "/sys",  "sysfs",    0, NULL);
-    mount("devtmpfs", "/dev",  "devtmpfs", 0, NULL);
-
-    /* ядро дало нам лише HOME і TERM — решту оточення робимо самі */
-    setenv("PATH", "/bin:/sbin:/usr/bin:/usr/sbin", 1);
-
-    /* сотня імен на один файл */
-    char *install[] = { "/bin/busybox", "--install", "-s", NULL };
-    run_wait(install);
-
-    for (;;) {
-        pid_t sh = fork();
-        if (sh == 0) {
-            setsid();                    /* нова сесія…               */
-            ioctl(0, TIOCSCTTY, 1);      /* …і термінал, яким вона керує */
-            execl("/bin/sh", "-sh", (char *)NULL);
-            _exit(127);
-        }
-
-        pid_t r;
-        do {
-            r = waitpid(-1, NULL, 0);    /* заразом ховаємо всіх сиріт */
-        } while (r > 0 && r != sh);
-
-        printf("init: оболонка вийшла, підіймаю нову\n");
-    }
-}
-```
+:::code proj-minimal-userland/c/init-2.c
 
 **`setenv("PATH", …)`.** Оточення, яке ядро передає першому процесові, складається рівно з двох записів: `HOME=/` і `TERM=linux`. `PATH` немає, і кожен наступний процес успадкує цю порожнечу — тому змінну ставить init, раз і назавжди для всієї системи.
 
@@ -263,37 +184,7 @@ busybox, статичний, типова конфігурація      ≈   1�
 
 Різниця між першим і третім рядком — це рівно те, що бібліотека C робить за вас. Ось як виглядає та сама програма без неї:
 
-```c
-/* init-raw.c — жодної бібліотеки, самі системні виклики.
-   gcc -static -nostdlib -nostartfiles -Os -o init init-raw.c */
-
-static long sys(long n, long a, long b, long c, long d, long e)
-{
-    register long r10 __asm__("r10") = d;
-    register long r8  __asm__("r8")  = e;
-    long ret;
-    __asm__ volatile ("syscall"
-                      : "=a"(ret)
-                      : "a"(n), "D"(a), "S"(b), "d"(c), "r"(r10), "r"(r8)
-                      : "rcx", "r11", "memory");
-    return ret;
-}
-
-#define SYS_write   1
-#define SYS_pause  34
-#define SYS_mount 165
-
-void _start(void)
-{
-    static const char msg[] = "init: без libc, самі системні виклики\n";
-
-    sys(SYS_mount, (long)"proc", (long)"/proc", (long)"proc", 0, 0);
-    sys(SYS_write, 1, (long)msg, sizeof msg - 1, 0, 0);
-
-    for (;;)
-        sys(SYS_pause, 0, 0, 0, 0, 0);
-}
-```
+:::code proj-minimal-userland/c/init-raw.c
 
 Тут видно домовленість [про регістри](root:sys-unix/syscall-mechanics) у чистому вигляді: номер виклику в `rax`, до шести аргументів у `rdi`, `rsi`, `rdx`, `r10`, `r8`, `r9`, інструкція `syscall`, результат назад у `rax`. Наш помічник бере п'ять — шостого жодному з трьох потрібних нам викликів не треба, тож `r9` у код і не потрапив. Процесор при цьому псує `rcx` і `r11` — тому вони й перелічені як зіпсовані. Немає ані `main` (програму починає `_start`, бо стартовий код нікому було написати), ані `errno`, ані форматування рядків.
 

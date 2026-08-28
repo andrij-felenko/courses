@@ -26,112 +26,15 @@
 
 ## Пристрій і кільце
 
-```c
-/* wqdemo.c — символьний пристрій із чергою очікування */
-#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-
-#include <linux/init.h>
-#include <linux/module.h>
-#include <linux/moduleparam.h>
-#include <linux/kernel.h>
-#include <linux/fs.h>
-#include <linux/cdev.h>
-#include <linux/device.h>
-#include <linux/slab.h>
-#include <linux/spinlock.h>
-#include <linux/wait.h>
-#include <linux/sched.h>
-#include <linux/poll.h>
-#include <linux/timer.h>
-#include <linux/jiffies.h>
-#include <linux/uaccess.h>
-
-#define RING_SIZE   4096u   /* степінь двійки: маска замість ділення */
-#define CHUNK        256u   /* стільки байтів обслуговує один виклик */
-
-struct wqdemo {
-    spinlock_t         lock;    /* захищає кільце; його бере й таймер */
-    char              *ring;
-    unsigned int       head;    /* куди писати — лічильник, що не обгортається */
-    unsigned int       tail;    /* звідки читати */
-
-    wait_queue_head_t  readq;   /* тут сплять ті, кому бракує байтів */
-    wait_queue_head_t  writeq;  /* а тут — ті, кому бракує місця */
-
-    struct timer_list  tick;
-    unsigned long      seq;
-
-    struct cdev        cdev;
-};
-
-static struct wqdemo *dev;
-static dev_t          devt;
-static struct class  *cls;
-
-static bool exclusive;
-module_param(exclusive, bool, 0644);
-MODULE_PARM_DESC(exclusive, "читачі стають у чергу виключними: будити по одному");
-
-static unsigned int period_ms;
-module_param(period_ms, uint, 0444);
-MODULE_PARM_DESC(period_ms, "період таймера в мілісекундах; 0 — таймер вимкнено");
-```
+:::code proj-waitqueue-driver/c/prystrii-i-kiltse.h
 
 Кільце тут зроблено найдешевшим із відомих способів: індекси **не обгортаються**, обгортається лише віднімання. `head - tail` у беззнаковій арифметиці дає число зайнятих байтів навіть тоді, коли самі лічильники перекотилися через межу типу, а індекс у масив дістають маскою. Того й вимагає розмір — степінь двійки. Детальніше про цю конструкцію та її різновиди — у темі про [кільцевий буфер](root:sf-algorithms/ring-buffer).
 
-```c
-static inline unsigned int ring_used(const struct wqdemo *d) { return d->head - d->tail; }
-static inline unsigned int ring_free(const struct wqdemo *d) { return RING_SIZE - ring_used(d); }
-
-/* обидві копіюють у пам'ять ЯДРА і кличуться ЛИШЕ під d->lock */
-static unsigned int ring_put(struct wqdemo *d, const char *src, unsigned int n)
-{
-    unsigned int i;
-
-    n = min(n, ring_free(d));
-    for (i = 0; i < n; i++)
-        d->ring[(d->head + i) & (RING_SIZE - 1)] = src[i];
-    d->head += n;
-    return n;
-}
-
-static unsigned int ring_get(struct wqdemo *d, char *dst, unsigned int n)
-{
-    unsigned int i;
-
-    n = min(n, ring_used(d));
-    for (i = 0; i < n; i++)
-        dst[i] = d->ring[(d->tail + i) & (RING_SIZE - 1)];
-    d->tail += n;
-    return n;
-}
-```
+:::code proj-waitqueue-driver/c/prystrii-i-kiltse.c
 
 Тепер — дві функції, які обчислюють умову для черги. Вони беруть замок, і це варто пояснити, бо на перший погляд виглядає зухвало: їх викликатимуть із нутрощів `wait_event_*`, коли задача вже оголосила себе сплячою.
 
-```c
-static bool ring_has_data(struct wqdemo *d)
-{
-    unsigned long flags;
-    bool ret;
-
-    spin_lock_irqsave(&d->lock, flags);
-    ret = ring_used(d) != 0;
-    spin_unlock_irqrestore(&d->lock, flags);
-    return ret;
-}
-
-static bool ring_has_space(struct wqdemo *d)
-{
-    unsigned long flags;
-    bool ret;
-
-    spin_lock_irqsave(&d->lock, flags);
-    ret = ring_free(d) != 0;
-    spin_unlock_irqrestore(&d->lock, flags);
-    return ret;
-}
-```
+:::code proj-waitqueue-driver/c/prystrii-i-kiltse-2.c
 
 Це законно — і саме тому, що замок тут спін-замок, а не м'ютекс. Умову обчислюють у проміжку між «стан = `TASK_INTERRUPTIBLE`» і `schedule()`, а в цьому проміжку не можна лише **спати**; узяти й віддати замок, який ніколи не спить, — можна. Єдина тонкість ховається у `spin_unlock()`: він вмикає назад [витіснення](root:sys-unix/kernel-preemption), і ядро може тієї ж миті перепланувати нас. Але витіснення знімає задачу з процесора, **не виймаючи її з черги готових**, — незалежно від того, що записано в її стані. Тому оголошений заздалегідь сон не спрацьовує передчасно.
 
@@ -139,53 +42,7 @@ static bool ring_has_space(struct wqdemo *d)
 
 ## Читання, що вміє чекати
 
-```c
-/* заснути так, як просить параметр модуля */
-static int wqdemo_wait_data(struct wqdemo *d)
-{
-    if (READ_ONCE(exclusive))
-        return wait_event_interruptible_exclusive(d->readq, ring_has_data(d));
-
-    return wait_event_interruptible(d->readq, ring_has_data(d));
-}
-
-static ssize_t wqdemo_read(struct file *f, char __user *buf, size_t len, loff_t *off)
-{
-    struct wqdemo *d = f->private_data;
-    char kbuf[CHUNK];
-    unsigned long flags;
-    unsigned int n;
-    int ret;
-
-    if (len > sizeof(kbuf))
-        len = sizeof(kbuf);
-    if (!len)
-        return 0;                            /* read(fd, buf, 0) не має чекати */
-
-    for (;;) {
-        spin_lock_irqsave(&d->lock, flags);
-        n = ring_get(d, kbuf, len);          /* істину беремо під замком */
-        spin_unlock_irqrestore(&d->lock, flags);
-
-        if (n)
-            break;
-        if (f->f_flags & O_NONBLOCK)
-            return -EAGAIN;
-
-        ret = wqdemo_wait_data(d);           /* ось тут задача засинає */
-        if (ret)
-            return ret;                      /* -ERESTARTSYS: прилетів сигнал */
-    }
-
-    if (copy_to_user(buf, kbuf, n))          /* замка вже немає — тут спати МОЖНА */
-        return -EFAULT;
-
-    if (wq_has_sleeper(&d->writeq))          /* у кільці звільнилося місце */
-        wake_up_interruptible(&d->writeq);
-
-    return n;
-}
-```
+:::code proj-waitqueue-driver/c/chytannia-shcho-vmiie.c
 
 Цикл `for (;;)` починається зі спроби забрати дані, а не з перевірки умови, і це не лінощі. `ring_get()` і є перевіркою: він повертає нуль, коли брати нічого. Одна дія замість двох — і жодного вікна між «перевірив, що є» і «забрав», у яке міг би влізти інший читач.
 
@@ -199,62 +56,7 @@ static ssize_t wqdemo_read(struct file *f, char __user *buf, size_t len, loff_t 
 
 ## Запис і таймер, який удає перервання
 
-```c
-static ssize_t wqdemo_write(struct file *f, const char __user *buf, size_t len, loff_t *off)
-{
-    struct wqdemo *d = f->private_data;
-    char kbuf[CHUNK];
-    unsigned long flags;
-    unsigned int n;
-    int ret;
-
-    if (len > sizeof(kbuf))
-        len = sizeof(kbuf);
-    if (!len)
-        return 0;                            /* нульовий запис не чекає на місце */
-    if (copy_from_user(kbuf, buf, len))      /* замка ще немає — спати МОЖНА */
-        return -EFAULT;
-
-    for (;;) {
-        spin_lock_irqsave(&d->lock, flags);
-        n = ring_put(d, kbuf, len);
-        spin_unlock_irqrestore(&d->lock, flags);
-
-        if (n)
-            break;
-        if (f->f_flags & O_NONBLOCK)
-            return -EAGAIN;
-
-        ret = wait_event_interruptible(d->writeq, ring_has_space(d));
-        if (ret)
-            return ret;
-    }
-
-    if (wq_has_sleeper(&d->readq))
-        wake_up_interruptible(&d->readq);
-
-    return n;
-}
-
-static void wqdemo_tick(struct timer_list *t)
-{
-    struct wqdemo *d = container_of(t, struct wqdemo, tick);
-    char msg[24];
-    unsigned int n;
-
-    n = scnprintf(msg, sizeof(msg), "tick %lu\n", ++d->seq);
-
-    spin_lock(&d->lock);                     /* м'який контекст: irqsave не потрібен */
-    ring_put(d, msg, n);
-    spin_unlock(&d->lock);
-
-    if (wq_has_sleeper(&d->readq))
-        wake_up_interruptible(&d->readq);
-
-    if (READ_ONCE(period_ms))
-        mod_timer(&d->tick, jiffies + msecs_to_jiffies(READ_ONCE(period_ms)));
-}
-```
+:::code proj-waitqueue-driver/c/zapys-i-taimer-iakyi-udaie.c
 
 Дві функції роблять з кільцем те саме, а замок беруть по-різному, і в цій різниці — правило, яке варто вивчити напам'ять.
 
@@ -266,23 +68,7 @@ static void wqdemo_tick(struct timer_list *t)
 
 ## poll: чекати, не засинаючи
 
-```c
-static __poll_t wqdemo_poll(struct file *f, struct poll_table_struct *pt)
-{
-    struct wqdemo *d = f->private_data;
-    __poll_t mask = 0;
-
-    poll_wait(f, &d->readq, pt);             /* безумовно й ДО перевірки умови */
-    poll_wait(f, &d->writeq, pt);
-
-    if (ring_has_data(d))
-        mask |= EPOLLIN | EPOLLRDNORM;
-    if (ring_has_space(d))
-        mask |= EPOLLOUT | EPOLLWRNORM;
-
-    return mask;
-}
-```
+:::code proj-waitqueue-driver/c/poll-chekaty-ne.c
 
 Уся суть цих семи рядків у тому, що `poll_wait()` **не чекає**. Ім'я обманює: функція лише реєструє запис у черзі й негайно повертається. Спати буде не драйвер, а сам `poll()`/`epoll` — і на власній черзі, а не на нашій. Наш запис у `readq` служить гачком: коли `wake_up_interruptible(&d->readq)` дійде до нього, спрацює не пробудження задачі, а функція, яку туди поклав `epoll`, і вже вона розбудить того, хто чекає на всі десять тисяч дескрипторів одразу. Механіку цієї конструкції розібрано в темі про [select, poll і epoll](root:sys-unix/select-poll-epoll).
 
@@ -292,83 +78,7 @@ static __poll_t wqdemo_poll(struct file *f, struct poll_table_struct *pt)
 
 ## Реєстрація пристрою
 
-```c
-static int wqdemo_open(struct inode *i, struct file *f)
-{
-    f->private_data = container_of(i->i_cdev, struct wqdemo, cdev);
-    return stream_open(i, f);      /* позиції немає; read і write можуть іти разом */
-}
-
-static const struct file_operations wqdemo_fops = {
-    .owner = THIS_MODULE,
-    .open  = wqdemo_open,
-    .read  = wqdemo_read,
-    .write = wqdemo_write,
-    .poll  = wqdemo_poll,
-};
-
-static int __init wqdemo_init(void)
-{
-    struct device *device;
-    int ret;
-
-    dev = kzalloc(sizeof(*dev), GFP_KERNEL);
-    if (!dev)
-        return -ENOMEM;
-
-    dev->ring = kmalloc(RING_SIZE, GFP_KERNEL);
-    if (!dev->ring) { ret = -ENOMEM; goto err_dev; }
-
-    spin_lock_init(&dev->lock);
-    init_waitqueue_head(&dev->readq);
-    init_waitqueue_head(&dev->writeq);
-    timer_setup(&dev->tick, wqdemo_tick, 0);
-
-    ret = alloc_chrdev_region(&devt, 0, 1, "wqdemo");
-    if (ret) goto err_ring;
-
-    cdev_init(&dev->cdev, &wqdemo_fops);
-    dev->cdev.owner = THIS_MODULE;
-    ret = cdev_add(&dev->cdev, devt, 1);
-    if (ret) goto err_region;
-
-    cls = class_create("wqdemo");            /* ядро < 6.4: class_create(THIS_MODULE, "wqdemo") */
-    if (IS_ERR(cls)) { ret = PTR_ERR(cls); goto err_cdev; }
-
-    device = device_create(cls, NULL, devt, NULL, "wqdemo");
-    if (IS_ERR(device)) { ret = PTR_ERR(device); goto err_class; }
-
-    if (period_ms)
-        mod_timer(&dev->tick, jiffies + msecs_to_jiffies(period_ms));
-
-    pr_info("/dev/wqdemo готовий: major=%d minor=%d\n", MAJOR(devt), MINOR(devt));
-    return 0;
-
-err_class:  class_destroy(cls);
-err_cdev:   cdev_del(&dev->cdev);
-err_region: unregister_chrdev_region(devt, 1);
-err_ring:   kfree(dev->ring);
-err_dev:    kfree(dev);
-    return ret;
-}
-
-static void __exit wqdemo_exit(void)
-{
-    timer_shutdown_sync(&dev->tick);   /* більше не спрацює й не перезаведеться */
-    device_destroy(cls, devt);
-    class_destroy(cls);
-    cdev_del(&dev->cdev);
-    unregister_chrdev_region(devt, 1);
-    kfree(dev->ring);
-    kfree(dev);
-}
-
-module_init(wqdemo_init);
-module_exit(wqdemo_exit);
-
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Символьний пристрій із чергою очікування");
-```
+:::code proj-waitqueue-driver/c/reiestratsiia-prystroiu.c
 
 Два рядки тут варті окремої уваги.
 
@@ -460,35 +170,7 @@ read(3, ^Cstrace: Process 9105 detached
 
 І четверта — `poll()`. Увімкнімо таймер і напишімо читача, який чекає, не блокуючись на читанні:
 
-```c
-/* wqpoll.c — чекати на пристрій через poll(2) */
-#include <fcntl.h>
-#include <poll.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int main(void)
-{
-    struct pollfd p = { .events = POLLIN };
-    char buf[64];
-
-    p.fd = open("/dev/wqdemo", O_RDONLY | O_NONBLOCK);
-    if (p.fd < 0) { perror("open"); return 1; }
-
-    for (;;) {
-        int r = poll(&p, 1, 5000);
-
-        if (r < 0)  { perror("poll"); return 1; }
-        if (r == 0) { puts("п'ять секунд тиші"); continue; }
-
-        if (p.revents & POLLIN) {
-            ssize_t n = read(p.fd, buf, sizeof(buf));
-
-            if (n > 0) { fwrite(buf, 1, n, stdout); fflush(stdout); }
-        }
-    }
-}
-```
+:::code proj-waitqueue-driver/c/wqpoll.c
 
 ```console
 $ sudo rmmod wqdemo && sudo insmod wqdemo.ko period_ms=700
@@ -507,22 +189,7 @@ tick 3
 
 Читач найпростіший:
 
-```c
-/* wqreader.c — блокувальне читання по одному байту */
-#include <fcntl.h>
-#include <unistd.h>
-
-int main(void)
-{
-    int fd = open("/dev/wqdemo", O_RDONLY);
-    char b;
-
-    if (fd < 0) return 1;
-    while (read(fd, &b, 1) > 0)
-        ;
-    return 0;
-}
-```
+:::code proj-waitqueue-driver/c/wqreader.c
 
 ```console
 $ sudo rmmod wqdemo; sudo insmod wqdemo.ko          # exclusive=0, таймер вимкнено
@@ -619,18 +286,7 @@ $ sudo perf script | grep wqreader | wc -l
 
 Макрос `wait_event_interruptible_exclusive()` відрізняється від звичайного одним прапорцем у записі. Розгорнути його корисно, бо саме в розгорнутому вигляді видно те, що макрос ховає:
 
-```c
-    DEFINE_WAIT(wait);
-
-    for (;;) {
-        prepare_to_wait_exclusive(&d->readq, &wait, TASK_INTERRUPTIBLE);
-        if (ring_has_data(d))
-            break;
-        if (signal_pending(current)) { ret = -ERESTARTSYS; break; }   /* ← пастка */
-        schedule();
-    }
-    finish_wait(&d->readq, &wait);
-```
+:::code proj-waitqueue-driver/c/shcho-naspravdi-robyt.c
 
 `prepare_to_wait_exclusive()` робить три речі під замком черги: ставить у записі `WQ_FLAG_EXCLUSIVE`, додає його **в хвіст** списку і оголошує стан. Далі `wake_up_interruptible()` обходить список від голови, будить усе не-виключне безумовно, а на першому ж виключному зупиняється — бо `nr_exclusive` у нього дорівнює одиниці. Не-виключні лишаються сповіщенням для всіх, виключні стають чергою по одному.
 
@@ -711,21 +367,7 @@ rmmod: ERROR: Module wqdemo is in use
 
 Правильна відповідь — не «не звільняти», а **розбудити всіх і сказати правду**:
 
-```c
-    /* у структурі пристрою */
-    bool gone;
-
-    /* у шляху зникнення пристрою */
-    WRITE_ONCE(d->gone, true);
-    wake_up_interruptible_all(&d->readq);    /* усіх, а не одного! */
-    wake_up_interruptible_all(&d->writeq);
-
-    /* і в умові кожного очікування */
-    ret = wait_event_interruptible(d->readq,
-                                   ring_has_data(d) || READ_ONCE(d->gone));
-    if (READ_ONCE(d->gone))
-        return -ENODEV;
-```
+:::code proj-waitqueue-driver/c/3-cherha-znyshchena.h
 
 Два рядки тут ключові. `wake_up_interruptible_all()`, а не `wake_up_interruptible()` — бо звичайний зупиниться на першому виключному, і решта спатиме в пам'яті, якої вже нема. І доданок в умові: без нього розбуджений читач побачить порожнє кільце й слухняно засне назад — рівно те, чого ми хотіли уникнути. Саму ж пам'ять звільняють не тут, а тоді, коли останній власник закриє дескриптор; тримають її лічильником посилань, а не сподіванням.
 
@@ -741,18 +383,7 @@ rmmod: ERROR: Module wqdemo is in use
 
 ### 5. `poll_wait()` під умовою
 
-```c
-static __poll_t wqdemo_poll(struct file *f, struct poll_table_struct *pt)
-{
-    struct wqdemo *d = f->private_data;
-
-    if (ring_has_data(d))
-        return EPOLLIN | EPOLLRDNORM;        /* ← реєстрації не було */
-
-    poll_wait(f, &d->readq, pt);
-    return 0;
-}
-```
+:::code proj-waitqueue-driver/c/5-poll-wait-pid-umovoiu.c
 
 Оптимізація виглядає розумною: навіщо реєструватися, якщо дані вже є? Ось навіщо. `epoll` кличе `.poll` із живою таблицею рівно один раз — коли дескриптор додають через `epoll_ctl(EPOLL_CTL_ADD)`. Якщо саме тієї миті в кільці щось лежало, запису в нашій черзі не з'явиться **ніколи**. Читач вибере наявне до дна, і більше цей дескриптор не спрацює: будити його нема кому й нема через що — ні в рівневому режимі, ні тим паче в `EPOLLET`. Ухилятися ж від `poll_wait()` немає від чого: він або ставить запис, або, якщо той уже стоїть, не робить нічого.
 

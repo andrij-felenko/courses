@@ -45,19 +45,7 @@ static inline int dma_mapping_error(struct device *dev, dma_addr_t dma_addr)
 
 ## Межа адресації пристрою
 
-```c
-int dma_set_mask(struct device *dev, u64 mask);            /* потокові відображення */
-int dma_set_coherent_mask(struct device *dev, u64 mask);   /* узгоджені виділення */
-u64 dma_get_required_mask(struct device *dev);             /* яка маска покрила б усю пам'ять */
-
-static inline int dma_set_mask_and_coherent(struct device *dev, u64 mask)
-{
-        int rc = dma_set_mask(dev, mask);
-        if (rc == 0)
-                dma_set_coherent_mask(dev, mask);
-        return rc;
-}
-```
+:::code api-dma-mapping/c/mezha-adresatsii-prystroiu.c
 
 Кличуть один раз при під'єднанні пристрою, **до** першого відображення. Повертають нуль при успіху; ненульове означає, що платформа такої вузької маски не витягує, і драйвер мусить відмовитися від DMA, а не працювати далі.
 
@@ -72,19 +60,7 @@ static inline int dma_set_mask_and_coherent(struct device *dev, u64 mask)
 
 ## Узгоджена пам'ять
 
-```c
-void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
-                      gfp_t flag, unsigned long attrs);
-void  dma_free_attrs(struct device *dev, size_t size, void *cpu_addr,
-                     dma_addr_t dma_handle, unsigned long attrs);
-
-static inline void *dma_alloc_coherent(struct device *dev, size_t size,
-                                       dma_addr_t *dma_handle, gfp_t gfp);
-#define dma_free_coherent(d, s, c, h)  dma_free_attrs(d, s, c, h, 0)
-
-static inline void *dma_alloc_wc(struct device *dev, size_t size,
-                                 dma_addr_t *dma_addr, gfp_t gfp);  /* + WRITE_COMBINE */
-```
+:::code api-dma-mapping/c/uzhodzhena-pamiat.h
 
 Виклик повертає **два** значення: адресу для процесора (як результат) і адресу для пристрою (через `dma_handle`). Обидві вирівняні на найменший порядок сторінок, не менший за `size` — тож запит на 60 КіБ гарантовано не перетне межу 64 КіБ, чого вимагає частина контролерів.
 
@@ -102,42 +78,13 @@ void  dma_pool_destroy(struct dma_pool *pool);
 
 ## Потокові відображення
 
-```c
-dma_addr_t dma_map_single_attrs(struct device *dev, void *ptr, size_t size,
-                                enum dma_data_direction dir, unsigned long attrs);
-void       dma_unmap_single_attrs(struct device *dev, dma_addr_t addr, size_t size,
-                                  enum dma_data_direction dir, unsigned long attrs);
-
-dma_addr_t dma_map_page_attrs(struct device *dev, struct page *page, size_t offset,
-                              size_t size, enum dma_data_direction dir,
-                              unsigned long attrs);
-void       dma_unmap_page_attrs(struct device *dev, dma_addr_t addr, size_t size,
-                                enum dma_data_direction dir, unsigned long attrs);
-
-#define dma_map_single(d, a, s, r)     dma_map_single_attrs(d, a, s, r, 0)
-#define dma_unmap_single(d, a, s, r)   dma_unmap_single_attrs(d, a, s, r, 0)
-#define dma_map_page(d, p, o, s, r)    dma_map_page_attrs(d, p, o, s, r, 0)
-#define dma_unmap_page(d, a, s, r)     dma_unmap_page_attrs(d, a, s, r, 0)
-```
+:::code api-dma-mapping/c/potokovi-vidobrazhennia.h
 
 `dma_map_single` бере адресу ядра, `dma_map_page` — пару «сторінка плюс зсув»: це єдиний спосіб віддати пристроєві сторінку, для якої немає постійної адреси в ядрі, і саме через нього проходять сторінки з простору користувача. Аргументи `unmap` мусять збігатися з аргументами `map` до останнього числа — на платформі з підмінними буферами саме за ними ядро знаходить, звідки копіювати назад.
 
 ## Списки сегментів
 
-```c
-unsigned int dma_map_sg_attrs(struct device *dev, struct scatterlist *sg, int nents,
-                              enum dma_data_direction dir, unsigned long attrs);
-void         dma_unmap_sg_attrs(struct device *dev, struct scatterlist *sg, int nents,
-                                enum dma_data_direction dir, unsigned long attrs);
-
-int  dma_map_sgtable(struct device *dev, struct sg_table *sgt,
-                     enum dma_data_direction dir, unsigned long attrs);
-void dma_unmap_sgtable(struct device *dev, struct sg_table *sgt,
-                       enum dma_data_direction dir, unsigned long attrs);
-
-#define dma_map_sg(d, s, n, r)    dma_map_sg_attrs(d, s, n, r, 0)
-#define dma_unmap_sg(d, s, n, r)  dma_unmap_sg_attrs(d, s, n, r, 0)
-```
+:::code api-dma-mapping/c/spysky-sehmentiv.h
 
 Тут два різні протоколи помилки, і плутати їх не можна.
 
@@ -150,20 +97,7 @@ void dma_unmap_sgtable(struct device *dev, struct sg_table *sgt,
 
 ## Синхронізація без розбирання відображення
 
-```c
-void dma_sync_single_for_cpu(struct device *dev, dma_addr_t addr, size_t size,
-                             enum dma_data_direction dir);
-void dma_sync_single_for_device(struct device *dev, dma_addr_t addr, size_t size,
-                                enum dma_data_direction dir);
-void dma_sync_sg_for_cpu(struct device *dev, struct scatterlist *sg, int nelems,
-                         enum dma_data_direction dir);
-void dma_sync_sg_for_device(struct device *dev, struct scatterlist *sg, int nelems,
-                            enum dma_data_direction dir);
-void dma_sync_sgtable_for_cpu(struct device *dev, struct sg_table *sgt,
-                              enum dma_data_direction dir);
-void dma_sync_sgtable_for_device(struct device *dev, struct sg_table *sgt,
-                                 enum dma_data_direction dir);
-```
+:::code api-dma-mapping/c/synkhronizatsiia-bez.h
 
 Потрібні тоді й лише тоді, коли процесор хоче торкнутися буфера, який усе ще відображений — типово при повторному вжитку того самого буфера в кільці. `..._for_cpu` викликають **перед** читанням, `..._for_device` — **після** запису; напрямок мусить бути той самий, що при відображенні. Синхронізація відображення не знімає: буфер лишається чинним, поки не буде `unmap`.
 
@@ -220,20 +154,6 @@ static inline int dma_mmap_wc(struct device *dev, struct vm_area_struct *vma,
 
 ## Мінімальний повний виклик
 
-```c
-/* один раз, при під'єднанні */
-if (dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64)))
-        return -EIO;
-
-/* на кожну передачу */
-dma_addr_t da = dma_map_single(dev, buf, len, DMA_TO_DEVICE);
-if (dma_mapping_error(dev, da))
-        return -ENOMEM;
-
-start_transfer(dev, da, len);           /* адресу — в регістр пристрою */
-wait_for_completion(&done);             /* прокидається обробник переривання */
-
-dma_unmap_single(dev, da, len, DMA_TO_DEVICE);   /* аргументи ті самі, що при map */
-```
+:::code api-dma-mapping/c/minimalnyi-povnyi-vyklyk.c
 
 Чотири рядки, у яких немає жодної арифметики над адресами, — і це головна властивість інтерфейсу, а не випадковість.

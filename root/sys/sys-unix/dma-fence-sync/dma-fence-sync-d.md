@@ -117,19 +117,7 @@
 
 Найпомітніше явні огорожі вживає підсистема виводу на екран: у атомарній заявці на новий кадр кожна площина має властивість із номером вхідного дескриптора, а кожен контролер — місце, куди ядро покладе вихідний. Композитор віддає ядру кадр, який ще не намальовано, разом з обіцянкою, коли він буде готовий, і одразу повертається до своїх справ. Точні імена властивостей, структури й номери викликів зібрано окремо — [контракт огорож: dma_fence, sync_file і властивості атомарної заявки](root:sys-unix/dma-fence-sync/api-fence-interfaces.md).
 
-```c
-/* композитор: віддати кадр, який ще малюється */
-int out_fence = -1;
-
-drmModeAtomicAddProperty(req, plane_id, prop_in_fence_fd,  client_fence);
-drmModeAtomicAddProperty(req, crtc_id,  prop_out_fence_ptr, (uint64_t)(uintptr_t)&out_fence);
-drmModeAtomicCommit(fd, req, DRM_MODE_ATOMIC_NONBLOCK, NULL);
-
-/* виклик уже повернувся; out_fence спрацює після реального перемикання кадру */
-struct pollfd pfd = { .fd = out_fence, .events = POLLIN };
-poll(&pfd, 1, 100);
-close(out_fence);
-```
+:::code dma-fence-sync-d/c/main.h
 
 `drmModeAtomicCommit` повертається одразу, не чекаючи на GPU клієнта: ядро прийняло заявку з умовою й виконає її саме. Чекає вже `poll()` нижче — і не на малювання, а на сам факт перемикання кадру.
 

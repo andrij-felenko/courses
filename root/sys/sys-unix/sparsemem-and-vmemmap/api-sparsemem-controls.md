@@ -110,24 +110,7 @@ SUBSECTIONS_PER_SECTION = 2²⁷⁻²¹   = 64  ← мапа підсекцій 
 
 ## Частина третя: запис каталогу
 
-```c
-struct mem_section {
-        unsigned long section_mem_map;
-        struct mem_section_usage *usage;
-#ifdef CONFIG_PAGE_EXTENSION
-        struct page_ext *page_ext;
-        unsigned long pad;
-#endif
-};
-
-struct mem_section_usage {
-        struct rcu_head rcu;
-#ifdef CONFIG_SPARSEMEM_VMEMMAP
-        DECLARE_BITMAP(subsection_map, SUBSECTIONS_PER_SECTION);
-#endif
-        unsigned long pageblock_flags[0];
-};
-```
+:::code api-sparsemem-controls/c/chastyna-tretia-zapys.c
 
 Слово `section_mem_map` служить двом різним речам у різні моменти життя секції.
 
@@ -167,23 +150,7 @@ struct mem_section_usage {
 
 Три моделі — три різні визначення однієї пари макросів, `include/asm-generic/memory_model.h`:
 
-```c
-/* CONFIG_FLATMEM */
-#define __pfn_to_page(pfn)   (mem_map + ((pfn) - ARCH_PFN_OFFSET))
-#define __page_to_pfn(page)  ((unsigned long)((page) - mem_map) + ARCH_PFN_OFFSET)
-
-/* CONFIG_SPARSEMEM_VMEMMAP */
-#define __pfn_to_page(pfn)   (vmemmap + (pfn))
-#define __page_to_pfn(page)  (unsigned long)((page) - vmemmap)
-
-/* CONFIG_SPARSEMEM — обидва напрямки складніші за один вираз, тому це
-   інструкції-вирази GCC; тут наведено те, що вони роблять по суті */
-#define __pfn_to_page(pfn)   ({ struct mem_section *__s = __pfn_to_section(pfn); \
-                                __section_mem_map_addr(__s) + (pfn); })
-#define __page_to_pfn(pg)    ({ int __sec = memdesc_section((pg)->flags);        \
-                                (unsigned long)((pg) - __section_mem_map_addr(   \
-                                        __nr_to_section(__sec))); })
-```
+:::code api-sparsemem-controls/c/chastyna-chetverta.c
 
 Функція `memdesc_section()` у зворотному напрямку — та, що дістає номер секції з бітів `page->flags`; донедавна вона звалася `page_to_section()`.
 
@@ -197,28 +164,7 @@ struct mem_section_usage {
 
 Функція, без якої весь цей апарат небезпечний:
 
-```c
-static inline int pfn_valid(unsigned long pfn)
-{
-        struct mem_section *ms;
-        int ret;
-
-        if (PHYS_PFN(PFN_PHYS(pfn)) != pfn)          /* номер не влазить у фізичну адресу */
-                return 0;
-        if (pfn_to_section_nr(pfn) >= NR_MEM_SECTIONS)
-                return 0;
-        ms = __pfn_to_section(pfn);
-        rcu_read_lock_sched();
-        if (!valid_section(ms)) {
-                rcu_read_unlock_sched();
-                return 0;
-        }
-        /* рання секція заповнена цілком; у пізньої питаємо конкретну підсекцію */
-        ret = early_section(ms) || pfn_section_valid(ms, pfn);
-        rcu_read_unlock_sched();
-        return ret;
-}
-```
+:::code api-sparsemem-controls/c/chastyna-chetverta-2.c
 
 Обхід під `rcu_read_lock_sched()` не декоративний: `usage` разом із мапою підсекцій звільняється через RCU, бо секцію можуть вилучати паралельно з читанням.
 
@@ -233,28 +179,7 @@ static inline int pfn_valid(unsigned long pfn)
 
 Мінімальний робочий модуль, який друкує стан секції за номером кадру (символ `mem_section` експортований, тож `__pfn_to_section()` доступний і поза ядром — [як збирається й вантажиться модуль](root:sys-unix/kernel-modules): окремий об'єктний файл, який вставляють у працююче ядро й лінкують з його символами):
 
-```c
-#include <linux/mm.h>
-#include <linux/mmzone.h>
-#include <linux/memory_hotplug.h>
-
-static void describe_pfn(unsigned long pfn)
-{
-        struct mem_section *ms;
-        struct page *pg;
-
-        if (!pfn_valid(pfn)) {
-                pr_info("pfn %lu: описувача немає\n", pfn);
-                return;   /* pfn_to_page() тут поклав би ядро */
-        }
-        ms = __pfn_to_section(pfn);
-        pg = pfn_to_online_page(pfn);         /* NULL, якщо секція не в роботі */
-
-        pr_info("pfn %lu  секція %lu  present=%d early=%d online=%d  page=%px\n",
-                pfn, pfn_to_section_nr(pfn),
-                !!present_section(ms), !!early_section(ms), !!online_section(ms), pg);
-}
-```
+:::code api-sparsemem-controls/c/chastyna-chetverta-3.c
 
 | симптом | причина |
 |---|---|

@@ -105,28 +105,7 @@
 
 Заголовок — `linux/spinlock.h`. Тип `spinlock_t`, для коду, який мусить крутитися за будь-якого складання, — `raw_spinlock_t` із дзеркальним набором `raw_spin_*`.
 
-```c
-DEFINE_SPINLOCK(name);                 /* статично */
-spin_lock_init(&lock);                 /* динамічно, обов'язково до першого взяття */
-
-void spin_lock(spinlock_t *lock);
-void spin_lock_bh(spinlock_t *lock);           /* + заборона нижніх половин */
-void spin_lock_irq(spinlock_t *lock);          /* + закриття переривань, беззастережне */
-void spin_lock_irqsave(spinlock_t *lock, unsigned long flags);   /* макрос: flags — вихідний */
-
-void spin_unlock(spinlock_t *lock);
-void spin_unlock_bh(spinlock_t *lock);
-void spin_unlock_irq(spinlock_t *lock);
-void spin_unlock_irqrestore(spinlock_t *lock, unsigned long flags);
-
-int  spin_trylock(spinlock_t *lock);           /* 1 — узяли, 0 — зайнято */
-int  spin_trylock_bh(spinlock_t *lock);
-int  spin_trylock_irqsave(spinlock_t *lock, unsigned long flags);
-
-void spin_lock_nested(spinlock_t *lock, int subclass);  /* два замки одного класу — для lockdep */
-int  spin_is_locked(spinlock_t *lock);         /* лише для налагодження */
-void assert_spin_locked(spinlock_t *lock);
-```
+:::code api-locking-primitives/c/spin-zamky-syhnatury.h
 
 Правило пар тут суворе й невзаємозамінне: `_bh` віддають через `_bh`, `_irq` через `_irq`, `_irqsave` через `_irqrestore` **із тією самою змінною** `flags`.
 
@@ -140,42 +119,7 @@ void assert_spin_locked(spinlock_t *lock);
 
 ## Сплячі замки: сигнатури
 
-```c
-/* м'ютекс — linux/mutex.h */
-DEFINE_MUTEX(name);                    mutex_init(&m);
-void mutex_lock(struct mutex *m);
-int  mutex_lock_interruptible(struct mutex *m);   /* 0 або -EINTR */
-int  mutex_lock_killable(struct mutex *m);        /* 0 або -EINTR, лише смертельний сигнал */
-void mutex_lock_io(struct mutex *m);              /* очікування рахується як iowait */
-int  mutex_trylock(struct mutex *m);              /* 1 — узяли; НЕ з переривання */
-void mutex_unlock(struct mutex *m);               /* лише власник */
-bool mutex_is_locked(struct mutex *m);            /* лише для налагодження */
-int  atomic_dec_and_mutex_lock(atomic_t *cnt, struct mutex *m);
-
-/* семафор читання-письма — linux/rwsem.h */
-DECLARE_RWSEM(name);                   init_rwsem(&sem);
-void down_read(struct rw_semaphore *sem);
-int  down_read_interruptible(struct rw_semaphore *sem);
-int  down_read_killable(struct rw_semaphore *sem);
-int  down_read_trylock(struct rw_semaphore *sem);      /* 1 — узяли */
-void up_read(struct rw_semaphore *sem);
-void down_write(struct rw_semaphore *sem);
-int  down_write_killable(struct rw_semaphore *sem);
-int  down_write_trylock(struct rw_semaphore *sem);
-void up_write(struct rw_semaphore *sem);
-void downgrade_write(struct rw_semaphore *sem);        /* письменник стає читачем без розриву */
-void down_read_non_owner(struct rw_semaphore *sem);    /* виняток; див. нижче */
-void up_read_non_owner(struct rw_semaphore *sem);
-
-/* лічильний семафор — linux/semaphore.h */
-DEFINE_SEMAPHORE(name, n);             sema_init(&sem, n);
-void down(struct semaphore *sem);
-int  down_interruptible(struct semaphore *sem);        /* 0 або -EINTR */
-int  down_killable(struct semaphore *sem);
-int  down_trylock(struct semaphore *sem);              /* 0 — УЗЯЛИ, ненуль — зайнято */
-int  down_timeout(struct semaphore *sem, long jiffies);/* 0 або -ETIME */
-void up(struct semaphore *sem);
-```
+:::code api-locking-primitives/c/mutex.h
 
 Значення, що повертають, тут неоднорідні, і на цьому спотикаються: `spin_trylock()` і `down_read_trylock()` повертають **1 при успіху**, а `down_trylock()` — **0 при успіху**. Це давня незручність, яку не виправляють, щоб не переписувати тисячі викликів; єдиний захист — читати сигнатуру, а не покладатися на здоровий глузд.
 
@@ -191,49 +135,13 @@ void up(struct semaphore *sem);
 
 ## Не-замки: завершення й атомарні лічильники
 
-```c
-/* завершення — linux/completion.h */
-DECLARE_COMPLETION(name);              init_completion(&c);
-DECLARE_COMPLETION_ONSTACK(name);      /* для змінної на стеку: правильно для lockdep */
-void reinit_completion(struct completion *c);          /* перед повторним ужитком */
-
-void          wait_for_completion(struct completion *c);
-int           wait_for_completion_interruptible(struct completion *c);
-int           wait_for_completion_killable(struct completion *c);
-unsigned long wait_for_completion_timeout(struct completion *c, unsigned long jiffies);
-long          wait_for_completion_interruptible_timeout(struct completion *c, unsigned long j);
-void          wait_for_completion_io(struct completion *c);      /* облік як iowait */
-
-void complete(struct completion *c);       /* будить ОДНОГО чекача; можна з переривання */
-void complete_all(struct completion *c);   /* будить усіх і лишає стан «уже сталося» */
-bool try_wait_for_completion(struct completion *c);   /* не спить */
-bool completion_done(struct completion *c);           /* не спить */
-```
+:::code api-locking-primitives/c/completion.h
 
 Варіанти з часом повертають **скільки часу лишилося**: нуль означає, що вичерпали, і це єдиний спосіб відрізнити «дочекалися» від «здалися». `complete_all()` відрізняється від `complete()` не кількістю розбуджених, а слідом: після нього завершення лишається в стані «подія вже сталася», тож усі, хто прийде пізніше, пройдуть без очікування — доки хтось не покличе `reinit_completion()`.
 
 Атомарні операції (`linux/atomic.h`) працюють без будь-якого контексту, і саме тому ними користуються там, де замок неможливий.
 
-```c
-atomic_t counter = ATOMIC_INIT(0);
-
-int  atomic_read(const atomic_t *v);            /* READ_ONCE — упорядкування НЕ дає  */
-void atomic_set(atomic_t *v, int i);            /* WRITE_ONCE — так само             */
-
-void atomic_inc(atomic_t *v);                   /* без повернення → НЕвпорядковані   */
-void atomic_add(int i, atomic_t *v);
-bool atomic_dec_and_test(atomic_t *v);          /* 1, якщо стало нулем               */
-bool atomic_add_unless(atomic_t *v, int a, int u);
-
-int  atomic_inc_return(atomic_t *v);            /* із поверненням → ПОВНІ бар'єри    */
-int  atomic_fetch_add(int i, atomic_t *v);
-int  atomic_cmpxchg(atomic_t *v, int old, int new);
-bool atomic_try_cmpxchg(atomic_t *v, int *old, int new);
-
-/* послаблені різновиди тих самих операцій */
-atomic_inc_return_relaxed(v);  atomic_fetch_add_acquire(i, v);  atomic_fetch_add_release(i, v);
-smp_mb__before_atomic();  smp_mb__after_atomic();   /* добудувати бар'єр до невпорядкованої */
-```
+:::code api-locking-primitives/c/ne-zamky-zavershennia-i.h
 
 Правило впорядкування записане в `Documentation/atomic_t.txt` одним рядком і варте того, щоб його пам'ятати дослівно: операції з поверненням значення впорядковані повністю, операції без повернення — не впорядковані взагалі. Тобто `atomic_inc()` гарантує лише неподільність самого збільшення й нічого не каже про порядок сусідніх доступів до пам'яті; коли порядок потрібен, беруть різновид із поверненням або добудовують бар'єр явно ([упорядкування пам'яті та бар'єри](root:sf-tasks/memory-ordering-barriers) — чому процесор і компілятор переставляють доступи й що саме забороняє бар'єр).
 
@@ -241,39 +149,11 @@ smp_mb__before_atomic();  smp_mb__after_atomic();   /* добудувати ба
 
 ## Читання без замка: seqlock, RCU, local_lock
 
-```c
-/* послідовний замок — linux/seqlock.h */
-DEFINE_SEQLOCK(sl);                    seqlock_init(&sl);
-
-unsigned seq;                           /* читач */
-do {
-    seq = read_seqbegin(&sl);
-    /* тут читаємо — і НІЧОГО не робимо з прочитаним */
-} while (read_seqretry(&sl, seq));
-
-write_seqlock(&sl);   /* письменник: бере вбудований спін-замок */
-write_sequnlock(&sl);
-/* із суфіксами: write_seqlock_bh / _irq / _irqsave — правила ті самі, що в spin_lock */
-read_seqlock_excl(&sl);   /* читач, який не хоче повторювати: бере той самий спін-замок */
-```
+:::code api-locking-primitives/c/seqlock.h
 
 Контракт читача seqlock жорсткіший, ніж здається. Усередині спроби дані можуть бути **напівзаписані**: вказівник — уже новий, а довжина — ще стара. Тому в цій ділянці не можна ані спати, ані ділити на прочитане число, ані переходити за прочитаним вказівником, ані робити щось незворотне. Правильний зразок — скопіювати значення в локальні змінні, вийти з циклу і аж тоді щось із ними робити. Письменник же бере звичайний спін-замок, тож усі його обмеження — це обмеження `spin_lock` із відповідним суфіксом.
 
-```c
-/* RCU — linux/rcupdate.h */
-rcu_read_lock();                    /* законний будь-де, зокрема в NMI */
-p = rcu_dereference(gp);            /* читати вказівник тільки так */
-/* ... користуємося p; спати тут НЕ можна ... */
-rcu_read_unlock();
-
-rcu_assign_pointer(gp, new);        /* письменник підміняє вказівник */
-synchronize_rcu();                  /* СПИТЬ: лише контекст задачі */
-call_rcu(&old->rcu, free_cb);       /* відкладене звільнення; можна з атомарного контексту */
-kfree_rcu(old, rcu);                /* те саме для простого kfree */
-
-int idx = srcu_read_lock(&ss);      /* різновид, у ділянці якого спати МОЖНА */
-srcu_read_unlock(&ss, idx);         /* повернути рівно той індекс, що дали */
-```
+:::code api-locking-primitives/c/chytannia-bez-zamka.c
 
 Найчастіша помилка з RCU — заснути всередині ділянки читання: узяти там м'ютекс, виділити пам'ять з `GFP_KERNEL` або скопіювати щось у простір користувача. Коли сон усередині справді потрібен, беруть SRCU — окремий різновид саме для цього. І окремо: покладатися на те, що ядро складене без витісненості й тому ділянка читання «і так атомарна», не можна — довідник RCU попереджає, що такий код зламається, щойно ввімкнуть `CONFIG_PREEMPT_RCU`, де ділянку читання можна витіснити ([RCU: читання без замків і відкладене звільнення](root:sys-unix/rcu-read-copy-update) — як письменник підміняє версію структури й чому старий примірник звільняють не одразу).
 
@@ -337,81 +217,7 @@ local_unlock(&llock);
 
 Один пристрій, чотири різні потреби — і чотири різні примітиви, кожен на своєму місці:
 
-```c
-#include <linux/completion.h>
-#include <linux/interrupt.h>
-#include <linux/mutex.h>
-#include <linux/slab.h>
-#include <linux/spinlock.h>
-
-struct my_dev {
-    spinlock_t         lock;      /* список чіпає обробник → спін-замок       */
-    struct list_head   events;
-    struct mutex       cfg_lock;  /* налаштування чіпає лише задача → м'ютекс */
-    struct dev_config  cfg;
-    struct completion  done;      /* задача чекає, обробник сповіщає          */
-    atomic_t           dropped;   /* лічильник із будь-якого контексту        */
-};
-
-static int dev_init(struct my_dev *d)
-{
-    spin_lock_init(&d->lock);
-    INIT_LIST_HEAD(&d->events);
-    mutex_init(&d->cfg_lock);
-    init_completion(&d->done);
-    atomic_set(&d->dropped, 0);
-    return 0;
-}
-
-/* Шлях задачі. Виділення — ЗА межами замка: kmalloc(GFP_KERNEL) має право заснути. */
-int dev_push(struct my_dev *d, u32 code)
-{
-    struct event *e = kmalloc(sizeof(*e), GFP_KERNEL);
-    unsigned long flags;                      /* локальна, unsigned long      */
-
-    if (!e)
-        return -ENOMEM;
-    e->code = code;
-
-    spin_lock_irqsave(&d->lock, flags);       /* цей замок бере й обробник    */
-    list_add_tail(&e->node, &d->events);
-    spin_unlock_irqrestore(&d->lock, flags);
-    return 0;
-}
-
-/* Шлях обробника. Переривання вже закриті — досить spin_lock(). */
-static irqreturn_t dev_irq(int irq, void *arg)
-{
-    struct my_dev *d = arg;
-    struct event *e = kmalloc(sizeof(*e), GFP_ATOMIC);   /* не GFP_KERNEL!    */
-
-    if (!e) {
-        atomic_inc(&d->dropped);              /* законно навіть звідси        */
-        return IRQ_HANDLED;
-    }
-    e->code = read_status(d);
-
-    spin_lock(&d->lock);
-    list_add_tail(&e->node, &d->events);
-    spin_unlock(&d->lock);
-
-    complete(&d->done);                       /* сповістити — можна; узяти    */
-    return IRQ_HANDLED;                       /* м'ютекс — ні                 */
-}
-
-/* Довга робота під сплячим замком — лише з контексту задачі. */
-int dev_reconfigure(struct my_dev *d, const struct dev_config *new_cfg)
-{
-    if (mutex_lock_interruptible(&d->cfg_lock))
-        return -ERESTARTSYS;
-
-    d->cfg = *new_cfg;
-    apply_config(d);                          /* може чекати на апаратуру     */
-
-    mutex_unlock(&d->cfg_lock);               /* звільняє той самий, хто брав */
-    return 0;
-}
-```
+:::code api-locking-primitives/c/minimalnyi-pravylnyi.c
 
 Читати цей зразок варто не як «правильний код», а як чотири окремі рішення. Спін-замок узято тому, що структуру чіпає обробник; `_irqsave` — тому, що з боку задачі переривання відкриті; `GFP_ATOMIC` в обробнику — тому, що `GFP_KERNEL` дозволяє заснути; м'ютекс — тому, що `apply_config()` довга й до неї не дотягується жоден обробник.
 

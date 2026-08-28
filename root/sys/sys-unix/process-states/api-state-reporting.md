@@ -48,39 +48,11 @@
 
 Назовні йде не маска, а один байт. Перетворення робить коротка функція з `include/linux/sched.h`, і в ній варто прочитати кожен рядок — саме вона визначає, чого ви ніколи не побачите:
 
-```c
-static inline unsigned int __task_state_index(unsigned int tsk_state,
-                                              unsigned int tsk_exit_state)
-{
-    unsigned int state = (tsk_state | tsk_exit_state) & TASK_REPORT;
-
-    if ((tsk_state & TASK_IDLE) == TASK_IDLE)
-        state = TASK_REPORT_IDLE;          /* 0x80 — понад маску */
-
-    if ((tsk_state & TASK_RTLOCK_WAIT) || (tsk_state & TASK_FROZEN))
-        state = TASK_UNINTERRUPTIBLE;      /* свідома підміна: показати як D */
-
-    return fls(state);                     /* номер старшого одиничного біта */
-}
-```
+:::code api-state-reporting/c/iak-bity-staiut-odniieiu.c
 
 `fls()` (*find last set*) віддає позицію найстаршої одиниці, рахуючи від одиниці, і нуль для нульового аргументу. Отриманий номер — це індекс у масиві рядків із `fs/proc/array.c`:
 
-```c
-static const char * const task_state_array[] = {
-    /* стани в масці TASK_REPORT: */
-    "R (running)",      /* 0x00 */
-    "S (sleeping)",     /* 0x01 */
-    "D (disk sleep)",   /* 0x02 */
-    "T (stopped)",      /* 0x04 */
-    "t (tracing stop)", /* 0x08 */
-    "X (dead)",         /* 0x10 */
-    "Z (zombie)",       /* 0x20 */
-    "P (parked)",       /* 0x40 */
-    /* стан поза маскою: */
-    "I (idle)",         /* 0x80 */
-};
-```
+:::code api-state-reporting/c/iak-bity-staiut-odniieiu-2.c
 
 ![Біти поля __state зводяться маскою TASK_REPORT, спецвипадки підмінюються, fls дає індекс у масиві літер](img/state-letter-path.svg)
 
@@ -131,21 +103,7 @@ fls(0x0002)   = 2
 
 Перший символ стовпчика `STAT` — це **байт із поля 3** `/proc/PID/stat`, скопійований без жодного перекладу: власного словника станів у `ps` немає, тож будь-яку нову літеру ядра вона покаже сама собою. Решта символів — надбудова самої `ps`, зібрана з інших полів:
 
-```c
-/* procps-ng, ps/output.c — літера з ядра плюс шість модифікаторів самої ps */
-static int pr_stat(char *restrict const outbuf, const proc_t *restrict const pp){
-    int end = 0;
-    outbuf[end++] = pp->state;
-    if(pp->nice < 0)            outbuf[end++] = '<';
-    if(pp->nice > 0)            outbuf[end++] = 'N';
-    if(pp->vm_lock)             outbuf[end++] = 'L';
-    if(pp->session == pp->tgid) outbuf[end++] = 's';
-    if(pp->nlwp > 1)            outbuf[end++] = 'l';
-    if(pp->pgrp == pp->tpgid)   outbuf[end++] = '+';
-    outbuf[end] = '\0';
-    return end;
-}
-```
+:::code api-state-reporting/c/output.c
 
 | символ | умова | звідки взято число |
 |---|---|---|
@@ -310,144 +268,9 @@ echo t > /proc/sysrq-trigger    # стеки геть усіх задач сис
 Прочитати літеру стану й місце сну для **кожного** потоку процесу — саме те, чого не дає типовий вивід `ps`. Ключова деталь усіх трьох варіантів однакова: поле 3 шукають від останньої дужки `)`, а не з початку рядка ([procfs](root:sys-unix/proc-reading-process-and-kernel-state) — файли, що читаються як звичайні, але породжуються ядром у момент читання, тому жодного кешування тут немає).
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <dirent.h>
-#include <stdio.h>
-#include <string.h>
-
-/* Читає перший рядок файлу; повертає довжину або -1. */
-static int read_line(const char *path, char *buf, size_t cap)
-{
-    FILE *f = fopen(path, "re");
-    if (!f)
-        return -1;
-    size_t n = fread(buf, 1, cap - 1, f);
-    fclose(f);
-    buf[n] = '\0';
-    buf[strcspn(buf, "\n")] = '\0';
-    return (int)n;
-}
-
-int main(int argc, char **argv)
-{
-    if (argc != 2) {
-        fprintf(stderr, "вжиток: %s <pid>\n", argv[0]);
-        return 2;
-    }
-
-    char dir[64], path[160], buf[4096], wchan[128];
-    snprintf(dir, sizeof dir, "/proc/%s/task", argv[1]);
-
-    DIR *d = opendir(dir);
-    if (!d) {
-        perror(dir);
-        return 1;
-    }
-
-    for (struct dirent *e; (e = readdir(d)) != NULL; ) {
-        if (e->d_name[0] == '.')
-            continue;
-
-        snprintf(path, sizeof path, "%s/%s/stat", dir, e->d_name);
-        if (read_line(path, buf, sizeof buf) <= 0)
-            continue;                      /* потік вийшов, поки ми читали */
-
-        char *p = strrchr(buf, ')');       /* кінець поля 2 — ОСТАННЯ дужка */
-        if (!p || p[1] != ' ')
-            continue;
-        char state = p[2];                 /* поле 3 — рівно один байт */
-
-        snprintf(path, sizeof path, "%s/%s/wchan", dir, e->d_name);
-        if (read_line(path, wchan, sizeof wchan) <= 0)
-            strcpy(wchan, "0");            /* «0» = біжить або немає прав */
-
-        printf("%-7s %c  %s\n", e->d_name, state, wchan);
-    }
-
-    closedir(d);
-    return 0;
-}
-```
-```cpp
-#include <filesystem>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <system_error>
-
-namespace fs = std::filesystem;
-
-static std::string read_first_line(const fs::path& p)
-{
-    std::ifstream f(p);
-    if (!f)
-        return {};
-    std::string line;
-    std::getline(f, line);
-    return line;
-}
-
-int main(int argc, char** argv)
-{
-    if (argc != 2) {
-        std::cerr << "вжиток: " << argv[0] << " <pid>\n";
-        return 2;
-    }
-
-    fs::path task_dir = fs::path("/proc") / argv[1] / "task";
-    std::error_code ec;
-    auto it = fs::directory_iterator(task_dir, ec);
-    if (ec) {
-        std::cerr << task_dir << ": " << ec.message() << "\n";
-        return 1;
-    }
-
-    for (const auto& entry : it) {
-        if (!entry.is_directory())
-            continue;
-
-        std::string tid = entry.path().filename().string();
-        std::string stat = read_first_line(entry.path() / "stat");
-        if (stat.empty())
-            continue;
-
-        auto pos = stat.rfind(')');
-        if (pos == std::string::npos || pos + 2 >= stat.size())
-            continue;
-        char state = stat[pos + 2];
-
-        std::string wchan = read_first_line(entry.path() / "wchan");
-        if (wchan.empty())
-            wchan = "0";
-
-        std::cout << tid;
-        if (tid.size() < 7)
-            std::cout << std::string(7 - tid.size(), ' ');
-        std::cout << " " << state << "  " << wchan << "\n";
-    }
-    return 0;
-}
-```
-```python
-#!/usr/bin/env python3
-"""Літера стану й місце сну для кожного потоку процесу."""
-import pathlib
-import sys
-
-pid = sys.argv[1]
-
-for task in sorted(pathlib.Path(f"/proc/{pid}/task").iterdir(), key=lambda p: int(p.name)):
-    try:
-        stat = (task / "stat").read_text()
-        # поле 2 — ім'я в дужках, у ньому бувають пробіли й ')',
-        # тому відлік починаємо від ОСТАННЬОЇ дужки
-        state = stat[stat.rindex(")") + 2]
-        wchan = (task / "wchan").read_text().strip()   # «0» = біжить або немає прав
-    except (FileNotFoundError, ProcessLookupError, PermissionError):
-        continue                                        # потік уже вийшов
-    print(f"{task.name:<7} {state}  {wchan}")
-```
+:::code api-state-reporting/c/minimalnyi-robochyi-vyklyk.c
+:::code api-state-reporting/cpp/main.cpp
+:::code api-state-reporting/py/main.py
 :::
 
 Усі три варіанти віддають **миттєвий знімок**, а не вимір або середнє значення: між двома послідовними читаннями стан задачі може змінитися тисячі разів. Побачити в `D` задачу, яка проводить у непереривному сні лише крихітну частку відсотка часу, — звичайна річ при частих вибірках.

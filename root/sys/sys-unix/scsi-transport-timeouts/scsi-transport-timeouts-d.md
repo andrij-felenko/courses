@@ -315,23 +315,7 @@ fast_io_fail_tmo < dev_loss_tmo
 
 Коли потік `scsi_eh` прокидається для обробки завислої команди, функція `fc_eh_timed_out()` або відповідний обробник транспортного класу негайно перевіряє стан віддаленого порту:
 
-```c
-/* Фрагмент логіки обробки тайм-ауту в drivers/scsi/scsi_transport_fc.c */
-enum blk_eh_timer_return fc_eh_timedout(struct scsi_cmnd *scmd)
-{
-    struct fc_rport *rport = starget_to_rport(scsi_target(scmd->device));
-
-    if (rport->port_state == FC_PORTSTATE_BLOCKED) {
-        if (rport->flags & FC_RPORT_FAST_FAIL_TIMEDOUT) {
-            /* fast_io_fail_tmo вже сплив: відсікаємо ескалацію scsi_eh */
-            return BLK_EH_DONE;
-        }
-        /* Порт заблоковано, але fast_io_fail_tmo ще діє: продовжуємо таймер */
-        return BLK_EH_RESET_TIMER;
-    }
-    return BLK_EH_DONE;
-}
-```
+:::code scsi-transport-timeouts-d/c/scsi_transport_fc.c
 
 Якщо порт уже перебуває у стані `Blocked` і таймер `fast_io_fail_tmo` вичерпано, транспортний клас забороняє драйверу виконувати безглузді спроби відправки `ABORT TASK` або `RESET` у розірване оптоволокно. Функція відновлення негайно повертає статус швидкої відмови, і команда провалюється за частки мікросекунди без проходження багаторівневої ескалації `scsi_eh`.
 

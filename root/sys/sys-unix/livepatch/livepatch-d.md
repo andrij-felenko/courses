@@ -24,32 +24,7 @@
 
 Латка для ядра Linux — це [модуль](root:sys-unix/kernel-modules). Усередині нього лежать **цілі нові функції**, скомпільовані звичайним компілятором, і таблиця, яка каже, кого вони заступають.
 
-```c
-static struct klp_func funcs[] = {
-        {
-                .old_name = "cmdline_proc_show",
-                .new_func = livepatch_cmdline_proc_show,
-        }, { }
-};
-
-static struct klp_object objs[] = {
-        {
-                /* .name = NULL означає саме ядро, а не якийсь модуль */
-                .funcs = funcs,
-        }, { }
-};
-
-static struct klp_patch patch = {
-        .mod    = THIS_MODULE,
-        .objs   = objs,
-        .replace = true,
-};
-
-static int __init livepatch_init(void)
-{
-        return klp_enable_patch(&patch);
-}
-```
+:::code livepatch-d/c/main.c
 
 Одиниця латання тут — **функція цілком**, а не окремий виправлений рядок. Це не технічне обмеження, а свідомий вибір: у функції є єдина точка входу, і саме на ній можна перехопити керування, не розбираючись, що в неї всередині.
 

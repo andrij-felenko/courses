@@ -10,18 +10,7 @@
 
 Обгорток у glibc немає й не планується, тож звертаються через [`syscall()`](root:sys-unix/syscall-mechanics). Константи бере з `<linux/ioprio.h>` — це заголовок ядра, а не бібліотеки.
 
-```c
-#include <linux/ioprio.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-static inline int ioprio_set(int which, int who, int ioprio) {
-    return syscall(SYS_ioprio_set, which, who, ioprio);
-}
-static inline int ioprio_get(int which, int who) {
-    return syscall(SYS_ioprio_get, which, who);
-}
-```
+:::code api-ioprio/c/main.c
 
 `ioprio_set` повертає `0` або `-1` з `errno`. `ioprio_get` повертає саме значення пріоритету — воно завжди невід'ємне, тож `-1` однозначно означає помилку.
 

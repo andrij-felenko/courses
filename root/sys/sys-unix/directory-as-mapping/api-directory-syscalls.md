@@ -12,19 +12,7 @@
 
 ## Зміна таблиці: створити, прибрати, переставити запис
 
-```c
-#include <unistd.h>
-int link(const char *oldpath, const char *newpath);
-int unlink(const char *pathname);
-int symlink(const char *target, const char *linkpath);
-int rmdir(const char *pathname);
-
-#include <sys/stat.h>
-int mkdir(const char *pathname, mode_t mode);
-
-#include <stdio.h>
-int rename(const char *oldpath, const char *newpath);
-```
+:::code api-directory-syscalls/c/unistd.h
 
 | виклик | що робить із записами | що з `nlink` | чи торкається даних |
 |---|---|---|---|
@@ -126,18 +114,7 @@ struct linux_dirent64 {
 
 ### Обгортка стандартної бібліотеки
 
-```c
-#include <dirent.h>
-
-DIR           *opendir(const char *name);
-DIR           *fdopendir(int fd);
-struct dirent *readdir(DIR *dirp);
-int            closedir(DIR *dirp);
-void           rewinddir(DIR *dirp);
-long           telldir(DIR *dirp);
-void           seekdir(DIR *dirp, long loc);
-int            dirfd(DIR *dirp);
-```
+:::code api-directory-syscalls/c/dirent.h
 
 `DIR` — потік каталогу: буфер плюс дескриптор плюс поточна позиція. Бібліотека сама викликає `getdents64()`, коли буфер вичерпано, і віддає записи по одному.
 
@@ -172,22 +149,7 @@ POSIX зобов'язує лише два поля — `d_ino` і `d_name`; ре
 
 ## Варіанти `*at`: шлях від дескриптора каталогу
 
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-int openat(int dirfd, const char *pathname, int flags, ... /* mode_t mode */);
-int mkdirat(int dirfd, const char *pathname, mode_t mode);
-int unlinkat(int dirfd, const char *pathname, int flags);
-int symlinkat(const char *target, int newdirfd, const char *linkpath);
-int linkat(int olddirfd, const char *oldpath,
-           int newdirfd, const char *newpath, int flags);
-int renameat(int olddirfd, const char *oldpath,
-             int newdirfd, const char *newpath);
-int fstatat(int dirfd, const char *pathname, struct stat *statbuf, int flags);
-```
+:::code api-directory-syscalls/c/fcntl.h
 
 Правило розбору однакове для всіх: `pathname` абсолютний — `dirfd` ігнорується; відносний — відлічується від каталогу, який відкриває `dirfd`; спеціальне значення `AT_FDCWD` означає поточний робочий каталог, тобто повертає поводження звичайного виклику. Якщо `dirfd` не є дескриптором каталогу — `ENOTDIR`, якщо взагалі не дескриптор — `EBADF`. Навіщо цей клопіт і які гонки він закриває — [сімейство *at](root:sys-unix/at-family-syscalls): дескриптор іменує конкретний каталог назавжди, тоді як рядок шляху щоразу розв'язується наново й може по дорозі змінитися.
 
@@ -251,83 +213,8 @@ int fstatat(int dirfd, const char *pathname, struct stat *statbuf, int flags);
 Найкоротша повна програма, яка бере записи з ядра без бібліотечної обгортки: відкриває каталог, читає буфер за буфером і ступає по ланцюгу через `d_reclen`.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <dirent.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int main(int argc, char **argv)
-{
-    const char *path = (argc > 1) ? argv[1] : ".";
-
-    int fd = open(path, O_RDONLY | O_DIRECTORY);
-    if (fd < 0) { perror("open"); return 1; }
-
-    _Alignas(8) char buf[64 * 1024];   /* вирівняно: у записах є 8-байтові поля */
-
-    for (;;) {
-        ssize_t n = getdents64(fd, buf, sizeof buf);
-        if (n < 0) { perror("getdents64"); close(fd); return 1; }
-        if (n == 0) break;             /* каталог вичерпано */
-
-        for (ssize_t off = 0; off < n; ) {
-            struct dirent64 *e = (struct dirent64 *)(buf + off);
-            printf("%-10llu тип %-3u %s\n",
-                   (unsigned long long)e->d_ino, (unsigned)e->d_type, e->d_name);
-            off += e->d_reclen;        /* ЄДИНИЙ правильний крок */
-        }
-    }
-
-    close(fd);
-    return 0;
-}
-```
-```cpp
-#define _GNU_SOURCE
-#include <dirent.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-#include <array>
-#include <cstdio>
-
-int main(int argc, char **argv)
-{
-    const char *path = (argc > 1) ? argv[1] : ".";
-
-    int fd = open(path, O_RDONLY | O_DIRECTORY);
-    if (fd < 0) {
-        std::perror("open");
-        return 1;
-    }
-
-    alignas(8) std::array<char, 64 * 1024> buf{};
-
-    for (;;) {
-        ssize_t n = getdents64(fd, buf.data(), buf.size());
-        if (n < 0) {
-            std::perror("getdents64");
-            close(fd);
-            return 1;
-        }
-        if (n == 0) break;
-
-        for (ssize_t off = 0; off < n;) {
-            auto *e = reinterpret_cast<struct dirent64 *>(buf.data() + off);
-            std::printf("%-10llu тип %-3u %s\n",
-                        static_cast<unsigned long long>(e->d_ino),
-                        static_cast<unsigned>(e->d_type),
-                        e->d_name);
-            off += e->d_reclen;
-        }
-    }
-
-    close(fd);
-    return 0;
-}
-```
+:::code api-directory-syscalls/c/minimalnyi-robochyi-vyklyk.c
+:::code api-directory-syscalls/cpp/minimalnyi-robochyi-vyklyk.cpp
 :::
 
 Збірка й запуск:
@@ -347,49 +234,6 @@ $ ./lsdir /etc | head -3
 Ту саму роботу через бібліотеку роблять помітно коротше, ціною втрати контролю над розміром буфера:
 
 :::tabs
-```c
-#include <dirent.h>
-#include <errno.h>
-#include <stdio.h>
-
-int main(void)
-{
-    DIR *d = opendir(".");
-    if (!d) { perror("opendir"); return 1; }
-
-    for (;;) {
-        errno = 0;                       /* інакше кінець не відрізнити від збою */
-        struct dirent *e = readdir(d);
-        if (!e) break;
-        printf("%s\n", e->d_name);
-    }
-    if (errno != 0) perror("readdir");
-
-    closedir(d);
-    return 0;
-}
-```
-```cpp
-#include <dirent.h>
-#include <cerrno>
-#include <cstdio>
-#include <iostream>
-
-int main()
-{
-    DIR *d = opendir(".");
-    if (!d) { std::perror("opendir"); return 1; }
-
-    for (;;) {
-        errno = 0;                       /* інакше кінець не відрізнити від збою */
-        struct dirent *e = readdir(d);
-        if (!e) break;
-        std::cout << e->d_name << "\n";
-    }
-    if (errno != 0) std::perror("readdir");
-
-    closedir(d);
-    return 0;
-}
-```
+:::code api-directory-syscalls/c/minimalnyi-robochyi-vyklyk-2.c
+:::code api-directory-syscalls/cpp/minimalnyi-robochyi-vyklyk-2.cpp
 :::

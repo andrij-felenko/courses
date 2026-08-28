@@ -83,21 +83,7 @@ long bpf_perf_event_output(void *ctx, struct bpf_map *map, u64 flags, void *data
 
 Під час прямого відкриття події через системний виклик `perf_event_open()` ядру передається структура конфігурації `struct perf_event_attr`:
 
-```c
-struct perf_event_attr {
-    __u32 type;           /* PERF_TYPE_SOFTWARE */
-    __u32 size;           /* sizeof(struct perf_event_attr) */
-    __u64 config;         /* PERF_COUNT_SW_BPF_OUTPUT */
-    __u64 sample_period;  /* 1 (вибірка кожної події) */
-    __u64 sample_type;    /* PERF_SAMPLE_RAW */
-    __u64 read_format;    /* Формат зчитаних даних */
-    __u64 disabled : 1,   /* Початковий стан: 0 = включено */
-          inherit  : 1,   /* Успадкування дочірніми процесами */
-          pinned   : 1,   /* Закріплення на CPU */
-          exclusive: 1;   /* Ексклюзивний доступ */
-    __u32 wakeup_events;  /* Кількість подій для генерації переривання (batching) */
-};
-```
+:::code api-perf-event-array/c/3-1-konfihuratsiina.c
 
 Головні поля для роботи з eBPF:
 - **`type = PERF_TYPE_SOFTWARE`**: Вказує ядру, що джерелом подій є програмна підсистема.
@@ -109,23 +95,7 @@ struct perf_event_attr {
 
 Перша сторінка кільцевого буфера містить управляючу структуру ядра `struct perf_event_mmap_page`:
 
-```c
-struct perf_event_mmap_page {
-    __u32 version;        /* Версія структури даних perf */
-    __u32 compat_version; /* Версія сумісності */
-    __u32 lock;           /* Поле локу для послідовного читання */
-    __u32 index;          /* Індекс апаратного лічильника */
-    __s64 offset;         /* Зсув лічильника */
-    __u64 time_enabled;   /* Час активності події */
-    __u64 time_running;   /* Час виконання події */
-
-    /* Ключові покажчики кільцевого буфера */
-    __u64 data_head;      /* Вказівник голови (монотонно зростає, оновлюється ядром) */
-    __u64 data_tail;      /* Вказівник хвоста (монотонно зростає, оновлюється userspace) */
-    __u64 data_offset;    /* Зсув початку даних від старту mmap області (4096 байт) */
-    __u64 data_size;      /* Розмір буфера даних у байтах (ступінь двійки) */
-};
-```
+:::code api-perf-event-array/c/3-2-zaholovochna-storinka.c
 
 Поля `data_head` та `data_tail` є основою логіки кільцевого буфера без блокувань:
 - Ядро атомарно збільшує `data_head` на розмір кожного нового записаного елемента.
@@ -169,99 +139,8 @@ typedef void (*perf_buffer_lost_fn)(void *ctx, int cpu, __u64 lost_cnt);
 Для ініціалізації та управління кільцевим буфером у просторі користувача надаються C та C++ виклики:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <bpf/libbpf.h>
-#include <bpf/bpf.h>
-
-void sample_handler(void *ctx, int cpu, void *data, __u32 size) {
-    (void)ctx;
-    printf("CPU %d: отримано %u байт\n", cpu, size);
-}
-
-void lost_handler(void *ctx, int cpu, __u64 lost_cnt) {
-    (void)ctx;
-    fprintf(stderr, "УВАГА: Втрачено %llu подій на CPU %d!\n", lost_cnt, cpu);
-}
-
-struct perf_buffer *init_buffer(int map_fd) {
-    /* Створення буфера на 16 сторінок (64 КБ) на кожен CPU */
-    struct perf_buffer *pb = perf_buffer__new(
-        map_fd,
-        16,
-        sample_handler,
-        lost_handler,
-        NULL,
-        NULL
-    );
-
-    if (libbpf_get_error(pb)) {
-        return NULL;
-    }
-    return pb;
-}
-
-void poll_loop(struct perf_buffer *pb) {
-    while (1) {
-        int err = perf_buffer__poll(pb, 100 /* ms */);
-        if (err < 0 && err != -EINTR) {
-            break;
-        }
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <bpf/libbpf.h>
-#include <bpf/bpf.h>
-
-class PerfBufferWrapper {
-public:
-    explicit PerfBufferWrapper(int map_fd, size_t page_cnt = 16) {
-        perf_buffer* pb = perf_buffer__new(
-            map_fd,
-            page_cnt,
-            &PerfBufferWrapper::on_sample,
-            &PerfBufferWrapper::on_lost,
-            this,
-            nullptr
-        );
-
-        if (libbpf_get_error(pb)) {
-            throw std::runtime_error("Не вдалося ініціалізувати perf_buffer у C++");
-        }
-        pb_.reset(pb);
-    }
-
-    void poll(int timeout_ms = 100) {
-        int err = perf_buffer__poll(pb_.get(), timeout_ms);
-        if (err < 0 && err != -EINTR) {
-            throw std::runtime_error("Помилка опитування perf_buffer__poll");
-        }
-    }
-
-private:
-    static void on_sample(void* ctx, int cpu, void* data, __u32 size) noexcept {
-        (void)ctx;
-        std::cout << "[C++ Agent] CPU " << cpu << ": отримано " << size << " байт\n";
-    }
-
-    static void on_lost(void* ctx, int cpu, __u64 lost_cnt) noexcept {
-        (void)ctx;
-        std::cerr << "[C++ Agent] УВАГА: Втрачено " << lost_cnt << " подій на CPU " << cpu << "\n";
-    }
-
-    struct BufferDeleter {
-        void operator()(perf_buffer* pb) const noexcept {
-            if (pb) perf_buffer__free(pb);
-        }
-    };
-
-    std::unique_ptr<perf_buffer, BufferDeleter> pb_;
-};
-```
+:::code api-perf-event-array/c/4-2-stvorennia-ta.c
+:::code api-perf-event-array/cpp/main.cpp
 :::
 
 ---
@@ -294,17 +173,6 @@ struct perf_buffer_opts {
 
 ### 6.1 Програмне підвищення лімітів у C/C++
 
-```c
-#include <sys/resource.h>
-#include <stdio.h>
-
-int bump_memlock_rlimit(void) {
-    struct rlimit rlim_new = {
-        .rlim_cur = RLIM_INFINITY,
-        .rlim_max = RLIM_INFINITY,
-    };
-    return setrlimit(RLIMIT_MEMLOCK, &rlim_new);
-}
-```
+:::code api-perf-event-array/c/6-1-prohramne.c
 
 У сучасних ядрах Linux (починаючи з версії 5.11) підсистема eBPF перейшла на облік пам'яті через контрольні групи cgroups (`memcg`), що позбавляє від потреби виклику `setrlimit()` у сучасних середовищах.

@@ -49,21 +49,7 @@ echo 4096 > $CFG/core/fileio_0/disk1/attrib/block_size
 
 ## Ціль, портал, LUN і дозвіл
 
-```bash
-IQN=iqn.2026-08.org.example:store
-mkdir -p $CFG/iscsi/$IQN/tpgt_1/np/0.0.0.0:3260
-cd $CFG/iscsi/$IQN/tpgt_1
-
-mkdir lun/lun_0
-ln -s $CFG/core/fileio_0/disk1 lun/lun_0/store
-
-INIT=$(sed -n 's/^InitiatorName=//p' /etc/iscsi/initiatorname.iscsi)
-mkdir -p acls/$INIT/lun_0
-ln -s $CFG/iscsi/$IQN/tpgt_1/lun/lun_0 acls/$INIT/lun_0/mapped
-
-echo 0 > attrib/authentication
-echo 1 > enable
-```
+:::code proj-target-by-hand/sh/tsil-portal-lun-i-dozvil.sh
 
 Номер LUN тут заводиться двічі, і це не надмірність. `lun/lun_0` — порт пристрою на цій цілі: посилання всередині нього прив'язує номер до backstore. А `acls/<ініціатор>/lun_0` — номер, під яким цей конкретний ініціатор побачить той самий порт; для іншого ініціатора той самий диск може бути `lun_3`. Обидва рази значення несе тека, а не ім'я посилання всередині неї: `store` і `mapped` вигадані, ядро дивиться лише на те, куди посилання веде. Перше має вести на пристрій у `core/`, друге — на LUN саме цієї групи портів; інакше ядро відмовить.
 
@@ -135,19 +121,7 @@ echo "скидань: $(( $(awk '{print $16}' /sys/block/sdb/stat) - b ))"
 
 ## Розібрати назад
 
-```bash
-umount /mnt/t
-iscsiadm -m node -T $IQN -p 127.0.0.1:3260 --logout
-iscsiadm -m node -T $IQN -p 127.0.0.1:3260 -o delete
-echo NULL > $CFG/loopback/$WWN/tpgt_0/nexus
-rm $CFG/loopback/$WWN/tpgt_0/lun/lun_0/store
-rmdir $CFG/loopback/$WWN/tpgt_0/lun/lun_0 $CFG/loopback/$WWN/tpgt_0 $CFG/loopback/$WWN
-
-cd $CFG/iscsi/$IQN/tpgt_1 && echo 0 > enable
-rm acls/$INIT/lun_0/mapped lun/lun_0/store
-rmdir acls/$INIT/lun_0 acls/$INIT lun/lun_0 np/0.0.0.0:3260
-cd $CFG && rmdir iscsi/$IQN/tpgt_1 iscsi/$IQN core/fileio_0/disk1 core/fileio_0
-```
+:::code proj-target-by-hand/sh/rozibraty-nazad.sh
 
 Порядок тут не з ввічливості. Спробуйте почати з кінця — і `rmdir core/fileio_0/disk1` відповість `Device or resource busy`, поки на цю теку веде бодай одне посилання з якогось LUN. Це той самий лічильник експорту, що не давав змінити розмір блоку, тільки цього разу він проступає звичайною помилкою файлової системи: об'єкт живий, доки на нього хтось посилається. Сам файл `/srv/disk1.img` жодна з цих команд не чіпає — його видаляють руками, і в ньому лишається все, що ви туди записали.
 

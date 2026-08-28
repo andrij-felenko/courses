@@ -10,30 +10,7 @@
 
 У джерелах шостої редакції Unix (1975) буферним кешем відає файл `usr/sys/dmr/bio.c`. Основна функція читання там — `bread`: узяти буфер під потрібний блок, і якщо в ньому ще немає готових даних, замовити читання й **заснути** до кінця передавання. Поруч із нею лежить її старша сестра з однією зайвою літерою в назві:
 
-```c
-/*
- * Read in the block, like bread, but also start I/O on the
- * read-ahead block (which is not allocated to the caller)
- */
-breada(adev, blkno, rablkno)
-{
-    ...
-    if (rablkno && !incore(dev, rablkno)) {
-        rabp = getblk(dev, rablkno);
-        if (rabp->b_flags & B_DONE)
-            brelse(rabp);
-        else {
-            rabp->b_flags =| B_READ|B_ASYNC;
-            rabp->b_wcount = -256;
-            (*bdevsw[adev.d_major].d_strategy)(rabp);
-        }
-    }
-    if (rbp==0)
-        return(bread(dev, blkno));
-    iowait(rbp);
-    return(rbp);
-}
-```
+:::code hist-readahead-lineage/c/main.c
 
 Уся суть — у слові `B_ASYNC` в одному рядку. Блок `blkno` читають так само, як завжди, і на нього чекають (`iowait`). А блок `rablkno` теж замовляють — але без чекання, і його буфер не віддають тому, хто кликав: він просто осяде в кеші, і коли по нього прийдуть, `bread` знайде його вже готовим. Помітно й те, чого функція **не** робить: якщо потрібний блок уже в кеші, вся вигадливість відпадає (`if (rbp==0) return(bread(...))`), а якщо в кеші вже є і блок наперед — його буфер одразу відпускають. Синтаксис `=|` замість звичного нам `|=` датує код точніше за будь-який коментар: так писали до зміни граматики компілятора в середині сімдесятих.
 

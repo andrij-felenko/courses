@@ -27,21 +27,7 @@ mount -o dax=inode /dev/pmem0 /mnt/pmem
 
 Позначка зберігається у файловій системі й переживає перемонтування. Живе вона в полі `fsx_xflags` тієї самої структури, через яку ходять інші розширені атрибути ([Прапорці inode](root:sys-unix/inode-flags-chattr) — набір бітів на inode, які міняють поведінку файлу назавжди, а не на час відкриття, і читаються окремою парою ioctl).
 
-```c
-/* include/uapi/linux/fs.h */
-struct fsxattr {
-	__u32  fsx_xflags;      /* сюди й ставиться позначка */
-	__u32  fsx_extsize;
-	__u32  fsx_nextents;
-	__u32  fsx_projid;
-	__u32  fsx_cowextsize;
-	unsigned char fsx_pad[8];
-};
-
-#define FS_XFLAG_DAX        0x00008000
-#define FS_IOC_FSGETXATTR   _IOR('X', 31, struct fsxattr)
-#define FS_IOC_FSSETXATTR   _IOW('X', 32, struct fsxattr)
-```
+:::code api-dax-controls/c/postiina-poznachka-na.c
 
 | дія | команда |
 | --- | --- |
@@ -74,32 +60,7 @@ struct fsxattr {
 
 Діючий стан віддає `statx` — окремим бітом у полі атрибутів ([statx](root:sys-unix/statx-mask-and-unknown-values) — розширений запит метаданих файлу, у якому програма сама називає, що їй потрібно, а ядро окремою маскою відповідає, на що з питань воно взагалі вміє відповідати).
 
-```c
-#define _GNU_SOURCE
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-
-/* int statx(int dirfd, const char *path, int flags,
-             unsigned int mask, struct statx *buf);      */
-
-/* include/uapi/linux/stat.h */
-#define STATX_ATTR_DAX  0x00200000      /* з ядра 5.8 */
-
-int main(int argc, char **argv) {
-	struct statx st;
-	if (statx(AT_FDCWD, argv[1], AT_STATX_SYNC_AS_STAT,
-	          STATX_BASIC_STATS, &st) < 0)
-		return perror("statx"), 1;
-
-	if (!(st.stx_attributes_mask & STATX_ATTR_DAX)) {
-		puts("ядро або ця ФС про DAX нічого не кажуть");
-		return 0;
-	}
-	puts(st.stx_attributes & STATX_ATTR_DAX ? "S_DAX: так" : "S_DAX: ні");
-	return 0;
-}
-```
+:::code api-dax-controls/c/iak-spytaty-iadro-a-ne.c
 
 Перевірка `stx_attributes_mask` тут не формальність. Нуль у `stx_attributes` означає рівно дві різні речі — «вимкнено» і «мене про це не питали»; розрізняє їх лише маска. Програма, яка дивиться самі атрибути, на старому ядрі впевнено доповість, що DAX вимкнено, хоча він працює.
 
@@ -109,19 +70,7 @@ int main(int argc, char **argv) {
 
 Що саме перевіряє ядро, видно з трьох рядків, які вирішують долю такого відображення:
 
-```c
-/* include/linux/dax.h */
-static inline bool daxdev_mapping_supported(const struct vm_area_desc *desc,
-                                            const struct inode *inode,
-                                            struct dax_device *dax_dev)
-{
-	if (!vma_desc_test(desc, VMA_SYNC_BIT))   /* MAP_SYNC не просили */
-		return true;
-	if (!IS_DAX(inode))                       /* файл не в стані S_DAX */
-		return false;
-	return dax_synchronous(dax_dev);          /* пристрій синхронний? */
-}
-```
+:::code api-dax-controls/c/mmap-dva-praportsi-i-odna.c
 
 | ситуація | що повернеться |
 | --- | --- |

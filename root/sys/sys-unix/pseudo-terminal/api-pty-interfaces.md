@@ -30,25 +30,7 @@ int   ptsname_r(int fd, char *buf, size_t buflen);     /* потребує _GNU_
 
 Перевіряти результат `ptsname_r` треба обережно: він **повертає код помилки, а не −1**, і glibc заразом кладе той самий код у `errno`. Звична форма `if (ptsname_r(...) < 0)` тихо пропустить помилку повз себе.
 
-```c
-#define _XOPEN_SOURCE 600
-#include <fcntl.h>
-#include <stdlib.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-
-/* Повертає дескриптор ведучого кінця; ім'я підлеглого кладе в name. */
-int pty_open(char *name, size_t n) {
-    int m = posix_openpt(O_RDWR | O_NOCTTY | O_CLOEXEC);
-    if (m < 0) return -1;
-    if (grantpt(m) < 0 || unlockpt(m) < 0) goto fail;
-    if (ptsname_r(m, name, n) != 0) goto fail;
-    return m;
-fail:
-    close(m);
-    return -1;
-}
-```
+:::code api-pty-interfaces/c/main.c
 
 Замок, який знімає `unlockpt`, стоїть із самого створення пари й перевіряється при **кожному** способі відкрити підлеглий кінець. Забули `unlockpt` — і `open` за іменем, і `ioctl(TIOCGPTPEER)` повернуть `EIO`, причому повідомлення жодним чином не натякне на замок.
 

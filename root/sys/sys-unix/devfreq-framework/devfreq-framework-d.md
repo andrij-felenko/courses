@@ -76,19 +76,7 @@ f_target < f_current:  f_new = f_target    →  Затримка стабілі�
 
 Взаємодія між драйвером конкретного обладнання та каркасом devfreq базується на структурі профілю пристрою `struct devfreq_dev_profile`, визначеній у заголовному файлі `<linux/devfreq.h>`:
 
-```c
-struct devfreq_dev_profile {
-    unsigned long initial_freq;
-    unsigned int polling_ms;
-    int (*target)(struct device *dev, unsigned long *freq, u32 flags);
-    int (*get_dev_status)(struct device *dev, struct devfreq_dev_status *stat);
-    int (*get_cur_freq)(struct device *dev, unsigned long *freq);
-    void (*exit)(struct device *dev);
-    unsigned long *freq_table;
-    unsigned int max_state;
-    bool is_cooling;
-};
-```
+:::code devfreq-framework-d/c/main.h
 
 Драйвер заповнює цей профіль під час ініціалізації:
 * `initial_freq` задає початкову робочу частоту в герцах, на якій пристрій стартує до запуску алгоритмів регулювання.

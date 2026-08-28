@@ -20,180 +20,19 @@
 
 ## Код
 
-```c
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/bits.h>
-#include <linux/dma-mapping.h>
-#include <linux/interrupt.h>
-#include <linux/io.h>
-#include <linux/kernel.h>
-#include <linux/scatterlist.h>
-#include <linux/spinlock.h>
-
-#define RING_LEN     256u          /* степінь двійки — щоб обгортати маскою */
-#define DESC_OWN     BIT(31)       /* 1 — дескриптор у пристрою */
-#define DESC_EOR     BIT(30)       /* останній сегмент запиту */
-#define DESC_ERR     BIT(29)       /* пристрій виставив помилку */
-
-#define REG_RING_LO  0x00
-#define REG_RING_HI  0x04
-#define REG_TAIL     0x08
-#define REG_IRQ_ACK  0x10
-
-/* Так дескриптор бачить контролер: 16 байтів у ЙОГО порядку байтів. */
-struct hw_desc {
-        __le64 addr;
-        __le32 len;
-        __le32 flags;
-};
-
-/* Одна передача з погляду драйвера. */
-struct xfer {
-        struct sg_table        *sgt;
-        enum dma_data_direction dir;      /* запам'ятали при map — знімемо тим самим */
-        void (*done)(struct xfer *x, int err);
-};
-
-struct engine {
-        struct device  *dev;
-        void __iomem   *regs;
-
-        struct hw_desc *ring;             /* узгоджена пам'ять: спільна з пристроєм */
-        dma_addr_t      ring_dma;
-
-        struct xfer    *owner[RING_LEN];  /* звичайна пам'ять ядра: чий це слот */
-        unsigned int    tail;             /* куди пише драйвер */
-        unsigned int    head;             /* звідки забирає завершені */
-        spinlock_t      lock;
-};
-```
+:::code proj-ring-and-transfer/c/kod.c
 
 Кільце виділяють один раз, і адресу пристрою повідомляють теж один раз:
 
-```c
-static int engine_start(struct engine *e)
-{
-        int ret;
-
-        /* Досяжність оголошують ДО першого відображення: далі ядро саме
-           вирішить, чи потрібен цьому пристрою підмінний буфер.        */
-        ret = dma_set_mask_and_coherent(e->dev, DMA_BIT_MASK(64));
-        if (ret)
-                return ret;
-
-        e->ring = dma_alloc_coherent(e->dev, RING_LEN * sizeof(*e->ring),
-                                     &e->ring_dma, GFP_KERNEL);
-        if (!e->ring)                     /* саме NULL: тут dma_mapping_error не треба */
-                return -ENOMEM;
-
-        spin_lock_init(&e->lock);
-        e->head = e->tail = 0;
-
-        writel(lower_32_bits(e->ring_dma), e->regs + REG_RING_LO);
-        writel(upper_32_bits(e->ring_dma), e->regs + REG_RING_HI);
-        return 0;
-}
-```
+:::code proj-ring-and-transfer/c/kod-2.c
 
 Тепер сама передача. Це той шматок, у якому кожен рядок стоїть на своєму місці не випадково:
 
-```c
-static unsigned int ring_free(const struct engine *e)
-{
-        return RING_LEN - 1 - ((e->tail - e->head) & (RING_LEN - 1));
-}
-
-static int engine_submit(struct engine *e, struct xfer *x)
-{
-        struct scatterlist *sg;
-        unsigned long irqflags;
-        int i, ret;
-
-        /* 1. Віддаємо буфер пристроєві. Від цього рядка й до unmap
-              процесор не має права ні читати його, ні писати.        */
-        ret = dma_map_sgtable(e->dev, x->sgt, x->dir, 0);
-        if (ret)
-                return ret;               /* 0 або -EINVAL/-ENOMEM: перевірку не обійти */
-
-        spin_lock_irqsave(&e->lock, irqflags);
-
-        if (ring_free(e) < x->sgt->nents) {
-                spin_unlock_irqrestore(&e->lock, irqflags);
-                dma_unmap_sgtable(e->dev, x->sgt, x->dir, 0);   /* той самий напрямок */
-                return -EBUSY;
-        }
-
-        /* 2. Обхід — по nents, кількості сегментів ПІСЛЯ відображення. */
-        for_each_sgtable_dma_sg(x->sgt, sg, i) {
-                struct hw_desc *d = &e->ring[e->tail];
-                u32 fl = DESC_OWN;
-
-                d->addr = cpu_to_le64(sg_dma_address(sg));
-                d->len  = cpu_to_le32(sg_dma_len(sg));
-
-                if (i == (int)x->sgt->nents - 1)
-                        fl |= DESC_EOR;
-                e->owner[e->tail] = (fl & DESC_EOR) ? x : NULL;
-
-                /* 3. Адреса й довжина мусять лягти в пам'ять ДО прапорця,
-                      який віддає дескриптор пристроєві.                  */
-                dma_wmb();
-                d->flags = cpu_to_le32(fl);
-
-                e->tail = (e->tail + 1) & (RING_LEN - 1);
-        }
-
-        /* 4. Дзвінок у двері. */
-        writel(e->tail, e->regs + REG_TAIL);
-
-        spin_unlock_irqrestore(&e->lock, irqflags);
-        return 0;
-}
-```
+:::code proj-ring-and-transfer/c/kod-3.c
 
 І зворотний бік — обробник переривання:
 
-```c
-static irqreturn_t engine_irq(int irq, void *data)
-{
-        struct engine *e = data;
-        unsigned int handled = 0;
-
-        spin_lock(&e->lock);              /* переривання на цьому ядрі вже вимкнено */
-
-        while (e->head != e->tail) {
-                struct hw_desc *d = &e->ring[e->head];
-                struct xfer *x = e->owner[e->head];
-                u32 fl = le32_to_cpu(READ_ONCE(d->flags));
-
-                if (fl & DESC_OWN)        /* пристрій ще не віддав — далі не йдемо */
-                        break;
-
-                /* 5. Прапорець прочитано; лише тепер решта полів
-                      цього дескриптора справді наша.               */
-                dma_rmb();
-
-                e->owner[e->head] = NULL;
-                e->head = (e->head + 1) & (RING_LEN - 1);
-                handled++;
-
-                if (!x)                   /* проміжний сегмент запиту */
-                        continue;
-
-                /* 6. Ті самі аргументи, що й при відображенні. Тільки
-                      після цього рядка вміст буфера можна читати.    */
-                dma_unmap_sgtable(e->dev, x->sgt, x->dir, 0);
-                x->done(x, (fl & DESC_ERR) ? -EIO : 0);
-        }
-
-        spin_unlock(&e->lock);
-
-        if (!handled)
-                return IRQ_NONE;          /* переривання не наше: лінію ділять */
-        writel(1, e->regs + REG_IRQ_ACK);
-        return IRQ_HANDLED;
-}
-```
+:::code proj-ring-and-transfer/c/kod-4.c
 
 ![Дві колонки, зв'язані стрілками. Ліворуч вісім кроків драйвера згори вниз: dma_map_sgtable, обхід по sgt->nents, запис addr і len через cpu_to_le, dma_wmb, запис прапорця OWN, writel у регістр tail, потім у перериванні dma_rmb після знятого OWN і насамкінець dma_unmap_sgtable з тим самим напрямком. Праворуч навпроти кожного кроку — наслідок для заліза; сині рамки на кроках 1 і 8 позначають перехід володіння буфером, червоні на кроках 4, 6 і 7 — три місця, де важить порядок](img/transfer-path.svg)
 

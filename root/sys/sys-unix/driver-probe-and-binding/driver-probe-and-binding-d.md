@@ -61,32 +61,7 @@ MODULE_DEVICE_TABLE(of, bmp280_of_match);
 
 Останнє варто підкреслити окремо. Вузол у `/dev` створює не «драйвер узагалі» і не факт завантаження модуля, а конкретний **успішний** `probe` для конкретного примірника заліза. Дві однакові плати — два виклики `probe`, два вузли.
 
-```c
-static int sensor_probe(struct i2c_client *client)
-{
-	struct iio_dev *indio;
-	struct sensor *st;
-	int ret;
-
-	indio = devm_iio_device_alloc(&client->dev, sizeof(*st));
-	if (!indio)
-		return -ENOMEM;
-	st = iio_priv(indio);
-
-	st->vdd = devm_regulator_get(&client->dev, "vdd");
-	if (IS_ERR(st->vdd))
-		return dev_err_probe(&client->dev, PTR_ERR(st->vdd),
-				     "немає регулятора живлення\n");
-
-	ret = i2c_smbus_read_byte_data(client, REG_WHO_AM_I);
-	if (ret < 0)
-		return ret;
-	if (ret != CHIP_ID)
-		return -ENODEV;
-
-	return devm_iio_device_register(&client->dev, indio);
-}
-```
+:::code driver-probe-and-binding-d/c/main.c
 
 Тут видно три різні відмови, і різниця між ними принципова. `-ENOMEM` — збій системи. `-ENODEV` — «за таблицею схоже, але мікросхема відповіла не те; це не моє». А помилка від регулятора може означати ще й третє, і про це — далі. Помічник `dev_err_probe()` (з'явився в ядрі 2020 року, автор Анджей Хайда) саме тому й існує: він пише зрозуміле повідомлення в журнал, але мовчить, коли причина відмови — «ще зарано», інакше журнал завантаження перетворився б на потік однакових скарг.
 

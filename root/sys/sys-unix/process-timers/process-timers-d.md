@@ -25,19 +25,7 @@
 
 Порожній обробник тут не безглуздий, а якраз найкорисніший. Сигнал, доправлений посеред блокуючого виклику, виводить процес із того виклику з помилкою `EINTR` — саме те, чого ми домагалися: `read()` перестає чекати.
 
-```c
-static void on_alarm(int signo) { (void)signo; }   /* лише розбудити read() */
-
-struct sigaction sa = { .sa_handler = on_alarm };  /* БЕЗ SA_RESTART */
-sigemptyset(&sa.sa_mask);
-sigaction(SIGALRM, &sa, NULL);
-
-alarm(5);
-ssize_t n = read(fd, buf, sizeof buf);
-int err = errno;
-alarm(0);                                          /* скасувати, якщо встигли */
-if (n < 0 && err == EINTR) { /* минуло п'ять секунд */ }
-```
+:::code process-timers-d/c/naimenshe-shcho-vzahali.c
 
 Пастка тут одна, зате коштовна: прапорець `SA_RESTART`. З ним ядро після обробника саме перезапускає перерваний виклик, `read()` знову лягає чекати — і таймаут просто зникає, хоча код виглядає правильним. Роз'яснення обох режимів — у [EINTR і перезапуску](root:sys-unix/eintr-and-restart).
 
@@ -71,21 +59,7 @@ if (n < 0 && err == EINTR) { /* минуло п'ять секунд */ }
 
 Ключове тут — третій аргумент створення, структура `sigevent`: вона описує, **як саме** сповістити. І в ній є поле `sigev_value`, вміст якого ядро донесе разом із сигналом.
 
-```c
-struct sigevent sev = {0};
-sev.sigev_notify = SIGEV_SIGNAL;
-sev.sigev_signo  = SIGRTMIN;             /* реальночасовий: такі стають у чергу */
-sev.sigev_value.sival_ptr = session;     /* ось хто спрацював */
-
-timer_t tid;
-timer_create(CLOCK_MONOTONIC, &sev, &tid);
-
-struct itimerspec its = {
-    .it_value    = { .tv_sec = 0, .tv_nsec = 250000000 },   /* перший строк */
-    .it_interval = { .tv_sec = 0, .tv_nsec = 250000000 },   /* і далі щочверть секунди */
-};
-timer_settime(tid, 0, &its, NULL);
-```
+:::code process-timers-d/c/bahato-taimeriv-iaki-sebe.h
 
 Обробник, оголошений із `SA_SIGINFO`, дістає `siginfo_t` і бере з нього `si_value.sival_ptr` — той самий покажчик на сесію. Поле `si_code` дорівнює `SI_TIMER`, тобто «це від таймера, а не від `kill()`». Тепер тисяча з'єднань з тисячею таймаутів розрізняються без єдиної глобальної таблиці.
 
@@ -113,21 +87,7 @@ timer_settime(tid, 0, &its, NULL);
 
 Розв'язок у дусі Unix: якщо все є файлом, хай і час буде файлом. `timerfd_create()` повертає **дескриптор**, який стає готовим на читання, коли строк настав.
 
-```c
-int tfd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
-struct itimerspec its = { .it_value    = { .tv_sec = 0, .tv_nsec = 250000000 },
-                          .it_interval = { .tv_sec = 0, .tv_nsec = 250000000 } };
-timerfd_settime(tfd, 0, &its, NULL);
-
-struct epoll_event ev = { .events = EPOLLIN, .data.fd = tfd };
-epoll_ctl(ep, EPOLL_CTL_ADD, tfd, &ev);
-
-/* у циклі подій, поряд із сокетами: */
-uint64_t ticks;
-if (read(tfd, &ticks, sizeof ticks) == sizeof ticks) {
-    /* ticks — скільки спрацювань набігло від минулого читання */
-}
-```
+:::code process-timers-d/c/koly-novyna-prykhodyt-u.c
 
 Зникає не одна проблема, а цілий їхній клас. Немає обробника — отже, немає й списку дозволених у ньому функцій. Немає гонитви між перевіркою прапорця й засинанням — потік спить у `epoll_wait()`, і таймер такий самий учасник, як сокет. Немає питання «в якому потоці» — читає той, хто читає. І перевищення рахуються самі: `read()` віддає 64-бітове число спрацювань — те саме знання, що дає `timer_getoverrun()`, тільки повніше: там лічать зайві понад одне, тут — усі разом, і без окремого виклику.
 

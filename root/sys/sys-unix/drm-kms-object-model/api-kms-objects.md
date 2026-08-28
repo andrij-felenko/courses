@@ -113,36 +113,11 @@ struct drm_mode_fb_cmd2 {
 
 ## Атомарна зміна
 
-```c
-struct drm_mode_atomic {
-        __u32 flags;
-        __u32 count_objs;
-        __u64 objs_ptr;            /* __u32[count_objs]  — номери об'єктів */
-        __u64 count_props_ptr;     /* __u32[count_objs]  — скільки в кожного */
-        __u64 props_ptr;           /* __u32[сума]        — СУЦІЛЬНИЙ масив */
-        __u64 prop_values_ptr;     /* __u64[сума]        — той самий порядок */
-        __u64 reserved;            /* мусить бути 0 */
-        __u64 user_data;           /* вернеться в події незміненим */
-};
-```
+:::code api-kms-objects/c/atomarna-zmina.c
 
 Головна тонкість у тому, що останні два масиви **не розбиті за об'єктами**: вони суцільні, а межі всередині них задає `count_props_ptr`. Довжина обох дорівнює сумі лічильників, а не `count_objs`.
 
-```c
-/* плоскість 31 → FB_ID=27, SRC_W=1920.0, CRTC_ID=42
-   CRTC     42 → ACTIVE=1, MODE_ID=блоб 88
-   роз'єм   55 → CRTC_ID=42                                        */
-
-__u32 objs[]   = {  31,  42,  55 };            /* count_objs = 3   */
-__u32 nprops[] = {   3,   2,   1 };            /* сума = 6         */
-
-__u32 props[]  = { p_fb, p_srcw, p_crtc,       /*   об'єкта 31     */
-                   p_active, p_modeid,         /*   об'єкта 42     */
-                   p_conn_crtc };              /*   об'єкта 55     */
-__u64 values[] = {   27, 1920ull << 16, 42,
-                      1, 88,
-                     42 };
-```
+:::code api-kms-objects/c/atomarna-zmina-2.c
 
 Зсув `<< 16` — не оздоба: `SRC_*` задають [у форматі 16.16 з нерухомою комою](root:hw-arch/fixed-point), бо джерельну ділянку доводиться різати з дробовою точністю, коли її масштабують.
 

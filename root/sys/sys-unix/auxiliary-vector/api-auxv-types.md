@@ -180,40 +180,8 @@ unsigned long getauxval(unsigned long type);
 3. Оскільки повернуте значення `0` може бути легітимним вмістом ключа (наприклад, `AT_SECURE = 0`), для надійної перевірки слід обнуляти `errno` перед викликом:
 
 :::tabs
-```c
-#include <sys/auxv.h>
-#include <stdio.h>
-#include <errno.h>
-
-void safe_get_auxv(void) {
-    errno = 0;
-    unsigned long val = getauxval(AT_SECURE);
-    int err = errno;
-
-    if (val == 0 && err == ENOENT) {
-        printf("Ключ AT_SECURE відсутній у auxv\n");
-    } else {
-        printf("Значення AT_SECURE: %lu\n", val);
-    }
-}
-```
-```cpp
-#include <sys/auxv.h>
-#include <iostream>
-#include <cerrno>
-
-void safe_get_auxv_cpp() {
-    errno = 0;
-    const unsigned long val = ::getauxval(AT_SECURE);
-    const int err = errno;
-
-    if (val == 0 && err == ENOENT) {
-        std::cout << "Ключ AT_SECURE відсутній у auxv\n";
-    } else {
-        std::cout << "Значення AT_SECURE: " << val << "\n";
-    }
-}
-```
+:::code api-auxv-types/c/main.c
+:::code api-auxv-types/cpp/main.cpp
 :::
 
 ### Специфікація `getauxval2(3)` (glibc 2.38+)

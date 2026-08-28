@@ -4,32 +4,7 @@
 
 ## Реєстрація переривання
 
-```c
-#include <linux/interrupt.h>
-
-typedef irqreturn_t (*irq_handler_t)(int irq, void *dev_id);
-
-/* повна форма: два обробники — негайний і потоковий */
-int request_threaded_irq(unsigned int irq,
-                         irq_handler_t handler,    /* верхня половина; NULL → типова, що лише будить потік */
-                         irq_handler_t thread_fn,  /* тіло в окремій задачі; NULL → потоку немає */
-                         unsigned long flags,      /* IRQF_* через | */
-                         const char *name,         /* це ім'я видно у /proc/interrupts */
-                         void *dev);               /* прилетить в обробник як dev_id */
-
-/* коротка форма — та сама функція з thread_fn = NULL */
-static inline int request_irq(unsigned int irq, irq_handler_t handler,
-                              unsigned long flags, const char *name, void *dev);
-
-const void *free_irq(unsigned int irq, void *dev);   /* повертає той самий dev */
-
-/* прив'язані до пристрою: знімаються самі, коли драйвер відпускає пристрій */
-int devm_request_irq(struct device *dev, unsigned int irq, irq_handler_t handler,
-                     unsigned long flags, const char *name, void *dev_id);
-int devm_request_threaded_irq(struct device *dev, unsigned int irq, irq_handler_t handler,
-                              irq_handler_t thread_fn, unsigned long flags,
-                              const char *name, void *dev_id);
-```
+:::code api-deferred-work/c/interrupt.h
 
 Коди повернення `request_*_irq()`: `0` — успіх; `-EBUSY` — лінію вже зайнято несумісно (найчастіше: хтось тримає її без `IRQF_SHARED`, або прапорці збігаються не в усьому); `-EINVAL` — немає такого номера, обидва обробники `NULL`, або сталася одна з двох пасток нижче; `-ENOMEM` — не вийшло створити опис чи потік. Усі вони оголошені з `__must_check`: не подивитися на результат — попередження від компілятора.
 
@@ -111,29 +86,7 @@ void tasklet_kill(struct tasklet_struct *t);          /* спить — лише
 
 ## Робочі черги
 
-```c
-#include <linux/workqueue.h>
-
-/* функція елемента завжди така: void fn(struct work_struct *work) */
-INIT_WORK(&w, fn);
-INIT_DELAYED_WORK(&dw, fn);
-DECLARE_WORK(w, fn);                                  /* статичне оголошення */
-
-bool schedule_work(struct work_struct *w);                       /* у спільну system_wq */
-bool schedule_delayed_work(struct delayed_work *dw, unsigned long delay);
-bool queue_work(struct workqueue_struct *wq, struct work_struct *w);
-bool queue_work_on(int cpu, struct workqueue_struct *wq, struct work_struct *w);
-bool queue_delayed_work(struct workqueue_struct *wq,
-                        struct delayed_work *dw, unsigned long delay);
-
-bool flush_work(struct work_struct *w);               /* дочекатися; сплять — лише процесний контекст */
-bool cancel_work_sync(struct work_struct *w);
-bool cancel_delayed_work_sync(struct delayed_work *dw);
-
-struct workqueue_struct *alloc_workqueue(const char *fmt, unsigned int flags,
-                                         int max_active, ...);
-void destroy_workqueue(struct workqueue_struct *wq);
-```
+:::code api-deferred-work/c/workqueue.h
 
 Головна тонкість — значення `false` від `queue_*()`: воно означає «цей елемент **уже** стоїть у черзі», і другий виклик просто нічого не зробив. Елемент не має лічильника: десять подій, що надійшли до першого запуску, дадуть один прохід функції, а не десять. Тому елемент відкладеної роботи мусить читати стан пристрою, а не покладатися на кількість викликів.
 
@@ -157,40 +110,7 @@ void destroy_workqueue(struct workqueue_struct *wq);
 
 ## Мінімальний виклик і порядок знімання
 
-```c
-struct mydev {
-    void __iomem *regs;
-    struct work_struct work;
-    int irq;
-};
-
-static irqreturn_t mydev_isr(int irq, void *dev_id)          /* верхня половина */
-{
-    struct mydev *d = dev_id;
-
-    if (!(readl(d->regs + REG_STATUS) & STATUS_DONE))
-        return IRQ_NONE;                                     /* лінія спільна — не наше */
-
-    writel(STATUS_DONE, d->regs + REG_STATUS);               /* зняти запит негайно */
-    schedule_work(&d->work);                                 /* решту — колись потім */
-    return IRQ_HANDLED;
-}
-
-static void mydev_work(struct work_struct *w)                /* тут спати можна */
-{
-    struct mydev *d = container_of(w, struct mydev, work);
-    ...
-}
-
-/* під час підключення пристрою */
-INIT_WORK(&d->work, mydev_work);
-err = request_irq(d->irq, mydev_isr, IRQF_SHARED, "mydev", d);
-
-/* під час від'єднання — саме в такому порядку */
-free_irq(d->irq, d);
-cancel_work_sync(&d->work);
-kfree(d);
-```
+:::code api-deferred-work/c/minimalnyi-vyklyk-i.h
 
 Порядок трьох рядків від'єднання — не смак, а єдиний правильний. Спершу знімають переривання: доки лінія жива, обробник будь-якої миті поставить у чергу новий елемент, і скасовувати його намарно. `free_irq()` при цьому сам дочекається обробника, що вже біжить. Далі `cancel_work_sync()` знімає елемент, якщо той ще чекає, або дочікує його, якщо він саме виконується; нового після цього взятися нізвідки. І лише тепер пам'ять, у якій живуть і `work_struct`, і сам `dev_id`, можна звільняти. Поміняти перші два рядки місцями — це залишити вікно, у яке обробник устигне поставити елемент уже після скасування, і працівник розбере структуру, звільнену третім рядком.
 

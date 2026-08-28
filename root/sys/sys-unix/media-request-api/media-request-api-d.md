@@ -66,27 +66,7 @@ ioctl(media_fd, MEDIA_IOC_REQUEST_ALLOC, &req_fd);   /* req_fd — новий д
 
 Далі два вже знайомі виклики роблять зовсім не те, що зазвичай. `VIDIOC_S_EXT_CTRLS` із полем `which`, рівним `V4L2_CTRL_WHICH_REQUEST_VAL`, і дескриптором запиту в `request_fd` **не чіпає залізо**: значення лягають у запит і чекають там. Так само `VIDIOC_QBUF` із прапорцем `V4L2_BUF_FLAG_REQUEST_FD` не ставить буфер у вхідну чергу драйвера, а кладе його в запит.
 
-```c
-struct v4l2_ext_control c = { .id = V4L2_CID_EXPOSURE_ABSOLUTE, .value = 120 };
-struct v4l2_ext_controls ctrls = {
-    .which      = V4L2_CTRL_WHICH_REQUEST_VAL,
-    .request_fd = req_fd,
-    .count      = 1,
-    .controls   = &c,
-};
-ioctl(subdev_fd, VIDIOC_S_EXT_CTRLS, &ctrls);
-
-struct v4l2_buffer buf = {
-    .type       = V4L2_BUF_TYPE_VIDEO_CAPTURE,
-    .memory     = V4L2_MEMORY_MMAP,
-    .index      = 2,
-    .flags      = V4L2_BUF_FLAG_REQUEST_FD,
-    .request_fd = req_fd,
-};
-ioctl(video_fd, VIDIOC_QBUF, &buf);
-
-ioctl(req_fd, MEDIA_REQUEST_IOC_QUEUE, NULL);        /* аж тепер щось відбувається */
-```
+:::code media-request-api-d/c/main.h
 
 ![Виклики програми кладуть керування й буфер у запит, а не в залізо; драйвер бачить обидві частини лише після MEDIA_REQUEST_IOC_QUEUE](img/request-contents.svg)
 

@@ -9,40 +9,8 @@
 Порядок байтів у всіх числових полях заголовка та корисного навантаження — виключно Little-Endian. Якщо хост і гість мають різну архітектурну розрядність чи порядок байтів, сторони зобов'язані узгодити прапорець `VHOST_USER_PROTOCOL_F_CROSS_ENDIAN` до передачі будь-яких структур даних.
 
 :::tabs
-```c
-/* Двійковий заголовок та універсальний конверт повідомлення vhost-user */
-struct vhost_user_msg {
-    uint32_t request;          /* Код запиту або відповіді (опкод) */
-    uint32_t flags;            /* Бітові прапорці версії, напрямку та підтвердження */
-    uint32_t size;             /* Розмір корисного навантаження (payload) у байтах */
-    union {
-        uint64_t u64;
-        struct vhost_user_vring_state state;
-        struct vhost_user_vring_addr addr;
-        struct vhost_user_memory memory;
-        struct vhost_user_log log;
-        struct vhost_user_config config;
-        struct vhost_user_inflight inflight;
-        uint8_t raw[1024];
-    } payload;
-} __attribute__((packed));
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-/* Двійковий заголовок та типізований конверт повідомлення vhost-user у C++ */
-struct alignas(4) VhostUserHeader {
-    uint32_t request{0};       // Код запиту або відповіді (опкод)
-    uint32_t flags{0};         // Бітові прапорці версії, напрямку та підтвердження
-    uint32_t size{0};          // Розмір корисного навантаження (payload) у байтах
-};
-
-struct VhostUserMsgRaw {
-    VhostUserHeader header;
-    uint8_t payload[1024];
-};
-```
+:::code api-protocol-messages/c/zahalna-struktura.c
+:::code api-protocol-messages/cpp/zahalna-struktura.cpp
 :::
 
 ### Бітові прапорці заголовка (`flags`)
@@ -130,37 +98,8 @@ struct VhostUserMsgRaw {
 Використовується в запиті `VHOST_USER_SET_MEM_TABLE`. Повідомлення містить список регіонів оперативної пам'яті віртуальної машини, які сервер зобов'язаний відобразити у власний адресний простір за допомогою системного виклику `mmap()`.
 
 :::tabs
-```c
-struct vhost_user_memory_region {
-    uint64_t guest_phys_addr;   /* Базова адреса регіону в фізичній пам'яті гостя (GPA) */
-    uint64_t memory_size;       /* Розмір регіону в байтах */
-    uint64_t userspace_addr;    /* Віртуальна адреса регіону в просторі процесу QEMU (QEMU HVA) */
-    uint64_t mmap_offset;       /* Зміщення всередині файлу розділюваної пам'яті */
-};
-
-struct vhost_user_memory {
-    uint32_t nregions;          /* Кількість переданих регіонів */
-    uint32_t padding;           /* Вирівнювання структури до 8 байтів */
-    struct vhost_user_memory_region regions[8];
-};
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-struct VhostUserMemoryRegion {
-    uint64_t guest_phys_addr{0};  // Базова адреса в пам'яті гостя (GPA)
-    uint64_t memory_size{0};      // Розмір регіону в байтах
-    uint64_t userspace_addr{0};   // Віртуальна адреса в QEMU (QEMU HVA)
-    uint64_t mmap_offset{0};      // Зміщення від початку файлу
-};
-
-struct VhostUserMemory {
-    uint32_t nregions{0};         // Кількість регіонів
-    uint32_t padding{0};
-    std::array<VhostUserMemoryRegion, 8> regions{};
-};
-```
+:::code api-protocol-messages/c/1-tablytsia-pamiati-struct.c
+:::code api-protocol-messages/cpp/1-tablytsia-pamiati-struct.cpp
 :::
 
 Кількість файлових дескрипторів, переданих через `SCM_RIGHTS` у масиві допоміжних даних сокета, має точно дорівнювати полю `nregions`. `i`-й дескриптор відповідає `i`-му регіону в масиві `regions`. Якщо кількість дескрипторів менша або перевищує `nregions`, повідомлення вважається недійсним і з'єднання негайно розривається.
@@ -201,18 +140,7 @@ struct vhost_user_vring_addr {
     uint64_t log_guest_addr;    /* Адреса для логування змін під час живої міграції */
 };
 ```
-```cpp
-#include <cstdint>
-
-struct VhostUserVringAddr {
-    uint32_t index{0};           // Індекс черги
-    uint32_t flags{0};           // Прапорці конфігурації
-    uint64_t desc_user_addr{0};  // Адреса Descriptor Table у QEMU HVA
-    uint64_t used_user_addr{0};  // Адреса Used Ring у QEMU HVA
-    uint64_t avail_user_addr{0}; // Адреса Avail Ring у QEMU HVA
-    uint64_t log_guest_addr{0};  // Адреса для логування під час міграції
-};
-```
+:::code api-protocol-messages/cpp/3-adresy-struktur-kiltsia.cpp
 :::
 
 Отримавши ці адреси, сервер знаходить відповідний регіон у своїй таблиці пам'яті за адресою `userspace_addr` і перераховує покажчики `desc_user_addr`, `used_user_addr` та `avail_user_addr` у власний віртуальний простір адресації.

@@ -14,32 +14,7 @@
 
 Ось як виглядало прибирання в ядрі 2.4.0:
 
-```c
-void daemonize(void)
-{
-	struct fs_struct *fs;
-
-	/*
-	 * If we were started as result of loading a module, close all of the
-	 * user space pages.  We don't need them, and if we didn't close them
-	 * they would be locked into memory.
-	 */
-	exit_mm(current);
-
-	current->session = 1;
-	current->pgrp = 1;
-
-	/* Become as one with the init task */
-
-	exit_fs(current);	/* current->fs->count--; */
-	fs = init_task.fs;
-	current->fs = fs;
-	atomic_inc(&fs->count);
-	exit_files(current);
-	current->files = init_task.files;
-	atomic_inc(&current->files->count);
-}
-```
+:::code hist-from-daemonize-to-kworkers/c/potik-iakyi-chystyv-sebe.c
 
 Коментар у коді називає причину прямо: якщо потік лишить собі відображення пам'яті того, хто його породив, ця пам'ять буде замкнена доти, доки живе потік. Те саме з каталогами: потік ядра, що тримає посилання на кореневий каталог `modprobe`, тримає й змонтовану файлову систему, з якої той запустився, — і `umount` дає «пристрій зайнято» без жодного видимого винуватця.
 
@@ -49,29 +24,7 @@ void daemonize(void)
 
 Функція росла роками, ковтаючи забуті кроки. У ядрі 2.6.12 вона вже приймає ім'я, блокує **й** скидає сигнали, відв'язує термінал і сама кличе `reparent_to_init()`:
 
-```c
-void daemonize(const char *name, ...)
-{
-	/* ... */
-	vsnprintf(current->comm, sizeof(current->comm), name, args);
-	exit_mm(current);
-	set_special_pids(1, 1);
-	current->signal->tty = NULL;
-
-	/* Block and flush all signals */
-	sigfillset(&blocked);
-	sigprocmask(SIG_BLOCK, &blocked, NULL);
-	flush_signals(current);
-
-	/* Become as one with the init task */
-	exit_fs(current);
-	current->fs = init_task.fs;
-	exit_files(current);
-	current->files = init_task.files;
-
-	reparent_to_init();
-}
-```
+:::code hist-from-daemonize-to-kworkers/c/potik-iakyi-chystyv-sebe-2.c
 
 Це вже майже правильно — але сама схема лишається зворотною. Задача спершу народжується забрудненою, а потім відмивається. Кожен новий вид забруднення доводиться згадувати й дописувати в список.
 

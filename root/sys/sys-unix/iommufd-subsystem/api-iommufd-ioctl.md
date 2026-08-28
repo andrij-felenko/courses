@@ -133,18 +133,7 @@ struct iommu_ioas_copy {
 ### 3.1. `IOMMU_HWPT_ALLOC`
 Створює явний об'єкт апаратної таблиці сторінок. Застосовується для конфігурації спеціалізованих апаратних режимів, активації відстеження брудних сторінок або створення двостадійних вкладених доменів (Nested Paging).
 
-```c
-struct iommu_hwpt_alloc {
-    __u32 size;
-    __u32 flags;
-    __u32 dev_id;
-    __u32 pt_id;
-    __u32 out_hwpt_id;
-    __u32 hwpt_type;
-    __u32 data_len;
-    __aligned_u64 data_uptr;
-};
-```
+:::code api-iommufd-ioctl/c/main.c
 
 * `flags`:
   * `IOMMU_HWPT_ALLOC_NESTED_PARENT` (`1 << 0`): Створює HWPT як батьківський домен Стадії 2 (Stage 2 GPA → HPA). До цього домену надалі можна підключати вкладені таблиці Стадії 1 гостьової ОС.

@@ -4,24 +4,7 @@
 
 ## Виклики родини
 
-```c
-#define _POSIX_C_SOURCE 199309L   /* мінімум для всієї родини */
-#include <signal.h>
-
-union sigval {
-    int   sival_int;
-    void *sival_ptr;
-};
-
-int sigqueue(pid_t pid, int sig, const union sigval value);
-
-int sigwaitinfo(const sigset_t *restrict set,
-                siginfo_t *restrict info);
-int sigtimedwait(const sigset_t *restrict set,
-                 siginfo_t *restrict info,
-                 const struct timespec *restrict timeout);
-int sigwait(const sigset_t *restrict set, int *restrict sig);
-```
+:::code api-realtime-signals/c/signal.h
 
 | Виклик | Успіх | Невдача | Що робить |
 |---|---|---|---|
@@ -36,18 +19,7 @@ int sigwait(const sigset_t *restrict set, int *restrict sig);
 
 Під бібліотечними обгортками лежать системні виклики, у двох із яких обгорток немає взагалі:
 
-```c
-#include <sys/syscall.h>
-#include <unistd.h>
-
-/* обгорток у glibc немає — лише через syscall(2) */
-long syscall(SYS_rt_sigqueueinfo,   pid_t tgid,            int sig, siginfo_t *info);
-long syscall(SYS_rt_tgsigqueueinfo, pid_t tgid, pid_t tid, int sig, siginfo_t *info);
-
-/* під sigwaitinfo() і sigtimedwait(): timeout == NULL означає «без межі» */
-long syscall(SYS_rt_sigtimedwait, const sigset_t *set, siginfo_t *info,
-             const struct timespec *timeout, size_t sigsetsize);
-```
+:::code api-realtime-signals/c/syscall.h
 
 Різниця між `sigqueue()` і `rt_sigqueueinfo` — у тому, хто складає запис. Обгортка обнуляє `siginfo_t` і заповнює його сама (`si_signo`, `si_code = SI_QUEUE`, `si_pid`, `si_uid`, `si_value`); сирий виклик віддає складання вам — саме тому ядро й перевіряє, що ви туди поклали. `rt_tgsigqueueinfo` (від Linux 2.6.31) додає другий номер і цілиться в конкретну задачу, а не в групу потоків ([задача як одиниця планування](root:sys-unix/threads-as-tasks) — чому в процесу є `tgid` і `tid` та чим адресування потокові відрізняється від адресування процесові).
 
@@ -147,58 +119,7 @@ struct sigevent {
 
 ## Мінімальний робочий виклик
 
-```c
-#define _POSIX_C_SOURCE 200809L
-#include <signal.h>
-#include <string.h>
-#include <time.h>
-#include <stdio.h>
-
-/* Номер беруть під час виконання — і звіряють із верхньою межею. */
-static int rt_slot(int n)
-{
-    int sig = SIGRTMIN + n;
-    return sig <= SIGRTMAX ? sig : -1;
-}
-
-/* Таймер, який принесе назад власну мітку в si_value. */
-static int arm_timer(timer_t *tid, int sig, void *tag)
-{
-    struct sigevent sev;
-
-    memset(&sev, 0, sizeof sev);         /* три останні поля — в об'єднанні */
-    sev.sigev_notify = SIGEV_SIGNAL;
-    sev.sigev_signo  = sig;
-    sev.sigev_value.sival_ptr = tag;     /* приїде в si_value */
-
-    return timer_create(CLOCK_MONOTONIC, &sev, tid);
-}
-
-/* Розбір запису: які поля значущі, каже si_code — і тільки він. */
-static void describe(const siginfo_t *si)
-{
-    switch (si->si_code) {          /* si_code — стала, на відміну від SIGRTMIN */
-    case SI_QUEUE:
-        printf("sigqueue: pid %d, uid %u, вантаж %d\n",
-               (int)si->si_pid, (unsigned)si->si_uid, si->si_value.sival_int);
-        break;
-    case SI_TIMER:
-        printf("таймер %p, пропущено %d спрацювань\n",
-               si->si_value.sival_ptr, si->si_overrun);
-        break;
-    case SI_MESGQ:
-        printf("черга повідомлень: писав pid %d\n", (int)si->si_pid);
-        break;
-    case SI_USER:
-    case SI_TKILL:
-        printf("kill або pthread_kill від pid %d — вантажу немає\n",
-               (int)si->si_pid);
-        break;
-    default:
-        printf("код %d: si_value не читаємо\n", si->si_code);
-    }
-}
-```
+:::code api-realtime-signals/c/minimalnyi-robochyi-vyklyk.c
 
 Збирати з `-lrt` (від glibc 2.34 бібліотеку злито в libc, але прапорець лишається нешкідливим). Контраст у `switch` показовий: `SI_QUEUE` — звичайна стала препроцесора й міткою `case` бути може, `SIGRTMIN + 1` — виклик функції й не може.
 

@@ -66,20 +66,7 @@ Bash (shopt -s lastpipe):[cmd1 (subshell)] ──► [cmd2 (subshell)] ──►
 
 Усі локальні змінні, оголошені за допомогою `local` або `declare`, розміщуються у динамічному стеку викликів. Будь-яка викликана дочірня функція бачить локальні змінні функції, яка її викликала.
 
-```sh
-# Поведінка у Bash та Dash
-helper() {
-    echo "helper reads x: $x"  # Бачить 'parent_val', якщо викликана з parent!
-}
-
-parent() {
-    local x="parent_val"
-    helper
-}
-
-x="global_val"
-parent
-```
+:::code comp-shell-execution-environments/sh/main.sh
 Вивід у Bash/Dash: `helper reads x: parent_val`. Дочірня функція `helper` не має власного лексичного захисту і неявно залежить від контексту виклику. Якщо викликач не оголосив `x`, функція звернеться до глобальної змінної.
 
 ### Статична лексична видимість (Ksh93 синтаксис `function`)

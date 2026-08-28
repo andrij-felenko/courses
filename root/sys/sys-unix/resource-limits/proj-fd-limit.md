@@ -8,52 +8,7 @@
 
 Питання здається наївним, доки не спробуєш відповісти. `ulimit -n` друкує межу оболонки, а не твоєї програми. `/proc/self/limits` друкує число, а не те, скільки з нього ще вільно. І жодне з них не каже, як саме виглядатиме кінець — а саме кінець потім і доведеться впізнавати в журналі. Найкоротший шлях до відповіді — узяти й порахувати.
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/resource.h>
-#include <unistd.h>
-
-int main(void)
-{
-    struct rlimit rl;
-
-    if (getrlimit(RLIMIT_NOFILE, &rl) != 0) {
-        perror("getrlimit");
-        return 1;
-    }
-    printf("на старті:  м'який %llu  жорсткий %llu\n",
-           (unsigned long long)rl.rlim_cur, (unsigned long long)rl.rlim_max);
-
-    rl.rlim_cur = rl.rlim_max;              /* угору до жорсткого — прав не треба */
-    if (setrlimit(RLIMIT_NOFILE, &rl) != 0)
-        perror("setrlimit");                /* не фатально: міряємо те, що дали */
-    getrlimit(RLIMIT_NOFILE, &rl);          /* що вийшло насправді */
-
-    int first = -1, last = -1;
-    long n = 0;
-
-    for (;;) {
-        int fd = open("/dev/null", O_RDONLY | O_CLOEXEC);
-        if (fd < 0)
-            break;
-        if (first < 0)
-            first = fd;
-        last = fd;
-        n++;
-    }
-    int stop = errno;                       /* зберегти до першого printf */
-
-    printf("м'який тепер %llu; відкрито ще %ld\n",
-           (unsigned long long)rl.rlim_cur, n);
-    printf("номери від %d до %d; зупинив: %s (errno %d)\n",
-           first, last, strerror(stop), stop);
-    return 0;
-}
-```
+:::code proj-fd-limit/c/skilky-ikh-naspravdi.c
 
 На звичайній машині із systemd це виглядає так:
 
@@ -107,36 +62,7 @@ int hi = dup2(fd, (int)rl.rlim_cur);    /* просимо номер рівно 
 
 Розв'язок, який використовують справжні цикли подій, простий до образливого: тримати наперед відкритий дескриптор, який нікому не потрібен, саме на цей випадок. У libuv це `uv__emfile_trick`: при ініціалізації циклу відкривають наперед один непотрібний файл лише заради номера й кладуть його в `loop->emfile_fd`, а сам прийом у коментарі названо «best effort».
 
-```c
-/* Резервний номер: відкриваємо заздалегідь і не використовуємо. */
-static int spare = -1;
-
-static void spare_open(void)
-{
-    spare = open("/dev/null", O_RDONLY | O_CLOEXEC);
-}
-
-/* Викликати, коли accept4() повернув EMFILE. Мета не в тому, щоб обслужити
-   клієнта, а в тому, щоб прибрати з'єднання з черги — інакше слухач
-   лишиться «готовим» назавжди. */
-static void emfile_relief(int listen_fd)
-{
-    if (spare < 0)
-        return;
-
-    close(spare);                    /* один номер під межею звільнився */
-    spare = -1;
-
-    for (;;) {
-        int c = accept4(listen_fd, NULL, NULL, SOCK_CLOEXEC);
-        if (c < 0)
-            break;                   /* черга спорожніла або знову EMFILE */
-        close(c);                    /* клієнт бачить розрив одразу */
-    }
-
-    spare_open();                    /* резерв на місці до наступного разу */
-}
-```
+:::code proj-fd-limit/c/koly-mezha-spratsovuie-v.c
 
 Чому «best effort» — видно з коду. Між `close(spare)` і `accept4()` звільнений номер може забрати інший потік того самого процесу: межа спільна на всю групу потоків, і резервувати номер за кимось конкретним нема як. Тоді `accept4()` знову поверне `EMFILE`, цикл вийде на першому ж кроці, а резерв відновиться — гірше, ніж було, не стало. І варто бачити межу самого прийому: він не лікує перевантаження, а перетворює нескінченну петлю на швидку відмову, після якої програма ще здатна закрити старі з'єднання й повернутися до роботи. Проти `ENFILE` він не працює зовсім: звільнений тобою номер не гарантує тобі ж вільного запису в загальносистемній таблиці.
 
@@ -146,59 +72,11 @@ static void emfile_relief(int listen_fd)
 
 Усе це робиться в дитині між `fork()` і `exec()`, поки вона ще «своя»:
 
-```c
-#define _GNU_SOURCE
-#include <sys/resource.h>
-#include <unistd.h>
-
-/* Запустити чужу програму так, щоб вона не змогла ані взяти більше
-   за nofile дескрипторів, ані повернути цю межу собі назад. */
-static pid_t spawn_fenced(char *const argv[], rlim_t nofile, rlim_t cpu_sec)
-{
-    pid_t pid = fork();
-    if (pid != 0)
-        return pid;                       /* батько своїх меж не чіпав */
-
-    /* Обидва поля разом: rlim_cur > rlim_max дало б EINVAL. */
-    struct rlimit rl = { .rlim_cur = nofile, .rlim_max = nofile };
-    if (setrlimit(RLIMIT_NOFILE, &rl) != 0)
-        _exit(125);
-
-    rl.rlim_cur = cpu_sec;                /* м'яка межа → SIGXCPU */
-    rl.rlim_max = cpu_sec + 1;            /* ще секунда → SIGKILL */
-    if (setrlimit(RLIMIT_CPU, &rl) != 0)
-        _exit(125);
-
-    /* Без цього чужа програма успадкує наші відкриті файли — і сокет бази,
-       і журнал; кожен із них ще й з'їв би номер із її нової межі. */
-    if (close_range(3, ~0U, 0) != 0)      /* Linux 5.9, glibc 2.34 */
-        _exit(125);
-
-    execvp(argv[0], argv);
-    _exit(127);
-}
-```
+:::code proj-fd-limit/c/zamknuty-mezhu-za-soboiu.c
 
 Опустити жорсткий ліміт дитина може без жодних прав — рух униз дозволений завжди. Підняти назад — уже ні. Найпростіша перевірка: підсунути замість «чужого коду» програмку, яка чесно намагається це зробити.
 
-```c
-#include <stdio.h>
-#include <sys/resource.h>
-
-int main(void)
-{
-    struct rlimit rl;
-
-    getrlimit(RLIMIT_NOFILE, &rl);
-    printf("дали: м'який %llu, жорсткий %llu\n",
-           (unsigned long long)rl.rlim_cur, (unsigned long long)rl.rlim_max);
-
-    rl.rlim_cur = rl.rlim_max = 4096;
-    if (setrlimit(RLIMIT_NOFILE, &rl) != 0)
-        perror("спроба підняти назад");
-    return 0;
-}
-```
+:::code proj-fd-limit/c/zamknuty-mezhu-za-soboiu-2.c
 
 ```
 $ ./fenced 64 -- ./raise-back

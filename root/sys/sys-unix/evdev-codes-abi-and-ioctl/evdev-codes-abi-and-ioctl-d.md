@@ -171,35 +171,12 @@ struct input_event {
 ### Отримання метаданих та ідентифікаторів
 За допомогою макросів `EVIOCGNAME`, `EVIOCGID`, `EVIOCGPHYS` програма зчитує паспортизацію пристрою:
 
-```c
-char name[256] = "Unknown";
-struct input_id id;
-
-/* Зчитати назву пристрою */
-ioctl(fd, EVIOCGNAME(sizeof(name)), name);
-
-/* Зчитати Vendor/Product ID */
-ioctl(fd, EVIOCGID, &id);
-
-printf("Device: %s (Vendor: 0x%04x, Product: 0x%04x, Bus: 0x%04x)\n",
-       name, id.vendor, id.product, id.bustype);
-```
+:::code evdev-codes-abi-and-ioctl-d/c/otrymannia-metadanykh-ta.h
 
 ### Запит capabilities через бітові маски (`EVIOCGBIT`)
 Щоб з'ясувати, чи є пристрій клавіатурою, мишею чи тачпадом, використовується сімейство команд `EVIOCGBIT(ev_type, max_bytes)`. Ядро повертає масив довгих цілих чисел (`unsigned long`), у якому кожен біт відповідає підтримці відповідного коду події:
 
-```c
-#define BITS_PER_LONG (sizeof(unsigned long) * 8)
-#define NBITS(x) ((((x) - 1) / BITS_PER_LONG) + 1)
-#define test_bit(bit, array) ((array[(bit) / BITS_PER_LONG] >> ((bit) % BITS_PER_LONG)) & 1)
-
-unsigned long evbit[NBITS(EV_MAX)] = {0};
-ioctl(fd, EVIOCGBIT(0, sizeof(evbit)), evbit);
-
-if (test_bit(EV_KEY, evbit) && test_bit(EV_ABS, evbit)) {
-    /* Пристрій є сенсорним екраном або планшетом */
-}
-```
+:::code evdev-codes-abi-and-ioctl-d/c/zapyt-capabilities-cherez.c
 
 ### Ексклюзивне захоплення пристрою (`EVIOCGRAB`)
 У багатьох сценаріях (наприклад, у віртуальних машинах QEMU/KVM, іграх або комплексах віддаленого керування) необхідно перехопити ввід від конкретної клавіатури чи миші так, щоб події від неї **не потрапляли** до хостового графічного середовища.

@@ -28,108 +28,13 @@
 
 І сигнал може обірвати читання: обхід карти чекає на замок, який ядро бере в режимі, що переривається фатальним сигналом, тож `read()` цілком законно повертає `EINTR`. Дочитувати після цього не можна — тільки починати спочатку; загальна дисципліна перезапуску розібрана в темі про [переривані виклики](root:sys-unix/eintr-and-restart).
 
-```c
-/* pssmap.c — зведення пам'яті процесу з /proc/<pid>/smaps.
- *   cc -O2 -Wall -o pssmap pssmap.c
- *   ./pssmap <pid> [рядків]   таблиця ділянок, зведених за іменем
- *   ./pssmap -a               уся система + перевірка балансу
- */
-#define _GNU_SOURCE
-#include <dirent.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-/* Забирає файл ОДНИМ read(): лише так знімок карти злагоджений.
-   Не влізло — усе спочатку, з удвічі більшим буфером. */
-static char *slurp(const char *path, size_t *out_len)
-{
-    size_t cap = 1u << 20;
-
-    for (;;) {
-        int fd = open(path, O_RDONLY | O_CLOEXEC);
-        if (fd < 0)
-            return NULL;                     /* ENOENT — процес уже помер */
-
-        char *buf = malloc(cap);
-        if (!buf) { close(fd); return NULL; }
-
-        ssize_t n = read(fd, buf, cap - 1);
-        int err = errno;
-        close(fd);
-
-        if (n >= 0 && (size_t)n < cap - 1) { /* влізло цілком */
-            buf[n] = '\0';
-            *out_len = (size_t)n;
-            return buf;
-        }
-        free(buf);
-
-        if (n < 0) {                         /* ESRCH — помер посеред читання */
-            if (err != EINTR) { errno = err; return NULL; }
-            continue;                        /* сигнал: той самий буфер, з нуля */
-        }
-        if (cap >= (256u << 20)) { errno = EFBIG; return NULL; }
-        cap *= 2;
-    }
-}
-```
+:::code proj-pss-by-hand/c/pssmap.c
 
 ## Зведення за іменем: розкрита адресація на 200 рядків
 
 Різних імен у процесі — від кількох десятків до кількох сотень, а ділянок — тисячі. Отже, потрібне відображення «ім'я → шість лічильників» із дешевим пошуком, і найпростіше, що тут працює, — [хеш-таблиця](root:sf-algorithms/hash-table) фіксованого розміру з розкритою адресацією: масив комірок, у якому за зайнятого місця просто йдуть до наступного. Хеш беремо [FNV-1a](root:sf-algorithms/non-cryptographic-hash) — п'ять рядків, жодних таблиць, і для коротких імен файлів його якості вистачає з надлишком.
 
-```c
-struct region {
-    char name[128];
-    unsigned long size, rss, pss, priv_clean, priv_dirty, swap, swap_pss;
-};
-
-#define TAB_SZ 2048u                         /* степінь двійки, з великим запасом */
-static struct region tab[TAB_SZ];
-static unsigned      tab_used;
-
-/* Комірка для імені (створює за потреби). NULL — таблиця переповнена. */
-static struct region *bucket(const char *name, size_t n)
-{
-    if (n >= sizeof tab[0].name)
-        n = sizeof tab[0].name - 1;
-
-    unsigned long h = 1469598103934665603UL;             /* FNV-1a */
-    for (size_t i = 0; i < n; i++) {
-        h ^= (unsigned char)name[i];
-        h *= 1099511628211UL;
-    }
-
-    for (unsigned i = (unsigned)(h & (TAB_SZ - 1)); ; i = (i + 1) & (TAB_SZ - 1)) {
-        if (tab[i].name[0] == '\0') {
-            if (tab_used * 4 >= TAB_SZ * 3)
-                return NULL;                             /* заповнення > 75 % */
-            memcpy(tab[i].name, name, n);
-            tab[i].name[n] = '\0';
-            tab_used++;
-            return &tab[i];
-        }
-        if (strncmp(tab[i].name, name, n) == 0 && tab[i].name[n] == '\0')
-            return &tab[i];
-    }
-}
-
-/* Поле smaps → лічильник у struct region. Ключ порівнюємо ЦІЛКОМ. */
-static const struct { const char *key; unsigned char len; size_t off; } FIELDS[] = {
-    { "Size",           4, offsetof(struct region, size)       },
-    { "Rss",            3, offsetof(struct region, rss)        },
-    { "Pss",            3, offsetof(struct region, pss)        },
-    { "Private_Clean", 13, offsetof(struct region, priv_clean) },
-    { "Private_Dirty", 13, offsetof(struct region, priv_dirty) },
-    { "Swap",           4, offsetof(struct region, swap)       },
-    { "SwapPss",        7, offsetof(struct region, swap_pss)   },
-};
-```
+:::code proj-pss-by-hand/c/zvedennia-za-imenem.c
 
 Слово «цілком» у коментарі — не педантизм, а виправлення найпопулярнішої помилки в розбирачах `smaps`. Ключі полів перекриваються префіксами: `Swap` є початком `SwapPss`, `Pss` — початком `Pss_Dirty`, `Pss_Anon` і `Pss_Shmem`, `Private_Clean` і `Private_Dirty` різняться шостою літерою з кінця. Розбирач, написаний через `strncmp(line, "Swap", 4)`, тихо додає пропорційний своп до звичайного й завищує його рівно вдвічі на всьому, що вміє свопитися. Порівняння за довжиною ключа до двокрапки цю родину помилок відрізає одним рядком.
 
@@ -141,137 +46,9 @@ static const struct { const char *key; unsigned char len; size_t off; } FIELDS[]
 
 :::tabs
 
-```c
-/* Ім'я ділянки — шосте поле заголовка; його може не бути. */
-static const char *vma_name(const char *line, size_t len, size_t *out_n)
-{
-    size_t i = 0;
-    for (int field = 0; field < 5; field++) {
-        while (i < len && line[i] != ' ') i++;
-        while (i < len && line[i] == ' ') i++;
-    }
-    if (i >= len) { *out_n = 6; return "[anon]"; }
-    *out_n = len - i;
-    return line + i;
-}
+:::code proj-pss-by-hand/c/sertse-rozbir-riadkiv.c
 
-/* Розбирає весь smaps у таблицю tab[]. */
-static void parse_smaps(char *buf, size_t len)
-{
-    struct region *cur = NULL;
-    char *p = buf, *end = buf + len;
-
-    while (p < end) {
-        char  *line = p;
-        char  *nl   = memchr(p, '\n', (size_t)(end - p));
-        size_t llen = nl ? (size_t)(nl - p) : (size_t)(end - p);
-        p = nl ? nl + 1 : end;
-        if (llen == 0)
-            continue;
-
-        /* Адреси — малими літерами, назви полів — з великої. */
-        if (line[0] < 'A' || line[0] > 'Z') {
-            size_t n;
-            const char *nm = vma_name(line, llen, &n);
-            cur = bucket(nm, n);
-            continue;
-        }
-        if (!cur)
-            continue;
-
-        const char *colon = memchr(line, ':', llen);
-        if (!colon)
-            continue;
-        size_t klen = (size_t)(colon - line);
-
-        for (size_t k = 0; k < sizeof FIELDS / sizeof FIELDS[0]; k++) {
-            if (FIELDS[k].len != klen || memcmp(line, FIELDS[k].key, klen) != 0)
-                continue;
-            const char *v = colon + 1;
-            while (*v == ' ') v++;
-            *(unsigned long *)((char *)cur + FIELDS[k].off) += strtoul(v, NULL, 10);
-            break;
-        }
-    }
-}
-```
-
-```cpp
-#include <algorithm>
-#include <charconv>
-#include <cstdint>
-#include <string>
-#include <string_view>
-#include <unordered_map>
-
-struct Region {
-    std::uint64_t size{}, rss{}, pss{},
-                  privClean{}, privDirty{}, swap{}, swapPss{};
-};
-
-using Counter = std::uint64_t Region::*;
-
-/* Ключ порівнюється ЦІЛКОМ — про це дбає сам unordered_map. */
-static const std::unordered_map<std::string_view, Counter> kFields{
-    { "Size",          &Region::size      },
-    { "Rss",           &Region::rss       },
-    { "Pss",           &Region::pss       },
-    { "Private_Clean", &Region::privClean },
-    { "Private_Dirty", &Region::privDirty },
-    { "Swap",          &Region::swap      },
-    { "SwapPss",       &Region::swapPss   },
-};
-
-static std::string_view vmaName(std::string_view head)
-{
-    for (int field = 0; field < 5; ++field) {
-        const auto sp = head.find(' ');
-        if (sp == std::string_view::npos)
-            return "[anon]";
-        head.remove_prefix(sp);
-        head.remove_prefix(std::min(head.find_first_not_of(' '), head.size()));
-    }
-    return head.empty() ? std::string_view{"[anon]"} : head;
-}
-
-void parseSmaps(std::string_view text,
-                std::unordered_map<std::string, Region> &byName)
-{
-    Region *cur = nullptr;
-
-    while (!text.empty()) {
-        const auto nl   = text.find('\n');
-        const auto line = text.substr(0, nl);
-        text = (nl == std::string_view::npos) ? std::string_view{}
-                                              : text.substr(nl + 1);
-        if (line.empty())
-            continue;
-
-        // Адреси — малими літерами, назви полів — з великої.
-        if (line.front() < 'A' || line.front() > 'Z') {
-            cur = &byName[std::string(vmaName(line))];
-            continue;
-        }
-        if (!cur)
-            continue;
-
-        const auto colon = line.find(':');
-        if (colon == std::string_view::npos)
-            continue;
-
-        const auto it = kFields.find(line.substr(0, colon));
-        if (it == kFields.end())
-            continue;
-
-        auto tail = line.substr(colon + 1);
-        tail.remove_prefix(std::min(tail.find_first_not_of(' '), tail.size()));
-
-        std::uint64_t value{};
-        std::from_chars(tail.data(), tail.data() + tail.size(), value);
-        cur->*(it->second) += value;
-    }
-}
-```
+:::code proj-pss-by-hand/cpp/main.cpp
 
 :::
 
@@ -279,67 +56,7 @@ void parseSmaps(std::string_view text,
 
 ## Решта: сортування й вивід
 
-```c
-static int by_pss(const void *a, const void *b)
-{
-    const struct region *x = a, *y = b;
-    if (x->pss == y->pss) return 0;
-    return x->pss < y->pss ? 1 : -1;         /* спадання */
-}
-
-static void report_pid(long pid, int top)
-{
-    char path[64];
-    snprintf(path, sizeof path, "/proc/%ld/smaps", pid);
-
-    size_t len;
-    char *buf = slurp(path, &len);
-    if (!buf) {
-        fprintf(stderr, "pid %ld: %s\n", pid, strerror(errno));
-        return;
-    }
-
-    memset(tab, 0, sizeof tab);
-    tab_used = 0;
-    parse_smaps(buf, len);
-    free(buf);
-
-    if (tab_used == 0)
-        return;                              /* ядрова нитка: карти немає */
-
-    struct region *list = malloc(tab_used * sizeof *list);
-    if (!list) return;
-
-    unsigned m = 0;
-    unsigned long vsz = 0, rss = 0, pss = 0, uss = 0, swap = 0, spss = 0;
-
-    for (unsigned i = 0; i < TAB_SZ; i++) {
-        if (tab[i].name[0] == '\0')
-            continue;
-        list[m++] = tab[i];
-        vsz  += tab[i].size;
-        rss  += tab[i].rss;
-        pss  += tab[i].pss;
-        uss  += tab[i].priv_clean + tab[i].priv_dirty;
-        swap += tab[i].swap;
-        spss += tab[i].swap_pss;
-    }
-    qsort(list, m, sizeof *list, by_pss);
-
-    printf("pid %ld  ділянок зведено в %u імен\n", pid, m);
-    printf("VSZ %lu кБ   RSS %lu кБ   PSS %lu кБ   USS %lu кБ"
-           "   Swap %lu кБ   SwapPSS %lu кБ\n\n",
-           vsz, rss, pss, uss, swap, spss);
-
-    printf("%10s %10s %10s %10s  %s\n", "PSS", "RSS", "USS", "Swap", "ділянка");
-    for (unsigned i = 0; i < m && i < (unsigned)top; i++)
-        printf("%10lu %10lu %10lu %10lu  %s\n",
-               list[i].pss, list[i].rss,
-               list[i].priv_clean + list[i].priv_dirty,
-               list[i].swap, list[i].name);
-    free(list);
-}
-```
+:::code proj-pss-by-hand/c/reshta-sortuvannia-i-vyvid.c
 
 На живому переглядачі це виглядає так:
 
@@ -380,19 +97,7 @@ real    0m2.1s                     →  42 мс на читання
 
 Для `statm` цей спосіб уже не годиться: форк і запуск `cat` коштують більше, ніж саме читання, тож міряти доводиться циклом усередині програми.
 
-```c
-/* bench.c — ціна одного open+read+close. cc -O2 -o bench bench.c */
-struct timespec t0, t1;
-clock_gettime(CLOCK_MONOTONIC, &t0);
-for (long i = 0; i < n; i++) {
-    int fd = open(path, O_RDONLY);
-    while (read(fd, buf, cap) > 0) { }      /* дочитуємо до кінця */
-    close(fd);
-}
-clock_gettime(CLOCK_MONOTONIC, &t1);
-printf("%.1f мкс\n", ((t1.tv_sec - t0.tv_sec) * 1e9 +
-                      (t1.tv_nsec - t0.tv_nsec)) / n / 1e3);
-```
+:::code proj-pss-by-hand/c/bench.c
 
 ```
 $ ./bench /proc/4471/statm 100000
@@ -422,91 +127,7 @@ smaps         O(сторінок) + O(ділянок · 26 рядків)
                =  AnonPages + Mapped        (обидва — з /proc/meminfo)
 ```
 
-```c
-/* PSS процесу одним числом. −1 — не прочитали, 0 — процес без карти. */
-static long rollup_pss(long pid)
-{
-    char path[64];
-    snprintf(path, sizeof path, "/proc/%ld/smaps_rollup", pid);
-
-    size_t len;
-    char *buf = slurp(path, &len);
-    if (!buf)
-        return -1;
-
-    long pss = 0;
-    for (char *p = buf; p && *p; ) {
-        if (strncmp(p, "Pss:", 4) == 0) {    /* саме "Pss:", не "Pss_Anon:" */
-            pss = strtol(p + 4, NULL, 10);
-            break;
-        }
-        p = strchr(p, '\n');
-        if (p) p++;
-    }
-    free(buf);
-    return pss;
-}
-
-static unsigned long meminfo(const char *key)
-{
-    size_t len, klen = strlen(key);
-    char *buf = slurp("/proc/meminfo", &len);
-    if (!buf)
-        return 0;
-
-    unsigned long v = 0;
-    for (char *p = buf; p && *p; ) {
-        if (strncmp(p, key, klen) == 0 && p[klen] == ':') {
-            v = strtoul(p + klen + 1, NULL, 10);
-            break;
-        }
-        p = strchr(p, '\n');
-        if (p) p++;
-    }
-    free(buf);
-    return v;
-}
-
-static void scan_all(void)
-{
-    DIR *d = opendir("/proc");
-    if (!d) { perror("/proc"); return; }
-
-    unsigned long sum = 0;
-    unsigned counted = 0, nomm = 0, denied = 0;
-
-    for (struct dirent *e; (e = readdir(d)); ) {
-        if (e->d_name[0] < '1' || e->d_name[0] > '9')
-            continue;                        /* "self", "meminfo", "." — не pid */
-
-        long pss = rollup_pss(strtol(e->d_name, NULL, 10));
-        if (pss < 0)       denied++;         /* ENOENT, ESRCH, EACCES */
-        else if (pss == 0) nomm++;           /* ядрова нитка */
-        else { sum += (unsigned long)pss; counted++; }
-    }
-    closedir(d);
-
-    unsigned long expect = meminfo("AnonPages") + meminfo("Mapped");
-    printf("пораховано процесів  %8u   (ядрових ниток %u, недоступних %u)\n",
-           counted, nomm, denied);
-    printf("Σ PSS                %8lu кБ\n", sum);
-    printf("AnonPages + Mapped   %8lu кБ\n", expect);
-    printf("розбіжність          %11.2f %%\n",
-           expect ? 100.0 * ((double)sum - (double)expect) / (double)expect : 0.0);
-}
-
-int main(int argc, char **argv)
-{
-    if (argc == 2 && strcmp(argv[1], "-a") == 0) { scan_all(); return 0; }
-    if (argc >= 2) {
-        report_pid(strtol(argv[1], NULL, 10),
-                   argc > 2 ? (int)strtol(argv[2], NULL, 10) : 12);
-        return 0;
-    }
-    fprintf(stderr, "вжиток: pssmap <pid> [рядків] | pssmap -a\n");
-    return 2;
-}
-```
+:::code proj-pss-by-hand/c/usia-systema-za-raz-i.c
 
 ```
 $ ./pssmap -a

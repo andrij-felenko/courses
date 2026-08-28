@@ -25,71 +25,8 @@ awk '{ bytes[$1] += $10 } END { for (ip in bytes) print ip, bytes[ip] }' /var/lo
 Головна відмінність AWK від імперативних мов загального призначення полягає в її **декларативній природі, керованій даними** (data-driven programming). У класичній програмі на C, Python чи Go розробник зобов'язаний явно створити цикл читання файлу, перевіряти ознаку кінця потоку (`EOF`), виділяти буфери під рядки та контролювати вказівники на роздільники:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-// Підрахунок суми другого стовпця у файлі з пробілами мовою C
-int main(int argc, char **argv) {
-    FILE *fp = (argc > 1) ? fopen(argv[1], "r") : stdin;
-    if (!fp) { perror("fopen"); return 1; }
-
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read_bytes;
-    double total = 0.0;
-
-    while ((read_bytes = getline(&line, &len, fp)) != -1) {
-        char *saveptr;
-        char *token = strtok_r(line, " \t\n", &saveptr); // $1
-        if (token) {
-            token = strtok_r(NULL, " \t\n", &saveptr);   // $2
-            if (token) {
-                total += atof(token);
-            }
-        }
-    }
-
-    free(line);
-    if (fp != stdin) fclose(fp);
-    printf("Total: %.2f\n", total);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <iomanip>
-
-// Підрахунок суми другого стовпця мовою C++
-int main(int argc, char **argv) {
-    std::ifstream file;
-    std::istream &in = (argc > 1) ? (file.open(argv[1]), file) : std::cin;
-    if (!in) {
-        std::cerr << "Не вдалося відкрити вхідний потік\n";
-        return 1;
-    }
-
-    std::string line;
-    double total = 0.0;
-
-    while (std::getline(in, line)) {
-        std::istringstream iss(line);
-        std::string col1;
-        double col2;
-        if (iss >> col1 >> col2) {
-            total += col2;
-        }
-    }
-
-    std::cout << "Total: " << std::fixed << std::setprecision(2) << total << "\n";
-    return 0;
-}
-```
+:::code awk-d/c/main.c
+:::code awk-d/cpp/main.cpp
 :::
 
 Утиліта AWK зводить увесь цей обсяг системного коду до одного лаконічного виразу:

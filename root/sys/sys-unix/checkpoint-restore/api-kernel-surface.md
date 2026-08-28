@@ -105,36 +105,7 @@ ino:	1049234
 
 Мінімальна робоча послідовність — узяти задачу, зупинити її й прочитати регістри, не лишивши по собі сліду:
 
-```c
-#define _GNU_SOURCE
-#include <sys/ptrace.h>
-#include <sys/uio.h>
-#include <sys/wait.h>
-#include <sys/user.h>
-#include <elf.h>
-#include <stdio.h>
-
-int freeze_and_peek(pid_t pid, struct user_regs_struct *out)
-{
-    int status;
-
-    /* приєднання, яке НЕ видно ззовні: стан зупинки не змінюється */
-    if (ptrace(PTRACE_SEIZE, pid, 0, 0) < 0)
-        return -1;
-
-    /* зупинка без сигналу */
-    if (ptrace(PTRACE_INTERRUPT, pid, 0, 0) < 0)
-        return -1;
-    waitpid(pid, &status, __WALL);
-
-    struct iovec iov = { .iov_base = out, .iov_len = sizeof *out };
-    if (ptrace(PTRACE_GETREGSET, pid, (void *) NT_PRSTATUS, &iov) < 0)
-        return -1;
-
-    ptrace(PTRACE_DETACH, pid, 0, 0);   /* задача біжить далі, ніби нічого не було */
-    return 0;
-}
-```
+:::code api-kernel-surface/c/ptrace-zamorozyty-i.c
 
 Деталі приєднання й зупинок — у [моделі ptrace](root:sys-unix/ptrace-model); тут важить одне: `SEIZE` разом з `INTERRUPT` дають зупинку, яку не видно ні батькові жертви, ні їй самій.
 
@@ -172,26 +143,7 @@ int same_ofd = syscall(__NR_kcmp, pid1, pid2, KCMP_FILE, fd1, fd2);
 | `/proc/sys/kernel/ns_last_pid` | записати `N−1` і **негайно** зробити `fork()` | 3.3 | гонка: між записом і `fork()` номер може перехопити хтось інший; діє лише в поточному просторі імен |
 | `clone3()` з полем `set_tid` | масив номерів: перший — у найглибшому просторі імен, кожен наступний — у предку | `clone3()` — 5.3, `set_tid` — 5.5 | довжина масиву не більша за глибину вкладення просторів імен |
 
-```c
-#define _GNU_SOURCE
-#include <linux/sched.h>
-#include <sys/syscall.h>
-#include <signal.h>
-#include <stdint.h>
-#include <unistd.h>
-
-static pid_t spawn_with_pid(pid_t want)
-{
-    pid_t tids[1] = { want };
-    struct clone_args args = {
-        .exit_signal  = SIGCHLD,
-        .set_tid      = (uint64_t) (uintptr_t) tids,
-        .set_tid_size = 1,
-    };
-    /* обгортки в glibc немає — лише сирий виклик */
-    return syscall(__NR_clone3, &args, sizeof args);
-}
-```
+:::code api-kernel-surface/c/narodzhennia-z-napered.c
 
 Порядок народження при цьому все одно не вільний: лідером сеансу процес стає лише сам і лише поки не є лідером групи — обмеження [керування завданнями](root:sys-unix/job-control), яке ніякий новий виклик не скасовує. `set_tid` знімає гонку за номером, а не потребу рахувати розкладку дерева.
 
@@ -213,27 +165,7 @@ static pid_t spawn_with_pid(pid_t want)
 
 `PR_SET_MM` є з ядра 3.3 (до 3.10 — за `CONFIG_CHECKPOINT_RESTORE`) і вимагає `CAP_SYS_RESOURCE`. Пакетна форма з'явилася не заради зручності: кожен підкод ядро перевіряло окремо від решти, і в новоствореному просторі користувача перевірка `CAP_SYS_RESOURCE` не проходила взагалі — а пакет дає ядру звірити всі значення разом і за один раз.
 
-```c
-#include <sys/prctl.h>
-#include <linux/prctl.h>
-
-struct prctl_mm_map m = {
-    .start_code = 0x400000,   .end_code  = 0x4a1000,
-    .start_data = 0x6a1000,   .end_data  = 0x6b2000,
-    .start_brk  = 0x6b3000,   .brk       = 0x71c000,
-    .start_stack = 0x7ffd0000,
-    .arg_start  = 0x7ffd0100, .arg_end   = 0x7ffd0140,
-    .env_start  = 0x7ffd0140, .env_end   = 0x7ffd0800,
-    .auxv = auxv_words, .auxv_size = auxv_bytes,
-    .exe_fd = exe_fd,         /* дескриптор виконуваного файлу */
-};
-prctl(PR_SET_MM, PR_SET_MM_MAP, &m, sizeof m, 0);
-
-/* скільки байтів чекає САМЕ ЦЕ ядро — щоб програма, зібрана під інше,
-   не подала структуру не того розміру */
-unsigned int want;
-prctl(PR_SET_MM, PR_SET_MM_MAP_SIZE, &want, 0, 0);
-```
+:::code api-kernel-surface/c/prctl.h
 
 Поряд стоїть `PR_GET_TID_ADDRESS` (Linux 3.5, за `CONFIG_CHECKPOINT_RESTORE`): він повертає `clear_child_tid` — адресу, за якою ядро занулить слово й розбудить futex, коли потік помре. Задають її викликом `set_tid_address()`, а прочитати до 3.5 не міг навіть сам потік.
 
@@ -257,64 +189,11 @@ prctl(PR_SET_MM, PR_SET_MM_MAP_SIZE, &want, 0, 0);
 | `TCP_REPAIR_OPTIONS` | масив `struct tcp_repair_opt` | домовлені під час рукостискання опції: MSS, масштаб вікна, дозвіл на SACK, позначки часу | 3.5 |
 | `TCP_REPAIR_WINDOW` | `struct tcp_repair_window` | параметри вікна обох боків | 4.8 |
 
-```c
-struct tcp_repair_opt {
-    __u32 opt_code;   /* TCPOPT_MSS=2, TCPOPT_WINDOW=3,
-                         TCPOPT_SACK_PERM=4, TCPOPT_TIMESTAMP=8 */
-    __u32 opt_val;
-};
-
-struct tcp_repair_window {
-    __u32 snd_wl1;
-    __u32 snd_wnd;
-    __u32 max_window;
-    __u32 rcv_wnd;
-    __u32 rcv_wup;
-};
-```
+:::code api-kernel-surface/c/rezhym-remontu-soketa-tcp.c
 
 Головне правило режиму: `send()` і `recv()` **міняють призначення**. Черга відправлення читається викликом `recv(fd, buf, len, MSG_PEEK)`, черга приймання наповнюється викликом `send()`. Це не примха, а той самий прийом «другий бік уже наявного виклику»: замість чотирьох нових викликів — по одному на кожен напрямок кожної черги — переозначили два наявні.
 
-```c
-/* ── знімок ────────────────────────────────────────────── */
-int on = 1, q;
-setsockopt(fd, SOL_TCP, TCP_REPAIR, &on, sizeof on);
-
-q = TCP_SEND_QUEUE;
-setsockopt(fd, SOL_TCP, TCP_REPAIR_QUEUE, &q, sizeof q);
-socklen_t len = sizeof snd_seq;
-getsockopt(fd, SOL_TCP, TCP_QUEUE_SEQ, &snd_seq, &len);
-ssize_t unacked = recv(fd, sndbuf, sizeof sndbuf, MSG_PEEK | MSG_DONTWAIT);
-
-struct tcp_repair_window win;
-len = sizeof win;
-getsockopt(fd, SOL_TCP, TCP_REPAIR_WINDOW, &win, &len);
-
-/* ── відновлення ───────────────────────────────────────── */
-fd = socket(AF_INET, SOCK_STREAM, 0);
-setsockopt(fd, SOL_TCP, TCP_REPAIR, &on, sizeof on);
-
-q = TCP_RECV_QUEUE;                       /* номери — до connect */
-setsockopt(fd, SOL_TCP, TCP_REPAIR_QUEUE, &q, sizeof q);
-setsockopt(fd, SOL_TCP, TCP_QUEUE_SEQ, &rcv_seq, sizeof rcv_seq);
-q = TCP_SEND_QUEUE;
-setsockopt(fd, SOL_TCP, TCP_REPAIR_QUEUE, &q, sizeof q);
-setsockopt(fd, SOL_TCP, TCP_QUEUE_SEQ, &snd_seq, sizeof snd_seq);
-
-bind(fd, &local, sizeof local);
-connect(fd, &peer, sizeof peer);   /* SYN не летить: сокет одразу ESTABLISHED */
-
-send(fd, unacked_bytes, unacked_len, 0);            /* назад у чергу відправлення */
-q = TCP_RECV_QUEUE;
-setsockopt(fd, SOL_TCP, TCP_REPAIR_QUEUE, &q, sizeof q);
-send(fd, pending_in, in_len, 0);                    /* назад у чергу приймання */
-
-setsockopt(fd, SOL_TCP, TCP_REPAIR_OPTIONS, opts, sizeof opts);
-setsockopt(fd, SOL_TCP, TCP_REPAIR_WINDOW, &win, sizeof win);
-
-on = 0;
-setsockopt(fd, SOL_TCP, TCP_REPAIR, &on, sizeof on);  /* розмова триває далі */
-```
+:::code api-kernel-surface/c/rezhym-remontu-soketa-tcp.h
 
 Три властивості режиму легко проґавити, і кожна з них ламає відновлення по-своєму. `connect()` у ньому не надсилає `SYN`, а просто ставить стан `ESTABLISHED` — рукостискання вже відбулося колись. Сокет, закритий у режимі ремонту, зникає **мовчки**: партнер не отримає ні `FIN`, ні `RST`, бо на час знімка з'єднання мусить виглядати живим з обох боків. Зсув позначок часу TCP ставлять окремо, опцією `TCP_TIMESTAMP`, — інакше після переїзду на іншу машину вони стрибнули б, і партнер відкинув би пакети.
 

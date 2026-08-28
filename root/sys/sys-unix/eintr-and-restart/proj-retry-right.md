@@ -6,36 +6,7 @@
 
 Виклик перервали, чи він просто віддав менше, ніж просили, — для того, хто передає буфер цілком, це та сама подія: робота не закінчена, потрібен ще оберт. Різниця рівно в одному — чи рушить покажчик перед наступним обертом.
 
-```c
-#include <errno.h>
-#include <unistd.h>
-
-/* Читає len байтів. Менше — тільки якщо дані скінчилися. −1 — справжня помилка. */
-ssize_t read_all(int fd, void *buf, size_t len) {
-    char  *p    = buf;
-    size_t done = 0;
-    while (done < len) {
-        ssize_t n = read(fd, p + done, len - done);
-        if (n > 0)          { done += (size_t) n; continue; }  /* коротко — зсув */
-        if (n == 0)         break;                             /* кінець даних   */
-        if (errno == EINTR) continue;                          /* без зсуву      */
-        return -1;
-    }
-    return (ssize_t) done;
-}
-
-ssize_t write_all(int fd, const void *buf, size_t len) {
-    const char *p    = buf;
-    size_t      done = 0;
-    while (done < len) {
-        ssize_t n = write(fd, p + done, len - done);
-        if (n >= 0)         { done += (size_t) n; continue; }
-        if (errno == EINTR) continue;
-        return -1;
-    }
-    return (ssize_t) len;
-}
-```
+:::code proj-retry-right/c/odna-petlia-na-dva-vypadky.c
 
 Жодної гілки «а якщо і те, і те одразу» тут не потрібно: `n > 0` рухає покажчик, `EINTR` не рухає, обидва повертаються в ту саму умову циклу. Асиметрія між читанням і записом одна — у читання є кінець даних, у запису його немає, тож `write`, який повернув нуль на ненульовій довжині, означає зламану реалізацію, а не EOF.
 
@@ -45,40 +16,7 @@ ssize_t write_all(int fd, const void *buf, size_t len) {
 
 ## Цикл подій, який переживає переривання
 
-```c
-#include <sys/epoll.h>
-#include <time.h>
-
-static volatile sig_atomic_t want_stop;    /* виставляє обробник SIGTERM */
-static volatile sig_atomic_t want_reload;  /* виставляє обробник SIGHUP  */
-
-static long now_ms(void) {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
-}
-
-int run_loop(int ep, int budget_ms) {
-    struct epoll_event ev[64];
-    long deadline = now_ms() + budget_ms;
-
-    for (;;) {
-        if (want_stop)   return 0;
-        if (want_reload) { want_reload = 0; reload_config(); }
-
-        long left = deadline - now_ms();
-        if (left < 0) left = 0;
-
-        int n = epoll_wait(ep, ev, 64, (int) left);
-        if (n < 0) {
-            if (errno == EINTR) continue;   /* не помилка: просто новий оберт */
-            return -1;                      /* EBADF, EINVAL, EFAULT — поломка */
-        }
-        if (n == 0) { on_timeout(); deadline = now_ms() + budget_ms; continue; }
-        for (int i = 0; i < n; i++) dispatch(&ev[i]);
-    }
-}
-```
+:::code proj-retry-right/c/tsykl-podii-iakyi.c
 
 Стійким цей цикл роблять три речі. Перша: `EINTR` веде на новий оберт, а не назовні — це не поломка, а повідомлення «поки ти спав, щось сталося»; назовні виходять лише інші коди, і саме тому перевірка `n < 0` розділена, а не злита в одне `return -1`.
 
@@ -90,31 +28,7 @@ int run_loop(int ep, int budget_ms) {
 
 Той самий `EINTR` можна вживати навмисно: якщо завести таймер і **не** ставити `SA_RESTART`, будь-який блокуючий виклик дістає тайм-аут задарма.
 
-```c
-#include <signal.h>
-
-static volatile sig_atomic_t alarm_fired;
-
-static void on_alarm(int sig) { (void) sig; alarm_fired = 1; }
-
-ssize_t read_deadline(int fd, void *buf, size_t len, unsigned sec) {
-    struct sigaction sa = {0};
-    sa.sa_handler = on_alarm;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;                     /* саме тут: БЕЗ SA_RESTART */
-    if (sigaction(SIGALRM, &sa, NULL) < 0) return -1;
-
-    alarm_fired = 0;
-    alarm(sec);
-    ssize_t n     = read(fd, buf, len);  /* один виклик, БЕЗ петлі на EINTR */
-    int     saved = errno;               /* alarm() нижче зіпсує errno */
-    alarm(0);
-
-    if (n < 0 && saved == EINTR && alarm_fired) { errno = ETIMEDOUT; return -1; }
-    errno = saved;
-    return n;
-}
-```
+:::code proj-retry-right/c/taim-aut-na-blokuiuchomu.c
 
 > 🔧 **Навіщо це.** Петлі на `EINTR` тут немає навмисно — і це рівно та петля, яку сюди інстинктивно дописують «щоб було як скрізь». Дописали — і тайм-аут зник: сигнал приходить, виклик повертається, петля заганяє його назад у сон, і так довіку. Один і той самий код у цьому файлі означає протилежні речі залежно від того, хто саме перервав виклик, — тому обгортку з петлею і обгортку з дедлайном тримають окремими функціями з різними іменами.
 
@@ -139,29 +53,7 @@ ssize_t read_deadline(int fd, void *buf, size_t len, unsigned sec) {
 
 Перегони зникають, коли сигнал перестає бути перериванням і стає байтами в дескрипторі. Заблокований сигнал не доставляють — отже, він нічого не перериває й чекає, доки програма сама його прочитає ([маска сигналів і signalfd](root:sys-unix/signal-mask-signalfd) — як заблокувати сигнали для всіх потоків і читати їх як звичайні структури з дескриптора).
 
-```c
-#include <sys/signalfd.h>
-
-int signal_channel(void) {
-    sigset_t mask;
-    sigemptyset(&mask);
-    sigaddset(&mask, SIGTERM);
-    sigaddset(&mask, SIGHUP);
-
-    /* Блокувати ПЕРЕД створенням каналу: сигнал, що прийде між двома
-       викликами, піде звичайним шляхом і таки перерве щось під рукою. */
-    if (sigprocmask(SIG_BLOCK, &mask, NULL) < 0) return -1;
-    return signalfd(-1, &mask, SFD_CLOEXEC | SFD_NONBLOCK);
-}
-
-static void drain_signals(int sfd) {          /* виклик із dispatch() на sfd */
-    struct signalfd_siginfo si;
-    while (read(sfd, &si, sizeof si) == (ssize_t) sizeof si) {
-        if (si.ssi_signo == SIGTERM) want_stop = 1;
-        if (si.ssi_signo == SIGHUP)  want_reload = 1;
-    }
-}
-```
+:::code proj-retry-right/c/te-same-bez-perehoniv.c
 
 Заразом зникає й найпідступніше джерело `EINTR` у серверах. `SIGCHLD` від кожного завершеного нащадка приходить тоді, коли його ніхто не чекає, і вириває цикл із `epoll_wait`; заблокований і доданий у той самий канал, він стає звичайною подією в тому самому місці, де й дані, — а прибирання нащадків перестає бути окремою асинхронною історією.
 
@@ -184,23 +76,7 @@ static void on_signal(int sig) {
 
 Написаний код нічого не варт, доки жоден тест не пройшов його гілками. Найдешевший спосіб — залити програму сигналами так, щоб `EINTR` траплявся на кожному виклику.
 
-```c
-static void on_tick(int sig) { (void) sig; }
-
-void flood_signals(void) {                /* викликати на старті тестового прогону */
-    struct sigaction sa = {0};
-    sa.sa_handler = on_tick;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;                      /* без SA_RESTART — інакше нічого не видно */
-    sigaction(SIGALRM, &sa, NULL);
-
-    struct itimerval it = {
-        .it_interval = { .tv_sec = 0, .tv_usec = 3000 },   /* кожні 3 мс */
-        .it_value    = { .tv_sec = 0, .tv_usec = 3000 },
-    };
-    setitimer(ITIMER_REAL, &it, NULL);
-}
-```
+:::code proj-retry-right/c/iak-zustrity-eintr.c
 
 Тут потрібен саме `ITIMER_REAL`: він рахує астрономічний час, а `ITIMER_VIRTUAL` — процесорний, якого сплячий процес не витрачає, тож із ним сигнал не прийшов би ніколи. Ціна — зайнятий `SIGALRM`, той самий, що й у `alarm()`. POSIX.1-2008 позначив `setitimer` застарілим, а POSIX.1-2024 прибрав зовсім; сучасна заміна — `timer_create` із довільним сигналом ([таймери процесу](root:sys-unix/process-timers) — інтервальні таймери й POSIX-таймери, які надсилають вибраний сигнал).
 

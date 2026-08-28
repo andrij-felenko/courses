@@ -27,19 +27,7 @@ grep -o 'memory\|io' /sys/fs/cgroup/cgroup.controllers
 
 Далі — окремий носій, який не шкода стерти, і дві групи-листки під спільним батьком:
 
-```sh
-DEV=/dev/nvme0n1                        # ⚠️ цілий пристрій; наступний рядок стирає вміст
-MAJMIN=$(lsblk -ndo MAJ:MIN "$DEV")     # 259:0
-MNT=/mnt/wblab
-mkfs.ext4 -qF "$DEV"; mkdir -p "$MNT"; mount "$DEV" "$MNT"
-
-ROOT=/sys/fs/cgroup; CG=$ROOT/wblab
-echo "+memory +io" > "$ROOT/cgroup.subtree_control"
-mkdir -p "$CG"/{a,b}
-echo "+memory +io" > "$CG/cgroup.subtree_control"
-
-in_cg() { ( echo $BASHPID > "$CG/$1/cgroup.procs"; shift; exec "$@" ); }
-```
+:::code proj-whose-write-is-it/sh/main.sh
 
 Контролер видно в групі лише тоді, коли його ввімкнув **батько**, — тому два `echo`, а не один. Тонкощі з [номером пристрою](root:sys-unix/major-minor-numbers) — чому не `stat -c '%t:%T'` і чому не розділ — розібрано в [сусідній лабораторній](root:sys-unix/io-cgroup-control/proj-two-groups-lab.md); тут вони ті самі.
 
@@ -47,52 +35,7 @@ in_cg() { ( echo $BASHPID > "$CG/$1/cgroup.procs"; shift; exec "$@" ); }
 
 Готові інструменти сюди не годяться: потрібно однією ручкою перемикати буферизований запис на [прямий](root:sys-unix/buffered-and-direct-io), другою задавати темп `fsync()`, а третьою — початковий зсув, щоб два процеси писали в один файл, але в різні мегабайти й ніколи не ділили сторінку.
 
-```c
-/* dirtier.c — керований генератор брудних сторінок; cc -O2 -o dirtier dirtier.c */
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-#define BLK (1u << 20)                  /* 1 МіБ: кратний будь-якому логічному блоку */
-
-int main(int argc, char **argv)
-{
-    if (argc < 4) {
-        fprintf(stderr, "usage: %s <файл> <МіБ> buffered|direct"
-                        " [fsync_кожні_МіБ] [зсув_МіБ]\n", argv[0]);
-        return 2;
-    }
-    const char *path   = argv[1];
-    long        mib    = atol(argv[2]);
-    int         direct = strcmp(argv[3], "direct") == 0;
-    long        every  = argc > 4 ? atol(argv[4]) : 0;
-    long        start  = argc > 5 ? atol(argv[5]) : 0;
-
-    int flags = O_WRONLY | O_CREAT | (direct ? O_DIRECT : 0);
-    int fd = open(path, flags, 0644);
-    if (fd < 0) { perror("open"); return 1; }
-    if (lseek(fd, (off_t)start * BLK, SEEK_SET) < 0) { perror("lseek"); return 1; }
-
-    void *buf;                          /* O_DIRECT вимагає вирівняного буфера */
-    int rc = posix_memalign(&buf, 4096, BLK);          /* повертає код, а не ставить errno */
-    if (rc) { fprintf(stderr, "posix_memalign: %s\n", strerror(rc)); return 1; }
-    memset(buf, 0xA5, BLK);
-
-    for (long i = 0; i < mib; i++) {
-        for (size_t done = 0; done < BLK; ) {
-            ssize_t n = write(fd, (char *)buf + done, BLK - done);
-            if (n < 0) { perror("write"); return 1; }
-            done += (size_t)n;
-        }
-        if (every && (i + 1) % every == 0 && fsync(fd) < 0) { perror("fsync"); return 1; }
-    }
-    if (close(fd) < 0) { perror("close"); return 1; }   /* тут спливають відкладені помилки */
-    return 0;
-}
-```
+:::code proj-whose-write-is-it/c/dirtier.c
 
 Дві дрібниці в коді не косметичні. `posix_memalign()` замість `malloc()` — бо `O_DIRECT` відкидає невирівняний буфер помилкою `EINVAL`, і саме на цьому спотикається кожен перший дослід. Перевірка `close()` — бо при буферизованому записі помилка пристрою спливає не у `write()`, а пізніше, у `fsync()` або в `close()`.
 

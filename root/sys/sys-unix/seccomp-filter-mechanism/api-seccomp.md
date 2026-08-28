@@ -4,20 +4,7 @@
 
 ## Двоє дверей до одного механізму
 
-```c
-#include <linux/seccomp.h>
-#include <linux/filter.h>
-#include <sys/prctl.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-/* давніші двері: без прапорців і без значення, що повертається */
-int prctl(PR_SET_SECCOMP /* 22 */, unsigned long mode, struct sock_fprog *prog);
-int prctl(PR_GET_SECCOMP /* 21 */);
-
-/* сучасні двері; обгортки в glibc немає — лише через syscall(2) */
-int syscall(SYS_seccomp, unsigned int operation, unsigned int flags, void *args);
-```
+:::code api-seccomp/c/seccomp.h
 
 | що робимо | через `prctl` (з 2.6.23) | через `seccomp()` (з 3.17) |
 |---|---|---|
@@ -96,45 +83,13 @@ ret = SECCOMP_RET_ERRNO | (EACCES & SECCOMP_RET_DATA);   /* 0x00050000 | 0x0d */
 
 ## Структури на вході
 
-```c
-struct seccomp_data {          /* вхідний буфер програми-фільтра */
-    int   nr;                  /* зсув  0 */
-    __u32 arch;                /* зсув  4  — константа AUDIT_ARCH_* */
-    __u64 instruction_pointer; /* зсув  8 */
-    __u64 args[6];             /* зсув 16, далі 24, 32, 40, 48, 56 */
-};
-
-struct sock_filter {           /* одна інструкція BPF, рівно 8 байтів */
-    __u16 code;                /* що робити */
-    __u8  jt, jf;              /* куди стрибати: правда / неправда */
-    __u32 k;                   /* стала */
-};
-
-struct sock_fprog {
-    unsigned short      len;   /* кількість інструкцій, 1…4096 */
-    struct sock_filter *filter;
-};
-
-#define BPF_STMT(code, k)          { (unsigned short)(code), 0, 0, k }
-#define BPF_JUMP(code, k, jt, jf)  { (unsigned short)(code), jt, jf, k }
-```
+:::code api-seccomp/c/struktury-na-vkhodi.c
 
 Зсуви в інструкціях `BPF_LD | BPF_W | BPF_ABS` відлічуються від початку `seccomp_data` — пишіть їх через `offsetof`, а не числами. Слово завантаження — 32-бітне, тож 64-бітний аргумент читається двома заходами: `offsetof(struct seccomp_data, args[n])` і те саме плюс 4; на прямому порядку байтів перший захід дає молодшу половину. Стрибки `jt`/`jf` — це кількість інструкцій, які треба **пропустити**, рахуючи від наступної, і лише вперед.
 
 ## Наглядач: структури й ioctl-и
 
-```c
-struct seccomp_notif_sizes { __u16 seccomp_notif, seccomp_notif_resp, seccomp_data; };
-
-struct seccomp_notif      { __u64 id; __u32 pid; __u32 flags; struct seccomp_data data; };
-struct seccomp_notif_resp { __u64 id; __s64 val; __s32 error; __u32 flags; };
-struct seccomp_notif_addfd{ __u64 id; __u32 flags; __u32 srcfd, newfd, newfd_flags; };
-
-#define SECCOMP_USER_NOTIF_FLAG_CONTINUE   (1UL << 0)  /* у resp.flags, з 5.5 */
-#define SECCOMP_ADDFD_FLAG_SETFD           (1UL << 0)  /* вжити задане newfd */
-#define SECCOMP_ADDFD_FLAG_SEND            (1UL << 1)  /* addfd + send атомарно, з 5.14 */
-#define SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP (1UL << 0)  /* у SET_FLAGS, з 6.6 */
-```
+:::code api-seccomp/c/nahliadach-struktury-i.c
 
 | ioctl | номер | аргумент | успіх | часті помилки |
 |---|---|---|---|---|
@@ -178,42 +133,6 @@ MAX_INSNS_PER_PATH = (1 << 18) / sizeof(struct sock_filter)
 
 ## Мінімальний робочий виклик
 
-```c
-#define _GNU_SOURCE
-#include <errno.h>
-#include <linux/audit.h>
-#include <linux/filter.h>
-#include <linux/seccomp.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <sys/prctl.h>
-#include <sys/syscall.h>
-#include <sys/utsname.h>
-#include <unistd.h>
-
-int main(void)
-{
-    struct sock_filter code[] = {
-        /* 0 */ BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS, offsetof(struct seccomp_data, arch)),
-        /* 1 */ BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, AUDIT_ARCH_X86_64, 1, 0),
-        /* 2 */ BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL_PROCESS),
-        /* 3 */ BPF_STMT(BPF_LD  | BPF_W   | BPF_ABS, offsetof(struct seccomp_data, nr)),
-        /* 4 */ BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_uname, 0, 1),
-        /* 5 */ BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ERRNO | (EPERM & SECCOMP_RET_DATA)),
-        /* 6 */ BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW),
-    };
-    struct sock_fprog prog = { .len = sizeof code / sizeof code[0], .filter = code };
-
-    if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0))
-        return perror("no_new_privs"), 1;
-    if (syscall(SYS_seccomp, SECCOMP_SET_MODE_FILTER, 0, &prog))
-        return perror("seccomp"), 1;
-
-    struct utsname u;
-    if (uname(&u) == -1)
-        perror("uname");        /* → uname: Operation not permitted */
-    return 0;
-}
-```
+:::code api-seccomp/c/minimalnyi-robochyi-vyklyk.c
 
 Сім інструкцій показують увесь контракт у зборі: спершу звіряється `arch` (інакше номер `nr` означав би виклик із чужої таблиці), далі один номер відсікається помилкою, решта дозволена. `perror` після заборони працює, бо `write` фільтр пропускає — і це найпростіша перевірка, що політика справді жива.

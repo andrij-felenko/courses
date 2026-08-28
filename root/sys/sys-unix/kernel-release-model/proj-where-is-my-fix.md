@@ -195,37 +195,7 @@ v6.12.7~15
 
 Робити це руками для десятка живих гілок нудно, а нудна робота помиляється. Оформімо весь крок 4 у скрипт.
 
-```sh
-#!/bin/sh
-# where-is-my-fix.sh — у які стабільні випуски доїхало виправлення з mainline.
-# Запускати в клоні stable/linux.git. Аргумент — хеш коміту з mainline.
-set -u
-
-full=$(git rev-parse --verify "$1^{commit}") || exit 1
-printf 'mainline: %s\n\n' \
-       "$(git describe --contains "$full" 2>/dev/null || echo 'ще в жодному тезі')"
-
-git branch -r --list 'origin/linux-*.y' | tr -d ' ' | while read -r branch; do
-    tag=v${branch#origin/linux-}          # origin/linux-6.12.y → v6.12.y
-    tag=${tag%.y}                         #                     → v6.12
-    git rev-parse --verify --quiet "$tag^{commit}" >/dev/null || continue
-
-    # Гілка молодша за виправлення — воно вже в її основі, переносити нічого.
-    if git merge-base --is-ancestor "$full" "$branch"; then
-        printf '%-16s в основі гілки\n' "${branch#origin/}"
-        continue
-    fi
-
-    # Інакше шукаємо перенесення за повним хешем у тілі повідомлення.
-    port=$(git log -1 --fixed-strings --grep="$full" --format='%H' "$tag..$branch")
-    if [ -n "$port" ]; then
-        printf '%-16s %.12s → %s\n' "${branch#origin/}" "$port" \
-               "$(git describe --contains "$port" 2>/dev/null || echo 'ще не в тезі')"
-    else
-        printf '%-16s не знайдено\n' "${branch#origin/}"
-    fi
-done
-```
+:::code proj-where-is-my-fix/sh/where-is-my-fix.sh
 
 ```
 mainline: v6.13-rc1~53^2~9
@@ -306,26 +276,7 @@ git bisect log > ~/bisect.log
 
 Коли перевірку вдається зробити без живої машини — у віртуальній, — увесь цикл віддають git цілком:
 
-```sh
-#!/bin/sh
-# ~/probe.sh — один крок двійкового пошуку: зібрати, завантажити, подивитися.
-# Коди виходу тут — інтерфейс до git bisect, а не «успіх/невдача» скрипта.
-set -u
-
-make olddefconfig >/dev/null 2>&1        || exit 125
-make -j"$(nproc)" bzImage >/dev/null 2>&1 || exit 125
-
-rm -f /tmp/console.log
-timeout 180 qemu-system-x86_64 \
-    -kernel arch/x86/boot/bzImage \
-    -initrd "$HOME/repro-initramfs.cpio.gz" \
-    -append 'console=ttyS0 panic=1' \
-    -nographic -no-reboot >/tmp/console.log 2>&1
-
-grep -q 'REPRO: OK'   /tmp/console.log && exit 0
-grep -q 'REPRO: FAIL' /tmp/console.log && exit 1
-exit 125
-```
+:::code proj-where-is-my-fix/sh/probe.sh
 
 ```sh
 git bisect start v6.13 v6.12

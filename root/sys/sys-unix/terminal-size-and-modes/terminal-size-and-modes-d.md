@@ -34,18 +34,7 @@ struct winsize {
     unsigned short ws_ypixel; /* вертикальний розмір вікна у пікселях */
 };
 ```
-```cpp
-#include <sys/ioctl.h>
-#include <cstdint>
-
-// У C++ структура struct winsize доступна через <sys/ioctl.h>
-struct TerminalWindowSize {
-    std::uint16_t ws_row{0};
-    std::uint16_t ws_col{0};
-    std::uint16_t ws_xpixel{0};
-    std::uint16_t ws_ypixel{0};
-};
-```
+:::code terminal-size-and-modes-d/cpp/mekhanika-heometrii-v.cpp
 :::
 
 Структура оперує двома вимірами:
@@ -67,41 +56,8 @@ struct TerminalWindowSize {
 Прикладна програма (наприклад, текстовий процесор або утиліта моніторингу) зчитує поточний розмір екрана за допомогою виклику [ioctl](root:sys-unix/ioctl-interface) із командою `TIOCGWINSZ` (Get Window Size):
 
 :::tabs
-```c
-#include <stdio.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-
-int main(void) {
-    struct winsize ws;
-    if (ioctl(STDIN_FILENO, TIOCGWINSZ, &ws) == -1) {
-        perror("ioctl(TIOCGWINSZ)");
-        return 1;
-    }
-    printf("Розмір термінала: %d рядків × %d стовпців (%d×%d px)\n",
-           ws.ws_row, ws.ws_col, ws.ws_xpixel, ws.ws_ypixel);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <sys/ioctl.h>
-#include <unistd.h>
-
-int main() {
-    struct winsize ws{};
-    if (::ioctl(STDIN_FILENO, TIOCGWINSZ, &ws) == -1) {
-        std::error_code ec(errno, std::generic_category());
-        std::cerr << "Помилка ioctl: " << ec.message() << '\n';
-        return 1;
-    }
-    std::cout << "Розмір термінала: " << ws.ws_row << " рядків × "
-              << ws.ws_col << " стовпців (" << ws.ws_xpixel << "×"
-              << ws.ws_ypixel << " px)\n";
-    return 0;
-}
-```
+:::code terminal-size-and-modes-d/c/otrymannia-ta-onovlennia.c
+:::code terminal-size-and-modes-d/cpp/otrymannia-ta-onovlennia.cpp
 :::
 
 ### Чому змінні середовища LINES та COLUMNS ненадійні
@@ -128,43 +84,8 @@ int main() {
 Щоб реагувати на зміну геометрії без перезапуску, програма встановлює обробник через `sigaction`:
 
 :::tabs
-```c
-#include <signal.h>
-#include <stdbool.h>
-
-static volatile sig_atomic_t g_window_resized = 0;
-
-static void handle_sigwinch(int sig) {
-    (void)sig;
-    g_window_resized = 1;
-}
-
-void setup_signals(void) {
-    struct sigaction sa;
-    sa.sa_handler = handle_sigwinch;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART;
-    sigaction(SIGWINCH, &sa, NULL);
-}
-```
-```cpp
-#include <csignal>
-#include <atomic>
-
-inline std::atomic<bool> g_window_resized{false};
-
-extern "C" void handle_sigwinch(int) noexcept {
-    g_window_resized.store(true, std::memory_order_relaxed);
-}
-
-void setup_signals() noexcept {
-    struct sigaction sa{};
-    sa.sa_handler = handle_sigwinch;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART;
-    ::sigaction(SIGWINCH, &sa, nullptr);
-}
-```
+:::code terminal-size-and-modes-d/c/asynkhronnyi-syhnal.c
+:::code terminal-size-and-modes-d/cpp/asynkhronnyi-syhnal.hpp
 :::
 
 Через правила безпеки асинхронних сигналів (англ. *async-signal safety*) всередині функції `handle_sigwinch` категорично заборонено викликати `printf`, виділяти пам'ять через `malloc`/`new` чи перебудовувати структури даних. Обробник лише виставляє прапорець `g_window_resized = 1`.
@@ -247,60 +168,8 @@ void setup_signals() noexcept {
 Класична функція переведення в сирий режим (аналог системної `cfmakeraw`) виконує такі бітові маніпуляції:
 
 :::tabs
-```c
-#include <termios.h>
-#include <unistd.h>
-
-void enable_raw_mode(int fd, const struct termios *orig, struct termios *raw) {
-    *raw = *orig;
-
-    /* Вхідні прапорці: вимикаємо перетворення CR у NL, перевірку парності та XON/XOFF */
-    raw->c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-
-    /* Вихідні прапорці: вимикаємо системну пост-обробку виводу (перетворення \n у \r\n) */
-    raw->c_oflag &= ~(OPOST);
-
-    /* Прапорці керування лінією: 8 біт на символ */
-    raw->c_cflag |= (CS8);
-
-    /* Локальні прапорці: вимикаємо відлуння, канонічний режим та обробку сигналів */
-    raw->c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
-
-    /* Керуючі символи: блокуючий read() повертає результат при появі 1 байта */
-    raw->c_cc[VMIN] = 1;
-    raw->c_cc[VTIME] = 0;
-
-    /* Застосовуємо налаштування зі скиданням вхідної черги */
-    tcsetattr(fd, TCSAFLUSH, raw);
-}
-```
-```cpp
-#include <termios.h>
-#include <unistd.h>
-
-void enable_raw_mode(int fd, const struct termios& orig, struct termios& raw) noexcept {
-    raw = orig;
-
-    // Вхідні прапорці: вимикаємо перетворення CR у NL, перевірку парності та XON/XOFF
-    raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-
-    // Вихідні прапорці: вимикаємо системну пост-обробку виводу (перетворення \n у \r\n)
-    raw.c_oflag &= ~(OPOST);
-
-    // Прапорці керування лінією: 8 біт на символ
-    raw.c_cflag |= (CS8);
-
-    // Локальні прапорці: вимикаємо відлуння, канонічний режим та обробку сигналів
-    raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
-
-    // Керуючі символи: блокуючий read() повертає результат при появі 1 байта
-    raw.c_cc[VMIN] = 1;
-    raw.c_cc[VTIME] = 0;
-
-    // Застосовуємо налаштування зі скиданням вхідної черги
-    ::tcsetattr(fd, TCSAFLUSH, &raw);
-}
-```
+:::code terminal-size-and-modes-d/c/perekhid-u-syryi-rezhym.c
+:::code terminal-size-and-modes-d/cpp/perekhid-u-syryi-rezhym.hpp
 :::
 
 Дія `TCSAFLUSH` є критично важливою: вона очікує відправки всіх вихідних даних на екран і **повністю відкидає (скидає)** всі непрочитані символи, які користувач міг випадково набрати до запуску програми. Це гарантує, що старі натискання клавіш не будуть сприйняті TUI як команди.
@@ -321,33 +190,8 @@ void enable_raw_mode(int fd, const struct termios& orig, struct termios& raw) no
 Послідовність скидання термінала завжди виконується у чіткому порядку:
 
 :::tabs
-```c
-#include <termios.h>
-#include <unistd.h>
-
-void restore_terminal(int fd, const struct termios *orig) {
-    /* 1. Показуємо курсор, повертаємо основний екран, скидаємо кольори */
-    const char reset_seq[] = "\x1b[?25h\x1b[?1049l\x1b[0m";
-    (void)write(fd, reset_seq, sizeof(reset_seq) - 1);
-
-    /* 2. Відновлюємо прапорці termios */
-    tcsetattr(fd, TCSAFLUSH, orig);
-}
-```
-```cpp
-#include <termios.h>
-#include <unistd.h>
-#include <string_view>
-
-void restore_terminal(int fd, const struct termios& orig) noexcept {
-    // 1. Показуємо курсор, повертаємо основний екран, скидаємо кольори
-    constexpr std::string_view reset_seq = "\x1b[?25h\x1b[?1049l\x1b[0m";
-    [[maybe_unused]] auto _ = ::write(fd, reset_seq.data(), reset_seq.size());
-
-    // 2. Відновлюємо прапорці termios
-    ::tcsetattr(fd, TCSAFLUSH, &orig);
-}
-```
+:::code terminal-size-and-modes-d/c/anatomiia-zlamanoho.c
+:::code terminal-size-and-modes-d/cpp/anatomiia-zlamanoho.hpp
 :::
 
 Якщо аварія все ж сталася (наприклад, процес було вбито командою `kill -9`, яку неможливо перехопити), користувач може вручну відновити термінал наосліп, набравши команду:

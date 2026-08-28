@@ -136,22 +136,7 @@
 
 ### Команди CLI sysctl(8)
 
-```bash
-# Перегляд усіх доступних параметрів ядра
-sysctl -a
-
-# Перегляд конкретного параметра
-sysctl net.ipv4.ip_forward
-
-# Тимчасова зміна параметра в пам'яті ядра
-sysctl -w net.ipv4.ip_forward=1
-
-# Перезавантаження налаштувань із конкретного файлу
-sysctl -p /etc/sysctl.d/99-custom.conf
-
-# Завантаження параметрів з усіх системних каталогів
-sysctl --system
-```
+:::code sysctl-parameter-map-and-tooling-d/sh/main.sh
 
 ### Порядок застосування конфігурації у systemd
 

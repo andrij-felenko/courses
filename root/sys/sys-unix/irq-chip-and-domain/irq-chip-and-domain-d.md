@@ -60,21 +60,7 @@
 
 Коли вмикається опція ядра `CONFIG_SPARSE_IRQ`, ядро відмовляється від монолітного статичного масиву `irq_desc[NR_IRQS]` на користь динамічного розрідженого Radix-дерева. Дескриптори виділяються з динамічної пам'яті за вимогою, коли пристрій запитує створення відображення:
 
-```c
-struct irq_desc {
-    struct irq_common_data  irq_common_data;
-    struct irq_data         irq_data;
-    unsigned int __percpu  *kstat_irqs;     /* Статистика спрацьовувань по ядрах */
-    irq_flow_handler_t      handle_irq;     /* Диспетчер високого рівня */
-    struct irqaction       *action;         /* Ланцюжок зареєстрованих обробників */
-    unsigned int            status_use_accessors;
-    unsigned int            core_internal_state__do_not_mess_with_it;
-    unsigned int            depth;          /* Лічильник маскування лінії */
-    raw_spinlock_t          lock;           /* Захист стану лінії */
-    struct cpumask         *percpu_enabled;
-    const char             *name;
-};
-```
+:::code irq-chip-and-domain-d/c/2-iadro-pidsystemy.c
 
 Усередині дескриптора виділено окрему структуру `struct irq_data`, яка містить контекст низькорівневої трансляції та посилання на апаратний чіп:
 
@@ -104,23 +90,7 @@ struct irq_data {
 
 Структура `struct irq_chip` визначає набір низькорівневих операцій для прямої взаємодії з регістрами контролера переривань. Ядро не знає деталей реалізації конкретної мікросхеми; воно викликає відповідні функціональні вказівники, коли виникає потреба змінити стан лінії або підтвердити прийом сигналу:
 
-```c
-struct irq_chip {
-    const char  *name;
-    void        (*irq_mask)(struct irq_data *data);
-    void        (*irq_unmask)(struct irq_data *data);
-    void        (*irq_ack)(struct irq_data *data);
-    void        (*irq_eoi)(struct irq_data *data);
-    int         (*irq_set_affinity)(struct irq_data *data,
-                                    const struct cpumask *dest, bool force);
-    int         (*irq_retrigger)(struct irq_data *data);
-    int         (*irq_set_type)(struct irq_data *data, unsigned int flow_type);
-    int         (*irq_set_wake)(struct irq_data *data, unsigned int on);
-    void        (*irq_bus_lock)(struct irq_data *data);
-    void        (*irq_bus_sync_unlock)(struct irq_data *data);
-    unsigned long flags;
-};
-```
+:::code irq-chip-and-domain-d/c/3-aparatna-abstraktsiia.h
 
 Повний довідковий опис усіх полів, прапорців та сигнатур зворотних викликів `struct irq_chip` наведено у довідковій вставці [root:unix-linux/irq-chip-and-domain/api-irq-domain-chip.md](root:sys-unix/irq-chip-and-domain/api-irq-domain-chip.md).
 
@@ -147,19 +117,7 @@ struct irq_chip {
 
 Домен переривань (`struct irq_domain`) інкапсулює простір апаратних номерів одного конкретного контролера та відповідає за створення і збереження відповідності `hwirq -> virq`.
 
-```c
-struct irq_domain {
-    const struct irq_domain_ops *ops;
-    void                        *host_data;
-    unsigned int                 flags;
-    irq_hw_number_t              hwirq_max;
-    
-    /* Зворотне відображення для швидкого пошуку virq за hwirq */
-    unsigned int                 revmap_size;
-    struct radix_tree_root       revmap_tree;
-    unsigned int                 linear_revmap[];
-};
-```
+:::code irq-chip-and-domain-d/c/4-modeli-vidobrazhennia.c
 
 Ядро надає чотири базові моделі зворотного відображення (*Reverse Mapping*):
 
@@ -174,20 +132,7 @@ struct irq_domain {
 
 Операції домену групуються в структурі `struct irq_domain_ops`:
 
-```c
-struct irq_domain_ops {
-    int (*match)(struct irq_domain *d, struct device_node *node,
-                 enum irq_domain_bus_token bus_token);
-    int (*map)(struct irq_domain *d, unsigned int virq, irq_hw_number_t hw);
-    void (*unmap)(struct irq_domain *d, unsigned int virq);
-    int (*xlate)(struct irq_domain *d, struct device_node *node,
-                 const u32 *intspec, unsigned int intsize,
-                 unsigned long *out_hwirq, unsigned int *out_type);
-    int (*alloc)(struct irq_domain *d, unsigned int virq,
-                 unsigned int nr_irqs, void *arg);
-    void (*free)(struct irq_domain *d, unsigned int virq, unsigned int nr_irqs);
-};
-```
+:::code irq-chip-and-domain-d/c/4-modeli-vidobrazhennia.h
 
 ### Життєвий цикл відображення: створення та пошук
 

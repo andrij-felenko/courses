@@ -167,70 +167,8 @@ void io_uring_prep_fsync(struct io_uring_sqe *sqe, int fd, unsigned flags);
 Дописування запису в журнал так, щоб після повернення функції він гарантовано був на носії, і без спроби «повторити `fsync`»:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-
-/* Дописати len байтів у кінець журналу і зробити їх довговічними.
-   Повертає 0 при успіху; −1 означає, що вміст журналу після останнього
-   вдалого виклику вважається втраченим — повторювати НЕ можна. */
-int wal_append(int fd, const void *buf, size_t len)
-{
-    const char *p = buf;
-    size_t left = len;
-
-    while (left > 0) {
-        ssize_t n = write(fd, p, left);
-        if (n < 0) {
-            if (errno == EINTR) continue;   /* сигнал — це не відмова */
-            return -1;
-        }
-        p += n;
-        left -= (size_t)n;
-    }
-
-    /* Файл росте, тож fdatasync усе одно винесе новий розмір,
-       але не чіпатиме часів — саме цього ми й хочемо. */
-    while (fdatasync(fd) < 0) {
-        if (errno == EINTR) continue;
-        return -1;                          /* EIO/ENOSPC — відновлюємося, не повторюємо */
-    }
-    return 0;
-}
-```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <cerrno>
-#include <cstddef>
-#include <span>
-#include <system_error>
-
-// Дописати data у кінець журналу і зробити їх довговічними.
-// Повертає std::error_code (0 у разі успіху).
-std::error_code wal_append(int fd, std::span<const std::byte> data) {
-    const char* ptr = reinterpret_cast<const char*>(data.data());
-    size_t left = data.size();
-
-    while (left > 0) {
-        ssize_t n = ::write(fd, ptr, left);
-        if (n < 0) {
-            if (errno == EINTR) continue;
-            return std::error_code(errno, std::generic_category());
-        }
-        ptr += static_cast<size_t>(n);
-        left -= static_cast<size_t>(n);
-    }
-
-    while (::fdatasync(fd) < 0) {
-        if (errno == EINTR) continue;
-        return std::error_code(errno, std::generic_category());
-    }
-    return {};
-}
-```
+:::code api-sync-syscalls/c/main.c
+:::code api-sync-syscalls/cpp/main.cpp
 :::
 
 Ті самі дві дії в кільці `io_uring` виглядають як два подання, зв'язані `IOSQE_IO_LINK`: без прапорця ядро має право виконати `IORING_OP_FSYNC` до того, як `IORING_OP_WRITE` донесе байти.

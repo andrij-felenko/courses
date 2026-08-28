@@ -199,22 +199,7 @@ tar -cf - -C /source . | tar -xpf - -C /destination
 
 Щоб конвеєр `tar` не втратив жодної деталі VFS, команда розгортання та пакування повинна містити розширені ключі:
 
-```sh
-tar --create --file=- \
-    --directory=/source \
-    --acls \
-    --xattrs \
-    --selinux \
-    --sparse \
-    . | tar --extract --file=- \
-            --directory=/destination \
-            --preserve-permissions \
-            --same-owner \
-            --acls \
-            --xattrs \
-            --selinux \
-            --sparse
-```
+:::code copying-trees-preserving-metadata-d/sh/main.sh
 
 Розбір критичних прапорців:
 - **`-p`** (`--preserve-permissions`) — відновлює повну маску прав доступу, ігноруючи `umask` процесу розпакування;

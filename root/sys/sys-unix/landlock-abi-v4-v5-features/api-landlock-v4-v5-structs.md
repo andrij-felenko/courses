@@ -8,54 +8,9 @@
 
 :::tabs
 @tab C
-```c
-#include <linux/landlock.h>
-#include <sys/syscall.h>
-
-int landlock_create_ruleset(
-    const struct landlock_ruleset_attr *attr,
-    size_t size,
-    __u32 flags
-);
-
-int landlock_add_rule(
-    int ruleset_fd,
-    enum landlock_rule_type rule_type,
-    const void *rule_attr,
-    __u32 flags
-);
-
-int landlock_restrict_self(
-    int ruleset_fd,
-    __u32 flags
-);
-```
+:::code api-landlock-v4-v5-structs/c/landlock.h
 @tab C++
-```cpp
-#include <linux/landlock.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-extern "C" {
-    int landlock_create_ruleset(
-        const struct landlock_ruleset_attr *attr,
-        std::size_t size,
-        std::uint32_t flags
-    );
-
-    int landlock_add_rule(
-        int ruleset_fd,
-        enum landlock_rule_type rule_type,
-        const void *rule_attr,
-        std::uint32_t flags
-    );
-
-    int landlock_restrict_self(
-        int ruleset_fd,
-        std::uint32_t flags
-    );
-}
-```
+:::code api-landlock-v4-v5-structs/cpp/main.hpp
 :::
 
 ### 1.1. `landlock_create_ruleset`

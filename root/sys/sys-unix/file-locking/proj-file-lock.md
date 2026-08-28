@@ -14,148 +14,13 @@
 
 Почнемо з того, що не залежить від виду замка. Два дрібні помічники — і в кожному захована пастка, на яку регулярно наступають.
 
-```c
-/* counter.c — кілька процесів безпечно збільшують лічильник у файлі. */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-/* Реалізацію цих двох функцій дає окремий файл — саме нею
-   й різняться три версії програми.                                 */
-int lock_take(int fd);
-int lock_drop(int fd);
-
-/* pread має право повернути МЕНШЕ, ніж просили, і має право
-   повернутися ні з чим, бо його перервав сигнал. Ні те, ні те
-   не є помилкою — тому одного виклику ніколи не досить.            */
-static ssize_t pread_all(int fd, void *buf, size_t len, off_t off)
-{
-    size_t got = 0;
-    while (got < len) {
-        ssize_t n = pread(fd, (char *) buf + got, len - got,
-                          off + (off_t) got);
-        if (n < 0) {
-            if (errno == EINTR) continue;
-            return -1;
-        }
-        if (n == 0) break;             /* кінець файлу: він просто коротший */
-        got += (size_t) n;
-    }
-    return (ssize_t) got;
-}
-
-static int pwrite_all(int fd, const void *buf, size_t len, off_t off)
-{
-    size_t done = 0;
-    while (done < len) {
-        ssize_t n = pwrite(fd, (const char *) buf + done, len - done,
-                           off + (off_t) done);
-        if (n < 0) {
-            if (errno == EINTR) continue;
-            return -1;
-        }
-        if (n == 0) { errno = EIO; return -1; }
-        done += (size_t) n;
-    }
-    return 0;
-}
-
-static int write_all(int fd, const void *buf, size_t len)
-{
-    size_t done = 0;
-    while (done < len) {
-        ssize_t n = write(fd, (const char *) buf + done, len - done);
-        if (n < 0) {
-            if (errno == EINTR) continue;
-            return -1;
-        }
-        done += (size_t) n;
-    }
-    return 0;
-}
-```
+:::code proj-file-lock/c/counter.c
 
 Читаємо й пишемо навмисне через `pread`/`pwrite`, а не через `lseek` плюс `read`. Причин дві. По-перше, `lseek` і `read` — це два виклики, а `pread` один: зайвого проміжку між ними просто не існує. По-друге, звичайні `read` і `write` рухають поточну позицію, яка лежить не в дескрипторі, а в [описі відкритого файлу](root:sys-unix/open-file-description) — а його дитина після `fork` ділить із батьком. Дві гілки, що «кожна собі» читають з початку файлу, насправді штовхають одну спільну позицію й отримують шматки впереміш. `pread` бере зміщення аргументом і спільної позиції не чіпає взагалі.
 
 Тепер серце програми — одна безпечна одиниця роботи.
 
-```c
-/* Прочитати число, збільшити, записати назад і лишити слід
-   у журналі. Усе між lock_take і lock_drop — критична ділянка.     */
-static int bump_once(int fd, int logfd)
-{
-    char buf[32], line[64];
-    unsigned long long value = 0;
-    ssize_t got;
-    char *end;
-    int n, m, saved;
-
-    if (lock_take(fd) != 0) return -1;
-
-    got = pread_all(fd, buf, sizeof buf - 1, 0);
-    if (got < 0) goto fail;
-    buf[got] = '\0';
-
-    if (got > 0) {                     /* порожній файл — це чесний нуль */
-        errno = 0;
-        value = strtoull(buf, &end, 10);
-        if (errno != 0 || end == buf) { errno = EINVAL; goto fail; }
-    }
-
-    value += 1;
-    n = snprintf(buf, sizeof buf, "%llu\n", value);
-    if (pwrite_all(fd, buf, (size_t) n, 0) != 0) goto fail;
-
-    /* Число могло вкоротшати (1000 → 999), і без обрізання від
-       старого запису лишився б хвіст: «9990».                       */
-    if (ftruncate(fd, n) != 0) goto fail;
-
-    m = snprintf(line, sizeof line, "pid %ld -> %llu\n",
-                 (long) getpid(), value);
-    if (write_all(logfd, line, (size_t) m) != 0) goto fail;
-
-    return lock_drop(fd);
-
-fail:
-    saved = errno;                     /* lock_drop має право зіпсувати errno */
-    lock_drop(fd);
-    errno = saved;
-    return -1;
-}
-
-int main(int argc, char **argv)
-{
-    long times, i;
-    int fd, logfd;
-
-    if (argc != 4) {
-        fprintf(stderr, "вжиток: %s <файл-лічильника> <журнал> <разів>\n",
-                argv[0]);
-        return 2;
-    }
-    times = strtol(argv[3], NULL, 10);
-
-    /* Файл відкриваємо ОДИН раз — поза циклом і поза замком.
-       Відкриття не є частиною критичної ділянки, а от дескриптор
-       мусить бути тим самим від початку до кінця роботи.            */
-    fd = open(argv[1], O_RDWR | O_CREAT | O_CLOEXEC, 0644);
-    if (fd < 0) { perror("open counter"); return 1; }
-
-    logfd = open(argv[2], O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0644);
-    if (logfd < 0) { perror("open log"); return 1; }
-
-    for (i = 0; i < times; i++)
-        if (bump_once(fd, logfd) != 0) { perror("bump"); return 1; }
-
-    close(logfd);
-    close(fd);
-    return 0;
-}
-```
+:::code proj-file-lock/c/kistiak-spilnyi-dlia-vsikh.c
 
 Три рішення в цьому коді варті пояснення, бо кожне зроблено проти першого пориву.
 
@@ -171,70 +36,11 @@ int main(int argc, char **argv)
 
 Тепер те, чим версії різняться. Кожен файл нижче — повна реалізація обох функцій.
 
-```c
-/* lock-flock.c — замок на весь файл; власник — опис відкритого файлу. */
-#include <errno.h>
-#include <sys/file.h>
+:::code proj-file-lock/c/lock-flock.c
 
-int lock_take(int fd)
-{
-    while (flock(fd, LOCK_EX) != 0)
-        if (errno != EINTR) return -1;
-    return 0;
-}
+:::code proj-file-lock/c/lock-posix.c
 
-int lock_drop(int fd) { return flock(fd, LOCK_UN); }
-```
-
-```c
-/* lock-posix.c — POSIX-замок записів; власник — процес плюс файл. */
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-static int lock_op(int fd, short type, int cmd)
-{
-    struct flock fl = { .l_type   = type,
-                        .l_whence = SEEK_SET,
-                        .l_start  = 0,
-                        .l_len    = 0 };   /* 0 — до кінця файлу,
-                                              хоч би куди той доріс */
-    while (fcntl(fd, cmd, &fl) != 0) {
-        if (errno != EINTR) return -1;     /* EDEADLK приходить сюди ж —
-                                              і повторювати його не можна */
-    }
-    return 0;
-}
-
-int lock_take(int fd) { return lock_op(fd, F_WRLCK, F_SETLKW); }
-int lock_drop(int fd) { return lock_op(fd, F_UNLCK, F_SETLK); }
-```
-
-```c
-/* lock-ofd.c — замок на опис відкритого файлу.
-   _GNU_SOURCE обов'язковий: без нього F_OFD_SETLKW не оголошено.    */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-static int lock_op(int fd, short type, int cmd)
-{
-    struct flock fl = { .l_type   = type,
-                        .l_whence = SEEK_SET,
-                        .l_start  = 0,
-                        .l_len    = 0,
-                        .l_pid    = 0 };   /* саме нуль у l_pid і каже ядру,
-                                              що заявка на OFD-замок */
-    while (fcntl(fd, cmd, &fl) != 0) {
-        if (errno != EINTR) return -1;
-    }
-    return 0;
-}
-
-int lock_take(int fd) { return lock_op(fd, F_WRLCK, F_OFD_SETLKW); }
-int lock_drop(int fd) { return lock_op(fd, F_UNLCK, F_OFD_SETLK); }
-```
+:::code proj-file-lock/c/lock-ofd.c
 
 Плюс четвертий файл для порівняння — той самий інтерфейс, що не робить нічого:
 
@@ -292,39 +98,7 @@ for (i = 0; i < 8; i++)
 
 Друга класична задача розв'язується тим самим `flock`, але зовсім інакше: замок береться один раз і не знімається ніколи.
 
-```c
-/* Повертає дескриптор, який треба тримати відкритим до самої смерті:
-   саме він і є заявою «примірник працює».
-   Помилка EWOULDBLOCK означає «вже працює», решта — справжні збої.  */
-static int claim_single_instance(const char *path)
-{
-    int fd, n, saved;
-    char line[32];
-
-    fd = open(path, O_RDWR | O_CREAT, 0644);   /* без O_CLOEXEC — див. нижче */
-    if (fd < 0) return -1;
-
-    if (flock(fd, LOCK_EX | LOCK_NB) != 0) {
-        saved = errno;
-        close(fd);
-        errno = saved;
-        return -1;
-    }
-
-    /* Номер процесу пишемо ПІСЛЯ взяття замка й винятково для людини:
-       правду про зайнятість каже замок, а не вміст файлу.            */
-    if (ftruncate(fd, 0) != 0) goto fail;
-    n = snprintf(line, sizeof line, "%ld\n", (long) getpid());
-    if (write_all(fd, line, (size_t) n) != 0) goto fail;
-
-    return fd;
-fail:
-    saved = errno;
-    close(fd);
-    errno = saved;
-    return -1;
-}
-```
+:::code proj-file-lock/c/sluzhba-iaku-ne-mozhna.c
 
 Знімати замок наприкінці не треба й не можна забути: ядро зніме його само, коли закриється останній дескриптор на цей опис, а при смерті процесу — хоч би від `SIGKILL`, хоч би від зникнення живлення — воно закриває дескриптори саме. Застарілого стану, який довелося б розбирати наступного запуску, тут не виникає в принципі ([демонізація](root:sys-unix/daemonize)).
 
@@ -338,51 +112,7 @@ fail:
 
 Найнебезпечніша з усіх, бо не дає жодного знаку. Двадцять рядків, які її показують:
 
-```c
-/* posix-lock-lost.c — cc -Wall -o posix-lock-lost posix-lock-lost.c */
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-/* Чи може ЧУЖИЙ процес узяти замок на цей файл прямо зараз?
-   Так — означає, що наш замок більше не існує.                      */
-static int file_is_free(const char *path)
-{
-    struct flock fl = { .l_type = F_WRLCK, .l_whence = SEEK_SET,
-                        .l_start = 0, .l_len = 0 };
-    int st;
-    pid_t pid = fork();
-
-    if (pid == 0) {
-        int fd = open(path, O_RDWR);
-        _exit(fd >= 0 && fcntl(fd, F_SETLK, &fl) == 0 ? 0 : 1);
-    }
-    waitpid(pid, &st, 0);
-    return WEXITSTATUS(st) == 0;
-}
-
-int main(void)
-{
-    const char *path = "/var/tmp/demo.db";
-    struct flock fl = { .l_type = F_WRLCK, .l_whence = SEEK_SET,
-                        .l_start = 0, .l_len = 0 };
-    int fd = open(path, O_RDWR | O_CREAT, 0644);
-    int other;
-
-    if (fcntl(fd, F_SETLK, &fl) != 0) { perror("F_SETLK"); return 1; }
-    printf("замок узято:          файл вільний? %s\n",
-           file_is_free(path) ? "так" : "ні");
-
-    other = open(path, O_RDONLY);   /* «стороння бібліотека дивиться розмір» */
-    close(other);                   /* саме цей рядок і знімає ваш замок */
-
-    printf("після чужого close:   файл вільний? %s\n",
-           file_is_free(path) ? "так" : "ні");
-    return 0;
-}
-```
+:::code proj-file-lock/c/posix-lock-lost.c
 
 ```
 замок узято:          файл вільний? ні
@@ -397,23 +127,7 @@ int main(void)
 
 `flock` не вміє міняти тип замка одним рухом: ядро спершу знімає старий, потім бере новий. Вікно між ними невелике, але воно є, і саме в нього залазить конкурент.
 
-```c
-/* upgrade-window.c — вікно робимо видимим навмисне.
-   Уривок із main; fd уже відкрито, read_counter — це pread_all
-   плюс strtoull, write_counter — snprintf плюс pwrite_all.
-   Запустіть два примірники одночасно.                              */
-    flock(fd, LOCK_SH);                       /* читаємо стан */
-    a = read_counter(fd);
-
-    sleep(1);                                 /* даємо другому дійти сюди ж */
-
-    flock(fd, LOCK_EX);                       /* ← ядро зняло SH і аж потім дало EX */
-    b = read_counter(fd);                     /* саме в тому проміжку стан і міняється */
-    write_counter(fd, b + 1);                 /* пишемо вже під виключним замком */
-
-    printf("до переходу %llu, після переходу %llu%s\n", a, b,
-           a == b ? "" : "   ← стан змінився під час переходу");
-```
+:::code proj-file-lock/c/pastka-druha-perekhid-zi.h
 
 Обидва примірники беруть спільний замок одночасно — він для того й спільний. Далі обидва просять виключний; один дістає його першим, збільшує лічильник і відпускає, і лише тоді до переходу доходить другий:
 
@@ -431,49 +145,7 @@ $ ./upgrade-window & ./upgrade-window
 
 Заявка на діапазон виглядає як безкоштовна дрібниця, але кожен окремий шматок — це окрема структура в пам'яті ядра. Зняття замка посередині замкненої ділянки не зменшує їх кількість, а **збільшує**: один запис стає двома.
 
-```c
-/* split-locks.c — скільки записів у ядрі коштує наша дисципліна замків. */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-
-static long kernel_locks(void)            /* усі замки системи, грубо */
-{
-    FILE *f = fopen("/proc/locks", "r");
-    char line[256];
-    long n = 0;
-    while (fgets(line, sizeof line, f)) n++;
-    fclose(f);
-    return n;
-}
-
-int main(void)
-{
-    struct flock fl = { .l_type = F_WRLCK, .l_whence = SEEK_SET,
-                        .l_start = 0, .l_len = 0 };
-    int fd = open("/var/tmp/split.bin", O_RDWR | O_CREAT | O_TRUNC, 0644);
-    off_t i;
-
-    ftruncate(fd, 1 << 20);
-    fcntl(fd, F_SETLK, &fl);              /* ОДНА заявка на весь файл */
-    printf("одна заявка:        %ld записів у /proc/locks\n", kernel_locks());
-
-    for (i = 1; i < 2000; i += 2) {       /* знімаємо кожен другий байт */
-        struct flock hole = { .l_type = F_UNLCK, .l_whence = SEEK_SET,
-                              .l_start = i, .l_len = 1 };
-        if (fcntl(fd, F_SETLK, &hole) != 0) {
-            printf("зупинилися на зміщенні %lld: %s\n",
-                   (long long) i, strerror(errno));
-            break;
-        }
-    }
-    printf("після розрізання:   %ld записів у /proc/locks\n", kernel_locks());
-    return 0;
-}
-```
+:::code proj-file-lock/c/split-locks.c
 
 ```
 одна заявка:        7 записів у /proc/locks
@@ -502,38 +174,7 @@ A: flock(fd, LOCK_EX) → 0                    A тримає 91, B тримає
 
 Найдешевший розв'язок — **ніколи не видаляти файл замка**. Порожній файл не коштує нічого, і те, що він лишається лежати після зупинки служби, не є засміченням: він і є точкою, до якої всі домовилися чіплятися. Якщо ж прибирання неминуче (файл лежить у теці, яку чистить чужий код), доводиться після взяття замка перевіряти, чи ім'я досі веде туди ж:
 
-```c
-/* Замок узято на об'єкті, а перевіряємо ми ім'я — тому звіряти
-   треба після взяття, а не до нього.                                */
-static int lock_by_path(const char *path)
-{
-    struct stat by_fd, by_name;
-    int attempt, fd, saved;
-
-    for (attempt = 0; attempt < 8; attempt++) {
-        fd = open(path, O_RDWR | O_CREAT | O_CLOEXEC, 0644);
-        if (fd < 0) return -1;
-
-        if (flock(fd, LOCK_EX) != 0) goto give_up;
-        if (fstat(fd, &by_fd) != 0)  goto give_up;
-
-        if (stat(path, &by_name) == 0
-            && by_name.st_dev == by_fd.st_dev
-            && by_name.st_ino == by_fd.st_ino)
-            return fd;                 /* ім'я веде сюди — замок справжній */
-
-        close(fd);                     /* нас замкнули на викинутому файлі */
-    }
-    errno = ESTALE;
-    return -1;
-
-give_up:
-    saved = errno;
-    close(fd);
-    errno = saved;
-    return -1;
-}
-```
+:::code proj-file-lock/c/pastka-chetverta-zamykaiut.c
 
 Пара `st_dev` плюс `st_ino` — єдиний надійний спосіб сказати «це той самий файл»: номер inode унікальний лише в межах файлової системи, тож без номера пристрою порівняння бреше. Той самий принцип працює і в зворотний бік: якщо служба має відкрити файл у каталозі, який хтось може підмінити, надійніше один раз відкрити каталог і далі ходити через його дескриптор ([родина викликів із каталожним дескриптором](root:sys-unix/at-family-syscalls)).
 
@@ -563,34 +204,7 @@ if (fcntl(fd, F_SETLK, &fl) != 0) {
 
 Останнє, що лишається, — переконатися, що все це не дарма. Скрипт запускає вісім примірників паралельно й порівнює три числа: що у файлі, скільки рядків у журналі й скільки різних чисел у ньому.
 
-```sh
-#!/bin/sh
-# check.sh — чи справді замок щось міняє.
-set -eu
-DIR=$(mktemp -d)
-N=200          # скільки разів кожен примірник додає одиницю
-P=8            # скільки примірників одночасно
-
-run() {
-    prog=$1
-    : > "$DIR/ctr"; : > "$DIR/log"
-    i=0
-    while [ "$i" -lt "$P" ]; do
-        "./$prog" "$DIR/ctr" "$DIR/log" "$N" &
-        i=$((i + 1))
-    done
-    wait
-    printf '%-14s у файлі %-7s рядків %-7s різних чисел %-7s треба %s\n' \
-        "$prog" "$(cat "$DIR/ctr")" "$(wc -l < "$DIR/log")" \
-        "$(awk '{print $4}' "$DIR/log" | sort -u | wc -l)" "$((P * N))"
-}
-
-run counter-flock
-run counter-posix
-run counter-ofd
-run counter-none
-rm -rf "$DIR"
-```
+:::code proj-file-lock/sh/check.sh
 
 ```
 counter-flock  у файлі 1600    рядків 1600    різних чисел 1600    треба 1600

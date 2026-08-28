@@ -56,31 +56,7 @@ enum nf_inet_hooks {
 
 Для реєстрації власного обробника пакетів модуль ядра заповнює структуру `struct nf_hook_ops` та передає її системній функції `nf_register_net_hook()`.
 
-```c
-struct nf_hook_state {
-    unsigned int        hook;      /* Номер поточного хука (enum nf_inet_hooks) */
-    u_int8_t            pf;        /* Родина протоколів (NFPROTO_IPV4, NFPROTO_IPV6 тощо) */
-    struct net_device  *in;        /* Вхідний мережевий інтерфейс (або NULL) */
-    struct net_device  *out;       /* Вихідний мережевий інтерфейс (або NULL) */
-    struct sock        *sk;        /* Пов'язаний сокет (якщо є для LOCAL_IN/LOCAL_OUT) */
-    struct net         *net;       /* Мережевий простір назв (Network Namespace) */
-    int                (*okfn)(struct net *, struct sock *, struct sk_buff *);
-                                   /* Функція продовження стека при поверненні NF_ACCEPT */
-};
-
-typedef unsigned int nf_hookfn(void *priv,
-                               struct sk_buff *skb,
-                               const struct nf_hook_state *state);
-
-struct nf_hook_ops {
-    nf_hookfn           *hook;     /* Вказівник на функцію зворотного виклику */
-    struct net_device   *dev;      /* Обмеження конкретним пристроєм (опціонально) */
-    void                *priv;     /* Приватні дані користувача, що передаються в hook() */
-    u_int8_t            pf;        /* Родина протоколів (наприклад, NFPROTO_IPV4) */
-    enum nf_inet_hooks  hooknum;   /* Точка перехоплення (наприклад, NF_INET_PRE_ROUTING) */
-    int                 priority;  /* Числовий пріоритет виконання (менше значення = раніше) */
-};
-```
+:::code api-netfilter-kernel-hooks/c/2-struktury-reiestratsii.h
 
 Поля структури `struct nf_hook_state` містять повний контекст виконання хука:
 - `in`: вказівник на структуру вхідного мережевого пристрою `struct net_device`. На хуку `LOCAL_OUT` це поле завжди дорівнює `NULL`.
@@ -93,24 +69,7 @@ struct nf_hook_ops {
 
 Порядок виклику функцій на одному й тому самому хуку суворо визначається константою `priority`. Модулі з меншим значенням пріоритету виконуються раніше за модулі з більшим значенням:
 
-```c
-enum nf_ip_hook_priorities {
-    NF_IP_PRI_FIRST         = INT_MIN,
-    NF_IP_PRI_RAW_BEFORE_DEFRAG = -400,
-    NF_IP_PRI_CONNTRACK_DEFRAG  = -400,
-    NF_IP_PRI_RAW           = -300, /* Таблиця raw */
-    NF_IP_PRI_SELINUX_FIRST = -225,
-    NF_IP_PRI_CONNTRACK     = -200, /* Модуль nf_conntrack (ініціалізація станів) */
-    NF_IP_PRI_MANGLE        = -150, /* Таблиця mangle */
-    NF_IP_PRI_NAT_DST       = -100, /* Destination NAT (PREROUTING / OUTPUT) */
-    NF_IP_PRI_FILTER        = 0,    /* Таблиця filter (стандартні правила брандмауера) */
-    NF_IP_PRI_SECURITY      = 50,   /* Таблиця security (SELinux / SMACK) */
-    NF_IP_PRI_NAT_SRC       = 100,  /* Source NAT (POSTROUTING / INPUT) */
-    NF_IP_PRI_SELINUX_LAST  = 225,
-    NF_IP_PRI_CONNTRACK_HELPER = 300,
-    NF_IP_PRI_CONNTRACK_CONFIRM = INT_MAX  /* Підтвердження запису з'єднання при ACCEPT */
-};
-```
+:::code api-netfilter-kernel-hooks/c/standartni-priorytety.c
 
 Розподіл пріоритетів гарантує правильну послідовність обробки трафіку:
 1. `NF_IP_PRI_CONNTRACK_DEFRAG (-400)`: фрагментовані IP-пакети спочатку збираються у єдиний буфер, оскільки відстеження станів conntrack та фільтрація портів неможливі на окремих фрагментах.
@@ -148,41 +107,7 @@ void nf_unregister_net_hooks(struct net *net, const struct nf_hook_ops *reg, uns
 
 Кортеж описує один напрямок руху трафіку (прямий або зворотний). Він містить IP-адреси, порти та номер L4-протоколу.
 
-```c
-union nf_inet_addr {
-    __be32          ip;
-    __be32          ip6[4];
-    struct in_addr  in;
-    struct in6_addr in6;
-};
-
-struct nf_conntrack_man {
-    union nf_inet_addr u3;         /* IP-адреса хоста */
-    union {
-        __be16      all;           /* Універсальний порт / ID */
-        __be16      tcp_offset;
-        __be16      udp_offset;
-        __be16      icmp_id;
-    } u;
-    u_int16_t       l3num;         /* AF_INET або AF_INET6 */
-};
-
-struct nf_conntrack_tuple {
-    struct nf_conntrack_man src;  /* Джерело (IP + порт/ID) */
-    struct {
-        union nf_inet_addr u3;     /* Призначення (IP + порт/ID) */
-        union {
-            __be16  all;
-            __be16  tcp_offset;
-            __be16  udp_offset;
-            u_int8_t type;         /* Тип ICMP */
-            u_int8_t code;         /* Код ICMP */
-        } u;
-        u_int8_t    protonum;      /* Номер L4-протоколу (IPPROTO_TCP, IPPROTO_UDP тощо) */
-        u_int8_t    dir;           /* Напрямок: IP_CT_DIR_ORIGINAL або IP_CT_DIR_REPLY */
-    } dst;
-};
-```
+:::code api-netfilter-kernel-hooks/c/kortezh-ziednannia-struct.c
 
 Поля `src` та `dst` гарантують унікальну ідентифікацію сесії. Для протоколів TCP та UDP у полі `u.all` зберігається мережевий номер порту (`__be16`), а для ICMP — ідентифікатор запиту `icmp_id` або тип і код повідомлення.
 
@@ -190,37 +115,7 @@ struct nf_conntrack_tuple {
 
 Структура `struct nf_conn` репрезентує повний стан з'єднання. Вона об'єднує два кортежі (прямий `ORIGINAL` та зворотний `REPLY`), таймер застарівання, лічильники та статусні прапорці.
 
-```c
-enum ip_conntrack_dir {
-    IP_CT_DIR_ORIGINAL = 0,        /* Напрямок від ініціатора (прямий потік) */
-    IP_CT_DIR_REPLY    = 1,        /* Напрямок відповіді (зворотний потік) */
-    IP_CT_DIR_MAX
-};
-
-struct nf_conntrack_tuple_hash {
-    struct hlist_nulls_node   hnnode; /* Вузол зв'язаного списку хеш-кошика */
-    struct nf_conntrack_tuple tuple;  /* Кортеж для даного напрямку */
-};
-
-struct nf_conn {
-    struct sk_buff_head       head;
-    possible_net_t            ct_net;
-    
-    /* Двостороння пара кортежів: [0] = ORIGINAL, [1] = REPLY */
-    struct nf_conntrack_tuple_hash tuplehash[IP_CT_DIR_MAX];
-    
-    unsigned long             status; /* Бітова маска станів (IPS_CONFIRMED, IPS_NAT_MASK тощо) */
-    typedef atomic_t          refcnt;
-    struct timer_list         timeout;/* Таймер застарівання з'єднання */
-    
-    /* Бітові прапорці станів з'єднання */
-    u_int32_t                 mark;   /* Маркер пакета (ct mark) */
-    u_int32_t                 secmark;/* Сек'юріті-мітка SELinux */
-    
-    /* Розширення: помічники (helpers), NAT-структури, аккаунтинг */
-    struct nf_ct_ext          *ext;
-};
-```
+:::code api-netfilter-kernel-hooks/c/zapys-ziednannia-v-khesh.c
 
 Прапорці поля `status` визначають поточний стан сесії у ядрі:
 - `IPS_CONFIRMED`: запис підтверджено й успішно розміщено в хеш-таблиці `ct_hash`.

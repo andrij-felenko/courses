@@ -156,48 +156,8 @@ tsc
 Практичне правило з цього виходить коротке. Тривалість — тільки `CLOCK_MONOTONIC` (або `CLOCK_BOOTTIME`, якщо сон має рахуватися). Позначка часу, яку побачить людина, інша машина чи файлова система, — тільки `CLOCK_REALTIME`. Різниця двох значень різних годинників не означає нічого.
 
 :::tabs
-```c
-#include <time.h>
-#include <stdint.h>
-#include <stdio.h>
-
-void do_work(void);
-
-/* Тривалість у наносекундах між двома знятими моментами. */
-static int64_t elapsed_ns(const struct timespec *a, const struct timespec *b)
-{
-    return (int64_t)(b->tv_sec - a->tv_sec) * 1000000000LL
-         + (int64_t)(b->tv_nsec - a->tv_nsec);
-}
-
-void measure(void)
-{
-    struct timespec t0, t1;
-
-    clock_gettime(CLOCK_MONOTONIC, &t0);   /* не REALTIME */
-    do_work();
-    clock_gettime(CLOCK_MONOTONIC, &t1);
-
-    printf("%lld нс\n", (long long)elapsed_ns(&t0, &t1));
-}
-```
-```cpp
-#include <chrono>
-#include <print>
-
-void do_work();
-
-void measure()
-{
-    // steady_clock у libstdc++ — це саме CLOCK_MONOTONIC;
-    // system_clock — CLOCK_REALTIME, і для тривалостей не годиться.
-    const auto t0 = std::chrono::steady_clock::now();
-    do_work();
-    const auto t1 = std::chrono::steady_clock::now();
-
-    std::println("{}", std::chrono::duration_cast<std::chrono::nanoseconds>(t1 - t0));
-}
-```
+:::code kernel-timekeeping-d/c/main.c
+:::code kernel-timekeeping-d/cpp/main.cpp
 :::
 
 > 🔧 **Навіщо це.** Плутанина цих двох годинників — одна з найчастіших причин «неможливих» звітів у продакшні: від'ємні тривалості в метриках, таймаут, що спрацьовує миттєво, кеш, який протухає на годину вперед. Усі вони з'являються разом і саме тієї хвилини, коли служба синхронізації вперше виправила час на щойно завантаженій машині.

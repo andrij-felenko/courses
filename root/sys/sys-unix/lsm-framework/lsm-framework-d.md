@@ -129,26 +129,7 @@ struct lsm_blob_sizes {
 
 Уся реєстрація — це таблиця пар «гачок, функція» і оголошення себе. Ось Yama, найкоротший модуль у ядрі: він робить рівно одне — обмежує, хто кого може взяти під [ptrace](root:sys-unix/ptrace-model):
 
-```c
-static struct security_hook_list yama_hooks[] __ro_after_init = {
-	LSM_HOOK_INIT(ptrace_access_check, yama_ptrace_access_check),
-	LSM_HOOK_INIT(ptrace_traceme,      yama_ptrace_traceme),
-	LSM_HOOK_INIT(task_prctl,          yama_task_prctl),
-	LSM_HOOK_INIT(task_free,           yama_task_free),
-};
-
-static int __init yama_init(void)
-{
-	security_add_hooks(yama_hooks, ARRAY_SIZE(yama_hooks), &yama_lsmid);
-	yama_init_sysctl();
-	return 0;
-}
-
-DEFINE_LSM(yama) = {
-	.name = "yama",
-	.init = yama_init,
-};
-```
+:::code lsm-framework-d/c/main.c
 
 Дві дрібниці тут важать більше, ніж здається. `__ro_after_init` кладе таблицю в ділянку, яку ядро робить незаписуваною, щойно завантаження скінчилося: підмінити чужий гачок після старту не вийде навіть коду ядра. А `DEFINE_LSM` — це не виклик, а розміщення запису в окремій секції образу, `.lsm_info.init`. Ніхто нікого не реєструє на ходу: каркас на завантаженні просто проходить цю секцію від початку до кінця.
 

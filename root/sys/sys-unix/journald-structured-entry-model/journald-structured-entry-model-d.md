@@ -88,21 +88,7 @@ $ logger -p auth.info -t sshd "Accepted publickey for root from 10.0.0.9"
 
 Різниця між дверима — не в церемонії, а в тому, скільки полів запис приносить із собою:
 
-```c
-#include <systemd/sd-journal.h>
-
-/* через старий виклик: усе значуще втоплено в реченні */
-syslog(LOG_ERR, "order %s failed at payment: %s", order, strerror(errno));
-
-/* через рідний протокол: речення — людині, значення — полями */
-sd_journal_send("MESSAGE=не вдалося провести замовлення %s", order,
-                "MESSAGE_ID=8daee1d3b9a04f8e9b2c1d0a77e51234",
-                "PRIORITY=3",
-                "ORDER_ID=%s", order,
-                "ORDER_STAGE=payment",
-                "ERRNO=%d", errno,
-                NULL);
-```
+:::code journald-structured-entry-model-d/c/sd-journal.h
 
 > 🔧 **Навіщо це.** Другий варіант дозволяє запит, неможливий для першого: «покажи всі записи з `ORDER_ID=8841` за всі служби» — і ви побачите шлях одного замовлення крізь приймач, чергу й списувача платежів, навіть якщо всі троє формулюють свої повідомлення по-різному й різними мовами. Ціна — один додатковий рядок у коді на місці виклику.
 

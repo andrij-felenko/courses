@@ -104,58 +104,13 @@ Aggregator ID: 1
 
 Ядро розбирає вкладений атрибут `IFLA_INFO_DATA` за допомогою внутрішньої функції `nla_parse_nested()`, очікуючи наступні константи:
 
-```c
-enum {
-    IFLA_BOND_UNSPEC,
-    IFLA_BOND_MODE,                /* u8: режим bonding (0-6) */
-    IFLA_BOND_ACTIVE_SLAVE,         /* u32: ifindex активного slave пристрою */
-    IFLA_BOND_MIIMON,               /* u32: інтервал MII моніторингу у мс */
-    IFLA_BOND_UPDELAY,              /* u32: затримка увімкнення лінка у мс */
-    IFLA_BOND_DOWNDELAY,            /* u32: затримка вимкнення лінка у мс */
-    IFLA_BOND_USE_CARRIER,          /* u8: перевірка carrier netif (0/1) */
-    IFLA_BOND_ARP_INTERVAL,         /* u32: інтервал відправки ARP у мс */
-    IFLA_BOND_ARP_IP_TARGET,        /* вкладений контейнер IP-адрес targets */
-    IFLA_BOND_ARP_VALIDATE,         /* u32: режим валідації вхідних ARP */
-    IFLA_BOND_ARP_ALL_TARGETS,      /* u32: критерій доступності ARP цілей */
-    IFLA_BOND_PRIMARY,              /* u32: ifindex первинного slave */
-    IFLA_BOND_PRIMARY_RESELECT,     /* u8: режим переобрання primary */
-    IFLA_BOND_FAIL_OVER_MAC,        /* u8: політика обробки MAC при failover */
-    IFLA_BOND_XMIT_HASH_POLICY,     /* u8: політика хешування (0-4) */
-    IFLA_BOND_RESEND_IGMP,          /* u32: кількість повторних IGMP пакетів */
-    IFLA_BOND_NUM_PEER_NOTIF,       /* u8: кількість gratuitous ARP пакетів */
-    IFLA_BOND_ALL_SLAVES_ACTIVE,    /* u8: обробка дубльованого трафіку */
-    IFLA_BOND_MIN_LINKS,            /* u32: мін. кількість лінків для 802.3ad */
-    IFLA_BOND_LP_INTERVAL,          /* u32: інтервал навчальних пакетів (tlb/alb) */
-    IFLA_BOND_PACKETS_PER_SLAVE,    /* u32: кількість пакетів на slave (mode 0) */
-    IFLA_BOND_AD_LACP_RATE,         /* u8: швидкість LACPDU (0=slow, 1=fast) */
-    IFLA_BOND_AD_SELECT,            /* u8: режим вибору агрегатора LACP */
-    IFLA_BOND_AD_INFO,              /* вкладений атрибут з деталями 802.3ad */
-    IFLA_BOND_AD_ACTOR_SYS_PRIO,    /* u16: пріоритет Actor системи */
-    IFLA_BOND_AD_USER_PORT_PRIO,    /* u16: пріоритет порту користувача */
-    IFLA_BOND_AD_ACTOR_SYSTEM,      /* 6 байт: системна MAC-адреса Actor */
-    IFLA_BOND_TLB_DYNAMIC_LB,       /* u8: динамічне балансування tlb (0/1) */
-    __IFLA_BOND_MAX
-};
-```
+:::code api-bonding-team-netlink/c/2-1-perelik-atrybutiv-ifla.c
 
 ### 2.2. Атрибути підпорядкованих пристроїв `IFLA_BOND_SLAVE_*`
 
 При прив'язці або опитуванні стану підпорядкованого пристрою (slave) за допомогою `RTM_NEWLINK` атрибут `IFLA_INFO_KIND` містить рядок `"bond_slave"`, а параметри порту розміщуються у контейнері `IFLA_INFO_DATA`:
 
-```c
-enum {
-    IFLA_BOND_SLAVE_UNSPEC,
-    IFLA_BOND_SLAVE_STATE,          /* u8: стан slave (0=ACTIVE, 1=BACKUP) */
-    IFLA_BOND_SLAVE_MII_STATUS,     /* u8: статус MII (0=LINK_UP, 1=LINK_FAIL) */
-    IFLA_BOND_SLAVE_LINK_FAILURE_COUNT, /* u32: лічильник аварійних падінь лінка */
-    IFLA_BOND_SLAVE_PERM_HWADDR,    /* 6 байт: оригінальна MAC-адреса карти */
-    IFLA_BOND_SLAVE_QUEUE_ID,       /* u16: ідентифікатор черги передачі */
-    IFLA_BOND_SLAVE_AD_AGGREGATOR_ID,/* u16: ідентифікатор агрегатора LACP */
-    IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE, /* u8: стан автомата LACP Actor */
-    IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE, /* u8: стан автомата LACP Partner */
-    __IFLA_BOND_SLAVE_MAX
-};
-```
+:::code api-bonding-team-netlink/c/2-2-atrybuty.c
 
 ### 2.3. Вкладений атрибут `IFLA_BOND_AD_INFO`
 

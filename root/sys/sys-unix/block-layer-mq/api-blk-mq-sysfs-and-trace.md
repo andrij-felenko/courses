@@ -191,27 +191,7 @@ block:block_rq_complete    (dev_t dev, sector_t sector, unsigned int nr_sector, 
 
 Нижче наведено робочий скрипт `bpftrace` для побудови гістограми затримок виконання запитів (`issue` -> `complete`) у мікросекундах для диска `nvme0n1`:
 
-```bash
-sudo bpftrace -e '
-tracepoint:block:block_rq_issue
-{
-    @start[args->dev, args->sector] = nsecs;
-}
-
-tracepoint:block:block_rq_complete
-/@start[args->dev, args->sector]/
-{
-    $lat_us = (nsecs - @start[args->dev, args->sector]) / 1000;
-    @latency_us = hist($lat_us);
-    delete(@start[args->dev, args->sector]);
-}
-
-END
-{
-    clear(@start);
-}
-'
-```
+:::code api-blk-mq-sysfs-and-trace/sh/main.sh
 
 *Приклад виводу гістограми `bpftrace`*:
 ```text

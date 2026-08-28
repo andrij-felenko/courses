@@ -30,52 +30,8 @@
 4. **Неподільне заповнення:** Наглядач передає ядру буфер із даними через `ioctl(UFFDIO_COPY)`. Ядро виділяє новий фізичний кадр, копіює туди вміст **до** оновлення таблиці сторінок, атомарно вписує новий запис і будить потерпілий потік. Для винуватця затримка виглядає як звичайне очікування дискового введення-виведення.
 
 :::tabs
-```c
-/* Створення дескриптора та реєстрація ділянки */
-int uffd = syscall(SYS_userfaultfd, O_CLOEXEC | O_NONBLOCK | UFFD_USER_MODE_ONLY);
-struct uffdio_api api = { .api = UFFD_API, .features = 0 };
-ioctl(uffd, UFFDIO_API, &api);
-
-struct uffdio_register reg = {
-    .range = { .start = (unsigned long)area, .len = length },
-    .mode  = UFFDIO_REGISTER_MODE_MISSING,
-};
-ioctl(uffd, UFFDIO_REGISTER, &reg);
-
-/* Наглядач: читання збою та неподільне заповнення */
-struct uffd_msg msg;
-read(uffd, &msg, sizeof(msg));
-unsigned long page = msg.arg.pagefault.address & ~(pagesize - 1);
-fetch_page(page, buf);
-
-struct uffdio_copy copy = {
-    .dst = page, .src = (unsigned long)buf, .len = pagesize, .mode = 0,
-};
-ioctl(uffd, UFFDIO_COPY, &copy);
-```
-```cpp
-// Створення дескриптора та реєстрація ділянки
-int uffd = ::syscall(SYS_userfaultfd, O_CLOEXEC | O_NONBLOCK | UFFD_USER_MODE_ONLY);
-::uffdio_api api{.api = UFFD_API, .features = 0};
-::ioctl(uffd, UFFDIO_API, &api);
-
-::uffdio_register reg{
-    .range = {.start = reinterpret_cast<std::uintptr_t>(area), .len = length},
-    .mode  = UFFDIO_REGISTER_MODE_MISSING,
-};
-::ioctl(uffd, UFFDIO_REGISTER, &reg);
-
-// Наглядач: читання збою та неподільне заповнення
-::uffd_msg msg{};
-::read(uffd, &msg, sizeof(msg));
-auto page = msg.arg.pagefault.address & ~(pagesize - 1);
-fetch_page(page, buf);
-
-::uffdio_copy copy{
-    .dst = page, .src = reinterpret_cast<std::uintptr_t>(buf.data()), .len = pagesize, .mode = 0,
-};
-::ioctl(uffd, UFFDIO_COPY, &copy);
-```
+:::code userfaultfd/c/main.h
+:::code userfaultfd/cpp/main.hpp
 :::
 
 Важливе застереження: буфер, із якого наглядач копіює дані, мусить лежати **поза** зареєстрованою ділянкою. Якби наглядач спробував прочитати власне джерело із тієї ж перехоплюваної ділянки, він сам викликав би сторінковий збій і назавжди заснув у черзі, чекаючи на самого себе.

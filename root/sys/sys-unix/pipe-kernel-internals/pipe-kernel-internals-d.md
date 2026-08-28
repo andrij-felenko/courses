@@ -23,22 +23,7 @@
 
 Усередині ядра Linux канал представлений спеціальною структурою керування `struct pipe_inode_info`, яка виділяється в динамічній пам'яті ядра під час створення каналу:
 
-```c
-struct pipe_inode_info {
-    struct mutex mutex;              /* захист структури від паралельного доступу */
-    wait_queue_head_t rd_wait;        /* черга очікування сплячих читачів */
-    wait_queue_head_t wr_wait;        /* черга очікування сплячих письменників */
-    unsigned int head;               /* індекс наступного запису в кільці */
-    unsigned int tail;               /* індекс наступного читання в кільці */
-    unsigned int max_usage;          /* поточна місткість буфера у сторінках */
-    unsigned int ring_size;          /* розмір кільцевого масиву сторінок */
-    unsigned int nr_accounted;       /* сторінки, що враховані в лімітах користувача */
-    unsigned int readers;            /* кількість відкритих дескрипторів читання */
-    unsigned int writers;            /* кількість відкритих дескрипторів запису */
-    struct pipe_buffer *bufs;        /* кільцевий масив сторінкових буферів */
-    struct user_struct *user;        /* користувач, якому нараховано пам'ять каналу */
-};
-```
+:::code pipe-kernel-internals-d/c/anatomiia-kanalu-v-pamiati.c
 
 Головна частина каналу — це масив `bufs`, що складається зі структур `struct pipe_buffer`. За замовчуванням у сучасному Linux масив налічує 16 слотів. Кожен слот посилається на окрему фізичну сторінку пам'яті ядра (`struct page`) розміром 4096 байтів (4 КіБ). Таким чином, загальна місткість стандартного буфера каналу становить 64 КіБ (16 × 4 КіБ).
 
@@ -160,48 +145,8 @@ struct pipe_inode_info {
 Загальна місткість буфера каналу (64 КіБ за замовчуванням) не тотожна константі атомарності `PIPE_BUF` (4 КіБ). Починаючи з ядра Linux 2.6.35, місткість буфера можна змінювати на льоту за допомогою виклику `fcntl()`:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int resize_pipe(int pipe_fd, int target_bytes) {
-    /* Отримуємо поточний розмір буфера */
-    int current_sz = fcntl(pipe_fd, F_GETPIPE_SZ);
-    printf("Поточний розмір буфера: %d байтів\n", current_sz);
-
-    /* Встановлюємо новий розмір (наприклад, 1 МіБ) */
-    int new_sz = fcntl(pipe_fd, F_SETPIPE_SZ, target_bytes);
-    if (new_sz < 0) {
-        perror("fcntl F_SETPIPE_SZ");
-        return -1;
-    }
-    printf("Новий розмір буфера: %d байтів\n", new_sz);
-    return new_sz;
-}
-```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <iostream>
-#include <system_error>
-
-int resize_pipe(int pipe_fd, int target_bytes) {
-    int current_sz = ::fcntl(pipe_fd, F_GETPIPE_SZ);
-    if (current_sz < 0) {
-        throw std::system_error(errno, std::generic_category(), "F_GETPIPE_SZ");
-    }
-    std::cout << "Поточний розмір буфера: " << current_sz << " байтів\n";
-
-    int new_sz = ::fcntl(pipe_fd, F_SETPIPE_SZ, target_bytes);
-    if (new_sz < 0) {
-        throw std::system_error(errno, std::generic_category(), "F_SETPIPE_SZ");
-    }
-    std::cout << "Новий розмір буфера: " << new_sz << " байтів\n";
-    return new_sz;
-}
-```
+:::code pipe-kernel-internals-d/c/dynamichna-zmina-rozmiru.c
+:::code pipe-kernel-internals-d/cpp/dynamichna-zmina-rozmiru.cpp
 :::
 
 Ядро округлює запрошений розмір угору до найближчого степеня двійки, кратного 4096. Максимальний розмір буфера для непривілейованого процесу обмежено системним файлом `/proc/sys/fs/pipe-max-size` (типово 1048576 байтів = 1 МіБ).
@@ -287,100 +232,8 @@ yes | head -n 5
 У сучасній архітектурі Linux канали перетворилися на універсальний транзитний шлюз для **нульового копіювання** (*zero-copy data movement*) завдяки системним викликам `splice()`, `vmsplice()` та `tee()`:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-
-/* Перекачування даних із мережевого сокета у файл через канал без участі юзерспейсу */
-ssize_t zero_copy_stream(int sock_fd, int file_fd, size_t total_bytes) {
-    int pfd[2];
-    if (pipe(pfd) < 0) return -1;
-
-    size_t transferred = 0;
-    while (transferred < total_bytes) {
-        /* Крок 1: Переміщуємо сторінки із сокета в канал (zero-copy) */
-        ssize_t n_in = splice(sock_fd, NULL, pfd[1], NULL,
-                              total_bytes - transferred, SPLICE_F_MOVE | SPLICE_F_MORE);
-        if (n_in <= 0) break;
-
-        /* Крок 2: Переміщуємо сторінки з каналу у цільовий файл (zero-copy) */
-        ssize_t n_out = splice(pfd[0], NULL, file_fd, NULL,
-                               (size_t)n_in, SPLICE_F_MOVE | SPLICE_F_MORE);
-        if (n_out <= 0) break;
-
-        transferred += (size_t)n_out;
-    }
-
-    close(pfd[0]);
-    close(pfd[1]);
-    return (ssize_t)transferred;
-}
-```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <system_error>
-#include <memory>
-
-class UniqueFd {
-public:
-    constexpr UniqueFd() noexcept : fd_(-1) {}
-    explicit UniqueFd(int fd) noexcept : fd_(fd) {}
-    ~UniqueFd() noexcept { reset(); }
-
-    UniqueFd(const UniqueFd&) = delete;
-    UniqueFd& operator=(const UniqueFd&) = delete;
-
-    UniqueFd(UniqueFd&& other) noexcept : fd_(other.release()) {}
-    UniqueFd& operator=(UniqueFd&& other) noexcept {
-        if (this != &other) reset(other.release());
-        return *this;
-    }
-
-    [[nodiscard]] int get() const noexcept { return fd_; }
-    [[nodiscard]] bool valid() const noexcept { return fd_ >= 0; }
-
-    int release() noexcept {
-        int old = fd_;
-        fd_ = -1;
-        return old;
-    }
-
-    void reset(int new_fd = -1) noexcept {
-        if (fd_ >= 0) ::close(fd_);
-        fd_ = new_fd;
-    }
-
-private:
-    int fd_;
-};
-
-ssize_t zero_copy_stream(int sock_fd, int file_fd, size_t total_bytes) {
-    int pfd[2];
-    if (::pipe(pfd) < 0) {
-        throw std::system_error(errno, std::generic_category(), "pipe");
-    }
-    UniqueFd read_end(pfd[0]);
-    UniqueFd write_end(pfd[1]);
-
-    size_t transferred = 0;
-    while (transferred < total_bytes) {
-        ssize_t n_in = ::splice(sock_fd, nullptr, write_end.get(), nullptr,
-                                total_bytes - transferred, SPLICE_F_MOVE | SPLICE_F_MORE);
-        if (n_in <= 0) break;
-
-        ssize_t n_out = ::splice(read_end.get(), nullptr, file_fd, nullptr,
-                                 static_cast<size_t>(n_in), SPLICE_F_MOVE | SPLICE_F_MORE);
-        if (n_out <= 0) break;
-
-        transferred += static_cast<size_t>(n_out);
-    }
-
-    return static_cast<ssize_t>(transferred);
-}
-```
+:::code pipe-kernel-internals-d/c/nulove-kopiiuvannia.c
+:::code pipe-kernel-internals-d/cpp/nulove-kopiiuvannia.cpp
 :::
 
 Принцип роботи `splice()` на рівні пам'яті: ядро не копіює байти з мережевого буфера драйвера. Воно бере покажчик на фізичну сторінку пам'яті `struct page` з кільця мережевого адаптера, збільшує лічильник посилань сторінки (`get_page()`) і вставляє посилання в слот `pipe_buffer` каналу. Під час другого виклику `splice()` ця сторінка безпосередньо передається підсистемі сторінкового кешу (*page cache*) цільової файлової системи. Дані проходять шлях від мережевої карти до диску взагалі без завантаження в кеш-пам'ять процесора L1/L2/L3.

@@ -184,33 +184,8 @@ struct Dl_info {
 Структура `r_debug` є головним вхідним вузлом для зовнішніх інструментів аналізу. Вона містить поточний стан завантажувача та вказівник на список усіх завантажених об'єктів.
 
 :::tabs
-```c
-struct r_debug {
-    int r_version;              /* Версія структури ABI (поточна версія — 1) */
-    struct link_map *r_map;     /* Вказівник на перший елемент однозв'язного списку завантажених модулів */
-    ElfW(Addr) r_brk;           /* Віртуальна адреса функції-пастки _dl_debug_state */
-    enum {
-        RT_CONSISTENT,          /* Карта завантажених бібліотек стабільна і готова до зчитування */
-        RT_ADD,                 /* Завантажувач у процесі додавання нового ELF-модуля */
-        RT_DELETE               /* Завантажувач у процесі вилучення ELF-модуля з пам'яті */
-    } r_state;
-    ElfW(Addr) r_ldbase;        /* Базова адреса завантаження самого динамічного завантажувача ld.so */
-};
-```
-```cpp
-// C++ версія r_debug з <link.h>
-struct r_debug {
-    int r_version;
-    struct link_map *r_map;
-    ElfW(Addr) r_brk;
-    enum {
-        RT_CONSISTENT,
-        RT_ADD,
-        RT_DELETE
-    } r_state;
-    ElfW(Addr) r_ldbase;
-};
-```
+:::code api-dlfcn-and-rtld-debug/c/struktura-r-debug.c
+:::code api-dlfcn-and-rtld-debug/cpp/struktura-r-debug.cpp
 :::
 
 ### Структура `link_map`
@@ -254,117 +229,6 @@ struct link_map {
 ## 5. Приклад використання API dlfcn на C та C++
 
 :::tabs
-```c
-/* dlfcn_demo.c — Приклад динамічного завантаження плагіна мовою C */
-#include <stdio.h>
-#include <stdlib.h>
-#include <dlfcn.h>
-
-typedef double (*math_func_t)(double);
-
-int main(void) {
-    /* Відкриваємо математичну бібліотеку */
-    void *handle = dlopen("libm.so.6", RTLD_LAZY);
-    if (!handle) {
-        fprintf(stderr, "dlopen error: %s\n", dlerror());
-        return 1;
-    }
-
-    /* Очищаємо існуючі помилки */
-    dlerror();
-
-    /* Шукаємо функцію cos */
-    math_func_t cos_fn = (math_func_t)dlsym(handle, "cos");
-    const char *dlsym_err = dlerror();
-    if (dlsym_err != NULL) {
-        fprintf(stderr, "dlsym error: %s\n", dlsym_err);
-        dlclose(handle);
-        return 1;
-    }
-
-    /* Отримуємо інформацію про символ через dladdr */
-    Dl_info info;
-    if (dladdr((void*)cos_fn, &info)) {
-        printf("Symbol 'cos' found in file: %s at base address: %p\n",
-               info.dli_fname, info.dli_fbase);
-    }
-
-    /* Викликаємо знайдену функцію */
-    double result = cos_fn(3.141592653589793 / 3.0);
-    printf("cos(pi/3) = %f\n", result);
-
-    /* Закриваємо хендл */
-    dlclose(handle);
-    return 0;
-}
-```
-```cpp
-// dlfcn_demo.cpp — Ідіоматичний C++20 RAII wrapper для dlfcn
-#include <iostream>
-#include <memory>
-#include <expected>
-#include <string_view>
-#include <cmath>
-#include <dlfcn.h>
-
-namespace sys {
-
-struct DlHandleDeleter {
-    void operator()(void* handle) const noexcept {
-        if (handle) {
-            ::dlclose(handle);
-        }
-    }
-};
-
-using UniqueDlHandle = std::unique_ptr<void, DlHandleDeleter>;
-
-class DynamicLibrary {
-    UniqueDlHandle m_handle;
-public:
-    static std::expected<DynamicLibrary, std::string> load(std::string_view filename, int flags = RTLD_LAZY) {
-        ::dlerror(); // Clear previous errors
-        void* handle = ::dlopen(filename.data(), flags);
-        if (!handle) {
-            const char* err = ::dlerror();
-            return std::unexpected(err ? err : "Unknown dlopen error");
-        }
-        return DynamicLibrary(UniqueDlHandle(handle));
-    }
-
-    explicit DynamicLibrary(UniqueDlHandle handle) : m_handle(std::move(handle)) {}
-
-    template <typename FuncPtr>
-    std::expected<FuncPtr, std::string> get_symbol(std::string_view symbol_name) const {
-        ::dlerror(); // Clear errors
-        void* sym = ::dlsym(m_handle.get(), symbol_name.data());
-        const char* err = ::dlerror();
-        if (err != nullptr) {
-            return std::unexpected(std::string(err));
-        }
-        return reinterpret_cast<FuncPtr>(sym);
-    }
-};
-
-} // namespace sys
-
-int main() {
-    auto lib_result = sys::DynamicLibrary::load("libm.so.6");
-    if (!lib_result) {
-        std::cerr << "Failed to load library: " << lib_result.error() << '\n';
-        return 1;
-    }
-
-    auto cos_symbol = lib_result->get_symbol<double(*)(double)>("cos");
-    if (!cos_symbol) {
-        std::cerr << "Failed to resolve symbol: " << cos_symbol.error() << '\n';
-        return 1;
-    }
-
-    auto cos_fn = *cos_symbol;
-    std::cout << "cos(pi/3) = " << cos_fn(M_PI / 3.0) << '\n';
-
-    return 0;
-}
-```
+:::code api-dlfcn-and-rtld-debug/c/dlfcn_demo.c
+:::code api-dlfcn-and-rtld-debug/cpp/dlfcn_demo.cpp
 :::

@@ -72,19 +72,7 @@ zpool create -f -o ashift=12 -O compression=lz4 -O acltype=posixacl -O xattr=sa 
 
 Усі команди передаються в ядро через єдину базову структуру `zfs_cmd_t`, вирівняну по 8-байтовій межі:
 
-```c
-struct zfs_cmd {
-    char         zc_name[MAXPATHLEN];     /* Ім'я пулу або датасету */
-    uint64_t     zc_nvlist_src;           /* Вказівник на NVList конфігурації (input) */
-    uint64_t     zc_nvlist_src_size;      /* Розмір вхідного NVList буфера */
-    uint64_t     zc_nvlist_dst;           /* Вказівник на NVList результату (output) */
-    uint64_t     zc_nvlist_dst_size;      /* Розмір вихідного NVList буфера */
-    uint64_t     zc_history;              /* Вказівник на журнал історії */
-    uint64_t     zc_cookie;               /* Спеціальний ідентифікатор транзакції */
-    uint64_t     zc_objset_type;          /* Тип об'єкта (DMU_OST_ZFS, DMU_OST_ZVOL) */
-    uint64_t     zc_perm_action;          /* Права доступу та операція */
-};
-```
+:::code api-zfs-pool-management/c/main.c
 
 Поля `zc_nvlist_src` та `zc_nvlist_dst` містять упаковані бінарні структури **NVList (Name-Value List)** у форматі XDR. Через NVList ядро та простір користувача обмінюються складними деревами конфігурацій (списками VDEV, дисковими ідентифікаторами, наборами властивостей).
 

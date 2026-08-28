@@ -128,19 +128,7 @@ ioctl(media_fd, MEDIA_IOC_SETUP_LINK, &link);
 
 Формат ставлять уже на вузлі самої сутности, і в структурі є номер пада — бо вузол один, а падів у нього кілька:
 
-```c
-struct v4l2_subdev_format fmt = {
-    .pad   = 0,
-    .which = V4L2_SUBDEV_FORMAT_ACTIVE,
-    .format = {
-        .width  = 1920,
-        .height = 1080,
-        .code   = MEDIA_BUS_FMT_SGRBG10_1X10,
-        .field  = V4L2_FIELD_NONE,
-    },
-};
-ioctl(subdev_fd, VIDIOC_SUBDEV_S_FMT, &fmt);
-```
+:::code media-controller-graph-d/c/main.c
 
 Поле `which` варте окремої уваги. `V4L2_SUBDEV_FORMAT_ACTIVE` міняє залізо насправді, `V4L2_SUBDEV_FORMAT_TRY` лише запитує: «а що ти зробив би з таким форматом?» — драйвер підправляє його під свої обмеження й повертає, не чіпаючи пристрою. Так програма промацує можливості блока, не ламаючи наявних налаштувань.
 

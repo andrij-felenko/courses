@@ -10,30 +10,7 @@
 
 Тестування проводять суворо послідовно від найвищого логічного рівня до найнижчого:
 
-```bash
-# 1. Перевірка підсистеми заморожування процесів (Freezer)
-sudo sh -c "echo freezer > /sys/power/pm_test"
-sudo sh -c "echo mem > /sys/power/state"
-
-# 2. Перевірка зворотних викликів драйверів пристроїв (DPM)
-sudo sh -c "echo devices > /sys/power/pm_test"
-sudo sh -c "echo mem > /sys/power/state"
-
-# 3. Перевірка платформних викликів ACPI / Device Tree
-sudo sh -c "echo platform > /sys/power/pm_test"
-sudo sh -c "echo mem > /sys/power/state"
-
-# 4. Перевірка відключення вторинних ядер процесора (CPU Hotplug)
-sudo sh -c "echo processors > /sys/power/pm_test"
-sudo sh -c "echo mem > /sys/power/state"
-
-# 5. Перевірка зупинки системних переривань (syscore)
-sudo sh -c "echo core > /sys/power/pm_test"
-sudo sh -c "echo mem > /sys/power/state"
-
-# Повернення до нормального режиму після завершення тестів
-sudo sh -c "echo none > /sys/power/pm_test"
-```
+:::code proj-suspend-debug-trace/sh/krok-1-pokrokova.sh
 
 Кожен рівень тесту дає чітку відповідь про місце поломки:
 - Якщо система зависає вже на етапі `freezer`, винуватцем є користувацький процес або ядерний потік у стані неперервного очікування (`TASK_UNINTERRUPTIBLE`), який заблокував дискову чергу введення-виведення або завис на сокеті мережевої файлової системи (NFS, SMB, FUSE).
@@ -83,18 +60,7 @@ sudo sleepgraph -m mem -rtcwake 10 -f -dev
 
 Перед кожним критичним викликом `dev_pm_ops` ядро обчислює хеш із назви поточного драйвера і номера рядка у вихідному коді та записує цей хеш у комірку енергонезалежної пам'яті CMOS годинника реального часу RTC (де в звичайному режимі зберігаються секунди дати).
 
-```bash
-# 1. Увімкнення апаратного збереження хешу в RTC
-sudo sh -c "echo 1 > /sys/power/pm_trace"
-
-# 2. Спроба переходу в сон
-sudo sh -c "echo mem > /sys/power/state"
-
-# 3. Якщо система зависла — виконуємо апаратний скид (кнопкою живлення / Reset),
-# після завантаження читаємо винуватця збігу збереженого хешу:
-sudo dmesg | grep "Magic number"
-cat /sys/power/pm_trace_dev_match
-```
+:::code proj-suspend-debug-trace/sh/krok-4-poshuk-zboiv.sh
 
 Після завантаження ядро зчитує збережене магічне число з пам'яті RTC і зіставляє його з внутрішньою хеш-таблицею зареєстрованих драйверів, виводячи в консоль назву конкретного пристрою, на чиєму виклику система зазнала фатального збою.
 
@@ -122,140 +88,8 @@ sudo sh -c "echo disabled > /sys/bus/usb/devices/usb1/power/wakeup"
 Правильний алгоритм використовує механізм атомарної верифікації через `/sys/power/wakeup_count`.
 
 :::tabs
-```c
-/* userspace_suspend.c: безпечний перехід у сон без втрати подій */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-
-int trigger_safe_suspend(void)
-{
-    char count_buf[64];
-    int count_fd, state_fd;
-    ssize_t bytes_read, bytes_written;
-
-    /* Крок 1. Читаємо поточну кількість подій пробудження */
-    count_fd = open("/sys/power/wakeup_count", O_RDWR);
-    if (count_fd < 0) {
-        perror("Не вдалося відкрити /sys/power/wakeup_count");
-        return -errno;
-    }
-
-    bytes_read = read(count_fd, count_buf, sizeof(count_buf) - 1);
-    if (bytes_read <= 0) {
-        perror("Помилка читання лічильника подій");
-        close(count_fd);
-        return -EIO;
-    }
-    count_buf[bytes_read] = '\0';
-
-    /* Крок 2. Атомарно записуємо зчитане значення назад у файл */
-    lseek(count_fd, 0, SEEK_SET);
-    bytes_written = write(count_fd, count_buf, strlen(count_buf));
-    if (bytes_written < 0) {
-        if (errno == EINVAL) {
-            fprintf(stderr, "Подію пробудження зафіксовано перед сном! Призупинення скасовано.\n");
-        } else {
-            perror("Помилка запису в wakeup_count");
-        }
-        close(count_fd);
-        return -errno;
-    }
-    close(count_fd);
-
-    /* Крок 3. Ініціюємо перехід у сон */
-    state_fd = open("/sys/power/state", O_WRONLY);
-    if (state_fd < 0) {
-        perror("Не вдалося відкрити /sys/power/state");
-        return -errno;
-    }
-
-    printf("Перевірка успішна. Перехід у стан сну mem...\n");
-    if (write(state_fd, "mem\n", 4) < 0) {
-        perror("Помилка під час переходу в сон");
-        close(state_fd);
-        return -errno;
-    }
-
-    close(state_fd);
-    printf("Система успішно прокинулася зі стану сну.\n");
-    return 0;
-}
-
-int main(void)
-{
-    return trigger_safe_suspend() == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
-}
-```
-```cpp
-// userspace_suspend.cpp: ідіоматична обгортка RAII для безпечного сну
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <system_error>
-#include <expected>
-
-class PowerManager {
-public:
-    static std::expected<void, std::error_code> trigger_safe_suspend() {
-        std::string wakeup_count_str;
-
-        // Крок 1. Читаємо актуальне значення лічильника
-        {
-            std::ifstream count_in("/sys/power/wakeup_count");
-            if (!count_in.is_open()) {
-                return std::unexpected(std::make_error_code(std::errc::no_such_file_or_directory));
-            }
-            if (!(count_in >> wakeup_count_str)) {
-                return std::unexpected(std::make_error_code(std::errc::io_error));
-            }
-        }
-
-        // Крок 2. Атомарно верифікуємо лічильник записом назад
-        {
-            std::ofstream count_out("/sys/power/wakeup_count");
-            if (!count_out.is_open()) {
-                return std::unexpected(std::make_error_code(std::errc::permission_denied));
-            }
-            count_out << wakeup_count_str;
-            count_out.flush();
-            if (count_out.fail()) {
-                std::cerr << "Подію пробудження зафіксовано перед сном! Призупинення скасовано.\n";
-                return std::unexpected(std::make_error_code(std::errc::invalid_argument));
-            }
-        }
-
-        // Крок 3. Ініціюємо перехід у сон
-        {
-            std::ofstream state_out("/sys/power/state");
-            if (!state_out.is_open()) {
-                return std::unexpected(std::make_error_code(std::errc::permission_denied));
-            }
-            std::cout << "Перевірка успішна. Перехід у стан сну mem...\n";
-            state_out << "mem\n";
-            state_out.flush();
-            if (state_out.fail()) {
-                return std::unexpected(std::make_error_code(std::errc::io_error));
-            }
-        }
-
-        std::cout << "Система успішно прокинулася зі стану сну.\n";
-        return {};
-    }
-};
-
-int main() {
-    auto result = PowerManager::trigger_safe_suspend();
-    if (!result) {
-        std::cerr << "Помилка призупинення: " << result.error().message() << '\n';
-        return 1;
-    }
-    return 0;
-}
-```
+:::code proj-suspend-debug-trace/c/userspace_suspend.c
+:::code proj-suspend-debug-trace/cpp/userspace_suspend.cpp
 :::
 
 Програма спочатку зчитує лічильник подій пробудження і записує його назад. Якщо між цими двома викликами клавіатура або мережева карта зафіксувала активність, ядро відхилить запис помилкою `EINVAL`, і процес не стане записувати `mem` у `/sys/power/state`, врятувавши користувача від втрати важливої дії.

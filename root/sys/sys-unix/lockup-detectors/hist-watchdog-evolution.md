@@ -13,42 +13,8 @@
 Ядро Linux отримало інтерфейс `/dev/watchdog` (драйвери типу `wdt.c`, `pcwd.c`, а згодом `iTCO_wdt` для південних мостів Intel). Процес простору користувача або ядерний таймер мусив періодично записувати довільний байт у файл пристрою (`"pinging the dog"`):
 
 :::tabs
-```c
-/* Типовий код "годування собаки" у просторі користувача 1990-х (C/POSIX) */
-#include <fcntl.h>
-#include <unistd.h>
-
-int main(void) {
-    int fd = open("/dev/watchdog", O_WRONLY);
-    if (fd < 0) return 1;
-    while (1) {
-        write(fd, "\0", 1);
-        sleep(10);
-    }
-    close(fd);
-    return 0;
-}
-```
-```cpp
-// Періодичне надсилання сигналу активності у сторожовий таймер (C++20)
-#include <fstream>
-#include <thread>
-#include <chrono>
-
-using namespace std::chrono_literals;
-
-int main() {
-    std::ofstream watchdog("/dev/watchdog");
-    if (!watchdog.is_open()) return 1;
-
-    while (true) {
-        watchdog.put('\0');
-        watchdog.flush();
-        std::this_thread::sleep_for(10s);
-    }
-    return 0;
-}
-```
+:::code hist-watchdog-evolution/c/main.c
+:::code hist-watchdog-evolution/cpp/main.cpp
 :::
 
 Якщо протягом заданого інтервалу (наприклад, 60 секунд) запис не відбувався, апаратний таймер доходив до нуля і замикав контакти апаратного перезавантаження.

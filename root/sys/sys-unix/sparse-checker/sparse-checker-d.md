@@ -23,18 +23,7 @@
 
 Фундаментальною концепцією Sparse є поділ пам'яті на **адресні простори**. За замовчуванням усі змінні в C належать до адресного простору 0 (простір ядра). За допомогою атрибуту `__attribute__((noderef, address_space(N)))` розробники створюють нові «віртуальні» простори.
 
-```c
-// include/linux/compiler_types.h, форма з номерами просторів (ядра до 5.4 включно)
-#ifdef __CHECKER__
-# define __user     __attribute__((noderef, address_space(1)))
-# define __iomem    __attribute__((noderef, address_space(2)))
-# define __rcu      __attribute__((noderef, address_space(4)))
-#else
-# define __user
-# define __iomem
-# define __rcu
-#endif
-```
+:::code sparse-checker-d/c/mekhanizm-adresnykh.c
 
 Зверніть увагу на макрос `__CHECKER__`. Він визначається лише тоді, коли ядро збирається за допомогою Sparse (наприклад, командою `make C=1`). Під час звичайної компіляції GCC ці макроси перетворюються на порожнє місце, не впливаючи на фінальний бінарний код і не уповільнюючи виконання. Самі номери просторів — деталь реалізації: до ядра 5.4 включно їх писали числами, як вище, а з 5.5 — іменами (`address_space(__user)`, `address_space(__iomem)`). Для коду драйвера це не міняє нічого: він бачить лише макрос.
 
@@ -48,31 +37,9 @@
 
 :::tabs
 == Небезпечний код (помилка Sparse)
-```c
-int read_sensor_data(void __iomem *hw_regs, void __user *user_buf) {
-    // ПОМИЛКА: Пряме розіменування __iomem
-    // Sparse скаже: dereference of noderef expression
-    int val = *(int __iomem *)hw_regs; 
-    
-    // ПОМИЛКА: Пряме розіменування __user
-    // Sparse скаже: dereference of noderef expression
-    ((int __user *)user_buf)[0] = val; 
-    return 0;
-}
-```
+:::code sparse-checker-d/c/rozimenuvannia-ta-atrybut.c
 == Безпечний код (Sparse задоволений)
-```c
-int read_sensor_data(void __iomem *hw_regs, void __user *user_buf) {
-    // БЕЗПЕЧНО: використання спеціальної функції доступу
-    int val = readl(hw_regs); 
-    
-    // БЕЗПЕЧНО: копіювання через "міст"
-    if (copy_to_user(user_buf, &val, sizeof(val))) {
-        return -EFAULT;
-    }
-    return 0;
-}
-```
+:::code sparse-checker-d/c/rozimenuvannia-ta-atrybut-2.c
 :::
 
 ## Інші анотації Sparse
