@@ -197,26 +197,7 @@ MAVLink (Micro Air Vehicle Link) v2 — це компактний бінарни
 
 Структура повідомлення `SET_POSITION_TARGET_LOCAL_NED`:
 
-```cpp
-typedef struct __mavlink_set_position_target_local_ned_t {
-    uint32_t time_boot_ms; // Час від старту системи (мс)
-    float x;               // Цільова позиція X (Північ, метри)
-    float y;               // Цільова позиція Y (Схід, метри)
-    float z;               // Цільова позиція Z (Вниз, від'ємна висота, метри)
-    float vx;              // Цільова швидкість Vx (м/с)
-    float vy;              // Цільова швидкість Vy (м/с)
-    float vz;              // Цільова швидкість Vz (м/с)
-    float afx;             // Цільове прискорення Ax (м/с^2)
-    float afy;             // Цільове прискорення Ay (м/с^2)
-    float afz;             // Цільове прискорення Az (м/с^2)
-    float yaw;             // Цільовий кут курсу (радіани)
-    float yaw_rate;        // Цільова кутова швидкість курсу (рад/с)
-    uint16_t type_mask;    // Бітова маска ігнорування полів
-    uint8_t target_system; // sysid автопілота (1)
-    uint8_t target_component; // compid автопілота (1)
-    uint8_t coordinate_frame; // Система координат (MAV_FRAME_LOCAL_NED)
-} mavlink_set_position_target_local_ned_t;
-```
+:::code suputnii-kompiuter-na-bortu-d/cpp/kliuchovi-povidomlennia.cpp
 
 Ключовим полем є `type_mask`. За допомогою бітової маски супутній комп'ютер вказує, якими саме змінними він керує, наказуючи автопілоту ігнорувати решту:
 
@@ -332,42 +313,8 @@ c_cc (Спеціальні символи таймінгу):
 Для переведення порту в режим миттєвої передачі з нульовою затримкою в Linux застосовують системний виклик `ioctl` із прапорцем `ASYNC_LOW_LATENCY`:
 
 :::tabs
-```c
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/serial.h>
-
-int set_low_latency(int fd) {
-    struct serial_struct serial;
-    if (ioctl(fd, TIOCGSERIAL, &serial) < 0) {
-        return -1;
-    }
-    serial.flags |= ASYNC_LOW_LATENCY;
-    if (ioctl(fd, TIOCSSERIAL, &serial) < 0) {
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/serial.h>
-#include <system_error>
-
-void set_low_latency(int fd) {
-    struct serial_struct serial{};
-    if (::ioctl(fd, TIOCGSERIAL, &serial) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка отримання параметрів TIOCGSERIAL");
-    }
-    serial.flags |= ASYNC_LOW_LATENCY;
-    if (::ioctl(fd, TIOCSSERIAL, &serial) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка встановлення ASYNC_LOW_LATENCY");
-    }
-}
-```
+:::code suputnii-kompiuter-na-bortu-d/c/main.c
+:::code suputnii-kompiuter-na-bortu-d/cpp/znyzhennia-zatrymky-iadra.cpp
 :::
 
 Після активації цього прапорця драйвер ядра передає байти в чергу процесу користувача негайно після прийому з апаратного FIFO, знижуючи затримку до кількох мікросекунд.

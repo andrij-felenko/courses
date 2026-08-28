@@ -257,84 +257,8 @@ E(t) = ∫ V(τ) · I(τ) dτ ≈ ∑ [ V(k) · I(k) · Δt ]
 Повний вихідний код драйвера та керуючого автомата електронного навантаження винесено в окрему [проєктну вставку з реалізацією контролера](root:embedded/test-iemnosti/proj-electronic-load.md). Нижче наведено базовий алгоритм періодичної обробки та логування.
 
 :::tabs
-```c
-/* Обчислення параметрів розряду та кулонометрії (C) */
-#include <stdint.h>
-#include <stdio.h>
-
-typedef struct {
-    uint32_t v_cell_mv;
-    uint32_t i_load_ma;
-    uint64_t accumulated_uas; /* мкА * с */
-    uint64_t accumulated_uws; /* мкВт * с */
-} discharge_stats_t;
-
-void process_discharge_step(discharge_stats_t *stats, uint32_t v_mv, uint32_t i_ma, uint32_t dt_ms) {
-    stats->v_cell_mv = v_mv;
-    stats->i_load_ma = i_ma;
-    
-    /* Інтегрування заряду: I (мА) * 1000 = мкА */
-    stats->accumulated_uas += (uint64_t)i_ma * 1000ULL * dt_ms / 1000ULL;
-    
-    /* Інтегрування енергії: P (мВт) = (V_mv * I_ma) / 1000 */
-    uint32_t p_mw = (uint32_t)(((uint64_t)v_mv * i_ma) / 1000ULL);
-    stats->accumulated_uws += (uint64_t)p_mw * 1000ULL * dt_ms / 1000ULL;
-}
-
-uint32_t get_capacity_mah(const discharge_stats_t *stats) {
-    /* 1 мА*год = 3600 мА*с = 3 600 000 мкА*с */
-    return (uint32_t)(stats->accumulated_uas / 3600000ULL);
-}
-
-uint32_t get_energy_mwh(const discharge_stats_t *stats) {
-    /* 1 мВт*год = 3 600 000 мкВт*с */
-    return (uint32_t)(stats->accumulated_uws / 3600000ULL);
-}
-```
-```cpp
-// Обчислення параметрів розряду та кулонометрії (C++20)
-#include <cstdint>
-#include <chrono>
-
-namespace BatteryAnalytics {
-
-using namespace std::chrono_literals;
-
-class DischargeTracker {
-public:
-    constexpr DischargeTracker() noexcept = default;
-
-    void update(uint32_t cellVoltageMv, uint32_t loadCurrentMa, std::chrono::milliseconds dt) noexcept {
-        currentVoltageMv_ = cellVoltageMv;
-        currentCurrentMa_ = loadCurrentMa;
-
-        const auto dtMs = static_cast<uint64_t>(dt.count());
-        accumulatedMicroampSeconds_ += static_cast<uint64_t>(loadCurrentMa) * 1000ULL * dtMs / 1000ULL;
-
-        const uint32_t powerMw = (cellVoltageMv * loadCurrentMa) / 1000UL;
-        accumulatedMicrowattSeconds_ += static_cast<uint64_t>(powerMw) * 1000ULL * dtMs / 1000ULL;
-    }
-
-    [[nodiscard]] constexpr uint32_t capacityMah() const noexcept {
-        return static_cast<uint32_t>(accumulatedMicroampSeconds_ / 3'600'000ULL);
-    }
-
-    [[nodiscard]] constexpr uint32_t energyMwh() const noexcept {
-        return static_cast<uint32_t>(accumulatedMicrowattSeconds_ / 3'600'000ULL);
-    }
-
-    [[nodiscard]] constexpr uint32_t voltageMv() const noexcept { return currentVoltageMv_; }
-    [[nodiscard]] constexpr uint32_t currentMa() const noexcept { return currentCurrentMa_; }
-
-private:
-    uint32_t currentVoltageMv_{0};
-    uint32_t currentCurrentMa_{0};
-    uint64_t accumulatedMicroampSeconds_{0};
-    uint64_t accumulatedMicrowattSeconds_{0};
-};
-
-} // namespace BatteryAnalytics
-```
+:::code test-iemnosti-d/c/main.c
+:::code test-iemnosti-d/cpp/main.hpp
 :::
 
 ## Стандартна операційна процедура (SOP) тестування батарей

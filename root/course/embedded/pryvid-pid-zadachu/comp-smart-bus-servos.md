@@ -85,87 +85,8 @@ Checksum = ~(ID + Length + Instruction + Param_1 + ... + Param_N) & 0xFF
 Наведений код демонструє формування пакета позиціонування (`Goal Position`) та розрахунок апаратної контрольної суми для відправки через UART.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#define SERVO_HEADER        0xFF
-#define INST_WRITE_DATA     0x03
-#define REG_GOAL_POSITION   0x2A
-
-typedef struct {
-    uint8_t buffer[16];
-    size_t length;
-} ServoPacket;
-
-ServoPacket build_position_packet(uint8_t id, uint16_t position_raw, uint16_t speed_raw) {
-    ServoPacket pkt;
-    pkt.buffer[0] = SERVO_HEADER;
-    pkt.buffer[1] = SERVO_HEADER;
-    pkt.buffer[2] = id;
-    pkt.buffer[3] = 7; // Length = Instruction(1) + Reg(1) + Data(4) + Checksum(1)
-    pkt.buffer[4] = INST_WRITE_DATA;
-    pkt.buffer[5] = REG_GOAL_POSITION;
-    pkt.buffer[6] = (uint8_t)(position_raw & 0xFF);
-    pkt.buffer[7] = (uint8_t)((position_raw >> 8) & 0xFF);
-    pkt.buffer[8] = (uint8_t)(speed_raw & 0xFF);
-    pkt.buffer[9] = (uint8_t)((speed_raw >> 8) & 0xFF);
-
-    uint32_t sum = 0;
-    for (size_t i = 2; i <= 9; i++) {
-        sum += pkt.buffer[i];
-    }
-    pkt.buffer[10] = (uint8_t)(~sum & 0xFF);
-    pkt.length = 11;
-    return pkt;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <array>
-#include <numeric>
-
-class SmartServoPacketBuilder {
-public:
-    static constexpr uint8_t Header = 0xFF;
-    static constexpr uint8_t InstWriteData = 0x03;
-    static constexpr uint8_t RegGoalPosition = 0x2A;
-
-    struct Packet {
-        std::array<uint8_t, 16> data{};
-        size_t size{0};
-
-        [[nodiscard]] std::span<const uint8_t> bytes() const noexcept {
-            return std::span<const uint8_t>(data.data(), size);
-        }
-    };
-
-    [[nodiscard]] static constexpr Packet makePositionCommand(uint8_t id, uint16_t position, uint16_t speed) noexcept {
-        Packet pkt{};
-        pkt.data[0] = Header;
-        pkt.data[1] = Header;
-        pkt.data[2] = id;
-        pkt.data[3] = 7; // Length: Inst(1) + Reg(1) + Pos(2) + Speed(2) + Checksum(1)
-        pkt.data[4] = InstWriteData;
-        pkt.data[5] = RegGoalPosition;
-        pkt.data[6] = static_cast<uint8_t>(position & 0xFF);
-        pkt.data[7] = static_cast<uint8_t>((position >> 8) & 0xFF);
-        pkt.data[8] = static_cast<uint8_t>(speed & 0xFF);
-        pkt.data[9] = static_cast<uint8_t>((speed >> 8) & 0xFF);
-
-        uint32_t sum = 0;
-        for (size_t i = 2; i <= 9; ++i) {
-            sum += pkt.data[i];
-        }
-        pkt.data[10] = static_cast<uint8_t>(~sum & 0xFF);
-        pkt.size = 11;
-        return pkt;
-    }
-};
-```
+:::code comp-smart-bus-servos/c/main.c
+:::code comp-smart-bus-servos/cpp/main.cpp
 :::
 
 ## Типові апаратні пастки під час інтеграції

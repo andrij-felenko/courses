@@ -37,64 +37,7 @@
 
 Почнімо з того, що видно зовні, — з заголовка. Тут уся домовленість: які перевірки є, який результат повертаємо, що тримаємо в стані. Це той інтерфейс, через який старший код спілкується з модулем, нічого не знаючи про його нутрощі.
 
-```c
-// fault_detector.h — детектор відмови одного давача-каналу.
-// Голе залізо: без malloc, фіксований розмір, без блокувань.
-#ifndef FAULT_DETECTOR_H
-#define FAULT_DETECTOR_H
-
-#include <stdint.h>
-#include <stdbool.h>
-
-// Який саме почерк відмови зловили (для діагностики й логів).
-typedef enum {
-    FD_OK = 0,        // канал здоровий
-    FD_NAN,           // прийшов NaN або нескінченність
-    FD_RANGE,         // виліт за фізичну межу [min..max]
-    FD_RATE,          // нереальний стрибок за один крок
-    FD_STALE,         // давач мовчить довше за тайм-аут
-    FD_STUCK          // значення прилипло (рух менший за власний шум)
-} fd_reason_t;
-
-// Стан довіри до каналу.
-typedef enum {
-    FD_TRUST = 0,     // числу віримо
-    FD_FAULT          // канал відкинуто, чекаємо на одужання
-} fd_state_t;
-
-// Незмінна конфігурація каналу — заповнюється раз під конкретний давач.
-typedef struct {
-    float    min, max;        // фізичні межі величини
-    float    max_step;        // найбільша правдоподібна зміна за крок
-    uint32_t timeout_ms;      // мовчання довше за це — відмова
-    float    eps;             // рух менший за це вважаємо «нерухомістю»
-    uint16_t stuck_limit;     // скільки нерухомих відліків поспіль — це завмер
-    uint16_t trip_count;      // скільки поганих поспіль → FAULT (мале)
-    uint16_t heal_count;      // скільки добрих поспіль → TRUST (велике)
-} fd_config_t;
-
-// Робочий стан каналу — нуль на старті означає «холодний, нерозігрітий».
-typedef struct {
-    const fd_config_t *cfg;   // вказівник на конфіг (у ПЗП/const — не копіюємо)
-    fd_state_t  state;        // TRUST / FAULT
-    fd_reason_t reason;       // причина останнього «погано»
-    bool        primed;       // чи вже є з чим порівнювати (був ≥1 валідний)
-    float       last;         // останнє ПРИЙНЯТЕ значення (для швидкості)
-    uint32_t    last_ms;      // коли воно прийшло (для тайм-ауту)
-    float       ref;          // опора для детектора завмеру
-    uint16_t    still;        // нерухомих відліків поспіль
-    uint16_t    bad_run;      // поганих відліків поспіль (рахуємо до TRIP)
-    uint16_t    good_run;     // добрих відліків поспіль (рахуємо до HEAL)
-} fd_channel_t;
-
-// API.
-void        fd_init(fd_channel_t *ch, const fd_config_t *cfg);  // або скидання
-fd_state_t  fd_update(fd_channel_t *ch, float x, uint32_t now_ms); // 1 відлік
-bool        fd_is_valid(const fd_channel_t *ch);   // зручний прапорець TRUST?
-fd_reason_t fd_reason(const fd_channel_t *ch);     // чому впав (для логів)
-
-#endif
-```
+:::code proj-fault-detector/c/fault_detector.h
 
 Зверніть увагу на два рішення в самій структурі. По-перше, **конфіг і стан розділені**. Незмінні пороги (`fd_config_t`) можна покласти в `const` — у ПЗП мікроконтролера, — і **один** конфіг обслуговує хоч сотню однакових каналів (чотири термістори батареї з тими самими межами беруть той самий `cfg`, кожен зі своїм `fd_channel_t`). Це економить дорогу оперативну пам'ять і робить наміри явними: що тут налаштування, а що — поточний стан. По-друге, **стан спроєктований так, що нуль = безпечний холодний старт**: `state = FD_TRUST`, `primed = false`, усі лічильники нулі. Чому `TRUST`, а не `FAULT`? Бо доки давач не дав жодного поганого числа, немає підстав йому не вірити; перший же справді поганий відлік чесно проведе канал через підтвердження у `FAULT`. Стартувати з `FAULT` означало б на кожному ввімкненні мати «сліпий» період, поки `HEAL` добрих не назбирається, — а це власна, рукотворна відмова на рівному місці.
 
@@ -102,93 +45,7 @@ fd_reason_t fd_reason(const fd_channel_t *ch);     // чому впав (для 
 
 Тепер найголовніше — функція `fd_update`. Вона і є весь модуль: миттєві ворота, детектор завмеру, голос у лічильник довіри й гістерезис — усе в одному прозорому проході. Читається згори вниз рівно як ми міркували.
 
-```c
-// fault_detector.c
-#include "fault_detector.h"
-#include <math.h>     // isnan, isinf, fabsf
-
-void fd_init(fd_channel_t *ch, const fd_config_t *cfg) {
-    ch->cfg      = cfg;
-    ch->state    = FD_TRUST;     // доки не доведено погане — віримо
-    ch->reason   = FD_OK;
-    ch->primed   = false;        // ще нема з чим порівнювати
-    ch->last     = 0.0f;
-    ch->last_ms  = 0u;
-    ch->ref      = 0.0f;
-    ch->still    = 0u;
-    ch->bad_run  = 0u;
-    ch->good_run = 0u;
-}
-
-// Миттєві перевірки одного відліку. Повертає FD_OK або причину «погано».
-// На ПЕРШОМУ валідному відліку швидкість/завмер не судимо — нема об що.
-static fd_reason_t fd_check_sample(fd_channel_t *ch, float x, uint32_t now_ms) {
-    const fd_config_t *c = ch->cfg;
-
-    // 1. Узагалі число? NaN/∞ ловимо першими, бо з ними решта порівнянь — сміття.
-    if (isnan(x) || isinf(x)) return FD_NAN;
-
-    // 2. У фізичних межах? Найгрубіша й найдешевша перевірка.
-    if (x < c->min || x > c->max) return FD_RANGE;
-
-    if (ch->primed) {
-        // 3. Свіжість: чи не мовчав давач задовго до цього відліку.
-        //    (now_ms - last_ms) у БЕЗЗНАКОВІЙ арифметиці коректно
-        //    переживає переповнення лічильника часу — див. пастки.
-        if ((now_ms - ch->last_ms) > c->timeout_ms) return FD_STALE;
-
-        // 4. Швидкість: чи міг сигнал так стрибнути за один крок.
-        if (fabsf(x - ch->last) > c->max_step) return FD_RATE;
-
-        // 5. Завмер: рух менший за власний шум давача, і то надто довго.
-        if (fabsf(x - ch->ref) < c->eps) {
-            if (ch->still < 0xFFFFu) ch->still++;
-            if (ch->still >= c->stuck_limit) return FD_STUCK;
-        } else {
-            ch->ref   = x;       // ворухнулося — оновлюємо опору
-            ch->still = 0u;
-        }
-    }
-    return FD_OK;
-}
-
-fd_state_t fd_update(fd_channel_t *ch, float x, uint32_t now_ms) {
-    const fd_config_t *c = ch->cfg;
-    fd_reason_t r = fd_check_sample(ch, x, now_ms);
-
-    if (r == FD_OK) {
-        // Добрий відлік. Запам'ятати його як базу для наступних перевірок.
-        ch->last    = x;
-        ch->last_ms = now_ms;
-        if (!ch->primed) {       // ПЕРШИЙ валідний — розігріваємось
-            ch->ref    = x;      // опора для завмеру
-            ch->primed = true;
-        }
-        // Голос «добре» в лічильник довіри.
-        ch->bad_run = 0u;
-        if (ch->good_run < 0xFFFFu) ch->good_run++;
-        ch->reason  = FD_OK;
-        // Гістерезис угору: повертаємо довіру лише після HEAL добрих поспіль.
-        if (ch->state == FD_FAULT && ch->good_run >= c->heal_count) {
-            ch->state = FD_TRUST;
-        }
-    } else {
-        // Поганий відлік. last/last_ms НЕ оновлюємо: брехливе число
-        // не має ставати базою для майбутніх перевірок швидкості.
-        ch->good_run = 0u;
-        if (ch->bad_run < 0xFFFFu) ch->bad_run++;
-        ch->reason   = r;
-        // Гістерезис униз: оголошуємо відмову після TRIP поганих поспіль.
-        if (ch->state == FD_TRUST && ch->bad_run >= c->trip_count) {
-            ch->state = FD_FAULT;
-        }
-    }
-    return ch->state;
-}
-
-bool        fd_is_valid(const fd_channel_t *ch) { return ch->state == FD_TRUST; }
-fd_reason_t fd_reason  (const fd_channel_t *ch) { return ch->reason; }
-```
+:::code proj-fault-detector/c/fault_detector.c
 
 Розберімо найтонші місця, бо саме в них ховаються баги, які потім ловлять місяцями.
 
@@ -204,58 +61,11 @@ fd_reason_t fd_reason  (const fd_channel_t *ch) { return ch->reason; }
 
 Окреме гарне в модулі — як мало коду треба на боці виклику. Описуємо канали табличкою, оновлюємо в циклі, читаємо прапорець. Ось висотомір і барометр на одній платі дрона:
 
-```c
-// Конфіги — у const (лягають у ПЗП). Один конфіг = один тип давача.
-static const fd_config_t CFG_BARO = {
-    .min = 300.0f, .max = 1100.0f,   // гПа: фізичні межі на Землі
-    .max_step = 5.0f,                // за крок (20 мс) тиск не стрибне більше
-    .timeout_ms = 100u,              // барометр шле ~50 Гц → 20 мс; 100 мс = тривога
-    .eps = 0.03f,                    // власний шум барометра ~0.02 гПа
-    .stuck_limit = 50u,              // 50 відліків (~1 с) без руху — завмер
-    .trip_count = 3u,                // 3 погані поспіль → не вірю
-    .heal_count = 25u,               // 25 добрих поспіль → знову вірю
-};
-
-static fd_channel_t baro;            // стан цього конкретного барометра
-
-void sensors_init(void) {
-    fd_init(&baro, &CFG_BARO);
-}
-
-// Викликається на кожен новий відлік барометра.
-void on_baro_sample(float hpa, uint32_t now_ms) {
-    fd_update(&baro, hpa, now_ms);
-    if (fd_is_valid(&baro)) {
-        altitude_from_pressure(hpa);          // канал живий — користуємось
-    } else {
-        // Канал відкинуто. Старший код вирішує запасний хід:
-        log_fault("baro", fd_reason(&baro));  // у лог — ЧОМУ впав
-        altitude_hold_last();                 // коротко тримаємо останнє добре
-    }
-}
-```
+:::code proj-fault-detector/c/iak-tsym-korystuvatysia.c
 
 Для чотирьох однакових термісторів батареї це ще нагляніше: **один** конфіг і масив станів.
 
-```c
-static const fd_config_t CFG_CELL_TEMP = {
-    .min = -40.0f, .max = 125.0f, .max_step = 4.0f, .timeout_ms = 500u,
-    .eps = 0.1f, .stuck_limit = 20u, .trip_count = 3u, .heal_count = 30u,
-};
-static fd_channel_t cell_temp[4];    // 4 канали, ОДИН спільний конфіг
-
-void cells_init(void) {
-    for (int i = 0; i < 4; i++) fd_init(&cell_temp[i], &CFG_CELL_TEMP);
-}
-
-void on_cell_temps(const float t[4], uint32_t now_ms) {
-    int healthy = 0;
-    for (int i = 0; i < 4; i++)
-        if (fd_update(&cell_temp[i], t[i], now_ms) == FD_TRUST) healthy++;
-    // Над модулем — логіка системи: скільки каналів треба для безпеки.
-    if (healthy < 2) enter_safe_mode();       // забагато сліпих термісторів
-}
-```
+:::code proj-fault-detector/c/iak-tsym-korystuvatysia-2.c
 
 Цей приклад показує **межу** модуля наживо: сам детектор каже лише про **один** канал. «Скільки здорових каналів досить» — це вже [голосування / поєднання](root:com-signal/sensor-fusion), окремий шар над масивом прапорців. Модуль навмисно не лізе в це рішення: він постачає чесні прапорці, а що з ними робити — диктує задача (батареї досить двох робочих термісторів, керму літака — ні).
 

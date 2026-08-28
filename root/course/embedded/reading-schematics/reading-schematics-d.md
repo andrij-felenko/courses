@@ -183,56 +183,8 @@ Rp_max = t_наростання / (0.85 · C)
 
 **Читання давача по I2C та керування навантаженням (прошивка для МК):**
 :::tabs
-```cpp
-#include <Wire.h>
-
-const uint8_t SENSOR_ADDR = 0x40;   // адреса давача на шині I2C
-const uint8_t LOAD_PIN    = 5;      // GPIO на затвор Q1 через Rg
-
-void setup() {
-    Wire.begin();                   // піднімаємо I2C (SDA/SCL із підтяжками зі схеми)
-    pinMode(LOAD_PIN, OUTPUT);
-    digitalWrite(LOAD_PIN, LOW);    // навантаження вимкнене на старті
-}
-
-uint16_t readSensor() {
-    Wire.beginTransmission(SENSOR_ADDR);
-    Wire.write(0x00);               // вказали регістр, який хочемо
-    Wire.endTransmission(false);    // повторний старт, без відпускання шини
-    Wire.requestFrom(SENSOR_ADDR, (uint8_t)2);
-    uint16_t hi = Wire.read();
-    uint16_t lo = Wire.read();
-    return (hi << 8) | lo;          // склали 16-бітове значення
-}
-
-void loop() {
-    uint16_t v = readSensor();
-    // залежно від давача вмикаємо силовий вихід через Q1
-    digitalWrite(LOAD_PIN, (v > 3000) ? HIGH : LOW);
-    delay(100);
-}
-```
-```python
-from machine import I2C, Pin
-import time
-
-SENSOR_ADDR = 0x40   # адреса давача на шині I2C
-LOAD_PIN    = 5      # GPIO на затвор Q1 через Rg
-
-i2c  = I2C(0)                        # піднімаємо I2C (SDA/SCL із підтяжками зі схеми)
-load = Pin(LOAD_PIN, Pin.OUT)
-load.value(0)                        # навантаження вимкнене на старті
-
-def read_sensor():
-    data = i2c.readfrom_mem(SENSOR_ADDR, 0x00, 2)  # регістр 0x00, 2 байти
-    return (data[0] << 8) | data[1]  # склали 16-бітове значення
-
-while True:
-    v = read_sensor()
-    # залежно від давача вмикаємо силовий вихід через Q1
-    load.value(1 if v > 3000 else 0)
-    time.sleep_ms(100)
-```
+:::code reading-schematics-d/cpp/main.cpp
+:::code reading-schematics-d/py/main.py
 :::
 
 Видно, як патерни зі схеми проступають у коді. `Wire.begin()` піднімає ту саму шину I2C, чиї підтяжки ми бачили; двобайтове читання `hi/lo` — бо давач віддає 16 біт двома посилками по 8; а `digitalWrite(LOAD_PIN, …)` — це і є той GPIO, що йде через Rg на затвор Q1. Схема каже, **що з чим з'єднано**; код каже, **що з цим робити** — і одне читається в іншому.

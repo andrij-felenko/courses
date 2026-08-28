@@ -95,25 +95,7 @@ typedef enum {
 
 Складімо з них найкоротший чесний розбір першого слова:
 
-```c
-#include "esp_adc/adc_continuous.h"
-#include "soc/soc_caps.h"
-
-/* Навести на найперше слово буфера — через РОЗМІР РЕЗУЛЬТАТУ цього чіпа,
-   а не через тип вигаданої структури. */
-const adc_digi_output_data_t *p = (const void *)&buf[0];
-
-/* Дістати код і канал із того члена структури, що дійсний на цьому чіпі. */
-#if CONFIG_IDF_TARGET_ESP32 || CONFIG_IDF_TARGET_ESP32S2
-    uint32_t code = p->type1.data;      /* TYPE1: 16-бітне слово */
-    uint32_t ch   = p->type1.channel;
-#else
-    uint32_t code = p->type2.data;      /* TYPE2: 32-бітне слово */
-    uint32_t ch   = p->type2.channel;
-#endif
-
-float v = code * 3.3f / 4095.0f;        /* код → вольти (перше наближення) */
-```
+:::code comp-adc-sample-formats/c/pershyi-bait-prochytaty.c
 
 «Ага-момент» настає, коли це перше число виявляється розумним — не нуль, не 4095, а щось посередині, що ворушиться, коли ви чіпаєте вхід. Значить, ви поцілили у правильний член структури й узяли правильну ширину. З цієї миті можна проходити весь буфер — але саме тут ховається друга половина пастки, і її варто винести окремо.
 
@@ -130,48 +112,7 @@ float v = code * 3.3f / 4095.0f;        /* код → вольти (перше �
 
 **Правило друге: поля — через власні макроси, що самі розводяться на `type1`/`type2`.** Замість `#if` у кожному місці читання визначають два коротких макроси один раз — і далі код читає поля через них, не думаючи про чіп. Саме так це зроблено в офіційному прикладі ESP-IDF:
 
-```c
-#include "esp_adc/adc_continuous.h"
-#include "soc/soc_caps.h"
-
-#define VREF    3.3f
-#define ADC_MAX 4095.0f            /* 2¹² − 1 */
-
-/* Власні макроси доступу — розводяться на потрібний член структури під час
-   компіляції. TYPE1 на класичному ESP32/S2, TYPE2 на решті чіпів. */
-#if CONFIG_IDF_TARGET_ESP32 || CONFIG_IDF_TARGET_ESP32S2
-    #define GET_CHANNEL(p)  ((p)->type1.channel)
-    #define GET_DATA(p)     ((p)->type1.data)
-#else
-    #define GET_CHANNEL(p)  ((p)->type2.channel)
-    #define GET_DATA(p)     ((p)->type2.data)
-#endif
-
-/* Розбір одного блоку. Крок масиву — з константи чіпа, НЕ з sizeof:
-   на TYPE1 це 2 байти, на TYPE2 — 4; хардкод зламав би один із випадків. */
-void process_block(const uint8_t *buf, uint32_t len)
-{
-    /* скільки вибірок у блоці — ділимо на РОЗМІР РЕЗУЛЬТАТУ цього чіпа */
-    uint32_t count = len / SOC_ADC_DIGI_RESULT_BYTES;
-
-    for (uint32_t i = 0; i < count; ++i) {
-        /* наводимося на i-ту вибірку через розмір результату,
-           а не через індекс масиву вигаданого типу */
-        const adc_digi_output_data_t *p =
-            (const adc_digi_output_data_t *)&buf[i * SOC_ADC_DIGI_RESULT_BYTES];
-
-        uint32_t ch   = GET_CHANNEL(p);
-        uint32_t code = GET_DATA(p);
-
-        /* Скільки каналів має ADC1 на цьому чіпі; більший номер —
-           службове/сміттєве слово, пропускаємо. */
-        if (ch >= SOC_ADC_CHANNEL_NUM(ADC_UNIT_1)) continue;
-
-        float v = code * VREF / ADC_MAX;   /* код → вольти */
-        route_sample(ch, v);               /* калібрування/фільтр/черга — тут */
-    }
-}
-```
+:::code comp-adc-sample-formats/c/bezpechnyi-do-chipa-rozbir.c
 
 Зверніть увагу на дві дрібниці, що рятують від тихих помилок. По-перше, перевірка `ch >= SOC_ADC_CHANNEL_NUM(ADC_UNIT_1)`: сам виробник у коментарі до поля `channel` попереджає, що номер каналу понад допустимий означає **недійсні дані** (арбітр АЦП може вкинути сміттєве слово). Ми такі слова пропускаємо, а не переводимо в напругу. По-друге, ділення довжини на `SOC_ADC_DIGI_RESULT_BYTES`, а не на `sizeof(...)`: якщо колись хтось оголосить структуру з іншим вирівнюванням чи додасть поле, `sizeof` збреше, а константа чіпа — ні.
 

@@ -101,49 +101,8 @@ int readClean(int pin, int n = 16) {
     return (int)(acc / n);           // середнє, 0..4095
 }
 ```
-```esp-idf
-#include "esp_adc/adc_oneshot.h"     // ESP-IDF v5, ADC1, 12 біт
-#include "esp_log.h"
-
-static adc_oneshot_unit_handle_t adc1;   // ручка юніта, створена при старті
-
-int read_clean(adc_channel_t ch, int n) {
-    int raw = 0;
-    adc_oneshot_read(adc1, ch, &raw);        // холостий: гасить хвіст старого каналу
-    uint32_t acc = 0;                        // 32 біти: 16×4095 не переповнить
-    for (int i = 0; i < n; ++i) {            // усереднення: шум ↓ як √n
-        esp_err_t err = adc_oneshot_read(adc1, ch, &raw);
-        if (err != ESP_OK) { ESP_LOGE("adc", "канал %d: %s", ch, esp_err_to_name(err)); return -1; }
-        acc += (uint32_t)raw;
-    }
-    return (int)(acc / n);                   // середнє, 0..4095
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"           // STM32 HAL, регулярний канал, опитування
-
-static uint32_t adc_once(ADC_HandleTypeDef *h) {
-    HAL_ADC_Start(h);
-    HAL_ADC_PollForConversion(h, 10);        // 10 мс — стеля очікування
-    uint32_t v = HAL_ADC_GetValue(h);
-    HAL_ADC_Stop(h);
-    return v;
-}
-
-int read_clean(ADC_HandleTypeDef *h, uint32_t channel, int n) {
-    ADC_ChannelConfTypeDef s = {0};
-    s.Channel = channel;
-    s.Rank = 1;
-    s.SamplingTime = ADC_SAMPLETIME_84CYCLES;  // це і є t_acq — купуємо кілька τ
-    HAL_ADC_ConfigChannel(h, &s);              // саме тут відбувається перемикання
-
-    adc_once(h);                             // холостий: гасить хвіст старого каналу
-    uint32_t acc = 0;                        // 32 біти: 16×4095 не переповнить
-    for (int i = 0; i < n; ++i)              // усереднення: шум ↓ як √n
-        acc += adc_once(h);
-    return (int)(acc / n);                   // середнє, 0..4095
-}
-```
+:::code math-sample-hold/c/esp-idf/main.c
+:::code math-sample-hold/c/stm32/main.c
 :::
 
 Кілька пасток, на які варто зважати при роботі з МК. По-перше, **переповнення суми**: накопичувач `acc` оголошений `uint32_t`, а не `int16_t` — сума 16 відліків по 4095 дає 65520, що спокійно вміщується в 32 біти, але переповнить 16-бітний тип. По-друге, **зайнятий блок АЦП**: холостий відлік не рятує, коли канал у цю мить не твій — на ESP32 [Wi-Fi-радіо захоплює ADC2](root:hw-analog/adc) і перетворення повертає сміття або −1, тому обидві ESP-версії написано під ADC1. По-третє, **звідки береться холосте перетворення**: на будь-якому МК це просто зайвий цикл АЦП рівно в момент **перемикання каналу** — на тому самому каналі поспіль він уже не потрібен. В ESP-IDF і STM32 HAL це те одне перетворення, яке ти дописуєш руками; ESP32-Arduino і всередині кожного `analogRead` робить свій «прогрівний» цикл, тож там викидається **цілий зайвий виклик**. Тривалість вікна захоплення теж майже скрізь налаштовна — у STM32 це явний `SamplingTime` у конфігурації каналу, на ESP32 його ховає драйвер; саме нею й купують ті кілька τ з формули Б. По-четверте, **назад у вольти**: заводське [калібрування](root:hw-sensing/adc-errors) додатково знімає зсув і нелінійність — на ESP32-Arduino це `analogReadMilliVolts()`, у STM32 — самокалібровка АЦП разом із `VREFINT`; це наступний крок від «сирого коду» до реальних мілівольтів.

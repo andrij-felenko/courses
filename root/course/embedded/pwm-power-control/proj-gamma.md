@@ -29,43 +29,8 @@ duty = round( (x/255)^γ · maxDuty ),  γ ≈ 2.2
 **Блок 1 — генерація LUT і рантайм-формула:**
 
 :::tabs
-```cpp
-#include <math.h>
-
-const float    GAMMA    = 2.2f;
-const int      PWM_BITS = 12;
-const uint32_t MAX_DUTY = (1u << PWM_BITS) - 1;  // 4095
-
-// Для розуміння: формула одного значення
-uint32_t gammaRuntime(uint8_t level) {
-    return (uint32_t) lroundf( powf((float)level / 255.0f, GAMMA) * MAX_DUTY );
-}
-
-// Таблиця: 12 біт ≤ 4095, тобто в uint16_t (0..65535) влізає; uint8_t не підійде
-uint16_t gammaLUT[256];
-
-void buildLUT() {
-    // рахуємо ОДИН раз
-    for (int i = 0; i < 256; i++) {
-        gammaLUT[i] = (uint16_t) gammaRuntime((uint8_t)i);
-    }
-}
-```
-```micropython
-import math
-
-GAMMA    = 2.2
-PWM_BITS = 12
-MAX_DUTY = (1 << PWM_BITS) - 1  # 4095
-
-# Для розуміння: формула одного значення
-def gamma_runtime(level):
-    return round((level / 255.0) ** GAMMA * MAX_DUTY)
-
-# Таблиця: 12 біт ≤ 4095, влазить у звичайний int Python;
-# 256 готових значень, порахованих один раз.
-gamma_lut = [gamma_runtime(i) for i in range(256)]  # рахуємо ОДИН раз
-```
+:::code proj-gamma/cpp/robochyi-kod-c-c-esp32.cpp
+:::code proj-gamma/py/micropython/robochyi-kod-c-c-esp32.py
 :::
 
 Формула точна, але float-`powf` коштує; саме тому ми виносимо її в стадію ініціалізації — і більше ніколи не викликаємо в основному циклі.
@@ -73,43 +38,8 @@ gamma_lut = [gamma_runtime(i) for i in range(256)]  # рахуємо ОДИН р
 **Блок 2 — застосування: setup() і ефект «дихання»:**
 
 :::tabs
-```cpp
-const int PIN = 5;
-
-void setup() {
-    ledcAttach(PIN, 5000, PWM_BITS);  // 5 кГц, 12 біт
-    buildLUT();                        // одноразовий дорогий прохід
-}
-
-void loop() {
-    // дихання: 0→255→0
-    for (int level = 0; level < 256; level++) {
-        ledcWrite(PIN, gammaLUT[level]);  // ЛИШЕ індексація, жодного float
-        delay(8);
-    }
-    for (int level = 255; level >= 0; level--) {
-        ledcWrite(PIN, gammaLUT[level]);
-        delay(8);
-    }
-}
-```
-```micropython
-from machine import Pin, PWM
-from time import sleep_ms
-
-PIN = 5
-led = PWM(Pin(PIN), freq=5000)  # LUT побудовано вище, в setup-фазі модуля
-
-while True:
-    # дихання: 0→255→0
-    for level in range(256):
-        # duty_u16 бере 0..65535; наш 12-бітний LUT масштабуємо зсувом <<4
-        led.duty_u16(gamma_lut[level] << 4)  # ЛИШЕ індексація, жодного float
-        sleep_ms(8)
-    for level in range(255, -1, -1):
-        led.duty_u16(gamma_lut[level] << 4)
-        sleep_ms(8)
-```
+:::code proj-gamma/cpp/robochyi-kod-c-c-esp32-2.cpp
+:::code proj-gamma/py/micropython/robochyi-kod-c-c-esp32-2.py
 :::
 
 Порівняйте з варіантом `ledcWrite(PIN, level << 4)` (лінійне масштабування без гамми): перші десятки кроків майже невидимі, потім яскравість різко злітає — «дихання» виглядає нерівним. З LUT діод розгорається рівномірно для ока від першого кроку.

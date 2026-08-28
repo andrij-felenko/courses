@@ -222,68 +222,8 @@ f₀ = 1 / (2π × √(L × C)) ≈ 1 / (2π × √(120·10⁻⁹ Гн × 15·10
 Нижче наведено мінімальний приклад формування діагностичного виводу через регістри UART:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Базова структура регістрів апаратного блоку UART */
-typedef struct {
-    volatile uint32_t SR;   /* Регістр статусу */
-    volatile uint32_t DR;   /* Регістр даних */
-    volatile uint32_t BRR;  /* Регістр швидкості */
-    volatile uint32_t CR1;  /* Регістр керування */
-} UartRegs;
-
-#define UART_SR_TXE   (1U << 7)  /* Прапорець: буфер передавача порожній */
-
-void uart_write_byte(UartRegs *uart, uint8_t byte) {
-    /* Очікуємо готовності буфера перед записом */
-    while (!(uart->SR & UART_SR_TXE)) {
-        /* Активне очікування прапорця апаратного буфера */
-    }
-    uart->DR = byte;
-}
-
-void uart_write_str(UartRegs *uart, const char *str) {
-    while (*str) {
-        uart_write_byte(uart, (uint8_t)(*str++));
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <string_view>
-#include <span>
-
-/* Типобезпечна C++ обгортка над апаратним блоком UART */
-struct UartHardware {
-    volatile uint32_t SR;
-    volatile uint32_t DR;
-    volatile uint32_t BRR;
-    volatile uint32_t CR1;
-
-    static constexpr uint32_t TXE_FLAG = (1U << 7);
-
-    void send_byte(uint8_t byte) noexcept {
-        while (!(SR & TXE_FLAG)) {
-            // Очікування готовності апаратного каскаду
-        }
-        DR = byte;
-    }
-
-    void write(std::string_view msg) noexcept {
-        for (char ch : msg) {
-            send_byte(static_cast<uint8_t>(ch));
-        }
-    }
-
-    void write_bytes(std::span<const uint8_t> buffer) noexcept {
-        for (uint8_t b : buffer) {
-            send_byte(b);
-        }
-    }
-};
-```
+:::code roboche-mistse-i-instrument-d/c/main.c
+:::code roboche-mistse-i-instrument-d/cpp/main.cpp
 :::
 
 ---

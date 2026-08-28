@@ -270,55 +270,8 @@ CSS активується записом одиниці в біт `CSSON` ре�
 Головна задача `NMI_Handler` — безпечно знеструмити об'єкт:
 
 :::tabs
-```c
-void NMI_Handler(void)
-{
-    /* 1. Перевіряємо, що переривання викликано саме зривом тактування CSS */
-    if (RCC->CIR & RCC_CIR_CSSF) {
-        /* Процесор уже працює від HSI на частоті 16 МГц.
-           Усі таймери та інтерфейси зв'язку сповільнилися у 10.5 разів! */
-
-        /* 2. Аварійне знеструмлення виконавчих механізмів:
-              - Вимкнути ШІМ силових ключів двигунів (TIM1/TIM8 Break Input)
-              - Закрити клапани подачі палива / вимкнути нагрівачі */
-        TIM1->BDTR &= ~TIM_BDTR_MOE; // Апаратне зняття виходів ШІМ
-
-        /* 3. Очистити прапорець переривання CSS записом 1 у біт CSSC */
-        RCC->CIR |= RCC_CIR_CSSC;
-
-        /* 4. Зафіксувати аварійний код у бекап-регістрах RTC або EEPROM */
-
-        /* 5. Зависнути у безпечному очікуванні спрацьовування Watchdog */
-        while (1) {
-            __NOP();
-        }
-    }
-}
-```
-```cpp
-#include <cstdint>
-
-extern "C" void NMI_Handler()
-{
-    // Адреси регістрів RCC та TIM1
-    auto& rcc_cir   = *reinterpret_cast<volatile std::uint32_t*>(0x4002380C);
-    auto& tim1_bdtr = *reinterpret_cast<volatile std::uint32_t*>(0x40010044);
-
-    // 1. Перевірка прапорця CSSF
-    if (rcc_cir & (1UL << 7)) {
-        // 2. Аварійне вимкнення силових виходів ШІМ
-        tim1_bdtr &= ~(1UL << 15); // Очищення біта MOE (Main Output Enable)
-
-        // 3. Очищення прапорця переривання CSS
-        rcc_cir |= (1UL << 23); // Запис у CSSC
-
-        // 4. Безпечна зупинка до скидання сторожовим таймером
-        while (true) {
-            asm volatile("nop");
-        }
-    }
-}
-```
+:::code pidniattia-taktiv-pid-svii-kvarts-d/c/main.c
+:::code pidniattia-taktiv-pid-svii-kvarts-d/cpp/main.cpp
 :::
 
 Повний варіант виробничого драйвера тактування з реєстрацією таймаутів, розрахунком Flash Latency та обробником NMI наведено у вставці [⚙️ Виробничий драйвер тактування на регістрах із CSS](root:embedded/pidniattia-taktiv-pid-svii-kvarts/proj-pll-clock-init.md).

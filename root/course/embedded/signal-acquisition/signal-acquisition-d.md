@@ -245,55 +245,9 @@ fs із запасом (≈ 8·B):  проміжок широкий → вист
 Спершу — **рівний крок за таймером**, бо з нього починається боротьба з джитером. Правило спільне для будь-якого МК: відлік не запускають із головної петлі програмною затримкою — там крок «попливе» від будь-якої іншої роботи. Потрібен **апаратний таймер**, що сам відмірює період і зводить прапорець, коли настав час знімка. Далі — те саме трьома звичними середовищами:
 
 :::tabs
-```arduino
-// ESP32 Arduino-core. Рівний крок за апаратним таймером — проти джитера відліків.
-volatile bool tick = false;
-hw_timer_t* timer = nullptr;
-
-void IRAM_ATTR onTimer() { tick = true; }   // лише прапорець — коротко й без блокувань
-
-void setupSampler(uint32_t fs_hz) {
-    timer = timerBegin(0, 80, true);          // 80 МГц/80 = 1 МГц → лік у мкс
-    timerAttachInterrupt(timer, &onTimer, true);
-    timerAlarmWrite(timer, 1000000UL / fs_hz, true);  // період = 1/fs у мкс
-    timerAlarmEnable(timer);
-}
-```
-```esp-idf
-// ESP-IDF. Періодичний esp_timer будить задачу — крок відмірює залізо, не затримка.
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-
-static SemaphoreHandle_t tick;              // прапорець «час знімка»
-static esp_timer_handle_t sampler;
-
-static void on_timer(void* arg) { xSemaphoreGive(tick); }   // коротко й без блокувань
-
-void setup_sampler(uint32_t fs_hz) {
-    tick = xSemaphoreCreateBinary();
-    const esp_timer_create_args_t cfg = { .callback = on_timer, .name = "sampler" };
-    ESP_ERROR_CHECK(esp_timer_create(&cfg, &sampler));
-    ESP_ERROR_CHECK(esp_timer_start_periodic(sampler, 1000000ULL / fs_hz));  // період у мкс
-}
-```
-```stm32
-// STM32 HAL. Період відмірює TIM2 у перериванні — процесор на крок не впливає.
-#include "stm32f4xx_hal.h"
-
-volatile bool tick = false;
-extern TIM_HandleTypeDef htim2;             // CubeMX: TIM2, дільник зведено до ліку 1 МГц
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
-    if (htim->Instance == TIM2) tick = true;   // лише прапорець — коротко й без блокувань
-}
-
-void setup_sampler(uint32_t fs_hz) {
-    __HAL_TIM_SET_AUTORELOAD(&htim2, (1000000U / fs_hz) - 1);  // період = 1/fs у мкс
-    __HAL_TIM_SET_COUNTER(&htim2, 0);
-    HAL_TIM_Base_Start_IT(&htim2);
-}
-```
+:::code signal-acquisition-d/c/arduino/use-razom-odyn.ino
+:::code signal-acquisition-d/c/esp-idf/use-razom-odyn.c
+:::code signal-acquisition-d/c/stm32/use-razom-odyn.c
 :::
 
 Далі — **чисте одне читання**: гасимо перетікання каналу (відкидаємо перший відлік після перемикання — його кількісне обґрунтування ми вивели через τ вище і в [математиці семпл-холду](root:embedded/signal-acquisition/math-sample-hold.md)) і глушимо шум усередненням, чиє N беремо не навмання, а з потрібного √N:
@@ -310,118 +264,16 @@ static uint32_t readClean(int pin, int n) {
     return acc / (uint32_t)n;         // середнє, 0..4095
 }
 ```
-```esp-idf
-// Те саме на драйвері adc_oneshot: холостий + усереднення.
-// N обираємо з потрібної чистоти: треба σ/√N ≤ ціль  →  N ≥ (σ/ціль)².
-#include "esp_adc/adc_oneshot.h"
-
-static uint32_t read_clean(adc_oneshot_unit_handle_t adc, adc_channel_t ch, int n) {
-    int raw = 0;
-    adc_oneshot_read(adc, ch, &raw);          // холостий після перемикання — відкидаємо
-    uint32_t acc = 0;                         // 32 біти: 256×4095 = 1 048 320 не переповнить
-    for (int i = 0; i < n; ++i) {
-        ESP_ERROR_CHECK(adc_oneshot_read(adc, ch, &raw));
-        acc += (uint32_t)raw;
-    }
-    return acc / (uint32_t)n;                 // середнє, 0..4095
-}
-```
-```stm32
-// Те саме на HAL: канал уже вибрано в CubeMX, перше перетворення — холосте.
-// N обираємо з потрібної чистоти: треба σ/√N ≤ ціль  →  N ≥ (σ/ціль)².
-static uint32_t read_clean(ADC_HandleTypeDef* hadc, int n) {
-    uint32_t acc = 0;                         // 32 біти: 256×4095 не переповнить
-    for (int i = -1; i < n; ++i) {            // i = −1 — холостий (гасить crosstalk-хвіст)
-        HAL_ADC_Start(hadc);
-        HAL_ADC_PollForConversion(hadc, 10);  // стеля 10 мс — з великим запасом
-        uint32_t v = HAL_ADC_GetValue(hadc);
-        if (i >= 0) acc += v;
-    }
-    HAL_ADC_Stop(hadc);
-    return acc / (uint32_t)n;                 // середнє, 0..4095
-}
-```
+:::code signal-acquisition-d/c/esp-idf/use-razom-odyn-2.c
+:::code signal-acquisition-d/c/stm32/use-razom-odyn-2.c
 :::
 
 Тепер зведемо все в один цикл. Ключова дисципліна: **уся** обробка (холостий, усереднення, переведення у вольти) виконується **після** того, як таймер дав знак, — тобто момент знімка прив'язаний до таймера, а не до того, коли процесор звільнився. Так рівність кроку зберігається, хоч би скільки тривало усереднення.
 
 :::tabs
-```arduino
-// Повний вимірювальний цикл: рівний крок (таймер) → чисте читання → вольти → регулятору.
-const int PIN_SENSOR = 34;    // ADC1 (GPIO34) — стабільний за Wi-Fi
-const int N_AVG      = 16;    // √16 = 4× тихіше; +2 «ефективні» біти
-
-void setup() {
-    Serial.begin(115200);
-    analogReadResolution(12);        // рідні 12 біт ESP32
-    setupSampler(1000);              // fs = 1 кГц: надвибірка над повільним давачем
-}
-
-void loop() {
-    if (!tick) return;               // ще не час знімка — не робимо НІЧОГО тут
-    tick = false;
-
-    uint32_t code = readClean(PIN_SENSOR, N_AVG);          // чисте усереднене читання
-    uint32_t mv   = analogReadMilliVolts(PIN_SENSOR);      // калібровані мВ (зсув+нелінійність)
-    // (для строгості mv теж можна усереднити тим самим readClean-підходом)
-
-    controlStep(mv);                 // готове число — регулятору (наступний крок модуля)
-}
-```
-```esp-idf
-// Той самий цикл задачею FreeRTOS: чекаємо знак таймера — і лише тоді працюємо.
-#include "esp_adc/adc_cali.h"
-#include "esp_adc/adc_cali_scheme.h"
-
-#define ADC_CH  ADC_CHANNEL_6            // ADC1_CH6 = GPIO34 — стабільний за Wi-Fi
-#define N_AVG   16                       // √16 = 4× тихіше; +2 «ефективні» біти
-
-void sampler_task(void* arg) {
-    adc_oneshot_unit_handle_t adc;
-    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
-    ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc));
-    adc_oneshot_chan_cfg_t chan = { .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_12 };
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc, ADC_CH, &chan));
-
-    adc_cali_handle_t cali;              // заводські коефіцієнти: зсув + нелінійність
-    adc_cali_line_fitting_config_t cc = { .unit_id = ADC_UNIT_1,
-        .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_12 };
-    ESP_ERROR_CHECK(adc_cali_create_scheme_line_fitting(&cc, &cali));
-
-    setup_sampler(1000);                 // fs = 1 кГц: надвибірка над повільним давачем
-
-    for (;;) {
-        xSemaphoreTake(tick, portMAX_DELAY);   // поки не час знімка — задача спить
-        uint32_t code = read_clean(adc, ADC_CH, N_AVG);   // чисте усереднене читання
-        int mv = 0;
-        ESP_ERROR_CHECK(adc_cali_raw_to_voltage(cali, (int)code, &mv));   // калібровані мВ
-        control_step(mv);                // готове число — регулятору (наступний крок модуля)
-    }
-}
-```
-```stm32
-// Той самий цикл у main(): прапорець від TIM2 задає момент, решта — після нього.
-#define N_AVG  16                        // √16 = 4× тихіше; +2 «ефективні» біти
-extern ADC_HandleTypeDef hadc1;          // канал давача налаштований у CubeMX, 12 біт
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_ADC1_Init();
-    MX_TIM2_Init();
-    setup_sampler(1000);                 // fs = 1 кГц: надвибірка над повільним давачем
-
-    while (1) {
-        if (!tick) continue;             // ще не час знімка — не робимо НІЧОГО тут
-        tick = false;
-
-        uint32_t code = read_clean(&hadc1, N_AVG);   // чисте усереднене читання
-        uint32_t mv   = code * vref_mv / 4095U;      // vref_mv — виміряне через VREFINT
-        control_step(mv);                // готове число — регулятору (наступний крок модуля)
-    }
-}
-```
+:::code signal-acquisition-d/c/arduino/use-razom-odyn-2.ino
+:::code signal-acquisition-d/c/esp-idf/use-razom-odyn-3.c
+:::code signal-acquisition-d/c/stm32/use-razom-odyn-3.c
 :::
 
 Пройдімося цим циклом ланка за ланкою й перевіримо, що жодна не забута — і що за кожною стоїть **число**, а не віра.

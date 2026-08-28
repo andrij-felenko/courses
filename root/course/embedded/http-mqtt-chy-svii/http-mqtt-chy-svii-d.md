@@ -213,36 +213,8 @@ MQTT надає три вбудовані рівні надійності дос
 У мовах C та C++ це досягається оголошенням упакованої структури без автоматичного вирівнювання компілятора (`padding`):
 
 :::tabs
-```c
-// Упакована бінарна структура кадру (C99)
-#pragma pack(push, 1)
-typedef struct {
-    uint8_t  magic;       // 0xA5 — магічний байт початку кадру
-    uint8_t  msg_type;    // 0x01 — тип повідомлення (телеметрія)
-    uint16_t seq_num;     // Лічильник пакета для відстеження втрат
-    uint32_t timestamp;   // Час вимірювання Unix time (4 байти)
-    int16_t  temperature; // Температура, розрахована як T*100 (2 байти: від -327.68 до +327.67 °C)
-    uint16_t humidity;    // Вологість, H*100 (2 байти: 0..100.00 %)
-    uint16_t vbat_mv;     // Напруга батареї в мВ (2 байти: 0..65535 мВ)
-    uint16_t crc16;       // Контрольна сума CRC-16-CCITT для перевірки цілісності
-} sensor_packet_t;
-#pragma pack(pop)
-```
-```cpp
-// Упакована бінарна структура кадру (C++20)
-#include <cstdint>
-
-struct alignas(1) SensorPacket {
-    std::uint8_t  magic{0xA5};
-    std::uint8_t  msg_type{0x01};
-    std::uint16_t seq_num{0};
-    std::uint32_t timestamp{0};
-    std::int16_t  temperature{0};
-    std::uint16_t humidity{0};
-    std::uint16_t vbat_mv{0};
-    std::uint16_t crc16{0};
-};
-```
+:::code http-mqtt-chy-svii-d/c/pryntsyp-nulovoho-nakladu.c
+:::code http-mqtt-chy-svii-d/cpp/pryntsyp-nulovoho-nakladu.cpp
 :::
 
 Повний розмір такої структури становить рівно **16 байтів**:
@@ -274,114 +246,8 @@ struct alignas(1) SensorPacket {
 Повний [проєктний розбір та бенчмаркінг упакування кадрів](root:embedded/http-mqtt-chy-svii/proj-protocol-bench.md) з порівнянням коду C та C++20 наведено в окремій вставці, де детально розглянуто роботу з `std::span`, вирівнюванням структур та розрахунком CRC-16. Нижче наведено базовий приклад збирання бінарного пакета:
 
 :::tabs
-```c
-// Формування та перевірка цілісності бінарного кадру (C99)
-#include <stdint.h>
-#include <string.h>
-
-#define FRAME_MAGIC 0xA5
-#define MSG_TELEMETRY 0x01
-
-static uint16_t calc_crc16(const uint8_t *data, size_t len) {
-    uint16_t crc = 0xFFFF;
-    for (size_t i = 0; i < len; i++) {
-        crc ^= (uint16_t)data[i] << 8;
-        for (uint8_t j = 0; j < 8; j++) {
-            if (crc & 0x8000) crc = (crc << 1) ^ 0x1021;
-            else crc = crc << 1;
-        }
-    }
-    return crc;
-}
-
-size_t pack_telemetry_frame(uint16_t seq, uint32_t ts, int16_t temp, 
-                            uint16_t hum, uint16_t vbat, uint8_t *buf, size_t max_len) 
-{
-    if (max_len < sizeof(sensor_packet_t)) return 0;
-    
-    sensor_packet_t pkt;
-    pkt.magic = FRAME_MAGIC;
-    pkt.msg_type = MSG_TELEMETRY;
-    pkt.seq_num = seq;
-    pkt.timestamp = ts;
-    pkt.temperature = temp;
-    pkt.humidity = hum;
-    pkt.vbat_mv = vbat;
-    
-    // Рахуємо CRC по всій структурі за винятком самого поля crc16
-    pkt.crc16 = calc_crc16((const uint8_t *)&pkt, sizeof(sensor_packet_t) - 2);
-    
-    memcpy(buf, &pkt, sizeof(sensor_packet_t));
-    return sizeof(sensor_packet_t);
-}
-```
-```cpp
-// Безпечна C++20 серіалізація бінарного кадру без динамічної пам'яті
-#include <cstdint>
-#include <span>
-#include <expected>
-#include <cstring>
-
-enum class PacketError {
-    BufferOverflow,
-    CorruptedData
-};
-
-struct alignas(1) SensorPacket {
-    std::uint8_t  magic{0xA5};
-    std::uint8_t  msg_type{0x01};
-    std::uint16_t seq_num{0};
-    std::uint32_t timestamp{0};
-    std::int16_t  temperature{0};
-    std::uint16_t humidity{0};
-    std::uint16_t vbat_mv{0};
-    std::uint16_t crc16{0};
-};
-
-class BinaryPacketBuilder {
-public:
-    [[nodiscard]] static constexpr std::uint16_t 
-    calculateCrc(std::span<const std::uint8_t> data) noexcept {
-        std::uint16_t crc = 0xFFFF;
-        for (const auto byte : data) {
-            crc ^= static_cast<std::uint16_t>(byte) << 8;
-            for (int i = 0; i < 8; ++i) {
-                if ((crc & 0x8000) != 0) crc = (crc << 1) ^ 0x1021;
-                else crc = crc << 1;
-            }
-        }
-        return crc;
-    }
-
-    [[nodiscard]] static std::expected<std::size_t, PacketError>
-    serialize(std::uint16_t seq, std::uint32_t ts, std::int16_t temp,
-              std::uint16_t hum, std::uint16_t vbat,
-              std::span<std::uint8_t> output_buffer) noexcept 
-    {
-        if (output_buffer.size() < sizeof(SensorPacket)) {
-            return std::unexpected(PacketError::BufferOverflow);
-        }
-
-        SensorPacket pkt{
-            .magic = 0xA5,
-            .msg_type = 0x01,
-            .seq_num = seq,
-            .timestamp = ts,
-            .temperature = temp,
-            .humidity = hum,
-            .vbat_mv = vbat,
-            .crc16 = 0
-        };
-
-        const auto* raw_bytes = reinterpret_cast<const std::uint8_t*>(&pkt);
-        constexpr std::size_t payload_len = sizeof(SensorPacket) - sizeof(std::uint16_t);
-        pkt.crc16 = calculateCrc({raw_bytes, payload_len});
-
-        std::memcpy(output_buffer.data(), &pkt, sizeof(SensorPacket));
-        return sizeof(SensorPacket);
-    }
-};
-```
+:::code http-mqtt-chy-svii-d/c/realizatsiia-serializatsii.c
+:::code http-mqtt-chy-svii-d/cpp/realizatsiia-serializatsii.cpp
 :::
 
 ### Ціна вибору власного протоколу (Engineering Trade-Offs)

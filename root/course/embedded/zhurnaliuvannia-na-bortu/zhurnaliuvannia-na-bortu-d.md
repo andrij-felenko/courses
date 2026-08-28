@@ -62,52 +62,8 @@
 Фільтрація виконується у два етапи. **Компіляційна фільтрація** через макроси повністю вилучає виклики `TRACE/DEBUG` із фінального бінарного файлу прошивки за допомогою умов `#if LOG_LEVEL <= LOG_LEVEL_MAX`, заощаджуючи Flash і такти процесора:
 
 :::tabs
-```c
-#define LOG_LEVEL_TRACE 0
-#define LOG_LEVEL_DEBUG 1
-#define LOG_LEVEL_INFO  2
-#define LOG_LEVEL_WARN  3
-#define LOG_LEVEL_ERROR 4
-#define LOG_LEVEL_FATAL 5
-
-/* Компіляційний поріг для Release-збірки */
-#ifndef LOG_COMPILE_LEVEL
-#define LOG_COMPILE_LEVEL LOG_LEVEL_INFO
-#endif
-
-extern uint8_t g_runtime_log_level;
-
-#define LOG_EMIT(level, mod_id, token_id, payload_ptr, payload_len) do { \
-    if ((level) >= LOG_COMPILE_LEVEL && (level) >= g_runtime_log_level) { \
-        log_backend_write((level), (mod_id), (token_id), (payload_ptr), (payload_len)); \
-    } \
-} while(0)
-```
-```cpp
-#include <cstdint>
-#include <span>
-
-enum class LogLevel : uint8_t {
-    Trace = 0,
-    Debug = 1,
-    Info  = 2,
-    Warn  = 3,
-    Error = 4,
-    Fatal = 5
-};
-
-inline constexpr LogLevel CompileLogLevel = LogLevel::Info;
-inline LogLevel RuntimeLogLevel = LogLevel::Info;
-
-template <LogLevel Level>
-inline void logEmit(uint8_t moduleId, uint32_t tokenId, std::span<const uint8_t> payload = {}) {
-    if constexpr (Level >= CompileLogLevel) {
-        if (Level >= RuntimeLogLevel) {
-            logBackendWrite(static_cast<uint8_t>(Level), moduleId, tokenId, payload.data(), static_cast<uint8_t>(payload.size()));
-        }
-    }
-}
-```
+:::code zhurnaliuvannia-na-bortu-d/c/semantyka-rivniv-ta.c
+:::code zhurnaliuvannia-na-bortu-d/cpp/semantyka-rivniv-ta.cpp
 :::
 
 **Динамічна фільтрація** керується глобальною маскою `RuntimeLogLevel` у RAM. Якщо пристрій у полі починає поводитися нестабільно, оператор може надіслати через хмару команду підвищити рівень деталізації до `DEBUG` для конкретного модуля на наступні 30 хвилин.
@@ -223,46 +179,8 @@ inline void logEmit(uint8_t moduleId, uint32_t tokenId, std::span<const uint8_t>
 1. **Компіляція (Compile-Time):** Макрос логування обчислює 32-розрядний хеш від константного рядка форматування безпосередньо під час компіляції:
 
 :::tabs
-```c
-/* Хеш рядка "ADC ch=%u timeout after %u ms" обчислюється препроцесором */
-#define TOKEN_ADC_TIMEOUT 0x8F3A2B1C
-
-void log_adc_timeout(uint8_t ch, uint32_t ms) {
-    uint8_t payload[5];
-    payload[0] = ch;
-    payload[1] = (uint8_t)(ms & 0xFF);
-    payload[2] = (uint8_t)((ms >> 8) & 0xFF);
-    payload[3] = (uint8_t)((ms >> 16) & 0xFF);
-    payload[4] = (uint8_t)((ms >> 24) & 0xFF);
-    LOG_EMIT(LOG_LEVEL_WARN, 1, TOKEN_ADC_TIMEOUT, payload, sizeof(payload));
-}
-```
-```cpp
-#include <cstdint>
-#include <string_view>
-#include <span>
-
-constexpr uint32_t hashStringFnv1a(std::string_view str) {
-    uint32_t hash = 0x811C9DC5;
-    for (char c : str) {
-        hash ^= static_cast<uint8_t>(c);
-        hash *= 0x01000193;
-    }
-    return hash;
-}
-
-inline constexpr uint32_t TokenAdcTimeout = hashStringFnv1a("ADC ch=%u timeout after %u ms");
-
-struct [[gnu::packed]] AdcTimeoutPayload {
-    uint8_t  channel;
-    uint32_t timeoutMs;
-};
-
-void logAdcTimeout(uint8_t ch, uint32_t ms) {
-    AdcTimeoutPayload payload{ch, ms};
-    logEmit<LogLevel::Warn>(1, TokenAdcTimeout, std::as_bytes(std::span{&payload, 1}));
-}
-```
+:::code zhurnaliuvannia-na-bortu-d/c/mekhanizm-roboty.c
+:::code zhurnaliuvannia-na-bortu-d/cpp/mekhanizm-roboty.cpp
 :::
 
 2. **Генерація словника:** Скрипт збірки витягує всі пари `(Хеш -> Рядок формату)` із символьної таблиці ELF-файлу прошивки та формує файл бази даних `log_dictionary_v1.4.2.json`. Цей файл публікується на сервер моніторингу або зберігається в системі деплою.
@@ -348,85 +266,8 @@ void logAdcTimeout(uint8_t ch, uint32_t ms) {
 Повний працюючий проєкт бібліотеки з модулем імітації збоїв живлення та тестами доступний у [повному проекті бортового кільцевого логера](root:embedded/zhurnaliuvannia-na-bortu/proj-flash-ring-logger.md). Нижче наведено базовий інтерфейс керування логером для вбудованих систем:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-#define FLASH_SECTOR_SIZE     4096
-#define FLASH_SECTOR_COUNT    8
-
-typedef struct {
-    bool (*read)(uint32_t addr, uint8_t *buf, size_t len);
-    bool (*write)(uint32_t addr, const uint8_t *buf, size_t len);
-    bool (*erase_sector)(uint32_t sector_addr);
-} flash_hal_t;
-
-typedef struct {
-    flash_hal_t hal;
-    uint32_t    base_addr;
-    uint32_t    active_sector_idx;
-    uint32_t    write_offset;
-    uint32_t    tail_sector_idx;
-    uint32_t    seq_num;
-} flash_ring_logger_t;
-
-/* Ініціалізація та сканування існуючих секторів */
-bool flash_logger_init(flash_ring_logger_t *logger, const flash_hal_t *hal, uint32_t base_addr);
-
-/* Потокобезпечний запис двійкової події */
-bool flash_logger_write(flash_ring_logger_t *logger, uint8_t level, uint8_t module_id,
-                        uint32_t timestamp_ms, uint32_t token_id,
-                        const uint8_t *payload, uint8_t payload_len);
-
-/* Підтвердження успішного вивантаження сектора на сервер */
-bool flash_logger_commit_tail(flash_ring_logger_t *logger, uint32_t sector_idx);
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <expected>
-
-enum class LoggerStatus : uint8_t {
-    Ok,
-    HalError,
-    BufferFull,
-    InvalidParam
-};
-
-class FlashHalInterface {
-public:
-    virtual ~FlashHalInterface() = default;
-    virtual bool read(uint32_t addr, std::span<uint8_t> dst) = 0;
-    virtual bool write(uint32_t addr, std::span<const uint8_t> src) = 0;
-    virtual bool eraseSector(uint32_t sectorAddr) = 0;
-};
-
-class FlashRingLogger {
-public:
-    static constexpr size_t SectorSize = 4096;
-    static constexpr size_t SectorCount = 8;
-
-    explicit FlashRingLogger(FlashHalInterface& hal, uint32_t baseAddr = 0) noexcept
-        : hal_(hal), baseAddr_(baseAddr) {}
-
-    std::expected<void, LoggerStatus> init();
-    
-    std::expected<void, LoggerStatus> write(uint8_t level, uint8_t moduleId,
-                                           uint32_t timestampMs, uint32_t tokenId,
-                                           std::span<const uint8_t> payload = {});
-
-    std::expected<void, LoggerStatus> commitTail(uint32_t sectorIdx);
-
-private:
-    FlashHalInterface& hal_;
-    uint32_t baseAddr_{0};
-    uint32_t activeSectorIdx_{0};
-    uint32_t writeOffset_{0};
-    uint32_t tailSectorIdx_{0};
-    uint32_t seqNum_{0};
-};
-```
+:::code zhurnaliuvannia-na-bortu-d/c/stdint.h
+:::code zhurnaliuvannia-na-bortu-d/cpp/arkhitektura-ta-prohramna.cpp
 :::
 
 ---

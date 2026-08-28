@@ -97,27 +97,7 @@ esp_reset_reason_t reason = esp_reset_reason();
 
 **Worked-приклад. Видобути core dump і дійти до рядка.**
 
-```bash
-# Пристрій перезавантажився, підключаємо USB, читаємо дамп із Flash
-$ idf.py coredump-info
-Loading core dump from device...
-
-==================== CURRENT THREAD REGISTERS =====================
-pc       0x400d1f88   sensor_read + 12
-exccause 0x1d         (StoreProhibitedCause)
-excvaddr 0x00000000
-a1 (sp)  0x3ffb6e80
-
-==================== BACKTRACE ====================================
-#0  sensor_read (dev=0x3ffb1234, buf=0x0) at main/sensor.c:88
-#1  0x400d2abc in update_sensors () at main/tasks.c:45
-#2  0x400d2f10 in sensor_task (arg=0x0) at main/tasks.c:120
-
-==================== ALL THREADS =================================
-'sensor_task'  → sensor_read, sensor.c:88   (crashed)
-'wifi_task'    → xQueueReceive, queue.c:112  (blocked on queue)
-'app_task'     → xSemaphoreTake, semphr.h    (blocked on semaphore)
-```
+:::code core-dump/sh/main.sh
 
 Розбір лягає в один ланцюжок. Код `exccause 0x1d` — це `StoreProhibited` (англ. *store prohibited*, «запис заборонено»): процесор спробував **записати** за адресою, куди писати не можна. Куди саме, каже `excvaddr` — тут `0x00000000`, а запис за нульовою адресою майже завжди означає розіменування `NULL`. Верхній кадр backtrace показує **де**: `sensor_read`, рядок `sensor.c:88`. Аргументи кадру домальовують **чому**: `buf=0x0` — у функцію передали порожній покажчик, і вона спробувала покласти туди байт. Лишається піднятися на кадр `update_sensors` і знайти, звідки прийшов `NULL`.
 

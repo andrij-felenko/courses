@@ -151,28 +151,7 @@ void gpio_isolate_unused_pins(void) {
     GPIOA->PUPDR = 0x00000000;
 }
 ```
-```cpp
-/* Переведення невикористовуваних пінів порту GPIOA в аналоговий режим (C++20) */
-#include <cstdint>
-
-namespace emb::hw {
-
-struct GpioPort {
-    volatile uint32_t MODER;
-    volatile uint32_t OTYPER;
-    volatile uint32_t OSPEEDR;
-    volatile uint32_t PUPDR;
-};
-
-inline void isolateUnusedPins(GpioPort* port) noexcept {
-    if (port != nullptr) {
-        port->MODER = 0xFFFFFFFFU; // Analog Mode
-        port->PUPDR = 0x00000000U; // No pull
-    }
-}
-
-} // namespace emb::hw
-```
+:::code son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii-d/cpp/2-izoliatsiia.cpp
 :::
 
 У цьому режимі комутаційний ключ усередині кристала фізично від'єднує затвори логічного інвертора від зовнішнього виводу, зменшуючи витік до часток наноампера.
@@ -213,19 +192,7 @@ void unsafe_sleep_enter(void) {
     }
 }
 ```
-```cpp
-/* Небезпечний вхід у сон: вразливий до стану гонитви (C++20) */
-namespace emb {
-
-void unsafeSleepEnter(const EventQueue& queue) noexcept {
-    if (queue.empty()) {
-        // <- НЕБЕЗПЕЧНЕ ВІКНО: переривання ISR виникає тут
-        __asm volatile ("wfi");
-    }
-}
-
-} // namespace emb
-```
+:::code son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii-d/cpp/atomarnyi-vkhid-cherez.cpp
 :::
 
 Коли зовнішній сигнал від датчика надходить у позначене вікно, процесор негайно перериває потік виконання, переходить у відповідну функцію ISR, обробляє сигнал і поміщає нову подію в чергу. Після виходу з ISR потік повертається в точку переривання й неминуче виконує наступну інструкцію `__WFI()`. Процесор засинає, хоча в черзі щойно з'явилася робота. Подія зависне до наступного таймера.
@@ -233,58 +200,8 @@ void unsafeSleepEnter(const EventQueue& queue) noexcept {
 Архітектура ARM Cortex-M надає детерміноване апаратне вирішення цієї проблеми за допомогою регістра `PRIMASK` (інструкція `cpsid i` / `__disable_irq()`):
 
 :::tabs
-```c
-/* Атомарний захищений вхід у сон ядра Cortex-M (C) */
-void atomic_sleep_enter(void) {
-    /* 1. Блокуємо виклик обробників ISR на рівні ядра */
-    __disable_irq();
-
-    /* 2. Атомарно перевіряємо стан черги подій та блокувань */
-    if (event_queue_is_empty() && pm_can_sleep()) {
-        /* 3. Встановлюємо біт глибокого сну */
-        SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-
-        /* 4. Шинні бар'єри пам'яті */
-        __DSB();
-        __ISB();
-
-        /* 5. Виконуємо інструкцію сну */
-        __WFI();
-
-        /* 6. Скидаємо біт глибокого сну */
-        SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
-    }
-
-    /* 7. Дозволяємо процесору виконати накопичені ISR */
-    __enable_irq();
-}
-```
-```cpp
-/* Атомарний захищений вхід у сон ядра Cortex-M (C++20) */
-namespace emb {
-
-void atomicSleepEnter(const EventQueue& queue) noexcept {
-    // 1. Блокуємо виклик ISR
-    __asm volatile ("cpsid i" : : : "memory");
-
-    // 2. Атомарна перевірка умов засинання
-    if (queue.empty() && pm::PowerManager::instance().deepestAllowedMode() != pm::Mode::Active) {
-        // SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-        __asm volatile ("dsb 0xF" ::: "memory");
-        __asm volatile ("isb 0xF" ::: "memory");
-
-        // 3. Апаратний сон ядра
-        __asm volatile ("wfi");
-
-        // SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
-    }
-
-    // 4. Дозвіл виконання накопичених обробників переривань
-    __asm volatile ("cpsie i" : : : "memory");
-}
-
-} // namespace emb
-```
+:::code son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii-d/c/atomarnyi-vkhid-cherez.c
+:::code son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii-d/cpp/atomarnyi-vkhid-cherez-2.cpp
 :::
 
 **Як це працює на рівні кремнію:**
@@ -299,52 +216,8 @@ void atomicSleepEnter(const EventQueue& queue) noexcept {
 Диспетчер живлення зобов'язаний негайно відновити повне дерево тактування **до** того, як код почне виконувати обчислення чи передавати дані:
 
 :::tabs
-```c
-/* Відновлення тактування після виходу з режиму STOP (C) */
-void pm_restore_clocks_after_stop(void) {
-    /* 1. Запуск зовнішнього кварцового резонатора HSE */
-    RCC->CR |= RCC_CR_HSEON;
-    while (!(RCC->CR & RCC_CR_HSERDY)) {
-        /* Очікування прапорця апаратної стабілізації частоти кварцу */
-    }
-
-    /* 2. Запуск помножувача частоти PLL */
-    RCC->CR |= RCC_CR_PLLON;
-    while (!(RCC->CR & RCC_CR_PLLRDY)) {
-        /* Очікування фіксації фазового автопідстроювання PLL Lock */
-    }
-
-    /* 3. Перемикання системного джерела тактування SYSCLK на вихід PLL */
-    RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_PLL;
-    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL) {
-        /* Перевірка успішного перемикання шини */
-    }
-}
-```
-```cpp
-/* Відновлення тактування після виходу з режиму STOP (C++20) */
-#include <cstdint>
-
-namespace emb::sys {
-
-struct ClockTree {
-    static void restoreAfterStop() noexcept {
-        // 1. Запуск зовнішнього кварцового резонатора HSE
-        // RCC->CR |= RCC_CR_HSEON;
-        // while (!(RCC->CR & RCC_CR_HSERDY)) {}
-
-        // 2. Запуск помножувача частоти PLL
-        // RCC->CR |= RCC_CR_PLLON;
-        // while (!(RCC->CR & RCC_CR_PLLRDY)) {}
-
-        // 3. Перемикання системного джерела тактування SYSCLK на вихід PLL
-        // RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_PLL;
-        // while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL) {}
-    }
-};
-
-} // namespace emb::sys
-```
+:::code son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii-d/c/vidnovlennia-taktovoho.c
+:::code son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii-d/cpp/vidnovlennia-taktovoho.cpp
 :::
 
 ## Повний енергетичний диспетчер (Power Management Subsystem)
@@ -359,60 +232,8 @@ struct ClockTree {
 Головний цикл програми або планувальник RTOS перед кожним кроком бездіяльності звертається до диспетчера:
 
 :::tabs
-```c
-/* Головний цикл обробки подій із централізованим диспетчером сну (C) */
-void main_loop(void) {
-    while (1) {
-        /* 1. Обробка всіх накопичених подій у черзі */
-        event_t ev;
-        while (event_queue_pop(&ev)) {
-            dispatch_event(&ev);
-        }
-
-        /* 2. Якщо черга порожня — оцінка допустимої глибини сну */
-        uint32_t next_deadline_ms = timer_get_ms_to_next_deadline();
-        pm_sleep_if_idle(next_deadline_ms);
-    }
-}
-```
-```cpp
-/* Головний цикл обробки подій з диспетчером живлення (C++20) */
-#include <cstdint>
-#include <optional>
-
-namespace emb {
-
-struct Event {};
-
-class EventQueue {
-public:
-    [[nodiscard]] std::optional<Event> pop() noexcept { return std::nullopt; }
-    [[nodiscard]] bool empty() const noexcept { return true; }
-};
-
-class TimerManager {
-public:
-    [[nodiscard]] uint32_t millisecondsToNextDeadline() const noexcept { return 1000U; }
-};
-
-void dispatchEvent(const Event&) noexcept {}
-
-void runMainLoop(EventQueue& queue, TimerManager& timers) noexcept {
-    while (true) {
-        // 1. Диспетчеризація всіх подій черги
-        while (auto event = queue.pop()) {
-            dispatchEvent(*event);
-        }
-
-        // 2. Оцінка часу бездіяльності та безпечне занурення в сон
-        const uint32_t idleMs = timers.millisecondsToNextDeadline();
-        // pm::PowerManager::instance().sleepIfIdle(idleMs);
-        (void)idleMs;
-    }
-}
-
-} // namespace emb
-```
+:::code son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii-d/c/povnyi-enerhetychnyi.c
+:::code son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii-d/cpp/povnyi-enerhetychnyi.cpp
 :::
 
 Повний працюючий вихідний код централізованого диспетчера живлення, реалізацію лічильників блокувань, хуків реєстрації драйверів та RAII-обгортки `ScopedPowerLock` дивіться у вставці [⚙️ повний диспетчер енергозбереження на C та C++](root:embedded/son-iak-stan-prohramy-a-ne-iak-vyklyk-funktsii/proj-power-manager.md).

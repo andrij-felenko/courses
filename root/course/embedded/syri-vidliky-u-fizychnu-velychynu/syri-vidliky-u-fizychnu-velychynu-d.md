@@ -57,93 +57,9 @@ raw_16 = ((uint16_t)buf_msb << 8) | (uint16_t)buf_lsb    [для датчикі�
 
 :::tabs
 @tab C
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Безпечний розбір сирих 12-бітних відліків акселерометра */
-typedef struct {
-    int16_t x;
-    int16_t y;
-    int16_t z;
-} accel_raw_t;
-
-/* Розбір кадру з лівим вирівнюванням (Left-aligned, LIS3DH default) */
-accel_raw_t parse_accel_left_aligned(const uint8_t buf[6]) {
-    accel_raw_t out;
-    /* Збираємо 16-бітне слово та зсуваємо арифметично на 4 розряди вправо */
-    int16_t raw_x = (int16_t)((uint16_t)buf[0] | ((uint16_t)buf[1] << 8));
-    int16_t raw_y = (int16_t)((uint16_t)buf[2] | ((uint16_t)buf[3] << 8));
-    int16_t raw_z = (int16_t)((uint16_t)buf[4] | ((uint16_t)buf[5] << 8));
-
-    out.x = raw_x >> 4;
-    out.y = raw_y >> 4;
-    out.z = raw_z >> 4;
-    return out;
-}
-
-/* Розбір кадру з правим вирівнюванням (Right-aligned, 12-бітний АЦП) */
-accel_raw_t parse_accel_right_aligned(const uint8_t buf[6]) {
-    accel_raw_t out;
-    uint16_t u_x = (uint16_t)buf[0] | ((uint16_t)buf[1] << 8);
-    uint16_t u_y = (uint16_t)buf[2] | ((uint16_t)buf[3] << 8);
-    uint16_t u_z = (uint16_t)buf[4] | ((uint16_t)buf[5] << 8);
-
-    /* Знакове розширення через подвійний арифметичний зсув */
-    out.x = (int16_t)(u_x << 4) >> 4;
-    out.y = (int16_t)(u_y << 4) >> 4;
-    out.z = (int16_t)(u_z << 4) >> 4;
-    return out;
-}
-```
+:::code syri-vidliky-u-fizychnu-velychynu-d/c/pastka-znakovoho.c
 @tab C++
-```cpp
-#include <cstdint>
-#include <array>
-#include <span>
-
-namespace sensor {
-
-struct Vector3i16 {
-    int16_t x{0};
-    int16_t y{0};
-    int16_t z{0};
-};
-
-class RawFrameParser {
-public:
-    // Розбір кадру з лівим вирівнюванням (Left-aligned)
-    [[nodiscard]] static constexpr Vector3i16 parse_left_aligned(std::span<const uint8_t, 6> buf) noexcept {
-        auto assemble = [](uint8_t lsb, uint8_t msb) constexpr -> int16_t {
-            const auto raw = static_cast<int16_t>(static_cast<uint16_t>(lsb) | 
-                                                 (static_cast<uint16_t>(msb) << 8));
-            return static_cast<int16_t>(raw >> 4);
-        };
-
-        return Vector3i16{
-            .x = assemble(buf[0], buf[1]),
-            .y = assemble(buf[2], buf[3]),
-            .z = assemble(buf[4], buf[5])
-        };
-    }
-
-    // Розбір кадру з правим вирівнюванням (Right-aligned) та знаковим розширенням
-    [[nodiscard]] static constexpr Vector3i16 parse_right_aligned(std::span<const uint8_t, 6> buf) noexcept {
-        auto sign_extend_12 = [](uint8_t lsb, uint8_t msb) constexpr -> int16_t {
-            const auto u16 = static_cast<uint16_t>(lsb | (static_cast<uint16_t>(msb) << 8));
-            return static_cast<int16_t>(static_cast<int16_t>(u16 << 4) >> 4);
-        };
-
-        return Vector3i16{
-            .x = sign_extend_12(buf[0], buf[1]),
-            .y = sign_extend_12(buf[2], buf[3]),
-            .z = sign_extend_12(buf[4], buf[5])
-        };
-    }
-};
-
-} // namespace sensor
-```
+:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/pastka-znakovoho.hpp
 :::
 
 ## 2. Вага молодшого розряду (LSB Sensitivity) та переведення в одиниці SI
@@ -255,100 +171,9 @@ X_fixed = (int32_t)(x_real * 65536.0 + 0.5)   [переведення дійсн
 
 :::tabs
 @tab C
-```c
-#include <stdint.h>
-
-/* Базові математичні операції над числами у форматі Q16.16 */
-
-/* Множення двох чисел Q16.16 з симетричним округленням */
-int32_t q16_mul(int32_t a, int32_t b) {
-    int64_t prod = (int64_t)a * b;
-    /* Додаємо 2^15 (половину ваги LSB) для усунення систематичного зсуву */
-    return (int32_t)((prod + (1LL << 15)) >> 16);
-}
-
-/* Ділення двох чисел Q16.16 */
-int32_t q16_div(int32_t a, int32_t b) {
-    if (b == 0) {
-        return 0; /* Захист від ділення на нуль */
-    }
-    return (int32_t)(((int64_t)a << 16) / b);
-}
-
-/* Переведення цілого числа у формат Q16.16 */
-int32_t int_to_q16(int32_t x) {
-    return x << 16;
-}
-
-/* Переведення Q16.16 у ціле число з округленням */
-int32_t q16_to_int(int32_t q) {
-    return (q + (1 << 15)) >> 16;
-}
-```
+:::code syri-vidliky-u-fizychnu-velychynu-d/c/pravyla-aryfmetychnykh.c
 @tab C++
-```cpp
-#include <cstdint>
-#include <concepts>
-
-namespace math {
-
-// Типобезпечний клас чисел із фіксованою комою формату Q_m.n
-template <int FractionalBits = 16>
-class FixedPoint {
-public:
-    static constexpr int FracBits = FractionalBits;
-    static constexpr int64_t Scale = 1LL << FracBits;
-    static constexpr int64_t HalfLsb = 1LL << (FracBits - 1);
-
-    constexpr FixedPoint() noexcept = default;
-
-    // Конструктор із цілого числа
-    explicit constexpr FixedPoint(int32_t integer_val) noexcept 
-        : raw_val_(static_cast<int32_t>(integer_val << FracBits)) {}
-
-    // Фабричний метод для сирого значення
-    [[nodiscard]] static constexpr FixedPoint from_raw(int32_t raw) noexcept {
-        FixedPoint fp;
-        fp.raw_val_ = raw;
-        return fp;
-    }
-
-    [[nodiscard]] constexpr int32_t raw() const noexcept { return raw_val_; }
-
-    [[nodiscard]] constexpr int32_t to_int() const noexcept {
-        return (raw_val_ + static_cast<int32_t>(HalfLsb)) >> FracBits;
-    }
-
-    // Перевантаження арифметичних операторів
-    [[nodiscard]] constexpr FixedPoint operator+(const FixedPoint& other) const noexcept {
-        return from_raw(raw_val_ + other.raw_val_);
-    }
-
-    [[nodiscard]] constexpr FixedPoint operator-(const FixedPoint& other) const noexcept {
-        return from_raw(raw_val_ - other.raw_val_);
-    }
-
-    [[nodiscard]] constexpr FixedPoint operator*(const FixedPoint& other) const noexcept {
-        const int64_t prod = static_cast<int64_t>(raw_val_) * other.raw_val_;
-        return from_raw(static_cast<int32_t>((prod + HalfLsb) >> FracBits));
-    }
-
-    [[nodiscard]] constexpr FixedPoint operator/(const FixedPoint& other) const noexcept {
-        if (other.raw_val_ == 0) {
-            return from_raw(0);
-        }
-        const int64_t num = (static_cast<int64_t>(raw_val_) << FracBits);
-        return from_raw(static_cast<int32_t>(num / other.raw_val_));
-    }
-
-private:
-    int32_t raw_val_{0};
-};
-
-using Q16 = FixedPoint<16>;
-
-} // namespace math
-```
+:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/pravyla-aryfmetychnykh.cpp
 :::
 
 Детальне математичне обґрунтування шуму квантування, похибки усічення та вибору оптимальної розрядності викладено у вставці [математичних засад масштабування у фіксованій комі](root:embedded/syri-vidliky-u-fizychnu-velychynu/math-fixed-point-scaling.md).
@@ -375,62 +200,9 @@ y[n] = y[n - 1] + ((x[n] - y[n - 1]) >> k)
 
 :::tabs
 @tab C
-```c
-#include <stdint.h>
-
-/* Стан цілочисельного експоненційного фільтра низьких частот */
-typedef struct {
-    int32_t state_q16; /* Внутрішній стан у форматі Q16.16 */
-    uint8_t shift_k;   /* Коефіцієнт згладжування: alpha = 1 / 2^k */
-} iir_fixed_filter_t;
-
-void iir_fixed_init(iir_fixed_filter_t *f, uint8_t k, int16_t initial_val) {
-    f->shift_k = k;
-    f->state_q16 = (int32_t)initial_val << 16;
-}
-
-int16_t iir_fixed_update(iir_fixed_filter_t *f, int16_t input) {
-    int32_t input_q16 = (int32_t)input << 16;
-    /* Оновлення стану без втрати залишку: state += (input - state) >> k */
-    f->state_q16 += (input_q16 - f->state_q16) >> f->shift_k;
-    /* Повернення результату з симетричним округленням */
-    return (int16_t)((f->state_q16 + (1 << 15)) >> 16);
-}
-```
+:::code syri-vidliky-u-fizychnu-velychynu-d/c/5-tsyfrova-iir-filtratsiia.c
 @tab C++
-```cpp
-#include <cstdint>
-
-namespace dsp {
-
-template <uint8_t ShiftK = 3>
-class LowPassIirFilter {
-public:
-    constexpr LowPassIirFilter() noexcept = default;
-
-    explicit constexpr LowPassIirFilter(int16_t initial_val) noexcept 
-        : state_q16_(static_cast<int32_t>(initial_val) << 16) {}
-
-    constexpr void reset(int16_t val) noexcept {
-        state_q16_ = static_cast<int32_t>(val) << 16;
-    }
-
-    [[nodiscard]] constexpr int16_t update(int16_t input) noexcept {
-        const int32_t input_q16 = static_cast<int32_t>(input) << 16;
-        state_q16_ += (input_q16 - state_q16_) >> ShiftK;
-        return static_cast<int16_t>((state_q16_ + (1 << 15)) >> 16);
-    }
-
-    [[nodiscard]] constexpr int32_t state_q16() const noexcept {
-        return state_q16_;
-    }
-
-private:
-    int32_t state_q16_{0};
-};
-
-} // namespace dsp
-```
+:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/5-tsyfrova-iir-filtratsiia.cpp
 :::
 
 ## 6. Захист від переповнення та збереження точності в 32/64-бітних обчисленнях
@@ -461,49 +233,9 @@ private:
 
 :::tabs
 @tab C
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Безпечне масштабування сирого відліку з фіксованою комою та насиченням */
-int32_t scale_sensor_value_sat(int16_t raw_val, int32_t scale_q16, int32_t min_limit, int32_t max_limit) {
-    /* 64-бітне множення виключає проміжне переповнення */
-    int64_t intermediate = (int64_t)raw_val * scale_q16;
-    
-    /* Симетричне округлення та зсув з Q16.16 */
-    int32_t scaled = (int32_t)((intermediate + (1LL << 15)) >> 16);
-    
-    /* Апаратне або програмне насичення (Saturation) */
-    if (scaled > max_limit) {
-        return max_limit;
-    }
-    if (scaled < min_limit) {
-        return min_limit;
-    }
-    return scaled;
-}
-```
+:::code syri-vidliky-u-fizychnu-velychynu-d/c/aryfmetyka-z-nasychenniam.c
 @tab C++
-```cpp
-#include <cstdint>
-#include <algorithm>
-#include <concepts>
-
-namespace sensor {
-
-template <typename T = int32_t>
-class FixedPointScaler {
-public:
-    // Масштабування відліку з формату Q16.16 з гарантованим захистом від переповнення
-    [[nodiscard]] static constexpr T scale_and_clamp(int16_t raw_val, int32_t scale_q16, T min_val, T max_val) noexcept {
-        const int64_t intermediate = static_cast<int64_t>(raw_val) * scale_q16;
-        const auto rounded = static_cast<int32_t>((intermediate + (1LL << 15)) >> 16);
-        return std::clamp(static_cast<T>(rounded), min_val, max_val);
-    }
-};
-
-} // namespace sensor
-```
+:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/aryfmetyka-z-nasychenniam.hpp
 :::
 
 ### Порівняльний аналіз підходів обробки даних

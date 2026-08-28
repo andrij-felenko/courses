@@ -144,57 +144,8 @@ G(x) = x^8 + x^5 + x^4 + 1
 Генерація такого масиву в пам'яті Flash виконується простим препроцесорним або `constexpr` кодом:
 
 :::tabs
-```c
-static const uint8_t crc8_table[256] = {
-    0x00, 0x31, 0x62, 0x53, 0xC4, 0xF5, 0xA6, 0x97,
-    0xB9, 0x88, 0xDB, 0xEA, 0x7D, 0x4C, 0x1F, 0x2E,
-    /* ... 256 попередньо розрахованих байтів ... */
-};
-
-uint8_t crc8_fast(const uint8_t *data, size_t len) {
-    uint8_t crc = 0xFF; // Початкове значення
-    for (size_t i = 0; i < len; ++i) {
-        crc = crc8_table[crc ^ data[i]];
-    }
-    return crc;
-}
-```
-```cpp
-#include <array>
-#include <span>
-#include <cstdint>
-
-namespace sensirion {
-
-// Генерація таблиці CRC-8 під час компіляції (constexpr)
-constexpr auto generate_crc8_table() {
-    std::array<uint8_t, 256> table{};
-    for (size_t i = 0; i < 256; ++i) {
-        uint8_t curr = static_cast<uint8_t>(i);
-        for (int b = 0; b < 8; ++b) {
-            if (curr & 0x80) {
-                curr = static_cast<uint8_t>((curr << 1) ^ 0x31);
-            } else {
-                curr = static_cast<uint8_t>(curr << 1);
-            }
-        }
-        table[i] = curr;
-    }
-    return table;
-}
-
-inline constexpr auto crc8_table = generate_crc8_table();
-
-[[nodiscard]] constexpr uint8_t crc8_fast(std::span<const uint8_t> data) noexcept {
-    uint8_t crc = 0xFF;
-    for (const uint8_t byte : data) {
-        crc = crc8_table[crc ^ byte];
-    }
-    return crc;
-}
-
-} // namespace sensirion
-```
+:::code math-crc8-poly/c/main.c
+:::code math-crc8-poly/cpp/main.cpp
 :::
 
 Табличний розрахунок зводить обробку одного байта до однієї операції XOR та одного читання з Flash-пам'яті (`crc = table[crc ^ byte]`), що прискорює обчислення приблизно у 8–10 разів порівняно з побітовим зсувом.

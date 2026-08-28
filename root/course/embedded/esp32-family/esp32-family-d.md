@@ -37,20 +37,7 @@ Espressif історично дала ядрам імена, що видають
 
 **Умова: два ядра нарощують спільний лічильник подій. Що додати, щоб не втратити інкременти?**
 
-```c
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-static portMUX_TYPE lock = portMUX_INITIALIZER_UNLOCKED;
-static volatile uint32_t events = 0;
-
-// викликається з задач, що можуть жити на РІЗНИХ ядрах
-static void on_event(void) {
-    taskENTER_CRITICAL(&lock);   // на мить забороняємо перемикання/друге ядро
-    events++;                    // тепер інкремент неподільний
-    taskEXIT_CRITICAL(&lock);    // відпускаємо якнайшвидше
-}
-```
+:::code esp32-family-d/c/spilna-pamiat-syla-i.c
 
 ```
 без замка:  events++  = читати → +1 → записати  (три кроки)
@@ -136,23 +123,7 @@ S3: паспортні 512 КБ SRAM — куди вони діваються
 
 **Умова: буфер кадру 640×480×2 байти. Куди його покласти на S3 і чому не в звичайну купу?**
 
-```c
-#include "esp_heap_caps.h"
-
-#define W 640
-#define H 480
-size_t frame_bytes = (size_t)W * H * 2;   // 614 400 байтів ≈ 600 КБ
-
-// у внутрішню SRAM НЕ влізе (там усього ~512 КБ, ще й з дірками) →
-// просимо саме зовнішню PSRAM прапорцем MALLOC_CAP_SPIRAM:
-uint16_t *frame = heap_caps_malloc(frame_bytes, MALLOC_CAP_SPIRAM);
-if (!frame) {                 // PSRAM може бути не розпаяна або вимкнена в конфігу
-    ESP_LOGE("cam", "нема PSRAM під кадр");
-    return;
-}
-// ... працюємо з кадром; доступ повільніший за SRAM, зате він узагалі можливий
-heap_caps_free(frame);
-```
+:::code esp32-family-d/c/koly-na-stsenu-vykhodyt.c
 
 ```
 внутрішня SRAM:  ~512 КБ — кадр 600 КБ НЕ влазить фізично

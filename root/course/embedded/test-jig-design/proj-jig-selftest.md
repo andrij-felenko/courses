@@ -41,64 +41,11 @@ $RPT;SN=A1B2C3;V33=3312;V5=4980;VREF=1198;GPIO=OK;IMU=0x71;TEMP=274;*7F
 
 Але є тонкість, без якої всі виміри плистимуть. Щоб перетворити «сирий» відлік АЦП у вольти, треба знати **опорну напругу** (V_ref) — ту, з якою АЦП порівнює вхід. А вона в дешевих мікроконтролерів часто і є сама напруга живлення 3.3 В, яка… гуляє. Виходить зачароване коло: щоб виміряти живлення, треба знати опору, а опора — це і є живлення. Рятує вбудоване **внутрішнє джерело опори** (bandgap) — крихітний еталон усередині чипа, що дає, скажімо, стабільні 1.20 В незалежно від живлення. Вимірявши цей відомий еталон **зовнішнім** АЦП, ти впізнаєш справжню V_ref, а вже з нею — усі інші напруги.
 
-```c
-#include <stdint.h>
-
-// Місткість 12-бітного АЦП і паспортна напруга внутрішнього bandgap-еталона.
-#define ADC_FULL_SCALE   4095u
-#define VREFINT_MV       1200u     // ~1.20 В, з даташита конкретного МК
-
-// Прочитати канал АЦП кілька разів і повернути усереднений сирий відлік.
-// (чому усереднюємо — розберемо в пастці про шум; поки просто беремо середнє)
-uint16_t adc_read_avg(uint8_t channel) {
-    uint32_t acc = 0;
-    for (int i = 0; i < 16; i++) {
-        acc += adc_read_raw(channel);   // одиничне перетворення на каналі
-    }
-    return (uint16_t)(acc / 16u);
-}
-
-// Впізнати справжню опорну напругу через внутрішній bandgap.
-// Ідея: bandgap дає ВІДОМІ VREFINT_MV. АЦП міряє його як vrefint_raw.
-// Якщо повна шкала = Vref, то Vref_mv = VREFINT_MV * FULL_SCALE / vrefint_raw.
-uint16_t measure_vref_mv(void) {
-    uint16_t vrefint_raw = adc_read_avg(ADC_CH_VREFINT);
-    if (vrefint_raw == 0) return 0;                 // захист від ділення на нуль
-    return (uint16_t)((uint32_t)VREFINT_MV * ADC_FULL_SCALE / vrefint_raw);
-}
-
-// Перевести відлік будь-якого каналу у мілівольти, знаючи справжню Vref.
-uint16_t adc_to_mv(uint16_t raw, uint16_t vref_mv) {
-    return (uint16_t)((uint32_t)raw * vref_mv / ADC_FULL_SCALE);
-}
-```
+:::code proj-jig-selftest/c/krok-1-chytaiemo-vlasni.c
 
 Тепер прочитати всі потрібні шини — справа кількох рядків. Зауваж: шини вищі за опору (5 В, а часто й самі 3.3 В) АЦП напряму не з'їсть — його вхід не терпить більше за V_ref. Тому їх заводять через **[дільник напруги](root:hw-analog/voltage-divider)** — два резистори, що ділять напругу в відомій пропорції: коротко, вихід дільника дорівнює входу, помноженому на R_low/(R_high+R_low). Виміряв поділене — помнож назад на коефіцієнт дільника, і маєш справжню напругу шини.
 
-```c
-// Коефіцієнти дільників (×1000, щоб рахувати цілими).
-// Напр. дільник 2:1 (однакові резистори) множить назад на 2.000 → 2000.
-#define DIV_5V_X1000    2000u      // шина 5 В поділена навпіл
-#define DIV_3V3_X1000   1000u      // 3.3 В заведена прямо (в межах Vref)
-
-typedef struct {
-    uint16_t v33_mv;
-    uint16_t v5_mv;
-    uint16_t vref_measured_mv;   // сама опорна — теж поле рапорту, корисно бачити
-} rails_t;
-
-void read_rails(rails_t *r) {
-    uint16_t vref = measure_vref_mv();
-    r->vref_measured_mv = vref;
-
-    uint16_t raw33 = adc_read_avg(ADC_CH_RAIL_3V3);
-    uint16_t raw5  = adc_read_avg(ADC_CH_RAIL_5V);
-
-    // спочатку у мілівольти на вході АЦП, тоді назад через коефіцієнт дільника
-    r->v33_mv = (uint16_t)((uint32_t)adc_to_mv(raw33, vref) * DIV_3V3_X1000 / 1000u);
-    r->v5_mv  = (uint16_t)((uint32_t)adc_to_mv(raw5,  vref) * DIV_5V_X1000  / 1000u);
-}
-```
+:::code proj-jig-selftest/c/krok-1-chytaiemo-vlasni-2.c
 
 Важливо, що плата тут **не судить** — вона лише **міряє й повідомляє число**. Рішення «3312 мВ — це добре чи брак» ухвалює джиг. Чому не сама плата? Бо допуски — власність тесту, а не прошивки: та сама бойова прошивка їде і в тестований апарат, і в проданий, і зашивати в неї «якщо шина < 3200, кричи брак» безглуздо — у полі та перевірка нічого не тестує, лише марнує код. Плата каже факт, джиг виносить вирок. Це чистий поділ обов'язків, і він робить рапорт універсальним.
 
@@ -108,45 +55,7 @@ void read_rails(rails_t *r) {
 
 Ідея майже нахабно проста. Ще на розводці два виводи з'єднують коротенькою доріжкою: один — вихід, другий — вхід. Прошивка виставляє на виході одиницю й читає вхід: прийшла одиниця — петля ціла. Виставляє нуль — має прочитатися нуль. Якщо доріжка обірвана, вхід «висітиме» й читатиме випадкове (а частіше — те, що втягне слабкий підтягувальний резистор). Одна петля перевіряє **обидва** виводи й доріжку між ними одним рухом.
 
-```c
-#include <stdbool.h>
-
-// Пара «вихід → вхід», з'єднана доріжкою на платі.
-typedef struct {
-    gpio_pin_t out_pin;
-    gpio_pin_t in_pin;
-} loop_t;
-
-static const loop_t loops[] = {
-    { PIN_LOOP0_OUT, PIN_LOOP0_IN },
-    { PIN_LOOP1_OUT, PIN_LOOP1_IN },
-    { PIN_LOOP2_OUT, PIN_LOOP2_IN },
-};
-#define N_LOOPS (sizeof(loops) / sizeof(loops[0]))
-
-// Перевірити одну петлю: 1 має дати 1, 0 має дати 0.
-static bool loop_ok(const loop_t *lp) {
-    gpio_set(lp->out_pin, 1);
-    delay_us(5);                       // дати рівню усталитись на доріжці
-    if (gpio_get(lp->in_pin) != 1) return false;
-
-    gpio_set(lp->out_pin, 0);
-    delay_us(5);
-    if (gpio_get(lp->in_pin) != 0) return false;
-
-    return true;
-}
-
-// Пробігти всі петлі; повернути true лише якщо ВСІ цілі.
-bool check_all_loops(void) {
-    for (unsigned i = 0; i < N_LOOPS; i++) {
-        gpio_mode(loops[i].out_pin, GPIO_OUTPUT);
-        gpio_mode(loops[i].in_pin,  GPIO_INPUT_PULLDOWN);  // висячий вхід тягнемо в 0
-        if (!loop_ok(&loops[i])) return false;
-    }
-    return true;
-}
-```
+:::code proj-jig-selftest/c/krok-2-pereviriaiemo-gpio.c
 
 Чому вхід тягнемо донизу (`PULLDOWN`)? Щоб обірвана петля читалася як певний нуль, а не як випадковий шум. Тоді розрив однозначно завалить перевірку «1 має дати 1»: на виході — одиниця, а розірваний вхід тримається в нулі підтяжкою. Без підтяжки висячий вхід міг би випадково піймати наводку й прочитати одиницю — і петля збрехала б, що ціла. Маленька деталь, а рятує від хибно-пройдених плат.
 
@@ -156,32 +65,7 @@ bool check_all_loops(void) {
 
 Найдешевша й напрочуд сильна перевірка — прочитати **регістр ідентифікації** (WHO_AM_I). Майже кожна пристойна мікросхема-давач має регістр, що завжди повертає фіксоване, наперед відоме число — свій «підпис». Прочитав його й дістав очікуване — значить, чип **живий, правильно розпаяний, і шина до нього працює**. Дістав нуль чи 0xFF — давач мертвий, не той, або лінія обірвана. Один байт, а перевіряє весь ланцюг: пайку чипа, доріжки шини, підтяжки, живлення давача.
 
-```c
-// Кожен давач: адреса на шині, регістр підпису й очікуване значення підпису.
-typedef struct {
-    uint8_t i2c_addr;
-    uint8_t whoami_reg;
-    uint8_t whoami_expected;
-} sensor_t;
-
-static const sensor_t sensors[] = {
-    { .i2c_addr = 0x68, .whoami_reg = 0x75, .whoami_expected = 0x71 },  // напр. IMU
-    { .i2c_addr = 0x76, .whoami_reg = 0xD0, .whoami_expected = 0x60 },  // напр. барометр
-};
-#define N_SENSORS (sizeof(sensors) / sizeof(sensors[0]))
-
-// Прочитати підпис одного давача. Повертає прочитаний байт,
-// а через *ok — чи збігся він з очікуваним (і чи взагалі відповіла шина).
-uint8_t sensor_probe(const sensor_t *s, bool *ok) {
-    uint8_t id = 0xFF;
-    if (i2c_read_reg(s->i2c_addr, s->whoami_reg, &id) != I2C_OK) {
-        *ok = false;              // шина не відповіла (NACK) — давача нема на лінії
-        return 0xFF;
-    }
-    *ok = (id == s->whoami_expected);
-    return id;                    // сам байт кладемо в рапорт — видно, ХТО відповів
-}
-```
+:::code proj-jig-selftest/c/krok-3-opytuiemo-davachi.c
 
 Зверни увагу, що ми кладемо в рапорт **сам прочитаний байт**, а не голе «OK/FAIL». Це не примха. Якщо давач відповів `0x00` — обрив або мертвий чип; якщо `0xFF` — шина висить без підтяжки або чипа нема; а якщо прийшло, скажімо, `0x70` замість очікуваного `0x71` — то це вже **інша ревізія того самого давача** або переплутаний близький родич, і бачити точне число безцінно для розбору. Голе «FAIL» усю цю діагностику викидає; сирий байт її зберігає.
 
@@ -189,72 +73,11 @@ uint8_t sensor_probe(const sensor_t *s, bool *ok) {
 
 Тепер зшиваємо все в один рядок і виштовхуємо назовні. Зберемо поля у `snprintf`, дорахуємо XOR-суму рядка й допишемо її в хвіст. Канал — UART; для плати без вільного UART той самий рядок можна віддати через [SWD](root:embedded/jtag-swd-tools), поклавши його в буфер, який джиг вичитує налагоджувачем (це і є той самий канал, яким плата провізіонувалась [на конвеєрі](root:embedded/factory-provisioning)).
 
-```c
-#include <stdio.h>
-#include <string.h>
-
-// XOR усіх байтів у діапазоні [begin, end) — та сама сума, що в рядках NMEA.
-static uint8_t xor_checksum(const char *begin, const char *end) {
-    uint8_t cs = 0;
-    for (const char *p = begin; p < end; p++) cs ^= (uint8_t)*p;
-    return cs;
-}
-
-void build_and_send_report(const char *serial) {
-    rails_t rails;
-    read_rails(&rails);
-    bool gpio_ok = check_all_loops();
-
-    bool imu_ok, baro_ok;
-    uint8_t imu_id  = sensor_probe(&sensors[0], &imu_ok);
-    uint8_t baro_id = sensor_probe(&sensors[1], &baro_ok);
-    (void)baro_ok;  // сам байт baro_id уже все скаже судді
-
-    int16_t tempC_x10 = read_die_temperature_x10();  // температура кристала ×10
-
-    char body[160];
-    // Тіло — між '$RPT;' і '*'. Суму рахуємо саме від нього.
-    int n = snprintf(body, sizeof(body),
-        "$RPT;SN=%s;V33=%u;V5=%u;VREF=%u;GPIO=%s;IMU=0x%02X;BARO=0x%02X;TEMP=%d;*",
-        serial,
-        rails.v33_mv, rails.v5_mv, rails.vref_measured_mv,
-        gpio_ok ? "OK" : "FAIL",
-        imu_id, baro_id,
-        tempC_x10);
-
-    if (n < 0 || n >= (int)sizeof(body)) {
-        uart_puts("$RPT;ERR=OVERFLOW\r\n");  // рядок не вліз — чесно скажи, не бреши
-        return;
-    }
-
-    // XOR рахуємо від '$' до '*' включно з '*'? — ні, за конвенцією NMEA:
-    // від першого символу ПІСЛЯ '$' до символу ПЕРЕД '*'. Знайдемо межі.
-    const char *cs_begin = body + 1;                 // одразу після '$'
-    const char *cs_end   = strchr(body, '*');        // до '*'
-    uint8_t cs = xor_checksum(cs_begin, cs_end);
-
-    uart_puts(body);
-    char tail[8];
-    snprintf(tail, sizeof(tail), "%02X\r\n", cs);
-    uart_puts(tail);
-}
-```
+:::code proj-jig-selftest/c/skladaiemo-raport-i.c
 
 І місце, звідки це кличеться, — самий початок прошивки, ще до головного циклу:
 
-```c
-int main(void) {
-    clock_init();
-    adc_init();
-    i2c_init();
-    uart_init(115200);
-
-    const char *serial = read_serial_from_flash();  // вписаний при провізіонуванні
-    build_and_send_report(serial);                   // POST: сказати джигу, хто ми
-
-    app_main_loop();                                 // далі — звичайна робота
-}
-```
+:::code proj-jig-selftest/c/skladaiemo-raport-i-2.c
 
 Ось і весь бік плати. Вона нічого не судить, ні на що не чекає — просто на старті чесно розповідає про себе одним рядком і йде працювати. Тепер — бік того, хто цей рядок ловить.
 
@@ -266,163 +89,19 @@ int main(void) {
 
 Найперше — прийняти рапорт із UART, і саме тут чигає перша серйозна пастка (докладно — нижче): плата може **не відповісти взагалі**. Тому читаємо не «поки не прийде рядок», а «поки не прийде рядок **або не вийде час**».
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-#define REPORT_TIMEOUT_MS   2000    // скільки чекаємо на цілий рапорт
-#define LINE_MAX            200
-
-// Читати символи, доки не трапиться '\n' або не вичерпається час.
-// Повертає: true — рядок зібрано; false — вийшов таймаут.
-bool jig_read_line(char *buf, size_t maxlen, uint32_t timeout_ms) {
-    uint32_t start = jig_millis();
-    size_t len = 0;
-
-    while ((jig_millis() - start) < timeout_ms) {
-        int c = uart_getc_nonblock();     // -1, якщо байта ще нема
-        if (c < 0) continue;
-
-        if (c == '\n' || c == '\r') {
-            if (len == 0) continue;       // порожні кінці рядків пропускаємо
-            buf[len] = '\0';
-            return true;                  // цілий рядок зібрано
-        }
-        if (len < maxlen - 1) {
-            buf[len++] = (char)c;
-        }
-        // якщо рядок довший за буфер — «зайве» тихо відкидаємо
-    }
-    return false;                         // час вийшов, цілого рядка нема
-}
-```
+:::code proj-jig-selftest/c/krok-1-dochekatysia.c
 
 ### Крок 2: перевірити суму й розібрати поля
 
 Зібраний рядок ще не можна брати на віру — його міг обірвати шум. Тому **першою дією** перевіряємо контрольну суму: обчислюємо XOR тіла й порівнюємо з тим `*XX`, що прийшов. Не збіглося — рапорт битий, до розбору полів навіть не беремося.
 
-```c
-// Перевірити XOR-суму рядка виду "$...*XX". true — сума збіглася.
-bool report_checksum_ok(const char *line) {
-    const char *star = strrchr(line, '*');
-    if (!star || line[0] != '$') return false;
-
-    // очікувана сума — два шістнадцяткові символи після '*'
-    if (strlen(star) < 3) return false;
-    uint8_t want = (uint8_t)strtol(star + 1, NULL, 16);
-
-    uint8_t got = 0;
-    for (const char *p = line + 1; p < star; p++) got ^= (uint8_t)*p;
-
-    return got == want;
-}
-
-// Дістати рядкове значення поля "NAME=..." у out. true — поле знайдено.
-bool field_str(const char *line, const char *name, char *out, size_t outlen) {
-    char key[24];
-    snprintf(key, sizeof(key), ";%s=", name);   // шукаємо ";NAME="
-    const char *p = strstr(line, key);
-    if (!p) return false;
-    p += strlen(key);
-    size_t i = 0;
-    while (*p && *p != ';' && *p != '*' && i < outlen - 1) out[i++] = *p++;
-    out[i] = '\0';
-    return true;
-}
-
-// Числове поле. true — знайдено й розібрано в *val.
-bool field_int(const char *line, const char *name, long *val) {
-    char tmp[24];
-    if (!field_str(line, name, tmp, sizeof(tmp))) return false;
-    char *end;
-    long v = strtol(tmp, &end, 0);   // база 0 → зрозуміє і 0x71, і 274
-    if (end == tmp) return false;    // там було не число
-    *val = v;
-    return true;
-}
-```
+:::code proj-jig-selftest/c/krok-2-pereviryty-sumu-i.c
 
 ### Крок 3: звірити кожне поле з допуском і винести вирок
 
 Тепер серце судді. Для кожного поля — свій **допуск**: напруги мають лежати в коридорі (як 3.20…3.40 В), прапорці — дорівнювати очікуваному, підписи давачів — точному числу. Заведемо це таблицею, а суд зробимо циклом по ній — так додати нову перевірку значить дописати рядок у таблицю, а не правити логіку.
 
-```c
-typedef enum { CHK_RANGE, CHK_EXACT, CHK_FLAG_OK } check_kind_t;
-
-typedef struct {
-    const char   *field;      // ім'я поля в рапорті
-    check_kind_t  kind;
-    long          lo, hi;      // для CHK_RANGE — коридор; для CHK_EXACT — очікуване в lo
-} spec_t;
-
-// Специфікація доброї плати — «паспорт» тесту. Тут живуть усі допуски.
-static const spec_t spec[] = {
-    { "V33",  CHK_RANGE, 3200, 3400 },   // 3.3 В ±0.1 В
-    { "V5",   CHK_RANGE, 4750, 5250 },   // 5 В ±5 %
-    { "VREF", CHK_RANGE, 1180, 1220 },   // сама опорна теж має бути в нормі
-    { "IMU",  CHK_EXACT, 0x71, 0    },   // підпис давача руху
-    { "BARO", CHK_EXACT, 0x60, 0    },   // підпис барометра
-    { "TEMP", CHK_RANGE, 150,  650  },   // 15…65 °C: не перегрів, але й не «мертво холодна»
-};
-#define N_SPEC (sizeof(spec) / sizeof(spec[0]))
-
-typedef struct {
-    bool passed;
-    char reason[64];        // якщо БРАК — що саме й наскільки не так
-} verdict_t;
-
-verdict_t jig_judge(const char *line) {
-    verdict_t v = { .passed = true, .reason = "" };
-
-    // 0) ціле й неспотворене?
-    if (!report_checksum_ok(line)) {
-        v.passed = false;
-        snprintf(v.reason, sizeof(v.reason), "checksum/format");
-        return v;
-    }
-
-    // окремий випадок: плата сама зізналась у переповненні рапорту
-    if (strstr(line, "ERR=")) {
-        v.passed = false;
-        snprintf(v.reason, sizeof(v.reason), "board reported error");
-        return v;
-    }
-
-    // 1) прапорець GPIO — окремо, бо він рядковий
-    char gpio[8];
-    if (!field_str(line, "GPIO", gpio, sizeof(gpio)) || strcmp(gpio, "OK") != 0) {
-        v.passed = false;
-        snprintf(v.reason, sizeof(v.reason), "GPIO loop failed");
-        return v;
-    }
-
-    // 2) числові поля — по таблиці допусків
-    for (unsigned i = 0; i < N_SPEC; i++) {
-        long val;
-        if (!field_int(line, spec[i].field, &val)) {
-            v.passed = false;
-            snprintf(v.reason, sizeof(v.reason), "%s: missing", spec[i].field);
-            return v;
-        }
-        bool field_ok;
-        switch (spec[i].kind) {
-            case CHK_RANGE: field_ok = (val >= spec[i].lo && val <= spec[i].hi); break;
-            case CHK_EXACT: field_ok = (val == spec[i].lo);                      break;
-            default:        field_ok = true;                                     break;
-        }
-        if (!field_ok) {
-            v.passed = false;
-            snprintf(v.reason, sizeof(v.reason),
-                     "%s=%ld out of [%ld..%ld]",
-                     spec[i].field, val, spec[i].lo, spec[i].hi);
-            return v;   // перша ж хиба — вирок БРАК, далі не потрібно
-        }
-    }
-
-    return v;   // усі поля в нормі → ПРОЙШЛА
-}
-```
+:::code proj-jig-selftest/c/krok-3-zviryty-kozhne-pole.c
 
 Дві риси цього суду варто назвати вголос. По-перше, вирок **зупиняється на першій хибі**: щойно якесь поле випало з допуску, плата вже брак, і решту можна не звіряти — оператору цього досить, щоб зняти плату. По-друге, `reason` зберігає **не просто «БРАК», а що саме поїхало й наскільки** («V33=3512 out of [3200..3400]»). Це той рядок, який урятує інженера через місяць, коли з журналу треба буде зрозуміти, що за біда пішла хвилею по партії.
 
@@ -430,49 +109,11 @@ verdict_t jig_judge(const char *line) {
 
 Останнє — записати вирок туди, звідки його потім піднімуть. Ключ запису — **серійний номер** плати, той самий, що приїхав у полі `SN` рапорту. Один рядок на плату: серійник, вердикт, причина, час. Формат — CSV, бо його прочитає і людина в редакторі, і будь-яка таблиця.
 
-```c
-#include <stdio.h>
-
-// Дописати один рядок вироку в журнал (CSV). Ключ — серійний номер плати.
-void jig_log(const char *serial, const verdict_t *v) {
-    FILE *f = fopen("jig_log.csv", "a");   // на контролері — це файл на SD чи в flash
-    if (!f) return;                        // журнал не критичний для самого вироку
-    fprintf(f, "%s,%s,%s,%lu\r\n",
-            serial,
-            v->passed ? "PASS" : "FAIL",
-            v->passed ? "-" : v->reason,
-            (unsigned long)jig_epoch_seconds());
-    fclose(f);
-}
-```
+:::code proj-jig-selftest/c/krok-4-zhurnal-za-seriinym.c
 
 І весь цикл судді разом — від чекання рапорту до світлофора й журналу:
 
-```c
-void jig_run_one_board(void) {
-    jig_power_on_dut();          // подати живлення на плату (з контролем струму!)
-
-    char line[LINE_MAX];
-    if (!jig_read_line(line, sizeof(line), REPORT_TIMEOUT_MS)) {
-        // рапорту нема — окремий, найпідступніший випадок (див. пастки)
-        jig_show(RED, "NO REPLY");
-        jig_log(jig_last_known_serial(), &(verdict_t){ .passed = false,
-                                                       .reason = "no reply / timeout" });
-        jig_power_off_dut();
-        return;
-    }
-
-    // серійник дістаємо ДО суду — він потрібен і для журналу, і якщо суд завалиться
-    char serial[16] = "UNKNOWN";
-    field_str(line, "SN", serial, sizeof(serial));
-
-    verdict_t v = jig_judge(line);
-    jig_log(serial, &v);
-    jig_show(v.passed ? GREEN : RED, v.passed ? "PASS" : v.reason);
-
-    jig_power_off_dut();         // зняти живлення, плата готова до заміни
-}
-```
+:::code proj-jig-selftest/c/krok-4-zhurnal-za-seriinym-2.c
 
 Оце й є повний ланцюг: плата на старті виміряла себе й доповіла, джиг прийняв рапорт, звірив кожне поле й записав вирок під серійником. Але між «плата доповіла» і «джиг записав» ховається три місця, де ця схема мовчки бреше, якщо їх не передбачити. Саме вони відрізняють іграшковий тест від промислового.
 
@@ -501,28 +142,7 @@ void jig_run_one_board(void) {
 
 Ось чому джиг **мусить розрізняти тишу й поганий рапорт** — це два різні вироки, що ведуть у різні руки. Логіка проста, коли рапорт несе поле версії прошивки:
 
-```c
-typedef enum {
-    OUTCOME_PASS,          // рапорт прийшов, усе в допуску
-    OUTCOME_HW_DEFECT,     // рапорт прийшов, та якесь поле погане → лагодити/брак
-    OUTCOME_NOT_FLASHED,   // рапорту нема взагалі → перепрошити й повторити
-    OUTCOME_GARBLED        // щось прийшло, але не наш рапорт → шум або чужа прошивка
-} outcome_t;
-
-outcome_t jig_classify(void) {
-    char line[LINE_MAX];
-
-    if (!jig_read_line(line, sizeof(line), REPORT_TIMEOUT_MS)) {
-        return OUTCOME_NOT_FLASHED;   // ТИША → найпевніш не прошилась
-    }
-    // щось прийшло. Це взагалі наш рапорт?
-    if (line[0] != '$' || !strstr(line, "$RPT;")) {
-        return OUTCOME_GARBLED;       // прийшло, але не те — шум чи чужий образ
-    }
-    verdict_t v = jig_judge(line);
-    return v.passed ? OUTCOME_PASS : OUTCOME_HW_DEFECT;
-}
-```
+:::code proj-jig-selftest/c/pastka-2-ne-proshylas.c
 
 Тонкість: тиша — **найімовірніша**, але не єдина ознака «не прошилась». Буває, стара прошивка з попереднього прогону ще сидить у чипі й шле свій, **чужий** рядок — тоді ми ловимо `OUTCOME_GARBLED`, а не тишу. Тому серйозний джиг ще й **звіряє версію**: поле `FW=` в рапорті має дорівнювати тій прошивці, яку він щойно залив. Не той `FW` — значить, у чипі не наш свіжий образ, хай навіть рядок бездоганний. Це ловить підступний випадок «прошилось, але не тим, чим думали»: плата бадьоро рапортує, а всередині — код позаминулого тижня.
 
@@ -542,37 +162,11 @@ outcome_t jig_classify(void) {
 
 Проти таких **поодиноких викидів** сильніший інший захід — **медіана**: вишикуй відліки за зростанням і візьми той, що посередині. Викид опиниться скраю ряду й **просто не потрапить у середину** — медіана його ігнорує, тоді як середнє на нього наступає (це усталена властивість порядкових статистик: медіана стійка до промахів, середнє — ні). Дев'ятнадцять 3310 і один 9000 дадуть медіану рівно 3310 — божевільний відлік не зачепив вироку.
 
-```c
-// Медіана масиву відліків: посортувати й узяти середній.
-// N невеликий (16–32), тож звичайне сортування вставками — цілком доречне.
-static int cmp_u16(const void *a, const void *b) {
-    uint16_t x = *(const uint16_t *)a, y = *(const uint16_t *)b;
-    return (x > y) - (x < y);
-}
-
-uint16_t adc_read_median(uint8_t channel, uint16_t *scratch, unsigned n) {
-    for (unsigned i = 0; i < n; i++) scratch[i] = adc_read_raw(channel);
-    qsort(scratch, n, sizeof(scratch[0]), cmp_u16);
-    return scratch[n / 2];
-}
-```
+:::code proj-jig-selftest/c/pastka-3-shumnyi-vymir.c
 
 На практиці часто беруть **обидва прийоми разом**, і в мудрому порядку: спершу медіаною **викидають промахи**, а тоді середнім по решті **гладять дрібний шум**. Це «усічене середнє»: відсортуй, зріж по кілька відліків з обох країв (там сидять викиди), усередни те, що лишилось. Стійкість медіани до промахів плюс плавність середнього — і вимір нарешті годиться, щоб на ньому будувати вирок.
 
-```c
-// Усічене середнє: відкинути по `trim` відліків з кожного краю, усереднити решту.
-// Поєднує стійкість медіани до викидів із гладкістю середнього.
-uint16_t adc_read_trimmed_mean(uint8_t channel, uint16_t *scratch,
-                               unsigned n, unsigned trim) {
-    for (unsigned i = 0; i < n; i++) scratch[i] = adc_read_raw(channel);
-    qsort(scratch, n, sizeof(scratch[0]), cmp_u16);
-
-    if (2 * trim >= n) return scratch[n / 2];   // зрізали б усе — впади до медіани
-    uint32_t acc = 0;
-    for (unsigned i = trim; i < n - trim; i++) acc += scratch[i];
-    return (uint16_t)(acc / (n - 2 * trim));
-}
-```
+:::code proj-jig-selftest/c/pastka-3-shumnyi-vymir-2.c
 
 > 🔧 **Навіщо це.** Вибір між середнім, медіаною й усіченим середнім — не академічна забаганка, а прямий грошовий важіль. Занадто довірливий до одного відліку джиг **бракує справні плати** (хибний брак — викинуті гроші й зупинки на розбір) і **пропускає граничні** (брак у клієнта — дорожче вдесятеро). Правильно згладжений вимір робить коридор допуску чесним: усередині — тільки справді справні, зовні — тільки справді биті. Тому усереднення закладають **з обох боків**: плата згладжує свій АЦП, а джиг — свій.
 

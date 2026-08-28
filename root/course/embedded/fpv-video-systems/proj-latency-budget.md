@@ -59,53 +59,8 @@ total_max = сенсор + кодер + radio_max + декодер + екран
 Збираємо все в один файл прошивкового стилю — реальний C, який скомпілюється й видасть числа. Почнімо зі структур, що описують ланку та систему.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdbool.h>
-
-// Одна ланка конвеєра. Більшість ланок детерміновані (lo == hi);
-// мінлива лише радіоланка двобічних систем, де hi > lo через пересилання.
-typedef struct {
-    float lo;   // найкращий випадок, мс (у полі, без пересилань)
-    float hi;   // найгірший випадок, мс (за бетоном, з пересиланнями)
-} span_ms;
-
-// Повний конвеєр від скла до скла.
-// sensor/encode/decode/display — обчислювальні (детерміновані тут);
-// radio — єдина, що тримає діапазон.
-typedef struct {
-    const char *name;
-    span_ms sensor;    // набір кадру сенсором
-    span_ms encode;    // стиснення кодеком (lo=hi=0 для аналогу)
-    span_ms radio;     // ефір + (де)модуляція + можливі пересилання
-    span_ms decode;    // розпакування (lo=hi=0 для аналогу)
-    span_ms display;   // вивід на екран окулярів
-    int     fps;       // частота кадрів камери
-} fpv_system;
-```
-```python
-from dataclasses import dataclass
-
-# Одна ланка конвеєра. Більшість ланок детерміновані (lo == hi);
-# мінлива лише радіоланка двобічних систем, де hi > lo через пересилання.
-@dataclass
-class SpanMs:
-    lo: float  # найкращий випадок, мс (у полі, без пересилань)
-    hi: float  # найгірший випадок, мс (за бетоном, з пересиланнями)
-
-# Повний конвеєр від скла до скла.
-# sensor/encode/decode/display — обчислювальні (детерміновані тут);
-# radio — єдина, що тримає діапазон.
-@dataclass
-class FpvSystem:
-    name: str
-    sensor: SpanMs    # набір кадру сенсором
-    encode: SpanMs    # стиснення кодеком (lo=hi=0 для аналогу)
-    radio: SpanMs     # ефір + (де)модуляція + можливі пересилання
-    decode: SpanMs    # розпакування (lo=hi=0 для аналогу)
-    display: SpanMs   # вивід на екран окулярів
-    fps: int          # частота кадрів камери
-```
+:::code proj-latency-budget/c/stdio.h
+:::code proj-latency-budget/py/robochyi-kod-povnyi.py
 :::
 
 Зверніть увагу: кожна ланка — `span_ms` з нижньою й верхньою межею. Для детермінованих ланок ми просто кладемо однакові `lo` і `hi`. Це коштує зайвого поля в пам'яті, але дає одну формулу на всі системи — жодних `if (двобічна)`.
@@ -113,37 +68,8 @@ class FpvSystem:
 Тепер додавання діапазонів. Сума двох діапазонів — діапазон їхніх сум: найкращий випадок системи — коли всі ланки в найкращому, найгірший — коли всі в найгіршому.
 
 :::tabs
-```c
-static span_ms span_add(span_ms a, span_ms b) {
-    span_ms r = { a.lo + b.lo, a.hi + b.hi };
-    return r;
-}
-
-// Повна затримка «скло-скло» як діапазон [lo, hi].
-span_ms glass_to_glass(const fpv_system *s) {
-    span_ms t = { 0.0f, 0.0f };
-    t = span_add(t, s->sensor);
-    t = span_add(t, s->encode);
-    t = span_add(t, s->radio);
-    t = span_add(t, s->decode);
-    t = span_add(t, s->display);
-    return t;
-}
-```
-```python
-def span_add(a: SpanMs, b: SpanMs) -> SpanMs:
-    return SpanMs(a.lo + b.lo, a.hi + b.hi)
-
-# Повна затримка «скло-скло» як діапазон [lo, hi].
-def glass_to_glass(s: FpvSystem) -> SpanMs:
-    t = SpanMs(0.0, 0.0)
-    t = span_add(t, s.sensor)
-    t = span_add(t, s.encode)
-    t = span_add(t, s.radio)
-    t = span_add(t, s.decode)
-    t = span_add(t, s.display)
-    return t
-```
+:::code proj-latency-budget/c/robochyi-kod-povnyi.c
+:::code proj-latency-budget/py/robochyi-kod-povnyi-2.py
 :::
 
 Для однобічної системи `radio.lo == radio.hi`, тож і `t.lo == t.hi` — діапазон вийде нульової ширини сам собою. Нам не довелося писати окрему гілку: сталість аналогу й HDZero — наслідок того, що в їхній радіоланці немає розкиду.
@@ -169,37 +95,8 @@ def blind_distance_m(latency_ms: float, speed_kmh: float) -> float:
 Тепер — кадровий дедлайн. Спершу період кадру, потім сума **обчислювальних** ланок (без радіо, як ми домовилися), потім порівняння. Тут перша зустріч із пасткою цілих чисел — поки що обійдемо її через `float`, а нижче розберемо, чому ціле тут небезпечне.
 
 :::tabs
-```c
-// Період кадру в мс: інтервал між сусідніми кадрами.
-float frame_period_ms(int fps) {
-    return 1000.0f / (float)fps;   // ПАСТКА: 1000/fps цілими — нижче
-}
-
-// Сума обчислювальних ланок (без радіо) — те, що мусить влізти в період кадру.
-// Беремо ВЕРХНЮ межу: дедлайн перевіряють за найгіршим випадком.
-float compute_load_ms(const fpv_system *s) {
-    return s->sensor.hi + s->encode.hi + s->decode.hi + s->display.hi;
-}
-
-// Чи влазить обробка кадру в період? true = встигаємо.
-bool fits_frame_deadline(const fpv_system *s) {
-    return compute_load_ms(s) <= frame_period_ms(s->fps);
-}
-```
-```python
-# Період кадру в мс: інтервал між сусідніми кадрами.
-def frame_period_ms(fps: int) -> float:
-    return 1000.0 / fps   # ПАСТКА: 1000/fps цілими — нижче
-
-# Сума обчислювальних ланок (без радіо) — те, що мусить влізти в період кадру.
-# Беремо ВЕРХНЮ межу: дедлайн перевіряють за найгіршим випадком.
-def compute_load_ms(s: FpvSystem) -> float:
-    return s.sensor.hi + s.encode.hi + s.decode.hi + s.display.hi
-
-# Чи влазить обробка кадру в період? True = встигаємо.
-def fits_frame_deadline(s: FpvSystem) -> bool:
-    return compute_load_ms(s) <= frame_period_ms(s.fps)
-```
+:::code proj-latency-budget/c/robochyi-kod-povnyi-2.c
+:::code proj-latency-budget/py/robochyi-kod-povnyi-3.py
 :::
 
 І нарешті — запас бюджету реакції пілота. Скло-скло (за верхньою межею — обережний бік) віднімаємо від людської реакції; що лишилося, те фора.
@@ -217,143 +114,15 @@ float reaction_margin_ms(span_ms glass) {
 Зведімо все в головну функцію зі звітом по одній системі, а тоді — у масив чотирьох систем.
 
 :::tabs
-```c
-void report(const fpv_system *s, float speed_kmh) {
-    span_ms g = glass_to_glass(s);
-    float period = frame_period_ms(s->fps);
-    float load   = compute_load_ms(s);
-    bool  fits   = fits_frame_deadline(s);
-    float margin = reaction_margin_ms(g);
-
-    printf("== %s (%d к/с) ==\n", s->name, s->fps);
-    if (g.lo == g.hi)
-        printf("  Скло-скло:     %.1f мс (стала)\n", g.lo);
-    else
-        printf("  Скло-скло:     %.1f-%.1f мс (змінна)\n", g.lo, g.hi);
-
-    printf("  Наосліп @%.0f км/год: %.2f-%.2f м\n",
-           speed_kmh,
-           blind_distance_m(g.lo, speed_kmh),
-           blind_distance_m(g.hi, speed_kmh));
-
-    printf("  Кадровий період: %.2f мс, обробка: %.1f мс -> %s\n",
-           period, load, fits ? "ВЛАЗИТЬ" : "НЕ ВЛАЗИТЬ");
-
-    printf("  Запас реакції:   %.0f мс %s\n\n",
-           margin, margin > 0 ? "" : "(!) з'їдено весь бюджет");
-}
-```
-```python
-def report(s: FpvSystem, speed_kmh: float) -> None:
-    g = glass_to_glass(s)
-    period = frame_period_ms(s.fps)
-    load = compute_load_ms(s)
-    fits = fits_frame_deadline(s)
-    margin = reaction_margin_ms(g)
-
-    print(f"== {s.name} ({s.fps} к/с) ==")
-    if g.lo == g.hi:
-        print(f"  Скло-скло:     {g.lo:.1f} мс (стала)")
-    else:
-        print(f"  Скло-скло:     {g.lo:.1f}-{g.hi:.1f} мс (змінна)")
-
-    print(f"  Наосліп @{speed_kmh:.0f} км/год: "
-          f"{blind_distance_m(g.lo, speed_kmh):.2f}-"
-          f"{blind_distance_m(g.hi, speed_kmh):.2f} м")
-
-    fits_str = "ВЛАЗИТЬ" if fits else "НЕ ВЛАЗИТЬ"
-    print(f"  Кадровий період: {period:.2f} мс, обробка: {load:.1f} мс -> {fits_str}")
-
-    margin_note = "" if margin > 0 else "(!) з'їдено весь бюджет"
-    print(f"  Запас реакції:   {margin:.0f} мс {margin_note}\n")
-```
+:::code proj-latency-budget/c/robochyi-kod-povnyi-3.c
+:::code proj-latency-budget/py/robochyi-kod-povnyi-4.py
 :::
 
 Тепер масив систем із реальними числами. Я навмисне беру значення, що збігаються з тими, які ми обговорювали в темі й перевіряли за відкритими даними: аналог — короткий ланцюг без кодека з домінуванням камери; HDZero — фіксовані ~14 мс при 100 к/с; DJI O4 у гоночному режимі — близько 15 мс; Walksnail — змінні ~22–35 мс через пересилання.
 
 :::tabs
-```c
-int main(void) {
-    fpv_system systems[] = {
-        // АНАЛОГ: нема кодера/декодера; радіо стале (одне число → lo=hi).
-        // Домінує сенсор камери; ~19 мс разом.
-        { .name = "Аналог",
-          .sensor  = {12, 12}, .encode = {0, 0},
-          .radio   = { 2,  2}, .decode = {0, 0}, .display = {5, 5},
-          .fps = 60 },
-
-        // HDZERO: однобічний, фіксована затримка; кодек є, але без пересилань
-        // радіо стале. ~14 мс при 100 к/с.
-        { .name = "HDZero",
-          .sensor  = {3, 3}, .encode = {4, 4},
-          .radio   = {3, 3}, .decode = {2, 2}, .display = {2, 2},
-          .fps = 100 },
-
-        // DJI O4 (гоночний режим): двобічний, але в гонці радіо майже без
-        // розкиду; ~15 мс скло-скло.
-        { .name = "DJI O4 (race)",
-          .sensor  = {3, 3}, .encode = {4, 5},
-          .radio   = {2, 3}, .decode = {3, 3}, .display = {3, 3},
-          .fps = 100 },
-
-        // WALKSNAIL: двобічний; у полі ~22 мс, за бетоном ~35 мс через
-        // пересилання — радіо тримає ШИРОКИЙ діапазон.
-        { .name = "Walksnail",
-          .sensor  = {4, 4}, .encode = {6, 7},
-          .radio   = {6, 18}, .decode = {4, 4}, .display = {2, 2},
-          .fps = 120 },
-    };
-
-    int n = sizeof(systems) / sizeof(systems[0]);
-    float speed = 120.0f;   // км/год — типова гоночна
-
-    for (int i = 0; i < n; i++)
-        report(&systems[i], speed);
-
-    return 0;
-}
-```
-```python
-def main() -> None:
-    systems = [
-        # АНАЛОГ: нема кодера/декодера; радіо стале (одне число → lo=hi).
-        # Домінує сенсор камери; ~19 мс разом.
-        FpvSystem(name="Аналог",
-                  sensor=SpanMs(12, 12), encode=SpanMs(0, 0),
-                  radio=SpanMs(2, 2), decode=SpanMs(0, 0), display=SpanMs(5, 5),
-                  fps=60),
-
-        # HDZERO: однобічний, фіксована затримка; кодек є, але без пересилань
-        # радіо стале. ~14 мс при 100 к/с.
-        FpvSystem(name="HDZero",
-                  sensor=SpanMs(3, 3), encode=SpanMs(4, 4),
-                  radio=SpanMs(3, 3), decode=SpanMs(2, 2), display=SpanMs(2, 2),
-                  fps=100),
-
-        # DJI O4 (гоночний режим): двобічний, але в гонці радіо майже без
-        # розкиду; ~15 мс скло-скло.
-        FpvSystem(name="DJI O4 (race)",
-                  sensor=SpanMs(3, 3), encode=SpanMs(4, 5),
-                  radio=SpanMs(2, 3), decode=SpanMs(3, 3), display=SpanMs(3, 3),
-                  fps=100),
-
-        # WALKSNAIL: двобічний; у полі ~22 мс, за бетоном ~35 мс через
-        # пересилання — радіо тримає ШИРОКИЙ діапазон.
-        FpvSystem(name="Walksnail",
-                  sensor=SpanMs(4, 4), encode=SpanMs(6, 7),
-                  radio=SpanMs(6, 18), decode=SpanMs(4, 4), display=SpanMs(2, 2),
-                  fps=120),
-    ]
-
-    speed = 120.0   # км/год — типова гоночна
-
-    for s in systems:
-        report(s, speed)
-
-
-if __name__ == "__main__":
-    main()
-```
+:::code proj-latency-budget/c/robochyi-kod-povnyi-4.c
+:::code proj-latency-budget/py/robochyi-kod-povnyi-5.py
 :::
 
 Прокрутімо подумки, що надрукує цей код, з покроковою перевіркою кожного нетривіального числа.

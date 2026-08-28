@@ -30,26 +30,7 @@
 
 П'ять осей легко тримати в голові як просту функцію: вона бере опис даних і повертає клас пам'яті — рівно тими гілками, що й дерево.
 
-```c
-typedef enum { SRAM, SDRAM, NOR, NAND_BULK, EEPROM_FRAM } mem_t;
-
-typedef struct {
-    bool   nonvolatile;   // мусить пережити вимкнення?
-    bool   exec_in_place;  // виконувати код напряму (XIP)?
-    bool   byte_writes;    // дрібні побайтові уставки (не блоками)?
-    size_t bytes;          // потрібний обсяг
-} need_t;
-
-mem_t pick_memory(need_t n) {
-    if (!n.nonvolatile)                       // робочі дані → летка RAM
-        return (n.bytes <= 256 * 1024) ? SRAM : SDRAM;
-    if (n.exec_in_place)                       // код на місці → лише NOR
-        return NOR;
-    if (n.byte_writes && n.bytes < 64 * 1024)  // дрібні часті уставки
-        return EEPROM_FRAM;
-    return NAND_BULK;                          // гори файлів і медіа
-}
-```
+:::code choosing-memory/c/main.c
 
 Перша гілка віддає летку RAM і вибирає SRAM чи SDRAM лише за обсягом. Далі, вже в сховищі, код розводить три потреби: виконання на місці тягне строго до NOR, дрібні часті записи — до EEPROM/FRAM, а все об'ємне падає в NAND. Це той самий діагноз, тільки записаний так, що його видно одним поглядом.
 

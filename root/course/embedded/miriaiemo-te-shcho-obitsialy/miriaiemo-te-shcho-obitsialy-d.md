@@ -187,71 +187,8 @@ R_total = R_out + R_s = 18 Ом + 27 Ом = 45 Ом ≈ Z_0
 2. **Підключення до прецизійного частотоміра:** Частотомір із термостатованим кварцовим генератором (OCXO) або входом опорної частоти 10 МГц від GPS-стандарту вимірює абсолютну похибку частоти в ppm (parts per million).
 
 :::tabs
-```c
-#include "stm32l4xx_hal.h"
-
-/* Конфігурація виводу MCO (Microcontroller Clock Output) на контакті PA8 */
-void Clock_Verification_EnableMCO(void) {
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
-
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-
-    /* PA8 -> Альтернативна функція MCO */
-    GPIO_InitStruct.Pin = GPIO_PIN_8;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-    /* Виведення частоти HSE (24 МГц) на вивід MCO без поділу (Prescaler = 1) */
-    HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_1);
-}
-```
-```cpp
-#include <cstdint>
-
-namespace mcu::clock {
-
-struct GpioPinConfig {
-    uint32_t pin;
-    uint32_t mode;
-    uint32_t pull;
-    uint32_t speed;
-    uint32_t alternate;
-};
-
-class ClockVerifier {
-public:
-    enum class McoSource : uint32_t {
-        None     = 0x00000000,
-        SysClk   = 0x00000001,
-        Msi      = 0x00000002,
-        Hsi      = 0x00000003,
-        Hse      = 0x00000004,
-        PllClk   = 0x00000005,
-        Lsi      = 0x00000006,
-        Lse      = 0x00000007
-    };
-
-    enum class McoPrescaler : uint32_t {
-        Div1  = 0x00000000,
-        Div2  = 0x10000000,
-        Div4  = 0x20000000,
-        Div8  = 0x30000000,
-        Div16 = 0x40000000
-    };
-
-    static void enable_mco_output(McoSource source, McoPrescaler div) noexcept {
-        // Увімкнення тактування порту GPIOA та налаштування PA8 в режим AF0
-        // Регістрова конфігурація бітів RCC_CFGR_MCOSEL та RCC_CFGR_MCOPRE
-        (void)source;
-        (void)div;
-    }
-};
-
-} // namespace mcu::clock
-```
+:::code miriaiemo-te-shcho-obitsialy-d/c/perevirka-taktovoi.c
+:::code miriaiemo-te-shcho-obitsialy-d/cpp/perevirka-taktovoi.cpp
 :::
 
 ---
@@ -326,74 +263,8 @@ I_leak(T) = I_leak(T_0) · 2^((T - T_0) / 10)
 Прошивка повинна використовувати ці константи для динамічного перерахунку поточної напруги живлення аналогової частини `V_DDA` перед кожним аналоговим вимірюванням:
 
 :::tabs
-```c
-#include <stdint.h>
-
-#define VREFINT_CAL_ADDR ((uint16_t*)((uint32_t)0x1FFF75AA))
-#define VREFINT_CAL_MV   3000U
-
-/* Обчислення напруги живлення VDDA у мілівольтах за виміряним кодом VREFINT */
-uint32_t ADC_Calculate_VDDA(uint16_t raw_vref_code) {
-    if (raw_vref_code == 0) return 0;
-    
-    uint32_t vref_cal = *VREFINT_CAL_ADDR;
-    /* VDDA = 3000 mV * VREFINT_CAL / RAW_ADC_CODE */
-    return (VREFINT_CAL_MV * vref_cal) / raw_vref_code;
-}
-
-/* Обчислення реальної напруги на аналоговому вході каналу */
-uint32_t ADC_Calculate_Channel_Millivolts(uint16_t raw_channel_code, uint16_t raw_vref_code) {
-    uint32_t vdda_mv = ADC_Calculate_VDDA(raw_vref_code);
-    /* V_channel = VDDA * RAW_CHANNEL / 4095 */
-    return (vdda_mv * (uint32_t)raw_channel_code) / 4095U;
-}
-```
-```cpp
-#include <cstdint>
-#include <expected>
-
-namespace mcu::adc {
-
-enum class ConversionError : uint8_t {
-    InvalidRawCode,
-    CorruptedCalibrationData
-};
-
-class PrecisionAdcConverter {
-public:
-    static constexpr uint16_t kFactoryVrefMv       = 3000;
-    static constexpr uintptr_t kVrefintCalRegister = 0x1FFF75AA;
-    static constexpr uint32_t kAdcMaxCounts        = 4095;
-
-    [[nodiscard]] static std::expected<uint32_t, ConversionError>
-    calculate_vdda_millivolts(uint16_t raw_vref_code) noexcept {
-        if (raw_vref_code == 0) {
-            return std::unexpected(ConversionError::InvalidRawCode);
-        }
-
-        const auto* cal_word = reinterpret_cast<const uint16_t*>(kVrefintCalRegister);
-        const uint32_t vref_cal = *cal_word;
-
-        if (vref_cal == 0 || vref_cal == 0xFFFF) {
-            return std::unexpected(ConversionError::CorruptedCalibrationData);
-        }
-
-        return (static_cast<uint32_t>(kFactoryVrefMv) * vref_cal) / raw_vref_code;
-    }
-
-    [[nodiscard]] static std::expected<uint32_t, ConversionError>
-    calculate_channel_millivolts(uint16_t raw_channel_code, uint16_t raw_vref_code) noexcept {
-        auto vdda_result = calculate_vdda_millivolts(raw_vref_code);
-        if (!vdda_result.has_value()) {
-            return std::unexpected(vdda_result.error());
-        }
-
-        return (*vdda_result * static_cast<uint32_t>(raw_channel_code)) / kAdcMaxCounts;
-    }
-};
-
-} // namespace mcu::adc
-```
+:::code miriaiemo-te-shcho-obitsialy-d/c/temperaturnyi-dreif.c
+:::code miriaiemo-te-shcho-obitsialy-d/cpp/temperaturnyi-dreif.cpp
 :::
 
 ---

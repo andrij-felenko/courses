@@ -260,130 +260,19 @@ g_m = 1 / |L(jω_180)|        (напр. |L| = 0.43 → g_m = 2.35×)
 
 Спершу опишемо ланки як комплексні множники на частоті ω. Використаємо стандартні комплексні числа C:
 
-```c
-#include <complex.h>
-#include <math.h>
-
-// Інерційна ланка (полюс): 1 / (1 + jωτ)
-static double complex pole(double w, double tau) {
-    return 1.0 / (1.0 + I * w * tau);
-}
-
-// Чистий мертвий час (у т.ч. пів-такту утримки + обчислення): e^(-jωΔt)
-static double complex dead_time(double w, double dt) {
-    return cexp(-I * w * dt);   // модуль 1, фаза -ωΔt
-}
-
-// П-складова регулятора — просто множник Kp (дійсний, фаза 0)
-// І-складова: Ki / (jω);  Д з фільтром: (Kd·jω) / (1 + jω·τ_d)
-static double complex pid(double w, double Kp, double Ki, double Kd, double tau_d) {
-    double complex integ  = (w > 0.0) ? (Ki / (I * w)) : 0.0;
-    double complex deriv  = (Kd * I * w) / (1.0 + I * w * tau_d);
-    return Kp + integ + deriv;
-}
-```
+:::code loop-stability-d/c/kod-iak-vymiriaty-zapas.c
 
 Тепер зберімо повну петлю `L(jω) = C·P·H` і додамо ефективну затримку дискретизації як окрему ланку мертвого часу. Нехай об'єкт — два інерційні полюси (типова механіка з демпфуванням), давач — один полюс (його фільтр), плюс дискретна затримка `T/2 + Tобч`:
 
-```c
-typedef struct {
-    double Kp, Ki, Kd, tau_d;   // регулятор
-    double tau_p1, tau_p2;      // два полюси об'єкта
-    double tau_sensor;          // полюс давача
-    double Ts;                  // період дискретизації (1/fs)
-    double t_compute;           // затримка обчислень (частка Ts або цілий Ts)
-} loop_t;
-
-static double complex L_of_w(const loop_t *m, double w) {
-    double complex L = pid(w, m->Kp, m->Ki, m->Kd, m->tau_d);
-    L *= pole(w, m->tau_p1);
-    L *= pole(w, m->tau_p2);
-    L *= pole(w, m->tau_sensor);
-    // ефективна затримка дискретного контуру: пів-такту утримки + обчислення
-    double dt_eff = 0.5 * m->Ts + m->t_compute;
-    L *= dead_time(w, dt_eff);
-    return L;
-}
-```
+:::code loop-stability-d/c/kod-iak-vymiriaty-zapas-2.c
 
 Лишилося пройтися частотами й зняти запаси. Кросовер підсилення шукаємо там, де `|L|` падає крізь 1; частоту −180° — там, де фаза перетинає −π. Зробимо це логарифмічним свіпом і лінійним уточненням між сусідніми точками:
 
-```c
-typedef struct { double phase_margin_deg, gain_margin_db, wc, w180; int ok; } margins_t;
-
-static margins_t measure_margins(const loop_t *m,
-                                 double w_lo, double w_hi, int N) {
-    margins_t r = {0};
-    double prev_w   = w_lo;
-    double complex prev_L = L_of_w(m, prev_w);
-    double prev_mag = cabs(prev_L);
-    double raw_prev = carg(prev_L);            // сире carg ∈ (-π, π]
-    double unw_prev = raw_prev;                // РОЗГОРНУТА (безперервна) фаза
-    int found_wc = 0, found_w180 = 0;
-
-    for (int i = 1; i <= N; ++i) {
-        double w   = w_lo * pow(w_hi / w_lo, (double)i / N);  // лог-крок
-        double complex L = L_of_w(m, w);
-        double mag = cabs(L);
-        double raw = carg(L);
-
-        // розгортка фази: прибираємо стрибки ±2π між сусідніми точками,
-        // бо carg «перескакує» на межі −π/π, а нам треба безперервну фазу
-        double d = raw - raw_prev;
-        if (d >  M_PI) d -= 2.0 * M_PI;
-        if (d < -M_PI) d += 2.0 * M_PI;
-        double unw = unw_prev + d;
-
-        // 1) кросовер підсилення: |L| перетнув 1 згори вниз → запас по фазі
-        if (!found_wc && prev_mag >= 1.0 && mag < 1.0) {
-            double t = (1.0 - prev_mag) / (mag - prev_mag);      // де саме mag=1
-            r.wc = prev_w * pow(w / prev_w, t);
-            double ph_wc = unw_prev + t * (unw - unw_prev);      // фаза в тій точці
-            r.phase_margin_deg = 180.0 + ph_wc * 180.0 / M_PI;
-            found_wc = 1;
-        }
-        // 2) частота −180°: РОЗГОРНУТА фаза перетнула −π → запас по підсиленню
-        if (!found_w180 && unw_prev >= -M_PI && unw < -M_PI) {
-            double t = (-M_PI - unw_prev) / (unw - unw_prev);
-            r.w180 = prev_w * pow(w / prev_w, t);
-            double gain_at_180 = cabs(L_of_w(m, r.w180));
-            r.gain_margin_db = -20.0 * log10(gain_at_180);
-            found_w180 = 1;
-        }
-        prev_w = w; prev_mag = mag; raw_prev = raw; unw_prev = unw;
-    }
-    r.ok = found_wc;          // без кросовера запас по фазі не визначений
-    return r;
-}
-```
+:::code loop-stability-d/c/kod-iak-vymiriaty-zapas-3.c
 
 І застосування — порівняймо той самий контур на двох частотах дискретизації, як у прикладі вище:
 
-```c
-void check_two_rates(void) {
-    loop_t m = {
-        .Kp = 5.0, .Ki = 8.0, .Kd = 0.06, .tau_d = 0.001,
-        .tau_p1 = 0.02, .tau_p2 = 0.008, .tau_sensor = 0.004,
-        .t_compute = 0.0,             // видаємо в тому ж такті
-    };
-
-    m.Ts = 1.0 / 200.0;              // 200 Гц
-    margins_t a = measure_margins(&m, 1.0, 6000.0, 8000);
-    printf("fs=200:  PM=%.1f deg,  GM=%.1f dB,  fc=%.1f Hz\n",
-           a.phase_margin_deg, a.gain_margin_db, a.wc / (2 * M_PI));
-
-    m.Ts = 1.0 / 1000.0;             // 1000 Гц
-    margins_t b = measure_margins(&m, 1.0, 6000.0, 8000);
-    printf("fs=1000: PM=%.1f deg,  GM=%.1f dB,  fc=%.1f Hz\n",
-           b.phase_margin_deg, b.gain_margin_db, b.wc / (2 * M_PI));
-}
-
-/* Виведе приблизно:
-   fs=200:  PM=14.4 deg,  GM=1.9 dB,  fc=40.4 Hz     ← грань зриву
-   fs=1000: PM=43.5 deg,  GM=9.2 dB,  fc=40.4 Hz     ← здоровий запас
-   Той самий контур, ті самі коефіцієнти — лише рідший семпл, і запас упав
-   із 43° до 14°: дискретність з'їла майже 30° рівно на ωc·(T/2). */
-```
+:::code loop-stability-d/c/kod-iak-vymiriaty-zapas-4.c
 
 Що покаже цей код: на 200 Гц запас по фазі падає до 14° — грань зриву, — а на 1000 Гц тримається здорових 43°, хоча всі коефіцієнти й ланки об'єкта ті самі. Різниця — рівно той доданок `ωc·(T/2 + Tобч)`, що ми вивели: на fc ≈ 40 Гц пів-такту 200-герцового семпла коштує майже 30° запасу. Це і є той самий ефект, що у виведеному прикладі, тільки виміряний живим кодом. **Пастки**, на які натикаються, пишучи такий вимір:
 

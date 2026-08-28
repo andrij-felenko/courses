@@ -52,18 +52,7 @@ void Sensor::startMeasurementBlocking() {
 
 :::tabs
 @tab C
-```c
-/* Фрагментація купи та небезпека витоку пам'яті */
-sensor_result_t *get_readings_leaky(void) {
-    sensor_result_t *res = (sensor_result_t *)malloc(sizeof(sensor_result_t));
-    if (!res) return NULL;
-    if (i2c_read_bytes(REG_DATA, res->raw, 6) != 0) {
-        /* Катастрофа: забули free(res) перед аварійним виходом */
-        return NULL;
-    }
-    return res;
-}
-```
+:::code koly-biblioteky-nemaie-abo-vona-breshe-d/c/2-dynamichne-vydilennia.c
 @tab C++
 ```cpp
 /* Неконтрольоване використання купи на C++ */
@@ -149,55 +138,9 @@ int16_t parseRawBad(std::span<const uint8_t> buf) {
 
 :::tabs
 @tab C
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-typedef enum {
-    BUS_OK          =  0,
-    BUS_ERR_TIMEOUT = -1,
-    BUS_ERR_NACK    = -2,
-    BUS_ERR_IO      = -3
-} bus_status_t;
-
-/* Інтерфейс функціональних покажчиків для шини */
-typedef struct {
-    /* Читання масиву байтів із вказаного субрегістра */
-    bus_status_t (*read_reg)(void *user_ctx, uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, size_t len);
-    /* Запис масиву байтів у вказаний субрегістр */
-    bus_status_t (*write_reg)(void *user_ctx, uint8_t dev_addr, uint8_t reg_addr, const uint8_t *data, size_t len);
-    /* Отримання поточного монотонного часу в мікросекундах */
-    uint32_t (*get_time_us)(void);
-} bus_interface_t;
-```
+:::code koly-biblioteky-nemaie-abo-vona-breshe-d/c/stdint.h
 @tab C++
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <concepts>
-#include <expected>
-
-namespace driver {
-
-enum class BusStatus : int8_t {
-    Ok = 0,
-    Timeout = -1,
-    Nack = -2,
-    IoError = -3
-};
-
-/* C++20 концепт, що гарантує сумісність транспортного рівня */
-template <typename T>
-concept I2cBus = requires(T bus, uint8_t dev, uint8_t reg, std::span<uint8_t> rx, std::span<const uint8_t> tx) {
-    { bus.read_reg(dev, reg, rx) } -> std::same_as<BusStatus>;
-    { bus.write_reg(dev, reg, tx) } -> std::same_as<BusStatus>;
-    { bus.get_time_us() } -> std::same_as<uint32_t>;
-};
-
-} // namespace driver
-```
+:::code koly-biblioteky-nemaie-abo-vona-breshe-d/cpp/transportnyi-kontrakt-na.cpp
 :::
 
 Завдяки такій абстракції ядро драйвера не викликає безпосередньо функцій HAL чи регістрів периферії. Повний робочий проєкт еталонного драйвера разом із хостовим стендом моків та юніт-тестами наведено у вставці [Еталонний безблокуючий драйвер датчика](root:embedded/koly-biblioteky-nemaie-abo-vona-breshe/proj-sensor-driver.md).
@@ -283,76 +226,9 @@ driver::Status wait_for_bus_ready(I2cBus auto& bus, uint32_t timeout_us) noexcep
 
 :::tabs
 @tab C
-```c
-void i2c_bus_recovery_clear(void) {
-    /* 1. Переведення пінів у GPIO Open-Drain */
-    gpio_set_mode_open_drain(PIN_SCL);
-    gpio_set_mode_open_drain(PIN_SDA);
-    gpio_write(PIN_SCL, 1);
-    gpio_write(PIN_SDA, 1);
-
-    /* 2. Якщо SDA утримується веденим пристроєм у нулі */
-    if (gpio_read(PIN_SDA) == 0) {
-        for (uint8_t i = 0; i < 9; i++) {
-            gpio_write(PIN_SCL, 0);
-            delay_us(5);
-            gpio_write(PIN_SCL, 1);
-            delay_us(5);
-            /* Якщо ведений відпустив лінію — виходимо достроково */
-            if (gpio_read(PIN_SDA) == 1) {
-                break;
-            }
-        }
-        /* 3. Генерація умови STOP */
-        gpio_write(PIN_SDA, 0);
-        delay_us(5);
-        gpio_write(PIN_SCL, 1);
-        delay_us(5);
-        gpio_write(PIN_SDA, 1);
-        delay_us(5);
-    }
-
-    /* 4. Повернення до апаратної периферії */
-    i2c_peripheral_reinit();
-}
-```
+:::code koly-biblioteky-nemaie-abo-vona-breshe-d/c/2-zavysannia-linii-sda-i2c.c
 @tab C++
-```cpp
-namespace hardware {
-
-class I2cRecovery {
-public:
-    static void recover_bus(auto& gpio_scl, auto& gpio_sda, auto& i2c_driver) noexcept {
-        gpio_scl.set_open_drain();
-        gpio_sda.set_open_drain();
-        gpio_scl.write(true);
-        gpio_sda.write(true);
-
-        if (!gpio_sda.read()) {
-            for (uint8_t i = 0; i < 9; ++i) {
-                gpio_scl.write(false);
-                delay_us(5);
-                gpio_scl.write(true);
-                delay_us(5);
-                if (gpio_sda.read()) {
-                    break;
-                }
-            }
-            // Генерація STOP умови
-            gpio_sda.write(false);
-            delay_us(5);
-            gpio_scl.write(true);
-            delay_us(5);
-            gpio_sda.write(true);
-            delay_us(5);
-        }
-
-        i2c_driver.reinit();
-    }
-};
-
-} // namespace hardware
-```
+:::code koly-biblioteky-nemaie-abo-vona-breshe-d/cpp/2-zavysannia-linii-sda-i2c.cpp
 :::
 
 ---

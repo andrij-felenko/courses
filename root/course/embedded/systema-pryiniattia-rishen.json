@@ -18,7 +18,19 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-control-loop.md",
+              "status": "recheck",
+              "recode": true
+            },
+            {
+              "file": "proj-failsafe-state-machine.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "onboard-sensors",
@@ -44,12 +56,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-goal-dispatcher.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -86,13 +101,17 @@
           "api": [
             {
               "file": "api-control-arbiter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "proj": [
             {
               "file": "proj-control-arbiter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -120,7 +139,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -131,7 +151,9 @@
           "proj": [
             {
               "file": "proj-safety-supervisor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -189,7 +211,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         },
         {
@@ -209,8 +232,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-mission-builder.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sys-dron/missions-waypoints",
@@ -228,12 +259,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-mission-vm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         },
@@ -269,7 +303,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         },
         {
@@ -287,7 +322,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]
@@ -332,24 +368,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-return-budget.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "math": [
             {
               "file": "math-pnr-and-wind.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-return-budget.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -377,13 +418,16 @@
           "math": [
             {
               "file": "math-ground-effect-thrust.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-landing-detector.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -422,13 +466,17 @@
           "api": [
             {
               "file": "api-failsafe-params.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-failsafe-arbiter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -502,11 +550,19 @@
           "slug": "path-planning-grid",
           "title": "Планування шляху: сітка і A*",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-a-star-grid.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sys-dron/configuration-space",
@@ -516,11 +572,32 @@
           "slug": "obstacle-avoidance",
           "title": "Обхід перешкод",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "math": [
+            {
+              "file": "math-velocity-obstacles.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dwa.md",
+              "status": "recheck",
+              "recode": true
+            },
+            {
+              "file": "proj-vfh.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sys-dron/karta-zainiatosti-z-dalekomira",
@@ -543,7 +620,9 @@
           "proj": [
             {
               "file": "proj-safety-arbitration.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -612,18 +691,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-mavlink-setpoints.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-offboard-setpoints.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -645,7 +729,9 @@
           "proj": [
             {
               "file": "proj-heartbeat-watchdog.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -657,12 +743,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-goal-dispatcher.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "math": [
@@ -674,7 +762,9 @@
           "proj": [
             {
               "file": "proj-deterministic-fsm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -749,7 +839,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -759,12 +850,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-sensor-logger.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -825,8 +919,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-tflm-invoke.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "hw-arch/esp32-s3-ai",
@@ -839,8 +941,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-export-validation.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-ml/inference-latency",
@@ -857,8 +967,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-profiler.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-ml/model-u-petli-realnoho-chasu",
@@ -868,20 +986,42 @@
           "slug": "audio-kws",
           "title": "Ключові слова й події у звуці (KWS)",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "math": [
+            {
+              "file": "math-mfcc.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kws-loop.md",
+              "status": "recheck",
+              "recode": true
+            },
+            {
+              "file": "proj-streaming-cnn.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "vibration-anomaly-ml",
           "title": "Аномалії вібрацій через ML",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -914,7 +1054,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-choose-by-budget.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-visual/nms-algorithm",
@@ -961,13 +1108,16 @@
           "math": [
             {
               "file": "math-pinhole-and-interaction.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-visual-servoing-controller.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -983,7 +1133,9 @@
           "proj": [
             {
               "file": "proj-landing-setpoint.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -1014,7 +1166,9 @@
           "proj": [
             {
               "file": "proj-decision-filter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -1055,7 +1209,9 @@
           "proj": [
             {
               "file": "proj-obstacle-verifier.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -1072,7 +1228,9 @@
           "proj": [
             {
               "file": "proj-fallback-arbiter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -1093,7 +1251,9 @@
           "proj": [
             {
               "file": "proj-eskalatsiia-fsm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -1156,7 +1316,9 @@
           "proj": [
             {
               "file": "proj-admission-ladder.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -1173,7 +1335,9 @@
           "proj": [
             {
               "file": "proj-preflight-checker.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -1188,12 +1352,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-crash-analyzer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -1205,10 +1372,12 @@
           "slug": "capstone-autonomous-mission",
           "title": "Капстоун: автономна місія на обраній платформі",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1225,7 +1394,8 @@
           "proj": [
             {
               "file": "proj-mission-upload-verify.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

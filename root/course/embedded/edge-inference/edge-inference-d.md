@@ -52,64 +52,13 @@
 
 Скелет завжди той самий і прямо лягає на дві частини з нашої першої схеми. **Один раз** при старті: дати бібліотеці модель і набір потрібних операцій, віддати їй шматок RAM під арену й попросити розкласти тензори. **На кожен кадр**: покласти дані у вхідний тензор, викликати `Invoke()`, прочитати вихід.
 
-```cpp
-#include "tensorflow/lite/micro/micro_interpreter.h"
-#include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
-#include "model_data.h"   // масив g_model[] — наш .tflite, вшитий у Flash
-
-// Арену задаємо РУКАМИ. Замала — AllocateTensors() впаде; зависока — крадемо RAM.
-// alignas(16): бібліотека хоче вирівняний буфер.
-constexpr int kArenaSize = 24 * 1024;
-alignas(16) static uint8_t tensor_arena[kArenaSize];
-
-static tflite::MicroInterpreter* interp = nullptr;
-static TfLiteTensor* input  = nullptr;
-static TfLiteTensor* output = nullptr;
-
-bool model_setup() {                                   // ← ОДИН РАЗ при старті
-    const tflite::Model* model = tflite::GetModel(g_model);
-
-    // Перелічуємо ЛИШЕ ті операції, що є в моделі (кожна важить пам'ять).
-    static tflite::MicroMutableOpResolver<4> resolver;
-    resolver.AddConv2D();
-    resolver.AddDepthwiseConv2D();
-    resolver.AddFullyConnected();
-    resolver.AddSoftmax();
-
-    static tflite::MicroInterpreter static_interp(
-        model, resolver, tensor_arena, kArenaSize);
-    interp = &static_interp;
-
-    if (interp->AllocateTensors() != kTfLiteOk)        // розкладка арени
-        return false;                                  // ← арени не вистачило
-
-    input  = interp->input(0);
-    output = interp->output(0);
-    return true;
-}
-```
+:::code edge-inference-d/cpp/iak-tse-vyhliadaie-v-kodi.cpp
 
 Зверни увагу на три речі, що відрізняють вбудований код від хмарного. Арена — **статичний масив фіксованого розміру**, ніякого `malloc`; її розмір ти підбираєш сам і перевіряєш за поверненням `AllocateTensors()`. Операції перелічуєш **поіменно** — резолвер тягне в збірку лише ті ядра, що реально потрібні, бо кожне зайве важить кілобайти Flash. І весь стан — `static`, бо живе він усе життя прошивки.
 
 Сам виклик на кожному кадрі короткий — уся робота захована в одному `Invoke()`:
 
-```cpp
-float model_classify(const int8_t* features, int n) {  // ← НА КОЖЕН КАДР
-    // 1. Дані вже у int8 (масштаб/нульова точка взяті з input->params).
-    for (int i = 0; i < n; i++)
-        input->data.int8[i] = features[i];
-
-    // 2. Один прохід графа — детермінований, без алокацій.
-    if (interp->Invoke() != kTfLiteOk)
-        return -1.0f;
-
-    // 3. Вихід — теж int8; повертаємо в звичне число тим самим містком.
-    int8_t  raw   = output->data.int8[0];
-    float   scale = output->params.scale;
-    int     zp    = output->params.zero_point;
-    return scale * (raw - zp);                          // ймовірність 0…1
-}
-```
+:::code edge-inference-d/cpp/iak-tse-vyhliadaie-v-kodi-2.cpp
 
 Це повний цикл інференсу на мікроконтролері: записав вхід, смикнув `Invoke()`, деквантував вихід. Усе між цими рядками — гора int8-MAC-ів — бібліотека робить сама, шар за шаром, по тензорній арені. Бойова версія цього скелета — з вирівнюванням, перевіркою сумісності схеми, заміром латентності й охороною від переповнення арени — зібрана у вставці [запуск моделі через TFLite Micro](root:embedded/edge-inference/proj-tflm-invoke.md).
 

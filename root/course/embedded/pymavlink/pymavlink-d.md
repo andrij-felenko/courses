@@ -131,41 +131,7 @@ m = mavutil.mavlink_connection('udpin:0.0.0.0:14550',
 
 Зберімо це в реальний фрагмент прошивки — надійна відправка команди з повторами, розрізненням результату й обмеженням спроб. Це те, чого базовий приклад свідомо не показував:
 
-```c
-// Надійна відправка команди: повтори з нарощуванням confirmation,
-// розбір MAV_RESULT, обмеження спроб. Псевдо-C у стилі pymavlink-виклику.
-typedef enum { CMD_OK, CMD_RETRY_LATER, CMD_REFUSED, CMD_TIMEOUT } cmd_outcome_t;
-
-cmd_outcome_t send_command_reliable(mavlink_conn_t *m, uint16_t command,
-                                    const float p[7], int max_tries)
-{
-    for (int confirmation = 0; confirmation < max_tries; confirmation++) {
-        command_long_send(m, m->target_system, m->target_component,
-                          command, confirmation,
-                          p[0], p[1], p[2], p[3], p[4], p[5], p[6]);
-
-        uint32_t deadline = millis() + 1000;          // таймер на ACK: 1 с
-        for (;;) {
-            mavlink_message_t *ack = recv_match(m, "COMMAND_ACK",
-                                                deadline - millis());
-            if (!ack) break;                          // таймаут → зовнішній повтор
-
-            if (ack->command != command) continue;    // ACK не на нашу команду
-            switch (ack->result) {
-                case MAV_RESULT_ACCEPTED:      return CMD_OK;
-                case MAV_RESULT_IN_PROGRESS:   deadline = millis() + 5000;
-                                               continue;   // довга дія: чекаємо далі
-                case MAV_RESULT_TEMPORARILY_REJECTED: return CMD_RETRY_LATER;
-                case MAV_RESULT_DENIED:
-                case MAV_RESULT_UNSUPPORTED:
-                case MAV_RESULT_FAILED:        return CMD_REFUSED;  // повтор марний
-                default:                       return CMD_REFUSED;
-            }
-        }
-    }
-    return CMD_TIMEOUT;                                // вичерпали спроби
-}
-```
+:::code pymavlink-d/c/komanda-shcho-dokhodyt.c
 
 Зверни увагу на три речі, яких немає в наївному коді. По-перше, `confirmation` **росте** з кожним зовнішнім повтором — саме за ним апарат відсіє дублі. По-друге, `IN_PROGRESS` не завершує цикл, а **відсуває дедлайн** і чекає далі — інакше ми б повторювали посеред виконання. По-третє, остаточні відмови (`DENIED`/`UNSUPPORTED`/`FAILED`) повертають керування **одразу**, не витрачаючи спроби на безнадійне. Це і є різниця між «на столі спрацювало» і «працює в польоті».
 
@@ -179,21 +145,7 @@ cmd_outcome_t send_command_reliable(mavlink_conn_t *m, uint16_t command,
 
 Історично частоту груп повідомлень задавали кадром `REQUEST_DATA_STREAM` — «шли мені групу POSITION з частотою 5 Гц». Він грубий: керує **групами**, не окремими повідомленнями, і його **визнано застарілим** (з 2015 року). На зміну прийшла точна команда `MAV_CMD_SET_MESSAGE_INTERVAL` — вона задає **інтервал** (у мікросекундах) між кадрами **одного конкретного** повідомлення за його ID. Хочеш `ATTITUDE` десять разів на секунду — проси інтервал 100000 мкс саме для `ATTITUDE`; решту не чіпай:
 
-```python
-def request_message_interval(m, message_id, rate_hz):
-    interval_us = int(1e6 / rate_hz)             # 10 Гц → 100000 мкс
-    m.mav.command_long_send(
-        m.target_system, m.target_component,
-        mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL,
-        0,                                        # confirmation
-        message_id,                               # param1: ЯКЕ повідомлення
-        interval_us,                              # param2: інтервал, мкс
-        0, 0, 0, 0, 0)
-
-# приклад: хочу ATTITUDE удесятеро частіше за GLOBAL_POSITION_INT
-request_message_interval(m, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE, 10)
-request_message_interval(m, mavutil.mavlink.MAVLINK_MSG_ID_GLOBAL_POSITION_INT, 1)
-```
+:::code pymavlink-d/py/main.py
 
 Зверни увагу: `SET_MESSAGE_INTERVAL` — це теж команда, тож летить вона тим самим `COMMAND_LONG` і **сама підтверджується** через `COMMAND_ACK`. Отже, замовлення потоку теж треба слати надійно (з тим самим циклом повторів), інакше можна не помітити, що апарат замовлення не прийняв, і чекати на потік, якого немає. Це підказує й діагностику: **є** серцебиття, але **немає** телеметрії — часто означає, що потоки просто не замовлені (або замовлення загубилося).
 
@@ -255,39 +207,7 @@ GLOBAL_POSITION_INT: 44 Б ×  5 /с = 220 Б/с
 
 Каркас правильного циклу спирається на все, що ми розібрали: неблокуючий `recv_match(blocking=False)`, що віддає керування одразу; єдиний словник останніх значень; таймери на власні дії; окремий нагляд за серцебиттям, щоб ловити обрив:
 
-```c
-// Каркас бортового циклу: нічого не блокує; усе рухається за таймерами.
-void companion_loop(mavlink_conn_t *m)
-{
-    uint32_t last_hb_seen = millis();
-    for (;;) {
-        // 1) вичерпуємо все, що вже прийшло — без блокування
-        mavlink_message_t *msg;
-        while ((msg = recv_match(m, NULL, /*timeout=*/0)) != NULL) {
-            switch (msg->msgid) {
-                case MAVLINK_MSG_ID_HEARTBEAT:
-                    last_hb_seen = millis();          // лінія жива
-                    break;
-                case MAVLINK_MSG_ID_ATTITUDE:
-                    update_attitude(msg);             // оновили стан
-                    break;
-                // …інші типи…
-            }
-        }
-
-        // 2) власна логіка за таймером (зір, план, регулятор)
-        run_control_step(m);
-
-        // 3) нагляд за обривом: серцебиття мовчить понад 3 с
-        if (millis() - last_hb_seen > 3000) {
-            handle_link_loss(m);                       // безпечний режим / повторне під'єднання
-            last_hb_seen = millis();
-        }
-
-        sleep_ms(10);                                 // не крутимо цикл марно на 100%
-    }
-}
-```
+:::code pymavlink-d/c/skladaiemo-vse-chomu.c
 
 Тут кожен фрагмент — з того, що ми пройшли. Пункт 1 **вичерпує** чергу неблокуючими викликами, тож жоден кадр не застоюється, а програма не зависає на одному типі. Оновлення стану лягає в словник останніх значень — далі логіка читає **найсвіжіше**, не чекаючи. Пункт 2 — власна робота, що біжить незалежно від того, чи прийшов саме зараз потрібний кадр. Пункт 3 — той самий детектор обриву за серцебиттям, що й у кроці «з землі», лише тепер із боку борту: замовк потік — вмикаємо безпечну поведінку. А надійну відправку команд (з повторами й розбором `MAV_RESULT`) вставляємо туди, де логіка ухвалює рішення. Повний робочий приклад такого циклу — з перепідключенням при падінні лінії, обмеженням частоти власних команд і акуратним завершенням — винесено окремо: [бортовий цикл pymavlink, готовий до польоту](root:embedded/pymavlink/proj-robust-loop.md).
 

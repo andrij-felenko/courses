@@ -76,40 +76,8 @@
 6. **Загальний стан здоров'я (`system_status`)**. Коди `MAV_STATE` інформують станцію, чи перебуває апарат на стадії завантаження бутлоадера (`MAV_STATE_BOOT`), виконує гіроскопічне калібрування сенсорів (`MAV_STATE_CALIBRATING`), очікує зльоту (`MAV_STATE_STANDBY`) чи перебуває в критичному аварійному стані відмови навігації (`MAV_STATE_CRITICAL`).
 
 :::tabs
-```cpp
-// Обробка вхідного HEARTBEAT у C++: вилучення ідентифікатора та реєстрація апарата
-void processIncomingHeartbeat(const mavlink_message_t& msg) {
-    // Ігноруємо власні пакети станції
-    if (msg.sysid == 255) return;
-
-    mavlink_heartbeat_t hb;
-    mavlink_msg_heartbeat_decode(&msg, &hb);
-
-    uint8_t vehicle_sysid = msg.sysid;
-    uint8_t vehicle_compid = msg.compid;
-    bool is_armed = (hb.base_mode & MAV_MODE_FLAG_SAFETY_ARMED) != 0;
-
-    std::cout << "[GCS] Виявлено апарат SysID: " << static_cast<int>(vehicle_sysid)
-              << ", CompID: " << static_cast<int>(vehicle_compid)
-              << ", Стек: " << (hb.autopilot == MAV_AUTOPILOT_ARDUPILOTMEGA ? "ArduPilot" : "PX4")
-              << ", Стан моторів: " << (is_armed ? "ARMED" : "DISARMED") << "\n";
-}
-```
-```python
-# Обробка вхідного HEARTBEAT у Python через pymavlink
-def process_incoming_heartbeat(msg):
-    # Ігноруємо пакети від самої GCS (SysID 255)
-    if msg.get_srcSystem() == 255:
-        return
-
-    vehicle_sysid = msg.get_srcSystem()
-    vehicle_compid = msg.get_srcComponent()
-    is_armed = bool(msg.base_mode & mavutil.mavlink.MAV_MODE_FLAG_SAFETY_ARMED)
-    autopilot_name = "ArduPilot" if msg.autopilot == mavutil.mavlink.MAV_AUTOPILOT_ARDUPILOTMEGA else "PX4"
-
-    print(f"[GCS] Виявлено апарат SysID: {vehicle_sysid}, CompID: {vehicle_compid}, "
-          f"Стек: {autopilot_name}, Стан моторів: {'ARMED' if is_armed else 'DISARMED'}")
-```
+:::code pershe-ziednannia-d/cpp/faza-1-vyiavlennia.cpp
+:::code pershe-ziednannia-d/py/faza-1-vyiavlennia.py
 :::
 
 Щойно станція зафіксувала `HEARTBEAT`, вона зберігає `target_system = msg.sysid` та `target_component = msg.compid` і запускає лічильник контролю зв'язку (**Liveness Watchdog**). Якщо автопілот перестане надсилати серцебиття протягом 3.5 секунди (3 пропущених кадри поспіль), станція негайно переводить інтерфейс у стан `LINK_LOST`, фарбує показники телеметрії в сірий колір і блокує відправку будь-яких польотних дій.
@@ -209,35 +177,8 @@ def process_incoming_heartbeat(msg):
 Ця конфігурація займає лише ~1.3 КБ/с із доступних ~3.5 КБ/с. Вільні 60% смуги залишаються для передачі команд оператора, завантаження нових шляхових точок під час польоту та резерву на випадок повторів при радіоперешкодах.
 
 :::tabs
-```cpp
-// Конфігурація частоти ATTITUDE на 20 Гц (інтервал 50 000 мкс) через COMMAND_LONG
-void configureAttitudeStream(uint8_t gcs_sysid, uint8_t gcs_compid,
-                             uint8_t target_sys, uint8_t target_comp) {
-    mavlink_message_t msg;
-    mavlink_msg_command_long_pack(
-        gcs_sysid, gcs_compid, &msg,
-        target_sys, target_comp,
-        MAV_CMD_SET_MESSAGE_INTERVAL,
-        0,                               // confirmation (номер спроби)
-        30.0f,                           // param1: Message ID (30 = ATTITUDE)
-        50000.0f,                        // param2: Інтервал 50 000 мкс = 20 Гц
-        0.0f, 0.0f, 0.0f, 0.0f, 0.0f     // param3..param7: не використовуються
-    );
-    // Відправка msg у порт...
-}
-```
-```python
-# Конфігурація частоти ATTITUDE на 20 Гц через pymavlink
-def configure_attitude_stream(master, target_sys, target_comp):
-    master.mav.command_long_send(
-        target_sys, target_comp,
-        mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL,
-        0,       # confirmation
-        30.0,    # param1: Message ID (30 = ATTITUDE)
-        50000.0, # param2: 50 000 мкс = 20 Гц
-        0, 0, 0, 0, 0
-    )
-```
+:::code pershe-ziednannia-d/cpp/rozrakhunok-biudzhetu.cpp
+:::code pershe-ziednannia-d/py/rozrakhunok-biudzhetu.py
 :::
 
 Після відправки кожної команди `COMMAND_LONG` станція очікує підтвердження `COMMAND_ACK` із кодом `MAV_RESULT_ACCEPTED`. Якщо підтвердження не надходить протягом 600 мс, команда повторюється зі збільшенням поля `confirmation = 1, 2, ...`.
@@ -296,130 +237,8 @@ def configure_attitude_stream(master, target_sys, target_comp):
 Головний цикл рушія зв'язку працює за неблокувальним принципом: він вичитує сирі байти з каналу, збирає кадри MAVLink за допомогою парсера `mavlink_parse_char()`, диспетчеризує повідомлення за станами FSM і контролює таймери активності.
 
 :::tabs
-```cpp
-// Приклад неблокувального конвеєра обробки рукостискання на C++20
-#include <iostream>
-#include <vector>
-#include <chrono>
-#include <mavlink/v2.0/common/mavlink.h>
-
-enum class GcsState {
-    WaitHeartbeat,
-    ParamDownload,
-    ConfigureStreams,
-    MissionDownload,
-    OperationalReady
-};
-
-class ConnectionFSM {
-public:
-    void onPacket(const mavlink_message_t& msg) {
-        m_last_rx = std::chrono::steady_clock::now();
-
-        switch (m_state) {
-            case GcsState::WaitHeartbeat:
-                if (msg.msgid == MAVLINK_MSG_ID_HEARTBEAT && msg.sysid != 255) {
-                    m_target_sysid = msg.sysid;
-                    m_target_compid = msg.compid;
-                    std::cout << "[1/4] HEARTBEAT отримано від SysID=" << (int)m_target_sysid << "\n";
-                    m_state = GcsState::ParamDownload;
-                    requestParameters();
-                }
-                break;
-
-            case GcsState::ParamDownload:
-                if (msg.msgid == MAVLINK_MSG_ID_PARAM_VALUE) {
-                    handleParam(msg);
-                }
-                break;
-
-            case GcsState::ConfigureStreams:
-                if (msg.msgid == MAVLINK_MSG_ID_COMMAND_ACK) {
-                    std::cout << "[3/4] Телеметрію налаштовано (COMMAND_ACK)\n";
-                    m_state = GcsState::MissionDownload;
-                    requestMission();
-                }
-                break;
-
-            case GcsState::MissionDownload:
-                if (msg.msgid == MAVLINK_MSG_ID_MISSION_COUNT ||
-                    msg.msgid == MAVLINK_MSG_ID_MISSION_ITEM_INT) {
-                    handleMission(msg);
-                }
-                break;
-
-            case GcsState::OperationalReady:
-                // Обробка штатної телеметрії польоту (ATTITUDE, GLOBAL_POSITION_INT)
-                break;
-        }
-    }
-
-private:
-    void requestParameters() {
-        std::cout << "[2/4] Відправка PARAM_REQUEST_LIST...\n";
-        // mavlink_msg_param_request_list_pack(...)
-    }
-
-    void handleParam(const mavlink_message_t& msg) {
-        mavlink_param_value_t pv;
-        mavlink_msg_param_value_decode(&msg, &pv);
-        // Фіксація в бітовій масці та перевірка повноти списку...
-    }
-
-    void requestMission() {
-        std::cout << "[4/4] Відправка MISSION_REQUEST_LIST...\n";
-        // mavlink_msg_mission_request_list_pack(...)
-    }
-
-    void handleMission(const mavlink_message_t& msg) {
-        // Покрокова вичитка точок та відправка фінального MISSION_ACK...
-    }
-
-    GcsState m_state{GcsState::WaitHeartbeat};
-    uint8_t m_target_sysid{1};
-    uint8_t m_target_compid{1};
-    std::chrono::steady_clock::time_point m_last_rx;
-};
-```
-```python
-# Приклад обробки конвеєра рукостискання на Python
-from pymavlink import mavutil
-import time
-
-class ConnectionFSM:
-    def __init__(self, port):
-        self.master = mavutil.mavlink_connection(port, baud=57600, source_system=255)
-        self.state = "WAIT_HEARTBEAT"
-        self.target_sys = None
-        self.target_comp = None
-
-    def spin_once(self):
-        msg = self.master.recv_match(blocking=False)
-        if not msg:
-            return
-
-        if self.state == "WAIT_HEARTBEAT":
-            if msg.get_type() == 'HEARTBEAT' and msg.get_srcSystem() != 255:
-                self.target_sys = msg.get_srcSystem()
-                self.target_comp = msg.get_srcComponent()
-                print(f"[1/4] HEARTBEAT отримано від SysID={self.target_sys}")
-                self.state = "PARAM_DOWNLOAD"
-                self.master.mav.param_request_list_send(self.target_sys, self.target_comp)
-
-        elif self.state == "PARAM_DOWNLOAD":
-            if msg.get_type() == 'PARAM_VALUE':
-                # Обробка та перевірка закінчення параметрів...
-                pass
-
-        elif self.state == "CONFIG_STREAMS":
-            if msg.get_type() == 'COMMAND_ACK':
-                print("[3/4] Телеметрію налаштовано")
-                self.state = "MISSION_DOWNLOAD"
-
-        elif self.state == "MISSION_DOWNLOAD":
-            # Обробка точок місії...
-            pass
-```
+:::code pershe-ziednannia-d/cpp/faza-5-povna-arkhitektura.cpp
+:::code pershe-ziednannia-d/py/faza-5-povna-arkhitektura.py
 :::
 
 Повну робочу програму автономного клієнта рукостискання з асинхронним циклом вичитки, відновленням параметрів через чергу дозапитів та квитуванням місії наведено в [практичній реалізації рушія первинного рукостискання](root:embedded/pershe-ziednannia/proj-handshake-engine.md).

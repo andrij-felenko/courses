@@ -73,52 +73,8 @@
 ### Структура регістрів ARM Cortex-M
 
 :::tabs
-```c
-typedef struct __attribute__((packed)) {
-    uint32_t r0;          /* Регістр загального призначення R0 */
-    uint32_t r1;          /* Регістр загального призначення R1 */
-    uint32_t r2;          /* Регістр загального призначення R2 */
-    uint32_t r3;          /* Регістр загального призначення R3 */
-    uint32_t r12;         /* Внутрішньопроцедурний регістр виклику R12 */
-    uint32_t lr;          /* Регістр зв'язку (Link Register — адреса повернення) */
-    uint32_t pc;          /* Лічильник команд (Program Counter — адреса падіння) */
-    uint32_t xpsr;        /* Стан процесора (Program Status Register) */
-    uint32_t msp;         /* Вказівник основного стека (Main Stack Pointer) */
-    uint32_t psp;         /* Вказівник стека процесів (Process Stack Pointer) */
-    uint32_t cfsr;        /* Configurable Fault Status Register (UFSR + BFSR + MMFSR) */
-    uint32_t hfsr;        /* HardFault Status Register */
-    uint32_t mmfar;       /* Memory Management Fault Address Register */
-    uint32_t bfar;        /* BusFault Address Register */
-    uint32_t active_task; /* Числовий ID або перші 4 літери імені таски FreeRTOS */
-    uint32_t stack_high_water; /* Мінімальний залишок пам'яті стека в байтах */
-} fault_context_t;
-```
-```cpp
-#include <cstdint>
-
-namespace diagnostic {
-
-struct [[gnu::packed]] FaultContext {
-    std::uint32_t r0{};
-    std::uint32_t r1{};
-    std::uint32_t r2{};
-    std::uint32_t r3{};
-    std::uint32_t r12{};
-    std::uint32_t lr{};
-    std::uint32_t pc{};
-    std::uint32_t xpsr{};
-    std::uint32_t msp{};
-    std::uint32_t psp{};
-    std::uint32_t cfsr{};
-    std::uint32_t hfsr{};
-    std::uint32_t mmfar{};
-    std::uint32_t bfar{};
-    std::uint32_t active_task{};
-    std::uint32_t stack_high_water{};
-};
-
-} // namespace diagnostic
-```
+:::code api-support-bundle/c/main.c
+:::code api-support-bundle/cpp/struktura-rehistriv-arm.cpp
 :::
 
 ### Розшифровка діагностичних бітів регістра CFSR
@@ -186,22 +142,7 @@ typedef struct __attribute__((packed)) {
     uint32_t caller_pc;    /* Значення Program Counter, з якого здійснено логування */
 } log_entry_t;
 ```
-```cpp
-#include <cstdint>
-
-namespace diagnostic {
-
-struct [[gnu::packed]] LogEntry {
-    std::uint32_t timestamp_ms{};
-    std::uint8_t  subsystem_id{};
-    std::uint8_t  severity{};
-    std::uint16_t event_code{};
-    std::uint32_t argument{};
-    std::uint32_t caller_pc{};
-};
-
-} // namespace diagnostic
-```
+:::code api-support-bundle/cpp/6-kiltsevyi-bufer-podii.cpp
 :::
 
 ### Каталог числових ідентифікаторів підсистем (`subsystem_id`)

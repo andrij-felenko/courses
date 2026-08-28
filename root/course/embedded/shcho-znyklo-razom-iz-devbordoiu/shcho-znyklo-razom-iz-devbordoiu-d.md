@@ -190,66 +190,8 @@
 Код ініціалізації, згенерований стандартними майстрами проєктів (такими як STM32CubeMX), зазвичай містить таку послідовність:
 
 :::tabs
-```c
-/* Наївна ініціалізація тактування з девборди (C) */
-void SystemClock_Config_Naive(void) {
-    /* Вмикаємо зовнішній кварц HSE */
-    RCC->CR |= RCC_CR_HSEON;
-
-    /* НЕБЕЗПЕКА: Нескінченний цикл очікування готовності кварцу! */
-    while (!(RCC->CR & RCC_CR_HSERDY)) {
-        /* Якщо кварцу немає, пошкоджено доріжку чи C_L хибний — 
-           процесор зависає тут НАЗАВЖДИ ще до виклику main() */
-    }
-
-    /* Налаштування PLL та дільників шин... */
-    RCC->PLLCFGR = (8 << RCC_PLLCFGR_PLLM_Pos) | (336 << RCC_PLLCFGR_PLLN_Pos) | (0 << RCC_PLLCFGR_PLLP_Pos);
-    RCC->CR |= RCC_CR_PLLON;
-    while (!(RCC->CR & RCC_CR_PLLRDY));
-
-    /* Перемикання системного такту на PLL */
-    RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_PLL;
-    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL);
-}
-```
-```cpp
-// Наївна ініціалізація тактування з девборди (C++)
-#include <cstdint>
-
-namespace bsp::naive {
-
-inline volatile uint32_t& reg_rcc_cr      = *reinterpret_cast<volatile uint32_t*>(0x40023800);
-inline volatile uint32_t& reg_rcc_pllcfgr = *reinterpret_cast<volatile uint32_t*>(0x40023804);
-inline volatile uint32_t& reg_rcc_cfgr    = *reinterpret_cast<volatile uint32_t*>(0x40023808);
-
-constexpr uint32_t hse_on_bit   = 1UL << 16;
-constexpr uint32_t hse_rdy_bit  = 1UL << 17;
-constexpr uint32_t pll_on_bit   = 1UL << 24;
-constexpr uint32_t pll_rdy_bit  = 1UL << 25;
-constexpr uint32_t sw_pll_bits  = 0x02UL;
-constexpr uint32_t sws_pll_bits = 0x08UL;
-
-void init_clock_naive() noexcept {
-    // Активація контуру HSE
-    reg_rcc_cr |= hse_on_bit;
-
-    // НЕБЕЗПЕКА: Зависання в разі апаратної проблеми з кварцом
-    while (!(reg_rcc_cr & hse_rdy_bit)) {
-        // Нескінченне блокування
-    }
-
-    // Налаштування PLL
-    reg_rcc_pllcfgr = (8 << 0) | (336 << 6) | (0 << 16);
-    reg_rcc_cr |= pll_on_bit;
-    while (!(reg_rcc_cr & pll_rdy_bit));
-
-    // Перемикання джерела тактування
-    reg_rcc_cfgr = (reg_rcc_cfgr & ~0x03UL) | sw_pll_bits;
-    while ((reg_rcc_cfgr & 0x0CUL) != sws_pll_bits);
-}
-
-} // namespace bsp::naive
-```
+:::code shcho-znyklo-razom-iz-devbordoiu-d/c/pastka-zovnishnoho.c
+:::code shcho-znyklo-razom-iz-devbordoiu-d/cpp/pastka-zovnishnoho.cpp
 :::
 
 На власній платі може виникнути одна з типових апаратних ситуацій:
@@ -299,38 +241,8 @@ void init_clock_naive() noexcept {
 Для проєкту створюють два незалежні файли конфігурації (наприклад, `bsp_nucleo_g4.c` та `bsp_custom_v1.c`), які реалізують єдиний інтерфейсний контракт:
 
 :::tabs
-```c
-/* bsp_interface.h — Апаратний контракт плати (C) */
-#ifndef BSP_INTERFACE_H
-#define BSP_INTERFACE_H
-
-#include <stdbool.h>
-#include <stdint.h>
-
-void bsp_system_init(void);
-void bsp_led_heartbeat_toggle(void);
-void bsp_debug_put_char(char ch);
-bool bsp_is_power_good(void);
-
-#endif
-```
-```cpp
-// bsp_interface.hpp — Апаратний контракт плати (C++)
-#pragma once
-#include <cstdint>
-
-namespace bsp {
-
-struct IBoardSupport {
-    virtual void init() noexcept = 0;
-    virtual void toggle_heartbeat() noexcept = 0;
-    virtual void log_char(char ch) noexcept = 0;
-    [[nodiscard]] virtual bool is_power_good() noexcept = 0;
-    virtual ~IBoardSupport() = default;
-};
-
-} // namespace bsp
-```
+:::code shcho-znyklo-razom-iz-devbordoiu-d/c/bsp_interface.h
+:::code shcho-znyklo-razom-iz-devbordoiu-d/cpp/bsp_interface.hpp
 :::
 
 При перемиканні цільового заліза в системі збірки (CMake або Makefile) змінюється лише модуль реалізації BSP, тоді як уся високорівнева логіка залишається абсолютно незмінною.

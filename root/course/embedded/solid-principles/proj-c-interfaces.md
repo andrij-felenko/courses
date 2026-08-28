@@ -28,46 +28,7 @@
 
 Почнімо з контракту. У статті поле було одне; у робочому драйвері контракт ширший, але не набагато — і кожне поле тут має причину бути. Давач треба **відкрити** (налаштувати, зчитати калібрування), **читати** скільки завгодно разів і **закрити** (відпустити шину). Тому таблиця методів має `read` і `close`; відкриття — це окрема функція-фабрика кожної реалізації (її підпис у спільному заголовку бути не може, бо параметри відкриття в I2C і SPI різні — про це нижче).
 
-```c
-// baro.h — інтерфейс барометра: абстракція, від якої залежать ОБИДВІ сторони.
-// Клієнт бачить лише цей файл; полів реалізацій тут немає (непрозорий стан).
-#ifndef BARO_H
-#define BARO_H
-
-#include <stdint.h>
-
-typedef struct baro baro_t;          // непрозорий: поля приховані в .c реалізації
-
-// Коди контракту — спільні для ВСІХ реалізацій (узгодження помилок, див. пастки).
-typedef enum {
-    BARO_OK        = 0,   // out_pa містить чинний тиск
-    BARO_ERR_BUS   = -1,  // збій шини (немає ACK, таймаут, обрив)
-    BARO_ERR_RANGE = -2,  // давач відповів, але значення поза фізичним діапазоном
-    BARO_ERR_NODEV = -3,  // на місці давача не той чип (chip-id не збігся)
-} baro_status_t;
-
-// Таблиця методів (рукотворна vtable). Кожна реалізація заповнює її своїми функціями.
-typedef struct {
-    // Прочитати тиск у паскалях. Повертає BARO_OK або код помилки.
-    // КОНТРАКТ: не блокує надовго; out_pa чіпає лише при BARO_OK.
-    baro_status_t (*read)(baro_t *self, uint32_t *out_pa);
-    // Відпустити ресурси (шину, пам'ять). Після close self недійсний.
-    void (*close)(baro_t *self);
-} baro_vtable_t;
-
-// База, яку реалізація кладе ПЕРШИМ полем своєї структури (див. крок 2).
-struct baro {
-    const baro_vtable_t *vt;   // вказівник на таблицю методів цієї реалізації
-};
-
-// Тонкі обгортки, щоб політика писала baro_read(b, &pa), а не b->vt->read(b, &pa).
-static inline baro_status_t baro_read(baro_t *b, uint32_t *out_pa) {
-    return b->vt->read(b, out_pa);
-}
-static inline void baro_close(baro_t *b) { b->vt->close(b); }
-
-#endif // BARO_H
-```
+:::code proj-c-interfaces/c/baro.h
 
 Тут зосереджена вся розв'язка, тож варто спинитися на трьох рішеннях.
 
@@ -81,66 +42,7 @@ static inline void baro_close(baro_t *b) { b->vt->close(b); }
 
 Тепер реальний драйвер. Його структура **починається з поля `baro_t base`** — це ключ усього прийому. Завдяки тому, що `base` лежить першим, вказівник на нашу структуру можна безпечно трактувати як `baro_t *` і навпаки: адреса структури збігається з адресою її першого поля. Так політика тримає `baro_t *`, а драйвер, отримавши його назад, відновлює свій повний тип одним приведенням.
 
-```c
-// bme280_i2c.c — реалізація baro_t поверх шини I2C. Поля приховані тут.
-#include "baro.h"
-#include "i2c.h"          // i2c_read_reg / i2c_write_reg — примітиви шини плати
-
-#define BME280_REG_ID    0xD0   // регістр ідентифікації чипа
-#define BME280_CHIP_ID   0x60   // BME280 відповідає саме цим значенням
-#define BME280_REG_PRESS 0xF7   // перший із трьох байтів сирого тиску
-
-typedef struct {
-    baro_t   base;        // ПЕРШИМ полем — щоб (baro_t*)self працювало (крок 2)
-    uint8_t  addr;        // 7-бітна адреса на шині: 0x76 (SDO→GND) або 0x77 (SDO→VDDIO)
-    int32_t  t_fine;      // калібрувальний контекст компенсації (спрощено)
-} bme280_i2c_t;
-
-// Перетворити сирий 20-бітний відлік у паскалі. Реальна компенсація BME280 —
-// довгий поліном на калібрувальних коефіцієнтах; тут лишаємо суть прикладу:
-// драйвер ВІДДАЄ паскалі, політика НЕ знає про сирі відліки.
-static uint32_t compensate(bme280_i2c_t *d, int32_t raw) {
-    (void)d;                       // у повному драйвері тут ідуть dig_P1..P9, t_fine
-    return 30000u + (uint32_t)(raw & 0x000FFFFF) / 16u;   // навмисно спрощено
-}
-
-static baro_status_t i2c_read(baro_t *self, uint32_t *out_pa) {
-    bme280_i2c_t *d = (bme280_i2c_t *)self;   // відновлюємо повний тип із base
-    uint8_t raw[3];
-    if (i2c_read_reg(d->addr, BME280_REG_PRESS, raw, 3) != 0) {
-        return BARO_ERR_BUS;       // немає ACK / таймаут — шина мовчить
-    }
-    int32_t v = ((int32_t)raw[0] << 12) | ((int32_t)raw[1] << 4) | (raw[2] >> 4);
-    uint32_t pa = compensate(d, v);
-    if (pa < 30000u || pa > 110000u) {
-        return BARO_ERR_RANGE;     // фізично неможливий тиск — давач здурів
-    }
-    *out_pa = pa;                  // чіпаємо вихід ЛИШЕ на успіху (контракт)
-    return BARO_OK;
-}
-
-static void i2c_close(baro_t *self) {
-    free(self);                    // шину тут тримає плата; звільняємо лише пам'ять
-}
-
-// Єдина на цей файл таблиця методів — спільна для всіх екземплярів драйвера.
-static const baro_vtable_t BME280_I2C_VT = { .read = i2c_read, .close = i2c_close };
-
-// Фабрика: відкрити давач на шині I2C. Підпис СВІЙ — параметри саме для I2C.
-// Повертає baro_t* (абстракцію) або NULL, якщо чипа немає / не той.
-baro_t *bme280_i2c_open(uint8_t addr) {
-    uint8_t id = 0;
-    if (i2c_read_reg(addr, BME280_REG_ID, &id, 1) != 0) return NULL;  // шина мовчить
-    if (id != BME280_CHIP_ID) return NULL;                            // не BME280
-
-    bme280_i2c_t *d = malloc(sizeof *d);
-    if (!d) return NULL;
-    d->base.vt = &BME280_I2C_VT;   // підставляємо таблицю — тепер це чесний baro_t
-    d->addr    = addr;
-    d->t_fine  = 0;
-    return &d->base;               // віддаємо адресу base == адреса структури
-}
-```
+:::code proj-c-interfaces/c/bme280_i2c.c
 
 Зверніть увагу, як акуратно тут лягають принципи. Політика отримає `baro_t *` і ніколи не дізнається про `addr`, `t_fine` чи `compensate` — усе це сховано у `.c` (DIP: політика залежить лише від `baro_t`). Перевірка chip-id при відкритті — це **чесне виконання контракту** ще на старті: якщо на місці BME280 виявиться інший чип, фабрика поверне `NULL`, а не віддасть калічний давач, що потім тихо брехатиме (тут проросло `BARO_ERR_NODEV` із заголовка, тільки на етапі відкриття воно стає просто `NULL`). А `i2c_read` чесно мапить **дві різні біди** на два різні коди: мовчання шини → `BARO_ERR_BUS`, абсурдне значення → `BARO_ERR_RANGE`. Це й буде та сама поведінка, якій муситиме відповідати SPI-драйвер, інакше LSP порушиться.
 
@@ -150,92 +52,13 @@ baro_t *bme280_i2c_open(uint8_t addr) {
 
 Тепер ключове для OCP: **другий драйвер — це новий файл, що не торкається ні політики, ні першого драйвера**. Він реалізує той самий `baro_t` через ту саму таблицю-устрій, але всередині говорить мовою SPI: смикає лінію вибору кристала (CS) і жене повний дуплекс замість адреси в кадрі. BME280 на SPI читає регістри з тим самим зсувом, але старший біт першого байта кодує напрям: `0` — читання, `1` — запис (дзеркально до I2C-варіанта, бо на SPI немає окремого біта читання в адресі — його ставить майстер).
 
-```c
-// bme280_spi.c — та сама абстракція baro_t, але поверх SPI. Новий файл — OCP.
-#include "baro.h"
-#include "spi.h"          // spi_transfer / gpio_set — примітиви плати
-#include "i2c.h"          // (не потрібен) — навмисно НЕ включаємо; SPI самодостатній
-
-#define BME280_REG_ID    0xD0
-#define BME280_CHIP_ID   0x60
-#define BME280_REG_PRESS 0xF7
-#define SPI_READ         0x00   // старший біт першого байта: 0 → читання
-#define SPI_WRITE        0x80   // ... 1 → запис
-
-typedef struct {
-    baro_t  base;         // знову ПЕРШИМ полем
-    uint8_t cs_pin;       // лінія вибору кристала саме цього давача
-} bme280_spi_t;
-
-// Прочитати n байтів із регістра по SPI: опустити CS, послати адресу, забрати дані.
-static int spi_read_reg(uint8_t cs, uint8_t reg, uint8_t *buf, int n) {
-    gpio_set(cs, 0);                       // вибрали кристал — обмін почався
-    spi_transfer((reg & 0x7F) | SPI_READ); // адреса з бітом читання
-    for (int i = 0; i < n; i++) {
-        buf[i] = spi_transfer(0x00);       // висуваємо порожнє, забираємо корисне
-    }
-    gpio_set(cs, 1);                       // відпустили кристал
-    return 0;                              // SPI не квитує — апаратного «немає ACK» нема
-}
-
-static uint32_t compensate(bme280_spi_t *d, int32_t raw) {
-    (void)d;
-    return 30000u + (uint32_t)(raw & 0x000FFFFF) / 16u;   // те саме спрощення, що в I2C
-}
-
-static baro_status_t spi_read(baro_t *self, uint32_t *out_pa) {
-    bme280_spi_t *d = (bme280_spi_t *)self;
-    uint8_t raw[3];
-    spi_read_reg(d->cs_pin, BME280_REG_PRESS, raw, 3);     // SPI завжди «успіх» на рівні шини
-    int32_t v = ((int32_t)raw[0] << 12) | ((int32_t)raw[1] << 4) | (raw[2] >> 4);
-    uint32_t pa = compensate(d, v);
-    if (pa < 30000u || pa > 110000u) {
-        return BARO_ERR_RANGE;
-    }
-    *out_pa = pa;
-    return BARO_OK;
-}
-
-static void spi_close(baro_t *self) { free(self); }
-
-static const baro_vtable_t BME280_SPI_VT = { .read = spi_read, .close = spi_close };
-
-// Фабрика SPI: підпис СВІЙ — їй потрібна ніжка CS, а не I2C-адреса.
-baro_t *bme280_spi_open(uint8_t cs_pin) {
-    uint8_t id = 0;
-    spi_read_reg(cs_pin, BME280_REG_ID, &id, 1);
-    if (id != BME280_CHIP_ID) return NULL;     // не той чип — не віддаємо калічний давач
-
-    bme280_spi_t *d = malloc(sizeof *d);
-    if (!d) return NULL;
-    d->base.vt = &BME280_SPI_VT;
-    d->cs_pin  = cs_pin;
-    return &d->base;
-}
-```
+:::code proj-c-interfaces/c/bme280_spi.c
 
 Ось тут OCP перестає бути гаслом і стає видимим фактом: щоб додати SPI, ми **не відкрили** ні `bme280_i2c.c`, ні файл політики. Новий драйвер — суто доданий код збоку. Стрілка залежності від нього теж дивиться вгору, до `baro.h`, як і від I2C-драйвера: обидва **реалізують** абстракцію, жоден її не визначає.
 
 Але саме на стику двох реалізацій вилазить тонкість контракту, про яку легко забути. I2C-варіант повертає `BARO_ERR_BUS`, коли шина мовчить, — бо I2C **квитує** кожен байт, і відсутність ACK видно одразу. SPI **не квитує нічого**: якщо дріт відвалився, `spi_transfer` однаково відсуне якісь біти (найімовірніше — самі одиниці або самі нулі), і апарат збою не помітить. Тому `spi_read_reg` завжди повертає `0` на рівні шини — і `BARO_ERR_BUS` із SPI-драйвера сам собою **ніколи не прийде**. Це пряма загроза LSP: політика, написана з розрахунку «`read` поверне `BARO_ERR_BUS`, якщо давач відвалився», на SPI цього сигналу не дістане. Чесний SPI-драйвер мусить **відтворити** контракт іншими засобами — наприклад, прочитати сталий регістр (той самий chip-id) і, якщо він раптом не `0x60`, повернути `BARO_ERR_BUS` як ознаку, що зв'язок порушено:
 
-```c
-// Доброчесніший варіант spi_read: дешева перевірка зв'язку через сталий регістр.
-static baro_status_t spi_read_checked(baro_t *self, uint32_t *out_pa) {
-    bme280_spi_t *d = (bme280_spi_t *)self;
-    uint8_t id = 0;
-    spi_read_reg(d->cs_pin, BME280_REG_ID, &id, 1);
-    if (id != BME280_CHIP_ID) {
-        return BARO_ERR_BUS;        // chip-id «поплив» → зв'язок розірвано
-    }
-    uint8_t raw[3];
-    spi_read_reg(d->cs_pin, BME280_REG_PRESS, raw, 3);
-    int32_t v = ((int32_t)raw[0] << 12) | ((int32_t)raw[1] << 4) | (raw[2] >> 4);
-    uint32_t pa = compensate(d, v);
-    if (pa < 30000u || pa > 110000u) return BARO_ERR_RANGE;
-    *out_pa = pa;
-    return BARO_OK;
-}
-```
+:::code proj-c-interfaces/c/krok-3-druha-realizatsiia.c
 
 Це не ускладнення заради ускладнення, а **плата за чесність підтипу**: щоб SPI-драйвер справді був взаємозамінний з I2C-драйвером, він має давати ті самі сигнали, навіть коли шина сама їх не дає. Дешева звірка сталого регістра — типовий спосіб це зробити. (Механіку самого обміну по SPI — як саме `spi_transfer` зсуває біти в обидва боки за один такт — розбирає [обмін байтом по SPI](root:com-devices/spi-bus/proj-spi-transfer.md); тут вона нам потрібна лише як примітив.)
 
@@ -243,50 +66,7 @@ static baro_status_t spi_read_checked(baro_t *self, uint32_t *out_pa) {
 
 Третя реалізація — **мок** (англ. *mock* — підробка, муляж): давача немає взагалі, але є той самий `baro_t`. Мок не говорить із жодною шиною; він повертає **наперед задану послідовність** відповідей, щоб тест міг прогнати політику через будь-який сценарій — зокрема такий, який на справжньому давачі відтворити важко або небезпечно (раптовий стрибок тиску, обрив на третьому читанні, абсурдне значення).
 
-```c
-// baro_mock.c — реалізація baro_t без заліза: віддає сценарій по кроках (для тестів).
-#include "baro.h"
-
-// Один крок сценарію: який код повернути і (якщо OK) яке значення тиску.
-typedef struct {
-    baro_status_t status;
-    uint32_t      pa;
-} baro_step_t;
-
-typedef struct {
-    baro_t             base;
-    const baro_step_t *script;   // масив кроків, заданий тестом
-    int                len;      // скільки кроків у сценарії
-    int                i;        // індекс наступного кроку
-    int                calls;    // лічильник викликів read (для перевірок у тесті)
-} baro_mock_t;
-
-static baro_status_t mock_read(baro_t *self, uint32_t *out_pa) {
-    baro_mock_t *m = (baro_mock_t *)self;
-    m->calls++;
-    if (m->i >= m->len) {
-        return BARO_ERR_BUS;            // сценарій вичерпано — поводимось як мертва шина
-    }
-    baro_step_t step = m->script[m->i++];
-    if (step.status == BARO_OK) {
-        *out_pa = step.pa;             // чіпаємо вихід лише на OK — як справжні драйвери
-    }
-    return step.status;                // віддаємо запланований код (зокрема й помилку)
-}
-
-static void mock_close(baro_t *self) { (void)self; }   // нічого не тримаємо
-
-static const baro_vtable_t MOCK_VT = { .read = mock_read, .close = mock_close };
-
-// Ініціалізувати мок заданим сценарієм. Без malloc — структуру дає тест на стеку.
-void baro_mock_init(baro_mock_t *m, const baro_step_t *script, int len) {
-    m->base.vt = &MOCK_VT;
-    m->script  = script;
-    m->len     = len;
-    m->i       = 0;
-    m->calls   = 0;
-}
-```
+:::code proj-c-interfaces/c/baro_mock.c
 
 Мок свідомо повторює дві угоди справжніх драйверів: чіпає `*out_pa` **лише** на `BARO_OK` і використовує ті самі коди помилок. Якби він порушив бодай одну — наприклад, писав у `out_pa` сміття перед поверненням помилки, — тест проходив би на моку, але ловив би не ту поведінку, що в бою. **Мок цінний рівно настільки, наскільки чесно тримає той самий контракт, що й реальність.** Тут видно й тонку перевагу непрозорого вказівника: мок тримає геть інший стан (масив-сценарій, лічильник викликів), ніж драйвери шин, — і політику це ніяк не обходить, бо вона бачить лише `baro_t`.
 
@@ -294,75 +74,7 @@ void baro_mock_init(baro_mock_t *m, const baro_step_t *script, int len) {
 
 Тепер зшиваємо все докупи. Політику — `altitude_step` зі статті — ми **не змінюємо ні на рядок**; вона приймає `baro_t *` і працює через нього. Тест на ПК створює мок із потрібним сценарієм, прогонює політику й перевіряє і результат, і реакцію на збій. А функція перевірки `run_policy` написана **проти інтерфейсу**, тож той самий тест дослівно годиться й для справжніх драйверів — їх лише підставляють замість мока там, де давач фізично є.
 
-```c
-// test_altitude.c — хост-тест: компілюється й біжить на ПК, gcc test_altitude.c ...
-#include "baro.h"
-#include <stdio.h>
-#include <math.h>
-
-// ── Політика з основної статті — ТУТ НЕ ЧІПАЄМО, лише використовуємо ──────────
-extern float pressure_to_altitude(uint32_t pa);    // барометрична формула, окремо
-
-int altitude_step(baro_t *baro, float *out_m) {
-    uint32_t pa;
-    baro_status_t err = baro_read(baro, &pa);       // не знає, хто за інтерфейсом
-    if (err != BARO_OK) return err;
-    *out_m = pressure_to_altitude(pa);
-    return BARO_OK;
-}
-
-// ── Те, що зшиває політику з БУДЬ-ЯКОЮ реалізацією через спільний інтерфейс ───
-static int run_policy(baro_t *b, float *out_m) {
-    return altitude_step(b, out_m);     // байдуже, I2C / SPI / мок — той самий виклик
-}
-
-// ── Крихітний каркас перевірок (без зовнішніх залежностей) ────────────────────
-static int failures = 0;
-#define CHECK(cond, msg) do { \
-    if (!(cond)) { printf("  FAIL: %s\n", (msg)); failures++; } \
-    else         { printf("  ok:   %s\n", (msg)); } } while (0)
-
-#include "baro_mock.c"   // у тесті лінкуємо мок прямо (драйвери шин сюди не йдуть)
-
-int main(void) {
-    printf("== сценарій 1: нормальний тиск ==\n");
-    {
-        // приблизно 95000 Па ≈ 540 м над рівнем моря
-        static const baro_step_t s[] = { { BARO_OK, 95000u } };
-        baro_mock_t m;
-        baro_mock_init(&m, s, 1);
-        float h = 0;
-        int rc = run_policy(&m.base, &h);            // ← мок як baro_t*
-        CHECK(rc == BARO_OK, "політика повернула OK");
-        CHECK(fabsf(h - 540.0f) < 30.0f, "висота в очікуваному вікні");
-        CHECK(m.calls == 1, "політика читала давач рівно раз");
-    }
-
-    printf("== сценарій 2: обрив шини ==\n");
-    {
-        static const baro_step_t s[] = { { BARO_ERR_BUS, 0u } };
-        baro_mock_t m;
-        baro_mock_init(&m, s, 1);
-        float h = -1.0f;
-        int rc = run_policy(&m.base, &h);
-        CHECK(rc == BARO_ERR_BUS, "помилка шини проросла нагору без спотворення");
-        CHECK(h == -1.0f, "висоту НЕ чіпали при помилці (контракт out_pa)");
-    }
-
-    printf("== сценарій 3: абсурдне значення ==\n");
-    {
-        static const baro_step_t s[] = { { BARO_ERR_RANGE, 0u } };
-        baro_mock_t m;
-        baro_mock_init(&m, s, 1);
-        float h = 0;
-        int rc = run_policy(&m.base, &h);
-        CHECK(rc == BARO_ERR_RANGE, "вихід за діапазон проріс як окремий код");
-    }
-
-    printf("\n%s (%d невдач)\n", failures ? "Є ПРОВАЛИ" : "усе зелено", failures);
-    return failures ? 1 : 0;
-}
-```
+:::code proj-c-interfaces/c/test_altitude.c
 
 Запускається це **без жодного давача**: `gcc test_altitude.c policy.c -lm -o t && ./t`. На справжній платі той самий `run_policy` отримає `bme280_i2c_open(0x76)` чи `bme280_spi_open(17)` замість мока — і **жодного рядка політики чи тесту переписувати не треба**. Ось де три вигоди прийшли разом: **OCP** (SPI додали новим файлом, не чіпаючи старого), **DIP** (політика й тест залежать лише від `baro_t`) і **тестовність** (мок підставляється туди ж, де в бою стоїть драйвер). П'ять абстрактних принципів зі статті тут стали трьома компільованими файлами й одним тестом, що зеленіє на ПК.
 

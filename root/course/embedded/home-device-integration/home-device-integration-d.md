@@ -68,45 +68,8 @@ def remove_from_home_assistant(client):
 **Умова: термостат чесно відбиває свою присутність. `online` шлемо самі по під'єднанні (retained, щоб HA бачив стан і після свого перезапуску); `offline` — заповіт, який брокер опублікує, коли ми пропадемо.**
 
 :::tabs
-```c
-static const char *STATUS_TOPIC = "home/livingroom/thermostat/status";
-
-// Заповіт РЕЄСТРУЄМО в момент з'єднання з брокером — ще ДО publish.
-// Ці поля йдуть у пакет CONNECT; брокер притримає їх у себе.
-static void mqtt_connect_with_will(mqtt_client_t *c) {
-    mqtt_connect_options_t opt = {0};
-    opt.will_topic   = STATUS_TOPIC;
-    opt.will_message = "offline";   // це брокер опублікує ЗА нас, коли ми зникнемо
-    opt.will_qos     = 1;
-    opt.will_retain  = true;        // щоб «offline» теж пережив підписку HA пізніше
-    opt.keep_alive   = 30;          // тиша довша за 1.5×30 с → брокер вважає нас мертвими
-    mqtt_connect(c, &opt);
-}
-
-// А ЦЕ — одразу після успішного під'єднання: перекриваємо заповіт живим «online».
-static void announce_alive(void) {
-    mqtt_publish(STATUS_TOPIC, "online", 6, /*qos=*/1, /*retain=*/true);
-}
-```
-```python
-STATUS_TOPIC = "home/livingroom/thermostat/status"
-
-# Заповіт РЕЄСТРУЄМО в момент з'єднання з брокером — ще ДО publish.
-# will_set кладе ці поля в пакет CONNECT; брокер притримає їх у себе.
-def mqtt_connect_with_will(client):
-    client.will_set(
-        STATUS_TOPIC,
-        payload="offline",   # це брокер опублікує ЗА нас, коли ми зникнемо
-        qos=1,
-        retain=True,         # щоб «offline» теж пережив підписку HA пізніше
-    )
-    # тиша довша за 1.5×30 с → брокер вважає нас мертвими
-    client.connect("broker.local", 1883, keepalive=30)
-
-# А ЦЕ — одразу після успішного під'єднання: перекриваємо заповіт живим «online».
-def announce_alive(client):
-    client.publish(STATUS_TOPIC, "online", qos=1, retain=True)
-```
+:::code home-device-integration-d/c/lwt-i-birth-iak-kartka.c
+:::code home-device-integration-d/py/lwt-i-birth-iak-kartka.py
 :::
 
 Зверни увагу на дзеркальність: **обидва** повідомлення — `online` і `offline` — retained і летять у **той самий** топік. Тому в будь-яку мить брокер тримає рівно одне актуальне слово про вузол, і Home Assistant, підписавшись на `status`, одразу бачить правду: живий чи ні. У візитівці ми не дарма вказали `availability_topic` — це і є той топік, за яким Home Assistant стежить, порівнюючи прочитане з `online`/`offline`.
@@ -116,37 +79,8 @@ def announce_alive(client):
 Щоб цього не було, Home Assistant по своєму старті **сам публікує** birth-повідомлення — `online` у топік `homeassistant/status`. Домовленість зворотна до звичайної: тепер **вузол** має підписатися на `homeassistant/status` і, побачивши там `online`, **переоголоситися** — заново кинути візитівку й свіжий стан. Так Home Assistant, повернувшись, будить усіх, і кожен вузол наново рекомендується.
 
 :::tabs
-```c
-// Підписка на birth-топік Home Assistant: коли HA стартує, він кричить сюди.
-static void on_mqtt_connected(mqtt_client_t *c) {
-    announce_alive();
-    announce_to_home_assistant();          // візитівка (з попереднього кроку)
-    mqtt_subscribe(c, "homeassistant/status", /*qos=*/1);
-}
-
-// Прийшло щось у homeassistant/status — HA щойно ожив і просить рекомендуватися.
-static void on_message(const char *topic, const char *payload, int len) {
-    if (strcmp(topic, "homeassistant/status") == 0 &&
-        len == 6 && memcmp(payload, "online", 6) == 0) {
-        announce_to_home_assistant();       // переоголошуємо себе
-        publish_current_state();            // і одразу свіже число
-    }
-}
-```
-```python
-# Підписка на birth-топік Home Assistant: коли HA стартує, він кричить сюди.
-# paho кличе on_connect одразу по успішному під'єднанні.
-def on_mqtt_connected(client, userdata, flags, rc):
-    announce_alive(client)
-    announce_to_home_assistant(client)     # візитівка (з попереднього кроку)
-    client.subscribe("homeassistant/status", qos=1)
-
-# Прийшло щось у homeassistant/status — HA щойно ожив і просить рекомендуватися.
-def on_message(client, userdata, msg):
-    if msg.topic == "homeassistant/status" and msg.payload == b"online":
-        announce_to_home_assistant(client)  # переоголошуємо себе
-        publish_current_state(client)       # і одразу свіже число
-```
+:::code home-device-integration-d/c/lwt-i-birth-iak-kartka-2.c
+:::code home-device-integration-d/py/lwt-i-birth-iak-kartka-2.py
 :::
 
 Тепер обряд повний і симетричний: вузол будить Home Assistant своєю retained-візитівкою, коли той вмикається *після* вузла; а Home Assistant будить вузли своїм birth-повідомленням, коли вмикається *перед* ними або перезапускається. Дві сторони, кожна вміє привести другу до ладу — і картка ніколи не лишається ні порожньою, ні брехливою.

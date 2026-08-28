@@ -58,22 +58,7 @@ while ((RCC->CR & RCC_CR_HSERDY) == 0) {
 Розгляньмо, що насправді відбувається під час виклику здавалося б простої функції затримки `HAL_Delay(500)` у бібліотеці STM32Cube HAL:
 
 :::tabs
-```c
-/* Спрощена реалізація HAL_Delay з бібліотеки STM32Cube */
-void HAL_Delay(uint32_t Delay) {
-    uint32_t tickstart = HAL_GetTick();
-    uint32_t wait = Delay;
-
-    /* Додаємо один такт запасу, якщо лічильник на межі перемикання */
-    if (wait < HAL_MAX_DELAY) {
-        wait += (uint32_t)(uwTickFreq);
-    }
-
-    while ((HAL_GetTick() - tickstart) < wait) {
-        /* Чекаємо, доки переривання SysTick збільшить глобальну змінну uwTick */
-    }
-}
-```
+:::code pershe-blymannia-na-vlasnii-plati-d/c/main.c
 ```cpp
 /* Логіка системної затримки на основі переривань */
 void hal_delay(std::uint32_t delay_ms) noexcept {

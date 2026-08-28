@@ -48,75 +48,7 @@
 
 Почнімо з цеглини, що повторюється: одна вимірювана стадія. У неї дві відповідальності — обхопити шматок роботи монотонним годинником і скласти час у кільцевий буфер, з якого будь-якої миті дістаються перцентилі.
 
-```cpp
-// stage_timer.h — один вимірюваний шматок конвеєра.
-// Монотонний годинник + кільцевий буфер останніх N часів.
-#pragma once
-#include <chrono>
-#include <vector>
-#include <algorithm>
-#include <cstddef>
-
-using clk = std::chrono::steady_clock;   // НІКОЛИ не стрибне назад
-
-// Зведена статистика за вікном останніх вимірів (усе в мілісекундах).
-struct Stats {
-    double mean, p50, p95, p99, max;
-    size_t count;
-};
-
-class StageTimer {
-public:
-    explicit StageTimer(size_t window = 512)
-        : buf_(window, 0.0), cap_(window) {}
-
-    // Обхопити шматок роботи: t0 — зараз, t1 — у stop().
-    void start() { t0_ = clk::now(); }
-
-    // Закрити вимір: рахуємо мс і кладемо в кільце.
-    double stop() {
-        double ms = std::chrono::duration<double, std::milli>(
-                        clk::now() - t0_).count();
-        buf_[head_] = ms;                 // пишемо в поточну комірку
-        head_ = (head_ + 1) % cap_;       // вказівник по колу
-        if (filled_ < cap_) ++filled_;    // поки буфер не повний — росте
-        return ms;
-    }
-
-    // Зняти статистику за вікном. НЕ чіпає буфер: копіює й сортує копію.
-    Stats snapshot() const {
-        Stats s{};
-        s.count = filled_;
-        if (filled_ == 0) return s;
-
-        std::vector<double> tmp(buf_.begin(), buf_.begin() + filled_);
-        std::sort(tmp.begin(), tmp.end());
-
-        double sum = 0;
-        for (double v : tmp) sum += v;
-        s.mean = sum / filled_;
-        s.p50  = tmp[pct_index(50)];
-        s.p95  = tmp[pct_index(95)];
-        s.p99  = tmp[pct_index(99)];
-        s.max  = tmp.back();
-        return s;
-    }
-
-private:
-    // Індекс перцентиля у відсортованому масиві довжини filled_.
-    size_t pct_index(int p) const {
-        // (p/100)*(n-1), округлене вниз — без виходу за межі.
-        size_t idx = (size_t)((double)p / 100.0 * (filled_ - 1));
-        return idx;
-    }
-
-    std::vector<double> buf_;   // кільце фіксованого розміру
-    size_t cap_;                // місткість вікна
-    size_t head_  = 0;          // куди писати наступний час
-    size_t filled_ = 0;         // скільки реально заповнено (до cap_)
-    clk::time_point t0_;
-};
-```
+:::code proj-profiler/cpp/taimer-stadii-i-kiltsevyi.hpp
 
 Кожна деталь тут затуляє пастку. `steady_clock` — **монотонний** годинник: він міряє лише плин часу й не стрибне назад, навіть якщо системний «настінний» час підкрутить синхронізація прямо посеред виміру (а вона це робить, і тоді звичайний годинник може дати від'ємний інтервал). Кільцевий буфер `buf_` має сталий розмір `cap_`: `head_` ходить по колу через `% cap_`, нові часи затирають найстаріші, пам'ять не росте. `snapshot()` навмисне **копіює** буфер у `tmp` і сортує копію — якби ми сортували `buf_` на місці, порядок «хто найстаріший» зламався б і затирання почало б викидати не ті елементи. `filled_` окремо від `cap_` потрібен, бо перші N кадрів буфер ще не повний, і рахувати перцентиль по нулях-заглушках не можна.
 
@@ -126,45 +58,7 @@ private:
 
 Тепер око на залізо. На бортовому Linux (як на типовому одноплатнику для зору) температура й частота лежать у sysfs — їх просто читають як файли. Зробимо тонкий помічник, що відкриває файл, читає число й мовчки повертає «немає даних», якщо лічильника на цій платі нема (різні плати — різні зони, і жорстко зашитий шлях ламається на іншому залізі).
 
-```cpp
-// hw_counters.h — читання температури/частоти з sysfs.
-// sysfs: стан заліза виглядає як файли — "прочитав файл = дізнався значення".
-#pragma once
-#include <cstdio>
-#include <optional>
-
-// Прочитати одне ціле з файлу sysfs. nullopt — файлу нема / не прочитався.
-inline std::optional<long> read_sysfs_long(const char* path) {
-    FILE* fp = std::fopen(path, "r");
-    if (!fp) return std::nullopt;          // лічильника нема на цій платі
-    long v = 0;
-    int got = std::fscanf(fp, "%ld", &v);
-    std::fclose(fp);
-    if (got != 1) return std::nullopt;
-    return v;
-}
-
-// Температура теплової зони, °C. У sysfs вона в ТИСЯЧНИХ градуса:
-// 38800 -> 38.8 °C. zone — номер thermal_zoneX.
-inline std::optional<double> read_temp_c(int zone) {
-    char path[96];
-    std::snprintf(path, sizeof(path),
-                  "/sys/devices/virtual/thermal/thermal_zone%d/temp", zone);
-    auto raw = read_sysfs_long(path);
-    if (!raw) return std::nullopt;
-    return *raw / 1000.0;                   // мілі-°C -> °C
-}
-
-// Поточна частота ядра cpu, МГц. У sysfs вона в кГц.
-inline std::optional<double> read_cpu_mhz(int cpu) {
-    char path[112];
-    std::snprintf(path, sizeof(path),
-        "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_cur_freq", cpu);
-    auto raw = read_sysfs_long(path);
-    if (!raw) return std::nullopt;
-    return *raw / 1000.0;                    // кГц -> МГц
-}
-```
+:::code proj-profiler/cpp/chytannia-teplovykh-i.hpp
 
 Дві деталі, на яких легко спіткнутися, — **одиниці** й **переносність**. Температура в sysfs віддається у **тисячних** градуса (`38800` = 38.8 °C), частота — у **кілогерцах** (`1190000` = 1190 МГц); забув поділити — і в логу красується «38800 °C». А `std::optional` тут не для краси: номери теплових зон і самі шляхи **різні на різних платах** (на одній цікава зона — нульова, на іншій — четверта, на третій файл зветься інакше), тож профайлер мусить спокійно пережити відсутній лічильник, а не падати. Який саме номер зони відповідає чіпу — дивляться раз, прочитавши сусідній файл `thermal_zoneX/type`, де лежить назва зони (`CPU-therm`, `GPU-therm` тощо).
 
@@ -174,127 +68,9 @@ inline std::optional<double> read_cpu_mhz(int cpu) {
 
 Тепер зведімо стадії, лічильники й лог в один об'єкт і покажемо головний цикл, що годує його **потоком різних кадрів** і пише CSV.
 
-```cpp
-// profiler.cpp — бортовий профайлер зору: стадії, перцентилі, залізо, CSV.
-#include "stage_timer.h"
-#include "hw_counters.h"
-#include <cstdio>
-#include <vector>
+:::code proj-profiler/cpp/profiler.cpp
 
-// Чотири стадії конвеєра зору — кожна зі своїм кільцевим буфером.
-struct VisionProfiler {
-    StageTimer capture, prep, model, parse, frame;  // frame = повний кадр
-    FILE* csv = nullptr;
-    int   temp_zone, cpu_id;
-
-    VisionProfiler(size_t win, int zone, int cpu, const char* csv_path)
-        : capture(win), prep(win), model(win), parse(win), frame(win),
-          temp_zone(zone), cpu_id(cpu) {
-        csv = std::fopen(csv_path, "w");
-        if (csv)  // заголовок: окремі стадії + повний кадр + залізо
-            std::fprintf(csv, "n,capture_ms,prep_ms,model_ms,parse_ms,"
-                              "frame_ms,temp_c,cpu_mhz\n");
-    }
-    ~VisionProfiler() { if (csv) std::fclose(csv); }
-
-    // Один кадр: міряємо кожну стадію, пишемо рядок CSV, повертаємо час кадру.
-    double run_frame(int n, Camera& cam, Preproc& pre, Model& net,
-                     Parser& post) {
-        frame.start();                       // повний кадр — наскрізь
-
-        capture.start();
-        Image img = cam.grab();              // взяти кадр із камери
-        capture.stop();
-
-        prep.start();
-        Tensor in = pre.process(img);        // масштаб, формат, нормування
-        prep.stop();
-
-        model.start();
-        Output out = net.infer(in);          // сама мережа
-        net.synchronize();                   // БАР'ЄР: дочекатися прискорювача!
-        model.stop();                        // інакше міряємо чергу, не роботу
-
-        parse.start();
-        post.decode(out);                    // розбір виходу мережі
-        parse.stop();
-
-        double ft = frame.stop();
-
-        // Залізо тієї ж миті: температура й частота поряд із часом кадру.
-        double tc = read_temp_c(temp_zone).value_or(-1.0);
-        double fr = read_cpu_mhz(cpu_id).value_or(-1.0);
-
-        if (csv)
-            std::fprintf(csv, "%d,%.2f,%.2f,%.2f,%.2f,%.2f,%.1f,%.0f\n",
-                         n,
-                         last_ms(capture),
-                         last_ms(prep), last_ms(model), last_ms(parse),
-                         ft, tc, fr);
-        return ft;
-    }
-
-    // Надрукувати зведення по стадіях (перцентилі за поточним вікном).
-    void report() const {
-        print_row("захоплення", capture.snapshot());
-        print_row("підготовка", prep.snapshot());
-        print_row("модель    ", model.snapshot());
-        print_row("розбір    ", parse.snapshot());
-        print_row("КАДР      ", frame.snapshot());
-    }
-
-private:
-    // Останній записаний час стадії (для рядка CSV беремо саме його, не перцентиль).
-    static double last_ms(const StageTimer&) ; // (реалізація — нижче в нотатці)
-
-    static void print_row(const char* name, const Stats& s) {
-        std::printf("%s  сер %.1f | p50 %.1f | p95 %.1f | p99 %.1f | "
-                    "max %.1f мс  (%.1f FPS за p99)\n",
-                    name, s.mean, s.p50, s.p95, s.p99, s.max,
-                    s.p99 > 0 ? 1000.0 / s.p99 : 0.0);
-    }
-};
-```
-
-```cpp
-// Головний цикл: ПРОГРІВ у смітник, тоді ВИМІР — потоком РІЗНИХ кадрів.
-int main() {
-    Camera   cam;
-    Preproc  pre;
-    Model    net("detector.bin");
-    Parser   post;
-
-    // Профайлер: вікно 512, теплова зона 0, ядро 0, лог у файл.
-    VisionProfiler prof(/*win=*/512, /*zone=*/0, /*cpu=*/0, "bench.csv");
-
-    // 1) ПРОГРІВ — кілька кадрів у смітник: розганяємо чіп, гріємо кеш коду.
-    for (int i = 0; i < 30; ++i) {
-        Image img = cam.grab();
-        Output out = net.infer(pre.process(img));
-        net.synchronize();
-        post.decode(out);
-    }
-
-    // 2) ДОВГИЙ вимір — десятки секунд, щоб упіймати троттлінг.
-    //    Кожна ітерація бере НОВИЙ кадр із камери: кеш не "вивчить" картинку.
-    const int N = 3000;                  // ~2 хвилини при 25 FPS
-    for (int n = 0; n < N; ++n) {
-        prof.run_frame(n, cam, pre, net, post);
-
-        // Раз на секунду — коротке зведення в консоль (видно троттлінг наживо).
-        if (n % 25 == 0) {
-            auto fs = prof.frame.snapshot();
-            double tc = read_temp_c(0).value_or(-1.0);
-            std::printf("[%4d]  кадр p99 %.1f мс  (%.1f FPS)  t=%.1f°C\n",
-                        n, fs.p99, fs.p99 > 0 ? 1000.0 / fs.p99 : 0.0, tc);
-        }
-    }
-
-    std::printf("\n=== ПІДСУМОК (перцентилі за останнє вікно) ===\n");
-    prof.report();
-    return 0;
-}
-```
+:::code proj-profiler/cpp/profailer-tsilkom-i.cpp
 
 Прочитаймо цей цикл як одну думку. Спершу **тридцять кадрів у смітник** — холодний старт (чіп ще не розігнався, кеш коду порожній, бібліотека доініціалізовується) не псує статистику, бо ці прогони ми просто викидаємо. Тоді **довгий** вимір — три тисячі кадрів, близько двох хвилин: саме стільки треба, щоб чіп нагрівся й показав, чи зрізає він частоту. Кожна ітерація бере **новий** кадр із камери (`cam.grab()`) — не один кадр по колу, а живий потік, тож кеш не «вивчить» картинку й часи лишаться чесними. Усередині `run_frame` кожну стадію обхоплює свій таймер, а навколо моделі стоїть `synchronize()` — той самий бар'єр, без якого таймер моделі зловив би лише чергу, а не обчислення. Поряд із часом кадру пишемо температуру й частоту тієї ж миті — і коли в логу p99 поповзе вгору, в сусідньому стовпці видно, що температура вперлась у ліміт. Раз на секунду коротке зведення в консоль показує троттлінг **наживо**, а наприкінці повний звіт по стадіях каже, **за яку** смикати.
 

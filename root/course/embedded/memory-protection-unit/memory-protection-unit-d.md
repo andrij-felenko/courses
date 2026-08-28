@@ -323,73 +323,9 @@ MPU визначає не лише права доступу, а й фізичн
 
 :::tabs
 @tab C (CMSIS Initialization)
-```c
-#include "cmsis_compiler.h"
-
-void mpu_system_init_cmsis(void) {
-    /* 1. Вимкнення MPU перед конфігурацією */
-    ARM_MPU_Disable();
-
-    /* 2. Регіон 0: Flash Код програми (0x08000000, 512 КБ, Unprivileged RO) */
-    ARM_MPU_SetRegion(
-        ARM_MPU_RBAR(0, 0x08000000),
-        ARM_MPU_RASR(0, ARM_MPU_AP_URO, 0, 0, 1, 1, 0x00, ARM_MPU_REGION_SIZE_512KB)
-    );
-
-    /* 3. Регіон 1: Пам'ять ядра RTOS (0x20000000, 16 КБ, Privileged RW) */
-    ARM_MPU_SetRegion(
-        ARM_MPU_RBAR(1, 0x20000000),
-        ARM_MPU_RASR(1, ARM_MPU_AP_PRIV, 0, 0, 1, 1, 0x00, ARM_MPU_REGION_SIZE_16KB)
-    );
-
-    /* 4. Регіон 2: Периферія MMIO (0x40000000, 512 МБ, Device Memory) */
-    ARM_MPU_SetRegion(
-        ARM_MPU_RBAR(2, 0x40000000),
-        ARM_MPU_RASR(1, ARM_MPU_AP_PRIV, 2, 0, 0, 0, 0x00, ARM_MPU_REGION_SIZE_512MB)
-    );
-
-    /* 5. Регіон 3: Захисна зона NULL-покажчика (0x00000000, 32 Б, No Access) */
-    ARM_MPU_SetRegion(
-        ARM_MPU_RBAR(3, 0x00000000),
-        ARM_MPU_RASR(1, ARM_MPU_AP_NONE, 0, 0, 0, 0, 0x00, ARM_MPU_REGION_SIZE_32B)
-    );
-
-    /* 6. Увімкнення винятку MemManage */
-    SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
-
-    /* 7. Активація MPU з фоновою картою для ядра */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
-}
-```
+:::code memory-protection-unit-d/c/initsializatsiia-ta.c
 @tab C++ (CMSIS Wrapper Class)
-```cpp
-#include "cmsis_compiler.h"
-#include <cstdint>
-
-class CmsisMpuController {
-public:
-    static void initialize() noexcept {
-        ARM_MPU_Disable();
-
-        configure_region(0, 0x08000000, ARM_MPU_AP_URO,  0, true,  ARM_MPU_REGION_SIZE_512KB);
-        configure_region(1, 0x20000000, ARM_MPU_AP_PRIV, 0, false, ARM_MPU_REGION_SIZE_16KB);
-        configure_region(2, 0x40000000, ARM_MPU_AP_PRIV, 2, false, ARM_MPU_REGION_SIZE_512MB);
-        configure_region(3, 0x00000000, ARM_MPU_AP_NONE, 0, false, ARM_MPU_REGION_SIZE_32B);
-
-        SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
-        ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
-    }
-
-private:
-    static void configure_region(uint32_t region_num, uint32_t base_addr, 
-                                 uint8_t ap, uint8_t tex, bool exec, uint8_t size_code) noexcept {
-        ARM_MPU_SetRegion(
-            ARM_MPU_RBAR(region_num, base_addr),
-            ARM_MPU_RASR(!exec, ap, tex, 0, 1, 1, 0x00, size_code)
-        );
-    }
-};
-```
+:::code memory-protection-unit-d/cpp/initsializatsiia-ta.hpp
 :::
 
 ---
@@ -509,36 +445,9 @@ inline void drop_privileges() noexcept {
 
 :::tabs
 @tab C (Buffer Validation)
-```c
-bool mpu_validate_buffer(const void *buffer, size_t length, bool write_access) {
-    uintptr_t start = (uintptr_t)buffer;
-    uintptr_t end   = start + length;
-    if (end < start || !buffer || length == 0) return false;
-
-    /* Перевірка чи лежить буфер у дозволеному стеку або приватній пам'яті задачі */
-    if (start >= task->stack_usable_base && end <= task->stack_limit) return true;
-    if (start >= task->private_data_base && end <= task->private_data_limit) return true;
-
-    return false; /* Спроба передати покажчик на чужу пам'ять! */
-}
-```
+:::code memory-protection-unit-d/c/2-zakhyst-vid-ataky.c
 @tab C++ (std::span Validation)
-```cpp
-#include <span>
-#include <cstdint>
-
-bool mpu_validate_buffer(std::span<const uint8_t> buffer, bool write_access) noexcept {
-    if (buffer.empty()) return false;
-    auto start = reinterpret_cast<uintptr_t>(buffer.data());
-    auto end   = start + buffer.size_bytes();
-    if (end < start) return false;
-
-    if (start >= task->stack_usable_base && end <= task->stack_limit) return true;
-    if (start >= task->private_data_base && end <= task->private_data_limit) return true;
-
-    return false;
-}
-```
+:::code memory-protection-unit-d/cpp/2-zakhyst-vid-ataky.hpp
 :::
 
 ---
@@ -549,62 +458,9 @@ bool mpu_validate_buffer(std::span<const uint8_t> buffer, bool write_access) noe
 
 :::tabs
 @tab C (SVC Gateway Handler)
-```c
-void SVC_Handler_C(uint32_t *svc_args) {
-    /* svc_args[6] містить PC повернення */
-    uint8_t svc_number = ((uint8_t *)svc_args[6])[-2];
-    uint32_t param0    = svc_args[0];
-    uint32_t param1    = svc_args[1];
-
-    switch (svc_number) {
-        case 0x01: /* SYS_YIELD */
-            SCB->ICSR |= SCB_ICSR_PENDSVSET_Msk;
-            svc_args[0] = 0;
-            break;
-        case 0x02: /* SYS_UART_WRITE (param0 = buf, param1 = len) */
-            if (mpu_validate_buffer((const void*)param0, (size_t)param1, false)) {
-                /* Буфер валідний, виконання передачі */
-                svc_args[0] = uart_transmit_blocking((const uint8_t*)param0, param1);
-            } else {
-                svc_args[0] = (uint32_t)-13; /* -EACCES */
-            }
-            break;
-        default:
-            svc_args[0] = (uint32_t)-38; /* -ENOSYS */
-            break;
-    }
-}
-```
+:::code memory-protection-unit-d/c/dyspetcheryzatsiia.c
 @tab C++ (Type-Safe Syscall Dispatcher)
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-enum class SyscallId : uint8_t {
-    Yield      = 0x01,
-    UartWrite  = 0x02,
-    TaskExit   = 0xFF
-};
-
-extern "C" void SVC_Handler_Cpp(uint32_t *svc_args) noexcept {
-    auto svc_id = static_cast<SyscallId>(((reinterpret_cast<const uint8_t*>(svc_args[6]))[-2]));
-
-    if (svc_id == SyscallId::Yield) {
-        SCB->ICSR |= SCB_ICSR_PENDSVSET_Msk;
-        svc_args[0] = 0;
-    } else if (svc_id == SyscallId::UartWrite) {
-        auto buf = reinterpret_cast<const uint8_t*>(svc_args[0]);
-        auto len = static_cast<std::size_t>(svc_args[1]);
-
-        if (mpu_validate_buffer(buf, len, false)) {
-            svc_args[0] = uart_transmit_blocking(buf, len);
-        } else {
-            svc_args[0] = static_cast<uint32_t>(-13); // -EACCES
-        }
-    }
-}
-```
+:::code memory-protection-unit-d/cpp/dyspetcheryzatsiia.cpp
 :::
 
 ---
@@ -717,34 +573,7 @@ SECTIONS
 }
 ```
 @tab C++ (Memory Map Symbols)
-```cpp
-#include <cstdint>
-#include <span>
-
-// Експорт меж секцій із скрипту компонувальника
-extern "C" {
-    extern const uint32_t _stext;
-    extern const uint32_t _etext;
-    extern const uint32_t _skernel_data;
-    extern const uint32_t _ekernel_data;
-    extern const uint32_t _stask_stacks;
-    extern const uint32_t _etask_stacks;
-}
-
-namespace MemoryLayout {
-    inline std::span<const uint8_t> flash_code_region() noexcept {
-        auto start = reinterpret_cast<const uint8_t*>(&_stext);
-        auto end   = reinterpret_cast<const uint8_t*>(&_etext);
-        return {start, static_cast<std::size_t>(end - start)};
-    }
-
-    inline std::span<uint8_t> kernel_data_region() noexcept {
-        auto start = reinterpret_cast<uint8_t*>(const_cast<uint32_t*>(&_skernel_data));
-        auto end   = reinterpret_cast<uint8_t*>(const_cast<uint32_t*>(&_ekernel_data));
-        return {start, static_cast<std::size_t>(end - start)};
-    }
-}
-```
+:::code memory-protection-unit-d/cpp/skrypt-linkera-gnu-ld-dlia.hpp
 :::
 
 #### Проблема внутрішньої фрагментації та алгоритм жадібного пакування (Greedy Packing)

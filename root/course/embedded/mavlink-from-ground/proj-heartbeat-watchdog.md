@@ -65,54 +65,11 @@
 
 Почнімо з того, що сторож пам'ятає про **одне** джерело. Це рівно те, що ми виснували: хто це (`sys`, `comp`), коли востаннє озвався (`last_seen_ms`), у якому він стані присутності — і трохи корисного контексту з самого серцебиття, щоб оператор бачив не голий номер, а осмислену мітку.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Стан присутності одного джерела — це і є наша машина станів. */
-typedef enum {
-    PRES_NEW = 0,   /* слот порожній, джерела ще не бачили */
-    PRES_ALIVE,     /* удари приходять вчасно — мітка яскрава */
-    PRES_LOST       /* тиша довше за поріг — мітка згасла, тривога */
-} presence_t;
-
-/* Усе, що сторож тримає про одне (SYS, COMP). */
-typedef struct {
-    bool        used;          /* слот зайнятий */
-    uint8_t     sys;           /* system_id  джерела */
-    uint8_t     comp;          /* component_id джерела */
-    uint32_t    last_seen_ms;  /* час останнього HEARTBEAT від нього */
-    uint32_t    period_ms;     /* оцінений період між його ударами */
-    presence_t  state;         /* ALIVE / LOST */
-
-    /* корисний контекст із самого серцебиття — для мітки на мапі */
-    uint8_t     type;          /* MAV_TYPE: коптер / літак / ровер... */
-    uint8_t     autopilot;     /* MAV_AUTOPILOT: ArduPilot / PX4... */
-    uint8_t     base_mode;     /* службові прапорці (у т.ч. armed) */
-    uint32_t    custom_mode;   /* число режиму конкретної прошивки */
-} hb_source_t;
-```
+:::code proj-heartbeat-watchdog/c/karkas-struktura-na.c
 
 Тепер таблиця джерел. На настільній станції тут напрошується хеш-мапа, але у прошивці ми пишемо чесно й передбачувано: **масив фіксованого розміру** без жодного динамічного виділення. Джерел на одному лінку одиниці — автопілот, гімбал, компаньйон, ще пара — тож невеликого масиву досить, а брак пам'яті на льоту нам не загрожує.
 
-```c
-#define HB_MAX_SOURCES   8   /* стільки різних (SYS,COMP) тримаємо водночас */
-
-typedef struct {
-    hb_source_t src[HB_MAX_SOURCES];
-    /* пороги — параметри, а не магічні числа в коді */
-    uint8_t  miss_to_lose;   /* скільки пропущених ударів = «втрачено» */
-    uint32_t default_period_ms; /* період, поки не оцінили реальний */
-} hb_watchdog_t;
-
-void hb_init(hb_watchdog_t *wd)
-{
-    for (int i = 0; i < HB_MAX_SOURCES; i++)
-        wd->src[i].used = false;
-    wd->miss_to_lose      = 4;      /* N = 4 пропущені удари */
-    wd->default_period_ms = 1000;   /* поки не виміряли — 1 Гц */
-}
-```
+:::code proj-heartbeat-watchdog/c/karkas-struktura-na-2.c
 
 Зверни увагу: `miss_to_lose` і `default_period_ms` — **поля**, а не `#define`. Це навмисно. Різні лінки вимагають різних порогів (радіомодем на 1 Гц — це не USB-кабель), і зручно мати можливість підкрутити їх без перекомпіляції — навіть окремо на кожен сторож, якщо станція водночас веде і повільний радіолінк, і швидкий локальний.
 
@@ -120,24 +77,7 @@ void hb_init(hb_watchdog_t *wd)
 
 Кожен серцебиттєвий удар треба зіставити з правильним слотом. Проста лінійна пробіжка масивом — знайти запис із таким `(sys, comp)`; не знайшли — узяти перший вільний. Восьми елементів лінійний пошук швидший за будь-яку хитрішу структуру, і код лишається прозорим.
 
-```c
-/* Знайти слот джерела (sys,comp) або зайняти вільний. NULL — таблиця повна. */
-static hb_source_t *hb_find_or_alloc(hb_watchdog_t *wd, uint8_t sys, uint8_t comp)
-{
-    hb_source_t *free_slot = NULL;
-
-    for (int i = 0; i < HB_MAX_SOURCES; i++) {
-        hb_source_t *s = &wd->src[i];
-        if (s->used) {
-            if (s->sys == sys && s->comp == comp)
-                return s;                 /* уже знаємо це джерело */
-        } else if (free_slot == NULL) {
-            free_slot = s;                /* запам'ятали перший вільний */
-        }
-    }
-    return free_slot;   /* нове джерело у вільний слот; NULL якщо всі зайняті */
-}
-```
+:::code proj-heartbeat-watchdog/c/poshuk-slotu-znaity-svoie.c
 
 Один нюанс, що легко проґавити: якщо таблиця заповнилась (`free_slot == NULL`), ми повертаємо `NULL`, і викликач мусить це чесно обробити, а не мовчки впасти. На реальному лінку восьми слотів вистачає з запасом, але код, який тихо ігнорує «більше нема місця», — це майбутня загадка «чому нове джерело іноді не з'являється». Ми повернемо це рішення викликачеві явно.
 
@@ -145,67 +85,7 @@ static hb_source_t *hb_find_or_alloc(hb_watchdog_t *wd, uint8_t sys, uint8_t com
 
 Ось серце сторожа — те, що виконується на **кожен** прийнятий HEARTBEAT. Логіка рівно та, що ми виснували: знайти слот, порахувати, скільки минуло від минулого удару **цього** джерела, освіжити його час і контекст — і, якщо джерело було мертвим, оголосити його **відновленим** тут же, за одним цим ударом.
 
-```c
-/* Події, які сторож повертає нагору — щоб інтерфейс/логіка відреагували. */
-typedef enum {
-    HB_EVT_NONE = 0,
-    HB_EVT_DISCOVERED,   /* побачили джерело вперше */
-    HB_EVT_RECOVERED,    /* мертве джерело знову озвалося */
-    HB_EVT_LOST          /* джерело замовкло довше за поріг */
-} hb_event_t;
-
-/* Мінімальний зріз розібраного HEARTBEAT, який нам віддає парсер. */
-typedef struct {
-    uint8_t  sys, comp;
-    uint8_t  type, autopilot, base_mode;
-    uint32_t custom_mode;
-} heartbeat_msg_t;
-
-/*
- * Викликати на КОЖЕН прийнятий HEARTBEAT.
- * now_ms — поточний монотонний час (мс). Повертає подію для верхнього рівня.
- */
-hb_event_t hb_on_heartbeat(hb_watchdog_t *wd,
-                           const heartbeat_msg_t *hb,
-                           uint32_t now_ms)
-{
-    hb_source_t *s = hb_find_or_alloc(wd, hb->sys, hb->comp);
-    if (s == NULL)
-        return HB_EVT_NONE;   /* таблиця повна — чесно нічого не робимо */
-
-    hb_event_t evt = HB_EVT_NONE;
-
-    if (!s->used) {
-        /* Перша зустріч: заводимо джерело живим одразу. */
-        s->used         = true;
-        s->sys          = hb->sys;
-        s->comp         = hb->comp;
-        s->period_ms    = wd->default_period_ms;  /* поки не виміряли */
-        s->state        = PRES_ALIVE;
-        evt = HB_EVT_DISCOVERED;
-    } else {
-        /* Оцінюємо реальний період як інтервал між ударами цього джерела. */
-        uint32_t dt = now_ms - s->last_seen_ms;   /* див. нижче про переповнення */
-        if (dt > 0 && dt < 60000u)                 /* відсікаємо божевільні викиди */
-            hb_update_period(s, dt);
-
-        if (s->state == PRES_LOST) {
-            /* Воскресіння: ОДНОГО удару досить — це і є наш гістерезис. */
-            s->state = PRES_ALIVE;
-            evt = HB_EVT_RECOVERED;
-        }
-    }
-
-    /* У будь-якому разі — освіжаємо час і контекст мітки. */
-    s->last_seen_ms = now_ms;
-    s->type         = hb->type;
-    s->autopilot    = hb->autopilot;
-    s->base_mode    = hb->base_mode;
-    s->custom_mode  = hb->custom_mode;
-
-    return evt;
-}
-```
+:::code proj-heartbeat-watchdog/c/pryiom-udaru-osvizhyty.c
 
 Три речі тут варті окремого слова.
 
@@ -213,21 +93,7 @@ hb_event_t hb_on_heartbeat(hb_watchdog_t *wd,
 
 **Друге — оцінка періоду.** Ми не віримо сліпо, що серцебиття рівно раз на секунду. Кожен інтервал між ударами `dt` уточнює наш `period_ms` — щоб поріг тиші рахувався від **справжнього** ритму цього джерела, а не від номіналу. Робимо це згладжено, а не «останнє значення», бо окремий `dt` буває сильно спотворений джитером:
 
-```c
-/* Плавне оновлення оцінки періоду — фільтр першого порядку (ковзне середнє). */
-static void hb_update_period(hb_source_t *s, uint32_t dt_ms)
-{
-    /* period += (dt − period) / 4  — ваговий коефіцієнт 1/4, ціла арифметика.
-       Новий інтервал зсуває оцінку на чверть шляху до себе: шум гладшає,
-       а справжня зміна ритму (0.5→1 Гц) все одно відстежується за кілька ударів. */
-    int32_t err = (int32_t)dt_ms - (int32_t)s->period_ms;
-    s->period_ms = (uint32_t)((int32_t)s->period_ms + err / 4);
-
-    /* тримаємо оцінку в осудних межах: 100 мс … 10 с */
-    if (s->period_ms < 100u)   s->period_ms = 100u;
-    if (s->period_ms > 10000u) s->period_ms = 10000u;
-}
-```
+:::code proj-heartbeat-watchdog/c/pryiom-udaru-osvizhyty-2.c
 
 Це рівно той самий приймач джитера, який дає нам змогу не сіпатися: фільтр першого порядку з ваговим коефіцієнтом 1/4 «розмазує» тремтіння прибуття, тож поодинокий пізній чи ранній удар не смикає поріг. Порахуймо на пальцях: джерело йшло рівно на 1000 мс, і раптом один удар прийшов за 1400 мс.
 
@@ -249,31 +115,7 @@ period = 1000 + 400/4 = 1000 + 100 = 1100 мс
 
 Звідси — окрема функція, яку станція **сама** гукає періодично (скажімо, з того ж циклу, що малює екран, десь 5–10 разів на секунду). Вона проходить усі відомі джерела й перевіряє: чи не мовчить котресь довше за свій поріг? Поріг — рівно наш `N × T`, і `T` тут — **виміряний** період цього конкретного джерела, а не спільний номінал.
 
-```c
-/*
- * Викликати періодично (напр. кожні 100–200 мс) з циклу станції.
- * Проходить джерела й переводить у LOST ті, що мовчать довше за поріг.
- * Події (LOST) віддаємо через колбек, бо їх може бути кілька за один прохід.
- */
-typedef void (*hb_event_cb)(const hb_source_t *s, hb_event_t evt, void *user);
-
-void hb_tick(hb_watchdog_t *wd, uint32_t now_ms, hb_event_cb cb, void *user)
-{
-    for (int i = 0; i < HB_MAX_SOURCES; i++) {
-        hb_source_t *s = &wd->src[i];
-        if (!s->used || s->state != PRES_ALIVE)
-            continue;   /* цікавлять лише живі — мертвих уже полічили */
-
-        uint32_t silence   = now_ms - s->last_seen_ms;   /* скільки мовчить */
-        uint32_t threshold = (uint32_t)wd->miss_to_lose * s->period_ms;
-
-        if (silence > threshold) {
-            s->state = PRES_LOST;               /* мітку — гасити */
-            if (cb) cb(s, HB_EVT_LOST, user);   /* тривогу — нагору */
-        }
-    }
-}
-```
+:::code proj-heartbeat-watchdog/c/rozhortka-khto-zamovk.c
 
 Придивімося, чому поріг рахується **тут**, а не зберігається наперед. Період `s->period_ms` увесь час уточнюється в обробнику удару; тож на момент перевірки `threshold = miss_to_lose × period_ms` завжди відбиває **актуальний** ритм джерела. Джерело сповільнилось — поріг сам виріс; прискорилось — сам звузився. Нам не треба перераховувати пороги окремо: вони виводяться з живої оцінки в мить перевірки.
 
@@ -285,70 +127,11 @@ void hb_tick(hb_watchdog_t *wd, uint32_t now_ms, hb_event_cb cb, void *user)
 
 Останній місток — як усе це під'єднати до реального приймача. Станція приймає **всі** повідомлення MAVLink, а сторожа цікавить лише одне — HEARTBEAT (його ID = 0). Тож на вході в приймач ми виловлюємо серцебиття, а решту передаємо далі своїм маршрутом.
 
-```c
-/* Виклик із приймача на кожне розібране повідомлення MAVLink. */
-void station_on_message(hb_watchdog_t *wd,
-                        uint16_t msg_id,
-                        uint8_t  src_sys,
-                        uint8_t  src_comp,
-                        const void *payload,
-                        uint32_t now_ms)
-{
-    if (msg_id == MAVLINK_MSG_ID_HEARTBEAT) {   /* == 0 */
-        heartbeat_msg_t hb;
-        hb.sys       = src_sys;
-        hb.comp      = src_comp;
-        /* дістаємо потрібні поля з корисних даних (розбір — не наша тема) */
-        mavlink_heartbeat_decode(payload, &hb.type, &hb.autopilot,
-                                 &hb.base_mode, &hb.custom_mode);
-
-        hb_event_t evt = hb_on_heartbeat(wd, &hb, now_ms);
-        if (evt == HB_EVT_DISCOVERED)
-            ui_add_vehicle_marker(hb.sys, hb.comp, hb.type, hb.autopilot);
-        else if (evt == HB_EVT_RECOVERED)
-            ui_mark_vehicle_alive(hb.sys, hb.comp);   /* мітку — повернути */
-    }
-
-    /* інші повідомлення — телеметрія, ACK, місія — своїм маршрутом */
-    /* route_other_message(msg_id, src_sys, src_comp, payload); */
-}
-
-/* Колбек для hb_tick: реакція на смерть джерела. */
-static void on_presence_event(const hb_source_t *s, hb_event_t evt, void *user)
-{
-    (void)user;
-    if (evt == HB_EVT_LOST) {
-        ui_mark_vehicle_dead(s->sys, s->comp);   /* мітку — згасити */
-        alarm_raise(s->sys, s->comp);            /* сигнал тривоги */
-    }
-}
-```
+:::code proj-heartbeat-watchdog/c/obhortka-potoku-pryimaiemo.c
 
 А головний цикл станції зводить обидві половини разом:
 
-```c
-void station_loop(void)
-{
-    hb_watchdog_t wd;
-    hb_init(&wd);
-
-    for (;;) {
-        uint32_t now = millis();   /* монотонний час, мс */
-
-        /* 1) з'їдаємо всі готові вхідні пакети (кожен HEARTBEAT освіжає час) */
-        mavlink_message_t msg;
-        while (link_poll(&msg))
-            station_on_message(&wd, msg.msgid, msg.sysid, msg.compid,
-                               msg.payload, now);
-
-        /* 2) перевіряємо, хто замовк (це і ловить смерть — за часом, не за подією) */
-        hb_tick(&wd, now, on_presence_event, NULL);
-
-        /* 3) решта роботи станції: малюємо екран, шлемо команди... */
-        ui_render();
-    }
-}
-```
+:::code proj-heartbeat-watchdog/c/obhortka-potoku-pryimaiemo-2.c
 
 Ось і весь сторож у роботі: **вхідні удари** освіжають пер-джерельні годинники й воскрешають мовчунів, а **періодичний tick** ловить тих, чий годинник зупинився. Дві половини однієї машини станів, кожна відповідає за свій бік асиметрії смерті й життя.
 

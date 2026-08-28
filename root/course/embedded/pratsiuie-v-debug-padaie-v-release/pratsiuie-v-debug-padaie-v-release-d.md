@@ -63,34 +63,8 @@
 Розглянемо типовий фрагмент коду очікування готовності передавача UART або завершення вимірювання АЦП:
 
 :::tabs
-```c
-// Типова помилка: покажчик на не-volatile регістр або прапорець
-uint32_t *uart_status = (uint32_t *)0x40013800; // Адреса USART1->SR
-#define USART_SR_TXE (1 << 7)
-
-void uart_send_byte(uint8_t byte) {
-    // Очікуємо звільнення буфера передавача
-    while (!(*uart_status & USART_SR_TXE)) {
-        // Порожній цикл очікування
-    }
-    *(uint32_t *)0x40013804 = byte; // USART1->DR
-}
-```
-```cpp
-#include <cstdint>
-
-// Типова помилка у C++: спроба мапування сирого вказівника без volatile
-inline std::uint32_t* const uart_status = reinterpret_cast<std::uint32_t*>(0x40013800);
-inline std::uint32_t* const uart_data   = reinterpret_cast<std::uint32_t*>(0x40013804);
-constexpr std::uint32_t usart_sr_txe = (1U << 7);
-
-void uart_send_byte(std::uint8_t byte) {
-    while (!(*uart_status & usart_sr_txe)) {
-        // Очікування прапорця
-    }
-    *uart_data = byte;
-}
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/zabutyi-volatile.c
+:::code pratsiuie-v-debug-padaie-v-release-d/cpp/zabutyi-volatile.cpp
 :::
 
 У режимі `-O0` компілятор чесно транслює кожну ітерацію циклу `while`:
@@ -108,18 +82,7 @@ uart_send_byte:
 
 Але що бачить оптимізатор у режимі `-O2`? Оскільки вказівник оголошено як звичайний `uint32_t*`, компілятор звертається до правил абстрактної C-машини: всередині тіла циклу `while` немає жодного запису за адресою `0x40013800`. Отже, з погляду компілятора, значення за цією адресою змінитися **не може**. Компілятор застосовує оптимізацію винесення інваріантів за межі циклу (*Loop-Invariant Code Motion, LICM*):
 
-```asm
-; Збірка -O2 (ARM Thumb-2)
-uart_send_byte:
-    ldr     r1, =0x40013800   ; Адреса регістру стану
-    ldr     r2, [r1]          ; ЗЧИТУВАННЯ ВІДБУВАЄТЬСЯ ОДИН РАЗ ДО ЦИКЛУ!
-    tst     r2, #128          ; Перевіряємо біт TXE
-    bne     .L_ready          ; Якщо TXE був 1 — виходимо
-.L_infinite_hang:
-    b       .L_infinite_hang  ; Інакше — ВІЧНИЙ ЦИКЛ! Процесор ніколи більше не читає шину!
-.L_ready:
-    ; Запис байта...
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/asm/main.s
 
 Оптимізатор завантажив значення регістра `USART1->SR` у регістр ядра `r2` рівно один раз. Якщо в цей початковий момент буфер UART був зайнятий (`TXE == 0`), процесор переходить у нескінченний локальний перехід `b .L_infinite_hang`. Хоча залізо через дві мікросекунди звільнило буфер і виставило `TXE = 1` на фізичній шині, процесор цього ніколи не дізнається — він крутиться у власному регістрі.
 
@@ -129,43 +92,8 @@ uart_send_byte:
 Точно така ж картина виникає зі змінними-прапорцями, які змінюються всередині обробників переривань ([ISR](root:sf-devices/hardfault)):
 
 :::tabs
-```c
-// Небезпечно: компілятор не знає, що ISR викликається асинхронно
-static bool packet_received = false;
-
-void USART1_IRQHandler(void) {
-    if (USART1->SR & USART_SR_RXNE) {
-        packet_received = true;
-        // Читання даних...
-    }
-}
-
-void wait_for_data(void) {
-    // В -O2 перетворюється на вічний цикл, якщо прапорець був false на старті
-    while (!packet_received) {
-        __NOP();
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <atomic>
-
-// Ідіоматичний C++ для вбудованих систем: явні атомарні прапорці
-static std::atomic<bool> packet_received{false};
-
-extern "C" void USART1_IRQHandler() {
-    // Асинхронний запис прапорця з бар'єром звільнення
-    packet_received.store(true, std::memory_order_release);
-}
-
-void wait_for_data() {
-    // std::atomic гарантує фізичне читання без кешування в регістрі
-    while (!packet_received.load(std::memory_order_acquire)) {
-        asm volatile("nop");
-    }
-}
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/zabutyi-volatile-2.c
+:::code pratsiuie-v-debug-padaie-v-release-d/cpp/zabutyi-volatile-2.cpp
 :::
 
 Кваліфікатор `volatile` вказує компілятору: «доступ до цього об'єкта є спостережуваною побічною дією; заборонено видаляти читання чи записи, кешувати їх у регістрах або переставляти місцями відносно точок послідовності». Усі периферійні регістри в бібліотеках CMSIS визначені через макрос `__IO` (що розгортається у `volatile uint32_t`).
@@ -212,43 +140,8 @@ void wait_for_data() {
 3. Оптимізатор у `-O2` агресивно перевикористовує регістри та пакує змінні на стеку. Якщо змінну не було ініціалізовано, вона бере той залишковий бітовий масив, який лежав у регістрі чи на верхівці стека від попередньої функції.
 
 :::tabs
-```c
-// Катастрофічна помилка: неініціалізована структура стану
-typedef struct {
-    uint32_t timeout_ms;
-    bool enable_crc;
-    uint8_t retry_count;
-} SensorConfig;
-
-void init_sensor(void) {
-    SensorConfig cfg; // УВАГА: поля містять випадкове сміття!
-    cfg.timeout_ms = 100;
-    // Забули ініціалізувати enable_crc та retry_count!
-
-    // В Debug: enable_crc випадково дорівнює false (0x00)
-    // В Release: enable_crc дорівнює 0xA5 (true), retry_count = 240
-    // Сенсор намагається валідувати CRC, якого немає, і блокує шину
-    configure_hardware(&cfg);
-}
-```
-```cpp
-#include <cstdint>
-
-// Ідіоматичний C++: нульова ініціалізація за замовчуванням
-struct SensorConfig {
-    std::uint32_t timeout_ms{100};
-    bool enable_crc{false};
-    std::uint8_t retry_count{3};
-};
-
-void init_sensor() {
-    // Усі поля гарантовано ініціалізовані безпечними значеннями
-    SensorConfig cfg{};
-    cfg.timeout_ms = 100;
-
-    configure_hardware(&cfg);
-}
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/pastka-neinitsializovanoi.c
+:::code pratsiuie-v-debug-padaie-v-release-d/cpp/pastka-neinitsializovanoi.cpp
 :::
 
 ### Повторне використання стека (Stack Frame Aliasing)
@@ -256,48 +149,8 @@ void init_sensor() {
 В оптимізованому коді виникає ще тонший ефект: **перекриття кадрів стека**. Коли дві функції викликаються послідовно в одному блоці:
 
 :::tabs
-```c
-void process_telemetry(void) {
-    uint32_t raw_adc_data[16];
-    read_adc(raw_adc_data);
-    // Масив raw_adc_data заповнює 64 байти стека значеннями 0x0FFF...
-}
-
-void transmit_packet(void) {
-    uint32_t packet_flags; // Неініціалізована змінна
-    // Вона лягає на те саме місце стека, де щойно лежав raw_adc_data[0]!
-    // packet_flags автоматично стає рівним 0x00000FFF замість 0!
-    if (packet_flags & 0x01) {
-        send_error_beacon();
-    }
-}
-
-void task_loop(void) {
-    process_telemetry();
-    transmit_packet();
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-void process_telemetry() {
-    std::array<std::uint32_t, 16> raw_adc_data{};
-    // Заповнення масиву
-}
-
-void transmit_packet() {
-    std::uint32_t packet_flags = 0; // Обов'язкова ініціалізація
-    if (packet_flags & 0x01U) {
-        // Логіка обробки
-    }
-}
-
-void task_loop() {
-    process_telemetry();
-    transmit_packet();
-}
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/povtorne-vykorystannia.c
+:::code pratsiuie-v-debug-padaie-v-release-d/cpp/povtorne-vykorystannia.cpp
 :::
 
 У Debug кадр кожної функції мав додаткові збережені регістри та службові поля, тому адреси змінних зміщувалися. У Release обидві функції використовують абсолютно однакові зміщення стека, і друга функція читає «спадщину» першої.
@@ -307,24 +160,7 @@ void task_loop() {
 Ще одна класична проблема — створення затримок за допомогою порожніх циклів `for` або `while`.
 
 :::tabs
-```c
-// Наївна затримка: працює лише в -O0
-void delay_ms(uint32_t count) {
-    for (uint32_t i = 0; i < count * 1000; i++) {
-        // Порожнє тіло
-    }
-}
-
-void eeprom_write_page(uint16_t addr, uint8_t *data) {
-    i2c_start();
-    i2c_write(addr);
-    i2c_write_buffer(data, 32);
-    i2c_stop();
-
-    // EEPROM вимагає 5 мс на запис комірок у внутрішню матрицю
-    delay_ms(5); 
-}
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/znyknennia-tsykliv.c
 ```cpp
 #include <cstdint>
 
@@ -359,52 +195,8 @@ delay_ms:
 Для апаратних затримок необхідно використовувати апаратні таймери, лічильник циклів ядра або в крайньому разі інструкцію вбудованого асемблера з пам'яттєвим бар'єром:
 
 :::tabs
-```c
-#include "stm32f4xx.h"
-
-// Варіант 1: Апаратний лічильник DWT (Data Watchpoint and Trace)
-void dwt_delay_init(void) {
-    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-}
-
-void dwt_delay_us(uint32_t us) {
-    uint32_t start = DWT->CYCCNT;
-    uint32_t ticks = us * (SystemCoreClock / 1000000);
-    while ((DWT->CYCCNT - start) < ticks) {
-        // DWT->CYCCNT оголошений як volatile uint32_t, тому не кешується!
-    }
-}
-
-// Варіант 2: Запобігання видаленню циклу через асемблерний бар'єр
-void busy_delay_cycles(uint32_t count) {
-    while (count--) {
-        __asm__ volatile ("nop"); // Інструкція NOP з прапорцем volatile
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <chrono>
-
-// Ідіоматичний C++: типобезпечні інтервали часу на базі DWT
-class DwtClock {
-public:
-    static void init() noexcept {
-        // Увімкнення лічильника тактів Cortex-M
-        *reinterpret_cast<volatile std::uint32_t*>(0xE000EDFC) |= (1UL << 24); // DEMCR.TRCENA
-        *reinterpret_cast<volatile std::uint32_t*>(0xE0001000) |= (1UL << 0);  // DWT_CTRL.CYCCNTENA
-    }
-
-    static void delay_us(std::uint32_t microseconds, std::uint32_t cpu_freq_hz) noexcept {
-        const std::uint32_t start = *reinterpret_cast<volatile std::uint32_t*>(0xE0001004); // CYCCNT
-        const std::uint32_t ticks = microseconds * (cpu_freq_hz / 1'000'000U);
-        while ((*reinterpret_cast<volatile std::uint32_t*>(0xE0001004) - start) < ticks) {
-            // Апаратне очікування
-        }
-    }
-};
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/iak-orhanizuvaty-nadiini.c
+:::code pratsiuie-v-debug-padaie-v-release-d/cpp/iak-orhanizuvaty-nadiini.cpp
 :::
 
 ## Зміна таймінгів і маскування гонок (Race Conditions)
@@ -418,32 +210,8 @@ public:
 Розглянемо прийом пакета по DMA:
 
 :::tabs
-```c
-uint8_t rx_buffer[64];
-
-void start_sensor_read(void) {
-    dma_start_transfer(rx_buffer, 64);
-    
-    // Помилка: відсутнє очікування прапорця завершення DMA!
-    // У Debug: процесор виконує парсинг заголовка за 150 мкс.
-    // За цей час DMA вже встигає завантажити всі 64 байти.
-    parse_packet(rx_buffer); 
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-
-std::uint8_t rx_buffer[64];
-
-void start_sensor_read() {
-    dma_start_transfer(rx_buffer, sizeof(rx_buffer));
-    
-    // У Debug вбудовані перевірки й повільний код приховували проблему.
-    // У Release parse_packet запускається миттєво і читає старі байти.
-    parse_packet(std::span<const std::uint8_t, 64>{rx_buffer});
-}
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/zmina-taiminhiv-i.c
+:::code pratsiuie-v-debug-padaie-v-release-d/cpp/zmina-taiminhiv-i.cpp
 :::
 
 ![Гонка таймінгів між процесором та DMA](/root/course/embedded/pratsiuie-v-debug-padaie-v-release/img/dma-cpu-race.svg)
@@ -462,48 +230,8 @@ void start_sensor_read() {
 Коли компілятор вбудовує 5 функцій усередину головного циклу задачі `task_main()`, він об'єднує всі локальні змінні цих функцій в **один гігантський кадр стека**. Якщо кожна функція мала локальний буфер на 128 байтів, розмір кадру задачі зростає зі 150 до 700 байтів! У Release це миттєво пробиває виділений розмір стека задачі FreeRTOS (наприклад, `configMINIMAL_STACK_SIZE = 128 words = 512 bytes`), пошкоджуючи пам'ять сусідніх завдань або викликаючи `UsageFault`.
 
 :::tabs
-```c
-// Небезпечно при агресивному inlining:
-void process_step_a(void) {
-    uint8_t temp_buf[256];
-    // Обробка...
-}
-
-void process_step_b(void) {
-    uint8_t temp_buf[256];
-    // Обробка...
-}
-
-void vTaskWorker(void *pvParameters) {
-    while (1) {
-        // У Debug: стек потрібен лише на 256 байтів (почергово)
-        // У Release (-O3): компілятор вбудовує обидві функції, і кадр вимагає >512 байтів!
-        process_step_a();
-        process_step_b();
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-void process_step_a() {
-    std::array<std::uint8_t, 256> temp_buf{};
-    // Обробка...
-}
-
-void process_step_b() {
-    std::array<std::uint8_t, 256> temp_buf{};
-    // Обробка...
-}
-
-void worker_task() {
-    while (true) {
-        process_step_a();
-        process_step_b();
-    }
-}
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/neochikuvane-perepovnennia.c
+:::code pratsiuie-v-debug-padaie-v-release-d/cpp/neochikuvane-perepovnennia.cpp
 :::
 
 ## Порушення порядку доступу, бар'єри пам'яті та вирівнювання структур
@@ -517,20 +245,7 @@ void worker_task() {
 Класична аварія в обробнику переривань (ISR):
 
 :::tabs
-```c
-void EXTI0_IRQHandler(void) {
-    if (EXTI->PR & EXTI_PR_PR0) {
-        // Очищаємо прапорець переривання записом одиниці
-        EXTI->PR = EXTI_PR_PR0;
-
-        // Помилка: процесор виходить з ISR негайно!
-        // В -O2 інструкція BX LR виконується за 1 такт.
-        // Запис у EXTI->PR ще стоїть у Write Buffer шини APB.
-        // Контролер NVIC бачить, що лінія EXTI0 все ще активна,
-        // і НЕГАЙНО викликає EXTI0_IRQHandler знову (шторм переривань)!
-    }
-}
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/bufer-zapysu-shyny-ta.c
 ```cpp
 #include <cstdint>
 
@@ -559,36 +274,7 @@ extern "C" void EXTI0_IRQHandler() {
 У режимі `-O2` автоматично вмикається оптимізація `-fstrict-aliasing`. Згідно зі стандартом C99/C++11, компілятор припускає, що вказівники на різні базові типи не можуть посилатися на одну й ту саму область пам'яті.
 
 :::tabs
-```c
-// Порушення Strict Aliasing (Type Punning через вказівник)
-uint32_t swap_bytes_bad(uint32_t val) {
-    uint8_t buffer[4];
-    // Записуємо як uint32
-    *(uint32_t *)buffer = val;
-
-    // Читаємо як байти і міняємо місцями
-    uint8_t tmp = buffer[0];
-    buffer[0] = buffer[3];
-    buffer[3] = tmp;
-
-    // Компілятор у -O2 вважає, що запис у buffer[] не впливає на *(uint32_t*)buffer!
-    // Він повертає вихідне значення val, повністю викинувши перестановку байтів!
-    return *(uint32_t *)buffer;
-}
-
-// Правильний варіант: копіювання через memcpy
-#include <string.h>
-uint32_t swap_bytes_good(uint32_t val) {
-    uint8_t buffer[4];
-    memcpy(buffer, &val, 4);
-    uint8_t tmp = buffer[0];
-    buffer[0] = buffer[3];
-    buffer[3] = tmp;
-    uint32_t result;
-    memcpy(&result, buffer, 4);
-    return result; // Компілятор оптимізує memcpy у пряму інструкцію REV!
-}
-```
+:::code pratsiuie-v-debug-padaie-v-release-d/c/suvore-psevdonimuvannia.c
 ```cpp
 #include <cstdint>
 #include <bit>

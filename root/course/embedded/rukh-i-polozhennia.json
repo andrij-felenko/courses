@@ -57,8 +57,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "math": [
+            {
+              "file": "math-hinge-moment.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "pryvid-pid-zadachu",
@@ -68,12 +76,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-smart-bus-servos.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -122,7 +133,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -192,18 +204,42 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-feedforward-plus-feedback.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "calculus-for-pid",
           "title": "Похідна й інтеграл для PID",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "math": [
+            {
+              "file": "math-discretization.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pid-production.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "proportional-control",
@@ -213,7 +249,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-p-controller-firmware.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "integral-control",
@@ -223,7 +266,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-pi-fixed-point.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "math-analysis/anti-windup",
@@ -236,8 +286,16 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "math": [
+            {
+              "file": "math-derivative-filter.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "pi-controller-tuning",
@@ -246,8 +304,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "math": [
+            {
+              "file": "math-imc-pi.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "pid-tuning-cascade",
@@ -256,8 +322,16 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-anti-windup.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "loop-stability",
@@ -266,8 +340,16 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-discrete-margin.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "lead-lag-compensator",
@@ -276,7 +358,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -293,7 +376,8 @@
           "proj": [
             {
               "file": "proj-discrete-comp.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -304,7 +388,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -321,7 +406,8 @@
           "proj": [
             {
               "file": "proj-firmware-fra.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -337,7 +423,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -348,13 +435,16 @@
           "math": [
             {
               "file": "math-jitter-phase-loss.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-deterministic-loop.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -370,7 +460,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         }
       ]
@@ -423,7 +514,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "math": [
+            {
+              "file": "math-transmissibility.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "hw-sensing/imu-calibration",
@@ -443,12 +541,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "math": [
             {
               "file": "math-tait-bryan-kinematics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -479,8 +579,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-mahony-madgwick.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "hw-sensing/magnetometer",
@@ -502,12 +610,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-single-axis-gimbal.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         }
@@ -537,11 +648,19 @@
           "slug": "gnss-receiver-integration",
           "title": "GNSS-приймач у прошивці: NMEA і UBX",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-ubx-driver.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sys-dron/iakist-fiksu",
@@ -593,10 +712,12 @@
           "slug": "differential-drive-kinematics",
           "title": "Кінематика диференціального приводу",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -619,7 +740,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-strapdown-step.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "slam-navigation",
@@ -645,7 +773,8 @@
           "proj": [
             {
               "file": "proj-ekf-slam.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -656,8 +785,30 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "comp": [
+            {
+              "file": "comp-mems-baro-sensor.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "math": [
+            {
+              "file": "math-barometric-derivation.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-baro-vertical-fusion.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "imu-barometer",
@@ -666,8 +817,16 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "math": [
+            {
+              "file": "math-allan-variance.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "ph-mechanics/dynamic-pressure",
@@ -710,8 +869,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-scalar-kalman.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "com-signal/kalman-ekf",
@@ -736,8 +903,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-fault-detector.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-distributed/timestamps",
@@ -755,18 +930,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "math": [
             {
               "file": "math-innovation-whiteness.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-estimator-bench.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -796,10 +975,12 @@
           "slug": "output-mixing",
           "title": "Узгодження сигналів керування",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -864,7 +1045,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         }
       ]

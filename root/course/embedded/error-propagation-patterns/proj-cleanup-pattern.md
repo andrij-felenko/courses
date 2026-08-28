@@ -33,73 +33,7 @@
 
 Спершу — руками, без жодного макроса, щоб кожна шестерня була на видноті. Це справжній код під ESP-IDF: `esp_err_t` як тип помилки, реальні виклики відкриття порту, монтування, м'ютекса FreeRTOS.
 
-```c
-#include "esp_err.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include <stdlib.h>
-
-static const char *TAG = "logger";
-
-esp_err_t logger_open(logger_t *lg)
-{
-    // (1) ВСІ ресурси — оголосити й ОБНУЛИТИ. Це і робить cleanup безпечним:
-    //     незахоплене лишиться нульовим, і його звільнення стане пустишкою.
-    esp_err_t        ret  = ESP_OK;          // (2) локальний код для всіх гілок
-    spi_port_t      *port = NULL;
-    uint8_t         *buf  = NULL;
-    sd_file_t       *file = NULL;
-    SemaphoreHandle_t mtx = NULL;
-
-    // (3) Захоплення по черзі; кожен крок — сторож, що при невдачі стрибає вниз.
-
-    port = spi_port_open(SPI2_HOST);
-    if (port == NULL) {                       // порт зайнятий або не налаштований
-        ret = ESP_ERR_NOT_FOUND;
-        ESP_LOGE(TAG, "spi_port_open failed");
-        goto cleanup;                         // нічого ще не взято — cleanup пройде вхолосту
-    }
-
-    buf = malloc(SECTOR_SIZE);
-    if (buf == NULL) {                        // купа вичерпана
-        ret = ESP_ERR_NO_MEM;
-        ESP_LOGE(TAG, "malloc(%d) failed", SECTOR_SIZE);
-        goto cleanup;                         // звільнить лише port; buf і далі NULL
-    }
-
-    file = sd_fopen(port, "/log.bin");        // файл — ПОВЕРХ відкритого порту
-    if (file == NULL) {
-        ret = ESP_ERR_NOT_FOUND;
-        ESP_LOGE(TAG, "sd_fopen failed");
-        goto cleanup;                         // звільнить buf і port; file ще NULL
-    }
-
-    mtx = xSemaphoreCreateMutex();            // м'ютекс — боронить уже наявний файл
-    if (mtx == NULL) {                        // нема пам'яті під об'єкт м'ютекса
-        ret = ESP_ERR_NO_MEM;
-        ESP_LOGE(TAG, "xSemaphoreCreateMutex failed");
-        goto cleanup;                         // звільнить file, buf, port
-    }
-
-    // Дійшли сюди — усе захоплено. Віддаємо назовні й виходимо ЩАСЛИВО,
-    // але через ТУ САМУ мітку: ret лишився ESP_OK, тож звільнення не буде.
-    lg->port = port;
-    lg->buf  = buf;
-    lg->file = file;
-    lg->mtx  = mtx;
-    return ESP_OK;                            // власник переданий — НЕ чіпаємо cleanup
-
-cleanup:
-    // (4) Звільнення у ЗВОРОТНОМУ до захоплення порядку. Кожне безпечне для NULL,
-    //     тож хоч на якому кроці впали — пройдемо всі, звільнимо лише взяте.
-    if (mtx)  vSemaphoreDelete(mtx);          // останній узятий — перший звільнений
-    if (file) sd_fclose(file);                // файл — раніше за порт, на якому він сидить
-    free(buf);                                // free(NULL) безпечний — перевірка зайва
-    if (port) spi_port_close(port);           // порт — в останню чергу, основа всього
-    return ret;                               // (5) єдиний код помилки нагору
-}
-```
+:::code proj-cleanup-pattern/c/robochyi-kod-chotyry.c
 
 Зупинімося на тонкому місці, яке збиває з пантелику новачків: **щасливий шлях тут виходить через `return ESP_OK;` ДО мітки, а не через неї**. Це навмисно. Коли всі чотири ресурси захоплені й передані власникові (`lg`), ми **не хочемо** їх звільняти — навпаки, вони мусять жити далі, у структурі логера. Тому на повному успіху ми коротко повертаємо `ESP_OK`, обходячи `cleanup`. Мітка ж обслуговує **лише** провали (і той вироджений «успіх», коли функція нічого нікуди не передає). Це поширений варіант патерну: коли ресурси на успіху **переходять у власність** того, хто кликав, успішний вихід їх **не чіпає**.
 
@@ -123,47 +57,7 @@ cleanup:
 
 Ручний варіант показав усю механіку, але в ньому видно й набридливе повторення: на кожен крок — сторож, лог, запис у `ret`, стрибок. Чотири рядки рутини, де відрізняється лише виклик і підпис. Саме цю рутину ESP-IDF згортає у свої макроси з заголовка `esp_check.h`. Ось та сама функція, переписана ними:
 
-```c
-#include "esp_check.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include <stdlib.h>
-
-static const char *TAG = "logger";
-
-esp_err_t logger_open(logger_t *lg)
-{
-    esp_err_t        ret  = ESP_OK;          // макроси GOTO вимагають саме цього імені — ret
-    spi_port_t      *port = NULL;
-    uint8_t         *buf  = NULL;
-    sd_file_t       *file = NULL;
-    SemaphoreHandle_t mtx = NULL;
-
-    // ESP_GOTO_ON_FALSE(умова, код, мітка, тег, підпис):
-    //   умова хибна → лог + ret = код + goto мітка.
-    port = spi_port_open(SPI2_HOST);
-    ESP_GOTO_ON_FALSE(port, ESP_ERR_NOT_FOUND, cleanup, TAG, "spi_port_open");
-
-    buf = malloc(SECTOR_SIZE);
-    ESP_GOTO_ON_FALSE(buf, ESP_ERR_NO_MEM, cleanup, TAG, "malloc %d", SECTOR_SIZE);
-
-    file = sd_fopen(port, "/log.bin");
-    ESP_GOTO_ON_FALSE(file, ESP_ERR_NOT_FOUND, cleanup, TAG, "sd_fopen");
-
-    mtx = xSemaphoreCreateMutex();
-    ESP_GOTO_ON_FALSE(mtx, ESP_ERR_NO_MEM, cleanup, TAG, "create mutex");
-
-    lg->port = port; lg->buf = buf; lg->file = file; lg->mtx = mtx;
-    return ESP_OK;                            // успіх передає власність — повз cleanup
-
-cleanup:
-    if (mtx)  vSemaphoreDelete(mtx);
-    if (file) sd_fclose(file);
-    free(buf);
-    if (port) spi_port_close(port);
-    return ret;
-}
-```
+:::code proj-cleanup-pattern/c/robochyi-kod-te-same.c
 
 Тіло функції стало вдвічі коротшим, а наміри — прозорішими: кожен рядок читається як «захопи це; як не вийшло — на вихід із цим кодом». Але макрос — це не магія, і поки ти не знаєш, **у що** він розгортається, він небезпечний: помилка в одній із його прихованих вимог дасть невиразну ваду компіляції або, гірше, тиху ваду виконання. Тож розгорнімо його буквально.
 
@@ -233,18 +127,7 @@ do {
 
 Тому ESP-IDF дублює всю родину **ISR-варіантами з суфіксом `_ISR`**: `ESP_RETURN_ON_ERROR_ISR`, `ESP_RETURN_ON_FALSE_ISR`, `ESP_GOTO_ON_ERROR_ISR`, `ESP_GOTO_ON_FALSE_ISR` (а ще `ESP_RETURN_VOID_ON_ERROR_ISR` і `ESP_RETURN_VOID_ON_FALSE_ISR` — для ISR, що повертають `void`). Розгортаються вони так само, з однією-єдиною заміною: замість `ESP_LOGE` — **`ESP_EARLY_LOGE`**:
 
-```c
-// ESP_GOTO_ON_ERROR_ISR — те саме тіло, але «ранній» лог, безпечний в ISR:
-do {
-    esp_err_t err_rc_ = (x);
-    if (unlikely(err_rc_ != ESP_OK)) {
-        ESP_EARLY_LOGE(log_tag, "%s(%d): " format,   // ← EARLY, не звичайний LOGE
-                       __FUNCTION__, __LINE__, ##__VA_ARGS__);
-        ret = err_rc_;
-        goto goto_tag;
-    }
-} while (0)
-```
+:::code proj-cleanup-pattern/c/isr-versii-chomu-v.c
 
 `ESP_EARLY_LOGE` — це «ранній» логер: він пише напряму, синхронно, без черг і блокувань, минаючи звичайний механізм (його, до речі, використовують і на ранньому старті, **до** того, як підніметься повноцінне логування, — звідси й назва «early»). У звичайному коді його не беруть, бо він блокує, поки виштовхує символи; але в ISR саме ця прямота й рятує — він нічого не чекає. Правило просте й залізне: **код у перериванні → `_ISR`-варіант; код поза перериванням → звичайний.** Переплутаєш — дістанеш або тихо зіпсований лог, або заблоковане переривання.
 

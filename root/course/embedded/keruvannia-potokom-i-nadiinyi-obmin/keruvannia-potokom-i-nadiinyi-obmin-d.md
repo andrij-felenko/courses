@@ -226,90 +226,9 @@ BDP = Bandwidth (біт/с) × RTT (секунд)
 
 :::tabs
 @tab c
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint32_t rate_bytes_per_sec; // Середня дозволена швидкість
-    uint32_t capacity_tokens;    // Максимальний сплеск
-    uint32_t current_tokens;     // Поточний залишок токенів
-    uint32_t last_update_ms;     // Час останнього оновлення за системним таймером
-} TokenBucket;
-
-void token_bucket_init(TokenBucket *tb, uint32_t rate, uint32_t capacity, uint32_t now_ms) {
-    tb->rate_bytes_per_sec = rate;
-    tb->capacity_tokens = capacity;
-    tb->current_tokens = capacity;
-    tb->last_update_ms = now_ms;
-}
-
-// Оновлення кількості токенів на основі дельти часу
-static void token_bucket_update(TokenBucket *tb, uint32_t now_ms) {
-    uint32_t delta_ms = now_ms - tb->last_update_ms;
-    if (delta_ms > 0) {
-        // Додаємо токени: (delta_ms * rate) / 1000
-        uint32_t new_tokens = (uint32_t)(((uint64_t)delta_ms * tb->rate_bytes_per_sec) / 1000ULL);
-        if (new_tokens > 0) {
-            uint32_t updated = tb->current_tokens + new_tokens;
-            tb->current_tokens = (updated > tb->capacity_tokens) ? tb->capacity_tokens : updated;
-            tb->last_update_ms = now_ms;
-        }
-    }
-}
-
-// Перевірка можливості відправки пакета розміром size_bytes
-bool token_bucket_consume(TokenBucket *tb, uint32_t size_bytes, uint32_t now_ms) {
-    token_bucket_update(tb, now_ms);
-    if (tb->current_tokens >= size_bytes) {
-        tb->current_tokens -= size_bytes;
-        return true; // Дозвіл на відправку
-    }
-    return false; // Заборона: перевищено ліміт темпу
-}
-```
+:::code keruvannia-potokom-i-nadiinyi-obmin-d/c/main.c
 @tab cpp
-```cpp
-#include <cstdint>
-#include <algorithm>
-
-class TokenBucketLimiter {
-public:
-    constexpr TokenBucketLimiter(uint32_t rate_bytes_per_sec, uint32_t capacity, uint32_t now_ms) noexcept
-        : rate_{rate_bytes_per_sec}, capacity_{capacity}, tokens_{capacity}, last_update_ms_{now_ms} {}
-
-    [[nodiscard]] bool try_consume(uint32_t size_bytes, uint32_t now_ms) noexcept {
-        update(now_ms);
-        if (tokens_ >= size_bytes) {
-            tokens_ -= size_bytes;
-            return true;
-        }
-        return false;
-    }
-
-    [[nodiscard]] uint32_t available_tokens(uint32_t now_ms) noexcept {
-        update(now_ms);
-        return tokens_;
-    }
-
-private:
-    void update(uint32_t now_ms) noexcept {
-        const uint32_t delta_ms = now_ms - last_update_ms_;
-        if (delta_ms > 0) {
-            const auto new_tokens = static_cast<uint32_t>((static_cast<uint64_t>(delta_ms) * rate_) / 1000ULL);
-            if (new_tokens > 0) {
-                tokens_ = std::min(capacity_, tokens_ + new_tokens);
-                last_update_ms_ = now_ms;
-            }
-        }
-    }
-
-    uint32_t rate_{0};
-    uint32_t capacity_{0};
-    uint32_t tokens_{0};
-    uint32_t last_update_ms_{0};
-};
-```
+:::code keruvannia-potokom-i-nadiinyi-obmin-d/cpp/main.cpp
 :::
 
 ## Порівняльний інженерний аналіз підходів

@@ -9,66 +9,8 @@
 Конфігураційні параметри відокремлені від динамічного стану регулятора. Це дозволяє зберігати конфігурацію у Flash/ROM або перезавантажувати її з енергонезалежної пам'яті (EEPROM/FRAM), використовуючи одну спільну структуру для кількох екземплярів осей польотного контролера.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// Конфігураційні коефіцієнти контуру
-typedef struct {
-    float kp;             // Пропорційний коефіцієнт [1/од]
-    float ki;             // Інтегральний коефіцієнт [1/(од·с)]
-    float kd;             // Диференційний коефіцієнт демпфування [с/од]
-    float kff;            // Коефіцієнт прямого модельного зв'язку (Feedforward)
-    float out_min;        // Нижня фізична межа виходу приводу (наприклад, -1.0 або 0.0)
-    float out_max;        // Верхня фізична межа виходу приводу (наприклад, +1.0 або 100.0)
-    float i_min;          // Нижня межа інтегратора для анти-віндапу
-    float i_max;          // Верхня межа інтегратора для анти-віндапу
-    float slew_rate_max;  // Максимальна швидкість зміни уставки [од/с], 0 = миттєво
-} pid_config_t;
-
-// Внутрішній динамічний стан регулятора
-typedef struct {
-    pid_config_t cfg;
-    float integral;          // Накопичений інтеграл
-    float prev_measurement;  // Попереднє значення виміру для D-складової
-    float target_setpoint;   // Цільова уставка від зовнішнього планувальника місії
-    float current_setpoint;  // Поточна згладжена уставка після Slew Limiter
-    float last_output;       // Останній сформований сигнал керування
-    bool  is_initialized;    // Прапорець готовності регулятора до роботи
-} bumpless_pid_t;
-```
-```cpp
-#include <cstdint>
-#include <algorithm>
-
-namespace control {
-
-struct PidConfig {
-    float kp{0.0f};
-    float ki{0.0f};
-    float kd{0.0f};
-    float kff{0.0f};
-    float out_min{-1.0f};
-    float out_max{1.0f};
-    float i_min{-1.0f};
-    float i_max{1.0f};
-    float slew_rate_max{0.0f}; // [од/с]
-};
-
-struct PidTelemetry {
-    float setpoint{0.0f};
-    float measurement{0.0f};
-    float error{0.0f};
-    float p_term{0.0f};
-    float i_term{0.0f};
-    float d_term{0.0f};
-    float ff_term{0.0f};
-    float output{0.0f};
-    bool  is_saturated{false};
-};
-
-} // namespace control
-```
+:::code api-bumpless-pid/c/main.c
+:::code api-bumpless-pid/cpp/main.cpp
 :::
 
 ## Детальний опис полів структур

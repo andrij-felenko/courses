@@ -72,63 +72,9 @@
 **Опитування: лічимо фронти в циклі. Імпульс триває 50 мкс, а цикл обертається раз на ~5 мс.**
 
 :::tabs
-```arduino
-int prev = LOW;
-volatile unsigned long turns = 0;
-
-void loop() {
-  int now = digitalRead(SENSOR_PIN);   // питаємо ніжку самі
-  if (prev == LOW && now == HIGH)      // зловили висхідний фронт?
-    turns++;
-  prev = now;
-  // ... решта роботи циклу: екран, мережа, обрахунки ...
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define SENSOR_PIN GPIO_NUM_4
-
-volatile uint32_t turns = 0;
-
-void app_main(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << SENSOR_PIN,
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_ENABLE,
-    };
-    gpio_config(&cfg);
-
-    int prev = 0;
-    while (1) {
-        int now = gpio_get_level(SENSOR_PIN);  // питаємо ніжку самі
-        if (!prev && now)                      // зловили висхідний фронт?
-            turns++;
-        prev = now;
-        vTaskDelay(pdMS_TO_TICKS(5));          // ... решта роботи циклу ...
-    }
-}
-```
-```stm32
-/* ніжка вже налаштована як вхід: SENSOR_GPIO_Port / SENSOR_Pin */
-volatile uint32_t turns = 0;
-
-int main(void) {
-    HAL_Init();
-    MX_GPIO_Init();
-
-    GPIO_PinState prev = GPIO_PIN_RESET;
-    while (1) {
-        GPIO_PinState now = HAL_GPIO_ReadPin(SENSOR_GPIO_Port, SENSOR_Pin);
-        if (prev == GPIO_PIN_RESET && now == GPIO_PIN_SET)  // висхідний фронт?
-            turns++;
-        prev = now;
-        HAL_Delay(5);   // ... решта роботи циклу: екран, мережа, обрахунки ...
-    }
-}
-```
+:::code polling-vs-interrupts/c/arduino/hibryd-naikrashche-z-dvokh.ino
+:::code polling-vs-interrupts/c/esp-idf/hibryd-naikrashche-z-dvokh.c
+:::code polling-vs-interrupts/c/stm32/hibryd-naikrashche-z-dvokh.c
 :::
 
 Поки цикл зайнятий рештою роботи, ніжку ніхто не читає. Імпульс на 50 мкс спалахує й гасне **всередині** 5-мілісекундної паузи між перевірками — код повертається до читання ніжки, а лінія вже знову в нулі. Фронт **пропав**, `turns` бреше. Опитування ловить лише ті імпульси, що випадково дожили до миті перевірки.
@@ -136,65 +82,9 @@ int main(void) {
 **Переривання: те саме рахуємо апаратно. ISR ставить позначку на кожному фронті, незалежно від зайнятості циклу.**
 
 :::tabs
-```arduino
-volatile unsigned long turns = 0;      // спільне з ISR → volatile
-
-void countPulse() {                    // ISR: коротка, лише ++
-  turns++;
-}
-
-void setup() {
-  pinMode(SENSOR_PIN, INPUT);
-  attachInterrupt(digitalPinToInterrupt(SENSOR_PIN), countPulse, RISING);
-}
-
-void loop() {
-  // ... вільний для решти роботи; залізо рахує саме ...
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-
-#define SENSOR_PIN GPIO_NUM_4
-
-volatile uint32_t turns = 0;           // спільне з ISR → volatile
-
-static void IRAM_ATTR count_pulse(void *arg) {   // ISR: коротка, лише ++
-    turns++;
-}
-
-void app_main(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << SENSOR_PIN,
-        .mode = GPIO_MODE_INPUT,
-        .intr_type = GPIO_INTR_POSEDGE,          // висхідний фронт
-    };
-    gpio_config(&cfg);
-
-    gpio_install_isr_service(0);
-    gpio_isr_handler_add(SENSOR_PIN, count_pulse, NULL);
-    // ... задача вільна для решти роботи; залізо рахує саме ...
-}
-```
-```stm32
-volatile uint32_t turns = 0;           // спільне з ISR → volatile
-
-/* ніжка налаштована як GPIO_MODE_IT_RISING, її лінія EXTI ввімкнена в NVIC;
-   HAL сам кличе цей callback із обробника переривання */
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {      // ISR: коротка, лише ++
-    if (pin == SENSOR_Pin)
-        turns++;
-}
-
-int main(void) {
-    HAL_Init();
-    MX_GPIO_Init();
-
-    while (1) {
-        // ... вільний для решти роботи; залізо рахує саме ...
-    }
-}
-```
+:::code polling-vs-interrupts/c/arduino/hibryd-naikrashche-z-dvokh-2.ino
+:::code polling-vs-interrupts/c/esp-idf/hibryd-naikrashche-z-dvokh-2.c
+:::code polling-vs-interrupts/c/stm32/hibryd-naikrashche-z-dvokh-2.c
 :::
 
 Тепер фронт ловить **залізо**: щойно на ніжці з'являється висхідний край, процесор кидає поточну справу, входить у `countPulse`, додає одиницю й повертається. На ATmega328P @ 16 МГц апаратна реакція — близько **4–5 тактів** (≈250–310 нс), плюс пролог компілятора (збереження регістрів) — тож від фронту до `turns++` минає під мікросекунду; на ядрах Cortex-M вхід у переривання детермінований, **12 тактів**. Проти 50 мкс імпульсу це миттєвість, і **жоден фронт не губиться** — байдуже, чим зайнятий `loop()`.

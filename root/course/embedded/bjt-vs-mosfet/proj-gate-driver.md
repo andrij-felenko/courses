@@ -132,45 +132,7 @@ f_sw = 500 кГц:  P_перем = 24·10⁻⁶ · 500 000  = 12 Вт      (кл
 
 Тепер прошивка. Спершу — простий випадок нашої задачі: **один low-side ключ, ШІМ 20 кГц**. На ESP32 для цього є периферія LEDC (light-emitting-diode control) — апаратний ШІМ, який після налаштування працює сам, без участі процесора.
 
-```cpp
-#include "driver/ledc.h"
-
-// --- параметри ключа ---
-static const int      GATE_PIN   = 25;         // нога → вхід драйвера затвора
-static const uint32_t PWM_FREQ   = 20000;      // 20 кГц: тихо для вуха, помірна комутація
-static const ledc_timer_bit_t PWM_RES = LEDC_TIMER_11_BIT;  // 2^11 = 2048 кроків
-static const uint32_t DUTY_MAX   = (1u << 11) - 1;          // 2047
-
-void gate_pwm_init(void) {
-    ledc_timer_config_t t = {
-        .speed_mode      = LEDC_LOW_SPEED_MODE,
-        .duty_resolution = PWM_RES,
-        .timer_num       = LEDC_TIMER_0,
-        .freq_hz         = PWM_FREQ,
-        .clk_cfg         = LEDC_AUTO_CLK,
-    };
-    ledc_timer_config(&t);
-
-    ledc_channel_config_t c = {
-        .gpio_num   = GATE_PIN,
-        .speed_mode = LEDC_LOW_SPEED_MODE,
-        .channel    = LEDC_CHANNEL_0,
-        .timer_sel  = LEDC_TIMER_0,
-        .duty       = 0,          // старт із закритого ключа — важливо!
-        .hpoint     = 0,
-    };
-    ledc_channel_config(&c);
-}
-
-// встановити шпаруватість 0..100 % (частку часу ключ відкритий)
-void gate_set_duty_percent(float pct) {
-    if (pct < 0)   pct = 0;
-    if (pct > 100) pct = 100;
-    uint32_t duty = (uint32_t)(pct / 100.0f * DUTY_MAX);
-    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty);
-    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
-}
-```
+:::code proj-gate-driver/cpp/krok-4-robochyi-kod.cpp
 
 Три речі тут — не косметика, а безпека силового ключа:
 
@@ -182,43 +144,7 @@ void gate_set_duty_percent(float pct) {
 
 На ESP32 для півмоста беруть периферію MCPWM (motor-control PWM) — у неї мертвий час вбудований апаратно:
 
-```cpp
-#include "driver/mcpwm.h"
-
-static const int HS_PIN = 26;   // верхній ключ (high-side)
-static const int LS_PIN = 27;   // нижній ключ (low-side)
-
-// мертвий час у тактах 100 нс: скільки паузи вставити між вимкненням
-// одного ключа й увімкненням іншого. Має ПЕРЕКРИВАТИ час перемикання!
-static const uint32_t DEADTIME_NS = 300;   // 300 нс = 3× наш t_sw (100 нс) — із запасом
-
-void halfbridge_init(void) {
-    mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0A, HS_PIN);
-    mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0B, LS_PIN);
-
-    mcpwm_config_t cfg = {
-        .frequency    = 20000,
-        .cmpr_a       = 0.0f,                    // старт: обидва закриті
-        .cmpr_b       = 0.0f,
-        .duty_mode    = MCPWM_DUTY_MODE_0,
-        .counter_mode = MCPWM_UP_COUNTER,
-    };
-    mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_0, &cfg);
-
-    // апаратний мертвий час: комплементарний режим, HS і LS ніколи не разом.
-    // аргументи — у тактах по 100 нс, тому DEADTIME_NS/100.
-    mcpwm_deadtime_enable(MCPWM_UNIT_0, MCPWM_TIMER_0,
-                          MCPWM_ACTIVE_HIGH_COMPLEMENT_MODE,
-                          DEADTIME_NS / 100, DEADTIME_NS / 100);
-}
-
-void halfbridge_set_duty(float pct) {
-    if (pct < 2)  pct = 2;      // не даємо ключам «злипатися» на краях
-    if (pct > 98) pct = 98;
-    mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, pct);
-    mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 100.0f - pct);
-}
-```
+:::code proj-gate-driver/cpp/krok-4-robochyi-kod-2.cpp
 
 Дві тонкощі, що відрізняють робочий код від навчального:
 

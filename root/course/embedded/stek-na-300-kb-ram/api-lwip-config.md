@@ -160,24 +160,7 @@
 ```
 
 @tab C++ (Діагностична обгортка)
-```cpp
-#include <cstdint>
-
-extern "C" {
-#include "lwip/opt.h"
-#include "lwip/stats.h"
-}
-
-namespace embedded::diag {
-
-inline void dumpMemoryStatistics() noexcept {
-#if LWIP_STATS
-    stats_display();
-#endif
-}
-
-} // namespace embedded::diag
-```
+:::code api-lwip-config/cpp/5-diahnostyka-vycherpannia.cpp
 
 :::
 
@@ -198,65 +181,10 @@ inline void dumpMemoryStatistics() noexcept {
 :::tabs
 
 @tab C (lwipopts.h)
-```c
-#ifndef LWIPOPTS_H
-#define LWIPOPTS_H
-
-#define NO_SYS                          1
-#define MEM_LIBC_MALLOC                 0
-#define MEM_ALIGNMENT                   4
-#define MEM_SIZE                        (8 * 1024)
-
-#define MEMP_NUM_PBUF                   8
-#define MEMP_NUM_TCP_PCB                2
-#define MEMP_NUM_TCP_PCB_LISTEN         1
-#define MEMP_NUM_TCP_SEG                12
-#define MEMP_NUM_UDP_PCB                2
-
-#define PBUF_POOL_SIZE                  8
-#define PBUF_POOL_BUFSIZE               512
-
-#define TCP_MSS                         536
-#define TCP_WND                         (2 * TCP_MSS)
-#define TCP_SND_BUF                     (2 * TCP_MSS)
-#define TCP_SND_QUEUELEN                4
-#define TCP_QUEUE_OOSEQ                 0
-
-#define LWIP_NETCONN                    0
-#define LWIP_SOCKET                     0
-#define LWIP_DHCP                       1
-#define LWIP_DNS                        1
-
-#endif /* LWIPOPTS_H */
-```
+:::code api-lwip-config/c/profil-1-mikrokontrolernyi.h
 
 @tab C++ (Опис параметрів профілю)
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-namespace embedded::config {
-
-struct MinimalProfile {
-    static constexpr bool kNoSys = true;
-    static constexpr size_t kMemAlignment = 4;
-    static constexpr size_t kMemSize = 8 * 1024;
-
-    static constexpr size_t kNumPbuf = 8;
-    static constexpr size_t kNumTcpPcb = 2;
-    static constexpr size_t kNumTcpListen = 1;
-    static constexpr size_t kNumTcpSeg = 12;
-
-    static constexpr size_t kPbufPoolSize = 8;
-    static constexpr size_t kPbufPoolBufSize = 512;
-
-    static constexpr uint16_t kTcpMss = 536;
-    static constexpr uint16_t kTcpWnd = 2 * kTcpMss;
-    static constexpr uint16_t kTcpSndBuf = 2 * kTcpMss;
-};
-
-} // namespace embedded::config
-```
+:::code api-lwip-config/cpp/profil-1-mikrokontrolernyi.cpp
 
 :::
 
@@ -266,74 +194,10 @@ struct MinimalProfile {
 :::tabs
 
 @tab C (lwipopts.h)
-```c
-#ifndef LWIPOPTS_H
-#define LWIPOPTS_H
-
-#define NO_SYS                          0
-#define MEM_LIBC_MALLOC                 0
-#define MEM_ALIGNMENT                   4
-#define MEM_SIZE                        (20 * 1024)
-
-#define MEMP_NUM_PBUF                   16
-#define MEMP_NUM_TCP_PCB                8
-#define MEMP_NUM_TCP_PCB_LISTEN         4
-#define MEMP_NUM_TCP_SEG                32
-#define MEMP_NUM_UDP_PCB                4
-#define MEMP_NUM_NETCONN                12
-#define MEMP_NUM_NETBUF                 16
-
-#define PBUF_POOL_SIZE                  16
-#define PBUF_POOL_BUFSIZE               512
-
-#define TCP_MSS                         1460
-#define TCP_WND                         (3 * TCP_MSS)
-#define TCP_SND_BUF                     (3 * TCP_MSS)
-#define TCP_SND_QUEUELEN                8
-#define TCP_QUEUE_OOSEQ                 1
-
-#define TCPIP_MBOX_SIZE                 16
-#define DEFAULT_RAW_RECVMBOX_SIZE       8
-#define DEFAULT_UDP_RECVMBOX_SIZE       8
-#define DEFAULT_TCP_RECVMBOX_SIZE       16
-#define DEFAULT_ACCEPTMBOX_SIZE         8
-
-#define LWIP_NETCONN                    1
-#define LWIP_SOCKET                     1
-#define SO_REUSE                        1
-#define TCP_LISTEN_BACKLOG              1
-
-#endif /* LWIPOPTS_H */
-```
+:::code api-lwip-config/c/profil-2-promyslovyi.h
 
 @tab C++ (Опис параметрів профілю)
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-namespace embedded::config {
-
-struct IndustrialRtosProfile {
-    static constexpr bool kNoSys = false;
-    static constexpr size_t kMemAlignment = 4;
-    static constexpr size_t kMemSize = 20 * 1024;
-
-    static constexpr size_t kNumPbuf = 16;
-    static constexpr size_t kNumTcpPcb = 8;
-    static constexpr size_t kNumTcpListen = 4;
-    static constexpr size_t kNumTcpSeg = 32;
-
-    static constexpr size_t kPbufPoolSize = 16;
-    static constexpr size_t kPbufPoolBufSize = 512;
-
-    static constexpr uint16_t kTcpMss = 1460;
-    static constexpr uint16_t kTcpWnd = 3 * kTcpMss;
-    static constexpr uint16_t kTcpSndBuf = 3 * kTcpMss;
-    static constexpr bool kEnableSockets = true;
-};
-
-} // namespace embedded::config
-```
+:::code api-lwip-config/cpp/profil-2-promyslovyi.cpp
 
 :::
 
@@ -343,76 +207,9 @@ struct IndustrialRtosProfile {
 :::tabs
 
 @tab C (lwipopts.h)
-```c
-#ifndef LWIPOPTS_H
-#define LWIPOPTS_H
-
-#define NO_SYS                          0
-#define MEM_LIBC_MALLOC                 0
-#define MEM_ALIGNMENT                   32      /* Вирівнювання за рядком D-Cache */
-#define MEM_SIZE                        (32 * 1024)
-
-#define MEMP_NUM_PBUF                   32
-#define MEMP_NUM_TCP_PCB                16
-#define MEMP_NUM_TCP_PCB_LISTEN         4
-#define MEMP_NUM_TCP_SEG                64
-#define MEMP_NUM_UDP_PCB                8
-#define MEMP_NUM_NETCONN                24
-#define MEMP_NUM_NETBUF                 32
-
-/* Повний розмір Ethernet кадру в одному pbuf для прямої роботи DMA */
-#define PBUF_POOL_SIZE                  24
-#define PBUF_POOL_BUFSIZE               1536
-
-#define TCP_MSS                         1460
-#define TCP_WND                         (6 * TCP_MSS)
-#define TCP_SND_BUF                     (6 * TCP_MSS)
-#define TCP_SND_QUEUELEN                16
-#define TCP_QUEUE_OOSEQ                 1
-
-#define TCPIP_MBOX_SIZE                 32
-#define DEFAULT_TCP_RECVMBOX_SIZE       32
-
-#define LWIP_NETCONN                    1
-#define LWIP_SOCKET                     1
-#define LWIP_CHECKSUM_CTRL_PER_NETIF    1       /* Апаратний розрахунок контрольних сум */
-#define CHECKSUM_GEN_IP                 0
-#define CHECKSUM_GEN_UDP                0
-#define CHECKSUM_GEN_TCP                0
-#define CHECKSUM_CHECK_IP               0
-#define CHECKSUM_CHECK_UDP              0
-#define CHECKSUM_CHECK_TCP              0
-
-#endif /* LWIPOPTS_H */
-```
+:::code api-lwip-config/c/profil-3-vysokoshvydkisnyi.h
 
 @tab C++ (Опис параметрів профілю)
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-namespace embedded::config {
-
-struct ZeroCopyHighSpeedProfile {
-    static constexpr bool kNoSys = false;
-    static constexpr size_t kMemAlignment = 32; /* D-Cache Line Size */
-    static constexpr size_t kMemSize = 32 * 1024;
-
-    static constexpr size_t kNumPbuf = 32;
-    static constexpr size_t kNumTcpPcb = 16;
-    static constexpr size_t kNumTcpListen = 4;
-    static constexpr size_t kNumTcpSeg = 64;
-
-    static constexpr size_t kPbufPoolSize = 24;
-    static constexpr size_t kPbufPoolBufSize = 1536; /* Single full Ethernet frame */
-
-    static constexpr uint16_t kTcpMss = 1460;
-    static constexpr uint16_t kTcpWnd = 6 * kTcpMss;
-    static constexpr uint16_t kTcpSndBuf = 6 * kTcpMss;
-    static constexpr bool kHardwareChecksumOffload = true;
-};
-
-} // namespace embedded::config
-```
+:::code api-lwip-config/cpp/profil-3-vysokoshvydkisnyi.cpp
 
 :::

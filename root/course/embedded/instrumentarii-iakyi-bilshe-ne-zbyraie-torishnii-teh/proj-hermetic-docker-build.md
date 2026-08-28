@@ -86,210 +86,28 @@ markupsafe==2.1.5 \
 
 Прапорець `ARFLAGS := Dcr` вмикає детермінований режим створення статичних бібліотек `ar`, записуючи нулі замість UID/GID розробника та фіксовану дату Jan 1 1970 у заголовок кожного архіву `.a`.
 
-```makefile
-# Визначення часу збірки через SOURCE_DATE_EPOCH або фіксований дефолт
-SOURCE_DATE_EPOCH ?= 1700000000
-
-CC      := arm-none-eabi-gcc
-OBJCOPY := arm-none-eabi-objcopy
-AR      := arm-none-eabi-ar
-
-# Нормалізація шляхів до файлів у DWARF та макросах
-SRCDIR  := $(CURDIR)
-CFLAGS  += -ffile-prefix-map=$(SRCDIR)=.
-CFLAGS  += -fmacro-prefix-map=$(SRCDIR)=.
-CFLAGS  += -fdebug-prefix-map=$(SRCDIR)=.
-CFLAGS  += -Wl,--build-id=none
-CFLAGS  += -DSOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
-CFLAGS  += -O2 -g -Wall -Wextra -Werror
-
-# Детермінований режим архівації бібліотек
-ARFLAGS := Dcr
-
-# Стабільне сортування списку об'єктних файлів
-SRCS    := $(sort $(wildcard src/*.c))
-OBJS    := $(SRCS:.c=.o)
-
-all: build/firmware.bin
-
-build/firmware.elf: $(OBJS) | build
-	$(CC) $(CFLAGS) -T linker.ld $(OBJS) -o $@
-
-build/firmware.bin: build/firmware.elf
-	$(OBJCOPY) -O binary $< $@
-
-build:
-	mkdir -p build
-
-clean:
-	rm -rf build src/*.o
-```
+:::code proj-hermetic-docker-build/make/Makefile
 
 ### 4. Вбудована перевірка метаданих збірки у прошивці
 
 Прошивка має містити секцію метаданих, що дозволяє runtime-коду повідомити, з яким саме хешем середовища та конфігурацією її було скомпільовано. Завдяки розміщенню у спеціальній секції пам'яті `.meta` діагностична утиліта або завантажувач перевіряють автентичність образу без необхідності розбирати повний ELF-файл.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-/* Структура детермінованих метаданих прошивки у фіксованій секції Flash */
-typedef struct {
-    uint32_t magic;
-    uint32_t build_timestamp;
-    char     git_commit[16];
-    char     toolchain_id[16];
-    uint32_t image_crc32;
-} __attribute__((packed)) firmware_meta_t;
-
-#define META_MAGIC 0x544F4F4C /* 'TOOL' */
-
-#ifndef SOURCE_DATE_EPOCH
-#define SOURCE_DATE_EPOCH 0U
-#endif
-
-/* Розміщення у спеціальній секції .meta для аудиту без розбору всього ELF */
-__attribute__((section(".meta"), used))
-const firmware_meta_t g_firmware_meta = {
-    .magic           = META_MAGIC,
-    .build_timestamp = (uint32_t)SOURCE_DATE_EPOCH,
-    .git_commit      = "a1b2c3d4e5f60718",
-    .toolchain_id    = "gcc-13.2.arm",
-    .image_crc32     = 0xDEADBEEFU
-};
-
-int verify_build_metadata(const firmware_meta_t *meta) {
-    if (meta == NULL || meta->magic != META_MAGIC) {
-        return -1;
-    }
-    /* Перевірка, що дата збірки є коректною міткою епохи */
-    if (meta->build_timestamp == 0U) {
-        return -2;
-    }
-    return 0;
-}
-```
-```cpp
-#include <cstdint>
-#include <string_view>
-#include <span>
-
-/* Безпечна C++ типізація детермінованих метаданих прошивки */
-struct alignas(4) FirmwareMeta {
-    uint32_t magic;
-    uint32_t build_timestamp;
-    char     git_commit[16];
-    char     toolchain_id[16];
-    uint32_t image_crc32;
-
-    static constexpr uint32_t ExpectedMagic = 0x544F4F4CU; /* 'TOOL' */
-
-    [[nodiscard]] constexpr bool isValid() const noexcept {
-        return (magic == ExpectedMagic) && (build_timestamp != 0U);
-    }
-
-    [[nodiscard]] constexpr std::string_view getGitCommit() const noexcept {
-        return std::string_view(git_commit, 16);
-    }
-};
-
-#ifndef SOURCE_DATE_EPOCH
-#define SOURCE_DATE_EPOCH 0U
-#endif
-
-[[gnu::section(".meta"), gnu::used]]
-constexpr FirmwareMeta g_firmware_meta{
-    .magic           = FirmwareMeta::ExpectedMagic,
-    .build_timestamp = static_cast<uint32_t>(SOURCE_DATE_EPOCH),
-    .git_commit      = {'a','1','b','2','c','3','d','4','e','5','f','6','0','7','1','8'},
-    .toolchain_id    = {'g','c','c','-','1','3','.','2','.','a','r','m', 0, 0, 0, 0},
-    .image_crc32     = 0xDEADBEEFU
-};
-
-static_assert(g_firmware_meta.isValid(), "Metadata structure must be valid at compile time");
-
-int verify_metadata(std::span<const uint8_t> meta_bytes) noexcept {
-    if (meta_bytes.size() < sizeof(FirmwareMeta)) {
-        return -1;
-    }
-    const auto* meta = reinterpret_cast<const FirmwareMeta*>(meta_bytes.data());
-    return meta->isValid() ? 0 : -2;
-}
-```
+:::code proj-hermetic-docker-build/c/main.c
+:::code proj-hermetic-docker-build/cpp/main.cpp
 :::
 
 ### 5. Скрипт запуску з повною ізоляцією: `build.sh`
 
 Скрипт отримує часову мітку з Git, монтує каталог проєкту як том, зіставляє UID/GID поточного користувача Linux і повністю блокує доступ до мережі під час компіляції. Параметр `--network none` гарантує, що жоден допоміжний скрипт або утиліта збірки не зможе непомітно завантажити оновлення з Інтернету.
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-IMAGE_TAG="embedded-builder:v1.4.2"
-WORKSPACE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Отримання часу останнього коміту в форматі UNIX Epoch
-if [ -d ".git" ]; then
-    SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)"
-else
-    SOURCE_DATE_EPOCH="1700000000"
-fi
-
-echo "=== Запуск герметичної збірки (SOURCE_DATE_EPOCH=${SOURCE_DATE_EPOCH}) ==="
-
-# Запуск збірки з вимкненою мережею та ізольованим середовищем
-docker run --rm \
-    --network none \
-    --user "$(id -u):$(id -g)" \
-    --env SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH}" \
-    --volume "${WORKSPACE_DIR}:/workspace" \
-    "${IMAGE_TAG}" \
-    "make clean && make -j$(nproc)"
-
-echo "=== Збірку завершено. Хеш релізу: ==="
-sha256sum build/firmware.bin
-```
+:::code proj-hermetic-docker-build/sh/5-skrypt-zapusku-z-povnoiu.sh
 
 ### 6. Автоматизована перевірка детермінізму: `verify.sh`
 
 Скрипт перевіряє, чи дві абсолютно незалежні збірки в різних тимчасових каталогах видають ідентичний бінарний хеш. Використання двох окремих каталогів у `/tmp` усуває вплив кешу файлової системи та залишкових об'єктних файлів, підтверджуючи повну незалежність результату.
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-DIR1="/tmp/build_test_1"
-DIR2="/tmp/build_test_2"
-
-rm -rf "${DIR1}" "${DIR2}"
-mkdir -p "${DIR1}" "${DIR2}"
-
-cp -r . "${DIR1}"
-cp -r . "${DIR2}"
-
-echo "Запуск збірки 1..."
-(cd "${DIR1}" && ./build.sh > /dev/null)
-HASH1=$(sha256sum "${DIR1}/build/firmware.bin" | awk '{print $1}')
-
-echo "Запуск збірки 2..."
-(cd "${DIR2}" && ./build.sh > /dev/null)
-HASH2=$(sha256sum "${DIR2}/build/firmware.bin" | awk '{print $1}')
-
-rm -rf "${DIR1}" "${DIR2}"
-
-if [ "${HASH1}" = "${HASH2}" ]; then
-    echo "УСПІХ: Збірки бінарно ідентичні!"
-    echo "SHA-256: ${HASH1}"
-    exit 0
-else
-    echo "ПОМИЛКА: Виявлено розбіжність бінарників!"
-    echo "Build 1: ${HASH1}"
-    echo "Build 2: ${HASH2}"
-    exit 1
-fi
-```
+:::code proj-hermetic-docker-build/sh/6-avtomatyzovana-perevirka.sh
 
 ### Діагностика розбіжностей бінарників
 

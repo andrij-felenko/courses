@@ -30,20 +30,7 @@ TFLite Micro кладе в арену не байтовий мотлох, а **�
 
 Перевірка — один порівняльний рядок, і це дослівно той запобіжник, що стоїть в офіційному прикладі TFLite Micro:
 
-```cpp
-#include "tensorflow/lite/micro/micro_interpreter.h"
-#include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
-#include "tensorflow/lite/micro/micro_log.h"        // MicroPrintf
-#include "tensorflow/lite/schema/schema_generated.h" // TFLITE_SCHEMA_VERSION
-#include "model_data.h"   // g_model[] — наш .tflite, вшитий у Flash
-
-const tflite::Model* model = tflite::GetModel(g_model);
-if (model->version() != TFLITE_SCHEMA_VERSION) {
-    MicroPrintf("Model schema %d != supported %d",
-                model->version(), TFLITE_SCHEMA_VERSION);
-    return false;                                   // ← стоп ТУТ, не далі
-}
-```
+:::code proj-tflm-invoke/cpp/zapobizhnyk-proty-chuzhoi.cpp
 
 `MicroPrintf` — це крихітний `printf` самої TFLite Micro: він не тягне за собою важкий стандартний `printf` із плаваючою комою, а пише коротке повідомлення в той налагоджувальний канал, який ти налаштував (UART, RTT, ITM). Тут він безцінний: замість німого `HardFault` ти бачиш у консолі рівно те, що сталося, — «модель версії 4, а підтримую 3», — і одразу знаєш, що оновити (конвертер моделі або бібліотеку).
 
@@ -83,50 +70,7 @@ resolver.AddSoftmax();
 
 Скелет це вже ловив. Додамо два штрихи: діагностику через `MicroPrintf` і — головне — **активну варту над запасом** арени:
 
-```cpp
-constexpr int kArenaSize = 24 * 1024;
-alignas(16) static uint8_t tensor_arena[kArenaSize];
-
-static tflite::MicroInterpreter* interp = nullptr;
-static TfLiteTensor* input  = nullptr;
-static TfLiteTensor* output = nullptr;
-
-bool model_init() {                                    // ← ОДИН РАЗ при старті
-    const tflite::Model* model = tflite::GetModel(g_model);
-    if (model->version() != TFLITE_SCHEMA_VERSION) {
-        MicroPrintf("schema %d != %d", model->version(), TFLITE_SCHEMA_VERSION);
-        return false;
-    }
-
-    static tflite::MicroMutableOpResolver<4> resolver;
-    resolver.AddConv2D();
-    resolver.AddDepthwiseConv2D();
-    resolver.AddFullyConnected();
-    resolver.AddSoftmax();
-
-    static tflite::MicroInterpreter static_interp(
-        model, resolver, tensor_arena, kArenaSize);
-    interp = &static_interp;
-
-    if (interp->AllocateTensors() != kTfLiteOk) {      // розкладка арени
-        MicroPrintf("AllocateTensors failed: arena %d B too small", kArenaSize);
-        return false;                                  // ← арени не вистачило
-    }
-
-    // ВАРТА: скільки арени модель з'їла НАСПРАВДІ.
-    size_t used = interp->arena_used_bytes();
-    MicroPrintf("arena: used %u of %d B (%u free)",
-                (unsigned)used, kArenaSize, (unsigned)(kArenaSize - used));
-    if (kArenaSize - used < kArenaSize / 10) {         // запасу < 10%
-        MicroPrintf("WARNING: arena margin under 10%% — raise kArenaSize");
-        // не валимо запуск, але голосно попереджаємо
-    }
-
-    input  = interp->input(0);
-    output = interp->output(0);
-    return true;
-}
-```
+:::code proj-tflm-invoke/cpp/allocatetensors-i-varta.cpp
 
 Метод `arena_used_bytes()` повертає, **скільки байтів арени модель зайняла насправді** після розкладки. Це — найцінніше число для підбору `kArenaSize`, і ось чому. Арену ти задаєш наосліп: замала валить запуск, зависока краде RAM. Природний хід — поставити свідомо велике число, дочекатися успіху, спитати `arena_used_bytes()` і **підрізати** `kArenaSize` до цього значення плюс невеликий запас. Так ти знаходиш мінімум, не вгадуючи.
 
@@ -152,20 +96,7 @@ for (int i = 0; i < n; i++)
 
 Розгорнімо це в робочу функцію годування. Хай давач — акселерометр, що дає прискорення у `g` (число з комою), а модель навчали на тих самих `g`:
 
-```cpp
-// Кладе ОДИН відлік давача у вхідний тензор, КВАНТУЮЧИ за параметрами моделі.
-static inline int8_t quantize_input(float real_value) {
-    const float scale = input->params.scale;          // ціна однієї поділки int8
-    const int   zp    = input->params.zero_point;     // код, що означає нуль
-
-    int32_t q = (int32_t)lroundf(real_value / scale) + zp;  // справжнє → int8
-
-    // ОБОВ'ЯЗКОВЕ обрізання в діапазон int8: інакше переповнення дасть сміття.
-    if (q < -128) q = -128;
-    if (q >  127) q =  127;
-    return (int8_t)q;
-}
-```
+:::code proj-tflm-invoke/cpp/kadr-davacha-vkhidnyi.cpp
 
 Два рядки тут несуть усю вагу. Перший — `real_value / scale + zp` — це і є квантування: фізичну величину ділимо на ціну поділки й зсуваємо нульовою точкою. Другий — обрізання (англ. *saturation*, «насичення») у діапазон int8. Без нього сильний відлік — гучний звук, різкий поштовх — дасть число за межами −128…127, і просте приведення `(int8_t)` його **обгорне по колу**: 130 стане −126. Модель замість «дуже багато» побачить «дуже мало навпаки» — і впевнено помилиться. Обрізання чесно каже «зашкалило» замість того, щоб брехати протилежним знаком.
 
@@ -191,48 +122,13 @@ static void feed_frame(const float* features_g, int n) {
 
 Усередині кожного Cortex-M (від M3 і вище) сидить налагоджувальний блок **DWT** (Data Watchpoint and Trace), а в ньому — 32-бітний лічильник `CYCCNT`, що збільшується на одиницю **на кожному такті ядра**. Це найточніший вимірювач часу, який у тебе є: він рахує саме такти, а не приблизні мікросекунди таймера. За замовчуванням він вимкнений, тож спершу його треба ввімкнути — раз на старті:
 
-```cpp
-#include "stm32f4xx.h"   // CMSIS: визначення CoreDebug, DWT, *_Msk
-
-// Вмикаємо лічильник тактів DWT->CYCCNT. Викликати ОДИН раз при старті.
-static void cycle_counter_init(void) {
-    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;   // дозволити трасування (біт 24)
-#ifdef DWT_LAR_KEY
-    DWT->LAR = 0xC5ACCE55;                             // M7: відімкнути замок DWT
-#endif
-    DWT->CYCCNT = 0;                                   // обнулити лічильник
-    DWT->CTRL  |= DWT_CTRL_CYCCNTENA_Msk;             // увімкнути (біт 0)
-}
-```
+:::code proj-tflm-invoke/cpp/zamir-latentnosti.cpp
 
 Рядок з `DWT->LAR = 0xC5ACCE55` — окрема історія: на Cortex-M7 блок DWT має програмний замок, і поки в регістр `LAR` не записати цей «магічний» ключ, запис у керівні регістри ігнорується. На M3/M4 замка немає, тому код під `#ifdef` — щоб та сама прошивка працювала на обох родинах. Адреси регістрів стандартизовані ARM (`DEMCR` — `0xE000EDFC`, `DWT_CTRL` — `0xE0001000`, `CYCCNT` — `0xE0001004`); імена `CoreDebug`, `DWT` і маски `_Msk` дає заголовок CMSIS твого чипа, тож із голими адресами возитися не треба.
 
 Вимірювання тепер тривіальне — зняти лічильник до й після та відняти:
 
-```cpp
-volatile uint32_t g_last_cycles = 0;   // такти останнього Invoke()
-
-// Один прохід моделі з заміром латентності в тактах ядра.
-// Повертає деквантований вихід, або −1 при збої.
-float model_run(const float* features_g, int n) {     // ← НА КОЖЕН КАДР
-    feed_frame(features_g, n);                         // кадр → int8-тензор
-
-    uint32_t t0 = DWT->CYCCNT;                         // ⏱ старт
-    TfLiteStatus s = interp->Invoke();                // один прохід графа
-    g_last_cycles = DWT->CYCCNT - t0;                 // ⏱ стоп (різниця в тактах)
-
-    if (s != kTfLiteOk) {                              // ПОВНА обробка помилки
-        MicroPrintf("Invoke failed: %d (op missing? bad input?)", s);
-        return -1.0f;
-    }
-
-    // Вихід — int8; повертаємо в звичне число ТИМ САМИМ містком (деквантування).
-    int8_t  raw   = output->data.int8[0];
-    float   scale = output->params.scale;
-    int     zp    = output->params.zero_point;
-    return scale * (raw - zp);                          // ймовірність 0…1
-}
-```
+:::code proj-tflm-invoke/cpp/zamir-latentnosti-2.cpp
 
 Краса віднімання `DWT->CYCCNT - t0` у тому, що воно **самовиправне щодо переповнення**. Лічильник 32-бітний, і на 80 МГц він обертається по колу приблизно щонадцять секунд (2³² / 80·10⁶ ≈ 54 с). Якщо `Invoke()` потрапив на момент обороту, `CYCCNT` стане меншим за `t0`, але різниця в беззнаковій арифметиці `uint32_t` усе одно дасть правильну кількість тактів — обгортання при відніманні якраз компенсує обгортання лічильника. Це працює, доки сам прохід коротший за період обороту, а він на порядки коротший.
 
@@ -253,32 +149,7 @@ uint32_t last_latency_us(void) {
 
 Зберімо харнес у звичну форму super-loop. Старт — раз; прохід — за кадром, коли давач дав нові дані:
 
-```cpp
-int main(void) {
-    hardware_init();                 // тактування, GPIO, давач
-    cycle_counter_init();            // увімкнути DWT->CYCCNT (раз)
-
-    if (!model_init()) {             // усі запобіжники старту всередині
-        MicroPrintf("model_init failed — inference disabled");
-        fault_blink();               // не вдаємо, що працюємо: чесно сигналимо
-    }
-
-    for (;;) {                       // super-loop
-        if (sensor_frame_ready()) {
-            float frame[kFeatureCount];
-            sensor_read_frame(frame, kFeatureCount);
-
-            float p = model_run(frame, kFeatureCount);
-            if (p >= 0.0f) {                       // −1 = збій проходу
-                MicroPrintf("p=%d/1000  %u us",
-                            (int)(p * 1000), last_latency_us());
-                if (p > 0.8f) on_detection();      // спрацювала умова
-            }
-        }
-        // ... решта super-loop: інша периферія, керування живленням ...
-    }
-}
-```
+:::code proj-tflm-invoke/cpp/kudy-tse-liahaie-v.cpp
 
 Зверни увагу на дрібницю, що відрізняє надійний код від наївного: якщо `model_init()` не вдався, ми **не вдаємо**, що інференс працює. Прошивка чесно сигналить помилку (миготінням, повідомленням) і не кличе `model_run()` над неготовим інтерпретатором. Краще видимий «я зламаний», ніж тихі випадкові числа з напіввстановленої моделі.
 

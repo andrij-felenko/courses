@@ -76,35 +76,8 @@ U = F · T(ISR) · 100%
 Спроба зачекати в обробнику переривання готовності іншого апаратного блоку через активне опитування (англ. *busy-wait*) — це бомба уповільненої дії:
 
 :::tabs
-```c
-/* ЖАХЛИВИЙ АНТИПАТЕРН: активне очікування всередині ISR */
-void USART1_IRQHandler(void) {
-    if (USART1->SR & USART_SR_RXNE) {
-        uint8_t data = USART1->DR;
-        
-        /* Заборонено! Очікування готовності передавача I2C або SPI */
-        while (!(I2C1->SR1 & I2C_SR1_TXE)) {
-            /* Якщо шина I2C зависла через шум на лінії SCL,
-               ми заблокуємо всі переривання назавжди! */
-        }
-        I2C1->DR = data;
-    }
-}
-```
-```cpp
-/* ЖАХЛИВИЙ АНТИПАТЕРН: активне очікування всередині ISR на C++ */
-extern "C" void USART1_IRQHandler() {
-    if ((USART1->SR & USART_SR_RXNE) != 0) {
-        const uint8_t data = static_cast<uint8_t>(USART1->DR);
-        
-        /* Заборонено! Блокуючий цикл очікування апаратури */
-        while ((I2C1->SR1 & I2C_SR1_TXE) == 0) {
-            // Безкінечний цикл у разі апаратного збою шини
-        }
-        I2C1->DR = data;
-    }
-}
-```
+:::code dystsyplina-obrobnyka-d/c/2-ochikuvannia-praportsiv.c
+:::code dystsyplina-obrobnyka-d/cpp/2-ochikuvannia-praportsiv.cpp
 :::
 
 Якщо на шині I2C або SPI виникне апаратний збій (наприклад, підключений датчик затисне лінію даних `SDA` до землі або відбудеться збій живлення зовнішньої мікросхеми), регістр статусу ніколи не встановить прапорець готовності. Звичайний код головного циклу міг би вийти за таймаутом, але перебування в ISR означає, що всі інші переривання відповідного рівня заблоковано. Система не зможе навіть відправити звіт про помилку.
@@ -217,80 +190,8 @@ STR R0, [counter]   ; Запис із регістра назад у пам'ят
 Найшвидшим і найбільш ефективним за пам'яттю механізмом передачі сигналу є пряме сповіщення завдання (англ. *Direct to Task Notifications*):
 
 :::tabs
-```c
-/* Контекст RTOS: Завдання нижньої половини (Bottom-Half) */
-static TaskHandle_t xUartTaskHandle = NULL;
-
-void vUartProcessingTask(void *pvParameters) {
-    uint8_t rx_byte;
-    
-    for (;;) {
-        /* Чекаємо на сповіщення від ISR у стані глибокого сну (Blocked).
-           Нульове споживання CPU під час очікування. */
-        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-
-        /* Вичитуємо всі накопичені байти з Lock-Free буфера */
-        while (ring_buffer_pop_main(&uart_ring_buf, &rx_byte)) {
-            process_protocol_byte(rx_byte); /* Важкий парсинг пакетів */
-        }
-    }
-}
-
-/* Контекст апаратного переривання: Верхня половина (Top-Half) */
-void USART1_IRQHandler(void) {
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-
-    if (USART1->SR & USART_SR_RXNE) {
-        uint8_t data = (uint8_t)(USART1->DR);
-        
-        /* 1. Зберігаємо байт у lock-free буфер */
-        ring_buffer_push_isr(&uart_ring_buf, data);
-
-        /* 2. Сповіщаємо завдання нижньої половини */
-        vTaskNotifyGiveFromISR(xUartTaskHandle, &xHigherPriorityTaskWoken);
-
-        /* 3. Якщо розблокований таск має вищий пріоритет,
-              викликаємо негайне перемикання контексту прямо на виході з ISR */
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-    }
-}
-```
-```cpp
-/* C++ обгортка для шаблону Top-Half / Bottom-Half під FreeRTOS */
-#include "FreeRTOS.h"
-#include "task.h"
-#include <optional>
-
-class UartHandler {
-public:
-    static void init(TaskHandle_t task_handle) noexcept {
-        processing_task_ = task_handle;
-    }
-
-    /* Верхня половина (викликається з extern "C" USART1_IRQHandler) */
-    static void handle_isr() noexcept {
-        BaseType_t higher_priority_task_woken = pdFALSE;
-
-        if ((USART1->SR & USART_SR_RXNE) != 0) {
-            const uint8_t byte = static_cast<uint8_t>(USART1->DR);
-            
-            // Запис у кільцевий буфер
-            ring_buffer_.push_from_isr(byte);
-
-            // Сповіщення нижньої половини
-            if (processing_task_ != nullptr) {
-                vTaskNotifyGiveFromISR(processing_task_, &higher_priority_task_woken);
-            }
-
-            portYIELD_FROM_ISR(higher_priority_task_woken);
-        }
-    }
-
-private:
-    static inline TaskHandle_t processing_task_{nullptr};
-    static inline SpscRingBuffer<uint8_t, 256> ring_buffer_{};
-};
-```
+:::code dystsyplina-obrobnyka-d/c/syhnalizatsiia-mizh.c
+:::code dystsyplina-obrobnyka-d/cpp/syhnalizatsiia-mizh.cpp
 :::
 
 Зверніть увагу на змінну `xHigherPriorityTaskWoken` та макрос `portYIELD_FROM_ISR()`. Якщо завдання `vUartProcessingTask` має вищий пріоритет, ніж поточне перерване завдання, макрос вказує планувальнику перемкнути контекст негайно після виходу з ISR, не чекаючи наступного системного кванту часу `SysTick`. Затримка між приходом байта і початком його розбору скорочується до лічених мікросекунд.
@@ -352,34 +253,8 @@ extern "C" void TIM2_IRQHandler() {
 2. **Використовувати фіктивне зчитування або бар'єр інструкцій**: зчитування регістра `(void)TIM2->SR` або інструкція `__DSB()` (Data Synchronization Barrier) змушують конвеєр процесора дочекатися завершення всіх операцій на шині пам'яті перед виходом.
 
 :::tabs
-```c
-/* НАДІЙНИЙ ВАРІАНТ: скидання на початку з бар'єром шини */
-void TIM2_IRQHandler(void) {
-    if (TIM2->SR & TIM_SR_UIF) {
-        /* 1. Скидаємо прапорець першим кроком */
-        TIM2->SR = ~TIM_SR_UIF;
-        
-        /* 2. Фіктивне читання змушує шину APB завершити транзакцію запису */
-        (void)TIM2->SR;
-
-        /* 3. Корисна дія */
-        do_fast_action();
-    }
-}
-```
-```cpp
-/* НАДІЙНИЙ ВАРІАНТ на C++ з використанням інструкції DSB */
-extern "C" void TIM2_IRQHandler() {
-    if ((TIM2->SR & TIM_SR_UIF) != 0) {
-        TIM2->SR = ~TIM_SR_UIF;
-        
-        // Бар'єр синхронізації даних гарантує завершення запису на шині
-        __asm volatile ("dsb" ::: "memory");
-
-        do_fast_action();
-    }
-}
-```
+:::code dystsyplina-obrobnyka-d/c/zatsyklennia-pereryvan.c
+:::code dystsyplina-obrobnyka-d/cpp/zatsyklennia-pereryvan.cpp
 :::
 
 ## Повний інженерний зразок: обробник UART на різних платформах
@@ -387,114 +262,9 @@ extern "C" void TIM2_IRQHandler() {
 Порівняймо реалізацію дисциплінованого обробника переривання UART на сучасних платформах мікроконтролерів: bare-metal на STM32 з бібліотекою LL (Low-Layer) та на ESP-IDF для ESP32 з чергою FreeRTOS.
 
 :::tabs
-```stm32
-#include "stm32f4xx_ll_usart.h"
-#include "stm32f4xx_ll_bus.h"
-
-/* Статичний кільцевий буфер */
-#define RX_BUF_SIZE 128
-#define RX_BUF_MASK (RX_BUF_SIZE - 1)
-
-static volatile uint8_t rx_buffer[RX_BUF_SIZE];
-static volatile uint32_t rx_head = 0;
-static volatile uint32_t rx_tail = 0;
-static volatile bool rx_overrun_flag = false;
-
-/* Дисциплінований обробник переривання USART1 */
-void USART1_IRQHandler(void) {
-    /* Перевіряємо прапорець наявності отриманого байта */
-    if (LL_USART_IsActiveFlag_RXNE(USART1) && LL_USART_IsEnabledIT_RXNE(USART1)) {
-        /* Читання регістра RDR автоматично скидає прапорець RXNE */
-        uint8_t byte = LL_USART_ReceiveData8(USART1);
-
-        uint32_t next_head = (rx_head + 1) & RX_BUF_MASK;
-        if (next_head != rx_tail) {
-            rx_buffer[rx_head] = byte;
-            __asm volatile ("dmb" ::: "memory");
-            rx_head = next_head;
-        } else {
-            /* Буфер повний: фіксуємо помилку без зависання */
-            rx_overrun_flag = true;
-        }
-    }
-
-    /* Перевірка та очищення апаратної помилки переповнення (ORE) */
-    if (LL_USART_IsActiveFlag_ORE(USART1)) {
-        LL_USART_ClearFlag_ORE(USART1);
-        rx_overrun_flag = true;
-    }
-}
-```
-```esp-idf
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
-#include "driver/uart.h"
-#include "esp_intr_alloc.h"
-
-#define EX_UART_NUM UART_NUM_1
-static QueueHandle_t uart_event_queue;
-
-/* Завдання нижньої половини (Bottom-Half) */
-void uart_event_task(void *pvParameters) {
-    uart_event_t event;
-    uint8_t dtmp[128];
-
-    for (;;) {
-        /* Очікуємо на подію з черги від драйвера переривань */
-        if (xQueueReceive(uart_event_queue, (void *)&event, portMAX_DELAY)) {
-            switch (event.type) {
-                case UART_DATA:
-                    /* Зчитуємо дані у потоковому контексті */
-                    uart_read_bytes(EX_UART_NUM, dtmp, event.size, portMAX_DELAY);
-                    // Важка обробка протоколу...
-                    break;
-                case UART_BUFFER_FULL:
-                case UART_FIFO_OVF:
-                    uart_flush_input(EX_UART_NUM);
-                    xQueueReset(uart_event_queue);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-}
-```
-```arduino
-/* Дисциплінований підхід для Arduino / AVR: Pin Change Interrupt */
-#include <avr/interrupt.h>
-
-volatile uint32_t pulse_count = 0;
-volatile bool pulse_ready_flag = false;
-
-/* Обробник зовнішнього переривання INT0 */
-ISR(INT0_vect) {
-    /* 1. Швидка дія: інкремент 32-бітного лічильника */
-    pulse_count++;
-    
-    /* 2. Встановлення прапорця для головного циклу */
-    pulse_ready_flag = true;
-    
-    /* Вихід: жодного Serial.print(), жодного delay()! */
-}
-
-void loop() {
-    if (pulse_ready_flag) {
-        uint32_t current_pulses;
-
-        /* Читання 32-бітної змінної на 8-бітному ядрі AVR під критичною секцією */
-        cli(); // Заборона переривань
-        current_pulses = pulse_count;
-        pulse_ready_flag = false;
-        sei(); // Дозвіл переривань
-
-        /* Форматований вивід виконується виключно в loop() */
-        Serial.print("Impulses received: ");
-        Serial.println(current_pulses);
-    }
-}
-```
+:::code dystsyplina-obrobnyka-d/c/stm32/main.c
+:::code dystsyplina-obrobnyka-d/c/esp-idf/main.c
+:::code dystsyplina-obrobnyka-d/c/arduino/main.ino
 :::
 
 ## Зведена пам'ятка: що дозволено й що заборонено в ISR

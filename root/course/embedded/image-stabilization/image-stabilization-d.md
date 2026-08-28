@@ -28,21 +28,7 @@
 
 **Умова.** IMU на камері дає поточний кут крену `roll_now` (градуси). Хочемо тримати камеру рівно: ціль `roll_set = 0`. Видати на мотор крену керування, пропорційне похибці, з обмеженням, щоб не вибити мотор на упор.
 
-```c
-const float KP_ROLL   = 6.0f;     /* підсилення: одиниць виходу на градус похибки */
-const float OUT_LIMIT = 100.0f;   /* межа керування мотором (±) */
-
-/* roll_now — оцінка кута камери з її IMU (градуси), roll_set — бажаний кут */
-float gimbal_roll_step(float roll_now, float roll_set)
-{
-    float error  = roll_set - roll_now;       /* куди й наскільки камера збилася */
-    float output = KP_ROLL * error;           /* тягнемо мотор назад, до цілі */
-
-    if (output >  OUT_LIMIT) output =  OUT_LIMIT;   /* не виходимо за межу */
-    if (output < -OUT_LIMIT) output = -OUT_LIMIT;
-    return output;                            /* далі йде на драйвер мотора крену */
-}
-```
+:::code image-stabilization-d/c/pidvis-trymaty-kameru-poky.c
 
 Перевіримо поведінку в кількох точках:
 
@@ -73,19 +59,7 @@ OIS чудово гасить **дрібну швидку** тряску — т�
 
 **Умова.** Гіроскоп показує швидкість рискання `gyro_yaw = 4 °/с`. Камера: кут огляду по ширині `fov = 90°`, кадр `1920` пікселів, частота `30` кадрів/с (тобто `dt ≈ 0.0333` с). На скільки пікселів зсунувся кадр і куди його повернути?
 
-```c
-const float FOV_DEG   = 90.0f;
-const int   FRAME_W   = 1920;
-const float PX_PER_DEG = FRAME_W / FOV_DEG;   /* ≈ 21.3 пікселя на градус */
-
-/* gyro_yaw — кутова швидкість рискання (°/с), dt — тривалість кадру (с) */
-int eis_shift_px(float gyro_yaw, float dt)
-{
-    float angle_deg = gyro_yaw * dt;          /* поворот за цей кадр (градуси) */
-    float shift     = angle_deg * PX_PER_DEG; /* у пікселях */
-    return (int)(-shift);                     /* зсуваємо кадр ПРОТИ повороту */
-}
-```
+:::code image-stabilization-d/c/tsyfrova-perestavyty.c
 
 Підставимо:
 

@@ -48,82 +48,8 @@
 Для виключення спотворень маніпуляція виводом має виконуватися через прямий запис в апаратні регістри атомарного встановлення/скидання бітів: `BSRR` (англ. *Bit Set/Reset Register*) у мікроконтролерах STM32 або регістри `SET`/`CLR` у чипах Microchip/NXP. Використання класичної операції XOR над вихідним регістром даних (`GPIOB->ODR ^= PIN`) категорично заборонене: вона розгортається компілятором у послідовність «читання — модифікація — запис» (команди `LDR`, `EOR`, `STR`), що займає 3-4 такти і породжує стан гонитви (англ. *Race Condition*), якщо інше переривання спробує змінити сусідній пін того ж порту.
 
 :::tabs
-```c
-/* Приклад мінімального стробування GPIO на чистому C */
-#include "stm32f4xx.h"
-
-#define DEBUG_PIN_MASK (1U << 5) /* Порт GPIOB, пін 5 */
-
-static inline void debug_pin_set_high(void) {
-    GPIOB->BSRR = DEBUG_PIN_MASK; /* 1 такт: встановлення логічної 1 */
-}
-
-static inline void debug_pin_set_low(void) {
-    GPIOB->BSRR = (DEBUG_PIN_MASK << 16); /* 1 такт: скидання в логічний 0 */
-}
-
-void TIM2_IRQHandler(void) {
-    debug_pin_set_high(); /* Підйом фронту для осцилографа */
-
-    /* Досліджуваний критичний код: наприклад, розрахунок фільтра */
-    execute_control_loop_iteration();
-
-    debug_pin_set_low();  /* Спад фронту: ширина імпульсу показує час */
-    
-    TIM2->SR = ~TIM_SR_UIF; /* Квитування переривання */
-}
-```
-```cpp
-// Ідіоматичне стробування GPIO на C++20 з використанням RAII
-#pragma once
-#include <cstdint>
-#include <concepts>
-
-namespace embedded::timing {
-
-template <uintptr_t PortBase, uint8_t PinNumber>
-struct GpioPinStrobe {
-    static_assert(PinNumber < 16, "Pin index out of range (0..15)");
-
-    static inline void high() noexcept {
-        auto* const bsrr = reinterpret_cast<volatile uint32_t*>(PortBase + 0x18);
-        *bsrr = (1UL << PinNumber);
-    }
-
-    static inline void low() noexcept {
-        auto* const bsrr = reinterpret_cast<volatile uint32_t*>(PortBase + 0x18);
-        *bsrr = (1UL << (PinNumber + 16));
-    }
-};
-
-template <typename GpioPin>
-class [[nodiscard]] ScopeStrobe {
-public:
-    inline ScopeStrobe() noexcept {
-        GpioPin::high();
-    }
-    inline ~ScopeStrobe() noexcept {
-        GpioPin::low();
-    }
-
-    ScopeStrobe(const ScopeStrobe&) = delete;
-    ScopeStrobe& operator=(const ScopeStrobe&) = delete;
-};
-
-} // namespace embedded::timing
-
-// Використання в коді:
-using DebugStrobe = embedded::timing::GpioPinStrobe<0x40020400UL, 5>; // GPIOB Base, Pin 5
-
-extern "C" void TIM2_IRQHandler() {
-    {
-        embedded::timing::ScopeStrobe<DebugStrobe> strobe;
-        execute_control_loop_iteration();
-    } // Пін автоматично скидається в 0 при виході з області видимості
-
-    TIM2->SR = ~TIM_SR_UIF;
-}
-```
+:::code profil-chasu-vykonannia-d/c/metod-1-strobuvannia.c
+:::code profil-chasu-vykonannia-d/cpp/metod-1-strobuvannia.hpp
 :::
 
 Чистий час виконання розраховується відніманням апаратного часу двох записів у порт: `T_exec = T_pulse - 2 * T_gpio_write`.
@@ -141,68 +67,8 @@ extern "C" void TIM2_IRQHandler() {
 3. Початкове значення регістра `DWT->CYCCNT` скидається в 0.
 
 :::tabs
-```c
-/* Ініціалізація та прямий замір тактів за допомогою DWT на C */
-#include "stm32f4xx.h"
-
-void dwt_init(void) {
-    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; /* Увімкнути трасування */
-    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;           /* Запустити лічильник */
-    DWT->CYCCNT = 0;
-}
-
-uint32_t benchmark_matrix_multiply(void) {
-    __asm__ volatile("" ::: "memory"); /* Бар'єр пам'яті компілятора */
-    uint32_t start_cycles = DWT->CYCCNT;
-    __asm__ volatile("" ::: "memory");
-
-    /* Обчислювальний блок */
-    calculate_inverse_park_transform();
-
-    __asm__ volatile("" ::: "memory");
-    uint32_t end_cycles = DWT->CYCCNT;
-    __asm__ volatile("" ::: "memory");
-
-    /* Завдяки модульній арифметиці uint32_t різниця правильна навіть при переповненні */
-    return (end_cycles - start_cycles);
-}
-```
-```cpp
-// Ідіоматичний DWT-таймер на C++20
-#pragma once
-#include <cstdint>
-#include <concepts>
-
-namespace embedded::timing {
-
-class DwtCycleCounter {
-public:
-    static inline void init() noexcept {
-#if defined(CoreDebug) && defined(DWT)
-        CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-        DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-        DWT->CYCCNT = 0;
-#endif
-    }
-
-    [[nodiscard]] static inline uint32_t now() noexcept {
-        __asm__ volatile("" ::: "memory");
-        const uint32_t cycles = DWT->CYCCNT;
-        __asm__ volatile("" ::: "memory");
-        return cycles;
-    }
-};
-
-template <typename Callable>
-[[nodiscard]] inline uint32_t measure_cycles(Callable&& func) noexcept {
-    const uint32_t t_start = DwtCycleCounter::now();
-    func();
-    const uint32_t t_end = DwtCycleCounter::now();
-    return (t_end - t_start);
-}
-
-} // namespace embedded::timing
-```
+:::code profil-chasu-vykonannia-d/c/metod-2-aparatnyi.c
+:::code profil-chasu-vykonannia-d/cpp/metod-2-aparatnyi.hpp
 :::
 
 У реальних проєктах цей механізм вимагає калібрування власного оверхеду читання, накопичення статистики максимального значення та безпечного перетворення в мікросекунди. Повну модульну реалізацію такого інструменту винесено в окремий [модуль апаратного профілювання DWT](root:embedded/profil-chasu-vykonannia/proj-dwt-profiler.md).
@@ -325,63 +191,8 @@ template <typename Callable>
 Для цього в компіляторі GCC використовують спеціальний атрибут розміщення секції `__attribute__((section(".ramfunc"), noinline))`:
 
 :::tabs
-```c
-/* Розміщення критичної математичної функції в SRAM на C */
-#include <stdint.h>
-
-#define RAM_FUNCTION __attribute__((section(".ramfunc"), noinline))
-
-/* Ця функція компілюється для виконання в SRAM: 0 Flash Wait States */
-RAM_FUNCTION void fast_foc_current_pid_step(float i_err_d, float i_err_q, 
-                                            float *v_out_d, float *v_out_q) {
-    static float i_integrator_d = 0.0f;
-    static float i_integrator_q = 0.0f;
-    const float Kp = 2.5f;
-    const float Ki = 0.08f;
-
-    i_integrator_d += Ki * i_err_d;
-    i_integrator_q += Ki * i_err_q;
-
-    *v_out_d = (Kp * i_err_d) + i_integrator_d;
-    *v_out_q = (Kp * i_err_q) + i_integrator_q;
-}
-```
-```cpp
-// Розміщення критичного методу в SRAM на C++20
-#pragma once
-#include <cstdint>
-#include <concepts>
-
-namespace embedded::foc {
-
-#define RAM_FUNC __attribute__((section(".ramfunc"), noinline))
-
-class FastPidController {
-public:
-    struct Output {
-        float d{0.0f};
-        float q{0.0f};
-    };
-
-    RAM_FUNC Output update(float err_d, float err_q) noexcept {
-        m_integrator_d += m_ki * err_d;
-        m_integrator_q += m_ki * err_q;
-
-        return Output{
-            .d = (m_kp * err_d) + m_integrator_d,
-            .q = (m_kp * err_q) + m_integrator_q
-        };
-    }
-
-private:
-    float m_integrator_d{0.0f};
-    float m_integrator_q{0.0f};
-    float m_kp{2.5f};
-    float m_ki{0.08f};
-};
-
-} // namespace embedded::foc
-```
+:::code profil-chasu-vykonannia-d/c/1-perenesennia-krytychnykh.c
+:::code profil-chasu-vykonannia-d/cpp/1-perenesennia-krytychnykh.hpp
 :::
 
 Для роботи атрибута `.ramfunc` у файлі конфігурації компонувальника (Linker Script `.ld`) створюється відповідна секція, де адреса завантаження (LMA) вказує на Flash, а адреса виконання (VMA) — на область RAM/ITCM. Під час старту мікроконтролера код стартапу `SystemInit` копіює байти цієї секції з Flash у пам'ять SRAM так само, як копіюються ініціалізовані глобальні змінні секції `.data`:
@@ -408,39 +219,8 @@ _siramfunc = LOADADDR(.ramfunc); /* Фізична адреса збережен
 Розгортання циклу вручну або через директиву компілятора `#pragma GCC unroll N` повністю ліквідує інструкції розгалуження, перетворюючи цикл на лінійну послідовність арифметичних операцій.
 
 :::tabs
-```c
-/* Розгортання циклу фільтрації на C */
-#define VECTOR_SIZE 4
-
-float dot_product_unrolled(const float *a, const float *b) {
-    float sum = 0.0f;
-
-    #pragma GCC unroll 4
-    for (int i = 0; i < VECTOR_SIZE; ++i) {
-        sum += a[i] * b[i];
-    }
-    return sum;
-}
-```
-```cpp
-// Універсальний розгорнутий Dot Product на C++20 через std::index_sequence
-#pragma once
-#include <span>
-#include <utility>
-#include <concepts>
-
-namespace embedded::math {
-
-template <size_t N>
-[[nodiscard]] inline float dot_product_unrolled(std::span<const float, N> a, 
-                                                std::span<const float, N> b) noexcept {
-    return [&]<size_t... Is>(std::index_sequence<Is...>) {
-        return ((a[Is] * b[Is]) + ...); // C++17 Fold Expression розгортається у суму
-    }(std::make_index_sequence<N>{});
-}
-
-} // namespace embedded::math
-```
+:::code profil-chasu-vykonannia-d/c/2-rozhortannia-tsykliv.c
+:::code profil-chasu-vykonannia-d/cpp/2-rozhortannia-tsykliv.hpp
 :::
 
 ### 3. Векторизація за допомогою інструкцій DSP та SIMD

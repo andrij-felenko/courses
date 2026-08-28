@@ -61,39 +61,7 @@ typedef struct {
 
 Крок ми все одно передаємо в функцію параметром `dt` (щоб debounce-помічники лишалися загальними й придатними для повторного вжитку), але на фіксованій сітці `dt` щоразу дорівнює `FSM_DT`. Тепер сама функція:
 
-```c
-mode_t fsm_step(mode_t current, const health_t *h, float dt) {
-    // ── 1. НАЙТЯЖЧЕ: втрата орієнтації б'є у внутрішній контур ──────────
-    //     без достовірного крену/тангажа немає ЧИМ керувати — жоден
-    //     зовнішній режим не має сенсу. Це аварія з будь-якого режиму.
-    if (!debounce_imu(h->imu_ok, dt)) {
-        return MODE_LAND;          // сідати наосліп краще, ніж перекинутись
-    }
-
-    // ── 2. БАТАРЕЯ: вибору не лишає, сходинка залежить від глибини ──────
-    batt_level_t b = batt_classify(h->batt_volt);   // OK / LOW / CRITICAL (з гістерезисом)
-    if (b == BATT_CRITICAL) {
-        return MODE_LAND;          // не долетимо додому — сідай негайно тут
-    }
-    if (b == BATT_LOW) {
-        return worse_of(current, MODE_RTL);   // час додому, але ще не аварія
-    }
-
-    // ── 3. ЗВ'ЯЗОК: пропав пульт — за планом вертаємось додому ──────────
-    if (!debounce_link(h->rc_link, dt)) {
-        return worse_of(current, MODE_RTL);
-    }
-
-    // ── 4. НАЙЛЕГШЕ: втрата GNSS чіпає лише зовнішній контур ────────────
-    //     апарат не падає — лише не знає, ДЕ він. Знімаємо навігацію.
-    if (!h->gnss_ok) {
-        return worse_of(current, MODE_LOITER);
-    }
-
-    // ── 5. усе здорове: тримаємо поточний режим (можливе повернення) ────
-    return current;
-}
-```
+:::code proj-failsafe-state-machine/c/krok-2-skelet-fsm-step-vid.c
 
 Прочитаймо, що тут відбувається, бо кожен рядок несе рішення.
 
@@ -137,40 +105,7 @@ if (h->batt_volt < 14.0f) return MODE_RTL;
 
 Зберімо обидва запобіжники в класифікатор батареї. Він тримає невелику **пам'ять** — поточний рівень і таймери, скільки часу умова вже виконується:
 
-```c
-typedef enum { BATT_OK, BATT_LOW, BATT_CRITICAL } batt_level_t;
-
-// два пороги × дві межі кожен: нижня — спрацювати, вища — відпустити
-#define V_LOW_TRIP   14.0f   // нижче цього — «низька» (додому)
-#define V_LOW_CLEAR  14.6f   // вище цього — «низька» скасовується
-#define V_CRT_TRIP   13.2f   // нижче цього — «критична» (сідай)
-#define V_CRT_CLEAR  13.8f   // вище цього — «критична» скасовується
-#define T_HOLD_S     10.0f   // умова має протриматись стільки секунд
-
-static batt_level_t batt_classify(float v) {
-    static batt_level_t level = BATT_OK;   // ПАМ'ЯТЬ: що вирішили минулого разу
-    static float t_low = 0, t_crt = 0;     // таймери «умова тримається»
-
-    // нагромаджуємо час, поки відповідний поріг пробито; інакше скидаємо
-    t_crt = (v < V_CRT_TRIP) ? (t_crt + FSM_DT) : 0.0f;
-    t_low = (v < V_LOW_TRIP) ? (t_low + FSM_DT) : 0.0f;
-
-    switch (level) {
-    case BATT_OK:
-        if (t_crt >= T_HOLD_S)      level = BATT_CRITICAL;
-        else if (t_low >= T_HOLD_S) level = BATT_LOW;
-        break;
-    case BATT_LOW:
-        if (t_crt >= T_HOLD_S)      level = BATT_CRITICAL;  // глибше — одразу
-        else if (v > V_LOW_CLEAR)   level = BATT_OK;        // відпуск — ЛИШЕ через верхню межу
-        break;
-    case BATT_CRITICAL:
-        // з критичної НЕ повертаємось автоматично: сідання не скасовують
-        break;
-    }
-    return level;
-}
-```
+:::code proj-failsafe-state-machine/c/hranychnyi-vypadok-1.c
 
 Тут кілька тонкощів, кожна з яких — окремий урок.
 
@@ -184,23 +119,7 @@ static batt_level_t batt_classify(float v) {
 
 Ті самі два запобіжники — і в перевірках орієнтації та зв'язку. `debounce_imu` вимагає, щоб `imu_ok` побув хибним кілька тактів поспіль, перш ніж кричати «аварія»: одиночний збій читання шини — ще не втрата орієнтації. `debounce_link` чекає кілька **секунд** тиші, перш ніж оголосити зв'язок утраченим, — бо радіозв'язок природно моргає, і рвати місію на кожне коротке завмирання означало б не долітати нікуди. Ось як виглядає узагальнений debounce, що годиться обом:
 
-```c
-// повертає «стабільно істинний»: true лише коли ok тримається >= hold секунд
-static bool debounce_generic(bool ok, float dt, float hold, float *acc) {
-    if (ok) { *acc = 0.0f; return true; }        // здорове — миттєво довіряємо
-    *acc += dt;                                    // хворе — накопичуємо час
-    return (*acc < hold);                          // ще true, поки не витримали hold
-}
-
-static bool debounce_imu(bool ok, float dt) {
-    static float acc = 0.0f;
-    return debounce_generic(ok, dt, 0.10f, &acc);  // ~100 мс: короткий збій шини — не аварія
-}
-static bool debounce_link(bool ok, float dt) {
-    static float acc = 0.0f;
-    return debounce_generic(ok, dt, 3.0f, &acc);   // 3 с тиші — тоді вважаємо зв'язок утраченим
-}
-```
+:::code proj-failsafe-state-machine/c/hranychnyi-vypadok-1-2.c
 
 Зверни увагу на асиметрію: **здоровому віримо миттєво** (`if (ok) { *acc = 0; return true; }`), а хворому — лише після витримки. Це навмисно: повертатися в довіру треба швидко (давач ожив — гаразд), а втрачати довіру — повільно (щоб короткий збій не зчинив хибну тривогу). Симетричний debounce тут був би гірший: він або надто повільно відновлював би довіру, або надто швидко її втрачав.
 
@@ -219,22 +138,7 @@ static bool debounce_link(bool ok, float dt) {
 
 У коді це вже зроблено — самим порядком `if`-ів: перевірка `imu` стоїть **перед** перевіркою `gnss`, і `return` на аварії не дає керуванню GNSS навіть виконатися. Але щоб не покладатися лише на візуальний порядок рядків (його легко зіпсувати при редагуванні), варто зробити пріоритет **явним і таким, що сам себе перевіряє**. Ось альтернативний виклад тієї самої логіки — через таблицю пріоритетів, де кожна відмова має явний ранг:
 
-```c
-// кожна активна відмова дає кандидат-режим; беремо той, що з НАЙГЛИБШОЮ
-// деградацією. Ранг зашитий у значення mode_t (більше = безпечніше/тяжче).
-mode_t fsm_step_ranked(mode_t current, const health_t *h, float dt) {
-    mode_t target = current;   // за замовчуванням — лишитись, де є
-
-    // від найлегшої відмови до найтяжчої; кожна лише ПОГЛИБЛЮЄ ціль
-    if (!h->gnss_ok)                         target = worse_of(target, MODE_LOITER);
-    if (!debounce_link(h->rc_link, dt))      target = worse_of(target, MODE_RTL);
-    if (batt_classify(h->batt_volt) == BATT_LOW)      target = worse_of(target, MODE_RTL);
-    if (batt_classify(h->batt_volt) == BATT_CRITICAL) target = worse_of(target, MODE_LAND);
-    if (!debounce_imu(h->imu_ok, dt))        target = worse_of(target, MODE_LAND);
-
-    return target;
-}
-```
+:::code proj-failsafe-state-machine/c/hranychnyi-vypadok-2.c
 
 Тут пріоритет виражений не порядком виходу, а функцією `worse_of`: скільки б відмов не спрацювало одночасно, `target` збереться до **найглибшої** деградації серед усіх активних. Порядок рядків тепер узагалі не важить — переставиш їх, результат той самий, бо `worse_of` комутативна (`worse_of(a,b) == worse_of(b,a)`). Це **надійніше** за перший варіант із ранніми `return`, де випадкова перестановка рядків при редагуванні тихо зламала б пріоритет. Ціна — ми щотакту проганяємо всі перевірки, а не виходимо на першій; для п'яти дешевих умов це нічого не варте.
 
@@ -273,20 +177,7 @@ switch (current) {
 
 Fail-safe вимагає **завжди** мати `default`, і він мусить вести в безпеку:
 
-```c
-switch (current) {
-    case MODE_AUTO:   run_auto();   break;
-    case MODE_LOITER: run_loiter(); break;
-    case MODE_RTL:    run_rtl();    break;
-    case MODE_LAND:   run_land();   break;
-    default:
-        // невідомий режим = зіпсований стан. НЕ довіряй, сідай.
-        current = MODE_LAND;
-        run_land();
-        log_error("FSM: невідомий режим, аварійна посадка");
-        break;
-}
-```
+:::code proj-failsafe-state-machine/c/hranychnyi-vypadok-3.c
 
 Той самий принцип діє на кожному рівні, не лише в диспетчері режимів. Ініціалізуй `current_mode` **безпечним** значенням, а не `AUTO`: поки система не переконалася, що всі давачі живі й апарат готовий, режим за замовчуванням — не «лети маршрутом», а «стій на землі, роззброєний». Прапорці здоров'я ініціалізуй **у хибне** (`false`), а не в `true`: доки оцінювач не підтвердив, що давач працює, вважаємо його непридатним. Це називають «презумпцією несправності»: нове, ще не перевірене — винне, поки не доведе протилежне.
 

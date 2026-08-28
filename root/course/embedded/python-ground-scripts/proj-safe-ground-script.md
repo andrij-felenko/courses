@@ -28,19 +28,7 @@
 
 Форму наземного скрипта ми вже знаємо: відкрити лінію за рядком з'єднання, дочекатися HEARTBEAT (аж тут стає відома адреса апарата), далі крутити подієвий цикл «читай → вирішуй → командуй». Каркас безпеки не змінює цю форму — він **обгортає** її. Тож почнімо з голого кістяка, а тоді нарощуватимемо на нього захист, шар за шаром.
 
-```python
-from pymavlink import mavutil
-
-CONN = 'udpin:localhost:14550'   # SITL; для реального модему: 'serial:COM5:115200'
-
-m = mavutil.mavlink_connection(CONN)
-m.wait_heartbeat()               # доки не прийшов — адреси апарата ще немає
-print("апарат на лінії: sys %d, comp %d" % (m.target_system, m.target_component))
-
-while True:
-    msg = m.recv_match(blocking=True)
-    # …тут твоя логіка: читай телеметрію, вирішуй, шли команди…
-```
+:::code proj-safe-ground-script/py/krok-1-kistiak-iakyi-my.py
 
 Це працює й нічим не захищене — рівно той наївний скрипт, з якого ми застерігали. Якщо всередині циклу озброїти апарат, а потім вийти (Ctrl+C чи виняток), мотори лишаться крутитися. Наше завдання — перетворити цей кістяк на каркас, у якому такий вихід **неможливий**. Робитимемо це трьома шарами: спершу навчимо скрипт **знати стан апарата**, тоді огорнемо роботу в `try/finally`, і нарешті затулимо останню діру — сигнал `kill`, який `finally` сам не ловить.
 
@@ -50,38 +38,7 @@ while True:
 
 Звідки брати ці дані? З того самого потоку телеметрії, який скрипт і так читає. Прапорець озброєння живе в кожному HEARTBEAT — у полі `base_mode`, у біті `MAV_MODE_FLAG_SAFETY_ARMED`. Висоту (чи апарат на землі) дає `GLOBAL_POSITION_INT` своїм полем `relative_alt` — висота над точкою зльоту в міліметрах. Заведімо маленький об'єкт-знімок і оновлюймо його на кожне таке повідомлення:
 
-```python
-import time
-from pymavlink import mavutil
-
-
-class Vehicle:
-    """Живий знімок стану апарата — рівно те, що треба для безпечного виходу."""
-    def __init__(self):
-        self.armed = False           # презумпція: роззброєно, поки не почули інше
-        self.rel_alt_m = 0.0         # висота над точкою зльоту, м
-        self.last_heartbeat = None   # коли востаннє чули апарат (None = ще ні разу)
-
-    def on_message(self, msg):
-        """Одне місце, куди сходяться всі вхідні — тут народжується знімок стану."""
-        t = msg.get_type()
-        if t == 'HEARTBEAT':
-            self.last_heartbeat = time.time()
-            self.armed = bool(msg.base_mode
-                              & mavutil.mavlink.MAV_MODE_FLAG_SAFETY_ARMED)
-        elif t == 'GLOBAL_POSITION_INT':
-            self.rel_alt_m = msg.relative_alt / 1000.0    # мм → м
-
-    def on_ground(self):
-        """Груба, але надійна ознака «на землі»: майже нульова відносна висота."""
-        return self.rel_alt_m < 0.5
-
-    def link_alive(self):
-        """Лінія жива, лише якщо heartbeat приходив і не замовк надовго."""
-        if self.last_heartbeat is None:
-            return False
-        return (time.time() - self.last_heartbeat) < 3.0
-```
+:::code proj-safe-ground-script/py/krok-2-znimok-stanu-shchob.py
 
 Три речі тут варті слова, бо кожна — це рішення, а не випадковість.
 
@@ -97,44 +54,7 @@ class Vehicle:
 
 Тепер головне. У нас є знімок стану; обгорнімо роботу так, щоб роззброєння сталося при **будь-якому** виході. Осердя — пара `try/finally`: у `try` живе вся ризикована робота з апаратом, у `finally` — прибирання, яке Python **гарантовано** виконає, хай як ми залишимо `try`.
 
-```python
-def cleanup(m, v):
-    """Привести апарат у безпеку й закрити лінію. Викликається при БУДЬ-ЯКОМУ виході."""
-    try:
-        if m is not None and v.link_alive() and v.armed and v.on_ground():
-            # роззброюємо ЛИШЕ якщо апарат озброєний І стоїть на землі
-            print("[EXIT] апарат на землі й озброєний — роззброюю")
-            m.mav.command_long_send(
-                m.target_system, m.target_component,
-                mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-                0,                       # confirmation
-                0, 0, 0, 0, 0, 0, 0)     # param1 = 0 → disarm (звичайний, не форсований)
-        else:
-            print("[EXIT] у польоті / стан невідомий / лінія мертва — НЕ чіпаю мотори")
-    finally:
-        if m is not None:
-            m.close()                    # завжди звільняємо лінію (порт/сокет)
-        print("[EXIT] з'єднання закрито")
-
-
-def main():
-    m = mavutil.mavlink_connection(CONN)
-    v = Vehicle()
-    m.wait_heartbeat()
-    print("апарат на лінії: sys %d, comp %d" % (m.target_system, m.target_component))
-
-    try:
-        while True:
-            msg = m.recv_match(blocking=True, timeout=1.0)
-            if msg is not None:
-                v.on_message(msg)        # оновлюємо знімок стану
-            # …тут твоя логіка керування, що спирається на v…
-
-    except KeyboardInterrupt:
-        print("\n[EXIT] Ctrl+C — акуратне завершення")
-    finally:
-        cleanup(m, v)                    # ← ось воно: спрацює хай як ми вийшли
-```
+:::code proj-safe-ground-script/py/krok-3-sertse-karkasa-try.py
 
 Прочитаймо, чому ця конструкція робить те, чого не робив наївний скрипт.
 
@@ -161,18 +81,7 @@ def main():
 
 Лікування пряме: **встановити обробник SIGTERM**, який перетворює сигнал на той самий керований вихід, що й Ctrl+C. Найпростіше — хай обробник підіймає `KeyboardInterrupt` (або кидає `SystemExit`): тоді SIGTERM піде **тими самими дверима**, що й Ctrl+C, крізь наш `except` і `finally`, і `cleanup` спрацює однаково.
 
-```python
-import signal
-
-def install_signal_handlers():
-    """Зробити так, щоб kill (SIGTERM) виходив ТИМИ САМИМИ дверима, що й Ctrl+C,
-    тобто крізь finally. Без цього SIGTERM убиває процес до прибирання."""
-    def _graceful(signum, frame):
-        # перетворюємо зовнішній сигнал на звичайний керований виняток
-        raise KeyboardInterrupt
-    signal.signal(signal.SIGTERM, _graceful)
-    # SIGINT (Ctrl+C) Python і так робить KeyboardInterrupt — його чіпати не треба
-```
+:::code proj-safe-ground-script/py/krok-4-ostannia-dira.py
 
 Виклик `install_signal_handlers()` на самому початку `main()` — і тепер `finally` стереже **обидві** двері: і Ctrl+C, і `kill`. Ця тонкість — саме те, що відрізняє шаблон, який справді тримає безпеку, від того, що тримає її лише «поки не закрив термінал».
 
@@ -185,97 +94,7 @@ def install_signal_handlers():
 
 Тепер зшиємо всі три шари в один файл — той, що можна зберегти як `ground_template.py` і копіювати під кожну нову задачу. Логіку керування ти вписуватимеш у позначене місце; усе навколо — незмінний каркас безпеки.
 
-```python
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""Переносний каркас наземного скрипта: під'єднатись, вести знімок стану,
-крутити подієвий цикл — і при БУДЬ-ЯКОМУ виході лишити апарат у безпеці.
-Спершу перевіряй проти SITL (udpin:localhost:14550); на живому борту —
-зі знятими гвинтами."""
-import time
-import signal
-from pymavlink import mavutil
-
-CONN = 'udpin:localhost:14550'   # SITL; реальний модем: 'serial:COM5:115200'
-
-
-class Vehicle:
-    """Живий знімок стану апарата — рівно те, що треба для безпечного виходу."""
-    def __init__(self):
-        self.armed = False
-        self.rel_alt_m = 0.0
-        self.last_heartbeat = None
-
-    def on_message(self, msg):
-        t = msg.get_type()
-        if t == 'HEARTBEAT':
-            self.last_heartbeat = time.time()
-            self.armed = bool(msg.base_mode
-                              & mavutil.mavlink.MAV_MODE_FLAG_SAFETY_ARMED)
-        elif t == 'GLOBAL_POSITION_INT':
-            self.rel_alt_m = msg.relative_alt / 1000.0
-
-    def on_ground(self):
-        return self.rel_alt_m < 0.5
-
-    def link_alive(self):
-        if self.last_heartbeat is None:
-            return False
-        return (time.time() - self.last_heartbeat) < 3.0
-
-
-def install_signal_handlers():
-    """kill (SIGTERM) → той самий керований вихід, що й Ctrl+C (крізь finally)."""
-    def _graceful(signum, frame):
-        raise KeyboardInterrupt
-    signal.signal(signal.SIGTERM, _graceful)
-
-
-def cleanup(m, v):
-    """Привести апарат у безпеку й закрити лінію — при будь-якому виході."""
-    try:
-        if m is not None and v.link_alive() and v.armed and v.on_ground():
-            print("[EXIT] апарат на землі й озброєний — роззброюю")
-            m.mav.command_long_send(
-                m.target_system, m.target_component,
-                mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-                0, 0, 0, 0, 0, 0, 0, 0)   # param1=0 disarm, param2=0 — звичайний
-        else:
-            print("[EXIT] у польоті / стан невідомий / лінія мертва — мотори не чіпаю")
-    finally:
-        if m is not None:
-            m.close()
-        print("[EXIT] з'єднання закрито")
-
-
-def main():
-    install_signal_handlers()             # ← щоб finally ловив і kill, не лише Ctrl+C
-    m = mavutil.mavlink_connection(CONN)
-    v = Vehicle()
-    m.wait_heartbeat()
-    print("апарат на лінії: sys %d, comp %d" % (m.target_system, m.target_component))
-
-    try:
-        while True:
-            msg = m.recv_match(blocking=True, timeout=1.0)
-            if msg is not None:
-                v.on_message(msg)
-
-            # ─────────── ТВОЯ ЛОГІКА ТУТ ───────────
-            # спираєшся на знімок v: v.armed, v.rel_alt_m, v.on_ground()...
-            # разові команди (arm, set_mode, takeoff) шли з підтвердженням і повтором;
-            # безперервні уставки — з обмеженою частотою.
-            # ────────────────────────────────────────
-
-    except KeyboardInterrupt:
-        print("\n[EXIT] Ctrl+C — акуратне завершення")
-    finally:
-        cleanup(m, v)                     # спрацює хай як ми вийшли з циклу
-
-
-if __name__ == '__main__':
-    main()
-```
+:::code proj-safe-ground-script/py/zbyraiemo-shablon.py
 
 ![Той самий виняток веде до двох різних кінців: без finally мотори лишаються озброєними; із finally апарат гарантовано роззброєно](img/two-exits.svg)
 *Скрипт озброїв мотори, і сталося непередбачене — Ctrl+C, виняток чи kill. Без блоку finally процес помирає миттєво: мотори лишаються озброєними, остання команда «лети» — в силі, апарат небезпечний. Той самий скрипт із finally при будь-якому виході проходить крізь прибирання: на землі роззброює, закриває лінію — борт лишається в безпеці.*

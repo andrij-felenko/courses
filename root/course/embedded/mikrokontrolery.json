@@ -42,10 +42,12 @@
           "slug": "von-neumann-harvard",
           "title": "Фон Нейман і Гарвард",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -56,7 +58,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-disasm-walkthrough.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "hw-arch/processor-word-size",
@@ -70,11 +79,31 @@
           "slug": "fpga-vs-mcu",
           "title": "FPGA чи МК",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "math": [
+            {
+              "file": "math-breakeven-volume.md",
+              "status": "recheck",
+              "recode": true
+            },
+            {
+              "file": "math-latency-jitter.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-edge-pulse.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "custom-instruction",
@@ -83,12 +112,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-riscv-custom.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -115,17 +146,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
           "slug": "esp32-family",
           "title": "Сімейство ESP32",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -146,7 +180,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-bank-switching.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "hw-arch/avr",
@@ -210,7 +251,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -221,7 +263,9 @@
           "proj": [
             {
               "file": "proj-register-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -237,7 +281,8 @@
           "comp": [
             {
               "file": "comp-debug-interfaces.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -249,7 +294,9 @@
           "proj": [
             {
               "file": "proj-power-and-reset-protection.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -348,7 +395,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -359,7 +407,8 @@
           "proj": [
             {
               "file": "proj-boot-profiler.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -376,7 +425,9 @@
           "proj": [
             {
               "file": "proj-uf2-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -387,8 +438,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-blink-nonblocking.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "baremetal-vs-framework",
@@ -407,7 +466,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -421,8 +481,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-binary-logging.md",
+              "status": "recheck",
+              "recode": true
+            },
+            {
+              "file": "proj-logging.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sys-ide/swd-jtag-internals",
@@ -436,10 +509,12 @@
           "slug": "openocd-gdb",
           "title": "OpenOCD і GDB",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -461,8 +536,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-bridge-framing.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -474,30 +557,36 @@
           "slug": "c-variables-types",
           "title": "Змінні й типи",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
           "slug": "c-control-flow",
           "title": "Розгалуження й цикли",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
           "slug": "c-functions",
           "title": "Функції",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -512,7 +601,19 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-ring-buffer.md",
+              "status": "recheck",
+              "recode": true
+            },
+            {
+              "file": "proj-safe-strings.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-algorithms/array",
@@ -526,11 +627,20 @@
           "slug": "c-structs-enums",
           "title": "Структури й перелічення",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-register-overlay.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "c-pointers-intro",
@@ -539,7 +649,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -578,11 +689,19 @@
           "slug": "c-bit-operations",
           "title": "Бітові операції",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-bit-tricks.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-algorithms/bitwise-operations",
@@ -624,11 +743,19 @@
           "slug": "c-preprocessor-headers",
           "title": "Препроцесор і заголовки",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-x-macros.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-lang/preprocessor-macros",
@@ -638,11 +765,20 @@
           "slug": "c-modules-build",
           "title": "Модулі й збірка проєкту",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-generic-makefile.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-lang/translation-unit",
@@ -692,10 +828,12 @@
           "slug": "error-codes-vs-exceptions",
           "title": "Коди помилок проти винятків",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -752,18 +890,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-cortex-vector-table.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-baremetal-startup.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         },
@@ -799,7 +941,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-stack-watermark.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-apps/memory-alignment",
@@ -865,18 +1014,23 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-cortex-fault-regs.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-crash-logger.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -909,18 +1063,22 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-flasher.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -932,7 +1090,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         },
         {
@@ -1069,7 +1228,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-pin-mux-config.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "rozkladka-vyvodiv",
@@ -1079,12 +1245,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-safe-swd-recovery.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -1122,7 +1291,8 @@
           "slug": "polling-vs-interrupts",
           "title": "Polling vs переривання",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
@@ -1164,12 +1334,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-lockfree-ringbuf.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -1189,18 +1362,23 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-cortexm-interrupt-control.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-raii-critical-section.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -1305,8 +1483,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-input-capture-freq.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "hw-arch/enkodernyi-rezhym-taimera",
@@ -1377,7 +1563,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -1408,11 +1595,20 @@
           "slug": "dma-adc",
           "title": "DMA + АЦП",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "comp": [
+            {
+              "file": "comp-adc-sample-formats.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         }
       ]
     },
@@ -1508,18 +1704,40 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         },
         {
           "slug": "dma-spi-i2s",
           "title": "DMA + SPI/I2S",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "comp": [
+            {
+              "file": "comp-i2s-mic.md",
+              "status": "recheck",
+              "recode": true
+            },
+            {
+              "file": "comp-spi-display.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-soundblaster.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "com-protocol/stream-parser",
@@ -1571,11 +1789,20 @@
           "slug": "super-loop-limits",
           "title": "Межі super-loop",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-cooperative-scheduler.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-tasks/blocking-vs-nonblocking-io",
@@ -1589,7 +1816,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "hist": [
             {
@@ -1600,7 +1828,9 @@
           "proj": [
             {
               "file": "proj-hierarchical-fsm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         },
@@ -1636,12 +1866,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-dwt-profiler.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -1694,7 +1927,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -1729,7 +1963,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         },
         {
@@ -1750,11 +1985,19 @@
           "slug": "troubleshooting-methodology",
           "title": "Систематичний пошук несправності",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-bisection-debug.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-devices/hardfault",
@@ -1764,7 +2007,8 @@
           "slug": "core-dump",
           "title": "Посмертний аналіз",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
@@ -1785,6 +2029,11 @@
             {
               "file": "proj-gdb-core-analysis.md",
               "status": "pending"
+            },
+            {
+              "file": "proj-coredump-workflow.md",
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -1796,7 +2045,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-symbol-server.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-devices/chytannia-dyzasemblera",
@@ -1813,7 +2069,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -1835,8 +2092,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-static-allocator.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-lang/dynamic-sanitizers",
@@ -1865,7 +2130,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -1903,7 +2169,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -1914,7 +2181,9 @@
           "proj": [
             {
               "file": "proj-i2c-recovery.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

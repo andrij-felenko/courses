@@ -74,37 +74,8 @@
 Конвеєр автоматично генерує детермінований заголовочний файл версії `version_autogen.h`, в якому фіксується оновлений номер версії та підвищений лічильник безпеки для апаратного захисту від відкату:
 
 :::tabs
-```c
-#ifndef VERSION_AUTOGEN_H
-#define VERSION_AUTOGEN_H
-
-#include <stdint.h>
-
-#define FW_VERSION_MAJOR        2
-#define FW_VERSION_MINOR        4
-#define FW_VERSION_PATCH        1
-#define FW_SECURITY_COUNTER     5U  /* Підвищено з 4 до 5 для блокування CVE-2026-4419 */
-#define FW_COMMIT_HASH_PREFIX   0x7a8f9c4bU
-#define FW_VERSION_STRING       "2.4.1-hotfix"
-
-#endif /* VERSION_AUTOGEN_H */
-```
-```cpp
-#pragma once
-#include <cstdint>
-#include <string_view>
-
-namespace version {
-
-inline constexpr uint32_t Major = 2;
-inline constexpr uint32_t Minor = 4;
-inline constexpr uint32_t Patch = 1;
-inline constexpr uint32_t SecurityCounter = 5U; // Підвищено для апаратного блокування CVE
-inline constexpr uint32_t CommitHashPrefix = 0x7a8f9c4bU;
-inline constexpr std::string_view String = "2.4.1-hotfix";
-
-} // namespace version
-```
+:::code terminovyi-vypusk-d/c/hermetychnist.h
+:::code terminovyi-vypusk-d/cpp/hermetychnist.hpp
 :::
 
 Повна реалізація скриптів автоматизованої інспекції та верифікації вихідних кодів наведена у практичній вставці [⚙️ Оркестратор екстреного випуску: валідація диффу, збірка та контроль відкату](root:embedded/terminovyi-vypusk/proj-hotfix-orchestrator.md).
@@ -228,62 +199,8 @@ inline constexpr std::string_view String = "2.4.1-hotfix";
 Після цього моменту апаратний завантажувач у ROM мікроконтролера фізично відхилятиме будь-який бінарний файл зі значенням лічильника менше ніж `5`, навіть якщо він підписаний легітимним ключем виробника. Спроба підсунути старий образ викличе апаратне виключення безпеки та переведення пристрою у стан безпечного карантину.
 
 :::tabs
-```c
-#include "emergency_fw_header.h"
-
-/* Функція верифікації лічильника та спалювання eFuse після валідації */
-bool commit_emergency_security_version(const emergency_fw_header_t *header) {
-    if (!header) {
-        return false;
-    }
-
-    uint32_t hardware_efuse_ver = hw_efuse_read_security_version();
-    
-    /* Якщо прошивка має менший лічильник, запуск суворо заборонено */
-    if (header->security_counter < hardware_efuse_ver) {
-        return false;
-    }
-
-    /* Якщо лічильник образу вищий, виконуємо одноразове апаратне спалювання */
-    if (header->security_counter > hardware_efuse_ver) {
-        if (!hw_efuse_burn_security_version(header->security_counter)) {
-            /* Помилка програмування OTP є критичною відмовою безпеки */
-            return false;
-        }
-    }
-
-    return true;
-}
-```
-```cpp
-#include "emergency_fw_header.hpp"
-#include <cstdint>
-
-extern "C" uint32_t hw_efuse_read_security_version();
-extern "C" bool hw_efuse_burn_security_version(uint32_t new_version);
-
-namespace emergency {
-
-[[nodiscard]] bool commitSecurityVersion(const Header& header) noexcept {
-    const uint32_t currentEfuseVer = hw_efuse_read_security_version();
-    
-    // Блокування відкату: образ зі старим лічильником не приймається
-    if (header.securityCounter < currentEfuseVer) {
-        return false;
-    }
-
-    // Апаратне спалювання монотонного лічильника до нової версії
-    if (header.securityCounter > currentEfuseVer) {
-        if (!hw_efuse_burn_security_version(header.securityCounter)) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-} // namespace emergency
-```
+:::code terminovyi-vypusk-d/c/aparatne-spaliuvannia.c
+:::code terminovyi-vypusk-d/cpp/aparatne-spaliuvannia.cpp
 :::
 
 ## Канаркове розгортання та захист від масового блокування

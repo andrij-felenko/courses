@@ -35,19 +35,7 @@ factory,  app,  factory,  0x20000,  0x300000
 
 Натомість на старті корисно спитати, чому ми взагалі прокинулися, і чи є що читати:
 
-```c
-void app_main(void) {
-    esp_reset_reason_t reason = esp_reset_reason();
-    if (reason == ESP_RST_PANIC) {
-        size_t addr = 0, size = 0;
-        if (esp_core_dump_image_get(&addr, &size) == ESP_OK) {
-            ESP_LOGE("boot", "panic reboot, core dump %u B at 0x%x", size, addr);
-            // підняти прапор у NVS: «є свіжий дамп, забери при нагоді»
-        }
-    }
-    // ... звичайний старт
-}
-```
+:::code proj-coredump-workflow/c/main.c
 
 Причина reset відповідає на питання «що сталося» (`ESP_RST_PANIC` — впав у паніку; `ESP_RST_BROWNOUT` — просів струм; `ESP_RST_TASK_WDT` — застрягла задача). Дамп відповідає на «де і чому». Перше доступне завжди, друге — лише коли обробник устиг записатися. Перевірка причини reset першою рятує від марної роботи: якщо прокинулися не з паніки, дамп або старий (від попереднього збою), або його взагалі немає, і лізти по нього сенсу нема.
 

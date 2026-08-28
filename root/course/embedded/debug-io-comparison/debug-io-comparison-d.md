@@ -76,37 +76,8 @@ USBSerial.println("link up");       // летить миттю — ПОКИ тр
 // …але впаде чіп — порт відвалиться; а без відкритого монітора друк ще й
 //   заблокує програму, бо вбудований вузол чекає, доки байти вичитають
 ```
-```esp-idf
-#include "driver/uart.h"
-#include "driver/usb_serial_jtag.h"
-
-// Звичайний UART через зовнішній міст: живий з перших тактів, але ~11 КБ/с
-const uart_config_t ucfg = { .baud_rate = 115200, .data_bits = UART_DATA_8_BITS,
-                             .parity = UART_PARITY_DISABLE, .stop_bits = UART_STOP_BITS_1 };
-uart_param_config(UART_NUM_0, &ucfg);
-uart_write_bytes(UART_NUM_0, "link up\n", 8);   // повзе дротом ~0.7 мс на рядок
-
-// Вбудований USB Serial/JTAG (ESP32-S3/C3): мегабайти/с, без моста на платі…
-usb_serial_jtag_driver_config_t jcfg = USB_SERIAL_JTAG_DRIVER_CONFIG_DEFAULT();
-usb_serial_jtag_driver_install(&jcfg);
-usb_serial_jtag_write_bytes("link up\n", 8, portMAX_DELAY);
-// …але впаде чіп — порт відвалиться; а з portMAX_DELAY і без відкритого
-//   монітора цей виклик чекатиме, доки байти вичитають
-```
-```stm32
-#include "usbd_cdc_if.h"            // CDC_Transmit_FS — із середника USB Device
-
-extern UART_HandleTypeDef huart2;
-static const char msg[] = "link up\n";
-
-// Звичайний UART (у роз'єм ST-LINK VCP): живий з перших тактів, але ~11 КБ/с
-HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg) - 1, HAL_MAX_DELAY);
-
-// Вбудований USB CDC (F4/L4/H7 з USB-периферією): мегабайти/с, без моста…
-CDC_Transmit_FS((uint8_t *)msg, sizeof(msg) - 1);
-// …але впаде чіп — порт відвалиться; а поки хост не забрав попередній пакет,
-//   виклик поверне USBD_BUSY і рядок просто зникне, якщо не повторити
-```
+:::code debug-io-comparison-d/c/esp-idf/uart.h
+:::code debug-io-comparison-d/c/stm32/usbd_cdc_if.h
 :::
 
 Звідси практичне правило: USB CDC — чудовий **робочий** канал, коли треба багато й швидко, а пристрій під рукою й здоровий. Та покладатися на нього в **аварійному** виводі чи в перші такти старту наївно: саме там, де він найпотрібніший, його несе разом зі стеком, що падає.

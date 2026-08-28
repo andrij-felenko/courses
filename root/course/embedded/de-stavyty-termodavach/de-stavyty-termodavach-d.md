@@ -142,58 +142,8 @@ R_th = L / (k · w · t)
 Нижче наведено базовий крок алгоритму оновлення динамічної компенсації:
 
 :::tabs
-```c
-/* Обчислення одного кроку компенсатора самонагріву */
-float thermal_compensator_step(float t_raw, float p_heat, float dt,
-                               float r_th1, float tau1, float *state1,
-                               float r_th2, float tau2, float *state2) {
-    /* Розрахунок коефіцієнтів згладжування */
-    float a1 = expf(-dt / tau1);
-    float a2 = expf(-dt / tau2);
-
-    /* Інтегрування швидкої та повільної ланок */
-    *state1 = (a1 * (*state1)) + ((1.0f - a1) * (r_th1 * p_heat));
-    *state2 = (a2 * (*state2)) + ((1.0f - a2) * (r_th2 * p_heat));
-
-    /* Віднімання змодельованого сумарного самонагріву */
-    float delta_self = (*state1) + (*state2);
-    return t_raw - delta_self;
-}
-```
-```cpp
-// Обчислення одного кроку компенсатора самонагріву в ООП-стилі
-#include <cmath>
-
-class ThermalStepFilter {
-public:
-    constexpr ThermalStepFilter(float r_th1, float tau1, float r_th2, float tau2) noexcept
-        : r_th1_(r_th1), tau1_(tau1), r_th2_(r_th2), tau2_(tau2) {}
-
-    [[nodiscard]] float process(float raw_temp, float heat_power, float dt) noexcept {
-        const float a1 = std::exp(-dt / tau1_);
-        const float a2 = std::exp(-dt / tau2_);
-
-        state1_ = (a1 * state1_) + ((1.0f - a1) * (r_th1_ * heat_power));
-        state2_ = (a2 * state2_) + ((1.0f - a2) * (r_th2_ * heat_power));
-
-        const float delta_self = state1_ + state2_;
-        return raw_temp - delta_self;
-    }
-
-    void reset() noexcept {
-        state1_ = 0.0f;
-        state2_ = 0.0f;
-    }
-
-private:
-    float r_th1_{12.0f};
-    float tau1_{8.0f};
-    float r_th2_{45.0f};
-    float tau2_{120.0f};
-    float state1_{0.0f};
-    float state2_{0.0f};
-};
-```
+:::code de-stavyty-termodavach-d/c/main.c
+:::code de-stavyty-termodavach-d/cpp/main.cpp
 :::
 
 Повний модуль обробки із калібруванням та врахуванням режимів сну наведено у вставці [Алгоритм динамічної компенсації самонагріву плати для термодавача на C та C++](root:embedded/de-stavyty-termodavach/proj-thermal-compensation.md).

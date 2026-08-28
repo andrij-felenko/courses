@@ -145,194 +145,23 @@
 У мові C заголовочний файл експортує лише неповне оголошення типу структури (Incomplete Type) та покажчик на неї. Вся внутрішня будова структури (адреси шини, проміжні змінні калібрування, дескриптори таймерів) декларується виключно у файлі реалізації `.c`.
 
 :::tabs
-```c
-// bsp_sensor.h — Публічний заголовок: чистий інтерфейс для шарів вище
-#ifndef BSP_SENSOR_H
-#define BSP_SENSOR_H
-
-#include <stdbool.h>
-#include <stdint.h>
-
-// Неповний тип: клієнтський код не знає розміру й полів структури
-typedef struct bsp_sensor_handle bsp_sensor_t;
-
-typedef struct {
-    float temperature_c;
-    float pressure_kpa;
-} bsp_sensor_data_t;
-
-// Функції життєвого циклу
-bsp_sensor_t* bsp_sensor_create(uint8_t bus_id, uint8_t i2c_address);
-bool bsp_sensor_read_data(bsp_sensor_t* dev, bsp_sensor_data_t* out_data);
-void bsp_sensor_destroy(bsp_sensor_t* dev);
-
-#endif // BSP_SENSOR_H
-```
-```cpp
-// bsp_sensor.hpp — Ідіоматичний еквівалент на сучасному C++
-#pragma once
-#include <cstdint>
-#include <optional>
-#include <memory>
-
-namespace bsp {
-
-struct SensorData {
-    float temperature_c{0.0f};
-    float pressure_kpa{0.0f};
-};
-
-class ISensor {
-public:
-    virtual ~ISensor() = default;
-    virtual bool init() = 0;
-    virtual std::optional<SensorData> read_data() = 0;
-};
-
-// Фабрична функція, що повертає унікальний покажчик на інтерфейс
-std::unique_ptr<ISensor> create_environment_sensor(uint8_t bus_id, uint8_t i2c_address);
-
-} // namespace bsp
-```
+:::code arkhitektura-proshyvky-d/c/bsp_sensor.h
+:::code arkhitektura-proshyvky-d/cpp/bsp_sensor.hpp
 :::
 
 У файлі реалізації C структура отримує повне визначення:
 
 :::tabs
-```c
-// bsp_sensor.c — Приватна реалізація, прихована від застосунку
-#include "bsp_sensor.h"
-#include <stdlib.h>
-
-struct bsp_sensor_handle {
-    uint8_t bus_id;
-    uint8_t address;
-    int16_t calib_t1;
-    int16_t calib_t2;
-    uint32_t last_poll_timestamp;
-};
-
-bsp_sensor_t* bsp_sensor_create(uint8_t bus_id, uint8_t i2c_address) {
-    bsp_sensor_t* dev = (bsp_sensor_t*)malloc(sizeof(bsp_sensor_t));
-    if (!dev) return NULL;
-    dev->bus_id = bus_id;
-    dev->address = i2c_address;
-    dev->calib_t1 = 0;
-    dev->calib_t2 = 0;
-    dev->last_poll_timestamp = 0;
-    return dev;
-}
-
-bool bsp_sensor_read_data(bsp_sensor_t* dev, bsp_sensor_data_t* out_data) {
-    if (!dev || !out_data) return false;
-    // Логіка зчитування через HAL-шину з використанням dev->bus_id
-    out_data->temperature_c = 24.5f;
-    out_data->pressure_kpa = 101.3f;
-    return true;
-}
-
-void bsp_sensor_destroy(bsp_sensor_t* dev) {
-    if (dev) {
-        free(dev);
-    }
-}
-```
-```cpp
-// bsp_sensor.cpp — Приватна реалізація класу в C++
-#include "bsp_sensor.hpp"
-
-namespace bsp {
-
-class Bme280Sensor final : public ISensor {
-public:
-    Bme280Sensor(uint8_t bus_id, uint8_t address)
-        : bus_id_(bus_id), address_(address) {}
-
-    bool init() override {
-        // Ініціалізація регістрів датчика
-        return true;
-    }
-
-    std::optional<SensorData> read_data() override {
-        SensorData data{
-            .temperature_c = 24.5f,
-            .pressure_kpa = 101.3f
-        };
-        return data;
-    }
-
-private:
-    uint8_t bus_id_;
-    uint8_t address_;
-    int16_t calib_t1_{0};
-    int16_t calib_t2_{0};
-};
-
-std::unique_ptr<ISensor> create_environment_sensor(uint8_t bus_id, uint8_t i2c_address) {
-    return std::make_unique<Bme280Sensor>(bus_id, i2c_address);
-}
-
-} // namespace bsp
-```
+:::code arkhitektura-proshyvky-d/c/bsp_sensor.c
+:::code arkhitektura-proshyvky-d/cpp/bsp_sensor.cpp
 :::
 
 #### 2. Таблиця операцій віртуальної шини (Interface Ops / Dependency Inversion)
 Щоб драйвер пристрою (BSP) не залежав від конкретного вендорного HAL, драйвер підключається до шини не через виклики функцій на кшталт `HAL_I2C_Master_Transmit()`, а через **структуру покажчиків на функції** (таблицю операцій):
 
 :::tabs
-```c
-// hal_i2c_interface.h — Інверсія залежностей для шини I2C у C
-#ifndef HAL_I2C_INTERFACE_H
-#define HAL_I2C_INTERFACE_H
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-typedef struct {
-    bool (*write)(void* user_ctx, uint8_t dev_addr, const uint8_t* data, size_t len);
-    bool (*read)(void* user_ctx, uint8_t dev_addr, uint8_t* data, size_t len);
-    bool (*write_read)(void* user_ctx, uint8_t dev_addr, const uint8_t* wdata, 
-                       size_t wlen, uint8_t* rdata, size_t rlen);
-} hal_i2c_ops_t;
-
-typedef struct {
-    const hal_i2c_ops_t* ops;
-    void* user_ctx; // Вказівник на I2C_HandleTypeDef на STM32 або Mock-об'єкт у тестах
-} hal_i2c_bus_t;
-
-#endif // HAL_I2C_INTERFACE_H
-```
-```cpp
-// hal_i2c_interface.hpp — Інтерфейс шини I2C у сучасному C++
-#pragma once
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <expected>
-
-namespace hal {
-
-enum class BusStatus {
-    Ok,
-    ErrorNack,
-    ErrorTimeout
-};
-
-class II2cMaster {
-public:
-    virtual ~II2cMaster() = default;
-    virtual std::expected<void, BusStatus> write(uint8_t dev_addr, 
-                                                 std::span<const uint8_t> data) = 0;
-    virtual std::expected<void, BusStatus> read(uint8_t dev_addr, 
-                                                std::span<uint8_t> data) = 0;
-    virtual std::expected<void, BusStatus> write_read(uint8_t dev_addr, 
-                                                      std::span<const uint8_t> wdata, 
-                                                      std::span<uint8_t> rdata) = 0;
-};
-
-} // namespace hal
-```
+:::code arkhitektura-proshyvky-d/c/hal_i2c_interface.h
+:::code arkhitektura-proshyvky-d/cpp/hal_i2c_interface.hpp
 :::
 
 Завдяки такій структурі драйвер давача стає **чистим компонентом**: йому байдуже, чи функція `ops->write` смикає апаратний контролер I2C1 мікроконтролера STM32, чи програмний емулятор I2C Bit-Banging на мікроконтролері PIC, чи заповнює масив у пам'яті комп'ютера розробника під час виконання юніт-тесту.
@@ -352,148 +181,23 @@ public:
 Подія є легковаговим об'єктом фіксованого розміру (зазвичай 8–16 байтів), що складається з ідентифікатора типу події, часової мітки та об'єднання (*union*) корисного навантаження:
 
 :::tabs
-```c
-// event_types.h
-#ifndef EVENT_TYPES_H
-#define EVENT_TYPES_H
-
-#include <stdint.h>
-
-typedef enum {
-    EVT_ID_NONE = 0,
-    EVT_ID_TICK_100MS,
-    EVT_ID_BUTTON_CLICK,
-    EVT_ID_SENSOR_DATA_READY,
-    EVT_ID_ALARM_OVERTEMP,
-    EVT_ID_COMMS_PACKET_RX
-} event_id_t;
-
-typedef struct {
-    event_id_t id;
-    uint32_t timestamp_ms;
-    union {
-        uint8_t button_pin;
-        struct {
-            float temp_c;
-            float pressure_kpa;
-        } sensor_payload;
-        struct {
-            uint16_t len;
-            const uint8_t* p_data;
-        } rx_packet;
-    } data;
-} sys_event_t;
-
-#endif // EVENT_TYPES_H
-```
-```cpp
-// event_types.hpp
-#pragma once
-#include <cstdint>
-#include <variant>
-#include <span>
-
-namespace events {
-
-enum class EventId : uint16_t {
-    None = 0,
-    Tick100ms,
-    ButtonClick,
-    SensorDataReady,
-    AlarmOvertemp,
-    CommsPacketRx
-};
-
-struct SensorPayload {
-    float temp_c{0.0f};
-    float pressure_kpa{0.0f};
-};
-
-struct PacketPayload {
-    std::span<const uint8_t> buffer;
-};
-
-struct SystemEvent {
-    EventId id{EventId::None};
-    uint32_t timestamp_ms{0};
-    std::variant<std::monostate, uint8_t, SensorPayload, PacketPayload> payload{};
-};
-
-} // namespace events
-```
+:::code arkhitektura-proshyvky-d/c/event_types.h
+:::code arkhitektura-proshyvky-d/cpp/event_types.hpp
 :::
 
 #### Потік подій між шарами
 1. **Генерація події в ISR**: коли на ніжці мікроконтролера спрацьовує переривання від кнопки, обробник переривання `EXTI0_IRQHandler()` не виконує затримок і не малює графіку на дисплеї. Він лише формує подію `EVT_ID_BUTTON_CLICK` і записує її в потокобезпечну кільцеву чергу за 20–30 тактів процесора:
 
 :::tabs
-```c
-// Переривання EXTI0 у мові C
-void EXTI0_IRQHandler(void) {
-    if (EXTI->PR & (1 << 0)) {
-        EXTI->PR = (1 << 0); // Скидання прапорця переривання
-        sys_event_t evt = {
-            .id = EVT_ID_BUTTON_CLICK,
-            .timestamp_ms = sys_get_tick_ms(),
-            .data.button_pin = 0
-        };
-        event_queue_post_from_isr(&g_main_queue, &evt);
-    }
-}
-```
-```cpp
-// Переривання EXTI0 з викликом черги C++
-extern "C" void EXTI0_IRQHandler() {
-    if (EXTI->PR & (1 << 0)) {
-        EXTI->PR = (1 << 0); // Скидання прапорця переривання
-        events::SystemEvent evt{
-            .id = events::EventId::ButtonClick,
-            .timestamp_ms = board::get_tick_ms(),
-            .payload = static_cast<uint8_t>(0)
-        };
-        board::get_main_queue().push_from_isr(evt);
-    }
-}
-```
+:::code arkhitektura-proshyvky-d/c/potik-podii-mizh-sharamy.c
+:::code arkhitektura-proshyvky-d/cpp/potik-podii-mizh-sharamy.cpp
 :::
 
 2. **Диспетчеризація в головному циклі**: головний цикл застосунку витягує події з черги й передає їх у кінцевий автомат:
 
 :::tabs
-```c
-// main.c — Головний диспетчер у C
-int main(void) {
-    board_hardware_init();
-    event_queue_init(&g_main_queue);
-    app_coordinator_init();
-
-    while (1) {
-        sys_event_t evt;
-        if (event_queue_pop(&g_main_queue, &evt, TIMEOUT_MAX)) {
-            app_coordinator_dispatch(&evt);
-        } else {
-            // Якщо подій немає, переходимо в режим збереження енергії до наступного переривання
-            __WFI(); // Wait For Interrupt
-        }
-    }
-}
-```
-```cpp
-// main.cpp — Головний диспетчер у C++
-int main() {
-    board::init();
-    services::EventQueue<32> queue;
-    app::Coordinator coordinator;
-
-    while (true) {
-        if (auto evt = queue.pop()) {
-            coordinator.dispatch(*evt);
-        } else {
-            asm volatile("wfi"); // Перехід ядра Cortex-M у сон
-        }
-    }
-}
-```
+:::code arkhitektura-proshyvky-d/c/main.c
+:::code arkhitektura-proshyvky-d/cpp/main.cpp
 :::
 
 Така схема гарантує:
@@ -536,63 +240,8 @@ project_root/
 #### Крок 1: Оголошення абстракції шини I2C у шарі HAL
 
 :::tabs
-```c
-// hal/hal_i2c.h
-#ifndef HAL_I2C_H
-#define HAL_I2C_H
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-typedef enum {
-    HAL_I2C_STATUS_OK = 0,
-    HAL_I2C_STATUS_NACK,
-    HAL_I2C_STATUS_BUS_ERROR,
-    HAL_I2C_STATUS_TIMEOUT
-} hal_i2c_status_t;
-
-typedef struct {
-    hal_i2c_status_t (*mem_read)(void* ctx, uint8_t dev_addr, uint8_t reg_addr, 
-                                 uint8_t* p_data, size_t size);
-    hal_i2c_status_t (*mem_write)(void* ctx, uint8_t dev_addr, uint8_t reg_addr, 
-                                  const uint8_t* p_data, size_t size);
-} hal_i2c_driver_t;
-
-typedef struct {
-    const hal_i2c_driver_t* driver;
-    void* context;
-} hal_i2c_bus_t;
-
-#endif // HAL_I2C_H
-```
-```cpp
-// hal/hal_i2c.hpp
-#pragma once
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <expected>
-
-namespace hal {
-
-enum class I2cError {
-    Nack,
-    BusError,
-    Timeout
-};
-
-class II2cBus {
-public:
-    virtual ~II2cBus() = default;
-    virtual std::expected<void, I2cError> mem_read(uint8_t dev_addr, uint8_t reg_addr, 
-                                                   std::span<uint8_t> data) = 0;
-    virtual std::expected<void, I2cError> mem_write(uint8_t dev_addr, uint8_t reg_addr, 
-                                                    std::span<const uint8_t> data) = 0;
-};
-
-} // namespace hal
-```
+:::code arkhitektura-proshyvky-d/c/hal_i2c.h
+:::code arkhitektura-proshyvky-d/cpp/hal_i2c.hpp
 :::
 
 #### Крок 2: Драйвер давача температури в шарі BSP
@@ -600,65 +249,8 @@ public:
 Драйвер BME280 використовує таблицю операцій `hal_i2c_bus_t`. Він виділяє всю пам'ять статично (без виклику `malloc`), що критично для вбудованих систем із жорсткими вимогами до надійності:
 
 :::tabs
-```c
-// bsp/bsp_bme280.h
-#ifndef BSP_BME280_H
-#define BSP_BME280_H
-
-#include "hal/hal_i2c.h"
-
-typedef struct bsp_bme280_dev bsp_bme280_t;
-
-typedef struct {
-    uint8_t memory_pool[48]; // Статичний буфер для дескриптора
-} bsp_bme280_storage_t;
-
-typedef struct {
-    float temperature_c;
-    float humidity_rh;
-    float pressure_hpa;
-} bsp_bme280_readings_t;
-
-bsp_bme280_t* bsp_bme280_init(bsp_bme280_storage_t* storage, 
-                              const hal_i2c_bus_t* bus, 
-                              uint8_t i2c_addr);
-
-bool bsp_bme280_measure(bsp_bme280_t* dev, bsp_bme280_readings_t* out_readings);
-
-#endif // BSP_BME280_H
-```
-```cpp
-// bsp/bsp_bme280.hpp
-#pragma once
-#include "hal/hal_i2c.hpp"
-#include <optional>
-
-namespace bsp {
-
-struct EnvironmentalData {
-    float temperature_c{0.0f};
-    float humidity_rh{0.0f};
-    float pressure_hpa{0.0f};
-};
-
-class Bme280Driver {
-public:
-    Bme280Driver(hal::II2cBus& bus, uint8_t address = 0x76)
-        : bus_(bus), address_(address) {}
-
-    bool init();
-    std::optional<EnvironmentalData> measure();
-
-private:
-    hal::II2cBus& bus_;
-    uint8_t address_;
-    uint16_t dig_t1_{0};
-    int16_t dig_t2_{0};
-    int16_t dig_t3_{0};
-};
-
-} // namespace bsp
-```
+:::code arkhitektura-proshyvky-d/c/bsp_bme280.h
+:::code arkhitektura-proshyvky-d/cpp/bsp_bme280.hpp
 :::
 
 #### Крок 3: Реалізація координатора застосунку (Application)
@@ -666,79 +258,8 @@ private:
 Застосунок зв'язує сенсор з диспетчером подій і реалізує бізнес-правила:
 
 :::tabs
-```c
-// app/app_coordinator.c
-#include "bsp/bsp_bme280.h"
-#include "services/event_queue.h"
-
-typedef struct {
-    bsp_bme280_t* sensor;
-    event_queue_t* queue;
-    float temp_limit_c;
-} app_context_t;
-
-static app_context_t g_app;
-
-void app_init(bsp_bme280_t* sensor, event_queue_t* queue, float limit_c) {
-    g_app.sensor = sensor;
-    g_app.queue = queue;
-    g_app.temp_limit_c = limit_c;
-}
-
-void app_handle_tick_event(void) {
-    bsp_bme280_readings_t readings;
-    if (bsp_bme280_measure(g_app.sensor, &readings)) {
-        if (readings.temperature_c > g_app.temp_limit_c) {
-            sys_event_t alert = {
-                .id = EVT_ID_ALARM_OVERTEMP,
-                .timestamp_ms = 0,
-                .data.sensor_payload = {
-                    .temp_c = readings.temperature_c,
-                    .pressure_kpa = readings.pressure_hpa / 10.0f
-                }
-            };
-            event_queue_post(g_app.queue, &alert);
-        }
-    }
-}
-```
-```cpp
-// app/app_coordinator.cpp
-#include "bsp/bsp_bme280.hpp"
-#include "services/event_queue.hpp"
-
-namespace app {
-
-class TelemetryCoordinator {
-public:
-    TelemetryCoordinator(bsp::Bme280Driver& sensor, 
-                         services::EventQueue<16>& queue, 
-                         float temp_limit_c)
-        : sensor_(sensor), queue_(queue), temp_limit_c_(temp_limit_c) {}
-
-    void on_tick() {
-        auto readings = sensor_.measure();
-        if (readings.has_value() && readings->temperature_c > temp_limit_c_) {
-            events::SystemEvent alert{
-                .id = events::EventId::AlarmOvertemp,
-                .timestamp_ms = 0,
-                .payload = events::SensorPayload{
-                    .temp_c = readings->temperature_c,
-                    .pressure_kpa = readings->pressure_hpa / 10.0f
-                }
-            };
-            queue_.push(alert);
-        }
-    }
-
-private:
-    bsp::Bme280Driver& sensor_;
-    services::EventQueue<16>& queue_;
-    float temp_limit_c_;
-};
-
-} // namespace app
-```
+:::code arkhitektura-proshyvky-d/c/app_coordinator.c
+:::code arkhitektura-proshyvky-d/cpp/app_coordinator.cpp
 :::
 
 Повну робочу збірку цього каркаса з можливістю запуску юніт-тестів на хостовому комп'ютері та детальною інжекцією помилок шини I2C дивіться у практичній вставці [Каркас модульної прошивки для Cortex-M із хостовим тестуванням](root:embedded/arkhitektura-proshyvky/proj-layered-firmware-skeleton.md).

@@ -86,60 +86,8 @@
 - **XOR виходу (RefOut/XorOut):** `0x0000`
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <span>
-
-class TelemetryCrc {
-public:
-    static uint16_t calculate(std::span<const uint8_t> data) noexcept {
-        uint16_t crc = 0xFFFF;
-        for (uint8_t byte : data) {
-            crc ^= static_cast<uint16_t>(byte) << 8;
-            for (int i = 0; i < 8; ++i) {
-                if (crc & 0x8000) {
-                    crc = (crc << 1) ^ 0x1021;
-                } else {
-                    crc = crc << 1;
-                }
-            }
-        }
-        return crc;
-    }
-
-    static bool verify(std::span<const uint8_t, 24> frame) noexcept {
-        const uint16_t expected_crc = (static_cast<uint16_t>(frame[22]) << 8) | frame[23];
-        const uint16_t calculated_crc = calculate(frame.subspan<0, 22>());
-        return expected_crc == calculated_crc;
-    }
-};
-```
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-uint16_t telemetry_crc16_ccitt(const uint8_t *data, size_t length) {
-    uint16_t crc = 0xFFFF;
-    for (size_t i = 0; i < length; ++i) {
-        crc ^= (uint16_t)data[i] << 8;
-        for (int b = 0; b < 8; ++b) {
-            if (crc & 0x8000) {
-                crc = (crc << 1) ^ 0x1021;
-            } else {
-                crc = crc << 1;
-            }
-        }
-    }
-    return crc;
-}
-
-bool telemetry_verify_frame(const uint8_t *frame_24b) {
-    uint16_t expected_crc = ((uint16_t)frame_24b[22] << 8) | frame_24b[23];
-    uint16_t calc_crc = telemetry_crc16_ccitt(frame_24b, 22);
-    return expected_crc == calc_crc;
-}
-```
+:::code api-telemetry-frame/cpp/main.cpp
+:::code api-telemetry-frame/c/main.c
 :::
 
 ---

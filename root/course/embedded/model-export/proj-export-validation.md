@@ -46,83 +46,13 @@
 
 Спершу — невеликі будівельні блоки. Один прохід кандидата через настільний інтерпретатор:
 
-```cpp
-#include "tensorflow/lite/interpreter.h"
-#include "tensorflow/lite/kernels/register.h"
-#include "tensorflow/lite/model.h"
-
-#include <vector>
-#include <cmath>
-#include <cstdio>
-#include <cstdint>
-#include <algorithm>
-
-// Скільки виходів у моделі (число класів, або 1 для регресії).
-constexpr int kNumOutputs = 4;
-
-// Один кадр — вектор float у ФІЗИЧНИХ одиницях (як з давача/датасету).
-using Frame = std::vector<float>;
-
-// Гілка ПРИСТРОЮ на хості: проганяє кадр крізь .tflite тим самим рушієм,
-// що й на чипі, і повертає kNumOutputs float-значень (деквантований вихід).
-struct LiteModel {
-    std::unique_ptr<tflite::FlatBufferModel> model;
-    std::unique_ptr<tflite::Interpreter>     interp;
-    TfLiteTensor* input  = nullptr;
-    TfLiteTensor* output = nullptr;
-
-    bool load(const char* path) {
-        model = tflite::FlatBufferModel::BuildFromFile(path);   // читаємо .tflite
-        if (!model) { printf("не відкрив %s\n", path); return false; }
-
-        tflite::ops::builtin::BuiltinOpResolver resolver;       // на хості — повний набір
-        tflite::InterpreterBuilder(*model, resolver)(&interp);
-        if (!interp || interp->AllocateTensors() != kTfLiteOk) {
-            printf("AllocateTensors не вдався\n"); return false;
-        }
-        input  = interp->input_tensor(0);
-        output = interp->output_tensor(0);
-        return true;
-    }
-    // ...прогін кадра — нижче
-};
-```
+:::code proj-export-validation/cpp/robochyi-kod-hilka.cpp
 
 Зверни увагу на дрібницю, що відрізняє хост від чипа: тут ми беремо `BuiltinOpResolver` — **повний** набір операцій, бо на настільній машині пам'ять не рахуємо. На пристрої, як ми бачили, доводиться руками перелічувати рівно ті операції, що є в графі. Але це різниця **обв'язки**, не арифметики: самі ядра, що рахують згортки й повноз'єднані шари, ті самі.
 
 Тепер найвідповідальніша частина — **подати кадр у вхідний тензор**. І ось тут, у гілці перевірки, чигає рівно та сама пастка, що й на пристрої, тільки підступніша, бо її легко не помітити саме в тесті.
 
-```cpp
-// Деквантування int8-виходу в звичайне число тим самим афінним містком.
-static float dequant(const TfLiteTensor* t, int i) {
-    if (t->type == kTfLiteFloat32) return t->data.f[i];        // вже float
-    const float s  = t->params.scale;
-    const int   zp = t->params.zero_point;
-    return s * (t->data.int8[i] - zp);                          // int8 → float
-}
-
-// Прогнати ОДИН кадр і записати kNumOutputs виходів у out[].
-bool LiteModel::run(const Frame& frame, float* out) {
-    if (input->type == kTfLiteFloat32) {
-        // Вхід моделі float — кладемо як є.
-        for (size_t i = 0; i < frame.size(); ++i) input->data.f[i] = frame[i];
-    } else {
-        // Вхід моделі int8 — КВАНТУЄМО за параметрами САМОЇ моделі.
-        const float s  = input->params.scale;
-        const int   zp = input->params.zero_point;
-        for (size_t i = 0; i < frame.size(); ++i) {
-            int32_t q = (int32_t)lroundf(frame[i] / s) + zp;   // фізичне → int8
-            q = std::max(-128, std::min(127, q));              // обов'язковий clamp
-            input->data.int8[i] = (int8_t)q;
-        }
-    }
-
-    if (interp->Invoke() != kTfLiteOk) { printf("Invoke fail\n"); return false; }
-
-    for (int i = 0; i < kNumOutputs; ++i) out[i] = dequant(output, i);
-    return true;
-}
-```
+:::code proj-export-validation/cpp/robochyi-kod-hilka-2.cpp
 
 Цей `run` — серце гілки пристрою, і він навмисне зроблений як **дзеркало бойового харнеса**: вхід квантують `frame / scale + zero_point` із притисканням у [−128, 127], вихід деквантують `scale · (q − zero_point)`. Це той самий [афінний місток](root:embedded/edge-inference/math-affine-quantization.md), яким прошивка переводить показ давача у вхідний int8-тензор і розкодовує int8-вихід назад. І тут ховається найтонша помилка всього стенда, про яку — окрема розмова нижче: якщо в **гілці тесту** квантувати вхід інакше, ніж це робитиме прошивка, стенд виміряє розбіжність, якої на пристрої не буде, або прогавить ту, що буде. Дзеркальність — не охайність, а вимога коректності.
 
@@ -132,21 +62,7 @@ bool LiteModel::run(const Frame& frame, float* out) {
 
 Опишемо один елемент тестового набору — кадр, його еталонний вихід і правильну відповідь (істинний клас, якщо вона відома):
 
-```cpp
-// Один приклад: вхідний кадр + еталонний вихід оригіналу + істинний клас.
-struct TestCase {
-    Frame frame;                       // вхід (фізичні одиниці)
-    float ref[kNumOutputs];            // вихід ОРИГІНАЛЬНОЇ float-моделі (з Python)
-    int   true_label;                  // правильний клас, або -1 якщо невідомий
-};
-
-// argmax: індекс найбільшого виходу — клас-переможець.
-static int winner(const float* v, int n) {
-    int best = 0;
-    for (int i = 1; i < n; ++i) if (v[i] > v[best]) best = i;
-    return best;
-}
-```
+:::code proj-export-validation/cpp/robochyi-kod-etalonna.cpp
 
 `winner` — це і є друге око стенда: для класифікатора важить **індекс** максимального виходу, а не його величина. `true_label` потрібен для третьої, найсильнішої метрики — падіння точності, — але він не завжди є під рукою (часом ми маємо лише еталонні виходи, без розмічених відповідей), тому передбачаємо випадок `-1`.
 
@@ -154,109 +70,17 @@ static int winner(const float* v, int n) {
 
 Тепер головне — звести дві гілки й порахувати розбіжність. Збираємо всі три метрики за один прохід по набору.
 
-```cpp
-// Підсумок перевірки — усе, що треба для вердикту й для діагностики.
-struct Report {
-    int   n             = 0;        // скільки кадрів перевірено
-    float max_abs_diff  = 0.0f;     // найбільше |ref - lite| по ВСІХ виходах
-    float mean_abs_diff = 0.0f;     // середнє |ref - lite|
-    int   winner_match  = 0;        // на скількох кадрах клас-переможець збігся
-    int   ref_correct   = 0;        // скільки правильних в оригіналу
-    int   lite_correct  = 0;        // скільки правильних в експорту
-    bool  have_labels   = false;    // чи були істинні відповіді
-};
-
-// Прогнати ВЕСЬ тестовий набір крізь кандидата й зібрати метрики.
-Report evaluate(LiteModel& lite, const std::vector<TestCase>& set) {
-    Report r;
-    double sum_abs = 0.0;
-    long   diff_count = 0;
-
-    for (const TestCase& tc : set) {
-        float out[kNumOutputs];
-        if (!lite.run(tc.frame, out)) continue;     // збій прогону — пропускаємо
-        r.n++;
-
-        // ── вісь 1: амплітуда виходу ──
-        for (int i = 0; i < kNumOutputs; ++i) {
-            float d = std::fabs(tc.ref[i] - out[i]);
-            if (d > r.max_abs_diff) r.max_abs_diff = d;
-            sum_abs += d;
-            diff_count++;
-        }
-
-        // ── вісь 2: клас-переможець ──
-        int wr = winner(tc.ref, kNumOutputs);       // переможець ОРИГІНАЛУ
-        int wl = winner(out,    kNumOutputs);       // переможець ЕКСПОРТУ
-        if (wr == wl) r.winner_match++;
-
-        // ── вісь 3: падіння точності (лише де є істина) ──
-        if (tc.true_label >= 0) {
-            r.have_labels = true;
-            if (wr == tc.true_label) r.ref_correct++;
-            if (wl == tc.true_label) r.lite_correct++;
-        }
-    }
-    r.mean_abs_diff = diff_count ? (float)(sum_abs / diff_count) : 0.0f;
-    return r;
-}
-```
+:::code proj-export-validation/cpp/robochyi-kod-metryky-i.cpp
 
 Дивися, як кожна метрика відповідає на своє питання. `max_abs_diff` — **найгірший** вихід на всьому наборі: одне число, що каже «у найпаскуднішому випадку експорт розійшовся з еталоном ось настільки». Саме максимум, а не середнє, бо нас валить найгірший кадр, а не типовий — точно як [латентність міряють перцентилем, а не середнім](root:embedded/on-device-benchmarking): середнє ховає хвіст, а в хвості й сидить біда. `mean_abs_diff` доповнює картину: якщо середнє теж велике, розбіжність системна (підозра на калібрування); якщо середнє мізерне, а максимум стирчить — є кілька проблемних кадрів, варто глянути на них окремо. `winner_match` рахує, на скількох кадрах рішення не змінилося. А `ref_correct` проти `lite_correct` — найчесніша метрика з усіх: вона порівнює **точність** двох моделей на розмічених даних і показує, скільки відсотків ми **реально втратили** на квантуванні.
 
 Тепер вердикт — функція, що перетворює звіт на «прошивати / розбиратися»:
 
-```cpp
-// Пороги — ІНЖЕНЕРНЕ рішення під конкретну задачу (див. розмову нижче).
-struct Thresholds {
-    float max_abs    = 0.10f;   // макс. допустиме |ref - lite| на виході
-    float min_winner = 0.99f;   // частка кадрів, де переможець мусить збігтися
-    float max_acc_drop = 0.01f; // макс. допустиме падіння точності (1%)
-};
-
-// true = ПРОШИВАТИ; false = РОЗБИРАТИСЯ. Друкує діагностику в обох випадках.
-bool verdict(const Report& r, const Thresholds& th) {
-    float winner_rate = r.n ? (float)r.winner_match / r.n : 0.0f;
-    float acc_drop = 0.0f;
-    if (r.have_labels && r.n)
-        acc_drop = (float)(r.ref_correct - r.lite_correct) / r.n;
-
-    printf("=== перевірка експорту: %d кадрів ===\n", r.n);
-    printf("  макс |ref-lite|   = %.4f  (поріг %.4f)\n", r.max_abs_diff, th.max_abs);
-    printf("  середнє |ref-lite|= %.4f\n", r.mean_abs_diff);
-    printf("  збіг переможця    = %.3f  (поріг %.3f)\n", winner_rate, th.min_winner);
-    if (r.have_labels) {
-        printf("  точність ориг.    = %.3f\n", (float)r.ref_correct / r.n);
-        printf("  точність експорт  = %.3f\n", (float)r.lite_correct / r.n);
-        printf("  падіння точності  = %.4f  (поріг %.4f)\n", acc_drop, th.max_acc_drop);
-    }
-
-    bool ok = (r.max_abs_diff <= th.max_abs)
-           && (winner_rate    >= th.min_winner)
-           && (!r.have_labels || acc_drop <= th.max_acc_drop);
-
-    printf(ok ? "ВЕРДИКТ: ПРОШИВАТИ ✓\n" : "ВЕРДИКТ: РОЗБИРАТИСЯ ✗\n");
-    return ok;
-}
-```
+:::code proj-export-validation/cpp/robochyi-kod-metryky-i-2.cpp
 
 І весь стенд докупи — те, що запускають однією командою перед кожним прошиванням:
 
-```cpp
-int main() {
-    LiteModel lite;
-    if (!lite.load("model_quant.tflite")) return 2;     // кандидат на чип
-
-    std::vector<TestCase> set = load_test_set("testset.bin");  // кадри + ref + істина
-    Report r = evaluate(lite, set);
-
-    Thresholds th;                  // за замовчуванням — помірно строгі
-    bool ok = verdict(r, th);
-
-    // Код повернення — щоб CI/скрипт сам зупинив конвеєр, якщо ✗.
-    return ok ? 0 : 1;
-}
-```
+:::code proj-export-validation/cpp/robochyi-kod-metryky-i-3.cpp
 
 Останній рядок — не дрібниця. Код повернення `0`/`1` дозволяє **вбудувати стенд у конвеєр**: скрипт складання прошивки запускає його й, якщо вернулося не `0`, **зупиняється** й не генерує заголовок `model_data.h`. Так перевірка перестає бути доброю волею людини й стає **воротами**, крізь які несхвалена модель фізично не проходить далі. Це той самий автоматичний конвеєр «навчена модель → готовий заголовок із перевіркою всередині», про який ішлося в кінці теми.
 

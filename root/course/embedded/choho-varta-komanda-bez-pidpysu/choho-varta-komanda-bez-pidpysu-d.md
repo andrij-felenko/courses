@@ -339,27 +339,7 @@ int crypto_verify_32(const uint8_t *a, const uint8_t *b) {
     return (diff == 0) ? 0 : -1;
 }
 ```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-namespace embedded::security {
-
-[[nodiscard]] bool constant_time_verify(std::span<const uint8_t> a, 
-                                        std::span<const uint8_t> b) noexcept {
-    if (a.size() != b.size()) {
-        return false;
-    }
-    uint8_t diff = 0;
-    for (size_t i = 0; i < a.size(); ++i) {
-        diff |= (a[i] ^ b[i]);
-    }
-    return diff == 0;
-}
-
-} // namespace embedded::security
-```
+:::code choho-varta-komanda-bez-pidpysu-d/cpp/main.cpp
 :::
 
 У цій функції цикл завжди виконує всі 32 ітерації незалежно від вмісту буферів, унеможливлюючи витік інформації через сторонні канали часу.

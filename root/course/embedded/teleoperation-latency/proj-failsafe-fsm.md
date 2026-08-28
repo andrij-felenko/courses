@@ -44,39 +44,11 @@ typedef enum {
 
 Заведімо контекст автомата — усе, що він пам'ятає між тактами:
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    fs_state_t state;          // де ми зараз
-    uint32_t   last_change_ms; // коли востаннє міняли стан (для журналу/діагностики)
-    bool       beacon;         // чи горить маяк
-} failsafe_t;
-
-// Пороги переходів — у ПРОПУЩЕНИХ ударах, не в мілісекундах.
-// hb_period_ms — оцінений період серцебиття (його дає детектор присутності).
-#define BEATS_TO_HOLD   3u   // 3 удари тиші поспіль → HOLD
-#define BEATS_TO_STOP  10u   // 10 ударів → SAFE-STOP
-#define BEATS_TO_RTL   50u   // 50 ударів → політика місії
-```
+:::code proj-failsafe-fsm/c/oberezhnyi-pidiom.c
 
 Тепер функція, що з тривалості тиші й періоду серцебиття рахує **цільовий** стан — той, у якому автомат мусить опинитися за такої тиші. Ключове тут — ділення: скільки цілих періодів серцебиття вміщує тиша, стільки ударів ми пропустили.
 
-```c
-// Скільки ударів поспіль ми пропустили = тиша / період серцебиття.
-// За цим числом визначаємо, на яку сходинку тривоги слід піднятися.
-static fs_state_t fs_target_state(uint32_t silent_ms, uint32_t hb_period_ms)
-{
-    if (hb_period_ms == 0u) hb_period_ms = 100u;   // захист від ділення на нуль
-    uint32_t missed = silent_ms / hb_period_ms;    // цілих пропущених ударів
-
-    if (missed >= BEATS_TO_RTL)   return FS_RTL;
-    if (missed >= BEATS_TO_STOP)  return FS_SAFE_STOP;
-    if (missed >= BEATS_TO_HOLD)  return FS_HOLD;
-    return FS_NORMAL;
-}
-```
+:::code proj-failsafe-fsm/c/oberezhnyi-pidiom-2.c
 
 Придивись, чому це краще за пороги в мілісекундах. Якщо серцебиття йде на 10 Гц (`hb_period_ms = 100`), то `BEATS_TO_HOLD = 3` дає поріг 300 мс — рівно те число, що ми виписали в скелеті вручну. А якщо на вузькому радіолінку серцебиття свідомо сповільнили до 2 Гц (`hb_period_ms = 500`), той самий `BEATS_TO_HOLD = 3` **сам** дає поріг 1500 мс — бо на повільнішому пульсі три пропущені удари тривають довше, і це правильно. Жорстко вбита «трьохсотка» на такому лінку зчиняла б `HOLD` після кожного першого ж пропуску. Тримаючи поріг у пропущених ударах, ми прив'язуємо тривогу до **ритму джерела**, а не до абсолютного часу.
 
@@ -122,18 +94,7 @@ static fs_state_t fs_target_state(uint32_t silent_ms, uint32_t hb_period_ms)
 
 Зведімо обидва сторожі в один вирок. Автомат бере тишу **гіршого** з двох каналів — того, що мовчить довше:
 
-```c
-// Оновлюється двома лічильниками тиші: uplink (команди від пульта)
-// і downlink (підтвердження від пульта, що він нас чує/бачить).
-// Тривога — за ГІРШИМ каналом: досить одному замовкнути.
-static uint32_t fs_worst_silence(uint32_t uplink_silent_ms,
-                                 uint32_t downlink_silent_ms)
-{
-    return (uplink_silent_ms > downlink_silent_ms)
-             ? uplink_silent_ms
-             : downlink_silent_ms;
-}
-```
+:::code proj-failsafe-fsm/c/dva-storozhi-rover-mozhe.c
 
 Логіка проста й безжальна: **досить, щоб замовк хоч один** канал — і машина в тривозі. Оглухла (немає команд) чи осліпла (немає підтвердження, що її бачать) — обидва випадки однаково небезпечні для машини, якою керує людина здалеку, тож обидва ведуть у той самий східчастий failsafe.
 
@@ -143,29 +104,7 @@ static uint32_t fs_worst_silence(uint32_t uplink_silent_ms,
 
 Рампа — це просто обмеження, наскільки швидкість може змінитися **за один такт** циклу. Якщо ціль — нуль, а зараз їдемо швидко, ми не стрибаємо в нуль, а віднімаємо від поточної швидкості фіксований крок щотакту, аж поки дійдемо до нуля. Крок задає **темп гальмування** (прискорення сповільнення).
 
-```c
-// Максимальна зміна швидкості за такт — це і є нахил рампи.
-// Приклад: гальмуємо не різкіше ніж 2.0 м/с за секунду.
-#define BRAKE_DECEL   2.0f    // м/с за секунду (темп зниження швидкості)
-
-// Плавно тягне поточну швидкість current до цілі target, не швидше нахилу рампи.
-// dt_s — тривалість такту в секундах. Повертає нову швидкість.
-static float ramp_to(float current, float target, float dt_s)
-{
-    float max_step = BRAKE_DECEL * dt_s;   // скільки можна змінити за цей такт
-    float delta    = target - current;
-
-    if (delta >  max_step) delta =  max_step;   // не розганяймося різкіше рампи
-    if (delta < -max_step) delta = -max_step;   // не гальмуймо різкіше рампи
-    return current + delta;
-}
-
-// Зупинка = рампа до нуля. Викликається щотакту в стані SAFE-STOP.
-static float ramp_to_stop(float current, float dt_s)
-{
-    return ramp_to(current, 0.0f, dt_s);
-}
-```
+:::code proj-failsafe-fsm/c/plavnyi-stop-rampa-proty.c
 
 Порахуймо, скільки триває така зупинка. Хай ровер їхав 2 м/с і `BRAKE_DECEL = 2.0` м/с за секунду.
 
@@ -188,35 +127,7 @@ static float ramp_to_stop(float current, float dt_s)
 
 Друге, що конче потрібне при спрацюванні failsafe, — **журнал події** з міткою часу й координатами. Без нього після повернення ровера ти не дізнаєшся, **де саме** й **коли** він втратив зв'язок — а це перше, що питають, коли машина «раптом стала посеред поля». Запис має лягати в незалежну від живлення пам'ять, щоб пережити навіть повне вимкнення.
 
-```c
-// Мінімальний запис події failsafe — те, без чого потім не розберешся.
-typedef struct {
-    uint32_t time_ms;     // монотонний час спрацювання (від старту)
-    int32_t  lat_1e7;     // широта, у 1e-7 градуса (формат GPS ArduPilot)
-    int32_t  lon_1e7;     // довгота, так само
-    fs_state_t from;      // з якого стану
-    fs_state_t to;        // у який перейшли
-    uint8_t  reason;      // 0=uplink тиша, 1=downlink тиша
-} fs_log_entry_t;
-
-// Виклики, які реалізує платформа (маяк — GPIO/сирена; журнал — у Flash/FRAM).
-extern void beacon_set(bool on);
-extern void fs_log_write(const fs_log_entry_t *e);
-extern void mav_get_position(int32_t *lat_1e7, int32_t *lon_1e7);
-extern uint8_t fs_last_reason(void);   // що саме замовкло (uplink чи downlink)
-
-// Записати перехід у журнал із поточними координатами й часом.
-static void fs_log_transition(fs_state_t from, fs_state_t to, uint32_t now_ms)
-{
-    fs_log_entry_t e;
-    e.time_ms = now_ms;
-    e.from    = from;
-    e.to      = to;
-    e.reason  = fs_last_reason();
-    mav_get_position(&e.lat_1e7, &e.lon_1e7);   // де ми зараз
-    fs_log_write(&e);
-}
-```
+:::code proj-failsafe-fsm/c/maiak-i-zhurnal-mashyna.c
 
 Формат координат `1e-7` градуса — не примха, а прямий формат позиції в MAVLink і ArduPilot: широта й довгота там цілими числами в десятимільйонних частках градуса (щоб не тягати дробові типи в протоколі). Беручи той самий формат, ми пишемо в журнал рівно те, що вже маємо від GPS, без зайвих перетворень.
 
@@ -234,42 +145,7 @@ static void fs_log_transition(fs_state_t from, fs_state_t to, uint32_t now_ms)
 
 **SmartRTL — повертайся власним записаним слідом (`FS_ACTION = 3`).** Ось де найрозумніша ідея. Замість перти навпростець, ровер вертається **тим самим шляхом, яким приїхав** — бо цей шлях він щойно проїхав, отже, той прохідний. Для цього прошивка весь час веде «хлібні крихти» (англ. *breadcrumbs*): у буфер лягають точки пройденого шляху. Щоб буфер не розпух, точки прорідж`ують — прямі ділянки лишають двома кінцями, а петлі (коли ровер повернувся сам до себе) взагалі викидають, бо їх не треба переповзати. При failsafe машина розмотує цей слід назад — і гарантовано йде прохідним коридором, а не невідомістю.
 
-```c
-// Гак політики місії — реалізацію обирає прошивка (як FS_ACTION у ArduPilot).
-// Викликається ОДИН раз при вході в FS_RTL.
-typedef enum {
-    POLICY_HOLD,        // FS_ACTION=2: стій, де став
-    POLICY_RTL,         // FS_ACTION=1: пряма траса до точки старту
-    POLICY_SMART_RTL    // FS_ACTION=3: назад власним записаним слідом
-} fs_policy_t;
-
-extern fs_policy_t mission_policy(void);   // що задано на цю місію
-extern void        mission_hold(void);     // лишитись у Hold
-extern bool        mission_rtl_start(void);      // почати RTL; false якщо неможливо
-extern bool        mission_smart_rtl_start(void);// почати SmartRTL; false якщо слід порожній/повний
-
-// Виконати політику місії при вході в FS_RTL. Обережно: якщо активна
-// дія неможлива — чесно падаємо назад у безпечне «стій».
-static void fs_enter_policy(void)
-{
-    switch (mission_policy()) {
-        case POLICY_SMART_RTL:
-            // Спробувати слід; якщо буфер порожній/переповнений — RTL, а тоді Hold.
-            if (mission_smart_rtl_start()) break;
-            if (mission_rtl_start())       break;
-            mission_hold();
-            break;
-        case POLICY_RTL:
-            if (mission_rtl_start()) break;
-            mission_hold();          // не вийшло — просто стій
-            break;
-        case POLICY_HOLD:
-        default:
-            mission_hold();          // найбезпечніше за замовчуванням
-            break;
-    }
-}
-```
+:::code proj-failsafe-fsm/c/hak-pid-polityku-misii.c
 
 Зверни увагу на **ланцюг відкату** в `SMART_RTL`: спершу пробуємо слід, не вийшло — пряма RTL, не вийшло й це — просто стоїмо. Це не перестраховка, а точне віддзеркалення реальності: слід SmartRTL може бути недоступний (буфер переповнився й «SmartRTL deactivated» — таке буває на довгих маршрутах, бо пам'ять під точки скінченна) або порожній (ровер щойно ввімкнули й нікуди не їхав). У такому разі валитися нікуди — треба чесно взяти наступну за безпекою дію, а найбезпечніша завжди одна: **стояти**. Саме так і влаштовані `FS_ACTION = 3` і `4` у ArduPilot — «SmartRTL, а якщо не вийде — RTL» і «SmartRTL, а якщо не вийде — Hold».
 
@@ -280,63 +156,7 @@ static void fs_enter_policy(void)
 
 Тепер зберімо частини в єдину функцію `fs_update`, яку головний цикл прошивки кличе щотакту. Вона робить рівно чотири речі по порядку: бере тишу гіршого каналу, рахує цільовий стан, за потреби виконує **побічні дії переходу** (маяк, журнал, старт політики) і застосовує до приводу поведінку **поточного** стану.
 
-```c
-extern void apply_operator_cmd(void);   // звичайне телекерування (NORMAL)
-extern void hold_last_cmd(void);        // тримати останню команду (HOLD)
-extern float drive_get_speed(void);     // поточна швидкість, м/с
-extern void  drive_set_speed(float v);  // задати швидкість приводу
-
-void fs_init(failsafe_t *fs, uint32_t now_ms)
-{
-    fs->state          = FS_NORMAL;
-    fs->last_change_ms = now_ms;
-    fs->beacon         = false;
-    beacon_set(false);
-}
-
-// Викликати щотакту головного циклу приводу.
-// dt_s — тривалість такту (с); hb_period_ms — оцінений період серцебиття.
-void fs_update(failsafe_t *fs, uint32_t now_ms, float dt_s,
-               uint32_t uplink_silent_ms, uint32_t downlink_silent_ms,
-               uint32_t hb_period_ms)
-{
-    uint32_t silent = fs_worst_silence(uplink_silent_ms, downlink_silent_ms);
-    fs_state_t next = fs_target_state(silent, hb_period_ms);
-
-    // --- Побічні дії ПЕРЕХОДУ (лише коли стан справді змінюється) ---
-    if (next != fs->state) {
-        fs_log_transition(fs->state, next, now_ms);   // «чорна скринька»
-        fs->last_change_ms = now_ms;
-
-        bool want_beacon = (next == FS_SAFE_STOP || next == FS_RTL);
-        if (want_beacon != fs->beacon) {
-            fs->beacon = want_beacon;
-            beacon_set(want_beacon);                  // маяк увімк/вимк
-        }
-        if (next == FS_RTL)
-            fs_enter_policy();                        // Hold / RTL / SmartRTL — ОДИН раз
-
-        fs->state = next;
-    }
-
-    // --- Поведінка ПОТОЧНОГО стану (щотакту) ---
-    switch (fs->state) {
-        case FS_NORMAL:
-            apply_operator_cmd();                     // слухаємо оператора
-            break;
-        case FS_HOLD:
-            hold_last_cmd();                          // не смикаємо кермо
-            break;
-        case FS_SAFE_STOP:
-            drive_set_speed(ramp_to_stop(drive_get_speed(), dt_s));  // плавно в нуль
-            break;
-        case FS_RTL:
-            // Приводом керує вже логіка місії (RTL/SmartRTL веде маршрут),
-            // або, якщо політика Hold, машина просто стоїть після рампи.
-            break;
-    }
-}
-```
+:::code proj-failsafe-fsm/c/use-razom-odyn-takt.c
 
 Розділення на «дії переходу» й «поведінку стану» — не косметика, а суть чистого автомата. **Дії переходу** (журнал, перемикання маяка, старт RTL) мусять статися **рівно раз** — у мить зміни стану; якби вони жили в `switch` поточного стану, ми б писали в журнал і перезапускали RTL **щотакту**, поки сидимо в `FS_RTL`, — сотні разів на секунду. **Поведінка стану** (рампа, hold, слухати оператора), навпаки, має виконуватися **щотакту**, поки ми в цьому стані. Плутати ці дві категорії — типова хвороба саморобних автоматів: або одноразова дія повторюється щоцикл, або тактова дія виконується лише раз і машина застигає.
 

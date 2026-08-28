@@ -289,74 +289,8 @@
 Нижче наведено базовий інтерфейсний скелет фільтрації команд на рівні автопілота на мовах C та C++20:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint8_t  active_pilot_gcs_id;
-    uint32_t token_nonce;
-    uint32_t lease_deadline_ms;
-    bool     commander_locked;
-} flight_arbiter_t;
-
-static flight_arbiter_t g_flight_arbiter;
-
-/* Швидкий фільтр вхідних 50 Гц пакетів ручного керування */
-bool is_manual_control_packet_valid(uint8_t src_gcs_id, uint32_t nonce, uint32_t now_ms) {
-    if (g_flight_arbiter.commander_locked) {
-        return false; /* Заблоковано командиром */
-    }
-    if (now_ms > g_flight_arbiter.lease_deadline_ms) {
-        return false; /* Оренда прострочена */
-    }
-    if (src_gcs_id != g_flight_arbiter.active_pilot_gcs_id) {
-        return false; /* Джерело не є активним пілотом */
-    }
-    if (nonce != g_flight_arbiter.token_nonce) {
-        return false; /* Недійсний або застарілий токен */
-    }
-    return true;
-}
-```
-```cpp
-#pragma once
-
-#include <cstdint>
-
-namespace auth {
-
-class FlightArbiterFilter {
-public:
-    [[nodiscard]] constexpr bool is_manual_control_allowed(
-        uint8_t src_gcs_id, 
-        uint32_t nonce, 
-        uint32_t now_ms
-    ) const noexcept {
-        if (commander_locked_) {
-            return false;
-        }
-        if (now_ms > lease_deadline_ms_) {
-            return false;
-        }
-        if (src_gcs_id != active_pilot_gcs_id_) {
-            return false;
-        }
-        if (nonce != token_nonce_) {
-            return false;
-        }
-        return true;
-    }
-
-private:
-    uint8_t  active_pilot_gcs_id_{0};
-    uint32_t token_nonce_{0};
-    uint32_t lease_deadline_ms_{0};
-    bool     commander_locked_{false};
-};
-
-} // namespace auth
-```
+:::code kilka-operatoriv-d/c/main.c
+:::code kilka-operatoriv-d/cpp/main.hpp
 :::
 
 Повний програмний проект із детальним автоматом станів, таймерами оренди, перевіркою стіків та інтеграцією з FreeRTOS винесено в окремий практичний розбір [повна реалізація бортового арбітра кількох станцій на C та C++](root:embedded/kilka-operatoriv/proj-station-arbitration.md).

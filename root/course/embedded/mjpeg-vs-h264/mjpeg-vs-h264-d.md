@@ -209,91 +209,13 @@ H.264 — не вершина. Розумно бачити наступні ко
 **Розрахунок бітрейту наперед — щоб не забити канал.** Перш ніж вибирати кодек, порахуй сирий потік і прикинь, що витягне канал.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-/* Оцінка стиснутого бітрейту (біт/с) з параметрів потоку. */
-uint32_t estimate_bitrate(uint32_t w, uint32_t h, uint32_t fps,
-                          float bits_per_pixel, float compression_ratio)
-{
-    /* сирий піксельний потік */
-    double raw = (double)w * h * fps * bits_per_pixel;   /* біт/с */
-    return (uint32_t)(raw / compression_ratio);
-}
-
-void choose_stream(void)
-{
-    /* HD, 30 к/с, YUV420 → 12 біт/піксель у середньому */
-    uint32_t mjpeg = estimate_bitrate(1280, 720, 30, 12.0f, 10.0f);
-    uint32_t h264  = estimate_bitrate(1280, 720, 30, 12.0f, 100.0f);
-
-    printf("MJPEG: %u kbit/s\n", mjpeg / 1000);   /* ~33176 */
-    printf("H.264: %u kbit/s\n", h264  / 1000);   /* ~3317  */
-
-    /* радіоканал тримає, скажімо, 6 Мбіт/с надійно */
-    const uint32_t link_capacity = 6000000;
-    if (mjpeg > link_capacity)
-        printf("MJPEG не влазить у канал — беремо H.264\n");
-}
-```
-```python
-# Оцінка стиснутого бітрейту (біт/с) з параметрів потоку.
-def estimate_bitrate(w: int, h: int, fps: int,
-                     bits_per_pixel: float, compression_ratio: float) -> int:
-    # сирий піксельний потік
-    raw = w * h * fps * bits_per_pixel   # біт/с
-    return int(raw / compression_ratio)
-
-
-def choose_stream() -> None:
-    # HD, 30 к/с, YUV420 → 12 біт/піксель у середньому
-    mjpeg = estimate_bitrate(1280, 720, 30, 12.0, 10.0)
-    h264 = estimate_bitrate(1280, 720, 30, 12.0, 100.0)
-
-    print(f"MJPEG: {mjpeg // 1000} kbit/s")   # ~33176
-    print(f"H.264: {h264 // 1000} kbit/s")    # ~3317
-
-    # радіоканал тримає, скажімо, 6 Мбіт/с надійно
-    link_capacity = 6_000_000
-    if mjpeg > link_capacity:
-        print("MJPEG не влазить у канал — беремо H.264")
-```
+:::code mjpeg-vs-h264-d/c/zvodymo-v-kod-iak-tse.c
+:::code mjpeg-vs-h264-d/py/main.py
 :::
 
 **Вибір профілю під задачу — стійкість/лаг проти стиску.** Той самий кодек H.264 налаштовують по-різному залежно від того, для чого потік.
 
-```c
-typedef enum { USE_RECORD, USE_FPV, USE_VISION } stream_role_t;
-
-typedef struct {
-    int   codec;          /* 0 = MJPEG/intra, 1 = H.264 */
-    int   gop_len;        /* кадрів між I; 1 = кожен кадр I */
-    int   use_b_frames;   /* B-кадри увімкнено? */
-    int   intra_refresh;  /* смуга-оновлення замість цілих I */
-} enc_config_t;
-
-enc_config_t configure_encoder(stream_role_t role)
-{
-    enc_config_t c = {0};
-    switch (role) {
-    case USE_RECORD:                 /* запис на картку: лаг байдужий */
-        c.codec = 1;  c.gop_len = 60; /* довгий GOP → максимум стиску */
-        c.use_b_frames = 1;  c.intra_refresh = 0;
-        break;
-    case USE_FPV:                    /* пілот керує наживо: лаг головний */
-        c.codec = 1;  c.gop_len = 10; /* короткий GOP → стійкість */
-        c.use_b_frames = 0;           /* без B → без буфера реордера */
-        c.intra_refresh = 1;          /* рівний бітрейт, короткі плями */
-        break;
-    case USE_VISION:                 /* детектор на борту: чисті кадри */
-        c.codec = 0;  c.gop_len = 1;  /* intra-only: кожен кадр самостійний */
-        c.use_b_frames = 0;  c.intra_refresh = 0;
-        break;
-    }
-    return c;
-}
-```
+:::code mjpeg-vs-h264-d/c/zvodymo-v-kod-iak-tse-2.c
 
 Зверни увагу: три ролі з одного сенсора дають три **несумісні** конфігурації — і це нормально. Запис хоче довгий GOP і B-кадри (стиск), FPV хоче короткий GOP без B (лаг і стійкість), зір хоче взагалі intra-only (чисті кадри). Саме тому на серйозному борту нерідко живуть **дві гілки кодування** з однієї камери: одна годує людину, друга — алгоритм чи радіоканал.
 

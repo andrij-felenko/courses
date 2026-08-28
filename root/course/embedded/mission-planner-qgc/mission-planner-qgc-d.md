@@ -74,43 +74,8 @@
 **🔧 Worked-приклад: те саме повідомлення, байдуже хто шле.** Незалежно від того, чи кнопку «Write Params» натиснули в Mission Planner, чи поле відредагували в QGroundControl, у радіоканал летить **той самий** MAVLink-пакет. Ось як виглядає запис одного параметра в коді (так само його склали б обидві станції всередині):
 
 :::tabs
-```cpp
-// Записати параметр WPNAV_SPEED = 800 (см/с) — те саме роблять
-// і Mission Planner, і QGroundControl, лише з різних кнопок.
-mavlink_message_t msg;
-mavlink_msg_param_set_pack(
-    gcs_sysid, gcs_compid, &msg,
-    target_sys, target_comp,        // адреса борту з його HEARTBEAT
-    "WPNAV_SPEED",                  // ім'я параметра (до 16 символів)
-    800.0f,                         // нове значення
-    MAV_PARAM_TYPE_REAL32);         // тип значення
-uint8_t buf[MAVLINK_MAX_PACKET_LEN];
-int n = mavlink_msg_to_send_buffer(buf, &msg);
-link_write(buf, n);
-
-// Борт підтверджує запис, надіславши PARAM_VALUE з НОВИМ значенням —
-// станція (будь-яка) чекає його, щоб переконатися, що зміна лягла.
-mavlink_param_value_t pv;
-if (wait_param_value("WPNAV_SPEED", &pv, /*timeout_ms=*/1000) &&
-    pv.param_value == 800.0f) {
-    // успіх: на борту тепер 800; обидві станції побачать це однаково
-}
-```
-```python
-# Записати параметр WPNAV_SPEED = 800 (см/с) — те саме роблять
-# і Mission Planner, і QGroundControl, лише з різних кнопок.
-m.mav.param_set_send(
-    m.target_system, m.target_component,   # адреса борту з його HEARTBEAT
-    b"WPNAV_SPEED",                         # ім'я параметра (до 16 символів)
-    800.0,                                  # нове значення
-    mavutil.mavlink.MAV_PARAM_TYPE_REAL32)  # тип значення
-
-# Борт підтверджує запис, надіславши PARAM_VALUE з НОВИМ значенням —
-# станція (будь-яка) чекає його, щоб переконатися, що зміна лягла.
-pv = m.recv_match(type='PARAM_VALUE', blocking=True, timeout=1.0)
-if pv is not None and pv.param_id == 'WPNAV_SPEED' and pv.param_value == 800.0:
-    pass    # успіх: на борту тепер 800; обидві станції побачать це однаково
-```
+:::code mission-planner-qgc-d/cpp/main.cpp
+:::code mission-planner-qgc-d/py/main.py
 :::
 
 Висновок очевидний і заспокійливий: **апарат не належить станції**. І параметри, і місія живуть на борту; станція — лише інструмент, що шле стандартні MAVLink-повідомлення й читає стандартні відповіді. Тому перемикати станції безпечно: ти міняєш вікно, а не сам апарат. На практиці цей принцип дозволяє цілий зручний робочий потік — підняти симулятор і ганяти обидві станції до нього, переносити набори налаштувань між ними файлами, тримати їх паралельно. [Як налагодити роботу з обома станціями: SITL, експорт `.param` і `.plan`, паралельне підключення та підводні камені](root:embedded/mission-planner-qgc/proj-dual-gcs-workflow.md) — у вставці-практикумі.

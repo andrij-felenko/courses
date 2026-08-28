@@ -52,52 +52,7 @@
 
 Оформимо критерій окремо від автомата — як набір налаштувань хімії плюс одну функцію, що повертає **порівнянну величину** для кожної комірки. Решта коду працюватиме з цією величиною, не знаючи, звідки вона.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define N_CELLS   4
-
-// Профіль хімії пакета — задається один раз під конкретні комірки.
-typedef enum { CHEM_SLOPED, CHEM_FLAT } chem_kind_t;
-
-typedef struct {
-    chem_kind_t kind;        // похила (Li-ion) чи пласка (LiFePO4)
-    uint16_t    knee_mv;     // напруга «зламу»: вище за неї напрузі можна вірити
-    uint16_t    start_mv;    // поріг УВІМКНЕННЯ балансу (розкид criteria)
-    uint16_t    stop_mv;     // поріг ВИМКНЕННЯ (гістерезис, < start_mv)
-} chem_cfg_t;
-
-// Приклади. Числа орієнтовні — під свої комірки уточнюй за даташитом.
-static const chem_cfg_t CFG_LIION = {
-    .kind = CHEM_SLOPED, .knee_mv = 0,    .start_mv = 30, .stop_mv = 10,
-};
-static const chem_cfg_t CFG_LFP = {
-    .kind = CHEM_FLAT,   .knee_mv = 3450, .start_mv = 20, .stop_mv = 8,
-};
-
-// Стан вимірів: напруги комірок і поточна оцінка SOC (0..1000 = 0..100.0%).
-typedef struct {
-    uint16_t mv[N_CELLS];        // напруги, мВ
-    uint16_t soc[N_CELLS];       // оцінка заряду, ‰ (проміле для цілочисельності)
-    uint16_t pack_max_mv;        // найвища напруга в пакеті — щоб знати «де ми на кривій»
-} pack_state_t;
-
-// Порівнянна величина однієї комірки — те, що рівнятимемо між собою.
-// Для похилої — це напруга в мВ. Для пласкої — SOC, перерахований у ту ж шкалу,
-// щоб пороги start/stop лишались у звичних «мілівольтах розкиду».
-static uint16_t cell_metric(const chem_cfg_t *c, const pack_state_t *p, int i)
-{
-    if (c->kind == CHEM_SLOPED)
-        return p->mv[i];                       // напрузі віримо завжди
-
-    // Пласка хімія: на плато напруга «сліпа» — беремо SOC.
-    // Але якщо пакет дійшов до зламу, напруга знову інформативна й точніша.
-    if (p->pack_max_mv >= c->knee_mv)
-        return p->mv[i];                       // ми в зламі — повертаємось до напруги
-    return p->soc[i];                          // на плато — рівняємо за зарядом
-}
-```
+:::code proj-balancer-control/c/kryterii-vyrivniuvannia-za.c
 
 Тонкощів тут дві, і обидві варто проговорити. Перша: на пласкій хімії ми **не порівнюємо сирі напруги взагалі**, поки не дійшли до зламу, — інакше потрапили б у ту саму пастку шуму. Друга: щойно пакет дотягся до зламу (`pack_max_mv >= knee_mv`), напруга стає не просто прийнятною, а **точнішою** за лічильник ампер-годин, бо лічильник встиг накопичити похибку, а злам — це жорстка «реперна точка», де заряд однозначний. Тому в зламі ми свідомо повертаємось до напруги. Це не суперечність, а використання кожного джерела там, де воно сильне.
 
@@ -107,134 +62,11 @@ static uint16_t cell_metric(const chem_cfg_t *c, const pack_state_t *p, int i)
 
 Тепер — сам автомат. Він зберігає стан між викликами, його смикають з фіксованим періодом (скажімо, кожні 100 мс із головного циклу або таймера), і він сам веде пакет крізь фази. Спершу заведемо тип стану й контекст, що живе між тактами.
 
-```c
-typedef enum {
-    BAL_IDLE,        // спокій: силова частина вимкнена
-    BAL_MEASURE,     // зняти виміри, вирішити
-    BAL_BALANCE,     // перенос/розряд триває
-    BAL_COOLDOWN,    // силовий вузол охолоджується
-} bal_state_t;
-
-typedef struct {
-    bal_state_t  state;
-    const chem_cfg_t *chem;     // профіль хімії пакета
-
-    int      src, dst;          // індекси: з якої комірки в яку переносимо
-    uint16_t spread_mv;         // поточний розкид у шкалі критерію (U-мВ або SOC-‰)
-    uint32_t t_state_ms;        // скільки вже в поточному стані
-    uint32_t t_balance_ms;      // загальний час безперервного балансу
-} balancer_t;
-
-// Граничні часи й періоди — теж під свій силовий вузол.
-#define MEASURE_PERIOD_MS   2000     // як часто прокидатись дивитись на пакет
-#define BAL_MAX_MS          60000    // максимум безперервного балансу (захист від перегріву за часом)
-#define COOLDOWN_MS         15000    // скільки остигати перед новим заходом
-#define TICK_MS             100      // період виклику balancer_tick()
-```
+:::code proj-balancer-control/c/kintsevyi-avtomat.c
 
 Тепер головна функція — `balancer_tick()`. Її викликають щотакту (`TICK_MS`), вона дивиться на стан і вирішує, що робити й куди перейти. Ключ до читабельності — кожен стан окремою гілкою, а спільні небезпеки (вето захисту) перевіряємо **до** розбору станів, бо вони важать понад усе.
 
-```c
-// Платформозалежні заглушки — реалізуєш під свій вузол:
-extern void     read_pack(pack_state_t *p);          // зняти напруги + оновити SOC
-extern bool     protection_ok(void);                 // монітор-захист НЕ заперечує?
-extern bool     power_node_too_hot(void);            // датчик температури силового вузла
-extern void     balancer_off(void);                  // зняти всі ключі/розряди
-extern void     transfer_begin(int src, int dst);    // почати перенос (актив) / розряд src (пасив)
-extern void     transfer_hold(void);                 // підтримати заданий струм цей такт
-
-// Те саме find_imbalance, що в темі (структура imbalance_t { int hi, lo; uint16_t spread_mv; }),
-// але порівнює комірки за cell_metric() — тобто за ПРАВИЛЬНИМ для хімії критерієм, не за сирою mv[].
-static imbalance_t find_imbalance_metric(const balancer_t *b, const pack_state_t *p);
-
-void balancer_tick(balancer_t *b)
-{
-    b->t_state_ms += TICK_MS;
-
-    // ── НУЛЬОВИЙ пріоритет: захист над усім ───────────────────────────────
-    // Будь-яке вето монітора-захисту — миттєвий безумовний відкат у спокій.
-    if (!protection_ok()) {
-        balancer_off();
-        b->state = BAL_IDLE;
-        b->t_state_ms = 0;
-        b->t_balance_ms = 0;
-        return;
-    }
-
-    switch (b->state) {
-
-    case BAL_IDLE:
-        // Чекаємо період, тоді йдемо знімати виміри.
-        if (b->t_state_ms >= MEASURE_PERIOD_MS) {
-            b->state = BAL_MEASURE;
-            b->t_state_ms = 0;
-        }
-        break;
-
-    case BAL_MEASURE: {
-        pack_state_t p;
-        read_pack(&p);                              // свіжі напруги + SOC
-        imbalance_t im = find_imbalance_metric(b, &p);
-        b->spread_mv = im.spread_mv;
-
-        if (im.spread_mv >= b->chem->start_mv) {       // є за що балансувати
-            b->src = im.hi;                         // з найповнішої…
-            b->dst = im.lo;                         // …у найбіднішу
-            transfer_begin(b->src, b->dst);
-            b->state = BAL_BALANCE;
-            b->t_state_ms = 0;
-            b->t_balance_ms = 0;
-        } else {
-            b->state = BAL_IDLE;                    // розкид < start — нема за що
-            b->t_state_ms = 0;
-        }
-        break;
-    }
-
-    case BAL_BALANCE: {
-        b->t_balance_ms += TICK_MS;
-
-        // Перегрів силового вузла АБО вичерпаний бюджет часу → остигати.
-        if (power_node_too_hot() || b->t_balance_ms >= BAL_MAX_MS) {
-            balancer_off();
-            b->state = BAL_COOLDOWN;
-            b->t_state_ms = 0;
-            break;
-        }
-
-        // Переміряти й перевірити, чи вже зійшлись (гістерезис: stop < start).
-        pack_state_t p;
-        read_pack(&p);
-        imbalance_t im = find_imbalance_metric(b, &p);
-        b->spread_mv = im.spread_mv;
-
-        if (im.spread_mv <= b->chem->stop_mv) {        // зійшлись тісно
-            balancer_off();
-            b->state = BAL_COOLDOWN;
-            b->t_state_ms = 0;
-            break;
-        }
-
-        // Найбідніша могла змінитись (особливо під розрядом) — переадресуємо.
-        if (im.hi != b->src || im.lo != b->dst) {
-            b->src = im.hi;
-            b->dst = im.lo;
-            transfer_begin(b->src, b->dst);         // перенаціляємо перенос
-        }
-        transfer_hold();                            // тримаємо струм цей такт
-        break;
-    }
-
-    case BAL_COOLDOWN:
-        // Силова частина вже знята; просто остигаємо потрібний час.
-        if (b->t_state_ms >= COOLDOWN_MS) {
-            b->state = BAL_IDLE;
-            b->t_state_ms = 0;
-        }
-        break;
-    }
-}
-```
+:::code proj-balancer-control/c/kintsevyi-avtomat-2.c
 
 Зупинімось на кількох рішеннях, бо в них уся суть.
 
@@ -260,18 +92,7 @@ void balancer_tick(balancer_t *b)
 
 Друге, тонше: під розрядом критерій «за напругою» поводиться інакше, ніж у спокої, і це треба врахувати. Просіла під струмом напруга — це сума двох доданків: реального меншого заряду **і** падіння на внутрішньому опорі (I·R). Комірка з більшим опором покаже нижчу напругу навіть за однакового заряду — і балансир, що рівняє за сирою напругою під навантаженням, гнатиме заряд у неї, реагуючи на опір, а не на заряд. Тому під розрядом надійніше рівняти **за оцінкою SOC** (лічильник ампер-годин на I·R не ведеться), а до напруги вертатись лише у спокої або в кінці заряду. Додамо це в критерій явно — нехай функція знає, чи пакет зараз під навантаженням.
 
-```c
-// Розширюємо профіль: чи дозволяти напругу-критерій під навантаженням.
-// Під розрядом сира напруга змішує заряд із падінням I·R — для рівняння це шум.
-static uint16_t cell_metric_loaded(const chem_cfg_t *c, const pack_state_t *p,
-                                    int i, bool under_load)
-{
-    if (under_load)
-        return p->soc[i];          // під навантаженням — ТІЛЬКИ за зарядом, байдуже хімія
-
-    return cell_metric(c, p, i);   // у спокої / на заряді — як домовлялись (U чи SOC)
-}
-```
+:::code proj-balancer-control/c/balansuvannia-pid.c
 
 Тобто правило критерію стає двовимірним: спокій чи навантаження × похила чи пласка хімія. Під навантаженням завжди SOC — бо I·R обманює будь-яку хімію. У спокої — за хімією: похилій вірим напрузі, пласкій на плато ні. Це невелика правка, але без неї балансир під розрядом «лікував би» комірки з високим опором, заливаючи в них заряд, якого їм не бракувало.
 
@@ -287,41 +108,7 @@ static uint16_t cell_metric_loaded(const chem_cfg_t *c, const pack_state_t *p,
 
 Чому це важливо тримати, а не пустити «як піде»? Бо саме керований струм відрізняє активний перенос від конденсаторного. Згадаймо з теми: у конденсатора рушій — сама різниця напруг ΔU, і біля рівноваги струм видихається в довгий хвіст. Котушка й трансформатор тим і кращі, що струм у них **заданий і тримається** навіть тоді, коли комірки майже зрівнялись, — але тільки якщо прошивка справді його тримає. Покажемо серцевину такого регулятора — простий пропорційно-інтегральний крок по струму.
 
-```c
-// Простий ПІ-регулятор струму переносу: тримати I_meas біля I_target.
-typedef struct {
-    uint16_t target_ma;     // бажаний струм переносу, мА
-    int32_t  integ;         // накопичена інтегральна складова
-    uint16_t duty;          // поточна шпаруватість ШІМ, 0..DUTY_MAX
-} current_loop_t;
-
-#define DUTY_MAX     1000
-#define KP_NUM       3       // пропорційний коеф. (чисельник/знаменник — цілочисельно)
-#define KP_DEN       10
-#define KI_NUM       1
-#define KI_DEN       50
-
-extern uint16_t read_transfer_current_ma(void);   // струм по шунту
-extern void     set_transfer_duty(uint16_t duty); // задати шпаруватість ключів
-
-void current_loop_step(current_loop_t *cl)
-{
-    int32_t meas = read_transfer_current_ma();
-    int32_t err  = (int32_t)cl->target_ma - meas;        // як далеко від цілі
-
-    cl->integ += err;
-    // анти-windup: не даємо інтегралу розпухнути за межі корисного діапазону
-    if (cl->integ >  (int32_t)DUTY_MAX * KI_DEN) cl->integ =  (int32_t)DUTY_MAX * KI_DEN;
-    if (cl->integ < -(int32_t)DUTY_MAX * KI_DEN) cl->integ = -(int32_t)DUTY_MAX * KI_DEN;
-
-    int32_t duty = (err * KP_NUM) / KP_DEN + (cl->integ * KI_NUM) / KI_DEN;
-
-    if (duty < 0)         duty = 0;
-    if (duty > DUTY_MAX)  duty = DUTY_MAX;
-    cl->duty = (uint16_t)duty;
-    set_transfer_duty(cl->duty);
-}
-```
+:::code proj-balancer-control/c/trymannia-balansuvalnoho.c
 
 `transfer_hold()` з автомата — це і є виклик `current_loop_step()` під капотом. Дві деталі, які легко проґавити. По-перше, **анти-windup**: якщо ціль струму недосяжна (наприклад, напруги комірок майже зрівнялись і котушка фізично не проганяє стільки), інтегральна складова без обмеження розпухає до величезних чисел, і коли струм нарешті піде — регулятор довго «відригує» цей накопичений надлишок, перестрілюючи ціль. Обмеження інтегралу це гасить. По-друге, **цілочисельність**: на дешевому МК без апаратного float коефіцієнти даємо дробами чисельник/знаменник, а не `float`, — і швидше, і без сюрпризів із точністю.
 

@@ -36,60 +36,8 @@ homeassistant/<тип>/<ід-вузла>/<ід-обʼєкта>/config
 **Умова: наш термостат оголошує себе Home Assistant. Один раз по під'єднанні шлемо в описовий топік JSON-візитівку, а далі живемо як звикли — публікуємо стан і слухаємо команди.**
 
 :::tabs
-```c
-// Візитівка пристрою для Home Assistant. Це JSON-рядок: у ньому імена
-// вузла й полів, топіки стану/команди та одиниці. Home Assistant прочитає
-// його й сам збудує картку термостата.
-static const char *DISCOVERY_TOPIC =
-    "homeassistant/climate/livingroom_thermostat/config";
-
-static const char *DISCOVERY_PAYLOAD =
-    "{"
-      "\"name\":\"Термостат вітальні\","        // як підписати картку
-      "\"unique_id\":\"livingroom_thermostat\"," // щоб не задвоївся при переоголошенні
-      "\"temperature_state_topic\":\"home/livingroom/thermostat/state\","
-      "\"temperature_command_topic\":\"home/livingroom/thermostat/set\","
-      "\"availability_topic\":\"home/livingroom/thermostat/status\","
-      "\"temperature_unit\":\"C\","             // градуси Цельсія, не Фаренгейта
-      "\"min_temp\":5,\"max_temp\":35"           // межі повзунка в застосунку
-    "}";
-
-// Викликати ОДРАЗУ після успішного під'єднання до брокера.
-static void announce_to_home_assistant(void) {
-    // retain=true — критично: візитівка має «висіти» на брокері, щоб
-    // Home Assistant знайшов пристрій навіть якщо перезапуститься ПІЗНІШЕ,
-    // коли вузол уже давно оголосився й замовк.
-    mqtt_publish(DISCOVERY_TOPIC, DISCOVERY_PAYLOAD,
-                 strlen(DISCOVERY_PAYLOAD), /*qos=*/1, /*retain=*/true);
-}
-```
-```python
-import json
-import paho.mqtt.client as mqtt
-
-# Візитівка пристрою для Home Assistant. Це dict, який серіалізуємо в JSON:
-# у ньому імена вузла й полів, топіки стану/команди та одиниці. Home Assistant
-# прочитає його й сам збудує картку термостата.
-DISCOVERY_TOPIC = "homeassistant/climate/livingroom_thermostat/config"
-
-DISCOVERY_PAYLOAD = {
-    "name": "Термостат вітальні",                # як підписати картку
-    "unique_id": "livingroom_thermostat",        # щоб не задвоївся при переоголошенні
-    "temperature_state_topic": "home/livingroom/thermostat/state",
-    "temperature_command_topic": "home/livingroom/thermostat/set",
-    "availability_topic": "home/livingroom/thermostat/status",
-    "temperature_unit": "C",                     # градуси Цельсія, не Фаренгейта
-    "min_temp": 5, "max_temp": 35,               # межі повзунка в застосунку
-}
-
-# Викликати ОДРАЗУ після успішного під'єднання до брокера.
-def announce_to_home_assistant(client: mqtt.Client) -> None:
-    # retain=True — критично: візитівка має «висіти» на брокері, щоб
-    # Home Assistant знайшов пристрій навіть якщо перезапуститься ПІЗНІШЕ,
-    # коли вузол уже давно оголосився й замовк.
-    client.publish(DISCOVERY_TOPIC, json.dumps(DISCOVERY_PAYLOAD),
-                   qos=1, retain=True)
-```
+:::code home-device-integration/c/main.c
+:::code home-device-integration/py/main.py
 :::
 
 Дві деталі тут несуть усю вагу. По-перше, `retain=true` — і це не примха. Візитівка **мусить лишитися** на брокері, бо вузол оголошується раз, по під'єднанні, а Home Assistant міг цієї миті бути вимкнений і ввімкнутися лише за годину. Retain робить так, що брокер притримає останню візитівку й віддасть її Home Assistant, щойно той з'явиться, — і пристрій знайдеться. Без retain вузол крикнув би про себе в порожнечу, ніхто б не почув, і картка б не постала, поки вузол не перезавантажиться разом із Home Assistant. По-друге, `unique_id`: він дає системі впізнати, що переоголошений пристрій — той самий, а не новий двійник; без нього після кожного перезапуску вузла в панелі плодилися б порожні копії.

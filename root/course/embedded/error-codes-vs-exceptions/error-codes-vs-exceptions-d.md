@@ -75,37 +75,9 @@
 Візьмемо одну операцію — прочитати конфігурацію з NVS (англ. *non-volatile storage*, енергонезалежна пам'ять ESP32) — і запишемо її обома способами. Логіка одна: відкрити сховище, прочитати значення, закрити.
 
 **Стиль кодів повернення (ESP-IDF, як є):**
-```c
-esp_err_t load_config(uint32_t *out_value) {
-    nvs_handle_t h;
-    esp_err_t err = nvs_open("cfg", NVS_READONLY, &h);
-    if (err != ESP_OK) {
-        return err;                       // не відкрилось — повертаємо як є
-    }
-
-    err = nvs_get_u32(h, "value", out_value);
-    if (err != ESP_OK) {
-        nvs_close(h);                     // ВАЖЛИВО: закрити навіть на помилці
-        return err;
-    }
-
-    nvs_close(h);
-    return ESP_OK;
-}
-```
+:::code error-codes-vs-exceptions-d/c/toi-samyi-kod-u-dvokh.c
 Помилка видима в кожному рядку, ціна — два порівняння. Слабке місце впадає в око: `nvs_close(h)` доводиться кликати **двічі** — на щасливому шляху й окремо в гілці помилки. Забудеш одне — і дескриптор сховища тече. Щасливий шлях («відкрив, прочитав, закрив») губиться серед перевірок. Класичний спосіб приборкати це в C — єдина мітка прибирання й `goto`:
-```c
-esp_err_t load_config(uint32_t *out_value) {
-    nvs_handle_t h;
-    esp_err_t err = nvs_open("cfg", NVS_READONLY, &h);
-    if (err != ESP_OK) return err;        // ще нема чого прибирати
-
-    err = nvs_get_u32(h, "value", out_value);
-    // обидва шляхи сходяться на одному прибиранні:
-    nvs_close(h);
-    return err;                           // ESP_OK або помилка читання — як є
-}
-```
+:::code error-codes-vs-exceptions-d/c/toi-samyi-kod-u-dvokh-2.c
 Це той самий задум, що ховається за макросом `ESP_GOTO_ON_ERROR`: звести всі виходи в одну точку прибирання, щоб не дублювати `nvs_close`. Працює — але тримати дисципліну `goto cleanup` мусить програміст власноруч.
 
 **Стиль винятків (C++, якби вони були ввімкнені):**

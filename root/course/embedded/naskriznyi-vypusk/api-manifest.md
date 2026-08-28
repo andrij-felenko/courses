@@ -167,49 +167,8 @@
 Для забезпечення повної бінарної сумісності структури на мовах C та C++ оголошуються з атрибутами пакування `__attribute__((packed))` та явного вирівнювання по межі 4 байтів:
 
 :::tabs
-```c
-#include <stdint.h>
-
-#define SECURE_BOOT_HEADER_SIZE 128
-#define SECURE_BOOT_MAGIC_VALUE 0x53424F54
-
-typedef struct {
-    uint32_t magic;
-    uint32_t version_packed;
-    uint32_t security_counter;
-    uint32_t hw_mask;
-    uint32_t payload_size;
-    uint8_t  payload_digest[32];
-    uint8_t  signature[64];
-    uint8_t  reserved[12];
-} __attribute__((packed, aligned(4))) SecureBootHeader;
-
-_Static_assert(sizeof(SecureBootHeader) == SECURE_BOOT_HEADER_SIZE, "Header size must be 128 bytes");
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-namespace release {
-
-inline constexpr size_t SecureBootHeaderSize = 128;
-inline constexpr uint32_t SecureBootMagicValue = 0x53424F54;
-
-struct alignas(4) SecureBootHeader {
-    uint32_t magic;
-    uint32_t versionPacked;
-    uint32_t securityCounter;
-    uint32_t hwMask;
-    uint32_t payloadSize;
-    std::array<uint8_t, 32> payloadDigest;
-    std::array<uint8_t, 64> signature;
-    std::array<uint8_t, 12> reserved;
-};
-
-static_assert(sizeof(SecureBootHeader) == SecureBootHeaderSize, "Header size must be 128 bytes");
-
-} // namespace release
-```
+:::code api-manifest/c/main.c
+:::code api-manifest/cpp/main.cpp
 :::
 
 Використання статичних перевірок `_Static_assert` та `static_assert` гарантує, що компілятор не додасть непередбачених байтів вирівнювання (padding) між полями структури при зміні прапорців оптимізації або при збиранні коду іншим тулчейном.

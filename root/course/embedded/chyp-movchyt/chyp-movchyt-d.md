@@ -226,69 +226,8 @@ V_gnd_shift
 Щоб припинити гадання щодо реальної адреси мікросхеми, в прошивку вбудовують сканер шини: циклічне опитування всіх адрес від `0x08` до `0x77` із фіксацією отримання сигналу `ACK`. Повний код сканера для різних архітектур реалізовано в [проєкті сканера шини I2C та виведення із зависання](root:embedded/chyp-movchyt/proj-i2c-bus-scanner.md).
 
 :::tabs
-```c
-/* Базовий алгоритм сканування шини I2C (STM32 HAL / C) */
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-void scan_i2c_bus(void) {
-    printf("\r\n--- Початок сканування I2C шини ---\r\n");
-    uint8_t devices_found = 0;
-
-    for (uint8_t addr_7bit = 0x08; addr_7bit <= 0x77; ++addr_7bit) {
-        /* Формуємо 8-бітну адресу для запису, як вимагає STM32 HAL */
-        uint16_t dev_addr = (uint16_t)(addr_7bit << 1);
-
-        /* Спроба перевірки готовності пристрою (1 спроба, таймаут 5 мс) */
-        /* HAL_I2C_IsDeviceReady відправляє START + dev_addr + перевіряє ACK */
-        extern I2C_HandleTypeDef hi2c1;
-        if (HAL_I2C_IsDeviceReady(&hi2c1, dev_addr, 1, 5) == HAL_OK) {
-            printf("Знайдено пристрій! 7-біт: 0x%02X | 8-біт WR: 0x%02X\r\n", 
-                   addr_7bit, (uint8_t)dev_addr);
-            devices_found++;
-        }
-    }
-
-    if (devices_found == 0) {
-        printf("Жодного пристрою на шині не виявлено (перевірте живлення та Pull-up)!\r\n");
-    } else {
-        printf("Сканування завершено. Знайдено пристроїв: %u\r\n", devices_found);
-    }
-}
-```
-```cpp
-/* Базовий алгоритм сканування шини I2C (Сучасний C++ / Embedded HAL) */
-#include <cstdint>
-#include <cstdio>
-#include <span>
-#include <concepts>
-
-template <typename I2CDeviceChecker>
-concept DeviceChecker = requires(I2CDeviceChecker checker, std::uint8_t addr_7bit) {
-    { checker.is_ready(addr_7bit) } -> std::same_as<bool>;
-};
-
-template <DeviceChecker Checker>
-void scan_i2c_bus(Checker& checker) {
-    std::printf("\r\n--- Сканування простору 7-бітних адрес I2C (C++) ---\r\n");
-    std::size_t found_count = 0;
-
-    for (std::uint8_t addr = 0x08; addr <= 0x77; ++addr) {
-        if (checker.is_ready(addr)) {
-            std::printf("Пристрій знайдено: 7-bit = 0x%02X, 8-bit WR = 0x%02X\r\n",
-                        addr, static_cast<std::uint8_t>(addr << 1));
-            ++found_count;
-        }
-    }
-
-    if (found_count == 0) {
-        std::printf("Помилка: на шині тиша. Перевірте апаратні лінії.\r\n");
-    } else {
-        std::printf("Успішно знайдено пристроїв: %zu\r\n", found_count);
-    }
-}
-```
+:::code chyp-movchyt-d/c/main.c
+:::code chyp-movchyt-d/cpp/main.cpp
 :::
 
 ---

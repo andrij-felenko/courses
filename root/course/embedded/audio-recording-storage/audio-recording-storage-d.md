@@ -45,41 +45,7 @@ ByteRate       = SampleRate · BlockAlign           →  байт за секу�
 
 **Складання WAV-заголовка в буфер (реальний C для прошивки):**
 
-```c
-#include <stdint.h>
-#include <string.h>
-
-// Кладе little-endian числа явно — не залежить від порядку байтів ядра.
-static void put_u32(uint8_t *p, uint32_t v) {
-    p[0] = v; p[1] = v >> 8; p[2] = v >> 16; p[3] = v >> 24;
-}
-static void put_u16(uint8_t *p, uint16_t v) {
-    p[0] = v; p[1] = v >> 8;
-}
-
-// Заповнює 44 байти заголовка. data_bytes — розмір самого звуку в байтах.
-void wav_header(uint8_t hdr[44], uint32_t sample_rate,
-                uint16_t channels, uint16_t bits, uint32_t data_bytes) {
-    uint16_t block_align = channels * bits / 8;
-    uint32_t byte_rate   = sample_rate * block_align;
-
-    memcpy(hdr + 0,  "RIFF", 4);
-    put_u32(hdr + 4,  36 + data_bytes);   // розмір файлу мінус 8
-    memcpy(hdr + 8,  "WAVE", 4);
-
-    memcpy(hdr + 12, "fmt ", 4);
-    put_u32(hdr + 16, 16);                // довжина блоку fmt
-    put_u16(hdr + 20, 1);                 // PCM
-    put_u16(hdr + 22, channels);
-    put_u32(hdr + 24, sample_rate);
-    put_u32(hdr + 28, byte_rate);
-    put_u16(hdr + 32, block_align);
-    put_u16(hdr + 34, bits);
-
-    memcpy(hdr + 36, "data", 4);
-    put_u32(hdr + 40, data_bytes);        // розмір самого звуку
-}
-```
+:::code audio-recording-storage-d/c/wav-zseredyny-pasport-u-44.c
 
 Зверніть увагу на два поля, у яких стоїть `data_bytes`: розмір файлу (`36 + data_bytes`) і розмір даних (`data_bytes`). Це та сама пара жовтих полів зі схеми — і поки запис триває, обидва невідомі. Як із цим жити — далі.
 
@@ -115,34 +81,7 @@ void wav_header(uint8_t hdr[44], uint32_t sample_rate,
 
 **Кільцевий буфер передзвуку (реальний C для прошивки):**
 
-```c
-#include <stdint.h>
-#include <string.h>
-
-#define PRE_SAMPLES 32000            // 2 с при 16 кГц (передзвук)
-static int16_t  ring[PRE_SAMPLES];
-static uint32_t head = 0;            // куди писати наступний відлік
-static uint32_t filled = 0;         // скільки відліків уже реально в кільці
-
-// Викликаємо на КОЖЕН блок із конвеєра захоплення — кільце крутиться завжди.
-void ring_push(const int16_t *blk, uint32_t n) {
-    for (uint32_t i = 0; i < n; i++) {
-        ring[head] = blk[i];
-        head = (head + 1) % PRE_SAMPLES;    // дійшов до кінця — на початок
-        if (filled < PRE_SAMPLES) filled++;
-    }
-}
-
-// Подія! Вивантажуємо передзвук У ХРОНОЛОГІЧНОМУ порядку: від найстарішого.
-// Найстаріший відлік — це той, що ЗАРАЗ під головою (його ось-ось затерли б).
-void ring_drain(void (*sink)(const int16_t*, uint32_t)) {
-    uint32_t start = (filled < PRE_SAMPLES) ? 0 : head;   // початок хронології
-    for (uint32_t i = 0; i < filled; i++) {
-        int16_t s = ring[(start + i) % PRE_SAMPLES];
-        sink(&s, 1);                        // віддаємо на запис у файл
-    }
-}
-```
+:::code audio-recording-storage-d/c/zapysaty-te-choho-shche-ne.c
 
 Головна тонкість тут — **порядок вивантаження**, і на ній легко спіткнутися. Голова кільця вказує на комірку, куди підемо писати наступне, — а отже, на **найстаріший** відлік, той, що ось-ось затерли б. Тож хронологію відновлюємо, починаючи саме з-під голови й обходячи кільце по колу до неї ж. Переплутаєш — і передзвук ляже у файл задом наперед, звук «крякне». І ще: поки кільце ще не заповнилося вперше (`filled < PRE_SAMPLES`), голова стоїть попереду порожнечі, тож хронологія починається просто з нуля — цей випадок функція розрізняє окремо.
 
@@ -168,36 +107,7 @@ void ring_drain(void (*sink)(const int16_t*, uint32_t)) {
 
 **Стрічковий запис звуку на SD через буфер-амортизатор (реальний C для прошивки):**
 
-```c
-#include <stdint.h>
-#include <string.h>
-
-#define CHUNK 4096                 // пишемо на картку кратно сектору (512)
-static uint8_t  acc[CHUNK];        // буфер-амортизатор між звуком і карткою
-static uint32_t acc_len = 0;       // скільки байт уже накопичено
-static uint32_t data_bytes = 0;    // усього звуку записано (для заголовка)
-
-// f_write / f_sync — з файлової системи (напр. FatFs); file — відкритий файл.
-// Приймає блок звуку; на картку зливає лише повними шматками CHUNK.
-void sd_stream(FIL *file, const int16_t *blk, uint32_t n) {
-    const uint8_t *src = (const uint8_t *)blk;
-    uint32_t bytes = n * sizeof(int16_t);
-
-    while (bytes) {
-        uint32_t room = CHUNK - acc_len;
-        uint32_t take = (bytes < room) ? bytes : room;
-        memcpy(acc + acc_len, src, take);
-        acc_len += take; src += take; bytes -= take;
-
-        if (acc_len == CHUNK) {                  // буфер повний — злив на картку
-            UINT wr;
-            f_write(file, acc, CHUNK, &wr);      // один великий вирівняний запис
-            data_bytes += wr;
-            acc_len = 0;
-        }
-    }
-}
-```
+:::code audio-recording-storage-d/c/realnist-nosiia-sd-pyshe.c
 
 Тут видно всі три правила разом. Звук приходить блоками будь-якого розміру — ми його **не пишемо одразу**, а накопичуємо в `acc`. Записуємо на картку **лише повними шматками** по 4096 байт — один великий вирівняний запис замість купи дрібних. А `f_sync` (скидання кешу на картку) у цьому циклі взагалі немає — його викликають окремо, за таймером, раз на секунду-дві, щоб не душити носій. Коли користувач тисне «стоп», лишок із `acc` дописують останнім неповним шматком, оновлюють `data_bytes` у заголовку тим самим `seek`-ом на початок — і файл закрито.
 

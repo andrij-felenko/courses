@@ -120,49 +120,8 @@ BSP є перекладачем між абстрактним світом бі�
 Застосунок оперує логічними призначеннями світлодіодів (`BOARD_LED_ID_SYSTEM_STATUS`, `BOARD_LED_ID_WARNING`), а не фізичними пінами.
 
 :::tabs
-```c
-// bsp_board_rev_a.c: Реалізація для ревізії Rev A (Active-High на PB12)
-bsp_status_t board_led_set(board_led_id_t led, board_led_state_t state) {
-    switch (led) {
-        case BOARD_LED_ID_SYSTEM_STATUS:
-            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 
-                (state == BOARD_LED_STATE_ON) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-            return BSP_STATUS_OK;
-        case BOARD_LED_ID_WARNING:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 
-                (state == BOARD_LED_STATE_ON) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-            return BSP_STATUS_OK;
-        default:
-            return BSP_STATUS_ERR_INVALID_PARAM;
-    }
-}
-```
-```cpp
-// bsp_board_rev_a.cpp: Реалізація для ревізії Rev A на C++
-#include "bsp_interface.hpp"
-
-namespace bsp {
-
-class Stm32BoardRevA final : public IBoardSupport {
-public:
-    Status led_set(LedId led, LedState state) noexcept override {
-        const auto pin_state = (state == LedState::On) ? GPIO_PIN_SET : GPIO_PIN_RESET;
-        switch (led) {
-            case LedId::SystemStatus:
-                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, pin_state);
-                return Status::Ok;
-            case LedId::Warning:
-                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, pin_state);
-                return Status::Ok;
-            default:
-                return Status::InvalidParam;
-        }
-    }
-    // Інші методи інтерфейсу...
-};
-
-} // namespace bsp
-```
+:::code mezha-plata-zastosunok-d/c/bsp_board_rev_a.c
+:::code mezha-plata-zastosunok-d/cpp/bsp_board_rev_a.cpp
 :::
 
 Якщо в ревізії Rev B полярність індикатора інвертується, зміна вноситься виключно у файл `bsp_board_rev_b.c`. Жоден файл застосунку не зазнає модифікацій.

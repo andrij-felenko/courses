@@ -77,113 +77,15 @@
 Зберемо контролер так, як він жив би в прошивці передавача. Спочатку — стан і параметри в одній структурі, щоб усе налаштування було в одному місці й нічого не «висіло» глобально. Усі швидкості тримаємо в **бітах за секунду** цілими (`uint32_t`) — на прошивці без потреби не тягнемо `float` туди, де досить цілої арифметики; частку втрат теж тримаємо в зручній цілій формі.
 
 :::tabs
-```c
-#include <stdint.h>
-
-typedef struct {
-    uint32_t rate;        // поточний цільовий бітрейт, біт/с
-    uint32_t rate_min;    // підлога: нижче не опускаємось (гірша допустима якість)
-    uint32_t rate_max;    // стеля: вище не піднімаємось (краща потрібна якість)
-
-    // пороги втрат у ПРОМІЛЕ (‰), щоб лишитись у цілій арифметиці:
-    //   20‰ = 2%   (поріг росту),   100‰ = 10%  (поріг падіння)
-    uint16_t loss_up_permille;    // < цього → рости
-    uint16_t loss_down_permille;  // > цього → падати
-
-    uint8_t  up_step_pct;   // крок угору, % (наприклад, 5 → ×1.05)
-} abr_t;
-
-void abr_init(abr_t *c, uint32_t start, uint32_t lo, uint32_t hi)
-{
-    c->rate     = start;
-    c->rate_min = lo;
-    c->rate_max = hi;
-    c->loss_up_permille   = 20;   // 2.0%
-    c->loss_down_permille = 100;  // 10.0%
-    c->up_step_pct        = 5;    // +5% за крок угору
-}
-```
-```python
-from dataclasses import dataclass
-
-@dataclass
-class Abr:
-    rate: int             # поточний цільовий бітрейт, біт/с
-    rate_min: int         # підлога: нижче не опускаємось (гірша допустима якість)
-    rate_max: int         # стеля: вище не піднімаємось (краща потрібна якість)
-
-    # пороги втрат у ПРОМІЛЕ (‰), щоб лишитись у цілій арифметиці:
-    #   20‰ = 2%   (поріг росту),   100‰ = 10%  (поріг падіння)
-    loss_up_permille: int = 20      # < цього → рости    (2.0%)
-    loss_down_permille: int = 100   # > цього → падати   (10.0%)
-
-    up_step_pct: int = 5            # крок угору, % (наприклад, 5 → ×1.05)
-
-
-def abr_init(start: int, lo: int, hi: int) -> Abr:
-    return Abr(rate=start, rate_min=lo, rate_max=hi)
-```
+:::code proj-adaptive-bitrate/c/robochyi-kod-kontroler.c
+:::code proj-adaptive-bitrate/py/robochyi-kod-kontroler.py
 :::
 
 Тепер серце — функція, яку викликаємо **на кожен прийнятий звіт**. Вона дістає частку втрат, проганяє її крізь три зони гістерезису й повертає новий бітрейт. Вхід — `fraction_lost` рівно в тому вигляді, як його несе RTCP RR: ціле 0…255, де 255 ≈ 100%. Перше ж, що робимо, — переводимо його в проміле (‰), щоб порівнювати з порогами; це і є та сама обережність із розрядністю, про яку ми попереджали.
 
 :::tabs
-```c
-// Викликати на КОЖЕН звіт від приймача.
-//   fraction_lost — поле RTCP RR: 0..255, де 256 == 100% (floor(частка·256)).
-// Повертає оновлений цільовий бітрейт (біт/с).
-uint32_t abr_on_report(abr_t *c, uint8_t fraction_lost)
-{
-    // 0..255  →  проміле 0..1000:  ‰ = fraction_lost · 1000 / 256
-    uint16_t loss = (uint16_t)(((uint32_t)fraction_lost * 1000u) >> 8);
-
-    if (loss > c->loss_down_permille) {
-        // ── ЗОНА ПАДІННЯ: скидаємо тим різкіше, чим більші втрати ──
-        // множник (1 − 0.5·p): за 10% → ×0.95, за 50% → ×0.75
-        // у цілій арифметиці: rate · (2000 − loss) / 2000   (loss у ‰)
-        uint32_t num = 2000u - loss;           // напр., loss=300‰ → 1700
-        c->rate = (uint32_t)(((uint64_t)c->rate * num) / 2000u);
-
-    } else if (loss < c->loss_up_permille) {
-        // ── ЗОНА РОСТУ: один обережний крок угору ──
-        c->rate += c->rate / 100u * c->up_step_pct;   // +5%
-
-    }
-    // ── інакше (2%..10%): МЕРТВА ЗОНА — нічого не міняємо ──
-
-    // тримаємось у межах [rate_min, rate_max]
-    if (c->rate < c->rate_min) c->rate = c->rate_min;
-    if (c->rate > c->rate_max) c->rate = c->rate_max;
-
-    return c->rate;
-}
-```
-```python
-# Викликати на КОЖЕН звіт від приймача.
-#   fraction_lost — поле RTCP RR: 0..255, де 256 == 100% (floor(частка·256)).
-# Повертає оновлений цільовий бітрейт (біт/с).
-def abr_on_report(c: Abr, fraction_lost: int) -> int:
-    # 0..255  →  проміле 0..1000:  ‰ = fraction_lost · 1000 / 256
-    loss = (fraction_lost * 1000) >> 8
-
-    if loss > c.loss_down_permille:
-        # ── ЗОНА ПАДІННЯ: скидаємо тим різкіше, чим більші втрати ──
-        # множник (1 − 0.5·p): за 10% → ×0.95, за 50% → ×0.75
-        # у цілій арифметиці: rate · (2000 − loss) / 2000   (loss у ‰)
-        num = 2000 - loss                      # напр., loss=300‰ → 1700
-        c.rate = c.rate * num // 2000
-
-    elif loss < c.loss_up_permille:
-        # ── ЗОНА РОСТУ: один обережний крок угору ──
-        c.rate += c.rate // 100 * c.up_step_pct   # +5%
-
-    # ── інакше (2%..10%): МЕРТВА ЗОНА — нічого не міняємо ──
-
-    # тримаємось у межах [rate_min, rate_max]
-    c.rate = max(c.rate_min, min(c.rate, c.rate_max))
-
-    return c.rate
-```
+:::code proj-adaptive-bitrate/c/robochyi-kod-kontroler-2.c
+:::code proj-adaptive-bitrate/py/robochyi-kod-kontroler-2.py
 :::
 
 Простежмо, що тут діється, на конкретних числах — це найкраще показує, чому гістерезис рятує. Хай канал має ємність близько 4 Мбіт/с, стартуємо з 2 Мбіт/с, межі — від 0.5 до 6 Мбіт/с.
@@ -239,122 +141,8 @@ def abr_on_report(c: Abr, fraction_lost: int) -> int:
 Додамо це до контролера. Тепер рішення приймаємо не на сирій частці втрат, а на **згладженій**, — і одразу глушимо хибні шарпання на сплесках. Заодно введемо ту саму ідею для **джитера** як раннє попередження: різке зростання згладженого джитера натякає, що канал ось-ось почне губити, і дозволяє притримати ріст бітрейту **ще до** появи втрат.
 
 :::tabs
-```c
-typedef struct {
-    abr_t    base;          // контролер із гістерезисом (вище)
-    uint16_t loss_avg;      // згладжені втрати, ‰  (EMA)
-    uint32_t jitter_avg;    // згладжений джитер (одиниці RTP timestamp)
-    uint8_t  alpha_pct;     // вага нового звіту в EMA, %  (напр., 25 → α=0.25)
-    uint8_t  seeded;        // 0 до першого звіту: EMA треба засіяти, не зростати з нуля
-} abr_trend_t;
-
-void abr_trend_init(abr_trend_t *t, uint32_t start, uint32_t lo, uint32_t hi)
-{
-    abr_init(&t->base, start, lo, hi);
-    t->loss_avg   = 0;
-    t->jitter_avg = 0;
-    t->alpha_pct  = 25;    // α = 0.25: розумний баланс глушіння й чуйності
-    t->seeded     = 0;     // перший звіт сяде в середнє цілком, без розгону з 0
-}
-
-// EMA в цілій арифметиці:  avg += α·(нове − avg)
-static uint16_t ema_u16(uint16_t avg, uint16_t sample, uint8_t alpha_pct)
-{
-    int32_t d = (int32_t)sample - (int32_t)avg;
-    return (uint16_t)((int32_t)avg + d * (int32_t)alpha_pct / 100);
-}
-
-uint32_t abr_trend_on_report(abr_trend_t *t,
-                             uint8_t  fraction_lost,
-                             uint32_t jitter)
-{
-    uint16_t loss = (uint16_t)(((uint32_t)fraction_lost * 1000u) >> 8);
-
-    // 0) перший звіт сяде в середнє ЦІЛКОМ — інакше EMA повзла б від нуля
-    //    кілька звітів і пропустила б ранній стан каналу
-    if (!t->seeded) {
-        t->loss_avg   = loss;
-        t->jitter_avg = jitter;
-        t->seeded     = 1;
-    }
-
-    // 1) згладжуємо обидва датчики — гасимо одиничні сплески
-    t->loss_avg   = ema_u16(t->loss_avg, loss, t->alpha_pct);
-    // джитер 32-бітний — згладимо окремо тим самим правилом
-    {
-        int64_t dj = (int64_t)jitter - (int64_t)t->jitter_avg;
-        t->jitter_avg = (uint32_t)((int64_t)t->jitter_avg
-                                   + dj * t->alpha_pct / 100);
-    }
-
-    // 2) РАННЄ ПОПЕРЕДЖЕННЯ за джитером: він росте швидко, а втрат ще нема —
-    //    канал ось-ось захлинеться. Не піднімаємось, навіть якщо втрати малі.
-    int jitter_rising = ((int64_t)jitter > (int64_t)t->jitter_avg * 3 / 2);
-
-    if (jitter_rising && t->loss_avg < t->base.loss_up_permille) {
-        // притримуємо ріст: пропускаємо крок угору, лишаємо бітрейт як є
-        return t->base.rate;
-    }
-
-    // 3) рішення — на ЗГЛАДЖЕНИХ втратах, не на сирих.
-    //    переводимо ‰ (0..1000) назад у формат RR (0..255) і затискаємо стелею:
-    uint32_t f255 = ((uint32_t)t->loss_avg << 8) / 1000u;   // ‰ → 0..256
-    if (f255 > 255u) f255 = 255u;                            // 100% не має дати 0!
-    return abr_on_report(&t->base, (uint8_t)f255);
-}
-```
-```python
-from dataclasses import dataclass, field
-
-@dataclass
-class AbrTrend:
-    base: Abr                    # контролер із гістерезисом (вище)
-    loss_avg: int = 0            # згладжені втрати, ‰  (EMA)
-    jitter_avg: int = 0          # згладжений джитер (одиниці RTP timestamp)
-    alpha_pct: int = 25          # вага нового звіту в EMA, %  (напр., 25 → α=0.25)
-    seeded: bool = False         # False до першого звіту: EMA треба засіяти, не зростати з нуля
-
-
-def abr_trend_init(start: int, lo: int, hi: int) -> AbrTrend:
-    # α = 0.25: розумний баланс глушіння й чуйності;
-    # перший звіт сяде в середнє цілком, без розгону з 0
-    return AbrTrend(base=abr_init(start, lo, hi), alpha_pct=25)
-
-
-# EMA в цілій арифметиці:  avg += α·(нове − avg)
-def _ema(avg: int, sample: int, alpha_pct: int) -> int:
-    return avg + (sample - avg) * alpha_pct // 100
-
-
-def abr_trend_on_report(t: AbrTrend, fraction_lost: int, jitter: int) -> int:
-    loss = (fraction_lost * 1000) >> 8
-
-    # 0) перший звіт сяде в середнє ЦІЛКОМ — інакше EMA повзла б від нуля
-    #    кілька звітів і пропустила б ранній стан каналу
-    if not t.seeded:
-        t.loss_avg   = loss
-        t.jitter_avg = jitter
-        t.seeded     = True
-
-    # 1) згладжуємо обидва датчики — гасимо одиничні сплески
-    t.loss_avg   = _ema(t.loss_avg, loss, t.alpha_pct)
-    # джитер згладимо тим самим правилом
-    t.jitter_avg = _ema(t.jitter_avg, jitter, t.alpha_pct)
-
-    # 2) РАННЄ ПОПЕРЕДЖЕННЯ за джитером: він росте швидко, а втрат ще нема —
-    #    канал ось-ось захлинеться. Не піднімаємось, навіть якщо втрати малі.
-    jitter_rising = jitter > t.jitter_avg * 3 // 2
-
-    if jitter_rising and t.loss_avg < t.base.loss_up_permille:
-        # притримуємо ріст: пропускаємо крок угору, лишаємо бітрейт як є
-        return t.base.rate
-
-    # 3) рішення — на ЗГЛАДЖЕНИХ втратах, не на сирих.
-    #    переводимо ‰ (0..1000) назад у формат RR (0..255) і затискаємо стелею:
-    f255 = (t.loss_avg << 8) // 1000        # ‰ → 0..256
-    f255 = min(f255, 255)                    # 100% не має дати 0!
-    return abr_on_report(t.base, f255)
-```
+:::code proj-adaptive-bitrate/c/trend-vidriznyty-splesk.c
+:::code proj-adaptive-bitrate/py/trend-vidriznyty-splesk.py
 :::
 
 Останній рядок виглядає кручено, але робить просту річ: переводить згладжені проміле назад у формат 0…255, щоб згодувати їх уже готовій `abr_on_report` і не дублювати логіку гістерезису. Тепер прослідкуймо різницю на сплеску проти тренду:
@@ -385,63 +173,11 @@ def abr_trend_on_report(t: AbrTrend, fraction_lost: int, jitter: int) -> int:
 
 Далі — правило вибору, обманливо просте: **бери найвищу якість, чий бітрейт ще нижчий за виміряну швидкість** (з невеликим запасом). Запас (англ. *safety factor*, скажімо 0.8) критичний: тягнути сегмент бітрейтом рівно під стелю каналу — напрошуватися на спустошення буфера, бо найменше коливання швидкості — і сегмент не встигне довантажитись до показу. Ось цей вибір у коді плеєра:
 
-```c
-// Сходинки якості з маніфесту (HLS/DASH), від нижчої до вищої, біт/с.
-static const uint32_t LADDER[] = {
-    400000, 800000, 1500000, 3000000, 6000000   // 480p … 1080p
-};
-static const int LADDER_N = sizeof(LADDER) / sizeof(LADDER[0]);
-
-// Вибір сходинки під виміряну пропускну.
-//   segment_bytes — розмір щойно завантаженого сегмента
-//   download_ms   — скільки тривало його завантаження
-int abr_pick_rendition(uint32_t segment_bytes, uint32_t download_ms)
-{
-    // виміряна пропускна = байти·8 / час  (біт/с); бережемось ділення на нуль
-    if (download_ms == 0) download_ms = 1;
-    uint32_t measured_bps =
-        (uint32_t)(((uint64_t)segment_bytes * 8u * 1000u) / download_ms);
-
-    // safety factor 0.8: лишаємо 20% запасу на коливання
-    uint32_t budget = (uint32_t)(((uint64_t)measured_bps * 80u) / 100u);
-
-    // найвища сходинка, що влазить у бюджет (мінімум — найнижча)
-    int pick = 0;
-    for (int i = 0; i < LADDER_N; i++) {
-        if (LADDER[i] <= budget) pick = i;
-    }
-    return pick;
-}
-```
+:::code proj-adaptive-bitrate/c/inshyi-bik-kiltsia-abr.c
 
 І — увага — той самий гістерезис чигає й тут, лише в новій одежі. Якщо плеєр перемикає сходинку **миттєво** на кожен вимір, ви отримаєте те саме миготіння: один сегмент прийшов трохи повільніше — плеєр стрибнув на 480p, наступний швидше — назад на 1080p, і так без кінця. Тому реальні ABR-плеєри додають ту саму обережність: **угору перемикаються неохоче** (вимагають, щоб кілька сегментів поспіль легко влізали з запасом, перш ніж підняти якість) і **вниз — рішуче** (один повільний сегмент — уже привід впасти, бо порожній буфер означає «крутиться колесо»). Та сама асиметрія «боязко вгору, швидко вниз», що ми вивели для джерела, відтворюється тут слово в слово.
 
-```c
-typedef struct {
-    int current;        // поточна сходинка
-    int up_confirm;     // лічильник «легко влазить» поспіль (для росту)
-} abr_player_t;
-
-int abr_player_step(abr_player_t *p, uint32_t seg_bytes, uint32_t dl_ms)
-{
-    int want = abr_pick_rendition(seg_bytes, dl_ms);
-
-    if (want < p->current) {
-        // вниз — БЕЗ роздумів: порожній буфер найгірший
-        p->current   = want;
-        p->up_confirm = 0;
-    } else if (want > p->current) {
-        // вгору — лише після трьох підтверджень поспіль
-        if (++p->up_confirm >= 3) {
-            p->current   += 1;          // піднімаємось на ОДНУ сходинку
-            p->up_confirm = 0;
-        }
-    } else {
-        p->up_confirm = 0;              // тупцюємо — скидаємо лічильник
-    }
-    return p->current;
-}
-```
+:::code proj-adaptive-bitrate/c/inshyi-bik-kiltsia-abr-2.c
 
 Глибша різниця між двома боками — у природі ручки. Джерело крутить бітрейт **плавно** (енкодер бере будь-яке число кілобітів), тож там доречні множники ×1.05 і ×0.9. Плеєр же стрибає **дискретними сходинками** готових якостей — між ними нема проміжних, тож там логіка не «помнож», а «обери сходинку зі списку». Але **ідея спільна**: міряй стан каналу, вирішуй обережно з гістерезисом, тікай униз швидше, ніж лізеш угору. Один принцип — два втілення під різні ручки. (Сучасні ABR-алгоритми, як-от BOLA в плеєрі dash.js, замість самої лише пропускної дивляться ще й на **запас буфера** — повний буфер дозволяє ризикнути вищою якістю, майже порожній змушує впасти; але це вже надбудова над тією самою серцевиною, яку ми зібрали.)
 

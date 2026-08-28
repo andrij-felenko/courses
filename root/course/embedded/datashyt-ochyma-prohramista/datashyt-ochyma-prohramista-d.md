@@ -87,23 +87,7 @@ void clear_data_ready_flag(uint8_t dev_addr) {
     i2c_write_byte(dev_addr, REG_STATUS, ack_mask);
 }
 ```
-```cpp
-/* Ідіоматичний C++ варіант з типізованими бітовими масками */
-namespace driver {
-
-enum class StatusFlag : uint8_t {
-    DataReady     = (1 << 0),
-    FifoWatermark = (1 << 1),
-    FifoOverrun   = (1 << 2)
-};
-
-void clear_status_flag(BusInterface& bus, uint8_t dev_addr, StatusFlag flag) noexcept {
-    const auto ack_byte = static_cast<uint8_t>(flag);
-    bus.write_register(dev_addr, Reg::Status, std::span<const uint8_t, 1>{&ack_byte, 1});
-}
-
-} // namespace driver
-```
+:::code datashyt-ochyma-prohramista-d/cpp/3-w1c-w1tc-write-1-to.hpp
 :::
 
 ### 4. COR / RC (Clear-on-Read) — Автоматичне скидання під час читання
@@ -163,41 +147,8 @@ S = (2 · 2g) / 2¹⁶
 2. **Right-Justified (вирівняно праворуч):** 12 біт даних розташовані у бітах `[11:0]`, а біти `[15:12]` містять нулі. У цьому випадку старший знаковий біт розташований на позиції 11, а не 15. Просте приведення до типу `int16_t` не виконає знакове розширення, і від'ємне число `0x0FE0` (-32 у 12-бітній шкалі) буде прочитане як додатне `+4064`.
 
 :::tabs
-```c
-/* Правильне знакове розширення (Sign Extension) для 12-бітного Right-Justified числа */
-int16_t sign_extend_12bit(uint16_t raw_12) {
-    if (raw_12 & 0x0800) {  /* Якщо 11-й біт дорівнює 1 (число від'ємне) */
-        raw_12 |= 0xF000;   /* Заповнюємо старші 4 біти одиницями */
-    }
-    return (int16_t)raw_12;
-}
-
-/* Альтернативний швидкий варіант через знаковий арифметичний зсув */
-int16_t sign_extend_12bit_shift(uint16_t raw_12) {
-    return (int16_t)(raw_12 << 4) >> 4;
-}
-```
-```cpp
-/* C++ constexpr реалізація знакового розширення довільної розрядності */
-#include <cstdint>
-#include <concepts>
-
-namespace driver {
-
-template <size_t Bits>
-requires (Bits > 0 && Bits < 16)
-[[nodiscard]] constexpr int16_t sign_extend(uint16_t raw) noexcept {
-    constexpr uint16_t SignMask = 1U << (Bits - 1);
-    constexpr uint16_t FillMask = ~((1U << Bits) - 1U);
-    
-    if ((raw & SignMask) != 0) {
-        return static_cast<int16_t>(raw | FillMask);
-    }
-    return static_cast<int16_t>(raw & ~FillMask);
-}
-
-} // namespace driver
-```
+:::code datashyt-ochyma-prohramista-d/c/format-dopovnialnoho-kodu.c
+:::code datashyt-ochyma-prohramista-d/cpp/format-dopovnialnoho-kodu.cpp
 :::
 
 ### Чому заборонено використовувати C-структури з бітовими полями (Bitfields)
@@ -231,48 +182,8 @@ struct CtrlRegBitfields {
 Надійний підхід — використання чітких бітових констант, масок та зсувів (`#define` або `constexpr uint8_t`).
 
 :::tabs
-```c
-/* Надійний патерн маніпуляції бітовими полями в C */
-#define CTRL_ODR_POS       4
-#define CTRL_ODR_MASK      (0x07 << CTRL_ODR_POS)
-#define CTRL_ODR_100HZ     (0x03 << CTRL_ODR_POS)
-
-#define CTRL_BDU_BIT       (1 << 3)
-#define CTRL_ENABLE_BIT    (1 << 0)
-
-uint8_t configure_reg(uint8_t current_val) {
-    uint8_t val = current_val;
-    val &= ~CTRL_ODR_MASK;      /* Очищаємо біти ODR */
-    val |= CTRL_ODR_100HZ;      /* Встановлюємо нову частоту */
-    val |= CTRL_BDU_BIT;        /* Вмикаємо BDU */
-    val |= CTRL_ENABLE_BIT;     /* Активуємо чип */
-    return val;
-}
-```
-```cpp
-/* Типобезпечний C++ підхід з constexpr бітовими помічниками */
-#include <cstdint>
-#include <cstddef>
-
-namespace driver {
-
-namespace ctrl_bits {
-    inline constexpr uint8_t OdrPos   = 4;
-    inline constexpr uint8_t OdrMask  = 0x07 << OdrPos;
-    inline constexpr uint8_t Odr100Hz = 0x03 << OdrPos;
-    inline constexpr uint8_t BduBit   = 1 << 3;
-    inline constexpr uint8_t EnableBit = 1 << 0;
-}
-
-[[nodiscard]] constexpr uint8_t configure_register(uint8_t current_val) noexcept {
-    using namespace ctrl_bits;
-    auto val = static_cast<uint8_t>(current_val & ~OdrMask);
-    val |= Odr100Hz | BduBit | EnableBit;
-    return val;
-}
-
-} // namespace driver
-```
+:::code datashyt-ochyma-prohramista-d/c/chomu-zaboroneno.c
+:::code datashyt-ochyma-prohramista-d/cpp/chomu-zaboroneno.cpp
 :::
 
 ## Діаграми протоколів обміну та таймінги шин (I2C / SPI)
@@ -335,70 +246,8 @@ namespace ctrl_bits {
    *Обхідний шлях (Bus Clear Workaround):* перед ініціалізацією I2C перевести пін `SCL` у режим GPIO і вручну згенерувати 9 тактових імпульсів. Це змушує ведений пристрій завершити передачу поточного байта, відпустити лінію `SDA` і повернутися в стан очікування сигналу STOP.
 
 :::tabs
-```c
-/* Програмне розблокування шини I2C (Bus Recovery) мовою C */
-void i2c_bus_recovery(void) {
-    gpio_set_mode_output_od(PIN_SCL);
-    gpio_set_mode_input_pullup(PIN_SDA);
-
-    /* Генеруємо 9 тактових імпульсів на лінії SCL */
-    for (int i = 0; i < 9; i++) {
-        if (gpio_read(PIN_SDA) == 1) {
-            break; /* Чип відпустив SDA, шина розблокована */
-        }
-        gpio_write(PIN_SCL, 0);
-        delay_us(5);
-        gpio_write(PIN_SCL, 1);
-        delay_us(5);
-    }
-
-    /* Формуємо сигнал STOP: перехід SDA з 0 в 1 при SCL = 1 */
-    gpio_set_mode_output_od(PIN_SDA);
-    gpio_write(PIN_SDA, 0);
-    delay_us(5);
-    gpio_write(PIN_SCL, 1);
-    delay_us(5);
-    gpio_write(PIN_SDA, 1);
-    delay_us(5);
-}
-```
-```cpp
-/* Ідіоматичний C++ клас відновлення шини I2C через RAII пін-маніпулятор */
-#include <cstdint>
-
-namespace driver {
-
-template <typename GpioDriver>
-class I2cBusRecovery {
-public:
-    static bool recover(GpioDriver& gpio, uint8_t scl_pin, uint8_t sda_pin) noexcept {
-        gpio.set_open_drain_output(scl_pin);
-        gpio.set_input_pullup(sda_pin);
-
-        for (int i = 0; i < 9; ++i) {
-            if (gpio.read(sda_pin) == 1) {
-                break;
-            }
-            gpio.write(scl_pin, 0);
-            gpio.delay_us(5);
-            gpio.write(scl_pin, 1);
-            gpio.delay_us(5);
-        }
-
-        gpio.set_open_drain_output(sda_pin);
-        gpio.write(sda_pin, 0);
-        gpio.delay_us(5);
-        gpio.write(scl_pin, 1);
-        gpio.delay_us(5);
-        gpio.write(sda_pin, 1);
-        gpio.delay_us(5);
-
-        return gpio.read(sda_pin) == 1;
-    }
-};
-
-} // namespace driver
-```
+:::code datashyt-ochyma-prohramista-d/c/typovi-aparatni-defekty-ta.c
+:::code datashyt-ochyma-prohramista-d/cpp/typovi-aparatni-defekty-ta.cpp
 :::
 
 2. **Пропуск переривань при швидкому виході зі сплячого режиму:**
@@ -412,45 +261,8 @@ public:
 Щоб драйвер залишався сумісним як зі старими, так і з виправленими новими партіями мікросхем, під час запуску виконують динамічну ідентифікацію ревізії:
 
 :::tabs
-```c
-/* Перевірка ревізії кремнію та вибір обхідного шляху (C) */
-#define REG_REVISION_ID     0x0C
-#define SILICON_REV_A       0x01
-#define SILICON_REV_B       0x02
-
-void sensor_probe_workaround(uint8_t dev_addr) {
-    uint8_t rev_id = 0;
-    i2c_read_byte(dev_addr, REG_REVISION_ID, &rev_id);
-
-    if (rev_id == SILICON_REV_A) {
-        /* Активуємо спеціальний обхідний шлях для дефектної ревізії А */
-        apply_errata_workaround_es042();
-    }
-}
-```
-```cpp
-/* Типобезпечна перевірка ревізії кремнію (C++) */
-#include <cstdint>
-#include <expected>
-
-namespace driver {
-
-enum class SiliconRev : uint8_t {
-    RevA = 0x01,
-    RevB = 0x02
-};
-
-void apply_workaround_if_needed(BusInterface& bus, uint8_t dev_addr) noexcept {
-    uint8_t rev_raw = 0;
-    if (bus.read_register(dev_addr, Reg::RevisionId, std::span<uint8_t, 1>{&rev_raw, 1})) {
-        if (static_cast<SiliconRev>(rev_raw) == SiliconRev::RevA) {
-            apply_errata_workaround_es042();
-        }
-    }
-}
-
-} // namespace driver
-```
+:::code datashyt-ochyma-prohramista-d/c/perevirka-revizii-kremniiu.c
+:::code datashyt-ochyma-prohramista-d/cpp/perevirka-revizii-kremniiu.cpp
 :::
 
 Детальний практичний алгоритм покрокового аудиту та перевірки карти регістрів реалізовано у вставці [Аудит карти регістрів та шаблон верифікації чипа](root:embedded/datashyt-ochyma-prohramista/proj-audit-karty-reiestriv.md).

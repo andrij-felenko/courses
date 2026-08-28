@@ -57,24 +57,7 @@ funct7  rs2    rs1    funct3 rd     opcode
 
 Тепер сама логіка. Підрахунок одиничних бітів — це просто сума 32 окремих бітів. У залізі це навіть не цикл: це дерево суматорів, яке синтезатор побудує сам, щойно ми напишемо «склади всі біти». Жодних тактів-ітерацій — чиста [комбінаційна логіка](root:hw-digital/combinational-circuits), результат з'являється на виході за час поширення сигналу крізь дерево.
 
-```verilog
-// popcount_unit.v — рахує одиничні біти 32-розрядного слова.
-// Чиста комбінаційна логіка: результат готовий у тому ж такті.
-module popcount_unit (
-    input  wire [31:0] a,        // вхідне слово (це буде rs1)
-    output wire [5:0]  count     // 0..32 одиниць -> вистачить 6 біт
-);
-    integer i;
-    reg [5:0] sum;
-    always @(*) begin
-        sum = 6'd0;
-        for (i = 0; i < 32; i = i + 1)
-            sum = sum + a[i];     // синтезатор розгорне в дерево суматорів
-        // НЕ цикл у часі: це 32 додавання, що існують одночасно в залізі
-    end
-    assign count = sum;
-endmodule
-```
+:::code proj-riscv-custom/verilog/popcount_unit.v
 
 Той `for` усередині `always @(*)` бентежить тих, хто прийшов із C: здається, що це петля в часі. Це не так. У HDL такий `for` — лише **спосіб описати** 32 паралельні додавання компактно; синтезатор розгортає його в дерево суматорів, які працюють **одночасно**, а не одне за одним. У цьому й уся суть переносу петлі в залізо: те, що ядро робило бітами поспіль за десятки тактів, тут існує як один шмат комбінаційної схеми.
 
@@ -90,71 +73,11 @@ endmodule
 
 Ось наш PCPI-блок навколо popcount_unit. Він робить дві речі: звіряє опкод/funct із нашими числами і, якщо збіг, віддає результат:
 
-```verilog
-// pcpi_popcount.v — обгортка PCPI навколо popcount_unit.
-// Підключається до готових сигналів PicoRV32; ядро не змінюємо.
-module pcpi_popcount (
-    input  wire        clk,
-    input  wire        resetn,
-    input  wire        pcpi_valid,   // ядро пропонує невпізнану команду
-    input  wire [31:0] pcpi_insn,    // повний код команди
-    input  wire [31:0] pcpi_rs1,     // значення rs1 (наш вхід)
-    input  wire [31:0] pcpi_rs2,     // значення rs2 (не потрібне popcount)
-    output reg         pcpi_wr,      // ми хочемо записати rd
-    output reg  [31:0] pcpi_rd,      // результат
-    output reg         pcpi_wait,    // нам треба ще такти (тут — ні)
-    output reg         pcpi_ready    // ми закінчили
-);
-    // --- Розпізнавання НАШОЇ команди (ті самі біти, що в кодуванні!) ---
-    wire is_ours = pcpi_valid
-                 && (pcpi_insn[6:0]   == 7'b0001011)   // opcode = custom-0
-                 && (pcpi_insn[14:12] == 3'b000)       // funct3 = 0
-                 && (pcpi_insn[31:25] == 7'b0000000);  // funct7 = 0
-
-    wire [5:0] cnt;
-    popcount_unit u_pc (.a(pcpi_rs1), .count(cnt));    // комбінаційно рахуємо
-
-    always @(posedge clk) begin
-        // За замовчуванням мовчимо: це НЕ наша команда -> хай ядро шукає далі
-        pcpi_wr    <= 1'b0;
-        pcpi_rd    <= 32'd0;
-        pcpi_ready <= 1'b0;
-        pcpi_wait  <= 1'b0;          // popcount однотактна: чекати не треба
-        if (is_ours) begin
-            pcpi_rd    <= {26'd0, cnt};  // 6-бітний результат у 32-бітний rd
-            pcpi_wr    <= 1'b1;          // так, пишемо в rd
-            pcpi_ready <= 1'b1;          // готово вже цього такту
-        end
-    end
-endmodule
-```
+:::code proj-riscv-custom/verilog/pcpi_popcount.v
 
 Залишається з'єднати: вивести з ядра сигнали `pcpi_*` і завести їх у наш блок. У PicoRV32 для цього є параметр `ENABLE_PCPI`:
 
-```verilog
-// Фрагмент верхнього рівня: ядро + наш PCPI-блок поруч.
-wire        pcpi_valid, pcpi_wr, pcpi_wait, pcpi_ready;
-wire [31:0] pcpi_insn, pcpi_rs1, pcpi_rs2, pcpi_rd;
-
-picorv32 #(
-    .ENABLE_PCPI(1)            // вмикаємо вивід PCPI назовні
-) cpu (
-    .clk(clk), .resetn(resetn),
-    /* ... шина пам'яті тут ... */
-    .pcpi_valid(pcpi_valid), .pcpi_insn(pcpi_insn),
-    .pcpi_rs1(pcpi_rs1),     .pcpi_rs2(pcpi_rs2),
-    .pcpi_wr(pcpi_wr),       .pcpi_rd(pcpi_rd),
-    .pcpi_wait(pcpi_wait),   .pcpi_ready(pcpi_ready)
-);
-
-pcpi_popcount u_ci (
-    .clk(clk), .resetn(resetn),
-    .pcpi_valid(pcpi_valid), .pcpi_insn(pcpi_insn),
-    .pcpi_rs1(pcpi_rs1),     .pcpi_rs2(pcpi_rs2),
-    .pcpi_wr(pcpi_wr),       .pcpi_rd(pcpi_rd),
-    .pcpi_wait(pcpi_wait),   .pcpi_ready(pcpi_ready)
-);
-```
+:::code proj-riscv-custom/verilog/shliakh-a-picorv32-cherez.v
 
 Це й уся апаратна частина для PicoRV32. Жодного рядка ядра ми не правили — лише ввімкнули вже наявний інтерфейс і повісили на нього свій блок. Те, що в PicoRV32 множення (`picorv32_pcpi_mul`) і ділення (`picorv32_pcpi_div`) реалізовані **тим самим** способом — окремими PCPI-блоками, а не вшиті в ядро, — найкраще підтверджує, що ми йдемо правильною, передбаченою автором дорогою.
 
@@ -232,19 +155,7 @@ asm volatile (".word 0x0005050B");   // popcount a0, a0  (rd=rs1=a0)
 
 Перевіримо себе на відомій команді: `add a0, a1, a2` — це опкод `0x33`, funct3=0, funct7=0, тож `.insn r 0x33, 0, 0, a0, a1, a2` дає рівно `add a0, a1, a2`. Тепер та сама механіка для нашої popcount, але всередині `asm volatile` із **обмеженнями регістрів** — щоб компілятор сам обрав, у яких регістрах тримати вхід і вихід, і підставив їхні номери:
 
-```c
-// popcount через .insn: ми диктуємо ТІЛЬКИ опкод/funct,
-// а які саме регістри — обирає компілятор через обмеження.
-static inline uint32_t popcount_ci(uint32_t x) {
-    uint32_t r;
-    asm volatile (
-        ".insn r 0x0B, 0, 0, %0, %1, x0"   // opcode=0x0B funct3=0 funct7=0
-        : "=r" (r)        // %0 -> rd : будь-який регістр, СЮДИ запишеться
-        : "r"  (x)        // %1 -> rs1: будь-який регістр зі значенням x
-    );                    // rs2 не потрібен -> x0 (нульовий регістр)
-    return r;
-}
-```
+:::code proj-riscv-custom/c/sposib-2-insn-dyktuiemo.c
 
 Розберемо обмеження, бо в них уся сіль і всі тонкі баги:
 
@@ -281,41 +192,11 @@ static inline uint32_t popcount_ci(uint32_t x) {
 
 Popcount однотактний і тому ховає одну важливу складність. Підмінімо його операцією, яка чесніше показує багатотактний випадок, — **кроком CRC** (англ. *cyclic redundancy check* — «циклічна перевірка надлишковості», контрольна сума, де кожен біт даних «вмішується» в регістр через зсув і умовний XOR з поліномом). Один крок CRC над байтом — це 8 ітерацій «зсунь — і якщо випав одиничний біт, заXOR з поліномом». У залізі це теж розгортається в комбінаційну схему, але глибшу за popcount; а буває, що операцію свідомо роблять **багатотактною** (наприклад, цілий блок даних за кілька тактів) — і тоді спливає сигнал готовності.
 
-```verilog
-// crc8_unit.v — один крок CRC-8 над байтом, комбінаційно.
-// Глибша схема, ніж popcount: 8 умовних XOR поспіль.
-module crc8_unit (
-    input  wire [7:0] data,        // байт даних (молодші біти rs1)
-    input  wire [7:0] crc_in,      // поточний стан CRC (молодші біти rs2)
-    output wire [7:0] crc_out
-);
-    localparam [7:0] POLY = 8'h07;     // CRC-8: x^8 + x^2 + x + 1
-    integer i;
-    reg [7:0] c;
-    always @(*) begin
-        c = crc_in ^ data;
-        for (i = 0; i < 8; i = i + 1)
-            c = c[7] ? ((c << 1) ^ POLY) : (c << 1);
-        // 8 умовних XOR -> довший комбінаційний ланцюг, ніж дерево popcount
-    end
-    assign crc_out = c;
-endmodule
-```
+:::code proj-riscv-custom/verilog/crc8_unit.v
 
 Тут наша команда **вживає обидва операнди**: `rs1` — байт даних, `rs2` — поточний стан CRC. Виклик з C просто задіює другий регістр:
 
-```c
-// CRC-крок: rs1 = байт даних, rs2 = поточний CRC -> rd = новий CRC.
-static inline uint8_t crc8_step_ci(uint8_t data, uint8_t crc) {
-    uint32_t r;
-    asm volatile (
-        ".insn r 0x0B, 1, 0, %0, %1, %2"  // funct3=1 -> ІНША команда блоку!
-        : "=r" (r)
-        : "r" ((uint32_t)data), "r" ((uint32_t)crc)
-    );
-    return (uint8_t)r;
-}
-```
+:::code proj-riscv-custom/c/perevirymo-ideiu-shyrshe.c
 
 Зверніть увагу на `funct3 = 1`: ми дали CRC-кроку **інше** значення funct3, ніж popcount (там було 0). Так в одному блоці `custom-0` мирно живуть дві наші команди — декодер розрізнить їх за funct3. Це і є та сама «адреса з 1024 варіантів» у дії: один опкод, багато команд.
 

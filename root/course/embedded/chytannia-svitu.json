@@ -37,7 +37,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -51,8 +52,23 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "comp": [
+            {
+              "file": "comp-opamp-buffer.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sample-hold.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "com-signal/nyquist-aliasing",
@@ -78,18 +94,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "math": [
             {
               "file": "math-steinhart-fit.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-lut-interpolator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -126,8 +146,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-cal-coeffs.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "hw-sensing/calibration",
@@ -148,7 +176,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]
@@ -204,7 +233,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]
@@ -260,18 +290,22 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
               "file": "math-thermal-rc-model.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-thermal-compensation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -378,7 +412,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]
@@ -394,8 +429,16 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-echo-picking.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "ph-waves/optyka-linza-fokusna-vidstan-pole-zoru",
@@ -445,7 +488,8 @@
           "proj": [
             {
               "file": "proj-block-matching.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -478,7 +522,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -500,7 +545,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]
@@ -610,24 +656,29 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-hlw8032.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-ac-power.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-energy-meter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -665,10 +716,12 @@
           "slug": "choosing-a-filter",
           "title": "Вибір фільтра",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -689,7 +742,8 @@
           "proj": [
             {
               "file": "proj-spec-struct.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -700,7 +754,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "math": [
             {
@@ -715,7 +770,8 @@
           "proj": [
             {
               "file": "proj-cascade-notch-fir.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -736,8 +792,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "math": [
+            {
+              "file": "math-thresholds.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cc-reader.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "com-signal/sensor-insufficiency",
@@ -763,7 +834,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         },
         {
@@ -773,7 +845,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]
@@ -794,20 +867,31 @@
           "slug": "audio-capture-pipeline",
           "title": "Захоплення звуку: від мікрофона до буфера",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-pdm-decimation.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "audio-playback-path",
           "title": "Відтворення: I2S, ЦАП і PDM-виходи",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -818,19 +902,22 @@
           "comp": [
             {
               "file": "comp-i2s-audio-amp.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "math": [
             {
               "file": "math-dither-noise-shaping.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-pdm-encoder.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -846,11 +933,20 @@
           "slug": "audio-processing-basics",
           "title": "Обробка на МК: фільтрація, рівень, AGC",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-agc-vad-coupled.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "why-frequency-domain",
@@ -860,7 +956,14 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-goertzel.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "com-signal/windowing-leakage",
@@ -873,18 +976,35 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-dtmf-decoder.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "audio-events-detection",
           "title": "Детекція подій у звуці (VAD, пороги, енергія)",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-vad-module.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "fir-design",
@@ -893,8 +1013,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-windowed-sinc.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "audio-recording-storage",
@@ -903,17 +1031,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
           "slug": "audio-compression-mcu",
           "title": "Стиснення звуку на МК: ADPCM, Opus",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -924,7 +1055,8 @@
           "proj": [
             {
               "file": "proj-adpcm-codec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -935,8 +1067,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "math": [
+            {
+              "file": "math-bearing-frequencies.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-envelope-analysis.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "active-noise-cancellation",
@@ -945,7 +1092,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -956,7 +1104,8 @@
           "proj": [
             {
               "file": "proj-fxlms-firmware.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -976,13 +1125,16 @@
           "comp": [
             {
               "file": "comp-mems-microphones.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-acoustic-detector.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         }
@@ -1016,11 +1168,19 @@
           "slug": "camera-interfaces-mcu",
           "title": "Підключення камери до МК: DVP, MIPI-CSI, SPI",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "hist": [
+            {
+              "file": "hist-arducam-spi.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-visual/bayer-demosaic",
@@ -1055,7 +1215,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]
@@ -1095,8 +1256,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-eis-warp.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "sf-visual/template-matching",
@@ -1121,7 +1290,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -1168,7 +1338,8 @@
           "proj": [
             {
               "file": "proj-adaptive-bitrate.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -1184,7 +1355,9 @@
           "proj": [
             {
               "file": "proj-video-budget-calculator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }

@@ -202,65 +202,8 @@ I(t) = k_i · ∫ [Des(τ) − Act(τ)] dτ
 Для автоматичного сканування логів після десятків тестових польотів використовують спеціалізовані утиліти аналізу. Нижче показано фрагмент коду аналізатора, що реалізує паралельну перевірку критичних фізичних критеріїв за рухомим часовим вікном. Повний автономний інструмент з описом формату структур доступний у вставці [аналізатора аварійних сигнатур](root:embedded/rozbir-intsydentu/proj-crash-analyzer.md).
 
 :::tabs
-```c
-#include <stdbool.h>
-#include <stdint.h>
-#include <math.h>
-
-typedef enum {
-    FAULT_NONE = 0,
-    FAULT_ACTUATOR_SATURATION,
-    FAULT_MAG_FIELD_DISTORTION,
-    FAULT_BATTERY_COLLAPSE
-} CrashFault;
-
-// Аналіз кадру польотних даних
-CrashFault evaluate_frame(float roll_err_deg, float m1_cmd, float m2_cmd, 
-                          float mag_innov, float current_a, float voltage_v) {
-    // 1. Просадка батареї нижче критичної відсічки
-    if (voltage_v < 13.0f && current_a > 30.0f) {
-        return FAULT_BATTERY_COLLAPSE;
-    }
-    // 2. Втрата мотора: максимальна асиметрія при зростанні помилки
-    if (m1_cmd > 0.98f && m2_cmd < 0.05f && fabsf(roll_err_deg) > 20.0f) {
-        return FAULT_ACTUATOR_SATURATION;
-    }
-    // 3. Магнітна завада: стрибок нев'язки пропорційно до струму
-    if (mag_innov > 0.5f && current_a > 35.0f) {
-        return FAULT_MAG_FIELD_DISTORTION;
-    }
-    return FAULT_NONE;
-}
-```
-```cpp
-#include <cmath>
-#include <cstdint>
-
-enum class CrashFault {
-    None,
-    ActuatorSaturation,
-    MagFieldDistortion,
-    BatteryCollapse
-};
-
-// Аналіз кадру польотних даних у C++
-constexpr CrashFault evaluate_frame(float roll_err_deg, float m1_cmd, float m2_cmd,
-                                   float mag_innov, float current_a, float voltage_v) noexcept {
-    // 1. Просадка батареї нижче критичної відсічки
-    if (voltage_v < 13.0f && current_a > 30.0f) {
-        return CrashFault::BatteryCollapse;
-    }
-    // 2. Втрата мотора: максимальна асиметрія при зростанні помилки
-    if (m1_cmd > 0.98f && m2_cmd < 0.05f && std::abs(roll_err_deg) > 20.0f) {
-        return CrashFault::ActuatorSaturation;
-    }
-    // 3. Магнітна завада: стрибок нев'язки пропорційно до струму
-    if (mag_innov > 0.5f && current_a > 35.0f) {
-        return CrashFault::MagFieldDistortion;
-    }
-    return CrashFault::None;
-}
-```
+:::code rozbir-intsydentu-d/c/main.c
+:::code rozbir-intsydentu-d/cpp/main.cpp
 :::
 
 ---

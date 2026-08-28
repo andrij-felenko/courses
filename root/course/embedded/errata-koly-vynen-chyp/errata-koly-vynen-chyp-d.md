@@ -202,43 +202,8 @@
 Приклад фрагмента обходу Errata при читанні останнього байта в I2C:
 
 :::tabs
-```c
-/* Фрагмент захисного коду обходу Errata при читанні останніх байтів у STM32 HAL */
-if (hi2c->XferCount == 2U) {
-    /* Заборона переривань для гарантії точного таймінгу */
-    __disable_irq();
-
-    /* Очищення біта POS та виставлення NACK */
-    hi2c->Instance->CR1 &= ~I2C_CR1_ACK;
-
-    /* Очищення прапорця ADDR читанням статусних регістрів */
-    __HAL_I2C_CLEAR_ADDRFLAG(hi2c);
-
-    /* Бар'єр пам'яті: гарантує завершення запису в шину до приходу байта */
-    __DSB();
-
-    /* Дозвіл переривань після проходження критичної фази */
-    __enable_irq();
-}
-```
-```cpp
-/* Ідіоматичний C++ RAII-блокувальник переривань для захисту таймінгу Errata */
-struct CriticalSectionGuard {
-    CriticalSectionGuard() noexcept { __disable_irq(); }
-    ~CriticalSectionGuard() noexcept { __enable_irq(); }
-    CriticalSectionGuard(const CriticalSectionGuard&) = delete;
-    CriticalSectionGuard& operator=(const CriticalSectionGuard&) = delete;
-};
-
-void prepare_i2c_last_bytes(I2C_TypeDef* instance) noexcept {
-    CriticalSectionGuard guard;
-    instance->CR1 &= ~I2C_CR1_ACK;
-    volatile uint32_t dummy = instance->SR1;
-    dummy = instance->SR2;
-    static_cast<void>(dummy);
-    asm volatile("dsb" ::: "memory");
-}
-```
+:::code errata-koly-vynen-chyp-d/c/iak-vendorski-biblioteky.c
+:::code errata-koly-vynen-chyp-d/cpp/iak-vendorski-biblioteky.hpp
 :::
 
 Без тимчасового вимкнення переривань (`__disable_irq()`) будь-яке стороннє переривання в цей момент затримає скидання біта `ACK`, і модуль згенерує зайвий такт на шині, перейшовши в стан апаратного блокування.
@@ -250,126 +215,8 @@ void prepare_i2c_last_bytes(I2C_TypeDef* instance) noexcept {
 Нижче наведено порівняння небезпечного та захищеного підходу до опитування апаратного регістра.
 
 :::tabs
-```c
-#include "stm32f10x.h"
-#include <stdbool.h>
-#include <stdint.h>
-
-#define HW_POLL_TIMEOUT_CYCLES  50000U
-
-typedef enum {
-    DRIVER_OK = 0,
-    DRIVER_ERR_TIMEOUT,
-    DRIVER_ERR_BUS_STUCK
-} DriverStatus;
-
-/**
- * @brief Безпечне очікування встановлення прапорця з тайм-аутом
- */
-DriverStatus safe_wait_flag(volatile uint32_t *reg, uint32_t mask, bool wait_for_set) {
-    uint32_t timeout = HW_POLL_TIMEOUT_CYCLES;
-
-    while (timeout > 0) {
-        bool is_set = ((*reg & mask) != 0U);
-        if (is_set == wait_for_set) {
-            return DRIVER_OK;
-        }
-        --timeout;
-        __NOP();
-    }
-
-    return DRIVER_ERR_TIMEOUT;
-}
-
-/**
- * @brief Приклад передачі байта з автоматичним відновленням при збої кремнію
- */
-DriverStatus i2c_transmit_byte_defensive(I2C_TypeDef *i2c, uint8_t byte) {
-    /* 1. Очікування звільнення регістра передавача (TXE) */
-    if (safe_wait_flag(&(i2c->SR1), I2C_SR1_TXE, true) != DRIVER_OK) {
-        /* Апаратний збій або зависання лінії: запускаємо аварійний скид */
-        RCC->APB1RSTR |= RCC_APB1RSTR_I2C1RST;
-        __NOP(); __NOP();
-        RCC->APB1RSTR &= ~RCC_APB1RSTR_I2C1RST;
-        return DRIVER_ERR_TIMEOUT;
-    }
-
-    /* 2. Запис даних у регістр */
-    i2c->DR = byte;
-    return DRIVER_OK;
-}
-```
-```cpp
-#include <cstdint>
-#include <concepts>
-#include <expected>
-
-namespace embedded::driver {
-
-enum class Error : uint8_t {
-    Timeout,
-    BusBusyLockup,
-    HardwareFault
-};
-
-template <typename RegType>
-class DefensiveRegisterPoll {
-public:
-    static constexpr uint32_t DefaultTimeoutCycles = 50'000U;
-
-    [[nodiscard]] static std::expected<void, Error> wait_for_flag(
-        const volatile RegType& reg,
-        RegType mask,
-        bool wait_for_set,
-        uint32_t timeout = DefaultTimeoutCycles) noexcept
-    {
-        while (timeout > 0) {
-            const bool is_set = (reg & mask) != 0U;
-            if (is_set == wait_for_set) {
-                return {};
-            }
-            --timeout;
-            asm volatile("nop");
-        }
-        return std::unexpected(Error::Timeout);
-    }
-};
-
-class DefensiveI2cMaster {
-public:
-    explicit DefensiveI2cMaster(I2C_TypeDef* instance) noexcept
-        : i2c_(instance) {}
-
-    [[nodiscard]] std::expected<void, Error> transmit_byte(uint8_t data) noexcept {
-        /* Безпечне очікування готовності передавача */
-        const auto result = DefensiveRegisterPoll<uint32_t>::wait_for_flag(
-            i2c_->SR1,
-            I2C_SR1_TXE,
-            true
-        );
-
-        if (!result.has_value()) {
-            recover_peripheral_lockup();
-            return std::unexpected(result.error());
-        }
-
-        i2c_->DR = data;
-        return {};
-    }
-
-private:
-    I2C_TypeDef* i2c_;
-
-    void recover_peripheral_lockup() noexcept {
-        /* Апаратне перезавантаження модуля через блок скидання RCC */
-        RCC->APB1RSTR |= RCC_APB1RSTR_I2C1RST;
-        asm volatile("nop; nop; nop;");
-        RCC->APB1RSTR &= ~RCC_APB1RSTR_I2C1RST;
-    }
-};
-
-} // namespace embedded::driver
-```
+:::code errata-koly-vynen-chyp-d/c/patern-zakhysnoho.c
+:::code errata-koly-vynen-chyp-d/cpp/patern-zakhysnoho.cpp
 :::
 
 ### Патч ревізій у процесі виконання (Runtime Silicon Patching)
@@ -377,34 +224,8 @@ private:
 Якщо прошивка створюється для роботи на пристроях різних років випуску, програмні обходи дефектів можна вмикати динамічно залежно від зчитаного ідентифікатора кремнію:
 
 :::tabs
-```c
-/* Визначення потреби в обході дефекту I2C за ревізією кристала */
-bool is_i2c_analog_filter_bug_present(void) {
-    uint32_t rev_id = (DBGMCU->IDCODE >> 16) & 0xFFFFU;
-    
-    /* У ревізіях Rev A (0x1000) та Rev Z (0x1001) дефект присутній */
-    if (rev_id == 0x1000U || rev_id == 0x1001U) {
-        return true;
-    }
-    
-    /* У ревізії Rev 1 (0x2000) дефект виправлено в кремнії */
-    return false;
-}
-```
-```cpp
-/* Ідіоматична C++ constexpr перевірка ревізії кремнію */
-enum class SiliconStepping : uint16_t {
-    RevA = 0x1000U,
-    RevZ = 0x1001U,
-    RevY = 0x1003U,
-    Rev1 = 0x2000U
-};
-
-[[nodiscard]] inline bool has_i2c_analog_filter_errata() noexcept {
-    const auto rev = static_cast<SiliconStepping>((DBGMCU->IDCODE >> 16) & 0xFFFFU);
-    return rev == SiliconStepping::RevA || rev == SiliconStepping::RevZ;
-}
-```
+:::code errata-koly-vynen-chyp-d/c/patch-revizii-u-protsesi.c
+:::code errata-koly-vynen-chyp-d/cpp/patch-revizii-u-protsesi.cpp
 :::
 
 ---

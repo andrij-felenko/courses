@@ -12,39 +12,7 @@
 
 Спершу — фундамент, спільний рядок, з якого виростає кожен пункт. Заведімо невелику фабрику, що повертає **чисту** структуру з уже виставленими «безпечними» полями, які однакові для всіх навігаційних пунктів типової місії:
 
-```cpp
-#include <stdint.h>
-#include <math.h>
-#include "mavlink.h"
-
-// Перетворити градуси (як їх дає людина чи мапа) у масштабоване ціле:
-// градуси × 10⁷. Саме цього очікують поля x/y у MISSION_ITEM_INT.
-// lround, а не (int32_t)каст: каст відрізає дробову частину, а ми хочемо
-// округлити до найближчого цілого, щоб не втратити пів сантиметра на кожній точці.
-static inline int32_t deg_to_1e7(double deg) {
-    return (int32_t)lround(deg * 1e7);
-}
-
-// Базова заготовка навігаційного пункта: спільні поля для всіх точок місії.
-// Координати приходять у ГРАДУСАХ (double) і масштабуються тут, в одному місці.
-static mavlink_mission_item_int_t make_nav_item(
-        uint16_t seq, uint16_t command,
-        double lat_deg, double lon_deg, float alt_m) {
-    mavlink_mission_item_int_t it = {};          // обнулити ВСЕ — критично, див. пастки
-    it.target_system    = TARGET_SYS;            // кому: SYS/COMP апарата з HEARTBEAT
-    it.target_component  = TARGET_COMP;
-    it.seq              = seq;                    // номер пункту в списку
-    it.frame            = MAV_FRAME_GLOBAL_RELATIVE_ALT_INT;  // висота — від домівки
-    it.command          = command;               // що робити (значення MAV_CMD)
-    it.current          = 0;                      // не «поточний» (керує апарат у польоті)
-    it.autocontinue     = 1;                      // виконав — переходь до наступного сам
-    it.x                = deg_to_1e7(lat_deg);    // широта × 10⁷ (ціле!)
-    it.y                = deg_to_1e7(lon_deg);    // довгота × 10⁷ (ціле!)
-    it.z                = alt_m;                  // висота, м (у цьому frame — над домівкою)
-    it.mission_type     = MAV_MISSION_TYPE_MISSION;  // це план польоту, не геозона/rally
-    return it;
-}
-```
+:::code proj-mission-builder/cpp/ideia-odna-struktura.cpp
 
 Подивися, що ми вже **вирішили раз і назавжди**, сховавши в цю фабрику. Координати завжди масштабуються в **одному** місці — `deg_to_1e7`, — тож решта коду оперує людськими градусами й фізично не може випадково покласти `float` у поле, що чекає ціле. `frame` за замовчуванням — `GLOBAL_RELATIVE_ALT_INT`, той самий найбезпечніший «відлік від домівки», на якому, [як ми бачили](root:embedded/mission-planning), ламаються найчастіше. `autocontinue = 1` стоїть **за замовчуванням**, бо без нього апарат завмер би на кожному пункті, чекаючи окремого штурхана, — а це вбило б усю ідею автономного маршруту. І `current = 0`, бо «поточним» пункт робить апарат уже в польоті, а не ми при завантаженні. Кожне з цих рішень — це знятий зі столу клас помилок.
 
@@ -54,34 +22,7 @@ static mavlink_mission_item_int_t make_nav_item(
 
 Базова фабрика годиться для звичайної точки, але `NAV_TAKEOFF`, `NAV_WAYPOINT` і `NAV_RETURN_TO_LAUNCH` по-різному тлумачать ті самі `param1…param4`. Згадаймо: `command` задає **сенс** усіх інших полів. Тож поверх фабрики зробімо три тонкі обгортки — кожна знає, що означають параметри саме її команди, і кладе туди потрібні числа.
 
-```cpp
-// Зліт на висоту alt_m над точкою озброєння. Координати зльоту зазвичай
-// лишають нульовими — апарат піднімається вертикально з місця, де стоїть.
-// param1 у TAKEOFF — мінімальний кут тангажу (для літаків); для коптера 0.
-static mavlink_mission_item_int_t make_takeoff(uint16_t seq, float alt_m) {
-    mavlink_mission_item_int_t it = make_nav_item(seq, MAV_CMD_NAV_TAKEOFF, 0.0, 0.0, alt_m);
-    it.param1 = 0.0f;   // мін. кут тангажу, град (коптеру байдуже)
-    return it;
-}
-
-// Точка маршруту. param1 — час зависання, с (0 = проходь наскрізь);
-// param2 — радіус прийняття, м (0 = взяти системний WPNAV_RADIUS).
-static mavlink_mission_item_int_t make_waypoint(uint16_t seq,
-        double lat_deg, double lon_deg, float alt_m,
-        float hold_s = 0.0f, float accept_radius_m = 0.0f) {
-    mavlink_mission_item_int_t it = make_nav_item(seq, MAV_CMD_NAV_WAYPOINT,
-                                                  lat_deg, lon_deg, alt_m);
-    it.param1 = hold_s;            // час зависання в точці, с
-    it.param2 = accept_radius_m;   // радіус прийняття, м (0 → системний)
-    return it;
-}
-
-// Повернення додому. RTL координат не потребує — «домівка» апарату відома;
-// тож тут і x/y/z лишаються нулями, і параметри не використовуються.
-static mavlink_mission_item_int_t make_rtl(uint16_t seq) {
-    return make_nav_item(seq, MAV_CMD_NAV_RETURN_TO_LAUNCH, 0.0, 0.0, 0.0f);
-}
-```
+:::code proj-mission-builder/cpp/komandy-u-iakykh-parametry.cpp
 
 Зверни увагу на красномовну річ: у `make_takeoff` і `make_rtl` координати — **нулі**, і це **правильно**. Зліт іде вертикально з місця, де апарат стоїть, а `RETURN_TO_LAUNCH` сам знає, де домівка, — обом не треба казати «куди», бо «куди» вже визначене. Те, що в `NAV_WAYPOINT` є серцем (точка `x/y/z`), в інших командах просто **мовчить**. Це і є та сама універсальність структури з [теми про вейпойнти](root:embedded/mission-planning): один формат, у якому кожна команда «вмикає» лише потрібні їй поля, а решта тихо лишаються нулями завдяки `{}` у фабриці.
 
@@ -94,45 +35,7 @@ static mavlink_mission_item_int_t make_rtl(uint16_t seq) {
 
 Як це лягає в код? Тут криється тонкість, яку легко проґавити: апарат **сам попросить** `seq = 0`, і `MISSION_COUNT` мусить цей нульовий пункт **враховувати**. Тобто просто «не слати home» не вийде — на запит `seq = 0` доведеться щось відповісти, а в оголошеній кількості його треба порахувати (п'ять своїх команд → `MISSION_COUNT = 6`). Тому найчистіший шлях — **зарезервувати нульовий слот у самому масиві**: кладемо на `items[0]` заглушку-домівку (координати-нулі згодяться — апарат усе одно перезапише її реальною домівкою з GPS), а справжні команди йдуть з `items[1]`. Виграш не косметичний: тепер **індекс масиву дорівнює бортовому `seq`** — `items[k].seq == k` для кожного пункту, — і той самий зсув на одиницю, через який усі спотикаються, просто зникає. Немає окремого відображення «мій індекс → бортовий номер», яке можна переплутати: місце в масиві й номер на борту — те саме число.
 
-```cpp
-// Зібрати повну місію в готовий до завантаження масив.
-// Повертає кількість заповнених елементів (= MISSION_COUNT, разом з домівкою).
-// seq=0 на борту ArduPilot — це home: автопілот САМ попросить цей пункт і
-// перезапише його реальною домівкою. Тож нульовий слот бронюємо під home, а
-// індекс масиву робимо рівним бортовому seq: items[k].seq == k. Наш TAKEOFF — seq=1.
-static uint16_t build_mission(mavlink_mission_item_int_t *out, uint16_t cap) {
-    // Координати ланки маршруту (градуси). Беруться з плану / з борту /
-    // з розрахунку — тут для прикладу три точки над майданчиком у Києві.
-    struct { double lat, lon; float alt; } legs[] = {
-        { 50.45010, 30.52340, 50.0f },
-        { 50.45080, 30.52510, 50.0f },
-        { 50.45030, 30.52680, 50.0f },
-    };
-    const uint16_t n_legs = sizeof(legs) / sizeof(legs[0]);
-
-    uint16_t i = 0;
-    // seq=0: слот домівки. ArduPilot САМ попросить цей пункт під час завантаження
-    // й перезапише його реальною домівкою з GPS, тож увесь його вміст — заглушка:
-    // координати-нулі й типовий frame фабрики згодяться. Нам важливо лише, що пункт
-    // існує (є чим відповісти на запит seq=0) і що далі індекс масиву = бортовому seq.
-    out[i] = make_nav_item(/*seq=*/i, MAV_CMD_NAV_WAYPOINT, /*lat=*/0.0, /*lon=*/0.0, /*alt=*/0.0f);
-    ++i;
-
-    // seq=1: зліт на 30 м над домівкою (нижче за крейсерські 50 — піднялись і пішли).
-    out[i] = make_takeoff(/*seq=*/i, /*alt_m=*/30.0f); ++i;
-
-    // seq=2…: ланка точок маршруту, кожна на 50 м, проходимо наскрізь (hold=0).
-    for (uint16_t k = 0; k < n_legs && i < cap - 1; ++k) {
-        out[i] = make_waypoint(/*seq=*/i, legs[k].lat, legs[k].lon, legs[k].alt);
-        ++i;
-    }
-
-    // останній seq: повернення додому й автоматична посадка на домівці.
-    out[i] = make_rtl(/*seq=*/i); ++i;
-
-    return i;   // скільки елементів зібрали (з домівкою) — стільки й оголосимо в MISSION_COUNT
-}
-```
+:::code proj-mission-builder/cpp/skladaiemo-masyv-i-tut.cpp
 
 Бачиш, як `seq` скрізь — це просто `i`, індекс у масиві? Це не випадковість, а весь сенс нульового слота: щойно домівка сіла на `items[0]`, кожен наступний пункт лягає рівно на той бортовий номер, що дорівнює його індексу. Немає окремого «плюс один», який колись забудеш чи додаси двічі, — знання про зсув на home сховане в **одному** рядку, тій заглушці на початку, а далі номер пункта й місце в масиві — те саме число. А `i < cap - 1` у циклі — це не дрібниця для краси: воно лишає місце під обов'язковий завершальний `RTL`, щоб переповнення масиву не з'їло саме той пункт, який рятує апарат наприкінці.
 
@@ -147,71 +50,7 @@ static uint16_t build_mission(mavlink_mission_item_int_t *out, uint16_t cap) {
 
 Оце «реагувати, а не висипати» і визначає форму коду. Завантаження — це маленький **автомат**, дуже схожий на той, що ми будували для [циклу «команда → ACK»](root:embedded/mavlink-commands/proj-command-ack-loop.md): почати, чекати запитів, на кожен відповісти, дочекатися фінального ACK, а на тиші — повторити крок. Ось він у роботі:
 
-```cpp
-// Стани завантаження місії.
-enum UploadState { UP_IDLE, UP_SENT_COUNT, UP_SENDING_ITEMS, UP_DONE, UP_FAILED };
-
-// Відіслати MISSION_COUNT — це СТАРТ завантаження.
-static void send_mission_count(uint16_t count) {
-    mavlink_message_t m;
-    mavlink_msg_mission_count_pack(MY_SYSID, MY_COMPID, &m,
-        TARGET_SYS, TARGET_COMP, count, MAV_MISSION_TYPE_MISSION);
-    uint8_t buf[MAVLINK_MAX_PACKET_LEN];
-    serial_write(buf, mavlink_msg_to_send_buffer(buf, &m));
-}
-
-// Відіслати один елемент із масиву у відповідь на запит апарата.
-static void send_mission_item(const mavlink_mission_item_int_t *it) {
-    mavlink_message_t m;
-    mavlink_msg_mission_item_int_pack(MY_SYSID, MY_COMPID, &m,
-        it->target_system, it->target_component, it->seq, it->frame, it->command,
-        it->current, it->autocontinue,
-        it->param1, it->param2, it->param3, it->param4,
-        it->x, it->y, it->z, it->mission_type);
-    uint8_t buf[MAVLINK_MAX_PACKET_LEN];
-    serial_write(buf, mavlink_msg_to_send_buffer(buf, &m));
-}
-
-// Завантажити зібрану місію. Неблокувально-циклічна логіка: одна функція
-// веде весь діалог. Повертає true при MAV_MISSION_ACCEPTED, false при відмові/тиші.
-static bool upload_mission(const mavlink_mission_item_int_t *items, uint16_t count) {
-    send_mission_count(count);
-    UploadState st = UP_SENT_COUNT;
-    uint32_t deadline = millis() + 1500;     // скільки чекати наступного запиту/ACK
-    uint8_t retries = 0;
-
-    while (st != UP_DONE && st != UP_FAILED) {
-        mavlink_message_t msg;
-        if (poll_mavlink(&msg)) {            // згодувати лінк парсеру, віддати кадр, якщо зібрався
-            if (msg.msgid == MAVLINK_MSG_ID_MISSION_REQUEST_INT) {
-                mavlink_mission_request_int_t req;
-                mavlink_msg_mission_request_int_decode(&msg, &req);
-                if (req.seq < count) {
-                    send_mission_item(&items[req.seq]);   // апарат сам каже, який індекс
-                    st = UP_SENDING_ITEMS;
-                    deadline = millis() + 1500;           // отримали запит — таймер наново
-                    retries = 0;
-                }
-            } else if (msg.msgid == MAVLINK_MSG_ID_MISSION_ACK) {
-                mavlink_mission_ack_t ack;
-                mavlink_msg_mission_ack_decode(&msg, &ack);
-                st = (ack.type == MAV_MISSION_ACCEPTED) ? UP_DONE : UP_FAILED;
-            }
-            // решту повідомлень (телеметрію) тут-таки віддаємо своїй логіці
-        }
-
-        if ((int32_t)(deadline - millis()) <= 0) {        // апарат замовк
-            if (++retries > 3) { st = UP_FAILED; break; }
-            // повторюємо КРОК, що завис: на старті — COUNT; усередині — нічого
-            // нового слати не треба, апарат сам перепитає загублений пункт,
-            // тож просто чекаємо ще одне вікно (count повторюємо лише в UP_SENT_COUNT)
-            if (st == UP_SENT_COUNT) send_mission_count(count);
-            deadline = millis() + 1500;
-        }
-    }
-    return st == UP_DONE;
-}
-```
+:::code proj-mission-builder/cpp/podaty-masyv-u-protokol.cpp
 
 Розберімо логіку, бо кожен її вузол відповідає на конкретну ваду наївного коду. `MISSION_COUNT` — це **старт**, після якого ми мовчимо й **слухаємо**: подія приходить від апарата, не від нас. На `MISSION_REQUEST_INT` ми беремо з масиву елемент **із тим самим індексом**, що назвав апарат, — `items[req.seq]`, — і шлемо лише його; це і є те «реагувати, а не висипати». На кожен прийнятий запит **скидаємо таймер**, бо діалог живий. `MISSION_ACK` із `MAV_MISSION_ACCEPTED` — успіх; будь-який інший тип у цьому полі — відмова з причиною (її варто прочитати й залогувати). А таймаут із повтором ловить мертвий лінк: якщо апарат замовк, ми не зависаємо навіки, а за кілька спроб чесно повертаємо `false`, щоб логіка місії перейшла в безпечний стан.
 

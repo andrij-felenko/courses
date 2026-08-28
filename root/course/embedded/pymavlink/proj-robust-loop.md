@@ -23,101 +23,8 @@
 Ось кістяк неблокуючого прийому. У Python `recv_match(blocking=False)` повертає розібране повідомлення або `None`, коли на лінії наразі нічого немає. У C ми читаємо сирі байти з неблокуючого дескриптора й **самі** згодовуємо їх парсерові MAVLink `mavlink_parse_char` — і в цій «зайвій» роботі видно те, що pymavlink робить за нас: щойно `read` повертає `-1` з `errno == EAGAIN`, черга порожня, і ми виходимо:
 
 :::tabs
-```py
-def drain_link(m, state):
-    """Забрати ВСЕ, що накопичилось на лінії з минулого такту.
-    Не блокує: щойно черга порожня, recv_match повертає None — виходимо."""
-    while True:
-        msg = m.recv_match(blocking=False)
-        if msg is None:
-            break                      # черга вичерпана — виходимо з циклу
-        handle_message(m, state, msg)  # обробляємо кожен кадр по черзі
-
-
-def handle_message(m, state, msg):
-    """Одне місце, куди сходяться всі вхідні повідомлення."""
-    mtype = msg.get_type()
-
-    if mtype == 'BAD_DATA':
-        # парсер спіткнувся на пошкоджених байтах — НЕ помилка лінії,
-        # просто завади. Тихо пропускаємо; наступні кадри зберуться.
-        return
-
-    if mtype == 'HEARTBEAT':
-        # серцебиття апарата — оновлюємо позначку «востаннє чули»
-        state.last_heartbeat = time.time()
-        state.armed = bool(msg.base_mode
-                           & mavutil.mavlink.MAV_MODE_FLAG_SAFETY_ARMED)
-
-    elif mtype == 'GLOBAL_POSITION_INT':
-        state.alt_m = msg.relative_alt / 1000.0   # мм → м
-        state.lat = msg.lat / 1e7
-        state.lon = msg.lon / 1e7
-
-    elif mtype == 'SYS_STATUS':
-        state.batt_v = msg.voltage_battery / 1000.0   # мВ → В
-```
-```c
-// монотонний час у секундах — не «стрибне» від корекції системного годинника
-static double now_monotonic(void) {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec + ts.tv_nsec / 1e9;
-}
-
-// Одне місце, куди сходяться всі вхідні повідомлення.
-static void handle_message(const mavlink_message_t *msg, LinkState *st) {
-    switch (msg->msgid) {
-    case MAVLINK_MSG_ID_HEARTBEAT: {                 // серцебиття апарата
-        mavlink_heartbeat_t hb;
-        mavlink_msg_heartbeat_decode(msg, &hb);
-        st->last_heartbeat = now_monotonic();        // позначка «востаннє чули»
-        st->armed = (hb.base_mode & MAV_MODE_FLAG_SAFETY_ARMED) != 0;
-        st->target_system = msg->sysid;              // адреса для власних команд
-        st->target_component = msg->compid;
-        break;
-    }
-    case MAVLINK_MSG_ID_GLOBAL_POSITION_INT: {
-        mavlink_global_position_int_t p;
-        mavlink_msg_global_position_int_decode(msg, &p);
-        st->alt_m = p.relative_alt / 1000.0;         // мм → м
-        st->lat = p.lat / 1e7;
-        st->lon = p.lon / 1e7;
-        break;
-    }
-    case MAVLINK_MSG_ID_SYS_STATUS: {
-        mavlink_sys_status_t s;
-        mavlink_msg_sys_status_decode(msg, &s);
-        st->batt_v = s.voltage_battery / 1000.0;     // мВ → В
-        break;
-    }
-    default: break;                                  // решту типів ігноруємо
-    }
-}
-
-// Забрати ВСЕ, що накопичилось на лінії. Неблокуюче: read на O_NONBLOCK-fd
-// повертає -1/EAGAIN, щойно черга порожня.
-static void drain_link(int fd, LinkState *st) {
-    uint8_t buf[512];
-    for (;;) {
-        ssize_t n = read(fd, buf, sizeof buf);
-        if (n > 0) {
-            for (ssize_t i = 0; i < n; i++) {
-                mavlink_message_t msg;
-                mavlink_status_t status;
-                // parse_char сам МОВЧКИ ковтає пошкоджені кадри (bad CRC) і
-                // повертає 0 — тож окрема гілка «BAD_DATA» тут не потрібна.
-                if (mavlink_parse_char(MAVLINK_COMM_0, buf[i], &msg, &status))
-                    handle_message(&msg, st);
-            }
-            continue;                 // міг лишитись ще шматок — читаємо далі
-        }
-        if (n < 0 && (errno == EAGAIN || errno == EWOULDBLOCK))
-            break;                    // черга вичерпана — це НЕ помилка лінії
-        break;                        // n==0 (EOF) чи інша помилка — розбереться детектор heartbeat
-    }
-}
-```
+:::code proj-robust-loop/py/chastyna-1-neblokuiuchyi.py
+:::code proj-robust-loop/c/chastyna-1-neblokuiuchyi.c
 :::
 
 Зверни увагу на два рішення, які легко проґавити. Перше: пошкоджені байти — це **не** ознака мертвої лінії. Бібліотека натрапляє на них постійно (радіозавади, збита синхронізація), і початківці лякаються, вважаючи це збоєм. Насправді це нормальна частина життя на радіо: пропусти биту синхронізацію й читай далі, наступні кадри зберуться правильно. Дві мови ставляться до цього по-різному: pymavlink **повертає** тобі псевдокадр `BAD_DATA`, який ти свідомо пропускаєш; бібліотека C ковтає бите кадрування **всередині** — `mavlink_parse_char` на поганому CRC просто повертає 0, ніби нічого й не було. Друге рішення: **уся** обробка вхідних сходиться в одну функцію `handle_message`. Це не косметика — коли пізніше додасться перепідключення, нам треба буде мати рівно одне місце, де народжуються дані стану, і рівно одне джерело позначки `last_heartbeat`. Розкидані по коду читання цю єдність убивають.
@@ -137,87 +44,15 @@ static void drain_link(int fd, LinkState *st) {
 Пастка та сама, що й у машині станів failsafe, — [презумпція несправності](root:embedded/autonomous-system/proj-failsafe-state-machine.md): доки апарат не довів, що живий, вважаємо зв'язку немає, але не плутаймо «ще не почули» з «почули й втратили». Ось детектор, що чесно розрізняє всі стани:
 
 :::tabs
-```py
-LINK_TIMEOUT_S = 3.0     # тиша довша за це = лінію втрачено (≈3 пропущені heartbeat)
-
-
-class LinkState:
-    """Усе, що ми знаємо про лінію й апарат. Одне місце — одна правда."""
-    def __init__(self):
-        self.last_heartbeat = None   # None = heartbeat ще НЕ приходив жодного разу
-        self.armed = False           # презумпція: роззброєно, поки не почули інше
-        self.alt_m = 0.0
-        self.lat = self.lon = 0.0
-        self.batt_v = 0.0
-
-    def link_alive(self):
-        """True лише якщо heartbeat приходив І не замовк довше за поріг."""
-        if self.last_heartbeat is None:
-            return False             # ще жодного heartbeat — лінія НЕ жива
-        return (time.time() - self.last_heartbeat) < LINK_TIMEOUT_S
-```
-```c
-#define LINK_TIMEOUT_S 3.0   // тиша довша за це = лінію втрачено (≈3 пропущені heartbeat)
-
-typedef struct {
-    double last_heartbeat;   // < 0 = heartbeat ще НЕ приходив жодного разу
-    bool   armed;            // презумпція: роззброєно, поки не почули інше
-    double alt_m, lat, lon, batt_v;
-    uint8_t target_system, target_component;
-    bool   safe;
-} LinkState;
-
-static void link_state_init(LinkState *st) {
-    memset(st, 0, sizeof *st);
-    st->last_heartbeat = -1.0;   // сентинел «ще не чули»
-}
-
-// True лише якщо heartbeat приходив І не замовк довше за поріг.
-static bool link_alive(const LinkState *st) {
-    if (st->last_heartbeat < 0)                      // ще жодного heartbeat — лінія НЕ жива
-        return false;
-    return (now_monotonic() - st->last_heartbeat) < LINK_TIMEOUT_S;
-}
-```
+:::code proj-robust-loop/py/chastyna-2-detektor-obryvu.py
+:::code proj-robust-loop/c/chastyna-2-detektor-obryvu.c
 :::
 
 Тепер детектор на кожному такті просто питає `link_alive`. Але сам факт «лінія впала» — половина справи; треба ще **зреагувати рівно раз** на перехід, а не кричати щотакту. Бо `link_alive` повертатиме «мертво» на кожному з наступних тактів, і якщо ми на кожному «реагуватимемо», то заллємо журнал і, можливо, пошлемо безпечну команду сто разів за секунду. Нам потрібен **фронт** — момент, коли стан змінився з «живо» на «мертво». Це та сама думка, що й `on_enter` у машині станів: дія на **зміні**, не на стані.
 
 :::tabs
-```py
-def check_link(m, state, prev_alive):
-    """Повертає поточний стан лінії; на ФРОНТІ втрати — діє один раз."""
-    alive = state.link_alive()
-
-    if prev_alive and not alive:
-        # ФРОНТ: щойно було живо, стало мертво — реагуємо РІВНО ТУТ
-        print("[LINK] обрив зв'язку — переходимо в безпечний режим")
-        enter_safe_mode(m, state)
-
-    elif not prev_alive and alive:
-        # ФРОНТ у зворотний бік: лінія ожила
-        print("[LINK] зв'язок відновлено")
-
-    return alive
-```
-```c
-static void enter_safe_mode(int fd, LinkState *st);   // оголошення наперед
-
-// Повертає поточний стан лінії; на ФРОНТІ втрати — діє один раз.
-static bool check_link(int fd, LinkState *st, bool prev_alive) {
-    bool alive = link_alive(st);
-
-    if (prev_alive && !alive) {
-        // ФРОНТ: щойно було живо, стало мертво — реагуємо РІВНО ТУТ
-        printf("[LINK] обрив зв'язку — переходимо в безпечний режим\n");
-        enter_safe_mode(fd, st);
-    } else if (!prev_alive && alive) {
-        printf("[LINK] зв'язок відновлено\n");   // ФРОНТ у зворотний бік
-    }
-
-    return alive;
-}
-```
+:::code proj-robust-loop/py/chastyna-2-detektor-obryvu-2.py
+:::code proj-robust-loop/c/chastyna-2-detektor-obryvu-2.c
 :::
 
 `enter_safe_mode` — окреме, свідоме рішення політики, і воно варте одного застереження. Коли лінію обірвано, слати команди **нікуди** — вони не дійдуть, бо лінії немає. Тому «безпечний режим» тут — це не «наказати апарату щось зробити по мертвій лінії» (це марно), а **перемкнути власну поведінку**: перестати слати керівні команди, зафіксувати намір, і — головне — не заважати. Справжній failsafe при втраті зв'язку виконує **сам апарат**, його вбудований механізм (RTL, LAND за налаштуванням), бо він бачить втрату зв'язку зі свого боку. Наше завдання простіше й чесніше: усвідомити, що ми осліпли, і не робити дурниць, доки лінія не повернеться.
@@ -256,108 +91,8 @@ static void enter_safe_mode(int fd, LinkState *st) {
 І третя тонкість — саме очікування першого heartbeat. Відкрити з'єднання мало; треба **дочекатися**, що апарат озвався, бо лише heartbeat дає нам `target_system`/`target_component` — адресу, без якої команди нікуди не підуть. Але тут знову зачаїлася перша пастка всієї вставки: очікування heartbeat **блокує**. Якщо чекати без таймауту, а апарата на лінії немає (ми ж реконектимось саме тому, що зв'язку немає!), ми зависнемо навіки в реконекті — точнісінько та біда, від якої тікали. Тому чекаємо **з таймаутом**: у Python `wait_heartbeat(timeout=...)`, у C — `poll` на дескрипторі з дедлайном; почекав відведений час, не дочекався — закрили це з'єднання й спробуємо знову з довшою паузою. А **якщо дочекався** — це вже **доказ**, що лінія жива, тож саме в цю мить чесно ставимо позначку `last_heartbeat` поточним часом. Вона знадобиться детекторові вже за такт: без неї той відразу вирішив би, що зв'язку немає (позначки ж немає!) — докладніше про цю пастку, коли зберемо цикл.
 
 :::tabs
-```py
-RECONNECT_MIN_S = 0.5     # перша пауза між спробами
-RECONNECT_MAX_S = 5.0     # стеля паузи (backoff далі не росте)
-
-
-def connect(device, state):
-    """Одна спроба підключитись і дочекатися апарата.
-    Повертає живий об'єкт з'єднання або None. НІКОЛИ не блокує назавжди."""
-    try:
-        m = mavutil.mavlink_connection(device)
-    except Exception as e:
-        print("[CONN] не вдалось відкрити %s: %s" % (device, e))
-        return None
-
-    # чекаємо heartbeat З ТАЙМАУТОМ — без нього зависли б навіки на мертвій лінії
-    hb = m.wait_heartbeat(timeout=RECONNECT_MAX_S)
-    if hb is None:
-        m.close()             # КРИТИЧНО: не лишаємо витік дескриптора
-        return None
-
-    # wait_heartbeat щойно ДОВІВ, що лінія жива, — чесно стамкнемо це в стан.
-    # Без цього наступний такт побачив би last_heartbeat=None → «мертво» і зчинив
-    # би хибну тривогу з негайним реконектом (churn після кожного відновлення).
-    state.last_heartbeat = time.time()
-    print("[CONN] апарат на лінії: sys %d, comp %d"
-          % (m.target_system, m.target_component))
-    return m
-
-
-def reconnect(device, old, state):
-    """Закрити стару лінію (проти витоку) і піднімати нову з backoff."""
-    if old is not None:
-        try:
-            old.close()        # ПЕРШ НІЖ відкрити нову — закрити стару!
-        except Exception:
-            pass               # уже мертва — байдуже, головне звільнити fd
-
-    delay = RECONNECT_MIN_S
-    while True:
-        m = connect(device, state)
-        if m is not None:
-            return m
-        print("[CONN] не вдалось; повтор через %.1f с" % delay)
-        time.sleep(delay)                       # єдиний свідомий sleep — коли лінії НЕМАЄ
-        delay = min(delay * 2, RECONNECT_MAX_S) # backoff: пауза росте до стелі
-```
-```c
-#define RECONNECT_MIN_S 0.5     // перша пауза між спробами
-#define RECONNECT_MAX_S 5.0     // стеля паузи (backoff далі не росте)
-
-// open_serial(), wait_readable(), sleep_s() — дрібні помічники, зібрані у складеному лістингу нижче.
-
-// Одна спроба підключитись і дочекатися апарата.
-// Повертає fd живої лінії або -1. НІКОЛИ не блокує назавжди.
-static int link_connect(const char *dev, LinkState *st) {
-    int fd = open_serial(dev, BAUD);
-    if (fd < 0) { perror("[CONN] open"); return -1; }
-
-    // чекаємо перший heartbeat З ТАЙМАУТОМ — без нього зависли б навіки на мертвій лінії
-    double deadline = now_monotonic() + RECONNECT_MAX_S;
-    for (;;) {
-        double left = deadline - now_monotonic();
-        if (left <= 0.0) { close(fd); return -1; }   // не дочекались — закрити fd (проти витоку)
-        if (wait_readable(fd, left) <= 0) continue;  // poll: даних нема — чекаємо до дедлайну
-
-        uint8_t buf[512];
-        ssize_t n = read(fd, buf, sizeof buf);
-        if (n <= 0) {
-            if (n < 0 && (errno == EAGAIN || errno == EWOULDBLOCK)) continue;
-            close(fd); return -1;
-        }
-        for (ssize_t i = 0; i < n; i++) {
-            mavlink_message_t msg;
-            mavlink_status_t status;
-            if (mavlink_parse_char(MAVLINK_COMM_0, buf[i], &msg, &status)
-                && msg.msgid == MAVLINK_MSG_ID_HEARTBEAT) {
-                st->target_system = msg.sysid;
-                st->target_component = msg.compid;
-                st->last_heartbeat = now_monotonic();   // ← лінія ДОВЕДЕНО жива: стамкуємо час
-                printf("[CONN] апарат на лінії: sys %d, comp %d\n",
-                       msg.sysid, msg.compid);
-                return fd;
-            }
-        }
-    }
-}
-
-// Закрити стару лінію (проти витоку) і піднімати нову з backoff.
-static int link_reconnect(const char *dev, int old_fd, LinkState *st) {
-    if (old_fd >= 0) close(old_fd);   // ПЕРШ НІЖ відкрити нову — закрити стару!
-
-    double delay = RECONNECT_MIN_S;
-    for (;;) {
-        int fd = link_connect(dev, st);
-        if (fd >= 0) return fd;
-        printf("[CONN] не вдалось; повтор через %.1f с\n", delay);
-        sleep_s(delay);                              // єдиний свідомий sleep — коли лінії НЕМАЄ
-        delay = delay * 2 > RECONNECT_MAX_S           // backoff: пауза росте до стелі
-                    ? RECONNECT_MAX_S : delay * 2;
-    }
-}
-```
+:::code proj-robust-loop/py/chastyna-3-avtomatychne.py
+:::code proj-robust-loop/c/chastyna-3-avtomatychne.c
 :::
 
 Один нюанс про `sleep` тут. Хіба ми не домовлялися ніколи не блокувати цикл? Домовлялися — але цей `sleep` спрацьовує **лише коли лінії вже немає**, тобто керувати однаково нічим і немає чого обслуговувати. Поки апарат недосяжний, спати між спробами реконекту — правильно; блокування шкідливе тоді, коли лінія **жива** й ми проґавили б через нього телеметрію. Ось ця межа й відрізняє шкідливе блокування від нешкідливого: блокуватися, коли є що втрачати, — зле; блокуватися, коли втрачати нічого, — розумна економія.
@@ -369,59 +104,8 @@ static int link_reconnect(const char *dev, int old_fd, LinkState *st) {
 Ліки — **обмеження частоти** (англ. *rate limit*): слати команду не частіше, ніж раз на заданий проміжок, хай як часто цикл до неї доходить. Механізм простий і той самий, що і в детекторі heartbeat, тільки навпаки: тримаємо позначку часу останньої відправки й шлемо нову, лише коли минуло досить. Для керівних команд розумна частота — одиниці разів на секунду (5–10 Гц більш ніж досить для навігаційних уставок), а не десятки.
 
 :::tabs
-```py
-class RateLimiter:
-    """Пропускає дію не частіше, ніж раз на period секунд."""
-    def __init__(self, hz):
-        self.period = 1.0 / hz
-        self.last = 0.0
-
-    def ready(self):
-        now = time.time()
-        if now - self.last >= self.period:
-            self.last = now
-            return True
-        return False
-
-
-# приклад: слати навігаційну уставку не частіше 5 разів на секунду
-setpoint_rate = RateLimiter(hz=5)
-
-def maybe_send_setpoint(m, state):
-    if not state.link_alive():
-        return                       # мертва лінія — не шлемо нічого
-    if not setpoint_rate.ready():
-        return                       # ще рано — цей такт пропускаємо
-    # …тут пакуємо й шлемо навігаційну команду рівно 5 разів на секунду…
-```
-```c
-typedef struct { double period, last; } RateLimiter;
-
-static void rate_init(RateLimiter *r, double hz) {
-    r->period = 1.0 / hz;
-    r->last = 0.0;
-}
-
-// Пропускає дію не частіше, ніж раз на period секунд.
-static bool rate_ready(RateLimiter *r) {
-    double now = now_monotonic();
-    if (now - r->last >= r->period) {
-        r->last = now;
-        return true;
-    }
-    return false;
-}
-
-// приклад: слати навігаційну уставку не частіше 5 разів на секунду
-static RateLimiter setpoint_rate;   // rate_init(&setpoint_rate, 5.0) — при старті
-
-static void maybe_send_setpoint(int fd, LinkState *st) {
-    if (!link_alive(st)) return;              // мертва лінія — не шлемо нічого
-    if (!rate_ready(&setpoint_rate)) return;  // ще рано — цей такт пропускаємо
-    (void)fd;
-    // …тут пакуємо й шлемо навігаційну команду (SET_POSITION_TARGET_*) рівно 5 Гц…
-}
-```
+:::code proj-robust-loop/py/chastyna-4-obmezhennia.py
+:::code proj-robust-loop/c/chastyna-4-obmezhennia.c
 :::
 
 Зверни увагу на подвійний запобіжник у `maybe_send_setpoint`: спершу перевіряємо, що лінія **жива** (по мертвій слати марно), і лише потім — що дозволяє обмежувач частоти. Порядок важливий: немає сенсу питати обмежувач, якщо слати однаково нікуди.
@@ -437,55 +121,8 @@ static void maybe_send_setpoint(int fd, LinkState *st) {
 Одне важливе застереження про роззброєння. Роззброювати треба **лише апарат, що стоїть на землі**. Послати disarm апарату **в польоті** — це вимкнути мотори в повітрі, тобто впустити його. Тому перед disarm обов'язково звіряємось: озброєний **і** на землі (за прапорцем `armed` і, наприклад, висотою чи спеціальним прапорцем «на землі»). Сумніваєшся, де апарат, — **не** роззброюй: хай краще лишиться як є, ніж упаде через наше «прибирання».
 
 :::tabs
-```py
-def shutdown(m, state):
-    """Акуратно завершитись: роззброїти (ЛИШЕ на землі!) і закрити лінію."""
-    try:
-        if m is not None and state.link_alive():
-            # disarm тільки якщо апарат озброєний І на землі — інакше це падіння!
-            if state.armed and state.alt_m < 0.5:
-                print("[EXIT] апарат на землі — роззброюю")
-                m.mav.command_long_send(
-                    m.target_system, m.target_component,
-                    mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-                    0, 0, 0, 0, 0, 0, 0, 0)   # param1 = 0 → disarm
-            else:
-                print("[EXIT] апарат у польоті або стан невідомий — НЕ чіпаю")
-    finally:
-        if m is not None:
-            m.close()                          # завжди звільняємо лінію
-        print("[EXIT] з'єднання закрито")
-```
-```c
-static volatile sig_atomic_t g_stop = 0;
-static void on_sigint(int sig) { (void)sig; g_stop = 1; }   // Ctrl+C → прапорець, а не миттєва смерть
-
-static void send_disarm(int fd, const LinkState *st) {
-    mavlink_message_t msg;
-    uint8_t buf[MAVLINK_MAX_PACKET_LEN];
-    mavlink_msg_command_long_pack(MY_SYSID, MY_COMPID, &msg,
-        st->target_system, st->target_component,
-        MAV_CMD_COMPONENT_ARM_DISARM, 0,
-        0, 0, 0, 0, 0, 0, 0);   // param1 = 0 → disarm
-    uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
-    write(fd, buf, len);
-}
-
-// Акуратно завершитись: роззброїти (ЛИШЕ на землі!) і закрити лінію.
-static void shutdown_link(int fd, LinkState *st) {
-    if (fd >= 0 && link_alive(st)) {
-        // disarm тільки якщо апарат озброєний І на землі — інакше це падіння!
-        if (st->armed && st->alt_m < 0.5) {
-            printf("[EXIT] апарат на землі — роззброюю\n");
-            send_disarm(fd, st);
-        } else {
-            printf("[EXIT] апарат у польоті або стан невідомий — НЕ чіпаю\n");
-        }
-    }
-    if (fd >= 0) close(fd);      // завжди звільняємо лінію
-    printf("[EXIT] з'єднання закрито\n");
-}
-```
+:::code proj-robust-loop/py/chastyna-5-akuratne.py
+:::code proj-robust-loop/c/chastyna-5-akuratne.c
 :::
 
 ## Збираємо все разом
@@ -493,148 +130,8 @@ static void shutdown_link(int fd, LinkState *st) {
 Тепер у нас є всі частини — лишається зшити їх в один цикл, який і є та бортова програма, готова до польоту. Подивись, як усі п'ять рішень стають на місця й працюють в один такт. Python «висмоктує й доспить залишок такту»; C фолдить те саме в `poll` згори — блокується щонайбільше на такт, але прокидається раніше, щойно прийшли байти, — але логіка кроків однакова:
 
 :::tabs
-```py
-import time
-from pymavlink import mavutil
-
-DEVICE   = '/dev/ttyUSB0'   # серійний до контролера; для симулятора: 'udpin:localhost:14550'
-LOOP_HZ  = 50               # такт головного циклу
-LOOP_DT  = 1.0 / LOOP_HZ
-
-def run(device):
-    state = LinkState()
-    m = reconnect(device, None, state)  # перше підключення; connect() всередині стамкне heartbeat
-    prev_alive = True                   # лінія доведено жива — узгоджено з link_alive()
-    own_hb = RateLimiter(hz=1)          # СВІЙ heartbeat раз на секунду
-
-    try:
-        while True:
-            t0 = time.time()
-
-            # 1) ВИЧЕРПАТИ лінію — забрати все, що накопичилось (не блокує)
-            drain_link(m, state)
-
-            # 2) ДЕТЕКТОР ОБРИВУ — судимо за часом heartbeat, не за сокетом
-            alive = check_link(m, state, prev_alive)
-            prev_alive = alive
-
-            # 3) РЕКОНЕКТ — якщо лінія мертва, підняти її (закривши стару!)
-            if not alive:
-                m = reconnect(device, m, state)
-                prev_alive = True           # connect() знову стамкнув час → лінія жива
-                continue                    # такт «згоріло» на реконект — наступний з чистого
-
-            # 4) ВЛАСНІ КОМАНДИ — з обмеженням частоти, лише по живій лінії
-            if own_hb.ready():
-                # свій heartbeat: показуємо контролеру, що бортовий комп живий
-                m.mav.heartbeat_send(
-                    mavutil.mavlink.MAV_TYPE_ONBOARD_CONTROLLER,
-                    mavutil.mavlink.MAV_AUTOPILOT_INVALID, 0, 0, 0)
-            maybe_send_setpoint(m, state)   # навігаційні уставки, теж rate-limited
-
-            # 5) ТРИМАТИ ТАКТ — доспати до кінця кроку, не крутити цикл марно
-            dt = time.time() - t0
-            if dt < LOOP_DT:
-                time.sleep(LOOP_DT - dt)
-
-    except KeyboardInterrupt:
-        print("\n[EXIT] Ctrl+C — акуратне завершення")
-    finally:
-        shutdown(m, state)                  # роззброїти (на землі) і закрити лінію
-
-
-if __name__ == '__main__':
-    run(DEVICE)
-```
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <poll.h>
-#include <time.h>
-#include <signal.h>
-#include <termios.h>
-#include <unistd.h>
-#include <common/mavlink.h>          // згенерована бібліотека MAVLink (діалект common)
-
-#define DEVICE     "/dev/ttyUSB0"    // серійний до контролера
-#define BAUD       B57600
-#define LOOP_HZ    50                // такт головного циклу
-#define LOOP_DT    (1.0 / LOOP_HZ)
-#define MY_SYSID   1
-#define MY_COMPID  MAV_COMP_ID_ONBOARD_COMPUTER
-
-// --- дрібні помічники ---
-static void sleep_s(double s) {
-    struct timespec ts = { (time_t)s, (long)((s - (time_t)s) * 1e9) };
-    nanosleep(&ts, NULL);
-}
-static int wait_readable(int fd, double timeout_s) {   // poll: >0 є дані, 0 таймаут, <0 помилка
-    struct pollfd pfd = { .fd = fd, .events = POLLIN };
-    return poll(&pfd, 1, (int)(timeout_s * 1000));
-}
-static int open_serial(const char *dev, speed_t baud) {
-    int fd = open(dev, O_RDWR | O_NOCTTY | O_NONBLOCK);   // одразу неблокуючий
-    if (fd < 0) return -1;
-    struct termios tio;
-    if (tcgetattr(fd, &tio) != 0) { close(fd); return -1; }
-    cfmakeraw(&tio);                     // без обробки — сирі байти
-    cfsetispeed(&tio, baud);
-    cfsetospeed(&tio, baud);
-    tio.c_cflag |= CLOCAL | CREAD;
-    tio.c_cflag &= ~CRTSCTS;
-    if (tcsetattr(fd, TCSANOW, &tio) != 0) { close(fd); return -1; }
-    return fd;
-}
-static void send_own_heartbeat(int fd) {   // свій heartbeat: контролер бачить бортовий комп живим
-    mavlink_message_t msg;
-    uint8_t buf[MAVLINK_MAX_PACKET_LEN];
-    mavlink_msg_heartbeat_pack(MY_SYSID, MY_COMPID, &msg,
-        MAV_TYPE_ONBOARD_CONTROLLER, MAV_AUTOPILOT_INVALID, 0, 0, MAV_STATE_ACTIVE);
-    uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
-    write(fd, buf, len);
-}
-
-int main(void) {
-    signal(SIGINT, on_sigint);           // Ctrl+C → g_stop, а не миттєва смерть
-
-    LinkState st;
-    link_state_init(&st);
-    rate_init(&setpoint_rate, 5.0);
-
-    int fd = link_reconnect(DEVICE, -1, &st);   // перше підключення (той самий backoff)
-    bool prev_alive = true;                      // link_connect уже стамкнув час → лінія жива
-    RateLimiter own_hb;
-    rate_init(&own_hb, 1.0);                      // СВІЙ heartbeat раз на секунду
-
-    while (!g_stop) {
-        // 5) ТРИМАТИ ТАКТ згори: poll блокує щонайбільше на LOOP_DT, але будить
-        //    раніше, щойно прийшли дані — цикл не крутиться вхолосту й не спить наосліп
-        wait_readable(fd, LOOP_DT);
-
-        drain_link(fd, &st);                     // 1) ВИЧЕРПАТИ лінію (неблокуюче)
-
-        bool alive = check_link(fd, &st, prev_alive);   // 2) ДЕТЕКТОР ОБРИВУ (за часом heartbeat)
-        prev_alive = alive;
-
-        if (!alive) {                            // 3) РЕКОНЕКТ (закривши стару лінію!)
-            fd = link_reconnect(DEVICE, fd, &st);
-            prev_alive = true;                   // link_connect стамкнув час → узгоджено з link_alive()
-            continue;
-        }
-
-        if (rate_ready(&own_hb))                 // 4) ВЛАСНІ КОМАНДИ (rate-limited)
-            send_own_heartbeat(fd);
-        maybe_send_setpoint(fd, &st);            // навігаційні уставки, теж rate-limited
-    }
-
-    shutdown_link(fd, &st);                      // роззброїти (на землі) і закрити лінію
-    return 0;
-}
-```
+:::code proj-robust-loop/py/zbyraiemo-vse-razom.py
+:::code proj-robust-loop/c/zbyraiemo-vse-razom.c
 :::
 
 Прочитаймо цикл згори вниз, бо в його порядку — уся логіка. Спершу **вичерпуємо** лінію: забираємо всю телеметрію, що накопичилась, оновлюючи стан і позначку heartbeat. Далі **детектор** дивиться на час від останнього heartbeat і на фронті втрати кличе безпечний режим. Якщо лінія мертва — **реконект**: закриваємо стару (проти витоку), піднімаємо нову з backoff — і оскільки `connect` уже дочекався heartbeat, лінія одразу вважається живою (позначку часу стамкнуто там, де heartbeat реально спостережено), тож наступний такт починається без хибної тривоги. Якщо жива — шлемо **свій** heartbeat раз на секунду (щоб контролер бачив: бортовий комп живий, це теж частина протоколу) і навігаційні уставки з обмеженою частотою. Наприкінці **тримаємо такт**: у Python доспимо залишок кроку, у C цю роль бере `poll` згори циклу — почекати до такту **або** до даних, тоді висмоктати. А `finally` (у C — прибирання після циклу) гарантує, що хай як ми вийдемо — по Ctrl+C, з винятку чи штатно — апарат буде приведено в безпеку, а лінія закрита.

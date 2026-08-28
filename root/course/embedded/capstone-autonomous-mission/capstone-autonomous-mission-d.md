@@ -56,60 +56,8 @@ dist(апарат, WP) < WP_RADIUS   →   пункт #k виконано, k := 
 Симетрично працює **вивантаження** (дозчитування) — і саме воно наша головна страховка перед польотом. GCS шле `MISSION_REQUEST_LIST`, борт відповідає `MISSION_COUNT`, далі GCS просить кожен `seq`, борт віддає `MISSION_ITEM_INT`. Ті самі таймаути й повтори, тільки ролі поміняні. Кістяк дозчитування з наступною звіркою (мовою прошивки для ясності послідовності; на практиці — pymavlink на землі):
 
 :::tabs
-```py
-# Крок 1: попросити борт вивантажити його ПОТОЧНУ місію (не ту, що ми «мали б» залити).
-master.mav.mission_request_list_send(
-    master.target_system, master.target_component,
-    mavutil.mavlink.MAV_MISSION_TYPE_MISSION)
-mc = master.recv_match(type='MISSION_COUNT', blocking=True, timeout=5)  # борт відповість MISSION_COUNT
-if mc is None:
-    return
-count = mc.count
-
-# Крок 2: по одному пункту, з таймаутом і обмеженим числом повторів.
-for seq in range(count):
-    it = None
-    for tries in range(5):
-        master.mav.mission_request_int_send(              # MISSION_REQUEST_INT(seq)
-            master.target_system, master.target_component, seq)
-        it = master.recv_match(type='MISSION_ITEM_INT', blocking=True, timeout=0.25)
-        if it is not None and it.seq == seq:
-            break
-        it = None
-    else:                                                 # здався — не звіряємо частковий список
-        abort_readback()
-        return
-
-    # Крок 3: звірити з тим, що ЗАДУМАНО, декодувавши цілі назад у градуси.
-    if it.command == mavutil.mavlink.MAV_CMD_NAV_WAYPOINT:
-        lat = it.x * 1e-7           # 10⁻⁷ градуса → градуси
-        lon = it.y * 1e-7
-        alt = it.z                  # метри — але В ЯКІЙ системі? див. it.frame нижче
-        print(f"#{seq}  {lat:.7f}, {lon:.7f}  alt={alt:.1f}  frame={it.frame}")
-```
-```cpp
-// Крок 1: попросити борт вивантажити його ПОТОЧНУ місію (не ту, що ми «мали б» залити).
-mavlink_msg_mission_request_list_send(chan, tgt_sys, tgt_comp, MAV_MISSION_TYPE_MISSION);
-uint16_t count = wait_mission_count();      // борт відповість MISSION_COUNT
-
-// Крок 2: по одному пункту, з таймаутом і обмеженим числом повторів.
-for (uint16_t seq = 0; seq < count; seq++) {
-    mavlink_mission_item_int_t it;
-    int tries = 0;
-    do {
-        request_item_int(seq);              // MISSION_REQUEST_INT(seq)
-    } while (!recv_item(&it, seq, /*timeout_ms=*/250) && ++tries < 5);
-    if (tries >= 5) { abort_readback(); return; }   // здався — не звіряємо частковий список
-
-    // Крок 3: звірити з тим, що ЗАДУМАНО, декодувавши цілі назад у градуси.
-    if (it.command == MAV_CMD_NAV_WAYPOINT) {
-        double lat = it.x * 1e-7;           // 10⁻⁷ градуса → градуси
-        double lon = it.y * 1e-7;
-        float  alt = it.z;                  // метри — але В ЯКІЙ системі? див. it.frame нижче
-        printf("#%u  %.7f, %.7f  alt=%.1f  frame=%u\n", seq, lat, lon, alt, it.frame);
-    }
-}
-```
+:::code capstone-autonomous-mission-d/py/zavantazhennia-misii.py
+:::code capstone-autonomous-mission-d/cpp/zavantazhennia-misii.cpp
 :::
 
 Зверни увагу на `tries < 5` і `abort_readback()`: це не декоративна обережність, а точне відтворення протокольної вимоги «повторюй за таймаутом, а після кількох невдач — здайся й не працюй із частковим результатом». Скрипт, що читає без таймауту, зависає назавжди на першому ж загубленому пакеті; скрипт, що звіряє напівзчитаний список, бреше тобі про вміст місії.
@@ -225,50 +173,8 @@ R = 18² / (9.81 · 0.577) = 324 / 5.66 ≈ 57 м
 Щоб «перевіряти одразу» під час автономного прогону, треба **бачити**, на якому пункті стоїть місія, у реальному часі. Борт сам повідомляє це повідомленням `MISSION_CURRENT` (поточний активний `seq`), а досягнення пункту — `MISSION_ITEM_REACHED`. Кістяк монітора на землі:
 
 :::tabs
-```py
-# Живий монітор прогресу: показує активний пункт і ловить момент досягнення.
-last_seq = None
-while True:
-    msg = master.recv_match(type=['MISSION_CURRENT', 'MISSION_ITEM_REACHED'],
-                            blocking=True, timeout=1.0)
-    if msg is None:                                  # тиша за секунду — перевір лінк
-        print("тиша від борту — перевір лінк")
-        continue
-
-    if msg.get_type() == 'MISSION_CURRENT':          # борт шле активний пункт
-        if msg.seq != last_seq:                      # індекс зрушив — покажемо перехід
-            print(f"активний пункт місії: #{msg.seq}")
-            last_seq = msg.seq
-    elif msg.get_type() == 'MISSION_ITEM_REACHED':   # борт підтвердив: пункт виконано
-        print(f"  досягнуто #{msg.seq} — перехід далі")
-```
-```cpp
-// Живий монітор прогресу: показує активний пункт і ловить момент досягнення.
-// (Мовою прошивки для ясності; на практиці — pymavlink-цикл на землі.)
-uint16_t last_seq = 0xFFFF;
-for (;;) {
-    mavlink_message_t msg;
-    if (!recv_any(&msg, /*timeout_ms=*/1000)) { puts("тиша від борту — перевір лінк"); continue; }
-
-    switch (msg.msgid) {
-    case MAVLINK_MSG_ID_MISSION_CURRENT: {           // борт шле активний пункт
-        mavlink_mission_current_t mc;
-        mavlink_msg_mission_current_decode(&msg, &mc);
-        if (mc.seq != last_seq) {                    // індекс зрушив — покажемо перехід
-            printf("активний пункт місії: #%u\n", mc.seq);
-            last_seq = mc.seq;
-        }
-        break;
-    }
-    case MAVLINK_MSG_ID_MISSION_ITEM_REACHED: {      // борт підтвердив: пункт виконано
-        mavlink_mission_item_reached_t mr;
-        mavlink_msg_mission_item_reached_decode(&msg, &mr);
-        printf("  досягнуто #%u — перехід далі\n", mr.seq);
-        break;
-    }
-    }
-}
-```
+:::code capstone-autonomous-mission-d/py/skladannia-kerovana.py
+:::code capstone-autonomous-mission-d/cpp/skladannia-kerovana.cpp
 :::
 
 Саме цей монітор перетворює «дрон намотує кола» на конкретне «активний пункт застряг на `#2`, `ITEM_REACHED` не приходить» — тобто на діагноз недосяжної умови переходу, який ми розібрали на початку. Без нього ти дивишся на апарат і гадаєш; із ним — читаєш його думки в реальному часі.

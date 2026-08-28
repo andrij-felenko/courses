@@ -17,40 +17,9 @@
 
 :::tabs
 @tab C (return_budget.h)
-```c
-#ifndef RETURN_BUDGET_H
-#define RETURN_BUDGET_H
-
-#include <stdbool.h>
-#include <stdint.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#define RETURN_BUDGET_API_VERSION_MAJOR 1
-#define RETURN_BUDGET_API_VERSION_MINOR 0
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* RETURN_BUDGET_H */
-```
+:::code api-return-budget/c/2-zaholovni-faily-ta.h
 @tab C++ (ReturnBudget.hpp)
-```cpp
-#pragma once
-
-#include <cstdint>
-#include <optional>
-#include <string_view>
-
-namespace uav::nav {
-
-constexpr std::string_view kReturnBudgetVersion = "1.0.0";
-
-} // namespace uav::nav
-```
+:::code api-return-budget/cpp/2-zaholovni-faily-ta.hpp
 :::
 
 ## 3. Типи даних, стани та коди повернення
@@ -91,51 +60,9 @@ constexpr std::string_view kReturnBudgetVersion = "1.0.0";
 
 :::tabs
 @tab C
-```c
-typedef struct {
-    float c_ind;                  /* Коефіцієнт індуктивного опору (Вт·с/м) */
-    float c_par;                  /* Коефіцієнт паразитного опору (Вт·с³/м³) */
-    float v_air_min_ms;           /* Мінімальна повітряна швидкість (зрив + запас), м/с */
-    float v_air_max_ms;           /* Максимальна повітряна швидкість силової установки, м/с */
-    float v_best_range_still_ms;  /* Швидкість найкращої дальності у штиль, м/с */
-    float v_climb_ms;             /* Швидкість набору висоти, м/с */
-    float p_climb_watts;          /* Потужність у наборі висоти, Вт */
-    float v_descend_ms;           /* Швидкість зниження, м/с */
-    float p_descend_watts;        /* Потужність на зниженні, Вт */
-    float p_hover_watts;          /* Потужність зависання перед посадкою, Вт */
-    float p_avionics_watts;       /* Базове споживання бортової електроніки, Вт */
-    float t_land_maneuver_sec;    /* Гарантований час на зависання й автопосадку, с */
-    float rtl_safe_altitude_m;    /* Безпечна мінімальна висота повернення, м */
-    uint8_t cell_count;           /* Кількість послідовних комірок (наприклад, 6 для 6S) */
-    float cell_v_cutoff;          /* Критична напруга відсікання на 1 комірку, В */
-    float nominal_energy_wh;      /* Паспортна енергоємність збірки, Вт·год */
-    float reserve_margin_ratio;   /* Коефіцієнт запасу на пориви вітру (0.15 … 0.25) */
-    float filter_time_constant_s; /* Стала часу низькочастотного фільтра, с */
-} return_config_t;
-```
+:::code api-return-budget/c/4-1-parametry-litalnoho.c
 @tab C++
-```cpp
-struct ReturnConfig {
-    float c_ind{0.0f};                  // Коефіцієнт індуктивного опору (Вт·с/м)
-    float c_par{0.0f};                  // Коефіцієнт паразитного опору (Вт·с³/м³)
-    float v_air_min_ms{10.0f};          // Мінімальна повітряна швидкість, м/с
-    float v_air_max_ms{25.0f};          // Максимальна повітряна швидкість, м/с
-    float v_best_range_still_ms{14.0f}; // Швидкість найкращої дальності у штиль, м/с
-    float v_climb_ms{3.0f};             // Швидкість набору висоти, м/с
-    float p_climb_watts{350.0f};        // Потужність у наборі висоти, Вт
-    float v_descend_ms{2.5f};           // Швидкість зниження, м/с
-    float p_descend_watts{120.0f};      // Потужність на зниженні, Вт
-    float p_hover_watts{450.0f};        // Потужність зависання перед посадкою, Вт
-    float p_avionics_watts{25.0f};      // Базове споживання бортової електроніки, Вт
-    float t_land_maneuver_sec{45.0f};   // Гарантований час на посадку, с
-    float rtl_safe_altitude_m{60.0f};   // Безпечна мінімальна висота повернення, м
-    uint8_t cell_count{6};              // Кількість послідовних комірок (6S)
-    float cell_v_cutoff{3.0f};          // Критична напруга відсікання на 1 комірку, В
-    float nominal_energy_wh{180.0f};    // Паспортна енергоємність збірки, Вт·год
-    float reserve_margin_ratio{0.20f};  // Коефіцієнт запасу на пориви вітру (20%)
-    float filter_time_constant_s{2.0f}; // Стала часу низькочастотного фільтра, с
-};
-```
+:::code api-return-budget/cpp/4-1-parametry-litalnoho.cpp
 :::
 
 ## 5. Вхідна телеметрія та вихідні результати
@@ -148,33 +75,9 @@ struct ReturnConfig {
 
 :::tabs
 @tab C
-```c
-typedef struct {
-    float pos_current_ned[3];     /* Поточна позиція [Північ, Схід, Вниз], метри */
-    float pos_home_ned[3];        /* Позиція точки повернення Home [Північ, Схід, Вниз], метри */
-    float wind_ned[2];            /* Вектор горизонтального вітру [North, East], м/с */
-    float voltage_v;              /* Поточна напруга батареї під навантаженням, В */
-    float current_a;              /* Поточний струм розряду, А */
-    float energy_remaining_wh;    /* Оцінка залишкової енергії, Вт·год */
-    float soc_ratio;              /* Ступінь заряду (0.0 … 1.0) */
-    float r_internal_ohms;        /* Внутрішній опір збірки, Ом */
-    float battery_temp_c;         /* Температура акумуляторного блоку, °C */
-} return_telemetry_t;
-```
+:::code api-return-budget/c/5-1-struktura-zrizu.c
 @tab C++
-```cpp
-struct ReturnTelemetry {
-    std::array<float, 3> pos_current_ned{0.0f, 0.0f, 0.0f}; // Позиція [North, East, Down], м
-    std::array<float, 3> pos_home_ned{0.0f, 0.0f, 0.0f};    // Точка Home [North, East, Down], м
-    std::array<float, 2> wind_ned{0.0f, 0.0f};            // Вітер [North, East], м/с
-    float voltage_v{0.0f};                                // Напруга батареї під навантаженням, В
-    float current_a{0.0f};                                // Струм розряду, А
-    float energy_remaining_wh{0.0f};                      // Залишкова енергія, Вт·год
-    float soc_ratio{1.0f};                                // Ступінь заряду (0.0 … 1.0)
-    float r_internal_ohms{0.05f};                         // Внутрішній опір, Ом
-    float battery_temp_c{20.0f};                          // Температура блоку, °C
-};
-```
+:::code api-return-budget/cpp/5-1-struktura-zrizu.cpp
 :::
 
 ### 5.2. Вихідна структура розрахунку енергетичного бюджету
@@ -185,45 +88,9 @@ struct ReturnTelemetry {
 
 :::tabs
 @tab C
-```c
-typedef struct {
-    float v_air_optimal_ms;       /* Оптимальна повітряна швидкість повернення V_a*, м/с */
-    float v_ground_ret_ms;        /* Очікувана шляхова швидкість зближення з базою V_g, м/с */
-    float wca_rad;                /* Кут випередження вітру WCA, радіани */
-    float distance_to_home_m;     /* Пряма дистанція до домашньої точки, м */
-    float time_to_home_sec;       /* Розрахунковий час повернення, с */
-    float e_cruise_wh;            /* Енергія горизонтального перельоту проти вітру, Вт·год */
-    float e_climb_wh;             /* Енергія набору безпечної висоти RTL, Вт·год */
-    float e_land_wh;              /* Енергія процедури посадки, Вт·год */
-    float e_reserve_wh;           /* Енергетичний запас на маневри й пориви, Вт·год */
-    float e_return_total_wh;      /* Повна необхідна енергія на повернення, Вт·год */
-    float e_usable_compensated_wh;/* Фактично доступна корисна енергія (Voltage Sag), Вт·год */
-    float projected_sag_voltage_v;/* Прогнозована напруга на клемах при тязі повернення, В */
-    float energy_margin_ratio;    /* Відносний залишок: (E_usable - E_return) / E_usable */
-    uint8_t state;                /* Стан return_state_t */
-    bool rtl_mandatory;           /* true — точка неповернення пройдена, потрібен RTL */
-} return_budget_result_t;
-```
+:::code api-return-budget/c/5-2-vykhidna-struktura.c
 @tab C++
-```cpp
-struct ReturnBudgetResult {
-    float v_air_optimal_ms{0.0f};        // Оптимальна повітряна швидкість V_a*, м/с
-    float v_ground_ret_ms{0.0f};         // Шляхова швидкість зближення V_g, м/с
-    float wca_rad{0.0f};                 // Кут випередження вітру WCA, рад
-    float distance_to_home_m{0.0f};      // Дистанція до точки Home, м
-    float time_to_home_sec{0.0f};        // Розрахунковий час повернення, с
-    float e_cruise_wh{0.0f};             // Енергія горизонтального перельоту, Вт·год
-    float e_climb_wh{0.0f};              // Енергія набору висоти RTL, Вт·год
-    float e_land_wh{0.0f};               // Енергія посадки, Вт·год
-    float e_reserve_wh{0.0f};            // Запас на пориви, Вт·год
-    float e_return_total_wh{0.0f};       // Повна необхідна енергія, Вт·год
-    float e_usable_compensated_wh{0.0f}; // Корисна енергія з урахуванням Sag, Вт·год
-    float projected_sag_voltage_v{0.0f}; // Прогнозована напруга під тягою, В
-    float energy_margin_ratio{0.0f};     // Відносний залишок запасу
-    uint8_t state{0};                    // Стан монітора
-    bool rtl_mandatory{false};           // true — обов'язковий RTL
-};
-```
+:::code api-return-budget/cpp/5-2-vykhidna-struktura.cpp
 :::
 
 ## 6. Протоколи функцій та життєвий цикл
@@ -294,45 +161,9 @@ void reset() noexcept;
 
 :::tabs
 @tab C
-```c
-/* Процедурне використання у стилі чистого C */
-return_budget_handle_t g_budget_handle;
-return_config_t g_budget_cfg = { ... };
-
-void flight_init(void) {
-    int32_t rc = return_budget_init(&g_budget_handle, &g_budget_cfg);
-    if (rc != RETURN_OK) {
-        panic_halt("Budget init failed");
-    }
-}
-```
+:::code api-return-budget/c/7-obiektna-c-obhortka.c
 @tab C++
-```cpp
-namespace uav::nav {
-
-class ReturnBudgetEstimator {
-public:
-    explicit ReturnBudgetEstimator(const ReturnConfig& config);
-
-    ReturnBudgetEstimator(const ReturnBudgetEstimator&) = delete;
-    ReturnBudgetEstimator& operator=(const ReturnBudgetEstimator&) = delete;
-    ReturnBudgetEstimator(ReturnBudgetEstimator&&) noexcept = default;
-    ReturnBudgetEstimator& operator=(ReturnBudgetEstimator&&) noexcept = default;
-
-    [[nodiscard]] std::optional<ReturnBudgetResult> update(
-        const ReturnTelemetry& telemetry, 
-        float dt_seconds
-    );
-
-    [[nodiscard]] float computeOptimalAirspeed(float headwind_component_ms) const noexcept;
-    [[nodiscard]] float computeGroundSpeed(float airspeed_ms, float wind_speed_ms, float wind_angle_rad) const noexcept;
-    [[nodiscard]] float estimateVoltageSag(float current_draw_a, float r_internal_ohms) const noexcept;
-
-    void reset() noexcept;
-};
-
-} // namespace uav::nav
-```
+:::code api-return-budget/cpp/7-obiektna-c-obhortka.hpp
 :::
 
 ## 8. Протокол інтеграції з MAVLink та телеметрією GCS

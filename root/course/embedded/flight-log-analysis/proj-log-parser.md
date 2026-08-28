@@ -24,27 +24,7 @@
 
 Заведемо структуру креслення й таблицю за кодом типу — рівно так, як у статті, але тепер із повним набором полів, що знадобляться далі:
 
-```c
-#include <stdint.h>
-#include <string.h>
-#include <stdlib.h>   // realloc для масивів, що ростуть
-#include <stdio.h>
-
-#define HEAD_BYTE1  0xA3
-#define HEAD_BYTE2  0x95
-#define LOG_FORMAT_MSG  0x80   // тип запису FMT (креслення) — 128
-
-// Креслення одного типу повідомлення, витягнуте з FMT-запису.
-typedef struct {
-    uint8_t  type;        // код типу, який це креслення описує
-    uint8_t  length;      // повна довжина ТАКОГО запису в байтах (з шапкою)
-    char     name[5];     // "ATT", "GPS", "BAT" (+ '\0')
-    char     format[17];  // рядок типів полів: "Qffffff" (+ '\0')
-    uint8_t  n_fields;    // скільки полів (= довжина format)
-} MsgFormat;
-
-static MsgFormat fmt_table[256];   // креслення за кодом типу; 0 length = ще не знаємо
-```
+:::code proj-log-parser/c/shar-1-de-pochynaietsia-i.c
 
 Структура `struct log_Format` у самому ArduPilot ширша — вона несе ще й `labels[64]` (імена полів через кому: `"TimeUS,DesRoll,Roll,..."`) — і ми до цих імен ще повернемось, бо саме вони дадуть нам витягти поле **за назвою**, а не за здогадним номером. Поки досить типів.
 
@@ -54,39 +34,7 @@ static MsgFormat fmt_table[256];   // креслення за кодом тип�
 
 Тут причаїлася **перша пастка**, і вона не теоретична. Що, як запис даних `ATT` прийде **раніше**, ніж його креслення `FMT ATT`? У справному лозі так не буває — ArduPilot скидає всі креслення на початку. Але лог буває обірваний: картку висмикнули посеред запису, живлення зникло, перші кілобайти побиті. Тоді ти легко почнеш читати з середини — з даних, чиє креслення лишилося позаду й тобі не трапиться. Наївний читач у цю мить бере з таблиці **порожній** запис (`length == 0`), вважає його справжнім кресленням і розбирає дані за форматом із самих нулів — тобто видає марення з упевненим виглядом. Лік простий і обов'язковий: **немає креслення — мовчки пропускаємо запис**, а не вигадуємо його.
 
-```c
-// Розібрати FMT-запис і покласти креслення в таблицю.
-// Розкладка FMT (після 3 байтів шапки, тобто від rec+3):
-//   +0  type    (1 байт)  — код типу, який описуємо
-//   +1  length  (1 байт)  — повна довжина такого запису
-//   +2  name    (4 байти) — ім'я, напр. "ATT\0"
-//   +6  format  (16 байтів)— рядок типів, напр. "Qffffff"
-//   +22 labels  (64 байти) — імена полів через кому (тут поки не беремо)
-static void learn_format(const uint8_t *rec) {
-    MsgFormat f;
-    memset(&f, 0, sizeof f);
-    f.type   = rec[3 + 0];
-    f.length = rec[3 + 1];
-    memcpy(f.name,   rec + 3 + 2, 4);   f.name[4]    = '\0';
-    memcpy(f.format, rec + 3 + 6, 16);  f.format[16] = '\0';
-    f.n_fields = (uint8_t)strlen(f.format);
-    fmt_table[f.type] = f;              // тепер знаємо, як читати цей тип
-}
-
-// Головний диспетчер: FMT — вчимо, решту — віддаємо декодеру.
-static void feed_record(const uint8_t *rec) {
-    uint8_t msg_type = rec[2];          // rec[0],rec[1] = 0xA3,0x95
-
-    if (msg_type == LOG_FORMAT_MSG) {   // це креслення — запам'ятовуємо
-        learn_format(rec);
-        return;
-    }
-
-    const MsgFormat *f = &fmt_table[msg_type];
-    if (f->length == 0) return;         // ПАСТКА 1: креслення ще не бачили — пропуск
-    decode_record(f, rec);              // розбираємо дані за кресленням
-}
-```
+:::code proj-log-parser/c/shar-2-vchymo-kreslennia.c
 
 Зверни увагу: зсуви всередині `FMT` (`+2` для імені, `+6` для формату) — це не наша вигадка, а розкладка `struct log_Format` у джерелі ArduPilot: після трибайтної шапки йдуть `type`, `length`, тоді `name[4]`, тоді `format[16]`. Ми не «вгадуємо» ці числа — ми списуємо їх зі структури, яку прошивка й записала. У цьому вся суть: формат несе власну документацію, а креслення `FMT` — теж запис із фіксованою, наперед відомою розкладкою (інакше не було б із чого почати).
 
@@ -128,53 +76,7 @@ static void feed_record(const uint8_t *rec) {
 
 Зберемо декодер поля. Він читає один символ формату, дістає з байтів число потрібного типу (складаючи little-endian явно), кладе результат у `double` (єдиний тип, що вміщає і `int64`, і `float` без утрат для наших цілей) і **повертає, на скільки посунувся курсор** — тобто розмір поля. Саме це повернене число й розв'язує пастку розмірів: викличник додає його до курсора, і той стає рівно на початок наступного поля:
 
-```c
-// Прочитати little-endian ціле шириною n байтів (n ≤ 8) як беззнакове.
-static uint64_t rd_uN(const uint8_t *p, int n) {
-    uint64_t v = 0;
-    for (int i = 0; i < n; i++)
-        v |= (uint64_t)p[i] << (8 * i);   // байт [0] — молодший: явний LE
-    return v;
-}
-
-// Декодувати ОДНЕ поле типу `t` з байтів `p`.
-// Значення кладемо в *out (як double); повертаємо РОЗМІР поля в байтах
-// (= крок курсора). Так пастка різних розмірів розв'язується сама собою.
-static int decode_field(char t, const uint8_t *p, double *out) {
-    switch (t) {
-    case 'b': *out = (double)(int8_t) p[0];              return 1;
-    case 'B': *out = (double)(uint8_t)p[0];              return 1;
-    case 'M': *out = (double)(uint8_t)p[0];              return 1;
-    case 'h': *out = (double)(int16_t) rd_uN(p, 2);      return 2;
-    case 'H': *out = (double)(uint16_t)rd_uN(p, 2);      return 2;
-    case 'i': *out = (double)(int32_t) rd_uN(p, 4);      return 4;
-    case 'I': *out = (double)(uint32_t)rd_uN(p, 4);      return 4;
-    case 'q': *out = (double)(int64_t) rd_uN(p, 8);      return 8;
-    case 'Q': *out = (double)(uint64_t)rd_uN(p, 8);      return 8;
-    case 'L': *out = (double)(int32_t) rd_uN(p, 4) / 1e7; return 4;  // 1e7° → °
-    case 'f': {                                          // 4 байти → float
-        uint32_t bits = (uint32_t)rd_uN(p, 4);
-        float fv; memcpy(&fv, &bits, 4);                 // біти → float
-        *out = (double)fv;                               return 4;
-    }
-    case 'd': {                                          // 8 байтів → double
-        uint64_t bits = rd_uN(p, 8);
-        double dv; memcpy(&dv, &bits, 8);
-        *out = dv;                                       return 8;
-    }
-    // застарілі масштабовані: значення = ціле / 100
-    case 'c': *out = (double)(int16_t) rd_uN(p, 2) / 100.0; return 2;
-    case 'C': *out = (double)(uint16_t)rd_uN(p, 2) / 100.0; return 2;
-    case 'e': *out = (double)(int32_t) rd_uN(p, 4) / 100.0; return 4;
-    case 'E': *out = (double)(uint32_t)rd_uN(p, 4) / 100.0; return 4;
-    // текстові поля — пропускаємо, повертаючи їхній розмір (курсор іде далі)
-    case 'n': return 4;
-    case 'N': return 16;
-    case 'Z': return 64;
-    default:  return 0;   // невідомий символ — сигнал «щось не так»
-    }
-}
-```
+:::code proj-log-parser/c/shar-3-dekoduiemo-odne.c
 
 Придивись, як тут разом працюють обидві пастки й обидва їхні лікування. Порядок байтів схований у `rd_uN`: цикл `p[i] << (8*i)` явно каже «байт нуль — молодший», і код тепер читає little-endian **на будь-якій машині**, бо не питає, який порядок у неї свій. А розмір поля повертається назовні числом `return N`, тож викличник ніколи не «здогадується» про крок — він бере його з декодера. Трюк `memcpy` для `float`/`double` — це коректний спосіб перетлумачити 32 (чи 64) біти як число з комою, не порушуючи правил мови (пряме приведення покажчика `(float*)` тут — невизначена поведінка через порушення строгого аліасингу; `memcpy` компілятор усе одно згорне в один хід).
 
@@ -186,39 +88,7 @@ static int decode_field(char t, const uint8_t *p, double *out) {
 
 Щоб не морочитися з розбором `labels` щоразу, зробимо просту функцію: «дай значення поля з іменем `field` із цього запису». Вона пройде поля по порядку, рахуючи їх, і поверне те, чиє ім'я збіглося. Для наочності спершу навчимося брати поле **за номером** (декодер уже все для цього має), а тоді номер знайдемо за назвою.
 
-```c
-// Значення k-го поля (0-based) запису rec за кресленням f.
-// Повертає 1 і кладе значення в *out; 0 — якщо поля з таким номером нема.
-static int field_by_index(const MsgFormat *f, const uint8_t *rec,
-                          int k, double *out) {
-    const uint8_t *p = rec + 3;          // курсор: одразу за шапкою
-    for (int i = 0; f->format[i]; i++) {
-        double v;
-        int sz = decode_field(f->format[i], p, &v);
-        if (sz == 0) return 0;           // невідомий тип — далі йти наосліп не можна
-        if (i == k) { *out = v; return 1; }
-        p += sz;                         // крок = розмір поля (ПАСТКА 2 знята)
-    }
-    return 0;
-}
-
-// Номер поля з іменем `name` у рядку labels ("A,B,C") — або -1, якщо немає.
-static int index_of_label(const char *labels, const char *name) {
-    int idx = 0;
-    const char *s = labels;
-    size_t nlen = strlen(name);
-    while (*s) {
-        const char *comma = strchr(s, ',');
-        size_t len = comma ? (size_t)(comma - s) : strlen(s);
-        if (len == nlen && strncmp(s, name, nlen) == 0)
-            return idx;                  // збіг рівно на межах поля
-        if (!comma) break;
-        s = comma + 1;
-        idx++;
-    }
-    return -1;
-}
-```
+:::code proj-log-parser/c/shar-4-proity-zapys-i.c
 
 Зверни увагу на дрібницю, що коштує годин відлагодження: у порівнянні імені ми звіряємо **і довжину** (`len == nlen`), а не лише перші літери. Без цього пошук `"Roll"` радісно знайшов би `"DesRoll"` чи `"RollRate"` — бо `strncmp` на чотири літери сказав би «збіг». Іменоване поле треба матчити **точно, на межах коми**, інакше витягнеш не те число й не помітиш.
 
@@ -237,59 +107,11 @@ static int index_of_label(const char *labels, const char *name) {
 
 Зберемо результат у простий накопичувач — три масиви (час, задане, виміряне), що ростуть у міру читання. Час беремо теж (поле `TimeUS`), бо графік «задане проти виміряного» осмислений лише вздовж часу: нам треба бачити, **коли** саме `Roll` відстав від `DesRoll`.
 
-```c
-// Накопичувач кривих ATT для графіка.
-typedef struct {
-    double  *t;         // час, с (з TimeUS / 1e6)
-    double  *des;       // DesRoll
-    double  *act;       // Roll
-    size_t   n, cap;
-} AttSeries;
-
-static void series_push(AttSeries *s, double t, double des, double act) {
-    if (s->n == s->cap) {                       // місця нема — подвоюємо
-        s->cap = s->cap ? s->cap * 2 : 1024;
-        s->t   = realloc(s->t,   s->cap * sizeof *s->t);
-        s->des = realloc(s->des, s->cap * sizeof *s->des);
-        s->act = realloc(s->act, s->cap * sizeof *s->act);
-    }
-    s->t[s->n] = t; s->des[s->n] = des; s->act[s->n] = act;
-    s->n++;
-}
-
-// Дістати з одного запису ATT пару (DesRoll, Roll) і час, покласти в серію.
-static void collect_att(const MsgFormat *f, const uint8_t *rec, AttSeries *s) {
-    int i_t   = index_of_label(f->labels, "TimeUS");
-    int i_des = index_of_label(f->labels, "DesRoll");
-    int i_act = index_of_label(f->labels, "Roll");
-    if (i_t < 0 || i_des < 0 || i_act < 0) return;   // не той ATT — тихо мимо
-
-    double t_us, des, act;
-    if (field_by_index(f, rec, i_t,   &t_us) &&
-        field_by_index(f, rec, i_des, &des)  &&
-        field_by_index(f, rec, i_act, &act))
-        series_push(s, t_us / 1e6, des, act);        // мкс → с
-}
-```
+:::code proj-log-parser/c/shar-5-filtr-za-typom-i.c
 
 Тепер зшиймо все в диспетчер. Фільтрація за типом — це буквально одне порівняння імені; усе інше вже написано пошарово нижче:
 
-```c
-static AttSeries g_att;   // сюди складаємо криві ATT
-
-static void feed_record(const uint8_t *rec) {
-    uint8_t msg_type = rec[2];
-
-    if (msg_type == LOG_FORMAT_MSG) { learn_format(rec); return; }
-
-    const MsgFormat *f = &fmt_table[msg_type];
-    if (f->length == 0) return;                 // креслення ще нема — пропуск
-
-    if (strcmp(f->name, "ATT") == 0)            // ← ФІЛЬТР за типом повідомлення
-        collect_att(f, rec, &g_att);
-    // інші типи (GPS, BAT, VIBE…) — тут можна додати свої збирачі
-}
-```
+:::code proj-log-parser/c/shar-5-filtr-za-typom-i-2.c
 
 Ось і все ядро. Що показово: **фільтр за типом виявився тривіальним** — `strcmp(f->name, "ATT")`, — і це не випадковість, а плід усієї попередньої дисципліни. Бо ми не знали `ATT` наперед, а вивчили його з креслення, декодер поля веде себе за форматом, а поле беремо за назвою через `labels`, — то додати збирача для `GPS` чи `BAT` тепер справа п'яти рядків: ще один `strcmp`, ще один `collect_*` із потрібними іменами полів. Читач вийшов **розширюваним**, бо жодне знання про конкретний тип не зашите в код — усе тече з логу.
 
@@ -297,36 +119,7 @@ static void feed_record(const uint8_t *rec) {
 
 Лишилося подати записи в диспетчер — тобто пройти файл, вихоплюючи записи один за одним. Тут і замикаються всі опори шару 1: маркер знаходить початок, а `length` із креслення каже, де кінець. Поки креслення для типу ще нема (сам `FMT` чи побитий початок), ступаємо обережно — маркером.
 
-```c
-// Пройти сирий буфер лога довжиною len, згодовуючи записи диспетчеру.
-static void parse_log(const uint8_t *buf, size_t len) {
-    size_t i = 0;
-    while (i + 3 <= len) {
-        // 1) синхронізація: стоїмо на маркері?
-        if (buf[i] != HEAD_BYTE1 || buf[i + 1] != HEAD_BYTE2) {
-            i++;                        // ні — повземо вперед, шукаючи маркер
-            continue;
-        }
-        uint8_t type = buf[i + 2];
-
-        // 2) яка довжина цього запису?
-        size_t rec_len;
-        if (type == LOG_FORMAT_MSG)
-            rec_len = 3 + 2 + 4 + 16 + 64;   // FMT — фіксовані 89 байтів
-        else if (fmt_table[type].length)
-            rec_len = fmt_table[type].length; // з вивченого креслення
-        else {
-            i++;                        // креслення ще нема — крок на байт і далі
-            continue;
-        }
-
-        if (i + rec_len > len) break;   // хвіст обірваний — виходимо
-
-        feed_record(buf + i);           // цілий запис — у диспетчер
-        i += rec_len;                   // стрибок рівно на довжину запису
-    }
-}
-```
+:::code proj-log-parser/c/shar-6-obkhid-failu-vid.c
 
 Три рішення в цьому циклі варті слова. По-перше, `FMT` має **фіксовану** довжину `3 + 2 + 4 + 16 + 64 = 89` байтів — бо це креслення для інших, і його власна розкладка мусить бути відома **до** будь-якого читання логу (яйце, з якого вилуплюється решта). По-друге, коли креслення для типу ще нема, ми **не стрибаємо** на здогадну довжину, а повземо на один байт і шукаємо наступний маркер — бо стрибок наосліп завів би нас у нікуди. По-третє, після кожного цілого запису ми йдемо рівно на `rec_len` — і на початку наступного **знову перевіримо маркер** (перша галузка циклу): якщо там не `0xA3 0x95`, потік десь збився, і ми м'яко пересинхронізуємось повзанням, замість розбирати сміття.
 

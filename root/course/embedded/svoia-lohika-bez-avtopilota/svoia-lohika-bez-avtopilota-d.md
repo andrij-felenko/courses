@@ -89,116 +89,8 @@
 Розгляньмо реалізацію кільцевої черги подій на мовах C та C++:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define EVENT_QUEUE_SIZE 16
-
-typedef struct {
-    uint8_t id;
-    uint32_t timestamp_ms;
-    int32_t payload;
-} Event;
-
-typedef struct {
-    Event buffer[EVENT_QUEUE_SIZE];
-    volatile uint8_t head;
-    volatile uint8_t tail;
-    volatile uint8_t count;
-    uint32_t overflow_drops;
-} EventQueue;
-
-void event_queue_init(EventQueue *q) {
-    q->head = 0;
-    q->tail = 0;
-    q->count = 0;
-    q->overflow_drops = 0;
-}
-
-bool event_queue_post(EventQueue *q, const Event *ev) {
-    /* Критична секція для безпеки при виклику з ISR */
-    uint32_t primask = __get_PRIMASK();
-    __disable_irq();
-
-    bool success = false;
-    if (q->count < EVENT_QUEUE_SIZE) {
-        q->buffer[q->head] = *ev;
-        q->head = (uint8_t)((q->head + 1) % EVENT_QUEUE_SIZE);
-        q->count++;
-        success = true;
-    } else {
-        q->overflow_drops++;
-    }
-
-    if (!primask) {
-        __enable_irq();
-    }
-    return success;
-}
-
-bool event_queue_pop(EventQueue *q, Event *out_ev) {
-    uint32_t primask = __get_PRIMASK();
-    __disable_irq();
-
-    bool success = false;
-    if (q->count > 0) {
-        *out_ev = q->buffer[q->tail];
-        q->tail = (uint8_t)((q->tail + 1) % EVENT_QUEUE_SIZE);
-        q->count--;
-        success = true;
-    }
-
-    if (!primask) {
-        __enable_irq();
-    }
-    return success;
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <optional>
-
-template <typename T, size_t Capacity>
-class LockFreeEventQueue {
-public:
-    constexpr LockFreeEventQueue() = default;
-
-    bool post(const T& item) noexcept {
-        // На мікроконтролері огортається в збереження регістру PRIMASK
-        if (count_ >= Capacity) {
-            overflow_drops_++;
-            return false;
-        }
-        buffer_[head_] = item;
-        head_ = (head_ + 1) % Capacity;
-        count_++;
-        return true;
-    }
-
-    std::optional<T> pop() noexcept {
-        if (count_ == 0) {
-            return std::nullopt;
-        }
-        T item = buffer_[tail_];
-        tail_ = (tail_ + 1) % Capacity;
-        count_--;
-        return item;
-    }
-
-    [[nodiscard]] size_t size() const noexcept { return count_; }
-    [[nodiscard]] bool empty() const noexcept { return count_ == 0; }
-    [[nodiscard]] uint32_t drops() const noexcept { return overflow_drops_; }
-
-private:
-    std::array<T, Capacity> buffer_{};
-    volatile size_t head_{0};
-    volatile size_t tail_{0};
-    volatile size_t count_{0};
-    uint32_t overflow_drops_{0};
-};
-```
+:::code svoia-lohika-bez-avtopilota-d/c/kiltseva-cherha-podii-ta.c
+:::code svoia-lohika-bez-avtopilota-d/cpp/kiltseva-cherha-podii-ta.cpp
 :::
 
 Практична реалізація повного коду автомата, диспетчера та обробки переходів доступна в окремому [проекті реалізації детерміністичного HSM-диспетчера цілей](root:embedded/svoia-lohika-bez-avtopilota/proj-deterministic-fsm.md).
@@ -253,37 +145,8 @@ private:
 Якщо просто перемкнути стан автомата у `FAILSAFE`, але залишити активні завдання в черзі, після виходу з аварії або під час відновлення система може неочікувано продовжити старий рух. Тому реалізується протокол безумовного аварійного скидання:
 
 :::tabs
-```c
-void goal_engine_abort_all(GoalEngine *ge) {
-    /* 1. Викликати специфічний деструктор активної цілі */
-    if (ge->has_active_goal && ge->active_goal.on_abort_cleanup != NULL) {
-        ge->active_goal.on_abort_cleanup(ge->context);
-    }
-
-    /* 2. Атомарно очистити кільцевий буфер майбутніх завдань */
-    ge->head = 0;
-    ge->tail = 0;
-    ge->count = 0;
-    ge->has_active_goal = false;
-    memset(&ge->active_goal, 0, sizeof(Goal));
-}
-```
-```cpp
-void GoalEngine::abort_all() noexcept {
-    // 1. Безпечне завершення та очищення активної цілі
-    if (active_goal_) {
-        if (active_goal_->on_abort_cleanup != nullptr) {
-            active_goal_->on_abort_cleanup(context_);
-        }
-        active_goal_.reset();
-    }
-
-    // 2. Очищення черги майбутніх кроків
-    while (!queue_.empty()) {
-        queue_.pop();
-    }
-}
-```
+:::code svoia-lohika-bez-avtopilota-d/c/protokol-bezpechnoho.c
+:::code svoia-lohika-bez-avtopilota-d/cpp/protokol-bezpechnoho.cpp
 :::
 
 Деструктор `on_abort_cleanup` специфічний для кожного типу цілі:

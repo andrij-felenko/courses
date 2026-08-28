@@ -226,93 +226,8 @@ V_DD (3.3 В) ───► [ Внутрішній LDO ] ───► Цифро�
 Нижче наведено приклад мінімального перевірочного коду (на прикладі піна `PA5` мікроконтролера STM32F401/F411):
 
 :::tabs
-```c
-// main.c — Мінімальний перевірочний Blinky на прямих регістрах CMSIS
-#include <stdint.h>
-
-#define RCC_BASE        0x40023800U
-#define GPIOA_BASE      0x40020000U
-
-#define RCC_AHB1ENR     (*(volatile uint32_t *)(RCC_BASE + 0x30U))
-#define GPIOA_MODER     (*(volatile uint32_t *)(GPIOA_BASE + 0x00U))
-#define GPIOA_ODR       (*(volatile uint32_t *)(GPIOA_BASE + 0x14U))
-
-static void delay_cycles(volatile uint32_t count) {
-    while (count--) {
-        __asm__ volatile ("nop");
-    }
-}
-
-int main(void) {
-    // 1. Вмикаємо тактування порту GPIOA (біт 0 в RCC_AHB1ENR)
-    RCC_AHB1ENR |= (1U << 0);
-
-    // 2. Налаштовуємо пін PA5 як вихід загального призначення (MODER5 = 0b01)
-    GPIOA_MODER &= ~(3U << (5 * 2));
-    GPIOA_MODER |=  (1U << (5 * 2));
-
-    // 3. Нескінченний цикл перемикання світлодіода
-    while (1) {
-        GPIOA_ODR ^= (1U << 5);      // Інвертуємо стан виводу PA5
-        delay_cycles(500000U);       // Програмна затримка (~0.5 с на частоті 16 МГц HSI)
-    }
-
-    return 0;
-}
-```
-```cpp
-// main.cpp — Типобезпечний Blinky на C++ з прямим доступом до регістрів
-#include <cstdint>
-
-namespace mcu {
-    inline constexpr std::uintptr_t rcc_base   = 0x40023800U;
-    inline constexpr std::uintptr_t gpioa_base = 0x40020000U;
-
-    struct Rcc {
-        volatile std::uint32_t cr;
-        volatile std::uint32_t pllcfgr;
-        volatile std::uint32_t cfgr;
-        volatile std::uint32_t cir;
-        volatile std::uint32_t ahb1rstr;
-        volatile std::uint32_t ahb2rstr;
-        std::uint32_t reserved[2];
-        volatile std::uint32_t ahb1enr;
-    };
-
-    struct Gpio {
-        volatile std::uint32_t moder;
-        volatile std::uint32_t otyper;
-        volatile std::uint32_t ospeedr;
-        volatile std::uint32_t pupdr;
-        volatile std::uint32_t idr;
-        volatile std::uint32_t odr;
-        volatile std::uint32_t bsrr;
-    };
-
-    inline auto& rcc   = *reinterpret_cast<Rcc*>(rcc_base);
-    inline auto& gpioa = *reinterpret_cast<Gpio*>(gpioa_base);
-
-    [[gnu::noinline]] void delay_cycles(volatile std::uint32_t count) {
-        while (count--) {
-            asm volatile("nop");
-        }
-    }
-}
-
-int main() {
-    // 1. Дозвіл тактування порту GPIOA
-    mcu::rcc.ahb1enr |= (1U << 0);
-
-    // 2. Конфігурація PA5 як Digital Output
-    mcu::gpioa.moder &= ~(0b11U << (5 * 2));
-    mcu::gpioa.moder |=  (0b01U << (5 * 2));
-
-    while (true) {
-        mcu::gpioa.odr ^= (1U << 5);
-        mcu::delay_cycles(500000U);
-    }
-}
-```
+:::code pershyi-kontakt-vidlahodzhuvacha-na-vlasnii-plati-d/c/main.c
+:::code pershyi-kontakt-vidlahodzhuvacha-na-vlasnii-plati-d/cpp/main.cpp
 :::
 
 Якщо світлодіод почав блимати — це підтверджує, що:
@@ -335,79 +250,8 @@ int main() {
 Нижче наведено код ініціалізації та передачі символу через апаратний порт ITM:
 
 :::tabs
-```c
-// itm_debug.c — Швидкий неблокуючий вивід через порт CoreSight ITM
-#include <stdint.h>
-
-#define ITM_TER         (*(volatile uint32_t *)0xE0000E00U) // ITM Trace Enable Register
-#define ITM_TCR         (*(volatile uint32_t *)0xE0000E80U) // ITM Trace Control Register
-#define ITM_PORT0_U8    (*(volatile uint8_t  *)0xE0000000U) // ITM Stimulus Port 0 (8-bit)
-#define DEMCR           (*(volatile uint32_t *)0xE000EDFCU) // Debug Exception & Monitor Control
-
-void itm_init(void) {
-    // Вмикаємо трасування в модулі CoreSight
-    DEMCR |= (1U << 24); // TRCENA bit
-    ITM_TCR |= (1U << 0); // ITMENA bit
-    ITM_TER |= (1U << 0); // Дозволяємо стимул-порт 0
-}
-
-void itm_putc(char ch) {
-    // Перевіряємо, чи підключено відлагоджувач і чи дозволено порт ITM 0
-    if ((DEMCR & (1U << 24)) && (ITM_TER & (1U << 0))) {
-        // Чекаємо, доки апаратний буфер FIFO звільниться
-        while (ITM_PORT0_U8 == 0) {
-            __asm__ volatile ("nop");
-        }
-        ITM_PORT0_U8 = (uint8_t)ch;
-    }
-}
-
-void itm_puts(const char *str) {
-    while (*str) {
-        itm_putc(*str++);
-    }
-}
-```
-```cpp
-// itm_debug.hpp — C++ обгортка для налагоджувального потоку ITM
-#include <cstdint>
-#include <string_view>
-
-namespace debug {
-    inline constexpr std::uintptr_t demcr_addr   = 0xE000EDFCU;
-    inline constexpr std::uintptr_t itm_ter_addr = 0xE0000E00U;
-    inline constexpr std::uintptr_t itm_tcr_addr = 0xE0000E80U;
-    inline constexpr std::uintptr_t itm_port0_addr = 0xE0000000U;
-
-    class ItmStream {
-    public:
-        static void init() noexcept {
-            *reinterpret_cast<volatile std::uint32_t*>(demcr_addr) |= (1U << 24);
-            *reinterpret_cast<volatile std::uint32_t*>(itm_tcr_addr) |= (1U << 0);
-            *reinterpret_cast<volatile std::uint32_t*>(itm_ter_addr) |= (1U << 0);
-        }
-
-        static void write(char ch) noexcept {
-            auto& demcr = *reinterpret_cast<volatile std::uint32_t*>(demcr_addr);
-            auto& ter   = *reinterpret_cast<volatile std::uint32_t*>(itm_ter_addr);
-            auto& port0 = *reinterpret_cast<volatile std::uint8_t*>(itm_port0_addr);
-
-            if ((demcr & (1U << 24)) && (ter & (1U << 0))) {
-                while (port0 == 0) {
-                    asm volatile("nop");
-                }
-                port0 = static_cast<std::uint8_t>(ch);
-            }
-        }
-
-        static void print(std::string_view text) noexcept {
-            for (char ch : text) {
-                write(ch);
-            }
-        }
-    };
-}
-```
+:::code pershyi-kontakt-vidlahodzhuvacha-na-vlasnii-plati-d/c/itm_debug.c
+:::code pershyi-kontakt-vidlahodzhuvacha-na-vlasnii-plati-d/cpp/persha-telemetriia-itm-swo.cpp
 :::
 
 Утиліта `JLinkSWOViewer` на комп'ютері слухає потік SWO і миттєво друкує передані рядки без жодного додаткового USB-UART перехідника.

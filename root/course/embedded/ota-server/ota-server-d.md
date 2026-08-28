@@ -135,59 +135,13 @@
 
 **Приклад (порівняння версій по полях, без рядкової пастки).**
 
-```c
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-// Розкласти рядок "2.4.1" на три числа.
-typedef struct { int major, minor, patch; } version_t;
-
-static version_t parse_version(const char *s) {
-    version_t v = {0, 0, 0};
-    sscanf(s, "%d.%d.%d", &v.major, &v.minor, &v.patch);
-    return v;
-}
-
-// > 0  якщо a новіша за b;  0 — рівні;  < 0 — a старіша.
-// Саме ПОЛЯМИ, а не рядком: "2.10.0" новіша за "2.9.0", хоч текстово менша.
-static int version_cmp(version_t a, version_t b) {
-    if (a.major != b.major) return a.major - b.major;
-    if (a.minor != b.minor) return a.minor - b.minor;
-    return a.patch - b.patch;
-}
-```
+:::code ota-server-d/c/use-razom-rishennia-na.c
 
 Маючи це порівняння, пристрій ухвалює рішення про оновлення тверезо: бере свою чинну версію, версію з маніфесту — і качає образ, лише якщо маніфест **справді новіший**. Інакше нема чого палити трафік і ризикувати перезаписом.
 
 **Приклад (рішення качати чи ні).**
 
-```c
-// running — наша чинна версія (із заголовка ВЛАСНОГО образу);
-// manifest — версія, яку оголосив сервер у маніфесті.
-bool should_update(const char *running_ver, const char *manifest_ver,
-                   const char *manifest_hw, const char *my_hw) {
-
-    // 1. Залізо мусить збігтися — інакше образ нас перетворить на цеглу.
-    if (strcmp(manifest_hw, my_hw) != 0) {
-        printf("OTA: образ під чуже залізо (%s != %s) — пропускаємо\n",
-               manifest_hw, my_hw);
-        return false;
-    }
-
-    // 2. Качаємо, лише якщо маніфест НОВІШИЙ за нас.
-    version_t mine = parse_version(running_ver);
-    version_t want = parse_version(manifest_ver);
-    if (version_cmp(want, mine) <= 0) {
-        printf("OTA: %s не новіше за %s — лишаємось\n", manifest_ver, running_ver);
-        return false;   // та сама або старіша версія — нічого не робимо
-    }
-
-    printf("OTA: є новіше: %s > %s — починаємо завантаження\n",
-           manifest_ver, running_ver);
-    return true;
-}
-```
+:::code ota-server-d/c/use-razom-rishennia-na-2.c
 
 Прочитайте ці дві перевірки — і ви впізнаєте в них дві з трьох речей, які, як ми казали, сервер знає про пристрій: **залізо** (щоб не залити образ під чужий чіп) і **версію** (щоб не качати те, що вже стоїть). Третя — **канал** — на сервері вирішує, **який саме** маніфест цьому пристрою віддати, тож до пристрою вона доходить уже у вигляді того, що в маніфесті стоїть саме «його» версія. На ESP32 свою чинну версію (`running_ver`) пристрій бере не з повітря, а з [заголовка власного образу](root:sf-lang/firmware-image) — тієї самої структури-опису, що ESP-IDF вшиває при збиранні; готовий стек `esp_https_ota` навіть уміє витягти опис із завантажуваного образу й порівняти версії за вас, але механіка під ним — рівно ця.
 

@@ -53,26 +53,7 @@
 
 У каталозі `arch/arm/mach-<soc>/` створювалися так звані «файли плат» (board files, наприклад `board-mydevice.c`). Усередині цих файлів оголошувалися статичні масиви структур `struct platform_device`, де жорстко прописувалися фізичні адреси регістрів, номери переривань (IRQ), номери GPIO для увімкнення підтяжок, адреси ведених пристроїв на шині I2C та бітові маски налаштувань мультиплексора виводів.
 
-```c
-/* Фрагмент застарілого board-файлу епохи Linux 2.6 */
-static struct i2c_board_info my_i2c_devices[] __initdata = {
-    {
-        I2C_BOARD_INFO("tmp102", 0x48),
-    },
-    {
-        I2C_BOARD_INFO("pcf85063", 0x51),
-        .irq = 42,
-    },
-};
-
-static struct platform_device my_led_device = {
-    .name = "leds-gpio",
-    .id = -1,
-    .dev = {
-        .platform_data = &my_led_data,
-    },
-};
-```
+:::code plata-nosii-pid-obchysliuvalnyi-modul-d/c/2-prohramnyi-vyklyk-chomu.c
 
 Цей підхід працював, поки кількість вбудованих плат вимірювалася десятками. Проте на початку 2010-х років, із бурхливим розвитком мобільних процесорів та одноплатних комп'ютерів, каталог `arch/arm/` наповнився сотнями тисяч рядків незв'язного, дубльованого C-коду, де кожна нова ревізія заліза вимагала внесення правок у ядро. У березні 2011 року Лінус Торвальдс оголосив ультиматум спільноті розробників ARM, заборонивши приймати нові board-файли доти, доки архітектура опису платформи не буде кардинально змінена.
 
@@ -165,24 +146,7 @@ node-name@unit-address {
 
 Коли ядро Linux ініціалізує платформу, воно проходить по всіх вузлах дерева і зіставляє значення рядка `compatible` із масивом `of_match_table` зареєстрованих драйверів. Якщо знайдено точний збіг, ядро створює структуру пристрою (`struct platform_device`, `struct i2c_client` або `struct spi_device`) і викликає функцію `.probe()` відповідного драйвера.
 
-```c
-/* Як драйвер ядра знаходить свій пристрій із Device Tree */
-static const struct of_device_id tmp102_of_match[] = {
-    { .compatible = "ti,tmp102" },
-    { .compatible = "national,lm75" },
-    { /* кінець таблиці */ }
-};
-MODULE_DEVICE_TABLE(of, tmp102_of_match);
-
-static struct i2c_driver tmp102_driver = {
-    .driver = {
-        .name = "tmp102",
-        .of_match_table = tmp102_of_match,
-    },
-    .probe = tmp102_probe,
-    .remove = tmp102_remove,
-};
-```
+:::code plata-nosii-pid-obchysliuvalnyi-modul-d/c/1-vlastyvist-compatible.c
 
 #### 2. Адресація: `reg`, `#address-cells` та `#size-cells`
 Властивість `reg` визначає ресурси адреси пристрою. Те, як саме інтерпретуються числа у `reg`, визначається батьківським вузлом через директиви `#address-cells` (скільки 32-бітних слів займає адреса) та `#size-cells` (скільки слів займає довжина адресного діапазону):

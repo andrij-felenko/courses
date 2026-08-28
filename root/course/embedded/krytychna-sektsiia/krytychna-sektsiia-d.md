@@ -16,34 +16,8 @@
 У мовах високого рівня C та C++ операція інкременту змінної або встановлення бітового прапорця виглядає як один лаконічний вираз:
 
 :::tabs
-```c
-/* Змінна, спільна між головним циклом та обробником переривання */
-volatile uint32_t g_packet_counter = 0;
-volatile uint32_t g_device_flags = 0;
-
-void process_data(void) {
-    /* Наївний інкремент у фоновому потоці */
-    g_packet_counter++;
-    
-    /* Наївне встановлення бітового прапорця */
-    g_device_flags |= (1U << 3);
-}
-```
-```cpp
-#include <cstdint>
-
-// Змінна, спільна між головним циклом та обробником переривання
-inline volatile std::uint32_t g_packet_counter{0};
-inline volatile std::uint32_t g_device_flags{0};
-
-void process_data() noexcept {
-    // Наївний інкремент у фоновому потоці
-    g_packet_counter = g_packet_counter + 1;
-    
-    // Наївне встановлення бітового прапорця
-    g_device_flags = g_device_flags | (1U << 3);
-}
-```
+:::code krytychna-sektsiia-d/c/anatomiia-stanu-honky.c
+:::code krytychna-sektsiia-d/cpp/anatomiia-stanu-honky.cpp
 :::
 
 Проте архітектура процесорів зі скороченим набором інструкцій (RISC, зокрема ARM Cortex-M) базується на моделі «завантаження-збереження» (англ. *Load-Store Architecture*). Арифметико-логічний пристрій (АЛП) ядра процесора не здатний модифікувати значення безпосередньо в комірці оперативної пам'яті (ОЗП). Будь-яка модифікація змінної в пам'яті неминуче розпадається на три окремі машинних інструкції — послідовність «зчитування-модифікація-запис» (англ. *Read-Modify-Write*, RMW):
@@ -101,21 +75,7 @@ void update_system_state(uint32_t flags) {
     __enable_irq();  // Вмикаємо переривання назад
 }
 ```
-```cpp
-#include <cstdint>
-
-extern "C" {
-    void __disable_irq(void);
-    void __enable_irq(void);
-}
-
-// Наївна реалізація критичної секції
-void update_system_state(std::uint32_t flags) noexcept {
-    __disable_irq(); // Вимикаємо всі переривання
-    g_system_flags |= flags;
-    __enable_irq();  // Вмикаємо переривання назад
-}
-```
+:::code krytychna-sektsiia-d/cpp/pastka-naivnoho-vymknennia.hpp
 :::
 
 Функція `__disable_irq()` транслюється в асемблерну інструкцію `CPSID i` (англ. *Change Processor State, Interrupt Disable*), яка встановлює біт маски в спеціальному регістрі ядра `PRIMASK`. Відповідно, `__enable_irq()` генерує інструкцію `CPSIE i` (*Change Processor State, Interrupt Enable*), яка безумовно скидає біт маски в нуль і дозволяє обробку переривань.
@@ -125,66 +85,8 @@ void update_system_state(std::uint32_t flags) noexcept {
 Розглянемо типовий ланцюжок викликів:
 
 :::tabs
-```c
-/* Допоміжна функція драйвера UART (низький рівень) */
-void uart_send_byte(uint8_t byte) {
-    __disable_irq();
-    /* Запис байта в апаратний буфер FIFO */
-    UART1->DR = byte;
-    __enable_irq(); // ПОМИЛКА: безумовне увімкнення переривань!
-}
-
-/* Високорівнева функція відправки цілого пакету */
-void telemetry_send_packet(const uint8_t *payload, size_t len) {
-    __disable_irq(); // Зовнішня критична секція: хочемо передати весь пакет неподільно
-    
-    update_packet_checksum(payload, len);
-    uart_send_byte(payload[0]); // Вкладений виклик!
-    
-    /* 
-     * ТУТ ПЕРЕРИВАННЯ ВЖЕ УВІМКНЕНІ функцією uart_send_byte()!
-     * Решта цієї функції виконується БЕЗ захисту, хоча розробник упевнений,
-     * що перебуває всередині критичної секції.
-     */
-    for (size_t i = 1; i < len; i++) {
-        UART1->DR = payload[i];
-    }
-    
-    __enable_irq();
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-
-struct UartHardware {
-    volatile std::uint32_t DR;
-};
-inline auto* const UART1 = reinterpret_cast<UartHardware*>(0x40013800UL);
-
-// Допоміжна функція драйвера UART (низький рівень)
-void uart_send_byte(std::uint8_t byte) noexcept {
-    __disable_irq();
-    UART1->DR = byte;
-    __enable_irq(); // ПОМИЛКА: безумовне увімкнення переривань!
-}
-
-// Високорівнева функція відправки цілого пакету
-void telemetry_send_packet(std::span<const std::uint8_t> payload) noexcept {
-    __disable_irq(); // Зовнішня критична секція
-    
-    if (!payload.empty()) {
-        uart_send_byte(payload[0]); // Вкладений виклик ламає захист
-        
-        // Переривання вже УВІМКНЕНІ! Код нижче незахищений.
-        for (std::size_t i = 1; i < payload.size(); ++i) {
-            UART1->DR = payload[i];
-        }
-    }
-    
-    __enable_irq();
-}
-```
+:::code krytychna-sektsiia-d/c/pastka-naivnoho-vymknennia.c
+:::code krytychna-sektsiia-d/cpp/pastka-naivnoho-vymknennia.cpp
 :::
 
 ![Пастка наївного вимкнення: руйнування вкладених критичних секцій](/root/course/embedded/krytychna-sektsiia/img/naive-disable-nesting-bug.svg)
@@ -207,57 +109,8 @@ void telemetry_send_packet(std::span<const std::uint8_t> payload) noexcept {
 Правильний патерн критичної секції виглядає так:
 
 :::tabs
-```c
-#include <stdint.h>
-#include "cmsis_compiler.h"
-
-void safe_critical_section(void) {
-    /* 1. Зберігаємо поточний стан регістра PRIMASK */
-    uint32_t saved_primask = __get_PRIMASK();
-    
-    /* 2. Вимикаємо переривання (встановлюємо PRIMASK = 1) */
-    __disable_irq();
-    
-    /* 
-     * 3. Бар'єр пам'яті для оптимізатора компілятора.
-     * Забороняє компілятору виносити інструкції читання/запису за межі блоку.
-     */
-    __asm volatile("" ::: "memory");
-    
-    /* --- Тіло критичної секції: безпечна робота зі спільними даними --- */
-    g_shared_buffer[g_head++] = 0xAA;
-    
-    /* 4. Бар'єр пам'яті перед відновленням */
-    __asm volatile("" ::: "memory");
-    
-    /* 5. Відновлюємо саме той стан, який був до входу в функцію */
-    __set_PRIMASK(saved_primask);
-}
-```
-```cpp
-#include <cstdint>
-#include "cmsis_compiler.h"
-
-void safe_critical_section() noexcept {
-    // 1. Зберігаємо поточний стан регістра PRIMASK
-    const std::uint32_t saved_primask = __get_PRIMASK();
-    
-    // 2. Вимикаємо переривання
-    __disable_irq();
-    
-    // 3. Бар'єр пам'яті для компілятора
-    __asm volatile("" ::: "memory");
-    
-    // --- Тіло критичної секції ---
-    g_shared_buffer[g_head++] = 0xAA;
-    
-    // 4. Бар'єр пам'яті перед відновленням
-    __asm volatile("" ::: "memory");
-    
-    // 5. Відновлюємо попередній стан маски
-    __set_PRIMASK(saved_primask);
-}
-```
+:::code krytychna-sektsiia-d/c/arkhitekturnyi-shablon.c
+:::code krytychna-sektsiia-d/cpp/arkhitekturnyi-shablon.hpp
 :::
 
 Чому цей шаблон повністю усуває проблему вкладеності? Розглянемо два сценарії:
@@ -329,54 +182,8 @@ constexpr std::uint32_t kMaxSyscallInterruptPriority = (5U << (8U - __NVIC_PRIO_
 Шаблон збереження та відновлення для `BASEPRI` виглядає так:
 
 :::tabs
-```c
-#include "cmsis_compiler.h"
-#include <stdint.h>
-
-#define MAX_SYSCALL_PRIORITY_VALUE (0x50U) // Пріоритет 5 для 4-бітного NVIC
-
-void rtos_aware_critical_section(void) {
-    /* 1. Зчитуємо поточний поріг BASEPRI */
-    uint32_t saved_basepri = __get_BASEPRI();
-    
-    /* 
-     * 2. Встановлюємо новий поріг через BASEPRI_MAX.
-     * __set_BASEPRI_MAX записує нове значення лише у випадку, якщо воно
-     * встановлює суворіше маскування, ніж поточне.
-     */
-    __set_BASEPRI_MAX(MAX_SYSCALL_PRIORITY_VALUE);
-    __asm volatile("" ::: "memory");
-    
-    /* --- Безпечна робота зі структурами драйвера або RTOS --- */
-    update_rtos_shared_queue();
-    
-    __asm volatile("" ::: "memory");
-    /* 3. Відновлюємо попереднє значення BASEPRI */
-    __set_BASEPRI(saved_basepri);
-}
-```
-```cpp
-#include "cmsis_compiler.h"
-#include <cstdint>
-
-constexpr std::uint32_t kMaxSyscallPriority{0x50U}; // Пріоритет 5 для 4-бітного NVIC
-
-void rtos_aware_critical_section() noexcept {
-    // 1. Зчитуємо поточний поріг BASEPRI
-    const std::uint32_t saved_basepri = __get_BASEPRI();
-    
-    // 2. Встановлюємо новий поріг
-    __set_BASEPRI_MAX(kMaxSyscallPriority);
-    __asm volatile("" ::: "memory");
-    
-    // --- Безпечна робота зі структурами драйвера або RTOS ---
-    update_rtos_shared_queue();
-    
-    __asm volatile("" ::: "memory");
-    // 3. Відновлюємо попереднє значення BASEPRI
-    __set_BASEPRI(saved_basepri);
-}
-```
+:::code krytychna-sektsiia-d/c/model-krytychnykh-sektsii.c
+:::code krytychna-sektsiia-d/cpp/model-krytychnykh-sektsii.hpp
 :::
 
 Зверніть увагу: ядро **Cortex-M0 / Cortex-M0+ не має регістра BASEPRI**. На цих процесорах будь-яка критична секція змушена використовувати `PRIMASK`, повністю зупиняючи всі апаратні переривання.
@@ -386,44 +193,8 @@ void rtos_aware_critical_section() noexcept {
 У мові C ручне відновлення маски переривань вимагає крайньої дисципліни. Якщо функція містить складну бізнес-логіку з перевіркою помилок, розробник може випадково вийти з функції через достроковий `return`, забувши викликати `__set_PRIMASK()`.
 
 :::tabs
-```c
-/* Типова помилка витоку критичної секції в C */
-int process_sensor_buffer(uint8_t *buffer, size_t len) {
-    uint32_t primask = __get_PRIMASK();
-    __disable_irq();
-    
-    if (buffer == NULL || len == 0) {
-        /* КАТАСТРОФА: Вихід без відновлення PRIMASK! 
-         * Переривання залишаються вимкненими назавжди, система мертво зависає. */
-        return -1; 
-    }
-    
-    parse_data(buffer, len);
-    
-    __set_PRIMASK(primask);
-    return 0;
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-
-// Помилка ручного керування в C++
-int process_sensor_buffer(std::span<std::uint8_t> buffer) noexcept {
-    const std::uint32_t primask = __get_PRIMASK();
-    __disable_irq();
-    
-    if (buffer.empty()) {
-        // Катастрофа: вихід без відновлення переривань
-        return -1;
-    }
-    
-    parse_data(buffer);
-    
-    __set_PRIMASK(primask);
-    return 0;
-}
-```
+:::code krytychna-sektsiia-d/c/c-raii-vartovi.c
+:::code krytychna-sektsiia-d/cpp/c-raii-vartovi.cpp
 :::
 
 У сучасному C++ ця проблема повністю вирішується ідіомою **RAII** (англ. *Resource Acquisition Is Initialization* — захоплення ресурсу є ініціалізацією). Ми створюємо легкий об'єкт-вартовий на стеку: його конструктор зберігає маску й вимикає переривання, а деструктор автоматично відновлює збережений стан під час знищення стекового фрейму — незалежно від того, як саме завершилася функція (звичайний вихід, достроковий `return` чи генерація виключення).
@@ -431,76 +202,8 @@ int process_sensor_buffer(std::span<std::uint8_t> buffer) noexcept {
 ### Реалізація CriticalSectionGuard
 
 :::tabs
-```c
-/* У C ідіома RAII не підтримується на рівні мови (якщо не використовувати GCC cleanup attribute).
- * Класичний безпечний підхід у C — єдина точка виходу (Single Exit Point) через goto: */
-int process_sensor_buffer_c_safe(uint8_t *buffer, size_t len) {
-    int status = 0;
-    uint32_t primask = __get_PRIMASK();
-    __disable_irq();
-    __asm volatile("" ::: "memory");
-    
-    if (buffer == NULL || len == 0) {
-        status = -1;
-        goto cleanup;
-    }
-    
-    parse_data(buffer, len);
-
-cleanup:
-    __asm volatile("" ::: "memory");
-    __set_PRIMASK(primask);
-    return status;
-}
-```
-```cpp
-#include "cmsis_compiler.h"
-#include <cstdint>
-#include <span>
-
-namespace embedded {
-
-/*
- * Ідіоматичний C++20 RAII-вартовий критичної секції.
- * [[nodiscard]] забороняє створення безіменного тимчасового об'єкта (наприклад, CriticalSectionGuard();),
- * який би миттєво знищився в тому ж рядку, залишивши наступний код незахищеним.
- */
-class [[nodiscard]] CriticalSectionGuard {
-public:
-    CriticalSectionGuard() noexcept : saved_primask_(__get_PRIMASK()) {
-        __disable_irq();
-        __asm volatile("" ::: "memory");
-    }
-
-    ~CriticalSectionGuard() noexcept {
-        __asm volatile("" ::: "memory");
-        __set_PRIMASK(saved_primask_);
-    }
-
-    // Забороняємо копіювання та переміщення
-    CriticalSectionGuard(const CriticalSectionGuard&) = delete;
-    CriticalSectionGuard& operator=(const CriticalSectionGuard&) = delete;
-    CriticalSectionGuard(CriticalSectionGuard&&) = delete;
-    CriticalSectionGuard& operator=(CriticalSectionGuard&&) = delete;
-
-private:
-    std::uint32_t saved_primask_;
-};
-
-} // namespace embedded
-
-// Безпечне використання у прикладній функції:
-int process_sensor_buffer_cpp(std::span<std::uint8_t> buffer) noexcept {
-    const embedded::CriticalSectionGuard lock; // Вхід у критичну секцію
-    
-    if (buffer.empty()) {
-        return -1; // Деструктор lock гарантовано відновить PRIMASK тут!
-    }
-    
-    parse_data(buffer);
-    return 0; // Деструктор lock гарантовано відновить PRIMASK тут!
-}
-```
+:::code krytychna-sektsiia-d/c/realizatsiia.c
+:::code krytychna-sektsiia-d/cpp/realizatsiia.cpp
 :::
 
 Використання атрибута `[[nodiscard]]` є критично важливим: якщо програміст випадково напише `CriticalSectionGuard();` замість `CriticalSectionGuard lock;`, компілятор згенерує попередження про невикористаний результат. Без цього атрибута безіменний тимчасовий об'єкт створиться і знищиться в тому ж самому рядку коду, знявши блокування ще до початку виконання тіла функції.
@@ -537,43 +240,8 @@ int process_sensor_buffer_cpp(std::span<std::uint8_t> buffer) noexcept {
 На основі `LDREX`/`STREX` будуються алгоритми без блокувань (англ. *Lock-Free*), що використовують цикл оптимістичного повторення:
 
 :::tabs
-```c
-#include <stdint.h>
-#include "cmsis_compiler.h"
-
-/* Атомарний інкремент без вимкнення переривань на чистій апаратурі */
-uint32_t atomic_fetch_add_arm(volatile uint32_t *ptr, uint32_t value) {
-    uint32_t old_val;
-    uint32_t status;
-    
-    do {
-        old_val = __LDREXW((volatile uint32_t *)ptr); // Читаємо та зводимо монітор
-        status = __STREXW(old_val + value, (volatile uint32_t *)ptr); // Спроба запису
-    } while (status != 0U); // Повторюємо, якщо статус 1 (було переривання)
-    
-    return old_val;
-}
-```
-```cpp
-#include <atomic>
-#include <cstdint>
-
-// У C++20 стандартні атоміки безпосередньо транслюються в LDREX/STREX
-class AtomicPacketCounter {
-public:
-    void increment() noexcept {
-        // Компілятор транслює fetch_add у цикл з LDREX / STREX
-        counter_.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    [[nodiscard]] std::uint32_t get() const noexcept {
-        return counter_.load(std::memory_order_relaxed);
-    }
-
-private:
-    std::atomic<std::uint32_t> counter_{0};
-};
-```
+:::code krytychna-sektsiia-d/c/lock-free-inkrement-na-c.c
+:::code krytychna-sektsiia-d/cpp/lock-free-inkrement-na-c.hpp
 :::
 
 Перевага підходу Lock-Free полягає в тому, що переривання взагалі не маскуються: жоден обробник не зазнає додаткової латентності. Якщо переривання вклиниться в середину операції, воно виконається миттєво; після повернення фоновий потік просто зафіксує невдачу `STREX` і повторить одну арифметичну операцію ще раз.
@@ -595,65 +263,8 @@ private:
 2. **Апаратний семафор (Hardware Semaphore / Mutex):** захоплює спільний апаратний блок блокування мікроконтролера (наприклад, модуль HSEM на STM32 або апаратні спінлоки SIO на RP2040).
 
 :::tabs
-```c
-#include "critical_section.h"
-#include <stdint.h>
-
-/* Апаратний регістр спінлока (приклад для RP2040 SIO_SPINLOCK) */
-#define SIO_SPINLOCK0 ((volatile uint32_t*)0xD0000100UL)
-
-void dual_core_critical_section(void) {
-    /* 1. Блокуємо локальні переривання ядра */
-    critical_section_t cs = critical_section_enter();
-    
-    /* 2. Захоплюємо апаратний між'ядерний спінлок */
-    while (*SIO_SPINLOCK0 == 0U) {
-        /* Чекаємо звільнення ресурсу другим ядром */
-    }
-    
-    /* --- Безпечна робота зі спільним ОЗП між двома процесорами --- */
-    g_shared_intercore_buffer[0] = 0xFF;
-    
-    /* 3. Звільняємо між'ядерний спінлок (запис будь-якого значення) */
-    *SIO_SPINLOCK0 = 1U;
-    
-    /* 4. Відновлюємо локальні переривання */
-    critical_section_exit(cs);
-}
-```
-```cpp
-#include "critical_section.hpp"
-#include <cstdint>
-
-inline auto* const SIO_SPINLOCK0 = reinterpret_cast<volatile std::uint32_t*>(0xD0000100UL);
-
-class [[nodiscard]] DualCoreGuard {
-public:
-    DualCoreGuard() noexcept {
-        // 1. Захист локального ядра
-        local_lock_ = embedded::sync::PrimaskLockPolicy::enter();
-        
-        // 2. Захоплення апаратного між'ядерного спінлока
-        while (*SIO_SPINLOCK0 == 0U) {
-            // Очікування
-        }
-    }
-
-    ~DualCoreGuard() noexcept {
-        // 3. Звільнення спінлока
-        *SIO_SPINLOCK0 = 1U;
-        
-        // 4. Відновлення локальних переривань
-        embedded::sync::PrimaskLockPolicy::exit(local_lock_);
-    }
-
-    DualCoreGuard(const DualCoreGuard&) = delete;
-    DualCoreGuard& operator=(const DualCoreGuard&) = delete;
-
-private:
-    std::uint32_t local_lock_;
-};
-```
+:::code krytychna-sektsiia-d/c/bahatoiaderni-systemy-dual.c
+:::code krytychna-sektsiia-d/cpp/bahatoiaderni-systemy-dual.cpp
 :::
 
 ### Порівняльна таблиця методів синхронізації

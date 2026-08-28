@@ -44,32 +44,7 @@ I2S несе стереопотік трьома дротами, і кожен �
 
 У коді ESP-IDF драйвер I2S у режимі передачі (TX) налаштовують один раз, а далі просто пишуть у нього блоки відліків — апаратура з DMA сама виштовхує їх у такт. Ось кістяк ініціалізації каналу передачі у стандартному (Philips) форматі:
 
-```c
-#include "driver/i2s_std.h"
-
-static i2s_chan_handle_t tx_chan;
-
-void i2s_out_init(void) {
-    /* один канал передачі на контролері I2S0, роль — майстер */
-    i2s_chan_config_t chan_cfg =
-        I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM_0, I2S_ROLE_MASTER);
-    i2s_new_channel(&chan_cfg, &tx_chan, NULL);   /* лише TX */
-
-    i2s_std_config_t std_cfg = {
-        .clk_cfg  = I2S_STD_CLK_DEFAULT_CONFIG(44100),                 /* 44.1 кГц */
-        .slot_cfg = I2S_STD_PHILIPS_SLOT_DEFAULT_CONFIG(
-                        I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_STEREO),
-        .gpio_cfg = {
-            .bclk = GPIO_NUM_26,   /* BCLK  → BCLK підсилювача */
-            .ws   = GPIO_NUM_25,   /* WS    → LRC  підсилювача */
-            .dout = GPIO_NUM_22,   /* SD    → DIN  підсилювача */
-            .din  = I2S_GPIO_UNUSED,
-        },
-    };
-    i2s_channel_init_std_mode(tx_chan, &std_cfg);
-    i2s_channel_enable(tx_chan);
-}
-```
+:::code audio-playback-path/c/doroha-druha-i2s-u.c
 
 Після цього віддати звук — це один виклик на блок:
 
@@ -93,30 +68,7 @@ PDM (*pulse-density modulation* — «модуляція густотою імп
 
 Той самий контролер I2S у ESP32 уміє працювати не тільки у стандартному режимі, а й у **PDM TX**: усередині нього стоїть перетворювач звичайних PCM-відліків на PDM-потік, тож у код ти й далі пишеш нормальні 16-бітні числа, а на ніжку виходить однобітний потік потрібної густини. Налаштування відрізняється від стандартного лише способом ініціалізації слоту:
 
-```c
-#include "driver/i2s_pdm.h"
-
-static i2s_chan_handle_t pdm_tx;
-
-void pdm_out_init(void) {
-    i2s_chan_config_t chan_cfg =
-        I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM_0, I2S_ROLE_MASTER);
-    i2s_new_channel(&chan_cfg, &pdm_tx, NULL);
-
-    i2s_pdm_tx_config_t pdm_cfg = {
-        .clk_cfg  = I2S_PDM_TX_CLK_DEFAULT_CONFIG(44100),
-        .slot_cfg = I2S_PDM_TX_SLOT_DEFAULT_CONFIG(
-                        I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_MONO),
-        .gpio_cfg = {
-            .clk = GPIO_NUM_26,   /* такт PDM */
-            .dout = GPIO_NUM_25,  /* однобітний потік даних */
-        },
-    };
-    i2s_channel_init_pdm_tx_mode(pdm_tx, &pdm_cfg);  /* PCM → PDM усередині */
-    i2s_channel_enable(pdm_tx);
-    /* далі — той самий i2s_channel_write() з PCM-відліками */
-}
-```
+:::code audio-playback-path/c/doroha-tretia-pdm-zvuk-u.c
 
 Що ж отримуєш за цю елегантність і де ламається аналогія «PDM = дешевий якісний звук»? Вихід тут — **однобітний**, тож у ньому багато високочастотного шуму квантування, який дельта-сигма виштовхнула нагору. Поки цей потік не усереднено, він **не** є звуком — це різкий писк на межі чутного й вище. Тому PDM **обов'язково** треба або відфільтрувати простим RC-колом (найдешевше, але й найгрубіше — для тихого «бікання» згодиться), або, набагато краще, віддати в мікросхему-підсилювач, зроблену під **PDM-вхід** (є, наприклад, версії підсилювачів класу D саме з PDM-входом — рідні брати I2S-варіанта). Плутати не можна: підсилювач, що чекає I2S, від PDM-потоку видасть шум, і навпаки.
 

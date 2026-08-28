@@ -53,38 +53,8 @@ int16_t temperature = -40;
 **Скільки разом коштують компоненти — рахуємо через змінні:**
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-int main(void) {
-    uint16_t price  = 0;     // комірка «сума», поки 0
-    uint16_t item   = 45;    // ціна однієї деталі
-
-    price = item;            // поклади в price вміст item → price = 45
-    price = price + item;    // праворуч 45+45=90, кладемо в price → price = 90
-    price = price + 20;      // праворуч 90+20=110, кладемо в price → price = 110
-
-    printf("Разом: %u\n", price);   // Разом: 110
-    return 0;
-}
-```
-```cpp
-#include <cstdint>           // ті самі типи, C++ бере заголовок як <cstdint>
-#include <cstdio>
-
-int main() {
-    uint16_t price  = 0;     // комірка «сума», поки 0
-    uint16_t item   = 45;    // ціна однієї деталі
-
-    price = item;            // поклади в price вміст item → price = 45
-    price = price + item;    // праворуч 45+45=90, кладемо в price → price = 90
-    price = price + 20;      // праворуч 90+20=110, кладемо в price → price = 110
-
-    printf("Разом: %u\n", price);   // Разом: 110
-    return 0;
-}
-```
+:::code c-variables-types/c/znak-tse-nakaz-a-ne.c
+:::code c-variables-types/cpp/znak-tse-nakaz-a-ne.cpp
 :::
 
 Кожен рядок із `=` — окремий крок «обчисли праворуч, перепиши комірку ліворуч». У `price = price + item` спершу читається поточний вміст `price` (90 на третьому кроці... власне, 45 на другому), додається `item`, і аж тоді результат затирає старе значення `price`. Стара величина щезає — комірка одна, і новий запис витісняє попередній. Саме тому `price = price + item` осмислене: праву частину обчислюють **до** запису, тож «старий price» іще існує в момент додавання.
@@ -138,30 +108,8 @@ uint32_t ticks;    // рівно 32 біти, беззнаковий
 **Скільки байтів займають різні типи:**
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-int main(void) {
-    printf("uint8_t : %zu байт\n", sizeof(uint8_t));   // 1
-    printf("uint32_t: %zu байт\n", sizeof(uint32_t));  // 4
-    printf("float   : %zu байт\n", sizeof(float));     // 4
-    printf("double  : %zu байт\n", sizeof(double));    // 8
-    return 0;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstdio>
-
-int main() {
-    printf("uint8_t : %zu байт\n", sizeof(uint8_t));   // 1
-    printf("uint32_t: %zu байт\n", sizeof(uint32_t));  // 4
-    printf("float   : %zu байт\n", sizeof(float));     // 4
-    printf("double  : %zu байт\n", sizeof(double));    // 8
-    return 0;
-}
-```
+:::code c-variables-types/c/spytaty-komirku-iaka-vona.c
+:::code c-variables-types/cpp/spytaty-komirku-iaka-vona.cpp
 :::
 
 `sizeof(uint32_t)` дає 4, бо 32 біти — це 4 байти по 8 бітів. Оператор рахує розмір **під час компіляції**, тож він нічого не «виконує» в рантаймі — це просто число, відоме заздалегідь. У прошивці `sizeof` незамінний, коли треба знати, скільки місця з'їдає структура даних, або передати розмір буфера у функцію, не вписуючи число вручну (щоб воно не розійшлося з реальним типом, якщо ви його зміните).

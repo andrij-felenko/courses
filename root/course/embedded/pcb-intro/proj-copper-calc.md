@@ -92,170 +92,29 @@ I = 0.024 · 10^0.44 · 36.5^0.725
 Спершу — найчесніший підхід: рахувати все у **внутрішніх одиницях стандарту** (мили й квадратні мили), бо так формула застосовується без жодних схованих коефіцієнтів, а вже на вході й виході переводити в звичні міліметри та мікрони. Так найважче помилитися: одиниці видно в кожному рядку. Почнімо зі спільного фундаменту — сталих і переведення одиниць:
 
 :::tabs
-```cpp
-#include <math.h>
-#include <stdbool.h>
-
-// Сталі підгінки кривих IPC-2221 (переріз — у кв. мілах, I — A, dT — °C).
-#define IPC_B   0.44
-#define IPC_C   0.725
-#define IPC_K_EXTERNAL  0.048   // мідь на зовнішньому шарі (обдувається)
-#define IPC_K_INTERNAL  0.024   // мідь на внутрішньому шарі (похована)
-
-#define MM_PER_MIL   0.0254     // 1 мил = 0.0254 мм
-#define MIL_PER_OZ   1.378      // товщина 1 oz міді у мілах
-#define PI_          3.14159265358979
-
-// Пряма формула IPC-2221: струм (А), який дасть переріз area_mils2 при перегріві dT.
-static double ipc2221_current(double area_mils2, double delta_t_c, double k)
-{
-    return k * pow(delta_t_c, IPC_B) * pow(area_mils2, IPC_C);
-}
-```
-```python
-import math
-
-# Сталі підгінки кривих IPC-2221 (переріз — у кв. мілах, I — A, dT — °C).
-IPC_B = 0.44
-IPC_C = 0.725
-IPC_K_EXTERNAL = 0.048   # мідь на зовнішньому шарі (обдувається)
-IPC_K_INTERNAL = 0.024   # мідь на внутрішньому шарі (похована)
-
-MM_PER_MIL = 0.0254      # 1 мил = 0.0254 мм
-MIL_PER_OZ = 1.378       # товщина 1 oz міді у мілах
-
-# Пряма формула IPC-2221: струм (А), який дасть переріз area_mils2 при перегріві dT.
-def ipc2221_current(area_mils2, delta_t_c, k):
-    return k * delta_t_c ** IPC_B * area_mils2 ** IPC_C
-```
+:::code proj-copper-calc/cpp/robochyi-kod.cpp
+:::code proj-copper-calc/py/robochyi-kod.py
 :::
 
 Одна маленька функція-ядро `ipc2221_current` — це і є вся формула; усе решта лише готує їй правильний переріз. Тепер **переріз via** — розкатане кільце:
 
 :::tabs
-```cpp
-// Переріз мідної стінки via у кв. мілах (наближення тонкої стінки: pi*d*t).
-//   drill_mm  — діаметр отвору (свердла), мм
-//   plating_um — товщина металізації (мідної стінки), мкм
-// Повертає площу в кв. мілах, або -1.0 при некоректних аргументах.
-double via_barrel_area_mils2(double drill_mm, double plating_um)
-{
-    if (drill_mm <= 0.0 || plating_um <= 0.0)
-        return -1.0;                       // безглузді розміри — не вгадуємо
-
-    double drill_mil   = drill_mm / MM_PER_MIL;        // діаметр у мілах
-    double plating_mil = (plating_um * 1e-3) / MM_PER_MIL;  // мкм->мм->мил
-    return PI_ * drill_mil * plating_mil;  // A ~ периметр * товщина
-}
-```
-```python
-# Переріз мідної стінки via у кв. мілах (наближення тонкої стінки: pi*d*t).
-#   drill_mm   — діаметр отвору (свердла), мм
-#   plating_um — товщина металізації (мідної стінки), мкм
-# Повертає площу в кв. мілах, або -1.0 при некоректних аргументах.
-def via_barrel_area_mils2(drill_mm, plating_um):
-    if drill_mm <= 0.0 or plating_um <= 0.0:
-        return -1.0                        # безглузді розміри — не вгадуємо
-
-    drill_mil   = drill_mm / MM_PER_MIL            # діаметр у мілах
-    plating_mil = (plating_um * 1e-3) / MM_PER_MIL  # мкм->мм->мил
-    return math.pi * drill_mil * plating_mil  # A ~ периметр * товщина
-```
+:::code proj-copper-calc/cpp/robochyi-kod-2.cpp
+:::code proj-copper-calc/py/robochyi-kod-2.py
 :::
 
 Зверни увагу на ланцюжок переведення металізації: мкм → мм (×0.001) → мили (÷0.0254). Кожен крок видно, бо саме на схованому переведенні одиниць гинуть такі калькулятори найчастіше — забув один множник, і переріз виходить у двадцять п'ять разів не той (рівно стільки разів мил відрізняється від міліметра). Далі — струм **одного** via:
 
 :::tabs
-```cpp
-// Струм (А), який пропускає ОДИН via заданого розміру при перегріві dT.
-//   drill_mm, plating_um — геометрія отвору
-//   delta_t_c            — допустимий перегрів, °C
-//   external             — true: рахувати із зовнішнім k (оптимістично);
-//                          false: внутрішній k (обережно, за замовчуванням)
-// Повертає струм на via в амперах, або -1.0 при некоректних аргументах.
-double via_current_a(double drill_mm, double plating_um,
-                     double delta_t_c, bool external)
-{
-    if (delta_t_c <= 0.0) return -1.0;
-    double area = via_barrel_area_mils2(drill_mm, plating_um);
-    if (area < 0.0) return -1.0;           // прокинути помилку розмірів
-
-    double k = external ? IPC_K_EXTERNAL : IPC_K_INTERNAL;
-    return ipc2221_current(area, delta_t_c, k);
-}
-```
-```python
-# Струм (А), який пропускає ОДИН via заданого розміру при перегріві dT.
-#   drill_mm, plating_um — геометрія отвору
-#   delta_t_c            — допустимий перегрів, °C
-#   external             — True: рахувати із зовнішнім k (оптимістично);
-#                          False: внутрішній k (обережно, за замовчуванням)
-# Повертає струм на via в амперах, або -1.0 при некоректних аргументах.
-def via_current_a(drill_mm, plating_um, delta_t_c, external):
-    if delta_t_c <= 0.0:
-        return -1.0
-    area = via_barrel_area_mils2(drill_mm, plating_um)
-    if area < 0.0:
-        return -1.0                        # прокинути помилку розмірів
-
-    k = IPC_K_EXTERNAL if external else IPC_K_INTERNAL
-    return ipc2221_current(area, delta_t_c, k)
-```
+:::code proj-copper-calc/cpp/robochyi-kod-3.cpp
+:::code proj-copper-calc/py/robochyi-kod-3.py
 :::
 
 І нарешті головна відповідь — **скільки via** треба паралельно під заданий струм:
 
 :::tabs
-```cpp
-// Скільки паралельних via треба, щоб провести струм target_a при перегріві dT.
-//   target_a  — потрібний струм крізь групу via, А
-//   drill_mm, plating_um — геометрія одного отвору
-//   delta_t_c — допустимий перегрів, °C
-//   external  — модель охолодження via (див. via_current_a)
-//   margin    — запас часток (0.15 = +15% отворів на нерівний розподіл струму)
-// Повертає кількість via (ціле, вже із запасом), або -1 при некоректних аргументах.
-int via_count_for_current(double target_a, double drill_mm, double plating_um,
-                          double delta_t_c, bool external, double margin)
-{
-    if (target_a <= 0.0 || margin < 0.0) return -1;
-
-    double per_via = via_current_a(drill_mm, plating_um, delta_t_c, external);
-    if (per_via <= 0.0) return -1;         // помилка розмірів або dT
-
-    // Скільки треба «в лоб»: округлити ВГОРУ (пів-via не буває).
-    double raw = ceil(target_a / per_via);
-
-    // Додати запас на нерівний розподіл струму й округлити вгору знову.
-    int n = (int)ceil(raw * (1.0 + margin));
-    return n < 1 ? 1 : n;                  // хоч один via завжди потрібен
-}
-```
-```python
-import math
-
-# Скільки паралельних via треба, щоб провести струм target_a при перегріві dT.
-#   target_a  — потрібний струм крізь групу via, А
-#   drill_mm, plating_um — геометрія одного отвору
-#   delta_t_c — допустимий перегрів, °C
-#   external  — модель охолодження via (див. via_current_a)
-#   margin    — запас часток (0.15 = +15% отворів на нерівний розподіл струму)
-# Повертає кількість via (ціле, вже із запасом), або -1 при некоректних аргументах.
-def via_count_for_current(target_a, drill_mm, plating_um,
-                          delta_t_c, external, margin):
-    if target_a <= 0.0 or margin < 0.0:
-        return -1
-
-    per_via = via_current_a(drill_mm, plating_um, delta_t_c, external)
-    if per_via <= 0.0:
-        return -1                          # помилка розмірів або dT
-
-    # Скільки треба «в лоб»: округлити ВГОРУ (пів-via не буває).
-    raw = math.ceil(target_a / per_via)
-
-    # Додати запас на нерівний розподіл струму й округлити вгору знову.
-    n = math.ceil(raw * (1.0 + margin))
-    return 1 if n < 1 else n               # хоч один via завжди потрібен
-```
+:::code proj-copper-calc/cpp/robochyi-kod-4.cpp
+:::code proj-copper-calc/py/robochyi-kod-4.py
 :::
 
 Логіка тут така, як її диктує фізика й здоровий глузд. Спершу ділимо потрібний струм на те, що тягне один via, і **округлюємо вгору** — бо частини отвору не існує, і якщо вийшло «5.2 via», ставити треба шість, а не п'ять. Потім накидаємо **запас** (типово +15 %): у реальному полі via струм між ними тече **нерівно** — крайні отвори ближчі до входу доріжки й беруть на себе більше, ніж центральні, тож середнє «стільки-то ампер на via» ідеалізує. Запас це вирівнює. І округлюємо вгору ще раз. Останній рядок ловить вироджений випадок: навіть під мізерний струм отвір потрібен хоча б один — нуль via означав би розрив ланцюга.

@@ -43,53 +43,11 @@ esp_deep_sleep_start();   // і все?
 
 Опишемо безпечний профіль сну **таблицею**, а не розкиданими по коду викликами. Таблиця — це список ніжок із бажаним станом кожної; один цикл її застосовує. Так додавання нової ніжки на платі — це один рядок, а не полювання по всьому коду, де її «теж треба не забути».
 
-```c
-#include "driver/gpio.h"
-#include "driver/rtc_io.h"
-#include "esp_sleep.h"
-
-// Безпечний стан ніжки уві сні.
-typedef enum {
-    SLEEP_LOW,   // вихід, що тримає 0 В (дивиться у вузол, якому знімемо VDD)
-    SLEEP_HIZ,   // вхід без підтяжок, високий опір (нічого не тягне)
-} sleep_state_t;
-
-typedef struct {
-    gpio_num_t    pin;
-    sleep_state_t state;
-    const char   *name;   // для зрозумілих логів
-} sleep_pin_t;
-
-// Єдине джерело правди: який стан безпечний для кожної ніжки уві сні.
-// Додав ніжку на платі — додав сюди рядок, і прохід її не забуде.
-static const sleep_pin_t SLEEP_PROFILE[] = {
-    { SENSOR_DATA_PIN, SLEEP_LOW, "sensor_data" },   // дивиться у давач → 0 В
-    { SENSOR_CLK_PIN,  SLEEP_LOW, "sensor_clk"  },
-    { DISPLAY_DC_PIN,  SLEEP_LOW, "display_dc"  },
-    { RADIO_CS_PIN,    SLEEP_LOW, "radio_cs"    },
-    { SPARE_GPIO_PIN,  SLEEP_HIZ, "spare"       },   // нікуди не штовхає → Hi-Z
-};
-#define SLEEP_PROFILE_LEN (sizeof(SLEEP_PROFILE) / sizeof(SLEEP_PROFILE[0]))
-```
+:::code proj-sleep-audit-firmware/c/krok-1-odyn-prokhid-zvodyt.c
 
 Тепер один прохід застосовує профіль. Для LOW ми робимо ніжку виходом і виставляємо 0; для Hi-Z — входом і **знімаємо обидві внутрішні підтяжки** (інакше «вхід» все одно тягтиме струм крізь підтяжку):
 
-```c
-static void apply_sleep_profile(void)
-{
-    for (size_t i = 0; i < SLEEP_PROFILE_LEN; i++) {
-        const sleep_pin_t *s = &SLEEP_PROFILE[i];
-
-        if (s->state == SLEEP_LOW) {
-            gpio_set_direction(s->pin, GPIO_MODE_OUTPUT);
-            gpio_set_level(s->pin, 0);                 // 0 В: діод вузла замкнений
-        } else { // SLEEP_HIZ
-            gpio_set_direction(s->pin, GPIO_MODE_INPUT);
-            gpio_set_pull_mode(s->pin, GPIO_FLOATING); // зняти обидві підтяжки
-        }
-    }
-}
-```
+:::code proj-sleep-audit-firmware/c/krok-1-odyn-prokhid-zvodyt-2.c
 
 Один виклик `apply_sleep_profile()` — і **жодна** ніжка з таблиці не лишилася в небезпечному стані. Це той самий «один прохід», про який каже стаття: не точкові правки, а суцільний обхід, який нічого не пропускає.
 
@@ -113,21 +71,7 @@ I = 3.3 В / 45 кОм ≈ 73 мкА
 
 Правильний порядок випливає прямо з механізму діода: **різниці потенціалів не повинно бути в жоден момент**. Отже, спершу прибираємо потенціал із сигналів (зводимо в LOW), і **тільки потім** знімаємо живлення вузла:
 
-```c
-// ПРАВИЛЬНО: спершу зняти сигнали, потім гасити живлення вузла
-static void sensor_power_down(void)
-{
-    // 1) Знімаємо потенціал із усіх ліній, що дивляться в давач.
-    gpio_set_level(SENSOR_DATA_PIN, 0);
-    gpio_set_level(SENSOR_CLK_PIN,  0);
-    gpio_set_level(SENSOR_CS_PIN,   0);
-
-    // 2) Лише тепер гасимо VDD вузла через його load switch.
-    //    На момент зняття живлення на жодній ніжці немає 3.3 В →
-    //    діод давача замкнений → зворотного струму немає.
-    gpio_set_level(SENSOR_LOADSW_EN, 0);
-}
-```
+:::code proj-sleep-audit-firmware/c/krok-2-pravylnyi-poriadok.c
 
 І дзеркально на пробудженні — порядок **зворотний**: спершу подаємо живлення вузлу, даємо йому стабілізуватися, і **лише потім** піднімаємо сигнали. Бо якщо підняти CS у HIGH, поки VDD вузла ще наростає (скажімо, 1.5 В), ми знову маємо різницю потенціалів не в той бік — і знову струм крізь діод, тепер уже на ввімкненні:
 
@@ -157,19 +101,7 @@ static void sensor_power_up(void)
 
 Тобто правильна пара для ESP32 — це **обидва**: `gpio_hold_en()` на кожну ніжку, чий рівень треба втримати, плюс **один** загальний `gpio_deep_sleep_hold_en()` перед самим сном:
 
-```c
-static void freeze_pins_for_deep_sleep(void)
-{
-    // 1) Заморозити рівень кожної цифрової ніжки з профілю.
-    for (size_t i = 0; i < SLEEP_PROFILE_LEN; i++) {
-        gpio_hold_en(SLEEP_PROFILE[i].pin);   // залочити поточний (LOW/Hi-Z) стан
-    }
-
-    // 2) Увімкнути утримання цифрових ніжок саме на час deep-sleep.
-    //    Без цього рядка на ESP32 п.1 не діє у глибокому сні!
-    gpio_deep_sleep_hold_en();
-}
-```
+:::code proj-sleep-audit-firmware/c/krok-3-zamorozyty-rivni-na.c
 
 **`rtc_gpio_isolate(pin)` — окрема ізоляція RTC-ніжки.** Це третій, найтонший засіб, і він про інший клас ніжок. Частина ніжок ESP32 належить RTC-домену (вони лишаються живими в deep-sleep, ними будять чип тощо). Для такої ніжки буває, що зовнішня підтяжка на платі **конфліктує** з внутрішньою підтяжкою протилежного напрямку — і крізь цю пару резисторів постійно тече струм, навіть коли ніжка нікуди логічно не приєднана. Класичний приклад — GPIO12 (MTDI) на модулях WROVER: зовні підтягнутий угору, а всередині чипа має підтяжку вниз. У документації прямо радять для такого модуля викликати `rtc_gpio_isolate(GPIO_NUM_12)` перед сном, щоб скинути зайвий струм. Функція *«від'єднує внутрішні кола від RTC-ніжки: вимикає вхід, вихід, підтяжку вгору, підтяжку вниз і вмикає утримання»* — тобто робить ніжку справді ізольованою, без жодного шляху для струму:
 
@@ -184,20 +116,7 @@ static void isolate_rtc_pins(void)
 
 Складаємо весь крок засинання в одну функцію — і це фінал прошивкової частини: профіль, порядок, заморозка, ізоляція, сон.
 
-```c
-void enter_audited_deep_sleep(void)
-{
-    apply_sleep_profile();          // 1) усі ніжки → безпечний рівень (один прохід)
-    sensor_power_down();            // 2) правильний порядок: сигнали → потім VDD
-    display_power_down();           //    (так само для решти вузлів за load switch)
-    radio_power_down();
-
-    freeze_pins_for_deep_sleep();   // 3) заморозити цифрові ніжки на deep-sleep
-    isolate_rtc_pins();             //    + ізолювати конфліктні RTC-ніжки
-
-    esp_deep_sleep_start();         // тепер кран закритий з усіх боків
-}
-```
+:::code proj-sleep-audit-firmware/c/krok-3-zamorozyty-rivni-na-2.c
 
 > 🔧 **Навіщо це.** Три засоби — три різні діри: `gpio_hold_en` тримає рівень, `gpio_deep_sleep_hold_en` вмикає це утримання саме в deep-sleep на ESP32, `rtc_gpio_isolate` прибирає струм крізь конфліктні підтяжки RTC-ніжок. Пропустиш `deep_sleep_hold` — рівні «попливуть» уві сні; пропустиш `isolate` на проблемній ніжці — лишиться десяток-другий мкА «нізвідки». Кожен виклик закриває свій конкретний шлях, тому в робочому коді вони майже завжди йдуть разом.
 
@@ -225,52 +144,11 @@ if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_UNDEFINED) {
 
 Опишемо гілки тією ж табличною ідеєю, що й ніжки: кожна гілка — це її `EN`-пін load switch-а й людська назва.
 
-```c
-typedef struct {
-    gpio_num_t  en_pin;     // EN load switch-а гілки (1 = гілка під живленням)
-    const char *name;
-} power_branch_t;
-
-static const power_branch_t BRANCHES[] = {
-    { SENSOR_LOADSW_EN,  "sensor"  },
-    { RADIO_LOADSW_EN,   "radio"   },
-    { DISPLAY_LOADSW_EN, "display" },
-};
-#define BRANCH_LEN (sizeof(BRANCHES) / sizeof(BRANCHES[0]))
-
-static void all_branches_off(void)
-{
-    for (size_t i = 0; i < BRANCH_LEN; i++)
-        gpio_set_level(BRANCHES[i].en_pin, 0);
-}
-```
+:::code proj-sleep-audit-firmware/c/krok-4-self-test-shcho.c
 
 Тепер сам прохід. Він спершу гасить усе (отримуємо «підлогу» — струм самого сплячого чипа), а далі по черзі піднімає одну гілку, витримує паузу на стабілізацію й **зупиняється**, лишаючи цю одну гілку ввімкненою рівно настільки, щоб ти зняв показ. Між кроками самотест друкує підказку в лог — щоб у терміналі було видно, *яку саме* конфігурацію зараз міряєш:
 
-```c
-// Самотест ділення навпіл: лишає по одній гілці й чекає зняття струму.
-// Запускати з пристроєм у розриві живлення під лічильником/профілювальником.
-void sleep_self_test(void)
-{
-    const TickType_t SETTLE = pdMS_TO_TICKS(3000);  // час зняти усталене число
-
-    apply_sleep_profile();   // ніжки — у безпечний стан, як перед справжнім сном
-    all_branches_off();
-    ESP_LOGI("AUDIT", "усі гілки OFF — зніми струм (це ПІДЛОГА: сам чип)");
-    vTaskDelay(SETTLE);
-
-    for (size_t i = 0; i < BRANCH_LEN; i++) {
-        all_branches_off();
-        gpio_set_level(BRANCHES[i].en_pin, 1);       // лишаємо рівно одну гілку
-        ESP_LOGI("AUDIT", "увімкнено ТІЛЬКИ '%s' — зніми струм; "
-                          "внесок гілки = показ − підлога", BRANCHES[i].name);
-        vTaskDelay(SETTLE);
-    }
-
-    all_branches_off();
-    ESP_LOGI("AUDIT", "self-test завершено — усі гілки OFF");
-}
-```
+:::code proj-sleep-audit-firmware/c/krok-4-self-test-shcho-2.c
 
 Прочитати результат просто: записуєш «підлогу» (усе off), тоді кожне число «тільки гілка X», віднімаєш підлогу — і маєш внесок кожної гілки окремо. Велике число — винна гілка, далі ділиш уже **всередині** неї (вимикаєш у ній окремі мікросхеми тим самим прийомом). Це дослівно той розклад, що в worked-прикладі статті: радіо ~6 мкА, дисплей ~22 мкА, давач-гілка ~440 мкА — винний видно з першого прогону.
 
@@ -278,28 +156,7 @@ void sleep_self_test(void)
 
 Дотепер струм читає зовнішній лічильник, а прошивка лише перемикає гілки. Можна піти далі: якщо на платі є **монітор струму** на шині (давач струму на I²C — клас INA-подібних мікросхем), прошивка зчитає число сама й одразу впише його в лог поряд із назвою гілки. Тоді весь аудит — це один прогін без людини з мультиметром:
 
-```c
-void sleep_self_test_auto(void)
-{
-    const TickType_t SETTLE = pdMS_TO_TICKS(500);
-
-    apply_sleep_profile();
-    all_branches_off();
-    vTaskDelay(SETTLE);
-    float floor_uA = power_monitor_read_uA();      // підлога: сам чип
-    ESP_LOGI("AUDIT", "підлога (сам чип): %.1f мкА", floor_uA);
-
-    for (size_t i = 0; i < BRANCH_LEN; i++) {
-        all_branches_off();
-        gpio_set_level(BRANCHES[i].en_pin, 1);
-        vTaskDelay(SETTLE);
-        float total = power_monitor_read_uA();
-        ESP_LOGI("AUDIT", "гілка '%-8s': %.1f мкА  (внесок %.1f мкА)",
-                 BRANCHES[i].name, total, total - floor_uA);
-    }
-    all_branches_off();
-}
-```
+:::code proj-sleep-audit-firmware/c/self-test-chesnishyi.c
 
 Тут є чесне обмеження, яке варто назвати: **сам монітор струму на шині теж споживає** і теж має свою точність. Він добре бачить десятки-сотні мкА (внески гілок), але на самій підлозі в одиниці мкА його похибка вже відчутна. Тому вбудований монітор — інструмент *грубого* ділення навпіл (знайти гілку-винуватця), а фінальне число одиниць мкА однаково знімають зовнішнім [профілювальником](root:embedded/measure-consumption/comp-current-profiler.md), який тримає п'ять-сім порядків струму одним трактом. Вбудований self-test не заміняє чесний прилад — він економить години на грубому етапі, доводячи пошук до конкретної гілки автоматично.
 
@@ -313,31 +170,7 @@ void sleep_self_test_auto(void)
 
 Найпростіша реалізація — тримати baseline прямо в прошивці як константу й мати «режим аудиту», що знімає поточний струм вбудованим монітором і порівнює з нею. Перевищив поріг — гучна помилка ще на столі:
 
-```c
-// Записане базове число — оновлюємо ВРУЧНУ лише коли аудит свідомо зійшовся.
-#define SLEEP_BASELINE_UA   26.0f    // зняте після фіксу (див. worked-приклад статті)
-#define SLEEP_TOLERANCE_UA  10.0f    // допуск на розкид плат/температуру
-
-// Режим аудиту: завести в сон, зняти струм, звірити з baseline.
-void assert_sleep_baseline(void)
-{
-    apply_sleep_profile();
-    sensor_power_down();
-    display_power_down();
-    radio_power_down();
-    vTaskDelay(pdMS_TO_TICKS(1000));     // дати струму усталитися
-
-    float now = power_monitor_read_uA();
-    if (now > SLEEP_BASELINE_UA + SLEEP_TOLERANCE_UA) {
-        ESP_LOGE("AUDIT", "РЕГРЕСІЯ струму спокою: %.1f мкА проти baseline %.1f мкА "
-                          "(+%.1f). Хтось лишив ніжку в HIGH?",
-                 now, SLEEP_BASELINE_UA, now - SLEEP_BASELINE_UA);
-    } else {
-        ESP_LOGI("AUDIT", "струм спокою OK: %.1f мкА (baseline %.1f)",
-                 now, SLEEP_BASELINE_UA);
-    }
-}
-```
+:::code proj-sleep-audit-firmware/c/krok-4-bis-baseline-iak.c
 
 Два дисциплінарні правила, без яких baseline не працює.
 

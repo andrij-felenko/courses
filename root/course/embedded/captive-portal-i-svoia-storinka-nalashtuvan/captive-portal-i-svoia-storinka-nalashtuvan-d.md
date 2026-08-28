@@ -141,90 +141,8 @@ DNS-повідомлення складається з фіксованого 12
 Практична реалізація бінарного перехоплювача DNS без динамічного виділення пам'яті:
 
 :::tabs
-```c
-#include <string.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-
-void process_dns_packet(uint8_t *buf, int *len, in_addr_t local_ip) {
-    if (*len < 12) return; // Пакет пошкоджений або коротший за заголовок
-
-    // Встановлюємо прапорці відповіді (QR=1, AA=1, RA=1, RCODE=0)
-    buf[2] = 0x81;
-    buf[3] = 0x80;
-
-    // Встановлюємо кількість відповідей ANCOUNT = 1
-    buf[6] = 0x00;
-    buf[7] = 0x01;
-
-    // Скидаємо NSCOUNT та ARCOUNT
-    buf[8] = 0; buf[9] = 0;
-    buf[10] = 0; buf[11] = 0;
-
-    int offset = *len;
-
-    // Дописуємо блок Resource Record
-    buf[offset++] = 0xC0; // Вказівник на ім'я QNAME (зміщення 12)
-    buf[offset++] = 0x0C;
-    buf[offset++] = 0x00; // TYPE A (0x0001)
-    buf[offset++] = 0x01;
-    buf[offset++] = 0x00; // CLASS IN (0x0001)
-    buf[offset++] = 0x01;
-    buf[offset++] = 0x00; // TTL: 10 секунд (0x0000000A)
-    buf[offset++] = 0x00;
-    buf[offset++] = 0x00;
-    buf[offset++] = 0x0A;
-    buf[offset++] = 0x00; // RDLENGTH: 4 байти
-    buf[offset++] = 0x04;
-
-    // RDATA: копіюємо 4 байти IP-адреси
-    memcpy(&buf[offset], &local_ip, 4);
-    offset += 4;
-
-    *len = offset;
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <cstring>
-#include <netinet/in.h>
-
-namespace embedded::dns {
-
-struct [[nodiscard]] DnsSpoofer {
-    static constexpr uint8_t FlagsHigh = 0x81; // QR=1, AA=1
-    static constexpr uint8_t FlagsLow  = 0x80; // RA=1, RCODE=0
-    static constexpr uint32_t TtlSeconds = 10;
-
-    static size_t spoofResponse(std::span<uint8_t> packet, size_t queryLen, uint32_t localIpNetworkOrder) noexcept {
-        if (queryLen < 12 || packet.size() < queryLen + 16) {
-            return 0;
-        }
-
-        packet[2] = FlagsHigh;
-        packet[3] = FlagsLow;
-        packet[6] = 0x00; packet[7] = 0x01; // ANCOUNT = 1
-        packet[8] = 0x00; packet[9] = 0x00; // NSCOUNT = 0
-        packet[10] = 0x00; packet[11] = 0x00; // ARCOUNT = 0
-
-        size_t offset = queryLen;
-        packet[offset++] = 0xC0; packet[offset++] = 0x0C; // Pointer to QNAME
-        packet[offset++] = 0x00; packet[offset++] = 0x01; // Type A
-        packet[offset++] = 0x00; packet[offset++] = 0x01; // Class IN
-        packet[offset++] = 0x00; packet[offset++] = 0x00;
-        packet[offset++] = 0x00; packet[offset++] = static_cast<uint8_t>(TtlSeconds);
-        packet[offset++] = 0x00; packet[offset++] = 0x04; // Length 4
-
-        std::memcpy(&packet[offset], &localIpNetworkOrder, sizeof(localIpNetworkOrder));
-        offset += sizeof(localIpNetworkOrder);
-
-        return offset;
-    }
-};
-
-} // namespace embedded::dns
-```
+:::code captive-portal-i-svoia-storinka-nalashtuvan-d/c/binarna-anatomiia-dns.c
+:::code captive-portal-i-svoia-storinka-nalashtuvan-d/cpp/binarna-anatomiia-dns.cpp
 :::
 
 ---
@@ -399,54 +317,8 @@ Expires: 0
 Збереження облікових даних у Flash-пам'ять виконується за допомогою атомарних операцій через підсистему Non-Volatile Storage (NVS):
 
 :::tabs
-```c
-#include "nvs_flash.h"
-#include "nvs.h"
-
-esp_err_t save_wifi_credentials(const char *ssid, const char *pass) {
-    nvs_handle_t handle;
-    esp_err_t err = nvs_open("wifi_cfg", NVS_READWRITE, &handle);
-    if (err != ESP_OK) return err;
-
-    nvs_set_str(handle, "ssid", ssid);
-    nvs_set_str(handle, "password", pass);
-    nvs_set_u8(handle, "configured", 1);
-    
-    err = nvs_commit(handle); // Фіксація транзакції у Flash
-    nvs_close(handle);
-    return err;
-}
-```
-```cpp
-#include <string_view>
-#include <string>
-#include "nvs_flash.h"
-#include "nvs.h"
-
-namespace embedded::storage {
-
-[[nodiscard]] inline bool saveWifiCredentials(std::string_view ssid, std::string_view pass) noexcept {
-    nvs_handle_t handle{};
-    if (nvs_open("wifi_cfg", NVS_READWRITE, &handle) != ESP_OK) {
-        return false;
-    }
-
-    struct NvsGuard {
-        nvs_handle_t h;
-        ~NvsGuard() { nvs_close(h); }
-    } guard{handle};
-
-    std::string s(ssid);
-    std::string p(pass);
-    nvs_set_str(handle, "ssid", s.c_str());
-    nvs_set_str(handle, "password", p.c_str());
-    nvs_set_u8(handle, "configured", 1);
-
-    return nvs_commit(handle) == ESP_OK;
-}
-
-} // namespace embedded::storage
-```
+:::code captive-portal-i-svoia-storinka-nalashtuvan-d/c/zberezhennia-u-nvs-ta.c
+:::code captive-portal-i-svoia-storinka-nalashtuvan-d/cpp/zberezhennia-u-nvs-ta.cpp
 :::
 
 Після успішного запису конфігурації веб-сервер повинен повернути клієнту фінальну відповідь `HTTP 200 OK` і лише після цього перезапустити систему. Якщо викликати системну функцію `esp_restart()` безпосередньо всередині обробника `POST /api/save`, мікроконтролер скинеться до того, як радіомодуль встигне фізично передати пакети відповіді в ефір. Телефон користувача отримає помилку розриву з'єднання, і користувач вирішить, що збереження не відбулося.

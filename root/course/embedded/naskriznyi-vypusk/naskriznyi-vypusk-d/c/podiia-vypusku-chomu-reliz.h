@@ -1,0 +1,10 @@
+#ifndef VERSION_AUTOGEN_H
+#define VERSION_AUTOGEN_H
+
+#define FW_VERSION_MAJOR 2
+#define FW_VERSION_MINOR 4
+#define FW_VERSION_PATCH 0
+#define FW_COMMIT_HASH   0x7a8f9c4b
+#define FW_VERSION_STR   "2.4.0"
+
+#endif /* VERSION_AUTOGEN_H */

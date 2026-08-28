@@ -56,72 +56,17 @@
 
 Зберімо все в одну функцію `enter_deep_sleep()`, що йде рівно за нашими чотирма кроками. Код реальний, під ESP-IDF; підставте свої номери пінів і адреси давача. Спершу — оголошення й карта пінів плати, бо весь чек-лист крутиться навколо неї.
 
-```c
-#include "esp_sleep.h"
-#include "driver/gpio.h"
-#include "driver/rtc_io.h"
-#include "driver/i2c.h"
-#include "esp_log.h"
-#include <inttypes.h>
-
-static const char *TAG = "sleep";
-
-// ── Карта пінів плати ─────────────────────────────────────────────────────
-// Уся суть чек-листа — знати КОЖЕН пін і що з ним робити в сні.
-#define PIN_SENSOR_PWR   GPIO_NUM_25   // затвор load switch гілки давача
-#define PIN_I2C_SDA      GPIO_NUM_21
-#define PIN_I2C_SCL      GPIO_NUM_22
-#define PIN_WAKE         GPIO_NUM_33   // кнопка/переривання давача — RTC-пін!
-#define PIN_STATUS_LED   GPIO_NUM_2    // лишок від DevKit, у сні гасимо
-
-#define SENSOR_I2C_ADDR  0x76
-#define SENSOR_REG_CTRL  0xF4          // регістр керування живленням давача
-#define SENSOR_MODE_SLEEP 0x00         // "sleep" за даташитом давача
-
-#define I2C_PORT         I2C_NUM_0
-```
+:::code proj-sleep-firmware/c/robochyi-c-chek-lyst.c
 
 Тепер **крок 1 — приспати периферію**. Поки шина жива, наказуємо давачу заснути. Це запис одного регістра, але без нього давач лишиться в періодичному вимірі й тягтиме свій струм — байдуже, що ядро спить.
 
-```c
-// ── Крок 1: явно приспати зовнішній давач по шині ─────────────────────────
-// Поки I2C ще живий і гілка ще під напругою — інакше команду не віддати.
-static void sensor_power_down(void)
-{
-    uint8_t cmd[2] = { SENSOR_REG_CTRL, SENSOR_MODE_SLEEP };
-    esp_err_t err = i2c_master_write_to_device(
-        I2C_PORT, SENSOR_I2C_ADDR, cmd, sizeof(cmd),
-        pdMS_TO_TICKS(50));
-    if (err != ESP_OK) {
-        // Давач не відповів — це саме по собі проблема бюджету:
-        // не приспаний давач з'їсть сон. Логуємо, а не мовчимо.
-        ESP_LOGW(TAG, "davach ne zasnuv: %s", esp_err_to_name(err));
-    }
-    i2c_driver_delete(I2C_PORT);   // звільнити драйвер шини
-}
-```
+:::code proj-sleep-firmware/c/robochyi-c-chek-lyst-2.c
 
 Зверніть увагу на дрібницю з великими наслідками: якщо давач не відповів, ми **не мовчимо**. Мовчазний збій тут — саме той випадок, коли пристрій «спить» на сотнях мікроампер, і ніхто не знає чому. Одне попередження в лог рятує години пошуку.
 
 **Крок 2 — опустити сигнальні лінії.** Драйвер I²C ми зняли; тепер лінії SDA/SCL стали звичайними пінами. Переводимо їх у стан, що не тече струмом. І одразу гасимо залишковий status-LED, якщо він лишився від DevKit.
 
-```c
-// ── Крок 2: опустити сигнали ДО зняття живлення гілки ─────────────────────
-// Якщо зробити навпаки, лінії у "1" живитимуть мертвий давач крізь діоди.
-static void quiesce_signals(void)
-{
-    // Лінії шини до давача — у нуль (підтяжки шини зовнішні, тож нуль безпечний).
-    gpio_set_direction(PIN_I2C_SDA, GPIO_MODE_OUTPUT);
-    gpio_set_direction(PIN_I2C_SCL, GPIO_MODE_OUTPUT);
-    gpio_set_level(PIN_I2C_SDA, 0);
-    gpio_set_level(PIN_I2C_SCL, 0);
-
-    // Status-LED — погасити напевно.
-    gpio_reset_pin(PIN_STATUS_LED);
-    gpio_set_direction(PIN_STATUS_LED, GPIO_MODE_OUTPUT);
-    gpio_set_level(PIN_STATUS_LED, 0);
-}
-```
+:::code proj-sleep-firmware/c/robochyi-c-chek-lyst-3.c
 
 **Крок 3 — зняти живлення гілки.** Аж тепер, коли сигнали вже внизу, вимикаємо load switch. Гілка знеструмлюється чисто, без зворотного струму крізь діоди — саме тому цей крок стоїть після кроку 2, а не переплутаний з ним.
 
@@ -138,41 +83,7 @@ static void cut_sensor_branch(void)
 
 **Крок 4 — заснути.** Найтонший крок. Спершу **утримуємо** критичні рівні, щоб вони пережили знеструмлення цифрового домену. Потім **ізолюємо** пін пробудження й налаштовуємо його як джерело з RTC-домену. І лише тоді викликаємо сон.
 
-```c
-// ── Крок 4: утримати рівні, вибрати пробудження, заснути ──────────────────
-static void arm_and_sleep(void)
-{
-    // 4a. Утримати критичний рівень load switch крізь сон.
-    //     Без цього пін "попливе" в сні → гілка може ожити → стрибок струму.
-    gpio_hold_en(PIN_SENSOR_PWR);
-    gpio_deep_sleep_hold_en();   // увімкнути утримання ЦИФРОВИХ пінів у deep-sleep
-
-    // 4b. Джерело пробудження — з RTC-домену. ext1 працює навіть із
-    //     ВИМКНЕНОЮ RTC-периферією, тож економніший за ext0.
-    const uint64_t wake_mask = (1ULL << PIN_WAKE);
-    esp_sleep_enable_ext1_wakeup(wake_mask, ESP_EXT1_WAKEUP_ANY_HIGH);
-
-    // 4c. Явно вимкнути RTC-периферію: нам потрібен лише RTC-таймер/контролер.
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);
-
-    // 4d. (для WROVER) зняти зайвий струм крізь підтяжку GPIO12.
-    //     На WROVER GPIO12 має зовнішню підтяжку + внутрішній pulldown —
-    //     у сні крізь них тече струм. rtc_gpio_isolate обриває цей шлях.
-    rtc_gpio_isolate(GPIO_NUM_12);
-
-    ESP_LOGI(TAG, "vhodymo v deep-sleep");
-    esp_deep_sleep_start();       // сюди код більше не повертається
-}
-
-// ── Повний чек-лист засинання: рівно чотири кроки, у жорсткому порядку ─────
-void enter_deep_sleep(void)
-{
-    sensor_power_down();   // 1. приспати периферію по шині
-    quiesce_signals();     // 2. опустити сигнали
-    cut_sensor_branch();   // 3. зняти живлення гілки
-    arm_and_sleep();       // 4. утримати, обрати пробудження, заснути
-}
-```
+:::code proj-sleep-firmware/c/robochyi-c-chek-lyst-4.c
 
 Функція `esp_deep_sleep_start()` не повертає керування: після неї чип спить, а прокинувшись — стартує з нуля, як після скидання. Тому весь чек-лист і зібрано в одну функцію, яку викликають **останньою** в циклі роботи.
 

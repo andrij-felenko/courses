@@ -55,19 +55,7 @@ gcc main.o led.o uart.o -o firmware.elf   # лінкуємо все докупи
 
 Розберімо на нашому прикладі. Щоб отримати `firmware.elf`, потрібні три `.o`, а зробити його — командою лінкування:
 
-```make
-firmware.elf: main.o led.o uart.o
-	gcc main.o led.o uart.o -o firmware.elf
-
-main.o: main.c led.h uart.h
-	gcc -c main.c -o main.o
-
-led.o: led.c led.h
-	gcc -c led.c -o led.o
-
-uart.o: uart.c uart.h
-	gcc -c uart.c -o uart.o
-```
+:::code c-modules-build/make/Makefile
 
 Тепер уся збірка — одна команда в терміналі: `make`. Make прочитає `Makefile`, побачить, що ви хочете `firmware.elf`, з'ясує, що для нього треба три `.o`, для кожного `.o` — свій `.c` і заголовки, — і виконає потрібні команди в правильному порядку. Замість десятків команд руками — одне слово.
 

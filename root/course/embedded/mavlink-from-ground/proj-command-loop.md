@@ -35,42 +35,7 @@ WAITING_ACK  наказ відправлено, чекаємо підтверд�
 
 Почнімо з даних. Зберімо в одну структуру геть усе, що описує **одну команду, яка зараз пробивається до борту**: кого ми наказуємо, що саме, скільки разів уже стріляли, коли пора повторити й скільки спроб лишилось. Відокремлення цього стану в структуру — не косметика: воно дає змогу мати **кілька незалежних командних циклів** (наприклад, окремий до автопілота й окремий до підвісу камери), не плутаючи їхні таймери.
 
-```c
-// command_loop.h — надійна доставка ОДНОЇ команди борту
-#include <stdint.h>
-#include <stdbool.h>
-#include "mavlink.h"   // згенерований діалект (common / ardupilotmega)
-
-typedef enum {
-    CMD_IDLE = 0,      // немає активної команди
-    CMD_WAITING,       // відправлено, чекаємо COMMAND_ACK
-    CMD_DONE,          // прийнято й виконано (ACCEPTED)
-    CMD_FAILED         // відхилено / не підтримано / вичерпано спроби
-} cmd_state_t;
-
-typedef struct {
-    cmd_state_t state;
-
-    // ── кого й що ми наказуємо (задається при старті команди) ──────────
-    uint8_t  target_sys;    // SYS борту, якому шлемо
-    uint8_t  target_comp;   // COMP на борту (1 = автопілот)
-    uint16_t command;       // MAV_CMD_* — номер команди
-    float    params[7];     // param1..param7 для COMMAND_LONG
-
-    // ── лічильники повтору ─────────────────────────────────────────────
-    uint8_t  confirmation;  // росте з кожним повтором (поле пакета)
-    uint8_t  attempts_left; // скільки ще повторів дозволено
-    uint32_t deadline_ms;   // абсолютний час, коли мовчанку вважати втратою
-
-    // ── налаштування (розумні типові значення) ─────────────────────────
-    uint32_t timeout_ms;    // базовий таймаут очікування ACK
-    uint8_t  max_attempts;  // усього спроб (перша + повтори)
-
-    // ── підсумок для оператора ─────────────────────────────────────────
-    uint8_t  last_result;   // останній MAV_RESULT з ACK
-    uint8_t  progress;      // 0..100 при IN_PROGRESS (UINT8_MAX = невідомо)
-} cmd_loop_t;
-```
+:::code proj-command-loop/c/stan-tsyklu-odna-struktura.c
 
 Кожне поле тут — вкладена в код думка з теорії циклу, а не випадковий параметр.
 
@@ -92,66 +57,7 @@ typedef struct {
 
 Тепер — власне відправлення. Одна функція запускає команду: заповнює стан, збирає пакет COMMAND_LONG через згенерований API бібліотеки MAVLink, віддає його в канал і засікає перший `deadline`. Тут використаємо **реальний** C-API бібліотеки `c_library_v2` — той самий, що працює на борту й у станціях, — а не псевдокод.
 
-```c
-#include <string.h>
-
-// Ідентифікація НАШОЇ сторони (наземна станція чи борт-ретранслятор)
-#define MY_SYS   255   // 255 — типовий SYS для GCS
-#define MY_COMP  MAV_COMP_ID_MISSIONPLANNER   // 190; або свій COMP
-
-// Абстракція виведення байтів у канал (UART / сокет / радіомодем).
-// Реалізуй під свою платформу; повертає кількість відданих байтів.
-extern int link_write(const uint8_t *buf, int len);
-
-// Поточний монотонний час у мілісекундах (millis() на Arduino,
-// HAL_GetTick() на STM32 тощо). МОНОТОННИЙ — не «час доби».
-extern uint32_t now_ms(void);
-
-// Відправити поточний наказ у канал зі значенням confirmation зі стану.
-static void cmd_send_now(cmd_loop_t *c)
-{
-    mavlink_command_long_t cl = {0};
-    cl.target_system    = c->target_sys;
-    cl.target_component = c->target_comp;
-    cl.command          = c->command;
-    cl.confirmation     = c->confirmation;   // 0 на першому, ++ на повторах
-    cl.param1 = c->params[0];  cl.param2 = c->params[1];
-    cl.param3 = c->params[2];  cl.param4 = c->params[3];
-    cl.param5 = c->params[4];  cl.param6 = c->params[5];
-    cl.param7 = c->params[6];
-
-    mavlink_message_t msg;
-    mavlink_msg_command_long_encode(MY_SYS, MY_COMP, &msg, &cl);
-
-    uint8_t buf[MAVLINK_MAX_PACKET_LEN];
-    int len = mavlink_msg_to_send_buffer(buf, &msg);
-    link_write(buf, len);
-
-    c->deadline_ms = now_ms() + c->timeout_ms;  // засікли годинник очікування
-}
-
-// Запустити НОВУ команду. Повертає false, якщо цикл уже зайнятий.
-bool cmd_start(cmd_loop_t *c, uint8_t sys, uint8_t comp,
-               uint16_t command, const float params[7])
-{
-    if (c->state == CMD_WAITING)
-        return false;                 // одна команда за раз на цей цикл
-
-    c->target_sys   = sys;
-    c->target_comp  = comp;
-    c->command      = command;
-    memcpy(c->params, params, sizeof(c->params));
-
-    c->confirmation   = 0;            // перша передача
-    c->attempts_left  = c->max_attempts - 1;  // одна спроба вже витрачається зараз
-    c->last_result    = 0xFF;         // «поки невідомо»
-    c->progress       = UINT8_MAX;
-    c->state          = CMD_WAITING;
-
-    cmd_send_now(c);                  // ← перший постріл, confirmation = 0
-    return true;
-}
-```
+:::code proj-command-loop/c/postril-zbyraiemo-i.c
 
 Розберімо два неочевидні місця.
 
@@ -188,27 +94,7 @@ cmd_start(&arm_loop, /*sys*/1, /*comp*/1, MAV_CMD_COMPONENT_ARM_DISARM, p);
 
 Ось обробник, який викликають на **кожен** розпарсений кадр COMMAND_ACK:
 
-```c
-// Викликати з диспетчера прийому, коли розпарсено COMMAND_ACK.
-// msg — увесь кадр (з нього беремо sysid/compid = ХТО відповів).
-void cmd_on_ack(cmd_loop_t *c, const mavlink_message_t *msg)
-{
-    if (c->state != CMD_WAITING)
-        return;                       // ми нічого не чекаємо — ігноруємо
-
-    mavlink_command_ack_t ack;
-    mavlink_msg_command_ack_decode(msg, &ack);
-
-    // ── ФІЛЬТР «свій» ACK: джерело кадру + номер команди ──────────────
-    if (msg->sysid  != c->target_sys)  return;   // інший апарат
-    if (msg->compid != c->target_comp) return;   // інший компонент (напр. камера)
-    if (ack.command != c->command)     return;   // інша команда того ж борту
-
-    // Це наш ACK. Запам'ятаємо результат і зреагуємо за ним.
-    c->last_result = ack.result;
-    cmd_apply_result(c, &ack);        // ← розбір MAV_RESULT нижче
-}
-```
+:::code proj-command-loop/c/lovymo-ack-ale-tilky-svii.c
 
 Зверни увагу: три `return` угорі — це не перестраховка, а три реальні джерела плутанини, кожне з яких трапляється в живій мережі. Перший `return` відсіює сусідній апарат (SYS інший), другий — камеру чи інший вузол того самого апарата (COMP інший), третій — випадок, коли той самий автопілот відповідає на **іншу** свою команду (номер не той). Прибери будь-який — і за певного розкладу пакетів цикл повірить брехні.
 
@@ -230,51 +116,7 @@ void cmd_on_ack(cmd_loop_t *c, const mavlink_message_t *msg)
 
 Придивімося, чому різниця між ними — не педантизм, а зовсім різна поведінка станції. На `TEMPORARILY_REJECTED` є сенс **тихо зачекати й повторити**: причина минуща (борт зайнятий іншою довгою дією, ще нема GPS-фіксації) і зникне сама. На `DENIED` повторювати **марно** — параметр неприйнятний, і той самий наказ дасть той самий отвід; треба показати причину оператору й дати йому виправити. На `UNSUPPORTED` не допоможе жодний повтор — прошивка просто не вміє цієї команди, і правильна реакція станції — **сховати відповідну кнопку**, а не бомбардувати борт. `FAILED` — не тимчасове: щось треба полагодити (відкалібрувати датчик, звільнити пам'ять), перш ніж наказ узагалі має шанс. А `IN_PROGRESS` — зовсім окремий звір, до якого повернемось за мить.
 
-```c
-// Продовжити (чи скасувати) таймаут довгої операції.
-#define IN_PROGRESS_TIMEOUT_MS  30000u   // калібрування тощо — десятки секунд
-
-// Зреагувати на результат НАШОГО ACK.
-static void cmd_apply_result(cmd_loop_t *c, const mavlink_command_ack_t *ack)
-{
-    switch (ack->result) {
-
-    case MAV_RESULT_ACCEPTED:
-        c->state = CMD_DONE;                 // готово, вихід з циклу
-        break;
-
-    case MAV_RESULT_IN_PROGRESS:
-        // Борт чесно працює. Не вважаємо це спробою й НЕ повторюємо —
-        // лише РІЗКО відсуваємо дедлайн, чекаючи фінального ACK.
-        c->progress     = ack->progress;     // 0..100 (чи UINT8_MAX)
-        c->deadline_ms  = now_ms() + IN_PROGRESS_TIMEOUT_MS;
-        // лишаємось у CMD_WAITING
-        break;
-
-    case MAV_RESULT_TEMPORARILY_REJECTED:
-        // Минуща причина. Дамо їй розсмоктатись і повторимо — АЛЕ як спробу.
-        if (c->attempts_left > 0) {
-            c->attempts_left--;
-            c->confirmation++;
-            c->deadline_ms = now_ms() + c->timeout_ms;
-            cmd_send_now(c);                 // той самий наказ, згодом
-        } else {
-            c->state = CMD_FAILED;           // так і не дочекались вікна
-        }
-        break;
-
-    case MAV_RESULT_DENIED:
-    case MAV_RESULT_UNSUPPORTED:
-    case MAV_RESULT_FAILED:
-    case MAV_RESULT_CANCELLED:
-    default:
-        // Повтор безнадійний: причина стала (для цих кодів) або невідома.
-        // Не сиплемо пакети в канал — одразу підсумок оператору.
-        c->state = CMD_FAILED;
-        break;
-    }
-}
-```
+:::code proj-command-loop/c/rozbir-rezultatu-rizni.c
 
 Тут кожна гілка втілює один висновок теорії. `ACCEPTED` завершує цикл. `IN_PROGRESS` — **єдиний** код, що лишає нас у `WAITING`, не витрачаючи спробу й лише подовжуючи `deadline`: борт пообіцяв ще один, фінальний ACK, і ми чесно на нього чекаємо довше. `TEMPORARILY_REJECTED` веде до повтору — але **як до звичайної спроби зі збільшенням `confirmation`**, бо це справді нова передача, і її треба лічити (інакше на вічно зайнятому борту ми довбали б без кінця). А чотири «стінові» коди (`DENIED`/`UNSUPPORTED`/`FAILED`/`CANCELLED`) обриваються в `FAILED` **негайно, без єдиного повтору**, бо повторювати те, що прошивка не вміє чи відкинула по суті, — марно палити канал.
 
@@ -284,27 +126,7 @@ static void cmd_apply_result(cmd_loop_t *c, const mavlink_command_ack_t *ack)
 
 Лишився останній шматок — те, що ганяє цей автомат уперед. Функція `cmd_tick` викликається **щооберту** головного циклу прошивки й робить рівно один дрібний обов'язок: перевіряє, чи не збіг `deadline`, і якщо так — або повторює наказ (є спроби), або здається (спроб нема). Жодного блокування: вона ставить одне порівняння часу й одразу повертає керування.
 
-```c
-// Гнати цикл уперед. Викликати ЩООБЕРТУ головного циклу (не рідко!).
-void cmd_tick(cmd_loop_t *c)
-{
-    if (c->state != CMD_WAITING)
-        return;                       // активної команди немає
-
-    // Ще не час? — виходимо миттєво, канал не чіпаємо.
-    if ((int32_t)(now_ms() - c->deadline_ms) < 0)
-        return;
-
-    // Дедлайн збіг: ACK не прийшов вчасно.
-    if (c->attempts_left > 0) {
-        c->attempts_left--;
-        c->confirmation++;            // ← повтор → росте поле пакета
-        cmd_send_now(c);              // той самий наказ, новий deadline
-    } else {
-        c->state = CMD_FAILED;        // спроби скінчились — чесно здаємось
-    }
-}
-```
+:::code proj-command-loop/c/khid-chasu-neblokuvalnyi.c
 
 Один рядок тут вартий окремого слова — порівняння часу:
 
@@ -321,51 +143,7 @@ void cmd_tick(cmd_loop_t *c)
 
 Тепер видно, як три частини стають одним механізмом. Головний цикл прошивки читає байти з каналу, згодовує їх парсеру MAVLink, і на кожен зібраний кадр диспетчеризує за типом; паралельно щооберту тікає `cmd_tick`. Ось кістяк, у якому наш командний цикл живе поряд із рештою обміну, нікого не блокуючи:
 
-```c
-cmd_loop_t arm_loop;
-
-void command_loop_init(void)
-{
-    memset(&arm_loop, 0, sizeof(arm_loop));
-    arm_loop.state        = CMD_IDLE;
-    arm_loop.timeout_ms   = 1000;   // ~секунда на ACK
-    arm_loop.max_attempts = 5;      // перша + до чотирьох повторів
-}
-
-// Головний цикл прошивки (спрощено).
-void main_loop_iteration(void)
-{
-    // 1) Прийом: читаємо канал, парсимо кадри
-    uint8_t byte;
-    mavlink_message_t msg;
-    mavlink_status_t  status;
-    while (link_read(&byte)) {                    // поки є вхідні байти
-        if (mavlink_parse_char(MAVLINK_COMM_0, byte, &msg, &status)) {
-            switch (msg.msgid) {
-            case MAVLINK_MSG_ID_COMMAND_ACK:
-                cmd_on_ack(&arm_loop, &msg);      // ← наш ACK?
-                break;
-            case MAVLINK_MSG_ID_HEARTBEAT:
-                /* оновлення присутності — інша тема */
-                break;
-            /* … телеметрія, параметри тощо … */
-            }
-        }
-    }
-
-    // 2) Хід часу: тікаємо командний цикл (неблокувально)
-    cmd_tick(&arm_loop);
-
-    // 3) Реакція на завершення команди
-    if (arm_loop.state == CMD_DONE) {
-        arm_loop.state = CMD_IDLE;
-        ui_notify("Армовано");                    // зелене — чесно
-    } else if (arm_loop.state == CMD_FAILED) {
-        arm_loop.state = CMD_IDLE;
-        ui_notify_fail(arm_loop.last_result);     // з причиною, не мовчанка
-    }
-}
-```
+:::code proj-command-loop/c/skladaiemo-vse-tsykl-u.c
 
 Придивись, як природно все лягло. Прийом ACK і хід часу — **дві незалежні події**, і кожна робить свій дрібний крок; жодна не чекає іншу в циклі `while`. Команда завершується або через `cmd_on_ack` (прийшов фінальний результат), або через `cmd_tick` (вичерпались спроби) — і головний цикл одразу перетворює це на повідомлення оператору. Між цими подіями процесор вільний читати серцебиття, малювати телеметрію й реагувати на нову кнопку. Саме так виглядає надійна доставка команди, що не краде час у решти системи.
 

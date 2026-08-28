@@ -26,49 +26,13 @@
 
 Почнімо зі структури. Проти скелета вона підросла — додалися поля для паузи й для пінг-понгу, — але кожне поле має причину, яку ми зараз і розкриємо.
 
-```c
-#include <stdint.h>
-
-typedef enum {
-    ANIM_OFF = 0,   // слот вільний
-    ANIM_ONCE,      // один прохід 0→1 і стоп
-    ANIM_LOOP,      // 0→1, стрибок на 0, нескінченно
-    ANIM_PINGPONG   // 0→1→0→1… нескінченно, дзеркально
-} AnimMode;
-
-typedef uint16_t (*ShapeFn)(uint16_t phase);   // фаза 0..4095 → яскравість 0..4095
-
-typedef struct {
-    uint8_t       pin;        // канал LEDC
-    AnimMode      mode;
-    ShapeFn       shape;      // форма руху
-    uint32_t      start;      // millis() запуску (база відліку фази)
-    uint32_t      duration;   // тривалість одного проходу фази, мс
-    uint32_t      pausedAt;   // millis() моменту паузи; 0 = біжить
-    bool          invert;     // активно-низьке підключення
-} Anim;
-
-#define ANIM_SLOTS 16
-static Anim anims[ANIM_SLOTS];
-```
+:::code proj-engine/c/krok-1-zapys-efektu-i.c
 
 Зверніть увагу на тип форми: `ShapeFn` приймає й повертає `uint16_t` у діапазоні `0..4095`. Жодного float у сигнатурі — форма дістає цілу фазу й віддає цілу яскравість. Це навмисно: уся гаряча дорога «фаза → форма → гамма → duty» тепер ціла наскрізь.
 
 Тепер — **як із мілісекундного лічильника дістати цілу фазу**. Лічильник, що сам собою біжить від старту, є на будь-якому МК: в Arduino це `millis()`, в ESP-IDF — `esp_timer_get_time() / 1000`, у STM32 HAL — `HAL_GetTick()`. Далі в коді ми пишемо `millis()`; на іншій платформі це однорядкова обгортка (крок 6). Скелетна формула `(now - start) / duration` у float давала `0.0..1.0`. Цілий аналог дає `0..4095`:
 
-```c
-// скільки мс минуло від старту цього проходу, з урахуванням паузи
-static uint32_t elapsed(const Anim *a, uint32_t now) {
-    uint32_t ref = (a->pausedAt != 0) ? a->pausedAt : now;
-    return ref - a->start;          // беззнакова різниця — переповнення millis безпечне
-}
-
-// фаза 0..4095 у межах одного проходу; >4095 означає «прохід скінчився»
-static uint32_t phaseRaw(const Anim *a, uint32_t now) {
-    uint32_t e = elapsed(a, now);
-    return (e << 12) / a->duration;   // e/duration · 4096, цілими
-}
-```
+:::code proj-engine/c/krok-1-zapys-efektu-i-2.c
 
 Розберімо `(e << 12) / a->duration` — це серце цілочисельної фази. Ми хочемо `e / duration`, помножене на `4096`, але в цілих ділення-першим знулило б усе («`5 / 4000 = 0`»). Тому **спершу множимо**: `e << 12` — це `e · 4096`, а вже тоді ділимо на `duration`. Доки `e < duration`, результат лежить у `0..4095`; коли `e` дорівняв `duration`, результат `= 4096` — і це наш сигнал «прохід завершився». Один цілий зсув і одне цілe ділення замість float-операції — і весь діапазон точний до одиниці duty.
 
@@ -82,53 +46,7 @@ static uint32_t phaseRaw(const Anim *a, uint32_t now) {
 
 Уся хитрість — у тому, що `phaseRaw` повертає число `0..4096`, де `4096` означає «прохід вийшов за край». Що робити з цим краєм — і є різниця між `ONCE`, `LOOP` та `PINGPONG`.
 
-```c
-extern uint16_t gammaLUT[256];     // готова таблиця гамми з конвеєра яскравості
-
-void animTick(uint32_t now) {
-    for (int i = 0; i < ANIM_SLOTS; i++) {
-        Anim *a = &anims[i];
-        if (a->mode == ANIM_OFF) continue;       // вільний слот — пропустити
-        if (a->pausedAt != 0) continue;          // на паузі — нічого не рухаємо
-
-        uint32_t raw = phaseRaw(a, now);         // 0..4096
-        uint16_t phase;                          // підсумкова фаза 0..4095
-
-        if (raw <= 4095) {
-            phase = (uint16_t)raw;               // прохід ще триває
-        } else {
-            // прохід дійшов до кінця — розгалуження за режимом
-            switch (a->mode) {
-                case ANIM_ONCE:
-                    phase = 4095;                // зафіксувати кінець…
-                    a->mode = ANIM_OFF;          // …і звільнити слот
-                    break;
-                case ANIM_LOOP:
-                    a->start = now;              // новий прохід від нуля
-                    phase = 0;
-                    break;
-                case ANIM_PINGPONG: {
-                    // два проходи на період: парний — вперед, непарний — назад
-                    uint32_t cycle = (elapsed(a, now)) / a->duration;   // 0,1,2,…
-                    uint32_t pos   = (elapsed(a, now)) % a->duration;   // у межах проходу
-                    uint32_t fwd   = (pos << 12) / a->duration;         // 0..4095
-                    phase = (cycle & 1) ? (uint16_t)(4095 - fwd)        // назад: дзеркало
-                                        : (uint16_t)fwd;               // вперед
-                    break;
-                }
-                default:
-                    phase = 0;
-            }
-        }
-
-        uint16_t bright = a->shape(phase);       // форма руху: 0..4095
-        uint8_t  idx    = (uint8_t)(bright >> 4);// 0..4095 → 0..255 для гамми
-        uint16_t duty   = gammaLUT[idx];         // корекція ока
-        if (a->invert) duty = 4095 - duty;       // активно-низьке підключення
-        ledcWrite(a->pin, duty);
-    }
-}
-```
+:::code proj-engine/c/krok-2-sertse-rushiia.c
 
 Тепер найважливіше — **пінг-понг**, бо саме його найчастіше пишуть з помилкою. Наївний підхід: дійшли до кінця, поміняли місцями `0` і `1` і пустили назад. Він майже працює, але має дві біди — стик і дублювання логіки кінця. Тому ми робимо інакше й чистіше: **дзеркалимо фазу**, а не перезапускаємо ефект.
 
@@ -144,31 +62,7 @@ void animTick(uint32_t now) {
 
 Тепер форми. У темі дихання робив `cosf`, easing — `smoothstep` через `3t²−2t³`. Обидві — float, обидві гарячі. Лік той самий, що й для гамми: **порахувати форму один раз у `setup()` і далі лише читати**. Різниця в тому, що тут таблиця індексується **фазою**, а не рівнем, і повертає вже форму руху.
 
-```c
-#include <math.h>
-
-// таблиці форм: фаза-індекс 0..255 → яскравість 0..4095
-static uint16_t breatheTbl[256];   // плавне дихання (косинус)
-static uint16_t easeTbl[256];      // smoothstep — живий розгін-гальмування
-
-void buildShapeTables(void) {
-    for (int i = 0; i < 256; i++) {
-        float t = i / 255.0f;                       // фаза 0..1
-        // дихання: (1 - cos(2πt)) / 2 → 0→1→0 за один прохід
-        float b = (1.0f - cosf(t * 2.0f * (float)M_PI)) * 0.5f;
-        breatheTbl[i] = (uint16_t)lroundf(b * 4095.0f);
-        // smoothstep: повільно на краях, швидше всередині
-        float s = t * t * (3.0f - 2.0f * t);
-        easeTbl[i]   = (uint16_t)lroundf(s * 4095.0f);
-    }
-}
-
-// функції форми, які кладемо в Anim.shape — лише індексація, жодного float
-uint16_t shapeBreathe(uint16_t phase) { return breatheTbl[phase >> 4]; }
-uint16_t shapeEase(uint16_t phase)    { return easeTbl[phase >> 4]; }
-uint16_t shapeLinear(uint16_t phase)  { return phase; }            // форма = фаза
-uint16_t shapeBlink(uint16_t phase)   { return (phase < 2048) ? 4095 : 0; }  // прямокутник
-```
+:::code proj-engine/c/krok-3-formy-iak.c
 
 Дрібниця, на якій спотикаються: індекс у таблицю — `phase >> 4`, бо фаза має 12 біт, а таблиця 256-вхідна. Той самий зсув, що й для гамми, з тієї ж причини. `shapeLinear` і `shapeBlink` навіть таблиці не потребують — вони й так цілі й дешеві; таблиця потрібна лише там, де інакше був би `sin`/`pow`/`exp`.
 
@@ -182,46 +76,13 @@ uint16_t shapeBlink(uint16_t phase)   { return (phase < 2048) ? 4095 : 0; }  // 
 
 Рушій крутиться сам; тепер дамо назовні ручки, якими ним керують. Перша — запуск ефекту в перший вільний слот:
 
-```c
-// повертає індекс слота або -1, якщо всі зайняті
-int animStart(uint8_t pin, AnimMode mode, ShapeFn shape,
-              uint32_t durationMs, bool invert) {
-    for (int i = 0; i < ANIM_SLOTS; i++) {
-        if (anims[i].mode == ANIM_OFF) {
-            anims[i] = (Anim){ .pin = pin, .mode = mode, .shape = shape,
-                               .start = millis(), .duration = durationMs,
-                               .pausedAt = 0, .invert = invert };
-            return i;
-        }
-    }
-    return -1;   // слотів немає — ефект не запущено (а не «тихо проковтнуто»)
-}
-```
+:::code proj-engine/c/krok-4-keruvannia-efektom.c
 
 Тепер **пауза й відновлення** — і саме тут ховається пастка, через яку «пауза» у багатьох прошивках працює неправильно. Наївно: на паузі просто не викликати `animTick`. Але фаза рахується від `start` через `millis()`, а `millis()` **не зупиняється**. Тож коли ви відновите ефект, він порахує фазу від реального часу — і **стрибне** вперед рівно на стільки, скільки тривала пауза. Поставили дихання на паузу на хвилину — після `resume` воно перескочить на хвилину вперед, наче паузи й не було.
 
 Лік — **зсунути базу відліку**. Заморожуючи, запам'ятовуємо момент паузи (`pausedAt`). Відновлюючи, **посуваємо `start` уперед** рівно на тривалість простою — і фаза продовжиться з того самого місця, де її спинили:
 
-```c
-void animPause(int idx) {
-    if (idx < 0 || anims[idx].mode == ANIM_OFF) return;
-    if (anims[idx].pausedAt == 0)
-        anims[idx].pausedAt = millis();      // зафіксували момент заморозки
-}
-
-void animResume(int idx) {
-    if (idx < 0 || anims[idx].mode == ANIM_OFF) return;
-    if (anims[idx].pausedAt != 0) {
-        uint32_t frozen = millis() - anims[idx].pausedAt;  // скільки простояли
-        anims[idx].start += frozen;          // посунули базу — фаза не стрибне
-        anims[idx].pausedAt = 0;             // знову біжить
-    }
-}
-
-void animStop(int idx) {
-    if (idx >= 0) anims[idx].mode = ANIM_OFF;   // звільнити слот негайно
-}
-```
+:::code proj-engine/c/krok-4-keruvannia-efektom-2.c
 
 Зверніть увагу, як це узгоджено з `elapsed()` з кроку 1: поки `pausedAt != 0`, `elapsed` рахує час **до моменту паузи**, тож навіть якщо хтось випадково викличе `phaseRaw` на паузі, фаза стоятиме. А `animResume` зсувом `start` робить так, що `now - start` після відновлення дорівнює тому ж `elapsed`, що був до паузи. Дві частини — заморозка в `elapsed` і зсув у `resume` — тримають фазу нерухомою разом; прибери одну, і пауза «потече».
 
@@ -233,59 +94,11 @@ void animStop(int idx) {
 
 Ідея спирається на властивість `ANIM_ONCE`, яку ми вже заклали: одноразовий ефект сам **звільняє** слот, дійшовши кінця. Отже, черга — це список ефектів, з якого рушій бере наступний щоразу, коли поточний звільнив слот. Опишімо крок черги й саму чергу:
 
-```c
-typedef struct {
-    AnimMode mode;
-    ShapeFn  shape;
-    uint32_t durationMs;
-    uint8_t  repeats;     // скільки разів повторити цей крок (для ONCE)
-} AnimStep;
-
-typedef struct {
-    uint8_t        pin;
-    bool           invert;
-    const AnimStep *steps;   // масив кроків (зазвичай у флеш, const)
-    uint8_t        count;    // скільки кроків
-    uint8_t        cur;      // поточний крок
-    uint8_t        left;     // скільки повторів поточного кроку лишилось
-    int            slot;     // який слот зайнято (-1 = нічого не грає)
-} AnimQueue;
-
-static AnimQueue queues[4];   // до чотирьох незалежних послідовностей
-```
+:::code proj-engine/c/krok-5-cherha-efektiv.c
 
 Тепер двигун черги. Раз на цикл ми дивимося на кожну чергу: якщо її слот звільнився (ефект добіг), беремо наступний крок або наступний повтор. Жодного чекання — лише перевірка стану:
 
-```c
-static void queueAdvance(AnimQueue *q) {
-    if (q->cur >= q->count) return;              // черга вичерпана
-
-    bool slotFree = (q->slot < 0) || (anims[q->slot].mode == ANIM_OFF);
-    if (!slotFree) return;                        // поточний ще грає — чекаємо без блокування
-
-    if (q->left == 0) {                           // повтори поточного кроку скінчились
-        q->cur++;                                 // → наступний крок
-        if (q->cur >= q->count) { q->slot = -1; return; }  // черга добігла
-        q->left = q->steps[q->cur].repeats;
-    }
-
-    const AnimStep *s = &q->steps[q->cur];
-    q->slot = animStart(q->pin, s->mode, s->shape, s->durationMs, q->invert);
-    if (q->left > 0) q->left--;                    // зарахували один повтор
-}
-
-void queueTick(void) {
-    for (int i = 0; i < 4; i++) queueAdvance(&queues[i]);
-}
-
-// запустити послідовність
-void queueStart(int i, uint8_t pin, bool invert,
-                const AnimStep *steps, uint8_t count) {
-    queues[i] = (AnimQueue){ .pin = pin, .invert = invert, .steps = steps,
-                             .count = count, .cur = 0,
-                             .left = count ? steps[0].repeats : 0, .slot = -1 };
-}
-```
+:::code proj-engine/c/krok-5-cherha-efektiv-2.c
 
 І типова послідовність-сценарій — у флеш-пам'яті, бо вона стала:
 
@@ -306,104 +119,9 @@ const AnimStep alarmThenCalm[] = {
 Лишилося показати, як усе живе разом у головному циклі. Увесь код вище — звичайний C, він не знає нічого про плату; із платформою рушій стикається рівно у двох точках: `millis()` (звідки час) і `ledcWrite()` (куди duty). Тому порт зводиться до двох обгорток плюс власного способу крутити цикл. Звертаю увагу: **обидва** тіки — і `animTick`, і `queueTick` — викликаються щоразу, безумовно, і цикл лишається вільним для всього іншого пристрою.
 
 :::tabs
-```arduino
-void setup() {
-    // піни під ШІМ: 12 біт — той самий діапазон, що й фаза/гамма
-    ledcAttach(2, 5000, 12);
-    ledcAttach(4, 5000, 12);
-    buildLUT();            // гамма — з конвеєра яскравості
-    buildShapeTables();    // форми — один раз
-
-    // приклад: канал 2 одразу дихає, канал 4 чекає на сценарій тривоги
-    animStart(2, ANIM_PINGPONG, shapeBreathe, 4000, false);
-    queueStart(0, /*pin=*/4, /*invert=*/false, alarmThenCalm, 2);
-}
-
-void loop() {
-    uint32_t now = millis();
-    animTick(now);     // посунути всі ефекти
-    queueTick();       // просунути всі черги
-    // ↓ цикл вільний: кнопки, зв'язок, давачі — усе живе тут, нічого не блоковано
-}
-```
-```esp-idf
-#include "driver/ledc.h"
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-// дві обгортки — уся платформозалежність рушія
-static uint32_t millis(void) { return (uint32_t)(esp_timer_get_time() / 1000); }
-
-static void ledcWrite(uint8_t ch, uint32_t duty) {
-    ledc_set_duty(LEDC_LOW_SPEED_MODE, (ledc_channel_t)ch, duty);
-    ledc_update_duty(LEDC_LOW_SPEED_MODE, (ledc_channel_t)ch);   // duty бере силу тут
-}
-
-static void animTask(void *arg) {
-    for (;;) {
-        uint32_t now = millis();
-        animTick(now);                     // посунути всі ефекти
-        queueTick();                       // просунути всі черги
-        vTaskDelay(pdMS_TO_TICKS(10));     // ~100 кадрів/с, решта часу — іншим задачам
-    }
-}
-
-void app_main(void) {
-    ledc_timer_config_t t = { .speed_mode = LEDC_LOW_SPEED_MODE,
-                              .duty_resolution = LEDC_TIMER_12_BIT,  // ті самі 12 біт
-                              .timer_num = LEDC_TIMER_0, .freq_hz = 5000,
-                              .clk_cfg = LEDC_AUTO_CLK };
-    ESP_ERROR_CHECK(ledc_timer_config(&t));
-    for (int ch = 0; ch < 2; ch++) {                   // канал 0 → GPIO2, канал 1 → GPIO4
-        ledc_channel_config_t c = { .gpio_num = (ch == 0) ? 2 : 4,
-                                    .speed_mode = LEDC_LOW_SPEED_MODE,
-                                    .channel = (ledc_channel_t)ch,
-                                    .timer_sel = LEDC_TIMER_0, .duty = 0, .hpoint = 0 };
-        ESP_ERROR_CHECK(ledc_channel_config(&c));
-    }
-    buildLUT();
-    buildShapeTables();
-
-    animStart(0, ANIM_PINGPONG, shapeBreathe, 4000, false);
-    queueStart(0, /*канал=*/1, /*invert=*/false, alarmThenCalm, 2);
-    xTaskCreate(animTask, "anim", 4096, NULL, 5, NULL);
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-extern TIM_HandleTypeDef htim3;   // TIM3 у режимі PWM, ARR = 4095 → ті самі 12 біт
-
-// дві обгортки — уся платформозалежність рушія
-static uint32_t millis(void) { return HAL_GetTick(); }   // той самий лічильник мс
-
-static const uint32_t chMap[] = { TIM_CHANNEL_1, TIM_CHANNEL_2 };
-static void ledcWrite(uint8_t ch, uint32_t duty) {
-    __HAL_TIM_SET_COMPARE(&htim3, chMap[ch], duty);      // duty 0..4095 лягає прямо в CCR
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM3_Init();          // PSC підібрано так, щоб при ARR = 4095 вийшло ~5 кГц
-    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
-    buildLUT();
-    buildShapeTables();
-
-    animStart(0, ANIM_PINGPONG, shapeBreathe, 4000, false);
-    queueStart(0, /*канал=*/1, /*invert=*/false, alarmThenCalm, 2);
-
-    while (1) {
-        uint32_t now = HAL_GetTick();
-        animTick(now);     // посунути всі ефекти
-        queueTick();       // просунути всі черги
-        // ↓ цикл вільний: кнопки, зв'язок, давачі — усе живе тут, нічого не блоковано
-    }
-}
-```
+:::code proj-engine/c/arduino/main.ino
+:::code proj-engine/c/esp-idf/main.c
+:::code proj-engine/c/stm32/main.c
 :::
 
 Один `millis()` на оберт, переданий усередину, — це теж дрібна, але корисна звичка: усі ефекти бачать **той самий** момент часу, і кадр виходить когерентним (усі канали порахувалися «на один знімок годинника», а не кожен на свій). Якщо кликати `millis()` окремо в кожній функції, кадр «розповзеться» на частки мілісекунди — для ока байдуже, але для синхронних ефектів (кілька діодів, що мусять дихати в унісон) когерентний знімок чистіший.

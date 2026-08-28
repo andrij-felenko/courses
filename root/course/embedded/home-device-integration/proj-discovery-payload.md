@@ -25,95 +25,13 @@
 
 Почнімо з даних, які описують одну сутність. Замість того щоб копіювати три майже однакові гілки коду, опишемо сутність структурою й проженемо всі три через одну функцію-складач:
 
-```c
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-// Спільний для всіх сутностей ідентифікатор пристрою — ТОЙ САМИЙ рядок,
-// що піде в dev.ids кожної візитівки. Саме він зшиває картку.
-#define DEV_ID   "th_livingroom"
-#define DEV_NAME "Термостат вітальні"
-
-// Корінь наших робочих топіків (стан/команда/доступність) для цього вузла.
-#define BASE "home/livingroom/thermostat"
-
-// Опис однієї сутності: усе, що відрізняє її від інших сутностей вузла.
-typedef struct {
-    const char *object_id;   // хвіст uniq_id і топіка config — унікальний у вузлі
-    const char *component;   // платформа HA в топіку config; тут усі три — "sensor"
-    const char *name;        // як підписати рядок у картці
-    const char *state_topic; // топік, де тече значення саме цієї сутності
-    const char *unit;        // одиниці ("°C", "%") або NULL, якщо без одиниць
-} entity_t;
-
-static const entity_t ENTITIES[] = {
-    { "temp", "sensor", "Температура", BASE "/temp", "°C" },
-    { "mode", "sensor", "Режим",      BASE "/mode", NULL },
-    { "batt", "sensor", "Заряд",       BASE "/batt", "%"  },
-};
-```
+:::code proj-discovery-payload/c/robochyi-c-skladaiemo.c
 
 Усі три `component` — `sensor`, і це навмисно. Температуру, режим і заряд вузол лише **повідомляє**, а панель лише **показує**; для таких читаних величин платформи `sensor` досить, і їй вистачає рівно того мінімуму полів, який ми складаємо нижче. Якби ж якусь із них користувач мав ще й **міняти** з панелі — сам перемикати режим, а не тільки бачити, — то це вже інша платформа (`select`, `climate`), і вона вимагає полів **понад** наш мінімум: топік команди `cmd_t` (повне — `command_topic`), куди Home Assistant шле обране значення, а `select` — ще й список допустимих значень `options`. Без цих обов'язкових полів опис не пройде перевірку схеми, і картку HA просто не збудує. Але керовані сутності — то окрема задача; наша тут — стиснути й зшити три **показувані** величини, тож три сенсори — рівно те, що треба.
 
 Далі — сама складач-функція. Вона будує топік `config`, будує JSON-тіло на **скорочених** ключах зі спільним блоком `dev`, і публікує. Кожен `snprintf` повертає, **скільки** символів він хотів би записати, — і цю величину ми перевіряємо, бо мовчазне зрізання рядка на тісному буфері — окрема пастка, про яку нижче.
 
-```c
-// Буфери під топік і тіло. Статичні, бо на тісному вузлі не хочемо їх
-// на стеку і не хочемо malloc. Розмір — із запасом на найдовшу сутність.
-static char topic_buf[128];
-static char json_buf[512];
-
-// Скласти й опублікувати візитівку однієї сутності.
-// Повертає true, якщо рядок помістився й публікацію віддано в чергу.
-static bool announce_entity(const entity_t *e) {
-    // 1. Топік опису: homeassistant/<component>/<dev>/<object>/config
-    int tn = snprintf(topic_buf, sizeof(topic_buf),
-                      "homeassistant/%s/%s/%s/config",
-                      e->component, DEV_ID, e->object_id);
-    if (tn < 0 || (size_t)tn >= sizeof(topic_buf))
-        return false;  // топік не вмістився — не публікуємо покалічене
-
-    // 2. Тіло JSON на СКОРОЧЕНИХ ключах. Одиниці — необовʼязкові, тому
-    //    поле unit_of_meas (скор. unit_of_meas → "unit_of_meas") додаємо
-    //    лише коли воно є. availability (avty_t) — той самий на всі сутності.
-    int n = snprintf(json_buf, sizeof(json_buf),
-        "{"
-          "\"name\":\"%s\","                 // підпис рядка в картці
-          "\"uniq_id\":\"%s_%s\","           // uniq_id = <dev>_<object>, глобально свій
-          "\"stat_t\":\"%s\","               // state_topic — де тече значення
-          "\"avty_t\":\"" BASE "/status\","  // availability_topic — живий/мертвий
-          "%s%s%s"                            // місце під одиниці (або порожньо)
-          "\"dev\":{"                          // СПІЛЬНИЙ блок пристрою…
-            "\"ids\":\"" DEV_ID "\","          // …той самий ids у всіх сутностей
-            "\"name\":\"" DEV_NAME "\","
-            "\"mf\":\"DIY\","                  // manufacturer (скор. mf)
-            "\"mdl\":\"Thermostat v1\""        // model (скор. mdl)
-          "}"
-        "}",
-        e->name, DEV_ID, e->object_id, e->state_topic,
-        e->unit ? "\"unit_of_meas\":\"" : "",   // якщо одиниці є — відкриваємо поле…
-        e->unit ? e->unit : "",                  // …значення…
-        e->unit ? "\"," : "");                   // …і закриваємо з комою
-    if (n < 0 || (size_t)n >= sizeof(json_buf))
-        return false;  // JSON зрізало — покалічений опис публікувати НЕ можна
-
-    // 3. Публікуємо: retain=true (щоб HA знайшов пізніше), qos=1 (доставка
-    //    напевно; повторний дубль знешкодить uniq_id — оголошення ідемпотентне).
-    mqtt_publish(topic_buf, json_buf, (size_t)n, /*qos=*/1, /*retain=*/true);
-    return true;
-}
-
-// Викликати ОДРАЗУ по під'єднанні до брокера: оголосити всі сутності вузла.
-static void announce_all(void) {
-    for (size_t i = 0; i < sizeof(ENTITIES) / sizeof(ENTITIES[0]); i++) {
-        if (!announce_entity(&ENTITIES[i])) {
-            log_error("discovery: сутність %s не вмістилася в буфер",
-                      ENTITIES[i].object_id);
-        }
-    }
-}
-```
+:::code proj-discovery-payload/c/robochyi-c-skladaiemo-2.c
 
 Розберімо, що тут насправді робиться і чому саме так.
 

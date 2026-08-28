@@ -43,75 +43,7 @@
 
 **Умова: заводимо термостат на esp-matter. Створюємо вузол із двома обробниками, будуємо endpoint термостата, докладаємо кластер вимірювання, запускаємо стек — і запам'ятовуємо номер свого endpoint, щоб потім штовхати в нього дані.**
 
-```cpp
-#include <esp_matter.h>
-#include <esp_matter_endpoint.h>
-#include <esp_log.h>
-
-using namespace esp_matter;
-using namespace esp_matter::attribute;   // callback_type_t, PRE_UPDATE, update()
-using namespace esp_matter::endpoint;
-using namespace chip::app::Clusters;     // тут живуть Thermostat::Id тощо
-
-static const char *TAG = "thermostat";
-
-// Номер НАШОГО прикладного endpoint. Заповниться при створенні —
-// нам він потрібен, щоб пізніше адресувати attribute::update саме сюди.
-static uint16_t s_endpoint_id = 0;
-
-extern "C" void app_main(void)
-{
-    // 1. Вузол. Два обробники йдуть у node::create назавжди:
-    //    attribute_update_cb — коли контролер пише в атрибут (дорога ВНИЗ);
-    //    identification_cb    — коли контролер просить пристрій «блимнути собою».
-    node::config_t node_config;
-    node_t *node = node::create(&node_config,
-                                app_attribute_update_cb,
-                                app_identification_cb,
-                                /*priv_data=*/NULL);
-    if (node == NULL) {
-        ESP_LOGE(TAG, "не вдалося створити node");
-        return;
-    }
-
-    // 2. Endpoint термостата = цеглинка device type 0x0301 разом із
-    //    її ОБОВ'ЯЗКОВИМ кластером Thermostat (0x0201). Стартові значення
-    //    атрибутів задаємо тут-таки, у config — до створення.
-    thermostat::config_t ep_config;
-    ep_config.thermostat.local_temperature            = 2100;  // 21.00 °C, соті!
-    ep_config.thermostat.system_mode                  = 4;      // 4 = Heat
-    ep_config.thermostat.control_sequence_of_operation = 2;     // тільки нагрів
-    // фіча «нагрів» вмикає атрибут OccupiedHeatingSetpoint у цьому кластері:
-    ep_config.thermostat.feature_flags =
-        cluster::thermostat::feature::heating::get_id();
-
-    endpoint_t *endpoint =
-        thermostat::create(node, &ep_config, ENDPOINT_FLAG_NONE, /*priv=*/NULL);
-    if (endpoint == NULL) {
-        ESP_LOGE(TAG, "не вдалося створити endpoint термостата");
-        return;
-    }
-
-    // 3. Докладаємо ДРУГУ цеглинку — вимірювання температури (0x0402).
-    //    Тип «термостат» її не вимагає, тож додаємо кластер руками —
-    //    серверною стороною (ми ТРИМАЄМО значення й віддаємо його).
-    cluster::temperature_measurement::config_t tm_config;
-    tm_config.measured_value     = 2100;    // те саме 21.00 °C у сотих
-    tm_config.min_measured_value = -5000;   // -50.00 °C — межа нашого давача
-    tm_config.max_measured_value =  8000;   //  80.00 °C
-    cluster::temperature_measurement::create(endpoint, &tm_config,
-                                             CLUSTER_FLAG_SERVER);
-
-    // 4. Запам'ятовуємо НОМЕР endpoint. SDK сам призначив його (буде 1) —
-    //    ми не хардкодимо одиницю, а питаємо, бо порядок створення вирішує.
-    s_endpoint_id = endpoint::get_id(endpoint);
-    ESP_LOGI(TAG, "endpoint термостата = %u", s_endpoint_id);
-
-    // 5. Старт стеку. ДО цього рядка — тільки будували дерево;
-    //    ПІСЛЯ — Matter живе: слухає мережу, чекає приєднання по QR-коду.
-    esp_matter::start(app_event_cb);
-}
-```
+:::code proj-matter-min-endpoint/cpp/robochyi-kod-zbyraiemo.cpp
 
 Прочитаймо ключове. Уся будова — це п'ять кроків, і жоден не можна переставити. `node::create` приймає **два обробники одразу** — це і є прописка обох наших дорог: `app_attribute_update_cb` для команд згори, `app_identification_cb` для запиту «покажи себе» (пристрій має вміти блимнути світлодіодом, коли контролер його гукає, — інакше не пройде сертифікацію). `thermostat::create` дає нам endpoint **разом** із його обов'язковим кластером `Thermostat`; а `temperature_measurement::create` **докладає** другу цеглинку на той самий endpoint — бо тип «термостат» вимірювання не вимагає, ми його додаємо самі, серверною стороною, бо саме **ми тримаємо** значення температури й віддаємо його на запит.
 
@@ -123,32 +55,7 @@ extern "C" void app_main(void)
 
 **Умова: давач дав температуру в градусах Цельсія. Кладемо її і в кластер вимірювання, і в поточну температуру термостата — обидва в сотих градуса, обидва через attribute::update.**
 
-```cpp
-// Викликати з нашого циклу/таймера, коли давач дав свіже число.
-static void publish_temperature(float celsius)
-{
-    // Перетворення в модельні одиниці — соті градуса. 21.37 °C -> 2137.
-    // lroundf, а не (int): щоб 21.375 не «обрізалось» униз, а округлилось.
-    int16_t hundredths = (int16_t) lroundf(celsius * 100.0f);
-
-    // Значення для моделі. nullable — бо LocalTemperature має право бути
-    // «невідомою» (null), поки давач не прогрівся; тут даємо конкретне число.
-    esp_matter_attr_val_t val = esp_matter_nullable_int16(hundredths);
-
-    // 1) У кластер вимірювання (0x0402), атрибут MeasuredValue (0x0000).
-    attribute::update(s_endpoint_id,
-                      TemperatureMeasurement::Id,
-                      TemperatureMeasurement::Attributes::MeasuredValue::Id,
-                      &val);
-
-    // 2) У сам термостат (0x0201), атрибут LocalTemperature (0x0000) —
-    //    щоб картка термостата показувала «поточну» біля «цільової».
-    attribute::update(s_endpoint_id,
-                      Thermostat::Id,
-                      Thermostat::Attributes::LocalTemperature::Id,
-                      &val);
-}
-```
+:::code proj-matter-min-endpoint/cpp/doroha-vhoru-shtovkhaiemo.cpp
 
 Три речі варті слова. По-перше, `attribute::update` адресує комірку **трьома координатами** — endpoint, кластер, атрибут, — і ми даємо той самий `s_endpoint_id`, який запам'ятали при створенні. По-друге, ми кладемо число в **два** атрибути одразу: `MeasuredValue` в кластері вимірювання (це «офіційний» давач) і `LocalTemperature` в кластері термостата (це «поточна» на картці термостата поряд із цільовою). Різні застосунки читають різне, і акуратний пристрій тримає обидва узгодженими. По-третє, `esp_matter_nullable_int16` — не примха: `LocalTemperature` за стандартом **може бути null** (давач ще не готовий), і тип значення в моделі саме nullable; підсунеш простий `int16` — стек лайнеться на несумісності типів. Дрібниця, а зупиняє.
 
@@ -158,47 +65,7 @@ static void publish_temperature(float celsius)
 
 **Умова: контролер пише в атрибут. SDK кличе нас із типом PRE_UPDATE — ще до запису в базу. Ловимо запис цільової температури й режиму, перекладаємо на реле, вертаємо ESP_OK — і лише тоді значення ляже в модель.**
 
-```cpp
-// Оголошено в node::create. Кличеться на КОЖЕН запис у будь-який атрибут.
-static esp_err_t app_attribute_update_cb(callback_type_t type,
-                                         uint16_t endpoint_id,
-                                         uint32_t cluster_id,
-                                         uint32_t attribute_id,
-                                         esp_matter_attr_val_t *val,
-                                         void *priv_data)
-{
-    // Реагуємо тільки на PRE_UPDATE — «ось що збираються записати».
-    // POST_UPDATE (значення вже лягло) тут нам не потрібен: ми хочемо
-    // ПОГОДИТИ дію з залізом ще до того, як число стане офіційним.
-    if (type != PRE_UPDATE) {
-        return ESP_OK;
-    }
-    // Чужі endpoint нас не обходять (у нас він один, але звичка корисна).
-    if (endpoint_id != s_endpoint_id) {
-        return ESP_OK;
-    }
-
-    // Розбираємо, в який кластер і атрибут прийшов запис.
-    if (cluster_id == Thermostat::Id) {
-
-        if (attribute_id == Thermostat::Attributes::OccupiedHeatingSetpoint::Id) {
-            // Нова ЦІЛЬОВА температура — приходить у сотих. Назад у градуси.
-            float target_c = val->val.i16 / 100.0f;
-            ESP_LOGI(TAG, "новий setpoint: %.2f °C", target_c);
-            apply_setpoint(target_c);     // -> регулятор реле з гістерезисом
-        }
-        else if (attribute_id == Thermostat::Attributes::SystemMode::Id) {
-            uint8_t mode = val->val.u8;   // 0=Off, 3=Cool, 4=Heat
-            ESP_LOGI(TAG, "новий режим: %u", mode);
-            apply_mode(mode);             // Off -> реле напевно вимкнути
-        }
-    }
-
-    // ESP_OK = «дію заліза виконано, запис у модель дозволяю».
-    // Повернеш помилку — SDK ВІДМОВИТЬ у записі, атрибут лишиться старим.
-    return ESP_OK;
-}
-```
+:::code proj-matter-min-endpoint/cpp/doroha-vnyz-lovymo-zapys.cpp
 
 Тут кожен рядок несе сенс, тож розберімо повільно. Обробник **один на всі атрибути** пристрою, і його кличуть на кожен запис у будь-який кластер — тому перше, що ми робимо, це **фільтруємо** за координатами: цікавить `Thermostat`, а в ньому — `OccupiedHeatingSetpoint` (цільова) і `SystemMode` (режим). Читаємо значення з `val` **згідно з його типом**: setpoint — знакове ціле, беремо `val->val.i16` і ділимо на 100, щоб повернутися в градуси; режим — байт, беремо `val->val.u8`. Сплутаєш поле об'єднання (`i16` там, де `u8`) — прочитаєш сміття.
 
@@ -206,22 +73,7 @@ static esp_err_t app_attribute_update_cb(callback_type_t type,
 
 Лишається обробник ідентифікації — коротка, але обов'язкова частина: коли ти в застосунку тиснеш «знайти пристрій», контролер шле команду `Identify`, і пристрій має якось себе виказати — блимнути світлодіодом, писнути. Без нього не пройти сертифікацію, тож ось мінімум:
 
-```cpp
-// Контролер просить «покажи себе» — блимаємо, поки триває опізнавання.
-static esp_err_t app_identification_cb(identification::callback_type_t type,
-                                       uint16_t endpoint_id,
-                                       uint8_t effect_id,
-                                       uint8_t effect_variant,
-                                       void *priv_data)
-{
-    if (type == identification::callback_type_t::START) {
-        led_blink_start();     // почати блимати світлодіодом
-    } else if (type == identification::callback_type_t::STOP) {
-        led_blink_stop();      // припинити
-    }
-    return ESP_OK;
-}
-```
+:::code proj-matter-min-endpoint/cpp/doroha-vnyz-lovymo-zapys-2.cpp
 
 ## Складність і пастки: де саме воно ламається
 

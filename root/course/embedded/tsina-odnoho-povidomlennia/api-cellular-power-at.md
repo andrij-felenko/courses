@@ -155,49 +155,8 @@ AT+USOOPT=<socket_id>,65535,1001,<rai_mode>
 У середовищі Zephyr OS та nRF Connect SDK прапорець RAI інтегровано безпосередньо в системні сокетні виклики POSIX:
 
 :::tabs
-```c
-#include <zephyr/net/socket.h>
-
-/* Відправка UDP-датаграми з миттєвим скиданням RRC-з'єднання */
-ssize_t sent = sendto(
-    sock_fd,
-    frame_buffer,
-    frame_len,
-    MSG_DONTWAIT | RAI_FLAG_NO_REPLY, /* Прапорець швидкого виходу в сон */
-    (struct sockaddr *)&dest_addr,
-    sizeof(dest_addr)
-);
-```
-```cpp
-#include <zephyr/net/socket.h>
-#include <span>
-#include <expected>
-
-class RaiSocket {
-private:
-    int fd_{-1};
-
-public:
-    constexpr explicit RaiSocket(int fd) noexcept : fd_{fd} {}
-
-    [[nodiscard]] std::expected<size_t, int> send_with_immediate_release(
-        std::span<const uint8_t> payload,
-        const sockaddr_in& dest) noexcept {
-        const ssize_t res = sendto(
-            fd_,
-            payload.data(),
-            payload.size(),
-            MSG_DONTWAIT | RAI_FLAG_NO_REPLY,
-            reinterpret_cast<const sockaddr*>(&dest),
-            sizeof(dest)
-        );
-        if (res < 0) {
-            return std::unexpected(errno);
-        }
-        return static_cast<size_t>(res);
-    }
-};
-```
+:::code api-cellular-power-at/c/main.c
+:::code api-cellular-power-at/cpp/main.cpp
 :::
 
 ## 4. Керування сном інтерфейсу UART та лінією DTR

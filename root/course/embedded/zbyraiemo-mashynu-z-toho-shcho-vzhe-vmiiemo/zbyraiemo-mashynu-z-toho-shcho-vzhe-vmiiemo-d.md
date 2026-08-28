@@ -220,65 +220,8 @@ CLK_LATCH = /CS2 OR /WR
 Оскільки периферія відображена на звичайну пам'ять, у мовах високого рівня керування залізом зводиться до розіменування покажчиків за фіксованими адресами.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Фізичні адреси регістрів у карті пам'яті MMIO */
-#define REG_GPIO_OUT (*(volatile uint8_t *)0x8000)
-#define REG_GPIO_IN  (*(volatile uint8_t *)0x8001)
-
-#define LED_PIN_MASK (1U << 0)
-#define BTN_PIN_MASK (1U << 0)
-
-void led_set(bool state) {
-    if (state) {
-        REG_GPIO_OUT |= LED_PIN_MASK;   /* Запис 1 у біт 0: світлодіод спалахує */
-    } else {
-        REG_GPIO_OUT &= ~LED_PIN_MASK;  /* Запис 0 у біт 0: світлодіод гасне */
-    }
-}
-
-bool button_is_pressed(void) {
-    /* Кнопка підтягнута до живлення: при натисканні замикає пін на 0 В */
-    return (REG_GPIO_IN & BTN_PIN_MASK) == 0;
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-
-namespace hw {
-
-// Базові адреси MMIO периферії
-inline constexpr uintptr_t GpioOutAddr = 0x8000;
-inline constexpr uintptr_t GpioInAddr  = 0x8001;
-
-class GpioPort {
-public:
-    GpioPort() = delete;
-
-    static void set_led(bool state) noexcept {
-        auto& reg = *reinterpret_cast<volatile uint8_t*>(GpioOutAddr);
-        if (state) {
-            reg = static_cast<uint8_t>(reg | LedMask);
-        } else {
-            reg = static_cast<uint8_t>(reg & ~LedMask);
-        }
-    }
-
-    [[nodiscard]] static bool is_button_pressed() noexcept {
-        const auto& reg = *reinterpret_cast<const volatile uint8_t*>(GpioInAddr);
-        return (reg & BtnMask) == 0;
-    }
-
-private:
-    static constexpr uint8_t LedMask = 1U << 0;
-    static constexpr uint8_t BtnMask = 1U << 0;
-};
-
-} // namespace hw
-```
+:::code zbyraiemo-mashynu-z-toho-shcho-vzhe-vmiiemo-d/c/main.c
+:::code zbyraiemo-mashynu-z-toho-shcho-vzhe-vmiiemo-d/cpp/main.cpp
 :::
 
 > ⚠️ **Навіщо ключове слово `volatile`.** Без модифікатора `volatile` компілятор вважатиме, що запис за адресою `0x8000` — це звичайна змінна в оперативній пам'яті. Якщо в коді написати `REG_GPIO_OUT = 1; REG_GPIO_OUT = 0;`, оптимізатор компілятора викине перший запис як «непотрібний», адже змінна одразу перезаписується нулем. Модифікатор `volatile` категорично забороняє компілятору викидати або кешувати звернення: кожен рядок коду мусить згенерувати реальний фізичний цикл шини з електричними стробами `/RD` або `/WR`.

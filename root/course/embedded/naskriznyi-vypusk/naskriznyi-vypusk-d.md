@@ -42,33 +42,8 @@ iQIzBAABCAAdFiEEn5s8v2...
 Під час цієї фази система збірки генерує детермінований заголовочний файл версії `version_autogen.h`. Цей файл містить числові константи версії, розібрані з тегу, та хеш коміту, які вшиваються у бінарник як структуровані константи:
 
 :::tabs
-```c
-#ifndef VERSION_AUTOGEN_H
-#define VERSION_AUTOGEN_H
-
-#define FW_VERSION_MAJOR 2
-#define FW_VERSION_MINOR 4
-#define FW_VERSION_PATCH 0
-#define FW_COMMIT_HASH   0x7a8f9c4b
-#define FW_VERSION_STR   "2.4.0"
-
-#endif /* VERSION_AUTOGEN_H */
-```
-```cpp
-#pragma once
-#include <cstdint>
-#include <string_view>
-
-namespace version {
-
-inline constexpr uint32_t Major = 2;
-inline constexpr uint32_t Minor = 4;
-inline constexpr uint32_t Patch = 0;
-inline constexpr uint32_t CommitHash = 0x7a8f9c4b;
-inline constexpr std::string_view String = "2.4.0";
-
-} // namespace version
-```
+:::code naskriznyi-vypusk-d/c/podiia-vypusku-chomu-reliz.h
+:::code naskriznyi-vypusk-d/cpp/podiia-vypusku-chomu-reliz.hpp
 :::
 
 Генерація такого заголовка не порушує відтворюваність збірки, оскільки його вміст є строгою математичною функцією від підписаного тегу та хешу коміту, а не від випадкового часу запуску сервера збірки.
@@ -221,113 +196,8 @@ SBOM — це машиночитний структурний документ (
 Ось як виглядає еталонна логіка перевірки сумісності апаратури, лічильника безпеки та контрольної суми перед застосуванням оновлення:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-#define SECURE_BOOT_MAGIC 0x53424F54
-#define HW_REV_CURRENT    0x0002 /* Hardware Rev B */
-
-typedef struct {
-    uint32_t magic;
-    uint32_t version_code;
-    uint32_t security_counter;
-    uint32_t hw_compatibility_mask;
-    uint32_t payload_size;
-    uint8_t  sha256_digest[32];
-    uint8_t  signature[64];
-} __attribute__((packed)) ImageHeader;
-
-typedef enum {
-    VERIFY_OK = 0,
-    ERR_BAD_MAGIC,
-    ERR_HW_INCOMPATIBLE,
-    ERR_ROLLBACK_DETECTED,
-    ERR_IMAGE_TOO_LARGE,
-    ERR_DIGEST_MISMATCH
-} VerifyResult;
-
-VerifyResult verify_release_header(const ImageHeader *hdr,
-                                   uint32_t current_efuse_counter,
-                                   uint32_t max_flash_size) {
-    if (hdr->magic != SECURE_BOOT_MAGIC) {
-        return ERR_BAD_MAGIC;
-    }
-
-    /* Перевірка сумісності з поточною апаратною ревізією */
-    if ((hdr->hw_compatibility_mask & (1U << HW_REV_CURRENT)) == 0) {
-        return ERR_HW_INCOMPATIBLE;
-    }
-
-    /* Захист від відкату версії (anti-rollback) */
-    if (hdr->security_counter < current_efuse_counter) {
-        return ERR_ROLLBACK_DETECTED;
-    }
-
-    /* Перевірка лімітів пам'яті */
-    if (hdr->payload_size > max_flash_size) {
-        return ERR_IMAGE_TOO_LARGE;
-    }
-
-    return VERIFY_OK;
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <expected>
-#include <array>
-
-namespace release {
-
-inline constexpr uint32_t SecureBootMagic = 0x53424F54;
-inline constexpr uint32_t CurrentHwRevision = 0x0002; // Hardware Rev B
-
-struct alignas(4) ImageHeader {
-    uint32_t magic;
-    uint32_t versionCode;
-    uint32_t securityCounter;
-    uint32_t hwCompatibilityMask;
-    uint32_t payloadSize;
-    std::array<uint8_t, 32> sha256Digest;
-    std::array<uint8_t, 64> signature;
-};
-
-enum class VerifyError {
-    BadMagic,
-    HwIncompatible,
-    RollbackDetected,
-    ImageTooLarge,
-    DigestMismatch
-};
-
-[[nodiscard]] std::expected<void, VerifyError> verifyReleaseHeader(
-    const ImageHeader& hdr,
-    uint32_t currentEfuseCounter,
-    uint32_t maxFlashSize) noexcept {
-    
-    if (hdr.magic != SecureBootMagic) {
-        return std::unexpected(VerifyError::BadMagic);
-    }
-
-    if ((hdr.hwCompatibilityMask & (1U << CurrentHwRevision)) == 0) {
-        return std::unexpected(VerifyError::HwIncompatible);
-    }
-
-    if (hdr.securityCounter < currentEfuseCounter) {
-        return std::unexpected(VerifyError::RollbackDetected);
-    }
-
-    if (hdr.payloadSize > maxFlashSize) {
-        return std::unexpected(VerifyError::ImageTooLarge);
-    }
-
-    return {};
-}
-
-} // namespace release
-```
+:::code naskriznyi-vypusk-d/c/kliientska-veryfikatsiia.c
+:::code naskriznyi-vypusk-d/cpp/kliientska-veryfikatsiia.cpp
 :::
 
 ## Атомна публікація та дистрибуція релізу

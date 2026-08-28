@@ -70,28 +70,7 @@ P(α) / Pmax = (1/π) · [ (π − α) + ½·sin(2α) ]    α — кут від�
 
 **Блок 1 — конфігурація виводів і таймера:**
 
-```c
-#include "driver/gptimer.h"
-#include "driver/gpio.h"
-#include "esp_timer.h"
-
-#define ZCD_PIN    GPIO_NUM_4     // вхід від детектора переходу нуля (через оптопару)
-#define GATE_PIN   GPIO_NUM_5     // вихід на оптодрайвер симістора (MOC3021 тощо)
-
-#define GATE_PULSE_US   80        // тривалість імпульсу на затвор, мкс
-#define HALF_PERIOD_US  10000     // півперіод для 50 Гц = 10 мс = 10000 мкс
-#define DELAY_MIN_US    300       // мін. затримка: не смикати впритул до нуля
-#define DELAY_MAX_US    9500      // макс. затримка: лишити час защіпнутися до кінця
-
-static gptimer_handle_t g_timer = NULL;
-
-// Затримка від нуля до імпульсу; читається в ISR, тому volatile.
-// Стартове значення DELAY_MAX_US = навантаження ВИМКНЕНЕ (безпечний старт).
-static volatile uint32_t g_fire_delay_us = DELAY_MAX_US;
-
-// Прапорець "регулятор увімкнено"; поки false — жодних імпульсів на затвор.
-static volatile bool g_output_enabled = false;
-```
+:::code proj-phase-control/c/robochyi-kod-c-c-esp32-esp.c
 
 Зверніть увагу на два рядки про безпеку. Стартова затримка — **максимальна** (навантаження практично вимкнене), а `g_output_enabled` — `false`. Це навмисно: після подачі живлення чи після скидання регулятор мусить прокинутися **в безпечному, вимкненому стані**, а не смикнути навантаження на повну через випадкове значення в неініціалізованій пам'яті. Ми ще повернемося до цього серед пасток.
 
@@ -99,47 +78,13 @@ static volatile bool g_output_enabled = false;
 
 **Блок 2 — обробник переходу нуля (запускає таймер):**
 
-```c
-// Викликається на КОЖНОМУ переході нуля (сто разів на секунду для 50 Гц).
-// Єдина робота: перезапустити таймер на поточну затримку t_fire.
-static bool IRAM_ATTR on_zero_cross(void *arg)
-{
-    if (!g_output_enabled) {
-        return false;                 // регулятор вимкнено — нічого не робимо
-    }
-
-    // Скинути лічильник у нуль і завести будильник на g_fire_delay_us.
-    gptimer_set_raw_count(g_timer, 0);
-    gptimer_alarm_config_t alarm = {
-        .alarm_count = g_fire_delay_us,   // спрацює через t_fire мкс
-        .flags.auto_reload_on_alarm = false,
-    };
-    gptimer_set_alarm_action(g_timer, &alarm);
-    gptimer_start(g_timer);
-    return false;                     // пробудження задачі не потрібне
-}
-```
+:::code proj-phase-control/c/robochyi-kod-c-c-esp32-esp-2.c
 
 Але цей обробник викликається не сам собою — його треба причепити до GPIO-переривання. GPIO ESP-IDF має свій диспетчер переривань, тож ми реєструємо окремий тонкий обробник на фронт ніжки ZCD, а він уже викликає нашу логіку. Щоб не плутати два різні механізми, покажу це явно.
 
 **Блок 3 — обробник GPIO-переривання від ZCD:**
 
-```c
-// Тонкий обробник GPIO: спрацьовує на фронті сигналу ZCD і делегує логіку.
-static void IRAM_ATTR zcd_gpio_isr(void *arg)
-{
-    // Захист від дребезгу: ігнорувати фронти, ближчі за 4 мс один до одного.
-    // Справжні нулі йдуть кожні 10 мс; усе частіше — брязкіт компаратора ZCD.
-    static int64_t last_us = 0;
-    int64_t now = esp_timer_get_time();       // монотонний час у мкс
-    if (now - last_us < 4000) {
-        return;                                // надто рано — це дребезг, геть
-    }
-    last_us = now;
-
-    on_zero_cross(NULL);                        // усе гаразд — запускаємо відлік
-}
-```
+:::code proj-phase-control/c/robochyi-kod-c-c-esp32-esp-3.c
 
 Тут з'явився **захист від дребезгу** *(англ. debounce — «прибрати брязкіт»)*, і він критичний. Детектор переходу нуля будують на компараторі, а компаратор поблизу самого нуля, де сигнал повзе повільно й тоне в шумі, легко «брязкає» — видає не один чистий фронт, а пачку швидких перемикань. Кожен зайвий фронт — це зайвий запуск таймера, зайвий імпульс на затвор у непередбачуваний момент, миготіння лампи. Оскільки справжні переходи нуля йдуть строго кожні 10 мс, будь-який фронт, що прийшов раніше ніж через ~4 мс після попереднього, гарантовано фальшивий — його й відкидаємо. Це найпростіший і найнадійніший фільтр: не встиг минути мінімальний фізично можливий інтервал — ігноруємо.
 
@@ -147,21 +92,7 @@ static void IRAM_ATTR zcd_gpio_isr(void *arg)
 
 **Блок 4 — обробник таймера (смикає затвор):**
 
-```c
-// Викликається, коли затримка t_fire спливла. Смикає затвор коротким імпульсом.
-static bool IRAM_ATTR on_fire(void *arg)
-{
-    gptimer_stop(g_timer);            // одноразовий будильник, більше не потрібен
-
-    // Короткий імпульс: підняти затвор, зачекати GATE_PULSE_US, опустити.
-    // Затримка тут — десятки мкс, це припустимо навіть в ISR (див. нижче чому).
-    gpio_set_level(GATE_PIN, 1);
-    esp_rom_delay_us(GATE_PULSE_US);  // калібрована коротка пауза, ~80 мкс
-    gpio_set_level(GATE_PIN, 0);
-
-    return false;
-}
-```
+:::code proj-phase-control/c/robochyi-kod-c-c-esp32-esp-4.c
 
 Тут виникає природне питання: **вище я казав, що затримку не можна відмірювати busy-loop, а тут `esp_rom_delay_us` — це ж і є busy-loop!** Різниця в масштабі, і вона принципова. Затримка запуску t_fire — це до 10 мс, і крутити процесор у порожньому циклі 10 мс сто разів на секунду означало б з'їсти відчутну частку процесорного часу й заблокувати геть усе інше. А от імпульс на затвор — це 80 мкс, у сотні разів менше; ця крихітна пауза стається лише в мить защіпання й нічого не встигає зламати. Тому короткий `esp_rom_delay_us` для формування імпульсу — припустимий, а от відлік самої затримки — тільки апаратним таймером. Про це докладніше в розділі пасток.
 
@@ -169,99 +100,13 @@ static bool IRAM_ATTR on_fire(void *arg)
 
 **Блок 5 — ініціалізація:**
 
-```c
-void phase_control_init(void)
-{
-    // 1. Вихід на затвор — у нуль (симістор закритий), поки не накажемо
-    gpio_config_t gate_cfg = {
-        .pin_bit_mask = 1ULL << GATE_PIN,
-        .mode = GPIO_MODE_OUTPUT,
-    };
-    gpio_config(&gate_cfg);
-    gpio_set_level(GATE_PIN, 0);
-
-    // 2. Вхід ZCD — з перериванням на наростний фронт
-    gpio_config_t zcd_cfg = {
-        .pin_bit_mask = 1ULL << ZCD_PIN,
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_ENABLE,
-        .intr_type = GPIO_INTR_POSEDGE,      // фронт = перехід нуля
-    };
-    gpio_config(&zcd_cfg);
-
-    // 3. Апаратний таймер: 1 тік = 1 мкс (роздільність 1 МГц)
-    gptimer_config_t timer_cfg = {
-        .clk_src = GPTIMER_CLK_SRC_DEFAULT,
-        .direction = GPTIMER_COUNT_UP,
-        .resolution_hz = 1000000,            // 1 МГц → 1 мкс на тік
-    };
-    gptimer_new_timer(&timer_cfg, &g_timer);
-
-    gptimer_event_callbacks_t cbs = { .on_alarm = on_fire };
-    gptimer_register_event_callbacks(g_timer, &cbs, NULL);
-    gptimer_enable(g_timer);
-
-    // 4. Причепити обробник GPIO до ніжки ZCD
-    gpio_install_isr_service(0);
-    gpio_isr_handler_add(ZCD_PIN, zcd_gpio_isr, NULL);
-
-    // 5. Безпечний старт: вимкнено, затримка максимальна
-    g_fire_delay_us = DELAY_MAX_US;
-    g_output_enabled = false;
-}
-```
+:::code proj-phase-control/c/robochyi-kod-c-c-esp32-esp-5.c
 
 І, нарешті, «ручка» назовні. Задаємо потужність відсотком; функція перераховує його в затримку й вмикає регулятор. Тут я навмисно показую два варіанти перерахунку — простий (лінійний за часом, для розуміння) і правильний (з урахуванням нелінійності sin²).
 
 **Блок 6 — задання потужності (з обмеженнями й перерахунком):**
 
-```c
-#include <math.h>
-
-// Простий, ІНТУЇТИВНИЙ, але нелінійний за яскравістю варіант:
-// відсоток прямо відображається в затримку. Годиться, коли лінійність не критична.
-static uint32_t percent_to_delay_linear(uint8_t percent)
-{
-    if (percent >= 100) return DELAY_MIN_US;         // повна потужність
-    if (percent == 0)   return DELAY_MAX_US;         // вимкнено
-    // 0 % → максимальна затримка, 100 % → мінімальна
-    uint32_t span = DELAY_MAX_US - DELAY_MIN_US;
-    return DELAY_MAX_US - (span * percent) / 100;
-}
-
-// Правильний варіант: спершу знайти кут α, що дає задану частку потужності,
-// потім перевести кут у затримку. Формулу P(α) обертаємо наближено (бісекція),
-// бо аналітично вона не обертається.
-static uint32_t percent_to_delay_true_power(uint8_t percent)
-{
-    if (percent >= 100) return DELAY_MIN_US;
-    if (percent == 0)   return DELAY_MAX_US;
-
-    float target = percent / 100.0f;                 // бажана P/Pmax
-    float lo = 0.0f, hi = (float)M_PI;               // шукаємо α у [0, π]
-    for (int i = 0; i < 20; i++) {                   // 20 ітерацій — з надлишком
-        float a = 0.5f * (lo + hi);
-        float p = (1.0f / M_PI) * ((M_PI - a) + 0.5f * sinf(2.0f * a));
-        if (p > target) lo = a; else hi = a;         // P спадає зі зростанням α
-    }
-    float alpha = 0.5f * (lo + hi);
-    // Кут → затримка: π радіан = HALF_PERIOD_US мкс
-    uint32_t d = (uint32_t)(alpha / M_PI * HALF_PERIOD_US);
-
-    // Затиснути в безпечні межі
-    if (d < DELAY_MIN_US) d = DELAY_MIN_US;
-    if (d > DELAY_MAX_US) d = DELAY_MAX_US;
-    return d;
-}
-
-void phase_control_set_power(uint8_t percent)
-{
-    uint32_t delay = percent_to_delay_true_power(percent);
-
-    g_fire_delay_us  = delay;         // обробник підхопить на наступному нулі
-    g_output_enabled = (percent > 0); // 0 % — повністю зупинити імпульси
-}
-```
+:::code proj-phase-control/c/robochyi-kod-c-c-esp32-esp-6.c
 
 Зверніть увагу, як передається нова затримка: ми просто пишемо `g_fire_delay_us`, і наступний перехід нуля вже відлічить оновлене значення. Жодних блокувань, жодної синхронізації — бо запис 32-бітного слова на ESP32 **атомарний**, обробник ніколи не побачить «напівоновлене» число. Це та сама техніка з [перериваннями](root:embedded/polling-vs-interrupts): звичайний код готує дані, ISR їх лише читає, а обмін іде через одну просту `volatile`-змінну.
 

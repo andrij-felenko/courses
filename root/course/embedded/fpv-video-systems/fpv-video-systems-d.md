@@ -78,66 +78,8 @@ FPV-пілот живе саме в цій петлі, тільки на шви�
 **Умова.** Гоночний дрон на 120 км/год. Цифрова система: камера 7 мс, кодер 12 мс, радіо туди-назад 4 мс, декодер 6 мс, екран окулярів 8 мс. Скільки це від скла до скла й скільки метрів «наосліп»?
 
 :::tabs
-```c
-#include <stdio.h>
-
-// Усі затримки — у мілісекундах
-typedef struct {
-    float sensor;    // набір кадру сенсором
-    float encode;    // стиснення кодеком (0 для аналогу)
-    float radio;     // ефір + демодуляція
-    float decode;    // розпакування (0 для аналогу)
-    float display;   // вивід на екран окулярів
-} latency_ms;
-
-float glass_to_glass(latency_ms p) {
-    return p.sensor + p.encode + p.radio + p.decode + p.display;
-}
-
-// Скільки метрів апарат пролетить за час затримки
-float blind_distance_m(float latency_ms, float speed_kmh) {
-    float speed_ms = speed_kmh / 3.6f;        // км/год → м/с
-    return speed_ms * (latency_ms / 1000.0f); // мс → с
-}
-
-int main(void) {
-    latency_ms o4 = { .sensor=7, .encode=12, .radio=4, .decode=6, .display=8 };
-    float total = glass_to_glass(o4);              // 37.0 мс
-    float blind = blind_distance_m(total, 120.0f); // на 120 км/год
-
-    printf("Затримка: %.1f мс\n", total);
-    printf("Наосліп:  %.2f м\n", blind);
-    return 0;
-}
-```
-```python
-from dataclasses import dataclass
-
-# Усі затримки — у мілісекундах
-@dataclass
-class LatencyMs:
-    sensor: float    # набір кадру сенсором
-    encode: float    # стиснення кодеком (0 для аналогу)
-    radio: float     # ефір + демодуляція
-    decode: float    # розпакування (0 для аналогу)
-    display: float   # вивід на екран окулярів
-
-def glass_to_glass(p):
-    return p.sensor + p.encode + p.radio + p.decode + p.display
-
-# Скільки метрів апарат пролетить за час затримки
-def blind_distance_m(latency_ms, speed_kmh):
-    speed_ms = speed_kmh / 3.6                 # км/год → м/с
-    return speed_ms * (latency_ms / 1000.0)    # мс → с
-
-if __name__ == "__main__":
-    o4 = LatencyMs(sensor=7, encode=12, radio=4, decode=6, display=8)
-    total = glass_to_glass(o4)                 # 37.0 мс
-    blind = blind_distance_m(total, 120.0)     # на 120 км/год
-
-    print(f"Затримка: {total:.1f} мс")
-    print(f"Наосліп:  {blind:.2f} м")
-```
+:::code fpv-video-systems-d/c/main.c
+:::code fpv-video-systems-d/py/main.py
 :::
 
 Покрокова перевірка обчислення:

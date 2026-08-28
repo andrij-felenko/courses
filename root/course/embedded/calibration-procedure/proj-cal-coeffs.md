@@ -57,142 +57,19 @@ ABORT       — щось пішло не так; старе калібруван
 
 Почнімо з типів. Усе, що автомат пам'ятає між викликами, складемо в одну структуру-контекст — це не лише охайно, а й зручно для скидання: один присвоєнням повертаємо автомат у чистий початок.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include <stddef.h>   // offsetof, size_t
-
-typedef enum {
-    CAL_IDLE = 0,
-    CAL_WARMUP,
-    CAL_WAIT_LOW,
-    CAL_AVG_LOW,
-    CAL_WAIT_HIGH,
-    CAL_AVG_HIGH,
-    CAL_COMPUTE,
-    CAL_SAVE,
-    CAL_DONE,
-    CAL_ABORT
-} cal_state_t;
-
-// Чому саме сюди впала помилка — щоб показати оператору й залогувати.
-typedef enum {
-    CAL_ERR_NONE = 0,
-    CAL_ERR_NOISY,        // розкид відліків на опорі завеликий — давач/контакт шумить
-    CAL_ERR_POINTS_CLOSE, // опори надто близько → нахил невизначений (ділення на ~0)
-    CAL_ERR_RANGE,        // k або b поза здоровими межами — щось переплутали
-    CAL_ERR_STORE         // запис у NVS не підтвердився
-} cal_err_t;
-
-typedef struct {
-    cal_state_t state;
-    cal_err_t   err;
-
-    float    x_low, x_high;   // відомі еталонні величини (задані наперед)
-
-    // накопичувач усереднення (спільний для обох опор)
-    int64_t  acc;             // сума сирих кодів (64 біт — щоб не переповнити)
-    uint32_t n;               // скільки відліків уже взято
-    int32_t  raw_min, raw_max;// межі розкиду на поточній опорі (оцінка шуму)
-
-    int32_t  raw_low, raw_high; // усереднені результати двох опор
-    uint32_t t_enter;         // мітка часу входу в стан (для прогріву й таймаутів)
-
-    cal_t    result;          // пораховані k і b (тип cal_t — з теми)
-} cal_ctx_t;
-
-static cal_ctx_t cal = { .state = CAL_IDLE };
-```
+:::code proj-cal-coeffs/c/kistiak-stany-kontekst.c
 
 Тепер шар доступу до заліза й до решти системи. Винесемо його за окремі функції — автомат не повинен знати, який це АЦП, яка кнопка чи через який драйвер пам'ять. Це не косметика: той самий автомат має крутитися і на стенді з кнопкою, і на пристрої, що отримує команди по UART.
 
-```c
-// ── Сирий канал давача (один відлік 24-біт коду) ──
-extern int32_t  sensor_read_raw(void);
-
-// ── Команди оператора (фронт — true рівно один раз на натискання) ──
-extern bool  op_pressed_capture(void);   // «зняти цю опору»
-extern bool  op_pressed_abort(void);     // «скасувати калібрування»
-
-// ── Зворотний зв'язок операторові (дисплей/світлодіоди) ──
-extern void  ui_prompt(const char *msg); // показати, що робити зараз
-extern void  ui_progress(uint32_t done, uint32_t total); // хід усереднення
-
-extern uint32_t now_ms(void);            // монотонний лічильник часу
-
-// ── Енергонезалежне сховище (реалізація — поверх NVS/EEPROM/FRAM) ──
-//    Повертають true при успіху. Деталі — у розділі про атомарний запис.
-extern bool  cal_store_write(const cal_t *c);  // записати коефіцієнти атомарно
-extern bool  cal_store_read(cal_t *out);       // підняти; false якщо нема/побито
-```
+:::code proj-cal-coeffs/c/kistiak-stany-kontekst-2.c
 
 І нарешті — найпростіші стани. `IDLE` чекає команди «почати», `DONE` і `ABORT` — термінальні, з них головний цикл забирає автомат назад у робоче читання. Винесемо вхід у помилку в одну функцію, бо падати в ABORT ми будемо з кількох місць, і всюди дія однакова: **запам'ятати причину, нічого не зберігати, повернутися**.
 
-```c
-// Єдині двері в ABORT: лишаємо старе калібрування недоторканим.
-static void cal_abort(cal_err_t why)
-{
-    cal.err   = why;
-    cal.state = CAL_ABORT;       // нічого НЕ пишемо в NVS — старе чинне лишається
-    ui_prompt("Калібрування скасовано");
-}
-
-// Почати усереднення на черговій опорі: обнулити накопичувач.
-static void avg_begin(uint32_t t)
-{
-    cal.acc = 0; cal.n = 0;
-    cal.raw_min = INT32_MAX; cal.raw_max = INT32_MIN;
-    cal.t_enter = t;
-}
-```
+:::code proj-cal-coeffs/c/kistiak-stany-kontekst-3.c
 
 Тепер головний крок. Він короткий навмисне: один `switch`, у кожному стані — кілька рядків. Спільну для всіх «живих» станів річ — кнопку скасування — перевіряємо найперше, ще до логіки стану: оператор має право вийти будь-якої миті.
 
-```c
-// Викликати ЧАСТО й КОРОТКО — напр. раз на 1–5 мс із головного циклу.
-void cal_step(void)
-{
-    uint32_t t = now_ms();
-
-    // Оператор може скасувати з будь-якого робочого стану.
-    if (cal.state > CAL_IDLE && cal.state < CAL_DONE && op_pressed_abort()) {
-        cal_abort(CAL_ERR_NONE);
-        return;
-    }
-
-    switch (cal.state) {
-
-    case CAL_IDLE:
-        // Спокій: працює старе калібрування. Старт — через cal_request_start().
-        break;
-
-    case CAL_WARMUP:    warmup_step(t);    break;
-    case CAL_WAIT_LOW:  wait_low_step(t);  break;
-    case CAL_AVG_LOW:   avg_low_step(t);   break;
-    case CAL_WAIT_HIGH: wait_high_step(t); break;
-    case CAL_AVG_HIGH:  avg_high_step(t);  break;
-    case CAL_COMPUTE:   compute_step(t);   break;
-    case CAL_SAVE:      save_step(t);      break;
-
-    case CAL_DONE:
-    case CAL_ABORT:
-        // Термінальні: головний цикл забере нас назад у робоче читання.
-        break;
-    }
-}
-
-// Зовнішня команда «почати калібрування» (кнопка, команда по UART).
-void cal_request_start(float x_low, float x_high)
-{
-    if (cal.state != CAL_IDLE && cal.state != CAL_DONE && cal.state != CAL_ABORT)
-        return;                          // вже йде калібрування — не перезапускаємо
-
-    cal = (cal_ctx_t){ .state = CAL_WARMUP, .x_low = x_low, .x_high = x_high };
-    cal.t_enter = now_ms();
-    ui_prompt("Прогрів... не чіпайте давач");
-}
-```
+:::code proj-cal-coeffs/c/kistiak-stany-kontekst-4.c
 
 Кістяк готовий. Він уже правильно структурований: скасування попереду логіки, старе калібрування недоторкане до самого SAVE, час — через мітки. Тепер наповнимо стани справжньою роботою.
 
@@ -202,56 +79,11 @@ void cal_request_start(float x_low, float x_high)
 
 Але «зачекати 5 хвилин» — грубо. Розумніше **дочекатися, поки нуль перестане повзти**: беремо відлік раз на секунду й дивимося, чи різниця між сусідніми впала нижче порога. Це той самий принцип, що й у BMS, — чекай **виміряну умову**, а таймер тримай лише запобіжником на той випадок, якщо умова не настане (давач так і шумить, давач відключений).
 
-```c
-#define WARMUP_STABLE_CODES   40    // |Δ| між сусідніми відліками — стабільно
-#define WARMUP_POLL_MS        1000u // як часто дивимось на дрейф
-#define WARMUP_MAX_MS         300000u // 5 хв — стеля; далі грітись марно
-
-static int32_t warmup_prev;
-static uint32_t warmup_last_poll;
-
-static void warmup_step(uint32_t t)
-{
-    if (t - cal.t_enter > WARMUP_MAX_MS) {  // запобіжник: не гріється вічно
-        cal_abort(CAL_ERR_NOISY);           // нуль так і не вгамувався — щось не так
-        return;
-    }
-    if (t - warmup_last_poll < WARMUP_POLL_MS) return;
-    warmup_last_poll = t;
-
-    int32_t now = sensor_read_raw();
-    int32_t drift = now - warmup_prev;
-    warmup_prev = now;
-    if (drift < 0) drift = -drift;
-
-    if (drift < WARMUP_STABLE_CODES && (t - cal.t_enter) > 3 * WARMUP_POLL_MS) {
-        cal.state = CAL_WAIT_LOW;           // нуль устаканився — можна знімати опори
-        ui_prompt("Поставте НИЖНЮ опору (тару) і натисніть «зняти»");
-    }
-}
-```
+:::code proj-cal-coeffs/c/prohriv-i-ochikuvannia.c
 
 Стани очікування опори тривіальні: показуємо підказку й чекаємо натискання. Уся хитрість — у джерелі натискання: `op_pressed_capture()` має повертати `true` **рівно один раз** на одне фізичне натискання (вже з придушеним дребезгом кнопки), інакше одне торкання проскочить через кілька викликів циклу. Дребезг кнопки — окрема дисципліна; тут припускаємо, що шар вводу вже чистий.
 
-```c
-static void wait_low_step(uint32_t t)
-{
-    if (op_pressed_capture()) {
-        avg_begin(t);
-        cal.state = CAL_AVG_LOW;
-        ui_prompt("Знімаю нижню опору, не чіпайте...");
-    }
-}
-
-static void wait_high_step(uint32_t t)
-{
-    if (op_pressed_capture()) {
-        avg_begin(t);
-        cal.state = CAL_AVG_HIGH;
-        ui_prompt("Знімаю верхню опору, не чіпайте...");
-    }
-}
-```
+:::code proj-cal-coeffs/c/prohriv-i-ochikuvannia-2.c
 
 Усе цікаве — далі, в усередненні.
 
@@ -263,59 +95,7 @@ static void wait_high_step(uint32_t t)
 
 Навіщо поряд із сумою `acc` ще й межі `raw_min`/`raw_max`? Бо середнє каже, **де** центр, а розмах `max − min` каже, **наскільки відліки навколо нього тремтять**. Якщо розмах завеликий — це не той дрібний шум, який усереднення придушить, а ознака біди: поганий контакт, вібрація стенда, давач без живлення. Записати таку точку — значить отруїти калібрування непомітно. Краще зупинитися й сказати оператору. (Розмах — найдешевша оцінка розкиду; де потрібен строгіший поріг, додають другий накопичувач — суму квадратів — і рахують середньоквадратичне відхилення, але для гейту «контакт є / контакту нема» розмаху досить.)
 
-```c
-#define AVG_N            512u   // відліків на опору; √512 ≈ 22.6 → шум /22.6
-#define AVG_TIMEOUT_MS   30000u // якщо за 30 с не набрали — давач мовчить
-#define AVG_MAX_SPREAD   2000   // допустимий розмах (max−min) сирих кодів
-
-// Один крок усереднення; повертає true, коли набір завершено (успіх чи ні).
-static bool average_step(uint32_t t, int32_t *avg_out)
-{
-    if (t - cal.t_enter > AVG_TIMEOUT_MS) {     // давач не віддає відліки
-        cal_abort(CAL_ERR_NOISY);
-        return false;
-    }
-
-    int32_t r = sensor_read_raw();
-    cal.acc += r;
-    if (r < cal.raw_min) cal.raw_min = r;
-    if (r > cal.raw_max) cal.raw_max = r;
-    cal.n++;
-    ui_progress(cal.n, AVG_N);
-
-    if (cal.n < AVG_N) return false;            // ще набираємо
-
-    // Набір завершено: перевіряємо розкид, перш ніж довіряти середньому.
-    int32_t spread = cal.raw_max - cal.raw_min;
-    if (spread > AVG_MAX_SPREAD) {
-        cal_abort(CAL_ERR_NOISY);               // зашумлена точка — не записуємо
-        return false;
-    }
-
-    // Середнє з округленням (а не зрізанням): +N/2 перед діленням.
-    *avg_out = (int32_t)((cal.acc + (int64_t)AVG_N / 2) / AVG_N);
-    return true;
-}
-
-static void avg_low_step(uint32_t t)
-{
-    int32_t avg;
-    if (average_step(t, &avg)) {
-        cal.raw_low = avg;
-        cal.state   = CAL_WAIT_HIGH;
-        ui_prompt("Поставте ВЕРХНЮ опору (відому гирю) і натисніть «зняти»");
-    }
-}
-
-static void avg_high_step(uint32_t t)
-{
-    int32_t avg;
-    if (average_step(t, &avg)) {
-        cal.raw_high = avg;
-        cal.state    = CAL_COMPUTE;     // обидві опори зняті — час рахувати
-    }
-}
-```
+:::code proj-cal-coeffs/c/userednennia-z-kontrolem.c
 
 Чому `AVG_N = 512`, а не «побільше для надійності»? Бо усереднення давить **випадковий** шум як √N: 512 відліків зменшують його приблизно у √512 ≈ 22.6 раза. Учетверо більше відліків дадуть лише вдвічі менший шум — закон спадної віддачі. А ще довге усереднення впирається в **дрейф**: поки набігають тисячі відліків, нуль уже встигає попливти, і ми усереднюємо не точку, а похилу лінію. Тож `AVG_N` беруть достатнім, щоб шум упав нижче потрібної точності, і не більшим — типово сотні-тисячі відліків. Чому саме так і як це пов'язано з природою шуму — окремо в [математиці усереднення на сусідньому кроці](root:hw-sensing/averaging-gain).
 
@@ -329,41 +109,7 @@ static void avg_high_step(uint32_t t)
 
 Друга перевірка — **коефіцієнти у здорових межах**. Ми наперед знаємо приблизний паспортний нахил давача (скажімо, сотні кодів на грам) і приблизний зсув. Якщо пораховані `k` чи `b` відхиляються від паспорта в рази — це не «такий екземпляр», а помилка процедури. Межі беруть широкими (давачі справді різняться на відсотки, іноді десятки відсотків), але не безмежними: вони ловлять грубі помилки, а не дрібний рознос.
 
-```c
-// Тип cal_t і розв'язувач cal_two_point — з теми. Тут — обгортка з перевірками.
-#define CAL_MIN_SPAN_X     1.0f     // мінімальна різниця еталонів (у фіз. одиницях)
-#define CAL_K_NOMINAL      721.0f   // паспортний нахил (кодів на одиницю)
-#define CAL_K_TOL          0.30f    // допуск нахилу: ±30 % від паспорта
-
-static void compute_step(uint32_t t)
-{
-    (void)t;
-
-    // 1) Опори мусять бути рознесені (і в правильному порядку).
-    if (cal.x_high - cal.x_low < CAL_MIN_SPAN_X) {
-        cal_abort(CAL_ERR_POINTS_CLOSE);
-        return;
-    }
-
-    // 2) Та сама формула з теми: нахил і зсув.
-    cal.result = cal_two_point(cal.raw_low,  cal.x_low,
-                               cal.raw_high, cal.x_high);
-
-    // 3) Перевірка здорового глузду: нахил у паспортному коридорі.
-    float k = cal.result.k;
-    if (k < CAL_K_NOMINAL * (1.0f - CAL_K_TOL) ||
-        k > CAL_K_NOMINAL * (1.0f + CAL_K_TOL)) {
-        cal_abort(CAL_ERR_RANGE);          // нахил поза здоровим коридором
-        return;
-    }
-    if (!(k > 0.0f)) {                      // ловить і NaN, і 0, і від'ємний нахил
-        cal_abort(CAL_ERR_RANGE);
-        return;
-    }
-
-    cal.state = CAL_SAVE;                   // коефіцієнти здорові — час зберігати
-}
-```
+:::code proj-cal-coeffs/c/rozviazannia.c
 
 Зверни увагу на перевірку `!(k > 0.0f)` замість звичної `k <= 0.0f`. Вони не однакові: якщо `k` вийшов `NaN` (наприклад, `0.0/0.0` при якомусь крайньому випадку), то `k <= 0.0f` дасть `false` і пропустить сміття далі, а `k > 0.0f` теж дасть `false`, тож `!(k > 0.0f)` чесно зловить `NaN`. Дрібниця, що рятує від запису «не-числа» в коефіцієнти — а такий запис застосовується потім у кожному читанні, перетворюючи всі виміри на `NaN`.
 
@@ -377,55 +123,7 @@ static void compute_step(uint32_t t)
 
 **Контрольна сума.** `magic` і `version` — це чотири байти на початку; вони не помітять, якщо зіпсувалося поле `k` усередині. Щоб ловити **будь-яке** псування байтів (хоч від обірваного запису, хоч від деградації комірки за роки), кладемо в кінець **контрольну суму** всіх попередніх байтів — CRC32. При читанні рахуємо CRC заново й звіряємо: збіглося — дані цілі; ні — запис побитий, ігноруємо. CRC32 — це не «галочка для звіту»: її поліном (промисловий стандарт `0x04C11DB7`, той самий, що в Ethernet і ZIP) підібраний так, щоб ловити всі однобітові, двобітові й пакетні помилки в межах розміру кадру; статус факту — усталений, це опублікований і повсюдно вживаний стандарт.
 
-```c
-#define CAL_MAGIC    0xCA10B00Fu   // «тут лежить калібрування» (з теми)
-#define CAL_VERSION  2u            // версія РОЗКЛАДКИ цієї структури
-
-typedef struct {
-    uint32_t magic;      // == CAL_MAGIC
-    uint16_t version;    // == CAL_VERSION; інша версія → «не моє»
-    uint16_t _pad;       // вирівнювання до 4 байт (щоб розкладка була стабільна)
-    float    k;
-    float    b;
-    uint32_t seq;        // лічильник записів ЦЬОГО слота (більший = новіший)
-    uint32_t crc;        // CRC32 усіх байтів ВИЩЕ (від magic до seq включно)
-} cal_store_t;
-
-// Невелика портативна CRC32 (поліном 0x04C11DB7, відбитий → 0xEDB88320).
-// На ESP32 те саме дає ROM-функція esp_crc32_le(0, buf, len) з esp_crc.h.
-static uint32_t crc32(const void *data, size_t len)
-{
-    const uint8_t *p = (const uint8_t *)data;
-    uint32_t crc = 0xFFFFFFFFu;
-    for (size_t i = 0; i < len; i++) {
-        crc ^= p[i];
-        for (int b = 0; b < 8; b++)
-            crc = (crc >> 1) ^ (0xEDB88320u & (uint32_t)(-(int32_t)(crc & 1u)));
-    }
-    return ~crc;
-}
-
-// Зібрати запис із коефіцієнтів: проставити magic, версію, seq та CRC.
-static void store_pack(cal_store_t *s, const cal_t *c, uint32_t seq)
-{
-    memset(s, 0, sizeof *s);          // _pad та хвости — у нуль, щоб CRC був стабільний
-    s->magic   = CAL_MAGIC;
-    s->version = CAL_VERSION;
-    s->seq     = seq;
-    s->k = c->k;
-    s->b = c->b;
-    // CRC рахуємо по всьому ДО поля crc (offsetof — зміщення цього поля).
-    s->crc = crc32(s, offsetof(cal_store_t, crc));
-}
-
-// Перевірити піднятий запис: magic, версія, CRC. true ⇔ можна вірити.
-static bool store_valid(const cal_store_t *s)
-{
-    if (s->magic != CAL_MAGIC)     return false;   // не калібрування / чиста flash
-    if (s->version != CAL_VERSION) return false;   // чужий формат
-    return s->crc == crc32(s, offsetof(cal_store_t, crc));  // байти цілі?
-}
-```
+:::code proj-cal-coeffs/c/zapys-u-pamiat-versiia.c
 
 Тепер — **атомарність**, серце цієї пастки. У темі ми згадали: запис у flash/EEPROM триває мілісекунди й чутливий до напруги; [просадка живлення (brownout)](root:hw-arch/brownout) посеред запису лишить у пам'яті півкоефіцієнта. Веб-перевірка це підтверджує сухими числами: одна операція запису у flash триває від 1 до 5 мс, стирання сторінки — сотні мілісекунд, і саме сторінка, яку писали в мить обриву, псується (статус — усталене, добре задокументоване обмеження flash-пам'яті). Якщо обірвати струм рівно тоді, у `cal_store_t` опиниться частина нових байтів і частина старих — гібрид, який і `magic`, і `version` пройде (вони пишуться першими), а CRC завалить. Це вже краще за тихе сміття, але є й сильніший прийом.
 
@@ -437,83 +135,13 @@ static bool store_valid(const cal_store_t *s)
 
 *Чому два слоти рятують від brownout: пишемо завжди в старіший слот — і **лише в нього**, окремим записом його ключа, а чинним лишається новіший. Поки триває запис у B, комірка A лежить в іншому місці носія й лишається недоторканою; обрив струму псує щонайбільше B, і читач відкочується на ціле A. Запис стає атомарним «усе або нічого»: у пам'яті завжди є хоч одне калібрування, що проходить CRC.*
 
-```c
-#define CAL_SLOTS  2u
-
-// КЛЮЧОВЕ: кожен слот — окремий ключ носія, тобто РІЗНЕ фізичне місце.
-// Запис одного ключа не адресує байтів іншого, тож обрив живлення посеред
-// запису одного слота фізично не може зачепити другий. У цьому вся гарантія.
-static const char *const CAL_SLOT_KEY[CAL_SLOTS] = { "calslot0", "calslot1" };
-
-// Низькорівневі примітиви носія: читання/запис ОДНОГО ключа (окремого місця).
-// (реалізація — nvs_get_blob/nvs_set_blob+nvs_commit, або I2C-EEPROM, або FRAM)
-extern bool nvm_read (const char *key, void *dst, size_t len);
-extern bool nvm_write(const char *key, const void *src, size_t len);  // + commit/flush
-
-// Прочитати seq чинного слота; 0, якщо ключа нема або слот побитий/чужий.
-static uint32_t slot_seq(unsigned i)
-{
-    cal_store_t s;
-    if (nvm_read(CAL_SLOT_KEY[i], &s, sizeof s) && store_valid(&s))
-        return s.seq;
-    return 0u;                                // порожній/побитий = найстаріший
-}
-
-// Запис коефіцієнтів атомарно: у СТАРІШИЙ слот, окремим записом його ключа.
-bool cal_store_write(const cal_t *c)
-{
-    uint32_t seq0 = slot_seq(0), seq1 = slot_seq(1);
-
-    // Писати в старіший слот (менший seq); новіший НЕ чіпаємо взагалі.
-    unsigned old      = (seq0 <= seq1) ? 0u : 1u;
-    uint32_t next_seq = 1u + ((seq0 > seq1) ? seq0 : seq1);
-
-    cal_store_t fresh;
-    store_pack(&fresh, c, next_seq);          // magic/version/seq/k/b/CRC
-
-    // ОДИН запис в ОКРЕМИЙ ключ лише цього слота. Другий ключ цей виклик не
-    // торкає — обрив живлення тут псує щонайбільше CAL_SLOT_KEY[old], а
-    // слот-сусід у своєму місці лишається цілим зі старим калібруванням.
-    return nvm_write(CAL_SLOT_KEY[old], &fresh, sizeof fresh);
-}
-
-// Підняти найновіше ЦІЛЕ калібрування; false якщо обидва слоти непридатні.
-bool cal_store_read(cal_t *out)
-{
-    int      best     = -1;
-    uint32_t best_seq = 0u;
-
-    for (unsigned i = 0; i < CAL_SLOTS; i++) {
-        cal_store_t s;
-        if (!nvm_read(CAL_SLOT_KEY[i], &s, sizeof s)) continue;  // ключа нема
-        if (!store_valid(&s))                         continue;  // побитий/чужий
-        if (best < 0 || s.seq > best_seq) {                      // новіший ЦІЛИЙ
-            best     = (int)i;
-            best_seq = s.seq;
-            out->k   = s.k;
-            out->b   = s.b;
-        }
-    }
-    return best >= 0;                          // жодного цілого → некалібрований
-}
-```
+:::code proj-cal-coeffs/c/zapys-u-pamiat-versiia-2.c
 
 > 🔧 **Навіщо це.** Дві комірки з лічильником — це різниця між приладом, який «зазвичай переживає вимкнення», і приладом, який переживає його **завжди**. Запис поверх єдиної копії — це гра в рулетку: 99 разів зі ста живлення не обірветься саме в ті 1–5 мс запису, а на сотий прилад втратить усе калібрування й піде в поле з порожньою flash. Ping-pong знімає рулетку повністю: оскільки чинну копію ми ніколи не чіпаємо, доки нова не лягла цілою, обрив струму в найгіршу мить коштує лише відкату на попереднє калібрування — а не його втрати. Це той самий принцип атомарності, на якому стоять журнальовані файлові системи й транзакції баз даних, тільки в чотирьох десятках байтів flash.
 
 Тепер сам стан `SAVE` стає тонким — уся складність схована в `cal_store_write`:
 
-```c
-static void save_step(uint32_t t)
-{
-    (void)t;
-    if (cal_store_write(&cal.result)) {
-        cal.state = CAL_DONE;
-        ui_prompt("Калібрування збережено");
-    } else {
-        cal_abort(CAL_ERR_STORE);          // носій не підтвердив запис
-    }
-}
-```
+:::code proj-cal-coeffs/c/zapys-u-pamiat-versiia-3.c
 
 ## Старт, відсутні коефіцієнти й застосування в циклі читання
 
@@ -521,41 +149,7 @@ static void save_step(uint32_t t)
 
 У темі ми вивели правило: прилад, що **знає**, що він некалібрований, безпечніший за прилад, упевнений у брехні. Втілюємо це прапором `calibrated`: якщо `cal_store_read` повернув `false`, ми **не** видаємо фізичні величини взагалі — або йдемо в калібрувальний режим, або віддаємо сирий код із чесною позначкою «некалібровано», але ніколи не множимо сире число на коефіцієнти з порожньої пам'яті.
 
-```c
-static cal_t  active_cal;          // чинні коефіцієнти в роботі
-static bool   calibrated = false;  // чи можна вірити active_cal
-
-// Викликати ОДИН раз на старті, ДО першого читання й ДО cal_step().
-void measurement_init(void)
-{
-    calibrated = cal_store_read(&active_cal);   // підняти найновіше ціле з NVS
-    if (!calibrated) {
-        // Чесний стан: коефіцієнтів нема або побиті. НЕ вигадуємо їх.
-        ui_prompt("Давач НЕ калібрований — запустіть калібрування");
-        // тут típово: автозапуск cal_request_start(...) або блокування вимірів
-    }
-}
-
-// Робоче читання: сирий код → фізична величина. Нечесні дані не повертаємо.
-bool measurement_read(float *value_out)
-{
-    if (!calibrated) return false;              // нема чому вірити — і не вдаємо
-
-    int32_t raw = sensor_read_raw();
-    *value_out = cal_apply(&active_cal, raw);   // (raw − b)/k — формула з теми
-    return true;
-}
-
-// Коли калібрувальний автомат дійшов до DONE — підхопити свіжі коефіцієнти.
-void measurement_on_cal_done(void)
-{
-    if (cal.state == CAL_DONE) {
-        active_cal = cal.result;                // нові коефіцієнти — одразу в роботу
-        calibrated = true;
-        cal.state  = CAL_IDLE;                  // автомат назад у спокій
-    }
-}
-```
+:::code proj-cal-coeffs/c/start-vidsutni.c
 
 Зверни увагу: після успішного калібрування ми беремо коефіцієнти прямо з `cal.result`, а не перечитуємо їх із NVS. Можна було б і перечитати (зайва перевірка, що запис справді ліг) — але головне, що **джерело істини в роботі — `active_cal`**, і воно оновлюється рівно в двох місцях: на старті з пам'яті та після успішного DONE. Жодних інших шляхів, якими в `active_cal` могли б потрапити неперевірені коефіцієнти, немає.
 

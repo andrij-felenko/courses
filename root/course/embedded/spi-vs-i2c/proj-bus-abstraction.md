@@ -28,34 +28,7 @@ typedef struct {
 
 Тепер — ключові функції «прочитати регістр» і «записати регістр». Зверху в них один підпис: дай опис пристрою, номер регістра, буфер. Усередині — розгалуження за `bus`, але воно тут **єдине на всю програму**, а не розсіяне по драйверах. Кожна гілка користується низькорівневими примітивами своєї шини (їхню механіку розібрано окремо: [обмін байтом по SPI](root:com-devices/spi-bus/proj-spi-transfer.md) і [транзакція I2C](root:com-devices/i2c-transaction)).
 
-```c
-// Прочитати n байтів із регістра reg пристрою dev. 0 — успіх, інакше — код помилки.
-int dev_read(const bus_device_t *dev, uint8_t reg, uint8_t *buf, int n) {
-    if (dev->bus == BUS_I2C) {
-        return i2c_read_reg(dev->i2c_addr, reg, buf, n);   // адреса в кадрі, ACK на кожен байт
-    } else {
-        gpio_set(dev->spi_cs, 0);          // опустити CS — почали обмін саме з цим чіпом
-        spi_transfer(reg | 0x80);          // біт «читання» у старшому розряді (звичай багатьох чіпів)
-        for (int i = 0; i < n; i++) {
-            buf[i] = spi_transfer(0x00);   // висуваємо порожнє, забираємо корисне
-        }
-        gpio_set(dev->spi_cs, 1);          // підняти CS — відпустили шину
-        return 0;                          // SPI не квитує — помилку ловить рівень вище
-    }
-}
-
-int dev_write(const bus_device_t *dev, uint8_t reg, uint8_t val) {
-    if (dev->bus == BUS_I2C) {
-        return i2c_write_reg(dev->i2c_addr, reg, val);
-    } else {
-        gpio_set(dev->spi_cs, 0);
-        spi_transfer(reg & 0x7F);          // старший біт нуль → запис
-        spi_transfer(val);
-        gpio_set(dev->spi_cs, 1);
-        return 0;
-    }
-}
-```
+:::code proj-bus-abstraction/c/krok-2-dvi-realizatsii-pid.c
 
 Тут добре видно ту саму різницю, що й у статті, але вже в коді. I2C-гілка повертає чесний код помилки, бо шина квитує кожен байт і збій (немає ACK) видно одразу. SPI-гілка повертає нуль беззастережно, бо SPI не підтверджує нічого — якщо дріт відвалився, апарат цього не помітить, і цілісність доводиться перевіряти вище (контрольним числом чи звіркою сталого регістра). Це не недогляд обгортки, а чесне відображення того, що одна шина має вбудований контроль, а друга — ні.
 
@@ -63,21 +36,7 @@ int dev_write(const bus_device_t *dev, uint8_t reg, uint8_t val) {
 
 Тепер найголовніше — заради чого все робилося. Драйвер давача звертається до пристрою через `dev_read`/`dev_write` і **жодного разу** не згадує, I2C це чи SPI. Той самий код працює і для акселерометра на I2C, і для гіпотетичного давача на SPI — різниця лишається тільки в одному рядку, де пристрій описують.
 
-```c
-// Давач на I2C: різнить його адреса.
-static const bus_device_t imu  = { .bus = BUS_I2C, .i2c_addr = 0x68 };
-// Флеш на SPI: різнить його лінія CS.
-static const bus_device_t flash = { .bus = BUS_SPI, .spi_cs = 17 };
-
-// Звірка ID — однакова для обох, бо говорить через обгортку, а не через шину.
-int check_id(const bus_device_t *dev, uint8_t who_am_i_reg, uint8_t expected) {
-    uint8_t id = 0;
-    if (dev_read(dev, who_am_i_reg, &id, 1) != 0) {
-        return -1;                 // I2C повідомив про збій; для SPI завжди 0
-    }
-    return (id == expected) ? 0 : -2;
-}
-```
+:::code proj-bus-abstraction/c/krok-3-draiver-iakomu.c
 
 Виклик `check_id(&imu, 0x75, 0x68)` піде по I2C, а `check_id(&flash, 0x9F, /*…*/)` — по SPI, і функція про це навіть не знатиме. Саме в цьому суть: **вибір шини під пристрій зроблено один раз, у його описі**, а вся логіка вище від цього вибору відв'язана.
 

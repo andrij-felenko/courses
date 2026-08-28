@@ -146,18 +146,7 @@ typedef struct {
 
 volatile packet_descriptor_t g_current_packet;
 ```
-```cpp
-#include <cstdint>
-#include <span>
-
-struct PacketDescriptor {
-    const std::uint8_t *data{nullptr};
-    std::uint16_t length{0};
-    std::uint16_t flags{0};
-};
-
-inline volatile PacketDescriptor g_current_packet{};
-```
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/cpp/vypadok-3-rozryv-skladnykh.cpp
 :::
 
 Якщо фоновий потік замінює старий пакет розміром 128 байтів за адресою `0x20000100` на новий пакет розміром 8 байтів за адресою `0x20000500`, він виконує послідовний запис полів:
@@ -204,67 +193,8 @@ g_current_packet.length = 8;
 Розглянемо наочну ілюстрацію помилкового коду з використанням `volatile`:
 
 :::tabs
-```c
-/* НАЇВНИЙ, НЕБЕЗПЕЧНИЙ КОД */
-volatile bool g_data_ready = false;
-volatile uint32_t g_shared_sensor_data[4];
-
-/* Головний цикл */
-void update_sensor(void) {
-    g_shared_sensor_data[0] = read_adc_ch0();
-    g_shared_sensor_data[1] = read_adc_ch1();
-    g_shared_sensor_data[2] = read_adc_ch2();
-    g_shared_sensor_data[3] = read_adc_ch3();
-    
-    /* Розробник сподівається, що це безпечно сповістить переривання */
-    g_data_ready = true;
-}
-
-/* Обробник переривання періодичного опитування */
-void TIM2_IRQHandler(void) {
-    if (g_data_ready) {
-        /* ГОНКА: компілятор або процесор міг переставити запис 
-         * g_data_ready ДО завершення запису елементів масиву! */
-        transmit_telemetry((const uint32_t *)g_shared_sensor_data, 4);
-        g_data_ready = false;
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-// НАЇВНИЙ, НЕБЕЗПЕЧНИЙ КОД
-inline volatile bool g_data_ready{false};
-inline volatile std::array<std::uint32_t, 4> g_shared_sensor_data{};
-
-extern std::uint32_t read_adc_ch0() noexcept;
-extern std::uint32_t read_adc_ch1() noexcept;
-extern std::uint32_t read_adc_ch2() noexcept;
-extern std::uint32_t read_adc_ch3() noexcept;
-extern void transmit_telemetry(const std::uint32_t *data, std::size_t size) noexcept;
-
-// Головний цикл
-void update_sensor() noexcept {
-    g_shared_sensor_data[0] = read_adc_ch0();
-    g_shared_sensor_data[1] = read_adc_ch1();
-    g_shared_sensor_data[2] = read_adc_ch2();
-    g_shared_sensor_data[3] = read_adc_ch3();
-    
-    // Розробник сподівається, що це безпечно сповістить переривання
-    g_data_ready = true;
-}
-
-// Обробник переривання періодичного опитування
-extern "C" void TIM2_IRQHandler() noexcept {
-    if (g_data_ready) {
-        // ГОНКА: дані можуть бути передані неповністю сформованими
-        transmit_telemetry(const_cast<const std::uint32_t *>(g_shared_sensor_data.data()), 
-                           g_shared_sensor_data.size());
-        g_data_ready = false;
-    }
-}
-```
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/c/choho-volatile-ne-robyt.c
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/cpp/choho-volatile-ne-robyt.cpp
 :::
 
 Чому цей код ламається раз на тиждень:
@@ -310,72 +240,8 @@ extern "C" void TIM2_IRQHandler() noexcept {
 Щоб уникнути помилки вкладеності, критичну секцію завжди реалізують із **збереженням попереднього стану статусного регістра**:
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* Безпечна критична секція на C для ARM Cortex-M */
-static inline uint32_t critical_section_enter(void) {
-    uint32_t primask;
-    /* Зчитуємо поточний стан регістра PRIMASK */
-    __asm volatile ("MRS %0, primask" : "=r" (primask) :: "memory");
-    /* Вимикаємо переривання */
-    __asm volatile ("CPSID i" ::: "memory");
-    return primask;
-}
-
-static inline void critical_section_exit(uint32_t primask) {
-    /* Відновлюємо саме той стан, який був до входу */
-    __asm volatile ("MSR primask, %0" :: "r" (primask) : "memory");
-}
-
-/* Приклад безпечного оновлення 64-бітного таймера */
-volatile uint64_t g_system_ticks = 0;
-
-uint64_t get_system_ticks_safe(void) {
-    uint32_t state = critical_section_enter();
-    uint64_t ticks = g_system_ticks;
-    critical_section_exit(state);
-    return ticks;
-}
-```
-```cpp
-#include <cstdint>
-
-// Ідіоматична RAII-обгортка критичної секції для C++
-class InterruptLockGuard {
-public:
-    InterruptLockGuard() noexcept {
-        #if defined(__ARM_ARCH)
-        __asm volatile ("MRS %0, primask" : "=r" (saved_primask_) :: "memory");
-        __asm volatile ("CPSID i" ::: "memory");
-        #endif
-    }
-
-    ~InterruptLockGuard() noexcept {
-        #if defined(__ARM_ARCH)
-        __asm volatile ("MSR primask, %0" :: "r" (saved_primask_) : "memory");
-        #endif
-    }
-
-    // Заборона копіювання та переміщення
-    InterruptLockGuard(const InterruptLockGuard&) = delete;
-    InterruptLockGuard& operator=(const InterruptLockGuard&) = delete;
-    InterruptLockGuard(InterruptLockGuard&&) = delete;
-    InterruptLockGuard& operator=(InterruptLockGuard&&) = delete;
-
-private:
-    std::uint32_t saved_primask_{0};
-};
-
-// Приклад безпечного оновлення 64-бітного таймера
-inline volatile std::uint64_t g_system_ticks{0};
-
-[[nodiscard]] std::uint64_t get_system_ticks_safe() noexcept {
-    const InterruptLockGuard lock{};
-    // Безпечне неподільне зчитування двох 32-бітних регістрів
-    return g_system_ticks;
-}
-```
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/c/metod-1-maskuvannia.c
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/cpp/metod-1-maskuvannia.hpp
 :::
 
 #### Метод 2: Апаратні атомарні інструкції LDREX/STREX
@@ -409,53 +275,8 @@ atomic_increment_loop:
 Починаючи зі стандартів C11 та C++11, розробнику більше не потрібно писати асемблерні вставки вручну. Компілятори GCC та Clang транслюють стандартні атомарні типи безпосередньо в інструкції `LDREX`/`STREX` (або `LR.W`/`SC.W` у RISC-V).
 
 :::tabs
-```c
-#include <stdatomic.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Атомарні змінні C11 */
-atomic_uint_fast32_t g_atomic_counter = 0;
-atomic_bool g_atomic_flag = false;
-
-void update_counter(void) {
-    /* Атомарне додавання без вимкнення переривань (fetch_add) */
-    atomic_fetch_add_explicit(&g_atomic_counter, 1, memory_order_relaxed);
-    
-    /* Атомарне виставлення прапорця з гарантією публікації даних */
-    atomic_store_explicit(&g_atomic_flag, true, memory_order_release);
-}
-
-bool check_and_clear_flag(void) {
-    /* Атомарний обмін (зчитує старе значення і записує false) */
-    return atomic_exchange_explicit(&g_atomic_flag, false, memory_order_acquire);
-}
-```
-```cpp
-#include <atomic>
-#include <cstdint>
-
-// Атомарні змінні C++20
-inline std::atomic<std::uint32_t> g_atomic_counter{0};
-inline std::atomic<bool> g_atomic_flag{false};
-
-// Перевірка на етапі компіляції: чи є тип апаратно-безблокувальним
-static_assert(std::atomic<std::uint32_t>::is_always_lock_free, 
-              "std::atomic<uint32_t> must be hardware lock-free!");
-
-void update_counter() noexcept {
-    // Атомарне додавання без блокування переривань
-    g_atomic_counter.fetch_add(1, std::memory_order_relaxed);
-    
-    // Публікація результату з бар'єром звільнення (Release semantics)
-    g_atomic_flag.store(true, std::memory_order_release);
-}
-
-[[nodiscard]] bool check_and_clear_flag() noexcept {
-    // Зчитування з бар'єром захоплення (Acquire semantics)
-    return g_atomic_flag.exchange(false, std::memory_order_acquire);
-}
-```
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/c/suchasni-standarty-c11.c
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/cpp/suchasni-standarty-c11.hpp
 :::
 
 ---
@@ -471,19 +292,7 @@ void update_counter() noexcept {
 Ще більш катастрофічним є **виклик блокуючих функцій з контексту переривання (ISR)**:
 
 :::tabs
-```c
-/* ФАТАЛЬНА ПОМИЛКА: виклик блокуючого м'ютекса всередині ISR */
-void USART1_IRQHandler(void) {
-    /* Якщо м'ютекс зайнятий іншою задачею, обробник переривання 
-     * НЕ МОЖЕ заснути — у нього немає власного стека задачі!
-     * Результат: миттєвий Assert ядра RTOS або зависання процесора. */
-    xSemaphoreTake(g_uart_mutex, portMAX_DELAY); /* КРАХ! */
-    
-    uint8_t byte = USART1->RDR;
-    buffer_push(byte);
-    xSemaphoreGive(g_uart_mutex);
-}
-```
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/c/1-podviine-blokuvannia.c
 ```cpp
 // ФАТАЛЬНА ПОМИЛКА: спроба захоплення блокуючого замка в ISR
 extern "C" void USART1_IRQHandler() noexcept {
@@ -557,150 +366,8 @@ index_in_array = raw_index & MASK
 Нижче наведено повну промислову реалізацію SPSC FIFO на C та C++ з використанням стандартних бар'єрів пам'яті та атоміків:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-#define SPSC_FIFO_SIZE 64U /* Обов'язково ступінь двійки (2^6) */
-#define SPSC_FIFO_MASK (SPSC_FIFO_SIZE - 1U)
-
-typedef struct {
-    uint8_t buffer[SPSC_FIFO_SIZE];
-    /* Розділені індекси з вирівнюванням */
-    volatile uint32_t head; /* Модифікується ТІЛЬКИ виробником */
-    volatile uint32_t tail; /* Модифікується ТІЛЬКИ споживачем */
-} spsc_fifo_t;
-
-static inline void spsc_fifo_init(spsc_fifo_t *fifo) {
-    fifo->head = 0;
-    fifo->tail = 0;
-}
-
-/* Запис у буфер: викликається ТІЛЬКИ Виробником (наприклад, ISR) */
-static inline bool spsc_fifo_push(spsc_fifo_t *fifo, uint8_t byte) {
-    uint32_t current_head = fifo->head;
-    uint32_t current_tail = fifo->tail;
-
-    /* Перевірка на заповнення буфера */
-    if ((current_head - current_tail) >= SPSC_FIFO_SIZE) {
-        return false; /* Буфер переповнений */
-    }
-
-    /* 1. Записуємо дані у виділений слот */
-    fifo->buffer[current_head & SPSC_FIFO_MASK] = byte;
-
-    /* 2. Бар'єр пам'яті: дані гарантовано мають потрапити в ОЗП 
-     * ДО того, як буде оновлено покажчик head */
-    #if defined(__ARM_ARCH)
-    __asm volatile ("DMB" ::: "memory");
-    #endif
-
-    /* 3. Оновлюємо покажчик head (атомарний 32-бітний запис) */
-    fifo->head = current_head + 1U;
-    return true;
-}
-
-/* Зчитування з буфера: викликається ТІЛЬКИ Споживачем (Головний цикл) */
-static inline bool spsc_fifo_pop(spsc_fifo_t *fifo, uint8_t *byte) {
-    uint32_t current_tail = fifo->tail;
-    uint32_t current_head = fifo->head;
-
-    /* Перевірка на порожнечу буфера */
-    if (current_head == current_tail) {
-        return false; /* Даних немає */
-    }
-
-    /* 1. Бар'єр пам'яті перед читанням даних */
-    #if defined(__ARM_ARCH)
-    __asm volatile ("DMB" ::: "memory");
-    #endif
-
-    /* 2. Зчитуємо дані зі слота */
-    *byte = fifo->buffer[current_tail & SPSC_FIFO_MASK];
-
-    /* 3. Бар'єр пам'яті перед оновленням tail */
-    #if defined(__ARM_ARCH)
-    __asm volatile ("DMB" ::: "memory");
-    #endif
-
-    /* 4. Оновлюємо покажчик tail */
-    fifo->tail = current_tail + 1U;
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <atomic>
-#include <optional>
-#include <span>
-
-// Шаблонний безблокувальний SPSC FIFO для сучасного C++20
-template <typename T, std::size_t Capacity>
-class SpscQueue {
-    static_assert((Capacity & (Capacity - 1)) == 0, "Capacity must be a power of two!");
-    static_assert(Capacity >= 2, "Capacity must be at least 2");
-
-public:
-    constexpr SpscQueue() noexcept : head_{0}, tail_{0} {}
-
-    // Заборона копіювання та переміщення
-    SpscQueue(const SpscQueue&) = delete;
-    SpscQueue& operator=(const SpscQueue&) = delete;
-
-    // Виробник: викликається тільки з контексту Producer (наприклад, ISR)
-    [[nodiscard]] bool push(const T& item) noexcept {
-        const std::size_t current_head = head_.load(std::memory_order_relaxed);
-        const std::size_t current_tail = tail_.load(std::memory_order_acquire);
-
-        if ((current_head - current_tail) >= Capacity) {
-            return false; // Буфер переповнено
-        }
-
-        buffer_[current_head & Mask] = item;
-        // Публікація нового елемента з Release semantics
-        head_.store(current_head + 1, std::memory_order_release);
-        return true;
-    }
-
-    // Споживач: викликається тільки з контексту Consumer
-    [[nodiscard]] std::optional<T> pop() noexcept {
-        const std::size_t current_tail = tail_.load(std::memory_order_relaxed);
-        const std::size_t current_head = head_.load(std::memory_order_acquire);
-
-        if (current_head == current_tail) {
-            return std::nullopt; // Буфер порожній
-        }
-
-        T item = buffer_[current_tail & Mask];
-        // Звільнення слота з Release semantics
-        tail_.store(current_tail + 1, std::memory_order_release);
-        return item;
-    }
-
-    [[nodiscard]] bool empty() const noexcept {
-        return head_.load(std::memory_order_relaxed) == tail_.load(std::memory_order_relaxed);
-    }
-
-    [[nodiscard]] std::size_t size() const noexcept {
-        const std::size_t h = head_.load(std::memory_order_relaxed);
-        const std::size_t t = tail_.load(std::memory_order_relaxed);
-        return (h >= t) ? (h - t) : 0;
-    }
-
-private:
-    static constexpr std::size_t Mask = Capacity - 1;
-    
-    // Масив для збереження корисного навантаження
-    std::array<T, Capacity> buffer_{};
-    
-    // Атомарні індекси
-    alignas(4) std::atomic<std::size_t> head_;
-    alignas(4) std::atomic<std::size_t> tail_;
-};
-```
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/c/tekhnika-monotonnykh.c
+:::code honky-shcho-vbyvaiut-raz-na-tyzhden-d/cpp/tekhnika-monotonnykh.cpp
 :::
 
 ---

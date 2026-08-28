@@ -164,30 +164,7 @@ V_s(60°)  =  V_s · √2  ≈  1.41 · V_s
 
 **Умова.** Літак іде на швидкості `V = 100 м/с` (типова крейсерська для невеликого БПЛА-крила) і закладає координований розворот із креном `φ = 45°`. Знайти: перевантаження `n`, радіус дуги `r`, кутову швидкість `ω` та у скільки разів піднялася швидкість зриву. Порахуймо це так, як рахував би автопілот на мікроконтролері.
 
-```c
-#include <math.h>
-
-// Уся кількісна фізика координованого розвороту з одного кута й швидкості.
-typedef struct {
-    float load_factor;   // n = 1/cos φ  (у скільки разів важче)
-    float radius_m;      // r = V²/(g·tan φ)  радіус дуги, м
-    float rate_deg_s;    // ω = g·tan φ / V   кутова швидкість, °/с
-    float stall_mult;    // √n  у скільки разів вища швидкість зриву
-} turn_t;
-
-turn_t turn_geometry(float V_ms, float bank_deg) {
-    const float g   = 9.81f;
-    float phi = bank_deg * (float)M_PI / 180.0f;   // градуси → радіани
-    float c = cosf(phi), t = tanf(phi);
-
-    turn_t o;
-    o.load_factor = 1.0f / c;                       // n = 1/cos φ
-    o.radius_m    = (V_ms * V_ms) / (g * t);        // r = V²/(g·tan φ)
-    o.rate_deg_s  = (g * t / V_ms) * 180.0f / (float)M_PI;  // ω, назад у °/с
-    o.stall_mult  = sqrtf(o.load_factor);           // √n
-    return o;
-}
-```
+:::code math-turn-physics/c/main.c
 
 Прокрутімо ключові числа в думці для `V = 100`, `φ = 45°` (де `cos 45° = sin 45° = 0.7071`, `tan 45° = 1`):
 

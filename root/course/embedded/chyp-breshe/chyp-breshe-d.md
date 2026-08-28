@@ -62,89 +62,8 @@ H = 1 (0x01),  L = 128 (0x80)  →  V_true = 256 + 128 = 384 відліки (24.
 Для усунення помилки збирання багатобайтного слова має бути явно визначене за правилами цілочисельної арифметики без прив'язки до внутрішнього порядку байтів мікроконтролера.
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Безпечне складання 16-бітного Big-Endian слова з двох байтів
-int16_t parse_be16_signed(const uint8_t bytes[2]) {
-    // bytes[0] - старший байт (MSB), bytes[1] - молодший байт (LSB)
-    uint16_t raw_unsigned = ((uint16_t)bytes[0] << 8) | (uint16_t)bytes[1];
-    return (int16_t)raw_unsigned;
-}
-
-// Безпечне складання 16-бітного Little-Endian слова (наприклад, для давачів Bosch)
-int16_t parse_le16_signed(const uint8_t bytes[2]) {
-    // bytes[0] - молодший байт (LSB), bytes[1] - старший байт (MSB)
-    uint16_t raw_unsigned = ((uint16_t)bytes[1] << 8) | (uint16_t)bytes[0];
-    return (int16_t)raw_unsigned;
-}
-
-// Розпакування 24-бітного Big-Endian знакового числа (прецизійний АЦП)
-int32_t parse_be24_signed(const uint8_t bytes[3]) {
-    // Збираємо 24 біти у верхні розряди 32-бітного слова, потім арифметично зсуваємо
-    uint32_t raw_24 = ((uint32_t)bytes[0] << 24) |
-                      ((uint32_t)bytes[1] << 16) |
-                      ((uint32_t)bytes[2] << 8);
-    return (int32_t)raw_24 >> 8; // Арифметичний зсув автоматично розмножує знак
-}
-
-// Розпакування 20-бітного тиску Bosch BMP280 (MSB, LSB, XLSB[7:4])
-uint32_t parse_bmp280_pressure_raw(const uint8_t bytes[3]) {
-    uint32_t msb = (uint32_t)bytes[0];
-    uint32_t lsb = (uint32_t)bytes[1];
-    uint32_t xlsb = (uint32_t)bytes[2] >> 4;
-    return (msb << 12) | (lsb << 4) | xlsb;
-}
-
-// Використання апаратної інструкції перевороту байтів REV16 процесора ARM
-int16_t parse_be16_fast(uint16_t raw_from_bus) {
-    return (int16_t)__builtin_bswap16(raw_from_bus);
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-#include <span>
-
-// Типобезпечний розбір 16-бітного Big-Endian слова через std::span
-constexpr int16_t parse_be16_signed(std::span<const uint8_t, 2> bytes) noexcept {
-    const auto raw_unsigned = static_cast<uint16_t>((static_cast<uint16_t>(bytes[0]) << 8) |
-                                                     static_cast<uint16_t>(bytes[1]));
-    return static_cast<int16_t>(raw_unsigned);
-}
-
-// Типобезпечний розбір 16-бітного Little-Endian слова
-constexpr int16_t parse_le16_signed(std::span<const uint8_t, 2> bytes) noexcept {
-    const auto raw_unsigned = static_cast<uint16_t>((static_cast<uint16_t>(bytes[1]) << 8) |
-                                                     static_cast<uint16_t>(bytes[0]));
-    return static_cast<int16_t>(raw_unsigned);
-}
-
-// Розпакування 24-бітного знакового значення через 32-бітний зсув
-constexpr int32_t parse_be24_signed(std::span<const uint8_t, 3> bytes) noexcept {
-    const auto raw_shifted = (static_cast<uint32_t>(bytes[0]) << 24) |
-                             (static_cast<uint32_t>(bytes[1]) << 16) |
-                             (static_cast<uint32_t>(bytes[2]) << 8);
-    return static_cast<int32_t>(raw_shifted) >> 8;
-}
-
-// Розпакування 20-бітного формату BMP280
-constexpr uint32_t parse_bmp280_pressure_raw(std::span<const uint8_t, 3> bytes) noexcept {
-    const auto msb = static_cast<uint32_t>(bytes[0]);
-    const auto lsb = static_cast<uint32_t>(bytes[1]);
-    const auto xlsb = static_cast<uint32_t>(bytes[2]) >> 4;
-    return (msb << 12) | (lsb << 4) | xlsb;
-}
-
-// Сучасний розбір за допомогою std::byteswap (C++23)
-template <typename T>
-constexpr T from_big_endian(T value) noexcept {
-    if constexpr (std::endian::native == std::endian::little) {
-        return std::byteswap(value);
-    }
-    return value;
-}
-```
+:::code chyp-breshe-d/c/pravylne-zshyvannia-baitiv.c
+:::code chyp-breshe-d/cpp/pravylne-zshyvannia-baitiv.cpp
 :::
 
 Пряме приведення вказівників `*(uint16_t*)buf` суворо заборонене не лише через конфлікт Endianness, але й через порушення правила суворого псевдонімування (Strict Aliasing Rule) та ризик несинхронізованого доступу (Unaligned Memory Access). На ядрах Cortex-M0/M0+ спроба прочитати 16-бітне число з непарної адреси пам'яті негайно викликає апаратне виключення `HardFault`.
@@ -180,63 +99,8 @@ constexpr T from_big_endian(T value) noexcept {
 2. **Умовне накладання маски:** перевірка знакового біта через побітове «І» та заповнення старших бітів одиницями через побітове «АБО».
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// Метод 1: Знакове розширення 12-бітного числа через арифметичні зсуви
-int16_t sign_extend_12bit_shift(uint16_t raw_12bit) {
-    // Зсуваємо вліво на 4 біти, роблячи біт 11 бітом 15
-    // Потім арифметично зсуваємо вправо на 4 біти
-    int16_t val = (int16_t)(raw_12bit << 4);
-    return val >> 4;
-}
-
-// Метод 2: Знакове розширення довільної розрядності BITS через маску
-int32_t sign_extend_generic(uint32_t raw_val, uint8_t bits) {
-    uint32_t sign_mask = 1UL << (bits - 1);
-    if (raw_val & sign_mask) {
-        // Число від'ємне: заповнюємо всі старші біти одиницями
-        uint32_t extension_mask = ~((1UL << bits) - 1UL);
-        return (int32_t)(raw_val | extension_mask);
-    }
-    // Число додатне
-    return (int32_t)raw_val;
-}
-
-// Розпакування ліво-вирівняного 12-бітного значення (наприклад, ST LIS3DH)
-int16_t parse_left_aligned_12bit(const uint8_t bytes[2]) {
-    // Вхід: 16-бітне Little-Endian слово, де дані сидять у бітах [15:4]
-    int16_t raw_16 = (int16_t)(((uint16_t)bytes[1] << 8) | (uint16_t)bytes[0]);
-    // Арифметичний зсув вправо на 4 позиції автоматично зберігає знак
-    return raw_16 >> 4;
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <concepts>
-
-// Шаблонне знакове розширення під час компіляції для довільної кількості бітів
-template <size_t Bits, std::signed_integral TargetType = int32_t>
-constexpr TargetType sign_extend(uint32_t raw) noexcept {
-    static_assert(Bits < sizeof(TargetType) * 8, "Bits count must be smaller than target type width");
-    constexpr uint32_t sign_bit = 1UL << (Bits - 1);
-    constexpr uint32_t ext_mask = ~((1UL << Bits) - 1UL);
-    
-    if ((raw & sign_bit) != 0) {
-        return static_cast<TargetType>(raw | ext_mask);
-    }
-    return static_cast<TargetType>(raw);
-}
-
-// Розпакування ліво-вирівняного 12-бітного значення через типізований інтерфейс
-constexpr int16_t parse_left_aligned_12bit(std::span<const uint8_t, 2> bytes) noexcept {
-    const auto raw_16 = static_cast<int16_t>((static_cast<uint16_t>(bytes[1]) << 8) |
-                                              static_cast<uint16_t>(bytes[0]));
-    return static_cast<int16_t>(raw_16 >> 4);
-}
-```
+:::code chyp-breshe-d/c/metody-vykonannia.c
+:::code chyp-breshe-d/cpp/metody-vykonannia.cpp
 :::
 
 ### Зсув нуля (Offset Binary)
@@ -309,77 +173,8 @@ V_twos_complement = V_offset_binary ^ 0x8000
 Зчитування даних запускається не за довільним таймером ядра, а строго за апаратним сигналом переривання від ніжки `DRDY` давача. Переривання свідчить про те, що АЦП щойно закінчив запис, і попереду є гарантоване часове вікно спокою до наступного циклу вимірювання.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// Приклад налаштування BDU та пакетного читання 6 осей акселерометра
-#define REG_CTRL_REG4   0x23
-#define REG_OUT_X_L     0x28
-#define BDU_ENABLE_MASK 0x80
-#define I2C_AUTO_INC    0x80  // Біт автоінкременту адреси для деяких чипів (ST)
-
-typedef struct {
-    int16_t x;
-    int16_t y;
-    int16_t z;
-} AccelAxes_t;
-
-// Пакетне читання 6 байтів за одну I2C транзакцію
-bool read_accel_atomic(uint8_t dev_addr, AccelAxes_t *out_axes) {
-    uint8_t raw_buf[6];
-    uint8_t start_reg = REG_OUT_X_L | I2C_AUTO_INC;
-    
-    // Пакетне зчитування: передача адреси стартового регістра 
-    // і вичитування 6 байтів поспіль без проміжних STOP умов
-    if (!i2c_write_read(dev_addr, &start_reg, 1, raw_buf, 6)) {
-        return false;
-    }
-    
-    // Розпакування пар Little-Endian байтів
-    out_axes->x = (int16_t)(((uint16_t)raw_buf[1] << 8) | (uint16_t)raw_buf[0]);
-    out_axes->y = (int16_t)(((uint16_t)raw_buf[3] << 8) | (uint16_t)raw_buf[2]);
-    out_axes->z = (int16_t)(((uint16_t)raw_buf[5] << 8) | (uint16_t)raw_buf[4]);
-    
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <optional>
-
-struct AccelAxes {
-    int16_t x{};
-    int16_t y{};
-    int16_t z{};
-};
-
-class SensorDriver {
-public:
-    static constexpr uint8_t REG_OUT_X_L  = 0x28;
-    static constexpr uint8_t I2C_AUTO_INC = 0x80;
-
-    // Повертає когерентні осі або std::nullopt при апаратній помилці
-    std::optional<AccelAxes> read_accel_atomic(uint8_t dev_addr) noexcept {
-        std::array<uint8_t, 6> raw_buf{};
-        const uint8_t start_reg = REG_OUT_X_L | I2C_AUTO_INC;
-
-        if (!i2c_transfer(dev_addr, start_reg, raw_buf)) {
-            return std::nullopt;
-        }
-
-        return AccelAxes{
-            .x = static_cast<int16_t>((static_cast<uint16_t>(raw_buf[1]) << 8) | static_cast<uint16_t>(raw_buf[0])),
-            .y = static_cast<int16_t>((static_cast<uint16_t>(raw_buf[3]) << 8) | static_cast<uint16_t>(raw_buf[2])),
-            .z = static_cast<int16_t>((static_cast<uint16_t>(raw_buf[5] << 8)) | static_cast<uint16_t>(raw_buf[4]))
-        };
-    }
-
-private:
-    bool i2c_transfer(uint8_t addr, uint8_t reg, std::span<uint8_t> rx_buf) noexcept;
-};
-```
+:::code chyp-breshe-d/c/3-synkhronizatsiia-za.c
+:::code chyp-breshe-d/cpp/3-synkhronizatsiia-za.cpp
 :::
 
 ---
@@ -473,73 +268,8 @@ I_crosstalk = Cm · (dV / dt) ≈ 3 пФ · 2.2 В/нс ≈ 6.6 мА
 4. **Апаратна перевірка CRC:** використання вбудованого в протокол поліному контрольної суми для відкидання пошкоджених пакетів.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// Розрахунок CRC-8 з поліномом 0x31 (x^8 + x^5 + x^4 + 1), типовим для давачів Sensirion
-uint8_t calculate_crc8_sensirion(const uint8_t *data, uint8_t len) {
-    uint8_t crc = 0xFF; // Початкове значення
-    for (uint8_t i = 0; i < len; i++) {
-        crc ^= data[i];
-        for (uint8_t bit = 0; bit < 8; bit++) {
-            if (crc & 0x80) {
-                crc = (uint8_t)((crc << 1) ^ 0x31);
-            } else {
-                crc <<= 1;
-            }
-        }
-    }
-    return crc;
-}
-
-// Перевірка цілісності пакета температури й вологості (2 байти даних + 1 байт CRC)
-bool parse_sensirion_word(const uint8_t packet[3], uint16_t *out_val) {
-    if (calculate_crc8_sensirion(packet, 2) != packet[2]) {
-        return false; // Пакет спотворений завадою на шині!
-    }
-    *out_val = ((uint16_t)packet[0] << 8) | packet[1];
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <optional>
-
-class SensirionPacket {
-public:
-    static constexpr uint8_t POLYNOMIAL = 0x31;
-    static constexpr uint8_t INITIAL_CRC = 0xFF;
-
-    static constexpr uint8_t calculate_crc8(std::span<const uint8_t> data) noexcept {
-        uint8_t crc = INITIAL_CRC;
-        for (const auto byte : data) {
-            crc ^= byte;
-            for (uint8_t bit = 0; bit < 8; ++bit) {
-                if ((crc & 0x80) != 0) {
-                    crc = static_cast<uint8_t>((crc << 1) ^ POLYNOMIAL);
-                } else {
-                    crc = static_cast<uint8_t>(crc << 1);
-                }
-            }
-        }
-        return crc;
-    }
-
-    static constexpr std::optional<uint16_t> unpack(std::span<const uint8_t, 3> raw_packet) noexcept {
-        const auto payload = raw_packet.subspan<0, 2>();
-        const uint8_t expected_crc = raw_packet[2];
-
-        if (calculate_crc8(payload) != expected_crc) {
-            return std::nullopt; // Помилка контрольної суми
-        }
-
-        return static_cast<uint16_t>((static_cast<uint16_t>(raw_packet[0]) << 8) |
-                                      static_cast<uint16_t>(raw_packet[1]));
-    }
-};
-```
+:::code chyp-breshe-d/c/perekhresni-navedennia.c
+:::code chyp-breshe-d/cpp/perekhresni-navedennia.cpp
 :::
 
 ---

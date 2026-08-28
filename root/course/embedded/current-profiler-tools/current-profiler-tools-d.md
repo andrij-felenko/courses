@@ -20,24 +20,7 @@
 
 Реалізація — два рядки прошивки навколо цікавого коду. Маркер мусить смикатися якомога ближче до самої події, тому пишемо прямо в регістр порту, без важких обгорток:
 
-```c
-// ESP-IDF, ESP32: GPIO як маркер фаз для профілювальника
-#define MARK_GPIO   25                 // вільний вивід → цифровий вхід приладу
-#define MARK_MASK   (1u << MARK_GPIO)
-
-static inline void mark_high(void) { REG_WRITE(GPIO_OUT_W1TS_REG, MARK_MASK); }
-static inline void mark_low (void) { REG_WRITE(GPIO_OUT_W1TC_REG, MARK_MASK); }
-
-void measure_cycle(void) {
-    gpio_set_direction(MARK_GPIO, GPIO_MODE_OUTPUT);
-
-    mark_high();                        // ── межа фази: почалася передача
-    wifi_send(packet, len);
-    mark_low();                         // ── фаза скінчилася
-
-    sensor_read();                      // ця фаза без маркера — поки нецікава
-}
-```
+:::code current-profiler-tools-d/c/marker-u-proshyvtsi-gpio.c
 
 Запис прямо в `GPIO_OUT_W1TS_REG` / `W1TC_REG` (set/clear окремими регістрами) перемикає вивід за одну машинну інструкцію — маркер встає рівно на межі коду, а не за десятки тактів по дорозі через бібліотеку. На екрані профілювальника проти піку струму тепер стоїть прямокутна сходинка маркера: видно з точністю до фронту, де передача почалася й де скінчилась, і скільки заряду припало саме на неї.
 
@@ -53,31 +36,7 @@ void measure_cycle(void) {
 
 Профілювальники несуть **кілька цифрових ліній** — наприклад, [PPK2 має вісім входів](root:embedded/current-profiler-tools/comp-power-profiler-instruments.md), які можна читати як простенький логічний аналізатор. Це відмикає природний прийом: вивести станом не одну фазу, а **номер фази двійковим кодом** на 2–3 виводи. Три лінії дають вісім станів — більш ніж досить, щоб підписати весь цикл давача.
 
-```c
-// Номер поточної фази двійково на 3 GPIO → 3 цифрові входи приладу
-typedef enum { PH_SLEEP=0, PH_BOOT=1, PH_SENSE=2, PH_TX=3, PH_FLASH=4 } phase_t;
-
-#define PH_GPIO0 25
-#define PH_GPIO1 26
-#define PH_GPIO2 27
-
-static inline void phase_set(phase_t p) {
-    uint32_t set = 0, clr = 0;
-    ((p >> 0) & 1 ? set : clr) |= (1u << PH_GPIO0);
-    ((p >> 1) & 1 ? set : clr) |= (1u << PH_GPIO1);
-    ((p >> 2) & 1 ? set : clr) |= (1u << PH_GPIO2);
-    REG_WRITE(GPIO_OUT_W1TS_REG, set);   // одночасно: підняти потрібні біти
-    REG_WRITE(GPIO_OUT_W1TC_REG, clr);   //            й опустити решту
-}
-
-void cycle(void) {
-    phase_set(PH_BOOT);   boot_init();
-    phase_set(PH_SENSE);  sensor_read();
-    phase_set(PH_TX);     wifi_send(pkt, len);
-    phase_set(PH_FLASH);  log_append(pkt, len);
-    phase_set(PH_SLEEP);  enter_deep_sleep();
-}
-```
+:::code current-profiler-tools-d/c/kilka-bitiv-pidpysaty-vsi.c
 
 Тепер на профілі під кривою струму йде доріжка номера фази, що міняється сходинками: 1→2→3→4→0. Програма приладу на ПК уміє більше — виділиш на кривій будь-який інтервал, і вона підрахує **середній струм і заряд саме в межах одного значення маркера**. Ти дістаєш не картинку, а вже готову таблицю: фаза boot — стільки мА·с, фаза TX — стільки, фаза Flash — стільки. Рівно ті числа, що йшли в розрахунок [середнього струму](root:embedded/duty-cycle-current), тільки виміряні, а не оцінені.
 
@@ -137,36 +96,7 @@ printf("PHASE tx done  %u bytes\n", len);
 
 **Worked-приклад. Енергетичний тест, що валить білд при регресії.**
 
-```c
-// Псевдо-API приладу (реальні виклики залежать від моделі):
-//   profiler_set_voltage(V)        — виставити живлення DUT
-//   profiler_capture(sec)          — захопити вікно довжиною sec секунд
-//   profiler_charge_uas()          — інтеграл струму за вікно, у мкА·с
-
-// Міряємо заряд ОДНОГО активного сплеску (boot → вимір → TX → знову сон):
-// він короткий, тож тест швидкий. Поріг — із розрахунку робочого циклу.
-#define WINDOW_S          3.0       // вікно довше за активну фазу (~1.7 с)
-#define Q_BUDGET_UAS   203000.0     // бюджет заряду активної фази, мкА·с (=203 мА·с)
-#define Q_TOLERANCE       1.10      // допуск +10 % на розкид між вимірами
-
-int energy_regression_test(void) {
-    profiler_set_voltage(3.3);
-    profiler_capture(WINDOW_S);                 // охопити весь активний сплеск
-
-    double q = profiler_charge_uas();           // заряд за вікно, мкА·с
-    double i_avg_ua = q / WINDOW_S;             // мкА·с / с = мкА (середнє за вікно)
-
-    printf("burst charge = %.0f uA*s,  I_avg(window) = %.0f uA\n", q, i_avg_ua);
-
-    if (q > Q_BUDGET_UAS * Q_TOLERANCE) {       // порівнюємо саме заряд, не середнє
-        printf("FAIL: charge %.0f > budget %.0f (+%.0f%%)\n",
-               q, Q_BUDGET_UAS, (Q_TOLERANCE - 1.0) * 100);
-        return 1;                               // ненульовий код → CI валить білд
-    }
-    printf("PASS: within energy budget\n");
-    return 0;
-}
-```
+:::code current-profiler-tools-d/c/profil-iak-rehresiinyi.c
 
 Поріг тут — заряд саме активного сплеску (boot+вимір+TX), бо ганяти в тесті повний 600-секундний цикл недоцільно: активна частина коротка, її й міряємо. Порівнюємо **заряд**, а не середній струм, бо заряд адитивний і не залежить від того, яким вибрали вікно, аби воно покривало весь сплеск. Тепер бюджет заряду з [розрахунку робочого циклу](root:embedded/duty-cycle-current) перестає бути числом на папері й стає **порогом у тесті**. Додав хтось зайве пробудження чи забув погасити давач — заряд активної фази переліз поріг, тест червоний, причину видно ще до зливання гілки, а не через місяць у полі по сівших батареях. Площа під профілем, яку ми весь час називали єдиною чесною метрикою автономності, нарешті працює сама, без людини над приладом.
 

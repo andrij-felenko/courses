@@ -43,40 +43,7 @@ while True:
 
 **Умова: під'єднатися до апарата на UDP-порту, дочекатися heartbeat, прочитати висоту з телеметрії, перевести апарат у режим GUIDED, дати arm і команду злетіти на 10 метрів.**
 
-```python
-from pymavlink import mavutil
-
-m = mavutil.mavlink_connection('udpin:localhost:14550')
-m.wait_heartbeat()
-print("апарат на лінії: system %d, component %d"
-      % (m.target_system, m.target_component))
-
-# 1) прочитати одну порцію телеметрії — глобальну позицію з висотою
-msg = m.recv_match(type='GLOBAL_POSITION_INT', blocking=True)
-print("висота над рівнем моря: %.1f м" % (msg.alt / 1000.0))   # alt у міліметрах
-
-# 2) перевести у GUIDED (для ArduPilot режим має номер у таблиці режимів)
-m.set_mode('GUIDED')
-
-# 3) arm: команда MAV_CMD_COMPONENT_ARM_DISARM, param1 = 1 (увімкнути)
-m.mav.command_long_send(
-    m.target_system, m.target_component,
-    mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-    0,            # confirmation
-    1, 0, 0, 0, 0, 0, 0)
-m.motors_armed_wait()                       # дочекатися, поки мотори озброєно
-
-# 4) злетіти на 10 м: param7 = цільова висота
-m.mav.command_long_send(
-    m.target_system, m.target_component,
-    mavutil.mavlink.MAV_CMD_NAV_TAKEOFF,
-    0,
-    0, 0, 0, 0, 0, 0, 10)
-
-# 5) дочекатися підтвердження виконання команди
-ack = m.recv_match(type='COMMAND_ACK', blocking=True)
-print("відповідь апарата:", ack.result)
-```
+:::code pymavlink/py/main.py
 
 Що тут відбувається крок за кроком. Спершу `wait_heartbeat()` дає нам `target_system`/`target_component` — адресу, без якої наступні команди нікуди не підуть. Далі `recv_match(type='GLOBAL_POSITION_INT')` витягає з потоку одне повідомлення з позицією; поле `alt` у ньому — у міліметрах, тому ділимо на 1000, щоб дістати метри. Команди `command_long_send` адресуємо тому самому апарату: у `MAV_CMD_COMPONENT_ARM_DISARM` перший параметр `1` означає «озброїти», а в `MAV_CMD_NAV_TAKEOFF` сьома координата — бажана висота. Нарешті `COMMAND_ACK` — це відповідь апарата «прийняв / не можу», без якої ми не знали б, чи команда взагалі виконана. Це і є повний цикл «прочитав → вирішив → скомандував», з якого складається будь-яка автоматизація.
 

@@ -27,52 +27,8 @@
 Драйвер не має знання про те, на якому саме мікроконтролері він виконується (STM32, ESP32, NXP чи x86-емулятор). Усі операції вводу-виводу делегуються через структуру вказівників на функції зворотного виклику або типізований інтерфейсний концепт.
 
 :::tabs
-```c
-// C99: Сигнатури низькорівневих шинних функцій зворотного виклику
-#include <stdint.h>
-
-typedef int32_t (*chip_bus_read_fn)(
-    void *user_ctx,
-    uint8_t reg_addr,
-    uint8_t *data,
-    uint16_t len
-);
-
-typedef int32_t (*chip_bus_write_fn)(
-    void *user_ctx,
-    uint8_t reg_addr,
-    const uint8_t *data,
-    uint16_t len
-);
-
-typedef void (*chip_delay_ms_fn)(
-    uint32_t ms
-);
-```
-```cpp
-// C++20: Концепт апаратної шини для типізованої ін'єкції залежностей
-#pragma once
-#include <cstdint>
-#include <span>
-#include <concepts>
-
-namespace embedded::drivers {
-
-enum class BusResult : std::int32_t {
-    Success = 0,
-    HardwareError = -1,
-    Timeout = -2
-};
-
-template <typename T>
-concept BusInterface = requires(T bus, std::uint8_t reg, std::span<std::uint8_t> rx, std::span<const std::uint8_t> tx) {
-    { bus.read(reg, rx) } -> std::same_as<BusResult>;
-    { bus.write(reg, tx) } -> std::same_as<BusResult>;
-    { bus.delay_ms(std::uint32_t{}) } -> std::same_as<void>;
-};
-
-} // namespace embedded::drivers
-```
+:::code api-driver-contract/c/stdint.h
+:::code api-driver-contract/cpp/2-interfeis-aparatnoi.hpp
 :::
 
 ### Детальні контрактні зобов'язання платформного шару
@@ -94,41 +50,8 @@ concept BusInterface = requires(T bus, std::uint8_t reg, std::span<std::uint8_t>
 Усі публічні функції драйвера повертають строго типізований статус виконання. Повернення нетипізованих цілих чисел (`int`) або ігнорування помилок заборонено архітектурним стандартом.
 
 :::tabs
-```c
-// C99: Таксономія кодів помилок та статусів драйвера
-typedef enum {
-    CHIP_STATUS_OK               =  0,  ///< Операція успішно завершена
-    CHIP_ERR_INVALID_PARAM       = -1,  ///< Передано NULL-вказівник або значення поза межами діапазону
-    CHIP_ERR_COMM_FAIL           = -2,  ///< Апаратна помилка передачі (NACK, втрата арбітражу, шина зависла)
-    CHIP_ERR_TIMEOUT             = -3,  ///< Вичерпано тайм-аут очікування готовності даних або зняття скидання
-    CHIP_ERR_DEVICE_NOT_FOUND    = -4,  ///< Регістр WHO_AM_I / CHIP_ID містить неочікуваний ідентифікатор
-    CHIP_ERR_NOT_INITIALIZED     = -5,  ///< Спроба виклику прикладних функцій до успішної ініціалізації
-    CHIP_ERR_DATA_NOT_READY      = -6,  ///< Нова вибірка ще не готова для зчитування (прапорець DRDY скинутий)
-    CHIP_ERR_SELF_TEST_FAILED    = -7,  ///< Вбудований апаратний самотест (BIST) зафіксував несправність
-    CHIP_ERR_CALIBRATION_INVALID = -8   ///< Контрольна сума або коефіцієнти підстроювання в NVM пошкоджені
-} chip_status_t;
-```
-```cpp
-// C++20: Строго типізоване перерахування статусів з std::int32_t
-#pragma once
-#include <cstdint>
-
-namespace embedded::drivers {
-
-enum class Status : std::int32_t {
-    Ok                  =  0,  ///< Успішне виконання
-    InvalidParam        = -1,  ///< Некоректні аргументи виклику
-    CommFail            = -2,  ///< Фізичний збій лінії зв'язку
-    Timeout             = -3,  ///< Перевищено ліміт часу операції
-    DeviceNotFound      = -4,  ///< Не знайдено мікросхему з відповідним ID
-    NotInitialized      = -5,  ///< Дескриптор не ініціалізовано
-    DataNotReady        = -6,  ///< Нові відліки відсутні
-    SelfTestFailed      = -7,  ///< Помилка вбудованого тестування
-    CalibrationInvalid  = -8   ///< Невалідна таблиця калібрування
-};
-
-} // namespace embedded::drivers
-```
+:::code api-driver-contract/c/3-taksonomiia-statusiv-ta.c
+:::code api-driver-contract/cpp/3-taksonomiia-statusiv-ta.hpp
 :::
 
 ---
@@ -159,101 +82,8 @@ enum class Status : std::int32_t {
 ## 6. Публічні інтерфейси повного життєвого циклу
 
 :::tabs
-```c
-// C99: Публічний контракт заголовного файлу драйвера
-#ifndef CHIP_DRIVER_API_H
-#define CHIP_DRIVER_API_H
-
-#include <stdint.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct {
-    chip_bus_read_fn  read;
-    chip_bus_write_fn write;
-    chip_delay_ms_fn  delay_ms;
-} chip_bus_ops_t;
-
-typedef struct {
-    const chip_bus_ops_t *bus_ops;
-    void                 *user_ctx;
-    uint8_t               dev_addr;
-    uint8_t               active_range;
-    float                 scale_factor;
-    uint8_t               shadow_ctrl_reg;
-    bool                  is_initialized;
-} chip_dev_t;
-
-typedef struct {
-    float x;  ///< Прискорення по осі X у м/с²
-    float y;  ///< Прискорення по осі Y у м/с²
-    float z;  ///< Прискорення по осі Z у м/с²
-} chip_axes_data_si_t;
-
-// Публічний контракт життєвого циклу
-chip_status_t chip_init(chip_dev_t *dev, const chip_bus_ops_t *bus_ops, void *user_ctx, uint8_t dev_addr);
-chip_status_t chip_set_range(chip_dev_t *dev, uint8_t range_g);
-chip_status_t chip_read_sample_si(chip_dev_t *dev, chip_axes_data_si_t *data_si);
-chip_status_t chip_soft_reset(chip_dev_t *dev);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif // CHIP_DRIVER_API_H
-```
-```cpp
-// C++20: Типізований контракт класу драйвера датчика
-#pragma once
-
-#include <cstdint>
-#include <span>
-#include <expected>
-#include <concepts>
-
-namespace embedded::drivers {
-
-struct Vector3D {
-    float x{0.0F};
-    float y{0.0F};
-    float z{0.0F};
-};
-
-template <typename T>
-concept BusTransport = requires(T t, std::uint8_t reg, std::span<std::uint8_t> rx, std::span<const std::uint8_t> tx) {
-    { t.read(reg, rx) } -> std::same_as<Status>;
-    { t.write(reg, tx) } -> std::same_as<Status>;
-    { t.delay_ms(std::uint32_t{}) } -> std::same_as<void>;
-};
-
-template <BusTransport Transport>
-class ChipSensor {
-public:
-    explicit constexpr ChipSensor(Transport transport, std::uint8_t i2c_address = 0x19) noexcept
-        : transport_(transport), address_(i2c_address) {}
-
-    [[nodiscard]] Status init() noexcept;
-    [[nodiscard]] Status setRange(std::uint8_t range_g) noexcept;
-    [[nodiscard]] std::expected<Vector3D, Status> readAccelerationSi() noexcept;
-    [[nodiscard]] Status softReset() noexcept;
-
-    [[nodiscard]] constexpr bool isInitialized() const noexcept {
-        return is_initialized_;
-    }
-
-private:
-    Transport transport_;
-    std::uint8_t address_{0x19};
-    std::uint8_t shadow_ctrl_reg_{0x00};
-    float scale_factor_{1.0F};
-    bool is_initialized_{false};
-};
-
-} // namespace embedded::drivers
-```
+:::code api-driver-contract/c/6-publichni-interfeisy.h
+:::code api-driver-contract/cpp/6-publichni-interfeisy.hpp
 :::
 
 ---

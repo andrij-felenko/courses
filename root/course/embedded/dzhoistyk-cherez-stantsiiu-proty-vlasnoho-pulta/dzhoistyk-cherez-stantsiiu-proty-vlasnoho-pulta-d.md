@@ -121,23 +121,7 @@ typedef struct __mavlink_manual_control_t {
     uint8_t target;     // ID цільового апарата (System ID)
 } mavlink_manual_control_t;
 ```
-```cpp
-// MAVLink v2 повідомлення MANUAL_CONTROL (ID: #69) у типізованій структурі C++20
-#include <cstdint>
-
-namespace mavlink {
-
-struct ManualControlMessage {
-    int16_t pitch{0};        // Тангаж x: [-1000 .. 1000]
-    int16_t roll{0};         // Крен y: [-1000 .. 1000]
-    int16_t throttle{0};     // Тяга z: [0 .. 1000]
-    int16_t yaw{0};          // Рискання r: [-1000 .. 1000]
-    uint16_t buttons{0};     // Маска кнопок
-    uint8_t target_system{0};// Ідентифікатор борту
-};
-
-} // namespace mavlink
-```
+:::code dzhoistyk-cherez-stantsiiu-proty-vlasnoho-pulta-d/cpp/4-paketyzatsiia-mavlink.cpp
 :::
 
 Щоб не перевантажувати вузький радіолінк телеметрії, GCS не відправляє ці повідомлення на частоті опитування джойстика (125 Гц). За замовчуванням частота генерації `MANUAL_CONTROL` у QGroundControl штучно обмежена значенням **20–50 Гц** (інтервал 20–50 мс). Це одразу вносить додаткову підлогу затримки квантування:
@@ -242,65 +226,8 @@ Downlink-потік зазвичай містить десятки важких 
 Нижче наведено фрагмент розрахунку швидкості зміни сигналу та обробки таймауту:
 
 :::tabs
-```c
-// Бортовий захист від застигання осей MAVLink MANUAL_CONTROL
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    int16_t roll;
-    int16_t pitch;
-    int16_t throttle;
-    int16_t yaw;
-} AxisCommands;
-
-void process_manual_control_timeout(AxisCommands *cmd, uint32_t last_packet_ms, uint32_t now_ms) {
-    uint32_t dt = now_ms - last_packet_ms;
-    
-    if (dt > 250 && dt <= 1000) {
-        // М'яка нейтралізація: крен і тангаж у нуль
-        cmd->roll = 0;
-        cmd->pitch = 0;
-        cmd->yaw = 0;
-        // Тягу тримаємо на рівні зависання (500)
-        cmd->throttle = 500;
-    } else if (dt > 1000) {
-        // Повний Failsafe: аварійна посадка або повернення додому
-        cmd->roll = 0;
-        cmd->pitch = 0;
-        cmd->yaw = 0;
-        cmd->throttle = 0;
-    }
-}
-```
-```cpp
-// Бортовий захист від застигання осей MAVLink MANUAL_CONTROL (C++20)
-#include <cstdint>
-#include <algorithm>
-
-struct AxisCommands {
-    int16_t roll{0};
-    int16_t pitch{0};
-    int16_t throttle{0};
-    int16_t yaw{0};
-};
-
-constexpr void processManualControlTimeout(AxisCommands& cmd, uint32_t last_packet_ms, uint32_t now_ms) noexcept {
-    const uint32_t dt = now_ms - last_packet_ms;
-    
-    if (dt > 250 && dt <= 1000) {
-        cmd.roll = 0;
-        cmd.pitch = 0;
-        cmd.yaw = 0;
-        cmd.throttle = 500; // Режим утримання висоти
-    } else if (dt > 1000) {
-        cmd.roll = 0;
-        cmd.pitch = 0;
-        cmd.yaw = 0;
-        cmd.throttle = 0;   // Аварійне відключення / Failsafe
-    }
-}
-```
+:::code dzhoistyk-cherez-stantsiiu-proty-vlasnoho-pulta-d/c/main.c
+:::code dzhoistyk-cherez-stantsiiu-proty-vlasnoho-pulta-d/cpp/pravyla-bezpechnoho.cpp
 :::
 
 ---

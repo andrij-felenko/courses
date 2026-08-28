@@ -102,33 +102,7 @@ Build-ID живе в `.note.gnu.build-id`, а ця секція — частин
 
 Компонувальник лишає на початок секції символ, на який можна послатися з C. Структура ELF-ноти проста: три 32-бітні поля довжин і типу, далі ім'я (`"GNU\0"`) і самі байти хешу:
 
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-// Заголовок ELF-ноти: так само влаштована будь-яка нота в .note-секції.
-typedef struct {
-    uint32_t namesz;   // довжина імені (для build-id це 4: "GNU\0")
-    uint32_t descsz;   // довжина опису — самих байтів хешу (20 для SHA-1)
-    uint32_t type;     // тип ноти; для build-id це NT_GNU_BUILD_ID == 3
-    uint8_t  data[];   // спершу ім'я ("GNU\0"), одразу за ним — байти хешу
-} elf_note_t;
-
-// Символ на початок секції .note.gnu.build-id — його дає компонувальник.
-extern const elf_note_t g_note_build_id;
-
-// Надрукувати власний Build-ID тими самими 40 шістнадцятковими цифрами,
-// що їх покаже readelf -n на хості. Саме цей рядок іде в лог.
-void print_build_id(void) {
-    // Байти хешу лежать одразу за ім'ям ("GNU\0"), тобто зі зсувом namesz.
-    const uint8_t *id = &g_note_build_id.data[g_note_build_id.namesz];
-    printf("Build ID: ");
-    for (uint32_t i = 0; i < g_note_build_id.descsz; i++) {
-        printf("%02x", id[i]);
-    }
-    printf("\n");
-}
-```
+:::code proj-symbol-server/c/main.c
 
 Щоб символ `g_note_build_id` показав саме на цю секцію, її розміщують у скрипті компонувальника (в ESP-IDF це робиться автоматично, коли ввімкнено `--build-id`; на «голих» STM32-проєктах секцію інколи доводиться дописати в linker-скрипт вручну, поряд із `.text`):
 
@@ -176,40 +150,7 @@ symbols/
 
 Серце дисципліни — крок збірки, який **сам** кладе `.elf` у сховище під його Build-ID. Поки це робить людина — буде діра; щойно це робить конвеєр — діри неможливі. Скрипт мінімальний:
 
-```bash
-#!/usr/bin/env bash
-# Викликається в кінці кожної релізної збірки. Кладе .elf у сховище символів
-# під його Build-ID і реєструє відповідність версія → Build-ID. Жодної ручної праці.
-set -euo pipefail
-
-ELF="build/firmware.elf"          # свіжозібраний образ із повним DWARF
-VERSION="$1"                       # версія цієї збірки, напр. 2.4.1
-STORE="/srv/symbols"               # корінь сховища символів
-READELF="xtensa-esp32-elf-readelf"
-
-# 1. Дістати Build-ID із .elf — той самий 40-значний хеш, що його надрукує прошивка.
-BUILD_ID=$("$READELF" -n "$ELF" \
-    | awk '/Build ID:/ { print $3 }')
-
-if [ -z "$BUILD_ID" ]; then
-    echo "ПОМИЛКА: у $ELF немає Build-ID. Чи ввімкнено -Wl,--build-id?" >&2
-    exit 1
-fi
-
-# 2. Розкласти за схемою .build-id/<перші 2>/<решта>.elf і покласти ОРИГІНАЛ.
-SUBDIR="${BUILD_ID:0:2}"
-FNAME="${BUILD_ID:2}.elf"
-DEST="$STORE/.build-id/$SUBDIR"
-mkdir -p "$DEST"
-cp "$ELF" "$DEST/$FNAME"
-
-# 3. Зареєструвати місток версія → Build-ID, щоб лог із самою версією теж знайшов словник.
-mkdir -p "$STORE/by-version"
-echo "$BUILD_ID" > "$STORE/by-version/$VERSION.txt"
-
-echo "Збережено: версія $VERSION  Build-ID $BUILD_ID"
-echo "  → $DEST/$FNAME"
-```
+:::code proj-symbol-server/sh/konveier-shcho-klade.sh
 
 Ключове тут — що цей скрипт **частина збірки**, а не окрема дія доброї волі. Він біжить щоразу, тож кожна випущена збірка лишає по собі словник без жодного «не забути». Так розв'язується вимога **повноти**: діру треба було б створювати навмисне, прибравши крок із конвеєра.
 
@@ -217,34 +158,7 @@ echo "  → $DEST/$FNAME"
 
 Друга половина — діставати правильний `.elf` зі сховища за тим, що прилетіло з поля. Скрипт приймає **або** Build-ID (надійний шлях), **або** версію (через місток), знаходить файл і відразу годує addr2line:
 
-```bash
-#!/usr/bin/env bash
-# Розшифрувати адреси з логу поля. Ключ — Build-ID або версія.
-#   decode.sh 4e9f2a1c...   0x400f360d 0x400dbf56     ← за Build-ID (надійно)
-#   decode.sh v:2.4.1       0x400f360d 0x400dbf56     ← за версією (через місток)
-set -euo pipefail
-
-STORE="/srv/symbols"
-ADDR2LINE="xtensa-esp32-elf-addr2line"
-KEY="$1"; shift          # ключ; решта аргументів — адреси з рядка Backtrace:
-
-# Якщо ключ заданий як версія (v:2.4.1) — спершу перейти через місток до Build-ID.
-if [[ "$KEY" == v:* ]]; then
-    VERSION="${KEY#v:}"
-    MAP="$STORE/by-version/$VERSION.txt"
-    [ -f "$MAP" ] || { echo "Немає запису для версії $VERSION" >&2; exit 1; }
-    BUILD_ID=$(cat "$MAP")
-else
-    BUILD_ID="$KEY"
-fi
-
-# За Build-ID — пряма адреса файлу, без пошуку.
-ELF="$STORE/.build-id/${BUILD_ID:0:2}/${BUILD_ID:2}.elf"
-[ -f "$ELF" ] || { echo "Немає символів для Build-ID $BUILD_ID" >&2; exit 1; }
-
-# Той самий робочий набір прапорців addr2line з теми: -pfiaC.
-"$ADDR2LINE" -pfiaC -e "$ELF" "$@"
-```
+:::code proj-symbol-server/sh/decode.sh
 
 Тепер увесь розбір аварії з поля стискається до одного рядка. Клієнт надіслав лог, у ньому — `Build ID: 4e9f2a1c…` і `Backtrace: 0x400f360d:… 0x400dbf56:…`. Ти береш ліві числа пар (PC, як ми розбирали в темі) і кличеш:
 

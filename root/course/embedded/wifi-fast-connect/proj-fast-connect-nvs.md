@@ -14,24 +14,7 @@
 
 Що кладемо в структуру? Рівно те, що прискорює фази, плюс трохи службового, щоб уміти **не довіряти** записові, коли він застарів:
 
-```c
-#include <stdint.h>
-
-#define FASTCONN_MAGIC   0x57494643u   // "WIFC" — мітка нашого формату
-#define FASTCONN_VERSION 1             // версія розкладки полів
-
-// Усе, що зберігаємо між сеансами, — однією структурою, одним блобом.
-typedef struct {
-    uint32_t magic;        // FASTCONN_MAGIC: чи це взагалі наш запис
-    uint8_t  version;      // FASTCONN_VERSION: чи розкладка ще сумісна
-    uint8_t  channel;      // канал точки (1..13), 0 = немає підказки
-    uint8_t  bssid[6];     // MAC точки — лише для перевірки, не для прив'язки
-    uint32_t ip;           // остання видана адреса (network order)
-    uint32_t netmask;      // маска (network order)
-    uint32_t gw;           // шлюз (network order)
-    uint16_t fail_streak;  // скільки теплих стартів поспіль провалилося
-} fastconn_t;
-```
+:::code proj-fast-connect-nvs/c/shcho-zberihaiemo-try.c
 
 Чотири поля заслуговують пояснення, бо саме вони відрізняють надійний код від наївного.
 
@@ -54,92 +37,17 @@ namespace: "fastconn"
 
 Один простір, один ключ, одна структура. Запис — три виклики: відкрити простір, покласти блоб, **зафіксувати**. Останнє критичне: `nvs_set_blob` лише позначає зміну в RAM-кеші NVS; поки ви не викликали `nvs_commit`, у флеш нічого не лягло, і вимикання живлення зітре зміну. Це найчастіша причина «я ж зберіг, а воно не зберіглося».
 
-```c
-#include "nvs.h"
-#include "nvs_flash.h"
-#include "esp_log.h"
-
-static const char *TAG = "fastconn";
-#define NVS_NS  "fastconn"
-#define NVS_KEY "blob"
-
-// Записати весь стан одним блобом. Повертає ESP_OK при успіху.
-static esp_err_t fastconn_save(const fastconn_t *st)
-{
-    nvs_handle_t h;
-    esp_err_t err = nvs_open(NVS_NS, NVS_READWRITE, &h);
-    if (err != ESP_OK) {
-        ESP_LOGW(TAG, "nvs_open failed: %s", esp_err_to_name(err));
-        return err;
-    }
-
-    err = nvs_set_blob(h, NVS_KEY, st, sizeof(*st));
-    if (err == ESP_OK) {
-        err = nvs_commit(h);   // без commit запис лишиться лише в RAM-кеші
-    }
-    nvs_close(h);
-
-    if (err != ESP_OK) {
-        ESP_LOGW(TAG, "save failed: %s", esp_err_to_name(err));
-    }
-    return err;
-}
-```
+:::code proj-fast-connect-nvs/c/skhema-kliuchiv-nvs-i.c
 
 Читання трохи хитріше через двофазний інтерфейс NVS для блобів. Спершу ви питаєте розмір (передавши `NULL` замість буфера), тоді — самі дані. Це спадок від часів, коли блоб міг бути будь-якого розміру й викликачеві треба було спершу виділити пам'ять. У нас розмір фіксований, тож ми ще й **перевіряємо**, що збережений блоб саме нашого розміру: якщо ні — це знову чужий або застарілий формат, повертаємо «немає».
 
-```c
-// Прочитати стан. Повертає true, якщо у NVS лежить чинний наш блоб.
-static bool fastconn_load(fastconn_t *out)
-{
-    nvs_handle_t h;
-    esp_err_t err = nvs_open(NVS_NS, NVS_READONLY, &h);
-    if (err != ESP_OK) {
-        // ESP_ERR_NVS_NOT_FOUND тут — норма для найпершого, чистого старту
-        return false;
-    }
-
-    // Фаза 1: дізнаємося розмір збереженого блоба.
-    size_t sz = 0;
-    err = nvs_get_blob(h, NVS_KEY, NULL, &sz);
-    if (err != ESP_OK || sz != sizeof(*out)) {
-        nvs_close(h);
-        return false;   // ключа немає або розмір не наш — формат чужий
-    }
-
-    // Фаза 2: читаємо самі дані.
-    err = nvs_get_blob(h, NVS_KEY, out, &sz);
-    nvs_close(h);
-    if (err != ESP_OK) {
-        return false;
-    }
-
-    // І остання перевірка чинності — мітка й версія формату.
-    if (out->magic != FASTCONN_MAGIC || out->version != FASTCONN_VERSION) {
-        ESP_LOGW(TAG, "blob magic/version mismatch — ignoring");
-        return false;
-    }
-    return true;
-}
-```
+:::code proj-fast-connect-nvs/c/skhema-kliuchiv-nvs-i-2.c
 
 Зверніть увагу, як `fastconn_load` повертає `false` у п'яти різних місцях, і **жодне з них не є помилкою** в звичайному сенсі: чистий пристрій, чужий формат, недописаний блоб, інша версія — усе це законні причини сказати «заготовки немає, йди холодним шляхом». Функція не намагається «полагодити» сумнівні дані — вона їх просто **не визнає**. Це і є дисципліна надійного кешу: краще зайвий раз зробити повну роботу, ніж довіритися напівправді.
 
 > 🔧 **Навіщо це.** Перед першим зверненням до NVS його треба ініціалізувати — `nvs_flash_init()`. І тут є власна пастка: якщо розділ NVS пошкоджений або від старішої версії, `nvs_flash_init()` поверне `ESP_ERR_NVS_NO_FREE_PAGES` чи `ESP_ERR_NVS_NEW_VERSION_FOUND`. Канонічна відповідь — стерти розділ і спробувати ще раз; інакше пристрій не злетить узагалі. Це той код, що мовчки стоїть у кожному `app_main` і про який згадуєш лише тоді, коли він відсутній.
 
-```c
-// Має викликатися один раз на старті, до будь-якої роботи з NVS.
-static void fastconn_nvs_init(void)
-{
-    esp_err_t err = nvs_flash_init();
-    if (err == ESP_ERR_NVS_NO_FREE_PAGES ||
-        err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());   // розділ застарів/побився — стерти
-        err = nvs_flash_init();               // і спробувати знову на чистому
-    }
-    ESP_ERROR_CHECK(err);
-}
-```
+:::code proj-fast-connect-nvs/c/skhema-kliuchiv-nvs-i-3.c
 
 ## Підставляємо заготовки: канал і адреса
 
@@ -147,55 +55,13 @@ static void fastconn_nvs_init(void)
 
 Канал ми вже бачили в темі: поле `cfg.sta.channel`. Поставили реальний номер — пошук почнеться з нього й майже завжди влучить з першого маячка; поставили `0` — повний обхід ефіру. Тож холодний шлях — це просто `channel = 0`, а теплий — `channel` із блоба. Одне поле обслуговує обидва випадки, і це робить відкат елегантним: «впасти на холодний» означає буквально «поставити канал у нуль і перепідключитися».
 
-```c
-#include "esp_wifi.h"
-#include <string.h>
-
-#define WIFI_SSID "MyNetwork"
-#define WIFI_PASS "secret123"
-
-// Зібрати конфіг станції. Якщо st != NULL і має канал — підставляємо підказку.
-static void apply_sta_config(const fastconn_t *st)
-{
-    wifi_config_t cfg = { 0 };
-    strncpy((char *)cfg.sta.ssid,     WIFI_SSID, sizeof(cfg.sta.ssid));
-    strncpy((char *)cfg.sta.password, WIFI_PASS, sizeof(cfg.sta.password));
-
-    if (st && st->channel >= 1 && st->channel <= 13) {
-        cfg.sta.channel = st->channel;   // теплий старт: шукати з відомого каналу
-    } else {
-        cfg.sta.channel = 0;             // холодний старт: повний скан
-    }
-    // bssid_set лишаємо 0 — на ESP32 BSSID підключення не прискорює
-    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &cfg));
-}
-```
+:::code proj-fast-connect-nvs/c/pidstavliaiemo-zahotovky.c
 
 Адреса складніша, бо для неї є **два різні важелі**, і вибір між ними — це реальне інженерне рішення, а не дрібниця синтаксису.
 
 **Шлях перший — статична адреса через `esp_netif`.** Ми зупиняємо DHCP-клієнта й самі прописуємо інтерфейсу IP, маску, шлюз із блоба. Третьої фази тоді немає **зовсім** — жодного пакета, адреса з'являється миттєво. Ціна: якщо мережа віддала цю адресу комусь іншому (а вона має право, якщо ми надовго зникали), виникне конфлікт адрес, і доведеться це ловити. Порядок викликів тут строгий: спершу `esp_netif_dhcpc_stop`, лише потім `esp_netif_set_ip_info` — встановити IP при ввімкненому DHCP-клієнті стек не дасть.
 
-```c
-#include "esp_netif.h"
-
-// Прошити збережену адресу статично: DHCP вимикаємо, фази немає зовсім.
-static void apply_static_ip(esp_netif_t *netif, const fastconn_t *st)
-{
-    // 1. Зупинити DHCP-клієнта. ALREADY_STOPPED тут — не помилка.
-    esp_err_t err = esp_netif_dhcpc_stop(netif);
-    if (err != ESP_OK && err != ESP_ERR_ESP_NETIF_DHCP_ALREADY_STOPPED) {
-        ESP_LOGW(TAG, "dhcpc_stop: %s", esp_err_to_name(err));
-        return;
-    }
-
-    // 2. Прописати IP/маску/шлюз з блоба (вони вже в network order).
-    esp_netif_ip_info_t ip = { 0 };
-    ip.ip.addr      = st->ip;
-    ip.netmask.addr = st->netmask;
-    ip.gw.addr      = st->gw;
-    ESP_ERROR_CHECK(esp_netif_set_ip_info(netif, &ip));
-}
-```
+:::code proj-fast-connect-nvs/c/pidstavliaiemo-zahotovky-2.c
 
 **Шлях другий — лишити DHCP, але дати йому пам'ять.** В ESP-IDF є опція збірки `CONFIG_LWIP_DHCP_RESTORE_LAST_IP`. З нею мережевий стек сам запам'ятовує останню видану адресу й при старті DHCP **одразу шле REQUEST** із нею (той самий стан INIT-REBOOT, що ми розбирали), замість повного DISCOVER. Якщо адреса ще ваша — сервер відповість ACK, і замість чотирьох пакетів вийде два. Якщо ні — сервер пришле NAK, і стек **сам, без вашого коду**, відкотиться до повного циклу.
 
@@ -222,37 +88,7 @@ CONFIG_LWIP_DHCP_RESTORE_LAST_IP=y
 
 Адресу на момент події підключення ми вже маємо: подія `IP_EVENT_STA_GOT_IP` приносить `ip_event_got_ip_t` з повним `ip_info`. Складемо все докупи в обробнику цієї події.
 
-```c
-#include "esp_event.h"
-#include "esp_wifi.h"
-
-// Зібрати свіжий блоб із фактичних даних щойно вдалого підключення.
-static void capture_and_save(const esp_netif_ip_info_t *ip_info)
-{
-    fastconn_t st = { 0 };
-    st.magic   = FASTCONN_MAGIC;
-    st.version = FASTCONN_VERSION;
-
-    // Фактичний канал і BSSID точки, до якої під'єдналися.
-    wifi_ap_record_t ap;
-    if (esp_wifi_sta_get_ap_info(&ap) == ESP_OK) {
-        st.channel = ap.primary;                 // реальний канал (1..13)
-        memcpy(st.bssid, ap.bssid, sizeof(st.bssid));
-    }
-
-    // Адреса з події GOT_IP (уже в network order).
-    st.ip      = ip_info->ip.addr;
-    st.netmask = ip_info->netmask.addr;
-    st.gw      = ip_info->gw.addr;
-
-    st.fail_streak = 0;   // успіх обнуляє лічильник провалів
-
-    if (fastconn_save(&st) == ESP_OK) {
-        ESP_LOGI(TAG, "saved: ch=%u ip=" IPSTR,
-                 st.channel, IP2STR(&ip_info->ip));
-    }
-}
-```
+:::code proj-fast-connect-nvs/c/zbyraiemo-kholodnyi-start.c
 
 Один тонкий момент із `fail_streak`: щойно показаний код **обнуляє** його при успіху, але не вміє його **нарощувати** — бо нарощувати треба не при успіху, а при провалі теплого старту, у зовсім іншому місці. Щоб лічильник був чесний, перед перезаписом блоба слід підхопити старе значення. Та оскільки успіх скидає лічильник у нуль у будь-якому разі, тут ми про старе значення не дбаємо — нарощуванням займеться гілка відкату нижче, яка читає блоб, збільшує поле й пише назад **без** повного перепідключення.
 
@@ -270,102 +106,7 @@ static void capture_and_save(const esp_netif_ip_info_t *ip_info)
 
 Зведемо всю цю логіку в один обробник подій Wi-Fi. Він — серце прошивки, тож читаймо уважно.
 
-```c
-#include "freertos/FreeRTOS.h"
-#include "freertos/event_groups.h"
-
-#define WIFI_CONNECTED_BIT BIT0
-#define WIFI_FAIL_BIT      BIT1
-#define WARM_FAIL_LIMIT    3      // стільки теплих провалів поспіль — і викидаємо кеш
-
-static EventGroupHandle_t s_wifi_events;
-static bool   s_tried_warm   = false;   // цей сеанс почали з кешу?
-static int    s_retry        = 0;       // лічильник спроб у межах сеансу
-#define MAX_RETRY 5
-
-// Нарахувати провал теплого старту в NVS (читаємо-нарощуємо-пишемо).
-static void bump_fail_streak(void)
-{
-    fastconn_t st;
-    if (!fastconn_load(&st)) return;       // нема блоба — нема чого нарощувати
-    if (st.fail_streak < 0xFFFF) st.fail_streak++;
-    if (st.fail_streak >= WARM_FAIL_LIMIT) {
-        // Заготовка стабільно шкідлива — стираємо її, далі ходимо холодним.
-        nvs_handle_t h;
-        if (nvs_open(NVS_NS, NVS_READWRITE, &h) == ESP_OK) {
-            nvs_erase_key(h, NVS_KEY);
-            nvs_commit(h);
-            nvs_close(h);
-            ESP_LOGW(TAG, "warm failed %u times — blob dropped", st.fail_streak);
-            return;
-        }
-    }
-    fastconn_save(&st);
-}
-
-// Єдина, незалежна від причини відповідь на провал теплого старту: нарахувати
-// провал у NVS, скинути канал-підказку в нуль (далі — повний скан) і почати
-// холодну фазу зі свіжим бюджетом спроб. Спрацьовує рівно раз за сеанс — щойно
-// s_tried_warm гасне, повторно сюди вже не потрапляємо.
-static void warm_to_cold_fallback(void)
-{
-    bump_fail_streak();
-    apply_sta_config(NULL);      // NULL → channel = 0
-    s_tried_warm = false;        // теплого більше немає — далі холодний шлях
-    s_retry      = 0;            // холодній фазі — свій бюджет спроб
-}
-
-static void wifi_event_handler(void *arg, esp_event_base_t base,
-                               int32_t id, void *data)
-{
-    if (base == WIFI_EVENT && id == WIFI_EVENT_STA_START) {
-        esp_wifi_connect();                 // перший запит на з'єднання
-        return;
-    }
-
-    if (base == WIFI_EVENT && id == WIFI_EVENT_STA_DISCONNECTED) {
-        wifi_event_sta_disconnected_t *e =
-            (wifi_event_sta_disconnected_t *)data;
-        ESP_LOGW(TAG, "disconnected, reason=%d", e->reason);
-
-        // Канал-підказка не спрацювала (точку переставили / немає поряд):
-        // скидаємо канал у 0 і далі вже пробуємо повним сканом.
-        if (s_tried_warm && e->reason == WIFI_REASON_NO_AP_FOUND) {
-            ESP_LOGW(TAG, "channel hint missed — falling back to full scan");
-            warm_to_cold_fallback();
-        }
-        // Провал третій — «теплий не злетів, причина будь-яка»: спроби на
-        // теплому вичерпано, а ми досі теплі, тож причина була НЕ NO_AP_FOUND
-        // (auth, таймаут рукостискання — каналом їх не полікуєш). Відповідь та
-        // сама — покинути теплий і дати холодному один повний скан.
-        else if (s_tried_warm && s_retry >= MAX_RETRY) {
-            ESP_LOGW(TAG, "warm exhausted (reason=%d) — one cold attempt", e->reason);
-            warm_to_cold_fallback();
-        }
-
-        if (s_retry < MAX_RETRY) {
-            s_retry++;
-            esp_wifi_connect();             // повторюємо (уже, можливо, з каналом 0)
-        } else {
-            // Спроби вичерпано вже й на холодному — чесна відмова, а не
-            // наслідок нашої оптимізації.
-            xEventGroupSetBits(s_wifi_events, WIFI_FAIL_BIT);
-        }
-        return;
-    }
-}
-
-static void ip_event_handler(void *arg, esp_event_base_t base,
-                             int32_t id, void *data)
-{
-    if (base == IP_EVENT && id == IP_EVENT_STA_GOT_IP) {
-        ip_event_got_ip_t *e = (ip_event_got_ip_t *)data;
-        s_retry = 0;
-        capture_and_save(&e->ip_info);      // зберігаємо свіжі заготовки
-        xEventGroupSetBits(s_wifi_events, WIFI_CONNECTED_BIT);
-    }
-}
-```
+:::code proj-fast-connect-nvs/c/sertse-nadiinosti-vidkat.c
 
 Тут є одна логічна тонкість, варта зупинки. Зверніть увагу на умову `if (s_tried_warm && e->reason == WIFI_REASON_NO_AP_FOUND)`: ми скидаємо канал **лише якщо** цей сеанс справді почали з кешу. Інакше станеться абсурд — холодний старт зі вже нульовим каналом отримає `NO_AP_FOUND` (мережі поряд немає), ми «скинемо» і так нульовий канал і будемо безкінечно товкти повний скан, нарощуючи `fail_streak` на порожньому місці. Прапорець `s_tried_warm` відрізняє «канал-підказка підвела, спробуймо ширше» від «ширше вже пробуємо, мережі просто немає». Без цього прапорця відкат перетворюється на нескінченну петлю — класична пастка наївної реалізації.
 
@@ -380,55 +121,7 @@ static void ip_event_handler(void *arg, esp_event_base_t base,
 
 Тепер видно, як усе сходиться в `app_main`. Читаємо блоб; є чинний — готуємо теплий старт; немає (чи `fail_streak` його викинув) — холодний. Далі логіка спільна: піднімаємо стек, чекаємо результату.
 
-```c
-static esp_netif_t *s_sta_netif;
-
-void app_main(void)
-{
-    fastconn_nvs_init();
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
-    s_sta_netif = esp_netif_create_default_wifi_sta();
-
-    s_wifi_events = xEventGroupCreate();
-    ESP_ERROR_CHECK(esp_event_handler_instance_register(
-        WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL, NULL));
-    ESP_ERROR_CHECK(esp_event_handler_instance_register(
-        IP_EVENT, IP_EVENT_STA_GOT_IP, &ip_event_handler, NULL, NULL));
-
-    wifi_init_config_t wcfg = WIFI_INIT_CONFIG_DEFAULT();
-    ESP_ERROR_CHECK(esp_wifi_init(&wcfg));
-    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
-
-    // Розгалуження: є чинна заготовка → теплий старт, ні → холодний.
-    fastconn_t st;
-    if (fastconn_load(&st)) {
-        ESP_LOGI(TAG, "warm start: ch=%u", st.channel);
-        apply_sta_config(&st);          // підставляємо канал з кешу
-        s_tried_warm = true;
-        // Адресу веде сам стек через RESTORE_LAST_IP — DHCP лишаємо ввімкненим.
-        // (Якби ми обрали статику — тут був би apply_static_ip(s_sta_netif, &st).)
-    } else {
-        ESP_LOGI(TAG, "cold start: full scan");
-        apply_sta_config(NULL);         // channel = 0, повний скан
-        s_tried_warm = false;
-    }
-
-    ESP_ERROR_CHECK(esp_wifi_start());   // звідси полетять події STA_START/...
-
-    // Чекаємо, поки підключимося або вичерпаємо спроби.
-    EventBits_t bits = xEventGroupWaitBits(
-        s_wifi_events, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
-        pdFALSE, pdFALSE, pdMS_TO_TICKS(15000));
-
-    if (bits & WIFI_CONNECTED_BIT) {
-        ESP_LOGI(TAG, "connected — ready to work");
-        // ... тут корисна робота: передати дані й заснути ...
-    } else {
-        ESP_LOGW(TAG, "could not connect in time");
-    }
-}
-```
+:::code proj-fast-connect-nvs/c/tochka-vkhodu-dvi-hilky.c
 
 Гляньте, наскільки симетричні дві гілки: відмінність лише в одному рядку (`apply_sta_config(&st)` проти `apply_sta_config(NULL)`) і в прапорці `s_tried_warm`. Уся складність — не в розгалуженні на старті, а в **обробнику подій**, який тихо переводить пристрій з теплого шляху на холодний, щойно заготовка підводить. Це правильний розподіл: вхідне рішення просте, а вся хитрість живе там, де її справді треба — у реакції на провал.
 
@@ -440,18 +133,7 @@ void app_main(void)
 
 Звідси пастка. Якщо між сеансами ви викликаєте `esp_wifi_deinit()` (щоб «економніше» вимкнути радіо) або смикаєте живлення модуля — **PMKSA гине разом зі стеком**. Наступне підключення підставить канал з NVS (швидко), відновить адресу (швидко) — і знову заплатить **повну ціну за PBKDF2**, ті самі сотні мілісекунд рахунку, бо живого PMK у пам'яті вже немає. Ви зберегли дві дешевші фази й щоразу губите найдорожчу. Парадокс: пристрій, який «дбайливо вимикає радіо заради економії», на ділі **марнує більше заряду**, ніж той, що тримає стек живим.
 
-```c
-//  ПАСТКА — так робити НЕ варто, якщо дорожите PMKSA:
-//  esp_wifi_stop();
-//  esp_wifi_deinit();        // ← тут гине PMKSA-кеш у RAM
-//  ... глибокий сон ...
-//  esp_wifi_init(&wcfg);     // наступний старт знову платить повну PBKDF2
-
-//  ПРАВИЛЬНО — між частими сеансами тримати стек і занурювати в легкий сон:
-//  esp_wifi_set_ps(WIFI_PS_MIN_MODEM);   // modem-sleep: радіо дрімає, стек живий
-//  ... коротка пауза до наступного сеансу ...
-//  esp_wifi_connect();                   // PMK досі в кеші — handshake без PBKDF2
-```
+:::code proj-fast-connect-nvs/c/pastka-shcho-zidaie-ves.c
 
 Висновок звідси інженерний і не зовсім очевидний: **тип сну треба обирати під ритм пристрою**. Якщо прокидання часті (раз на секунди-хвилини) — тримайте стек ініціалізованим і користуйтеся modem-sleep чи light-sleep; PMKSA лишається живим, і ви виграєте всі три фази. Якщо ж прокидання рідкісні (раз на годину й рідше) — глибокий сон з повним вимиканням може виявитися вигіднішим попри втрату PMKSA, бо за годину струм спокою зі живим стеком з'їсть більше, ніж одна зайва PBKDF2. Точка перелому залежить від конкретних чисел споживання, і знайти її — це рівно той розрахунок бюджету енергії, який ми вже вміємо робити: порахувати, що дешевше — година живого стека чи одне додаткове виведення ключа.
 

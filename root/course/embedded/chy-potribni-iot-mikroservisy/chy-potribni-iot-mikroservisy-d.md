@@ -151,117 +151,8 @@
 Щоб модульний моноліт не перетворився на хаотичну «велику купу бруду» (*Big Ball of Mud*), між модулями забороняється прямий доступ до внутрішніх структур. Взаємодія ведеться виключно через абстрактні інтерфейси або шину подій:
 
 :::tabs
-```cpp
-#include <iostream>
-#include <memory>
-#include <vector>
-#include <string_view>
-#include <cstdint>
-
-// 1. Незмінна структура події телеметрії (Domain Event)
-struct TelemetryEvent {
-    uint64_t device_id;
-    uint64_t timestamp_ms;
-    float temperature_c;
-    float pressure_bar;
-    uint32_t flags;
-};
-
-// 2. Абстрактний інтерфейс слухача подій (In-Process Observer)
-class ITelemetryConsumer {
-public:
-    virtual ~ITelemetryConsumer() = default;
-    virtual void on_telemetry(const TelemetryEvent& event) = 0;
-};
-
-// 3. Модуль Digital Twin (утримує оперативний стан у пам'яті)
-class DeviceTwinModule : public ITelemetryConsumer {
-public:
-    void on_telemetry(const TelemetryEvent& event) override {
-        // Оновлення стану без серіалізації та мережевих викликів
-        update_device_state(event.device_id, event.temperature_c, event.flags);
-    }
-private:
-    void update_device_state(uint64_t id, float temp, uint32_t flags) {
-        // Швидка атомарна зміна показників у хеш-таблиці
-    }
-};
-
-// 4. Модуль порогових правил (Rules Engine)
-class RulesEngineModule : public ITelemetryConsumer {
-public:
-    void on_telemetry(const TelemetryEvent& event) override {
-        if (event.temperature_c > 80.0f) {
-            trigger_emergency_alert(event.device_id, event.temperature_c);
-        }
-    }
-private:
-    void trigger_emergency_alert(uint64_t id, float temp) {
-        // Локальна генерація аварійного сигналу
-    }
-};
-
-// 5. Внутрішньопроцесний диспетчер шини подій (In-Memory Event Bus)
-class InMemoryEventBus {
-public:
-    void subscribe(std::shared_ptr<ITelemetryConsumer> consumer) {
-        consumers_.push_back(consumer);
-    }
-
-    void publish(const TelemetryEvent& event) {
-        for (const auto& consumer : consumers_) {
-            consumer->on_telemetry(event);
-        }
-    }
-private:
-    std::vector<std::shared_ptr<ITelemetryConsumer>> consumers_;
-};
-```
-```py
-from dataclasses import dataclass
-from typing import Protocol, List
-
-# 1. Незмінна структура події телеметрії
-@dataclass(frozen=True)
-class TelemetryEvent:
-    device_id: int
-    timestamp_ms: int
-    temperature_c: float
-    pressure_bar: float
-    flags: int
-
-# 2. Інтерфейс підписника
-class TelemetryConsumer(Protocol):
-    def on_telemetry(self, event: TelemetryEvent) -> None:
-        ...
-
-# 3. Модуль стану пристроїв (Device Twin)
-class DeviceTwinModule:
-    def on_telemetry(self, event: TelemetryEvent) -> None:
-        # Пряме оновлення оперативної пам'яті
-        pass
-
-# 4. Модуль порогових правил (Rules Engine)
-class RulesEngineModule:
-    def on_telemetry(self, event: TelemetryEvent) -> None:
-        if event.temperature_c > 80.0:
-            self._trigger_emergency_alert(event.device_id, event.temperature_c)
-            
-    def _trigger_emergency_alert(self, device_id: int, temp: float) -> None:
-        pass
-
-# 5. Внутрішня шина подій
-class InMemoryEventBus:
-    def __init__(self):
-        self._consumers: List[TelemetryConsumer] = []
-        
-    def subscribe(self, consumer: TelemetryConsumer) -> None:
-        self._consumers.append(consumer)
-        
-    def publish(self, event: TelemetryEvent) -> None:
-        for consumer in self._consumers:
-            consumer.on_telemetry(event)
-```
+:::code chy-potribni-iot-mikroservisy-d/cpp/main.cpp
+:::code chy-potribni-iot-mikroservisy-d/py/main.py
 :::
 
 ### Моделі конкурентності: Thread-per-Core проти спільних блокувань
@@ -282,20 +173,7 @@ class InMemoryEventBus:
 ### Єдина база даних: сила транзакційного Outbox
 У модульному моноліті використовується єдина промислова реляційна база даних (найчастіше `PostgreSQL` із розширенням `TimescaleDB` для часових рядів). Це усуває потребу в розподілених транзакціях:
 
-```sql
-BEGIN;
-  -- Атомарне оновлення бажаного стану
-  UPDATE device_shadow SET desired_temp = 22.5 WHERE device_id = 'ctrl_441';
-  
-  -- Запис у журнал аудиту
-  INSERT INTO audit_log (device_id, event_type, created_at) 
-  VALUES ('ctrl_441', 'CONFIG_CHANGE', NOW());
-  
-  -- Запис у внутрішню чергу відправки (Transactional Outbox)
-  INSERT INTO outbound_queue (device_id, topic, payload)
-  VALUES ('ctrl_441', 'devices/ctrl_441/set', '{"temp": 22.5}');
-COMMIT;
-```
+:::code chy-potribni-iot-mikroservisy-d/sql/main.sql
 
 Якщо сервер раптово втратить живлення після `COMMIT`, під час перезапуску фоновий потік вичитає записи з таблиці `outbound_queue` і гарантовано відправить їх у мережу. Жодних саг, жодної розсинхронізації.
 

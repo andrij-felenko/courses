@@ -18,85 +18,9 @@
 **Умова.** Один вивід, до нього під'єднано серво. Поставити вал у центр: кадр 20 мс (50 Гц), імпульс 1500 мкс. Перевести довільний кут 0…180° у ширину.
 
 :::tabs
-```arduino
-const int   SERVO_PIN = 9;
-const int   FRAME_US  = 20000;        // кадр 20 мс = 50 Гц
-
-// кут 0..180°  →  ширина 1000..2000 мкс (лінійна підстановка)
-int angle_to_us(int deg) {
-    if (deg < 0)   deg = 0;
-    if (deg > 180) deg = 180;
-    return 1000 + (long)deg * 1000 / 180;   // 0°→1000, 90°→1500, 180°→2000
-}
-
-// один кадр: імпульс заданої ширини + добивання паузи до 20 мс
-void servo_frame(int pin, int width_us) {
-    digitalWrite(pin, HIGH);
-    delayMicroseconds(width_us);             // ширина = кут
-    digitalWrite(pin, LOW);
-    delayMicroseconds(FRAME_US - width_us);  // решта кадру — пауза
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_rom_sys.h"                    // esp_rom_delay_us()
-
-#define SERVO_GPIO  GPIO_NUM_18
-#define FRAME_US    20000                   // кадр 20 мс = 50 Гц
-
-// кут 0..180°  →  ширина 1000..2000 мкс (лінійна підстановка)
-static int angle_to_us(int deg) {
-    if (deg < 0)   deg = 0;
-    if (deg > 180) deg = 180;
-    return 1000 + (int)((long)deg * 1000 / 180);  // 0°→1000, 90°→1500, 180°→2000
-}
-
-static void servo_init(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << SERVO_GPIO,       // яку ногу налаштовуємо
-        .mode         = GPIO_MODE_OUTPUT,
-    };
-    gpio_config(&cfg);
-}
-
-// один кадр: імпульс заданої ширини + добивання паузи до 20 мс
-static void servo_frame(int width_us) {
-    gpio_set_level(SERVO_GPIO, 1);
-    esp_rom_delay_us(width_us);                   // ширина = кут
-    gpio_set_level(SERVO_GPIO, 0);
-    esp_rom_delay_us(FRAME_US - width_us);        // решта кадру — пауза
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-#define SERVO_PORT  GPIOB
-#define SERVO_PIN   GPIO_PIN_6
-#define FRAME_US    20000                   // кадр 20 мс = 50 Гц
-
-// кут 0..180°  →  ширина 1000..2000 мкс (лінійна підстановка)
-static int angle_to_us(int deg) {
-    if (deg < 0)   deg = 0;
-    if (deg > 180) deg = 180;
-    return 1000 + (int)((long)deg * 1000 / 180);  // 0°→1000, 90°→1500, 180°→2000
-}
-
-// HAL_Delay() рахує лише мілісекунди, тож мікросекунди беремо
-// з вільного лічильника таймера, налаштованого на тік 1 мкс
-extern TIM_HandleTypeDef htim2;
-static void delay_us(uint32_t us) {
-    uint32_t t0 = __HAL_TIM_GET_COUNTER(&htim2);
-    while ((uint32_t)(__HAL_TIM_GET_COUNTER(&htim2) - t0) < us) { }
-}
-
-// один кадр: імпульс заданої ширини + добивання паузи до 20 мс
-static void servo_frame(uint32_t width_us) {
-    HAL_GPIO_WritePin(SERVO_PORT, SERVO_PIN, GPIO_PIN_SET);
-    delay_us(width_us);                           // ширина = кут
-    HAL_GPIO_WritePin(SERVO_PORT, SERVO_PIN, GPIO_PIN_RESET);
-    delay_us(FRAME_US - width_us);                // решта кадру — пауза
-}
-```
+:::code output-mixing/c/arduino/main.ino
+:::code output-mixing/c/esp-idf/main.c
+:::code output-mixing/c/stm32/main.c
 :::
 
 Перевірмо ключові точки підстановки в думці:

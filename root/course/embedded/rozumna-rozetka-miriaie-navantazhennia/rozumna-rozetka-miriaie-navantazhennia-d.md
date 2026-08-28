@@ -272,72 +272,8 @@ K_p = P_ref / ((P_param / P_data) · K_v · K_i)
 Нижче наведено фрагмент інтеграції драйвера в робочий цикл мікроконтролера. Повну реалізацію скінченного автомата розбору кадру, перевірки парності та алгоритму вирівнювання зносу Flash-пам'яті наведено у [виробничому драйвері енергомонітора з розрахунком кВт·год](root:embedded/rozumna-rozetka-miriaie-navantazhennia/proj-energy-meter.md).
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-/* Інтерфейс драйвера вимірювача енергії */
-typedef struct {
-    float voltage_rms;
-    float current_rms;
-    float active_power;
-    float apparent_power;
-    float power_factor;
-    double energy_kwh;
-} socket_telemetry_t;
-
-/* Обробка оновлених метрик у головному циклі пристрою */
-void handle_socket_telemetry(const socket_telemetry_t *data) {
-    if (!data) return;
-
-    /* Захист від перевантаження за струмом (16 А) */
-    if (data->current_rms > 16.5f) {
-        // Екстрене вимкнення силового реле
-        // relay_set_state(false);
-    }
-
-    /* Захист від аварійної напруги в мережі */
-    if (data->voltage_rms > 260.0f || data->voltage_rms < 175.0f) {
-        // Сигналізація аварії мережі
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <concepts>
-#include <optional>
-
-namespace socket {
-
-struct Telemetry {
-    float voltage_rms{0.0f};
-    float current_rms{0.0f};
-    float active_power{0.0f};
-    float apparent_power{0.0f};
-    float power_factor{1.0f};
-    double energy_kwh{0.0};
-};
-
-class PowerMonitor {
-public:
-    constexpr explicit PowerMonitor(float max_current_limit = 16.0f) noexcept
-        : max_current_{max_current_limit} {}
-
-    [[nodiscard]] bool check_overcurrent(const Telemetry& data) const noexcept {
-        return data.current_rms > max_current_;
-    }
-
-    [[nodiscard]] bool check_voltage_fault(const Telemetry& data) const noexcept {
-        return (data.voltage_rms > 260.0f) || (data.voltage_rms < 175.0f);
-    }
-
-private:
-    float max_current_{16.0f};
-};
-
-} // namespace socket
-```
+:::code rozumna-rozetka-miriaie-navantazhennia-d/c/main.c
+:::code rozumna-rozetka-miriaie-navantazhennia-d/cpp/main.cpp
 :::
 
 ---

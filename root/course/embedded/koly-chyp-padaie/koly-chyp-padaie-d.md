@@ -54,84 +54,8 @@
 3. Негайно записати одиницю в біт скидання прапорців (`RCC_CSR_RMVF`), очистивши регістр для фіксації наступних подій.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include "stm32f4xx.h"
-
-typedef enum {
-    RESET_CAUSE_UNKNOWN      = 0,
-    RESET_CAUSE_POWER_ON     = (1 << 0),
-    RESET_CAUSE_BROWNOUT     = (1 << 1),
-    RESET_CAUSE_PIN_RESET    = (1 << 2),
-    RESET_CAUSE_WATCHDOG_I   = (1 << 3),
-    RESET_CAUSE_WATCHDOG_W   = (1 << 4),
-    RESET_CAUSE_SOFTWARE     = (1 << 5),
-    RESET_CAUSE_LOW_POWER    = (1 << 6)
-} ResetCause_t;
-
-ResetCause_t System_CaptureResetCause(void) {
-    uint32_t csr = RCC->CSR;
-    ResetCause_t cause = RESET_CAUSE_UNKNOWN;
-
-    if (csr & RCC_CSR_LPWRRSTF) cause |= RESET_CAUSE_LOW_POWER;
-    if (csr & RCC_CSR_WWDGRSTF) cause |= RESET_CAUSE_WATCHDOG_W;
-    if (csr & RCC_CSR_IWDGRSTF) cause |= RESET_CAUSE_WATCHDOG_I;
-    if (csr & RCC_CSR_SFTRSTF)  cause |= RESET_CAUSE_SOFTWARE;
-    if (csr & RCC_CSR_PORRSTF)  cause |= RESET_CAUSE_POWER_ON;
-    if (csr & RCC_CSR_PINRSTF)  cause |= RESET_CAUSE_PIN_RESET;
-    if (csr & RCC_CSR_BORRSTF)  cause |= RESET_CAUSE_BROWNOUT;
-
-    // Обов'язкове очищення прапорців: запис 1 у біт RMVF
-    RCC->CSR |= RCC_CSR_RMVF;
-
-    return cause;
-}
-```
-```cpp
-#include <cstdint>
-#include <type_traits>
-#include "stm32f4xx.h"
-
-namespace system::diagnostic {
-
-enum class ResetCause : uint32_t {
-    Unknown      = 0,
-    PowerOn      = (1 << 0),
-    Brownout     = (1 << 1),
-    PinReset     = (1 << 2),
-    WatchdogInd  = (1 << 3),
-    WatchdogWin  = (1 << 4),
-    Software     = (1 << 5),
-    LowPower     = (1 << 6)
-};
-
-[[nodiscard]] constexpr ResetCause operator|(ResetCause a, ResetCause b) noexcept {
-    return static_cast<ResetCause>(
-        static_cast<uint32_t>(a) | static_cast<uint32_t>(b)
-    );
-}
-
-[[nodiscard]] inline ResetCause capture_and_clear_reset_cause() noexcept {
-    const uint32_t csr = RCC->CSR;
-    auto cause = ResetCause::Unknown;
-
-    if (csr & RCC_CSR_LPWRRSTF) cause = cause | ResetCause::LowPower;
-    if (csr & RCC_CSR_WWDGRSTF) cause = cause | ResetCause::WatchdogWin;
-    if (csr & RCC_CSR_IWDGRSTF) cause = cause | ResetCause::WatchdogInd;
-    if (csr & RCC_CSR_SFTRSTF)  cause = cause | ResetCause::Software;
-    if (csr & RCC_CSR_PORRSTF)  cause = cause | ResetCause::PowerOn;
-    if (csr & RCC_CSR_PINRSTF)  cause = cause | ResetCause::PinReset;
-    if (csr & RCC_CSR_BORRSTF)  cause = cause | ResetCause::Brownout;
-
-    // Очищення липких прапорців для наступного життєвого циклу
-    RCC->CSR |= RCC_CSR_RMVF;
-
-    return cause;
-}
-
-} // namespace system::diagnostic
-```
+:::code koly-chyp-padaie-d/c/alhorytm-fiksatsii.c
+:::code koly-chyp-padaie-d/cpp/alhorytm-fiksatsii.cpp
 :::
 
 Якщо регістр скидання показав `SFTRSTF` (програмне скидання) або `IWDGRSTF` (сторожовий таймер), це означає, що пристрій зазнав внутрішнього програмного краху. Найчастіша причина такого краху в архітектурі ARM Cortex-M — потрапляння в апаратний виняток HardFault.
@@ -259,90 +183,8 @@ CFSR = [ UFSR (16 біт) | BFSR (8 біт) | MMFSR (8 біт) ]
 Оскільки обробник на C або C++ сам модифікує покажчик стека під час входу, отримання правильного покажчика реалізують через асемблерну функцію-трамплін із атрибутом `naked`:
 
 :::tabs
-```c
-// C-частина діагностичного обробника
-void HardFault_Decoder_C(const uint32_t *stack_frame, uint32_t exc_return) {
-    uint32_t r0  = stack_frame[0];
-    uint32_t r1  = stack_frame[1];
-    uint32_t r2  = stack_frame[2];
-    uint32_t r3  = stack_frame[3];
-    uint32_t r12 = stack_frame[4];
-    uint32_t lr  = stack_frame[5];
-    uint32_t pc  = stack_frame[6]; // АДРЕСА ВИННОЇ ІНСТРУКЦІЇ!
-    uint32_t psr = stack_frame[7];
-
-    uint32_t hfsr = SCB->HFSR;
-    uint32_t cfsr = SCB->CFSR;
-    uint32_t bfar = (cfsr & SCB_CFSR_BFARVALID_Msk) ? SCB->BFAR : 0;
-    uint32_t mmfar = (cfsr & SCB_CFSR_MMARVALID_Msk) ? SCB->MMFAR : 0;
-
-    // Тут дані записуються в енергонезалежну пам'ять або передаються в UART
-    (void)r0; (void)r1; (void)r2; (void)r3; (void)r12;
-    (void)lr; (void)pc; (void)psr; (void)hfsr; (void)bfar; (void)mmfar;
-
-    // Запобігаємо зависанню: скидаємо чип через системний ресет
-    NVIC_SystemReset();
-}
-
-// Асемблерний вхідний трамплін
-__attribute__((naked)) void HardFault_Handler(void) {
-    __asm volatile(
-        "tst lr, #4                \n" // Перевірка біта 2 регістра LR (EXC_RETURN)
-        "ite eq                    \n"
-        "mrseq r0, msp             \n" // Якщо біт=0 -> кадр на MSP
-        "mrsne r0, psp             \n" // Якщо біт=1 -> кадр на PSP
-        "mov r1, lr                \n" // R1 = значення EXC_RETURN
-        "b HardFault_Decoder_C     \n" // Перехід у C-декодер із аргументами (R0, R1)
-    );
-}
-```
-```cpp
-#include <cstdint>
-#include "stm32f4xx.h"
-
-namespace fault {
-
-struct alignas(4) StackRegisters {
-    uint32_t r0;
-    uint32_t r1;
-    uint32_t r2;
-    uint32_t r3;
-    uint32_t r12;
-    uint32_t lr;
-    uint32_t pc;
-    uint32_t psr;
-};
-
-extern "C" void HardFault_Decoder_Cpp(const StackRegisters *regs, uint32_t exc_return) noexcept {
-    const uint32_t fault_pc = regs ? regs->pc : 0;
-    const uint32_t fault_lr = regs ? regs->lr : 0;
-    const uint32_t hfsr = SCB->HFSR;
-    const uint32_t cfsr = SCB->CFSR;
-    const uint32_t bfar = (cfsr & SCB_CFSR_BFARVALID_Msk) ? SCB->BFAR : 0;
-
-    (void)fault_pc;
-    (void)fault_lr;
-    (void)hfsr;
-    (void)cfsr;
-    (void)bfar;
-    (void)exc_return;
-
-    NVIC_SystemReset();
-}
-
-} // namespace fault
-
-extern "C" __attribute__((naked)) void HardFault_Handler(void) {
-    __asm volatile(
-        "tst lr, #4                \n"
-        "ite eq                    \n"
-        "mrseq r0, msp             \n"
-        "mrsne r0, psp             \n"
-        "mov r1, lr                \n"
-        "b HardFault_Decoder_Cpp   \n"
-    );
-}
-```
+:::code koly-chyp-padaie-d/c/asemblernyi-tramplin-ta.c
+:::code koly-chyp-padaie-d/cpp/asemblernyi-tramplin-ta.cpp
 :::
 
 Повну виробничу реалізацію системи з підтримкою збереження дампу в `.noinit` RAM, розрахунком CRC32 та захистом від циклічного перезавантаження розібрано в [практичному проекті аварійного реєстратора](root:embedded/koly-chyp-padaie/proj-crash-logger.md).

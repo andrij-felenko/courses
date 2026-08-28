@@ -47,73 +47,13 @@
 
 **Дисплей: відправити кадр у SPI словами, поки ядро рахує наступний**
 
-```c
-#include "driver/spi_master.h"
-
-static spi_device_handle_t dev;
-static uint16_t *fb[2];          /* два DMA-придатні буфери */
-
-/* поставити блок у чергу — виклик не блокує, DMA жене сам */
-static void send_chunk(uint16_t *buf, int pixels) {
-    static spi_transaction_t t;
-    t = (spi_transaction_t){ .length = pixels * 16, .tx_buffer = buf };
-    spi_device_queue_trans(dev, &t, portMAX_DELAY);
-}
-
-/* дочекатися, поки попередній блок долетів */
-static void wait_chunk(void) {
-    spi_transaction_t *res;
-    spi_device_get_trans_result(dev, &res, portMAX_DELAY);
-}
-
-void flush_frame(void (*render)(uint16_t *buf, int y)) {
-    int cur = 0;
-    render(fb[cur], 0);                  /* перший буфер — поки DMA стоїть */
-    for (int y = 0; y < 240; y += 16) {
-        send_chunk(fb[cur], 240 * 16);   /* DMA жене fb[cur] у шину */
-        int next = cur ^ 1;
-        if (y + 16 < 240)
-            render(fb[next], y + 16);     /* ядро малює fb[next] паралельно */
-        wait_chunk();                     /* цей блок долетів — буфер вільний */
-        cur = next;
-    }
-}
-```
+:::code dma-spi-i2s/c/worked-pryklad-potik-na.c
 
 Ядро жодного разу не торкається SPI-регістра: `spi_device_queue_trans` віддає блок DMA й одразу повертається, а `render` рахує наступний шматок, поки апаратура виливає поточний. Тепер той самий принцип на безперервному звуці — мікрофон через I2S у кільце буферів:
 
 **Звук: вибрати готовий блок із DMA-кільця одним викликом**
 
-```c
-#include "driver/i2s.h"
-
-void i2s_mic_init(void) {
-    i2s_config_t cfg = {
-        .mode            = I2S_MODE_MASTER | I2S_MODE_RX,
-        .sample_rate     = 16000,
-        .bits_per_sample = I2S_BITS_PER_SAMPLE_32BIT,
-        .channel_format  = I2S_CHANNEL_FMT_ONLY_LEFT,
-        .dma_buf_count   = 8,            /* вісім буферів у кільці */
-        .dma_buf_len     = 256,          /* по 256 відліків кожен */
-    };
-    i2s_driver_install(I2S_NUM_0, &cfg, 0, NULL);
-    /* i2s_set_pin(...) — вивести BCLK / WS / DIN на GPIO */
-}
-
-void i2s_mic_task(void *arg) {
-    int32_t buf[256];
-    size_t  got;
-    for (;;) {
-        /* блокуємось, доки DMA не наповнить черговий буфер кільця */
-        i2s_read(I2S_NUM_0, buf, sizeof(buf), &got, portMAX_DELAY);
-        int n = got / sizeof(int32_t);
-        for (int i = 0; i < n; i++) {
-            int32_t s = buf[i] >> 8;     /* 24 значущі біти — у старших розрядах */
-            /* ...обробити відлік s... */
-        }
-    }
-}
-```
+:::code dma-spi-i2s/c/worked-pryklad-potik-na-2.c
 
 Один `i2s_read` повертає цілий блок — 256 відліків, які DMA зібрав сам, поки цикл обробляв попередній блок. Семпли не губляться: апаратура наповнює наступний буфер кільця, доки ядро зайняте поточним. Те саме залізо в режимі передачі (`I2S_MODE_TX`) віддає готові відліки в підсилювач — шина двонаправлена, а схема з кільцем однакова в обидва боки.
 

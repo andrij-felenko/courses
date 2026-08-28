@@ -57,29 +57,7 @@ typedef struct __mavlink_heartbeat_t {
     uint8_t  mavlink_version; // Версія протоколу відправника (3 для MAVLink v2)
 } mavlink_heartbeat_t;
 ```
-```cpp
-// Ідіоматична обгортка структури HEARTBEAT у C++20
-struct MavlinkHeartbeat {
-    uint32_t custom_mode{0};
-    uint8_t  type{0};
-    uint8_t  autopilot{0};
-    uint8_t  base_mode{0};
-    uint8_t  system_status{0};
-    uint8_t  mavlink_version{3};
-
-    [[nodiscard]] constexpr bool isArmed() const noexcept {
-        return (base_mode & 0x80) != 0; // MAV_MODE_FLAG_SAFETY_ARMED
-    }
-
-    [[nodiscard]] constexpr bool isAuto() const noexcept {
-        return (base_mode & 0x04) != 0; // MAV_MODE_FLAG_AUTO_ENABLED
-    }
-
-    [[nodiscard]] constexpr bool isGuided() const noexcept {
-        return (base_mode & 0x08) != 0; // MAV_MODE_FLAG_GUIDED_ENABLED
-    }
-};
-```
+:::code api-handshake-protocol/cpp/2-identyfikatsiia-ta.cpp
 :::
 
 #### Таблиця полів повідомлення HEARTBEAT
@@ -227,36 +205,8 @@ struct MavlinkParamValue {
 Налаштування індивідуальних частот відправки повідомлень виконується через універсальне командне повідомлення `COMMAND_LONG` (`#76`, CRC-EXTRA: 152).
 
 :::tabs
-```c
-typedef struct __mavlink_command_long_t {
-    float    param1;          // Target Message ID (наприклад, 30 для ATTITUDE)
-    float    param2;          // Інтервал у мікросекундах (1 000 000 / частота в Гц). -1 = вимкнути, 0 = дефолт
-    float    param3;          // Резерв (0.0f)
-    float    param4;          // Резерв (0.0f)
-    float    param5;          // Резерв (0.0f)
-    float    param6;          // Резерв (0.0f)
-    float    param7;          // Response Target (0 = транслювати на поточний порт)
-    uint16_t command;         // MAV_CMD_SET_MESSAGE_INTERVAL (511)
-    uint8_t  target_system;    // SysID автопілота
-    uint8_t  target_component; // CompID автопілота
-    uint8_t  confirmation;     // Номер спроби (0 при першому надсиланні, 1..N при повторах)
-} mavlink_command_long_t;
-```
-```cpp
-struct MavlinkCommandLong {
-    float    param1{0.0f};
-    float    param2{0.0f};
-    float    param3{0.0f};
-    float    param4{0.0f};
-    float    param5{0.0f};
-    float    param6{0.0f};
-    float    param7{0.0f};
-    uint16_t command{0};
-    uint8_t  target_system{1};
-    uint8_t  target_component{1};
-    uint8_t  confirmation{0};
-};
-```
+:::code api-handshake-protocol/c/4-nalashtuvannia-potokiv.c
+:::code api-handshake-protocol/cpp/4-nalashtuvannia-potokiv.cpp
 :::
 
 #### Підтвердження виконання команд: `COMMAND_ACK` (#77, CRC-EXTRA: 143)
@@ -367,44 +317,8 @@ struct MavlinkMissionRequestInt {
 #### 5.4. Повідомлення `MISSION_ITEM_INT` (#73, CRC-EXTRA: 38)
 
 :::tabs
-```c
-typedef struct __mavlink_mission_item_int_t {
-    float   param1;           // Параметр 1 команди (наприклад, час зависання у секундах)
-    float   param2;           // Параметр 2 (радіус прийняття точки в метрах)
-    float   param3;           // Параметр 3 (радіус проходження по спіралі або 0)
-    float   param4;           // Параметр 4 (бажаний курс / Yaw у градусах)
-    int32_t x;                // Широта (Latitude) * 1e7 (наприклад, 504501000 = 50.4501000° N)
-    int32_t y;                // Довгота (Longitude) * 1e7 (наприклад, 305234000 = 30.5234000° E)
-    float   z;                // Висота в метрах (AMSL або відносна над точкою зльоту)
-    uint16_t seq;             // Порядковий номер точки (0 .. N-1)
-    uint16_t command;         // MAV_CMD (16=NAV_WAYPOINT, 20=NAV_RETURN_TO_LAUNCH, 21=NAV_LAND, 22=NAV_TAKEOFF)
-    uint8_t target_system;    // SysID станції
-    uint8_t target_component; // CompID станції
-    uint8_t frame;            // Система координат (MAV_FRAME: 0=GLOBAL, 3=GLOBAL_RELATIVE_ALT, 6=GLOBAL_TERRAIN_ALT)
-    uint8_t current;          // 1 = поточна активна точка навігації, 0 = неактивна
-    uint8_t autocontinue;     // 1 = автоматично переходити до наступної точки після досягнення
-    uint8_t mission_type;     // 0 = MAV_MISSION_TYPE_MISSION
-} mavlink_mission_item_int_t;
-```
-```cpp
-struct MavlinkMissionItemInt {
-    float   param1{0.0f};
-    float   param2{0.0f};
-    float   param3{0.0f};
-    float   param4{0.0f};
-    int32_t x{0};
-    int32_t y{0};
-    float   z{0.0f};
-    uint16_t seq{0};
-    uint16_t command{0};
-    uint8_t target_system{0};
-    uint8_t target_component{0};
-    uint8_t frame{0};
-    uint8_t current{0};
-    uint8_t autocontinue{1};
-    uint8_t mission_type{0};
-};
-```
+:::code api-handshake-protocol/c/5-4-povidomlennia-mission.c
+:::code api-handshake-protocol/cpp/5-4-povidomlennia-mission.cpp
 :::
 
 #### 5.5. Повідомлення `MISSION_ACK` (#47, CRC-EXTRA: 153)

@@ -61,51 +61,8 @@ SDA:  --[D7][D6]============== (Ведений чекає тактування, 
 Типова помилка початкових реалізацій драйверів полягає у використанні нескінченних блокувальних циклів очікування апаратних прапорців:
 
 :::tabs
-```c
-/* Катастрофічна вразливість: зависання при апаратному розриві лінії */
-driver_status_t i2c_poll_byte_naive(I2C_TypeDef *i2c, uint8_t *byte) {
-    while (!(i2c->SR1 & I2C_SR1_RXNE)) {
-        /* Якщо тактовий імпульс не дійшов до сенсора, процесор назавжди зависає тут */
-    }
-    *byte = (uint8_t)i2c->DR;
-    return DRIVER_OK;
-}
-
-/* Захищена реалізація з апаратним таймаутом */
-driver_status_t i2c_poll_byte_guarded(I2C_TypeDef *i2c, uint8_t *byte, uint32_t timeout_us) {
-    uint32_t start_tick = get_microsecond_tick();
-    while (!(i2c->SR1 & I2C_SR1_RXNE)) {
-        if ((get_microsecond_tick() - start_tick) >= timeout_us) {
-            return DRIVER_ERR_TIMEOUT;
-        }
-    }
-    *byte = (uint8_t)i2c->DR;
-    return DRIVER_OK;
-}
-```
-```cpp
-// Захищена реалізація опитування шини I2C на C++ з обмеженням за часом
-#include <cstdint>
-#include <chrono>
-#include <expected>
-
-enum class BusError { Timeout, HardwareFault };
-
-template <typename Predicate>
-[[nodiscard]] std::expected<void, BusError> waitForCondition(
-    Predicate&& pred, 
-    std::chrono::microseconds timeout) noexcept 
-{
-    const auto start = std::chrono::steady_clock::now();
-    while (!pred()) {
-        if (std::chrono::duration_cast<std::chrono::microseconds>(
-                std::chrono::steady_clock::now() - start) >= timeout) {
-            return std::unexpected(BusError::Timeout);
-        }
-    }
-    return {};
-}
-```
+:::code perevirka-draivera-na-zhyvomu-zalizi-d/c/fizychnyi-rozryv-linii-pid.c
+:::code perevirka-draivera-na-zhyvomu-zalizi-d/cpp/fizychnyi-rozryv-linii-pid.cpp
 :::
 
 Будь-яке опитування апаратного прапорця зобов'язане мати жорсткий захисний інтервал (англ. *guard timeout*), розрахований на основі робочої частоти шини та максимального допустимого утримання тактування веденим пристроєм (англ. *clock stretching*):
@@ -245,46 +202,8 @@ FIFO заповнення: [ 10% ][ 50% ][ 90% ][ 100% OVERRUN! ]
 Для стрес-тестування драйвера на стенді реалізується сценарій примусового переповнення черги:
 
 :::tabs
-```c
-/* Тестовий сценарій: штучне блокування обробки переривань на мові C */
-void test_inject_fifo_starvation_c(sensor_context_t *ctx) {
-    /* 1. Налаштовуємо сенсор на високу частоту вибірок ODR = 1600 Гц */
-    sensor_set_odr(ctx, 1600);
-    
-    /* 2. Примусово маскуємо лінію переривання на 500 мс */
-    mask_sensor_interrupt(true);
-    delay_ms(500); /* Буфер переповнюється (800 вибірок) */
-    mask_sensor_interrupt(false);
-    
-    /* 3. Викликаємо відновлення драйвера після переповнення */
-    sensor_handle_fifo_overflow(ctx);
-}
-```
-```cpp
-// Тестовий сценарій: перевірка переповнення FIFO з RAII-блокуванням на C++
-#include <chrono>
-#include <thread>
-#include <cassert>
-
-class InterruptLock {
-public:
-    InterruptLock() noexcept { maskGlobalInterrupts(true); }
-    ~InterruptLock() noexcept { maskGlobalInterrupts(false); }
-    InterruptLock(const InterruptLock&) = delete;
-    InterruptLock& operator=(const InterruptLock&) = delete;
-};
-
-void testFifoStarvationCpp(SensorDriver& driver) {
-    driver.setOutputDataRate(1600);
-    {
-        const InterruptLock lock;
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    }
-    // Перевірка коректності детектування прапорця переповнення та очищення буфера
-    const auto result = driver.recoverFromOverflow();
-    assert(result.has_value());
-}
-```
+:::code perevirka-draivera-na-zhyvomu-zalizi-d/c/metodyka-veryfikatsii.c
+:::code perevirka-draivera-na-zhyvomu-zalizi-d/cpp/metodyka-veryfikatsii.cpp
 :::
 
 ---
@@ -326,49 +245,8 @@ U_sens_int = U_gpio - V_diode_drop = 3.3 В - 0.6 В = 2.7 В
 ```
 
 :::tabs
-```c
-/* Коректне переведення шини SPI в енергозберігаючий режим на C (STM32 HAL) */
-void sensor_enter_low_power_gpio_c(void) {
-    GPIO_InitTypeDef gpio_init = {0};
-    
-    /* Деініціалізація апаратного блоку SPI */
-    HAL_SPI_DeInit(&hspi1);
-    
-    /* Переведення сигнальних ліній у режим Analog Input для усунення витоків */
-    gpio_init.Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7; /* SCK, MISO, MOSI */
-    gpio_init.Mode = GPIO_MODE_ANALOG;
-    gpio_init.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOA, &gpio_init);
-    
-    /* Лінію CS притягуємо до 0 або також переводимо в Analog */
-    gpio_init.Pin = GPIO_PIN_4;
-    HAL_GPIO_Init(GPIOA, &gpio_init);
-}
-```
-```cpp
-// Коректне переведення інтерфейсу в енергозберігаючий стан на C++ з RAII-вартою
-class LowPowerPinGuard {
-public:
-    LowPowerPinGuard() noexcept {
-        isolatePins();
-    }
-    ~LowPowerPinGuard() noexcept {
-        restorePins();
-    }
-    LowPowerPinGuard(const LowPowerPinGuard&) = delete;
-    LowPowerPinGuard& operator=(const LowPowerPinGuard&) = delete;
-
-private:
-    void isolatePins() noexcept {
-        // Переведення ліній SCK, MISO, MOSI, CS у режим Analog High-Z
-        setPinModeAnalog(Pin::SCK | Pin::MISO | Pin::MOSI | Pin::CS);
-    }
-    void restorePins() noexcept {
-        // Відновлення апаратних функцій SPI
-        setPinModeAlternate(Pin::SCK | Pin::MISO | Pin::MOSI | Pin::CS);
-    }
-};
-```
+:::code perevirka-draivera-na-zhyvomu-zalizi-d/c/pravylo-bezpechnoi.c
+:::code perevirka-draivera-na-zhyvomu-zalizi-d/cpp/pravylo-bezpechnoi.hpp
 :::
 
 ### Замір часу встановлення сигналу (Settling Time)

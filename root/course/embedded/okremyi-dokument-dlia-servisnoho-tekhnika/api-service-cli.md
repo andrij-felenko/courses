@@ -118,62 +118,8 @@ diag sensor read --id=0x01 --raw
 Під час перевірки реле, електромагнітних клапанів, вентиляторів охолодження та насосів сервісний рушій застосовує жорсткі обмеження тривалості увімкнення. Технік зобов'язаний явно вказати час активності каналу в секундах. Якщо термінал від'єднається або програма зависне, внутрішній апаратний таймер примусово знеструмить силовий вихід.
 
 :::tabs
-```c
-/* Структура безпечного керування навантаженням у сервісному режимі */
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef enum {
-    ACT_RELAY_1      = 0x01,
-    ACT_RELAY_2      = 0x02,
-    ACT_VALVE_PWM    = 0x03,
-    ACT_FAN_OUT      = 0x04
-} act_channel_t;
-
-typedef struct {
-    act_channel_t channel;
-    uint16_t      duration_sec;  /* Максимальний тайм-аут увімкнення (1..60 с) */
-    uint16_t      pwm_permille;  /* ШІМ: 0..1000 (0.0% .. 100.0%) */
-    bool          force_override;/* Ігнорування аварійних сенсорів (потребує прав інженера) */
-} act_command_t;
-
-/* Функція виконання сервісної команди: автоматично знеструмлює канал при завершенні тайм-ауту */
-int srv_actuate_channel(const act_command_t *cmd);
-```
-```cpp
-/* Об'єктний інтерфейс безпечного сервісного керування периферією */
-#include <cstdint>
-#include <chrono>
-#include <expected>
-#include <span>
-
-enum class ActChannel : uint8_t {
-    Relay1   = 0x01,
-    Relay2   = 0x02,
-    ValvePwm = 0x03,
-    FanOut   = 0x04
-};
-
-struct ActCommand {
-    ActChannel channel;
-    std::chrono::seconds duration{5}; /* Захисний тайм-аут за замовчуванням 5 с */
-    uint16_t pwmPermille{1000};       /* 1000 = 100% заповнення */
-    bool forceOverride{false};
-};
-
-enum class ActError : uint16_t {
-    TimeoutExceeded = 0x4001,
-    ThermalLockout  = 0x4002,
-    InvalidChannel  = 0x4003,
-    SafetyInterlock = 0x4004
-};
-
-class ServiceActuatorController {
-public:
-    static std::expected<void, ActError> execute(const ActCommand& cmd) noexcept;
-    static void emergencyAllOff() noexcept;
-};
-```
+:::code api-service-cli/c/main.c
+:::code api-service-cli/cpp/main.cpp
 :::
 
 ---

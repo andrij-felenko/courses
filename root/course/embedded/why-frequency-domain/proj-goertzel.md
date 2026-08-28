@@ -54,27 +54,7 @@ power = s₁² + s₂² − 0 = 0² + (−4)² = 16   (велике → тон �
 
 **Робочий код (C, цілий буфер).** Одна частота, `float`-арифметика; повертає квадрат магнітуди:
 
-```c
-#include <math.h>
-
-// x[]    — буфер відліків (N штук)
-// target — шукана частота, Гц;  fs — частота дискретизації, Гц
-float goertzel_power(const float *x, int N, float target, float fs)
-{
-    int   k     = (int)(0.5f + (float)N * target / fs); // найближчий бін
-    float w     = 2.0f * (float)M_PI * k / N;
-    float coeff = 2.0f * cosf(w);
-
-    float s1 = 0.0f, s2 = 0.0f;
-    for (int n = 0; n < N; ++n) {
-        float s = x[n] + coeff * s1 - s2;
-        s2 = s1;
-        s1 = s;
-    }
-    // квадрат магнітуди біна (без sqrt — для порівняння з порогом досить)
-    return s1 * s1 + s2 * s2 - coeff * s1 * s2;
-}
-```
+:::code proj-goertzel/c/part.c
 
 Виклик — одна функція: набрав буфер з АЦП, спитав потужність потрібної частоти, порівняв із порогом.
 
@@ -91,29 +71,7 @@ if (p > THRESHOLD) {
 
 **Потоковий варіант (без буфера).** Рекурсія за природою **онлайнова**: відліки можна згодовувати по одному прямо з переривання АЦП, тримаючи лише два числа стану. Буфер тоді взагалі не потрібен — рахунок «розмазується» по часу набору:
 
-```c
-typedef struct { float coeff, s1, s2; int n, N; } goertzel_t;
-
-void g_init(goertzel_t *g, int N, float target, float fs) {
-    int k = (int)(0.5f + (float)N * target / fs);
-    g->coeff = 2.0f * cosf(2.0f * (float)M_PI * k / N);
-    g->s1 = g->s2 = 0.0f;
-    g->n = 0;
-    g->N = N;
-}
-
-// викликати на кожен новий відлік; повертає 1, коли набрано N (power готовий)
-int g_push(goertzel_t *g, float x, float *power) {
-    float s = x + g->coeff * g->s1 - g->s2;
-    g->s2 = g->s1;
-    g->s1 = s;
-    if (++g->n < g->N) return 0;
-    *power = g->s1 * g->s1 + g->s2 * g->s2 - g->coeff * g->s1 * g->s2;
-    g->s1 = g->s2 = 0.0f;  // скидаємо на наступний блок
-    g->n  = 0;
-    return 1;
-}
-```
+:::code proj-goertzel/c/part-2.c
 
 **Пастки.**
 

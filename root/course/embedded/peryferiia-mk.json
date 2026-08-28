@@ -23,7 +23,8 @@
           "hist": [
             {
               "file": "hist-gpio-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "math": [
@@ -35,7 +36,9 @@
           "proj": [
             {
               "file": "proj-gpio-drive-modes.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -100,13 +103,16 @@
           "math": [
             {
               "file": "math-gate-switching-losses.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-firmware-load-switch.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -128,7 +134,8 @@
           "proj": [
             {
               "file": "proj-firmware-safe-switching.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -150,7 +157,8 @@
           "proj": [
             {
               "file": "proj-clamp-sizing.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -172,7 +180,8 @@
           "comp": [
             {
               "file": "comp-mosfet-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "math": [
@@ -184,11 +193,13 @@
           "proj": [
             {
               "file": "proj-gamma.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-slow-pwm-thermostat.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -250,7 +261,9 @@
           "proj": [
             {
               "file": "proj-ads1220-rtd.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -275,7 +288,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -293,12 +307,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-fcc-modular-approval.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -411,13 +427,16 @@
           "math": [
             {
               "file": "math-bulk-capacitance.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-high-side-switch.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -431,10 +450,12 @@
           "slug": "why-buses",
           "title": "Як чипи розмовляють: навіщо шини",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -450,7 +471,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -501,11 +523,19 @@
           "slug": "spi-vs-i2c",
           "title": "SPI проти I2C",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-bus-abstraction.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "vybir-shyny-pid-prystrii",
@@ -515,7 +545,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         }
       ]
@@ -556,12 +587,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-jedec-flash.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -572,18 +606,22 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-diagnostic-checklist.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-i2c-bus-scanner.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -594,7 +632,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -618,19 +657,24 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck",
+            "status": "deeper",
+            "level": 5,
             "recode": true
           },
           "api": [
             {
               "file": "api-driver-contract.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-mock-transport-testing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             },
             {
               "file": "proj-sensor-driver-pipeline.md",
@@ -653,12 +697,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-device-init-fsm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -678,18 +725,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "math": [
             {
               "file": "math-fixed-point-scaling.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-bmp280-compensation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -712,7 +763,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -726,12 +778,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-at-command-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         },
@@ -742,12 +797,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-vendor-driver-adapter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -815,7 +873,9 @@
           "proj": [
             {
               "file": "proj-burst-fifo-polling.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -827,12 +887,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-sht3x-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -844,7 +906,9 @@
           "math": [
             {
               "file": "math-crc8-poly.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -901,7 +965,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -912,7 +977,9 @@
           "proj": [
             {
               "file": "proj-button-event-dispatcher.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -933,8 +1000,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-engine.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "cat-hw-actuators/seg-5641as",
@@ -965,8 +1040,16 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-oled-compensation.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "hw-motion/panel-interfaces",
@@ -980,7 +1063,21 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "comp": [
+            {
+              "file": "comp-memory-lcd.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decision-matrix.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "cat-hw-actuators/lcd-1602",
@@ -1001,8 +1098,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "hist": [
+            {
+              "file": "hist-magic-numbers.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-init-driver.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "cat-hw-actuators/oled-ssd1306",
@@ -1012,11 +1124,20 @@
           "slug": "framebuffer-basics",
           "title": "Кадр у пам'яті: framebuffer і RGB565",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-blit-window.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "color-management",
@@ -1036,7 +1157,8 @@
           "proj": [
             {
               "file": "proj-gamma-table-init.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -1069,7 +1191,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         }
       ]
@@ -1117,7 +1240,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -1185,7 +1309,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -1195,7 +1320,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -1206,24 +1332,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-node-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-bus-timing-budget.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-coordinator-firmware.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         }

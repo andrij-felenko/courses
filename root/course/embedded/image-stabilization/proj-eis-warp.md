@@ -59,48 +59,7 @@ t_gyro = t_off + scale · t_frame
 
 Ось функція, що переводить момент кадру в момент гіро, і пошук відліку гіро на заданий момент. Лог гіро — масив відліків, упорядкований за часом; шукаємо два сусідні навколо потрібного моменту й **лінійно домішуємо** між ними, бо точно в цей момент відліку зазвичай немає.
 
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <math.h>
-
-/* Один відлік гіроскопа: час у секундах (за годинником гіро) і три
-   кутові швидкості в рад/с навколо осей кадру X (тангаж), Y (рискання), Z (крен). */
-typedef struct { double t; double wx, wy, wz; } gyro_sample;
-
-/* Параметри прив'язки часу: зсув (offset) і дрейф годинника (scale ≈ 1). */
-typedef struct { double t_off; double scale; } time_sync;
-
-/* Момент кадру (відеочас) → момент у часі гіро. */
-static double frame_to_gyro_time(const time_sync *s, double t_frame)
-{
-    return s->t_off + s->scale * t_frame;   /* пряма, не просто зсув */
-}
-
-/* Кутова швидкість гіро в довільний момент tg: лінійна інтерполяція між
-   двома сусідніми відліками. n — довжина g, відліки впорядковані за часом. */
-static void gyro_at(const gyro_sample *g, size_t n, double tg,
-                    double *wx, double *wy, double *wz)
-{
-    /* за межами логу — тримаємо крайній відлік (екстраполяцію не вигадуємо) */
-    if (tg <= g[0].t)     { *wx = g[0].wx;     *wy = g[0].wy;     *wz = g[0].wz;     return; }
-    if (tg >= g[n-1].t)   { *wx = g[n-1].wx;   *wy = g[n-1].wy;   *wz = g[n-1].wz;   return; }
-
-    /* двійковий пошук правого сусіда: перший відлік із часом > tg */
-    size_t lo = 0, hi = n - 1;
-    while (hi - lo > 1) {
-        size_t mid = (lo + hi) / 2;
-        if (g[mid].t <= tg) lo = mid; else hi = mid;
-    }
-    /* lo ≤ tg < hi; частка a — наскільки tg просунувся від lo до hi */
-    double span = g[hi].t - g[lo].t;
-    double a = (span > 1e-12) ? (tg - g[lo].t) / span : 0.0;
-
-    *wx = g[lo].wx + a * (g[hi].wx - g[lo].wx);
-    *wy = g[lo].wy + a * (g[hi].wy - g[lo].wy);
-    *wz = g[lo].wz + a * (g[hi].wz - g[lo].wz);
-}
-```
+:::code proj-eis-warp/c/lanka-1-pryviazaty-hiro-do.c
 
 Звідки взяти самі `t_off` і `scale`? Тут і ховається головна пастка всього конвеєра, тож винесемо її окремо нижче. Поки що приймемо їх як дані й рушаймо далі — від часу до кутів.
 
@@ -114,44 +73,7 @@ static void gyro_at(const gyro_sample *g, size_t n, double tg,
 
 Ключове рішення: інтегруємо **між сусідніми кадрами**. Для кадру `k` беремо інтервал від моменту кадру `k−1` до моменту кадру `k`, ділимо його на дрібні кроки, на кожному питаємо `gyro_at()` і додаємо `ω · dt`. Так дістаємо приріст кута за цей кадр; підсумувавши прирости від початку — повний накопичений кут камери на момент кожного кадру.
 
-```c
-/* Накопичений кут камери на момент кадру, рад, по трьох осях. */
-typedef struct { double ax, ay, az; } att;
-
-/* Приріст орієнтації за один кадр: інтегруємо ω від t0 до t1 (відеочас).
-   subdt — крок інтегрування в секундах (дрібніший за відлік гіро). */
-static att integrate_frame(const gyro_sample *g, size_t n, const time_sync *s,
-                           double t0, double t1, double subdt)
-{
-    att d = {0, 0, 0};
-    for (double t = t0; t < t1; t += subdt) {
-        double step = subdt;
-        if (t + step > t1) step = t1 - t;        /* останній шматок — рівно до t1 */
-        double tg = frame_to_gyro_time(s, t + 0.5 * step);  /* гіро в СЕРЕДИНІ кроку */
-        double wx, wy, wz;
-        gyro_at(g, n, tg, &wx, &wy, &wz);
-        d.ax += wx * step;                        /* ω·dt — приріст кута за крок */
-        d.ay += wy * step;
-        d.az += wz * step;
-    }
-    return d;
-}
-
-/* Накопичені кути для всіх кадрів. times[k] — момент кадру k у відеочасі.
-   out[k] — орієнтація камери на момент кадру k (відносно кадру 0). */
-void build_attitudes(const gyro_sample *g, size_t n, const time_sync *s,
-                     const double *times, size_t frames, att *out)
-{
-    const double SUBDT = 0.0005;                  /* 0.5 мс — дрібніше за крок гіро */
-    out[0].ax = out[0].ay = out[0].az = 0.0;      /* кадр 0 — точка відліку */
-    for (size_t k = 1; k < frames; ++k) {
-        att d = integrate_frame(g, n, s, times[k-1], times[k], SUBDT);
-        out[k].ax = out[k-1].ax + d.ax;           /* накопичуємо приріст */
-        out[k].ay = out[k-1].ay + d.ay;
-        out[k].az = out[k-1].az + d.az;
-    }
-}
-```
+:::code proj-eis-warp/c/lanka-2-zintehruvaty.c
 
 Зверни увагу на `t + 0.5 * step` — гіро питаємо в **середині** кроку, не на краю. Це не дрібниця стилю: інтеграл як сума прямокутників точніший, коли висоту береш посередині інтервалу (середня точка), а не з лівого кута. На дрібному кроці різниця крихітна на один крок, але вона **систематична** — завжди в один бік — тому без середини накопичується помітний перекіс за тисячі кроків запису.
 
@@ -171,37 +93,7 @@ void build_attitudes(const gyro_sample *g, size_t n, const time_sync *s,
 
 Знак мінус усюди — бо ми гасимо рух: камера поїхала праворуч (картинка побігла ліворуч) — ми зсуваємо вікно праворуч, щоб упіймати ту саму сцену. Деформацію зручно тримати як три числа на кадр: зсув по X, зсув по Y, кут повороту. А застосовується вона так: щоб намалювати показаний піксель `(xd, yd)`, беремо його з знятого кадру в точці, **повернутій і зсунутій назад** навколо центра кадру.
 
-```c
-#include <math.h>
-
-typedef struct { double cx, cy; double px_per_rad_x, px_per_rad_y; } cam_geom;
-
-/* Деформація одного кадру: куди показаний піксель лягає у знятому.
-   shift_x/shift_y — зсув вікна (пікс.), roll — кут повороту (рад). */
-typedef struct { double shift_x, shift_y, roll; } warp;
-
-static warp warp_for_frame(const att *a, const cam_geom *c)
-{
-    warp w;
-    w.shift_x = -a->ay * c->px_per_rad_x;   /* рискання → горизонтальний зсув */
-    w.shift_y = -a->ax * c->px_per_rad_y;   /* тангаж  → вертикальний зсув */
-    w.roll    = -a->az;                      /* крен    → поворот навколо центра */
-    return w;
-}
-
-/* Зворотне відображення: показаний піксель (xd,yd) → точка (sx,sy) у знятому
-   кадрі, звідки взяти колір. Повертаємо й зсуваємо навколо центра. */
-static void sample_src(const warp *w, const cam_geom *c,
-                       double xd, double yd, double *sx, double *sy)
-{
-    double ca = cos(w->roll), sa = sin(w->roll);
-    double ox = xd - c->cx, oy = yd - c->cy;       /* у координати від центра */
-    double rx = ca * ox - sa * oy;                  /* поворот на roll */
-    double ry = sa * ox + ca * oy;
-    *sx = c->cx + rx + w->shift_x;                  /* назад + зсув вікна */
-    *sy = c->cy + ry + w->shift_y;
-}
-```
+:::code proj-eis-warp/c/lanka-3-obchyslyty.c
 
 **Worked-приклад.** Кадр 1920×1080, кут огляду по ширині 90°, по висоті ≈53° (та сама геометрія, що в темі). Пікселів на радіан по ширині: `1920 / (90° · π/180) ≈ 1222`. На кадрі 100 камера збилася по рисканню на 0.05 рад (≈2.9°). Який горизонтальний зсув вікна?
 
@@ -242,41 +134,7 @@ t_рядка(r) = t_кадру + (r / висота) · час_зчитуванн
 
 Верхній рядок (`r = 0`) знято в момент кадру; нижній (`r = висота`) — на цілий час зчитування пізніше; середній — посередині. Отже, деформацію треба рахувати **не одну на кадр, а свою на кожен рядок** (чи на смугу рядків — для швидкості), беручи орієнтацію камери на момент саме цього рядка. Це й перетворює простий зсув на справжній **warp** — викривлення, де кожен рядок зсунуто й повернуто по-своєму.
 
-```c
-typedef struct { double readout;   /* час зчитування кадру згори вниз, с */
-                 int height; } rs_geom;
-
-/* Орієнтація камери на момент зчитування рядка r кадру k.
-   Лінійно домішуємо між орієнтацією цього кадру і наступного за часткою,
-   на яку рядок «з'їхав» у часі. att_k, att_k1 — кути кадрів k і k+1;
-   dt_frame — час між кадрами (с). */
-static att att_for_row(const att *att_k, const att *att_k1,
-                       int r, const rs_geom *rs, double dt_frame)
-{
-    double t_into = (rs->height > 0)
-                  ? ((double)r / rs->height) * rs->readout   /* зсув рядка в часі */
-                  : 0.0;
-    double frac = (dt_frame > 1e-9) ? t_into / dt_frame : 0.0; /* частка до наст. кадру */
-    if (frac > 1.0) frac = 1.0;
-
-    att a;                                  /* інтерполяція кутів між кадрами */
-    a.ax = att_k->ax + frac * (att_k1->ax - att_k->ax);
-    a.ay = att_k->ay + frac * (att_k1->ay - att_k->ay);
-    a.az = att_k->az + frac * (att_k1->az - att_k->az);
-    return a;
-}
-
-/* Зворотне відображення з урахуванням рядкової заслінки:
-   для показаного пікселя (xd,yd) береться кут камери на момент ЙОГО рядка. */
-static void sample_src_rs(const att *att_k, const att *att_k1,
-                          const cam_geom *c, const rs_geom *rs, double dt_frame,
-                          double xd, double yd, double *sx, double *sy)
-{
-    att a = att_for_row(att_k, att_k1, (int)yd, rs, dt_frame);  /* кут саме цього рядка */
-    warp w = warp_for_frame(&a, c);                              /* його деформація */
-    sample_src(&w, c, xd, yd, sx, sy);                           /* і вже звідки брати */
-}
-```
+:::code proj-eis-warp/c/lanka-4-riadkova-zaslinka.c
 
 **Worked-приклад.** Час зчитування `readout = 15` мс, висота 1080, частота 30 кадрів/с (`dt_frame ≈ 33.3` мс). Наскільки в часі «відстав» нижній рядок від верхнього, і яку частку шляху до наступного кадру він пройшов?
 
@@ -290,22 +148,7 @@ static void sample_src_rs(const att *att_k, const att *att_k1,
 
 Власне малювання вихідного кадру тоді — подвійний цикл по показаних пікселях; для кожного питаємо `sample_src_rs`, звідки взяти колір, і беремо його зі знятого кадру з білінійним домішуванням чотирьох сусідніх пікселів (бо `sx, sy` дробові — рідко лягають точно в піксель):
 
-```c
-/* Зібрати один стабілізований кадр. src — знятий кадр (W×H), dst — вихідний.
-   Колір беремо білінійно; за межами знятого кадру лишаємо чорне (це і є запас). */
-void render_frame(const uint8_t *src, int W, int H, uint8_t *dst, int DW, int DH,
-                  const att *att_k, const att *att_k1,
-                  const cam_geom *c, const rs_geom *rs, double dt_frame)
-{
-    for (int yd = 0; yd < DH; ++yd) {
-        for (int xd = 0; xd < DW; ++xd) {
-            double sx, sy;
-            sample_src_rs(att_k, att_k1, c, rs, dt_frame, xd, yd, &sx, &sy);
-            dst[yd*DW + xd] = bilinear(src, W, H, sx, sy);  /* домішування сусідів */
-        }
-    }
-}
-```
+:::code proj-eis-warp/c/lanka-4-riadkova-zaslinka-2.c
 
 Це повний кістяк конвеєра: час → кути → деформація вікна → поправка по рядках → готовий кадр. На справжніх кадрах ту саму роботу зазвичай віддають [графічному процесору](root:embedded/where-to-compute): зворотне відображення кожного пікселя ідеально лягає на шейдер, і мільйони пікселів обраховуються паралельно за частку мілісекунди. Але **логіка** — рівно ця.
 
@@ -320,37 +163,7 @@ void render_frame(const uint8_t *src, int W, int H, uint8_t *dst, int DW, int DH
 
 Звідки ж брати `t_off` і `scale`, якщо вони не записані? Їх **знаходять автоматично**, і прийом тут гарний у своїй простоті. У нас є два незалежні свідки руху: гіроскоп (через інтеграл дає кут) і **сам відеоряд** (рух між кадрами видно по тому, як зсуваються пікселі — це [оптичний потік](root:sf-visual/optical-flow), згаданий у темі). Обидва описують ту саму тряску. Якщо прив'язка правильна, їхні криві руху **накладаються**; якщо зсунута — розходяться. Тож перебираємо `t_off` (і `scale`) і шукаємо те значення, за якого дві криві збігаються найкраще, — мінімум розбіжності.
 
-```c
-/* Розбіжність між рухом по гіро і рухом по відео при заданій прив'язці.
-   motion_video[k] — виміряний по пікселях кут між кадрами k−1 і k (рад);
-   менше значення = краща синхронізація. Перебором t_off шукаємо мінімум. */
-static double sync_cost(const gyro_sample *g, size_t n, double t_off, double scale,
-                        const double *times, const double *motion_video, size_t frames)
-{
-    time_sync s = { t_off, scale };
-    double err = 0.0;
-    for (size_t k = 1; k < frames; ++k) {
-        att d = integrate_frame(g, n, &s, times[k-1], times[k], 0.0005);
-        double motion_gyro = sqrt(d.ax*d.ax + d.ay*d.ay + d.az*d.az); /* кут по гіро */
-        double diff = motion_gyro - motion_video[k];
-        err += diff * diff;                  /* сума квадратів розбіжностей */
-    }
-    return err;
-}
-
-/* Грубий пошук найкращого зсуву в діапазоні ±range секунд із кроком step. */
-double find_offset(const gyro_sample *g, size_t n, double scale,
-                   const double *times, const double *motion_video, size_t frames,
-                   double range, double step)
-{
-    double best_off = 0.0, best_cost = 1e300;
-    for (double off = -range; off <= range; off += step) {
-        double c = sync_cost(g, n, off, scale, times, motion_video, frames);
-        if (c < best_cost) { best_cost = c; best_off = off; }  /* тримаємо мінімум */
-    }
-    return best_off;            /* далі уточнюють дрібнішим кроком навколо best_off */
-}
-```
+:::code proj-eis-warp/c/holovna-pastka-chas-a-ne.c
 
 Це і є серце автоматичної синхронізації, на якій тримаються справжні інструменти: знайти зсув (а потім і дрейф), за якого рух, виміряний гіроскопом, найкраще лягає на рух, виміряний по самому відео. Той самий принцип, що в [оцінці орієнтації](root:embedded/attitude-estimation), де два недосконалі свідки разом дають правду, якої жоден не дає сам: тут відео ловить **фазу** руху (коли саме), а гіро — його **точну форму** (наскільки і як), і збіг фаз дає прив'язку.
 

@@ -24,20 +24,7 @@ typedef enum {
     BEARER_ID_MAX       = 3
 } bearer_id_t;
 ```
-```cpp
-#include <cstdint>
-
-namespace link_api {
-
-enum class BearerId : uint8_t {
-    Primary  = 0,  // Високошвидкісний канал (2.4 ГГц Wi-Fi / 5.8 ГГц OFDM)
-    Fallback = 1,  // Резервний далекобійний канал (Sub-GHz LoRa / FSK)
-    Relay    = 2,  // Естафетний ретранслятор (Mesh вузол)
-    Count    = 3
-};
-
-} // namespace link_api
-```
+:::code api-link-arbiter/cpp/identyfikatory-fizychnykh.cpp
 :::
 
 - `BEARER_ID_PRIMARY`: високошвидкісний широкосмуговий канал (ширина смуги 10–20 МГц, бітрейт 5–50 Мбіт/с, затримка < 25 мс). Використовується для передачі стисненого цифрового відеопотоку високої чіткості (H.264/H.265) та повної телеметрії MAVLink.
@@ -59,20 +46,7 @@ typedef enum {
     ARBITER_STATE_EMERGENCY_AUTONOMY= 5  /* Всі канали заглушено: активація Failsafe */
 } arbiter_state_t;
 ```
-```cpp
-namespace link_api {
-
-enum class ArbiterState : uint8_t {
-    PrimaryActive     = 0, // Основний канал справний, повний потік
-    PrimaryDegraded   = 1, // Початок завад/втрат: стиснення телеметрії
-    Switching         = 2, // Процес перемикання та РЧ-комутації
-    FallbackActive    = 3, // Робота на резервному каналі
-    RecoveryEval      = 4, // Перевірка стабільності перед поверненням
-    EmergencyAutonomy = 5  // Всі канали заглушено: активація Failsafe
-};
-
-} // namespace link_api
-```
+:::code api-link-arbiter/cpp/stany-avtomata-arbitra.cpp
 :::
 
 - `ARBITER_STATE_PRIMARY_ACTIVE`: лінк функціонує в штатному режимі. Усі три рівні пріоритетів QoS обслуговуються без обмежень.
@@ -116,36 +90,8 @@ enum class QosPriority : uint8_t {
 Структура `bearer_metrics_t` акумулює статистичні та миттєві параметри якості радіоприйому:
 
 :::tabs
-```c
-typedef struct {
-    int16_t  rssi_dbm;         /* Згладжена потужність сигналу (дБм) */
-    int8_t   snr_db;           /* Відношення сигнал/шум (дБ) */
-    uint8_t  per_percent;      /* Коефіцієнт пакетних втрат (0..100%) */
-    uint16_t rtt_ms;           /* Кругова затримка (Round-Trip Time, мс) */
-    uint32_t throughput_bps;   /* Поточна пропускна здатність (біт/с) */
-    uint32_t last_rx_mono_ms;  /* Монотонний час останнього успішного прийому (мс) */
-    uint8_t  composite_score;  /* Інтегральний бал якості (0..100) */
-    bool     is_link_alive;    /* Прапорець фізичної доступності трансивера */
-} bearer_metrics_t;
-```
-```cpp
-#include <chrono>
-
-namespace link_api {
-
-struct BearerMetrics {
-    int16_t  rssiDbm{-120};
-    int8_t   snrDb{-20};
-    uint8_t  perPercent{100};
-    uint16_t rttMs{0};
-    uint32_t throughputBps{0};
-    std::chrono::milliseconds lastRxMono{0};
-    uint8_t  compositeScore{0};
-    bool     isLinkAlive{false};
-};
-
-} // namespace link_api
-```
+:::code api-link-arbiter/c/metryky-fizychnoho-rivnia.c
+:::code api-link-arbiter/cpp/metryky-fizychnoho-rivnia.cpp
 :::
 
 - `rssi_dbm`: згладжений рівень прийнятого сигналу (Received Signal Strength Indicator), виміряний вхідним підсилювачем у дБм (наприклад, −65 дБм).
@@ -168,24 +114,7 @@ typedef struct {
     uint16_t payload_len;      /* Довжина корисних даних у байтах (0..1024) */
 } __attribute__((packed)) mux_frame_header_t;
 ```
-```cpp
-#include <cstdint>
-
-namespace link_api {
-
-#pragma pack(push, 1)
-struct MuxFrameHeader {
-    uint8_t     version{1};
-    BearerId    bearerId{BearerId::Primary};
-    QosPriority qosPrio{QosPriority::CriticalCommand};
-    uint8_t     flags{0};
-    uint16_t    sequenceNum{0};
-    uint16_t    payloadLen{0};
-};
-#pragma pack(pop)
-
-} // namespace link_api
-```
+:::code api-link-arbiter/cpp/zaholovok.cpp
 :::
 
 Бітові прапорці поля `flags`:
@@ -199,62 +128,8 @@ struct MuxFrameHeader {
 Кожен драйвер радіомодуля (SX1262, ESP-NOW, Microhard, Wi-Fi raw frame injection) реєструється в системі за допомогою таблиці функцій `bearer_ops_t`:
 
 :::tabs
-```c
-struct bearer_interface;
-
-typedef struct {
-    int  (*init)(struct bearer_interface *self);
-    int  (*send)(struct bearer_interface *self, const uint8_t *data, size_t len, qos_priority_t prio);
-    int  (*poll_rx)(struct bearer_interface *self, uint8_t *buf, size_t max_len, bearer_metrics_t *out_metrics);
-    void (*get_metrics)(struct bearer_interface *self, bearer_metrics_t *out_metrics);
-    void (*set_active)(struct bearer_interface *self, bool active);
-    int  (*set_frequency_band)(struct bearer_interface *self, uint32_t freq_hz);
-} bearer_ops_t;
-
-typedef struct bearer_interface {
-    bearer_id_t          id;
-    const char          *name;
-    const bearer_ops_t  *ops;
-    void                *driver_priv;   /* Вказівник на апаратно-залежний контекст драйвера */
-    bearer_metrics_t     metrics;
-    uint32_t             tx_byte_count;
-    uint32_t             rx_byte_count;
-    uint32_t             tx_drop_count;
-} bearer_interface_t;
-```
-```cpp
-#include <span>
-#include <string_view>
-#include <expected>
-
-namespace link_api {
-
-enum class DriverError {
-    HardwareFault,
-    Busy,
-    InvalidParameter,
-    BufferOverflow
-};
-
-class IBearerDriver {
-public:
-    virtual ~IBearerDriver() = default;
-    virtual std::expected<void, DriverError> init() noexcept = 0;
-    virtual std::expected<size_t, DriverError> send(std::span<const uint8_t> data, QosPriority prio) noexcept = 0;
-    virtual std::expected<size_t, DriverError> pollRx(std::span<uint8_t> buffer, BearerMetrics& outMetrics) noexcept = 0;
-    virtual void setActive(bool active) noexcept = 0;
-    virtual std::expected<void, DriverError> setFrequency(uint32_t freqHz) noexcept = 0;
-};
-
-struct BearerDescriptor {
-    BearerId       id;
-    std::string_view name;
-    IBearerDriver *driver{nullptr};
-    BearerMetrics  metrics{};
-};
-
-} // namespace link_api
-```
+:::code api-link-arbiter/c/tablytsia-operatsii.h
+:::code api-link-arbiter/cpp/tablytsia-operatsii.cpp
 :::
 
 Вимоги до функцій таблиці `bearer_ops_t`:
@@ -268,40 +143,8 @@ struct BearerDescriptor {
 Параметри порогових значень та часових констант задаються у структурі `arbiter_config_t`:
 
 :::tabs
-```c
-typedef struct {
-    uint8_t  failover_per_thresh;   /* Поріг втрат для переходу на резерв (типово 25%) */
-    int16_t  failover_rssi_thresh;  /* Поріг RSSI для переходу на резерв (типово -95 дБм) */
-    uint8_t  loss_burst_limit;      /* Ліміт поспіль втрачених пакетів до аварійного скидання */
-    
-    uint8_t  recovery_per_thresh;   /* Поріг втрат для повернення на основний (типово 5%) */
-    uint16_t recovery_dwell_ms;     /* Час стабільності перед поверненням (типово 4000-6000 мс) */
-    uint16_t recovery_packet_streak;/* Кількість поспіль успішних пакетів для відновлення */
-    
-    uint16_t heartbeat_timeout_ms;  /* Таймаут повної тиші перед переходом в автономію (3000 мс) */
-    bool     enable_rf_switch_gpio; /* Керувати апаратним RF Switch (SPDT) через GPIO */
-    uint8_t  rf_switch_gpio_pin;    /* Номер GPIO для апаратного ключа */
-} arbiter_config_t;
-```
-```cpp
-namespace link_api {
-
-struct ArbiterConfig {
-    uint8_t  failoverPerThresh{25};
-    int16_t  failoverRssiThresh{-95};
-    uint8_t  lossBurstLimit{4};
-
-    uint8_t  recoveryPerThresh{5};
-    uint16_t recoveryDwellMs{5000};
-    uint16_t recoveryPacketStreak{50};
-
-    uint16_t heartbeatTimeoutMs{3000};
-    bool     enableRfSwitchGpio{true};
-    uint8_t  rfSwitchGpioPin{12};
-};
-
-} // namespace link_api
-```
+:::code api-link-arbiter/c/konfihuratsiia-ta.c
+:::code api-link-arbiter/cpp/konfihuratsiia-ta.cpp
 :::
 
 Рекомендовані значення конфігурації:
@@ -313,54 +156,8 @@ struct ArbiterConfig {
 ## Сигнатури функцій API
 
 :::tabs
-```c
-/* Ініціалізація внутрішніх структур арбітра та черг пріоритетів */
-int arbiter_init(const arbiter_config_t *config);
-
-/* Реєстрація фізичного носія у пулі доступних інтерфейсів */
-int arbiter_register_bearer(bearer_interface_t *bearer);
-
-/* Маршрутизація та відправка пакета з урахуванням поточного активного каналу та QoS */
-int arbiter_transmit(const uint8_t *payload, size_t len, qos_priority_t prio);
-
-/* Регулярний крок автомата станів: перевірка таймаутів, оновлення PER та гістерезису */
-void arbiter_tick(uint32_t current_mono_ms);
-
-/* Отримання поточної діагностики стану диспетчера */
-arbiter_state_t arbiter_get_state(void);
-bearer_id_t     arbiter_get_active_bearer(void);
-
-/* Реєстрація функції зворотного виклику при зміні активного носія */
-typedef void (*on_bearer_switched_cb_t)(bearer_id_t prev_bearer, bearer_id_t new_bearer, arbiter_state_t state);
-void arbiter_set_switch_callback(on_bearer_switched_cb_t cb);
-
-/* Реєстрація функції зворотного виклику при переході в аварійну автономію (Failsafe) */
-typedef void (*on_emergency_autonomy_cb_t)(uint32_t silent_duration_ms);
-void arbiter_set_autonomy_callback(on_emergency_autonomy_cb_t cb);
-```
-```cpp
-#include <functional>
-
-namespace link_api {
-
-using SwitchCallback   = std::function<void(BearerId prevBearer, BearerId newBearer, ArbiterState state)>;
-using AutonomyCallback = std::function<void(std::chrono::milliseconds silentDuration)>;
-
-class ILinkArbiterManager {
-public:
-    virtual ~ILinkArbiterManager() = default;
-    virtual std::expected<void, DriverError> initialize(const ArbiterConfig& config) noexcept = 0;
-    virtual std::expected<void, DriverError> registerBearer(const BearerDescriptor& bearer) noexcept = 0;
-    virtual std::expected<size_t, DriverError> transmit(std::span<const uint8_t> payload, QosPriority prio) noexcept = 0;
-    virtual void tick(std::chrono::milliseconds now) noexcept = 0;
-    virtual ArbiterState currentState() const noexcept = 0;
-    virtual BearerId activeBearerId() const noexcept = 0;
-    virtual void setSwitchCallback(SwitchCallback cb) noexcept = 0;
-    virtual void setAutonomyCallback(AutonomyCallback cb) noexcept = 0;
-};
-
-} // namespace link_api
-```
+:::code api-link-arbiter/c/syhnatury-funktsii-api.h
+:::code api-link-arbiter/cpp/syhnatury-funktsii-api.cpp
 :::
 
 Усі функції повертають `0` у разі успішного виконання або від'ємний код помилки (`-EINVAL` — некоректні параметри, `-ENOMEM` — переповнення черги, `-EBUSY` — трансивер зайнятий відправкою).

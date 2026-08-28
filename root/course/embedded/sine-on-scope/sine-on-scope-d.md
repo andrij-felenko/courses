@@ -220,55 +220,8 @@ t_наростання ≈ 0.35 / смуга
 Хай АЦП наповнив буфер `buf[N]` відліками з відомою частотою вибірки `fs`. Найпрямолінійніші дві величини — розмах і True RMS — беруться одним проходом:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <math.h>
-
-// Одним проходом: мінімум, максимум і сума квадратів навколо середнього.
-// Повертає Vpp (розмах) і Vrms (True RMS) у вольтах.
-void measure_sine(const uint16_t *buf, uint32_t n,
-                  float lsb_volts,            // вольтів на один код АЦП
-                  float *vpp_out, float *vrms_out)
-{
-    uint16_t vmin = 0xFFFF, vmax = 0;
-    double sum = 0.0;                          // для середнього (постійна складова)
-    for (uint32_t i = 0; i < n; i++) {
-        uint16_t s = buf[i];
-        if (s < vmin) vmin = s;
-        if (s > vmax) vmax = s;
-        sum += s;
-    }
-    double mean = sum / n;                     // рівень постійної складової в кодах
-
-    // True RMS ЗМІННОЇ складової: віднімаємо середнє, тоді √(середнє квадратів).
-    double sq = 0.0;
-    for (uint32_t i = 0; i < n; i++) {
-        double ac = (double)buf[i] - mean;     // прибрали постамент (як AC-зв'язок)
-        sq += ac * ac;
-    }
-    double rms_codes = sqrt(sq / n);
-
-    *vpp_out  = (float)(vmax - vmin) * lsb_volts;
-    *vrms_out = (float)rms_codes * lsb_volts;
-}
-```
-```python
-import numpy as np
-
-# Одним проходом: розмах і сума квадратів навколо середнього.
-# Повертає (Vpp, Vrms) — розмах і True RMS у вольтах.
-def measure_sine(buf, lsb_volts):             # buf: масив кодів АЦП, lsb_volts: В/код
-    x = np.asarray(buf, dtype=np.float64)
-    mean = x.mean()                            # рівень постійної складової в кодах
-
-    # True RMS ЗМІННОЇ складової: віднімаємо середнє, тоді √(середнє квадратів).
-    ac = x - mean                              # прибрали постамент (як AC-зв'язок)
-    rms_codes = np.sqrt(np.mean(ac * ac))
-
-    vpp  = (x.max() - x.min()) * lsb_volts
-    vrms = rms_codes * lsb_volts
-    return vpp, vrms
-```
+:::code sine-on-scope-d/c/porakhuvaty-parametry.c
+:::code sine-on-scope-d/py/porakhuvaty-parametry.py
 :::
 
 Тут варто спинитися на двох місцях, бо в них — уся суть кроку. По-перше, ми рахуємо True RMS **чесно** — квадрат кожного відліку, а не амплітуду поділити на √2. Код не знає й не припускає, що сигнал синусоїдний; він працює для будь-якої форми, і саме тому не бреше на обрізаних верхівках. По-друге, перед підсумовуванням квадратів ми **віднімаємо середнє** — це точний програмний двійник AC-зв'язку: RMS змінної складової рахують навколо постійного рівня, інакше постамент V_DC роздув би результат (згадайте: ⟨v²⟩ повного сигналу містить і V_DC², а нас цікавить лише хвиля).
@@ -276,65 +229,8 @@ def measure_sine(buf, lsb_volts):             # buf: масив кодів АЦ�
 Частота — трохи хитріше, бо її, як ми знаємо з базового кроку, прилад не міряє прямо, а виводить із періоду. Найдешевший робочий спосіб на МК — **лічити переходи через нуль** (тепер уже навколо обчисленого середнього), з гістерезисом проти шуму, точно як тригер із вставки про [алгоритм тригера](root:hw-sensing/oscilloscope/proj-trigger.md):
 
 :::tabs
-```c
-// Частота через підрахунок висхідних переходів рівня mean із гістерезисом.
-// Повертає Гц; NAN, якщо переходів замало для оцінки.
-float measure_freq(const uint16_t *buf, uint32_t n, double mean,
-                   float hyst_codes, float fs)
-{
-    int armed = 1;                             // готові ловити висхідний перехід
-    double first_cross = -1, last_cross = -1;  // індекси відліків (дробові)
-    uint32_t cycles = 0;
-    for (uint32_t i = 1; i < n; i++) {
-        double prev = (double)buf[i-1] - mean;
-        double cur  = (double)buf[i]   - mean;
-        if (armed && prev < 0.0 && cur >= 0.0) {       // перетин нуля вгору
-            // лінійно уточнюємо момент перетину між відліками (менша похибка)
-            double frac = prev / (prev - cur);          // 0..1 між i-1 та i
-            double cross = (double)(i - 1) + frac;
-            if (first_cross < 0) first_cross = cross;
-            else { last_cross = cross; cycles++; }
-            armed = 0;                                   // гістерезис: чекаємо спаду
-        } else if (cur < -(double)hyst_codes) {
-            armed = 1;                                    // впали нижче −h → знову готові
-        }
-    }
-    if (cycles == 0) return NAN;                          // менше двох переходів
-    double period_samples = (last_cross - first_cross) / cycles;  // відліків на період
-    return (float)(fs / period_samples);                 // Гц
-}
-```
-```python
-import numpy as np
-
-# Частота через підрахунок висхідних переходів рівня mean із гістерезисом.
-# Повертає Гц; NaN, якщо переходів замало для оцінки.
-def measure_freq(buf, mean, hyst_codes, fs):
-    x = np.asarray(buf, dtype=np.float64) - mean   # прибрали постамент
-    armed = True                                   # готові ловити висхідний перехід
-    first_cross = last_cross = None                # індекси відліків (дробові)
-    cycles = 0
-    prev = x[0]
-    for i in range(1, len(x)):
-        cur = x[i]
-        if armed and prev < 0.0 and cur >= 0.0:    # перетин нуля вгору
-            # лінійно уточнюємо момент перетину між відліками (менша похибка)
-            frac = prev / (prev - cur)             # 0..1 між i-1 та i
-            cross = (i - 1) + frac
-            if first_cross is None:
-                first_cross = cross
-            else:
-                last_cross = cross
-                cycles += 1
-            armed = False                          # гістерезис: чекаємо спаду
-        elif cur < -hyst_codes:
-            armed = True                           # впали нижче −h → знову готові
-        prev = cur
-    if cycles == 0:
-        return float("nan")                        # менше двох переходів
-    period_samples = (last_cross - first_cross) / cycles  # відліків на період
-    return fs / period_samples                     # Гц
-```
+:::code sine-on-scope-d/c/porakhuvaty-parametry-2.c
+:::code sine-on-scope-d/py/porakhuvaty-parametry-2.py
 :::
 
 Тут — три уроки цього кроку, вкладені в код. **Гістерезис** (`hyst_codes`) не дає шуму на переході нарахувати десяток фальшивих періодів — та сама смуга L±h, що й в апаратному тригері. **Лінійне уточнення** моменту перетину (`frac`) — це програмний двійник поради «міряй на крутому переході через нуль, а не на пласкому гребені»: між двома відліками ми знаходимо, де саме крива перетнула нуль, і виграємо в точності періоду, не піднімаючи частоту вибірки. А **усереднення по багатьох періодах** (ділимо повний проміжок на `cycles`) — те саме, що «розтягнути на весь екран багато циклів»: чим більший проміжок між першим і останнім переходом, тим менша відносна похибка періоду.

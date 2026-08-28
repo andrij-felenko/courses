@@ -125,99 +125,8 @@ Jitter = T_latency_max - T_latency_min
 Нижче наведено базовий драйвер ініціалізації та вимірювання на C та ідіоматичному C++:
 
 :::tabs
-```c
-/* dwt_timer.h - Базовий драйвер лічильника DWT на C */
-#ifndef DWT_TIMER_H
-#define DWT_TIMER_H
-
-#include <stdint.h>
-#include <stdbool.h>
-
-#define CORE_DEBUG_DEMCR        (*(volatile uint32_t*)0xE000EDFCU)
-#define CORE_DEBUG_DEMCR_TRCENA (1U << 24)
-
-#define DWT_CTRL                (*(volatile uint32_t*)0xE0001000U)
-#define DWT_CTRL_CYCCNTENA      (1U << 0)
-#define DWT_CYCCNT              (*(volatile uint32_t*)0xE0001004U)
-
-static inline bool dwt_init(void) {
-    /* 1. Дозвіл трасування в блоці CoreDebug */
-    CORE_DEBUG_DEMCR |= CORE_DEBUG_DEMCR_TRCENA;
-    
-    /* 2. Скидання лічильника */
-    DWT_CYCCNT = 0U;
-    
-    /* 3. Активація лічильника */
-    DWT_CTRL |= DWT_CTRL_CYCCNTENA;
-    
-    /* Перевірка, чи запустився лічильник */
-    return (DWT_CTRL & DWT_CTRL_CYCCNTENA) != 0U;
-}
-
-static inline uint32_t dwt_get_cycles(void) {
-    return DWT_CYCCNT;
-}
-
-static inline uint32_t dwt_delta_cycles(uint32_t start, uint32_t stop) {
-    /* Беззнакова модульна арифметика коректно обробляє переповнення 32 біт */
-    return stop - start;
-}
-
-static inline uint32_t dwt_cycles_to_us(uint32_t cycles, uint32_t cpu_freq_hz) {
-    return (uint32_t)(((uint64_t)cycles * 1000000ULL) / cpu_freq_hz);
-}
-
-#endif /* DWT_TIMER_H */
-```
-```cpp
-// dwt_timer.hpp - Ідіоматичний таймер DWT на C++20
-#pragma once
-
-#include <cstdint>
-#include <chrono>
-
-namespace Hardware {
-
-class DwtTimer {
-public:
-    static bool init() noexcept {
-        demcr() |= demcr_trcena;
-        cyccnt() = 0U;
-        ctrl() |= ctrl_cyccntena;
-        return (ctrl() & ctrl_cyccntena) != 0U;
-    }
-
-    [[nodiscard]] static inline uint32_t get_cycles() noexcept {
-        return cyccnt();
-    }
-
-    [[nodiscard]] static constexpr uint32_t delta_cycles(uint32_t start, uint32_t stop) noexcept {
-        return stop - start;
-    }
-
-    template <uint32_t CpuFreqHz>
-    [[nodiscard]] static constexpr std::chrono::microseconds to_microseconds(uint32_t cycles) noexcept {
-        const auto us = (static_cast<uint64_t>(cycles) * 1'000'000ULL) / CpuFreqHz;
-        return std::chrono::microseconds(us);
-    }
-
-private:
-    static constexpr uint32_t demcr_trcena  = (1U << 24);
-    static constexpr uint32_t ctrl_cyccntena = (1U << 0);
-
-    static inline volatile uint32_t& demcr() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(0xE000EDFCU);
-    }
-    static inline volatile uint32_t& ctrl() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(0xE0001000U);
-    }
-    static inline volatile uint32_t& cyccnt() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(0xE0001004U);
-    }
-};
-
-} // namespace Hardware
-```
+:::code profil-chasu-vykonannia-u-systemi-d/c/dwt_timer.h
+:::code profil-chasu-vykonannia-u-systemi-d/cpp/dwt_timer.hpp
 :::
 
 ### Пастка переповнення 32-бітного лічильника
@@ -246,71 +155,8 @@ T_overflow = 2^32 / 168 000 000 ≈ 25.565 секунди
 Для виключення стану гонитви та затримок маніпуляція виводом повинна здійснюватися через регістри атомарного встановлення/скидання бітів: `BSRR` (STM32) або регістри `SET`/`CLR` (ESP32, Microchip). Звичайна операція `PORT ^= PIN` категорично заборонена, оскільки вимагає трьох інструкцій (`LDR`, `EOR`, `STR`) і створює колізію в перериваннях.
 
 :::tabs
-```c
-/* gpio_profiling.h - Атомарне стробування виводів на C */
-#ifndef GPIO_PROFILING_H
-#define GPIO_PROFILING_H
-
-#include <stdint.h>
-
-/* Базові адреси порту GPIOB (приклад STM32F4) */
-#define GPIOB_BSRR (*(volatile uint32_t*)0x40020418U)
-
-#define PROF_PIN_ISR    (1U << 0) /* PB0: Індикатор виконання ISR */
-#define PROF_PIN_PENDSV (1U << 1) /* PB1: Індикатор перемикання контексту */
-#define PROF_PIN_TASK1  (1U << 2) /* PB2: Задача високого пріоритету */
-#define PROF_PIN_TASK2  (1U << 3) /* PB3: Задача низького пріоритету */
-
-static inline void prof_pin_high(uint32_t pin_mask) {
-    GPIOB_BSRR = pin_mask; /* Встановлення логічної 1 у молодші 16 біт */
-}
-
-static inline void prof_pin_low(uint32_t pin_mask) {
-    GPIOB_BSRR = (pin_mask << 16); /* Скидання в 0 через старші 16 біт */
-}
-
-#endif /* GPIO_PROFILING_H */
-```
-```cpp
-// gpio_profiling.hpp - Атомарне стробування на C++20 з RAII-структурою
-#pragma once
-
-#include <cstdint>
-
-namespace Hardware {
-
-class GpioProfiler {
-public:
-    static inline volatile uint32_t& bsrr() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(0x40020418U);
-    }
-
-    static inline void set_high(uint16_t pin_mask) noexcept {
-        bsrr() = static_cast<uint32_t>(pin_mask);
-    }
-
-    static inline void set_low(uint16_t pin_mask) noexcept {
-        bsrr() = (static_cast<uint32_t>(pin_mask) << 16);
-    }
-
-    // RAII-клас: піднімає пін при вході в область і опускає при виході
-    class ScopedPin {
-    public:
-        explicit ScopedPin(uint16_t pin_mask) noexcept : mask_(pin_mask) {
-            GpioProfiler::set_high(mask_);
-        }
-        ~ScopedPin() noexcept {
-            GpioProfiler::set_low(mask_);
-        }
-        ScopedPin(const ScopedPin&) = delete;
-        ScopedPin& operator=(const ScopedPin&) = delete;
-    private:
-        uint16_t mask_;
-    };
-};
-
-} // namespace Hardware
-```
+:::code profil-chasu-vykonannia-u-systemi-d/c/gpio_profiling.h
+:::code profil-chasu-vykonannia-u-systemi-d/cpp/gpio_profiling.hpp
 :::
 
 Використання RAII-обгортки `ScopedPin` гарантує, що навіть у разі передчасного виходу з функції через помилку (`return`) чи викидання винятку пін буде гарантовано скинутий у низький стан, не спотворюючи покази логічного аналізатора.
@@ -344,51 +190,8 @@ ITM містить 32 незалежні 32-розрядні стимул-пор
 Нижче показано приклад використання модуля для діагностики контуру регулювання швидкості приводу:
 
 :::tabs
-```c
-/* Приклад використання профілювальника у коді на C */
-#include "task_profiler.h"
-#include "gpio_profiling.h"
-
-#define TASK_MOTOR_ID 0
-
-void Motor_Control_Loop(void) {
-    /* 1. Фіксація моменту початку виконання задачі */
-    task_profiler_enter(TASK_MOTOR_ID);
-    prof_pin_high(PROF_PIN_TASK1);
-    
-    /* 2. Корисна робота алгоритму */
-    Read_ADC_Currents();
-    Clarke_Park_Transform();
-    Run_PI_Regulators();
-    Update_PWM_Duty();
-    
-    /* 3. Фіксація завершення */
-    prof_pin_low(PROF_PIN_TASK1);
-    task_profiler_exit(TASK_MOTOR_ID);
-}
-```
-```cpp
-// Приклад використання профілювальника на C++20
-#include "task_profiler.hpp"
-#include "gpio_profiling.hpp"
-
-namespace {
-    RealTime::TaskProfiler<4> g_profiler(168'000'000U);
-    constexpr uint8_t kMotorTaskId = 0;
-}
-
-void run_motor_control_loop() noexcept {
-    // Автоматичний старт і стоп профілювання за ідіомою RAII
-    auto timer_scope = g_profiler.make_scope(kMotorTaskId);
-    Hardware::GpioProfiler::ScopedPin pin_scope(PROF_PIN_TASK1);
-
-    // Корисна робота алгоритму
-    read_adc_currents();
-    clarke_park_transform();
-    run_pi_regulators();
-    update_pwm_duty();
-}
-```
+:::code profil-chasu-vykonannia-u-systemi-d/c/intehratsiia.c
+:::code profil-chasu-vykonannia-u-systemi-d/cpp/task_profiler.hpp
 :::
 
 ## Практичний аналіз часового профілю та усунення вузьких місць

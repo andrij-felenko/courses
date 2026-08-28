@@ -50,48 +50,8 @@
 **Умова: пристрій ще не має жодних мережевих даних. Треба підняти власну точку доступу з унікальною назвою, DNS-сервер-пастку й веб-сервер із формою — і чекати, поки телефон надішле назву та пароль домашньої мережі.**
 
 :::tabs
-```c
-// Ім'я точки доступу роблять унікальним — зазвичай із хвоста MAC-адреси,
-// щоб два однакові пристрої поруч не злилися в одну назву.
-static void start_provisioning_ap(void) {
-    uint8_t mac[6];
-    esp_wifi_get_mac(WIFI_IF_STA, mac);
-
-    char ssid[32];
-    snprintf(ssid, sizeof ssid, "Thermostat-%02X%02X", mac[4], mac[5]);
-
-    wifi_config_t ap = { 0 };
-    strncpy((char *)ap.ap.ssid, ssid, sizeof ap.ap.ssid);
-    ap.ap.ssid_len  = strlen(ssid);
-    ap.ap.channel   = 1;
-    ap.ap.max_connection = 4;
-    ap.ap.authmode  = WIFI_AUTH_OPEN;   // відкрита — щоб телефон під'єднався без пароля
-
-    esp_wifi_set_mode(WIFI_MODE_AP);
-    esp_wifi_set_config(WIFI_IF_AP, &ap);
-    esp_wifi_start();
-    // Тепер пристрій — точка доступу за адресою 192.168.4.1
-}
-```
-```micropython
-import network
-
-# Ім'я точки доступу роблять унікальним — зазвичай із хвоста MAC-адреси,
-# щоб два однакові пристрої поруч не злилися в одну назву.
-def start_provisioning_ap():
-    ap = network.WLAN(network.AP_IF)
-    mac = ap.config('mac')                  # 6 байтів апаратної адреси
-    ssid = 'Thermostat-{:02X}{:02X}'.format(mac[4], mac[5])
-
-    ap.config(
-        essid=ssid,
-        authmode=network.AUTH_OPEN,         # відкрита — щоб телефон під'єднався без пароля
-        channel=1,
-        max_clients=4,
-    )
-    ap.active(True)
-    # Тепер пристрій — точка доступу за адресою 192.168.4.1
-```
+:::code device-provisioning/c/iak-tse-vyhliadaie-v.c
+:::code device-provisioning/py/micropython/iak-tse-vyhliadaie-v.py
 :::
 
 Точка доступу піднята. Тепер DNS-пастка — те саме серце капітивного порталу. Сервер слухає порт 53 (усталений порт DNS) і на **будь-який** запит імені відповідає власною адресою:
@@ -111,61 +71,8 @@ static void handle_dns_query(const uint8_t *req, int len, struct sockaddr_in *fr
 І, нарешті, обробник форми: коли браузер відсилає заповнені поля, ми забираємо назву й пароль. Тут — та сама пастка, що вже траплялася нам із мережевими даними: те, що приходить ззовні, **не можна брати на віру**.
 
 :::tabs
-```c
-// Викликається веб-сервером, коли прийшла заповнена форма (метод POST).
-static esp_err_t on_credentials_post(httpd_req_t *req) {
-    char body[256];
-    int len = httpd_req_recv(req, body, sizeof(body) - 1);
-    if (len <= 0) return ESP_FAIL;
-    body[len] = '\0';                       // робимо справжній C-рядок
-
-    char ssid[33] = {0}, pass[65] = {0};
-    // Розбираємо поля форми ssid=...&pass=...
-    parse_form_field(body, "ssid", ssid, sizeof ssid);
-    parse_form_field(body, "pass", pass, sizeof pass);
-
-    // Чужому вводу не довіряй: порожня назва — не приймаємо
-    if (ssid[0] == '\0') {
-        httpd_resp_sendstr(req, "SSID порожній");
-        return ESP_OK;
-    }
-
-    // Зберігаємо в NVS — щоб пережити перезавантаження й більше не питати
-    nvs_save_str("wifi_ssid", ssid);
-    nvs_save_str("wifi_pass", pass);
-
-    httpd_resp_sendstr(req, "Прийнято. Пристрій під'єднується...");
-    // Далі — погасити точку доступу й спробувати STA-підключення (див. замітку)
-    schedule_switch_to_station();
-    return ESP_OK;
-}
-```
-```micropython
-# Викликається веб-сервером, коли прийшла заповнена форма (метод POST).
-# body — вже прочитане тіло запиту (метод POST); у MicroPython рядок
-# несе власну довжину, тож нуль-термінатор дописувати не треба.
-def on_credentials_post(body, respond):
-    # Розбираємо поля форми ssid=...&pass=...
-    fields = parse_form(body)               # {'ssid': ..., 'pass': ...}
-    ssid = fields.get('ssid', '')
-    passwd = fields.get('pass', '')
-
-    # Чужому вводу не довіряй: порожня назва — не приймаємо
-    if not ssid:
-        respond('SSID порожній')
-        return
-
-    # Зберігаємо в NVS — щоб пережити перезавантаження й більше не питати
-    import esp32
-    nvs = esp32.NVS('wifi')
-    nvs.set_blob('ssid', ssid.encode())
-    nvs.set_blob('pass', passwd.encode())
-    nvs.commit()
-
-    respond("Прийнято. Пристрій під'єднується...")
-    # Далі — погасити точку доступу й спробувати STA-підключення (див. замітку)
-    schedule_switch_to_station()
-```
+:::code device-provisioning/c/iak-tse-vyhliadaie-v-2.c
+:::code device-provisioning/py/micropython/iak-tse-vyhliadaie-v-2.py
 :::
 
 Два рядки тут вирішальні. Перший — `body[len] = '\0'`: те, що приходить із мережі, — це шматок байтів із довжиною, а не готовий рядок; забудеш дописати нуль-термінатор — і розбір форми побіжить у чужу пам'ять. Другий — перевірка `ssid[0] == '\0'`: користувач міг натиснути «Зберегти» з порожнім полем, і вузол не повинен потім вічно ганятися за мережею без назви. А `nvs_save_str` наприкінці — те, заради чого все й робилося: **облікові дані лягають у сховище, що переживе вимкнення живлення**, і наступного разу пристрій уже нікого не питатиме, а мовчки під'єднається.

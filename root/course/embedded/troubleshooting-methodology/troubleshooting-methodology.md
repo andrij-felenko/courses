@@ -76,20 +76,7 @@
 
 **Крок 1 — розколоти простір навпіл.** Перезавантаження буває або **апаратне** (просіло живлення, спрацював сторож, стрибнула напруга), або **програмне** (хибний покажчик, [аварія ядра](root:sf-devices/hardfault), переповнення стека). Один дослід ділить ці дві половини начисто: після скидання чіп лишає в спеціальному регістрі **причину** останнього reset. Прочитаймо її першою ж дією:
 
-```c
-#include "esp_system.h"
-
-void report_reset_reason(void) {
-    esp_reset_reason_t r = esp_reset_reason();
-    switch (r) {
-        case ESP_RST_BROWNOUT:  puts("reset: BROWNOUT — просіло живлення"); break;
-        case ESP_RST_TASK_WDT:  puts("reset: WATCHDOG — зависла задача");    break;
-        case ESP_RST_PANIC:     puts("reset: PANIC — аварія в коді");        break;
-        case ESP_RST_POWERON:   puts("reset: POWERON — штатний старт");      break;
-        default:                printf("reset: інша причина, код %d\n", r);   break;
-    }
-}
-```
+:::code troubleshooting-methodology/c/main.c
 
 > 🔧 **Навіщо це.** [Регістр причини скидання](root:hw-arch/reset-causes) — найдешевший розріз у всьому відлагодженні перезавантажень. Один рядок коду за мить відкидає половину гіпотез: слово `BROWNOUT` каже «дивись у живлення, не в код», слово `PANIC` — навпаки. Не почавши з нього, легко тиждень нишпорити по коду, коли винна була просадка на шині.
 

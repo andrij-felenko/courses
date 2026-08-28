@@ -52,52 +52,7 @@ ATTACHED  — рівень сталий і дійсний; видали поді
 
 Почнемо з того, що модуль показує назовні — заголовний файл. Добрий інтерфейс читається як опис задачі, а не як купа функцій: видно, що це «читач рівня з подіями», ще до того, як зазирнеш усередину.
 
-```c
-// cc_reader.h — читач рівня USB-C CC: усереднення, гістерезис, дебаунс,
-//               вибір активної лінії CC1/CC2, події під'єднання/від'єднання.
-#ifndef CC_READER_H
-#define CC_READER_H
-
-#include <stdint.h>
-#include <stdbool.h>
-
-// Рівень дозволеного струму, який джерело виставило опором Rp на CC.
-typedef enum {
-    CC_NONE = 0,   // джерела нема (лінія висить)
-    CC_DEFAULT,    // звичайний USB: 0.5 / 0.9 А
-    CC_1A5,        // 1.5 А  @ 5 В
-    CC_3A0         // 3.0 А  @ 5 В  (15 Вт)
-} cc_level_t;
-
-// Яка лінія виявилась активною (куди джерело підтягнуло Rp).
-typedef enum { CC_LINE_NONE = 0, CC_LINE_1, CC_LINE_2 } cc_line_t;
-
-// Подія, яку модуль віддає назовні через callback.
-typedef enum {
-    CC_EV_ATTACHED,   // джерело з'явилось, рівень устоявся й дійсний
-    CC_EV_DETACHED,   // джерело зникло (висмикнули кабель чи просів CC)
-    CC_EV_LEVEL       // рівень змінився, лишаючись під'єднаним (переуклали)
-} cc_event_t;
-
-// Callback викликається з контексту poll() — отже, НЕ з переривання.
-typedef void (*cc_cb_t)(cc_event_t ev, cc_level_t level, void *user);
-
-// Як читати дві ноги CC: даємо модулю функцію вимірювання в мілівольтах.
-// Так драйвер не прив'язаний до конкретного АЦП (STM32, ESP32, будь-що).
-typedef struct {
-    uint16_t (*read_mv)(cc_line_t line);  // виміряти CC1 або CC2 у мВ
-    cc_cb_t  on_event;                     // подія (може бути NULL)
-    void    *user;                         // довільний контекст у callback
-} cc_reader_cfg_t;
-
-void       cc_reader_init(const cc_reader_cfg_t *cfg);
-void       cc_reader_poll(void);          // звати періодично, ~раз на 1–5 мс
-cc_level_t cc_reader_level(void);         // поточний сталий рівень
-cc_line_t  cc_reader_active(void);        // активна лінія (для орієнтації CC)
-bool       cc_reader_attached(void);      // чи є дійсне під'єднання зараз
-
-#endif
-```
+:::code proj-cc-reader/c/cc_reader.h
 
 Кілька рішень в інтерфейсі варті слова, бо вони — не випадкові.
 
@@ -113,36 +68,7 @@ bool       cc_reader_attached(void);      // чи є дійсне під'єдн�
 
 **Кільцевий буфер усереднення.** У темі ми усереднювали «в лоб» — циклом міряли N разів у `cc_read_mv_avg`. Для модуля, що крутиться в головному циклі, краще **кільцевий буфер** (англ. *ring buffer* — буфер, де новий запис затирає найстаріший по колу): кожен `poll` кладе **один** свіжий відлік і миттю отримує середнє по останніх N — без блокувального циклу всередині. Тримаємо ще й біжучу суму, щоб не складати щоразу весь масив: додали новий, відняли той, що випав. Так середнє коштує дві арифметичні дії, а не N.
 
-```c
-// cc_reader.c
-#include "cc_reader.h"
-
-#define CC_AVG_N     8     // глибина усереднення (степінь двійки — ділення зсувом)
-#define CC_STABLE_N  5     // скільки однакових рівнів поспіль = «сталий»
-#define CC_PRESENT_MV 200  // вище цього на лінії — щось під'єднано (не висить)
-
-// ── Кільцевий буфер: один новий відлік за виклик, миттєве середнє ───────────
-typedef struct {
-    uint16_t buf[CC_AVG_N];
-    uint32_t sum;          // біжуча сума вмісту buf
-    uint8_t  head;         // куди класти наступний
-    uint8_t  count;        // скільки вже накопичено (для «теплого» старту)
-} ring_t;
-
-static void ring_reset(ring_t *r) {
-    r->sum = 0; r->head = 0; r->count = 0;
-    for (uint8_t i = 0; i < CC_AVG_N; i++) r->buf[i] = 0;
-}
-
-static uint16_t ring_push(ring_t *r, uint16_t mv) {
-    r->sum -= r->buf[r->head];      // викидаємо найстаріший
-    r->buf[r->head] = mv;           // кладемо новий на його місце
-    r->sum += mv;
-    r->head = (r->head + 1) % CC_AVG_N;
-    if (r->count < CC_AVG_N) r->count++;
-    return (uint16_t)(r->sum / (r->count ? r->count : 1));  // середнє по наявному
-}
-```
+:::code proj-cc-reader/c/cc_reader.c
 
 Чому буфер скидаємо при кожному під'єднанні (побачимо нижче, у `*_to_detached`)? Бо інакше після від'єднання в ньому лишаться старі високі відліки, і перші середні нового під'єднання вийдуть змащеними сумішшю «старе + нове». Скидання гарантує: кожне нове під'єднання усереднюється з чистого аркуша.
 
@@ -162,91 +88,11 @@ static cc_level_t decode(int mv, cc_level_t cur) {
 
 **Машина станів — серце модуля.** Тут і живуть відповіді на всі три питання. Глобальний стан невеликий: конфіг, поточний стан життя, активна лінія, кільцевий буфер, сталий рівень, лічильник дебаунсу й кандидат. Прочитаймо `poll` уважно — він короткий, але кожне розгалуження несе сенс.
 
-```c
-// ── Стан модуля ────────────────────────────────────────────────────────────
-typedef enum { ST_DETACHED, ST_DEBOUNCING, ST_ATTACHED } state_t;
-
-static cc_reader_cfg_t CFG;
-static state_t   st       = ST_DETACHED;
-static cc_line_t active   = CC_LINE_NONE;
-static ring_t    ring;
-static cc_level_t level   = CC_NONE;   // сталий рівень назовні
-static cc_level_t cand    = CC_NONE;   // кандидат на сталий
-static uint8_t    cand_n  = 0;         // скільки разів кандидат повторився
-
-static void emit(cc_event_t ev) {       // безпечно віддати подію назовні
-    if (CFG.on_event) CFG.on_event(ev, level, CFG.user);
-}
-
-static void go_detached(void) {         // спільний відкат у «нема джерела»
-    bool was_attached = (st == ST_ATTACHED);
-    st = ST_DETACHED;
-    active = CC_LINE_NONE;
-    level = CC_NONE; cand = CC_NONE; cand_n = 0;
-    ring_reset(&ring);                  // чистимо буфер під наступне під'єднання
-    if (was_attached) emit(CC_EV_DETACHED);  // подію — лише якщо реально від'єднались
-}
-
-void cc_reader_init(const cc_reader_cfg_t *cfg) {
-    CFG = *cfg;
-    ring_reset(&ring);
-    st = ST_DETACHED; active = CC_LINE_NONE;
-    level = CC_NONE; cand = CC_NONE; cand_n = 0;
-}
-```
+:::code proj-cc-reader/c/robochyi-kod-modulia.c
 
 Тепер сам `poll`. Він розгалужується за станом, бо в кожному стані модуль робить різне: у `DETACHED` — **шукає**, котра нога ожила; у двох інших — **читає** вже вибрану ногу й веде дебаунс.
 
-```c
-void cc_reader_poll(void) {
-    if (st == ST_DETACHED) {
-        // Шукаємо появу: міряємо ОБИДВІ ноги, бо ще не знаємо, котру встромили.
-        uint16_t v1 = CFG.read_mv(CC_LINE_1);
-        uint16_t v2 = CFG.read_mv(CC_LINE_2);
-        if (v1 < CC_PRESENT_MV && v2 < CC_PRESENT_MV) return;  // обидві висять — чекаємо далі
-
-        // Котрась ожила — фіксуємо активну лінію ОДИН раз і входимо в дебаунс.
-        active = (v1 >= v2) ? CC_LINE_1 : CC_LINE_2;
-        st = ST_DEBOUNCING;
-        ring_reset(&ring);
-        cand = CC_NONE; cand_n = 0;
-        return;  // саме вимірювання активної лінії зробимо вже наступним проходом
-    }
-
-    // ST_DEBOUNCING або ST_ATTACHED: читаємо ЛИШЕ активну лінію.
-    uint16_t mv = ring_push(&ring, CFG.read_mv(active));
-
-    // Активна лінія впала під поріг присутності → кабель зник.
-    if (mv < CC_PRESENT_MV) { go_detached(); return; }
-
-    cc_level_t lvl = decode(mv, level);   // гістерезис від поточного сталого рівня
-
-    // Дебаунс: рівень визнаємо лише після CC_STABLE_N однакових поспіль.
-    if (lvl == cand) {
-        if (cand_n < CC_STABLE_N) cand_n++;
-    } else {
-        cand = lvl; cand_n = 1;           // рівень смикнувся — рахуємо наново
-    }
-    if (cand_n < CC_STABLE_N) return;     // ще не впевнені — нічого не міняємо
-
-    // Кандидат став сталим. Що це для машини станів?
-    if (st == ST_DEBOUNCING) {
-        if (cand == CC_NONE) return;      // «нема» не вважаємо під'єднанням — чекаємо рівня
-        level = cand;
-        st = ST_ATTACHED;
-        emit(CC_EV_ATTACHED);             // АЖ ТЕПЕР: рівень сталий і дійсний
-    } else { // ST_ATTACHED
-        if (cand != level) {              // джерело переуклало контракт на ходу
-            level = cand;
-            emit(CC_EV_LEVEL);
-        }
-    }
-}
-
-cc_level_t cc_reader_level(void)  { return level; }
-cc_line_t  cc_reader_active(void) { return active; }
-bool       cc_reader_attached(void){ return st == ST_ATTACHED; }
-```
+:::code proj-cc-reader/c/robochyi-kod-modulia-2.c
 
 Зверніть увагу на три місця, де код **навмисно стриманий**, і саме ця стриманість його рятує. Перше: подію `CC_EV_DETACHED` ми віддаємо лише з `go_detached`, і **лише якщо були в `ATTACHED`** — інакше «миттєвий брязк» у `DEBOUNCING` (з'явилось і відразу зникло, ще до сталого рівня) не зчинить фальшивої пари подій «під'єднано/від'єднано». Друге: `CC_EV_ATTACHED` не вилітає, поки рівень не сталий **і** не `CC_NONE`, — тобто навантаження дозволяється тільки на впевнено дійсному рівні. Третє: активну лінію ми вибираємо рівно в одному місці (`DETACHED → DEBOUNCING`) і ніде більше не переглядаємо. Три рішення — три закриті пастки; нижче розберемо, чим саме вони небезпечні, якщо їх не закрити.
 
@@ -254,45 +100,7 @@ bool       cc_reader_attached(void){ return st == ST_ATTACHED; }
 
 Збоку модуль виглядає так, як ми й хотіли на початку. Платформозалежний шматок — лише `read_mv`: він налаштовує канал АЦП на потрібну ногу й повертає мілівольти. Решта — універсальна.
 
-```c
-// Платформний шматок: прочитати CC1/CC2 у мВ. Тут — усереднення вже НЕ робимо
-// (його робить кільцевий буфер у модулі), але вибірку тримаємо ПОВІЛЬНОЮ —
-// дільник CC високоомний, швидкий відлік дасть занижене число.
-static uint16_t board_read_cc_mv(cc_line_t line) {
-    uint32_t ch = (line == CC_LINE_1) ? ADC_CH_CC1 : ADC_CH_CC2;
-    return adc_read_mv_slow(ch);    // довгий SamplingTime / великий sample div
-}
-
-static void on_cc_event(cc_event_t ev, cc_level_t lvl, void *user) {
-    switch (ev) {
-        case CC_EV_ATTACHED:
-        case CC_EV_LEVEL:
-            set_input_current_limit(lvl == CC_3A0 ? 3000 :
-                                    lvl == CC_1A5 ? 1500 :
-                                    lvl == CC_DEFAULT ? 500 : 0);
-            load_enable(lvl != CC_NONE);   // навантаження — лише за дійсним рівнем
-            break;
-        case CC_EV_DETACHED:
-            load_enable(false);            // кабель зник — гасимо негайно
-            set_input_current_limit(0);
-            break;
-    }
-}
-
-void app_main_setup(void) {
-    cc_reader_cfg_t cfg = {
-        .read_mv  = board_read_cc_mv,
-        .on_event = on_cc_event,
-        .user     = NULL,
-    };
-    cc_reader_init(&cfg);
-}
-
-void app_main_loop(void) {
-    cc_reader_poll();          // раз на кожен оберт циклу (або по таймеру ~1–5 мс)
-    // ... решта роботи пристрою ...
-}
-```
+:::code proj-cc-reader/c/iak-tsym-korystuvatysia.c
 
 Уся капризність аналогової ноги тепер захована. Решта пристрою бачить лише дві прості речі: рівень, який можна спитати будь-коли, і події, на які можна підписатися. Це і є межа, заради якої модуль писався: [надійне читання CC — передумова безпечного вмикання навантаження](root:embedded/pd-sink-design), і `on_cc_event` втілює це правило в три рядки — вмикай по `ATTACHED`, гаси по `DETACHED`.
 

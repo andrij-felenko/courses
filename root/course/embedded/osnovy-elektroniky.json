@@ -23,13 +23,16 @@
           "hist": [
             {
               "file": "hist-embedded-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-signal-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -48,7 +51,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -59,7 +63,8 @@
           "math": [
             {
               "file": "math-probe-divider.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -74,12 +79,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-bringup-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }
@@ -133,7 +140,8 @@
           "proj": [
             {
               "file": "proj-relaxation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -262,7 +270,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -322,8 +331,21 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "proj": [
+            {
+              "file": "proj-circuit-sim.md",
+              "status": "recheck",
+              "recode": true
+            },
+            {
+              "file": "proj-mna-spice.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ]
         },
         {
           "ref": "hw-analog/thevenin",
@@ -339,10 +361,12 @@
           "slug": "reading-schematics",
           "title": "Читання схем",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -371,7 +395,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "math": [
             {
@@ -418,7 +443,8 @@
           "proj": [
             {
               "file": "proj-copper-calc.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -464,12 +490,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "math": [
             {
               "file": "math-probe-loading.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }
@@ -691,7 +719,8 @@
           "proj": [
             {
               "file": "proj-selection-checklist.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

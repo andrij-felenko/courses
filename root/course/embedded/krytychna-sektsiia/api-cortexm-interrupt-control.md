@@ -22,28 +22,7 @@
 
 Архітектура Thumb-2 надає прямі та високоефективні інструкції для модифікації масок переривань, більшість із яких виконуються за один такт процесора:
 
-```asm
-; --- 1. Швидке глобальне керування через CPS (Change Processor State) ---
-CPSID   i             ; Встановити PRIMASK = 1 (вимкнути всі масковані переривання)
-CPSIE   i             ; Скинути PRIMASK = 0   (увімкнути всі переривання)
-
-CPSID   f             ; Встановити FAULTMASK = 1 (вимкнути всі виключення, крім NMI)
-CPSIE   f             ; Скинути FAULTMASK = 0   (дозволити аварійні виключення)
-
-; --- 2. Універсальний доступ до спеціальних регістрів через MRS / MSR ---
-MRS     r0, PRIMASK   ; Зчитати PRIMASK у регістр r0 (1 такт)
-MSR     PRIMASK, r0   ; Записати значення r0 у PRIMASK (1 такт)
-
-MRS     r0, BASEPRI   ; Зчитати поточний поріг BASEPRI в r0
-MSR     BASEPRI, r0   ; Записати новий поріг у BASEPRI
-
-MSR     BASEPRI_MAX, r0 ; Умовний запис: оновлює BASEPRI тільки якщо r0 підвищує пріоритет маски
-
-MRS     r0, FAULTMASK ; Зчитати поточний стан FAULTMASK
-MSR     FAULTMASK, r0 ; Відновити FAULTMASK
-
-MRS     r0, IPSR      ; Зчитати номер поточного виключення для діагностики контексту
-```
+:::code api-cortexm-interrupt-control/asm/main.s
 
 ## Розрахунок зміщення бітів у BASEPRI та конфігурація NVIC
 
@@ -74,18 +53,7 @@ MRS     r0, IPSR      ; Зчитати номер поточного виклю�
 uint8_t basepri_val = CALC_BASEPRI(5U); // 5 << 4 = 0x50
 __set_BASEPRI(basepri_val);
 ```
-```cpp
-#include <cstdint>
-
-constexpr std::uint32_t kNvicPrioBits = 4U;
-
-[[nodiscard]] constexpr std::uint8_t calc_basepri(std::uint8_t priority) noexcept {
-    return static_cast<std::uint8_t>(priority << (8U - kNvicPrioBits));
-}
-
-// Пріоритет 5 перетворюється на 0x50 під час компіляції
-constexpr std::uint8_t kBasepriThreshold = calc_basepri(5U);
-```
+:::code api-cortexm-interrupt-control/cpp/rozrakhunok-zmishchennia.hpp
 :::
 
 Якщо записати в `BASEPRI` сире значення `0x05`, процесор відкине молодші біти (вони дорівнюють нулю) і вважатиме, що в регістр записано нуль. У результаті маскування взагалі не увімкнеться, і система залишиться повністю незахищеною.
@@ -128,91 +96,8 @@ constexpr std::uint8_t kBasepriThreshold = calc_basepri(5U);
 Стандарт CMSIS уніфікує доступ до спеціальних регістрів для компіляторів GCC, Arm Clang, IAR та Keil. Усі функції оформлені як інлайнові інструкції ядра:
 
 :::tabs
-```c
-#include "cmsis_compiler.h"
-#include <stdint.h>
-#include <stdbool.h>
-
-/*
- * Приклад опитування та безпечного маскування переривань через CMSIS
- */
-void cmsis_demonstration(void) {
-    /* 1. Глобальне маскування через PRIMASK */
-    uint32_t saved_primask = __get_PRIMASK();
-    __disable_irq();
-    
-    // Перевірка, чи активні переривання в системі
-    bool interrupts_were_enabled = (saved_primask == 0U);
-    (void)interrupts_were_enabled;
-    
-    __set_PRIMASK(saved_primask); // Точне відновлення
-
-    /* 2. Селективне маскування через BASEPRI (лише Cortex-M3/M4/M7/M33) */
-#if (__CORTEX_M >= 3U)
-    uint32_t saved_basepri = __get_BASEPRI();
-    
-    // Маскуємо переривання з пріоритетом 4 і нижче (0x40 для 4 біт NVIC)
-    __set_BASEPRI(0x40U);
-    
-    // Безпечне вкладене маскування
-    __set_BASEPRI_MAX(0x20U); // Підвищуємо поріг до пріоритету 2
-    
-    __set_BASEPRI(saved_basepri); // Відновлюємо початковий стан
-#endif
-
-    /* 3. Перевірка контексту виконання */
-    uint32_t active_exception = __get_IPSR();
-    if (active_exception == 0U) {
-        // Код виконується у фоновому потоці (Thread Mode / main / RTOS task)
-    } else {
-        // Код виконується всередині ISR з номером active_exception
-    }
-}
-```
-```cpp
-#include "cmsis_compiler.h"
-#include <cstdint>
-
-namespace embedded::cpu {
-
-enum class CpuMode {
-    Thread,  // Головний потік або завдання RTOS
-    Handler  // Обробник переривання (ISR)
-};
-
-[[nodiscard]] inline CpuMode current_mode() noexcept {
-    return (__get_IPSR() == 0U) ? CpuMode::Thread : CpuMode::Handler;
-}
-
-[[nodiscard]] inline std::uint32_t get_active_irq_number() noexcept {
-    const std::uint32_t ipsr = __get_IPSR();
-    return (ipsr >= 16U) ? (ipsr - 16U) : 0U;
-}
-
-[[nodiscard]] inline std::uint32_t read_primask() noexcept {
-    return __get_PRIMASK();
-}
-
-inline void write_primask(std::uint32_t value) noexcept {
-    __set_PRIMASK(value);
-}
-
-#if (__CORTEX_M >= 3U)
-[[nodiscard]] inline std::uint32_t read_basepri() noexcept {
-    return __get_BASEPRI();
-}
-
-inline void write_basepri(std::uint32_t threshold) noexcept {
-    __set_BASEPRI(threshold);
-}
-
-inline void write_basepri_max(std::uint32_t threshold) noexcept {
-    __set_BASEPRI_MAX(threshold);
-}
-#endif
-
-} // namespace embedded::cpu
-```
+:::code api-cortexm-interrupt-control/c/main.c
+:::code api-cortexm-interrupt-control/cpp/interfeis-cmsis-core.hpp
 :::
 
 ## Зневадження та діагностика стану регістрів у GDB та OpenOCD

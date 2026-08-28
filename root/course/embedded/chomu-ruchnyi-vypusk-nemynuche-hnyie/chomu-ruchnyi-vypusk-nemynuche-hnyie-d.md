@@ -143,18 +143,7 @@ bool check_hardware_ready(void) {
     return status;
 }
 ```
-```cpp
-/* Ідіоматичний еквівалент на C++20 */
-#include <cstdint>
-
-[[nodiscard]] bool check_hardware_ready() noexcept {
-    bool status{false}; /* Явна безпечна ініціалізація */
-    if (gpio_read_pin(READY_PIN)) {
-        status = true;
-    }
-    return status;
-}
-```
+:::code chomu-ruchnyi-vypusk-nemynuche-hnyie-d/cpp/main.cpp
 :::
 
 У Debug-режимі функція повертала `false`, як і очікувалося. У Release-режимі оптимізатор побачив невизначену поведінку (англ. *Undefined Behavior, UB*) і на основі припущення про коректність коду взагалі викинув перевірку умови, завжди повертаючи `true`.

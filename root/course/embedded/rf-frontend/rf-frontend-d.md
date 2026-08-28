@@ -36,30 +36,8 @@
 ```
 
 :::tabs
-```c
-// Перевірка «на пальцях»: у скільки разів далі добиває сигнал
-#include <math.h>
-
-float range_gain(float gain_db) {
-    // потужність ~ 1/d², отже d ~ 1/sqrt(P);
-    // +gain_db децибел => множник потужності 10^(gain/10)
-    float power_ratio = powf(10.0f, gain_db / 10.0f); // 21 dB -> ×125.9
-    return sqrtf(power_ratio);                         // дальність ~ sqrt
-}
-// range_gain(21.0f) ≈ 11.2  → приблизно в 11 разів далі
-```
-```python
-# Перевірка «на пальцях»: у скільки разів далі добиває сигнал
-import math
-
-def range_gain(gain_db):
-    # потужність ~ 1/d², отже d ~ 1/sqrt(P);
-    # +gain_db децибел => множник потужності 10^(gain/10)
-    power_ratio = 10 ** (gain_db / 10)  # 21 dB -> ×125.9
-    return math.sqrt(power_ratio)       # дальність ~ sqrt
-
-# range_gain(21.0) ≈ 11.2  → приблизно в 11 разів далі
-```
+:::code rf-frontend-d/c/pa-huchnomovets-peredachi.c
+:::code rf-frontend-d/py/pa-huchnomovets-peredachi.py
 :::
 
 Той самий чип, та сама антена — а дальність зросла приблизно вдесятеро. Ось чому PA ставлять.
@@ -98,38 +76,8 @@ NF_заг = 10·log₁₀(1.638) ≈ 2.14 dB
 ```
 
 :::tabs
-```c
-// Шумове число каскаду (формула Фрііса), вхід і вихід — у dB
-#include <math.h>
-
-static float db2lin(float db) { return powf(10.0f, db / 10.0f); }
-static float lin2db(float x)  { return 10.0f * log10f(x); }
-
-float cascade_nf(float nf1_db, float g1_db, float nf2_db) {
-    float F1 = db2lin(nf1_db);
-    float G1 = db2lin(g1_db);
-    float F2 = db2lin(nf2_db);
-    float Ftot = F1 + (F2 - 1.0f) / G1;   // внесок 2-го ділиться на G1
-    return lin2db(Ftot);
-}
-// cascade_nf(2.0f, 20.0f, 8.0f) ≈ 2.14 dB
-```
-```python
-# Шумове число каскаду (формула Фрііса), вхід і вихід — у dB
-import math
-
-def db2lin(db): return 10 ** (db / 10)
-def lin2db(x):  return 10 * math.log10(x)
-
-def cascade_nf(nf1_db, g1_db, nf2_db):
-    F1 = db2lin(nf1_db)
-    G1 = db2lin(g1_db)
-    F2 = db2lin(nf2_db)
-    Ftot = F1 + (F2 - 1) / G1   # внесок 2-го ділиться на G1
-    return lin2db(Ftot)
-
-# cascade_nf(2.0, 20.0, 8.0) ≈ 2.14 dB
-```
+:::code rf-frontend-d/c/lna-vukho-pryimacha.c
+:::code rf-frontend-d/py/lna-vukho-pryimacha.py
 :::
 
 Восьмидецибельний мікшер додав до приймача аж **0.14 dB** — бо перед ним стояло стократне підсилення LNA. Якби той самий мікшер опинився першим, приймач мав би NF ≈ 8 dB замість 2 — і втратив би в чутливості так, що частину дальності, виграної на передачі, ти б просто подарував назад. Ось чому LNA — завжди **перший** після антени (і чому в готовому тракті він сидить упритул до неї, без зайвих втратних деталей перед собою).

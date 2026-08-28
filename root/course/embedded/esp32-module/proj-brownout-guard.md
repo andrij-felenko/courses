@@ -26,47 +26,11 @@ esp_reset_reason_t esp_reset_reason(void);
 
 Повертає вона один зі значень переліку `esp_reset_reason_t`. Нас цікавить жменя з них — решту наводжу, щоб ти впізнав їх у чужому коді:
 
-```c
-typedef enum {
-    ESP_RST_UNKNOWN,    // причину визначити не вдалося
-    ESP_RST_POWERON,    // подача живлення (холодний старт)
-    ESP_RST_EXT,        // зовнішній пін скидання (не для класичного ESP32)
-    ESP_RST_SW,         // програмний скид через esp_restart()
-    ESP_RST_PANIC,      // виняток / паніка (напр. LoadProhibited)
-    ESP_RST_INT_WDT,    // сторожовий таймер переривань
-    ESP_RST_TASK_WDT,   // сторожовий таймер задач
-    ESP_RST_WDT,        // інший сторожовий таймер
-    ESP_RST_DEEPSLEEP,  // вихід із глибокого сну
-    ESP_RST_BROWNOUT,   // brownout (апаратний АБО програмний — див. нижче)
-    ESP_RST_SDIO,       // скид через SDIO
-    // …ESP_RST_USB, ESP_RST_JTAG, ESP_RST_EFUSE, ESP_RST_PWR_GLITCH, ESP_RST_CPU_LOCKUP
-} esp_reset_reason_t;
-```
+:::code proj-brownout-guard/c/krok-1-prochytaty-prychynu.c
 
 Найпростіший корисний код — на самому початку `app_main()`, **до** будь-якої ініціалізації радіо:
 
-```c
-#include "esp_log.h"
-#include "esp_system.h"
-
-static const char *TAG = "boot";
-
-void app_main(void)
-{
-    esp_reset_reason_t reason = esp_reset_reason();
-
-    switch (reason) {
-    case ESP_RST_POWERON:   ESP_LOGI(TAG, "холодний старт"); break;
-    case ESP_RST_SW:        ESP_LOGI(TAG, "програмний рестарт"); break;
-    case ESP_RST_PANIC:     ESP_LOGW(TAG, "після паніки — глянь core dump"); break;
-    case ESP_RST_TASK_WDT:  ESP_LOGW(TAG, "завис таск — сторож скинув"); break;
-    case ESP_RST_BROWNOUT:  ESP_LOGE(TAG, "BROWNOUT — живлення просіло!"); break;
-    default:                ESP_LOGI(TAG, "скид, причина = %d", (int)reason);
-    }
-
-    // …далі — ініціалізація, і лише потім Wi-Fi
-}
-```
+:::code proj-brownout-guard/c/krok-1-prochytaty-prychynu-2.c
 
 Це вже цінно: у логу видно **чому** пристрій щойно стартував, і `BROWNOUT` серед причин одразу вказує на живлення, а не на баг у коді. Але просто надрукувати мало. Треба на цю причину **зреагувати** — і для цього спершу зрозуміти, що саме ховається за єдиним значенням `ESP_RST_BROWNOUT`.
 
@@ -103,26 +67,7 @@ RTC_NOINIT_ATTR static uint32_t s_rtc_magic;   // ознака «пам'ять �
 
 Чому потрібне `s_rtc_magic`? Бо `RTC_NOINIT_ATTR` **не ініціалізує** пам'ять — а після подачі живлення (холодного старту) в ній лежить сміття. Тобто ми не можемо просто вірити `s_brownout_count` — спершу мусимо переконатися, що це **наш** лічильник, а не випадкові біти. Магічне число й вирішує це: якщо воно на місці — пам'ять уже наша й лічильнику можна вірити; якщо ні — це перший старт, пам'ять треба ініціалізувати:
 
-```c
-static void brownout_bookkeeping(esp_reset_reason_t reason)
-{
-    if (s_rtc_magic != RTC_MAGIC) {
-        // Холодний старт (подали живлення) або сміття в RTC — ініціалізуємо.
-        s_rtc_magic = RTC_MAGIC;
-        s_brownout_count = 0;
-        return;
-    }
-    // Пам'ять наша й достовірна. Якщо це був brownout — рахуємо.
-    if (reason == ESP_RST_BROWNOUT) {
-        s_brownout_count++;
-        ESP_LOGE(TAG, "brownout #%u поспіль", (unsigned)s_brownout_count);
-    } else if (reason == ESP_RST_POWERON) {
-        // Живлення передумали й дали чисто — рахунок скидаємо.
-        s_brownout_count = 0;
-    }
-    // Інші причини (панік, watchdog) рахунок brownout не чіпають.
-}
-```
+:::code proj-brownout-guard/c/krok-2-polichyty-brownout.c
 
 Тонкість — **де скидати лічильник**. Скидати його при кожному `POWERON` розумно: якщо людина від'єднала й під'єднала живлення заново, це «свіжий старт», історія просадок неактуальна. А от при програмному скиді (`ESP_RST_SW`) чи паніці лічильник **не чіпаємо** — пристрій міг рестартувати сам себе з іншої причини, а проблема з живленням нікуди не поділася.
 
@@ -161,31 +106,7 @@ Component config → ESP System Settings → Brownout Detector →
 
 **Прочитати чинний поріг у коді.** Оскільки поріг заданий у збірці, найчистіше — просто вивести його з макроса конфігурації, зіставивши з таблицею:
 
-```c
-// Перевести номер рівня класичного ESP32 у напругу (мВ) за офіційною таблицею.
-static int brownout_threshold_mv(void)
-{
-#if   CONFIG_ESP_BROWNOUT_DET_LVL_SEL_0
-    return 2430;
-#elif CONFIG_ESP_BROWNOUT_DET_LVL_SEL_1
-    return 2480;
-#elif CONFIG_ESP_BROWNOUT_DET_LVL_SEL_2
-    return 2580;
-#elif CONFIG_ESP_BROWNOUT_DET_LVL_SEL_3
-    return 2620;
-#elif CONFIG_ESP_BROWNOUT_DET_LVL_SEL_4
-    return 2670;
-#elif CONFIG_ESP_BROWNOUT_DET_LVL_SEL_5
-    return 2700;
-#elif CONFIG_ESP_BROWNOUT_DET_LVL_SEL_6
-    return 2770;
-#elif CONFIG_ESP_BROWNOUT_DET_LVL_SEL_7
-    return 2800;
-#else
-    return -1;   // детектор вимкнено
-#endif
-}
-```
+:::code proj-brownout-guard/c/krok-3-porih-detektora.c
 
 Це не «зчитування регістра», а свідоме віддзеркалення налаштування в рантайм — саме те, що треба, щоб лог і рішення спиралися на **фактичний** поріг збірки, а не на здогад.
 
@@ -193,20 +114,7 @@ static int brownout_threshold_mv(void)
 
 ESP-IDF уже має власний обробник brownout, і повчально глянути, **як його написано**, бо кожен його рядок — це урок, що можна й чого не можна робити в цей момент. Ось він (спрощено, з IDF):
 
-```c
-IRAM_ATTR static void rtc_brownout_isr_handler(void *arg)
-{
-    brownout_ll_intr_clear();               // 1. зняти прапорець переривання
-
-    esp_cpu_stall(other_core_id);           // 2. зупинити друге ядро
-
-    esp_reset_reason_set_hint(ESP_RST_BROWNOUT);  // 3. лишити підказку в RTC
-
-    ESP_DRAM_LOGI(TAG, "Brownout detector was triggered\r\n\r\n");  // 4. друк із DRAM
-
-    esp_restart_noos();                     // 5. негайний перезапуск
-}
-```
+:::code proj-brownout-guard/c/krok-4-obrobnyk-brownout-i.c
 
 Придивімося до трьох речей, які легко зробити не так, якби ти писав такий обробник сам.
 
@@ -237,51 +145,13 @@ esp_err_t esp_wifi_get_max_tx_power(int8_t *power);
 
 По-друге, значення **квантується** таблицею, і фактична потужність — не завжди рівно та, що просив. Драйвер округлює запит до найближчого дозволеного рівня зі своєї сітки (наприклад, запит 60 дасть рівно 15 dBm, а будь-що в діапазоні 60…65 — теж 15 dBm). Тому після `set` корисно зробити `get` і **вивести фактичне** значення — щоб у логу було, що реально стоїть, а не що ти хотів.
 
-```c
-static void wifi_apply_power_policy(uint32_t brownout_count)
-{
-    // Що більше brownout-ів поспіль, то скромніший апетит радіо.
-    int8_t want;                 // одиниця — 0.25 dBm
-    if (brownout_count == 0)      want = 78;  // 19.5 dBm — повна
-    else if (brownout_count < 3)  want = 52;  // 13 dBm  — помірна
-    else                          want = 34;  // 8.5 dBm — обережна
-
-    esp_err_t err = esp_wifi_set_max_tx_power(want);   // ТІЛЬКИ після esp_wifi_start()
-    if (err != ESP_OK) {
-        ESP_LOGW(TAG, "set_tx_power: %s", esp_err_to_name(err));
-        return;
-    }
-    int8_t actual = 0;
-    esp_wifi_get_max_tx_power(&actual);                 // округлене драйвером
-    ESP_LOGI(TAG, "TX-потужність: хотів %.2f, стоїть %.2f dBm",
-             want * 0.25, actual * 0.25);
-}
-```
+:::code proj-brownout-guard/c/krok-5-pryborkaty-radio.c
 
 **Обмежити стартовий сплеск (inrush) PA.** Перший пік — найлютіший: у мить, коли PHY-шар піднімає підсилювач і калібрується, струм стрибає найвище. ESP-IDF дозволяє **не бити на повну одразу**, а ввести живлення радіо м'якше — через параметри Wi-Fi-ініціалізації. Ключове — **не** тримати максимальну заявлену потужність у PHY, поки вона не потрібна: чим нижча стеля потужності на момент старту радіо, тим менший стартовий сплеск. Практично це означає: не викликати `esp_wifi_set_max_tx_power(78)` **до** того, як лінк устоявся; підняти потужність можна пізніше, коли вже підключилися й розв'язка «відхекалася» після першого піку.
 
 Загальний порядок безпечного старту радіо після brownout виглядає так:
 
-```c
-void app_main(void)
-{
-    esp_reset_reason_t reason = esp_reset_reason();
-    brownout_bookkeeping(reason);                 // полічити (крок 2)
-    ESP_LOGI(TAG, "поріг BOD ≈ %d мВ", brownout_threshold_mv());  // (крок 3)
-
-    // …ініціалізація NVS, netif, event loop…
-
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
-    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
-
-    // Стартуємо радіо СКРОМНО, щоб приборкати перший сплеск PA:
-    ESP_ERROR_CHECK(esp_wifi_start());            // тепер set/get_tx_power дозволені
-    wifi_apply_power_policy(s_brownout_count);     // (крок 5)
-
-    ESP_ERROR_CHECK(esp_wifi_connect());          // аж тепер — у ефір
-}
-```
+:::code proj-brownout-guard/c/krok-5-pryborkaty-radio-2.c
 
 Ця послідовність і є та «окрема гілка обережності», що на схемі вела від `ESP_RST_BROWNOUT`: полічили → порахували поріг → стартували радіо стримано → лише потім під'єдналися.
 
@@ -297,44 +167,11 @@ void app_main(void)
 
 **Підхід Б: сам чіп як осцилограф.** У ESP32 є вбудований АЦП, і його можна **синхронізувати** з подіями радіо, щоб зловити просадку зсередини, без зовнішнього приладу. Ідея: під час вмикання Wi-Fi швидко-швидко міряти саму напругу 3V3 і ловити її **мінімум** — те найглибше значення, до якого вона провалюється в мить піку. Якщо цей мінімум близький до порога BOD — ось твоє пояснення скидів.
 
-```c
-#include "esp_adc/adc_oneshot.h"
-
-// Ловимо МІНІМУМ напруги живлення протягом вікна вимірювання.
-// (3V3 подано на пін АЦП через дільник — АЦП ESP32 не бачить понад ~3.1 В напряму.)
-static int measure_vdd_min_mv(adc_oneshot_unit_handle_t adc, adc_channel_t ch,
-                              int window_ms, int divider_num, int divider_den)
-{
-    int min_raw = 1 << 30;
-    int64_t t_end = esp_timer_get_time() + (int64_t)window_ms * 1000;
-    while (esp_timer_get_time() < t_end) {
-        int raw = 0;
-        if (adc_oneshot_read(adc, ch, &raw) == ESP_OK && raw < min_raw) {
-            min_raw = raw;
-        }
-        // без затримки: беремо якомога густіше, щоб не проґавити вузький провал
-    }
-    // raw → мВ на піні (для 12-біт і опори ~3.3 В шкала ≈ 3300/4095 мВ на відлік),
-    // тоді назад через дільник до реальної 3V3:
-    int mv_pin = (min_raw * 3300) / 4095;
-    return mv_pin * divider_den / divider_num;
-}
-```
+:::code proj-brownout-guard/c/krok-6-zmiriaty-toi-samyi.c
 
 І застосування — обгорнути ним саме той момент, де ми підозрюємо пік: увімкнення радіо.
 
-```c
-    int before = measure_vdd_min_mv(adc, ch, 5, DIV_NUM, DIV_DEN);   // спокій
-    esp_wifi_start();
-    esp_wifi_connect();
-    int during = measure_vdd_min_mv(adc, ch, 300, DIV_NUM, DIV_DEN); // під час старту радіо
-
-    ESP_LOGI(TAG, "3V3: спокій %d мВ, провал при старті радіо %d мВ (поріг BOD ≈ %d мВ)",
-             before, during, brownout_threshold_mv());
-    if (during < brownout_threshold_mv() + 150) {
-        ESP_LOGW(TAG, "провал майже дістає порога — живлення на межі, тре товщу розв'язку");
-    }
-```
+:::code proj-brownout-guard/c/krok-6-zmiriaty-toi-samyi-2.c
 
 Цей самий підхід — «сам чіп міряє свою напругу під навантаженням» — споріднений із загальним [вимірюванням споживання зсередини прошивки](root:embedded/measure-consumption): там ідея та сама (АЦП + шунт або дільник + синхронізація з подіями), лише мета — середній струм, а тут — **найгірший миттєвий провал**. Тримай у голові межу методу: вбудований АЦП не миттєвий, і дуже гострий пік (частки мілісекунди) він теж може «недобачити». Тому підхід Б добрий як **дешевий сторож у полі** («напруга на межі — попереди»), а точну **форму** піку однаково знімають осцилографом.
 

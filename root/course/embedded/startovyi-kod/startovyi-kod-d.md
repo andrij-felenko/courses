@@ -111,49 +111,8 @@ _start:
 Щоб компілятор не оптимізував таблицю векторів як «невикористовуваний масив» і розмістив її строго за нульовою адресою Flash-пам'яті, у коді використовують спеціальні атрибути секцій:
 
 :::tabs
-```c
-/* Оголошення векторної таблиці мовою C */
-__attribute__((section(".isr_vector"), used))
-void (* const g_pfnVectors[])(void) = {
-    (void (*)(void))(&_estack), /* 0x00: Initial SP */
-    Reset_Handler,              /* 0x04: Reset Handler */
-    NMI_Handler,                /* 0x08: NMI Handler */
-    HardFault_Handler,          /* 0x0C: HardFault Handler */
-    MemManage_Handler,          /* 0x10: MPU Fault Handler */
-    BusFault_Handler,           /* 0x14: Bus Fault Handler */
-    UsageFault_Handler,         /* 0x18: Usage Fault Handler */
-    0, 0, 0, 0,                 /* 0x1C..0x28: Reserved */
-    SVC_Handler,                /* 0x2C: SVCall Handler */
-    0,                          /* 0x30: Debug Monitor */
-    0,                          /* 0x34: Reserved */
-    PendSV_Handler,             /* 0x38: PendSV Handler */
-    SysTick_Handler,            /* 0x3C: SysTick Handler */
-    /* Далі розміщуються вектори периферії: WWDG_IRQHandler, PVD_IRQHandler... */
-};
-```
-```cpp
-/* Оголошення векторної таблиці мовою C++ з суворою типізацією */
-using VectorHandler = void (*)(void);
-
-extern "C" {
-    __attribute__((section(".isr_vector"), used))
-    const VectorHandler g_pfnVectors[] = {
-        reinterpret_cast<VectorHandler>(&_estack), /* 0x00: Initial SP */
-        Reset_Handler,                            /* 0x04: Reset Handler */
-        NMI_Handler,                              /* 0x08: NMI Handler */
-        HardFault_Handler,                        /* 0x0C: HardFault Handler */
-        MemManage_Handler,                        /* 0x10: MPU Fault Handler */
-        BusFault_Handler,                         /* 0x14: Bus Fault Handler */
-        UsageFault_Handler,                       /* 0x18: Usage Fault Handler */
-        nullptr, nullptr, nullptr, nullptr,       /* 0x1C..0x28: Reserved */
-        SVC_Handler,                              /* 0x2C: SVCall Handler */
-        nullptr,                                  /* 0x30: Debug Monitor */
-        nullptr,                                  /* 0x34: Reserved */
-        PendSV_Handler,                           /* 0x38: PendSV Handler */
-        SysTick_Handler,                          /* 0x3C: SysTick Handler */
-    };
-}
-```
+:::code startovyi-kod-d/c/sektsiia-isr-vector-ta.c
+:::code startovyi-kod-d/cpp/sektsiia-isr-vector-ta.cpp
 :::
 
 Атрибут `__attribute__((used))` наказує компілятору зберегти символ у результуючому об'єктному файлі, навіть якщо до нього немає явних звернень з інших функцій C. У скрипті лінкера директива `KEEP(*(.isr_vector))` забороняє лінкеру викидати цю секцію під час оптимізації невикористаного коду (`--gc-sections`).
@@ -165,34 +124,8 @@ extern "C" {
 Щоб уникнути ручного опису десятків порожніх функцій, у стартовому коді застосовують механізм **слабких зв'язків** (weak aliases). Усі обробники оголошуються як слабкі синоніми єдиного універсального обробника за замовчуванням `Default_Handler`:
 
 :::tabs
-```c
-/* Оголошення слабких обробників переривань */
-void Default_Handler(void) {
-    /* Нескінченна пастка: якщо ми потрапили сюди, переривання було
-       увімкнено в NVIC, але для нього не написали реальний обробник */
-    while (1) {
-    }
-}
-
-void NMI_Handler(void)        __attribute__((weak, alias("Default_Handler")));
-void HardFault_Handler(void)  __attribute__((weak, alias("Default_Handler")));
-void SysTick_Handler(void)    __attribute__((weak, alias("Default_Handler")));
-void USART1_IRQHandler(void)  __attribute__((weak, alias("Default_Handler")));
-```
-```cpp
-/* Оголошення слабких обробників мовою C++ */
-extern "C" {
-    void Default_Handler() {
-        while (true) {
-        }
-    }
-
-    void NMI_Handler()        __attribute__((weak, alias("Default_Handler")));
-    void HardFault_Handler()  __attribute__((weak, alias("Default_Handler")));
-    void SysTick_Handler()    __attribute__((weak, alias("Default_Handler")));
-    void USART1_IRQHandler()  __attribute__((weak, alias("Default_Handler")));
-}
-```
+:::code startovyi-kod-d/c/mekhanizm-slabkykh.c
+:::code startovyi-kod-d/cpp/mekhanizm-slabkykh.cpp
 :::
 
 Якщо користувач у будь-якому місці проекту створить власну звичайну функцію `void USART1_IRQHandler(void)`, лінкер виявить сильний символ (*strong symbol*) і автоматично замінить адресу `Default_Handler` у таблиці векторів на адресу користувацької функції.
@@ -204,32 +137,8 @@ extern "C" {
 Для зміни адреси таблиці використовується регістр зміщення векторів `VTOR` (Vector Table Offset Register), розташований у системному блоці керування ядра за адресою `SCB->VTOR` (`0xE000ED08`):
 
 :::tabs
-```c
-/* Перенесення таблиці векторів на нову адресу у Flash або RAM */
-void relocate_vector_table(uint32_t new_vector_base_address) {
-    volatile uint32_t *scb_vtor = (volatile uint32_t *)0xE000ED08UL;
-    
-    /* Нова адреса має бути строго вирівняна по ступеню двійки (мінімум 128 або 512 байт) */
-    *scb_vtor = new_vector_base_address;
-    
-    /* Бар'єри пам'яті гарантують завершення операції запису до наступного переривання */
-    __asm volatile("dsb\n\tisb" ::: "memory");
-}
-```
-```cpp
-#include <cstdint>
-
-/* Безпечна релокація таблиці векторів у C++ */
-namespace mcu::system {
-    inline void relocate_vector_table(std::uintptr_t new_base_address) noexcept {
-        constexpr auto vtor_reg_addr = static_cast<std::uintptr_t>(0xE000ED08UL);
-        auto* const scb_vtor = reinterpret_cast<volatile std::uint32_t*>(vtor_reg_addr);
-        
-        *scb_vtor = static_cast<std::uint32_t>(new_base_address);
-        asm volatile("dsb\n\tisb" ::: "memory");
-    }
-}
-```
+:::code startovyi-kod-d/c/relokatsiia-vektoriv.c
+:::code startovyi-kod-d/cpp/relokatsiia-vektoriv.hpp
 :::
 
 ## Секції `.data` та `.bss`: створення робочого простору змінних
@@ -283,58 +192,8 @@ std::array<std::uint8_t, 16384> dma_buffer{};      /* Секція .bss */
 У функції `Reset_Handler` стартовий код виконує два послідовні цикли обходу пам'яті:
 
 :::tabs
-```c
-/* Класична реалізація ініціалізації пам'яті мовою C */
-extern uint32_t _sidata; /* Початок початкових значень .data у Flash (LMA) */
-extern uint32_t _sdata;  /* Початок секції .data в RAM (VMA) */
-extern uint32_t _edata;  /* Кінець секції .data в RAM (VMA) */
-extern uint32_t _sbss;   /* Початок секції .bss в RAM (VMA) */
-extern uint32_t _ebss;   /* Кінець секції .bss в RAM (VMA) */
-
-void init_memory_sections(void) {
-    /* 1. Копіювання секції .data з Flash у RAM */
-    uint32_t *p_src = &_sidata;
-    uint32_t *p_dst = &_sdata;
-    while (p_dst < &_edata) {
-        *p_dst++ = *p_src++;
-    }
-
-    /* 2. Заповнення секції .bss нулями в RAM */
-    uint32_t *p_bss = &_sbss;
-    while (p_bss < &_ebss) {
-        *p_bss++ = 0;
-    }
-}
-```
-```cpp
-#include <cstdint>
-
-/* Типізована реалізація ініціалізації пам'яті мовою C++ */
-extern "C" {
-    extern std::uint32_t _sidata;
-    extern std::uint32_t _sdata;
-    extern std::uint32_t _edata;
-    extern std::uint32_t _sbss;
-    extern std::uint32_t _ebss;
-}
-
-namespace mcu::startup {
-    inline void init_memory_sections() noexcept {
-        /* 1. Копіювання ініціалізованих змінних */
-        const std::uint32_t* src = &_sidata;
-        std::uint32_t* dst = &_sdata;
-        while (dst < &_edata) {
-            *dst++ = *src++;
-        }
-
-        /* 2. Обнулення неініціалізованих змінних */
-        std::uint32_t* bss = &_sbss;
-        while (bss < &_ebss) {
-            *bss++ = 0;
-        }
-    }
-}
-```
+:::code startovyi-kod-d/c/realizatsiia-tsyklu.c
+:::code startovyi-kod-d/cpp/realizatsiia-tsyklu.cpp
 :::
 
 ### Вирівнювання по 4 байти (Word Alignment)
@@ -383,34 +242,8 @@ namespace mcu::startup {
 Увімкнення FPU здійснюється записом комбінації бітів `0b11` (Full Access) у бітові поля `CP10` (біти 21:20) та `CP11` (біти 23:22) системного регістра `SCB->CPACR` (`0xE000ED88`):
 
 :::tabs
-```c
-/* Увімкнення FPU у стартовому коді */
-void enable_fpu_coprocessor(void) {
-    volatile uint32_t *scb_cpacr = (volatile uint32_t *)0xE000ED88UL;
-    
-    /* Встановлюємо біти 20..23 у значення 0b1111 (0xF) */
-    *scb_cpacr |= (0xFUL << 20);
-    
-    /* Інструкції синхронізації шин і конвеєра */
-    __asm volatile("dsb\n\tisb" ::: "memory");
-}
-```
-```cpp
-#include <cstdint>
-
-/* Увімкнення FPU у стилі C++ */
-namespace mcu::hardware {
-    inline void enable_fpu() noexcept {
-        constexpr auto cpacr_addr = static_cast<std::uintptr_t>(0xE000ED88UL);
-        auto* const scb_cpacr = reinterpret_cast<volatile std::uint32_t*>(cpacr_addr);
-        
-        constexpr std::uint32_t full_access_mask = (0xFUL << 20);
-        *scb_cpacr |= full_access_mask;
-        
-        asm volatile("dsb\n\tisb" ::: "memory");
-    }
-}
-```
+:::code startovyi-kod-d/c/uvimknennia-aparatnoho.c
+:::code startovyi-kod-d/cpp/uvimknennia-aparatnoho.hpp
 :::
 
 Інструкція `dsb` (Data Synchronization Barrier) змушує шину пам'яті завершити транзакцію запису в регістр `CPACR`, а `isb` (Instruction Synchronization Barrier) повністю очищує конвеєр команд процесора, гарантуючи, що наступні інструкції з рухомою комою будуть декодовані вже увімкненим FPU.
@@ -419,69 +252,15 @@ namespace mcu::hardware {
 
 У мові C всі глобальні змінні мають константне початкове значення, яке просто копіюється з Flash у RAM. Проте в C++ глобальні та статичні об'єкти класів можуть мати **конструктори**, які виконують довільний код (виділення ресурсів, конфігурація апаратних периферійних модулів, розрахунок таблиць):
 
-```cpp
-/* Глобальний об'єкт C++ з нетривіальним конструктором */
-class UartDriver {
-public:
-    UartDriver(uint32_t baudrate) {
-        /* Код конструктора, який має виконатися ДО виклику main() */
-        this->init_hardware(baudrate);
-    }
-private:
-    void init_hardware(uint32_t baudrate);
-};
-
-UartDriver g_console_uart(115200); /* Хто викличе цей конструктор? */
-```
+:::code startovyi-kod-d/cpp/hlobalni-konstruktory-c.cpp
 
 Компілятор `g++` знаходить усі такі об'єкти в проекті, створює для кожного з них невелику анонімну функцію-ініціалізатор і складає покажчики на ці функції у спеціальну таблицю — секцію `.init_array` у Flash-пам'яті.
 
 Стартовий код або стандартна бібліотека (функція `__libc_init_array` зі складу `newlib`) повинні пройти цей масив покажчиків від початку (`__init_array_start`) до кінця (`__init_array_end`) і послідовно викликати кожну функцію:
 
 :::tabs
-```c
-/* Ручна ініціалізація C++ конструкторів у стартовому коді C */
-typedef void (*constructor_fn_t)(void);
-
-extern constructor_fn_t __init_array_start[];
-extern constructor_fn_t __init_array_end[];
-
-void invoke_global_constructors(void) {
-    size_t count = (size_t)(__init_array_end - __init_array_start);
-    for (size_t i = 0; i < count; ++i) {
-        if (__init_array_start[i] != NULL) {
-            __init_array_start[i]();
-        }
-    }
-}
-```
-```cpp
-#include <cstddef>
-#include <span>
-
-/* Ідіоматичний виклик списку конструкторів у C++ */
-using InitFunction = void (*)(void);
-
-extern "C" {
-    extern InitFunction __init_array_start[];
-    extern InitFunction __init_array_end[];
-}
-
-namespace mcu::runtime {
-    inline void call_global_constructors() noexcept {
-        const std::span<InitFunction> constructors(
-            __init_array_start,
-            static_cast<std::size_t>(__init_array_end - __init_array_start)
-        );
-
-        for (const auto ctor : constructors) {
-            if (ctor != nullptr) {
-                ctor();
-            }
-        }
-    }
-}
-```
+:::code startovyi-kod-d/c/hlobalni-konstruktory-c.c
+:::code startovyi-kod-d/cpp/hlobalni-konstruktory-c-2.cpp
 :::
 
 > ⚠️ **Пастка статичної ініціалізації (Static Initialization Order Fiasco):** Стандарт мови C++ суворо гарантує, що всі глобальні конструктори відпрацюють до першого рядка функції `main()`. Проте стандарт **не визначає порядок** виклику конструкторів, розташованих у різних файлах вихідного коду (`.cpp`). Якщо конструктор класу `Display` у файлі `display.cpp` спробує надіслати дані через об'єкт `g_console_uart` із файлу `uart.cpp`, а `g_console_uart` ще не був сконструйований, система зависне або впаде у HardFault.
@@ -533,43 +312,8 @@ namespace mcu::runtime {
 Реалізація надійного циклу завершення:
 
 :::tabs
-```c
-/* Захисна пастка після виходу з main мовою C */
-void Reset_Handler(void) {
-    /* 1. Ініціалізація даних та рантайму */
-    init_memory_sections();
-    enable_fpu_coprocessor();
-    SystemInit();
-    invoke_global_constructors();
-
-    /* 2. Запуск основної програми */
-    main();
-
-    /* 3. Якщо main() повернув значення — переходимо в режим очікування */
-    while (1) {
-        /* Команда Wait For Interrupt: вимикає тактування ядра до переривання */
-        __asm volatile("wfi");
-    }
-}
-```
-```cpp
-/* Захисна пастка після виходу з main мовою C++ */
-extern "C" void Reset_Handler() {
-    /* 1. Ініціалізація даних та рантайму */
-    mcu::startup::init_memory_sections();
-    mcu::hardware::enable_fpu();
-    SystemInit();
-    mcu::runtime::call_global_constructors();
-
-    /* 2. Запуск основної програми */
-    static_cast<void>(main());
-
-    /* 3. Термінальний енергозберігаючий цикл */
-    while (true) {
-        asm volatile("wfi");
-    }
-}
-```
+:::code startovyi-kod-d/c/arkhitektura-zakhysnoi.c
+:::code startovyi-kod-d/cpp/arkhitektura-zakhysnoi.cpp
 :::
 
 Інструкція `wfi` (Wait For Interrupt) переводить процесорне ядро в режим низького енергоспоживання, зупиняючи лічильник тактів процесора до приходу наступного апаратного переривання або сигналу скидання від сторожового таймера (Watchdog).

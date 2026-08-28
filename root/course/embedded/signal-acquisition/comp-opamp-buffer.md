@@ -85,65 +85,8 @@
 **Перевірочний код (Arduino-ESP32, реальний компільований фрагмент):**
 
 :::tabs
-```cpp
-// ADC1, 12 біт; PIN_RAW — вузол подільника напряму,
-// PIN_BUF — вихід повторювача → той самий вузол
-const int PIN_RAW = 34;   // ADC1 (GPIO34), напряму до МОм-подільника
-const int PIN_BUF = 35;   // ADC1 (GPIO35), вихід ОП-буфера
-
-static uint32_t avg_mv(int pin, int n) {
-    uint32_t s = 0;
-    for (int i = 0; i < n; i++) s += analogReadMilliVolts(pin);
-    return s / n;
-}
-
-void setup() {
-    Serial.begin(115200);
-    analogReadResolution(12);       // рідні 12 біт ESP32
-    // analogSetPinAttenuation(PIN_RAW, ADC_11db); // якщо Vin > 1 В
-    // analogSetPinAttenuation(PIN_BUF, ADC_11db);
-}
-
-void loop() {
-    uint32_t raw = avg_mv(PIN_RAW, 16);  // високий опір джерела — занижує
-    uint32_t buf = avg_mv(PIN_BUF, 16); // через буфер — істина
-    // Очікуваний вивід:
-    //   raw=945 mV  buf=1670 mV  dif=+725 mV   (джерело ~1.72 В, 1 МОм подільник)
-    //   або raw≈buf (джерело й так низькоомне — буфер зайвий)
-    Serial.printf("raw=%u mV  buf=%u mV  dif=%d mV\n",
-                  raw, buf, (int)buf - (int)raw);
-    delay(200);
-}
-```
-```python
-# MicroPython (ESP32). ADC1, 12 біт; PIN_RAW — вузол подільника напряму,
-# PIN_BUF — вихід повторювача → той самий вузол
-from machine import ADC, Pin
-import time
-
-PIN_RAW = 34   # ADC1 (GPIO34), напряму до МОм-подільника
-PIN_BUF = 35   # ADC1 (GPIO35), вихід ОП-буфера
-
-adc_raw = ADC(Pin(PIN_RAW))
-adc_buf = ADC(Pin(PIN_BUF))
-adc_raw.atten(ADC.ATTN_0DB)   # якщо Vin > 1 В — ADC.ATTN_11DB
-adc_buf.atten(ADC.ATTN_0DB)
-
-def avg_mv(adc, n):
-    s = 0
-    for _ in range(n):
-        s += adc.read_uv()       # рідні мікровольти ESP32
-    return s // n // 1000        # → мілівольти
-
-while True:
-    raw = avg_mv(adc_raw, 16)    # високий опір джерела — занижує
-    buf = avg_mv(adc_buf, 16)    # через буфер — істина
-    # Очікуваний вивід:
-    #   raw=945 mV  buf=1670 mV  dif=+725 mV   (джерело ~1.72 В, 1 МОм подільник)
-    #   або raw≈buf (джерело й так низькоомне — буфер зайвий)
-    print("raw={} mV  buf={} mV  dif={} mV".format(raw, buf, buf - raw))
-    time.sleep_ms(200)
-```
+:::code comp-opamp-buffer/cpp/main.cpp
+:::code comp-opamp-buffer/py/main.py
 :::
 
 Усереднення по 16 семплах пригнічує випадковий шум і робить різницю чистішою.

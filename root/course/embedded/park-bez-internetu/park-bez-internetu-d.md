@@ -80,41 +80,8 @@
 Організація Flash-пам'яті вимагає врахування розміру фізичного сектора стирання: для більшості NOR Flash мікросхем (наприклад, Winbond W25Q або внутрішньої пам'яті STM32/ESP32) мінімальний сектор становить 4 КБ. Посторінковий запис виконується блоками по 256 байтів. Якщо запис переривається посеред 4-кілобайтного сектора, цей сектор вважається недійсним і перетирається заново під час наступної спроби.
 
 :::tabs
-```c
-/* Звірка апаратного ідентифікатора та захист від відкату в C */
-int check_hardware_and_rollback(uint16_t target_id, uint32_t version, 
-                                uint16_t device_hw_id, uint32_t current_efuse_ver) {
-    if (target_id != device_hw_id) {
-        return -1; /* Невідповідність апаратної плати */
-    }
-    if (version < current_efuse_ver) {
-        return -2; /* Спроба відкату на застарілу версію */
-    }
-    return 0; /* Перевірку пройдено успішно */
-}
-```
-```cpp
-/* Ідіоматична C++ перевірка апаратних обмежень та монотонної версії */
-#include <cstdint>
-#include <expected>
-
-enum class HardwareValidationError : uint8_t {
-    TargetMismatch,
-    RollbackBlocked
-};
-
-[[nodiscard]] constexpr std::expected<void, HardwareValidationError>
-validateHardwareConstraints(uint16_t target_id, uint32_t package_version,
-                            uint16_t device_id, uint32_t current_efuse_version) noexcept {
-    if (target_id != device_id) {
-        return std::unexpected(HardwareValidationError::TargetMismatch);
-    }
-    if (package_version < current_efuse_version) {
-        return std::unexpected(HardwareValidationError::RollbackBlocked);
-    }
-    return {};
-}
-```
+:::code park-bez-internetu-d/c/potokovyi-konveier.c
+:::code park-bez-internetu-d/cpp/potokovyi-konveier.cpp
 :::
 
 :::tabs
@@ -125,38 +92,7 @@ bool is_package_authentic(const upkg_header_t *hdr, const uint8_t *public_key) {
     return ed25519_verify((const uint8_t *)hdr, signed_area_len, hdr->signature, public_key);
 }
 ```
-```cpp
-/* Ідіоматична C++ версія валідатора з використанням std::span та std::expected */
-#include <span>
-#include <expected>
-#include <cstdint>
-
-enum class PackageError { InvalidSignature, RollbackBlocked, HardwareMismatch };
-
-std::expected<void, PackageError> validatePackage(
-    const UpkgHeader& hdr,
-    std::span<const uint8_t, 32> root_public_key,
-    uint32_t current_efuse_version,
-    uint16_t my_hardware_id) 
-{
-    if (hdr.target_hw_id != my_hardware_id) {
-        return std::unexpected(PackageError::HardwareMismatch);
-    }
-    if (hdr.version_monotonic < current_efuse_version) {
-        return std::unexpected(PackageError::RollbackBlocked);
-    }
-    
-    auto signed_bytes = std::span<const uint8_t>(
-        reinterpret_cast<const uint8_t*>(&hdr), sizeof(UpkgHeader) - 64
-    );
-    
-    if (!ed25519_verify(signed_bytes, hdr.signature, root_public_key)) {
-        return std::unexpected(PackageError::InvalidSignature);
-    }
-    
-    return {};
-}
-```
+:::code park-bez-internetu-d/cpp/potokovyi-konveier-2.cpp
 :::
 
 #### Геометрія розділів Flash та захист від знеструмлення
@@ -281,46 +217,8 @@ std::expected<void, PackageError> validatePackage(
    - Коли в мережі панує консенсус, інтервал подвоюється до максимуму (радіоефір мовчить, батарея зберігається). Як тільки вузол фіксує новий маніфест версії, таймер Trickle скидається до `I_min`, викликаючи швидкий спалах обміну даними.
 
 :::tabs
-```c
-/* Порівняння бітових масок для генерації запиту відсутніх чанків */
-int find_first_missing_chunk(const uint8_t *local_mask, const uint8_t *remote_mask, int mask_len_bytes) {
-    for (int byte_idx = 0; byte_idx < mask_len_bytes; byte_idx++) {
-        uint8_t needed = remote_mask[byte_idx] & (~local_mask[byte_idx]);
-        if (needed != 0) {
-            for (int bit_idx = 0; bit_idx < 8; bit_idx++) {
-                if (needed & (1 << bit_idx)) {
-                    return (byte_idx * 8) + bit_idx;
-                }
-            }
-        }
-    }
-    return -1; /* Нічого завантажувати не потрібно */
-}
-```
-```cpp
-/* C++20 алгоритм узгодження чанків із використанням std::span */
-#include <span>
-#include <optional>
-#include <cstdint>
-
-std::optional<uint32_t> findNextMissingChunk(
-    std::span<const uint8_t> local_bitmask,
-    std::span<const uint8_t> remote_bitmask) 
-{
-    const std::size_t len = std::min(local_bitmask.size(), remote_bitmask.size());
-    for (std::size_t byte_idx = 0; byte_idx < len; ++byte_idx) {
-        uint8_t needed = remote_bitmask[byte_idx] & static_cast<uint8_t>(~local_bitmask[byte_idx]);
-        if (needed != 0) {
-            for (uint8_t bit = 0; bit < 8; ++bit) {
-                if ((needed & (1u << bit)) != 0) {
-                    return static_cast<uint32_t>((byte_idx * 8) + bit);
-                }
-            }
-        }
-    }
-    return std::nullopt;
-}
-```
+:::code park-bez-internetu-d/c/matematychna-mekhanika.c
+:::code park-bez-internetu-d/cpp/matematychna-mekhanika.cpp
 :::
 
 ---
