@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура регістрів стану IEEE 488.2 та підсистем SCPI</text>
+<rect x="20.0" y="65.0" width="350.0" height="100.0" rx="6" fill="#f0fff4" stroke="#276749" stroke-width="1.5"/>
+<text x="195.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#276749" text-anchor="middle" font-weight="700">Standard Event Status Register (ESR / *ESR?)</text>
+<text x="195.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Біти: PON(7) | URQ(6) | CME(5) | EXE(4) | DDE(3) | QYE(2) | OPC(0)</text>
+<text x="195.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2f855a" text-anchor="middle" font-weight="700">Маска дозволу: ESE (*ESE / *ESE?)</text>
+<text x="195.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#22543d" text-anchor="middle">Підсумок (Bitwise AND -&gt; OR) -&gt; ESB (біт 5 STB)</text>
+<rect x="20.0" y="200.0" width="350.0" height="90.0" rx="6" fill="#fffaf0" stroke="#c05621" stroke-width="1.5"/>
+<text x="195.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c05621" text-anchor="middle" font-weight="700">Questionable Status Subsystem (:STAT:QUES)</text>
+<text x="195.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Condition -&gt; Transition (PTR/NTR) -&gt; Event -&gt; Enable</text>
+<text x="195.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Події: перегрів, перевантаження, нестабільність шкали</text>
+<text x="195.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7b341e" text-anchor="middle">Підсумок -&gt; QUES (біт 3 STB)</text>
+<rect x="20.0" y="320.0" width="350.0" height="90.0" rx="6" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1.5"/>
+<text x="195.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2b6cb0" text-anchor="middle" font-weight="700">Operation Status Subsystem (:STAT:OPER)</text>
+<text x="195.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Condition -&gt; Transition (PTR/NTR) -&gt; Event -&gt; Enable</text>
+<text x="195.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Події: калібрування, очікування тригера, вимірювання</text>
+<text x="195.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2c5282" text-anchor="middle">Підсумок -&gt; OPER (біт 7 STB)</text>
+<rect x="20.0" y="445.0" width="350.0" height="70.0" rx="6" fill="#faf5ff" stroke="#6b46c1" stroke-width="1.5"/>
+<text x="195.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b46c1" text-anchor="middle" font-weight="700">Черга помилок FIFO (:SYST:ERR?) -&gt; EAV (біт 2 STB)</text>
+<text x="195.0" y="493.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#553c9a" text-anchor="middle" font-weight="700">Вихідний буфер відповідей -&gt; MAV (біт 4 STB)</text>
+<rect x="525.0" y="110.0" width="260.0" height="380.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="2.0"/>
+<text x="655.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Status Byte Register (STB)</text>
+<text x="655.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#742a2a" text-anchor="middle">Опитування: *STB? / Serial Poll</text>
+<rect x="537.0" y="173.0" width="236.0" height="26.0" rx="3" fill="#ffffff" stroke="#feb2b2" stroke-width="1.0"/>
+<text x="565.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 7</text>
+<text x="615.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2b6cb0" text-anchor="middle" font-weight="700">OPER</text>
+<text x="700.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4a5568" text-anchor="middle">Operation Status Summary</text>
+<rect x="537.0" y="207.0" width="236.0" height="26.0" rx="3" fill="#ffffff" stroke="#feb2b2" stroke-width="1.0"/>
+<text x="565.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 6</text>
+<text x="615.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">MSS/RQS</text>
+<text x="700.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4a5568" text-anchor="middle">Master Summary / SRQ</text>
+<rect x="537.0" y="241.0" width="236.0" height="26.0" rx="3" fill="#ffffff" stroke="#feb2b2" stroke-width="1.0"/>
+<text x="565.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 5</text>
+<text x="615.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#276749" text-anchor="middle" font-weight="700">ESB</text>
+<text x="700.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4a5568" text-anchor="middle">Standard Event Summary</text>
+<rect x="537.0" y="275.0" width="236.0" height="26.0" rx="3" fill="#ffffff" stroke="#feb2b2" stroke-width="1.0"/>
+<text x="565.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 4</text>
+<text x="615.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#553c9a" text-anchor="middle" font-weight="700">MAV</text>
+<text x="700.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4a5568" text-anchor="middle">Message Available</text>
+<rect x="537.0" y="309.0" width="236.0" height="26.0" rx="3" fill="#ffffff" stroke="#feb2b2" stroke-width="1.0"/>
+<text x="565.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 3</text>
+<text x="615.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c05621" text-anchor="middle" font-weight="700">QUES</text>
+<text x="700.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4a5568" text-anchor="middle">Questionable Summary</text>
+<rect x="537.0" y="343.0" width="236.0" height="26.0" rx="3" fill="#ffffff" stroke="#feb2b2" stroke-width="1.0"/>
+<text x="565.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 2</text>
+<text x="615.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b46c1" text-anchor="middle" font-weight="700">EAV</text>
+<text x="700.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4a5568" text-anchor="middle">Error Queue Available</text>
+<rect x="537.0" y="377.0" width="236.0" height="26.0" rx="3" fill="#ffffff" stroke="#feb2b2" stroke-width="1.0"/>
+<text x="565.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 1</text>
+<text x="615.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">PROT</text>
+<text x="700.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4a5568" text-anchor="middle">Protection Event</text>
+<rect x="537.0" y="411.0" width="236.0" height="26.0" rx="3" fill="#ffffff" stroke="#feb2b2" stroke-width="1.0"/>
+<text x="565.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Біт 0</text>
+<text x="615.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">—</text>
+<text x="700.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4a5568" text-anchor="middle">User / Device Defined</text>
+<rect x="525.0" y="513.0" width="260.0" height="44.0" rx="5" fill="#edf2f7" stroke="#4a5568" stroke-width="1.5"/>
+<text x="655.0" y="531.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2d3748" text-anchor="middle" font-weight="700">Service Request Enable (SRE)</text>
+<text x="655.0" y="549.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4a5568" text-anchor="middle">Команди: *SRE &lt;val&gt; / *SRE?</text>
+<path d="M 370 125 L 537 253" stroke="#276749" stroke-width="1.5" fill="none"/>
+<path d="M 370 255 L 537 321" stroke="#c05621" stroke-width="1.5" fill="none"/>
+<path d="M 370 375 L 537 185" stroke="#2b6cb0" stroke-width="1.5" fill="none"/>
+<path d="M 370 467 L 537 355" stroke="#6b46c1" stroke-width="1.5" fill="none"/>
+<path d="M 370 493 L 537 287" stroke="#553c9a" stroke-width="1.5" fill="none"/>
+<rect x="850.0" y="250.0" width="140.0" height="100.0" rx="8" fill="#feebc8" stroke="#dd6b20" stroke-width="2.0"/>
+<text x="920.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7b341e" text-anchor="middle">Апаратне / Мережеве</text>
+<text x="920.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7b341e" text-anchor="middle" font-weight="700">Сповіщення</text>
+<text x="920.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SRQ / USB Interrupt</text>
+<text x="920.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7b341e" text-anchor="middle">HiSLIP Async Msg</text>
+<path d="M 773 219 L 850 300" stroke="#c0392b" stroke-width="2.0" fill="none"/>
+</svg>

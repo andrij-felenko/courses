@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр верифікації та валідації прошивки OTA</text>
+<rect x="40.0" y="90.0" width="150.0" height="110.0" rx="8" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="115.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. Мережевий потік</text>
+<text x="115.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">TLS Socket / Chunks</tspan><tspan x="115.0" dy="12.8">Перевірка розміру</tspan><tspan x="115.0" dy="12.8">Буферизація блоків</tspan></text>
+<line x1="192.0" y1="145.0" x2="211.0" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="215.0" y="90.0" width="150.0" height="110.0" rx="8" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/>
+<text x="290.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">2. Запис у Flash</text>
+<text x="290.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">Стирання секторів</tspan><tspan x="290.0" dy="12.8">CRC32 сторінок</tspan><tspan x="290.0" dy="12.8">Цілісність XIP-банку</tspan></text>
+<line x1="367.0" y1="145.0" x2="386.0" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="390.0" y="90.0" width="150.0" height="110.0" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+<text x="465.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">3. Хеш і підпис</text>
+<text x="465.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="465.0" dy="0.0">MCUboot Header</tspan><tspan x="465.0" dy="12.8">SHA-256 Digest</tspan><tspan x="465.0" dy="12.8">ECDSA P-256 / RSA</tspan></text>
+<line x1="542.0" y1="145.0" x2="561.0" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="565.0" y="90.0" width="150.0" height="110.0" rx="8" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="640.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. Anti-Rollback</text>
+<text x="640.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Security Counter</tspan><tspan x="640.0" dy="12.8">eFuse / OTP перевірка</tspan><tspan x="640.0" dy="12.8">Захист від downgrade</tspan></text>
+<line x1="717.0" y1="145.0" x2="736.0" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="740.0" y="90.0" width="150.0" height="110.0" rx="8" fill="#dcfce7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="815.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">5. Атомарний стан</text>
+<text x="815.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">otadata / NVRAM</tspan><tspan x="815.0" dy="12.8">Sequence + CRC32</tspan><tspan x="815.0" dy="12.8">Стан PENDING_VERIFY</tspan></text>
+<rect x="40.0" y="250.0" width="820.0" height="140.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="60.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Етап виконання: Bootloader -&gt; Kernel -&gt; Self-Test -&gt; Confirmation</text>
+<rect x="60.0" y="292.0" width="230.0" height="75.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="175.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Завантажувач (Bootloader)</text>
+<text x="175.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">Інкремент boot_count</tspan><tspan x="175.0" dy="11.7">Запуск Boot Watchdog (30с)</tspan><tspan x="175.0" dy="11.7">Стрибок на Entry Point</tspan></text>
+<line x1="295.0" y1="328.0" x2="325.0" y2="328.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="330.0" y="292.0" width="230.0" height="75.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="445.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Застосунок (Application)</text>
+<text x="445.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">Апаратний POST / BIST</tspan><tspan x="445.0" dy="11.7">Ініціалізація радіо/датчиків</tspan><tspan x="445.0" dy="11.7">Зв'язок із хмарою (MQTT)</tspan></text>
+<line x1="565.0" y1="328.0" x2="595.0" y2="328.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="600.0" y="292.0" width="230.0" height="75.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.6"/>
+<text x="715.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Фіксація (Commit)</text>
+<text x="715.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle"><tspan x="715.0" dy="0.0">ota_mark_valid()</tspan><tspan x="715.0" dy="11.7">Скидання boot_count = 0</tspan><tspan x="715.0" dy="11.7">otadata -&gt; VALID / SUCCESS</tspan></text>
+<rect x="40.0" y="410.0" width="820.0" height="50.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/><text x="450.0" y="438.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Повна лінія захисту: помилка на будь-якому кроці до ota_mark_valid() повертає пристрій на робочий слот.</tspan></text>
+</svg>

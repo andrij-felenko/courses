@@ -63,6 +63,16 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "otp-efuse",
+          "title": "OTP eFuse: кремнієві одноразові запобіжники, контролери eFuse та монотонні лічильники",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -349,7 +359,8 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "comp": [
             {
@@ -365,7 +376,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "hist": [
             {

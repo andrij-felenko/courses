@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта енергонезалежної пам'яті та бітів конфігурації AVR</text>
+<rect x="10.0" y="10.0" width="820.0" height="500.0" rx="6" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="420.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта енергонезалежної пам'яті: Flash, EEPROM, Fuses та Lock Bits</text>
+<rect x="30.0" y="60.0" width="240.0" height="420.0" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.8"/>
+<text x="150.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Flash пам'ять програм</text>
+<rect x="40.0" y="98.0" width="220.0" height="240.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="150.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Секція застосунку (Application)</text>
+<text x="150.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Адреса 0x0000 ... BOOTRST</text>
+<rect x="50.0" y="170.0" width="200.0" height="70.0" rx="6" fill="#ffffff" stroke="#c8d6f5" stroke-width="1.0"/><text x="150.0" y="195.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Код користувача</tspan><tspan x="150.0" dy="13.0">Захист від запису через BLB01/02</tspan><tspan x="150.0" dy="13.0">Доступ до SPM обмежено</tspan></text>
+<text x="150.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Вектори переривань</text>
+<rect x="40.0" y="348.0" width="220.0" height="120.0" rx="6" fill="#fbf3df" stroke="#a9791f" stroke-width="1.4"/>
+<text x="150.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a9791f" text-anchor="middle" font-weight="700">Секція завантажувача (Bootloader)</text>
+<text x="150.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Розмір задається BOOTSZ[1:0]</text>
+<rect x="50.0" y="408.0" width="200.0" height="56.0" rx="6" fill="#ffffff" stroke="#ebd8a7" stroke-width="1.0"/><text x="150.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Має право виконувати SPM</tspan><tspan x="150.0" dy="13.0">Захист через BLB11/12</tspan></text>
+<rect x="290.0" y="60.0" width="230.0" height="160.0" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.8"/>
+<text x="405.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">EEPROM (Енергонезалежні дані)</text>
+<rect x="300.0" y="98.0" width="210.0" height="110.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/><text x="405.0" y="130.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="405.0" dy="0.0">Збереження налаштувань</tspan><tspan x="405.0" dy="13.0">і калібрувальних таблиць.</tspan><tspan x="405.0" dy="13.0"></tspan><tspan x="405.0" dy="13.0">Фьюз EESAVE=0 запобігає</tspan><tspan x="405.0" dy="13.0">стиранню при Chip Erase!</tspan></text>
+<rect x="290.0" y="240.0" width="230.0" height="240.0" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.8"/>
+<text x="405.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Lock Bits (Байт блокування)</text>
+<rect x="300.0" y="280.0" width="210.0" height="54.0" rx="6" fill="#fdf0ef" stroke="#c0392b" stroke-width="1.1"/>
+<text x="310.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">LB[2:1]</text>
+<text x="303.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Режими захисту чіпа 1, 2, 3 (заборона ISP читання/запису)</text>
+<rect x="300.0" y="342.0" width="210.0" height="54.0" rx="6" fill="#fdf0ef" stroke="#c0392b" stroke-width="1.1"/>
+<text x="310.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">BLB0[2:1]</text>
+<text x="310.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Блокування запису/читання Application з Bootloader</text>
+<rect x="300.0" y="404.0" width="210.0" height="54.0" rx="6" fill="#fdf0ef" stroke="#c0392b" stroke-width="1.1"/>
+<text x="310.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">BLB1[2:1]</text>
+<text x="310.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Блокування запису/читання Bootloader з Application</text>
+<rect x="540.0" y="60.0" width="270.0" height="420.0" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.8"/>
+<text x="675.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7d3c98" text-anchor="middle" font-weight="700">Конфігураційні байти (Fuses)</text>
+<rect x="550.0" y="98.0" width="250.0" height="114.0" rx="6" fill="#f8f4fb" stroke="#7d3c98" stroke-width="1.2"/>
+<text x="560.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="start" font-weight="700">Low Fuse (lfuse)</text>
+<text x="560.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• CKSEL[3:0]: Джерело тактування</text>
+<text x="560.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• SUT[1:0]: Час старту та стабілізації</text>
+<text x="560.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• CKOUT: Вивід тактового сигналу</text>
+<text x="560.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• CKDIV8: Ділення частоти на 8</text>
+<rect x="550.0" y="220.0" width="250.0" height="140.0" rx="6" fill="#f8f4fb" stroke="#7d3c98" stroke-width="1.2"/>
+<text x="560.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="start" font-weight="700">High Fuse (hfuse)</text>
+<text x="560.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">• RSTDISBL: Вимкнення Reset (GPIO)</text>
+<text x="560.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• DWEN: Вмикання debugWIRE</text>
+<text x="560.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• SPIEN: Дозвіл ISP програмування</text>
+<text x="560.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• WDTON: Сторожовий таймер завжди увімкнений</text>
+<text x="560.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• EESAVE: Збереження EEPROM при Chip Erase</text>
+<text x="560.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• BOOTSZ/BOOTRST: Налаштування завантажувача</text>
+<rect x="550.0" y="368.0" width="250.0" height="94.0" rx="6" fill="#f8f4fb" stroke="#7d3c98" stroke-width="1.2"/>
+<text x="560.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="start" font-weight="700">Extended Fuse (efuse)</text>
+<text x="560.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• BODLEVEL[2:0]: Поріг спрацьовування</text>
+<text x="572.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">детектора просідання напруги (Brown-out)</text>
+<text x="572.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(запобігає пошкодженню пам'яті при спаді VCC)</text>
+</svg>

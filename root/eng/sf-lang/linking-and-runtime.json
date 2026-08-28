@@ -33,7 +33,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -65,8 +66,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-weak-handler-framework.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "dynamic-linking",
@@ -113,8 +120,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-elf-embedded-parser.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "firmware-image",
@@ -153,7 +166,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "api": [
             {
@@ -225,8 +239,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-newlib-syscall-stubs.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -311,6 +331,16 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "jni-java-native-interface",
+          "title": "Java Native Interface (JNI): міст між віртуальною машиною та рідним кодом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     }

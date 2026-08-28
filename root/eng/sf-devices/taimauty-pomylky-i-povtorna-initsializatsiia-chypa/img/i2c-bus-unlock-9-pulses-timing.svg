@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">?????? ???????? ??????????? ???? I2C 9 ????????? ??????????</text>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">?????? ???????? ??????????? ???? I2C: ????????????? ????? SDA ???'????? ?????????? SCL</text>
+<rect x="40.0" y="48.0" width="140.0" height="42.0" rx="4" fill="#fadbd8" stroke="#c0392b" stroke-width="1.2"/>
+<text x="110.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1. ?????????</text>
+<text x="110.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SDA ??????????? ??????? ? 0</text>
+<rect x="185.0" y="48.0" width="105.0" height="42.0" rx="4" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.2"/>
+<text x="237.5" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">2. ????? GPIO</text>
+<text x="237.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Open-Drain ??????</text>
+<rect x="295.0" y="48.0" width="310.0" height="42.0" rx="4" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.2"/>
+<text x="450.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a5276" text-anchor="middle" font-weight="700">3. ?????????? SCL</text>
+<text x="450.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">??????? ?????? ??????? ?????</text>
+<rect x="610.0" y="48.0" width="115.0" height="42.0" rx="4" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.2"/>
+<text x="667.5" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d3c98" text-anchor="middle" font-weight="700">4. NACK + STOP</text>
+<text x="667.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">?????????? STOP</text>
+<rect x="730.0" y="48.0" width="75.0" height="42.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.2"/>
+<text x="767.5" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="middle" font-weight="700">5. ??????</text>
+<text x="767.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">I2C ON</text>
+<rect x="40.0" y="100.0" width="765.0" height="260.0" rx="4" fill="#fcfcfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="75.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a5276" text-anchor="end" font-weight="700">SCL</text>
+<text x="75.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">SDA</text>
+<line x1="85.0" y1="145.0" x2="795.0" y2="145.0" stroke="#e5e7e9" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="85.0" y1="185.0" x2="795.0" y2="185.0" stroke="#e5e7e9" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="85.0" y1="235.0" x2="795.0" y2="235.0" stroke="#e5e7e9" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="85.0" y1="275.0" x2="795.0" y2="275.0" stroke="#e5e7e9" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="82.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">HIGH</text>
+<text x="82.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">LOW</text>
+<text x="82.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">HIGH</text>
+<text x="82.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">LOW</text>
+<line x1="85.0" y1="145.0" x2="185.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="185.0" y1="145.0" x2="295.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="295.0" y1="145.0" x2="295.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="295.0" y1="185.0" x2="311.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="311.0" y1="185.0" x2="311.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="311.0" y1="145.0" x2="328.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<text x="311.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">1</text>
+<line x1="328.0" y1="145.0" x2="328.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="328.0" y1="185.0" x2="344.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="344.0" y1="185.0" x2="344.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="344.0" y1="145.0" x2="361.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<text x="344.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">2</text>
+<line x1="361.0" y1="145.0" x2="361.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="361.0" y1="185.0" x2="377.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="377.0" y1="185.0" x2="377.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="377.0" y1="145.0" x2="394.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<text x="377.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">3</text>
+<line x1="394.0" y1="145.0" x2="394.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="394.0" y1="185.0" x2="410.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="410.0" y1="185.0" x2="410.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="410.0" y1="145.0" x2="427.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<text x="410.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">4</text>
+<line x1="427.0" y1="145.0" x2="427.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="427.0" y1="185.0" x2="443.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="443.0" y1="185.0" x2="443.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="443.0" y1="145.0" x2="460.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<text x="443.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">5</text>
+<line x1="460.0" y1="145.0" x2="460.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="460.0" y1="185.0" x2="476.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="476.0" y1="185.0" x2="476.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="476.0" y1="145.0" x2="493.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<text x="476.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">6</text>
+<line x1="493.0" y1="145.0" x2="493.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="493.0" y1="185.0" x2="509.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="509.0" y1="185.0" x2="509.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="509.0" y1="145.0" x2="526.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<text x="509.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">7</text>
+<line x1="526.0" y1="145.0" x2="526.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="526.0" y1="185.0" x2="542.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="542.0" y1="185.0" x2="542.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="542.0" y1="145.0" x2="559.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<text x="542.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">8</text>
+<line x1="559.0" y1="145.0" x2="559.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="559.0" y1="185.0" x2="575.0" y2="185.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="575.0" y1="185.0" x2="575.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<line x1="575.0" y1="145.0" x2="592.0" y2="145.0" stroke="#1a5276" stroke-width="2.2"/>
+<text x="575.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">9</text>
+<line x1="592.0" y1="145.0" x2="592.0" y2="185.0" stroke="#7d3c98" stroke-width="2.2"/>
+<line x1="592.0" y1="185.0" x2="617.0" y2="185.0" stroke="#7d3c98" stroke-width="2.2"/>
+<line x1="617.0" y1="185.0" x2="617.0" y2="145.0" stroke="#7d3c98" stroke-width="2.2"/>
+<line x1="617.0" y1="145.0" x2="687.0" y2="145.0" stroke="#7d3c98" stroke-width="2.2"/>
+<line x1="687.0" y1="145.0" x2="795.0" y2="145.0" stroke="#1e8449" stroke-width="2.2"/>
+<line x1="85.0" y1="275.0" x2="185.0" y2="275.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="185.0" y1="275.0" x2="295.0" y2="275.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="295.0" y1="275.0" x2="437.0" y2="275.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="437.0" y1="275.0" x2="443.0" y2="235.0" stroke="#1e8449" stroke-width="2.2"/>
+<line x1="443.0" y1="235.0" x2="592.0" y2="235.0" stroke="#1e8449" stroke-width="2.2"/>
+<line x1="440.0" y1="310.0" x2="440.0" y2="285.0" stroke="#1e8449" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="middle" font-weight="700">??????? ????????? SDA</text>
+<line x1="592.0" y1="235.0" x2="602.0" y2="235.0" stroke="#7d3c98" stroke-width="2.2"/>
+<line x1="602.0" y1="235.0" x2="602.0" y2="275.0" stroke="#7d3c98" stroke-width="2.2"/>
+<line x1="602.0" y1="275.0" x2="642.0" y2="275.0" stroke="#7d3c98" stroke-width="2.2"/>
+<line x1="642.0" y1="275.0" x2="642.0" y2="235.0" stroke="#7d3c98" stroke-width="2.2"/>
+<line x1="642.0" y1="235.0" x2="687.0" y2="235.0" stroke="#7d3c98" stroke-width="2.2"/>
+<text x="642.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d3c98" text-anchor="middle" font-weight="700">STOP ?????</text>
+<text x="642.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d3c98" text-anchor="middle">SDA: 0 -&gt; 1</text>
+<line x1="687.0" y1="235.0" x2="795.0" y2="235.0" stroke="#1e8449" stroke-width="2.2"/>
+<rect x="40.0" y="375.0" width="765.0" height="40.0" rx="4" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.2"/>
+<text x="420.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">?????????: ??????? ?????? ?????????? ??????? ? ???? ?????????? START, ???? ?????????????????? ? ????? I2C Master</text>
+</svg>

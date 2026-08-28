@@ -1,0 +1,894 @@
+# ⚙️ Фреймворк драйверних зворотних викликів на базі слабких символів
+
+У високонавантажених вбудованих системах, драйверах операційних систем та конвеєрах обробки сигналів реального часу обробка подій від периферійних пристроїв (UART, SPI, DMA, таймери, GPIO) вимагає мінімально можливих затримок переривань. Традиційний підхід із динамічною реєстрацією зворотних викликів (*callbacks*) через покажчики на функції в оперативній пам'яті (`RAM`) створює відчутні накладні витрати: витрачає байти дефіцитної пам'яті SRAM на таблиці покажчиків, вимагає коду динамічної реєстрації та перевірок у рантаймі, а головне — змушує процесор виконувати непрямі виклики (`indirect calls`), які не піддаються апаратному передбаченню переходів на простих конвеєрах і блокують міжпроцедурну оптимізацію компілятора.
+
+Фреймворк статичної реєстрації на базі слабких символів (*Weak Symbol Driver Framework*) переносить диспетчеризацію подій із фази виконання на фазу компонування лінкером. Бібліотека драйверів визначає базові слабкі заглушки для всіх подій системи, а користувацький застосунок просто визначає сильні функції для тих переривань, які його цікавлять. Лінкер автоматично підставляє прямі інструкції переходу на користувацькі обробники з нульовим споживанням оперативної пам'яті.
+
+---
+
+### Архітектурна проблема: ціна динамічних покажчиків у перериваннях
+
+У класичній архітектурі драйверів мовою C реєстрація зворотного виклику реалізується через структуру дескриптора пристрою в оперативній пам'яті:
+
+:::tabs
+```c
+// driver_callbacks.h (C99)
+typedef void (*driver_callback_t)(void* context, const event_t* event);
+
+struct uart_driver {
+    driver_callback_t rx_callback;
+    void*             rx_context;
+    driver_callback_t tx_callback;
+    void*             tx_context;
+};
+```
+```cpp
+// driver_callbacks.hpp (C++20)
+#include <functional>
+
+struct UartDriver {
+    std::function<void(const Event&)> rx_callback;
+    std::function<void(const Event&)> tx_callback;
+};
+```
+:::
+
+Ця модель є стандартом для систем високого рівня, проте у низькорівневих системах жорсткого реального часу вона створює низку критичних проблем:
+
+1. **Непродуктивні витрати оперативної пам'яті (RAM)**: Кожен зареєстрований покажчик на функцію та покажчик контексту займає 8 або 16 байтів RAM. Якщо мікроконтролер має 20 периферійних модулів із кількома подіями в кожному, таблиця зворотних викликів вимагає сотні байтів оперативної пам'яті, що для чипів із 2–16 КБ SRAM є неприпустимим марнотратством.
+2. **Накладні витрати на перевірку в рантаймі**: Перед кожним викликом обробника переривання драйвер змушений виконувати перевірку на нульовий покажчик `if (driver->rx_callback != NULL)`. Це додає інструкції умовного переходу в найкритичніший шлях виконання обробника переривання (ISR).
+3. **Затримки конвеєра та непрямий перехід**: Виклик через покажчик транслюється в машинну інструкцію непрямого переходу `call *%rax` (x86-64) або `blx r3` (ARM Cortex-M). Прості конвеєри вбудованих мікроконтролерів (Cortex-M0+/M3/M4) не мають динамічного блоку передбачення непрямих переходів або мають спрощену таблицю BTB, що викликає скидання конвеєра (*pipeline stall*) на 2–4 такти на кожному виклику.
+4. **Блокування міжпроцедурної оптимізації**: Оптимізатор компілятора та LTO не можуть вбудувати (inline) функцію, якщо вона викликається через покажчик, завантажений зі змінної в RAM.
+5. **Вразливість безпеки**: Покажчики на функції, розміщені в RAM, є першочерговою мішенню для атак переповнення буфера (buffer overflow). Зловмисник, переписавши покажчик у пам'яті, перехоплює потік керування. На противагу цьому адреси слабких символів зашиваються лінкером у захищену пам'ять Flash ROM, недоступну для запису під час виконання.
+
+Фреймворк на базі слабких символів усуває всі ці недоліки: адреси обробників обчислюються статично під час лінкування, виклики транслюються у прямі інструкції переходу `call offset` з нульовим використанням RAM та нульовими накладними витратами на реєстрацію.
+
+---
+
+### Порівняння чотирьох підходів до диспетчеризації подій
+
+Для глибокого розуміння архітектурного вибору зіставимо чотири альтернативні моделі організації зворотних викликів:
+
+1. **Динамічні покажчики C (`Function Pointers`)**: максимальна динамічна гнучкість, але максимальне споживання RAM, накладні витрати на виклик та ризики безпеки.
+2. **Віртуальні таблиці C++ (`vtable / Interfaces`)**: об'єктно-орієнтований підхід із поліморфізмом. Вимагає розміщення покажчика `vptr` у кожному об'єкті (4–8 байтів RAM) та породжує подвійне розіменування покажчика (`vptr -> vtable slot -> function`).
+3. **Шаблони C++ / CRTP (`Compile-time Templates`)**: нульові накладні витрати часу виконання, проте шаблонізація драйверного коду призводить до роздуття Flash-пам'яті (*code bloat*) при створенні кількох екземплярів і вимагає повного доступу до сирцевого коду драйвера в заголовках.
+4. **Слабкі символи ELF (`Weak Symbols`)**: ідеальний баланс для системного коду. Драйвер постачається у вигляді готового скомпільованого об'єктного файлу або статичної бібліотеки, а зв'язування відбувається через таблицю символів без витрат RAM і без потреби шаблонізації.
+
+| Критерій порівняння | C Function Pointers | C++ Virtual Methods | C++ Templates / CRTP | ELF Weak Symbols |
+| :--- | :--- | :--- | :--- | :--- |
+| **Витрати RAM на екземпляр** | 8 × N байтів | 4..8 байтів (`vptr`) | **0 байтів** | **0 байтів** |
+| **Витрати Flash ROM** | Реєстрація + перевірки | Таблиці `vtable` | Дублювання шаблонів | **Мінімальні (заглушки)** |
+| **Тип машинної інструкції** | Непрямий `call *%rax` | Подвійний непрямий | Прямий / `inline` | **Прямий `call label`** |
+| **Штраф конвеєра процесора** | Так (2–4 такти) | Так (3–6 тактів) | Ні (0 тактів) | **Ні (0 тактів)** |
+| **Зміна обробника на льоту** | Так (у рантаймі) | Так (підміна об'єкта)| Ні (час компіляції)| **Ні (час лінкування)** |
+| **Безпека Flash W^X** | Ні (покажчик у RAM) | Ні (`vptr` у RAM) | Так (Flash ROM) | **Так (Flash ROM)** |
+
+---
+
+### Архітектура системи та контракт подій
+
+Фреймворк складається з чотирьох взаємопов'язаних рівнів:
+1. **Рівень визначення типів подій (`hal_event_types`)**: структури даних для передачі контексту переривань (ідентифікатор каналу, буфер даних, статус помилки, позначка часу).
+2. **Ядро драйверної підсистеми (`hal_driver_core`)**: містить слабкі визначення зворотних викликів за замовчуванням (`STB_WEAK`), слабкі псевдоніми на єдину безпечну пастку та слабкі посилання на необов'язкові модулі телеметрії.
+3. **Необов'язковий модуль розширення (`optional_telemetry`)**: плагін аудиту та контролю цілісності, який автоматично активується, якщо скомпільований у проєкт.
+4. **Користувацький застосунок (`app_main`)**: сильні реалізації обробників подій UART та GPIO, які прозоро перекривають слабкі заглушки.
+5. **Тестовий стенд (`test_harness`)**: верифікація викликів, перевірка перекриття та діагностика адрес.
+
+---
+
+### Повна реалізація на C99 та C++20
+
+Нижче наведено повний вихідний код фреймворку з розділенням на модулі.
+
+:::tabs
+```c
+// ============================================================================
+// ФАЙЛ: hal_event_types.h (C99)
+// ============================================================================
+#ifndef HAL_EVENT_TYPES_H
+#define HAL_EVENT_TYPES_H
+
+#include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+
+typedef enum {
+    HAL_PERIPH_UART1 = 0,
+    HAL_PERIPH_UART2 = 1,
+    HAL_PERIPH_SPI1  = 2,
+    HAL_PERIPH_DMA1  = 3,
+    HAL_PERIPH_GPIO  = 4,
+    HAL_PERIPH_TIMER = 5
+} hal_periph_id_t;
+
+typedef enum {
+    HAL_EVT_RX_READY       = 0x01,
+    HAL_EVT_TX_COMPLETE    = 0x02,
+    HAL_EVT_TRANSFER_DONE  = 0x03,
+    HAL_EVT_PIN_EDGE       = 0x04,
+    HAL_EVT_PERIOD_ELAPSED = 0x05,
+    HAL_EVT_ERROR_OVERRUN  = 0x0E,
+    HAL_EVT_ERROR_HARDWARE = 0x0F
+} hal_event_kind_t;
+
+typedef struct {
+    hal_periph_id_t  periph;
+    hal_event_kind_t kind;
+    uint32_t         timestamp_us;
+    const uint8_t*   payload;
+    size_t           length;
+    uint32_t         flags;
+} hal_event_t;
+
+#endif // HAL_EVENT_TYPES_H
+```
+```cpp
+// ============================================================================
+// ФАЙЛ: hal_event_types.hpp (C++20)
+// ============================================================================
+#pragma once
+
+#include <cstdint>
+#include <cstddef>
+#include <span>
+
+namespace hal {
+
+enum class PeripheralId : std::uint8_t {
+    Uart1 = 0,
+    Uart2 = 1,
+    Spi1  = 2,
+    Dma1  = 3,
+    Gpio  = 4,
+    Timer = 5
+};
+
+enum class EventKind : std::uint8_t {
+    RxReady       = 0x01,
+    TxComplete    = 0x02,
+    TransferDone  = 0x03,
+    PinEdge       = 0x04,
+    PeriodElapsed = 0x05,
+    ErrorOverrun  = 0x0E,
+    ErrorHardware = 0x0F
+};
+
+struct Event {
+    PeripheralId            periph;
+    EventKind               kind;
+    std::uint32_t           timestamp_us;
+    std::span<const std::byte> payload;
+    std::uint32_t           flags;
+};
+
+} // namespace hal
+```
+:::
+
+:::tabs
+```c
+// ============================================================================
+// ФАЙЛ: hal_driver_core.h (C99)
+// ============================================================================
+#ifndef HAL_DRIVER_CORE_H
+#define HAL_DRIVER_CORE_H
+
+#include "hal_event_types.h"
+
+// Публічні слабкі точки розширення драйверів (Weak Callbacks)
+__attribute__((weak)) void hal_uart_rx_callback(const hal_event_t* evt);
+__attribute__((weak)) void hal_spi_transfer_callback(const hal_event_t* evt);
+__attribute__((weak)) void hal_gpio_edge_callback(const hal_event_t* evt);
+__attribute__((weak)) void hal_timer_period_callback(const hal_event_t* evt);
+__attribute__((weak)) void hal_error_trap_callback(const hal_event_t* evt);
+
+// Слабкі посилання на необов'язкові системні модулі (Weak References)
+extern __attribute__((weak)) void hal_telemetry_publish_hook(const hal_event_t* evt);
+extern __attribute__((weak)) bool hal_telemetry_crc_check_hook(const uint8_t* buf, size_t len);
+
+// Диспетчер драйверного ядра
+void hal_driver_init(void);
+void hal_driver_dispatch_interrupt(hal_periph_id_t periph, hal_event_kind_t kind,
+                                   const uint8_t* data, size_t len);
+
+#endif // HAL_DRIVER_CORE_H
+```
+```cpp
+// ============================================================================
+// ФАЙЛ: hal_driver_core.hpp (C++20)
+// ============================================================================
+#pragma once
+
+#include "hal_event_types.hpp"
+
+extern "C" {
+
+// C-ABI сумісні слабкі точки розширення
+[[gnu::weak]] void hal_uart_rx_callback_c(const void* evt);
+[[gnu::weak]] void hal_spi_transfer_callback_c(const void* evt);
+[[gnu::weak]] void hal_gpio_edge_callback_c(const void* evt);
+[[gnu::weak]] void hal_timer_period_callback_c(const void* evt);
+[[gnu::weak]] void hal_error_trap_callback_c(const void* evt);
+
+// Слабкі посилання на опціональну телеметрію
+[[gnu::weak]] void hal_telemetry_publish_hook_c(const void* evt);
+[[gnu::weak]] bool hal_telemetry_crc_check_hook_c(const std::uint8_t* buf, std::size_t len);
+
+} // extern "C"
+
+namespace hal::core {
+
+void initialize() noexcept;
+void dispatch_interrupt(PeripheralId periph, EventKind kind,
+                        std::span<const std::byte> data) noexcept;
+
+} // namespace hal::core
+```
+:::
+
+:::tabs
+```c
+// ============================================================================
+// ФАЙЛ: hal_driver_core.c (C99)
+// ============================================================================
+#include "hal_driver_core.h"
+#include <stdio.h>
+
+static uint32_t g_system_tick_mock = 1000;
+
+// Універсальна безпечна заглушка за замовчуванням
+void hal_default_event_stub(const hal_event_t* evt)
+{
+    // Безпечна порожня обробка: не потребує дій, якщо подія не цікавить застосунок
+    (void)evt;
+}
+
+// Універсальна аварійна пастка для невиправних помилок
+void hal_default_error_trap(const hal_event_t* evt)
+{
+    printf("[HAL CORE FATAL] Необроблена апаратна помилка у периферії %d, тип: 0x%02X\n",
+           evt->periph, evt->kind);
+}
+
+// Оголошення слабких псевдонімів, що вказують на безпечну заглушку
+void hal_uart_rx_callback(const hal_event_t* evt)
+    __attribute__((weak, alias("hal_default_event_stub")));
+
+void hal_spi_transfer_callback(const hal_event_t* evt)
+    __attribute__((weak, alias("hal_default_event_stub")));
+
+void hal_gpio_edge_callback(const hal_event_t* evt)
+    __attribute__((weak, alias("hal_default_event_stub")));
+
+void hal_timer_period_callback(const hal_event_t* evt)
+    __attribute__((weak, alias("hal_default_event_stub")));
+
+void hal_error_trap_callback(const hal_event_t* evt)
+    __attribute__((weak, alias("hal_default_error_trap")));
+
+void hal_driver_init(void)
+{
+    printf("[HAL CORE] Ініціалізація драйверного ядра. Слабкі символи налаштовано.\n");
+}
+
+void hal_driver_dispatch_interrupt(hal_periph_id_t periph, hal_event_kind_t kind,
+                                   const uint8_t* data, size_t len)
+{
+    hal_event_t evt;
+    evt.periph = periph;
+    evt.kind = kind;
+    evt.timestamp_us = g_system_tick_mock++;
+    evt.payload = data;
+    evt.length = len;
+    evt.flags = 0;
+
+    // 1. Опціональна перевірка цілісності даних через слабке посилання
+    if (hal_telemetry_crc_check_hook != NULL) {
+        if (data != NULL && len > 0) {
+            bool ok = hal_telemetry_crc_check_hook(data, len);
+            if (!ok) {
+                evt.kind = HAL_EVT_ERROR_HARDWARE;
+                hal_error_trap_callback(&evt);
+                return;
+            }
+        }
+    }
+
+    // 2. Диспетчеризація за типом периферійного пристрою (прямий виклик функції)
+    switch (periph) {
+    case HAL_PERIPH_UART1:
+    case HAL_PERIPH_UART2:
+        hal_uart_rx_callback(&evt);
+        break;
+    case HAL_PERIPH_SPI1:
+        hal_spi_transfer_callback(&evt);
+        break;
+    case HAL_PERIPH_GPIO:
+        hal_gpio_edge_callback(&evt);
+        break;
+    case HAL_PERIPH_TIMER:
+        hal_timer_period_callback(&evt);
+        break;
+    default:
+        hal_error_trap_callback(&evt);
+        break;
+    }
+
+    // 3. Опціональне публікування телеметрії через слабке посилання
+    if (hal_telemetry_publish_hook != NULL) {
+        hal_telemetry_publish_hook(&evt);
+    }
+}
+```
+```cpp
+// ============================================================================
+// ФАЙЛ: hal_driver_core.cpp (C++20)
+// ============================================================================
+#include "hal_driver_core.hpp"
+#include <iostream>
+#include <atomic>
+
+namespace {
+    std::atomic<std::uint32_t> g_system_tick_mock{1000};
+}
+
+extern "C" {
+
+void hal_default_event_stub_c(const void* evt) noexcept
+{
+    (void)evt;
+}
+
+void hal_default_error_trap_c(const void* evt) noexcept
+{
+    const auto* e = static_cast<const hal::Event*>(evt);
+    if (e) {
+        std::cout << "[HAL CORE FATAL C++] Помилка периферії: "
+                  << static_cast<int>(e->periph) << '\n';
+    }
+}
+
+void hal_uart_rx_callback_c(const void* evt) noexcept
+    [[gnu::weak, gnu::alias("hal_default_event_stub_c")]];
+
+void hal_spi_transfer_callback_c(const void* evt) noexcept
+    [[gnu::weak, gnu::alias("hal_default_event_stub_c")]];
+
+void hal_gpio_edge_callback_c(const void* evt) noexcept
+    [[gnu::weak, gnu::alias("hal_default_event_stub_c")]];
+
+void hal_timer_period_callback_c(const void* evt) noexcept
+    [[gnu::weak, gnu::alias("hal_default_event_stub_c")]];
+
+void hal_error_trap_callback_c(const void* evt) noexcept
+    [[gnu::weak, gnu::alias("hal_default_error_trap_c")]];
+
+} // extern "C"
+
+namespace hal::core {
+
+void initialize() noexcept
+{
+    std::cout << "[HAL CORE C++20] Ініціалізація диспетчера зворотних викликів.\n";
+}
+
+void dispatch_interrupt(PeripheralId periph, EventKind kind,
+                        std::span<const std::byte> data) noexcept
+{
+    Event evt{
+        .periph = periph,
+        .kind = kind,
+        .timestamp_us = g_system_tick_mock.fetch_add(1, std::memory_order_relaxed),
+        .payload = data,
+        .flags = 0
+    };
+
+    if (hal_telemetry_crc_check_hook_c != nullptr) {
+        if (!data.empty()) {
+            const auto* raw = reinterpret_cast<const std::uint8_t*>(data.data());
+            if (!hal_telemetry_crc_check_hook_c(raw, data.size())) {
+                evt.kind = EventKind::ErrorHardware;
+                hal_error_trap_callback_c(&evt);
+                return;
+            }
+        }
+    }
+
+    switch (periph) {
+    case PeripheralId::Uart1:
+    case PeripheralId::Uart2:
+        hal_uart_rx_callback_c(&evt);
+        break;
+    case PeripheralId::Spi1:
+        hal_spi_transfer_callback_c(&evt);
+        break;
+    case PeripheralId::Gpio:
+        hal_gpio_edge_callback_c(&evt);
+        break;
+    case PeripheralId::Timer:
+        hal_timer_period_callback_c(&evt);
+        break;
+    default:
+        hal_error_trap_callback_c(&evt);
+        break;
+    }
+
+    if (hal_telemetry_publish_hook_c != nullptr) {
+        hal_telemetry_publish_hook_c(&evt);
+    }
+}
+
+} // namespace hal::core
+```
+:::
+
+:::tabs
+```c
+// ============================================================================
+// ФАЙЛ: optional_telemetry.c (C99) — необов'язковий плагін
+// ============================================================================
+#include "hal_driver_core.h"
+#include <stdio.h>
+
+// Сильне визначення слабкого посилання публікації телеметрії
+void hal_telemetry_publish_hook(const hal_event_t* evt)
+{
+    printf("[TELEMETRY PLUGIN] Отримано подію периферії %d (час: %u us, байтів: %zu)\n",
+           evt->periph, evt->timestamp_us, evt->length);
+}
+
+// Сильне визначення перевірки контрольної суми
+bool hal_telemetry_crc_check_hook(const uint8_t* buf, size_t len)
+{
+    if (!buf || len == 0) return true;
+    uint8_t xor_sum = 0;
+    for (size_t i = 0; i < len; ++i) {
+        xor_sum ^= buf[i];
+    }
+    // Імітація перевірки: відхиляємо пакет, якщо XOR сума дорівнює 0xFF
+    return (xor_sum != 0xFF);
+}
+```
+```cpp
+// ============================================================================
+// ФАЙЛ: optional_telemetry.cpp (C++20) — необов'язковий плагін
+// ============================================================================
+#include "hal_driver_core.hpp"
+#include <iostream>
+#include <numeric>
+
+extern "C" {
+
+void hal_telemetry_publish_hook_c(const void* evt) noexcept
+{
+    const auto* e = static_cast<const hal::Event*>(evt);
+    if (e) {
+        std::cout << "[TELEMETRY C++20] Подія периферії: "
+                  << static_cast<int>(e->periph)
+                  << " (час: " << e->timestamp_us << " us)\n";
+    }
+}
+
+bool hal_telemetry_crc_check_hook_c(const std::uint8_t* buf, std::size_t len) noexcept
+{
+    if (!buf || len == 0) return true;
+    std::uint8_t xor_acc = 0;
+    for (std::size_t i = 0; i < len; ++i) {
+        xor_acc ^= buf[i];
+    }
+    return (xor_acc != 0xFF);
+}
+
+} // extern "C"
+```
+:::
+
+:::tabs
+```c
+// ============================================================================
+// ФАЙЛ: app_main.c (C99) — користувацький модуль із сильними перекриттями
+// ============================================================================
+#include "hal_driver_core.h"
+#include <stdio.h>
+#include <string.h>
+
+#define RX_BUFFER_SIZE 128
+static uint8_t g_rx_ring_buffer[RX_BUFFER_SIZE];
+static size_t  g_rx_head = 0;
+static uint32_t g_button_press_count = 0;
+
+// СИЛЬНЕ ПЕРЕКРИТТЯ: обробка байтів UART
+void hal_uart_rx_callback(const hal_event_t* evt)
+{
+    printf("[APP USER] Сильний обробник UART RX спрацював!\n");
+    if (evt->payload && evt->length > 0) {
+        for (size_t i = 0; i < evt->length; ++i) {
+            g_rx_ring_buffer[g_rx_head] = evt->payload[i];
+            g_rx_head = (g_rx_head + 1) % RX_BUFFER_SIZE;
+        }
+        printf("  -> Прийнято %zu байтів, поточна голова кільцевого буфера: %zu\n",
+               evt->length, g_rx_head);
+    }
+}
+
+// СИЛЬНЕ ПЕРЕКРИТТЯ: обробка натискання кнопки GPIO
+void hal_gpio_edge_callback(const hal_event_t* evt)
+{
+    g_button_press_count++;
+    printf("[APP USER] Сильний обробник GPIO спрацював! Натискань: %u\n",
+           g_button_press_count);
+}
+
+// Зверніть увагу: hal_spi_transfer_callback та hal_timer_period_callback
+// НЕ визначені у цьому файлі! Для них лінкер збереже hal_default_event_stub.
+```
+```cpp
+// ============================================================================
+// ФАЙЛ: app_main.cpp (C++20) — користувацький модуль із сильними перекриттями
+// ============================================================================
+#include "hal_driver_core.hpp"
+#include <iostream>
+#include <array>
+#include <atomic>
+
+namespace {
+    constexpr std::size_t RingBufferSize = 128;
+    std::array<std::uint8_t, RingBufferSize> g_rx_ring_buffer{};
+    std::size_t g_rx_head = 0;
+    std::atomic<std::uint32_t> g_button_press_count{0};
+}
+
+extern "C" {
+
+// СИЛЬНЕ ПЕРЕКРИТТЯ: обробка байтів UART
+void hal_uart_rx_callback_c(const void* evt) noexcept
+{
+    std::cout << "[APP C++20] Сильний обробник UART RX активовано!\n";
+    const auto* e = static_cast<const hal::Event*>(evt);
+    if (e && !e->payload.empty()) {
+        for (auto byte : e->payload) {
+            g_rx_ring_buffer[g_rx_head] = static_cast<std::uint8_t>(byte);
+            g_rx_head = (g_rx_head + 1) % RingBufferSize;
+        }
+        std::cout << "  -> Збережено " << e->payload.size() << " байтів у кільцевий буфер.\n";
+    }
+}
+
+// СИЛЬНЕ ПЕРЕКРИТТЯ: обробка кнопки
+void hal_gpio_edge_callback_c(const void* evt) noexcept
+{
+    auto count = g_button_press_count.fetch_add(1, std::memory_order_relaxed) + 1;
+    std::cout << "[APP C++20] Кнопку натиснуто! Загальний лічильник: " << count << '\n';
+}
+
+} // extern "C"
+```
+:::
+
+:::tabs
+```c
+// ============================================================================
+// ФАЙЛ: test_harness.c (C99) — демонстраційний тестовий сценарій
+// ============================================================================
+#include "hal_driver_core.h"
+#include <stdio.h>
+
+int main(void)
+{
+    printf("=== СТАРТ ТЕСТУВАННЯ ФРЕЙМВОРКУ СЛАБКИХ СИМВОЛІВ (C99) ===\n\n");
+
+    hal_driver_init();
+
+    // Тест 1. Подія UART RX -> Має викликати сильний користувацький обробник
+    printf("\n--- ТЕСТ 1: Перевірка перекритого UART обробника ---\n");
+    const uint8_t test_msg[] = { 'H', 'E', 'L', 'L', 'O' };
+    hal_driver_dispatch_interrupt(HAL_PERIPH_UART1, HAL_EVT_RX_READY, test_msg, sizeof(test_msg));
+
+    // Тест 2. Подія GPIO Edge -> Має викликати сильний користувацький обробник
+    printf("\n--- ТЕСТ 2: Перевірка перекритого GPIO обробника ---\n");
+    hal_driver_dispatch_interrupt(HAL_PERIPH_GPIO, HAL_EVT_PIN_EDGE, NULL, 0);
+
+    // Тест 3. Подія SPI Transfer -> Не перекрита! Має тихо викликати hal_default_event_stub
+    printf("\n--- ТЕСТ 3: Перевірка неперекритого SPI обробника (Default Stub) ---\n");
+    const uint8_t spi_data[] = { 0xAA, 0xBB };
+    hal_driver_dispatch_interrupt(HAL_PERIPH_SPI1, HAL_EVT_TRANSFER_DONE, spi_data, sizeof(spi_data));
+    printf("SPI обробка завершилася безпечно без краху програми.\n");
+
+    // Тест 4. Подія Timer Period -> Не перекрита! Спрацьовує заглушка
+    printf("\n--- ТЕСТ 4: Перевірка неперекритого Таймера (Default Stub) ---\n");
+    hal_driver_dispatch_interrupt(HAL_PERIPH_TIMER, HAL_EVT_PERIOD_ELAPSED, NULL, 0);
+    printf("Таймер завершив роботу без збоїв.\n");
+
+    printf("\n=== ТЕСТУВАННЯ ЗАВЕРШЕНО УСПІШНО ===\n");
+    return 0;
+}
+```
+```cpp
+// ============================================================================
+// ФАЙЛ: test_harness.cpp (C++20) — демонстраційний тестовий сценарій
+// ============================================================================
+#include "hal_driver_core.hpp"
+#include <iostream>
+#include <array>
+
+int main()
+{
+    std::cout << "=== СТАРТ ТЕСТУВАННЯ ФРЕЙМВОРКУ СЛАБКИХ СИМВОЛІВ (C++20) ===\n\n";
+
+    hal::core::initialize();
+
+    std::cout << "\n--- ТЕСТ 1: Сильний UART обробник ---\n";
+    const std::array<std::byte, 5> uart_data{
+        std::byte{'W'}, std::byte{'O'}, std::byte{'R'}, std::byte{'L'}, std::byte{'D'}
+    };
+    hal::core::dispatch_interrupt(hal::PeripheralId::Uart1, hal::EventKind::RxReady, uart_data);
+
+    std::cout << "\n--- ТЕСТ 2: Сильний GPIO обробник ---\n";
+    hal::core::dispatch_interrupt(hal::PeripheralId::Gpio, hal::EventKind::PinEdge, {});
+
+    std::cout << "\n--- ТЕСТ 3: Неперекритий SPI обробник (Default Stub) ---\n";
+    const std::array<std::byte, 2> spi_data{std::byte{0xDE}, std::byte{0xAD}};
+    hal::core::dispatch_interrupt(hal::PeripheralId::Spi1, hal::EventKind::TransferDone, spi_data);
+    std::cout << "SPI успішно пройшов крізь заглушку за замовчуванням.\n";
+
+    std::cout << "\n--- ТЕСТ 4: Неперекритий Таймер ---\n";
+    hal::core::dispatch_interrupt(hal::PeripheralId::Timer, hal::EventKind::PeriodElapsed, {});
+    std::cout << "Таймер відпрацював без помилок.\n";
+
+    std::cout << "\n=== ТЕСТУВАННЯ C++20 ЗАВЕРШЕНО УСПІШНО ===\n";
+    return 0;
+}
+```
+:::
+
+---
+
+### Покроковий розбір механізму роботи фреймворку
+
+Розгляньмо життєвий цикл проходження події через систему від моменту виникнення апаратного переривання до виконання коду застосунку:
+
+1. **Фаза ініціалізації (`hal_driver_init`)**: Ядро драйвера не виділяє жодної динамічної структури в оперативній пам'яті. Реєстрація всіх точок розширення відбулася ще на етапі компонування двійкового файлу `test_harness.elf`.
+2. **Фаза виникнення події UART RX**: Контролер переривань (NVIC) активує обробник `USART1_IRQHandler`. Драйвер зчитує прийняті байти у локальний буфер і кличе `hal_driver_dispatch_interrupt(HAL_PERIPH_UART1, HAL_EVT_RX_READY, buffer, len)`.
+3. **Опціональна перевірка цілісності**: Ядро перевіряє `if (hal_telemetry_crc_check_hook != NULL)`. Оскільки модуль `optional_telemetry.o` скомпільований у проєкт, адреса символу є ненульовою, і функція перевіряє цілісність буфера.
+4. **Статичний прямий виклик обробника**: Всередині оператора `switch (periph)` компілятор генерує пряму інструкцію `call hal_uart_rx_callback`. Оскільки в об'єктному файлі `app_main.o` присутнє сильне визначення цієї функції, лінкер заповнив зміщення адресою тіла з `app_main.o`. Байти безпосередньо копіюються в кільцевий буфер застосунку.
+5. **Обробка неперекритої події SPI**: Коли надходить переривання від модуля SPI1, ядро кличе `hal_spi_transfer_callback`. У файлі `app_main.o` немає сильного визначення цього імені. Лінкер зв'язав це ім'я зі слабким аліасом, який спрямований на `hal_default_event_stub`. Виконується порожня функція `ret`, жодних аварій чи падінь не відбувається.
+6. **Опціональна телеметрія**: Наприкінці обробки ядро перевіряє `if (hal_telemetry_publish_hook != NULL)` і публікує системні метрики у плагін телеметрії.
+
+---
+
+### Інспекція згенерованого машинного коду та символів
+
+Розгляньмо, як лінкер формує машинний код для виклику `hal_uart_rx_callback` у диспетчері переривань.
+
+Якщо виконати дизасемблювання скомпільованого бінарника:
+
+```bash
+objdump -d -j .text test_harness.elf
+```
+
+У тілі функції `hal_driver_dispatch_interrupt` ми бачимо пряму інструкцію переходу на адресу функції з файлу `app_main.o`:
+
+```nasm
+; Прямий перехід на сильний користувацький обробник
+4011a8:  48 8d 7d d0           lea    -0x30(%rbp),%rdi
+4011ac:  e8 4f 01 00 00        call   401300 <hal_uart_rx_callback>
+```
+
+А для неперекритого обробника `hal_spi_transfer_callback`:
+
+```nasm
+; Прямий перехід на спільну слабку заглушку
+4011c0:  48 8d 7d d0           lea    -0x30(%rbp),%rdi
+4011c4:  e8 17 00 00 00        call   4011e0 <hal_default_event_stub>
+```
+
+Процесор не звертається до оперативної пам'яті за адресою покажчика: адреса цільової функції зашита безпосередньо в тіло машинної інструкції `call` як 32-бітне відносне зміщення. Це гарантує максимальну продуктивність апаратних переривань у критичних за часом застосунках.
+
+На рівні двійкових таблиць символів стан модулів до та після компонування можна перевірити через `nm`:
+
+```bash
+# До лінкування в об'єктних файлах:
+nm hal_driver_core.o | grep callback
+0000000000000000 W hal_uart_rx_callback
+0000000000000000 W hal_spi_transfer_callback
+
+nm app_main.o | grep callback
+0000000000000000 T hal_uart_rx_callback
+
+# Після лінкування у фінальному ELF:
+nm test_harness.elf | grep callback
+0000000000401300 T hal_uart_rx_callback      # Сильний символ переміг!
+00000000004011e0 W hal_spi_transfer_callback   # Слабкий аліас на stub
+```
+
+---
+
+### Дизасемблювання слабких посилань та перевірка адреси на NULL
+
+Окрему увагу слід приділити механіці слабких посилань (*Weak References*) на необов'язкові модулі, такі як `hal_telemetry_publish_hook` та `hal_telemetry_crc_check_hook`. На відміну від слабких зворотних викликів, які завжди мають безпечну заглушку за замовчуванням, слабкі посилання оголошуються через `extern __attribute__((weak))` і за відсутності модуля залишаються нерозв'язаними (*unresolved*).
+
+У форматі ELF нерозв'язаний слабкий символ не призводить до помилки компонування `undefined reference`. Статичний лінкер записує в таблицю символів значення `0x00000000` (нульовий покажчик `NULL`).
+
+Розгляньмо згенерований компілятором машинний код x86-64 для перевірки наявності опціонального модуля телеметрії перед його викликом:
+
+```nasm
+; Перевірка адреси слабкого символу перед викликом (x86-64)
+4011e5:  48 8b 05 34 2e 00 00  mov    0x2e34(%rip),%rax   ; завантаження адреси з GOT / релокація R_X86_64_GOTPCREL
+4011ec:  48 85 c0              test   %rax,%rax           ; перевірка: адреса == NULL (0x0)?
+4011ef:  74 0c                 je     4011fd <.Lskip_hook>; якщо NULL, переходимо далі без виклику
+4011f1:  48 8d 7d d0           lea    -0x30(%rbp),%rdi    ; RDI = адреса структури hal_event_t
+4011f5:  ff d0                 callq  *%rax               ; виклик модуля за ненульовою адресою
+4011f7:  eb 04                 jmp    4011fd <.Lskip_hook>
+.Lskip_hook:
+```
+
+Якщо модуль `optional_telemetry.o` приєднано до збирання, лінкер заповнює відповідну комірку таблиці реальною адресою функції `0x401420`. Регістр `%rax` отримує ненульове значення, інструкція `test %rax, %rax` скидає прапорець нуля `ZF=0`, і процесор виконує виклик `callq *%rax`.
+
+Якщо ж модуль `optional_telemetry.o` не скомпільовано, лінкер записує в комірку значення `0x0`. Інструкція `test %rax, %rax` встановлює прапорець `ZF=1`, і перехід `je` миттєво оминає блок виклику, витрачаючи лише 1 такт процесора.
+
+На мікроконтролерах архітектури ARM Cortex-M (система команд Thumb-2) цей механізм транслюється у завантаження з константного пулу літералів (*Literal Pool*):
+
+```nasm
+; Перевірка слабкого посилання на ARM Cortex-M (Thumb-2)
+ldr   r3, .Lpool_telemetry_hook   ; завантаження адреси (релокація R_ARM_ABS32)
+cbz   r3, .Lskip_telemetry        ; Compare and Branch on Zero (швидкий перехід, якщо r3 == 0)
+mov   r0, r4                      ; r0 = адреса об'єкта hal_event_t
+blx   r3                          ; виклик телеметрії через регістр
+.Lskip_telemetry:
+...
+.Lpool_telemetry_hook:
+.word 0x00000000                  ; лінкер записує 0x0, якщо модуль відсутній
+```
+
+#### Наслідки прямого виклику слабкого посилання без перевірки на NULL
+
+Якщо розробник припуститься помилки і викличе слабке посилання без попередньої перевірки `if (hook != NULL)`:
+
+1. **У середовищі Linux x86-64**: Компілятор згенерує прямий виклик `call 0x0` або перехід за нульовим покажчиком. Спроба вибірки інструкцій із нульової сторінки віртуальної пам'яті викличе помилку захисту пам'яті (*Page Fault*) та аварійну зупинку процесу сигналом `SIGSEGV` (Segmentation fault).
+2. **У мікроконтролерах ARM Cortex-M**: Перехід за адресою `0x00000000` призводить до фатального винятку `HardFault` (зокрема `INVSTATE UsageFault`). В архітектурі ARM Thumb молодший біт адреси переходу обов'язково повинен дорівнювати 1 для збереження режиму Thumb. Оскільки лінкер обнуляє всі біти адреси, процесор фіксує спробу виконання інструкцій у недійсному стані ARM і блокує ядро.
+
+Саме тому для слабких посилань обов'язковою є наявність перевірки адреси на `NULL` у точці виклику, тоді як для слабких функцій із заглушками за замовчуванням адреса завжди є валідною і виклик виконується без жодних перевірок.
+
+---
+
+### Аналіз поведінки заліза: регістрові угоди та кеш-пам'ять
+
+При аналізі виконання на процесорах ARM Cortex-M4 та Cortex-M7 критичним є збереження регістрів згідно зі стандартом AAPCS (*ARM Architecture Procedure Call Standard*).
+
+Коли апаратний блок NVIC викликає обробник переривання, залізо автоматично зберігає на стек регістри `r0`-`r3`, `r12`, `lr`, `pc` та `xPSR`. Якщо функція зворотного виклику викликається безпосередньо через `BL` (Branch with Link):
+1. **Збереження конвеєра**: Інструкція `BL` містить 24-бітне зміщення (діапазон ±16 МБ), яке декодується на етапі вибірки інструкцій без звернення до шини даних `D-Code`.
+2. **Усунення D-Cache промахів**: На процесорах Cortex-M7 з увімкненим кешем даних звернення до покажчиків у RAM може спричинити промах D-Cache (latency 8–15 тактів шини AXI). Прямий виклик слабкого символу завантажує інструкції виключно через I-Cache/Flash, не забруднюючи лінії D-Cache.
+3. **Реєстровий тиск**: Компілятор може передати структуру `hal_event_t` через регістри `r0`-`r3` без необхідності виділяти додаткові регістри під адресу покажчика переходу, зменшуючи глибину стека переривання.
+
+---
+
+### Взаємодія з контролером DMA та подвійна буферизація
+
+У високошвидкісних каналах зв'язку (наприклад, SPI на частоті 50 МГц або UART на швидкості 3 Мбіт/с) процесор не встигає обробляти кожен байт окремо. Для таких задач використовується контролер прямого доступу до пам'яті (*Direct Memory Access*, DMA) у режимі кільцевого циклічного буфера (*circular mode*).
+
+Контролер DMA генерує два типи апаратних переривань:
+1. **Half-Transfer Complete (HT)**: DMA заповнив першу половину подвійного буфера `ping_pong_buffer[0..N/2-1]`.
+2. **Transfer Complete (TC)**: DMA дійшов до кінця буфера `ping_pong_buffer[N/2..N-1]` і автоматично переходить на початок.
+
+Фреймворк на слабких символах дозволяє реалізувати безшовну передачу блоків даних застосунку:
+- Драйвер DMA визначає слабкі аліаси `hal_dma_half_transfer_callback` та `hal_dma_full_transfer_callback`.
+- Поки користувацький алгоритм (наприклад, обчислення швидкого перетворення Фур'є FFT або стиснення потоку) обробляє першу половину буфера, апаратний блок DMA паралельно заповнює другу половину.
+- Прямий виклик слабкого символу виключає накладні витрати на копіювання пам'яті всередині обробника переривання, забезпечуючи нульову латентність перемикання буферів (*zero-copy double buffering*).
+
+---
+
+### Кількісний аналіз тактових затримок (Latency Benchmark)
+
+Для детальної оцінки ефективності наведемо точні вимірювання тактових циклів процесора на ядрі ARM Cortex-M4 (тактова частота 168 МГц, час такту 5.95 нс):
+
+1. **Динамічний виклик через RAM-покажчик**:
+   - `LDR r3, [r0, #offset]` (завантаження адреси функції з RAM): 2 такти.
+   - `CMP r3, #0` + `BEQ label` (перевірка на NULL): 1 такт.
+   - `LDR r0, [r0, #ctx_offset]` (завантаження покажчика контексту): 2 такти.
+   - `BLX r3` (непрямий перехід зі скиданням конвеєра): 3–4 такти.
+   - **Сумарна затримка**: 8–9 тактів процесора (47.6–53.5 нс).
+
+2. **Статичний виклик на базі слабкого символу**:
+   - `BL hal_uart_rx_callback` (прямий перехід за вшитим зміщенням): 1–2 такти.
+   - **Сумарна затримка**: 1–2 такти процесора (5.95–11.9 нс).
+
+Усунення накладних витрат скорочує латентність виклику на **78–88%**. При потоці вхідних даних по послідовному інтерфейсу з частотою 100 000 переривань на секунду (100 кГц) ця економія вивільняє понад 700 000 тактових циклів CPU щосекунди, які мікроконтролер може використати для математичних обчислень або переходу в режим сну.
+
+---
+
+### Інтеграція з операційними системами реального часу (RTOS)
+
+У проєктах під керуванням FreeRTOS, Zephyr або RT-Thread слабкі зворотні виклики слугують ідеальним мостом між апаратними драйверами та задачами планувальника (*tasks / threads*).
+
+При роботі в середовищі RTOS зворотний виклик переривання зазвичай виконує три операції:
+1. Зчитування даних з регістрів пристрою в кільцевий буфер.
+2. Відправлення сповіщення задачі через механізм прямих сповіщень (*Direct Task Notifications*): `vTaskNotifyGiveFromISR(g_processing_task, &xHigherPriorityTaskWoken)`.
+3. Запит на перемикання контексту, якщо розблокована задача має вищий пріоритет: `portYIELD_FROM_ISR(xHigherPriorityTaskWoken)`.
+
+Оскільки слабкий символ не витрачає пам'яті RAM і не вимагає виділення динамічних об'єктів або блокувань, обробник переривання залишається максимально компактним і детермінованим. Крім того, саме ядро FreeRTOS спирається на слабкі символи для системних зачіпок:
+- `vApplicationIdleHook(void)` — виконання фонових енергоощадних інструкцій процесора (`wfi`).
+- `vApplicationTickHook(void)` — періодичні дії на кожному системному кванті часу.
+- `vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)` — обробка фатального переповнення стека задачі.
+
+---
+
+### Інструкція зі збирання, перевірки та тестування
+
+Для практичної верифікації фреймворку виконайте складання проєкту в кількох конфігураціях:
+
+#### 1. Повне збирання C99 (з усіма плагінами)
+```bash
+gcc -Wall -Wextra -std=c99 hal_driver_core.c optional_telemetry.c app_main.c test_harness.c -o test_c99
+./test_c99
+```
+
+Очікуваний результат у терміналі:
+```text
+=== СТАРТ ТЕСТУВАННЯ ФРЕЙМВОРКУ СЛАБКИХ СИМВОЛІВ (C99) ===
+
+[HAL CORE] Ініціалізація драйверного ядра. Слабкі символи налаштовано.
+
+--- ТЕСТ 1: Перевірка перекритого UART обробника ---
+[APP USER] Сильний обробник UART RX спрацював!
+  -> Прийнято 5 байтів, поточна голова кільцевого буфера: 5
+[TELEMETRY PLUGIN] Отримано подію периферії 0 (час: 1000 us, байтів: 5)
+
+--- ТЕСТ 2: Перевірка перекритого GPIO обробника ---
+[APP USER] Сильний обробник GPIO спрацював! Натискань: 1
+[TELEMETRY PLUGIN] Отримано подію периферії 4 (час: 1001 us, байтів: 0)
+
+--- ТЕСТ 3: Перевірка неперекритого SPI обробника (Default Stub) ---
+[TELEMETRY PLUGIN] Отримано подію периферії 2 (час: 1002 us, байтів: 2)
+SPI обробка завершилася безпечно без краху програми.
+
+--- ТЕСТ 4: Перевірка неперекритого Таймера (Default Stub) ---
+[TELEMETRY PLUGIN] Отримано подію периферії 5 (час: 1003 us, байтів: 0)
+Таймер завершив роботу без збоїв.
+
+=== ТЕСТУВАННЯ ЗАВЕРШЕНО УСПІШНО ===
+```
+
+#### 2. Збирання без плагіна телеметрії (перевірка слабких посилань)
+Якщо виключити файл `optional_telemetry.c` з команди компілятора:
+```bash
+gcc -Wall -Wextra -std=c99 hal_driver_core.c app_main.c test_harness.c -o test_no_telemetry
+./test_no_telemetry
+```
+
+Програма скомпілюється без жодної помилки лінкера `undefined reference`. Під час виконання перевірка `if (hal_telemetry_publish_hook != NULL)` поверне `false`, і виклики телеметрії будуть тихо пропущені.
+
+#### 3. Повне збирання на C++20
+```bash
+g++ -Wall -Wextra -std=c++20 hal_driver_core.cpp optional_telemetry.cpp app_main.cpp test_harness.cpp -o test_cpp20
+./test_cpp20
+```
+
+---
+
+### Автоматизована перевірка символів у CI/CD
+
+Щоб гарантувати, що важливі обробники подій справді перекриті сильними символами і не були випадково пропущені через друкарську помилку в назві функції (наприклад, `hal_uart_rx_calback` замість `hal_uart_rx_callback`), у пайплайн безперервної інтеграції (CI/CD) додають автоматичний аналіз вихідного ELF-образу:
+
+```bash
+# Перевірка в CI пайплайні: переконуємося, що hal_uart_rx_callback став сильним символом 'T'
+nm test_harness.elf | grep "T hal_uart_rx_callback" || {
+    echo "[ПОМИЛКА CI] hal_uart_rx_callback не перекрито або скомпільовано зі слабким зв'язуванням!"
+    exit 1
+}
+```
+
+Така проста автоматизована перевірка унеможливлює потрапляння мовчазних дефектів конфігурації у релізні версії вбудованого програмного забезпечення.
+
+---
+
+### Тонкощі компіляції та пастки компонування
+
+Під час впровадження фреймворку у великі вбудовані проєкти слід враховувати такі специфічні аспекти збирання:
+
+1. **Компонування зі статичних архівів (`.a`)**: Якщо користувацькі сильні обробники скомпільовано в архівну бібліотеку `libuser_app.a`, лінкер може пропустити їх, якщо жоден сильний символ не вимагає їх завантаження. Для примусового включення передайте прапорець `-Wl,--whole-archive libuser_app.a -Wl,--no-whole-archive` або явно вкажіть назву файлу `.o` перед архівом.
+2. **Захист від інлайнінгу в LTO**: Якщо слабка заглушка визначена в тому самому `.c` файлі, де й виклик, додайте атрибут `__attribute__((noinline))`, інакше компілятор з оптимізацією `-O2`/`-O3` може замінити виклик порожнім тілом ще до того, як лінкер побачить сильне перевизначення.
+3. **Узгодження імен у C++**: Усі C-сумісні зворотні виклики повинні огортатися в `extern "C"`. У разі використання просторів імен C++ або перевантаження функцій лінкер генерує спотворені імена (`mangled names`), що призводить до непомітної втрати зв'язку з C-таблицями драйвера.
+4. **Атомарність та реентрабельність**: Зворотні виклики виконуються в контексті апаратних переривань. Усі змінні стану, які модифікуються в обробниках (наприклад, `g_rx_head` чи лічильники), повинні бути оголошені з кваліфікатором `volatile` (у C99) або мати тип `std::atomic` з пам'яттєвим порядком `std::memory_order_relaxed` чи `acquire/release` (у C++20).
+5. **Вимоги стандартів MISRA C та AUTOSAR C++**: Стандарт MISRA C:2012 (правила 8.4, 8.5 та 8.6) вимагає обов'язкової наявності попереднього оголошення для всіх глобальних функцій у заголовках. При використанні `__attribute__((weak))` слід явно документувати відхилення від правила унікальності визначень (Rule 8.6) як усвідомлене застосування компіляторного розширення для створення зачіпок за замовчуванням.
+
+Фреймворк слабких символів забезпечує безшовне поєднання високорівневої модульності та максимальної швидкодії апаратного рівня.

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етапи канаркового розгортання та механізм Kill Switch</text>
+<text x="500.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етапи поетапного розгортання, аналіз аномалій (ACA) та аварійний Kill Switch</text>
+<rect x="40.0" y="65.0" width="200.0" height="220.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="140.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: 1% Canary</text>
+<text x="140.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Мінімальний радіус ураження</text>
+<rect x="55.0" y="130.0" width="170.0" height="45.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="140.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1% трафіку на v2.0</text>
+<text x="140.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">99% трафіку на v1.0</text>
+<text x="140.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Період прогріву: 15 хв</text>
+<text x="140.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Синтетичні зонди OK</text>
+<text x="140.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">SLI: Помилки &lt; 0.01%</text>
+<text x="140.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Автоматичний перехід →</text>
+<line x1="240.0" y1="175.0" x2="275.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="280.0" y="65.0" width="200.0" height="220.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="380.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 2: 10% Staged</text>
+<text x="380.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Статистична вибірка ACA</text>
+<rect x="295.0" y="130.0" width="170.0" height="45.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="380.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">10% трафіку на v2.0</text>
+<text x="380.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">90% трафіку на v1.0</text>
+<text x="380.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Тест Манна-Вітні: p &gt; 0.05</text>
+<text x="380.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Затримка p99: +1.2 мс (Норма)</text>
+<text x="380.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Вичерпання бюджету: 0%</text>
+<text x="380.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Автоматичний перехід →</text>
+<line x1="480.0" y1="175.0" x2="515.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="520.0" y="65.0" width="210.0" height="220.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="625.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 3: 50% Mixed Fleet</text>
+<text x="625.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Критична точка стійкості</text>
+<rect x="535.0" y="130.0" width="180.0" height="45.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="625.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">50% v2.0 | 50% v1.0</text>
+<text x="625.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Виявлено сплеск затримок!</text>
+<text x="625.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Аномалія: Витік пам'яті</text>
+<text x="625.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Затримка p99: 450 мс (+380%)</text>
+<text x="625.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Burn Rate бюджету = 14.2x</text>
+<text x="625.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ТРИГЕР ЗУПИНКИ!</text>
+<line x1="625.0" y1="285.0" x2="625.0" y2="330.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="280.0" y="330.0" width="680.0" height="200.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="620.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">РЕЖИМ ЕКСТРЕНОЇ ЗУПИНКИ ТА ЛОКАЛІЗАЦІЇ (KILL SWITCH)</text>
+<rect x="292.9" y="386.0" width="234.3" height="48.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/><text x="410.0" y="400.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">1. L7 Маршрутизатор (Envoy/ALB):</tspan><tspan x="410.0" dy="13.0">Миттєве скидання ваги v2.0 → 0%</tspan><tspan x="410.0" dy="13.0">Весь вхідний потік повертається на v1.0</tspan></text>
+<rect x="524.2" y="386.0" width="211.5" height="48.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/><text x="630.0" y="400.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">2. Дренаж вузлів (Graceful Drain):</tspan><tspan x="630.0" dy="13.0">Тайм-аут завершення сокетів: 30 с</tspan><tspan x="630.0" dy="13.0">Заборона нових клієнтських викликів</tspan></text>
+<rect x="742.8" y="386.0" width="194.4" height="48.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/><text x="840.0" y="400.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">3. Fencing Token &amp; Епоха:</tspan><tspan x="840.0" dy="13.0">Інкремент епохи консенсусу</tspan><tspan x="840.0" dy="13.0">Блокування мутацій від v2.0 у БД</tspan></text>
+<rect x="311.3" y="470.5" width="617.4" height="39.0" rx="6" fill="#ffffff" stroke="#7e22ce" stroke-width="1.2"/><text x="620.0" y="487.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Стан парку після зупинки: 50% вузлів v2.0 ізольовано для діагностики (Core Dump / Heap Profiling)</tspan><tspan x="620.0" dy="13.0">Робочий продакшн стабілізовано на 100% v1.0 без деградації клієнтських операцій</tspan></text>
+<rect x="40.0" y="330.0" width="210.0" height="200.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="145.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контролер телеметрії</text>
+<text x="145.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Prometheus / OpenTelemetry</text>
+<text x="145.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Sliding Window Burn Rate</text>
+<text x="145.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Автоматичний валідатор SLI</text>
+<text x="145.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Deadman's Switch зонд</text>
+<text x="145.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Опитування кожні 2 с</text>
+<line x1="250.0" y1="430.0" x2="280.0" y2="430.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

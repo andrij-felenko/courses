@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння побайтового зчитування та атомарного Burst-трансферу</text>
+<text x="420.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атомарність зчитування: Проблема розриву вибірки (Data Tearing)</text>
+<rect x="30.0" y="60.0" width="370.0" height="425.0" rx="6" fill="#fadbda" stroke="#922b21" stroke-width="1.8"/>
+<text x="215.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#922b21" text-anchor="middle" font-weight="700">ПОМИЛКА: Побайтове зчитування (No Burst)</text>
+<rect x="42.0" y="105.0" width="346.0" height="52.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Час t0</text>
+<text x="50.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="50.0" dy="0.0">I2C START -&gt; Read(MSB = 0x5C)</tspan></text>
+<rect x="42.0" y="165.0" width="346.0" height="52.0" rx="4" fill="#fadbd8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="start" font-weight="700">Час t1</text>
+<text x="50.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="start"><tspan x="50.0" dy="0.0">МК обробляє інші переривання (15 мкс)</tspan></text>
+<rect x="42.0" y="225.0" width="346.0" height="52.0" rx="4" fill="#f5b7b1" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="start" font-weight="700">Час t2</text>
+<text x="50.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="start"><tspan x="50.0" dy="0.0">АЦП завершив оновлення: 0x5C -&gt; 0x5D!</tspan><tspan x="50.0" dy="11.4">Нове значення тиску в кремнії!</tspan></text>
+<rect x="42.0" y="285.0" width="346.0" height="52.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Час t3</text>
+<text x="50.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="50.0" dy="0.0">I2C START -&gt; Read(LSB = 0x02)</tspan></text>
+<rect x="42.0" y="345.0" width="346.0" height="52.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Час t4</text>
+<text x="50.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="50.0" dy="0.0">I2C START -&gt; Read(XLSB = 0x10)</tspan></text>
+<rect x="42.0" y="405.0" width="346.0" height="52.0" rx="4" fill="#f2d7d5" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="start" font-weight="700">Результат</text>
+<text x="50.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="start"><tspan x="50.0" dy="0.0">Зібрано: MSB(старе 0x5C) + LSB(нове 0x02)</tspan><tspan x="50.0" dy="11.4">Помилка: стрибок тиску на 4096 Па (40 гПа)!</tspan></text>
+<rect x="440.0" y="60.0" width="370.0" height="425.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.8"/>
+<text x="625.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">ПРАВИЛЬНО: Атомарний Burst Read (DMA)</text>
+<rect x="452.0" y="105.0" width="346.0" height="52.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="460.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Час t0</text>
+<text x="460.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="460.0" dy="0.0">I2C START -&gt; Reg 0xF7 (Auto-increment)</tspan></text>
+<rect x="452.0" y="165.0" width="346.0" height="52.0" rx="4" fill="#d5f5e3" stroke="#6b7280" stroke-width="1.0"/>
+<text x="460.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start" font-weight="700">Апаратний захист</text>
+<text x="460.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start"><tspan x="460.0" dy="0.0">Чип фіксує Shadow Latch на час посилки</tspan><tspan x="460.0" dy="11.4">АЦП не може змінити тіньові регістри!</tspan></text>
+<rect x="452.0" y="225.0" width="346.0" height="52.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="460.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Час t1..t3</text>
+<text x="460.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="460.0" dy="0.0">Безперервне вичитування 6 байтів DMA</tspan><tspan x="460.0" dy="11.4">MSB -&gt; LSB -&gt; XLSB -&gt; T_MSB -&gt; T_LSB...</tspan></text>
+<rect x="452.0" y="285.0" width="346.0" height="52.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="460.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Час t4</text>
+<text x="460.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="460.0" dy="0.0">I2C STOP -&gt; Звільнення Shadow Latch</tspan></text>
+<rect x="452.0" y="345.0" width="346.0" height="52.0" rx="4" fill="#d5f5e3" stroke="#6b7280" stroke-width="1.0"/>
+<text x="460.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start" font-weight="700">Час t5</text>
+<text x="460.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start"><tspan x="460.0" dy="0.0">Переривання DMA -&gt; Обчислення в ISR/Task</tspan></text>
+<rect x="452.0" y="405.0" width="346.0" height="52.0" rx="4" fill="#abebc6" stroke="#6b7280" stroke-width="1.0"/>
+<text x="460.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start" font-weight="700">Результат</text>
+<text x="460.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start"><tspan x="460.0" dy="0.0">Гарантована узгодженість вибірки</tspan><tspan x="460.0" dy="11.4">Помилка фазового розриву = 0.00 Па</tspan></text>
+</svg>

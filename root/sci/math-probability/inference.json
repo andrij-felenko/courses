@@ -99,7 +99,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           }
         },
         {
@@ -125,6 +126,16 @@
         {
           "slug": "goodness-of-fit",
           "title": "Якість підгонки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "expectation-maximization",
+          "title": "Алгоритм очікування-максимізації (EM)",
           "basic": {
             "status": "empty"
           },

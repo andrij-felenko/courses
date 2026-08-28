@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл асинхронної транзакції драйвера</text>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл неблокуючої транзакції: виклик, переривання та зворотний виклик</text>
+<rect x="35.0" y="48.0" width="170.0" height="32.0" rx="4" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.6"/>
+<text x="120.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a5276" text-anchor="middle" font-weight="700">Застосунок (Task)</text>
+<line x1="120.0" y1="80.0" x2="120.0" y2="465.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="245.0" y="48.0" width="170.0" height="32.0" rx="4" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.6"/>
+<text x="330.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d3c98" text-anchor="middle" font-weight="700">Драйвер (API)</text>
+<line x1="330.0" y1="80.0" x2="330.0" y2="465.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="455.0" y="48.0" width="170.0" height="32.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.6"/>
+<text x="540.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="middle" font-weight="700">Контролер / DMA</text>
+<line x1="540.0" y1="80.0" x2="540.0" y2="465.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="655.0" y="48.0" width="170.0" height="32.0" rx="4" fill="#fadbd8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="740.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Обробник IRQ / Callback</text>
+<line x1="740.0" y1="80.0" x2="740.0" y2="465.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="120.0" y1="110.0" x2="330.0" y2="110.0" stroke="#1a5276" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="225.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">1. transfer_async(&amp;req, cb, ctx)</text>
+<rect x="315.0" y="120.0" width="30.0" height="50.0" rx="2" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.4"/>
+<text x="355.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d3c98" text-anchor="start">state: IDLE -&gt; BUSY</text>
+<text x="355.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">зберегти cb та ctx</text>
+<line x1="330.0" y1="175.0" x2="540.0" y2="175.0" stroke="#1e8449" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="435.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="middle" font-weight="700">2. Запуск DMA / IRQ (CR1/CR2)</text>
+<line x1="330.0" y1="205.0" x2="120.0" y2="205.0" stroke="#1a5276" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="225.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle">3. return DRIVER_OK (1.2 мкс)</text>
+<rect x="105.0" y="215.0" width="30.0" height="95.0" rx="2" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.4"/>
+<rect x="145.0" y="230.0" width="140.0" height="55.0" rx="4" fill="#f0f7fc" stroke="#1a5276" stroke-width="1.0"/>
+<text x="215.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle"><tspan x="215.0" dy="0.0">Задача виконує</tspan><tspan x="215.0" dy="10.8">іншу логіку або спить</tspan><tspan x="215.0" dy="10.8">в очікуванні події RTOS</tspan></text>
+<rect x="525.0" y="185.0" width="30.0" height="125.0" rx="2" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.4"/>
+<rect x="565.0" y="220.0" width="145.0" height="55.0" rx="4" fill="#f0faf4" stroke="#1e8449" stroke-width="1.0"/>
+<text x="637.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="middle"><tspan x="637.0" dy="0.0">Апаратна передача байтів</tspan><tspan x="637.0" dy="10.8">по фізичній шині</tspan><tspan x="637.0" dy="10.8">без задіяння CPU</tspan></text>
+<line x1="540.0" y1="315.0" x2="740.0" y2="315.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="640.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">4. Апаратне IRQ (Transfer Complete)</text>
+<rect x="725.0" y="320.0" width="30.0" height="85.0" rx="2" fill="#fadbd8" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="740.0" y1="350.0" x2="330.0" y2="350.0" stroke="#7d3c98" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="535.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d3c98" text-anchor="middle">5. Очищення прапорців, state -&gt; IDLE</text>
+<line x1="740.0" y1="390.0" x2="120.0" y2="390.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="430.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">6. Виклик cb(STATUS_OK, bytes, ctx) / надсилання події в чергу</text>
+<rect x="105.0" y="395.0" width="30.0" height="50.0" rx="2" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.4"/>
+<rect x="145.0" y="400.0" width="140.0" height="42.0" rx="4" fill="#f0f7fc" stroke="#1a5276" stroke-width="1.0"/>
+<text x="215.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle"><tspan x="215.0" dy="0.0">Обробка результату</tspan><tspan x="215.0" dy="10.8">у фоновій задачі</tspan></text>
+<text x="430.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Контекст ISR повинен бути мінімальним: зміна стану та сигналізація, без важких обчислень чи блокувань</text>
+</svg>

@@ -137,7 +137,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "comp": [
             {
@@ -176,6 +177,16 @@
           },
           "detailed": {
             "status": "recheck"
+          }
+        },
+        {
+          "slug": "tem-cell",
+          "title": "ТЕМ-камера та GTEM: однорідне TEM-поле, септум і калібрування ЕМС",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
           }
         }
       ]
@@ -233,8 +244,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-scpi-parser-core.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

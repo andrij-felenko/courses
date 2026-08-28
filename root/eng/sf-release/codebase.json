@@ -55,7 +55,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "api": [
             {
@@ -219,8 +220,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-fagan-inspection-tracker.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

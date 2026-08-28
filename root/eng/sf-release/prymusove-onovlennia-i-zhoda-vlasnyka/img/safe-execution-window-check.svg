@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка шлюзу фізичної безпеки перед перезавантаженням</text>
+<text x="500.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлюз фізичної безпеки (Safe Execution Window Interlocks)</text>
+<rect x="40.0" y="60.0" width="280.0" height="490.0" rx="8" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="180.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ТЕЛЕМЕТРІЯ ТА ДАТЧИКИ БЕЗПЕКИ</text>
+<rect x="55.0" y="105.0" width="250.0" height="70.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="180.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. Кінематика і рух</text>
+<text x="180.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Швидкість коліс: 0.00 м/с</text>
+<text x="180.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• IMU: відсутність лінійного прискорення</text>
+<rect x="55.0" y="185.0" width="250.0" height="70.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="180.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">2. Гальма та положення</text>
+<text x="180.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Стоянкове гальмо: ЗАБЛОКОВАНО</text>
+<text x="180.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Передача: селектор у положенні «PARK»</text>
+<rect x="55.0" y="265.0" width="250.0" height="70.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="180.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">3. Підсистема живлення (BMS)</text>
+<text x="180.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Рівень заряду АКБ &gt;= 50%</text>
+<text x="180.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Зовнішнє живлення: ПІДКЛЮЧЕНО / СТАБІЛЬНЕ</text>
+<rect x="55.0" y="345.0" width="250.0" height="70.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="180.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">4. Силові актуатори</text>
+<text x="180.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Струм сервоприводів: 0.0 А</text>
+<text x="180.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Силове реле високої напруги: ВІДКЛЮЧЕНО</text>
+<rect x="55.0" y="425.0" width="250.0" height="70.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="180.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">5. Стан файлової системи та СУБД</text>
+<text x="180.0" y="463.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Відсутність відкритих транзакцій SQLite</text>
+<text x="180.0" y="481.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Скидання сторінок пам'яті (sync completed)</text>
+<text x="180.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Опитування шини CAN / I2C / sysfs кожні 500 мс</text>
+<rect x="360.0" y="140.0" width="280.0" height="330.0" rx="8" fill="#fffbf0" stroke="#d97706" stroke-width="2.0"/>
+<text x="500.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">МАТРИЦЯ АРБІТРАЖУ БЕЗПЕКИ</text>
+<text x="500.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Логічна кон'юнкція умов (Bitwise AND)</text>
+<line x1="375.0" y1="195.0" x2="625.0" y2="195.0" stroke="#d97706" stroke-width="1.0"/>
+<text x="500.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Інтерлок 1: (Speed == 0) [OK]</text>
+<text x="500.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Інтерлок 2: (Brake == ENGAGED) [OK]</text>
+<text x="500.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Інтерлок 3: (Battery &gt;= 50%) [OK]</text>
+<text x="500.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Інтерлок 4: (Actuators == OFF) [OK]</text>
+<text x="500.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Інтерлок 5: (FS_Drain == IDLE) [OK]</text>
+<line x1="375.0" y1="330.0" x2="625.0" y2="330.0" stroke="#d97706" stroke-width="1.0"/>
+<text x="500.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат: Mask == INTERLOCKS_ALL_OK</text>
+<text x="500.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Час утримання безпечного стану:</text>
+<text x="500.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">T_hold &gt;= 5.0 с без порушень</text>
+<text x="500.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Watchdog очікування: 1800 с максимум</text>
+<text x="500.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Вихід за межі таймауту → Safe Abort</text>
+<line x1="305.0" y1="140.0" x2="360.0" y2="215.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="220.0" x2="360.0" y2="240.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="300.0" x2="360.0" y2="265.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="380.0" x2="360.0" y2="290.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="460.0" x2="360.0" y2="315.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="680.0" y="80.0" width="280.0" height="180.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="820.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ДОЗВІЛ НА ПЕРЕЗАВАНТАЖЕННЯ</text>
+<text x="820.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Статус: SAFE_WINDOW_GRANTED</text>
+<text x="820.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. Захоплення виключного Safety Lock</text>
+<text x="820.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2. Фіксація стану завантажувача U-Boot</text>
+<text x="820.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3. Атомарне перемикання розділу boot</text>
+<text x="820.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Виклик reboot(RB_AUTOBOOT)</text>
+<text x="820.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Апаратний перезапуск за 800 мс</text>
+<rect x="680.0" y="320.0" width="280.0" height="210.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="820.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ВІДХИЛЕННЯ / ОЧІКУВАННЯ БЕЗПЕКИ</text>
+<text x="820.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Статус: INTERLOCK_VIOLATION</text>
+<text x="820.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Причина: виявлено рух / низький заряд</text>
+<text x="820.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">• Блокування виклику reboot()</text>
+<text x="820.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Надсилання тривоги на OTA-сервер</text>
+<text x="820.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Увімкнення лічильника спроб (Retry Count)</text>
+<text x="820.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Якщо дедлайн вичерпано → Запит</text>
+<text x="820.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">  на безпечну парковку обладнання</text>
+<text x="820.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">• Пріоритет: збереження життя та майна</text>
+<line x1="640.0" y1="220.0" x2="680.0" y2="160.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="655.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">TRUE</text>
+<line x1="640.0" y1="380.0" x2="680.0" y2="410.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="655.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">FALSE</text>
+</svg>

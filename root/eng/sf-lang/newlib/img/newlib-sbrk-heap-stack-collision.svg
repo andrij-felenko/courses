@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 530" width="840" height="530">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+  </marker>
+</defs>
+<rect x="10.0" y="10.0" width="820.0" height="510.0" rx="8" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта оперативної пам'яті SRAM: механізм росту купи та детекція колізії зі стеком</text>
+<rect x="50.0" y="100.0" width="140.0" height="100.0" rx="0" fill="#e8edf5" stroke="#2457d6" stroke-width="1.5"/>
+<text x="120.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">.data / .bss</text>
+<text x="120.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Статичні дані</text>
+<text x="120.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">глобальні змінні</text>
+<rect x="190.0" y="100.0" width="160.0" height="100.0" rx="0" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="270.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Купа (Heap)</text>
+<text x="270.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Виділені блоки</text>
+<text x="270.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">malloc() / new</text>
+<rect x="350.0" y="100.0" width="170.0" height="100.0" rx="0" fill="#fffde7" stroke="#b8860b" stroke-width="1.5"/>
+<text x="435.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">Вільна пам'ять</text>
+<text x="435.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Запас росту купи</text>
+<text x="435.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">до межі стека</text>
+<rect x="520.0" y="100.0" width="60.0" height="100.0" rx="0" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="550.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Бар'єр</text>
+<text x="550.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">GAP</text>
+<rect x="580.0" y="100.0" width="210.0" height="100.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="685.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Стек викликів</text>
+<text x="685.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Локальні змінні, ISR</text>
+<text x="685.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Поточний SP ядра</text>
+<rect x="50.0" y="100.0" width="740.0" height="100.0" rx="0" fill="none" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="50.0" y1="80.0" x2="50.0" y2="100.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="50.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0x20000000</text>
+<line x1="190.0" y1="80.0" x2="190.0" y2="100.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="190.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">_end / __heap_start__</text>
+<line x1="350.0" y1="80.0" x2="350.0" y2="100.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="350.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700">Поточний break</text>
+<line x1="520.0" y1="80.0" x2="520.0" y2="100.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="520.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">__StackLimit</text>
+<line x1="790.0" y1="80.0" x2="790.0" y2="100.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="790.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">_estack (Вершина RAM)</text>
+<line x1="200.0" y1="222.0" x2="410.0" y2="222.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="290.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ріст купи через _sbrk (+incr) →</text>
+<line x1="780.0" y1="222.0" x2="570.0" y2="222.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="670.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">← Ріст стека через push/виклики</text>
+<rect x="50.0" y="270.0" width="226.0" height="220.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="50.0" y="270.0" width="226.0" height="32.0" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="163.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Запит пам'яті</text>
+<text x="163.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="163.0" dy="0.0">1. malloc() потребує чанк</tspan><tspan x="163.0" dy="15.4">2. Виклик _sbrk(incr)</tspan><tspan x="163.0" dy="15.4">3. Отримання SP процесора:</tspan><tspan x="163.0" dy="15.4">   __get_MSP() або __get_SP()</tspan><tspan x="163.0" dy="15.4">4. Розрахунок нової межі:</tspan><tspan x="163.0" dy="15.4">   next_brk = prev_brk + incr</tspan></text>
+<line x1="280.0" y1="375.0" x2="297.0" y2="375.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="301.0" y="270.0" width="226.0" height="220.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="301.0" y="270.0" width="226.0" height="32.0" rx="6" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="414.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">2. Перевірка колізії</text>
+<text x="414.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="414.0" dy="0.0">Умова безпеки:</tspan><tspan x="414.0" dy="15.4">next_brk + STACK_MARGIN</tspan><tspan x="414.0" dy="15.4">    &lt;= current_sp</tspan><tspan x="414.0" dy="15.4"></tspan><tspan x="414.0" dy="15.4">Якщо запас є (без колізії):</tspan><tspan x="414.0" dy="15.4">heap_end = next_brk</tspan><tspan x="414.0" dy="15.4">return prev_brk (Успіх)</tspan></text>
+<line x1="531.0" y1="375.0" x2="548.0" y2="375.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="552.0" y="270.0" width="226.0" height="220.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="552.0" y="270.0" width="226.0" height="32.0" rx="6" fill="#fee2e2" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="665.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. Захист від аварії</text>
+<text x="665.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">Колізія (next_brk &gt; SP):</tspan><tspan x="665.0" dy="15.4">1. Заборона росту break</tspan><tspan x="665.0" dy="15.4">2. Встановлення коду помилки:</tspan><tspan x="665.0" dy="15.4">   errno = ENOMEM</tspan><tspan x="665.0" dy="15.4">3. return (void*)-1</tspan><tspan x="665.0" dy="15.4">4. malloc() повертає NULL</tspan><tspan x="665.0" dy="15.4">   Стек не пошкоджено!</tspan></text>
+</svg>

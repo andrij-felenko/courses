@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 520" width="840" height="520">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+  </marker>
+</defs>
+<rect x="10.0" y="10.0" width="820.0" height="500.0" rx="8" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурне порівняння: стандартна Newlib проти Newlib-nano (--specs=nano.specs)</text>
+<rect x="40.0" y="70.0" width="360.0" height="420.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="40.0" y="70.0" width="360.0" height="40.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="220.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стандартна Newlib (libc.a)</text>
+<rect x="55.0" y="125.0" width="330.0" height="75.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="65.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Монолітний vfprintf / vfscanf</text>
+<text x="65.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="65.0" dy="0.0">• Плаваюча кома (%f, %e) завжди влінкована</tspan><tspan x="65.0" dy="13.5">• Алгоритми Dragon4 / Grisu + Bignum арифметика</tspan><tspan x="65.0" dy="13.5">• Flash overhead: +35..50 КБ коду!</tspan></text>
+<rect x="55.0" y="210.0" width="330.0" height="75.0" rx="4" fill="#fef3c7" stroke="#b8860b" stroke-width="1.2"/>
+<text x="65.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="start" font-weight="700">Повна структура struct _reent</text>
+<text x="65.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="65.0" dy="0.0">• Повні файлові буфери FILE, масиви signal/locale</tspan><tspan x="65.0" dy="13.5">• Розмір: ~1024..1200 байтів на КОЖЕН потік!</tspan><tspan x="65.0" dy="13.5">• Катастрофічні витрати RAM у RTOS</tspan></text>
+<rect x="55.0" y="295.0" width="330.0" height="75.0" rx="4" fill="#e8edf5" stroke="#2457d6" stroke-width="1.2"/>
+<text x="65.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Повнофункціональний стрімовий I/O</text>
+<text x="65.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="65.0" dy="0.0">• Динамічне виділення буферів при відкритті stdin/out</tspan><tspan x="65.0" dy="13.5">• Тягне за собою важкий алокатор Doug Lea malloc</tspan><tspan x="65.0" dy="13.5">• Багатовимірні таблиці перетворення локалей</tspan></text>
+<rect x="55.0" y="380.0" width="330.0" height="60.0" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="220.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Загальний відбиток (Footprint):</text>
+<text x="220.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Flash: 45–70 КБ  |  RAM: 1.5–3+ КБ</text>
+<rect x="440.0" y="70.0" width="360.0" height="420.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="440.0" y="70.0" width="360.0" height="40.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="620.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Newlib-nano (libc_nano.a)</text>
+<rect x="455.0" y="125.0" width="330.0" height="75.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="465.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Оптимізований _nano_vfprintf</text>
+<text x="465.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="465.0" dy="0.0">• За замовчуванням: лише цілочисельний друк (%d, %x, %s)</tspan><tspan x="465.0" dy="13.5">• Float підключається опційно: -u _printf_float</tspan><tspan x="465.0" dy="13.5">• Flash overhead: лише 2–5 КБ коду!</tspan></text>
+<rect x="455.0" y="210.0" width="330.0" height="75.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="465.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Компактна struct _reent (Tiny)</text>
+<text x="465.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="465.0" dy="0.0">• Мінімальні статичні покажчики, урізані структури</tspan><tspan x="465.0" dy="13.5">• Розмір: лише ~80–120 байтів на потік!</tspan><tspan x="465.0" dy="13.5">• Ідеально для FreeRTOS / Zephyr та малих SRAM</tspan></text>
+<rect x="455.0" y="295.0" width="330.0" height="75.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="465.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Легкий nano-malloc &amp; небуферизований I/O</text>
+<text x="465.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="465.0" dy="0.0">• Спрощений однозв'язний список вільних блоків</tspan><tspan x="465.0" dy="13.5">• Прямий вивід у заглушки без масивних проміжних черг</tspan><tspan x="465.0" dy="13.5">• Мінімальне споживання RAM рантаймом</tspan></text>
+<rect x="455.0" y="380.0" width="330.0" height="60.0" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="620.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Загальний відбиток (Footprint):</text>
+<text x="620.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Flash: 6–15 КБ  |  RAM: 150–300 байтів</text>
+</svg>

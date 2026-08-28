@@ -43,8 +43,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-pinmux-validator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "module-model",
@@ -101,8 +107,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-driver-framework-core.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "cmsis",
@@ -152,11 +164,25 @@
           "slug": "draiver-chypa",
           "title": "Драйвер чипа: від регістрової карти до значення у SI",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done",
+            "recode": true
+          },
+          "math": [
+            {
+              "file": "math-calibration-polynomials.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sensor-driver-pipeline.md",
+              "status": "done",
+              "recode": true
+            }
+          ]
         },
         {
           "slug": "riven-tranzaktsii",
@@ -165,8 +191,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-bus-transaction-layer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "poslidovnist-initsializatsii-iakoi-nikhto",
@@ -175,28 +207,46 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-init-sequence-engine.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "opytuvannia-pereryvannia-chy-dma-u-draiveri",
           "title": "Опитування, переривання чи DMA у драйвері",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-io-throughput-benchmark.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "taimauty-pomylky-i-povtorna-initsializatsiia-chypa",
           "title": "Таймаути, помилки й повторна ініціалізація чипа",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-bus-recovery-controller.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

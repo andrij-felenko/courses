@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 980 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="980" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дерево тактування мікроконтролера та стробування такту шинних доменів</text>
+<rect x="0.0" y="0.0" width="960.0" height="640.0" rx="0" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="131.5" y="13.5" width="697.0" height="33.0" rx="6" fill="#f6f8fa" stroke="#0969da" stroke-width="1.5"/><text x="480.0" y="41.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Дерево тактування мікроконтролера та стробування такту (Clock Gating) шинних доменів</tspan></text>
+<rect x="20.0" y="65.0" width="175.0" height="550.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="107.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Джерела такту</text>
+<rect x="52.5" y="110.5" width="109.0" height="39.0" rx="6" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/><text x="107.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="107.0" dy="0.0">HSI RC</tspan><tspan x="107.0" dy="13.0">16 МГц (внутр.)</tspan></text>
+<rect x="49.4" y="185.5" width="115.2" height="39.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/><text x="107.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="107.0" dy="0.0">HSE Кварц</tspan><tspan x="107.0" dy="13.0">8–25 МГц (зовн.)</tspan></text>
+<rect x="55.6" y="270.5" width="102.8" height="39.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/><text x="107.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="107.0" dy="0.0">PLL Множник</tspan><tspan x="107.0" dy="13.0">до 168–480 МГц</tspan></text>
+<rect x="46.3" y="380.5" width="121.4" height="39.0" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2"/><text x="107.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="107.0" dy="0.0">LSI RC</tspan><tspan x="107.0" dy="13.0">32 кГц (Watchdog)</tspan></text>
+<rect x="49.4" y="470.5" width="115.2" height="39.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/><text x="107.0" y="487.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="107.0" dy="0.0">LSE Кварц</tspan><tspan x="107.0" dy="13.0">32.768 кГц (RTC)</tspan></text>
+<line x1="107.0" y1="230.0" x2="107.0" y2="265.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="128.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle" font-style="italic">×N/M</text>
+<line x1="185.0" y1="130.0" x2="230.0" y2="210.0" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="185.0" y1="205.0" x2="230.0" y2="210.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="185.0" y1="290.0" x2="230.0" y2="220.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="227.2" y="189.0" width="65.6" height="52.0" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/><text x="260.0" y="205.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">Селектор</tspan><tspan x="260.0" dy="13.0">SYSCLK</tspan><tspan x="260.0" dy="13.0">MUX</tspan></text>
+<line x1="292.8" y1="215.0" x2="335.0" y2="215.0" stroke="#ea580c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="298.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ea580c" text-anchor="middle" font-weight="700">SYSCLK</text>
+<rect x="325.5" y="195.5" width="109.0" height="39.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/><text x="380.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">AHB Дільник</tspan><tspan x="380.0" dy="13.0">(/1, /2.. /512)</tspan></text>
+<line x1="434.5" y1="215.0" x2="450.0" y2="215.0" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="415.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">HCLK</text>
+<rect x="450.0" y="65.0" width="490.0" height="180.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6"/>
+<text x="695.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Шинний домен AHB (HCLK — висока швидкість, системна матриця)</text>
+<rect x="478.7" y="108.5" width="52.6" height="17.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="505.0" y="120.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="505.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="460.7" y="148.1" width="88.6" height="33.9" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/><text x="505.0" y="162.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="505.0" dy="0.0">Cortex-M Ядро</tspan><tspan x="505.0" dy="12.3">&amp; SysTick</tspan></text>
+<line x1="505.0" y1="125.5" x2="505.0" y2="148.1" stroke="#16a34a" stroke-width="1.4"/>
+<text x="505.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle" font-style="italic">Постійний такт</text>
+<rect x="593.7" y="108.5" width="52.6" height="17.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="620.0" y="120.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="581.6" y="148.1" width="76.8" height="33.9" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/><text x="620.0" y="162.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">DMA1 / DMA2</tspan><tspan x="620.0" dy="12.3">Контролери</tspan></text>
+<line x1="620.0" y1="125.5" x2="620.0" y2="148.1" stroke="#16a34a" stroke-width="1.4"/>
+<text x="620.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle" font-style="italic">RCC_AHB1ENR</text>
+<rect x="708.7" y="108.5" width="52.6" height="17.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="735.0" y="120.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="735.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="693.7" y="148.1" width="82.7" height="33.9" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/><text x="735.0" y="162.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="735.0" dy="0.0">Flash &amp; SRAM</tspan><tspan x="735.0" dy="12.3">Пам'ять</tspan></text>
+<line x1="735.0" y1="125.5" x2="735.0" y2="148.1" stroke="#16a34a" stroke-width="1.4"/>
+<text x="735.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle" font-style="italic">Автостробування</text>
+<rect x="828.7" y="108.5" width="52.6" height="17.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="855.0" y="120.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="855.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="807.8" y="148.1" width="94.5" height="33.9" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/><text x="855.0" y="162.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="855.0" dy="0.0">USB OTG / ETH</tspan><tspan x="855.0" dy="12.3">Мережеві блоки</tspan></text>
+<line x1="855.0" y1="125.5" x2="855.0" y2="148.1" stroke="#16a34a" stroke-width="1.4"/>
+<text x="855.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle" font-style="italic">RCC_AHB2ENR</text>
+<line x1="450.0" y1="104.0" x2="915.0" y2="104.0" stroke="#16a34a" stroke-width="2.5"/>
+<line x1="505.0" y1="104.0" x2="505.0" y2="108.0" stroke="#16a34a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="104.0" x2="620.0" y2="108.0" stroke="#16a34a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="735.0" y1="104.0" x2="735.0" y2="108.0" stroke="#16a34a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="855.0" y1="104.0" x2="855.0" y2="108.0" stroke="#16a34a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="475.0" cy="215.0" r="3.5" fill="#2563eb" stroke="#2563eb" stroke-width="1.0"/>
+<line x1="475.0" y1="215.0" x2="475.0" y2="320.0" stroke="#2563eb" stroke-width="1.8"/>
+<line x1="475.0" y1="320.0" x2="475.0" y2="500.0" stroke="#2563eb" stroke-width="1.8"/>
+<line x1="475.0" y1="320.0" x2="505.0" y2="320.0" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="481.4" y="302.1" width="167.1" height="35.9" rx="6" fill="#fff1f2" stroke="#e11d48" stroke-width="1.4"/><text x="565.0" y="317.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="565.0" dy="0.0">Міст AHB→APB1</tspan><tspan x="565.0" dy="12.3">&amp; Дільник PCLK1 (/2, /4..)</tspan></text>
+<rect x="655.0" y="265.0" width="285.0" height="165.0" rx="6" fill="#fff5f5" stroke="#e11d48" stroke-width="1.5"/>
+<text x="797.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#be123c" text-anchor="middle" font-weight="700">Домен APB1 (PCLK1 ≤ 42–45 МГц)</text>
+<line x1="648.6" y1="320.0" x2="675.0" y2="320.0" stroke="#e11d48" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="675.0" y1="305.0" x2="915.0" y2="305.0" stroke="#e11d48" stroke-width="2.0"/>
+<rect x="684.7" y="327.5" width="50.6" height="15.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="710.0" y="338.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="682.7" y="357.6" width="54.6" height="30.7" rx="6" fill="#ffe4e6" stroke="#e11d48" stroke-width="1.2"/><text x="710.0" y="370.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">USART2/3</tspan><tspan x="710.0" dy="11.7">I2C1/2</tspan></text>
+<line x1="710.0" y1="305.0" x2="710.0" y2="327.0" stroke="#e11d48" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="710.0" y1="342.5" x2="710.0" y2="357.6" stroke="#e11d48" stroke-width="1.2"/>
+<text x="710.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">RCC_APB1ENR</text>
+<rect x="769.7" y="327.5" width="50.6" height="15.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="795.0" y="338.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="795.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="773.3" y="357.6" width="43.5" height="30.7" rx="6" fill="#ffe4e6" stroke="#e11d48" stroke-width="1.2"/><text x="795.0" y="370.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="795.0" dy="0.0">SPI2/3</tspan><tspan x="795.0" dy="11.7">CAN1/2</tspan></text>
+<line x1="795.0" y1="305.0" x2="795.0" y2="327.0" stroke="#e11d48" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="795.0" y1="342.5" x2="795.0" y2="357.6" stroke="#e11d48" stroke-width="1.2"/>
+<text x="795.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">RCC_APB1ENR</text>
+<rect x="854.7" y="327.5" width="50.6" height="15.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="880.0" y="338.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="849.9" y="357.6" width="60.2" height="30.7" rx="6" fill="#ffe4e6" stroke="#e11d48" stroke-width="1.2"/><text x="880.0" y="370.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">TIM2–TIM5</tspan><tspan x="880.0" dy="11.7">DAC1/2</tspan></text>
+<line x1="880.0" y1="305.0" x2="880.0" y2="327.0" stroke="#e11d48" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="880.0" y1="342.5" x2="880.0" y2="357.6" stroke="#e11d48" stroke-width="1.2"/>
+<text x="880.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">RCC_APB1ENR</text>
+<line x1="475.0" y1="500.0" x2="505.0" y2="500.0" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="481.4" y="482.1" width="167.1" height="35.9" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.4"/><text x="565.0" y="497.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="565.0" dy="0.0">Міст AHB→APB2</tspan><tspan x="565.0" dy="12.3">&amp; Дільник PCLK2 (/1, /2..)</tspan></text>
+<rect x="655.0" y="445.0" width="285.0" height="165.0" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="797.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">Домен APB2 (PCLK2 ≤ 84–90 МГц)</text>
+<line x1="648.6" y1="500.0" x2="675.0" y2="500.0" stroke="#9333ea" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="675.0" y1="485.0" x2="915.0" y2="485.0" stroke="#9333ea" stroke-width="2.0"/>
+<rect x="684.7" y="507.5" width="50.6" height="15.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="710.0" y="518.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="682.7" y="537.6" width="54.6" height="30.7" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.2"/><text x="710.0" y="550.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">USART1/6</tspan><tspan x="710.0" dy="11.7">UART9/10</tspan></text>
+<line x1="710.0" y1="485.0" x2="710.0" y2="507.0" stroke="#9333ea" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="710.0" y1="522.5" x2="710.0" y2="537.6" stroke="#9333ea" stroke-width="1.2"/>
+<text x="710.0" y="581.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">RCC_APB2ENR</text>
+<rect x="769.7" y="507.5" width="50.6" height="15.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="795.0" y="518.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="795.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="762.1" y="537.6" width="65.8" height="30.7" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.2"/><text x="795.0" y="550.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="795.0" dy="0.0">SPI1/4/5/6</tspan><tspan x="795.0" dy="11.7">EXTI</tspan></text>
+<line x1="795.0" y1="485.0" x2="795.0" y2="507.0" stroke="#9333ea" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="795.0" y1="522.5" x2="795.0" y2="537.6" stroke="#9333ea" stroke-width="1.2"/>
+<text x="795.0" y="581.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">RCC_APB2ENR</text>
+<rect x="854.7" y="507.5" width="50.6" height="15.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.0"/><text x="880.0" y="518.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">ICG Gate</tspan></text>
+<rect x="847.1" y="537.6" width="65.8" height="30.7" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.2"/><text x="880.0" y="550.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">TIM1/8/9..</tspan><tspan x="880.0" dy="11.7">ADC1/2/3</tspan></text>
+<line x1="880.0" y1="485.0" x2="880.0" y2="507.0" stroke="#9333ea" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="880.0" y1="522.5" x2="880.0" y2="537.6" stroke="#9333ea" stroke-width="1.2"/>
+<text x="880.0" y="581.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">RCC_APB2ENR</text>
+<path d="M 185 130 C 240 100, 290 595, 655 595" fill="none" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="370.0" y="606.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ea580c" text-anchor="middle" font-style="italic">Незалежне тактування ядра периферії (Kernel Clock Mux)</text>
+</svg>

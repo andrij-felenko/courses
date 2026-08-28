@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат рівнів користувацької згоди та механізм відкликання</text>
+<rect x="15.0" y="15.0" width="930.0" height="440.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="40.0" y="50.0" width="240.0" height="110.0" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="2.0"/>
+<text x="160.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">Рівень 0: За замовчуванням</text>
+<text x="160.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">STATE_UNCONFIGURED / OFFLINE</text>
+<text x="160.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Повна заборона телеметрії.</text>
+<text x="160.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Тільки локальні базові функції.</text>
+<rect x="360.0" y="50.0" width="240.0" height="110.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="480.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Рівень 1: Діагностика</text>
+<text x="480.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">STATE_LEVEL_1_DIAGNOSTICS</text>
+<text x="480.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Законний інтерес (Art. 6(1)(f)).</text>
+<text x="480.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Паніки, Vdd, помилки без PII/IP.</text>
+<rect x="680.0" y="50.0" width="240.0" height="110.0" rx="8" fill="#fefce8" stroke="#ca8a04" stroke-width="2.0"/>
+<text x="800.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#a16207" text-anchor="middle" font-weight="700">Рівень 2: Аналітика (Opt-in)</text>
+<text x="800.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">STATE_LEVEL_2_ANALYTICS</text>
+<text x="800.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Агреговані метрики використання.</text>
+<text x="800.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Огрублені координати, хешований ID.</text>
+<rect x="680.0" y="280.0" width="240.0" height="110.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="800.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Рівень 3: Повна згода (Opt-in)</text>
+<text x="800.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">STATE_LEVEL_3_PERSONALISED</text>
+<text x="800.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Хмарна телеметрія, профілі.</text>
+<text x="800.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Точна телеметрія прив'язана до акаунта.</text>
+<rect x="360.0" y="280.0" width="240.0" height="110.0" rx="8" fill="#fff1f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="480.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Відкликання: Opt-Out</text>
+<text x="480.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">STATE_OPT_OUT_PENDING</text>
+<text x="480.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Очищення черг RAM і буферів Flash.</text>
+<text x="480.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Миттєве блокування відправки PII.</text>
+<rect x="40.0" y="280.0" width="240.0" height="110.0" rx="8" fill="#fdf4ff" stroke="#9333ea" stroke-width="2.0"/>
+<text x="160.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7e22ce" text-anchor="middle" font-weight="700">Право на забуття (Art. 17)</text>
+<text x="160.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">STATE_RIGHT_TO_ERASURE</text>
+<text x="160.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Crypto-shredding ключів шифрування.</text>
+<text x="160.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Повне стирання NVS і відв'язка UID.</text>
+<line x1="280.0" y1="95.0" x2="360.0" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="320.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">Активація</text>
+<line x1="600.0" y1="95.0" x2="680.0" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="640.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">Opt-in Consent</text>
+<line x1="800.0" y1="160.0" x2="800.0" y2="280.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="855.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">Хмарна згода</text>
+<line x1="680.0" y1="335.0" x2="600.0" y2="335.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="640.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Opt-Out (Відкликання)</text>
+<line x1="480.0" y1="280.0" x2="480.0" y2="160.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="430.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Очищено -&gt; Рівень 1</text>
+<line x1="360.0" y1="335.0" x2="280.0" y2="335.0" stroke="#7e22ce" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="320.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">Команда стирання</text>
+<line x1="160.0" y1="280.0" x2="160.0" y2="160.0" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="105.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-weight="700">Заводський стан</text>
+</svg>

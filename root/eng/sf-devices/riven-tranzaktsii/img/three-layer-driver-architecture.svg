@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="50.0" y="35.0" width="780.0" height="65.0" rx="6" fill="#eaeded" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="440.0" y="61.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="700">Застосунок / Системна логіка (Application Layer)</text>
+<text x="440.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Отримує фізичні величини у SI (м/с², рад/с, Па, °C), стан FIFO, готовність даних</text>
+<line x1="440.0" y1="100.0" x2="440.0" y2="120.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="120.0" width="780.0" height="110.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="2.0"/>
+<text x="440.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e8449" text-anchor="middle" font-weight="700">Рівень 3: Логіка чипа / Драйвер пристрою (Device Logic)</text>
+<text x="440.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Регістрова карта · Математика перетворення сирих відліків у SI · Калібрування</text>
+<text x="440.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Послідовність ініціалізації (Power-on, Soft Reset) · Робота з перериваннями та FIFO</text>
+<text x="440.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">НЕ знає деталей шини — викликає виключно: bus-&gt;read_reg() та bus-&gt;write_reg()</text>
+<line x1="440.0" y1="230.0" x2="440.0" y2="250.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="250.0" width="780.0" height="135.0" rx="6" fill="#d4e6f1" stroke="#2471a3" stroke-width="2.5"/>
+<text x="440.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2471a3" text-anchor="middle" font-weight="700">Рівень 2: Рівень транзакцій (Bus Transaction Layer) — Уніфікована межа</text>
+<text x="440.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Уніфікований інтерфейс: reg_read(), reg_write(), read_modify_write(), burst_transfer()</text>
+<text x="440.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Кадрування протоколу: прапорці R/W, автоінкремент адрес, dummy-байти, 8/16-біт регістри</text>
+<text x="440.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Керування доступом: м'ютекси шини (FreeRTOS / потокобезпечність), таймінги CS (t_CSS, t_CSH)</text>
+<text x="440.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2471a3" text-anchor="middle">Обробка помилок: таймаути шини, I2C NACK, втрата арбітражу, повторні спроби (retries)</text>
+<line x1="180.0" y1="385.0" x2="180.0" y2="409.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="385.0" x2="440.0" y2="409.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="385.0" x2="700.0" y2="409.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="409.0" width="240.0" height="115.0" rx="6" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.8"/>
+<text x="170.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">I2C Bus Adapter</text>
+<text x="170.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">7-біт / 10-біт адресація</text>
+<text x="170.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Repeated START без STOP</text>
+<text x="170.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Clock stretching та обробка ACK</text>
+<text x="170.0" y="513.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">I2C HAL / Драйвер ядра</text>
+<rect x="320.0" y="409.0" width="240.0" height="115.0" rx="6" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.8"/>
+<text x="440.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">SPI Bus Adapter</text>
+<text x="440.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Керування піном CS (GPIO/HW)</text>
+<text x="440.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Режими CPOL / CPHA (0..3)</text>
+<text x="440.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Full-Duplex DMA / FIFO буфери</text>
+<text x="440.0" y="513.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SPI HAL / spidev</text>
+<rect x="590.0" y="409.0" width="240.0" height="115.0" rx="6" fill="#eaeded" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="710.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2c3e50" text-anchor="middle" font-weight="700">Mock / Loopback Adapter</text>
+<text x="710.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Пам'ять регістрів у RAM хоста</text>
+<text x="710.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Моделювання збоїв та NACK</text>
+<text x="710.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Unit-тести без заліза (CI/CD)</text>
+<text x="710.0" y="513.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">POSIX / Windows x86</text>
+<line x1="170.0" y1="524.0" x2="170.0" y2="548.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="524.0" x2="440.0" y2="548.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="710.0" y1="524.0" x2="710.0" y2="548.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="548.0" width="240.0" height="88.0" rx="6" fill="#f4ecf7" stroke="#7d3c98" stroke-width="1.8"/>
+<text x="170.0" y="572.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d3c98" text-anchor="middle" font-weight="700">Фізичний чіп на I2C</text>
+<text x="170.0" y="594.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Лінії SCL, SDA (відкритий стік)</text>
+<text x="170.0" y="616.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Підтяжки Pull-Up до VDD</text>
+<rect x="320.0" y="548.0" width="240.0" height="88.0" rx="6" fill="#f4ecf7" stroke="#7d3c98" stroke-width="1.8"/>
+<text x="440.0" y="572.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d3c98" text-anchor="middle" font-weight="700">Фізичний чіп на SPI</text>
+<text x="440.0" y="594.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Лінії SCK, MOSI, MISO, CS</text>
+<text x="440.0" y="616.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Двотактний Push-Pull, висока швидкість</text>
+<rect x="590.0" y="548.0" width="240.0" height="88.0" rx="6" fill="#eaeded" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="710.0" y="572.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle" font-weight="700">Емулятор регістрів</text>
+<text x="710.0" y="594.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">uint8_t mock_regs[256]</text>
+<text x="710.0" y="616.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Перевірка логіки перетворення</text>
+</svg>

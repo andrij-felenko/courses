@@ -11,9 +11,155 @@ out = lambda name: os.path.join(IMG, name)
 REDFILL = "#fdecea"
 GRNFILL = "#e7f6ec"
 BLUFILL = "#eaf0fd"
+YLWFILL = "#fef9e7"
 
 
-# ── 1. Одні ворота рішення ────────────────────────────────────────────────────
+# ── 1. Порівняння п'яти моделей авторизації (auth-models-comparison.svg) ─────
+def fig_auth_models_comparison():
+    W, H = 1280, 680
+    f = []
+
+    f.append(text(W / 2, 45, "Порівняння архітектурних моделей авторизації", size=18, bold=True, color=INK))
+    f.append(text(W / 2, 72, "від статичного списку власника до динамічного обходу графа зв'язків", size=13, color=MUTED, italic=True))
+
+    cols = [
+        ("DAC\n(Дискреційна)", "Власник ресурсу\n(POSIX, ACL)", "Списки на файлах / інодах", "Простота, автономність\nвласника", "Троянські коні, втрата\nконтролю, deputy", BLUFILL, NEG),
+        ("MAC\n(Обов'язкова)", "Центральні мітки\n(Bell-LaPadula, MLS)", "Політики ядра (SELinux)", "Захист таємниці й\nцілісності, стійкість", "Жорсткість, розмітка\nвсього стану системи", BLUFILL, NEG),
+        ("RBAC\n(Рольова)", "Ролі як прошарок\n(NIST ANSI 359)", "Таблиці зв'язків User-Role", "Зручне адміністрування\nорганізацій", "Вибух кількості ролей\nпри ускладненні умов", YLWFILL, LINE),
+        ("ABAC\n(Атрибутна)", "Предикати над даними\n(NIST SP 800-162)", "Движки правил (OPA/Rego)", "Гнучкість, врахування\nконтексту й часу", "Важкий зворотний пошук,\nобчислювальна ціна", GRNFILL, FIELD),
+        ("ReBAC\n(На зв'язках)", "Граф кортежів\n(Google Zanzibar)", "Сховище зв'язків (Spanner)", "Масштабованість ділення,\nвкладені ієрархії", "Ціна обходу графа,\nпотреба в кешуванні", GRNFILL, FIELD),
+    ]
+
+    col_w = 224
+    start_x = 48
+
+    # фонові картки для колонок
+    for i, (title, entity, state, pros, cons, fill, border) in enumerate(cols):
+        cx = start_x + i * (col_w + 16)
+        
+        # заголовна картка
+        b_head, _, _ = textbox(cx + col_w / 2, 135, title, size=14, bold=True, fill=fill, stroke=border, sw=2, pad=8, min_w=col_w)
+        f.append(b_head)
+
+        # сутність
+        b_ent, _, _ = textbox(cx + col_w / 2, 192, entity, size=12, fill=FILL, stroke=LINE, pad=8, min_w=col_w)
+        f.append(b_ent)
+
+        # де стан
+        b_st, _, _ = textbox(cx + col_w / 2, 252, state, size=12, fill=FILL, stroke=LINE, pad=8, min_w=col_w)
+        f.append(b_st)
+
+        # перевага
+        b_pr, _, _ = textbox(cx + col_w / 2, 316, pros, size=12, fill=GRNFILL, stroke=FIELD, pad=8, min_w=col_w)
+        f.append(b_pr)
+
+        # недолік
+        b_co, _, _ = textbox(cx + col_w / 2, 386, cons, size=12, fill=REDFILL, stroke=POS, pad=8, min_w=col_w)
+        f.append(b_co)
+
+    # нижній пояснювальний блок — вісь складності та виразності
+    axis_y = 505
+    f.append(line(start_x, axis_y, start_x + 5 * col_w + 4 * 16, axis_y, color=INK, sw=2))
+    f.append(arrow(start_x + 5 * col_w + 4 * 16 - 2, axis_y, start_x + 5 * col_w + 4 * 16 + 4, axis_y, color=INK, sw=2))
+    f.append(arrow(start_x + 2, axis_y, start_x - 4, axis_y, color=INK, sw=2))
+
+    f.append(text(start_x, axis_y + 26, "Лінійний доступ: проста перевірка O(1), прямий аудит", size=12, color=NEG, anchor="start", bold=True))
+    f.append(text(start_x + 5 * col_w + 4 * 16, axis_y + 26, "Графова й обчислювальна авторизація: динамічний вивід, складна модель даних", size=12, color=FIELD, anchor="end", bold=True))
+
+    f.append(text(W / 2, 580, "Критерій вибору моделі визначається структурою зв'язків між суб'єктами та об'єктами:", size=13, bold=True, color=INK))
+    f.append(text(W / 2, 608, "ієрархічні папки й спільне володіння вимагають ReBAC; суворі правила часу/IP — ABAC; посадові інструкції — RBAC", size=12, color=MUTED, italic=True))
+    f.append(text(W / 2, 634, "політику безпеки ядра й військових систем тримає MAC; локальні файли користувачів захищає DAC", size=12, color=MUTED, italic=True))
+
+    render(out("auth-models-comparison.svg"), W, H, *f,
+           title="Порівняльна таблиця моделей авторизації: DAC, MAC, RBAC, ABAC, ReBAC")
+
+
+# ── 2. Архітектура потоку рішень PEP/PDP/PIP/PAP (pep-pdp-flow.svg) ─────────
+def fig_pep_pdp_flow():
+    W, H = 1200, 620
+    f = []
+
+    f.append(text(W / 2, 40, "Архітектура обробки рішень авторизації (PEP / PDP / PIP / PAP)", size=17, bold=True, color=INK))
+    f.append(text(W / 2, 66, "повний цикл: перехоплення запиту, збагачення контекстом, обчислення та захищений аудит", size=12, color=MUTED, italic=True))
+
+    # Ліва частина: Клієнт і Застосунок
+    b_cli, _, _ = textbox(110, 190, "Клієнт / Суб'єкт\n(Користувач, Сервіс)", size=13, bold=True, fill=FILL, stroke=LINE, pad=12, min_w=160)
+    f.append(b_cli)
+
+    # Центральна точка перехоплення: PEP
+    b_pep, pw, ph = textbox(360, 190, "PEP\nТочка застосування\n(Policy Enforcement Point)\nAPI Gateway / Middleware", size=13, bold=True, fill=BLUFILL, stroke=NEG, sw=2, pad=14, min_w=220)
+    f.append(b_pep)
+
+    # Цільовий ресурс
+    b_res, _, _ = textbox(110, 360, "Цільовий ресурс /\nБізнес-логіка\n(Виконання операції)", size=13, bold=True, fill=GRNFILL, stroke=FIELD, pad=12, min_w=160)
+    f.append(b_res)
+
+    # Центральний мозок: PDP
+    b_pdp, dw, dh = textbox(720, 190, "PDP\nТочка ухвалення рішення\n(Policy Decision Point)\nДвижок правил / OPA / Zanzibar", size=14, bold=True, fill=GRNFILL, stroke=FIELD, sw=2.4, pad=16, min_w=260)
+    f.append(b_pdp)
+
+    # Кеш рішень (поруч із PDP)
+    b_cache, cw, ch = textbox(720, 340, "L1/L2 Кеш вердиктів\n(Мемоізація, TTL, Zookies,\nНегативний кеш)", size=12, fill=YLWFILL, stroke=LINE, pad=10, min_w=220)
+    f.append(b_cache)
+
+    # Джерело атрибутів: PIP
+    b_pip, iw, ih = textbox(1050, 190, "PIP\nТочка інформації\n(Policy Information Point)\nБаза даних / LDAP / IdP", size=13, bold=True, fill=FILL, stroke=MUTED, pad=12, min_w=200)
+    f.append(b_pip)
+
+    # Джерело політик: PAP
+    b_pap, aw, ah = textbox(720, 480, "PAP\nТочка адміністрування\n(Policy Administration Point)\nGitOps / Репозиторій правил / CI", size=13, bold=True, fill=FILL, stroke=MUTED, pad=12, min_w=260)
+    f.append(b_pap)
+
+    # Журнал аудиту: SACL / Audit Sink
+    b_audit, _, _ = textbox(360, 480, "Журнал аудиту\n(Audit Sink / SIEM)\nНезмінний запис вердикту", size=12, fill=FILL, stroke=LINE, pad=10, min_w=200)
+    f.append(b_audit)
+
+    # Зв'язки та стрілки
+    # 1. Запит від клієнта до PEP
+    f.append(arrow(195, 190, 242, 190, color=INK, sw=1.8))
+    f.append(text(218, 175, "1. Запит", size=11, bold=True, color=INK))
+
+    # 2. PEP надсилає запит до PDP
+    f.append(arrow(475, 175, 582, 175, color=NEG, sw=2))
+    f.append(text(528, 162, "2. Запит вердикту", size=11, bold=True, color=NEG))
+
+    # 3. PDP консультується з PIP
+    f.append(arrow(855, 175, 942, 175, color=MUTED, sw=1.6))
+    f.append(text(898, 162, "3. Атрибути", size=11, color=MUTED))
+
+    # 4. Відповідь PIP -> PDP
+    f.append(arrow(942, 205, 855, 205, color=MUTED, sw=1.6))
+    f.append(text(898, 222, "контекст", size=11, color=MUTED))
+
+    # 5. PDP перевіряє кеш
+    f.append(arrow(720, 255, 720, 298, color=FIELD, sw=1.5))
+    f.append(text(765, 278, "кеш hit/miss", size=11, color=MUTED))
+
+    # 6. PAP поширює правила на PDP
+    f.append(arrow(720, 442, 720, 385, color=MUTED, sw=1.6))
+    f.append(text(790, 420, "деплой правил", size=11, color=MUTED))
+
+    # 7. Вердикт PDP -> PEP
+    f.append(arrow(582, 205, 475, 205, color=FIELD, sw=2))
+    f.append(text(528, 222, "4. Дозвіл / Відмова", size=11, bold=True, color=FIELD))
+
+    # 8. PEP пускає запит до ресурсу при успіху
+    f.append(arrow(360, 260, 195, 335, color=FIELD, sw=1.8))
+    f.append(text(265, 290, "5a. Якщо Permit", size=11, bold=True, color=FIELD))
+
+    # 9. PEP фіксує аудит
+    f.append(arrow(360, 260, 360, 440, color=MUTED, sw=1.6))
+    f.append(text(415, 350, "5b. Лог події", size=11, color=MUTED))
+
+    # Пояснення Fail-Close внизу
+    f.append(text(W / 2, 570, "Принцип Fail-Close (відмова за замовчанням): при втраті зв'язку з PDP/PIP або помилці парсингу PEP ОБОВ'ЯЗКОВО повертає DENY", size=12, bold=True, color=POS))
+    f.append(text(W / 2, 595, "Жодна деградація мережі не має відкривати доступ до ресурсу без дійсного авторизаційного підтвердження", size=12, color=MUTED, italic=True))
+
+    render(out("pep-pdp-flow.svg"), W, H, *f,
+           title="Архітектура обробки авторизаційних рішень: PEP, PDP, PIP, PAP та Fail-Close семантика")
+
+
+# ── 3. Одні ворота рішення ────────────────────────────────────────────────────
 def fig_decision_gate():
     W, H = 1080, 470
     f = []
@@ -59,7 +205,7 @@ def fig_decision_gate():
            title="Одні ворота: місце застосування лише питає, рішення ухвалює окрема точка")
 
 
-# ── 2. Прошарок ролей згортає «кожен до кожного» ──────────────────────────────
+# ── 4. Прошарок ролей згортає «кожен до кожного» ──────────────────────────────
 def fig_rbac_layer():
     W, H = 1080, 500
     f = []
@@ -102,7 +248,7 @@ def fig_rbac_layer():
            title="Роль — прошарок: людям видають ролі, ролям — права")
 
 
-# ── 3. Вісь моделей: від «перелічити» до «обчислити» ─────────────────────────
+# ── 5. Вісь моделей: від «перелічити» до «обчислити» ─────────────────────────
 def fig_model_axis():
     W, H = 1220, 470
     f = []
@@ -141,7 +287,7 @@ def fig_model_axis():
            title="Моделі авторизації — точки однієї осі: від переліку до обчислення")
 
 
-# ── 4. Матриця доступу і два способи її розрізати (вставка hist) ──────────────
+# ── 6. Матриця доступу і два способи її розрізати (вставка hist) ──────────────
 def fig_matrix_cuts():
     W, H = 1200, 490
     f = []
@@ -213,7 +359,7 @@ def fig_matrix_cuts():
            title="Матриця доступу і два способи її розрізати")
 
 
-# ── 5. Хронологія заторів (вставка hist) ──────────────────────────────────────
+# ── 7. Хронологія заторів (вставка hist) ──────────────────────────────────────
 def fig_authz_timeline():
     W, H = 1340, 540
     f = []
@@ -247,7 +393,7 @@ def fig_authz_timeline():
            title="Кожна модель з'являлася там, де попередня впиралася в стіну")
 
 
-# ── 6. Перевірка як обхід графа рівнями (вставка proj) ───────────────────────
+# ── 8. Перевірка як обхід графа рівнями (вставка proj) ───────────────────────
 def fig_rebac_walk():
     W, H = 1200, 735
     f = []
@@ -295,7 +441,7 @@ def fig_rebac_walk():
            title="Перевірка «чи може ada редагувати doc:api» — обхід рівнями")
 
 
-# ── 7. Кільце у зв'язках: мемо проти межі глибини (вставка proj) ─────────────
+# ── 9. Кільце у зв'язках: мемо проти межі глибини (вставка proj) ─────────────
 def fig_rebac_cycle():
     W, H = 1240, 480
     f = []
@@ -344,6 +490,8 @@ def fig_rebac_cycle():
 
 
 if __name__ == "__main__":
+    fig_auth_models_comparison()
+    fig_pep_pdp_flow()
     fig_decision_gate()
     fig_rbac_layer()
     fig_model_axis()
@@ -351,4 +499,4 @@ if __name__ == "__main__":
     fig_authz_timeline()
     fig_rebac_walk()
     fig_rebac_cycle()
-    print("OK: 7 фігур згенеровано в", IMG)
+    print("OK: 9 фігур згенеровано в", IMG)

@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 5
           }
         },
         {
@@ -69,7 +70,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "hist": [
             {
@@ -83,6 +85,16 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "silicon-photomultiplier",
+          "title": "Кремнієвий фотопомножувач (SiPM)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -97,7 +109,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -239,6 +252,26 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "global-shutter",
+          "title": "Глобальний затвор: 5T/6T пікселі, синхронна експозиція та придушення розмиття руху",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "flat-field-correction",
+          "title": "Площинне калібрування сенсорів зображення (Flat-Field Correction, FFC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -263,7 +296,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "comp": [
             {
@@ -287,6 +321,26 @@
         {
           "slug": "dual-gain-sensor",
           "title": "Dual-gain архітектура сенсора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "correlated-double-sampling",
+          "title": "Подвійна корельована вибірка (CDS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "noise-equivalent-power",
+          "title": "Еквівалентна потужність шуму (NEP)",
           "basic": {
             "status": "empty"
           },

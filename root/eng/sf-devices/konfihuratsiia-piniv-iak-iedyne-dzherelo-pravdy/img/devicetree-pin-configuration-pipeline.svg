@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480" width="840" height="480">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#333333"/>
+</marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2457d6"/>
+</marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#27ae60"/>
+</marker>
+</defs>
+<rect x="0.0" y="0.0" width="840.0" height="480.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр декларативної конфігурації пінів (DeviceTree / SSOT)</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Трансформація опису заліза в незмінні статичні структури конфігурації ядра</text>
+<rect x="30.0" y="80.0" width="220.0" height="310.0" rx="6" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="140.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Декларативні маніфести</text>
+<rect x="57.9" y="127.3" width="164.2" height="45.3" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="140.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">soc.dtsi</tspan><tspan x="140.0" dy="14.3">(Можливості кремнію МК)</tspan></text>
+<rect x="51.6" y="197.3" width="176.8" height="45.3" rx="6" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.5"/><text x="140.0" y="216.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">board.dts</tspan><tspan x="140.0" dy="14.3">(Розведення плати / SSOT)</tspan></text>
+<rect x="64.2" y="267.4" width="151.7" height="45.3" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="140.0" y="286.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">app.overlay</tspan><tspan x="140.0" dy="14.3">(Користувацькі зміни)</tspan></text>
+<rect x="70.2" y="333.5" width="139.7" height="43.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/><text x="140.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">pinctrl-bindings.yaml</tspan><tspan x="140.0" dy="13.0">(Схема валідації)</tspan></text>
+<rect x="290.0" y="80.0" width="240.0" height="310.0" rx="6" fill="#edf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="410.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. Компілятор і Валідатор</text>
+<rect x="309.1" y="132.3" width="201.8" height="45.3" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="151.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">DTC / Devicetree Preprocessor</tspan><tspan x="410.0" dy="14.3">(Об'єднання вузлів дерева)</tspan></text>
+<rect x="316.2" y="204.3" width="187.6" height="71.4" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="410.0" y="223.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Статичний аналіз колізій:</tspan><tspan x="410.0" dy="13.7">* Перевірка дублювання пінів</tspan><tspan x="410.0" dy="13.7">* Контроль сумісності AF</tspan><tspan x="410.0" dy="13.7">* Електричні режими (I2C OD)</tspan></text>
+<rect x="310.2" y="322.9" width="199.5" height="44.1" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/><text x="410.0" y="341.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="410.0" dy="0.0">Виявлення помилок</tspan><tspan x="410.0" dy="13.7">на етапі компіляції (CI/Build)</tspan></text>
+<line x1="250" y1="235" x2="285" y2="235" stroke="#27ae60" stroke-width="2" marker-end="url(#arrow-green)"/>
+<rect x="570.0" y="80.0" width="240.0" height="310.0" rx="6" fill="#f4f6f9" stroke="#2457d6" stroke-width="1.5"/>
+<text x="690.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">3. Згенеровані структури</text>
+<rect x="605.2" y="131.1" width="169.6" height="57.8" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="690.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">devicetree_generated.h</tspan><tspan x="690.0" dy="13.7">Статичні таблиці в ROM:</tspan><tspan x="690.0" dy="13.7">`const pinctrl_soc_pin_t`</tspan></text>
+<rect x="591.6" y="210.5" width="196.7" height="69.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="690.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Профілі стану пінів:</tspan><tspan x="690.0" dy="13.0">* `pinctrl-0` (default/active)</tspan><tspan x="690.0" dy="13.0">* `pinctrl-1` (sleep/low-power)</tspan><tspan x="690.0" dy="13.0">* `pinctrl-2` (high-Z/analog)</tspan></text>
+<rect x="611.2" y="316.1" width="157.7" height="57.8" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="690.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Драйвери периферії:</tspan><tspan x="690.0" dy="13.7">`pinctrl_apply_state()`</tspan><tspan x="690.0" dy="13.7">без магічних чисел</tspan></text>
+<line x1="530" y1="235" x2="565" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<rect x="46.3" y="424.5" width="747.3" height="31.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="443.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Єдине джерело правди усуває розпорошені виклики ініціалізації в драйверах і гарантує цілісність конфігурації заліза.</tspan></text>
+</svg>

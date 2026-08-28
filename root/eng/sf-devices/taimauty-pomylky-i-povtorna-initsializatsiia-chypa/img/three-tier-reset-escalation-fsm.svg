@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">?????????? ??????? ??????????? ????????? ???????? ?????????</text>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">?????????? ??????? ??????????? ????????? ???????? ?? ????????? ????????????? ?????????</text>
+<rect x="40.0" y="60.0" width="210.0" height="80.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.8"/>
+<text x="145.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">NORMAL_OPERATION</text>
+<text x="145.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">????????? ??????????</tspan><tspan x="145.0" dy="11.4">??????????/???????????</tspan><tspan x="145.0" dy="11.4">????????? ??????? = 0</tspan></text>
+<rect x="315.0" y="60.0" width="210.0" height="80.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="420.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">BUS_ERROR_DETECTED</text>
+<text x="420.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">??????? DWT / NACK / Stuck SDA</tspan><tspan x="420.0" dy="11.4">SPI FIFO Overrun / CRC Error</tspan><tspan x="420.0" dy="11.4">???????? ???? ???????</tspan></text>
+<line x1="250.0" y1="100.0" x2="315.0" y2="100.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="282.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">????</text>
+<rect x="590.0" y="60.0" width="210.0" height="80.0" rx="6" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.8"/>
+<text x="695.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a5276" text-anchor="middle" font-weight="700">TIER 1: SOFT_RESET</text>
+<text x="695.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">????? ? ??????? SW_RST (0x06)</tspan><tspan x="695.0" dy="11.4">9 ?????? SCL ??? I2C</tspan><tspan x="695.0" dy="11.4">???: 50?500 ???</tspan></text>
+<line x1="525.0" y1="100.0" x2="590.0" y2="100.0" stroke="#1a5276" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="557.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a5276" text-anchor="middle" font-weight="700">?????? 1-2</text>
+<rect x="590.0" y="200.0" width="210.0" height="85.0" rx="6" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.8"/>
+<text x="695.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700">TIER 2: HARDWARE_PIN_RESET</text>
+<text x="695.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">??????? ?? ????? nRESET (0)</tspan><tspan x="695.0" dy="11.4">t_RST = 1 ?? -&gt; t_BOOT = 10 ??</tspan><tspan x="695.0" dy="11.4">???????? ????????? ???? ????</tspan></text>
+<line x1="695.0" y1="140.0" x2="695.0" y2="200.0" stroke="#b9770e" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="745.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700">??????? Tier 1</text>
+<rect x="590.0" y="345.0" width="210.0" height="105.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.8"/>
+<text x="695.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d3c98" text-anchor="middle" font-weight="700">TIER 3: POWER_CYCLE_MOSFET</text>
+<text x="695.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">1. GPIO ? Hi-Z (????? ??????????? Vcc)</tspan><tspan x="695.0" dy="10.8">2. P-MOSFET OFF (0 ?) ?? 50 ??</tspan><tspan x="695.0" dy="10.8">3. ?????? ???????? ????? QOD</tspan><tspan x="695.0" dy="10.8">4. P-MOSFET ON + Cold Boot</tspan></text>
+<line x1="695.0" y1="285.0" x2="695.0" y2="345.0" stroke="#7d3c98" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="745.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d3c98" text-anchor="middle" font-weight="700">??????? Tier 2</text>
+<rect x="315.0" y="235.0" width="210.0" height="85.0" rx="6" fill="#e8f8f5" stroke="#1abc9c" stroke-width="1.8"/>
+<text x="420.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a085" text-anchor="middle" font-weight="700">REINITIALIZATION</text>
+<text x="420.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">??????????? ???????? ?????????</tspan><tspan x="420.0" dy="11.4">????? ??????????? (Trim/Bias)</tspan><tspan x="420.0" dy="11.4">????????? WHO_AM_I ID</tspan></text>
+<line x1="590.0" y1="120.0" x2="525.0" y2="245.0" stroke="#1e8449" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="545.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="middle" font-weight="700">OK</text>
+<line x1="590.0" y1="245.0" x2="525.0" y2="265.0" stroke="#1e8449" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="555.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="middle" font-weight="700">OK</text>
+<line x1="590.0" y1="370.0" x2="500.0" y2="320.0" stroke="#1e8449" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="545.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="middle" font-weight="700">OK</text>
+<line x1="315.0" y1="275.0" x2="145.0" y2="140.0" stroke="#1e8449" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="210.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="middle" font-weight="700">ID ???????????? (Ready)</text>
+<rect x="40.0" y="345.0" width="210.0" height="85.0" rx="6" fill="#f2f3f4" stroke="#6b7280" stroke-width="1.8"/>
+<text x="145.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">FATAL_PERIPHERAL_FAULT</text>
+<text x="145.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">????????? ?????????</tspan><tspan x="145.0" dy="11.4">??????? ????? ? Safe State</tspan><tspan x="145.0" dy="11.4">???????? ?????????? / Telemetry</tspan></text>
+<line x1="590.0" y1="420.0" x2="250.0" y2="420.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Power-Cycle ?? ???????? ??'????</text>
+</svg>

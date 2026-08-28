@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граф локалізації несправностей: від симптому до відновлення (Troubleshooting Graph)</text>
+<rect x="340.0" y="55.0" width="280.0" height="55.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="480.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">СИМПТОМ (Спостереження)</text>
+<text x="480.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">Червоний світлодіод STATUS блимає кожні 2 с</text>
+<line x1="480.0" y1="110.0" x2="480.0" y2="145.0" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="340.0" y="145.0" width="280.0" height="65.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.0"/>
+<text x="480.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">ПЕРЕВІРКА 1: Напруга живлення</text>
+<text x="480.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Чи напруга на клемах V+ та GND у межах 18–30 В DC?</text>
+<line x1="340.0" y1="177.0" x2="180.0" y2="177.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="260.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">НІ (V &lt; 18 В)</text>
+<rect x="50.0" y="140.0" width="130.0" height="75.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/><text x="115.0" y="163.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">ДІЯ 1:</tspan><tspan x="115.0" dy="11.7">Перевірити блок живлення,</tspan><tspan x="115.0" dy="11.7">запобіжник лінії 24 В та</tspan><tspan x="115.0" dy="11.7">падіння напруги в кабелі</tspan></text>
+<line x1="480.0" y1="210.0" x2="480.0" y2="245.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="515.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">ТАК</text>
+<rect x="340.0" y="245.0" width="280.0" height="65.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.0"/>
+<text x="480.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">ПЕРЕВІРКА 2: Термінація RS-485</text>
+<text x="480.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Опір між лініями A та B знеструмленої шини ~60 Ом?</text>
+<line x1="620.0" y1="277.0" x2="770.0" y2="277.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="695.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">НІ (R != 60 Ом)</text>
+<rect x="770.0" y="240.0" width="140.0" height="75.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/><text x="840.0" y="263.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">ДІЯ 2:</tspan><tspan x="840.0" dy="11.7">Увімкнути термінатор 120 Ом</tspan><tspan x="840.0" dy="11.7">на обох кінцевих пристроях</tspan><tspan x="840.0" dy="11.7">і вимкнути на проміжних</tspan></text>
+<line x1="480.0" y1="310.0" x2="480.0" y2="345.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="515.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">ТАК</text>
+<rect x="340.0" y="345.0" width="280.0" height="65.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.0"/>
+<text x="480.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">ПЕРЕВІРКА 3: Конфлікт Modbus ID</text>
+<text x="480.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Чи блимає світлодіод RX під час запиту майстра?</text>
+<line x1="340.0" y1="377.0" x2="180.0" y2="377.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="260.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">НІ (Немає RX)</text>
+<rect x="50.0" y="340.0" width="130.0" height="75.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/><text x="115.0" y="363.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">ДІЯ 3:</tspan><tspan x="115.0" dy="11.7">Поміняти місцями дроти</tspan><tspan x="115.0" dy="11.7">ліній A та B (інверсія полярності</tspan><tspan x="115.0" dy="11.7">диференціальної пари)</tspan></text>
+<line x1="480.0" y1="410.0" x2="480.0" y2="440.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="515.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">ТАК</text>
+<rect x="310.0" y="440.0" width="340.0" height="65.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/><text x="480.0" y="463.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">ДІЯ 4: Перевірити Modbus Address і Baudrate</tspan><tspan x="480.0" dy="13.0">Звірити швидкість шини з майстром (9600/115200)</tspan><tspan x="480.0" dy="13.0">та усунути дублювання адрес у мережі</tspan></text>
+</svg>

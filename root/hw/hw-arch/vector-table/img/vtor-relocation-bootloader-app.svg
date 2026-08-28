@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічне перепризначення таблиці векторів через VTOR</text>
+<text x="480.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічне перепризначення таблиці векторів через регістр SCB-&gt;VTOR</text>
+<text x="480.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Апаратне переспрямування векторів переривань між завантажувачем, основною прошивкою та оперативною пам'яттю.</text>
+<rect x="50.0" y="95.0" width="260.0" height="370.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="180.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Flash: Завантажувач</text>
+<text x="180.0" y="142.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#6b7280" text-anchor="middle">0x0800_0000</text>
+<rect x="65.0" y="160.0" width="230.0" height="42.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="180.0" y="185.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Initial MSP (Boot)</text>
+<rect x="65.0" y="208.0" width="230.0" height="42.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="180.0" y="233.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Reset_Handler (Boot)</text>
+<rect x="65.0" y="256.0" width="230.0" height="70.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="180.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вектори завантажувача</text>
+<text x="180.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UART, USB DFU, Flash Driver</text>
+<rect x="65.0" y="334.0" width="230.0" height="115.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="180.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Код завантажувача</text>
+<text x="180.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перевірка цілісності CRC</text>
+<text x="180.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Оновлення образу в Flash</text>
+<text x="180.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Перехід: VTOR = 0x08008000</text>
+<rect x="350.0" y="95.0" width="260.0" height="370.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="480.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Flash: Головний Додаток</text>
+<text x="480.0" y="142.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#6b7280" text-anchor="middle">0x0800_8000 (вирівняно)</text>
+<rect x="365.0" y="160.0" width="230.0" height="42.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="480.0" y="185.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Initial MSP (App)</text>
+<rect x="365.0" y="208.0" width="230.0" height="42.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="480.0" y="233.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Reset_Handler (App)</text>
+<rect x="365.0" y="256.0" width="230.0" height="70.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="480.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вектори додатку</text>
+<text x="480.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SysTick, FreeRTOS, Периферія</text>
+<rect x="365.0" y="334.0" width="230.0" height="115.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="480.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Код додатку (Firmware)</text>
+<text x="480.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ініціалізація FreeRTOS/HAL</text>
+<text x="480.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Основний цикл обробки</text>
+<text x="480.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700">Копія в RAM: VTOR = 0x20000000</text>
+<rect x="650.0" y="95.0" width="260.0" height="370.0" rx="8" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.8"/>
+<text x="780.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">SRAM: Динамічні вектори</text>
+<text x="780.0" y="142.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#6b7280" text-anchor="middle">0x2000_0000 (вирівняно 512B)</text>
+<rect x="665.0" y="160.0" width="230.0" height="42.0" rx="4" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/>
+<text x="780.0" y="185.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">Initial MSP (SRAM copy)</text>
+<rect x="665.0" y="208.0" width="230.0" height="42.0" rx="4" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/>
+<text x="780.0" y="233.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">HardFault Handler (RAM)</text>
+<rect x="665.0" y="256.0" width="230.0" height="70.0" rx="4" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/>
+<text x="780.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічні обробники</text>
+<text x="780.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перехоплення ISR в рантаймі</text>
+<rect x="665.0" y="334.0" width="230.0" height="115.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="780.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переваги релокації в RAM</text>
+<text x="780.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Нульова затримка (без wait-states)</text>
+<text x="780.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Підміна хуків без перепрошивки</text>
+<text x="780.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Робота під час запису Flash пам'яті</text>
+<rect x="100.0" y="485.0" width="760.0" height="52.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="480.0" y="506.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регістр SCB-&gt;VTOR (0xE000ED08) вказує на активну таблицю векторів в адресному просторі</text>
+<text x="480.0" y="524.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Вимога вирівнювання: адреса в VTOR мусить бути вирівняна на степінь двійки за розміром таблиці (від 128 до 512+ байтів).</text>
+</svg>

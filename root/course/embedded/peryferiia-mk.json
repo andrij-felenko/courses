@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -93,7 +94,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "math": [
             {
@@ -403,7 +405,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "math": [
             {
@@ -511,7 +514,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           }
         }
       ]
@@ -551,7 +555,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "api": [
             {
@@ -610,10 +615,11 @@
           "slug": "draiver-chypa",
           "title": "Драйвер чипа: від регістрової карти до значення у SI",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
@@ -625,6 +631,17 @@
             {
               "file": "proj-mock-transport-testing.md",
               "status": "recheck"
+            },
+            {
+              "file": "proj-sensor-driver-pipeline.md",
+              "status": "recheck",
+              "recode": true
+            }
+          ],
+          "math": [
+            {
+              "file": "math-calibration-polynomials.md",
+              "status": "recheck"
             }
           ]
         },
@@ -635,7 +652,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "proj": [
             {
@@ -659,7 +677,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "math": [
             {
@@ -807,7 +826,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "api": [
             {
@@ -1185,7 +1205,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "api": [
             {

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр драйвера датчика: від сирих регістрів до одиниць SI</text>
+<text x="420.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр обробки даних: від кремнієвого сенсора до значень у SI</text>
+<rect x="25.0" y="75.0" width="140.0" height="110.0" rx="6" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.8"/>
+<text x="95.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">1. Залізо чипа</text>
+<text x="95.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="95.0" dy="0.0">Кремнієвий сенсор</tspan><tspan x="95.0" dy="14.2">24-бітний ADC</tspan><tspan x="95.0" dy="14.2">NVM / OTP пам'ять</tspan></text>
+<line x1="168.0" y1="130.0" x2="187.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="190.0" y="75.0" width="140.0" height="110.0" rx="6" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.8"/>
+<text x="260.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="700">2. Транзакція шини</text>
+<text x="260.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">I2C / SPI контролер</tspan><tspan x="260.0" dy="14.2">DMA Burst Read</tspan><tspan x="260.0" dy="14.2">Пакет сирих байтів</tspan></text>
+<line x1="333.0" y1="130.0" x2="352.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="355.0" y="75.0" width="140.0" height="110.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.8"/>
+<text x="425.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="middle" font-weight="700">3. Розпаковка бітів</text>
+<text x="425.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="425.0" dy="0.0">Склеювання байтів</tspan><tspan x="425.0" dy="14.2">Зсуви та маски</tspan><tspan x="425.0" dy="14.2">Two's complement</tspan></text>
+<line x1="498.0" y1="130.0" x2="517.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="520.0" y="75.0" width="140.0" height="110.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.8"/>
+<text x="590.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="middle" font-weight="700">4. Калібрування</text>
+<text x="590.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Поліноми NVM</tspan><tspan x="590.0" dy="14.2">Fixed-point Q-формат</tspan><tspan x="590.0" dy="14.2">Крос-компенсація</tspan></text>
+<line x1="663.0" y1="130.0" x2="682.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="685.0" y="75.0" width="140.0" height="110.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.8"/>
+<text x="755.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">5. Одиниці SI</text>
+<text x="755.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">Типобезпечні типи</tspan><tspan x="755.0" dy="14.2">Паскалі (Па), °C</tspan><tspan x="755.0" dy="14.2">Перевірка меж ODD</tspan></text>
+<text x="420.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a5276" text-anchor="middle" font-weight="700">Трансформація структур даних у пам'яті мікроконтролера</text>
+<rect x="35.0" y="255.0" width="230.0" height="215.0" rx="5" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="150.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">Сирий буфер DMA (uint8_t[6])</text>
+<rect x="45.0" y="290.0" width="210.0" height="24.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">buf[0]: 0x5C (PRESS_MSB, біти 19..12)</text>
+<rect x="45.0" y="318.0" width="210.0" height="24.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">buf[1]: 0x8A (PRESS_LSB, біти 11..4)</text>
+<rect x="45.0" y="346.0" width="210.0" height="24.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">buf[2]: 0x40 (PRESS_XLSB, біти 3..0)</text>
+<rect x="45.0" y="374.0" width="210.0" height="24.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">buf[3]: 0x81 (TEMP_MSB, біти 19..12)</text>
+<rect x="45.0" y="402.0" width="210.0" height="24.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">buf[4]: 0x96 (TEMP_LSB, біти 11..4)</text>
+<rect x="45.0" y="430.0" width="210.0" height="24.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="50.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">buf[5]: 0x00 (TEMP_XLSB, біти 3..0)</text>
+<line x1="270.0" y1="362.5" x2="290.0" y2="362.5" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.0" y="255.0" width="235.0" height="215.0" rx="5" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.5"/>
+<text x="417.5" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="middle" font-weight="700">Некомпенсовані коди ADC</text>
+<text x="315.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">int32_t raw_press = 379044;</text>
+<text x="315.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">// (buf[0]&lt;&lt;12)|(buf[1]&lt;&lt;4)|(buf[2]&gt;&gt;4)</text>
+<text x="315.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">int32_t raw_temp = 530784;</text>
+<text x="315.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">// (buf[3]&lt;&lt;12)|(buf[4]&lt;&lt;4)|(buf[5]&gt;&gt;4)</text>
+<text x="315.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">OTP Коефіцієнти (NVM):</text>
+<text x="315.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d3c98" text-anchor="start">dig_T1=27504, dig_T2=-1048...</text>
+<text x="315.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d3c98" text-anchor="start">dig_P1=36477, dig_P2=-10685...</text>
+<line x1="540.0" y1="362.5" x2="560.0" y2="362.5" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="570.0" y="255.0" width="235.0" height="215.0" rx="5" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="687.5" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">Фізичні величини у SI</text>
+<text x="585.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start">struct SensorSample {</text>
+<text x="585.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start" font-weight="700">  float temperature_c;  // 24.65 °C</text>
+<text x="585.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start" font-weight="700">  float pressure_pa;    // 101328.4 Па</text>
+<text x="585.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start">  uint32_t timestamp_us;// 18492023</text>
+<text x="585.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start">  SampleFlags flags;    // VALID</text>
+<text x="585.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">};</text>
+<text x="585.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start" font-weight="700">// C++20: Pascals{101328.4f}</text>
+<text x="585.0" y="461.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="start">// C++20: Celsius{24.65f}</text>
+</svg>

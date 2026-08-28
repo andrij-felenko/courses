@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняльна матриця компромісів вводу-виводу</text>
+<text x="420.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Критерії вибору механізму вводу-виводу для драйвера мікроконтролера</text>
+<rect x="30.0" y="70.0" width="180.0" height="40.0" rx="4" fill="#eaeded" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="120.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Критерій / Властивість</text>
+<rect x="210.0" y="70.0" width="200.0" height="40.0" rx="4" fill="#fceae8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="310.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Polling (Опитування)</text>
+<rect x="410.0" y="70.0" width="200.0" height="40.0" rx="4" fill="#fdf2e9" stroke="#d35400" stroke-width="1.5"/>
+<text x="510.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Interrupts (Переривання)</text>
+<rect x="610.0" y="70.0" width="200.0" height="40.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="710.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">DMA (Прямий доступ)</text>
+<rect x="30.0" y="120.0" width="180.0" height="96.0" rx="3" fill="#f8f9f9" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="120.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Навантаження CPU</tspan><tspan x="120.0" dy="14.3">(CPU Utilization)</tspan></text>
+<rect x="210.0" y="120.0" width="200.0" height="96.0" rx="3" fill="#fffaf9" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="310.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">100% ядра під час операції.</tspan><tspan x="310.0" dy="13.0">Ядро замкнене в циклі</tspan><tspan x="310.0" dy="13.0">очікування прапорця.</tspan></text>
+<rect x="410.0" y="120.0" width="200.0" height="96.0" rx="3" fill="#fefdfb" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="510.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Пропорційне до потоку:</tspan><tspan x="510.0" dy="13.0">20–50 тактів стека на байт.</tspan><tspan x="510.0" dy="13.0">Шторм при високих швидкостях.</tspan></text>
+<rect x="610.0" y="120.0" width="200.0" height="96.0" rx="3" fill="#f9fdfa" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="710.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">~0% під час передачі.</tspan><tspan x="710.0" dy="13.0">Один вектор переривання</tspan><tspan x="710.0" dy="13.0">на блок або півбуфера.</tspan></text>
+<rect x="30.0" y="224.0" width="180.0" height="96.0" rx="3" fill="#f8f9f9" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="120.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Латентність до</tspan><tspan x="120.0" dy="14.3">першого байта</tspan></text>
+<rect x="210.0" y="224.0" width="200.0" height="96.0" rx="3" fill="#fffaf9" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="310.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Мінімальна (&lt;1 мкс),</tspan><tspan x="310.0" dy="13.0">якщо опитування активне.</tspan><tspan x="310.0" dy="13.0">Нульові витрати на контекст.</tspan></text>
+<rect x="410.0" y="224.0" width="200.0" height="96.0" rx="3" fill="#fefdfb" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="510.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">12–30 тактів NVIC</tspan><tspan x="510.0" dy="13.0">плюс латентність конвеєра</tspan><tspan x="510.0" dy="13.0">та хвоста переривань.</tspan></text>
+<rect x="610.0" y="224.0" width="200.0" height="96.0" rx="3" fill="#f9fdfa" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="710.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">80–150 тактів налаштування</tspan><tspan x="710.0" dy="13.0">каналу, дескрипторів та</tspan><tspan x="710.0" dy="13.0">скидання D-Cache.</tspan></text>
+<rect x="30.0" y="328.0" width="180.0" height="96.0" rx="3" fill="#f8f9f9" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="120.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Оптимальний розмір</tspan><tspan x="120.0" dy="14.3">транзакції (поріг)</tspan></text>
+<rect x="210.0" y="328.0" width="200.0" height="96.0" rx="3" fill="#fffaf9" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="310.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">1–4 байти</tspan><tspan x="310.0" dy="13.0">(короткі статусні регістри,</tspan><tspan x="310.0" dy="13.0">ініціалізація чипа).</tspan></text>
+<rect x="410.0" y="328.0" width="200.0" height="96.0" rx="3" fill="#fefdfb" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="510.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">4–64 байти</tspan><tspan x="510.0" dy="13.0">(асинхронні події, CLI,</tspan><tspan x="510.0" dy="13.0">поодинокі пакети датчиків).</tspan></text>
+<rect x="610.0" y="328.0" width="200.0" height="96.0" rx="3" fill="#f9fdfa" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="710.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">&gt;64 байти або постійний</tspan><tspan x="710.0" dy="13.0">потік (аудіо, ADC/DAC, SPI flash,</tspan><tspan x="710.0" dy="13.0">мережеві кадри).</tspan></text>
+<rect x="30.0" y="432.0" width="180.0" height="96.0" rx="3" fill="#f8f9f9" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="120.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Складність коду та</tspan><tspan x="120.0" dy="14.3">підводні камені</tspan></text>
+<rect x="210.0" y="432.0" width="200.0" height="96.0" rx="3" fill="#fffaf9" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="310.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Тривіальний лінійний код.</tspan><tspan x="310.0" dy="13.0">Немає конкурентності</tspan><tspan x="310.0" dy="13.0">та гонок за ресурси.</tspan></text>
+<rect x="410.0" y="432.0" width="200.0" height="96.0" rx="3" fill="#fefdfb" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="510.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Кільцеві буфери, атоміки,</tspan><tspan x="510.0" dy="13.0">критичні секції, ризик</tspan><tspan x="510.0" dy="13.0">переповнення буфера (RXNE).</tspan></text>
+<rect x="610.0" y="432.0" width="200.0" height="96.0" rx="3" fill="#f9fdfa" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="710.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">Когерентність D-Cache</tspan><tspan x="710.0" dy="13.0">(Clean / Invalidate),</tspan><tspan x="710.0" dy="13.0">вирівнювання 32B, MPU.</tspan></text>
+<rect x="30.0" y="536.0" width="180.0" height="96.0" rx="3" fill="#f8f9f9" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="120.0" y="574.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Енергоефективність</tspan><tspan x="120.0" dy="14.3">(Sleep / Standby)</tspan></text>
+<rect x="210.0" y="536.0" width="200.0" height="96.0" rx="3" fill="#fffaf9" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="310.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Найгірша: ядро не спить,</tspan><tspan x="310.0" dy="13.0">споживає максимальний</tspan><tspan x="310.0" dy="13.0">струм у Run-режимі.</tspan></text>
+<rect x="410.0" y="536.0" width="200.0" height="96.0" rx="3" fill="#fefdfb" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="510.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Середня: ядро спить у WFI,</tspan><tspan x="510.0" dy="13.0">прокидається на кожен байт,</tspan><tspan x="510.0" dy="13.0">частий дренаж на стекінг.</tspan></text>
+<rect x="610.0" y="536.0" width="200.0" height="96.0" rx="3" fill="#f9fdfa" stroke="#bdc3c7" stroke-width="0.8"/>
+<text x="710.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">Найвища: CPU спить довгими</tspan><tspan x="710.0" dy="13.0">інтервалами, DMA автономно</tspan><tspan x="710.0" dy="13.0">качає дані шиною AHB.</tspan></text>
+<text x="420.0" y="660.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Золоте правило: до 4 байтів — Polling; 4–64 байти — ISR; понад 64 байти або потоковий потік — Circular DMA</text>
+</svg>

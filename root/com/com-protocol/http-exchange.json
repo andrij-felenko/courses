@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 5
           },
           "hist": [
             {
@@ -45,7 +46,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -73,7 +75,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "hist": [
             {
@@ -169,7 +172,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -194,21 +198,31 @@
           "slug": "long-running-operations",
           "title": "Довга операція",
           "basic": {
-            "status": "done"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "empty"
+            "status": "recheck"
           },
           "proj": [
             {
               "file": "proj-async-operation.md",
-              "status": "done"
+              "status": "recheck"
             }
           ]
         },
         {
           "slug": "pagination-and-large-responses",
           "title": "Сторінкування, фільтри й великі відповіді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ntrip-protocol",
+          "title": "Протокол NTRIP: передача диференційних GNSS-поправок через інтернет",
           "basic": {
             "status": "empty"
           },

@@ -33,7 +33,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "proj": [
             {
@@ -93,7 +94,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -387,6 +389,16 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "trickle-timer-algorithm",
+          "title": "Алгоритм таймера Trickle (RFC 6206): адаптивне поширення даних у Mesh-мережах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     }

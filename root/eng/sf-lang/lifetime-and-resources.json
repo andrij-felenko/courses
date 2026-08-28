@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -39,7 +40,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -137,6 +139,16 @@
         {
           "slug": "nonlocal-jump",
           "title": "Нелокальний перехід: setjmp і longjmp",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "structured-exception-handling",
+          "title": "Структурована обробка винятків (SEH) у Windows",
           "basic": {
             "status": "empty"
           },

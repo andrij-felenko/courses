@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія транзакції Burst Read (читання 2 байтів із регістра 0x1F)</text>
+<rect x="30.0" y="60.0" width="880.0" height="260.0" rx="6" fill="#fdfefe" stroke="#b9770e" stroke-width="1.8"/>
+<text x="50.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="start" font-weight="700">Шина I2C (Half-Duplex, 2 дроти: SCL/SDA, 7-біт адреса пристрою 0x68)</text>
+<rect x="48.0" y="105.0" width="36.0" height="54.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="66.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">S</text>
+<text x="66.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">START</text>
+<rect x="90.0" y="105.0" width="82.0" height="54.0" rx="4" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="131.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700">0xD0</text>
+<text x="131.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Dev 0x68+W</text>
+<rect x="178.0" y="105.0" width="34.0" height="54.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="195.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">A</text>
+<text x="195.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ACK</text>
+<rect x="218.0" y="105.0" width="80.0" height="54.0" rx="4" fill="#d4e6f1" stroke="#2471a3" stroke-width="1.5"/>
+<text x="258.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2471a3" text-anchor="middle" font-weight="700">0x1F</text>
+<text x="258.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Reg Addr</text>
+<rect x="304.0" y="105.0" width="34.0" height="54.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="321.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">A</text>
+<text x="321.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ACK</text>
+<rect x="344.0" y="105.0" width="76.0" height="54.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="382.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Sr</text>
+<text x="382.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Rep.START</text>
+<rect x="426.0" y="105.0" width="82.0" height="54.0" rx="4" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="467.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700">0xD1</text>
+<text x="467.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Dev 0x68+R</text>
+<rect x="514.0" y="105.0" width="34.0" height="54.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="531.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">A</text>
+<text x="531.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ACK</text>
+<rect x="554.0" y="105.0" width="76.0" height="54.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="592.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">0x4A</text>
+<text x="592.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Data[0]</text>
+<rect x="636.0" y="105.0" width="68.0" height="54.0" rx="4" fill="#eaeded" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="670.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle" font-weight="700">A</text>
+<text x="670.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ACK (M)</text>
+<rect x="710.0" y="105.0" width="76.0" height="54.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="748.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">0x02</text>
+<text x="748.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Data[1]</text>
+<rect x="792.0" y="105.0" width="36.0" height="54.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="810.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">N</text>
+<text x="810.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">NACK</text>
+<rect x="834.0" y="105.0" width="36.0" height="54.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="852.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">P</text>
+<text x="852.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">STOP</text>
+<rect x="48.0" y="175.0" width="844.0" height="125.0" rx="4" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.2"/>
+<text x="65.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="start" font-weight="700">• Фаза запису вказівника:</text>
+<text x="255.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Майстер надсилає 0xD0 (адреса чіпа + біт Write=0) та адресу регістра 0x1F.</text>
+<text x="65.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Repeated START (Sr):</text>
+<text x="255.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Формується без сигналу STOP — утримує шину від перехоплення іншим майстром.</text>
+<text x="65.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="start" font-weight="700">• Фаза зчитування байтів:</text>
+<text x="255.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0xD1 (біт Read=1). Датчик повертає байти з автоінкрементом внутрішнього лічильника.</text>
+<text x="65.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="start" font-weight="700">• Завершення читання:</text>
+<text x="255.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Майстер підтверджує всі проміжні байти (ACK) і шле NACK на останньому байті перед STOP.</text>
+<rect x="30.0" y="335.0" width="880.0" height="290.0" rx="6" fill="#fdfefe" stroke="#2471a3" stroke-width="1.8"/>
+<text x="50.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2471a3" text-anchor="start" font-weight="700">Шина SPI (Full-Duplex, 4 дроти: SCK/MOSI/MISO/CS, тактування до 10-20 МГц)</text>
+<text x="50.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">CS (NSS):</text>
+<line x1="125.0" y1="383.0" x2="155.0" y2="383.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="155.0" y1="383.0" x2="168.0" y2="403.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="168.0" y1="403.0" x2="820.0" y2="403.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="820.0" y1="403.0" x2="833.0" y2="383.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="833.0" y1="383.0" x2="875.0" y2="383.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="168.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t_CSS</text>
+<text x="825.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t_CSH</text>
+<rect x="175.0" y="427.0" width="230.0" height="40.0" rx="4" fill="#d4e6f1" stroke="#2471a3" stroke-width="1.5"/>
+<text x="290.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2471a3" text-anchor="middle" font-weight="700">0x9F (0x80 | 0x1F)</text>
+<text x="290.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MOSI: Read Flag (MSB=1) + Reg 0x1F</text>
+<rect x="420.0" y="427.0" width="210.0" height="40.0" rx="4" fill="#eaeded" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="525.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle" font-weight="700">0x00 (Dummy TX)</text>
+<text x="525.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MOSI: Тактування Data[0]</text>
+<rect x="645.0" y="427.0" width="210.0" height="40.0" rx="4" fill="#eaeded" stroke="#2c3e50" stroke-width="1.5"/>
+<text x="750.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle" font-weight="700">0x00 (Dummy TX)</text>
+<text x="750.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MOSI: Тактування Data[1]</text>
+<rect x="175.0" y="475.0" width="230.0" height="40.0" rx="4" fill="#eaeded" stroke="#6b7280" stroke-width="1.5"/>
+<text x="290.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0xFF / High-Z</text>
+<text x="290.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MISO: Turnaround / Ігнорується</text>
+<rect x="420.0" y="475.0" width="210.0" height="40.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="525.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">0x4A</text>
+<text x="525.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MISO: Зчитаний байт Data[0]</text>
+<rect x="645.0" y="475.0" width="210.0" height="40.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="750.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">0x02</text>
+<text x="750.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MISO: Зчитаний байт Data[1]</text>
+<rect x="48.0" y="527.0" width="844.0" height="86.0" rx="4" fill="#d4e6f1" stroke="#2471a3" stroke-width="1.2"/>
+<text x="65.0" y="549.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2471a3" text-anchor="start" font-weight="700">• Прапорець читання (R/W Bit):</text>
+<text x="295.0" y="549.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">У SPI немає адреси чіпа; біт 7 байта адреси (0x80) вказує читання: 0x80 | 0x1F = 0x9F.</text>
+<text x="65.0" y="573.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="start" font-weight="700">• Повнодуплексний обмін (Full-Duplex):</text>
+<text x="295.0" y="573.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Щоб отримати байти на лінії MISO, майстер мусить передавати фіктивні нулі (0x00) на MOSI.</text>
+<text x="65.0" y="597.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Атомарність через лінію CS:</text>
+<text x="295.0" y="597.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Транзакція обмежена спадом і підйомом CS. Весь пакет читається в єдиній сесії вибору чіпа.</text>
+</svg>

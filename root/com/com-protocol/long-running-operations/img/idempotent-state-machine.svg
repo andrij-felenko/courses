@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат станів довгої операції та життєвий цикл токена ідемпотентності</text>
+<text x="520.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">переходи станів, захист від повторних запитів, оренда воркера та сплив TTL</text>
+<rect x="63.3" y="176.2" width="213.4" height="47.6" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/><text x="170.0" y="196.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">PENDING</tspan><tspan x="170.0" dy="15.6">Черга / ключ зарезервовано</tspan></text>
+<rect x="385.8" y="176.2" width="228.3" height="47.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.3"/><text x="500.0" y="196.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">RUNNING</tspan><tspan x="500.0" dy="15.6">Виконується (активна оренда)</tspan></text>
+<rect x="747.0" y="96.2" width="206.0" height="47.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.3"/><text x="850.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">SUCCEEDED</tspan><tspan x="850.0" dy="15.6">Успіх (готовий результат)</tspan></text>
+<rect x="739.6" y="206.2" width="220.9" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.3"/><text x="850.0" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">FAILED</tspan><tspan x="850.0" dy="15.6">Помилка (RFC 9457 envelope)</tspan></text>
+<rect x="739.6" y="316.2" width="220.9" height="47.6" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.1"/><text x="850.0" y="336.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">CANCELLED</tspan><tspan x="850.0" dy="15.6">Скасовано клієнтом (DELETE)</tspan></text>
+<rect x="367.2" y="456.2" width="265.5" height="47.6" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/><text x="500.0" y="476.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">EXPIRED / TOMBSTONE</tspan><tspan x="500.0" dy="15.6">Вичищено за строком TTL (Sweeper)</tspan></text>
+<line x1="30.0" y1="200.0" x2="57.3" y2="200.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="46.6" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">POST + Key</text>
+<line x1="282.7" y1="200.0" x2="379.8" y2="200.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="331.3" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Воркер захопив оренду</text>
+<path d="M 470.0,172.2 C 470.0,131.2 530.0,131.2 530.0,172.2" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="500.0" y="126.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Серцебиття / поновлення оренди</text>
+<path d="M 460.0,227.8 C 460.0,263.8 210.0,263.8 210.0,227.8" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<text x="335.0" y="271.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Оренда згасла (lease timeout) → повтор</text>
+<line x1="620.2" y1="185.0" x2="741.0" y2="130.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="660.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Успіх під токеном</text>
+<line x1="620.2" y1="210.0" x2="733.6" y2="225.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="660.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Помилка / ліміт спроб</text>
+<line x1="620.2" y1="225.0" x2="733.6" y2="330.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="660.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">DELETE / cancel token</text>
+<line x1="953.0" y1="120.0" x2="980.0" y2="120.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="960.4" y1="230.0" x2="980.0" y2="230.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="960.4" y1="340.0" x2="980.0" y2="340.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="980.0" y1="120.0" x2="980.0" y2="480.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="980.0" y1="480.0" x2="638.8" y2="480.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="840.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Сплив TTL результату</text>
+</svg>

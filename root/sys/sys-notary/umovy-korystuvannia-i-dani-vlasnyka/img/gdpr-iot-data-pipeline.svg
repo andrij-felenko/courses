@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр обробки телеметрії та захисту приватності на вбудованому пристрої</text>
+<rect x="15.0" y="15.0" width="950.0" height="450.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="35.0" y="45.0" width="210.0" height="395.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="2.0"/>
+<text x="140.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Джерела сирих даних</text>
+<line x1="47.0" y1="85.0" x2="233.0" y2="85.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="49.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Технічна діагностика</text>
+<text x="57.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Напруга Vdd, частота CPU</text>
+<text x="57.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Використання Heap / стек</text>
+<text x="57.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Flash write cycles, скидання</text>
+<text x="57.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Дампи помилок / панік</text>
+<text x="49.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Контекстні дані / PII</text>
+<text x="57.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• MAC-адреси, серійний номер</text>
+<text x="57.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• BSSID сканування Wi-Fi</text>
+<text x="57.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Координати GNSS (широта/довгота)</text>
+<text x="57.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Логи дій користувача</text>
+<line x1="245.0" y1="240.0" x2="280.0" y2="240.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="285.0" y="45.0" width="220.0" height="395.0" rx="8" fill="#fdfbf7" stroke="#d97706" stroke-width="2.0"/>
+<text x="395.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b45309" text-anchor="middle" font-weight="700">Класифікатор і політика</text>
+<line x1="297.0" y1="85.0" x2="493.0" y2="85.0" stroke="#d97706" stroke-width="1.0"/>
+<text x="299.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="start" font-weight="700">1. Категоризація полів:</text>
+<text x="299.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Технічні: Art. 6(1)(f) GDPR</text>
+<text x="299.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Функціональні: Opt-in (Рівень 2)</text>
+<text x="299.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Персональні (PII): Opt-in (Рівень 3)</text>
+<text x="299.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="299.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="start" font-weight="700">2. Перевірка NVS Consent:</text>
+<text x="299.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Читання бітової маски дозволів</text>
+<text x="299.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Валідація версії політики</text>
+<text x="299.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Відкидання заблокованих полів</text>
+<text x="299.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="start" font-weight="700"></text>
+<text x="299.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. Реагування на Opt-Out:</text>
+<text x="299.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Миттєве скидання буферів черг</text>
+<line x1="505.0" y1="240.0" x2="540.0" y2="240.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="545.0" y="45.0" width="220.0" height="395.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="655.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Privacy Guard (Анонімізація)</text>
+<line x1="557.0" y1="85.0" x2="753.0" y2="85.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="559.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">1. Огрублення координат:</text>
+<text x="559.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • GNSS округлення: 0.01° (~1.1 км)</text>
+<text x="559.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="559.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">2. Псевдонімізація MAC/ID:</text>
+<text x="559.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • HMAC-SHA256(UID, Ephemeral Salt)</text>
+<text x="559.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Видалення BSSID-списків мереж</text>
+<text x="559.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700"></text>
+<text x="559.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. Агрегація метрик на Edge:</text>
+<text x="559.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Квантування та гістограми</text>
+<text x="559.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700"> • Шумування (Differential Privacy)</text>
+<text x="559.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="559.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">4. Захист пам'яті (Crypto-Shred):</text>
+<text x="559.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"> • Знищення ключів NVS при Erasure</text>
+<line x1="765.0" y1="240.0" x2="800.0" y2="240.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="805.0" y="45.0" width="140.0" height="395.0" rx="8" fill="#fdf2f8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="875.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Експорт</text>
+<line x1="815.0" y1="85.0" x2="935.0" y2="85.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="875.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">TLS 1.3 / mTLS</text>
+<text x="875.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Cert Pinning</text>
+<text x="875.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Очищений</text>
+<text x="875.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">CBOR / JSON</text>
+<text x="875.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">пакет</text>
+<text x="875.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">---</text>
+<text x="875.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Cloud Ingest</text>
+<text x="875.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">API без PII</text>
+<text x="875.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">---</text>
+<text x="875.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Zero Raw Log</text>
+<text x="875.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">на UART/SWD</text>
+</svg>

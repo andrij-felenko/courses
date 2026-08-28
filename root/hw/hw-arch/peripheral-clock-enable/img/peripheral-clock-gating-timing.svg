@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 920 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="920" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема комірки ICG та часова діаграма стробування тактування з бар'єром</text>
+<rect x="0.0" y="0.0" width="900.0" height="540.0" rx="0" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="173.6" y="12.8" width="552.8" height="30.5" rx="6" fill="#f6f8fa" stroke="#0969da" stroke-width="1.5"/><text x="450.0" y="32.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Схема клітини ICG та часова діаграма ввімкнення тактування з бар'єром</tspan></text>
+<rect x="30.0" y="60.0" width="840.0" height="145.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.4"/>
+<text x="450.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Апаратна комірка стробування такту (Integrated Clock Gating — ICG на базі Latch + AND)</text>
+<text x="75.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">CLK_IN</text>
+<line x1="120.0" y1="128.0" x2="235.0" y2="128.0" stroke="#1e293b" stroke-width="1.8"/>
+<circle cx="235.0" cy="128.0" r="3.0" fill="#1e293b" stroke="#1e293b" stroke-width="1.0"/>
+<line x1="235.0" y1="128.0" x2="235.0" y2="148.0" stroke="#1e293b" stroke-width="1.5"/>
+<circle cx="235.0" cy="151.0" r="3.0" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+<line x1="235.0" y1="154.0" x2="265.0" y2="154.0" stroke="#1e293b" stroke-width="1.5"/>
+<text x="75.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">EN (RCC)</text>
+<line x1="120.0" y1="172.0" x2="265.0" y2="172.0" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="250.1" y="139.9" width="129.8" height="46.2" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.3"/><text x="315.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">Negative-edge</tspan><tspan x="315.0" dy="12.3">Latch</tspan><tspan x="315.0" dy="12.3">(D-Latch, активна 0)</tspan></text>
+<line x1="379.9" y1="163.0" x2="455.0" y2="163.0" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="398.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle" font-style="italic">EN_LAT (без глітчів)</text>
+<line x1="235.0" y1="128.0" x2="455.0" y2="128.0" stroke="#1e293b" stroke-width="1.8"/>
+<rect x="470.6" y="126.5" width="38.8" height="37.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.4"/><text x="490.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">AND</tspan><tspan x="490.0" dy="13.0">Gate</tspan></text>
+<line x1="509.4" y1="145.0" x2="605.0" y2="145.0" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="675.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">GCLK (Периферія)</text>
+<rect x="615.0" y="75.0" width="245.0" height="48.0" rx="4" fill="#fff1f2" stroke="#e11d48" stroke-width="1.2"/>
+<text x="737.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#be123c" text-anchor="middle" font-weight="700">Запобігання Runt-імпульсам:</text>
+<text x="737.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#be123c" text-anchor="middle">Latch блокує переходи EN при CLK=1</text>
+<rect x="30.0" y="220.0" width="840.0" height="300.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.4"/>
+<text x="450.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Часова діаграма затримки поширення такту та захист бар'єром читання</text>
+<line x1="180.0" y1="258.0" x2="180.0" y2="505.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="180.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-weight="700">T0 (STR)</text>
+<line x1="302.4" y1="258.0" x2="302.4" y2="505.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="302.4" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-weight="700">T1 (Bridge)</text>
+<line x1="424.8" y1="258.0" x2="424.8" y2="505.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="424.8" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-weight="700">T2 (Latch)</text>
+<line x1="547.2" y1="258.0" x2="547.2" y2="505.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="547.2" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-weight="700">T3 (GCLK ON)</text>
+<line x1="669.6" y1="258.0" x2="669.6" y2="505.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="669.6" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-weight="700">T4 (Valid)</text>
+<text x="100.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">1. HCLK (Ядро)</text>
+<text x="100.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">2. RCC_ENR Запис</text>
+<text x="100.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">3. EN_LAT (ICG)</text>
+<text x="100.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">4. GCLK Периферії</text>
+<text x="100.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9333ea" text-anchor="middle" font-weight="700">5. Доступ до регістра</text>
+<path d="M 160.0 308.0 L 160.0 288.0 L 193.8 288.0 L 193.8 308.0 L 227.5 308.0 L 227.5 288.0 L 261.3 288.0 L 261.3 308.0 L 295.0 308.0 L 295.0 288.0 L 328.8 288.0 L 328.8 308.0 L 362.5 308.0 L 362.5 288.0 L 396.3 288.0 L 396.3 308.0 L 430.0 308.0 L 430.0 288.0 L 463.8 288.0 L 463.8 308.0 L 497.5 308.0 L 497.5 288.0 L 531.3 288.0 L 531.3 308.0 L 565.0 308.0 L 565.0 288.0 L 598.8 288.0 L 598.8 308.0 L 632.5 308.0 L 632.5 288.0 L 666.3 288.0 L 666.3 308.0 L 700.0 308.0 L 700.0 288.0 L 733.8 288.0 L 733.8 308.0 L 767.5 308.0" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+<path d="M 160 350 L 180 350 L 190 330 L 767 330" fill="none" stroke="#0284c7" stroke-width="2.0"/>
+<path d="M 160 392 L 375 392 L 385 372 L 767 372" fill="none" stroke="#0284c7" stroke-width="2.0"/>
+<line x1="160" y1="434" x2="449" y2="434" stroke="#94a3b8" stroke-width="2.0"/>
+<path d="M 449.3 444.0 L 449.3 424.0 L 481.1 424.0 L 481.1 444.0 L 512.9 444.0 L 512.9 424.0 L 544.8 424.0 L 544.8 444.0 L 576.6 444.0 L 576.6 424.0 L 608.4 424.0 L 608.4 444.0 L 640.2 444.0 L 640.2 424.0 L 672.0 424.0 L 672.0 444.0 L 703.9 444.0 L 703.9 424.0 L 735.7 424.0 L 735.7 444.0 L 767.5 444.0" fill="none" stroke="#16a34a" stroke-width="1.8"/>
+<rect x="255.2" y="452.0" width="70.0" height="24.0" rx="3" fill="#ffe4e6" stroke="#e11d48" stroke-width="1.3"/>
+<text x="290.2" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#be123c" text-anchor="middle" font-weight="700">Прямий запис</text>
+<text x="290.2" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e11d48" text-anchor="middle" font-weight="700">BusFault / Зависання!</text>
+<line x1="290.2" y1="452.0" x2="290.2" y2="436.0" stroke="#e11d48" stroke-width="1.5" stroke-dasharray="2 2"/>
+<rect x="590.1" y="452.0" width="110.0" height="24.0" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="1.3"/>
+<text x="645.1" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Після Dummy Read</text>
+<text x="645.1" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="700">Успішна транзакція</text>
+<line x1="645.1" y1="452.0" x2="645.1" y2="436.0" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="2 2"/>
+</svg>

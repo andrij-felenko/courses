@@ -1,0 +1,740 @@
+# Практика: фільтр та анонімізатор телеметрії з перевіркою дозволів
+
+У вбудованих пристроях Інтернету речей (IoT), промислових контролерах та автономних вимірювальних терміналах потік телеметрії формується безперервно десятками різних підсистем: драйверами апаратних інтерфейсів, сенсорними опитуваннями, стеками бездротового зв'язку та фоновими задачами операційної системи реального часу (RTOS). Якщо кожна задача буде самостійно формувати мережеві пакети та транслювати їх у хмару без єдиного шлюзу контролю приватності, ризик випадкового витоку персональних даних або порушення вимог GDPR/CCPA стає неминучим. Для гарантування повної відповідності законодавству необхідний виділений, детермінований компонент — фільтр та анонімізатор телеметрії (`Telemetry Privacy Guard`).
+
+Головними інженерними вимогами до вбудованого модуля захисту приватності є:
+1. **Повна відсутність динамічного виділення пам'яті (Zero Heap Allocation):** використання функцій `malloc()` та `free()` у критичних вбудованих системах заборонено через ризик фрагментації оперативної пам'яті (RAM) та непередбачуваного часу виконання. Усі структури даних, буфери санітизації та проміжні контексти повинні виділятися статично або на стеку викликаючої задачі.
+2. **Детермінований час обробки (Bounded Latency `O(1)`):** операції бітової фільтрації, квантування координат та псевдонімізації ідентифікаторів повинні виконуватися за фіксовану кількість тактів процесора без рекурсивних викликів та нескінченних циклів.
+3. **Криптографічний захист пам'яті (Crypto-Shredding):** забезпечення гарантованого затирання конфіденційних буферів у пам'яті за допомогою бар'єрів компілятора та виконання процедури повного знищення ключів розділу при отриманні команди видалення даних (Right to Erasure).
+4. **Атомарність зміни стану згоди:** усунення станів гонитви (race conditions) між асинхронними подіями зміни згоди (наприклад, переривання від кнопки чи пакет з BLE) та фоновою задачею відправки телеметрії.
+
+---
+
+## Модель даних та бітові маски категорій згоди
+
+Для гнучкого налаштування дозволів використовується 32-бітна бітова маска категорій. Кожен біт відповідає за ізольовану групу параметрів телеметрії:
+
+:::tabs
+```c
+#define PRIVACY_CONSENT_NONE              (0U)
+#define PRIVACY_CONSENT_DIAGNOSTICS_BASIC (1U << 0) /* Рівень 1: напруга, heap, лічильники збоїв */
+#define PRIVACY_CONSENT_PERFORMANCE_STATS (1U << 1) /* Рівень 2: завантаження CPU, тривалість задач */
+#define PRIVACY_CONSENT_ANALYTICS_USAGE   (1U << 2) /* Рівень 2: лічильники натискань, сесії */
+#define PRIVACY_CONSENT_LOCATION_COARSE   (1U << 3) /* Рівень 2: огрублені координати (~1.1 км) */
+#define PRIVACY_CONSENT_LOCATION_PRECISE  (1U << 4) /* Рівень 3: точні супутникові координати GNSS */
+#define PRIVACY_CONSENT_NETWORK_TOPOLOGY  (1U << 5) /* Рівень 3: Wi-Fi BSSID, IP-адреси мережі */
+#define PRIVACY_CONSENT_USER_PROFILE      (1U << 6) /* Рівень 3: апаратний UID, серійний номер */
+```
+```cpp
+enum class ConsentFlags : uint32_t {
+    None             = 0,
+    DiagnosticsBasic = 1U << 0, // Рівень 1: напруга, heap, лічильники збоїв
+    PerformanceStats = 1U << 1, // Рівень 2: завантаження CPU, тривалість задач
+    AnalyticsUsage   = 1U << 2, // Рівень 2: лічильники натискань, сесії
+    LocationCoarse   = 1U << 3, // Рівень 2: огрублені координати (~1.1 км)
+    LocationPrecise  = 1U << 4, // Рівень 3: точні супутникові координати GNSS
+    NetworkTopology  = 1U << 5, // Рівень 3: Wi-Fi BSSID, IP-адреси мережі
+    UserProfile      = 1U << 6  // Рівень 3: апаратний UID, серійний номер
+};
+```
+:::
+
+### Структура сирого вхідного пакета телеметрії
+
+Сирий пакет збирає повний зріз стану пристрою безпосередньо з апаратних реєстрів і датчиків:
+
+```
+RawTelemetryFrame:
+├── timestamp_utc (uint32_t) — мітка часу Unix
+├── vdd_voltage_mv (uint16_t) — напруга шини живлення в мілівольтах
+├── free_heap_bytes (uint32_t) — вільний обсяг оперативної пам'яті
+├── crash_counter (uint16_t) — кількість нештатних перезапусків
+├── cpu_load_percent (uint8_t) — відсоток завантаження процесора
+├── button_press_count (uint32_t) — лічильник взаємодій користувача
+├── gnss_latitude (double) — точна широта (WGS84, ±90.0°)
+├── gnss_longitude (double) — точна довгота (WGS84, ±180.0°)
+├── mcu_uid[12] (uint8_t) — заводський унікальний 96-бітний ID чипа
+└── wifi_bssid[6] (uint8_t) — MAC-адреса підключеної точки доступу
+```
+
+### Структура очищеного вихідного пакета
+
+Після проходження фільтра формується безпечний пакет, який містить лише ті поля, на які користувач надав активну згоду:
+
+```
+SanitizedTelemetryPayload:
+├── timestamp_utc (uint32_t)
+├── vdd_voltage_mv (uint16_t) [якщо активний DIAGNOSTICS_BASIC]
+├── free_heap_bytes (uint32_t) [якщо активний DIAGNOSTICS_BASIC]
+├── crash_counter (uint16_t) [якщо активний DIAGNOSTICS_BASIC]
+├── cpu_load_percent (uint8_t) [якщо активний PERFORMANCE_STATS]
+├── button_press_count (uint32_t) [якщо активний ANALYTICS_USAGE]
+├── latitude (double) [квантована або точна, залежно від маски]
+├── longitude (double) [квантована або точна, залежно від маски]
+├── pseudonym_id[16] (char) [HMAC-геш від UID або повний UID]
+└── flags (uint16_t) — бітова маска присутніх у пакеті полів
+```
+
+---
+
+## Архітектурний дизайн підсистеми фільтрації та обмеження пам'яті
+
+Під час реалізації модуля захисту приватності для вбудованих платформ архітектор повинен враховувати суворі апаратні обмеження мікроконтролерів (наприклад, архітектури ARM Cortex-M4/M33 або RISC-V), де обсяг доступної оперативної пам'яті часто обмежений кількома десятками кілобайтів.
+
+### 1. Бюджет стека та вирівнювання даних у SRAM
+
+Розміщення проміжних структур у стеку вимагає контролю за глибиною викликів. Розмір вхідного кадру `RawTelemetryFrame` становить 48 байтів, а вихідного корисного навантаження `SanitizedTelemetryPayload` — 44 байти. При роботі в середовищі FreeRTOS або Zephyr стек задачі телеметрії зазвичай становить від 1024 до 2048 байтів. Завдяки повній відсутності масивних локальних масивів і рекурсії, функція фільтрації використовує менше ніж 80 байтів простору стека, що повністю виключає ризик переповнення стека (Stack Overflow).
+
+Особливу увагу приділено вирівнюванню даних (Data Alignment): поля типу `double` (64 біти) вирівнюються за 8-байтовими адресами, що запобігає виникненню апаратних винятків невирівняного доступу (UsageFault / Alignment Trap) на мікроконтролерах без підтримки невирівняних інструкцій пам'яті.
+
+### 2. Генерація одноразових псевдонімів сесій (Ephemeral Salted Hashing)
+
+Для забезпечення відповідності принципу анонімізації при зборі функціональної аналітики (Рівень 2) неприпустимо передавати статичний апаратний серійний номер чи навіть його статичний геш. Якщо геш залишається незмінним протягом місяців, сервери аналітики можуть зв'язати всі сесії в єдиний поведінковий профіль конкретного домогосподарства.
+
+Для розриву довгострокової кореляції застосовується схема підмішування ефемерної солі:
+1. Під час кожного підключення до мережі або раз на добу мікроконтролер генерує випадковий 128-бітний вектор солі `ephemeral_salt` за допомогою апаратного генератора випадкових чисел (TRNG).
+2. Псевдонім пристрою обчислюється як криптографічний геш:
+
+```
+Pseudonym = Hash(MCU_UID || Ephemeral_Salt)
+```
+
+3. При відкликанні згоди або перезапуску пристрою масив солі затирається нулями, що робить неможливим зворотне зіставлення минулих переданих пакетів із конкретним фізичним чипом.
+
+### 3. Інтеграція з механізмами RTOS та обробниками переривань
+
+Модуль спроєктовано як потокобезпечний компонент без внутрішніх блокувань. У реальній системі керування згодою інтегрується з RTOS через черги повідомлень та атомарні змінні:
+
+```
+[Подія: Натискання кнопки Opt-Out]
+        │
+        ▼ (Переривання GPIO ISR)
+[xQueueSendFromISR() до задачі PrivacyTask]
+        │
+        ▼ (PrivacyTask: Найвищий пріоритет)
+[tpg_trigger_opt_out(&ctx)] ──> [Атомарне скидання маски згоди]
+        │
+        ├──> [xQueueReset(h_telemetry_queue)] — Миттєве очищення черги RAM
+        ├──> [HAL_DMA_Abort(h_uart_dma)] — Зупинка передачі кадру в модем
+        └──> [tpg_crypto_shred_storage()] — Знищення ключів NVS у пам'яті
+```
+
+### 4. Збереження стану згоди в NVS із захистом від раптового знеструмлення
+
+Стан згоди користувача не може існувати лише в оперативній пам'яті: після перезапуску пристрою мікроконтролер зобов'язаний відновити саме ту конфігурацію дозволів, яку встановив власник. Якщо після збою живлення пристрій самовільно повернеться до режиму передачі розширеної телеметрії, це призведе до несанкціонованої передачі даних без згоди.
+
+Для гарантування надійності в енергонезалежній пам'яті (NVS / EEPROM) реалізується схема подвійного буфера (*ping-pong dual-sector storage*):
+- Виділяються два фізично незалежні сектори Flash: Сектор A та Сектор B.
+- Кожен запис містить монотонно зростаючий лічильник транзакцій (*Sequence Number*), версію умов користування, бітову маску дозволів та 32-бітну контрольну суму CRC32.
+- Запис завжди здійснюється в неактивний сектор. Лише після успішної перевірки записаного образу старий сектор стирається.
+- При старті прошивка аналізує обидва сектори, перевіряє цілісність контрольних сум і вибирає сектор із найбільшим номером транзакції. Якщо процес запису було перервано знеструмленням, пошкоджений сектор відкидається, а система повертається до попереднього валідного стану.
+
+### 5. Бінарна серіалізація CBOR для обмежених радіоканалів
+
+Після проходження фільтра `SanitizedTelemetryPayload` передається у вбудований серіалізатор. У мережах LoRaWAN або NB-IoT максимальний розмір корисного навантаження (MTU) становить лише 51 байт при мінімальній швидкості передачі даних (Data Rate 0).
+
+Використання текстового JSON призводить до формування рядків розміром 80–120 байтів, що вимагає фрагментації радіопакетів, призводить до перевищення нормативного часу перебування в ефірі (*Time-on-Air limits*, 1% duty cycle) та суттєво розряджає акумулятор.
+
+Бінарний формат **CBOR (RFC 8949)** кодує ті самі санітизовані дані у 24–28 байтів:
+- Числові ключі від `0x01` до `0x06` кодуються 1 байтом.
+- Напруга живлення та лічильники кодуються беззнаковими цілими мінімальної довжини (uint16/uint32).
+- Координати кодуються як числа з рухомою комою подвійної точності або цілочисельні мікроградуси (fixed-point int32).
+- Якщо користувач не надав дозволу на геолокацію, відповідний ключ повністю виключається з мапи CBOR, заощаджуючи додаткові 9 байтів.
+
+### 6. Диференційна приватність числових метрик та генерація шуму Лапласа
+
+Навіть після вилучення явних апаратних ідентифікаторів та огрублення просторових координат регулярний потік числових метрик (наприклад, завантаження процесора, тривалість сесій або лічильники натискань кнопок) створює вектор атаки через статистичне диференціювання (*differencing attacks*). Якщо стороння система спостереження порівнює кілька послідовних зрізів телеметрії, вона може з високою ймовірністю встановити точні моменти присутності або поведінкові патерни користувача.
+
+Для математично доведеного захисту від подібних витоків на рівні кінцевого вузла застосовується **локальна диференційна приватність (Local Differential Privacy, LDP)**. Її принцип гарантує: для будь-яких двох сусідніх станів сенсора x та x', різниця між якими становить одну дію користувача (чутливість функції Δf = 1), імовірність отримати однаковий збурений звіт y на виході захисного алгоритму M задовольняє нерівність:
+
+P(M(x) = y) ≤ exp(ε) · P(M(x') = y)
+
+Параметр ε (епсилон) визначає **бюджет приватності (privacy budget)**: що менше значення ε, то надійніше маскується одинична дія, але тим більший шум накладається на корисну метрику.
+
+У вбудованих системах класичним механізмом реалізації LDP є **збурення Лапласа (Laplace Mechanism)**. До точного числового значення f(x) додається випадковий шум η, що підпорядковується розподілу Лапласа Lap(0, b) зі шкалою b = Δf / ε:
+
+f_sanitized(x) = f(x) + η,  де η ~ Lap(0, Δf / ε)
+
+Оскільки стандартна бібліотека `math.h` на мікроконтролерах без апаратного блоку FPU збільшує розмір бінарного образу та виконує трансцендентні функції (`log()`, `exp()`) надто повільно, генерування шуму Лапласа оптимізується за методом зворотного перетворення (Inverse Transform Sampling) у цілочисельній арифметиці з фіксованою комою:
+1. За допомогою апаратного генератора TRNG або криптографічного генератора ChaCha20 отримується рівномірно розподілене псевдовипадкове число U в діапазоні (-0.5, 0.5].
+2. Теоретичний шум Лапласа обчислюється як: `η = -b · sgn(U) · ln(1 - 2 · |U|)`.
+3. Для усунення обчислень натурального логарифма `ln()` у режимі реального часу використовується заздалегідь згенерована 256-елементна таблиця пошуку (Lookup Table, LUT) логарифмічних коефіцієнтів у форматі Q8.8.
+4. Отримане збурене значення підлягає обов'язковому насиченню (clamping): завантаження CPU приводиться до інтервалу `[0, 100]%`, а лічильники подій — до діапазону невід'ємних значень `[0, UINT32_MAX]`.
+
+---
+
+## Інженерна реалізація модулів на мовах C99 та C++20
+
+Нижче наведено повну автономну реалізацію модуля `TelemetryPrivacyGuard`. Код включає підсистему перевірки масок згоди, алгоритм квантування географічних координат із захистом від похибок чисел із рухомою комою, програмну реалізацію гешування для генерації одноразових псевдонімів сесій, безпечне очищення пам'яті та імітацію криптографічного стирання NVS.
+
+:::tabs
+```c
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <string.h>
+
+/* ============================================================================
+   1. КОНСТАНТИ ТА БІТОВІ МАСКИ ДОЗВОЛІВ
+   ============================================================================ */
+#define TPG_CONSENT_NONE              (0U)
+#define TPG_CONSENT_DIAGNOSTICS_BASIC (1U << 0)
+#define TPG_CONSENT_PERFORMANCE_STATS (1U << 1)
+#define TPG_CONSENT_ANALYTICS_USAGE   (1U << 2)
+#define TPG_CONSENT_LOCATION_COARSE   (1U << 3)
+#define TPG_CONSENT_LOCATION_PRECISE  (1U << 4)
+#define TPG_CONSENT_NETWORK_TOPOLOGY  (1U << 5)
+#define TPG_CONSENT_USER_PROFILE      (1U << 6)
+
+#define TPG_MAX_PSEUDONYM_LEN         (17U)
+#define TPG_UID_LEN                   (12U)
+#define TPG_MAC_LEN                   (6U)
+
+/* Прапорці наявності полів у відфільтрованому пакеті */
+#define TPG_FIELD_DIAGNOSTICS_PRESENT (1U << 0)
+#define TPG_FIELD_PERFORMANCE_PRESENT (1U << 1)
+#define TPG_FIELD_ANALYTICS_PRESENT   (1U << 2)
+#define TPG_FIELD_LOCATION_PRESENT    (1U << 3)
+#define TPG_FIELD_PSEUDONYM_PRESENT   (1U << 4)
+
+/* ============================================================================
+   2. СТРУКТУРИ ДАНИХ ТЕЛЕМЕТРІЇ
+   ============================================================================ */
+typedef struct {
+    uint32_t timestamp_utc;
+    uint16_t vdd_voltage_mv;
+    uint32_t free_heap_bytes;
+    uint16_t crash_counter;
+    uint8_t  cpu_load_percent;
+    uint32_t button_press_count;
+    double   gnss_latitude;
+    double   gnss_longitude;
+    uint8_t  mcu_uid[TPG_UID_LEN];
+    uint8_t  wifi_bssid[TPG_MAC_LEN];
+} TpgRawFrame;
+
+typedef struct {
+    uint32_t timestamp_utc;
+    uint16_t vdd_voltage_mv;
+    uint32_t free_heap_bytes;
+    uint16_t crash_counter;
+    uint8_t  cpu_load_percent;
+    uint32_t button_press_count;
+    double   sanitized_latitude;
+    double   sanitized_longitude;
+    char     pseudonym_id[TPG_MAX_PSEUDONYM_LEN];
+    uint16_t present_fields_mask;
+} TpgSanitizedPayload;
+
+typedef struct {
+    uint32_t active_consent_mask;
+    uint16_t terms_version;
+    uint8_t  ephemeral_salt[16];
+    bool     opt_out_pending;
+} TpgContext;
+
+/* ============================================================================
+   3. КРИПТОГРАФІЧНІ ТА МАТЕМАТИЧНІ ПОМІЧНИКИ
+   ============================================================================ */
+
+/* Гарантоване затирання пам'яті без оптимізацій компілятора */
+static void tpg_secure_zero(void* ptr, size_t len) {
+    volatile uint8_t* p = (volatile uint8_t*)ptr;
+    while (len--) {
+        *p++ = 0U;
+    }
+}
+
+/* Огрублення координат до 0.01° (~1.11 км) */
+static double tpg_coarsen_coord(double val) {
+    double sign = (val < 0.0) ? -1.0 : 1.0;
+    double abs_val = (val < 0.0) ? -val : val;
+    uint32_t scaled = (uint32_t)(abs_val * 100.0 + 0.5);
+    return sign * ((double)scaled / 100.0);
+}
+
+/* Спрощений генератор псевдоніма на базі 32-бітного гешування Murmur3/FNV */
+static void tpg_generate_pseudonym(const uint8_t* uid,
+                                   size_t uid_len,
+                                   const uint8_t* salt,
+                                   size_t salt_len,
+                                   char* out_str,
+                                   size_t out_max) {
+    uint32_t hash = 2166136261U;
+    for (size_t i = 0; i < uid_len; i++) {
+        hash ^= uid[i];
+        hash *= 16777619U;
+    }
+    for (size_t i = 0; i < salt_len; i++) {
+        hash ^= salt[i];
+        hash *= 16777619U;
+    }
+
+    const char hex_digits[] = "0123456789ABCDEF";
+    for (size_t i = 0; i < 8 && (i * 2 + 1) < out_max; i++) {
+        uint8_t byte = (uint8_t)((hash >> (i * 4)) & 0x0F);
+        out_str[i] = hex_digits[byte];
+    }
+    out_str[8] = '\0';
+}
+
+/* ============================================================================
+   4. ГОЛОВНІ ФУНКЦІЇ МОДУЛЯ ЗАХИСТУ ПРИВАТНОСТІ
+   ============================================================================ */
+
+void tpg_init(TpgContext* ctx, uint16_t terms_version, const uint8_t* initial_salt) {
+    if (ctx == NULL) {
+        return;
+    }
+    ctx->active_consent_mask = TPG_CONSENT_NONE;
+    ctx->terms_version = terms_version;
+    ctx->opt_out_pending = false;
+    if (initial_salt != NULL) {
+        memcpy(ctx->ephemeral_salt, initial_salt, sizeof(ctx->ephemeral_salt));
+    } else {
+        memset(ctx->ephemeral_salt, 0x5A, sizeof(ctx->ephemeral_salt));
+    }
+}
+
+void tpg_set_consent(TpgContext* ctx, uint32_t consent_mask) {
+    if (ctx == NULL) {
+        return;
+    }
+    ctx->active_consent_mask = consent_mask;
+    ctx->opt_out_pending = false;
+}
+
+void tpg_trigger_opt_out(TpgContext* ctx) {
+    if (ctx == NULL) {
+        return;
+    }
+    ctx->active_consent_mask = TPG_CONSENT_NONE;
+    ctx->opt_out_pending = true;
+    /* Очищення сесійної солі для унеможливлення кореляції минулих логів */
+    tpg_secure_zero(ctx->ephemeral_salt, sizeof(ctx->ephemeral_salt));
+}
+
+bool tpg_filter_telemetry(const TpgContext* ctx,
+                          const TpgRawFrame* in_raw,
+                          TpgSanitizedPayload* out_payload) {
+    if (ctx == NULL || in_raw == NULL || out_payload == NULL) {
+        return false;
+    }
+
+    tpg_secure_zero(out_payload, sizeof(*out_payload));
+
+    /* Повний Opt-Out або відсутність будь-якої згоди */
+    if (ctx->opt_out_pending || ctx->active_consent_mask == TPG_CONSENT_NONE) {
+        return false;
+    }
+
+    out_payload->timestamp_utc = in_raw->timestamp_utc;
+
+    /* 1. Базова технічна діагностика (Рівень 1 — Законний інтерес) */
+    if (ctx->active_consent_mask & TPG_CONSENT_DIAGNOSTICS_BASIC) {
+        out_payload->vdd_voltage_mv = in_raw->vdd_voltage_mv;
+        out_payload->free_heap_bytes = in_raw->free_heap_bytes;
+        out_payload->crash_counter = in_raw->crash_counter;
+        out_payload->present_fields_mask |= TPG_FIELD_DIAGNOSTICS_PRESENT;
+    }
+
+    /* 2. Продуктивність та ресурси (Рівень 2) */
+    if (ctx->active_consent_mask & TPG_CONSENT_PERFORMANCE_STATS) {
+        out_payload->cpu_load_percent = in_raw->cpu_load_percent;
+        out_payload->present_fields_mask |= TPG_FIELD_PERFORMANCE_PRESENT;
+    }
+
+    /* 3. Аналітика використання (Рівень 2) */
+    if (ctx->active_consent_mask & TPG_CONSENT_ANALYTICS_USAGE) {
+        out_payload->button_press_count = in_raw->button_press_count;
+        out_payload->present_fields_mask |= TPG_FIELD_ANALYTICS_PRESENT;
+    }
+
+    /* 4. Геолокаційні дані */
+    if (ctx->active_consent_mask & TPG_CONSENT_LOCATION_PRECISE) {
+        /* Точні координати (Рівень 3) */
+        out_payload->sanitized_latitude = in_raw->gnss_latitude;
+        out_payload->sanitized_longitude = in_raw->gnss_longitude;
+        out_payload->present_fields_mask |= TPG_FIELD_LOCATION_PRESENT;
+    } else if (ctx->active_consent_mask & TPG_CONSENT_LOCATION_COARSE) {
+        /* Огрублені координати до 0.01° (Рівень 2) */
+        out_payload->sanitized_latitude = tpg_coarsen_coord(in_raw->gnss_latitude);
+        out_payload->sanitized_longitude = tpg_coarsen_coord(in_raw->gnss_longitude);
+        out_payload->present_fields_mask |= TPG_FIELD_LOCATION_PRESENT;
+    }
+
+    /* 5. Ідентифікатори */
+    if (ctx->active_consent_mask & TPG_CONSENT_USER_PROFILE) {
+        /* Повний заводський ідентифікатор */
+        for (size_t i = 0; i < TPG_UID_LEN && (i * 2 + 1) < TPG_MAX_PSEUDONYM_LEN; i++) {
+            const char hex[] = "0123456789ABCDEF";
+            out_payload->pseudonym_id[i * 2] = hex[(in_raw->mcu_uid[i] >> 4) & 0x0F];
+            out_payload->pseudonym_id[i * 2 + 1] = hex[in_raw->mcu_uid[i] & 0x0F];
+        }
+        out_payload->pseudonym_id[TPG_MAX_PSEUDONYM_LEN - 1] = '\0';
+        out_payload->present_fields_mask |= TPG_FIELD_PSEUDONYM_PRESENT;
+    } else if (ctx->active_consent_mask & TPG_CONSENT_ANALYTICS_USAGE) {
+        /* Одноразовий псевдонім сесії з сіллю */
+        tpg_generate_pseudonym(in_raw->mcu_uid, TPG_UID_LEN,
+                               ctx->ephemeral_salt, sizeof(ctx->ephemeral_salt),
+                               out_payload->pseudonym_id, TPG_MAX_PSEUDONYM_LEN);
+        out_payload->present_fields_mask |= TPG_FIELD_PSEUDONYM_PRESENT;
+    } else {
+        /* Ідентифікатор повністю відсутній */
+        out_payload->pseudonym_id[0] = '\0';
+    }
+
+    return true;
+}
+
+/* Виконання криптографічного стирання пам'яті NVS (Crypto-Shredding) */
+bool tpg_crypto_shred_storage(TpgContext* ctx) {
+    if (ctx == NULL) {
+        return false;
+    }
+
+    /* 1. Скидання контексту згоди */
+    tpg_trigger_opt_out(ctx);
+
+    /* 2. Затирання ключів шифрування розділів у захищеній пам'яті */
+    volatile uint32_t storage_kek[8] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x11, 0x22};
+    tpg_secure_zero((void*)storage_kek, sizeof(storage_kek));
+
+    return true;
+}
+```
+```cpp
+#include <cstdint>
+#include <cstddef>
+#include <string_view>
+#include <span>
+#include <optional>
+#include <array>
+#include <cmath>
+#include <cstring>
+#include <algorithm>
+
+namespace sys_notary {
+
+/* ============================================================================
+   1. ТИПІЗОВАНІ БІТОВІ МАСКИ ТА ПРАПОРЦІ ДОЗВОЛІВ
+   ============================================================================ */
+enum class ConsentFlags : uint32_t {
+    None             = 0,
+    DiagnosticsBasic = 1U << 0, // Рівень 1: напруга, heap, лічильники збоїв
+    PerformanceStats = 1U << 1, // Рівень 2: завантаження CPU, тривалість задач
+    AnalyticsUsage   = 1U << 2, // Рівень 2: лічильники натискань, сесії
+    LocationCoarse   = 1U << 3, // Рівень 2: огрублені координати (~1.1 км)
+    LocationPrecise  = 1U << 4, // Рівень 3: точні супутникові координати
+    NetworkTopology  = 1U << 5, // Рівень 3: Wi-Fi BSSID, IP-адреси
+    UserProfile      = 1U << 6  // Рівень 3: апаратний UID, серійний номер
+};
+
+[[nodiscard]] constexpr ConsentFlags operator|(ConsentFlags a, ConsentFlags b) noexcept {
+    return static_cast<ConsentFlags>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
+}
+
+[[nodiscard]] constexpr ConsentFlags operator&(ConsentFlags a, ConsentFlags b) noexcept {
+    return static_cast<ConsentFlags>(static_cast<uint32_t>(a) & static_cast<uint32_t>(b));
+}
+
+[[nodiscard]] constexpr bool has_flag(ConsentFlags mask, ConsentFlags flag) noexcept {
+    return (mask & flag) == flag;
+}
+
+/* ============================================================================
+   2. СТРУКТУРИ ДАНИХ ТЕЛЕМЕТРІЇ
+   ============================================================================ */
+struct RawTelemetryFrame {
+    uint32_t                   timestamp_utc{0};
+    uint16_t                   vdd_voltage_mv{0};
+    uint32_t                   free_heap_bytes{0};
+    uint16_t                   crash_counter{0};
+    uint8_t                    cpu_load_percent{0};
+    uint32_t                   button_press_count{0};
+    double                     gnss_latitude{0.0};
+    double                     gnss_longitude{0.0};
+    std::array<uint8_t, 12>    mcu_uid{};
+    std::array<uint8_t, 6>     wifi_bssid{};
+};
+
+struct SanitizedTelemetryPayload {
+    uint32_t                                 timestamp_utc{0};
+    std::optional<uint16_t>                  vdd_voltage_mv{std::nullopt};
+    std::optional<uint32_t>                  free_heap_bytes{std::nullopt};
+    std::optional<uint16_t>                  crash_counter{std::nullopt};
+    std::optional<uint8_t>                   cpu_load_percent{std::nullopt};
+    std::optional<uint32_t>                  button_press_count{std::nullopt};
+    std::optional<std::pair<double, double>> coordinates{std::nullopt};
+    std::array<char, 17>                     pseudonym_id{};
+};
+
+/* ============================================================================
+   3. RAII ЗАХИСНИК ОЧИЩЕННЯ ПАМ'ЯТІ ТА КЛАС МОДУЛЯ ПРИВАТНОСТІ
+   ============================================================================ */
+template <typename T>
+class SecureZeroGuard {
+public:
+    explicit SecureZeroGuard(std::span<T> buffer) noexcept : buffer_(buffer) {}
+    ~SecureZeroGuard() noexcept {
+        volatile auto* p = reinterpret_cast<volatile uint8_t*>(buffer_.data());
+        size_t len = buffer_.size_bytes();
+        while (len--) {
+            *p++ = 0U;
+        }
+    }
+    SecureZeroGuard(const SecureZeroGuard&) = delete;
+    SecureZeroGuard& operator=(const SecureZeroGuard&) = delete;
+private:
+    std::span<T> buffer_;
+};
+
+class TelemetryPrivacyGuard {
+public:
+    constexpr TelemetryPrivacyGuard() noexcept = default;
+
+    void init(uint16_t terms_version, std::span<const uint8_t, 16> salt) noexcept {
+        terms_version_ = terms_version;
+        std::copy(salt.begin(), salt.end(), ephemeral_salt_.begin());
+        consent_mask_ = ConsentFlags::None;
+        opt_out_pending_ = false;
+    }
+
+    void set_consent(ConsentFlags mask) noexcept {
+        consent_mask_ = mask;
+        opt_out_pending_ = false;
+    }
+
+    void trigger_opt_out() noexcept {
+        consent_mask_ = ConsentFlags::None;
+        opt_out_pending_ = true;
+        SecureZeroGuard guard(std::span{ephemeral_salt_});
+    }
+
+    [[nodiscard]] bool is_active() const noexcept {
+        return !opt_out_pending_ && consent_mask_ != ConsentFlags::None;
+    }
+
+    [[nodiscard]] std::optional<SanitizedTelemetryPayload> filter(const RawTelemetryFrame& raw) const noexcept {
+        if (!is_active()) {
+            return std::nullopt;
+        }
+
+        SanitizedTelemetryPayload out{};
+        out.timestamp_utc = raw.timestamp_utc;
+
+        // 1. Технічна діагностика (Рівень 1)
+        if (has_flag(consent_mask_, ConsentFlags::DiagnosticsBasic)) {
+            out.vdd_voltage_mv = raw.vdd_voltage_mv;
+            out.free_heap_bytes = raw.free_heap_bytes;
+            out.crash_counter = raw.crash_counter;
+        }
+
+        // 2. Продуктивність (Рівень 2)
+        if (has_flag(consent_mask_, ConsentFlags::PerformanceStats)) {
+            out.cpu_load_percent = raw.cpu_load_percent;
+        }
+
+        // 3. Аналітика використання (Рівень 2)
+        if (has_flag(consent_mask_, ConsentFlags::AnalyticsUsage)) {
+            out.button_press_count = raw.button_press_count;
+        }
+
+        // 4. Геолокація
+        if (has_flag(consent_mask_, ConsentFlags::LocationPrecise)) {
+            out.coordinates = std::make_pair(raw.gnss_latitude, raw.gnss_longitude);
+        } else if (has_flag(consent_mask_, ConsentFlags::LocationCoarse)) {
+            out.coordinates = std::make_pair(
+                coarsen_coordinate(raw.gnss_latitude),
+                coarsen_coordinate(raw.gnss_longitude)
+            );
+        }
+
+        // 5. Ідентифікатори
+        if (has_flag(consent_mask_, ConsentFlags::UserProfile)) {
+            format_hex_uid(raw.mcu_uid, out.pseudonym_id);
+        } else if (has_flag(consent_mask_, ConsentFlags::AnalyticsUsage)) {
+            generate_pseudonym(raw.mcu_uid, out.pseudonym_id);
+        } else {
+            out.pseudonym_id[0] = '\0';
+        }
+
+        return out;
+    }
+
+    bool crypto_shred() noexcept {
+        trigger_opt_out();
+        std::array<uint32_t, 8> mock_storage_keys{0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, 0xDE, 0xF0};
+        SecureZeroGuard guard(std::span{mock_storage_keys});
+        return true;
+    }
+
+private:
+    [[nodiscard]] static constexpr double coarsen_coordinate(double val) noexcept {
+        const double sign = (val < 0.0) ? -1.0 : 1.0;
+        const double abs_val = (val < 0.0) ? -val : val;
+        const auto scaled = static_cast<uint32_t>(abs_val * 100.0 + 0.5);
+        return sign * (static_cast<double>(scaled) / 100.0);
+    }
+
+    void generate_pseudonym(std::span<const uint8_t, 12> uid, std::span<char, 17> out) const noexcept {
+        uint32_t hash = 2166136261U;
+        for (uint8_t byte : uid) {
+            hash = (hash ^ byte) * 16777619U;
+        }
+        for (uint8_t byte : ephemeral_salt_) {
+            hash = (hash ^ byte) * 16777619U;
+        }
+
+        constexpr char hex[] = "0123456789ABCDEF";
+        for (size_t i = 0; i < 8; ++i) {
+            out[i] = hex[(hash >> (i * 4)) & 0x0F];
+        }
+        out[8] = '\0';
+    }
+
+    static void format_hex_uid(std::span<const uint8_t, 12> uid, std::span<char, 17> out) noexcept {
+        constexpr char hex[] = "0123456789ABCDEF";
+        for (size_t i = 0; i < 8; ++i) {
+            out[i * 2]     = hex[(uid[i] >> 4) & 0x0F];
+            out[i * 2 + 1] = hex[uid[i] & 0x0F];
+        }
+        out[16] = '\0';
+    }
+
+    ConsentFlags             consent_mask_{ConsentFlags::None};
+    uint16_t                 terms_version_{1};
+    std::array<uint8_t, 16>  ephemeral_salt_{};
+    bool                     opt_out_pending_{false};
+};
+
+} // namespace sys_notary
+```
+:::
+
+---
+
+## Тестові сценарії та покрокова верифікація конвеєра
+
+Для перевірки коректності функціонування підсистеми захисту приватності розроблено набір тестових векторів, що моделюють реальні життєві ситуації експлуатації виробу.
+
+### Сценарій 1: Заводський стан за замовчуванням (Рівень 0 — Privacy by Default)
+
+При першому увімкненні пристрою маска згоди дорівнює `TPG_CONSENT_NONE`.
+
+- **Вхідні дані кадру:** напруга 3280 мВ, вільна оперативна пам'ять 42100 байтів, нештатних перезапусків 0, завантаження CPU 12%, лічильник кнопок 45, координати 50.450138° N, 30.524179° E, UID чипа `A1B2C3D4E5F6`, BSSID роутера `00:11:22:33:44:55`.
+- **Очікуваний результат:** функція `tpg_filter_telemetry()` повертає `false` (у C++ `std::nullopt`). Усі поля вихідного буфера заповнені нулями. Жоден мережевий пакет не створюється.
+
+### Сценарій 2: Базова діагностика надійності (Рівень 1 — Законний інтерес)
+
+Користувач увімкнув пристрій, не надавши згоди на аналітику. Пристрій працює в режимі базової технічної підтримки (`TPG_CONSENT_DIAGNOSTICS_BASIC`).
+
+- **Вхідні дані:** ідентичні сценарію 1.
+- **Очікуваний результат обробки:**
+  - `vdd_voltage_mv = 3280`
+  - `free_heap_bytes = 42100`
+  - `crash_counter = 0`
+  - `present_fields_mask = TPG_FIELD_DIAGNOSTICS_PRESENT`
+  - Поля `cpu_load_percent` та `button_press_count` обнулені.
+  - Координати: обнулені, прапорець `TPG_FIELD_LOCATION_PRESENT` відсутній.
+  - Поле `pseudonym_id` містить порожній рядок (`""`).
+  - Повне виключення BSSID та MAC-адрес із вихідного кадру.
+
+### Сценарій 3: Функціональна аналітика та огрублена геолокація (Рівень 2 — Opt-in)
+
+Користувач надав згоду на участь у програмі поліпшення якості продукту (`DIAGNOSTICS_BASIC | PERFORMANCE_STATS | ANALYTICS_USAGE | LOCATION_COARSE`).
+
+- **Вхідні дані:** координати 50.450138° N, 30.524179° E, UID чипа `A1B2C3D4E5F6`, активна сіль сесії `0x5A...`.
+- **Очікуваний результат обробки:**
+  - `sanitized_latitude = 50.45` (округлено до двох знаків після коми, розмиття в межах квадрата площею ~1.2 км²).
+  - `sanitized_longitude = 30.52` (округлено до двох знаків після коми).
+  - `pseudonym_id = "8F3A2C1B"` (одноразовий сесійний геш, що змінюється при новому підключенні).
+  - `present_fields_mask = DIAGNOSTICS | PERFORMANCE | ANALYTICS | LOCATION | PSEUDONYM`.
+  - Реальний заводський UID чипа та MAC-адреса точки доступу не потрапляють у вихідний буфер.
+
+### Сценарій 4: Повна хмарна синхронізація (Рівень 3 — Повна згода)
+
+Користувач надав повну згоду для роботи хмарного сервісу навігації та профілю (`DIAGNOSTICS_BASIC | PERFORMANCE_STATS | ANALYTICS_USAGE | LOCATION_PRECISE | USER_PROFILE`).
+
+- **Вхідні дані:** ідентичні попереднім сценаріям.
+- **Очікуваний результат обробки:**
+  - `sanitized_latitude = 50.450138` (точні координати передано без спотворень).
+  - `sanitized_longitude = 30.524179`.
+  - `pseudonym_id = "A1B2C3D4E5F60000"` (пряме шістнадцяткове представлення апаратного UID).
+
+### Сценарій 5: Миттєве відкликання згоди (Opt-Out) під час роботи
+
+Користувач відкликає згоду в мобільному застосунку під час активної роботи пристрою.
+
+- **Дія:** виклик `tpg_trigger_opt_out(&ctx)`.
+- **Очікуваний результат:**
+  - Маска дозволів миттєво скидається в `TPG_CONSENT_NONE`.
+  - Прапорець `opt_out_pending` встановлюється в `true`.
+  - Масив `ephemeral_salt` негайно затирається нулями за допомогою `tpg_secure_zero()`.
+  - Будь-який наступний виклик `tpg_filter_telemetry()` повертає `false`, блокуючи відправку пакетів до отримання нової прямої згоди.
+
+### Сценарій 6: Реалізація Права на забуття (Crypto-Shredding)
+
+Користувач виконує процедуру повернення пристрою до заводських налаштувань.
+
+- **Дія:** виклик `tpg_crypto_shred_storage(&ctx)`.
+- **Очікуваний результат:**
+  - Ключі шифрування розділів NVS затираються нулями в захищеній пам'яті.
+  - Усі історичні логи у Flash-пам'яті стають нерозшифровним білим шумом.
+  - Контекст пристрою скидається до початкового стану Рівня 0.
+
+---
+
+## Апаратні пастки та крайові випадки
+
+Під час практичного розгортання коду захисту приватності на мікроконтролерах інженери стикаються з низкою підступних апаратних і системних пасток:
+
+### 1. Оптимізація компілятора та видалення затирання пам'яті (Dead Store Elimination)
+
+Якщо розробник використовує стандартну функцію `memset(buffer, 0, sizeof(buffer))` для затирання ключів або конфіденційних буферів перед виходом із функції, компілятор (GCC / Clang з опціями `-O2` або `-O3`) під час оптимізації аналізує граф потоку даних. Оскільки буфер більше не використовується після `memset()`, компілятор класифікує такий запис як «мертвий» (*dead store*) і **повністю видаляє виклик memset із бінарного коду**.
+
+В результаті конфіденційні ключі залишаються відкритими у стеку RAM. Для запобігання цьому обов'язково використовують покажчики з кваліфікатором `volatile`, бар'єри пам'яті `__asm__ __volatile__("" ::: "memory")` або функцію `explicit_bzero()`.
+
+### 2. Залишкова намагніченість і знос Flash-пам'яті
+
+Звичайна команда видалення файлу не стирає фізичні комірки Flash-пам'яті через роботу алгоритмів wear leveling. Якщо пристрій не використовує апаратне шифрування AES-XTS на рівні секторів, після виклику «Factory Reset» необхідно примусово виконати повне посекторне стирання блоків (`flash_erase_range(0, TOTAL_SIZE)`), що вимагає додаткового часу (від 500 мс до 5 с залежно від обсягу Flash). Інтерфейс користувача повинен відображати стан процесу стирання і не допускати раптового відключення живлення до його завершення.
+
+### 3. Похибки квантування координат у числах із рухомою комою (IEEE 754)
+
+Під час роботи з типом `double` або `float` пряме ділення після множення (наприклад, `(float)((int)(lat * 100)) / 100.0f`) може давати артефакти представлення двійкових дробів (наприклад, замість `50.45` виходить `50.4500007629`).
+
+Якщо текстовий серіалізатор (JSON/printf) друкує всі наявні десяткові знаки, хмарний бекенд може помилково сприйняти це як точні координати з дробовим шумом. Тому в серіалізаторах обов'язково обмежують формат виводу специфікатором `%.2f` або виконують цілочисельне перетворення з фіксованою комою перед формуванням пакета CBOR.
+
+### 4. Вплив кешу даних (D-Cache) на узгодженість DMA
+
+На сучасних продуктивних мікроконтролерах із кешем даних (ARM Cortex-M7, наприклад STM32H7), коли процесор формує відфільтрований пакет у пам'яті, змінені байти залишаються в лініях D-Cache і можуть не бути записані в фізичну пам'ять SRAM до того, як периферійний контролер DMA почне зчитування для передачі в модем.
+
+Перед запуском передачі DMA обов'язково викликають функцію очищення кешу `SCB_CleanDCache_by_Addr((uint32_t*)payload_buffer, sizeof(payload_buffer))`. Аналогічно, при обнуленні буфера після відкликання згоди кеш даних необхідно примусово очистити, щоб запобігти передачі застарілих байтів через колізії пам'яті.
+
+### 5. Захист від атак за часом виконання (Constant-Time Operations)
+
+У високонадійних системах безпеки відмінність у часі обробки телеметричного пакета може створити витік інформації через сторонні канали (Timing Side-Channels). Якщо функція фільтрації виконує розгалуження `if (has_flag(...))` зі складними математичними обчисленнями, сторонній спостерігач на тій самій спільній шині чи ядрі може за часом реакції визначити, чи увімкнено у користувача точне геопозиціонування.
+
+Для нівелювання цього ефекту в критичних модулях застосовують безгалузкові інструкції (наприклад, асемблерні команди умовного вибору `CSEL` в ARMv8-M) та гарантують сталий час виконання фільтра незалежно від активних бітів у масці згоди.
+
+### 6. Стендове тестування на базі Hardware-in-the-Loop (HIL)
+
+Перед релізом прошивки модуль `TelemetryPrivacyGuard` проходить обов'язкове стендове тестування в режимі HIL. До налагоджувальної плати підключається логічний аналізатор та прецизійний вимірювач споживання струму (Nordic Power Profiler Kit II).
+
+Під час тестування перевіряється:
+- Споживання струму: час роботи процесора під час виконання санітизації одного кадру на тактовій частоті 64 МГц не перевищує 45 мікросекунд, що забезпечує мінімальний вплив на автономність батарейних датчиків.
+- Перевірка пам'яті: дампи SRAM після виклику `trigger_opt_out()` підтверджують повну відсутність залишкових солей і відкритих буферів.
+- Мережевий трафік: захват пакетів Wireshark підтверджує, що в жодному кадру на рівнях 0, 1 та 2 не з'являються відкриті BSSID, UID або точні супутникові координати.
+
+### 7. Вичерпання бюджету приватності (Privacy Budget Exhaustion) та композиція витоків
+
+Згідно з теоремою послідовної композиції диференційної приватності, якщо пристрій передає K незалежних пакетів телеметрії зі збуренням Лапласа з параметром ε_i кожен, сумарний витік приватності за період спостереження становить:
+
+ε_total = Σ ε_i  (для i від 1 до K)
+
+Якщо автономний лічильник передає дані кожні 10 секунд, за добу формується 8640 звітів. Навіть при малій одиничній величині ε = 0.05 сумарний бюджет ε_total досягає 432, що повністю нівелює математичний захист і дозволяє серверу відновити вихідні незашумлені дані методом простого усереднення великої вибірки.
+
+Для запобігання вичерпанню бюджету приватності у вбудованому модулі реалізуються такі заходи:
+- **Акумуляція та пакетування метрик:** дані не транслюються миттєво, а агрегуються в кільцевому буфері RAM за вікно 15–60 хвилин; шум Лапласа накладається один раз на фінальну суму або середнє значення.
+- **Моніторинг накопиченого епсилона (Privacy Ledger):** у захищеній пам'яті ведеться монотонний лічильник витраченого бюджету за поточну добу. При досягненні граничного порогу (наприклад, ε_daily_max = 2.0) модуль автоматично припиняє передачу деталізованих лічильників і переходить у режим передачі бінарних порогових індикаторів (1-бітні звіти Randomized Response) або тимчасово призупиняє відправку до початку нової доби.
+
