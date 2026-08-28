@@ -73,19 +73,7 @@ typedef struct {
 
 Зберігає повний стан екземпляра алокатора, посилання на сирий буфер і службові масиви.
 
-```c
-typedef struct buddy_allocator {
-    uint8_t        *pool_base;        /* Початкова адреса керованого масиву пам'яті */
-    size_t          pool_bytes;       /* Повний обсяг пулу у байтах (2^max_order) */
-    uint8_t         min_order;        /* Логарифм мінімального розміру блоку */
-    uint8_t         max_order;        /* Логарифм максимального розміру блоку */
-    list_node_t     free_lists[32];   /* Голови циклічних списків вільних блоків зі сторожем */
-    block_tag_t    *tags;             /* Зовнішній масив дескрипторів квантів */
-    size_t          num_tags;         /* Кількість елементів у масиві tags */
-    size_t          allocated_bytes;  /* Поточний обсяг пам'яті у виділених блоках */
-    size_t          allocation_count; /* Лічильник успішно виконаних виділень */
-} buddy_allocator_t;
-```
+:::code api-buddy-allocator/c/holovnyi-kontekst.c
 
 ---
 
@@ -190,20 +178,7 @@ buddy_status_t buddy_free(
 
 Заповнює структуру розширеної телеметрії про стан використання пулу пам'яті.
 
-```c
-typedef struct {
-    size_t total_bytes;         /* Загальний обсяг керованого пулу */
-    size_t free_bytes;          /* Сумарний обсяг вільної пам'яті в усіх списках */
-    size_t allocated_bytes;     /* Сумарний обсяг пам'яті у зайнятих блоках */
-    size_t free_blocks_count;   /* Кількість вільних блоків усіх порядків */
-    size_t free_by_order[32];   /* Кількість вільних фрагментів окремо по кожному порядку */
-} buddy_stats_t;
-
-buddy_status_t buddy_get_stats(
-    const buddy_allocator_t *alloc,
-    buddy_stats_t           *stats
-);
-```
+:::code api-buddy-allocator/c/buddy-get-stats-otrymannia.c
 
 ---
 
@@ -211,41 +186,7 @@ buddy_status_t buddy_get_stats(
 
 Для застосування у високопродуктивних рушіях на C++ бібліотека надає типізований шаблонний клас з нульовими накладними витратами (Zero-cost abstraction) та семантикою володіння RAII.
 
-```cpp
-#include <span>
-#include <cstddef>
-#include <concepts>
-
-template <size_t MinOrder = 4, size_t MaxOrder = 20>
-class BuddyMemoryPool {
-public:
-    static constexpr size_t MinSize = 1ULL << MinOrder;
-    static constexpr size_t MaxSize = 1ULL << MaxOrder;
-
-    // Конструктор приймає готовий типізований буфер пам'яті
-    explicit BuddyMemoryPool(std::span<std::byte, MaxSize> storage) noexcept;
-
-    ~BuddyMemoryPool() noexcept = default;
-
-    // Заборона копіювання для збереження унікальності стану пулу
-    BuddyMemoryPool(const BuddyMemoryPool&) = delete;
-    BuddyMemoryPool& operator=(const BuddyMemoryPool&) = delete;
-
-    // Дозволено безпечне переміщення
-    BuddyMemoryPool(BuddyMemoryPool&&) noexcept = default;
-    BuddyMemoryPool& operator=(BuddyMemoryPool&&) noexcept = default;
-
-    // Виділення повертає span з точним розміром виділеного кванта
-    [[nodiscard]] std::span<std::byte> allocate(size_t bytes) noexcept;
-
-    // Звільнення приймає раніше виділений span
-    void deallocate(std::span<std::byte> block) noexcept;
-
-    [[nodiscard]] size_t total_capacity() const noexcept { return MaxSize; }
-    [[nodiscard]] size_t allocated_size() const noexcept;
-    [[nodiscard]] size_t available_size() const noexcept;
-};
-```
+:::code api-buddy-allocator/cpp/main.cpp
 
 ---
 

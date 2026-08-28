@@ -590,44 +590,8 @@ int prctl(PR_CAPBSET_READ, unsigned long cap, 0, 0, 0);
 Якщо в `config.json` параметр `process.terminal` встановлено в `true`, рантайм створює пару псевдотерміналів (Master/Slave PTY) для забезпечення інтерактивного введення/виведення:
 
 :::tabs
-```c
-#define _XOPEN_SOURCE 600
-#include <stdlib.h>
-#include <fcntl.h>
-#include <termios.h>
-#include <sys/ioctl.h>
-
-/* Відкриття ведучого пристрою PTY Master */
-int master_fd = posix_openpt(O_RDWR | O_NOCTTY | O_CLOEXEC);
-
-/* Налаштування прав та розблокування Slave PTY */
-grantpt(master_fd);
-unlockpt(master_fd);
-
-/* Отримання шляху до веденого вузла (наприклад, /dev/pts/3) */
-char *slave_path = ptsname(master_fd);
-```
-```cpp
-#include <cstdlib>
-#include <fcntl.h>
-#include <termios.h>
-#include <sys/ioctl.h>
-#include <string_view>
-#include <system_error>
-
-/* Відкриття ведучого пристрою PTY Master */
-int master_fd = ::posix_openpt(O_RDWR | O_NOCTTY | O_CLOEXEC);
-if (master_fd < 0) {
-    throw std::system_error(errno, std::generic_category(), "posix_openpt failed");
-}
-
-/* Налаштування прав та розблокування Slave PTY */
-::grantpt(master_fd);
-::unlockpt(master_fd);
-
-/* Отримання шляху до веденого вузла */
-std::string_view slave_path = ::ptsname(master_fd);
-```
+:::code api-container-runtime/c/stdlib.h
+:::code api-container-runtime/cpp/main.cpp
 :::
 
 Процес контейнера відкриває `slave_path`, дублює його на стандартні дескриптори `0 (stdin)`, `1 (stdout)` та `2 (stderr)` через `dup2(slave_fd, STDIN_FILENO)`, викликає системний виклик `setsid()` для створення нової термінальної сесії та призначає PTY своїм керуючим терміналом через `ioctl(slave_fd, TIOCSCTTY, 0)`.

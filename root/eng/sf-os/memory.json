@@ -28,13 +28,15 @@
           "proj": [
             {
               "file": "proj-address-space-probe.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-maps-format.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -45,24 +47,28 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "math": [
             {
               "file": "math-page-table-cost.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-virt-to-phys.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-pte-format.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -74,7 +80,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -85,19 +92,22 @@
           "math": [
             {
               "file": "math-buddy-arithmetic.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-buddy-c.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-buddy-allocator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -114,7 +124,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -125,13 +136,15 @@
           "proj": [
             {
               "file": "proj-fault-cost.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-fault-counters.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -153,7 +166,8 @@
           "api": [
             {
               "file": "api-cow-controls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "math": [
@@ -186,30 +200,37 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-linux-memory-pressure.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-denning-model.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-working-set-size.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-working-set-probe.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

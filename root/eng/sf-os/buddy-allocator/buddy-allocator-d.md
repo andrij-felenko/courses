@@ -200,40 +200,8 @@ if (page_is_buddy(buddy, order)) {
 Нижче наведено порівняльний каркас реалізації алокатора близнюків. На системному рівні мова C спирається на прямі маніпуляції з адресними зміщеннями та інтрузивними списковими вузлами, тоді як сучасний C++20 інкапсулює пам'ять через безпечні типи `std::span<std::byte>`, концепт джерела пам'яті та апаратний підрахунок розрядності `std::bit_width`.
 
 :::tabs
-```c
-/* Базові операції двійкового розщеплення та злиття мовою C */
-uintptr_t buddy_find_twin(uintptr_t offset, uint8_t order) {
-    return offset ^ ((uintptr_t)1 << order);
-}
-
-uintptr_t buddy_find_parent(uintptr_t offset, uint8_t order) {
-    return offset & ~((uintptr_t)1 << order);
-}
-
-/* Перевірка можливості злиття двох блоків */
-bool buddy_can_coalesce(const block_tag_t *tags, uintptr_t buddy_idx, uint8_t order) {
-    return tags[buddy_idx].is_free && (tags[buddy_idx].order == order);
-}
-```
-```cpp
-// Еквівалентні операції мовою C++20 з використанням типізованих зміщень
-#include <cstdint>
-#include <concepts>
-#include <bit>
-
-[[nodiscard]] constexpr uintptr_t buddy_find_twin(uintptr_t offset, uint8_t order) noexcept {
-    return offset ^ (1ULL << order);
-}
-
-[[nodiscard]] constexpr uintptr_t buddy_find_parent(uintptr_t offset, uint8_t order) noexcept {
-    return offset & ~(1ULL << order);
-}
-
-[[nodiscard]] constexpr uint8_t size_to_order(size_t bytes, size_t min_block_size) noexcept {
-    if (bytes <= min_block_size) return static_cast<uint8_t>(std::countr_zero(min_block_size));
-    return static_cast<uint8_t>(std::bit_width(bytes - 1));
-}
-```
+:::code buddy-allocator-d/c/main.c
+:::code buddy-allocator-d/cpp/main.hpp
 :::
 
 Повний, готовий до компіляції проєкт алокатора з підтримкою ініціалізації, розщеплення, виділення, звільнення та захисту від подвійного очищення розібрано у вставці [⚙️ Реалізація алокатора двійкових близнюків мовами C та C++](root:sf-os/buddy-allocator/proj-buddy-c.md).

@@ -77,25 +77,7 @@ int madvise(void *addr, size_t length, int advice);
 
 Практичний наслідок із цієї бідності: повернене значення перевіряти обов'язково. `MADV_WIPEONFORK`, поставлений на ділянку, яка виявилася файловою, не спрацює тихо — він поверне `EINVAL`, і якщо цю відповідь викинути, програма спокійно передасть дитині ті самі таємниці, від яких захищалася.
 
-```c
-#include <sys/mman.h>
-#include <errno.h>
-#include <stdio.h>
-
-/* Стан генератора випадкових чисел дитині не потрібен і шкідливий. */
-int wipe_on_fork(void *area, size_t len)
-{
-        if (madvise(area, len, MADV_WIPEONFORK) == 0)
-                return 0;
-        if (errno == EINVAL) {
-                /* Ділянка не приватна анонімна — цієї поради тут не буде НІКОЛИ.
-                   Отже, або перевідображати, або обнуляти стан вручну після fork. */
-                return -1;
-        }
-        perror("madvise(MADV_WIPEONFORK)");
-        return -1;
-}
-```
+:::code api-cow-controls/c/porady-madvise.c
 
 Скасувати пораду можна лише парною до неї: `MADV_DOFORK` для `MADV_DONTFORK`, `MADV_KEEPONFORK` для `MADV_WIPEONFORK`. `MADV_NORMAL` тут не помічник — він скидає поради про порядок доступу, а не прапорці успадкування.
 
@@ -184,38 +166,7 @@ awk '/^[0-9a-f]/ { a = $1 } /^VmFlags/ && ($0 ~ / dc/ || $0 ~ / wf/) { print a, 
 
 Біт 56 — це і є пряма, видима ззовні відповідь на питання, від якого залежить усе: чи цю сторінку бачить ще хтось. З ядра 4.0 номер кадру доступний лише з `CAP_SYS_ADMIN`, а з 4.2 непривілейований читач дістає в цих бітах нулі — але старші біти лишаються видні. Тобто дізнатися, що сторінка виключна, можна без жодних привілеїв; дізнатися, де вона лежить, — ні.
 
-```c
-#include <fcntl.h>
-#include <stdint.h>
-#include <unistd.h>
-
-#define PM_SOFT_DIRTY  (1ULL << 55)
-#define PM_EXCLUSIVE   (1ULL << 56)
-#define PM_PRESENT     (1ULL << 63)
-
-/* Стан однієї сторінки: чи вона належить процесові одноосібно
-   й чи в неї писали від останнього скидання soft-dirty. */
-int page_state(int pagemap_fd, const void *addr, long page_size,
-               int *exclusive, int *soft_dirty)
-{
-        uint64_t entry;
-        off_t off = (off_t)((uintptr_t)addr / page_size) * (off_t)sizeof(entry);
-
-        if (pread(pagemap_fd, &entry, sizeof(entry), off) != (ssize_t)sizeof(entry))
-                return -1;
-
-        if (!(entry & PM_PRESENT)) {
-                *exclusive = *soft_dirty = 0;   /* кадру ще немає взагалі */
-                return 0;
-        }
-        *exclusive  = (entry & PM_EXCLUSIVE)  ? 1 : 0;
-        *soft_dirty = (entry & PM_SOFT_DIRTY) ? 1 : 0;
-        return 0;
-}
-
-/* Відкривати так: open("/proc/self/pagemap", O_RDONLY),
-   page_size брати з sysconf(_SC_PAGESIZE). */
-```
+:::code api-cow-controls/c/postorinkovo-pagemap.c
 
 ## clear_refs і позначка soft-dirty
 
@@ -287,18 +238,7 @@ printf("малих збоїв: %ld\n", after.ru_minflt - before.ru_minflt);
 
 Ділянку можна вилучити з цієї політики зсередини процесу:
 
-```c
-#include <sys/prctl.h>
-
-prctl(PR_SET_THP_DISABLE, 1, 0, 0, 0);   /* з 3.15: вимкнути THP для процесу */
-prctl(PR_GET_THP_DISABLE, 0, 0, 0, 0);   /* з 3.15: повертає 0 або 1 */
-
-/* Вимкнути скрізь, окрім явно порадженого через madvise.
-   УВАГА: прапорець набагато молодший за сам PR_SET_THP_DISABLE —
-   він з'явився аж у ядрах кінця 2025 року. На всіх чинних LTS
-   цей виклик поверне EINVAL. */
-prctl(PR_SET_THP_DISABLE, 1, PR_THP_DISABLE_EXCEPT_ADVISED, 0, 0);
-```
+:::code api-cow-controls/c/odynytsia-rozkoliuvannia.c
 
 Значення, яке віддає `PR_GET_THP_DISABLE`, — це бітова маска: `0` — не вимкнено, `1` — вимкнено повністю, `3` — вимкнено скрізь, окрім порадженого через `madvise`. Третє значення можливе лише на ядрах, які знають `PR_THP_DISABLE_EXCEPT_ADVISED`; розбирач, написаний під `0`/`1`, на старому ядрі працюватиме правильно й далі.
 

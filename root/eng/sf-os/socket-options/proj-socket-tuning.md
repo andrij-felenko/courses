@@ -22,157 +22,19 @@
 
 Почнімо з підпису, бо він визначає все інше. Функція, що повертає `bool`, тут безпорадна: «не вдалося» і «вдалося, але ядро дало вчетверо менше» — різні події, і друга трапляється частіше. Тож результат — **звіт**: по рядку на опцію з тим, що просили, що маємо і як це кваліфікувати.
 
-```c
-/* socktune.h */
-#ifndef SOCKTUNE_H
-#define SOCKTUNE_H
-
-typedef enum {
-    SOCK_PROFILE_LATENCY,      /* дрібне й негайно: керування, запит-відповідь */
-    SOCK_PROFILE_THROUGHPUT    /* великий потік: передача файлів, вивантаження */
-} sock_profile;
-
-/* Що ми знаємо про канал. Без цих двох чисел розмір буфера не обчислити,
-   тож покажчик на неї дозволено лишити NULL — і тоді буфери НЕ чіпаємо. */
-typedef struct {
-    double mbit_per_s;         /* пропускна здатність вузького місця */
-    double rtt_ms;             /* час обігу — виміряний, не з паспорта */
-} sock_link;
-
-typedef enum {
-    OPT_OK,            /* ядро взяло те, що просили */
-    OPT_CHANGED,       /* узяло, але дало інше число: стеля, округлення */
-    OPT_UNSUPPORTED,   /* опції тут немає — інший стек, інша система */
-    OPT_FAILED         /* справжня помилка */
-} opt_state;
-
-typedef struct {
-    const char *name;
-    long        want;
-    long        got;
-    opt_state   state;
-    int         err;   /* errno, якщо він був */
-} opt_result;
-
-#define SOCK_REPORT_CAP 16
-
-typedef struct {
-    opt_result item[SOCK_REPORT_CAP];
-    int n;             /* заповнених рядків */
-    int overflow;      /* не вмістилося; має бути 0 — це сторожок на майбутнє */
-    int too_late;      /* сокет уже з'єднаний або слухає: буфери пропущено */
-    int changed, unsupported, failed;
-} sock_report;
-
-int  sock_apply_profile(int fd, sock_profile p, const sock_link *link,
-                        sock_report *rep);
-void sock_report_print(const sock_report *rep);
-long sock_bdp_bytes(double mbit_per_s, double rtt_ms);
-
-#endif
-```
+:::code proj-socket-tuning/c/socktune.h
 
 Найважливіше рішення тут — `sock_link` як окремий аргумент, який дозволено не передати. Розмір буфера не береться з голови: він дорівнює добутку швидкості на час обігу, і обидва числа треба **знати**. Немає їх — модуль не вгадує, а просто не чіпає буферів. Це не педантизм: буфер, поставлений навмання, — найчастіший спосіб зробити гірше, ніж було, бо явне значення вимикає в Linux самоналаштування приймального буфера, тобто міняє постійний вимір ядра на твій одноразовий здогад.
 
 Тепер серце модуля — одна функція, крізь яку проходить кожна цілочисельна опція.
 
-```c
-/* socktune.c */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/time.h>
-#include "socktune.h"
-
-static opt_result *slot(sock_report *r, const char *name)
-{
-    static opt_result sink;          /* якщо звіт переповнено — пишемо в нікуди */
-    opt_result *o = &sink;
-    if (r->n < SOCK_REPORT_CAP) o = &r->item[r->n++];
-    else                        r->overflow++;
-    memset(o, 0, sizeof *o);
-    o->name = name;
-    return o;
-}
-
-/* Ставить цілочисельну опцію й ОДРАЗУ читає її назад.
-   Повертає 1, якщо це справжня невдача, і 0 в усіх інших випадках. */
-static int set_int(int fd, int level, int name, int want,
-                   const char *label, sock_report *rep)
-{
-    opt_result *o = slot(rep, label);
-    o->want = want;
-
-    if (setsockopt(fd, level, name, &want, sizeof want) < 0) {
-        o->err = errno;
-        if (errno == ENOPROTOOPT || errno == EOPNOTSUPP) {
-            o->state = OPT_UNSUPPORTED;   /* не помилка: тут такої ручки немає */
-            rep->unsupported++;
-            return 0;
-        }
-        o->state = OPT_FAILED;
-        rep->failed++;
-        return 1;
-    }
-
-    int got = 0;
-    socklen_t len = sizeof got;
-    if (getsockopt(fd, level, name, &got, &len) < 0) {
-        o->err = errno;
-        o->state = OPT_FAILED;
-        rep->failed++;
-        return 1;
-    }
-    o->got = got;
-
-    /* Три відповіді ядра, які означають «прийнято»: те саме число; подвоєне
-       (так Linux робить із буферами — половина піде на службові структури);
-       будь-яке ненульове там, де просили прапорець. */
-    if (got == want || got == 2 * want || (want == 1 && got != 0)) {
-        o->state = OPT_OK;
-    } else {
-        o->state = OPT_CHANGED;
-        rep->changed++;
-    }
-    return 0;
-}
-```
+:::code proj-socket-tuning/c/socktune.c
 
 Зверни увагу, чого тут **немає**: гілки «повернути помилку, бо значення не збіглося». Розбіжність — це не збій, а відповідь ядра, і працювати з нею буде людина, що читає звіт. Код, який на це падає, не запуститься на жодній машині з нижчою стелею `net.core.rmem_max`, а таких більшість.
 
 Окремої функції потребують таймаути — не через складність, а тому що саме тут ховається переносність.
 
-```c
-static int set_tv(int fd, int name, long ms, const char *label, sock_report *rep)
-{
-    opt_result *o = slot(rep, label);
-    o->want = ms;
-
-    /* Це ЄДИНЕ місце модуля, що знає про struct timeval: у Windows та сама
-       опція бере просто число мілісекунд, тож портується один рядок. */
-    struct timeval tv = { .tv_sec = ms / 1000, .tv_usec = (ms % 1000) * 1000 };
-    if (setsockopt(fd, SOL_SOCKET, name, &tv, sizeof tv) < 0) {
-        o->err = errno;
-        o->state = (errno == ENOPROTOOPT) ? OPT_UNSUPPORTED : OPT_FAILED;
-        if (o->state == OPT_UNSUPPORTED) { rep->unsupported++; return 0; }
-        rep->failed++;
-        return 1;
-    }
-
-    struct timeval back;
-    socklen_t len = sizeof back;
-    if (getsockopt(fd, SOL_SOCKET, name, &back, &len) < 0) {
-        o->err = errno; o->state = OPT_FAILED; rep->failed++; return 1;
-    }
-    o->got = back.tv_sec * 1000L + back.tv_usec / 1000;
-    if (o->got != o->want) { o->state = OPT_CHANGED; rep->changed++; }
-    return 0;
-}
-```
+:::code proj-socket-tuning/c/karkas-zvit-zamist-bool.c
 
 ## Момент: спитати ядро, а не сподіватися
 
@@ -180,22 +42,7 @@ static int set_tv(int fd, int name, long ms, const char *label, sock_report *rep
 
 Перевірити це можна прямо в коді, двома дешевими запитами до ядра.
 
-```c
-static int is_connected(int fd)
-{
-    struct sockaddr_storage ss;
-    socklen_t len = sizeof ss;
-    return getpeername(fd, (struct sockaddr *)&ss, &len) == 0;
-}
-
-static int is_listening(int fd)
-{
-    int v = 0;
-    socklen_t len = sizeof v;
-    if (getsockopt(fd, SOL_SOCKET, SO_ACCEPTCONN, &v, &len) < 0) return 0;
-    return v != 0;
-}
-```
+:::code proj-socket-tuning/c/moment-spytaty-iadro-a-ne.c
 
 `getpeername` вдається лише тоді, коли в сокета вже є партнер, а `SO_ACCEPTCONN` каже, чи був `listen`. Разом вони відповідають на питання «чи вже пізно» — і модуль не мовчить, а ставить у звіті прапорець `too_late`.
 
@@ -207,76 +54,7 @@ static int is_listening(int fd)
 
 Тепер сам переклад наміру в опції. Кожен рядок нижче має причину, і причина написана поруч — інакше наступний читач видалить незрозуміле.
 
-```c
-long sock_bdp_bytes(double mbit_per_s, double rtt_ms)
-{
-    double bytes_per_s = mbit_per_s * 1e6 / 8.0;
-    return (long)(bytes_per_s * (rtt_ms / 1000.0));
-}
-
-static long clampl(long v, long lo, long hi)
-{
-    return v < lo ? lo : (v > hi ? hi : v);
-}
-
-int sock_apply_profile(int fd, sock_profile p, const sock_link *link,
-                       sock_report *rep)
-{
-    memset(rep, 0, sizeof *rep);
-    rep->too_late = is_connected(fd) || is_listening(fd);
-
-    int bad = 0;
-    long bdp = link ? sock_bdp_bytes(link->mbit_per_s, link->rtt_ms) : 0;
-
-    if (p == SOCK_PROFILE_LATENCY) {
-        /* 1. Не притримувати дрібне. Дванадцять байтів команди мусять вилетіти
-              негайно, а не чекати підтвердження попереднього запису. */
-        bad += set_int(fd, IPPROTO_TCP, TCP_NODELAY, 1, "TCP_NODELAY", rep);
-
-        /* 2. Коротка черга. Байт, що вже лежить у передавальному буфері, не
-              обігнати: чим довша черга, тим довше чекатиме команда «стоп»,
-              записана після пачки телеметрії. «Малий» тут означає не
-              «якнайменший», а «розміром приблизно з один обіг». */
-        if (link && !rep->too_late) {
-            int q = (int)clampl(bdp, 16 * 1024, 128 * 1024);
-            bad += set_int(fd, SOL_SOCKET, SO_SNDBUF, q, "SO_SNDBUF", rep);
-            bad += set_int(fd, SOL_SOCKET, SO_RCVBUF, q, "SO_RCVBUF", rep);
-        }
-
-        /* 3. Жоден виклик не висить довше за пів секунди — керування має
-              повертатися до нашого коду, а не губитися в ядрі. */
-        bad += set_tv(fd, SO_RCVTIMEO, 500, "SO_RCVTIMEO", rep);
-        bad += set_tv(fd, SO_SNDTIMEO, 500, "SO_SNDTIMEO", rep);
-
-        /* 4. З'єднання, у якому дані п'ять секунд не підтверджуються, мертве.
-              Хай ядро розірве його само — краще чесна помилка, ніж тиша. */
-        bad += set_int(fd, IPPROTO_TCP, TCP_USER_TIMEOUT, 5000,
-                       "TCP_USER_TIMEOUT", rep);
-
-        /* 5. Мовчазне з'єднання перевіряємо зондами: 20 + 3·5 = 35 секунд до
-              вироку. Заодно запис у трансляторі адрес не встигає протухнути. */
-        bad += set_int(fd, SOL_SOCKET,  SO_KEEPALIVE,  1, "SO_KEEPALIVE",  rep);
-        bad += set_int(fd, IPPROTO_TCP, TCP_KEEPIDLE, 20, "TCP_KEEPIDLE",  rep);
-        bad += set_int(fd, IPPROTO_TCP, TCP_KEEPINTVL, 5, "TCP_KEEPINTVL", rep);
-        bad += set_int(fd, IPPROTO_TCP, TCP_KEEPCNT,   3, "TCP_KEEPCNT",   rep);
-    } else {
-        /* Притримування НЕ чіпаємо: у великому потоці кожен запис і так повний,
-           а дрібні хвости алгоритм склеїть — це чиста вигода. */
-        if (link && !rep->too_late) {
-            /* Подвійний запас: за один обіг вікно встигає підрости, а
-               підтвердження приходять нерівно. */
-            int q = (int)clampl(bdp * 2, 64 * 1024, 8L * 1024 * 1024);
-            bad += set_int(fd, SOL_SOCKET, SO_SNDBUF, q, "SO_SNDBUF", rep);
-            bad += set_int(fd, SOL_SOCKET, SO_RCVBUF, q, "SO_RCVBUF", rep);
-        }
-        bad += set_tv(fd, SO_RCVTIMEO, 30000, "SO_RCVTIMEO", rep);
-        bad += set_tv(fd, SO_SNDTIMEO, 30000, "SO_SNDTIMEO", rep);
-        bad += set_int(fd, IPPROTO_TCP, TCP_USER_TIMEOUT, 60000,
-                       "TCP_USER_TIMEOUT", rep);
-    }
-    return bad ? -1 : 0;
-}
-```
+:::code proj-socket-tuning/c/profil-nyzka-zatrymka.c
 
 Числа в профілі затримки не з повітря. Порахуймо буфер для двох машин в одній стійці:
 
@@ -313,30 +91,7 @@ TCP_USER_TIMEOUT   просив 60000    маю 60000    ок
 
 Число 425984 — це подвоєні 212992, а 212992 — типова стеля `net.core.wmem_max` і `net.core.rmem_max` на багатьох збірках Linux. Тобто ти попросив два мегабайти, дістав чотириста кілобайтів, `setsockopt` повернув успіх, і без цих п'яти рядків звіту шукав би причину в мережі тижнями. Стеля піднімається через `sysctl`, а не через опцію сокета: перевищити системну межу опція не має права — і в цьому вона права.
 
-```c
-static const char *state_word(opt_state s)
-{
-    switch (s) {
-        case OPT_OK:          return "ок";
-        case OPT_CHANGED:     return "інше число";
-        case OPT_UNSUPPORTED: return "немає на цій системі";
-        default:              return "помилка";
-    }
-}
-
-void sock_report_print(const sock_report *rep)
-{
-    if (rep->too_late)
-        printf("! сокет уже з'єднаний або слухає — розміри буферів пропущено\n");
-    for (int i = 0; i < rep->n; i++) {
-        const opt_result *o = &rep->item[i];
-        printf("%-18s просив %-8ld маю %-8ld %s",
-               o->name, o->want, o->got, state_word(o->state));
-        if (o->err) printf(" (%s)", strerror(o->err));
-        putchar('\n');
-    }
-}
-```
+:::code proj-socket-tuning/c/profil-nyzka-zatrymka-2.c
 
 Розрізнення `OPT_UNSUPPORTED` і `OPT_FAILED` варте окремого слова. `ENOPROTOOPT` означає «такої опції на цьому рівні немає» — на іншому стеку, у lwIP на мікроконтролері, у старішому ядрі це нормальний стан справ, і валити через нього запуск немає підстав. `EINVAL` — уже твоя провина: не той тип, не той розмір, заборонене значення. Ці два випадки треба бачити окремо, і саме тому в звіті є `unsupported` поруч із `failed`. Про решту кодів і про те, чому `errno` читають одразу після невдалого виклику й ніколи пізніше, — у [errno та POSIX-кодах помилок](root:sf-apps/errno).
 
@@ -346,62 +101,7 @@ void sock_report_print(const sock_report *rep)
 
 Профіль затримки вимикає притримування, але глибше лікування інше — не створювати візерунка, на якому воно спрацьовує. Заголовок і тіло — це одне повідомлення, тож і в сокет вони мають потрапити одним записом. Копіювати їх заради цього в спільний буфер не треба: `writev` бере масив шматків і віддає їх ядру як один потік байтів.
 
-```c
-/* до вже наявних включень додаються <sys/uio.h> (writev) і <time.h> (годинник) */
-
-static long now_ms(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);   /* саме монотонний, див. нижче */
-    return ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
-}
-
-/* УВАГА: змінює масив iov на місці — він робочий, а не константний.
-   Повертає 0, або -1 і errno. -1 тут означає більше, ніж «не вдалося»:
-   частина повідомлення вже пішла в дріт, тож потік байтів зіпсовано
-   і з'єднання лишається тільки закрити. */
-static int writev_all(int fd, struct iovec *iov, int cnt, long deadline)
-{
-    while (cnt > 0) {
-        long left = deadline - now_ms();
-        if (left <= 0) { errno = ETIMEDOUT; return -1; }
-
-        struct timeval tv = { .tv_sec = left / 1000,
-                              .tv_usec = (left % 1000) * 1000 };
-        if (setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof tv) < 0)
-            return -1;
-
-        ssize_t n = writev(fd, iov, cnt);
-        if (n < 0) {
-            if (errno == EINTR) continue;     /* сигнал — не помилка */
-            return -1;                        /* EAGAIN = час вичерпано */
-        }
-
-        /* writev міг узяти МЕНШЕ, ніж просили: викидаємо повністю віддані
-           шматки, а перший недовіддений обрізаємо спереду. */
-        while (cnt > 0 && (size_t)n >= iov->iov_len) {
-            n -= (ssize_t)iov->iov_len;
-            iov++;
-            cnt--;
-        }
-        if (cnt > 0 && n > 0) {
-            iov->iov_base = (char *)iov->iov_base + n;
-            iov->iov_len -= (size_t)n;
-        }
-    }
-    return 0;
-}
-
-int send_msg(int fd, const void *hdr, size_t hlen,
-             const void *body, size_t blen, long budget_ms)
-{
-    struct iovec iov[2] = {
-        { .iov_base = (void *)hdr,  .iov_len = hlen },
-        { .iov_base = (void *)body, .iov_len = blen },
-    };
-    return writev_all(fd, iov, 2, now_ms() + budget_ms);
-}
-```
+:::code proj-socket-tuning/c/odnym-zapysom-writev-i.c
 
 Три речі в цьому шматку неочевидні.
 
@@ -419,188 +119,19 @@ int send_msg(int fd, const void *hdr, size_t hlen,
 
 Сервер навмисно не чіпає жодної опції: перевіряємо поведінку клієнта, тож на іншому кінці має бути найзвичайніший сокет.
 
-```c
-/* rttprobe.c — збірка: cc -std=c11 -Wall -Wextra -O2 rttprobe.c -o rttprobe */
-#define _GNU_SOURCE
-#include <arpa/inet.h>
-#include <errno.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <time.h>
-#include <unistd.h>
-
-#define HDR    8      /* «заголовок» повідомлення */
-#define BODY 200      /* тіло: менше за сегмент, інакше притримування не діє */
-#define WARMUP 200    /* обміни, які викидаємо; чому — нижче */
-
-static void histogram(double *v, int n);   /* означено нижче */
-
-static double now_us(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec * 1e6 + ts.tv_nsec / 1e3;
-}
-
-/* recv віддає СКІЛЬКИ Є, а не скільки просили — це не помилка, а норма. */
-static int read_exact(int fd, void *buf, size_t need)
-{
-    size_t got = 0;
-    while (got < need) {
-        ssize_t n = recv(fd, (char *)buf + got, need - got, 0);
-        if (n == 0) return -1;                       /* інший бік закрив */
-        if (n < 0) { if (errno == EINTR) continue; return -1; }
-        got += (size_t)n;
-    }
-    return 0;
-}
-
-static void run_server(int port)
-{
-    int ls = socket(AF_INET, SOCK_STREAM, 0);
-    int on = 1;
-    setsockopt(ls, SOL_SOCKET, SO_REUSEADDR, &on, sizeof on);   /* ДО bind */
-
-    struct sockaddr_in a = { .sin_family = AF_INET,
-                             .sin_addr.s_addr = htonl(INADDR_ANY),
-                             .sin_port = htons((uint16_t)port) };
-    if (bind(ls, (struct sockaddr *)&a, sizeof a) < 0) { perror("bind"); return; }
-    listen(ls, 4);
-
-    for (;;) {
-        int cs = accept(ls, NULL, NULL);
-        if (cs < 0) continue;
-        unsigned char hdr[HDR], body[BODY];
-        /* Читаємо заголовок, тоді тіло — саме через цю паузу сервер і не
-           відповідає, доки не прийде другий запис клієнта. */
-        while (read_exact(cs, hdr, HDR) == 0 && read_exact(cs, body, BODY) == 0)
-            if (send(cs, hdr, HDR, 0) != (ssize_t)HDR) break;  /* відповідь одним записом */
-        close(cs);
-    }
-}
-```
+:::code proj-socket-tuning/c/rttprobe.c
 
 Клієнт відрізняється від сервера рівно одним рядком, і цей рядок — уся суть виміру.
 
-```c
-static void run_client(const char *host, int port, int nodelay, int iters)
-{
-    int fd = socket(AF_INET, SOCK_STREAM, 0);
-    struct sockaddr_in a = { .sin_family = AF_INET,
-                             .sin_port = htons((uint16_t)port) };
-    if (inet_pton(AF_INET, host, &a.sin_addr) != 1) { fprintf(stderr, "адреса?\n"); return; }
-    if (connect(fd, (struct sockaddr *)&a, sizeof a) < 0) { perror("connect"); return; }
-
-    /* ЄДИНА відмінність між двома прогонами. Ставимо після connect свідомо:
-       притримування — властивість машини TCP, а не рукостискання, тож для
-       цієї опції момент не важить. Для розмірів буферів було б уже пізно. */
-    if (nodelay) {
-        int on = 1;
-        if (setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &on, sizeof on) < 0)
-            perror("TCP_NODELAY");
-    }
-
-    unsigned char hdr[HDR] = {0}, body[BODY] = {0}, back[HDR];
-    double *ms = malloc(sizeof *ms * (size_t)iters);
-    if (!ms) return;
-    int n = 0;
-
-    for (int i = 0; i < iters + WARMUP; i++) {
-        double t0 = now_us();
-
-        /* Візерунок, заради якого все це: ДВА записи, тоді читання. */
-        if (send(fd, hdr,  HDR,  0) != (ssize_t)HDR)  break;
-        if (send(fd, body, BODY, 0) != (ssize_t)BODY) break;
-        if (read_exact(fd, back, HDR) < 0)            break;
-
-        double dt = now_us() - t0;
-        if (i >= WARMUP) ms[n++] = dt / 1000.0;
-    }
-    close(fd);
-
-    if (n > 0) histogram(ms, n);
-    free(ms);
-}
-```
+:::code proj-socket-tuning/c/vymiriuvach-pobachyty.c
 
 Лишилася гістограма. Межі кошиків підібрані так, щоб сорок мілісекунд не розмазалися по сусідніх стовпчиках, а стали окремою купою.
 
-```c
-static const double EDGE[] = { 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 35, 45, 100 };
-#define NB ((int)(sizeof EDGE / sizeof EDGE[0]) + 1)
-
-static int cmp_double(const void *a, const void *b)
-{
-    double x = *(const double *)a, y = *(const double *)b;
-    return (x > y) - (x < y);
-}
-
-static void histogram(double *v, int n)
-{
-    int bin[NB];
-    memset(bin, 0, sizeof bin);
-    for (int i = 0; i < n; i++) {
-        int b = NB - 1;
-        for (int e = 0; e < NB - 1; e++)
-            if (v[i] < EDGE[e]) { b = e; break; }
-        bin[b]++;
-    }
-
-    int peak = 1;
-    for (int b = 0; b < NB; b++) if (bin[b] > peak) peak = bin[b];
-
-    for (int b = 0; b < NB; b++) {
-        if (bin[b] == 0) continue;
-        double lo = (b == 0) ? 0.0 : EDGE[b - 1];
-        char hi[16];
-        if (b == NB - 1) snprintf(hi, sizeof hi, "%6s", "inf");
-        else             snprintf(hi, sizeof hi, "%6.2f", EDGE[b]);
-
-        int w = bin[b] * 40 / peak;
-        if (w == 0) w = 1;                    /* непорожній кошик має бути видно */
-        printf("%6.2f - %s ms |", lo, hi);
-        for (int k = 0; k < w; k++) putchar('#');
-        printf(" %d\n", bin[b]);
-    }
-
-    qsort(v, (size_t)n, sizeof *v, cmp_double);
-    int p99 = (int)(n * 0.99);
-    if (p99 >= n) p99 = n - 1;
-    printf("min %.2f  median %.2f  p99 %.2f  max %.2f ms\n",
-           v[0], v[n / 2], v[p99], v[n - 1]);
-}
-```
+:::code proj-socket-tuning/c/vymiriuvach-pobachyty-2.c
 
 Лишається розбір аргументів — рівно стільки, щоб одна програма була і сервером, і клієнтом, і щоб прогони відрізнялися одним прапорцем.
 
-```c
-int main(int argc, char **argv)
-{
-    int server = 0, nodelay = 0, port = 9099, iters = 1000;
-    const char *host = "127.0.0.1";
-
-    for (int i = 1; i < argc; i++) {
-        if      (!strcmp(argv[i], "-s"))                 server  = 1;
-        else if (!strcmp(argv[i], "-d"))                 nodelay = 1;
-        else if (!strcmp(argv[i], "-c") && i + 1 < argc) host  = argv[++i];
-        else if (!strcmp(argv[i], "-p") && i + 1 < argc) port  = atoi(argv[++i]);
-        else if (!strcmp(argv[i], "-n") && i + 1 < argc) iters = atoi(argv[++i]);
-        else {
-            fprintf(stderr, "вжиток: %s -s | -c <адреса> [-d] [-p порт] [-n обмінів]\n",
-                    argv[0]);
-            return 2;
-        }
-    }
-    if (server) run_server(port);
-    else        run_client(host, port, nodelay, iters);
-    return 0;
-}
-```
+:::code proj-socket-tuning/c/vymiriuvach-pobachyty-3.c
 
 `p99` тут не прикраса. Затримка, яку створює таймер, живе саме у **хвості**: якщо повільним виявиться кожен двадцятий обмін, середнє зсунеться на дві мілісекунди й нікого не насторожить — а кожен двадцятий користувач чекатиме сорок. Чому хвіст описує враження від системи краще, ніж середнє, — у [перцентилях і хвостах](root:math-probability/percentiles-quantiles).
 

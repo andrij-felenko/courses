@@ -14,10 +14,12 @@
           "slug": "sockets-tcp-udp",
           "title": "Сокети TCP/UDP",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -27,7 +29,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -38,13 +41,15 @@
           "proj": [
             {
               "file": "proj-socket-tuning.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-setsockopt.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -71,12 +76,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-xdg-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -88,7 +95,9 @@
           "proj": [
             {
               "file": "proj-xdg-store.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -99,12 +108,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-timestamps-and-statx.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "hist": [
@@ -116,7 +128,9 @@
           "proj": [
             {
               "file": "proj-timestamp-watcher.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -145,13 +159,16 @@
           "proj": [
             {
               "file": "proj-mini-container.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-container-runtime.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -173,19 +190,22 @@
           "math": [
             {
               "file": "math-live-migration-convergence.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-dirty-memory-tracker.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-qemu-migration.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -207,13 +227,16 @@
           "proj": [
             {
               "file": "proj-cow-overlay.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-snapshot-control.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -242,7 +265,8 @@
           "proj": [
             {
               "file": "proj-suspend-aware-program.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [

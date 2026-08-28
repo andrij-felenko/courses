@@ -11,124 +11,8 @@
 Обидва джерела дають ту саму пару, і брати варто обидва: `getrusage` дешевший і не потребує розбору тексту, а `/proc` — єдиний спосіб подивитися на ЧУЖИЙ процес, який нічого про вимір не знає.
 
 :::tabs
-```c
-/* faultlab.c — вимірювання сторінкових збоїв.
-   Збірка:  cc -O2 -std=gnu11 -o faultlab faultlab.c            */
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/resource.h>
-#include <sys/stat.h>
-
-#ifndef MADV_POPULATE_WRITE           /* з'явилося в Linux 5.14 */
-#define MADV_POPULATE_WRITE 23
-#endif
-
-#define PGSZ   4096UL
-#define ANON   (1024UL * 1024 * 1024)      /* 1 ГіБ анонімної пам'яті */
-#define FSIZE  (256UL  * 1024 * 1024)      /* 256 МіБ файлу           */
-
-/* Куди зливати прочитане, щоб компілятор не викинув самі читання. */
-volatile unsigned long sink;
-
-struct mark { double t; unsigned long minf, majf; };
-
-static double now(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec + ts.tv_nsec * 1e-9;
-}
-
-static void counters(unsigned long *minf, unsigned long *majf)
-{
-    struct rusage ru;
-    getrusage(RUSAGE_SELF, &ru);        /* RUSAGE_THREAD — якщо потоків кілька */
-    *minf = ru.ru_minflt;
-    *majf = ru.ru_majflt;
-}
-
-static void mark_begin(struct mark *m)  /* час беремо ОСТАННІМ  */
-{
-    counters(&m->minf, &m->majf);
-    m->t = now();
-}
-
-static void mark_end(const struct mark *m, const char *what)
-{
-    double dt = now() - m->t;           /* час беремо ПЕРШИМ    */
-    unsigned long minf, majf;
-    counters(&minf, &majf);
-    printf("  %-32s %9.3f мс   minflt +%-8lu majflt +%lu\n",
-           what, dt * 1e3, minf - m->minf, majf - m->majf);
-}
-```
-```cpp
-// faultlab.cpp — вимірювання сторінкових збоїв (C++17)
-// Збірка: g++ -O2 -std=c++17 -o faultlab faultlab.cpp
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <string_view>
-#include <vector>
-#include <algorithm>
-#include <random>
-#include <chrono>
-#include <cstring>
-#include <cstdio>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/resource.h>
-#include <sys/stat.h>
-
-#ifndef MADV_POPULATE_WRITE
-#define MADV_POPULATE_WRITE 23
-#endif
-
-constexpr std::size_t PGSZ = 4096;
-constexpr std::size_t ANON = 1024UL * 1024 * 1024; // 1 GiB
-constexpr std::size_t FSIZE = 256UL * 1024 * 1024;  // 256 MiB
-
-static volatile unsigned long sink = 0;
-
-struct mark {
-    double t;
-    unsigned long minf, majf;
-};
-
-static double now() {
-    using namespace std::chrono;
-    return duration_cast<duration<double>>(steady_clock::now().time_since_epoch()).count();
-}
-
-static void counters(unsigned long &minf, unsigned long &majf) {
-    struct rusage ru{};
-    getrusage(RUSAGE_SELF, &ru);
-    minf = ru.ru_minflt;
-    majf = ru.ru_majflt;
-}
-
-static void mark_begin(mark &m) {
-    counters(m.minf, m.majf);
-    m.t = now();
-}
-
-static void mark_end(const mark &m, std::string_view what) {
-    double dt = now() - m.t;
-    unsigned long minf, majf;
-    counters(minf, majf);
-    std::cout << "  " << std::left << std::setw(32) << what
-              << std::right << std::setw(9) << std::fixed << std::setprecision(3) << (dt * 1e3) << " мс"
-              << "   minflt +" << std::left << std::setw(8) << (minf - m.minf)
-              << " majflt +" << (majf - m.majf) << "\n";
-}
-```
+:::code proj-fault-cost/c/faultlab.c
+:::code proj-fault-cost/cpp/faultlab.cpp
 :::
 
 Порядок усередині `mark_begin` і `mark_end` не випадковий: `getrusage` — це справжній системний виклик, десь дві-три сотні наносекунд. Якщо взяти час першим на початку і останнім у кінці, ці сотні наносекунд опиняться всередині виміряного відтинку. На двохсотмілісекундному досліді байдуже, на однопрохідному — ні.
@@ -136,133 +20,22 @@ static void mark_end(const mark &m, std::string_view what) {
 Другий бік лічильників — з `/proc`. Розбір там має одну підступність: ім'я програми стоїть у круглих дужках і само може містити пробіли й дужки, тож рахувати поля зліва напрямець не можна.
 
 :::tabs
-```c
-/* Ті самі два числа, але видимі ззовні: поля 10 і 12 у /proc/self/stat.
-   Починаємо від ОСТАННЬОЇ ')' — усе, що лівіше, це pid та ім'я. */
-static void proc_faults(unsigned long *minf, unsigned long *majf)
-{
-    char buf[1024];
-    int fd = open("/proc/self/stat", O_RDONLY);
-    if (fd < 0) { *minf = *majf = 0; return; }
-    ssize_t n = read(fd, buf, sizeof buf - 1);
-    close(fd);
-    buf[n > 0 ? n : 0] = '\0';
-
-    char *p = strrchr(buf, ')');
-    if (!p) { *minf = *majf = 0; return; }
-    /*     state ppid pgrp session tty tpgid flags minflt cminflt majflt */
-    sscanf(p + 2, "%*c %*d %*d %*d %*d %*d %*u %lu %*lu %lu", minf, majf);
-}
-```
-```cpp
-static void proc_faults(unsigned long &minf, unsigned long &majf) {
-    minf = majf = 0;
-    int fd = open("/proc/self/stat", O_RDONLY);
-    if (fd < 0) return;
-    char buf[1024];
-    ssize_t n = read(fd, buf, sizeof(buf) - 1);
-    close(fd);
-    if (n <= 0) return;
-    buf[n] = '\0';
-
-    char *p = strrchr(buf, ')');
-    if (!p) return;
-    sscanf(p + 2, "%*c %*d %*d %*d %*d %*d %*u %lu %*lu %lu", &minf, &majf);
-}
-```
+:::code proj-fault-cost/c/prylad-zvidky-berutsia.c
+:::code proj-fault-cost/cpp/prylad-zvidky-berutsia.cpp
 :::
 
 Лишається третій прилад, без якого решта — самообман. Треба вміти спитати систему, чи сторінка справді лежить у пам'яті. Для цього є `mincore`: він заповнює масив байтів, по одному на сторінку діапазону, і молодший біт кожного каже «резидентна». Для файлового відображення це прямий погляд у [кеш сторінок](root:sys-unix/page-cache-durability) — той шар, де ядро тримає прочитані шматки файлів, щоб не ходити на носій двічі.
 
 :::tabs
-```c
-/* Скільки сторінок діапазону справді в пам'яті. Саме цим перевіряють,
-   що «холодний» кеш таки холодний, а не здається таким. */
-static unsigned long resident(void *addr, size_t len)
-{
-    size_t n = len / PGSZ;
-    unsigned char *vec = malloc(n);
-    unsigned long r = 0;
-    if (mincore(addr, len, vec) == 0)
-        for (size_t i = 0; i < n; i++) r += vec[i] & 1u;
-    free(vec);
-    return r;
-}
-```
-```cpp
-static unsigned long resident(void *addr, std::size_t len) {
-    std::size_t n = len / PGSZ;
-    std::vector<unsigned char> vec(n);
-    unsigned long r = 0;
-    if (mincore(addr, len, vec.data()) == 0) {
-        for (std::size_t i = 0; i < n; ++i) {
-            r += vec[i] & 1u;
-        }
-    }
-    return r;
-}
-```
+:::code proj-fault-cost/c/prylad-zvidky-berutsia-2.c
+:::code proj-fault-cost/cpp/prylad-zvidky-berutsia-2.cpp
 :::
 
 І сам обхід. Тут єдина, зате найпоширеніша пастка всього досліду: цикл, який читає байти й нічого з ними не робить, [оптимізатор](root:sf-lang/compiler-optimizations) має повне право викинути цілком — читання з пам'яті без побічного ефекту не змінює нічого спостережуваного, а отже, за правилами мови його наче й не було. Накопичувач `acc`, злитий у `volatile`-змінну, робить результат спостережуваним, і читання лишаються.
 
 :::tabs
-```c
-static void touch_seq(char *p, size_t len, int write)
-{
-    unsigned long acc = 0;
-    for (size_t i = 0; i < len; i += PGSZ)
-        if (write) p[i] = 1;
-        else       acc += (unsigned char)p[i];
-    sink += acc;                        /* без цього рядка циклу не буде */
-}
-
-/* Випадковий порядок готуємо ЗАЗДАЛЕГІДЬ: генератор випадкових чисел
-   у виміряному циклі — це вимір генератора, а не пам'яті. */
-static size_t *permutation(size_t n)
-{
-    size_t *idx = malloc(n * sizeof *idx);
-    for (size_t i = 0; i < n; i++) idx[i] = i;
-    for (size_t i = n - 1; i > 0; i--) {
-        size_t j = (size_t)(random() % (long)(i + 1));
-        size_t t = idx[i]; idx[i] = idx[j]; idx[j] = t;
-    }
-    return idx;
-}
-
-static void touch_perm(char *p, const size_t *idx, size_t n)
-{
-    unsigned long acc = 0;
-    for (size_t k = 0; k < n; k++) acc += (unsigned char)p[idx[k] * PGSZ];
-    sink += acc;
-}
-```
-```cpp
-static void touch_seq(char *p, std::size_t len, bool write) {
-    unsigned long acc = 0;
-    for (std::size_t i = 0; i < len; i += PGSZ) {
-        if (write) p[i] = 1;
-        else acc += static_cast<unsigned char>(p[i]);
-    }
-    sink += acc; // без цього рядка циклу не буде
-}
-
-static std::vector<std::size_t> permutation(std::size_t n) {
-    std::vector<std::size_t> idx(n);
-    for (std::size_t i = 0; i < n; ++i) idx[i] = i;
-    std::mt19937 g(1337);
-    std::shuffle(idx.begin(), idx.end(), g);
-    return idx;
-}
-
-static void touch_perm(char *p, const std::vector<std::size_t> &idx) {
-    unsigned long acc = 0;
-    for (std::size_t k : idx) {
-        acc += static_cast<unsigned char>(p[k * PGSZ]);
-    }
-    sink += acc;
-}
-```
+:::code proj-fault-cost/c/prylad-zvidky-berutsia-3.c
+:::code proj-fault-cost/cpp/prylad-zvidky-berutsia-3.cpp
 :::
 
 ## Дослід А: анонімна пам'ять і три способи за неї заплатити
@@ -270,75 +43,8 @@ static void touch_perm(char *p, const std::vector<std::size_t> &idx) {
 Перший дослід найпростіший: узяти гігабайт, торкнутися кожної сторінки, пройти вдруге. Потім те саме, але попросивши систему зробити всю роботу наперед.
 
 :::tabs
-```c
-static void exp_anon(void)
-{
-    struct mark m;
-    char *p;
-
-    puts("A. анонімна пам'ять, 1 ГіБ = 262144 сторінок по 4 КіБ");
-
-    mark_begin(&m);
-    p = mmap(NULL, ANON, PROT_READ | PROT_WRITE,
-             MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    mark_end(&m, "mmap (ліниво)");
-
-    /* Прибиваємо великі сторінки: інакше збоїв буде 512, а не 262144,
-       і дослід міряв би налаштування машини, а не сторінковий збій. */
-    madvise(p, ANON, MADV_NOHUGEPAGE);
-
-    mark_begin(&m); touch_seq(p, ANON, 1); mark_end(&m, "перший дотик");
-    mark_begin(&m); touch_seq(p, ANON, 1); mark_end(&m, "другий прохід");
-    munmap(p, ANON);
-
-    mark_begin(&m);
-    p = mmap(NULL, ANON, PROT_READ | PROT_WRITE,
-             MAP_PRIVATE | MAP_ANONYMOUS | MAP_POPULATE, -1, 0);
-    mark_end(&m, "mmap + MAP_POPULATE");
-    mark_begin(&m); touch_seq(p, ANON, 1); mark_end(&m, "перший дотик по ній");
-    munmap(p, ANON);
-
-    p = mmap(NULL, ANON, PROT_READ | PROT_WRITE,
-             MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    madvise(p, ANON, MADV_NOHUGEPAGE);
-    mark_begin(&m);
-    madvise(p, ANON, MADV_POPULATE_WRITE);
-    mark_end(&m, "madvise(MADV_POPULATE_WRITE)");
-    munmap(p, ANON);
-}
-```
-```cpp
-static void exp_anon() {
-    mark m;
-    std::cout << "A. анонімна пам'ять, 1 ГіБ = 262144 сторінок по 4 КіБ\n";
-
-    mark_begin(m);
-    char *p = static_cast<char*>(mmap(nullptr, ANON, PROT_READ | PROT_WRITE,
-                                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
-    mark_end(m, "mmap (ліниво)");
-
-    madvise(p, ANON, MADV_NOHUGEPAGE);
-
-    mark_begin(m); touch_seq(p, ANON, true); mark_end(m, "перший дотик");
-    mark_begin(m); touch_seq(p, ANON, true); mark_end(m, "другий прохід");
-    munmap(p, ANON);
-
-    mark_begin(m);
-    p = static_cast<char*>(mmap(nullptr, ANON, PROT_READ | PROT_WRITE,
-                                MAP_PRIVATE | MAP_ANONYMOUS | MAP_POPULATE, -1, 0));
-    mark_end(m, "mmap + MAP_POPULATE");
-    mark_begin(m); touch_seq(p, ANON, true); mark_end(m, "перший дотик по ній");
-    munmap(p, ANON);
-
-    p = static_cast<char*>(mmap(nullptr, ANON, PROT_READ | PROT_WRITE,
-                                MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
-    madvise(p, ANON, MADV_NOHUGEPAGE);
-    mark_begin(m);
-    madvise(p, ANON, MADV_POPULATE_WRITE);
-    mark_end(m, "madvise(MADV_POPULATE_WRITE)");
-    munmap(p, ANON);
-}
-```
+:::code proj-fault-cost/c/doslid-a-anonimna-pamiat-i.c
+:::code proj-fault-cost/cpp/doslid-a-anonimna-pamiat-i.cpp
 :::
 
 Вивід на звичайній машині з NVMe і DDR4:
@@ -378,95 +84,8 @@ A. анонімна пам'ять, 1 ГіБ = 262144 сторінок по 4 К�
 Вигнати можна без прав адміністратора: `posix_fadvise` з порадою `POSIX_FADV_DONTNEED` викидає сторінки конкретного файлу. Але тільки **чисті** — брудні (щойно записані й ще не збережені) ядро не викине, бо тоді б воно втратило дані. Тому `fsync` перед цим не формальність, а умова.
 
 :::tabs
-```c
-static int make_file(const char *path)
-{
-    int fd = open(path, O_RDWR | O_CREAT, 0644);
-    struct stat st;
-    fstat(fd, &st);
-    if ((size_t)st.st_size < FSIZE) {
-        char *chunk = malloc(1 << 20);
-        memset(chunk, 0xA5, 1 << 20);
-        for (size_t off = 0; off < FSIZE; off += (1 << 20))
-            write(fd, chunk, 1 << 20);
-        free(chunk);
-    }
-    fsync(fd);
-    return fd;
-}
-
-/* Викинути сторінки файлу з кеша. Викидаються ЛИШЕ чисті — звідси fsync. */
-static void chill(int fd)
-{
-    fsync(fd);
-    posix_fadvise(fd, 0, 0, POSIX_FADV_DONTNEED);   /* 0 = до кінця файлу */
-}
-
-static void exp_file(int fd, const char *label, int cold, int advice, int randomly)
-{
-    struct mark m;
-    size_t n = FSIZE / PGSZ;
-    if (cold) chill(fd);
-
-    /* Відображення ЩОРАЗУ нове: інакше таблиця сторінок лишиться від
-       минулого проходу й збоїв не буде взагалі, хоч кеш і холодний. */
-    char *p = mmap(NULL, FSIZE, PROT_READ, MAP_PRIVATE, fd, 0);
-    if (advice) madvise(p, FSIZE, advice);
-    printf("  %-32s резидентних до обходу: %lu з %zu\n",
-           label, resident(p, FSIZE), n);
-
-    size_t *idx = randomly ? permutation(n) : NULL;
-    mark_begin(&m);
-    if (idx) touch_perm(p, idx, n);
-    else     touch_seq(p, FSIZE, 0);
-    mark_end(&m, "  обхід");
-    free(idx);
-    munmap(p, FSIZE);
-}
-```
-```cpp
-static int make_file(const std::string &path) {
-    int fd = open(path.c_str(), O_RDWR | O_CREAT, 0644);
-    struct stat st{};
-    fstat(fd, &st);
-    if (static_cast<std::size_t>(st.st_size) < FSIZE) {
-        std::vector<char> chunk(1 << 20, 0xA5);
-        for (std::size_t off = 0; off < FSIZE; off += (1 << 20)) {
-            write(fd, chunk.data(), chunk.size());
-        }
-    }
-    fsync(fd);
-    return fd;
-}
-
-static void chill(int fd) {
-    fsync(fd);
-    posix_fadvise(fd, 0, 0, POSIX_FADV_DONTNEED);
-}
-
-static void exp_file(int fd, const std::string &label, bool cold, int advice, bool randomly) {
-    mark m;
-    std::size_t n = FSIZE / PGSZ;
-    if (cold) chill(fd);
-
-    char *p = static_cast<char*>(mmap(nullptr, FSIZE, PROT_READ, MAP_PRIVATE, fd, 0));
-    if (advice) madvise(p, FSIZE, advice);
-    std::cout << "  " << std::left << std::setw(32) << label
-              << " резидентних до обходу: " << resident(p, FSIZE) << " з " << n << "\n";
-
-    if (randomly) {
-        auto idx = permutation(n);
-        mark_begin(m);
-        touch_perm(p, idx);
-        mark_end(m, "  обхід");
-    } else {
-        mark_begin(m);
-        touch_seq(p, FSIZE, false);
-        mark_end(m, "  обхід");
-    }
-    munmap(p, FSIZE);
-}
-```
+:::code proj-fault-cost/c/doslid-b-fail-kholodnyi-i.c
+:::code proj-fault-cost/cpp/doslid-b-fail-kholodnyi-i.cpp
 :::
 
 Зверніть увагу на `mmap` усередині: кожен прохід отримує **свіже відображення**. Це не охайність, це необхідність. Теплим може бути і кеш сторінок, і таблиця сторінок процесу — це різні речі. Якщо пройти двічі по одному відображенню, другий прохід не дасть збоїв узагалі, і ви поміряєте ніщо. Свіже відображення обнуляє таблицю, лишаючи стан кеша таким, яким ви його зробили.
@@ -474,53 +93,8 @@ static void exp_file(int fd, const std::string &label, bool cold, int advice, bo
 Четвертий дослід — окремою функцією, бо `MADV_WILLNEED` має власну пастку.
 
 :::tabs
-```c
-static void exp_willneed(int fd)
-{
-    struct mark m;
-    size_t n = FSIZE / PGSZ;
-    chill(fd);
-    char *p = mmap(NULL, FSIZE, PROT_READ, MAP_PRIVATE, fd, 0);
-
-    mark_begin(&m);
-    madvise(p, FSIZE, MADV_WILLNEED);
-    mark_end(&m, "madvise(MADV_WILLNEED)");
-
-    /* WILLNEED лише ЗАПУСКАЄ читання й одразу вертається. Якщо піти в обхід
-       негайно, великі збої нікуди не подінуться — чекаємо резидентності. */
-    double t0 = now();
-    while (resident(p, FSIZE) < n && now() - t0 < 5.0)
-        nanosleep(&(struct timespec){0, 1000000}, NULL);
-    printf("  прогрівання: %.1f мс, резидентних %lu з %zu\n",
-           (now() - t0) * 1e3, resident(p, FSIZE), n);
-
-    mark_begin(&m); touch_seq(p, FSIZE, 0); mark_end(&m, "  обхід");
-    munmap(p, FSIZE);
-}
-```
-```cpp
-static void exp_willneed(int fd) {
-    mark m;
-    std::size_t n = FSIZE / PGSZ;
-    chill(fd);
-    char *p = static_cast<char*>(mmap(nullptr, FSIZE, PROT_READ, MAP_PRIVATE, fd, 0));
-
-    mark_begin(m);
-    madvise(p, FSIZE, MADV_WILLNEED);
-    mark_end(m, "madvise(MADV_WILLNEED)");
-
-    double t0 = now();
-    while (resident(p, FSIZE) < n && now() - t0 < 5.0) {
-        struct timespec ts{0, 1000000};
-        nanosleep(&ts, nullptr);
-    }
-    std::cout << "  прогрівання: " << std::fixed << std::setprecision(1)
-              << ((now() - t0) * 1e3) << " мс, резидентних " << resident(p, FSIZE) << " з " << n << "\n";
-
-    mark_begin(m); touch_seq(p, FSIZE, false); mark_end(m, "  обхід");
-    munmap(p, FSIZE);
-}
-```
+:::code proj-fault-cost/c/doslid-b-fail-kholodnyi-i-2.c
+:::code proj-fault-cost/cpp/doslid-b-fail-kholodnyi-i-2.cpp
 :::
 
 Порядок викликів у `main` теж значущий: теплий прохід іде **одразу після** холодного, бо саме холодний прохід і нагріває кеш.
@@ -600,71 +174,8 @@ $ cat /sys/block/nvme0n1/queue/read_ahead_kb
 Такий вимір можливий лише тому, що `clock_gettime` не заходить у ядро: він виконується з [vDSO](root:sys-unix/vdso) — шматка коду, який ядро відображає в кожен процес, — і коштує десятки наносекунд. Інакше прилад був би дорожчий за те, що він міряє.
 
 :::tabs
-```c
-static int cmp_d(const void *a, const void *b)
-{
-    double x = *(const double *)a, y = *(const double *)b;
-    return (x > y) - (x < y);
-}
-
-static void exp_latency(int lock)
-{
-    size_t n = 64UL * 1024 * 1024 / PGSZ;        /* 16384 сторінки */
-    size_t len = n * PGSZ;
-    double *lat = malloc(n * sizeof *lat);
-
-    char *p = mmap(NULL, len, PROT_READ | PROT_WRITE,
-                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    madvise(p, len, MADV_NOHUGEPAGE);
-    if (lock) {
-        mlockall(MCL_CURRENT | MCL_FUTURE);      /* див. ulimit -l */
-        touch_seq(p, len, 1);                    /* усі збої — тут, на старті */
-    }
-
-    for (size_t i = 0; i < n; i++) {
-        double t0 = now();
-        p[i * PGSZ] = 1;
-        lat[i] = (now() - t0) * 1e6;             /* мкс */
-    }
-    qsort(lat, n, sizeof *lat, cmp_d);
-    printf("  %-24s медіана %6.2f   99.9%% %7.2f   максимум %8.2f мкс\n",
-           lock ? "mlockall + прогрів" : "без mlock, перший дотик",
-           lat[n / 2], lat[(size_t)(n * 0.999)], lat[n - 1]);
-    free(lat);
-    if (lock) munlockall();
-    munmap(p, len);
-}
-```
-```cpp
-static void exp_latency(bool lock) {
-    std::size_t n = 64UL * 1024 * 1024 / PGSZ;
-    std::size_t len = n * PGSZ;
-    std::vector<double> lat(n);
-
-    char *p = static_cast<char*>(mmap(nullptr, len, PROT_READ | PROT_WRITE,
-                                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
-    madvise(p, len, MADV_NOHUGEPAGE);
-    if (lock) {
-        mlockall(MCL_CURRENT | MCL_FUTURE);
-        touch_seq(p, len, true);
-    }
-
-    for (std::size_t i = 0; i < n; ++i) {
-        double t0 = now();
-        p[i * PGSZ] = 1;
-        lat[i] = (now() - t0) * 1e6;
-    }
-    std::sort(lat.begin(), lat.end());
-    std::cout << "  " << std::left << std::setw(24)
-              << (lock ? "mlockall + прогрів" : "без mlock, перший дотик")
-              << " медіана " << std::right << std::setw(6) << std::fixed << std::setprecision(2) << lat[n / 2]
-              << "   99.9% " << std::setw(7) << lat[static_cast<std::size_t>(n * 0.999)]
-              << "   максимум " << std::setw(8) << lat[n - 1] << " мкс\n";
-
-    if (lock) munlockall();
-    munmap(p, len);
-}
-```
+:::code proj-fault-cost/c/doslid-v-mlockall-i.c
+:::code proj-fault-cost/cpp/doslid-v-mlockall-i.cpp
 :::
 
 ```

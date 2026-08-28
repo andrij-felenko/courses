@@ -61,72 +61,8 @@
 **Умова: на ESP32 відкрити UDP-сокет, закріпити його за портом 3333, у циклі приймати датаграми через `recvfrom`, дізнаючись адресу відправника, і відсилати ту саму порцію назад через `sendto`.**
 
 :::tabs
-```c
-#include <string.h>
-#include "lwip/sockets.h"      // BSD-сокети поверх lwIP
-#include "esp_log.h"
-
-static const char *TAG = "udp";
-
-void udp_echo(void)
-{
-    // 1) створити UDP-сокет: AF_INET — IPv4, SOCK_DGRAM — датаграми (UDP)
-    int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    if (sock < 0) { ESP_LOGE(TAG, "socket: errno %d", errno); return; }
-
-    // 2) закріпити сокет за портом 3333 на всіх інтерфейсах пристрою
-    struct sockaddr_in me = {
-        .sin_family      = AF_INET,
-        .sin_port        = htons(3333),        // порт у мережевому порядку байтів
-        .sin_addr.s_addr = htonl(INADDR_ANY),  // слухати на будь-якій адресі
-    };
-    if (bind(sock, (struct sockaddr *)&me, sizeof(me)) < 0) {
-        ESP_LOGE(TAG, "bind: errno %d", errno);
-        close(sock);
-        return;
-    }
-
-    char buf[128];
-    while (1) {
-        // 3) чекати датаграму; recvfrom заразом віддає адресу відправника
-        struct sockaddr_in from;
-        socklen_t from_len = sizeof(from);
-        int n = recvfrom(sock, buf, sizeof(buf) - 1, 0,
-                         (struct sockaddr *)&from, &from_len);
-        if (n < 0) { ESP_LOGE(TAG, "recvfrom: errno %d", errno); break; }
-
-        buf[n] = '\0';
-        ESP_LOGI(TAG, "прийнято %d байтів: %s", n, buf);
-
-        // 4) відіслати ту саму порцію назад — туди, звідки прийшла
-        sendto(sock, buf, n, 0, (struct sockaddr *)&from, from_len);
-    }
-    close(sock);
-}
-```
-```python
-import socket
-
-def udp_echo():
-    # 1) створити UDP-сокет: AF_INET — IPv4, SOCK_DGRAM — датаграми (UDP)
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    # 2) закріпити сокет за портом 3333 на всіх інтерфейсах пристрою
-    sock.bind(("", 3333))  # порожній рядок — слухати на будь-якій адресі
-
-    while True:
-        # 3) чекати датаграму; recvfrom заразом віддає адресу відправника
-        data, addr = sock.recvfrom(128)
-        if not data:
-            break
-
-        print(f"прийнято {len(data)} байтів: {data.decode()}")
-
-        # 4) відіслати ту саму порцію назад — туди, звідки прийшла
-        sock.sendto(data, addr)
-
-    sock.close()
-```
+:::code sockets-tcp-udp/c/robochyi-pryklad-udp-vuzol.c
+:::code sockets-tcp-udp/py/robochyi-pryklad-udp-vuzol.py
 :::
 
 Розберімо ключові місця. `socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)` створює саме UDP-сокет: `AF_INET` — родина адрес IPv4, `SOCK_DGRAM` — тип «датаграми», що й означає UDP. `bind()` садить сокет на порт 3333: без цього кроку датаграми не мали б куди приходити, бо ОС не знала б, який порт віддавати цій програмі. Зверни увагу на `htons` і `htonl` (англ. *host to network short/long*) — вони переставляють байти числа з [внутрішнього порядку](root:sf-algorithms/bits-bytes-endianness) у мережевий: мережа домовилася передавати числа старшим байтом уперед, і цю дрібницю легко проґавити, після чого порт «з'їжджає» в зовсім інше значення. Найхарактерніше для UDP — у `recvfrom`: він не лише кладе дані в `buf`, а й заповнює `from` адресою відправника. Завдяки цьому наступний `sendto` знає, **кому** відповідати, — адже з'єднання немає, і кожна датаграма мусить нести адресу одержувача явно. Якби датаграма дорогою загубилася, ніхто б її не повторив — для відлуння це прийнятно, але якби нам була потрібна гарантія доставки, цю надійність довелося б будувати самим (нумерувати, чекати підтвердження, повторювати), фактично перевинаходячи частину TCP.
@@ -138,68 +74,8 @@ def udp_echo():
 **Умова: на ESP32 відкрити TCP-сокет, під'єднатися до сервера за адресою 192.168.1.20 на порту 4000, надіслати короткий запит і прочитати відповідь у потоці.**
 
 :::tabs
-```c
-#include <string.h>
-#include "lwip/sockets.h"
-#include "esp_log.h"
-
-static const char *TAG = "tcp";
-
-void tcp_client(void)
-{
-    // 1) створити TCP-сокет: SOCK_STREAM — надійний потік байтів (TCP)
-    int sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (sock < 0) { ESP_LOGE(TAG, "socket: errno %d", errno); return; }
-
-    // 2) описати, куди під'єднатися: адреса й порт сервера
-    struct sockaddr_in server = {
-        .sin_family = AF_INET,
-        .sin_port   = htons(4000),
-    };
-    inet_pton(AF_INET, "192.168.1.20", &server.sin_addr);  // текст IP → число
-
-    // 3) встановити з'єднання (тут проходить рукостискання TCP)
-    if (connect(sock, (struct sockaddr *)&server, sizeof(server)) < 0) {
-        ESP_LOGE(TAG, "connect: errno %d", errno);
-        close(sock);
-        return;
-    }
-
-    // 4) надіслати запит — адресу повторювати не треба, вона в з'єднанні
-    const char *req = "STATUS?\n";
-    send(sock, req, strlen(req), 0);
-
-    // 5) прочитати відповідь; recv віддає рівно стільки, скільки вже прийшло
-    char buf[256];
-    int n = recv(sock, buf, sizeof(buf) - 1, 0);
-    if (n > 0) {
-        buf[n] = '\0';
-        ESP_LOGI(TAG, "відповідь сервера: %s", buf);
-    }
-
-    close(sock);   // коректно закрити з'єднання
-}
-```
-```python
-import socket
-
-def tcp_client():
-    # 1) створити TCP-сокет: SOCK_STREAM — надійний потік байтів (TCP)
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # 2-3) під'єднатися до сервера — тут проходить рукостискання TCP
-    sock.connect(("192.168.1.20", 4000))  # адреса й порт сервера
-
-    # 4) надіслати запит — адресу повторювати не треба, вона в з'єднанні
-    sock.send(b"STATUS?\n")
-
-    # 5) прочитати відповідь; recv віддає рівно стільки, скільки вже прийшло
-    data = sock.recv(256)
-    if data:
-        print(f"відповідь сервера: {data.decode()}")
-
-    sock.close()  # коректно закрити з'єднання
-```
+:::code sockets-tcp-udp/c/robochyi-pryklad-tcp.c
+:::code sockets-tcp-udp/py/robochyi-pryklad-tcp.py
 :::
 
 Тут видно дзеркальну до UDP логіку. Сокет створено з `SOCK_STREAM` — це TCP. Ключовий новий крок — `connect()`: він не просто запам'ятовує адресу, а **встановлює з'єднання** — під час цього виклику й проходить те саме рукостискання, обмін службовими пакетами із сервером. Тільки після успішного `connect()` можна слати дані, і тепер уже простим `send()` без адреси — бо з'єднання саме пам'ятає обидва кінці. У відповіді `recv()` повертає **стільки байтів, скільки вже надійшло**, — і це головна пастка TCP, варта повторення: він може віддати відповідь не цілою. Якщо сервер шле довге повідомлення, один `recv` легко поверне лише його початок, а решта прийде наступними викликами. Тому реальний код зазвичай читає **в циклі**, доки не збере все повідомлення за власною ознакою кінця (довжина на початку, символ-роздільник тощо) — це і є той [розбір потоку](root:com-protocol/stream-parser), без якого з TCP не обійтися. У нашому короткому прикладі ми обмежилися одним читанням заради ясності, але в бойовому коді тут був би цикл.

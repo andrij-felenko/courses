@@ -76,41 +76,7 @@ A = 57: 2⁵⁷ / 2¹² · 2³ = 2⁴⁸ Б = 256 ТіБ
 
 Це округлення вгору плюс граничний доважок: ділянка на 6 МіБ, зсунута всередині свого 2-МіБ вікна, перетинає чотири вікна, а не три. Ось те саме кодом:
 
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdio.h>
-
-#define ENTRIES 512ULL          /* 4096 байтів таблиці / 8 байтів запису */
-
-/* Скільки таблиць того рівня, один запис якого покриває entry_span байтів,
-   перетинає ділянка [start, start + len). */
-static uint64_t tables_for(uint64_t start, uint64_t len, uint64_t entry_span)
-{
-        uint64_t table_span = entry_span * ENTRIES;
-
-        return (start + len - 1) / table_span - start / table_span + 1;
-}
-
-int main(void)
-{
-        static const struct { uint64_t start, len; } vma[] = {
-                { 0x555555554000ULL,   6ULL << 20 },   /* код і дані     */
-                { 0x555555b54000ULL,  64ULL << 20 },   /* купа           */
-                { 0x7f3c9a123000ULL, 200ULL << 20 },   /* файл через mmap */
-                { 0x7ffffffdf000ULL, 128ULL << 10 },   /* торкнутий стек */
-        };
-        uint64_t leaves = 0;
-
-        for (size_t i = 0; i < sizeof vma / sizeof *vma; i++)
-                leaves += tables_for(vma[i].start, vma[i].len, 4096);
-
-        printf("таблиць листя: %llu (%llu КіБ)\n",
-               (unsigned long long)leaves,
-               (unsigned long long)(leaves * 4096 / 1024));
-        return 0;
-}
-```
+:::code math-page-table-cost/c/main.c
 
 Ці чотири ділянки дають 4 + 33 + 101 + 1 = 139 таблиць листя. Додайте бібліотеки й `vdso` — і повний перепис виглядає так:
 

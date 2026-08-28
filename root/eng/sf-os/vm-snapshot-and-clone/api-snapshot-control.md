@@ -42,108 +42,8 @@
 Приклад мовою C демонструє базові виклики системи з ручною обробкою помилок, тоді як приклад мовою C++ реалізує безпечну ідіому RAII (`Resource Acquisition Is Initialization`) з типом `std::expected`, яка гарантує обов'язковий виклик `FITHAW` навіть у разі виникнення виняткових ситуацій.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/fs.h>
-#include <errno.h>
-#include <string.h>
-
-int freeze_mountpoint(const char *mount_path) {
-    int fd = open(mount_path, O_RDONLY | O_CLOEXEC);
-    if (fd < 0) {
-        fprintf(stderr, "Помилка відкриття шляху монтування %s: %s\n", 
-                mount_path, strerror(errno));
-        return -1;
-    }
-
-    if (ioctl(fd, FIFREEZE, 0) < 0) {
-        fprintf(stderr, "Помилка виклику ioctl FIFREEZE для %s: %s\n", 
-                mount_path, strerror(errno));
-        close(fd);
-        return -1;
-    }
-
-    return fd;
-}
-
-int thaw_mountpoint(int fd, const char *mount_path) {
-    int result = 0;
-    if (ioctl(fd, FITHAW, 0) < 0) {
-        fprintf(stderr, "Критична помилка розморожування FITHAW для %s: %s\n", 
-                mount_path, strerror(errno));
-        result = -1;
-    }
-    close(fd);
-    return result;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <expected>
-#include <system_error>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/fs.h>
-
-class FsFreezeGuard {
-public:
-    static std::expected<FsFreezeGuard, std::error_code> acquire(std::string_view mount_path) {
-        int fd = ::open(mount_path.data(), O_RDONLY | O_CLOEXEC);
-        if (fd < 0) {
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-
-        if (::ioctl(fd, FIFREEZE, 0) < 0) {
-            int err = errno;
-            ::close(fd);
-            return std::unexpected(std::error_code(err, std::generic_category()));
-        }
-
-        return FsFreezeGuard(fd);
-    }
-
-    ~FsFreezeGuard() noexcept {
-        if (fd_ >= 0) {
-            ::ioctl(fd_, FITHAW, 0);
-            ::close(fd_);
-        }
-    }
-
-    FsFreezeGuard(const FsFreezeGuard&) = delete;
-    FsFreezeGuard& operator=(const FsFreezeGuard&) = delete;
-
-    FsFreezeGuard(FsFreezeGuard&& other) noexcept : fd_(other.fd_) {
-        other.fd_ = -1;
-    }
-
-    FsFreezeGuard& operator=(FsFreezeGuard&& other) noexcept {
-        if (this != &other) {
-            if (fd_ >= 0) {
-                ::ioctl(fd_, FITHAW, 0);
-                ::close(fd_);
-            }
-            fd_ = other.fd_;
-            other.fd_ = -1;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int native_handle() const noexcept {
-        return fd_;
-    }
-
-private:
-    explicit FsFreezeGuard(int fd) noexcept : fd_(fd) {}
-    int fd_{-1};
-};
-```
+:::code api-snapshot-control/c/prohramna-realizatsiia.c
+:::code api-snapshot-control/cpp/prohramna-realizatsiia.cpp
 :::
 
 ---
@@ -348,52 +248,8 @@ QEMU Machine Protocol (QMP) — це протокол керування гіп�
 ### Програмна взаємодія з API libvirt
 
 :::tabs
-```c
-#include <stdio.h>
-#include <libvirt/libvirt.h>
-
-int trigger_snapshot_commit(virDomainPtr dom, const char *disk, const char *base, const char *top) {
-    unsigned int flags = VIR_DOMAIN_BLOCK_COMMIT_ACTIVE | VIR_DOMAIN_BLOCK_COMMIT_PIVOT;
-    int ret = virDomainBlockCommit(dom, disk, base, top, 0, flags);
-    if (ret < 0) {
-        virErrorPtr err = virGetLastError();
-        fprintf(stderr, "Помилка виклику virDomainBlockCommit: %s\n", 
-                err ? err->message : "невідома помилка libvirt");
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <expected>
-#include <string>
-#include <memory>
-#include <libvirt/libvirt.h>
-
-struct VirDomainDeleter {
-    void operator()(virDomainPtr ptr) const noexcept {
-        if (ptr) virDomainFree(ptr);
-    }
-};
-using UniqueVirDomain = std::unique_ptr<virDomain, VirDomainDeleter>;
-
-std::expected<void, std::string> trigger_snapshot_commit(
-    virDomainPtr dom,
-    std::string_view disk,
-    std::string_view base,
-    std::string_view top
-) {
-    unsigned int flags = VIR_DOMAIN_BLOCK_COMMIT_ACTIVE | VIR_DOMAIN_BLOCK_COMMIT_PIVOT;
-    int ret = virDomainBlockCommit(dom, disk.data(), base.data(), top.data(), 0, flags);
-    if (ret < 0) {
-        virErrorPtr err = virGetLastError();
-        return std::unexpected(err && err->message ? err->message : "Unknown libvirt error");
-    }
-    return {};
-}
-```
+:::code api-snapshot-control/c/prohramna-vzaiemodiia-z.c
+:::code api-snapshot-control/cpp/prohramna-vzaiemodiia-z.cpp
 :::
 
 #### Прапорці виклику `virDomainSnapshotCreateXML` (`flags`)

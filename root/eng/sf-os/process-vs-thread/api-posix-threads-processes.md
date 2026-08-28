@@ -21,26 +21,7 @@ int execve(const char *pathname, char *const argv[], char *const envp[]);
 pid_t waitpid(pid_t pid, int *wstatus, int options);
 void _exit(int status);
 ```
-```cpp
-#include <system_error>
-#include <span>
-#include <string_view>
-#include <expected>
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-// Ідіоматичні C++ сигнатури системних викликів
-namespace sys {
-    std::expected<pid_t, std::error_code> fork_process() noexcept;
-    std::expected<void, std::error_code> exec_program(
-        std::string_view path,
-        std::span<const std::string_view> args,
-        std::span<const std::string_view> env) noexcept;
-    std::expected<int, std::error_code> wait_process(pid_t pid, int options = 0) noexcept;
-    [[noreturn]] void exit_process(int status) noexcept;
-}
-```
+:::code api-posix-threads-processes/cpp/systemni-vyklyky.cpp
 :::
 
 #### Механізм роботи системного виклику `fork`
@@ -79,20 +60,7 @@ void pthread_exit(void *retval);
 pthread_t pthread_self(void);
 int pthread_equal(pthread_t t1, pthread_t t2);
 ```
-```cpp
-#include <thread>
-#include <future>
-#include <stop_token>
-#include <concepts>
-
-// Стандартний інтерфейс багатопотоковості C++20
-namespace std {
-    class thread;
-    class jthread; // RAII-потік з автоматичним join та stop_token
-    template<typename Function, typename... Args>
-    [[nodiscard]] auto async(Function&& f, Args&&... args);
-}
-```
+:::code api-posix-threads-processes/cpp/interfeis-potokiv.cpp
 :::
 
 #### Створення та життєвий цикл потоку
@@ -189,155 +157,13 @@ std::expected<pid_t, std::error_code> clone_task(
 #### Приклад 1. Створення та очікування дочірнього процесу
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-int main(void) {
-    pid_t pid = fork();
-
-    if (pid < 0) {
-        perror("fork failed");
-        return EXIT_FAILURE;
-    }
-
-    if (pid == 0) {
-        // Код дочірнього процесу
-        printf("[Дочірній процес] PID = %d, батьківський PID = %d\n",
-               getpid(), getppid());
-        _exit(42); // Завершення без скидання спільних буферів stdio
-    }
-
-    // Код батьківського процесу
-    int wstatus = 0;
-    pid_t child_pid = waitpid(pid, &wstatus, 0);
-
-    if (child_pid > 0 && WIFEXITED(wstatus)) {
-        printf("[Батьківський процес] Нащадок %d завершився з кодом %d\n",
-               child_pid, WEXITSTATUS(wstatus));
-    }
-
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <unistd.h>
-#include <sys/wait.h>
-
-// RAII-обгортка для керування дочірнім процесом
-class ScopedProcess {
-public:
-    explicit ScopedProcess(pid_t pid) : pid_(pid) {}
-
-    ~ScopedProcess() {
-        if (pid_ > 0) {
-            int wstatus = 0;
-            ::waitpid(pid_, &wstatus, 0);
-        }
-    }
-
-    ScopedProcess(const ScopedProcess&) = delete;
-    ScopedProcess& operator=(const ScopedProcess&) = delete;
-
-    [[nodiscard]] pid_t id() const noexcept { return pid_; }
-
-private:
-    pid_t pid_;
-};
-
-int main() {
-    pid_t raw_pid = ::fork();
-
-    if (raw_pid < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка fork");
-    }
-
-    if (raw_pid == 0) {
-        std::cout << "[Дочірній процес] PID = " << ::getpid()
-                  << ", батьківський PID = " << ::getppid() << '\n';
-        ::_exit(42);
-    }
-
-    ScopedProcess child(raw_pid);
-    std::cout << "[Батьківський процес] Очікування нащадка PID = "
-              << child.id() << " через RAII\n";
-
-    return 0;
-}
-```
+:::code api-posix-threads-processes/c/pryklad-1-stvorennia-ta.c
+:::code api-posix-threads-processes/cpp/pryklad-1-stvorennia-ta.cpp
 :::
 
 #### Приклад 2. Створення та передача даних через потік
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-
-typedef struct {
-    int input_val;
-    int result_val;
-} ThreadData;
-
-static void *worker_func(void *arg) {
-    ThreadData *data = (ThreadData *)arg;
-    printf("[Потік worker] Отримано значення: %d\n", data->input_val);
-    data->result_val = data->input_val * 2;
-    return (void *)(intptr_t)data->result_val;
-}
-
-int main(void) {
-    pthread_t thread;
-    ThreadData data = { .input_val = 21, .result_val = 0 };
-
-    int err = pthread_create(&thread, NULL, worker_func, &data);
-    if (err != 0) {
-        fprintf(stderr, "Помилка pthread_create: %d\n", err);
-        return EXIT_FAILURE;
-    }
-
-    void *retval = NULL;
-    pthread_join(thread, &retval);
-
-    printf("[Головний потік] Результат із пам'яті: %d, через retval: %ld\n",
-           data.result_val, (long)(intptr_t)retval);
-
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <thread>
-#include <future>
-#include <vector>
-
-int main() {
-    int input_val = 21;
-
-    // Використання std::async та std::future для безпечної передачі результату
-    std::future<int> task = std::async(std::launch::async, [input_val]() {
-        std::cout << "[Потік worker] Отримано значення: " << input_val << '\n';
-        return input_val * 2;
-    });
-
-    int result = task.get(); // Блокуюче очікування результату
-    std::cout << "[Головний потік] Отримано результат обчислення: " << result << '\n';
-
-    // Демонстрація std::jthread (C++20) з автоматичним join при виході з області видимості
-    std::jthread auto_join_thread([](std::stop_token stoken) {
-        while (!stoken.stop_requested()) {
-            // Робота фонового потоку
-            break;
-        }
-        std::cout << "[std::jthread] Фонова робота завершена коректно\n";
-    });
-
-    return 0;
-}
-```
+:::code api-posix-threads-processes/c/pryklad-2-stvorennia-ta.c
+:::code api-posix-threads-processes/cpp/pryklad-2-stvorennia-ta.cpp
 :::

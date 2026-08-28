@@ -133,68 +133,13 @@ RTT:        100 мс = 0.100 с
 
 Тут ховається пастка, через яку такий код ламається на межі. Таймаут обмежує **виклик**, а не операцію. Якщо `recv` уже встиг забрати частину даних, а тоді настав час, він поверне не помилку, а **кількість переданих байтів** — тобто виглядатиме як звичайне часткове читання. А цикл, що збирає повне повідомлення, викличе `recv` іще раз — і кожна ітерація дістане свіжий повний таймаут. П'ять ітерацій по дві секунди — це десять секунд, хоча ти «поставив дві». Щоб обмежити операцію цілком, треба тримати **дедлайн** і перед кожним викликом перераховувати, скільки часу лишилося.
 
-```c
-static long now_ms(void) {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
-}
-
-/* прочитати рівно need байтів, витративши на все не більше budget_ms */
-int recv_exact_deadline(int fd, void *buf, size_t need, long budget_ms) {
-    long deadline = now_ms() + budget_ms;
-    size_t got = 0;
-
-    while (got < need) {
-        long left = deadline - now_ms();
-        if (left <= 0) { errno = ETIMEDOUT; return -1; }
-
-        struct timeval tv = { .tv_sec = left / 1000,
-                              .tv_usec = (left % 1000) * 1000 };
-        if (setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof tv) < 0)
-            return -1;
-
-        ssize_t n = recv(fd, (char *)buf + got, need - got, 0);
-        if (n == 0) { errno = ECONNRESET; return -1; }  /* інший бік закрив */
-        if (n < 0) {
-            if (errno == EINTR) continue;               /* сигнал — не помилка */
-            return -1;                                  /* EAGAIN — час вичерпано */
-        }
-        got += (size_t)n;
-    }
-    return 0;
-}
-```
+:::code socket-options-d/c/taimauty-iak-ne-chekaty.c
 
 Годинник тут навмисно **монотонний**: `CLOCK_MONOTONIC` не стрибає, коли систему підводять під точний час, а `CLOCK_REALTIME` стрибає — і дедлайн разом із ним. Ця дрібниця з'їдає години налагодження раз на кілька років, і завжди в найгіршу мить.
 
 Із `connect` окрема історія. У Linux `SO_SNDTIMEO` на нього поширюється, але поводиться не так, як очікують: вичерпавши час, `connect` повертає `-1` з `EINPROGRESS` — «іще в процесі», — і спроба з'єднатися **триває у фоні**. Ти перестав чекати, але ядро не перестало намагатися, і це не те саме, що скасувати з'єднання. На інших системах ця опція на `connect` не діє взагалі. Тому переносний і чесний спосіб обмежити час з'єднання один: перевести сокет у неблокуючий режим, викликати `connect`, дочекатися готовності на запис і **окремо спитати результат**.
 
-```c
-int connect_timeout(int fd, const struct sockaddr *addr, socklen_t alen, int ms) {
-    int flags = fcntl(fd, F_GETFL, 0);
-    fcntl(fd, F_SETFL, flags | O_NONBLOCK);
-
-    if (connect(fd, addr, alen) == 0) {      /* устиг одразу — типово локальний хост */
-        fcntl(fd, F_SETFL, flags);
-        return 0;
-    }
-    if (errno != EINPROGRESS) return -1;     /* справжня помилка, а не «в процесі» */
-
-    struct pollfd p = { .fd = fd, .events = POLLOUT };
-    int r = poll(&p, 1, ms);
-    if (r == 0) { errno = ETIMEDOUT; return -1; }
-    if (r < 0)  return -1;
-
-    int err = 0;                             /* готовність на запис ≠ успіх */
-    socklen_t len = sizeof err;
-    if (getsockopt(fd, SOL_SOCKET, SO_ERROR, &err, &len) < 0) return -1;
-    if (err != 0) { errno = err; return -1; }
-
-    fcntl(fd, F_SETFL, flags);
-    return 0;
-}
-```
+:::code socket-options-d/c/taimauty-iak-ne-chekaty-2.c
 
 Ключовий рядок тут — `SO_ERROR`. Сокет став готовим на запис і в разі успіху, і в разі відмови: `poll` каже лише «стан змінився», а не «все добре». Помилка сталася тоді, коли в жодному виклику ніхто не сидів, і ядру не було кому її повернути, — тож воно поклало її в поле сокета, звідки її й забирають `getsockopt`. Читання `SO_ERROR` водночас **очищає** поле: помилку віддають один раз. Механіку очікування на кількох дескрипторах розібрано в [select, poll, epoll](root:sys-unix/select-poll-epoll); тут важливо лише те, що готовність і успіх — різні речі.
 

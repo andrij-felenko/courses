@@ -35,51 +35,7 @@
 
 Ідея: дві задачі однакового пріоритету на одному процесорному ядрі по черзі передають одна одній керування через `taskYIELD()`. Лічильник тактів процесора (`esp_cpu_get_cycle_count()`) знімається до і після — різниця й є ціна одного перемикання в тактах. Щоб задачі справді чергувалися, а не виконувалися паралельно, обидві прив'язуємо до **одного** ядра (`xTaskCreatePinnedToCore` з однаковим номером ядра — ESP32 має два ядра, і без прив'язки задачі могли б розійтися по різних).
 
-```cpp
-// --- Фрагмент 1: вартість перемикання контексту ---
-#include <Arduino.h>
-#include "esp_cpu.h"          // esp_cpu_get_cycle_count()
-
-static volatile uint32_t t_before = 0;
-static volatile uint32_t total_cost = 0;
-static const int N = 10000;
-static volatile int count = 0;
-
-// Задача-«пінгер»: фіксує момент до yield
-void taskPing(void*) {
-    for (;;) {
-        t_before = esp_cpu_get_cycle_count();
-        taskYIELD();           // вимушене перемикання на taskPong
-        // повернулися — підраховуємо вартість
-        uint32_t cost = esp_cpu_get_cycle_count() - t_before;
-        total_cost += cost;
-        count++;
-        if (count >= N) {
-            uint32_t avg = total_cost / N;
-            // cost_ns = avg_cycles / 240.0   (ESP32 типово 240 МГц)
-            float ns = (float)avg / 240.0f;
-            Serial.printf("Перемикання: ~%lu тактів = ~%.1f нс\n", avg, ns);
-            total_cost = 0; count = 0;
-        }
-    }
-}
-
-// Задача-«понгер»: просто повертає управління
-void taskPong(void*) {
-    for (;;) {
-        taskYIELD();
-    }
-}
-
-void setup() {
-    Serial.begin(115200);
-    // Обидві задачі — на ядрі 1, однаковий пріоритет
-    xTaskCreatePinnedToCore(taskPing, "ping", 2048, nullptr, 2, nullptr, 1);
-    xTaskCreatePinnedToCore(taskPong, "pong", 2048, nullptr, 2, nullptr, 1);
-}
-
-void loop() { vTaskDelay(portMAX_DELAY); }
-```
+:::code proj-context-switch/cpp/pobachyty-i-zmiriaty.cpp
 
 Типовий результат на ESP32 при 240 МГц: від 200 до 800 тактів на перемикання, тобто приблизно 1–3 мкс. Порівняно з реальною роботою задачі (мілісекунди й більше) це дрібниця — але якщо перемикатися мільйон разів на секунду (частота тіку 1000 Гц × 1000 задач), сумарні витрати стають відчутними. Ось кількісний доказ тези про [роботу планувальника](root:sf-os/scheduler): надто часте перемикання справді марнує ресурс, і баланс між чуйністю та накладними витратами — реальний, а не теоретичний.
 
@@ -89,29 +45,7 @@ void loop() { vTaskDelay(portMAX_DELAY); }
 
 `uxTaskGetStackHighWaterMark(NULL)` повертає мінімальний вільний залишок стека поточної задачі за весь час її роботи — у словах. Виміряємо його до і після примусового перемикання — і побачимо, що перемикання «з'їдає» трохи стека: саме там лежить збережений кадр регістрів.
 
-```cpp
-void taskMeasure(void*) {
-    Serial.printf("Старт. Вільний стек: %lu слів\n",
-                  (uint32_t)uxTaskGetStackHighWaterMark(NULL));
-
-    // Одне перемикання: задача засинає і прокидається
-    vTaskDelay(1);   // планувальник збереже кадр регістрів на нашому стеку
-
-    Serial.printf("Після delay. Вільний стек: %lu слів\n",
-                  (uint32_t)uxTaskGetStackHighWaterMark(NULL));
-    // Різниця — розмір збереженого кадру перемикання
-    // (на ESP32/Xtensa: зазвичай 50–80 слів для простої задачі
-    //  без апаратного співпроцесора)
-
-    vTaskDelete(NULL);
-}
-
-void setup() {
-    Serial.begin(115200);
-    xTaskCreate(taskMeasure, "meas", 4096, nullptr, 2, nullptr);
-}
-void loop() { vTaskDelay(portMAX_DELAY); }
-```
+:::code proj-context-switch/cpp/pobachyty-i-zmiriaty-2.cpp
 
 Різниця між двома відліками — і є той самий кадр контексту: усі регістри та PC, які планувальник поклав на стек, поки задача спала. Ось де «збережений контекст» живе фізично — не десь у планувальнику, а прямо на стеку задачі.
 

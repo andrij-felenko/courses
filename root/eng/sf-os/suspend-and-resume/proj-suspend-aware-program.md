@@ -28,24 +28,7 @@ Linux пропонує три відповіді на питання «котр�
 
 Звідси береться найкорисніший вимірювальний інструмент цієї теми: **різниця `CLOCK_BOOTTIME` і `CLOCK_MONOTONIC` дорівнює всьому часу, який машина проспала від увімкнення**. Величина ніколи не спадає, тож два її заміри дають точну довжину сну між ними — без сигналів, без прав, без опитування ядра.
 
-```c
-#define _GNU_SOURCE
-#include <stdint.h>
-#include <time.h>
-
-static int64_t now_ns(clockid_t clk)
-{
-    struct timespec ts;
-    clock_gettime(clk, &ts);
-    return (int64_t)ts.tv_sec * 1000000000LL + ts.tv_nsec;
-}
-
-/* Скільки машина проспала від увімкнення. Величина монотонно зростає. */
-static int64_t slept_ns(void)
-{
-    return now_ns(CLOCK_BOOTTIME) - now_ns(CLOCK_MONOTONIC);
-}
-```
+:::code proj-suspend-aware-program/c/try-hodynnyky-riznytsia.c
 
 Два читання не є однією неподільною дією, тож різниця має похибку в десятки наносекунд — рівно стільки, скільки триває проміжок між викликами. Ми порівнюємо мілісекунди, тому це нас не турбує. Природа й ціна самих цих годинників — окрема [тема про час у ядрі](root:sys-unix/kernel-timekeeping).
 
@@ -61,30 +44,7 @@ static int64_t slept_ns(void)
 
 Будильникові годинники доступні не всім: ядро вимагає можливості `CAP_WAKE_ALARM` — одного з [дрібних складників колишньої всесильности root](root:sys-unix/capabilities). Її відсутність — не привід падати: без права будити лишається чесний `CLOCK_BOOTTIME`.
 
-```c
-#include <errno.h>
-#include <unistd.h>
-#include <sys/timerfd.h>
-
-/* Періодичний таймер, що рахує сон і, якщо дозволено, будить машину. */
-static int make_alarm(int64_t period_ns)
-{
-    int fd = timerfd_create(CLOCK_BOOTTIME_ALARM, TFD_CLOEXEC | TFD_NONBLOCK);
-    if (fd < 0 && errno == EPERM)          /* немає CAP_WAKE_ALARM */
-        fd = timerfd_create(CLOCK_BOOTTIME, TFD_CLOEXEC | TFD_NONBLOCK);
-    if (fd < 0)
-        return -1;
-
-    struct timespec p = { .tv_sec  = period_ns / 1000000000LL,
-                          .tv_nsec = period_ns % 1000000000LL };
-    struct itimerspec its = { .it_value = p, .it_interval = p };
-    if (timerfd_settime(fd, 0, &its, NULL) < 0) {
-        close(fd);
-        return -1;
-    }
-    return fd;
-}
-```
+:::code proj-suspend-aware-program/c/budylnyk-iakyi-maie-pravo.c
 
 ## Підписка на «стінний час перестрибнув»
 
@@ -94,68 +54,11 @@ static int make_alarm(int64_t period_ns)
 
 Найважливіше тут те, чого не видно з опису прапорця: **пробудження зі сну теж скасовує такий таймер**. Ядро на виході з призупинення повідомляє підсистему таймер-дескрипторів, а та порівнює збережене зміщення «монотонний → стінний» із поточним. Після восьмигодинного сну зміщення виросло на вісім годин — отже, скасування прийде обов'язково. Одна підписка накриває обидва випадки: і правку годинника ззовні, і сон.
 
-```c
-#include <time.h>
-
-static int arm_wallwatch(int fd)
-{
-    /* Абсолютний строк у далекому майбутньому: чекаємо не спрацювання,
-       а скасування. Прапорець CANCEL_ON_SET чинний лише разом з ABSTIME
-       і лише на CLOCK_REALTIME або CLOCK_REALTIME_ALARM. */
-    struct itimerspec its = {
-        .it_value = { .tv_sec = time(NULL) + 100LL * 365 * 24 * 3600 }
-    };
-    return timerfd_settime(fd, TFD_TIMER_ABSTIME | TFD_TIMER_CANCEL_ON_SET,
-                           &its, NULL);
-}
-
-static int make_wallwatch(void)
-{
-    int fd = timerfd_create(CLOCK_REALTIME, TFD_CLOEXEC | TFD_NONBLOCK);
-    if (fd < 0)
-        return -1;
-    if (arm_wallwatch(fd) < 0) {
-        close(fd);
-        return -1;
-    }
-    return fd;
-}
-```
+:::code proj-suspend-aware-program/c/pidpyska-na-stinnyi-chas.c
 
 Обидва дескриптори лягають в один набір [epoll](root:sys-unix/select-poll-epoll) поруч із робочим сокетом, і цикл стає таким:
 
-```c
-for (;;) {
-    struct epoll_event ev[8];
-    int n = epoll_wait(ep, ev, 8, timeout_ms());
-    if (n < 0 && errno == EINTR)
-        continue;
-
-    /* Перше після будь-якого повернення з очікування: чи ми спали? */
-    int64_t now_slept = slept_ns();
-    int64_t gap_ms = (now_slept - last_slept) / 1000000;
-    last_slept = now_slept;
-    if (gap_ms > 1000)
-        probe_link(link);              /* сокет під підозрою */
-
-    for (int i = 0; i < n; i++) {
-        uint64_t ticks;
-        int fd = ev[i].data.fd;
-
-        if (fd == alarm_fd) {
-            if (read(fd, &ticks, sizeof ticks) == (ssize_t)sizeof ticks)
-                poll_sensor(ticks);    /* ticks > 1 — періоди пропущено */
-        } else if (fd == wall_fd) {
-            if (read(fd, &ticks, sizeof ticks) < 0 && errno == ECANCELED) {
-                reschedule_wallclock_jobs();
-                arm_wallwatch(fd);     /* поновлюємо підписку */
-            }
-        } else if (fd == link) {
-            serve_link(fd);
-        }
-    }
-}
-```
+:::code proj-suspend-aware-program/c/pidpyska-na-stinnyi-chas-2.c
 
 Щойно ми вичитали `ECANCELED`, ядро запам'ятовує нове зміщення й підписка живе далі сама — повторне `timerfd_settime` тут лише дешева перестраховка.
 
@@ -171,31 +74,7 @@ for (;;) {
 
 Другий — не вірити й спитати самому. Помітивши сон, надсилаємо прикладний запит і **ставимо власний строк на відповідь**. Успішний `write()` нічого не доводить: байти лягли у буфер відправлення, і тільки відповідь є доказом. Строк ведемо на `CLOCK_BOOTTIME`, щоб повторний сон не подовжив його мовчки.
 
-```c
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <sys/socket.h>
-
-static int64_t answer_due_ns;          /* 0 — запиту в польоті немає */
-
-static void set_link_deadline(int fd, unsigned ms)
-{
-    setsockopt(fd, IPPROTO_TCP, TCP_USER_TIMEOUT, &ms, sizeof ms);
-}
-
-static void probe_link(int fd)
-{
-    static const char ping[] = "PING\n";
-    ssize_t k = write(fd, ping, sizeof ping - 1);
-    if (k < 0 && errno != EAGAIN) {
-        reconnect();                   /* тут смерть уже очевидна */
-        return;
-    }
-    /* Байти щонайбільше лягли у власний буфер відправлення —
-       чекаємо не на них, а на відповідь. */
-    answer_due_ns = now_ns(CLOCK_BOOTTIME) + 5LL * 1000000000LL;
-}
-```
+:::code proj-suspend-aware-program/c/soket-shcho-na-vyhliad.c
 
 Строк перевіряють на кожному оберті циклу поряд із рештою: минув, а відповіді немає — з'єднання перепідключають. Дескриптор сокета сам ніколи про це не скаже; [сокет — це дескриптор](root:sys-unix/socket-as-descriptor), а не зобов'язання, що на тому кінці хтось живий. Разом із з'єднанням після довгого сну протухає й усе інше, що спиралося на зовнішній світ: токени доступу, оренда мережевої адреси, кеш розв'язаних імен.
 
@@ -205,40 +84,7 @@ static void probe_link(int fd)
 
 Ядро дає на це файл `/sys/power/wakeup_count` із лічильником зареєстрованих подій. Правило просте: **прочитай число, ухвали рішення, запиши це саме число назад**. Запис удасться лише тоді, коли лічильник не змінився; після вдалого запису ядро скасує засинання, щойно надійде хоч одна нова подія.
 
-```c
-#include <fcntl.h>
-#include <string.h>
-
-/* 0 — поспали й прокинулися; 1 — подія завадила; -1 — помилка. */
-static int suspend_if_idle(void)
-{
-    char buf[32];
-    int fd, n;
-
-    /* Читання блокується, поки ядро дообробляє події, що вже в польоті. */
-    fd = open("/sys/power/wakeup_count", O_RDONLY | O_CLOEXEC);
-    if (fd < 0) return -1;
-    n = read(fd, buf, sizeof buf - 1);
-    close(fd);
-    if (n <= 0) return -1;
-    buf[n] = '\0';
-
-    /* ... тут ухвалюємо рішення: чи справді нам немає чого робити ... */
-
-    fd = open("/sys/power/wakeup_count", O_WRONLY | O_CLOEXEC);
-    if (fd < 0) return -1;
-    n = write(fd, buf, strlen(buf));
-    close(fd);
-    if (n < 0)
-        return errno == EINVAL ? 1 : -1;
-
-    fd = open("/sys/power/state", O_WRONLY | O_CLOEXEC);
-    if (fd < 0) return -1;
-    n = write(fd, "mem", 3);           /* повернеться вже після пробудження */
-    close(fd);
-    return n < 0 ? -1 : 0;
-}
-```
+:::code proj-suspend-aware-program/c/prysypliannia-bez-honky.c
 
 Зверніть увагу на код помилки: невдалий запис лічильника дає **`EINVAL`**, а не `EBUSY`, як часто пишуть. `EBUSY` тут означає зовсім інше — що ввімкнено автосон через `/sys/power/autosleep`. І ще одне: запис у `/sys/power/state` доступний лише з правами root і йде повз усі верхні шари, тож на робочій станції присиплянням має керувати [служба сеансів](root:sys-unix/logind-sessions-seats). Ця послідовність цінна тим, що показує, **що саме** робить під капотом вона сама.
 

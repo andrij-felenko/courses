@@ -26,31 +26,7 @@ int getsockopt(int fd, int level, int optname,
 
 Звідси мінімальний робочий шаблон: поставити й **прочитати назад**.
 
-```c
-#include <sys/socket.h>
-#include <netinet/tcp.h>
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-
-/* поставити цілочислену опцію й показати, що ядро справді взяло */
-static int set_int_opt(int fd, int level, int name, int want, const char *label)
-{
-    if (setsockopt(fd, level, name, &want, sizeof want) < 0) {
-        fprintf(stderr, "%s: setsockopt: %s\n", label, strerror(errno));
-        return -1;
-    }
-    int got = 0;
-    socklen_t len = sizeof got;
-    if (getsockopt(fd, level, name, &got, &len) == 0 && got != want)
-        fprintf(stderr, "%s: просив %d, ядро дало %d\n", label, want, got);
-    return 0;
-}
-
-/* виклик */
-set_int_opt(fd, IPPROTO_TCP, TCP_NODELAY, 1,      "TCP_NODELAY");
-set_int_opt(fd, SOL_SOCKET,  SO_RCVBUF,   262144, "SO_RCVBUF");
-```
+:::code api-setsockopt/c/pidpys-i-kontrakt-vyklyku.c
 
 Другий рядок надрукує розбіжність завжди: Linux подвоює прохане під службовий облік. Це не збій, а документована поведінка — саме подвоєне число потім і повертає `getsockopt`.
 
@@ -186,21 +162,7 @@ setsockopt(fd, IPPROTO_IP, IP_MULTICAST_TTL, &mttl, sizeof mttl);
 
 `ENOPROTOOPT` варто обробляти окремо від решти: він означає «цей стек так не вміє», а не «в коді помилка». Програма, яку переносять між Linux, macOS і мікроконтролером, від нього не повинна падати.
 
-```c
-/* «спробувати поставити»: відсутність опції — не привід зупинятися */
-static int try_setopt(int fd, int level, int name,
-                      const void *val, socklen_t len, const char *label)
-{
-    if (setsockopt(fd, level, name, val, len) == 0)
-        return 0;
-    if (errno == ENOPROTOOPT) {
-        fprintf(stderr, "%s: стек не підтримує — пропущено\n", label);
-        return 0;
-    }
-    fprintf(stderr, "%s: setsockopt: %s\n", label, strerror(errno));
-    return -1;
-}
-```
+:::code api-setsockopt/c/kody-pomylok.c
 
 На Windows контракт інший: обидві функції повертають `SOCKET_ERROR`, `errno` не чіпають, а код беруть із `WSAGetLastError()` — `WSAENOPROTOOPT`, `WSAEINVAL`, `WSAENOTSOCK`, `WSAEFAULT`. Крім того, `optval` там оголошено як `const char *`, тож приведення типу обов'язкове, а дескриптор має тип `SOCKET`, а не `int`.
 

@@ -31,88 +31,7 @@
 
 Заведемо спільний заголовок для обох програм.
 
-```c
-/* pagemap.h — читання /proc/self/pagemap. Включати ПЕРШИМ:
-   макроси нижче мусять з'явитися раніше за будь-який системний заголовок. */
-#ifndef PAGEMAP_H
-#define PAGEMAP_H
-
-#define _GNU_SOURCE               /* fork, MAP_ANONYMOUS, pread */
-#define _FILE_OFFSET_BITS 64      /* 64-бітний off_t і на 32-бітній машині */
-
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#define PM_PRESENT    (1ULL << 63)
-#define PM_SWAP       (1ULL << 62)
-#define PM_FILE       (1ULL << 61)
-#define PM_UFFD_WP    (1ULL << 57)
-#define PM_EXCLUSIVE  (1ULL << 56)
-#define PM_SOFT_DIRTY (1ULL << 55)
-#define PM_PFN_MASK   ((1ULL << 55) - 1)
-
-static inline long pm_page_size(void)
-{
-    static long ps;
-    if (ps == 0) {
-        ps = sysconf(_SC_PAGESIZE);      /* НЕ 4096: гранула буває й 16, і 64 КіБ */
-        if (ps <= 0) { perror("sysconf(_SC_PAGESIZE)"); exit(1); }
-    }
-    return ps;
-}
-
-static inline int pm_open(void)
-{
-    int fd = open("/proc/self/pagemap", O_RDONLY);
-    if (fd < 0) { perror("open /proc/self/pagemap"); exit(1); }
-    return fd;
-}
-
-/* 0 — слово прочитано; -1 — адреса вища за межу простору (коротке читання) */
-static inline int pm_read(int fd, const void *addr, uint64_t *word)
-{
-    uint64_t ps  = (uint64_t)pm_page_size();
-    uint64_t vpn = (uint64_t)(uintptr_t)addr / ps;
-    ssize_t  n   = pread(fd, word, sizeof *word, (off_t)(vpn * 8));
-
-    if (n == (ssize_t)sizeof *word) return 0;
-    if (n < 0) { perror("pread pagemap"); exit(1); }
-    return -1;
-}
-
-static inline void pm_print(const char *what, const void *addr, uint64_t w)
-{
-    uint64_t ps = (uint64_t)pm_page_size();
-    unsigned long long va = (unsigned long long)(uintptr_t)addr;
-
-    printf("%s — va=0x%012llx  ", what, va);
-
-    if (w & PM_PRESENT) {
-        uint64_t pfn = w & PM_PFN_MASK;
-        if (pfn != 0)
-            printf("кадр=0x%llx  фіз=0x%012llx",
-                   (unsigned long long)pfn,
-                   (unsigned long long)(pfn * ps + va % ps));
-        else
-            printf("кадр прихований (немає CAP_SYS_ADMIN)");
-
-        printf("  %s%s", (w & PM_EXCLUSIVE) ? "власна" : "СПІЛЬНА",
-                         (w & PM_FILE)      ? ", файлова" : "");
-    } else if (w & PM_SWAP) {
-        printf("у підкачці: область %llu, слот 0x%llx",
-               (unsigned long long)(w & 0x1f),
-               (unsigned long long)((w >> 5) & ((1ULL << 50) - 1)));
-    } else {
-        printf("кадру немає — сторінки ще не торкалися");
-    }
-    putchar('\n');
-}
-
-#endif
-```
+:::code proj-virt-to-phys/c/pagemap.h
 
 Формула фізичної адреси в `pm_print` варта окремого погляду:
 
@@ -126,47 +45,7 @@ static inline void pm_print(const char *what, const void *addr, uint64_t w)
 
 Візьмемо чотири адреси різного походження — глобальну змінну, змінну на стеку, код самої програми й свіжу сторінку від `mmap` — і подивимося, що ядро скаже про кожну.
 
-```c
-/* vtop.c — надрукувати фізичні адреси кількох змінних */
-#include "pagemap.h"
-#include <sys/mman.h>
-
-static int global_var = 0xC0FFEE;
-
-int main(void)
-{
-    long     ps  = pm_page_size();
-    int      fd  = pm_open();
-    int      local = 1;
-    uint64_t w;
-
-    printf("розмір сторінки: %ld байтів\n\n", ps);
-
-    if (pm_read(fd, &global_var, &w) == 0)
-        pm_print("глобальна (.data)", &global_var, w);
-    if (pm_read(fd, &local, &w) == 0)
-        pm_print("локальна (стек)", &local, w);
-    if (pm_read(fd, (void *)(uintptr_t)&main, &w) == 0)
-        pm_print("код (.text)", (void *)(uintptr_t)&main, w);
-
-    /* свіжа приватна анонімна ділянка: жодної сторінки в ній ще не чіпали */
-    char *area = mmap(NULL, 16 * ps, PROT_READ | PROT_WRITE,
-                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (area == MAP_FAILED) { perror("mmap"); exit(1); }
-
-    char *page = area + 8 * ps;
-    if (pm_read(fd, page, &w) == 0)
-        pm_print("свіжий mmap до дотику", page, w);
-
-    *page = 1;                       /* саме тут стається збій сторінки */
-
-    if (pm_read(fd, page, &w) == 0)
-        pm_print("свіжий mmap після дотику", page, w);
-
-    close(fd);
-    return 0;
-}
-```
+:::code proj-virt-to-phys/c/vtop.c
 
 Збираємо й запускаємо — обов'язково з правами, інакше поле кадру буде занулене:
 
@@ -198,83 +77,7 @@ $ sudo ./vtop
 
 Одна пастка тут чигає ще до першого рядка коду. Коли програма відкриває `/proc/self/pagemap`, ядро запам'ятовує в описувачі відкритого файлу вказівник на **адресний простір того, хто відкривав**. Дескриптор, успадкований дитиною через `fork`, і далі показує простір батька — дитина читатиме чужі сторінки й нічого не зрозуміє. Тому файл треба відкривати після розгалуження, у кожному процесі свій; тут це робить сама `report`.
 
-```c
-/* share.c — два процеси на одному кадрі й розхід кадрів на першому записі */
-#include "pagemap.h"
-#include <string.h>
-#include <sys/mman.h>
-#include <sys/wait.h>
-
-/* Відкриваємо pagemap на кожен звіт: описувач прив'язаний до простору того,
-   хто його відкрив, тож успадкований від батька дивився б у батьків простір. */
-static void report(const char *who, const void *addr)
-{
-    int fd = pm_open();
-    uint64_t w;
-    if (pm_read(fd, addr, &w) == 0)
-        pm_print(who, addr, w);
-    close(fd);
-}
-
-/* Перед тим як пустити іншого, виливаємо свої рядки: інакше вивід перемішається,
-   а після fork ще й загубиться — _exit не зливає буфери stdio. */
-static void notify(int fd)
-{
-    fflush(stdout);
-    if (write(fd, "x", 1) != 1) { perror("write"); exit(1); }
-}
-
-static void expect(int fd)
-{
-    char c;
-    if (read(fd, &c, 1) != 1) { perror("read"); exit(1); }
-}
-
-int main(void)
-{
-    long ps = pm_page_size();
-    int  c2p[2], p2c[2];
-
-    char *p = mmap(NULL, ps, PROT_READ | PROT_WRITE,
-                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (p == MAP_FAILED) { perror("mmap"); exit(1); }
-    strcpy(p, "спільний вміст");          /* дотик: кадр з'явився */
-
-    if (pipe(c2p) < 0 || pipe(p2c) < 0) { perror("pipe"); exit(1); }
-
-    report("батько до fork", p);
-    fflush(stdout);      /* інакше дитина успадкує невилитий буфер і повторить рядок */
-
-    pid_t pid = fork();
-    if (pid < 0) { perror("fork"); exit(1); }
-
-    if (pid == 0) {
-        report("дитина одразу після fork", p);
-        notify(c2p[1]);
-        expect(p2c[0]);
-
-        strcpy(p, "змінено дитиною");     /* ← ось тут кадр і копіюється */
-
-        report("дитина після запису", p);
-        printf("дитина бачить: «%s»\n", p);
-        notify(c2p[1]);
-        expect(p2c[0]);
-        _exit(0);
-    }
-
-    expect(c2p[0]);
-    report("батько одразу після fork", p);
-    notify(p2c[1]);
-
-    expect(c2p[0]);
-    report("батько після запису дитини", p);
-    printf("батько бачить: «%s»\n", p);
-    notify(p2c[1]);
-
-    wait(NULL);
-    return 0;
-}
-```
+:::code proj-virt-to-phys/c/share.c
 
 ```sh
 $ cc -std=c11 -Wall -O2 share.c -o share

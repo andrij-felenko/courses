@@ -175,24 +175,7 @@ nsec = (extra >> 2) & 0x3FFFFFFF        [виділення 30 бітів нан
 
 У вихідному коді ядра Linux (`fs/inode.c`) функція `relatime_need_update()` реалізує цю логіку наступним чином:
 
-```c
-/* Ядро Linux: fs/inode.c — перевірка необхідності оновлення atime у режимі relatime */
-static int relatime_need_update(struct vfsmount *mnt, struct inode *inode,
-                                struct timespec64 now)
-{
-    /* Якщо atime старіший за mtime — оновити */
-    if (timespec64_compare(&inode->i_atime, &inode->i_mtime) <= 0)
-        return 1;
-    /* Якщо atime старіший за ctime — оновити */
-    if (timespec64_compare(&inode->i_atime, &inode->i_ctime) <= 0)
-        return 1;
-    /* Якщо минуло більше 24 годин — оновити */
-    if ((now.tv_sec - inode->i_atime.tv_sec) >= 24 * 60 * 60)
-        return 1;
-
-    return 0;
-}
-```
+:::code file-timestamps-d/c/inode.c
 
 #### 4. lazytime (відкладене скидання в пам'яті)
 Режим `lazytime` (доступний з ядра Linux 4.0) переносить оптимізацію на рівень кешу інодів. Коли файл читається або модифікується, ядро оновлює значення `atime`, `mtime` та `ctime` безпосередньо в структурі `struct inode` в оперативній пам'яті RAM, але **не позначає сам інод як брудний для дискового журналу**.
@@ -311,119 +294,8 @@ int utimensat(int dirfd, const char *pathname,
 Нижче наведено робочий приклад зчитування наносекундних позначок через `statx()` з перевіркою підтримки `btime` та безпечного оновлення часу модифікації `mtime` зі збереженням незмінності `atime`.
 
 :::tabs
-```c
-/* timestamp_demo.c — Читання через statx та модифікація через utimensat на C */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <errno.h>
-
-int inspect_and_touch(const char *filepath) {
-    struct statx stx;
-    memset(&stx, 0, sizeof(stx));
-
-    /* Опитуємо метадані без розіменування посилань */
-    if (statx(AT_FDCWD, filepath, AT_SYMLINK_NOFOLLOW, STATX_BASIC_STATS | STATX_BTIME, &stx) != 0) {
-        perror("Помилка statx");
-        return -1;
-    }
-
-    printf("Файл: %s\n", filepath);
-    printf("  atime: %lld.%09u с\n", (long long)stx.stx_atime.tv_sec, stx.stx_atime.tv_nsec);
-    printf("  mtime: %lld.%09u с\n", (long long)stx.stx_mtime.tv_sec, stx.stx_mtime.tv_nsec);
-    printf("  ctime: %lld.%09u с\n", (long long)stx.stx_ctime.tv_sec, stx.stx_ctime.tv_nsec);
-
-    if (stx.stx_mask & STATX_BTIME) {
-        printf("  btime: %lld.%09u с (час народження підтримується)\n",
-               (long long)stx.stx_btime.tv_sec, stx.stx_btime.tv_nsec);
-    } else {
-        printf("  btime: [не підтримується цією файловою системою]\n");
-    }
-
-    /* Оновлюємо лише mtime, atime залишаємо незмінним */
-    struct timespec new_times[2];
-    new_times[0].tv_sec = 0;
-    new_times[0].tv_nsec = UTIME_OMIT; /* atime: без змін */
-    new_times[1].tv_sec = 0;
-    new_times[1].tv_nsec = UTIME_NOW;  /* mtime: поточний час ядра */
-
-    if (utimensat(AT_FDCWD, filepath, new_times, 0) != 0) {
-        perror("Помилка utimensat");
-        return -1;
-    }
-
-    printf("Час mtime успішно оновлено.\n");
-    return 0;
-}
-```
-```cpp
-// timestamp_demo.cpp — Безпечна обгортка з RAII на C++20
-#include <iostream>
-#include <string_view>
-#include <chrono>
-#include <optional>
-#include <system_error>
-#include <cstring>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-
-class FileTimeHelper {
-public:
-    struct TimestampSnapshot {
-        std::chrono::system_clock::time_point access_time;
-        std::chrono::system_clock::time_point modify_time;
-        std::chrono::system_clock::time_point change_time;
-        std::optional<std::chrono::system_clock::time_point> birth_time;
-    };
-
-    [[nodiscard]] static std::error_code read_timestamps(std::string_view path,
-                                                         TimestampSnapshot& snapshot) noexcept {
-        struct statx stx{};
-        if (statx(AT_FDCWD, path.data(), AT_SYMLINK_NOFOLLOW,
-                  STATX_BASIC_STATS | STATX_BTIME, &stx) != 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-
-        snapshot.access_time = to_time_point(stx.stx_atime);
-        snapshot.modify_time = to_time_point(stx.stx_mtime);
-        snapshot.change_time = to_time_point(stx.stx_ctime);
-
-        if (stx.stx_mask & STATX_BTIME) {
-            snapshot.birth_time = to_time_point(stx.stx_btime);
-        } else {
-            snapshot.birth_time = std::nullopt;
-        }
-
-        return {};
-    }
-
-    [[nodiscard]] static std::error_code touch_mtime_only(std::string_view path) noexcept {
-        struct timespec ts[2];
-        ts[0].tv_sec = 0;
-        ts[0].tv_nsec = UTIME_OMIT; // Залишити atime без змін
-        ts[1].tv_sec = 0;
-        ts[1].tv_nsec = UTIME_NOW;  // Встановити поточний час
-
-        if (utimensat(AT_FDCWD, path.data(), ts, 0) != 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-        return {};
-    }
-
-private:
-    [[nodiscard]] static std::chrono::system_clock::time_point
-    to_time_point(const struct statx_timestamp& ts) noexcept {
-        using namespace std::chrono;
-        const auto dur = seconds(ts.tv_sec) + nanoseconds(ts.tv_nsec);
-        return system_clock::time_point(duration_cast<system_clock::duration>(dur));
-    }
-};
-```
+:::code file-timestamps-d/c/timestamp_demo.c
+:::code file-timestamps-d/cpp/timestamp_demo.cpp
 :::
 
 ---
