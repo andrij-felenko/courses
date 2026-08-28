@@ -22,46 +22,7 @@
 
 Обидва списки — у форматі, який у роботі з розрідженими даними називають CSR: одна суцільна стрічка значень плюс масив зміщень, де починається кожен рядок. Ніяких вказівників на купу, ніяких окремих списків на кожен вузол — два масиви, які лежать у пам'яті поспіль і читаються послідовно.
 
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <stdint.h>
-
-/* Сітка слотів. Слот s ↔ клітина (x, y): x = s % W, y = s / W. */
-typedef struct {
-    int W, H;        /* розміри тканини в слотах */
-    int nslots;      /* W · H                    */
-} Grid;
-
-/* Список з'єднань у двох дзеркальних таблицях.
-   Уперед: виводи сполуки n — net_pins[net_off[n] .. net_off[n+1])
-   Назад:  сполуки блока b — blk_nets[blk_off[b] .. blk_off[b+1])
-   Друга таблиця й є тим, заради чого все затіяно: вона миттю каже,
-   ЯКІ сполуки зачепить ворушіння цього блока. */
-typedef struct {
-    int nblocks, nnets;
-    int *net_off;    /* [nnets + 1]        */
-    int *net_pins;   /* [net_off[nnets]]   — номери блоків */
-    int *blk_off;    /* [nblocks + 1]      */
-    int *blk_nets;   /* [blk_off[nblocks]] — номери сполук  */
-} Netlist;
-
-/* Розміщення — теж у два боки, і обидва потрібні щохода. */
-typedef struct {
-    int *blk_at;     /* [nslots]  який блок сидить у слоті, −1 = порожньо */
-    int *slot_of;    /* [nblocks] у якому слоті сидить блок              */
-} Placement;
-
-/* Робочі буфери для дельти. */
-typedef struct {
-    int *mark;       /* [nnets] мітка «сполуку вже взято» = номер ходу */
-    int *touched;    /* [nnets] список зачеплених сполук цього ходу    */
-    int ntouched;
-    int stamp;       /* лічильник ходів — він і є міткою */
-} Delta;
-```
+:::code proj-annealing-placer/c/shcho-trymaty-v-pamiati.c
 
 Два поля `Placement` описують одну й ту саму річ із різних боків, і тримати їх узгодженими — обов'язок коду. Спокуса викинути одне з них велика, але марна: без `slot_of` доведеться шукати блок по всій сітці, без `blk_at` — не дізнатися, кого ми зачепили, вибравши слот. Пам'яті це коштує копійки, а кожен хід рятує від лінійного пошуку.
 
@@ -69,33 +30,7 @@ typedef struct {
 
 HPWL сполуки — півпериметр найменшої рамки, що охоплює всі її виводи. Один прохід по виводах, чотири порівняння на вивід.
 
-```c
-/* HPWL однієї сполуки: обвести всі її виводи рамкою, взяти півпериметр. */
-static int net_hpwl(const Netlist *nl, const Placement *pl, const Grid *g, int net)
-{
-    int lo = nl->net_off[net], hi = nl->net_off[net + 1];
-    int s = pl->slot_of[nl->net_pins[lo]];
-    int xmin = s % g->W, xmax = xmin;
-    int ymin = s / g->W, ymax = ymin;
-
-    for (int p = lo + 1; p < hi; p++) {
-        s = pl->slot_of[nl->net_pins[p]];
-        int x = s % g->W, y = s / g->W;
-        if (x < xmin) xmin = x; else if (x > xmax) xmax = x;
-        if (y < ymin) ymin = y; else if (y > ymax) ymax = y;
-    }
-    return (xmax - xmin) + (ymax - ymin);
-}
-
-/* Ціна всієї розкладки. Потрібна рівно двічі: на старті й на перевірці. */
-static long total_hpwl(const Netlist *nl, const Placement *pl, const Grid *g)
-{
-    long sum = 0;
-    for (int n = 0; n < nl->nnets; n++)
-        sum += net_hpwl(nl, pl, g, n);
-    return sum;
-}
-```
+:::code proj-annealing-placer/c/tsina-hpwl.c
 
 Зверніть увагу на коментар до `total_hpwl`: **двічі за весь прогін**. Ця функція — не робоча конячка, а міряльний прилад: один раз узяти початкову ціну, один раз наприкінці перевірити себе. Щойно вона з'явиться всередині циклу ходів — програма перетворюється на ту саму іграшку.
 
@@ -121,35 +56,7 @@ static void apply_swap(Placement *pl, int s1, int s2)
 
 Тепер нам потрібне джерело випадковості — і тут теж не все одно, яке.
 
-```c
-/* xorshift64* Марсальї.
-   rand() тут не годиться: його кличуть сотні мільйонів разів, а він
-   у багатьох бібліотеках короткоперіодний і лізе в блокування. */
-static uint64_t rng = 0x853c49e6748fea9bULL;
-
-static inline uint32_t rnd_u32(void)
-{
-    uint64_t x = rng;
-    x ^= x >> 12;
-    x ^= x << 25;
-    x ^= x >> 27;
-    rng = x;
-    return (uint32_t)((x * 0x2545F4914F6CDD1DULL) >> 32);
-}
-
-/* Рівномірно 0 .. n−1, без ділення (множення зі зсувом, спосіб Леміра).
-   Дає крихітний перекіс на краю діапазону — для відпалу байдужий. */
-static inline int rnd_below(int n)
-{
-    return (int)(((uint64_t)rnd_u32() * (uint64_t)n) >> 32);
-}
-
-/* Рівномірно [0, 1). */
-static inline double rnd_unit(void)
-{
-    return rnd_u32() * (1.0 / 4294967296.0);
-}
-```
+:::code proj-annealing-placer/c/khid-obminiaty-dva-sloty.c
 
 ## Серце: дельта замість повного перерахунку
 
@@ -164,47 +71,7 @@ static inline double rnd_unit(void)
 
 Дешевий спосіб — мітка з номером ходу. Замість чистити масив після кожного ходу (це знову лінійний прохід, тобто знову те, від чого тікаємо) ми просто збільшуємо лічильник: якщо в комірці стоїть номер поточного ходу, сполуку вже брали.
 
-```c
-/* Додати до списку зачеплених усі сполуки блока — БЕЗ ПОВТОРІВ.
-   Мітка-номер-ходу дає перевірку «вже брали?» за O(1) і не потребує
-   чистити масив після кожного ходу. */
-static void collect_nets(const Netlist *nl, Delta *d, int blk)
-{
-    if (blk < 0) return;                    /* порожній слот — сполук нема */
-    for (int i = nl->blk_off[blk]; i < nl->blk_off[blk + 1]; i++) {
-        int net = nl->blk_nets[i];
-        if (d->mark[net] != d->stamp) {
-            d->mark[net] = d->stamp;
-            d->touched[d->ntouched++] = net;
-        }
-    }
-}
-
-/* Δ ціни від обміну слотів s1 ↔ s2.
-   УВАГА: після виклику обмін ЗАСТОСОВАНИЙ. Хто не прийняв — хай відкотить. */
-static int swap_delta(const Netlist *nl, Placement *pl, const Grid *g,
-                      Delta *d, int s1, int s2)
-{
-    d->stamp++;
-    d->ntouched = 0;
-    collect_nets(nl, d, pl->blk_at[s1]);
-    collect_nets(nl, d, pl->blk_at[s2]);
-
-    int before = 0;
-    for (int i = 0; i < d->ntouched; i++)
-        before += net_hpwl(nl, pl, g, d->touched[i]);
-
-    apply_swap(pl, s1, s2);
-
-    /* Множина зачеплених сполук ТА САМА: обмін міняє КООРДИНАТИ блоків,
-       а не те, до яких сполук вони належать. Тому збираємо раз, а міряємо двічі. */
-    int after = 0;
-    for (int i = 0; i < d->ntouched; i++)
-        after += net_hpwl(nl, pl, g, d->touched[i]);
-
-    return after - before;
-}
-```
+:::code proj-annealing-placer/c/sertse-delta-zamist.c
 
 Останній коментар — не дрібниця, а те, чому фокус узагалі можливий. Хід переставляє блоки в **просторі**, але не чіпає **структуру** зв'язків: хто до якої сполуки належить, лишається як було. Тож список зачеплених, зібраний до обміну, чинний і після — і його не треба збирати вдруге.
 
@@ -239,68 +106,7 @@ exp(−1/T) = 0.001
 
 **Множник охолодження.** А от його вивести не вийде — це і є головна ручка, і головна пастка. Про неї — нижче.
 
-```c
-#define INNER_NUM 10.0    /* ходів на температуру = INNER_NUM · n^(4/3) */
-#define ALPHA     0.95    /* T ← ALPHA · T                              */
-#define T_EXIT    0.145   /* нижче навіть Δ = +1 не проходить            */
-
-/* Початкова температура — не з голови, а поміряна.
-   Випадкове блукання (приймаємо ВСЕ — це і є «розплав»), дивимося
-   на розкид дельт: при T₀ = 20·σ типовий гірший хід проходить у 95%. */
-static double init_temperature(const Netlist *nl, Placement *pl, const Grid *g,
-                               Delta *d, long *cost)
-{
-    int want = nl->nblocks * 10;
-    if (want < 1000) want = 1000;
-
-    double sum = 0.0, sum2 = 0.0;
-    int cnt = 0;
-    while (cnt < want) {
-        int s1 = rnd_below(g->nslots), s2 = rnd_below(g->nslots);
-        if (s1 == s2) continue;
-        if (pl->blk_at[s1] < 0 && pl->blk_at[s2] < 0) continue;
-
-        int delta = swap_delta(nl, pl, g, d, s1, s2);
-        *cost += delta;                      /* приймаємо все, не відкочуємо */
-        sum  += delta;
-        sum2 += (double)delta * (double)delta;
-        cnt++;
-    }
-    double mean = sum / cnt;
-    double var  = sum2 / cnt - mean * mean;
-    return 20.0 * sqrt(var > 0.0 ? var : 0.0);
-}
-
-static void anneal(const Netlist *nl, Placement *pl, const Grid *g,
-                   Delta *d, long *cost)
-{
-    double T = init_temperature(nl, pl, g, d, cost);
-    long per_T = (long)(INNER_NUM * pow((double)nl->nblocks, 4.0 / 3.0));
-
-    printf("T₀ = %.2f, ходів на температуру = %ld\n\n", T, per_T);
-
-    while (T > T_EXIT) {
-        long taken = 0;
-        for (long m = 0; m < per_T; m++) {
-            int s1 = rnd_below(g->nslots), s2 = rnd_below(g->nslots);
-            if (s1 == s2) continue;
-            if (pl->blk_at[s1] < 0 && pl->blk_at[s2] < 0) continue;
-
-            int delta = swap_delta(nl, pl, g, d, s1, s2);
-
-            if (delta <= 0 || rnd_unit() < exp(-(double)delta / T)) {
-                *cost += delta;              /* лишаємо як є */
-                taken++;
-            } else {
-                apply_swap(pl, s1, s2);      /* відкат */
-            }
-        }
-        printf("T = %8.3f   HPWL = %6ld   прийнято %5.1f%%\n",
-               T, *cost, 100.0 * (double)taken / (double)per_T);
-        T *= ALPHA;
-    }
-}
-```
+:::code proj-annealing-placer/c/rozklad-zvidky-i-doky.c
 
 Показник 4/3 у кількості ходів на температуру — не мій винахід: рівно так масштабує зусилля VTR (ручка `--inner_num`, типове значення там 0.5 — я беру щедрі 10, бо схема в демо крихітна й хочеться дотиснути до відомого оптимуму). Сенс: більша схема потребує не пропорційно, а помітно більше ходів на кожній температурі, щоб устигнути прийти до рівноваги.
 
@@ -310,113 +116,7 @@ static void anneal(const Netlist *nl, Placement *pl, const Grid *g,
 
 Візьмімо блоки, з'єднані в сітку 16×16: кожен зі своїм сусідом праворуч і сусідом знизу. Слотів рівно стільки ж. Тоді розкладка «блок i у слот i» дає кожній сполуці довжину 1. Краще неможливо: у кожної сполуки два **різні** блоки в **різних** слотах, тож її HPWL не менший за 1, а отже сума не менша за кількість сполук. Оптимум доведено — і він дорівнює 480.
 
-```c
-/* Зі сполук-виводів побудувати зворотну таблицю «блок → його сполуки».
-   Класична розкладка лічбою: порахувати, скласти зміщення, розкласти. */
-static void build_incidence(Netlist *nl)
-{
-    int npins = nl->net_off[nl->nnets];
-
-    nl->blk_off = calloc((size_t)nl->nblocks + 1, sizeof(int));
-    for (int p = 0; p < npins; p++)
-        nl->blk_off[nl->net_pins[p] + 1]++;
-    for (int b = 0; b < nl->nblocks; b++)
-        nl->blk_off[b + 1] += nl->blk_off[b];
-
-    nl->blk_nets = malloc((size_t)npins * sizeof(int));
-    int *fill = malloc((size_t)nl->nblocks * sizeof(int));
-    memcpy(fill, nl->blk_off, (size_t)nl->nblocks * sizeof(int));
-    for (int n = 0; n < nl->nnets; n++)
-        for (int p = nl->net_off[n]; p < nl->net_off[n + 1]; p++)
-            nl->blk_nets[fill[nl->net_pins[p]]++] = n;
-    free(fill);
-}
-
-/* Демо-схема: блоки — вузли сітки W×H, сполуки — між сусідами.
-   Найкраща розкладка відома НАПЕРЕД: блок i у слот i, кожна сполука
-   завдовжки 1, HPWL = кількості сполук. Є з чим порівняти результат. */
-static void make_mesh(Netlist *nl, int W, int H)
-{
-    nl->nblocks = W * H;
-    nl->nnets   = (W - 1) * H + W * (H - 1);
-    nl->net_off  = malloc((size_t)(nl->nnets + 1) * sizeof(int));
-    nl->net_pins = malloc((size_t)(2 * nl->nnets) * sizeof(int));
-
-    int n = 0, p = 0;
-    for (int y = 0; y < H; y++)
-        for (int x = 0; x < W; x++) {
-            if (x + 1 < W) {                       /* сусід праворуч */
-                nl->net_off[n++] = p;
-                nl->net_pins[p++] = y * W + x;
-                nl->net_pins[p++] = y * W + x + 1;
-            }
-            if (y + 1 < H) {                       /* сусід знизу */
-                nl->net_off[n++] = p;
-                nl->net_pins[p++] = y * W + x;
-                nl->net_pins[p++] = (y + 1) * W + x;
-            }
-        }
-    nl->net_off[n] = p;
-    build_incidence(nl);
-}
-
-/* Випадковий старт: тасування Фішера–Єйтса по слотах. */
-static void random_placement(Placement *pl, const Netlist *nl, const Grid *g)
-{
-    pl->blk_at  = malloc((size_t)g->nslots * sizeof(int));
-    pl->slot_of = malloc((size_t)nl->nblocks * sizeof(int));
-    int *perm   = malloc((size_t)g->nslots * sizeof(int));
-
-    for (int s = 0; s < g->nslots; s++) perm[s] = s;
-    for (int s = g->nslots - 1; s > 0; s--) {
-        int j = rnd_below(s + 1);
-        int t = perm[s]; perm[s] = perm[j]; perm[j] = t;
-    }
-    for (int s = 0; s < g->nslots; s++) pl->blk_at[s] = -1;
-    for (int b = 0; b < nl->nblocks; b++) {
-        pl->slot_of[b] = perm[b];
-        pl->blk_at[perm[b]] = b;
-    }
-    free(perm);
-}
-
-int main(void)
-{
-    enum { SIDE = 16 };
-    Grid g = { SIDE, SIDE, SIDE * SIDE };
-    Netlist nl;
-    Placement pl;
-    Delta d;
-
-    make_mesh(&nl, SIDE, SIDE);
-    if (nl.nblocks > g.nslots) {
-        fprintf(stderr, "блоків більше, ніж слотів\n");
-        return 1;
-    }
-    random_placement(&pl, &nl, &g);
-
-    d.mark    = malloc((size_t)nl.nnets * sizeof(int));
-    d.touched = malloc((size_t)nl.nnets * sizeof(int));
-    for (int i = 0; i < nl.nnets; i++) d.mark[i] = -1;
-    d.stamp = 0;
-    d.ntouched = 0;
-
-    long cost = total_hpwl(&nl, &pl, &g);
-    printf("блоків %d, сполук %d, слотів %d\n", nl.nblocks, nl.nnets, g.nslots);
-    printf("випадковий старт:   HPWL = %ld\n", cost);
-    printf("відомий оптимум:    HPWL = %d\n\n", nl.nnets);
-
-    anneal(&nl, &pl, &g, &d, &cost);
-
-    printf("\nпісля відпалу:      HPWL = %ld\n", cost);
-    printf("чесний перерахунок: HPWL = %ld  (мусить збігтися)\n",
-           total_hpwl(&nl, &pl, &g));
-
-    free(nl.net_off); free(nl.net_pins); free(nl.blk_off); free(nl.blk_nets);
-    free(pl.blk_at); free(pl.slot_of); free(d.mark); free(d.touched);
-    return 0;
-}
-```
+:::code proj-annealing-placer/c/demo-skhema-u-iakoi.c
 
 Збирається як `cc -O2 -o placer placer.c -lm`; шматки коду вище йдуть у файл згори вниз у порядку появи.
 

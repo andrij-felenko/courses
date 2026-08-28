@@ -22,64 +22,9 @@
 Найпростіший. Раз у раз з рівним кроком (скажімо, кожну 1 мс) читаємо ніжку. Рівень той самий, що минулого разу, — **збільшуємо лічильник**; змінився — **скидаємо в нуль**. Коли лічильник набрав поріг N (напр. 5), вважаємо рівень стабільним і, якщо він відрізняється від уже прийнятого, приймаємо нову подію. Один-два випадкові відскоки серед відліків щоразу скидають лічильник, тож пробитися крізь фільтр може лише рівень, що справді встояв N кроків поспіль.
 
 :::tabs
-```cpp
-// Викликати рівно раз на тік (напр. кожну 1 мс із таймера).
-#define BTN_PIN 4
-#define N       5            // скільки однакових відліків = «стабільно»
-
-static uint8_t cnt = 0;      // лічильник однакових відліків
-static int prev = HIGH;      // що читали минулого тіку
-static int stable = HIGH;    // останній прийнятий стабільний рівень
-
-void debounce_tick(void) {
-    int s = digitalRead(BTN_PIN);
-    cnt = (s == prev) ? (cnt + 1) : 0;   // той самий — рахуємо, інакше — скид
-    prev = s;
-    if (cnt >= N && s != stable) {       // рівень устояв і він НОВИЙ
-        stable = s;
-        if (s == LOW) on_press();        // фронт «відпущено → натиснуто»
-    }
-}
-```
-```micropython
-# Викликати рівно раз на тік (напр. кожну 1 мс із таймера).
-from machine import Pin
-
-N = 5                        # скільки однакових відліків = «стабільно»
-btn = Pin(4, Pin.IN, Pin.PULL_UP)
-
-cnt = 0                      # лічильник однакових відліків
-prev = 1                    # що читали минулого тіку
-stable = 1                   # останній прийнятий стабільний рівень
-
-def debounce_tick():
-    global cnt, prev, stable
-    s = btn.value()
-    cnt = cnt + 1 if s == prev else 0    # той самий — рахуємо, інакше — скид
-    prev = s
-    if cnt >= N and s != stable:         # рівень устояв і він НОВИЙ
-        stable = s
-        if s == 0:                       # фронт «відпущено → натиснуто»
-            on_press()
-```
-```python
-# Викликати рівно раз на тік (напр. кожну 1 мс із таймера).
-N = 5                        # скільки однакових відліків = «стабільно»
-
-cnt = 0                      # лічильник однакових відліків
-prev = HIGH                  # що читали минулого тіку
-stable = HIGH                # останній прийнятий стабільний рівень
-
-def debounce_tick():
-    global cnt, prev, stable
-    s = digital_read(BTN_PIN)
-    cnt = cnt + 1 if s == prev else 0    # той самий — рахуємо, інакше — скид
-    prev = s
-    if cnt >= N and s != stable:         # рівень устояв і він НОВИЙ
-        stable = s
-        if s == LOW:                     # фронт «відпущено → натиснуто»
-            on_press()
-```
+:::code proj-debounce/cpp/sposib-1-lichylnyk.cpp
+:::code proj-debounce/py/micropython/sposib-1-lichylnyk.py
+:::code proj-debounce/py/sposib-1-lichylnyk.py
 :::
 
 Сильний бік — простота й те, що шум гаситься «безкоштовно». Слабкий — час підтвердження прив'язаний до **темпу опитування**: ті самі N = 5 за кроку 1 мс дають 5 мс затримки, а за кроку 4 мс — уже 20 мс. Міняючи частоту тіку, доводиться перебирати й N.
@@ -89,71 +34,9 @@ def debounce_tick():
 Кращий для чуйних програм. Замість блокуючого «зачекати 20 мс» (`delay(20)` заморозив би весь мікроконтролер) ми **запам'ятовуємо час** останньої зміни сирого рівня й **ігноруємо** нові зміни, поки не мине вікно T. Цикл не стоїть ані такту — лише поглядає на годинник [неблокуючим часом](root:sf-devices/nonblocking-time): кожен прохід читає `millis()` і порівнює.
 
 :::tabs
-```cpp
-#define BTN_PIN 4
-#define T_MS    20UL                 // вікно тиші, мс
-
-static int last_raw = HIGH;          // попередній СИРИЙ рівень
-static int stable   = HIGH;          // прийнятий стабільний рівень
-static unsigned long t_change = 0;   // коли сирий рівень смикнувся востаннє
-
-void debounce_poll(void) {
-    int s = digitalRead(BTN_PIN);
-    if (s != last_raw) {             // рівень смикнувся — засікли час
-        last_raw = s;
-        t_change = millis();
-    }
-    // тиша протягом T і рівень НОВИЙ → це справжня подія
-    if (millis() - t_change >= T_MS && s != stable) {
-        stable = s;
-        if (s == LOW) on_press();
-    }
-}
-```
-```micropython
-from machine import Pin
-from time import ticks_ms, ticks_diff
-
-T_MS = 20                            # вікно тиші, мс
-btn = Pin(4, Pin.IN, Pin.PULL_UP)
-
-last_raw = 1                         # попередній СИРИЙ рівень
-stable   = 1                         # прийнятий стабільний рівень
-t_change = 0                         # коли сирий рівень смикнувся востаннє
-
-def debounce_poll():
-    global last_raw, stable, t_change
-    s = btn.value()
-    if s != last_raw:                # рівень смикнувся — засікли час
-        last_raw = s
-        t_change = ticks_ms()
-    # тиша протягом T і рівень НОВИЙ → це справжня подія
-    if ticks_diff(ticks_ms(), t_change) >= T_MS and s != stable:
-        stable = s
-        if s == 0:
-            on_press()
-```
-```python
-from time import monotonic
-
-T = 0.020                            # вікно тиші, с
-
-last_raw = HIGH                      # попередній СИРИЙ рівень
-stable   = HIGH                      # прийнятий стабільний рівень
-t_change = 0.0                       # коли сирий рівень смикнувся востаннє
-
-def debounce_poll():
-    global last_raw, stable, t_change
-    s = digital_read(BTN_PIN)
-    if s != last_raw:                # рівень смикнувся — засікли час
-        last_raw = s
-        t_change = monotonic()
-    # тиша протягом T і рівень НОВИЙ → це справжня подія
-    if monotonic() - t_change >= T and s != stable:
-        stable = s
-        if s == LOW:
-            on_press()
-```
+:::code proj-debounce/cpp/sposib-2-mitka-chasu-ne.cpp
+:::code proj-debounce/py/micropython/sposib-2-mitka-chasu-ne.py
+:::code proj-debounce/py/sposib-2-mitka-chasu-ne.py
 :::
 
 Це класичний **неблокуючий** debounce: програма крутиться далі й паралельно стежить за кнопкою. Зверніть увагу на віднімання `millis() - t_change`: воно коректне навіть тоді, коли лічильник `millis()` через ~49 діб переповнюється, бо різниця беззнакових чисел «перекручується» правильно — саме тому `t_change` беззнаковий і ми **віднімаємо**, а не порівнюємо `millis() >= t_change + T`.
@@ -166,90 +49,9 @@ def debounce_poll():
 *Автомат не вірить першій зміні: помітивши її, переходить у «під підозрою» й чекає T. Устояв рівень — визнає подію; повернувся — хибна тривога, назад. Дрижання щоразу скидає очікування й застрягає «під підозрою», так і не дійшовши до події.*
 
 :::tabs
-```cpp
-#define BTN_PIN 4
-#define T_MS    20UL
-
-enum { STABLE, SUSPECT };
-static uint8_t st = STABLE;
-static int stable = HIGH;            // підтверджений рівень
-static unsigned long t0 = 0;         // коли увійшли в SUSPECT
-
-void debounce_fsm(void) {
-    int s = digitalRead(BTN_PIN);
-    switch (st) {
-    case STABLE:
-        if (s != stable) {           // помітили зміну — під підозру
-            st = SUSPECT;
-            t0 = millis();
-        }
-        break;
-    case SUSPECT:
-        if (s == stable) {           // рівень повернувся → хибна тривога
-            st = STABLE;
-        } else if (millis() - t0 >= T_MS) {  // устояв усе вікно → подія
-            stable = s;
-            st = STABLE;
-            if (s == LOW) on_press();
-        }
-        break;
-    }
-}
-```
-```micropython
-from machine import Pin
-from time import ticks_ms, ticks_diff
-
-T_MS = 20
-btn = Pin(4, Pin.IN, Pin.PULL_UP)
-
-STABLE, SUSPECT = 0, 1
-st = STABLE
-stable = 1                           # підтверджений рівень
-t0 = 0                               # коли увійшли в SUSPECT
-
-def debounce_fsm():
-    global st, stable, t0
-    s = btn.value()
-    if st == STABLE:
-        if s != stable:              # помітили зміну — під підозру
-            st = SUSPECT
-            t0 = ticks_ms()
-    elif st == SUSPECT:
-        if s == stable:              # рівень повернувся → хибна тривога
-            st = STABLE
-        elif ticks_diff(ticks_ms(), t0) >= T_MS:  # устояв усе вікно → подія
-            stable = s
-            st = STABLE
-            if s == 0:
-                on_press()
-```
-```python
-from time import monotonic
-
-T = 0.020
-
-STABLE, SUSPECT = 0, 1
-st = STABLE
-stable = HIGH                        # підтверджений рівень
-t0 = 0.0                             # коли увійшли в SUSPECT
-
-def debounce_fsm():
-    global st, stable, t0
-    s = digital_read(BTN_PIN)
-    if st == STABLE:
-        if s != stable:              # помітили зміну — під підозру
-            st = SUSPECT
-            t0 = monotonic()
-    elif st == SUSPECT:
-        if s == stable:              # рівень повернувся → хибна тривога
-            st = STABLE
-        elif monotonic() - t0 >= T:  # устояв усе вікно → подія
-            stable = s
-            st = STABLE
-            if s == LOW:
-                on_press()
-```
+:::code proj-debounce/cpp/sposib-3-avtomat-staniv.cpp
+:::code proj-debounce/py/micropython/sposib-3-avtomat-staniv.py
+:::code proj-debounce/py/sposib-3-avtomat-staniv.py
 :::
 
 Дрижання просто застрягає у стані «під підозрою»: кожен новий відскік або повертає рівень (хибна тривога, відкат), або не дає вікну T домірятися, — і до події воно так і не доходить. Це рівно те, чого ми хотіли. Бонус — автомат **легко розширити**: довге натискання, подвійний клац, автоповтор — це просто нові стани й переходи, каркас уже є. По суті кожна кнопка стає крихітним [скінченним автоматом](root:hw-digital/finite-state-machines), і антибрязкіт — його найпростіший випадок.
@@ -258,26 +60,7 @@ def debounce_fsm():
 
 **Умова.** Кнопка брязкоче до ~10 мс (типово для тактової). Тік таймера — 1 мс. Підберімо N для лічильника й вікно T для двох інших способів так, щоб брязкіт точно гасився, а людина затримки не відчула.
 
-```c
-// Дано:
-//   найдовший брязкіт  bounce = 10 мс
-//   крок опитування    dt     = 1 мс
-//
-// Запас над брязкотом беремо ×2 → цільове вікно ≈ 20 мс.
-//
-// Спосіб 1 (лічильник):  N = вікно / dt = 20 / 1 = 20 відліків
-//   час підтвердження = N × dt = 20 × 1 мс = 20 мс
-//
-// Спосіб 2/3 (мітка часу / автомат):  T_MS = 20
-//   реакція ≤ 20 мс
-//
-// Перевірка «людина не помітить»:
-//   натиск пальцем триває ~100 мс, реакція ока ~150 мс,
-//   20 мс « 100 мс  →  затримка непомітна.            ✓
-//
-// Перевірка «брязкіт точно перекрито»:
-//   20 мс > 10 мс брязкоту, із запасом ×2.             ✓
-```
+:::code proj-debounce/c/main.c
 
 **Висновок.** Вікно фільтра має бути **досить довгим**, щоб перекрити найдовший брязкіт кнопки (тут — більшим за 10 мс), і **досить коротким**, щоб людина не відчула затримки (менше ~50 мс). Між цими межами лежить зручний коридор ~10–20 мс, у який майже завжди легко влучити; конкретне число варто **виміряти або взяти із запасом**, бо дешеві кнопки з часом брязкочуть дедалі гірше.
 

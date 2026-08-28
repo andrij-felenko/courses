@@ -21,85 +21,8 @@
 Ключ до унікальної таблиці — трійка `(змінна, гілка-0, гілка-1)`. Цього досить, щоб упізнати вузол **повністю**, і ось чому: гілки вже є канонічними id, бо самі народилися з цієї ж горловини. Тобто ми пізнаємо вузол не за тим, як він виглядає, а за тим, з чого зроблений, — і будуємо канонічність знизу вгору, шар за шаром.
 
 :::tabs
-```python
-FALSE, TRUE = 0, 1                # два термінали на весь усесвіт — просто числа
-
-
-class BDD:
-    def __init__(self, order):
-        self.order = list(order)                        # порядок змінних, згори вниз
-        self.rank = {v: i for i, v in enumerate(self.order)}
-        self.node = {}                                  # id -> (var, lo, hi)
-        self.unique = {}                                # (var, lo, hi) -> id
-        self._next = 2                                  # 0 і 1 уже зайняті
-
-    def make_node(self, var, lo, hi):
-        if lo == hi:                                    # правило 1: зайве питання
-            return lo
-        key = (var, lo, hi)
-        found = self.unique.get(key)                    # правило 2: без дублікатів
-        if found is not None:
-            return found
-        uid = self._next
-        self._next += 1
-        self.node[uid] = key
-        self.unique[key] = uid
-        return uid
-```
-```cpp
-#include <cstddef>
-#include <cstdint>
-#include <unordered_map>
-#include <vector>
-
-enum : uint32_t { FALSE_ID = 0, TRUE_ID = 1 };   // не FALSE/TRUE: то макроси у <windows.h>
-
-// Вузол — три 32-бітні поля, 12 байтів. Жодних вказівників: id вузла — це індекс
-// у векторі, тож він удвічі вужчий за вказівник і не з'їжджає після realloc.
-struct Node {
-    uint32_t var, lo, hi;
-    bool operator==(const Node& o) const noexcept {
-        return var == o.var && lo == o.lo && hi == o.hi;
-    }
-};
-
-struct NodeHash {                                 // FNV-подібне змішування трьох полів
-    std::size_t operator()(const Node& n) const noexcept {
-        uint64_t h = 0xCBF29CE484222325ull;
-        h = (h ^ n.var) * 0x100000001B3ull;
-        h = (h ^ n.lo)  * 0x100000001B3ull;
-        h = (h ^ n.hi)  * 0x100000001B3ull;
-        return static_cast<std::size_t>(h ^ (h >> 29));
-    }
-};
-
-class Bdd {
-public:
-    Bdd() {
-        nodes_.resize(2);                         // 0 і 1 — термінали, тіла їм не треба
-        unique_.reserve(1u << 16);                // місце наперед: рехеш на гарячому шляху дорогий
-    }
-
-    uint32_t make_node(uint32_t var, uint32_t lo, uint32_t hi) {
-        if (lo == hi) return lo;                                  // правило 1
-        const Node key{var, lo, hi};
-        if (auto it = unique_.find(key); it != unique_.end())
-            return it->second;                                    // правило 2
-        const uint32_t id = static_cast<uint32_t>(nodes_.size());
-        nodes_.push_back(key);
-        unique_.emplace(key, id);
-        return id;
-    }
-
-    const Node& at(uint32_t id) const { return nodes_[id]; }
-    bool terminal(uint32_t id) const { return id <= TRUE_ID; }
-    std::size_t size() const { return nodes_.size(); }
-
-private:
-    std::vector<Node> nodes_;
-    std::unordered_map<Node, uint32_t, NodeHash> unique_;
-};
-```
+:::code proj-bdd-build/py/oserdia-dva-pravyla-v.py
+:::code proj-bdd-build/cpp/main.cpp
 :::
 
 Різниця між вкладками — не в синтаксисі, а в тому, за що кожна платить. Пайтонівський словник `unique` тримає ключ-кортеж як окремий об'єкт: три посилання плюс заголовок, десятки байтів на вузол. У C++ той самий вузол — рівно 12 байтів у суцільному векторі, а `unordered_map` тримає ключ у собі. Для мільйонних діаграм — а в перевірці апаратури вони саме такі — ця різниця вирішує, влізе задача в пам'ять чи ні; тому усталені рушії діаграм написані на C: CUDD Фабіо Соменці, BuDDy Йорна Лінда-Нільсена, багатоядерний Sylvan Тома ван Дейка. Ще одна дрібниця з тієї ж опери: `reserve` наперед. Унікальна таблиця — найгарячіше місце програми, і рехешування мільйона записів посеред побудови коштує більше, ніж уся решта роботи.
@@ -108,21 +31,7 @@ private:
 
 Тепер рекурсія, і вона до смішного коротка. Спускаємося змінними по порядку, на кожному рівні питаємо обидва значення поточної змінної, а з двох відповідей складаємо вузол. Дно рекурсії — коли змінних не лишилося: тоді набір повністю визначений, і функцію можна просто **порахувати**.
 
-```python
-    def build(self, fn):
-        """fn(env) -> bool, де env — словник {змінна: 0|1}."""
-        def rec(i, env):
-            if i == len(self.order):
-                return TRUE if fn(env) else FALSE       # дно: одне значення функції
-            v = self.order[i]
-            env[v] = 0
-            lo = rec(i + 1, env)                        # кофактор при v = 0
-            env[v] = 1
-            hi = rec(i + 1, env)                        # кофактор при v = 1
-            del env[v]
-            return self.make_node(v, lo, hi)            # обидва правила — тут
-        return rec(0, {})
-```
+:::code proj-bdd-build/py/rozklad-shennona-zhory.py
 
 Зверніть увагу, чого тут **немає**. Немає перевірки «а чи не залежить функція від цієї змінної». Немає пошуку однакових піддерев. Немає другого проходу. Уся розумність сидить у `make_node`, а рекурсія лишається тупою й чесною: спитай ліворуч, спитай праворуч, віддай горловині. Запустімо на знайомому виразі:
 
@@ -157,38 +66,7 @@ print(b2.build(lambda e: (e["a"] and e["b"]) or (not e["c"])))        # 7  ← �
 
 Тепер збираємо біти. Обчислити функцію за діаграмою — це один спуск від вузла до термінала: на кожному кроці дивимось значення змінної й робимо крок за потрібною гілкою. Довжина спуску не залежить від розміру діаграми — лише від кількості змінних.
 
-```python
-    def value(self, u, env):
-        while u > TRUE:                                 # один шлях згори до листка
-            v, lo, hi = self.node[u]
-            u = hi if env[v] else lo
-        return u == TRUE
-
-    def support(self, root):
-        """Змінні, яких вузол справді торкається, у порядку діаграми."""
-        seen, stack, vs = set(), [root], []
-        while stack:
-            u = stack.pop()
-            if u in seen or u <= TRUE:
-                continue
-            seen.add(u)
-            v, lo, hi = self.node[u]
-            if v not in vs:
-                vs.append(v)
-            stack += [lo, hi]
-        return sorted(vs, key=lambda v: self.rank[v])
-
-    def bits(self, root, vs=None):
-        """Прошивка LUT: біт k = значення функції на адресі k (перша змінна — старша)."""
-        vs = self.support(root) if vs is None else vs
-        n = len(vs)
-        word = 0
-        for addr in range(1 << n):
-            env = {v: (addr >> (n - 1 - k)) & 1 for k, v in enumerate(vs)}
-            if self.value(root, env):
-                word |= 1 << addr
-        return word
-```
+:::code proj-bdd-build/py/stovpchyk-tablytsi.py
 
 Функція `support` тут не для краси. Вузол діаграми — це самостійна функція від **своїх** змінних, і зазвичай їх менше, ніж усіх: `#2` бачить лише `c`, `#3` — лише `b` і `c`. А кількість входів — це і є те, що вирішує, у LUT якого розміру вузол влізе. Пройдімося по всіх трьох:
 
@@ -214,36 +92,11 @@ f  =  x₁·y₁ + x₂·y₂ + … + xₙ·yₙ
 
 Питання одне: чи знайдеться пара, у якій обидва біти — одиниці. Порівнюємо два порядки. **Чергування** `x₁, y₁, x₂, y₂, …` — читаємо пару, вирішуємо, йдемо далі. **Окремо** `x₁, …, xₙ, y₁, …, yₙ` — спершу всі `x`, потім усі `y`.
 
-```python
-def bryant(n):
-    return lambda e: any(e["x%d" % i] and e["y%d" % i] for i in range(1, n + 1))
-
-
-print(" n | чергування | окремо | 2n+2 | 2^(n+1)")
-for n in range(1, 9):
-    inter = [v for i in range(1, n + 1) for v in ("x%d" % i, "y%d" % i)]
-    separ = ["x%d" % i for i in range(1, n + 1)] + ["y%d" % i for i in range(1, n + 1)]
-    a, s = BDD(inter), BDD(separ)
-    print("%2d | %10d | %6d | %4d | %7d"
-          % (n, a.size(a.build(bryant(n))), s.size(s.build(bryant(n))),
-             2 * n + 2, 2 ** (n + 1)))
-```
+:::code proj-bdd-build/py/poriadok-zminnykh-2n-2.py
 
 Тут `size` — це обхід від кореня, що рахує досяжні вузли разом із терміналами:
 
-```python
-    def size(self, root):
-        seen, stack = set(), [root]
-        while stack:
-            u = stack.pop()
-            if u in seen:
-                continue
-            seen.add(u)
-            if u > TRUE:
-                _, lo, hi = self.node[u]
-                stack += [lo, hi]
-        return len(seen)
-```
+:::code proj-bdd-build/py/poriadok-zminnykh-2n-2-2.py
 
 Друк:
 
@@ -288,29 +141,7 @@ n=10  вузлів=22   викликів=2097151
 
 Справжня відповідь — не спускатися згори взагалі. Будуймо функцію з малих шматків тими самими операціями, якими її записано, а рекурсію ведімо не по наборах входів, а **по парі вже готових діаграм**. Це класичний `apply`, і йому потрібна друга таблиця — таблиця обчисленого:
 
-```python
-    def var(self, v):
-        return self.make_node(v, FALSE, TRUE)
-
-    def apply(self, op, u, v):
-        key = (op, u, v)
-        got = self.computed.get(key)                    # таблиця обчисленого
-        if got is not None:
-            return got
-        if u <= TRUE and v <= TRUE:                     # обидва — термінали: рахуємо
-            return {"and": u & v, "or": u | v, "xor": u ^ v}[op]
-        top = len(self.order)                           # ранг «нижче за все»
-        ru = self.rank[self.node[u][0]] if u > TRUE else top
-        rv = self.rank[self.node[v][0]] if v > TRUE else top
-        r = min(ru, rv)                                 # старша зі змінних двох вершин
-        ulo, uhi = (self.node[u][1], self.node[u][2]) if ru == r else (u, u)
-        vlo, vhi = (self.node[v][1], self.node[v][2]) if rv == r else (v, v)
-        res = self.make_node(self.order[r],
-                             self.apply(op, ulo, vlo),
-                             self.apply(op, uhi, vhi))
-        self.computed[key] = res
-        return res
-```
+:::code proj-bdd-build/py/pastka-mala-diahrama-mala.py
 
 Ключ `(операція, u, v)` — це **два id**, а не набір входів. І ось тут канонічність повертає борг із відсотками: раз однакові функції мають однакові id, то мемо влучає щоразу, коли ця пара підфункцій уже траплялася. Тому пар буває щонайбільше `|u|·|v|` — добуток розмірів операндів, а не `2ⁿ`. Додайте `self.computed = {}` у конструктор і зберіть ту саму функцію знизу вгору:
 

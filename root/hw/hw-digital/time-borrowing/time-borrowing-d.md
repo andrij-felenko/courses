@@ -59,63 +59,10 @@
 **Умова: тригер ловить `data` лише в мить фронту `clk` 0→1; спізнені дані втрачено.**
 
 :::tabs
-```cpp
-#include <stdbool.h>
-
-static bool clk_prev = false;
-static bool q_ff     = false;
-
-// тригер: одна-єдина мить захоплення
-void ff_capture(bool data, bool clk) {
-    bool rising = clk && !clk_prev;   // фронт саме зараз?
-    if (rising) {
-        q_ff = data;                  // взяли рівно те, що є на фронті
-    }
-    clk_prev = clk;
-    // після фронту data хоч як міняйся — q_ff не зрушиться (стіна)
-}
-```
-```python
-clk_prev = False
-q_ff     = False
-
-# тригер: одна-єдина мить захоплення
-def ff_capture(data: bool, clk: bool) -> None:
-    global clk_prev, q_ff
-    rising = clk and not clk_prev     # фронт саме зараз?
-    if rising:
-        q_ff = data                   # взяли рівно те, що є на фронті
-    clk_prev = clk
-    # після фронту data хоч як міняйся — q_ff не зрушиться (стіна)
-```
-```js
-let clkPrev = false;
-let qFf      = false;
-
-// тригер: одна-єдина мить захоплення
-function ffCapture(data, clk) {
-    const rising = clk && !clkPrev;   // фронт саме зараз?
-    if (rising) {
-        qFf = data;                   // взяли рівно те, що є на фронті
-    }
-    clkPrev = clk;
-    // після фронту data хоч як міняйся — qFf не зрушиться (стіна)
-}
-```
-```go
-var clkPrev = false
-var qFf     = false
-
-// тригер: одна-єдина мить захоплення
-func ffCapture(data, clk bool) {
-    rising := clk && !clkPrev         // фронт саме зараз?
-    if rising {
-        qFf = data                    // взяли рівно те, що є на фронті
-    }
-    clkPrev = clk
-    // після фронту data хоч як міняйся — qFf не зрушиться (стіна)
-}
-```
+:::code time-borrowing-d/cpp/te-same-u-kodi-proshyvky.cpp
+:::code time-borrowing-d/py/te-same-u-kodi-proshyvky.py
+:::code time-borrowing-d/js/te-same-u-kodi-proshyvky.js
+:::code time-borrowing-d/go/te-same-u-kodi-proshyvky.go
 :::
 
 А тепер прозорий латч — доки дозвіл високий, він **тече** за входом і фіксує останнє значення аж на спаді. Пізні дані, що зайшли **до** спаду, ще встигають:
@@ -123,63 +70,10 @@ func ffCapture(data, clk bool) {
 **Умова: латч прозорий, доки `en`=1 (Q тече за `data`); фіксує на спаді `en` 1→0.**
 
 :::tabs
-```cpp
-#include <stdbool.h>
-
-static bool en_prev = false;
-static bool q_latch = false;
-
-// латч: цілий рівень — вікно захоплення
-void latch_capture(bool data, bool en) {
-    if (en) {
-        q_latch = data;               // прозоро: тече за входом весь час, доки en=1
-    }
-    // на спаді en 1→0 останнє значення просто лишається в q_latch — це й є «фіксація»
-    en_prev = en;
-    // дані, що змінилися пізно, АЛЕ доки en ще =1, встигли пройти — це і є позика часу
-}
-```
-```python
-en_prev = False
-q_latch = False
-
-# латч: цілий рівень — вікно захоплення
-def latch_capture(data: bool, en: bool) -> None:
-    global en_prev, q_latch
-    if en:
-        q_latch = data                # прозоро: тече за входом весь час, доки en=1
-    # на спаді en 1→0 останнє значення просто лишається в q_latch — це й є «фіксація»
-    en_prev = en
-    # дані, що змінилися пізно, АЛЕ доки en ще =1, встигли пройти — це і є позика часу
-```
-```js
-let enPrev = false;
-let qLatch = false;
-
-// латч: цілий рівень — вікно захоплення
-function latchCapture(data, en) {
-    if (en) {
-        qLatch = data;                // прозоро: тече за входом весь час, доки en=1
-    }
-    // на спаді en 1→0 останнє значення просто лишається в qLatch — це й є «фіксація»
-    enPrev = en;
-    // дані, що змінилися пізно, АЛЕ доки en ще =1, встигли пройти — це і є позика часу
-}
-```
-```go
-var enPrev = false
-var qLatch = false
-
-// латч: цілий рівень — вікно захоплення
-func latchCapture(data, en bool) {
-    if en {
-        qLatch = data                 // прозоро: тече за входом весь час, доки en=1
-    }
-    // на спаді en 1→0 останнє значення просто лишається в qLatch — це й є «фіксація»
-    enPrev = en
-    // дані, що змінилися пізно, АЛЕ доки en ще =1, встигли пройти — це і є позика часу
-}
-```
+:::code time-borrowing-d/cpp/te-same-u-kodi-proshyvky-2.cpp
+:::code time-borrowing-d/py/te-same-u-kodi-proshyvky-2.py
+:::code time-borrowing-d/js/te-same-u-kodi-proshyvky-2.js
+:::code time-borrowing-d/go/te-same-u-kodi-proshyvky-2.go
 :::
 
 Різниця в одному рядку умови — `rising` проти `en`, — але наслідок величезний. Тригер бере знімок в одну мить; латч тримає вікно відчиненим цілий рівень. У залізі саме це вікно й дає повільному ступеню шанс дорахувати «внапозичку»: значення, що зайшло у прозорий латч навіть із запізненням, усе одно протече далі й буде спіймане на спаді — так само, як `data`, оновлене пізно, але доки `en` ще =1, потрапляє в `q_latch`.

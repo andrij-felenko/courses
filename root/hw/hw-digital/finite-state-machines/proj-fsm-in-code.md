@@ -25,76 +25,8 @@
 Рушій табличного автомата вкладається в кілька рядків — і саме ця стислість і є його головна перевага. Таблицю кладемо в `const` (тобто у flash), а зберігається лише змінна `state`:
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-typedef enum { LOCKED, OPEN, STATE_COUNT } state_t;
-typedef enum { COIN, PUSH, EVENT_COUNT } event_t;
-
-typedef void (*action_fn)(void);   /* дія переходу (модель Мілі) */
-
-typedef struct {
-    state_t   next;                /* новий стан */
-    action_fn action;             /* що зробити на переході; NULL — нічого */
-} cell_t;
-
-/* уся поведінка — тут, як дані; рядок = стан, стовпець = подія */
-static const cell_t table[STATE_COUNT][EVENT_COUNT] = {
-    /*           COIN                 PUSH               */
-    [LOCKED] = { { OPEN,   unlock }, { LOCKED, NULL } },
-    [OPEN]   = { { OPEN,   NULL   }, { LOCKED, lock } },
-};
-
-static state_t state = LOCKED;
-
-void fsm_dispatch(event_t ev) {
-    if (ev >= EVENT_COUNT) {            /* чужа / невалідна подія */
-        state = LOCKED;                /* failsafe: безпечний стан турнікета — замкнено */
-        return;
-    }
-    cell_t c = table[state][ev];        /* один індекс — O(1) */
-    if (c.action) c.action();          /* дія НА переході — модель Мілі */
-    if (c.next != state) {             /* перехід СПРАВДІ змінює стан? */
-        on_exit(state);                /* дії «на виході» зі старого… */
-        on_enter(c.next);              /* …і «на вході» в новий — модель Мура */
-    }
-    state = c.next;
-}
-```
-```python
-from enum import IntEnum
-
-class State(IntEnum):
-    LOCKED = 0
-    OPEN   = 1
-
-class Event(IntEnum):
-    COIN = 0
-    PUSH = 1
-
-# клітинка: (новий стан, дія переходу — модель Мілі; None — нічого)
-# уся поведінка — тут, як дані; рядок = стан, стовпець = подія
-table = {
-    #                COIN                        PUSH
-    State.LOCKED: {Event.COIN: (State.OPEN,   unlock), Event.PUSH: (State.LOCKED, None)},
-    State.OPEN:   {Event.COIN: (State.OPEN,   None),   Event.PUSH: (State.LOCKED, lock)},
-}
-
-state = State.LOCKED
-
-def fsm_dispatch(ev):
-    global state
-    if ev not in table[state]:         # чужа / невалідна подія
-        state = State.LOCKED           # failsafe: безпечний стан турнікета — замкнено
-        return
-    nxt, action = table[state][ev]     # один індекс — O(1)
-    if action:                         # дія НА переході — модель Мілі
-        action()
-    if nxt != state:                   # перехід СПРАВДІ змінює стан?
-        on_exit(state)                 # дії «на виході» зі старого…
-        on_enter(nxt)                  # …і «на вході» в новий — модель Мура
-    state = nxt
-```
+:::code proj-fsm-in-code/cpp/main.cpp
+:::code proj-fsm-in-code/py/main.py
 :::
 
 Зверніть увагу на дві деталі. Виклик `c.action()` **на переході** — це модель **Мілі** (дія прив'язана до стрілки); пара `on_enter`/`on_exit`, прив'язана до стану, — це модель **Мура**. Реальний код часто змішує обидві, і це нормально, доки ви свідомо вирішили, **що** до чого прив'язуєте.

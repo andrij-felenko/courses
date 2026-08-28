@@ -68,48 +68,8 @@
 **Умова:** мікроконтролер веде три ніжки — `DATA` (послідовні дані), `CLK` (такт зсуву) і `LATCH` (такт защіпки). Треба вивести один байт `value` на вісім виходів SIPO-регістра з вихідним латчем, старшим бітом уперед.
 
 :::tabs
-```cpp
-#define PIN_DATA   2
-#define PIN_CLK    3
-#define PIN_LATCH  4
-
-// Засунути один байт у зсувний регістр (старший біт першим)
-void shift_out_byte(uint8_t value) {
-    for (int i = 7; i >= 0; i--) {       // від біта 7 (старший) до 0
-        int bit = (value >> i) & 1;      // витягуємо i-й біт
-        gpio_write(PIN_DATA, bit);       // 1) виставили дані
-        gpio_write(PIN_CLK, 1);          // 2) фронт такту: біт «затік»,
-        gpio_write(PIN_CLK, 0);          //    решта зсунулась на щабель
-    }
-}
-
-// Показати байт на виходах: засунути 8 бітів, тоді клацнути латчем
-void show_byte(uint8_t value) {
-    shift_out_byte(value);
-    gpio_write(PIN_LATCH, 1);            // один імпульс RCLK копіює
-    gpio_write(PIN_LATCH, 0);            //    рядок у вихідний латч
-}
-```
-```micropython
-from machine import Pin
-
-data  = Pin(2, Pin.OUT)   # DATA  — послідовні дані
-clk   = Pin(3, Pin.OUT)   # CLK   — такт зсуву
-latch = Pin(4, Pin.OUT)   # LATCH — такт защіпки
-
-# Засунути один байт у зсувний регістр (старший біт першим)
-def shift_out_byte(value):
-    for i in range(7, -1, -1):        # від біта 7 (старший) до 0
-        data.value((value >> i) & 1)  # 1) виставили дані
-        clk.value(1)                  # 2) фронт такту: біт «затік»,
-        clk.value(0)                  #    решта зсунулась на щабель
-
-# Показати байт на виходах: засунути 8 бітів, тоді клацнути латчем
-def show_byte(value):
-    shift_out_byte(value)
-    latch.value(1)                    # один імпульс RCLK копіює
-    latch.value(0)                    #    рядок у вихідний латч
-```
+:::code shift-register-d/cpp/main.cpp
+:::code shift-register-d/py/micropython/iak-tse-zasuvaty-v-c.py
 :::
 
 Найчастіша помилка тут одна: засунути вісім бітів — і **забути** фінальний імпульс на `LATCH`. Дані вже сидять у зсувному регістрі, але латч їх **не показав**, тож виходи не змінюються, і здається, ніби схема «мертва». Правило, яке варто вкарбувати: **вісім тактів `CLK` → один такт `LATCH`**.
@@ -128,18 +88,7 @@ void show_byte_spi(uint8_t value) {
     gpio_write(PIN_LATCH, 0);
 }
 ```
-```micropython
-from machine import Pin, SPI
-
-spi   = SPI(1, baudrate=10_000_000)  # апаратний вузол: дані + такт
-latch = Pin(4, Pin.OUT)              # LATCH — як і раніше, вручну
-
-# Той самий показ байта, але засув віддано апаратному SPI
-def show_byte_spi(value):
-    spi.write(bytes([value]))        # SPI сам жене 8 бітів + такт
-    latch.value(1)                   # защіпка — як і раніше, вручну
-    latch.value(0)
-```
+:::code shift-register-d/py/micropython/iak-tse-zasuvaty-v-c-2.py
 :::
 
 Тепер уся послідовність читається в одну думку: «віддав байт — клацнув латчем». Морока з окремими бітами сховалася в апаратний вузол, а на видноті лишився тільки змістовний крок — момент показу.

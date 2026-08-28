@@ -74,80 +74,8 @@
 Тепер той самий автомат у коді мікроконтролера. Стан — одна змінна (ті самі два біти регістра), перехід — `switch`, що по сигналу таймера крокує по колу, а лампи виставляються **зі стану** (це і є Мур):
 
 :::tabs
-```c
-#include <stdint.h>
-
-typedef enum { S_GREEN, S_YELLOW, S_RED, S_RED_YELLOW } state_t;
-
-static state_t state = S_GREEN;
-
-/* Мур: вихід залежить ЛИШЕ від стану — лампи горять рівно й стабільно */
-static void set_lamps(uint8_t r, uint8_t y, uint8_t g) {
-    LAMP_RED   = r;
-    LAMP_YELLOW = y;
-    LAMP_GREEN = g;
-}
-
-static void traffic_outputs(state_t s) {
-    switch (s) {                 /* R  Y  G */
-        case S_GREEN:      set_lamps(0, 0, 1); break;
-        case S_YELLOW:     set_lamps(0, 1, 0); break;
-        case S_RED:        set_lamps(1, 0, 0); break;
-        case S_RED_YELLOW: set_lamps(1, 1, 0); break;
-    }
-}
-
-/* перехід «по колу за модулем 4» — викликати на кожен tick таймера */
-void traffic_on_tick(void) {
-    switch (state) {
-        case S_GREEN:      state = S_YELLOW;     break;
-        case S_YELLOW:     state = S_RED;        break;
-        case S_RED:        state = S_RED_YELLOW; break;
-        case S_RED_YELLOW: state = S_GREEN;      break;
-    }
-    traffic_outputs(state);      /* вихід Мура: з нового стану */
-}
-```
-```python
-from enum import Enum
-
-
-class State(Enum):
-    GREEN = 0
-    YELLOW = 1
-    RED = 2
-    RED_YELLOW = 3
-
-
-state = State.GREEN
-
-# Мур: вихід залежить ЛИШЕ від стану — лампи горять рівно й стабільно
-def set_lamps(r, y, g):
-    LAMP_RED[0], LAMP_YELLOW[0], LAMP_GREEN[0] = r, y, g
-
-
-def traffic_outputs(s):
-    lamps = {                      # R  Y  G
-        State.GREEN:      (0, 0, 1),
-        State.YELLOW:     (0, 1, 0),
-        State.RED:        (1, 0, 0),
-        State.RED_YELLOW: (1, 1, 0),
-    }
-    set_lamps(*lamps[s])
-
-
-# перехід «по колу за модулем 4» — викликати на кожен tick таймера
-def traffic_on_tick():
-    global state
-    nxt = {
-        State.GREEN:      State.YELLOW,
-        State.YELLOW:     State.RED,
-        State.RED:        State.RED_YELLOW,
-        State.RED_YELLOW: State.GREEN,
-    }
-    state = nxt[state]
-    traffic_outputs(state)         # вихід Мура: з нового стану
-```
+:::code finite-state-machines-d/c/main.c
+:::code finite-state-machines-d/py/main.py
 :::
 
 Виходить машина на **двох тригерах** (стан) плюс трохи логіки (перехід «по колу за tick» і таблиця ламп). Зверніть увагу на два уроки. По-перше, перехід «по колу за сигналом» — це по суті **mod-4 [лічильник](root:hw-digital/counters)**: світлофор виявляється лічильником, чий «рахунок» ми тлумачимо як кольори. По-друге, вихід тут **навмисно Мура**: лампа мусить горіти рівно й стабільно весь свій час, а не смикатися слідом за дрібними змінами входу, — і саме чистота виходу Мура це гарантує. Той самий автомат можна було б зробити й на Мілі, але довелося б пильнувати, щоб лампи не мерехтіли, — зайвий клопіт там, де Мур дає спокій задарма.

@@ -67,49 +67,8 @@
 **Синус через таблицю на 256 вузлів плюс лінійна інтерполяція.** Замість `sinf()` тримаємо повний період у 256 точках і читаємо звідти; дробову частину аргументу добираємо прямою між сусідами.
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <math.h>
-
-#define N 256                       // вузлів на повний оберт 2π
-static float SIN_LUT[N];            // 256·4 = 1024 байти у Flash/RAM
-
-// один раз на старті: порахувати дорогий sinf() наперед
-void sin_lut_init(void) {
-    for (int i = 0; i < N; i++)
-        SIN_LUT[i] = sinf(2.0f * (float)M_PI * i / N);
-}
-
-// гарячий шлях: жодного sinf() — лише читання + одне множення
-float sin_fast(float rad) {
-    float x = rad * (N / (2.0f * (float)M_PI));   // радіани → позиція в таблиці
-    int   i = (int)x;                              // лівий вузол
-    float f = x - i;                               // дробова частина: 0..1
-    float a = SIN_LUT[i & (N - 1)];                // & (N-1): дешеве "mod 256"
-    float b = SIN_LUT[(i + 1) & (N - 1)];          // правий вузол
-    return a + (b - a) * f;                         // пряма між a і b
-}
-```
-```python
-import math
-
-N = 256                                       # вузлів на повний оберт 2π
-SIN_LUT = [0.0] * N                            # 256 значень у пам'яті
-
-# один раз на старті: порахувати дорогий math.sin() наперед
-def sin_lut_init():
-    for i in range(N):
-        SIN_LUT[i] = math.sin(2.0 * math.pi * i / N)
-
-# гарячий шлях: жодного math.sin() — лише читання + одне множення
-def sin_fast(rad):
-    x = rad * (N / (2.0 * math.pi))            # радіани → позиція в таблиці
-    i = int(x)                                 # лівий вузол
-    f = x - i                                  # дробова частина: 0..1
-    a = SIN_LUT[i & (N - 1)]                   # & (N-1): дешеве "mod 256"
-    b = SIN_LUT[(i + 1) & (N - 1)]             # правий вузол
-    return a + (b - a) * f                     # пряма між a і b
-```
+:::code lut-d/cpp/main.cpp
+:::code lut-d/py/main.py
 :::
 ```
 Перевірка для rad = 1.0 (істинний sin 1.0 = 0.841471):

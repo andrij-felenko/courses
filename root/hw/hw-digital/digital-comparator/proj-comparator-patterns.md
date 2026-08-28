@@ -12,34 +12,8 @@
 
 **Побітовий магнітудний компаратор (16 біт, як зерно каскаду).**
 :::tabs
-```cpp
-#include <stdint.h>
-
-// Повертає: +1 якщо a>b,  0 якщо a==b,  -1 якщо a<b.
-// Свідомо скановано побітово від старшого біта — так само, як каскад у залізі.
-int cmp16_bitwise(uint16_t a, uint16_t b) {
-    for (int i = 15; i >= 0; --i) {          // біт 15 = старший
-        uint16_t mask = (uint16_t)(1u << i);
-        uint16_t abit = a & mask;
-        uint16_t bbit = b & mask;
-        if (abit != bbit)                     // перша відмінність
-            return (abit > bbit) ? +1 : -1;   // чий біт «1» — той більший
-    }
-    return 0;                                 // жодної відмінності — рівні
-}
-```
-```python
-# Повертає: +1 якщо a>b,  0 якщо a==b,  -1 якщо a<b.
-# Свідомо скановано побітово від старшого біта — так само, як каскад у залізі.
-def cmp16_bitwise(a: int, b: int) -> int:
-    for i in range(15, -1, -1):          # біт 15 = старший
-        mask = 1 << i
-        abit = a & mask
-        bbit = b & mask
-        if abit != bbit:                 # перша відмінність
-            return +1 if abit > bbit else -1   # чий біт «1» — той більший
-    return 0                             # жодної відмінності — рівні
-```
+:::code proj-comparator-patterns/cpp/komparator-iak-u-zalizi.cpp
+:::code proj-comparator-patterns/py/komparator-iak-u-zalizi.py
 :::
 
 Цей цикл — це буквально каскад однобітових ступенів, розгорнутий у часі замість простору. Кожен виток — один ступінь; `if (abit != bbit)` — це «якщо старші рівні — вирішую я»; `return` — це вирок, що «протікає» назовні й обриває решту. Затримка каскаду в залізі тут стає кількістю витків циклу: у найгіршому разі (числа різняться аж у наймолодшому біті) робимо всі 16 порівнянь.
@@ -155,19 +129,7 @@ int cmp_le_bytes(const uint8_t *a, const uint8_t *b, size_t n) {
     return 0;                               // усі байти рівні
 }
 ```
-```python
-# Порівнює два числа однакової довжини, задані bytes у little-endian.
-# Повертає +1 / 0 / −1, скануючи від СТАРШОГО байта (останній індекс) до молодшого.
-def cmp_le_bytes(a: bytes, b: bytes) -> int:
-    for i in range(len(a) - 1, -1, -1):    # від n-1 (старший) до 0 (молодший)
-        if a[i] != b[i]:                    # перша відмінність від старшого кінця
-            return +1 if a[i] > b[i] else -1
-    return 0                                # усі байти рівні
-
-# Ідіоматичний Python зробив би те саме одним рядком — реверс кортежів байтів
-# порівнює саме від старшого кінця:
-#     return (a[::-1] > b[::-1]) - (a[::-1] < b[::-1])
-```
+:::code proj-comparator-patterns/py/porivniannia.py
 :::
 Це той самий каскад, що й `cmp16_bitwise`, тільки ступінь — байт, а не біт, і йдемо від старшого байта (у little-endian це **останній** індекс). Ідея незмінна від заліза: старший розряд першим, перша відмінність — вирок.
 
@@ -188,43 +150,8 @@ def cmp_le_bytes(a: bytes, b: bytes) -> int:
 
 **Пороговий детектор із гістерезисом.**
 :::tabs
-```cpp
-#include <stdint.h>
-#include <stdbool.h>
-
-// Два пороги в одиницях коду АЦП; TH_HI > TH_LO — це і є ширина мертвої зони.
-#define TH_HI  2600u
-#define TH_LO  2400u
-
-static bool tripped = false;          // пам'ять стану між викликами
-
-bool threshold_hysteresis(uint16_t x) {
-    if (!tripped) {
-        if (x > TH_HI) tripped = true;    // увімкнення — лише вгорі
-    } else {
-        if (x < TH_LO) tripped = false;   // вимкнення — лише внизу
-    }
-    return tripped;
-}
-```
-```python
-# Два пороги в одиницях коду АЦП; TH_HI > TH_LO — це і є ширина мертвої зони.
-TH_HI = 2600
-TH_LO = 2400
-
-class ThresholdHysteresis:
-    def __init__(self):
-        self.tripped = False          # пам'ять стану між викликами
-
-    def __call__(self, x: int) -> bool:
-        if not self.tripped:
-            if x > TH_HI:
-                self.tripped = True   # увімкнення — лише вгорі
-        else:
-            if x < TH_LO:
-                self.tripped = False  # вимкнення — лише внизу
-        return self.tripped
-```
+:::code proj-comparator-patterns/cpp/pastka-na-porozi-briazkit.cpp
+:::code proj-comparator-patterns/py/pastka-na-porozi-briazkit.py
 :::
 Зверніть увагу: `tripped` — `static`, стан живе між викликами; без нього гістерезису не буває. Активний поріг щоразу залежить від поточного стану — саме це прибирає брязкіт. Ширину зони `TH_HI − TH_LO` беруть щедро більшою за розмах шуму (типово кілька-десятки одиниць коду): вужча зона гірше глушить брязкіт, ширша — притуплює чутливість, бо реагувати починаємо пізніше. Той самий прийом у залізі роблять аналогово — [тригер Шмітта](root:hw-digital/threshold-schmitt) саме так чистить фронти від дребезгу.
 
@@ -238,47 +165,8 @@ class ThresholdHysteresis:
 
 **Максимум, мінімум, їхні індекси й розмах за один прохід.**
 :::tabs
-```cpp
-#include <stdint.h>
-
-typedef struct {
-    uint16_t max, min;        // крайні значення
-    uint16_t imax, imin;      // індекси відліків, де вони сталися
-    uint16_t range;           // розмах max − min (peak-to-peak)
-} stream_stats_t;
-
-stream_stats_t scan_stream(const uint16_t *x, uint16_t n) {
-    stream_stats_t s;
-    s.max = s.min = x[0];     // ПОЧАТОК — з першого відліку, не з 0 і не з 0xFFFF
-    s.imax = s.imin = 0;
-    for (uint16_t i = 1; i < n; ++i) {
-        if (x[i] > s.max) { s.max = x[i]; s.imax = i; }   // «A > B» на максимум
-        else if (x[i] < s.min) { s.min = x[i]; s.imin = i; }  // «A < B» на мінімум
-    }
-    s.range = (uint16_t)(s.max - s.min);
-    return s;
-}
-```
-```python
-from typing import NamedTuple, Sequence
-
-class StreamStats(NamedTuple):
-    max: int          # крайні значення
-    min: int
-    imax: int         # індекси відліків, де вони сталися
-    imin: int
-    range: int        # розмах max − min (peak-to-peak)
-
-def scan_stream(x: Sequence[int]) -> StreamStats:
-    mx = mn = x[0]    # ПОЧАТОК — з першого відліку, не з 0 і не з 0xFFFF
-    imx = imn = 0
-    for i in range(1, len(x)):
-        if x[i] > mx:            # «A > B» на максимум
-            mx, imx = x[i], i
-        elif x[i] < mn:          # «A < B» на мінімум
-            mn, imn = x[i], i
-    return StreamStats(mx, mn, imx, imn, mx - mn)
-```
+:::code proj-comparator-patterns/cpp/krainoshchi-v-pototsi.cpp
+:::code proj-comparator-patterns/py/krainoshchi-v-pototsi.py
 :::
 
 Три деталі тут не випадкові — і кожна з них пастка, якщо зробити навпаки.

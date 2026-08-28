@@ -50,31 +50,7 @@
 
 Почнімо з нижнього шару — заглушки з підписами, які ви заміните реальним доступом до портів. Тут показано узагальнено; на реальному чипі `gpio_write` перетворюється на один запис у регістр порту.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-// ── Нижній шар: залежить від конкретного МК. Перепишіть під своє залізо. ──
-// Ідентифікатори ніг — просто числа-псевдоніми; зіставте їх зі своїми пінами.
-enum {
-    PIN_NCONFIG,   // вихід: скидання конфігурації (активний 0). Xilinx: PROGRAM_B
-    PIN_DCLK,      // вихід: такт конфігурації.                    Xilinx: CCLK
-    PIN_DATA0,     // вихід: лінія даних, один біт за такт.        Xilinx: DIN
-    PIN_NSTATUS,   // вхід : стан чипа (open-drain, активний 0).   Xilinx: INIT_B
-    PIN_CONF_DONE  // вхід : готовність (open-drain, 1 = готово).  Xilinx: DONE
-};
-
-// Виставити вихідну ногу в 0 або 1.
-static void gpio_write(int pin, int level);
-// Прочитати вхідну ногу: повертає 0 або 1.
-static int  gpio_read(int pin);
-// Затримка приблизно на задану кількість мікросекунд.
-static void delay_us(uint32_t us);
-// Джерело бітстріму: заповнити buf до len байтів, повернути СКІЛЬКИ реально
-// прочитано (0 — бітстрім скінчився). Може читати з SPI-флеш, SD, масиву…
-static size_t bitstream_read(uint8_t *buf, size_t len);
-```
+:::code proj-fpga-loader/c/stdint.h
 
 Тепер верхній шар. Спершу — один такт: виставити біт і цокнути. Виніс це в окрему функцію, щоб головний цикл читався як опис, а не як плутанина смикань.
 
@@ -102,74 +78,7 @@ static inline void clock_one_byte(uint8_t byte)
 
 А ось головна функція — уся послідовність конфігурації разом із обробкою помилок. Читайте її як розповідь: скидання → рукостискання → потік бітів → дочекатися `DONE`. Коди помилок повертаємо назовні, щоб система могла показати світлодіод, записати в журнал чи спробувати ще раз.
 
-```c
-typedef enum {
-    FPGA_OK = 0,
-    FPGA_ERR_NO_STATUS,   // nSTATUS не піднявся — чип не відгукнувся
-    FPGA_ERR_STATUS_DROP, // nSTATUS упав під час заливки — помилка конфігурації
-    FPGA_ERR_NO_DONE,     // бітстрім вичерпано, а DONE так і не піднявся
-    FPGA_ERR_EMPTY        // джерело бітстріму порожнє
-} fpga_status_t;
-
-fpga_status_t fpga_configure_slave_serial(void)
-{
-    uint8_t buf[256];
-    size_t  n;
-
-    // ── 1. Скидання: притиснути nCONFIG, витримати мінімальний імпульс ──
-    gpio_write(PIN_DCLK, 0);        // такт у спокої — низько
-    gpio_write(PIN_NCONFIG, 0);     // наказ «зітри SRAM, почнемо спочатку»
-    delay_us(5);                    // тримаємо вниз довше за мінімум (~2 мкс)
-    gpio_write(PIN_NCONFIG, 1);     // відпустили — чип починає чистку SRAM
-
-    // ── 2. Рукостискання: чекаємо, поки чип відпустить nSTATUS угору ──
-    // Активний-0, open-drain: 1 означає «SRAM очищено, лий бітстрім».
-    {
-        int tries = 1000;                       // ~1000 × 1 мкс = 1 мс стелі
-        while (gpio_read(PIN_NSTATUS) == 0) {
-            if (--tries == 0)
-                return FPGA_ERR_NO_STATUS;       // чип мовчить — далі немає сенсу
-            delay_us(1);
-        }
-    }
-
-    // ── 3. Потік бітів: качаємо бітстрім байт за байтом ──
-    size_t total = 0;
-    while ((n = bitstream_read(buf, sizeof buf)) > 0) {
-        total += n;
-        for (size_t i = 0; i < n; ++i) {
-            clock_one_byte(buf[i]);
-
-            // Дешева страховка: чип під час заливки може ВПАСТИ у помилку
-            // (CRC не збігся, живлення просіло) — тоді він притисне nSTATUS.
-            // Перевіряти щобайт — доступно й ловить збій рано.
-            if (gpio_read(PIN_NSTATUS) == 0)
-                return FPGA_ERR_STATUS_DROP;
-        }
-    }
-    if (total == 0)
-        return FPGA_ERR_EMPTY;      // джерело нічого не дало — порожня флеш?
-
-    // ── 4. Дожати такт, поки DONE не підніметься ──
-    // Після бітстріму чипу треба ще трохи тактів на запуск. Женемо їх,
-    // тримаючи DATA0 у 1 (так радять виробники — лінія в спокої висока).
-    gpio_write(PIN_DATA0, 1);
-    for (int extra = 0; extra < 1000; ++extra) {
-        if (gpio_read(PIN_CONF_DONE) == 1) {
-            // DONE піднявся. Дамо ще з десяток тактів — вимога запуску
-            // (Xilinx 7-ї серії: щонайменше 8 після DONE).
-            for (int i = 0; i < 16; ++i) {
-                gpio_write(PIN_DCLK, 1);
-                gpio_write(PIN_DCLK, 0);
-            }
-            return FPGA_OK;         // FPGA несе схему й готова до роботи
-        }
-        gpio_write(PIN_DCLK, 1);
-        gpio_write(PIN_DCLK, 0);
-    }
-    return FPGA_ERR_NO_DONE;        // 1000 тактів — а DONE мовчить: дивись пастки
-}
-```
+:::code proj-fpga-loader/c/robochyi-kod-bit-bang.c
 
 Уся функція вкладається в екран, а робить чимало: приводить чип у відоме порожнє становище, дочікується його згоди, висипає весь бітстрім у правильному порядку бітів, дорогою ловить зрив конфігурації й наприкінці однозначно каже, вдалося чи ні. Верхній рівень системи викликає її одним рядком:
 
@@ -186,47 +95,11 @@ if (fpga_configure_slave_serial() != FPGA_OK) {
 
 **Бітстрім зашитий у прошивку масивом** — найпростіше для дрібного дизайну: інструмент експортує бітстрім як C-масив, ви кладете його у флеш мікроконтролера.
 
-```c
-// Згенеровано з .rbf/.bin: сирий бітстрім як масив байтів.
-extern const uint8_t fpga_bitstream[];
-extern const size_t  fpga_bitstream_len;
-
-static size_t s_pos = 0;   // поточне зміщення читання
-
-static size_t bitstream_read(uint8_t *buf, size_t len)
-{
-    size_t left = fpga_bitstream_len - s_pos;
-    if (left == 0) return 0;                 // дійшли до кінця
-    size_t take = (left < len) ? left : len;
-    for (size_t i = 0; i < take; ++i)
-        buf[i] = fpga_bitstream[s_pos + i];
-    s_pos += take;
-    return take;
-}
-```
+:::code proj-fpga-loader/c/shcho-vseredyni-nyzhnoho.c
 
 **Бітстрім у зовнішній SPI-флеш** — коли він завеликий для мікроконтролера. Тут `bitstream_read` вичитує його блоками командою читання флеш (`0x03` — read data) із заданої адреси. Це вже сам по собі маленький SPI-обмін; наводжу кістяк, деталі команди залежать від мікросхеми.
 
-```c
-#define BITSTREAM_FLASH_ADDR  0x000000u     // де у флеш лежить бітстрім
-#define BITSTREAM_TOTAL_LEN   0x080000u     // його довжина в байтах (знаємо наперед)
-
-static uint32_t f_addr = BITSTREAM_FLASH_ADDR;
-static size_t   f_left = BITSTREAM_TOTAL_LEN;
-
-// spi_flash_read — ваш драйвер: команда 0x03 + 24-бітна адреса, тоді читання.
-extern void spi_flash_read(uint32_t addr, uint8_t *buf, size_t len);
-
-static size_t bitstream_read(uint8_t *buf, size_t len)
-{
-    if (f_left == 0) return 0;
-    size_t take = (f_left < len) ? f_left : len;
-    spi_flash_read(f_addr, buf, take);
-    f_addr += take;
-    f_left -= take;
-    return take;
-}
-```
+:::code proj-fpga-loader/c/shcho-vseredyni-nyzhnoho-2.c
 
 Зверніть увагу: у варіанті з масивом кінець бітстріму видно самому джерелу (порівняли зміщення з довжиною), а у варіанті з флеш ми **мусимо знати довжину бітстріму наперед** (`BITSTREAM_TOTAL_LEN`) — флеш не має «кінця файлу», за її межами просто лежить сміття або порожні `0xFF`. Це важлива дрібниця: помилишся з довжиною — або не досиплеш бітстрім (чип не доконфігурується), або пересиплеш зайве (у більшості чипів зайві байти нешкідливі, але покладатися на це не варто).
 

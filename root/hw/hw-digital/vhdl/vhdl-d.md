@@ -60,33 +60,7 @@
 
 Спершу — entity, самий лише паспорт виводів. Далі — architecture з процесом, що спрацьовує **на фронті такту**; усередині процес пишемо звичайним «по кроках», бо процес VHDL — це якраз опис послідовної логіки одного тригерного банку:
 
-```vhdl
-library IEEE;
-use IEEE.std_logic_1164.all;      -- std_logic та його 9 значень
-use IEEE.numeric_std.all;         -- арифметика над векторами
-
-entity counter is
-    port ( clk : in  std_logic;                      -- такт
-           rst : in  std_logic;                      -- скидання
-           q   : out std_logic_vector(7 downto 0) ); -- 8-бітний вихід
-end entity;
-
-architecture rtl of counter is
-    signal cnt : unsigned(7 downto 0) := (others => '0');
-begin
-    process (clk)                        -- реагує на зміну clk
-    begin
-        if rising_edge(clk) then         -- саме на ФРОНТІ такту
-            if rst = '1' then
-                cnt <= (others => '0');  -- скинути в нуль
-            else
-                cnt <= cnt + 1;          -- інакше — на одиницю більше
-            end if;
-        end if;
-    end process;
-    q <= std_logic_vector(cnt);          -- вивести назовні
-end architecture;
-```
+:::code vhdl-d/vhdl/main.vhd
 
 Прочитаймо це очима заліза, а не програми. `entity counter` оголосила три виводи — і на цьому «що зовні» вичерпано. `std_logic_vector(7 downto 0)` — це не одне число, а **шина** з восьми ліній std_logic, що разом [несуть ціле](root:sf-algorithms/bits-bytes-endianness); `downto` явно каже, що старший розряд — сьомий. Рядок `rising_edge(clk)` — стрижень: він означає «спрацювати **лише на наростанні такту**», і саме він каже синтезаторові побудувати **[тригери](root:hw-digital/d-flip-flop)**, а не миттєву логіку. Присвоєння `cnt <= cnt + 1` описує не «додай зараз», а «на наступному фронті нехай у регістрі опиниться значення на одиницю більше» — [оновлення регістра по такту](root:hw-digital/register). А `q <= std_logic_vector(cnt)` — постійний зв'язок: вихід завжди дзеркалить лічильник. Строгість тут теж на видноті: `cnt` оголошено як `unsigned`, щоб над ним була арифметика, і щоб вивести його в порт типу `std_logic_vector`, VHDL **вимагає явного перетворення** — сама вона типи не змішає.
 

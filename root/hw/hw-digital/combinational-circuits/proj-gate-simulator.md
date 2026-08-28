@@ -19,47 +19,11 @@
 
 Тема залізна, тож і код беремо мовою заліза — C++. Спершу самі [вентилі](root:hw-digital/basic-gates). Кожен із них — це елементарна дія над бітами, тож увесь набір кодується одним `switch`:
 
-```cpp
-#include <cstdio>
-#include <string>
-#include <vector>
-#include <map>
-
-// Чотири вентилі — кожен це елементарна дія над бітами
-enum class Op { And, Or, Xor, Not };
-
-int gate(Op op, int a, int b) {
-    switch (op) {
-        case Op::And: return a & b;   // 1 лише коли обидва 1
-        case Op::Or:  return a | b;   // 1 коли хоч один 1
-        case Op::Xor: return a ^ b;   // 1 коли біти різні
-        case Op::Not: return 1 - a;   // перевертає 0↔1 (b не потрібен)
-    }
-    return 0;
-}
-```
+:::code proj-gate-simulator/cpp/symuliator-u-kodi.cpp
 
 Тепер — обчислювач нетліста. Вузол — це маленький запис «який вентиль і звідки два входи за іменами». Обчислювач тримає словник `signals` (ім'я → 0/1), куди спершу лягають входи, а тоді проходить вузли по черзі. Входи читаємо через `.at()` навмисно: якщо вузол послався на ще не обчислене ім'я, програма чесно спіткнеться, а не тихо підставить нуль і збреше:
 
-```cpp
-// Вузол нетліста: який вентиль і звідки два його входи (за іменами)
-struct Node {
-    std::string name;   // ім'я вузла = підписаний проміжний дріт
-    Op op;              // який вентиль
-    std::string a, b;   // входи за іменами; b порожнє, якщо вхід один (NOT)
-};
-
-// Обчислити нетліст: signals відображає ім'я → його значення 0/1
-std::map<std::string, int> evaluate(const std::vector<Node>& net,
-                                    std::map<std::string, int> signals) {
-    for (const Node& n : net) {                      // порядок — топологічний
-        int va = signals.at(n.a);
-        int vb = n.b.empty() ? 0 : signals.at(n.b);  // NOT має лише один вхід
-        signals[n.name] = gate(n.op, va, vb);        // порахували — запам'ятали
-    }
-    return signals;
-}
-```
+:::code proj-gate-simulator/cpp/symuliator-u-kodi-2.cpp
 
 Сам повний суматор — це п'ять вузлів нетліста (два XOR і два AND двох півсуматорів плюс OR переносів):
 
@@ -76,18 +40,7 @@ std::vector<Node> adder = {
 
 Імена вузлів `g1…g5` — ті самі, що в нетлісті на рисунку: підсумкова сума виходить у `g3`, об'єднаний перенос — у `g5`. Лишилося прогнати **всі** входи. Їх рівно 2³ = 8, тож перебрати їх — це три вкладені цикли «0/1». Для кожного набору обчислюємо схему й друкуємо рядок:
 
-```cpp
-int main() {
-    printf("A B Cin | Sum Cout\n");
-    for (int A = 0; A <= 1; ++A)
-        for (int B = 0; B <= 1; ++B)
-            for (int Cin = 0; Cin <= 1; ++Cin) {
-                auto s = evaluate(adder, {{"A", A}, {"B", B}, {"Cin", Cin}});
-                printf("%d %d  %d  |  %d    %d\n",
-                       A, B, Cin, s.at("g3"), s.at("g5"));   // Sum=g3, Cout=g5
-            }
-}
-```
+:::code proj-gate-simulator/cpp/symuliator-u-kodi-3.cpp
 
 Усе разом — кілька десятків рядків живого коду: чотири вентилі, обчислювач нетліста, опис суматора й цикл-драйвер. А на виході — повна таблиця, яку лишається звірити з тією, що ми вивели руками.
 

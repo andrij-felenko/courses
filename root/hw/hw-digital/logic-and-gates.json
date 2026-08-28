@@ -60,7 +60,8 @@
           "proj": [
             {
               "file": "proj-xor-tricks.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -113,7 +114,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
@@ -146,18 +148,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "math": [
             {
               "file": "math-energy-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-bus-invert.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -179,7 +185,8 @@
           "proj": [
             {
               "file": "proj-gate-simulator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -207,7 +214,8 @@
           "proj": [
             {
               "file": "proj-mux-lut-c.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -223,7 +231,8 @@
           "proj": [
             {
               "file": "proj-demux-write-strobe.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -234,7 +243,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "comp": [
             {
@@ -256,12 +266,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-alu-slice.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -283,7 +295,8 @@
           "math": [
             {
               "file": "math-consensus.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -351,7 +364,8 @@
           "math": [
             {
               "file": "math-prime-implicants.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -367,13 +381,16 @@
           "math": [
             {
               "file": "math-petrick-method.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-qm-solver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

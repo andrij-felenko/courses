@@ -57,151 +57,20 @@
 Досить слів — ось повна, готова до вставляння в проєкт черга. Це реальний C для мікроконтролера, не псевдокод: підключайте, і воно працює. Почнімо з базового варіанта — «пожертвувана комірка», один продюсер (ISR) і один споживач (головний цикл) на **одному ядрі**.
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <stddef.h>
-
-// Розмір — ОБОВ'ЯЗКОВО степінь двійки: тоді обгортання індексу — це
-// швидка маска & (SIZE-1), а не дороге ділення % SIZE.
-#define FIFO_SIZE   256u
-#define FIFO_MASK   (FIFO_SIZE - 1u)
-
-typedef struct {
-    uint8_t          buf[FIFO_SIZE];
-    volatile uint16_t head;   // куди пише продюсер (ISR)
-    volatile uint16_t tail;   // звідки читає споживач (main)
-} fifo_t;
-
-static inline void fifo_init(fifo_t *q)
-{
-    q->head = 0;
-    q->tail = 0;
-}
-
-// Наступний індекс по колу. Маска замість % — див. нижче про степінь двійки.
-static inline uint16_t fifo_next(uint16_t i)
-{
-    return (uint16_t)((i + 1u) & FIFO_MASK);
-}
-
-// «Порожньо» бачить споживач: голова наздогнала хвіст.
-static inline int fifo_empty(const fifo_t *q)
-{
-    return q->head == q->tail;
-}
-
-// «Повно» бачить продюсер: наступна голова вперлась би в хвіст
-// (пожертвувана комірка-роздільник).
-static inline int fifo_full(const fifo_t *q)
-{
-    return fifo_next(q->head) == q->tail;
-}
-```
-```python
-# Розмір — ОБОВ'ЯЗКОВО степінь двійки: тоді обгортання індексу — це
-# швидка маска & (SIZE-1), а не дороге ділення % SIZE.
-FIFO_SIZE = 256
-FIFO_MASK = FIFO_SIZE - 1
-
-
-class Fifo:
-    def __init__(self):
-        self.buf = bytearray(FIFO_SIZE)
-        self.head = 0   # куди пише продюсер (ISR)
-        self.tail = 0   # звідки читає споживач (main)
-
-    # Наступний індекс по колу. Маска замість % — див. нижче про степінь двійки.
-    @staticmethod
-    def _next(i):
-        return (i + 1) & FIFO_MASK
-
-    # «Порожньо» бачить споживач: голова наздогнала хвіст.
-    def empty(self):
-        return self.head == self.tail
-
-    # «Повно» бачить продюсер: наступна голова вперлась би в хвіст
-    # (пожертвувана комірка-роздільник).
-    def full(self):
-        return self._next(self.head) == self.tail
-```
+:::code proj-ring-buffer/cpp/robochyi-kod-kiltse-baitiv.cpp
+:::code proj-ring-buffer/py/robochyi-kod-kiltse-baitiv.py
 :::
 
 Тепер дві операції. Письменник (`put`) кладе байт і посуває голову; читач (`get`) бере байт і посуває хвіст. Обидві повертають ознаку успіху — бо черга скінченна, і чесна відповідь «не вийшло» краща за мовчазну втрату даних.
 
 :::tabs
-```cpp
-// Продюсер (виклик з ISR). Повертає 1, якщо поклали; 0, якщо повно.
-static inline int fifo_put(fifo_t *q, uint8_t byte)
-{
-    uint16_t h = q->head;
-    uint16_t n = fifo_next(h);
-    if (n == q->tail)          // повно → політика «відкинути новий»
-        return 0;
-    q->buf[h] = byte;          // 1) СПЕРШУ дані у слот
-    q->head   = n;            // 2) ПОТІМ опублікувати нову голову
-    return 1;
-}
-
-// Споживач (виклик з main/loop). Повертає 1 і байт у *out; 0, якщо порожньо.
-static inline int fifo_get(fifo_t *q, uint8_t *out)
-{
-    uint16_t t = q->tail;
-    if (t == q->head)          // порожньо
-        return 0;
-    *out    = q->buf[t];       // 1) СПЕРШУ прочитати дані
-    q->tail = fifo_next(t);    // 2) ПОТІМ звільнити слот
-    return 1;
-}
-```
-```python
-# Продюсер (виклик з ISR). Повертає True, якщо поклали; False, якщо повно.
-def fifo_put(q, byte):
-    h = q.head
-    n = Fifo._next(h)
-    if n == q.tail:            # повно → політика «відкинути новий»
-        return False
-    q.buf[h] = byte            # 1) СПЕРШУ дані у слот
-    q.head = n                 # 2) ПОТІМ опублікувати нову голову
-    return True
-
-
-# Споживач (виклик з main/loop). Повертає (True, байт); (False, 0), якщо порожньо.
-def fifo_get(q):
-    t = q.tail
-    if t == q.head:            # порожньо
-        return False, 0
-    out = q.buf[t]             # 1) СПЕРШУ прочитати дані
-    q.tail = Fifo._next(t)     # 2) ПОТІМ звільнити слот
-    return True, out
-```
+:::code proj-ring-buffer/cpp/robochyi-kod-kiltse-baitiv-2.cpp
+:::code proj-ring-buffer/py/robochyi-kod-kiltse-baitiv-2.py
 :::
 
 І як це живе разом. Обробник переривання UART складає прилеглі байти в чергу й миттю виходить; головний цикл спокійно їх розгрібає:
 
-```c
-static fifo_t rx_fifo;
-
-// Викликається апаратним перериванням: прилетів байт.
-void USART_IRQHandler(void)
-{
-    uint8_t b = (uint8_t)UART_DR;   // забрати з регістра приймача
-    if (!fifo_put(&rx_fifo, b)) {
-        // черга переповнена — свідомо вирішуємо, що робити:
-        // тут лічимо втрату, а не мовчимо про неї
-        rx_overflow_count++;
-    }
-}
-
-// Головний цикл: обробляємо все, що встигло накопичитись.
-void main_loop(void)
-{
-    uint8_t b;
-    while (fifo_get(&rx_fifo, &b)) {
-        process_byte(b);            // розбір протоколу, збирання рядка тощо
-    }
-    // ... інша робота циклу ...
-}
-```
+:::code proj-ring-buffer/c/robochyi-kod-kiltse-baitiv.c
 
 Зверніть увагу, чого тут **немає**. Немає ані замка, ані вимикання переривань, ані коду Грея, ані синхронізаторів. Уся безпека тримається на двох речах: контракті «один хазяїн на індекс» і **правильному порядку** двох дій усередині `put`/`get`. Саме про цей порядок — далі, бо в ньому весь ризик.
 
@@ -243,48 +112,7 @@ void main_loop(void)
 
 У сучасному C це виражають атомарними операціями зі стандарту C11 — і код виходить компактним та переносним. Голову й хвіст оголошують `_Atomic`, а порядок задають прапорцями: свій індекс читаємо **розслаблено** (`relaxed` — нам байдуже, як він упорядкований щодо іншого, бо ним володіємо лише ми), чужий читаємо з **acquire**, а публікуємо свій з **release**:
 
-```c
-#include <stdatomic.h>
-#include <stdint.h>
-
-#define FIFO_SIZE 256u
-#define FIFO_MASK (FIFO_SIZE - 1u)
-
-typedef struct {
-    uint8_t              buf[FIFO_SIZE];
-    _Atomic uint16_t     head;
-    _Atomic uint16_t     tail;
-} fifo_mc_t;
-
-// Продюсер на своєму ядрі.
-int fifo_put_mc(fifo_mc_t *q, uint8_t byte)
-{
-    uint16_t h = atomic_load_explicit(&q->head, memory_order_relaxed); // свій — relaxed
-    uint16_t n = (uint16_t)((h + 1u) & FIFO_MASK);
-    // чужий (хвіст) — acquire: побачити місце, звільнене споживачем
-    if (n == atomic_load_explicit(&q->tail, memory_order_acquire))
-        return 0;                       // повно
-    q->buf[h] = byte;                   // дані у слот
-    // публікуємо голову з release: дані гарантовано ляжуть ДО того,
-    // як інше ядро побачить нову голову
-    atomic_store_explicit(&q->head, n, memory_order_release);
-    return 1;
-}
-
-// Споживач на іншому ядрі.
-int fifo_get_mc(fifo_mc_t *q, uint8_t *out)
-{
-    uint16_t t = atomic_load_explicit(&q->tail, memory_order_relaxed); // свій — relaxed
-    // чужий (голова) — acquire: парний до release продюсера
-    if (t == atomic_load_explicit(&q->head, memory_order_acquire))
-        return 0;                       // порожньо
-    *out = q->buf[t];                   // читаємо дані (після acquire — вже видимі)
-    // звільняємо слот із release: споживач опублікував «місце вільне»
-    atomic_store_explicit(&q->tail, (uint16_t)((t + 1u) & FIFO_MASK),
-                          memory_order_release);
-    return 1;
-}
-```
+:::code proj-ring-buffer/c/dva-iadra-koly.c
 
 Пара `release`↔`acquire` тут — це весь механізм безпеки на двох ядрах, стиснутий у два прапорці. Продюсер відпускає (`release`) дані разом із новою головою; споживач захоплює (`acquire`) їх разом зі зчитаною головою. Стандарт гарантує: усе, що продюсер записав **до** свого `release`, стане видимим споживачеві, щойно той побачить опубліковане значення через свій `acquire`. На одному ядрі ці бар'єри вироджуються майже в ніщо (архітектура й так усе впорядковує), тож той самий код лишається коректним і там — просто без зайвих накладних. Це, до речі, ще одна причина писати одразу з атомарними операціями, якщо є найменший шанс, що черга колись переїде на друге ядро.
 

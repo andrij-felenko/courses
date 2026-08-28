@@ -18,47 +18,7 @@
 
 ## Структури й дві таблиці
 
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-#define TERM       0x7fffffff   /* «рівень» термінала — нижче за будь-яку змінну */
-#define BDD_FALSE  0            /* вузол-константа 0 */
-#define BDD_TRUE   1            /* вузол-константа 1 */
-
-typedef struct {
-    int var;        /* індекс змінної: 0 — найвища за порядком; термінал → TERM */
-    int lo, hi;     /* нащадки: гілки «0» і «1» (теж індекси) */
-    int next;       /* наступний вузол у ланцюжку кошика унікальної таблиці, -1 — кінець */
-    int ref;        /* лічильник посилань */
-} Node;
-
-static Node *nodes;             /* пул вузлів; вузол — це індекс сюди */
-static int   ncap, nnodes;
-
-static int  *utable;            /* унікальна таблиця: кошик → голова ланцюжка (індекс) */
-static int   umask;             /* розмір−1 (розмір — степінь двійки) */
-
-typedef struct { int f, g, h, r; } Cache;
-static Cache *ctable;           /* кеш операцій: слот → трійка ITE та її результат */
-static int    cmask;
-
-static unsigned hash3(int a, int b, int c) {
-    unsigned x = (unsigned)a * 73856093u ^ (unsigned)b * 19349663u ^ (unsigned)c * 83492791u;
-    return x ^ (x >> 13);
-}
-
-static void bdd_init(int cap, int ubits, int cbits) {
-    ncap = cap; nodes = malloc(sizeof(Node) * ncap);
-    umask = (1 << ubits) - 1; utable = malloc(sizeof(int) * (umask + 1));
-    for (int i = 0; i <= umask; i++) utable[i] = -1;
-    cmask = (1 << cbits) - 1; ctable = malloc(sizeof(Cache) * (cmask + 1));
-    for (int i = 0; i <= cmask; i++) ctable[i].f = -1;      /* −1 = порожній слот */
-    nodes[0] = (Node){ TERM, 0, 0, -1, 1 };                 /* константа 0 */
-    nodes[1] = (Node){ TERM, 1, 1, -1, 1 };                 /* константа 1 */
-    nnodes = 2;
-}
-```
+:::code proj-apply/c/struktury-i-dvi-tablytsi.c
 
 Два термінали `#0` і `#1` заводяться раз і назавжди — усі діаграми пакета діляться ними. Їхнє поле `var` — це `TERM`, велике число: у порядку змінних термінал стоїть **нижче** за всіх, тож будь-яка справжня змінна виявляється «вищою» простим порівнянням цілих.
 
@@ -68,25 +28,7 @@ static void bdd_init(int cap, int ubits, int cbits) {
 
 ## make_node: обидва скорочення тут
 
-```c
-/* Єдине місце, де народжується вузол. Повертає КАНОНІЧНИЙ вузол (var, lo, hi):
-   якщо такий уже є — наявний, інакше створює новий. */
-static int make_node(int var, int lo, int hi) {
-    if (lo == hi) return lo;                     /* скорочення 1: гілки збіглися — питання зайве */
-
-    unsigned slot = hash3(var, lo, hi) & umask;  /* скорочення 2: шукаємо двійника в кошику */
-    for (int u = utable[slot]; u != -1; u = nodes[u].next)
-        if (nodes[u].var == var && nodes[u].lo == lo && nodes[u].hi == hi)
-            return u;                             /* уже існує — віддаємо той самий вузол */
-
-    if (nnodes == ncap) { ncap *= 2; nodes = realloc(nodes, sizeof(Node) * ncap); }
-    int u = nnodes++;                             /* новий канонічний вузол */
-    nodes[u] = (Node){ var, lo, hi, utable[slot], 0 };
-    utable[slot] = u;                             /* чіпляємо в голову ланцюжка кошика */
-    nodes[lo].ref++; nodes[hi].ref++;             /* тримаємо нащадків живими */
-    return u;
-}
-```
+:::code proj-apply/c/make-node-obydva.c
 
 Обидва скорочення, що перетворюють дерево на граф, стиснуто в кілька рядків. Перший рядок — правило «зайвого питання»: якщо гілки `lo` і `hi` ведуть в одне місце, змінна ні на що не впливає, тож вузол не потрібен — повертаємо просто цю спільну ціль. Цикл по ланцюжку — правило «двійників»: якщо вузол із таким самим `(var, lo, hi)` уже є, віддаємо його, нового не робимо. Лише коли обидва скорочення промовчали, з'являється новий вузол — і одразу чіпляється в голову кошика через своє поле `next`.
 
@@ -94,31 +36,7 @@ static int make_node(int var, int lo, int hi) {
 
 ## ite: розтин, рекурсія, збірка
 
-```c
-static int ite(int f, int g, int h) {
-    if (f == BDD_TRUE)  return g;                /* ITE(1,g,h) = g */
-    if (f == BDD_FALSE) return h;                /* ITE(0,g,h) = h */
-    if (g == h)         return g;                /* обидві гілки однакові */
-    if (g == BDD_TRUE && h == BDD_FALSE) return f;   /* ITE(f,1,0) = f */
-
-    unsigned slot = hash3(f, g, h) & cmask;      /* кеш: чи рахували цю трійку? */
-    Cache *e = &ctable[slot];
-    if (e->f == f && e->g == g && e->h == h) return e->r;
-
-    int v = nodes[f].var;                        /* верхня змінна серед f, g, h */
-    if (nodes[g].var < v) v = nodes[g].var;
-    if (nodes[h].var < v) v = nodes[h].var;
-
-    #define COF(u, br) (nodes[u].var == v ? nodes[u].br : (u))   /* кофактор за v */
-    int lo = ite(COF(f, lo), COF(g, lo), COF(h, lo));           /* гілка v = 0 */
-    int hi = ite(COF(f, hi), COF(g, hi), COF(h, hi));           /* гілка v = 1 */
-    #undef COF
-
-    int r = make_node(v, lo, hi);                /* збірка — знову з обома скороченнями */
-    e->f = f; e->g = g; e->h = h; e->r = r;      /* кешуємо (слот перезаписуємо — кеш втратний) */
-    return r;
-}
-```
+:::code proj-apply/c/ite-roztyn-rekursiia.c
 
 Чотири перші рядки — це дно рекурсії, точки, де відповідь очевидна без розтину: якщо умова `f` — стала, беремо ту чи ту гілку; якщо гілки й так однакові, немає що вибирати; а `ITE(f, 1, 0)` — це просто `f`. Далі — кеш: якщо цю саму трійку вже колись рахували, готове віддається негайно. Саме цей рядок і перетворює наївну експоненту на добуток розмірів: різних трійок обмаль, а кожну обчислюємо один-єдиний раз.
 
@@ -143,44 +61,7 @@ static int bdd_xor(int f, int g) { return ite(f, bdd_not(g), g); }       /* f �
 
 ## Приклад: maj двома шляхами
 
-```c
-static void mark(int u, char *seen) {
-    if (seen[u]) return;
-    seen[u] = 1;
-    if (nodes[u].var != TERM) { mark(nodes[u].lo, seen); mark(nodes[u].hi, seen); }
-}
-
-int main(void) {
-    bdd_init(64, 10, 10);                        /* пул + дві таблиці по 1024 слоти */
-    int a = bdd_var(0), b = bdd_var(1), c = bdd_var(2);
-
-    /* Спосіб 1 — прямо через ITE:  a ? (b+c) : (b·c) */
-    int maj1 = ite(a, bdd_or(b, c), bdd_and(b, c));
-    /* Спосіб 2 — сума добутків:  a·b + a·c + b·c */
-    int maj2 = bdd_or(bdd_or(bdd_and(a, b), bdd_and(a, c)), bdd_and(b, c));
-
-    printf("maj спосіб 1 (ITE)           = вузол #%d\n", maj1);
-    printf("maj спосіб 2 (сума добутків) = вузол #%d\n", maj2);
-    printf("тотожні? %s\n\n", maj1 == maj2 ? "так — той самий вузол" : "ні");
-
-    char *seen = calloc(nnodes, 1);
-    mark(maj1, seen);
-    const char *nm = "abc";
-    int internal = 0;
-    for (int u = 2; u < nnodes; u++) internal += seen[u];
-    printf("діаграма maj: %d внутрішніх вузли + 2 термінали\n", internal);
-    for (int u = nnodes - 1; u >= 2; u--)
-        if (seen[u])
-            printf("  #%d  var %c  lo #%d  hi #%d\n",
-                   u, nm[nodes[u].var], nodes[u].lo, nodes[u].hi);
-
-    int parents = 0;
-    for (int u = 2; u < nnodes; u++)
-        if (seen[u] && (nodes[u].lo == c || nodes[u].hi == c)) parents++;
-    printf("\nвузол #%d (c) має %d батьків — спільний, тож це граф\n", c, parents);
-    return 0;
-}
-```
+:::code proj-apply/c/pryklad-maj-dvoma.c
 
 Функцію «більшости» ми будуємо двічі геть по-різному. Перший спосіб — прямий розтин за `a`: якщо `a = 1`, лишається `b + c`, якщо `a = 0` — `b · c`. Другий — класична сума добутків `a·b + a·c + b·c`, зібрана з п'яти окремих операцій. На вигляд — два незалежні обчислювальні маршрути. Ось що друкує програма:
 

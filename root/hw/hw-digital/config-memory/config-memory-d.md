@@ -67,59 +67,9 @@
 **Умова: мікроконтролер керує стартом FPGA й мусить дочекатися, поки її конфігураційну пам'ять наповнено.** До підняття `DONE` схеми в чипі ще немає — будь-яка спроба з ним працювати нічого не дасть.
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <stdbool.h>
-
-// Чекаємо, поки FPGA наповнить свою (летку) конфігураційну пам'ять.
-// Поки DONE=0 — кристал іще без схеми: комірки заповнюються, виходи невизначені.
-bool wait_fpga_ready(uint32_t timeout_ms)
-{
-    uint32_t t = 0;
-    while (!gpio_read(FPGA_DONE_PIN)) {      // DONE підніметься, коли всі комірки залито
-        if (t >= timeout_ms) {               // не дочекалися — конфігурація зірвалася:
-            report_error(ERR_CFG_FAILED);    //   порожнє чи побите джерело бітстріму
-            return false;                    //   (працювати з чипом НЕ можна)
-        }
-        delay_ms(1);
-        ++t;
-    }
-    return true;                              // DONE=1 — пам'ять повна, схема існує, чип готовий
-}
-```
-```micropython
-from machine import Pin
-import time
-
-done = Pin(FPGA_DONE_PIN, Pin.IN)
-
-# Чекаємо, поки FPGA наповнить свою (летку) конфігураційну пам'ять.
-# Поки DONE=0 — кристал іще без схеми: комірки заповнюються, виходи невизначені.
-def wait_fpga_ready(timeout_ms):
-    t = 0
-    while not done.value():                  # DONE підніметься, коли всі комірки залито
-        if t >= timeout_ms:                  # не дочекалися — конфігурація зірвалася:
-            report_error(ERR_CFG_FAILED)     #   порожнє чи побите джерело бітстріму
-            return False                     #   (працювати з чипом НЕ можна)
-        time.sleep_ms(1)
-        t += 1
-    return True                              # DONE=1 — пам'ять повна, схема існує, чип готовий
-```
-```python
-import time
-
-# Чекаємо, поки FPGA наповнить свою (летку) конфігураційну пам'ять.
-# Поки DONE=0 — кристал іще без схеми: комірки заповнюються, виходи невизначені.
-def wait_fpga_ready(timeout_ms):
-    t = 0
-    while not gpio_read(FPGA_DONE_PIN):      # DONE підніметься, коли всі комірки залито
-        if t >= timeout_ms:                  # не дочекалися — конфігурація зірвалася:
-            report_error(ERR_CFG_FAILED)     #   порожнє чи побите джерело бітстріму
-            return False                     #   (працювати з чипом НЕ можна)
-        time.sleep(0.001)
-        t += 1
-    return True                              # DONE=1 — пам'ять повна, схема існує, чип готовий
-```
+:::code config-memory-d/cpp/main.cpp
+:::code config-memory-d/py/micropython/main.py
+:::code config-memory-d/py/main.py
 :::
 ```
 Що тут відбувається по кроках:

@@ -51,18 +51,7 @@
 **Один такт максимального 4-бітного LFSR (Фібоначчі, зсув ліворуч, C):**
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-// Відводи многочлена x^4 + x + 1 — це біти 3 і 0.
-static uint8_t lfsr4_step(uint8_t state) {   // state — 4 молодші біти
-    uint8_t b3 = (state >> 3) & 1u;          // старший відвід
-    uint8_t b0 =  state       & 1u;          // молодший відвід
-    uint8_t feedback = b3 ^ b0;              // XOR — новий біт
-    state = (uint8_t)((state << 1) | feedback) & 0x0Fu;  // зсув ліворуч + вкидання
-    return state;
-}
-```
+:::code lfsr-d/cpp/odyn-tsykl-lfsr-u-c.cpp
 ```python
 # Відводи многочлена x^4 + x + 1 — це біти 3 і 0.
 def lfsr4_step(state):               # state — 4 молодші біти
@@ -81,20 +70,7 @@ def lfsr4_step(state):               # state — 4 молодші біти
 **Повний обхід і збирання потоку бітів (C):**
 
 :::tabs
-```cpp
-#include <stdio.h>
-
-int main(void) {
-    uint8_t s = 0x1u;            // старт: 0001 (аби не заборонений 0000)
-    for (int i = 0; i < 15; i++) {
-        int out_bit = (s >> 3) & 1;   // знімаємо старший біт як вихід
-        printf("%d ", out_bit);
-        s = lfsr4_step(s);
-    }
-    // Надрукує:  0 0 0 1 1 1 1 0 1 0 1 1 0 0 1
-    return 0;
-}
-```
+:::code lfsr-d/cpp/odyn-tsykl-lfsr-u-c-2.cpp
 ```python
 s = 0x1                          # старт: 0001 (аби не заборонений 0000)
 for _ in range(15):
